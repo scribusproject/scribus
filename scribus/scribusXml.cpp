@@ -276,45 +276,45 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("SCALETYPE", item->ScaleType ? 1 : 0);
 	ob->setAttribute("RATIO", item->AspectRatio ? 1 : 0);
 	ob->setAttribute("PRINTABLE", item->printable() ? 1 : 0);
-	if(item->isAnnotation)
+	if(item->isAnnotation())
 	{
 		ob->setAttribute("ANNOTATION",1);
-		ob->setAttribute("ANTYPE", item->AnType);
-		ob->setAttribute("ANACTION", item->AnAction);
-		ob->setAttribute("ANEACT", item->An_E_act);
-		ob->setAttribute("ANXACT", item->An_X_act);
-		ob->setAttribute("ANDACT", item->An_D_act);
-		ob->setAttribute("ANFOACT", item->An_Fo_act);
-		ob->setAttribute("ANBLACT", item->An_Bl_act);
-		ob->setAttribute("ANKACT", item->An_K_act);
-		ob->setAttribute("ANFACT", item->An_F_act);
-		ob->setAttribute("ANVACT", item->An_V_act);
-		ob->setAttribute("ANCACT", item->An_C_act);
-		if (item->AnActType == 8)
-			ob->setAttribute("ANEXTERN", item->An_Extern);
+		ob->setAttribute("ANTYPE", item->annotation().Type());
+		ob->setAttribute("ANACTION", item->annotation().Action());
+		ob->setAttribute("ANEACT", item->annotation().E_act());
+		ob->setAttribute("ANXACT", item->annotation().X_act());
+		ob->setAttribute("ANDACT", item->annotation().D_act());
+		ob->setAttribute("ANFOACT", item->annotation().Fo_act());
+		ob->setAttribute("ANBLACT", item->annotation().Bl_act());
+		ob->setAttribute("ANKACT", item->annotation().K_act());
+		ob->setAttribute("ANFACT", item->annotation().F_act());
+		ob->setAttribute("ANVACT", item->annotation().V_act());
+		ob->setAttribute("ANCACT", item->annotation().C_act());
+		if (item->annotation().ActionType() == 8)
+			ob->setAttribute("ANEXTERN", item->annotation().Extern());
 		else
-			ob->setAttribute("ANEXTERN", Path2Relative(item->An_Extern));
-		ob->setAttribute("ANZIEL", item->AnZiel);
-		ob->setAttribute("ANACTYP", item->AnActType);
-		ob->setAttribute("ANTOOLTIP", item->AnToolTip);
-		ob->setAttribute("ANBWID", item->AnBwid);
-		ob->setAttribute("ANBSTY", item->AnBsty);
-		ob->setAttribute("ANFEED", item->AnFeed);
-		ob->setAttribute("ANFLAG", item->AnFlag);
-		ob->setAttribute("ANFONT", item->AnFont);
-		ob->setAttribute("ANFORMAT", item->AnFormat);
-		ob->setAttribute("ANROLL", item->AnRollOver);
-		ob->setAttribute("ANDOWN", item->AnDown);
-		ob->setAttribute("ANVIS", item->AnVis);
-		ob->setAttribute("ANMC", item->AnMaxChar);
-		ob->setAttribute("ANCHK", item->AnIsChk);
-		ob->setAttribute("ANAA", item->AnAAact);
-		ob->setAttribute("ANCHKS", item->AnChkStil);
-		ob->setAttribute("ANBCOL", item->AnBColor);
-		ob->setAttribute("ANHTML", item->AnHTML);
-		ob->setAttribute("ANICON", item->AnUseIcons);
-		ob->setAttribute("ANPLACE", item->AnIPlace);
-		ob->setAttribute("ANSCALE", item->AnScaleW);
+			ob->setAttribute("ANEXTERN", Path2Relative(item->annotation().Extern()));
+		ob->setAttribute("ANZIEL", item->annotation().Ziel());
+		ob->setAttribute("ANACTYP", item->annotation().ActionType());
+		ob->setAttribute("ANTOOLTIP", item->annotation().ToolTip());
+		ob->setAttribute("ANBWID", item->annotation().Bwid());
+		ob->setAttribute("ANBSTY", item->annotation().Bsty());
+		ob->setAttribute("ANFEED", item->annotation().Feed());
+		ob->setAttribute("ANFLAG", item->annotation().Flag());
+		ob->setAttribute("ANFONT", item->annotation().Font());
+		ob->setAttribute("ANFORMAT", item->annotation().Format());
+		ob->setAttribute("ANROLL", item->annotation().RollOver());
+		ob->setAttribute("ANDOWN", item->annotation().Down());
+		ob->setAttribute("ANVIS", item->annotation().Vis());
+		ob->setAttribute("ANMC", item->annotation().MaxChar());
+		ob->setAttribute("ANCHK", item->annotation().IsChk());
+		ob->setAttribute("ANAA", item->annotation().AAact());
+		ob->setAttribute("ANCHKS", item->annotation().ChkStil());
+		ob->setAttribute("ANBCOL", item->annotation().borderColor());
+		ob->setAttribute("ANHTML", item->annotation().HTML());
+		ob->setAttribute("ANICON", item->annotation().UseIcons());
+		ob->setAttribute("ANPLACE", item->annotation().IPlace());
+		ob->setAttribute("ANSCALE", item->annotation().ScaleW());
 	}
 	else
 		ob->setAttribute("ANNOTATION",0);

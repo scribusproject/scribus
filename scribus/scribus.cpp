@@ -4352,7 +4352,7 @@ void ScribusMainWindow::slotEditPaste()
 				{
 					PageItem* currItem2 = doc->Items->at(as);
 					currItem2->isEmbedded = true;
-					currItem2->isAnnotation = false;
+					currItem2->setIsAnnotation(false);
 					currItem2->isBookmark = false;
 					currItem2->gXpos = currItem2->xPos() - gx;
 					currItem2->gYpos = currItem2->yPos() - gy;
@@ -7874,21 +7874,21 @@ void ScribusMainWindow::ModifyAnnot()
 	if (doc->selection->count() != 0)
 	{
 		PageItem *currItem = doc->selection->itemAt(0);
-		if ((currItem->AnType == 0) || (currItem->AnType == 1) || (currItem->AnType > 9))
+		if ((currItem->annotation().Type() == 0) || (currItem->annotation().Type() == 1) || (currItem->annotation().Type() > 9))
 		{
-			int AnType = currItem->AnType;
-			int AnActType = currItem->AnActType;
-			QString AnAction = currItem->AnAction;
-			QString An_Extern = currItem->An_Extern;
+			int AnType = currItem->annotation().Type();
+			int AnActType = currItem->annotation().ActionType();
+			QString AnAction = currItem->annotation().Action();
+			QString An_Extern = currItem->annotation().Extern();
 			Annota *dia = new Annota(this, currItem, doc->DocPages.count(), static_cast<int>(doc->pageWidth), static_cast<int>(doc->pageHeight), view);
 			if (dia->exec())
 				slotDocCh();
 			else
 			{
-				currItem->AnType = AnType;
-				currItem->AnActType = AnActType;
-				currItem->AnAction = AnAction;
-				currItem->An_Extern = An_Extern;
+				currItem->annotation().setType(AnType);
+				currItem->annotation().setActionType(AnActType);
+				currItem->annotation().setAction(AnAction);
+				currItem->annotation().setExtern(An_Extern);
 			}
 			delete dia;
 		}
@@ -8248,7 +8248,7 @@ void ScribusMainWindow::slotStoryEditor()
 		ScribusDoc *currDocSE=storyEditor->currentDocument();
 		storyEditor->activFromApp = true;
 		//CB shouldnt these be after the if?
-		//Why are we resetting the doc and item in this case My original code didnt do this.
+		//Why are we resetting the doc and item in this case. My original code didnt do this.
 		storyEditor->setCurrentDocumentAndItem(doc, currItem);
 		if (currItem==currItemSE && doc==currDocSE)
 		{

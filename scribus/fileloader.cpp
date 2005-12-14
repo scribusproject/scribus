@@ -2063,8 +2063,8 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->PLineEnd = Qt::PenCapStyle(obj->attribute("PLINEEND", "0").toInt());
 	currItem->PLineJoin = Qt::PenJoinStyle(obj->attribute("PLINEJOIN", "0").toInt());
 	currItem->setPrintable(obj->attribute("PRINTABLE").toInt());
-	currItem->isAnnotation = obj->attribute("ANNOTATION", "0").toInt();
-	currItem->AnType = obj->attribute("ANTYPE", "0").toInt();
+	currItem->setIsAnnotation(obj->attribute("ANNOTATION", "0").toInt());
+	currItem->annotation().setType(obj->attribute("ANTYPE", "0").toInt());
 	QString AnName = obj->attribute("ANNAME","");
 	if (!AnName.isEmpty())
 	{
@@ -2076,43 +2076,43 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			currItem->AutoName = false;
 		}
 	}
-	currItem->AnAction = obj->attribute("ANACTION","");
-	currItem->An_E_act = obj->attribute("ANEACT","");
-	currItem->An_X_act = obj->attribute("ANXACT","");
-	currItem->An_D_act = obj->attribute("ANDACT","");
-	currItem->An_Fo_act = obj->attribute("ANFOACT","");
-	currItem->An_Bl_act = obj->attribute("ANBLACT","");
-	currItem->An_K_act = obj->attribute("ANKACT","");
-	currItem->An_F_act = obj->attribute("ANFACT","");
-	currItem->An_V_act = obj->attribute("ANVACT","");
-	currItem->An_C_act = obj->attribute("ANCACT","");
-	currItem->AnActType = obj->attribute("ANACTYP", "0").toInt();
-	currItem->An_Extern = obj->attribute("ANEXTERN","");
-	if ((!currItem->An_Extern.isEmpty()) && (currItem->AnActType != 8))
+	currItem->annotation().setAction(obj->attribute("ANACTION",""));
+	currItem->annotation().setE_act(obj->attribute("ANEACT",""));
+	currItem->annotation().setX_act(obj->attribute("ANXACT",""));
+	currItem->annotation().setD_act(obj->attribute("ANDACT",""));
+	currItem->annotation().setFo_act(obj->attribute("ANFOACT",""));
+	currItem->annotation().setBl_act(obj->attribute("ANBLACT",""));
+	currItem->annotation().setK_act(obj->attribute("ANKACT",""));
+	currItem->annotation().setF_act(obj->attribute("ANFACT",""));
+	currItem->annotation().setV_act(obj->attribute("ANVACT",""));
+	currItem->annotation().setC_act(obj->attribute("ANCACT",""));
+	currItem->annotation().setActionType(obj->attribute("ANACTYP", "0").toInt());
+	currItem->annotation().setExtern(obj->attribute("ANEXTERN",""));
+	if ((!currItem->annotation().Extern().isEmpty()) && (currItem->annotation().ActionType() != 8))
 	{
-		QFileInfo efp(currItem->An_Extern);
-		currItem->An_Extern = efp.absFilePath();
+		QFileInfo efp(currItem->annotation().Extern());
+		currItem->annotation().setExtern(efp.absFilePath());
 	}
-	currItem->AnZiel = obj->attribute("ANZIEL", "0").toInt();
-	currItem->AnToolTip = obj->attribute("ANTOOLTIP","");
-	currItem->AnRollOver = obj->attribute("ANROLL","");
-	currItem->AnDown = obj->attribute("ANDOWN","");
-	currItem->AnBwid = obj->attribute("ANBWID", "1").toInt();
-	currItem->AnBsty = obj->attribute("ANBSTY", "0").toInt();
-	currItem->AnFeed = obj->attribute("ANFEED", "1").toInt();
-	currItem->AnFlag = obj->attribute("ANFLAG", "0").toInt();
-	currItem->AnFont = obj->attribute("ANFONT", "4").toInt();
-	currItem->AnFormat = obj->attribute("ANFORMAT", "0").toInt();
-	currItem->AnVis = obj->attribute("ANVIS", "0").toInt();
-	currItem->AnIsChk = static_cast<bool>(obj->attribute("ANCHK", "0").toInt());
-	currItem->AnAAact = static_cast<bool>(obj->attribute("ANAA", "0").toInt());
-	currItem->AnHTML = static_cast<bool>(obj->attribute("ANHTML", "0").toInt());
-	currItem->AnUseIcons = static_cast<bool>(obj->attribute("ANICON", "0").toInt());
-	currItem->AnChkStil = obj->attribute("ANCHKS", "0").toInt();
-	currItem->AnMaxChar = obj->attribute("ANMC", "-1").toInt();
-	currItem->AnBColor = obj->attribute("ANBCOL","None");
-	currItem->AnIPlace = obj->attribute("ANPLACE", "1").toInt();
-	currItem->AnScaleW = obj->attribute("ANSCALE", "0").toInt();
+	currItem->annotation().setZiel(obj->attribute("ANZIEL", "0").toInt());
+	currItem->annotation().setToolTip(obj->attribute("ANTOOLTIP",""));
+	currItem->annotation().setRollOver(obj->attribute("ANROLL",""));
+	currItem->annotation().setDown(obj->attribute("ANDOWN",""));
+	currItem->annotation().setBwid(obj->attribute("ANBWID", "1").toInt());
+	currItem->annotation().setBsty(obj->attribute("ANBSTY", "0").toInt());
+	currItem->annotation().setFeed(obj->attribute("ANFEED", "1").toInt());
+	currItem->annotation().setFlag(obj->attribute("ANFLAG", "0").toInt());
+	currItem->annotation().setFont(obj->attribute("ANFONT", "4").toInt());
+	currItem->annotation().setFormat(obj->attribute("ANFORMAT", "0").toInt());
+	currItem->annotation().setVis(obj->attribute("ANVIS", "0").toInt());
+	currItem->annotation().setIsChk(static_cast<bool>(obj->attribute("ANCHK", "0").toInt()));
+	currItem->annotation().setAAact(static_cast<bool>(obj->attribute("ANAA", "0").toInt()));
+	currItem->annotation().setHTML(static_cast<bool>(obj->attribute("ANHTML", "0").toInt()));
+	currItem->annotation().setUseIcons(static_cast<bool>(obj->attribute("ANICON", "0").toInt()));
+	currItem->annotation().setChkStil(obj->attribute("ANCHKS", "0").toInt());
+	currItem->annotation().setMaxChar(obj->attribute("ANMC", "-1").toInt());
+	currItem->annotation().setBorderColor(obj->attribute("ANBCOL","None"));
+	currItem->annotation().setIPlace(obj->attribute("ANPLACE", "1").toInt());
+	currItem->annotation().setScaleW(obj->attribute("ANSCALE", "0").toInt());
 	currItem->TopLine = static_cast<bool>(obj->attribute("TopLine", "0").toInt());
 	currItem->LeftLine = static_cast<bool>(obj->attribute("LeftLine", "0").toInt());
 	currItem->RightLine = static_cast<bool>(obj->attribute("RightLine", "0").toInt());

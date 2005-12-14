@@ -1284,7 +1284,7 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 		else
 			if (currItem->itemType() == PageItem::TextFrame)
 			{
-				emit currItem->isAnnotation ? AnnotProps() : Amode(modeEdit);
+				emit currItem->isAnnotation() ? AnnotProps() : Amode(modeEdit);
 				contentsMousePressEvent(m);
 			}
 	}
@@ -1834,9 +1834,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				{
 					ScMW->scrActions["itemPDFIsAnnotation"]->addTo(pmenPDF);
 					ScMW->scrActions["itemPDFIsBookmark"]->addTo(pmenPDF);
-					if (currItem->isAnnotation)
+					if (currItem->isAnnotation())
 					{
-						if ((currItem->AnType == 0) || (currItem->AnType == 1) || (currItem->AnType > 9))
+						if ((currItem->annotation().Type() == 0) || (currItem->annotation().Type() == 1) || (currItem->annotation().Type() > 9))
 							ScMW->scrActions["itemPDFAnnotationProps"]->addTo(pmenPDF);
 						else
 							ScMW->scrActions["itemPDFFieldProps"]->addTo(pmenPDF);
@@ -4705,33 +4705,33 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			//z = PaintText(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dPenText);
 			z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, "None", Doc->toolSettings.dPenText, !Mpressed);
 			currItem = Doc->Items->at(z);
-			currItem->isAnnotation = true;
+			currItem->setIsAnnotation(true);
 			switch (Doc->appMode)
 			{
 			case modeInsertPDFButton:
-				currItem->AnType = 2;
-				currItem->AnFlag = 65536;
+				currItem->annotation().setType(2);
+				currItem->annotation().setFlag(65536);
 				break;
 			case modeInsertPDFTextfield:
-				currItem->AnType = 3;
+				currItem->annotation().setType(3);
 				break;
 			case modeInsertPDFCheckbox:
-				currItem->AnType = 4;
+				currItem->annotation().setType(4);
 				break;
 			case modeInsertPDFCombobox:
-				currItem->AnType = 5;
-				currItem->AnFlag = 131072;
+				currItem->annotation().setType(5);
+				currItem->annotation().setFlag(131072);
 				break;
 			case modeInsertPDFListbox:
-				currItem->AnType = 6;
+				currItem->annotation().setType(6);
 				break;
 			case modeInsertPDFTextAnnotation:
-				currItem->AnType = 10;
+				currItem->annotation().setType(10);
 				break;
 			case modeInsertPDFLinkAnnotation:
-				currItem->AnType = 11;
-				currItem->AnZiel = Doc->currentPage->pageNr();
-				currItem->AnAction = "0 0";
+				currItem->annotation().setType(11);
+				currItem->annotation().setZiel(Doc->currentPage->pageNr());
+				currItem->annotation().setAction("0 0");
 				currItem->setTextFlowsAroundFrame(false);
 				break;
 			}
@@ -7645,7 +7645,7 @@ void ScribusView::ToggleBookmark()
 					currItem->isBookmark = !currItem->isBookmark;
 					if (currItem->isBookmark)
 					{
-						currItem->isAnnotation = false;
+						currItem->setIsAnnotation(false);
 						emit AddBM(currItem);
 					}
 					else
@@ -7671,8 +7671,8 @@ void ScribusView::ToggleAnnotation()
 			if (currItem->asTextFrame())
 			{
 				bool old = currItem->isBookmark;
-				currItem->isAnnotation = !currItem->isAnnotation;
-				if (currItem->isAnnotation)
+				currItem->setIsAnnotation(!currItem->isAnnotation());
+				if (currItem->isAnnotation())
 				{
 					if (old)
 						emit DelBM(currItem);
@@ -10290,7 +10290,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	case PageItem::PathText:
 	case PageItem::TextFrame:
 		z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, "None", Buffer->Pcolor, !Mpressed);
-		if ((Buffer->isAnnotation) && (Buffer->AnUseIcons))
+		if ((Buffer->m_isAnnotation) && (Buffer->m_annotation.UseIcons()))
 		{
 			Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 			Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
@@ -10430,8 +10430,10 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->setPrintable(Buffer->isPrintable);
 	currItem->isBookmark = Buffer->isBookmark;
 	currItem->BMnr = Buffer->BMnr;
-	currItem->isAnnotation = Buffer->isAnnotation;
-	currItem->AnType = Buffer->AnType;
+	currItem->setIsAnnotation(Buffer->m_isAnnotation);
+	currItem->setAnnotation(Buffer->m_annotation);
+	/*
+	currItem->annotation().setType(Buffer->AnType;
 	currItem->AnAction = Buffer->AnAction;
 	currItem->An_E_act = Buffer->An_E_act;
 	currItem->An_X_act = Buffer->An_X_act;
@@ -10456,6 +10458,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->BottomLinkID = Buffer->BottomLinkID;
 	currItem->setStartArrowIndex(Buffer->startArrowIndex);
 	currItem->setEndArrowIndex(Buffer->endArrowIndex);
+	*/
 	if (!Buffer->AnName.isEmpty())
 	{
 		if (!drag)
@@ -10474,6 +10477,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			currItem->AutoName = false;
 		}
 	}
+	/*
 	currItem->AnToolTip = Buffer->AnToolTip;
 	currItem->AnBwid = Buffer->AnBwid;
 	currItem->AnBsty = Buffer->AnBsty;
@@ -10493,6 +10497,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->AnIPlace = Buffer->AnIPlace;
 	currItem->AnScaleW = Buffer->AnScaleW;
 	currItem->AnBColor = Buffer->AnBColor;
+	*/
 	currItem->Clip = Buffer->Clip.copy();
 	currItem->PoShow = Buffer->PoShow;
 	currItem->BaseOffs = Buffer->BaseOffs;

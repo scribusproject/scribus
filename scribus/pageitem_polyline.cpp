@@ -58,7 +58,7 @@ PageItem_PolyLine::PageItem_PolyLine(ScribusDoc *pa, double x, double y, double 
 
 void PageItem_PolyLine::DrawObj_Item(ScPainter *p)
 {
-	if (!Doc->RePos && PoLine.size()>=4)
+	if (!m_Doc->RePos && PoLine.size()>=4)
 	{
 		if ((fillColor() != "None") || (GrType != 0))
 		{
@@ -103,7 +103,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p)
 			p->strokePath();
 		else
 		{
-			multiLine ml = Doc->MLineStyles[NamedLStyle];
+			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
 			QColor tmp;
 			for (int it = ml.size()-1; it > -1; it--)
 			{
@@ -125,7 +125,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p)
 				{
 					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 					QWMatrix arrowTrans;
-					FPointArray arrow = (*Doc->arrowStyles.at(m_startArrowIndex-1)).points.copy();
+					FPointArray arrow = (*m_Doc->arrowStyles.at(m_startArrowIndex-1)).points.copy();
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(r);
 					arrowTrans.scale(Pwidth, Pwidth);
@@ -150,7 +150,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p)
 				{
 					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 					QWMatrix arrowTrans;
-					FPointArray arrow = (*Doc->arrowStyles.at(m_endArrowIndex-1)).points.copy();
+					FPointArray arrow = (*m_Doc->arrowStyles.at(m_endArrowIndex-1)).points.copy();
 					arrowTrans.translate(End.x(), End.y());
 					arrowTrans.rotate(r);
 					arrowTrans.scale(Pwidth, Pwidth);

@@ -31,6 +31,7 @@
 #include "undoobject.h"
 #include "scimage.h"
 #include "pagestructs.h"
+#include "annotation.h"
 class ScribusDoc;
 class UndoManager;
 class UndoState;
@@ -267,22 +268,17 @@ public:
 	virtual void handleModeEditKey(QKeyEvent *k, bool &keyRepeat);
 	
 	
-	
-	
-	
-	
-	
 	double SetZeichAttr(struct ScText *hl, int *chs, QString *chx);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
 	void DrawZeichenS(ScPainter *p, struct ZZ *hl);
 	void DrawPolyL(QPainter *p, QPointArray pts);
 	QString ExpandToken(uint base);
+	
+	bool AutoName;	
 	double gXpos;
 	double gYpos;
 	double gWidth;
 	double gHeight;
-  /** Enthaelt das Dokument */
-	ScribusDoc *Doc;
 	int GrType;
 	double GrStartX;
 	double GrStartY;
@@ -367,42 +363,6 @@ public:
   /** Flag fuer PDF-Bookmark */
 	bool isBookmark;
 	int BMnr;
-  /** Flag fuer PDF-Annotation */
-	bool isAnnotation;
-	int AnType;
-	int AnActType;
-	QString AnAction;
-	QString An_E_act;
-	QString An_X_act;
-	QString An_D_act;
-	QString An_Fo_act;
-	QString An_Bl_act;
-	QString An_K_act;
-	QString An_F_act;
-	QString An_V_act;
-	QString An_C_act;
-	bool AutoName;
-	QString AnToolTip;
-	QString AnRollOver;
-	QString AnDown;
-	QString AnBColor;
-	QString An_Extern;
-	int AnBsty;
-	int AnBwid;
-	int AnFeed;
-	int AnZiel;
-	int AnFlag;
-	int AnMaxChar;
-	int AnVis;
-	int AnChkStil;
-	int AnFont;
-	bool AnIsChk;
-	bool AnAAact;
-	bool AnHTML;
-	bool AnUseIcons;
-	int AnIPlace;
-	int AnScaleW;
-	int AnFormat;
   /** Flag fuer neuzeichnen im EditMode */
 	bool Dirty;
   /** Flag fuer Auswahl */
@@ -924,6 +884,16 @@ public:
 	 */
 	void emitAllToGUI();
 	
+	/**
+	 * @brief Get the document that this item belongs to
+	 */
+	ScribusDoc* document();
+	
+	bool isAnnotation() const { return m_isAnnotation; }
+	void setIsAnnotation(bool);
+	void setAnnotation(const Annotation& ad);
+	Annotation& annotation() { return m_annotation; }
+	
 protected:
 	/** @brief Manages undostack and is where all undo actions/states are sent. */
 	UndoManager * const undoManager;
@@ -995,9 +965,10 @@ protected:
 
 	/**
 	 * @brief Item name. Unicode. User visible (outline, property palette, etc).
+	 * @todo This is Annotation Name.. not item name, needs splitting up.
 	 * @sa PageItem::itemName(), PageItem::setItemName()
 	 */
-	QString AnName;
+	QString AnName; 
 
 	/**
 	 * @brief Fill color name
@@ -1151,7 +1122,13 @@ protected:
 	/** Item Fontsize */
 	int m_FontSize;
 
+	/** Document this item belongs to */
+	ScribusDoc *m_Doc;
 	
+	/** Flags and data for PDF Annotations */
+	bool m_isAnnotation;
+	Annotation m_annotation;
+
 signals:
 	//Frame signals
 	void myself(PageItem *);

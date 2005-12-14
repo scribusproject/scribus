@@ -58,7 +58,7 @@ PageItem_ImageFrame::PageItem_ImageFrame(ScribusDoc *pa, double x, double y, dou
 
 void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, double sc)
 {
-	if(!Doc->RePos)
+	if(!m_Doc->RePos)
 	{
 		if ((fillColor() != "None") || (GrType != 0))
 		{
@@ -67,7 +67,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, double sc)
 		}
 		if (Pfile.isEmpty())
 		{
-			if ((Frame) && (Doc->guidesSettings.framesShown))
+			if ((Frame) && (m_Doc->guidesSettings.framesShown))
 			{
 				p->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 				p->drawLine(FPoint(0, 0), FPoint(Width, Height));
@@ -78,7 +78,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, double sc)
 		{
 			if ((!PicArt) || (!PicAvail))
 			{
-				if ((Frame) && (Doc->guidesSettings.framesShown))
+				if ((Frame) && (m_Doc->guidesSettings.framesShown))
 				{
 					p->setPen(red, 1, SolidLine, FlatCap, MiterJoin);
 					p->drawLine(FPoint(0, 0), FPoint(Width, Height));

@@ -17,6 +17,7 @@
 #include "scfonts.h"
 #include "fpointarray.h"
 #include "vgradient.h"
+#include "annotation.h"
 #include "pageitem.h"
 
 struct CopyPasteBuffer
@@ -78,7 +79,10 @@ struct CopyPasteBuffer
 	bool isPrintable;
 	bool isBookmark;
 	int BMnr;
-	bool isAnnotation;
+	bool m_isAnnotation;
+	Annotation m_annotation;
+	QString AnName;
+	/*
 	int AnType;
 	QString AnAction;
 	QString An_E_act;
@@ -93,7 +97,7 @@ struct CopyPasteBuffer
 	QString An_Extern;
 	int AnZiel;
 	int AnActType;
-	QString AnName;
+	
 	QString AnToolTip;
 	QString AnRollOver;
 	QString AnDown;
@@ -113,6 +117,7 @@ struct CopyPasteBuffer
 	bool AnUseIcons;
 	int AnIPlace;
 	int AnScaleW;
+	*/
 	double Extra;
 	double TExtra;
 	double BExtra;

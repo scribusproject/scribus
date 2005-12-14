@@ -83,7 +83,7 @@ private:
 	void PutDoc(QString in);
 	void PutPage(QString in);
 	void StartObj(int nr);
-	void WritePDFStream(QString *cc);
+	void WritePDFStream(const QString& cc);
 	QString PDFEncode(QString in);
 	QByteArray ComputeMD5(const QString& in);
 	void PDF_Bookmark(int nr, double ypos);

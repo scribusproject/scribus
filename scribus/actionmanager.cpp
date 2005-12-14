@@ -773,11 +773,12 @@ void ActionManager::setPDFActions(ScribusView *currView)
 
 	(*scrActions)["itemPDFIsAnnotation"]->setEnabled(true);
 	(*scrActions)["itemPDFIsBookmark"]->setEnabled(true);
-	(*scrActions)["itemPDFIsAnnotation"]->setOn(currItem->isAnnotation);
+	(*scrActions)["itemPDFIsAnnotation"]->setOn(currItem->isAnnotation());
 	(*scrActions)["itemPDFIsBookmark"]->setOn(currItem->isBookmark);
-	if (currItem->isAnnotation)
+	if (currItem->isAnnotation())
 	{
-		bool setter=((currItem->AnType == 0) || (currItem->AnType == 1) || (currItem->AnType > 9));
+		int aType=currItem->annotation().Type();
+		bool setter=((aType == 0) || (aType == 1) || (aType > 9));
 		(*scrActions)["itemPDFAnnotationProps"]->setEnabled(setter);
 		(*scrActions)["itemPDFFieldProps"]->setEnabled(!setter);
 	}

@@ -39,7 +39,7 @@ bool SeDrag::decode( QDropEvent* e, QString& str )
 }
 
 /* IconItems Code */
-SeItem::SeItem(QTable* parent, QString text, QPixmap Pix)
+SeItem::SeItem(QTable* parent, QString text, const QPixmap& Pix)
 		: QTableItem(parent, QTableItem::Never, "", Pix)
 {
 	pageName = text;
@@ -705,7 +705,7 @@ void PagePalette::RebuildPage()
 	for (uint a = 0; a < currView->Doc->Pages->count(); ++a)
 	{
 		str = currView->Doc->Pages->at(a)->MPageNam;
-		QTableItem *it = new SeItem( pageView, str, CreateIcon(a, pix));
+		QTableItem *it = new SeItem(pageView, str, CreateIcon(a, pix));
 		pageView->setItem(rowcounter*rowmult+rowadd, counter*colmult+coladd, it);
 		pageView->setColumnWidth(counter*colmult+coladd, pix.width());
 		if (cols == 1)
@@ -774,7 +774,7 @@ QPixmap PagePalette::CreateIcon(int nr, QPixmap ret)
 		QRect c = QRect((ret.width() / 2 - b.width() / 2)-2, (ret.height() / 2 - b.height() / 2)-2, b.width()+4, b.height()+4);
 		p.drawRect(c);
 		QRect d = QRect((ret.width() / 2 - b.width() / 2), (ret.height() / 2 - b.height() / 2), b.width(), b.height());
-		p.setFont(QFont("Helvetica", 11, QFont::Bold));
+		p.setFont(QFont("Helvetica", 10, QFont::Normal));
 		p.drawText(d, Qt::AlignCenter, tmp);
 		p.end();
 	}

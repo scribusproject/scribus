@@ -13,6 +13,7 @@
 #include "selfield.h"
 #include "customfdialog.h"
 #include "buttonicon.h"
+#include "annotation.h"
 #include "mpalette.h"
 #include <qstringlist.h>
 #include <qdatetime.h>
@@ -24,8 +25,8 @@
 #include "navigator.h"
 #include "scribusview.h"
 #include "util.h"
-#include <prefscontext.h>
-#include <scribusstructs.h>
+#include "prefscontext.h"
+#include "scribusstructs.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -43,9 +44,9 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	MaxSeite = Seite;
 	QStringList tl;
 	dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	if ((item->AnActType == 2) || (item->AnActType == 7))
+	if ((item->annotation().ActionType() == 2) || (item->annotation().ActionType() == 7))
 	{
-		QString tm = item->AnAction;
+		QString tm = item->annotation().Action();
 		tl = tl.split(" ", tm);
 	}
 	else
@@ -74,7 +75,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	ComboBox1->setEditable(false);
 	Layout1->addWidget( ComboBox1 );
 	AnnotLayout->addLayout( Layout1 );
-	ComboBox1->setCurrentItem(item->AnType-2);
+	ComboBox1->setCurrentItem(item->annotation().Type()-2);
 
 	Fram = new QWidgetStack(this);
 	AnnotLayout->addWidget( Fram );
@@ -94,7 +95,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Layout60->addWidget( TextLabel20, 0, 0 );
 
 	Tip = new QLineEdit( GroupBox10, "Tip" );
-	Tip->setText(item->AnToolTip);
+	Tip->setText(item->annotation().ToolTip());
 	Layout60->addWidget( Tip, 1, 1 );
 
 	Name = new NameWidget(GroupBox10);
@@ -136,7 +137,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	for (uint propogate = 0; propogate < fontsArray; ++propogate)
 		Schrift->insertItem(fonts[propogate]);
 	Schrift->setEditable(false);
-	Schrift->setCurrentItem(item->AnFont);
+	Schrift->setCurrentItem(item->annotation().Font());
 	GroupBox40Layout->addMultiCellWidget( Schrift, 0, 0, 1, 2);
 	tabLayout->addWidget( GroupBox40 );
 
@@ -155,13 +156,13 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	ColorList::Iterator cit;
 	QPixmap * pm;
 	BorderC->insertItem( tr("None"));
-	if (item->AnBColor == "None")
+	if (item->annotation().borderColor() == "None")
 		BorderC->setCurrentItem(BorderC->count()-1);
 	for (cit = Farben.begin(); cit != Farben.end(); ++cit)
 	{
 		pm = getSmallPixmap(Farben[cit.key()].getRawRGBColor());
 		BorderC->insertItem(*pm, cit.key());
-		if (cit.key() == item->AnBColor)
+		if (cit.key() == item->annotation().borderColor())
 			BorderC->setCurrentItem(BorderC->count()-1);
 	}
 	BorderC->setEditable(false);
@@ -176,7 +177,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	for (uint propogate = 0; propogate < bordersArray; ++propogate)
 		BorderW->insertItem(borders[propogate]);
 	BorderW->setEditable(false);
-	BorderW->setCurrentItem(item->AnBwid);
+	BorderW->setCurrentItem(item->annotation().Bwid());
 	GroupBox20Layout->addWidget( BorderW, 1, 1 );
 	TextLabel50 = new QLabel( GroupBox20, "TextLabel5" );
 	TextLabel50->setText( tr( "Style:" ) );
@@ -189,7 +190,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	for (uint propogate = 0; propogate < borders2Array; ++propogate)
 		BorderS->insertItem(borders2[propogate]);
 	BorderS->setEditable(false);
-	BorderS->setCurrentItem(item->AnBsty);
+	BorderS->setCurrentItem(item->annotation().Bsty());
 	GroupBox20Layout->addWidget( BorderS, 2, 1 );
 	Layout10->addWidget( GroupBox20 );
 
@@ -202,21 +203,21 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	GroupBox30Layout->setAlignment( Qt::AlignTop );
 	ReadOnly = new QCheckBox( GroupBox30, "ReadOnly" );
 	ReadOnly->setText( tr( "Read Only" ) );
-	if (item->AnType == 2)
+	if (item->annotation().Type() == 2)
 		ReadOnly->setEnabled(false);
-	ReadOnly->setChecked(item->AnFlag & 1);
+	ReadOnly->setChecked(item->annotation().Flag() & 1);
 	GroupBox30Layout->addMultiCellWidget( ReadOnly, 0, 0, 0, 1 );
 	Required = new QCheckBox( GroupBox30, "ReadOnly" );
 	Required->setText( tr( "Required" ) );
-	if (item->AnType == 2)
+	if (item->annotation().Type() == 2)
 		Required->setEnabled(false);
-	Required->setChecked(item->AnFlag & 2);
+	Required->setChecked(item->annotation().Flag() & 2);
 	GroupBox30Layout->addMultiCellWidget( Required, 1, 1, 0, 1 );
 	NoExport = new QCheckBox( GroupBox30, "NoExport" );
 	NoExport->setText( tr( "Don't Export Value" ) );
-	if (item->AnType == 2)
+	if (item->annotation().Type() == 2)
 		NoExport->setEnabled(false);
-	NoExport->setChecked(item->AnFlag & 4);
+	NoExport->setChecked(item->annotation().Flag() & 4);
 	GroupBox30Layout->addMultiCellWidget( NoExport, 2, 2, 0, 1 );
 	TextLabel90 = new QLabel( GroupBox30, "TextLabel9" );
 	TextLabel90->setText( tr( "Visibility:" ) );
@@ -229,7 +230,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	for (uint propogate = 0; propogate < visibleArray; ++propogate)
 		Visib->insertItem(visible[propogate]);
 	Visib->setEditable(false);
-	Visib->setCurrentItem(item->AnVis);
+	Visib->setCurrentItem(item->annotation().Vis());
 	GroupBox30Layout->addWidget( Visib, 3, 1 );
 	Layout10->addWidget( GroupBox30 );
 	tabLayout->addLayout( Layout10 );
@@ -259,10 +260,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	CheckBox40->setText( tr( "Text for Roll Over" ) );
 	GroupBox40aLayout->addMultiCellWidget( CheckBox40, 1, 1, 0, 1 );
 	DownT = new QLineEdit( GroupBox40a, "DownT" );
-	DownT->setText(item->AnDown);
+	DownT->setText(item->annotation().Down());
 	GroupBox40aLayout->addWidget( DownT, 0, 2 );
 	TextO = new QLineEdit( GroupBox40a, "TextO" );
-	TextO->setText(item->AnRollOver);
+	TextO->setText(item->annotation().RollOver());
 	GroupBox40aLayout->addWidget( TextO, 1, 2 );
 	Frame4aLayout->addMultiCellWidget( GroupBox40a, 0, 0, 0, 1 );
 
@@ -275,7 +276,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	OptIconsLayout->setAlignment( Qt::AlignTop );
 	UseIcons = new QCheckBox(OptIcons, "UIc");
 	UseIcons->setText( tr("Use Icons"));
-	UseIcons->setChecked(item->AnUseIcons);
+	UseIcons->setChecked(item->annotation().UseIcons());
 	OptIconsLayout->addWidget(UseIcons);
 	Layout17 = new QHBoxLayout( 0, 0, 6, "Layout17");
 
@@ -390,7 +391,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	for (uint propogate = 0; propogate < comboArray; ++propogate)
 		ComboBox7_2->insertItem(combo[propogate]);
 	ComboBox7_2->setEditable(false);
-	ComboBox7_2->setCurrentItem(item->AnFeed);
+	ComboBox7_2->setCurrentItem(item->annotation().Feed());
 	GroupBox30aLayout->addWidget( ComboBox7_2, 0, 0 );
 	Frame4aLayout->addWidget( GroupBox30a, 1, 1 );
 	FramOp->addWidget( Frame4a , 2);
@@ -404,11 +405,11 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	OptTextFeldLayout->setAlignment( Qt::AlignTop );
 	MultiL = new QCheckBox( OptTextFeld, "MultiL" );
 	MultiL->setText( tr( "Multi-Line" ) );
-	MultiL->setChecked(item->AnFlag & 4096);
+	MultiL->setChecked(item->annotation().Flag() & 4096);
 	OptTextFeldLayout->addWidget( MultiL );
 	Passwd = new QCheckBox( OptTextFeld, "Passwd" );
 	Passwd->setText( tr( "Password" ) );
-	Passwd->setChecked(item->AnFlag & 8192);
+	Passwd->setChecked(item->annotation().Flag() & 8192);
 	OptTextFeldLayout->addWidget( Passwd );
 	Layout8 = new QHBoxLayout( 0, 0, 5, "Layout8");
 	Limit = new QCheckBox( OptTextFeld, "Limit" );
@@ -417,8 +418,8 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	MaxChars = new QSpinBox( OptTextFeld, "MaxChars" );
 	MaxChars->setMinValue(0);
 	MaxChars->setMaxValue(32768);
-	bool setter = item->AnMaxChar != -1 ? true : false;
-	MaxChars->setValue(setter == true ? item->AnMaxChar : 0);
+	bool setter = item->annotation().MaxChar() != -1 ? true : false;
+	MaxChars->setValue(setter == true ? item->annotation().MaxChar() : 0);
 	Limit->setChecked(setter);
 	MaxChars->setEnabled(setter);
 	Layout8->addWidget( MaxChars );
@@ -430,11 +431,11 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	OptTextFeldLayout->addLayout( Layout8 );
 	NoScroll = new QCheckBox( OptTextFeld, "ncs" );
 	NoScroll->setText( tr( "Do Not Scroll" ) );
-	NoScroll->setChecked(item->AnFlag & 8388608);
+	NoScroll->setChecked(item->annotation().Flag() & 8388608);
 	OptTextFeldLayout->addWidget( NoScroll );
 	NoSpell = new QCheckBox( OptTextFeld, "nsp" );
 	NoSpell->setText( tr( "Do Not Spell Check" ) );
-	NoSpell->setChecked(item->AnFlag & 4194304);
+	NoSpell->setChecked(item->annotation().Flag() & 4194304);
 	OptTextFeldLayout->addWidget( NoSpell );
 	FramOp->addWidget( OptTextFeld , 3);
 
@@ -457,7 +458,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 		ChkStil->insertItem(tmp_chkstil2[propogate]);
 
 	ChkStil->setEditable(false);
-	ChkStil->setCurrentItem(item->AnChkStil);
+	ChkStil->setCurrentItem(item->annotation().ChkStil());
 	ChkLayout->addWidget( ChkStil );
 	QSpacerItem* spacerC = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	ChkLayout->addItem( spacerC );
@@ -465,7 +466,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 
 	isChkd = new QCheckBox( OptCheck, "isChkd" );
 	isChkd->setText( tr( "Default is Checked" ) );
-	isChkd->setChecked(item->AnIsChk);
+	isChkd->setChecked(item->annotation().IsChk());
 	OptCheckLayout->addWidget( isChkd );
 	FramOp->addWidget( OptCheck, 4);
 
@@ -478,7 +479,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	OptComboLayout->setAlignment( Qt::AlignTop );
 	CanEdit = new QCheckBox( OptCombo, "isEdit" );
 	CanEdit->setText( tr( "Editable" ) );
-	CanEdit->setChecked(item->AnFlag & 262144);
+	CanEdit->setChecked(item->annotation().Flag() & 262144);
 	OptComboLayout->addWidget( CanEdit );
 	FramOp->addWidget( OptCombo, 5);
 
@@ -503,8 +504,8 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	for (uint propogate = 0; propogate < array_act; ++propogate)
 		ActionCombo->insertItem(tmp_actcom[propogate]);
 	ActionCombo->setEditable(false);
-	int tmpac = item->AnActType;
-	if (item->AnActType < 0)
+	int tmpac = item->annotation().ActionType();
+	if (item->annotation().ActionType() < 0)
 		tmpac = 1;
 	ActionCombo->setCurrentItem(tmpac == 7 ? 2 : tmpac);
 
@@ -544,8 +545,8 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Frame3Layout->addWidget( AcText2 );
 	Layout71 = new QHBoxLayout( 0, 0, 6, "Layout7");
 	EditJava = new QTextEdit( Frame3, "EditAction" );
-	if ((item->AnActType == 1) || (item->AnAAact))
-		EditJava->setText(item->AnAction);
+	if ((item->annotation().ActionType() == 1) || (item->annotation().AAact()))
+		EditJava->setText(item->annotation().Action());
 	ScrEdited = 0;
 	SelAction->setCurrentItem(0);
 	EditJava->setReadOnly(true);
@@ -567,10 +568,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Frame3bLayout->addWidget( SubText1 );
 	SubURL = new QLineEdit( Frame3b, "SubURL" );
 	Frame3bLayout->addWidget( SubURL );
-	if (item->AnActType == 3)
-		SubURL->setText(item->AnAction);
+	if (item->annotation().ActionType() == 3)
+		SubURL->setText(item->annotation().Action());
 	SubAsHtml = new QCheckBox( Frame3b, "UseCurr" );
-	SubAsHtml->setChecked(item->AnHTML);
+	SubAsHtml->setChecked(item->annotation().HTML());
 	SubAsHtml->setText( tr( "Submit Data as HTML" ) );
 	Frame3bLayout->addWidget( SubAsHtml );
 	QSpacerItem* spacerSu = new QSpacerItem( 20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding );
@@ -586,8 +587,8 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Frame3cLayout->addWidget( SubText1a );
 	SubURLa = new QLineEdit( Frame3c, "SubURL" );
 	Frame3cLayout->addWidget( SubURLa );
-	if (item->AnActType == 5)
-		SubURLa->setText(item->AnAction);
+	if (item->annotation().ActionType() == 5)
+		SubURLa->setText(item->annotation().Action());
 	QSpacerItem* spacerSua = new QSpacerItem( 20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Frame3cLayout->addItem( spacerSua);
 	Fram2->addWidget( Frame3c , 5);
@@ -605,7 +606,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	LExtern->setText( tr("To File:"));
 	GroupBox11Layout->addWidget( LExtern, 0, 0 );
 	Destfile = new QLineEdit(GroupBox11, "File");
-	Destfile->setText(item->An_Extern);
+	Destfile->setText(item->annotation().Extern());
 	Destfile->setReadOnly(true);
 	GroupBox11Layout->addWidget( Destfile, 0, 1 );
 	ChFile = new QPushButton(GroupBox11, "Change");
@@ -616,13 +617,13 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	GroupBox11Layout->addWidget( TextLabel31, 1, 0 );
 	SpinBox11 = new QSpinBox( GroupBox11, "SpinBox1" );
 	SpinBox11->setMinValue(1);
-	SpinBox11->setMaxValue(item->AnActType == 7 ? 1000 : Seite);
-	SpinBox11->setValue(item->AnZiel+1);
+	SpinBox11->setMaxValue(item->annotation().ActionType() == 7 ? 1000 : Seite);
+	SpinBox11->setValue(item->annotation().Ziel()+1);
 	GroupBox11Layout->addWidget( SpinBox11, 1, 1 );
-	if (item->AnActType == 7)
-		Pg1 = new Navigator( GroupBox11, 100, item->AnZiel+1, view, item->An_Extern);
+	if (item->annotation().ActionType() == 7)
+		Pg1 = new Navigator( GroupBox11, 100, item->annotation().Ziel()+1, view, item->annotation().Extern());
 	else
-		Pg1 = new Navigator( GroupBox11, 100, item->AnZiel, view);
+		Pg1 = new Navigator( GroupBox11, 100, item->annotation().Ziel(), view);
 	Pg1->setMinimumSize(QSize(Pg1->pmx.width(), Pg1->pmx.height()));
 	GroupBox11Layout->addMultiCellWidget(Pg1, 1, 3, 2, 2);
 	TextLabel41 = new QLabel( GroupBox11, "TextLabel4" );
@@ -643,7 +644,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	GroupBox11Layout->addWidget( SpinBox31, 3, 1 );
 	Fram2->addWidget(GroupBox11, 3);
 	TabWidget2->insertTab( tab_2, tr( "Action" ) );
-	if (item->AnActType != 7)
+	if (item->annotation().ActionType() != 7)
 	{
 		Destfile->setEnabled(false);
 		ChFile->setEnabled(false);
@@ -671,7 +672,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	for (uint a = 0; a < array_txf; ++a)
 		TxFormat->insertItem(tmp_txf[a]);
 	TxFormat->setEditable(false);
-	TxFormat->setCurrentItem(item->AnFormat);
+	TxFormat->setCurrentItem(item->annotation().Format());
 	FLayout->addWidget( TxFormat );
 	QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	FLayout->addItem( spacer_3 );
@@ -846,13 +847,13 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	EditFormat = new QPushButton( GroupCust, "EditFormat" );
 	EditFormat->setText( tr( "Edit..." ) );
 	EditFormat->setAutoDefault( false );
-	if (item->AnFormat != 5)
+	if (item->annotation().Format() != 5)
 		EditFormat->setEnabled( false );
 	FLayout2->addWidget( EditFormat );
 	FLayout3->addLayout( FLayout2 );
 	FormatScript = new QTextEdit( GroupCust, "FormatScript" );
-	if (item->AnFormat == 5)
-		FormatScript->setText( item->An_F_act );
+	if (item->annotation().Format() == 5)
+		FormatScript->setText( item->annotation().F_act() );
 	FormatScript->setReadOnly(true);
 	FormatScript->setBackgroundMode(PaletteBackground);
 	FormatScript->setPaper(FormatScript->paletteBackgroundColor());
@@ -867,13 +868,13 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	EditKeystr = new QPushButton( GroupCust, "EditKeystr" );
 	EditKeystr->setText( tr( "Edit..." ) );
 	EditKeystr->setAutoDefault( false );
-	if (item->AnFormat != 5)
+	if (item->annotation().Format() != 5)
 		EditKeystr->setEnabled( false );
 	FLayout4->addWidget( EditKeystr );
 	FLayout5->addLayout( FLayout4 );
 	KeyScript = new QTextEdit( GroupCust, "KeyScript" );
-	if (item->AnFormat == 5)
-		KeyScript->setText( item->An_K_act );
+	if (item->annotation().Format() == 5)
+		KeyScript->setText( item->annotation().K_act() );
 	KeyScript->setReadOnly(true);
 	KeyScript->setBackgroundMode(PaletteBackground);
 	KeyScript->setPaper(KeyScript->paletteBackgroundColor());
@@ -1018,7 +1019,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Frame9->setFrameShadow( QFrame::Plain );
 	Fram->addWidget(Frame9, 2);
 
-	SetZiel(item->AnType-2);
+	SetZiel(item->annotation().Type()-2);
 	Layout1_2 = new QHBoxLayout;
 	Layout1_2->setSpacing( 6 );
 	Layout1_2->setMargin( 0 );
@@ -1144,8 +1145,8 @@ void Annot::IPlace()
 				item->setImageXYOffset(0.0, 0.0);
 			}
 		}
-		item->AnIPlace = dia->Place->currentItem();
-		item->AnScaleW = dia->ScaleW->currentItem();
+		item->annotation().setIPlace(dia->Place->currentItem());
+		item->annotation().setScaleW(dia->ScaleW->currentItem());
 	}
 	delete dia;
 }
@@ -1186,7 +1187,7 @@ void Annot::IconsEin()
 	IconNR->setEnabled(!item->Pfile.isEmpty() ? true : false);
 	IconPR->setEnabled(!item->Pfile2.isEmpty() ? true : false);
 	IconRR->setEnabled(!item->Pfile3.isEmpty() ? true : false);
-	item->AnUseIcons = UseIcons->isChecked();
+	item->annotation().setUseIcons(UseIcons->isChecked());
 }
 
 void Annot::GetNIcon()
@@ -1277,44 +1278,44 @@ void Annot::SelectFelder()
 
 void Annot::editKeySc()
 {
-	Editor* dia = new Editor(this, item->An_K_act, view);
+	Editor* dia = new Editor(this, item->annotation().K_act(), view);
 	if (dia->exec())
 	{
-		item->An_K_act = dia->EditTex->text();
-		KeyScript->setText( item->An_K_act );
+		item->annotation().setK_act(dia->EditTex->text());
+		KeyScript->setText( item->annotation().K_act() );
 	}
 	delete dia;
 }
 
 void Annot::editFormatSc()
 {
-	Editor* dia = new Editor(this, item->An_F_act, view);
+	Editor* dia = new Editor(this, item->annotation().F_act(), view);
 	if (dia->exec())
 	{
-		item->An_F_act = dia->EditTex->text();
-		FormatScript->setText( item->An_F_act );
+		item->annotation().setF_act(dia->EditTex->text());
+		FormatScript->setText( item->annotation().F_act() );
 	}
 	delete dia;
 }
 
 void Annot::editValidSc()
 {
-	Editor* dia = new Editor(this, item->An_V_act, view);
+	Editor* dia = new Editor(this, item->annotation().V_act(), view);
 	if (dia->exec())
 	{
-		item->An_V_act = dia->EditTex->text();
-		ValidScript->setText( item->An_V_act );
+		item->annotation().setV_act(dia->EditTex->text());
+		ValidScript->setText( item->annotation().V_act() );
 	}
 	delete dia;
 }
 
 void Annot::editCalcSc()
 {
-	Editor* dia = new Editor(this, item->An_C_act, view);
+	Editor* dia = new Editor(this, item->annotation().C_act(), view);
 	if (dia->exec())
 	{
-		item->An_C_act = dia->EditTex->text();
-		CalcScript->setText( item->An_C_act );
+		item->annotation().setC_act(dia->EditTex->text());
+		CalcScript->setText( item->annotation().C_act() );
 	}
 	delete dia;
 }
@@ -1364,7 +1365,7 @@ void Annot::setDateSample(const QString& ds)
 
 void Annot::DecodeVali()
 {
-	QString pfor = item->An_V_act;
+	QString pfor = item->annotation().V_act();
 	int ss = pfor.find("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-2);
 	QStringList pfol;
@@ -1377,7 +1378,7 @@ void Annot::DecodeCalc()
 {
 	QString tm = "";
 	QString tm2;
-	QString pfor = item->An_C_act;
+	QString pfor = item->annotation().C_act();
 	int ss = pfor.findRev("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-3);
 	QStringList pfol;
@@ -1406,12 +1407,12 @@ void Annot::DecodeCalc()
 
 void Annot::DecodeNum()
 {
-	QString pfor = item->An_F_act;
+	QString pfor = item->annotation().F_act();
 	int ss = pfor.find("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-2);
   QStringList pfol;
   pfol = pfol.split(",", pfo);
-	if (item->AnFormat == 1)
+	if (item->annotation().Format() == 1)
 		{
 		Decim->setValue(pfol[0].toInt());
 		switch (pfol[1].toInt())
@@ -1454,7 +1455,7 @@ void Annot::DecodeNum()
 			PreCurr->setEnabled(true);
 			}
 		}
-	if (item->AnFormat == 2)
+	if (item->annotation().Format() == 2)
 		{
 		Decim2->setValue(pfol[0].toInt());
 		switch (pfol[1].toInt())
@@ -1477,12 +1478,12 @@ void Annot::DecodeNum()
 				break;
 			}
 		}
-	if (item->AnFormat == 3)
+	if (item->annotation().Format() == 3)
 		{
 		Format0c->setCurrentText(pfol[0]);
 		setDateSample(pfol[0]);
 		}
-	if (item->AnFormat == 4)
+	if (item->annotation().Format() == 4)
 		{
 		switch (pfol[0].toInt())
 			{
@@ -1508,7 +1509,7 @@ void Annot::DecodeNum()
 
 void Annot::SetFormNum()
 {
-	switch (item->AnFormat)
+	switch (item->annotation().Format())
 	{
 	case 1:
 		if (Format0->isChecked())
@@ -1559,11 +1560,11 @@ void Annot::SetVali()
 	MinValid->setEnabled(false);
 	EditValScript->setEnabled(false);
 	ValidScript->setEnabled(false);
-	if (item->An_V_act.isEmpty())
+	if (item->annotation().V_act().isEmpty())
 		NoValid->setChecked(true);
 	else
 	{
-		if (item->An_V_act.startsWith("AFRange_Validate"))
+		if (item->annotation().V_act().startsWith("AFRange_Validate"))
 		{
 			MaxValid->setEnabled(true);
 			MinValid->setEnabled(true);
@@ -1574,7 +1575,7 @@ void Annot::SetVali()
 		{
 			EditValScript->setEnabled(true);
 			CustomValid->setChecked(true);
-			ValidScript->setText(item->An_V_act);
+			ValidScript->setText(item->annotation().V_act());
 		}
 	}
 }
@@ -1596,11 +1597,11 @@ void Annot::SetCalc()
 	CalcArt->setEnabled(false);
 	EditCalc->setEnabled(false);
 	SeField->setEnabled(false);
-	if (item->An_C_act.isEmpty())
+	if (item->annotation().C_act().isEmpty())
 		NoCalc->setChecked(true);
 	else
 	{
-		if (item->An_C_act.startsWith("AFSimple_Calculate"))
+		if (item->annotation().C_act().startsWith("AFSimple_Calculate"))
 		{
 			CalcFields->setEnabled(true);
 			CalcArt->setEnabled(true);
@@ -1612,7 +1613,7 @@ void Annot::SetCalc()
 		{
 			EditCalc->setEnabled(true);
 			CustomCalc->setChecked(true);
-			CalcScript->setText(item->An_C_act);
+			CalcScript->setText(item->annotation().C_act());
 		}
 	}
 }
@@ -1626,7 +1627,6 @@ void Annot::SetCurr()
 
 void Annot::SetFoScript(int it)
 {
-	/* PFJ - 28/02/04 - Re-written. Profiler took ages on the switch */
 	if (it >= 0 && it <=5)
 		FoFram->raiseWidget(it);
 	if (it == 1)
@@ -1635,10 +1635,10 @@ void Annot::SetFoScript(int it)
 	{
 		EditFormat->setEnabled( true );
 		EditKeystr->setEnabled( true );
-		KeyScript->setText( item->An_K_act );
-		FormatScript->setText( item->An_F_act );
+		KeyScript->setText( item->annotation().K_act() );
+		FormatScript->setText( item->annotation().F_act() );
 	}
-	item->AnFormat = it;
+	item->annotation().setFormat(it);
 }
 
 void Annot::SetCo(double x, double y)
@@ -1650,7 +1650,7 @@ void Annot::SetCo(double x, double y)
 void Annot::SetPg(int v)
 {
 	disconnect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
-	if (item->AnActType == 7)
+	if (item->annotation().ActionType() == 7)
 	{
 		if (!Pg1->SetSeite(v, 100, Destfile->text()))
 		{
@@ -1687,113 +1687,114 @@ void Annot::SetCross()
 void Annot::SetVals()
 {
 	QString tmp;
-	QString Nfo = "";
+	QString Nfo("");
 	bool AAct = false;
-	item->AnType = ComboBox1->currentItem()+2;
+	item->annotation().setType(ComboBox1->currentItem()+2);
 	if (Name->text() != OldName)
 	{
 		item->setItemName(Name->text());
 		item->AutoName = false;
 	}
-	item->AnToolTip = Tip->text();
-	item->AnRollOver = TextO->text();
-	item->AnDown = DownT->text();
-	item->AnBwid = BorderW->currentItem();
-	item->AnBsty = BorderS->currentItem();
-	item->AnFeed = ComboBox7_2->currentItem();
-	item->AnVis = Visib->currentItem();
-	item->AnFont = Schrift->currentItem();
-	item->AnFlag = 0;
-	item->AnIsChk = isChkd->isChecked();
-	item->AnChkStil = ChkStil->currentItem();
-	item->AnBColor = BorderC->currentText();
-	if (item->AnBColor == tr("None"))
-		item->AnBColor = "None";
-	Limit->isChecked() ? item->AnMaxChar = MaxChars->value() : item->AnMaxChar = -1;
-	if (item->AnType == 2)
-		{
-		item->AnFlag += 65536;
+	item->annotation().setToolTip(Tip->text());
+	item->annotation().setRollOver(TextO->text());
+	item->annotation().setDown(DownT->text());
+	item->annotation().setBwid(BorderW->currentItem());
+	item->annotation().setBsty(BorderS->currentItem());
+	item->annotation().setFeed(ComboBox7_2->currentItem());
+	item->annotation().setVis(Visib->currentItem());
+	item->annotation().setFont(Schrift->currentItem());
+	item->annotation().setFlag(0);
+	item->annotation().setIsChk(isChkd->isChecked());
+	item->annotation().setChkStil(ChkStil->currentItem());
+	item->annotation().setBorderColor(BorderC->currentText());
+	if (item->annotation().borderColor() == tr("None"))
+		item->annotation().setBorderColor("None");
+	Limit->isChecked() ? item->annotation().setMaxChar(MaxChars->value()) : item->annotation().setMaxChar(-1);
+	if (item->annotation().Type() == 2)
+	{
+		item->annotation().addToFlag(65536);
 		if (item->Pfile.isEmpty())
-			item->AnUseIcons = false;
-		}
+			item->annotation().setUseIcons(false);
+	}
 	else
-		{
-		item->AnUseIcons = false;
+	{
+		item->annotation().setUseIcons(false);
 		if (ReadOnly->isChecked())
-			item->AnFlag += 1;
+			item->annotation().addToFlag(1);
 		if (Required->isChecked())
-			item->AnFlag += 2;
+			item->annotation().addToFlag(2);
 		if (NoExport->isChecked())
-			item->AnFlag += 4;
-		}
-	if (item->AnType == 5)
-		{
-		item->AnFlag += 131072;
+			item->annotation().addToFlag(4);
+	}
+	if (item->annotation().Type() == 5)
+	{
+		item->annotation().addToFlag(131072);
 		if (CanEdit->isChecked())
-			item->AnFlag += 262144;
-		}
-	if (item->AnType == 3)
-		{
+			item->annotation().addToFlag(262144);
+	}
+	if (item->annotation().Type() == 3)
+	{
 		if (MultiL->isChecked())
-			item->AnFlag += 4096;
+			item->annotation().addToFlag(4096);
 		if (Passwd->isChecked())
-			item->AnFlag += 8192;
+			item->annotation().addToFlag(8192);
 		if (NoSpell->isChecked())
-			item->AnFlag += 4194304;
+			item->annotation().addToFlag(4194304);
 		if (NoScroll->isChecked())
-			item->AnFlag += 8388608;
-		}
-	if ((item->AnType == 3) || (item->AnType == 5))
-		{
+			item->annotation().addToFlag(8388608);
+	}
+	if ((item->annotation().Type() == 3) || (item->annotation().Type() == 5))
+	{
 		if (NoValid->isChecked())
-			item->An_V_act = "";
+			item->annotation().setV_act("");
 		if (SimpleValid->isChecked())
-			item->An_V_act = "AFRange_Validate(true, "+MinValid->text()+", true, "+MaxValid->text()+")";
+			item->annotation().setV_act("AFRange_Validate(true, "+MinValid->text()+", true, "+MaxValid->text()+")");
 		if (CustomValid->isChecked())
-			item->An_V_act = ValidScript->text();
+			item->annotation().setV_act(ValidScript->text());
 		if (NoCalc->isChecked())
-			item->An_C_act = "";
+			item->annotation().setC_act("");
 		if (SimpleCalc->isChecked())
-			{
-			item->An_C_act = "AFSimple_Calculate(";
+		{
+			QString tmpCact = "AFSimple_Calculate(";
 			switch (CalcArt->currentItem())
-				{
+			{
 				case 0:
-					item->An_C_act += "\"SUM\", ";
+					tmpCact += "\"SUM\", ";
 					break;
 				case 1:
-					item->An_C_act += "\"PRD\", ";
+					tmpCact += "\"PRD\", ";
 					break;
 				case 2:
-					item->An_C_act += "\"AVG\", ";
+					tmpCact += "\"AVG\", ";
 					break;
 				case 3:
-					item->An_C_act += "\"MIN\", ";
+					tmpCact += "\"MIN\", ";
 					break;
 				case 4:
-					item->An_C_act += "\"MAX\", ";
+					tmpCact += "\"MAX\", ";
 					break;
-				}
-			item->An_C_act += "new Array (";
+			}
+			tmpCact += "new Array (";
 			QStringList pfol;
 			pfol = pfol.split(",", CalcFields->text());
 			if (pfol.count() > 1)
-				{
-				item->An_C_act += "\""+pfol[0].stripWhiteSpace()+"\"";
-				for (uint cfx = 1; cfx < pfol.count(); cfx++)
-					{
-					item->An_C_act += ", \""+pfol[cfx].stripWhiteSpace()+"\"";
-					}
-				}
-			item->An_C_act += "))";
-			}
-		if (CustomCalc->isChecked())
-			item->An_C_act = CalcScript->text();
-		switch (TxFormat->currentItem())
 			{
+				tmpCact += "\""+pfol[0].stripWhiteSpace()+"\"";
+				for (uint cfx = 1; cfx < pfol.count(); cfx++)
+				{
+					tmpCact += ", \""+pfol[cfx].stripWhiteSpace()+"\"";
+				}
+			}
+			tmpCact += "))";
+			item->annotation().setC_act(tmpCact);
+		}
+		if (CustomCalc->isChecked())
+			item->annotation().setC_act(CalcScript->text());
+		switch (TxFormat->currentItem())
+		{
 			case 0:
-				item->An_F_act = "";
-				item->An_K_act = "";
+				item->annotation().setF_act("");
+				item->annotation().setK_act("");
 				break;
 			case 1:
 				Nfo = tmp.setNum(Decim->value())+", "+tmp.setNum(FormNum)+", 0, 0, \"";
@@ -1809,112 +1810,109 @@ void Annot::SetVals()
 					Nfo += "\", true)";
 				else
 					Nfo += "\", false)";
-				item->An_F_act = "AFNumber_Format("+Nfo;
-				item->An_K_act = "AFNumber_Keystroke("+Nfo;
+				item->annotation().setF_act("AFNumber_Format("+Nfo);
+				item->annotation().setK_act("AFNumber_Keystroke("+Nfo);
 				break;
 			case 2:
 				Nfo = tmp.setNum(Decim2->value())+", "+tmp.setNum(FormNum)+")";
-				item->An_F_act = "AFPercent_Format("+Nfo;
-				item->An_K_act = "AFPercent_Keystroke("+Nfo;
+				item->annotation().setF_act("AFPercent_Format("+Nfo);
+				item->annotation().setK_act("AFPercent_Keystroke("+Nfo);
 				break;
 			case 3:
 				Nfo = Format0c->currentText()+"\")";
-				item->An_F_act = "AFDate_FormatEx(\""+Nfo;
-				item->An_K_act = "AFDate_KeystrokeEx(\""+Nfo;
+				item->annotation().setF_act("AFDate_FormatEx(\""+Nfo);
+				item->annotation().setK_act("AFDate_KeystrokeEx(\""+Nfo);
 				break;
 			case 4:
 				Nfo = tmp.setNum(FormNum)+")";
-				item->An_F_act = "AFTime_Format("+Nfo;
-				item->An_K_act = "AFTime_Keystroke("+Nfo;
+				item->annotation().setF_act("AFTime_Format("+Nfo);
+				item->annotation().setK_act("AFTime_Keystroke("+Nfo);
 				break;
 			case 5:
-				item->An_F_act = FormatScript->text();
-				item->An_K_act = KeyScript->text();
+				item->annotation().setF_act(FormatScript->text());
+				item->annotation().setK_act(KeyScript->text());
 				break;
-			}
 		}
-	item->AnAction = "";
+	}
+	item->annotation().setAction("");
 	switch (ActionCombo->currentItem())
 		{
 		case 0:
-			item->AnActType = 0;
+			item->annotation().setActionType(0);
 			break;
 		case 1:
-			item->AnActType = 1;
+			item->annotation().setActionType(1);
 			switch (ScrEdited)
 				{
 				case 0:
-					item->AnAction = EditJava->text();
+					item->annotation().setAction(EditJava->text());
 					break;
 				case 1:
-					item->An_D_act = EditJava->text();
+					item->annotation().setD_act(EditJava->text());
 					break;
 				case 2:
-					item->An_E_act = EditJava->text();
+					item->annotation().setE_act(EditJava->text());
 					break;
 				case 3:
-					item->An_X_act = EditJava->text();
+					item->annotation().setX_act(EditJava->text());
 					break;
 				case 4:
-					item->An_Fo_act = EditJava->text();
+					item->annotation().setFo_act(EditJava->text());
 					break;
 				case 5:
-					item->An_Bl_act = EditJava->text();
+					item->annotation().setBl_act(EditJava->text());
 					break;
 				case 6:
-					item->An_K_act = EditJava->text();
+					item->annotation().setK_act(EditJava->text());
 					break;
 				}
 			break;
 		case 2:
 			if ((LExtern->isChecked()) && (!Destfile->text().isEmpty()))
-				{
-				item->An_Extern = Destfile->text();
-				item->AnActType = 7;
-				}
+			{
+				item->annotation().setExtern(Destfile->text());
+				item->annotation().setActionType(7);
+			}
 			else
-				{
-				item->An_Extern = "";
-				item->AnActType = 2;
-				}
-			item->AnZiel = SpinBox11->value()-1;
-			item->AnAction = tmp.setNum(SpinBox21->value())+" "+tmp.setNum(Hoehe-SpinBox31->value())+" 0";
+			{
+				item->annotation().setExtern("");
+				item->annotation().setActionType(2);
+			}
+			item->annotation().setZiel(SpinBox11->value()-1);
+			item->annotation().setAction(tmp.setNum(SpinBox21->value())+" "+tmp.setNum(Hoehe-SpinBox31->value())+" 0");
 			break;
 		case 3:
-			item->AnActType = 3;
-			item->AnAction = SubURL->text().stripWhiteSpace();
-			item->AnHTML = SubAsHtml->isChecked();
+			item->annotation().setActionType(3);
+			item->annotation().setAction(SubURL->text().stripWhiteSpace());
+			item->annotation().setHTML(SubAsHtml->isChecked());
 			break;
 		case 4:
-			item->AnActType = 4;
+			item->annotation().setActionType(4);
 			break;
 		case 5:
-			item->AnActType = 5;
-			item->AnAction = SubURLa->text().stripWhiteSpace();
+			item->annotation().setActionType(5);
+			item->annotation().setAction(SubURLa->text().stripWhiteSpace());
 			break;
 		}
-	if (!item->An_E_act.isEmpty())
+	if (!item->annotation().E_act().isEmpty())
 		AAct = true;
-	if (!item->An_X_act.isEmpty())
+	if (!item->annotation().X_act().isEmpty())
 		AAct = true;
-	if (!item->An_D_act.isEmpty())
+	if (!item->annotation().D_act().isEmpty())
 		AAct = true;
-	if (!item->An_Fo_act.isEmpty())
+	if (!item->annotation().Fo_act().isEmpty())
 		AAct = true;
-	if (!item->An_Bl_act.isEmpty())
+	if (!item->annotation().Bl_act().isEmpty())
 		AAct = true;
-	if (!item->An_K_act.isEmpty())
+	if (!item->annotation().K_act().isEmpty())
 		AAct = true;
-	if (!item->An_F_act.isEmpty())
+	if (!item->annotation().F_act().isEmpty())
 		AAct = true;
-	if (!item->An_V_act.isEmpty())
+	if (!item->annotation().V_act().isEmpty())
 		AAct = true;
-	if (!item->An_C_act.isEmpty())
+	if (!item->annotation().C_act().isEmpty())
 		AAct = true;
-	if (AAct)
-		item->AnAAact = true;
-	else
-		item->AnAAact = false;
+	item->annotation().setAAact(AAct);
 	accept();
 }
 
@@ -1922,7 +1920,7 @@ void Annot::SetZiel(int it)
 {
 	disconnect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActTyp(int)));
 	disconnect(TxFormat, SIGNAL(activated(int)), this, SLOT(SetFoScript(int)));
-	int tmpac = item->AnActType;
+	int tmpac = item->annotation().ActionType();
 	if (tmpac == 7)
 		tmpac = 2;
 	int sela = it + 2;
@@ -1959,7 +1957,7 @@ void Annot::SetZiel(int it)
 			for (uint prop = 0; prop < array_act; ++prop)
 				ActionCombo->insertItem(tmp_actcom[prop]);
 			ActionCombo->setCurrentItem(QMIN(tmpac,5));
-			setter = item->AnActType != 7 ? true : false;
+			setter = item->annotation().ActionType() != 7 ? true : false;
 			Destfile->setEnabled(setter);
 			ChFile->setEnabled(setter);
 			SetActTyp(tmpac);
@@ -1975,17 +1973,17 @@ void Annot::SetZiel(int it)
 			TabWidget2->setTabEnabled(tab4, true);
 			TabWidget2->setTabEnabled(tab_4, true);
 			TabWidget2->setTabEnabled(tab_5, true);
-			TxFormat->setCurrentItem(item->AnFormat);
-			SetFoScript(item->AnFormat);
+			TxFormat->setCurrentItem(item->annotation().Format());
+			SetFoScript(item->annotation().Format());
 			SetVali();
 			SetCalc();
 		}
 		if (sela == 6)
 			SelAction->insertItem( tr( "Selection Change" ) );
 		ReadOnly->setEnabled(true);
-		ReadOnly->setChecked(item->AnFlag & 1);
-		Required->setChecked(item->AnFlag & 2);
-		NoExport->setChecked(item->AnFlag & 4);
+		ReadOnly->setChecked(item->annotation().Flag() & 1);
+		Required->setChecked(item->annotation().Flag() & 2);
+		NoExport->setChecked(item->annotation().Flag() & 4);
 		Fram->raiseWidget(3);
 		sela > 5 ? FramOp->raiseWidget(5) : FramOp->raiseWidget(sela);
 		ActionCombo->clear();
@@ -1998,15 +1996,15 @@ void Annot::SetZiel(int it)
 		Fram->raiseWidget(2);
 		break;
 	}
-	MultiL->setChecked(item->AnFlag & 4096);
-	Passwd->setChecked(item->AnFlag & 8192);
-	CanEdit->setChecked(item->AnFlag & 262144);
-	NoSpell->setChecked(item->AnFlag & 4194304);
-	NoScroll->setChecked(item->AnFlag & 8388608);
-	ChkStil->setCurrentItem(item->AnChkStil);
-	isChkd->setChecked(item->AnIsChk);
-	setter = item->AnMaxChar != -1 ? true : false;
-	MaxChars->setValue(setter == true ? item->AnMaxChar : 0);
+	MultiL->setChecked(item->annotation().Flag() & 4096);
+	Passwd->setChecked(item->annotation().Flag() & 8192);
+	CanEdit->setChecked(item->annotation().Flag() & 262144);
+	NoSpell->setChecked(item->annotation().Flag() & 4194304);
+	NoScroll->setChecked(item->annotation().Flag() & 8388608);
+	ChkStil->setCurrentItem(item->annotation().ChkStil());
+	isChkd->setChecked(item->annotation().IsChk());
+	setter = item->annotation().MaxChar() != -1 ? true : false;
+	MaxChars->setValue(setter == true ? item->annotation().MaxChar() : 0);
 	Limit->setChecked(setter);
 	MaxChars->setEnabled(setter);
 	connect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActTyp(int)));
@@ -2024,7 +2022,7 @@ void Annot::SetExternL()
 	bool enable;
 	if (!LExtern->isChecked())
 	{
-		item->AnActType = 2;
+		item->annotation().setActionType(2);
 		enable = false;
 		//		Destfile->setEnabled(false);
 		//		ChFile->setEnabled(false);
@@ -2032,7 +2030,7 @@ void Annot::SetExternL()
 	}
 	else
 	{
-		item->AnActType = 7;
+		item->annotation().setActionType(7);
 		enable = true;
 		//		Destfile->setEnabled(true);
 		//		ChFile->setEnabled(true);
@@ -2041,7 +2039,7 @@ void Annot::SetExternL()
 			GetFile();
 			if (Destfile->text().isEmpty())
 			{
-				item->AnActType = 2;
+				item->annotation().setActionType(2);
 				enable = false;
 				//				Destfile->setEnabled(false);
 				//				ChFile->setEnabled(false);
@@ -2062,16 +2060,16 @@ void Annot::SetActTyp(int it)
 	{
 	case 5:
 		Fram2->raiseWidget(5);
-		SubURLa->setText(item->AnAction);
+		SubURLa->setText(item->annotation().Action());
 		break;
 	case 3:
 		Fram2->raiseWidget(4);
-		SubURL->setText(item->AnAction);
-		SubAsHtml->setChecked(item->AnHTML);
+		SubURL->setText(item->annotation().Action());
+		SubAsHtml->setChecked(item->annotation().HTML());
 		break;
 	case 2:
 		Fram2->raiseWidget(3);
-		setter = item->AnActType != 7 ? true : false;
+		setter = item->annotation().ActionType() != 7 ? true : false;
 		Destfile->setEnabled(setter);
 		ChFile->setEnabled(setter);
 		SetPg(QMIN(SpinBox11->value(), MaxSeite));
@@ -2091,49 +2089,49 @@ void Annot::SetActScript(int it)
 	switch (ScrEdited)
 	{
 	case 0:
-		item->AnAction = EditJava->text();
+		item->annotation().setAction(EditJava->text());
 		break;
 	case 1:
-		item->An_D_act = EditJava->text();
+		item->annotation().setD_act(EditJava->text());
 		break;
 	case 2:
-		item->An_E_act = EditJava->text();
+		item->annotation().setE_act(EditJava->text());
 		break;
 	case 3:
-		item->An_X_act = EditJava->text();
+		item->annotation().setX_act(EditJava->text());
 		break;
 	case 4:
-		item->An_Fo_act = EditJava->text();
+		item->annotation().setFo_act(EditJava->text());
 		break;
 	case 5:
-		item->An_Bl_act = EditJava->text();
+		item->annotation().setBl_act(EditJava->text());
 		break;
 	case 6:
-		item->An_K_act = EditJava->text();
+		item->annotation().setK_act(EditJava->text());
 		break;
 	}
 	switch (it)
 	{
 	case 0:
-		EditJava->setText(item->AnAction);
+		EditJava->setText(item->annotation().Action());
 		break;
 	case 1:
-		EditJava->setText(item->An_D_act);
+		EditJava->setText(item->annotation().D_act());
 		break;
 	case 2:
-		EditJava->setText(item->An_E_act);
+		EditJava->setText(item->annotation().E_act());
 		break;
 	case 3:
-		EditJava->setText(item->An_X_act);
+		EditJava->setText(item->annotation().X_act());
 		break;
 	case 4:
-		EditJava->setText(item->An_Fo_act);
+		EditJava->setText(item->annotation().Fo_act());
 		break;
 	case 5:
-		EditJava->setText(item->An_Bl_act);
+		EditJava->setText(item->annotation().Bl_act());
 		break;
 	case 6:
-		EditJava->setText(item->An_K_act);
+		EditJava->setText(item->annotation().K_act());
 		break;
 	}
 	ScrEdited = it;

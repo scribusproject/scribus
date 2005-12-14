@@ -58,13 +58,13 @@ PageItem_Line::PageItem_Line(ScribusDoc *pa, double x, double y, double w, doubl
 
 void PageItem_Line::DrawObj_Item(ScPainter *p)
 {
-	if (!Doc->RePos)
+	if (!m_Doc->RePos)
 	{
 		if (NamedLStyle.isEmpty())
 			p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 		else
 		{
-			multiLine ml = Doc->MLineStyles[NamedLStyle];
+			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
 			QColor tmp;
 			for (int it = ml.size()-1; it > -1; it--)
 			{
@@ -79,7 +79,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p)
 		if (m_startArrowIndex != 0)
 		{
 			QWMatrix arrowTrans;
-			FPointArray arrow = (*Doc->arrowStyles.at(m_startArrowIndex-1)).points.copy();
+			FPointArray arrow = (*m_Doc->arrowStyles.at(m_startArrowIndex-1)).points.copy();
 			arrowTrans.translate(0, 0);
 			arrowTrans.scale(Pwidth, Pwidth);
 			arrowTrans.scale(-1,1);
@@ -94,7 +94,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p)
 		if (m_endArrowIndex != 0)
 		{
 			QWMatrix arrowTrans;
-			FPointArray arrow = (*Doc->arrowStyles.at(m_endArrowIndex-1)).points.copy();
+			FPointArray arrow = (*m_Doc->arrowStyles.at(m_endArrowIndex-1)).points.copy();
 			arrowTrans.translate(Width, 0);
 			arrowTrans.scale(Pwidth, Pwidth);
 			arrow.map(arrowTrans);

@@ -62,7 +62,6 @@ PageItem::PageItem(const PageItem & other)
 	gYpos(other.gYpos),
 	gWidth(other.gWidth),
 	gHeight(other.gHeight),
-	Doc(other.Doc),
 	GrType(other.GrType),
 	GrStartX(other.GrStartX),
 	GrStartY(other.GrStartY),
@@ -127,41 +126,6 @@ PageItem::PageItem(const PageItem & other)
 	itemText(other.itemText),
 	isBookmark(other.isBookmark),
 	BMnr(other.BMnr),
-	isAnnotation(other.isAnnotation),
-	AnType(other.AnType),
-	AnActType(other.AnActType),
-	AnAction(other.AnAction),
-	An_E_act(other.An_E_act),
-	An_X_act(other.An_X_act),
-	An_D_act(other.An_D_act),
-	An_Fo_act(other.An_Fo_act),
-	An_Bl_act(other.An_Bl_act),
-	An_K_act(other.An_K_act),
-	An_F_act(other.An_F_act),
-	An_V_act(other.An_V_act),
-	An_C_act(other.An_C_act),
-	AutoName(other.AutoName),
-	AnToolTip(other.AnToolTip),
-	AnRollOver(other.AnRollOver),
-	AnDown(other.AnDown),
-	AnBColor(other.AnBColor),
-	An_Extern(other.An_Extern),
-	AnBsty(other.AnBsty),
-	AnBwid(other.AnBwid),
-	AnFeed(other.AnFeed),
-	AnZiel(other.AnZiel),
-	AnFlag(other.AnFlag),
-	AnMaxChar(other.AnVis),
-	AnVis(other.AnVis),
-	AnChkStil(other.AnChkStil),
-	AnFont(other.AnFont),
-	AnIsChk(other.AnIsChk),
-	AnAAact(other.AnAAact),
-	AnHTML(other.AnHTML),
-	AnUseIcons(other.AnUseIcons),
-	AnIPlace(other.AnIPlace),
-	AnScaleW(other.AnScaleW),
-	AnFormat(other.AnFormat),
 	HasSel(other.HasSel),
 	FrameOnly(other.FrameOnly),
 	BackBox(other.BackBox),
@@ -258,7 +222,10 @@ PageItem::PageItem(const PageItem & other)
 	oldHeight(other.oldHeight),
 	oldRot(other.oldRot),
 	m_Font(other.m_Font),
-	m_FontSize(other.m_FontSize)
+	m_FontSize(other.m_FontSize),
+	m_Doc(other.m_Doc),
+	m_isAnnotation(other.m_isAnnotation),
+	m_annotation(other.m_annotation)
 {
 }
 
@@ -302,11 +269,11 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	itemTypeVal = newType;
 	Rot = 0;
 	oldRot = 0;
-	Doc = pa;
+	m_Doc = pa;
 	fillColorVal = fill;
 	lineColorVal = itemTypeVal == PageItem::TextFrame ? fill : outline;
-	TxtFill = Doc->toolSettings.dPenText;
-	TxtStroke = Doc->toolSettings.dStrokeText;
+	TxtFill = m_Doc->toolSettings.dPenText;
+	TxtStroke = m_Doc->toolSettings.dStrokeText;
 	ShTxtStroke = 100;
 	ShTxtFill = 100;
 	TxtScale = 1000;
@@ -316,10 +283,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	TxtOutline = 10;
 	TxTStyle = 0;
 	TxtBase = 0;
-	TxtUnderWidth = Doc->typographicSettings.valueUnderlineWidth;
-	TxtUnderPos = Doc->typographicSettings.valueUnderlinePos;
-	TxtStrikePos = Doc->typographicSettings.valueStrikeThruPos;
-	TxtStrikeWidth = Doc->typographicSettings.valueStrikeThruWidth;
+	TxtUnderWidth = m_Doc->typographicSettings.valueUnderlineWidth;
+	TxtUnderPos = m_Doc->typographicSettings.valueUnderlinePos;
+	TxtStrikePos = m_Doc->typographicSettings.valueStrikeThruPos;
+	TxtStrikeWidth = m_Doc->typographicSettings.valueStrikeThruWidth;
 	GrType = 0;
 	GrStartX = 0;
 	GrStartY = 0;
@@ -327,18 +294,18 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	GrEndY = 0;
 	Pwidth = w2;
 	OldPwidth = w2;
-	PLineArt = PenStyle(Doc->toolSettings.dLineArt);
+	PLineArt = PenStyle(m_Doc->toolSettings.dLineArt);
 	PLineEnd = FlatCap;
 	PLineJoin = MiterJoin;
 	Select = false;
 	FrameOnly = false;
 	ClipEdited = false;
 	FrameType = 0;
-	setFont(Doc->toolSettings.defFont);
-	setFontSize(Doc->toolSettings.defSize);
+	setFont(m_Doc->toolSettings.defFont);
+	setFontSize(m_Doc->toolSettings.defSize);
 	LineSpMode = 0;
-	LineSp = ((Doc->toolSettings.defSize / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (Doc->toolSettings.defSize / 10.0);
-	Doc->docParagraphStyles[0].LineSpa = LineSp;
+	LineSp = ((m_Doc->toolSettings.defSize / 10.0) * static_cast<double>(m_Doc->typographicSettings.autoLineSpacing) / 100) + (m_Doc->toolSettings.defSize / 10.0);
+	m_Doc->docParagraphStyles[0].LineSpa = LineSp;
 	CurX = 0;
 	CurY = 0;
 	CPos = 0;
@@ -352,7 +319,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	MaxChars = 0;
 	Pfile = "";
 	pixm = ScImage();
-	pixm.imgInfo.lowResType = Doc->toolSettings.lowResType;
+	pixm.imgInfo.lowResType = m_Doc->toolSettings.lowResType;
 	Pfile2 = "";
 	Pfile3 = "";
 	LocalScX = 1;
@@ -385,28 +352,28 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	Segments.clear();
 	PoShow = false;
 	BaseOffs = 0;
-	OwnPage = Doc->currentPage->pageNr();
+	OwnPage = m_Doc->currentPage->pageNr();
 	oldOwnPage = OwnPage;
 	PicArt = true;
 	PicAvail = false;
 	isPrintable = true;
 	isBookmark = false;
 	BMnr = 0;
-	isAnnotation = false;
-	AnType = 0;
-	AnActType = 0;
-	AnBwid = 1;
-	AnAction = "";
-	An_E_act = "";
-	An_X_act = "";
-	An_D_act = "";
-	An_Fo_act = "";
-	An_Bl_act = "";
-	An_K_act = "";
-	An_F_act = "";
-	An_V_act = "";
-	An_C_act = "";
-	An_Extern = "";
+	m_isAnnotation = false;
+	m_annotation.setType(0);
+	m_annotation.setActionType(0);
+	m_annotation.setBwid(1);
+	m_annotation.setAction("");
+	m_annotation.setE_act("");
+	m_annotation.setX_act("");
+	m_annotation.setD_act("");
+	m_annotation.setFo_act("");
+	m_annotation.setBl_act("");
+	m_annotation.setK_act("");
+	m_annotation.setF_act("");
+	m_annotation.setV_act("");
+	m_annotation.setC_act("");
+	m_annotation.setExtern("");
 	switch (itemTypeVal)
 	{
 	case ImageFrame:
@@ -437,29 +404,29 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 		AnName = "Item";
 		break;
 	}
-	AnName += tmp.setNum(Doc->TotalItems); // +" "+QDateTime::currentDateTime().toString();
+	AnName += tmp.setNum(m_Doc->TotalItems); // +" "+QDateTime::currentDateTime().toString();
 	AutoName = true;
 	setUName(AnName);
-	Doc->TotalItems++;
-	AnToolTip = "";
-	AnRollOver = "";
-	AnDown = "";
-	AnBsty = 0;
-	AnFeed = 1;
-	AnFlag = 0;
-	AnZiel = 0;
-	AnVis = 0;
-	AnChkStil = 0;
-	AnFormat = 0;
-	AnFont = 4;
-	AnIsChk = false;
-	AnAAact = false;
-	AnHTML = false;
-	AnUseIcons = false;
-	AnIPlace = 1;
-	AnScaleW = 0;
-	AnMaxChar = -1;
-	AnBColor = outline;
+	m_Doc->TotalItems++;
+	m_annotation.setToolTip("");
+	m_annotation.setRollOver("");
+	m_annotation.setDown("");
+	m_annotation.setBsty(0);
+	m_annotation.setFeed(1);
+	m_annotation.setFlag(0);
+	m_annotation.setZiel(0);
+	m_annotation.setVis(0);
+	m_annotation.setChkStil(0);
+	m_annotation.setFormat(0);
+	m_annotation.setFont(4);
+	m_annotation.setIsChk(false);
+	m_annotation.setAAact(false);
+	m_annotation.setHTML(false);
+	m_annotation.setUseIcons(false);
+	m_annotation.setIPlace(1);
+	m_annotation.setScaleW(0);
+	m_annotation.setMaxChar(-1);
+	m_annotation.setBorderColor(outline);
 	HasSel = false;
 	Tinput = false;
 	isAutoText = false;
@@ -471,7 +438,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	UseEmbedded = true;
 	EmProfile = "";
 	Groups.clear();
-	LayerNr = Doc->activeLayer();
+	LayerNr = m_Doc->activeLayer();
 	ScaleType = true;
 	AspectRatio = true;
 	Reverse = false;
@@ -483,16 +450,16 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	fill_gradient = VGradient(VGradient::linear);
 	fill_gradient.clearStops();
 	if (fillColor() == "None")
-		fill_gradient.addStop(Doc->PageColors[Doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, Doc->toolSettings.dBrush, 100);
+		fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
 	else
-		fill_gradient.addStop(Doc->PageColors[fillColor()].getRGBColor(), 0.0, 0.5, 1.0, fillColor(), 100);
+		fill_gradient.addStop(m_Doc->PageColors[fillColor()].getRGBColor(), 0.0, 0.5, 1.0, fillColor(), 100);
 	if (lineColor() == "None")
-		fill_gradient.addStop(Doc->PageColors[Doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, Doc->toolSettings.dPen, 100);
+		fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
 	else
-		fill_gradient.addStop(Doc->PageColors[lineColor()].getRGBColor(), 1.0, 0.5, 1.0, lineColor(), 100);
-	Language = Doc->Language;
-	Cols = Doc->toolSettings.dCols;
-	ColGap = Doc->toolSettings.dGap;
+		fill_gradient.addStop(m_Doc->PageColors[lineColor()].getRGBColor(), 1.0, 0.5, 1.0, lineColor(), 100);
+	Language = m_Doc->Language;
+	Cols = m_Doc->toolSettings.dCols;
+	ColGap = m_Doc->toolSettings.dGap;
 	LeftLink = 0;
 	RightLink = 0;
 	TopLink = 0;
@@ -510,13 +477,13 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	Dirty = false;
 	ChangedMasterItem = false;
 	isEmbedded = false;
-	OnMasterPage = Doc->currentPage->PageNam;
-	m_startArrowIndex = Doc->toolSettings.dStartArrow;
-	m_endArrowIndex = Doc->toolSettings.dEndArrow;
+	OnMasterPage = m_Doc->currentPage->PageNam;
+	m_startArrowIndex = m_Doc->toolSettings.dStartArrow;
+	m_endArrowIndex = m_Doc->toolSettings.dEndArrow;
 	effectsInUse.clear();
 	//Page Item Attributes
 	pageItemAttributes.clear();
-	for(ObjAttrVector::Iterator objAttrIt = Doc->docItemAttributes.begin() ; objAttrIt != Doc->docItemAttributes.end(); ++objAttrIt )
+	for(ObjAttrVector::Iterator objAttrIt = m_Doc->docItemAttributes.begin() ; objAttrIt != m_Doc->docItemAttributes.end(); ++objAttrIt )
 	{
 		if (((*objAttrIt).autoaddto=="textframes" && itemTypeVal==TextFrame) ||
 			((*objAttrIt).autoaddto=="imageframes" && itemTypeVal==ImageFrame)
@@ -707,7 +674,7 @@ void PageItem::setCornerRadius(double newRadius)
 void PageItem::DrawObj(ScPainter *p, QRect e)
 {
 	double sc;
-	if (!Doc->DoDrawing)
+	if (!m_Doc->DoDrawing)
 	{
 		Redrawn = true;
 		Tinput = false;
@@ -801,7 +768,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 	bool doStroke=true;
 	if (itemType()==PathText || itemType()==PolyLine || itemType()==Line)
 		doStroke=false;
-	if ((doStroke) && (!Doc->RePos))
+	if ((doStroke) && (!m_Doc->RePos))
 	{
 		if (lineColor() != "None")
 		{
@@ -818,7 +785,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				p->strokePath();
 			else
 			{
-				multiLine ml = Doc->MLineStyles[NamedLStyle];
+				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
 				QColor tmp;
 				for (int it = ml.size()-1; it > -1; it--)
 				{
@@ -832,13 +799,13 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			}
 		}
 	}
-	if ((!isEmbedded) && (!Doc->RePos))
+	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
 		double scpInv = 1.0 / (QMAX(ScMW->view->getScale(), 1));
-		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
+		if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
 		{
 			p->setPen(black, scpInv, DotLine, FlatCap, MiterJoin);
-			if ((isBookmark) || (isAnnotation))
+			if ((isBookmark) || (m_isAnnotation))
 				p->setPen(blue, scpInv, DotLine, FlatCap, MiterJoin);
 			if ((BackBox != 0) || (NextBox != 0))
 				p->setPen(red, scpInv, SolidLine, FlatCap, MiterJoin);
@@ -869,7 +836,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				p->setupPolygon(&PoLine);
 			p->strokePath();
 		}
-		if ((Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
+		if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
 			p->setPen(lightGray, scpInv, DotLine, FlatCap, MiterJoin);
 			p->setupPolygon(&ContourLine);
@@ -887,7 +854,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 	emG.clear();
 	if (hl->embedded != 0)
 	{
-		if (!Doc->DoDrawing)
+		if (!m_Doc->DoDrawing)
 		{
 			hl->embedded->Redrawn = true;
 			hl->embedded->Tinput = false;
@@ -897,16 +864,16 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 		emG.append(hl->embedded);
 		if (hl->embedded->Groups.count() != 0)
 		{
-			for (uint ga=0; ga<Doc->FrameItems.count(); ++ga)
+			for (uint ga=0; ga<m_Doc->FrameItems.count(); ++ga)
 			{
-				if (Doc->FrameItems.at(ga)->Groups.count() != 0)
+				if (m_Doc->FrameItems.at(ga)->Groups.count() != 0)
 				{
-					if (Doc->FrameItems.at(ga)->Groups.top() == hl->embedded->Groups.top())
+					if (m_Doc->FrameItems.at(ga)->Groups.top() == hl->embedded->Groups.top())
 					{
-						if (Doc->FrameItems.at(ga)->ItemNr != hl->embedded->ItemNr)
+						if (m_Doc->FrameItems.at(ga)->ItemNr != hl->embedded->ItemNr)
 						{
-							if (emG.find(Doc->FrameItems.at(ga)) == -1)
-								emG.append(Doc->FrameItems.at(ga));
+							if (emG.find(m_Doc->FrameItems.at(ga)) == -1)
+								emG.append(m_Doc->FrameItems.at(ga));
 						}
 					}
 				}
@@ -919,14 +886,14 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 			QValueList<ParagraphStyle> savedParagraphStyles;
 			for (int xxx=0; xxx<5; ++xxx)
 			{
-				vg.LineSpaMode = Doc->docParagraphStyles[xxx].LineSpaMode;
-				vg.BaseAdj = Doc->docParagraphStyles[xxx].BaseAdj;
-				vg.LineSpa = Doc->docParagraphStyles[xxx].LineSpa;
-				vg.FontSize = Doc->docParagraphStyles[xxx].FontSize;
-				vg.Indent = Doc->docParagraphStyles[xxx].Indent;
-				vg.First = Doc->docParagraphStyles[xxx].First;
-				vg.gapBefore = Doc->docParagraphStyles[xxx].gapBefore;
-				vg.gapAfter = Doc->docParagraphStyles[xxx].gapAfter;
+				vg.LineSpaMode = m_Doc->docParagraphStyles[xxx].LineSpaMode;
+				vg.BaseAdj = m_Doc->docParagraphStyles[xxx].BaseAdj;
+				vg.LineSpa = m_Doc->docParagraphStyles[xxx].LineSpa;
+				vg.FontSize = m_Doc->docParagraphStyles[xxx].FontSize;
+				vg.Indent = m_Doc->docParagraphStyles[xxx].Indent;
+				vg.First = m_Doc->docParagraphStyles[xxx].First;
+				vg.gapBefore = m_Doc->docParagraphStyles[xxx].gapBefore;
+				vg.gapAfter = m_Doc->docParagraphStyles[xxx].gapAfter;
 				savedParagraphStyles.append(vg);
 			}
 			p->save();
@@ -980,14 +947,14 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 			embedded->Pwidth = pws;
 			for (int xxx=0; xxx<5; ++xxx)
 			{
-				Doc->docParagraphStyles[xxx].LineSpaMode = savedParagraphStyles[xxx].LineSpaMode;
-				Doc->docParagraphStyles[xxx].BaseAdj = savedParagraphStyles[xxx].BaseAdj;
-				Doc->docParagraphStyles[xxx].LineSpa = savedParagraphStyles[xxx].LineSpa;
-				Doc->docParagraphStyles[xxx].FontSize = savedParagraphStyles[xxx].FontSize;
-				Doc->docParagraphStyles[xxx].Indent = savedParagraphStyles[xxx].Indent;
-				Doc->docParagraphStyles[xxx].First = savedParagraphStyles[xxx].First;
-				Doc->docParagraphStyles[xxx].gapBefore = savedParagraphStyles[xxx].gapBefore;
-				Doc->docParagraphStyles[xxx].gapAfter = savedParagraphStyles[xxx].gapAfter;
+				m_Doc->docParagraphStyles[xxx].LineSpaMode = savedParagraphStyles[xxx].LineSpaMode;
+				m_Doc->docParagraphStyles[xxx].BaseAdj = savedParagraphStyles[xxx].BaseAdj;
+				m_Doc->docParagraphStyles[xxx].LineSpa = savedParagraphStyles[xxx].LineSpa;
+				m_Doc->docParagraphStyles[xxx].FontSize = savedParagraphStyles[xxx].FontSize;
+				m_Doc->docParagraphStyles[xxx].Indent = savedParagraphStyles[xxx].Indent;
+				m_Doc->docParagraphStyles[xxx].First = savedParagraphStyles[xxx].First;
+				m_Doc->docParagraphStyles[xxx].gapBefore = savedParagraphStyles[xxx].gapBefore;
+				m_Doc->docParagraphStyles[xxx].gapAfter = savedParagraphStyles[xxx].gapAfter;
 			}
 			savedParagraphStyles.clear();
 		}
@@ -996,7 +963,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 
 void PageItem::paintObj(QRect e, QPixmap *ppX)
 {
-	if (!Doc->DoDrawing)
+	if (!m_Doc->DoDrawing)
 	{
 		Redrawn = true;
 		Tinput = false;
@@ -1010,7 +977,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 		p.begin(ppX);
 	else
 		p.begin(ScMW->view->viewport());
-	if ((!toPixmap) && (!Doc->RePos))
+	if ((!toPixmap) && (!m_Doc->RePos))
 	{
 		if (!e.isEmpty())
 			p.setClipRect(e);
@@ -1022,7 +989,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 			p.setClipRect(QRect(out.x(), out.y(), ScMW->view->visibleWidth(), ScMW->view->visibleWidth()));
 		}
 	}
-	QPoint in  = QPoint(qRound((Xpos-Doc->minCanvasCoordinate.x())*sc), qRound((Ypos-Doc->minCanvasCoordinate.y())*sc));
+	QPoint in  = QPoint(qRound((Xpos-m_Doc->minCanvasCoordinate.x())*sc), qRound((Ypos-m_Doc->minCanvasCoordinate.y())*sc));
 	QPoint out = ScMW->view->contentsToViewport(in);
 	p.translate(out.x(), out.y());
 	p.scale(sc, sc);
@@ -1037,11 +1004,11 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 		OldB = Width;
 		OldH = Height;
 	}
-	if ((!Tinput) && (!Doc->RePos))
+	if ((!Tinput) && (!m_Doc->RePos))
 	{
 		if (Select) // && (!Doc->EditClip))
 		{
-			if (!Doc->selection->isEmpty())
+			if (!m_Doc->selection->isEmpty())
 			{
 				if (Groups.count() == 0)
 				{
@@ -1090,7 +1057,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					p.setBrush(NoBrush);
 					p.drawRect(-1, -1, static_cast<int>(Width+2), static_cast<int>(Height+2));
 					//if (ScMW->view->SelItem.count() == 1)
-					if (Doc->selection->count() == 1)
+					if (m_Doc->selection->count() == 1)
 					{
 						QPainter pr;
 						pr.begin(ScMW->view->viewport());
@@ -1129,7 +1096,7 @@ QString PageItem::ExpandToken(uint base)
 	uint zae = 0;
 	uint za2 = base;
 	QString chx("#");
-	if ((!Doc->masterPageMode()) && (OwnPage != -1))
+	if ((!m_Doc->masterPageMode()) && (OwnPage != -1))
 	{
 		do
 		{
@@ -1150,7 +1117,7 @@ QString PageItem::ExpandToken(uint base)
 		QString out2;
 		//CB Section numbering
 		//out2 = out.arg(OwnPage+Doc->FirstPnum, -zae);
-		out2=out.arg(Doc->getSectionPageNumberForPageIndex(OwnPage), -zae);
+		out2=out.arg(m_Doc->getSectionPageNumberForPageIndex(OwnPage), -zae);
 		//out2=out.arg(out2, -zae);
 		chx = out2.mid(base-za2, 1);
 	}
@@ -1159,7 +1126,7 @@ QString PageItem::ExpandToken(uint base)
 
 void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 {
-	*tmp = Doc->PageColors[farbe].getShadeColorProof(shad);
+	*tmp = m_Doc->PageColors[farbe].getShadeColorProof(shad);
 }
 
 double PageItem::SetZeichAttr(struct ScText *hl, int *chs, QString *chx)
@@ -1171,13 +1138,13 @@ double PageItem::SetZeichAttr(struct ScText *hl, int *chs, QString *chx)
 	{
 		if (chst & 1)
 		{
-			retval -= asce * Doc->typographicSettings.valueSuperScript / 100;
-			*chs = QMAX(static_cast<int>(hl->csize * Doc->typographicSettings.scalingSuperScript / 100), 1);
+			retval -= asce * m_Doc->typographicSettings.valueSuperScript / 100;
+			*chs = QMAX(static_cast<int>(hl->csize * m_Doc->typographicSettings.scalingSuperScript / 100), 1);
 		}
 		if (chst & 2)
 		{
-			retval += asce * Doc->typographicSettings.valueSubScript / 100;
-			*chs = QMAX(static_cast<int>(hl->csize * Doc->typographicSettings.scalingSubScript / 100), 1);
+			retval += asce * m_Doc->typographicSettings.valueSubScript / 100;
+			*chs = QMAX(static_cast<int>(hl->csize * m_Doc->typographicSettings.scalingSubScript / 100), 1);
 		}
 		if (chst & 32)
 		{
@@ -1188,7 +1155,7 @@ double PageItem::SetZeichAttr(struct ScText *hl, int *chs, QString *chx)
 		{
 			if (chx->upper() != *chx)
 			{
-				*chs = QMAX(static_cast<int>(hl->csize * Doc->typographicSettings.valueSmallCaps / 100), 1);
+				*chs = QMAX(static_cast<int>(hl->csize * m_Doc->typographicSettings.valueSmallCaps / 100), 1);
 				*chx = chx->upper();
 			}
 		}
@@ -1200,28 +1167,28 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 {
 	double csi = static_cast<double>(hl->Siz) / 100.0;
 	QString ccx = hl->Zeich;
-	if ((Doc->guidesSettings.showControls) && ((ccx == QChar(9)) || (ccx == QChar(29)) || ((ccx == QChar(26)) && (Cols > 1))|| (ccx == QChar(27)) || (ccx == QChar(32))))
+	if ((m_Doc->guidesSettings.showControls) && ((ccx == QChar(9)) || (ccx == QChar(29)) || ((ccx == QChar(26)) && (Cols > 1))|| (ccx == QChar(27)) || (ccx == QChar(32))))
 	{
 		QWMatrix chma, chma2, chma4, chma5;
 		FPointArray points;
 		if (ccx == QChar(9))
 		{
-			points = Doc->symTab.copy();
+			points = m_Doc->symTab.copy();
 			chma4.translate(hl->xco-((hl->Siz / 100.0) * 7.0), hl->yco-((hl->Siz / 10.0) * 0.5));
 		}
 		else if (ccx == QChar(26))
 		{
-			points = Doc->symNewCol.copy();
+			points = m_Doc->symNewCol.copy();
 			chma4.translate(hl->xco, hl->yco-((hl->Siz / 10.0) * 0.6));
 		}
 		else if (ccx == QChar(27))
 		{
-			points = Doc->symNewFrame.copy();
+			points = m_Doc->symNewFrame.copy();
 			chma4.translate(hl->xco, hl->yco-((hl->Siz / 10.0) * 0.6));
 		}
 		else
 		{
-			points = Doc->symNonBreak.copy();
+			points = m_Doc->symNonBreak.copy();
 			chma4.translate(hl->xco, hl->yco-((hl->Siz / 10.0) * 0.4));
 		}
 		chma.scale(csi, csi);
@@ -1383,7 +1350,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 				p->drawPolyline(pts, FirstVal, (*it2)-FirstVal);
 			else
 			{
-				multiLine ml = Doc->MLineStyles[NamedLStyle];
+				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
 				for (int it = ml.size()-1; it > -1; it--)
 				{
 					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
@@ -1401,7 +1368,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 			p->drawPolyline(pts, FirstVal);
 		else
 		{
-			multiLine ml = Doc->MLineStyles[NamedLStyle];
+			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
 			for (int it = ml.size()-1; it > -1; it--)
 			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
@@ -1420,7 +1387,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 			p->drawPolyline(pts);
 		else
 		{
-			multiLine ml = Doc->MLineStyles[NamedLStyle];
+			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
 			for (int it = ml.size()-1; it > -1; it--)
 			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
@@ -1558,13 +1525,13 @@ void PageItem::setLineShade(int newShade)
 void PageItem::setLineQColor()
 {
 	if (lineColorVal != "None")
-		strokeQColor = Doc->PageColors[lineColorVal].getShadeColorProof(lineShadeVal);
+		strokeQColor = m_Doc->PageColors[lineColorVal].getShadeColorProof(lineShadeVal);
 }
 
 void PageItem::setFillQColor()
 {
 	if (fillColorVal != "None")
-		fillQColor = Doc->PageColors[fillColorVal].getShadeColorProof(fillShadeVal);
+		fillQColor = m_Doc->PageColors[fillColorVal].getShadeColorProof(fillShadeVal);
 }
 
 void PageItem::setLineTransparency(double newTransparency)
@@ -2835,7 +2802,7 @@ void PageItem::setObjectAttributes(ObjAttrVector* map)
 
 QString PageItem::generateUniqueCopyName(const QString originalName) const
 {
-	if (!Doc->itemNameExists(originalName))
+	if (!m_Doc->itemNameExists(originalName))
 		return originalName;
 
 	// Start embellishing the name until we get an acceptable unique name
@@ -2845,7 +2812,7 @@ QString PageItem::generateUniqueCopyName(const QString originalName) const
 		newname.prepend( tr("Copy of")+" ");
 
 	// See if the name prefixed by "Copy of " is free
-	if (Doc->itemNameExists(newname))
+	if (m_Doc->itemNameExists(newname))
 	{
 		// Search the string for (number) at the end and capture
 		// both the number and the text leading up to it sans brackets.
@@ -2871,9 +2838,9 @@ QString PageItem::generateUniqueCopyName(const QString originalName) const
 			newname = prefix + " (" + QString::number(suffixnum) + ")";
 			suffixnum ++;
 		}
-		while (Doc->itemNameExists(newname));
+		while (m_Doc->itemNameExists(newname));
 	}
-	assert(!Doc->itemNameExists(newname));
+	assert(!m_Doc->itemNameExists(newname));
 	return newname;
 }
 
@@ -2944,7 +2911,9 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->isPrintable = printable();
 	Buffer->isBookmark = isBookmark;
 	Buffer->BMnr = BMnr;
-	Buffer->isAnnotation = isAnnotation;
+	Buffer->m_isAnnotation = m_isAnnotation;
+	Buffer->m_annotation = m_annotation;
+	/*
 	Buffer->AnType = AnType;
 	Buffer->AnAction = AnAction;
 	Buffer->An_E_act = An_E_act;
@@ -2979,6 +2948,7 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->AnUseIcons = AnUseIcons;
 	Buffer->AnIPlace = AnIPlace;
 	Buffer->AnScaleW = AnScaleW;
+	*/
 	Buffer->Extra = Extra;
 	Buffer->TExtra = TExtra;
 	Buffer->BExtra = BExtra;
@@ -3258,7 +3228,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			LocalScY = 72.0 / yres;
 			LocalX = 0;
 			LocalY = 0;
-			if ((Doc->toolSettings.useEmbeddedPath) && (!pixm.imgInfo.clipPath.isEmpty()))
+			if ((m_Doc->toolSettings.useEmbeddedPath) && (!pixm.imgInfo.clipPath.isEmpty()))
 			{
 				pixm.imgInfo.usedPath = pixm.imgInfo.clipPath;
 				clPath = pixm.imgInfo.clipPath;
@@ -3307,7 +3277,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			pixm.createLowRes(scaling);
 			pixm.imgInfo.lowResScale = scaling;
 		}
-		pixm.applyEffect(effectsInUse, Doc->PageColors, false);
+		pixm.applyEffect(effectsInUse, m_Doc->PageColors, false);
 	}
 	return true;
 }
@@ -3366,7 +3336,7 @@ QRect PageItem::getRedrawBounding(const double viewScale)
 	int w = qRound(ceil(BoundingW + OldPwidth + 10) * viewScale);
 	int h = qRound(ceil(BoundingH + OldPwidth + 10) * viewScale);
 	QRect ret = QRect(x, y, w, h);
-	ret.moveBy(qRound(-Doc->minCanvasCoordinate.x() * viewScale), qRound(-Doc->minCanvasCoordinate.y() * viewScale));
+	ret.moveBy(qRound(-m_Doc->minCanvasCoordinate.x() * viewScale), qRound(-m_Doc->minCanvasCoordinate.y() * viewScale));
 	return ret;
 }
 
@@ -3432,10 +3402,10 @@ void PageItem::updateGradientVectors()
 	GrStartX = QMIN(QMAX(GrStartX, 0), Width);
 	GrStartY = QMIN(QMAX(GrStartY, 0), Height);
 	//if (ScMW->view->SelItem.count()!=0 && this==ScMW->view->SelItem.at(0))
-	//if (Doc->selection->count()!=0 && Doc->selection->primarySelectionIsMyself(this))
+	//if (m_Doc->selection->count()!=0 && m_Doc->selection->primarySelectionIsMyself(this))
 	//	ScMW->propertiesPalette->updateColorSpecialGradient();
 	//CB Will only emit if connected, ie is first in GUI selection
-	double dur=Doc->unitRatio();
+	double dur=m_Doc->unitRatio();
 	emit gradientColorUpdate(GrStartX*dur, GrStartY*dur, GrEndX*dur, GrEndY*dur, Width*dur, Height*dur);
 }
 
@@ -3502,7 +3472,7 @@ bool PageItem::connectToGUI()
 {
 	if (!ScQApp->usingGUI())
 		return false;
-	if (!Doc->selection->primarySelectionIs(this))
+	if (!m_Doc->selection->primarySelectionIs(this))
 		return false;
 		
 	connect(this, SIGNAL(myself(PageItem *)), ScMW->propertiesPalette, SLOT(SetCurItem(PageItem *)));
@@ -3569,7 +3539,7 @@ void PageItem::emitAllToGUI()
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 	emit gradientType(GrType);
-	double dur=Doc->unitRatio();
+	double dur=m_Doc->unitRatio();
 	emit gradientColorUpdate(GrStartX*dur, GrStartY*dur, GrEndX*dur, GrEndY*dur, Width*dur, Height*dur);
 	if (GrType == 0)
 		emit transparency(fillTransparencyVal, lineTransparencyVal);
@@ -3577,10 +3547,25 @@ void PageItem::emitAllToGUI()
 	emit textKerning(ExtraV);
 	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 	emit columns(Cols, ColGap);
-	if (Doc->appMode != modeEdit)
+	if (m_Doc->appMode != modeEdit)
 	{
 		emit textStyle(textAlignment);
 		emit textFont(m_Font);
 		emit textSize(m_FontSize);
 	}
+}
+
+ScribusDoc* PageItem::document()
+{
+	return m_Doc;
+}
+
+void PageItem::setIsAnnotation(bool isAnnot)
+{
+	m_isAnnotation=isAnnot;
+}
+
+void PageItem::setAnnotation(const Annotation& ad)
+{
+	m_annotation=ad;
 }

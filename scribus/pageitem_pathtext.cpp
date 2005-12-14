@@ -110,10 +110,10 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, double sc)
 				chx3 = "-";
 			else
 				chx3 = itemText.at(a+1)->ch;
-			wide = Cwidth(Doc, hl->cfont, chx2, chs, chx3);
+			wide = Cwidth(m_Doc, hl->cfont, chx2, chs, chx3);
 		}
 		else
-			wide = Cwidth(Doc, hl->cfont, chx2, chs);
+			wide = Cwidth(m_Doc, hl->cfont, chx2, chs);
 		wide = wide * (hl->cscale / 1000.0);
 		dx = wide / 2.0;
 		CurX += dx;
@@ -219,7 +219,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, double sc)
 		Zli->strikepos = hl->cstrikepos;
 		Zli->strikewidth = hl->cstrikewidth;
 		Zli->embedded = 0;
-		if (!Doc->RePos)
+		if (!m_Doc->RePos)
 			DrawZeichenS(p, Zli);
 		delete Zli;
 		p->setWorldMatrix(savWM);

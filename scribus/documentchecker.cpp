@@ -44,7 +44,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	{
 		currItem = currDoc->MasterItems.at(d);
 		itemError.clear();
-		if (((currItem->isAnnotation) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
+		if (((currItem->isAnnotation()) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
 			itemError.insert(7, 0);
 		if (((currItem->fillTransparency() != 0.0) || (currItem->lineTransparency() != 0.0)) && (checkerSettings.checkTransparency))
 			itemError.insert(6, 0);
@@ -159,7 +159,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				}
 			}
 		}
-		if (((currItem->isAnnotation) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
+		if (((currItem->isAnnotation()) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
 			itemError.insert(7, 0);
 		if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
 			itemError.insert(3, 0);

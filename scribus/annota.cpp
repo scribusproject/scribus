@@ -35,9 +35,9 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	view = vie;
 	MaxSeite = Seite;
 	QStringList tl;
-	if ((item->AnActType == 2) || (item->AnActType == 7))
+	if ((item->annotation().ActionType() == 2) || (item->annotation().ActionType() == 7))
 	{
-		QString tm = item->AnAction;
+		QString tm = item->annotation().Action();
 		tl = tl.split(" ", tm);
 	}
 	else
@@ -66,10 +66,10 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	Layout1->addWidget( TextLabel1 );
 	Layout1->addWidget( ComboBox1 );
 	AnnotLayout->addLayout( Layout1 );
-	item->AnType < 2 ? ComboBox1->setCurrentItem(item->AnType):
-	ComboBox1->setCurrentItem(item->AnType-10);
-	if ((item->AnActType == 7) || (item->AnActType == 8))
-		ComboBox1->setCurrentItem(item->AnActType - 5);
+	item->annotation().Type() < 2 ? ComboBox1->setCurrentItem(item->annotation().Type()):
+	ComboBox1->setCurrentItem(item->annotation().Type()-10);
+	if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 8))
+		ComboBox1->setCurrentItem(item->annotation().ActionType() - 5);
 	Fram = new QWidgetStack(this);
 	AnnotLayout->addWidget( Fram );
 
@@ -84,13 +84,13 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	GroupBox1Layout->setMargin( 11 );
 
 	Destfile = new QLineEdit(GroupBox1, "File");
-	Destfile->setText(item->An_Extern);
+	Destfile->setText(item->annotation().Extern());
 	Destfile->setReadOnly(true);
 	GroupBox1Layout->addMultiCellWidget( Destfile, 0, 0, 0, 1 );
 	ChFile = new QPushButton(GroupBox1, "Change");
 	ChFile->setText( tr("C&hange..."));
 	GroupBox1Layout->addWidget( ChFile, 0, 2 );
-	if ((item->AnActType != 7) && (item->AnActType != 8))
+	if ((item->annotation().ActionType() != 7) && (item->annotation().ActionType() != 8))
 	{
 		Destfile->hide();
 		ChFile->hide();
@@ -98,15 +98,15 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 
 	SpinBox1 = new QSpinBox( GroupBox1, "SpinBox1" );
 	SpinBox1->setMinValue(1);
-	SpinBox1->setMaxValue(item->AnActType == 7 ? 1000 : Seite);
-	SpinBox1->setValue(item->AnZiel+1);
+	SpinBox1->setMaxValue(item->annotation().ActionType() == 7 ? 1000 : Seite);
+	SpinBox1->setValue(item->annotation().Ziel()+1);
 	TextLabel3 = new QLabel( SpinBox1, tr("&Page:"), GroupBox1, "TextLabel3" );
 	GroupBox1Layout->addWidget( TextLabel3, 1, 0 );
 	GroupBox1Layout->addWidget( SpinBox1, 1, 1 );
-	if ((!Destfile->text().isEmpty()) && (item->AnActType == 7))
-		Pg = new Navigator( GroupBox1, 100, item->AnZiel+1, view, item->An_Extern);
+	if ((!Destfile->text().isEmpty()) && (item->annotation().ActionType() == 7))
+		Pg = new Navigator( GroupBox1, 100, item->annotation().Ziel()+1, view, item->annotation().Extern());
 	else
-		Pg = new Navigator( GroupBox1, 100, item->AnZiel, view);
+		Pg = new Navigator( GroupBox1, 100, item->annotation().Ziel(), view);
 	Pg->setMinimumSize(QSize(Pg->pmx.width(), Pg->pmx.height()));
 	GroupBox1Layout->addMultiCellWidget(Pg, 1, 3, 2, 2);
 
@@ -152,7 +152,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	connect(SpinBox2, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
 	connect(SpinBox3, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
 	connect(ChFile, SIGNAL(clicked()), this, SLOT(GetFile()));
-	SetZiel(item->AnType);
+	SetZiel(item->annotation().Type());
 	SetCross();
 }
 
@@ -200,37 +200,35 @@ void Annota::SetCross()
 void Annota::SetVals()
 {
 	QString tmp, tmp2;
-	item->AnZiel = SpinBox1->value()-1;
-	item->AnType = ComboBox1->currentItem()+10;
-	switch (item->AnType)
+	item->annotation().setZiel(SpinBox1->value()-1);
+	item->annotation().setType(ComboBox1->currentItem()+10);
+	switch (item->annotation().Type())
 	{
 	case 10:
-		item->AnActType = 0;
+		item->annotation().setActionType(0);
 		break;
 	case 11:
-		item->AnAction = tmp.setNum(SpinBox2->value())+" "+
-		                 tmp2.setNum(Hoehe-SpinBox3->value())+" 0";
-		item->An_Extern = "";
-		item->AnActType = 2;
+		item->annotation().setAction(tmp.setNum(SpinBox2->value())+" "+ tmp2.setNum(Hoehe-SpinBox3->value())+" 0");
+		item->annotation().setExtern("");
+		item->annotation().setActionType(2);
 		break;
 	case 12:
-		item->AnAction = tmp.setNum(SpinBox2->value())+" "+
-		                 tmp2.setNum(Hoehe-SpinBox3->value())+" 0";
+		item->annotation().setAction(tmp.setNum(SpinBox2->value())+" "+ tmp2.setNum(Hoehe-SpinBox3->value())+" 0");
 		if (!Destfile->text().isEmpty())
 		{
-			item->An_Extern = Destfile->text();
-			item->AnActType = 7;
+			item->annotation().setExtern(Destfile->text());
+			item->annotation().setActionType(7);
 		}
-		item->AnType = 11;
+		item->annotation().setType(11);
 		break;
 	case 13:
-		item->AnAction = "";
+		item->annotation().setAction("");
 		if (!Destfile->text().isEmpty())
 		{
-			item->An_Extern = Destfile->text();
-			item->AnActType = 8;
+			item->annotation().setExtern(Destfile->text());
+			item->annotation().setActionType(8);
 		}
-		item->AnType = 11;
+		item->annotation().setType(11);
 		break;
 	}
 	accept();
@@ -253,7 +251,7 @@ void Annota::SetZiel(int it)
 		Destfile->setText("");
 		Destfile->hide();
 		ChFile->hide();
-		item->AnActType = 2;
+		item->annotation().setActionType(2);
 		SetPg(QMIN(SpinBox1->value(), MaxSeite));
 		break;
 	case 2:
@@ -261,21 +259,21 @@ void Annota::SetZiel(int it)
 		Destfile->show();
 		ChFile->show();
 		Destfile->setReadOnly(true);
-		if ((Destfile->text().isEmpty())  || (item->AnActType == 8))
+		if ((Destfile->text().isEmpty())  || (item->annotation().ActionType() == 8))
 		{
 			Destfile->setText("");
 			GetFile();
 		}
 		if (Destfile->text().isEmpty())
 		{
-			item->AnActType = 2;
+			item->annotation().setActionType(2);
 			Destfile->setText("");
 			Destfile->hide();
 			ChFile->hide();
 			ComboBox1->setCurrentItem(1);
 		}
 		else
-			item->AnActType = 7;
+			item->annotation().setActionType(7);
 		SetPg(QMIN(SpinBox1->value(), MaxSeite));
 		break;
 	case 3:
@@ -290,17 +288,17 @@ void Annota::SetZiel(int it)
 		SpinBox1->hide();
 		SpinBox2->hide();
 		SpinBox3->hide();
-		item->AnActType = 8;
+		item->annotation().setActionType(8);
 		break;
 	case 11:
 		Fram->raiseWidget(1);
-		if (item->AnActType == 7)
+		if (item->annotation().ActionType() == 7)
 		{
 			Destfile->show();
 			ChFile->show();
 			Destfile->setReadOnly(true);
 		}
-		if (item->AnActType == 8)
+		if (item->annotation().ActionType() == 8)
 		{
 			Destfile->show();
 			Destfile->setReadOnly(false);

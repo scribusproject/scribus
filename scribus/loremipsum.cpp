@@ -233,10 +233,10 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 			done = true;
 			ss->Objekt = lp->createLorem(paraCount);
 			//int st = ScMW->view->SelItem.at(i)->Doc->currentParaStyle;
-			int st = currItem->Doc->currentParaStyle;
+			int st = currItem->document()->currentParaStyle;
 			if (st > 5)
 				//ss->GetText(ScMW->view->SelItem.at(i), st, ScMW->view->SelItem.at(i)->Doc->docParagraphStyles[st].Font, ScMW->view->SelItem.at(i)->Doc->docParagraphStyles[st].FontSize, true);
-				ss->GetText(currItem, st, currItem->Doc->docParagraphStyles[st].Font, currItem->Doc->docParagraphStyles[st].FontSize, true);
+				ss->GetText(currItem, st, currItem->document()->docParagraphStyles[st].Font, currItem->document()->docParagraphStyles[st].FontSize, true);
 			else
 				//ss->GetText(ScMW->view->SelItem.at(i), st, ScMW->view->SelItem.at(i)->IFont, ScMW->view->SelItem.at(i)->ISize, true);
 				ss->GetText(currItem, st, currItem->font(), currItem->fontSize(), true);
@@ -244,8 +244,8 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 		}
 		//if (ScMW->view->SelItem.at(i)->Doc->docHyphenator->AutoCheck)
 		//	ScMW->view->SelItem.at(i)->Doc->docHyphenator->slotHyphenate(ScMW->view->SelItem.at(i));
-		if (currItem->Doc->docHyphenator->AutoCheck)
-			currItem->Doc->docHyphenator->slotHyphenate(currItem);
+		if (currItem->document()->docHyphenator->AutoCheck)
+			currItem->document()->docHyphenator->slotHyphenate(currItem);
 	}
 	if (done)
 	{

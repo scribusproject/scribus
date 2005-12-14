@@ -870,7 +870,7 @@ void SEditor::saveItemText(PageItem *currItem)
 			if (hg->ch == QChar(25))
 			{
 				hg->cembedded = chars->at(c)->cembedded;
-				currItem->Doc->FrameItems.append(hg->cembedded);
+				currItem->document()->FrameItems.append(hg->cembedded);
 				if (hg->cembedded->Groups.count() != 0)
 				{
 					for (uint ga=0; ga<FrameItems.count(); ++ga)
@@ -881,8 +881,8 @@ void SEditor::saveItemText(PageItem *currItem)
 							{
 								if (FrameItems.at(ga)->ItemNr != hg->cembedded->ItemNr)
 								{
-									if (currItem->Doc->FrameItems.find(FrameItems.at(ga)) == -1)
-										currItem->Doc->FrameItems.append(FrameItems.at(ga));
+									if (currItem->document()->FrameItems.find(FrameItems.at(ga)) == -1)
+										currItem->document()->FrameItems.append(FrameItems.at(ga));
 								}
 							}
 						}

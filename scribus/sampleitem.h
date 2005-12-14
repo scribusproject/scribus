@@ -6,7 +6,6 @@
 #include "scribusstructs.h"
 
 class QString;
-class ParagraphStyle;
 class QColor;
 class ScribusDoc;
 //class PageItem;

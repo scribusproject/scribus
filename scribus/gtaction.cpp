@@ -310,7 +310,7 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 	fstyle->setBgColor(textFrame->fillColor());
 	fstyle->setBgShade(textFrame->fillShade());
 	
-	struct ParagraphStyle vg = textFrame->Doc->docParagraphStyles[textFrame->Doc->currentParaStyle];
+	struct ParagraphStyle vg = textFrame->document()->docParagraphStyles[textFrame->document()->currentParaStyle];
 	fstyle->setName(vg.Vname);
 	fstyle->setLineSpacing(vg.LineSpa);
 	fstyle->setAlignment(vg.textAlignment);
@@ -330,11 +330,12 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 
 void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 {
-	if (textFrame->Doc->docParagraphStyles.size() > 5)
+	ScribusDoc* currDoc=textFrame->document();
+	if (currDoc->docParagraphStyles.size() > 5)
 	{
-		for (uint i = 5; i < textFrame->Doc->docParagraphStyles.size(); ++i)
+		for (uint i = 5; i < currDoc->docParagraphStyles.size(); ++i)
 		{
-			if (textFrame->Doc->docParagraphStyles[i].Vname == pstyle->getName())
+			if (currDoc->docParagraphStyles[i].Vname == pstyle->getName())
 				return;
 		}
 	}
@@ -382,7 +383,7 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.txtUnderWidth = ScMW->doc->typographicSettings.valueUnderlineWidth;
 	vg.txtStrikePos = ScMW->doc->typographicSettings.valueStrikeThruPos;
 	vg.txtStrikeWidth = ScMW->doc->typographicSettings.valueStrikeThruPos;
-	textFrame->Doc->docParagraphStyles.append(vg);
+	textFrame->document()->docParagraphStyles.append(vg);
 	ScMW->propertiesPalette->Spal->updateFormatList();
 }
 

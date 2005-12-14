@@ -963,7 +963,7 @@ PyObject *scribus_setpdfbookmark(PyObject* /* self */, PyObject* args)
 	}
 	if (toggle)
 	{
-		i->isAnnotation = false;
+		i->setIsAnnotation(false);
 		ScMW->AddBookMark(i);
 	}
 	else

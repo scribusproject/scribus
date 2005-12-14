@@ -125,8 +125,8 @@ void ButtonIcon::MoveIconX(int x)
 
 void ButtonIcon::SetAllVals()
 {
-	Place->setCurrentItem(Item->AnIPlace);
-	ScaleW->setCurrentItem(Item->AnScaleW);
+	Place->setCurrentItem(Item->annotation().IPlace());
+	ScaleW->setCurrentItem(Item->annotation().ScaleW());
 	ScaleH->setCurrentItem(Item->imageXScale() != Item->imageYScale() ? 1 : 0);
 	SetScaleHow(ScaleW->currentItem());
 	SliderX->setValue(static_cast<int>(Item->imageXOffset() / (Item->width() - Item->pixm.width()) * 1000));

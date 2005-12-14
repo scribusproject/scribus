@@ -240,7 +240,7 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.isPrintable = pg.attribute("PRINTABLE").toInt();
 			OB.isBookmark = false;
 			OB.BMnr = 0;
-			OB.isAnnotation = pg.attribute("ANNOTATION", "0").toInt();
+			OB.m_isAnnotation = pg.attribute("ANNOTATION", "0").toInt();
 			if (pg.attribute("TRANSPARENT", "0").toInt() == 1)
 				OB.Pcolor = "None";
 			OB.Textflow = pg.attribute("TEXTFLOW").toInt();

@@ -323,6 +323,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/insertTable.h                 $(prefix)/include/scribus/insertTable.h
 	$(INSTALL_DATA) $(srcdir)/inspage.h                     $(prefix)/include/scribus/inspage.h
 	$(INSTALL_DATA) $(srcdir)/ioapi.h                       $(prefix)/include/scribus/ioapi.h
+	$(INSTALL_DATA) $(srcdir)/itemstructs.h                 $(prefix)/include/scribus/itemstructs.h
 	$(INSTALL_DATA) $(srcdir)/javadocs.h                    $(prefix)/include/scribus/javadocs.h
 	$(INSTALL_DATA) $(srcdir)/keymanager.h                  $(prefix)/include/scribus/keymanager.h
 	$(INSTALL_DATA) $(srcdir)/langmgr.h                     $(prefix)/include/scribus/langmgr.h
@@ -511,6 +512,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/insertTable.h
 	-rm -f $(prefix)/include/scribus/inspage.h
 	-rm -f $(prefix)/include/scribus/ioapi.h
+	-rm -f $(prefix)/include/scribus/itemstructs.h
 	-rm -f $(prefix)/include/scribus/javadocs.h
 	-rm -f $(prefix)/include/scribus/keymanager.h
 	-rm -f $(prefix)/include/scribus/langmgr.h

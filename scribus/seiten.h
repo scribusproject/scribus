@@ -47,7 +47,7 @@ friend class SeView;
 
 
 public:
-	SeItem(QTable* parent, QString text, QPixmap Pix);
+	SeItem(QTable* parent, QString text, const QPixmap& Pix);
 	~SeItem() {};
 	
 	const QString& getPageName();

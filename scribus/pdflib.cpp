@@ -601,8 +601,8 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFont
 		pgit = doc->FrameItems.at(c);
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
-			if (pgit->isAnnotation)
-				StdFonts.insert(ind2PDFabr[pgit->AnFont], "");
+			if (pgit->isAnnotation())
+				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
@@ -614,8 +614,8 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFont
 		pgit = doc->MasterItems.at(c);
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
-			if (pgit->isAnnotation)
-				StdFonts.insert(ind2PDFabr[pgit->AnFont], "");
+			if (pgit->isAnnotation())
+				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
@@ -627,8 +627,8 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFont
 		pgit = doc->Items->at(d);
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
-			if (pgit->isAnnotation)
-				StdFonts.insert(ind2PDFabr[pgit->AnFont], "");
+			if (pgit->isAnnotation())
+				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
@@ -1600,7 +1600,7 @@ void PDFlib::PDF_End_Page()
 {
 	uint PgNr =  ActPageP->pageNr();
 	Seite.ObjNum = ObjCounter;
-	WritePDFStream(&Inhalt);
+	WritePDFStream(Inhalt);
 	StartObj(ObjCounter);
 	PutDoc("<<\n/Type /Page\n/Parent 4 0 R\n");
 	PutDoc("/MediaBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+"]\n");
@@ -2305,7 +2305,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 			}
 			break;
 		case PageItem::TextFrame:
-			if ((ite->isAnnotation) && (Options->Version != 12))
+			if ((ite->isAnnotation()) && (Options->Version != 12))
 			{
 				PDF_Annotation(ite, PNr);
 				break;
@@ -3723,12 +3723,12 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	}
 	QStringList bmst = QStringList::split("\\r", bm);
 	const QString m[] = {"4", "5", "F", "l", "H", "n"};
-	ct = m[ite->AnChkStil];
+	ct = m[ite->annotation().ChkStil()];
 	StartObj(ObjCounter);
 	Seite.AObjects.append(ObjCounter);
 	ObjCounter++;
 	PutDoc("<<\n/Type /Annot\n");
-	switch (ite->AnType)
+	switch (ite->annotation().Type())
 	{
 		case 0:
 		case 10:
@@ -3738,22 +3738,22 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		case 1:
 		case 11:
 			PutDoc("/Subtype /Link\n");
-			if (ite->AnActType == 2)
+			if (ite->annotation().ActionType() == 2)
 			{
 				PutDoc("/Dest /"+NDnam+IToStr(NDnum)+"\n");
 				de.Name = NDnam+IToStr(NDnum);
-				de.Seite = ite->AnZiel;
-				de.Act = ite->AnAction;
+				de.Seite = ite->annotation().Ziel();
+				de.Act = ite->annotation().Action();
 				NamedDest.append(de);
 				NDnum++;
 			}
-			if (ite->AnActType == 7)
+			if (ite->annotation().ActionType() == 7)
 			{
-				PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+Path2Relative(ite->An_Extern)+")",ObjCounter-1)+"\n");
-				PutDoc("/D ["+IToStr(ite->AnZiel)+" /XYZ "+ite->AnAction+"]\n>>\n");
+				PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+Path2Relative(ite->annotation().Extern())+")",ObjCounter-1)+"\n");
+				PutDoc("/D ["+IToStr(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
 			}
-			if (ite->AnActType == 8)
-				PutDoc("/A << /Type /Action /S /URI\n/URI "+ EncString("("+ite->An_Extern+")",ObjCounter-1)+"\n>>\n");
+			if (ite->annotation().ActionType() == 8)
+				PutDoc("/A << /Type /Action /S /URI\n/URI "+ EncString("("+ite->annotation().Extern()+")",ObjCounter-1)+"\n>>\n");
 			break;
 		case 2:
 		case 3:
@@ -3763,36 +3763,36 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			Seite.FormObjects.append(ObjCounter-1);
 			PutDoc("/Subtype /Widget\n");
 			PutDoc("/T "+EncString("("+ite->itemName()+")",ObjCounter-1)+"\n");
-			if (!ite->AnToolTip.isEmpty())
-				PutDoc("/TU "+EncString("("+PDFEncode(ite->AnToolTip)+")",ObjCounter-1)+"\n");
+			if (!ite->annotation().ToolTip().isEmpty())
+				PutDoc("/TU "+EncString("("+PDFEncode(ite->annotation().ToolTip())+")",ObjCounter-1)+"\n");
 			PutDoc("/F ");
 			QString mm[] = {"4", "2", "0", "32"};
-			PutDoc(mm[ite->AnVis]);
+			PutDoc(mm[ite->annotation().Vis()]);
 			PutDoc("\n");
 			PutDoc("/BS << /Type /Border /W ");
-			PutDoc(ite->AnBColor != "None" ? IToStr(ite->AnBwid) : QString("0"));
+			PutDoc(ite->annotation().borderColor() != "None" ? IToStr(ite->annotation().Bwid()) : QString("0"));
 			PutDoc(" /S /");
 			const QString x[] = {"S", "D", "U", "B", "I"};
-			PutDoc(x[ite->AnBsty]);
+			PutDoc(x[ite->annotation().Bsty()]);
 			PutDoc(" >>\n");
-			cnx = "("+ind2PDFabr[ite->AnFont]+" "+FToStr(ite->fontSize() / 10.0)+" Tf";
+			cnx = "("+ind2PDFabr[ite->annotation().Font()]+" "+FToStr(ite->fontSize() / 10.0)+" Tf";
 			if (ite->TxtFill != "None")
 				cnx += " "+ putColor(ite->TxtFill, ite->ShTxtFill, true);
 			if (ite->fillColor() != "None")
 				cnx += " "+ putColor(ite->fillColor(), ite->fillShade(), false);
 			cnx += ")";
 			PutDoc("/DA "+EncString(cnx,ObjCounter-1)+"\n");
-			int flg = ite->AnFlag;
+			int flg = ite->annotation().Flag();
 			if (Options->Version == 13)
 				flg = flg & 522247;
 			PutDoc("/Ff "+IToStr(flg)+"\n");
 			QString xs[] = {"N", "I", "O", "P"};
-			switch (ite->AnType)
+			switch (ite->annotation().Type())
 			{
 				case 2:
 					PutDoc("/FT /Btn\n");
 					PutDoc("/H /");
-					PutDoc(xs[ite->AnFeed]);
+					PutDoc(xs[ite->annotation().Feed()]);
 					PutDoc("\n");
 					PutDoc("/Q 0\n");
 					break;
@@ -3802,12 +3802,12 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 					PutDoc("/DV "+EncString("("+bm+")",ObjCounter-1)+"\n");
 					PutDoc("/Q "+IToStr(QMIN(ite->textAlignment,2))+"\n");
 					PutDoc("/AP << /N "+IToStr(ObjCounter)+" 0 R >>\n");
-					if (ite->AnMaxChar != -1)
-						PutDoc("/MaxLen "+IToStr(ite->AnMaxChar)+"\n");
+					if (ite->annotation().MaxChar() != -1)
+						PutDoc("/MaxLen "+IToStr(ite->annotation().MaxChar())+"\n");
 					break;
 				case 4:
 					PutDoc("/FT /Btn\n");
-					PutDoc(ite->AnIsChk ? "/V /On\n/DV /On\n/AS /On\n" : 
+					PutDoc(ite->annotation().IsChk() ? "/V /On\n/DV /On\n/AS /On\n" : 
 								"/V /Off\n/DV /Off\n/AS /Off\n");
 					PutDoc("/AP << /N << /On "+IToStr(ObjCounter)+" 0 R >> >>\n");
 					break;
@@ -3830,28 +3830,28 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 					break;
 			}
 			PutDoc("/MK << ");
-			if ((ite->AnType == 5) || (ite->AnType == 6))
+			if ((ite->annotation().Type() == 5) || (ite->annotation().Type() == 6))
 			{
 				PutDoc("/BG [ 1 1 1 ] ");
-				if (ite->AnBColor != "None")
-					PutDoc("/BC [ "+SetFarbe(ite->AnBColor, 100)+" ] ");
+				if (ite->annotation().borderColor() != "None")
+					PutDoc("/BC [ "+SetFarbe(ite->annotation().borderColor(), 100)+" ] ");
 			}
       			else
 			{
 				if (ite->fillColor() != "None")
 					PutDoc("/BG [ "+SetFarbe(ite->fillColor(), ite->fillShade())+" ] ");
-				if (ite->AnBColor != "None")
-					PutDoc("/BC [ "+SetFarbe(ite->AnBColor, 100)+" ] ");
+				if (ite->annotation().borderColor() != "None")
+					PutDoc("/BC [ "+SetFarbe(ite->annotation().borderColor(), 100)+" ] ");
 			}
-			switch (ite->AnType)
+			switch (ite->annotation().Type())
 			{
 				case 2:
 					PutDoc("/CA "+EncString("("+bm+")",ObjCounter-1)+" ");
-					if (!ite->AnRollOver.isEmpty())
-						PutDoc("/RC "+ EncString("("+PDFEncode(ite->AnRollOver)+")",ObjCounter-1)+" ");
-					if (!ite->AnDown.isEmpty())
-						PutDoc("/AC "+ EncString("("+PDFEncode(ite->AnDown)+")",ObjCounter-1)+" ");
-					if (ite->AnUseIcons)
+					if (!ite->annotation().RollOver().isEmpty())
+						PutDoc("/RC "+ EncString("("+PDFEncode(ite->annotation().RollOver())+")",ObjCounter-1)+" ");
+					if (!ite->annotation().Down().isEmpty())
+						PutDoc("/AC "+ EncString("("+PDFEncode(ite->annotation().Down())+")",ObjCounter-1)+" ");
+					if (ite->annotation().UseIcons())
 					{
 						if (!ite->Pfile.isEmpty())
 						{
@@ -3876,16 +3876,16 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 							im = "";
 							PutDoc("/RI "+IToStr(ObjCounter+IconOb-1)+" 0 R ");
 						}
-						PutDoc("/TP "+IToStr(ite->AnIPlace)+" ");
+						PutDoc("/TP "+IToStr(ite->annotation().IPlace())+" ");
 						PutDoc("/IF << /SW /");
 						QString x[] = {"A", "S", "B", "N"};
-						PutDoc(x[ite->AnScaleW]);
+						PutDoc(x[ite->annotation().ScaleW()]);
 						PutDoc(" /S /");
 						PutDoc(ite->imageXScale() != ite->imageYScale() ? "A" : "P");
 						PutDoc(" /A [ ");
 						if ((ite->width()/ite->imageXScale() - ite->pixm.width()) != 0)
 						{
-							if (ite->AnScaleW == 3)
+							if (ite->annotation().ScaleW() == 3)
 								PutDoc(FToStr(QMAX(ite->imageXOffset() / (ite->width()/ite->imageXScale() - ite->pixm.width()), 0.01)));
 							else
 								PutDoc("0.5 ");
@@ -3894,7 +3894,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 							PutDoc("0 ");
 						if ((ite->height()/ite->imageYScale() - ite->pixm.height()) != 0)
 						{
-							if (ite->AnScaleW == 3)
+							if (ite->annotation().ScaleW() == 3)
 								PutDoc(FToStr(QMAX(ite->imageYOffset() / (ite->height()/ite->imageYScale() - ite->pixm.height()), 0.01)));
 							else
 								PutDoc("0.5");
@@ -3915,75 +3915,75 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			if (ite->rotation() != 0)
 				PutDoc("/R "+IToStr((abs(static_cast<int>(ite->rotation())) / 90)*90)+" ");
 			PutDoc(">>\n");
-			if ((ite->AnActType != 0) || (ite->AnAAact))
+			if ((ite->annotation().ActionType() != 0) || (ite->annotation().AAact()))
 			{
-				if (ite->AnActType == 7)
+				if (ite->annotation().ActionType() == 7)
 				{
-					PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+Path2Relative(ite->An_Extern)+")",ObjCounter-1)+ "\n");
-					PutDoc("/D ["+IToStr(ite->AnZiel)+" /XYZ "+ite->AnAction+"]\n>>\n");
+					PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+Path2Relative(ite->annotation().Extern())+")",ObjCounter-1)+ "\n");
+					PutDoc("/D ["+IToStr(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
 				}
-				if (ite->AnActType == 5)
-					PutDoc("/A << /Type /Action /S /ImportData\n/F "+ EncString("("+ite->AnAction+")",ObjCounter-1)+" >>\n");
-				if (ite->AnActType == 4)
+				if (ite->annotation().ActionType() == 5)
+					PutDoc("/A << /Type /Action /S /ImportData\n/F "+ EncString("("+ite->annotation().Action()+")",ObjCounter-1)+" >>\n");
+				if (ite->annotation().ActionType() == 4)
 					PutDoc("/A << /Type /Action /S /ResetForm >>\n");
-				if (ite->AnActType == 3)
+				if (ite->annotation().ActionType() == 3)
 				{
-					PutDoc("/A << /Type /Action /S /SubmitForm\n/F << /FS /URL /F "+ EncString("("+ite->AnAction+")",ObjCounter-1)+" >>\n");
-					if (ite->AnHTML)
+					PutDoc("/A << /Type /Action /S /SubmitForm\n/F << /FS /URL /F "+ EncString("("+ite->annotation().Action()+")",ObjCounter-1)+" >>\n");
+					if (ite->annotation().HTML())
 						PutDoc("/Flags 4");
 					PutDoc(">>\n");
 				}
-				if (ite->AnActType == 1)
+				if (ite->annotation().ActionType() == 1)
 				{
-					if (!ite->AnAction.isEmpty())
+					if (!ite->annotation().Action().isEmpty())
 					{
 						PutDoc("/A << /Type /Action /S /JavaScript /JS ");
-						PutDoc(ite->AnType > 2 ? IToStr(ObjCounter+1+IconOb) :
+						PutDoc(ite->annotation().Type() > 2 ? IToStr(ObjCounter+1+IconOb) :
 						 IToStr(ObjCounter+IconOb));
 						PutDoc(" 0 R >>\n");
 					}
 				}
-				if (ite->AnAAact)
+				if (ite->annotation().AAact())
 				{
-					if (!ite->AnAction.isEmpty())
+					if (!ite->annotation().Action().isEmpty())
 					{
 						PutDoc("/A << /Type /Action /S /JavaScript /JS ");
-						PutDoc(ite->AnType > 2 ? IToStr(ObjCounter+1+IconOb) :
+						PutDoc(ite->annotation().Type() > 2 ? IToStr(ObjCounter+1+IconOb) :
 						 IToStr(ObjCounter+IconOb));
 						PutDoc(" 0 R >>\n");
 					}
 					PutDoc("/AA ");
-					if (ite->AnType > 2)
+					if (ite->annotation().Type() > 2)
 						{
-						if (!ite->AnAction.isEmpty())
+						if (!ite->annotation().Action().isEmpty())
 							PutDoc(IToStr(ObjCounter+2+IconOb));
 						else
 							PutDoc(IToStr(ObjCounter+1+IconOb));
 						}
 					else
 						{
-						if (!ite->AnAction.isEmpty())
+						if (!ite->annotation().Action().isEmpty())
 							PutDoc(IToStr(ObjCounter+1+IconOb));
 						else
 							PutDoc(IToStr(ObjCounter));
 						}
 					PutDoc(" 0 R\n");
-					if (!ite->An_C_act.isEmpty())
+					if (!ite->annotation().C_act().isEmpty())
 						CalcFields.append(ObjCounter-1+IconOb);
 				}
-				if (ite->AnActType == 2)
+				if (ite->annotation().ActionType() == 2)
 				{
 					PutDoc("/A << /Type /Action /S /GoTo /D /"+NDnam+IToStr(NDnum)+" >>\n");
 					de.Name = NDnam+IToStr(NDnum);
-					de.Seite = ite->AnZiel;
-					de.Act = ite->AnAction;
+					de.Seite = ite->annotation().Ziel();
+					de.Act = ite->annotation().Action();
 					NamedDest.append(de);
 					NDnum++;
 				}
 			}
 			break;
 		}
-	if ((ite->AnType < 2) || (ite->AnType > 9))
+	if ((ite->annotation().Type() < 2) || (ite->annotation().Type() > 9))
 		PutDoc("/Border [ 0 0 0 ]\n");
 	switch (((abs(static_cast<int>(ite->rotation())) / 90)*90))
 	{
@@ -4018,7 +4018,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	size_t ar2 = sizeof(tmpf) / sizeof(*tmpf);
 	for (uint ax = 0; ax < ar2; ++ax)
 		ind2PDFabr2[ax] = tmpf[ax];
-	if ((ite->AnType == 2) && (ite->AnUseIcons))
+	if ((ite->annotation().Type() == 2) && (ite->annotation().UseIcons()))
 	{
 		if (!ite->Pfile.isEmpty())
 		{
@@ -4042,7 +4042,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			PDF_xForm(img2.width(), img2.height(), cc);
 		}
 	}
-	if (ite->AnType == 3)
+	if (ite->annotation().Type() == 3)
 	{
 		cc = "";
 		if (ite->fillColor() != "None")
@@ -4051,7 +4051,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += "/Tx BMC\nBT\n";
 		if (ite->TxtFill != "None")
 			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
-		cc += "/"+StdFonts[ind2PDFabr2[ite->AnFont]];
+		cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		if (bmst.count() > 1)
 		{
@@ -4068,7 +4068,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 //		PDF_Form(cc);
 		PDF_xForm(ite->width(), ite->height(), cc);
 	}
-	if (ite->AnType == 4)
+	if (ite->annotation().Type() == 4)
 	{
 		cc = "q\nBT\n";
 		if (ite->TxtFill != "None")
@@ -4078,20 +4078,20 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 //		PDF_Form(cc);
 		PDF_xForm(ite->width(), ite->height(), cc);
 	}
-	if ((ite->AnType == 5) || (ite->AnType == 6))
+	if ((ite->annotation().Type() == 5) || (ite->annotation().Type() == 6))
 	{
 		cc = "";
 		cc += "1 g\n";
 		cc += "0 0 "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nf\n";
-		cc += IToStr(ite->AnBwid)+" w\n";
-		if (ite->AnBColor != "None")
-			cc += putColor(ite->AnBColor, 100l, false);
+		cc += IToStr(ite->annotation().Bwid())+" w\n";
+		if (ite->annotation().borderColor() != "None")
+			cc += putColor(ite->annotation().borderColor(), 100l, false);
 		else
 			cc += "0 G\n";
 		cc += "0 0 "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nS\n";
 		cc += "/Tx BMC\nq\nBT\n";
 		cc += "0 g\n";
-		cc += "/"+StdFonts[ind2PDFabr2[ite->AnFont]];
+		cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 //		cc += ind2PDFabr[ite->AnFont];
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
@@ -4100,59 +4100,59 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += " Tj\nET\nQ\nEMC";
 		PDF_xForm(ite->width(), ite->height(), cc);
 	}
-	if ((ite->AnType > 1) && ((ite->AnActType == 1) || (ite->AnAAact)) && (!ite->AnAction.isEmpty()))
-		WritePDFStream(&ite->AnAction);
-	if ((ite->AnType > 1) && (ite->AnAAact))
+	if ((ite->annotation().Type() > 1) && ((ite->annotation().ActionType() == 1) || (ite->annotation().AAact())) && (!ite->annotation().Action().isEmpty()))
+		WritePDFStream(ite->annotation().Action());
+	if ((ite->annotation().Type() > 1) && (ite->annotation().AAact()))
 	{
 		StartObj(ObjCounter);
 		ObjCounter++;
 		PutDoc("<<\n");
-		if (!ite->An_E_act.isEmpty())
+		if (!ite->annotation().E_act().isEmpty())
 		{
 			PutDoc("/E << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+" 0 R >>\n");
 			AAcoun++;
 		}
-		if (!ite->An_X_act.isEmpty())
+		if (!ite->annotation().X_act().isEmpty())
 		{
 			PutDoc("/X << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+" 0 R >>\n");
 			AAcoun++;
 		}
-		if (!ite->An_D_act.isEmpty())
+		if (!ite->annotation().D_act().isEmpty())
 		{
 			PutDoc("/D << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+" 0 R >>\n");
 			AAcoun++;
 		}
-		if (!ite->An_Fo_act.isEmpty())
+		if (!ite->annotation().Fo_act().isEmpty())
 		{
 			PutDoc("/Fo << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+" 0 R >>\n");
 			AAcoun++;
 		}
-		if (!ite->An_Bl_act.isEmpty())
+		if (!ite->annotation().Bl_act().isEmpty())
 		{
 			PutDoc("/Bl << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+" 0 R >>\n");
 			AAcoun++;
 		}
-		if ((ite->AnType == 3) || (ite->AnType == 5) || (ite->AnType == 6))
+		if ((ite->annotation().Type() == 3) || (ite->annotation().Type() == 5) || (ite->annotation().Type() == 6))
 		{
-			if (!ite->An_K_act.isEmpty())
+			if (!ite->annotation().K_act().isEmpty())
 			{
 				PutDoc("/K << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+
 					" 0 R >>\n");
 				AAcoun++;
 			}
-			if (!ite->An_F_act.isEmpty())
+			if (!ite->annotation().F_act().isEmpty())
 			{
 				PutDoc("/F << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+
 					" 0 R >>\n");
 				AAcoun++;
 			}
-			if (!ite->An_V_act.isEmpty())
+			if (!ite->annotation().V_act().isEmpty())
 			{
 				PutDoc("/V << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+
 					" 0 R >>\n");
 				AAcoun++;
 			}
-			if (!ite->An_C_act.isEmpty())
+			if (!ite->annotation().C_act().isEmpty())
 			{
 				PutDoc("/C << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+
 					" 0 R >>\n");
@@ -4160,33 +4160,33 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			}
 		}
 		PutDoc(">>\nendobj\n");
-		if (!ite->An_E_act.isEmpty())
-			WritePDFStream(&ite->An_E_act);
-		if (!ite->An_X_act.isEmpty())
-			WritePDFStream(&ite->An_X_act);
-		if (!ite->An_D_act.isEmpty())
-			WritePDFStream(&ite->An_D_act);
-		if (!ite->An_Fo_act.isEmpty())
-			WritePDFStream(&ite->An_Fo_act);
-		if (!ite->An_Bl_act.isEmpty())
-			WritePDFStream(&ite->An_Bl_act);
-		if ((ite->AnType == 3) || (ite->AnType == 5) || (ite->AnType == 6))
+		if (!ite->annotation().E_act().isEmpty())
+			WritePDFStream(ite->annotation().E_act());
+		if (!ite->annotation().X_act().isEmpty())
+			WritePDFStream(ite->annotation().X_act());
+		if (!ite->annotation().D_act().isEmpty())
+			WritePDFStream(ite->annotation().D_act());
+		if (!ite->annotation().Fo_act().isEmpty())
+			WritePDFStream(ite->annotation().Fo_act());
+		if (!ite->annotation().Bl_act().isEmpty())
+			WritePDFStream(ite->annotation().Bl_act());
+		if ((ite->annotation().Type() == 3) || (ite->annotation().Type() == 5) || (ite->annotation().Type() == 6))
 		{
-			if (!ite->An_K_act.isEmpty())
-				WritePDFStream(&ite->An_K_act);
-			if (!ite->An_F_act.isEmpty())
-				WritePDFStream(&ite->An_F_act);
-			if (!ite->An_V_act.isEmpty())
-				WritePDFStream(&ite->An_V_act);
-			if (!ite->An_C_act.isEmpty())
-				WritePDFStream(&ite->An_C_act);
+			if (!ite->annotation().K_act().isEmpty())
+				WritePDFStream(ite->annotation().K_act());
+			if (!ite->annotation().F_act().isEmpty())
+				WritePDFStream(ite->annotation().F_act());
+			if (!ite->annotation().V_act().isEmpty())
+				WritePDFStream(ite->annotation().V_act());
+			if (!ite->annotation().C_act().isEmpty())
+				WritePDFStream(ite->annotation().C_act());
 		}
 	}
 }
 
-void PDFlib::WritePDFStream(QString *cc)
+void PDFlib::WritePDFStream(const QString& cc)
 {
-	QString tmp = *cc;
+	QString tmp(cc);
 	if ((Options->Compress) && (CompAvail))
 		tmp = CompressStr(&tmp);
 	StartObj(ObjCounter);
@@ -4523,7 +4523,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			else
 				imgE = true;
 		}
-		img.applyEffect(c->effectsInUse, c->Doc->PageColors, imgE);
+		img.applyEffect(c->effectsInUse, c->document()->PageColors, imgE);
 		if (!Options->RecalcPic)
 		{
 			sxn = sx * (1.0 / aufl);
@@ -4946,7 +4946,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 		int Fjav0 = ObjCounter;
 		QMap<QString,QString>::Iterator itja0;
 		for (itja0 = doc->JavaScripts.begin(); itja0 != doc->JavaScripts.end(); ++itja0)
-			WritePDFStream(&itja0.data());
+			WritePDFStream(itja0.data());
 		int Fjav = ObjCounter;
 		QMap<QString,QString>::Iterator itja;
 		for (itja = doc->JavaScripts.begin(); itja != doc->JavaScripts.end(); ++itja)

@@ -27,12 +27,12 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, Scribu
 		PageItem* item = Doc->Items->at(se);
 		if (Art < 2)
 		{
-			if ((item->isAnnotation) && (item->AnType > 1))
+			if ((item->isAnnotation()) && (item->annotation().Type() > 1))
 				AvailFields->insertItem(item->itemName());
 		}
 		else
 		{
-			if ((item->isAnnotation) && (item->AnType == Art) && (item->itemName() != Own))
+			if ((item->isAnnotation()) && (item->annotation().Type() == Art) && (item->itemName() != Own))
 				AvailFields->insertItem(item->itemName());
 		}
 	}

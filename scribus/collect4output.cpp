@@ -183,7 +183,7 @@ bool CollectForOutput::collectItems()
 			}
 			if (ite->asTextFrame())
 			{
-				if (ite->isAnnotation)
+				if (ite->isAnnotation())
 				{
 					QFileInfo itf;
 					if (!ite->Pfile.isEmpty())

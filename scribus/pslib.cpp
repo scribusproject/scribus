@@ -1509,7 +1509,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				}
 				PDF_Bookmark(bm, a->pageNr()+1);
 			}
-			if (c->isAnnotation)
+			if (c->isAnnotation())
 			{
 				QString bm = "";
 				QString cc;
