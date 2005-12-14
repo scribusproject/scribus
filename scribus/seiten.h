@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'Seiten2.ui'
-**
-** Created: Mon Apr 1 12:07:27 2002
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #ifndef SEITENPAL_H
 #define SEITENPAL_H
 

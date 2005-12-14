@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'DelPage.ui'
-**
-** Created: Thu Jun 14 11:37:35 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #ifndef DELPAGES_H
 #define DELPAGES_H
 

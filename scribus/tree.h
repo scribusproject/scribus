@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'tree.ui'
-**
-** Created: Thu May 24 10:46:08 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #ifndef TREE_H
 #define TREE_H
 
