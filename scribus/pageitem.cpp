@@ -359,6 +359,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	isPrintable = true;
 	isBookmark = false;
 	BMnr = 0;
+	/*
 	m_isAnnotation = false;
 	m_annotation.setType(0);
 	m_annotation.setActionType(0);
@@ -374,6 +375,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_annotation.setV_act("");
 	m_annotation.setC_act("");
 	m_annotation.setExtern("");
+	*/
 	switch (itemTypeVal)
 	{
 	case ImageFrame:
@@ -408,6 +410,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	AutoName = true;
 	setUName(AnName);
 	m_Doc->TotalItems++;
+	/*
 	m_annotation.setToolTip("");
 	m_annotation.setRollOver("");
 	m_annotation.setDown("");
@@ -425,7 +428,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_annotation.setUseIcons(false);
 	m_annotation.setIPlace(1);
 	m_annotation.setScaleW(0);
-	m_annotation.setMaxChar(-1);
+	m_annotation.setMaxChar(-1);*/
 	m_annotation.setBorderColor(outline);
 	HasSel = false;
 	Tinput = false;

@@ -28,6 +28,16 @@
 class Annotation
 {
 	public:
+		//Do we need a null or an empty QString for these? Remove the qstring initialiations if null is ok.
+		Annotation() : AnType(0), AnActType(0), AnAction(""), An_E_act(""), An_X_act(""), An_D_act(""),
+						An_Fo_act(""), An_Bl_act(""), An_K_act(""), An_F_act(""), An_V_act(""), An_C_act(""),
+						AnToolTip(""), AnRollOver(""), AnDown(""), AnBColor(""), An_Extern(""), AnBsty(0),
+						AnBwid(1), AnFeed(1), AnZiel(0), AnFlag(0), AnMaxChar(-1), AnVis(0), AnChkStil(0),
+						AnFont(4), AnIsChk(false), AnAAact(false), AnHTML(false), AnUseIcons(false),
+						AnIPlace(1), AnScaleW(0), AnFormat(0)
+		{
+		}
+		
 		void setType(int newType) { AnType=newType; }
 		void setAction(const QString& newAction) { AnAction=newAction; }
 		void setE_act(const QString& newE_act) { An_E_act=newE_act; }

@@ -256,6 +256,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/alignselect.h                 $(prefix)/include/scribus/alignselect.h
 	$(INSTALL_DATA) $(srcdir)/annot.h                       $(prefix)/include/scribus/annot.h
 	$(INSTALL_DATA) $(srcdir)/annota.h                      $(prefix)/include/scribus/annota.h
+	$(INSTALL_DATA) $(srcdir)/annotation.h                  $(prefix)/include/scribus/annotation.h
 	$(INSTALL_DATA) $(srcdir)/applytemplatedialog.h         $(prefix)/include/scribus/applytemplatedialog.h
 	$(INSTALL_DATA) $(srcdir)/arrowchooser.h                $(prefix)/include/scribus/arrowchooser.h
 	$(INSTALL_DATA) $(srcdir)/autoform.h                    $(prefix)/include/scribus/autoform.h
@@ -323,7 +324,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/insertTable.h                 $(prefix)/include/scribus/insertTable.h
 	$(INSTALL_DATA) $(srcdir)/inspage.h                     $(prefix)/include/scribus/inspage.h
 	$(INSTALL_DATA) $(srcdir)/ioapi.h                       $(prefix)/include/scribus/ioapi.h
-	$(INSTALL_DATA) $(srcdir)/itemstructs.h                 $(prefix)/include/scribus/itemstructs.h
 	$(INSTALL_DATA) $(srcdir)/javadocs.h                    $(prefix)/include/scribus/javadocs.h
 	$(INSTALL_DATA) $(srcdir)/keymanager.h                  $(prefix)/include/scribus/keymanager.h
 	$(INSTALL_DATA) $(srcdir)/langmgr.h                     $(prefix)/include/scribus/langmgr.h
@@ -438,6 +438,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/alignselect.h
 	-rm -f $(prefix)/include/scribus/annot.h
 	-rm -f $(prefix)/include/scribus/annota.h
+	-rm -f $(prefix)/include/scribus/annotation.h
 	-rm -f $(prefix)/include/scribus/applytemplatedialog.h
 	-rm -f $(prefix)/include/scribus/arrowchooser.h
 	-rm -f $(prefix)/include/scribus/art_kmisc.h
@@ -512,7 +513,6 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/insertTable.h
 	-rm -f $(prefix)/include/scribus/inspage.h
 	-rm -f $(prefix)/include/scribus/ioapi.h
-	-rm -f $(prefix)/include/scribus/itemstructs.h
 	-rm -f $(prefix)/include/scribus/javadocs.h
 	-rm -f $(prefix)/include/scribus/keymanager.h
 	-rm -f $(prefix)/include/scribus/langmgr.h
