@@ -211,19 +211,11 @@
     <variable>QStringList autoAddToData;</variable>
 </variables>
 <slots>
-    <slot>setup( ObjAttrVector * docItemAttrs )</slot>
-    <slot access="protected">tableItemChanged( int row, int col )</slot>
-    <slot access="protected">addEntry()</slot>
-    <slot access="protected">deleteEntry()</slot>
-    <slot access="protected">clearEntries()</slot>
-    <slot access="protected">copyEntry()</slot>
+    <slot access="protected" specifier="pure virtual">tableItemChanged( int row, int col )</slot>
+    <slot access="protected" specifier="pure virtual">addEntry()</slot>
+    <slot access="protected" specifier="pure virtual">deleteEntry()</slot>
+    <slot access="protected" specifier="pure virtual">clearEntries()</slot>
+    <slot access="protected" specifier="pure virtual">copyEntry()</slot>
 </slots>
-<functions>
-    <function access="private">init()</function>
-    <function access="private" specifier="non virtual">destroy()</function>
-    <function returnType="ObjAttrVector *">getNewAttributes()</function>
-    <function access="protected">updateTable()</function>
-    <function returnType="QStringList">getDocAttributesNames()</function>
-</functions>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

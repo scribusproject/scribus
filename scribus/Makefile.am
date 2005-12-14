@@ -129,7 +129,8 @@ scribus_SOURCES = \
 	newfile.cpp	\
 	newtemp.cpp	\
 	page.cpp	\
-	pageitemattributes.ui	\
+	pageitemattributesbase.ui	\
+	pageitemattributes.cpp	\
 	pageitem.cpp	\
 	pageitem_imageframe.cpp	\
 	pageitem_line.cpp	\

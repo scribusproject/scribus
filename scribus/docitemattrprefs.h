@@ -5,19 +5,21 @@
 
 class DocumentItemAttributes : public DocumentItemAttributesBase
 {
+	Q_OBJECT
 	public:
-		DocumentItemAttributes(QWidget* parent);
+		DocumentItemAttributes( QWidget* parent = 0, const char* name = 0, WFlags fl = 0 );
 		~DocumentItemAttributes();
-		QStringList getDocAttributesNames();
-		ObjAttrVector* getNewAttributes();
-		void setup(ObjAttrVector *docItemAttrs);
+		virtual QStringList getDocAttributesNames();
+		virtual ObjAttrVector* getNewAttributes();
+		virtual void setup(ObjAttrVector *docItemAttrs);
 	protected:
-		void tableItemChanged( int row, int col );
-		void addEntry();
-		void updateTable();
-		void deleteEntry();
-		void clearEntries();
-		void copyEntry();
+		virtual void updateTable();
+	protected slots:
+		virtual void tableItemChanged( int row, int col );
+		virtual void addEntry();
+		virtual void deleteEntry();
+		virtual void clearEntries();
+		virtual void copyEntry();
 };
 
 #endif

@@ -4,8 +4,8 @@
 #include <qtable.h>
 #include <qpushbutton.h>
 
-DocumentItemAttributes::DocumentItemAttributes(QWidget* parent)
-	: DocumentItemAttributesBase(parent)
+DocumentItemAttributes::DocumentItemAttributes(  QWidget* parent, const char* name, WFlags fl  )
+	: DocumentItemAttributesBase(parent, name, fl)
 {
 	relationships << tr("None") << tr("Relates To") << tr("Is Parent Of") << tr("Is Child Of");
 	relationshipsData << "none" << "relation" << "parent" << "child";
@@ -215,3 +215,5 @@ QStringList DocumentItemAttributes::getDocAttributesNames()
 		nameList.append((*it).name);
 	return nameList;
 }
+
+#include "docitemattrprefs.moc"

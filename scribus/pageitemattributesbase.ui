@@ -1,14 +1,14 @@
 <!DOCTYPE UI><UI version="3.3" stdsetdef="1">
-<class>PageItemAttributes</class>
+<class>PageItemAttributesBase</class>
 <widget class="QDialog">
     <property name="name">
-        <cstring>PageItemAttributes</cstring>
+        <cstring>PageItemAttributesBase</cstring>
     </property>
     <property name="geometry">
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>474</width>
+            <width>573</width>
             <height>151</height>
         </rect>
     </property>
@@ -181,43 +181,43 @@
     <connection>
         <sender>cancelButton</sender>
         <signal>clicked()</signal>
-        <receiver>PageItemAttributes</receiver>
+        <receiver>PageItemAttributesBase</receiver>
         <slot>reject()</slot>
     </connection>
     <connection>
         <sender>okButton</sender>
         <signal>clicked()</signal>
-        <receiver>PageItemAttributes</receiver>
+        <receiver>PageItemAttributesBase</receiver>
         <slot>okClicked()</slot>
     </connection>
     <connection>
         <sender>attributesTable</sender>
         <signal>valueChanged(int,int)</signal>
-        <receiver>PageItemAttributes</receiver>
+        <receiver>PageItemAttributesBase</receiver>
         <slot>tableItemChanged(int,int)</slot>
     </connection>
     <connection>
         <sender>addButton</sender>
         <signal>clicked()</signal>
-        <receiver>PageItemAttributes</receiver>
+        <receiver>PageItemAttributesBase</receiver>
         <slot>addEntry()</slot>
     </connection>
     <connection>
         <sender>deleteButton</sender>
         <signal>clicked()</signal>
-        <receiver>PageItemAttributes</receiver>
+        <receiver>PageItemAttributesBase</receiver>
         <slot>deleteEntry()</slot>
     </connection>
     <connection>
         <sender>clearButton</sender>
         <signal>clicked()</signal>
-        <receiver>PageItemAttributes</receiver>
+        <receiver>PageItemAttributesBase</receiver>
         <slot>clearEntries()</slot>
     </connection>
     <connection>
         <sender>copyButton</sender>
         <signal>clicked()</signal>
-        <receiver>PageItemAttributes</receiver>
+        <receiver>PageItemAttributesBase</receiver>
         <slot>copyEntry()</slot>
     </connection>
 </connections>
@@ -225,7 +225,6 @@
     <include location="local" impldecl="in declaration">pagestructs.h</include>
     <include location="global" impldecl="in implementation">qtable.h</include>
     <include location="global" impldecl="in implementation">qheader.h</include>
-    <include location="local" impldecl="in implementation">pageitemattributes.ui.h</include>
 </includes>
 <variables>
     <variable>ObjAttrVector localDocAttributes;</variable>
@@ -235,19 +234,12 @@
     <variable>QStringList nameList;</variable>
 </variables>
 <slots>
-    <slot>setup( ObjAttrVector * pageItemAttrs, ObjAttrVector * docItemAttrs )</slot>
-    <slot>tableItemChanged( int row, int col )</slot>
-    <slot access="protected">addEntry()</slot>
-    <slot access="protected">deleteEntry()</slot>
-    <slot access="protected">clearEntries()</slot>
-    <slot access="protected">copyEntry()</slot>
-    <slot access="protected">okClicked()</slot>
+    <slot specifier="pure virtual">tableItemChanged( int row, int col )</slot>
+    <slot access="protected" specifier="pure virtual">addEntry()</slot>
+    <slot access="protected" specifier="pure virtual">deleteEntry()</slot>
+    <slot access="protected" specifier="pure virtual">clearEntries()</slot>
+    <slot access="protected" specifier="pure virtual">copyEntry()</slot>
+    <slot access="protected" specifier="pure virtual">okClicked()</slot>
 </slots>
-<functions>
-    <function access="private" specifier="non virtual">init()</function>
-    <function access="private" specifier="non virtual">destroy()</function>
-    <function returnType="ObjAttrVector *">getNewAttributes()</function>
-    <function access="protected">updateTable()</function>
-</functions>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
