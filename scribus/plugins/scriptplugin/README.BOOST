@@ -1,0 +1,14 @@
+Experimental support for the use of Boost::Python has been added to the Python
+interface. All Boost code is exported in a separate module, scribus2, that is
+only created if Boost::Python is available.
+
+Currently there's no autotools support for this in Scribus, so to compile the
+scripter with this highly experimental feature you must:
+
+$ make clean
+$ make CXXFLAGS=" -DHAVE_BOOST_PYTHON -fexceptions " LDFLAGS=" -lboost_python "
+$ make install
+
+For more information on Boost::Python see:
+	http://www.boost.org/libs/python/doc/
+	http://www-eleves-isia.cma.fr/documentation/BoostDoc/boost_1_29_0/libs/python/doc/tutorial/

@@ -5,8 +5,14 @@
 #undef _XOPEN_SOURCE
 #endif
 
+#if defined(HAVE_BOOST_PYTHON)
+#include <boost/python.hpp>
+#else
 #include <Python.h>
+#endif
+
 #include <qstring.h>
+
 #include "scribus.h"
 
 class ScripterCore;

@@ -37,6 +37,7 @@
 #include "objimageexport.h"
 #include "guiapp.h"
 #include "svgimport.h"
+#include "scripter2_base.h"
 #include "scriptercore.h"
 
 #include "customfdialog.h"
@@ -161,6 +162,7 @@ bool ScriptPlugin::initPlugin()
 	scripterCore = new ScripterCore(ScMW);
 	Q_CHECK_PTR(scripterCore);
 	initscribus(ScMW);
+	scribus2_init();
 	scripterCore->setupMainInterpreter();
 	scripterCore->initExtensionScripts();
 	scripterCore->runStartupScript();
