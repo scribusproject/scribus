@@ -1381,9 +1381,9 @@ bool ScImage::loadChannel( QDataStream & s, const PSDHeader & header, QValueList
 				else if ((header.color_mode == CM_INDEXED) && (component != 3))
 				{
 					int ccol = colorTable[cbyte];
-					ptr[0] = qRed(ccol);
+					ptr[2] = qRed(ccol);
 					ptr[1] = qGreen(ccol);
-					ptr[2] = qBlue(ccol);
+					ptr[0] = qBlue(ccol);
 				}
 				else
 				{
@@ -1439,9 +1439,9 @@ bool ScImage::loadChannel( QDataStream & s, const PSDHeader & header, QValueList
 							{
 								ptr -= component;
 								int ccol = colorTable[cbyte];
-								ptr[0] = qRed(ccol);
+								ptr[2] = qRed(ccol);
 								ptr[1] = qGreen(ccol);
-								ptr[2] = qBlue(ccol);
+								ptr[0] = qBlue(ccol);
 								ptr += component;
 							}
 							else
@@ -1480,9 +1480,9 @@ bool ScImage::loadChannel( QDataStream & s, const PSDHeader & header, QValueList
 							{
 								ptr -= component;
 								int ccol = colorTable[val];
-								ptr[0] = qRed(ccol);
+								ptr[2] = qRed(ccol);
 								ptr[1] = qGreen(ccol);
-								ptr[2] = qBlue(ccol);
+								ptr[0] = qBlue(ccol);
 								ptr += component;
 							}
 							else
@@ -2140,9 +2140,9 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 						{
 							ptr -= components[channel];
 							int ccol = colorTable[cbyte];
-							ptr[0] = qRed(ccol);
+							ptr[2] = qRed(ccol);
 							ptr[1] = qGreen(ccol);
-							ptr[2] = qBlue(ccol);
+							ptr[0] = qBlue(ccol);
 							ptr += components[channel];
 						}
 						else
@@ -2178,9 +2178,9 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 						{
 							ptr -= components[channel];
 							int ccol = colorTable[val];
-							ptr[0] = qRed(ccol);
+							ptr[2] = qRed(ccol);
 							ptr[1] = qGreen(ccol);
-							ptr[2] = qBlue(ccol);
+							ptr[0] = qBlue(ccol);
 							ptr += components[channel];
 						}
 						else
@@ -2223,9 +2223,9 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 				{
 					ptr -= components[channel];
 					int ccol = colorTable[cbyte];
-					ptr[0] = qRed(ccol);
+					ptr[2] = qRed(ccol);
 					ptr[1] = qGreen(ccol);
-					ptr[2] = qBlue(ccol);
+					ptr[0] = qBlue(ccol);
 					ptr += components[channel];
 				}
 				else
