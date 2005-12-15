@@ -359,8 +359,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	isPrintable = true;
 	isBookmark = false;
 	BMnr = 0;
-	/*
 	m_isAnnotation = false;
+	/*
 	m_annotation.setType(0);
 	m_annotation.setActionType(0);
 	m_annotation.setBwid(1);
