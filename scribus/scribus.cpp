@@ -1299,10 +1299,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				if (doc->appMode == modePanning)
 					setAppMode(modeNormal);
 				else
-				{
 					setAppMode(modePanning);
-					qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
-				}
 				return;
 				break;
 			case Key_Prior:
@@ -1512,6 +1509,11 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 
 void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 {
+	if (k->state() & ControlButton)
+	{
+		if ((doc->appMode == modePanning) && (k->state() & Qt::RightButton))
+			setAppMode(modeNormal);
+	}
 	if (k->isAutoRepeat() || !_arrowKeyDown)
 		return;
 	switch(k->key())
@@ -1531,6 +1533,7 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 				if (docSelectionCount > 1 && view->groupTransactionStarted())
 					undoManager->commit();
 			}
+			break;
 	}
 }
 
@@ -5286,6 +5289,9 @@ void ScribusMainWindow::setAppMode(int mode)
 				if (docSelectionCount!=0)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
+				break;
+			case modePanning:
+				qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
 				break;
 			case modeDrawLine:
 			case modeInsertPDFButton:

@@ -1369,7 +1369,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		return;
 	}
 	if (Doc->appMode == modePanning)
+	{
+		if ((m->state() & Qt::RightButton) && (m->state() & Qt::ControlButton))
+		{
+			ScMW->setAppMode(modeNormal);
+		}
 		return;
+	}
 	if (Doc->appMode == modeDrawTable)
 	{
 		if ((Doc->selection->count() == 0) && (HaveSelRect) && (!MidButt))
@@ -3055,6 +3061,10 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		double nyp = newY / sc - Doc->currentPage->yOffset()+ Doc->minCanvasCoordinate.y();
 		emit MVals(dxp, dyp, nxp, nyp, -xy2Deg(newX/sc - Dxp*sc, newY/sc - Dyp/sc), sqrt(pow(newX/sc - Dxp/sc,2)+pow(newY/sc - Dyp/sc,2)), Doc->unitIndex());
 		return;
+	}
+	if (Mpressed && (m->state() & Qt::RightButton) && (m->state() & Qt::ControlButton))
+	{
+		ScMW->setAppMode(modePanning);
 	}
 	if (Mpressed && (Doc->appMode == modePanning))
 	{
