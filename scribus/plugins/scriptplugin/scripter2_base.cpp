@@ -2,12 +2,14 @@
 
 #include "scribusstructs.h"
 
-#include "scripter2_qttypes.h"
-#include "scripter2_scribusstructs.h"
-
 #if defined(HAVE_BOOST_PYTHON)
 
 using namespace boost::python;
+
+// Declare the export functions from the implementation
+extern void export_QString();
+extern void export_ScribusStructs();
+extern void export_styles();
 
 /**
  * @brief A simple test function to wrap with Boost::Python

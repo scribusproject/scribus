@@ -55,8 +55,6 @@ EXTRA_DIST = \
 	pconsole.h \
 	runscriptdialog.h \
 	scripter2_base.h \
-	scripter2_qttypes.h \
-	scripter2_scribusstructs.h \
 	scriptercore.h \
 	scripterprefsgui.h \
 	scriptplugin.h \

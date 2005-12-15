@@ -1,5 +1,3 @@
-#include "scripter2_qttypes.h"
-
 #include "cmdvar.h"
 
 #include "qstring.h"

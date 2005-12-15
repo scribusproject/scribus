@@ -1,5 +1,3 @@
-#include "scripter2_scribusstructs.h"
-
 #include "cmdvar.h"
 
 #include "scribusstructs.h"
