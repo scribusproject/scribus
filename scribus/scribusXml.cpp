@@ -576,6 +576,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 						break;
 				}
 			}
+			//Compare the attributes of the pasted styles vs existing ones
 			if ((vg->LineSpa == docParagraphStyles[xx].LineSpa) &&
 					(vg->LineSpaMode == docParagraphStyles[xx].LineSpaMode) &&
 					(vg->Indent == docParagraphStyles[xx].Indent) &&
@@ -2291,7 +2292,11 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, int selectionL
 			fo.setAttribute("NAME",UsedStyles[actSt].Vname);
 			fo.setAttribute("ALIGN",UsedStyles[actSt].textAlignment);
 			fo.setAttribute("LINESPMode",UsedStyles[actSt].LineSpaMode);
-			fo.setAttribute("LINESP",UsedStyles[actSt].LineSpa);
+			//CB #2738: 
+			//UsedStyles[actSt].LineSpa is something like this is using automatic from the font:
+			//10.34912109375000000000. Default attribute value is then 10.3491 which then becomes //10.34909999999999996589 and then does not compare. This fixes, should we change our
+			//default precision?
+			fo.setAttribute("LINESP",QString::number(UsedStyles[actSt].LineSpa,'f',13));
 			fo.setAttribute("INDENT",UsedStyles[actSt].Indent);
 			fo.setAttribute("FIRST",UsedStyles[actSt].First);
 			fo.setAttribute("VOR",UsedStyles[actSt].gapBefore);
