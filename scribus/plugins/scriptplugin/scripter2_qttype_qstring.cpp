@@ -109,14 +109,12 @@ struct QString_from_python_str_or_unicode
     }
 };
 
-#endif
-
 void export_QString()
 {
-#if defined(HAVE_BOOST_PYTHON)
 	qDebug("Exporting QString converters");
 	boost::python::to_python_converter<QString, QString_to_python_unicode>();
 	QString_from_python_str_or_unicode();
 	qDebug("Done");
-#endif
 }
+
+#endif

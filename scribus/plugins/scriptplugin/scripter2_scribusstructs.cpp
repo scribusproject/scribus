@@ -53,12 +53,11 @@ void export_ParagraphStyle()
 		.def_readwrite("kernVal", &ParagraphStyle::kernVal)
 		;
 }
-#endif
 
 void export_ScribusStructs()
 {
-#if defined(HAVE_BOOST_PYTHON)
 	qDebug("Exporting scribusstructs.h members");
 	export_ParagraphStyle();
-#endif
 }
+
+#endif

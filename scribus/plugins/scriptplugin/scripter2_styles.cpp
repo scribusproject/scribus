@@ -90,11 +90,9 @@ list getStyleNames()
 
 void nothing() { }
 
-#endif
 
 void export_styles()
 {
-#if defined(HAVE_BOOST_PYTHON)
 	def("getStyleRef", getStyleRef, return_internal_reference<>());
 	def("getStyleVal", getStyleVal);
 	def("getStyleRefi", getStyleRefi, return_internal_reference<>());
@@ -103,5 +101,6 @@ void export_styles()
 	def("getStylesVal", getStylesVal);
 	def("getStylesRef", getStylesRef);
 	def("getStyleNames", getStyleNames);
-#endif
 }
+
+#endif

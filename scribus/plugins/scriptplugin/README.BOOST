@@ -6,7 +6,7 @@ Currently there's no autotools support for this in Scribus, so to compile the
 scripter with this highly experimental feature you must:
 
 $ make clean
-$ make CXXFLAGS=" -Wno-unused -DHAVE_BOOST_PYTHON -fexceptions " LDFLAGS=" -lboost_python "
+$ make CXXFLAGS=" -Wno-extra -Wno-unused -DHAVE_BOOST_PYTHON -fexceptions " LDFLAGS=" -lboost_python "
 $ make install
 
 For more information on Boost::Python see:
