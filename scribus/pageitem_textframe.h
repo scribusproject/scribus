@@ -59,6 +59,8 @@ public:
 	void ExpandSel(int dir, int oldPos);
 	void deselectAll();
 	
+	double columnWidth();
+	
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);
 	

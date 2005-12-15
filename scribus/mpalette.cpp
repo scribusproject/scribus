@@ -967,29 +967,24 @@ void Mpalette::setCurrentItem(PageItem *i)
 		startArrow->setEnabled(false);
 		endArrow->setEnabled(false);
 	}
-	
-	DCol->setMaxValue(QMAX(qRound(i->width() / QMAX(i->ColGap, 10.0)), 1));
-	DCol->setMinValue(1);
-	DCol->setValue(i->Cols);
-	dGap->setMinValue(0);
-	if (colgapLabel->getState())
+	PageItem_TextFrame* i2=i->asTextFrame();
+	if (i2!=0)
 	{
-		dGap->setMaxValue(QMAX((i->width() / i->Cols - i->textToFrameDistLeft() - i->textToFrameDistRight())*Umrech, 0));
-		dGap->setValue(i->ColGap*Umrech);
-	}
-	else
-	{
-		double lineCorr;
-		if (i->lineColor() != "None")
-			lineCorr = i->Pwidth;
+		DCol->setMaxValue(QMAX(qRound(i2->width() / QMAX(i2->ColGap, 10.0)), 1));
+		DCol->setMinValue(1);
+		DCol->setValue(i2->Cols);
+		dGap->setMinValue(0);
+		if (colgapLabel->getState())
+		{
+			dGap->setMaxValue(QMAX((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*Umrech, 0));
+			dGap->setValue(i2->ColGap*Umrech);
+		}
 		else
-			lineCorr = 0;
-		double ColWidth = (i->width() - (i->ColGap * (i->Cols - 1)) - i->textToFrameDistLeft() - i->textToFrameDistRight() - lineCorr) / i->Cols;
-		dGap->setMaxValue(QMAX((i->width() / i->Cols)*Umrech, 0));
-		dGap->setValue(ColWidth*Umrech);
+		{
+			dGap->setMaxValue(QMAX((i2->width() / i2->Cols)*Umrech, 0));
+			dGap->setValue(i2->columnWidth()*Umrech);
+		}
 	}
-	
-
 	bool setter;
 	if (i->NamedLStyle.isEmpty())
 	{
@@ -1161,30 +1156,28 @@ void Mpalette::SetCurItem(PageItem *i)
 	RoundRect->setValue(i->cornerRadius()*Umrech);
 	QString tm;
 	LevelTxt->setText(tm.setNum(i->ItemNr));
-	DCol->setMaxValue(QMAX(qRound(i->width() / QMAX(i->ColGap, 10.0)), 1));
-	DCol->setMinValue(1);
-	DCol->setValue(i->Cols);
-	dGap->setMinValue(0);
-	if (colgapLabel->getState())
+	PageItem_TextFrame *i2=i->asTextFrame();
+	if (i2!=0)
 	{
-		dGap->setMaxValue(QMAX((i->width() / i->Cols - i->textToFrameDistLeft() - i->textToFrameDistRight())*Umrech, 0));
-		dGap->setValue(i->ColGap*Umrech);
-	}
-	else
-	{
-		double lineCorr;
-		if (i->lineColor() != "None")
-			lineCorr = i->Pwidth;
+		DCol->setMaxValue(QMAX(qRound(i2->width() / QMAX(i2->ColGap, 10.0)), 1));
+		DCol->setMinValue(1);
+		DCol->setValue(i2->Cols);
+		dGap->setMinValue(0);
+		if (colgapLabel->getState())
+		{
+			dGap->setMaxValue(QMAX((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*Umrech, 0));
+			dGap->setValue(i2->ColGap*Umrech);
+		}
 		else
-			lineCorr = 0;
-		double ColWidth = (i->width() - (i->ColGap * (i->Cols - 1)) - i->textToFrameDistLeft() - i->textToFrameDistRight() - lineCorr) / i->Cols;
-		dGap->setMaxValue(QMAX((i->width() / i->Cols)*Umrech, 0));
-		dGap->setValue(ColWidth*Umrech);
+		{
+			dGap->setMaxValue(QMAX((i2->width() / i2->Cols)*Umrech, 0));
+			dGap->setValue(i2->columnWidth()*Umrech);
+		}
+		DLeft->setValue(i2->textToFrameDistLeft()*Umrech);
+		DTop->setValue(i2->textToFrameDistTop()*Umrech);
+		DBottom->setValue(i2->textToFrameDistBottom()*Umrech);
+		DRight->setValue(i2->textToFrameDistRight()*Umrech);
 	}
-	DLeft->setValue(i->textToFrameDistLeft()*Umrech);
-	DTop->setValue(i->textToFrameDistTop()*Umrech);
-	DBottom->setValue(i->textToFrameDistBottom()*Umrech);
-	DRight->setValue(i->textToFrameDistRight()*Umrech);
 	Revert->setOn(i->reversed());
 	textFlowsAroundFrame->setChecked(i->textFlowsAroundFrame());
 	textFlowUsesBoundingBox->setChecked(i->textFlowUsesBoundingBox());
@@ -1725,22 +1718,20 @@ void Mpalette::setCols(int r, double g)
 	dGap->setValue(g*Umrech);
 	if (tmp)
 	{
-		DCol->setMaxValue(QMAX(qRound(CurItem->width() / QMAX(CurItem->ColGap, 10.0)), 1));
-		if (colgapLabel->getState())
+		PageItem_TextFrame *i2=CurItem->asTextFrame();
+		if (i2!=0)
 		{
-			dGap->setMaxValue(QMAX((CurItem->width() / CurItem->Cols - CurItem->textToFrameDistLeft() - CurItem->textToFrameDistRight())*Umrech, 0));
-			dGap->setValue(CurItem->ColGap*Umrech);
-		}
-		else
-		{
-			double lineCorr;
-			if (CurItem->lineColor() != "None")
-				lineCorr = CurItem->Pwidth;
+			DCol->setMaxValue(QMAX(qRound(i2->width() / QMAX(i2->ColGap, 10.0)), 1));
+			if (colgapLabel->getState())
+			{
+				dGap->setMaxValue(QMAX((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*Umrech, 0));
+				dGap->setValue(i2->ColGap*Umrech);
+			}
 			else
-				lineCorr = 0;
-			double ColWidth = (CurItem->width() - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->textToFrameDistLeft() - CurItem->textToFrameDistRight() - lineCorr) / CurItem->Cols;
-			dGap->setMaxValue(QMAX((CurItem->width() / CurItem->Cols)*Umrech, 0));
-			dGap->setValue(ColWidth*Umrech);
+			{
+				dGap->setMaxValue(QMAX((i2->width() / i2->Cols)*Umrech, 0));
+				dGap->setValue(i2->columnWidth()*Umrech);
+			}
 		}
 	}
 	DCol->setMinValue(1);
@@ -3651,17 +3642,10 @@ void Mpalette::ManageTabs()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		double lineCorr;
-		if (CurItem->lineColor() != "None")
-			lineCorr = CurItem->Pwidth;
-		else
-			lineCorr = 0;
-		double ColWidth;
-		if (CurItem->Cols > 1)
-			ColWidth = (CurItem->width() - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->textToFrameDistLeft() - CurItem->textToFrameDistRight() - lineCorr) / CurItem->Cols;
-		else
-			ColWidth = CurItem->width();
-		TabManager *dia = new TabManager(this, doc->unitIndex(), CurItem->TabValues, ColWidth);
+		PageItem_TextFrame *i2=CurItem->asTextFrame();
+		if (i2==0)
+			return;
+		TabManager *dia = new TabManager(this, doc->unitIndex(), i2->TabValues, i2->columnWidth());
 		if (dia->exec())
 		{
 			CurItem->TabValues = dia->tmpTab;

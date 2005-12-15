@@ -154,7 +154,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				}
 				struct ZZ Zli3;
 				CurrCol = 0;
-				ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
+				ColWidth = columnWidth();
 				ColBound = FPoint((ColWidth + ColGap) * CurrCol+Extra + lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
 				ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
 				tabDist = ColBound.x();
@@ -533,7 +533,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					pf2.scale(1, -1);
 				}
 				CurrCol = 0;
-				ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
+				ColWidth = columnWidth();
 				ColBound = FPoint((ColWidth + ColGap) * CurrCol+Extra + lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
 				ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
 				CurX = ColBound.x();
@@ -755,7 +755,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						CurrCol++;
 						if (CurrCol < Cols)
 						{
-							ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
+							ColWidth = columnWidth();
 							ColBound = FPoint((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
 							CurX = ColBound.x();
 							ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
@@ -850,7 +850,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 									CurrCol++;
 									if (CurrCol < Cols)
 									{
-										ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
+										ColWidth = columnWidth();
 										ColBound = FPoint((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
 										CurX = ColBound.x();
 										ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
@@ -1643,7 +1643,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							CurrCol++;
 							if (CurrCol < Cols)
 							{
-								ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
+								ColWidth = columnWidth();
 								ColBound = FPoint((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
 								CurX = ColBound.x();
 								ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
@@ -2209,8 +2209,10 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				c = 13;
 			else
 				c = 0;
-			if (( c == 13 ) || (c = 28))
-				CPos++;
+			//CB 2740: Apart from not knowing what 28 did in 1.2.1, this forces us to go to the next line,
+			//not the end of the current
+			//if (( c == 13 ) || (c = 28))
+			//	CPos++;
 		}
 		else
 		{
@@ -2235,18 +2237,28 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	case Key_Down:
 		if (CPos != static_cast<int>(itemText.count()))
 		{
-			alty = itemText.at(CPos)->yp;
+			bool down1=false;
+			double newy;
+			newy = alty = itemText.at(CPos)->yp;
 			altx = itemText.at(CPos)->xp;
+			
 			do
 			{
-				CPos += 1;
+				++CPos;
 				if (CPos == static_cast<int>(itemText.count()))
 					break;
 				if (itemText.at(CPos)->yp > alty)
 				{
+					if (down1 && itemText.at(CPos)->yp > newy)
+					{
+						--CPos;
+						break;
+					}
 					if (itemText.at(CPos)->xp >= altx)
 						break;
+					down1=true;
 				}
+				newy=itemText.at(CPos)->yp;
 			}
 			while (CPos < static_cast<int>(itemText.count()));
 			if ( buttonState & ShiftButton )
@@ -2783,4 +2795,14 @@ void PageItem_TextFrame::deselectAll()
 	}
 	//CB Replace with direct call for now //emit HasNoTextSel();
 	ScMW->DisableTxEdit();
+}
+
+double PageItem_TextFrame::columnWidth()
+{
+	double lineCorr;
+	if (lineColor() != "None")
+		lineCorr = Pwidth;
+	else
+		lineCorr = 0;
+	return (Width - (ColGap * (Cols - 1)) - Extra - RExtra - lineCorr) / Cols;
 }

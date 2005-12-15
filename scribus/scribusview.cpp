@@ -6565,10 +6565,10 @@ void ScribusView::AdvanceSel(PageItem *currItem, int oldPos, int len, int dir, i
 
 bool ScribusView::slotSetCurs(int x, int y)
 {
-	PageItem *currItem;
-	if (GetItem(&currItem))
+	PageItem *currItemGeneric;
+	if (GetItem(&currItemGeneric))
 	{
-		if (!((currItem->asTextFrame()) || (currItem->asImageFrame())))
+		if (!((currItemGeneric->asTextFrame()) || (currItemGeneric->asImageFrame())))
 			return false;
 		QRect mpo;
 		int xP, yP;
@@ -6577,14 +6577,17 @@ bool ScribusView::slotSetCurs(int x, int y)
 		QPainter p;
 		QString chx;
 		p.begin(this);
-		Transform(currItem, &p);
+		Transform(currItemGeneric, &p);
 		p.translate(qRound(-Doc->minCanvasCoordinate.x()), qRound(-Doc->minCanvasCoordinate.y()));
+		if (currItemGeneric->asImageFrame())
+			return true;
+		PageItem_TextFrame *currItem=currItemGeneric->asTextFrame();
+		if (currItem==0)
+			return false;
 		mpo = QRect(x - Doc->guidesSettings.grabRad, y - Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
 		if ((QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
 		        (QRegion(p.xForm(currItem->Clip)).contains(mpo)))
 		{
-			if (currItem->asImageFrame())
-				return true;
 			uint a, i;
 			int xp, yp, w, h, chs;
 			CursVis = true;
@@ -6606,12 +6609,49 @@ bool ScribusView::slotSetCurs(int x, int y)
 				else
 					w = qRound(Cwidth(Doc, currItem->itemText.at(a)->cfont, chx, chs)*(currItem->itemText.at(a)->cscale / 1000.0));
 				h = static_cast<int>(Doc->docParagraphStyles[currItem->itemText.at(a)->cab].LineSpa);
+				//If we click within text
 				if (QRegion(p.xForm(QRect(xp-1, yp-h, w+1, h))).contains(QPoint(x, y)))
 				{
 					currItem->CPos = a;
 					p.end();
 					breakAndReturn=true;
 					break;
+				}
+				//If we are not at the end of the text and the next characters y position > current one
+				//IE, we are at the end of the line
+				else if ((a<currItemTextCount-1) && (static_cast<int>(currItem->itemText.at(a+1)->yp)>yp))
+				{
+					//If one column only and we are within the width of the frame
+					//Yes, some people want selection outside the frame to work too, this works ok for now
+					if ((currItem->Cols==1) && (QRegion(p.xForm(QRect(xp-1, yp-h, static_cast<int>(currItem->width()-xp-1), h))).contains(QPoint(x, y))))
+					{
+						currItem->CPos = a;
+						p.end();
+						breakAndReturn=true;
+						break;
+					}
+					//If columns>1, then work out what column we are in and place our cursor
+					//TODO: Move this column placement code into PageItem_TextFrame.
+					else if (currItem->Cols>1)
+					{
+						double colWidth=currItem->columnWidth();
+						int currCol=0;
+						int cp=static_cast<int>(currItem->xPos()+currItem->textToFrameDistLeft());
+						do
+						{
+							++currCol;
+							cp+=currItem->ColGap;
+							if (currCol>1)
+								cp+=colWidth;
+						} while (xp>cp);
+						if (QRegion(p.xForm(QRect(xp-1, yp-h, static_cast<int>(cp-xp-1), h))).contains(QPoint(x, y)))
+						{
+							currItem->CPos = a;
+							p.end();
+							breakAndReturn=true;
+							break;
+						}
+					}
 				}
 			}
 			if (breakAndReturn)
