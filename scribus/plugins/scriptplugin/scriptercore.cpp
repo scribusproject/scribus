@@ -446,7 +446,6 @@ void ScripterCore::slotInteractiveScript(bool visible)
 void ScripterCore::slotExecute()
 {
 	pcon->outputEdit->append(slotRunScript(pcon->command));
-	pcon->outputEdit->setCursorPosition(0, 0);
 	pcon->commandEdit->ensureCursorVisible();
 	FinishScriptRun();
 }
@@ -472,6 +471,7 @@ void ScripterCore::ReadPlugPrefs()
 	m_enableExtPython = prefs->getBool("extensionscripts",false);
 	m_importAllNames = prefs->getBool("importall",true);
 	m_startupScript = prefs->get("startupscript", QString::null);
+	// and have the console window set up its position
 }
 
 void ScripterCore::SavePlugPrefs()

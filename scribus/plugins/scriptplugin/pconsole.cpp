@@ -48,7 +48,7 @@ PythonConsole::PythonConsole( QWidget* parent)
 	menuBar->insertItem(tr("&File"), fileMenu);
 	QPopupMenu *scriptMenu = new QPopupMenu(this);
 	scriptMenu->insertItem(loadIcon("ok.png"), tr("&Run"), this, SLOT(slot_runScript()), Key_F9);
-	scriptMenu->insertItem(tr("Run As &Console"), this, SLOT(slot_runScriptAsConsole()), Key_F5);
+	scriptMenu->insertItem(tr("Run As &Console"), this, SLOT(slot_runScriptAsConsole()), Key_F2);
 	scriptMenu->insertItem(tr("&Save Output..."), this, SLOT(slot_saveOutput()));
 	menuBar->insertItem(tr("&Script"), scriptMenu);
 
@@ -65,6 +65,10 @@ PythonConsole::PythonConsole( QWidget* parent)
 	commandEdit->setTextFormat(Qt::PlainText);
 	commandEdit->setFocus();
 	commandEdit->setTabStopWidth(commandEdit->pointSize() * 4);
+	QSizePolicy commandEditSize( commandEdit->sizePolicy() );
+	commandEditSize.setVerStretch(4);
+	commandEditSize.setVerData(QSizePolicy::Preferred);
+	commandEdit->setSizePolicy(commandEditSize);
 	// install syntax highlighter.
 	SyntaxHighlighter *sxHigh = new SyntaxHighlighter(commandEdit);
 
@@ -72,6 +76,10 @@ PythonConsole::PythonConsole( QWidget* parent)
 	outputEdit->setFont(font);
 	outputEdit->setTextFormat(Qt::PlainText);
 	outputEdit->setReadOnly(true);
+	QSizePolicy outputEditSize( outputEdit->sizePolicy() );
+	outputEditSize.setVerStretch(10);
+	outputEditSize.setVerData(QSizePolicy::Expanding);
+	outputEdit->setSizePolicy(outputEditSize);
 
 	gridLayout->addLayout( editorsLayout, 0, 0 );
 	languageChange();
@@ -121,6 +129,7 @@ void PythonConsole::slot_runScript()
 	outputEdit->clear();
 	parsePythonString();
 	emit runCommand();
+	outputEdit->setCursorPosition(0, 0);
 }
 
 void PythonConsole::slot_runScriptAsConsole()
