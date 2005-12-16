@@ -899,6 +899,8 @@ void Mpalette::setDoc(ScribusDoc *d)
 	LineW->setLineStep(10);
 
 	updateCList();
+	
+	Width->setConstants(doc->constants());
 }
 
 void Mpalette::unsetDoc()
@@ -1309,6 +1311,8 @@ void Mpalette::SetCurItem(PageItem *i)
 		}
 	}
 	setXY(i->xPos(), i->yPos());
+	
+	updateSpinBoxConstants();
 }
 
 void Mpalette::NewSel(int nr)
@@ -4008,17 +4012,26 @@ void Mpalette::updateColorSpecialGradient()
 {
 	if (!HaveDoc)
 		return;
-	//if(ScMW->view->SelItem.count()==0)
 	if(doc->selection->count()==0)
 		return;
 	double dur=doc->unitRatio();
-	//PageItem *currItem=ScMW->view->SelItem.at(0);
 	PageItem *currItem=doc->selection->itemAt(0);
 	Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur,
 							currItem->GrEndX * dur, currItem->GrEndY * dur,
 							currItem->width() * dur, currItem->height() * dur);
 }
 
+void Mpalette::updateSpinBoxConstants()
+{
+	if (!HaveDoc)
+		return;
+	if(doc->selection->count()==0)
+		return;
+	Width->setConstants(doc->constants());
+	Height->setConstants(doc->constants());
+	Xpos->setConstants(doc->constants());
+	Ypos->setConstants(doc->constants());
+}
 
 UserActionSniffer::UserActionSniffer() : QObject (this)
 {
@@ -4045,4 +4058,3 @@ bool UserActionSniffer::eventFilter(QObject*, QEvent *e)
 	}
 	return false;
 }
-

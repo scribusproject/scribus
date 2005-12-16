@@ -505,6 +505,8 @@ public:
 	 * @param k Black component
 	 */
 	void insertColor(QString nam, double c, double m, double y, double k);
+	
+	QMap<QString, double>& constants() { return m_constants; }
 
 protected:
 	void addSymbols();
@@ -517,6 +519,7 @@ protected:
 	double docUnitRatio;
 	bool automaticTextFrames; // Flag for automatic Textframes
 	bool m_masterPageMode;
+	QMap<QString, double> m_constants;
 	
 public: // Public attributes
 	bool is12doc; //public for now, it will be removed later

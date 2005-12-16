@@ -18,8 +18,11 @@
 #ifndef MSPINBOX_H
 #define MSPINBOX_H
 
+#include <qmap.h>
 #include <qspinbox.h>
 #include "scribusapi.h"
+
+class FunctionParser;
 
 /**
   *@author Franz Schmid
@@ -43,6 +46,7 @@ public:
 	QLineEdit *ed;
 	void setDecimals( int deci );
 	bool isReadOnly() const;
+	void setConstants(const QMap<QString, double>&);
 
 public slots:
 	void textChanged();
@@ -57,9 +61,11 @@ public slots:
 protected:
 	bool eventFilter( QObject* ob, QEvent* ev );
 	void setParameters( int s );
+	void setFPConstants(FunctionParser &fp);
 	bool readOnly;
 	int oldLineStep;
 	bool edited;
+	QMap <QString, double> functionParserConstants;
 };
 
 #endif

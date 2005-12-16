@@ -173,6 +173,7 @@ QString MSpinBox::mapValueToText(int value)
 int MSpinBox::mapTextToValue(bool *)
 {
 	FunctionParser fp;
+	setFPConstants(fp);
 	QString ts = text();
 	QString su = suffix().stripWhiteSpace();
 	ts.replace(",", ".");
@@ -414,3 +415,21 @@ bool MSpinBox::isReadOnly() const
 	return readOnly;
 }
 
+void MSpinBox::setConstants(const QMap<QString, double>& newConstants)
+{
+	functionParserConstants=newConstants;
+}
+
+void MSpinBox::setFPConstants(FunctionParser &fp)
+{
+	if (functionParserConstants.isEmpty())
+		return;
+	fp.AddConstant("OLD", static_cast<double>(QSpinBox::value()) / Decimals);
+	QMap<QString, double>::Iterator itend=functionParserConstants.end();
+	QMap<QString, double>::Iterator it=functionParserConstants.begin();
+	while(it!=itend)
+	{
+		fp.AddConstant(it.key(), it.data());
+		++it;
+	}
+}

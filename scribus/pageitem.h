@@ -894,6 +894,8 @@ public:
 	void setAnnotation(const Annotation& ad);
 	Annotation& annotation() { return m_annotation; }
 	
+	void updateConstants();
+	
 protected:
 	/** @brief Manages undostack and is where all undo actions/states are sent. */
 	UndoManager * const undoManager;

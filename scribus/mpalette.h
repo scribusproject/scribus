@@ -226,6 +226,7 @@ protected slots:
 	//virtual void reject();
 	void mspinboxStartUserAction();
 	void mspinboxFinishUserAction();
+	void updateSpinBoxConstants();
 
 signals:
 	void ToggleAllPalettes();
