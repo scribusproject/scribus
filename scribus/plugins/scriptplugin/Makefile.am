@@ -26,9 +26,13 @@ libscriptplugin_la_SOURCES = \
 	runscriptdialog.cpp \
 	scripter2_base.cpp \
 	scripter2_qttype_qstring.cpp \
+	scripter2_qtclass_qobject.cpp \
 	scripter2_qtclass_qapplication.cpp \
+	scripter2_qtclass_qwidget.cpp \
 	scripter2_scribusstructs.cpp \
-	scripter2_pageitem.cpp \
+	scripter2_scribus_scribusmainwin.cpp \
+	scripter2_scribus_scribusqapp.cpp \
+	scripter2_scribus_pageitem.cpp \
 	scripter2_styles.cpp \
 	scriptercore.cpp \
 	scripterprefsgui.cpp \
