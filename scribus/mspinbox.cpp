@@ -188,7 +188,6 @@ int MSpinBox::mapTextToValue(bool *)
 	QString strC =unitGetStrFromIndex(SC_C);
 	
 	QRegExp rx("\\b(\\d+)\\s*("+strPT+"|"+strP+"|"+strMM+"|"+strC+"|"+strCM+"|"+strIN+")\\b");
-	qDebug(QString("%1").arg(ts));
 	int pos = 0;
 	while (pos >= 0) {
 		pos = rx.search(ts, pos);
