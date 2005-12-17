@@ -3579,9 +3579,9 @@ void PageItem::updateConstants()
 {
 	if (OwnPage!=-1)
 	{
-		m_Doc->constants().insert("PAGEWIDTH", m_Doc->Pages->at(OwnPage)->width());
-		m_Doc->constants().insert("PAGEHEIGHT", m_Doc->Pages->at(OwnPage)->height());
+		m_Doc->constants().insert("pagewidth", m_Doc->Pages->at(OwnPage)->width());
+		m_Doc->constants().insert("pageheight", m_Doc->Pages->at(OwnPage)->height());
 	}
-	m_Doc->constants().insert("WIDTH", Width);
-	m_Doc->constants().insert("HEIGHT", Height);
+	m_Doc->constants().insert("width", Width);
+	m_Doc->constants().insert("height", Height);
 }

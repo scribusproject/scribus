@@ -19,6 +19,7 @@
 #include "mspinbox.moc"
 #include <qapplication.h>
 #include <qlineedit.h>
+#include <qregexp.h>
 #include <cmath>
 #include "fparser.h"
 #include "units.h"
@@ -178,6 +179,7 @@ int MSpinBox::mapTextToValue(bool *)
 	QString su = suffix().stripWhiteSpace();
 	ts.replace(",", ".");
 	ts.replace("%", "");
+		
 	QString strPT=unitGetStrFromIndex(SC_PT);
 	QString strMM=unitGetStrFromIndex(SC_MM);
 	QString strIN=unitGetStrFromIndex(SC_IN);
@@ -185,74 +187,83 @@ int MSpinBox::mapTextToValue(bool *)
 	QString strCM=unitGetStrFromIndex(SC_CM);
 	QString strC =unitGetStrFromIndex(SC_C);
 	
+	QRegExp rx("\\b(\\d+)\\s*("+strPT+"|"+strP+"|"+strMM+"|"+strC+"|"+strCM+"|"+strIN+")\\b");
+	qDebug(QString("%1").arg(ts));
+	int pos = 0;
+	while (pos >= 0) {
+		pos = rx.search(ts, pos);
+		if (pos >= 0) {
+			QString replacement = rx.cap(1) + "*" + rx.cap(2);
+			ts.replace(pos, rx.cap(0).length(), replacement);
+		}
+	}
+
 	QString suffPT=unitGetSuffixFromIndex(SC_PT);
 	QString suffMM=unitGetSuffixFromIndex(SC_MM);
 	QString suffIN=unitGetSuffixFromIndex(SC_IN);
 	QString suffP =unitGetSuffixFromIndex(SC_P);
 	QString suffCM=unitGetSuffixFromIndex(SC_CM);
 	QString suffC =unitGetSuffixFromIndex(SC_C);
-		
 	if ((su == suffPT) || (su == strPT))
 	{
-		ts.replace(strPT, "");
-		ts.replace(strMM, "/25.4*72.0");
-		ts.replace(strIN, "*72.0");
-		ts.replace(strP, "*12.0");
-		ts.replace(strCM, "/2.54*72.0");
-		ts.replace(strC, "/25.4*72.0*4.512");
+		fp.AddConstant(strPT, 1.0);
+		fp.AddConstant(strMM, 72.0/25.4);
+		fp.AddConstant(strIN, 72.0);
+		fp.AddConstant(strP, 12.0);
+		fp.AddConstant(strCM, 72.0/2.54);
+		fp.AddConstant(strC, 72.0/25.4*4.512);
 	}
 	else 
 	if ((su == suffMM) || (su == strMM))
 	{
-		ts.replace(strPT, "/72.0*25.4");
-		ts.replace(strMM, "");
-		ts.replace(strIN, "*25.4");
-		ts.replace(strP, "/6.0*25.4");
-		ts.replace(strCM, "*10.0");
-		ts.replace(strC, "*4.512");
+		fp.AddConstant(strPT, 25.4/72.0);
+		fp.AddConstant(strMM, 1.0);
+		fp.AddConstant(strIN, 25.4);
+		fp.AddConstant(strP, 25.4/6.0);
+		fp.AddConstant(strCM, 10.0);
+		fp.AddConstant(strC, 4.512);
 	}
 	else 
 	if ((su == suffIN) || (su == strIN))
 	{
-		ts.replace(strPT, "/72.0");
-		ts.replace(strMM, "/25.4");
-		ts.replace(strIN, "");
-		ts.replace(strP, "/6.0");
-		ts.replace(strCM, "/2.54");
-		ts.replace(strC, "/25.4*4.512");
+		fp.AddConstant(strPT, 1.0/72.0);
+		fp.AddConstant(strMM, 1.0/25.4);
+		fp.AddConstant(strIN, 1.0);
+		fp.AddConstant(strP, 1.0/6.0);
+		fp.AddConstant(strCM, 1.0/2.54);
+		fp.AddConstant(strC, 4.512/25.4);
 	}
 	else 
 	if ((su == suffP) || (su == strP))
 	{
-		ts.replace(strPT, "/12");
-		ts.replace(strMM, "/25.4*6");
-		ts.replace(strIN, "*6");
-		ts.replace(strP, "");
-		ts.replace(strCM, "/2.54*6.0");
-		ts.replace(strC, "*6.0/25.4*4.512");
+		fp.AddConstant(strPT, 1.0/12.0);
+		fp.AddConstant(strMM, 6.0/25.4);
+		fp.AddConstant(strIN, 6.0);
+		fp.AddConstant(strP, 1.0);
+		fp.AddConstant(strCM, 6.0/2.54);
+		fp.AddConstant(strC, 6.0/25.4*4.512);
 	}
 	else 
 	if ((su == suffCM) || (su == strCM))
 	{
-		ts.replace(strPT, "/72.0*2.54");
-		ts.replace(strMM, "/10");
-		ts.replace(strIN, "*2.54");
-		ts.replace(strP, "/6.0*2.54");
-		ts.replace(strCM, "");
-		ts.replace(strC, "/10*4.512");
+		fp.AddConstant(strPT, 2.54/72.0);
+		fp.AddConstant(strMM, 10.0);
+		fp.AddConstant(strIN, 2.54);
+		fp.AddConstant(strP, 2.54/6.0);
+		fp.AddConstant(strCM, 1.0);
+		fp.AddConstant(strC, 4.512/10.0);
 	}
 	else 
 	if ((su == suffC) || (su == strC))
 	{
-		ts.replace(strPT, "*25.4/72.0/4.512");
-		ts.replace(strMM, "/4.512");
-		ts.replace(strIN, "*25.4/4.512");
-		ts.replace(strP, "/6.0*25.4/4.512");
-		ts.replace(strCM, "*10.0/4.512");
-		ts.replace(strC, "");
+		fp.AddConstant(strPT, 25.4/72.0/4.512);
+		fp.AddConstant(strMM, 1.0/4.512);
+		fp.AddConstant(strIN, 25.4/4.512);
+		fp.AddConstant(strP, 25.4/6.0/4.512);
+		fp.AddConstant(strCM, 10.0/4.512);
+		fp.AddConstant(strC, 1.0);
 	}
-	if (!su.isEmpty())
-		ts.replace(su, " ");
+		
 	int ret = fp.Parse(ts.latin1(), "", true);
 	if (ret >= 0)
 		return 0;
@@ -424,6 +435,7 @@ void MSpinBox::setFPConstants(FunctionParser &fp)
 {
 	if (functionParserConstants.isEmpty())
 		return;
+		
 	fp.AddConstant("OLD", static_cast<double>(QSpinBox::value()) / Decimals);
 	QMap<QString, double>::Iterator itend=functionParserConstants.end();
 	QMap<QString, double>::Iterator it=functionParserConstants.begin();
