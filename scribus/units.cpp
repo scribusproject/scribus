@@ -302,7 +302,7 @@ double value2value(double unitValue, int primaryUnit, int secondaryUnit)
 	double pts = 0.0, ret = 0.0;
 	//Can make this not convert to points at a later stage, for now, the function exists and works.
 	pts= primaryUnit==0 ? unitValue : unitValue / unitGetRatioFromIndex(primaryUnit);
-	ret= secondaryUnit==0 ? pts : pts / unitGetRatioFromIndex(secondaryUnit);
+	ret= secondaryUnit==0 ? pts : pts * unitGetRatioFromIndex(secondaryUnit);
 	return ret;
 }
 

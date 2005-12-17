@@ -179,14 +179,14 @@ int MSpinBox::mapTextToValue(bool *)
 	QString su = suffix().stripWhiteSpace();
 	ts.replace(",", ".");
 	ts.replace("%", "");
-		
+	//Get all our units strings
 	QString strPT=unitGetStrFromIndex(SC_PT);
 	QString strMM=unitGetStrFromIndex(SC_MM);
 	QString strIN=unitGetStrFromIndex(SC_IN);
 	QString strP =unitGetStrFromIndex(SC_P);
 	QString strCM=unitGetStrFromIndex(SC_CM);
 	QString strC =unitGetStrFromIndex(SC_C);
-	
+	//Replace in our typed text all of the units strings with *unitstring
 	QRegExp rx("\\b(\\d+)\\s*("+strPT+"|"+strP+"|"+strMM+"|"+strC+"|"+strCM+"|"+strIN+")\\b");
 	int pos = 0;
 	while (pos >= 0) {
@@ -196,73 +196,16 @@ int MSpinBox::mapTextToValue(bool *)
 			ts.replace(pos, rx.cap(0).length(), replacement);
 		}
 	}
+	//Get the index of our suffix
+	int toConvertToIndex=unitIndexFromString(su);
+	//Add in the fparser constants using our unit strings, and the conversion factors.
+	fp.AddConstant(strPT, value2value(1.0, SC_PT, toConvertToIndex));
+	fp.AddConstant(strMM, value2value(1.0, SC_MM, toConvertToIndex));
+	fp.AddConstant(strIN, value2value(1.0, SC_IN, toConvertToIndex));
+	fp.AddConstant(strP, value2value(1.0, SC_P, toConvertToIndex));
+	fp.AddConstant(strCM, value2value(1.0, SC_CM, toConvertToIndex));
+	fp.AddConstant(strC, value2value(1.0, SC_C, toConvertToIndex));
 
-	QString suffPT=unitGetSuffixFromIndex(SC_PT);
-	QString suffMM=unitGetSuffixFromIndex(SC_MM);
-	QString suffIN=unitGetSuffixFromIndex(SC_IN);
-	QString suffP =unitGetSuffixFromIndex(SC_P);
-	QString suffCM=unitGetSuffixFromIndex(SC_CM);
-	QString suffC =unitGetSuffixFromIndex(SC_C);
-	if ((su == suffPT) || (su == strPT))
-	{
-		fp.AddConstant(strPT, 1.0);
-		fp.AddConstant(strMM, 72.0/25.4);
-		fp.AddConstant(strIN, 72.0);
-		fp.AddConstant(strP, 12.0);
-		fp.AddConstant(strCM, 72.0/2.54);
-		fp.AddConstant(strC, 72.0/25.4*4.512);
-	}
-	else 
-	if ((su == suffMM) || (su == strMM))
-	{
-		fp.AddConstant(strPT, 25.4/72.0);
-		fp.AddConstant(strMM, 1.0);
-		fp.AddConstant(strIN, 25.4);
-		fp.AddConstant(strP, 25.4/6.0);
-		fp.AddConstant(strCM, 10.0);
-		fp.AddConstant(strC, 4.512);
-	}
-	else 
-	if ((su == suffIN) || (su == strIN))
-	{
-		fp.AddConstant(strPT, 1.0/72.0);
-		fp.AddConstant(strMM, 1.0/25.4);
-		fp.AddConstant(strIN, 1.0);
-		fp.AddConstant(strP, 1.0/6.0);
-		fp.AddConstant(strCM, 1.0/2.54);
-		fp.AddConstant(strC, 4.512/25.4);
-	}
-	else 
-	if ((su == suffP) || (su == strP))
-	{
-		fp.AddConstant(strPT, 1.0/12.0);
-		fp.AddConstant(strMM, 6.0/25.4);
-		fp.AddConstant(strIN, 6.0);
-		fp.AddConstant(strP, 1.0);
-		fp.AddConstant(strCM, 6.0/2.54);
-		fp.AddConstant(strC, 6.0/25.4*4.512);
-	}
-	else 
-	if ((su == suffCM) || (su == strCM))
-	{
-		fp.AddConstant(strPT, 2.54/72.0);
-		fp.AddConstant(strMM, 10.0);
-		fp.AddConstant(strIN, 2.54);
-		fp.AddConstant(strP, 2.54/6.0);
-		fp.AddConstant(strCM, 1.0);
-		fp.AddConstant(strC, 4.512/10.0);
-	}
-	else 
-	if ((su == suffC) || (su == strC))
-	{
-		fp.AddConstant(strPT, 25.4/72.0/4.512);
-		fp.AddConstant(strMM, 1.0/4.512);
-		fp.AddConstant(strIN, 25.4/4.512);
-		fp.AddConstant(strP, 25.4/6.0/4.512);
-		fp.AddConstant(strCM, 10.0/4.512);
-		fp.AddConstant(strC, 1.0);
-	}
-		
 	int ret = fp.Parse(ts.latin1(), "", true);
 	if (ret >= 0)
 		return 0;
