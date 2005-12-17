@@ -378,7 +378,7 @@ void MSpinBox::setFPConstants(FunctionParser &fp)
 	if (functionParserConstants.isEmpty())
 		return;
 		
-	fp.AddConstant("OLD", static_cast<double>(QSpinBox::value()) / Decimals);
+	fp.AddConstant("old", static_cast<double>(QSpinBox::value()) / Decimals);
 	QMap<QString, double>::Iterator itend=functionParserConstants.end();
 	QMap<QString, double>::Iterator it=functionParserConstants.begin();
 	while(it!=itend)
