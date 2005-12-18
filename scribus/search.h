@@ -126,6 +126,9 @@ protected:
 	QHBoxLayout* ButtonsLayout;
 	virtual void readPrefs();
 
+	/// Number of matches found thus far in a search
+	int matchesFound;
+
 };
 
 #endif // SEARCHREPLACE_H

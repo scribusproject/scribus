@@ -31,7 +31,8 @@
 extern QPixmap loadIcon(QString nam);
 
 SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, bool mode )
-							: QDialog( parent, "SearchReplace", true, 0 )
+	: QDialog( parent, "SearchReplace", true, 0 ),
+	matchesFound(0)
 {
 	setCaption( tr( "Search/Replace" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -633,10 +634,14 @@ void SearchReplace::slotDoSearch()
 						DoReplace->setEnabled(true);
 						AllReplace->setEnabled(true);
 					}
+					matchesFound++;
 				}
 				else
 				{
-					QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), CommonStrings::tr_OK);
+					QMessageBox::information(this, tr("Search/Replace"),
+							tr("Search finished, found %1 matches").arg(matchesFound),
+							CommonStrings::tr_OK);
+					matchesFound = 0;
 					NotFound = false;
 					ScMW->CurrStED->Editor->removeSelection();
 					ScMW->CurrStED->Editor->setCursorPosition(0, 0);
