@@ -10,7 +10,9 @@ void export_QWidget()
 
 	class_<QWidget,bases<QObject>,boost::noncopyable>(
 			"QWidget",
-			"A generic Qt widget");
+			"A generic Qt widget")
+		.def("show", &QWidget::show)
+		.def("hide", &QWidget::hide);
 }
 
 

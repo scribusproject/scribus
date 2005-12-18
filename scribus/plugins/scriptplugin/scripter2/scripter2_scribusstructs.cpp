@@ -10,7 +10,6 @@ using namespace boost::python;
  */
 void export_ParagraphStyle()
 {
-	qDebug("Exporting ParagraphStyle");
 	class_<ParagraphStyle>("ParagraphStyle")
 //		.def_readwrite("Vname", &ParagraphStyle::Vname)
 		.add_property("Vname", make_getter(&ParagraphStyle::Vname, return_value_policy<return_by_value>()),
@@ -56,7 +55,6 @@ void export_ParagraphStyle()
 
 void export_ScribusStructs()
 {
-	qDebug("Exporting scribusstructs.h members");
 	export_ParagraphStyle();
 }
 

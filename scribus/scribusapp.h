@@ -32,19 +32,19 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		void initLang();
 		void parseCommandLine();
 		QStringList getLang(QString lang);
-		void installTranslators(QStringList langs);
-		void changeGUILanguage(QString);
-		const bool usingGUI();
+		void installTranslators(const QStringList & langs);
+		void changeGUILanguage(const QString & lang);
+		bool usingGUI() const;
 		/**
 		 * @brief Are we trying to adhere to Apple Mac HIG ?
 		 * @retval bool true if we are on Qt/Mac
 		 */
-		const bool isMacGUI();
+		bool isMacGUI() const;
 		/**
 		 * @brief Are we swapping dialog button order?
 		 * @retval bool if we are swapping
 		 */
-		const bool reverseDialogButtons();
+		bool reverseDialogButtons() const;
 
 		static bool useGUI;
 

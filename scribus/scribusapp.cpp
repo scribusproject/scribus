@@ -299,9 +299,8 @@ QStringList ScribusQApp::getLang(QString lang)
 \param lang QString a two letter string describing the lang environement
 \retval void
 */
-void ScribusQApp::installTranslators(QStringList langs)
+void ScribusQApp::installTranslators(const QStringList & langs)
 {
-	QString lang = "";
 	static QTranslator *trans = 0;
 
 	if ( trans )
@@ -314,7 +313,8 @@ void ScribusQApp::installTranslators(QStringList langs)
 	path += "scribus";
 
 	bool loaded = false;
-	for (QStringList::Iterator it = langs.begin(); it != langs.end() && !loaded; ++it) {
+	QString lang;
+	for (QStringList::const_iterator it = langs.constBegin(); it != langs.constEnd() && !loaded; ++it) {
 		lang=(*it).left(5);
 		if (lang == "en")
 			break;
@@ -340,7 +340,7 @@ void ScribusQApp::installTranslators(QStringList langs)
 	}*/
 }
 
-void ScribusQApp::changeGUILanguage(QString newGUILang)
+void ScribusQApp::changeGUILanguage(const QString & newGUILang)
 {
 	QStringList newLangs;
 	if (newGUILang.isEmpty())
@@ -421,12 +421,12 @@ void ScribusQApp::showHeader()
 	std::cout << std::endl;
 }
 
-const bool ScribusQApp::usingGUI()
+bool ScribusQApp::usingGUI() const
 {
 	return useGUI;
 }
 
-const bool ScribusQApp::isMacGUI()
+bool ScribusQApp::isMacGUI() const
 {
 	// Do it statically for now
 #if defined(Q_WS_MAC)
@@ -436,7 +436,7 @@ const bool ScribusQApp::isMacGUI()
 #endif
 }
 
-const bool ScribusQApp::reverseDialogButtons()
+bool ScribusQApp::reverseDialogButtons() const
 {
 	if (swapDialogButtonOrder)
 		return true;

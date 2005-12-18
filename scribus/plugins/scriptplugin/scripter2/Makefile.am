@@ -13,11 +13,16 @@ libscripter2_la_SOURCES = \
 	scripter2_qtclass_qobject.cpp \
 	scripter2_qtclass_qapplication.cpp \
 	scripter2_qtclass_qwidget.cpp \
+	scripter2_qtclass_qframe.cpp \
+	scripter2_qtclass_qscrollview.cpp \
+	scripter2_qtclass_qmainwindow.cpp \
 	scripter2_scribusstructs.cpp \
 	scripter2_scribus_scribusmainwin.cpp \
 	scripter2_scribus_scribusqapp.cpp \
 	scripter2_scribus_pageitem.cpp \
 	scripter2_scribus_scribuswin.cpp \
+	scripter2_scribus_scribusdoc.cpp \
+	scripter2_scribus_scribusview.cpp \
 	scripter2_styles.cpp
 
 EXTRA_DIST =

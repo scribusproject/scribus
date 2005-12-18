@@ -12,7 +12,10 @@ void export_ScribusQApp()
 
 	class_<ScribusQApp, bases<QApplication>, boost::noncopyable>("ScribusQApp",
 			"The core application",
-			no_init);
+			no_init)
+		.add_property("usingGUI", &ScribusQApp::usingGUI)
+		.add_property("isMacGUI", &ScribusQApp::isMacGUI)
+		.add_property("reverseDialogButtons", &ScribusQApp::reverseDialogButtons);
 
 	scope().attr("ScQApp") = boost::ref(ScQApp);
 }

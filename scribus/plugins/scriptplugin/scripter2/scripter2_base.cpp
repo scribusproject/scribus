@@ -8,12 +8,19 @@ using namespace boost::python;
 extern void export_QString();
 extern void export_QObject();
 extern void export_QWidget();
-//extern void export_QMainWindow();
+extern void export_QFrame();
+extern void export_QScrollView();
+extern void export_QMainWindow();
 extern void export_QApplication();
+
 extern void export_ScribusStructs();
 extern void export_PageItem();
 extern void export_ScribusMainWindow();
 extern void export_ScribusQApp();
+extern void export_ScribusWin();
+extern void export_ScribusDoc();
+extern void export_ScribusView();
+
 extern void export_styles();
 
 /**
@@ -41,10 +48,16 @@ BOOST_PYTHON_MODULE(scribus2)
 	export_QObject();
 	export_QApplication();
 	export_QWidget();
+	export_QFrame();
+	export_QScrollView();
+	export_QMainWindow();
 
 	// Export Scribus types
 	export_ScribusStructs();
 	export_ScribusQApp();
+	export_ScribusDoc();
+	export_ScribusView();
+	export_ScribusWin();
 	export_ScribusMainWindow();
 	export_PageItem();
 
