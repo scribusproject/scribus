@@ -37,7 +37,6 @@
 #include "objimageexport.h"
 #include "guiapp.h"
 #include "svgimport.h"
-#include "scripter2_base.h"
 #include "scriptercore.h"
 
 #include "customfdialog.h"
@@ -66,6 +65,10 @@
 #include <iostream>
 
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
+
+#ifdef HAVE_SCRIPTER2
+extern void scripter2_init();
+#endif
 
 // Exceptions; visible from cmdvar.h, set up in initscribus()
 PyObject* ScribusException;
@@ -162,7 +165,9 @@ bool ScriptPlugin::initPlugin()
 	scripterCore = new ScripterCore(ScMW);
 	Q_CHECK_PTR(scripterCore);
 	initscribus(ScMW);
-	scribus2_init();
+#ifdef HAVE_SCRIPTER2
+	scripter2_init();
+#endif
 	scripterCore->setupMainInterpreter();
 	scripterCore->initExtensionScripts();
 	scripterCore->runStartupScript();

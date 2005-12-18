@@ -5,6 +5,8 @@
 #undef _XOPEN_SOURCE
 #endif
 
+#include "scconfig.h"
+
 #if defined(HAVE_BOOST_PYTHON)
 #include <boost/python.hpp>
 #else

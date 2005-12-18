@@ -1,8 +1,12 @@
-SUBDIRS = samples scripts
+if HAVE_SCRIPTER2
+  scripter2dir = scripter2
+  scripter2lib = -L$(top_builddir)/scribus/plugins/scriptplugin/scripter2 -lscripter2
+endif
+SUBDIRS = samples scripts $(scripter2dir)
 pluginsdir = $(libdir)/scribus/plugins
 plugins_LTLIBRARIES = libscriptplugin.la
 INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
-libscriptplugin_la_LDFLAGS = -version-info 0:0:0
+libscriptplugin_la_LDFLAGS = -version-info 0:0:0 $(scripter2lib)
 libscriptplugin_la_METASOURCES = AUTO
 
 libscriptplugin_la_SOURCES = \
@@ -24,16 +28,6 @@ libscriptplugin_la_SOURCES = \
 	objprinter.cpp \
 	pconsole.cpp \
 	runscriptdialog.cpp \
-	scripter2_base.cpp \
-	scripter2_qttype_qstring.cpp \
-	scripter2_qtclass_qobject.cpp \
-	scripter2_qtclass_qapplication.cpp \
-	scripter2_qtclass_qwidget.cpp \
-	scripter2_scribusstructs.cpp \
-	scripter2_scribus_scribusmainwin.cpp \
-	scripter2_scribus_scribusqapp.cpp \
-	scripter2_scribus_pageitem.cpp \
-	scripter2_styles.cpp \
 	scriptercore.cpp \
 	scripterprefsgui.cpp \
 	scriptplugin.cpp \
@@ -68,7 +62,7 @@ EXTRA_DIST = \
 	valuedialog.h
 
 KDE_OPTIONS = qtonly
-AM_LDFLAGS = $(PYTHONLIB) $(LIBPYTHON) $(MODULE_LINK_FLAGS)
+AM_LDFLAGS = $(PYTHONLIB) $(LIBPYTHON) $(MODULE_LINK_FLAGS) $(BOOST_PYTHON_LDFLAGS)
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus $(PYTHONINC) \
@@ -80,3 +74,9 @@ AM_CPPFLAGS = \
     -DLIBDIR=\"$(libdir)/scribus/\" \
     -DPLUGINDIR=\"$(libdir)/scribus/plugins/\" \
     $(GCC4_VISIBILITY_FLAGS)
+
+# even though we don't use Boost::Python in the plain scripter, we need to
+# enable support for it if we've found it, since cmdvar pulls in the boost
+# header (which requires exceptions) instead of Python.h .
+KDE_CXXFLAGS = \
+    $(BOOST_PYTHON_CXXFLAGS)
