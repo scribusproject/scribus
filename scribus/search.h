@@ -114,7 +114,7 @@ public slots:
 	virtual void clear();
 
 signals:
-	void NewFont(QString);
+	void NewFont(const QString&);
 	void NewAbs(int);
 
 protected:

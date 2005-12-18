@@ -28,36 +28,35 @@
 
 
 
-ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* ddoc) : QMainWindow(parent, "", WDestructiveClose)
+ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : QMainWindow(parent, "", WDestructiveClose)
 {
 	setIcon(loadIcon("AppIcon2.png"));
-	doc = ddoc;
-	muster = NULL;
+	m_Doc = doc;
+	m_masterPagesPalette = NULL;
 }
 
-void ScribusWin::setView(ScribusView* dview)
+void ScribusWin::setView(ScribusView* newView)
 {
-	view = dview;
-	doc->viewCount++;
-	doc->viewID++;
-	winIndex = doc->viewID;
-	QPoint point = QPoint(0,0);
+	m_View = newView;
+	++m_Doc->viewCount;
+	winIndex = ++m_Doc->viewID;
+	QPoint point(0,0);
 	statusFrame = new QFrame(this, "newDocFrame");
 	statusFrameLayout = new QHBoxLayout( statusFrame, 0, 0, "statusFrame");
-	view->unitSwitcher->reparent(statusFrame, point);
-	view->layerMenu->reparent(statusFrame, point);
-	view->zoomOutToolbarButton->reparent(statusFrame, point);
-	view->zoomDefaultToolbarButton->reparent(statusFrame, point);
-	view->zoomInToolbarButton->reparent(statusFrame, point);
-	view->pageSelector->reparent(statusFrame, point);
-	view->zoomSpinBox->reparent(statusFrame, point);
-	statusFrameLayout->addWidget(view->unitSwitcher);
-	statusFrameLayout->addWidget(view->zoomSpinBox);
-	statusFrameLayout->addWidget(view->zoomOutToolbarButton);
-	statusFrameLayout->addWidget(view->zoomDefaultToolbarButton);
-	statusFrameLayout->addWidget(view->zoomInToolbarButton);
-	statusFrameLayout->addWidget(view->pageSelector);
-	statusFrameLayout->addWidget(view->layerMenu);
+	m_View->unitSwitcher->reparent(statusFrame, point);
+	m_View->layerMenu->reparent(statusFrame, point);
+	m_View->zoomOutToolbarButton->reparent(statusFrame, point);
+	m_View->zoomDefaultToolbarButton->reparent(statusFrame, point);
+	m_View->zoomInToolbarButton->reparent(statusFrame, point);
+	m_View->pageSelector->reparent(statusFrame, point);
+	m_View->zoomSpinBox->reparent(statusFrame, point);
+	statusFrameLayout->addWidget(m_View->unitSwitcher);
+	statusFrameLayout->addWidget(m_View->zoomSpinBox);
+	statusFrameLayout->addWidget(m_View->zoomOutToolbarButton);
+	statusFrameLayout->addWidget(m_View->zoomDefaultToolbarButton);
+	statusFrameLayout->addWidget(m_View->zoomInToolbarButton);
+	statusFrameLayout->addWidget(m_View->pageSelector);
+	statusFrameLayout->addWidget(m_View->layerMenu);
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	statusFrameLayout->addItem( spacer );
 	statusBar()->addWidget(statusFrame, 4, true);
@@ -65,17 +64,16 @@ void ScribusWin::setView(ScribusView* dview)
 
 void ScribusWin::slotAutoSave()
 {
-	if ((doc->hasName) && (doc->isModified()))
+	if ((m_Doc->hasName) && (m_Doc->isModified()))
 	{
-		moveFile(doc->DocName, doc->DocName+".bak");
-		QString fn = doc->DocName;
-		QFileInfo fi(fn);
+		moveFile(m_Doc->DocName, m_Doc->DocName+".bak");
+		QFileInfo fi(m_Doc->DocName);
 		QDir::setCurrent(fi.dirPath(true));
 		ScriXmlDoc *ss = new ScriXmlDoc();
-		if (ss->WriteDoc(fn, doc, 0))
+		if (ss->WriteDoc(m_Doc->DocName, m_Doc, 0))
 		{
-			doc->setModified(false);
-			setCaption(doc->DocName);
+			m_Doc->setModified(false);
+			setCaption(m_Doc->DocName);
 			qApp->processEvents();
 			emit AutoSaved();
 		}
@@ -85,38 +83,34 @@ void ScribusWin::slotAutoSave()
 
 void ScribusWin::closeEvent(QCloseEvent *ce)
 {
-	if (doc->isModified() && (doc->viewCount == 1))
+	if (m_Doc->isModified() && (m_Doc->viewCount == 1))
 	{
 		int exit=ScMessageBox::information(ScMW, CommonStrings::trWarning,
-		                                  tr("Document:")+" "+doc->DocName+"\n"+ tr("has been changed since the last save."),
+		                                  tr("Document:")+" "+m_Doc->DocName+"\n"+ tr("has been changed since the last save."),
 		                                  CommonStrings::tr_Save, tr("&Discard"), CommonStrings::tr_Cancel, 2, 2);
-		switch (exit)
+		if (exit==2)
+			return;
+		if (exit==0)
 		{
-		case 0:
 			if (ScMW->slotFileSave())
 			{
-				if (doc==ScMW->storyEditor->currentDocument())
+				if (m_Doc==ScMW->storyEditor->currentDocument())
 					ScMW->storyEditor->close();
-				ScMW->DoFileClose();
-				ce->accept();
 			}
 			else
 				return;
-			break;
-		case 1:
-			ScMW->DoFileClose();
-			//emit Schliessen();
-			ce->accept();
-			break;
-		case 2:
-			break;
-			
 		}
 	}
+	ScMW->DoFileClose();
+	ce->accept();
+}
+
+void ScribusWin::setMasterPagesPaletteShown(bool isShown) const
+{
+	if (m_masterPagesPalette==NULL)
+		return;
+	if (isShown)
+		m_masterPagesPalette->show();
 	else
-	{
-		ScMW->DoFileClose();
-		//emit Schliessen();
-		ce->accept();
-	}
+		m_masterPagesPalette->hide();
 }

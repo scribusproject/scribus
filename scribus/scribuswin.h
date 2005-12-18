@@ -32,16 +32,17 @@ class SCRIBUS_API ScribusWin : public QMainWindow
 	Q_OBJECT
 
 public: 
-	ScribusWin(QWidget* parent, ScribusDoc* ddoc);
+	ScribusWin(QWidget* parent, ScribusDoc* doc);
 	~ScribusWin() {};
-	void setView(ScribusView* dview);
 	void closeEvent(QCloseEvent *ce);
-	ScribusView* view;
-	ScribusDoc* doc;
-	MasterPagesPalette* muster;
-	QFrame *statusFrame;
-	bool MenuStat[7];
-	int winIndex;
+	void setView(ScribusView* newView);
+	ScribusView* view() const { return m_View;}
+	ScribusDoc* document() const { return m_Doc;}
+	void setMasterPagesPalette(MasterPagesPalette* newMPP) { m_masterPagesPalette=newMPP; }
+	MasterPagesPalette* masterPagesPalette() const { return m_masterPagesPalette; }
+	void setMenuStatus(int index, bool value) { if (index>=0 && index <=6) MenuStat[index]=value;}
+	bool menuStatus(int index) const { if (index>=0 && index <=6) return MenuStat[index]; else return false; }
+	void setMasterPagesPaletteShown(bool isShown) const;
 	
 public slots:
 	void slotAutoSave();
@@ -51,6 +52,12 @@ signals:
 
 protected:
 	QHBoxLayout* statusFrameLayout;
+	ScribusView* m_View;
+	ScribusDoc* m_Doc;
+	MasterPagesPalette* m_masterPagesPalette;
+	QFrame *statusFrame;
+	bool MenuStat[7];
+	int winIndex;
 };
 
 #endif

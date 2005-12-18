@@ -1808,11 +1808,11 @@ void ScribusMainWindow::newActWin(QWidget *w)
 		return;
 	}
 	ActWin = (ScribusWin*)w;
-	if (ActWin->doc==NULL)
+	if (ActWin->document()==NULL)
 		return;
 	QString oldDocName = "";
-	if (ActWin && ActWin->doc)
-		oldDocName = ActWin->doc->DocName;
+	if (ActWin && ActWin->document())
+		oldDocName = ActWin->document()->DocName;
 
 /*	if (doc != NULL)
 	{
@@ -1821,8 +1821,8 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	} */
 	docCheckerPalette->clearErrorList();
 	QString newDocName = "";
-	if (ActWin && ActWin->doc)
-		newDocName = ActWin->doc->DocName;
+	if (ActWin && ActWin->document())
+		newDocName = ActWin->document()->DocName;
 
 	if (oldDocName != newDocName)
 		undoManager->switchStack(newDocName);
@@ -1834,8 +1834,8 @@ void ScribusMainWindow::newActWin(QWidget *w)
 		if (ScQApp->usingGUI())
 			disconnect(doc->selection, SIGNAL(selectionIsMultiple(int, bool)), 0, 0);
 	}
-	doc = ActWin->doc;
-	view = ActWin->view;
+	doc = ActWin->document();
+	view = ActWin->view();
 	actionManager->connectNewViewActions(view);
 	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	if (ScQApp->usingGUI())
@@ -1843,21 +1843,23 @@ void ScribusMainWindow::newActWin(QWidget *w)
 
 	pagePalette->setView(view);
 	alignDistributePalette->setView(view);
-	ScribusWin* swin;
 	if (!doc->isLoading())
 	{
 		scanDocument();
 		docCheckerPalette->buildErrorList(doc);
 		SwitchWin();
 		QWidgetList windows = wsp->windowList();
+		ScribusWin* swin;
 		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
 		{
 			swin = (ScribusWin*)windows.at(i);
-			if (swin->muster != NULL)
-				swin->muster->hide();
+			if (swin==ActWin && doc->masterPageMode())
+				swin->setMasterPagesPaletteShown(true);
+			else
+				swin->setMasterPagesPaletteShown(false);
 		}
-		if (doc->masterPageMode())
-			ActWin->muster->show();
+		//if (doc->masterPageMode())
+		//	ActWin->setMasterPagesPaletteShown(true);
 		setAppMode(doc->appMode);
 	}
 	w->setFocus();
@@ -2011,8 +2013,8 @@ void ScribusMainWindow::SwitchWin()
 		scrActions["fileClose"]->setEnabled(true);
 		scrActions["fileSave"]->setEnabled(doc->isModified());
 		//CB TODO  Huh? Why different to the above?, fileMenu->setItemEnabled(M_FileSave, ActWin->MenuStat[2]);
-		scrActions["fileSaveAs"]->setEnabled(ActWin->MenuStat[3]);
-		scrActions["fileCollect"]->setEnabled(ActWin->MenuStat[3]);
+		scrActions["fileSaveAs"]->setEnabled(ActWin->menuStatus(3));
+		scrActions["fileCollect"]->setEnabled(ActWin->menuStatus(3));
 		scrActions["fileRevert"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 
@@ -2640,10 +2642,10 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 			scrActions["fileRevert"]->setEnabled(true);
 	}
 
-	ActWin->MenuStat[0] = scrActions["fileSave"]->isEnabled();
-	ActWin->MenuStat[1] = scrActions["fileClose"]->isEnabled();
-	ActWin->MenuStat[2] = scrActions["fileSave"]->isEnabled();
-	ActWin->MenuStat[3] = scrActions["fileSaveAs"]->isEnabled();
+	ActWin->setMenuStatus(0, scrActions["fileSave"]->isEnabled());
+	ActWin->setMenuStatus(1, scrActions["fileClose"]->isEnabled());
+	ActWin->setMenuStatus(2, scrActions["fileSave"]->isEnabled());
+	ActWin->setMenuStatus(3, scrActions["fileSaveAs"]->isEnabled());
 }
 
 void ScribusMainWindow::updateRecent(QString fn)
@@ -7306,8 +7308,8 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 		view->Deselect(true);
 		if (doc->masterPageMode())
 		{
-			ActWin->muster->updateMasterPageList(temp);
-			ActWin->muster->selectMasterPage(temp);
+			ActWin->masterPagesPalette()->updateMasterPageList(temp);
+			ActWin->masterPagesPalette()->selectMasterPage(temp);
 		}
 		else
 		{
@@ -7326,10 +7328,10 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 			scrActions["pageApplyMasterPage"]->setEnabled(false);
 			scrActions["pageCopyToMasterPage"]->setEnabled(false);
 			scrActions["editMasterPages"]->setEnabled(false);
-			ActWin->MenuStat[0] = scrActions["fileSave"]->isEnabled();
-			ActWin->MenuStat[1] = scrActions["fileRevert"]->isEnabled();
-			ActWin->MenuStat[2] = scrActions["fileSave"]->isEnabled();
-			ActWin->MenuStat[3] = scrActions["fileSaveAs"]->isEnabled();
+			ActWin->setMenuStatus(0, scrActions["fileSave"]->isEnabled());
+			ActWin->setMenuStatus(1, scrActions["fileRevert"]->isEnabled());
+			ActWin->setMenuStatus(2, scrActions["fileSave"]->isEnabled());
+			ActWin->setMenuStatus(3, scrActions["fileSaveAs"]->isEnabled());
 			scrActions["fileNew"]->setEnabled(false);
 			scrActions["fileOpen"]->setEnabled(false);
 			scrActions["fileClose"]->setEnabled(false);
@@ -7340,7 +7342,7 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 			scrActions["PrintPreview"]->setEnabled(false);
 			pagePalette->enablePalette(false);
 			dia->show();
-			ActWin->muster = dia;
+			ActWin->setMasterPagesPalette(dia);
 			doc->OpenNodes = outlinePalette->buildReopenVals();
 		}
 	}
@@ -7374,7 +7376,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	doc->setMasterPageMode(false);
 	pagePalette->enablePalette(true);
 	pagePalette->RebuildTemp();
-	ActWin->muster = NULL;
+	ActWin->setMasterPagesPalette(NULL);
 	view->DrawNew();
 	pagePalette->Rebuild();
 	outlinePalette->BuildTree();
@@ -8281,8 +8283,8 @@ void ScribusMainWindow::emergencySave()
 		for (uint i=0; i<windowCount ; ++i)
 		{
 			ActWin = (ScribusWin*)windows.at(i);
-			doc = ActWin->doc;
-			view = ActWin->view;
+			doc = ActWin->document();
+			view = ActWin->view();
 			doc->setModified(false);
 			if (doc->hasName)
 			{
@@ -8328,10 +8330,10 @@ void ScribusMainWindow::SearchText()
 	setAppMode(modeEdit);
 	currItem->CPos = 0;
 	SearchReplace* dia = new SearchReplace(this, doc, currItem);
-	connect(dia, SIGNAL(NewFont(QString)), this, SLOT(SetNewFont(QString)));
+	connect(dia, SIGNAL(NewFont(const QString&)), this, SLOT(SetNewFont(const QString&)));
 	connect(dia, SIGNAL(NewAbs(int)), this, SLOT(setAbsValue(int)));
 	dia->exec();
-	disconnect(dia, SIGNAL(NewFont(QString)), this, SLOT(SetNewFont(QString)));
+	disconnect(dia, SIGNAL(NewFont(const QString&)), this, SLOT(SetNewFont(const QString&)));
 	disconnect(dia, SIGNAL(NewAbs(int)), this, SLOT(setAbsValue(int)));
 	delete dia;
 	slotSelect();
@@ -8682,7 +8684,7 @@ void ScribusMainWindow::closeActiveWindowMasterPageEditor()
 		return;
 	if(doc->masterPageMode())
 	{
-		ActWin->muster->close();
+		ActWin->masterPagesPalette()->close();
 		qApp->processEvents();
 	}
 }
