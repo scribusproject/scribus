@@ -4,6 +4,7 @@
 extern QPixmap loadIcon(QString nam);
 
 #include <qtooltip.h>
+#include "pagestructs.h"
 #include "scribusdoc.h"
 #include "commonstrings.h"
 

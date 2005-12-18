@@ -14,6 +14,7 @@
 #include "scribus.h"
 #include "prefsmanager.h"
 #include "pagelayout.h"
+#include "pagestructs.h"
 #include "commonstrings.h"
 #include "mspinbox.h"
 #include "customfdialog.h"

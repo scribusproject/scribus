@@ -9,6 +9,7 @@
 #include <qstring.h>
 #include <qtooltip.h>
 #include "page.h"
+#include "pagestructs.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "util.h"

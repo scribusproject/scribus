@@ -56,4 +56,21 @@ struct DocumentSection
 };
 
 typedef QMap<uint, DocumentSection> DocumentSectionMap;
+
+typedef enum
+{
+	singlePage,
+	doublePage,
+	triplePage,
+	quadroPage
+} PageLayout;
+
+typedef enum
+{
+	LeftPage,
+	MiddlePage,
+	RightPage
+} PageLocation;
+
+
 #endif

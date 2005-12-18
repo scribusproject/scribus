@@ -29,6 +29,7 @@
 #include "fontprefs.h"
 #include "units.h"
 #include "pagesize.h"
+#include "pagestructs.h"
 #include "docitemattrprefs.h"
 #include "tocindexprefs.h"
 #include "marginWidget.h"

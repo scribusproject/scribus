@@ -26,6 +26,7 @@
 #include "missing.h"
 #include "keymanager.h"
 #include "pagesize.h"
+#include "pagestructs.h"
 #include "pdfoptions.h"
 #include "prefsfile.h"
 #include "scfonts.h"

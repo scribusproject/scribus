@@ -3199,15 +3199,15 @@ void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Right;
 		return;
 	}
-	Page* pageToAdjust=DocPages.at(pageIndex);
-	int myCol=(pageIndex+pageSets[currentPageLayout].FirstPage)%setcol;
 	
-	if (myCol==0) //Right hand page
+	Page* pageToAdjust=DocPages.at(pageIndex);
+	PageLocation pageLoc=locationOfPage(pageIndex);
+	if (pageLoc==LeftPage) //Left hand page
 	{
 		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Right;
 		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Left;
 	}
-	else if (myCol>= setcol-1) // Left hand page
+	else if (pageLoc=RightPage) // Right hand page
 	{
 		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Right;
 		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Left;
@@ -3273,6 +3273,22 @@ void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 	pageToAdjust->setXOffset(xOffset);
 	*/
 }
+
+PageLocation ScribusDoc::locationOfPage(int pageIndex)
+{
+	int setcol=pageSets[currentPageLayout].Columns;
+	if (setcol==1)
+		return LeftPage;
+	int myCol=(pageIndex+pageSets[currentPageLayout].FirstPage)%setcol;
+	
+	if (myCol==0) //Left hand page
+		return LeftPage;
+	else if (myCol>= setcol-1) // Right hand page
+		return RightPage;
+	else //Middle pages
+		return MiddlePage;
+}
+
 
 void ScribusDoc::updateAllItemQColors()
 {
@@ -3345,10 +3361,8 @@ void ScribusDoc::buildAlignItemList()
 	int ObjGroup;
 	struct AlignObjs Object;
 	AObjects.clear();
-	//for (uint a = 0; a < SelItem.count(); ++a)
 	for (uint a = 0; a < selection->count(); ++a)
 	{
-		//currItem = SelItem.at(a);
 		currItem = selection->itemAt(a);
 		Object.Objects.clear();
 		currItem->getBoundingRect(&Object.x1, &Object.y1, &Object.x2, &Object.y2);

@@ -9,7 +9,7 @@
 #include "margindialog.h"
 #include "margindialog.moc"
 #include "marginWidget.h"
-#include "scribusstructs.h"
+#include "pagestructs.h"
 #include "page.h"
 #include "scribusdoc.h"
 #include "units.h"

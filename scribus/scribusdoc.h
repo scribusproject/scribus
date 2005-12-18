@@ -507,6 +507,13 @@ public:
 	void insertColor(QString nam, double c, double m, double y, double k);
 	
 	QMap<QString, double>& constants() { return m_constants; }
+	/**
+	 * Get the location of the page on the canvas, ie, left, middle, or right
+	 * Does not give information about middle left, etc.
+	 * @param  Index of page to find location for
+	 * @return LeftPage, MiddlePage, RightPage, enum from pagestructs.h
+	 */
+	PageLocation ScribusDoc::locationOfPage(int);
 
 protected:
 	void addSymbols();
