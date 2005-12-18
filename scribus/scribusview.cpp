@@ -6029,7 +6029,8 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 	currItem->OwnPage = Doc->OnPage(currItem);
 	if (currItem->Sizing)
 	{
-		emit ItemGeom(currItem->width(), currItem->height());
+		//CB Unneeded as we emit from setWidthHeight above
+		//emit ItemGeom(currItem->width(), currItem->height());
 		//CB Seemingly unneeded to send this as when sizing, the value doesnt change anyway
 		//emit ItemRadius(currItem->cornerRadius());
 		currItem->FrameOnly = true;
@@ -6088,8 +6089,9 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 			getGroupRect(&gx, &gy, &gw, &gh);
 			emit ItemGeom(gw, gh);
 		}
-		else
-			emit ItemGeom(currItem->width(), currItem->height());
+		//CB Unneeded as we emit from setWidthHeight above
+		//else
+		//	emit ItemGeom(currItem->width(), currItem->height());
 	}
 	return true;
 }
