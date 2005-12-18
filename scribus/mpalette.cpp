@@ -900,7 +900,7 @@ void Mpalette::setDoc(ScribusDoc *d)
 
 	updateCList();
 	
-	Width->setConstants(doc->constants());
+	updateSpinBoxConstants();
 }
 
 void Mpalette::unsetDoc()
@@ -2049,15 +2049,15 @@ void Mpalette::NewX()
 {
 	if (ScMW->ScriptRunning)
 		return;
-	double x,y,w,h, gx, gy, gh, gw, base;
-	QWMatrix ma;
-	x = Xpos->value() / Umrech;
-	y = Ypos->value() / Umrech;
-	w = Width->value() / Umrech;
-	h = Height->value() / Umrech;
-	base = 0;
 	if ((HaveDoc) && (HaveItem))
 	{
+		double x,y,w,h, gx, gy, gh, gw, base;
+		QWMatrix ma;
+		x = Xpos->value() / Umrech;
+		y = Ypos->value() / Umrech;
+		w = Width->value() / Umrech;
+		h = Height->value() / Umrech;
+		base = 0;
 		x += doc->rulerXoffset;
 		y += doc->rulerYoffset;
 		if (doc->guidesSettings.rulerMode)
@@ -2111,15 +2111,15 @@ void Mpalette::NewY()
 {
 	if (ScMW->ScriptRunning)
 		return;
-	double x,y,w,h, gx, gy, gh, gw, base;
-	QWMatrix ma;
-	x = Xpos->value() / Umrech;
-	y = Ypos->value() / Umrech;
-	w = Width->value() / Umrech;
-	h = Height->value() / Umrech;
-	base = 0;
 	if ((HaveDoc) && (HaveItem))
 	{
+		double x,y,w,h, gx, gy, gh, gw, base;
+		QWMatrix ma;
+		x = Xpos->value() / Umrech;
+		y = Ypos->value() / Umrech;
+		w = Width->value() / Umrech;
+		h = Height->value() / Umrech;
+		base = 0;
 		x += doc->rulerXoffset;
 		y += doc->rulerYoffset;
 		if (doc->guidesSettings.rulerMode)
@@ -2173,13 +2173,13 @@ void Mpalette::NewW()
 {
 	if (ScMW->ScriptRunning)
 		return;
-	double x,y,w,h, gx, gy, gh, gw;
-	x = Xpos->value() / Umrech;
-	y = Ypos->value() / Umrech;
-	w = Width->value() / Umrech;
-	h = Height->value() / Umrech;
 	if ((HaveDoc) && (HaveItem))
 	{
+		double x,y,w,h, gx, gy, gh, gw;	
+		x = Xpos->value() / Umrech;
+		y = Ypos->value() / Umrech;
+		w = Width->value() / Umrech;
+		h = Height->value() / Umrech;
 		if (doc->selection->isMultipleSelection())
 		{
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
@@ -2270,13 +2270,13 @@ void Mpalette::NewH()
 {
 	if (ScMW->ScriptRunning)
 		return;
-	double x,y,w,h, gx, gy, gh, gw;
-	x = Xpos->value() / Umrech;
-	y = Ypos->value() / Umrech;
-	w = Width->value() / Umrech;
-	h = Height->value() / Umrech;
 	if ((HaveDoc) && (HaveItem))
 	{
+		double x,y,w,h, gx, gy, gh, gw;
+		x = Xpos->value() / Umrech;
+		y = Ypos->value() / Umrech;
+		w = Width->value() / Umrech;
+		h = Height->value() / Umrech;	
 		if (doc->selection->isMultipleSelection())
 		{
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
