@@ -32,6 +32,7 @@
 #include "scimage.h"
 #include "pagestructs.h"
 #include "annotation.h"
+#include "sctextstruct.h"
 class ScribusDoc;
 class UndoManager;
 class UndoState;
