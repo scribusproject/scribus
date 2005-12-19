@@ -55,6 +55,7 @@
 #define ARG_DISPLAY_SHORT "-d"
 #define ARG_FONTINFO_SHORT "-fi"
 #define ARG_SWAPDIABUTTONS_SHORT "-sb"
+#define ARG_PREFS_SHORT "-pr"
 
 // Qt wants -display not --display or -d
 #define ARG_DISPLAY_QT "-display"
@@ -148,7 +149,7 @@ void ScribusQApp::parseCommandLine()
 			// allow setting of display, QT expect the option -display <display_name> so we discard the
 			// last argument. FIXME: Qt only understands -display not --display and -d , we need to work
 			// around this.
-		} else if (arg == ARG_PREFS) {
+		} else if (arg == ARG_PREFS || arg == ARG_PREFS_SHORT) {
 			prefsUserFile = QFile::decodeName(argv()[i + 1]);
 			if (!QFileInfo(prefsUserFile).exists()) {
 				showHeader();
@@ -372,7 +373,7 @@ void ScribusQApp::showUsage()
 	std::cout << "  " << ARG_NOSPLASH_SHORT       << ", "  << ARG_NOSPLASH         << "        "      << QObject::tr("Do not show the splashscreen on startup")     << std::endl;
 	std::cout << "  " << ARG_VERSION_SHORT        << ",  " << ARG_VERSION          << "          "    << QObject::tr("Output version information and exit")       << std::endl;
 	std::cout << "  " << ARG_SWAPDIABUTTONS_SHORT << ", " << ARG_SWAPDIABUTTONS   << "     "    << QObject::tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)")       << std::endl;
-	std::cout << "       " << ARG_PREFS << " filename   " << QObject::tr("Use filename as path for user given preferences") << std::endl;
+	std::cout << "  " << ARG_PREFS_SHORT << ", " << ARG_PREFS << " filename   " << QObject::tr("Use filename as path for user given preferences") << std::endl;
 /*
 	std::cout << "-file|-- name Open file 'name'" << std::endl;
 	std::cout << "name          Open file 'name', the file name must not begin with '-'" << std::endl;
