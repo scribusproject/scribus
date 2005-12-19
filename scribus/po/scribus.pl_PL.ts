@@ -248,7 +248,44 @@ PAGE_4, 3)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDocument(rozmiar, marginesy, orientacja, pierwszyNumer,
+            jednostka, typStron, pierwszaStrona) -&gt; bool
+
+newDocument(size, margins, orientation, firstPageNumber,(new line)
+unit, pagesType, firstPageOrder) -&gt; bool(new line)
+
+OSTRZEŻENIE: Funkcja ta została przeportowana ze Scribusa 1.3.x. Używaj stałych większych niż PAGE_3 
+na własne ryzyko. To samo dotyczy parametru pierwszaStrona większego niż 1.
+
+Tworzy nowy dokument i zwraca true, jeśli operacja się powiedzie. Parametry mają następujące znaczenie:
+
+    rozmiar = krotka (szerokość, wysokość) opisująca rozmiar dokumentu. Można
+    użyć predefiniowanych  stałych o nazwie PAPER_&lt;typ_formatu&gt; np. PAPER_A4 itd.
+
+    marginesy = krotka (lewy, prawy, górny, dolny) opisująca marginesy dokumentu
+    
+    orientacja = orientacja strony - stałe PORTRAIT, LANDSCAPE
+
+    pierwszyNumer = jest to numer pierwszej strony dokumentu, na której zostanie 
+    zastosowana numeracja stron. Zazwyczaj jest to 1, ale jeśli tworzysz dokument 
+    złożony z wielu części, możesz potrzebować innych numerów.
+
+    jednostka: jednostka miary stosowana w dokumencie. Użyj predefiniowanych stałych: 
+    UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+
+    typStron = Jedna z predefiniowanych stałych PAGE_n. PAGE_1 to pojedyncza strona,
+    PAGE_2 to strony widzące, PAGE_3 to składanka potrójna, a PAGE_4 składanka poczwórna.
+
+    pierwszaStrona = Jaka jest pozycja pierwszej strony dokumentu. Liczona od 0 (0 = pierwsza).
+
+Wartości szerokości, wysokości i marginesów podaje się w danej jednostce dokumentu.
+Stałe PAPER_* wyrażone są w punktach. Jeśli jednostką miary twojego dokumentu nie 
+są punkty, należy o tym pamiętać. 
+
+przykład: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+                                 PAGE_4, 3)
+
+Może zwrócić błąd ScribusError jeśli pierwszaStrona będzie większa niż dozwolona w parametrze typStron.</translation>
     </message>
 </context>
 <context>
@@ -2260,7 +2297,34 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation type="unfinished">O Scribusie %1</translation>
+        <translation>newDoc(rozmiar, marginesy, orientacja, pierwszyNumer,
+            jednostka, stronyWidzące, lewaStronaNajpierw) -&gt; bool
+
+Tworzy nowy dokument i zwraca true, jeśli operacja się powiedzie. Parametry mają następujące znaczenie:
+
+    rozmiar = krotka (szerokość, wysokość) opisująca rozmiar dokumentu. Można
+    użyć predefiniowanych  stałych o nazwie PAPER_&lt;typ_formatu&gt; np. PAPER_A4 itd.
+
+    marginesy = krotka (lewy, prawy, górny, dolny) opisująca marginesy dokumentu
+    
+    orientacja = orientacja strony - stałe PORTRAIT, LANDSCAPE
+
+    pierwszyNumer = jest to numer pierwszej strony dokumentu, na której zostanie 
+    zastosowana numeracja stron. Zazwyczaj jest to 1, ale jeśli tworzysz dokument 
+    złożony z wielu części, możesz potrzebować innych numerów.
+
+    jednostka: jednostka miary stosowana w dokumencie. Użyj predefiniowanych stałych: 
+    UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+
+    stronyWidzące = użyj stałej FACINGPAGES lub NOFACINGPAGES
+
+Wartości szerokości, wysokości i marginesów podaje się w danej jednostce dokumentu.
+Stałe PAPER_* wyrażone są w punktach. Jeśli jednostką miary twojego dokumentu nie 
+są punkty, należy o tym pamiętać. 
+
+przykład: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                         FACINGPAGES, FIRSTPAGERIGHT)
+</translation>
     </message>
     <message>
         <source>textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
@@ -2271,7 +2335,15 @@ use text frame linking. Without this parameter it search all linking chain.
 
 May raise WrongFrameTypeError if the target frame is not an text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>textOverflows([&quot;nazwa&quot;, nolinks]) -&gt; integer
+
+Zwraca rzeczywistą ilość znaków przelewających się poza ramkę tekstową &quot;nazwa&quot;.
+
+Jeśli nolinks ma wartość różną od zera, to zostanie uwględniona tylko jedna ramka,
+ponieważ nie zostaną uwzględnione połączenia ramek tekstowych. Bez tego parametru 
+zostaną przeszukane wszystkie połączone ramki.
+
+Może zwrócić błąd WrongFrameTypeError, jeśli ramka docelowa nie będzie ramką tekstową</translation>
     </message>
     <message>
         <source>zoomDocument(double)
@@ -2279,7 +2351,10 @@ May raise WrongFrameTypeError if the target frame is not an text frame
 Zoom the document in main GUI window. Actions have whole number
 values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>zoomDocument(double)
+
+Powiększ dokument w głównym oknie. Wymagane są wartości numeryczne jak 20.0, 100.0 itd. 
+Aby powiększyć dokument do rozmiaru okna, użyj wartości -100.</translation>
     </message>
 </context>
 <context>
