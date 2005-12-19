@@ -96,19 +96,19 @@ class SCRIBUS_API Selection : public QObject
 		 * @param listNumber List to find th item in
 		 * @return Item
 		 */
-		const int findItem(PageItem *item);
+		int findItem(PageItem *item) const { return m_SelList.findIndex(item); }
 		/**
 		 * Return the count of a list
 		 * @param listNumber List to count
 		 * @return 
 		 */
-		uint count();
+		uint count() const { return m_SelList.count(); }
 		/**
 		 * Check if the list specified is empty.
 		 * @param listNumber List to check empty state
 		 * @return
 		 */
-		bool isEmpty();
+		bool isEmpty() const { return (m_SelList.count()==0); }
 		/**
 		 * Clear a list
 		 * @param listNumber List to clear
@@ -120,7 +120,7 @@ class SCRIBUS_API Selection : public QObject
 		 * @param item 
 		 * @return 
 		 */
-		const bool primarySelectionIs(const PageItem* item);
+		bool primarySelectionIs(const PageItem* item) const { return (!m_SelList.isEmpty() && (item==m_SelList.first())); }
 		PageItem *itemAt(int index=0);
 		QStringList getSelectedItemsByName();
 		bool isMultipleSelection() const { return m_hasGroupSelection; }

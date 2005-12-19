@@ -30,7 +30,6 @@ Selection::Selection(QObject* parent, bool guiSelection)
 {
 }
 
-
 Selection::Selection(const Selection& other) :
 	QObject(other.parent()),
 	m_SelList(other.m_SelList),
@@ -51,21 +50,6 @@ Selection& Selection::operator=( const Selection &other )
 
 Selection::~Selection()
 {
-}
-
-const int Selection::findItem(PageItem *item)
-{
-	return m_SelList.findIndex(item);
-}
-
-uint Selection::count()
-{
-	return m_SelList.count();
-}
-
-bool Selection::isEmpty()
-{
-	return (m_SelList.count()==0);
 }
 
 bool Selection::clear()
@@ -164,11 +148,6 @@ bool Selection::prependItem(PageItem *item)
 		return true;
 	}
 	return false;
-}
-
-const bool Selection::primarySelectionIs(const PageItem* item)
-{
-	return (!m_SelList.isEmpty() && (item==m_SelList.first()));
 }
 
 PageItem *Selection::itemAt(int index)
