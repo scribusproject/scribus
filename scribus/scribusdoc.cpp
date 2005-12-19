@@ -94,7 +94,6 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	Pages(0), MasterPages(), DocPages(),
 	MasterNames(),
 	Items(0), MasterItems(), DocItems(), FrameItems(),
-	selection(new Selection(this)),
 	pageWidth(0), pageHeight(0),
 	// pageCount(0) CR
 	// pageMargins
@@ -168,6 +167,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	docHyphenator(new Hyphenator(ScMW, this)), // MUST be constructed late
 	_itemCreationTransactionStarted(false)
 {
+	selection=new Selection(this, true);
+
 	Q_CHECK_PTR(selection);
 	Q_CHECK_PTR(docHyphenator);
 	Q_CHECK_PTR(autoSaveTimer);
