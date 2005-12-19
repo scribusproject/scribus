@@ -2998,7 +2998,7 @@ void Mpalette::NewRotMode(int m)
 			b = CurItem->width();
 			h = CurItem->height();
 			r = CurItem->rotation();
-			ma.translate(CurItem->xPos()-doc->getXOffsetForPage(CurItem->OwnPage), CurItem->yPos()-doc->getXOffsetForPage(CurItem->OwnPage));
+			ma.translate(CurItem->xPos()-doc->getXOffsetForPage(CurItem->OwnPage), CurItem->yPos()-doc->getYOffsetForPage(CurItem->OwnPage));
 			ma.rotate(r);
 			if (TopLeft->isChecked())
 				n = FPoint(0.0, 0.0);

@@ -19,3 +19,5 @@ tocindexprefsbase.cpp
 tocindexprefsbase.h
 aboutpluginsbase.cpp
 aboutpluginsbase.h
+multiprogressdialogbase.cpp
+multiprogressdialogbase.h
