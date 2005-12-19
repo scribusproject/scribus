@@ -18,10 +18,7 @@
 
 Selection::Selection(QObject* parent) : QObject(parent)
 {
-	//sellists.insert(0, QValueList< QGuardedPtr<PageItem> >()); //Create the default GUI selected item list
-	//hasGroupSelection.insert(0, false);
 	hasGroupSelection=false;
-	//nextTemp=TempStart;
 }
 
 Selection::Selection(const Selection& other) :
@@ -52,40 +49,26 @@ void Selection::setDoc(ScribusDoc* doc)
 	m_Doc=doc;
 }
 
-const int Selection::findItem(PageItem *item)//, int listNumber)
+const int Selection::findItem(PageItem *item)
 {
-	//if (sellists.contains(listNumber))
-		//return sellists[listNumber].findIndex(item);
-		return sellists.findIndex(item);
-	return -1;
+	return sellists.findIndex(item);
 }
 
-uint Selection::count()//(int listNumber)
+uint Selection::count()
 {
-	//if (sellists.contains(listNumber))
-		//return sellists[listNumber].count();
-		return sellists.count();
-	//return 0;
+	return sellists.count();
 }
 
-bool Selection::isEmpty()//(int listNumber)
+bool Selection::isEmpty()
 {
-	//if (sellists.contains(listNumber))
-		//return (sellists[listNumber].count()==0);
-		return (sellists.count()==0);
-	//return false;
+	return (sellists.count()==0);
 }
 
-bool Selection::clear()//(int listNumber)
+bool Selection::clear()
 {
-	//if (sellists.contains(listNumber))
-	//{
-		//if (!sellists[listNumber].isEmpty())
 		if (!sellists.isEmpty())
 		{
-			//SelectionList::Iterator itend=sellists[listNumber].end();
 			SelectionList::Iterator itend=sellists.end();
-			//SelectionList::Iterator it=sellists[listNumber].begin();
 			SelectionList::Iterator it=sellists.begin();
 			while (it!=itend)
 			{
@@ -95,295 +78,173 @@ bool Selection::clear()//(int listNumber)
 				++it;
 			}
 		}
-		//sellists[listNumber].clear();
 		sellists.clear();
-		//hasGroupSelection[listNumber]=false;
 		hasGroupSelection=false;
-		//qDebug(QString("clearing %1").arg(listNumber));
 		return true;
-	//}
-	return false;
 }
 
-/*
-void Selection::clearAll()
+bool Selection::connectItemToGUI()
 {
-	disconnectAllItemsFromGUI();
-	ListOfSelections::Iterator itend=sellists.end();
-	ListOfSelections::Iterator it=sellists.begin();
-	while (it!=itend)
+	if (sellists.isEmpty())
+		return false;
+	if (hasGroupSelection==false)
 	{
-		clear(it.key());
-		++it;
-	}
-}
-*/
-
-bool Selection::connectItemToGUI()//(int listNumber)
-{
-	//if (sellists.contains(listNumber) && !sellists[listNumber].isEmpty())
-	if (!sellists.isEmpty())
-		//if (hasGroupSelection[listNumber]==false)
-		if (hasGroupSelection==false)
+		QGuardedPtr<PageItem> pi=sellists.first();
+		//Quick check to see if the pointer is NULL, if its NULL, we should remove it from the list now
+		if (pi.isNull())
 		{
-			//QGuardedPtr<PageItem> pi=sellists[listNumber].first();
-			QGuardedPtr<PageItem> pi=sellists.first();
-			//Quick check to see if the pointer is NULL, if its NULL, we should remove it from the list now
-			if (pi.isNull())
-			{
-				//sellists[listNumber].remove(pi);
-				sellists.remove(pi);
-				return false;
-			}
-			return pi->connectToGUI();
+			sellists.remove(pi);
+			return false;
 		}
+		return pi->connectToGUI();
+	}
 	return false;
 }
 
 bool Selection::disconnectAllItemsFromGUI()
 {
-	//ListOfSelections::Iterator itend=sellists.end();
-	//ListOfSelections::Iterator it=sellists.begin();
-	//while (it!=itend)
-	//{
-		//int listNumber=it.key();
-		//if (!sellists[listNumber].isEmpty())
-		if (!sellists.isEmpty())
+	if (!sellists.isEmpty())
+	{
+		SelectionList::Iterator it2end=sellists.end();
+		SelectionList::Iterator it2=sellists.begin();
+		while (it2!=it2end)
 		{
-			//SelectionList::Iterator it2end=sellists[listNumber].end();
-			SelectionList::Iterator it2end=sellists.end();
-			//SelectionList::Iterator it2=sellists[listNumber].begin();
-			SelectionList::Iterator it2=sellists.begin();
-			while (it2!=it2end)
-			{
-				(*it2)->disconnectFromGUI();
-				++it2;
-			}
+			(*it2)->disconnectFromGUI();
+			++it2;
 		}
-		//++it;
-	//}
-	//Return true for now... 
+	}
 	return true;
 }
 
-bool Selection::addItem(PageItem *item)//, int listNumber)
+bool Selection::addItem(PageItem *item)
 {
 	if (item==NULL)
 		return false;
-	//if (sellists.contains(listNumber))
+	bool listIsEmpty=sellists.isEmpty();
+	if (listIsEmpty || !sellists.contains(item))
 	{
-		//bool listIsEmpty=sellists[listNumber].isEmpty();
-		bool listIsEmpty=sellists.isEmpty();
-		//if (listIsEmpty || !sellists[listNumber].contains(item))
-		if (listIsEmpty || !sellists.contains(item))
+		sellists.append(item);
+		if (listIsEmpty)
 		{
-			//sellists[listNumber].append(item);
-			sellists.append(item);
-			//if (listIsEmpty && listNumber==0)
-			if (listIsEmpty)
-			{
-				item->connectToGUI();
-				item->emitAllToGUI();
-			}
-			item->setSelected(true);
-			//hasGroupSelection[listNumber]=(sellists[listNumber].count()>1);
-			hasGroupSelection=(sellists.count()>1);
-			//emit selectionIsMultiple(listNumber, hasGroupSelection[listNumber]);
-			emit selectionIsMultiple(hasGroupSelection);
-			return true;
+			item->connectToGUI();
+			item->emitAllToGUI();
 		}
+		item->setSelected(true);
+		hasGroupSelection=(sellists.count()>1);
+		emit selectionIsMultiple(hasGroupSelection);
+		return true;
 	}
 	return false;
 }
 
-bool Selection::prependItem(PageItem *item)//, int listNumber)
+bool Selection::prependItem(PageItem *item)
 {
 	if (item==NULL)
 		return false;
-	//if (sellists.contains(listNumber))
+	if (!sellists.contains(item))
 	{
-		//if (!sellists[listNumber].contains(item))
-		if (!sellists.contains(item))
-		{
-			//if (listNumber==0)
-			//{
-				//if (!sellists[listNumber].isEmpty())
-				if (!sellists.isEmpty())
-					//sellists[listNumber][0]->disconnectFromGUI();
-					sellists[0]->disconnectFromGUI();
-				item->connectToGUI();
-				item->emitAllToGUI();
-			//}
-			//sellists[listNumber].prepend(item);
-			sellists.prepend(item);
-			item->setSelected(true);
-			//hasGroupSelection[listNumber]=(sellists[listNumber].count()>1);
-			hasGroupSelection=(sellists.count()>1);
-			//emit selectionIsMultiple(listNumber, hasGroupSelection[listNumber]);
-			emit selectionIsMultiple(hasGroupSelection);
-			return true;
-		}
+		if (!sellists.isEmpty())
+			sellists[0]->disconnectFromGUI();
+		item->connectToGUI();
+		item->emitAllToGUI();
+		sellists.prepend(item);
+		item->setSelected(true);
+		hasGroupSelection=(sellists.count()>1);
+		emit selectionIsMultiple(hasGroupSelection);
+		return true;
 	}
 	return false;
 }
 
-const bool Selection::primarySelectionIs(const PageItem* item)//, int listNumber)
+const bool Selection::primarySelectionIs(const PageItem* item)
 {
-	//if (sellists.contains(listNumber))
-		//if (!sellists[listNumber].isEmpty() && (item==sellists[listNumber].first())) 
-		if (!sellists.isEmpty() && (item==sellists.first()))
-			return true;
+	if (!sellists.isEmpty() && (item==sellists.first()))
+		return true;
 	return false;
 }
 
-PageItem *Selection::itemAt(int index)//, int listNumber)
+PageItem *Selection::itemAt(int index)
 {
-	//if (sellists.contains(listNumber))
-		//if (!sellists[listNumber].isEmpty() && static_cast<uint>(index)<sellists[listNumber].count())
-		if (!sellists.isEmpty() && static_cast<uint>(index)<sellists.count())
-		{
-			//QGuardedPtr<PageItem> pi=sellists[listNumber][index];
-			QGuardedPtr<PageItem> pi=sellists[index];
-			if (!pi.isNull())
-				return pi;
-			//If its NULL, we should remove it from the list now
-			//SelectionList::Iterator it=sellists[listNumber].at(index);
-			SelectionList::Iterator it=sellists.at(index);
-			//sellists[listNumber].remove(it);
-			sellists.remove(it);
-			return NULL;
-		}
+	if (!sellists.isEmpty() && static_cast<uint>(index)<sellists.count())
+	{
+		QGuardedPtr<PageItem> pi=sellists[index];
+		if (!pi.isNull())
+			return pi;
+		//If its NULL, we should remove it from the list now
+		SelectionList::Iterator it=sellists.at(index);
+		sellists.remove(it);
+		return NULL;
+	}
 	return NULL;
 }
 
-bool Selection::removeFirst()//(int listNumber)
+bool Selection::removeFirst()
 {
-	//if (sellists.contains(listNumber) && !sellists[listNumber].isEmpty())
 	if (!sellists.isEmpty())
 	{
-		//qDebug(QString("%1").arg("removing first"));
-		//removeItem(sellists[listNumber].first(), listNumber);
 		removeItem(sellists.first());
-		//if (sellists[listNumber].isEmpty() || listNumber!=0)
 		if (sellists.isEmpty())
 			return true;
-		//sellists[listNumber].first()->connectToGUI();
 		sellists.first()->connectToGUI();
 	}
 	return false;
 }
 
-bool Selection::removeItem(PageItem *item)//, int listNumber)
+bool Selection::removeItem(PageItem *item)
 {
-	//if (sellists.contains(listNumber))
-		//if (!sellists[listNumber].isEmpty() && sellists[listNumber].contains(item))
-		if (!sellists.isEmpty() && sellists.contains(item))
+	if (!sellists.isEmpty() && sellists.contains(item))
+	{
+		bool removeOk=sellists.remove(item);
+		if (removeOk)
 		{
-			//qDebug(QString("removing item %1").arg(item->ItemNr));
-			//bool removeOk=sellists[listNumber].remove(item);
-			bool removeOk=sellists.remove(item);
-			if (removeOk)
-			{
-				item->setSelected(false);
-				item->isSingleSel = false;
-			}
-			//if (sellists[listNumber].count()==0)
-			if (sellists.count()==0)
-				//hasGroupSelection[listNumber]=false;
-				hasGroupSelection=false;
-			else
-				//sellists[listNumber].first()->connectToGUI();
-				sellists.first()->connectToGUI();
-			return removeOk;
+			item->setSelected(false);
+			item->isSingleSel = false;
 		}
+		if (sellists.count()==0)
+			hasGroupSelection=false;
+		else
+			sellists.first()->connectToGUI();
+		return removeOk;
+	}
 	return false;
 }
 
-PageItem* Selection::takeItem(uint itemIndex)//, int listNumber)
+PageItem* Selection::takeItem(uint itemIndex)
 {
-	//if ((itemIndex>=0) && 
-	//if (sellists.contains(listNumber))
-		//if (!sellists[listNumber].isEmpty() && itemIndex<sellists[listNumber].count())
-		if (!sellists.isEmpty() && itemIndex<sellists.count())
+	if (!sellists.isEmpty() && itemIndex<sellists.count())
+	{
+		PageItem *item=sellists[itemIndex];
+		bool removeOk=sellists.remove(item);
+		if (removeOk)
 		{
-			//PageItem *item=sellists[listNumber][itemIndex];
-			PageItem *item=sellists[itemIndex];
-			//bool removeOk=sellists[listNumber].remove(item);
-			bool removeOk=sellists.remove(item);
-			if (removeOk)
+			item->setSelected(false);
+			item->isSingleSel = false;
+			if (itemIndex==0)
 			{
-				item->setSelected(false);
-				item->isSingleSel = false;
-				//if (listNumber==0 && itemIndex==0)
-				if (itemIndex==0)
-				{
-					item->disconnectFromGUI();
-					//if (sellists[listNumber].count()>0)
-					if (sellists.count()>0)
-						//sellists[listNumber][0]->connectToGUI();
-						sellists[0]->connectToGUI();
-				}
-				//if (sellists[listNumber].count()==0)
-				if (sellists.count()==0)
-					//hasGroupSelection[listNumber]=false;
-					hasGroupSelection=false;
-				return item;
+				item->disconnectFromGUI();
+				if (sellists.count()>0)
+					sellists[0]->connectToGUI();
 			}
+			if (sellists.count()==0)
+				hasGroupSelection=false;
+			return item;
 		}
+	}
 	return NULL;
 }
-/*
-int Selection::backupToTempList()//(int listNumber)
-{
-	if (!sellists.contains(listNumber))
-		return -1;
-	
-	sellists.insert(nextTemp, sellists[listNumber]);
-	hasGroupSelection.insert(nextTemp, hasGroupSelection[listNumber]);
-	int temp=nextTemp++;
-	return temp;
-}
 
-bool Selection::restoreFromTempList(int listNumber, int fromTempListNumber)
+QStringList Selection::getSelectedItemsByName()
 {
-	if (!sellists.contains(listNumber) || !sellists.contains(fromTempListNumber))
-		return false;
-	sellists[listNumber].clear();
-	sellists[listNumber]=sellists[fromTempListNumber];
-	sellists[fromTempListNumber].clear();
-	sellists.remove(fromTempListNumber);
-	hasGroupSelection.remove(fromTempListNumber);
-	if (listNumber==0)
-	{
-		SelectionList::Iterator it=sellists[listNumber].begin();
-		SelectionList::Iterator itend=sellists[listNumber].end();
-		for ( ; it!=itend ; ++it)
-			(*it)->setSelected(true);
-	}
-	--nextTemp;
-	return true;
-}
-*/
-QStringList Selection::getSelectedItemsByName()//(int listNumber)
-{
-	//if (!sellists.contains(listNumber))
-	//	return QStringList();
 	QStringList names;
-	//SelectionList::Iterator it=sellists[listNumber].begin();
 	SelectionList::Iterator it=sellists.begin();
-	//SelectionList::Iterator itend=sellists[listNumber].end();
 	SelectionList::Iterator itend=sellists.end();
 	for ( ; it!=itend ; ++it)
 		names.append((*it)->itemName());
 	return names;
 }
 
-bool Selection::isMultipleSelection()//(int listNumber)
+bool Selection::isMultipleSelection()
 {
-	//if (hasGroupSelection.contains(listNumber))
-		//return hasGroupSelection[listNumber];
-		return hasGroupSelection;
-	//return false;
+	return hasGroupSelection;
 }
-
 
