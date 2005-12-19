@@ -94,7 +94,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	Pages(0), MasterPages(), DocPages(),
 	MasterNames(),
 	Items(0), MasterItems(), DocItems(), FrameItems(),
-	selection(new Selection()),
+	selection(new Selection(this)),
 	pageWidth(0), pageHeight(0),
 	// pageCount(0) CR
 	// pageMargins

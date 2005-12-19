@@ -354,7 +354,7 @@ void OODPlug::convert()
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		ScMW->view->setGroupRect();
 		//QDragObject *dr = new QTextDrag(ss->WriteElem(&ScMW->view->SelItem, Doku, ScMW->view), ScMW->view->viewport());
-		QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScMW->view, 0), ScMW->view->viewport());
+		QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScMW->view, Doku->selection), ScMW->view->viewport());
 		ScMW->view->DeleteItem();
 		ScMW->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScMW->view->getScale()), qRound((maxSize.y() - minSize.y()) * ScMW->view->getScale()));
 		ScMW->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * ScMW->view->getScale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * ScMW->view->getScale()));

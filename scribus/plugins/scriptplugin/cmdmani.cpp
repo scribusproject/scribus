@@ -60,7 +60,9 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 		return NULL;
 	// Grab the old selection
 	//QPtrList<PageItem> oldSelection = ScMW->view->SelItem;
-	int tempList=ScMW->doc->selection->backupToTempList(0);
+	//int tempList=ScMW->doc->selection->backupToTempList(0);
+	Selection tempSelection(*ScMW->doc->selection);
+	ScMW->doc->selection->clear();
 	// Clear the selection
 	ScMW->view->Deselect();
 	// Select the item, which will also select its group if
@@ -74,7 +76,8 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 		ScMW->view->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
 	// Now restore the selection. We just have to go through and select
 	// each and every item, unfortunately.
-	ScMW->doc->selection->restoreFromTempList(0, tempList);
+	//ScMW->doc->selection->restoreFromTempList(0, tempList);
+	*ScMW->doc->selection=tempSelection;
 	//ScMW->view->Deselect();
 	//for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
 	//	ScMW->view->SelectItemNr(oldSelection.current()->ItemNr);
@@ -95,7 +98,8 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 		return NULL;
 	// Grab the old selection
 	//QPtrList<PageItem> oldSelection = ScMW->view->SelItem;
-	int tempList=ScMW->doc->selection->backupToTempList(0);
+	//int tempList=ScMW->doc->selection->backupToTempList(0);
+	Selection tempSelection(*ScMW->doc->selection);
 	// Clear the selection
 	ScMW->view->Deselect();
 	// Select the item, which will also select its group if
@@ -113,7 +117,8 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 		ScMW->view->MoveItem(pageUnitXToDocX(x) - item->xPos(), pageUnitYToDocY(y) - item->yPos(), item);
 	// Now restore the selection. We just have to go through and select
 	// each and every item, unfortunately.
-	ScMW->doc->selection->restoreFromTempList(0, tempList);
+	//ScMW->doc->selection->restoreFromTempList(0, tempList);
+	*ScMW->doc->selection=tempSelection;
 	//ScMW->view->Deselect();
 	//for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
 //		ScMW->view->SelectItemNr(oldSelection.current()->ItemNr);

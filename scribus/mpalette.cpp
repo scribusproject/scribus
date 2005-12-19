@@ -1503,10 +1503,8 @@ void Mpalette::NewSel(int nr)
 	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 }
 
-void Mpalette::setMultipleSelection(int selectionList, bool isMultiple)
+void Mpalette::setMultipleSelection(bool isMultiple)
 {
-	if (selectionList>0)
-		return;
 	FlipH->setEnabled(!isMultiple);
 	FlipV->setEnabled(!isMultiple);
 }

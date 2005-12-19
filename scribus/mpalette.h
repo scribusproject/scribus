@@ -118,7 +118,7 @@ public slots:
 	void setDoc(ScribusDoc *d);
 	void unsetDoc();
 	void setCurrentItem(PageItem *);
-	void setMultipleSelection(int, bool);
+	void setMultipleSelection(bool);
 	void NewSel(int nr);
 	void SetCurItem(PageItem *i);
 	void UnitChange();
