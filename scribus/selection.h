@@ -28,13 +28,30 @@ class SCRIBUS_API Selection : public QObject
 {
 	Q_OBJECT
 	public:
+		/**
+		 * Create an empty selection that is not a GUI selection
+		 * @param  parent
+		 * @return Selection
+		 */
 		Selection(QObject*);
+		/**
+		 * Create an empty selection that may be a GUI selection
+		 * @param  parent
+		 * @param  If the selection is to be a GUI selection
+		 * @return Selection
+		 */
 		Selection(QObject*, bool);
+		/**
+		 * Copy a selection
+		 * NOTE: We are leaving the connections of the items in place
+		 * and the isGUISelection set in the copy. We cannot disconnect them
+		 * as they may be connected via the main GUI selection.
+		 * @param  Other selection
+		 * @return New selection
+		 */
 		Selection(const Selection&);
 		Selection& operator=( const Selection &a );
 		~Selection();
-		
-		void setDoc(ScribusDoc*);
 		
 		bool connectItemToGUI();
 		/**
@@ -46,17 +63,15 @@ class SCRIBUS_API Selection : public QObject
 		bool disconnectAllItemsFromGUI();
 		/**
 		 * @brief Add an item to the selection. 
-		 * If its added to the GUISelection listNumber and its item 0, its connected to the GUI too
+		 * If its added to a GUI selection selection and its item 0, its connected to the GUI too
 		 * @param item Item to add
-		 * @param listNumber List to add the item to
 		 * @return If the item was added
 		 */
 		bool addItem(PageItem *item);
 		/**
 		 * @brief Prepend an item to the selection. 
-		 * If its added to the GUISelection listNumber and its item 0, its connected to the GUI too
+		 * If its added to a GUI selection selection and its item 0, its connected to the GUI too
 		 * @param item Item to add
-		 * @param listNumber List to add the item to
 		 * @return If the item was added
 		 */
 		bool prependItem(PageItem *item);
@@ -66,15 +81,13 @@ class SCRIBUS_API Selection : public QObject
 		 */
 		bool addGroup();
 		/**
-		 * Remove an item from list listNumber
+		 * Remove an item from list
 		 * @param item 
-		 * @param listNumber List to remove the item from 
 		 * @return 
 		 */
 		bool removeItem(PageItem *item);
 		/**
 		 * Remove the first item from the list
-		 * @param listNumber List to remove the item
 		 * @return If the remove was successful
 		 */
 		bool removeFirst();
@@ -86,32 +99,27 @@ class SCRIBUS_API Selection : public QObject
 		/**
 		 * Remove an item from list listNumber and return a pointer to it
 		 * @param itemIndex Index of the item in the list
-		 * @param listNumber List to remove the item from 
 		 * @return Item
 		 */
 		PageItem* takeItem(uint itemIndex);
 		/**
-		 * Find an item from list listNumber and return an index to it
+		 * Find an item from the selection and return an index to it
 		 * @param item Item pointer to find in the list
-		 * @param listNumber List to find th item in
 		 * @return Item
 		 */
 		int findItem(PageItem *item) const { return m_SelList.findIndex(item); }
 		/**
-		 * Return the count of a list
-		 * @param listNumber List to count
+		 * Return the count of the selection
 		 * @return 
 		 */
 		uint count() const { return m_SelList.count(); }
 		/**
-		 * Check if the list specified is empty.
-		 * @param listNumber List to check empty state
+		 * Check if the selection is empty.
 		 * @return
 		 */
-		bool isEmpty() const { return (m_SelList.count()==0); }
+		bool isEmpty() const { return m_SelList.count()==0; }
 		/**
 		 * Clear a list
-		 * @param listNumber List to clear
 		 * @return 
 		 */
 		bool clear();
