@@ -38,17 +38,19 @@ class SCRIBUS_API Selection : public QObject
 {
 	Q_OBJECT
 	public:
-		Selection();
+		Selection(QObject* parent);
+		Selection(const Selection&);
+		Selection& operator=( const Selection &a );
 		~Selection();
 		
 		void setDoc(ScribusDoc*);
 		
-		QPtrList<PageItem>* requestList();
-		int backupToTempList(int listNumber);
-		bool restoreFromTempList(int listNumber, int fromTempListNumber);
+		//QPtrList<PageItem>* requestList();
+		//int backupToTempList(int listNumber);
+		//bool restoreFromTempList(int listNumber, int fromTempListNumber);
 		
 		
-		bool connectItemToGUI(int listNumber);
+		bool connectItemToGUI();//int listNumber);
 		/**
 		 * Disconnect all items from the GUI slots. 
 		 * This should not really be necessary if all things are going ok
@@ -63,7 +65,7 @@ class SCRIBUS_API Selection : public QObject
 		 * @param listNumber List to add the item to
 		 * @return If the item was added
 		 */
-		bool addItem(PageItem *item, int listNumber=GUISelection);
+		bool addItem(PageItem *item);//, int listNumber=GUISelection);
 		/**
 		 * @brief Prepend an item to the selection. 
 		 * If its added to the GUISelection listNumber and its item 0, its connected to the GUI too
@@ -71,7 +73,7 @@ class SCRIBUS_API Selection : public QObject
 		 * @param listNumber List to add the item to
 		 * @return If the item was added
 		 */
-		bool prependItem(PageItem *item, int listNumber=GUISelection);
+		bool prependItem(PageItem *item);//, int listNumber=GUISelection);
 		/**
 		 * Unused
 		 * @return 
@@ -83,13 +85,13 @@ class SCRIBUS_API Selection : public QObject
 		 * @param listNumber List to remove the item from 
 		 * @return 
 		 */
-		bool removeItem(PageItem *item, int listNumber=GUISelection);
+		bool removeItem(PageItem *item);//, int listNumber=GUISelection);
 		/**
 		 * Remove the first item from the list
 		 * @param listNumber List to remove the item
 		 * @return If the remove was successful
 		 */
-		bool removeFirst(int listNumber=GUISelection);
+		bool removeFirst();//int listNumber=GUISelection);
 		/**
 		 * Unused
 		 * @return 
@@ -101,51 +103,54 @@ class SCRIBUS_API Selection : public QObject
 		 * @param listNumber List to remove the item from 
 		 * @return Item
 		 */
-		PageItem* takeItem(uint itemIndex, int listNumber=GUISelection);
+		PageItem* takeItem(uint itemIndex);//, int listNumber=GUISelection);
 		/**
 		 * Find an item from list listNumber and return an index to it
 		 * @param item Item pointer to find in the list
 		 * @param listNumber List to find th item in
 		 * @return Item
 		 */
-		const int findItem(PageItem *item, int listNumber=GUISelection);
+		const int findItem(PageItem *item);//, int listNumber=GUISelection);
 		/**
 		 * Return the count of a list
 		 * @param listNumber List to count
 		 * @return 
 		 */
-		uint count(int listNumber=GUISelection);
+		uint count();//int listNumber=GUISelection);
 		/**
 		 * Check if the list specified is empty.
 		 * @param listNumber List to check empty state
 		 * @return
 		 */
-		bool isEmpty(int listNumber=GUISelection);
+		bool isEmpty();//int listNumber=GUISelection);
 		/**
 		 * Clear a list
 		 * @param listNumber List to clear
 		 * @return 
 		 */
-		bool clear(int listNumber=GUISelection);
-		void clearAll();
+		bool clear();//int listNumber=GUISelection);
+		//void clearAll();
 		/**
 		 * See if the first selected item is "me", usually called from an item object with "this".
 		 * @param item 
 		 * @return 
 		 */
-		const bool primarySelectionIs(const PageItem* item, int listNumber=GUISelection);
-		PageItem *itemAt(int index=0, int listNumber=GUISelection);
-		QStringList getSelectedItemsByName(int listNumber=GUISelection);
-		bool isMultipleSelection(int listNumber=GUISelection);
+		const bool primarySelectionIs(const PageItem* item);//, int listNumber=GUISelection);
+		PageItem *itemAt(int index=0);//, int listNumber=GUISelection);
+		QStringList getSelectedItemsByName();//int listNumber=GUISelection);
+		bool isMultipleSelection();//int listNumber=GUISelection);
 		
 	protected:
 		ScribusDoc* m_Doc;
-		ListOfSelections sellists;
-		ListBool hasGroupSelection;
-		int nextTemp;
+		//ListOfSelections sellists;
+		SelectionList sellists;
+		//ListBool hasGroupSelection;
+		bool hasGroupSelection;
+		//int nextTemp;
 		
 	signals:
-		void selectionIsMultiple(int, bool);
+		//void selectionIsMultiple(int, bool);
+		void selectionIsMultiple(bool);
 };
 
 #endif

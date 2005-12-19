@@ -3116,7 +3116,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				for (uint dre=0; dre<Doc->selection->count(); ++dre)
 					Doc->DragElements.append(Doc->selection->itemAt(dre)->ItemNr);
 				ScriXmlDoc *ss = new ScriXmlDoc();
-				QDragObject *dr = new QTextDrag(ss->WriteElem(Doc, this, 0), this);
+				QDragObject *dr = new QTextDrag(ss->WriteElem(Doc, this, Doc->selection), this);
 				dr->setPixmap(loadIcon("DragPix.xpm"));
 				if (!dr->drag())
 					qDebug("ScribusView::contentsMouseMoveEvent: couldn't start drag operation!");
@@ -7790,7 +7790,7 @@ void ScribusView::ToggleSizeLock()
 void ScribusView::sentToScrap()
 {
 	ScriXmlDoc *ss = new ScriXmlDoc();
-	emit ToScrap(ss->WriteElem(Doc, this, 0));
+	emit ToScrap(ss->WriteElem(Doc, this, Doc->selection));
 	delete ss;
 	ss=NULL;
 }
@@ -7874,9 +7874,10 @@ void ScribusView::LowerItem()
 	PageItem *currItem;
 	PageItem *b2;
 	uint docSelectionCount=Doc->selection->count();
-	int tempList=Doc->selection->backupToTempList(0);
 	if ((Doc->Items->count() > 1) && (docSelectionCount != 0))
 	{
+		//int tempList=Doc->selection->backupToTempList(0);
+		Selection tempSelection(*Doc->selection);
 		for (uint c = 0; c < docSelectionCount; ++c)
 		{
 			currItem = Doc->selection->itemAt(c);
@@ -7915,7 +7916,8 @@ void ScribusView::LowerItem()
 				//Doc->selection->addItem(Doc->Items->at(a));
 		}
 		ScMW->outlinePalette->BuildTree();
-		Doc->selection->restoreFromTempList(0, tempList);
+		//Doc->selection->restoreFromTempList(0, tempList);
+		*Doc->selection=tempSelection;
 		emit LevelChanged(Doc->selection->itemAt(0)->ItemNr);
 		emit DocChanged();
 		updateContents();
@@ -7931,9 +7933,10 @@ void ScribusView::RaiseItem()
 	PageItem *currItem;
 	PageItem *b2;
 	uint docSelectionCount=Doc->selection->count();
-	int tempList=Doc->selection->backupToTempList(0);
 	if ((Doc->Items->count() > 1) && (docSelectionCount != 0))
 	{
+		//int tempList=Doc->selection->backupToTempList(0);
+		Selection tempSelection(*Doc->selection);
 		for (uint c = 0; c < docSelectionCount; ++c)
 		{
 			currItem = Doc->selection->itemAt(c);
@@ -7972,7 +7975,8 @@ void ScribusView::RaiseItem()
 				//Doc->selection->addItem(Doc->Items->at(a));
 		}
 		ScMW->outlinePalette->BuildTree();
-		Doc->selection->restoreFromTempList(0, tempList);
+		//Doc->selection->restoreFromTempList(0, tempList);
+		*Doc->selection=tempSelection;
 		emit LevelChanged(Doc->selection->itemAt(0)->ItemNr);
 		emit DocChanged();
 		updateContents();

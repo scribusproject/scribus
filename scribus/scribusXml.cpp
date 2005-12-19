@@ -24,7 +24,6 @@
 #include "units.h"
 #include "prefsmanager.h"
 #include "scribusview.h"
-#include "selection.h"
 
 // We use some common routines defined in fileloader.h
 #include "fileloader.h"
@@ -2137,7 +2136,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 }
 
 //QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, ScribusView *view)
-QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, int selectionListNumber)
+//QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, int selectionListNumber)
+QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* selection)
 {
 	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
@@ -2148,14 +2148,14 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, int selectionL
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
 	//item = Selitems->at(0);
-	item = doc->selection->itemAt(0, selectionListNumber);
+	item = selection->itemAt(0);
 	QValueList<uint> ELL;
 	//for (uint cor=0; cor<Selitems->count(); ++cor)
-	for (uint cor=0; cor<doc->selection->count(selectionListNumber); ++cor)
+	for (uint cor=0; cor<selection->count(); ++cor)
 		//ELL.append(Selitems->at(cor)->ItemNr);
-		ELL.append(doc->selection->itemAt(cor, selectionListNumber)->ItemNr);
+		ELL.append(selection->itemAt(cor)->ItemNr);
 	qHeapSort(ELL);
-	if (doc->selection->isMultipleSelection())
+	if (selection->isMultipleSelection())
 	{
 		xp = view->GroupX - doc->currentPage->xOffset();
 		yp = view->GroupY - doc->currentPage->yOffset();
@@ -2172,7 +2172,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, int selectionL
 	elem.setAttribute("XP", xp);
 	elem.setAttribute("YP", yp);
 	//elem.setAttribute("COUNT", Selitems->count());
-	elem.setAttribute("COUNT", doc->selection->count(selectionListNumber));
+	elem.setAttribute("COUNT", selection->count());
 	elem.setAttribute("Version", QString(VERSION));
 	QMap<QString,int>::Iterator itf;
 	for (itf = doc->UsedFonts.begin(); itf != doc->UsedFonts.end(); ++itf)
@@ -2201,7 +2201,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, int selectionL
 	if (doc->docParagraphStyles.count() > 5)
 	{
 		//for (uint co=0; co<Selitems->count(); ++co)
-		for (uint co=0; co<doc->selection->count(selectionListNumber); ++co)
+		for (uint co=0; co<selection->count(); ++co)
 		{
 			item = doc->Items->at(ELL[co]);
 			if (item->textAlignment > 4)
@@ -2364,7 +2364,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, int selectionL
 	QMap<int, ArrowDesc>::Iterator itar;
 	struct ArrowDesc arrow;
 	//for (uint co=0; co<Selitems->count(); ++co)
-	for (uint co=0; co<doc->selection->count(selectionListNumber); ++co)
+	for (uint co=0; co<selection->count(); ++co)
 	{
 		item = doc->Items->at(ELL[co]);
 		int startIndex = item->startArrowIndex();
@@ -2405,7 +2405,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, int selectionL
 		}
 	}
 	//for (uint co=0; co<Selitems->count(); ++co)
-	for (uint co=0; co<doc->selection->count(selectionListNumber); ++co)
+	for (uint co=0; co<selection->count(); ++co)
 	{
 		QString CurDirP = QDir::currentDirPath();
 		QDir::setCurrent(QDir::homeDirPath());

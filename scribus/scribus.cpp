@@ -342,7 +342,8 @@ void ScribusMainWindow::initSplash(bool showSplash)
 	if (showSplash)
 	{
 		splashScreen = new SplashScreen();
-		setSplashStatus(QObject::tr("Initializing..."));
+		if (splashScreen != NULL && splashScreen->isShown())
+			setSplashStatus(QObject::tr("Initializing..."));
 	}
 	else
 		splashScreen = NULL;
@@ -1832,14 +1833,14 @@ void ScribusMainWindow::newActWin(QWidget *w)
 		actionManager->disconnectNewViewActions();
 		disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 		if (ScQApp->usingGUI())
-			disconnect(doc->selection, SIGNAL(selectionIsMultiple(int, bool)), 0, 0);
+			disconnect(doc->selection, SIGNAL(selectionIsMultiple(bool)), 0, 0);
 	}
 	doc = ActWin->document();
 	view = ActWin->view();
 	actionManager->connectNewViewActions(view);
 	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	if (ScQApp->usingGUI())
-		connect(doc->selection, SIGNAL(selectionIsMultiple(int, bool)), propertiesPalette, SLOT( setMultipleSelection(int, bool)));
+		connect(doc->selection, SIGNAL(selectionIsMultiple(bool)), propertiesPalette, SLOT( setMultipleSelection(bool)));
 
 	pagePalette->setView(view);
 	alignDistributePalette->setView(view);
@@ -4140,7 +4141,7 @@ void ScribusMainWindow::slotEditCut()
 			if (currItem->isTableItem && currItem->isSingleSel)
 				return;
 			ScriXmlDoc *ss = new ScriXmlDoc();
-			BufferI = ss->WriteElem(doc, view, 0);
+			BufferI = ss->WriteElem(doc, view, doc->selection);
 			Buffer2 = BufferI;
 			view->DeleteItem();
 		}
@@ -4338,7 +4339,8 @@ void ScribusMainWindow::slotEditPaste()
 				slotElemRead(Buffer2, 0, 0, false, true, doc, view);
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
-				int tempList=doc->selection->backupToTempList(0);
+				//int tempList=doc->selection->backupToTempList(0);
+				Selection tempSelection(*ScMW->doc->selection);
 				doc->selection->clear();
 				if (doc->Items->count() - ac > 1)
 					isGroup = true;
@@ -4372,7 +4374,8 @@ void ScribusMainWindow::slotEditPaste()
 					doc->Items->take(ac);
 				}
 				doc->selection->clear();
-				doc->selection->restoreFromTempList(0, tempList);
+				//doc->selection->restoreFromTempList(0, tempList);
+				*ScMW->doc->selection=tempSelection;
 				view->resizeContents(qRound((maxSize.x() - minSize.x()) * view->getScale()), qRound((maxSize.y() - minSize.y()) * view->getScale()));
 				view->scrollBy(qRound((doc->minCanvasCoordinate.x() - minSize.x()) * view->getScale()), qRound((doc->minCanvasCoordinate.y() - minSize.y()) * view->getScale()));
 				doc->minCanvasCoordinate = minSize;

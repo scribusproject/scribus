@@ -18,6 +18,8 @@ SplashScreen::SplashScreen()
 {
 	pix = loadIcon("Splash.png");
 	Q_ASSERT(!pix.isNull());
+	if (pix.isNull())
+		return;
 	setErasePixmap( pix );
 	resize( pix.size() );
 	QRect scr = QApplication::desktop()->screenGeometry();
