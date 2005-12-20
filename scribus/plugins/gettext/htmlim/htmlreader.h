@@ -34,6 +34,11 @@
 #include <gtparagraphstyle.h>
 #include <gtwriter.h>
 
+/*! \brief Parse and import a HTML file.
+Supported tags: P, CENTER, BR, A, UL, OL, LI, H1, H2, H3, H4,
+B, STRONG, I, EM, CODE, BODY, PRE, IMG, SUB, SUP, DEL, INS, U,
+DIV.
+*/
 class HTMLReader
 {
 private:
