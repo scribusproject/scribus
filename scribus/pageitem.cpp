@@ -845,6 +845,8 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			p->setupPolygon(&ContourLine);
 			p->strokePath();
 		}
+		//CB comment to disable this test if u want
+		drawLockedMarker(p);
 	}
 	Tinput = false;
 	FrameOnly = false;
@@ -3298,6 +3300,31 @@ void PageItem::DrawObj_Item(ScPainter * /* p */, QRect /* e */, double /* sc */)
 {
 }
 
+void PageItem::drawLockedMarker(ScPainter *p)
+{
+	//TODO: CB clean
+	double scp1 = 1 ;// / ScMW->view->getScale();
+	double ofwh = 6 * scp1;
+	double ofx = Width - ofwh/2;
+	double ofy = Height - ofwh*1.5;
+	double bx1= ofx+ scp1;
+	double by1= ofy+3 * scp1;
+	double bw= 4*scp1;
+	double bh= 2*scp1;
+	p->setPen(Qt::black, 0.5/ScMW->view->getScale(), SolidLine, FlatCap, MiterJoin);
+	p->setPenOpacity(1.0);
+	p->setBrush(Qt::white);
+	p->setBrushOpacity(1.0);
+	p->setFillMode(ScPainter::Solid);
+	p->drawRect(ofx, ofy, ofwh, ofwh);
+	p->setBrush(Qt::black);
+	p->drawRect(bx1, by1, bw, bh);
+	p->setPen(Qt::black, 1.5/ScMW->view->getScale(), SolidLine, FlatCap, RoundJoin);
+	if (Locked)
+		p->drawLine(FPoint(bx1+scp1/2, ofy+scp1), FPoint(bx1+scp1/2, by1));
+	p->drawLine(FPoint(bx1+scp1*3.5, ofy+scp1), FPoint(bx1+scp1*3.5, by1));
+	p->drawLine(FPoint(bx1+scp1/2, ofy+scp1), FPoint(bx1+scp1*3.5, ofy+scp1));	
+}
 
 void PageItem::AdjustPictScale()
 {

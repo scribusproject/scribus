@@ -237,7 +237,7 @@ public:
 	void paintObj(QRect e=QRect(), QPixmap *ppX = 0);
 	void DrawObj(ScPainter *p, QRect e);
 	void DrawObj_Pre(ScPainter *p, double &sc);
-	void DrawObj_Post(ScPainter *p);
+	virtual void DrawObj_Post(ScPainter *p);
 	virtual void DrawObj_Item(ScPainter *p);
 	virtual void DrawObj_Item(ScPainter *p, double sc);
 	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);
@@ -898,6 +898,9 @@ public:
 	void updateConstants();
 	
 protected:
+
+	void drawLockedMarker(ScPainter *p);
+	
 	/** @brief Manages undostack and is where all undo actions/states are sent. */
 	UndoManager * const undoManager;
 	/**

@@ -360,25 +360,14 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					}
 					tabDist = Zli3.xco+Zli3.wide;
 				}
+				/*
 				if (itemText.count() > MaxChars)
 				{//CB && added here for jghali prior to commit access
+				//Draw the overflow icon
 					if (!m_Doc->RePos && !ScMW->view->previewMode)
-					{
-						double scp1 = 1 / QMAX(ScMW->view->getScale(), 1);
-						double scp16 = 16 * scp1;
-						double scp14 = 14 * scp1;
-						double scp3 = 3 * scp1;
-						double scpwidth16 = Width - scp16;
-						double scpheight16 = Height - scp16;
-						double scpwidth3 = Width - scp3;
-						double scpheight3 = Height - scp3;
-						p->setBrush(white);
-						p->setPen(black, scp1, SolidLine, FlatCap, MiterJoin);
-						p->drawRect(scpwidth16, scpheight16, scp14, scp14);
-						p->drawLine(FPoint(scpwidth16, scpheight16), FPoint(scpwidth3, scpheight3));
-						p->drawLine(FPoint(scpwidth16, scpheight3), FPoint(scpwidth3, scpheight16));
-					}
+						drawOverflowMarker(p);
 				}
+				*/
 				Dirty = false;
 				Redrawn = true;
 				pf2.end();
@@ -1948,27 +1937,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				delete painter;
 				p->restore();
 				m_Doc->RePos = rep;
-			}
+			}/*
 			else
 			{
 				//CB && added here for jghali prior to commit access
 				if (!m_Doc->RePos && !ScMW->view->previewMode)
-				{
-					double scp1 = 1.0/QMAX(ScMW->view->getScale(), 1);
-					double scp16 = 16.0*scp1;
-					double scp14 = 14.0*scp1;
-					double scp3 = 3.0*scp1;
-					double scpwidth16 = Width - scp16;
-					double scpheight16 = Height - scp16;
-					double scpwidth3 = Width - scp3;
-					double scpheight3 = Height - scp3;
-					p->setPen(black, scp1, SolidLine, FlatCap, MiterJoin);
-					p->setBrush(white);
-					p->drawRect(scpwidth16, scpheight16, scp14, scp14);
-					p->drawLine(FPoint(scpwidth16, scpheight16), FPoint(scpwidth3, scpheight3));
-					p->drawLine(FPoint(scpwidth16, scpheight3), FPoint(scpwidth3, scpheight16));
-				}
-			}
+					drawOverflowMarker(p);
+			}*/
 			MaxChars = nrc;
 			Redrawn = true;
 			p->restore();
@@ -1980,6 +1955,96 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	Dirty = false;
 }
 
+void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
+{
+	if (!m_Doc->RePos)
+	{
+		if (lineColor() != "None")
+		{
+			p->setPen(strokeQColor, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			if (DashValues.count() != 0)
+				p->setDash(DashValues, DashOffset);
+		}
+		else
+			p->setLineWidth(0);
+		if (!isTableItem)
+		{
+			p->setupPolygon(&PoLine);
+			if (NamedLStyle.isEmpty())
+				p->strokePath();
+			else
+			{
+				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+				QColor tmp;
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width,
+							  static_cast<PenStyle>(ml[it].Dash),
+							  static_cast<PenCapStyle>(ml[it].LineEnd),
+							  static_cast<PenJoinStyle>(ml[it].LineJoin));
+					p->strokePath();
+				}
+			}
+		}
+	}
+	if ((!isEmbedded) && (!m_Doc->RePos))
+	{
+		double scpInv = 1.0 / (QMAX(ScMW->view->getScale(), 1));
+		if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
+		{
+			p->setPen(black, scpInv, DotLine, FlatCap, MiterJoin);
+			if ((isBookmark) || (m_isAnnotation))
+				p->setPen(blue, scpInv, DotLine, FlatCap, MiterJoin);
+			if ((BackBox != 0) || (NextBox != 0))
+				p->setPen(red, scpInv, SolidLine, FlatCap, MiterJoin);
+			if (Locked)
+				p->setPen(darkRed, scpInv, SolidLine, FlatCap, MiterJoin);
+
+			p->setFillMode(0);
+			if (itemType()==PathText)
+			{
+				if (Clip.count() != 0)
+				{
+					FPointArray tclip;
+					FPoint np = FPoint(Clip.point(0));
+					tclip.resize(2);
+					tclip.setPoint(0, np);
+					tclip.setPoint(1, np);
+					for (uint a = 1; a < Clip.size(); ++a)
+					{
+						np = FPoint(Clip.point(a));
+						tclip.putPoints(tclip.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
+					}
+					np = FPoint(Clip.point(0));
+					tclip.putPoints(tclip.size(), 2, np.x(), np.y(), np.x(), np.y());
+					p->setupPolygon(&tclip);
+				}
+			}
+			else
+				p->setupPolygon(&PoLine);
+			p->strokePath();
+		}
+		if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
+		{
+			p->setPen(lightGray, scpInv, DotLine, FlatCap, MiterJoin);
+			p->setupPolygon(&ContourLine);
+			p->strokePath();
+		}
+		
+		
+		//Draw the overflow icon
+		if (itemText.count() > MaxChars)
+		{//CB && added here for jghali prior to commit access
+			if (!ScMW->view->previewMode)
+				drawOverflowMarker(p);
+		}
+		drawLockedMarker(p);
+	}
+	Tinput = false;
+	FrameOnly = false;
+	p->restore();
+}
 void PageItem_TextFrame::clearContents()
 {
 	//FIXME use PageItem_TextFrame pointers
@@ -2806,3 +2871,41 @@ double PageItem_TextFrame::columnWidth()
 		lineCorr = 0;
 	return (Width - (ColGap * (Cols - 1)) - Extra - RExtra - lineCorr) / Cols;
 }
+
+void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
+{
+	/*CB Old large corner indicator. 
+	double scp1 = 1.0/QMAX(ScMW->view->getScale(), 1);
+	double scp16 = 16.0*scp1;
+	double scp14 = 14.0*scp1;
+	double scp3 = 3.0*scp1;
+	double scpwidth16 = Width - scp16;
+	double scpheight16 = Height - scp16;
+	double scpwidth3 = Width - scp3;
+	double scpheight3 = Height - scp3;
+	p->setPen(black, scp1, SolidLine, FlatCap, MiterJoin);
+	p->setBrush(white);
+	p->drawRect(scpwidth16, scpheight16, scp14, scp14);
+	p->drawLine(FPoint(scpwidth16, scpheight16), FPoint(scpwidth3, scpheight3));
+	p->drawLine(FPoint(scpwidth16, scpheight3), FPoint(scpwidth3, scpheight16));
+	*/
+	//TODO: CB clean
+	double scp1 = 1 ;// / ScMW->view->getScale();
+	double ofwh = 6 * scp1;
+	double ofx = Width - ofwh/2;
+	double ofy = Height - ofwh*3.0;
+	double lx1= ofx;
+	double ly1= ofy;
+	double lx2= ofx+ofwh;
+	double ly2= ofy+ofwh;
+	p->setPen(black, 0.5/ScMW->view->getScale(), SolidLine, FlatCap, MiterJoin);
+	p->setPenOpacity(1.0);
+	p->setBrush(Qt::white);
+	p->setBrushOpacity(1.0);
+	p->setFillMode(ScPainter::Solid);
+	p->drawRect(ofx, ofy, ofwh, ofwh);
+	p->drawLine(FPoint(lx1, ly1), FPoint(lx2, ly2));
+	p->drawLine(FPoint(lx1, ly2), FPoint(lx2, ly1));
+}
+
+
