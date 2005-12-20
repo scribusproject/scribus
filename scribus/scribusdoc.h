@@ -513,7 +513,7 @@ public:
 	 * @param  Index of page to find location for
 	 * @return LeftPage, MiddlePage, RightPage, enum from pagestructs.h
 	 */
-	PageLocation ScribusDoc::locationOfPage(int);
+	PageLocation locationOfPage(int);
 
 protected:
 	void addSymbols();
