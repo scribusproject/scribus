@@ -2554,6 +2554,52 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>closeMasterPage()
+
+Closes the currently active master page, if any, and returns editing
+to normal. Begin editing with editMasterPage().
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>masterPageNames()
+
+Returns a list of the names of all master pages in the document.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>editMasterPage(pageName)
+
+Enables master page editing and opens the named master page
+for editing. Finish editing with closeMasterPage().
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createMasterPage(pageName)
+
+Creates a new master page named pageName and opens it for
+editing.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleteMasterPage(pageName)
+
+Delete the named master page.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>zoomDocument(double)
+
+Zoom the document in main GUI window. Actions have whole number
+values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2782,10 +2828,6 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>November</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>%1 %2 %3</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2811,6 +2853,10 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>December</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4715,10 +4761,6 @@ tiskárna.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;qt&gt;Apply the selected template to even, odd or all pages within the following range&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>to</source>
         <translation type="unfinished">na</translation>
     </message>
@@ -4729,6 +4771,10 @@ tiskárna.</translation>
     <message>
         <source>Alt+C</source>
         <translation type="unfinished">Alt+Z</translation>
+    </message>
+    <message>
+        <source>Apply the selected template to even, odd or all pages within the following range</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5257,11 +5303,7 @@ It is a reserved name for transparent color</source>
 <context>
     <name>ChTable</name>
     <message>
-        <source>You can see a thumbnail if you press
-and hold down the right mouse button
-
-The Insert key inserts a Glyph into the Selection below
-and the Delete key removes the last inserted one</source>
+        <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6056,7 +6098,7 @@ The exact parameters available will depend on your printer driver.
 You can confirm CUPS support by selecting Help &gt; About.
 Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation>Okno zobrazuje různá nastavení CUPS během tisku.
+        <translation type="obsolete">Okno zobrazuje různá nastavení CUPS během tisku.
 Dostupnost vlastních parametrů závisí na ovladači vaší tiskárny.
 Podporu CUPS zjistíte v menu Nápověda &gt; O Scribusu.
 Text: C-C-T znamená podporu C-CUPS, C-littlecms a T-TIFF.
@@ -6069,6 +6111,10 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Zrušit</translation>
+    </message>
+    <message>
+        <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6249,6 +6295,10 @@ Lze uvést v Nastavení.</translation>
     <message>
         <source>Replace With:</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Bez stylu</translation>
     </message>
 </context>
 <context>
@@ -6487,6 +6537,10 @@ volitelně s kódem země ISO-3166 např. cs-CZ, en-GB</translation>
         <source>A, B, C, ...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Name: Optional name for section eg. Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DocSectionsBase</name>
@@ -6495,16 +6549,8 @@ volitelně s kódem země ISO-3166 např. cs-CZ, en-GB</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sections</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Name</source>
         <translation>Jméno</translation>
-    </message>
-    <message>
-        <source>Active</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>From</source>
@@ -6523,10 +6569,6 @@ volitelně s kódem země ISO-3166 např. cs-CZ, en-GB</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>End</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Add</source>
         <translation>&amp;Připojit</translation>
     </message>
@@ -6541,6 +6583,10 @@ volitelně s kódem země ISO-3166 např. cs-CZ, en-GB</translation>
     <message>
         <source>Alt+D</source>
         <translation type="unfinished">Alt+S</translation>
+    </message>
+    <message>
+        <source>Shown</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6582,20 +6628,63 @@ volitelně s kódem země ISO-3166 např. cs-CZ, en-GB</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Name</source>
+        <translation type="obsolete">Jméno</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="obsolete">Typ</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation type="obsolete">Hodnota</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="obsolete">&amp;Připojit</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="obsolete">Alt+V</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="obsolete">&amp;Kopírovat</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="obsolete">Alt+Z</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="obsolete">&amp;Smazat</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="obsolete">Alt+S</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="obsolete">Alt+N</translation>
+    </message>
+</context>
+<context>
+    <name>DocumentItemAttributesBase</name>
+    <message>
         <source>Document Item Attributes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Jméno</translation>
+        <translation type="unfinished">Jméno</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Typ</translation>
+        <translation type="unfinished">Typ</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation>Hodnota</translation>
+        <translation type="unfinished">Hodnota</translation>
     </message>
     <message>
         <source>Parameter</source>
@@ -7254,6 +7343,10 @@ Chyba byla:
     <message>
         <source>Name of the style is not unique</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation type="unfinished">Pozadí</translation>
     </message>
 </context>
 <context>
@@ -7965,12 +8058,12 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
         <translation>Cesta k souboru s písmem</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>PostScript</source>
         <translation>PostScript</translation>
+    </message>
+    <message>
+        <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8899,6 +8992,14 @@ converting their vector data into Scribus objects.</source>
         <source>This key sequence is already in use</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Meta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Meta+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LayerPalette</name>
@@ -9520,13 +9621,13 @@ The table in the center of the dialog lists what macros are currently loaded and
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Vzdálenost mezi levým vodítkem okraje a okrajem strany
+        <translation type="obsolete">Vzdálenost mezi levým vodítkem okraje a okrajem strany
 Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Vzdálenost mezi pravým vodítkem okraje a okrajem strany
+        <translation type="obsolete">Vzdálenost mezi pravým vodítkem okraje a okrajem strany
 Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</translation>
     </message>
     <message>
@@ -9547,6 +9648,14 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Apply the margin changes to all existing pages in the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10698,6 +10807,21 @@ Vyberte, prosím, jiný.</translation>
     </message>
 </context>
 <context>
+    <name>MultiProgressDialogBase</name>
+    <message>
+        <source>Progress</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overall Progress:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MusterSeiten</name>
     <message>
         <source>Edit Templates</source>
@@ -11051,6 +11175,14 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
         <source>New &amp;from Template...</source>
         <translation>No&amp;vé ze šablony...</translation>
     </message>
+    <message>
+        <source>Load documents with predefined layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start a document from a template made by other users or yourself (f.e. for documents you have a constant style).</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewTm</name>
@@ -11324,6 +11456,10 @@ a nikdy znovu nevyžadovat potvrzení</translation>
     <message>
         <source>Overwrite Paragraph Styles</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Zrušit</translation>
     </message>
 </context>
 <context>
@@ -12116,6 +12252,25 @@ Není-li povoleno, anotace jsou zakázány.</translation>
     </message>
 </context>
 <context>
+    <name>PDFlib</name>
+    <message>
+        <source>Saving PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Master Pages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Pages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Items on Current Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PPreview</name>
     <message>
         <source>Print Preview</source>
@@ -12261,6 +12416,17 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     <message>
         <source>Close</source>
         <translation>Zavřít</translation>
+    </message>
+</context>
+<context>
+    <name>PSLib</name>
+    <message>
+        <source>Processing Master Pages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Pages:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12604,20 +12770,71 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Name</source>
+        <translation type="obsolete">Jméno</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="obsolete">Typ</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation type="obsolete">Hodnota</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="obsolete">&amp;Připojit</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="obsolete">Alt+V</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="obsolete">&amp;Kopírovat</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="obsolete">Alt+Z</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="obsolete">&amp;Smazat</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="obsolete">Alt+S</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="obsolete">Alt+N</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">&amp;Zrušit</translation>
+    </message>
+</context>
+<context>
+    <name>PageItemAttributesBase</name>
+    <message>
         <source>Page Item Attributes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Jméno</translation>
+        <translation type="unfinished">Jméno</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Typ</translation>
+        <translation type="unfinished">Typ</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation>Hodnota</translation>
+        <translation type="unfinished">Hodnota</translation>
     </message>
     <message>
         <source>Parameter</source>
@@ -12633,7 +12850,7 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;Připojit</translation>
+        <translation type="unfinished">&amp;Připojit</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -12641,7 +12858,7 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopírovat</translation>
+        <translation type="unfinished">&amp;Kopírovat</translation>
     </message>
     <message>
         <source>Alt+C</source>
@@ -12649,7 +12866,7 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Smazat</translation>
+        <translation type="unfinished">&amp;Smazat</translation>
     </message>
     <message>
         <source>Alt+D</source>
@@ -12665,11 +12882,11 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="unfinished">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Zrušit</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12921,6 +13138,10 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
         <source>No images named &quot;%1&quot; were found.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Select a base directory for search</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PixmapExportPlugin</name>
@@ -13126,8 +13347,12 @@ konkávní (nebo s hranami do hvězdy), kladná konvexní</translation>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation>Záporná hodnota nastaví mnohoúhelník jako 
+        <translation type="obsolete">Záporná hodnota nastaví mnohoúhelník jako 
 konkávní (nebo s hranami do hvězdy), kladná konvexní</translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13327,7 +13552,7 @@ konkávní (nebo s hranami do hvězdy), kladná konvexní</translation>
     <message>
         <source>Choose the default window decoration and looks.
 Scribus inherits any available KDE or Qt themes</source>
-        <translation>Vyberte implicitní vzhled a dekoraci oken.
+        <translation type="obsolete">Vyberte implicitní vzhled a dekoraci oken.
 Scribus používá jakékoli téma z Qt nebo KDE</translation>
     </message>
     <message>
@@ -13409,7 +13634,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
 each time the time period elapses</source>
-        <translation>Je-li povoleno, Scribus uloží záložní kopii dokumentu do souboru s .bak příponou
+        <translation type="obsolete">Je-li povoleno, Scribus uloží záložní kopii dokumentu do souboru s .bak příponou
 po každém automatickém uložení</translation>
     </message>
     <message>
@@ -13686,7 +13911,7 @@ po každém automatickém uložení</translation>
     </message>
     <message>
         <source>&amp;Font Size:</source>
-        <translation>&amp;Velikost písma:</translation>
+        <translation type="obsolete">&amp;Velikost písma:</translation>
     </message>
     <message>
         <source>Mouse Settings</source>
@@ -14053,7 +14278,7 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>UCR - under color removal - odstranění přebytečné barvy, která by 
+        <translation type="obsolete">UCR - under color removal - odstranění přebytečné barvy, která by 
 způsobila rozpíjení (při přílišné saturaci papíru barvou) nebo trhání 
 barvy při několika vrstvém (např. barevném) laserovém tisku.
 Viz. např. http://www.typo.cz/_pismo/pis-tech-post.html
@@ -14106,7 +14331,7 @@ měnit, jestliža máte otevřný dokument.</translation>
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
 instance of gimp.</source>
-        <translation>Umístění grafického editoru ve vašem systému. Jestliže
+        <translation type="obsolete">Umístění grafického editoru ve vašem systému. Jestliže
 používáte GIMP a vaše distribuce obsahuje &apos;gimp-remote&apos;,
 doporučujeme jeho nastavení. Gimp-remote použije již
 běžící instanci GIMPu.</translation>
@@ -14237,7 +14462,7 @@ běžící instanci GIMPu.</translation>
     </message>
     <message>
         <source>Lorem Ipsum</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lorem Ipsum</translation>
     </message>
     <message>
         <source>Always use standard Lorem Ipsum</source>
@@ -14284,17 +14509,7 @@ běžící instanci GIMPu.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Default ICC profiles directory. This cannot
-be changed with a document open.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Additional directory for document templates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set the length of the action history in steps.
-If set to 0 infinite amount of actions will be stored.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -14337,11 +14552,55 @@ If set to 0 infinite amount of actions will be stored.</source>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Font Size (Menus):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font Size (&amp;Palettes):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default font size for the tool windows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PrefsDialogBase</name>
     <message>
         <source>&amp;Defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Preferences</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14457,10 +14716,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Guttenberg</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Fibonacci</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14473,7 +14728,11 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Guttenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
+        <source>Gutenberg</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14537,7 +14796,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Python Scripts (*.py)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Python skripty (*.py);</translation>
     </message>
     <message>
         <source>Save the Python Commands in File</source>
@@ -16882,6 +17141,34 @@ is not exhaustive due to exceptions from called functions.
         <source>Old .sla format support</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>German (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting PostScript File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Printing File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;reate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Import</translation>
+    </message>
+    <message>
+        <source>Use filename as path for user given preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -17588,6 +17875,14 @@ converting their vector data into Scribus objects.</source>
         <source>Save as &amp;Template...</source>
         <translation>Uložit jako ša&amp;blonu...</translation>
     </message>
+    <message>
+        <source>Save a document as a template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save a document as a template. Good way to ease the initial work for documents with a constant look</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScPlugin</name>
@@ -17625,11 +17920,11 @@ converting their vector data into Scribus objects.</source>
     <name>ScribusApp</name>
     <message>
         <source>File</source>
-        <translation>Soubor</translation>
+        <translation type="obsolete">Soubor</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation>Hledám písma</translation>
+        <translation type="obsolete">Hledám písma</translation>
     </message>
     <message>
         <source>There are no Postscript-Fonts on your System</source>
@@ -17641,7 +17936,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Fatal Error</source>
-        <translation>Kritická chyba</translation>
+        <translation type="obsolete">Kritická chyba</translation>
     </message>
     <message>
         <source>Smart Hyphen</source>
@@ -17693,7 +17988,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Reading Preferences</source>
-        <translation>Načítám nastavení</translation>
+        <translation type="obsolete">Načítám nastavení</translation>
     </message>
     <message>
         <source>Init Hyphenator</source>
@@ -17701,15 +17996,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Setting up Shortcuts</source>
-        <translation>Nastavení zkratek</translation>
+        <translation type="obsolete">Nastavení zkratek</translation>
     </message>
     <message>
         <source>Reading Scrapbook</source>
-        <translation>Načítám zápisník</translation>
+        <translation type="obsolete">Načítám zápisník</translation>
     </message>
     <message>
         <source>Initializing Plugins</source>
-        <translation>Inicializace zásuvných modulů</translation>
+        <translation type="obsolete">Inicializace zásuvných modulů</translation>
     </message>
     <message>
         <source>New</source>
@@ -17925,7 +18220,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>About Qt</source>
-        <translation>O Qt</translation>
+        <translation type="obsolete">O Qt</translation>
     </message>
     <message>
         <source>Online-Help...</source>
@@ -17937,7 +18232,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normální</translation>
+        <translation type="obsolete">Normální</translation>
     </message>
     <message>
         <source>Underline</source>
@@ -17965,19 +18260,19 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X-Poz:</translation>
+        <translation type="obsolete">X-Poz:</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y-Poz:</translation>
+        <translation type="obsolete">Y-Poz:</translation>
     </message>
     <message>
         <source>Ready</source>
-        <translation>Připravený</translation>
+        <translation type="obsolete">Připravený</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Žádné</translation>
+        <translation type="obsolete">Žádné</translation>
     </message>
     <message>
         <source>Get Picture...</source>
@@ -18001,11 +18296,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Size</source>
-        <translation>Velikost</translation>
+        <translation type="obsolete">Velikost</translation>
     </message>
     <message>
         <source>Shade</source>
-        <translation>Stín</translation>
+        <translation type="obsolete">Stín</translation>
     </message>
     <message>
         <source>Unlock</source>
@@ -18013,7 +18308,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Open</source>
-        <translation>Otevřít</translation>
+        <translation type="obsolete">Otevřít</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
@@ -18021,15 +18316,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.scd);;Všechny soubory (*)</translation>
+        <translation type="obsolete">Dokumenty (*.sla *.scd);;Všechny soubory (*)</translation>
     </message>
     <message>
         <source>Loading...</source>
-        <translation>Načítám...</translation>
+        <translation type="obsolete">Načítám...</translation>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
-        <translation>Textové soubory (*.txt);;Všechny soubory (*)</translation>
+        <translation type="obsolete">Textové soubory (*.txt);;Všechny soubory (*)</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -18047,31 +18342,31 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Save as</source>
-        <translation>Uložit jako</translation>
+        <translation type="obsolete">Uložit jako</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Všechny soubory (*)</translation>
+        <translation type="obsolete">Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Všechny soubory (*)</translation>
     </message>
     <message>
         <source>Saving...</source>
-        <translation>Ukládám...</translation>
+        <translation type="obsolete">Ukládám...</translation>
     </message>
     <message>
         <source>Printing...</source>
-        <translation>Tisknu...</translation>
+        <translation type="obsolete">Tisknu...</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation>Dokument</translation>
+        <translation type="obsolete">Dokument</translation>
     </message>
     <message>
         <source>Printing failed!</source>
-        <translation>Tisk se nepodařil!</translation>
+        <translation type="obsolete">Tisk se nepodařil!</translation>
     </message>
     <message>
         <source>Scribus Manual</source>
-        <translation>Scribus manuál</translation>
+        <translation type="obsolete">Scribus manuál</translation>
     </message>
     <message>
         <source>The following Programs are missing:</source>
@@ -18079,7 +18374,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>All</source>
-        <translation>Všechny</translation>
+        <translation type="obsolete">Všechny</translation>
     </message>
     <message>
         <source>EPS-Files (*.eps);;All Files (*)</source>
@@ -18171,7 +18466,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation>Včechny soubory (*)</translation>
+        <translation type="obsolete">Včechny soubory (*)</translation>
     </message>
     <message>
         <source>Finnish</source>
@@ -18183,7 +18478,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>All Supported Formats</source>
-        <translation>Všechny podporované formáty</translation>
+        <translation type="obsolete">Všechny podporované formáty</translation>
     </message>
     <message>
         <source>Create a new Document</source>
@@ -18215,39 +18510,39 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Soubor</translation>
+        <translation type="obsolete">&amp;Soubor</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>Ú&amp;pravy</translation>
+        <translation type="obsolete">Ú&amp;pravy</translation>
     </message>
     <message>
         <source>&amp;Item</source>
-        <translation>O&amp;bjekt</translation>
+        <translation type="obsolete">O&amp;bjekt</translation>
     </message>
     <message>
         <source>&amp;Page</source>
-        <translation>Str&amp;ana</translation>
+        <translation type="obsolete">Str&amp;ana</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation>Ná&amp;hled</translation>
+        <translation type="obsolete">Ná&amp;hled</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation>&amp;Nástroje</translation>
+        <translation type="obsolete">&amp;Nástroje</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>E&amp;xtra</translation>
+        <translation type="obsolete">E&amp;xtra</translation>
     </message>
     <message>
         <source>&amp;Windows</source>
-        <translation>&amp;Okna</translation>
+        <translation type="obsolete">&amp;Okna</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation>Nápo&amp;věda</translation>
+        <translation type="obsolete">Nápo&amp;věda</translation>
     </message>
     <message>
         <source>Hide Baseline Grid</source>
@@ -18331,7 +18626,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Open &amp;Recent</source>
-        <translation>Otevřít &amp;předchozí</translation>
+        <translation type="obsolete">Otevřít &amp;předchozí</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -18363,7 +18658,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>&amp;Import</translation>
+        <translation type="obsolete">&amp;Import</translation>
     </message>
     <message>
         <source>Save &amp;Text...</source>
@@ -18379,7 +18674,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Export</source>
-        <translation>&amp;Export</translation>
+        <translation type="obsolete">&amp;Export</translation>
     </message>
     <message>
         <source>Document &amp;Setup...</source>
@@ -18487,7 +18782,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation>&amp;Tvar</translation>
+        <translation type="obsolete">&amp;Tvar</translation>
     </message>
     <message>
         <source>&amp;Attach Text to Path</source>
@@ -18619,7 +18914,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>St&amp;yle</source>
-        <translation>St&amp;yl</translation>
+        <translation type="obsolete">St&amp;yl</translation>
     </message>
     <message>
         <source>&amp;Left</source>
@@ -18655,7 +18950,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Color</source>
-        <translation>&amp;Barva</translation>
+        <translation type="obsolete">&amp;Barva</translation>
     </message>
     <message>
         <source>&amp;Invert</source>
@@ -18667,23 +18962,23 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Font</source>
-        <translation>&amp;Písmo</translation>
+        <translation type="obsolete">&amp;Písmo</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation>&amp;Velikost</translation>
+        <translation type="obsolete">&amp;Velikost</translation>
     </message>
     <message>
         <source>&amp;Effects</source>
-        <translation>&amp;Efekty</translation>
+        <translation type="obsolete">&amp;Efekty</translation>
     </message>
     <message>
         <source>&amp;Alignment</source>
-        <translation>&amp;Zarovnání</translation>
+        <translation type="obsolete">&amp;Zarovnání</translation>
     </message>
     <message>
         <source>&amp;Shade</source>
-        <translation>&amp;Stín</translation>
+        <translation type="obsolete">&amp;Stín</translation>
     </message>
     <message>
         <source>&amp;Tabulators...</source>
@@ -18731,31 +19026,31 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Importing Pages...</source>
-        <translation>Importuji strany...</translation>
+        <translation type="obsolete">Importuji strany...</translation>
     </message>
     <message>
         <source>Import Page(s)</source>
-        <translation>Importovat stranu(y)</translation>
+        <translation type="obsolete">Importovat stranu(y)</translation>
     </message>
     <message>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</source>
-        <translation>&lt;p&gt;Zkoušíte importovat více stran, než je v dokumentu.&lt;/p&gt;Vyberte správnou činnost:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Vytvořit&lt;/b&gt; chybějící strany&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importovat&lt;/b&gt; strany až do konce&lt;/li&gt;&lt;li&gt;&lt;b&gt;Zrušit&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Zkoušíte importovat více stran, než je v dokumentu.&lt;/p&gt;Vyberte správnou činnost:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Vytvořit&lt;/b&gt; chybějící strany&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importovat&lt;/b&gt; strany až do konce&lt;/li&gt;&lt;li&gt;&lt;b&gt;Zrušit&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <source>Create</source>
-        <translation>Vytvořit</translation>
+        <translation type="obsolete">Vytvořit</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation>Importovat</translation>
+        <translation type="obsolete">Importovat</translation>
     </message>
     <message>
         <source>Import done</source>
-        <translation>Import ukončen</translation>
+        <translation type="obsolete">Import ukončen</translation>
     </message>
     <message>
         <source>Found nothing to import</source>
-        <translation>Nenalezeno nic k importu</translation>
+        <translation type="obsolete">Nenalezeno nic k importu</translation>
     </message>
     <message>
         <source>Getting ICC Profiles</source>
@@ -18767,11 +19062,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation>&amp;Velikost:</translation>
+        <translation type="obsolete">&amp;Velikost:</translation>
     </message>
     <message>
         <source>&amp;Shade:</source>
-        <translation>&amp;Stín:</translation>
+        <translation type="obsolete">&amp;Stín:</translation>
     </message>
     <message>
         <source>Document &amp;Information...</source>
@@ -18803,7 +19098,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation>Inicializován systém písem</translation>
+        <translation type="obsolete">Inicializován systém písem</translation>
     </message>
     <message>
         <source>Portuguese (BR)</source>
@@ -18826,121 +19121,32 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Chorvatsky</translation>
     </message>
     <message>
-        <source>Initializing Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Initializing Story Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reading ICC Profiles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Initializing Hyphenator</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Edit</source>
-        <translation>Upravit</translation>
-    </message>
-    <message>
-        <source>There are no fonts found on your system.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Exiting now.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Preview Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Upravit</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation>Hladina</translation>
+        <translation type="obsolete">Hladina</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
-        <translation>Přesu&amp;nout do hladiny</translation>
+        <translation type="obsolete">Přesu&amp;nout do hladiny</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation>&amp;Možnosti PDF</translation>
-    </message>
-    <message>
-        <source>C&amp;onvert To</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>I&amp;nsert</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Možnosti PDF</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation type="unfinished">Znak</translation>
-    </message>
-    <message>
-        <source>Quote</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Space</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Znak</translation>
     </message>
     <message>
         <source>Postscript</source>
         <translation type="obsolete">Postsript</translation>
     </message>
     <message>
-        <source> was replaced by: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Some ICC profiles used by this document are not installed:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(converted)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot write the file: 
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Save As</source>
-        <translation>Uložit jako</translation>
-    </message>
-    <message>
-        <source>Cannot Cut In-Use Item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The following programs are missing:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ghostscript : You cannot use EPS images or Print Preview</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Lock All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Unlock All</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Uložit jako</translation>
     </message>
     <message>
         <source>Bulgarian</source>
@@ -18948,93 +19154,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Information</source>
-        <translation>Informace</translation>
+        <translation type="obsolete">Informace</translation>
     </message>
     <message>
         <source>is missing!</source>
         <translation type="obsolete">chybí!</translation>
     </message>
     <message>
-        <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color Not Found</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The name you have selected already exists. Please enter a different name for this new color.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Level</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Send to Layer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Previe&amp;w Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File %1 is not in an acceptable format</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PostScript</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Abort</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Ignore</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Name:</source>
-        <translation>Název:</translation>
-    </message>
-    <message>
-        <source>New Master Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scribus detected some errors.
-Consider using the Preflight Verifier  to correct them.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Detected some errors.
-Consider using the Preflight Verifier to correct them</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-Page%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Some objects are locked.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The program %1 is already running!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The program %1 is missing!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Convert Page to Master Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Název:</translation>
     </message>
 </context>
 <context>
@@ -19073,6 +19201,436 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>Background</source>
         <translation>Pozadí</translation>
+    </message>
+</context>
+<context>
+    <name>ScribusMainWindow</name>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Initializing Plugins</source>
+        <translation type="unfinished">Inicializace zásuvných modulů</translation>
+    </message>
+    <message>
+        <source>Initializing Keyboard Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reading Preferences</source>
+        <translation type="unfinished">Načítám nastavení</translation>
+    </message>
+    <message>
+        <source>Initializing Story Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reading ICC Profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Initializing Hyphenator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reading Scrapbook</source>
+        <translation type="unfinished">Načítám zápisník</translation>
+    </message>
+    <message>
+        <source>Setting up Shortcuts</source>
+        <translation type="unfinished">Nastavení zkratek</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="unfinished">Soubor</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished">Upravit</translation>
+    </message>
+    <message>
+        <source>Searching for Fonts</source>
+        <translation type="unfinished">Hledám písma</translation>
+    </message>
+    <message>
+        <source>There are no fonts found on your system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exiting now.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fatal Error</source>
+        <translation type="unfinished">Kritická chyba</translation>
+    </message>
+    <message>
+        <source>Font System Initialized</source>
+        <translation type="unfinished">Inicializován systém písem</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="unfinished">&amp;Soubor</translation>
+    </message>
+    <message>
+        <source>Open &amp;Recent</source>
+        <translation type="unfinished">Otevřít &amp;předchozí</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Import</translation>
+    </message>
+    <message>
+        <source>&amp;Export</source>
+        <translation type="unfinished">&amp;Export</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">Ú&amp;pravy</translation>
+    </message>
+    <message>
+        <source>St&amp;yle</source>
+        <translation type="unfinished">St&amp;yl</translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation type="unfinished">&amp;Barva</translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation type="unfinished">&amp;Velikost</translation>
+    </message>
+    <message>
+        <source>&amp;Shade</source>
+        <translation type="unfinished">&amp;Stín</translation>
+    </message>
+    <message>
+        <source>&amp;Font</source>
+        <translation type="unfinished">&amp;Písmo</translation>
+    </message>
+    <message>
+        <source>&amp;Effects</source>
+        <translation type="unfinished">&amp;Efekty</translation>
+    </message>
+    <message>
+        <source>&amp;Item</source>
+        <translation type="unfinished">O&amp;bjekt</translation>
+    </message>
+    <message>
+        <source>Preview Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation type="unfinished">Hladina</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation type="unfinished">Přesu&amp;nout do hladiny</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation type="unfinished">&amp;Možnosti PDF</translation>
+    </message>
+    <message>
+        <source>&amp;Shape</source>
+        <translation type="unfinished">&amp;Tvar</translation>
+    </message>
+    <message>
+        <source>C&amp;onvert To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I&amp;nsert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character</source>
+        <translation type="unfinished">Znak</translation>
+    </message>
+    <message>
+        <source>Quote</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation type="unfinished">Str&amp;ana</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation type="unfinished">Ná&amp;hled</translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation type="unfinished">E&amp;xtra</translation>
+    </message>
+    <message>
+        <source>&amp;Windows</source>
+        <translation type="unfinished">&amp;Okna</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation type="unfinished">Nápo&amp;věda</translation>
+    </message>
+    <message>
+        <source>&amp;Alignment</source>
+        <translation type="unfinished">&amp;Zarovnání</translation>
+    </message>
+    <message>
+        <source>Ready</source>
+        <translation type="unfinished">Připravený</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Otevřít</translation>
+    </message>
+    <message>
+        <source>Importing Pages...</source>
+        <translation type="unfinished">Importuji strany...</translation>
+    </message>
+    <message>
+        <source>Import Page(s)</source>
+        <translation type="unfinished">Importovat stranu(y)</translation>
+    </message>
+    <message>
+        <source>Import done</source>
+        <translation type="unfinished">Import ukončen</translation>
+    </message>
+    <message>
+        <source>Found nothing to import</source>
+        <translation type="unfinished">Nenalezeno nic k importu</translation>
+    </message>
+    <message>
+        <source>File %1 is not in an acceptable format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loading...</source>
+        <translation type="unfinished">Načítám...</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some ICC profiles used by this document are not installed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> was replaced by: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(converted)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Všechny podporované formáty</translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation type="unfinished">Včechny soubory (*)</translation>
+    </message>
+    <message>
+        <source>Cannot write the file: 
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
+        <translation type="unfinished">Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Všechny soubory (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;All Files (*)</source>
+        <translation type="unfinished">Dokumenty (*.sla *.scd);;Všechny soubory (*)</translation>
+    </message>
+    <message>
+        <source>Save As</source>
+        <translation type="unfinished">Uložit jako</translation>
+    </message>
+    <message>
+        <source>Saving...</source>
+        <translation type="unfinished">Ukládám...</translation>
+    </message>
+    <message>
+        <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Abort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Printing...</source>
+        <translation type="unfinished">Tisknu...</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished">Dokument</translation>
+    </message>
+    <message>
+        <source>Printing failed!</source>
+        <translation type="unfinished">Tisk se nepodařil!</translation>
+    </message>
+    <message>
+        <source>Cannot Cut In-Use Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Qt</source>
+        <translation type="unfinished">O Qt</translation>
+    </message>
+    <message>
+        <source>Scribus Manual</source>
+        <translation type="unfinished">Scribus manuál</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="unfinished">Uložit jako</translation>
+    </message>
+    <message>
+        <source>Text Files (*.txt);;All Files(*)</source>
+        <translation type="unfinished">Textové soubory (*.txt);;Všechny soubory (*)</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normální</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">Název:</translation>
+    </message>
+    <message>
+        <source>Convert Page to Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished">&amp;Velikost:</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation type="unfinished">Velikost</translation>
+    </message>
+    <message>
+        <source>&amp;Shade:</source>
+        <translation type="unfinished">&amp;Stín:</translation>
+    </message>
+    <message>
+        <source>Shade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Bez stylu</translation>
+    </message>
+    <message>
+        <source>The following programs are missing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ghostscript : You cannot use EPS images or Print Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation type="unfinished">Všechny</translation>
+    </message>
+    <message>
+        <source>Scribus detected some errors.
+Consider using the Preflight Verifier  to correct them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EPS Files (*.eps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Detected some errors.
+Consider using the Preflight Verifier to correct them</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-Page%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some objects are locked.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lock All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Unlock All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished">Informace</translation>
+    </message>
+    <message>
+        <source>The program %1 is already running!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The program %1 is missing!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Not Found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The name you have selected already exists. Please enter a different name for this new color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to Layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previe&amp;w Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation type="unfinished">&amp;Nástroje</translation>
+    </message>
+    <message>
+        <source>X-Pos:</source>
+        <translation type="unfinished">X-Poz:</translation>
+    </message>
+    <message>
+        <source>Y-Pos:</source>
+        <translation type="unfinished">Y-Poz:</translation>
     </message>
 </context>
 <context>
@@ -19751,6 +20309,10 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <source>C&amp;lear</source>
         <translation>Vy&amp;mazat</translation>
     </message>
+    <message>
+        <source>Search finished, found %1 matches</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SeitenPal</name>
@@ -20312,6 +20874,10 @@ příliš upravovat.</translation>
         <source>Overwrite Paragraph Styles</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Zrušit</translation>
+    </message>
 </context>
 <context>
     <name>TOCIndexPrefs</name>
@@ -20743,10 +21309,6 @@ příliš upravovat.</translation>
         <translation>Vče&amp;tně záložek</translation>
     </message>
     <message>
-        <source>Include Layers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> dpi</source>
         <translation>dpi</translation>
     </message>
@@ -20801,10 +21363,6 @@ příliš upravovat.</translation>
     <message>
         <source>Minimum</source>
         <translation>Minimální</translation>
-    </message>
-    <message>
-        <source>Resample Images to:</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;General</source>
@@ -21125,7 +21683,7 @@ příliš upravovat.</translation>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-        <translation>Vložit písma do PDF. Vložením písem zajistíte
+        <translation type="obsolete">Vložit písma do PDF. Vložením písem zajistíte
 stejný vzhled dokumentu v jiných prohlížečích.</translation>
     </message>
     <message>
@@ -21143,7 +21701,7 @@ stejný vzhled dokumentu v jiných prohlížečích.</translation>
     <message>
         <source>Length of time the effect runs.
 A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation>Jak dlouho běží prezentační efekt.
+        <translation type="obsolete">Jak dlouho běží prezentační efekt.
 Menší hodnota efekt zrychlí, větší zpomalí.</translation>
     </message>
     <message>
@@ -21178,20 +21736,20 @@ Menší hodnota efekt zrychlí, větší zpomalí.</translation>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Vložte čárkou oddělený seznam položek, kde
+        <translation type="obsolete">Vložte čárkou oddělený seznam položek, kde
 položka může být *, t.j. všechny strany, 1-5,
 t.j. interval, nebo jediné číslo strany.</translation>
     </message>
     <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
-        <translation>Určuje vazbu stran v PDF. Jestliže nepotřebujete speciální
+        <translation type="obsolete">Určuje vazbu stran v PDF. Jestliže nepotřebujete speciální
 nastavení, nechte implicitní volbu.</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF.
 Some viewers can use the thumbnails for navigation.</source>
-        <translation>Vytvoří náhledy všech stran v PDF.
+        <translation type="obsolete">Vytvoří náhledy všech stran v PDF.
 Některé prohlížeče náhledy použijí k navigaci.</translation>
     </message>
     <message>
@@ -21199,20 +21757,15 @@ Některé prohlížeče náhledy použijí k navigaci.</translation>
         <translation>Vytvořit PDF články, což umožňuje navigaci odkazy v PDF.</translation>
     </message>
     <message>
-        <source>Layers in your document are exported to the PDF
-Only available if PDF 1.5 is choosen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Embed the bookmarks you created in your document.
 These are useful for navigating long PDF documents.</source>
-        <translation>Vložit záložky obsažené v dokumentu.
+        <translation type="obsolete">Vložit záložky obsažené v dokumentu.
 Ty jsou užitečné k navigaci v obsáhlých PDF dokumentech.</translation>
     </message>
     <message>
         <source>Export resolution of text and vector graphics.
 This does not affect the resolution of bitmap images like photos.</source>
-        <translation>Rozlišení textu a vektorové grafiky při exportu. Neovlivňuje 
+        <translation type="obsolete">Rozlišení textu a vektorové grafiky při exportu. Neovlivňuje 
 rozlišení bitmapových obrázků, jako jsou např. fotografie.</translation>
     </message>
     <message>
@@ -21220,26 +21773,13 @@ rozlišení bitmapových obrázků, jako jsou např. fotografie.</translation>
         <translation type="obsolete">Úrovňe komprese: Minimální (25%), Nízká (50%), Střední (75%), Vysoká (85%), Maximální (95%)</translation>
     </message>
     <message>
-        <source>Re-sample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.
-This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>DPI (Dots Per Inch) for image export.</source>
         <translation>DPI (Body na palec) exportu obrázků.</translation>
     </message>
     <message>
-        <source>Enable the security features in your exported PDF.
-If you selected PDF 1.3, the PDF will be protected by 40 bit encryption.
-If you selected PDF 1.4, the PDF will be protected by 128 bit encryption.
-Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Choose a master password which enables or disables all the
 security features in your exported PDF</source>
-        <translation>Zvolte heslo, které povolí nebo zakáže všechny
+        <translation type="obsolete">Zvolte heslo, které povolí nebo zakáže všechny
 bezpečnostní vlastnosti exportovaného PDF</translation>
     </message>
     <message>
@@ -21270,7 +21810,7 @@ Jestliže není zatrženo, přidávání je zakázáno.</translation>
         <source>Color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation>Barevný model výstupu PDF.
+        <translation type="obsolete">Barevný model výstupu PDF.
 Zvolte Monitor/Web na PDF, které je publikováno na monitoru nebo na typické kancelářské tiskárně.
 Zvolte Tiskárna, bude-li PDF tištěno na CMYK tiskárně.</translation>
     </message>
@@ -21278,7 +21818,7 @@ Zvolte Tiskárna, bude-li PDF tištěno na CMYK tiskárně.</translation>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled
 when specifically requested by your printer and they have given you the exact details needed.
 Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation>Pokročilá volba, která není implicitně povolena. Může být použita, jestliže to vyžaduje vaše tiskárna.
+        <translation type="obsolete">Pokročilá volba, která není implicitně povolena. Může být použita, jestliže to vyžaduje vaše tiskárna.
 Pozor. vámi exportované PDF soubory se nemusí korektně tisknout na jiné tiskárně
 a nebudou plně přenositelné mezi systémy.</translation>
     </message>
@@ -21317,7 +21857,7 @@ a nebudou plně přenositelné mezi systémy.</translation>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Volitelný text, jehož vyplněním bude PDF nebo PDF/X-3 splňovat
+        <translation type="obsolete">Volitelný text, jehož vyplněním bude PDF nebo PDF/X-3 splňovat
 specifikaci. Doporučujeme použít titul dokumentu.</translation>
     </message>
     <message>
@@ -21349,20 +21889,11 @@ specifikaci. Doporučujeme použít titul dokumentu.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Compression &amp;Method:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Compression &amp;Quality:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enables lossless compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF file size.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -21383,6 +21914,78 @@ Unless you have a reason, leave this checked. This reduces PDF file size.</sourc
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Include La&amp;yers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression Metho&amp;d:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resa&amp;mple Images to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

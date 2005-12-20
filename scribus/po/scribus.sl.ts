@@ -1579,6 +1579,52 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>closeMasterPage()
+
+Closes the currently active master page, if any, and returns editing
+to normal. Begin editing with editMasterPage().
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>masterPageNames()
+
+Returns a list of the names of all master pages in the document.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>editMasterPage(pageName)
+
+Enables master page editing and opens the named master page
+for editing. Finish editing with closeMasterPage().
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createMasterPage(pageName)
+
+Creates a new master page named pageName and opens it for
+editing.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleteMasterPage(pageName)
+
+Delete the named master page.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>zoomDocument(double)
+
+Zoom the document in main GUI window. Actions have whole number
+values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -1843,10 +1889,6 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Tu vidite natančno različico Scribusa, datum izgradnje in podporo knjižnic. C-C-T-F pomeni C=littlecms, C=CUPS, T=TIFF, F=Fontconfig. Zadnja črka označuje upodobljevalnik C=Cairo ali A=libart. Manjkajoče knjižnice so predstavljene z *. Vidite lahko tudi zaznano različico Ghostscripta.</translation>
     </message>
     <message>
-        <source>November</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>%1 %2 %3</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1872,6 +1914,10 @@ Manjkajoče knjižnice so prikazane s *</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>December</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3768,7 +3814,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Apply the selected template to even, odd or all pages within the following range&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Uveljavi izbrano predlogo na lihih, sodih ali vseh straneh v danem območju&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Uveljavi izbrano predlogo na lihih, sodih ali vseh straneh v danem območju&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>to</source>
@@ -3781,6 +3827,10 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Apply the selected template to even, odd or all pages within the following range</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4315,11 +4365,15 @@ and hold down the right mouse button
 
 The Insert key inserts a Glyph into the Selection below
 and the Delete key removes the last inserted one</source>
-        <translation>Če pritisnete in držite desni miškin gumb,
+        <translation type="obsolete">Če pritisnete in držite desni miškin gumb,
 lahko vidite pomanjšano sličico.
 
 Tipka &apos;Insert&apos; doda znak v spodnjo izbiro,
 tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
+    </message>
+    <message>
+        <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5160,7 +5214,7 @@ The exact parameters available will depend on your printer driver.
 You can confirm CUPS support by selecting Help &gt; About.
 Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation>Tu vidite razne CUPSove možnosti pri tiskanju.\n
+        <translation type="obsolete">Tu vidite razne CUPSove možnosti pri tiskanju.\n
 Natančne nastavitve so odvisne od vaših gonilnikov tiskalnika.\n
 Podporo CUPSa lahko preverite pod Pomoč -&gt; O Scribusu.\n
 Poiščite naslednje: C-C-T pomeni podporo za: C=CUPS C=littlecms T=TIFF.\n
@@ -5173,6 +5227,10 @@ Manjkajoča knjižnica je označena z zvezdico ( * )</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation type="obsolete">Prekli&amp;či</translation>
+    </message>
+    <message>
+        <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5361,6 +5419,10 @@ To lahko nastavite v Nastavitvah.</translation>
     <message>
         <source>Replace With:</source>
         <translation type="unfinished">Zamenjaj z:</translation>
+    </message>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Brez sloga</translation>
     </message>
 </context>
 <context>
@@ -5600,6 +5662,10 @@ patenti, blagovne znamke</translation>
         <source>A, B, C, ...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Name: Optional name for section eg. Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DocSectionsBase</name>
@@ -5608,16 +5674,8 @@ patenti, blagovne znamke</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sections</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Name</source>
         <translation type="unfinished">Ime</translation>
-    </message>
-    <message>
-        <source>Active</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>From</source>
@@ -5636,10 +5694,6 @@ patenti, blagovne znamke</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>End</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Add</source>
         <translation type="unfinished">&amp;Dodaj</translation>
     </message>
@@ -5654,6 +5708,10 @@ patenti, blagovne znamke</translation>
     <message>
         <source>Alt+D</source>
         <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <source>Shown</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5696,67 +5754,134 @@ patenti, blagovne znamke</translation>
     </message>
     <message>
         <source>Document Item Attributes</source>
-        <translation>Lastnosti predmeta dokumenta</translation>
+        <translation type="obsolete">Lastnosti predmeta dokumenta</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Ime</translation>
+        <translation type="obsolete">Ime</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Vrsta</translation>
+        <translation type="obsolete">Vrsta</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation>Vrednost</translation>
+        <translation type="obsolete">Vrednost</translation>
     </message>
     <message>
         <source>Parameter</source>
-        <translation>Parameter</translation>
+        <translation type="obsolete">Parameter</translation>
     </message>
     <message>
         <source>Relationship</source>
-        <translation>Odnos</translation>
+        <translation type="obsolete">Odnos</translation>
     </message>
     <message>
         <source>Relationship To</source>
-        <translation>Odnos do</translation>
+        <translation type="obsolete">Odnos do</translation>
     </message>
     <message>
         <source>Auto Add To</source>
-        <translation>Samodejno dodaj k</translation>
+        <translation type="obsolete">Samodejno dodaj k</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;Dodaj</translation>
+        <translation type="obsolete">&amp;Dodaj</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopiraj</translation>
+        <translation type="obsolete">&amp;Kopiraj</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Zbriši</translation>
+        <translation type="obsolete">&amp;Zbriši</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation>Alt+D</translation>
+        <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation>&amp;Počisti</translation>
+        <translation type="obsolete">&amp;Počisti</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation>Alt+L</translation>
+        <translation type="obsolete">Alt+L</translation>
+    </message>
+</context>
+<context>
+    <name>DocumentItemAttributesBase</name>
+    <message>
+        <source>Document Item Attributes</source>
+        <translation type="unfinished">Lastnosti predmeta dokumenta</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Ime</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">Vrsta</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation type="unfinished">Vrednost</translation>
+    </message>
+    <message>
+        <source>Parameter</source>
+        <translation type="unfinished">Parameter</translation>
+    </message>
+    <message>
+        <source>Relationship</source>
+        <translation type="unfinished">Odnos</translation>
+    </message>
+    <message>
+        <source>Relationship To</source>
+        <translation type="unfinished">Odnos do</translation>
+    </message>
+    <message>
+        <source>Auto Add To</source>
+        <translation type="unfinished">Samodejno dodaj k</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Dodaj</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Zbriši</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">&amp;Počisti</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
     </message>
 </context>
 <context>
@@ -6236,6 +6361,10 @@ for blue quartz</source>
     <message>
         <source>Name of the style is not unique</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation type="unfinished">Ozadje</translation>
     </message>
 </context>
 <context>
@@ -6948,11 +7077,15 @@ uporabite 72 dpi</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Poti za iskanje pisav lahko nastavite samo v Nastavitvah, in to le če nimate odprtega dokumenta. Za spreminjanje poti iskanja pisav zaprite vse dokumente in uporabite Uredi-&gt;Nastavitve.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Poti za iskanje pisav lahko nastavite samo v Nastavitvah, in to le če nimate odprtega dokumenta. Za spreminjanje poti iskanja pisav zaprite vse dokumente in uporabite Uredi-&gt;Nastavitve.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>PostScript</source>
         <translation>PostScript</translation>
+    </message>
+    <message>
+        <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7892,6 +8025,14 @@ converting their vector data into Scribus objects.</source>
         <source>This key sequence is already in use</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Meta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Meta+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LayerPalette</name>
@@ -8215,13 +8356,13 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Razdalja med levim robom strani in levim mejnim vodilom.
+        <translation type="obsolete">Razdalja med levim robom strani in levim mejnim vodilom.
 Če ste izbrali nasproti postavljene strani, bo ta prostor uporabljen za pravilno zlaganje</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Razdalja med desnim robom strani in desnim mejnim vodilom.
+        <translation type="obsolete">Razdalja med desnim robom strani in desnim mejnim vodilom.
 Če ste izbrali nasproti postavljene strani, bo ta prostor uporabljen za pravilno zlaganje</translation>
     </message>
     <message>
@@ -8242,6 +8383,14 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Apply the margin changes to all existing pages in the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9423,6 +9572,21 @@ Prosim izberite drugo.</translation>
     </message>
 </context>
 <context>
+    <name>MultiProgressDialogBase</name>
+    <message>
+        <source>Progress</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overall Progress:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">Prekli&amp;či</translation>
+    </message>
+</context>
+<context>
     <name>MusterPages</name>
     <message>
         <source>Edit Templates</source>
@@ -9867,6 +10031,14 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>New &amp;from Template...</source>
         <translation>Nova &amp;iz predloge...</translation>
     </message>
+    <message>
+        <source>Load documents with predefined layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start a document from a template made by other users or yourself (f.e. for documents you have a constant style).</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewTm</name>
@@ -10102,6 +10274,10 @@ sicer glede na predmet.</translation>
     <message>
         <source>OK</source>
         <translation>V redu</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Prekliči</translation>
     </message>
 </context>
 <context>
@@ -10863,6 +11039,25 @@ sistemih.</translation>
     </message>
 </context>
 <context>
+    <name>PDFlib</name>
+    <message>
+        <source>Saving PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Master Pages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Pages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Items on Current Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PPreview</name>
     <message>
         <source>All</source>
@@ -11043,6 +11238,17 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     <message>
         <source>Close</source>
         <translation type="unfinished">Zapri</translation>
+    </message>
+</context>
+<context>
+    <name>PSLib</name>
+    <message>
+        <source>Processing Master Pages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Pages:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11387,71 +11593,142 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     </message>
     <message>
         <source>Page Item Attributes</source>
-        <translation>Lastnosti predmeta dokumenta</translation>
+        <translation type="obsolete">Lastnosti predmeta dokumenta</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Ime</translation>
+        <translation type="obsolete">Ime</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Vrsta</translation>
+        <translation type="obsolete">Vrsta</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation>Vrednost</translation>
+        <translation type="obsolete">Vrednost</translation>
     </message>
     <message>
         <source>Parameter</source>
-        <translation>Parameter</translation>
+        <translation type="obsolete">Parameter</translation>
     </message>
     <message>
         <source>Relationship</source>
-        <translation>Odnos</translation>
+        <translation type="obsolete">Odnos</translation>
     </message>
     <message>
         <source>Relationship To</source>
-        <translation>Odnos do</translation>
+        <translation type="obsolete">Odnos do</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;Dodaj</translation>
+        <translation type="obsolete">&amp;Dodaj</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopiraj</translation>
+        <translation type="obsolete">&amp;Kopiraj</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Zbriši</translation>
+        <translation type="obsolete">&amp;Zbriši</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation>Alt+D</translation>
+        <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation>&amp;Počisti</translation>
+        <translation type="obsolete">&amp;Počisti</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation>Alt+L</translation>
+        <translation type="obsolete">Alt+L</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;V redu</translation>
+        <translation type="obsolete">&amp;V redu</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>Prekli&amp;či</translation>
+        <translation type="obsolete">Prekli&amp;či</translation>
+    </message>
+</context>
+<context>
+    <name>PageItemAttributesBase</name>
+    <message>
+        <source>Page Item Attributes</source>
+        <translation type="unfinished">Lastnosti predmeta dokumenta</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Ime</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">Vrsta</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation type="unfinished">Vrednost</translation>
+    </message>
+    <message>
+        <source>Parameter</source>
+        <translation type="unfinished">Parameter</translation>
+    </message>
+    <message>
+        <source>Relationship</source>
+        <translation type="unfinished">Odnos</translation>
+    </message>
+    <message>
+        <source>Relationship To</source>
+        <translation type="unfinished">Odnos do</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Dodaj</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Zbriši</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">&amp;Počisti</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">Prekli&amp;či</translation>
     </message>
 </context>
 <context>
@@ -11703,6 +11980,10 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <source>No images named &quot;%1&quot; were found.</source>
         <translation>Ni slike z imenom &quot;%1&quot;.</translation>
     </message>
+    <message>
+        <source>Select a base directory for search</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PixmapExportPlugin</name>
@@ -11929,8 +12210,12 @@ pozitivna pa izbočenost</translation>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation>Negativna vrednost pomeni vbočenost (zvezdastost) mnogokotnika,
+        <translation type="obsolete">Negativna vrednost pomeni vbočenost (zvezdastost) mnogokotnika,
 pozitivna pa izbočenost</translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12148,7 +12433,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
 each time the time period elapses</source>
-        <translation>Če izberete to, bo Scribus shranil varnostno kopijo
+        <translation type="obsolete">Če izberete to, bo Scribus shranil varnostno kopijo
 vašega dokumenta (s končnico .bak), vsako izbrano enoto časa</translation>
     </message>
     <message>
@@ -12424,7 +12709,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Choose the default window decoration and looks.
 Scribus inherits any available KDE or Qt themes</source>
-        <translation>Izberite privzet izgled in okraske oken.
+        <translation type="obsolete">Izberite privzet izgled in okraske oken.
  Scribus uporabi vse dostopne KDE ali QT teme.</translation>
     </message>
     <message>
@@ -12489,7 +12774,7 @@ Scribus inherits any available KDE or Qt themes</source>
     </message>
     <message>
         <source>&amp;Font Size:</source>
-        <translation>&amp;Velikost pisave:</translation>
+        <translation type="obsolete">&amp;Velikost pisave:</translation>
     </message>
     <message>
         <source>Mouse Settings</source>
@@ -12856,7 +13141,7 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>To je način za zamenjavo sivin sestavljenih iz cijan, rumene in 
+        <translation type="obsolete">To je način za zamenjavo sivin sestavljenih iz cijan, rumene in 
 magenta barve s črnino. 
 POD se najbolj izrazi na nevtralnih ali temnih delih slik, blizu sivi. Tako 
 lahko izboljšate kakovost tiska nekaterih slik, vendar se splača prej 
@@ -13002,7 +13287,7 @@ Vedno lahko uporabite tudi možnost v ukazni vrstici ob zaganjanju</translation>
     <message>
         <source>Set the length of the action history in steps.
 If set to 0 infinite amount of actions will be stored.</source>
-        <translation>Nastavite število korakov v zgodovini popravkov.
+        <translation type="obsolete">Nastavite število korakov v zgodovini popravkov.
 Če nastavite na 0, se bo shranilo neomejeno število.</translation>
     </message>
     <message>
@@ -13104,7 +13389,7 @@ If set to 0 infinite amount of actions will be stored.</source>
     <message>
         <source>Default ICC profiles directory. This cannot
 be changed with a document open.</source>
-        <translation>PRivzet imenik z ICC profili. To se ne spremeni ob odprtju dokumenta.</translation>
+        <translation type="obsolete">PRivzet imenik z ICC profili. To se ne spremeni ob odprtju dokumenta.</translation>
     </message>
     <message>
         <source>Additional directory for document templates</source>
@@ -13119,7 +13404,7 @@ be changed with a document open.</source>
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
 instance of gimp.</source>
-        <translation>Lokacija urejevalnika slik. Če uporabljate gimp predlagamo ukaz gimp-remote, ki omogoča urejanje slike v že odprtem gimpu.</translation>
+        <translation type="obsolete">Lokacija urejevalnika slik. Če uporabljate gimp predlagamo ukaz gimp-remote, ki omogoča urejanje slike v že odprtem gimpu.</translation>
     </message>
     <message>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
@@ -13157,6 +13442,42 @@ instance of gimp.</source>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
         <translation>Izberite jezik, v katerem naj se Scribus privzeto požene. Če pustite prazno bo jezik zaznan iz okolja. To lahko vedno nadomestite z ukazno vrstico</translation>
     </message>
+    <message>
+        <source>&amp;Font Size (Menus):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font Size (&amp;Palettes):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default font size for the tool windows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">Metoda nadomeščanja odtenkov sivine, ki nastanejo kot mešanica cijan, magenta in rumene, s črno. To najbolj vpliva na nevtralne dele slike, ki so blizu sivi. S tem se lahko izboljša rezultat tiskanja, priporočamo pa preverjanje vsakega primera posebej. To tudi zmanjpa možnost prevelike nasičenosti CMY črnil.</translation>
+    </message>
 </context>
 <context>
     <name>PrefsDialogBase</name>
@@ -13171,6 +13492,14 @@ instance of gimp.</source>
     <message>
         <source>&amp;Defaults</source>
         <translation>&amp;Privzeto</translation>
+    </message>
+    <message>
+        <source>Save...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Preferences</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13294,10 +13623,6 @@ Ali jih želite uporabiti v novi različici?</translation>
         <translation type="obsolete">Tu lahko izberete preddoločeno postavitev strani. &apos;Brez&apos; pusti robove pri miru, &apos;Knjiga&apos; jih določi klasično (Gutenberg). &apos;Knjiga&apos; je predlog za dvostranske dokumente. &apos;Revija&apos; določi vse robove na isto vrednost, prednost ima leva ali notranja vrednost.</translation>
     </message>
     <message>
-        <source>Guttenberg</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Fibonacci</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13310,7 +13635,11 @@ Ali jih želite uporabiti v novi različici?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Guttenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
+        <source>Gutenberg</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15435,6 +15764,34 @@ is not exhaustive due to exceptions from called functions.
         <source>Old .sla format support</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>German (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting PostScript File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Printing File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;reate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Uvozi</translation>
+    </message>
+    <message>
+        <source>Use filename as path for user given preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -16177,6 +16534,14 @@ converting their vector data into Scribus objects.</source>
         <source>Save as &amp;Template...</source>
         <translation>Shrani kot &amp;predlogo...</translation>
     </message>
+    <message>
+        <source>Save a document as a template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save a document as a template. Good way to ease the initial work for documents with a constant look</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScActionPlugin</name>
@@ -16285,7 +16650,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>All</source>
-        <translation>Vse</translation>
+        <translation type="obsolete">Vse</translation>
     </message>
     <message>
         <source>Cut</source>
@@ -16305,7 +16670,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>File</source>
-        <translation>Datoteka</translation>
+        <translation type="obsolete">Datoteka</translation>
     </message>
     <message>
         <source>Font</source>
@@ -16317,11 +16682,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Brez</translation>
+        <translation type="obsolete">Brez</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Odpri</translation>
+        <translation type="obsolete">Odpri</translation>
     </message>
     <message>
         <source>Quit</source>
@@ -16333,7 +16698,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Size</source>
-        <translation>Velikost</translation>
+        <translation type="obsolete">Velikost</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -16361,27 +16726,27 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>Ur&amp;edi</translation>
+        <translation type="obsolete">Ur&amp;edi</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>Datoteka</translation>
+        <translation type="obsolete">Datoteka</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation>Pomoč</translation>
+        <translation type="obsolete">Pomoč</translation>
     </message>
     <message>
         <source>&amp;Item</source>
-        <translation>Predmet</translation>
+        <translation type="obsolete">Predmet</translation>
     </message>
     <message>
         <source>&amp;Page</source>
-        <translation>Stran</translation>
+        <translation type="obsolete">Stran</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation>Pogled</translation>
+        <translation type="obsolete">Pogled</translation>
     </message>
     <message>
         <source>Styles...</source>
@@ -16437,11 +16802,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Ready</source>
-        <translation>Pripravljen</translation>
+        <translation type="obsolete">Pripravljen</translation>
     </message>
     <message>
         <source>Shade</source>
-        <translation>Senči</translation>
+        <translation type="obsolete">Senči</translation>
     </message>
     <message>
         <source>Style</source>
@@ -16469,7 +16834,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Initializing Plugins</source>
-        <translation>Vključujem dodatke</translation>
+        <translation type="obsolete">Vključujem dodatke</translation>
     </message>
     <message>
         <source>Un-group</source>
@@ -16485,7 +16850,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation>&amp;Orodja</translation>
+        <translation type="obsolete">&amp;Orodja</translation>
     </message>
     <message>
         <source>Delete...</source>
@@ -16513,7 +16878,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation>Iščem pisave</translation>
+        <translation type="obsolete">Iščem pisave</translation>
     </message>
     <message>
         <source>Document Info...</source>
@@ -16569,7 +16934,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Običajno</translation>
+        <translation type="obsolete">Običajno</translation>
     </message>
     <message>
         <source>There are no Postscript-Fonts on your System</source>
@@ -16597,7 +16962,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumenti (*.sla *.scd);;Vse datoteke (*)</translation>
+        <translation type="obsolete">Dokumenti (*.sla *.scd);;Vse datoteke (*)</translation>
     </message>
     <message>
         <source>Slovak</source>
@@ -16605,15 +16970,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Document</source>
-        <translation>Dokument</translation>
+        <translation type="obsolete">Dokument</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X:</translation>
+        <translation type="obsolete">X:</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y:</translation>
+        <translation type="obsolete">Y:</translation>
     </message>
     <message>
         <source>Unlock</source>
@@ -16657,7 +17022,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>Dodatno</translation>
+        <translation type="obsolete">Dodatno</translation>
     </message>
     <message>
         <source>Attach Text to Path</source>
@@ -16697,7 +17062,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Reading Scrapbook</source>
-        <translation>Berem odložišče</translation>
+        <translation type="obsolete">Berem odložišče</translation>
     </message>
     <message>
         <source>Document Setup...</source>
@@ -16721,7 +17086,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>About Qt</source>
-        <translation>O QT-ju</translation>
+        <translation type="obsolete">O QT-ju</translation>
     </message>
     <message>
         <source>Get Text/Picture...</source>
@@ -16733,7 +17098,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Save as</source>
-        <translation>Shrani kot</translation>
+        <translation type="obsolete">Shrani kot</translation>
     </message>
     <message>
         <source>Apply Template...</source>
@@ -16761,7 +17126,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Printing failed!</source>
-        <translation>Tiskanje ni uspelo!</translation>
+        <translation type="obsolete">Tiskanje ni uspelo!</translation>
     </message>
     <message>
         <source>Save the current Document as PDF</source>
@@ -16773,7 +17138,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation>Dokumenti (*.sla *.sla.gz *.scd *.scd.gz);;Vse datoteke (*)</translation>
+        <translation type="obsolete">Dokumenti (*.sla *.sla.gz *.scd *.scd.gz);;Vse datoteke (*)</translation>
     </message>
     <message>
         <source>Spanish</source>
@@ -16793,7 +17158,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Printing...</source>
-        <translation>Tiskam...</translation>
+        <translation type="obsolete">Tiskam...</translation>
     </message>
     <message>
         <source>Underline</source>
@@ -16805,7 +17170,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation>Vse datoteke (*)</translation>
+        <translation type="obsolete">Vse datoteke (*)</translation>
     </message>
     <message>
         <source>Save the current Document</source>
@@ -16813,11 +17178,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Loading...</source>
-        <translation>Nalagam...</translation>
+        <translation type="obsolete">Nalagam...</translation>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
-        <translation>Besedilne datoteke (*.txt);;Vse datoteke(*)</translation>
+        <translation type="obsolete">Besedilne datoteke (*.txt);;Vse datoteke(*)</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -16861,7 +17226,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Saving...</source>
-        <translation>Shranjujem...</translation>
+        <translation type="obsolete">Shranjujem...</translation>
     </message>
     <message>
         <source>Finnish</source>
@@ -16869,7 +17234,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Reading Preferences</source>
-        <translation>Nastavitve branja</translation>
+        <translation type="obsolete">Nastavitve branja</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -16877,11 +17242,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Setting up Shortcuts</source>
-        <translation>NAstavljam bližnjice</translation>
+        <translation type="obsolete">NAstavljam bližnjice</translation>
     </message>
     <message>
         <source>Fatal Error</source>
-        <translation>Usodna napaka</translation>
+        <translation type="obsolete">Usodna napaka</translation>
     </message>
     <message>
         <source>Align Left</source>
@@ -16889,7 +17254,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Windows</source>
-        <translation>Okna</translation>
+        <translation type="obsolete">Okna</translation>
     </message>
     <message>
         <source>Select New Font</source>
@@ -16909,7 +17274,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Scribus Manual</source>
-        <translation>Priročnik za Scribus</translation>
+        <translation type="obsolete">Priročnik za Scribus</translation>
     </message>
     <message>
         <source>Fonts...</source>
@@ -16921,7 +17286,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>All Supported Formats</source>
-        <translation>Vse podprte oblike</translation>
+        <translation type="obsolete">Vse podprte oblike</translation>
     </message>
     <message>
         <source>Can&apos;t write the File: 
@@ -16947,7 +17312,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Open &amp;Recent</source>
-        <translation>Odpri &amp;nedavno</translation>
+        <translation type="obsolete">Odpri &amp;nedavno</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -16979,7 +17344,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>&amp;Uvozi</translation>
+        <translation type="obsolete">&amp;Uvozi</translation>
     </message>
     <message>
         <source>Save &amp;Text...</source>
@@ -16995,7 +17360,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Export</source>
-        <translation>&amp;Izvoz</translation>
+        <translation type="obsolete">&amp;Izvoz</translation>
     </message>
     <message>
         <source>Document &amp;Setup...</source>
@@ -17103,7 +17468,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation>&amp;Oblika</translation>
+        <translation type="obsolete">&amp;Oblika</translation>
     </message>
     <message>
         <source>&amp;Attach Text to Path</source>
@@ -17235,7 +17600,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>St&amp;yle</source>
-        <translation>S&amp;log</translation>
+        <translation type="obsolete">S&amp;log</translation>
     </message>
     <message>
         <source>&amp;Left</source>
@@ -17271,7 +17636,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Color</source>
-        <translation>&amp;Barva</translation>
+        <translation type="obsolete">&amp;Barva</translation>
     </message>
     <message>
         <source>&amp;Invert</source>
@@ -17283,23 +17648,23 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Font</source>
-        <translation>&amp;Pisava</translation>
+        <translation type="obsolete">&amp;Pisava</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation>&amp;Velikost</translation>
+        <translation type="obsolete">&amp;Velikost</translation>
     </message>
     <message>
         <source>&amp;Effects</source>
-        <translation>&amp;Učinki</translation>
+        <translation type="obsolete">&amp;Učinki</translation>
     </message>
     <message>
         <source>&amp;Alignment</source>
-        <translation>P&amp;oravnava</translation>
+        <translation type="obsolete">P&amp;oravnava</translation>
     </message>
     <message>
         <source>&amp;Shade</source>
-        <translation>&amp;Senca</translation>
+        <translation type="obsolete">&amp;Senca</translation>
     </message>
     <message>
         <source>&amp;Tabulators...</source>
@@ -17347,32 +17712,32 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Importing Pages...</source>
-        <translation>Uvažam strani...</translation>
+        <translation type="obsolete">Uvažam strani...</translation>
     </message>
     <message>
         <source>Import Page(s)</source>
-        <translation>Uvozi stran(i)</translation>
+        <translation type="obsolete">Uvozi stran(i)</translation>
     </message>
     <message>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</source>
-        <translation>&lt;p&gt;Poskušate uvoziti več strani, kot jih je na voljo v dokumentu od trenutno aktivne dalje.&lt;/p&gt;Izberite eno od možnosti:&lt;br&gt;
+        <translation type="obsolete">&lt;p&gt;Poskušate uvoziti več strani, kot jih je na voljo v dokumentu od trenutno aktivne dalje.&lt;/p&gt;Izberite eno od možnosti:&lt;br&gt;
 &lt;ul&gt;&lt;li&gt;&lt;b&gt;Ustvari&lt;/b&gt; manjkajoče strani&lt;/li&gt;&lt;li&gt;&lt;b&gt;Uvozi&lt;/&gt; strani do zadnje strani&lt;/li&gt;&lt;/li&gt;&lt;b&gt;Prekliči&lt;/b&gt;&lt;/li&gt;/&lt;ul&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <source>Create</source>
-        <translation>Ustvari</translation>
+        <translation type="obsolete">Ustvari</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation>Uvozi</translation>
+        <translation type="obsolete">Uvozi</translation>
     </message>
     <message>
         <source>Import done</source>
-        <translation>Uvoz končan</translation>
+        <translation type="obsolete">Uvoz končan</translation>
     </message>
     <message>
         <source>Found nothing to import</source>
-        <translation>Nič za uvoziti</translation>
+        <translation type="obsolete">Nič za uvoziti</translation>
     </message>
     <message>
         <source>Getting ICC Profiles</source>
@@ -17384,11 +17749,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation>&amp;Velikost:</translation>
+        <translation type="obsolete">&amp;Velikost:</translation>
     </message>
     <message>
         <source>&amp;Shade:</source>
-        <translation>&amp;Senca:</translation>
+        <translation type="obsolete">&amp;Senca:</translation>
     </message>
     <message>
         <source>Document &amp;Information...</source>
@@ -17420,7 +17785,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation>Vključen je sistem za pisave</translation>
+        <translation type="obsolete">Vključen je sistem za pisave</translation>
     </message>
     <message>
         <source>Portuguese (BR)</source>
@@ -17428,7 +17793,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Uredi</translation>
+        <translation type="obsolete">Uredi</translation>
     </message>
     <message>
         <source>There are no Postscript fonts on your system</source>
@@ -17608,7 +17973,7 @@ ni v nobeni sprejemljivi obliki</translation>
     </message>
     <message>
         <source> was replaced by: </source>
-        <translation>je bila zamenjana z:</translation>
+        <translation type="obsolete">je bila zamenjana z:</translation>
     </message>
     <message>
         <source>Some ICC-Profiles used by this Document are not installed:</source>
@@ -17616,7 +17981,7 @@ ni v nobeni sprejemljivi obliki</translation>
     </message>
     <message>
         <source>(converted)</source>
-        <translation>(pretvorjen)</translation>
+        <translation type="obsolete">(pretvorjen)</translation>
     </message>
     <message>
         <source>Cannot write the File: 
@@ -17640,16 +18005,16 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     </message>
     <message>
         <source>The following programs are missing:</source>
-        <translation>Manjkajo sledeči programi:</translation>
+        <translation type="obsolete">Manjkajo sledeči programi:</translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation>EPS datoteke (*.eps);;Vse datoteke (*)</translation>
+        <translation type="obsolete">EPS datoteke (*.eps);;Vse datoteke (*)</translation>
     </message>
     <message>
         <source>Cannot write the file: 
 %1</source>
-        <translation>Ne morem pisati v datoteko:
+        <translation type="obsolete">Ne morem pisati v datoteko:
 %1</translation>
     </message>
     <message>
@@ -17664,11 +18029,11 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     </message>
     <message>
         <source>&amp;Lock All</source>
-        <translation>&amp;Zakleni vse</translation>
+        <translation type="obsolete">&amp;Zakleni vse</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation>&amp;Odkleni vse</translation>
+        <translation type="obsolete">&amp;Odkleni vse</translation>
     </message>
     <message>
         <source>Bulgarian</source>
@@ -17684,7 +18049,7 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     </message>
     <message>
         <source>Information</source>
-        <translation>Podatki</translation>
+        <translation type="obsolete">Podatki</translation>
     </message>
     <message>
         <source>is missing!</source>
@@ -17692,63 +18057,63 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     </message>
     <message>
         <source>Initializing Keyboard Shortcuts</source>
-        <translation>Vključujem bližnjice tipkovnice</translation>
+        <translation type="obsolete">Vključujem bližnjice tipkovnice</translation>
     </message>
     <message>
         <source>Initializing Story Editor</source>
-        <translation>Vključujem urejevalnik zgodbe</translation>
+        <translation type="obsolete">Vključujem urejevalnik zgodbe</translation>
     </message>
     <message>
         <source>Reading ICC Profiles</source>
-        <translation>Berem ICC profile</translation>
+        <translation type="obsolete">Berem ICC profile</translation>
     </message>
     <message>
         <source>Initializing Hyphenator</source>
-        <translation>Vključujem deljenje besed</translation>
+        <translation type="obsolete">Vključujem deljenje besed</translation>
     </message>
     <message>
         <source>There are no fonts found on your system.</source>
-        <translation>Na sistemu ne najdem pisav.</translation>
+        <translation type="obsolete">Na sistemu ne najdem pisav.</translation>
     </message>
     <message>
         <source>Exiting now.</source>
-        <translation>Končujem.</translation>
+        <translation type="obsolete">Končujem.</translation>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation>Nastavitve predogleda</translation>
+        <translation type="obsolete">Nastavitve predogleda</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation>Stopnja</translation>
+        <translation type="obsolete">Stopnja</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
-        <translation>Pošlji na &amp;sloj</translation>
+        <translation type="obsolete">Pošlji na &amp;sloj</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation>Možnosti &amp;PDF</translation>
+        <translation type="obsolete">Možnosti &amp;PDF</translation>
     </message>
     <message>
         <source>C&amp;onvert To</source>
-        <translation>&amp;Pretvori v</translation>
+        <translation type="obsolete">&amp;Pretvori v</translation>
     </message>
     <message>
         <source>I&amp;nsert</source>
-        <translation>&amp;Vstavi</translation>
+        <translation type="obsolete">&amp;Vstavi</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation>Znak</translation>
+        <translation type="obsolete">Znak</translation>
     </message>
     <message>
         <source>Quote</source>
-        <translation>Narekovaj</translation>
+        <translation type="obsolete">Narekovaj</translation>
     </message>
     <message>
         <source>Space</source>
-        <translation>Prostor</translation>
+        <translation type="obsolete">Prostor</translation>
     </message>
     <message>
         <source>Some fonts used by this document have been substituted:</source>
@@ -17756,23 +18121,23 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
-        <translation>Nekateri ICC profili, uporabljeni v dokumentu, niso nameščeni:</translation>
+        <translation type="obsolete">Nekateri ICC profili, uporabljeni v dokumentu, niso nameščeni:</translation>
     </message>
     <message>
         <source>Save As</source>
-        <translation>Shrani kot</translation>
+        <translation type="obsolete">Shrani kot</translation>
     </message>
     <message>
         <source>Cannot Cut In-Use Item</source>
-        <translation>Ne morete izrezati predmetov v uporabi</translation>
+        <translation type="obsolete">Ne morete izrezati predmetov v uporabi</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
-        <translation>Predmet %1 uporablja urejevalnik zgodbe. Izrezovanje je bilo preklicano</translation>
+        <translation type="obsolete">Predmet %1 uporablja urejevalnik zgodbe. Izrezovanje je bilo preklicano</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
-        <translation>Ghostscript: ne morete uporabiti EPS slik v predogledu tiskanja</translation>
+        <translation type="obsolete">Ghostscript: ne morete uporabiti EPS slik v predogledu tiskanja</translation>
     </message>
     <message>
         <source>Croatian</source>
@@ -17780,35 +18145,35 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     </message>
     <message>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
-        <translation>Izbrana barva ni uvrščena v nabor barv dokumenta. Izberite ji ime.</translation>
+        <translation type="obsolete">Izbrana barva ni uvrščena v nabor barv dokumenta. Izberite ji ime.</translation>
     </message>
     <message>
         <source>Color Not Found</source>
-        <translation>Ne najdem barve</translation>
+        <translation type="obsolete">Ne najdem barve</translation>
     </message>
     <message>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
-        <translation>Izbrano ime že obstaja. Izberite drugo ime za to barvo.</translation>
+        <translation type="obsolete">Izbrano ime že obstaja. Izberite drugo ime za to barvo.</translation>
     </message>
     <message>
         <source>&amp;Level</source>
-        <translation>&amp;Raven</translation>
+        <translation type="obsolete">&amp;Raven</translation>
     </message>
     <message>
         <source>Send to Layer</source>
-        <translation>Pošlji na sloj</translation>
+        <translation type="obsolete">Pošlji na sloj</translation>
     </message>
     <message>
         <source>Previe&amp;w Settings</source>
-        <translation>Nastavit&amp;ve predogleda</translation>
+        <translation type="obsolete">Nastavit&amp;ve predogleda</translation>
     </message>
     <message>
         <source>File %1 is not in an acceptable format</source>
-        <translation>Datoteka %1 ni v sprejemljivi obliki</translation>
+        <translation type="obsolete">Datoteka %1 ni v sprejemljivi obliki</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Scribus has detected some errors.
@@ -17818,55 +18183,51 @@ Uporabite Končno preverjanje da jih odpravite</translation>
     </message>
     <message>
         <source>&amp;Abort</source>
-        <translation>&amp;Ustavi</translation>
+        <translation type="obsolete">&amp;Ustavi</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation>&amp;Zanemari</translation>
+        <translation type="obsolete">&amp;Zanemari</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation>Ime:</translation>
+        <translation type="obsolete">Ime:</translation>
     </message>
     <message>
         <source>New Master Page</source>
-        <translation>Nova glavna stran</translation>
+        <translation type="obsolete">Nova glavna stran</translation>
     </message>
     <message>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
-        <translation>Scribus je našel napake.
+        <translation type="obsolete">Scribus je našel napake.
 Uporabite Končno preverjanje da jih odpravite.</translation>
     </message>
     <message>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
-        <translation>Scribus je našel napake.
+        <translation type="obsolete">Scribus je našel napake.
 Uporabite Končno preverjanje da jih odpravite</translation>
     </message>
     <message>
         <source>-Page%1</source>
-        <translation>-Stran%1</translation>
+        <translation type="obsolete">-Stran%1</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation>Nekateri predmeti so zaklenjeni.</translation>
+        <translation type="obsolete">Nekateri predmeti so zaklenjeni.</translation>
     </message>
     <message>
         <source>The program %1 is already running!</source>
-        <translation>Program %1 že teče!</translation>
+        <translation type="obsolete">Program %1 že teče!</translation>
     </message>
     <message>
         <source>The program %1 is missing!</source>
-        <translation>Program %1 manjka!</translation>
+        <translation type="obsolete">Program %1 manjka!</translation>
     </message>
     <message>
         <source>Convert Page to Master Page</source>
-        <translation>Pretvori v glavno stran</translation>
-    </message>
-    <message>
-        <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Pretvori v glavno stran</translation>
     </message>
 </context>
 <context>
@@ -17905,6 +18266,439 @@ Uporabite Končno preverjanje da jih odpravite</translation>
     <message>
         <source>Background</source>
         <translation>Ozadje</translation>
+    </message>
+</context>
+<context>
+    <name>ScribusMainWindow</name>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Brez</translation>
+    </message>
+    <message>
+        <source>Initializing Plugins</source>
+        <translation type="unfinished">Vključujem dodatke</translation>
+    </message>
+    <message>
+        <source>Initializing Keyboard Shortcuts</source>
+        <translation type="unfinished">Vključujem bližnjice tipkovnice</translation>
+    </message>
+    <message>
+        <source>Reading Preferences</source>
+        <translation type="unfinished">Nastavitve branja</translation>
+    </message>
+    <message>
+        <source>Initializing Story Editor</source>
+        <translation type="unfinished">Vključujem urejevalnik zgodbe</translation>
+    </message>
+    <message>
+        <source>Reading ICC Profiles</source>
+        <translation type="unfinished">Berem ICC profile</translation>
+    </message>
+    <message>
+        <source>Initializing Hyphenator</source>
+        <translation type="unfinished">Vključujem deljenje besed</translation>
+    </message>
+    <message>
+        <source>Reading Scrapbook</source>
+        <translation type="unfinished">Berem odložišče</translation>
+    </message>
+    <message>
+        <source>Setting up Shortcuts</source>
+        <translation type="unfinished">NAstavljam bližnjice</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="unfinished">Datoteka</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished">Uredi</translation>
+    </message>
+    <message>
+        <source>Searching for Fonts</source>
+        <translation type="unfinished">Iščem pisave</translation>
+    </message>
+    <message>
+        <source>There are no fonts found on your system.</source>
+        <translation type="unfinished">Na sistemu ne najdem pisav.</translation>
+    </message>
+    <message>
+        <source>Exiting now.</source>
+        <translation type="unfinished">Končujem.</translation>
+    </message>
+    <message>
+        <source>Fatal Error</source>
+        <translation type="unfinished">Usodna napaka</translation>
+    </message>
+    <message>
+        <source>Font System Initialized</source>
+        <translation type="unfinished">Vključen je sistem za pisave</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open &amp;Recent</source>
+        <translation type="unfinished">Odpri &amp;nedavno</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Uvozi</translation>
+    </message>
+    <message>
+        <source>&amp;Export</source>
+        <translation type="unfinished">&amp;Izvoz</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">Ur&amp;edi</translation>
+    </message>
+    <message>
+        <source>St&amp;yle</source>
+        <translation type="unfinished">S&amp;log</translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation type="unfinished">&amp;Barva</translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation type="unfinished">&amp;Velikost</translation>
+    </message>
+    <message>
+        <source>&amp;Shade</source>
+        <translation type="unfinished">&amp;Senca</translation>
+    </message>
+    <message>
+        <source>&amp;Font</source>
+        <translation type="unfinished">&amp;Pisava</translation>
+    </message>
+    <message>
+        <source>&amp;Effects</source>
+        <translation type="unfinished">&amp;Učinki</translation>
+    </message>
+    <message>
+        <source>&amp;Item</source>
+        <translation type="unfinished">Predmet</translation>
+    </message>
+    <message>
+        <source>Preview Settings</source>
+        <translation type="unfinished">Nastavitve predogleda</translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation type="unfinished">Stopnja</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation type="unfinished">Pošlji na &amp;sloj</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation type="unfinished">Možnosti &amp;PDF</translation>
+    </message>
+    <message>
+        <source>&amp;Shape</source>
+        <translation type="unfinished">&amp;Oblika</translation>
+    </message>
+    <message>
+        <source>C&amp;onvert To</source>
+        <translation type="unfinished">&amp;Pretvori v</translation>
+    </message>
+    <message>
+        <source>I&amp;nsert</source>
+        <translation type="unfinished">&amp;Vstavi</translation>
+    </message>
+    <message>
+        <source>Character</source>
+        <translation type="unfinished">Znak</translation>
+    </message>
+    <message>
+        <source>Quote</source>
+        <translation type="unfinished">Narekovaj</translation>
+    </message>
+    <message>
+        <source>Space</source>
+        <translation type="unfinished">Prostor</translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation type="unfinished">Pogled</translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Windows</source>
+        <translation type="unfinished">Okna</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Alignment</source>
+        <translation type="unfinished">P&amp;oravnava</translation>
+    </message>
+    <message>
+        <source>Ready</source>
+        <translation type="unfinished">Pripravljen</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Odpri</translation>
+    </message>
+    <message>
+        <source>Importing Pages...</source>
+        <translation type="unfinished">Uvažam strani...</translation>
+    </message>
+    <message>
+        <source>Import Page(s)</source>
+        <translation type="unfinished">Uvozi stran(i)</translation>
+    </message>
+    <message>
+        <source>Import done</source>
+        <translation type="unfinished">Uvoz končan</translation>
+    </message>
+    <message>
+        <source>Found nothing to import</source>
+        <translation type="unfinished">Nič za uvoziti</translation>
+    </message>
+    <message>
+        <source>File %1 is not in an acceptable format</source>
+        <translation type="unfinished">Datoteka %1 ni v sprejemljivi obliki</translation>
+    </message>
+    <message>
+        <source>Loading...</source>
+        <translation type="unfinished">Nalagam...</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished">PostScript</translation>
+    </message>
+    <message>
+        <source>Some ICC profiles used by this document are not installed:</source>
+        <translation type="unfinished">Nekateri ICC profili, uporabljeni v dokumentu, niso nameščeni:</translation>
+    </message>
+    <message>
+        <source> was replaced by: </source>
+        <translation type="unfinished">je bila zamenjana z:</translation>
+    </message>
+    <message>
+        <source>(converted)</source>
+        <translation type="unfinished">(pretvorjen)</translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Vse podprte oblike</translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation type="unfinished">Vse datoteke (*)</translation>
+    </message>
+    <message>
+        <source>Cannot write the file: 
+%1</source>
+        <translation type="unfinished">Ne morem pisati v datoteko:
+%1</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
+        <translation type="unfinished">Dokumenti (*.sla *.sla.gz *.scd *.scd.gz);;Vse datoteke (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;All Files (*)</source>
+        <translation type="unfinished">Dokumenti (*.sla *.scd);;Vse datoteke (*)</translation>
+    </message>
+    <message>
+        <source>Save As</source>
+        <translation type="unfinished">Shrani kot</translation>
+    </message>
+    <message>
+        <source>Saving...</source>
+        <translation type="unfinished">Shranjujem...</translation>
+    </message>
+    <message>
+        <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation type="unfinished">&amp;Zanemari</translation>
+    </message>
+    <message>
+        <source>&amp;Abort</source>
+        <translation type="unfinished">&amp;Ustavi</translation>
+    </message>
+    <message>
+        <source>Printing...</source>
+        <translation type="unfinished">Tiskam...</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished">Dokument</translation>
+    </message>
+    <message>
+        <source>Printing failed!</source>
+        <translation type="unfinished">Tiskanje ni uspelo!</translation>
+    </message>
+    <message>
+        <source>Cannot Cut In-Use Item</source>
+        <translation type="unfinished">Ne morete izrezati predmetov v uporabi</translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
+        <translation type="unfinished">Predmet %1 uporablja urejevalnik zgodbe. Izrezovanje je bilo preklicano</translation>
+    </message>
+    <message>
+        <source>About Qt</source>
+        <translation type="unfinished">O QT-ju</translation>
+    </message>
+    <message>
+        <source>Scribus Manual</source>
+        <translation type="unfinished">Priročnik za Scribus</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="unfinished">Shrani kot</translation>
+    </message>
+    <message>
+        <source>Text Files (*.txt);;All Files(*)</source>
+        <translation type="unfinished">Besedilne datoteke (*.txt);;Vse datoteke(*)</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">Ime:</translation>
+    </message>
+    <message>
+        <source>Convert Page to Master Page</source>
+        <translation type="unfinished">Pretvori v glavno stran</translation>
+    </message>
+    <message>
+        <source>New Master Page</source>
+        <translation type="unfinished">Nova glavna stran</translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished">&amp;Velikost:</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation type="unfinished">Velikost</translation>
+    </message>
+    <message>
+        <source>&amp;Shade:</source>
+        <translation type="unfinished">&amp;Senca:</translation>
+    </message>
+    <message>
+        <source>Shade</source>
+        <translation type="unfinished">Senči</translation>
+    </message>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Brez sloga</translation>
+    </message>
+    <message>
+        <source>The following programs are missing:</source>
+        <translation type="unfinished">Manjkajo sledeči programi:</translation>
+    </message>
+    <message>
+        <source>Ghostscript : You cannot use EPS images or Print Preview</source>
+        <translation type="unfinished">Ghostscript: ne morete uporabiti EPS slik v predogledu tiskanja</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation type="unfinished">Vse</translation>
+    </message>
+    <message>
+        <source>Scribus detected some errors.
+Consider using the Preflight Verifier  to correct them.</source>
+        <translation type="unfinished">Scribus je našel napake.
+Uporabite Končno preverjanje da jih odpravite.</translation>
+    </message>
+    <message>
+        <source>EPS Files (*.eps);;All Files (*)</source>
+        <translation type="unfinished">EPS datoteke (*.eps);;Vse datoteke (*)</translation>
+    </message>
+    <message>
+        <source>Detected some errors.
+Consider using the Preflight Verifier to correct them</source>
+        <translation type="unfinished">Scribus je našel napake.
+Uporabite Končno preverjanje da jih odpravite</translation>
+    </message>
+    <message>
+        <source>-Page%1</source>
+        <translation type="unfinished">-Stran%1</translation>
+    </message>
+    <message>
+        <source>Some objects are locked.</source>
+        <translation type="unfinished">Nekateri predmeti so zaklenjeni.</translation>
+    </message>
+    <message>
+        <source>&amp;Lock All</source>
+        <translation type="unfinished">&amp;Zakleni vse</translation>
+    </message>
+    <message>
+        <source>&amp;Unlock All</source>
+        <translation type="unfinished">&amp;Odkleni vse</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished">Podatki</translation>
+    </message>
+    <message>
+        <source>The program %1 is already running!</source>
+        <translation type="unfinished">Program %1 že teče!</translation>
+    </message>
+    <message>
+        <source>The program %1 is missing!</source>
+        <translation type="unfinished">Program %1 manjka!</translation>
+    </message>
+    <message>
+        <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
+        <translation type="unfinished">Izbrana barva ni uvrščena v nabor barv dokumenta. Izberite ji ime.</translation>
+    </message>
+    <message>
+        <source>Color Not Found</source>
+        <translation type="unfinished">Ne najdem barve</translation>
+    </message>
+    <message>
+        <source>The name you have selected already exists. Please enter a different name for this new color.</source>
+        <translation type="unfinished">Izbrano ime že obstaja. Izberite drugo ime za to barvo.</translation>
+    </message>
+    <message>
+        <source>&amp;Level</source>
+        <translation type="unfinished">&amp;Raven</translation>
+    </message>
+    <message>
+        <source>Send to Layer</source>
+        <translation type="unfinished">Pošlji na sloj</translation>
+    </message>
+    <message>
+        <source>Previe&amp;w Settings</source>
+        <translation type="unfinished">Nastavit&amp;ve predogleda</translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation type="unfinished">&amp;Orodja</translation>
+    </message>
+    <message>
+        <source>X-Pos:</source>
+        <translation type="unfinished">X:</translation>
+    </message>
+    <message>
+        <source>Y-Pos:</source>
+        <translation type="unfinished">Y:</translation>
     </message>
 </context>
 <context>
@@ -18548,6 +19342,10 @@ Uporabite Končno preverjanje da jih odpravite</translation>
         <source>C&amp;lear</source>
         <translation>&amp;Počisti</translation>
     </message>
+    <message>
+        <source>Search finished, found %1 matches</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SeitenPal</name>
@@ -19152,6 +19950,10 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation>Naj bodo te nastavitve privzete. Pri uvažanju OpenOffice.org 1.x datotek ne sprašuj več.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Prekliči</translation>
     </message>
 </context>
 <context>
@@ -19998,7 +20800,7 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-        <translation>Vključi pisave v PDF. To bo omogočilo, da se pri
+        <translation type="obsolete">Vključi pisave v PDF. To bo omogočilo, da se pri
 prenosu izgled in postavitev dokumenta ne spremenita.</translation>
     </message>
     <message>
@@ -20016,7 +20818,7 @@ prenosu izgled in postavitev dokumenta ne spremenita.</translation>
     <message>
         <source>Length of time the effect runs.
 A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation>Dolžina učinka. Krajši čas učinek pospeši, daljši upočasni.</translation>
+        <translation type="obsolete">Dolžina učinka. Krajši čas učinek pospeši, daljši upočasni.</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
@@ -20050,7 +20852,7 @@ A shorter time will speed up the effect, a longer one will slow it down.</source
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Vpišite z vejicami ločen spisek območij.
+        <translation type="obsolete">Vpišite z vejicami ločen spisek območij.
 Območje je lahko * za vse strani, 1-5 za 
 več strani ali samo številka ene strani.</translation>
     </message>
@@ -20067,13 +20869,13 @@ uporabljate tudi upravljanje barv.</translation>
     <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
-        <translation>Določi povezovanje strani PDF. Če niste prepričani
+        <translation type="obsolete">Določi povezovanje strani PDF. Če niste prepričani
 pustite na privzeti vrednosti - levo.</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF.
 Some viewers can use the thumbnails for navigation.</source>
-        <translation>Pripravi pomanjšane sličice vsake strani v PDFju.
+        <translation type="obsolete">Pripravi pomanjšane sličice vsake strani v PDFju.
 Nekateri pregledovalniki jih lahko uporabijo za pregledovanje.</translation>
     </message>
     <message>
@@ -20083,13 +20885,13 @@ Nekateri pregledovalniki jih lahko uporabijo za pregledovanje.</translation>
     <message>
         <source>Embed the bookmarks you created in your document.
 These are useful for navigating long PDF documents.</source>
-        <translation>Vključi povezave iz dokumenta.
+        <translation type="obsolete">Vključi povezave iz dokumenta.
 To je uporabno za pregledovanje dolgih PDFjev.</translation>
     </message>
     <message>
         <source>Export resolution of text and vector graphics.
 This does not affect the resolution of bitmap images like photos.</source>
-        <translation>Izvozna resolucija za besedilo in vektorsko grafiko.
+        <translation type="obsolete">Izvozna resolucija za besedilo in vektorsko grafiko.
 To ne vpliva na resolucijo slik.</translation>
     </message>
     <message>
@@ -20137,7 +20939,7 @@ Pozor: PDF enkripcija ni tako zanesljiva kot GPG ali PGP in ima nekatere omejitv
     <message>
         <source>Choose a master password which enables or disables all the
 security features in your exported PDF</source>
-        <translation>Izberite glavno geslo, ki bo o(ne)mogočilo vse varnostne možnosti v izvoženem PDFju</translation>
+        <translation type="obsolete">Izberite glavno geslo, ki bo o(ne)mogočilo vse varnostne možnosti v izvoženem PDFju</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
@@ -20167,7 +20969,7 @@ If un-checked, editing annotations and fileds is prevented.</source>
         <source>Color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation>Barvni model za izvoz vašega PDFja.
+        <translation type="obsolete">Barvni model za izvoz vašega PDFja.
 Izberite Zaslon/splet za PDFje ki bodo brani na ekranu ali tiskani na običajnih tiskalnikih.
 Izberite Tiskalnik, za tiskanje s CMYK tiskalniki.</translation>
     </message>
@@ -20175,7 +20977,7 @@ Izberite Tiskalnik, za tiskanje s CMYK tiskalniki.</translation>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled
 when specifically requested by your printer and they have given you the exact details needed.
 Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation>To je napredna nastavitev, ki ni privzeta. Vključite jo le, če jo potrebujete zaradi tiskalnika ali
+        <translation type="obsolete">To je napredna nastavitev, ki ni privzeta. Vključite jo le, če jo potrebujete zaradi tiskalnika ali
 navodil iz tiskarne. Sicer se vaš PDF morda ne bo pravilno natisnil in ne prav prikazal na drugih
 sistemih.</translation>
     </message>
@@ -20214,7 +21016,7 @@ sistemih.</translation>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Ključna beseda za PDF/X-3, sicer izvoz ne uspe pravilno.
+        <translation type="obsolete">Ključna beseda za PDF/X-3, sicer izvoz ne uspe pravilno.
 Predlagamo, da uporabite naslov dokumenta.</translation>
     </message>
     <message>
@@ -20243,7 +21045,7 @@ Predlagamo, da uporabite naslov dokumenta.</translation>
     </message>
     <message>
         <source>Include Layers</source>
-        <translation>Vključi sloje</translation>
+        <translation type="obsolete">Vključi sloje</translation>
     </message>
     <message>
         <source>&amp;Resolution for EPS Graphics:</source>
@@ -20251,7 +21053,7 @@ Predlagamo, da uporabite naslov dokumenta.</translation>
     </message>
     <message>
         <source>Resample Images to:</source>
-        <translation>Popravi slike na:</translation>
+        <translation type="obsolete">Popravi slike na:</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
@@ -20272,7 +21074,7 @@ PDF/X-3 je namenjen izvozu, kjer potrebujete dokument z upravljanjem barv za kom
     <message>
         <source>Layers in your document are exported to the PDF
 Only available if PDF 1.5 is choosen.</source>
-        <translation>Sloji dokumenta se izvozijo v PDF
+        <translation type="obsolete">Sloji dokumenta se izvozijo v PDF
 Možno le ob izbiri PDF 1.5.</translation>
     </message>
     <message>
@@ -20289,7 +21091,7 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
-        <translation>Ponovno upodobljevanje rasterskih slik na izbrano ločljivost.
+        <translation type="obsolete">Ponovno upodobljevanje rasterskih slik na izbrano ločljivost.
 Če pustite neobkljukano se bodo slike upodobile pri njihovih izvornih ločljivostih.
 To lahko poveča porabo pomnilnika in upočasni izvoz.</translation>
     </message>
@@ -20298,7 +21100,7 @@ To lahko poveča porabo pomnilnika in upočasni izvoz.</translation>
 If you selected PDF 1.3, the PDF will be protected by 40 bit encryption.
 If you selected PDF 1.4, the PDF will be protected by 128 bit encryption.
 Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation>Omogoči varnostne zmožnosti izvoženega PDFja.
+        <translation type="obsolete">Omogoči varnostne zmožnosti izvoženega PDFja.
 Če izberete PDF 1.3, bo zaščiten s 40 bitno enkripcijo.
 Če izberete PDF 1.4, bo zaščiten s 128 bitno enkripcijo.
 Opozorilo: PDF enkripcija ni tako zanesljiva kot GPG ali PGP enkripcija in vsebuje nekatere omejitve.</translation>
@@ -20308,20 +21110,11 @@ Opozorilo: PDF enkripcija ni tako zanesljiva kot GPG ali PGP enkripcija in vsebu
         <translation>Pretvori čiste barve v procesne barve</translation>
     </message>
     <message>
-        <source>Compression &amp;Method:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Compression &amp;Quality:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enables lossless compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF file size.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -20342,6 +21135,78 @@ Unless you have a reason, leave this checked. This reduces PDF file size.</sourc
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Include La&amp;yers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression Metho&amp;d:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resa&amp;mple Images to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

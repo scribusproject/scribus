@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-07 17:29+0100\n"
+"POT-Creation-Date: 2005-12-20 22:53+0100\n"
 "PO-Revision-Date: 2005-05-08 22:12-0300\n"
 "Last-Translator: \n"
 "Language-Team:  <pt@li.org>\n"
@@ -159,9 +159,9 @@ msgid "&Remove"
 msgstr "&Remover"
 
 msgid ""
-"<qt>Font search paths can only be set in Preferences, and only when there is "
-"no document currently open. Close any open documents, then use Edit-"
-">Settings to change the font search path.</qt>"
+"Font search paths can only be set in Preferences, and only when there is no "
+"document currently open. Close any open documents, then use Edit->Settings "
+"to change the font search path."
 msgstr ""
 
 msgid "Additional &Paths"
@@ -782,51 +782,35 @@ msgstr ""
 msgid " was replaced by: "
 msgstr ""
 
-msgid "Name"
-msgstr "Nome"
-
-msgid "Value"
-msgstr "Valor"
-
 #, fuzzy
-msgid "Parameter"
-msgstr "Caractere"
+msgid "Relates To"
+msgstr "Modelo: "
 
-#, fuzzy
-msgid "Relationship"
-msgstr "&Relação:"
+msgid "Is Parent Of"
+msgstr ""
 
-#, fuzzy
-msgid "Relationship To"
-msgstr "&Relação:"
-
-msgid "Auto Add To"
+msgid "Is Child Of"
 msgstr ""
 
 #, fuzzy
-msgid "Document Item Attributes"
-msgstr "Configurações do documento"
+msgid "Text Frames"
+msgstr "Quadro de texto"
 
-msgid "&Add"
-msgstr "&Adicionar"
+#, fuzzy
+msgid "Image Frames"
+msgstr "Ocultar quadros"
 
-msgid "Alt+A"
-msgstr "Alt+T"
+#, fuzzy
+msgid "Boolean"
+msgstr "Coreano"
 
-msgid "&Copy"
-msgstr "&Copiar"
+#, fuzzy
+msgid "Integer"
+msgstr "Centro"
 
-msgid "Alt+C"
-msgstr "Alt+C"
-
-msgid "Alt+D"
-msgstr "Alt+X"
-
-msgid "C&lear"
-msgstr "&Limpar"
-
-msgid "Alt+L"
-msgstr "Alt+A"
+#, fuzzy
+msgid "String"
+msgstr "Configurações"
 
 #, fuzzy
 msgid "%1: %2"
@@ -852,6 +836,15 @@ msgstr "&Refazer"
 #, fuzzy
 msgid "Table of Contents and Indexes"
 msgstr "Sal&var o conteúdo após alterações"
+
+msgid "&Add"
+msgstr "&Adicionar"
+
+msgid "Alt+A"
+msgstr "Alt+T"
+
+msgid "Alt+D"
+msgstr "Alt+X"
 
 msgid "The frame the table of contents will be placed into"
 msgstr ""
@@ -932,13 +925,16 @@ msgstr "páginas por Folha"
 msgid "Option"
 msgstr "Opções"
 
+msgid "Value"
+msgstr "Valor"
+
+#, fuzzy
 msgid ""
-"This panel displays various CUPS options when printing. \n"
-"The exact parameters available will depend on your printer driver.\n"
-"You can confirm CUPS support by selecting Help > About.\n"
-"Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF "
-"support.\n"
-"Missing library support is indicated by a *"
+"This panel displays various CUPS options when printing. The exact parameters "
+"available will depend on your printer driver. You can confirm CUPS support "
+"by selecting Help > About. Look for the listings: C-C-T These equate to "
+"C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a "
+"*"
 msgstr ""
 "Esse painel mostra várias opções do CUPS durante a impressão.\n"
 "Os parâmetros disponíveis dependem do driver da sua impressora.\n"
@@ -1385,46 +1381,8 @@ msgid "Move Page(s):"
 msgstr "Mover a(s) página(s):"
 
 #, fuzzy
-msgid "Relates To"
-msgstr "Modelo: "
-
-msgid "Is Parent Of"
-msgstr ""
-
-msgid "Is Child Of"
-msgstr ""
-
-#, fuzzy
-msgid "Text Frames"
-msgstr "Quadro de texto"
-
-#, fuzzy
-msgid "Image Frames"
-msgstr "Ocultar quadros"
-
-#, fuzzy
-msgid "Boolean"
-msgstr "Coreano"
-
-#, fuzzy
-msgid "Integer"
-msgstr "Centro"
-
-#, fuzzy
-msgid "String"
-msgstr "Configurações"
-
-#, fuzzy
 msgid "Collecting..."
 msgstr "Carregando..."
-
-msgid "Warning"
-msgstr "Aviso"
-
-msgid ""
-"Cannot collect all files for output for file:\n"
-"%1"
-msgstr ""
 
 #, fuzzy
 msgid ""
@@ -1433,6 +1391,14 @@ msgid ""
 msgstr ""
 "Não é possível escrever o arquivo:\n"
 "%1"
+
+msgid "Warning"
+msgstr "Aviso"
+
+msgid ""
+"Cannot collect all files for output for file:\n"
+"%1"
+msgstr ""
 
 msgid "Manage Tabulators"
 msgstr "Gerenciar tabulações"
@@ -1719,6 +1685,15 @@ msgstr ""
 msgid "Delete the currently selected section."
 msgstr "Exclui a cor selecionada"
 
+msgid ""
+"Name: Optional name for section eg. Index<br/>Shown: Select to show the page "
+"numbers in this section if there is one or more text frames setup to do so."
+"<br/>From: The page index for this section to start at.<br/>To: The page "
+"index for this section to stop at.<br/>Style: Select the page number style "
+"to be used.<br/>Start: The index within the Style's range to star at. Eg. If "
+"Start=2 and Style=a,b,c, ..., the numbers will begin at b."
+msgstr ""
+
 msgid "1, 2, 3, ..."
 msgstr ""
 
@@ -1903,9 +1878,10 @@ msgstr "Aplicar fator côncavo/convexo para mudar a forma dos polígonos"
 msgid "Sample Polygon"
 msgstr "Polígono de exemplo"
 
+#, fuzzy
 msgid ""
-"A negative value will make the polygon concave (or star shaped),\n"
-" a positive value will make it convex"
+"A negative value will make the polygon concave (or star shaped), a positive "
+"value will make it convex"
 msgstr ""
 "Um valor negativo irá tornar o polígono côncavo (ou estrelado),\n"
 "um valor positivo irá torná-lo convexo"
@@ -1922,7 +1898,12 @@ msgstr "&Idioma:"
 msgid "&Theme:"
 msgstr "&Tema:"
 
-msgid "&Font Size:"
+#, fuzzy
+msgid "&Font Size (Menus):"
+msgstr "Tamanho da &fonte:"
+
+#, fuzzy
+msgid "Font Size (&Palettes):"
 msgstr "Tamanho da &fonte:"
 
 msgid "&Wheel Jump:"
@@ -2006,6 +1987,10 @@ msgstr "&Gerenciamento de cor..."
 #, fuzzy
 msgid "PDF Export"
 msgstr "&Exportar"
+
+#, fuzzy
+msgid "Document Item Attributes"
+msgstr "Configurações do documento"
 
 #, fuzzy
 msgid "Keyboard Shortcuts"
@@ -2187,14 +2172,19 @@ msgid ""
 "passing a command line option when starting Scribus"
 msgstr ""
 
+#, fuzzy
 msgid ""
-"Choose the default window decoration and looks.\n"
-"Scribus inherits any available KDE or Qt themes"
+"Choose the default window decoration and looks. Scribus inherits any "
+"available KDE or Qt themes, if Qt is configured to search KDE plugins."
 msgstr ""
 "Selecione a decoração de janelas padrão.\n"
 "Scribus aceita qualquer tema de KDE e Qt disponíveis"
 
 msgid "Default font size for the menus and windows"
+msgstr "Tamanho padrão da fonte dos menus e janelas"
+
+#, fuzzy
+msgid "Default font size for the tool windows"
 msgstr "Tamanho padrão da fonte dos menus e janelas"
 
 msgid "Default unit of measurement for document editing"
@@ -2210,13 +2200,12 @@ msgstr "Número de documentos recentes a serem mostrados no menu Arquivo"
 msgid "Default documents directory"
 msgstr "Diretório padrão dos documentos"
 
-#, fuzzy
 msgid ""
-"Default ICC profiles directory. This cannot\n"
-"be changed with a document open."
+"Default ICC profiles directory. This cannot be changed with a document open. "
+"By default, Scribus will look in the System Directories under Mac OSX and "
+"Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/"
+"color/icc and /usr/local/share/color/icc "
 msgstr ""
-"Diretório padrão de perfis ICC. Isto não pode ser\n"
-"alterado enquanto o documento estiver aberto."
 
 msgid "Default Scripter scripts directory"
 msgstr "Diretório padrão dos scripts"
@@ -2242,10 +2231,10 @@ msgstr ""
 "Altura das páginas do documento, editável se você escolheu um tamanho "
 "personalizado"
 
+#, fuzzy
 msgid ""
 "When enabled, Scribus saves a backup copy of your file with the .bak "
-"extension\n"
-"each time the time period elapses"
+"extension each time the time period elapses"
 msgstr ""
 "Quando habilitado, o Scribus salva uma cópia de seu arquivo com a extensão ."
 "bak\n"
@@ -2255,8 +2244,8 @@ msgid "Time period between saving automatically"
 msgstr "Intervalo de tempo para salvar automaticamente"
 
 msgid ""
-"Set the length of the action history in steps.\n"
-"If set to 0 infinite amount of actions will be stored."
+"Set the length of the action history in steps. If set to 0 infinite amount "
+"of actions will be stored."
 msgstr ""
 
 msgid "Choose the size of the preview in the scrapbook palette"
@@ -2289,11 +2278,11 @@ msgstr "Suaviza o texto para a renderização na tela de EPS e PDF"
 msgid "Antialias graphics for EPS and PDF onscreen rendering"
 msgstr "Suaviza as imagens para a renderização na tela de EPS e PDF"
 
+#, fuzzy
 msgid ""
-"File system location for graphics editor. If you use gimp\n"
-"and your distro includes it, we recommend 'gimp-remote',\n"
-"as it allows you to edit the image in an already running\n"
-"instance of gimp."
+"File system location for graphics editor. If you use gimp and your distro "
+"includes it, we recommend 'gimp-remote', as it allows you to edit the image "
+"in an already running instance of gimp."
 msgstr ""
 "Localização no sistema de arquivos do editor gráfico. Se\n"
 "você utiliza o Gimp e sua distribuição o inclui, recomendamos\n"
@@ -2306,13 +2295,14 @@ msgstr ""
 "Não mostra os objetos fora das margens na página impressa ou no arquivo "
 "exportado"
 
+#, fuzzy
 msgid ""
-"A way of switching off some of the gray shades which are composed\n"
-"of cyan, yellow and magenta and using black instead.\n"
-"UCR most affects parts of images which are neutral and/or dark tones\n"
-"which are close to the gray. Use of this may improve printing some images\n"
-"and some experimentation and testing is need on a case by case basis.\n"
-"UCR reduces the possibility of over saturation with CMY inks."
+"A way of switching off some of the gray shades which are composed of cyan, "
+"yellow and magenta and using black instead. UCR most affects parts of images "
+"which are neutral and/or dark tones which are close to the gray. Use of this "
+"may improve printing some images and some experimentation and testing is "
+"need on a case by case basis. UCR reduces the possibility of over saturation "
+"with CMY inks."
 msgstr ""
 "Uma forma de trocar alguns dos tons de cinza que são compostos de\n"
 "ciano, amarelo e magenta, usando preto no lugar. A RSC afeta mais as\n"
@@ -2350,13 +2340,6 @@ msgstr "Postscript"
 
 msgid "Locate your image editor"
 msgstr ""
-
-#, fuzzy
-msgid "Page Item Attributes"
-msgstr "Atributos"
-
-msgid "&Cancel"
-msgstr "&Cancelar"
 
 #, fuzzy
 msgid "Could not open output file %1"
@@ -2543,6 +2526,9 @@ msgstr "Deseja também excluir todos objetos dessa camada?"
 msgid "Layers"
 msgstr "Camadas"
 
+msgid "Name"
+msgstr "Nome"
+
 #, fuzzy
 msgid "Add a new layer"
 msgstr "Adicionar uma nova camada"
@@ -2690,6 +2676,16 @@ msgid "instead"
 msgstr "ao invés de"
 
 #, fuzzy
+msgid "Progress"
+msgstr "Programas"
+
+msgid "Overall Progress:"
+msgstr ""
+
+msgid "&Cancel"
+msgstr "&Cancelar"
+
+#, fuzzy
 msgid "Font %1 is broken (FreeType), discarding it"
 msgstr "A fonte %1 foi descartada por apresentar problemas"
 
@@ -2801,23 +2797,6 @@ msgstr ""
 "genéricas, ao invés de cores RGB"
 
 #, fuzzy
-msgid ""
-"A way of switching off some of the gray shades which are composed of cyan, "
-"yellow and magenta and using black instead. UCR most affects parts of images "
-"which are neutral and/or dark tones which are close to the gray. Use of this "
-"may improve printing some images and some experimentation and testing is "
-"need on a case by case basis. UCR reduces the possibility of over saturation "
-"with CMY inks."
-msgstr ""
-"Uma forma de trocar alguns dos tons de cinza que são compostos de\n"
-"ciano, amarelo e magenta, usando preto no lugar. A RSC afeta mais as\n"
-"partes da imagem que são neutras ou em tons escuros, mais próximos\n"
-"do cinza. O uso disso pode melhorar a impressão de algumas imagens,\n"
-"mas recomenda-se que se façam testes para definir um melhor\n"
-"resultado para cada caso. A RSC reduz a possibilidade de supersaturação\n"
-"com tintas CMY."
-
-#, fuzzy
 msgid "Resize the scale of the page."
 msgstr "Edição da forma do quadro..."
 
@@ -2856,6 +2835,9 @@ msgstr "Parágrafos: "
 
 msgid "Alt+O"
 msgstr "Alt+O"
+
+msgid "Alt+C"
+msgstr "Alt+C"
 
 msgid "DPI"
 msgstr ""
@@ -3034,11 +3016,11 @@ msgstr "Número da primeira página do documento"
 msgid "Do you really want to delete this master page?"
 msgstr "Deseja realmente excluir esse modelo?"
 
-msgid "&No"
-msgstr "&Não"
-
 msgid "&Yes"
 msgstr "&Sim"
+
+msgid "&No"
+msgstr "&Não"
 
 msgid "&Name:"
 msgstr "&Nome:"
@@ -3218,7 +3200,7 @@ msgid "&Include Bookmarks"
 msgstr "&Incluir marcadores"
 
 #, fuzzy
-msgid "Include Layers"
+msgid "Include La&yers"
 msgstr "&Incluir marcadores"
 
 msgid "&Resolution for EPS Graphics:"
@@ -3237,8 +3219,9 @@ msgstr "JPEG"
 msgid "Zip"
 msgstr "Zip"
 
-msgid "Compression &Method:"
-msgstr ""
+#, fuzzy
+msgid "Compression Metho&d:"
+msgstr "&Qualidade:"
 
 msgid "Maximum"
 msgstr "Máxima"
@@ -3257,7 +3240,7 @@ msgid "Compression &Quality:"
 msgstr "&Qualidade:"
 
 #, fuzzy
-msgid "Resample Images to:"
+msgid "Resa&mple Images to:"
 msgstr "&Reduzir a resolução das imagens para:"
 
 msgid "&General"
@@ -3477,9 +3460,10 @@ msgstr "Caixa de ajuste"
 msgid "PDF/X-&3"
 msgstr "PDF/X-&3"
 
+#, fuzzy
 msgid ""
-"Embed fonts into the PDF. Embedding the fonts\n"
-"will preserve the layout and appearance of your document."
+"Embed fonts into the PDF. Embedding the fonts will preserve the layout and "
+"appearance of your document."
 msgstr ""
 "Incorpora as fontes ao PDF. Isso preserva o\n"
 "layout e a aparência do seu documento."
@@ -3502,9 +3486,10 @@ msgstr ""
 "Período de tempo em que a página é exibida antes que a apresentação comece "
 "na página selecionada."
 
+#, fuzzy
 msgid ""
-"Length of time the effect runs.\n"
-"A shorter time will speed up the effect, a longer one will slow it down."
+"Length of time the effect runs. A shorter time will speed up the effect, a "
+"longer one will slow it down."
 msgstr ""
 "Período de tempo de duração do efeito.\n"
 "Quanto menor o tempo mais rápido será o efeito."
@@ -3532,10 +3517,10 @@ msgstr "Exportar todas páginas para PDF"
 msgid "Export a range of pages to PDF"
 msgstr "Exportar um intervalo de páginas para PDF "
 
+#, fuzzy
 msgid ""
-"Insert a comma separated list of tokens where\n"
-"a token can be * for all the pages, 1-5 for\n"
-"a range of pages or a single page number."
+"Insert a comma separated list of tokens where a token can be * for all the "
+"pages, 1-5 for a range of pages or a single page number."
 msgstr ""
 "Insira as páginas desejadas, separadas por vírgulas.\n"
 "Você pode usar * para todas as páginas, 1-5 para uma\n"
@@ -3559,16 +3544,18 @@ msgstr ""
 "para impressoras comerciais e é\n"
 "selecionável quando se ativa o gerenciamento de cores."
 
+#, fuzzy
 msgid ""
-"Determines the binding of pages in the PDF. Unless you know\n"
-"you need to change it leave the default choice - Left."
+"Determines the binding of pages in the PDF. Unless you know you need to "
+"change it leave the default choice - Left."
 msgstr ""
 "Determina a encardenação das páginas no PDF. Ao menos que você\n"
 "necessite mudar isso, mantenha a escolha padrão - Esquerda."
 
+#, fuzzy
 msgid ""
-"Generates thumbnails of each page in the PDF.\n"
-"Some viewers can use the thumbnails for navigation."
+"Generates thumbnails of each page in the PDF. Some viewers can use the "
+"thumbnails for navigation."
 msgstr ""
 "Gera miniaturas de cada página do PDF. Alguns\n"
 "visualizadores podem usar a miniatura para navegação."
@@ -3581,28 +3568,30 @@ msgstr ""
 "PDF."
 
 msgid ""
-"Layers in your document are exported to the PDF\n"
-"Only available if PDF 1.5 is choosen."
+"Layers in your document are exported to the PDF Only available if PDF 1.5 is "
+"choosen."
 msgstr ""
 
+#, fuzzy
 msgid ""
-"Embed the bookmarks you created in your document.\n"
-"These are useful for navigating long PDF documents."
+"Embed the bookmarks you created in your document. These are useful for "
+"navigating long PDF documents."
 msgstr ""
 "Incorpora os marcadores criados em seu documento.\n"
 "Eles são úteis para navegação em documentos PDF longos."
 
+#, fuzzy
 msgid ""
-"Export resolution of text and vector graphics.\n"
-"This does not affect the resolution of bitmap images like photos."
+"Export resolution of text and vector graphics. This does not affect the "
+"resolution of bitmap images like photos."
 msgstr ""
 "Resolução de exportação de texto e gráficos vetoriais.\n"
 "Isso não afeta a resolução de imagens bitmap, como fotos."
 
 #, fuzzy
 msgid ""
-"Enables lossless compression of text and graphics.\n"
-"Unless you have a reason, leave this checked. This reduces PDF file size."
+"Enables lossless compression of text and graphics. Unless you have a reason, "
+"leave this checked. This reduces PDF file size."
 msgstr ""
 "Compressão de texto e gráficos\n"
 ". Ao menos que você tenha um bom motivo, deixe selecionado. Isso reduz o "
@@ -3633,9 +3622,9 @@ msgstr ""
 
 #, fuzzy
 msgid ""
-"Re-sample your bitmap images to the selected DPI.\n"
-"Leaving this unchecked will render them at their native resolution.\n"
-"This can increase memory usage and slow down export."
+"Re-sample your bitmap images to the selected DPI. Leaving this unchecked "
+"will render them at their native resolution. This can increase memory usage "
+"and slow down export."
 msgstr ""
 "Diminui a resolução das suas imagens bitmap para o DPI selecionado.\n"
 "Se desmarcado, renderiza as imagens em sua resolução nativa."
@@ -3645,11 +3634,10 @@ msgstr "DPI (pontos por polegada) para exportação da imagem."
 
 #, fuzzy
 msgid ""
-"Enable the security features in your exported PDF.\n"
-"If you selected PDF 1.3, the PDF will be protected by 40 bit encryption.\n"
-"If you selected PDF 1.4, the PDF will be protected by 128 bit encryption.\n"
-"Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and "
-"does have some limitations."
+"Enable the security features in your exported PDF. If you selected PDF 1.3, "
+"the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the "
+"PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is "
+"not as reliable as GPG or PGP encryption and does have some limitations."
 msgstr ""
 "Habilita os recursos de segurança no seu PDF a ser exportado.\n"
 "Se você selecionar Acrobat 4.0, o PDF será protegido por uma criptografia de "
@@ -3659,9 +3647,10 @@ msgstr ""
 " Aviso: a criptografia PDF não é tão confiável quanto as criptografias GPG "
 "ou PGP e possui algumas limitações."
 
+#, fuzzy
 msgid ""
-"Choose a master password which enables or disables all the\n"
-"security features in your exported PDF"
+"Choose a master password which enables or disables all the security features "
+"in your exported PDF"
 msgstr ""
 "Escolha uma senha mestre que habilite ou impeça todos\n"
 "os recursos de segurança no PDF exportado"
@@ -3693,11 +3682,11 @@ msgstr ""
 "Permite acrescentar anotações e campos ao PDF.\n"
 "Se desmarcado, não se conseguem editar anotações e campos."
 
+#, fuzzy
 msgid ""
-"Color model for the output of your PDF.\n"
-"Choose Screen/Web for PDFs which are used for screen display and for "
-"printing on typical inkjets.\n"
-"Choose Printer when printing to a true 4 color CMYK printer."
+"Color model for the output of your PDF. Choose Screen/Web for PDFs which are "
+"used for screen display and for printing on typical inkjets. Choose Printer "
+"when printing to a true 4 color CMYK printer."
 msgstr ""
 "Modelo de cor para a saída do seu PDF.\n"
 "Selecione Tela/Web para PDF's que serão exibidos na tela ou enviados para "
@@ -3705,13 +3694,12 @@ msgstr ""
 "Selecione Impressora para enviar para uma impressora que suporte 4 cores "
 "CMYK."
 
+#, fuzzy
 msgid ""
 "This is an advanced setting which is not enabled by default. This should "
-"only be enabled\n"
-"when specifically requested by your printer and they have given you the "
-"exact details needed.\n"
-"Otherwise, your exported PDF may not print properly and is truly not "
-"portable across systems."
+"only be enabled when specifically requested by your printer and they have "
+"given you the exact details needed. Otherwise, your exported PDF may not "
+"print properly and is truly not portable across systems."
 msgstr ""
 "Essa é uma configuração avançada que não está habilitada por padrão. Ela "
 "deve ser ativada somente\n"
@@ -3748,9 +3736,10 @@ msgstr ""
 "Perfil de saída para impressão. Se possível, obtenha alguma referência da "
 "sua impressora na seleção do perfil."
 
+#, fuzzy
 msgid ""
-"Mandatory string for PDF/X-3 or the PDF will fail\n"
-"PDF/X-3 conformance. We recommend you use the title of the document."
+"Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We "
+"recommend you use the title of the document."
 msgstr ""
 "Informação obrigatória para o PDF/X-3 ou o PDF terá problemas\n"
 "com a conformação PDF/X-3. Recomendamos o uso do título do documento."
@@ -4003,6 +3992,10 @@ msgstr "Faz com que a primeira página do documento fique à esquerda"
 
 msgid "Adjusting Colors"
 msgstr "Ajustando as cores"
+
+#, fuzzy
+msgid "Saving PDF"
+msgstr "Salvar como PDF"
 
 msgid "Field Properties"
 msgstr "Propriedades do campo"
@@ -4406,6 +4399,9 @@ msgstr ""
 
 msgid "Cu&t"
 msgstr "Cor&tar"
+
+msgid "&Copy"
+msgstr "&Copiar"
 
 msgid "C&lear Contents"
 msgstr "&Limpar conteúdo"
@@ -5176,19 +5172,21 @@ msgstr "Distância entre a guia da margem superior e a borda da página"
 msgid "Distance between the bottom margin guide and the edge of the page"
 msgstr "Distância entre a guia da margem inferior e a borda da página"
 
+#, fuzzy
 msgid ""
-"Distance between the left margin guide and the edge of the page.\n"
-"If Facing Pages is selected, this margin space can be used to achieve the "
-"correct margins for binding"
+"Distance between the left margin guide and the edge of the page. If Facing "
+"Pages is selected, this margin space can be used to achieve the correct "
+"margins for binding"
 msgstr ""
 "Distância entre a guia da margem esquerda e a borda da página.\n"
 "Se for selecionado Páginas Espelhadas, essa medida pode ser usada para "
 "ajustar as margens para encadernação"
 
+#, fuzzy
 msgid ""
-"Distance between the right margin guide and the edge of the page.\n"
-"If Facing Pages is selected, this margin space can be used to achieve the "
-"correct margins for binding"
+"Distance between the right margin guide and the edge of the page. If Facing "
+"Pages is selected, this margin space can be used to achieve the correct "
+"margins for binding"
 msgstr ""
 "Distância entre a guia da margem direita e a borda da página.Se for "
 "selecionado Páginas Espelhadas, essa medida pode ser usada para ajustar as "
@@ -5200,8 +5198,9 @@ msgstr "&Interna:"
 msgid "O&utside:"
 msgstr "&Externa:"
 
-msgid "Guttenberg"
-msgstr ""
+#, fuzzy
+msgid "Gutenberg"
+msgstr "Geral"
 
 #, fuzzy
 msgid "Magazine"
@@ -5218,16 +5217,14 @@ msgstr ""
 
 msgid ""
 "You can select predefined page layout here. 'None' leave margins as is, "
-"Guttenberg sets margins classically. 'Magazine' sets all margins for same "
+"Gutenberg sets margins classically. 'Magazine' sets all margins for same "
 "value. Leading is Left/Inside value."
 msgstr ""
 
 msgid ""
-"You can see a thumbnail if you press\n"
-"and hold down the right mouse button\n"
-"\n"
-"The Insert key inserts a Glyph into the Selection below\n"
-"and the Delete key removes the last inserted one"
+"You can see a thumbnail if you press and hold down the right mouse button. "
+"The Insert key inserts a Glyph into the Selection below and the Delete key "
+"removes the last inserted one"
 msgstr ""
 
 msgid "Select Character:"
@@ -5239,6 +5236,9 @@ msgstr "Caracteres"
 
 msgid "&Insert"
 msgstr "&Inserir"
+
+msgid "C&lear"
+msgstr "&Limpar"
 
 msgid "Insert the characters at the cursor in the text"
 msgstr "Insere os caracteres no texto a partir do cursor"
@@ -5609,19 +5609,21 @@ msgstr "Importando páginas..."
 msgid "Import Page(s)"
 msgstr "Importar página(s)"
 
+#, fuzzy
 msgid ""
 "<p>You are trying to import more pages than there are available in the "
 "current document counting from the active page.</p>Choose one of the "
 "following:<br><ul><li><b>Create</b> missing pages</li><li><b>Import</b> "
-"pages until the last page</li><li><b>Cancel</b></li></ul><br>"
+"pages until the last page</li><li><b>Cancel</b></li></ul>"
 msgstr ""
 "<p>Você está tentando importar mais páginas do que as disponíveis no "
 "documento atual, contando a partir da página ativa.<p>Escolha uma das opções:"
 "<br><ul><li><b>Criar</b> as páginas que faltam</li><li><b>Importar</b> as "
 "páginas até a última página</li><li><b>Cancelar</b></li></ul><br>"
 
-msgid "Import"
-msgstr "Importar"
+#, fuzzy
+msgid "C&reate"
+msgstr "Criar"
 
 msgid "Import done"
 msgstr "Importação concluída"
@@ -5706,6 +5708,9 @@ msgstr "Importar dados"
 
 msgid "Size"
 msgstr "Tamanho"
+
+msgid "No Style"
+msgstr "Sem estilo"
 
 #, fuzzy
 msgid "The following programs are missing:"
@@ -5891,6 +5896,15 @@ msgstr "Visualizar"
 
 msgid "&Print"
 msgstr "&Imprimir"
+
+msgid ""
+"Insert a comma separated list of tokens where\n"
+"a token can be * for all the pages, 1-5 for\n"
+"a range of pages or a single page number."
+msgstr ""
+"Insira as páginas desejadas, separadas por vírgulas.\n"
+"Você pode usar * para todas as páginas, 1-5 para uma\n"
+"seqüência de páginas ou o número de uma única página."
 
 #, fuzzy
 msgid ""
@@ -6247,7 +6261,7 @@ msgid "About Scribus %1"
 msgstr "Sobre o Scribus %1"
 
 #, fuzzy
-msgid "November"
+msgid "December"
 msgstr "Número"
 
 #, fuzzy
@@ -6339,8 +6353,16 @@ msgstr ""
 "Bibliotecas não suportadas são indicadas por *"
 
 #, fuzzy
+msgid "Save..."
+msgstr "Salvar como..."
+
+#, fuzzy
 msgid "&Defaults"
 msgstr "Uni&dade padrão:"
+
+#, fuzzy
+msgid "Save Preferences"
+msgstr "Preferências"
 
 #, fuzzy
 msgid "Image Info"
@@ -6428,9 +6450,6 @@ msgstr "Distância entre as colunas"
 
 msgid "Column width"
 msgstr "Largura da coluna"
-
-msgid "No Style"
-msgstr "Sem estilo"
 
 msgid "X, Y, &Z"
 msgstr "X, Y, &Z"
@@ -6801,6 +6820,9 @@ msgid ""
 "No/Cancel)"
 msgstr ""
 
+msgid "Use filename as path for user given preferences"
+msgstr ""
+
 msgid "Installed interface languages for Scribus are as follows:"
 msgstr ""
 
@@ -6886,6 +6908,10 @@ msgid "Replace &All"
 msgstr "Substituir tod&as"
 
 msgid "Search finished"
+msgstr "Fim da procura"
+
+#, fuzzy
+msgid "Search finished, found %1 matches"
 msgstr "Fim da procura"
 
 #, fuzzy
@@ -6996,6 +7022,14 @@ msgstr "Ctrl"
 msgid "Shift"
 msgstr "Shift"
 
+#, fuzzy
+msgid "Meta"
+msgstr "Magenta"
+
+#, fuzzy
+msgid "Meta+"
+msgstr "Magenta"
+
 msgid "Shift+"
 msgstr "Shift+"
 
@@ -7073,6 +7107,10 @@ msgid "Goto"
 msgstr "Ir para"
 
 #, fuzzy
+msgid "Select a base directory for search"
+msgstr "Selecione um diretório"
+
+#, fuzzy
 msgid "Scribus - Image Search"
 msgstr "Scribus - Gerenciar macros"
 
@@ -7134,8 +7172,8 @@ msgid "Bookmarks"
 msgstr "Marcadores"
 
 #, fuzzy
-msgid "Active"
-msgstr "Executivo"
+msgid "Shown"
+msgstr "Intensidade"
 
 #, fuzzy
 msgid "From"
@@ -7151,10 +7189,6 @@ msgstr "Estilo"
 #, fuzzy
 msgid "Start"
 msgstr "Estrela"
-
-#, fuzzy
-msgid "End"
-msgstr "Codificação:"
 
 #, fuzzy
 msgid "Document Sections"
@@ -7625,12 +7659,31 @@ msgid "Alt+W"
 msgstr "Alt+"
 
 msgid ""
-"<qt>Apply the selected template to even, odd or all pages within the "
-"following range</qt>"
+"Apply the selected template to even, odd or all pages within the following "
+"range"
 msgstr ""
 
 msgid "to"
 msgstr "para"
+
+#, fuzzy
+msgid "Parameter"
+msgstr "Caractere"
+
+#, fuzzy
+msgid "Relationship"
+msgstr "&Relação:"
+
+#, fuzzy
+msgid "Relationship To"
+msgstr "&Relação:"
+
+#, fuzzy
+msgid "Page Item Attributes"
+msgstr "Atributos"
+
+msgid "Alt+L"
+msgstr "Alt+A"
 
 msgid "&Activate Color Management"
 msgstr "&Ativar o gerenciamento de cores"
@@ -7742,6 +7795,14 @@ msgstr ""
 "fotos.\n"
 "Recomenda-se que você habilite essa opção caso tenha fotos em seu documento."
 
+#, fuzzy
+msgid "Exporting PostScript File"
+msgstr "Executar um script Python de um arquivo."
+
+#, fuzzy
+msgid "Printing File"
+msgstr "Erro na impressão!"
+
 msgid "Contents"
 msgstr "Conteúdo"
 
@@ -7847,6 +7908,9 @@ msgstr "Mudança &horizontal:"
 msgid "&Vertical Shift:"
 msgstr "Mudança &vertical:"
 
+msgid "Auto Add To"
+msgstr ""
+
 msgid "&Hyphenation Suggestions"
 msgstr "Sugestões de &hifenização"
 
@@ -7923,6 +7987,10 @@ msgid "Esperanto"
 msgstr "Esperanto"
 
 msgid "German"
+msgstr "Alemão"
+
+#, fuzzy
+msgid "German (Trad.)"
 msgstr "Alemão"
 
 msgid "Finnish"
@@ -8172,6 +8240,14 @@ msgstr "Modelos pessoais"
 msgid "New &from Template..."
 msgstr "Novo a partir do &modelo..."
 
+msgid "Load documents with predefined layout"
+msgstr ""
+
+msgid ""
+"Start a document from a template made by other users or yourself (f.e. for "
+"documents you have a constant style)."
+msgstr ""
+
 #, fuzzy
 msgid "Document Template: "
 msgstr "Páginas do documento:"
@@ -8269,6 +8345,15 @@ msgstr "Salvar como &modelo..."
 #, fuzzy
 msgid "Save As Template"
 msgstr "Salva como modelo..."
+
+#, fuzzy
+msgid "Save a document as a template"
+msgstr "Salva como modelo..."
+
+msgid ""
+"Save a document as a template. Good way to ease the initial work for "
+"documents with a constant look"
+msgstr ""
 
 msgid "Save as Template"
 msgstr "Salva como modelo..."
@@ -9584,6 +9669,42 @@ msgid "My Plugin"
 msgstr "Texto simples"
 
 #, fuzzy
+#~ msgid ""
+#~ "Default ICC profiles directory. This cannot\n"
+#~ "be changed with a document open."
+#~ msgstr ""
+#~ "Diretório padrão de perfis ICC. Isto não pode ser\n"
+#~ "alterado enquanto o documento estiver aberto."
+
+#~ msgid ""
+#~ "A way of switching off some of the gray shades which are composed\n"
+#~ "of cyan, yellow and magenta and using black instead.\n"
+#~ "UCR most affects parts of images which are neutral and/or dark tones\n"
+#~ "which are close to the gray. Use of this may improve printing some "
+#~ "images\n"
+#~ "and some experimentation and testing is need on a case by case basis.\n"
+#~ "UCR reduces the possibility of over saturation with CMY inks."
+#~ msgstr ""
+#~ "Uma forma de trocar alguns dos tons de cinza que são compostos de\n"
+#~ "ciano, amarelo e magenta, usando preto no lugar. A RSC afeta mais as\n"
+#~ "partes da imagem que são neutras ou em tons escuros, mais próximos\n"
+#~ "do cinza. O uso disso pode melhorar a impressão de algumas imagens,\n"
+#~ "mas recomenda-se que se façam testes para definir um melhor\n"
+#~ "resultado para cada caso. A RSC reduz a possibilidade de supersaturação\n"
+#~ "com tintas CMY."
+
+#~ msgid "Import"
+#~ msgstr "Importar"
+
+#, fuzzy
+#~ msgid "Active"
+#~ msgstr "Executivo"
+
+#, fuzzy
+#~ msgid "End"
+#~ msgstr "Codificação:"
+
+#, fuzzy
 #~ msgid "PostScript Files (*.eps *.EPS *.ps *.PS);;"
 #~ msgstr "Todos os formatos suportados (*.eps *.EPS *.ps *.PS);;"
 
@@ -9984,9 +10105,6 @@ msgstr "Texto simples"
 
 #~ msgid "Open..."
 #~ msgstr "Abrir..."
-
-#~ msgid "Save as..."
-#~ msgstr "Salvar como..."
 
 #~ msgid "&Get Text/Picture..."
 #~ msgstr "&Obter texto/imagem..."
