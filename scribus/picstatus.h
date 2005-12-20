@@ -55,10 +55,10 @@ protected:
 
 	// Toggle a searc button in the table between "Search" and "Cancel Search",
 	// fixing signal connections as well.
-	void PicStatus::setSearchButton(int row, bool toCancel, const FileSearch* searcher);
+	void setSearchButton(int row, bool toCancel, const FileSearch* searcher);
 
 	// Load the image specified into the PageItem shown on row `row'
-	bool PicStatus::loadPictByRow(const QString & newFilePath, unsigned int row);
+	bool loadPictByRow(const QString & newFilePath, unsigned int row);
 
 	// Column indexes
 	static const unsigned short COL_FILENAME;

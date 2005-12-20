@@ -37,7 +37,7 @@ public:
 	QString prefsPageSizeName;
 	QPtrList<QComboBox> masterPageCombos;
 
-	const QStringList InsPage::getMasterPages();
+	const QStringList getMasterPages();
 	const QString getMasterPageN(uint n);
 	const int getWhere();
 	const int getWherePage();

@@ -80,7 +80,7 @@ protected:
 	// Build and return an XML representation of the settings.
 	// QString::null is returned on failure, in which case
 	// the error string is set.
-	QString PDFOptionsIO::buildXMLString();
+	QString buildXMLString();
 
 	// Populate the current DOM tree with the settings from the
 	// current PDFOptions instance.
