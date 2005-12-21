@@ -2307,7 +2307,6 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			double newy;
 			newy = alty = itemText.at(CPos)->yp;
 			altx = itemText.at(CPos)->xp;
-			
 			do
 			{
 				++CPos;
@@ -2323,6 +2322,14 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					if (itemText.at(CPos)->xp >= altx)
 						break;
 					down1=true;
+				}
+				//CB Make the cursor move forward a column
+				if (itemText.at(CPos)->yp < alty)
+				{
+					double newX=altx+columnWidth();
+					while (itemText.at(CPos)->xp<newX && CPos < static_cast<int>(itemText.count())-1)
+						++CPos;
+					break;
 				}
 				newy=itemText.at(CPos)->yp;
 			}
@@ -2383,6 +2390,14 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					{
 						if (itemText.at(CPos)->xp <= altx)
 							break;
+					}
+					//CB Make the cursor move back a column
+					if (itemText.at(CPos)->yp > alty)
+					{
+						double newX=altx-columnWidth();
+						while (itemText.at(CPos)->xp>newX && CPos > 0)
+							--CPos;
+						break;
 					}
 				}
 				while (CPos > 0);
