@@ -2,6 +2,7 @@
 #include "sampleitem.h"
 #include "loremipsum.h"
 #include "scribusdoc.h"
+#include "undomanager.h"
 #include <qcolor.h>
 #include <qstring.h>
 
@@ -13,7 +14,7 @@ SampleItem::SampleItem() : QObject()
 	used = true;
 	if (ScMW->doc == NULL)
 	{
-		bool ret = ScMW->doFileNew(//pageWidth, pageHeight,
+		ScMW->doFileNew(//pageWidth, pageHeight,
 									0,0,
 									//topMargin, leftMargin, rightMargin, bottomMargin,
 									1, 1, 1, 1,
@@ -67,7 +68,7 @@ SampleItem::~SampleItem()
 	if (used == false)
 	{
 		doc->setModified(false);
-		bool ret = ScMW->slotFileClose();
+		ScMW->slotFileClose();
 		//qApp->processEvents();
 	}
 }
@@ -249,6 +250,8 @@ void SampleItem::setKernVal(int kernVal)
 
 QPixmap SampleItem::getSample(int width, int height)
 {
+	UndoManager::instance()->setUndoEnabled(false); // disable undo
+
 	PageItem_TextFrame *previewItem = new PageItem_TextFrame(doc, 0, 0, width, width, 0, "None", doc->toolSettings.dPenText);
 	QPixmap pm(width, height);
 	ScPainter *painter = new ScPainter(&pm, width, height, 0, 0);
@@ -314,5 +317,6 @@ QPixmap SampleItem::getSample(int width, int height)
 		ScMW->view->setScale(sca);
 	delete previewItem;
 	doc->docParagraphStyles.remove(doc->docParagraphStyles.fromLast());
+	UndoManager::instance()->setUndoEnabled(true);
 	return pm;
 }
