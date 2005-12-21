@@ -845,8 +845,9 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			p->setupPolygon(&ContourLine);
 			p->strokePath();
 		}
-		//CB comment to disable this test if u want
-		drawLockedMarker(p);
+		//CB disabled for now
+		//if (m_Doc->selection->findItem(this)!=-1)
+		//	drawLockedMarker(p);
 	}
 	Tinput = false;
 	FrameOnly = false;
@@ -1089,6 +1090,8 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 				}
 			}
 		}
+		//if (m_Doc->selection->findItem(this)!=-1)
+		//	drawLockedMarker(p);
 	}
 	Tinput = false;
 	FrameOnly = false;

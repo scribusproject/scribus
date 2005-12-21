@@ -39,7 +39,7 @@
 #include "scribus.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
-
+#include "selection.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "scconfig.h"
@@ -2039,7 +2039,8 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			if (!ScMW->view->previewMode)
 				drawOverflowMarker(p);
 		}
-		drawLockedMarker(p);
+		//if (m_Doc->selection->findItem(this)!=-1)
+		//	drawLockedMarker(p);
 	}
 	Tinput = false;
 	FrameOnly = false;
@@ -2892,8 +2893,11 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	//TODO: CB clean
 	double scp1 = 1 ;// / ScMW->view->getScale();
 	double ofwh = 6 * scp1;
+	//CB moved down while locked marker disabled
+	//double ofx = Width - ofwh/2;
+	//double ofy = Height - ofwh*3.0;
 	double ofx = Width - ofwh/2;
-	double ofy = Height - ofwh*3.0;
+	double ofy = Height - ofwh*1.5;
 	double lx1= ofx;
 	double ly1= ofy;
 	double lx2= ofx+ofwh;
