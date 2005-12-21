@@ -4225,7 +4225,7 @@ void ScribusMainWindow::slotEditCopy()
 			if (currItem->isTableItem && currItem->isSingleSel)
 				return;
 			ScriXmlDoc *ss = new ScriXmlDoc();
-			BufferI = ss->WriteElem(doc, view, 0);
+			BufferI = ss->WriteElem(doc, view, doc->selection);
 			Buffer2 = BufferI;
 			delete ss;
 		}
@@ -7926,7 +7926,7 @@ void ScribusMainWindow::SetShortCut()
 void ScribusMainWindow::PutScrap()
 {
 	ScriXmlDoc *ss = new ScriXmlDoc();
-	QString objectString = ss->WriteElem(doc, view, 0);
+	QString objectString = ss->WriteElem(doc, view, doc->selection);
 	scrapbookPalette->ObjFromMenu(objectString);
 	delete ss;
 }
