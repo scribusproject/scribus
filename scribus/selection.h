@@ -50,7 +50,7 @@ class SCRIBUS_API Selection : public QObject
 		 * @return New selection
 		 */
 		Selection(const Selection&);
-		Selection& operator=( const Selection &a );
+		Selection& operator=( const Selection & );
 		~Selection();
 		
 		bool connectItemToGUI();
