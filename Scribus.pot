@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-07 20:45+0100\n"
+"POT-Creation-Date: 2005-12-20 22:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -152,9 +152,9 @@ msgid "&Remove"
 msgstr ""
 
 msgid ""
-"<qt>Font search paths can only be set in Preferences, and only when there is "
-"no document currently open. Close any open documents, then use Edit-"
-">Settings to change the font search path.</qt>"
+"Font search paths can only be set in Preferences, and only when there is no "
+"document currently open. Close any open documents, then use Edit->Settings "
+"to change the font search path."
 msgstr ""
 
 msgid "Additional &Paths"
@@ -731,46 +731,28 @@ msgstr ""
 msgid " was replaced by: "
 msgstr ""
 
-msgid "Name"
+msgid "Relates To"
 msgstr ""
 
-msgid "Value"
+msgid "Is Parent Of"
 msgstr ""
 
-msgid "Parameter"
+msgid "Is Child Of"
 msgstr ""
 
-msgid "Relationship"
+msgid "Text Frames"
 msgstr ""
 
-msgid "Relationship To"
+msgid "Image Frames"
 msgstr ""
 
-msgid "Auto Add To"
+msgid "Boolean"
 msgstr ""
 
-msgid "Document Item Attributes"
+msgid "Integer"
 msgstr ""
 
-msgid "&Add"
-msgstr ""
-
-msgid "Alt+A"
-msgstr ""
-
-msgid "&Copy"
-msgstr ""
-
-msgid "Alt+C"
-msgstr ""
-
-msgid "Alt+D"
-msgstr ""
-
-msgid "C&lear"
-msgstr ""
-
-msgid "Alt+L"
+msgid "String"
 msgstr ""
 
 msgid "%1: %2"
@@ -792,6 +774,15 @@ msgid "&Redo"
 msgstr ""
 
 msgid "Table of Contents and Indexes"
+msgstr ""
+
+msgid "&Add"
+msgstr ""
+
+msgid "Alt+A"
+msgstr ""
+
+msgid "Alt+D"
 msgstr ""
 
 msgid "The frame the table of contents will be placed into"
@@ -867,13 +858,15 @@ msgstr ""
 msgid "Option"
 msgstr ""
 
+msgid "Value"
+msgstr ""
+
 msgid ""
-"This panel displays various CUPS options when printing. \n"
-"The exact parameters available will depend on your printer driver.\n"
-"You can confirm CUPS support by selecting Help > About.\n"
-"Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF "
-"support.\n"
-"Missing library support is indicated by a *"
+"This panel displays various CUPS options when printing. The exact parameters "
+"available will depend on your printer driver. You can confirm CUPS support "
+"by selecting Help > About. Look for the listings: C-C-T These equate to "
+"C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a "
+"*"
 msgstr ""
 
 msgid "Add vertical guide"
@@ -1229,31 +1222,12 @@ msgstr ""
 msgid "Move Page(s):"
 msgstr ""
 
-msgid "Relates To"
-msgstr ""
-
-msgid "Is Parent Of"
-msgstr ""
-
-msgid "Is Child Of"
-msgstr ""
-
-msgid "Text Frames"
-msgstr ""
-
-msgid "Image Frames"
-msgstr ""
-
-msgid "Boolean"
-msgstr ""
-
-msgid "Integer"
-msgstr ""
-
-msgid "String"
-msgstr ""
-
 msgid "Collecting..."
+msgstr ""
+
+msgid ""
+"Cannot collect the file: \n"
+"%1"
 msgstr ""
 
 msgid "Warning"
@@ -1261,11 +1235,6 @@ msgstr ""
 
 msgid ""
 "Cannot collect all files for output for file:\n"
-"%1"
-msgstr ""
-
-msgid ""
-"Cannot collect the file: \n"
 "%1"
 msgstr ""
 
@@ -1536,6 +1505,15 @@ msgstr ""
 msgid "Delete the currently selected section."
 msgstr ""
 
+msgid ""
+"Name: Optional name for section eg. Index<br/>Shown: Select to show the page "
+"numbers in this section if there is one or more text frames setup to do so."
+"<br/>From: The page index for this section to start at.<br/>To: The page "
+"index for this section to stop at.<br/>Style: Select the page number style "
+"to be used.<br/>Start: The index within the Style's range to star at. Eg. If "
+"Start=2 and Style=a,b,c, ..., the numbers will begin at b."
+msgstr ""
+
 msgid "1, 2, 3, ..."
 msgstr ""
 
@@ -1709,8 +1687,8 @@ msgid "Sample Polygon"
 msgstr ""
 
 msgid ""
-"A negative value will make the polygon concave (or star shaped),\n"
-" a positive value will make it convex"
+"A negative value will make the polygon concave (or star shaped), a positive "
+"value will make it convex"
 msgstr ""
 
 msgid "Preferences"
@@ -1725,7 +1703,10 @@ msgstr ""
 msgid "&Theme:"
 msgstr ""
 
-msgid "&Font Size:"
+msgid "&Font Size (Menus):"
+msgstr ""
+
+msgid "Font Size (&Palettes):"
 msgstr ""
 
 msgid "&Wheel Jump:"
@@ -1801,6 +1782,9 @@ msgid "Color Management"
 msgstr ""
 
 msgid "PDF Export"
+msgstr ""
+
+msgid "Document Item Attributes"
 msgstr ""
 
 msgid "Keyboard Shortcuts"
@@ -1967,11 +1951,14 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Choose the default window decoration and looks.\n"
-"Scribus inherits any available KDE or Qt themes"
+"Choose the default window decoration and looks. Scribus inherits any "
+"available KDE or Qt themes, if Qt is configured to search KDE plugins."
 msgstr ""
 
 msgid "Default font size for the menus and windows"
+msgstr ""
+
+msgid "Default font size for the tool windows"
 msgstr ""
 
 msgid "Default unit of measurement for document editing"
@@ -1987,8 +1974,10 @@ msgid "Default documents directory"
 msgstr ""
 
 msgid ""
-"Default ICC profiles directory. This cannot\n"
-"be changed with a document open."
+"Default ICC profiles directory. This cannot be changed with a document open. "
+"By default, Scribus will look in the System Directories under Mac OSX and "
+"Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/"
+"color/icc and /usr/local/share/color/icc "
 msgstr ""
 
 msgid "Default Scripter scripts directory"
@@ -2012,16 +2001,15 @@ msgstr ""
 
 msgid ""
 "When enabled, Scribus saves a backup copy of your file with the .bak "
-"extension\n"
-"each time the time period elapses"
+"extension each time the time period elapses"
 msgstr ""
 
 msgid "Time period between saving automatically"
 msgstr ""
 
 msgid ""
-"Set the length of the action history in steps.\n"
-"If set to 0 infinite amount of actions will be stored."
+"Set the length of the action history in steps. If set to 0 infinite amount "
+"of actions will be stored."
 msgstr ""
 
 msgid "Choose the size of the preview in the scrapbook palette"
@@ -2054,10 +2042,9 @@ msgid "Antialias graphics for EPS and PDF onscreen rendering"
 msgstr ""
 
 msgid ""
-"File system location for graphics editor. If you use gimp\n"
-"and your distro includes it, we recommend 'gimp-remote',\n"
-"as it allows you to edit the image in an already running\n"
-"instance of gimp."
+"File system location for graphics editor. If you use gimp and your distro "
+"includes it, we recommend 'gimp-remote', as it allows you to edit the image "
+"in an already running instance of gimp."
 msgstr ""
 
 msgid ""
@@ -2065,12 +2052,12 @@ msgid ""
 msgstr ""
 
 msgid ""
-"A way of switching off some of the gray shades which are composed\n"
-"of cyan, yellow and magenta and using black instead.\n"
-"UCR most affects parts of images which are neutral and/or dark tones\n"
-"which are close to the gray. Use of this may improve printing some images\n"
-"and some experimentation and testing is need on a case by case basis.\n"
-"UCR reduces the possibility of over saturation with CMY inks."
+"A way of switching off some of the gray shades which are composed of cyan, "
+"yellow and magenta and using black instead. UCR most affects parts of images "
+"which are neutral and/or dark tones which are close to the gray. Use of this "
+"may improve printing some images and some experimentation and testing is "
+"need on a case by case basis. UCR reduces the possibility of over saturation "
+"with CMY inks."
 msgstr ""
 
 msgid ""
@@ -2099,12 +2086,6 @@ msgid "Locate Ghostscript"
 msgstr ""
 
 msgid "Locate your image editor"
-msgstr ""
-
-msgid "Page Item Attributes"
-msgstr ""
-
-msgid "&Cancel"
 msgstr ""
 
 msgid "Could not open output file %1"
@@ -2269,6 +2250,9 @@ msgstr ""
 msgid "Layers"
 msgstr ""
 
+msgid "Name"
+msgstr ""
+
 msgid "Add a new layer"
 msgstr ""
 
@@ -2407,6 +2391,15 @@ msgstr ""
 msgid "instead"
 msgstr ""
 
+msgid "Progress"
+msgstr ""
+
+msgid "Overall Progress:"
+msgstr ""
+
+msgid "&Cancel"
+msgstr ""
+
 msgid "Font %1 is broken (FreeType), discarding it"
 msgstr ""
 
@@ -2503,15 +2496,6 @@ msgid ""
 "colors"
 msgstr ""
 
-msgid ""
-"A way of switching off some of the gray shades which are composed of cyan, "
-"yellow and magenta and using black instead. UCR most affects parts of images "
-"which are neutral and/or dark tones which are close to the gray. Use of this "
-"may improve printing some images and some experimentation and testing is "
-"need on a case by case basis. UCR reduces the possibility of over saturation "
-"with CMY inks."
-msgstr ""
-
 msgid "Resize the scale of the page."
 msgstr ""
 
@@ -2546,6 +2530,9 @@ msgid "Paragraphs:"
 msgstr ""
 
 msgid "Alt+O"
+msgstr ""
+
+msgid "Alt+C"
 msgstr ""
 
 msgid "DPI"
@@ -2697,10 +2684,10 @@ msgstr ""
 msgid "Do you really want to delete this master page?"
 msgstr ""
 
-msgid "&No"
+msgid "&Yes"
 msgstr ""
 
-msgid "&Yes"
+msgid "&No"
 msgstr ""
 
 msgid "&Name:"
@@ -2861,7 +2848,7 @@ msgstr ""
 msgid "&Include Bookmarks"
 msgstr ""
 
-msgid "Include Layers"
+msgid "Include La&yers"
 msgstr ""
 
 msgid "&Resolution for EPS Graphics:"
@@ -2879,7 +2866,7 @@ msgstr ""
 msgid "Zip"
 msgstr ""
 
-msgid "Compression &Method:"
+msgid "Compression Metho&d:"
 msgstr ""
 
 msgid "Maximum"
@@ -2897,7 +2884,7 @@ msgstr ""
 msgid "Compression &Quality:"
 msgstr ""
 
-msgid "Resample Images to:"
+msgid "Resa&mple Images to:"
 msgstr ""
 
 msgid "&General"
@@ -3117,8 +3104,8 @@ msgid "PDF/X-&3"
 msgstr ""
 
 msgid ""
-"Embed fonts into the PDF. Embedding the fonts\n"
-"will preserve the layout and appearance of your document."
+"Embed fonts into the PDF. Embedding the fonts will preserve the layout and "
+"appearance of your document."
 msgstr ""
 
 msgid ""
@@ -3135,8 +3122,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Length of time the effect runs.\n"
-"A shorter time will speed up the effect, a longer one will slow it down."
+"Length of time the effect runs. A shorter time will speed up the effect, a "
+"longer one will slow it down."
 msgstr ""
 
 msgid "Type of the display effect."
@@ -3162,9 +3149,8 @@ msgid "Export a range of pages to PDF"
 msgstr ""
 
 msgid ""
-"Insert a comma separated list of tokens where\n"
-"a token can be * for all the pages, 1-5 for\n"
-"a range of pages or a single page number."
+"Insert a comma separated list of tokens where a token can be * for all the "
+"pages, 1-5 for a range of pages or a single page number."
 msgstr ""
 
 msgid ""
@@ -3178,13 +3164,13 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Determines the binding of pages in the PDF. Unless you know\n"
-"you need to change it leave the default choice - Left."
+"Determines the binding of pages in the PDF. Unless you know you need to "
+"change it leave the default choice - Left."
 msgstr ""
 
 msgid ""
-"Generates thumbnails of each page in the PDF.\n"
-"Some viewers can use the thumbnails for navigation."
+"Generates thumbnails of each page in the PDF. Some viewers can use the "
+"thumbnails for navigation."
 msgstr ""
 
 msgid ""
@@ -3193,23 +3179,23 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Layers in your document are exported to the PDF\n"
-"Only available if PDF 1.5 is choosen."
+"Layers in your document are exported to the PDF Only available if PDF 1.5 is "
+"choosen."
 msgstr ""
 
 msgid ""
-"Embed the bookmarks you created in your document.\n"
-"These are useful for navigating long PDF documents."
+"Embed the bookmarks you created in your document. These are useful for "
+"navigating long PDF documents."
 msgstr ""
 
 msgid ""
-"Export resolution of text and vector graphics.\n"
-"This does not affect the resolution of bitmap images like photos."
+"Export resolution of text and vector graphics. This does not affect the "
+"resolution of bitmap images like photos."
 msgstr ""
 
 msgid ""
-"Enables lossless compression of text and graphics.\n"
-"Unless you have a reason, leave this checked. This reduces PDF file size."
+"Enables lossless compression of text and graphics. Unless you have a reason, "
+"leave this checked. This reduces PDF file size."
 msgstr ""
 
 msgid ""
@@ -3228,25 +3214,24 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Re-sample your bitmap images to the selected DPI.\n"
-"Leaving this unchecked will render them at their native resolution.\n"
-"This can increase memory usage and slow down export."
+"Re-sample your bitmap images to the selected DPI. Leaving this unchecked "
+"will render them at their native resolution. This can increase memory usage "
+"and slow down export."
 msgstr ""
 
 msgid "DPI (Dots Per Inch) for image export."
 msgstr ""
 
 msgid ""
-"Enable the security features in your exported PDF.\n"
-"If you selected PDF 1.3, the PDF will be protected by 40 bit encryption.\n"
-"If you selected PDF 1.4, the PDF will be protected by 128 bit encryption.\n"
-"Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and "
-"does have some limitations."
+"Enable the security features in your exported PDF. If you selected PDF 1.3, "
+"the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the "
+"PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is "
+"not as reliable as GPG or PGP encryption and does have some limitations."
 msgstr ""
 
 msgid ""
-"Choose a master password which enables or disables all the\n"
-"security features in your exported PDF"
+"Choose a master password which enables or disables all the security features "
+"in your exported PDF"
 msgstr ""
 
 msgid "Choose a password for users to be able to read your PDF."
@@ -3270,19 +3255,16 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Color model for the output of your PDF.\n"
-"Choose Screen/Web for PDFs which are used for screen display and for "
-"printing on typical inkjets.\n"
-"Choose Printer when printing to a true 4 color CMYK printer."
+"Color model for the output of your PDF. Choose Screen/Web for PDFs which are "
+"used for screen display and for printing on typical inkjets. Choose Printer "
+"when printing to a true 4 color CMYK printer."
 msgstr ""
 
 msgid ""
 "This is an advanced setting which is not enabled by default. This should "
-"only be enabled\n"
-"when specifically requested by your printer and they have given you the "
-"exact details needed.\n"
-"Otherwise, your exported PDF may not print properly and is truly not "
-"portable across systems."
+"only be enabled when specifically requested by your printer and they have "
+"given you the exact details needed. Otherwise, your exported PDF may not "
+"print properly and is truly not portable across systems."
 msgstr ""
 
 msgid "Embed a color profile for solid colors"
@@ -3312,8 +3294,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Mandatory string for PDF/X-3 or the PDF will fail\n"
-"PDF/X-3 conformance. We recommend you use the title of the document."
+"Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We "
+"recommend you use the title of the document."
 msgstr ""
 
 msgid "Distance for bleed from the top of the physical page"
@@ -3535,6 +3517,9 @@ msgid "Apply the page size changes to all existing pages in the document"
 msgstr ""
 
 msgid "Adjusting Colors"
+msgstr ""
+
+msgid "Saving PDF"
 msgstr ""
 
 msgid "Field Properties"
@@ -3934,6 +3919,9 @@ msgid "&Item Action Mode"
 msgstr ""
 
 msgid "Cu&t"
+msgstr ""
+
+msgid "&Copy"
 msgstr ""
 
 msgid "C&lear Contents"
@@ -4593,15 +4581,15 @@ msgid "Distance between the bottom margin guide and the edge of the page"
 msgstr ""
 
 msgid ""
-"Distance between the left margin guide and the edge of the page.\n"
-"If Facing Pages is selected, this margin space can be used to achieve the "
-"correct margins for binding"
+"Distance between the left margin guide and the edge of the page. If Facing "
+"Pages is selected, this margin space can be used to achieve the correct "
+"margins for binding"
 msgstr ""
 
 msgid ""
-"Distance between the right margin guide and the edge of the page.\n"
-"If Facing Pages is selected, this margin space can be used to achieve the "
-"correct margins for binding"
+"Distance between the right margin guide and the edge of the page. If Facing "
+"Pages is selected, this margin space can be used to achieve the correct "
+"margins for binding"
 msgstr ""
 
 msgid "&Inside:"
@@ -4610,7 +4598,7 @@ msgstr ""
 msgid "O&utside:"
 msgstr ""
 
-msgid "Guttenberg"
+msgid "Gutenberg"
 msgstr ""
 
 msgid "Magazine"
@@ -4627,16 +4615,14 @@ msgstr ""
 
 msgid ""
 "You can select predefined page layout here. 'None' leave margins as is, "
-"Guttenberg sets margins classically. 'Magazine' sets all margins for same "
+"Gutenberg sets margins classically. 'Magazine' sets all margins for same "
 "value. Leading is Left/Inside value."
 msgstr ""
 
 msgid ""
-"You can see a thumbnail if you press\n"
-"and hold down the right mouse button\n"
-"\n"
-"The Insert key inserts a Glyph into the Selection below\n"
-"and the Delete key removes the last inserted one"
+"You can see a thumbnail if you press and hold down the right mouse button. "
+"The Insert key inserts a Glyph into the Selection below and the Delete key "
+"removes the last inserted one"
 msgstr ""
 
 msgid "Select Character:"
@@ -4646,6 +4632,9 @@ msgid "Character Class:"
 msgstr ""
 
 msgid "&Insert"
+msgstr ""
+
+msgid "C&lear"
 msgstr ""
 
 msgid "Insert the characters at the cursor in the text"
@@ -4994,10 +4983,10 @@ msgid ""
 "<p>You are trying to import more pages than there are available in the "
 "current document counting from the active page.</p>Choose one of the "
 "following:<br><ul><li><b>Create</b> missing pages</li><li><b>Import</b> "
-"pages until the last page</li><li><b>Cancel</b></li></ul><br>"
+"pages until the last page</li><li><b>Cancel</b></li></ul>"
 msgstr ""
 
-msgid "Import"
+msgid "C&reate"
 msgstr ""
 
 msgid "Import done"
@@ -5075,6 +5064,9 @@ msgid "Convert Page to Master Page"
 msgstr ""
 
 msgid "Size"
+msgstr ""
+
+msgid "No Style"
 msgstr ""
 
 msgid "The following programs are missing:"
@@ -5233,6 +5225,12 @@ msgid "Preview..."
 msgstr ""
 
 msgid "&Print"
+msgstr ""
+
+msgid ""
+"Insert a comma separated list of tokens where\n"
+"a token can be * for all the pages, 1-5 for\n"
+"a range of pages or a single page number."
 msgstr ""
 
 msgid ""
@@ -5555,7 +5553,7 @@ msgstr ""
 msgid "About Scribus %1"
 msgstr ""
 
-msgid "November"
+msgid "December"
 msgstr ""
 
 msgid "%1 %2 %3"
@@ -5635,7 +5633,13 @@ msgid ""
 "of Ghostscript which Scribus has detected."
 msgstr ""
 
+msgid "Save..."
+msgstr ""
+
 msgid "&Defaults"
+msgstr ""
+
+msgid "Save Preferences"
 msgstr ""
 
 msgid "Image Info"
@@ -5711,9 +5715,6 @@ msgid "Distance between columns"
 msgstr ""
 
 msgid "Column width"
-msgstr ""
-
-msgid "No Style"
 msgstr ""
 
 msgid "X, Y, &Z"
@@ -6072,6 +6073,9 @@ msgid ""
 "No/Cancel)"
 msgstr ""
 
+msgid "Use filename as path for user given preferences"
+msgstr ""
+
 msgid "Installed interface languages for Scribus are as follows:"
 msgstr ""
 
@@ -6154,6 +6158,9 @@ msgid "Replace &All"
 msgstr ""
 
 msgid "Search finished"
+msgstr ""
+
+msgid "Search finished, found %1 matches"
 msgstr ""
 
 msgid "Drop Caps"
@@ -6255,6 +6262,12 @@ msgstr ""
 msgid "Shift"
 msgstr ""
 
+msgid "Meta"
+msgstr ""
+
+msgid "Meta+"
+msgstr ""
+
 msgid "Shift+"
 msgstr ""
 
@@ -6326,6 +6339,9 @@ msgstr ""
 msgid "Goto"
 msgstr ""
 
+msgid "Select a base directory for search"
+msgstr ""
+
 msgid "Scribus - Image Search"
 msgstr ""
 
@@ -6376,7 +6392,7 @@ msgstr ""
 msgid "Bookmarks"
 msgstr ""
 
-msgid "Active"
+msgid "Shown"
 msgstr ""
 
 msgid "From"
@@ -6389,9 +6405,6 @@ msgid "Style"
 msgstr ""
 
 msgid "Start"
-msgstr ""
-
-msgid "End"
 msgstr ""
 
 msgid "Document Sections"
@@ -6805,11 +6818,26 @@ msgid "Alt+W"
 msgstr ""
 
 msgid ""
-"<qt>Apply the selected template to even, odd or all pages within the "
-"following range</qt>"
+"Apply the selected template to even, odd or all pages within the following "
+"range"
 msgstr ""
 
 msgid "to"
+msgstr ""
+
+msgid "Parameter"
+msgstr ""
+
+msgid "Relationship"
+msgstr ""
+
+msgid "Relationship To"
+msgstr ""
+
+msgid "Page Item Attributes"
+msgstr ""
+
+msgid "Alt+L"
 msgstr ""
 
 msgid "&Activate Color Management"
@@ -6897,6 +6925,12 @@ msgstr ""
 msgid ""
 "Black Point Compensation is a method of improving contrast in photos.\n"
 "It is recommended that you enable this if you have photos in your document."
+msgstr ""
+
+msgid "Exporting PostScript File"
+msgstr ""
+
+msgid "Printing File"
 msgstr ""
 
 msgid "Contents"
@@ -6989,6 +7023,9 @@ msgstr ""
 msgid "&Vertical Shift:"
 msgstr ""
 
+msgid "Auto Add To"
+msgstr ""
+
 msgid "&Hyphenation Suggestions"
 msgstr ""
 
@@ -7060,6 +7097,9 @@ msgid "Esperanto"
 msgstr ""
 
 msgid "German"
+msgstr ""
+
+msgid "German (Trad.)"
 msgstr ""
 
 msgid "Finnish"
@@ -7284,6 +7324,14 @@ msgstr ""
 msgid "New &from Template..."
 msgstr ""
 
+msgid "Load documents with predefined layout"
+msgstr ""
+
+msgid ""
+"Start a document from a template made by other users or yourself (f.e. for "
+"documents you have a constant style)."
+msgstr ""
+
 msgid "Document Template: "
 msgstr ""
 
@@ -7367,6 +7415,14 @@ msgid "Save as &Template..."
 msgstr ""
 
 msgid "Save As Template"
+msgstr ""
+
+msgid "Save a document as a template"
+msgstr ""
+
+msgid ""
+"Save a document as a template. Good way to ease the initial work for "
+"documents with a constant look"
 msgstr ""
 
 msgid "Save as Template"
