@@ -37,7 +37,7 @@ EXTRA_DIST = \
 	scripter2_qtclass_qwidget.cpp \
 	scripter2_qttype_qstring.cpp \
 	scripter2_scribus_pageitem.cpp \
-	Scripter2_scribus_scribusdoc.cpp \
+	scripter2_scribus_scribusdoc.cpp \
 	scripter2_scribus_scribusmainwin.cpp \
 	scripter2_scribus_scribusqapp.cpp \
 	scripter2_scribus_scribusview.cpp \
