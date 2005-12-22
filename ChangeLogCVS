@@ -1,6 +1,15 @@
 Scribus - 1.2.4cvs
 ==================
-
+- 0001106: [Story Editor / Text Frames] Cursor doesn't follow the text flow from one column to another in multi-column layouts (cbradney)
+- 0002500: [Shape Drawing] When non-LT origin point is selected objects move that point to LT (fschmid)
+- 0002904: [Printing] Text Frame with gradient background does not display in print preview or print correctly (fschmid)
+- 0002911: [Translation] Spanish Translation Update (cbradney)
+- 0002901: [Translation] Catalan translation update (plinnell)
+- 0002838: [Documentation] Add German docs to 1.2.4 (plinnell)
+- 0002852: [Scripter] need a scripter view function to set a document to "fit in window" (subik)
+- 0002893: [Translation] Polish translation update for 1.2.4 (cbradney)
+- 0002891: [Translation] update of russian translation for upcoming v1.2.4 (plinnell)
+- 0002865: [Import / Export] PDF form with text field format set to display a date mm/dd/yy (fschmid)
 - 0002882: [Integration] allow ICC profile subdirectories (fschmid)
 - 0002865: [Import / Export] PDF form with text field format set to display a date mm/dd/yy (fschmid)
 - 0002891: [Translation] update of russian translation for upcoming v1.2.4 (plinnell)
