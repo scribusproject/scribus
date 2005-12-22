@@ -1605,6 +1605,20 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 									if (b->Ptext.at(b->CPos)->xp >= altx)
 										break;
 								}
+								//CB Make the cursor move forward a column
+								if (b->Ptext.at(b->CPos)->yp < alty)
+								{
+									double lineCorr;
+									if (b->Pcolor2 != "None")
+						                lineCorr = b->Pwidth / 2.0;
+						            else
+						                lineCorr = 0;
+									double ColWidth = (b->Width - (b->ColGap * (b->Cols - 1)) - b->Extra - b->RExtra - lineCorr) / b->Cols;
+									double newX=altx+ColWidth;
+									while (b->Ptext.at(b->CPos)->xp<newX && b->CPos < static_cast<int>(b->Ptext.count())-1)
+										++b->CPos;
+									break;
+								}
 							}
 							while (b->CPos < static_cast<int>(b->Ptext.count()));
 							if ( buttonState & ShiftButton )
@@ -1663,6 +1677,20 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 									{
 										if (b->Ptext.at(b->CPos)->xp <= altx)
 											break;
+									}
+									//CB Make the cursor move back a column
+									if(b->Ptext.at(b->CPos)->yp > alty)
+									{
+										double lineCorr;
+										if (b->Pcolor2 != "None")
+							                lineCorr = b->Pwidth / 2.0;
+							            else
+							                lineCorr = 0;
+										double ColWidth = (b->Width - (b->ColGap * (b->Cols - 1)) - b->Extra - b->RExtra - lineCorr) / b->Cols;
+										double newX=altx-ColWidth;
+										while (b->Ptext.at(b->CPos)->xp>newX && b->CPos > 0)
+											--b->CPos;
+										break;
 									}
 								}
 								while (b->CPos > 0);
