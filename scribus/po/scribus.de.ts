@@ -2618,7 +2618,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>December</source>
-        <translation type="unfinished"></translation>
+        <translation>Dezember</translation>
     </message>
 </context>
 <context>
@@ -6405,67 +6405,67 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
     <name>DocumentItemAttributesBase</name>
     <message>
         <source>Document Item Attributes</source>
-        <translation type="unfinished">Eigenschaften des Dokumentobjekts</translation>
+        <translation>Eigenschaften des Dokumentobjekts</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation type="unfinished">Wert</translation>
+        <translation>Wert</translation>
     </message>
     <message>
         <source>Parameter</source>
-        <translation type="unfinished">Parameter</translation>
+        <translation>Parameter</translation>
     </message>
     <message>
         <source>Relationship</source>
-        <translation type="unfinished">Beziehung</translation>
+        <translation>Beziehung</translation>
     </message>
     <message>
         <source>Relationship To</source>
-        <translation type="unfinished">Beziehung zu</translation>
+        <translation>Beziehung zu</translation>
     </message>
     <message>
         <source>Auto Add To</source>
-        <translation type="unfinished">Automatisch hinzufügen zu</translation>
+        <translation>Automatisch hinzufügen zu</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Hinzufügen</translation>
+        <translation>&amp;Hinzufügen</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Kopieren</translation>
+        <translation>&amp;Kopieren</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Löschen</translation>
+        <translation>&amp;Löschen</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Löschen</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+I</translation>
+        <translation>Alt+L</translation>
     </message>
 </context>
 <context>
@@ -6852,7 +6852,7 @@ der Datei
     </message>
     <message>
         <source>Background</source>
-        <translation type="unfinished">Hintergrund</translation>
+        <translation>Hintergrund</translation>
     </message>
 </context>
 <context>
@@ -8394,11 +8394,11 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     </message>
     <message>
         <source>Meta</source>
-        <translation type="unfinished"></translation>
+        <translation>Meta</translation>
     </message>
     <message>
         <source>Meta+</source>
-        <translation type="unfinished"></translation>
+        <translation>Meta+</translation>
     </message>
 </context>
 <context>
@@ -9745,7 +9745,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">A&amp;bbrechen</translation>
+        <translation>A&amp;bbrechen</translation>
     </message>
 </context>
 <context>
@@ -10199,7 +10199,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -10585,71 +10585,71 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <name>PageItemAttributesBase</name>
     <message>
         <source>Page Item Attributes</source>
-        <translation type="unfinished">Eigenschaften des Seitenobjekts</translation>
+        <translation>Eigenschaften des Seitenobjekts</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation type="unfinished">Wert</translation>
+        <translation>Wert</translation>
     </message>
     <message>
         <source>Parameter</source>
-        <translation type="unfinished">Parameter</translation>
+        <translation>Parameter</translation>
     </message>
     <message>
         <source>Relationship</source>
-        <translation type="unfinished">Beziehung</translation>
+        <translation>Beziehung</translation>
     </message>
     <message>
         <source>Relationship To</source>
-        <translation type="unfinished">Beziehung zu</translation>
+        <translation>Beziehung zu</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Hinzufügen</translation>
+        <translation>&amp;Hinzufügen</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Kopieren</translation>
+        <translation>&amp;Kopieren</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Löschen</translation>
+        <translation>&amp;Löschen</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Löschen</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+I</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">A&amp;bbrechen</translation>
+        <translation>A&amp;bbrechen</translation>
     </message>
 </context>
 <context>
@@ -10919,7 +10919,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
         <source>Select a base directory for search</source>
-        <translation type="unfinished"></translation>
+        <translation>Startverzeichnis für Suche auswählen</translation>
     </message>
 </context>
 <context>
@@ -11785,11 +11785,11 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>&amp;Font Size (Menus):</source>
-        <translation type="unfinished"></translation>
+        <translation>Schriftgröße (Menüs):</translation>
     </message>
     <message>
         <source>Font Size (&amp;Palettes):</source>
-        <translation type="unfinished"></translation>
+        <translation>Schriftgröße (Paletten):</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
@@ -11820,11 +11820,11 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichern...</translation>
     </message>
     <message>
         <source>Save Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Voreinstellungen speichern</translation>
     </message>
 </context>
 <context>
@@ -11973,7 +11973,7 @@ Der ausschlaggebende Wert ist der Bundsteg.</translation>
     </message>
     <message>
         <source>Gutenberg</source>
-        <translation type="unfinished"></translation>
+        <translation>Gutenberg</translation>
     </message>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
@@ -14046,15 +14046,15 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>German (Trad.)</source>
-        <translation type="unfinished"></translation>
+        <translation>Deutsch (Alte Rechtschreibung)</translation>
     </message>
     <message>
         <source>Exporting PostScript File</source>
-        <translation type="unfinished"></translation>
+        <translation>Postscript Datei erstellen</translation>
     </message>
     <message>
         <source>Printing File</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei drucken</translation>
     </message>
     <message>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
@@ -14062,11 +14062,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>C&amp;reate</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstellen</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Importieren</translation>
+        <translation>&amp;Importieren</translation>
     </message>
     <message>
         <source>Use filename as path for user given preferences</source>
@@ -15493,434 +15493,434 @@ diese zu finden und zu korrigieren</translation>
     <name>ScribusMainWindow</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine</translation>
     </message>
     <message>
         <source>Initializing Plugins</source>
-        <translation type="unfinished">Plug-Ins werden geladen</translation>
+        <translation>Plug-Ins werden geladen</translation>
     </message>
     <message>
         <source>Initializing Keyboard Shortcuts</source>
-        <translation type="unfinished">Tastenkürzel einlesen</translation>
+        <translation>Tastenkürzel einlesen</translation>
     </message>
     <message>
         <source>Reading Preferences</source>
-        <translation type="unfinished">Voreinstellungen werden geladen</translation>
+        <translation>Voreinstellungen werden geladen</translation>
     </message>
     <message>
         <source>Initializing Story Editor</source>
-        <translation type="unfinished">Story Editor wird initialisiert</translation>
+        <translation>Story Editor wird initialisiert</translation>
     </message>
     <message>
         <source>Reading ICC Profiles</source>
-        <translation type="unfinished">ICC-Profile werden gelesen</translation>
+        <translation>ICC-Profile werden gelesen</translation>
     </message>
     <message>
         <source>Initializing Hyphenator</source>
-        <translation type="unfinished">Silbentrennung wird initialisiert</translation>
+        <translation>Silbentrennung wird initialisiert</translation>
     </message>
     <message>
         <source>Reading Scrapbook</source>
-        <translation type="unfinished">Bibliothek wird geladen</translation>
+        <translation>Bibliothek wird geladen</translation>
     </message>
     <message>
         <source>Setting up Shortcuts</source>
-        <translation type="unfinished">Tastaturkürzel werden gelesen</translation>
+        <translation>Tastaturkürzel werden gelesen</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">Datei</translation>
+        <translation>Datei</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished">Bearbeiten</translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Schriften werden gesucht</translation>
     </message>
     <message>
         <source>There are no fonts found on your system.</source>
-        <translation type="unfinished">Auf Ihrem System sind keine Schriftarten vorhanden.</translation>
+        <translation>Auf Ihrem System sind keine Schriftarten vorhanden.</translation>
     </message>
     <message>
         <source>Exiting now.</source>
-        <translation type="unfinished">Scribus wird nun beendet.</translation>
+        <translation>Scribus wird nun beendet.</translation>
     </message>
     <message>
         <source>Fatal Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Fataler Fehler</translation>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation type="unfinished">Fontsystem initialisiert...</translation>
+        <translation>Fontsystem initialisiert</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;Datei</translation>
+        <translation>&amp;Datei</translation>
     </message>
     <message>
         <source>Open &amp;Recent</source>
-        <translation type="unfinished">&amp;Zuletzt verwendete öffnen</translation>
+        <translation>&amp;Zuletzt verwendete öffnen</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Importieren</translation>
+        <translation>&amp;Importieren</translation>
     </message>
     <message>
         <source>&amp;Export</source>
-        <translation type="unfinished">E&amp;xportieren</translation>
+        <translation>E&amp;xportieren</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Bearbeiten</translation>
+        <translation>&amp;Bearbeiten</translation>
     </message>
     <message>
         <source>St&amp;yle</source>
-        <translation type="unfinished">S&amp;til</translation>
+        <translation>S&amp;til</translation>
     </message>
     <message>
         <source>&amp;Color</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Farbe</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Größe</translation>
     </message>
     <message>
         <source>&amp;Shade</source>
-        <translation type="unfinished">Ton&amp;wert</translation>
+        <translation>Ton&amp;wert</translation>
     </message>
     <message>
         <source>&amp;Font</source>
-        <translation type="unfinished">Schrift&amp;art</translation>
+        <translation>Schrift&amp;art</translation>
     </message>
     <message>
         <source>&amp;Effects</source>
-        <translation type="unfinished">&amp;Effekte</translation>
+        <translation>&amp;Effekte</translation>
     </message>
     <message>
         <source>&amp;Item</source>
-        <translation type="unfinished">&amp;Objekt</translation>
+        <translation>&amp;Objekt</translation>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen für die Druckvorschau</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation type="unfinished">Anordnung</translation>
+        <translation>Anordnung</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
-        <translation type="unfinished">Auf andere &amp;Ebene verschieben</translation>
+        <translation>Auf andere &amp;Ebene verschieben</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation type="unfinished">&amp;PDF-Optionen</translation>
+        <translation>&amp;PDF-Optionen</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation type="unfinished">&amp;Form</translation>
+        <translation>&amp;Form</translation>
     </message>
     <message>
         <source>C&amp;onvert To</source>
-        <translation type="unfinished">Um&amp;wandeln in</translation>
+        <translation>Um&amp;wandeln in</translation>
     </message>
     <message>
         <source>I&amp;nsert</source>
-        <translation type="unfinished">&amp;Einfügen</translation>
+        <translation>&amp;Einfügen</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation type="unfinished">Zeichen</translation>
+        <translation>Zeichen</translation>
     </message>
     <message>
         <source>Quote</source>
-        <translation type="unfinished">Anführungszeichen</translation>
+        <translation>Anführungszeichen</translation>
     </message>
     <message>
         <source>Space</source>
-        <translation type="unfinished">Leerzeichen</translation>
+        <translation>Leerzeichen</translation>
     </message>
     <message>
         <source>&amp;Page</source>
-        <translation type="unfinished">&amp;Seite</translation>
+        <translation>&amp;Seite</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation type="unfinished">&amp;Ansicht</translation>
+        <translation>&amp;Ansicht</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation type="unfinished">E&amp;xtras</translation>
+        <translation>E&amp;xtras</translation>
     </message>
     <message>
         <source>&amp;Windows</source>
-        <translation type="unfinished">&amp;Fenster</translation>
+        <translation>&amp;Fenster</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation type="unfinished">&amp;Hilfe</translation>
+        <translation>&amp;Hilfe</translation>
     </message>
     <message>
         <source>&amp;Alignment</source>
-        <translation type="unfinished">Aus&amp;richtung</translation>
+        <translation>Aus&amp;richtung</translation>
     </message>
     <message>
         <source>Ready</source>
-        <translation type="unfinished">Fertig</translation>
+        <translation>Fertig</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Öffnen</translation>
+        <translation>Öffnen</translation>
     </message>
     <message>
         <source>Importing Pages...</source>
-        <translation type="unfinished">Seiten werden importiert...</translation>
+        <translation>Seiten werden importiert...</translation>
     </message>
     <message>
         <source>Import Page(s)</source>
-        <translation type="unfinished">Seiten importieren</translation>
+        <translation>Seiten importieren</translation>
     </message>
     <message>
         <source>Import done</source>
-        <translation type="unfinished">Importvorgang erfolgreich abgeschlossen</translation>
+        <translation>Importvorgang erfolgreich abgeschlossen</translation>
     </message>
     <message>
         <source>Found nothing to import</source>
-        <translation type="unfinished">Nichts zum Importieren gefunden</translation>
+        <translation>Nichts zum Importieren gefunden</translation>
     </message>
     <message>
         <source>File %1 is not in an acceptable format</source>
-        <translation type="unfinished">Das Format der Datei %1 kann nicht verwendet werden</translation>
+        <translation>Das Format der Datei %1 kann nicht verwendet werden</translation>
     </message>
     <message>
         <source>Loading...</source>
-        <translation type="unfinished">Lade...</translation>
+        <translation>Lade...</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>Postscript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
-        <translation type="unfinished">Einige ICC-Profile in dem Dokument sind auf Ihrem System nicht vorhanden:</translation>
+        <translation>Einige ICC-Profile in dem Dokument sind auf Ihrem System nicht vorhanden:</translation>
     </message>
     <message>
         <source> was replaced by: </source>
-        <translation type="unfinished"> wurde ersetzt durch: </translation>
+        <translation> wurde ersetzt durch: </translation>
     </message>
     <message>
         <source>(converted)</source>
-        <translation type="unfinished">(konvertiert)</translation>
+        <translation>(konvertiert)</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Alle unterstützten Formate</translation>
+        <translation>Alle unterstützten Formate</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation type="unfinished">Alle Dateien (*)</translation>
+        <translation>Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Cannot write the file: 
 %1</source>
-        <translation type="unfinished">Die Datei %1 kann nicht geschrieben werden</translation>
+        <translation>Die Datei %1 kann nicht geschrieben werden</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation type="unfinished">Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
+        <translation>Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation type="unfinished">Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
+        <translation>Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Save As</source>
-        <translation type="unfinished">Speichern unter</translation>
+        <translation>Speichern unter</translation>
     </message>
     <message>
         <source>Saving...</source>
-        <translation type="unfinished">Speichere...</translation>
+        <translation>Speichere...</translation>
     </message>
     <message>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
-        <translation type="unfinished">Scribus hat einige Fehler festgestellt. Sie sollten die Druckvorstufenüberprüfung verwenden, um sie zu korrigieren</translation>
+        <translation>Scribus hat einige Fehler festgestellt. Sie sollten die Druckvorstufenüberprüfung verwenden, um sie zu korrigieren</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation type="unfinished">&amp;Ignorieren</translation>
+        <translation>&amp;Ignorieren</translation>
     </message>
     <message>
         <source>&amp;Abort</source>
-        <translation type="unfinished">A&amp;bbruch</translation>
+        <translation>A&amp;bbruch</translation>
     </message>
     <message>
         <source>Printing...</source>
-        <translation type="unfinished">Drucke...</translation>
+        <translation>Drucke...</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished">Dokument</translation>
+        <translation>Dokument</translation>
     </message>
     <message>
         <source>Printing failed!</source>
-        <translation type="unfinished">Drucken fehlgeschlagen!</translation>
+        <translation>Drucken fehlgeschlagen!</translation>
     </message>
     <message>
         <source>Cannot Cut In-Use Item</source>
-        <translation type="unfinished">Objekte in Benutzung können nicht ausgeschnitten werden</translation>
+        <translation>Objekte in Benutzung können nicht ausgeschnitten werden</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
-        <translation type="unfinished">Das Objekt %1 wird gerade im Story Editor bearbeitet, deswegen kann es nicht ausgeschnitten werden</translation>
+        <translation>Das Objekt %1 wird gerade im Story Editor bearbeitet, deswegen kann es nicht ausgeschnitten werden</translation>
     </message>
     <message>
         <source>About Qt</source>
-        <translation type="unfinished">Über Qt</translation>
+        <translation>Über Qt</translation>
     </message>
     <message>
         <source>Scribus Manual</source>
-        <translation type="unfinished">Scribus-Handbuch</translation>
+        <translation>Scribus-Handbuch</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">Speichern unter</translation>
+        <translation>Speichern unter</translation>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
-        <translation type="unfinished">Textdateien (*.txt);;Alle Dateien(*)</translation>
+        <translation>Textdateien (*.txt);;Alle Dateien(*)</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished">Name:</translation>
+        <translation>Name:</translation>
     </message>
     <message>
         <source>Convert Page to Master Page</source>
-        <translation type="unfinished">In Musterseite umwandeln</translation>
+        <translation>In Musterseite umwandeln</translation>
     </message>
     <message>
         <source>New Master Page</source>
-        <translation type="unfinished">Neue Musterseite</translation>
+        <translation>Neue Musterseite</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Größe:</translation>
+        <translation>&amp;Größe:</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished">Größe</translation>
+        <translation>Größe</translation>
     </message>
     <message>
         <source>&amp;Shade:</source>
-        <translation type="unfinished">Ton&amp;wert:</translation>
+        <translation>Ton&amp;wert:</translation>
     </message>
     <message>
         <source>Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Tonwert</translation>
     </message>
     <message>
         <source>No Style</source>
-        <translation type="unfinished">Kein Stil</translation>
+        <translation>Kein Stil</translation>
     </message>
     <message>
         <source>The following programs are missing:</source>
-        <translation type="unfinished">Die folgenden Programme fehlen:</translation>
+        <translation>Die folgenden Programme fehlen:</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
-        <translation type="unfinished">Ghostscript: Sie können weder EPS-Dateien noch die Druckvorschau verwenden</translation>
+        <translation>Ghostscript: Sie können weder EPS-Dateien noch die Druckvorschau verwenden</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">Alle</translation>
+        <translation>Alle</translation>
     </message>
     <message>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
-        <translation type="unfinished">Scribus hat Fehler entdeckt.
+        <translation>Scribus hat Fehler entdeckt.
 Bitte verwenden Sie die Druckvorstufenüberprüfung, um
 diese zu finden und zu korrigieren.</translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation type="unfinished">EPS-Dateien (*.eps);;Alle Dateien (*)</translation>
+        <translation>EPS-Dateien (*.eps);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
-        <translation type="unfinished">Scribus hat Fehler entdeckt.
+        <translation>Scribus hat Fehler entdeckt.
 Bitte verwenden Sie die Druckvorstufenüberprüfung, um
 diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <source>-Page%1</source>
-        <translation type="unfinished">-Seite %1</translation>
+        <translation>-Seite %1</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation type="unfinished">Einige Objekte sind gesperrt.</translation>
+        <translation>Einige Objekte sind gesperrt.</translation>
     </message>
     <message>
         <source>&amp;Lock All</source>
-        <translation type="unfinished">Alle &amp;sperren</translation>
+        <translation>Alle &amp;sperren</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation type="unfinished">Alle &amp;entsperren</translation>
+        <translation>Alle &amp;entsperren</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
     <message>
         <source>The program %1 is already running!</source>
-        <translation type="unfinished">Das Programm %1 läuft schon!</translation>
+        <translation>Das Programm %1 läuft schon!</translation>
     </message>
     <message>
         <source>The program %1 is missing!</source>
-        <translation type="unfinished">Das Programm %1 fehlt!</translation>
+        <translation>Das Programm %1 fehlt!</translation>
     </message>
     <message>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
-        <translation type="unfinished">Die gewählte Farbe existiert im Farbset des Dokuments noch nicht. Bitte geben Sie einen Namen für die neue Farbe ein.</translation>
+        <translation>Die gewählte Farbe existiert im Farbset des Dokuments noch nicht. Bitte geben Sie einen Namen für die neue Farbe ein.</translation>
     </message>
     <message>
         <source>Color Not Found</source>
-        <translation type="unfinished">Farbe nicht gefunden</translation>
+        <translation>Farbe nicht gefunden</translation>
     </message>
     <message>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
-        <translation type="unfinished">Eine Farbe mit diesem Namen existiert schon. Bitte geben Sie einen anderen Namen ein.</translation>
+        <translation>Eine Farbe mit diesem Namen existiert schon. Bitte geben Sie einen anderen Namen ein.</translation>
     </message>
     <message>
         <source>&amp;Level</source>
-        <translation type="unfinished">&amp;Anordnung</translation>
+        <translation>&amp;Anordnung</translation>
     </message>
     <message>
         <source>Send to Layer</source>
-        <translation type="unfinished">Auf andere Ebene verschieben</translation>
+        <translation>Auf andere Ebene verschieben</translation>
     </message>
     <message>
         <source>Previe&amp;w Settings</source>
-        <translation type="unfinished">&amp;Vorschau</translation>
+        <translation>&amp;Vorschau</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation type="unfinished">&amp;Werkzeuge</translation>
+        <translation>&amp;Werkzeuge</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation type="unfinished">X-Pos:</translation>
+        <translation>X-Pos:</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation type="unfinished">Y-Pos:</translation>
+        <translation>Y-Pos:</translation>
     </message>
 </context>
 <context>
@@ -16380,7 +16380,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Search finished, found %1 matches</source>
-        <translation type="unfinished"></translation>
+        <translation>Suche beendet, %1 Übereinstimmungen gefunden</translation>
     </message>
 </context>
 <context>
@@ -16889,7 +16889,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
