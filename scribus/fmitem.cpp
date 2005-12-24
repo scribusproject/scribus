@@ -22,7 +22,7 @@
 #include <qfontmetrics.h>
 #include <qapplication.h>
 
-FmItem::FmItem(const QString& s, const Foi * f)
+FmItem::FmItem(const QString& s, const Foi * )
 {
 	stringy = s;
 //	font = f;

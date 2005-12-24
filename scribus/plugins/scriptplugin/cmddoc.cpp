@@ -234,7 +234,7 @@ PyObject *scribus_setdoctype(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (ScMW->doc->currentPageLayout = fp)
+	if (ScMW->doc->currentPageLayout == fp)
 		ScMW->doc->pageSets[ScMW->doc->currentPageLayout].FirstPage = fsl;
 	ScMW->view->reformPages();
 	ScMW->view->GotoPage(ScMW->doc->currentPageNumber()); // is this needed?

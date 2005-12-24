@@ -301,7 +301,7 @@ bool ScrPopupMenu::repopulateLocalMenu()
 				localPopupMenu->insertItem(men->getMenuIcon(), men->getMenuText(), men->getLocalPopupMenu());
 			}
 			else
-				qDebug(QString("Alien found: %1").arg((*menuItemListIt)->className()));
+				sDebug(QString("Alien found: %1").arg((*menuItemListIt)->className()));
 		}
 		++menuItemListIt;
 	}

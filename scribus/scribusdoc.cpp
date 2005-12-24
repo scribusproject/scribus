@@ -925,7 +925,7 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 
 void ScribusDoc::deleteMasterPage(const int pageNumber)
 {
-	Q_ASSERT( Pages->count() > 1 && Pages->count() > pageNumber );
+	Q_ASSERT( Pages->count() > 1 && Pages->count() > static_cast<uint>(pageNumber) );
 	Page* page = Pages->at(pageNumber);
 	Pages->remove(pageNumber);
 	delete page;
@@ -941,7 +941,7 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 
 void ScribusDoc::deletePage(const int pageNumber)
 {
-	Q_ASSERT( Pages->count() > 1 && Pages->count() > pageNumber );
+	Q_ASSERT( Pages->count() > 1 && Pages->count() > static_cast<uint>(pageNumber) );
 	Page* page = Pages->at(pageNumber);
 	Pages->remove(pageNumber);
 	delete page;
@@ -3208,7 +3208,7 @@ void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Right;
 		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Left;
 	}
-	else if (pageLoc=RightPage) // Right hand page
+	else if (pageLoc==RightPage) // Right hand page
 	{
 		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Right;
 		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Left;

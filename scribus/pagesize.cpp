@@ -208,9 +208,9 @@ void PageSize::generatePageSizeList()
 	QString impTrNames[]={QT_TR_NOOP("Quarto"),QT_TR_NOOP("Foolscap"),QT_TR_NOOP("Letter"),QT_TR_NOOP("Government Letter"),QT_TR_NOOP("Legal"),QT_TR_NOOP("Ledger"),QT_TR_NOOP("Executive"),QT_TR_NOOP("Post"),QT_TR_NOOP("Crown"),QT_TR_NOOP("Large Post"),QT_TR_NOOP("Demy"),QT_TR_NOOP("Medium"),QT_TR_NOOP("Royal"),QT_TR_NOOP("Elephant"),QT_TR_NOOP("Double Demy"),QT_TR_NOOP("Quad Demy"),QT_TR_NOOP("STMT"),QT_TR_NOOP("A"),QT_TR_NOOP("B"),QT_TR_NOOP("C"),QT_TR_NOOP("D"),QT_TR_NOOP("E")};
 	
 	size_t const num_mappings_widths = (sizeof impWidths)/(sizeof *impWidths);
-	size_t const num_mappings_heights = (sizeof impHeights)/(sizeof *impHeights);
+/*	size_t const num_mappings_heights = (sizeof impHeights)/(sizeof *impHeights);
 	size_t const num_mappings_names = (sizeof impNames)/(sizeof *impNames);
-	size_t const num_mappings_trnames = (sizeof impTrNames)/(sizeof *impTrNames);
+	size_t const num_mappings_trnames = (sizeof impTrNames)/(sizeof *impTrNames); */
 	
 	//Q_ASSERT(num_mappings_widths == num_mappings_heights == num_mappings_names == num_mappings_trnames );
 	

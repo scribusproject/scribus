@@ -850,6 +850,9 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					else
 						t->Subset = Subset;
 					break;
+				default:
+				/* catching any types not handled above to silence compiler */
+					break;
 			}
 			insert(ts,t);
 			t->HasNames = HasNames;

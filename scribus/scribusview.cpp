@@ -6652,9 +6652,9 @@ bool ScribusView::slotSetCurs(int x, int y)
 						do
 						{
 							++currCol;
-							cp+=currItem->ColGap;
+							cp+=qRound(currItem->ColGap);
 							if (currCol>1)
-								cp+=colWidth;
+								cp+=qRound(colWidth);
 						} while (xp>cp);
 						if (QRegion(p.xForm(QRect(xp-1, yp-h, static_cast<int>(cp-xp-1), h))).contains(QPoint(x, y)))
 						{

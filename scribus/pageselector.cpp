@@ -31,13 +31,13 @@ private:
 	PageSelector * pageSelector;
 };
 
-PageValidator::PageValidator(int min, int max, QObject * parent) : QValidator
+PageValidator::PageValidator(int /* min */, int /* max */, QObject * parent) : QValidator
 (parent), rx("^([0-9]+).*"), rx2("^[0-9]+$") 
 {
 	pageSelector = static_cast<PageSelector*>(parent);
 }
 
-QValidator::State PageValidator::validate(QString & input, int & pos) const
+QValidator::State PageValidator::validate(QString & input, int & /* pos */) const
 {
 	if (rx2.search(input) == 0 && pageSelector->PageCombo->text(input.toInt()-1) == input)
 		return Acceptable;

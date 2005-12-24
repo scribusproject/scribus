@@ -211,7 +211,7 @@ QStringList ScPaths::getSystemProfilesDirs(void)
 	return iccProfDirs;
 }
 
-QString ScPaths::getSpecialDir(int folder)
+QString ScPaths::getSpecialDir(int /* folder */)
 {
 	QString qstr;
 #if defined(_WIN32)

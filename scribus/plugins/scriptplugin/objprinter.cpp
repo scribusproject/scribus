@@ -361,7 +361,7 @@ static int Printer_setpages(Printer *self, PyObject *value, void */*closure*/)
 			PyErr_SetString(PyExc_TypeError, "'pages' attribute must be list containing only integers.");
 			return -1;
 		}
-		if (PyInt_AsLong(tmp) > ScMW->doc->Pages->count() || PyInt_AsLong(tmp) < 1) {
+		if (PyInt_AsLong(tmp) > static_cast<int>(ScMW->doc->Pages->count()) || PyInt_AsLong(tmp) < 1) {
 			PyErr_SetString(PyExc_ValueError, "'pages' value out of range.");
 			return -1;
 		}

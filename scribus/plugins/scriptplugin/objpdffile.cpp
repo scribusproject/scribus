@@ -621,7 +621,7 @@ static int PDFfile_setpages(PDFfile *self, PyObject *value, void */*closure*/)
 			PyErr_SetString(PyExc_TypeError, "'pages' list must contain only integers.");
 			return -1;
 		}
-		if (PyInt_AsLong(tmp) > ScMW->doc->Pages->count() || PyInt_AsLong(tmp) < 1) {
+		if (PyInt_AsLong(tmp) > static_cast<int>(ScMW->doc->Pages->count()) || PyInt_AsLong(tmp) < 1) {
 			PyErr_SetString(PyExc_ValueError, "'pages' value out of range.");
 			return -1;
 		}

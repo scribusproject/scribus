@@ -201,7 +201,7 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args)
 	{
 		for (uint lam2 = 0; lam2 < ScMW->doc->Items->count(); ++lam2)
 		{
-			if ((ScMW->doc->Items->at(lam2)->itemType() == typ) && (pageNr == ScMW->doc->Items->at(lam2)->OwnPage))
+			if ((ScMW->doc->Items->at(lam2)->itemType() == typ) && (pageNr == static_cast<uint>(ScMW->doc->Items->at(lam2)->OwnPage)))
 				counter++;
 		}
 	}
@@ -209,7 +209,7 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args)
 	{
 		for (uint lam2 = 0; lam2 < ScMW->doc->Items->count(); ++lam2)
 		{
-			if (pageNr == ScMW->doc->Items->at(lam2)->OwnPage)
+			if (pageNr == static_cast<uint>(ScMW->doc->Items->at(lam2)->OwnPage))
 				counter++;
 		}
 	}
@@ -217,7 +217,7 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args)
 	l = PyList_New(counter);
 	for (uint lam=0; lam < ScMW->doc->Items->count(); ++lam)
 	{
-		if  (pageNr == ScMW->doc->Items->at(lam)->OwnPage)
+		if  (pageNr == static_cast<uint>(ScMW->doc->Items->at(lam)->OwnPage))
 		{
 			if (typ != -1)
 			{

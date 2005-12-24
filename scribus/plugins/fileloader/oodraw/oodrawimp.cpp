@@ -141,7 +141,7 @@ bool OODrawImportPlugin::fileSupported(QIODevice* /* file */) const
 	return true;
 }
 
-bool OODrawImportPlugin::loadFile(const QString & fileName, const FileFormat & fmt)
+bool OODrawImportPlugin::loadFile(const QString & fileName, const FileFormat &)
 {
 	// For this plugin, right now "load" and "import" are the same thing
 	return import(fileName);

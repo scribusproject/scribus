@@ -106,7 +106,7 @@ bool ImportPSPlugin::fileSupported(QIODevice* /* file */) const
 	return true;
 }
 
-bool ImportPSPlugin::loadFile(const QString & fileName, const FileFormat & fmt)
+bool ImportPSPlugin::loadFile(const QString & fileName, const FileFormat &)
 {
 	// There's only one format to handle, so we just call import(...)
 	return import(fileName);
