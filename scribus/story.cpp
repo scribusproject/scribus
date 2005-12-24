@@ -1738,6 +1738,8 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(StyleTools, SIGNAL(NewKern(double )), this, SLOT(newTxKern(double )));
 	connect(StyleTools, SIGNAL(NewStyle(int )), this, SLOT(newTxStyle(int )));
 	Editor->setFocus();
+	if (!ScApp->ClipB->text(QClipboard::Clipboard).isNull())
+		PasteAvail();
 }
  
 /** 10/12/2004 - pv - #1203: wrong selection on double click
