@@ -112,6 +112,7 @@ ScPaths::ScPaths() :
 	m_templateDir = QString("%1/share/templates/").arg(appPath);
 	m_libDir = QString("%1/libs/").arg(appPath);
 	m_pluginDir = QString("%1/plugins/").arg(appPath);
+	QApplication::setLibraryPaths(QString("%1/qtplugins/").arg(appPath));
 #endif
 }
 
@@ -211,7 +212,7 @@ QStringList ScPaths::getSystemProfilesDirs(void)
 	return iccProfDirs;
 }
 
-QString ScPaths::getSpecialDir(int /* folder */)
+QString ScPaths::getSpecialDir(int folder)
 {
 	QString qstr;
 #if defined(_WIN32)
