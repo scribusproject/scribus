@@ -345,8 +345,10 @@
 	writecurrentlinecap
 	writecurrentlinejoin
 	writecurrentdash
-	clipCnt 1 eq
-		{ clipsave clip newpath clippath cliprestore } if
+%	Clipping is disabled for now as it gives unpredictable results.
+%	(Lines with jaggies etc....)
+%	clipCnt 1 eq
+%		{ clipsave clip newpath clippath cliprestore } if
 	storeMatrix
 	{_move} {_line} {_curve} {_close} pathforall
 	(s\n)print			% stroke path
@@ -361,8 +363,10 @@
 	writecurrentlinecap
 	writecurrentlinejoin
 	writecurrentdash
-	clipCnt 1 eq
-		{ clipsave clip newpath clippath cliprestore } if
+%	Clipping is disabled for now as it gives unpredictable results.
+%	(Lines with jaggies etc....)
+%	clipCnt 1 eq
+%		{ clipsave clip newpath clippath cliprestore } if
 	storeMatrix			% take transformation, scaling, rotation from PostScript
 	{_move} {_line} {_curve} {_close} pathforall
 	(f\n)print			% close polygon

@@ -24,6 +24,7 @@
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qcursor.h>
+#include <qregexp.h>
 #include <cmath>
 #include <cstdlib>
 
@@ -158,6 +159,8 @@ EPSPlug::EPSPlug( QWidget* parent, ScribusApp *plug, QString fName )
 					FarNam = FarNam.stripWhiteSpace();
 					FarNam = FarNam.remove(0,1);
 					FarNam = FarNam.remove(FarNam.length()-1,1);
+					QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
+					FarNam = FarNam.simplifyWhiteSpace().replace( badchars, "_" );
 					cc = CMYKColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
 					CustColors.insert(FarNam, cc);
 					while (!ts.atEnd())
