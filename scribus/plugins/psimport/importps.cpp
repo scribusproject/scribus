@@ -14,6 +14,7 @@
 #include <qtextstream.h>
 #include <qcursor.h>
 #include <qdragobject.h>
+#include <qregexp.h>
 #include <cmath>
 #include <cstdlib>
 #include "undomanager.h"
@@ -82,6 +83,8 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 					FarNam = FarNam.stripWhiteSpace();
 					FarNam = FarNam.remove(0,1);
 					FarNam = FarNam.remove(FarNam.length()-1,1);
+					QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
+					FarNam = FarNam.simplifyWhiteSpace().replace( badchars, "_" );
 					cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
 					cc.setSpotColor(true);
 					CustColors.insert(FarNam, cc);
