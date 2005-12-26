@@ -6,8 +6,6 @@
   <kdevdebugger>
    <breakpointList>
     <breakpoint0 location="/home/franz/Entwicklung/AnonCVS/Scribus2/Scribus/scribus/scribus.cpp:4671" type="1" condition="" enabled="1" />
-    <breakpoint1 location="/home/franz/Entwicklung/AnonCVS/Scribus2/Scribus/scribus/scribus.cpp:5542" type="1" condition="" enabled="1" />
-    <breakpoint2 location="/home/franz/Entwicklung/AnonCVS/Scribus2/Scribus/scribus/page.cpp:2862" type="1" condition="" enabled="1" />
    </breakpointList>
   </kdevdebugger>
   <kdevbookmarks>

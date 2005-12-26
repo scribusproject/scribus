@@ -4661,11 +4661,9 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 								{
 									if ((m->state() & ControlButton) && (!(m->state() & ShiftButton)))
 									{
-										mop = QPoint(m->x(), static_cast<int>((b->Ypos + ((newX - b->Xpos) / b->OldB2 * b->OldH2)) * sc));
-										nh = ((m->x() / sc) - b->Xpos) / b->OldB2 * b->OldH2;
-//										QCursor::setPos(mapToGlobal(mop));
-										newX = mop.x();
-										newY = mop.y();
+										FPoint npfN = transformPointI(FPoint(m->x() / sc, m->y() / sc), b->Xpos, b->Ypos, b->Rot, 1, 1);
+										nh = npfN.x()  / b->OldB2 * b->OldH2;
+										mop = QPoint(m->x(), m->y());
 									}
 									else
 										mop = QPoint(m->x(), m->y());
@@ -4792,7 +4790,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 						}
 					}
 				}
-				if ((erf) || (HowTo > 1))
+				if ((erf) || (HowTo > 0))
 				{
 					Mxp = newX;
 					Myp = newY;
