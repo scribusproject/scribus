@@ -84,6 +84,12 @@ front-ends.
 
 For SuSE 9.x/10.0 Users:
 
+- On Suse 10.0, there is an issue with adding additional font paths in that the 
+  font path name is short one character in the font path settings file located in
+  %home/.scribus/scribusfont.rc file. The cause at the moment is unknown. See:
+  http://bugs.scribus.net/view.php?id=2890 for more details. At the moment, the
+  only workaround is to edit this file manually.
+
 - The littlecms libs 1.10, which shipped with 9.0 does not offer complete 
   support for all the the latest CMS features in Scribus 1.2. There are updated
   SuSE 9.x RPM's available on the Scribus.net site. We also recommend using the 
@@ -115,4 +121,4 @@ For the Scribus Team,
 
 Franz Schmid
 Peter Linnell
-in Nov. 2005
+in Dec. 2005
