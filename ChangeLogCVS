@@ -1,5 +1,11 @@
 Scribus - 1.2.4cvs
 ==================
+
+- 0002809: [Shape Drawing] Rotating polygon disables proportionate scaling (fschmid)
+- 0001274: [General] "paste" from the story editors edit-menu doesnt work when text from any kde app is in the clipboard (fschmid)
+- 0001071: [Import / Export] PS import line rendering wrong (fschmid)
+- 0002674: [User Interface] Font preview in Document Setup/Preferences is too small (subik)
+- 0002882: [Integration] allow ICC profile subdirectories (fschmid)
 - 0001106: [Story Editor / Text Frames] Cursor doesn't follow the text flow from one column to another in multi-column layouts (cbradney)
 - 0002500: [Shape Drawing] When non-LT origin point is selected objects move that point to LT (fschmid)
 - 0002904: [Printing] Text Frame with gradient background does not display in print preview or print correctly (fschmid)
