@@ -76,7 +76,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 /* Read CustomColors if available */
 				if (tmp.startsWith("%%CMYKCustomColor"))
 				{
-					tmp = tmp.remove(0,17);
+					tmp = tmp.remove(0,18);
 					QTextStream ts2(&tmp, IO_ReadOnly);
 					ts2 >> c >> m >> y >> k;
 					FarNam = ts2.read();
@@ -100,6 +100,8 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 						FarNam = FarNam.stripWhiteSpace();
 						FarNam = FarNam.remove(0,1);
 						FarNam = FarNam.remove(FarNam.length()-1,1);
+						QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
+						FarNam = FarNam.simplifyWhiteSpace().replace( badchars, "_" );
 						cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
 						cc.setSpotColor(true);
 						CustColors.insert(FarNam, cc);

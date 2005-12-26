@@ -3438,6 +3438,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					for (a = 0; a < Doc->selection->count(); ++a)
 					{
 						currItem = Doc->selection->itemAt(0);
+						double nh = currItem->height();
 						if ((HowTo == 1) || (HowTo == 2))
 						{
 							switch (HowTo)
@@ -3449,16 +3450,25 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								//Shift proportional square resize
 								if ((m->state() & ShiftButton) && (!(m->state() & ControlButton)))
 								{
-									int nX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
-									mop = QPoint(m->x(), static_cast<int>((currItem->yPos() - Doc->minCanvasCoordinate.y() + (nX - currItem->xPos())) * sc));
+									QWMatrix ma;
+									ma.translate(currItem->xPos(), currItem->yPos());
+									ma.rotate(currItem->rotation());
+									ma = ma.invert();
+									nh = ma.m11() * newX + ma.m21() * newY + ma.dx();
+									mop = QPoint(m->x(), m->y());
 								}
 								else
 								{
 									//Control proportional resize
 									if ((m->state() & ControlButton) && (!(m->state() & ShiftButton)))
 									{
-										int nX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
-										mop = QPoint(m->x(), static_cast<int>((currItem->yPos() - Doc->minCanvasCoordinate.y() + ((nX - currItem->xPos()) / currItem->OldB2 * currItem->OldH2)) * sc));
+										QWMatrix ma;
+										ma.translate(currItem->xPos(), currItem->yPos());
+										ma.rotate(currItem->rotation());
+										ma = ma.invert();
+										double nX = ma.m11() * newX + ma.m21() * newY + ma.dx();
+										nh = nX / currItem->OldB2 * currItem->OldH2;
+										mop = QPoint(m->x(), m->y());
 									}
 									else
 										mop = QPoint(m->x(), m->y());
@@ -3484,6 +3494,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 										nx -= currItem->xPos();
 										ny -= currItem->yPos();
 									}
+									if ((m->state() & ControlButton) || ((m->state() & ShiftButton)))
+										erf = SizeItem(nx, nh, currItem->ItemNr);
+									else
 									erf = SizeItem(nx, ny, currItem->ItemNr);
 								}
 								else
