@@ -53,7 +53,7 @@ Macro::Macro(QString newName, QString accel)
 {
 	assert(!PyErr_Occurred());
 
-	if ((newName == QString::null) or (newName == ""))
+	if ((newName == QString::null) || (newName == ""))
 		qDebug("Macro::Macro() called with NULL or '' name");
 
 	// set the macro name
@@ -344,7 +344,7 @@ PyObject* Macro::exceptionPyType()
 // Must not return with an exception set
 void Macro::setMacroName(QString newName)
 {
-	if ((newName == QString::null) or (newName == ""))
+	if ((newName == QString::null) || (newName == ""))
 	{
 		qDebug("Macro::setMacroName(): called with NULL or '' name");
 		return;

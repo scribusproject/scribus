@@ -159,7 +159,7 @@ void VlnaDialog::infoButton_pressed()
 
 void VlnaDialog::selectAction(int aAction)
 {
-	if (aAction!=0 and aAction!=1 and aAction!=2) {
+	if (aAction!=0 && aAction!=1 && aAction!=2) {
 			aAction = 0;
 	}
 	buttonGroup->setButton(aAction);
