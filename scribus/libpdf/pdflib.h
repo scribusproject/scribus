@@ -62,6 +62,7 @@ private:
 	QString IToStr(int c);
 	QString setStrokeMulti(struct singleLine *sl);
 	QString SetClipPath(PageItem *ite, bool poly = true);
+	QString putColor(QString farbe, int Shade, bool fill);
 	QString SetFarbe(QString farbe, int Shade);
 	QString setTextSt(PageItem *ite, uint PNr);
 	void PutDoc(QString in);
