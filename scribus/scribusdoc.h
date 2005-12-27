@@ -561,7 +561,7 @@ public: // Public attributes
 	QPtrList<PageItem> DocItems;
 	QPtrList<PageItem> FrameItems;
 	/**List of objects for alignment purposes*/
-	Selection* selection;
+	Selection * const selection;
   /** Pagewidth  */
 	double pageWidth;
   /** Pageheight */
