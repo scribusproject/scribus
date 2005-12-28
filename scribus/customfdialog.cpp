@@ -212,7 +212,7 @@ void FDialogPreview::GenPreview(QString name)
 				setText(Buffer.left(200));
 		}
 	}
-}	
+}
 
 void FDialogPreview::previewUrl( const QUrl &url )
 {
@@ -220,12 +220,14 @@ void FDialogPreview::previewUrl( const QUrl &url )
 		GenPreview(url.path());
 }
 
-CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString filter, 
-                             bool Pre, bool mod, bool comp, bool cod, bool dirOnly)
-                             : QFileDialog(QString::null, filter, pa, 0, true)
+CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption,
+							 QString filter, bool preview,
+							 bool existing, bool compress,
+							 bool codec, bool dirOnly)
+			: QFileDialog(QString::null, filter, parent, 0, true)
 {
  	setIcon(loadIcon("AppIcon.png"));
- 	setCaption(cap);
+ 	setCaption(caption);
 	cDir = QDir(wDir);
 	setDir(cDir);
 	setIconProvider(new ImIconProvider(this));
@@ -257,7 +259,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString fil
 		setContentsPreviewEnabled( true );
 		pw = new FDialogPreview( this );
 		setContentsPreview( pw, pw );
-		if (comp)
+		if (compress)
 		{
 			Layout = new QFrame(this);
 			Layout1 = new QHBoxLayout(Layout);
@@ -268,15 +270,15 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString fil
 			QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 			Layout1->addItem( spacer );
 		}
-		if (mod)
+		if (existing)
 			setMode(QFileDialog::ExistingFile);
 		else
 		{
 			setMode(QFileDialog::AnyFile);
-			if (comp)
+			if (compress)
 				addWidgets(0, Layout, 0);
 		}
-		if (cod)
+		if (codec)
 		{
 			LayoutC = new QFrame(this);
 			Layout1C = new QHBoxLayout(LayoutC);
@@ -286,10 +288,14 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString fil
 			TxCodeT->setText( tr("Encoding:"));
 			TxCodeM = new ScComboBox(true, LayoutC, "Cod");
 			TxCodeM->setEditable(false);
-			QString tmp_txc[] = {"ISO 8859-1", "ISO 8859-2", "ISO 8859-3", "ISO 8859-4", "ISO 8859-5", "ISO 8859-6",
-								"ISO 8859-7", "ISO 8859-8", "ISO 8859-9", "ISO 8859-10", "ISO 8859-13", "ISO 8859-14",
-								"ISO 8859-15", "utf8", "KOI8-R", "KOI8-U", "CP1250", "CP1251", "CP1252", "CP1253",
-								"CP1254", "CP1255", "CP1256", "CP1257", "Apple Roman"};
+			QString tmp_txc[] = {"ISO 8859-1", "ISO 8859-2", "ISO 8859-3",
+								"ISO 8859-4", "ISO 8859-5", "ISO 8859-6",
+								"ISO 8859-7", "ISO 8859-8", "ISO 8859-9",
+								"ISO 8859-10", "ISO 8859-13", "ISO 8859-14",
+								"ISO 8859-15", "utf8", "KOI8-R", "KOI8-U",
+								"CP1250", "CP1251", "CP1252", "CP1253",
+								"CP1254", "CP1255", "CP1256", "CP1257",
+								"Apple Roman"};
 			size_t array = sizeof(tmp_txc) / sizeof(*tmp_txc);
 			for (uint a = 0; a < array; ++a)
 				TxCodeM->insertItem(tmp_txc[a]);
@@ -315,16 +321,18 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString fil
 			Layout1C->addItem( spacer2 );
 			addWidgets(TxCodeT, LayoutC, 0);
 		}
-		setPreviewMode(Pre ? QFileDialog::Contents : QFileDialog::NoPreview );
+		setPreviewMode(preview ? QFileDialog::Contents : QFileDialog::NoPreview );
 		setViewMode( QFileDialog::List );
-		if (comp)
-			connect(SaveZip, SIGNAL(clicked()), this, SLOT(HandleComp()));
+		if (compress)
+			connect(SaveZip, SIGNAL(clicked()), this, SLOT(handleCompress()));
 	}
 	HomeB = new QToolButton(this);
 	HomeB->setIconSet(loadIcon("gohome.png"));
 	HomeB->setTextLabel( tr("Moves to your Document Directory.\nThis can be set in the Preferences."));
 	connect(HomeB, SIGNAL(clicked()), this, SLOT(slotHome()));
 	addToolButton(HomeB);
+	// default init
+	extZip = "gz";
 }
 
 CustomFDialog::~CustomFDialog()
@@ -338,33 +346,41 @@ void CustomFDialog::slotHome()
 	setDir(QDir(DocDir));
 }
 
-void CustomFDialog::HandleComp()
+void CustomFDialog::handleCompress()
 {
-	QString tmp;
-	tmp = selectedFile();
+	QFileInfo tmp;
+	tmp.setFile(selectedFile());
+	QString e(tmp.extension());
+
 	if (SaveZip->isChecked())
 	{
-		if (tmp.right(3) != ".gz")
-		{
-//			tmp = tmp + tmp.right(3) == "svg" ? "z" : ".gz";
-			if (tmp.right(3) == "svg")
-				tmp = tmp+"z";
-			else
-				tmp = tmp+".gz";
-		}
-		setSelection(tmp);
+		if (e != extZip)
+			tmp.setFile(tmp.baseName() + "." + extZip);
 	}
 	else
 	{
-		int en = tmp.findRev(".gz");
-		if (en > 0)
-			tmp.remove(en,3);
-		else
-		{
-			en = tmp.findRev("z");
-			if (en > 0)
-				tmp.remove(en,1);
-		}
+		if (e != ext)
+			tmp.setFile(tmp.baseName() + "." + ext);
 	}
-	setSelection(tmp);
+	setSelection(tmp.fileName());
+}
+
+void CustomFDialog::setExtension(QString e)
+{
+	ext = e;
+}
+
+QString CustomFDialog::extension()
+{
+	return ext;
+}
+
+void CustomFDialog::setZipExtension(QString e)
+{
+	extZip = e;
+}
+
+QString CustomFDialog::zipExtension()
+{
+	return extZip;
 }

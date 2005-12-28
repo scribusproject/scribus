@@ -33,6 +33,8 @@
 #include "prefscontext.h"
 #include "scmessagebox.h"
 #include "util.h"
+#include "customfdialog.h"
+
 
 int svgexplugin_getPluginAPIVersion()
 {
@@ -109,16 +111,24 @@ void SVGExportPlugin::deleteAboutData(const AboutData* about) const
 bool SVGExportPlugin::run(QString filename)
 {
 	Q_ASSERT(filename.isEmpty());
+	QString fileName;
+
 	if (ScMW->HaveDoc)
 	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("svgex");
 		QString wdir = prefs->get("wdir", ".");
-		QString defaultName = getFileNameByPage(ScMW->doc->currentPage->pageNr(), "svg");
 #ifdef HAVE_LIBZ
-		QString fileName = ScMW->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"), defaultName, false, false, true);
+		CustomFDialog *openDia = new CustomFDialog(ScMW, wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"), false, false, true, false, false);
 #else
-		QString fileName = ScMW->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"), defaultName, false, false);
+		CustomFDialog *openDia = new CustomFDialog(ScMW, wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"), false, false, false, false, false);
 #endif
+		openDia->setSelection(getFileNameByPage(ScMW->doc->currentPage->pageNr(), "svg"));
+		openDia->setExtension("svg");
+		openDia->setZipExtension("svgz");
+		if (openDia->exec())
+			fileName = openDia->selectedFile();
+		delete openDia;
+
 		if (!fileName.isEmpty())
 		{
 			prefs->set("wdir", fileName.left(fileName.findRev("/")));

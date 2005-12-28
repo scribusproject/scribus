@@ -502,7 +502,7 @@ void ScripterCore::SavePlugPrefs()
  */
 void ScripterCore::aboutScript()
 {
-	QString fname = ScMW->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py)"), "", 0, 0, 0, 0);
+	QString fname = ScMW->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py);;All Files (*)"), "", 0, 0, 0, 0);
 	if (fname == QString::null)
 		return;
 	QFileInfo fi = QFileInfo(fname);

@@ -5249,7 +5249,7 @@ void ScribusMainWindow::setAppMode(int mode)
 				view->RefreshItem(currItem);
 			}
 		}
-		int docSelectionCount=doc->selection->count();		
+		int docSelectionCount=doc->selection->count();
 		if (mode == modeDrawBezierLine)
 		{
 			if (docSelectionCount != 0)
@@ -7703,7 +7703,12 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 	QString retval = "";
 	CustomFDialog *dia = new CustomFDialog(this, wDir, caption, filter, Pre, mod, comp, cod, onlyDirs);
 	if (!defNa.isEmpty())
+	{
+		QFileInfo f(defNa);
+		dia->setExtension(f.extension(true));
+		dia->setZipExtension(f.extension(true) + ".gz");
 		dia->setSelection(defNa);
+	}
 	if (onlyDirs)
 	{
 		dia->SaveZip->setChecked(*docom);
