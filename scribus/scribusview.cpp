@@ -2689,7 +2689,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				{
 					double gx, gy, gh, gw;
 					getGroupRect(&gx, &gy, &gw, &gh);
-					adjustCanvas(FPoint(gx, gy), FPoint(gx+gw, gy+gh));
+					FPoint maxSize(gx+gw+Doc->ScratchRight, gy+gh+Doc->ScratchBottom);
+					FPoint minSize(gx-Doc->ScratchLeft, gy-Doc->ScratchTop);
+					adjustCanvas(minSize, maxSize);
 				}
 				setRedrawBounding(currItem);
 				currItem->OwnPage = Doc->OnPage(currItem);
@@ -4976,7 +4978,6 @@ FPoint ScribusView::ApplyGridF(const FPoint& in)
 	int onp = Doc->OnPage(in.x(), in.y());
 	if ((Doc->useRaster) && (onp != -1))
 	{
-
 		np.setX(qRound((in.x() - Doc->Pages->at(onp)->xOffset()) / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid + Doc->Pages->at(onp)->xOffset());
 		np.setY(qRound((in.y() - Doc->Pages->at(onp)->yOffset()) / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid + Doc->Pages->at(onp)->yOffset());
 	}
@@ -4989,7 +4990,9 @@ FPoint ScribusView::ApplyGridF(const FPoint& in)
 void ScribusView::setRedrawBounding(PageItem *currItem)
 {
 	currItem->setRedrawBounding();
-	adjustCanvas(FPoint(currItem->BoundingX, currItem->BoundingY), FPoint(currItem->BoundingX+currItem->BoundingW, currItem->BoundingY+currItem->BoundingH));
+	FPoint maxSize(currItem->BoundingX+currItem->BoundingW+Doc->ScratchRight, currItem->BoundingY+currItem->BoundingH+Doc->ScratchBottom);
+	FPoint minSize(currItem->BoundingX-Doc->ScratchLeft, currItem->BoundingY-Doc->ScratchTop);
+	adjustCanvas(minSize, maxSize);
 }
 
 //CB-->Doc
@@ -8318,8 +8321,18 @@ void ScribusView::reformPages(bool moveObjects)
 {
 	double maxXPos=0.0,maxYPos=0.0;
 	Doc->reformPages(maxXPos, maxYPos, moveObjects);
-	FPoint maxSize(maxXPos, maxYPos);
-	adjustCanvas(FPoint(0,0), maxSize);
+	if (!Doc->isLoading())
+	{
+		FPoint minPoint, maxPoint;
+		Doc->canvasMinMax(minPoint, maxPoint);
+		FPoint maxSize(QMAX(maxXPos, maxPoint.x()+Doc->ScratchRight), QMAX(maxYPos, maxPoint.y()+Doc->ScratchBottom));
+		adjustCanvas(FPoint(QMIN(0, minPoint.x()-Doc->ScratchLeft),QMIN(0, minPoint.y()-Doc->ScratchTop)), maxSize, true);
+	}
+	else
+	{
+		FPoint maxSize(maxXPos, maxYPos);
+		adjustCanvas(FPoint(0, 0), maxSize);
+	}
 	if (!ScMW->ScriptRunning)
 		setContentsPos(qRound((Doc->currentPage->xOffset()-10 - Doc->minCanvasCoordinate.x()) * Scale), qRound((Doc->currentPage->yOffset()-10 - Doc->minCanvasCoordinate.y()) * Scale));
 	if (!Doc->isLoading())
@@ -8329,12 +8342,23 @@ void ScribusView::reformPages(bool moveObjects)
 	}
 }
 
-void ScribusView::adjustCanvas(FPoint minPos, FPoint maxPos)
+void ScribusView::adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute)
 {
-	double newMaxX = QMAX(Doc->maxCanvasCoordinate.x(), maxPos.x());
-	double newMaxY = QMAX(Doc->maxCanvasCoordinate.y(), maxPos.y());
-	double newMinX = QMIN(Doc->minCanvasCoordinate.x(), minPos.x());
-	double newMinY = QMIN(Doc->minCanvasCoordinate.y(), minPos.y());
+	double newMaxX, newMaxY, newMinX, newMinY;
+	if (absolute)
+	{
+		newMaxX = maxPos.x();
+		newMaxY = maxPos.y();
+		newMinX = minPos.x();
+		newMinY = minPos.y();
+	}
+	else
+	{
+		newMaxX = QMAX(Doc->maxCanvasCoordinate.x(), maxPos.x());
+		newMaxY = QMAX(Doc->maxCanvasCoordinate.y(), maxPos.y());
+		newMinX = QMIN(Doc->minCanvasCoordinate.x(), minPos.x());
+		newMinY = QMIN(Doc->minCanvasCoordinate.y(), minPos.y());
+	}
 	if ((newMaxX != Doc->maxCanvasCoordinate.x()) || (newMaxY != Doc->maxCanvasCoordinate.y())
 	  || (newMinX != Doc->minCanvasCoordinate.x()) || (newMinY != Doc->minCanvasCoordinate.y()))
 	{
@@ -8394,6 +8418,7 @@ void ScribusView::slotZoom100()
 	int h = qRound(QMIN(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
 	rememberPreviousSettings(w / 2 + x,h / 2 + y);
 	setScale(Prefs->DisScale);
+	reformPages(false);
 	slotDoZoom();
 }
 

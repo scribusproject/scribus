@@ -263,7 +263,7 @@ public:
 	double getScale() const { return Scale; }
 
 
-	void adjustCanvas(FPoint minPos, FPoint maxPos);
+	void adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute = false);
 
 public slots: // Public slots
 	void languageChange();
