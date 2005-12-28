@@ -72,8 +72,10 @@ AM_CPPFLAGS = \
     -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \
     -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
     -DLIBDIR=\"$(libdir)/scribus/\" \
-    -DPLUGINDIR=\"$(libdir)/scribus/plugins/\" \
-    $(GCC4_VISIBILITY_FLAGS)
+    -DPLUGINDIR=\"$(libdir)/scribus/plugins/\"
+
+AM_CXXFLAGS = \
+    $(GCC_CXX_VISIBILITY_FLAGS)
 
 # even though we don't use Boost::Python in the plain scripter, we need to
 # enable support for it if we've found it, since cmdvar pulls in the boost

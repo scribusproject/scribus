@@ -21,6 +21,18 @@
  *
  * bool SCRIBUS_API doThatThing(void);
  *
+ * For an exception type that may be thrown across a DSO boundary, you must
+ * use:
+ *
+ * class SCEXCEPTIONAPI(SCRIBUS_API) MyException
+ * {
+ *     ...
+ * };
+ *
+ * For information on the gcc visibility support see:
+ *	http://gcc.gnu.org/wiki/Visibility
+ *	http://people.redhat.com/drepper/dsohowto.pdf
+ *
  */
 
 #ifdef _WIN32
@@ -45,6 +57,15 @@
         #define SCRIBUS_API
         #define SCRIBUS_LOCAL
     #endif
+#endif
+
+/* Throwable classes must always be visible on GCC in all binaries */
+#ifdef WIN32
+  #define SCEXCEPTIONAPI(api) api
+#elif defined(HAVE_GCC_SYMBOL_VISIBILITY)
+  #define SCEXCEPTIONAPI(api) SCRIBUS_API
+#else
+  #define SCEXCEPTIONAPI(api)
 #endif
 
 #endif

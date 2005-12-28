@@ -10,4 +10,4 @@ INCLUDES = $(all_includes)
 
 libpixbuf_la_METASOURCES=AUTO
 AM_LDFLAGS = 
-AM_CFLAGS= -I$(top_builddir)/scribus -I$(top_srcdir)/scribus
+AM_CFLAGS= -I$(top_builddir)/scribus -I$(top_srcdir)/scribus $(GCC_C_VISIBILITY_FLAGS)

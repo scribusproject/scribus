@@ -10,4 +10,4 @@ INCLUDES = $(LIBART_CFLAGS) $(all_includes)
 
 libart_la_METASOURCES=AUTO
 AM_LDFLAGS = $(LIBART_LIBS)
-AM_CFLAGS= -I$(top_builddir)/scribus -I$(top_srcdir)/scribus
+AM_CFLAGS= -I$(top_builddir)/scribus -I$(top_srcdir)/scribus $(GCC_C_VISIBILITY_FLAGS)

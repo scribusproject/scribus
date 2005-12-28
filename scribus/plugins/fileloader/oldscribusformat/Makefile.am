@@ -15,5 +15,7 @@ KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS)
 
 AM_CPPFLAGS = \
-    -I$(top_builddir)/scribus \
-    $(GCC4_VISIBILITY_FLAGS)
+    -I$(top_builddir)/scribus
+
+AM_CXXFLAGS = \
+    $(GCC_CXX_VISIBILITY_FLAGS)

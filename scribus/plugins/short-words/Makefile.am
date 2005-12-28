@@ -23,8 +23,10 @@ AM_CPPFLAGS = \
     -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
     -DLIBDIR=\"$(libdir)/scribus/\" \
     -DPLUGINDIR=\"$(libdir)/scribus/plugins/\" \
-    -DPLUGINDATA=\"$(datadir)/scribus/plugins/\" \
-    $(GCC4_VISIBILITY_FLAGS)
+    -DPLUGINDATA=\"$(datadir)/scribus/plugins/\"
+
+AM_CXXFLAGS = \
+    $(GCC_CXX_VISIBILITY_FLAGS)
 
 install-data-local:
 	$(mkinstalldirs) $(datadir)/scribus/plugins/
