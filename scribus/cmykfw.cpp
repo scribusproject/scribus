@@ -342,6 +342,8 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	BlackSL->setValue(qRound(ckd));
 	BlackComp = ck;
 	Frame4Layout->addLayout( Layout2x );
+	QSpacerItem* spacer2 = new QSpacerItem( 2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	Frame4Layout->addItem( spacer2 );
 	CMYKFarbenLayout->addWidget( Frame4 );
 	int h, s, v;
 	orig.getRGBColor().hsv(&h, &s, &v);
@@ -351,6 +353,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	Farbname->selectAll();
 	Farbname->setFocus();
 	TabStack->raiseWidget(0);
+	setFixedSize(minimumSizeHint());
 	// signals and slots connections
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( Cancel_2, SIGNAL( clicked() ), this, SLOT( Verlassen() ) );
@@ -372,6 +375,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	connect(ColorSwatch, SIGNAL(highlighted(int)), this, SLOT(SelFromSwatch(int)));
 	connect(Separations, SIGNAL(clicked()), this, SLOT(setSpot()));
 	connect(Regist, SIGNAL(clicked()), this, SLOT(setRegist()));
+	layout()->activate();
 	if (!CMYKmode)
 		SelModel ( tr( "RGB" ));
 }
@@ -692,6 +696,10 @@ void CMYKChoose::SelModel(const QString& mod)
 		MagentaP->setPixmap(SliderPix(300));
 		YellowP->setPixmap(SliderPix(60));
 		BlackP->setPixmap(SliderBlack());
+/*		BlackP->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+		BlackSL->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+		BlackSp->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+		BlackT->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum)); */
 		BlackP->show();
 		BlackSL->show();
 		BlackSp->show();
@@ -732,6 +740,10 @@ void CMYKChoose::SelModel(const QString& mod)
 		MagentaP->setPixmap(SliderPix(120));
 		YellowP->setPixmap(SliderPix(240));
 		Layout2x->setResizeMode(QLayout::Fixed);
+/*		BlackP->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		BlackSL->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		BlackSp->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		BlackT->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored)); */
 		BlackP->hide();
 		BlackSL->hide();
 		BlackSp->hide();
