@@ -2452,6 +2452,10 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 			}
 		}
 	}
+	if ( ev->type() == QEvent::Clipboard )
+	{
+		emenu->setItemEnabled(Mpaste, 1);
+	}
 	return QMainWindow::eventFilter(ob, ev);
 }
 

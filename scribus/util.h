@@ -62,6 +62,8 @@ int SCRIBUS_API System(const QStringList & args);
 int SCRIBUS_API callGS(const QStringList& args_in, const QString device="");
 int SCRIBUS_API callGS(const QString& args_in, const QString device="");
 int SCRIBUS_API convertPS2PS(QString in, QString out, const QString& opts, int level);
+int SCRIBUS_API testGSAvailability( void );
+int SCRIBUS_API testGSDeviceAvailability( QString device );
 // Return gs version. If gs couldn't be found or there was a problem parsing output, return false
 // (in which case minor and major have undefined values).
 QString SCRIBUS_API getGSVersion();
