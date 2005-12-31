@@ -2236,7 +2236,7 @@ void StoryEditor::buildGUI()
 	EditorBar->setFrameStyle(Editor->frameStyle());
 	EditorBar->setLineWidth(Editor->lineWidth());
 	EditorBar->editor = Editor;
-
+	Editor->installEventFilter(this);
 	languageChange();
 }
 
@@ -2451,10 +2451,6 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 				connectSignals();
 			}
 		}
-	}
-	if ( ev->type() == QEvent::Clipboard )
-	{
-		emenu->setItemEnabled(Mpaste, 1);
 	}
 	return QMainWindow::eventFilter(ob, ev);
 }

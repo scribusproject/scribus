@@ -135,57 +135,129 @@ QImage ProofImage(QImage *Image)
 #endif
 }
 
-/******************************************************************
- * Function System()
- *
- * Create a new process via QProcess and wait until finished.
- * return the process exit code.
- *
- ******************************************************************/
-
-int System(const QStringList & args)
+ /**
+  * @brief Synchronously execute a new process, optionally saving its output
+  *
+  * Create a new process via QProcess and wait until finished.  Return the
+  * process exit code. Exit code 1 is returned if the process could not be
+  * started or terminated abnormally.
+  *
+  * Note that the argument list is handled exactly as documented by QProcess.
+  * In particular, no shell metacharacter expansion is performed (so you can't
+  * use $HOME for example, and no quoting is required or appropriate), and each
+  * list entry is one argument.
+  *
+  * If output file paths are provided, any existing file will be truncated and
+  * overwritten.
+  *
+  * @param args Arguments, as per QProcess documentation.
+  * @param fileStdErr Path to save error output to, or "" to discard.
+  * @param fileStdOut Path to save normal output to, or "" to discard.
+  * @return Program exit code, or 1 on failure.
+  *
+  */
+int System(const QStringList & args, const QString fileStdErr, const QString fileStdOut)
 {
-	QProcess *proc = new QProcess(NULL);
-	proc->setArguments(args);
-	if ( !proc->start() )
+	QByteArray stdErrData;
+	QByteArray stdOutData;
+	QProcess proc(0);
+	proc.setArguments(args);
+	if ( !proc.start() )
 	{
-		delete proc;
 		return 1;
 	}
 	/* start was OK */
 	/* wait a little bit */
-	while( proc->isRunning() )
+	while( proc.isRunning() )
+	{
 #ifndef _WIN32
 		usleep(5000);
 #else
 		Sleep(5);
 #endif
+	}
+	// TODO: What about proc.normalExit() ?
+	int ex = proc.exitStatus();
 
-	int ex = proc->exitStatus();
-	delete proc;
+	if ( !fileStdErr.isEmpty() )
+	{
+		stdErrData = proc.readStderr();
+		QFile ferr(fileStdErr);
+		if ( ferr.open(IO_WriteOnly) )
+		{
+			ferr.writeBlock( stdErrData );
+			ferr.close();
+		}
+	}
+
+	if ( !fileStdOut.isEmpty() )
+	{
+		stdOutData = proc.readStdout();
+		QFile fout(fileStdOut);
+		if ( fout.open(IO_WriteOnly) )
+		{
+			fout.writeBlock( stdOutData );
+			fout.close();
+		}
+	}
 	return ex;
 }
 
 /**
- * @brief Return common gs args used across Scribus
- */
-
-/******************************************************************
- * Function callGS()
- *   build the complete list of arguments for the call of our
- *   System() function.
+ * @brief Call GhostScript synchronously and store output
  *
- *   The gs commands are all similar and consist of a few constant
- *   arguments, the variablke arguments and the end arguments which
- *   are also invariant. It will always use -q -dNOPAUSE and
- *   will always end with -c showpage -c quit. It also does automatic
- *   device selection unless overridden, and uses the user's antialiasing
- *   preferences and font search path.
- ******************************************************************/
-
+ * The gs commands are all similar and consist of a few constant
+ * arguments, the variable arguments and the end arguments which
+ * are also invariant. It will always use -q -dNOPAUSE and
+ * will always end with -c showpage -c quit. It also does automatic
+ * device selection unless overridden, and uses the user's antialiasing
+ * preferences and font search path.
+ *
+ * Shell metacharacters are not expanded - that includes quotes.
+ * @sa System .
+ *
+ * @param args_in Custom arguments to GhostScript
+ * @param device GS device to use (defaults to an image device if omitted)
+ */
 int callGS(const QStringList& args_in, const QString device)
 {
-	return callGS(args_in.join(" "), device);
+	QString cmd;
+	QStringList args;
+	PrefsManager* prefsManager = PrefsManager::instance();
+	args.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
+	args.append( "-q" );
+	args.append( "-dNOPAUSE" );
+	args.append( "-dQUIET" );
+	args.append( "-dPARANOIDSAFER" );
+	args.append( "-dBATCH" );
+	// Choose rendering device
+	if (!device.isEmpty())
+		args.append( QString("-sDEVICE=%1").arg(device) ); // user specified device
+	else if (ScMW->HavePngAlpha != 0)
+		args.append( "-sDEVICE=png16m" );
+	else
+		args.append( "-sDEVICE=pngalpha" );
+	// and antialiasing
+	if (prefsManager->appPrefs.gs_AntiAliasText)
+		args.append( "-dTextAlphaBits=4" );
+	if (prefsManager->appPrefs.gs_AntiAliasGraphics)
+		args.append( "-dGraphicsAlphaBits=4" );
+
+	// Add any extra font paths being used by Scribus to gs's font search path
+	PrefsContext *pc = PrefsManager::instance()->prefsFile->getContext("Fonts");
+	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
+	const char sep = ScPaths::envPathSeparator;
+	if (extraFonts->getRowCount() >= 1)
+		cmd = QString("-sFONTPATH=%1").arg(extraFonts->get(0,0));
+	for (int i = 1; i < extraFonts->getRowCount(); ++i)
+		cmd += QString("%1%2").arg(sep).arg(extraFonts->get(i,0));
+	if( !cmd.isEmpty() )
+		args.append( cmd );
+
+	args += args_in;
+	args.append("-c");
+	args.append("showpage");
+	return System( args );
 }
 
 int callGS(const QString& args_in, const QString device)
@@ -227,19 +299,24 @@ int callGS(const QString& args_in, const QString device)
 //	qDebug("Calling gs as: %s", cmd1.ascii());
 	return system(cmd1.local8Bit());
 }
- 
-int  convertPS2PS(QString in, QString out, const QString& opts, int level)
+
+int  convertPS2PS(QString in, QString out, const QStringList& opts, int level)
 {
 	PrefsManager* prefsManager=PrefsManager::instance();
-	QString cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
-	cmd1 += " -q -dQUIET -dNOPAUSE -dPARANOIDSAFER -dBATCH";
-	cmd1 += " -sDEVICE=pswrite";
+	QStringList args;
+	args.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
+	args.append( "-q" );
+	args.append( "-dQUIET" );
+	args.append( "-dNOPAUSE" );
+	args.append( "-dPARANOIDSAFER" );
+	args.append( "-dBATCH" );
+	args.append( "-sDEVICE=pswrite" );
 	if(level <= 3)
-		cmd1 += QString(" -dLanguageLevel=%1").arg(level);
-	cmd1 += " " + opts + " ";
-	cmd1 += " -sOutputFile=\"" + QDir::convertSeparators(out) + "\"";
-	cmd1 += " \"" + QDir::convertSeparators(in) + "\"";
-	int ret = system(cmd1.local8Bit());
+		args.append( QString("-dLanguageLevel=%1").arg(level) );
+	args += opts;
+	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(out)) );
+	args.append( QDir::convertSeparators(in) );
+	int ret = System( args );
 	return ret;
 }
 
@@ -289,10 +366,10 @@ QString getGSVersion()
 	QString gsExe = getShortPathName(PrefsManager::instance()->ghostscriptExecutable());
 	args.append(gsExe.local8Bit());
 	args.append(QString("--version").local8Bit());
-	QProcess* proc = new QProcess(args);
-	proc->setCommunication(QProcess::Stdout);
-	proc->start();
-	while(proc->isRunning())
+	QProcess proc(args);
+	proc.setCommunication(QProcess::Stdout);
+	proc.start();
+	while(proc.isRunning())
 	{
 #ifndef _WIN32
 		usleep(5000);
@@ -301,9 +378,8 @@ QString getGSVersion()
 #endif
 		qApp->processEvents();
 	}
-	if(!proc->exitStatus())
-		gsVer = proc->readLineStdout();
-	delete proc;
+	if(!proc.exitStatus())
+		gsVer = proc.readLineStdout();
 	return gsVer;
 }
 

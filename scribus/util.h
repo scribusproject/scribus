@@ -58,10 +58,10 @@ bool SCRIBUS_API loadText(QString nam, QString *Buffer);
 bool SCRIBUS_API loadRawText(const QString & filename, QCString & buf);
 QString SCRIBUS_API GetAttr(QDomElement *el, QString at, QString def="0");
 QImage SCRIBUS_API ProofImage(QImage *Im);
-int SCRIBUS_API System(const QStringList & args);
+int SCRIBUS_API System(const QStringList & args, const QString fileStdErr = "", const QString fileStdOut = "");
 int SCRIBUS_API callGS(const QStringList& args_in, const QString device="");
 int SCRIBUS_API callGS(const QString& args_in, const QString device="");
-int SCRIBUS_API convertPS2PS(QString in, QString out, const QString& opts, int level);
+int SCRIBUS_API convertPS2PS(QString in, QString out, const QStringList& opts, int level);
 int SCRIBUS_API testGSAvailability( void );
 int SCRIBUS_API testGSDeviceAvailability( QString device );
 // Return gs version. If gs couldn't be found or there was a problem parsing output, return false

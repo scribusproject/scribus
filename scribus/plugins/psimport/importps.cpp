@@ -237,7 +237,8 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
  */
 bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 {
-	QString cmd1, cmd2, cmd3, tmp, tmp2, tmp3, tmp4;
+	QStringList args;
+	QString cmd, cmd1, cmd2, cmd3, tmp, tmp2, tmp3, tmp4;
 	// import.prolog do not cope with filenames containing blank spaces
 	// so take care that output filename does not (win32 compatibility)
 	QString tmpFile = getShortPathName(ScMW->PrefsPfad)+ "/ps.out";
@@ -245,35 +246,43 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString pfad2 = QDir::convertSeparators(pfad + "import.prolog");
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
-	cmd1 = getShortPathName(PrefsManager::instance()->ghostscriptExecutable());
-	cmd1 += " -q -dNOPAUSE -dNODISPLAY -dBATCH ";
+	args.append( getShortPathName(PrefsManager::instance()->ghostscriptExecutable()) );
+	args.append( "-q" );
+	args.append( "-dNOPAUSE" );
+	args.append( "-dNODISPLAY" );
+	args.append( "-dBATCH" );
 	// Add any extra font paths being used by Scribus to gs's font search
 	// path We have to use Scribus's prefs context, not a plugin context, to
 	// get to the required information.
 	PrefsContext *pc = PrefsManager::instance()->prefsFile->getContext("Fonts");
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
-#ifndef _WIN32
+	const char sep = ScPaths::envPathSeparator;
 	if (extraFonts->getRowCount() >= 1)
-		cmd1 += QString(" -sFONTPATH='%1'").arg(extraFonts->get(0,0));
+		cmd = QString("-sFONTPATH=%1").arg(extraFonts->get(0,0));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd1 += QString(":'%1'").arg(extraFonts->get(i,0));
-#else
-	if (extraFonts->getRowCount() >= 1)
-		cmd1 += QString(" -sFONTPATH=\"%1\"").arg(extraFonts->get(0,0));
-	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd1 += QString(";\"%1\"").arg(extraFonts->get(i,0));
-#endif
+		cmd += QString("%1%2").arg(sep).arg(extraFonts->get(i,0));
+	if( !cmd.isEmpty() )
+		args.append( cmd );
 	// then finish building the command and call gs
-	cmd1 += " -g"+tmp2.setNum(qRound(b-x))+"x"+tmp3.setNum(qRound(h-y))+" -c "+tmp4.setNum(-x)+" "+tmp.setNum(-y)+" translate";
-	cmd1 += " -sOutputFile=\"" + QDir::convertSeparators(tmpFile) + "\"";
-	cmd1 += " \"" + pfad2 + "\"";
-	cmd2 = " \"" + QDir::convertSeparators(fn) + "\"";
-	cmd3 = " -c flush cfile closefile quit";
-	QCString finalCmd = QString(cmd1 + cmd2 + cmd3).local8Bit();
-	bool ret = system(finalCmd);
+	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b-x))).arg(tmp3.setNum(qRound(h-y))) );
+	args.append( "-c" );
+	args.append( tmp.setNum(-x) );
+	args.append( tmp.setNum(-y) );
+	args.append( "translate" );
+	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(tmpFile)) );
+	args.append( pfad2 );
+	args.append( QDir::convertSeparators(fn) );
+	args.append( "-c" );
+	args.append( "flush" );
+	args.append( "cfile" );
+	args.append( "closefile" );
+	args.append( "quit" );
+	QCString finalCmd = args.join(" ").local8Bit();
+	int ret = System(args);
 	if (ret != 0)
 	{
 		qDebug("PostScript import failed when calling gs as: \n%s\n", finalCmd.data());
+		qDebug("Error code: %i", ret);
 		QString mess = tr("Importing File:\n%1\nfailed!").arg(fn);
 		QMessageBox::critical(0, tr("Fatal Error"), mess, 1, 0, 0);
 		return false;

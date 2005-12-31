@@ -237,9 +237,9 @@ int ScribusMainWindow::initScribus(bool showSplash, bool showFontInfo, const QSt
 	objectSpecificUndo = false;
 	pluginManager = new PluginManager();
 	tocGenerator = new TOCGenerator();
-	initDefaultValues();
-
 	actionManager = new ActionManager(this, "actionManager");
+	
+	initDefaultValues();
 	initMenuBar();
 	initStatusBar();
 	initToolBars();
@@ -286,15 +286,9 @@ int ScribusMainWindow::initScribus(bool showSplash, bool showFontInfo, const QSt
 		setSplashStatus( tr("Initializing Story Editor") );
 		storyEditor = new StoryEditor(this);
 
-#ifndef _WIN32
-		HaveGS = system(prefsManager->ghostscriptExecutable()+" -h > /dev/null 2>&1");
-		HavePngAlpha = system(prefsManager->ghostscriptExecutable()+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
-		HaveTiffSep = system(prefsManager->ghostscriptExecutable()+" -sDEVICE=tiffsep -c quit > /dev/null 2>&1");
-#else
-		HaveGS = system(getShortPathName(prefsManager->ghostscriptExecutable())+" -h >NUL");
-		HavePngAlpha = system(getShortPathName(prefsManager->ghostscriptExecutable())+" -sDEVICE=pngalpha -c quit >NUL");
-		HaveTiffSep = system(getShortPathName(prefsManager->ghostscriptExecutable())+" -sDEVICE=tiffsep -c quit >NUL");
-#endif
+		HaveGS = testGSAvailability();
+		HavePngAlpha = testGSDeviceAvailability("pngalpha");
+		HaveTiffSep = testGSDeviceAvailability("tiffsep");
 		DocDir = prefsManager->documentDir();
 
 		setSplashStatus( tr("Reading ICC Profiles") );
@@ -452,6 +446,7 @@ void ScribusMainWindow::initDefaultValues()
 	GuidesStat[0] = false;
 
 	connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
+	connect(ClipB, SIGNAL(selectionChanged()), this, SLOT(ClipChange()));
 }
 
 void ScribusMainWindow::initKeyboardShortcuts()
@@ -3997,16 +3992,11 @@ bool ScribusMainWindow::doPrint(PrintOptions *options)
 			{
 				// use gs to convert our PS to a lower version
 				QString tmp;
-				QString opts = "-dDEVICEWIDTHPOINTS=";
-				opts += tmp.setNum(doc->pageWidth);
-				opts += " -dDEVICEHEIGHTPOINTS=";
-				opts += tmp.setNum(doc->pageHeight);
+				QStringList opts;
+				opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(doc->pageWidth)) );
+				opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(doc->pageHeight)) );
 				convertPS2PS(filename, filename + ".tmp", opts, options->PSLevel);
-			#ifndef _WIN32
-				system("mv \""+filename+".tmp\" \""+filename+"\"");
-			#else
-				system("move /y \""+filename+".tmp\" \""+filename+"\"");
-			#endif
+				moveFile( filename + ".tmp", filename );
 			}
 			if (!options->toFile)
 			{

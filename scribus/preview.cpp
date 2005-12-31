@@ -35,6 +35,7 @@
 #include "sccolor.h"
 #include "scribusview.h"
 #include "scribusdoc.h"
+#include "scpaths.h"
 #include "pageselector.h"
 
 extern bool printDinUse;
@@ -421,7 +422,7 @@ void PPreview::scaleBox_valueChanged(int value)
  */
 int PPreview::RenderPreview(int Seite, int Res)
 {
-	bool ret = -1;
+	int ret = -1;
 	QString cmd1, cmd2, cmd3;
 	QMap<QString,int> ReallyUsed;
 	// Recreate Postscript-File only when the actual Page has changed
@@ -442,60 +443,66 @@ int PPreview::RenderPreview(int Seite, int Res)
 		else
 			return ret;
 	}
+	QStringList args;
 	QString tmp, tmp2, tmp3;
 	double b = doc->Pages->at(Seite)->width() * Res / 72.0;
 	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
-	cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
-	cmd1 += " -q -dNOPAUSE -dPARANOIDSAFER -r"+tmp.setNum(qRound(Res))+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
+	args.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
+	args.append( "-q" );
+	args.append( "-dNOPAUSE" );
+	args.append( "-dPARANOIDSAFER" );
+	args.append( QString("-r%1").arg(tmp.setNum(qRound(Res))) );
+	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b))).arg(tmp3.setNum(qRound(h))) );
 	if (EnableCMYK->isChecked())
 	{
 		if (HaveTiffSep == 0)
-			cmd1 += " -sDEVICE=tiffsep";
+			args.append( "-sDEVICE=tiffsep" );
 		else
-			cmd1 += " -sDEVICE=bitcmyk -dGrayValues=256";
+		{
+			args.append( "-sDEVICE=bitcmyk" );
+			args.append( "-dGrayValues=256" ); 
+		}
 	}
 	else
 	{
 		if ((!AliasTr->isChecked()) || (HavePngAlpha != 0))
-			cmd1 += " -sDEVICE=png16m";
+			args.append( "-sDEVICE=png16m" );
 		else
-			cmd1 += " -sDEVICE=pngalpha";
+			args.append( "-sDEVICE=pngalpha" );
 	}
 	if (AliasText->isChecked())
-		cmd1 += " -dTextAlphaBits=4";
+		args.append( "-dTextAlphaBits=4" );
 	if (AliasGr->isChecked())
-		cmd1 += " -dGraphicsAlphaBits=4";
+		args.append( "-dGraphicsAlphaBits=4" );
 	// Add any extra font paths being used by Scribus to gs's font search path
 	PrefsContext *pc = prefsManager->prefsFile->getContext("Fonts");
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
-#ifndef _WIN32
+	const char sep = ScPaths::envPathSeparator;
 	if (extraFonts->getRowCount() >= 1)
-		cmd1 += QString(" -sFONTPATH='%1'").arg(extraFonts->get(0,0));
+		cmd1 = QString("-sFONTPATH=%1").arg(extraFonts->get(0,0));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd1 += QString(":'%1'").arg(extraFonts->get(i,0));
-#else
-	if (extraFonts->getRowCount() >= 1)
-		cmd1 += QString(" -sFONTPATH=\"%1\"").arg(extraFonts->get(0,0));
-	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd1 += QString(";\"%1\"").arg(extraFonts->get(i,0));
-#endif
+		cmd1 += QString("%1%2").arg(sep).arg(extraFonts->get(i,0));
+	if( !cmd1.isEmpty() )
+		args.append( cmd1 );
 	// then add any final args and call gs
 	if ((EnableCMYK->isChecked()) && (HaveTiffSep == 0))
-	{
-		cmd1 += " -sOutputFile=\"" + QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.tif") + "\" ";
-	}
+		args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.tif")) );
 	else
-		cmd1 += " -sOutputFile=\"" + QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.png") + "\" ";
-	cmd2 = "\"" + QDir::convertSeparators(prefsManager->preferencesLocation()+"/tmp.ps") + "\"";
-	cmd3 = " -c showpage -c quit";
-	ret = system(cmd1 + cmd2 + cmd3);
+		args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.png")) );
+	args.append( QDir::convertSeparators(prefsManager->preferencesLocation()+"/tmp.ps") );
+	args.append( "-c" );
+	args.append( "showpage" );
+	args.append( "-c" );
+	args.append( "quit" );
+	ret = System( args );
 	return ret;
 }
 
 int PPreview::RenderPreviewSep(int Seite, int Res)
 {
-	bool ret = -1;
-	QString cmd1, cmd2, cmd3;
+	int ret = -1;
+	QString cmd;
+	QStringList args, args1, args2, args3;
 	QMap<QString,int> ReallyUsed;
 	// Recreate Postscript-File only when the actual Page has changed
 	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode))
@@ -518,42 +525,52 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	QString tmp, tmp2, tmp3;
 	double b = doc->Pages->at(Seite)->width() * Res / 72.0;
 	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
-	cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
-	cmd1 += " -q -dNOPAUSE -dPARANOIDSAFER -r"+tmp.setNum(qRound(Res))+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
+
+	args1.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
+	args1.append( "-q" );
+	args1.append( "-dNOPAUSE" );
+	args1.append( "-dPARANOIDSAFER" );
+	args1.append( QString("-r%1").arg(tmp.setNum(qRound(Res))) );
+	args1.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b))).arg(tmp3.setNum(qRound(h))) ); 
 	if (AliasText->isChecked())
-		cmd1 += " -dTextAlphaBits=4";
+		args1.append("-dTextAlphaBits=4");
 	if (AliasGr->isChecked())
-		cmd1 += " -dGraphicsAlphaBits=4";
+		args1.append("-dGraphicsAlphaBits=4");
 	// Add any extra font paths being used by Scribus to gs's font search path
 	PrefsContext *pc = prefsManager->prefsFile->getContext("Fonts");
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
-#ifndef _WIN32
+	const char sep = ScPaths::envPathSeparator;
 	if (extraFonts->getRowCount() >= 1)
-		cmd1 += QString(" -sFONTPATH='%1'").arg(extraFonts->get(0,0));
+		cmd = QString("-sFONTPATH=%1").arg(extraFonts->get(0,0));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd1 += QString(":'%1'").arg(extraFonts->get(i,0));
-#else
-	if (extraFonts->getRowCount() >= 1)
-		cmd1 += QString(" -sFONTPATH=\"%1\"").arg(extraFonts->get(0,0));
-	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd1 += QString(";\"%1\"").arg(extraFonts->get(i,0));
-#endif
-	cmd1 += " -sOutputFile=\"" + QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.tif") + "\" ";
-	cmd2 = "\"" + QDir::convertSeparators(prefsManager->preferencesLocation()+"/tmp.ps") + "\"";
-	cmd2 += " 2>\"" + QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.tif.txt") + "\"";
-	cmd2 += " -c quit";
+		cmd += QString("%1%2").arg(sep).arg(extraFonts->get(i,0));
+	if( !cmd.isEmpty() )
+		args1.append( cmd );
+	args1.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.tif")) );
+
+	args2.append( QDir::convertSeparators(prefsManager->preferencesLocation()+"/tmp.ps") );
+	args2.append("-c");
+	args2.append("quit");
+
 	ColorList usedSpots;
 	doc->getUsedColors(usedSpots, true);
 	QStringList spots = usedSpots.keys();
-	cmd3 = " -sDEVICE=tiffsep -c \"<< /SeparationColorNames ";
+	args3.append( "-sDEVICE=tiffsep" );
+
+	args3.append( "-c" );
+	cmd = "<< /SeparationColorNames ";
 	QString allSeps ="[ /Cyan /Magenta /Yellow /Black ";
 	for (uint sp = 0; sp < spots.count(); ++sp)
 	{
 		allSeps += "("+spots[sp]+") ";
 	}
 	allSeps += "]";
-	cmd3 += allSeps + " /SeparationOrder [ /Cyan /Magenta /Yellow /Black] >> setpagedevice\" -f ";
-	ret = system(cmd1 + cmd3 + cmd2);
+	cmd += allSeps + " /SeparationOrder [ /Cyan /Magenta /Yellow /Black] >> setpagedevice";
+	args3.append(cmd);
+
+	args3.append("-f");
+	ret = System(args1 + args3 + args2, prefsManager->preferencesLocation()+"/sc.tif.txt" );
+
 	QFile sepInfo(QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.tif.txt"));
 	sepsToFileNum.clear();
 	if (sepInfo.open(IO_ReadOnly))
@@ -578,16 +595,24 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		spc++;
 		if (sp > 6)
 		{
-			cmd3 = " -sDEVICE=tiffsep -c \"<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice\" -f ";
-			ret = system(cmd1 + cmd3 + cmd2);
+			args3.clear();
+			args3.append("-sDEVICE=tiffsep");
+			args3.append("-c");
+			args3.append("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
+			args3.append("-f");
+			ret = System(args1 + args3 + args2);
 			currSeps = "";
 			spc = 0;
 		}
 	}
 	if (spc != 0)
 	{
-		cmd3 = " -sDEVICE=tiffsep -c \"<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice\" -f ";
-		ret = system(cmd1 + cmd3 + cmd2);
+		args3.clear();
+		args3.append("-sDEVICE=tiffsep");
+		args3.append("-c");
+		args3.append("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
+		args3.append("-f");
+		ret = System(args1 + args3 + args2);
 	}
 	return ret;
 }

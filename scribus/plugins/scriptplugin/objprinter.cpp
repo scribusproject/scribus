@@ -7,6 +7,7 @@
 #include <qdir.h>
 #include <vector>
 #include "pslib.h"
+#include "util.h"
 
 #ifdef HAVE_CUPS
 #include <cups/cups.h>
@@ -462,19 +463,11 @@ static PyObject *Printer_print(Printer *self)
 			if (PSLevel != 3)
 			{
 				QString tmp;
-				QString opts = "-dDEVICEWIDTHPOINTS=";
-				opts += tmp.setNum(ScMW->doc->pageWidth);
-				opts += " -dDEVICEHEIGHTPOINTS=";
-				opts += tmp.setNum(ScMW->doc->pageHeight);
-				if (PSLevel == 1)
-					system("ps2ps -dLanguageLevel=1 "+opts+" \""+fna+"\" \""+fna+".tmp\"");
-				else
-					system("ps2ps "+opts+" \""+fna+"\" \""+fna+".tmp\"");
-			#ifndef _WIN32
-				system("mv \""+fna+".tmp\" \""+fna+"\"");
-			#else
-				system("move /y \""+fna+".tmp\" \""+fna+"\"");
-			#endif
+				QStringList opts;
+				opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(ScMW->doc->pageWidth)) );
+				opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(ScMW->doc->pageHeight)) );
+				convertPS2PS(fna, fna+".tmp", opts, PSLevel);
+				moveFile( fna + ".tmp", fna );
 			}
 
 			if (!fil)

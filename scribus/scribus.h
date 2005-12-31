@@ -92,9 +92,8 @@ class UndoState;
 class WerkToolB;
 class WerkToolBP;
 
-extern ScribusQApp* ScQApp;
-extern ScribusMainWindow* ScMW;
-
+extern SCRIBUS_API ScribusQApp* ScQApp;
+extern SCRIBUS_API ScribusMainWindow* ScMW;
 
 /**
   * This Class is the base class for your application. It sets up the main

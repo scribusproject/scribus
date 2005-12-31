@@ -15,6 +15,12 @@
 #include <shlobj.h>
 #endif
 
+#ifdef _WIN32
+const char ScPaths::envPathSeparator = ';';
+#else
+const char ScPaths::envPathSeparator = ':';
+#endif
+
 // Init the singleton's "self" address to NULL
 ScPaths* ScPaths::m_instance = NULL;
 
