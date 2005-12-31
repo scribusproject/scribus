@@ -135,16 +135,27 @@ QImage ProofImage(QImage *Image)
 #endif
 }
 
-/******************************************************************
- * Function System()
+/**
+ * @brief Synchronously execute a new process, optionally saving its output
  *
- * Create a new process via QProcess and wait until finished.
- * return the process exit code. If provided, `success' is set
- * to true on normal completion and exit, and false if the process
- * couldn't be started or terminated abnormally.
+ * Create a new process via QProcess and wait until finished.  Return the
+ * process exit code. Exit code 1 is returned if the process could not be
+ * started or terminated abnormally.
  *
- ******************************************************************/
-
+ * Note that the argument list is handled exactly as documented by QProcess.
+ * In particular, no shell metacharacter expansion is performed (so you can't
+ * use $HOME for example, and no quoting is required or appropriate), and each
+ * list entry is one argument.
+ *
+ * If output file paths are provided, any existing file will be truncated and
+ * overwritten.
+ *
+ * @param args Arguments, as per QProcess documentation.
+ * @param fileStdErr Path to save error output to, or "" to discard.
+ * @param fileStdOut Path to save normal output to, or "" to discard.
+ * @return Program exit code, or 1 on failure.
+ *
+ */
 int System(const QStringList & args, const QString fileStdErr, const QString fileStdOut)
 {
 	QByteArray stdErrData;
@@ -153,6 +164,10 @@ int System(const QStringList & args, const QString fileStdErr, const QString fil
 	proc.setArguments(args);
 	if ( !proc.start() )
 	{
+		// TODO: Should we really be returning 1 on failure? Many apps store
+		// their error code in the upper bits, ie return 1 << 8 , to avoid
+		// messing with the exit code of the process. We could also just have
+		// an out parameter for our own exit code.
 		return 1;
 	}
 	/* start was OK */
@@ -165,9 +180,12 @@ int System(const QStringList & args, const QString fileStdErr, const QString fil
 		Sleep(5);
 #endif
 	}
+	// exitStatus() returns 0 on non-normal exit
 	int ex = 1;
 	if (proc.normalExit())
 		ex = proc.exitStatus();
+
+	qDebug("Result code is: %i", ex);
 
 	if ( !fileStdErr.isEmpty() )
 	{
