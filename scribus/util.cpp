@@ -135,80 +135,34 @@ QImage ProofImage(QImage *Image)
 #endif
 }
 
-/**
- * @brief Synchronously execute a new process, optionally saving its output
+/******************************************************************
+ * Function System()
  *
- * Create a new process via QProcess and wait until finished.  Return the
- * process exit code. Exit code 1 is returned if the process could not be
- * started or terminated abnormally.
+ * Create a new process via QProcess and wait until finished.
+ * return the process exit code.
  *
- * Note that the argument list is handled exactly as documented by QProcess.
- * In particular, no shell metacharacter expansion is performed (so you can't
- * use $HOME for example, and no quoting is required or appropriate), and each
- * list entry is one argument.
- *
- * If output file paths are provided, any existing file will be truncated and
- * overwritten.
- *
- * @param args Arguments, as per QProcess documentation.
- * @param fileStdErr Path to save error output to, or "" to discard.
- * @param fileStdOut Path to save normal output to, or "" to discard.
- * @return Program exit code, or 1 on failure.
- *
- */
-int System(const QStringList & args, const QString fileStdErr, const QString fileStdOut)
+ ******************************************************************/
+
+int System(const QStringList & args)
 {
-	QByteArray stdErrData;
-	QByteArray stdOutData;
-	QProcess proc(0);
-	proc.setArguments(args);
-	if ( !proc.start() )
+	QProcess *proc = new QProcess(NULL);
+	proc->setArguments(args);
+	if ( !proc->start() )
 	{
-		// TODO: Should we really be returning 1 on failure? Many apps store
-		// their error code in the upper bits, ie return 1 << 8 , to avoid
-		// messing with the exit code of the process. We could also just have
-		// an out parameter for our own exit code.
+		delete proc;
 		return 1;
 	}
 	/* start was OK */
 	/* wait a little bit */
-	while( proc.isRunning() )
-	{
+	while( proc->isRunning() )
 #ifndef _WIN32
 		usleep(5000);
 #else
 		Sleep(5);
 #endif
-	}
-	// exitStatus() returns 0 on non-normal exit
-	int ex = 1;
-	if (proc.normalExit())
-		ex = proc.exitStatus();
 
-	qDebug("Result code is: %i", ex);
-
-	if ( !fileStdErr.isEmpty() )
-	{
-		stdErrData = proc.readStderr();
-		QFile ferr(fileStdErr);
-		if ( ferr.open(IO_WriteOnly) )
-		{
-			ferr.writeBlock( stdErrData );
-			ferr.close();
-		}
-	}
-
-	if ( !fileStdOut.isEmpty() )
-	{
-		stdOutData = proc.readStdout();
-		QFile fout(fileStdOut);
-		if ( fout.open(IO_WriteOnly) )
-		{
-			fout.writeBlock( stdOutData );
-			fout.close();
-		}
-	}
-
+	int ex = proc->exitStatus();
+	delete proc;
 	return ex;
 }
 
@@ -231,49 +185,7 @@ int System(const QStringList & args, const QString fileStdErr, const QString fil
 
 int callGS(const QStringList& args_in, const QString device)
 {
-	QString cmd;
-	QStringList args;
-	PrefsManager* prefsManager = PrefsManager::instance();
-	args.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
-	args.append( "-q" );
-	args.append( "-dNOPAUSE" );
-	args.append( "-dQUIET" );
-	args.append( "-dPARANOIDSAFER" );
-	args.append( "-dBATCH" );
-	// Choose rendering device
-	if (!device.isEmpty())
-		args.append( QString("-sDEVICE=%1").arg(device) ); // user specified device
-	else if (ScMW->HavePngAlpha != 0)
-		args.append( "-sDEVICE=png16m" );
-	else
-		args.append( "-sDEVICE=pngalpha" );
-	// and antialiasing
-	if (prefsManager->appPrefs.gs_AntiAliasText)
-		args.append( "-dTextAlphaBits=4" );
-	if (prefsManager->appPrefs.gs_AntiAliasGraphics)
-		args.append( "-dGraphicsAlphaBits=4" );
-
-	// Add any extra font paths being used by Scribus to gs's font search path
-	PrefsContext *pc = PrefsManager::instance()->prefsFile->getContext("Fonts");
-	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
-#ifndef _WIN32
-	if (extraFonts->getRowCount() >= 1)
-		cmd = QString("-sFONTPATH='%1'").arg(extraFonts->get(0,0));
-	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd += QString(":'%1'").arg(extraFonts->get(i,0));
-#else
-	if (extraFonts->getRowCount() >= 1)
-		cmd = QString("-sFONTPATH=\"%1\"").arg(extraFonts->get(0,0));
-	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd += QString(";\"%1\"").arg(extraFonts->get(i,0));
-#endif
-	if( !cmd.isEmpty() )
-		args.append( cmd );
-
-	args += args_in;
-	args.append("-c");
-	args.append("showpage");
-	return System( args );
+	return callGS(args_in.join(" "), device);
 }
 
 int callGS(const QString& args_in, const QString device)
@@ -316,59 +228,18 @@ int callGS(const QString& args_in, const QString device)
 	return system(cmd1.local8Bit());
 }
  
-int  convertPS2PS(QString in, QString out, const QStringList& opts, int level)
+int  convertPS2PS(QString in, QString out, const QString& opts, int level)
 {
 	PrefsManager* prefsManager=PrefsManager::instance();
-	QStringList args;
-	args.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
-	args.append( "-q" );
-	args.append( "-dQUIET" );
-	args.append( "-dNOPAUSE" );
-	args.append( "-dPARANOIDSAFER" );
-	args.append( "-dBATCH" );
-	args.append( "-sDEVICE=pswrite" );
+	QString cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
+	cmd1 += " -q -dQUIET -dNOPAUSE -dPARANOIDSAFER -dBATCH";
+	cmd1 += " -sDEVICE=pswrite";
 	if(level <= 3)
-		args.append( QString(" -dLanguageLevel=%1").arg(level) );
-	args += opts;
-	args.append( QString("-sOutputFile=\"%1\"").arg(QDir::convertSeparators(out)) );
-	args.append( QString("\"%1\"").arg(QDir::convertSeparators(in)) );
-	int ret = System( args );
-	return ret;
-}
-
-int  testGSAvailability( void )
-{
-	QStringList args;
-	PrefsManager* prefsManager = PrefsManager::instance();
-	args.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
-	args.append( "-h" );
-	args.append( ">" );
-#ifndef _WIN32
-	args.append( "/dev/null" );
-#else
-	args.append( "NUL" );
-#endif
-	args.append( "2>&1" );
-	int ret = System( args );
-	return ret;
-}
-
-int  testGSDeviceAvailability( QString device )
-{
-	QStringList args;
-	PrefsManager* prefsManager = PrefsManager::instance();
-	args.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
-	args.append( QString("-sDEVICE=%1").arg( device ) );
-	args.append( "-c" );
-	args.append( "quit" );
-	args.append( ">" );
-#ifndef _WIN32
-	args.append( "/dev/null" );
-#else
-	args.append( "NUL" );
-#endif
-	args.append( "2>&1" );
-	int ret = System( args );
+		cmd1 += QString(" -dLanguageLevel=%1").arg(level);
+	cmd1 += " " + opts + " ";
+	cmd1 += " -sOutputFile=\"" + QDir::convertSeparators(out) + "\"";
+	cmd1 += " \"" + QDir::convertSeparators(in) + "\"";
+	int ret = system(cmd1.local8Bit());
 	return ret;
 }
 
@@ -500,7 +371,6 @@ QString getShortPathName(QString longPath)
 
 int copyFile(QString source, QString target)
 {
-	int bytesread;
 	if ((source.isNull()) || (target.isNull()))
 		return -1;
 	if (source == target)
@@ -509,20 +379,16 @@ int copyFile(QString source, QString target)
 	QFile t(target);
 	if (!s.exists())
 		return -1;
-	QByteArray bb( 65536 );
+	QByteArray bb(s.size());
 	if (s.open(IO_ReadOnly))
 	{
+		s.readBlock(bb.data(), s.size());
+		s.close();
 		if (t.open(IO_WriteOnly))
 		{
-			bytesread = s.readBlock( bb.data(), bb.size() );
-			while( bytesread > 0 )
-			{
-				t.writeBlock( bb.data(), bytesread );
-				bytesread = s.readBlock( bb.data(), bb.size() );
-			}
+			t.writeBlock(bb.data(), bb.size());
 			t.close();
 		}
-		s.close();
 	}
 	return 0;
 }
@@ -675,7 +541,7 @@ bool loadRawText(const QString & filename, QCString & buf)
 		QCString tempBuf(f.size() + 1);
 		if (f.open(IO_ReadOnly))
 		{
-			unsigned int bytesRead = f.readBlock(tempBuf.data(), f.size());
+			Q_ULONG bytesRead = f.readBlock(tempBuf.data(), f.size());
 			tempBuf[bytesRead] = '\0';
 			ret = bytesRead == f.size();
 			if (ret)
