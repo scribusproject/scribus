@@ -10145,6 +10145,7 @@ void ScribusView::TogglePic()
 		for (uint a = 0; a < Doc->selection->count(); ++a)
 		{
 			Doc->selection->itemAt(a)->PicArt = !Doc->selection->itemAt(a)->PicArt;
+			ScMW->scrActions["itemImageIsVisible"]->setOn(Doc->selection->itemAt(a)->PicArt);
 			RefreshItem(Doc->selection->itemAt(a));
 		}
 		emit DocChanged();

@@ -3212,7 +3212,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	{
 		Pfile = fi.absFilePath();
 		PicAvail = false;
-		PicArt = false;
+//		PicArt = false;
 		return false;
 	}
 	else
@@ -3228,7 +3228,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		double xres = pixm.imgInfo.xres;
 		double yres = pixm.imgInfo.yres;
 		PicAvail = true;
-		PicArt = true;
+//		PicArt = true;
 		BBoxX = 0;
 		if (Pfile != filename)
 		{
