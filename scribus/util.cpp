@@ -243,6 +243,44 @@ int  convertPS2PS(QString in, QString out, const QString& opts, int level)
 	return ret;
 }
 
+int  testGSAvailability( void )
+{
+	QStringList args;
+	PrefsManager* prefsManager = PrefsManager::instance();
+	args.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
+	args.append( "-h" );
+	args.append( "-c" );
+	args.append( "quit" );
+	args.append( ">" );
+#ifndef _WIN32
+	args.append( "/dev/null" );
+#else
+	args.append( "NUL" );
+#endif
+	args.append( "2>&1" );
+	int ret = System( args );
+	return ret;
+}
+
+int  testGSDeviceAvailability( QString device )
+{
+	QStringList args;
+	PrefsManager* prefsManager = PrefsManager::instance();
+	args.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
+	args.append( QString("-sDEVICE=%1").arg( device ) );
+	args.append( "-c" );
+	args.append( "quit" );
+	args.append( ">" );
+#ifndef _WIN32
+	args.append( "/dev/null" );
+#else
+	args.append( "NUL" );
+#endif
+	args.append( "2>&1" );
+	int ret = System( args );
+	return ret;
+}
+
 // Return the GhostScript version string, or QString::null if it couldn't be retrived.
 QString getGSVersion()
 {
@@ -371,6 +409,7 @@ QString getShortPathName(QString longPath)
 
 int copyFile(QString source, QString target)
 {
+	int bytesread;
 	if ((source.isNull()) || (target.isNull()))
 		return -1;
 	if (source == target)
@@ -379,16 +418,20 @@ int copyFile(QString source, QString target)
 	QFile t(target);
 	if (!s.exists())
 		return -1;
-	QByteArray bb(s.size());
+	QByteArray bb( 65536 );
 	if (s.open(IO_ReadOnly))
 	{
-		s.readBlock(bb.data(), s.size());
-		s.close();
 		if (t.open(IO_WriteOnly))
 		{
-			t.writeBlock(bb.data(), bb.size());
+			bytesread = s.readBlock( bb.data(), bb.size() );
+			while( bytesread > 0 )
+			{
+				t.writeBlock( bb.data(), bytesread );
+				bytesread = s.readBlock( bb.data(), bb.size() );
+			}
 			t.close();
 		}
+		s.close();
 	}
 	return 0;
 }
@@ -541,7 +584,7 @@ bool loadRawText(const QString & filename, QCString & buf)
 		QCString tempBuf(f.size() + 1);
 		if (f.open(IO_ReadOnly))
 		{
-			Q_ULONG bytesRead = f.readBlock(tempBuf.data(), f.size());
+			unsigned int bytesRead = f.readBlock(tempBuf.data(), f.size());
 			tempBuf[bytesRead] = '\0';
 			ret = bytesRead == f.size();
 			if (ret)
