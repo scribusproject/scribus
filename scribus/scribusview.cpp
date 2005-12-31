@@ -6007,7 +6007,7 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 	double dX = ma.m11() * (currItem->width() - newX) + ma.m21() * (currItem->height() - newY) + ma.dx();
 	double dY = ma.m22() * (currItem->height() - newY) + ma.m12() * (currItem->width() - newX) + ma.dy();
 	currItem->setWidthHeight(newX, newY);
-	if ((Doc->RotMode != 0) && (fromMP) && (!Doc->isLoading()) && (Doc->appMode = modeNormal))
+	if ((Doc->RotMode != 0) && (fromMP) && (!Doc->isLoading()) && (Doc->appMode == modeNormal))
 	{
 		double moveX=dX, moveY=dY;
 		if (Doc->RotMode==2)
