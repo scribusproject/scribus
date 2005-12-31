@@ -1042,6 +1042,21 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->PDF_Options.BleedTop = tabPDF->BleedTop->value() / currDoc->unitRatio();
 	currDoc->PDF_Options.BleedLeft = tabPDF->BleedLeft->value() / currDoc->unitRatio();
 	currDoc->PDF_Options.BleedRight = tabPDF->BleedRight->value() / currDoc->unitRatio();
+	currDoc->PDF_Options.displayBookmarks = tabPDF->useBookmarks->isChecked();
+	currDoc->PDF_Options.displayFullscreen = tabPDF->useFullScreen->isChecked();
+	currDoc->PDF_Options.displayLayers = tabPDF->useLayers2->isChecked();
+	currDoc->PDF_Options.displayThumbs = tabPDF->useThumbnails->isChecked();
+	int pgl = PDFOptions::SinglePage;
+	if (tabPDF->singlePage->isChecked())
+		pgl = PDFOptions::SinglePage;
+	else if (tabPDF->continuousPages->isChecked())
+		pgl = PDFOptions::OneColumn;
+	else if (tabPDF->doublePageLeft->isChecked())
+		pgl = PDFOptions::TwoColumnLeft;
+	else if (tabPDF->doublePageRight->isChecked())
+		pgl = PDFOptions::TwoColumnRight;
+	currDoc->PDF_Options.PageLayout = pgl;
+	currDoc->PDF_Options.openAction = "";
 	if (tabPDF->Encry->isChecked())
 	{
 		int Perm = -64;

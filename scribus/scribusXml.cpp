@@ -3321,6 +3321,12 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	pdf.setAttribute("UseLpi", static_cast<int>(doc->PDF_Options.UseLPI));
 	pdf.setAttribute("UseSpotColors", static_cast<int>(doc->PDF_Options.UseSpotColors));
 	pdf.setAttribute("doMultiFile", static_cast<int>(doc->PDF_Options.doMultiFile));
+	pdf.setAttribute("displayBookmarks", static_cast<int>(doc->PDF_Options.displayBookmarks));
+	pdf.setAttribute("displayFullscreen", static_cast<int>(doc->PDF_Options.displayFullscreen));
+	pdf.setAttribute("displayLayers", static_cast<int>(doc->PDF_Options.displayLayers));
+	pdf.setAttribute("displayThumbs", static_cast<int>(doc->PDF_Options.displayThumbs));
+	pdf.setAttribute("PageLayout", doc->PDF_Options.PageLayout);
+	pdf.setAttribute("openAction", doc->PDF_Options.openAction);
 	for (uint pdoF = 0; pdoF < doc->PDF_Options.EmbedList.count(); ++pdoF)
 	{
 		QDomElement pdf2 = docu.createElement("Fonts");

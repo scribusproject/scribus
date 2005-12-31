@@ -44,6 +44,14 @@ public:
 		PDFVersion_X3 = 12,
 	};
 
+	enum PDFPageLayout
+	{
+		SinglePage = 0,
+		OneColumn,
+		TwoColumnLeft,
+		TwoColumnRight
+	};
+
 	/**
 	 * @author Craig Ringer
 	 * @brief Sanity check the options defined.
@@ -111,6 +119,12 @@ public:
 	QString PassOwner;
 	QString PassUser;
 	int Permissions;
+	int PageLayout;
+	bool displayBookmarks;
+	bool displayThumbs;
+	bool displayLayers;
+	bool displayFullscreen;
+	QString openAction;
 };
 
 #endif

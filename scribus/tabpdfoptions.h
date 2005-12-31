@@ -33,9 +33,9 @@ class SCRIBUS_API TabPDFOptions : public QTabWidget
 
 public:
 	TabPDFOptions(  QWidget* parent, PDFOptions *Optionen, SCFonts &AllFonts,
-					ProfilesL *PDFXProfiles, QMap<QString,int> DocFonts,
-					QValueList<PDFPresentationData> Eff, int unitIndex,
-					double PageH, double PageB, ScribusView *vie = 0 );
+	                ProfilesL *PDFXProfiles, QMap<QString,int> DocFonts,
+	                QValueList<PDFPresentationData> Eff, int unitIndex,
+	                double PageH, double PageB, ScribusView *vie = 0 );
 	~TabPDFOptions() {};
 	void restoreDefaults();
 
@@ -155,6 +155,22 @@ public:
 	QComboBox* LPIfunc;
 	QValueList<QString> FontsToEmbed;
 	QValueList<QString> FontsToSubset;
+	QWidget* tabSpecial;
+	QGroupBox* groupDisplay;
+	QButtonGroup* pageLayout;
+	QRadioButton* singlePage;
+	QRadioButton* continuousPages;
+	QRadioButton* doublePageLeft;
+	QRadioButton* doublePageRight;
+	QButtonGroup* groupNavigation;
+	QRadioButton* useViewDefault;
+	QRadioButton* useFullScreen;
+	QRadioButton* useBookmarks;
+	QRadioButton* useThumbnails;
+	QRadioButton* useLayers2;
+	QGroupBox* groupJava;
+	QLabel* actionLabel;
+	QComboBox* actionCombo;
 	ScribusView *view;
 	QValueList<PDFPresentationData> EffVal;
 	int PgSel;
@@ -233,7 +249,13 @@ protected:
 	QGridLayout* GroupPassLayout;
 	QVBoxLayout* GroupSecSetLayout;
 	QGridLayout* LPIgroupLayout;
-	
+	QVBoxLayout* tabSpecialLayout;
+	QVBoxLayout* groupDisplayLayout;
+	QHBoxLayout* LayoutSpecial;
+	QVBoxLayout* pageLayoutLayout;
+	QVBoxLayout* groupNavigationLayout;
+	QHBoxLayout* groupJavaLayout;
+
 	QString unit;
 	int precision;
 };

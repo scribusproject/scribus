@@ -1316,6 +1316,12 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				doc->PDF_Options.UseLPI = static_cast<bool>(pg.attribute("UseLpi", "0").toInt());
 				doc->PDF_Options.UseSpotColors = static_cast<bool>(dc.attribute("UseSpotColors", "1").toInt());
 				doc->PDF_Options.doMultiFile = static_cast<bool>(dc.attribute("doMultiFile", "0").toInt());
+				doc->PDF_Options.displayBookmarks = static_cast<bool>(dc.attribute("displayBookmarks", "0").toInt());
+				doc->PDF_Options.displayFullscreen = static_cast<bool>(dc.attribute("displayFullscreen", "0").toInt());
+				doc->PDF_Options.displayLayers = static_cast<bool>(dc.attribute("displayLayers", "0").toInt());
+				doc->PDF_Options.displayThumbs = static_cast<bool>(dc.attribute("displayThumbs", "0").toInt());
+				doc->PDF_Options.PageLayout = dc.attribute("PageLayout", "0").toInt();
+				doc->PDF_Options.openAction = dc.attribute("openAction", "");
 				QDomNode PFO = PAGE.firstChild();
 				while(!PFO.isNull())
 				{

@@ -26,9 +26,9 @@ extern bool CMSavail;
 
 
 TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &AllFonts,
-								ProfilesL *PDFXProfiles, QMap<QString,int> DocFonts,
-								QValueList<PDFPresentationData> Eff, int unitIndex,
-								double PageH, double PageB, ScribusView *vie ) : QTabWidget( parent, "pdf" )
+                                ProfilesL *PDFXProfiles, QMap<QString,int> DocFonts,
+                                QValueList<PDFPresentationData> Eff, int unitIndex,
+                                double PageH, double PageB, ScribusView *vie ) : QTabWidget( parent, "pdf" )
 {
 
 	unit = unitGetSuffixFromIndex(unitIndex);
@@ -415,7 +415,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		EffectsLayout->addWidget( EDirection_2, 4, 1 );
 		EDirection_2_2 = new QComboBox( true, Effects, "EDirection_2_2" );
 		QString tmp_ed[] = { tr("Left to Right"), tr("Top to Bottom"), tr("Bottom to Top"), tr("Right to Left"),
-							tr("Top-left to Bottom-Right")};
+		                     tr("Top-left to Bottom-Right")};
 		size_t ar_ed = sizeof(tmp_ed) / sizeof(*tmp_ed);
 		for (uint a = 0; a < ar_ed; ++a)
 			EDirection_2_2->insertItem(tmp_ed[a]);
@@ -426,7 +426,120 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		EffectsLayout->addMultiCellWidget( EonAllPg, 6, 6, 0, 1 );
 		tabLayout_5->addMultiCellWidget( Effects, 1, 2, 1, 1 );
 		insertTab( tabPresentation, tr( "E&xtras" ) );
+
+		if (view->Doc->currentPageLayout == doublePage)
+		{
+			if (view->Doc->pageSets[view->Doc->currentPageLayout].FirstPage == 0)
+				Optionen->PageLayout = PDFOptions::TwoColumnLeft;
+			else
+				Optionen->PageLayout = PDFOptions::TwoColumnRight;
+		}
+		else
+			Optionen->PageLayout = PDFOptions::SinglePage;
+		if (Optionen->PresentMode)
+			Optionen->displayFullscreen = true;
+		else
+		{
+			if ((Optionen->Version == 15) && (Optionen->useLayers))
+				Optionen->displayLayers = true;
+		}
+		tabSpecial = new QWidget( this, "tabSpecial" );
+		tabSpecialLayout = new QVBoxLayout( tabSpecial, 11, 6, "tabSpecialLayout");
+		groupDisplay = new QGroupBox( tabSpecial, "groupDisplay" );
+		groupDisplay->setTitle( tr( "Display Settings" ) );
+		groupDisplay->setColumnLayout(0, Qt::Vertical );
+		groupDisplay->layout()->setSpacing( 5 );
+		groupDisplay->layout()->setMargin( 10 );
+		groupDisplayLayout = new QVBoxLayout( groupDisplay->layout() );
+		groupDisplayLayout->setAlignment( Qt::AlignTop );
+		LayoutSpecial = new QHBoxLayout( 0, 0, 5, "LayoutSpecial");
+		pageLayout = new QButtonGroup( groupDisplay, "pageLayout" );
+		pageLayout->setTitle( tr( "Page Layout" ) );
+		pageLayout->setColumnLayout(0, Qt::Vertical );
+		pageLayout->layout()->setSpacing( 5 );
+		pageLayout->layout()->setMargin( 10 );
+		pageLayoutLayout = new QVBoxLayout( pageLayout->layout() );
+		pageLayoutLayout->setAlignment( Qt::AlignTop );
+		singlePage = new QRadioButton( pageLayout, "singlePage" );
+		singlePage->setText( tr( "Single Page" ) );
+		pageLayoutLayout->addWidget( singlePage );
+		continuousPages = new QRadioButton( pageLayout, "continuousPages" );
+		continuousPages->setText( tr( "Continuous" ) );
+		pageLayoutLayout->addWidget( continuousPages );
+		doublePageLeft = new QRadioButton( pageLayout, "doublePageLeft" );
+		doublePageLeft->setText( tr( "Double Page Left" ) );
+		pageLayoutLayout->addWidget( doublePageLeft );
+		doublePageRight = new QRadioButton( pageLayout, "doublePageRight" );
+		doublePageRight->setText( tr( "Double Page Right" ) );
+		pageLayoutLayout->addWidget( doublePageRight );
+		LayoutSpecial->addWidget( pageLayout );
+		groupNavigation = new QButtonGroup( groupDisplay, "groupNavigation" );
+		groupNavigation->setTitle( tr( "Visual Appearance" ) );
+		groupNavigation->setColumnLayout(0, Qt::Vertical );
+		groupNavigation->layout()->setSpacing( 5 );
+		groupNavigation->layout()->setMargin( 10 );
+		groupNavigationLayout = new QVBoxLayout( groupNavigation->layout() );
+		groupNavigationLayout->setAlignment( Qt::AlignTop );
+		useViewDefault = new QRadioButton( groupNavigation, "useViewDefault" );
+		bool df = true;
+		if ((Optionen->displayBookmarks) || (Optionen->displayFullscreen) || (Optionen->displayLayers) || (Optionen->displayThumbs))
+			df = false;
+		useViewDefault->setChecked(df);
+		useViewDefault->setText( tr( "Use Viewers Defaults" ) );
+		groupNavigationLayout->addWidget( useViewDefault );
+		useFullScreen = new QRadioButton( groupNavigation, "useFullScreen" );
+		useFullScreen->setChecked(Optionen->displayFullscreen);
+		useFullScreen->setText( tr( "Use Full Screen Mode" ) );
+		groupNavigationLayout->addWidget( useFullScreen );
+		useBookmarks = new QRadioButton( groupNavigation, "useBookmarks" );
+		useBookmarks->setText( tr( "Display Bookmarks Tab" ) );
+		useBookmarks->setChecked(Optionen->displayBookmarks);
+		groupNavigationLayout->addWidget( useBookmarks );
+		useThumbnails = new QRadioButton( groupNavigation, "useThumbnails" );
+		useThumbnails->setText( tr( "Display Thumbnails" ) );
+		useThumbnails->setChecked(Optionen->displayThumbs);
+		groupNavigationLayout->addWidget( useThumbnails );
+		useLayers2 = new QRadioButton( groupNavigation, "useLayers" );
+		useLayers2->setText( tr( "Display Layers Tab" ) );
+		useLayers2->setChecked(Optionen->displayLayers);
+		groupNavigationLayout->addWidget( useLayers2 );
+		LayoutSpecial->addWidget( groupNavigation );
+		groupDisplayLayout->addLayout( LayoutSpecial );
+		tabSpecialLayout->addWidget( groupDisplay );
+		groupJava = new QGroupBox( tabSpecial, "groupJava" );
+		groupJava->setTitle( tr( "Special Actions" ) );
+		groupJava->setColumnLayout(0, Qt::Vertical );
+		groupJava->layout()->setSpacing( 5 );
+		groupJava->layout()->setMargin( 10 );
+		groupJavaLayout = new QHBoxLayout( groupJava->layout() );
+		groupJavaLayout->setAlignment( Qt::AlignTop );
+		actionLabel = new QLabel( groupJava, "actionLabel" );
+		actionLabel->setText( tr( "Javascript to be executed\nwhen Document is opened:" ) );
+		groupJavaLayout->addWidget( actionLabel );
+		actionCombo = new QComboBox( true, groupJava, "actionCombo" );
+		actionCombo->setEditable(false);
+		actionCombo->insertItem( tr("No Script"));
+		QMap<QString,QString>::Iterator itja;
+		for (itja = view->Doc->JavaScripts.begin(); itja != view->Doc->JavaScripts.end(); ++itja)
+			actionCombo->insertItem(itja.key());
+		groupJavaLayout->addWidget( actionCombo );
+		tabSpecialLayout->addWidget( groupJava );
+		if (Optionen->PageLayout == PDFOptions::SinglePage)
+			singlePage->setChecked(true);
+		else if (Optionen->PageLayout == PDFOptions::OneColumn)
+			continuousPages->setChecked(true);
+		else if (Optionen->PageLayout == PDFOptions::TwoColumnLeft)
+			doublePageLeft->setChecked(true);
+		else if (Optionen->PageLayout == PDFOptions::TwoColumnRight)
+			doublePageRight->setChecked(true);
+		if (Optionen->Version == 15)
+			useLayers2->setEnabled(true);
+		else
+			useLayers2->setEnabled(false);
+		insertTab( tabSpecial, tr("Viewer") );
 	}
+
+
 	tabSecurity = new QWidget( this, "tabSecurity" );
 	tabSecurityLayout = new QVBoxLayout( tabSecurity, 11, 5, "tabSecurityLayout");
 	Encry = new QCheckBox( tr( "&Use Encryption" ), tabSecurity, "Enc" );
@@ -851,8 +964,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	QToolTip::add( AllPages, "<qt>" + tr( "Export all pages to PDF" ) + "</qt>" );
 	QToolTip::add( OnlySome, "<qt>" + tr( "Export a range of pages to PDF" ) );
 	QToolTip::add( PageNr, "<qt>" + tr( "Insert a comma separated list of tokens where "
-			              "a token can be * for all the pages, 1-5 for "
-								  "a range of pages or a single page number.") + "</qt>" );
+		                                    "a token can be * for all the pages, 1-5 for "
+		                                    "a range of pages or a single page number.") + "</qt>" );
 
 	QToolTip::add( PDFVersionCombo, "<qt>" + tr( "Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer." ) + "</qt>");
 	QToolTip::add( ComboBind, "<qt>" + tr( "Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left." ) + "</qt>" );
@@ -890,12 +1003,11 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	QToolTip::add( BleedRight, "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
 	QToolTip::add( MirrorH, "<qt>" + tr( "Mirror Page(s) horizontally" ) + "</qt>" );
 	QToolTip::add( MirrorV, "<qt>" + tr( "Mirror Page(s) vertically" ) + "</qt>" );
-        QToolTip::add( useSpot,"<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
+	QToolTip::add( useSpot,"<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
 }
 
 void TabPDFOptions::restoreDefaults()
-{
-}
+{}
 
 void TabPDFOptions::checkInfo()
 {
@@ -956,6 +1068,7 @@ void TabPDFOptions::enableCMS(bool enable)
 void TabPDFOptions::EnablePDFX(int a)
 {
 	useLayers->setEnabled(a == 2);
+	useLayers2->setEnabled(a == 2);
 	if (a != 3)
 	{
 		setTabEnabled(tabPDFX, false);
@@ -1180,6 +1293,7 @@ void TabPDFOptions::DoEffects()
 	Pages->setEnabled(setter);
 	Effects->setEnabled(setter);
 	PagePrev->setEnabled(setter);
+	useFullScreen->setChecked(setter);
 }
 
 void TabPDFOptions::ValidDI(int nr)

@@ -177,6 +177,24 @@ void PDF_Opts::updateDocOptions()
 	Opts->UseLPI = Options->UseLPI->isChecked();
 	Opts->useLayers = Options->useLayers->isChecked();
 	Opts->UseSpotColors = !Options->useSpot->isChecked();
+	Opts->displayBookmarks = Options->useBookmarks->isChecked();
+	Opts->displayFullscreen = Options->useFullScreen->isChecked();
+	Opts->displayLayers = Options->useLayers2->isChecked();
+	Opts->displayThumbs = Options->useThumbnails->isChecked();
+	int pgl = PDFOptions::SinglePage;
+	if (Options->singlePage->isChecked())
+		pgl = PDFOptions::SinglePage;
+	else if (Options->continuousPages->isChecked())
+		pgl = PDFOptions::OneColumn;
+	else if (Options->doublePageLeft->isChecked())
+		pgl = PDFOptions::TwoColumnLeft;
+	else if (Options->doublePageRight->isChecked())
+		pgl = PDFOptions::TwoColumnRight;
+	Opts->PageLayout = pgl;
+	if (Options->actionCombo->currentItem() != 0)
+		Opts->openAction = Options->actionCombo->currentText();
+	else
+		Opts->openAction = "";
 	if (Options->Encry->isChecked())
 	{
 		int Perm = -64;

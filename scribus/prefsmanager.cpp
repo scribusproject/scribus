@@ -383,6 +383,12 @@ void PrefsManager::initDefaults()
 	appPrefs.PDF_Options.LPISettings.clear();
 	appPrefs.PDF_Options.UseSpotColors = true;
 	appPrefs.PDF_Options.doMultiFile = false;
+	appPrefs.PDF_Options.displayBookmarks = false;
+	appPrefs.PDF_Options.displayFullscreen = false;
+	appPrefs.PDF_Options.displayLayers = false;
+	appPrefs.PDF_Options.displayThumbs = false;
+	appPrefs.PDF_Options.PageLayout = PDFOptions::SinglePage;
+	appPrefs.PDF_Options.openAction = "";
 
 	//Attribute setup
 	appPrefs.defaultItemAttributes.clear();
@@ -1160,6 +1166,12 @@ bool PrefsManager::WritePref(QString ho)
 	pdf.setAttribute("UseLpi", static_cast<int>(appPrefs.PDF_Options.UseLPI));
 	pdf.setAttribute("UseSpotColors", static_cast<int>(appPrefs.PDF_Options.UseSpotColors));
 	pdf.setAttribute("doMultiFile", static_cast<int>(appPrefs.PDF_Options.doMultiFile));
+	pdf.setAttribute("displayBookmarks", static_cast<int>(appPrefs.PDF_Options.displayBookmarks));
+	pdf.setAttribute("displayFullscreen", static_cast<int>(appPrefs.PDF_Options.displayFullscreen));
+	pdf.setAttribute("displayLayers", static_cast<int>(appPrefs.PDF_Options.displayLayers));
+	pdf.setAttribute("displayThumbs", static_cast<int>(appPrefs.PDF_Options.displayThumbs));
+	pdf.setAttribute("PageLayout", appPrefs.PDF_Options.PageLayout);
+	pdf.setAttribute("openAction", appPrefs.PDF_Options.openAction);
 	QMap<QString,LPIData>::Iterator itlp;
 	for (itlp = appPrefs.PDF_Options.LPISettings.begin(); itlp != appPrefs.PDF_Options.LPISettings.end(); ++itlp)
 	{
@@ -1668,6 +1680,12 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.PDF_Options.UseLPI = static_cast<bool>(dc.attribute("UseLpi", "0").toInt());
 			appPrefs.PDF_Options.UseSpotColors = static_cast<bool>(dc.attribute("UseSpotColors", "1").toInt());
 			appPrefs.PDF_Options.doMultiFile = static_cast<bool>(dc.attribute("doMultiFile", "0").toInt());
+			appPrefs.PDF_Options.displayBookmarks = static_cast<bool>(dc.attribute("displayBookmarks", "0").toInt());
+			appPrefs.PDF_Options.displayFullscreen = static_cast<bool>(dc.attribute("displayFullscreen", "0").toInt());
+			appPrefs.PDF_Options.displayLayers = static_cast<bool>(dc.attribute("displayLayers", "0").toInt());
+			appPrefs.PDF_Options.displayThumbs = static_cast<bool>(dc.attribute("displayThumbs", "0").toInt());
+			appPrefs.PDF_Options.PageLayout = dc.attribute("PageLayout", "0").toInt();
+			appPrefs.PDF_Options.openAction = dc.attribute("openAction", "");
 			QDomNode PFO = DOC.firstChild();
 			appPrefs.PDF_Options.LPISettings.clear();
 			while(!PFO.isNull())

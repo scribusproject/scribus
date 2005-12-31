@@ -495,7 +495,31 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFont
 		PutDoc("/OCProperties 9 0 R\n");
 	if (Options->Version == 12)
 		PutDoc("/OutputIntents [ "+IToStr(ObjCounter-1)+" 0 R ]\n");
-	if (doc->currentPageLayout == doublePage)
+	PutDoc("/PageLayout ");
+	switch (Options->PageLayout)
+	{
+		case PDFOptions::SinglePage:
+			PutDoc("/SinglePage\n");
+			break;
+		case PDFOptions::OneColumn:
+			PutDoc("/OneColumn\n");
+			break;
+		case PDFOptions::TwoColumnLeft:
+			PutDoc("/TwoColumnLeft\n");
+			break;
+		case PDFOptions::TwoColumnRight:
+			PutDoc("/TwoColumnRight\n");
+			break;
+	}
+	if (Options->displayBookmarks)
+		PutDoc("/PageMode /UseOutlines\n");
+	else if (Options->displayFullscreen)
+		PutDoc("/PageMode /FullScreen\n");
+	else if (Options->displayThumbs)
+		PutDoc("/PageMode /UseThumbs\n");
+	else if ((Options->Version == 15) && (Options->displayLayers))
+			PutDoc("/PageMode /UseOC\n");
+/*	if (doc->currentPageLayout == doublePage)
 	{
 		PutDoc("/PageLayout ");
 		if (doc->pageSets[doc->currentPageLayout].FirstPage == 0)
@@ -509,7 +533,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFont
 	{
 		if ((Options->Version == 15) && (Options->useLayers))
 			PutDoc("/PageMode /UseOC\n");
-	}
+	} */
 	PutDoc("/ViewerPreferences\n<<\n/PageDirection ");
 	PutDoc( Options->Binding == 0 ? "/L2R\n" : "/R2L\n");
 	PutDoc(" >>\n>>\nendobj\n");
