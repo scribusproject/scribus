@@ -267,16 +267,16 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 
 ScribusDoc::~ScribusDoc()
 {
-	MasterItems.setAutoDelete(true);
 	DocItems.setAutoDelete(true);
 	FrameItems.setAutoDelete(true);
-	MasterItems.clear();
 	DocItems.clear();
 	FrameItems.clear();
 	MasterPages.setAutoDelete(true);
 	DocPages.setAutoDelete(true);
 	MasterPages.clear();
 	DocPages.clear();
+	MasterItems.setAutoDelete(true);
+	MasterItems.clear();
 	QMap<QString,int>::Iterator it3;
 	for (it3 = UsedFonts.begin(); it3 != UsedFonts.end(); ++it3)
 	{
