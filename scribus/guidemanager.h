@@ -35,7 +35,7 @@ class SCRIBUS_API GuideManager : public QDialog
 
 public:
 	GuideManager(QWidget* parent);
-	~GuideManager() {};
+	~GuideManager();
 
 private:
 	//! \brief If there is a selection on the current page
@@ -135,6 +135,14 @@ private:
 	It's used for automatic guides position. It's called for every
 	page when is "apply to all pages" switched on */
 	void resetMarginsForPage();
+
+	/*! \brief Add a value from spin box to the list.
+	It's called by "add" slots AddHorVal and AddVerVal.
+	\param list a reference to the QListView to add a value.
+	\param spin a reference to the spin box to take a value.
+	\retval bool false on no add (duplicate etc.), true on success.
+	*/
+	bool addValueToList(QListView *list, MSpinBox *spin);
 
 protected slots:
 

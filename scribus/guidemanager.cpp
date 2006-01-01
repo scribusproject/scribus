@@ -269,6 +269,11 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	connect(useColGap, SIGNAL(toggled(bool)), this, SLOT(useColGap_clicked(bool)));
 }
 
+GuideManager::~GuideManager()
+{
+	ScMW->mainWindowStatusLabel->setText(QString::null);
+}
+
 void GuideManager::DelHorVal()
 {
 	/* previous item pointer to ensure that ++it
@@ -303,30 +308,34 @@ void GuideManager::DelVerVal()
 	}
 }
 
-void GuideManager::AddHorVal()
+bool GuideManager::addValueToList(QListView *list, MSpinBox *spin)
 {
 	QString tmp;
 	tmp = tmp.setNum(0.0, 'f', docUnitPrecision);
-	QListViewItem *item = new QListViewItem(horList, tmp, suffix);
-	horList->insertItem(item);
-	horList->setCurrentItem(item);
-	horList->clearSelection();
-	horList->setSelected(item, true);
-	horSpin->setFocus();
-	horSpin->selectAll();
+	// no duplications
+	if (list->findItem(tmp, 0) != 0)
+	{
+		ScMW->mainWindowStatusLabel->setText(tr("There is empty (0.0) guide already"));
+		return false;
+	}
+	QListViewItem *item = new QListViewItem(list, tmp, suffix);
+	list->insertItem(item);
+	list->setCurrentItem(item);
+	list->clearSelection();
+	list->setSelected(item, true);
+	spin->setFocus();
+	spin->selectAll();
+	return true;
+}
+
+void GuideManager::AddHorVal()
+{
+	addValueToList(horList, horSpin);
 }
 
 void GuideManager::AddVerVal()
 {
-	QString tmp;
-	tmp = tmp.setNum(0.0, 'f', docUnitPrecision);
-	QListViewItem *item = new QListViewItem(verList, tmp, suffix);
-	verList->insertItem(item);
-	verList->clearSelection();
-	verList->setCurrentItem(item);
-	verList->setSelected(item, true);
-	verSpin->setFocus();
-	verSpin->selectAll();
+	addValueToList(verList, verSpin);
 }
 
 void GuideManager::resetMarginsForPage()
@@ -521,11 +530,15 @@ void GuideManager::refreshWholeDoc()
 void GuideManager::useRowGap_clicked(bool state)
 {
 	rowGap->setEnabled(state);
+	if (state)
+		rowGap->setFocus();
 }
 
 void GuideManager::useColGap_clicked(bool state)
 {
 	colGap->setEnabled(state);
+	if (state)
+		colGap->setFocus();
 }
 
 void GuideManager::commitChanges()
