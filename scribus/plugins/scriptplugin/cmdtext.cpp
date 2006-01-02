@@ -385,7 +385,9 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 		it->itemText.insert(pos, hg);
 	}
 	it->CPos = pos + Daten.length();
-	it->paintObj();
+	it->Dirty = true;
+	if (ScMW->doc->DoDrawing)
+		it->paintObj();
 	it->Dirty = false;
 	Py_INCREF(Py_None);
 	return Py_None;
