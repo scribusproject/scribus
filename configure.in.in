@@ -90,7 +90,9 @@ dnl during the generation of configure).
 libmissing_text="\
 You may need to install some additional libraries or packages (on Linux,
 that may mean -dev or -devel packages too). Also check your environment
-variables. See the BUILDING file for details and troubleshooting."
+variables. If you're on a 64 bit machine, maybe you need to add
+--enable-libsuffix=64 to the configure arguments.
+See the BUILDING file for further details and troubleshooting information. "
 
 missing_libs=""
 
