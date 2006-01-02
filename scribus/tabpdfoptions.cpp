@@ -503,6 +503,15 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		useLayers2->setText( tr( "Display Layers Tab" ) );
 		useLayers2->setChecked(Optionen->displayLayers);
 		groupNavigationLayout->addWidget( useLayers2 );
+		hideToolBar = new QCheckBox( tr( "Hide Viewers Toolbar" ), groupNavigation, "hideToolBar" );
+		hideToolBar->setChecked(Optionen->hideToolBar);
+		groupNavigationLayout->addWidget( hideToolBar );
+		hideMenuBar = new QCheckBox( tr( "Hide Viewers Menubar" ), groupNavigation, "hideMenuBar" );
+		hideMenuBar->setChecked(Optionen->hideMenuBar);
+		groupNavigationLayout->addWidget( hideMenuBar );
+		fitWindow = new QCheckBox( tr( "Zoom Pages to fit Viewer Window" ), groupNavigation, "fitWindow" );
+		fitWindow->setChecked(Optionen->fitWindow);
+		groupNavigationLayout->addWidget( fitWindow );
 		LayoutSpecial->addWidget( groupNavigation );
 		groupDisplayLayout->addLayout( LayoutSpecial );
 		tabSpecialLayout->addWidget( groupDisplay );
@@ -522,6 +531,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		QMap<QString,QString>::Iterator itja;
 		for (itja = view->Doc->JavaScripts.begin(); itja != view->Doc->JavaScripts.end(); ++itja)
 			actionCombo->insertItem(itja.key());
+		if (view->Doc->JavaScripts.contains(Optionen->openAction))
+			actionCombo->setCurrentText(Optionen->openAction);
 		groupJavaLayout->addWidget( actionCombo );
 		tabSpecialLayout->addWidget( groupJava );
 		if (Optionen->PageLayout == PDFOptions::SinglePage)

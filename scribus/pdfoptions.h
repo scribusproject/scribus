@@ -124,6 +124,9 @@ public:
 	bool displayThumbs;
 	bool displayLayers;
 	bool displayFullscreen;
+	bool hideToolBar;
+	bool hideMenuBar;
+	bool fitWindow;
 	QString openAction;
 };
 

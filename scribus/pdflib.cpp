@@ -519,23 +519,18 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFont
 		PutDoc("/PageMode /UseThumbs\n");
 	else if ((Options->Version == 15) && (Options->displayLayers))
 			PutDoc("/PageMode /UseOC\n");
-/*	if (doc->currentPageLayout == doublePage)
+	if (!Options->openAction.isEmpty())
 	{
-		PutDoc("/PageLayout ");
-		if (doc->pageSets[doc->currentPageLayout].FirstPage == 0)
-			PutDoc("/TwoColumnLeft\n");
-		else
-			PutDoc("/TwoColumnRight\n");
+		PutDoc("/OpenAction << /S /JavaScript /JS (this."+Options->openAction+"\\(\\)) >>\n");
 	}
-	if (Options->PresentMode)
-		PutDoc("/PageMode /FullScreen\n");
-	else
-	{
-		if ((Options->Version == 15) && (Options->useLayers))
-			PutDoc("/PageMode /UseOC\n");
-	} */
 	PutDoc("/ViewerPreferences\n<<\n/PageDirection ");
 	PutDoc( Options->Binding == 0 ? "/L2R\n" : "/R2L\n");
+	if (Options->hideToolBar)
+		PutDoc("/HideToolbar true\n");
+	if (Options->hideMenuBar)
+		PutDoc("/HideMenubar true\n");
+	if (Options->fitWindow)
+		PutDoc("/FitWindow true\n");
 	PutDoc(" >>\n>>\nendobj\n");
 	QString IDg(Datum);
 	IDg += Options->Datei;

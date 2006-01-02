@@ -6,41 +6,42 @@
 #include "scribusdoc.h"
 #include "page.h"
 #include "commonstrings.h"
+#include <qregexp.h>
 
 extern QPixmap loadIcon(QString nam);
 
 JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
-    : QDialog( parent, "Javadocs", true, 0 )
+		: QDialog( parent, "Javadocs", true, 0 )
 {
-    setCaption( tr( "Edit JavaScripts" ) );
+	setCaption( tr( "Edit JavaScripts" ) );
 	setIcon(loadIcon("AppIcon.png"));
-    Doc = doc;
+	Doc = doc;
 	View = vie;
-    JavaDocsLayout = new QHBoxLayout( this, 11, 6, "JavaDocsLayout"); 
+	JavaDocsLayout = new QHBoxLayout( this, 11, 6, "JavaDocsLayout");
 
-    Scripts = new QListBox( this, "Scripts" );
-    Scripts->setMinimumSize( QSize( 150, 200 ) );
+	Scripts = new QListBox( this, "Scripts" );
+	Scripts->setMinimumSize( QSize( 150, 200 ) );
 	QMap<QString,QString>::Iterator it;
 	for (it = Doc->JavaScripts.begin(); it != Doc->JavaScripts.end(); ++it)
 		Scripts->insertItem(it.key());
-    JavaDocsLayout->addWidget( Scripts );
+	JavaDocsLayout->addWidget( Scripts );
 
-    Layout1 = new QVBoxLayout( 0, 0, 6, "Layout1"); 
+	Layout1 = new QVBoxLayout( 0, 0, 6, "Layout1");
 
-    EditScript = new QPushButton( tr( "&Edit..." ), this, "EditScript" );
-    Layout1->addWidget( EditScript );
+	EditScript = new QPushButton( tr( "&Edit..." ), this, "EditScript" );
+	Layout1->addWidget( EditScript );
 
-    AddScript = new QPushButton( tr( "&Add..." ), this, "AddScript" );
-    Layout1->addWidget( AddScript );
+	AddScript = new QPushButton( tr( "&Add..." ), this, "AddScript" );
+	Layout1->addWidget( AddScript );
 
-    DeleteScript = new QPushButton( tr( "&Delete" ), this, "DeleteScript" );
-    Layout1->addWidget( DeleteScript );
-    QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-    Layout1->addItem( spacer );
+	DeleteScript = new QPushButton( tr( "&Delete" ), this, "DeleteScript" );
+	Layout1->addWidget( DeleteScript );
+	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	Layout1->addItem( spacer );
 
-    ExitDia = new QPushButton( tr( "&Close" ), this, "ExitDia" );
-    ExitDia->setDefault( true );
-    Layout1->addWidget( ExitDia );
+	ExitDia = new QPushButton( tr( "&Close" ), this, "ExitDia" );
+	ExitDia->setDefault( true );
+	Layout1->addWidget( ExitDia );
 	if (Doc->JavaScripts.count() == 0)
 	{
 		EditScript->setEnabled(false);
@@ -48,12 +49,13 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
 	}
 	else
 		Scripts->setCurrentItem(0);
-  	JavaDocsLayout->addLayout( Layout1 );
+	JavaDocsLayout->addLayout( Layout1 );
 	connect(AddScript, SIGNAL(clicked()), this, SLOT(slotAdd()));
 	connect(EditScript, SIGNAL(clicked()), this, SLOT(slotEdit()));
 	connect(DeleteScript, SIGNAL(clicked()), this, SLOT(slotDelete()));
 	connect(ExitDia, SIGNAL(clicked()), this, SLOT(accept()));
 	connect( Scripts, SIGNAL( selected(QListBoxItem*) ), this, SLOT( slotEdit() ) );
+	QToolTip::add( AddScript, "<qt>" + tr( "Adds a new Script, predefines a function with the same name. If you want to use this script as an \"Open Action\" script be sure not to change the name of the function." ) + "</qt>" );
 }
 
 void JavaDocs::slotAdd()
@@ -64,6 +66,7 @@ void JavaDocs::slotAdd()
 	if (dia->exec())
 	{
 		nam = dia->getEditText();
+		nam.replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" );
 		while (Doc->JavaScripts.contains(nam) || (nam.isEmpty()))
 		{
 			if (!dia->exec())
@@ -74,6 +77,7 @@ void JavaDocs::slotAdd()
 			nam = dia->getEditText();
 		}
 		Editor* dia2 = new Editor(this, "", View);
+		dia2->EditTex->setText("function "+nam+"()\n{\n}");
 		if (dia2->exec())
 		{
 			EditScript->setEnabled(true);
@@ -102,11 +106,11 @@ void JavaDocs::slotEdit()
 void JavaDocs::slotDelete()
 {
 	int exit=ScMessageBox::warning(this,
-	                              CommonStrings::trWarning,
-	                              tr("Do you really want to delete this script?"),
-	                              tr("&Yes"),
-	                              tr("&No"),
-	                              0, 0, 0);
+	                               CommonStrings::trWarning,
+	                               tr("Do you really want to delete this script?"),
+	                               tr("&Yes"),
+	                               tr("&No"),
+	                               0, 0, 0);
 	if (exit == 0)
 	{
 		QString nam = Scripts->currentText();

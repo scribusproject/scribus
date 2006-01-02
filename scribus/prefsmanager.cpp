@@ -387,6 +387,9 @@ void PrefsManager::initDefaults()
 	appPrefs.PDF_Options.displayFullscreen = false;
 	appPrefs.PDF_Options.displayLayers = false;
 	appPrefs.PDF_Options.displayThumbs = false;
+	appPrefs.PDF_Options.hideMenuBar = false;
+	appPrefs.PDF_Options.hideToolBar = false;
+	appPrefs.PDF_Options.fitWindow = false;
 	appPrefs.PDF_Options.PageLayout = PDFOptions::SinglePage;
 	appPrefs.PDF_Options.openAction = "";
 

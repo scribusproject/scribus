@@ -3325,6 +3325,9 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	pdf.setAttribute("displayFullscreen", static_cast<int>(doc->PDF_Options.displayFullscreen));
 	pdf.setAttribute("displayLayers", static_cast<int>(doc->PDF_Options.displayLayers));
 	pdf.setAttribute("displayThumbs", static_cast<int>(doc->PDF_Options.displayThumbs));
+	pdf.setAttribute("hideMenuBar", static_cast<int>(doc->PDF_Options.hideMenuBar));
+	pdf.setAttribute("hideToolBar", static_cast<int>(doc->PDF_Options.hideToolBar));
+	pdf.setAttribute("fitWindow", static_cast<int>(doc->PDF_Options.fitWindow));
 	pdf.setAttribute("PageLayout", doc->PDF_Options.PageLayout);
 	pdf.setAttribute("openAction", doc->PDF_Options.openAction);
 	for (uint pdoF = 0; pdoF < doc->PDF_Options.EmbedList.count(); ++pdoF)

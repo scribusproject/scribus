@@ -12,19 +12,19 @@ class ScribusDoc;
 class ScribusView;
 
 class SCRIBUS_API JavaDocs : public QDialog
-{ 
-    Q_OBJECT
+{
+	Q_OBJECT
 
 public:
-    JavaDocs( QWidget* parent, ScribusDoc *doc, ScribusView* vie);
-    ~JavaDocs() {};
+	JavaDocs( QWidget* parent, ScribusDoc *doc, ScribusView* vie);
+	~JavaDocs() {};
 
-    QListBox* Scripts;
-    QPushButton* EditScript;
-    QPushButton* AddScript;
-    QPushButton* DeleteScript;
-    QPushButton* ExitDia;
-    ScribusDoc *Doc;
+	QListBox* Scripts;
+	QPushButton* EditScript;
+	QPushButton* AddScript;
+	QPushButton* DeleteScript;
+	QPushButton* ExitDia;
+	ScribusDoc *Doc;
 	ScribusView *View;
 
 private slots:
@@ -36,8 +36,8 @@ signals:
 	void docChanged(bool);
 
 protected:
-    QHBoxLayout* JavaDocsLayout;
-    QVBoxLayout* Layout1;
+	QHBoxLayout* JavaDocsLayout;
+	QVBoxLayout* Layout1;
 };
 
 #endif // JAVADOCS_H

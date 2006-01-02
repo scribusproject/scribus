@@ -168,6 +168,9 @@ public:
 	QRadioButton* useBookmarks;
 	QRadioButton* useThumbnails;
 	QRadioButton* useLayers2;
+	QCheckBox* hideToolBar;
+	QCheckBox* hideMenuBar;
+	QCheckBox* fitWindow;
 	QGroupBox* groupJava;
 	QLabel* actionLabel;
 	QComboBox* actionCombo;

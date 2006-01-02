@@ -181,6 +181,9 @@ void PDF_Opts::updateDocOptions()
 	Opts->displayFullscreen = Options->useFullScreen->isChecked();
 	Opts->displayLayers = Options->useLayers2->isChecked();
 	Opts->displayThumbs = Options->useThumbnails->isChecked();
+	Opts->hideMenuBar = Options->hideMenuBar->isChecked();
+	Opts->hideToolBar = Options->hideToolBar->isChecked();
+	Opts->fitWindow = Options->fitWindow->isChecked();
 	int pgl = PDFOptions::SinglePage;
 	if (Options->singlePage->isChecked())
 		pgl = PDFOptions::SinglePage;
