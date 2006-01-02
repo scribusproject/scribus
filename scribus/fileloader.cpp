@@ -232,15 +232,14 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage)
 	{
 		case 0:
 			{
-				ScriXmlDoc *ss = new ScriXmlDoc();
-				ss->ReplacedFonts.clear();
-				ss->newReplacement = false;
-				ss->dummyFois.clear();
-				ret = ss->ReadPage(FileName, prefsManager->appPrefs.AvailFonts, ScMW->doc, ScMW->view, PageToLoad, Mpage);
-				ReplacedFonts = ss->ReplacedFonts;
-				newReplacement = ss->newReplacement;
-				dummyFois = ss->dummyFois;
-				delete ss;
+				ScriXmlDoc ss;
+				ss.ReplacedFonts.clear();
+				ss.newReplacement = false;
+				ss.dummyFois.clear();
+				ret = ss.ReadPage(FileName, prefsManager->appPrefs.AvailFonts, ScMW->doc, ScMW->view, PageToLoad, Mpage);
+				ReplacedFonts = ss.ReplacedFonts;
+				newReplacement = ss.newReplacement;
+				dummyFois = ss.dummyFois;
 			}
 			break;
 		case 1:
@@ -255,20 +254,18 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage)
 		if ((prefsManager->appPrefs.askBeforeSubstituite) || (newReplacement))
 		{
 			qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
-			FontReplaceDialog *dia = new FontReplaceDialog(0, &ReplacedFonts);
-			if (dia->exec())
+			FontReplaceDialog dia(0, &ReplacedFonts);
+			if (dia.exec())
 			{
 				QMap<QString,QString>::Iterator itfsu;
 				for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
 				{
-					if (dia->stickyReplacements->isChecked())
+					if (dia.stickyReplacements->isChecked())
 						prefsManager->appPrefs.GFontSub[itfsu.key()] = itfsu.data();
 				}
-				delete dia;
 			}
 			else
 			{
-				delete dia;
 				return false;
 			}
 		}
@@ -367,18 +364,17 @@ bool FileLoader::LoadFile()
 	{
 		case 0:
 			{
-				ScriXmlDoc *ss = new ScriXmlDoc();
+				ScriXmlDoc ss;
 				//CB: WTF? We use a slot to make the new pages? hello!
 				//QObject::connect(ss, SIGNAL(NewPage(int)), ScMW, SLOT(slotNewPage(int)));
-				ss->ReplacedFonts.clear();
-				ss->newReplacement = false;
-				ss->dummyFois.clear();
-				ret = ss->ReadDoc(FileName, prefsManager->appPrefs.AvailFonts, ScMW->doc, ScMW->view, ScMW->mainWindowProgressBar);
+				ss.ReplacedFonts.clear();
+				ss.newReplacement = false;
+				ss.dummyFois.clear();
+				ret = ss.ReadDoc(FileName, prefsManager->appPrefs.AvailFonts, ScMW->doc, ScMW->view, ScMW->mainWindowProgressBar);
 				//QObject::disconnect(ss, SIGNAL(NewPage(int)), ScMW, SLOT(slotNewPage(int)));
-				ReplacedFonts = ss->ReplacedFonts;
-				newReplacement = ss->newReplacement;
-				dummyFois = ss->dummyFois;
-				delete ss;
+				ReplacedFonts = ss.ReplacedFonts;
+				newReplacement = ss.newReplacement;
+				dummyFois = ss.dummyFois;
 			}
 			break;
 		case 1:
@@ -2615,20 +2611,18 @@ bool FileLoader::postLoad(bool is12doc)
 		if ((prefsManager->appPrefs.askBeforeSubstituite) || (newReplacement))
 		{
 			qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
-			FontReplaceDialog *dia = new FontReplaceDialog(0, &ReplacedFonts);
-			if (dia->exec())
+			FontReplaceDialog dia(0, &ReplacedFonts);
+			if (dia.exec())
 			{
 				QMap<QString,QString>::Iterator itfsu;
 				for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
 				{
-					if (dia->stickyReplacements->isChecked())
+					if (dia.stickyReplacements->isChecked())
 						prefsManager->appPrefs.GFontSub[itfsu.key()] = itfsu.data();
 				}
-				delete dia;
 			}
 			else
 			{
-				delete dia;
 				return false;
 			}
 		}

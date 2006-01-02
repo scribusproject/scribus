@@ -331,7 +331,7 @@ int ScribusMainWindow::initScribus(bool showSplash, bool showFontInfo, const QSt
 	return retVal;
 }
 
-void ScribusMainWindow::~ScribusMainWindow()
+ScribusMainWindow::~ScribusMainWindow()
 {
 }
 
