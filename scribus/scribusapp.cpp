@@ -351,6 +351,20 @@ void ScribusQApp::changeGUILanguage(const QString & newGUILang)
 	installTranslators(newLangs);
 }
 
+// Format an arguments line for printing
+static void printArgLine(QTextStream & ts, const char * smallArg,
+						  const char* fullArg, const QString desc)
+{
+	const char* lineformat = "  %1, %2 %3";
+	const int saw = 3;   // Short argument width
+	const int aw = -18;   // Argument width (negative is left aligned)
+	QString line = QString(lineformat)
+		.arg(smallArg, saw)
+		.arg(fullArg, aw)
+		.arg(desc);
+	ts << line;
+	endl(ts);
+}
 
 /*!
 \fn void showUsage()
@@ -367,17 +381,25 @@ void ScribusQApp::showUsage()
 	QFile f;
 	f.open(IO_WriteOnly, stderr);
 	QTextStream ts(&f);
-	ts << QObject::tr("Usage: scribus [option ... ] [file]") ; endl(ts);
-	ts << QObject::tr("Options:") ; endl(ts);
-	ts << "  " << ARG_HELP_SHORT           << ",  " << ARG_HELP             << "             " << QObject::tr("Print help (this message) and exit")     ; endl(ts);
-	ts << "  " << ARG_LANG_SHORT           << ",  " << ARG_LANG             << "             " << QObject::tr("Uses xx as shortcut for a language")     ; endl(ts);
-	ts << "  " << ARG_AVAILLANG_SHORT      << ", "  << ARG_AVAILLANG        << "  "            << QObject::tr("List the currently installed interface languages") ; endl(ts);
-	ts << "  " << ARG_FONTINFO_SHORT       << ", "  << ARG_FONTINFO         << "        "      << QObject::tr("Show information on the console when fonts are being loaded") ; endl(ts);
-	ts << "  " << ARG_NOSPLASH_SHORT       << ", "  << ARG_NOSPLASH         << "        "      << QObject::tr("Do not show the splashscreen on startup")     ; endl(ts);
-	ts << "  " << ARG_VERSION_SHORT        << ",  " << ARG_VERSION          << "          "    << QObject::tr("Output version information and exit")       ; endl(ts);
-	ts << "  " << ARG_SWAPDIABUTTONS_SHORT << ", " << ARG_SWAPDIABUTTONS   << "     "    << QObject::tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)")       ; endl(ts);
-	ts << "  " << ARG_PREFS_SHORT << ", " << ARG_PREFS << " filename   " << QObject::tr("Use filename as path for user given preferences") ; endl(ts);
-/*
+	ts << tr("Usage: scribus [option ... ] [file]") ; endl(ts);
+	ts << tr("Options:") ; endl(ts);
+	printArgLine(ts, ARG_HELP_SHORT, ARG_HELP,
+		tr("Print help (this message) and exit") );
+	printArgLine(ts, ARG_LANG_SHORT, ARG_LANG,
+		tr("Uses xx as shortcut for a language, eg `en' or `de'") );
+	printArgLine(ts, ARG_AVAILLANG_SHORT, ARG_AVAILLANG,
+		tr("List the currently installed interface languages") );
+	printArgLine(ts, ARG_FONTINFO_SHORT, ARG_FONTINFO,
+		tr("Show information on the console when fonts are being loaded") );
+	printArgLine(ts, ARG_NOSPLASH_SHORT, ARG_NOSPLASH,
+		tr("Do not show the splashscreen on startup") );
+	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION,
+		tr("Output version information and exit") );
+	printArgLine(ts, ARG_SWAPDIABUTTONS_SHORT, ARG_SWAPDIABUTTONS,
+		tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)") );
+	printArgLine(ts, ARG_PREFS_SHORT, QString(ARG_PREFS)+" "+tr("filename"),
+		tr("Use filename as path for user given preferences") );
+/* Delete me?
 	std::cout << "-file|-- name Open file 'name'" ; endl(ts);
 	std::cout << "name          Open file 'name', the file name must not begin with '-'" ; endl(ts);
 	std::cout << "QT specific options as -display ..." ; endl(ts);
@@ -396,16 +418,19 @@ void ScribusQApp::showUsage()
 
 void ScribusQApp::showAvailLangs()
 {
-	std::cout << QObject::tr("Installed interface languages for Scribus are as follows:") << std::endl;
-	std::cout << std::endl;
+	QFile f;
+	f.open(IO_WriteOnly, stderr);
+	QTextStream ts(&f);
+	ts << tr("Installed interface languages for Scribus are as follows:"); endl(ts);
+	endl(ts);
 
 	LanguageManager langMgr;
 	langMgr.init();
 	langMgr.printInstalledList();
 
-	std::cout << std::endl;
-	std::cout << QObject::tr("To override the default language choice:") << std::endl;
-	std::cout << QObject::tr("scribus -l xx or scribus --lang xx, where xx is the language of choice.") << std::endl;
+	endl(ts);
+	ts << tr("To override the default language choice:"); endl(ts);
+	ts << tr("scribus -l xx or scribus --lang xx, where xx is the language of choice."); endl(ts);
 }
 
 void ScribusQApp::showVersion()
@@ -415,14 +440,21 @@ void ScribusQApp::showVersion()
 
 void ScribusQApp::showHeader()
 {
-	std::cout << std::endl;
-	std::cout << QObject::tr("Scribus, Open Source Desktop Publishing") << std::endl;
-	std::cout << QObject::tr("---------------------------------------") << std::endl;
-	std::cout << QObject::tr("Homepage:       http://www.scribus.net ") << std::endl;
-	std::cout << QObject::tr("Documentation:  http://docs.scribus.net") << std::endl;
-	std::cout << QObject::tr("Wiki:           http://wiki.scribus.net") << std::endl;
-	std::cout << QObject::tr("Issues:         http://bugs.scribus.net") << std::endl;
-	std::cout << std::endl;
+	QFile f;
+	f.open(IO_WriteOnly, stderr);
+	QTextStream ts(&f);
+	endl(ts);
+	QString heading( tr("Scribus, Open Source Desktop Publishing") );
+	QString separator = QString("").rightJustify(heading.length(),'-');
+	const int urlwidth = 23;
+	const int descwidth = -(heading.length() - urlwidth - 1);
+	ts << heading; endl(ts);
+	ts << separator; endl(ts);
+	ts << QString("%1 %2").arg(tr("Homepage")+":",      descwidth).arg("http://www.scribus.net" ); endl(ts);
+	ts << QString("%1 %2").arg(tr("Documentation")+":", descwidth).arg("http://docs.scribus.net"); endl(ts);
+	ts << QString("%1 %2").arg(tr("Wiki")+":",          descwidth).arg("http://wiki.scribus.net"); endl(ts);
+	ts << QString("%1 %2").arg(tr("Issues")+":",        descwidth).arg("http://bugs.scribus.net"); endl(ts);
+	endl(ts);
 }
 
 bool ScribusQApp::usingGUI() const
