@@ -15,11 +15,12 @@
 *                                                                         *
 ***************************************************************************/
 
+
 #include <iostream>
 #include <cstdlib>
 
-#include <qfont.h>
 #include <qstring.h>
+#include <qfont.h>
 #include <qtranslator.h>
 #include <qfileinfo.h>
 #include <qfile.h>
@@ -59,7 +60,6 @@
 
 // Qt wants -display not --display or -d
 #define ARG_DISPLAY_QT "-display"
-
 
 extern ScribusQApp* ScQApp;
 
@@ -154,9 +154,9 @@ void ScribusQApp::parseCommandLine()
 			if (!QFileInfo(prefsUserFile).exists()) {
 				showHeader();
 				if (file.left(1) == "-" || file.left(2) == "--") {
-					std::cout << QObject::tr("Invalid argument: ").local8Bit() << file << std::endl;
+					std::cout << tr("Invalid argument: ").local8Bit() << file << std::endl;
 				} else {
-					std::cout << QObject::tr("File %1 does not exist, aborting.").arg(file).local8Bit() << std::endl;
+					std::cout << tr("File %1 does not exist, aborting.").arg(file).local8Bit() << std::endl;
 				}
 				showUsage();
 				useGUI=false;
@@ -172,9 +172,9 @@ void ScribusQApp::parseCommandLine()
 			if (!QFileInfo(file).exists()) {
 				showHeader();
 				if (file.left(1) == "-" || file.left(2) == "--") {
-					std::cout << QObject::tr("Invalid argument: ").local8Bit() << file << std::endl;
+					std::cout << tr("Invalid argument: ").local8Bit() << file << std::endl;
 				} else {
-					std::cout << QObject::tr("File %1 does not exist, aborting.").arg(file).local8Bit() << std::endl;
+					std::cout << tr("File %1 does not exist, aborting.").arg(file).local8Bit() << std::endl;
 				}
 				showUsage();
 				useGUI=false;
@@ -435,7 +435,7 @@ void ScribusQApp::showAvailLangs()
 
 void ScribusQApp::showVersion()
 {
-	std::cout << QObject::tr("Scribus Version ").local8Bit() << VERSION << std::endl;
+	std::cout << tr("Scribus Version").local8Bit() << " " << VERSION << std::endl;
 }
 
 void ScribusQApp::showHeader()
@@ -445,7 +445,9 @@ void ScribusQApp::showHeader()
 	QTextStream ts(&f);
 	endl(ts);
 	QString heading( tr("Scribus, Open Source Desktop Publishing") );
+	// Build a separator of ----s the same width as the heading
 	QString separator = QString("").rightJustify(heading.length(),'-');
+	// Then output the heading, separator, and docs/www/etc info in an aligned table
 	const int urlwidth = 23;
 	const int descwidth = -(heading.length() - urlwidth - 1);
 	ts << heading; endl(ts);
