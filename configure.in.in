@@ -129,11 +129,11 @@ ${endmsg}
 dnl Use gcc symbol visibility?
 dnl This should probably default to "yes" in future.
 AC_ARG_ENABLE(gcc_symbol_visibility,
-			  [  --disable-gcc-symbol-visibility  Make all symbols appear in symbol table.],
-			  [use_gcc_symbol_visibility="no"])
+			  [  --enable-gcc-symbol-visibility  Use -fvisiblity with gcc for smaller binaries.],
+			  [use_gcc_symbol_visibility="yes"])
 KDE_CHECK_COMPILER_FLAG(fvisibility=hidden, [have_visibility=yes])
 AC_MSG_CHECKING([whether to use gcc symbol visibility controls])
-if test "$use_gcc_symbol_visibility" != "no" -a "$have_visibility" = "yes"; then
+if test "$use_gcc_symbol_visibility" = "yes" -a "$have_visibility" = "yes"; then
 	# see http://people.redhat.com/drepper/dsohowto.pdf , http://gcc.gnu.org/wiki/Visibility
 	gcc_visibility_flags="$CXXFLAGS -fvisibility=hidden -DHAVE_GCC_SYMBOL_VISIBILITY=1"
 	GCC_C_VISIBILITY_FLAGS="$gcc_visibility_flags"
