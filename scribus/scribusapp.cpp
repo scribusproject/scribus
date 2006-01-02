@@ -154,9 +154,9 @@ void ScribusQApp::parseCommandLine()
 			if (!QFileInfo(prefsUserFile).exists()) {
 				showHeader();
 				if (file.left(1) == "-" || file.left(2) == "--") {
-					std::cout << QObject::tr("Invalid argument: ") << file << std::endl;
+					std::cout << QObject::tr("Invalid argument: ").local8Bit() << file << std::endl;
 				} else {
-					std::cout << QObject::tr("File %1 does not exist, aborting.").arg(file) << std::endl;
+					std::cout << QObject::tr("File %1 does not exist, aborting.").arg(file).local8Bit() << std::endl;
 				}
 				showUsage();
 				useGUI=false;
@@ -172,9 +172,9 @@ void ScribusQApp::parseCommandLine()
 			if (!QFileInfo(file).exists()) {
 				showHeader();
 				if (file.left(1) == "-" || file.left(2) == "--") {
-					std::cout << QObject::tr("Invalid argument: ") << file << std::endl;
+					std::cout << QObject::tr("Invalid argument: ").local8Bit() << file << std::endl;
 				} else {
-					std::cout << QObject::tr("File %1 does not exist, aborting.").arg(file) << std::endl;
+					std::cout << QObject::tr("File %1 does not exist, aborting.").arg(file).local8Bit() << std::endl;
 				}
 				showUsage();
 				useGUI=false;
@@ -435,7 +435,7 @@ void ScribusQApp::showAvailLangs()
 
 void ScribusQApp::showVersion()
 {
-	std::cout << QObject::tr("Scribus Version ") << VERSION << std::endl;
+	std::cout << QObject::tr("Scribus Version ").local8Bit() << VERSION << std::endl;
 }
 
 void ScribusQApp::showHeader()
