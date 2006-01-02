@@ -109,7 +109,7 @@ public:
 	/** constructor */
 	ScribusMainWindow();
 	/** destructor */
-	~ScribusMainWindow() {};
+	~ScribusMainWindow();
 	int initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile);
 	void showSplash(bool);
 	bool splashShowing() const;
