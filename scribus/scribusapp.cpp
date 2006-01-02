@@ -364,22 +364,25 @@ void ScribusQApp::changeGUILanguage(const QString & newGUILang)
 
 void ScribusQApp::showUsage()
 {
-	std::cout << QObject::tr("Usage: scribus [option ... ] [file]") << std::endl;
-	std::cout << QObject::tr("Options:") << std::endl;
-	std::cout << "  " << ARG_HELP_SHORT           << ",  " << ARG_HELP             << "             " << QObject::tr("Print help (this message) and exit")     << std::endl;
-	std::cout << "  " << ARG_LANG_SHORT           << ",  " << ARG_LANG             << "             " << QObject::tr("Uses xx as shortcut for a language")     << std::endl;
-	std::cout << "  " << ARG_AVAILLANG_SHORT      << ", "  << ARG_AVAILLANG        << "  "            << QObject::tr("List the currently installed interface languages") << std::endl;
-	std::cout << "  " << ARG_FONTINFO_SHORT       << ", "  << ARG_FONTINFO         << "        "      << QObject::tr("Show information on the console when fonts are being loaded") << std::endl;
-	std::cout << "  " << ARG_NOSPLASH_SHORT       << ", "  << ARG_NOSPLASH         << "        "      << QObject::tr("Do not show the splashscreen on startup")     << std::endl;
-	std::cout << "  " << ARG_VERSION_SHORT        << ",  " << ARG_VERSION          << "          "    << QObject::tr("Output version information and exit")       << std::endl;
-	std::cout << "  " << ARG_SWAPDIABUTTONS_SHORT << ", " << ARG_SWAPDIABUTTONS   << "     "    << QObject::tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)")       << std::endl;
-	std::cout << "  " << ARG_PREFS_SHORT << ", " << ARG_PREFS << " filename   " << QObject::tr("Use filename as path for user given preferences") << std::endl;
+	QFile f;
+	f.open(IO_WriteOnly, stderr);
+	QTextStream ts(&f);
+	ts << QObject::tr("Usage: scribus [option ... ] [file]") ; endl(ts);
+	ts << QObject::tr("Options:") ; endl(ts);
+	ts << "  " << ARG_HELP_SHORT           << ",  " << ARG_HELP             << "             " << QObject::tr("Print help (this message) and exit")     ; endl(ts);
+	ts << "  " << ARG_LANG_SHORT           << ",  " << ARG_LANG             << "             " << QObject::tr("Uses xx as shortcut for a language")     ; endl(ts);
+	ts << "  " << ARG_AVAILLANG_SHORT      << ", "  << ARG_AVAILLANG        << "  "            << QObject::tr("List the currently installed interface languages") ; endl(ts);
+	ts << "  " << ARG_FONTINFO_SHORT       << ", "  << ARG_FONTINFO         << "        "      << QObject::tr("Show information on the console when fonts are being loaded") ; endl(ts);
+	ts << "  " << ARG_NOSPLASH_SHORT       << ", "  << ARG_NOSPLASH         << "        "      << QObject::tr("Do not show the splashscreen on startup")     ; endl(ts);
+	ts << "  " << ARG_VERSION_SHORT        << ",  " << ARG_VERSION          << "          "    << QObject::tr("Output version information and exit")       ; endl(ts);
+	ts << "  " << ARG_SWAPDIABUTTONS_SHORT << ", " << ARG_SWAPDIABUTTONS   << "     "    << QObject::tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)")       ; endl(ts);
+	ts << "  " << ARG_PREFS_SHORT << ", " << ARG_PREFS << " filename   " << QObject::tr("Use filename as path for user given preferences") ; endl(ts);
 /*
-	std::cout << "-file|-- name Open file 'name'" << std::endl;
-	std::cout << "name          Open file 'name', the file name must not begin with '-'" << std::endl;
-	std::cout << "QT specific options as -display ..." << std::endl;
+	std::cout << "-file|-- name Open file 'name'" ; endl(ts);
+	std::cout << "name          Open file 'name', the file name must not begin with '-'" ; endl(ts);
+	std::cout << "QT specific options as -display ..." ; endl(ts);
 */
-	std::cout << std::endl;
+	endl(ts);
 }
 
 /*!
