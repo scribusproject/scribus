@@ -13,7 +13,7 @@ AC_CANONICAL_SYSTEM
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(scribus,1.2.3.99)
+AM_INIT_AUTOMAKE(scribus,1.2.4)
 
 dnl Add the libs and includes from --with-extra-libs and --with-extra-includes
 KDE_CHECK_EXTRA_LIBS
