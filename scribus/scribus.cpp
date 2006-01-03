@@ -7377,6 +7377,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	pagePalette->enablePalette(true);
 	pagePalette->RebuildTemp();
 	ActWin->setMasterPagesPalette(NULL);
+	view->reformPages(false);
 	view->DrawNew();
 	pagePalette->Rebuild();
 	outlinePalette->BuildTree();
