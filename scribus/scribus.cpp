@@ -1511,8 +1511,11 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 {
 	if (k->state() & ControlButton)
 	{
-		if ((doc->appMode == modePanning) && (k->state() & Qt::RightButton))
-			setAppMode(modeNormal);
+		if (HaveDoc)
+		{
+			if ((doc->appMode == modePanning) && (k->state() & Qt::RightButton))
+				setAppMode(modeNormal);
+		}
 	}
 	if (k->isAutoRepeat() || !_arrowKeyDown)
 		return;
