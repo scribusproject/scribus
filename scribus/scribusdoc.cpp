@@ -3106,6 +3106,10 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		TableID.clear();
 		TableItems.clear();
 		uint oldItems = Items->count();
+		QPixmap pgPix(10, 10);
+		QRect rd = QRect(0,0,9,9);
+		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
+		RePos = true;
 		for (uint ite = 0; ite < oldItems; ++ite)
 		{
 			PageItem *itemToCopy = Items->at(ite);
@@ -3140,8 +3144,11 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 					TableItems.append(Neu);
 					TableID.insert(ite, Neu->ItemNr);
 				}
+				Neu->DrawObj(painter, rd);
 			}
 		}
+		delete painter;
+		RePos = false;
 		if (TableItems.count() != 0)
 		{
 			for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
