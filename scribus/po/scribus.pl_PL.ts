@@ -2439,7 +2439,11 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>December</source>
-        <translation>Grudzień</translation>
+        <translation type="obsolete">Grudzień</translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation>Styczeń</translation>
     </message>
 </context>
 <context>
@@ -6572,7 +6576,13 @@ lub gtklp, by uzyskać dostęp do dodatkowych opcji drukowania</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>UCR jest to sposób zamiany niektórych odcieni szarości, które
+składają się z cyjanu (C), żółci (Y) i madżenty (M) na czarny.
+UCR ma największy wpływ na obszary obrazków, które mają neutralne
+lub ciemne odcienie bliskie szarości. Użycie go może poprawić wydruk niektórych 
+obrazków, jednakże wymaga wykonania wcześniej kilku prób i testów dla każdego
+przypadku.
+UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
@@ -7755,6 +7765,18 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
         <source>&amp;Apply to All Pages</source>
         <translation>Zastos&amp;uj do wszystkich stron</translation>
     </message>
+    <message>
+        <source>Guide</source>
+        <translation>Linia pomocnicza</translation>
+    </message>
+    <message>
+        <source>Unit</source>
+        <translation>Jednostka</translation>
+    </message>
+    <message>
+        <source>There is empty (0.0) guide already</source>
+        <translation>Istnieje już pusta (0.0) linia pomocnicza</translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
@@ -7961,7 +7983,7 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
     <message>
         <source>Has Embedded Paths:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawiera zagnieżdżone krzywe:</translation>
     </message>
     <message>
         <source>Has Layers:</source>
@@ -8192,6 +8214,10 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     <message>
         <source>Do you really want to delete this script?</source>
         <translation>Naprawdę usunąć ten skrypt?</translation>
+    </message>
+    <message>
+        <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8608,11 +8634,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstęp pomiędzy lewą linią pomocniczą marginesu a krawędzią strony. Jeśli wybrałeś strony widzące się, obszar marginesu może być użyty to osiągnięcia prawidłowych marginesów dla zszycia</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstęp pomiędzy prawą linią pomocniczą marginesu a krawędzią strony. Jeśli wybrałeś strony widzące się, obszar marginesu może być użyty to osiągnięcia prawidłowych marginesów dla zszycia</translation>
     </message>
 </context>
 <context>
@@ -11782,7 +11808,13 @@ połączeń między ramkami.</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">UCR jest to sposób zamiany niektórych odcieni szarości, które
+składają się z cyjanu (C), żółci (Y) i madżenty (M) na czarny.
+UCR ma największy wpływ na obszary obrazków, które mają neutralne
+lub ciemne odcienie bliskie szarości. Użycie go może poprawić wydruk niektórych 
+obrazków, jednakże wymaga wykonania wcześniej kilku prób i testów dla każdego
+przypadku.
+UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
 </context>
 <context>
@@ -13647,27 +13679,27 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Invalid argument: </source>
-        <translation>Niedozwolony argument:</translation>
+        <translation type="obsolete">Niedozwolony argument:</translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
-        <translation>Plik %1 nie istnieje, porzucam.</translation>
+        <translation type="obsolete">Plik %1 nie istnieje, porzucam.</translation>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation>Użycie: scribus [opcja...] [plik]</translation>
+        <translation type="obsolete">Użycie: scribus [opcja...] [plik]</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation>Opcje:</translation>
+        <translation type="obsolete">Opcje:</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
-        <translation>Wyświetl pomoc (tę wiadomość) i zakończ</translation>
+        <translation type="obsolete">Wyświetl pomoc (tę wiadomość) i zakończ</translation>
     </message>
     <message>
         <source>Uses xx as shortcut for a language</source>
-        <translation>Używa xx jako skrótu języka</translation>
+        <translation type="obsolete">Używa xx jako skrótu języka</translation>
     </message>
     <message>
         <source>Lists the currently installed interface languages</source>
@@ -13675,47 +13707,47 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
-        <translation>Nie wyświetlaj loga przy starcie programu</translation>
+        <translation type="obsolete">Nie wyświetlaj loga przy starcie programu</translation>
     </message>
     <message>
         <source>Output version information and exit</source>
-        <translation>Wyświetl informację o wersji i zakończ</translation>
+        <translation type="obsolete">Wyświetl informację o wersji i zakończ</translation>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
-        <translation>Zainstalowano następujące języki interfejsu Scribusa:</translation>
+        <translation type="obsolete">Zainstalowano następujące języki interfejsu Scribusa:</translation>
     </message>
     <message>
         <source>To override the default language choice:</source>
-        <translation>Aby nadpisać domyślny wybór języka:</translation>
+        <translation type="obsolete">Aby nadpisać domyślny wybór języka:</translation>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation>scribus -l xx lub scribus --lang xx, gdzie xx oznacza wybrany język.</translation>
+        <translation type="obsolete">scribus -l xx lub scribus --lang xx, gdzie xx oznacza wybrany język.</translation>
     </message>
     <message>
         <source>Scribus Version </source>
-        <translation>Wersja Scribusa</translation>
+        <translation type="obsolete">Wersja Scribusa</translation>
     </message>
     <message>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation>Scribus, Open Source Desktop Publishing</translation>
+        <translation type="obsolete">Scribus, Open Source Desktop Publishing</translation>
     </message>
     <message>
         <source>---------------------------------------</source>
-        <translation>---------------------------------------</translation>
+        <translation type="obsolete">---------------------------------------</translation>
     </message>
     <message>
         <source>Homepage:       http://www.scribus.net </source>
-        <translation>Strona domowa:     http://www.scribus.net </translation>
+        <translation type="obsolete">Strona domowa:     http://www.scribus.net </translation>
     </message>
     <message>
         <source>Documentation:  http://docs.scribus.net</source>
-        <translation>Dokumentacja:  http://docs.scribus.net</translation>
+        <translation type="obsolete">Dokumentacja:  http://docs.scribus.net</translation>
     </message>
     <message>
         <source>Issues:         http://bugs.scribus.net</source>
-        <translation>Błędy:     http://bugs.scribus.net</translation>
+        <translation type="obsolete">Błędy:     http://bugs.scribus.net</translation>
     </message>
     <message>
         <source>Freetype2 library not available</source>
@@ -13795,11 +13827,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation>Lista aktualnie zainstalowanych języków interfejsów</translation>
+        <translation type="obsolete">Lista aktualnie zainstalowanych języków interfejsów</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation>Wyświetl w konsoli informację, jakie fonty są wczytywane</translation>
+        <translation type="obsolete">Wyświetl w konsoli informację, jakie fonty są wczytywane</translation>
     </message>
     <message>
         <source>Scribus Crash</source>
@@ -13851,7 +13883,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Wiki:           http://wiki.scribus.net</source>
-        <translation>Wiki:           http://wiki.scribus.net</translation>
+        <translation type="obsolete">Wiki:           http://wiki.scribus.net</translation>
     </message>
     <message>
         <source>page</source>
@@ -13963,10 +13995,6 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14004,8 +14032,8 @@ is not exhaustive due to exceptions from called functions.
         <translation>&amp;Importuj</translation>
     </message>
     <message>
-        <source>Use filename as path for user given preferences</source>
-        <translation type="unfinished"></translation>
+        <source>Thai</source>
+        <translation>Tajski</translation>
     </message>
 </context>
 <context>
@@ -15906,6 +15934,97 @@ materiału wejściowego, aby je poprawić</translation>
     </message>
 </context>
 <context>
+    <name>ScribusQApp</name>
+    <message>
+        <source>Invalid argument: </source>
+        <translation>Niedozwolony argument:</translation>
+    </message>
+    <message>
+        <source>File %1 does not exist, aborting.</source>
+        <translation>Plik %1 nie istnieje, porzucam.</translation>
+    </message>
+    <message>
+        <source>Usage: scribus [option ... ] [file]</source>
+        <translation>Użycie: scribus [opcja...] [plik]</translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation>Opcje:</translation>
+    </message>
+    <message>
+        <source>Print help (this message) and exit</source>
+        <translation>Wyświetl pomoc (tę wiadomość) i zakończ</translation>
+    </message>
+    <message>
+        <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
+        <translation>Użyj xx jako skrótu języka, np. `en&apos; lub `pl&apos;</translation>
+    </message>
+    <message>
+        <source>List the currently installed interface languages</source>
+        <translation>Lista aktualnie zainstalowanych języków interfejsów</translation>
+    </message>
+    <message>
+        <source>Show information on the console when fonts are being loaded</source>
+        <translation>Wyświetl w konsoli informację, jakie fonty są wczytywane</translation>
+    </message>
+    <message>
+        <source>Do not show the splashscreen on startup</source>
+        <translation>Nie wyświetlaj loga przy starcie programu</translation>
+    </message>
+    <message>
+        <source>Output version information and exit</source>
+        <translation>Wyświetl informację o wersji i zakończ</translation>
+    </message>
+    <message>
+        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
+        <translation>Użyj ułożenia przycisków od lewej do prawej (np. Anuluj/Nie/Tak zamiast Tak/Nie/Anuluj)</translation>
+    </message>
+    <message>
+        <source>filename</source>
+        <translation>plik</translation>
+    </message>
+    <message>
+        <source>Use filename as path for user given preferences</source>
+        <translation>Użyj nazwy pliku jako jako ścieżki dla konfiguracji użytkownika</translation>
+    </message>
+    <message>
+        <source>Installed interface languages for Scribus are as follows:</source>
+        <translation>Zainstalowano następujące języki interfejsu Scribusa:</translation>
+    </message>
+    <message>
+        <source>To override the default language choice:</source>
+        <translation>Aby nadpisać domyślny wybór języka:</translation>
+    </message>
+    <message>
+        <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
+        <translation>scribus -l xx lub scribus --lang xx, gdzie xx oznacza wybrany język.</translation>
+    </message>
+    <message>
+        <source>Scribus Version</source>
+        <translation>Scribus wersja</translation>
+    </message>
+    <message>
+        <source>Scribus, Open Source Desktop Publishing</source>
+        <translation>Scribus, Open Source Desktop Publishing</translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation>Strona domowa</translation>
+    </message>
+    <message>
+        <source>Documentation</source>
+        <translation>Dokumentacja</translation>
+    </message>
+    <message>
+        <source>Wiki</source>
+        <translation>Wiki</translation>
+    </message>
+    <message>
+        <source>Issues</source>
+        <translation>Błędy</translation>
+    </message>
+</context>
+<context>
     <name>ScribusView</name>
     <message>
         <source> %</source>
@@ -16170,7 +16289,7 @@ materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>Python Scripts (*.py)</source>
-        <translation>Skrypty w Pythonie (*.py)</translation>
+        <translation type="obsolete">Skrypty w Pythonie (*.py)</translation>
     </message>
     <message>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
@@ -16179,6 +16298,10 @@ materiału wejściowego, aby je poprawić</translation>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);;All Files (*)</source>
+        <translation>Skrypty w Pythonie (*.py);; Wszystkie pliki (*)</translation>
     </message>
 </context>
 <context>
@@ -18029,7 +18152,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wpisz rozdzieloną przecinkami listę wartości, gdzie * oznacza wszystkie strony, 1-5 zakres stron, a pojedynczy numer oznacza numer strony.</translation>
     </message>
     <message>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
@@ -18078,6 +18201,84 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Settings</source>
+        <translation>Ustawienia widoku</translation>
+    </message>
+    <message>
+        <source>Page Layout</source>
+        <translation>Układ strony</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation>Pojedyńcza strona</translation>
+    </message>
+    <message>
+        <source>Continuous</source>
+        <translation>Ciągły</translation>
+    </message>
+    <message>
+        <source>Double Page Left</source>
+        <translation>Podwójna strona po lewej</translation>
+    </message>
+    <message>
+        <source>Double Page Right</source>
+        <translation>Podwójna strona po prawej</translation>
+    </message>
+    <message>
+        <source>Visual Appearance</source>
+        <translation>Tryb widoku</translation>
+    </message>
+    <message>
+        <source>Use Viewers Defaults</source>
+        <translation>Ustawienia domyślne przeglądarki</translation>
+    </message>
+    <message>
+        <source>Use Full Screen Mode</source>
+        <translation>Tryb pełnoekranowy</translation>
+    </message>
+    <message>
+        <source>Display Bookmarks Tab</source>
+        <translation>Wyświetlaj zakładki</translation>
+    </message>
+    <message>
+        <source>Display Thumbnails</source>
+        <translation>Wyświetlaj miniatury</translation>
+    </message>
+    <message>
+        <source>Display Layers Tab</source>
+        <translation>Wyświetlaj warstwy</translation>
+    </message>
+    <message>
+        <source>Hide Viewers Toolbar</source>
+        <translation>Ukryj pasek narzędzi przeglądarki</translation>
+    </message>
+    <message>
+        <source>Hide Viewers Menubar</source>
+        <translation>Ukryj menu przeglądarki</translation>
+    </message>
+    <message>
+        <source>Zoom Pages to fit Viewer Window</source>
+        <translation>Dopasuj wielkość stron do rozmiaru okna przeglądarki</translation>
+    </message>
+    <message>
+        <source>Special Actions</source>
+        <translation>Specjalne akcje</translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when Document is opened:</source>
+        <translation>Skrypt Javascript do wykonania
+podczas otwierania dokumentu:</translation>
+    </message>
+    <message>
+        <source>No Script</source>
+        <translation>Brak skryptu</translation>
+    </message>
+    <message>
+        <source>Viewer</source>
+        <translation>Przeglądarka</translation>
     </message>
 </context>
 <context>
@@ -18483,7 +18684,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie poniżej linii pisma normalnego fontu wyrażone w procentach wydłużenia dolnego fontu</translation>
     </message>
     <message>
         <source>Line width expressed as a percentage of the font size</source>
@@ -18491,7 +18692,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie powyżej linii pisma normalnego fontu wyrażone w procentach wydłużenia górnego fontu</translation>
     </message>
 </context>
 <context>
