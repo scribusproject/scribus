@@ -1,18 +1,39 @@
 #ifndef GUIDEMANAGER_H
 #define GUIDEMANAGER_H
 
+#include <qlistview.h>
 #include "scribusapi.h"
 #include "mspinbox.h"
 
 class QWidget;
 class QGroupBox;
-class QListView;
-class QListViewItem;
 class QPushButton;
 class QLabel;
 class QString;
 class QCheckBox;
 class QHButtonGroup;
+
+
+/*! \brief Inherited QListViewItem provides double number values sorting.
+Guides lists contains double values in 1st (0) columns. Standard QListViewItem
+provides string sorting so I have to create some special number related one ;)
+\author Petr Vanek <petr@yarpen.cz>
+*/
+class GuideListItem : public QListViewItem
+{
+public:
+	//! \brief Only 2 columns here...
+	GuideListItem(QListView *parent, QString c1, QString c2) : QListViewItem(parent, c1, c2){};
+
+	/*! \brief Reimplemented compare method to handle double values.
+	When is no double in column col parent string compare() is called.
+	\param i QListViewItem to compare with.
+	\param col column to sort (0 here)
+	\param asc ascendent on true.
+	\retval int -1 for (x lt y), 1 for (x gt y). See Qt docs for more info.
+	*/
+	int compare(QListViewItem *i, int col, bool asc) const;
+};
 
 
 /*! \brief \brief GuideManager is the dialog for guides managing ;).
@@ -93,6 +114,9 @@ private:
 	/*! \brief Apply selected guides on all pages */
 	QCheckBox* allPages;
 
+	//! \brief a pixmap preview holder
+	QLabel *previewLabel;
+
 	/*! \brief Gaps between guides.
 	User can create automatic guides with an optional two gapped instead one guide.
 	For example: 100mm size - guide - 100mm size will be 95mm size - guide - 10mm gap
@@ -111,6 +135,12 @@ private:
 	int docUnitPrecision;
 	//! \brief suffix of the unit [mm, ...]
 	QString suffix;
+
+	/*! \brief A preview page pixmap holder.
+	This pixmap is created only once - on the dialog opening.
+	It doesn't contain any guides on it. Guides are painted in
+	slotDrawPreview() on a copy of this pixmap. */
+	QPixmap previewPixmap;
 
 	/*! \brief Refresh the guides in the document while the dialog is still opened.
 	Or closed (of course). */
@@ -144,6 +174,29 @@ private:
 	*/
 	bool addValueToList(QListView *list, MSpinBox *spin);
 
+	/*! \brief Delete all selected values from list.
+	\param list a pointer to the chosen QListView
+	\retval bool false on error
+	*/
+	bool deleteValueFormList(QListView *list);
+
+	/*! \brief Create automatic horizontal guides.
+	Calculates positions of the guides.
+	This algorithm is used for guides creating and deleting too.
+	\retval QValueList<double> a list with guides */
+	QValueList<double> getAutoRows();
+
+	/*! \brief Create automatic vertical guides.
+	Calculates positions of the guides.
+	This algorithm is used for guides creating and deleting too.
+	\retval QValueList<double> a list with guides */
+	QValueList<double> getAutoCols();
+
+signals:
+	/*! \brief Signal is emitt when the preview pixmap should be repainted.
+	*/
+	void guidesChanged();
+
 protected slots:
 
 	/*! \brief delete horizontal value */
@@ -168,15 +221,13 @@ protected slots:
 	\param item current (new) item */
 	void horList_currentChanged(QListViewItem *item);
 
-	/*! \brief Create automatic vertical guides.
-	Calculates positions of the guides.
-	This algorithm is used for guides creating and deleting too.
+	/*! \brief Slot for automatic rows calling
+	See getAutoRows()
 	*/
 	void addRows();
 
-	/*! \brief Create automatic horizontal guides.
-	Calculates positions of the guides.
-	This algorithm is used for guides creating and deleting too.
+	/*! \brief Slot for automatic columns calling
+	See getAutoCols()
 	*/
 	void addCols();
 
@@ -193,6 +244,13 @@ protected slots:
 
 	/*! \brief Commits all chasnges and keep the dialog open */
 	void commitEditChanges();
+
+	/*! \brief Sorts the lists and create page-with-guides preview pixmap.
+	This slot takes pixmap stored in previewPixmap each time
+	it's called. The guides are painted on the copy of pre-created
+	pixmap. Common guides are painted with black; currently selected
+	guide is painded dark red and ticker. */
+	void slotDrawPreview();
 };
 
 #endif // GUIDEMANAGER_H

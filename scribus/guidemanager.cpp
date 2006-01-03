@@ -43,6 +43,21 @@
 extern QPixmap loadIcon(QString nam);
 
 
+int GuideListItem::compare(QListViewItem *i, int col, bool asc) const
+{
+	if (col == 0)
+	{
+		double d;
+		d = text(col).toDouble() - i->text(col).toDouble();
+		if (d > 0.0)
+			return 1;
+		return -1;
+	}
+	else
+		return QListViewItem::compare(i, col, asc);
+}
+
+
 GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", true, 0)
 {
 	setCaption( tr("Manage Guides"));
@@ -57,7 +72,8 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	suffix = unitGetSuffixFromIndex(docUnitIndex);
 
 	/* Create the dialog elements */
-	QVBoxLayout *guideManagerLayout = new QVBoxLayout(this, 11, 6, "guideManagerLayout");
+	QHBoxLayout *guideManagerLayout = new QHBoxLayout(this, 11, 6, "guideManagerLayout");
+	QVBoxLayout *mainWidgetsLayout = new QVBoxLayout(0, 11, 6, "mainWidgetsLayout");
 
 	QHBoxLayout *Layout6 = new QHBoxLayout(0, 0, 6, "Layout6");
 
@@ -145,7 +161,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 
 	Layout6->addWidget(verGroup);
 
-	guideManagerLayout->addLayout(Layout6);
+	mainWidgetsLayout->addLayout(Layout6);
 
 	QHBoxLayout *Layout7 = new QHBoxLayout(0, 0, 6, "Layout7");
 
@@ -216,7 +232,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	horGroupLayout2->addLayout(autoGuidesLayout);
 	horGroupLayout2->addLayout(Layout10);
 
-	guideManagerLayout->addLayout(Layout7);
+	mainWidgetsLayout->addLayout(Layout7);
 
 	QHBoxLayout *Layout5 = new QHBoxLayout(0, 0, 6, "Layout5");
 	lockedCheckBox = new QCheckBox( tr( "&Lock Guides" ), this, "lockedCheckBox");
@@ -242,13 +258,31 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	buttonLayout->addWidget(okButton);
 	buttonLayout->addWidget(cancelButton);
 
-	guideManagerLayout->addLayout(Layout5);
-	guideManagerLayout->addLayout(buttonLayout);
+	mainWidgetsLayout->addLayout(Layout5);
+	mainWidgetsLayout->addLayout(buttonLayout);
+	
+	// preview pixmap
+	// prevMainLayout is here due the aligning with the others widgets
+	QHBoxLayout *prevMainLayout = new QHBoxLayout(0, 11, 6, "prevMainLayout");
+	QGroupBox *previewGBox = new QGroupBox(this, "previewGBox");
+	previewGBox->setTitle(tr("Preview"));
+	previewGBox->setColumnLayout(0, Qt::Vertical);
+	previewGBox->layout()->setSpacing(6);
+	previewGBox->layout()->setMargin(11);
+	QVBoxLayout *previewGBoxLayout = new QVBoxLayout(previewGBox->layout());
+	previewGBoxLayout->setAlignment(Qt::AlignTop);
+	previewLabel = new QLabel(previewGBox, "previewLabel");
+	previewGBoxLayout->addWidget(previewLabel);
+	prevMainLayout->addWidget(previewGBox);
+	
+	guideManagerLayout->addLayout(mainWidgetsLayout);
+	guideManagerLayout->addLayout(prevMainLayout);
 
 	// set current guides
 	setGuidesFromList(horList, ScMW->doc->currentPage->YGuides);
 	setGuidesFromList(verList, ScMW->doc->currentPage->XGuides);
 	unitChange();
+	slotDrawPreview();
 
 	//tooltips
 	QToolTip::add( setButton, "<qt>" + tr("Set the guides in document. Guide manager is still opened but the changes are persistant", "guide manager") + "</qt>");
@@ -267,6 +301,12 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	connect(verList, SIGNAL(currentChanged(QListViewItem*)), this, SLOT(verList_currentChanged(QListViewItem*)));
 	connect(useRowGap, SIGNAL(toggled(bool)), this, SLOT(useRowGap_clicked(bool)));
 	connect(useColGap, SIGNAL(toggled(bool)), this, SLOT(useColGap_clicked(bool)));
+	connect(this, SIGNAL(guidesChanged()), this, SLOT(slotDrawPreview()));
+	connect(rowSpin, SIGNAL(valueChanged(int)), this, SLOT(slotDrawPreview()));
+	connect(colSpin, SIGNAL(valueChanged(int)), this, SLOT(slotDrawPreview()));
+	connect(rowGap, SIGNAL(valueChanged(int)), this, SLOT(slotDrawPreview()));
+	connect(colGap, SIGNAL(valueChanged(int)), this, SLOT(slotDrawPreview()));
+	connect(bGroup, SIGNAL(clicked(int)), this, SLOT(slotDrawPreview()));
 }
 
 GuideManager::~GuideManager()
@@ -274,38 +314,34 @@ GuideManager::~GuideManager()
 	ScMW->mainWindowStatusLabel->setText(QString::null);
 }
 
-void GuideManager::DelHorVal()
+bool GuideManager::deleteValueFormList(QListView *list)
 {
 	/* previous item pointer to ensure that ++it
 	runs before item goes deleted */
 	QListViewItem *itemToDelete;
-	QListViewItemIterator it(horList, QListViewItemIterator::Selected);
+	QListViewItemIterator it(list, QListViewItemIterator::Selected);
 	while (it.current())
 	{
 		itemToDelete = it.current();
 		++it;
 		if (itemToDelete)
 		{
-			horList->takeItem(itemToDelete);
+			list->takeItem(itemToDelete);
 			delete itemToDelete;
 		}
 	}
+	emit guidesChanged();
+	return true;
+}
+
+void GuideManager::DelHorVal()
+{
+	deleteValueFormList(horList);
 }
 
 void GuideManager::DelVerVal()
 {
-	QListViewItem *itemToDelete;
-	QListViewItemIterator it(verList, QListViewItemIterator::Selected);
-	while (it.current())
-	{
-		itemToDelete = it.current();
-		++it;
-		if (itemToDelete)
-		{
-			verList->takeItem(itemToDelete);
-			delete itemToDelete;
-		}
-	}
+	deleteValueFormList(verList);
 }
 
 bool GuideManager::addValueToList(QListView *list, MSpinBox *spin)
@@ -318,19 +354,21 @@ bool GuideManager::addValueToList(QListView *list, MSpinBox *spin)
 		ScMW->mainWindowStatusLabel->setText(tr("There is empty (0.0) guide already"));
 		return false;
 	}
-	QListViewItem *item = new QListViewItem(list, tmp, suffix);
+	QListViewItem *item = new GuideListItem(list, tmp, suffix);
 	list->insertItem(item);
 	list->setCurrentItem(item);
 	list->clearSelection();
 	list->setSelected(item, true);
 	spin->setFocus();
 	spin->selectAll();
+	emit guidesChanged();
 	return true;
 }
 
 void GuideManager::AddHorVal()
 {
 	addValueToList(horList, horSpin);
+	
 }
 
 void GuideManager::AddVerVal()
@@ -400,8 +438,14 @@ void GuideManager::resetMarginsForPage()
 
 void GuideManager::addRows()
 {
+	if (allPages->isChecked() && rowSpin->value() > 0)
+		horList->clear();
+	setGuidesFromList(horList, getAutoRows());
+}
+
+QValueList<double> GuideManager::getAutoRows()
+{
 	resetMarginsForPage();
-	horList->clear();
 	int n = QString(rowSpin->text()).toInt();
 	double offset = 0;
 	double newPageHeight = locPageHeight;
@@ -430,13 +474,19 @@ void GuideManager::addRows()
 		else
 			values.append(offset + (spacing * i));
 	}
-	setGuidesFromList(horList, values);
+	return values;
 }
 
 void GuideManager::addCols()
 {
+	if (allPages->isChecked() && colSpin->value() > 0)
+		verList->clear();
+	setGuidesFromList(verList, getAutoCols());
+}
+
+QValueList<double> GuideManager::getAutoCols()
+{
 	resetMarginsForPage();
-	verList->clear();
 	int n = QString(colSpin->text()).toInt();
 	double offset = 0;
 	double newPageWidth = locPageWidth;
@@ -465,7 +515,7 @@ void GuideManager::addCols()
 		else
 			values.append(offset + spacing * i);
 	}
-	setGuidesFromList(verList, values);
+	return values;
 }
 
 void GuideManager::ChangeHorVal()
@@ -476,6 +526,7 @@ void GuideManager::ChangeHorVal()
 	QString tmp;
 	tmp = tmp.setNum(horSpin->value(), 'f', docUnitPrecision);
 	item->setText(0, tmp);
+	emit guidesChanged();
 }
 
 void GuideManager::ChangeVerVal()
@@ -486,6 +537,7 @@ void GuideManager::ChangeVerVal()
 	QString tmp;
 	tmp = tmp.setNum(verSpin->value(), 'f', docUnitPrecision);
 	item->setText(0, tmp);
+	emit guidesChanged();
 }
 
 void GuideManager::unitChange()
@@ -565,11 +617,15 @@ void GuideManager::setGuidesFromList(QListView *w, QValueList<double> guides)
 	for (it = guides.begin(); it != guides.end(); ++it)
 	{
 		tmp = tmp.setNum((*it) * docUnitRatio , 'f', docUnitPrecision);
-		QListViewItem *item = new QListViewItem(w, tmp, suffix);
+		// no insert for duplicates
+		if (w->findItem(tmp, 0) != 0)
+			continue;
+		QListViewItem *item = new GuideListItem(w, tmp, suffix);
 		w->insertItem(item);
 	}
 	w->setCurrentItem(w->firstChild());
 	w->setSelected(w->firstChild(), true);
+	emit guidesChanged();
 }
 
 QValueList<double> GuideManager::getValuesFromList(QListView *w)
@@ -593,6 +649,7 @@ void GuideManager::verList_currentChanged(QListViewItem *item)
 	else
 		val = item->text(0).toDouble();
 	verSpin->setValue(val);
+	emit guidesChanged();
 }
 
 void GuideManager::horList_currentChanged(QListViewItem *item)
@@ -603,4 +660,59 @@ void GuideManager::horList_currentChanged(QListViewItem *item)
 	else
 		val = item->text(0).toDouble();
 	horSpin->setValue(val);
+	emit guidesChanged();
+}
+
+void GuideManager::slotDrawPreview()
+{
+	int size = 400; // height of the preview pixmap
+	int x, y; // helper values. original guide size to smaller one
+	double val; // position of the current guide (red one)
+	QPixmap pm; // paint device for preview
+	QPainter *p = new QPainter();
+	QValueList<double> vg = getValuesFromList(verList); // vert. g.
+	QValueList<double> hg = getValuesFromList(horList); // hor. g.
+	QValueList<double>::iterator it; // iterator for guides lists
+
+	vg += getAutoCols();
+	hg += getAutoRows();
+	//! \note Sorting is a must here for GUI 
+	horList->sort();
+	verList->sort();
+
+	// load the page only at the first time
+	if (previewPixmap.isNull())
+		previewPixmap = ScMW->view->PageToPixmap(ScMW->doc->currentPageNumber(), size);
+
+	pm = previewPixmap;
+	p->begin(&pm);
+	p->setPen(QPen(ScMW->doc->guidesSettings.guideColor, 1, Qt::SolidLine));
+	// all guides - paint it standard
+	for (it = vg.begin(); it != vg.end(); ++it)
+	{
+		x = (int)(pm.width() * (*it) / ScMW->doc->currentPage->width());
+		p->drawLine(x, 0, x, pm.height());
+	}
+	for (it = hg.begin(); it != hg.end(); ++it)
+	{
+		y = (int)(pm.height() * (*it) / ScMW->doc->currentPage->height());
+		p->drawLine(0, y, pm.width(), y);
+	}
+	// current guide - paint it bold and red...
+	p->setPen(QPen(QColor(200, 0, 0), 3, Qt::SolidLine));
+	val = verSpin->value();
+	if (val > 0.0)
+	{
+		x = (int)(pm.width() * val / ScMW->doc->currentPage->width());
+		p->drawLine(x, 0, x, pm.height());
+	}
+	val = horSpin->value();
+	if (val > 0.0)
+	{
+		y = (int)(pm.height() * val / ScMW->doc->currentPage->height());
+		p->drawLine(0, y, pm.width(), y);
+	}
+	p->end();
+	previewLabel->setPixmap(pm);
+	delete p;
 }

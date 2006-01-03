@@ -8129,7 +8129,9 @@ void ScribusMainWindow::ManageGuides()
 {
 	if (HaveDoc)
 	{
+		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		GuideManager *dia = new GuideManager(this);
+		qApp->restoreOverrideCursor();
 		dia->exec();
 		delete dia;
 	}
