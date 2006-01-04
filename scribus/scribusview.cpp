@@ -2778,6 +2778,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				emit ItemPos(x, y);
 				emit ItemGeom(w, h);
 			}
+			else
+				currItem->emitAllToGUI();
 			/*else
 			{
 				//CB Dont think we need this here with the new selection code
