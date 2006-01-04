@@ -105,7 +105,18 @@ void PrefsManager::initDefaults()
 {
 	/** Default font and size **/
 	SCFontsIterator it(appPrefs.AvailFonts);
-	appPrefs.toolSettings.defFont = it.currentKey();
+	bool goodFont = false;
+	for ( SCFontsIterator itf(appPrefs.AvailFonts); itf.current(); ++itf)
+	{
+		if ((itf.currentKey() == "Arial Regular") || (itf.currentKey() == "Times New Roman Regular"))
+		{
+			appPrefs.toolSettings.defFont = itf.currentKey();
+			goodFont = true;
+			break;
+		}
+	}
+	if (!goodFont)
+		appPrefs.toolSettings.defFont = it.currentKey();
 	appPrefs.toolSettings.defSize = 120;
 
 	/** Default colours **/
