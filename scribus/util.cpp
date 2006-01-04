@@ -326,15 +326,6 @@ int  testGSAvailability( void )
 	PrefsManager* prefsManager = PrefsManager::instance();
 	args.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
 	args.append( "-h" );
-	args.append( "-c" );
-	args.append( "quit" );
-	args.append( ">" );
-#ifndef _WIN32
-	args.append( "/dev/null" );
-#else
-	args.append( "NUL" );
-#endif
-	args.append( "2>&1" );
 	int ret = System( args );
 	return ret;
 }
@@ -347,13 +338,6 @@ int  testGSDeviceAvailability( QString device )
 	args.append( QString("-sDEVICE=%1").arg( device ) );
 	args.append( "-c" );
 	args.append( "quit" );
-	args.append( ">" );
-#ifndef _WIN32
-	args.append( "/dev/null" );
-#else
-	args.append( "NUL" );
-#endif
-	args.append( "2>&1" );
 	int ret = System( args );
 	return ret;
 }

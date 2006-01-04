@@ -47,7 +47,8 @@ bool CollectForOutput::newDirDialog()
 	}
 	if (outputDirectory.isEmpty())
 		return false;
-	outputDirectory += "/";
+	if (!outputDirectory.endsWith("/"))
+		outputDirectory += "/";
 	return true;
 }
 
