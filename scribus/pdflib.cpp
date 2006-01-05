@@ -2755,7 +2755,6 @@ QString PDFlib::setStrokeMulti(struct SingleLine *sl)
 // Return a PDF substring representing a PageItem's text
 QString PDFlib::setTextSt(PageItem *ite, uint PNr, Page* pag)
 {
-	struct ScText *hl;
 	QString tmp("");
 	QString tmp2("");
 	uint tabCc = 0;
@@ -2768,7 +2767,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, Page* pag)
 	// Loop over each character (!) in the pageItem...
 	for (uint d = 0; d < ite->MaxChars; ++d)
 	{
-		hl = ite->itemText.at(d);
+		const ScText * const hl = ite->itemText.at(d);
 		if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27)) || (hl->ch == QChar(26)))
 			continue;
 		if (hl->cstyle & 4096)
@@ -2884,7 +2883,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, Page* pag)
 	return tmp;
 }
 
-void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &tmp2, struct ScText *hl, Page* pag)
+void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &tmp2, const ScText *hl, Page* pag)
 {
 	QString FillColor = "";
 	QString StrokeColor = "";

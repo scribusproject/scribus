@@ -81,7 +81,7 @@ private:
 	QString putColorUncached(const QString& color, int Shade, bool fill);
 	QString PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedded = false);
 	QString setTextSt(PageItem *ite, uint PNr, Page* pag);
-	void setTextCh(PageItem *ite, uint PNr, uint d,  QString &tmp, QString &tmp2, struct ScText *hl, Page* pag);
+	void setTextCh(PageItem *ite, uint PNr, uint d,  QString &tmp, QString &tmp2, const ScText * hl, Page* pag);
 
 	// Provide a couple of PutDoc implementations to ease transition away from
 	// QString abuse and to provide fast paths for constant strings.
