@@ -67,22 +67,6 @@ void Page::setPageNr(const int pageNr)
 		setUName(PageNam);
 }
 
-uint Page::pageNr()
-{
-	return m_pageNr;
-}
-
-const QString& Page::pageSectionNumber() const
-{
-	return m_pageSectionNumber;
-}
-
-void Page::setPageSectionNumber(const QString& newPageSectionNumber)
-{
-	m_pageSectionNumber=newPageSectionNumber;
-}
-
-
 void Page::addXGuide(double position)
 {
 	XGuides.append(position);
@@ -363,36 +347,6 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 	else
 		ScMW->doc->DocItems = ScMW->doc->Items;
 	*/
-}
-
-const double Page::xOffset()
-{
-	return m_xOffset;
-}
-
-const double Page::yOffset()
-{
-	return m_yOffset;
-}
-
-const double Page::width()
-{
-	return m_width;
-}
-
-const double Page::height()
-{
-	return m_height;
-}
-
-const double Page::initialWidth()
-{
-	return m_initialWidth;
-}
-
-const double Page::initialHeight()
-{
-	return m_initialHeight;
 }
 
 void Page::setXOffset(const double newCanvasXOffset)

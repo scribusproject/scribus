@@ -1057,7 +1057,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFont
 	return true;
 }
 
-void PDFlib::PDF_TemplatePage(Page* pag, bool )
+void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 {
 	QString tmp;
 	ActPageP = pag;
@@ -1548,7 +1548,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 	}
 }
 
-void PDFlib::PDF_Begin_Page(Page* pag, QPixmap pm)
+void PDFlib::PDF_Begin_Page(const Page* pag, QPixmap pm)
 {
 	QString tmp;
 	ActPageP = pag;
@@ -1672,7 +1672,7 @@ void PDFlib::PDF_End_Page()
 	ObjCounter++;
 }
 
-void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
+void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 {
 	QString tmp;
 	ActPageP = pag;
@@ -2122,7 +2122,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 	}
 }
 
-QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedded)
+QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool embedded)
 {
 	QString tmp("");
 	int x = static_cast<int>(pag->xOffset());
@@ -2753,7 +2753,7 @@ QString PDFlib::setStrokeMulti(struct SingleLine *sl)
 }
 
 // Return a PDF substring representing a PageItem's text
-QString PDFlib::setTextSt(PageItem *ite, uint PNr, Page* pag)
+QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 {
 	QString tmp("");
 	QString tmp2("");
@@ -2883,7 +2883,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, Page* pag)
 	return tmp;
 }
 
-void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &tmp2, const ScText *hl, Page* pag)
+void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &tmp2, const ScText *hl, const Page* pag)
 {
 	QString FillColor = "";
 	QString StrokeColor = "";

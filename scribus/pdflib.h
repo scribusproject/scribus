@@ -60,10 +60,10 @@ private:
 	typedef QMap<uint, GlNamInd> GListeInd;
 
 	bool PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,int> DocFonts, BookMView* vi);
-	void PDF_Begin_Page(Page* pag, QPixmap pm = 0);
+	void PDF_Begin_Page(const Page* pag, QPixmap pm = 0);
 	void PDF_End_Page();
-	void PDF_TemplatePage(Page* pag, bool clip = false);
-	void PDF_ProcessPage(Page* pag, uint PNr, bool clip = false);
+	void PDF_TemplatePage(const Page* pag, bool clip = false);
+	void PDF_ProcessPage(const Page* pag, uint PNr, bool clip = false);
 	void PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
 	void closeAndCleanup();
 
@@ -79,9 +79,9 @@ private:
 	QString SetFarbe(const QString& farbe, int Shade);
 	QString putColor(const QString& color, int Shade, bool fill);
 	QString putColorUncached(const QString& color, int Shade, bool fill);
-	QString PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedded = false);
-	QString setTextSt(PageItem *ite, uint PNr, Page* pag);
-	void setTextCh(PageItem *ite, uint PNr, uint d,  QString &tmp, QString &tmp2, const ScText * hl, Page* pag);
+	QString PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool embedded = false);
+	QString setTextSt(PageItem *ite, uint PNr, const Page* pag);
+	void setTextCh(PageItem *ite, uint PNr, uint d,  QString &tmp, QString &tmp2, const ScText * hl, const Page* pag);
 
 	// Provide a couple of PutDoc implementations to ease transition away from
 	// QString abuse and to provide fast paths for constant strings.
@@ -109,7 +109,7 @@ private:
 	QMap<QString, GListeInd> GlyphsIdxOfFont;
 	QString Inhalt;
 	ScribusDoc * const doc;
-	Page* ActPageP;
+	const Page* ActPageP;
 	PDFOptions* Options;
 	BookMView* Bvie;
 	QFile Spool;
