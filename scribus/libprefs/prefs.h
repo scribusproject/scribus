@@ -287,7 +287,6 @@ public slots:
 	void ChangeScripts();
 	void ChangeTemplates();
 	void ChangeScaling();
-	void ChangeGrid();
 	void setDS();
 	void setBreite(int v);
 	void setHoehe(int v);
