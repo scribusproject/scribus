@@ -82,6 +82,7 @@ PDFlib::PDFlib(ScribusDoc * docu)
 	colorsToUse(),
 	spotNam("Spot"),
 	spotCount(0),
+	progressDialog(0),
 	abortExport(false),
 	usingGUI(ScQApp->usingGUI())
 {
