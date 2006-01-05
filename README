@@ -1,4 +1,4 @@
-This is Scribus Version 1.2.4
+This is Scribus Version 1.2.4.1
 
 The Scribus 1.2.x versions feature a complete rewrite of the rendering engine.
 All rendering is done via libart and freetype2. 
@@ -47,7 +47,7 @@ If you have a 64-bit version of Qt, sometimes ./configure will not detect the
 64-bit version headers. Try : ./configure --enable-libsuffix=64 to test for 64-bit 
 versions of libraries. 
 
-You can safely install both Scribus 1.2.4 and 1.3.x (development) on the same system provided
+You can safely install both Scribus 1.2.4.1 and 1.3.x (development) on the same system provided
 provided you install them into separate $prefix directories. Preferences are also stored in
 separately versioned preferences files.
 

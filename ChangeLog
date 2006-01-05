@@ -1,5 +1,7 @@
 Changes since 1.2.3
 
+Scribus - 1.2.4
+- 0002962: [Internal] Fix dlopen issue on Suse 10.0 (ringerc)
 Scribus - 1.2.4cvs
 ==================
 
