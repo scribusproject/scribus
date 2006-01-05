@@ -1,0 +1,14 @@
+subdirs
+stamp-h.in
+configure.in
+config.h.in
+Makefile
+Makefile.in
+*~
+*.rej
+*.orig
+configure
+stamp-h
+stamp-h1
+acinclude.m4
+aclocal.m4
