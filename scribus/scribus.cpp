@@ -7309,10 +7309,10 @@ PSLib* ScribusApp::getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont
 	PSDriver = dlopen(pfad, RTLD_LAZY);
 	if (!PSDriver)
 	{
-		std::cout << "Can't find Plugin" << endl;
+		std::cout << "Can't find Plugin" << dlerror() << endl;
 		return NULL;
 	}
-	dlerror();
+	dlerror(); // Make really sure error flag is clear
 	demo = (sdem)dlsym(PSDriver, "Run");
 	if ((error = dlerror()) != NULL)
 	{
@@ -7400,10 +7400,10 @@ bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, std::vect
 	PDFDriver = dlopen(pfad, RTLD_NOW);
 	if (!PDFDriver)
 	{
-		std::cout << "Can't find Plugin" << endl;
+		std::cout << "Can't find Plugin" << dlerror() << endl;
 		return false;
 	}
-	dlerror();
+	dlerror(); // Make really sure error flag is clear
 	demo = (sdem)dlsym(PDFDriver, "Run");
 	if ((error = dlerror()) != NULL)
 	{
@@ -8151,7 +8151,7 @@ void ScribusApp::CallDLL(int ident)
 		mo = dlopen(pfad, RTLD_LAZY | RTLD_GLOBAL);
 		if (!mo)
 		{
-			std::cout << "Can't find Plug-in" << endl;
+			std::cout << "Can't find Plug-in" << dlerror() << endl;
 			return;
 		}
 	}
