@@ -48,6 +48,17 @@ public:
 	PDFlib(ScribusDoc *docu);
 	~PDFlib() {};
 	bool doExport(const QString& fn, const QString& nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs);
+
+	// used by ScFonts
+	struct GlNamInd
+	{
+		uint Code;
+		QString Name;
+	};
+
+private:
+	typedef QMap<uint, GlNamInd> GListeInd;
+
 	bool PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,int> DocFonts, BookMView* vi);
 	void PDF_Begin_Page(Page* pag, QPixmap pm = 0);
 	void PDF_End_Page();
@@ -55,15 +66,7 @@ public:
 	void PDF_ProcessPage(Page* pag, uint PNr, bool clip = false);
 	void PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
 	void closeAndCleanup();
-	struct GlNamInd
-	{
-		uint Code;
-		QString Name;
-	};
-	typedef QMap<uint, GlNamInd> GListeInd;
-	QMap<QString, GListeInd> GlyphsIdxOfFont;
 
-private:
 	QString EncStream(QString *in, int ObjNum);
 	QString EncString(QString in, int ObjNum);
 	void CalcOwnerKey(QString Owner, QString User);
@@ -94,8 +97,10 @@ private:
 	void PDF_Form(QString& im);
 	void PDF_xForm(double w, double h, QString im);
 	QString PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN = false, const QString& Profil = "", bool Embedded = false, int Intent = 1);
+
+	QMap<QString, GListeInd> GlyphsIdxOfFont;
 	QString Inhalt;
-	ScribusDoc* doc;
+	ScribusDoc * const doc;
 	Page* ActPageP;
 	PDFOptions* Options;
 	BookMView* Bvie;
@@ -209,8 +214,8 @@ private:
 	QTextStream t;
 	QMap<QString, QString> StdFonts;
 	MultiProgressDialog* progressDialog;
-	bool usingGUI;
 	bool abortExport;
+	bool usingGUI;
 	
 protected slots:
 	void cancelRequested();

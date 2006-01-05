@@ -60,63 +60,53 @@ extern bool CMSuse;
 	#include <tiffio.h>
 #endif
 
-PDFlib::PDFlib(ScribusDoc *docu)
+PDFlib::PDFlib(ScribusDoc * docu)
+	: QObject(docu),
+	doc(docu),
+	ActPageP(0),
+	Options(0),
+	Bvie(0),
+	Dokument(0),
+	ObjCounter(7),
+	ResNam("RE"),
+	ResCount(0),
+	NDnam("LI"),
+	NDnum(0),
+	KeyGen(32),
+	OwnerKey(32),
+	UserKey(32),
+	FileID(16),
+	EncryKey(5),
+	Encrypt(0),
+	KeyLen(5),
+	colorsToUse(),
+	spotNam("Spot"),
+	spotCount(0),
+	abortExport(false),
+	usingGUI(ScQApp->usingGUI())
 {
-	doc = docu;
-	abortExport=false;
-	OwnerKey = QByteArray(32);
-	UserKey = QByteArray(32);
-	FileID = QByteArray(16);
-	EncryKey = QByteArray(5);
-	Encrypt = 0;
-	KeyLen = 5;
-	Dokument = 0;
 	Catalog.Outlines = 2;
 	Catalog.PageTree = 3;
 	Catalog.Dest = 4;
 	PageTree.Count = 0;
-	PageTree.Kids.clear();
 	Outlines.First = 0;
 	Outlines.Last = 0;
 	Outlines.Count = 0;
-	XRef.clear();
-	NamedDest.clear();
-	NDnam = "LI";
-	NDnum = 0;
-	ObjCounter = 7;
 	Seite.ObjNum = 0;
 	Seite.Thumb = 0;
-	Seite.XObjects.clear();
-	Seite.ImgObjects.clear();
-	Seite.FObjects.clear();
-	Seite.AObjects.clear();
-	Seite.FormObjects.clear();
-	CalcFields.clear();
-	Shadings.clear();
-	Transpar.clear();
-	ICCProfiles.clear();
-	SharedImages.clear();
-	ResNam = "RE";
-	ResCount = 0;
-	colorsToUse.clear();
-	spotMap.clear();
-	spotNam = "Spot";
-	spotCount = 0;
 #ifdef HAVE_LIBZ
 	CompAvail = true;
 #else
 	CompAvail = false;
 #endif
-	KeyGen = QByteArray(32);
 	int kg_array[] = {0x28, 0xbf, 0x4e, 0x5e, 0x4e, 0x75, 0x8a, 0x41, 0x64, 0x00, 0x4e, 0x56, 0xff, 0xfa,
 			  0x01, 0x08, 0x2e, 0x2e, 0x00, 0xb6, 0xd0, 0x68, 0x3e, 0x80, 0x2f, 0x0c, 0xa9, 0xfe,
 			  0x64, 0x53, 0x69, 0x7a};
 	for (int a = 0; a < 32; ++a)
 		KeyGen[a] = kg_array[a];
-	usingGUI=ScQApp->usingGUI();
 	if (usingGUI)
 	{
-		progressDialog=new MultiProgressDialog(tr("Saving PDF"), CommonStrings::tr_Cancel, ScMW, "pdfexportprogress");
+		progressDialog = new MultiProgressDialog(tr("Saving PDF"), CommonStrings::tr_Cancel, ScMW, "pdfexportprogress");
 		if (progressDialog==0)
 			usingGUI=false;
 		else
