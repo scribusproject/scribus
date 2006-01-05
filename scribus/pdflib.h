@@ -67,36 +67,43 @@ private:
 	void PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
 	void closeAndCleanup();
 
-	QString EncStream(QString *in, int ObjNum);
-	QString EncString(QString in, int ObjNum);
-	void CalcOwnerKey(QString Owner, QString User);
-	void CalcUserKey(QString User, int Permission);
-	QString FitKey(QString pass);
-	QString FToStr(double c);
-	QString IToStr(int c);
+	QString EncStream(const QString & in, int ObjNum);
+	QString EncString(const QString & in, int ObjNum);
+	void CalcOwnerKey(const QString & Owner, const QString & User);
+	void CalcUserKey(const QString & User, int Permission);
+	QString FitKey(const QString & pass);
 	QString setStrokeMulti(struct SingleLine *sl);
 	QString SetClipPathArray(FPointArray *ite, bool poly = true);
 	QString SetClipPathImage(PageItem *ite);
 	QString SetClipPath(PageItem *ite, bool poly = true);
 	QString SetFarbe(const QString& farbe, int Shade);
 	QString putColor(const QString& color, int Shade, bool fill);
+	QString putColorUncached(const QString& color, int Shade, bool fill);
 	QString PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedded = false);
 	QString setTextSt(PageItem *ite, uint PNr, Page* pag);
 	void setTextCh(PageItem *ite, uint PNr, uint d,  QString &tmp, QString &tmp2, struct ScText *hl, Page* pag);
-	void PutDoc(QString in);
-	void PutPage(QString in);
+
+	// Provide a couple of PutDoc implementations to ease transition away from
+	// QString abuse and to provide fast paths for constant strings.
+	void PutDoc(const QString & in) { outStream.writeRawBytes(in.latin1(), in.length()); }
+	void PutDoc(const char* in) { outStream.writeRawBytes(in, strlen(in)); }
+	void PutDoc(const std::string & in) { outStream.writeRawBytes(in.c_str(), in.length()); }
+
+	void PutPage(const QString & in) { Inhalt += in; }
 	void StartObj(int nr);
 	void WritePDFStream(const QString& cc);
-	QString PDFEncode(QString in);
+	QString PDFEncode(const QString & in);
 	QByteArray ComputeMD5(const QString& in);
 	void PDF_Bookmark(int nr, double ypos);
 	QString PDF_Gradient(PageItem *currItem);
 	QString PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, const QStringList& Colors);
 	QString PDF_Transparenz(PageItem *currItem);
 	void PDF_Annotation(PageItem *ite, uint PNr);
-	void PDF_Form(QString& im);
+	void PDF_Form(const QString& im);
 	void PDF_xForm(double w, double h, QString im);
 	QString PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN = false, const QString& Profil = "", bool Embedded = false, int Intent = 1);
+
+	int bytesWritten() { return Spool.at(); }
 
 	QMap<QString, GListeInd> GlyphsIdxOfFont;
 	QString Inhalt;
@@ -211,7 +218,7 @@ private:
 	QMap<QString, SpotC> spotMap;
 	QString spotNam;
 	int spotCount;
-	QTextStream t;
+	QTextStream outStream;
 	QMap<QString, QString> StdFonts;
 	MultiProgressDialog* progressDialog;
 	bool abortExport;
