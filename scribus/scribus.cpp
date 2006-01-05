@@ -4556,10 +4556,10 @@ void ScribusApp::slotHelpAbout()
 	mo = dlopen(pfad, RTLD_LAZY);
 	if (!mo)
 	{
-		std::cout << "Can't find Plug-in" << endl;
+		std::cout << "Can't find Plug-in: " << dlerror() << endl;
 		return;
 	}
-	dlerror();
+	dlerror(); // make really sure the error flag is clear
 	demo = (sdem)dlsym(mo, "Run");
 	if ((error = dlerror()) != NULL)
 	{
@@ -6794,10 +6794,10 @@ void ScribusApp::slotPrefsOrg()
 	mo = dlopen(pfad, RTLD_LAZY);
 	if (!mo)
 	{
-		std::cout << "Can't find Plug-in" << endl;
+		std::cout << "Can't find Plug-in" << dlerror() << endl;
 		return;
 	}
-	dlerror();
+	dlerror(); // Make really sure error flag is clear
 	demo = (sdem)dlsym(mo, "Run");
 	if ((error = dlerror()) != NULL)
 	{
