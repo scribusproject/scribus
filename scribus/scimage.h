@@ -43,50 +43,9 @@ class SCRIBUS_API ScImage : public QImage
 {
 public:
 	ScImage();
-	ScImage(QImage image);
+	ScImage(const QImage & image);
 	ScImage( int width, int height );
 	~ScImage();
-	
-	enum ImageEffectCode
-	{
-		EF_INVERT = 0,
-		EF_GRAYSCALE = 1,
-		EF_COLORIZE = 2,
-		EF_BRIGHTNESS = 3,
-		EF_CONTRAST = 4,
-		EF_SHARPEN = 5,
-		EF_BLUR = 6,
-		EF_SOLARIZE = 7
-	};
-	struct imageEffect
-	{
-		int effectCode;
-		QString effectParameters;
-	};
-	void initialize();
-	QString ImageToTxt();
-	QString ImageToCMYK();
-	QString ImageToGray();
-	QString ImageToCMYK_PS(int pl, bool pre);
-	QString ImageToCMYK_PDF(bool pre);
-	void Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
-	QString MaskToTxt(bool PDF = true);
-	QString MaskToTxt14();
-	void applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScColor> colors, bool cmyk);
-	void solarize(double factor, bool cmyk);
-	void blur(double radius= 0.0, double sigma = 1.0);
-	void sharpen(double radius= 0.0, double sigma = 1.0);
-	void contrast(int contrastValue, bool cmyk);
-	void brightness(int brightnessValue, bool cmyk);
-	void invert(bool cmyk);
-	void colorize(ScColor color, int shade, bool cmyk);
-	void toGrayscale(bool cmyk);
-	void swapRGBA();
-	void createLowRes(double scale);
-	void scaleImage(int width, int height);
-	void getEmbeddedProfile(QString fn, QString *profile, int *components);
-	bool LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
-	QString getAlpha(QString fn, bool PDF, bool pdf14, int gsRes = 72);
 
 	enum PSDColorMode
 	{
@@ -99,18 +58,50 @@ public:
 		CM_DUOTONE = 8,
 		CM_LABCOLOR = 9
 	};
-	
-	struct PSDHeader
+
+	enum ImageEffectCode
 	{
-		uint signature;
-		ushort version;
-		uchar reserved[6];
-		ushort channel_count;
-		uint height;
-		uint width;
-		ushort depth;
-		ushort color_mode;
+		EF_INVERT = 0,
+		EF_GRAYSCALE = 1,
+		EF_COLORIZE = 2,
+		EF_BRIGHTNESS = 3,
+		EF_CONTRAST = 4,
+		EF_SHARPEN = 5,
+		EF_BLUR = 6,
+		EF_SOLARIZE = 7
 	};
+
+	struct imageEffect
+	{
+		int effectCode;
+		QString effectParameters;
+	};
+	void initialize();
+
+	// Routines for PDF/PS output of images
+	QString ImageToTxt();
+	QString ImageToGray();
+	QString ImageToCMYK_PS(int pl, bool pre);
+	QString ImageToCMYK_PDF(bool pre);
+	QString getAlpha(QString fn, bool PDF, bool pdf14, int gsRes = 72);
+	void Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
+
+	// Image effects
+	void applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScColor> colors, bool cmyk);
+
+	// Generate a low res image for user preview
+	void createLowRes(double scale);
+
+	// Scale this image in-place
+	void scaleImage(int width, int height);
+
+	// Retrieve an embedded ICC profile from the file path `fn', storing it in `profile'.
+	// TODO: Bad API. Should probably be static member returning an ICCProfile (custom class) or something like that.
+	void getEmbeddedProfile(const QString & fn, QString *profile, int *components);
+
+	// Load an image into this ScImage instance
+	// TODO: document params, split into smaller functions
+	bool LoadPicture(const QString & fn, const QString & Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
 
 	struct PSDLayer
 	{
@@ -131,6 +122,18 @@ public:
 		QString blend;
 		QImage thumb;
 	};
+
+	struct PSDHeader
+	{
+		uint signature;
+		ushort version;
+		uchar reserved[6];
+		ushort channel_count;
+		uint height;
+		uint width;
+		ushort depth;
+		ushort color_mode;
+	};
 	
 	struct LoadRequest
 	{
@@ -138,7 +141,7 @@ public:
 		ushort opacity;
 		QString blend;
 	};
-	
+
 	struct ExifValues
 	{
 		int width;
@@ -152,7 +155,7 @@ public:
 		QString dateTime;
 		QImage thumbnail;
 	};
-	
+
 	struct ImageInfoRecord
 	{
 		int typ;			/* 0 = jpg, 1 = tiff, 2 = psd, 3 = eps/ps, 4 = pdf, 5 = jpg2000, 6 = other */
@@ -176,6 +179,18 @@ public:
 	} imgInfo;
 
 private:
+	// Image effects
+	void solarize(double factor, bool cmyk);
+	void blur(double radius= 0.0, double sigma = 1.0);
+	void sharpen(double radius= 0.0, double sigma = 1.0);
+	void contrast(int contrastValue, bool cmyk);
+	void brightness(int brightnessValue, bool cmyk);
+	void invert(bool cmyk);
+	void colorize(ScColor color, int shade, bool cmyk);
+	void toGrayscale(bool cmyk);
+	void swapRGBA();
+
+	// Misc implementation
 	void liberateMemory(void **memory);
 	void blurScanLine(double *kernel, int width, unsigned int *src, unsigned int *dest, int columns);
 	int getBlurKernel(int width, double sigma, double **kernel);
@@ -207,5 +222,6 @@ private:
 	QMemArray<int> curveTable;
 	QValueList<unsigned int> colorTable;
 	int random_table[4096];
+	
 };
 #endif

@@ -52,7 +52,7 @@ static QDataStream & operator>> ( QDataStream & s, ScImage::PSDHeader & header )
 	return s;
 }
 
-ScImage::ScImage(QImage image) : QImage(image)
+ScImage::ScImage(const QImage & image) : QImage(image)
 {
 	initialize();
 }
@@ -868,34 +868,6 @@ QString ScImage::ImageToTxt()
 	return ImgStr;
 }
 
-QString ScImage::ImageToCMYK()
-{
-	int i = 0;
-	int h = height();
-	int w = width();
-	QString ImgStr = "";
-	ImgStr.reserve(4 * h * w);
-	for( int yi=0; yi < h; ++yi )
-	{
-		QRgb * s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
-		{
-			QRgb r=*s;
-			int c = 255 - qRed(r);
-			int m = 255 - qGreen(r);
-			int y = 255 - qBlue(r);
-			int k = QMIN(QMIN(c, m), y);
-			*s = qRgba(m - k, y - k, k, c - k);
-			ImgStr[i++] = static_cast<char> (c - k);
-			ImgStr[i++] = static_cast<char> (m - k);
-			ImgStr[i++] = static_cast<char> (y - k);
-			ImgStr[i++] = static_cast<char> (k);
-			s++;
-		}
-	}
-	return ImgStr;
-}
-
 QString ScImage::ImageToGray()
 {
 	int i = 0;
@@ -1049,52 +1021,6 @@ QString ScImage::ImageToCMYK_PS(int pl, bool pre)
 						ImgStr[i++] = static_cast<unsigned char> (k);
 				}
 			}
-		}
-	}
-	return ImgStr;
-}
-
-QString ScImage::MaskToTxt(bool PDF)
-{
-	int i = 0;
-	int h = height();
-	int w = width();
-	int w2;
-	unsigned char u;
-	w2 = w / 8;
-	if ((w % 8) != 0)
-		w2++;
-	QString ImgStr = "";
-	ImgStr.reserve(h * w2);
-	for( int yi=0; yi < h; ++yi )
-	{
-		uchar * s = scanLine( yi );
-		for( int xi=0; xi < w2; ++xi )
-		{
-			u = *(s+xi);
-			if(PDF) u = ~u;
-			ImgStr[i++] = u;
-		}
-	}
-	return ImgStr;
-}
-
-QString ScImage::MaskToTxt14()
-{
-	int i = 0;
-	int h = height();
-	int w = width();
-	unsigned char u;
-	QString ImgStr = "";
-	ImgStr.reserve(h * w);
-	for( int yi=0; yi < h; ++yi )
-	{
-		QRgb * s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
-		{
-			QRgb r=*s++;
-			u = qAlpha(r);
-			ImgStr[i++] = u;
 		}
 	}
 	return ImgStr;
@@ -3267,8 +3193,10 @@ bool ScImage::read_jpeg_marker (UINT8 requestmarker, j_decompress_ptr cinfo, JOC
 	return true;
 }
 
-void ScImage::getEmbeddedProfile(QString fn, QString *profile, int *components)
+void ScImage::getEmbeddedProfile(const QString & fn, QString *profile, int *components)
 {
+	Q_ASSERT(profile);
+	Q_ASSERT(components);
 #ifdef HAVE_CMS
 	cmsHPROFILE tiffProf = 0;
 	QFileInfo fi = QFileInfo(fn);
@@ -3390,7 +3318,9 @@ void ScImage::getEmbeddedProfile(QString fn, QString *profile, int *components)
 #endif // HAVE_CMS
 }
 
-bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK)
+bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
+						  int rend, bool useEmbedded, bool useProf,
+						  int requestType, int gsRes, bool *realCMYK)
 {
 	// requestType - 0: CMYK, 1: RGB, 2: RGB Proof 3 : RawData, 4: Thumbnail
 	// gsRes - is the resolution that ghostscript will render at
