@@ -13,7 +13,7 @@ AC_CANONICAL_SYSTEM
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(scribus,1.2.4)
+AM_INIT_AUTOMAKE(scribus,1.2.4.1)
 
 dnl Add the libs and includes from --with-extra-libs and --with-extra-includes
 KDE_CHECK_EXTRA_LIBS
@@ -25,6 +25,11 @@ if test "x$prefix" = "xNONE"; then
   prefix=$ac_default_prefix
   ac_configure_args="$ac_configure_args --prefix $prefix"
 fi
+
+dnl Look for pkg-config, which we use to find fontconfig and
+dnl will probably need for other things in future.
+PKG_CONFIG=""
+AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
 
 LIBART_LIBS=""
 LIBART_CFLAGS=""
@@ -69,7 +74,6 @@ if test -n "$FREETYPE_CONFIG"; then
 	SAVE_CFLAGS="${CFLAGS}"
 	CFLAGS=" ${LIBFREETYPE_CFLAGS} "
 	AC_TRY_COMPILE([
-	#include <ft2build.h>
 	#include FT_FREETYPE_H
 	],[
 	#if FREETYPE_MAJOR == 2 && FREETYPE_MINOR == 1 && FREETYPE_PATCH < 9
@@ -87,6 +91,61 @@ if test -n "$FREETYPE_CONFIG"; then
 else
   AC_MSG_ERROR([You need at least freetype 2.1.0])
 fi
+
+dnl Try to find fontconfig using fontconfig-config or pkg-config.
+hafontconfig=no
+LIBFONTCONFIG_LIBS=""
+LIBFONTCONFIG_CFLAGS=""
+FONTCONFIG_CONFIG=""
+
+dnl Try to find fontconfig with pkg-config if we have pkg-config
+AC_MSG_CHECKING([Checking for fontconfig with pkg-config])
+if test -n "$PKG_CONFIG"; then
+	LIBFONTCONFIG_LIBS="`$PKG_CONFIG fontconfig --libs`"
+	LIBFONTCONFIG_CFLAGS="`$PKG_CONFIG fontconfig --cflags`"
+	if test -n "$LIBFONTCONFIG_LIBS" || test -n "$LIBFONTCONFIG_CFLAGS"; then
+		AC_MSG_RESULT([found])
+	else
+		AC_MSG_RESULT([not found])
+	fi
+else
+	AC_MSG_RESULT([failed: pkg-config not found])
+fi
+
+dnl If fontconfig not found with pkg-config, try to find fontconfig-config
+dnl and use that to look for fontconfig.
+if test -z "$LIBFONTCONFIG_LIBS" && test -z "$LIBFONTCONFIG_CFLAGS"; then
+	dnl Seems we didn't find fontconfig with pkg-config, so search for the old
+	dnl fontconfig-config program instead.
+	AC_PATH_PROG(FONTCONFIG_CONFIG,
+				 fontconfig-config,
+				 [],
+				 [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
+	if test -n "$FONTCONFIG_CONFIG"; then
+		dnl found fontconfig-config, use it's results
+		LIBFONTCONFIG_LIBS="`$FONTCONFIG_CONFIG --libs`"
+		LIBFONTCONFIG_CFLAGS="`$FONTCONFIG_CONFIG --cflags`"
+	else
+		AC_MSG_WARN([Couldn't find fontconfig-config or find fontconfig with pkg-config])
+	fi
+fi
+
+dnl Check to see if we can compile fontconfig
+SAVE_CFLAGS="${CFLAGS}"
+SAVE_LDFLAGS="${LDFLAGS}"
+CFLAGS="${CFLAGS} ${LIBFONTCONFIG_CFLAGS}"
+LDFLAGS="${LDFLAGS} ${LIBFONTCONFIG_LIBS}"
+AC_CHECK_LIB(fontconfig, FcPatternBuild, [hafontconfig=yes],[hafontconfig=no])
+CFLAGS="${SAVE_CFLAGS}"
+LDFLAGS="${SAVE_LDFLAGS}"
+if test $hafontconfig = yes; then
+	AC_DEFINE_UNQUOTED(HAVE_FONTCONFIG, 1, [Defines if your system has the libfontconfig library])
+else
+	AC_MSG_WARN([Couldn't find a usable libfontconfig])
+fi
+AC_SUBST(LIBFONTCONFIG_LIBS)
+AC_SUBST(LIBFONTCONFIG_CFLAGS)
+
 XML_LIBS=""
 XML_CFLAGS=""
 
