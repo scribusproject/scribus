@@ -158,45 +158,54 @@ QImage ProofImage(QImage *Image)
   */
 int System(const QStringList & args, const QString fileStdErr, const QString fileStdOut)
 {
-	QByteArray stdErrData;
-	QByteArray stdOutData;
-	QProcess proc(0);
-	proc.setArguments(args);
+	QStringList stdErrData;
+	QStringList stdOutData;
+	QStringList::iterator pIterator;
+	QStringList::iterator pEnd;
+	QProcess proc(args);
 	if ( !proc.start() )
-	{
 		return 1;
-	}
 	/* start was OK */
 	/* wait a little bit */
-	while( proc.isRunning() )
+	while( proc.isRunning() || proc.canReadLineStdout() || proc.canReadLineStderr() )
 	{
 #ifndef _WIN32
 		usleep(5000);
 #else
 		Sleep(5);
 #endif
+		// Some configurations needs stdout and stderr to be read
+		// if needed before the created process can exit
+		if ( proc.canReadLineStdout() )
+			stdOutData.append( proc.readLineStdout() );
+		if ( proc.canReadLineStderr() )
+			stdErrData.append( proc.readLineStderr() );
 	}
 	// TODO: What about proc.normalExit() ?
 	int ex = proc.exitStatus();
 
 	if ( !fileStdErr.isEmpty() )
 	{
-		stdErrData = proc.readStderr();
 		QFile ferr(fileStdErr);
 		if ( ferr.open(IO_WriteOnly) )
 		{
-			ferr.writeBlock( stdErrData );
+			pEnd = stdErrData.end();
+			QTextStream errStream(&ferr);
+			for ( pIterator = stdErrData.begin(); pIterator != pEnd; pIterator++ )
+				errStream << *pIterator << endl;
 			ferr.close();
 		}
 	}
 
 	if ( !fileStdOut.isEmpty() )
 	{
-		stdOutData = proc.readStdout();
 		QFile fout(fileStdOut);
 		if ( fout.open(IO_WriteOnly) )
 		{
-			fout.writeBlock( stdOutData );
+			pEnd = stdOutData.end();
+			QTextStream outStream(&fout);
+			for ( pIterator = stdOutData.begin(); pIterator != pEnd; pIterator++ )
+				outStream << *pIterator << endl;
 			fout.close();
 		}
 	}
