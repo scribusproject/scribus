@@ -107,17 +107,18 @@ PDFlib::PDFlib(ScribusDoc * docu)
 	if (usingGUI)
 	{
 		progressDialog = new MultiProgressDialog(tr("Saving PDF"), CommonStrings::tr_Cancel, ScMW, "pdfexportprogress");
-		if (progressDialog==0)
-			usingGUI=false;
-		else
-		{
-			QStringList barNames, barTexts;
-			barNames << "EMP" << "EP" << "ECPI";
-			barTexts << QT_TR_NOOP("Exporting Master Pages:") << QT_TR_NOOP("Exporting Pages:") << QT_TR_NOOP("Exporting Items on Current Page:");
-			progressDialog->addExtraProgressBars(barNames, barTexts);
-			connect(progressDialog->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
-		}
+		Q_CHECK_PTR(progressDialog);
+		QStringList barNames, barTexts;
+		barNames << "EMP" << "EP" << "ECPI";
+		barTexts << QT_TR_NOOP("Exporting Master Pages:") << QT_TR_NOOP("Exporting Pages:") << QT_TR_NOOP("Exporting Items on Current Page:");
+		progressDialog->addExtraProgressBars(barNames, barTexts);
+		connect(progressDialog->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
 	}
+}
+
+PDFlib::~PDFlib()
+{
+	delete progressDialog;
 }
 
 bool PDFlib::doExport(const QString& fn, const QString& nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs)
@@ -126,7 +127,8 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components, std
 	bool ret = false;
 	int pc_exportpages=0;
 	int pc_exportmasterpages=0;
-	if (usingGUI) progressDialog->show();
+	if (usingGUI)
+		progressDialog->show();
 	if (PDF_Begin_Doc(fn, &doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts, doc->UsedFonts, ScMW->bookmarkPalette->BView))
 	{
 		QMap<int, int> pageNsMpa;

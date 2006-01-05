@@ -46,7 +46,7 @@ class SCRIBUS_API PDFlib : public QObject
 
 public:
 	PDFlib(ScribusDoc *docu);
-	~PDFlib() {};
+	~PDFlib();
 	bool doExport(const QString& fn, const QString& nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs);
 
 	// used by ScFonts
