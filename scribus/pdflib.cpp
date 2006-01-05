@@ -219,8 +219,8 @@ QString PDFlib::PDFEncode(const QString & in)
 	for (uint d = 0; d < in.length(); ++d)
 	{
 		QChar cc(in.at(d));
-		if ((cc == "(") || (cc == ")") || (cc == "\\"))
-			tmp += "\\";
+		if ((cc == '(') || (cc == ')') || (cc == '\\'))
+			tmp += '\\';
 		tmp += cc;
 	}
 	return tmp;
