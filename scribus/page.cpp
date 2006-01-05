@@ -378,3 +378,9 @@ void Page::setInitialHeight(const double newInitialHeight)
 {
 	m_initialHeight = newInitialHeight;
 }
+
+void Page::setPageSectionNumber(const QString& newPageSectionNumber)
+{
+	m_pageSectionNumber=newPageSectionNumber;
+}
+
