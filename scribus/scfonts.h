@@ -6,6 +6,10 @@
 #include <qdict.h>
 #include <qfont.h>
 #include <qmap.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
+#include FT_OUTLINE_H
+#include FT_GLYPH_H
 // #include <qpixmap.h>
 #include "fpointarray.h"
 #include "config.h"
@@ -104,9 +108,11 @@ class SCFonts : public QDict<Foi>
 	private:
 		void AddPath(QString p);
 		void AddScalableFonts(const QString &path);
+		bool AddScalableFont(QString filename, FT_Library &library);
 		void AddUserPath(QString pf);
 		void AddXFontServerPath();
 		void AddXFontPath();
+		void AddFontconfigFonts();
 		QStrList FontPath;
 		QString ExtraPath;
 };

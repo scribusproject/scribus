@@ -203,7 +203,7 @@ uninstall-local:
 	-rmdir $(prefix)/include/scribus/ 2>/dev/null
 	
 
-scribus_LDADD  = $(LIBJPEG) $(LIBART_LIBS) $(LIBFREETYPE_LIBS) $(LIBCUPS) $(LIBLCMS) $(LIBDL) $(LIBDL2) $(LIBTIFF) -lm $(LIB_QT) -lXext -lX11 $(LIBSOCKET)
+scribus_LDADD  = $(LIBJPEG) $(LIBART_LIBS) $(LIBFREETYPE_LIBS) $(LIBFONTCONFIG_LIBS) $(LIBCUPS) $(LIBLCMS) $(LIBDL) $(LIBDL2) $(LIBTIFF) -lm $(LIB_QT) -lXext -lX11 $(LIBSOCKET)
 
 if COMPILE_DEBUG
  linkflag = -export-dynamic
@@ -213,7 +213,7 @@ endif
 AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS)
 
 # set the include path for X, qt and KDE
-INCLUDES= $(LIBART_CFLAGS) $(LIBFREETYPE_CFLAGS) $(all_includes)
+INCLUDES= $(LIBART_CFLAGS) $(LIBFREETYPE_CFLAGS) $(LIBFONTCONFIG_CFLAGS) $(all_includes)
 
 scribus_METASOURCES = AUTO
 
