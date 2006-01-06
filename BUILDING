@@ -1,0 +1,263 @@
+Generic build instructions are available in the INSTALL file. Please read these
+notes for Scribus-specifc information plus notes about compiling Scribus on
+particular distributions and operating systems.
+
+REQUIREMENTS AND BUILDING
+=========================
+
+Install the below packages BEFORE running configure or compiling Scribus:
+
+Requirements:
+	Qt >= 3.3 (3.3.3 recommended)
+	Freetype >= 2.1.3 (2.1.9+ recommended)
+	libart >= 2.3.8+ (2.3.17+ recommended)
+
+Recommended:
+	CUPS
+	libtiff >= 3.6.0
+	Fontconfig >= 2.0
+	LittleCMS = 1.12 (1.14+ recommended)
+	LibXML2 >= 2.6.0
+	GhostScript >= 8.0 (8.15 or greater preferred)
+	Python >= 2.3
+	tkinter for the font sampler script
+	python-imaging for the font sampler preview
+
+If any recommended libraries (and their dev/devel packages or headers) are not
+installed, some features will be disabled by configure. If you later install
+any of these dependencies, you will have to re-run configure and re-compile
+Scribus before the features are enabled.
+
+LIBRARIES IN NON-STANDARD LOCATIONS
+===================================
+
+You can skip this section unless:
+    (a) You have libraries installed in unusual locations such as your home
+        directory or an add-in package collection (eg fink); or
+    (b) Scribus is not finding libraries that you KNOW you have installed
+        (remember the -dev/-devel package if applicable).
+
+If any of your libraries are in non-standard locations and not on the same
+--prefix as you're configuring Scribus with, you will need to set some extra
+environment variables when configuring and compiling Scribus to ensure that
+configure and gcc can find all the required information. Where
+/home/fred/libfred is the path to the the directory the lib was installed to
+(--prefix), eg /usr/local or /home/fred/libfred (*NOT* the lib/ subdirectory
+the actual library file is in), the following commands to bash should do the
+trick:
+
+	instdir=/home/fred/libfred
+	export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:${instdir}/lib/pkgconfig"
+	export LIBRARY_PATH="${LIBRARY_PATH}:${instdir}/lib"
+	export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${instdir}/lib"
+	export CPATH="${CPATH}:${instdir}/include"
+	export PATH="${PATH}:${instdir}/bin"
+
+In most cases, you can get away with just some of them for any given lib, but
+setting all of those means any of the several methods of finding libraries that
+might be used should work. These requirements are standard for pretty much any
+package, they are not specific to Scribus - it's just most packages don't
+bother to explain this to you ;-)
+
+If you have more than one collection of libraries, simply repeat the above
+commands for each additional location.
+
+In general, you should not add "-I/path" directives to `CXXFLAGS', `CPPFLAGS',
+or `CFLAGS'; that's what `CPATH' is for. Similarly, use `LIBRARY_PATH' rather
+than adding "-L/path" to `LDFLAGS' when trying to get `ld' to find a library.
+
+`LD_LIBRARY_PATH' may also need to be set when running Scribus later. To avoid
+this requirement under Linux, add the library path to `/etc/ld.so.conf' (on its
+own line, nothing but the path, eg "/home/fred/libfred/lib" without the quotes)
+and run ldconfig as root. Other operating systems have other requirements.
+
+Note that Scribus's build scripts will always find a library installed to the
+same --prefix as Scribus its self ; no special configuration should be required
+in that case.  Any failure to do so is a bug and should be reported on
+http://bugs.scribus.net/ .
+
+REQUIREMENTS - DETAILS
+======================
+
+We strongly recommend having Qt 3.3.3+. Qt 3.3 is now the *minimum*. Older
+versions of Qt are *not* supported. If you build Qt from sources, the
+recommended ./configure switches are the same as used by KDE. Use of other
+switches aside from those used by distro packages can make trouble shooting
+issues very difficult at times.
+See: http://developer.kde.org/build/compile_kde3_3.html
+
+Scribus requires Freetype. If you are compiling from source, you will need to
+have the freetype headers installed - these can usually be found in a -devel
+package for your distro.
+
+It is strongly recommended that you install the CUPS development packages if
+you are compiling Scribus. Without CUPS, Scribus will have significantly
+reduced printing functionality.
+
+Fontconfig, if installed, will let Scribus find fonts using the same method as
+most other major desktop applications such as all KDE and GNOME applications.
+If fontconfig support is installed, Scribus will not search your X font path, X
+server configuration, or X font server configuration for fonts - it will only
+use fonts found using fontconfig and any custom font locations configured in
+the preferences.
+
+Python will be used to add scripting support to Scribus. If Python is not
+found, or there are no header files for Python installed (usually because you
+haven't installed the development package), the scripting support will not be
+enabled.
+
+See the distro-specific notes below for more information on installing and
+using Scribus with your distro.
+
+If you have a 64-bit version of Qt, sometimes ./configure will not detect the 
+64-bit version headers. Try : ./configure --enable-libsuffix=64 to test for 64-bit 
+versions of libraries.
+
+If you're on an AMD64 Linux distro and configure can't find Python, try using the argument:
+    --with-extra-libs=/usr/lib64
+to configure.
+
+TROUBLESHOOTING
+===============
+
+If Scribus can't find a library, there are several things you should do.
+First of all, read `DISTRO SPECIFIC BUILD INFORMATION' below and see if
+there's anything there for your OS / distro.
+
+Next, ensure you definitely have the library installed, as well as any
+additional development packages that may be required to use it.  On Linux, make
+sure to install the "-dev" or "-devel" package for the missing library. After
+doing this, re-run configure.
+
+If the library is still not found, please read and act on the section above,
+entitled `LIBRARIES IN NONSTANDARD LOCATIONS'. Check that all those environment
+variables are set to sensible values. If you are using any other custom CFLAGS,
+LDFLAGS, CXXFLAGS, CPPFLAGS, etc, then unset or disable them unless you're really
+sure you know what you're doing. This is doubly true for "optimisation" flags
+like -mcpu and -march .
+
+If you're still having problems, have a look at config.log (in the same
+directory as configure) and see if you can tell what the problem is. You'll
+probably want to use some sort of search command to look for the name of the
+library that's not being found - config.log is *long*.
+
+If you're still unable to determine what the problem is, please post a message
+to the Scribus mailing list or report a bug on bugs.scribus.net. If you report
+a bug, please attach a gzipped copy of config.log. If posting to the mailing
+list, DO NOT attach config.log - but if possible, please post it on a website
+or somewhere else we can get to it and provide the address. Otherwise, just
+email it if someone asks for it. In any problem report, MAKE SURE YOU INCLUDE
+THE FOLLOWING INFORMATION:
+    - Operating system or distro, eg "Mac OS X" or "Debian Linux"
+    - OS or distro version, eg "Panther" or "Fedora Core 3". This is NOT the
+      Linux kernel version, though you can provide that too.
+    - Scribus version you're trying to compile, eg "1.2.1" or "1.3 cvs". If
+      you're building CVS, please make sure you've run "cvs up -Pd -C" (this
+      WILL erase any patches / custom changes you've made) then re-built
+      starting at "make -f Makefile.cvs" before reporting a problem. If
+      you're using a snapshot or CVS, please tell us when you downloaded
+      it (eg "todays CVS snapshot").
+    - What compiler you're using. You can get this from `gcc --version'.
+      if you're using gcc.
+    - If you're having problems with a particular library, what version
+      of the library you have installed and where you got it from. eg:
+      "freetype 2.0.1 from sunfreeware,"
+      "LittleCMS 1.1.4, compiled myself and installed in /usr/local,"
+      "freetype 2.1.3 from backports.org,"
+      "fontconfig 2.2.0 (stock Fedora Core 3 devel package)"
+      "I installed the qt-3.0.1.rpm and qt-devel-3.0.1.rpm from the CD."
+    - Check again to make REALLY REALLY SURE you have the devel package
+      installed.
+    - Any environment variables you may have set
+    - Anything else you can think of that might be useful. There's no
+      such thing as too much information, though please put big files
+      elsewhere rather than sending them to the mailing list.
+
+It's best if you do a search of the mailing list archives and/or
+bugs.scribus.net before reporting a problem, too. This is doubly true for
+development versions of Scribus.
+
+DISTRO SPECIFIC BUILD INFORMATION
+=================================
+
+This section contains information about compiling Scribus that's specific to
+particular operating systems and Linux distros. More distro-specific
+information can be found in the README.
+
+Debian
+======
+
+Recommended packages for compiling from source on Sarge (Debian 3.1):
+	libqt3-mt-dev (Required)
+	libfreetype6-dev (Required)
+	libart-2.0-dev (Required)
+	libcupsys2-dev
+	liblcms1-dev
+	libfontconfig1-dev
+	libtiff4-dev
+	libxml2-dev
+	python2.3-dev  or  python2.4-dev
+	gs-afpl
+
+You are unlikely to be able to compile Scribus 1.3.x on Debian 3.0 (Woody)
+without significant upgrades; it is not at all recommended. Scribus 1.3.x
+should be considered not to support Debian Woody.
+
+More info can be found in the README.
+
+Red Hat / Fedora
+================
+
+Recommended packages for compiling from source on FC3 / FC4:
+	libstdc++-devel (Required)
+	gcc-c++ (Required)
+	qt-devel (Required)
+	freetype-devel (Required)
+	libart_lgpl-devel (Required)
+	fontconfig-devel
+	cups-devel
+	libtiff-devel
+	libxml2-devel
+	python-devel
+	lcms-devel
+	libpng-devel
+	libjpeg-devel
+
+You can install these packages with 'yum install packagename' as root. You may
+need to run up2date first to set up your yum configuration (not required on
+FC4). Be patient - the first time you run yum it may take a long time to
+download the headers for all the security updates that have been released.
+
+You may also need to 'export QTDIR=/usr/lib/qt-3.3' before running
+configure or make.
+
+More info can be found in the README.
+
+SuSE
+====
+
+Recommended packages for compiling from source on SuSE 9.x/10.x:
+	qt3-devel (required)
+	libart_lgpl-devel (required)
+	freetype2-devel (required)
+	fontconfig-devel
+	liblcms-devel
+	libtiff-devel
+	libxml2-devel
+	cups-devel
+	openssl-devel (required if CUPS support is needed) 
+	libpng-devel
+	libjpeg-devel
+	update-desktop-files
+	python-devel
+	tk
+	python-imaging
+
+You can install these packages using YaST. You may find it difficult to compile Scribus 1.2.x on anything older than Suse 9.0. In addtion, you are recommended to have the updated KDE/Qt packages which are provided as supplemental from ftp.suse.com or mirrors.
+
+
+Other distros/OSes
+==================
+
+Please feel free to submit a list of package names and versions required to
+compile Scribus on your distro, or build instructions for your OS.

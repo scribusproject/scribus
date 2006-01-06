@@ -1,6 +1,12 @@
-This is Scribus Version 1.2.4.1
+This is Scribus Version 1.2.5cvs
 
-The Scribus 1.2.x versions feature a complete rewrite of the rendering engine.
+New in 1.2.5cvs is fontconfig support on Linux. Scribus uses fontconfig to 
+discover the available fonts on your system. This is a new feature and should
+require any change to the way you use Scribus. New fonts added to $home/.fonts
+should automatically be detected when re-starting Scribus. The recommended
+way of installing fonts is outlined in the fonts section of the docs. This 
+section has many helpful tips about fonts and Scribus.
+
 All rendering is done via libart and freetype2. 
 This requires that libart_lgpl and freetype2 are installed.
 
