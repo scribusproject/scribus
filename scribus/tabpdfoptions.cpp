@@ -28,7 +28,9 @@ extern bool CMSavail;
 TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &AllFonts,
                                 ProfilesL *PDFXProfiles, QMap<QString,int> DocFonts,
                                 QValueList<PDFPresentationData> Eff, int unitIndex,
-                                double PageH, double PageB, ScribusView *vie ) : QTabWidget( parent, "pdf" )
+                                double PageH, double PageB, ScribusView *vie )
+	: QTabWidget( parent, "pdf" ),
+	useLayers2(0)
 {
 
 	unit = unitGetSuffixFromIndex(unitIndex);
@@ -1079,7 +1081,8 @@ void TabPDFOptions::enableCMS(bool enable)
 void TabPDFOptions::EnablePDFX(int a)
 {
 	useLayers->setEnabled(a == 2);
-	useLayers2->setEnabled(a == 2);
+	if (useLayers2)
+		useLayers2->setEnabled(a == 2);
 	if (a != 3)
 	{
 		setTabEnabled(tabPDFX, false);
