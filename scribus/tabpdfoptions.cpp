@@ -30,16 +30,12 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
                                 QValueList<PDFPresentationData> Eff, int unitIndex,
                                 double PageH, double PageB, ScribusView *vie )
 	: QTabWidget( parent, "pdf" ),
-	PgSel(0),
-	EffVal(Eff),
 	// Initialize all those darn pointer members so we catch unitialized
 	// accesses. I (CR) use the following command to generate these based on
 	// the header excerpt:
 	//    !cut -d \* -f 2 | sed -r 's/ ?(.*);/\t\1\(0\),/g'
 	// Public GUI member pointers:
-	actionCombo(0),
 	AddSec(0),
-	AllPages(0),
 	Article(0),
 	BleedBottom(0),
 	BleedLeft(0),
@@ -47,7 +43,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	BleedTop(0),
 	CheckBM(0),
 	CheckBox1(0),
-	CheckBox10(0),
 	CMethod(0),
 	ComboBind(0),
 	Compression(0),
@@ -57,32 +52,18 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	doublePageLeft(0),
 	doublePageRight(0),
 	DSColor(0),
-	EDirection(0),
-	EDirection_2(0),
-	EDirection_2_2(0),
-	EffectTime(0),
-	EffectType(0),
 	EmbedProfs(0),
 	EmbedProfs2(0),
 	Encry(0),
-	fitWindow(0),
-	hideMenuBar(0),
-	hideToolBar(0),
 	ImageP(0),
-	InfoString(0),
 	IntendI(0),
 	IntendS(0),
-	LPIangle(0),
-	LPIfreq(0),
-	LPIfunc(0),
 	MirrorH(0),
 	MirrorV(0),
 	ModifySec(0),
 	NoEmbedded(0),
 	OutCombo(0),
-	PageNr(0),
 	Pages(0),
-	PageTime(0),
 	PassOwner(0),
 	PassUser(0),
 	PDFVersionCombo(0),
@@ -101,17 +82,30 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	useThumbnails(0),
 	ValC(0),
 	// Protected members other than GUI member pointers
-	unit(unitGetSuffixFromIndex(unitIndex)),
-	precision(unitGetPrecisionFromIndex(unitIndex)),
-	unitRatio(unitGetRatioFromIndex(unitIndex)),
-	view(vie),
-	AllFontsP(AllFonts),
-	Opts(Optionen),
-	pageH(PageH),
-	pageB(PageB),
-	cms(false),
 	// End GUI member pointers
-	// Begin protected member gui pointers
+	// Protected non-gui members
+	PgSel(0),
+	EffVal(Eff),
+	// Protected GUI member pointers
+	actionCombo(0),
+	AllPages(0),
+	CheckBox10(0),
+	EDirection(0),
+	EDirection_2(0),
+	EDirection_2_2(0),
+	EffectTime(0),
+	EffectType(0),
+	fitWindow(0),
+	hideMenuBar(0),
+	hideToolBar(0),
+	InfoString(0),
+	LPIangle(0),
+	LPIfreq(0),
+	LPIfunc(0),
+	PageNr(0),
+	PageTime(0),
+	// End protected gui member pointers
+	// Private member gui pointers
 	actionLabel(0),
 	AvailFlist(0),
 	BleedGroup(0),
@@ -215,8 +209,18 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	ToSubset(0),
 	useViewDefault(0),
 	X3Group(0),
-	X3GroupLayout(0)
+	X3GroupLayout(0),
 	// end protected member gui pointers
+	// Private members
+	unit(unitGetSuffixFromIndex(unitIndex)),
+	precision(unitGetPrecisionFromIndex(unitIndex)),
+	unitRatio(unitGetRatioFromIndex(unitIndex)),
+	view(vie),
+	AllFontsP(AllFonts),
+	Opts(Optionen),
+	pageH(PageH),
+	pageB(PageB),
+	cms(false)
 {
 
 	tabGeneral = new QWidget( this, "tabGeneral" );

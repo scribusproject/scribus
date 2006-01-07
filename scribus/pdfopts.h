@@ -30,14 +30,14 @@ class PDFOptions;
  * Most of the guts of the dialog actually come from TabPDFOptions, which
  * is also used by the preferences dialog.
  */
-class SCRIBUS_API PDF_Opts : public QDialog
+class SCRIBUS_API PDFExportDialog : public QDialog
 {
 	Q_OBJECT
 
 public:
-	PDF_Opts( QWidget* parent, QString docFileName, QMap<QString,int> DocFonts, ScribusView *currView, PDFOptions *pdfOptions,
+	PDFExportDialog( QWidget* parent, QString docFileName, QMap<QString,int> DocFonts, ScribusView *currView, PDFOptions *pdfOptions,
 				QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts, double unitRatio, ProfilesL *printerProfiles);
-	~PDF_Opts() {};
+	~PDFExportDialog() {};
 
 	void updateDocOptions();
 	const QString cmsDescriptor();
@@ -52,7 +52,7 @@ protected slots:
 	void disableSave();
 
 protected:
-	QVBoxLayout* PDFOptsLayout;
+	QVBoxLayout* PDFExportLayout;
 	QGridLayout* NameLayout;
 	QHBoxLayout* Layout7;
 	QGroupBox* Name;

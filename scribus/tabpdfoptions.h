@@ -26,6 +26,7 @@
 #include "mspinbox.h"
 
 class PDFOptions;
+class PDFExportDialog;
 
 class SCRIBUS_API TabPDFOptions : public QTabWidget
 {
@@ -41,19 +42,11 @@ public:
 
 	void unitChange(int newUnitIndex);
 
-	int PgSel;
-	QValueList<PDFPresentationData> EffVal;
-	QString SelLPIcolor;
-	QValueList<QString> FontsToEmbed;
-	QValueList<QString> FontsToSubset;
-
 	// GUI member pointers
 	// Remember to initialize these in the initializer list of the ctor when
 	// you add new ones. Add them in the same order here and in the initalizer
 	// list. To help out, the members are sorted alphabetically by name.
-	QComboBox* actionCombo;
 	QCheckBox* AddSec;
-	QRadioButton* AllPages;
 	QCheckBox* Article;
 	MSpinBox* BleedBottom;
 	MSpinBox* BleedLeft;
@@ -61,7 +54,6 @@ public:
 	MSpinBox* BleedTop;
 	QCheckBox* CheckBM;
 	QCheckBox* CheckBox1;
-	QCheckBox* CheckBox10;
 	QComboBox* CMethod;
 	QComboBox* ComboBind;
 	QCheckBox* Compression;
@@ -71,32 +63,18 @@ public:
 	QRadioButton* doublePageLeft;
 	QRadioButton* doublePageRight;
 	QCheckBox* DSColor;
-	QComboBox* EDirection;
-	QComboBox* EDirection_2;
-	QComboBox* EDirection_2_2;
-	QSpinBox* EffectTime;
-	QComboBox* EffectType;
 	QCheckBox* EmbedProfs;
 	QCheckBox* EmbedProfs2;
 	QCheckBox* Encry;
-	QCheckBox* fitWindow;
-	QCheckBox* hideMenuBar;
-	QCheckBox* hideToolBar;
 	QComboBox* ImageP;
-	QLineEdit* InfoString;
 	QComboBox* IntendI;
 	QComboBox* IntendS;
-	QSpinBox* LPIangle;
-	QSpinBox* LPIfreq;
-	QComboBox* LPIfunc;
 	QToolButton* MirrorH;
 	QToolButton* MirrorV;
 	QCheckBox* ModifySec;
 	QCheckBox* NoEmbedded;
 	QComboBox* OutCombo;
-	QLineEdit* PageNr;
 	QListBox* Pages;
-	QSpinBox* PageTime;
 	QLineEdit* PassOwner;
 	QLineEdit* PassUser;
 	QComboBox* PDFVersionCombo;
@@ -154,18 +132,44 @@ public slots:
 	void checkInfo();
 
 protected:
-	// Non-GUI protected members
-	QString unit;
-	int precision;
-	double unitRatio;
-	ScribusView * const view;
-	SCFonts & AllFontsP;
-	PDFOptions *Opts;
-	double pageH;
-	double pageB;
-	bool cms;
+	// PDFExportDialog should really privately inherit from us, but it can't
+	// since it needs to be a dialog not a tab widget. Allow it access to
+	// protected and private members instead. If we ever clean up the direct
+	// widget access in this class, it might be able to privately inheirit and
+	// be added to a very thin dialog class instead.
+	friend class PDFExportDialog;
+	int PgSel;
+	QValueList<PDFPresentationData> EffVal;
+	QString SelLPIcolor;
+	QValueList<QString> FontsToEmbed;
+	QValueList<QString> FontsToSubset;
 
-	// Protected GUI member pointers
+	// PDFExportDialog needs access to these GUI members
+	// but they don't need to be exposed to the rest of Scribus.
+	QComboBox* actionCombo;
+	QRadioButton* AllPages;
+	QCheckBox* CheckBox10;
+	QComboBox* EDirection;
+	QComboBox* EDirection_2;
+	QComboBox* EDirection_2_2;
+	QSpinBox* EffectTime;
+	QComboBox* EffectType;
+	QCheckBox* fitWindow;
+	QCheckBox* hideMenuBar;
+	QCheckBox* hideToolBar;
+	QLineEdit* InfoString;
+	QSpinBox* LPIangle;
+	QSpinBox* LPIfreq;
+	QComboBox* LPIfunc;
+	QLineEdit* PageNr;
+	QSpinBox* PageTime;
+
+private:
+	// Private GUI member pointers, should not be used outside the class its
+	// self.  Please ry to keep members here genuinely private, ie don't use
+	// them even from friends. If you need to access it from a friend like
+	// PDFExportDialog please move it to the protected section.
+
 	QLabel* actionLabel;
 	QListBox* AvailFlist;
 	QGroupBox* BleedGroup;
@@ -271,6 +275,17 @@ protected:
 	QGroupBox* X3Group;
 	QGridLayout* X3GroupLayout;
 	// end protected GUI member pointers
+
+	// Non-GUI protected members
+	QString unit;
+	int precision;
+	double unitRatio;
+	ScribusView * const view;
+	SCFonts & AllFontsP;
+	PDFOptions *Opts;
+	double pageH;
+	double pageB;
+	bool cms;
 
 };
 #endif

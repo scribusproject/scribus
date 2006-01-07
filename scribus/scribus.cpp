@@ -7083,18 +7083,18 @@ void ScribusMainWindow::doSaveAsPDF()
 		}
 		doc->PDF_Options.SubsetList = tmpEm;
 	}
-	PDF_Opts *dia = new PDF_Opts(this, doc->DocName, ReallyUsed, view, &doc->PDF_Options, doc->PDF_Options.PresentVals, &PDFXProfiles, prefsManager->appPrefs.AvailFonts, doc->unitRatio(), &ScMW->PrinterProfiles);
-	if (dia->exec())
+	PDFExportDialog dia(this, doc->DocName, ReallyUsed, view, &doc->PDF_Options, doc->PDF_Options.PresentVals, &PDFXProfiles, prefsManager->appPrefs.AvailFonts, doc->unitRatio(), &ScMW->PrinterProfiles);
+	if (dia.exec())
 	{
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
-		dia->updateDocOptions();
+		dia.updateDocOptions();
 		ReOrderText(doc, view);
-		QString pageString(dia->getPagesString());
+		QString pageString(dia.getPagesString());
 		std::vector<int> pageNs;
 		uint pageNumbersSize;
 		QMap<int,QPixmap> thumbs;
-		int components=dia->colorSpaceComponents();
-		QString nam(dia->cmsDescriptor());
+		int components=dia.colorSpaceComponents();
+		QString nam(dia.cmsDescriptor());
 		QString fileName = doc->PDF_Options.Datei;
 		parsePagesString(pageString, &pageNs, doc->DocPages.count());
 		if (doc->PDF_Options.doMultiFile)
@@ -7122,7 +7122,6 @@ void ScribusMainWindow::doSaveAsPDF()
 				{
 					qApp->setOverrideCursor(QCursor(arrowCursor), true);
 					QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei), CommonStrings::tr_OK);
-					delete dia;
 					return;
 				}
 				aa++;
@@ -7146,7 +7145,6 @@ void ScribusMainWindow::doSaveAsPDF()
 		}
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
-	delete dia;
 }
 
 void ScribusMainWindow::AddBookMark(PageItem *ite)

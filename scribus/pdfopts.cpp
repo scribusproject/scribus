@@ -23,7 +23,7 @@ extern bool CMSuse;
 #endif
 extern bool CMSavail;
 
-PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,int> DocFonts, ScribusView *currView, PDFOptions *pdfOptions, QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts, double unitRatio, ProfilesL *printerProfiles)
+PDFExportDialog::PDFExportDialog( QWidget* parent,  QString docFileName, QMap<QString,int> DocFonts, ScribusView *currView, PDFOptions *pdfOptions, QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts, double unitRatio, ProfilesL *printerProfiles)
 		: QDialog( parent, "pdf", true, 0 )
 {
 	setCaption( tr( "Save as PDF" ) );
@@ -34,9 +34,9 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,int> Doc
 	cmsDescriptorName="";
 	components=3;
 	appPrinterProfiles=printerProfiles;
-	PDFOptsLayout = new QVBoxLayout( this );
-	PDFOptsLayout->setSpacing( 5 );
-	PDFOptsLayout->setMargin( 10 );
+	PDFExportLayout = new QVBoxLayout( this );
+	PDFExportLayout->setSpacing( 5 );
+	PDFExportLayout->setMargin( 10 );
 	Name = new QGroupBox( this, "GroupBox" );
 	Name->setTitle( tr( "O&utput to File:" ) );
 	Name->setColumnLayout(0, Qt::Vertical );
@@ -65,11 +65,11 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,int> Doc
 	multiFile = new QCheckBox( tr( "Output one file for eac&h page" ), Name, "multiFile" );
 	multiFile->setChecked(pdfOptions->doMultiFile);
 	NameLayout->addWidget( multiFile, 1, 0 );
-	PDFOptsLayout->addWidget( Name );
+	PDFExportLayout->addWidget( Name );
 	Options = new TabPDFOptions( this, pdfOptions, AllFonts, PDFXProfiles, DocFonts,
 								Eff, currView->Doc->unitIndex(), currView->Doc->pageHeight,
 								currView->Doc->pageWidth, currView );
-	PDFOptsLayout->addWidget( Options );
+	PDFExportLayout->addWidget( Options );
 	Layout7 = new QHBoxLayout;
 	Layout7->setSpacing( 5 );
 	Layout7->setMargin( 0 );
@@ -81,7 +81,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,int> Doc
 	Layout7->addWidget( OK );
 	Cancel = new QPushButton( CommonStrings::tr_Cancel, this, "Cancel" );
 	Layout7->addWidget( Cancel );
-	PDFOptsLayout->addLayout( Layout7 );
+	PDFExportLayout->addLayout( Layout7 );
 	if ((pdfOptions->Version == PDFOptions::PDFVersion_X3) && (Options->InfoString->text().isEmpty()))
 		OK->setEnabled(false);
 	resize(sizeHint());
@@ -98,17 +98,17 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,int> Doc
 	connect( Options, SIGNAL(hasInfo()), this, SLOT(enableSave()));
 }
 
-void PDF_Opts::enableSave()
+void PDFExportDialog::enableSave()
 {
 	OK->setEnabled(true);
 }
 
-void PDF_Opts::disableSave()
+void PDFExportDialog::disableSave()
 {
 	OK->setEnabled(false);
 }
 
-void PDF_Opts::DoExport()
+void PDFExportDialog::DoExport()
 {
 	QString fn = fileNameLineEdit->text();
 	if (overwrite(this, fn))
@@ -129,7 +129,7 @@ void PDF_Opts::DoExport()
 		return;
 }
 
-void PDF_Opts::ChangeFile()
+void PDFExportDialog::ChangeFile()
 {
 	QString fn;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
@@ -147,12 +147,12 @@ void PDF_Opts::ChangeFile()
 	fileNameLineEdit->setText(fn);
 }
 
-void PDF_Opts::fileNameChanged()
+void PDFExportDialog::fileNameChanged()
 {
 	fileNameLineEdit->setText(checkFileExtension(fileNameLineEdit->text(),"pdf"));
 }
 
-void PDF_Opts::updateDocOptions()
+void PDFExportDialog::updateDocOptions()
 {
 	Opts->Datei = fileNameLineEdit->text();
 	Opts->doMultiFile = multiFile->isChecked();
@@ -294,17 +294,17 @@ void PDF_Opts::updateDocOptions()
 	}
 }
 
-const QString PDF_Opts::cmsDescriptor()
+const QString PDFExportDialog::cmsDescriptor()
 {
 	return cmsDescriptorName;
 }
 
-const int PDF_Opts::colorSpaceComponents()
+const int PDFExportDialog::colorSpaceComponents()
 {
 	return components;
 }
 
-const QString PDF_Opts::getPagesString()
+const QString PDFExportDialog::getPagesString()
 {
 	if (Options->AllPages->isChecked())
 		return "*";
