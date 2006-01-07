@@ -31,26 +31,22 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
                                 double PageH, double PageB, ScribusView *vie )
 	: QTabWidget( parent, "pdf" ),
 	// Initialize all those darn pointer members so we catch unitialized
-	// accesses.
+	// accesses. I (CR) use the following command to generate these based on
+	// the header excerpt:
+	//    !cut -d \* -f 2 | sed -r 's/ ?(.*);/\t\1\(0\),/g'
+	// Public GUI member pointers:
 	actionCombo(0),
-	actionLabel(0),
 	AddSec(0),
 	AllPages(0),
 	Article(0),
-	AvailFlist(0),
 	BleedBottom(0),
-	BleedGroup(0),
-	BleedIcon(0),
 	BleedLeft(0),
 	BleedRight(0),
 	BleedTop(0),
-	CBox(0),
 	CheckBM(0),
 	CheckBox1(0),
 	CheckBox10(0),
 	CMethod(0),
-	ColorGroup(0),
-	ColorText1(0),
 	ComboBind(0),
 	Compression(0),
 	continuousPages(0),
@@ -62,26 +58,12 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	EDirection(0),
 	EDirection_2(0),
 	EDirection_2_2(0),
-	Effects(0),
 	EffectTime(0),
 	EffectType(0),
-	EmbedFonts(0),
-	EmbedList(0),
 	EmbedProfs(0),
 	EmbedProfs2(0),
 	Encry(0),
-	EonAllPg(0),
 	fitWindow(0),
-	FromEmbed(0),
-	FromSubset(0),
-	GroupBox1(0),
-	GroupBox9(0),
-	groupDisplay(0),
-	GroupFont(0),
-	groupJava(0),
-	groupNavigation(0),
-	GroupPass(0),
-	GroupSecSet(0),
 	hideMenuBar(0),
 	hideToolBar(0),
 	ImageP(0),
@@ -89,48 +71,123 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	IntendI(0),
 	IntendS(0),
 	LPIangle(0),
-	LPIcolor(0),
 	LPIfreq(0),
 	LPIfunc(0),
-	LPIgroup(0),
 	MirrorH(0),
 	MirrorV(0),
 	ModifySec(0),
 	NoEmbedded(0),
-	OnlySome(0),
 	OutCombo(0),
-	pageLayout(0),
 	PageNr(0),
-	PagePrev(0),
 	Pages(0),
 	PageTime(0),
 	PassOwner(0),
 	PassUser(0),
 	PDFVersionCombo(0),
-	PDFX1(0),
-	PDFX2(0),
 	PrintProfC(0),
 	PrintSec(0),
+	Resolution(0),
+	RotateDeg(0),
+	singlePage(0),
+	SolidPr(0),
+	useBookmarks(0),
+	useFullScreen(0),
+	useLayers(0),
+	useLayers2(0),
+	UseLPI(0),
+	useSpot(0),
+	useThumbnails(0),
+	ValC(0),
+	// End GUI member pointers
+	view(vie),
+	AllFontsP(AllFonts),
+	EffVal(Eff),
+	PgSel(0),
+	Opts(Optionen),
+	pageH(PageH),
+	pageB(PageB),
+	cms(false),
+	unitRatio(unitGetRatioFromIndex(unitIndex)),
+	// Begin protected member gui pointers
+	actionLabel(0),
+	AvailFlist(0),
+	BleedGroup(0),
+	BleedGroupLayout(0),
+	BleedIcon(0),
+	CBox(0),
+	CBoxLayout(0),
+	ColorGroup(0),
+	ColorGroupLayout(0),
+	ColorText1(0),
+	Effects(0),
+	EffectsLayout(0),
+	EmbedFonts(0),
+	EmbedList(0),
+	EonAllPg(0),
+	FromEmbed(0),
+	FromSubset(0),
+	GroupBox1(0),
+	GroupBox1Layout(0),
+	GroupBox2Layout(0),
+	GroupBox9(0),
+	GroupBox9Layout(0),
+	groupDisplay(0),
+	groupDisplayLayout(0),
+	GroupFont(0),
+	GroupFontLayout(0),
+	groupJava(0),
+	groupJavaLayout(0),
+	groupNavigation(0),
+	groupNavigationLayout(0),
+	GroupPass(0),
+	GroupPassLayout(0),
+	GroupSecSet(0),
+	GroupSecSetLayout(0),
+	Layout11(0),
+	Layout11a(0),
+	Layout13(0),
+	Layout2(0),
+	Layout3(0),
+	Layout4_2(0),
+	Layout5_2(0),
+	Layout5_2a(0),
+	Layout6(0),
+	LayoutSpecial(0),
+	LPIcolor(0),
+	LPIgroup(0),
+	LPIgroupLayout(0),
+	OnlySome(0),
+	pageLayout(0),
+	pageLayoutLayout(0),
+	PagePrev(0),
+	PDFX1(0),
+	PDFX2(0),
 	PrintSec2(0),
 	ProfsGroup(0),
+	ProfsGroupLayout(0),
 	ProfsTxt1(0),
 	ProfsTxt2(0),
 	ProfsTxt3(0),
 	ProfsTxt4(0),
 	RangeGroup(0),
-	Resolution(0),
-	RotateDeg(0),
-	singlePage(0),
-	SolidPr(0),
+	RangeGroupLayout(0),
 	SubsetFonts(0),
 	SubsetList(0),
 	tabColor(0),
+	tabColorLayout(0),
 	tabFonts(0),
 	tabGeneral(0),
+	tabLayout(0),
+	tabLayout_3(0),
+	tabLayout_5(0),
+	tabOptionsGridLayout(0),
 	tabPDFX(0),
+	tabPDFXLayout(0),
 	tabPresentation(0),
 	tabSecurity(0),
+	tabSecurityLayout(0),
 	tabSpecial(0),
+	tabSpecialLayout(0),
 	TextCom1(0),
 	TextCom2(0),
 	TextFont1(0),
@@ -153,26 +210,10 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	TextSec2(0),
 	ToEmbed(0),
 	ToSubset(0),
-	useBookmarks(0),
-	useFullScreen(0),
-	useLayers(0),
-	useLayers2(0),
-	UseLPI(0),
-	useSpot(0),
-	useThumbnails(0),
 	useViewDefault(0),
-	ValC(0),
 	X3Group(0),
-	// End GUI member pointers
-	view(vie),
-	AllFontsP(AllFonts),
-	EffVal(Eff),
-	PgSel(0),
-	Opts(Optionen),
-	pageH(PageH),
-	pageB(PageB),
-	cms(false),
-	unitRatio(unitGetRatioFromIndex(unitIndex)),
+	X3GroupLayout(0),
+	// end protected member gui pointers
 	unit(unitGetSuffixFromIndex(unitIndex)),
 	precision(unitGetPrecisionFromIndex(unitIndex))
 {
@@ -561,130 +602,129 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		EffectsLayout->addMultiCellWidget( EonAllPg, 6, 6, 0, 1 );
 		tabLayout_5->addMultiCellWidget( Effects, 1, 2, 1, 1 );
 		insertTab( tabPresentation, tr( "E&xtras" ) );
-
-		if (view->Doc->currentPageLayout == doublePage)
-		{
-			if (view->Doc->pageSets[view->Doc->currentPageLayout].FirstPage == 0)
-				Optionen->PageLayout = PDFOptions::TwoColumnLeft;
-			else
-				Optionen->PageLayout = PDFOptions::TwoColumnRight;
-		}
-		else
-			Optionen->PageLayout = PDFOptions::SinglePage;
-		if (Optionen->PresentMode)
-			Optionen->displayFullscreen = true;
-		else
-		{
-			if ((Optionen->Version == 15) && (Optionen->useLayers))
-				Optionen->displayLayers = true;
-		}
-		tabSpecial = new QWidget( this, "tabSpecial" );
-		tabSpecialLayout = new QVBoxLayout( tabSpecial, 11, 6, "tabSpecialLayout");
-		groupDisplay = new QGroupBox( tabSpecial, "groupDisplay" );
-		groupDisplay->setTitle( tr( "Display Settings" ) );
-		groupDisplay->setColumnLayout(0, Qt::Vertical );
-		groupDisplay->layout()->setSpacing( 5 );
-		groupDisplay->layout()->setMargin( 10 );
-		groupDisplayLayout = new QVBoxLayout( groupDisplay->layout() );
-		groupDisplayLayout->setAlignment( Qt::AlignTop );
-		LayoutSpecial = new QHBoxLayout( 0, 0, 5, "LayoutSpecial");
-		pageLayout = new QButtonGroup( groupDisplay, "pageLayout" );
-		pageLayout->setTitle( tr( "Page Layout" ) );
-		pageLayout->setColumnLayout(0, Qt::Vertical );
-		pageLayout->layout()->setSpacing( 5 );
-		pageLayout->layout()->setMargin( 10 );
-		pageLayoutLayout = new QVBoxLayout( pageLayout->layout() );
-		pageLayoutLayout->setAlignment( Qt::AlignTop );
-		singlePage = new QRadioButton( pageLayout, "singlePage" );
-		singlePage->setText( tr( "Single Page" ) );
-		pageLayoutLayout->addWidget( singlePage );
-		continuousPages = new QRadioButton( pageLayout, "continuousPages" );
-		continuousPages->setText( tr( "Continuous" ) );
-		pageLayoutLayout->addWidget( continuousPages );
-		doublePageLeft = new QRadioButton( pageLayout, "doublePageLeft" );
-		doublePageLeft->setText( tr( "Double Page Left" ) );
-		pageLayoutLayout->addWidget( doublePageLeft );
-		doublePageRight = new QRadioButton( pageLayout, "doublePageRight" );
-		doublePageRight->setText( tr( "Double Page Right" ) );
-		pageLayoutLayout->addWidget( doublePageRight );
-		LayoutSpecial->addWidget( pageLayout );
-		groupNavigation = new QButtonGroup( groupDisplay, "groupNavigation" );
-		groupNavigation->setTitle( tr( "Visual Appearance" ) );
-		groupNavigation->setColumnLayout(0, Qt::Vertical );
-		groupNavigation->layout()->setSpacing( 5 );
-		groupNavigation->layout()->setMargin( 10 );
-		groupNavigationLayout = new QVBoxLayout( groupNavigation->layout() );
-		groupNavigationLayout->setAlignment( Qt::AlignTop );
-		useViewDefault = new QRadioButton( groupNavigation, "useViewDefault" );
-		bool df = true;
-		if ((Optionen->displayBookmarks) || (Optionen->displayFullscreen) || (Optionen->displayLayers) || (Optionen->displayThumbs))
-			df = false;
-		useViewDefault->setChecked(df);
-		useViewDefault->setText( tr( "Use Viewers Defaults" ) );
-		groupNavigationLayout->addWidget( useViewDefault );
-		useFullScreen = new QRadioButton( groupNavigation, "useFullScreen" );
-		useFullScreen->setChecked(Optionen->displayFullscreen);
-		useFullScreen->setText( tr( "Use Full Screen Mode" ) );
-		groupNavigationLayout->addWidget( useFullScreen );
-		useBookmarks = new QRadioButton( groupNavigation, "useBookmarks" );
-		useBookmarks->setText( tr( "Display Bookmarks Tab" ) );
-		useBookmarks->setChecked(Optionen->displayBookmarks);
-		groupNavigationLayout->addWidget( useBookmarks );
-		useThumbnails = new QRadioButton( groupNavigation, "useThumbnails" );
-		useThumbnails->setText( tr( "Display Thumbnails" ) );
-		useThumbnails->setChecked(Optionen->displayThumbs);
-		groupNavigationLayout->addWidget( useThumbnails );
-		useLayers2 = new QRadioButton( groupNavigation, "useLayers" );
-		useLayers2->setText( tr( "Display Layers Tab" ) );
-		useLayers2->setChecked(Optionen->displayLayers);
-		groupNavigationLayout->addWidget( useLayers2 );
-		hideToolBar = new QCheckBox( tr( "Hide Viewers Toolbar" ), groupNavigation, "hideToolBar" );
-		hideToolBar->setChecked(Optionen->hideToolBar);
-		groupNavigationLayout->addWidget( hideToolBar );
-		hideMenuBar = new QCheckBox( tr( "Hide Viewers Menubar" ), groupNavigation, "hideMenuBar" );
-		hideMenuBar->setChecked(Optionen->hideMenuBar);
-		groupNavigationLayout->addWidget( hideMenuBar );
-		fitWindow = new QCheckBox( tr( "Zoom Pages to fit Viewer Window" ), groupNavigation, "fitWindow" );
-		fitWindow->setChecked(Optionen->fitWindow);
-		groupNavigationLayout->addWidget( fitWindow );
-		LayoutSpecial->addWidget( groupNavigation );
-		groupDisplayLayout->addLayout( LayoutSpecial );
-		tabSpecialLayout->addWidget( groupDisplay );
-		groupJava = new QGroupBox( tabSpecial, "groupJava" );
-		groupJava->setTitle( tr( "Special Actions" ) );
-		groupJava->setColumnLayout(0, Qt::Vertical );
-		groupJava->layout()->setSpacing( 5 );
-		groupJava->layout()->setMargin( 10 );
-		groupJavaLayout = new QHBoxLayout( groupJava->layout() );
-		groupJavaLayout->setAlignment( Qt::AlignTop );
-		actionLabel = new QLabel( groupJava, "actionLabel" );
-		actionLabel->setText( tr( "Javascript to be executed\nwhen Document is opened:" ) );
-		groupJavaLayout->addWidget( actionLabel );
-		actionCombo = new QComboBox( true, groupJava, "actionCombo" );
-		actionCombo->setEditable(false);
-		actionCombo->insertItem( tr("No Script"));
-		QMap<QString,QString>::Iterator itja;
-		for (itja = view->Doc->JavaScripts.begin(); itja != view->Doc->JavaScripts.end(); ++itja)
-			actionCombo->insertItem(itja.key());
-		if (view->Doc->JavaScripts.contains(Optionen->openAction))
-			actionCombo->setCurrentText(Optionen->openAction);
-		groupJavaLayout->addWidget( actionCombo );
-		tabSpecialLayout->addWidget( groupJava );
-		if (Optionen->PageLayout == PDFOptions::SinglePage)
-			singlePage->setChecked(true);
-		else if (Optionen->PageLayout == PDFOptions::OneColumn)
-			continuousPages->setChecked(true);
-		else if (Optionen->PageLayout == PDFOptions::TwoColumnLeft)
-			doublePageLeft->setChecked(true);
-		else if (Optionen->PageLayout == PDFOptions::TwoColumnRight)
-			doublePageRight->setChecked(true);
-		if (Optionen->Version == 15)
-			useLayers2->setEnabled(true);
-		else
-			useLayers2->setEnabled(false);
-		insertTab( tabSpecial, tr("Viewer") );
 	}
 
+	if (view->Doc->currentPageLayout == doublePage)
+	{
+		if (view->Doc->pageSets[view->Doc->currentPageLayout].FirstPage == 0)
+			Optionen->PageLayout = PDFOptions::TwoColumnLeft;
+		else
+			Optionen->PageLayout = PDFOptions::TwoColumnRight;
+	}
+	else
+		Optionen->PageLayout = PDFOptions::SinglePage;
+	if (Optionen->PresentMode)
+		Optionen->displayFullscreen = true;
+	else
+	{
+		if ((Optionen->Version == 15) && (Optionen->useLayers))
+			Optionen->displayLayers = true;
+	}
+	tabSpecial = new QWidget( this, "tabSpecial" );
+	tabSpecialLayout = new QVBoxLayout( tabSpecial, 11, 6, "tabSpecialLayout");
+	groupDisplay = new QGroupBox( tabSpecial, "groupDisplay" );
+	groupDisplay->setTitle( tr( "Display Settings" ) );
+	groupDisplay->setColumnLayout(0, Qt::Vertical );
+	groupDisplay->layout()->setSpacing( 5 );
+	groupDisplay->layout()->setMargin( 10 );
+	groupDisplayLayout = new QVBoxLayout( groupDisplay->layout() );
+	groupDisplayLayout->setAlignment( Qt::AlignTop );
+	LayoutSpecial = new QHBoxLayout( 0, 0, 5, "LayoutSpecial");
+	pageLayout = new QButtonGroup( groupDisplay, "pageLayout" );
+	pageLayout->setTitle( tr( "Page Layout" ) );
+	pageLayout->setColumnLayout(0, Qt::Vertical );
+	pageLayout->layout()->setSpacing( 5 );
+	pageLayout->layout()->setMargin( 10 );
+	pageLayoutLayout = new QVBoxLayout( pageLayout->layout() );
+	pageLayoutLayout->setAlignment( Qt::AlignTop );
+	singlePage = new QRadioButton( pageLayout, "singlePage" );
+	singlePage->setText( tr( "Single Page" ) );
+	pageLayoutLayout->addWidget( singlePage );
+	continuousPages = new QRadioButton( pageLayout, "continuousPages" );
+	continuousPages->setText( tr( "Continuous" ) );
+	pageLayoutLayout->addWidget( continuousPages );
+	doublePageLeft = new QRadioButton( pageLayout, "doublePageLeft" );
+	doublePageLeft->setText( tr( "Double Page Left" ) );
+	pageLayoutLayout->addWidget( doublePageLeft );
+	doublePageRight = new QRadioButton( pageLayout, "doublePageRight" );
+	doublePageRight->setText( tr( "Double Page Right" ) );
+	pageLayoutLayout->addWidget( doublePageRight );
+	LayoutSpecial->addWidget( pageLayout );
+	groupNavigation = new QButtonGroup( groupDisplay, "groupNavigation" );
+	groupNavigation->setTitle( tr( "Visual Appearance" ) );
+	groupNavigation->setColumnLayout(0, Qt::Vertical );
+	groupNavigation->layout()->setSpacing( 5 );
+	groupNavigation->layout()->setMargin( 10 );
+	groupNavigationLayout = new QVBoxLayout( groupNavigation->layout() );
+	groupNavigationLayout->setAlignment( Qt::AlignTop );
+	useViewDefault = new QRadioButton( groupNavigation, "useViewDefault" );
+	bool df = true;
+	if ((Optionen->displayBookmarks) || (Optionen->displayFullscreen) || (Optionen->displayLayers) || (Optionen->displayThumbs))
+		df = false;
+	useViewDefault->setChecked(df);
+	useViewDefault->setText( tr( "Use Viewers Defaults" ) );
+	groupNavigationLayout->addWidget( useViewDefault );
+	useFullScreen = new QRadioButton( groupNavigation, "useFullScreen" );
+	useFullScreen->setChecked(Optionen->displayFullscreen);
+	useFullScreen->setText( tr( "Use Full Screen Mode" ) );
+	groupNavigationLayout->addWidget( useFullScreen );
+	useBookmarks = new QRadioButton( groupNavigation, "useBookmarks" );
+	useBookmarks->setText( tr( "Display Bookmarks Tab" ) );
+	useBookmarks->setChecked(Optionen->displayBookmarks);
+	groupNavigationLayout->addWidget( useBookmarks );
+	useThumbnails = new QRadioButton( groupNavigation, "useThumbnails" );
+	useThumbnails->setText( tr( "Display Thumbnails" ) );
+	useThumbnails->setChecked(Optionen->displayThumbs);
+	groupNavigationLayout->addWidget( useThumbnails );
+	useLayers2 = new QRadioButton( groupNavigation, "useLayers" );
+	useLayers2->setText( tr( "Display Layers Tab" ) );
+	useLayers2->setChecked(Optionen->displayLayers);
+	groupNavigationLayout->addWidget( useLayers2 );
+	hideToolBar = new QCheckBox( tr( "Hide Viewers Toolbar" ), groupNavigation, "hideToolBar" );
+	hideToolBar->setChecked(Optionen->hideToolBar);
+	groupNavigationLayout->addWidget( hideToolBar );
+	hideMenuBar = new QCheckBox( tr( "Hide Viewers Menubar" ), groupNavigation, "hideMenuBar" );
+	hideMenuBar->setChecked(Optionen->hideMenuBar);
+	groupNavigationLayout->addWidget( hideMenuBar );
+	fitWindow = new QCheckBox( tr( "Zoom Pages to fit Viewer Window" ), groupNavigation, "fitWindow" );
+	fitWindow->setChecked(Optionen->fitWindow);
+	groupNavigationLayout->addWidget( fitWindow );
+	LayoutSpecial->addWidget( groupNavigation );
+	groupDisplayLayout->addLayout( LayoutSpecial );
+	tabSpecialLayout->addWidget( groupDisplay );
+	groupJava = new QGroupBox( tabSpecial, "groupJava" );
+	groupJava->setTitle( tr( "Special Actions" ) );
+	groupJava->setColumnLayout(0, Qt::Vertical );
+	groupJava->layout()->setSpacing( 5 );
+	groupJava->layout()->setMargin( 10 );
+	groupJavaLayout = new QHBoxLayout( groupJava->layout() );
+	groupJavaLayout->setAlignment( Qt::AlignTop );
+	actionLabel = new QLabel( groupJava, "actionLabel" );
+	actionLabel->setText( tr( "Javascript to be executed\nwhen Document is opened:" ) );
+	groupJavaLayout->addWidget( actionLabel );
+	actionCombo = new QComboBox( true, groupJava, "actionCombo" );
+	actionCombo->setEditable(false);
+	actionCombo->insertItem( tr("No Script"));
+	QMap<QString,QString>::Iterator itja;
+	for (itja = view->Doc->JavaScripts.begin(); itja != view->Doc->JavaScripts.end(); ++itja)
+		actionCombo->insertItem(itja.key());
+	if (view->Doc->JavaScripts.contains(Optionen->openAction))
+		actionCombo->setCurrentText(Optionen->openAction);
+	groupJavaLayout->addWidget( actionCombo );
+	tabSpecialLayout->addWidget( groupJava );
+	if (Optionen->PageLayout == PDFOptions::SinglePage)
+		singlePage->setChecked(true);
+	else if (Optionen->PageLayout == PDFOptions::OneColumn)
+		continuousPages->setChecked(true);
+	else if (Optionen->PageLayout == PDFOptions::TwoColumnLeft)
+		doublePageLeft->setChecked(true);
+	else if (Optionen->PageLayout == PDFOptions::TwoColumnRight)
+		doublePageRight->setChecked(true);
+	if (Optionen->Version == 15)
+		useLayers2->setEnabled(true);
+	else
+		useLayers2->setEnabled(false);
+	insertTab( tabSpecial, tr("Viewer") );
 
 	tabSecurity = new QWidget( this, "tabSecurity" );
 	tabSecurityLayout = new QVBoxLayout( tabSecurity, 11, 5, "tabSecurityLayout");
