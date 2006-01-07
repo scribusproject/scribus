@@ -1,3 +1,8 @@
+Building packages:
+    See BUILDING for information on using the shipped spec files to make your
+    own RPMs . This file is for people packaging Scribus for distributions and
+    other repositories.
+
 Packagers notes:
 
 * 64-bit building notes are in the README file.

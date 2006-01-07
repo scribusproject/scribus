@@ -231,6 +231,11 @@ download the headers for all the security updates that have been released.
 You may also need to 'export QTDIR=/usr/lib/qt-3.3' before running
 configure or make.
 
+If you want to build an RPM, use the fedora-buildrpmtree script from the
+fedora-rpmdevtools package to build yourself an RPM build tree as a normal
+user. Don't build packages as root. See the spec file for some basic build
+instructions.
+
 More info can be found in the README.
 
 SuSE
