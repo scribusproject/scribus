@@ -1042,6 +1042,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->PDF_Options.BleedTop = tabPDF->BleedTop->value() / currDoc->unitRatio();
 	currDoc->PDF_Options.BleedLeft = tabPDF->BleedLeft->value() / currDoc->unitRatio();
 	currDoc->PDF_Options.BleedRight = tabPDF->BleedRight->value() / currDoc->unitRatio();
+	/* DISABLED - invalid access to null pointers to these controls - CR 2006-01-07
 	currDoc->PDF_Options.displayBookmarks = tabPDF->useBookmarks->isChecked();
 	currDoc->PDF_Options.displayFullscreen = tabPDF->useFullScreen->isChecked();
 	currDoc->PDF_Options.displayLayers = tabPDF->useLayers2->isChecked();
@@ -1057,6 +1058,7 @@ void ReformDoc::updateDocumentSettings()
 		pgl = PDFOptions::TwoColumnRight;
 	currDoc->PDF_Options.PageLayout = pgl;
 	currDoc->PDF_Options.openAction = "";
+	*/
 	if (tabPDF->Encry->isChecked())
 	{
 		int Perm = -64;
