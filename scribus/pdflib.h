@@ -20,6 +20,7 @@
 
 #include "qvaluelist.h"
 #include <qfile.h>
+#include <string>
 #include <vector>
 
 class QString;
