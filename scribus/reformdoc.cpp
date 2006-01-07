@@ -380,8 +380,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), tabDocChecker);
 
-	tabPDF = new TabPDFOptions( prefsWidgets, &doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
-								&ScMW->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
+	tabPDF = new TabPDFOptions( prefsWidgets, doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
+								ScMW->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
 								einheit, doc->pageHeight, doc->pageWidth, 0 );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 

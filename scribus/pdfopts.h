@@ -35,8 +35,12 @@ class SCRIBUS_API PDFExportDialog : public QDialog
 	Q_OBJECT
 
 public:
-	PDFExportDialog( QWidget* parent, QString docFileName, QMap<QString,int> DocFonts, ScribusView *currView, PDFOptions *pdfOptions,
-				QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts, double unitRatio, ProfilesL *printerProfiles);
+	PDFExportDialog( QWidget* parent, const QString & docFileName,
+					 const QMap<QString,int> & DocFonts,
+					 ScribusView * currView, PDFOptions & pdfOptions,
+					 const QValueList<PDFPresentationData> & Eff,
+					 const ProfilesL & PDFXProfiles, const SCFonts & AllFonts,
+					 double unitRatio, const ProfilesL & printerProfiles);
 	~PDFExportDialog() {};
 
 	void updateDocOptions();
@@ -52,23 +56,25 @@ protected slots:
 	void disableSave();
 
 protected:
+	// Widgets
 	QVBoxLayout* PDFExportLayout;
 	QGridLayout* NameLayout;
 	QHBoxLayout* Layout7;
 	QGroupBox* Name;
 	QCheckBox* multiFile;
-	TabPDFOptions* Options;
 	QToolButton* FileC;
 	QPushButton* OK;
 	QPushButton* Cancel;
 	QLineEdit* fileNameLineEdit;
+	TabPDFOptions* Options;
+
+	// Other members
 	QValueList<PDFPresentationData> EffVal;
-	
-	PDFOptions *Opts;
+	PDFOptions & Opts;
 	double docUnitRatio;
 	QString cmsDescriptorName;
 	int components;
-	ProfilesL *appPrinterProfiles;
+	const ProfilesL & appPrinterProfiles;
 };
 
 #endif // PDF_OPTS_H

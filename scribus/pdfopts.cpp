@@ -23,17 +23,22 @@ extern bool CMSuse;
 #endif
 extern bool CMSavail;
 
-PDFExportDialog::PDFExportDialog( QWidget* parent,  QString docFileName, QMap<QString,int> DocFonts, ScribusView *currView, PDFOptions *pdfOptions, QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts, double unitRatio, ProfilesL *printerProfiles)
-		: QDialog( parent, "pdf", true, 0 )
+PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
+								  const QMap<QString,int> & DocFonts,
+								  ScribusView *currView, PDFOptions & pdfOptions,
+								  const QValueList<PDFPresentationData> & Eff,
+								  const ProfilesL & PDFXProfiles, const SCFonts &AllFonts,
+								  double unitRatio, const ProfilesL & printerProfiles)
+	: QDialog( parent, "pdf", true, 0 ),
+	EffVal(Eff),
+	Opts(pdfOptions),
+	docUnitRatio(unitRatio),
+	cmsDescriptorName(""),
+	components(3),
+	appPrinterProfiles(printerProfiles)
 {
 	setCaption( tr( "Save as PDF" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	EffVal = Eff;
-	Opts = pdfOptions;
-	docUnitRatio=unitRatio;
-	cmsDescriptorName="";
-	components=3;
-	appPrinterProfiles=printerProfiles;
 	PDFExportLayout = new QVBoxLayout( this );
 	PDFExportLayout->setSpacing( 5 );
 	PDFExportLayout->setMargin( 10 );
@@ -46,8 +51,8 @@ PDFExportDialog::PDFExportDialog( QWidget* parent,  QString docFileName, QMap<QS
 	NameLayout->setAlignment( Qt::AlignTop );
 	fileNameLineEdit = new QLineEdit( Name, "fileNameLineEdit" );
 	fileNameLineEdit->setMinimumSize( QSize( 268, 22 ) );
-	if (!pdfOptions->Datei.isEmpty())
-		fileNameLineEdit->setText(pdfOptions->Datei);
+	if (!Opts.Datei.isEmpty())
+		fileNameLineEdit->setText(Opts.Datei);
 	else
 	{
 		PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
@@ -63,7 +68,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent,  QString docFileName, QMap<QS
 	FileC->setMinimumSize( QSize( 88, 24 ) );
 	NameLayout->addWidget( FileC, 0, 1 );
 	multiFile = new QCheckBox( tr( "Output one file for eac&h page" ), Name, "multiFile" );
-	multiFile->setChecked(pdfOptions->doMultiFile);
+	multiFile->setChecked(Opts.doMultiFile);
 	NameLayout->addWidget( multiFile, 1, 0 );
 	PDFExportLayout->addWidget( Name );
 	Options = new TabPDFOptions( this, pdfOptions, AllFonts, PDFXProfiles, DocFonts,
@@ -82,7 +87,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent,  QString docFileName, QMap<QS
 	Cancel = new QPushButton( CommonStrings::tr_Cancel, this, "Cancel" );
 	Layout7->addWidget( Cancel );
 	PDFExportLayout->addLayout( Layout7 );
-	if ((pdfOptions->Version == PDFOptions::PDFVersion_X3) && (Options->InfoString->text().isEmpty()))
+	if ((Opts.Version == PDFOptions::PDFVersion_X3) && (Options->InfoString->text().isEmpty()))
 		OK->setEnabled(false);
 	resize(sizeHint());
 //	setMaximumSize( sizeHint() );
@@ -120,9 +125,9 @@ void PDFExportDialog::DoExport()
 		EffVal[Options->PgSel].Dm = Options->EDirection->currentItem();
 		EffVal[Options->PgSel].M = Options->EDirection_2->currentItem();
 		EffVal[Options->PgSel].Di = Options->EDirection_2_2->currentItem();
-		Opts->LPISettings[Options->SelLPIcolor].Frequency = Options->LPIfreq->value();
-		Opts->LPISettings[Options->SelLPIcolor].Angle = Options->LPIangle->value();
-		Opts->LPISettings[Options->SelLPIcolor].SpotFunc = Options->LPIfunc->currentItem();
+		Opts.LPISettings[Options->SelLPIcolor].Frequency = Options->LPIfreq->value();
+		Opts.LPISettings[Options->SelLPIcolor].Angle = Options->LPIangle->value();
+		Opts.LPISettings[Options->SelLPIcolor].SpotFunc = Options->LPIfunc->currentItem();
 		accept();
 	}
 	else
@@ -154,36 +159,36 @@ void PDFExportDialog::fileNameChanged()
 
 void PDFExportDialog::updateDocOptions()
 {
-	Opts->Datei = fileNameLineEdit->text();
-	Opts->doMultiFile = multiFile->isChecked();
-	Opts->Thumbnails = Options->CheckBox1->isChecked();
-	Opts->Compress = Options->Compression->isChecked();
-	Opts->CompressMethod = Options->CMethod->currentItem();
-	Opts->Quality = Options->CQuality->currentItem();
-	Opts->Resolution = Options->Resolution->value();
-	Opts->EmbedList = Options->FontsToEmbed;
-	Opts->SubsetList = Options->FontsToSubset;
-	Opts->RecalcPic = Options->DSColor->isChecked();
-	Opts->PicRes = Options->ValC->value();
-	Opts->Bookmarks = Options->CheckBM->isChecked();
-	Opts->Binding = Options->ComboBind->currentItem();
-	Opts->MirrorH = Options->MirrorH->isOn();
-	Opts->MirrorV = Options->MirrorV->isOn();
-	Opts->RotateDeg = Options->RotateDeg->currentItem() * 90;
-	Opts->PresentMode = Options->CheckBox10->isChecked();
-	Opts->PresentVals = EffVal;
-	Opts->Articles = Options->Article->isChecked();
-	Opts->Encrypt = Options->Encry->isChecked();
-	Opts->UseLPI = Options->UseLPI->isChecked();
-	Opts->useLayers = Options->useLayers->isChecked();
-	Opts->UseSpotColors = !Options->useSpot->isChecked();
-	Opts->displayBookmarks = Options->useBookmarks->isChecked();
-	Opts->displayFullscreen = Options->useFullScreen->isChecked();
-	Opts->displayLayers = Options->useLayers2->isChecked();
-	Opts->displayThumbs = Options->useThumbnails->isChecked();
-	Opts->hideMenuBar = Options->hideMenuBar->isChecked();
-	Opts->hideToolBar = Options->hideToolBar->isChecked();
-	Opts->fitWindow = Options->fitWindow->isChecked();
+	Opts.Datei = fileNameLineEdit->text();
+	Opts.doMultiFile = multiFile->isChecked();
+	Opts.Thumbnails = Options->CheckBox1->isChecked();
+	Opts.Compress = Options->Compression->isChecked();
+	Opts.CompressMethod = Options->CMethod->currentItem();
+	Opts.Quality = Options->CQuality->currentItem();
+	Opts.Resolution = Options->Resolution->value();
+	Opts.EmbedList = Options->FontsToEmbed;
+	Opts.SubsetList = Options->FontsToSubset;
+	Opts.RecalcPic = Options->DSColor->isChecked();
+	Opts.PicRes = Options->ValC->value();
+	Opts.Bookmarks = Options->CheckBM->isChecked();
+	Opts.Binding = Options->ComboBind->currentItem();
+	Opts.MirrorH = Options->MirrorH->isOn();
+	Opts.MirrorV = Options->MirrorV->isOn();
+	Opts.RotateDeg = Options->RotateDeg->currentItem() * 90;
+	Opts.PresentMode = Options->CheckBox10->isChecked();
+	Opts.PresentVals = EffVal;
+	Opts.Articles = Options->Article->isChecked();
+	Opts.Encrypt = Options->Encry->isChecked();
+	Opts.UseLPI = Options->UseLPI->isChecked();
+	Opts.useLayers = Options->useLayers->isChecked();
+	Opts.UseSpotColors = !Options->useSpot->isChecked();
+	Opts.displayBookmarks = Options->useBookmarks->isChecked();
+	Opts.displayFullscreen = Options->useFullScreen->isChecked();
+	Opts.displayLayers = Options->useLayers2->isChecked();
+	Opts.displayThumbs = Options->useThumbnails->isChecked();
+	Opts.hideMenuBar = Options->hideMenuBar->isChecked();
+	Opts.hideToolBar = Options->hideToolBar->isChecked();
+	Opts.fitWindow = Options->fitWindow->isChecked();
 	int pgl = PDFOptions::SinglePage;
 	if (Options->singlePage->isChecked())
 		pgl = PDFOptions::SinglePage;
@@ -193,11 +198,11 @@ void PDFExportDialog::updateDocOptions()
 		pgl = PDFOptions::TwoColumnLeft;
 	else if (Options->doublePageRight->isChecked())
 		pgl = PDFOptions::TwoColumnRight;
-	Opts->PageLayout = pgl;
+	Opts.PageLayout = pgl;
 	if (Options->actionCombo->currentItem() != 0)
-		Opts->openAction = Options->actionCombo->currentText();
+		Opts.openAction = Options->actionCombo->currentText();
 	else
-		Opts->openAction = "";
+		Opts.openAction = "";
 	if (Options->Encry->isChecked())
 	{
 		int Perm = -64;
@@ -211,53 +216,53 @@ void PDFExportDialog::updateDocOptions()
 			Perm += 16;
 		if (Options->AddSec->isChecked())
 			Perm += 32;
-		Opts->Permissions = Perm;
-		Opts->PassOwner = Options->PassOwner->text();
-		Opts->PassUser = Options->PassUser->text();
+		Opts.Permissions = Perm;
+		Opts.PassOwner = Options->PassOwner->text();
+		Opts.PassUser = Options->PassUser->text();
 	}
 	if (Options->PDFVersionCombo->currentItem() == 0)
-		Opts->Version = PDFOptions::PDFVersion_13;
+		Opts.Version = PDFOptions::PDFVersion_13;
 	if (Options->PDFVersionCombo->currentItem() == 1)
-		Opts->Version = PDFOptions::PDFVersion_14;
+		Opts.Version = PDFOptions::PDFVersion_14;
 	if (Options->PDFVersionCombo->currentItem() == 2)
-		Opts->Version = PDFOptions::PDFVersion_15;
+		Opts.Version = PDFOptions::PDFVersion_15;
 	if (Options->PDFVersionCombo->currentItem() == 3)
-		Opts->Version = PDFOptions::PDFVersion_X3;
+		Opts.Version = PDFOptions::PDFVersion_X3;
 	if (Options->OutCombo->currentItem() == 0)
 	{
-		Opts->UseRGB = true;
-		Opts->isGrayscale = false;
-		Opts->UseProfiles = false;
-		Opts->UseProfiles2 = false;
+		Opts.UseRGB = true;
+		Opts.isGrayscale = false;
+		Opts.UseProfiles = false;
+		Opts.UseProfiles2 = false;
 	}
 	else
 	{
 		if (Options->OutCombo->currentItem() == 2)
 		{
-			Opts->isGrayscale = true;
-			Opts->UseRGB = false;
-			Opts->UseProfiles = false;
-			Opts->UseProfiles2 = false;
+			Opts.isGrayscale = true;
+			Opts.UseRGB = false;
+			Opts.UseProfiles = false;
+			Opts.UseProfiles2 = false;
 		}
 		else
 		{
-			Opts->isGrayscale = false;
-			Opts->UseRGB = false;
+			Opts.isGrayscale = false;
+			Opts.UseRGB = false;
 #ifdef HAVE_CMS
 			if (CMSuse)
 			{
-				Opts->UseProfiles = Options->EmbedProfs->isChecked();
-				Opts->UseProfiles2 = Options->EmbedProfs2->isChecked();
-				Opts->Intent = Options->IntendS->currentItem();
-				Opts->Intent2 = Options->IntendI->currentItem();
-				Opts->EmbeddedI = Options->NoEmbedded->isChecked();
-				Opts->SolidProf = Options->SolidPr->currentText();
-				Opts->ImageProf = Options->ImageP->currentText();
-				Opts->PrintProf = Options->PrintProfC->currentText();
-				if (Opts->Version == PDFOptions::PDFVersion_X3)
+				Opts.UseProfiles = Options->EmbedProfs->isChecked();
+				Opts.UseProfiles2 = Options->EmbedProfs2->isChecked();
+				Opts.Intent = Options->IntendS->currentItem();
+				Opts.Intent2 = Options->IntendI->currentItem();
+				Opts.EmbeddedI = Options->NoEmbedded->isChecked();
+				Opts.SolidProf = Options->SolidPr->currentText();
+				Opts.ImageProf = Options->ImageP->currentText();
+				Opts.PrintProf = Options->PrintProfC->currentText();
+				if (Opts.Version == PDFOptions::PDFVersion_X3)
 				{
 					cmsHPROFILE hIn;
-					QCString profilePath( (*appPrinterProfiles)[Opts->PrintProf].local8Bit() );
+					QCString profilePath( appPrinterProfiles[Opts.PrintProf].local8Bit() );
 					hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
 					const char *Descriptor = cmsTakeProductDesc(hIn);
 					cmsDescriptorName = QString(Descriptor);
@@ -268,27 +273,27 @@ void PDFExportDialog::updateDocOptions()
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmyData)
 						components = 3;
 					cmsCloseProfile(hIn);
-					Opts->Info = Options->InfoString->text();
-					Opts->BleedTop = Options->BleedTop->value()/docUnitRatio;
-					Opts->BleedLeft = Options->BleedLeft->value()/docUnitRatio;
-					Opts->BleedRight = Options->BleedRight->value()/docUnitRatio;
-					Opts->BleedBottom = Options->BleedBottom->value()/docUnitRatio;
-					Opts->Encrypt = false;
-					Opts->MirrorH = false;
-					Opts->MirrorV = false;
-					Opts->RotateDeg = 0;
-					Opts->PresentMode = false;
-					Opts->Encrypt = false;
+					Opts.Info = Options->InfoString->text();
+					Opts.BleedTop = Options->BleedTop->value()/docUnitRatio;
+					Opts.BleedLeft = Options->BleedLeft->value()/docUnitRatio;
+					Opts.BleedRight = Options->BleedRight->value()/docUnitRatio;
+					Opts.BleedBottom = Options->BleedBottom->value()/docUnitRatio;
+					Opts.Encrypt = false;
+					Opts.MirrorH = false;
+					Opts.MirrorV = false;
+					Opts.RotateDeg = 0;
+					Opts.PresentMode = false;
+					Opts.Encrypt = false;
 				}
 			}
 			else
 			{
-				Opts->UseProfiles = false;
-				Opts->UseProfiles2 = false;
+				Opts.UseProfiles = false;
+				Opts.UseProfiles2 = false;
 			}
 #else
-			Opts->UseProfiles = false;
-			Opts->UseProfiles2 = false;
+			Opts.UseProfiles = false;
+			Opts.UseProfiles2 = false;
 #endif
 		}
 	}

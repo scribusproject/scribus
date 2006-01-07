@@ -368,9 +368,9 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QMap<QString,int> DocFonts;
 	DocFonts.clear();
 	tabPDF = new TabPDFOptions( prefsWidgets,
-								&prefsData->PDF_Options,
+								prefsData->PDF_Options,
 								prefsData->AvailFonts,
-								&ap->PDFXProfiles,
+								ap->PDFXProfiles,
 								DocFonts,
 								prefsData->PDF_Options.PresentVals,
 								docUnitIndex,

@@ -7083,7 +7083,7 @@ void ScribusMainWindow::doSaveAsPDF()
 		}
 		doc->PDF_Options.SubsetList = tmpEm;
 	}
-	PDFExportDialog dia(this, doc->DocName, ReallyUsed, view, &doc->PDF_Options, doc->PDF_Options.PresentVals, &PDFXProfiles, prefsManager->appPrefs.AvailFonts, doc->unitRatio(), &ScMW->PrinterProfiles);
+	PDFExportDialog dia(this, doc->DocName, ReallyUsed, view, doc->PDF_Options, doc->PDF_Options.PresentVals, PDFXProfiles, prefsManager->appPrefs.AvailFonts, doc->unitRatio(), ScMW->PrinterProfiles);
 	if (dia.exec())
 	{
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
