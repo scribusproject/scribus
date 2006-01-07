@@ -54,7 +54,6 @@ EXTRA_DIST = \
 	objprinter.h \
 	pconsole.h \
 	runscriptdialog.h \
-	scripter2_base.h \
 	scriptercore.h \
 	scripterprefsgui.h \
 	scriptplugin.h \
