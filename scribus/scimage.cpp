@@ -3359,10 +3359,10 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		xres = gsRes;
 		yres = gsRes;
 		args.append("-r"+QString::number(gsRes));
-		args.append("-sOutputFile=\""+tmpFile + "\"");
+		args.append("-sOutputFile="+tmpFile);
 		args.append("-dFirstPage=1");
 		args.append("-dLastPage=1");
-		args.append("\""+picFile+"\"");
+		args.append(picFile);
 		retg = callGS(args);
 		if (retg == 0)
 		{
@@ -3438,9 +3438,9 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			xres = gsRes;
 			yres = gsRes;
 			args.append("-r"+QString::number(gsRes));
-			args.append("-sOutputFile=\""+tmpFile+"\"");
+			args.append("-sOutputFile="+tmpFile);
 			args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
-			args.append("\""+picFile+"\"");
+			args.append(picFile);
 			retg = callGS(args);
 			if (retg == 0)
 			{
