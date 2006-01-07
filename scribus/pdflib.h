@@ -45,9 +45,10 @@ class SCRIBUS_API PDFlib : public QObject
 	Q_OBJECT
 
 public:
-	PDFlib(ScribusDoc *docu);
+	explicit PDFlib(ScribusDoc & docu);
 	~PDFlib();
-	bool doExport(const QString& fn, const QString& nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs);
+	bool doExport(const QString& fn, const QString& nam, int Components,
+				  const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs);
 
 	// used by ScFonts
 	struct GlNamInd
@@ -59,7 +60,7 @@ public:
 private:
 	typedef QMap<uint, GlNamInd> GListeInd;
 
-	bool PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,int> DocFonts, BookMView* vi);
+	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,int> DocFonts, BookMView* vi);
 	void PDF_Begin_Page(const Page* pag, QPixmap pm = 0);
 	void PDF_End_Page();
 	void PDF_TemplatePage(const Page* pag, bool clip = false);
@@ -108,9 +109,9 @@ private:
 
 	QMap<QString, GListeInd> GlyphsIdxOfFont;
 	QString Inhalt;
-	ScribusDoc * const doc;
-	const Page* ActPageP;
-	PDFOptions* Options;
+	ScribusDoc & doc;
+	const Page * ActPageP;
+	const PDFOptions & Options;
 	BookMView* Bvie;
 	QFile Spool;
 	int Dokument;

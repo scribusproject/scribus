@@ -140,7 +140,9 @@ public:
 	void applyNewMaster(QString name);
 	void updateRecent(QString fn);
 	QString GetLang(QString inLang);
-	bool getPDFDriver(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs);
+	bool getPDFDriver(const QString & fn, const QString & nam,
+					  int Components, const std::vector<int> & pageNs,
+					  const QMap<int,QPixmap> & thumbs);
 	bool DoSaveAsEps(QString fn);
 	QString CFileDialog(QString wDir = ".", QString caption = "", QString filter = "", QString defNa = "",
 						bool Pre = false, bool mod = true, bool comp = false, bool cod = false,

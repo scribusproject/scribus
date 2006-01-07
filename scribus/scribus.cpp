@@ -7003,15 +7003,13 @@ void ScribusMainWindow::reallySaveAsEps()
 	}
 }
 
-bool ScribusMainWindow::getPDFDriver(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs)
+bool ScribusMainWindow::getPDFDriver(const QString & fn, const QString & nam, int Components,
+									 const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs)
 {
-	bool ret = false;
-	PDFlib *dia = new PDFlib(doc);
 	fileWatcher->forceScan();
 	fileWatcher->stop();
-	ret = dia->doExport(fn, nam, Components, pageNs, thumbs);
+	bool ret = PDFlib(*doc).doExport(fn, nam, Components, pageNs, thumbs);
 	fileWatcher->start();
-	delete dia;
 	return ret;
 }
 
