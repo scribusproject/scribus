@@ -233,8 +233,8 @@ configure or make.
 
 If you want to build an RPM, use the fedora-buildrpmtree script from the
 fedora-rpmdevtools package to build yourself an RPM build tree as a normal
-user. Don't build packages as root. See the spec file for some basic build
-instructions.
+user. Don't build packages as root. See the Fedora spec file in the specfiles
+directory for some basic build instructions.
 
 More info can be found in the README.
 
