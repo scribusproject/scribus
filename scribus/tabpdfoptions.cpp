@@ -30,6 +30,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
                                 QValueList<PDFPresentationData> Eff, int unitIndex,
                                 double PageH, double PageB, ScribusView *vie )
 	: QTabWidget( parent, "pdf" ),
+	PgSel(0),
+	EffVal(Eff),
 	// Initialize all those darn pointer members so we catch unitialized
 	// accesses. I (CR) use the following command to generate these based on
 	// the header excerpt:
@@ -98,15 +100,17 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	useSpot(0),
 	useThumbnails(0),
 	ValC(0),
-	// End GUI member pointers
+	// Protected members other than GUI member pointers
+	unit(unitGetSuffixFromIndex(unitIndex)),
+	precision(unitGetPrecisionFromIndex(unitIndex)),
+	unitRatio(unitGetRatioFromIndex(unitIndex)),
 	view(vie),
 	AllFontsP(AllFonts),
-	EffVal(Eff),
-	PgSel(0),
 	Opts(Optionen),
 	pageH(PageH),
 	pageB(PageB),
 	cms(false),
+	// End GUI member pointers
 	// Begin protected member gui pointers
 	actionLabel(0),
 	AvailFlist(0),
@@ -211,11 +215,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	ToSubset(0),
 	useViewDefault(0),
 	X3Group(0),
-	X3GroupLayout(0),
+	X3GroupLayout(0)
 	// end protected member gui pointers
-	unit(unitGetSuffixFromIndex(unitIndex)),
-	precision(unitGetPrecisionFromIndex(unitIndex)),
-	unitRatio(unitGetRatioFromIndex(unitIndex))
 {
 
 	tabGeneral = new QWidget( this, "tabGeneral" );

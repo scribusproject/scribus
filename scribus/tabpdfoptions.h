@@ -41,6 +41,12 @@ public:
 
 	void unitChange(int newUnitIndex);
 
+	int PgSel;
+	QValueList<PDFPresentationData> EffVal;
+	QString SelLPIcolor;
+	QValueList<QString> FontsToEmbed;
+	QValueList<QString> FontsToSubset;
+
 	// GUI member pointers
 	// Remember to initialize these in the initializer list of the ctor when
 	// you add new ones. Add them in the same order here and in the initalizer
@@ -110,18 +116,6 @@ public:
 	QSpinBox* ValC;
 	// End GUI member pointers
 
-	ScribusView * const view;
-	SCFonts & AllFontsP;
-	QValueList<PDFPresentationData> EffVal;
-	int PgSel;
-	QString SelLPIcolor;
-	PDFOptions *Opts;
-	double pageH;
-	double pageB;
-	bool cms;
-	QValueList<QString> FontsToEmbed;
-	QValueList<QString> FontsToSubset;
-
 signals:
 	void noInfo();
 	void hasInfo();
@@ -160,6 +154,17 @@ public slots:
 	void checkInfo();
 
 protected:
+	// Non-GUI protected members
+	QString unit;
+	int precision;
+	double unitRatio;
+	ScribusView * const view;
+	SCFonts & AllFontsP;
+	PDFOptions *Opts;
+	double pageH;
+	double pageB;
+	bool cms;
+
 	// Protected GUI member pointers
 	QLabel* actionLabel;
 	QListBox* AvailFlist;
@@ -267,8 +272,5 @@ protected:
 	QGridLayout* X3GroupLayout;
 	// end protected GUI member pointers
 
-	double unitRatio;
-	QString unit;
-	int precision;
 };
 #endif
