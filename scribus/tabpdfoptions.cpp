@@ -30,20 +30,153 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
                                 QValueList<PDFPresentationData> Eff, int unitIndex,
                                 double PageH, double PageB, ScribusView *vie )
 	: QTabWidget( parent, "pdf" ),
-	useLayers2(0)
+	// Initialize all those darn pointer members so we catch unitialized
+	// accesses.
+	actionCombo(0),
+	actionLabel(0),
+	AddSec(0),
+	AllPages(0),
+	Article(0),
+	AvailFlist(0),
+	BleedBottom(0),
+	BleedGroup(0),
+	BleedIcon(0),
+	BleedLeft(0),
+	BleedRight(0),
+	BleedTop(0),
+	CBox(0),
+	CheckBM(0),
+	CheckBox1(0),
+	CheckBox10(0),
+	CMethod(0),
+	ColorGroup(0),
+	ColorText1(0),
+	ComboBind(0),
+	Compression(0),
+	continuousPages(0),
+	CopySec(0),
+	CQuality(0),
+	doublePageLeft(0),
+	doublePageRight(0),
+	DSColor(0),
+	EDirection(0),
+	EDirection_2(0),
+	EDirection_2_2(0),
+	Effects(0),
+	EffectTime(0),
+	EffectType(0),
+	EmbedFonts(0),
+	EmbedList(0),
+	EmbedProfs(0),
+	EmbedProfs2(0),
+	Encry(0),
+	EonAllPg(0),
+	fitWindow(0),
+	FromEmbed(0),
+	FromSubset(0),
+	GroupBox1(0),
+	GroupBox9(0),
+	groupDisplay(0),
+	GroupFont(0),
+	groupJava(0),
+	groupNavigation(0),
+	GroupPass(0),
+	GroupSecSet(0),
+	hideMenuBar(0),
+	hideToolBar(0),
+	ImageP(0),
+	InfoString(0),
+	IntendI(0),
+	IntendS(0),
+	LPIangle(0),
+	LPIcolor(0),
+	LPIfreq(0),
+	LPIfunc(0),
+	LPIgroup(0),
+	MirrorH(0),
+	MirrorV(0),
+	ModifySec(0),
+	NoEmbedded(0),
+	OnlySome(0),
+	OutCombo(0),
+	pageLayout(0),
+	PageNr(0),
+	PagePrev(0),
+	Pages(0),
+	PageTime(0),
+	PassOwner(0),
+	PassUser(0),
+	PDFVersionCombo(0),
+	PDFX1(0),
+	PDFX2(0),
+	PrintProfC(0),
+	PrintSec(0),
+	PrintSec2(0),
+	ProfsGroup(0),
+	ProfsTxt1(0),
+	ProfsTxt2(0),
+	ProfsTxt3(0),
+	ProfsTxt4(0),
+	RangeGroup(0),
+	Resolution(0),
+	RotateDeg(0),
+	singlePage(0),
+	SolidPr(0),
+	SubsetFonts(0),
+	SubsetList(0),
+	tabColor(0),
+	tabFonts(0),
+	tabGeneral(0),
+	tabPDFX(0),
+	tabPresentation(0),
+	tabSecurity(0),
+	tabSpecial(0),
+	TextCom1(0),
+	TextCom2(0),
+	TextFont1(0),
+	TextFont1_2(0),
+	TextFont1_2a(0),
+	TextLabel1(0),
+	TextLabel1e(0),
+	TextLabel1x(0),
+	TextLabel2(0),
+	TextLabel2e(0),
+	TextLabel3(0),
+	TextLabel3e(0),
+	TextLabel4e(0),
+	TextLabel5e(0),
+	TextLabel6e(0),
+	textLPI1(0),
+	textLPI2(0),
+	textLPI3(0),
+	TextSec1(0),
+	TextSec2(0),
+	ToEmbed(0),
+	ToSubset(0),
+	useBookmarks(0),
+	useFullScreen(0),
+	useLayers(0),
+	useLayers2(0),
+	UseLPI(0),
+	useSpot(0),
+	useThumbnails(0),
+	useViewDefault(0),
+	ValC(0),
+	X3Group(0),
+	// End GUI member pointers
+	view(vie),
+	AllFontsP(AllFonts),
+	EffVal(Eff),
+	PgSel(0),
+	Opts(Optionen),
+	pageH(PageH),
+	pageB(PageB),
+	cms(false),
+	unitRatio(unitGetRatioFromIndex(unitIndex)),
+	unit(unitGetSuffixFromIndex(unitIndex)),
+	precision(unitGetPrecisionFromIndex(unitIndex))
 {
 
-	unit = unitGetSuffixFromIndex(unitIndex);
-	precision = unitGetPrecisionFromIndex(unitIndex);
-	unitRatio = unitGetRatioFromIndex(unitIndex);
-
-	FontsToEmbed.clear();
-	AllFontsP = &AllFonts;
-	view = vie;
-	EffVal = Eff;
-	Opts = Optionen;
-	pageH = PageH;
-	pageB = PageB;
 	tabGeneral = new QWidget( this, "tabGeneral" );
 	tabLayout = new QVBoxLayout( tabGeneral );
 	tabLayout->setSpacing( 5 );
@@ -1442,7 +1575,7 @@ void TabPDFOptions::PutToEmbed()
 {
 	if (EmbedList->count() != 0)
 	{
-		if (!(*AllFontsP)[AvailFlist->currentText()]->Subset)
+		if (!AllFontsP[AvailFlist->currentText()]->Subset)
 		{
 			if (EmbedList->findItem(AvailFlist->currentText()) == NULL)
 			{
@@ -1469,7 +1602,7 @@ void TabPDFOptions::PutToEmbed()
 	}
 	else
 	{
-		if (!(*AllFontsP)[AvailFlist->currentText()]->Subset)
+		if (!AllFontsP[AvailFlist->currentText()]->Subset)
 		{
 			FontsToEmbed.append(AvailFlist->currentText());
 			EmbedList->insertItem(AvailFlist->currentText());
@@ -1495,7 +1628,7 @@ void TabPDFOptions::PutToEmbed()
 
 void TabPDFOptions::RemoveSubset()
 {
-	if (!(*AllFontsP)[SubsetList->currentText()]->Subset)
+	if (!AllFontsP[SubsetList->currentText()]->Subset)
 	{
 		FontsToSubset.remove(SubsetList->currentText());
 		FontsToEmbed.append(SubsetList->currentText());
@@ -1590,7 +1723,7 @@ void TabPDFOptions::EmbedAll()
 		{
 			if (AvailFlist->item(a)->isSelectable())
 			{
-				if (!(*AllFontsP)[AvailFlist->item(a)->text()]->Subset)
+				if (!AllFontsP[AvailFlist->item(a)->text()]->Subset)
 				{
 					FontsToEmbed.append(AvailFlist->item(a)->text());
 					EmbedList->insertItem(AvailFlist->item(a)->text());
