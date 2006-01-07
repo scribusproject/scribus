@@ -1149,10 +1149,6 @@ void Preferences::unitChange()
 	rightScratch->setSuffix(einh);
 	gapVertical->setSuffix( einh );
 	gapHorizontal->setSuffix( einh );
-	tabPDF->BleedBottom->setSuffix(einh);
-	tabPDF->BleedTop->setSuffix(einh);
-	tabPDF->BleedRight->setSuffix(einh);
-	tabPDF->BleedLeft->setSuffix(einh);
 	pageWidth->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, Pagebr * unitRatio);
 	pageHeight->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, Pageho * unitRatio);
 	GroupRand->unitChange(unitRatio, decimals, einh);
@@ -1187,15 +1183,7 @@ void Preferences::unitChange()
 	gapVertical->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	gapHorizontal->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	gapHorizontal->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabPDF->BleedBottom->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabPDF->BleedBottom->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabPDF->BleedTop->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabPDF->BleedTop->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabPDF->BleedRight->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabPDF->BleedRight->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabPDF->BleedLeft->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabPDF->BleedLeft->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabPDF->unitRatio = unitRatio;
+	tabPDF->unitChange(docUnitIndex);
 	drawRuler();
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
