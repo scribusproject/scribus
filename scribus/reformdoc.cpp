@@ -536,10 +536,6 @@ void ReformDoc::unitChange()
 	rightScratch->setSuffix(einh);
 	gapVertical->setSuffix( einh );
 	gapHorizontal->setSuffix( einh );
-	tabPDF->BleedBottom->setSuffix(einh);
-	tabPDF->BleedTop->setSuffix(einh);
-	tabPDF->BleedRight->setSuffix(einh);
-	tabPDF->BleedLeft->setSuffix(einh);
 
 	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
 	widthMSpinBox->getValues(&oldMin, &oldMax, &decimalsOld, &val);
@@ -572,15 +568,7 @@ void ReformDoc::unitChange()
 	gapVertical->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	gapHorizontal->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	gapHorizontal->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabPDF->BleedBottom->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabPDF->BleedBottom->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabPDF->BleedTop->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabPDF->BleedTop->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabPDF->BleedRight->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabPDF->BleedRight->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabPDF->BleedLeft->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabPDF->BleedLeft->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabPDF->unitRatio = unitRatio;
+	tabPDF->unitChange(einheit);
 	pageWidth = widthMSpinBox->value() / unitRatio;
 	pageHeight = heightMSpinBox->value() / unitRatio;
 	GroupRand->unitChange(unitRatio, decimals, einh);
@@ -1042,7 +1030,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->PDF_Options.BleedTop = tabPDF->BleedTop->value() / currDoc->unitRatio();
 	currDoc->PDF_Options.BleedLeft = tabPDF->BleedLeft->value() / currDoc->unitRatio();
 	currDoc->PDF_Options.BleedRight = tabPDF->BleedRight->value() / currDoc->unitRatio();
-	/* DISABLED - invalid access to null pointers to these controls - CR 2006-01-07
+	/* DISABLED CR 2006-12-07 Work around #2964
 	currDoc->PDF_Options.displayBookmarks = tabPDF->useBookmarks->isChecked();
 	currDoc->PDF_Options.displayFullscreen = tabPDF->useFullScreen->isChecked();
 	currDoc->PDF_Options.displayLayers = tabPDF->useLayers2->isChecked();
@@ -1057,8 +1045,8 @@ void ReformDoc::updateDocumentSettings()
 	else if (tabPDF->doublePageRight->isChecked())
 		pgl = PDFOptions::TwoColumnRight;
 	currDoc->PDF_Options.PageLayout = pgl;
-	currDoc->PDF_Options.openAction = "";
 	*/
+	currDoc->PDF_Options.openAction = "";
 	if (tabPDF->Encry->isChecked())
 	{
 		int Perm = -64;

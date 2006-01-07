@@ -39,6 +39,8 @@ public:
 	~TabPDFOptions() {};
 	void restoreDefaults();
 
+	void unitChange(int newUnitIndex);
+
 	// GUI member pointers
 	// Remember to initialize these in the initializer list of the ctor when
 	// you add new ones. Add them in the same order here and in the initalizer
@@ -119,7 +121,6 @@ public:
 	bool cms;
 	QValueList<QString> FontsToEmbed;
 	QValueList<QString> FontsToSubset;
-	double unitRatio;
 
 signals:
 	void noInfo();
@@ -266,6 +267,7 @@ protected:
 	QGridLayout* X3GroupLayout;
 	// end protected GUI member pointers
 
+	double unitRatio;
 	QString unit;
 	int precision;
 };
