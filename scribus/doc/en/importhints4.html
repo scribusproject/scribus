@@ -1,0 +1,50 @@
+<qt>
+<title>Notes on Importing HTML into Scribus</title>
+<h2>Notes on Importing HTML  into Scribus</h2>
+
+<p>Scribus has an HTML importer which can import clean, well formed HTML and retain much of the layout and and formatting, provided the formatting or styling is basic HTML <strong>in the HTML markup</strong>, not via css style sheets. CSS support will come in the future.</p>
+<h4>So what kind of HTML is supported and how does it work ?</h4>
+<p>Upon import, the importer will create paragraph styles which correspond to the html markup. Bold, Italics and monospace text and alignment are also supported. Below is a listing of the HTML markup supported - both upper and lower case tags. </p>
+<ul>
+<li>body, div, a - Corresponding to FIXME</li>
+<li>p and br - Corresponding to paragraph and line breaks.</li>
+<li>H1 to H4</li>
+<li>ol,ul,li - Corresponding to ordered or unordered lists.</li>
+<li>pre and code - Corresponding to preformatted text and source code listings. These will be converted to text using the fixed pitch font Courier.</li>
+<li>www. style web links are converted to text with blue coloring to highlight them in the same manner as most web browsers do in their default settings.</li>
+<li>b, u, i, em, strong,sub.sup,del,u - Text formatting is converted to the corresponding font styles. Note, your default font should have all of these variants available to Scribus. </li>
+</ul>
+Hence the following section of html will display and create paragraph styles in Scribus as demonstrated below.
+<pre>
+&#060;?xml version="1.0" encoding="utf-8"?&#062;
+&#060;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&#062;
+&#060;html xmlns="http://www.w3.org/1999/xhtml"&#062;
+&#060;head&#062;
+&#060;title&#062;&#060;/title&#062;
+&#060;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&#062;
+&#060;/head&#062;
+&#060;body&#062;
+&#060;h1&#062;H1 Text&#060;/h1&#062;
+&#060;h2&#062;H2 Text&#060;/h2&#062;
+&#060;h3&#062;H3 Text&#060;/h3&#062;
+&#060;h4&#062;H4 Text&#060;/h4&#062;
+&#060;ol&#062;
+&#060;li&#062;Ordered List Item 1  &#060;/li&#062;
+&#060;li&#062;Ordered List Item 2  &#060;/li&#062;
+ &#060;/ol&#062;
+ &#060;ul&#062;
+&#060;li&#062;Un-Ordered List Item 1  &#060;/li&#062;
+ &#060;li&#062;Un-Ordered List Item 2  &#060;/li&#062;
+ &#060;/ul&#062;
+ &#060;code&#062;code listings&#060;/code&#062;
+ &#060;p&#062;&#060;b&#062;Bold Paragraph Style&#060;/b&#062;&#060;/p&#062;
+ &#060;p&#062;&#060;i&#062;Italic Paragraph Style&#060;/i&#062;&#060;/p&#062;
+ &#060;p align="center"&#062;Centered Text&#060;/p&#062;
+&#060;/body&#062;
+&#060;/html&#062;</pre>
+<p>Below the imported styles from the file above. </p>
+<table width="100%"><tr><td align="center"><img src="images/htmlstyle.png" alt="HTML Styles imported into Scribus"  title="HTML Styles imported into Scribus " /></td></tr></table>
+<p>Below is the imported text displayed on the canvas:</p>
+<table width="100%"><tr><td align="center"><img src="images/htmlimport.png" alt="HTML imported into Scribus"  title="HTML imported into Scribus " /></td></tr></table>
+<p>Not all applications export HTML with high fidelity to the W3C specifications. You can use htmltidy to clean up and make conformant HTML text you need to import. See : <a href=" http://w3c.org"> http://w3c.org</a>
+</qt>
