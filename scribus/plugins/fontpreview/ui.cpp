@@ -21,14 +21,7 @@
 
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
-/*! Main window for "Font Preview" plugin. It's only gui.
- *
- *  Constructs a FontPreview as a child of 'parent', with the
- *  name 'name' and widget flags set to 'f'.
- *
- *  The dialog will by default be modeless, unless you set 'modal' to
- *  true to construct a modal dialog.
- */
+
 FontPreview::FontPreview(QString fontName)
 	: QDialog(ScMW, "FontPreview")
 {
@@ -119,7 +112,6 @@ FontPreview::FontPreview(QString fontName)
 		item = fontList->findItem(fontName, 0);
 	else
 	{
-		//if (ScMW->view->SelItem.count() != 0)
 		if (ScMW->doc->selection->count() != 0)
 			item = fontList->findItem(ScMW->doc->CurrFont, 0);
 		else
@@ -150,7 +142,6 @@ FontPreview::~FontPreview()
    prefs->set("xsize", width());
    prefs->set("ysize", height());
    prefs->set("fontSize", sizeSpin->value());
-   //delete sampleItem;
 }
 
 /**
@@ -173,9 +164,6 @@ void FontPreview::languageChange()
 	QToolTip::add(sizeSpin, tr("Size of the selected font"));
 }
 
-/**
- * Creates pixmap with font sample
- */
 void FontPreview::fontList_changed()
 {
 	QListViewItem *item = fontList->currentItem();
@@ -246,5 +234,11 @@ void FontPreview::searchButton_clicked()
 {
 	updateFontList(searchEdit->text());
 }
+
+QString FontPreview::getCurrentFont()
+{
+	return fontList->currentItem()->text(0);
+}
+
 
 #include "ui.moc"
