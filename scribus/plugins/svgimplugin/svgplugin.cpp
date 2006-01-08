@@ -254,6 +254,7 @@ void SVGPlug::convert()
 		if (!ScMW->HaveDoc)
 		{
 			ScMW->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
+			ScMW->HaveNewDoc();
 			ret = true;
 		}
 	}

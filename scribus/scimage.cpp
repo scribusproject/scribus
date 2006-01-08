@@ -1494,10 +1494,14 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 			base = base+layerInfo[layer].channelLen[channel];
 			continue;
 		}
+//		if ((layerInfo[layer].channelType[channel] == -2) || (layerInfo[layer].channelType[channel] == -1))
 		if (layerInfo[layer].channelType[channel] == -2)
 		{
 			if (!mask.create( layerInfo[layer].maskWidth, layerInfo[layer].maskHeight, 32 ))
-				break;
+//			{
+//				if (!mask.create(layerInfo[layer].width, layerInfo[layer].height, 32 ))
+					break;
+//			}
 			mask.setAlphaBuffer( true );
 			mask.fill(qRgba(255, 255, 255, 0));
 			if (!loadChannel(s, header, layerInfo, layer, channel, components[channel], mask))
@@ -1616,9 +1620,31 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 				QRgb *d = (QRgb*)(scanLine( QMIN(static_cast<int>(startDstY), height()-1) ));
 				d += QMIN(static_cast<int>(startDstX), width()-1);
 				s += QMIN(static_cast<int>(startSrcX), tmpImg.width()-1);
+/*				unsigned int *srcm;
+				if (!mask.isNull())
+				{
+					srcm = (unsigned int *)mask.scanLine(QMIN(yi, mask.height()-1));
+					srcm += QMIN(static_cast<int>(startSrcXm), mask.width()-1);
+				} */
 				for(int xi=static_cast<int>(startSrcX); xi < QMIN(tmpImg.width(), width()); ++xi )
 				{
 					(*d) = (*s);
+/*					unsigned char *sm = (unsigned char *) srcm;
+					unsigned char *sc = (unsigned char *) d;
+					unsigned char *ss = (unsigned char *) s;
+					if (!mask.isNull())
+					{
+						if (header.color_mode == CM_CMYK)
+						{
+							sc[0] = (sc[0] * (255 - sm[3]) + ss[0] * sm[3]) / 255;
+							sc[1] = (sc[1] * (255 - sm[3]) + ss[1] * sm[3]) / 255;
+							sc[2] = (sc[2] * (255 - sm[3]) + ss[2] * sm[3]) / 255;
+							sc[3] = (sc[3] * (255 - sm[3]) + ss[3] * sm[3]) / 255;
+						}
+						else
+							sc[3] = sm[3];
+					}
+					srcm++; */
 					s++;
 					d++;
 				}
@@ -2435,6 +2461,10 @@ bool ScImage::parseLayer( QDataStream & s, const PSDHeader & header )
 			s >> filler;
 			s >> extradata;
 			s >> layermasksize;
+			lay.maskYpos = 0;
+			lay.maskXpos = 0;
+			lay.maskHeight = 0;
+			lay.maskWidth = 0;
 			if (layermasksize != 0)
 			{
 				s >> lay.maskYpos;
