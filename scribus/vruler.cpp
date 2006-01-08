@@ -179,11 +179,10 @@ void Vruler::drawNumber(QString num, int starty, QPainter *p)
 	}
 }
 
-/** Zeichnet den Pfeil */
-void Vruler::Draw(int wo)
+void Vruler::Draw(int where)
 {
 	// erase old marker
-	int currentCoor = wo - currView->contentsY();
+	int currentCoor = where - currView->contentsY();
 	repaint(0, oldMark-3, 17, 6);
 	QPointArray cr;
 	QPainter p;
@@ -198,7 +197,7 @@ void Vruler::Draw(int wo)
 		p.begin( &pix );
 		p.setBrush( BACKGROUND );
 		p.drawRect( 0, 0, 16*SCALE, 4*SCALE );
-		
+
 		p.setPen(red);
 		p.setBrush(red);
 		cr.setPoints(3, 16*SCALE, 2*SCALE, 0, 4*SCALE, 0, 0);
@@ -209,7 +208,7 @@ void Vruler::Draw(int wo)
 	p.begin(this);
 	p.translate(0, -currView->contentsY());
 	p.scale(1.0/(SCALE+1), 1.0/SCALE);
-	p.drawPixmap(0, (wo-2)*SCALE, pix);
+	p.drawPixmap(0, (where-2)*SCALE, pix);
 	p.end();
 	// restore marks
 	p.begin(this);
@@ -231,11 +230,11 @@ void Vruler::Draw(int wo)
 	p.translate(0, -currView->contentsY());
 	p.setPen(red);
 	p.setBrush(red);
-	cr.setPoints(5,  5, wo, 16, wo, 5, wo, 0, wo+2, 0, wo-2);
+	cr.setPoints(5,  5, where, 16, where, 5, where, 0, where+2, 0, where-2);
 	p.drawPolygon(cr);
 	p.end();
 #endif
-	
+
 	oldMark = currentCoor;
 }
 
@@ -315,7 +314,7 @@ void Vruler::unitChange()
 				iter = 72.0/25.4*4.512/2.0;
 				iter2 = 72.0/25.4*4.512;
 			}
-			break;		
+			break;
 		default:
 			if (sc > 1 && sc <= 4)
 				cor = 2;

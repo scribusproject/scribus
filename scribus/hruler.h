@@ -28,11 +28,11 @@ class ScribusView;
 class ScribusDoc;
 class ScribusMainWindow;
 class PrefsManager;
-/**Waagrechtes Lineal
-*@author Franz Schmid
-*/
 
-class SCRIBUS_API Hruler : public QWidget  
+/** \brief Horizontal ruler
+\author Franz Schmid
+*/
+class SCRIBUS_API Hruler : public QWidget
 {
 	Q_OBJECT
 
@@ -73,18 +73,21 @@ private: // Private attributes
 	ScribusView *currView;
 
 public slots: // Public slots
-	/** Zeichnet den Pfeil */
-	void Draw(int wo);
+	/** \brief draw mark
+	\param where where to draw */
+	void Draw(int where);
 	void unitChange();
 
 signals:
 	void DocChanged(bool);
 	void MarkerMoved(double, double);
-	
+
 private:
 	double iter, iter2;
 	int cor;
 	PrefsManager *prefsManager;
+
+	void drawGuides();
 };
 
 #endif

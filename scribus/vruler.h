@@ -24,17 +24,16 @@
 class ScribusDoc;
 class ScribusView;
 class PrefsManager;
-/**Vertikales Lineal
-  *@author Franz Schmid
-  */
-
 class ScribusView;
 
-class SCRIBUS_API Vruler : public QWidget  
+/** \brief Vertical ruler
+\author Franz Schmid
+*/
+class SCRIBUS_API Vruler : public QWidget
 {
 	Q_OBJECT
 
-public: 
+public:
 	Vruler(ScribusView *pa, ScribusDoc *doc);
 	~Vruler() {};
 	void paintEvent(QPaintEvent *e);
@@ -52,10 +51,11 @@ private: // Private attributes
 	ScribusView *currView;
 
 public slots: // Public slots
-  /** Zeichnet den Pfeil */
-	void Draw(int wo);
+	/** \brief draw mark
+	\param where where to draw */
+	void Draw(int where);
 	void unitChange();
-	
+
 private:
 	double iter, iter2;
 	int cor;

@@ -520,7 +520,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 							p.save();
 							p.translate(qRound((xl-2/sc) * sc),0);
 							p.scale(-1,1);
-							drawNumber(QString::number((xl-Pos) / iter / cor), 0, 17, p); 
+							drawNumber(QString::number((xl-Pos) / iter / cor), 0, 17, p);
 							//p.drawText(0, 17, QString::number((xl-Pos) / iter / cor));
 							p.restore();
 						}
@@ -691,14 +691,12 @@ void Hruler::drawNumber(QString txt, int x, int y0, QPainter & p)
 	p.drawPixmap(x*SCALE, (y+bbox.top())*SCALE, pix, 0, 0, bbox.width()*SCALE, bbox.height()*SCALE);
 	p.scale(SCALE,SCALE);
 #endif
-}  
+}
 
-
-/** Zeichnet den Pfeil */
-void Hruler::Draw(int wo)
+void Hruler::Draw(int where)
 {
 	// erase old marker
-	int currentCoor = wo - currView->contentsX();
+	int currentCoor = where - currView->contentsX();
 	repaint(oldMark-3, 0, 7, 17);
 	QPointArray cr;
 	QPainter p;
@@ -713,7 +711,7 @@ void Hruler::Draw(int wo)
 		p.begin( &pix );
 		p.setBrush( BACKGROUND );
 		p.drawRect( 0, 0, 4*SCALE, 16*SCALE );
-		
+
 		p.setPen(red);
 		p.setBrush(red);
 		cr.setPoints(3, 2*SCALE, 16*SCALE, 4*SCALE, 0, 0, 0);
@@ -724,7 +722,7 @@ void Hruler::Draw(int wo)
 	p.begin(this);
 	p.translate(-currView->contentsX(), 0);
 	p.scale(1.0/SCALE, 1.0/(SCALE+1));
-	p.drawPixmap((wo-2)*SCALE, 1, pix);
+	p.drawPixmap((where-2)*SCALE, 1, pix);
 	p.end();
 	// restore marks
 	p.begin(this);
@@ -746,7 +744,7 @@ void Hruler::Draw(int wo)
 	p.translate(-currView->contentsX(), 0);
 	p.setPen(red);
 	p.setBrush(red);
-	cr.setPoints(5,  wo, 5, wo, 16, wo, 5, wo+2, 0, wo-2, 0);
+	cr.setPoints(5,  where, 5, where, 16, where, 5, where+2, 0, where-2, 0);
 	p.drawPolygon(cr);
 	p.end();
 #endif
@@ -869,7 +867,7 @@ void Hruler::unitChange()
 				iter = 72.0/25.4*4.512/2.0;
 				iter2 = 72.0/25.4*4.512;
 			}
-			break;			
+			break;
 		default:
 			if (sc > 1 && sc <= 4)
 				cor = 2;
@@ -879,4 +877,19 @@ void Hruler::unitChange()
 	 		iter2 = unitRulerGetIter2FromIndex(0) / cor;
 			break;
 	}
+}
+
+void Hruler::drawGuides()
+{
+	if (!currDoc->guidesSettings.guidesShown
+			|| currDoc->currentPage->XGuides.count() == 0)
+		return;
+	QPainter p;
+	Page *page = currDoc->currentPage;
+	p.begin(this);
+	p.setPen(currDoc->guidesSettings.guideColor);
+	for (uint xg = 0; xg < page->XGuides.count(); ++xg)
+		if ((page->XGuides[xg] >= 0) && (page->XGuides[xg] <= page->width()))
+			p.drawLine((int)page->XGuides[xg], 0, (int)page->XGuides[xg], 20);
+	p.end();
 }

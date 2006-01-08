@@ -69,7 +69,6 @@ SampleItem::~SampleItem()
 	{
 		doc->setModified(false);
 		ScMW->slotFileClose();
-		//qApp->processEvents();
 	}
 }
 
@@ -252,7 +251,7 @@ QPixmap SampleItem::getSample(int width, int height)
 {
 	UndoManager::instance()->setUndoEnabled(false); // disable undo
 
-	PageItem_TextFrame *previewItem = new PageItem_TextFrame(doc, 0, 0, width, width, 0, "None", doc->toolSettings.dPenText);
+	PageItem_TextFrame *previewItem = new PageItem_TextFrame(doc, 0, 0, width, width, 0, "None", "None");
 	QPixmap pm(width, height);
 	ScPainter *painter = new ScPainter(&pm, width, height, 0, 0);
 	double sca = 1.0;
@@ -309,7 +308,6 @@ QPixmap SampleItem::getSample(int width, int height)
 		hg->cembedded = 0;
 		previewItem->itemText.append(hg);
 	}
-
 	previewItem->DrawObj(painter, QRect(0, 0, width, height));
 	painter->end();
 	delete(painter);
