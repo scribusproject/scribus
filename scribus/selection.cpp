@@ -104,7 +104,7 @@ bool Selection::disconnectAllItemsFromGUI()
 	return true;
 }
 
-bool Selection::addItem(PageItem *item)
+bool Selection::addItem(PageItem *item, bool ignoreGUI)
 {
 	if (item==NULL)
 		return false;
@@ -114,7 +114,7 @@ bool Selection::addItem(PageItem *item)
 		m_SelList.append(item);
 		item->setSelected(true);
 		m_hasGroupSelection=(m_SelList.count()>1);
-		if (m_isGUISelection)
+		if (m_isGUISelection && !ignoreGUI)
 		{
 			if (listWasEmpty)
 			{

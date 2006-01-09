@@ -2774,7 +2774,9 @@ void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
 void PageItem::select()
 {
 	ScMW->view->Deselect(false);
-	ScMW->view->SelectItem(this, false);
+	//CB #2969 add this true parm to addItem so we dont connectToGUI, the rest of view->SelectItem isnt needed anyway
+	m_Doc->selection->addItem(this, true);
+	//ScMW->view->SelectItem(this, false);
 }
 
 ObjAttrVector* PageItem::getObjectAttributes()
