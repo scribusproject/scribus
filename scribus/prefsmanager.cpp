@@ -229,7 +229,7 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.dEndArrow = 0;
 	appPrefs.toolSettings.magMin = 10;
 	appPrefs.toolSettings.magMax = 3200;
-	appPrefs.toolSettings.magStep = 25;
+	appPrefs.toolSettings.magStep = 200;
 	appPrefs.toolSettings.dBrushPict = "White";
 	appPrefs.toolSettings.shadePict = 100;
 	appPrefs.toolSettings.scaleX = 1;
@@ -1401,7 +1401,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.toolSettings.dShade = dc.attribute("BRUSHSHADE").toInt();
 			appPrefs.toolSettings.magMin = dc.attribute("MAGMIN", "10").toInt();
 			appPrefs.toolSettings.magMax = dc.attribute("MAGMAX", "3200").toInt();
-			appPrefs.toolSettings.magStep = dc.attribute("MAGSTEP", "25").toInt();
+			appPrefs.toolSettings.magStep = dc.attribute("MAGSTEP", "200").toInt();
 			appPrefs.toolSettings.dBrushPict = dc.attribute("CPICT");
 			appPrefs.toolSettings.shadePict = dc.attribute("PICTSHADE", "100").toInt();
 			appPrefs.toolSettings.scaleX = dc.attribute("PICTSCX", "1").toDouble();

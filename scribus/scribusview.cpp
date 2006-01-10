@@ -8426,39 +8426,43 @@ void ScribusView::slotZoom100()
 
 void ScribusView::slotZoomIn(int mx,int my)
 {
+	double ms100=Doc->toolSettings.magStep/100.0;
 	if ((mx == 0) && (my == 0))
 	{
 		int x = qRound(QMAX(contentsX() / Scale, Doc->minCanvasCoordinate.x()));
 		int y = qRound(QMAX(contentsY() / Scale, Doc->minCanvasCoordinate.y()));
 		int w = qRound(QMIN(visibleWidth() / Scale, Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
 		int h = qRound(QMIN(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
-		rememberPreviousSettings(w / 2 + x,h / 2 + y);
+		rememberPreviousSettings(w/static_cast<int>(ms100)+x, h/static_cast<int>(ms100)+y);
 	}
 	else
 		rememberPreviousSettings(mx,my);
-	setScale(Scale * 2);
+	setScale(Scale * ms100);
+	/*
 	if (Scale > 32*Prefs->DisScale)
 	{
 		setScale(32*Prefs->DisScale);
 		return;
 	}
+	*/
 	slotDoZoom();
 }
 
 /** Verkleinert die Ansicht */
 void ScribusView::slotZoomOut(int mx,int my)
 {
+	double ms100=Doc->toolSettings.magStep/100.0;
 	if ((mx == 0) && (my == 0))
 	{
 		int x = qRound(QMAX(contentsX() / Scale, Doc->minCanvasCoordinate.x()));
 		int y = qRound(QMAX(contentsY() / Scale, Doc->minCanvasCoordinate.y()));
 		int w = qRound(QMIN(visibleWidth() / Scale, Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
 		int h = qRound(QMIN(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
-		rememberPreviousSettings(w / 2 + x,h / 2 + y);
+		rememberPreviousSettings(w/static_cast<int>(ms100)+x, h/static_cast<int>(ms100)+y);
 	}
 	else
 		rememberPreviousSettings(mx,my);
-	setScale(Scale / 2);
+	setScale(Scale / ms100);
 	slotDoZoom();
 }
 
@@ -11182,6 +11186,15 @@ void ScribusView::unitChange()
 void ScribusView::setScale(const double newScale)
 {
 	Scale=newScale;
+	/*
+	if (Scale < Doc->toolSettings.magMin)
+		Scale=Doc->toolSettings.magMin;
+	else
+		if (Scale > Doc->toolSettings.magMax)
+			Scale=Doc->toolSettings.magMax;
+	if (Scale > 32*Prefs->DisScale)
+		Scale=32*Prefs->DisScale;
+		*/
 	unitChange();
 }
 
