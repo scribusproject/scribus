@@ -260,7 +260,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 
 	mainWidgetsLayout->addLayout(Layout5);
 	mainWidgetsLayout->addLayout(buttonLayout);
-	
+
 	// preview pixmap
 	// prevMainLayout is here due the aligning with the others widgets
 	QHBoxLayout *prevMainLayout = new QHBoxLayout(0, 11, 6, "prevMainLayout");
@@ -274,7 +274,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	previewLabel = new QLabel(previewGBox, "previewLabel");
 	previewGBoxLayout->addWidget(previewLabel);
 	prevMainLayout->addWidget(previewGBox);
-	
+
 	guideManagerLayout->addLayout(mainWidgetsLayout);
 	guideManagerLayout->addLayout(prevMainLayout);
 
@@ -368,7 +368,7 @@ bool GuideManager::addValueToList(QListView *list, MSpinBox *spin)
 void GuideManager::AddHorVal()
 {
 	addValueToList(horList, horSpin);
-	
+
 }
 
 void GuideManager::AddVerVal()
@@ -411,7 +411,7 @@ void GuideManager::resetMarginsForPage()
 		gh = selectionBottomRight.y();
 	}
 	else selected = false;
-	
+
 	locTop = ScMW->doc->pageMargins.Top;
 	locBottom = ScMW->doc->pageMargins.Bottom;
 
@@ -665,7 +665,7 @@ void GuideManager::horList_currentChanged(QListViewItem *item)
 
 void GuideManager::slotDrawPreview()
 {
-	int size = 400; // height of the preview pixmap
+	int size = 200; // height of the preview pixmap
 	int x, y; // helper values. original guide size to smaller one
 	double val; // position of the current guide (red one)
 	QPixmap pm; // paint device for preview
@@ -676,7 +676,7 @@ void GuideManager::slotDrawPreview()
 
 	vg += getAutoCols();
 	hg += getAutoRows();
-	//! \note Sorting is a must here for GUI 
+	//! \note Sorting is a must here for GUI
 	horList->sort();
 	verList->sort();
 
