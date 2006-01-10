@@ -244,7 +244,8 @@ void MasterPagesPalette::newMasterPage()
 {
 	QString MasterPageName;
 	NewTm *dia = new NewTm(this, tr("Name:"), tr("New MasterPage"), currentDoc);
-	dia->Answer->setText( tr("New Master Page"));
+	int nr = currentDoc->Pages->count();
+	dia->Answer->setText( tr("New Master Page %1").arg(nr));
 	dia->Answer->resize(minimumSizeHint());
 	dia->Answer->selectAll();
 	if (dia->exec())
@@ -259,7 +260,6 @@ void MasterPagesPalette::newMasterPage()
 			}
 			MasterPageName = dia->Answer->text();
 		}
-		int nr = currentDoc->Pages->count();
 		currentDoc->currentPage=currentDoc->addMasterPage(nr, MasterPageName);
 		
 		//currentDoc->MasterNames.insert(MasterPageName, nr);
