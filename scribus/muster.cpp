@@ -310,7 +310,7 @@ void MasterPagesPalette::appendPage()
 			MasterPageName2 = tr("Copy #%1 of ").arg(copyC)+MasterPageName;
 			copyC++;
 		}
-		currentDoc->addMasterPage(nr, MasterPageName2);
+		currentDoc->currentPage=currentDoc->addMasterPage(nr, MasterPageName2);
 		qApp->processEvents();
 		emit loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true);
 		qApp->processEvents();
