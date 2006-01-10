@@ -216,10 +216,10 @@ void MusterSeiten::DuplTemp()
 void MusterSeiten::NewTemp()
 {
 	QString nam;
-	int nr;
 	bool atf;
 	NewTm *dia = new NewTm(this, tr("Name:"), tr("New Template"), Doc);
-	dia->Answer->setText( tr("New Template"));
+	int nr = View->Pages.count();
+	dia->Answer->setText( tr("New Template %1").arg(nr));
 	dia->Answer->selectAll();
 	if (dia->exec())
 	{
