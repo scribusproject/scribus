@@ -8461,7 +8461,7 @@ void ScribusView::slotZoomOut(int mx,int my)
 	}
 	else
 		rememberPreviousSettings(mx,my);
-	setScale(Scale / static_cast<double>(Doc->toolSettings.magStep)/100.0);
+	setScale(Scale / (static_cast<double>(Doc->toolSettings.magStep)/100.0));
 	slotDoZoom();
 }
 
@@ -10524,33 +10524,6 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->BMnr = Buffer->BMnr;
 	currItem->setIsAnnotation(Buffer->m_isAnnotation);
 	currItem->setAnnotation(Buffer->m_annotation);
-	/*
-	currItem->annotation().setType(Buffer->AnType;
-	currItem->AnAction = Buffer->AnAction;
-	currItem->An_E_act = Buffer->An_E_act;
-	currItem->An_X_act = Buffer->An_X_act;
-	currItem->An_D_act = Buffer->An_D_act;
-	currItem->An_Fo_act = Buffer->An_Fo_act;
-	currItem->An_Bl_act = Buffer->An_Bl_act;
-	currItem->An_K_act = Buffer->An_K_act;
-	currItem->An_F_act = Buffer->An_F_act;
-	currItem->An_V_act = Buffer->An_V_act;
-	currItem->An_C_act = Buffer->An_C_act;
-	currItem->An_Extern = Buffer->An_Extern;
-	currItem->AnZiel = Buffer->AnZiel;
-	currItem->AnActType = Buffer->AnActType;
-	currItem->TopLine = Buffer->TopLine;
-	currItem->RightLine = Buffer->RightLine;
-	currItem->LeftLine = Buffer->LeftLine;
-	currItem->BottomLine = Buffer->BottomLine;
-	currItem->isTableItem = Buffer->isTableItem;
-	currItem->TopLinkID = Buffer->TopLinkID;
-	currItem->LeftLinkID = Buffer->LeftLinkID;
-	currItem->RightLinkID = Buffer->RightLinkID;
-	currItem->BottomLinkID = Buffer->BottomLinkID;
-	currItem->setStartArrowIndex(Buffer->startArrowIndex);
-	currItem->setEndArrowIndex(Buffer->endArrowIndex);
-	*/
 	if (!Buffer->AnName.isEmpty())
 	{
 		if (!drag)
@@ -10569,27 +10542,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			currItem->AutoName = false;
 		}
 	}
-	/*
-	currItem->AnToolTip = Buffer->AnToolTip;
-	currItem->AnBwid = Buffer->AnBwid;
-	currItem->AnBsty = Buffer->AnBsty;
-	currItem->AnFeed = Buffer->AnFeed;
-	currItem->AnVis = Buffer->AnVis;
-	currItem->AnFlag = Buffer->AnFlag;
-	currItem->AnFont = Buffer->AnFont;
-	currItem->AnFormat = Buffer->AnFormat;
-	currItem->AnMaxChar = Buffer->AnMaxChar;
-	currItem->AnRollOver = Buffer->AnRollOver;
-	currItem->AnDown = Buffer->AnDown;
-	currItem->AnIsChk = Buffer->AnIsChk;
-	currItem->AnAAact = Buffer->AnAAact;
-	currItem->AnChkStil = Buffer->AnChkStil;
-	currItem->AnHTML = Buffer->AnHTML;
-	currItem->AnUseIcons = Buffer->AnUseIcons;
-	currItem->AnIPlace = Buffer->AnIPlace;
-	currItem->AnScaleW = Buffer->AnScaleW;
-	currItem->AnBColor = Buffer->AnBColor;
-	*/
+
 	currItem->Clip = Buffer->Clip.copy();
 	currItem->PoShow = Buffer->PoShow;
 	currItem->BaseOffs = Buffer->BaseOffs;
