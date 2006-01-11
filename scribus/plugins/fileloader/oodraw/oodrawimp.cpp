@@ -356,13 +356,17 @@ void OODPlug::convert()
 		ScMW->view->setGroupRect();
 		//QDragObject *dr = new QTextDrag(ss->WriteElem(&ScMW->view->SelItem, Doku, ScMW->view), ScMW->view->viewport());
 		QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScMW->view, Doku->selection), ScMW->view->viewport());
+#ifndef QT_MAC
+// see #2196, #2526
 		ScMW->view->DeleteItem();
+#endif
 		ScMW->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScMW->view->getScale()), qRound((maxSize.y() - minSize.y()) * ScMW->view->getScale()));
 		ScMW->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * ScMW->view->getScale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * ScMW->view->getScale()));
 		Doku->minCanvasCoordinate = minSize;
 		Doku->maxCanvasCoordinate = maxSize;
 		dr->setPixmap(loadIcon("DragPix.xpm"));
-		dr->drag();
+		if (!dr->drag())
+			qDebug("oodraw import: couldn't start drag operation!");
 		delete ss;
 		Doku->DragP = false;
 		Doku->DraggedElem = 0;

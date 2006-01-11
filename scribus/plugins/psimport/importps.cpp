@@ -191,18 +191,31 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 				//ScMW->view->SelItem.append(Elements.at(dre));
 				Doku->selection->addItem(Elements.at(dre));
 			}
-			ScriXmlDoc *ss = new ScriXmlDoc();
 			ScMW->view->setGroupRect();
+			ScriXmlDoc *ss = new ScriXmlDoc();
 			//QDragObject *dr = new QTextDrag(ss->WriteElem(&ScMW->view->SelItem, Doku, ScMW->view), ScMW->view->viewport());
 			QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScMW->view, Doku->selection),ScMW->view->viewport());
+#ifndef QT_MAC
+// see #2196		
 			ScMW->view->DeleteItem();
+#endif
 			ScMW->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScMW->view->getScale()), qRound((maxSize.y() - minSize.y()) * ScMW->view->getScale()));
 			ScMW->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * ScMW->view->getScale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * ScMW->view->getScale()));
 			Doku->minCanvasCoordinate = minSize;
 			Doku->maxCanvasCoordinate = maxSize;
 			ScMW->view->updateContents();
 			dr->setPixmap(loadIcon("DragPix.xpm"));
-			dr->drag();
+#if 0
+			qDebug("psimport: data");
+			QString data(dr->encodedData("text/plain"));
+			for (uint i=0; i <= data.length() / 4000; i++) {
+				qDebug(data.mid(i*4000, 4000));
+			}
+			qDebug("psimport: enddata");
+			qDebug(QString("psimport: drag type %1").arg(dr->format()));
+#endif
+			if (!dr->drag())
+				qDebug("psimport: couldn't start dragging!");
 			delete ss;
 			Doku->DragP = false;
 			Doku->DraggedElem = 0;

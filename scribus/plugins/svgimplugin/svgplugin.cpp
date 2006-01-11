@@ -331,13 +331,17 @@ void SVGPlug::convert()
 		ScMW->view->setGroupRect();
 		//QDragObject *dr = new QTextDrag(ss->WriteElem(&ScMW->view->SelItem, currDoc, ScMW->view), ScMW->view->viewport());
 		QDragObject *dr = new QTextDrag(ss->WriteElem(currDoc, ScMW->view, currDoc->selection), ScMW->view->viewport());
+#ifndef QT_MAC
+// see #2526
 		ScMW->view->DeleteItem();
+#endif
 		ScMW->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScMW->view->getScale()), qRound((maxSize.y() - minSize.y()) * ScMW->view->getScale()));
 		ScMW->view->scrollBy(qRound((currDoc->minCanvasCoordinate.x() - minSize.x()) * ScMW->view->getScale()), qRound((currDoc->minCanvasCoordinate.y() - minSize.y()) * ScMW->view->getScale()));
 		currDoc->minCanvasCoordinate = minSize;
 		currDoc->maxCanvasCoordinate = maxSize;
 		dr->setPixmap(loadIcon("DragPix.xpm"));
-		dr->drag();
+		if (!dr->drag())
+			qDebug("svgimport: could start drag operation!");
 		delete ss;
 		currDoc->DragP = false;
 		currDoc->DraggedElem = 0;
