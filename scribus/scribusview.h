@@ -273,9 +273,9 @@ public slots: // Public slots
 	void slotZoom100();
   /** Zooms in */
 	void slotZoomIn(int mx=0,int my=0);
-	void slotZoomIn2(int mx=0,int my=0);
+	//void slotZoomIn2(int mx=0,int my=0);
 	void slotZoomOut(int mx=0,int my=0);
-	void slotZoomOut2(int mx=0,int my=0);
+	//void slotZoomOut2(int mx=0,int my=0);
   /** Redraws everything */
 	void DrawNew();
 	void setMenTxt(int Seite);

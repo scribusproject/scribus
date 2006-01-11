@@ -2842,7 +2842,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		{
 			int mx = qRound(m->x() / Scale + Doc->minCanvasCoordinate.x());
 			int my = qRound(m->y() / Scale + Doc->minCanvasCoordinate.y());
-			Magnify ? slotZoomIn2(mx,my) : slotZoomOut2(mx,my);
+			Magnify ? slotZoomIn(mx,my) : slotZoomOut(mx,my);
 			if (sc == Scale)
 			{
 				HaveSelRect = false;
@@ -8434,7 +8434,6 @@ void ScribusView::slotZoom100()
 
 void ScribusView::slotZoomIn(int mx,int my)
 {
-	double ms100=Doc->toolSettings.magStep/100.0;
 	if ((mx == 0) && (my == 0))
 	{
 		int x = qRound(QMAX(contentsX() / Scale, Doc->minCanvasCoordinate.x()));
@@ -8445,21 +8444,13 @@ void ScribusView::slotZoomIn(int mx,int my)
 	}
 	else
 		rememberPreviousSettings(mx,my);
-	setScale(Scale * ms100);
-	/*
-	if (Scale > 32*Prefs->DisScale)
-	{
-		setScale(32*Prefs->DisScale);
-		return;
-	}
-	*/
+	setScale(Scale * static_cast<double>(Doc->toolSettings.magStep)/100.0);
 	slotDoZoom();
 }
 
 /** Verkleinert die Ansicht */
 void ScribusView::slotZoomOut(int mx,int my)
 {
-	double ms100=Doc->toolSettings.magStep/100.0;
 	if ((mx == 0) && (my == 0))
 	{
 		int x = qRound(QMAX(contentsX() / Scale, Doc->minCanvasCoordinate.x()));
@@ -8470,34 +8461,26 @@ void ScribusView::slotZoomOut(int mx,int my)
 	}
 	else
 		rememberPreviousSettings(mx,my);
-	setScale(Scale / ms100);
+	setScale(Scale / static_cast<double>(Doc->toolSettings.magStep)/100.0);
 	slotDoZoom();
 }
 
-
-void ScribusView::slotZoomIn2(int mx,int my)
+/*
+void ScribusView::slotZoomIn2(int mx, int my)
 {
 	rememberPreviousSettings(mx,my);
-	setScale(Scale + static_cast<double>(Doc->toolSettings.magStep*Prefs->DisScale)/100.0);
-	double scaledMagMax=static_cast<double>(Doc->toolSettings.magMax*Prefs->DisScale)/100.0;
-	if (Scale > scaledMagMax)
-	{
-		setScale(scaledMagMax);
-		return;
-	}
+	setScale(Scale * static_cast<double>(Doc->toolSettings.magStep)/100.0);
 	slotDoZoom();
 }
 
-/** Verkleinert die Ansicht */
-void ScribusView::slotZoomOut2(int mx,int my)
+// Verkleinert die Ansicht 
+void ScribusView::slotZoomOut2(int mx, int my)
 {
 	rememberPreviousSettings(mx,my);
-	setScale(Scale - static_cast<double>(Doc->toolSettings.magStep*Prefs->DisScale)/100.0);
-	double scaledMagMin=static_cast<double>(Doc->toolSettings.magMin*Prefs->DisScale)/100.0;
-	if (Scale < scaledMagMin)
-		setScale(scaledMagMin);
+	setScale(Scale / static_cast<double>(Doc->toolSettings.magStep)/100.0);
 	slotDoZoom();
 }
+*/
 
 void ScribusView::DrawNew()
 {
@@ -11127,7 +11110,7 @@ void ScribusView::contentsWheelEvent(QWheelEvent *w)
 	evSpon = true;
 	if ((Mpressed) && (MidButt) || ( w->state() & ControlButton ))
 	{
-		w->delta() > 0 ? slotZoomIn2() : slotZoomOut2();
+		w->delta() > 0 ? slotZoomIn() : slotZoomOut();
 	}
 	else
 	{
