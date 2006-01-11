@@ -2461,10 +2461,10 @@ bool ScImage::parseLayer( QDataStream & s, const PSDHeader & header )
 			s >> filler;
 			s >> extradata;
 			s >> layermasksize;
-			lay.maskYpos = 0;
+/*			lay.maskYpos = 0;
 			lay.maskXpos = 0;
 			lay.maskHeight = 0;
-			lay.maskWidth = 0;
+			lay.maskWidth = 0; */
 			if (layermasksize != 0)
 			{
 				s >> lay.maskYpos;

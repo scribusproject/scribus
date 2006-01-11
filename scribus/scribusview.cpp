@@ -3242,7 +3242,10 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		{
 			if (currItem->asImageFrame())
 			{
-				MoveItemI(currItem, (newX-Mxp)/currItem->imageXScale(), (newY-Myp)/currItem->imageYScale());
+				QWMatrix ro;
+				ro.rotate(-currItem->rotation());
+				QPoint rota = ro.map(QPoint(newX-Mxp,newY-Myp));
+				MoveItemI(currItem, rota.x()/currItem->imageXScale(), rota.y()/currItem->imageYScale());
 				Mxp = newX;
 				Myp = newY;
 			}
