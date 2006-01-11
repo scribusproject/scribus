@@ -2275,10 +2275,13 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				c = 13;
 			else
 				c = 0;
-			//CB 2740: Apart from not knowing what 28 did in 1.2.1, this forces us to go to the next line,
-			//not the end of the current
+			//CB 2740: Apart from not knowing what 28 did in 1.2.1, this forces us to go to 
+			//the next line, not the end of the current
 			//if (( c == 13 ) || (c = 28))
-			//	CPos++;
+			//CB 2995 13 allows end to be pressed and actually get to the last character
+			//28 must be end of line not at end of para
+			if ( c == 13 )
+				CPos++;
 		}
 		else
 		{
