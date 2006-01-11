@@ -193,8 +193,12 @@ void UndoManager::setState(UndoGui* gui, int uid)
 {
 	gui->clear();
 
-	ActionList::iterator itstart = stacks[currentDoc].second.begin() - 1;;
-	ActionList::iterator itend   = stacks[currentDoc].second.end() - 1;;
+	ActionList::iterator itstart = stacks[currentDoc].second.begin() - 1;
+	ActionList::iterator itend   = stacks[currentDoc].second.end() - 1;
+
+	if ( stacks[currentDoc].second.size() == 0 )
+		return;
+
 	if (uid > -1)
 	{ // find the range from where actions are added when in obj. spec. mode
 		ActionList::iterator it2;
