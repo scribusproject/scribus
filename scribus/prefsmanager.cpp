@@ -92,7 +92,7 @@ void PrefsManager::setup()
 	setupPreferencesLocation();
 
 	importingFrom12=copy12Preferences();
-	prefsFile = new PrefsFile(QDir::convertSeparators(prefsLocation + "/prefs13.xml"));
+	prefsFile = new PrefsFile( prefsLocation + "/prefs13.xml" );
 	if (importingFrom12)
 		convert12Preferences();
 	//<<CB TODO Reset keyboard shortcuts of all 1.3 users as too many
