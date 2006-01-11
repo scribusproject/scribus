@@ -514,6 +514,9 @@ public:
 	 * @return LeftPage, MiddlePage, RightPage, enum from pagestructs.h
 	 */
 	PageLocation locationOfPage(int);
+	
+	bool sendItemSelectionToBack();
+	bool bringItemSelectionToFront();
 
 protected:
 	void addSymbols();

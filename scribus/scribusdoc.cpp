@@ -3422,3 +3422,71 @@ void ScribusDoc::insertColor(QString nam, double c, double m, double y, double k
 		PageColors.insert(nam, tmp);
 	}
 }
+
+bool ScribusDoc::sendItemSelectionToBack()
+{
+	uint docSelectionCount=selection->count();
+	if ((Items->count() > 1) && (docSelectionCount != 0))
+	{
+		QMap<int, uint> ObjOrder;
+		PageItem *currItem;
+		for (uint c = 0; c < docSelectionCount; ++c)
+		{
+			currItem = selection->itemAt(c);
+			if (currItem->isTableItem && currItem->isSingleSel)
+				return false;
+			ObjOrder.insert(currItem->ItemNr, c);
+			int d = Items->findRef(currItem);
+			Items->take(d);
+		}
+		QValueList<uint> Oindex = ObjOrder.values();
+		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
+		{
+			Items->prepend(selection->itemAt(Oindex[c]));
+		}
+		/*
+		for (uint a = 0; a < Items->count(); ++a)
+		{
+			Items->at(a)->ItemNr = a;
+			if (Items->at(a)->isBookmark)
+				emit NewBMNr(Items->at(a)->BMnr, a);
+		}*/
+		return true;
+	}
+	return false;
+}
+
+bool ScribusDoc::bringItemSelectionToFront()
+{
+	uint docSelectionCount=selection->count();
+	if ((Items->count() > 1) && (docSelectionCount != 0))
+	{
+		QMap<int, uint> ObjOrder;
+		PageItem *currItem;
+		for (uint c = 0; c < docSelectionCount; ++c)
+		{
+			currItem = selection->itemAt(c);
+			if (currItem->isTableItem && currItem->isSingleSel)
+				return false;
+			ObjOrder.insert(currItem->ItemNr, c);
+			int d = Items->findRef(currItem);
+			Items->take(d);
+		}
+		QValueList<uint> Oindex = ObjOrder.values();
+		for (int c = 0; c <static_cast<int>(Oindex.count()); ++c)
+		{
+			Items->append(selection->itemAt(Oindex[c]));
+		}
+		/*
+		for (uint a = 0; a < Items->count(); ++a)
+		{
+			Items->at(a)->ItemNr = a;
+			if (Items->at(a)->isBookmark)
+				emit NewBMNr(Items->at(a)->BMnr, a);
+		}
+		*/
+		return true;
+	}
+	return false;
+}
+

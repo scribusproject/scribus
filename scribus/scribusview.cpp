@@ -7823,6 +7823,21 @@ void ScribusView::sentToScrap()
 
 void ScribusView::ToBack()
 {
+	if (Doc->sendItemSelectionToBack())
+	{
+		//CB TODO move this loop out of here
+		for (uint a = 0; a < Doc->Items->count(); ++a)
+		{
+			Doc->Items->at(a)->ItemNr = a;
+			if (Doc->Items->at(a)->isBookmark)
+				emit NewBMNr(Doc->Items->at(a)->BMnr, a);
+		}
+		ScMW->outlinePalette->BuildTree();
+		emit LevelChanged(0);
+		emit DocChanged();
+		updateContents();
+	}
+	/*
 	int d;
 	QMap<int, uint> ObjOrder;
 	PageItem *currItem;
@@ -7853,11 +7868,26 @@ void ScribusView::ToBack()
 		emit LevelChanged(0);
 		emit DocChanged();
 		updateContents();
-	}
+	}*/
 }
 
 void ScribusView::ToFront()
 {
+	if (Doc->bringItemSelectionToFront())
+	{
+		//CB TODO move this loop out of here
+		for (uint a = 0; a < Doc->Items->count(); ++a)
+		{
+			Doc->Items->at(a)->ItemNr = a;
+			if (Doc->Items->at(a)->isBookmark)
+				emit NewBMNr(Doc->Items->at(a)->BMnr, a);
+		}
+		ScMW->outlinePalette->BuildTree();
+		emit LevelChanged(Doc->selection->itemAt(0)->ItemNr);
+		emit DocChanged();
+		updateContents();
+	}
+	/*
 	int d;
 	QMap<int, uint> ObjOrder;
 	PageItem *currItem;
@@ -7889,6 +7919,7 @@ void ScribusView::ToFront()
 		emit DocChanged();
 		updateContents();
 	}
+	*/
 }
 
 void ScribusView::LowerItem()
