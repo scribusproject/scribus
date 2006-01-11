@@ -2565,6 +2565,102 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 	return tmp;
 }
 
+QString PDFlib::putColor(const QString& color, int shade, bool fill)
+{
+	QString tmp = "";
+	QString colString = SetFarbe(color, shade);
+	ScColor tmpC;
+	tmpC = doc.PageColors[color];
+	if (((tmpC.isSpotColor()) || (tmpC.isRegistrationColor())) && ((Options.isGrayscale == false) && (Options.UseRGB == false))  && (Options.UseSpotColors))
+	{
+		if (color != "None")
+		{
+			if (fill)
+			{
+				tmp += "/"+spotMap[color].ResName+" cs\n";
+				tmp += FToStr(shade / 100.0)+" scn\n";
+			}
+			else
+			{
+				tmp += "/"+spotMap[color].ResName+" CS\n";
+				tmp += FToStr(shade / 100.0)+" SCN\n";
+			}
+		}
+		return tmp;
+	}
+	if (Options.isGrayscale)
+	{
+		if (color != "None")
+		{
+			if (fill)
+				tmp += colString+" g\n";
+			else
+				tmp += colString+" G\n";
+		}
+		return tmp;
+	}
+	if (Options.UseRGB)
+	{
+		if (color != "None")
+		{
+			if (fill)
+				tmp += colString+" rg\n";
+			else
+				tmp += colString+" RG\n";
+		}
+	}
+	else
+	{
+#ifdef HAVE_CMS
+		if ((CMSuse) && (Options.UseProfiles))
+		{
+			if (tmpC.getColorModel() == colorModelCMYK)
+			{
+				if (color != "None")
+				{
+					if (fill)
+						tmp += colString+" k\n";
+					else
+						tmp += colString+" K\n";
+				}
+			}
+			else
+			{
+				QString tmp2[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
+				tmp += tmp2[Options.Intent]+ " ri\n";
+				if (color != "None")
+				{
+					if (fill)
+					{
+						tmp += "/"+ICCProfiles[Options.SolidProf].ResName+" cs\n";
+						tmp += colString+" scn\n";
+					}
+					else
+					{
+						tmp += "/"+ICCProfiles[Options.SolidProf].ResName+" CS\n";
+						tmp += colString+" SCN\n";
+					}
+				}
+			}
+		}
+		else
+		{
+#endif
+			if (color != "None")
+			{
+				if (fill)
+					tmp += colString+" k\n";
+				else
+					tmp += colString+" K\n";
+			}
+#ifdef HAVE_CMS
+		}
+#endif
+	}
+	return tmp;
+}
+
+/*CB 2982: cache code is borked somehow, original function is above
 QString PDFlib::putColor(const QString & colorName, int shade, bool fill)
 {
 	// Cache of last foreground and background colours We cache fg and bg
@@ -2593,6 +2689,7 @@ QString PDFlib::putColor(const QString & colorName, int shade, bool fill)
 		return lastFGOutput;
 	}
 }
+*/
 
 QString PDFlib::putColorUncached(const QString& color, int shade, bool fill)
 {
@@ -3277,6 +3374,63 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 
 QString PDFlib::SetFarbe(const QString& farbe, int Shade)
 {
+	QString tmp;
+	ScColor tmpC;
+	int h, s, v, k;
+	tmpC = doc.PageColors[farbe];
+	QColor tmpR;
+	if (Options.isGrayscale)
+	{
+		tmpR = tmpC.getShadeColorProof(Shade);
+		tmpR.rgb(&h, &s, &v);
+		tmp = FToStr((0.3 * h + 0.59 * s + 0.11 * v) / 255.0);
+		return tmp;
+	}
+	if (Options.UseRGB)
+	{
+		tmpR = tmpC.getShadeColorProof(Shade);
+		tmpR.rgb(&h, &s, &v);
+		tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
+	}
+	else
+	{
+#ifdef HAVE_CMS
+		if ((CMSuse) && (Options.UseProfiles))
+		{
+			if (tmpC.getColorModel() == colorModelCMYK)
+			{
+				tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
+				tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
+			}
+			else
+			{
+				if (Options.SComp == 3)
+				{
+					tmpC.getShadeColorRGB(&h, &s, &v, Shade);
+					tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
+				}
+				else
+				{
+					tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
+					tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
+				}
+			}
+		}
+		else
+		{
+#endif
+			tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
+			tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
+		}
+#ifdef HAVE_CMS
+	}
+#endif
+	return tmp;
+}
+
+/*CB 2982: cache code is borked somehow, original function is above
+QString PDFlib::SetFarbe(const QString& farbe, int Shade)
+{
 	// Cache last color
 	static QString lastColorName;
 	static QString lastColorData;
@@ -3337,6 +3491,7 @@ QString PDFlib::SetFarbe(const QString& farbe, int Shade)
 	lastColorData = tmp;
 	return tmp;
 }
+*/
 
 QString PDFlib::SetClipPathImage(PageItem *ite)
 {
