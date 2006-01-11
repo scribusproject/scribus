@@ -1008,7 +1008,10 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		doc->toolSettings.dShade = dc.attribute("BRUSHSHADE", "100").toInt();
 		doc->toolSettings.magMin = dc.attribute("MAGMIN", "10").toInt();
 		doc->toolSettings.magMax = dc.attribute("MAGMAX", "3200").toInt();
-		doc->toolSettings.magStep = dc.attribute("MAGSTEP", "25").toInt();
+		doc->toolSettings.magStep = dc.attribute("MAGSTEP", "200").toInt();
+		//CB Reset doc zoom step value to 200% instead of old values.
+		if (doc->toolSettings.magStep<100)
+			doc->toolSettings.magStep=200;
 		doc->toolSettings.tabFillChar = dc.attribute("TabFill","");
 		doc->toolSettings.dTabWidth=dc.attribute("TabWidth", "36.0").toDouble();
 		if (dc.hasAttribute("CPICT"))

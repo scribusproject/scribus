@@ -664,7 +664,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabZoomLayout->addWidget( maximumZoom, 1, 1, Qt::AlignLeft );
 	textLabel22b = new QLabel( maximumZoom, tr( "Ma&ximum:" ), subTabZoom, "textLabel22b" );
 	subTabZoomLayout->addWidget( textLabel22b, 1, 0 );
-	zoomStep = new QSpinBox( 1, 500, 25, subTabZoom, "zoomStep" );
+	zoomStep = new QSpinBox( 101, 500, 1, subTabZoom, "zoomStep" );
 	zoomStep->setValue( prefsData->magStep );
 	zoomStep->setSuffix( tr( " %" ) );
 	subTabZoomLayout->addWidget( zoomStep, 2, 1, Qt::AlignLeft );
