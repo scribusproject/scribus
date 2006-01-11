@@ -4519,6 +4519,11 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					}
 					RefreshItem(currItem);
 				}
+				if (currItem->asImageFrame() && !currItem->pointWithinItem(m->x(), m->y()))
+				{
+					Deselect(true);
+					emit Amode(modeNormal);
+				}
 			}
 			break;
 		case modeDrawLine:
@@ -8433,7 +8438,7 @@ void ScribusView::slotZoomIn(int mx,int my)
 		int y = qRound(QMAX(contentsY() / Scale, Doc->minCanvasCoordinate.y()));
 		int w = qRound(QMIN(visibleWidth() / Scale, Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
 		int h = qRound(QMIN(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
-		rememberPreviousSettings(w/static_cast<int>(ms100)+x, h/static_cast<int>(ms100)+y);
+		rememberPreviousSettings(w/2+x, h/2+y);
 	}
 	else
 		rememberPreviousSettings(mx,my);
@@ -8458,7 +8463,7 @@ void ScribusView::slotZoomOut(int mx,int my)
 		int y = qRound(QMAX(contentsY() / Scale, Doc->minCanvasCoordinate.y()));
 		int w = qRound(QMIN(visibleWidth() / Scale, Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
 		int h = qRound(QMIN(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
-		rememberPreviousSettings(w/static_cast<int>(ms100)+x, h/static_cast<int>(ms100)+y);
+		rememberPreviousSettings(w/2+x, h/2+y);
 	}
 	else
 		rememberPreviousSettings(mx,my);
@@ -11186,15 +11191,15 @@ void ScribusView::unitChange()
 void ScribusView::setScale(const double newScale)
 {
 	Scale=newScale;
-	/*
-	if (Scale < Doc->toolSettings.magMin)
-		Scale=Doc->toolSettings.magMin;
-	else
-		if (Scale > Doc->toolSettings.magMax)
-			Scale=Doc->toolSettings.magMax;
+	if (Scale < Doc->toolSettings.magMin*Prefs->DisScale/100.0)
+		Scale=Doc->toolSettings.magMin*Prefs->DisScale/100.0;
+		
+	if (Scale > Doc->toolSettings.magMax*Prefs->DisScale/100.0)
+		Scale=Doc->toolSettings.magMax*Prefs->DisScale/100.0;
+	
 	if (Scale > 32*Prefs->DisScale)
 		Scale=32*Prefs->DisScale;
-		*/
+		
 	unitChange();
 }
 
