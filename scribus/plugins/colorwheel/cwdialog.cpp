@@ -6,6 +6,7 @@
 #include <qcombobox.h>
 #include <qheader.h>
 #include <qlistview.h>
+#include <qlistbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
@@ -24,6 +25,7 @@
 #include "colorblind.h"
 #include "cwsetcolor.h"
 #include "util.h"
+#include "colorm.h"
 
 
 extern ScribusMainWindow SCRIBUS_API *ScMW;
@@ -37,11 +39,9 @@ ScribusColorList::ScribusColorList(QWidget* parent, const char* name, bool modal
 
 	listLayout = new QVBoxLayout(0, 0, 6, "listLayout");
 
-	listView = new QListView(this, "listView");
-	listView->setAllColumnsShowFocus(true);
-	listView->addColumn(tr("Sample"));
-	listView->addColumn(tr("Color"));
+	listView = new ColorListBox(this, "listView");
 	listLayout->addWidget(listView);
+	listView->updateBox(ScMW->doc->PageColors);
 
 	btnLayout = new QHBoxLayout(0, 0, 6, "btnLayout");
 	btnSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -59,22 +59,6 @@ ScribusColorList::ScribusColorList(QWidget* parent, const char* name, bool modal
 	resize(QSize(288, 310).expandedTo(minimumSizeHint()));
 	clearWState(WState_Polished);
 
-	ColorList::Iterator it;
-	PrefsManager *prefsManager = PrefsManager::instance();
-	ColorList clist = prefsManager->colorSet();
-	for (it = clist.begin(); it != clist.end(); ++it)
-	{
-		if (it.key() != "None" && it.key() != tr("None"))
-		{
-			ScColor col = clist[it.key()];
-			QPixmap *pm = getSmallPixmap(col.getRGBColor());
-			QListViewItem *item = new QListViewItem(listView);
-			item->setPixmap(0, *pm);
-			item->setText(1, it.key());
-			listView->insertItem(item);
-		}
-	}
-
 	connect(okButton, SIGNAL(clicked()), this, SLOT(okButton_clicked()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 }
@@ -88,8 +72,7 @@ void ScribusColorList::languageChange()
 
 void ScribusColorList::okButton_clicked()
 {
-	PrefsManager *prefsManager = PrefsManager::instance();
-	ScColor c = prefsManager->colorSet()[listView->currentItem()->text(1)];
+	ScColor c = ScMW->doc->PageColors[listView->currentText()];
 	selectedColor = c.getRGBColor();
 	accept();
 }
@@ -436,9 +419,7 @@ void ColorWheelDialog::createColor()
 	beginColor.fromQColor(colorWheel->actualColor);
 	CMYKChoose* dia = new CMYKChoose(this, beginColor, tr("New Color"), &tmpcl, tmpsl);
 	if (dia->exec())
-	{
 		userColorInput(dia->Farbe.getRGBColor());
-	}
 	delete dia;
 }
 
@@ -446,9 +427,7 @@ void ColorWheelDialog::setColorComponents()
 {
 	CwSetColor *dia = new CwSetColor(colorWheel->actualColor, this);
 	if (dia->exec())
-	{
 		userColorInput(dia->newColor);
-	}
 	delete dia;
 }
 
@@ -456,9 +435,7 @@ void ColorWheelDialog::importColor()
 {
 	ScribusColorList *dia = new ScribusColorList(this, "dia", true, 0);
 	if (dia->exec())
-	{
 		userColorInput(dia->selectedColor);
-	}
 	delete dia;
 }
 

@@ -12,12 +12,13 @@ class QHBoxLayout;
 class QGridLayout;
 class QSpacerItem;
 class QComboBox;
+class QListBox;
 class QListView;
-class QListViewItem;
 class QPushButton;
 class QSpinBox;
 class QGroupBox;
 class QSlider;
+class ColorListBox;
 
 
 /*! \brief GUI for colors from preferences/document.
@@ -32,11 +33,11 @@ class ScribusColorList : public QDialog
 		ScribusColorList(QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0);
 		~ScribusColorList(){};
 
-		QListView* listView;
+		ColorListBox* listView;
 		QPushButton* okButton;
 		QPushButton* cancelButton;
 
-		/*! Selected color when user press "OK" */
+		/*! \brief Selected color when user press "OK" */
 		QColor selectedColor;
 
 	protected:
