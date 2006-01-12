@@ -1114,7 +1114,7 @@ bool PrefsManager::WritePref(QString ho)
 	for (uint rd=0; rd<appPrefs.RecentDocs.count(); ++rd)
 	{
 		QDomElement rde=docu.createElement("RECENT");
-		rde.setAttribute("NAME",appPrefs.RecentDocs[rd]);
+		rde.setAttribute("NAME",QDir::convertSeparators(appPrefs.RecentDocs[rd]));
 		elem.appendChild(rde);
 	}
 	for (QMap<QString,Keys>::Iterator ksc=appPrefs.KeyActions.begin(); ksc!=appPrefs.KeyActions.end(); ++ksc)
@@ -1543,7 +1543,8 @@ bool PrefsManager::ReadPref(QString ho)
 			}
 		}
 		if (dc.tagName()=="RECENT")
-			appPrefs.RecentDocs.append(dc.attribute("NAME"));
+			// convert the separators for win. backslashes
+			appPrefs.RecentDocs.append(QDir::convertSeparators(dc.attribute("NAME")));
 		if (dc.tagName()=="Checker")
 		{
 			appPrefs.curCheckProfile = dc.attribute("currentProfile", tr("PostScript"));
