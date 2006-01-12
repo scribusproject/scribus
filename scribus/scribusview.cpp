@@ -1861,11 +1861,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					//for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = ScMW->scrLayersActions.begin(); it!=ScMW->scrLayersActions.end(); ++it )
 					//	(*it)->addTo(pmen3);
 					QValueList<QString> layerKeys(ScMW->scrLayersActions.keys());
-					int index=layerKeys.count()-1;
-					while (index>=0)
-					{
-						ScMW->scrLayersActions[layerKeys[index--]]->addTo(pmen3);
-					}
+					int i=layerKeys.count()-1;
+					while (i>=0)
+						ScMW->scrLayersActions[layerKeys[i--]]->addTo(pmen3);
 					
 					pmen->insertItem( tr("Send to La&yer"), pmen3);
 				}
