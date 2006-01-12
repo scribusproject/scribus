@@ -20,18 +20,55 @@
 #include "dynamictip.h"
 
 
-
-Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString DcolSet, QStringList Cust )
-		: QDialog( parent, "dd", true, 0 )
+ColorListBox::ColorListBox(QWidget * parent, const char * name, WFlags f)
+	: QListBox(parent, name, f)
 {
+	if (name == "")
+		setName("ColorListBox");
 	alertIcon = loadIcon("alert.png");
 	cmykIcon = loadIcon("cmyk.png");
 	rgbIcon = loadIcon("rgb.png");
 	spotIcon = loadIcon("spot.png");
 	regIcon = loadIcon("register.png");
-	setName( "Farbmanager" );
-	HaveDoc = HDoc;
-	CColSet = Cust;
+}
+
+void ColorListBox::updateBox(ColorList list)
+{
+	ColorList::Iterator it;
+	QPixmap pa = QPixmap(60, 15);
+	clear();
+	for (it = list.begin(); it != list.end(); ++it)
+	{
+		// if condition 10/21/2004 pv #1191
+		if (it.key() == "None" || it.key() == tr("None"))
+			continue;
+
+		ScColor col = list[it.key()];
+		QPixmap * pm = getSmallPixmap(col.getRawRGBColor());
+		pa.fill(white);
+		paintAlert(*pm, pa, 0, 0);
+		col.checkGamut();
+		if (col.isOutOfGamut())
+			paintAlert(alertIcon, pa, 15, 0);
+		if ((col.getColorModel() == colorModelCMYK) || (col.isSpotColor()))
+			paintAlert(cmykIcon, pa, 30, 0);
+		else
+			paintAlert(rgbIcon, pa, 30, 0);
+		if (col.isSpotColor())
+			paintAlert(spotIcon, pa, 46, 2);
+		if (col.isRegistrationColor())
+			paintAlert(regIcon, pa, 45, 0);
+		insertItem(pa, it.key());
+	}
+}
+
+
+ColorManager::ColorManager(QWidget* parent, ColorList doco, bool haveDoc, QString docColSet, QStringList custColSet)
+		: QDialog( parent, "ColorManager", true, 0 )
+{
+	setName( "ColorManager" );
+	HaveDoc = haveDoc;
+	customColSet = custColSet;
 	setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, sizePolicy().hasHeightForWidth() ) );
 	setSizeGripEnabled(true);
 	setCaption( tr( "Colors" ) );
@@ -42,11 +79,11 @@ Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString Dc
 
 	layout5 = new QHBoxLayout( 0, 0, 6, "layout5");
 	layout3 = new QVBoxLayout( 0, 0, 6, "layout3");
-	ListBox1 = new QListBox( this, "ListBox1" );
-	ListBox1->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)3, ListBox1->sizePolicy().hasHeightForWidth() ) );
-	ListBox1->setMinimumSize( QSize( 164, 228 ) );
-	ListBox1->setColumnMode( QListBox::FixedNumber );
-	layout5->addWidget( ListBox1 );
+	colorListBox = new ColorListBox( this, "colorListBox" );
+	colorListBox->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)3, colorListBox->sizePolicy().hasHeightForWidth() ) );
+	colorListBox->setMinimumSize( QSize( 164, 228 ) );
+	colorListBox->setColumnMode( QListBox::FixedNumber );
+	layout5->addWidget( colorListBox );
 
 	ColorsGroup = new QGroupBox( this, "ColorsGroup" );
 	ColorsGroup->setColumnLayout(0, Qt::Vertical );
@@ -93,26 +130,26 @@ Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString Dc
 		CSets->insertItem("Gnome-Set");
 		CSets->insertItem("SVG-Set");
 		CSets->insertItem("OpenOffice.org-Set");
-		if (Cust.count() != 0)
+		if (custColSet.count() != 0)
 		{
 			QStringList realEx;
 			realEx.clear();
-			for (uint m = 0; m < Cust.count(); ++m)
+			for (uint m = 0; m < custColSet.count(); ++m)
 			{
-				QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+Cust[m]);
+				QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+custColSet[m]);
 				QFileInfo cfi(Cpfad);
 				if (cfi.exists())
 				{
-					CSets->insertItem(Cust[m]);
-					realEx.append(Cust[m]);
+					CSets->insertItem(custColSet[m]);
+					realEx.append(custColSet[m]);
 				}
 			}
-			CColSet = realEx;
+			customColSet = realEx;
 		}
 		LoadColSet = new QToolButton( ColsSetGroup, "LoadColSet" );
 		LoadColSet->setPopup(CSets);
 		LoadColSet->setPopupDelay(0);
-		LoadColSet->setText(DcolSet);
+		LoadColSet->setText(docColSet);
 		ColsSetGroupLayout->addWidget( LoadColSet );
 		SaveColSet = new QPushButton( tr( "&Save Color Set" ), ColsSetGroup, "SaveColSet" );
 		ColsSetGroupLayout->addWidget( SaveColSet );
@@ -125,29 +162,29 @@ Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString Dc
 	layout3->addWidget( CancF );
 	layout5->addLayout( layout3 );
 	Layout2->addLayout( layout5 );
-	Ersatzliste.clear();
+	replaceMap.clear();
 	EditColors = doco;
-	dynTip = new DynamicTip(ListBox1, &EditColors);
+	dynTip = new DynamicTip(colorListBox, &EditColors);
 	updateCList();
 	// signals and slots connections
 	if (!HaveDoc)
 	{
 		connect(CSets, SIGNAL(activated(int)), this, SLOT(loadDefaults(int)));
 		connect(SaveColSet, SIGNAL( clicked() ), this, SLOT( saveDefaults() ) );
-		QToolTip::add( LoadColSet, tr( "Choose a color set to load" ) );
-		QToolTip::add( SaveColSet, tr( "Save the current color set" ) );
+		QToolTip::add( LoadColSet, "<qt>" + tr( "Choose a color set to load" ) + "</qt>");
+		QToolTip::add( SaveColSet, "<qt>" + tr( "Save the current color set" ) + "</qt>");
 	}
 	else
 	{
 		connect(DelU, SIGNAL( clicked() ), this, SLOT( delUnused() ) );
-		QToolTip::add( DelU, tr( "Remove unused colors from current document's color set" ) );
+		QToolTip::add( DelU, "<qt>" + tr( "Remove unused colors from current document's color set" ) + "</qt>");
 	}
-	QToolTip::add( LoadF, tr( "Import colors to the current set from an existing document" ) );
-	QToolTip::add( NewF, tr( "Create a new color within the current set" ) );
-	QToolTip::add( EditF, tr( "Edit the currently selected color" ) );
-	QToolTip::add( DupF, tr( "Make a copy of the currently selected color" ) );
-	QToolTip::add( DelF, tr( "Delete the currently selected color" ) );
-	QToolTip::add( SaveF, tr( "Make the current colorset the default color set" ) );
+	QToolTip::add( LoadF, "<qt>" + tr( "Import colors to the current set from an existing document" ) + "</qt>");
+	QToolTip::add( NewF, "<qt>" + tr( "Create a new color within the current set" ) + "</qt>");
+	QToolTip::add( EditF, "<qt>" + tr( "Edit the currently selected color" ) + "</qt>");
+	QToolTip::add( DupF, "<qt>" + tr( "Make a copy of the currently selected color" ) + "</qt>");
+	QToolTip::add( DelF, "<qt>" + tr( "Delete the currently selected color" ) + "</qt>");
+	QToolTip::add( SaveF, "<qt>" + tr( "Make the current colorset the default color set" ) + "</qt>");
 	connect( SaveF, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( CancF, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( NewF, SIGNAL( clicked() ), this, SLOT( neueFarbe() ) );
@@ -155,11 +192,11 @@ Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString Dc
 	connect( DupF, SIGNAL( clicked() ), this, SLOT( duplFarbe() ) );
 	connect( DelF, SIGNAL( clicked() ), this, SLOT( delFarbe() ) );
 	connect( LoadF, SIGNAL( clicked() ), this, SLOT( loadFarben() ) );
-	connect( ListBox1, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selFarbe(QListBoxItem*) ) );
-	connect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFarbe(QListBoxItem*) ) );
+	connect( colorListBox, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selFarbe(QListBoxItem*) ) );
+	connect( colorListBox, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFarbe(QListBoxItem*) ) );
 }
 
-void Farbmanager::saveDefaults()
+void ColorManager::saveDefaults()
 {
 	QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/");
 	QString Name = LoadColSet->text();
@@ -193,7 +230,7 @@ void Farbmanager::saveDefaults()
 			fx.close();
 			if (dia->getEditText() != Name)
 			{
-				CColSet.append(dia->getEditText());
+				customColSet.append(dia->getEditText());
 				CSets->insertItem(dia->getEditText());
 			}
 		}
@@ -201,7 +238,7 @@ void Farbmanager::saveDefaults()
 	delete dia;
 }
 
-void Farbmanager::loadDefaults(int id)
+void ColorManager::loadDefaults(int id)
 {
 	int c = CSets->indexOf(id);
 	bool cus = false;
@@ -292,7 +329,7 @@ void Farbmanager::loadDefaults(int id)
 	updateCList();
 }
 
-void Farbmanager::loadFarben()
+void ColorManager::loadFarben()
 {
 	QString fileName;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
@@ -325,7 +362,7 @@ void Farbmanager::loadFarben()
 	}
 }
 
-void Farbmanager::delUnused()
+void ColorManager::delUnused()
 {
 	PageItem* ite;
 	bool found;
@@ -457,7 +494,7 @@ void Farbmanager::delUnused()
 	updateCList();
 }
 
-void Farbmanager::duplFarbe()
+void ColorManager::duplFarbe()
 {
 	QString nam = tr("Copy of %1").arg(sFarbe);
 	EditColors.insert(nam, EditColors[sFarbe]);
@@ -466,10 +503,10 @@ void Farbmanager::duplFarbe()
 	updateCList();
 }
 
-void Farbmanager::neueFarbe()
+void ColorManager::neueFarbe()
 {
 	ScColor tmpFarbe = ScColor(0, 0, 0, 0);
-	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, tr("New Color"), &EditColors, CColSet);
+	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, tr("New Color"), &EditColors, customColSet);
 	int newItemIndex=0;
 	int colCount=0;
 	if (dia->exec())
@@ -490,16 +527,16 @@ void Farbmanager::neueFarbe()
 		updateCList();
 	}
 	delete dia;
-	ListBox1->setSelected(newItemIndex, true);
-	ListBox1->setTopItem(newItemIndex);
+	colorListBox->setSelected(newItemIndex, true);
+	colorListBox->setTopItem(newItemIndex);
 }
 
-void Farbmanager::editFarbe()
+void ColorManager::editFarbe()
 {
-	int selectedIndex=ListBox1->currentItem();
-	int topIndex=ListBox1->topItem();
+	int selectedIndex=colorListBox->currentItem();
+	int topIndex=colorListBox->topItem();
 	ScColor tmpFarbe = EditColors[sFarbe];
-	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, sFarbe, &EditColors, CColSet);
+	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, sFarbe, &EditColors, customColSet);
 	if (dia->exec())
 	{
 		dia->Farbe.setSpotColor(dia->Separations->isChecked());
@@ -515,45 +552,45 @@ void Farbmanager::editFarbe()
 		EditColors[dia->Farbname->text()].setRegistrationColor(dia->Regist->isChecked());
 		if (sFarbe != dia->Farbname->text())
 		{
-			Ersatzliste.insert(sFarbe, dia->Farbname->text());
+			replaceMap.insert(sFarbe, dia->Farbname->text());
 			EditColors.remove(sFarbe);
 		}
 		updateCList();
 	}
 	delete dia;
-	ListBox1->setSelected(selectedIndex, true);
-	ListBox1->setTopItem(topIndex);
+	colorListBox->setSelected(selectedIndex, true);
+	colorListBox->setTopItem(topIndex);
 }
 
-void Farbmanager::delFarbe()
+void ColorManager::delFarbe()
 {
-	int selectedIndex=ListBox1->currentItem();
-	int topIndex=ListBox1->topItem();
+	int selectedIndex=colorListBox->currentItem();
+	int topIndex=colorListBox->topItem();
 	DelColor *dia = new DelColor(this, EditColors, sFarbe, HaveDoc);
 	if (dia->exec())
 	{
-		if (Ersatzliste.values().contains(sFarbe))
+		if (replaceMap.values().contains(sFarbe))
 		{
 			QMap<QString,QString>::Iterator it;
-			for (it = Ersatzliste.begin(); it != Ersatzliste.end(); ++it)
+			for (it = replaceMap.begin(); it != replaceMap.end(); ++it)
 			{
 				if (it.data() == sFarbe)
 					it.data() = dia->getReplacementColor();
 			}
 		}
-		Ersatzliste.insert(sFarbe, dia->getReplacementColor());
+		replaceMap.insert(sFarbe, dia->getReplacementColor());
 		EditColors.remove(sFarbe);
 		updateCList();
 	}
 	delete dia;
-	int listBoxCount=ListBox1->count();
+	int listBoxCount=colorListBox->count();
 	if (listBoxCount>selectedIndex)
-		ListBox1->setSelected(selectedIndex, true);
+		colorListBox->setSelected(selectedIndex, true);
 	if (listBoxCount>topIndex)
-		ListBox1->setTopItem(topIndex);
+		colorListBox->setTopItem(topIndex);
 }
 
-void Farbmanager::selFarbe(QListBoxItem *c)
+void ColorManager::selFarbe(QListBoxItem *c)
 {
 	sFarbe = c->text();
 	EditF->setEnabled(true);
@@ -561,7 +598,7 @@ void Farbmanager::selFarbe(QListBoxItem *c)
 	DelF->setEnabled(EditColors.count() == 1 ? false : true);
 }
 
-void Farbmanager::selEditFarbe(QListBoxItem *c)
+void ColorManager::selEditFarbe(QListBoxItem *c)
 {
 	sFarbe = c->text();
 	EditF->setEnabled(true);
@@ -570,41 +607,20 @@ void Farbmanager::selEditFarbe(QListBoxItem *c)
 	editFarbe();
 }
 
-void Farbmanager::updateCList()
+void ColorManager::updateCList()
 {
-	ListBox1->clear();
-	ColorList::Iterator it;
-	QPixmap pa = QPixmap(60, 15);
-	for (it = EditColors.begin(); it != EditColors.end(); ++it)
-	{
-		// if condition 10/21/2004 pv #1191
-		if (it.key() != "None" && it.key() != tr("None"))
-		{
-			ScColor col = EditColors[it.key()];
-			QPixmap * pm = getSmallPixmap(col.getRawRGBColor());
-			pa.fill(white);
-			paintAlert(*pm, pa, 0, 0);
-			col.checkGamut();
-			if (col.isOutOfGamut())
-				paintAlert(alertIcon, pa, 15, 0);
-			if ((col.getColorModel() == colorModelCMYK) || (col.isSpotColor()))
-				paintAlert(cmykIcon, pa, 30, 0);
-			else
-				paintAlert(rgbIcon, pa, 30, 0);
-			if (col.isSpotColor())
-				paintAlert(spotIcon, pa, 46, 2);
-			if (col.isRegistrationColor())
-				paintAlert(regIcon, pa, 45, 0);
-			ListBox1->insertItem(pa, it.key());
-		}
-	}
+	colorListBox->updateBox(EditColors);
 	DelF->setEnabled(EditColors.count() == 1 ? false : true);
-	if (ListBox1->currentItem() == -1)
+	if (colorListBox->currentItem() == -1)
 	{
 		DupF->setEnabled(false);
 		EditF->setEnabled(false);
 		DelF->setEnabled(false);
 	}
-	ListBox1->setSelected(ListBox1->currentItem(), false);
+	colorListBox->setSelected(colorListBox->currentItem(), false);
 }
 
+QString ColorManager::getColorSetName()
+{
+	return LoadColSet->text();
+}

@@ -6307,7 +6307,7 @@ void ScribusMainWindow::slotEditColors()
 		edc = doc->PageColors;
 	else
 		edc = prefsManager->colorSet();
-	Farbmanager* dia = new Farbmanager(this, edc, HaveDoc, prefsManager->colorSetName(), prefsManager->appPrefs.CustomColorSets);
+	ColorManager* dia = new ColorManager(this, edc, HaveDoc, prefsManager->colorSetName(), prefsManager->appPrefs.CustomColorSets);
 	if (dia->exec())
 	{
 		if (HaveDoc)
@@ -6321,7 +6321,7 @@ void ScribusMainWindow::slotEditColors()
 			propertiesPalette->updateColorList();
 			propertiesPalette->updateCList();
 			updateColorMenu();
-			ers = dia->Ersatzliste;
+			ers = dia->replaceMap;
 			if (!ers.isEmpty())
 			{
 				QMap<QString,QString>::Iterator it;
@@ -6485,12 +6485,12 @@ void ScribusMainWindow::slotEditColors()
 		else
 		{
 			prefsManager->setColorSet(dia->EditColors);
-			prefsManager->setColorSetName(dia->LoadColSet->text());
+			prefsManager->setColorSetName(dia->getColorSetName());
 			propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
 		}
 	}
 	if (!HaveDoc)
-		prefsManager->appPrefs.CustomColorSets = dia->CColSet;
+		prefsManager->appPrefs.CustomColorSets = dia->customColSet;
 	delete dia;
 }
 
