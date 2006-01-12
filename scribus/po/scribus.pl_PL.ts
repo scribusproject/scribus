@@ -7777,6 +7777,10 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
         <source>There is empty (0.0) guide already</source>
         <translation>Istnieje już pusta (0.0) linia pomocnicza</translation>
     </message>
+    <message>
+        <source>Preview</source>
+        <translation type="unfinished">Podgląd</translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
@@ -8722,6 +8726,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Import master pages from another document</source>
         <translation>Importuj strony wzorcowe z innego dokumentu</translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10223,22 +10231,61 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
 </context>
 <context>
-    <name>PDF_Opts</name>
+    <name>PDFExportDialog</name>
     <message>
-        <source>Save as</source>
-        <translation>Zapisz jako</translation>
+        <source>Save as PDF</source>
+        <translation type="unfinished">Zapisz jako PDF</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
-        <translation>Plik &amp;wyjściowy:</translation>
+        <translation type="unfinished">Plik &amp;wyjściowy:</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation>&amp;Zmień...</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output one file for eac&amp;h page</source>
+        <translation type="unfinished">Eksport&amp;uj każdą stronę do innego pliku</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Zapisz</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
+        <translation type="obsolete">Opcja ta umożliwia wyeksportowanie stron dokumentu jako oddzielnych plików PDF. Numery stron zostaną dodane automatycznie. Opcja ta jest przydatna przy impozycji PDF w profesjonalnym druku.</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="unfinished">Zapisz jako</translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="unfinished">Pliki PDF (*.pdf);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PDF_Opts</name>
+    <message>
+        <source>Save as</source>
+        <translation type="obsolete">Zapisz jako</translation>
+    </message>
+    <message>
+        <source>O&amp;utput to File:</source>
+        <translation type="obsolete">Plik &amp;wyjściowy:</translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="obsolete">&amp;Zmień...</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="obsolete">&amp;Zapisz</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -10246,19 +10293,19 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation>Pliki PDF (*.pdf);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Pliki PDF (*.pdf);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Save as PDF</source>
-        <translation>Zapisz jako PDF</translation>
+        <translation type="obsolete">Zapisz jako PDF</translation>
     </message>
     <message>
         <source>Output one file for eac&amp;h page</source>
-        <translation>Eksport&amp;uj każdą stronę do innego pliku</translation>
+        <translation type="obsolete">Eksport&amp;uj każdą stronę do innego pliku</translation>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
-        <translation>Opcja ta umożliwia wyeksportowanie stron dokumentu jako oddzielnych plików PDF. Numery stron zostaną dodane automatycznie. Opcja ta jest przydatna przy impozycji PDF w profesjonalnym druku.</translation>
+        <translation type="obsolete">Opcja ta umożliwia wyeksportowanie stron dokumentu jako oddzielnych plików PDF. Numery stron zostaną dodane automatycznie. Opcja ta jest przydatna przy impozycji PDF w profesjonalnym druku.</translation>
     </message>
 </context>
 <context>

@@ -2720,8 +2720,8 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</translation>
     </message>
     <message>
-        <source>December</source>
-        <translation>December</translation>
+        <source>January</source>
+        <translation>January</translation>
     </message>
 </context>
 <context>
@@ -7323,6 +7323,22 @@ Use 72 dpi for Images intended for the Screen</translation>
         <source>&amp;Apply to All Pages</source>
         <translation>&amp;Apply to All Pages</translation>
     </message>
+    <message>
+        <source>Guide</source>
+        <translation>Guide</translation>
+    </message>
+    <message>
+        <source>Unit</source>
+        <translation>Unit</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Preview</translation>
+    </message>
+    <message>
+        <source>There is empty (0.0) guide already</source>
+        <translation>There is empty (0.0) guide already</translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
@@ -7728,6 +7744,10 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Do you really want to delete this script?</source>
         <translation>Do you really want to delete this script?</translation>
+    </message>
+    <message>
+        <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
+        <translation>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</translation>
     </message>
 </context>
 <context>
@@ -8148,6 +8168,10 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Import master pages from another document</source>
         <translation>Import master pages from another document</translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
+        <translation>New Master Page %1</translation>
     </message>
 </context>
 <context>
@@ -9422,10 +9446,10 @@ Corners:</translation>
     </message>
 </context>
 <context>
-    <name>PDF_Opts</name>
+    <name>PDFExportDialog</name>
     <message>
-        <source>Save as</source>
-        <translation>Save as</translation>
+        <source>Save as PDF</source>
+        <translation>Save as PDF</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
@@ -9436,24 +9460,24 @@ Corners:</translation>
         <translation>Cha&amp;nge...</translation>
     </message>
     <message>
+        <source>Output one file for eac&amp;h page</source>
+        <translation>Output one file for eac&amp;h page</translation>
+    </message>
+    <message>
         <source>&amp;Save</source>
         <translation>&amp;Save</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation>Save as</translation>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF Files (*.pdf);;All Files (*)</translation>
     </message>
     <message>
-        <source>Save as PDF</source>
-        <translation>Save as PDF</translation>
-    </message>
-    <message>
-        <source>Output one file for eac&amp;h page</source>
-        <translation>Output one file for eac&amp;h page</translation>
-    </message>
-    <message>
-        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
-        <translation>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</translation>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
+        <translation>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</translation>
     </message>
 </context>
 <context>
@@ -12441,74 +12465,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>Could not open input file %1</translation>
     </message>
     <message>
-        <source>Invalid argument: </source>
-        <translation>Invalid argument: </translation>
-    </message>
-    <message>
-        <source>File %1 does not exist, aborting.</source>
-        <translation>File %1 does not exist, aborting.</translation>
-    </message>
-    <message>
-        <source>Usage: scribus [option ... ] [file]</source>
-        <translation>Usage: scribus [option ... ] [file]</translation>
-    </message>
-    <message>
-        <source>Options:</source>
-        <translation>Options:</translation>
-    </message>
-    <message>
-        <source>Print help (this message) and exit</source>
-        <translation>Print help (this message) and exit</translation>
-    </message>
-    <message>
-        <source>Uses xx as shortcut for a language</source>
-        <translation>Uses xx as shortcut for a language</translation>
-    </message>
-    <message>
-        <source>Do not show the splashscreen on startup</source>
-        <translation>Do not show the splashscreen on startup</translation>
-    </message>
-    <message>
-        <source>Output version information and exit</source>
-        <translation>Output version information and exit</translation>
-    </message>
-    <message>
-        <source>To override the default language choice:</source>
-        <translation>To override the default language choice:</translation>
-    </message>
-    <message>
-        <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation>scribus -l xx or scribus --lang xx, where xx is the language of choice.</translation>
-    </message>
-    <message>
-        <source>Scribus Version </source>
-        <translation>Scribus Version </translation>
-    </message>
-    <message>
-        <source>Scribus, Open Source Desktop Publishing</source>
-        <translation>Scribus, Open Source Desktop Publishing</translation>
-    </message>
-    <message>
-        <source>---------------------------------------</source>
-        <translation>---------------------------------------</translation>
-    </message>
-    <message>
-        <source>Homepage:       http://www.scribus.net </source>
-        <translation>Homepage:       http://www.scribus.net </translation>
-    </message>
-    <message>
-        <source>Documentation:  http://docs.scribus.net</source>
-        <translation>Documentation:  http://docs.scribus.net</translation>
-    </message>
-    <message>
-        <source>Issues:         http://bugs.scribus.net</source>
-        <translation>Issues:         http://bugs.scribus.net</translation>
-    </message>
-    <message>
-        <source>Installed interface languages for Scribus are as follows:</source>
-        <translation>Installed interface languages for Scribus are as follows:</translation>
-    </message>
-    <message>
         <source>Freetype2 library not available</source>
         <translation>Freetype2 library not available</translation>
     </message>
@@ -12589,14 +12545,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>memcpy offset: %1 %2 %3</translation>
     </message>
     <message>
-        <source>List the currently installed interface languages</source>
-        <translation>List the currently installed interface languages</translation>
-    </message>
-    <message>
-        <source>Show information on the console when fonts are being loaded</source>
-        <translation>Show information on the console when fonts are being loaded</translation>
-    </message>
-    <message>
         <source>Scribus Crash</source>
         <translation>Scribus Crash</translation>
     </message>
@@ -12639,10 +12587,6 @@ is not exhaustive due to exceptions from called functions.
         <source>The filename should not be empty string.</source>
         <comment>python error</comment>
         <translation>The filename should not be empty string.</translation>
-    </message>
-    <message>
-        <source>Wiki:           http://wiki.scribus.net</source>
-        <translation>Wiki:           http://wiki.scribus.net</translation>
     </message>
     <message>
         <source>page</source>
@@ -12754,10 +12698,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</translation>
     </message>
     <message>
-        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</translation>
-    </message>
-    <message>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</translation>
     </message>
@@ -12795,8 +12735,8 @@ is not exhaustive due to exceptions from called functions.
         <translation>&amp;Import</translation>
     </message>
     <message>
-        <source>Use filename as path for user given preferences</source>
-        <translation>Use filename as path for user given preferences</translation>
+        <source>Thai</source>
+        <translation>Thai</translation>
     </message>
 </context>
 <context>
@@ -13899,6 +13839,97 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
 </context>
 <context>
+    <name>ScribusQApp</name>
+    <message>
+        <source>Invalid argument: </source>
+        <translation>Invalid argument: </translation>
+    </message>
+    <message>
+        <source>File %1 does not exist, aborting.</source>
+        <translation>File %1 does not exist, aborting.</translation>
+    </message>
+    <message>
+        <source>Usage: scribus [option ... ] [file]</source>
+        <translation>Usage: scribus [option ... ] [file]</translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation>Options:</translation>
+    </message>
+    <message>
+        <source>Print help (this message) and exit</source>
+        <translation>Print help (this message) and exit</translation>
+    </message>
+    <message>
+        <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
+        <translation>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</translation>
+    </message>
+    <message>
+        <source>List the currently installed interface languages</source>
+        <translation>List the currently installed interface languages</translation>
+    </message>
+    <message>
+        <source>Show information on the console when fonts are being loaded</source>
+        <translation>Show information on the console when fonts are being loaded</translation>
+    </message>
+    <message>
+        <source>Do not show the splashscreen on startup</source>
+        <translation>Do not show the splashscreen on startup</translation>
+    </message>
+    <message>
+        <source>Output version information and exit</source>
+        <translation>Output version information and exit</translation>
+    </message>
+    <message>
+        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
+        <translation>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</translation>
+    </message>
+    <message>
+        <source>filename</source>
+        <translation>filename</translation>
+    </message>
+    <message>
+        <source>Use filename as path for user given preferences</source>
+        <translation>Use filename as path for user given preferences</translation>
+    </message>
+    <message>
+        <source>Installed interface languages for Scribus are as follows:</source>
+        <translation>Installed interface languages for Scribus are as follows:</translation>
+    </message>
+    <message>
+        <source>To override the default language choice:</source>
+        <translation>To override the default language choice:</translation>
+    </message>
+    <message>
+        <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
+        <translation>scribus -l xx or scribus --lang xx, where xx is the language of choice.</translation>
+    </message>
+    <message>
+        <source>Scribus Version</source>
+        <translation>Scribus Version</translation>
+    </message>
+    <message>
+        <source>Scribus, Open Source Desktop Publishing</source>
+        <translation>Scribus, Open Source Desktop Publishing</translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation>Homepage</translation>
+    </message>
+    <message>
+        <source>Documentation</source>
+        <translation>Documentation</translation>
+    </message>
+    <message>
+        <source>Wiki</source>
+        <translation>Wiki</translation>
+    </message>
+    <message>
+        <source>Issues</source>
+        <translation>Issues</translation>
+    </message>
+</context>
+<context>
     <name>ScribusView</name>
     <message>
         <source> %</source>
@@ -14102,16 +14133,16 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>Examine Script</translation>
     </message>
     <message>
-        <source>Python Scripts (*.py)</source>
-        <translation>Python Scripts (*.py)</translation>
-    </message>
-    <message>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation>There was an internal error while trying the command you entered. Details were printed to stderr. </translation>
     </message>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Setting up the Python plugin failed. Error details were printed to stderr. </translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);;All Files (*)</source>
+        <translation>Python Scripts (*.py);;All Files (*)</translation>
     </message>
 </context>
 <context>
@@ -15724,6 +15755,84 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</translation>
+    </message>
+    <message>
+        <source>Display Settings</source>
+        <translation>Display Settings</translation>
+    </message>
+    <message>
+        <source>Page Layout</source>
+        <translation>Page Layout</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation>Single Page</translation>
+    </message>
+    <message>
+        <source>Continuous</source>
+        <translation>Continuous</translation>
+    </message>
+    <message>
+        <source>Double Page Left</source>
+        <translation>Double Page Left</translation>
+    </message>
+    <message>
+        <source>Double Page Right</source>
+        <translation>Double Page Right</translation>
+    </message>
+    <message>
+        <source>Visual Appearance</source>
+        <translation>Visual Appearance</translation>
+    </message>
+    <message>
+        <source>Use Viewers Defaults</source>
+        <translation>Use Viewers Defaults</translation>
+    </message>
+    <message>
+        <source>Use Full Screen Mode</source>
+        <translation>Use Full Screen Mode</translation>
+    </message>
+    <message>
+        <source>Display Bookmarks Tab</source>
+        <translation>Display Bookmarks Tab</translation>
+    </message>
+    <message>
+        <source>Display Thumbnails</source>
+        <translation>Display Thumbnails</translation>
+    </message>
+    <message>
+        <source>Display Layers Tab</source>
+        <translation>Display Layers Tab</translation>
+    </message>
+    <message>
+        <source>Hide Viewers Toolbar</source>
+        <translation>Hide Viewers Toolbar</translation>
+    </message>
+    <message>
+        <source>Hide Viewers Menubar</source>
+        <translation>Hide Viewers Menubar</translation>
+    </message>
+    <message>
+        <source>Zoom Pages to fit Viewer Window</source>
+        <translation>Zoom Pages to fit Viewer Window</translation>
+    </message>
+    <message>
+        <source>Special Actions</source>
+        <translation>Special Actions</translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when Document is opened:</source>
+        <translation>Javascript to be executed
+when Document is opened:</translation>
+    </message>
+    <message>
+        <source>No Script</source>
+        <translation>No Script</translation>
+    </message>
+    <message>
+        <source>Viewer</source>
+        <translation>Viewer</translation>
     </message>
 </context>
 <context>

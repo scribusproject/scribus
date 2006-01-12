@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-20 22:53+0100\n"
+"POT-Creation-Date: 2006-01-12 15:23+0100\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
 "Content-Type: text/plain; charset=cp1251\n"
@@ -1814,6 +1814,14 @@ msgid "Horizontal Guides"
 msgstr "Хоризонтално обърнато"
 
 #, fuzzy
+msgid "Guide"
+msgstr "Помощни"
+
+#, fuzzy
+msgid "Unit"
+msgstr "Единици"
+
+#, fuzzy
 msgid "D&elete"
 msgstr "Изтриване"
 
@@ -1877,9 +1885,15 @@ msgstr "Затвори"
 msgid "&Update"
 msgstr "Управление на илюстрации"
 
+msgid "Preview"
+msgstr "Преглед"
+
 msgid ""
 "Set the guides in document. Guide manager is still opened but the changes "
 "are persistant"
+msgstr ""
+
+msgid "There is empty (0.0) guide already"
 msgstr ""
 
 msgid "Other..."
@@ -2050,9 +2064,6 @@ msgstr "Други опции"
 #, fuzzy
 msgid "Sa&ve Contents on Changes"
 msgstr "Запиши съдържанието на излизане"
-
-msgid "Preview"
-msgstr "Преглед"
 
 msgid "Small"
 msgstr "Малък"
@@ -2567,7 +2578,7 @@ msgstr "Запиши"
 msgid ""
 "This enables exporting one individually named PDF file for each page in the "
 "document. Page numbers are added automatically. This is most useful for "
-"imposing PDF for commerical printing."
+"imposing PDF for commercial printing."
 msgstr ""
 
 msgid "Save as"
@@ -3055,6 +3066,10 @@ msgid "New MasterPage"
 msgstr "След страницата"
 
 #, fuzzy
+msgid "New Master Page %1"
+msgstr "След страницата"
+
+#, fuzzy
 msgid "Align and Distribute"
 msgstr "Разпеределено подравняване"
 
@@ -3074,10 +3089,6 @@ msgstr ""
 #, fuzzy
 msgid "Margins"
 msgstr "Полета:"
-
-#, fuzzy
-msgid "Guide"
-msgstr "Помощни"
 
 msgid "Align right sides of objects to left side of anchor"
 msgstr ""
@@ -3378,6 +3389,69 @@ msgstr "От страница:"
 
 msgid "E&xtras"
 msgstr ""
+
+#, fuzzy
+msgid "Display Settings"
+msgstr "параметри на устройството"
+
+#, fuzzy
+msgid "Single Page"
+msgstr "Лицеви страници"
+
+#, fuzzy
+msgid "Continuous"
+msgstr "Съдържание"
+
+msgid "Double Page Left"
+msgstr ""
+
+msgid "Double Page Right"
+msgstr ""
+
+msgid "Visual Appearance"
+msgstr ""
+
+msgid "Use Viewers Defaults"
+msgstr ""
+
+msgid "Use Full Screen Mode"
+msgstr ""
+
+msgid "Display Bookmarks Tab"
+msgstr ""
+
+#, fuzzy
+msgid "Display Thumbnails"
+msgstr "Умалени копия"
+
+msgid "Display Layers Tab"
+msgstr ""
+
+msgid "Hide Viewers Toolbar"
+msgstr ""
+
+msgid "Hide Viewers Menubar"
+msgstr ""
+
+msgid "Zoom Pages to fit Viewer Window"
+msgstr ""
+
+#, fuzzy
+msgid "Special Actions"
+msgstr "Вмъкване на правоъгълници"
+
+msgid ""
+"Javascript to be executed\n"
+"when Document is opened:"
+msgstr ""
+
+#, fuzzy
+msgid "No Script"
+msgstr "За Scribus"
+
+#, fuzzy
+msgid "Viewer"
+msgstr "Изглед"
 
 #, fuzzy
 msgid "&Use Encryption"
@@ -3726,10 +3800,6 @@ msgid ""
 "left enabled."
 msgstr ""
 
-#, fuzzy
-msgid "Single Page"
-msgstr "Лицеви страници"
-
 msgid "Double sided"
 msgstr ""
 
@@ -3951,6 +4021,18 @@ msgstr ""
 #, fuzzy
 msgid "Saving PDF"
 msgstr "Запиши като PDF..."
+
+#, fuzzy
+msgid "Exporting Master Pages:"
+msgstr "Вмъкване на страница"
+
+#, fuzzy
+msgid "Exporting Pages:"
+msgstr "Вмъкване на страница"
+
+#, fuzzy
+msgid "Exporting Items on Current Page:"
+msgstr "Страници за отпечатване"
 
 msgid "Field Properties"
 msgstr ""
@@ -6279,7 +6361,7 @@ msgstr "Избери шрифт"
 msgid "About Scribus %1"
 msgstr "За Scribus"
 
-msgid "December"
+msgid "January"
 msgstr ""
 
 #, fuzzy
@@ -6838,7 +6920,7 @@ msgstr ""
 msgid "Print help (this message) and exit"
 msgstr ""
 
-msgid "Uses xx as shortcut for a language"
+msgid "Uses xx as shortcut for a language, eg `en' or `de'"
 msgstr ""
 
 msgid "List the currently installed interface languages"
@@ -6858,6 +6940,10 @@ msgid ""
 "No/Cancel)"
 msgstr ""
 
+#, fuzzy
+msgid "filename"
+msgstr "Datei&name:"
+
 msgid "Use filename as path for user given preferences"
 msgstr ""
 
@@ -6871,25 +6957,17 @@ msgid "scribus -l xx or scribus --lang xx, where xx is the language of choice."
 msgstr ""
 
 #, fuzzy
-msgid "Scribus Version "
+msgid "Scribus Version"
 msgstr "Нов документ"
 
 msgid "Scribus, Open Source Desktop Publishing"
 msgstr ""
 
-msgid "---------------------------------------"
-msgstr ""
+#, fuzzy
+msgid "Documentation"
+msgstr "Настройки на документа"
 
-msgid "Homepage:       http://www.scribus.net "
-msgstr ""
-
-msgid "Documentation:  http://docs.scribus.net"
-msgstr ""
-
-msgid "Wiki:           http://wiki.scribus.net"
-msgstr ""
-
-msgid "Issues:         http://bugs.scribus.net"
+msgid "Issues"
 msgstr ""
 
 msgid "Search/Replace"
@@ -7845,6 +7923,10 @@ msgid "Printing File"
 msgstr "Пекуснат печатт"
 
 #, fuzzy
+msgid "Processing Master Pages:"
+msgstr "След страницата"
+
+#, fuzzy
 msgid "Contents"
 msgstr "Съдържание"
 
@@ -7927,6 +8009,12 @@ msgid "&Edit..."
 msgstr "Редактиране"
 
 msgid "&Add..."
+msgstr ""
+
+msgid ""
+"Adds a new Script, predefines a function with the same name. If you want to "
+"use this script as an \"Open Action\" script be sure not to change the name "
+"of the function."
 msgstr ""
 
 #, fuzzy
@@ -8113,6 +8201,9 @@ msgstr "Словашки:"
 #, fuzzy
 msgid "Serbian"
 msgstr "Словашки:"
+
+msgid "Thai"
+msgstr ""
 
 msgid "Turkish"
 msgstr ""
@@ -8956,6 +9047,10 @@ msgstr ""
 #, fuzzy
 msgid "Examine Script"
 msgstr "Стандартно"
+
+#, fuzzy
+msgid "Python Scripts (*.py);;All Files (*)"
+msgstr "Библиотека (*.scs);; Всички файлове (*)"
 
 #, fuzzy
 msgid "About Script"
@@ -10235,9 +10330,6 @@ msgstr "Поставяне:"
 
 #~ msgid "Fit in Window"
 #~ msgstr "Събери в прозорец"
-
-#~ msgid "Thumbnails"
-#~ msgstr "Умалени копия"
 
 #~ msgid "Hide Margins"
 #~ msgstr "Скрий полетата"

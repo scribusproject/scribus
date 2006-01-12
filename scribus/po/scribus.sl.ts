@@ -1917,7 +1917,7 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>December</source>
+        <source>January</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7425,6 +7425,22 @@ Izberite primerne nadomestke zanje.</translation>
         <source>&amp;Apply to All Pages</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Guide</source>
+        <translation type="unfinished">Vodila</translation>
+    </message>
+    <message>
+        <source>Unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="unfinished">Predogled</translation>
+    </message>
+    <message>
+        <source>There is empty (0.0) guide already</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
@@ -7900,6 +7916,10 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Do you really want to delete this script?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8474,6 +8494,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Import master pages from another document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10310,6 +10334,45 @@ sicer glede na predmet.</translation>
     </message>
 </context>
 <context>
+    <name>PDFExportDialog</name>
+    <message>
+        <source>Save as PDF</source>
+        <translation type="unfinished">Shrani kot PDF</translation>
+    </message>
+    <message>
+        <source>O&amp;utput to File:</source>
+        <translation type="unfinished">&amp;Izvozi v datoteko:</translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="unfinished">&amp;Spremeni...</translation>
+    </message>
+    <message>
+        <source>Output one file for eac&amp;h page</source>
+        <translation type="unfinished">Izvozi datoteko za vsako stra&amp;n</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Shrani</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
+        <translation type="obsolete">S tem vključite shranjevanje ločenih PDF datotek za vsako stran dokumenta. Številke strani se samodejno dodajo. To je koristno za pripravo na tisk.</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="unfinished">Shrani kot</translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="unfinished">PDF datoteke (*.pdf);;Vse datoteke (*)</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PDF_Opts</name>
     <message>
         <source> p</source>
@@ -10610,7 +10673,7 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
     </message>
     <message>
         <source>Save as</source>
-        <translation>Shrani kot</translation>
+        <translation type="obsolete">Shrani kot</translation>
     </message>
     <message>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
@@ -10779,11 +10842,11 @@ If un-checked, editing annotations and fileds is prevented.</source>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
-        <translation>&amp;Izvozi v datoteko:</translation>
+        <translation type="obsolete">&amp;Izvozi v datoteko:</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation>&amp;Spremeni...</translation>
+        <translation type="obsolete">&amp;Spremeni...</translation>
     </message>
     <message>
         <source>&amp;All Pages</source>
@@ -10967,7 +11030,7 @@ If un-checked, editing annotations and fileds is prevented.</source>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Shrani</translation>
+        <translation type="obsolete">&amp;Shrani</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -10983,7 +11046,7 @@ več strani ali samo številka ene strani.</translation>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation>PDF datoteke (*.pdf);;Vse datoteke (*)</translation>
+        <translation type="obsolete">PDF datoteke (*.pdf);;Vse datoteke (*)</translation>
     </message>
     <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled
@@ -11027,15 +11090,15 @@ sistemih.</translation>
     </message>
     <message>
         <source>Save as PDF</source>
-        <translation>Shrani kot PDF</translation>
+        <translation type="obsolete">Shrani kot PDF</translation>
     </message>
     <message>
         <source>Output one file for eac&amp;h page</source>
-        <translation>Izvozi datoteko za vsako stra&amp;n</translation>
+        <translation type="obsolete">Izvozi datoteko za vsako stra&amp;n</translation>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
-        <translation>S tem vključite shranjevanje ločenih PDF datotek za vsako stran dokumenta. Številke strani se samodejno dodajo. To je koristno za pripravo na tisk.</translation>
+        <translation type="obsolete">S tem vključite shranjevanje ločenih PDF datotek za vsako stran dokumenta. Številke strani se samodejno dodajo. To je koristno za pripravo na tisk.</translation>
     </message>
 </context>
 <context>
@@ -15437,83 +15500,83 @@ Ali jo želite zamenjati z novo?</translation>
     </message>
     <message>
         <source>Invalid argument: </source>
-        <translation>Neveljaven argument:</translation>
+        <translation type="obsolete">Neveljaven argument:</translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
-        <translation>Datoteka %1 ne obstaja. Končujem.</translation>
+        <translation type="obsolete">Datoteka %1 ne obstaja. Končujem.</translation>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation>Uporaba: scribus [možnosti ... ] [datoteka]</translation>
+        <translation type="obsolete">Uporaba: scribus [možnosti ... ] [datoteka]</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation>Možnosti:</translation>
+        <translation type="obsolete">Možnosti:</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
-        <translation>Izpiše pomoč (to sporočilo) in konča</translation>
+        <translation type="obsolete">Izpiše pomoč (to sporočilo) in konča</translation>
     </message>
     <message>
         <source>Uses xx as shortcut for a language</source>
-        <translation>Uporabi xx kot bližnjico za jezik</translation>
+        <translation type="obsolete">Uporabi xx kot bližnjico za jezik</translation>
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation>Izpiše seznam trenutno nameščenih jezikov vmesnika</translation>
+        <translation type="obsolete">Izpiše seznam trenutno nameščenih jezikov vmesnika</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation>Izpisuj informacije v konzolo med nalaganjem pisav</translation>
+        <translation type="obsolete">Izpisuj informacije v konzolo med nalaganjem pisav</translation>
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
-        <translation>Ne kaži pozdravnega okna med nalaganjem</translation>
+        <translation type="obsolete">Ne kaži pozdravnega okna med nalaganjem</translation>
     </message>
     <message>
         <source>Output version information and exit</source>
-        <translation>Izpiše različico in konča</translation>
+        <translation type="obsolete">Izpiše različico in konča</translation>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
-        <translation>Nameščeni so naslednji jeziki Scribusovega vmesnika:</translation>
+        <translation type="obsolete">Nameščeni so naslednji jeziki Scribusovega vmesnika:</translation>
     </message>
     <message>
         <source>To override the default language choice:</source>
-        <translation>Za izbiro drugega jezika:</translation>
+        <translation type="obsolete">Za izbiro drugega jezika:</translation>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation>scribus -l xx ali scribus --lang xx, kjer xx nadomestite s kodo jezika.</translation>
+        <translation type="obsolete">scribus -l xx ali scribus --lang xx, kjer xx nadomestite s kodo jezika.</translation>
     </message>
     <message>
         <source>Scribus Version </source>
-        <translation>Različica Scribusa</translation>
+        <translation type="obsolete">Različica Scribusa</translation>
     </message>
     <message>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation>Scribus, prostokodno namizno založništvo</translation>
+        <translation type="obsolete">Scribus, prostokodno namizno založništvo</translation>
     </message>
     <message>
         <source>---------------------------------------</source>
-        <translation>---------------------------------------</translation>
+        <translation type="obsolete">---------------------------------------</translation>
     </message>
     <message>
         <source>Homepage:       http://www.scribus.net </source>
-        <translation>Domača stran: http://www.scribus.net</translation>
+        <translation type="obsolete">Domača stran: http://www.scribus.net</translation>
     </message>
     <message>
         <source>Documentation:  http://docs.scribus.net</source>
-        <translation>Dokumentacija: http://docs.scribus.net</translation>
+        <translation type="obsolete">Dokumentacija: http://docs.scribus.net</translation>
     </message>
     <message>
         <source>Wiki:           http://wiki.scribus.net</source>
-        <translation>Wiki: http://wiki.scribus.net</translation>
+        <translation type="obsolete">Wiki: http://wiki.scribus.net</translation>
     </message>
     <message>
         <source>Issues:         http://bugs.scribus.net</source>
-        <translation>Težave: http://bugs.scribus.net</translation>
+        <translation type="obsolete">Težave: http://bugs.scribus.net</translation>
     </message>
     <message>
         <source> cm</source>
@@ -15748,10 +15811,6 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15789,7 +15848,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished">&amp;Uvozi</translation>
     </message>
     <message>
-        <source>Use filename as path for user given preferences</source>
+        <source>Thai</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18702,6 +18761,97 @@ Uporabite Končno preverjanje da jih odpravite</translation>
     </message>
 </context>
 <context>
+    <name>ScribusQApp</name>
+    <message>
+        <source>Invalid argument: </source>
+        <translation type="unfinished">Neveljaven argument:</translation>
+    </message>
+    <message>
+        <source>File %1 does not exist, aborting.</source>
+        <translation type="unfinished">Datoteka %1 ne obstaja. Končujem.</translation>
+    </message>
+    <message>
+        <source>Usage: scribus [option ... ] [file]</source>
+        <translation type="unfinished">Uporaba: scribus [možnosti ... ] [datoteka]</translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation type="unfinished">Možnosti:</translation>
+    </message>
+    <message>
+        <source>Print help (this message) and exit</source>
+        <translation type="unfinished">Izpiše pomoč (to sporočilo) in konča</translation>
+    </message>
+    <message>
+        <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List the currently installed interface languages</source>
+        <translation type="unfinished">Izpiše seznam trenutno nameščenih jezikov vmesnika</translation>
+    </message>
+    <message>
+        <source>Show information on the console when fonts are being loaded</source>
+        <translation type="unfinished">Izpisuj informacije v konzolo med nalaganjem pisav</translation>
+    </message>
+    <message>
+        <source>Do not show the splashscreen on startup</source>
+        <translation type="unfinished">Ne kaži pozdravnega okna med nalaganjem</translation>
+    </message>
+    <message>
+        <source>Output version information and exit</source>
+        <translation type="unfinished">Izpiše različico in konča</translation>
+    </message>
+    <message>
+        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use filename as path for user given preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installed interface languages for Scribus are as follows:</source>
+        <translation type="unfinished">Nameščeni so naslednji jeziki Scribusovega vmesnika:</translation>
+    </message>
+    <message>
+        <source>To override the default language choice:</source>
+        <translation type="unfinished">Za izbiro drugega jezika:</translation>
+    </message>
+    <message>
+        <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
+        <translation type="unfinished">scribus -l xx ali scribus --lang xx, kjer xx nadomestite s kodo jezika.</translation>
+    </message>
+    <message>
+        <source>Scribus Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus, Open Source Desktop Publishing</source>
+        <translation type="unfinished">Scribus, prostokodno namizno založništvo</translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation type="unfinished">Domača stran</translation>
+    </message>
+    <message>
+        <source>Documentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wiki</source>
+        <translation type="unfinished">Wiki</translation>
+    </message>
+    <message>
+        <source>Issues</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScribusView</name>
     <message>
         <source>p</source>
@@ -19114,11 +19264,15 @@ Uporabite Končno preverjanje da jih odpravite</translation>
     </message>
     <message>
         <source>Python Scripts (*.py)</source>
-        <translation>Python skripte (*.py)</translation>
+        <translation type="obsolete">Python skripte (*.py)</translation>
     </message>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Neuspešno nastavljanje Python dodatka. Podrobnosti so izpisane na izhod standardne napake (stderr).</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21207,6 +21361,83 @@ Opozorilo: PDF enkripcija ni tako zanesljiva kot GPG ali PGP enkripcija in vsebu
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Layout</source>
+        <translation type="unfinished">Prikaz strani</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished">Sama stran</translation>
+    </message>
+    <message>
+        <source>Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Page Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Page Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visual Appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Viewers Defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Full Screen Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Bookmarks Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Layers Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Viewers Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Viewers Menubar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom Pages to fit Viewer Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Special Actions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when Document is opened:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Viewer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -1757,7 +1757,7 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>December</source>
+        <source>January</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6538,6 +6538,22 @@ Názov exportovaného súboru bude &apos;názovdokumentu-číslostrany.typsúbor
         <source>&amp;Apply to All Pages</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Guide</source>
+        <translation type="unfinished">Vodítka</translation>
+    </message>
+    <message>
+        <source>Unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="unfinished">Náhľad</translation>
+    </message>
+    <message>
+        <source>There is empty (0.0) guide already</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
@@ -6950,6 +6966,10 @@ konvertuje ich vektorové dáta do Scribus objektov.</translation>
     </message>
     <message>
         <source>Do you really want to delete this script?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7418,6 +7438,10 @@ Pri použití protiľahlých strán, táto medzera môže byť použitá na dosi
     </message>
     <message>
         <source>Import master pages from another document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8753,38 +8777,77 @@ na začiatok názvu štýlu odseku v Scribuse?</translation>
     </message>
 </context>
 <context>
-    <name>PDF_Opts</name>
+    <name>PDFExportDialog</name>
     <message>
         <source>Save as PDF</source>
-        <translation>Uložiť ako PDF</translation>
+        <translation type="unfinished">Uložiť ako PDF</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
-        <translation>Výst&amp;up do súboru:</translation>
+        <translation type="unfinished">Výst&amp;up do súboru:</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation>&amp;Zmeniť...</translation>
+        <translation type="unfinished">&amp;Zmeniť...</translation>
     </message>
     <message>
         <source>Output one file for eac&amp;h page</source>
-        <translation>Vy&amp;tvoriť pre každú stranu samostatný súbor</translation>
+        <translation type="unfinished">Vy&amp;tvoriť pre každú stranu samostatný súbor</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Uložiť</translation>
+        <translation type="unfinished">&amp;Uložiť</translation>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
-        <translation>Toto umožní exportovanie samostatne pomenovaného PDF súboru pre každú stranu dokumentu. Čísla strán sú pridávané automaticky. Táto vlastnosť je veľmi užitočná pri ukladaní PDF pre komerčnú tlač.</translation>
+        <translation type="obsolete">Toto umožní exportovanie samostatne pomenovaného PDF súboru pre každú stranu dokumentu. Čísla strán sú pridávané automaticky. Táto vlastnosť je veľmi užitočná pri ukladaní PDF pre komerčnú tlač.</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation>Uložiť ako</translation>
+        <translation type="unfinished">Uložiť ako</translation>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation>PDF súbory (*.pdf);;Všetky súbory (*)</translation>
+        <translation type="unfinished">PDF súbory (*.pdf);;Všetky súbory (*)</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PDF_Opts</name>
+    <message>
+        <source>Save as PDF</source>
+        <translation type="obsolete">Uložiť ako PDF</translation>
+    </message>
+    <message>
+        <source>O&amp;utput to File:</source>
+        <translation type="obsolete">Výst&amp;up do súboru:</translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="obsolete">&amp;Zmeniť...</translation>
+    </message>
+    <message>
+        <source>Output one file for eac&amp;h page</source>
+        <translation type="obsolete">Vy&amp;tvoriť pre každú stranu samostatný súbor</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="obsolete">&amp;Uložiť</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
+        <translation type="obsolete">Toto umožní exportovanie samostatne pomenovaného PDF súboru pre každú stranu dokumentu. Čísla strán sú pridávané automaticky. Táto vlastnosť je veľmi užitočná pri ukladaní PDF pre komerčnú tlač.</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="obsolete">Uložiť ako</translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="obsolete">PDF súbory (*.pdf);;Všetky súbory (*)</translation>
     </message>
 </context>
 <context>
@@ -11220,83 +11283,83 @@ Overte, cestu a názov súboru.</translation>
     </message>
     <message>
         <source>Invalid argument: </source>
-        <translation> Neplatný argument:</translation>
+        <translation type="obsolete"> Neplatný argument:</translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
-        <translation>Súbor %1 neexistuje, končím.</translation>
+        <translation type="obsolete">Súbor %1 neexistuje, končím.</translation>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation>Použitie: scribus [možnosti ...] [súbor]</translation>
+        <translation type="obsolete">Použitie: scribus [možnosti ...] [súbor]</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation>Možnosti:</translation>
+        <translation type="obsolete">Možnosti:</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
-        <translation>Vytlačiť pomocníka (táto správa) a skončiť</translation>
+        <translation type="obsolete">Vytlačiť pomocníka (táto správa) a skončiť</translation>
     </message>
     <message>
         <source>Uses xx as shortcut for a language</source>
-        <translation>Použije xx ako skratku pre jazyk</translation>
+        <translation type="obsolete">Použije xx ako skratku pre jazyk</translation>
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation>Zoznam aktuálne nainštalovaných jazykových rozhraní</translation>
+        <translation type="obsolete">Zoznam aktuálne nainštalovaných jazykových rozhraní</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation>Zobraziť informácie na konzole, keď budú načítané písma</translation>
+        <translation type="obsolete">Zobraziť informácie na konzole, keď budú načítané písma</translation>
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
-        <translation>Nezobraziť úvodnú obrazovku pri spúšťaní</translation>
+        <translation type="obsolete">Nezobraziť úvodnú obrazovku pri spúšťaní</translation>
     </message>
     <message>
         <source>Output version information and exit</source>
-        <translation>Vytlačiť informácie o verzií a skončiť</translation>
+        <translation type="obsolete">Vytlačiť informácie o verzií a skončiť</translation>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
-        <translation>Nainštalované jazykové rozhrania pre Scribus sú tieto:</translation>
+        <translation type="obsolete">Nainštalované jazykové rozhrania pre Scribus sú tieto:</translation>
     </message>
     <message>
         <source>To override the default language choice:</source>
-        <translation>Prepísať štandardnú voľbu jazyka:</translation>
+        <translation type="obsolete">Prepísať štandardnú voľbu jazyka:</translation>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation>scribus -l xx alebo scribus --lang xx, kde xx je zvolený jazyk.</translation>
+        <translation type="obsolete">scribus -l xx alebo scribus --lang xx, kde xx je zvolený jazyk.</translation>
     </message>
     <message>
         <source>Scribus Version </source>
-        <translation>Scribus verzia </translation>
+        <translation type="obsolete">Scribus verzia </translation>
     </message>
     <message>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation>Scribus, Open Source Desktop Publishing</translation>
+        <translation type="obsolete">Scribus, Open Source Desktop Publishing</translation>
     </message>
     <message>
         <source>---------------------------------------</source>
-        <translation>---------------------------------------</translation>
+        <translation type="obsolete">---------------------------------------</translation>
     </message>
     <message>
         <source>Homepage:       http://www.scribus.net </source>
-        <translation>Domovská stránka:       http://www.scribus.net </translation>
+        <translation type="obsolete">Domovská stránka:       http://www.scribus.net </translation>
     </message>
     <message>
         <source>Documentation:  http://docs.scribus.net</source>
-        <translation>Dokumentácia:  http://docs.scribus.net</translation>
+        <translation type="obsolete">Dokumentácia:  http://docs.scribus.net</translation>
     </message>
     <message>
         <source>Wiki:           http://wiki.scribus.net</source>
-        <translation>Wiki:           http://wiki.scribus.net</translation>
+        <translation type="obsolete">Wiki:           http://wiki.scribus.net</translation>
     </message>
     <message>
         <source>Issues:         http://bugs.scribus.net</source>
-        <translation>Chyby:         http://bugs.scribus.net</translation>
+        <translation type="obsolete">Chyby:         http://bugs.scribus.net</translation>
     </message>
     <message>
         <source> pt</source>
@@ -12239,10 +12302,6 @@ Externé odkazy
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12280,7 +12339,7 @@ Externé odkazy
         <translation type="unfinished">&amp;Import</translation>
     </message>
     <message>
-        <source>Use filename as path for user given preferences</source>
+        <source>Thai</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13982,6 +14041,97 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     </message>
 </context>
 <context>
+    <name>ScribusQApp</name>
+    <message>
+        <source>Invalid argument: </source>
+        <translation type="unfinished"> Neplatný argument:</translation>
+    </message>
+    <message>
+        <source>File %1 does not exist, aborting.</source>
+        <translation type="unfinished">Súbor %1 neexistuje, končím.</translation>
+    </message>
+    <message>
+        <source>Usage: scribus [option ... ] [file]</source>
+        <translation type="unfinished">Použitie: scribus [možnosti ...] [súbor]</translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation type="unfinished">Možnosti:</translation>
+    </message>
+    <message>
+        <source>Print help (this message) and exit</source>
+        <translation type="unfinished">Vytlačiť pomocníka (táto správa) a skončiť</translation>
+    </message>
+    <message>
+        <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List the currently installed interface languages</source>
+        <translation type="unfinished">Zoznam aktuálne nainštalovaných jazykových rozhraní</translation>
+    </message>
+    <message>
+        <source>Show information on the console when fonts are being loaded</source>
+        <translation type="unfinished">Zobraziť informácie na konzole, keď budú načítané písma</translation>
+    </message>
+    <message>
+        <source>Do not show the splashscreen on startup</source>
+        <translation type="unfinished">Nezobraziť úvodnú obrazovku pri spúšťaní</translation>
+    </message>
+    <message>
+        <source>Output version information and exit</source>
+        <translation type="unfinished">Vytlačiť informácie o verzií a skončiť</translation>
+    </message>
+    <message>
+        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use filename as path for user given preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installed interface languages for Scribus are as follows:</source>
+        <translation type="unfinished">Nainštalované jazykové rozhrania pre Scribus sú tieto:</translation>
+    </message>
+    <message>
+        <source>To override the default language choice:</source>
+        <translation type="unfinished">Prepísať štandardnú voľbu jazyka:</translation>
+    </message>
+    <message>
+        <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
+        <translation type="unfinished">scribus -l xx alebo scribus --lang xx, kde xx je zvolený jazyk.</translation>
+    </message>
+    <message>
+        <source>Scribus Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus, Open Source Desktop Publishing</source>
+        <translation type="unfinished">Scribus, Open Source Desktop Publishing</translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation type="unfinished">Domovská stránka</translation>
+    </message>
+    <message>
+        <source>Documentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wiki</source>
+        <translation type="unfinished">Wiki</translation>
+    </message>
+    <message>
+        <source>Issues</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScribusView</name>
     <message>
         <source> %</source>
@@ -14210,11 +14360,15 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     </message>
     <message>
         <source>Python Scripts (*.py)</source>
-        <translation>Python skripty (*.py)</translation>
+        <translation type="obsolete">Python skripty (*.py)</translation>
     </message>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation> Nastavenie Python modulu zlyhalo. Detaily chyby budú zobrazené v stderr.</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16056,6 +16210,83 @@ spĺňať špecifikáciu PDF/X-3. Doporučujeme použiť názov dokumentu.</tran
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Layout</source>
+        <translation type="unfinished">Rozloženie strany</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished">Jednoduchá strana</translation>
+    </message>
+    <message>
+        <source>Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Page Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Page Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visual Appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Viewers Defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Full Screen Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Bookmarks Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Layers Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Viewers Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Viewers Menubar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom Pages to fit Viewer Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Special Actions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when Document is opened:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Viewer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-20 22:53+0100\n"
+"POT-Creation-Date: 2006-01-12 15:23+0100\n"
 "PO-Revision-Date: 2005-07-02 14:38+0200\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -1706,6 +1706,14 @@ msgstr "Gestion des repères"
 msgid "Horizontal Guides"
 msgstr "Repères horizontaux"
 
+#, fuzzy
+msgid "Guide"
+msgstr "Guides"
+
+#, fuzzy
+msgid "Unit"
+msgstr "Unités :"
+
 msgid "D&elete"
 msgstr "&Supprimer"
 
@@ -1758,12 +1766,18 @@ msgstr "&Fermer"
 msgid "&Update"
 msgstr "Act&ualiser"
 
+msgid "Preview"
+msgstr "Prévisualisation"
+
 msgid ""
 "Set the guides in document. Guide manager is still opened but the changes "
 "are persistant"
 msgstr ""
 "Positionne les repères dans le document. Le gestionnaire de repères est "
 "toujours ouvert mais les changements sont permanents"
+
+msgid "There is empty (0.0) guide already"
+msgstr ""
 
 msgid "Other..."
 msgstr "Autre..."
@@ -1912,9 +1926,6 @@ msgstr "Autres options"
 
 msgid "Sa&ve Contents on Changes"
 msgstr "&Enregistrer le contenu si modifié"
-
-msgid "Preview"
-msgstr "Prévisualisation"
 
 msgid "Small"
 msgstr "Petit"
@@ -2456,7 +2467,7 @@ msgstr "&Enregistrer"
 msgid ""
 "This enables exporting one individually named PDF file for each page in the "
 "document. Page numbers are added automatically. This is most useful for "
-"imposing PDF for commerical printing."
+"imposing PDF for commercial printing."
 msgstr ""
 
 msgid "Save as"
@@ -2929,6 +2940,10 @@ msgstr "Nom :"
 msgid "New MasterPage"
 msgstr "Nouveau gabarit"
 
+#, fuzzy
+msgid "New Master Page %1"
+msgstr "Nouveau gabarit"
+
 msgid "Align and Distribute"
 msgstr "Espacer - Aligner"
 
@@ -2946,10 +2961,6 @@ msgstr "Dernier sélectionné"
 
 msgid "Margins"
 msgstr "Marges"
-
-#, fuzzy
-msgid "Guide"
-msgstr "Guides"
 
 msgid "Align right sides of objects to left side of anchor"
 msgstr "Aligner les côtés droit des objets au côté gauche de l'ancre"
@@ -3222,6 +3233,73 @@ msgstr "Appli&quer le(s) effet(s) à toutes les pages"
 
 msgid "E&xtras"
 msgstr "E&xtra"
+
+#, fuzzy
+msgid "Display Settings"
+msgstr "Paramètres de la grille typographique"
+
+#, fuzzy
+msgid "Single Page"
+msgstr "Apostrophe gauche"
+
+#, fuzzy
+msgid "Continuous"
+msgstr "Contenu"
+
+#, fuzzy
+msgid "Double Page Left"
+msgstr "Double apostrophe gauche"
+
+#, fuzzy
+msgid "Double Page Right"
+msgstr "Double apostrophe droite"
+
+#, fuzzy
+msgid "Visual Appearance"
+msgstr "Aspect"
+
+msgid "Use Viewers Defaults"
+msgstr ""
+
+msgid "Use Full Screen Mode"
+msgstr ""
+
+#, fuzzy
+msgid "Display Bookmarks Tab"
+msgstr "Signets"
+
+#, fuzzy
+msgid "Display Thumbnails"
+msgstr "Miniature(s)"
+
+msgid "Display Layers Tab"
+msgstr ""
+
+msgid "Hide Viewers Toolbar"
+msgstr ""
+
+msgid "Hide Viewers Menubar"
+msgstr ""
+
+msgid "Zoom Pages to fit Viewer Window"
+msgstr ""
+
+#, fuzzy
+msgid "Special Actions"
+msgstr "Caractères spéciaux"
+
+msgid ""
+"Javascript to be executed\n"
+"when Document is opened:"
+msgstr ""
+
+#, fuzzy
+msgid "No Script"
+msgstr "Nouveau script"
+
+#, fuzzy
+msgid "Viewer"
+msgstr "&Affichage"
 
 msgid "&Use Encryption"
 msgstr "C&hiffrement"
@@ -3632,10 +3710,6 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-msgid "Single Page"
-msgstr "Apostrophe gauche"
-
-#, fuzzy
 msgid "Double sided"
 msgstr "Guillemet renversé"
 
@@ -3864,6 +3938,18 @@ msgstr "Ajustement des couleurs"
 #, fuzzy
 msgid "Saving PDF"
 msgstr "Enregistrer en PDF"
+
+#, fuzzy
+msgid "Exporting Master Pages:"
+msgstr "Importer un gabarit"
+
+#, fuzzy
+msgid "Exporting Pages:"
+msgstr "Importation des pages..."
+
+#, fuzzy
+msgid "Exporting Items on Current Page:"
+msgstr "Exporter uniquement la page courante"
 
 msgid "Field Properties"
 msgstr "Propriétés du champ"
@@ -6045,9 +6131,8 @@ msgstr "Sélectionnez une police"
 msgid "About Scribus %1"
 msgstr "À propos de Scribus %1"
 
-#, fuzzy
-msgid "December"
-msgstr "Nombre"
+msgid "January"
+msgstr ""
 
 #, fuzzy
 msgid "%1 %2 %3"
@@ -6575,7 +6660,8 @@ msgstr "Usage:·scribus·[option·...·]·[fichier]"
 msgid "Print help (this message) and exit"
 msgstr "Affiche l'aide (ce message) et quitte"
 
-msgid "Uses xx as shortcut for a language"
+#, fuzzy
+msgid "Uses xx as shortcut for a language, eg `en' or `de'"
 msgstr "Utilise xx comme raccourci pour une langue"
 
 msgid "List the currently installed interface languages"
@@ -6596,6 +6682,10 @@ msgid ""
 "No/Cancel)"
 msgstr ""
 
+#, fuzzy
+msgid "filename"
+msgstr "&Nom :"
+
 msgid "Use filename as path for user given preferences"
 msgstr ""
 
@@ -6609,27 +6699,19 @@ msgstr "Pour changer la langue par défaut :"
 msgid "scribus -l xx or scribus --lang xx, where xx is the language of choice."
 msgstr "scribus·-l·xx·ou scribus·--lang·xx,·où xx est la langue choisie"
 
-msgid "Scribus Version "
+#, fuzzy
+msgid "Scribus Version"
 msgstr "Version de Scribus"
 
 msgid "Scribus, Open Source Desktop Publishing"
 msgstr "Scribus, la PAO Open Source"
 
-msgid "---------------------------------------"
-msgstr "---------------------------------------"
-
-msgid "Homepage:       http://www.scribus.net "
-msgstr "Site Internet : ·······http://www.scribus.net·"
-
-msgid "Documentation:  http://docs.scribus.net"
-msgstr "Documentation:··http://docs.scribus.net"
-
 #, fuzzy
-msgid "Wiki:           http://wiki.scribus.net"
-msgstr "Bugs :·········http://bugs.scribus.net"
+msgid "Documentation"
+msgstr "Réglage du document"
 
-msgid "Issues:         http://bugs.scribus.net"
-msgstr "Bugs :·········http://bugs.scribus.net"
+msgid "Issues"
+msgstr ""
 
 msgid "Search/Replace"
 msgstr "Rechercher-Substituer"
@@ -7517,6 +7599,10 @@ msgstr "Démarrer un script Python depuis un fichier."
 msgid "Printing File"
 msgstr "Impossible d'imprimer !"
 
+#, fuzzy
+msgid "Processing Master Pages:"
+msgstr "Editer les gabarits"
+
 msgid "Contents"
 msgstr "Contenu"
 
@@ -7592,6 +7678,12 @@ msgstr "&Modifier..."
 
 msgid "&Add..."
 msgstr "A&jouter..."
+
+msgid ""
+"Adds a new Script, predefines a function with the same name. If you want to "
+"use this script as an \"Open Action\" script be sure not to change the name "
+"of the function."
+msgstr ""
 
 msgid "&New Script:"
 msgstr "&Nouveau script :"
@@ -7761,6 +7853,10 @@ msgstr "Slovène"
 
 msgid "Serbian"
 msgstr "Serbe"
+
+#, fuzzy
+msgid "Thai"
+msgstr "Mince"
 
 msgid "Turkish"
 msgstr "Turc"
@@ -8609,6 +8705,10 @@ msgstr ""
 msgid "Examine Script"
 msgstr "Examiner le script"
 
+#, fuzzy
+msgid "Python Scripts (*.py);;All Files (*)"
+msgstr "Scripts Python (*.py);;Tous les fichiers (*)"
+
 msgid "About Script"
 msgstr "À propos du script"
 
@@ -9314,6 +9414,26 @@ msgstr "Extension"
 msgid "My Plugin"
 msgstr "Extension"
 
+#, fuzzy
+#~ msgid "December"
+#~ msgstr "Nombre"
+
+#~ msgid "---------------------------------------"
+#~ msgstr "---------------------------------------"
+
+#~ msgid "Homepage:       http://www.scribus.net "
+#~ msgstr "Site Internet : ·······http://www.scribus.net·"
+
+#~ msgid "Documentation:  http://docs.scribus.net"
+#~ msgstr "Documentation:··http://docs.scribus.net"
+
+#, fuzzy
+#~ msgid "Wiki:           http://wiki.scribus.net"
+#~ msgstr "Bugs :·········http://bugs.scribus.net"
+
+#~ msgid "Issues:         http://bugs.scribus.net"
+#~ msgstr "Bugs :·········http://bugs.scribus.net"
+
 #~ msgid ""
 #~ "Default ICC profiles directory. This cannot\n"
 #~ "be changed with a document open."
@@ -9950,9 +10070,6 @@ msgstr "Extension"
 
 #~ msgid "100%"
 #~ msgstr "Taille réelle (100%)"
-
-#~ msgid "Thumbnails"
-#~ msgstr "Miniature(s)"
 
 #~ msgid "Hide Margins"
 #~ msgstr "Masquer les marges"

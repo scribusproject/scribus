@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-20 22:53+0100\n"
+"POT-Creation-Date: 2006-01-12 15:23+0100\n"
 "PO-Revision-Date: 2005-01-08 17:40+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -1790,6 +1790,14 @@ msgstr "Administru gvidilojn"
 msgid "Horizontal Guides"
 msgstr "Horizontalaj gvidiloj"
 
+#, fuzzy
+msgid "Guide"
+msgstr "Gvidiloj"
+
+#, fuzzy
+msgid "Unit"
+msgstr "Mezurunuoj"
+
 msgid "D&elete"
 msgstr "F&origu"
 
@@ -1849,9 +1857,15 @@ msgstr "Fe&rmu"
 msgid "&Update"
 msgstr "Akt&ualigu bildon"
 
+msgid "Preview"
+msgstr "Antaŭrigardo"
+
 msgid ""
 "Set the guides in document. Guide manager is still opened but the changes "
 "are persistant"
+msgstr ""
+
+msgid "There is empty (0.0) guide already"
 msgstr ""
 
 msgid "Other..."
@@ -2010,9 +2024,6 @@ msgstr "Aliaj opcioj"
 
 msgid "Sa&ve Contents on Changes"
 msgstr "Konser&vu entenon fininte"
-
-msgid "Preview"
-msgstr "Antaŭrigardo"
 
 msgid "Small"
 msgstr "Malgranda"
@@ -2548,7 +2559,7 @@ msgstr "&Konservu"
 msgid ""
 "This enables exporting one individually named PDF file for each page in the "
 "document. Page numbers are added automatically. This is most useful for "
-"imposing PDF for commerical printing."
+"imposing PDF for commercial printing."
 msgstr ""
 
 msgid "Save as"
@@ -3040,6 +3051,10 @@ msgid "New MasterPage"
 msgstr "post paĝo"
 
 #, fuzzy
+msgid "New Master Page %1"
+msgstr "post paĝo"
+
+#, fuzzy
 msgid "Align and Distribute"
 msgstr "Dismetu/Alĝustigu"
 
@@ -3061,10 +3076,6 @@ msgstr "Elektu"
 #, fuzzy
 msgid "Margins"
 msgstr "&Marĝenoj:"
-
-#, fuzzy
-msgid "Guide"
-msgstr "Gvidiloj"
 
 msgid "Align right sides of objects to left side of anchor"
 msgstr ""
@@ -3351,6 +3362,73 @@ msgstr "&Apliku efekton al ĉiuj paĝoj"
 
 msgid "E&xtras"
 msgstr "Ek&straĵoj"
+
+#, fuzzy
+msgid "Display Settings"
+msgstr "Bildagordaro"
+
+#, fuzzy
+msgid "Single Page"
+msgstr "Vidalvidaj paĝoj"
+
+#, fuzzy
+msgid "Continuous"
+msgstr "Enteno"
+
+#, fuzzy
+msgid "Double Page Left"
+msgstr "Dekstremigu"
+
+#, fuzzy
+msgid "Double Page Right"
+msgstr "Dekstremigu"
+
+#, fuzzy
+msgid "Visual Appearance"
+msgstr "Aspekto"
+
+msgid "Use Viewers Defaults"
+msgstr ""
+
+msgid "Use Full Screen Mode"
+msgstr ""
+
+#, fuzzy
+msgid "Display Bookmarks Tab"
+msgstr "Legosignoj"
+
+#, fuzzy
+msgid "Display Thumbnails"
+msgstr "Miniaturoj"
+
+msgid "Display Layers Tab"
+msgstr ""
+
+msgid "Hide Viewers Toolbar"
+msgstr ""
+
+msgid "Hide Viewers Menubar"
+msgstr ""
+
+msgid "Zoom Pages to fit Viewer Window"
+msgstr ""
+
+#, fuzzy
+msgid "Special Actions"
+msgstr "Speciala"
+
+msgid ""
+"Javascript to be executed\n"
+"when Document is opened:"
+msgstr ""
+
+#, fuzzy
+msgid "No Script"
+msgstr "Nova skripto"
+
+#, fuzzy
+msgid "Viewer"
+msgstr "Ri&gardo"
 
 msgid "&Use Encryption"
 msgstr "Uzu ĉi&fradon"
@@ -3770,10 +3848,6 @@ msgid ""
 "left enabled."
 msgstr ""
 
-#, fuzzy
-msgid "Single Page"
-msgstr "Vidalvidaj paĝoj"
-
 msgid "Double sided"
 msgstr ""
 
@@ -3992,6 +4066,18 @@ msgstr "Agordas kolorojn"
 #, fuzzy
 msgid "Saving PDF"
 msgstr "Konservu kiel P&DF..."
+
+#, fuzzy
+msgid "Exporting Master Pages:"
+msgstr "Importu datumojn"
+
+#, fuzzy
+msgid "Exporting Pages:"
+msgstr "Importas paĝojn..."
+
+#, fuzzy
+msgid "Exporting Items on Current Page:"
+msgstr "Eksportu nur ĉi tiun paĝon"
 
 msgid "Field Properties"
 msgstr "Kampo-ecoj"
@@ -6244,9 +6330,8 @@ msgstr "Elektu tiparon"
 msgid "About Scribus %1"
 msgstr "Pri Scribus%1"
 
-#, fuzzy
-msgid "December"
-msgstr "Numero"
+msgid "January"
+msgstr ""
 
 #, fuzzy
 msgid "%1 %2 %3"
@@ -6778,7 +6863,7 @@ msgstr ""
 msgid "Print help (this message) and exit"
 msgstr ""
 
-msgid "Uses xx as shortcut for a language"
+msgid "Uses xx as shortcut for a language, eg `en' or `de'"
 msgstr ""
 
 msgid "List the currently installed interface languages"
@@ -6798,6 +6883,10 @@ msgid ""
 "No/Cancel)"
 msgstr ""
 
+#, fuzzy
+msgid "filename"
+msgstr "Dosier&nomo:"
+
 msgid "Use filename as path for user given preferences"
 msgstr ""
 
@@ -6811,7 +6900,7 @@ msgid "scribus -l xx or scribus --lang xx, where xx is the language of choice."
 msgstr ""
 
 #, fuzzy
-msgid "Scribus Version "
+msgid "Scribus Version"
 msgstr ""
 "Scribus-versio %1\n"
 "%2 %3"
@@ -6819,19 +6908,11 @@ msgstr ""
 msgid "Scribus, Open Source Desktop Publishing"
 msgstr ""
 
-msgid "---------------------------------------"
-msgstr ""
+#, fuzzy
+msgid "Documentation"
+msgstr "Dokument-agordoj"
 
-msgid "Homepage:       http://www.scribus.net "
-msgstr ""
-
-msgid "Documentation:  http://docs.scribus.net"
-msgstr ""
-
-msgid "Wiki:           http://wiki.scribus.net"
-msgstr ""
-
-msgid "Issues:         http://bugs.scribus.net"
+msgid "Issues"
 msgstr ""
 
 msgid "Search/Replace"
@@ -7784,6 +7865,10 @@ msgstr "Pitonskriptoj (*.py);; Ĉiaj dosieroj (*)"
 msgid "Printing File"
 msgstr "Ne eblas printi!"
 
+#, fuzzy
+msgid "Processing Master Pages:"
+msgstr "post paĝo"
+
 msgid "Contents"
 msgstr "Enteno"
 
@@ -7869,6 +7954,12 @@ msgstr "R&edaktu..."
 
 msgid "&Add..."
 msgstr "&Aldonu..."
+
+msgid ""
+"Adds a new Script, predefines a function with the same name. If you want to "
+"use this script as an \"Open Action\" script be sure not to change the name "
+"of the function."
+msgstr ""
 
 msgid "&New Script:"
 msgstr "&Nova skripto:"
@@ -8040,6 +8131,10 @@ msgstr "Slovena"
 
 msgid "Serbian"
 msgstr "Serba"
+
+#, fuzzy
+msgid "Thai"
+msgstr "Mallarĝa"
 
 #, fuzzy
 msgid "Turkish"
@@ -8924,6 +9019,10 @@ msgstr ""
 msgid "Examine Script"
 msgstr "Nova skripto"
 
+#, fuzzy
+msgid "Python Scripts (*.py);;All Files (*)"
+msgstr "Pitonskriptoj (*.py);; Ĉiaj dosieroj (*)"
+
 msgid "About Script"
 msgstr "Pri Scriptoj"
 
@@ -9683,6 +9782,10 @@ msgstr "Normala"
 msgid "My Plugin"
 msgstr "Normala"
 
+#, fuzzy
+#~ msgid "December"
+#~ msgstr "Numero"
+
 #~ msgid ""
 #~ "A way of switching off some of the gray shades which are composed\n"
 #~ "of cyan, yellow and magenta and using black instead.\n"
@@ -10402,9 +10505,6 @@ msgstr "Normala"
 
 #~ msgid "100%"
 #~ msgstr "100%"
-
-#~ msgid "Thumbnails"
-#~ msgstr "Miniaturoj"
 
 #~ msgid "Hide Margins"
 #~ msgstr "Kaŝu marĝenojn"

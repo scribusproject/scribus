@@ -2623,7 +2623,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Tämä osa kertoo version, käännöspäivämäärän sekä mukaan käännetyt kirjastot. C-C-T-F-C/A muodostuu seuraavasti: C=LittleCMS - C=CUPS - T=TIFF - F=Fontconfig.- C=Cairo/A=libart. Kirjaston puuttuessa on sitä osoittavan kirjaimen tilalla merkki *. Scribuksen löytämä Ghostscript ja sen versio ovat myös esillä.</translation>
     </message>
     <message>
-        <source>December</source>
+        <source>January</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7336,6 +7336,22 @@ joita on tarkoitus katsella näytöltä</translation>
         <comment>guide manager</comment>
         <translation>Aseta asiakirjan apuviivoja. Ikkuna pysyy yhä avoinna, mutta muutokset tulevat voimaan.</translation>
     </message>
+    <message>
+        <source>Guide</source>
+        <translation type="unfinished">Apuviiva</translation>
+    </message>
+    <message>
+        <source>Unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="unfinished">Esikatselu</translation>
+    </message>
+    <message>
+        <source>There is empty (0.0) guide already</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
@@ -7743,6 +7759,10 @@ vektoridatan Scribus-objekteiksi.</translation>
     <message>
         <source>Do you really want to delete this script?</source>
         <translation>Haluatko poistaa tämän skriptin?</translation>
+    </message>
+    <message>
+        <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8175,6 +8195,10 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source>Import master pages from another document</source>
         <translation>Tuo mallisivuja toisesta asiakirjasta</translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9448,38 +9472,77 @@ Corners:</source>
     </message>
 </context>
 <context>
-    <name>PDF_Opts</name>
+    <name>PDFExportDialog</name>
     <message>
-        <source>Save as</source>
-        <translation>Tallenna nimellä</translation>
+        <source>Save as PDF</source>
+        <translation type="unfinished">Tallenna PDF-tiedostoon</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
-        <translation>&amp;Tulosta tiedostoon:</translation>
+        <translation type="unfinished">&amp;Tulosta tiedostoon:</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation>&amp;Muuta...</translation>
-    </message>
-    <message>
-        <source>&amp;Save</source>
-        <translation>&amp;Tallenna</translation>
-    </message>
-    <message>
-        <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation>PDF-tiedostot (*.pdf);;Kaikki tiedostot (*)</translation>
-    </message>
-    <message>
-        <source>Save as PDF</source>
-        <translation>Tallenna PDF-tiedostoon</translation>
+        <translation type="unfinished">&amp;Muuta...</translation>
     </message>
     <message>
         <source>Output one file for eac&amp;h page</source>
-        <translation>Vie yksi sivu per tiedosto</translation>
+        <translation type="unfinished">Vie yksi sivu per tiedosto</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Tallenna</translation>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
-        <translation>Mahdollistaa yksilöllisesti nimetyn PDF-tiedoston tallennuksen jokaista asiakirjan sivua kohti. Sivunumerot lisätään automaattisesti.</translation>
+        <translation type="obsolete">Mahdollistaa yksilöllisesti nimetyn PDF-tiedoston tallennuksen jokaista asiakirjan sivua kohti. Sivunumerot lisätään automaattisesti.</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="unfinished">Tallenna nimellä</translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="unfinished">PDF-tiedostot (*.pdf);;Kaikki tiedostot (*)</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PDF_Opts</name>
+    <message>
+        <source>Save as</source>
+        <translation type="obsolete">Tallenna nimellä</translation>
+    </message>
+    <message>
+        <source>O&amp;utput to File:</source>
+        <translation type="obsolete">&amp;Tulosta tiedostoon:</translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="obsolete">&amp;Muuta...</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="obsolete">&amp;Tallenna</translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="obsolete">PDF-tiedostot (*.pdf);;Kaikki tiedostot (*)</translation>
+    </message>
+    <message>
+        <source>Save as PDF</source>
+        <translation type="obsolete">Tallenna PDF-tiedostoon</translation>
+    </message>
+    <message>
+        <source>Output one file for eac&amp;h page</source>
+        <translation type="obsolete">Vie yksi sivu per tiedosto</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
+        <translation type="obsolete">Mahdollistaa yksilöllisesti nimetyn PDF-tiedoston tallennuksen jokaista asiakirjan sivua kohti. Sivunumerot lisätään automaattisesti.</translation>
     </message>
 </context>
 <context>
@@ -12381,79 +12444,79 @@ External Links
     </message>
     <message>
         <source>Invalid argument: </source>
-        <translation>Virheellinen argumentti</translation>
+        <translation type="obsolete">Virheellinen argumentti</translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
-        <translation>Tiedostoa %1 ei ole olemassa. Poistutaan.</translation>
+        <translation type="obsolete">Tiedostoa %1 ei ole olemassa. Poistutaan.</translation>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation>Käyttö: scribus [valitsin...] [tiedosto]</translation>
+        <translation type="obsolete">Käyttö: scribus [valitsin...] [tiedosto]</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation>Valitsimet:</translation>
+        <translation type="obsolete">Valitsimet:</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
-        <translation>Tulosta ohje (tämä teksti) ja poistu</translation>
+        <translation type="obsolete">Tulosta ohje (tämä teksti) ja poistu</translation>
     </message>
     <message>
         <source>Uses xx as shortcut for a language</source>
-        <translation>xx on lyhenne kielestä</translation>
+        <translation type="obsolete">xx on lyhenne kielestä</translation>
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation>Listaa asennetut käännökset</translation>
+        <translation type="obsolete">Listaa asennetut käännökset</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation>Näytä tietoa kirjasimista niitä ladattaessa</translation>
+        <translation type="obsolete">Näytä tietoa kirjasimista niitä ladattaessa</translation>
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
-        <translation>Älä näytä latausikkunaa käynnistyksen yhteydessä</translation>
+        <translation type="obsolete">Älä näytä latausikkunaa käynnistyksen yhteydessä</translation>
     </message>
     <message>
         <source>Output version information and exit</source>
-        <translation>Tulosta versio ja poistu</translation>
+        <translation type="obsolete">Tulosta versio ja poistu</translation>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
-        <translation>Asennetut käyttöliittymän käännökset Scribukselle ovat:</translation>
+        <translation type="obsolete">Asennetut käyttöliittymän käännökset Scribukselle ovat:</translation>
     </message>
     <message>
         <source>To override the default language choice:</source>
-        <translation>Ohita oletuskieli valinnalla:</translation>
+        <translation type="obsolete">Ohita oletuskieli valinnalla:</translation>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation>scribus -l xx tai scribus --lang xx, missä xx on haluamasi kieli.</translation>
+        <translation type="obsolete">scribus -l xx tai scribus --lang xx, missä xx on haluamasi kieli.</translation>
     </message>
     <message>
         <source>Scribus Version </source>
-        <translation>Scribus versio</translation>
+        <translation type="obsolete">Scribus versio</translation>
     </message>
     <message>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation>Scribus, Open Source Desktop Publishing</translation>
+        <translation type="obsolete">Scribus, Open Source Desktop Publishing</translation>
     </message>
     <message>
         <source>---------------------------------------</source>
-        <translation>---------------------------------------</translation>
+        <translation type="obsolete">---------------------------------------</translation>
     </message>
     <message>
         <source>Homepage:       http://www.scribus.net </source>
-        <translation>Kotisivu:       http://www.scribus.net </translation>
+        <translation type="obsolete">Kotisivu:       http://www.scribus.net </translation>
     </message>
     <message>
         <source>Documentation:  http://docs.scribus.net</source>
-        <translation>Dokumentaatio:  http://docs.scribus.net</translation>
+        <translation type="obsolete">Dokumentaatio:  http://docs.scribus.net</translation>
     </message>
     <message>
         <source>Issues:         http://bugs.scribus.net</source>
-        <translation>Bugit ja toiveet:         http://bugs.scribus.net</translation>
+        <translation type="obsolete">Bugit ja toiveet:         http://bugs.scribus.net</translation>
     </message>
     <message>
         <source> pt</source>
@@ -12805,7 +12868,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Wiki:           http://wiki.scribus.net</source>
-        <translation>Wiki:           http://wiki.scribus.net</translation>
+        <translation type="obsolete">Wiki:           http://wiki.scribus.net</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
@@ -12861,7 +12924,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation>Käytä painikkeiden järjestystä oikealta vasemmalle (esim. Peruuta/Ei/Kyllä Kyllä/Ei/Peruuta sijaan)</translation>
+        <translation type="obsolete">Käytä painikkeiden järjestystä oikealta vasemmalle (esim. Peruuta/Ei/Kyllä Kyllä/Ei/Peruuta sijaan)</translation>
     </message>
     <message>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
@@ -12958,7 +13021,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished">T&amp;uo</translation>
     </message>
     <message>
-        <source>Use filename as path for user given preferences</source>
+        <source>Thai</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14502,6 +14565,97 @@ Käytä tarkastustyökalua korjataksesi ne.</translation>
     </message>
 </context>
 <context>
+    <name>ScribusQApp</name>
+    <message>
+        <source>Invalid argument: </source>
+        <translation type="unfinished">Virheellinen argumentti</translation>
+    </message>
+    <message>
+        <source>File %1 does not exist, aborting.</source>
+        <translation type="unfinished">Tiedostoa %1 ei ole olemassa. Poistutaan.</translation>
+    </message>
+    <message>
+        <source>Usage: scribus [option ... ] [file]</source>
+        <translation type="unfinished">Käyttö: scribus [valitsin...] [tiedosto]</translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print help (this message) and exit</source>
+        <translation type="unfinished">Tulosta ohje (tämä teksti) ja poistu</translation>
+    </message>
+    <message>
+        <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List the currently installed interface languages</source>
+        <translation type="unfinished">Listaa asennetut käännökset</translation>
+    </message>
+    <message>
+        <source>Show information on the console when fonts are being loaded</source>
+        <translation type="unfinished">Näytä tietoa kirjasimista niitä ladattaessa</translation>
+    </message>
+    <message>
+        <source>Do not show the splashscreen on startup</source>
+        <translation type="unfinished">Älä näytä latausikkunaa käynnistyksen yhteydessä</translation>
+    </message>
+    <message>
+        <source>Output version information and exit</source>
+        <translation type="unfinished">Tulosta versio ja poistu</translation>
+    </message>
+    <message>
+        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
+        <translation type="unfinished">Käytä painikkeiden järjestystä oikealta vasemmalle (esim. Peruuta/Ei/Kyllä Kyllä/Ei/Peruuta sijaan)</translation>
+    </message>
+    <message>
+        <source>filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use filename as path for user given preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installed interface languages for Scribus are as follows:</source>
+        <translation type="unfinished">Asennetut käyttöliittymän käännökset Scribukselle ovat:</translation>
+    </message>
+    <message>
+        <source>To override the default language choice:</source>
+        <translation type="unfinished">Ohita oletuskieli valinnalla:</translation>
+    </message>
+    <message>
+        <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
+        <translation type="unfinished">scribus -l xx tai scribus --lang xx, missä xx on haluamasi kieli.</translation>
+    </message>
+    <message>
+        <source>Scribus Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus, Open Source Desktop Publishing</source>
+        <translation type="unfinished">Scribus, Open Source Desktop Publishing</translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation type="unfinished">Kotisivu</translation>
+    </message>
+    <message>
+        <source>Documentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wiki</source>
+        <translation type="unfinished">Wiki</translation>
+    </message>
+    <message>
+        <source>Issues</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScribusView</name>
     <message>
         <source> %</source>
@@ -14706,7 +14860,7 @@ Käytä tarkastustyökalua korjataksesi ne.</translation>
     </message>
     <message>
         <source>Python Scripts (*.py)</source>
-        <translation>Python-skriptit (*.py)</translation>
+        <translation type="obsolete">Python-skriptit (*.py)</translation>
     </message>
     <message>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
@@ -14715,6 +14869,10 @@ Käytä tarkastustyökalua korjataksesi ne.</translation>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Python-laajennoksen alustus epäonnistui. Yksityiskohdat tulostettiin stderr:iin.</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16436,6 +16594,83 @@ Saattaa kasvattaa muistin käyttöä ja hidastaa PDF-tiedoston tekoa.</translati
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Layout</source>
+        <translation type="unfinished">Sivun asettelu</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished">Yksittäinen sivu</translation>
+    </message>
+    <message>
+        <source>Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Page Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Page Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visual Appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Viewers Defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Full Screen Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Bookmarks Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Layers Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Viewers Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Viewers Menubar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom Pages to fit Viewer Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Special Actions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when Document is opened:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Viewer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

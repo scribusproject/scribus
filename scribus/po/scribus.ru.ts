@@ -1776,7 +1776,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>December</source>
+        <source>January</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6589,6 +6589,22 @@ Use 72 dpi for Images intended for the Screen</source>
         <source>&amp;Apply to All Pages</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Guide</source>
+        <translation type="unfinished">Направляющей</translation>
+    </message>
+    <message>
+        <source>Unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="unfinished">Просмотр</translation>
+    </message>
+    <message>
+        <source>There is empty (0.0) guide already</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
@@ -7003,6 +7019,10 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Do you really want to delete this script?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7473,6 +7493,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Import master pages from another document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8827,38 +8851,77 @@ Please choose another.</source>
     </message>
 </context>
 <context>
-    <name>PDF_Opts</name>
+    <name>PDFExportDialog</name>
     <message>
-        <source>Save as</source>
-        <translation>Сохранить как</translation>
+        <source>Save as PDF</source>
+        <translation type="unfinished">Сохранить как PDF</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
-        <translation>Вы&amp;вод в файл:</translation>
+        <translation type="unfinished">Вы&amp;вод в файл:</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation>&amp;Изменить...</translation>
-    </message>
-    <message>
-        <source>&amp;Save</source>
-        <translation>&amp;Сохранить</translation>
-    </message>
-    <message>
-        <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation>PDF-документы (*.pdf);;Все файлы (*)</translation>
-    </message>
-    <message>
-        <source>Save as PDF</source>
-        <translation>Сохранить как PDF</translation>
+        <translation type="unfinished">&amp;Изменить...</translation>
     </message>
     <message>
         <source>Output one file for eac&amp;h page</source>
-        <translation>&amp;Каждую страницу сохранить в отдельный файл</translation>
+        <translation type="unfinished">&amp;Каждую страницу сохранить в отдельный файл</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Сохранить</translation>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
-        <translation>Экспортировать каждую страницу документа в отдельный PDF. Номера страниц добавляются автоматически. Это полезнее всего для коммерческой печати.</translation>
+        <translation type="obsolete">Экспортировать каждую страницу документа в отдельный PDF. Номера страниц добавляются автоматически. Это полезнее всего для коммерческой печати.</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="unfinished">Сохранить как</translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="unfinished">PDF-документы (*.pdf);;Все файлы (*)</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PDF_Opts</name>
+    <message>
+        <source>Save as</source>
+        <translation type="obsolete">Сохранить как</translation>
+    </message>
+    <message>
+        <source>O&amp;utput to File:</source>
+        <translation type="obsolete">Вы&amp;вод в файл:</translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="obsolete">&amp;Изменить...</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="obsolete">&amp;Сохранить</translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="obsolete">PDF-документы (*.pdf);;Все файлы (*)</translation>
+    </message>
+    <message>
+        <source>Save as PDF</source>
+        <translation type="obsolete">Сохранить как PDF</translation>
+    </message>
+    <message>
+        <source>Output one file for eac&amp;h page</source>
+        <translation type="obsolete">&amp;Каждую страницу сохранить в отдельный файл</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
+        <translation type="obsolete">Экспортировать каждую страницу документа в отдельный PDF. Номера страниц добавляются автоматически. Это полезнее всего для коммерческой печати.</translation>
     </message>
 </context>
 <context>
@@ -11982,80 +12045,68 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Invalid argument: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File %1 does not exist, aborting.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Usage: scribus [option ... ] [file]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Options:</source>
-        <translation>Параметры:</translation>
+        <translation type="obsolete">Параметры:</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
-        <translation>Напечатать справку (это сообщение) и выйти</translation>
+        <translation type="obsolete">Напечатать справку (это сообщение) и выйти</translation>
     </message>
     <message>
         <source>Uses xx as shortcut for a language</source>
-        <translation>Использует код xx для задания языка</translation>
+        <translation type="obsolete">Использует код xx для задания языка</translation>
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation>Выводит список установленных переводов интерфейса</translation>
+        <translation type="obsolete">Выводит список установленных переводов интерфейса</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation>Показать информацию в консоли при загрузке шрифтов</translation>
+        <translation type="obsolete">Показать информацию в консоли при загрузке шрифтов</translation>
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
-        <translation>Не показывать заставку при старте</translation>
+        <translation type="obsolete">Не показывать заставку при старте</translation>
     </message>
     <message>
         <source>Output version information and exit</source>
-        <translation>Показать информацию о версии и выйти</translation>
+        <translation type="obsolete">Показать информацию о версии и выйти</translation>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
-        <translation>Установлены следующие переводы интерфейсы Scribus:</translation>
+        <translation type="obsolete">Установлены следующие переводы интерфейсы Scribus:</translation>
     </message>
     <message>
         <source>To override the default language choice:</source>
-        <translation>Для &quot;преодоления&quot; системных настроек языкового окружения выберите:</translation>
+        <translation type="obsolete">Для &quot;преодоления&quot; системных настроек языкового окружения выберите:</translation>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation>scribus -l xx или scribus --lang xx, где xx - из0бранный язык.</translation>
+        <translation type="obsolete">scribus -l xx или scribus --lang xx, где xx - из0бранный язык.</translation>
     </message>
     <message>
         <source>Scribus Version </source>
-        <translation>Scribus версии </translation>
+        <translation type="obsolete">Scribus версии </translation>
     </message>
     <message>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation>Scribus, Предпечатная подготовка свободными средствами</translation>
+        <translation type="obsolete">Scribus, Предпечатная подготовка свободными средствами</translation>
     </message>
     <message>
         <source>---------------------------------------</source>
-        <translation>---------------------------------------</translation>
+        <translation type="obsolete">---------------------------------------</translation>
     </message>
     <message>
         <source>Homepage:       http://www.scribus.net </source>
-        <translation>Веб-сайт:       http://www.scribus.net </translation>
+        <translation type="obsolete">Веб-сайт:       http://www.scribus.net </translation>
     </message>
     <message>
         <source>Documentation:  http://docs.scribus.net</source>
-        <translation>Документация:  http://docs.scribus.net</translation>
+        <translation type="obsolete">Документация:  http://docs.scribus.net</translation>
     </message>
     <message>
         <source>Issues:         http://bugs.scribus.net</source>
-        <translation>Куда жаловаться:         http://bugs.scribus.net</translation>
+        <translation type="obsolete">Куда жаловаться:         http://bugs.scribus.net</translation>
     </message>
     <message>
         <source> cm</source>
@@ -12174,7 +12225,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Wiki:           http://wiki.scribus.net</source>
-        <translation>Wiki:           http://wiki.scribus.net</translation>
+        <translation type="obsolete">Wiki:           http://wiki.scribus.net</translation>
     </message>
     <message>
         <source>page</source>
@@ -12286,10 +12337,6 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12327,7 +12374,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished">&amp;Импортировать</translation>
     </message>
     <message>
-        <source>Use filename as path for user given preferences</source>
+        <source>Thai</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14029,6 +14076,97 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
 </context>
 <context>
+    <name>ScribusQApp</name>
+    <message>
+        <source>Invalid argument: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File %1 does not exist, aborting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: scribus [option ... ] [file]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation type="unfinished">Параметры:</translation>
+    </message>
+    <message>
+        <source>Print help (this message) and exit</source>
+        <translation type="unfinished">Напечатать справку (это сообщение) и выйти</translation>
+    </message>
+    <message>
+        <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List the currently installed interface languages</source>
+        <translation type="unfinished">Выводит список установленных переводов интерфейса</translation>
+    </message>
+    <message>
+        <source>Show information on the console when fonts are being loaded</source>
+        <translation type="unfinished">Показать информацию в консоли при загрузке шрифтов</translation>
+    </message>
+    <message>
+        <source>Do not show the splashscreen on startup</source>
+        <translation type="unfinished">Не показывать заставку при старте</translation>
+    </message>
+    <message>
+        <source>Output version information and exit</source>
+        <translation type="unfinished">Показать информацию о версии и выйти</translation>
+    </message>
+    <message>
+        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use filename as path for user given preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installed interface languages for Scribus are as follows:</source>
+        <translation type="unfinished">Установлены следующие переводы интерфейсы Scribus:</translation>
+    </message>
+    <message>
+        <source>To override the default language choice:</source>
+        <translation type="unfinished">Для &quot;преодоления&quot; системных настроек языкового окружения выберите:</translation>
+    </message>
+    <message>
+        <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
+        <translation type="unfinished">scribus -l xx или scribus --lang xx, где xx - из0бранный язык.</translation>
+    </message>
+    <message>
+        <source>Scribus Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus, Open Source Desktop Publishing</source>
+        <translation type="unfinished">Scribus, Предпечатная подготовка свободными средствами</translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation type="unfinished">Веб-сайт</translation>
+    </message>
+    <message>
+        <source>Documentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wiki</source>
+        <translation type="unfinished">Вики</translation>
+    </message>
+    <message>
+        <source>Issues</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScribusView</name>
     <message>
         <source> %</source>
@@ -14255,7 +14393,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Python Scripts (*.py)</source>
-        <translation>Сценарии на Python (*.py)</translation>
+        <translation type="obsolete">Сценарии на Python (*.py)</translation>
     </message>
     <message>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
@@ -14263,6 +14401,10 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16118,6 +16260,83 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Layout</source>
+        <translation type="unfinished">Макет страницы</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished">Одиночная</translation>
+    </message>
+    <message>
+        <source>Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Page Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Page Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visual Appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Viewers Defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Full Screen Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Bookmarks Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Layers Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Viewers Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Viewers Menubar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom Pages to fit Viewer Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Special Actions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when Document is opened:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Viewer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

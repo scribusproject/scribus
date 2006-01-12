@@ -1865,7 +1865,7 @@ Indien &apos;n biblioteek nie daar is nie, verskyn &apos;n *</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>December</source>
+        <source>January</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7190,6 +7190,22 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <source>&amp;Apply to All Pages</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="unfinished">Voorbeeld</translation>
+    </message>
+    <message>
+        <source>There is empty (0.0) guide already</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
@@ -7656,6 +7672,10 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Do you really want to delete this script?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8190,6 +8210,10 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Import master pages from another document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9953,6 +9977,41 @@ gebruik, anders is koördinate relatief tot die objek.</translation>
     </message>
 </context>
 <context>
+    <name>PDFExportDialog</name>
+    <message>
+        <source>Save as PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;utput to File:</source>
+        <translation type="unfinished">Voer &amp;uit na lêer:</translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="unfinished">Wysi&amp;g...</translation>
+    </message>
+    <message>
+        <source>Output one file for eac&amp;h page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="unfinished">Stoor as</translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="unfinished">PDF-lêers (*.pdf);;Alle lêers (*)</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PDF_Opts</name>
     <message>
         <source>Create PDF File</source>
@@ -9960,11 +10019,11 @@ gebruik, anders is koördinate relatief tot die objek.</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
-        <translation>Voer &amp;uit na lêer:</translation>
+        <translation type="obsolete">Voer &amp;uit na lêer:</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation>Wysi&amp;g...</translation>
+        <translation type="obsolete">Wysi&amp;g...</translation>
     </message>
     <message>
         <source>Export Range</source>
@@ -10384,7 +10443,7 @@ gebruik, anders is koördinate relatief tot die objek.</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Stoor</translation>
+        <translation type="obsolete">&amp;Stoor</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -10625,11 +10684,11 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>Save as</source>
-        <translation>Stoor as</translation>
+        <translation type="obsolete">Stoor as</translation>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation>PDF-lêers (*.pdf);;Alle lêers (*)</translation>
+        <translation type="obsolete">PDF-lêers (*.pdf);;Alle lêers (*)</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
@@ -10662,18 +10721,6 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     <message>
         <source>Mirror Page(s) vertically</source>
         <translation type="obsolete">Spieëlbeeld bladsy(e) vertikaal</translation>
-    </message>
-    <message>
-        <source>Save as PDF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Output one file for eac&amp;h page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15008,86 +15055,6 @@ Eksterne skakelings
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Invalid argument: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File %1 does not exist, aborting.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Usage: scribus [option ... ] [file]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Options:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Print help (this message) and exit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Uses xx as shortcut for a language</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>List the currently installed interface languages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show information on the console when fonts are being loaded</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Do not show the splashscreen on startup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Output version information and exit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Installed interface languages for Scribus are as follows:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To override the default language choice:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scribus Version </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scribus, Open Source Desktop Publishing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>---------------------------------------</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Homepage:       http://www.scribus.net </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Documentation:  http://docs.scribus.net</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Wiki:           http://wiki.scribus.net</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Issues:         http://bugs.scribus.net</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> cm</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15316,10 +15283,6 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15357,7 +15320,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished">&amp;Voer in</translation>
     </message>
     <message>
-        <source>Use filename as path for user given preferences</source>
+        <source>Thai</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17837,6 +17800,97 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
 </context>
 <context>
+    <name>ScribusQApp</name>
+    <message>
+        <source>Invalid argument: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File %1 does not exist, aborting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: scribus [option ... ] [file]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print help (this message) and exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List the currently installed interface languages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show information on the console when fonts are being loaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not show the splashscreen on startup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output version information and exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use filename as path for user given preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installed interface languages for Scribus are as follows:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To override the default language choice:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus, Open Source Desktop Publishing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation type="unfinished">Tuisblad</translation>
+    </message>
+    <message>
+        <source>Documentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wiki</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Issues</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScribusView</name>
     <message>
         <source> %</source>
@@ -18216,11 +18270,11 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Python Scripts (*.py)</source>
+        <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
+        <source>Python Scripts (*.py);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20129,6 +20183,83 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Page Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Page Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visual Appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Viewers Defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Full Screen Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Bookmarks Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Layers Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Viewers Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Viewers Menubar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom Pages to fit Viewer Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Special Actions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when Document is opened:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Viewer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

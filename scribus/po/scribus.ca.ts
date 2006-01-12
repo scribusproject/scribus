@@ -3214,7 +3214,7 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>December</source>
+        <source>January</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8803,6 +8803,22 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <source>&amp;Apply to All Pages</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Guide</source>
+        <translation type="unfinished">Guia</translation>
+    </message>
+    <message>
+        <source>Unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="unfinished">Previsualitzar</translation>
+    </message>
+    <message>
+        <source>There is empty (0.0) guide already</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
@@ -9271,6 +9287,10 @@ convertint el seu vector de dades en objectes Scribus.</translation>
     </message>
     <message>
         <source>Do you really want to delete this script?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10096,6 +10116,10 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Import master pages from another document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11838,6 +11862,45 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     </message>
 </context>
 <context>
+    <name>PDFExportDialog</name>
+    <message>
+        <source>Save as PDF</source>
+        <translation type="unfinished">Desa com PDF</translation>
+    </message>
+    <message>
+        <source>O&amp;utput to File:</source>
+        <translation type="unfinished">So&amp;rtida a Fitxer:</translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="unfinished">Ca&amp;nvi...</translation>
+    </message>
+    <message>
+        <source>Output one file for eac&amp;h page</source>
+        <translation type="unfinished">Genera un fitxer per ca&amp;da pàgina</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Desa</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
+        <translation type="obsolete">Això permet exportar un PDF per cada pàgina del document. Els números de pàgina s&apos;afegiran al nom automàticament. Això és útil sobretot per impressió comercial en PDF.</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="unfinished">Fitxers PDF (*.pdf);;Tots els fitxers (*)</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PDF_Opts</name>
     <message>
         <source>Create PDF File</source>
@@ -11845,11 +11908,11 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
-        <translation>So&amp;rtida a Fitxer:</translation>
+        <translation type="obsolete">So&amp;rtida a Fitxer:</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation>Ca&amp;nvi...</translation>
+        <translation type="obsolete">Ca&amp;nvi...</translation>
     </message>
     <message>
         <source>Export Range</source>
@@ -12269,7 +12332,7 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Desa</translation>
+        <translation type="obsolete">&amp;Desa</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -12516,11 +12579,11 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation>Anomena i Desa</translation>
+        <translation type="obsolete">Anomena i Desa</translation>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation>Fitxers PDF (*.pdf);;Tots els fitxers (*)</translation>
+        <translation type="obsolete">Fitxers PDF (*.pdf);;Tots els fitxers (*)</translation>
     </message>
     <message>
         <source>Compress Text and &amp;Vector Graphics</source>
@@ -12556,15 +12619,15 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
     </message>
     <message>
         <source>Save as PDF</source>
-        <translation>Desa com PDF</translation>
+        <translation type="obsolete">Desa com PDF</translation>
     </message>
     <message>
         <source>Output one file for eac&amp;h page</source>
-        <translation>Genera un fitxer per ca&amp;da pàgina</translation>
+        <translation type="obsolete">Genera un fitxer per ca&amp;da pàgina</translation>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
-        <translation>Això permet exportar un PDF per cada pàgina del document. Els números de pàgina s&apos;afegiran al nom automàticament. Això és útil sobretot per impressió comercial en PDF.</translation>
+        <translation type="obsolete">Això permet exportar un PDF per cada pàgina del document. Els números de pàgina s&apos;afegiran al nom automàticament. Això és útil sobretot per impressió comercial en PDF.</translation>
     </message>
 </context>
 <context>
@@ -17018,83 +17081,83 @@ la documentació de la funció.
     </message>
     <message>
         <source>Invalid argument: </source>
-        <translation>argument invàl.lid: </translation>
+        <translation type="obsolete">argument invàl.lid: </translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
-        <translation>El fitxer %1 no existeix, abortant.</translation>
+        <translation type="obsolete">El fitxer %1 no existeix, abortant.</translation>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation>Ús: scribus [opció ... ] [fitxer]</translation>
+        <translation type="obsolete">Ús: scribus [opció ... ] [fitxer]</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation>Opcions:</translation>
+        <translation type="obsolete">Opcions:</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
-        <translation>Imprimeix l&apos;ajuda (aquest missatge) i surt</translation>
+        <translation type="obsolete">Imprimeix l&apos;ajuda (aquest missatge) i surt</translation>
     </message>
     <message>
         <source>Uses xx as shortcut for a language</source>
-        <translation>fa servir xx com a drecera per un idioma</translation>
+        <translation type="obsolete">fa servir xx com a drecera per un idioma</translation>
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation>Llista les interfícies d&apos;idioma actualment instal.lades</translation>
+        <translation type="obsolete">Llista les interfícies d&apos;idioma actualment instal.lades</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation>Mostra la informació en la cònsola quan es carreguen les fonts</translation>
+        <translation type="obsolete">Mostra la informació en la cònsola quan es carreguen les fonts</translation>
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
-        <translation>No mostris la pantalla inicial al arrancar</translation>
+        <translation type="obsolete">No mostris la pantalla inicial al arrancar</translation>
     </message>
     <message>
         <source>Output version information and exit</source>
-        <translation>Versió de informació i sortida</translation>
+        <translation type="obsolete">Versió de informació i sortida</translation>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
-        <translation>Les interfícies d&apos;idioma instal.lades són les següents:</translation>
+        <translation type="obsolete">Les interfícies d&apos;idioma instal.lades són les següents:</translation>
     </message>
     <message>
         <source>To override the default language choice:</source>
-        <translation>Per sobreescriure l&apos;idioma per defecte tria:</translation>
+        <translation type="obsolete">Per sobreescriure l&apos;idioma per defecte tria:</translation>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation>scribus -l xx o scribus --lang xx, on xx és l&apos;idioma triat.</translation>
+        <translation type="obsolete">scribus -l xx o scribus --lang xx, on xx és l&apos;idioma triat.</translation>
     </message>
     <message>
         <source>Scribus Version </source>
-        <translation>Versió d&apos;Scribus </translation>
+        <translation type="obsolete">Versió d&apos;Scribus </translation>
     </message>
     <message>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation>Scribus, Autoedició de codi obert</translation>
+        <translation type="obsolete">Scribus, Autoedició de codi obert</translation>
     </message>
     <message>
         <source>---------------------------------------</source>
-        <translation>---------------------------------------</translation>
+        <translation type="obsolete">---------------------------------------</translation>
     </message>
     <message>
         <source>Homepage:       http://www.scribus.net </source>
-        <translation>Pàgina web:       http://www.scribus.net </translation>
+        <translation type="obsolete">Pàgina web:       http://www.scribus.net </translation>
     </message>
     <message>
         <source>Documentation:  http://docs.scribus.net</source>
-        <translation>Documentació:  http://docs.scribus.net</translation>
+        <translation type="obsolete">Documentació:  http://docs.scribus.net</translation>
     </message>
     <message>
         <source>Wiki:           http://wiki.scribus.net</source>
-        <translation>Wiki:           http://wiki.scribus.net</translation>
+        <translation type="obsolete">Wiki:           http://wiki.scribus.net</translation>
     </message>
     <message>
         <source>Issues:         http://bugs.scribus.net</source>
-        <translation>Incidències:         http://bugs.scribus.net</translation>
+        <translation type="obsolete">Incidències:         http://bugs.scribus.net</translation>
     </message>
     <message>
         <source> pt</source>
@@ -17547,10 +17610,6 @@ detallades exhaustivament per les funcions cridades.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17588,7 +17647,7 @@ detallades exhaustivament per les funcions cridades.</translation>
         <translation type="unfinished">&amp;Importa</translation>
     </message>
     <message>
-        <source>Use filename as path for user given preferences</source>
+        <source>Thai</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20263,6 +20322,97 @@ Considera fer servir el Verificador per corregir-los</translation>
     </message>
 </context>
 <context>
+    <name>ScribusQApp</name>
+    <message>
+        <source>Invalid argument: </source>
+        <translation type="unfinished">argument invàl.lid: </translation>
+    </message>
+    <message>
+        <source>File %1 does not exist, aborting.</source>
+        <translation type="unfinished">El fitxer %1 no existeix, abortant.</translation>
+    </message>
+    <message>
+        <source>Usage: scribus [option ... ] [file]</source>
+        <translation type="unfinished">Ús: scribus [opció ... ] [fitxer]</translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation type="unfinished">Opcions:</translation>
+    </message>
+    <message>
+        <source>Print help (this message) and exit</source>
+        <translation type="unfinished">Imprimeix l&apos;ajuda (aquest missatge) i surt</translation>
+    </message>
+    <message>
+        <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List the currently installed interface languages</source>
+        <translation type="unfinished">Llista les interfícies d&apos;idioma actualment instal.lades</translation>
+    </message>
+    <message>
+        <source>Show information on the console when fonts are being loaded</source>
+        <translation type="unfinished">Mostra la informació en la cònsola quan es carreguen les fonts</translation>
+    </message>
+    <message>
+        <source>Do not show the splashscreen on startup</source>
+        <translation type="unfinished">No mostris la pantalla inicial al arrancar</translation>
+    </message>
+    <message>
+        <source>Output version information and exit</source>
+        <translation type="unfinished">Versió de informació i sortida</translation>
+    </message>
+    <message>
+        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use filename as path for user given preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installed interface languages for Scribus are as follows:</source>
+        <translation type="unfinished">Les interfícies d&apos;idioma instal.lades són les següents:</translation>
+    </message>
+    <message>
+        <source>To override the default language choice:</source>
+        <translation type="unfinished">Per sobreescriure l&apos;idioma per defecte tria:</translation>
+    </message>
+    <message>
+        <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
+        <translation type="unfinished">scribus -l xx o scribus --lang xx, on xx és l&apos;idioma triat.</translation>
+    </message>
+    <message>
+        <source>Scribus Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus, Open Source Desktop Publishing</source>
+        <translation type="unfinished">Scribus, Autoedició de codi obert</translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation type="unfinished">Pàgina inicial</translation>
+    </message>
+    <message>
+        <source>Documentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wiki</source>
+        <translation type="unfinished">Wiki</translation>
+    </message>
+    <message>
+        <source>Issues</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScribusView</name>
     <message>
         <source> %</source>
@@ -20609,11 +20759,15 @@ Si us plau abans llegeix la documentació de les extensions.
     </message>
     <message>
         <source>Python Scripts (*.py)</source>
-        <translation>Seqüències Python (*.py)</translation>
+        <translation type="obsolete">Seqüències Python (*.py)</translation>
     </message>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Activació del connector Python ha fallat. Els detalls han sortit per stderr. </translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -22737,6 +22891,83 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Layout</source>
+        <translation type="unfinished">Format de pàgina</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished">Pàgina sola</translation>
+    </message>
+    <message>
+        <source>Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Page Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Page Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visual Appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Viewers Defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Full Screen Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Bookmarks Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Layers Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Viewers Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Viewers Menubar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom Pages to fit Viewer Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Special Actions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when Document is opened:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Viewer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -2688,7 +2688,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation type="obsolete">November</translation>
     </message>
     <message>
-        <source>December</source>
+        <source>January</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7418,6 +7418,22 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
         <source>&amp;Apply to All Pages</source>
         <translation>&amp;Anvend på alle sider</translation>
     </message>
+    <message>
+        <source>Guide</source>
+        <translation type="unfinished">Hjælpelinie</translation>
+    </message>
+    <message>
+        <source>Unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="unfinished">Vis</translation>
+    </message>
+    <message>
+        <source>There is empty (0.0) guide already</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
@@ -7827,6 +7843,10 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <message>
         <source>Do you really want to delete this script?</source>
         <translation>Ønsker du virkelig at slette denne script?</translation>
+    </message>
+    <message>
+        <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8263,6 +8283,10 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     <message>
         <source>Import master pages from another document</source>
         <translation>Importér mastersider fra et andet dokument</translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9545,22 +9569,61 @@ hjørner:</translation>
     </message>
 </context>
 <context>
-    <name>PDF_Opts</name>
+    <name>PDFExportDialog</name>
     <message>
-        <source>Save as</source>
-        <translation>Gem som</translation>
+        <source>Save as PDF</source>
+        <translation type="unfinished">Gem som PDF</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
-        <translation>&amp;Skriv til fil:</translation>
+        <translation type="unfinished">&amp;Skriv til fil:</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation>Væ&amp;lg...</translation>
+        <translation type="unfinished">Væ&amp;lg...</translation>
+    </message>
+    <message>
+        <source>Output one file for eac&amp;h page</source>
+        <translation type="unfinished">Udlæs en fil for &amp;hver side</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Gem</translation>
+        <translation type="unfinished">&amp;Gem</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
+        <translation type="obsolete">Dette aktiverer eksport af en individuelt navngivet PDF fil for hver side i dokumentet. Sidenumre er tilføjet automatisk. Dette er mest brugbart for udskydning af PDF for kommerciel trykning.</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="unfinished">Gem som</translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="unfinished">PDF filer (*.pdf);;Alle filer (*)</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PDF_Opts</name>
+    <message>
+        <source>Save as</source>
+        <translation type="obsolete">Gem som</translation>
+    </message>
+    <message>
+        <source>O&amp;utput to File:</source>
+        <translation type="obsolete">&amp;Skriv til fil:</translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="obsolete">Væ&amp;lg...</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="obsolete">&amp;Gem</translation>
     </message>
     <message>
         <source></source>
@@ -9568,19 +9631,19 @@ hjørner:</translation>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation>PDF filer (*.pdf);;Alle filer (*)</translation>
+        <translation type="obsolete">PDF filer (*.pdf);;Alle filer (*)</translation>
     </message>
     <message>
         <source>Save as PDF</source>
-        <translation>Gem som PDF</translation>
+        <translation type="obsolete">Gem som PDF</translation>
     </message>
     <message>
         <source>Output one file for eac&amp;h page</source>
-        <translation>Udlæs en fil for &amp;hver side</translation>
+        <translation type="obsolete">Udlæs en fil for &amp;hver side</translation>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
-        <translation>Dette aktiverer eksport af en individuelt navngivet PDF fil for hver side i dokumentet. Sidenumre er tilføjet automatisk. Dette er mest brugbart for udskydning af PDF for kommerciel trykning.</translation>
+        <translation type="obsolete">Dette aktiverer eksport af en individuelt navngivet PDF fil for hver side i dokumentet. Sidenumre er tilføjet automatisk. Dette er mest brugbart for udskydning af PDF for kommerciel trykning.</translation>
     </message>
 </context>
 <context>
@@ -12481,79 +12544,79 @@ Ekstern Lænker</translation>
     </message>
     <message>
         <source>Invalid argument: </source>
-        <translation>Ugyldigt argument: </translation>
+        <translation type="obsolete">Ugyldigt argument: </translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
-        <translation>Fil %1 eksisterer ikke, afslutter.</translation>
+        <translation type="obsolete">Fil %1 eksisterer ikke, afslutter.</translation>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation>Brug: scribus [tilvalg ... ] [fil]</translation>
+        <translation type="obsolete">Brug: scribus [tilvalg ... ] [fil]</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation>Tilvalg:</translation>
+        <translation type="obsolete">Tilvalg:</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
-        <translation>Udskriv hjælp (denne besked) og afslut</translation>
+        <translation type="obsolete">Udskriv hjælp (denne besked) og afslut</translation>
     </message>
     <message>
         <source>Uses xx as shortcut for a language</source>
-        <translation>Bruger xx som en genvej for et sprog</translation>
+        <translation type="obsolete">Bruger xx som en genvej for et sprog</translation>
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation>Lav en liste over de aktuelle installerede brugerflade sprog</translation>
+        <translation type="obsolete">Lav en liste over de aktuelle installerede brugerflade sprog</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation>Vis information i konsollen når fonte indlæses</translation>
+        <translation type="obsolete">Vis information i konsollen når fonte indlæses</translation>
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
-        <translation>Vis ikke &apos;reklame-billedet&apos; ved opstart</translation>
+        <translation type="obsolete">Vis ikke &apos;reklame-billedet&apos; ved opstart</translation>
     </message>
     <message>
         <source>Output version information and exit</source>
-        <translation>Vis versions information og afslut</translation>
+        <translation type="obsolete">Vis versions information og afslut</translation>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
-        <translation>De installerede brugerflade-sprog for Scribus er følgende:</translation>
+        <translation type="obsolete">De installerede brugerflade-sprog for Scribus er følgende:</translation>
     </message>
     <message>
         <source>To override the default language choice:</source>
-        <translation>For at tilsidesætte standard sprogvalg:</translation>
+        <translation type="obsolete">For at tilsidesætte standard sprogvalg:</translation>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation>scribus -l xx eller scribus --lang xx, hvor xx er det sprog du ønsker at bruge.</translation>
+        <translation type="obsolete">scribus -l xx eller scribus --lang xx, hvor xx er det sprog du ønsker at bruge.</translation>
     </message>
     <message>
         <source>Scribus Version </source>
-        <translation>Scribus Version </translation>
+        <translation type="obsolete">Scribus Version </translation>
     </message>
     <message>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation>Scribus, Åben Kildetekst &apos;Desktop Publishing&apos;</translation>
+        <translation type="obsolete">Scribus, Åben Kildetekst &apos;Desktop Publishing&apos;</translation>
     </message>
     <message>
         <source>---------------------------------------</source>
-        <translation>---------------------------------------</translation>
+        <translation type="obsolete">---------------------------------------</translation>
     </message>
     <message>
         <source>Homepage:       http://www.scribus.net </source>
-        <translation>Hjemmeside:       http://www.scribus.net</translation>
+        <translation type="obsolete">Hjemmeside:       http://www.scribus.net</translation>
     </message>
     <message>
         <source>Documentation:  http://docs.scribus.net</source>
-        <translation>Dokumentation:  http://docs.scribus.net</translation>
+        <translation type="obsolete">Dokumentation:  http://docs.scribus.net</translation>
     </message>
     <message>
         <source>Issues:         http://bugs.scribus.net</source>
-        <translation>Sager:         http://bugs.scribus.net</translation>
+        <translation type="obsolete">Sager:         http://bugs.scribus.net</translation>
     </message>
     <message>
         <source> pt</source>
@@ -12904,7 +12967,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>Wiki:           http://wiki.scribus.net</source>
-        <translation>Wiki:           http://wiki.scribus.net</translation>
+        <translation type="obsolete">Wiki:           http://wiki.scribus.net</translation>
     </message>
     <message>
         <source>page</source>
@@ -13013,7 +13076,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation>Brug højre til venstre dialog knap orden (d.v.s. Annullér/Nej/Ja i stedet for d.v.s. Ja/Nej/Annullér)</translation>
+        <translation type="obsolete">Brug højre til venstre dialog knap orden (d.v.s. Annullér/Nej/Ja i stedet for d.v.s. Ja/Nej/Annullér)</translation>
     </message>
     <message>
         <source>firstPageOrder is bigger than allowed.</source>
@@ -13057,7 +13120,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
         <translation type="unfinished">&amp;Importér</translation>
     </message>
     <message>
-        <source>Use filename as path for user given preferences</source>
+        <source>Thai</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14606,6 +14669,97 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     </message>
 </context>
 <context>
+    <name>ScribusQApp</name>
+    <message>
+        <source>Invalid argument: </source>
+        <translation type="unfinished">Ugyldigt argument: </translation>
+    </message>
+    <message>
+        <source>File %1 does not exist, aborting.</source>
+        <translation type="unfinished">Fil %1 eksisterer ikke, afslutter.</translation>
+    </message>
+    <message>
+        <source>Usage: scribus [option ... ] [file]</source>
+        <translation type="unfinished">Brug: scribus [tilvalg ... ] [fil]</translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print help (this message) and exit</source>
+        <translation type="unfinished">Udskriv hjælp (denne besked) og afslut</translation>
+    </message>
+    <message>
+        <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List the currently installed interface languages</source>
+        <translation type="unfinished">Lav en liste over de aktuelle installerede brugerflade sprog</translation>
+    </message>
+    <message>
+        <source>Show information on the console when fonts are being loaded</source>
+        <translation type="unfinished">Vis information i konsollen når fonte indlæses</translation>
+    </message>
+    <message>
+        <source>Do not show the splashscreen on startup</source>
+        <translation type="unfinished">Vis ikke &apos;reklame-billedet&apos; ved opstart</translation>
+    </message>
+    <message>
+        <source>Output version information and exit</source>
+        <translation type="unfinished">Vis versions information og afslut</translation>
+    </message>
+    <message>
+        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
+        <translation type="unfinished">Brug højre til venstre dialog knap orden (d.v.s. Annullér/Nej/Ja i stedet for d.v.s. Ja/Nej/Annullér)</translation>
+    </message>
+    <message>
+        <source>filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use filename as path for user given preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installed interface languages for Scribus are as follows:</source>
+        <translation type="unfinished">De installerede brugerflade-sprog for Scribus er følgende:</translation>
+    </message>
+    <message>
+        <source>To override the default language choice:</source>
+        <translation type="unfinished">For at tilsidesætte standard sprogvalg:</translation>
+    </message>
+    <message>
+        <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
+        <translation type="unfinished">scribus -l xx eller scribus --lang xx, hvor xx er det sprog du ønsker at bruge.</translation>
+    </message>
+    <message>
+        <source>Scribus Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus, Open Source Desktop Publishing</source>
+        <translation type="unfinished">Scribus, Åben Kildetekst &apos;Desktop Publishing&apos;</translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation type="unfinished">Hjemmeside</translation>
+    </message>
+    <message>
+        <source>Documentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wiki</source>
+        <translation type="unfinished">Wiki</translation>
+    </message>
+    <message>
+        <source>Issues</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScribusView</name>
     <message>
         <source>Layer</source>
@@ -14810,7 +14964,7 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     </message>
     <message>
         <source>Python Scripts (*.py)</source>
-        <translation>Python scripts (*.py)</translation>
+        <translation type="obsolete">Python scripts (*.py)</translation>
     </message>
     <message>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
@@ -14819,6 +14973,10 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Opsætning af Python plugin mislykkedes. Detaljer om fejl blev udskrevet til stderr.</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16545,6 +16703,83 @@ Medmindre du har grund til andet, så lad dette være aktiveret, Det reducerer s
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Layout</source>
+        <translation type="unfinished">side udformning</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished">Enkelt side</translation>
+    </message>
+    <message>
+        <source>Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Page Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Page Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visual Appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Viewers Defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Full Screen Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Bookmarks Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Layers Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Viewers Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Viewers Menubar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom Pages to fit Viewer Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Special Actions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when Document is opened:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Viewer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

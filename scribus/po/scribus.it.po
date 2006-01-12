@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-20 22:53+0100\n"
+"POT-Creation-Date: 2006-01-12 15:23+0100\n"
 "PO-Revision-Date: 2005-01-08 12:50+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: Italiano <it@li.org>\n"
@@ -1786,6 +1786,14 @@ msgstr "Gestione guide"
 msgid "Horizontal Guides"
 msgstr "Guide orizzontali"
 
+#, fuzzy
+msgid "Guide"
+msgstr "Guide"
+
+#, fuzzy
+msgid "Unit"
+msgstr "Unità"
+
 msgid "D&elete"
 msgstr "&Elimina"
 
@@ -1845,9 +1853,15 @@ msgstr "C&hiudi"
 msgid "&Update"
 msgstr "&Aggiorna immagine"
 
+msgid "Preview"
+msgstr "Anteprima"
+
 msgid ""
 "Set the guides in document. Guide manager is still opened but the changes "
 "are persistant"
+msgstr ""
+
+msgid "There is empty (0.0) guide already"
 msgstr ""
 
 msgid "Other..."
@@ -2006,9 +2020,6 @@ msgstr "Altre opzioni"
 
 msgid "Sa&ve Contents on Changes"
 msgstr "Sal&va contenuto dopo modifiche"
-
-msgid "Preview"
-msgstr "Anteprima"
 
 msgid "Small"
 msgstr "Piccola"
@@ -2549,7 +2560,7 @@ msgstr "&Salva"
 msgid ""
 "This enables exporting one individually named PDF file for each page in the "
 "document. Page numbers are added automatically. This is most useful for "
-"imposing PDF for commerical printing."
+"imposing PDF for commercial printing."
 msgstr ""
 
 msgid "Save as"
@@ -3041,6 +3052,10 @@ msgstr "Nome:"
 msgid "New MasterPage"
 msgstr "dopo pagina"
 
+#, fuzzy
+msgid "New Master Page %1"
+msgstr "dopo pagina"
+
 msgid "Align and Distribute"
 msgstr ""
 
@@ -3062,10 +3077,6 @@ msgstr "Seleziona"
 #, fuzzy
 msgid "Margins"
 msgstr "&Margini:"
-
-#, fuzzy
-msgid "Guide"
-msgstr "Guide"
 
 msgid "Align right sides of objects to left side of anchor"
 msgstr ""
@@ -3350,6 +3361,73 @@ msgstr "Applica effetto a t&utte le pagine"
 
 msgid "E&xtras"
 msgstr "E&xtra"
+
+#, fuzzy
+msgid "Display Settings"
+msgstr "Impostazione immagini"
+
+#, fuzzy
+msgid "Single Page"
+msgstr "Pagine affiancate"
+
+#, fuzzy
+msgid "Continuous"
+msgstr "Contenuto"
+
+#, fuzzy
+msgid "Double Page Left"
+msgstr "Allinea a destra"
+
+#, fuzzy
+msgid "Double Page Right"
+msgstr "Allinea a destra"
+
+#, fuzzy
+msgid "Visual Appearance"
+msgstr "Aspetto"
+
+msgid "Use Viewers Defaults"
+msgstr ""
+
+msgid "Use Full Screen Mode"
+msgstr ""
+
+#, fuzzy
+msgid "Display Bookmarks Tab"
+msgstr "Segnalibri"
+
+#, fuzzy
+msgid "Display Thumbnails"
+msgstr "Miniature"
+
+msgid "Display Layers Tab"
+msgstr ""
+
+msgid "Hide Viewers Toolbar"
+msgstr ""
+
+msgid "Hide Viewers Menubar"
+msgstr ""
+
+msgid "Zoom Pages to fit Viewer Window"
+msgstr ""
+
+#, fuzzy
+msgid "Special Actions"
+msgstr "Speciale"
+
+msgid ""
+"Javascript to be executed\n"
+"when Document is opened:"
+msgstr ""
+
+#, fuzzy
+msgid "No Script"
+msgstr "Nuovo Script"
+
+#, fuzzy
+msgid "Viewer"
+msgstr "&Vista"
 
 msgid "&Use Encryption"
 msgstr "U&sa cifratura"
@@ -3777,10 +3855,6 @@ msgid ""
 "left enabled."
 msgstr ""
 
-#, fuzzy
-msgid "Single Page"
-msgstr "Pagine affiancate"
-
 msgid "Double sided"
 msgstr ""
 
@@ -4003,6 +4077,18 @@ msgstr "Regolazione colori"
 #, fuzzy
 msgid "Saving PDF"
 msgstr "Salva in P&DF..."
+
+#, fuzzy
+msgid "Exporting Master Pages:"
+msgstr "Importa dati"
+
+#, fuzzy
+msgid "Exporting Pages:"
+msgstr "Importazione pagine..."
+
+#, fuzzy
+msgid "Exporting Items on Current Page:"
+msgstr "Esporta solo la pagine corrente"
 
 msgid "Field Properties"
 msgstr "Proprietà campi"
@@ -6262,9 +6348,8 @@ msgstr "Seleziona font"
 msgid "About Scribus %1"
 msgstr "Informazioni su Scribus%1"
 
-#, fuzzy
-msgid "December"
-msgstr "Numero"
+msgid "January"
+msgstr ""
 
 #, fuzzy
 msgid "%1 %2 %3"
@@ -6801,7 +6886,7 @@ msgstr ""
 msgid "Print help (this message) and exit"
 msgstr ""
 
-msgid "Uses xx as shortcut for a language"
+msgid "Uses xx as shortcut for a language, eg `en' or `de'"
 msgstr ""
 
 msgid "List the currently installed interface languages"
@@ -6821,6 +6906,10 @@ msgid ""
 "No/Cancel)"
 msgstr ""
 
+#, fuzzy
+msgid "filename"
+msgstr "&Nome file:"
+
 msgid "Use filename as path for user given preferences"
 msgstr ""
 
@@ -6834,7 +6923,7 @@ msgid "scribus -l xx or scribus --lang xx, where xx is the language of choice."
 msgstr ""
 
 #, fuzzy
-msgid "Scribus Version "
+msgid "Scribus Version"
 msgstr ""
 "Versione di Scribus %1\n"
 "%2 %3"
@@ -6842,19 +6931,11 @@ msgstr ""
 msgid "Scribus, Open Source Desktop Publishing"
 msgstr ""
 
-msgid "---------------------------------------"
-msgstr ""
+#, fuzzy
+msgid "Documentation"
+msgstr "Impostazioni documento"
 
-msgid "Homepage:       http://www.scribus.net "
-msgstr ""
-
-msgid "Documentation:  http://docs.scribus.net"
-msgstr ""
-
-msgid "Wiki:           http://wiki.scribus.net"
-msgstr ""
-
-msgid "Issues:         http://bugs.scribus.net"
+msgid "Issues"
 msgstr ""
 
 msgid "Search/Replace"
@@ -7810,6 +7891,10 @@ msgstr "Script Python (*.py);; Tutti i file (*)"
 msgid "Printing File"
 msgstr "Impossibile stampare!"
 
+#, fuzzy
+msgid "Processing Master Pages:"
+msgstr "dopo pagina"
+
 msgid "Contents"
 msgstr "Contenuto"
 
@@ -7895,6 +7980,12 @@ msgstr "Mod&ifica..."
 
 msgid "&Add..."
 msgstr "&Aggiungi..."
+
+msgid ""
+"Adds a new Script, predefines a function with the same name. If you want to "
+"use this script as an \"Open Action\" script be sure not to change the name "
+"of the function."
+msgstr ""
 
 msgid "&New Script:"
 msgstr "&Nuovo Script:"
@@ -8067,6 +8158,10 @@ msgstr "Sloveno"
 
 msgid "Serbian"
 msgstr "Serbo"
+
+#, fuzzy
+msgid "Thai"
+msgstr "Sottile"
 
 #, fuzzy
 msgid "Turkish"
@@ -8958,6 +9053,10 @@ msgstr ""
 msgid "Examine Script"
 msgstr "Nuovo Script"
 
+#, fuzzy
+msgid "Python Scripts (*.py);;All Files (*)"
+msgstr "Script Python (*.py);; Tutti i file (*)"
+
 msgid "About Script"
 msgstr "Informazioni sugli Script"
 
@@ -9731,6 +9830,10 @@ msgstr "Testo"
 msgid "My Plugin"
 msgstr "Testo"
 
+#, fuzzy
+#~ msgid "December"
+#~ msgstr "Numero"
+
 #~ msgid ""
 #~ "A way of switching off some of the gray shades which are composed\n"
 #~ "of cyan, yellow and magenta and using black instead.\n"
@@ -10157,9 +10260,6 @@ msgstr "Testo"
 
 #~ msgid "100%"
 #~ msgstr "100%"
-
-#~ msgid "Thumbnails"
-#~ msgstr "Miniature"
 
 #~ msgid "Hide Margins"
 #~ msgstr "Nascondi margini"

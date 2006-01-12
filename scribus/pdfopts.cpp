@@ -92,7 +92,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	resize(sizeHint());
 //	setMaximumSize( sizeHint() );
 //tooltips
-	QToolTip::add( multiFile, "<qt>" + tr( "This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.") + "</qt>" );
+	QToolTip::add( multiFile, "<qt>" + tr( "This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.") + "</qt>" );
 	// signals and slots connections
 	connect( FileC, SIGNAL( clicked() ), this, SLOT( ChangeFile() ) );
 	connect( OK, SIGNAL( clicked() ), this, SLOT( DoExport() ) );

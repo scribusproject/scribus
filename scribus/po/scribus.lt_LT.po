@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-20 22:53+0100\n"
+"POT-Creation-Date: 2006-01-12 15:23+0100\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -1860,6 +1860,14 @@ msgid "Horizontal Guides"
 msgstr "Apverstas horizontaliai"
 
 #, fuzzy
+msgid "Guide"
+msgstr "Pagalbinës linijos"
+
+#, fuzzy
+msgid "Unit"
+msgstr "Vienetai"
+
+#, fuzzy
 msgid "D&elete"
 msgstr "Iðtrinti"
 
@@ -1925,9 +1933,15 @@ msgstr "Uþdaryti"
 msgid "&Update"
 msgstr "Priþiûrëti paveiksliukus"
 
+msgid "Preview"
+msgstr "Pasiþiûrëti kaip atrodys"
+
 msgid ""
 "Set the guides in document. Guide manager is still opened but the changes "
 "are persistant"
+msgstr ""
+
+msgid "There is empty (0.0) guide already"
 msgstr ""
 
 msgid "Other..."
@@ -2103,9 +2117,6 @@ msgstr "Kitos parinktys"
 #, fuzzy
 msgid "Sa&ve Contents on Changes"
 msgstr "Iðsaugoti kas sukaupta iðeinant"
-
-msgid "Preview"
-msgstr "Pasiþiûrëti kaip atrodys"
 
 msgid "Small"
 msgstr "Maþas"
@@ -2632,7 +2643,7 @@ msgstr "Iðsaugoti"
 msgid ""
 "This enables exporting one individually named PDF file for each page in the "
 "document. Page numbers are added automatically. This is most useful for "
-"imposing PDF for commerical printing."
+"imposing PDF for commercial printing."
 msgstr ""
 
 msgid "Save as"
@@ -3126,6 +3137,10 @@ msgid "New MasterPage"
 msgstr "po puslapio"
 
 #, fuzzy
+msgid "New Master Page %1"
+msgstr "po puslapio"
+
+#, fuzzy
 msgid "Align and Distribute"
 msgstr "Iðskirstyti/iðligiuoti"
 
@@ -3147,10 +3162,6 @@ msgstr "Paþymëti"
 #, fuzzy
 msgid "Margins"
 msgstr "Paraðtë:"
-
-#, fuzzy
-msgid "Guide"
-msgstr "Pagalbinës linijos"
 
 msgid "Align right sides of objects to left side of anchor"
 msgstr ""
@@ -3464,6 +3475,73 @@ msgstr "Pritaikyti efektus visuose puslapiuose"
 #, fuzzy
 msgid "E&xtras"
 msgstr "Priedai"
+
+#, fuzzy
+msgid "Display Settings"
+msgstr "Simboliø parinktys"
+
+#, fuzzy
+msgid "Single Page"
+msgstr "Tituliniai puslapiai"
+
+#, fuzzy
+msgid "Continuous"
+msgstr "Turinys"
+
+#, fuzzy
+msgid "Double Page Left"
+msgstr "Lygiuoti deðinëje"
+
+#, fuzzy
+msgid "Double Page Right"
+msgstr "Lygiuoti deðinëje"
+
+#, fuzzy
+msgid "Visual Appearance"
+msgstr "Iðvaizda"
+
+msgid "Use Viewers Defaults"
+msgstr ""
+
+msgid "Use Full Screen Mode"
+msgstr ""
+
+#, fuzzy
+msgid "Display Bookmarks Tab"
+msgstr "Nuorodos"
+
+#, fuzzy
+msgid "Display Thumbnails"
+msgstr "Bendras vaizdas"
+
+msgid "Display Layers Tab"
+msgstr ""
+
+msgid "Hide Viewers Toolbar"
+msgstr ""
+
+msgid "Hide Viewers Menubar"
+msgstr ""
+
+msgid "Zoom Pages to fit Viewer Window"
+msgstr ""
+
+#, fuzzy
+msgid "Special Actions"
+msgstr "Deðimtainis:"
+
+msgid ""
+"Javascript to be executed\n"
+"when Document is opened:"
+msgstr ""
+
+#, fuzzy
+msgid "No Script"
+msgstr "Naujas skriptas"
+
+#, fuzzy
+msgid "Viewer"
+msgstr "Vaizdas"
 
 #, fuzzy
 msgid "&Use Encryption"
@@ -3820,10 +3898,6 @@ msgid ""
 "left enabled."
 msgstr ""
 
-#, fuzzy
-msgid "Single Page"
-msgstr "Tituliniai puslapiai"
-
 msgid "Double sided"
 msgstr ""
 
@@ -4049,6 +4123,18 @@ msgstr "Parinkti spalvas"
 #, fuzzy
 msgid "Saving PDF"
 msgstr "Iðsaugoti kaip PDF..."
+
+#, fuzzy
+msgid "Exporting Master Pages:"
+msgstr "Ákelti duomenis"
+
+#, fuzzy
+msgid "Exporting Pages:"
+msgstr "Ákelti duomenis"
+
+#, fuzzy
+msgid "Exporting Items on Current Page:"
+msgstr "Spausdinimo eiliðkumas"
 
 msgid "Field Properties"
 msgstr "Laukeliø parinktys"
@@ -6417,9 +6503,8 @@ msgstr "Pasirink ðriftà"
 msgid "About Scribus %1"
 msgstr "Apie Scribus"
 
-#, fuzzy
-msgid "December"
-msgstr "Skaièius"
+msgid "January"
+msgstr ""
 
 #, fuzzy
 msgid "%1 %2 %3"
@@ -6990,7 +7075,7 @@ msgstr ""
 msgid "Print help (this message) and exit"
 msgstr ""
 
-msgid "Uses xx as shortcut for a language"
+msgid "Uses xx as shortcut for a language, eg `en' or `de'"
 msgstr ""
 
 msgid "List the currently installed interface languages"
@@ -7010,6 +7095,10 @@ msgid ""
 "No/Cancel)"
 msgstr ""
 
+#, fuzzy
+msgid "filename"
+msgstr "Failo &vardas:"
+
 msgid "Use filename as path for user given preferences"
 msgstr ""
 
@@ -7023,25 +7112,17 @@ msgid "scribus -l xx or scribus --lang xx, where xx is the language of choice."
 msgstr ""
 
 #, fuzzy
-msgid "Scribus Version "
+msgid "Scribus Version"
 msgstr "Scribus-dokumentas"
 
 msgid "Scribus, Open Source Desktop Publishing"
 msgstr ""
 
-msgid "---------------------------------------"
-msgstr ""
+#, fuzzy
+msgid "Documentation"
+msgstr "Dokumento nuostatos"
 
-msgid "Homepage:       http://www.scribus.net "
-msgstr ""
-
-msgid "Documentation:  http://docs.scribus.net"
-msgstr ""
-
-msgid "Wiki:           http://wiki.scribus.net"
-msgstr ""
-
-msgid "Issues:         http://bugs.scribus.net"
+msgid "Issues"
 msgstr ""
 
 msgid "Search/Replace"
@@ -8019,6 +8100,10 @@ msgid "Printing File"
 msgstr "Spausdinimas nutrauktas"
 
 #, fuzzy
+msgid "Processing Master Pages:"
+msgstr "po puslapio"
+
+#, fuzzy
 msgid "Contents"
 msgstr "Turinys"
 
@@ -8106,6 +8191,12 @@ msgstr "Taisyti..."
 #, fuzzy
 msgid "&Add..."
 msgstr "Pridëti..."
+
+msgid ""
+"Adds a new Script, predefines a function with the same name. If you want to "
+"use this script as an \"Open Action\" script be sure not to change the name "
+"of the function."
+msgstr ""
 
 #, fuzzy
 msgid "&New Script:"
@@ -8294,6 +8385,10 @@ msgstr "Slovakø:"
 #, fuzzy
 msgid "Serbian"
 msgstr "Slovakø:"
+
+#, fuzzy
+msgid "Thai"
+msgstr "Plonas"
 
 msgid "Turkish"
 msgstr ""
@@ -9150,6 +9245,10 @@ msgid "Examine Script"
 msgstr "Naujas skriptas"
 
 #, fuzzy
+msgid "Python Scripts (*.py);;All Files (*)"
+msgstr "JavaScript (*.js);; Visi failai (*)"
+
+#, fuzzy
 msgid "About Script"
 msgstr "Apie Scribus"
 
@@ -9898,6 +9997,10 @@ msgid "My Plugin"
 msgstr "Paprastas"
 
 #, fuzzy
+#~ msgid "December"
+#~ msgstr "Skaièius"
+
+#, fuzzy
 #~ msgid "Import"
 #~ msgstr "Importuoti..."
 
@@ -10555,9 +10658,6 @@ msgstr "Paprastas"
 
 #~ msgid "Fit in Window"
 #~ msgstr "Dydis kaip lango"
-
-#~ msgid "Thumbnails"
-#~ msgstr "Bendras vaizdas"
 
 #~ msgid "Hide Margins"
 #~ msgstr "Slëpti paraðtes"

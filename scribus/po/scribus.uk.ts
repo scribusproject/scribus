@@ -3316,7 +3316,7 @@ Missing library support is indicated by a *</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>December</source>
+        <source>January</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9014,6 +9014,22 @@ please choose a suitable replacement for them.</source>
         <source>&amp;Apply to All Pages</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Guide</source>
+        <translation type="unfinished">Направляюча</translation>
+    </message>
+    <message>
+        <source>Unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="unfinished">Попередній перегляд</translation>
+    </message>
+    <message>
+        <source>There is empty (0.0) guide already</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
@@ -9510,6 +9526,10 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Do you really want to delete this script?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10400,6 +10420,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Import master pages from another document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12230,6 +12254,46 @@ Scribus.</translation>
     </message>
 </context>
 <context>
+    <name>PDFExportDialog</name>
+    <message>
+        <source>Save as PDF</source>
+        <translation type="unfinished">Записати як PDF</translation>
+    </message>
+    <message>
+        <source>O&amp;utput to File:</source>
+        <translation type="unfinished">За&amp;писати в файл:</translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="unfinished">З&amp;мінити...</translation>
+    </message>
+    <message>
+        <source>Output one file for eac&amp;h page</source>
+        <translation type="unfinished">Експортувати окремий файл для ко&amp;жної сторінки</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Записати</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
+        <translation type="obsolete">Дозволяє експортувати один індивідуально названий PDF файл для кожної сторінки документу. Номери сторінок додаються автоматично. Ця функція найбіль корисна для
+імпозиції PDF для комерційного друку.</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="unfinished">Записати як</translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="unfinished">PDF файли (*.pdf);;Всі файли (*)</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PDF_Opts</name>
     <message>
         <source>Export Range</source>
@@ -12341,7 +12405,7 @@ Scribus.</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation>Записати як</translation>
+        <translation type="obsolete">Записати як</translation>
     </message>
     <message>
         <source>No Effect</source>
@@ -12717,11 +12781,11 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
-        <translation>За&amp;писати в файл:</translation>
+        <translation type="obsolete">За&amp;писати в файл:</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation>З&amp;мінити...</translation>
+        <translation type="obsolete">З&amp;мінити...</translation>
     </message>
     <message>
         <source>&amp;All Pages</source>
@@ -12905,7 +12969,7 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Записати</translation>
+        <translation type="obsolete">&amp;Записати</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -12913,7 +12977,7 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation>PDF файли (*.pdf);;Всі файли (*)</translation>
+        <translation type="obsolete">PDF файли (*.pdf);;Всі файли (*)</translation>
     </message>
     <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled
@@ -12957,7 +13021,7 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
     </message>
     <message>
         <source>Save as PDF</source>
-        <translation>Записати як PDF</translation>
+        <translation type="obsolete">Записати як PDF</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt&gt;</source>
@@ -12992,11 +13056,11 @@ If un-checked, editing annotations and fields is prevented.</source>
     </message>
     <message>
         <source>Output one file for eac&amp;h page</source>
-        <translation>Експортувати окремий файл для ко&amp;жної сторінки</translation>
+        <translation type="obsolete">Експортувати окремий файл для ко&amp;жної сторінки</translation>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
-        <translation>Дозволяє експортувати один індивідуально названий PDF файл для кожної сторінки документу. Номери сторінок додаються автоматично. Ця функція найбіль корисна для
+        <translation type="obsolete">Дозволяє експортувати один індивідуально названий PDF файл для кожної сторінки документу. Номери сторінок додаються автоматично. Ця функція найбіль корисна для
 імпозиції PDF для комерційного друку.</translation>
     </message>
 </context>
@@ -17647,79 +17711,79 @@ NoValidObjectError, якщо не зможе знайти жодного об&ap
     </message>
     <message>
         <source>Invalid argument: </source>
-        <translation>Невірний аргумент:</translation>
+        <translation type="obsolete">Невірний аргумент:</translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
-        <translation>Файл %1 не існує, аварійний вихід.</translation>
+        <translation type="obsolete">Файл %1 не існує, аварійний вихід.</translation>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation>Використання: scribus [ключ ... ] [файл]</translation>
+        <translation type="obsolete">Використання: scribus [ключ ... ] [файл]</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation>Установки:</translation>
+        <translation type="obsolete">Установки:</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
-        <translation>Надрукувати підказку (це повідомлення) та вийти</translation>
+        <translation type="obsolete">Надрукувати підказку (це повідомлення) та вийти</translation>
     </message>
     <message>
         <source>Uses xx as shortcut for a language</source>
-        <translation>Використовує хх, як скорочений код мови</translation>
+        <translation type="obsolete">Використовує хх, як скорочений код мови</translation>
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation>Показати список установлених мов інтерфейса</translation>
+        <translation type="obsolete">Показати список установлених мов інтерфейса</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation>Показати в консолі інформацію про завантаження шрифтів</translation>
+        <translation type="obsolete">Показати в консолі інформацію про завантаження шрифтів</translation>
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
-        <translation>Не показувати стартову заставку під час запуску програми</translation>
+        <translation type="obsolete">Не показувати стартову заставку під час запуску програми</translation>
     </message>
     <message>
         <source>Output version information and exit</source>
-        <translation>Показати інформацію про версію та вийти</translation>
+        <translation type="obsolete">Показати інформацію про версію та вийти</translation>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
-        <translation>Інстальовані мови інтерфейсу Scribus включають:</translation>
+        <translation type="obsolete">Інстальовані мови інтерфейсу Scribus включають:</translation>
     </message>
     <message>
         <source>To override the default language choice:</source>
-        <translation>Вибрати нестандартну мову:</translation>
+        <translation type="obsolete">Вибрати нестандартну мову:</translation>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation>scribus -l xx або scribus --lang xx, де xx - це код вибраної мови.</translation>
+        <translation type="obsolete">scribus -l xx або scribus --lang xx, де xx - це код вибраної мови.</translation>
     </message>
     <message>
         <source>Scribus Version </source>
-        <translation>Версія Scribus</translation>
+        <translation type="obsolete">Версія Scribus</translation>
     </message>
     <message>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation>Scribus, поліграфічне програмне забезпечення з відкритим кодом</translation>
+        <translation type="obsolete">Scribus, поліграфічне програмне забезпечення з відкритим кодом</translation>
     </message>
     <message>
         <source>---------------------------------------</source>
-        <translation>---------------------------------------</translation>
+        <translation type="obsolete">---------------------------------------</translation>
     </message>
     <message>
         <source>Homepage:       http://www.scribus.net </source>
-        <translation>Домашня сторінка:       http://www.scribus.net </translation>
+        <translation type="obsolete">Домашня сторінка:       http://www.scribus.net </translation>
     </message>
     <message>
         <source>Documentation:  http://docs.scribus.net</source>
-        <translation>Документація:  http://docs.scribus.net</translation>
+        <translation type="obsolete">Документація:  http://docs.scribus.net</translation>
     </message>
     <message>
         <source>Issues:         http://bugs.scribus.net</source>
-        <translation>Звіт про проблеми:         http://bugs.scribus.net</translation>
+        <translation type="obsolete">Звіт про проблеми:         http://bugs.scribus.net</translation>
     </message>
     <message>
         <source> pt</source>
@@ -18008,7 +18072,7 @@ NoValidObjectError, якщо вона не знайде об&apos;єкта на�
     </message>
     <message>
         <source>Wiki:           http://wiki.scribus.net</source>
-        <translation>Вікі:           http://wiki.scribus.net</translation>
+        <translation type="obsolete">Вікі:           http://wiki.scribus.net</translation>
     </message>
     <message>
         <source> c</source>
@@ -18152,10 +18216,6 @@ NoValidObjectError, якщо вона не знайде об&apos;єкта на�
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18193,7 +18253,7 @@ NoValidObjectError, якщо вона не знайде об&apos;єкта на�
         <translation type="unfinished">І&amp;мпортувати</translation>
     </message>
     <message>
-        <source>Use filename as path for user given preferences</source>
+        <source>Thai</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20929,6 +20989,97 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
 </context>
 <context>
+    <name>ScribusQApp</name>
+    <message>
+        <source>Invalid argument: </source>
+        <translation type="unfinished">Невірний аргумент:</translation>
+    </message>
+    <message>
+        <source>File %1 does not exist, aborting.</source>
+        <translation type="unfinished">Файл %1 не існує, аварійний вихід.</translation>
+    </message>
+    <message>
+        <source>Usage: scribus [option ... ] [file]</source>
+        <translation type="unfinished">Використання: scribus [ключ ... ] [файл]</translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation type="unfinished">Установки:</translation>
+    </message>
+    <message>
+        <source>Print help (this message) and exit</source>
+        <translation type="unfinished">Надрукувати підказку (це повідомлення) та вийти</translation>
+    </message>
+    <message>
+        <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List the currently installed interface languages</source>
+        <translation type="unfinished">Показати список установлених мов інтерфейса</translation>
+    </message>
+    <message>
+        <source>Show information on the console when fonts are being loaded</source>
+        <translation type="unfinished">Показати в консолі інформацію про завантаження шрифтів</translation>
+    </message>
+    <message>
+        <source>Do not show the splashscreen on startup</source>
+        <translation type="unfinished">Не показувати стартову заставку під час запуску програми</translation>
+    </message>
+    <message>
+        <source>Output version information and exit</source>
+        <translation type="unfinished">Показати інформацію про версію та вийти</translation>
+    </message>
+    <message>
+        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use filename as path for user given preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installed interface languages for Scribus are as follows:</source>
+        <translation type="unfinished">Інстальовані мови інтерфейсу Scribus включають:</translation>
+    </message>
+    <message>
+        <source>To override the default language choice:</source>
+        <translation type="unfinished">Вибрати нестандартну мову:</translation>
+    </message>
+    <message>
+        <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
+        <translation type="unfinished">scribus -l xx або scribus --lang xx, де xx - це код вибраної мови.</translation>
+    </message>
+    <message>
+        <source>Scribus Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus, Open Source Desktop Publishing</source>
+        <translation type="unfinished">Scribus, поліграфічне програмне забезпечення з відкритим кодом</translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation type="unfinished">Домашня сторінка</translation>
+    </message>
+    <message>
+        <source>Documentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wiki</source>
+        <translation type="unfinished">Вікі</translation>
+    </message>
+    <message>
+        <source>Issues</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScribusView</name>
     <message>
         <source> %</source>
@@ -21275,7 +21426,7 @@ Please read the documentation on extension scripts first.
     </message>
     <message>
         <source>Python Scripts (*.py)</source>
-        <translation>Сценарї на Пітоні (*.py)</translation>
+        <translation type="obsolete">Сценарї на Пітоні (*.py)</translation>
     </message>
     <message>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
@@ -21284,6 +21435,10 @@ Please read the documentation on extension scripts first.
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Активація модуля пітона не вдалася. Деталі помилки будуть надруковані в стандартний вивід помилок. </translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23443,6 +23598,83 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Layout</source>
+        <translation type="unfinished">Макет сторінки</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished">Одна сторінка</translation>
+    </message>
+    <message>
+        <source>Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Page Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Page Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visual Appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Viewers Defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Full Screen Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Bookmarks Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Layers Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Viewers Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Viewers Menubar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom Pages to fit Viewer Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Special Actions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when Document is opened:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Viewer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
