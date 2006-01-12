@@ -39,7 +39,7 @@ void ColorWheel::paintCenterSample()
 	p.begin(this);
 	p.setPen(QPen(Qt::black, 2));
 	p.setBrush(actualColor);
-	p.drawEllipse(width()/2 - 20, height()/2 - 20, 40, 40);
+	p.drawEllipse(widthH - 20, heightH - 20, 40, 40);
 	p.end();
 }
 
@@ -184,21 +184,11 @@ void ColorWheel::makeTetradic()
 
 void ColorWheel::clearBorder()
 {
-	QPainter p;
-	p.begin(this);
-	p.setPen(QPen(Qt::white, 2));
 	for (int i = 0; i < 360; ++i)
-	{
-		QWMatrix matrix;
-		matrix.translate(width()/2, height()/2);
-		matrix.rotate((float)i);
-		p.setWorldMatrix(matrix);
-		p.drawLine(130, 0, 145, 30);
-	}
-	p.end();
+		drawBorderPoint(i, false, true);
 }
 
-void ColorWheel::drawBorderPoint(int angle, bool base)
+void ColorWheel::drawBorderPoint(int angle, bool base, bool clear)
 {
 	double r = 137.0;
 	angle -= angleShift;
@@ -208,11 +198,19 @@ void ColorWheel::drawBorderPoint(int angle, bool base)
 	// draw border mark
 	QPainter p;
 	p.begin(this);
-	p.setPen(QPen(Qt::black, 1));
-	if (base)
-		p.setBrush(Qt::red);
+	if (clear)
+	{
+		p.setPen(QPen(Qt::white, 1));
+		p.setBrush(Qt::white);
+	}
 	else
-		p.setBrush(Qt::SolidPattern);
+	{
+		p.setPen(QPen(Qt::black, 1));
+		if (base)
+			p.setBrush(Qt::red);
+		else
+			p.setBrush(Qt::SolidPattern);
+	}
 	p.drawEllipse(x-4, y-4, 8, 8);
 	p.end();
 }
