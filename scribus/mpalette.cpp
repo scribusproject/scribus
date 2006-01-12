@@ -90,7 +90,7 @@ void NameWidget::focusOutEvent(QFocusEvent *e)
 	QLineEdit::focusOutEvent(e);
 }
 
-Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false, 0)
+Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalette", false, 0)
 {
 	HaveDoc = false;
 	HaveItem = false;
