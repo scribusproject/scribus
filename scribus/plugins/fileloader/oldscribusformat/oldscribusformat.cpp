@@ -54,10 +54,10 @@ void OldScribusFormat::registerFormats()
 	fmt.load = true;
 	fmt.save = true;
 #ifdef HAVE_LIBZ
-	fmt.filter = fmt.trName + " (*.sla *.sla.gz *.scd *.scd.gz)";
+	fmt.filter = fmt.trName + " (*.sla *.SLA *.sla.gz *.SLA.GZ *.scd *.SCD *.scd.gz *.SCD.GZ)";
 	fmt.nameMatch = QRegExp("\\.(sla|scd)(\\.gz)?", false);
 #else
-	fmt.filter = fmt.trName + " (*.sla *.scd)";
+	fmt.filter = fmt.trName + " (*.sla *.SLA *.scd *.SCD)";
 	fmt.nameMatch = QRegExp("\\.(sla|scd)", false);
 #endif
 	fmt.mimeTypes = QStringList();

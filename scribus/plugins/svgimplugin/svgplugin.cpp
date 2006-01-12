@@ -106,10 +106,10 @@ void SVGImportPlugin::registerFormats()
 	fmt.trName = svgName;
 	fmt.formatId = FORMATID_SVGIMPORT;
 #ifdef HAVE_LIBZ
-	fmt.filter = svgName + " (*.svg *.svgz)";
+	fmt.filter = svgName + " (*.svg *.SVG *.svgz *.SVGZ)";
 	fmt.nameMatch = QRegExp("\\.(svg|svgz)$", false);
 #else
-	fmt.filter = svgName + " (*.svg)";
+	fmt.filter = svgName + " (*.svg *.SVG)";
 	fmt.nameMatch = QRegExp("\\.svg$", false);
 #endif
 	fmt.load = true;

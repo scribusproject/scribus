@@ -114,7 +114,7 @@ void OODrawImportPlugin::registerFormats()
 	FileFormat odtformat(this);
 	odtformat.trName = odtName; // Human readable name
 	odtformat.formatId = FORMATID_ODGIMPORT;
-	odtformat.filter = odtName + " (*.odg)"; // QFileDialog filter
+	odtformat.filter = odtName + " (*.odg *.ODG)"; // QFileDialog filter
 	odtformat.nameMatch = QRegExp("\\.odg$", false);
 	odtformat.load = true;
 	odtformat.save = false;
@@ -126,7 +126,7 @@ void OODrawImportPlugin::registerFormats()
 	FileFormat sxdformat(this);
 	sxdformat.trName = sxdName; // Human readable name
 	sxdformat.formatId = FORMATID_SXDIMPORT;
-	sxdformat.filter = sxdName + " (*.sxd)"; // QFileDialog filter
+	sxdformat.filter = sxdName + " (*.sxd *.SXD)"; // QFileDialog filter
 	sxdformat.nameMatch = QRegExp("\\.sxd$", false);
 	sxdformat.load = true;
 	sxdformat.save = false;
