@@ -997,7 +997,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 		{
 			QStringList barNames, barTexts;
 			barNames << "EMP" << "EP";
-			barTexts << QT_TR_NOOP("Processing Master Pages:") << QT_TR_NOOP("Exporting Pages:");
+			barTexts << tr("Processing Master Pages:") << tr("Exporting Pages:");
 			progressDialog->addExtraProgressBars(barNames, barTexts);
 			progressDialog->setOverallTotalSteps(pageNs.size()+Doc->MasterPages.count());
 			progressDialog->setTotalSteps("EMP", Doc->MasterPages.count());
