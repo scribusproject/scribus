@@ -64,7 +64,8 @@ FontPreview::FontPreview(QString fontName)
 	mainLayout->addWidget(fontList);
 
 	fontPreview = new QLabel(this, "fontPreview");
-	fontPreview->setMinimumSize(QSize(400, 90));
+	fontPreview->setMinimumSize(QSize(400, 100));
+	fontPreview->setMaximumHeight(100);
 	fontPreview->setFrameShape(QFrame::Box);
 	fontPreview->setPaletteBackgroundColor(white /* MrB RFE ;) paletteBackgroundColor()*/);
 	mainLayout->addWidget(fontPreview);
