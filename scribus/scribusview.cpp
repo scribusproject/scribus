@@ -1858,8 +1858,15 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				ScMW->scrActions["itemSendToScrapbook"]->addTo(pmen);
 				if (Doc->layerCount() > 1)
 				{
-					for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = ScMW->scrLayersActions.begin(); it!=ScMW->scrLayersActions.end(); ++it )
-						(*it)->addTo(pmen3);
+					//for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = ScMW->scrLayersActions.begin(); it!=ScMW->scrLayersActions.end(); ++it )
+					//	(*it)->addTo(pmen3);
+					QValueList<QString> layerKeys(ScMW->scrLayersActions.keys());
+					int index=layerKeys.count()-1;
+					while (index>=0)
+					{
+						ScMW->scrLayersActions[layerKeys[index--]]->addTo(pmen3);
+					}
+					
 					pmen->insertItem( tr("Send to La&yer"), pmen3);
 				}
 			}
