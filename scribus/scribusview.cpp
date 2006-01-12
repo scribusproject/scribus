@@ -8574,7 +8574,8 @@ void ScribusView::GotoLa(int l)
 	if (layerNumber==-1)
 		return;
 	Doc->setActiveLayer(layerNumber);
-	setLayerMenuText(Doc->activeLayerName());
+	//CB TODO fix this to use view calls after 1.3.2 release
+	ScMW->changeLayer(Doc->activeLayer());
 	emit changeLA(layerNumber);
 }
 
