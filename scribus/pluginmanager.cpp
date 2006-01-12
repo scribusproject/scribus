@@ -158,9 +158,7 @@ void PluginManager::initPlugs()
 			pda.pluginDLL = 0;
 			pda.enabled = false;
 			pda.enableOnStartup = prefs->getBool(pda.pluginName, true);
-			if (ScMW->splashScreen != NULL)
-				ScMW->splashScreen->setStatus(
-						tr("Plugin: loading %1", "plugin manager").arg(pda.pluginName));
+			ScMW->setSplashStatus(tr("Plugin: loading %1", "plugin manager").arg(pda.pluginName));
 			if (loadPlugin(pda))
 			{
 				if (pda.enableOnStartup)
