@@ -2653,41 +2653,44 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 
 void ScribusMainWindow::updateRecent(QString fn)
 {
-	if (RecentDocs.findIndex(fn) == -1)
+	QString platfname(QDir::convertSeparators(fn));
+	if (RecentDocs.findIndex(platfname) == -1)
 	{
-		RecentDocs.prepend(fn);
-		fileWatcher->addFile(fn);
+		RecentDocs.prepend(platfname);
+		fileWatcher->addFile(platfname);
 	}
 	else
 	{
-		RecentDocs.remove(fn);
-		RecentDocs.prepend(fn);
+		RecentDocs.remove(platfname);
+		RecentDocs.prepend(platfname);
 	}
 	rebuildRecentFileMenu();
 }
 
 void ScribusMainWindow::removeRecent(QString fn)
 {
-	if (RecentDocs.findIndex(fn) != -1)
+	QString platfname(QDir::convertSeparators(fn));
+	if (RecentDocs.findIndex(platfname) != -1)
 	{
-		RecentDocs.remove(fn);
+		RecentDocs.remove(platfname);
 		if (!fileWatcher->isActive())
-			fileWatcher->removeFile(fn);
+			fileWatcher->removeFile(platfname);
 	}
 	rebuildRecentFileMenu();
 }
 
 void ScribusMainWindow::loadRecent(QString fn)
 {
-	QFileInfo fd(fn);
+	QString platfname(QDir::convertSeparators(fn));
+	QFileInfo fd(platfname);
 	if (!fd.exists())
 	{
-		RecentDocs.remove(fn);
-		fileWatcher->removeFile(fn);
+		RecentDocs.remove(platfname);
+		fileWatcher->removeFile(platfname);
 		rebuildRecentFileMenu();
 		return;
 	}
-	loadDoc(fn);
+	loadDoc(platfname);
 }
 
 void ScribusMainWindow::rebuildRecentFileMenu()
@@ -5160,10 +5163,11 @@ void ScribusMainWindow::setAppMode(int mode)
 	scrActions["toolsEyeDropper"]->setOn(mode==modeEyeDropper);
 	scrActions["toolsCopyProperties"]->setOn(mode==modeCopyProperties);
 
-	PageItem *currItem;
-	//setActiveWindow();
 	if (HaveDoc)
 	{
+		PageItem *currItem;
+		//setActiveWindow();
+	
 		if (doc->selection->count() != 0)
 			currItem = doc->selection->itemAt(0);
 		else
@@ -5819,7 +5823,6 @@ void ScribusMainWindow::setItemShade(int id)
 
 void ScribusMainWindow::setCSMenu(QString , QString l, int  , int ls)
 {
-	uint a;
 	QString la;
 	int lb;
 	PageItem *currItem;
@@ -5852,7 +5855,7 @@ void ScribusMainWindow::setCSMenu(QString , QString l, int  , int ls)
 	}
 	if (la == "None")
 		la = tr("None");
-	for (a = 0; a < static_cast<uint>(ColorMenC->count()); ++a)
+	for (uint a = 0; a < static_cast<uint>(ColorMenC->count()); ++a)
 	{
 		if (ColorMenC->text(a) == la)
 			ColorMenC->setCurrentItem(a);
@@ -6755,6 +6758,7 @@ void ScribusMainWindow::slotPrefsOrg()
 	int oldGUIFontSize=prefsManager->guiFontSize();
 	//double oldDisplayScale=prefsManager->displayScale();
 	setAppMode(modeNormal);
+	
 	Preferences *dia = new Preferences(this);
 	if (dia->exec())
 	{
@@ -6776,11 +6780,11 @@ void ScribusMainWindow::slotPrefsOrg()
 			apf.setPointSize(prefsManager->appPrefs.AppFontSize);
 			qApp->setFont(apf,true);
 		}
-		/*
-		double newDisplayScale=prefsManager->displayScale();
-		if (oldDisplayScale != newDisplayScale)
-			zChange = true;
-		*/
+		
+		//double newDisplayScale=prefsManager->displayScale();
+		//if (oldDisplayScale != newDisplayScale)
+		//	zChange = true;
+		
 		propertiesPalette->Cpal->UseTrans(true);
 		FontSub->RebuildList(0);
 		propertiesPalette->Fonts->RebuildList(0);
