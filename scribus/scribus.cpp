@@ -2653,44 +2653,41 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 
 void ScribusMainWindow::updateRecent(QString fn)
 {
-	QString platfname(QDir::convertSeparators(fn));
-	if (RecentDocs.findIndex(platfname) == -1)
+	if (RecentDocs.findIndex(fn) == -1)
 	{
-		RecentDocs.prepend(platfname);
-		fileWatcher->addFile(platfname);
+		RecentDocs.prepend(fn);
+		fileWatcher->addFile(fn);
 	}
 	else
 	{
-		RecentDocs.remove(platfname);
-		RecentDocs.prepend(platfname);
+		RecentDocs.remove(fn);
+		RecentDocs.prepend(fn);
 	}
 	rebuildRecentFileMenu();
 }
 
 void ScribusMainWindow::removeRecent(QString fn)
 {
-	QString platfname(QDir::convertSeparators(fn));
-	if (RecentDocs.findIndex(platfname) != -1)
+	if (RecentDocs.findIndex(fn) != -1)
 	{
-		RecentDocs.remove(platfname);
+		RecentDocs.remove(fn);
 		if (!fileWatcher->isActive())
-			fileWatcher->removeFile(platfname);
+			fileWatcher->removeFile(fn);
 	}
 	rebuildRecentFileMenu();
 }
 
 void ScribusMainWindow::loadRecent(QString fn)
 {
-	QString platfname(QDir::convertSeparators(fn));
-	QFileInfo fd(platfname);
+	QFileInfo fd(fn);
 	if (!fd.exists())
 	{
-		RecentDocs.remove(platfname);
-		fileWatcher->removeFile(platfname);
+		RecentDocs.remove(fn);
+		fileWatcher->removeFile(fn);
 		rebuildRecentFileMenu();
 		return;
 	}
-	loadDoc(platfname);
+	loadDoc(fn);
 }
 
 void ScribusMainWindow::rebuildRecentFileMenu()
@@ -2704,7 +2701,8 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 	{
 		QString strippedName=RecentDocs[m];
 		strippedName.remove(QDir::separator());
-		scrRecentFileActions.insert(strippedName, new ScrAction( ScrAction::RecentFile, QIconSet(), RecentDocs[m], QKeySequence(), this, strippedName));
+		QString localName(QDir::convertSeparators(RecentDocs[m]));
+		scrRecentFileActions.insert(strippedName, new ScrAction( ScrAction::RecentFile, QIconSet(), localName, QKeySequence(), this, strippedName));
 		connect( scrRecentFileActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(loadRecent(QString)) );
 		scrMenuMgr->addMenuItem(scrRecentFileActions[strippedName], recentFileMenuName);
 	}
