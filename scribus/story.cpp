@@ -323,6 +323,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		case NoButton:
 		case Keypad:
 		case ShiftButton:
+		case ControlButton|AltButton:
 			if (unicodeTextEditMode)
 			{
 				int conv = 0;
