@@ -1858,12 +1858,19 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				ScMW->scrActions["itemSendToScrapbook"]->addTo(pmen);
 				if (Doc->layerCount() > 1)
 				{
+					QMap<int,int> layerMap;
+					for (QValueList<Layer>::iterator it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
+						layerMap.insert((*it).Level, (*it).LNr);
+					
+					//	ScMW->scrLayersActions[QString("%1").arg((*it).LNr)]->addTo(pmen3);
+						
 					//for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = ScMW->scrLayersActions.begin(); it!=ScMW->scrLayersActions.end(); ++it )
 					//	(*it)->addTo(pmen3);
-					QValueList<QString> layerKeys(ScMW->scrLayersActions.keys());
-					int i=layerKeys.count()-1;
+					
+					//QValueList<QString> layerKeys(ScMW->scrLayersActions.keys());
+					int i=layerMap.count()-1;
 					while (i>=0)
-						ScMW->scrLayersActions[layerKeys[i--]]->addTo(pmen3);
+						ScMW->scrLayersActions[QString::number(layerMap[i--])]->addTo(pmen3);
 					
 					pmen->insertItem( tr("Send to La&yer"), pmen3);
 				}
@@ -6632,7 +6639,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 		        (QRegion(p.xForm(currItem->Clip)).contains(mpo)))
 		{
 			uint a, i;
-			int xp, yp, w, h, chs;
+			int xp, yp, h;//w, h, chs;
 			CursVis = true;
 			
 			//Work out which column we are in
