@@ -62,6 +62,7 @@ PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, doubl
 
 void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 {
+	ScribusView* view = m_Doc->view();
 	switch (itemType())
 	{
 		case TextFrame:
@@ -117,7 +118,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			LiList.setAutoDelete(true);
 			QRect e2 = QRect(qRound(e.x()  / sc + m_Doc->minCanvasCoordinate.x()), qRound(e.y()  / sc + m_Doc->minCanvasCoordinate.y()), qRound(e.width() / sc), qRound(e.height() / sc));
 			p->save();
-			pf2.begin(ScMW->view->viewport());
+			pf2.begin(view->viewport());
 			pf2.translate(Xpos, Ypos);
 			pf2.rotate(Rot);
 			if ((fillColor() != "None") || (GrType != 0))
@@ -409,7 +410,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							{
 								if (docItem->textFlowsAroundFrame())
 								{
-									pp.begin(ScMW->view->viewport());
+									pp.begin(view->viewport());
 									pp.translate(docItem->xPos() - Mp->xOffset() + Dp->xOffset(), docItem->yPos() - Mp->yOffset() + Dp->yOffset());
 									pp.rotate(docItem->rotation());
 									if (docItem->textFlowUsesBoundingBox())
@@ -442,7 +443,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							PageItem* docItem = m_Doc->Items->at(a);
 							if (docItem->textFlowsAroundFrame())
 							{
-								pp.begin(ScMW->view->viewport());
+								pp.begin(view->viewport());
 								pp.translate(docItem->xPos(), docItem->yPos());
 								pp.rotate(docItem->rotation());
 								if (docItem->textFlowUsesBoundingBox())
@@ -478,7 +479,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						{
 							if (docItem->textFlowsAroundFrame())
 							{
-								pp.begin(ScMW->view->viewport());
+								pp.begin(view->viewport());
 								pp.translate(docItem->xPos(), docItem->yPos());
 								pp.rotate(docItem->rotation());
 								if (docItem->textFlowUsesBoundingBox())
@@ -1695,7 +1696,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					{
 						Zli2 = LiList.at(0);
 						double firstasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
-						double currasce;
+						double currasce = 0;
 						if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(28)))
 							currasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
 						else if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
@@ -1726,7 +1727,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					{
 						Zli2 = LiList.at(0);
 						double firstasce = m_Doc->docParagraphStyles[hl->cab].LineSpa;
-						double currasce;
+						double currasce = 0;
 						if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
 							currasce = QMAX(currasce, (Zli2->embedded->gHeight + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 						else
@@ -1957,6 +1958,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 
 void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 {
+	ScribusView* view = m_Doc->view();
 	if (!m_Doc->RePos)
 	{
 		if (lineColor() != "None")
@@ -1990,7 +1992,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	}
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
-		double scpInv = 1.0 / (QMAX(ScMW->view->getScale(), 1));
+		double scpInv = 1.0 / (QMAX(view->getScale(), 1));
 		if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
 		{
 			p->setPen(black, scpInv, DotLine, FlatCap, MiterJoin);
@@ -2036,7 +2038,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		//Draw the overflow icon
 		if (itemText.count() > MaxChars)
 		{//CB && added here for jghali prior to commit access
-			if (!ScMW->view->previewMode)
+			if (!view->previewMode)
 				drawOverflowMarker(p);
 		}
 		//if (m_Doc->selection->findItem(this)!=-1)
@@ -2089,6 +2091,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	uint Tcoun;
 	int len, pos, c;
 	int KeyMod;
+	ScribusView* view = m_Doc->view();
 	ButtonState buttonState = k->state();
 	switch (buttonState)
 	{
@@ -2106,7 +2109,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		break;
 	}
 
-	ScMW->view->slotDoCurs(false);
+	view->slotDoCurs(false);
 	switch (kk)
 	{
 	case Key_Prior:
@@ -2174,7 +2177,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				CPos += 1;
 				Tinput = true;
 				ScMW->setTBvals(this);
-				ScMW->view->RefreshItem(this);
+				view->RefreshItem(this);
 				keyRepeat = false;
 				return;
 			}
@@ -2349,9 +2352,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					{
 						if (NextBox->itemText.count() != 0)
 						{
-							ScMW->view->Deselect(true);
+							view->Deselect(true);
 							NextBox->CPos = 0;
-							ScMW->view->SelectItemNr(NextBox->ItemNr);
+							view->SelectItemNr(NextBox->ItemNr);
 							//currItem = currItem->NextBox;
 						}
 					}
@@ -2362,15 +2365,15 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				if (NextBox->itemText.count() != 0)
 				{
-					ScMW->view->Deselect(true);
+					view->Deselect(true);
 					NextBox->CPos = 0;
-					ScMW->view->SelectItemNr(NextBox->ItemNr);
+					view->SelectItemNr(NextBox->ItemNr);
 					//currItem = currItem->NextBox;
 				}
 			}
 		}
 		if ( this->HasSel )
-			ScMW->view->RefreshItem(this);
+			view->RefreshItem(this);
 		ScMW->setTBvals(this);
 		break;
 	case Key_Up:
@@ -2416,9 +2419,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				{
 					if (BackBox != 0)
 					{
-						ScMW->view->Deselect(true);
+						view->Deselect(true);
 						BackBox->CPos = BackBox->itemText.count();
-						ScMW->view->SelectItemNr(BackBox->ItemNr);
+						view->SelectItemNr(BackBox->ItemNr);
 						//currItem = currItem->BackBox;
 					}
 				}
@@ -2428,14 +2431,14 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			CPos = 0;
 			if (BackBox != 0)
 			{
-				ScMW->view->Deselect(true);
+				view->Deselect(true);
 				BackBox->CPos = BackBox->itemText.count();
-				ScMW->view->SelectItemNr(BackBox->ItemNr);
+				view->SelectItemNr(BackBox->ItemNr);
 				//currItem = currItem->BackBox;
 			}
 		}
 		if ( this->HasSel )
-			ScMW->view->RefreshItem(this);
+			view->RefreshItem(this);
 		ScMW->setTBvals(this);
 		break;
 	case Key_Prior:
@@ -2473,9 +2476,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				CPos = 0;
 				if (BackBox != 0)
 				{
-					ScMW->view->Deselect(true);
+					view->Deselect(true);
 					BackBox->CPos = BackBox->itemText.count();
-					ScMW->view->SelectItemNr(BackBox->ItemNr);
+					view->SelectItemNr(BackBox->ItemNr);
 					//currItem = currItem->BackBox;
 				}
 			}
@@ -2503,7 +2506,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			}
 		}
 		if ( HasSel )
-			ScMW->view->RefreshItem(this);
+			view->RefreshItem(this);
 		ScMW->setTBvals(this);
 		break;
 	case Key_Right:
@@ -2531,16 +2534,16 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				{
 					if (NextBox->itemText.count() != 0)
 					{
-						ScMW->view->Deselect(true);
+						view->Deselect(true);
 						NextBox->CPos = 0;
-						ScMW->view->SelectItemNr(NextBox->ItemNr);
+						view->SelectItemNr(NextBox->ItemNr);
 						//currItem = currItem->NextBox;
 					}
 				}
 			}
 		}
 		if ( HasSel )
-			ScMW->view->RefreshItem(this);
+			view->RefreshItem(this);
 		ScMW->setTBvals(this);
 		break;
 	case Key_Delete:
@@ -2550,7 +2553,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				deleteSelectedTextFromFrame();
 				ScMW->setTBvals(this);
-				ScMW->view->RefreshItem(this);
+				view->RefreshItem(this);
 			}
 			keyRepeat = false;
 			return;
@@ -2567,11 +2570,11 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		Tinput = false;
 		if ((cr == QChar(13)) && (itemText.count() != 0))
 		{
-			ScMW->view->chAbStyle(this, itemText.at(QMAX(CPos-1,0))->cab);
+			view->chAbStyle(this, itemText.at(QMAX(CPos-1,0))->cab);
 			Tinput = false;
 		}
 		ScMW->setTBvals(this);
-		ScMW->view->RefreshItem(this);
+		view->RefreshItem(this);
 		break;
 	case Key_Backspace:
 		if (CPos == 0)
@@ -2580,7 +2583,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				deleteSelectedTextFromFrame();
 				ScMW->setTBvals(this);
-				ScMW->view->RefreshItem(this);
+				view->RefreshItem(this);
 			}
 			break;
 		}
@@ -2596,11 +2599,11 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		Tinput = false;
 		if ((cr == QChar(13)) && (itemText.count() != 0))
 		{
-			ScMW->view->chAbStyle(this, itemText.at(QMAX(CPos-1,0))->cab);
+			view->chAbStyle(this, itemText.at(QMAX(CPos-1,0))->cab);
 			Tinput = false;
 		}
 		ScMW->setTBvals(this);
-		ScMW->view->RefreshItem(this);
+		view->RefreshItem(this);
 		break;
 	default:
 		if ((HasSel) && (kk < 0x1000))
@@ -2625,7 +2628,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			itemText.insert(CPos, hg);
 			CPos += 1;
 			Tinput = true;
-			ScMW->view->RefreshItem(this);
+			view->RefreshItem(this);
 			break;
 		}
 		if (((uc[0] > QChar(31)) || (as == 13) || (as == 30)) && ((*m_Doc->AllFonts)[m_Doc->CurrFont]->CharWidth.contains(uc[0].unicode())))
@@ -2665,11 +2668,11 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				}
 			}
 			Tinput = true;
-			ScMW->view->RefreshItem(this);
+			view->RefreshItem(this);
 		}
 		break;
 	}
-	ScMW->view->slotDoCurs(true);
+	view->slotDoCurs(true);
 	if ((kk == Key_Left) || (kk == Key_Right) || (kk == Key_Up) || (kk == Key_Down))
 	{
 		keyRepeat = false;
@@ -2762,6 +2765,7 @@ void PageItem_TextFrame::setNewPos(int oldPos, int len, int dir)
 void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 {
 	int len = itemText.count();
+	ScribusView* view = m_Doc->view();
 	bool rightSel = false; // assume left right and actual char not selected
 	bool leftSel  = false;
 	bool actSel   = false;
@@ -2821,7 +2825,7 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 		else if ( !selMode )
 		{
 			if (leftSel||actSel||rightSel)
-				ScMW->view->RefreshItem(this);
+				view->RefreshItem(this);
 		}
 	}
 	if ( !selMode )
@@ -2856,7 +2860,7 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 	if ( ! sel )
 		//CB Replace with direct call for now //emit  HasNoTextSel();
 		ScMW->DisableTxEdit();
-	ScMW->view->RefreshItem(this);
+	view->RefreshItem(this);
 }
 
 void PageItem_TextFrame::deselectAll()
@@ -2872,7 +2876,7 @@ void PageItem_TextFrame::deselectAll()
 			uint l = item->itemText.count();
 			for (uint n=0; n < l; ++n )
 				item->itemText.at(n)->cselect = false;
-			ScMW->view->RefreshItem(this);
+			m_Doc->view()->RefreshItem(this);
 			item->HasSel = false;
 		}
 		item = item->NextBox;
@@ -2909,6 +2913,7 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	p->drawLine(FPoint(scpwidth16, scpheight3), FPoint(scpwidth3, scpheight16));
 	*/
 	//TODO: CB clean
+	ScribusView* view = m_Doc->view();
 	double scp1 = 1 ;// / ScMW->view->getScale();
 	double ofwh = 6 * scp1;
 	//CB moved down while locked marker disabled
@@ -2920,7 +2925,7 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	double ly1= ofy;
 	double lx2= ofx+ofwh;
 	double ly2= ofy+ofwh;
-	p->setPen(black, 0.5/ScMW->view->getScale(), SolidLine, FlatCap, MiterJoin);
+	p->setPen(black, 0.5/ view->getScale(), SolidLine, FlatCap, MiterJoin);
 	p->setPenOpacity(1.0);
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);

@@ -35,6 +35,7 @@
 #include "scribusapp.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
+#include "scribuswin.h"
 #include "selection.h"
 #include "prefsmanager.h"
 #include "undomanager.h"
@@ -703,7 +704,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 
 void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 {
-	sc = ScMW->view->getScale();
+	ScribusView* view = m_Doc->view();
+	sc = view->getScale();
 	p->save();
 	if (!isEmbedded)
 	{
@@ -769,6 +771,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 void PageItem::DrawObj_Post(ScPainter *p)
 {
 	bool doStroke=true;
+	ScribusView* view = m_Doc->view();
 	if (itemType()==PathText || itemType()==PolyLine || itemType()==Line)
 		doStroke=false;
 	if ((doStroke) && (!m_Doc->RePos))
@@ -804,7 +807,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 	}
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
-		double scpInv = 1.0 / (QMAX(ScMW->view->getScale(), 1));
+		double scpInv = 1.0 / (QMAX(view->getScale(), 1));
 		if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
 		{
 			p->setPen(black, scpInv, DotLine, FlatCap, MiterJoin);
@@ -978,25 +981,26 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	}
 	//qDebug("paintObj(QRect e, QPixmap *ppX)");
 	QPainter p;
-	double sc = ScMW->view->getScale();
+	ScribusView* view = m_Doc->view();
+	double sc = view->getScale();
 	if (toPixmap)
 		p.begin(ppX);
 	else
-		p.begin(ScMW->view->viewport());
+		p.begin(view->viewport());
 	if ((!toPixmap) && (!m_Doc->RePos))
 	{
 		if (!e.isEmpty())
 			p.setClipRect(e);
 		else
 		{
-			int x = ScMW->view->contentsX();
-			int y = ScMW->view->contentsY();
-			QPoint out = ScMW->view->contentsToViewport(QPoint(x,y));
-			p.setClipRect(QRect(out.x(), out.y(), ScMW->view->visibleWidth(), ScMW->view->visibleWidth()));
+			int x = view->contentsX();
+			int y = view->contentsY();
+			QPoint out = view->contentsToViewport(QPoint(x,y));
+			p.setClipRect(QRect(out.x(), out.y(), view->visibleWidth(), view->visibleWidth()));
 		}
 	}
 	QPoint in  = QPoint(qRound((Xpos-m_Doc->minCanvasCoordinate.x())*sc), qRound((Ypos-m_Doc->minCanvasCoordinate.y())*sc));
-	QPoint out = ScMW->view->contentsToViewport(in);
+	QPoint out = view->contentsToViewport(in);
 	p.translate(out.x(), out.y());
 	p.scale(sc, sc);
 	p.rotate(Rot);
@@ -1019,7 +1023,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 				if (Groups.count() == 0)
 				{
 					QPainter pr;
-					pr.begin(ScMW->view->viewport());
+					pr.begin(view->viewport());
 					pr.translate(out.x(), out.y());
 					pr.rotate(Rot);
 					if (Locked)
@@ -1066,7 +1070,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					if (m_Doc->selection->count() == 1)
 					{
 						QPainter pr;
-						pr.begin(ScMW->view->viewport());
+						pr.begin(view->viewport());
 						pr.translate(out.x(), out.y());
 						pr.rotate(Rot);
 						pr.setPen(QPen(darkCyan, 1, SolidLine, FlatCap, MiterJoin));
@@ -1348,6 +1352,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 {
 	QColor tmp;
+	ScribusView* view = m_Doc->view();
 	if (Segments.count() != 0)
 	{
 		QValueList<uint>::Iterator it2end=Segments.end();
@@ -1363,7 +1368,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 				{
 					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 					p->setPen(QPen(tmp,
-									 QMAX(static_cast<int>(ml[it].Width*ScMW->view->getScale()), 1),
+									 QMAX(static_cast<int>(ml[it].Width* view->getScale()), 1),
 									 static_cast<PenStyle>(ml[it].Dash),
 									 static_cast<PenCapStyle>(ml[it].LineEnd),
 									 static_cast<PenJoinStyle>(ml[it].LineJoin)));
@@ -1381,7 +1386,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
-								 QMAX(static_cast<int>(ml[it].Width*ScMW->view->getScale()), 1),
+								 QMAX(static_cast<int>(ml[it].Width* view->getScale()), 1),
 								 static_cast<PenStyle>(ml[it].Dash),
 								 static_cast<PenCapStyle>(ml[it].LineEnd),
 								 static_cast<PenJoinStyle>(ml[it].LineJoin)));
@@ -1400,7 +1405,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
-								 QMAX(static_cast<int>(ml[it].Width*ScMW->view->getScale()), 1),
+								 QMAX(static_cast<int>(ml[it].Width*view->getScale()), 1),
 								 static_cast<PenStyle>(ml[it].Dash),
 								 static_cast<PenCapStyle>(ml[it].LineEnd),
 								 static_cast<PenJoinStyle>(ml[it].LineJoin)));
@@ -1725,7 +1730,7 @@ void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
 	ScaleType = freeScale;
 	AspectRatio = keepRatio;
 	AdjustPictScale();
-	ScMW->view->RefreshItem(this);
+	m_Doc->view()->RefreshItem(this);
 }
 
 void PageItem::toggleLock()
@@ -2111,7 +2116,7 @@ void PageItem::checkChanges(bool force)
 
 bool PageItem::shouldCheck()
 {
-	return ((!ScMW->view->mousePressed()) &&
+	return ((!m_Doc->view()->mousePressed()) &&
 			(!ScMW->arrowKeyDown()) &&
 			(!ScMW->propertiesPalette->userActionOn()));
 }
@@ -2212,6 +2217,7 @@ void PageItem::rotateUndoAction()
 
 void PageItem::restore(UndoState *state, bool isUndo)
 {
+	ScribusView* view = m_Doc->view();
 	SimpleState *ss = dynamic_cast<SimpleState*>(state);
 	if (ss)
 	{
@@ -2232,22 +2238,22 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		else if (ss->contains("IMAGEFLIPH"))
 		{
 			select();
-			ScMW->view->FlipImageH();
+			view->FlipImageH();
 		}
 		else if (ss->contains("IMAGEFLIPV"))
 		{
 			select();
-			ScMW->view->FlipImageV();
+			view->FlipImageV();
 		}
 		else if (ss->contains("LOCK"))
 		{
 			select();
-			ScMW->view->ToggleLock();
+			view->ToggleLock();
 		}
 		else if (ss->contains("SIZE_LOCK"))
 		{
 			select();
-			ScMW->view->ToggleSizeLock();
+			view->ToggleSizeLock();
 		}
 		else if (ss->contains("NEW_NAME"))
 			restoreName(ss, isUndo);
@@ -2309,19 +2315,19 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreContourLine(ss, isUndo);
 		else if (ss->contains("MIRROR_PATH_H"))
 		{
-			bool editContour = ScMW->view->EditContour;
-			ScMW->view->EditContour = ss->getBool("IS_CONTOUR");
+			bool editContour = view->EditContour;
+			view->EditContour = ss->getBool("IS_CONTOUR");
 			select();
-			ScMW->view->MirrorPolyH();
-			ScMW->view->EditContour = editContour;
+			view->MirrorPolyH();
+			view->EditContour = editContour;
 		}
 		else if (ss->contains("MIRROR_PATH_V"))
 		{
-			bool editContour = ScMW->view->EditContour;
-			ScMW->view->EditContour = ss->getBool("IS_CONTOUR");
+			bool editContour = view->EditContour;
+			view->EditContour = ss->getBool("IS_CONTOUR");
 			select();
-			ScMW->view->MirrorPolyV();
-			ScMW->view->EditContour = editContour;
+			view->MirrorPolyV();
+			view->EditContour = editContour;
 		}
 		else if (ss->contains("SEND_TO_LAYER"))
 			restoreLayer(ss, isUndo);
@@ -2343,7 +2349,7 @@ void PageItem::restoreMove(SimpleState *state, bool isUndo)
 		mx = -mx;
 		my = -my;
 	}
-	ScMW->view->MoveItem(mx, my, this, false);
+	m_Doc->view()->MoveItem(mx, my, this, false);
 	oldXpos = Xpos;
 	oldYpos = Ypos;
 	oldOwnPage = OwnPage;
@@ -2351,6 +2357,7 @@ void PageItem::restoreMove(SimpleState *state, bool isUndo)
 
 void PageItem::restoreResize(SimpleState *state, bool isUndo)
 {
+	ScribusView* view = m_Doc->view();
 	double  ow = state->getDouble("OLD_WIDTH");
 	double  oh = state->getDouble("OLD_HEIGHT");
 	double   w = state->getDouble("NEW_WIDTH");
@@ -2365,17 +2372,17 @@ void PageItem::restoreResize(SimpleState *state, bool isUndo)
 	double  my = oy - y;
 	if (isUndo)
 	{
-		ScMW->view->SizeItem(ow, oh, this, false, true, true);
-		ScMW->view->MoveItem(mx, my, this, false);
-		ScMW->view->RotateItem(ort, this);
+		view->SizeItem(ow, oh, this, false, true, true);
+		view->MoveItem(mx, my, this, false);
+		view->RotateItem(ort, this);
 	}
 	else
 	{
 		mx = -mx;
 		my = -my;
-		ScMW->view->SizeItem(w, h, this, false, true, true);
-		ScMW->view->MoveItem(mx, my, this, false);
-		ScMW->view->RotateItem(rt, this);
+		view->SizeItem(w, h, this, false, true, true);
+		view->MoveItem(mx, my, this, false);
+		view->RotateItem(rt, this);
 	}
 	oldWidth = Width;
 	oldHeight = Height;
@@ -2387,6 +2394,7 @@ void PageItem::restoreResize(SimpleState *state, bool isUndo)
 
 void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 {
+	ScribusView* view = m_Doc->view();
 	double ort = state->getDouble("OLD_ROT");
 	double  rt = state->getDouble("NEW_ROT");
 	double  ox = state->getDouble("OLD_RXPOS");
@@ -2401,17 +2409,17 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 	double my = oy - y;
 	if (isUndo)
 	{
-		ScMW->view->RotateItem(ort, this);
-		ScMW->view->MoveItem(mx, my, this, false);
-		ScMW->view->SizeItem(ow, oh, this, false, true, true);
+		view->RotateItem(ort, this);
+		view->MoveItem(mx, my, this, false);
+		view->SizeItem(ow, oh, this, false, true, true);
 	}
 	else
 	{
 		mx = -mx;
 		my = -my;
-		ScMW->view->RotateItem(rt, this);
-		ScMW->view->MoveItem(mx, my, this, false);
-		ScMW->view->SizeItem(w, h, this, false, true, true);
+		view->RotateItem(rt, this);
+		view->MoveItem(mx, my, this, false);
+		view->SizeItem(w, h, this, false, true, true);
 	}
 	oldRot = Rot;
 	oldXpos = Xpos;
@@ -2427,7 +2435,7 @@ void PageItem::restoreFill(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		fill = state->get("NEW_FILL");
 	select();
-	ScMW->view->ItemBrush(fill);
+	m_Doc->view()->ItemBrush(fill);
 }
 
 void PageItem::restoreShade(SimpleState *state, bool isUndo)
@@ -2436,7 +2444,7 @@ void PageItem::restoreShade(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		shade = state->getInt("NEW_SHADE");
 	select();
-	ScMW->view->ItemBrushShade(shade);
+	m_Doc->view()->ItemBrushShade(shade);
 }
 
 void PageItem::restoreLineColor(SimpleState *state, bool isUndo)
@@ -2445,7 +2453,7 @@ void PageItem::restoreLineColor(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		fill = state->get("NEW_COLOR");
 	select();
-	ScMW->view->ItemPen(fill);
+	m_Doc->view()->ItemPen(fill);
 }
 
 void PageItem::restoreLineShade(SimpleState *state, bool isUndo)
@@ -2454,7 +2462,7 @@ void PageItem::restoreLineShade(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		shade = state->getInt("NEW_SHADE");
 	select();
-	ScMW->view->ItemPenShade(shade);
+	m_Doc->view()->ItemPenShade(shade);
 }
 
 void PageItem::restoreFillTP(SimpleState *state, bool isUndo)
@@ -2482,7 +2490,7 @@ void PageItem::restoreLineStyle(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		ps = static_cast<PenStyle>(state->getInt("NEW_STYLE"));
 	select();
-	ScMW->view->ChLineArt(ps);
+	m_Doc->view()->ChLineArt(ps);
 }
 
 void PageItem::restoreLineEnd(SimpleState *state, bool isUndo)
@@ -2491,7 +2499,7 @@ void PageItem::restoreLineEnd(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		pcs = static_cast<PenCapStyle>(state->getInt("NEW_STYLE"));
 	select();
-	ScMW->view->ChLineEnd(pcs);
+	m_Doc->view()->ChLineEnd(pcs);
 }
 
 void PageItem::restoreLineJoin(SimpleState *state, bool isUndo)
@@ -2500,7 +2508,7 @@ void PageItem::restoreLineJoin(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		pjs = static_cast<PenJoinStyle>(state->getInt("NEW_STYLE"));
 	select();
-	ScMW->view->ChLineJoin(pjs);
+	m_Doc->view()->ChLineJoin(pjs);
 }
 
 void PageItem::restoreLineWidth(SimpleState *state, bool isUndo)
@@ -2509,7 +2517,7 @@ void PageItem::restoreLineWidth(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		w = state->getDouble("NEW_WIDTH");
 	select();
-	ScMW->view->ChLineWidth(w);
+	m_Doc->view()->ChLineWidth(w);
 }
 
 void PageItem::restoreCustomLineStyle(SimpleState *state, bool isUndo)
@@ -2545,7 +2553,7 @@ void PageItem::restoreFont(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		font = state->get("NEW_FONT");
 	select();
-	ScMW->view->ItemFont(font);
+	m_Doc->view()->ItemFont(font);
 }
 
 void PageItem::restoreFontSize(SimpleState *state, bool isUndo)
@@ -2554,7 +2562,7 @@ void PageItem::restoreFontSize(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		size = state->getInt("NEW_SIZE");
 	select();
-	ScMW->view->chFSize(size);
+	m_Doc->view()->chFSize(size);
 }
 
 void PageItem::restoreFontWidth(SimpleState *state, bool isUndo)
@@ -2563,7 +2571,7 @@ void PageItem::restoreFontWidth(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		width = state->getInt("NEW_WIDTH");
 	select();
-	ScMW->view->ItemTextScale(width);
+	m_Doc->view()->ItemTextScale(width);
 }
 
 void PageItem::restoreFontFill(SimpleState *state, bool isUndo)
@@ -2572,7 +2580,7 @@ void PageItem::restoreFontFill(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		color = state->get("NEW_FILL");
 	select();
-	ScMW->view->ItemTextBrush(color);
+	m_Doc->view()->ItemTextBrush(color);
 }
 
 void PageItem::restoreFontStroke(SimpleState *state, bool isUndo)
@@ -2581,7 +2589,7 @@ void PageItem::restoreFontStroke(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		color = state->get("NEW_STROKE");
 	select();
-	ScMW->view->ItemTextPen(color);
+	m_Doc->view()->ItemTextPen(color);
 }
 
 void PageItem::restoreFontFillShade(SimpleState *state, bool isUndo)
@@ -2590,7 +2598,7 @@ void PageItem::restoreFontFillShade(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		shade = state->getInt("NEW_SHADE");
 	select();
-	ScMW->view->ItemTextBrushS(shade);
+	m_Doc->view()->ItemTextBrushS(shade);
 }
 
 void PageItem::restoreFontStrokeShade(SimpleState *state, bool isUndo)
@@ -2599,7 +2607,7 @@ void PageItem::restoreFontStrokeShade(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		shade = state->getInt("NEW_SHADE");
 	select();
-	ScMW->view->ItemTextPenS(shade);
+	m_Doc->view()->ItemTextPenS(shade);
 }
 
 void PageItem::restoreKerning(SimpleState *state, bool isUndo)
@@ -2608,7 +2616,7 @@ void PageItem::restoreKerning(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		kerning = state->getInt("NEW_KERNING");
 	select();
-	ScMW->view->chKerning(kerning);
+	m_Doc->view()->chKerning(kerning);
 }
 
 void PageItem::restoreLineSpacing(SimpleState *state, bool isUndo)
@@ -2617,7 +2625,7 @@ void PageItem::restoreLineSpacing(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		lsp = state->getDouble("NEW_SPACING");
 	select();
-	ScMW->view->ChLineSpa(lsp);
+	m_Doc->view()->ChLineSpa(lsp);
 }
 
 void PageItem::restoreLanguage(SimpleState *state, bool isUndo)
@@ -2633,7 +2641,7 @@ void PageItem::restorePStyle(SimpleState *state, bool isUndo)
 	int styleid = state->getInt("OLD_STYLE");
 	if (!isUndo)
 		styleid = state->getInt("NEW_STYLE");
-	ScMW->view->chAbStyle(this, styleid);
+	m_Doc->view()->chAbStyle(this, styleid);
 }
 
 void PageItem::restoreFontEffect(SimpleState *state, bool isUndo)
@@ -2642,7 +2650,7 @@ void PageItem::restoreFontEffect(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		effect = state->getInt("NEW_EFFECT");
 	select();
-	ScMW->view->chTyStyle(effect);
+	m_Doc->view()->chTyStyle(effect);
 }
 
 
@@ -2655,13 +2663,14 @@ void PageItem::restoreType(SimpleState *state, bool isUndo)
 	int type = state->getInt("OLD_TYPE");
 	if (!isUndo)
 		type = state->getInt("NEW_TYPE");
-	ScMW->view->Deselect(false);
-	ScMW->view->SelectItem(item, false);
+	ScribusView* view = m_Doc->view();
+	view->Deselect(false);
+	view->SelectItem(item, false);
 	switch (type) {
-		case ImageFrame: ScMW->view->ToPicFrame(); break;
-		case TextFrame: ScMW->view->ToTextFrame(); break;
-		case Polygon: ScMW->view->ToPolyFrame(); break;
-		case PolyLine: ScMW->view->ToBezierFrame(); break;
+		case ImageFrame: view->ToPicFrame(); break;
+		case TextFrame: view->ToTextFrame(); break;
+		case Polygon: view->ToPolyFrame(); break;
+		case PolyLine: view->ToBezierFrame(); break;
 	}
 	ScMW->setAppMode(modeNormal);
 }
@@ -2718,9 +2727,10 @@ void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
 {
 	int mode    = state->getInt("MODE");
 	int rot     = state->getInt("ROT");
+	ScribusView* view = m_Doc->view();
 	double scaling = state->getDouble("SCALING");
-	bool editContour = ScMW->view->EditContour;
-	ScMW->view->EditContour = isContour;
+	bool editContour = view->EditContour;
+	view->EditContour = isContour;
 	select();
 	if (isUndo)
 	{
@@ -2733,8 +2743,8 @@ void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
 		else if (mode == 3)
 			scaling = ((100.0 / (100.0 - scaling)) - 1.0) * 100.0;
 	}
-	ScMW->view->TransformPoly(mode, rot, scaling);
-	ScMW->view->EditContour = editContour;
+	view->TransformPoly(mode, rot, scaling);
+	view->EditContour = editContour;
 }
 
 void PageItem::restoreContourLine(SimpleState *state, bool isUndo)
@@ -2752,9 +2762,10 @@ void PageItem::restoreContourLine(SimpleState *state, bool isUndo)
 
 void PageItem::restoreLayer(SimpleState *state, bool isUndo)
 {
+	ScribusView* view = m_Doc->view();
 	setLayer(isUndo ? state->getInt("OLD_LAYER") : state->getInt("NEW_LAYER"));
-	ScMW->view->Deselect(true);
-	ScMW->view->updateContents();
+	view->Deselect(true);
+	view->updateContents();
 }
 
 void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
@@ -2765,7 +2776,7 @@ void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
 	if (fn.isEmpty())
 	{
 		select();
-		ScMW->view->ClearItem();
+		m_Doc->view()->ClearItem();
 	}
 	else
 		loadImage(fn, false);
@@ -2773,10 +2784,10 @@ void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
 
 void PageItem::select()
 {
-	ScMW->view->Deselect(false);
+	m_Doc->view()->Deselect(false);
 	//CB #2969 add this true parm to addItem so we dont connectToGUI, the rest of view->SelectItem isnt needed anyway
 	m_Doc->selection->addItem(this, true);
-	//ScMW->view->SelectItem(this, false);
+	//m_Doc->view()->SelectItem(this, false);
 }
 
 ObjAttrVector* PageItem::getObjectAttributes()
@@ -3316,7 +3327,8 @@ void PageItem::drawLockedMarker(ScPainter *p)
 	double by1= ofy+3 * scp1;
 	double bw= 4*scp1;
 	double bh= 2*scp1;
-	p->setPen(Qt::black, 0.5/ScMW->view->getScale(), SolidLine, FlatCap, MiterJoin);
+	ScribusView* view = m_Doc->view();
+	p->setPen(Qt::black, 0.5 / view->getScale(), SolidLine, FlatCap, MiterJoin);
 	p->setPenOpacity(1.0);
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);
@@ -3324,7 +3336,7 @@ void PageItem::drawLockedMarker(ScPainter *p)
 	p->drawRect(ofx, ofy, ofwh, ofwh);
 	p->setBrush(Qt::black);
 	p->drawRect(bx1, by1, bw, bh);
-	p->setPen(Qt::black, 1.5/ScMW->view->getScale(), SolidLine, FlatCap, RoundJoin);
+	p->setPen(Qt::black, 1.5 / view->getScale(), SolidLine, FlatCap, RoundJoin);
 	if (Locked)
 		p->drawLine(FPoint(bx1+scp1/2, ofy+scp1), FPoint(bx1+scp1/2, by1));
 	p->drawLine(FPoint(bx1+scp1*3.5, ofy+scp1), FPoint(bx1+scp1*3.5, by1));
@@ -3512,7 +3524,7 @@ bool PageItem::connectToGUI()
 		
 	connect(this, SIGNAL(myself(PageItem *)), ScMW->propertiesPalette, SLOT(SetCurItem(PageItem *)));
 	connect(this, SIGNAL(frameType(int)), ScMW, SLOT(HaveNewSel(int)));
-	connect(this, SIGNAL(frameType(int)), ScMW->view, SLOT(selectionChanged()));
+	connect(this, SIGNAL(frameType(int)), m_Doc->view(), SLOT(selectionChanged()));
 	connect(this, SIGNAL(frameType(int)), ScMW->propertiesPalette, SLOT(NewSel(int)));
 	connect(this, SIGNAL(position(double, double)), ScMW->propertiesPalette, SLOT(setXY(double, double)));
 	connect(this, SIGNAL(widthAndHeight(double, double)), ScMW->propertiesPalette, SLOT(setBH(double, double)));

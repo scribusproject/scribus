@@ -18,6 +18,8 @@
 #include "scribus.h"
 #include "scribusapp.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
+#include "scribuswin.h"
 #include "scribusXml.h"
 
 #include <utility>
@@ -370,6 +372,11 @@ void ScribusDoc::setLoading(const bool docLoading)
 bool ScribusDoc::isLoading() const
 {
 	return loading;
+}
+
+ScribusView* ScribusDoc::view() const
+{
+	return (WinHan ? (((ScribusWin*) WinHan)->view()) : 0);
 }
 
 void ScribusDoc::CloseCMSProfiles()

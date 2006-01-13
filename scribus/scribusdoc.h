@@ -57,6 +57,7 @@ class UndoState;
 class PDFOptions;
 class Hyphenator;
 class Selection;
+class ScribusView;
 
 class QProgressBar;
 
@@ -80,6 +81,11 @@ public:
 /** Setzt die Seitenattribute */
 	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, int fp);
 	void resetPage(double t, double l, double r, double bo, int fp);
+
+	/**
+	 * @brief Return the view associated with the document
+	 */
+	ScribusView* view() const;
 	
 	// Add, delete and move pages
 	
