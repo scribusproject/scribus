@@ -6616,7 +6616,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 		QRect mpo;
 		int xP, yP;
 		xP = qRound((x + Doc->minCanvasCoordinate.x()) / Scale);
-		yP = qRound((y +Doc->minCanvasCoordinate.x()) / Scale);
+		yP = qRound((y + Doc->minCanvasCoordinate.x()) / Scale);
 		QPainter p;
 		QString chx;
 		p.begin(this);
@@ -6634,12 +6634,52 @@ bool ScribusView::slotSetCurs(int x, int y)
 			uint a, i;
 			int xp, yp, w, h, chs;
 			CursVis = true;
+			
+			//Work out which column we are in
+			double colWidth=currItem->columnWidth();
+			double colGap=currItem->ColGap;
+			int currCol=0;
+			int cp=static_cast<int>(currItem->xPos()+currItem->textToFrameDistLeft()+qRound(colGap)+qRound(colWidth));
+			while (xP>cp)
+			{
+				++currCol;
+				cp+=qRound(colGap);
+				cp+=qRound(colWidth);
+			};
+				
 			bool breakAndReturn=false;
 			uint currItemTextCount=currItem->itemText.count();
 			for (a=0; a<currItemTextCount; ++a)
 			{
 				xp = static_cast<int>(currItem->itemText.at(a)->xp);
+				//If x pos of curr char is less than left position of current column, continue
+				if (xp+currItem->xPos()<cp-colWidth-colGap)
+					continue;
 				yp = static_cast<int>(currItem->itemText.at(a)->yp);
+				h = static_cast<int>(Doc->docParagraphStyles[currItem->itemText.at(a)->cab].LineSpa);
+				
+				if ((a<currItemTextCount-1) && (yp-h+currItem->yPos()<=yP && yp+currItem->yPos()>=yP))
+				{
+					//click where next char is on next line in same or next column
+					if (static_cast<int>(currItem->itemText.at(a+1)->yp)!=yp)
+					{
+						currItem->CPos = a;
+						p.end();
+						breakAndReturn=true;
+						break;
+					}
+				}
+				if ((xp+currItem->xPos()+1>=xP) && (yp+currItem->yPos()>=yP))
+				{
+					currItem->CPos = a;
+					p.end();
+					breakAndReturn=true;
+					break;
+				}
+				
+				
+				
+				/* CB old, rather complicated code...
 				chx = currItem->itemText.at(a)->ch;
 				if (chx == QChar(30))
 					chx = currItem->ExpandToken(a);
@@ -6695,7 +6735,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 							break;
 						}
 					}
-				}
+				}*/
 			}
 			if (breakAndReturn)
 			{
