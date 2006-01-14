@@ -3467,9 +3467,11 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			QStringList args;
 			xres = gsRes;
 			yres = gsRes;
+			if (ext == "eps")
+				args.append("-dEPSCrop");
 			args.append("-r"+QString::number(gsRes));
 			args.append("-sOutputFile="+tmpFile);
-			args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
+//			args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
 			args.append(picFile);
 			retg = callGS(args);
 			if (retg == 0)
@@ -3494,7 +3496,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 						}
 					}
 				}
-				*this = static_cast<ScImage>(image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y)));
+//				*this = static_cast<ScImage>(image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y)));
+				*this = static_cast<ScImage>(image.copy());
 				unlink(tmpFile);
 				imgInfo.xres = qRound(gsRes);
 				imgInfo.yres = qRound(gsRes);
