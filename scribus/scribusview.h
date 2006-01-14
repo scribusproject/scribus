@@ -196,7 +196,7 @@ public:
 	void MoveRotated(PageItem *currItem, FPoint npv, bool fromMP = false);
 	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false);
 	void RotateGroup(double win);
-	void scaleGroup(double scx, double scy);
+	void scaleGroup(double scx, double scy, bool scaleText=true);
 	void RotateItem(double win, int ite);
 	void RotateItem(double win, PageItem *currItem);
 	void AdjustItemSize(PageItem *currItem);
