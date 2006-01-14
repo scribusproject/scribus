@@ -1861,13 +1861,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					QMap<int,int> layerMap;
 					for (QValueList<Layer>::iterator it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
 						layerMap.insert((*it).Level, (*it).LNr);
-					
-					//	ScMW->scrLayersActions[QString("%1").arg((*it).LNr)]->addTo(pmen3);
-						
-					//for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = ScMW->scrLayersActions.begin(); it!=ScMW->scrLayersActions.end(); ++it )
-					//	(*it)->addTo(pmen3);
-					
-					//QValueList<QString> layerKeys(ScMW->scrLayersActions.keys());
 					int i=layerMap.count()-1;
 					while (i>=0)
 						ScMW->scrLayersActions[QString::number(layerMap[i--])]->addTo(pmen3);
@@ -2101,7 +2094,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					}
 					RotMode = Doc->RotMode;
 					Doc->RotMode = 0;
-					scaleGroup(scx, scy);
+					//CB #3012 only scale text in a group if alt is pressed
+					if ((currItem->itemType() == PageItem::TextFrame) && (m->state() & AltButton))
+						scaleGroup(scx, scy, true);
+					else
+						scaleGroup(scx, scy, false);
 					if ((HowTo == 3) || (HowTo == 8))
 						moveGroup(0, ny-gy);
 					if (HowTo == 2)
@@ -2590,6 +2587,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					//shift alt, square resize with text scaling
 					//control alt, proportional resize with text scaling
 					//if ((currItem->itemType() == PageItem::TextFrame) && (m->state() & ShiftButton) && (m->state() & ControlButton))
+					//NOTE: this does not cover groups, strangely enough. Thats done in scaleGroup()
 					if ((currItem->itemType() == PageItem::TextFrame) && (m->state() & AltButton))
 					{
 						double scx = currItem->width() / currItem->OldB2;
@@ -6322,7 +6320,7 @@ void ScribusView::RotateGroup(double win)
 	updateContents(QRect(static_cast<int>(gxS*sc-5), static_cast<int>(gyS*sc-5), static_cast<int>(gwS*sc+10), static_cast<int>(ghS*sc+10)).unite(oldR));
 }
 
-void ScribusView::scaleGroup(double scx, double scy)
+void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 {
 	uint docSelectionCount=Doc->selection->count();
 	if (!_groupTransactionStarted && docSelectionCount > 1)
@@ -6411,14 +6409,17 @@ void ScribusView::scaleGroup(double scx, double scy)
 				AdjustItemSize(bb);
 			}
 		}
-		bb->setFontSize(QMAX(qRound(bb->fontSize()*((scx+scy)/2)), 1));
-		if ((bb->itemText.count() != 0) && (!bb->isTableItem))
+		if (scaleText)
 		{
-			bb->LineSp = ((bb->fontSize() / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (bb->fontSize() / 10.0);
-			for (aa = 0; aa < bb->itemText.count(); ++aa)
-				bb->itemText.at(aa)->csize = QMAX(qRound(bb->itemText.at(aa)->csize*((scx+scy)/2)), 1);
-			if (bb->asPathText())
-				bb->UpdatePolyClip();
+			bb->setFontSize(QMAX(qRound(bb->fontSize()*((scx+scy)/2)), 1));
+			if ((bb->itemText.count() != 0) && (!bb->isTableItem))
+			{
+				bb->LineSp = ((bb->fontSize() / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (bb->fontSize() / 10.0);
+				for (aa = 0; aa < bb->itemText.count(); ++aa)
+					bb->itemText.at(aa)->csize = QMAX(qRound(bb->itemText.at(aa)->csize*((scx+scy)/2)), 1);
+				if (bb->asPathText())
+					bb->UpdatePolyClip();
+			}
 		}
 		bb->setImageXYOffset(oldLocalX, oldLocalY);
 		double dX = bb->width() - bb->OldB2;
