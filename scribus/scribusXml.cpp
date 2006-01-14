@@ -2095,9 +2095,18 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 					ef.effectCode = it.attribute("Code").toInt();
 					Neu->effectsInUse.append(ef);
 				}
+				if (it.tagName() == "PSDLayer")
+				{
+					struct ScImage::LoadRequest loadingInfo;
+					loadingInfo.blend = it.attribute("Blend");
+					loadingInfo.opacity = it.attribute("Opacity").toInt();
+					loadingInfo.visible = static_cast<bool>(it.attribute("Visible").toInt());
+					Neu->pixm.imgInfo.RequestProps.insert(it.attribute("Layer").toInt(), loadingInfo);
+					Neu->pixm.imgInfo.isRequest = true;
+				}
 				IT=IT.nextSibling();
 			}
-			if (Neu->effectsInUse.count() != 0)
+			if ((Neu->effectsInUse.count() != 0) || (Neu->pixm.imgInfo.RequestProps.count() != 0))
 				doc->LoadPict(Neu->Pfile, Neu->ItemNr, true);
 			if (Neu->isTableItem)
 			{
@@ -2443,6 +2452,19 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 				ob.appendChild(tabs);
 			}
 		}
+		if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()) && (item->pixm.imgInfo.layerInfo.count() != 0) && (item->pixm.imgInfo.isRequest))
+		{
+			QMap<int, ScImage::LoadRequest>::iterator it2;
+			for (it2 = item->pixm.imgInfo.RequestProps.begin(); it2 != item->pixm.imgInfo.RequestProps.end(); ++it2)
+			{
+				QDomElement psd = docu.createElement("PSDLayer");
+				psd.setAttribute("Layer",it2.key());
+				psd.setAttribute("Visible", static_cast<int>(it2.data().visible));
+				psd.setAttribute("Opacity", it2.data().opacity);
+				psd.setAttribute("Blend", it2.data().blend);
+				ob.appendChild(psd);
+			}
+		}
 		if (item->GrType != 0)
 		{
 			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
@@ -2775,6 +2797,19 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 					tabCh = QString((*item->TabValues.at(a)).tabFillChar);
 				tabs.setAttribute("Fill", tabCh);
 				ob.appendChild(tabs);
+			}
+		}
+		if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()) && (item->pixm.imgInfo.layerInfo.count() != 0) && (item->pixm.imgInfo.isRequest))
+		{
+			QMap<int, ScImage::LoadRequest>::iterator it2;
+			for (it2 = item->pixm.imgInfo.RequestProps.begin(); it2 != item->pixm.imgInfo.RequestProps.end(); ++it2)
+			{
+				QDomElement psd = docu->createElement("PSDLayer");
+				psd.setAttribute("Layer",it2.key());
+				psd.setAttribute("Visible", static_cast<int>(it2.data().visible));
+				psd.setAttribute("Opacity", it2.data().opacity);
+				psd.setAttribute("Blend", it2.data().blend);
+				ob.appendChild(psd);
 			}
 		}
 		ob.setAttribute("ALIGN",item->textAlignment);

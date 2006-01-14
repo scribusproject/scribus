@@ -1878,6 +1878,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 
 PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 {
+	struct ScImage::LoadRequest loadingInfo;
 	int z = 0;
 	PageItem::ItemType pt = static_cast<PageItem::ItemType>(obj->attribute("PTYPE").toInt());
 	double x = obj->attribute("XPOS").toDouble();
@@ -1951,6 +1952,29 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
 		currItem->AspectRatio = obj->attribute("RATIO", "0").toInt();
 		currItem->Pwidth = pw;
+		if (currItem->pixm.imgInfo.layerInfo.count() != 0)
+		{
+			bool found = false;
+			IT = obj->firstChild();
+			while(!IT.isNull())
+			{
+				QDomElement it = IT.toElement();
+				if (it.tagName() == "PSDLayer")
+				{
+					found = true;
+					loadingInfo.blend = it.attribute("Blend");
+					loadingInfo.opacity = it.attribute("Opacity").toInt();
+					loadingInfo.visible = static_cast<bool>(it.attribute("Visible").toInt());
+					currItem->pixm.imgInfo.RequestProps.insert(it.attribute("Layer").toInt(), loadingInfo);
+				}
+				IT=IT.nextSibling();
+			}
+			if (found)
+			{
+				currItem->pixm.imgInfo.isRequest = true;
+				doc->loadPict(currItem->Pfile, currItem, true);
+			}
+		}
 		break;
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType3:
