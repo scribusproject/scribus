@@ -86,6 +86,8 @@ void ScImage::initialize()
 	imgInfo.exifInfo.cameraName = "";
 	imgInfo.exifInfo.cameraVendor = "";
 	imgInfo.exifInfo.thumbnail = QImage();
+	imgInfo.BBoxX = 0;
+	imgInfo.BBoxH = 0;
 }
 
 ScImage::~ScImage()
@@ -3413,6 +3415,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 					}
 				}
 			}
+			imgInfo.BBoxX = 0;
+			imgInfo.BBoxH = height();
 			imgInfo.xres = qRound(gsRes);
 			imgInfo.yres = qRound(gsRes);
 			imgInfo.colorspace = 0;
@@ -3499,6 +3503,16 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 //				*this = static_cast<ScImage>(image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y)));
 				*this = static_cast<ScImage>(image.copy());
 				unlink(tmpFile);
+				if (ext == "eps")
+				{
+					imgInfo.BBoxX = static_cast<int>(x);
+					imgInfo.BBoxH = static_cast<int>(h);
+				}
+				else
+				{
+					imgInfo.BBoxX = 0;
+					imgInfo.BBoxH = height();
+				}
 				imgInfo.xres = qRound(gsRes);
 				imgInfo.yres = qRound(gsRes);
 				imgInfo.colorspace = 0;
@@ -3684,6 +3698,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			else
 				imgInfo.colorspace = 0;
 			imgInfo.layerInfo.clear();
+			imgInfo.BBoxX = 0;
+			imgInfo.BBoxH = height();
 		}
 	}
 #endif // HAVE_TIFF
@@ -3774,6 +3790,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			}
 			imgInfo.exifInfo.width = header.width;
 			imgInfo.exifInfo.height = header.height;
+			imgInfo.BBoxX = 0;
+			imgInfo.BBoxH = height();
 		}
 		else
 			return ret;
@@ -4030,6 +4048,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		fclose (infile);
 		jpeg_destroy_decompress (&cinfo);
 		imgInfo.layerInfo.clear();
+		imgInfo.BBoxX = 0;
+		imgInfo.BBoxH = height();
 	}
 	else
 	{
@@ -4046,6 +4066,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			imgInfo.xres = qRound(xres);
 			imgInfo.yres = qRound(yres);
 			imgInfo.lowResType = resInf;
+			imgInfo.BBoxX = 0;
+			imgInfo.BBoxH = height();
 		}
 	}
 	if (isNull())

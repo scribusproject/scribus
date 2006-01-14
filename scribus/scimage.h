@@ -161,6 +161,8 @@ public:
 		int typ;			/* 0 = jpg, 1 = tiff, 2 = psd, 3 = eps/ps, 4 = pdf, 5 = jpg2000, 6 = other */
 		int xres;
 		int yres;
+		int BBoxX;
+		int BBoxH;
 		int colorspace; /* 0 = RGB  1 = CMYK  2 = Grayscale */
 		bool valid;
 		bool isRequest;

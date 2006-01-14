@@ -3242,7 +3242,6 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		double yres = pixm.imgInfo.yres;
 		PicAvail = true;
 //		PicArt = true;
-		BBoxX = 0;
 		if (Pfile != filename)
 		{
 			LocalScX = 72.0 / xres;
@@ -3274,7 +3273,8 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			cl.scale(LocalScX, LocalScY);
 			imageClip.map(cl);
 		}
-		BBoxH = pixm.height();
+		BBoxX = pixm.imgInfo.BBoxX;
+		BBoxH = pixm.imgInfo.BBoxH;
 		OrigW = pixm.width();
 		OrigH = pixm.height();
 		QString ext = fi.extension(false).lower();
