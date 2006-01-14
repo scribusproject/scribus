@@ -198,7 +198,10 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 		write("\n");
 		append = false;
 		if (inList)
-			styleNames.pop_back();
+		{
+			if (styleNames.size() != 0)
+				styleNames.pop_back();
+		}
 		else
 			styleNames.clear();
 	}
