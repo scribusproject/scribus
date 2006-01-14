@@ -2328,7 +2328,10 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 				scrActions["toolsEditContents"]->setEnabled(true);
 		}
 		else
+		{
 			scrActions["toolsEditContents"]->setEnabled(true);
+			scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
+		}
 		if (currItem->NextBox == 0)
 			scrActions["toolsLinkTextFrame"]->setEnabled(true);
 		if (doc->masterPageMode())
