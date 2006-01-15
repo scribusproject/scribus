@@ -8,7 +8,6 @@ Calender.py = Creates a Calendar of the current Month in the current Document as
 ReadMe = this file
 Sample1.py = Very simple Example, creates a Docmument with some Objects, saves the Document and closes it.
 golden-mean.py = Creates a non printable marks in the Golden Mean of the page.
-htmlimport.py = Imports HTML files into textframe
 legende.py = Creates a legende for Image (filename)
 moins_10_pourcent_group.py = Decrease size of the object by 10%
 plus_10_pourcent_group.py = Increase size of the object by 10%
