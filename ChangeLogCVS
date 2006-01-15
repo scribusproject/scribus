@@ -1,5 +1,30 @@
 Scribus - 1.3.2cvs
 ==================
+
+- 0002961: [Plug-ins] scrolling down the font list in the font preview makes the preview part bigger and bigger (subik)
+- 0002966: [Picture Frames] state of active layers is not saved with a psd-file (fschmid)
+- 0002912: [Story Editor / Text Frames] Page/Copy won't always redraw textframes correctly (fschmid)
+- 0002981: [Picture Frames] Appending EPS image to imageframe leads to wrong rendered image (fschmid)
+- 0002988: [Fonts] Font Substitutions do not work automatically with doc created on linux, then opened on Win32 (jghali)
+- 0003003: [Fonts] Font Substitution Mismatches going from Win32 > Linux (jghali)
+- 0003009: [Win32] any text after "@" disappears when entered in the SE on Win32 (jghali)
+- 0000387: [Import / Export] importing a page
+- 0002944: [Story Editor / Text Frames] bad cursor placing in textframes when two columns (cbradney)
+- 0002656: [General] Crash working with font sampler generated docs (cbradney)
+- 0002510: [Import / Export] Sig. 11 when importing text (oo writer) and substituting font (cbradney)
+- 0003004: [Usability] different order of layers in context menu and layer palette (cbradney)
+- 0003012: [Story Editor / Text Frames] Resizing a multiselection of textboxes changes font size (cbradney)
+- 0002873: [Story Editor / Text Frames] Linking several text frames (cbradney)
+- 0002056: [Picture Frames] the image effect dialog should be also opened by the image context menu (cbradney)
+- 0002638: [User Interface] "Unlink text frames" tool availability is weird (cbradney)
+- 0002946: [Scripter] patch for faster insertText() (subik)
+- 0001759: [General] improve file dialogs with last used files
+- 0003010: [User Interface] refresh issue with two layers and selected objects (cbradney)
+- 0002982: [Import / Export] Fill color in text frame blocks text export to PDF (cbradney)
+- 0002832: [Plug-ins] Color Artifacts in Color Wheel under win32 (subik)
+- 0002968: [Plug-ins] color wheel: list of colors in the document is not updated (subik)
+- 0002293: [User Interface] Ctrl +- should zoom in/out by the stepping value set in preferences (cbradney)
+- 0002995: [Story Editor / Text Frames] press shift+end should select the the whole line but it only selects the line -1 character (cbradney)
 - 0002960: [Picture Frames] rotating picture frames rotates the mouse controls too (fschmid)
 - 0002946: [Scripter] patch for faster insertText() (subik)
 - 0002982: [Import / Export] Fill color in text frame blocks text export to PDF (cbradney)
