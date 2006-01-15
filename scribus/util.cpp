@@ -1129,8 +1129,8 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->PicArt=obj->attribute("PICART").toInt();
 	OB->flippedH = obj->attribute("FLIPPEDH").toInt() % 2;
 	OB->flippedV = obj->attribute("FLIPPEDV").toInt() % 2;
-	OB->BBoxX=obj->attribute("BBOXX").toDouble();
-	OB->BBoxH=obj->attribute("BBOXH").toDouble();
+/*	OB->BBoxX=obj->attribute("BBOXX").toDouble();
+	OB->BBoxH=obj->attribute("BBOXH").toDouble(); */
 	OB->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
 	OB->AspectRatio = obj->attribute("RATIO", "0").toInt();
 	OB->isPrintable=obj->attribute("PRINTABLE").toInt();

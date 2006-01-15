@@ -74,8 +74,8 @@ struct CopyPasteBuffer
 	bool PicArt;
 	bool flippedH;
 	bool flippedV;
-	double BBoxX;
-	double BBoxH;
+/*	double BBoxX;
+	double BBoxH; */
 	bool isPrintable;
 	bool isBookmark;
 	int BMnr;

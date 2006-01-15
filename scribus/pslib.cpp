@@ -738,8 +738,8 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		if (loadText(fn, &tmp))
 		{
 			PutSeite("bEPS\n");
-      			PutSeite(ToStr(scalex) + " " + ToStr(scaley) + " sc\n");
-      			PutSeite(ToStr(x) + " " + ToStr(y) + " tr\n");
+			PutSeite(ToStr(PrefsManager::instance()->appPrefs.gs_Resolution / 72.0 * scalex) + " " + ToStr(PrefsManager::instance()->appPrefs.gs_Resolution / 72.0 * scaley) + " sc\n");
+			PutSeite(ToStr(-c->BBoxX+x * scalex) + " " + ToStr(y * scalex) + " tr\n");
 			if (!Name.isEmpty())
 			{
 				PutSeite(PSEncode(Name)+"Bild cvx exec\n");
@@ -777,8 +777,8 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		int h = image.height();
 		if (ext == "pdf")
 		{
-			scalex *= 72.0 / 300.0;
-			scaley *= 72.0 / 300.0;
+			scalex *= PrefsManager::instance()->appPrefs.gs_Resolution / 300.0;
+			scaley *= PrefsManager::instance()->appPrefs.gs_Resolution / 300.0;
 		}
  		PutSeite(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
  		PutSeite(ToStr(scalex*w) + " " + ToStr(scaley*h) + " sc\n");
@@ -1213,9 +1213,9 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 								{
 									PS_translate(0, -ite->BBoxH*ite->imageYScale());
 									if ((!sep) && (farb))
-										PS_image(ite, -ite->BBoxX+ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic, ite->itemName());
+										PS_image(ite, /*-ite->BBoxX+*/ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic, ite->itemName());
 									else
-										PS_image(ite, -ite->BBoxX+ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic);
+										PS_image(ite, /*-ite->BBoxX+*/ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic);
 								}
 								PS_restore();
 								if (((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
@@ -1459,9 +1459,9 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				PS_translate(0, -c->BBoxH*c->imageYScale());
 				if ((!a->PageNam.isEmpty()) && (!sep) && (farb))
-					PS_image(c, -c->BBoxX+c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic, c->itemName());
+					PS_image(c, /*-c->BBoxX+*/c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic, c->itemName());
 				else
-					PS_image(c, -c->BBoxX+c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic);
+					PS_image(c, /*-c->BBoxX+*/c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic);
 			}
 			PS_restore();
 			if (((c->lineColor() != "None") || (!c->NamedLStyle.isEmpty())) && (!c->isTableItem))

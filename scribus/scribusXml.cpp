@@ -268,8 +268,8 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("BASEOF", item->BaseOffs);
 	ob->setAttribute("FLIPPEDH", item->imageFlippedH());
 	ob->setAttribute("FLIPPEDV", item->imageFlippedV());
-	ob->setAttribute("BBOXX",item->BBoxX);
-	ob->setAttribute("BBOXH",item->BBoxH);
+/*	ob->setAttribute("BBOXX",item->BBoxX);
+	ob->setAttribute("BBOXH",item->BBoxH); */
 	ob->setAttribute("IFONT",item->font());
 	ob->setAttribute("ISIZE",item->fontSize() / 10.0 );
 	ob->setAttribute("SCALETYPE", item->ScaleType ? 1 : 0);

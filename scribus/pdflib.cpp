@@ -4917,6 +4917,11 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			syn = SharedImages[fn].sya * sy / SharedImages[fn].ya;
 		}
 	}
+	if ((ext == "eps") || (ext == "pdf"))// compensate gsResolution setting
+	{
+		sxn = PrefsManager::instance()->appPrefs.gs_Resolution / 72.0 * sxn;
+		syn = PrefsManager::instance()->appPrefs.gs_Resolution / 72.0 * syn;
+	}
 	if (!fromAN)
 	{
 		QString tmp(FToStr(ImWid*sxn)+" 0 0 "+FToStr(ImHei*syn)+" "+FToStr(x*sx)+" "+FToStr((-ImHei*syn+y*sy))+" cm\n/"+ResNam+QString::number(ImRes)+" Do\n");

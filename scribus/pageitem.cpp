@@ -2927,8 +2927,8 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->PicArt = PicArt;
 	Buffer->flippedH = imageFlippedH();
 	Buffer->flippedV = imageFlippedV();
-	Buffer->BBoxX = BBoxX;
-	Buffer->BBoxH = BBoxH;
+/*	Buffer->BBoxX = BBoxX;
+	Buffer->BBoxH = BBoxH; */
 	Buffer->isPrintable = printable();
 	Buffer->isBookmark = isBookmark;
 	Buffer->BMnr = BMnr;

@@ -1947,8 +1947,8 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			currItem->imageClip.map(cl);
 		}
 		currItem->PicArt = obj->attribute("PICART").toInt();
-		currItem->BBoxX = obj->attribute("BBOXX").toDouble();
-		currItem->BBoxH = obj->attribute("BBOXH").toDouble();
+/*		currItem->BBoxX = obj->attribute("BBOXX").toDouble();
+		currItem->BBoxH = obj->attribute("BBOXH").toDouble(); */
 		currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
 		currItem->AspectRatio = obj->attribute("RATIO", "0").toInt();
 		currItem->Pwidth = pw;
@@ -1999,8 +1999,8 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			doc->LoadPict(currItem->Pfile, z);
 			currItem->setImageXYScale(scx, scy);
 			currItem->PicArt = obj->attribute("PICART").toInt();
-			currItem->BBoxX = obj->attribute("BBOXX").toDouble();
-			currItem->BBoxH = obj->attribute("BBOXH").toDouble();
+/*			currItem->BBoxX = obj->attribute("BBOXX").toDouble();
+			currItem->BBoxH = obj->attribute("BBOXH").toDouble(); */
 			currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
 			currItem->AspectRatio = obj->attribute("RATIO", "0").toInt();
 		}
@@ -2025,8 +2025,8 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			doc->LoadPict(currItem->Pfile, z);
 			currItem->setImageXYScale(scx, scy);
 			currItem->PicArt = obj->attribute("PICART").toInt();
-			currItem->BBoxX = obj->attribute("BBOXX").toDouble();
-			currItem->BBoxH = obj->attribute("BBOXH").toDouble();
+/*			currItem->BBoxX = obj->attribute("BBOXX").toDouble();
+			currItem->BBoxH = obj->attribute("BBOXH").toDouble(); */
 			currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
 			currItem->AspectRatio = obj->attribute("RATIO", "0").toInt();
 		}

@@ -3464,9 +3464,9 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		{
 			QTextStream ts2(&BBox, IO_ReadOnly);
 			ts2 >> x >> y >> b >> h;
-			x = x * gsRes / 72.0;
+/*			x = x * gsRes / 72.0;
 			y = y * gsRes / 72.0;
-			b = b * gsRes / 72.0;
+			b = b * gsRes / 72.0; */
 			h = h * gsRes / 72.0;
 			QStringList args;
 			xres = gsRes;
