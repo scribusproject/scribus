@@ -15,7 +15,7 @@ margins = (0, 0, 0, 0)
 paper = (210, 297)
 
 def main():
-    if newDoc(paper, margins, 1, 1, 1, NOFACINGPAGES, FIRSTPAGELEFT):
+    if newDocument(paper, margins, 1, 1, 1, NOFACINGPAGES, FIRSTPAGELEFT):
         setUnit(1)
         newPage(-1)
         gotoPage(1)
