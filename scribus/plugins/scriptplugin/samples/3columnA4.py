@@ -33,7 +33,7 @@ margins = (50, 50, 50, 50)
 size = (612, 792)
 
 def main():
-    if newDoc(PAPER_A4, margins, LANDSCAPE, 1, UNIT_POINTS, NOFACINGPAGES, FIRSTPAGELEFT):
+    if newDocument()(PAPER_A4, margins, LANDSCAPE, 1, UNIT_POINTS, NOFACINGPAGES, FIRSTPAGELEFT):
         a = createText(50, 50, 230, 495)
         setTextAlignment(1,a)
         setText("Column A", a)

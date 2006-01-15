@@ -14,7 +14,7 @@ except ImportError:
 margins = (10, 10, 10, 30)
 
 def main():
-    if newDoc(PAPER_A4, margins, PORTRAIT, 1, UNIT_POINTS, NOFACINGPAGES, FIRSTPAGERIGHT):
+    if newDocument(PAPER_A4, margins, PORTRAIT, 1, UNIT_POINTS, NOFACINGPAGES, FIRSTPAGERIGHT):
         a = createText(50, 50, 200, 80)
         setText("A Test for Scribus", a)
         setFontSize(20, a)
