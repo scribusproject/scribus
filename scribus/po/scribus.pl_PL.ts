@@ -3398,7 +3398,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Set Media Size</source>
-        <translation>Pozwala na podanie rozmiaru nośnika dla pliku postscriptowego. Nie zaleca się używania, chyba że poprosi o to drukarnia</translation>
+        <translation type="obsolete">Pozwala na podanie rozmiaru nośnika dla pliku postscriptowego. Nie zaleca się używania, chyba że poprosi o to drukarnia</translation>
     </message>
 </context>
 <context>
@@ -5184,6 +5184,120 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
         <source>Cannot collect the file: 
 %1</source>
         <translation>Nie można zapisać pliku %1</translation>
+    </message>
+</context>
+<context>
+    <name>ColorListBox</name>
+    <message>
+        <source>None</source>
+        <translation>Brak</translation>
+    </message>
+</context>
+<context>
+    <name>ColorManager</name>
+    <message>
+        <source>Colors</source>
+        <translation>Kolory</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation>&amp;Importuj</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation>&amp;Nowy</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Edycja</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation>&amp;Klonuj</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>&amp;Usuń</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Unused</source>
+        <translation>U&amp;suń nieużywane</translation>
+    </message>
+    <message>
+        <source>Color Sets</source>
+        <translation>Zestawy kolorów</translation>
+    </message>
+    <message>
+        <source>Current Color Set:</source>
+        <translation>Aktualny zestaw kolorów:</translation>
+    </message>
+    <message>
+        <source>&amp;Save Color Set</source>
+        <translation>&amp;Zapisz zestaw kolorów</translation>
+    </message>
+    <message>
+        <source>Choose a color set to load</source>
+        <translation>Wybierz zestaw kolorów do otworzenia</translation>
+    </message>
+    <message>
+        <source>Save the current color set</source>
+        <translation>Zapisz aktualny zestaw kolorów</translation>
+    </message>
+    <message>
+        <source>Remove unused colors from current document&apos;s color set</source>
+        <translation>Usuń nieużywane kolory z zestawu kolorów aktualnego dokumentu</translation>
+    </message>
+    <message>
+        <source>Import colors to the current set from an existing document</source>
+        <translation>Importuj kolory do aktualnego zestawu z istniejącego dokumentu</translation>
+    </message>
+    <message>
+        <source>Create a new color within the current set</source>
+        <translation>Utwórz nowy kolor wewnątrz aktualnego zestawu</translation>
+    </message>
+    <message>
+        <source>Edit the currently selected color</source>
+        <translation>Edytuj aktualnie wybrany kolor</translation>
+    </message>
+    <message>
+        <source>Make a copy of the currently selected color</source>
+        <translation>Utwórz kopię aktualnie wybranego koloru</translation>
+    </message>
+    <message>
+        <source>Delete the currently selected color</source>
+        <translation>Usuń aktualnie wybrany kolor</translation>
+    </message>
+    <message>
+        <source>Make the current colorset the default color set</source>
+        <translation>Ustaw aktualny zestaw kolorów jako domyślny zestaw kolorów</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation>&amp;Nazwa:</translation>
+    </message>
+    <message>
+        <source>Choose a Name</source>
+        <translation>Wybierz nazwę</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Otwórz</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;All Files (*)</source>
+        <translation>Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Copy of %1</source>
+        <translation>Kopia %1</translation>
+    </message>
+    <message>
+        <source>New Color</source>
+        <translation>Nowy kolor</translation>
     </message>
 </context>
 <context>
@@ -7261,51 +7375,51 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <name>Farbmanager</name>
     <message>
         <source>Colors</source>
-        <translation>Kolory</translation>
+        <translation type="obsolete">Kolory</translation>
     </message>
     <message>
         <source>Color Sets</source>
-        <translation>Zestawy kolorów</translation>
+        <translation type="obsolete">Zestawy kolorów</translation>
     </message>
     <message>
         <source>Current Color Set:</source>
-        <translation>Aktualny zestaw kolorów:</translation>
+        <translation type="obsolete">Aktualny zestaw kolorów:</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Otwórz</translation>
+        <translation type="obsolete">Otwórz</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation>Kopia %1</translation>
+        <translation type="obsolete">Kopia %1</translation>
     </message>
     <message>
         <source>Choose a Name</source>
-        <translation>Wybierz nazwę</translation>
+        <translation type="obsolete">Wybierz nazwę</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation>Nowy kolor</translation>
+        <translation type="obsolete">Nowy kolor</translation>
     </message>
     <message>
         <source>Choose a color set to load</source>
-        <translation>Wybierz zestaw kolorów do otworzenia</translation>
+        <translation type="obsolete">Wybierz zestaw kolorów do otworzenia</translation>
     </message>
     <message>
         <source>Save the current color set</source>
-        <translation>Zapisz aktualny zestaw kolorów</translation>
+        <translation type="obsolete">Zapisz aktualny zestaw kolorów</translation>
     </message>
     <message>
         <source>Remove unused colors from current document&apos;s color set</source>
-        <translation>Usuń nieużywane kolory z zestawu kolorów aktualnego dokumentu</translation>
+        <translation type="obsolete">Usuń nieużywane kolory z zestawu kolorów aktualnego dokumentu</translation>
     </message>
     <message>
         <source>Append colors to the current set from an existing document</source>
@@ -7313,23 +7427,23 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Create a new color within the current set</source>
-        <translation>Utwórz nowy kolor wewnątrz aktualnego zestawu</translation>
+        <translation type="obsolete">Utwórz nowy kolor wewnątrz aktualnego zestawu</translation>
     </message>
     <message>
         <source>Edit the currently selected color</source>
-        <translation>Edytuj aktualnie wybrany kolor</translation>
+        <translation type="obsolete">Edytuj aktualnie wybrany kolor</translation>
     </message>
     <message>
         <source>Make a copy of the currently selected color</source>
-        <translation>Utwórz kopię aktualnie wybranego koloru</translation>
+        <translation type="obsolete">Utwórz kopię aktualnie wybranego koloru</translation>
     </message>
     <message>
         <source>Delete the currently selected color</source>
-        <translation>Usuń aktualnie wybrany kolor</translation>
+        <translation type="obsolete">Usuń aktualnie wybrany kolor</translation>
     </message>
     <message>
         <source>Make the current colorset the default color set</source>
-        <translation>Ustaw aktualny zestaw kolorów jako domyślny zestaw kolorów</translation>
+        <translation type="obsolete">Ustaw aktualny zestaw kolorów jako domyślny zestaw kolorów</translation>
     </message>
     <message>
         <source>&amp;Append</source>
@@ -7337,27 +7451,27 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Nowy</translation>
+        <translation type="obsolete">&amp;Nowy</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;Edycja</translation>
+        <translation type="obsolete">&amp;Edycja</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation>&amp;Klonuj</translation>
+        <translation type="obsolete">&amp;Klonuj</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Usuń</translation>
+        <translation type="obsolete">&amp;Usuń</translation>
     </message>
     <message>
         <source>&amp;Remove Unused</source>
-        <translation>U&amp;suń nieużywane</translation>
+        <translation type="obsolete">U&amp;suń nieużywane</translation>
     </message>
     <message>
         <source>&amp;Save Color Set</source>
-        <translation>&amp;Zapisz zestaw kolorów</translation>
+        <translation type="obsolete">&amp;Zapisz zestaw kolorów</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -7369,19 +7483,19 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation>&amp;Nazwa:</translation>
+        <translation type="obsolete">&amp;Nazwa:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Brak</translation>
+        <translation type="obsolete">Brak</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>&amp;Importuj</translation>
+        <translation type="obsolete">&amp;Importuj</translation>
     </message>
     <message>
         <source>Import colors to the current set from an existing document</source>
-        <translation>Importuj kolory do aktualnego zestawu z istniejącego dokumentu</translation>
+        <translation type="obsolete">Importuj kolory do aktualnego zestawu z istniejącego dokumentu</translation>
     </message>
 </context>
 <context>
@@ -15513,15 +15627,15 @@ materiału wejściowego, aby je poprawić</translation>
     <name>ScribusColorList</name>
     <message>
         <source>Sample</source>
-        <translation>Przykład</translation>
+        <translation type="obsolete">Przykład</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Kolor</translation>
+        <translation type="obsolete">Kolor</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Brak</translation>
+        <translation type="obsolete">Brak</translation>
     </message>
     <message>
         <source>Document Colors</source>
