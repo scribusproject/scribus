@@ -4463,6 +4463,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					}
 				}
 			}
+			//CB Where we set the cursor for a click in text frame
+			int oldPos = currItem->CPos;
 			inText = slotSetCurs(m->x(), m->y());
 			if (!inText)
 			{
@@ -4471,8 +4473,19 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				emit Amode(modeNormal);
 				return;
 			}
+			//<<CB Add in shift select to text frames
+			if (m->state() & Qt::ShiftButton)
+			{
+				int dir=1;
+				if (oldCp>currItem->CPos)
+					dir=-1;
+			 	if (currItem->asTextFrame())
+					currItem->asTextFrame()->ExpandSel(dir, oldPos);
+				oldCp = oldPos;
+			}
+			else //>>CB
+				oldCp = currItem->CPos;
 			currItem = Doc->selection->itemAt(0);
-			oldCp = currItem->CPos;
 			slotDoCurs(true);
 			if ((!inText) && ((currItem->asTextFrame()) || (currItem->asImageFrame())))
 			{
