@@ -5516,6 +5516,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 			Magnify = true;
 		break;
 	case 7:
+		{
 		HowTo = 0;
 		HanMove = false;
 		slotDoCurs(false);
@@ -5535,7 +5536,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 			}
 		}
 		//CB Where we set the cursor for a click in text frame
-		int oldPos = b->CPos;
+		int oldP = b->CPos;
 		inText = slotSetCurs(m->x(), m->y());
 		if (!inText)
 		{
@@ -5550,8 +5551,8 @@ void Page::mousePressEvent(QMouseEvent *m)
 			int dir=1;
 			if (oldCp>b->CPos)
 				dir=-1;
-			ExpandSel(b, dir, oldPos);
-			oldCp = oldPos;
+			ExpandSel(b, dir, oldP);
+			oldCp = oldP;
 		}
 		else //>>CB
 			oldCp = b->CPos;
@@ -5607,6 +5608,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 				}
 				RefreshItem(b);
 			}
+		}
 		}
 		break;
 	case 8:
