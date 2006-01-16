@@ -4443,58 +4443,65 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				Magnify = true;
 			break;
 		case modeEdit:
-			HowTo = 0;
-			HanMove = false;
-//			slotDoCurs(false);
-			if (GetItem(&currItem))
 			{
-				slotDoCurs(false);
-				if (!currItem->locked())
+				HowTo = 0;
+				HanMove = false;
+	//			slotDoCurs(false);
+				if (GetItem(&currItem))
 				{
-					p.begin(viewport());
-					Transform(currItem, &p);
-					HandleSizer(&p, currItem, mpo, m);
-					p.end();
-					if (HowTo != 0)
+					slotDoCurs(false);
+					if (!currItem->locked())
 					{
-						HanMove = true;
-						slotDoCurs(true);
-						return;
+						p.begin(viewport());
+						Transform(currItem, &p);
+						HandleSizer(&p, currItem, mpo, m);
+						p.end();
+						if (HowTo != 0)
+						{
+							HanMove = true;
+							slotDoCurs(true);
+							return;
+						}
 					}
 				}
-			}
-			//CB Where we set the cursor for a click in text frame
-			int oldPos = currItem->CPos;
-			inText = slotSetCurs(m->x(), m->y());
-			if (!inText)
-			{
-				Deselect(true);
-				slotDoCurs(true);
-				emit Amode(modeNormal);
-				return;
-			}
-			//<<CB Add in shift select to text frames
-			if (m->state() & Qt::ShiftButton)
-			{
-				int dir=1;
-				if (oldCp>currItem->CPos)
-					dir=-1;
-			 	if (currItem->asTextFrame())
-					currItem->asTextFrame()->ExpandSel(dir, oldPos);
-				oldCp = oldPos;
-			}
-			else //>>CB
-				oldCp = currItem->CPos;
-			currItem = Doc->selection->itemAt(0);
-			slotDoCurs(true);
-			if ((!inText) && ((currItem->asTextFrame()) || (currItem->asImageFrame())))
-			{
-				Deselect(true);
-				if (SeleItem(m))
+				//CB Where we set the cursor for a click in text frame
+				int oldP = currItem->CPos;
+				inText = slotSetCurs(m->x(), m->y());
+				if (!inText)
 				{
-					currItem = Doc->selection->itemAt(0);
-					if ((currItem->asTextFrame()) || (currItem->asImageFrame()))
-						emit Amode(modeEdit);
+					Deselect(true);
+					slotDoCurs(true);
+					emit Amode(modeNormal);
+					return;
+				}
+				//<<CB Add in shift select to text frames
+				if (m->state() & Qt::ShiftButton)
+				{
+					int dir=1;
+					if (oldCp>currItem->CPos)
+						dir=-1;
+					if (currItem->asTextFrame())
+						currItem->asTextFrame()->ExpandSel(dir, oldP);
+					oldCp = oldP;
+				}
+				else //>>CB
+					oldCp = currItem->CPos;
+				currItem = Doc->selection->itemAt(0);
+				slotDoCurs(true);
+				if ((!inText) && ((currItem->asTextFrame()) || (currItem->asImageFrame())))
+				{
+					Deselect(true);
+					if (SeleItem(m))
+					{
+						currItem = Doc->selection->itemAt(0);
+						if ((currItem->asTextFrame()) || (currItem->asImageFrame()))
+							emit Amode(modeEdit);
+						else
+						{
+							emit PaintingDone();
+							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+						}
+					}
 					else
 					{
 						emit PaintingDone();
@@ -4503,52 +4510,47 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				else
 				{
-					emit PaintingDone();
-					qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-				}
-			}
-			else
-			{
-				if ((m->button() == MidButton) && (currItem->asTextFrame()))
-				{
-					Mpressed = false;
-					MidButt = false;
-					QString cc;
-					cc = QApplication::clipboard()->text(QClipboard::Selection);
-					if (cc.isNull())
-						cc = QApplication::clipboard()->text(QClipboard::Clipboard);
-					if (!cc.isNull())
+					if ((m->button() == MidButton) && (currItem->asTextFrame()))
 					{
-						Serializer *ss = new Serializer("");
-						ss->Objekt = cc;
-						int st = Doc->currentParaStyle;
-						if (st > 5)
-							ss->GetText(currItem, st, Doc->docParagraphStyles[st].Font, Doc->docParagraphStyles[st].FontSize, true);
-						else
-							ss->GetText(currItem, st, currItem->font(), currItem->fontSize(), true);
-						delete ss;
-						ss=NULL;
-						if (Doc->docHyphenator->AutoCheck)
-							Doc->docHyphenator->slotHyphenate(currItem);
-						for (uint a = 0; a < Doc->Items->count(); ++a)
+						Mpressed = false;
+						MidButt = false;
+						QString cc;
+						cc = QApplication::clipboard()->text(QClipboard::Selection);
+						if (cc.isNull())
+							cc = QApplication::clipboard()->text(QClipboard::Clipboard);
+						if (!cc.isNull())
 						{
-							Doc->Items->at(a)->ItemNr = a;
-							if (Doc->Items->at(a)->isBookmark)
-								emit NewBMNr(Doc->Items->at(a)->BMnr, a);
+							Serializer *ss = new Serializer("");
+							ss->Objekt = cc;
+							int st = Doc->currentParaStyle;
+							if (st > 5)
+								ss->GetText(currItem, st, Doc->docParagraphStyles[st].Font, Doc->docParagraphStyles[st].FontSize, true);
+							else
+								ss->GetText(currItem, st, currItem->font(), currItem->fontSize(), true);
+							delete ss;
+							ss=NULL;
+							if (Doc->docHyphenator->AutoCheck)
+								Doc->docHyphenator->slotHyphenate(currItem);
+							for (uint a = 0; a < Doc->Items->count(); ++a)
+							{
+								Doc->Items->at(a)->ItemNr = a;
+								if (Doc->Items->at(a)->isBookmark)
+									emit NewBMNr(Doc->Items->at(a)->BMnr, a);
+							}
+							ScMW->outlinePalette->BuildTree();
 						}
-						ScMW->outlinePalette->BuildTree();
+						else
+						{
+							if (ScMW->Buffer2.startsWith("<SCRIBUSTEXT"))
+								ScMW->slotEditPaste();
+						}
+						RefreshItem(currItem);
 					}
-					else
+					if (currItem->asImageFrame() && !currItem->pointWithinItem(m->x(), m->y()))
 					{
-						if (ScMW->Buffer2.startsWith("<SCRIBUSTEXT"))
-							ScMW->slotEditPaste();
+						Deselect(true);
+						emit Amode(modeNormal);
 					}
-					RefreshItem(currItem);
-				}
-				if (currItem->asImageFrame() && !currItem->pointWithinItem(m->x(), m->y()))
-				{
-					Deselect(true);
-					emit Amode(modeNormal);
 				}
 			}
 			break;
