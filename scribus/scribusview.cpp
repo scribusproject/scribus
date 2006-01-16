@@ -1260,10 +1260,16 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 					currItem->paintObj();
 				}
 			}
+			return;
 		}
 		else
-			contentsMousePressEvent(m);
-		return;
+		{
+			if (!(GetItem(&currItem) && (Doc->appMode == modeEdit) && currItem->asTextFrame()))
+			{
+				contentsMousePressEvent(m);
+				return;
+			}
+		}
 	}
 	if (GetItem(&currItem))
 	{
@@ -1284,8 +1290,58 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 		else
 			if (currItem->itemType() == PageItem::TextFrame)
 			{
-				emit currItem->isAnnotation() ? AnnotProps() : Amode(modeEdit);
-				contentsMousePressEvent(m);
+				//CB old code
+				//emit currItem->isAnnotation() ? AnnotProps() : Amode(modeEdit);
+				//contentsMousePressEvent(m);
+				//CB if annotation, open the annotation dialog
+				if (currItem->isAnnotation())
+				{
+					emit AnnotProps();
+					contentsMousePressEvent(m);
+				}
+				//else if not in mode edit, set mode edit
+				else if (Doc->appMode != modeEdit)
+				{
+					Amode(modeEdit);
+					//CB ignore the double click and go with a single one
+					//if we werent in mode edit before.
+					//unsure if this is correct, but its ok given we had no
+					//double click select until now.
+					contentsMousePressEvent(m);
+				}
+				//otherwise, select between the whitespace
+				else 
+				{	//Double click in a frame to select a word
+					PageItem_TextFrame *cItem=currItem->asTextFrame();
+					bool inText = slotSetCurs(m->x(), m->y());
+					if (!inText)
+					{
+						Deselect(true);
+						slotDoCurs(true);
+						emit Amode(modeNormal);
+						return;
+					}
+					int a=cItem->CPos;
+					while(a>0)
+					{
+						if (cItem->itemText.at(a-1)->ch.at(0).isLetterOrNumber())
+							--a;
+						else
+							break;
+					}
+					uint b=cItem->CPos;
+					while(b<cItem->itemText.count())
+					{
+						if (cItem->itemText.at(b)->ch.at(0).isLetterOrNumber())
+							++b;
+						else
+							break;
+					}
+					oldCp=a;
+					cItem->CPos=b;
+					cItem->ExpandSel(1, oldCp);
+					slotDoCurs(true);
+				}
 			}
 	}
 }
