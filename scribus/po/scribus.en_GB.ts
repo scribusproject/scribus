@@ -5119,6 +5119,120 @@ It is a reserved name for transparent colour</translation>
     </message>
 </context>
 <context>
+    <name>ColorListBox</name>
+    <message>
+        <source>None</source>
+        <translation>None</translation>
+    </message>
+</context>
+<context>
+    <name>ColorManager</name>
+    <message>
+        <source>Colors</source>
+        <translation>Colours</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation>&amp;Import</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation>&amp;New</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Edit</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation>D&amp;uplicate</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>&amp;Delete</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Unused</source>
+        <translation>&amp;Remove Unused</translation>
+    </message>
+    <message>
+        <source>Color Sets</source>
+        <translation>Colour Sets</translation>
+    </message>
+    <message>
+        <source>Current Color Set:</source>
+        <translation>Current Colour Set:</translation>
+    </message>
+    <message>
+        <source>&amp;Save Color Set</source>
+        <translation>&amp;Save Colour Set</translation>
+    </message>
+    <message>
+        <source>Choose a color set to load</source>
+        <translation>Choose a colour set to load</translation>
+    </message>
+    <message>
+        <source>Save the current color set</source>
+        <translation>Save the current colour set</translation>
+    </message>
+    <message>
+        <source>Remove unused colors from current document&apos;s color set</source>
+        <translation>Remove unused colours from current document&apos;s colour set</translation>
+    </message>
+    <message>
+        <source>Import colors to the current set from an existing document</source>
+        <translation>Import colours to the current set from an existing document</translation>
+    </message>
+    <message>
+        <source>Create a new color within the current set</source>
+        <translation>Create a new colour within the current set</translation>
+    </message>
+    <message>
+        <source>Edit the currently selected color</source>
+        <translation>Edit the currently selected colour</translation>
+    </message>
+    <message>
+        <source>Make a copy of the currently selected color</source>
+        <translation>Make a copy of the currently selected colour</translation>
+    </message>
+    <message>
+        <source>Delete the currently selected color</source>
+        <translation>Delete the currently selected colour</translation>
+    </message>
+    <message>
+        <source>Make the current colorset the default color set</source>
+        <translation>Make the current colourset the default colour set</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation>&amp;Name:</translation>
+    </message>
+    <message>
+        <source>Choose a Name</source>
+        <translation>Choose a Name</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Open</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;All Files (*)</source>
+        <translation>Documents (*.sla *.scd);;All Files (*)</translation>
+    </message>
+    <message>
+        <source>Copy of %1</source>
+        <translation>Copy of %1</translation>
+    </message>
+    <message>
+        <source>New Color</source>
+        <translation>New Colour</translation>
+    </message>
+</context>
+<context>
     <name>ColorWheel</name>
     <message>
         <source>Monochromatic</source>
@@ -6850,117 +6964,6 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <source>Colorspace:</source>
         <translation>Colourspace:</translation>
-    </message>
-</context>
-<context>
-    <name>Farbmanager</name>
-    <message>
-        <source>Colors</source>
-        <translation>Colours</translation>
-    </message>
-    <message>
-        <source>Color Sets</source>
-        <translation>Colour Sets</translation>
-    </message>
-    <message>
-        <source>Current Color Set:</source>
-        <translation>Current Colour Set:</translation>
-    </message>
-    <message>
-        <source>Choose a Name</source>
-        <translation>Choose a Name</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation>Open</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Documents (*.sla *.scd);;All Files (*)</translation>
-    </message>
-    <message>
-        <source>New Color</source>
-        <translation>New Colour</translation>
-    </message>
-    <message>
-        <source>Copy of %1</source>
-        <translation>Copy of %1</translation>
-    </message>
-    <message>
-        <source>Choose a color set to load</source>
-        <translation>Choose a colour set to load</translation>
-    </message>
-    <message>
-        <source>Save the current color set</source>
-        <translation>Save the current colour set</translation>
-    </message>
-    <message>
-        <source>Remove unused colors from current document&apos;s color set</source>
-        <translation>Remove unused colours from current document&apos;s colour set</translation>
-    </message>
-    <message>
-        <source>Create a new color within the current set</source>
-        <translation>Create a new colour within the current set</translation>
-    </message>
-    <message>
-        <source>Edit the currently selected color</source>
-        <translation>Edit the currently selected colour</translation>
-    </message>
-    <message>
-        <source>Make a copy of the currently selected color</source>
-        <translation>Make a copy of the currently selected colour</translation>
-    </message>
-    <message>
-        <source>Delete the currently selected color</source>
-        <translation>Delete the currently selected colour</translation>
-    </message>
-    <message>
-        <source>Make the current colorset the default color set</source>
-        <translation>Make the current colourset the default colour set</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation>&amp;New</translation>
-    </message>
-    <message>
-        <source>&amp;Edit</source>
-        <translation>&amp;Edit</translation>
-    </message>
-    <message>
-        <source>D&amp;uplicate</source>
-        <translation>D&amp;uplicate</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation>&amp;Delete</translation>
-    </message>
-    <message>
-        <source>&amp;Remove Unused</source>
-        <translation>&amp;Remove Unused</translation>
-    </message>
-    <message>
-        <source>&amp;Save Color Set</source>
-        <translation>&amp;Save Colour Set</translation>
-    </message>
-    <message>
-        <source>&amp;Name:</source>
-        <translation>&amp;Name:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>None</translation>
-    </message>
-    <message>
-        <source>&amp;Import</source>
-        <translation>&amp;Import</translation>
-    </message>
-    <message>
-        <source>Import colors to the current set from an existing document</source>
-        <translation>Import colours to the current set from an existing document</translation>
     </message>
 </context>
 <context>
@@ -13369,18 +13372,6 @@ converting their vector data into Scribus objects.</translation>
 </context>
 <context>
     <name>ScribusColorList</name>
-    <message>
-        <source>Sample</source>
-        <translation>Sample</translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation>Colour</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>None</translation>
-    </message>
     <message>
         <source>Document Colors</source>
         <translation>Document Colours</translation>
