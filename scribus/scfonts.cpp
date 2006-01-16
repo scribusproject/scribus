@@ -763,8 +763,8 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 	int faceindex=0;
 	while (!error)
 	{
-		QString fam = QString(face->family_name);
-		QString sty = QString(face->style_name);
+		QString fam(face->family_name);
+		QString sty(face->style_name);
 		if (sty == "Regular")
 		{
 			switch (face->style_flags)
@@ -784,8 +784,8 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					break;
 			}
 		}
-		QString ts = fam + " " + sty;
-		QString alt = "";
+		QString ts(fam + " " + sty);
+		QString alt("");
 		const char* psName = FT_Get_Postscript_Name(face);
 		QString qpsName;
 		if (psName)
