@@ -6639,7 +6639,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 		if ((QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
 		        (QRegion(p.xForm(currItem->Clip)).contains(mpo)))
 		{
-			uint a, i;
+			uint a;
 			int xp, yp, h;//w, h, chs;
 			CursVis = true;
 			
@@ -6666,26 +6666,34 @@ bool ScribusView::slotSetCurs(int x, int y)
 				yp = static_cast<int>(currItem->itemText.at(a)->yp);
 				h = static_cast<int>(Doc->docParagraphStyles[currItem->itemText.at(a)->cab].LineSpa);
 				
-				if ((a<currItemTextCount-1) && (yp-h+currItem->yPos()<=yP && yp+currItem->yPos()>=yP))
+				if (a<currItemTextCount-1)
 				{
-					//click where next char is on next line in same or next column
-					if (static_cast<int>(currItem->itemText.at(a+1)->yp)!=yp)
+					if ((xp+currItem->xPos()+1>=xP) && (yp+currItem->yPos()>=yP))
 					{
-						currItem->CPos = a;
+						//beginning of new paragraph or not
+						if (((currItem->itemText.at(a)->ch.at(0).latin1() == 13) || (currItem->itemText.at(a)->ch.at(0).latin1() == 28)))
+							currItem->CPos = a+1;
+						else
+							currItem->CPos = a;
 						p.end();
 						breakAndReturn=true;
 						break;
 					}
+					if (yp-h+currItem->yPos()<=yP && yp+currItem->yPos()>=yP)
+					{
+						//click where next char is on next line in same or next column
+						if (static_cast<int>(currItem->itemText.at(a+1)->yp)!=yp)
+						{
+							if (((currItem->itemText.at(a+1)->ch.at(0).latin1() == 13) || (currItem->itemText.at(a+1)->ch.at(0).latin1() == 28)))
+								currItem->CPos = a+1;
+							else
+								currItem->CPos = a;
+							p.end();
+							breakAndReturn=true;
+							break;
+						}
+					}
 				}
-				if ((xp+currItem->xPos()+1>=xP) && (yp+currItem->yPos()>=yP))
-				{
-					currItem->CPos = a;
-					p.end();
-					breakAndReturn=true;
-					break;
-				}
-				
-				
 				
 				/* CB old, rather complicated code...
 				chx = currItem->itemText.at(a)->ch;
@@ -6778,21 +6786,21 @@ bool ScribusView::slotSetCurs(int x, int y)
 				emit ItemTextFarben(currItem->itemText.at(a)->cstroke, currItem->itemText.at(a)->ccolor, currItem->itemText.at(a)->cshade2, currItem->itemText.at(a)->cshade);
 				return true;
 			}
-			QPoint np;
-			currItemTextCount=currItem->itemText.count();
+			
+			/*currItemTextCount=currItem->itemText.count();
+			qDebug(QString("%1").arg(2));
 			for (a=0; a<currItemTextCount; ++a)
 			{
 				xp = static_cast<int>(currItem->itemText.at(a)->xp);
 				yp = static_cast<int>(currItem->itemText.at(a)->yp);
-				np = p.xForm(QPoint(xp, yp - static_cast<int>(Doc->docParagraphStyles[currItem->itemText.at(a)->cab].LineSpa)));
+				QPoint np = p.xForm(QPoint(xp, yp - static_cast<int>(Doc->docParagraphStyles[currItem->itemText.at(a)->cab].LineSpa)));
 				if (yP < np.y())
 				{
 					currItem->CPos = a;
 					p.end();
+					uint i=a;
 					if (a > 0)
-						i = a - 1;
-					else
-						i = a;
+						i--;
 					Doc->CurrFont = currItem->itemText.at(i)->cfont->scName();
 					Doc->CurrFontSize = currItem->itemText.at(i)->csize;
 					Doc->CurrTextFill = currItem->itemText.at(i)->ccolor;
@@ -6825,7 +6833,15 @@ bool ScribusView::slotSetCurs(int x, int y)
 					return true;
 				}
 			}
-			currItem->CPos = currItem->itemText.count();
+			*/
+			//End of text in frame
+			a=currItem->itemText.count()-1;
+			int w = qRound(Cwidth(Doc, currItem->itemText.at(a)->cfont, currItem->itemText.at(a)->ch, currItem->itemText.at(a)->csize)*(currItem->itemText.at(a)->cscale / 1000.0));
+			if (xp+currItem->xPos()+w<xP || yp+currItem->yPos()<yP)
+				currItem->CPos = a+1;
+			else
+				currItem->CPos = a;
+			p.end();
 			if (currItem->itemText.count() != 0)
 			{
 				Doc->CurrFont = currItem->itemText.at(currItem->CPos-1)->cfont->scName();
@@ -6857,7 +6873,6 @@ bool ScribusView::slotSetCurs(int x, int y)
 				emit ItemTextStil(currItem->itemText.at(currItem->CPos-1)->cstyle);
 				emit ItemTextAbs(currItem->itemText.at(currItem->CPos-1)->cab);
 				emit ItemTextBase(currItem->itemText.at(currItem->CPos-1)->cbase);
-				p.end();
 				return true;
 			}
 			else
@@ -6891,10 +6906,8 @@ bool ScribusView::slotSetCurs(int x, int y)
 				emit ItemTextStil(currItem->TxTStyle);
 				emit ItemTextAbs(currItem->textAlignment);
 				emit ItemTextBase(currItem->TxtBase);
-				p.end();
 				return true;
 			}
-			p.end();
 		}
 	}
 	return false;
