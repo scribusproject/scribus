@@ -5534,6 +5534,8 @@ void Page::mousePressEvent(QMouseEvent *m)
 				}
 			}
 		}
+		//CB Where we set the cursor for a click in text frame
+		int oldPos = b->CPos;
 		inText = slotSetCurs(m->x(), m->y());
 		if (!inText)
 		{
@@ -5542,8 +5544,18 @@ void Page::mousePressEvent(QMouseEvent *m)
 			emit Amode(1);
 			return;
 		}
+		//<<CB Add in shift select to text frames
+		if (m->state() & Qt::ShiftButton)
+		{
+			int dir=1;
+			if (oldCp>b->CPos)
+				dir=-1;
+			ExpandSel(b, dir, oldPos);
+			oldCp = oldPos;
+		}
+		else //>>CB
+			oldCp = b->CPos;
 		b = doku->ActPage->SelItem.at(0);
-		oldCp = b->CPos;
 		slotDoCurs(true);
 		if ((!inText) && ((b->PType == 4) || (b->PType == 2)))
 		{
