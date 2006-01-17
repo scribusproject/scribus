@@ -1,11 +1,12 @@
 <qt>
-<title>Scribus Version 1.3.1cvs Readme</title>
+<title>Scribus Version 1.3.2 Readme</title>
 <h3>
 </h3>
 <h4>What's New ?</h4>
-<p>The Scribus 1.3.1 is the second development release of the next generation for Scribus. While it is fairly stable, there are a number of under the hood changes which are on-going. </p>
-<h4>The file format has changed and is NOT backwardly compatible. You have been warned. We have specifically disabled the ability to open 1.3.x files in the stable 1.2.x versions. Our plans for a new file format should be settled in the 1.3.2 development period.</h4>
+<p>The Scribus 1.3.2 is the third development release of the next generation for Scribus. While it is fairly stable, there are a number of under the hood changes which are on-going. This is the first version of Scribus released as a native win32 application. </p>
+<h4>The file format has changed and is NOT backwardly compatible. You have been warned. We have specifically disabled the ability to open 1.3.x files in the stable 1.2.x versions. Our plans for a new file format should be settled in the 1.3.3 -1.3.4 development period.</h4>
 <ol>
+<li>Windows users are <strong>strongly encouraged</strong> to install the latest  <a href="http://ghostscript.com">Ghostscript</a> before installing Scribus. This greatly simplifies setting up EPS importing. Ghostscript is a mature PostScript interpreter and is essential for EPS import into Scribus.</li>
 <li>Because of the new enhanced menu/keyboard shortcuts code, 1.2.x  keyboard short cuts are not migrated and will be recreated once on the first launch 1.3.x. There are vastly more keyboard shortcuts and they can be exported to use on other machines if customized.</li>
 <li>On initial launch, 1.3.x will offer to convert preferences to the new 1.3.x format. This is recommended. Scribus 1.3.x will store its preferences separately from 1.2.x.</li>
 <li>You <strong>can</strong> install both versions in parallel and run them at the same time. The only caveat is to install them using different prefix/ directories e.g 1.2 in /usr/local and 1.3 in /opt or $home/bin. You can use the --prefix argument to configure to set where Scribus should be installed.</li>
@@ -13,19 +14,17 @@
 <h4>Scribus 1.3.x is based on the latest 1.2.x branch code, but also includes:</h4>
 <ul>
 <li>Undo with objects specific undo capabilities. The number of undo/redo steps can be set in the preferences. There is also a new palette which has the undo history with details of each action. </li>
-<li>Much more extensive support for CMYK images, including clipping paths in TIFF files, as well as new support for native Photoshop &#174; PSD files. 16 bit CMYK TIFF and PSD support will follow soon. Use of CMYK images is recommended with color management properly setup and active for best on screen appearance.CMYK-JPEG is also supported. </li>
+<li>Much more extensive support for CMYK images, including clipping paths in TIFF files, as well as extensive support for native Photoshop &#174; PSD files. 16 bit CMYK TIFF and PSD support will follow soon. Use of CMYK images is recommended with color management properly setup and active for best on screen appearance. CMYK-JPEG is also supported. </li>
 <li>Completely revised document and application preferences. They are independently set of each other. New documents will inherit the current application preferences. Moreover 1.3.x preferences can exist side by side with 1.2.x preferences without issue.</li>
-<li>This documentation is based on 1.2.x, but there are some updates for 1.3, notably concerning the preferences and printing.</li>
+<li>This documentation is mostly based on 1.2.x, but there are some updates for 1.3, notably concerning the preferences and printing.</li>
 <li>Scribus now has true facing pages and images and other objects can span them.</li>
 <li>Scribus now has "scratch space" which can be used to store objects partially or fully off the page.</li>
 <li>Scribus now has its own built-in pre-flight file verifier for printing or exporting PDF. The default settings are to ensure images and fonts are of sufficient quality to provide trouble-free printing or PDF export. You can choose to ignore them in settings, but they are carefully chosen to ensure a minimum of quality or avoid known limitations of PS3 or PDF versions.</li>
-<li>Work is on-going to make Scribus more platform independent and alpha quality builds of Scribus are already working on Win32 and MacOSX. </li>
+
 </ul>
 <p>For detailed changes please see the ChangeLog and the Roadmap on <a href="http://wiki.scribus.net/">http://wiki.scribus.net/</a>.</p>
 <p>To use Scribus in your native language be sure that the environment variable LC_ALL, LC_MESSAGES, LANG, Qt locale, OR the command line option of -l/--lang &#060;lang&#062; is set correctly. This also can be changed in the preferences and takes effect immediately.</p>
 
-
-	
 <p>The EPS/PS import features in 1.3.x uses advanced features of Ghostscript. We recommend ALL users update to the newest version of Ghostscript available for your distribution. There are detailed hints on docs.scribus.net for installing GS 8.x in parallel to the GS installed by your distribution.</p>
 	
 <p>Activating Color Management <strong>requires</strong> installation of CMYK and RGB ICC profiles. Grey scale icc profiles in images are not supported in this release. Scribus comes with 2 icc profiles only to ensure color management works immediately. These profiles are not sufficient to provide correctly working color management. Please see the included help files and <a href="http://docs.scribus.net">http://docs.scribus.net</a> for details.</p>
@@ -62,6 +61,6 @@
 <p>For the Scribus Team,</p>
 <p>Franz Schmid<br />
 Peter Linnell<br />
-in September 2005<br />
+in January 2006<br />
 </p>
 </qt>
