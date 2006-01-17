@@ -1,97 +1,96 @@
 <qt>
-<title>How To Create Your First PDF Web Form with Scribus</title>
-<h2>How To Create Your First PDF Web Form with Scribus</h2>
-<p><em><strong>With many thanks to Maciej Hanski</strong>, who kindly translated this from the Polish original, licenced under the FDL.</em></p>
-<p><strong>The sample files, <code>scribusformphp.tar.gz</code>, a tarball of a php file and a sample doc, are available from http://docs.scribus.net</a></p>
+<title>Wie Sie Ihr erstes PDF-Online-Formular mit Scribus erstellen</title>
+<h2>Wie Sie Ihr erstes PDF-Online-Formular mit Scribus erstellen</h2>
+<p><em><strong>mit Dank an Maciej Hanski</strong>, der dies freundlicherweise aus dem polnischen Original (mit GNU-Lizenz f&uuml;r freie Dokumentation) &uuml;bersetzt hat.</em></p>
+<p><strong>Die Beispieldatei <code>scribusformphp.tar.gz</code>, ein Tarball-Archiv mit PHP-Datei und einem Beispieldokument, ist erh&auml;ltlich unter http://docs.scribus.net</a></p>
 
-<p>One of the biggest advantages of Scribus is the possibility to create PDF forms with embedded JavaScript scripts (in Adobe's own version, as described in the Adobe JavaScript Reference at http://partners.adobe.com/asn/developer/pdfs/tn/5186AcroJS.pdf</p>
+<p>Einer der gr&ouml;&szlig;ten Vorteile von Scribus ist die M&ouml;glichkeit, PDF-Formulare mit eingebetteten JavaScript-Skripten (als Adobe-eigene Version, beschrieben in der Adobe Javascript-Referenz unter http://partners.adobe.com/asn/developer/pdfs/tn/5186AcroJS.pdf) zu erstellen.</p>
 
-<p>Its rather simple to create a new form with Scribus. We start with clicking on the "New Document" icon or choosing <strong>New</strong> from the <strong>File</strong> menu.</p>
+<p>Es ist recht einfach, mit Scribus ein neues Formular zu erstellen. Als erstes klicken wir auf die Schaltfl&auml;che &quot;Neues Dokument&quot; oder w&auml;hlen im Men&uuml; unter <strong>Datei</strong> den Punkt  <strong>Neu</strong>.</p>
 
-<table width="100%"><tr><td align="center"><img src="../en/images/formularz_nowy.png" alt="Create a new doc" title="Create a new doc" /></a></td></tr></table>
-
-<br />
-<p>Let us activate the grid then (menu <strong>View</strong> -> <strong>Show Grid</strong>), it will help us to correctly locate our form fields on the page. We need some text frames to make a nice title and field descriptions - a few clicks on the <strong>[ab]</strong> icon and all the text frames are there in no time.</p>
-
-<table width="100%"><tr><td align="center"><img src="../en/images/siatka_menu.png" border="0" alt="null" /></td></tr></table>
-
-<p>Having filled our frames with text, we can change their properties with the <strong>Properties</strong> palette, which can be found in the <strong>Tools</strong> menu.</p>
-
-<table width="100%"><tr><td align="center"><img src="../en/images/siatka_jednostki_miar.png"  alt="" /></td></tr></table>
-
+<table width="100%"><tr><td align="center"><img src="images/formularz_nowy.png" alt="Create a new doc" title="Create a new doc" /></a></td></tr></table>
 
 <br />
+<p>Nachdem wir das Gitternetz (Men&uuml; <strong>Ansicht</strong> -&gt; <strong>Gitter ein</strong>) aktiviert haben, wird es uns dabei helfen, die Formularfelder korrekt auf der Seite auszurichten. F&uuml;r den Titel und die Feldbezeichnungen ben&ouml;tigen wir einige Textrahmen - Nur wenige Klicks auf die Schaltfl&auml;che <strong>[ab]</strong>, und alle Textrahmen erscheinen im Nu.</p>
 
-<div>Now we can start adding form elements: some text fields and one button for submitting our form to an URL. To add a field simply click on the arrow on the right side of the <strong>OK</strong> icon and select a type from the displayed options: button, text field, check box, combo box, and list box.</div>
+<table width="100%"><tr><td align="center"><img src="images/siatka_menu.png" border="0" alt="null" /></td></tr></table>
+
+<p>Wenn unsere Rahmen mit Text gef&uuml;llt sind, k&ouml;nnen wir ihre Eigenschaften &uuml;ber die  <strong>Eigenschaften</strong>-Palette &auml;ndern, die sich im Men&uuml; unter <strong>Werkzeuge</strong> befindet.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/siatka_jednostki_miar.png"  alt="" /></td></tr></table>
+
 
 <br />
-<table width="100%"><tr><td align="center"><img src="../en/images/symbole.png" alt="null" /></td></tr></table>
 
-<p>The current active element of the form has a red frame border; you can activate an element in choosing the "Select" icon (the one with crossed arrows) and clicking on the item to be chosen.</p>
+<div>Nun k&ouml;nnen wir beginnen, Formularelemente hinzuzuf&uuml;gen: einige Textfelder und eine Schaltfl&auml;che zum Abschicken unseres Formulars. Um ein Feld hinzuzuf&uuml;gen, klicken Sie einfach auf den Pfeil rechts neben dem <strong>OK</strong>, und w&auml;hlen Sie aus der Auflistung einen Typ aus: Schaltfl&auml;che, Textfeld, Kontrollk&auml;stchen, Kombinationsfeld oder Listenfeld.</div>
+
+<br />
+<table width="100%"><tr><td align="center"><img src="images/symbole.png" alt="null" /></td></tr></table>
+
+<p>Das gerade aktive Element des Formulars hat einen Rahmen mit rotem Rand; Sie k&ouml;nnen ein Element aktivieren, indem Sie auf die Schaltfl&auml;che &quot;Ausw&auml;hlen&quot; (die mit dem Pfeilkreuz) und dann auf das gew&uuml;nschte Element klicken.</p>
 <br />
 
-<table width="100%"><tr><td align="center"><img src="../en/images/ulica.png" alt="null" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/ulica.png" alt="null" /></td></tr></table>
 
 <br />
  
-<p>The right click on an element activates a new menu. We choose <strong>Field Properties</strong> and define field names (we will need the field names in our PHP script, to which we'll send the form), types (e.g., number, time, date), and actions to be performed on different events (Mouse Enter, Mouse Exit, On Blur, and so on).</p>
+<p>Wenn Sie auf ein Element rechtsklicken, aktivieren Sie ein neues Men&uuml;. Wir w&auml;hlen  <strong>Feldeigenschaften</strong> und definieren Feldnamen (wir brauchen die Feldnamen f&uuml;r unser PHP-Skript, wohin das Formular gesendet wird), Feldtypen (z.B. Zahl, Zeit, Datum) sowie Aktionen, die bei bestimmten Ereignissen ausgef&uuml;hrt werden sollen (Mouse-Enter, Mouse-Exit, onBlur - also beim Verlassen des Elements - usw.).</p>
 
 <br /><br />
 
-<table width="100%"><tr><td align="center"><img src="../en/images/wlasciwosci_pola.png" alt="null"  border="0" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/wlasciwosci_pola.png" alt="null"  border="0" /></td></tr></table>
 
 <br />
 
-<p>Here we are defining the <strong>No</strong> field as a number. Acrobat Reader won't accept anything else as a valid entry, then.</p>
+<p>Hier definieren wir das Feld <strong>No</strong> als Zahl. Der Acrobat Reader wird danach nichts anderes als g&uuml;ltige Eingabe akzeptieren.</p>
 
 <br />
 
-<table width="100%"><tr><td align="center"><img src="../en/images/formularz_pole_num.png" border="0" alt="null" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/formularz_pole_num.png" border="0" alt="null" /></td></tr></table>
 
 <br />
 
-<p>Here, we are defining a custom validation script for the <strong>Name</strong> field - after changing the field contents there will be a beep sound and an alert will be showed (not very sophisticated, I know, but it still demonstrates the possibilities of PDF). Scribus has its own simple text editor, which enables us to save the script to a separate file. Custom scripts can be defined not only on the form field level, but as global scripts as well (<strong>Edit</strong> -&#062; <strong>JavaScripts</strong>).</p>
+<p>Hier definieren wir nun selbst ein Kontrollskript f&uuml;r das Feld <strong>Name</strong>: Nach &Auml;nderung des Feldinhalts wird ein akustisches Signal ert&ouml;nen, und es erscheint eine Warnmeldung (nicht sehr anspruchsvoll, ich wei&szlig;, doch immerhin ausreichend, um die M&ouml;glichkeiten von PDF zu zeigen). Scribus hat einen eigenen einfachen Texteditor, mit dem wir das Skript als separate Datei speichern k&ouml;nnen. Selbstdefinierte Skripte lassen sich nicht nur auf Formularfeld-Ebene, sondern auch als globale Skripte anlegen (<strong>Bearbeiten</strong> -&gt; <strong>JavaScripts</strong>).</p>
 
 <br />
 
-<table width="100%"><tr><td align="center"><img src="../en/images/formularz_js_skrypt.png" alt="null" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/formularz_js_skrypt.png" alt="null" /></td></tr></table>
 <br />
 
-<p>After saving the script and closing the editor, the script contents is shown in the <strong>Field Properties</strong>.</p>
+<p>Wenn das Skript gespeichert und der Editor geschlossen ist, erscheint der Skript-Inhalt unter <strong>Feldeigenschaften</strong>.</p>
 <br />
 
-<table width="100%"><tr><td align="center"><img src="../en/images/formularz_js_sprawdzanie.png" border="0" alt="null" /></td></tr></table>
-
-<br />
-
-<p>We have still to define, to which URL the form contents will be sent (there is a simple PHP script at the destination address, which will format and display the received form data). We choose in the button properties as the action type <strong>Submit form</strong> and enter the address of our PHP script: <strong>scribus_test.php</strong>. We match the <strong>Submit Data as HTML</strong> option to end with (the other option would be the FDF data, but this is a very different story) and we are done now.</p>
+<table width="100%"><tr><td align="center"><img src="images/formularz_js_sprawdzanie.png" border="0" alt="null" /></td></tr></table>
 
 <br />
 
-<table width="100%"><tr><td align="center"><img src="../en/images/wyslij_formularz.png" alt="null" /></td></tr></table>
+<p>Wir m&uuml;ssen noch festlegen, an welchen URL der Inhalt des Formulars gesendet wird (Ein einfaches PHP-Skript an der Zieladresse wird die empfangenen Daten formatieren und darstellen). Unter &quot;Eigenschaften&quot; w&auml;hlen wir f&uuml;r die Schaltfl&auml;che den Aktionstyp <strong>Submit form/Formular abschicken</strong> und geben die Adresse unseres PHP-Skripts ein: <strong>scribus_test.php</strong>. Schlie&szlig;lich markieren wir noch das K&auml;stchen <strong>Daten als HTML &uuml;bertragen</strong> (die andere M&ouml;glichkeit, als FDF-Daten, w&auml;re etwas ganz anderes), und damit sind wir nun fertig.</p>
 
 <br />
 
-<p>The only thing else to do is to export the document to PDF: menu <strong>File -&#062; Export... -&#062;; Export to PDF...</strong>.<br />We select <strong>Acrobat 5.0</strong> as the file format and save the file.</p>
+<table width="100%"><tr><td align="center"><img src="images/wyslij_formularz.png" alt="null" /></td></tr></table>
 
 <br />
-<table width="100%"><tr><td align="center"><img src="../en/images/formularz_export_PDF.png" border="0" alt="null" /></td></tr></table>
+
+<p>Das einzige, was noch zu tun bleibt, ist der Export des Dokuments nach PDF: Men&uuml;auswahl <strong>Datei -&gt; Export... -&gt;; Export nach PDF...</strong>.<br />Wir w&auml;hlen <strong>Acrobat 5.0</strong> als Dateiformat aus und speichern das Dokument.</p>
+
+<br />
+<table width="100%"><tr><td align="center"><img src="images/formularz_export_PDF.png" border="0" alt="null" /></td></tr></table>
 <br />
 
-<p>The result of our work can be downloaded from http://docs.scribus.net and tested. In order to submit the form we must open it from within a browser, Netscape 4.* or Mozilla are the safe choices (check the Mozilla plug-ins to see, if the Acrobat Reader plug-in is enabled. If not, you have to symlink it into the Mozilla's plug-in directory. In my particular case, the Mozilla's plug-in directory is  <strong>/usr/lib/mozilla-1.3/plug-in</strong>, and the plug-in to be symlinked into it is <strong>/usr/local/Acrobat5/Browsers/intellinux/nppdf.so</strong>).</p>
+<p>Das Ergebnis unserer Arbeit kann von hier heruntergeladen und getestet werden: http://docs.scribus.net. Damit das Formular &uuml;bermittelt werden kann, m&uuml;ssen wir es in einem Browserfenster &ouml;ffnen, wobei Netscape 4.* oder Mozilla die sichersten sind (Kontrollieren Sie die Plugins von Mozilla, um zu sehen, ob das Acrobat Reader-Plugin aktiviert ist. Falls nicht, m&uuml;ssen Sie es mit Mozillas Plugin-Verzeichnis symbolisch verlinken. In meinem Fall hier hei&szlig;t Mozillas Plugin-Verzeichnis <strong>/usr/lib/mozilla-1.3/plug-in</strong>, und das hiermit zu verlinkende Plugin hei&szlig;t <strong>/usr/local/Acrobat5/Browsers/intellinux/nppdf.so</strong>).</p>
 
-<p><strong>My very own impression:</strong> Scribus as a tool for working with PDF forms seems to be more comfortable in use than Adobe Acrobat 5.0 (the only version, I've worked with). It's a lot easier to layout documents with Scribus, since Acrobat only allows you to edit existing documents, but not to create a new document from  scratch. Scribus provides us with the full control over the final results and allows us much more freedom in changing the document's layout. More over, Scribus files can be edited even with a simple text editor, since its file format is entirely XML
-based.</p>
-<p><em>Maciej Hanski</em> - 22:10:2003</p>
+<p><strong>Mein ganz pers&ouml;nlicher Eindruck:</strong> Scribus ist als Werkzeug f&uuml;r die Arbeit mit PDF-Formularen komfortabler zu bedienen als Adobe Acrobat 5.0 (der einzigen Version, mit der ich gearbeitet habe). Es ist wesentlich einfacher, mit Scribus ein Dokumentenlayout zu gestalten, denn Acrobat gestattet nur das Bearbeiten existierender Dokumente, ein v&ouml;llig neues Erstellen ist damit nicht m&ouml;glich. Scribus stellt uns die volle Kontrolle &uuml;ber das Endergebnis zur Verf&uuml;gung und l&auml;&szlig;t uns viel mehr Freiheit beim &Auml;ndern eines Dokumentenlayouts. Au&szlig;erdem lassen sich Scribus-Dateien sogar mit einem simplen Texteditor bearbeiten, denn sein Dateiformat basiert v&ouml;llig auf XML.</p>
+<p><em>Maciej Hanski</em> - 22.10.2003</p>
 
-<p><strong>Some useful PDF/JavaScript Links:</strong></p>
+<p><strong>Einige n&uuml;tzliche PDF/JavaScript-Links:</strong></p>
 <ul>
 	<li><a href="http://www.planetpdf.com/mainpage.asp?WebPageID=229" target="_blank">Planet PDF</a></li>
 	<li><a href="http://partners.adobe.com/asn/developer/pdfs/tn/5186AcroJS.pdf" target="_blank">Acrobat JavaScript Object Specification</a></li>
 	<li><a href="http://ahnews.music.salford.ac.uk/scribus/documentation/pdfs/javascriptpdfa4.pdf" target="_blank">JavaScript and Scribus</a></li>
 </ul>
 
-<p><strong>Some useful CGI/PHP links:</strong></p>
+<p><strong>Einige n&uuml;tzliche CGI/PHP-Links:</strong></p>
 <ul>
 	<li><a href="http://www.cgi101.com/book/ch4/text.html">http://www.cgi101.com/book/ch4/text.html</a></li>
 	<li><a href="http://www.cgi101.com/book/ch4/post-cgi.html">http://www.cgi101.com/book/ch4/post-cgi.html</a></li>
