@@ -2226,7 +2226,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 	if (newItem==NULL)
 		return -1;
 	Items->append(newItem);
-	newItem->ItemNr = Items->count()-1;	
+	newItem->ItemNr = Items->count()-1;
 	//Add in item default values based on itemType and frameType
 	itemAddDetails(itemType, frameType, newItem->ItemNr);
 	if (UndoManager::undoEnabled())
@@ -2702,7 +2702,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	//Take the item to convert from the docs Items list
 	PageItem *oldItem = Items->take(currItem->ItemNr);
 	//Create a new item from the old one
-	bool transactionConversion=false;	
+	bool transactionConversion=false;
 	PageItem *newItem;
 	switch (newType)
 	{
@@ -2831,7 +2831,9 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	}
 	//Insert the new item into the docs items list
 	Items->append(newItem);
-	newItem->ItemNr = Items->count()-1;
+	//We have to renumber the item list, as this number means "too much" at this point
+	for (uint a = 0; a < Items->count(); ++a)
+		Items->at(a)->ItemNr = a;
 	//If converting text to path, delete the bezier
 	if (newType==PageItem::PathText)
 	{
