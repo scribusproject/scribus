@@ -2829,11 +2829,12 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			newItem=NULL;
 			break;
 	}
-	//Insert the new item into the docs items list
-	Items->append(newItem);
-	//We have to renumber the item list, as this number means "too much" at this point
-	for (uint a = 0; a < Items->count(); ++a)
-		Items->at(a)->ItemNr = a;
+	//Append the new item to the docs items list
+	//Items->append(newItem);
+	//We could append and renumber the list, or, we can insert at the same position.. 
+	//for (uint a = 0; a < Items->count(); ++a)
+	//	Items->at(a)->ItemNr = a;
+	Items->insert(oldItem->ItemNr, newItem);
 	//If converting text to path, delete the bezier
 	if (newType==PageItem::PathText)
 	{
