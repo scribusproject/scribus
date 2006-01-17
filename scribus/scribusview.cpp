@@ -6906,12 +6906,17 @@ bool ScribusView::slotSetCurs(int x, int y)
 			}
 			*/
 			//End of text in frame
-			a=currItem->itemText.count()-1;
-			int w = qRound(Cwidth(Doc, currItem->itemText.at(a)->cfont, currItem->itemText.at(a)->ch, currItem->itemText.at(a)->csize)*(currItem->itemText.at(a)->cscale / 1000.0));
-			if (xp+currItem->xPos()+w<xP || yp+currItem->yPos()<yP)
-				currItem->CPos = a+1;
-			else
-				currItem->CPos = a;
+			if (currItem->itemText.count() != 0)
+			{
+				a=currItem->itemText.count()-1;
+				int w = qRound(Cwidth(Doc, currItem->itemText.at(a)->cfont, currItem->itemText.at(a)->ch, currItem->itemText.at(a)->csize)*(currItem->itemText.at(a)->cscale / 1000.0));
+				if (xp+currItem->xPos()+w<xP || yp+currItem->yPos()<yP)
+					currItem->CPos = a+1;
+				else
+					currItem->CPos = a;
+			}
+			else 
+				currItem->CPos = 0;
 			p.end();
 			if (currItem->itemText.count() != 0)
 			{
