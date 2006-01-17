@@ -1,0 +1,112 @@
+/* This file is part of the KDE project
+   Copyright (C) 2001, 2002, 2003 The Karbon Developers
+
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
+*/
+/* Adapted for Scribus 22.08.2003 by Franz Schmid */
+/* Adapted for Scribus 15.01.2006 by Jean Ghali */
+
+#ifndef __SCPAINTEREXBASE_H__
+#define __SCPAINTEREXBASE_H__
+
+#include <qglobal.h>
+#include <qwmatrix.h>
+#include <qvaluelist.h>
+#include <qvaluestack.h>
+#include <qcolor.h>
+#include <qfont.h>
+#include <qpixmap.h>
+#include "scribusapi.h"
+#include "scconfig.h"
+#include "fpoint.h"
+#include "fpointarray.h"
+#include "vgradientex.h"
+#include "sccolorshade.h"
+#include "scimage.h"
+
+class SCRIBUS_API ScPainterExBase
+{
+protected:
+	ScPainterExBase() {};
+public:
+
+	virtual ~ScPainterExBase() {};
+	enum FillMode { None, Solid, Gradient };
+	
+	virtual void begin() = 0;
+	virtual void end() = 0;
+	virtual void clear() = 0;
+	virtual void clear( ScColorShade& ) = 0;
+
+	// matrix manipulation
+	virtual void setWorldMatrix( const QWMatrix & ) = 0;
+	virtual const QWMatrix worldMatrix() = 0;
+	virtual void setZoomFactor( double ) = 0;
+	virtual double zoomFactor()  = 0;
+	virtual void translate( double, double ) = 0;
+	virtual void rotate( double ) = 0;
+	virtual void scale( double, double ) = 0;
+
+	// drawing
+	virtual void moveTo( const double &, const double & ) = 0;
+	virtual void lineTo( const double &, const double & ) = 0;
+	virtual void curveTo( FPoint p1, FPoint p2, FPoint p3 ) = 0;
+	virtual void newPath() = 0;
+	virtual void fillTextPath() = 0;
+	virtual void strokeTextPath() = 0;
+	virtual void fillPath() = 0;
+	virtual void strokePath() = 0;
+	virtual void setFillRule( bool fillRule ) = 0;
+	virtual bool fillRule()  = 0;
+	virtual void setFillMode( int fill ) = 0;
+	virtual void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0)) = 0;
+	virtual void setClipPath() = 0;
+
+	virtual void drawImage( ScImage *image ) = 0;
+	virtual void setupPolygon(FPointArray *points, bool closed = true) = 0;
+	virtual void setupTextPolygon(FPointArray *points) = 0;
+	virtual void drawPolygon() = 0;
+	virtual void drawPolyLine() = 0;
+	virtual void drawLine(FPoint start, FPoint end) = 0;
+	virtual void drawRect(double, double, double, double) = 0;
+
+	// pen + brush
+	virtual ScColorShade pen() = 0;
+	virtual ScColorShade brush() = 0;
+	virtual void setPen( const ScColorShade &c ) = 0;
+	virtual void setPen( const ScColorShade &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo ) = 0;
+	virtual void setPenOpacity( double op ) = 0;
+	virtual void setLineWidth( double w) = 0;
+	virtual void setDash(const QValueList<double>& array, double ofs) = 0;
+	virtual void setBrush( const ScColorShade & ) = 0;
+	virtual void setBrushOpacity( double op ) = 0;
+	virtual void setOpacity( double op ) = 0;
+	virtual void setFont( const QFont &f ) = 0;
+	virtual QFont font() = 0;
+
+	// stack management
+	virtual void save() = 0;
+	virtual void restore() = 0;
+
+	virtual void setRasterOp( int op ) = 0;
+
+	virtual QPaintDevice *device() = 0;
+	virtual unsigned char *buffer() = 0;
+	VGradientEx fill_gradient;
+	VGradientEx stroke_gradient;
+};
+
+#endif
