@@ -2438,14 +2438,19 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
 Closes the currently active master page, if any, and returns editing
 to normal. Begin editing with editMasterPage().
 </source>
-        <translation type="unfinished"></translation>
+        <translation>closeMasterPage()
+
+Closes the currently active master page, if any, and returns editing
+to normal. Begin editing with editMasterPage().</translation>
     </message>
     <message>
         <source>masterPageNames()
 
 Returns a list of the names of all master pages in the document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>masterPageNames()(new line)
+(new line)
+Returns a list of the names of all master pages in the document.</translation>
     </message>
     <message>
         <source>editMasterPage(pageName)
@@ -2453,7 +2458,10 @@ Returns a list of the names of all master pages in the document.
 Enables master page editing and opens the named master page
 for editing. Finish editing with closeMasterPage().
 </source>
-        <translation type="unfinished"></translation>
+        <translation>editMasterPage(pageName)(new line)
+(new line)
+Enables master page editing and opens the named master page(new line)
+for editing. Finish editing with closeMasterPage().</translation>
     </message>
     <message>
         <source>createMasterPage(pageName)
@@ -2461,14 +2469,19 @@ for editing. Finish editing with closeMasterPage().
 Creates a new master page named pageName and opens it for
 editing.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createMasterPage(pageName)(new line)
+(new line)
+Creates a new master page named pageName and opens it for(new line)
+editing.</translation>
     </message>
     <message>
         <source>deleteMasterPage(pageName)
 
 Delete the named master page.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteMasterPage(pageName)(new line)
+(new line)
+Delete the named master page.</translation>
     </message>
     <message>
         <source>zoomDocument(double)
@@ -2476,7 +2489,10 @@ Delete the named master page.
 Zoom the document in main GUI window. Actions have whole number
 values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>zoomDocument(double)(new line)
+(new line)
+Zoom the document in main GUI window. Actions have whole number(new line)
+values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.</translation>
     </message>
 </context>
 <context>
@@ -2622,7 +2638,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>January</source>
-        <translation type="unfinished"></translation>
+        <translation>Januar</translation>
     </message>
 </context>
 <context>
@@ -2815,7 +2831,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>P&amp;references...</source>
-        <translation>&amp;Voreinstellungen...</translation>
+        <translation>&amp;Einstellungen...</translation>
     </message>
     <message>
         <source>%1 pt</source>
@@ -3367,7 +3383,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Single Left</source>
-        <translation>Einfaches Anführungszeichen oben</translation>
+        <translation>Einfaches Anführungszeichen links</translation>
     </message>
     <message>
         <source>Single Right</source>
@@ -3375,7 +3391,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Double Left</source>
-        <translation>Doppeltes Anführungszeichen oben</translation>
+        <translation>Doppeltes Anführungszeichen links</translation>
     </message>
     <message>
         <source>Double Right</source>
@@ -3411,7 +3427,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Low Double Comma</source>
-        <translation>Doppeltes Anführungszeichen links unten</translation>
+        <translation>Doppeltes Anführungszeichen links</translation>
     </message>
     <message>
         <source>Double Turned Comma</source>
@@ -4037,7 +4053,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Default is Checked</source>
-        <translation>Voreinstellung ist angekreuzt</translation>
+        <translation>Standardeinstellung ist angekreuzt</translation>
     </message>
     <message>
         <source>Editable</source>
@@ -5305,6 +5321,120 @@ zusammengestellt werden</translation>
     </message>
 </context>
 <context>
+    <name>ColorListBox</name>
+    <message>
+        <source>None</source>
+        <translation>Keine</translation>
+    </message>
+</context>
+<context>
+    <name>ColorManager</name>
+    <message>
+        <source>Colors</source>
+        <translation>Farben</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation>&amp;Importieren</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation>&amp;Neu</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Bearbeiten</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation>&amp;Duplizieren</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>&amp;Löschen</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Unused</source>
+        <translation>Unbenutzte &amp;entfernen</translation>
+    </message>
+    <message>
+        <source>Color Sets</source>
+        <translation>Farbpaletten</translation>
+    </message>
+    <message>
+        <source>Current Color Set:</source>
+        <translation>Aktive Palette:</translation>
+    </message>
+    <message>
+        <source>&amp;Save Color Set</source>
+        <translation>Farbset &amp;speichern</translation>
+    </message>
+    <message>
+        <source>Choose a color set to load</source>
+        <translation>Farbpalette auswählen</translation>
+    </message>
+    <message>
+        <source>Save the current color set</source>
+        <translation>Farbpalette speichern</translation>
+    </message>
+    <message>
+        <source>Remove unused colors from current document&apos;s color set</source>
+        <translation>Unbenutzte Farben löschen</translation>
+    </message>
+    <message>
+        <source>Import colors to the current set from an existing document</source>
+        <translation>Importiert Farben von einem existierenden Dokument</translation>
+    </message>
+    <message>
+        <source>Create a new color within the current set</source>
+        <translation>Neue Farbe anlegen</translation>
+    </message>
+    <message>
+        <source>Edit the currently selected color</source>
+        <translation>Farbe bearbeiten</translation>
+    </message>
+    <message>
+        <source>Make a copy of the currently selected color</source>
+        <translation>Kopie der ausgewählen Farbe anlegen</translation>
+    </message>
+    <message>
+        <source>Delete the currently selected color</source>
+        <translation>Ausgewählte Farbe löschen</translation>
+    </message>
+    <message>
+        <source>Make the current colorset the default color set</source>
+        <translation>Aktuelle Palette zur Voreinstellung machen</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation>&amp;Name:</translation>
+    </message>
+    <message>
+        <source>Choose a Name</source>
+        <translation>Namen wählen</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Öffnen</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation>Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;All Files (*)</source>
+        <translation>Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>Copy of %1</source>
+        <translation>Kopie von %1</translation>
+    </message>
+    <message>
+        <source>New Color</source>
+        <translation>Neue Farbe</translation>
+    </message>
+</context>
+<context>
     <name>ColorWheel</name>
     <message>
         <source>Monochromatic</source>
@@ -5902,7 +6032,7 @@ Fehlende Bibliotheken werden durch ein Sternchen angezeigt</translation>
         <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
         <translation>Geht zum Dokumentenverzeichnis.
-Wird in den Voreinstellungen eingestellt.</translation>
+Diese Option können Sie in den Einstellungen ändern.</translation>
     </message>
     <message>
         <source>&amp;Compress File</source>
@@ -6240,7 +6370,7 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
     </message>
     <message>
         <source>Name: Optional name for section eg. Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</source>
-        <translation type="unfinished"></translation>
+        <translation>Name: Optionaler Name für den Abschnitt, z.B. Index&lt;br/&gt;angezeigt: Seitenzahlen anzeigen für diesen Abschnitt, wenn diese Einstellung für einen oder mehrere Textrahmen gewählt ist.&lt;br/&gt;Von: Die Seitenzahl für diesen Abschnitt endet auf dieser Seite.&lt;br/&gt;Bis: Die Seitenzahl für diesen Abschnitt endet auf dieser Seite.&lt;br/&gt;Stil: Stil für die Seitenzahlen wählen.&lt;br/&gt;Start: Die Seitenzahlen beginnen bei der Zahl, entsprechend den möglichen Werten für den Stil, bei Style=a,b,c beginnt die Nummerierung bei b.</translation>
     </message>
 </context>
 <context>
@@ -6299,7 +6429,7 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
     </message>
     <message>
         <source>Shown</source>
-        <translation type="unfinished"></translation>
+        <translation>Sichtbar</translation>
     </message>
 </context>
 <context>
@@ -6698,19 +6828,19 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwendet echtes Schwarz anstelle von Farbmischungen aus Magenta, Yellow und Cyan. UFR hat den größten Effekt auf Bilder, die neutrale oder dunkle Farbtöne haben, die Grau ähneln. Diese Option kann die Druckqualität verbessern. Testen Sie bitte von Fall zu Fall, wie Sie bessere Ergebnisse erhalten. UFR verringert außerdem die Gefahr einer Übersättigung der CMYK-Farben.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Konvertiert Schmuckfarben in normale Farben. Sie sollten diese Option nur deaktivieren, wenn Sie Schmuckfarben wirklich benötigen.</translation>
     </message>
     <message>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn CMS aktiviert ist, werden die ICC-Profile mit in den Druckstream eingebettet</translation>
     </message>
     <message>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Legen Sie die Druckgröße der Postscript-Datei explizit fest. Nur aktivieren, wenn ihre Druckerei das verlangt.</translation>
     </message>
 </context>
 <context>
@@ -7315,51 +7445,51 @@ Bildschirm betrachten wollen</translation>
     <name>Farbmanager</name>
     <message>
         <source>Colors</source>
-        <translation>Farben</translation>
+        <translation type="obsolete">Farben</translation>
     </message>
     <message>
         <source>Color Sets</source>
-        <translation>Farbpaletten</translation>
+        <translation type="obsolete">Farbpaletten</translation>
     </message>
     <message>
         <source>Current Color Set:</source>
-        <translation>Aktive Palette:</translation>
+        <translation type="obsolete">Aktive Palette:</translation>
     </message>
     <message>
         <source>Choose a Name</source>
-        <translation>Namen wählen</translation>
+        <translation type="obsolete">Namen wählen</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Öffnen</translation>
+        <translation type="obsolete">Öffnen</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
+        <translation type="obsolete">Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
+        <translation type="obsolete">Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation>Neue Farbe</translation>
+        <translation type="obsolete">Neue Farbe</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation>Kopie von %1</translation>
+        <translation type="obsolete">Kopie von %1</translation>
     </message>
     <message>
         <source>Choose a color set to load</source>
-        <translation>Farbpalette auswählen</translation>
+        <translation type="obsolete">Farbpalette auswählen</translation>
     </message>
     <message>
         <source>Save the current color set</source>
-        <translation>Farbpalette speichern</translation>
+        <translation type="obsolete">Farbpalette speichern</translation>
     </message>
     <message>
         <source>Remove unused colors from current document&apos;s color set</source>
-        <translation>Unbenutzte Farben löschen</translation>
+        <translation type="obsolete">Unbenutzte Farben löschen</translation>
     </message>
     <message>
         <source>Append colors to the current set from an existing document</source>
@@ -7367,23 +7497,23 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>Create a new color within the current set</source>
-        <translation>Neue Farbe anlegen</translation>
+        <translation type="obsolete">Neue Farbe anlegen</translation>
     </message>
     <message>
         <source>Edit the currently selected color</source>
-        <translation>Farbe bearbeiten</translation>
+        <translation type="obsolete">Farbe bearbeiten</translation>
     </message>
     <message>
         <source>Make a copy of the currently selected color</source>
-        <translation>Kopie der ausgewählen Farbe anlegen</translation>
+        <translation type="obsolete">Kopie der ausgewählen Farbe anlegen</translation>
     </message>
     <message>
         <source>Delete the currently selected color</source>
-        <translation>Ausgewählte Farbe löschen</translation>
+        <translation type="obsolete">Ausgewählte Farbe löschen</translation>
     </message>
     <message>
         <source>Make the current colorset the default color set</source>
-        <translation>Aktuelle Palette zur Voreinstellung machen</translation>
+        <translation type="obsolete">Aktuelle Palette zur Voreinstellung machen</translation>
     </message>
     <message>
         <source>&amp;Append</source>
@@ -7391,27 +7521,27 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Neu</translation>
+        <translation type="obsolete">&amp;Neu</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;Bearbeiten</translation>
+        <translation type="obsolete">&amp;Bearbeiten</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation>&amp;Duplizieren</translation>
+        <translation type="obsolete">&amp;Duplizieren</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Löschen</translation>
+        <translation type="obsolete">&amp;Löschen</translation>
     </message>
     <message>
         <source>&amp;Remove Unused</source>
-        <translation>Unbenutzte &amp;entfernen</translation>
+        <translation type="obsolete">Unbenutzte &amp;entfernen</translation>
     </message>
     <message>
         <source>&amp;Save Color Set</source>
-        <translation>Farbset &amp;speichern</translation>
+        <translation type="obsolete">Farbset &amp;speichern</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -7423,11 +7553,11 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation>&amp;Name:</translation>
+        <translation type="obsolete">&amp;Name:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>setHGuides(list)
+        <translation type="obsolete">setHGuides(list)
 
 Legt horizontale Hilfslinien fest, list muss eine Liste der Linien sein, angegeben in der Maßeinheit
 des Dokuments, siehe UNIT-Konstanten.
@@ -7438,11 +7568,11 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>&amp;Importieren</translation>
+        <translation type="obsolete">&amp;Importieren</translation>
     </message>
     <message>
         <source>Import colors to the current set from an existing document</source>
-        <translation>Importiert Farben in die Liste eines existierenden Dokumentes</translation>
+        <translation type="obsolete">Importiert Farben in die Liste eines existierenden Dokumentes</translation>
     </message>
 </context>
 <context>
@@ -7722,7 +7852,7 @@ Dokumentes.</translation>
     <message>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
         <translation>Falls Sie diese Funktion wählen, wird Scribus diese Ersetzungen dauerhaft verwenden. Ihre Entscheidnung können Sie jedoch jederzeit im Menü 
-Bearbeiten &gt; Voreinstellungen rückgängig machen.</translation>
+Bearbeiten &gt; Einstellungen rückgängig machen.</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
@@ -7846,19 +7976,19 @@ im Dokument gespeichert.</translation>
     </message>
     <message>
         <source>Guide</source>
-        <translation type="unfinished">Hilfslinien</translation>
+        <translation>Hilfslinien</translation>
     </message>
     <message>
         <source>Unit</source>
-        <translation type="unfinished">Einheit</translation>
+        <translation>Einheit</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation type="unfinished">Vorschau</translation>
+        <translation>Vorschau</translation>
     </message>
     <message>
         <source>There is empty (0.0) guide already</source>
-        <translation type="unfinished"></translation>
+        <translation>Es gibt bereits eine unsichbare Hilfslinie (0,0)</translation>
     </message>
 </context>
 <context>
@@ -8299,7 +8429,7 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     </message>
     <message>
         <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fügt ein neues Script hinzu und erstellt eine Funktion mit demselben Namen. Wenn Sie das Script als ein &quot;Open Action&quot;-Script verwenden wollen, verändern Sie bitte nicht den Namen der Funktion.</translation>
     </message>
 </context>
 <context>
@@ -8722,19 +8852,19 @@ Abstand eingestellt werden</translation>
     </message>
     <message>
         <source>Apply margin settings to all pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Seitenränder auf alle Seiten anwenden</translation>
     </message>
     <message>
         <source>Apply the margin changes to all existing pages in the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Seitenränder auf alle vorhandenen Seiten im Dokument anwenden</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen dem linken Seitenrand und der Papierkante. Wenn Doppelseiten aktiviert sind, können Sie diese Einstellung verwenden, um korrekte Bindungen zu erreichen</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen dem rechten Seitenrand und der Papierkante. Wenn Doppelseiten aktiviert sind, können Sie diese Einstellung verwenden, um korrekte Bindungen zu erreichen</translation>
     </message>
 </context>
 <context>
@@ -8821,7 +8951,7 @@ Abstand eingestellt werden</translation>
     </message>
     <message>
         <source>New Master Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Mustersiete %1</translation>
     </message>
 </context>
 <context>
@@ -9765,11 +9895,11 @@ Bitte wählen Sie einen anderen.</translation>
     <name>MultiProgressDialogBase</name>
     <message>
         <source>Progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Fortschritt</translation>
     </message>
     <message>
         <source>Overall Progress:</source>
-        <translation type="unfinished"></translation>
+        <translation>Gesamter Fortschritt:</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -10256,23 +10386,23 @@ Bitte wählen Sie einen anderen.</translation>
     <name>PDFExportDialog</name>
     <message>
         <source>Save as PDF</source>
-        <translation type="unfinished">Als PDF speichern</translation>
+        <translation>Als PDF speichern</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
-        <translation type="unfinished">Ausgabe in &amp;Datei:</translation>
+        <translation>Ausgabe in &amp;Datei:</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation type="unfinished"></translation>
+        <translation>Än&amp;dern...</translation>
     </message>
     <message>
         <source>Output one file for eac&amp;h page</source>
-        <translation type="unfinished">Ausgabe in eine Datei &amp;pro Seite</translation>
+        <translation>Eine Datei &amp;pro Seite speichern</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished">&amp;Speichern</translation>
+        <translation>&amp;Speichern</translation>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
@@ -10281,15 +10411,15 @@ Dies ist außerordentlich nützlich für das Ausschießen von PDF-Dateien im pro
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">Speichern unter</translation>
+        <translation>Speichern unter</translation>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation type="unfinished">PDF-Dateien (*.pdf);;Alle Dateien (*.*)</translation>
+        <translation>PDF-Dateien (*.pdf);;Alle Dateien (*.*)</translation>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jede Seite wird mit automatischer Nummerierung als extra PDF-Datei exportiert. Hilfreich fürs Ausschießen.</translation>
     </message>
 </context>
 <context>
@@ -10336,19 +10466,19 @@ Dies ist außerordentlich nützlich für das Ausschießen von PDF-Dateien im pro
     <name>PDFlib</name>
     <message>
         <source>Saving PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF speichern</translation>
     </message>
     <message>
         <source>Exporting Master Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Musterseite wird exportiert:</translation>
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Seiten werden exportiert:</translation>
     </message>
     <message>
         <source>Exporting Items on Current Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Analysiere Objekte auf der Seite:</translation>
     </message>
 </context>
 <context>
@@ -10524,11 +10654,11 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <name>PSLib</name>
     <message>
         <source>Processing Master Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Musterseiten werden verarbeitet:</translation>
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Seiten werden exportiert:</translation>
     </message>
 </context>
 <context>
@@ -11195,7 +11325,7 @@ ein positiver Wert für eine konvexe Form</translation>
     <name>Preferences</name>
     <message>
         <source>Preferences</source>
-        <translation>Voreinstellungen</translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <source>Document</source>
@@ -11853,23 +11983,23 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>&amp;Font Size (Menus):</source>
-        <translation>Schriftgröße (Menüs):</translation>
+        <translation>Schriftgröße (&amp;Menüs):</translation>
     </message>
     <message>
         <source>Font Size (&amp;Palettes):</source>
-        <translation>Schriftgröße (Paletten):</translation>
+        <translation>Schriftgröße (&amp;Paletten):</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen Sie die standardmäßige Fensterdekoration. Scribus zeigt Ihnen alle KDE- und Qt-Stile an, falls Qt so konfiguriert ist, dass es die KDE-Plugins durchsucht.</translation>
     </message>
     <message>
         <source>Default font size for the tool windows</source>
-        <translation type="unfinished"></translation>
+        <translation>Schriftgröße für die Werkzeugfenster</translation>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation type="unfinished"></translation>
+        <translation>Verzeichnis für ICC-Profile. Kann nur geändert werden, wenn alle Dokumente geschlossen sind. Scribus sucht automatisch in den Systemverzeichnissen von Mac OSX und Windows. Unter Linux und Unix sucht Scribus in $home/.color/icc,/usr/share/color/icc und /usr/local/share/color/icc </translation>
     </message>
 </context>
 <context>
@@ -11892,7 +12022,7 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>Save Preferences</source>
-        <translation>Voreinstellungen speichern</translation>
+        <translation>Einstellungen speichern</translation>
     </message>
 </context>
 <context>
@@ -11920,7 +12050,7 @@ If set to 0 infinite amount of actions will be stored.</source>
     <message>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
-        <translation>Scribus hat bestehende Scribus 1.2-Voreinstellungen gefunden.
+        <translation>Scribus hat eine bestehende Scribus 1.2-Konfigurationsdatei gefunden.
 Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     </message>
     <message>
@@ -11981,20 +12111,20 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
-        <translation>Fehler beim Speichern der Voreinstellungen</translation>
+        <translation>Fehler beim Speichern der Einstellungen</translation>
     </message>
     <message>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
-        <translation>Scribus konnte die Voreinstellungen nicht speichern &lt;br&gt;%1&lt;br&gt;. Bitte überprüfen Sie die Zugriffsrechte für die Datei und das Verzeichnis sowie den verfügbaren Speicherplatz.</translation>
+        <translation>Scribus konnte die Einstellungen nicht speichern &lt;br&gt;%1&lt;br&gt;. Bitte überprüfen Sie die Zugriffsrechte für die Datei und das Verzeichnis sowie den verfügbaren Speicherplatz.</translation>
     </message>
     <message>
         <source>Error Loading Preferences</source>
-        <translation>Fehler beim Laden der Voreinstellungen</translation>
+        <translation>Fehler beim Laden der Einstellungen</translation>
     </message>
     <message>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
-        <translation>Scribus konnte die Voreinstellungen nicht laden: &lt;br&gt;%1&lt;br&gt; Es werden die Standardeinstellungen geladen.</translation>
+        <translation>Scribus konnte die Einstellungen nicht laden: &lt;br&gt;%1&lt;br&gt; Es werden die Standardeinstellungen geladen.</translation>
     </message>
 </context>
 <context>
@@ -12045,7 +12175,7 @@ Der ausschlaggebende Wert ist der Bundsteg.</translation>
     </message>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen Sie festgelegte Seitenlayouts. &apos;Keins&apos; verändert keine Einstellungen, Gutenberg setzt klassische Ränder, Magazine stellt alle Ränder auf den gleichen Wert. Maßgeblich ist der Wert für Links/Innen.</translation>
     </message>
 </context>
 <context>
@@ -14126,11 +14256,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Sie versuchen, mehr Seiten zu importieren, als ab der aktuellen Seite im Dokument vorhanden sind.&lt;/p&gt;Was wollen Sie tun?&lt;br&gt;&lt;ul&gt;&lt;li&gt;Fehlende Seiten &lt;b&gt;erstellen&lt;/b&gt;&lt;/li&gt;&lt;li&gt;Import bei der letzten Seite &lt;b&gt;stoppen&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Abbrechen&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
         <source>C&amp;reate</source>
-        <translation>Erstellen</translation>
+        <translation>Er&amp;stellen</translation>
     </message>
     <message>
         <source>&amp;Import</source>
@@ -14138,7 +14268,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Thai</source>
-        <translation type="unfinished"></translation>
+        <translation>Thai</translation>
     </message>
 </context>
 <context>
@@ -15523,15 +15653,15 @@ diese zu finden und zu korrigieren</translation>
     <name>ScribusColorList</name>
     <message>
         <source>Sample</source>
-        <translation>Vorschau</translation>
+        <translation type="obsolete">Vorschau</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Farbe</translation>
+        <translation type="obsolete">Farbe</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Keine</translation>
+        <translation type="obsolete">Keine</translation>
     </message>
     <message>
         <source>Document Colors</source>
@@ -15573,7 +15703,7 @@ diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <source>Reading Preferences</source>
-        <translation>Voreinstellungen werden geladen</translation>
+        <translation>Einstellungen werden geladen</translation>
     </message>
     <message>
         <source>Initializing Story Editor</source>
@@ -15995,91 +16125,91 @@ diese zu finden und zu korrigieren</translation>
     <name>ScribusQApp</name>
     <message>
         <source>Invalid argument: </source>
-        <translation type="unfinished">Ungültiges Argument:</translation>
+        <translation>Ungültiges Argument:</translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
-        <translation type="unfinished">Die Datei %1 existiert nicht - Abbruch.</translation>
+        <translation>Die Datei %1 existiert nicht - Abbruch.</translation>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation type="unfinished">Benutzung: scribus [Optionen...] [Datei]</translation>
+        <translation>Verwendung: scribus [Optionen...] [Datei]</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished">Optionen:</translation>
+        <translation>Optionen:</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
-        <translation type="unfinished">Hilfe anzeigen (dieser Text) und beenden</translation>
+        <translation>Hilfe anzeigen (dieser Text) und beenden</translation>
     </message>
     <message>
         <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzt xx als Kurzversion für eine Sprache, z.B. &apos;en&apos; oder &apos;de&apos;</translation>
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation type="unfinished">Installierte Sprachen auflisten</translation>
+        <translation>Verfügbare Sprachen auflisten</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation type="unfinished">Zeigt Informationen auf der Konsole, wenn Schriftarten geladen werden</translation>
+        <translation>Zeigt Informationen auf der Konsole, wenn Schriftarten geladen werden</translation>
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
-        <translation type="unfinished">Splash-Screen beim Start nicht anzeigen</translation>
+        <translation>Splashscreen beim Start nicht anzeigen</translation>
     </message>
     <message>
         <source>Output version information and exit</source>
-        <translation type="unfinished">Version ausgeben und beenden</translation>
+        <translation>Version ausgeben und beenden</translation>
     </message>
     <message>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation type="unfinished">Rechts-nach-links Anordnung der Buttons verwenden (z.B. Abbrechen/Nein/Ja statt Ja/Nein/Abbrechen)</translation>
+        <translation>Rechts-nach-links Anordnung der Buttons verwenden (z.B. Abbrechen/Nein/Ja statt Ja/Nein/Abbrechen)</translation>
     </message>
     <message>
         <source>filename</source>
-        <translation type="unfinished"></translation>
+        <translation>Dateiname</translation>
     </message>
     <message>
         <source>Use filename as path for user given preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwendet &apos;Dateiname&apos; als Pfad für die Konfigurationsdatei</translation>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
-        <translation type="unfinished">Folgende Sprachen sind für Scribus installiert:</translation>
+        <translation>Folgende Sprachen sind für Scribus installiert:</translation>
     </message>
     <message>
         <source>To override the default language choice:</source>
-        <translation type="unfinished">Um die Standardsprache außer Kraft zu setzen:</translation>
+        <translation>Um die Standardsprache außer Kraft zu setzen:</translation>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation type="unfinished">scribus -l xx oder scribus --lang xx; xx steht für den entsprechenden Ländercode.</translation>
+        <translation>scribus -l xx oder scribus --lang xx; xx steht für den entsprechenden Ländercode.</translation>
     </message>
     <message>
         <source>Scribus Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus-Version</translation>
     </message>
     <message>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation type="unfinished">Scribus, Open Source Desktop-Publishing</translation>
+        <translation>Scribus, Open Source Desktop-Publishing</translation>
     </message>
     <message>
         <source>Homepage</source>
-        <translation type="unfinished">Homepage</translation>
+        <translation>Homepage</translation>
     </message>
     <message>
         <source>Documentation</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentation</translation>
     </message>
     <message>
         <source>Wiki</source>
-        <translation type="unfinished">Wiki</translation>
+        <translation>Wiki</translation>
     </message>
     <message>
         <source>Issues</source>
-        <translation type="unfinished"></translation>
+        <translation>Bugs</translation>
     </message>
 </context>
 <context>
@@ -16340,14 +16470,14 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pythonscripts (*.py);; Alle Dateien (*)</translation>
     </message>
 </context>
 <context>
     <name>ScripterPrefsGui</name>
     <message>
         <source>Scripter Preferences</source>
-        <translation>Voreinstellungen für den Scripter</translation>
+        <translation>Einstellungen für den Scripter</translation>
     </message>
     <message>
         <source>Extension Scripts</source>
@@ -16406,7 +16536,7 @@ umgewandelt werden</translation>
     <message>
         <source>Base Texts:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Base Texts:</translation>
     </message>
     <message>
         <source>Select Color</source>
@@ -18169,39 +18299,39 @@ Sie reduziert die Dateigröße.</translation>
     </message>
     <message>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
-        <translation type="unfinished"></translation>
+        <translation>Legt die Bindung für PDF-Dateien fest. Nur verändern, wenn Sie es wirklich brauchen. Standard: Links.</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erzeugt kleine Vorschaubilder von jeder Seite. Einige Betrachter nutzen diese Vorschaubilder zur Navigation.</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportiert auch Ebenen in die PDF-Datei. Erst ab PDF 1.5 unterstützt.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fügt die Lesezeichen mit in die PDF-Datei ein. So können Sie in langen PDF-Dateien besser navigieren.</translation>
     </message>
     <message>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
-        <translation type="unfinished"></translation>
+        <translation>Auflösung für Text und Vektorgrafiken. Beeinflusst nicht die Auflösung von Bitmapdaten wie Photos.</translation>
     </message>
     <message>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert verlustlose Komprimierung von Text und Grafiken. Verringert die Größe der PDF-Datei. Nicht ohne Grund deaktivieren.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Methode für die Komprimierung von Bitmapdaten. Automatisch bedeutet, das Scribus die beste Methode wählt. ZIP ist verlustlos und gut für Bilder mit flächigen Farben. Mit JPEG erzeugen Sie kleinere PDFs, geeignet für viele Fotos. Hier können kleinere Qualitätsverluste auftreten. Empfehlung: Verändern Sie die Methode Automatisch nur, wenn Sie es wirklich benötigen.</translation>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation type="unfinished"></translation>
+        <translation>Komprimierungsqualität für verlustbehaftete Komprimierung: Minimum (25%), Niedrig (50%), Mittel (75%) und Maximum (95%). Diese Einstellung wirkt sich nicht direkt auf die Größe der Bilder aus, weil Größe und Qualitätsverlust von Bild zu Bild variieren.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Berechnet die Bilder neu auf die angegebene Auflösung. Ist die Option nicht aktiviert, wird die Originalauflösung verwendet. Dadurch wird mehr Speicher benötigt und der Export verlangsamt.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
@@ -18237,92 +18367,93 @@ Sie reduziert die Dateigröße.</translation>
     </message>
     <message>
         <source>Include La&amp;yers</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ebenen exportieren</translation>
     </message>
     <message>
         <source>Compression Metho&amp;d:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kom&amp;primierungsmethode:</translation>
     </message>
     <message>
         <source>Resa&amp;mple Images to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder &amp;neu berechnen auf:</translation>
     </message>
     <message>
         <source>Display Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzeigeeinstellungen</translation>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation type="unfinished">Seitenlayout</translation>
+        <translation>Seitenlayout</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished">Einzelne Seite</translation>
+        <translation>Einzelne Seite</translation>
     </message>
     <message>
         <source>Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Fortlaufend</translation>
     </message>
     <message>
         <source>Double Page Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Doppelseite Links</translation>
     </message>
     <message>
         <source>Double Page Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Doppelseite Rechts</translation>
     </message>
     <message>
         <source>Visual Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzeige</translation>
     </message>
     <message>
         <source>Use Viewers Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardeinstellung des Betrachters verwenden</translation>
     </message>
     <message>
         <source>Use Full Screen Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Vollbildmodus verwenden</translation>
     </message>
     <message>
         <source>Display Bookmarks Tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Lesezeichen anzeigen</translation>
     </message>
     <message>
         <source>Display Thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorschaubilder anzeigen</translation>
     </message>
     <message>
         <source>Display Layers Tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Reiter für Ebenen anzeigen</translation>
     </message>
     <message>
         <source>Hide Viewers Toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Symbolleisten ausblenden</translation>
     </message>
     <message>
         <source>Hide Viewers Menubar</source>
-        <translation type="unfinished"></translation>
+        <translation>Menüleiste ausblenden</translation>
     </message>
     <message>
         <source>Zoom Pages to fit Viewer Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Seiten auf Größe des Betrachterfensters zoomen</translation>
     </message>
     <message>
         <source>Special Actions</source>
-        <translation type="unfinished"></translation>
+        <translation>Erweiterte Aktionen</translation>
     </message>
     <message>
         <source>Javascript to be executed
 when Document is opened:</source>
-        <translation type="unfinished"></translation>
+        <translation>Javascript, das beim Öffnen 
+des Dokuments ausgeführt wird:</translation>
     </message>
     <message>
         <source>No Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein Script</translation>
     </message>
     <message>
         <source>Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Betrachter</translation>
     </message>
 </context>
 <context>
