@@ -8070,7 +8070,12 @@ void ScribusView::LowerItem()
 	uint docSelectionCount=Doc->selection->count();
 	if ((Doc->Items->count() > 1) && (docSelectionCount != 0))
 	{
-		//int tempList=Doc->selection->backupToTempList(0);
+		bool wasGUISelection=Doc->selection->isGUISelection();
+		if (wasGUISelection)
+		{
+			Doc->selection->setIsGUISelection(false);
+			Doc->selection->disconnectAllItemsFromGUI();
+		}
 		Selection tempSelection(*Doc->selection);
 		for (uint c = 0; c < docSelectionCount; ++c)
 		{
@@ -8088,7 +8093,6 @@ void ScribusView::LowerItem()
 		for (uint c = 0; c < Doc->selection->count(); ++c)
 		{
 			currItem = Doc->selection->itemAt(c);
-			//currItem->Select = false;
 			ObjOrder.insert(currItem->ItemNr, c);
 			d = Doc->Items->findRef(currItem);
 			Doc->Items->take(d);
@@ -8105,12 +8109,10 @@ void ScribusView::LowerItem()
 			Doc->Items->at(a)->ItemNr = a;
 			if (Doc->Items->at(a)->isBookmark)
 				emit NewBMNr(Doc->Items->at(a)->BMnr, a);
-			//if (Doc->Items->at(a)->isSelected())
-				//SelItem.append(Doc->Items->at(a));
-				//Doc->selection->addItem(Doc->Items->at(a));
 		}
 		ScMW->outlinePalette->BuildTree();
-		//Doc->selection->restoreFromTempList(0, tempList);
+		if (wasGUISelection)
+			tempSelection.setIsGUISelection(true);
 		*Doc->selection=tempSelection;
 		emit LevelChanged(Doc->selection->itemAt(0)->ItemNr);
 		emit DocChanged();
@@ -8129,7 +8131,12 @@ void ScribusView::RaiseItem()
 	uint docSelectionCount=Doc->selection->count();
 	if ((Doc->Items->count() > 1) && (docSelectionCount != 0))
 	{
-		//int tempList=Doc->selection->backupToTempList(0);
+		bool wasGUISelection=Doc->selection->isGUISelection();
+		if (wasGUISelection)
+		{
+			Doc->selection->setIsGUISelection(false);
+			Doc->selection->disconnectAllItemsFromGUI();
+		}
 		Selection tempSelection(*Doc->selection);
 		for (uint c = 0; c < docSelectionCount; ++c)
 		{
@@ -8165,11 +8172,10 @@ void ScribusView::RaiseItem()
 			Doc->Items->at(a)->ItemNr = a;
 			if (Doc->Items->at(a)->isBookmark)
 				emit NewBMNr(Doc->Items->at(a)->BMnr, a);
-			//if (Doc->Items->at(a)->isSelected())
-				//Doc->selection->addItem(Doc->Items->at(a));
 		}
 		ScMW->outlinePalette->BuildTree();
-		//Doc->selection->restoreFromTempList(0, tempList);
+		if (wasGUISelection)
+			tempSelection.setIsGUISelection(true);
 		*Doc->selection=tempSelection;
 		emit LevelChanged(Doc->selection->itemAt(0)->ItemNr);
 		emit DocChanged();

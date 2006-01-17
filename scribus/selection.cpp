@@ -36,6 +36,13 @@ Selection::Selection(const Selection& other) :
 	m_hasGroupSelection(other.m_hasGroupSelection),
 	m_isGUISelection(other.m_isGUISelection)
 {
+	if (m_isGUISelection && !m_SelList.isEmpty())
+	{
+		m_SelList[0]->connectToGUI();
+		m_SelList[0]->emitAllToGUI();
+		m_SelList[0]->setSelected(true);
+		emit selectionIsMultiple(m_hasGroupSelection);
+	}
 }
 
 Selection& Selection::operator=( const Selection &other )
@@ -45,6 +52,13 @@ Selection& Selection::operator=( const Selection &other )
 	m_SelList=other.m_SelList;
 	m_hasGroupSelection=other.m_hasGroupSelection;
 	m_isGUISelection=other.m_isGUISelection;
+	if (m_isGUISelection && !m_SelList.isEmpty())
+	{
+		m_SelList[0]->connectToGUI();
+		m_SelList[0]->emitAllToGUI();
+		m_SelList[0]->setSelected(true);
+		emit selectionIsMultiple(m_hasGroupSelection);
+	}
 	return *this;
 }
 
@@ -112,7 +126,8 @@ bool Selection::addItem(PageItem *item, bool ignoreGUI)
 	if (listWasEmpty || !m_SelList.contains(item))
 	{
 		m_SelList.append(item);
-		item->setSelected(true);
+		if (m_isGUISelection)
+			item->setSelected(true);
 		m_hasGroupSelection=(m_SelList.count()>1);
 		if (m_isGUISelection && !ignoreGUI)
 		{
@@ -137,7 +152,8 @@ bool Selection::prependItem(PageItem *item)
 		if (m_isGUISelection && !m_SelList.isEmpty())
 			m_SelList[0]->disconnectFromGUI();
 		m_SelList.prepend(item);
-		item->setSelected(true);
+		if (m_isGUISelection)
+			item->setSelected(true);
 		m_hasGroupSelection=(m_SelList.count()>1);
 		if (m_isGUISelection)
 		{
