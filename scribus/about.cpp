@@ -46,7 +46,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "16";
+	QString BUILD_DAY = "18";
 	QString BUILD_MONTH = tr("January");
 	QString BUILD_YEAR = "2006";
 	QString BUILD_TIME = "";
@@ -352,10 +352,3 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	setMaximumSize(sizeHint());
 
 //tooltips
-	QToolTip::add( buildID, "<qt>" + tr( "This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected." ) + "</qt>" );
-	// signals and slots connections
-	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-}
-
-
-
