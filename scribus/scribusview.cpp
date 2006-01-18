@@ -4153,7 +4153,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 								{
 									cli.putPoints(0, EndInd-StartInd, Clip, StartInd);
 									//z = PaintPoly(currItem->xPos(), currItem->yPos(), currItem->Width, currItem->Height, currItem->Pwidth, currItem->fillColor(), currItem->lineColor());
-									z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->Pwidth, currItem->fillColor(), currItem->lineColor(), !Mpressed);
+									z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->Pwidth, currItem->fillColor(), currItem->lineColor(), true);
 									bb = Doc->Items->at(z);
 									if (EditContour)
 										bb->ContourLine.resize(0);
@@ -4199,7 +4199,11 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							Doc->EditClipMode = 0;
 							currItem->convertTo(PageItem::PolyLine);
 							currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
+							//PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PolyLine);
+							//newItem->SetPolyClip(qRound(QMAX(newItem->Pwidth / 2, 1)));
+							//currItem=newItem;
 							emit PolyOpen();
+							
 						}
 						else
 						{
@@ -4208,7 +4212,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 								if ((ClRe > 1) && (ClRe < static_cast<int>(Clip.size()-2)))
 								{
 									//z = PaintPolyLine(currItem->xPos(), currItem->yPos(), currItem->Width, currItem->Height, currItem->Pwidth, currItem->fillColor(), currItem->lineColor());
-									z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->Pwidth, currItem->fillColor(), currItem->lineColor(), !Mpressed);
+									z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->Pwidth, currItem->fillColor(), currItem->lineColor(), true);
 									bb = Doc->Items->at(z);
 									if (EditContour)
 										bb->ContourLine.putPoints(0, Clip.size()-(ClRe+2), Clip, ClRe+2);
@@ -6007,8 +6011,21 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 			Clip.setPoint(ClRe-1, ap2);
 			Clip.setPoint(ClRe-2, np);
 		}
+		/*
+		{
+			qDebug(QString("is a text %1").arg((currItem->asTextFrame()!=0)));
+			qDebug(QString("is a image %1").arg((currItem->asImageFrame()!=0)));
+			qDebug(QString("is a line %1").arg((currItem->asLine()!=0)));
+			qDebug(QString("is a pathtext %1").arg((currItem->asPathText()!=0)));
+			qDebug(QString("is a polygon %1").arg((currItem->asPolygon()!=0)));
+			qDebug(QString("is a polyline %1").arg((currItem->asPolyLine()!=0)));
+	
+			qDebug(QString("item type is %1").arg(currItem->itemType()));
+		}
+		*/
 		if (((ClRe == static_cast<int>(StartInd)) || (ClRe == static_cast<int>(EndInd-2))) &&
-		        ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame())))
+//		        ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame())))
+	((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame)))
 		{
 			if (ClRe == static_cast<int>(StartInd))
 			{
@@ -6030,7 +6047,8 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 			}
 		}
 		if (((ClRe == static_cast<int>(StartInd+1)) || (ClRe == static_cast<int>(EndInd-1))) &&
-		        ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame())) && (MoveSym))
+//		        ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame())) && (MoveSym)) 
+((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame)) && (MoveSym))
 		{
 			uint kon = 0;
 			if (ClRe == static_cast<int>(StartInd+1))
@@ -10796,7 +10814,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	}
 	if (currItem->asImageFrame())
 		currItem->AdjustPictScale();
-	if ((currItem->asTextFrame()) && !(currItem->asPathText()))
+	if (!(currItem->asTextFrame()) && !(currItem->asPathText()))
 		currItem->setFont(Doc->toolSettings.defFont);
 	if (currItem->asPathText())
 	{
