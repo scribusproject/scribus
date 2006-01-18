@@ -574,6 +574,7 @@ private:
 					QString Pname;
 					QString Dname;
 					QString Command;
+					QByteArray DevMode;
 				} PDef ;
 	TOCGenerator *tocGenerator;
 };

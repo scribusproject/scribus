@@ -14,19 +14,23 @@
 #include <qdir.h>
 #include <qfileinfo.h>
 #include <qmap.h>
-#ifdef HAVE_CUPS
+#if defined( HAVE_CUPS )
 #include <cups/cups.h>
+#elif defined(_WIN32)
+#include <windows.h>
+#include <winspool.h>
 #endif
 #ifdef HAVE_CMS
 extern bool CMSuse;
 #endif
-#include <util.h>
+#include "util.h"
 extern bool previewDinUse;
 
-Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool gcr, QStringList spots)
+Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots)
 		: QDialog( parent, "Dr", true, 0)
 {
 	prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
+	DevMode = PSettings;
 	ToSeparation = false;
 	PrinterOpts = "";
 	setCaption( tr( "Setup Printer" ) );
@@ -53,46 +57,21 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	PrintDest->setMaximumSize( QSize( 260, 30 ) );
 	PrintDest->setEditable(false);
 	QString Pcap;
-	QString tmp;
-	QStringList wt;
-#ifdef HAVE_CUPS
-	cups_dest_t *dests;
-	int num_dests = cupsGetDests(&dests);
-	for (int pr = 0; pr < num_dests; ++pr)
+	QString printerName;
+	QStringList printerNames = getPrinterNames();
+	int numPrinters = printerNames.count();
+	for( int i = 0; i < numPrinters; i++)
 	{
-		tmp = QString(dests[pr].name);
-		PrintDest->insertItem(tmp);
-		if (tmp == PDev)
+		printerName = printerNames[i];
+		PrintDest->insertItem(printerName);
+		if( printerName == PDev )
 		{
 			PrintDest->setCurrentItem(PrintDest->count()-1);
+			prefs->set("CurrentPrn", PrintDest->currentText());
 			ToFile = false;
 		}
 	}
-	cupsFreeDests(num_dests, dests);
-#else
-	if (loadText("/etc/printcap", &Pcap))
-	{
-		QTextStream ts(&Pcap, IO_ReadOnly);
-		while(!ts.atEnd())
-		{
-			tmp = ts.readLine();
-			if (tmp.isEmpty())
-				continue;
-			if ((tmp[0] != '#') && (tmp[0] != ' ') && (tmp[0] != '\n') && (tmp[0] != '\t'))
-			{
-				tmp = tmp.stripWhiteSpace();
-				tmp = tmp.left(tmp.length() - (tmp.right(2) == ":\\" ? 2 : 1));
-				wt = QStringList::split("|", tmp);
-				PrintDest->insertItem(wt[0]);
-				if (wt[0] == PDev)
-				{
-					PrintDest->setCurrentItem(PrintDest->count()-1);
-					ToFile = false;
-				}
-			}
-		}
-	}
-#endif
+
 	PrintDest->insertItem( tr("File"));
 	if (PDev.isEmpty())
 	{
@@ -104,7 +83,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 
 	Layout1x->addWidget( PrintDest );
 
-#ifdef HAVE_CUPS
+#if defined(HAVE_CUPS) || defined(_WIN32)
 	OptButton = new QPushButton( tr( "&Options..." ), Drucker, "Optionen" );
 	Layout1x->addWidget( OptButton );
 #endif
@@ -271,11 +250,13 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	if ((PDev== tr("File")) || (PrintDest->count() == 1))
 	{
 		PrintDest->setCurrentItem(PrintDest->count()-1);
+		prefs->set("CurrentPrn", PrintDest->currentText());
 		DateiT->setEnabled(true);
 		LineEdit1->setEnabled(true);
 		ToolButton1->setEnabled(true);
 		ToFile = true;
 	}
+
 	setMaximumSize(sizeHint());
 	PrintDest->setFocus();
 	QToolTip::add( PageNr, tr( "Insert a comma separated list of tokens where\n"
@@ -300,14 +281,78 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	connect( ToolButton1, SIGNAL(clicked()), this, SLOT(SelFile()));
 	connect( OtherCom, SIGNAL(clicked()), this, SLOT(SelComm()));
 	connect( previewButton, SIGNAL(clicked()), this, SIGNAL(doPreview()));
-#ifdef HAVE_CUPS
+#if defined(HAVE_CUPS) || defined(_WIN32)
 	connect( OptButton, SIGNAL( clicked() ), this, SLOT( SetOptions() ) );
 #endif
+
 	setStoredValues(gcr);
+
+	if (!ToFile)
+		initDeviceSettings( PrintDest->currentText() );
+	if ( isPostscriptPrinter(PrintDest->currentText()) || ToFile )
+		psLevel->setEnabled( true );
+	else
+		psLevel->setEnabled( false );
+}
+
+QStringList Druck::getPrinterNames(void)
+{
+	QString printerName;
+	QStringList printerNames;
+#if defined (HAVE_CUPS)
+	cups_dest_t *dests;
+	int num_dests = cupsGetDests(&dests);
+	for (int pr = 0; pr < num_dests; ++pr)
+	{
+		printerName = QString(dests[pr].name);
+		printerNames.append(printerName);
+	}
+	cupsFreeDests(num_dests, dests);
+#elif defined(_WIN32)
+	DWORD size;
+	DWORD numPrinters;
+	PRINTER_INFO_2* printerInfos = NULL;
+    EnumPrinters ( PRINTER_ENUM_LOCAL|PRINTER_ENUM_CONNECTIONS , NULL, 2, NULL, 0, &size, &numPrinters );
+	printerInfos = (PRINTER_INFO_2*) malloc(size);
+	if ( EnumPrinters ( PRINTER_ENUM_LOCAL|PRINTER_ENUM_CONNECTIONS, NULL, 2, (LPBYTE) printerInfos, size, &size, &numPrinters ) )
+	{
+		for ( uint i = 0; i < numPrinters; i++)
+		{
+			printerName = printerInfos[i].pPrinterName;
+			printerNames.append(printerName);
+		}
+		printerNames.sort();	
+	}
+	if ( printerInfos) free(printerInfos);
+#else
+	QString tmp;
+	QString Pcap;
+	QStringList wt;
+	if (loadText("/etc/printcap", &Pcap))
+	{
+		QTextStream ts(&Pcap, IO_ReadOnly);
+		while(!ts.atEnd())
+		{
+			tmp = ts.readLine();
+			if (tmp.isEmpty())
+				continue;
+			if ((tmp[0] != '#') && (tmp[0] != ' ') && (tmp[0] != '\n') && (tmp[0] != '\t'))
+			{
+				tmp = tmp.stripWhiteSpace();
+				tmp = tmp.left(tmp.length() - (tmp.right(2) == ":\\" ? 2 : 1));
+				wt = QStringList::split("|", tmp);
+				printerName = wt[0];
+				printerNames.append(printerName);
+			}
+		}
+	}
+#endif
+	return printerNames;
 }
 
 void Druck::SetOptions()
 {
+#ifdef HAVE_CUPS
 	PrinterOpts = "";
 	CupsOptions* dia = new CupsOptions(this, Geraet);
 	if (dia->exec())
@@ -368,6 +413,24 @@ void Druck::SetOptions()
 		}
 	}
 	delete dia;
+#elif defined(_WIN32)
+	bool done;
+	QString  printerS;
+	QCString printerC;
+	HANDLE handle = NULL;
+	// Retrieve the selected printer
+	printerS = PrintDest->currentText(); 
+	printerC = printerS.local8Bit();
+	// Get a printer handle
+	done = OpenPrinter( printerC.data(), &handle, NULL );
+	if(!done)
+		return;
+	// Merge stored settings, prompt user and return user settings
+	DocumentProperties( winId(), handle, printerC.data(), (DEVMODE*) DevMode.data(), (DEVMODE*) DevMode.data(), 
+						DM_IN_BUFFER | DM_IN_PROMPT | DM_OUT_BUFFER);
+	// Free the printer handle
+	ClosePrinter( handle );
+#endif
 }
 
 void Druck::SelComm()
@@ -383,7 +446,7 @@ void Druck::SelComm()
 		LineEdit1->setEnabled(false);
 		ToolButton1->setEnabled(false);
 		ToFile = false;
-#ifdef HAVE_CUPS
+#if defined(HAVE_CUPS) || defined(_WIN32)
 		OptButton->setEnabled(false);
 #endif
 
@@ -391,11 +454,10 @@ void Druck::SelComm()
 	else
 	{
 		SelPrinter(PrintDest->currentText());
-#ifdef HAVE_CUPS
+#if defined(HAVE_CUPS) || defined(_WIN32)
 		if (Geraet != tr("File"))
 			OptButton->setEnabled(true);
 #endif
-
 	}
 }
 
@@ -406,9 +468,38 @@ void Druck::SelPrinter(const QString& prn)
 	LineEdit1->setEnabled(setter);
 	ToolButton1->setEnabled(setter);
 	ToFile = setter;
-#ifdef HAVE_CUPS
+	prefs->set("CurrentPrn", prn);
+#if defined(HAVE_CUPS) || defined(_WIN32)
 	OptButton->setEnabled(!setter);
 #endif
+	if ( !ToFile )
+		if( !getDefaultSettings(PrintDest->currentText()) )
+			qWarning(tr("Failed to retrieve printer settings"));
+	if ( ToFile || isPostscriptPrinter(PrintDest->currentText()) )
+	{
+		psLevel->setEnabled( true );
+		PrintSep->setEnabled( true );
+#ifdef HAVE_CMS
+		if (CMSuse)
+			UseICC->setEnabled( true );
+#endif
+	}
+	else
+	{
+		psLevel->setEnabled( false );
+		PrintSep->setCurrentText( tr("Print Normal") );
+		PrintSep->setEnabled( false );
+		SepArt->setCurrentText( tr("All") );
+		SepArt->setEnabled( false );
+		ToSeparation = false;
+#ifdef HAVE_CMS
+		if (CMSuse)
+		{
+			UseICC->setEnabled( false );
+			UseICC->setChecked( false );
+		}
+#endif
+	}
 	Geraet = prn;
 }
 
@@ -456,6 +547,7 @@ void Druck::setMinMax(int min, int max, int cur)
 void Druck::okButtonClicked()
 {
 	prefs->set("PrintDest", PrintDest->currentItem());
+	prefs->set("CurrentPrn", PrintDest->currentText());
 	prefs->set("OtherCom", OtherCom->isChecked());
 	prefs->set("PrintAll", RadioButton1->isChecked());
 	prefs->set("CurrentPage", CurrentPage->isChecked());
@@ -484,8 +576,10 @@ void Druck::setStoredValues(bool gcr)
 	if ((selectedDest > -1) && (selectedDest < PrintDest->count()))
 	{
 		PrintDest->setCurrentItem(selectedDest);
+		prefs->set("CurrentPrn", PrintDest->currentText());
 		if (PrintDest->currentText() == tr("File"))
 			SelPrinter( tr("File"));
+		Geraet = PrintDest->currentText();
 	}
 	OtherCom->setChecked(prefs->getBool("OtherCom", false));
 	if (OtherCom->isChecked())
@@ -512,7 +606,12 @@ void Druck::setStoredValues(bool gcr)
 	spotColors->setChecked(!prefs->getBool("doSpot", true));
 #ifdef HAVE_CMS
 	if (CMSuse)
-		UseICC->setChecked(prefs->getBool("ICCinUse", false));
+	{
+		bool iccInUse = prefs->getBool("ICCinUse", false);
+		bool psPrinter = isPostscriptPrinter(PrintDest->currentText());
+		UseICC->setChecked( psPrinter ? iccInUse : false );
+		UseICC->setEnabled( psPrinter );
+	}
 #endif
 }
 
@@ -603,5 +702,68 @@ bool Druck::ICCinUse()
 		return false;
 #else
 	return false;
+#endif
+}
+
+bool Druck::getDefaultSettings( QString printerName )
+{
+#ifdef _WIN32
+	bool done;
+	uint size;
+	QCString printer;
+	LONG result = IDOK+1;
+	HANDLE handle = NULL;
+	printer = printerName.local8Bit();
+	// Get the printer handle
+	done = OpenPrinter( printer.data(), &handle, NULL );
+	if(!done)
+		return false;
+	// Get size of DEVMODE structure (public + private data)
+	size = DocumentProperties( winId(), handle, printer.data(), NULL, NULL, 0);
+	// Allocate the memory needed by the DEVMODE structure
+	DevMode.resize( size );
+	// Retrieve printer default settings
+	result = DocumentProperties( winId(), handle, printer.data(), (DEVMODE*) DevMode.data(), NULL, DM_OUT_BUFFER);
+	// Free the printer handle
+	ClosePrinter( handle );
+	return ( result == IDOK );
+#else
+	return true;
+#endif
+}
+
+bool Druck::initDeviceSettings( QString printerName )
+{
+#ifdef _WIN32
+	bool done;
+	uint size;
+	QCString printer;
+	LONG result = IDOK+1;
+	HANDLE handle = NULL;
+	printer = printerName.local8Bit();
+	// Get the printer handle
+	done = OpenPrinter( printer.data(), &handle, NULL );
+	if(!done)
+		return false;
+	// Get size of DEVMODE structure (public + private data)
+	size = DocumentProperties( winId(), handle, printer.data(), NULL, NULL, 0);
+	// Compare size with DevMode structure size
+	if( DevMode.size() == size )
+	{
+		// Merge printer settings
+		result = DocumentProperties( winId(), handle, printer.data(), (DEVMODE*) DevMode.data(), (DEVMODE*) DevMode.data(), DM_IN_BUFFER | DM_OUT_BUFFER);
+	}
+	else
+	{
+		// Retrieve default settings
+		DevMode.resize( size );
+		result = DocumentProperties( winId(), handle, printer.data(), (DEVMODE*) DevMode.data(), NULL, DM_OUT_BUFFER);
+	}
+	done = ( result == IDOK);
+	// Free the printer handle
+	ClosePrinter( handle );
+	return done;
+#else
+	return true;
 #endif
 }

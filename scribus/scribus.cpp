@@ -160,6 +160,10 @@
 #include "imageinfodialog.h"
 #include "selection.h"
 
+#if defined(_WIN32)
+#include "scwinprint.h"
+#endif
+
 using namespace std;
 
 #ifdef HAVE_CMS
@@ -2048,8 +2052,9 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["pageImport"]->setEnabled(true);
 	//scrActions["toolsPreflightVerifier"]->setEnabled(true);
 
-	if (HaveGS==0)
+	if ( HaveGS==0 || ScQApp->isWinGUI() )
 		scrActions["PrintPreview"]->setEnabled(true);
+
 	if (scrActions["SaveAsDocumentTemplate"])
 		scrActions["SaveAsDocumentTemplate"]->setEnabled(true);
 
@@ -3847,6 +3852,7 @@ void ScribusMainWindow::slotFilePrint()
 
 void ScribusMainWindow::slotReallyPrint()
 {
+	bool done;
 	if (!docCheckerPalette->noButton)
 	{
 		docCheckerPalette->hide();
@@ -3881,7 +3887,7 @@ void ScribusMainWindow::slotReallyPrint()
 	ColorList usedSpots;
 	doc->getUsedColors(usedSpots, true);
 	QStringList spots = usedSpots.keys();
-	Druck *printer = new Druck(this, options.filename, options.printer, PDef.Command, prefsManager->appPrefs.GCRMode, spots);
+	Druck *printer = new Druck(this, options.filename, options.printer, PDef.Command, PDef.DevMode, prefsManager->appPrefs.GCRMode, spots);
 	printer->setMinMax(1, doc->Pages->count(), doc->currentPage->pageNr()+1);
 	printDinUse = true;
 	connect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));
@@ -3918,6 +3924,7 @@ void ScribusMainWindow::slotReallyPrint()
 		options.setDevParam = printer->doDev();
 		PDef.Pname = options.printer;
 		PDef.Dname = options.filename;
+		PDef.DevMode = printer->DevMode;
 		if (printer->OtherCom->isChecked())
 		{
 			PDef.Command = printer->Command->text();
@@ -3935,7 +3942,20 @@ void ScribusMainWindow::slotReallyPrint()
 		options.printerOptions = QString("");
 #endif
 		PrinterUsed = true;
-		if (!doPrint(&options))
+#ifdef _WIN32
+		SHORT shiftState = GetKeyState( VK_SHIFT );
+		bool forceGDI = ( shiftState & 0x8000 ) ? true : false;
+		if (options.toFile == false)
+		{
+			ScWinPrint winPrint;
+			done = winPrint.print( doc, options, printer->DevMode, forceGDI );
+		}
+		else
+			done = doPrint(&options);
+#else
+		done = doPrint(&options);
+#endif
+		if (!done)
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			QMessageBox::warning(this, CommonStrings::trWarning, tr("Printing failed!"), CommonStrings::tr_OK);
@@ -6805,8 +6825,11 @@ void ScribusMainWindow::ShowSubs()
 	if (HaveGS != 0)
 	{
 		mess = tr("The following programs are missing:")+"\n\n";
-		if (HaveGS != 0)
-			mess += tr("Ghostscript : You cannot use EPS images or Print Preview")+"\n\n";
+#ifndef _WIN32
+		mess += tr("Ghostscript : You cannot use EPS images or Print Preview")+"\n\n";
+#else
+		mess += tr("Ghostscript : You cannot use EPS images or PostScript Print Preview")+"\n\n";
+#endif
 		QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
 	}
 
@@ -6840,7 +6863,15 @@ void ScribusMainWindow::doPrintPreview()
 	}
 	if (HaveDoc)
 	{
-		PPreview *dia = new PPreview(this, view, doc, HavePngAlpha, HaveTiffSep);
+		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
+		QString currentPrinter = prefs->get("CurrentPrn");
+		if ( PPreview::usePostscriptPreview(currentPrinter) && ( HaveGS != 0 ) )
+		{
+			QString mess = tr("Ghostscript is missing : Postscript Print Preview is not available")+"\n\n";
+			QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
+			return;
+		}
+		PPreview *dia = new PPreview(this, view, doc, HavePngAlpha, HaveTiffSep, currentPrinter);
 		previewDinUse = true;
 		connect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 		dia->exec();
@@ -6849,7 +6880,7 @@ void ScribusMainWindow::doPrintPreview()
 		prefsManager->appPrefs.PrPr_AlphaText = dia->AliasText->isChecked();
 		prefsManager->appPrefs.PrPr_AlphaGraphics = dia->AliasGr->isChecked();
 		prefsManager->appPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
-		if (HaveTiffSep != 0)
+		if ( HaveTiffSep != 0 || !dia->postscriptPreview )
 		{
 			prefsManager->appPrefs.PrPr_C = dia->EnableCMYK_C->isChecked();
 			prefsManager->appPrefs.PrPr_M = dia->EnableCMYK_M->isChecked();
@@ -7363,7 +7394,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	scrActions["fileRevert"]->setEnabled(true);
 	scrActions["fileDocSetup"]->setEnabled(true);
 	scrActions["filePrint"]->setEnabled(true);
-	if (HaveGS==0)
+	if ( HaveGS==0 || ScQApp->isWinGUI() )
 		scrActions["PrintPreview"]->setEnabled(true);
 	scrActions["pageInsert"]->setEnabled(true);
 	scrActions["pageCopy"]->setEnabled(true);

@@ -26,7 +26,7 @@ class SCRIBUS_API Druck : public QDialog
 	Q_OBJECT
 
 public:
-	Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool gcr, QStringList spots);
+	Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots);
 	~Druck() {};
 	QString printerName();
 	QString outputFileName();
@@ -50,6 +50,7 @@ public:
 	bool doDev();
 	bool doSpot();
 	bool ICCinUse();
+	QByteArray DevMode;
 
 public slots:
 	void setMinMax(int min, int max, int cur);
@@ -113,6 +114,9 @@ private:
 	bool ToSeparation;
 	PrefsContext* prefs;
 	void setStoredValues(bool gcr);
+	QStringList getPrinterNames(void);
+	bool getDefaultSettings( QString printerName );
+	bool initDeviceSettings( QString printerName );
 };
 
 #endif // DRUCK_H

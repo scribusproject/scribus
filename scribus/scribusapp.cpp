@@ -474,6 +474,16 @@ bool ScribusQApp::isMacGUI() const
 #endif
 }
 
+bool ScribusQApp::isWinGUI() const
+{
+	// Do it statically for now
+#if defined(_WIN32)
+	return true;
+#else
+	return false;
+#endif
+}
+
 bool ScribusQApp::reverseDialogButtons() const
 {
 	if (swapDialogButtonOrder)

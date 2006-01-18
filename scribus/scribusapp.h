@@ -41,6 +41,11 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		 */
 		bool isMacGUI() const;
 		/**
+		 * @brief Are we executing Scribus on Windows ?
+		 * @retval bool true if we are on Qt/Win
+		 */
+		bool isWinGUI() const;
+		/**
 		 * @brief Are we swapping dialog button order?
 		 * @retval bool if we are swapping
 		 */

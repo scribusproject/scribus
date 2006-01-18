@@ -83,4 +83,5 @@ const QString SCRIBUS_API getStringFromSequence(DocumentSectionType type, uint p
 const QString SCRIBUS_API arabicToRoman(uint i);
 const QString SCRIBUS_API numberToLetterSequence(uint i);
 void SCRIBUS_API parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
+bool SCRIBUS_API isPostscriptPrinter( QString printerName );
 #endif

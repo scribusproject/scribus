@@ -28,11 +28,12 @@ class SCRIBUS_API PPreview : public QDialog
 	Q_OBJECT
 
 public:
-	PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha, int tiffSep );
+	PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha, int tiffSep, QString printer = "" );
 	~PPreview() {};
 	int RenderPreview(int Seite, int Res);
 	int RenderPreviewSep(int Seite, int Res);
 	void blendImages(QImage &target, ScImage &source, ScColor col);
+	static bool usePostscriptPreview(QString printerName);
 	QPixmap CreatePreview(int Seite, int Res);
 	PageSelector *PGSel;
 	QCheckBox* AliasText;
@@ -63,6 +64,7 @@ public:
 	bool GrAl;
 	bool Trans;
 	bool GMode;
+	bool postscriptPreview;
 	QMap<QString, int> sepsToFileNum;
 	QMap<QString, QCheckBox*> flagsVisible;
 	QTable* Table;

@@ -38,6 +38,10 @@
 #include "scpaths.h"
 #include "pageselector.h"
 
+#if defined(_WIN32)
+#include "scwinprint.h"
+#endif
+
 extern bool printDinUse;
 
 /*!
@@ -51,16 +55,24 @@ extern bool printDinUse;
  \param pngAlpha int
  \retval PPreview window
  */
-PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha, int tiffSep) : QDialog( parent, "Preview", true, 0 )
+PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha, int tiffSep, QString printer ) : QDialog( parent, "Preview", true, 0 )
 {
 	Q_ASSERT(!docu->masterPageMode());
 	prefsManager=PrefsManager::instance();
 	QString tmp;
-	setCaption( tr("Print Preview"));
+	postscriptPreview = usePostscriptPreview(printer);
+	QString caption = tr("Print Preview");
+#ifdef _WIN32
+	if (postscriptPreview)
+		caption += " (Postscript)";
+	else
+		caption += " (GDI)";
+#endif
+	setCaption( caption );
 	doc = docu;
 	view = vin;
 	HavePngAlpha = pngAlpha;
-	HaveTiffSep = tiffSep;
+	HaveTiffSep = postscriptPreview ? tiffSep : 1;
 	APage = -1;
 	CMode = false;
 	TxtAl = false;
@@ -85,11 +97,13 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Layout2->setMargin(0);
 	AliasText = new QCheckBox(this, "TextAntiAlias");
 	AliasText->setText( tr("Anti-alias &Text"));
-	AliasText->setChecked(prefsManager->appPrefs.PrPr_AlphaText);
+	AliasText->setChecked( postscriptPreview ? prefsManager->appPrefs.PrPr_AlphaText : false);
+	AliasText->setEnabled( postscriptPreview );
 	Layout2->addWidget(AliasText);
 	AliasGr = new QCheckBox(this, "GraphicsAntiAlias");
 	AliasGr->setText( tr("Anti-alias &Graphics"));
-	AliasGr->setChecked(prefsManager->appPrefs.PrPr_AlphaGraphics);
+	AliasGr->setChecked( postscriptPreview ? prefsManager->appPrefs.PrPr_AlphaGraphics : false);
+	AliasGr->setEnabled( postscriptPreview );
 	Layout2->addWidget(AliasGr);
 	Layout1->addLayout(Layout2);
 
@@ -99,10 +113,12 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	AliasTr = new QCheckBox(this, "DisplayTransparency");
 	AliasTr->setText( tr("Display Trans&parency"));
 	AliasTr->setChecked(prefsManager->appPrefs.PrPr_Transparency);
+	AliasTr->setEnabled( postscriptPreview );
 	Layout3->addWidget(AliasTr);
 	EnableGCR = new QCheckBox(this, "DisplayGCR");
 	EnableGCR->setText( tr("&Under Color Removal"));
-	EnableGCR->setChecked(prefsManager->appPrefs.Gcr_Mode);
+	EnableGCR->setChecked( postscriptPreview ? prefsManager->appPrefs.Gcr_Mode : false);
+	EnableGCR->setEnabled( postscriptPreview );
 	Layout3->addWidget(EnableGCR);
 	Layout1->addLayout(Layout3);
 
@@ -114,7 +130,8 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Layout4->setMargin(0);
 	EnableCMYK = new QCheckBox(this, "DisplayCMYK");
 	EnableCMYK->setText( tr("&Display CMYK"));
-	EnableCMYK->setChecked(prefsManager->appPrefs.PrPr_Mode);
+	EnableCMYK->setChecked( postscriptPreview ? prefsManager->appPrefs.PrPr_Mode : false);
+	EnableCMYK->setEnabled( postscriptPreview );
 	Layout4->addWidget(EnableCMYK);
 	if (HaveTiffSep != 0)
 	{
@@ -123,19 +140,23 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 		Layout5->setMargin(0);
 		EnableCMYK_C = new QCheckBox(this, "DisplayCMYK_C");
 		EnableCMYK_C->setText( tr("&C"));
-		EnableCMYK_C->setChecked(prefsManager->appPrefs.PrPr_C);
+		EnableCMYK_C->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_C : true);
+		EnableCMYK_C->setEnabled(postscriptPreview);
 		Layout5->addWidget(EnableCMYK_C);
 		EnableCMYK_M = new QCheckBox(this, "DisplayCMYK_M");
 		EnableCMYK_M->setText( tr("&M"));
-		EnableCMYK_M->setChecked(prefsManager->appPrefs.PrPr_M);
+		EnableCMYK_M->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_M : true);
+		EnableCMYK_M->setEnabled(postscriptPreview);
 		Layout5->addWidget(EnableCMYK_M);
 		EnableCMYK_Y = new QCheckBox(this, "DisplayCMYK_Y");
 		EnableCMYK_Y->setText( tr("&Y"));
-		EnableCMYK_Y->setChecked(prefsManager->appPrefs.PrPr_Y);
+		EnableCMYK_Y->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_Y : true);
+		EnableCMYK_Y->setEnabled(postscriptPreview);
 		Layout5->addWidget(EnableCMYK_Y);
 		EnableCMYK_K = new QCheckBox(this, "DisplayCMYK_K");
 		EnableCMYK_K->setText( tr("&K"));
-		EnableCMYK_K->setChecked(prefsManager->appPrefs.PrPr_K);
+		EnableCMYK_K->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_K : true);
+		EnableCMYK_K->setEnabled(postscriptPreview);
 		Layout5->addWidget(EnableCMYK_K);
 		Layout4->addLayout(Layout5);
 	}
@@ -425,6 +446,31 @@ int PPreview::RenderPreview(int Seite, int Res)
 	int ret = -1;
 	QString cmd1, cmd2, cmd3;
 	QMap<QString,int> ReallyUsed;
+#if defined _WIN32
+	if ( !postscriptPreview )
+	{
+		QImage image;
+		Page* page;
+		ScWinPrint winPrint;
+		PrintOptions options;
+		page = doc->Pages->at( Seite );
+		options.copies = 1;
+		options.doGCR = false;
+		options.mirrorH = options.mirrorV = false;
+		options.outputSeparations = false;
+		options.pageNumbers.push_back( Seite );
+		options.PSLevel = 0;
+		options.separationName = "All";
+		options.toFile = false;
+		options.useColor = true;
+		options.useICC = false;
+		options.useSpotColors = false;
+		bool done = winPrint.gdiPrintPreview(doc, page, &image, options, Res / 72.0);
+		if ( done )
+			image.save( prefsManager->preferencesLocation()+"/sc.png", "PNG" );
+		return (done ? 0 : 1);
+	}
+#endif
 	// Recreate Postscript-File only when the actual Page has changed
 	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode))
 	{
@@ -829,4 +875,22 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	SMode = scaleBox->currentItem();
 	return Bild;
 }
+
+//-------------------------------------------------------------------------------------------------
+
+bool PPreview::usePostscriptPreview(QString printerName)
+{
+#ifdef _WIN32
+	if ( printerName == tr("File") )
+		return true;
+	else if( printerName.isEmpty() )
+		return isPostscriptPrinter( ScWinPrint::getDefaultPrinter() );
+	else
+		return isPostscriptPrinter( printerName );
+#else
+	return true;
+#endif
+}
+
+//-------------------------------------------------------------------------------------------------
 
