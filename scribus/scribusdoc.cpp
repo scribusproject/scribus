@@ -2701,6 +2701,8 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		return false;
 	//Take the item to convert from the docs Items list
 	PageItem *oldItem = Items->take(currItem->ItemNr);
+	//Remove old item from the doc's selection if it was in it
+	bool removedFromSelection=selection->removeItem(oldItem);
 	//Create a new item from the old one
 	bool transactionConversion=false;
 	PageItem *newItem;
@@ -2835,6 +2837,9 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	//for (uint a = 0; a < Items->count(); ++a)
 	//	Items->at(a)->ItemNr = a;
 	Items->insert(oldItem->ItemNr, newItem);
+	//Add new item back to selection if old item was in selection
+	if (removedFromSelection)
+		selection->addItem(newItem);
 	//If converting text to path, delete the bezier
 	if (newType==PageItem::PathText)
 	{

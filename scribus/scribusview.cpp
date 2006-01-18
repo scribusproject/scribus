@@ -4197,11 +4197,11 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							currItem->ClipEdited = true;
 							edited = true;
 							Doc->EditClipMode = 0;
-							currItem->convertTo(PageItem::PolyLine);
-							currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
-							//PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PolyLine);
-							//newItem->SetPolyClip(qRound(QMAX(newItem->Pwidth / 2, 1)));
-							//currItem=newItem;
+							//currItem->convertTo(PageItem::PolyLine);
+							//currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
+							PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PolyLine);
+							newItem->SetPolyClip(qRound(QMAX(newItem->Pwidth / 2, 1)));
+							currItem=newItem;
 							emit PolyOpen();
 							
 						}
@@ -6025,7 +6025,7 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 		*/
 		if (((ClRe == static_cast<int>(StartInd)) || (ClRe == static_cast<int>(EndInd-2))) &&
 //		        ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame())))
-	((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame)))
+	((currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame)))
 		{
 			if (ClRe == static_cast<int>(StartInd))
 			{
@@ -6048,7 +6048,7 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 		}
 		if (((ClRe == static_cast<int>(StartInd+1)) || (ClRe == static_cast<int>(EndInd-1))) &&
 //		        ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame())) && (MoveSym)) 
-((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame)) && (MoveSym))
+((currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame)) && (MoveSym))
 		{
 			uint kon = 0;
 			if (ClRe == static_cast<int>(StartInd+1))
