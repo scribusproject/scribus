@@ -142,7 +142,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Riku Leino</td><td>riku@scribus.info</td></tr>" +
 											"<tr><td>Craig Ringer</td><td>craig@postnewspapers.com.au</td></tr>" +
 											"<tr><td>Andreas Vox</td><td>avox@arcor.de</td></tr>" +
+											"<tr><td>Jean Ghali</td><td>jghali@libertysurf.fr</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
+
 											"<tr><td><b>" + tr("Contributions from:").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Niyam Bhushan</td><td></td></tr>" +
 											"<tr><td>Martin Costabel</td><td></td></tr>" +
@@ -351,4 +353,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	aboutLayout->addLayout( layout2 );
 	setMaximumSize(sizeHint());
 
+
 //tooltips
+	QToolTip::add( buildID, "<qt>" + tr( "This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected." ) + "</qt>" );
+	// signals and slots connections
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+}
