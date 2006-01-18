@@ -717,6 +717,12 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->PageSize = prefsPageSizeName;
 	currDoc->pageWidth = pageWidth;
 	currDoc->pageHeight = pageHeight;
+	double TopD = topScratch->value() / currDoc->unitRatio() - currDoc->ScratchTop;
+	double LeftD = leftScratch->value() / currDoc->unitRatio() - currDoc->ScratchLeft;
+	currDoc->ScratchBottom = bottomScratch->value() / currDoc->unitRatio();
+	currDoc->ScratchLeft = leftScratch->value() / currDoc->unitRatio();
+	currDoc->ScratchRight = rightScratch->value() / currDoc->unitRatio();
+	currDoc->ScratchTop = topScratch->value() / currDoc->unitRatio();
 	for (uint p = 0; p < currDoc->Pages->count(); ++p)
 	{
 		Page *pp = currDoc->Pages->at(p);
@@ -748,6 +754,15 @@ void ReformDoc::updateDocumentSettings()
 			pp->initialMargins.Top = tpr2;
 			pp->initialMargins.Bottom = br2;
 		}
+		pp->setXOffset(currDoc->ScratchLeft);
+		pp->setYOffset(currDoc->ScratchTop);
+	}
+	uint docItemsCount = currDoc->MasterItems.count();
+	for (uint ite = 0; ite < docItemsCount; ++ite)
+	{
+		PageItem *item = currDoc->MasterItems.at(ite);
+		item->moveBy(LeftD, TopD);
+		item->setRedrawBounding();
 	}
 	currDoc->guidesSettings.before = tabGuides->inBackground->isChecked();
 	currDoc->marginColored = checkUnprintable->isChecked();
@@ -903,10 +918,6 @@ void ReformDoc::updateDocumentSettings()
 	else
 		viewToRecalcPictureRes=false;
 	tabTools->polyWidget->getValues(&currDoc->toolSettings.polyC, &currDoc->toolSettings.polyFd, &currDoc->toolSettings.polyF, &currDoc->toolSettings.polyS, &currDoc->toolSettings.polyR);
-	currDoc->ScratchBottom = bottomScratch->value() / currDoc->unitRatio();
-	currDoc->ScratchLeft = leftScratch->value() / currDoc->unitRatio();
-	currDoc->ScratchRight = rightScratch->value() / currDoc->unitRatio();
-	currDoc->ScratchTop = topScratch->value() / currDoc->unitRatio();
 	currDoc->AutoSave = groupAutoSave->isChecked();
 	currDoc->AutoSaveTime = autoSaveTime->value() * 60 * 1000;
 	if (currDoc->AutoSave)
