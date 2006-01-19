@@ -6991,7 +6991,7 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
       <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit->Settings to change the font search path.</source>
-      <translation>Kirjaintyylien hakupolut voi asettaa ainoastaan asetuksissa, kun yhtään asiakirjaa ei ole avoinna. Sulje kaikki avoimet asiakirjat ja avaa Muokkaa>Asetukset muuttaaksesi hakemistoja, joista kirjaintyylejä etsitään.</translation>
+      <translation>Kirjaintyyppien hakupolut voi asettaa ainoastaan asetuksissa, kun yhtään asiakirjaa ei ole avoinna. Sulje kaikki avoimet asiakirjat ja avaa Muokkaa>Asetukset muuttaaksesi hakemistoja, joista kirjaintyyppejä etsitään.</translation>
     </message>
   </context>
   <context>
@@ -13392,11 +13392,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
       <source>Searching for Fonts</source>
-      <translation>Etsitään kirjaintyylejä</translation>
+      <translation>Etsitään kirjaintyyppejä</translation>
     </message>
     <message>
       <source>There are no fonts found on your system.</source>
-      <translation>Järjestelmästä ei löytynyt kirjaintyylejä</translation>
+      <translation>Järjestelmästä ei löytynyt kirjaintyyppejä</translation>
     </message>
     <message>
       <source>Exiting now.</source>
