@@ -623,8 +623,8 @@ AC_SUBST(BOOST_PYTHON_LDFLAGS)
 
 dnl We have to do our Qt version check only after KDE's magic has found Qt
 AC_MSG_CHECKING([if we're trying to compile against Qt 4])
-SAVE_CFLAGS="${CFLAGS}"
-CFLAGS="${QT_INCLUDES} ${CFLAGS}"
+SAVE_CXXFLAGS="${CXXFLAGS}"
+CXXFLAGS="${QT_INCLUDES} ${CXXFLAGS}"
 dnl If this snippet compiles correctly, we're using an older Qt and are fine.
 dnl If it fails, we know we're using Qt 4. We don't need to test for Qt 3.3
 dnl here, AC_PATH_QT has done that for us.
@@ -635,7 +635,7 @@ AC_TRY_COMPILE([
 #error Scribus does not support Qt 4
 #endif
 ], [using_qt4=no], [using_qt4=yes])
-CFLAGS="${SAVE_CFLAGS}"
+CXXFLAGS="${SAVE_CXXFLAGS}"
 if test "${using_qt4}" = "yes"; then
 	AC_MSG_RESULT([Qt 4 found])
 	AC_MSG_ERROR([Scribus does not yet support Qt 4])
