@@ -4164,7 +4164,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 										if (EditContour)
 										{
 											bb->ContourLine.putPoints(0, StartInd - 4, Clip);
-											bb->ContourLine.putPoints(bb->PoLine.size(), Clip.size()-EndInd, Clip, EndInd);
+											bb->ContourLine.putPoints(bb->ContourLine.size(), Clip.size()-EndInd, Clip, EndInd);
 										}
 										else
 										{
