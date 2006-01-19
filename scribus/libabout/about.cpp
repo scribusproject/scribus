@@ -117,7 +117,8 @@ About::About( QWidget* parent )
 										"<tr><td>Alastair Robinson</td><td>blackfive@fakenhamweb.co.uk</td></tr>" +
 										"<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" +
 										"<tr><td>Jean-Jacques Sarton</td><td>jj.sarton@t-online.de</td></tr>" +
-										"<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +	                                     
+										"<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +
+										"<tr><td>Eirik Øverby</td><td>ltning@anduin.net</td></tr>" +                                     
 										"<tr><td></td><td> </td></tr>" +
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
