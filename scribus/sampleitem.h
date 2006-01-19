@@ -8,8 +8,6 @@
 class QString;
 class QColor;
 class ScribusDoc;
-//class PageItem;
-//class TabRecord;
 
 
 /*! \brief Provides sample "text frame" as pixmap.

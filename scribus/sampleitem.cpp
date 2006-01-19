@@ -254,10 +254,13 @@ QPixmap SampleItem::getSample(int width, int height)
 	PageItem_TextFrame *previewItem = new PageItem_TextFrame(doc, 0, 0, width, width, 0, "None", "None");
 	QPixmap pm(width, height);
 	ScPainter *painter = new ScPainter(&pm, width, height, 0, 0);
-	double sca = 1.0;
+	double sca = 1.0; // original scale to set back at the end...
 
 	if (ScMW->view != NULL)
+	{
 		sca = ScMW->view->getScale();
+		ScMW->view->setScale(1.0);
+	}
 
 	QFont fo = QFont(tmpStyle.Font);
 	fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
@@ -266,11 +269,6 @@ QPixmap SampleItem::getSample(int width, int height)
 	int tmpIndex = doc->docParagraphStyles.count() - 1;
 
 	previewItem->FrameType = PageItem::TextFrame;
-	painter->clear(bgColor);
-	pm.fill(bgColor);
-	if (ScMW->view != NULL)
-		ScMW->view->setScale(1.0);
-
 	previewItem->itemText.clear();
 	previewItem->setFont(tmpStyle.Font);
 	previewItem->Cols = 1;
@@ -280,40 +278,16 @@ QPixmap SampleItem::getSample(int width, int height)
 		hg->ch = text.at(i);
 		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
 			hg->ch = QChar(13);
-		hg->cfont = (*doc->AllFonts)[tmpStyle.Font];
-		hg->csize = tmpStyle.FontSize;
-		hg->ccolor = tmpStyle.FColor;
-		hg->cshade = tmpStyle.FShade;
-		hg->cstroke = tmpStyle.SColor;
-		hg->cshade2 = tmpStyle.SShade;
-		hg->cscale = tmpStyle.scaleH;
-		hg->cscalev = tmpStyle.scaleV;
-		hg->cbase = tmpStyle.baseOff;
-		hg->cshadowx = tmpStyle.txtShadowX;
-		hg->cshadowy = tmpStyle.txtShadowY;
-		hg->coutline = tmpStyle.txtOutline;
-		hg->cunderpos = tmpStyle.txtUnderPos;
-		hg->cunderwidth = tmpStyle.txtUnderWidth;
-		hg->cstrikepos = tmpStyle.txtStrikePos;
-		hg->cstrikewidth = tmpStyle.txtStrikeWidth;
-		hg->cselect = false;
-		hg->cstyle = tmpStyle.FontEffect;
-		hg->cab = tmpIndex;
-		hg->cextra = tmpStyle.kernVal;
-		hg->xp = 0;
-		hg->yp = 0;
-		hg->PRot = 0;
-		hg->PtransX = 0;
-		hg->PtransY = 0;
-		hg->cembedded = 0;
 		previewItem->itemText.append(hg);
 	}
+	ScMW->view->chAbStyle(previewItem, tmpIndex);
 	previewItem->DrawObj(painter, QRect(0, 0, width, height));
 	painter->end();
 	delete(painter);
+	delete previewItem;
+
 	if (ScMW->view != NULL)
 		ScMW->view->setScale(sca);
-	delete previewItem;
 	doc->docParagraphStyles.remove(doc->docParagraphStyles.fromLast());
 	UndoManager::instance()->setUndoEnabled(true);
 	return pm;
