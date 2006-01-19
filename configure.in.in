@@ -341,7 +341,7 @@ if test "$disable_xml2" != "yes"; then
 			AC_SUBST(XML_LIBS)
 			AC_SUBST(XML_CFLAGS)
 		else
-			libmising libxml2
+			libmissing libxml2
 			AC_MSG_WARN([Couldn't find a usable libxml2])
 		fi
 		vers=`$XML_CONFIG --version 2>/dev/null | awk 'BEGIN { FS = "."; } { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}'`
