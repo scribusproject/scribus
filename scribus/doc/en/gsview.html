@@ -17,18 +17,18 @@ Ghostscript, as well as <code>pstoedit</code> for converting bitmaps into vector
 <p>So, if you find difficulty with an EPS or PDF you wish to use in Scribus, open the EPS in GSview. Then, use the key command <strong>M</strong> to display messages from Ghostscript. The messages can indicate problems which cause display or printing errors. You can also use the <strong>epswrite</strong> &quot;device&quot; to re-save the EPS, which can help to strip out or fix issues with an EPS.</p>
 <p>You can also <em>rasterize</em> an EPS image like this, by converting to PNG or TIFF and then resize, adjust colors etc with an image program like GIMP or Corel Photoshop. I did this with a troublesome EPS and converted it to a 600DPI PNG, which would then display and print perfectly from Scribus. Sometimes when working with images and DTP there are several different ways to accomplish the same task - in my example, it was getting a complex EPS file from Illustrator to display and print properly from Scribus. The fact that there problem displaying the EPS, was not a bug in Scribus, but some non-standard postscript info in the file, which by using Ghostscript as a back end to GSview I could strip out and then display properly in Scribus.</p>
 <p> Note: GSview uses the <code>libgs.so</code> shared library to access Ghostscript. Redhat and Fedora Core-1 users are encouraged to get the Ghostscript source RPM from rawhide and enable the shared Ghostscript by switching the flag:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 %define build_libgs 0
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>to 1 in the rpm spec file</p>
 <h4>Getting Gsview:</h4>
 <p>Not all Linux distributions offer GSview. However, for those with rpm based systems, a simple rpm command will have you with an easy to install rpm. The GSview tarball already has a built-in spec file. A simple: </p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 rpmbuild -tb ./gsview-4.7.tar.gz
-</pre></small></td></tr></table></blockquote>
+</pre></td></tr></table></blockquote>
 <p>Will get you started. Windows has a convetional setup.exe installer.</p>
 <p>GSview since about 4.3, has been, in my experience, the most reliable and versatile PDF viewer along with Acrobat Reader on Linux. For DTP with Scribus, I consider it essential.</p>
 <p>Now, for advanced hints with GSview and Ghostscript, see: <a href="toolbox7.html">Advanced Ghostscript and GSview Hints</a></p>
