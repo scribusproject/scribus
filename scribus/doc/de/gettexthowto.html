@@ -13,7 +13,7 @@
 <h3>An Example Plugin</h3>
 
 <h4>myimporter.h</h4>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 #ifndef MYIMPORTER_H
 #define MYIMPORTER_H
@@ -29,7 +29,7 @@ extern "C" QStringList FileExtensions();
 
 #endif // MYIMPORTER_H
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>Now let's describe the source code. MYIMPORTER_H declaration is the standard way to ensure only one insertion of the header file. Scribus.h is required to access Scribus objects. The function GetText() is called when a user has selected to import a file that has a file extenison which matches one in the QStringList returned by FileExtensions(). FileFormatName() should return the name for the file format this importer works on f.e. "Text files" for plain text importer.</p>
 
 <h4>GetText parameters</h4>
@@ -44,7 +44,7 @@ extern "C" QStringList FileExtensions();
 <p>If your plugin is the only plugin for the file format return a QStringList with format's file extensions. If there already is an importer for the format you are also creating an importer for do not return file extensions but an empty QStringList. The most common and used plugin for a file format should return file extensions. Other more rarely used plugins should not return extensions. These plugins can be used by selecting them in the file dialog of Get Text.</p>
 
 <h4>myimporter.cpp</h4>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 #include "myimporter.h"
 #include &lt;qstring.h&gt;
@@ -66,7 +66,7 @@ void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer
 
 }
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 
 <p>The <code>importnothingplugin-1.0.tar.bz2</code> from http://docs.scribus.net can be used as a basis of your own get text plugin.</p>
 
@@ -89,7 +89,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. <strong>Ut a sapien.</
 
 <h4>Code for import</h4>
 
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 #include &lt;gtparagraphstyle.h&gt;
 #include &lt;gtframestyle.h&gt;
@@ -139,7 +139,7 @@ void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer
 
 ...
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 
 <p>Now after right clicking on a text frame, choosing "Get Text..." and selecting our just built importer and opening some file we get a text frame with the sample text formatted correctly.</p>
 <table width="100%"><tr><td align="center"><img src="../en/images/result.png" alt="Sample frame"/></td></tr></table>

@@ -20,9 +20,9 @@ Zum Kompilieren, aber auch zum Ausf&uuml;hren von Scribus bestehen folgende Abh&
 <p>Scribus ist unter fast jedem Window-Manager lauff&auml;hig und ben&ouml;tigt KDE selbst nicht. Ohne KDE gibt es allerdings kein Drag-and-Drop. Einer unserer Scribus-Entwickler verwendet Gnome. Der Autor dieser Dokumentation testet jede neue Scribus-Version zus&auml;tzlich unter Blackbox. Dabei sind noch keine Kompatiblit&auml;tsprobleme aufgetreten, abgesehen vom fehlenden Drag-and-Drop.</p>
 <p>Wenn die Farbverwaltung nicht funktioniert, liegt das m&ouml;glicherweise an den fehlenden Entwickler-Bibliotheken f&uuml;r littlecms. Falls Sie das Paket von littlecms heruntergeladen haben, so sind die make-Dateien bereits f&uuml;r Linux konfiguriert, und das Kompilieren kann gleich beginnen. Au&szlig;erdem ben&ouml;tigen Sie wenigstens ein RBG- und ein CMYK-Profil, damit die Farbpr&auml;ferenzen und Optionen &uuml;berhaupt in den Men&uuml;s angezeigt werden. Bei RedHat und Mandrake 9.x kann es sein, da&szlig; Sie vor dem Kompilieren erst export LDFLAGS=&quot;-lm&quot; eingeben m&uuml;ssen, damit littlecms auch korrekt mit Scribus verlinkt ist. Dieses Problem ist ab littlecms 1.10 und in Scribus ab Version 1.2.x behoben.</p>
 <p>Testreihen lassen darauf schlie&szlig;en, da&szlig; sich das Setzen korrekter &quot;-march=&quot; CXXFLAGS sehr positiv auf die Leistung von Scribus auswirkt. Wenn Sie zum Beispiel bei einem Duron- oder Athlon-Prozessor <code>export CXXFLAGS=&quot;-march=athlon&quot;</code> eintragen, h&auml;tten Sie einen Vorteil. &Uuml;berpr&uuml;fen Sie, ob und wie Ihre Distribution dies f&uuml;r Sie macht, und zur n&auml;heren Information lesen Sie
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>man gcc</pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 mit allen Optionen im Detail.</p>
 <h3>Optional:</h3>
 <ul>
