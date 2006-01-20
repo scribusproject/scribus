@@ -3383,7 +3383,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Single Left</source>
-        <translation>Einfaches Anführungszeichen links</translation>
+        <translation>Einfaches Anführungszeichen rechts</translation>
     </message>
     <message>
         <source>Single Right</source>
@@ -3391,7 +3391,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Double Left</source>
-        <translation>Doppeltes Anführungszeichen links</translation>
+        <translation>Doppeltes Anführungszeichen rechts</translation>
     </message>
     <message>
         <source>Double Right</source>
