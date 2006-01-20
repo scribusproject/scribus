@@ -1,18 +1,18 @@
 <qt>
-<title>Font Preferences and Managing Fonts with Scribus - Linux/Unix</title>
-<h2>Font Preferences and Managing Fonts with Scribus  Linux/Unix</h2>
+<title>Font Preferences and Managing Fonts with Scribus - Windows</title>
+<h2>Font Preferences and Managing Fonts with Scribus - Windows</h2>
 
 <h3>Overview</h3>
 
 <p>Scribus, has a couple of helpful and easy to use panels for managing fonts to use with Scribus, as well as, methods to make your own global font preferences and substitutions for Scribus easy. Within the new font preferences, you can:</p>
 
 <ul>
-	<li>Set additional user defined font paths, which do not need root permissions, nor the need to manually adjust font paths in the Xfree86 or X.org config files.</li>
+	<li>Set additional user defined font paths, which do not need administrator permissions, nor the need to manually install fonts system wide.</li>
 	<li>Set user preferences for font usage and font embedding within Scribus documents.</li>
 	<li>Adjust settings for on the fly substitutions for missing or unavailable fonts.</li>
 </ul>
 
-<p>At first appearance, it might seem a bit confusing at first, as some options are grayed out initially. However, this does have some logic as we will see. One of the historical challenges in font handling with Xfree86 or X.org is when some applications start adding font paths to the default font path setup by Xfree86 or X.org . The newer fontconfig mechanism and Freetype2 have greatly made brought sanity to one of the long standing end user problems with Linux on the desktop.</p>
+<p>At first appearance, it might seem a bit confusing at first, as some options are grayed out initially. However, this does have some logic as we will see. One of the main reasons is to <strong>not</strong> remove fonts which might be used in an open document.</p>
 
 
 <h3>Adding additional font paths:</h3>
@@ -21,8 +21,7 @@
 
 <table width="100%"><tr><td align="center"><img src="images/fontpref1.png" alt="Adding additional font paths." title="Adding additional font paths."/></td></tr></table>
 
-<p>Here you can add font paths, which are not part of the XFree86 or X-org defaults. In the example here, we have added three user defined paths where there are fonts we wish to use within Scribus. The
-directory <code>.fonts</code> is the default directory for use with the new <a href="fontconfig.html">fontconfig</a> mechanism with Xft2 included with newer distributions. After clicking <strong>OK</strong>, Scribus will add these font paths and any correctly installed fonts will be available immediately to new or existing documents you open.</p>
+<p>Note the picture above is for Linux, but on Windows it will work very similar. Here you can add font paths, which are not in the system defaults. In the example here, we have added three user defined paths where there are fonts we wish to use within Scribus. After clicking <strong>OK</strong>, Scribus will add these font paths and any correctly installed fonts will be available immediately to new or existing documents you open.</p>
 
 <h3>Font Substitutions</h3>
 
