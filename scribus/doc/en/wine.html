@@ -14,11 +14,11 @@
 
 <h3>Hints and experiences:</h3>
 <p>My experience is packaged versions of Wine rarely work well, with the exception of the Codeweaver wine preview releases. I <strong>always</strong> build from source. Typically the Wine project releases a snapshot tarball once a month. With Wine, there is a slightly different way of building Wine from the usual:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 ./configure &#038;&#038; make &#038;&#038; make install
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>It is not quite obvious, but there is a way to use the Wine installer scripts which make installing <em>much less difficult</em>. To build the tarball from the root directory where you have untarred the source tarball, simply run <code>./tools/wineinstall</code> and follow the instructions. Compiling from source, takes quite a while, so the ideal time for this is when your workstation will be idle. The benefit is the wine install will be carefully tailored to your setup, both software and hardware. I find it runs more reliably this way.</p>
 <p>If you <strong>really</strong> do not want to install from source, grab the latest codeweavers rpm or deb. Their wine package also includes a nice graphical configuration tool for creating the wine.conf file, which is the the key to making Wine work well.</p>
 <p>After installation, you need a <code>wine.conf</code> file. This is hidden in <code>.wine</code> in your home directory. Open in a text editor and study it carefully, the slight adjustments you make here can make a big difference in its performance and reliability. This is well commented and documented in the docs as well.</p>

@@ -4,43 +4,43 @@
 <p>In order to compile and install Scribus on your system, type the following
 in the base directory of the Scribus distribution after uncompressing the
 downloaded package:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 ./configure
 make
 make install
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>The <code>make install</code> command will have to be done with root access if you have not run the <code>./configure</code> command with a <code>--prefix=[dir]</code> option to specify a different install directory. The following is an example of how to configure and install into your home directory. (For more informaiton than the following line, look at the <a href="parallel-install.html">Parallel Install</a> section for more on having more than one version of Scribus installed at once)</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 ./configure --prefix=/usr;make;make install prefix=~/scribus/cvs
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 
 <p>If you receive warnings when running <code>./configure</code>, you will need to verify the versions of <code>autoconf</code> and <code>automake</code> by running:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 autoconf --version
 automake --version
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>If they are not at least of the versions mentioned in the <a href=install2.html">Requirements</a> section, you may, depending on your distribution, need to tell it to use a higher version like following:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 export WANT_AUTOCONF=&#034;2.5&#034;
 export WANT_AUTOMAKE=&#034;1.7&#034;
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>Having run those two commands, recheck the versions. If they still do not comply to those required, you will need to upgrade those programs, however most distributions contain a high enough version.</p>
 <p>You can launch Scribus from the command line with the following options:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 scribus --help
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>Output:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 Scribus, Open Source Desktop Publishing
 ---------------------------------------
@@ -55,14 +55,14 @@ Options:
 -h,  --help             Print help (this message) and exit
 -v,  --version          Output version information and exit
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>The default location for the Scribus executable is located in <code>/usr/local/bin</code>. Documentation is located in <code>/usr/local/lib/scribus/doc</code></p>
 <p>In addition, there is a <code>desktop.config</code> file named <code>scribus.desktop</code> which can be used for a menu shortcut or desktop shortcut. Simply copy this from the base directory of the installation source directory to your KDE desktop and this will launch Scribus. After dragging this to the desktop, right click and make sure the execute check box is checked. This file conforms to the latest <a href="http://www.freedesktop.org">www.freedesktop.org</a> specifications.</p>
 <p>Since Scribus uses <code>autoconf</code>, as long as you have the correct developement versions of the libraries, you should have little difficulty compiling it. Should you run into problems please report them to the Scribus mailing list or IRC channel. See <a href="resources.html">Community Resources</a> section of this manual.</p>
 <p>Lastly:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>man scribus</pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 
 
 <p> will list addtional info for startup.</p>

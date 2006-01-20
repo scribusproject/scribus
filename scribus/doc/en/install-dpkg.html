@@ -14,7 +14,7 @@
 
 <p>Add the following lines to your <code>/etc/apt/sources.list :</code></p>
 <p> Debian stable</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>#Debian stable
 # debian.scribus.net - Primary repository
 deb         http://debian.scribus.net/debian/ stable main non-free contrib
@@ -23,9 +23,9 @@ deb-src     http://debian.scribus.net/debian/ stable main non-free contrib
 # debian.tagancha.org - Backup repository
 deb         http://debian.tagancha.org/debian/ stable main non-free contrib
 deb-src     http://debian.tagancha.org/debian/ stable main non-free contrib</pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p> Debian testing</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>#Debian testing
 # debian.scribus.net - Primary repository
 deb         http://debian.scribus.net/debian/ testing main non-free contrib
@@ -34,10 +34,10 @@ deb-src     http://debian.scribus.net/debian/ testing main non-free contrib
 # debian.tagancha.org - Backup repository
 deb         http://debian.tagancha.org/debian/ testing main non-free contrib
 deb-src     http://debian.tagancha.org/debian/ testing main non-free contrib</pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 
 <p> Debian unstable</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>#Debian testing
 # debian.scribus.net - Primary repository
 deb         http://debian.scribus.net/debian/ unstable main non-free contrib
@@ -46,64 +46,64 @@ deb-src     http://debian.scribus.net/debian/ unstable main non-free contrib
 # debian.tagancha.org - Backup repository
 deb         http://debian.tagancha.org/debian/ unstable main non-free contrib
 deb-src     http://debian.tagancha.org/debian/ unstable main non-free contrib</pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 
 <p> Ubuntu hoary</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre># Ubuntu hoary
 deb         http://debian.scribus.net/debian/ hoary main restricted
 deb-src     http://debian.scribus.net/debian/ hoary main restricted
 
 deb         http://debian.tagancha.org/debian/ hoary main restricted
 deb-src     http://debian.tagancha.org/debian/ hoary main restricted</pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 
 <p> Ubuntu breezy</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre># Ubuntu breezy
 deb         http://debian.scribus.net/debian/ breezy main restricted
 deb-src     http://debian.scribus.net/debian/ breezy main restricted
 
 deb         http://debian.tagancha.org/debian/ breezy main restricted
 deb-src     http://debian.tagancha.org/debian/ breezy main restricted</pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 
 <p>Once you added the relevant sources lines you can run:</p>
 
 <p>Update the package database:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre> aptitude update</pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>or</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre> apt-get update </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>Install the appropriate scribus package or both packages:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre> aptitude install scribus scribus-cvs </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>or</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre> apt-get install scribus scribus-cvs </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>or use your favorite graphical apt-get front-end such as synaptic (Don't forget to "Reload Package List" in the synaptic. It's the equivalent of apt-get update and has to be done before new packages from these repositories will become available to your package management tools).</p>
 
 <p>"scribus" package is for 1.2.xcvs stable series whereas "scribus-cvs" package will let you try the new 1.3cvs series, which is pretty stable and much more featureful than 1.2. "scribus-cvs" package installs into /usr/local hierarchy and can be installed in parallel with the scribus package, so you can have both and even run them at the same time. However, please DO NOT file bug reports about the 1.3 scribus-cvs package or any packages in these upstream repositories into the Debian or Ubuntu BTS. Only use the distribution BTS for the package versions that are in that distribution. If you have a Scribus issue, which is not related to Debian packaging then it is much more preferable if you use scribus BTS for reporting bugs. Go to <a href="http://bugs.scribus.net/" name="http://bugs.scribus.net/">http://bugs.scribus.net/</a> and have fun.</p>
 
 
 <h3> Other branches</h3>
-<p><strong><small>Instructions below have been rendered mostly obsolete for the x86 architecture by the new repositories. If you have non-x86 hardware or would like to build an optimized package you can still use these instructions. You can submit packages for other architectures to me and I will place them into the repository.</small></strong></p>
+<p><strong>Instructions below have been rendered mostly obsolete for the x86 architecture by the new repositories. If you have non-x86 hardware or would like to build an optimized package you can still use these instructions. You can submit packages for other architectures to me and I will place them into the repository.</strong></p>
 <h4> If your distribution is not already supported:</h4>
 
 <p>Please visit the <a href="http://wiki.scribus.net/index.php/Scribus_on_Debian_GNU/Linux">Scribus Wiki</a> for end user provided hints. </p>
 <!--<p>If you have a non-x86 arch or would like to optimize the packages for your CPT you can achive these goals by a very simple package rebuild. Make sure that you have the deb-src lines for scribus repositories uncommented and run the following commands:</p>
 <h3> The cool way &#8482; - as root or set up sudo for yourself as a user:</h3>
 
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>apt-get install apt-build</pre>
 <pre>apt-build update</pre>
 <pre>apt-build install scribus (or scribus-cvs)</pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>Answer questions about your CPU and stuff - see an excellent document at: <a href="http://julien.danjou.info/article-apt-build.html">http://julien.danjou.info/article-apt-build.html</a></p>
 
 <h3> User notes about installation on other Debian-based distributions:</h3>-->

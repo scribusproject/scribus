@@ -16,35 +16,35 @@
 <li>Use the new configure script with the following options (and optionally <code>-with-jasper</code> and <code>-with-rinkj</code> with very latest versions): </li></ul>
 <blockquote>
 <table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<small><pre>./configure --enable-compile-inits -with-x</pre></small></td></tr></table>
+<pre>./configure --enable-compile-inits -with-x</pre></td></tr></table>
 </blockquote>
 
 <p>By default, '<code>make install</code>' will install all the files in '<code>/usr/local/bin</code>', '<code>/usr/local/lib</code>' etc. You can specify an installation prefix other than '<code>/usr/local</code>' using '<code>--prefix</code>', for instance  '</p>
 <blockquote>
 <table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<small><pre>--prefix=$HOME</pre></small></td></tr></table>
+<pre>--prefix=$HOME</pre></td></tr></table>
 </blockquote>
 <p>This default usually works fine and keeps the two sets of GS libs separated.</p>
 <p>Second Steps:</p>
 <p>There is a second step to compile Ghostscript as a shared library, which GSview needs:</p>
 <blockquote>
 <table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<small><pre>make so</pre></small></td></tr></table>
+<pre>make so</pre></td></tr></table>
 </blockquote>
 <p>and as root:</p> 
 <blockquote>
 <table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<small><pre>make soinstall</pre></small></td></tr></table>
+<pre>make soinstall</pre></td></tr></table>
 </blockquote>
 <p>Now, let&#039;s check briefly:</p>
 <blockquote>
 <table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<small><pre>/usr/local/bin/gs -h</pre></small></td></tr></table>
+<pre>/usr/local/bin/gs -h</pre></td></tr></table>
 </blockquote>
 <p>You should have an output something like this:</p>
 <blockquote>
 <table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<small><pre>
+<pre>
 AFPL Ghostscript 8.51 (2005-04-18)
 Copyright (C) 2005 artofcode LLC, Benicia, CA.  All rights reserved.
 Usage: gs [switches] [file1.ps file2.ps ...]
@@ -70,7 +70,7 @@ Available devices:
 Search path:
    . : /home/peter/.fonts : /usr/local/share/ghostscript/8.51/lib :
    /usr/local/share/ghostscript/8.51/Resource :
-   /usr/share/ghostscript/fonts</pre></small></td></tr></table>
+   /usr/share/ghostscript/fonts</pre></td></tr></table>
 </blockquote>
 
 <p>The key thing here is:</p>

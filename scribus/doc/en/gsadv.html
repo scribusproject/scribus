@@ -8,9 +8,9 @@
 <ol>
 	<li>There are real substantial improvements in the ability of GS 8.x to handle EPS and PDF files which have the kinds of advanced features Scribus and other DTP applications can create. <strong>This can in some cases directly affect the quality of EPS and PS imports into Scribus.</strong></li>
 	<li>You can build it with full on compiler optimization, which speeds up print and separation previews in Scribus. This is probably more beneficial to older workstations, compared to newer ones. My alternative GS is compiled with: 
-	<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+	<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 	<pre>--march=i686 -fomit-frame-pointer -O2.</pre>
-	</small></td></tr></table></blockquote>
+	</td></tr></table></blockquote>
 	 Image processing programs are one area where compiler optimizations <strong>do</strong> make a difference.</li>
 	<li>Having the latest GS, makes GSview (and Scribus) more capable and more robust at handling both EPS files and a special kind of EPS called DCS 2.0.</li>
 	<li>Both Scribus and GSview have the ability in their preferences settings to use alternative locations for GS and GS libraries.</li>
@@ -24,36 +24,36 @@
 	<li>You can manually tweak the make files the old way or</li>
 	<li>Use the new configure script with the following options (and optionally <code>-with-jasper</code> and <code>-with-rinkj</code> with very latest versions): </li></ul>
 </ul>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>./configure --enable-compile-inits --with-x</pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>By default, `make install' will install all the files in `/usr/local/bin', `/usr/local/lib' etc.  You can specify an installation prefix other than `/usr/local' using `--prefix', for instance `
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>--prefix=$HOME</pre>
-</small></td></tr></table></blockquote></p>
+</td></tr></table></blockquote></p>
 
 <p>This default usually works fine and keeps the two sets of GS libs separated.</p>
 <p>Second Steps:</p>
 <p>There is a second step to compile Ghostscript as a shared library, which GSview needs:</p>
 <p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<small><pre>make so</pre>
-</small></td></tr></table></blockquote>
+<pre>make so</pre>
+</td></tr></table></blockquote>
 and as root:
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>make soinstall</pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 </p>
 
 <p> Now, let's check briefly:</p>
-<p><blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<p><blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>/usr/local/bin/gs -h</pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 </p>
 <p>You should have an output something like this:</p>
 
 <p></p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>AFPL Ghostscript 8.51 (2005-04-18)
 Copyright (C) 2005 artofcode LLC, Benicia, CA.  All rights reserved.
 Usage: gs [switches] [file1.ps file2.ps ...]
@@ -81,7 +81,7 @@ Search path:
    /usr/local/share/ghostscript/8.51/Resource :
    /usr/share/ghostscript/fonts
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <br />
 <p>The key thing here is:</p>
 <ol>

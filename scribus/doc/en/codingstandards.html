@@ -15,7 +15,7 @@ Revised: Peter Linnell, 06 Sept. 2005, Version: 0.06 (more text encodings stuff 
 
 <p>Prior to any method, the following should be there</p>
 
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 /*!
  \fn functionName::functionName()
@@ -26,7 +26,7 @@ Revised: Peter Linnell, 06 Sept. 2005, Version: 0.06 (more text encodings stuff 
  \retval None
  */
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 
 <p>There should be something similar prior to the class definitions.</p>
 
@@ -40,7 +40,7 @@ Revised: Peter Linnell, 06 Sept. 2005, Version: 0.06 (more text encodings stuff 
 <p>All variables should begin in lower case letters. If the variable has more than one part to it, then the second part should begin in a capital letter. For example <code>int foo</code> and <code>int fooBar</code>. Under no circumstances should an underscore (_) be used.</p>
 <p>Variables should be clear in their naming. The exception to this is in a for loop. In preference, these should be in English. We are in the process of converting and altering the current ones to fit in with this.</p>
 <p>Any temporary variables (such as those used in a <code>for</code> loop or those only used within a scope), should only be declared where they are needed and not used in a global scope. If there is a condition at the start of a method, any variables required should be declared, but nothing else. For example</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 void foo::bar(f *b)
 {
@@ -53,7 +53,7 @@ void foo::bar(f *b)
 	// rest of the code
 }
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>should not have the double variables declared. It is arguable if g should be declared, but in this example, it doesn't matter.</p>
 
 <p>If a variable is not required, don't create it. In the example above, there is no requirement for g to be used.</p>
@@ -72,7 +72,7 @@ void foo::bar(f *b)
 
 <h4>Conditionals</h4>
 <p>Always make a conditional logical. This may sound silly, but look at the following example</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 int foobar(bool m)
 {
@@ -90,10 +90,10 @@ int foobar(bool m)
 	}
 }
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 
 <p>This can be re-written to make things clearer</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 int foobar(bool m)
 {
@@ -103,13 +103,13 @@ int foobar(bool m)
    somethingC(c);
 }
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>A lot simpler to see and will usually optimize far better.</p>
 
 <p>Ternary conditionals (?) should be used in preference to <code>if</code> / <code>else</code>. These are usually far quicker to process the code once compiled.</p>
 
 <p>Depending on what is being performed, switch statements should be avoided. There is usually a simpler way to avoid them. For example</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 int b;
 string s;
@@ -128,16 +128,16 @@ switch (f)
 		s = "twelve";
 }
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>can be re-written as</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 int b = f * 4;
 char *number[] = {"four", "eight", "twelve"};
 size_t no = sizeof(number) / sizeof(*number);
 s = number(f);
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>The switch has gone and the code generated runs far faster and as the conditions don't need to be created, will optimize far better. Note: when using the <code>QObject::tr()</code> function, this method of using char* may not always work properly. An alternative is to use <code>QString number[] = {"four", "eight", "twelve"};</code> etc.
 
 <p>Obviously for more complex switch conditions, the above can't be used.</p>
@@ -145,7 +145,7 @@ s = number(f);
 <h4>Conditionals formatting</h4>
 
 <p>Formatting should look like this:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 if (fred == 5)
 {
@@ -153,9 +153,9 @@ if (fred == 5)
 	// something
 }
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>Switch formatting should look like this:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 switch (f)
 {
@@ -178,32 +178,32 @@ switch (f)
 		break;
 }
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>Simple to read and simple to see where the conditional ends.</p>
 <p>Under NO circumstances should you have a line such as:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 if (foo == bar) { somethingA(0); }
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>This should be written as:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 if (foo == bar)
 	somethingA(0);
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>If braces are not required, don't use them. For example, braces wouldn't be needed here</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 for (int j = 0; j &lt; 10; ++j)
 	cout &lt;&lt; j &lt;&lt; &quot;\n&quot;?;
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <h4>Pre or post increments</h4>
 
 <p>In for loops, preincrements should be used (++a rather than a++). Under ARM processors and x64 processors (not sure about ia64) ++a requires half the number of clock cycles than the post processor style. In some circumstances, ++a is far more efficient under ia32. It is even more efficient when used with iterators. Post increments should be used in the following sort of code:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 if (b == true)
 {
@@ -211,7 +211,7 @@ if (b == true)
 	m-&gt;wobble(c++);
 }
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 
 <h4>Spacings</h4>
 <p>There should be a space after:</p>
@@ -250,23 +250,23 @@ if (b == true)
 
 <p>In constructors, it is somewhat faster to use:</p>
 
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 Fred::Fred() : ParentClass(),
 	argument1("initialValue"),
 	argument2(INITIAL_VALUE)
 {
 }
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 
 <p>than</p>
 
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 Fred::Fred() : ParentClass()
 {
 	argument1 = "initialvalue";
 	argument2 = INITIAL_VALUE;
 }
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 
 <p>for much the same reasons as outlined above. It's best to initialize the members in the same order that they're listed in the class declaration.</p>
 
@@ -274,15 +274,15 @@ Fred::Fred() : ParentClass()
 
 <p>Due to the unavailability of exceptions (see below), we're using <code>Q_CHECK_PTR</code> to check allocations. This means that you get an abort with a useful message when an allocation fails, rather than an unexplained segfault.<p>
 
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 int *m = new int[2048];
 Q_CHECK_PTR(m);
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 
 <h5>Exceptions</h5>
 
 <p>All calls to <code>new</code> should ideally be trapped. This is not currently implemented in current releases. The preferred method would be:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 #include &lt;new&gt;
 
@@ -297,7 +297,7 @@ catch(bad_exception)
   exit(EXIT_FAILURE);
 }
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>As there are many calls in Scribus to new, these will have a wrapper around.</p>
 <p>For users of Qt who compile their own, they will need to include in the <code>./configure</code> script that they want to throw C++ exceptions. Failure to do so will result in the catches not catching and possibly Scribus failing to run.</p>
 <p>Currently (for v3.2 - v3.4), KDE recommend Qt is compiled without exceptions. This is a bad idea as it means trapping bad memory allocations cannot be caught using the preferred method. As most distributions follow this recommendation, that means we (Scribus) can't expect to be able to rely on exceptions.</p>
@@ -316,9 +316,9 @@ catch(bad_exception)
 
 <p>You should absolutely never do this:</p>
 
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 QString blah = anotherQString.utf8();
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 
 <p>The above code:</p>
 <ul>
@@ -333,13 +333,13 @@ QString blah = anotherQString.utf8();
 
 <p>Don't convert a QString to a byte string when writing to a QTextStream - the QTextStream does that for you in operator&lt;&lt; . For example:</p>
 
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 QTextStream ts(&amp;file);
 // In this case we know we want to write out UTF-8 to this file, not write in
 // the local 8-bit byte string encoding.
 ts.setEncoding(QTextStream::UnicodeUTF8);
 ts &lt;&lt; someQString.utf8();
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 
 <p>as that's the same error as in the previous example, just written a different way. Instead, you should omit the <code>.utf8()</code>.</p>
 

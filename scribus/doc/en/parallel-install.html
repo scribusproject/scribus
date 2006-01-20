@@ -6,28 +6,28 @@
 <p>And then the day came. The day you read about <em><strong>the magnificent feature</strong></em> implemented in CVS. You really want to try it but you're afraid of the possible problems with untested code etc, so you don't want to replace your stable installed package.</p>
 <p>Assume a situation when you've got Scribus installed from your favorite distro (rpm, deb etc. depending on distro) or installed from sources (tar.gz usually into <code>/usr/local</code>) and you have a freshly downloaded CVS snapshot. The following operations are made by a normal user not as <code>root</code>.</p>
 <p>Create a directory where you want the new Scribus located (in your favourite filemanager) e.g.:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>mkdir ~/scribus_cvs</pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>Then go into the downloaded and unpacked CVS directory:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>cd ~/Scribus</pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>and run: (It's needed only for CVS)</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>make -f Makefile.cvs</pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>And now the important task. You have to specify the target where CVS Scribus to install not to replace the distribution's release or standard installed tar.gz package:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 $./configure --prefix=/home/yourusername/scribus_cvs</pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>Then it's time for the classic:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
 make
 make install
 </pre>
-</small></td></tr></table></blockquote>
+</td></tr></table></blockquote>
 <p>When it's done, you can run the new Scribus by <code>~/scribus_cvs/bin/scribus</code></p>
 </qt>
