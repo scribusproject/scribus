@@ -335,7 +335,10 @@ if test "$disable_xml2" != "yes"; then
 	if test -n "$XML_CONFIG"; then
 		XML_LIBS="`$XML_CONFIG --libs`"
 		XML_CFLAGS="`$XML_CONFIG --cflags`"
+		SAVE_LDFLAGS="$LDFLAGS"
+		LDFLAGS="$all_libraries $XML_LDFLAGS $LDFLAGS"
 		AC_CHECK_LIB(xml2, attribute, [haxml=yes],[haxml=no])
+		LDFLAGS="$SAVE_LDFLAGS"
 		if test $haxml = yes; then
 			AC_DEFINE_UNQUOTED(HAVE_XML, 1, [Defines if your system has the libxml2 library])
 			AC_SUBST(XML_LIBS)
@@ -429,9 +432,14 @@ dnl Checks for libtiff - library exists, tiffvers.h can be found, and new enough
 LIBTIFF=""
 hastif=
 dnl Check if we have libtiff
+SAVE_LDFLAGS="$LDFLAGS"
+LDFLAGS="$all_libraries $LDFLAGS"
 AC_CHECK_LIB(tiff, TIFFOpen, [LIBTIFF="-ltiff";hastif=yes],[LIBTIFF="";hastif=no],[-lm])
+LDFLAGS="$SAVE_LDFLAGS"
 if test $hastif = yes; then
 	dnl Check for tiffvers.h
+	SAVE_CFLAGS="$CFLAGS"
+	CFLAGS="$all_includes $CFLAGS"
 	AC_CHECK_HEADER(tiffvers.h, [], [LIBTIFF="";hastif=no])
 	if test $hastif = yes; then
 		dnl Now attempt to check if libtiff is new enough
@@ -445,6 +453,7 @@ if test $hastif = yes; then
 		], [], [LIBTIFF="";hastif=pre36])
 		AC_MSG_RESULT($hastif)
 	fi
+	CFLAGS="$SAVE_CFLAGS"
 fi
 if test "${hastif}" != "yes"; then
 	libmissing libtiff optional
@@ -495,7 +504,10 @@ LIBCUPS=""
 hacups=no
 if test "$disable_cups" != "yes" ; then
 	# Look for cups.h
+	SAVE_CFLAGS="$CFLAGS"
+	CFLAGS="$all_includes $CFLAGS"
 	AC_CHECK_HEADER(cups/cups.h, [hacups_h=yes],[hacups_h=no])
+	CFLAGS="$SAVE_CFLAGS"
 	AC_CHECK_PROG(hacups_cfg, cups-config, yes, no)
 	echo "'$hacups_cfg' '$hacups_h'" >/tmp/cfg
 	if test "x$hacups_h" = "xyes" && test "x$hacups_cfg" = "xyes"; then
@@ -621,26 +633,36 @@ AM_CONDITIONAL(HAVE_SCRIPTER2, test "$use_scripter2" = "yes")
 AC_SUBST(BOOST_PYTHON_CXXFLAGS)
 AC_SUBST(BOOST_PYTHON_LDFLAGS)
 
-dnl We have to do our Qt version check only after KDE's magic has found Qt
-AC_MSG_CHECKING([if we're trying to compile against Qt 4])
-SAVE_CFLAGS="${CFLAGS}"
-CFLAGS="${QT_INCLUDES} ${CFLAGS}"
-dnl If this snippet compiles correctly, we're using an older Qt and are fine.
-dnl If it fails, we know we're using Qt 4. We don't need to test for Qt 3.3
-dnl here, AC_PATH_QT has done that for us.
-AC_TRY_COMPILE([
-#include <qglobal.h>
-],[
-#if QT_VERSION >= 0x040000
-#error Scribus does not support Qt 4
-#endif
-], [using_qt4=no], [using_qt4=yes])
-CFLAGS="${SAVE_CFLAGS}"
-if test "${using_qt4}" = "yes"; then
-	AC_MSG_RESULT([Qt 4 found])
-	AC_MSG_ERROR([Scribus does not yet support Qt 4])
-else
-	AC_MSG_RESULT([Usable Qt 3.x found])
+
+AC_ARG_ENABLE(qt4-test,
+			  [  --disable-qt4-test   Skip a sanity check with Qt4 detection. Don't report bugs if you use this.],
+			  [notestqt4="yes"])
+if ! test "$notestqt4" = "yes" ; then
+	dnl We have to do our Qt version check only after KDE's magic has found Qt
+	dnl Note that configure does this test with gcc, not g++, so we need to use
+	dnl CFLAGS not CXXFLAGS. Also, if QT_INCLUDES is the same as X_INCLUDES,
+	dnl only X_INCLUDES must be set, so we must include both. Just use $all_includes
+	dnl to work around the mess.
+	SAVE_CFLAGS="${CFLAGS}"
+	CFLAGS="$all_includes ${CFLAGS}"
+	AC_MSG_CHECKING([if we're trying to compile against Qt 4])
+	dnl If this snippet compiles correctly, we're using an older Qt and are fine.
+	dnl If it fails, we know we're using Qt 4. We don't need to test for Qt 3.3
+	dnl here, AC_PATH_QT has done that for us.
+	AC_TRY_COMPILE([
+	#include <qglobal.h>
+	],[
+	#if QT_VERSION >= 0x040000
+	#error Scribus does not support Qt 4
+	#endif
+	], [using_qt4=no], [using_qt4=yes])
+	if test "${using_qt4}" = "yes"; then
+		AC_MSG_RESULT([Qt 4 found])
+		AC_MSG_ERROR([Scribus does not yet support Qt 4])
+	else
+		AC_MSG_RESULT([Usable Qt 3.x found])
+	fi
+	CFLAGS="${SAVE_CFLAGS}"
 fi
 
 dnl Check to see if we're using gcc4, and if so disable a couple of warning flags that
