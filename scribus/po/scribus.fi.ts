@@ -2756,7 +2756,7 @@ Delete the named master page.
     </message>
     <message>
       <source>Save as P&amp;DF...</source>
-      <translation>Tallenna P&amp;DF:na...</translation>
+      <translation>Tallenna P&amp;DF:nä...</translation>
     </message>
     <message>
       <source>Document &amp;Setup...</source>
@@ -2964,7 +2964,7 @@ Delete the named master page.
     </message>
     <message>
       <source>&amp;Attributes...</source>
-      <translation>&amp;Ominaisuudet...</translation>
+      <translation>&amp;Muuttujat...</translation>
     </message>
     <message>
       <source>I&amp;mage Visible</source>
@@ -3523,7 +3523,7 @@ Delete the named master page.
     </message>
     <message>
       <source>Page</source>
-      <translation>Sivuun</translation>
+      <translation>Sivu</translation>
     </message>
     <message>
       <source>Margins</source>
@@ -6063,7 +6063,7 @@ Voit määrittää sen asetuksissa.</translation>
     <name>DocumentItemAttributesBase</name>
     <message>
       <source>Document Item Attributes</source>
-      <translation>Kohteen ominaisuudet</translation>
+      <translation>Kohteen muuttujat</translation>
     </message>
     <message>
       <source>Name</source>
@@ -7092,7 +7092,7 @@ joita on tarkoitus katsella näytöltä</translation>
     <message>
       <source>Woven silk pyjamas exchanged for blue quartz</source>
       <comment>font preview</comment>
-      <translation>Törkylempijä vongahdus (Wikipedia: pangram)</translation>
+      <translation>Törkylempijä vongahdus on suomenkielinen pangram</translation>
     </message>
   </context>
   <context>
@@ -7228,7 +7228,7 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
       <source>&amp;Page</source>
-      <translation>&amp;Sivuun</translation>
+      <translation>&amp;Sivu</translation>
     </message>
     <message>
       <source>&amp;Margins</source>
@@ -9468,11 +9468,11 @@ Corners:</source>
     </message>
     <message>
       <source>Anti-alias &amp;Text</source>
-      <translation>&amp;Antialiosi teksti</translation>
+      <translation>&amp;Reunanpehmennys tekstiin</translation>
     </message>
     <message>
       <source>Anti-alias &amp;Graphics</source>
-      <translation>Antialisoi &amp;grafiikka</translation>
+      <translation>Reunanpehmennys &amp;grafiikkaan</translation>
     </message>
     <message>
       <source>Display Trans&amp;parency</source>
@@ -9625,7 +9625,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     <name>PageItemAttributesBase</name>
     <message>
       <source>Page Item Attributes</source>
-      <translation>Kohteen ominaisuudet</translation>
+      <translation>Kohteen muuttujat</translation>
     </message>
     <message>
       <source>Name</source>
@@ -10249,11 +10249,11 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
       <source>Antialias text for EPS and PDF onscreen rendering</source>
-      <translation>Antialisoi EPS- ja PDF-teksti näytöllä</translation>
+      <translation>Käytä reunanpehmennystä EPS- ja PDF-tekstiin näytöllä</translation>
     </message>
     <message>
       <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-      <translation>Antialisoi EPS- ja PDF-grafiikka näytöllä</translation>
+      <translation>Käytä reunanpehmennystä EPS- ja PDF-grafiikkaan näytöllä</translation>
     </message>
     <message>
       <source>Do not show objects outside the margins on the printed page or exported file</source>
@@ -10357,11 +10357,11 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
       <source>Antialias &amp;Text</source>
-      <translation>Antialisoi &amp;teksti</translation>
+      <translation>Reunanpehmennys &amp;tekstiin</translation>
     </message>
     <message>
       <source>Antialias &amp;Graphics</source>
-      <translation>Antialisoi &amp;grafiikka</translation>
+      <translation>Reunanpehmennys &amp;grafiikkaan</translation>
     </message>
     <message>
       <source>Name of &amp;Executable:</source>
@@ -10401,7 +10401,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
       <source>Hyphenator</source>
-      <translation>Tavuttaja</translation>
+      <translation>Tavutus</translation>
     </message>
     <message>
       <source>Fonts</source>
@@ -10417,7 +10417,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
       <source>Document Item Attributes</source>
-      <translation>Kohteen ominaisuudet</translation>
+      <translation>Kohteen muuttujat</translation>
     </message>
     <message>
       <source>Table of Contents and Indexes</source>
@@ -10770,7 +10770,7 @@ Haluatko tuoda ne uuteen Scribuksen versioon?</translation>
     </message>
     <message>
       <source>You can select predefined page layout here. 'None' leave margins as is, Gutenberg sets margins classically. 'Magazine' sets all margins for same value. Leading is Left/Inside value.</source>
-      <translation>Voit valita valmiin asettelun sivuillesi. &quot;Ei mitään&quot; jättää marginaalit asetettuihin arvoihin. Gutenberg asettaa ne klassiseen tyyliin. Magazine antaa kaikilla reunuksille saman arvon. Leading on vasemman tai sisäpuolen arvo.</translation>
+      <translation>Voit valita valmiin asettelun sivuillesi. &quot;Ei mitään&quot; jättää marginaalit asetettuihin arvoihin. Gutenberg asettaa ne klassiseen tyyliin. Magazine antaa kaikilla reunuksille saman arvon. Ensimmäinen kohta on vasemman tai sisäpuolen arvo.</translation>
     </message>
   </context>
   <context>
@@ -10967,7 +10967,7 @@ Haluatko tuoda ne uuteen Scribuksen versioon?</translation>
     </message>
     <message>
       <source>Attributes</source>
-      <translation>Määreet</translation>
+      <translation>Muuttujat</translation>
     </message>
     <message>
       <source>OK</source>
@@ -12085,7 +12085,7 @@ External Links
     <message>
       <source>element &lt;%1> lacks `value' attribute</source>
       <comment>Load PDF settings</comment>
-      <translation>elementistä &lt;%1> puuttuu value-attribuutti</translation>
+      <translation>elementistä &lt;%1> puuttuu value-muuttuja</translation>
     </message>
     <message>
       <source>element &lt;%1> value must be `true' or `false'</source>
@@ -12095,7 +12095,7 @@ External Links
     <message>
       <source>element &lt;lpiSettingsEntry> lacks `name' attribute</source>
       <comment>Load PDF settings</comment>
-      <translation>elementistä &lt;lpiSettingsEntry> puuttuu name-attribuutti</translation>
+      <translation>elementistä &lt;lpiSettingsEntry> puuttuu name-muuttuja</translation>
     </message>
     <message>
       <source>Freetype2 library not available</source>
@@ -12933,7 +12933,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>Hyphenator</source>
-      <translation>Tavuttaja</translation>
+      <translation>Tavutus</translation>
     </message>
     <message>
       <source>Fonts</source>
@@ -12945,7 +12945,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>Document Item Attributes</source>
-      <translation>Kohteen ominaisuudet</translation>
+      <translation>Kohteen muuttujat</translation>
     </message>
     <message>
       <source>Table of Contents and Indexes</source>
@@ -13372,7 +13372,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
       <source>Initializing Hyphenator</source>
-      <translation>Alustetaan tavuttajaa</translation>
+      <translation>Alustetaan tavutusta</translation>
     </message>
     <message>
       <source>Reading Scrapbook</source>
@@ -13500,7 +13500,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
       <source>&amp;Page</source>
-      <translation>&amp;Sivuun</translation>
+      <translation>&amp;Sivu</translation>
     </message>
     <message>
       <source>&amp;View</source>
@@ -14747,11 +14747,11 @@ Käytä tarkastustyökalua korjataksesi ne.</translation>
     </message>
     <message>
       <source>Item Attribute Name:</source>
-      <translation>Kohteen ominaisuuden nimi:</translation>
+      <translation>Kohteen muuttujan nimi:</translation>
     </message>
     <message>
       <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-      <translation>Kohteen ominaisuuden nimi, jota käytetään merkitsemään kehyksiä, joista sisällysluettelo muodostuu</translation>
+      <translation>Kohteen muuttujan nimi, jota käytetään merkitsemään kehyksiä, joista sisällysluettelo muodostuu</translation>
     </message>
     <message>
       <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
@@ -14818,11 +14818,11 @@ Käytä tarkastustyökalua korjataksesi ne.</translation>
     </message>
     <message>
       <source>Item Attribute Name:</source>
-      <translation>Ominaisuuden nimi:</translation>
+      <translation>Muuttujan nimi:</translation>
     </message>
     <message>
       <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-      <translation>Kohteen ominaisuuden nimi, jota käytetään merkitsemään kehyksiä, joista sisällysluettelo muodostuu</translation>
+      <translation>Kohteen muuttujan nimi, jota käytetään merkitsemään kehyksiä, joista sisällysluettelo muodostuu</translation>
     </message>
     <message>
       <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
@@ -15828,7 +15828,7 @@ suoritettava Javascript:</translation>
     </message>
     <message>
       <source>Woven silk pyjamas exchanged for blue quartz</source>
-      <translation>Törkylempijä vongahdus (Wikipedia: Pangram)</translation>
+      <translation>Törkylempijä vongahdus on suomenkielinen pangram</translation>
     </message>
     <message>
       <source>&amp;Line Color:</source>
