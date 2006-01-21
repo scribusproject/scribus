@@ -438,6 +438,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								}
 							}
 						}
+						if (!m_Doc->masterPageMode())
+						{
 						for (a = 0; a < docItemsCount; ++a)
 						{
 							PageItem* docItem = m_Doc->Items->at(a);
@@ -472,6 +474,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								pp.end();
 								cl = cl.subtract(cm);
 							}
+						}
 						}
 					}
 					else
