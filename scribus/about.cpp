@@ -163,11 +163,11 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Eirik Øverby</td><td>ltning@anduin.net</td></tr>" +
 											"<tr><td></td><td></td></tr>" +
 
-											"<tr><td><b>" + tr("Mac OSX Aqua Port:").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + tr("Mac OS&#174; X Aqua Port:").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Andreas Vox</td><td>avox@arcor.de</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 
-											"<tr><td><b>" + tr("Windows Port:").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + tr("Windows&#174; Port:").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Jean Ghali</td><td>jghali@libertysurf.fr</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 
