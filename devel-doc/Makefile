@@ -7,10 +7,7 @@ all:
 	cat templates/footer.html >> index.html
 
 clean:
-	rm *.html
-	rm *.png
-	rm *.css
-	rm error.log
+	rm *.ttf *.dot *.html *.png *.css error.log
 
 tgz:
 	tar -cf Scribus-devel-docs.tar *
