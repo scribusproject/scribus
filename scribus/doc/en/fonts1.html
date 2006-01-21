@@ -1,10 +1,10 @@
-<qt>
-<title>Font Preferences and Managing Fonts with Scribus</title>
-<h2>Font Preferences and Managing Fonts with Scribus</h2>
+<ul>
+<title>Font Preferences and Managing Fonts with Scribus - Linux/Unix</title>
+<h2>Font Preferences and Managing Fonts with Scribus  Linux/Unix</h2>
 
 <h3>Overview</h3>
 
-<p>Scribus, has a couple of helpful and easy to use panels for managing fonts to use with Scribus, as well as, methods to make your own global font preferences and substitutions for Scribus easy. Within the new font preferences, you can:</p>
+<p>Scribus has a couple of helpful and easy to use panels for managing fonts to use with Scribus, as well as, methods to make your own global font preferences and substitutions for Scribus easy. Within the new font preferences, you can:</p>
 
 <ul>
 	<li>Set additional user defined font paths, which do not need root permissions, nor the need to manually adjust font paths in the Xfree86 or X.org config files.</li>
@@ -12,7 +12,7 @@
 	<li>Adjust settings for on the fly substitutions for missing or unavailable fonts.</li>
 </ul>
 
-<p>At first appearance, it might seem a bit confusing at first, as some options are grayed out initially. However, this does have some logic as we will see. One of the historical challenges in font handling with Xfree86 or X.org is when some applications start adding font paths to the default font path setup by Xfree86 or X.org . The newer fontconfig mechanism and Freetype2 have greatly made brought sanity to one of the long standing end user problems with Linux on the desktop.</p>
+<p>At first appearance, it might seem a bit confusing as some options are initially grayed out. However, this does have some logic as we will see. One of the main reasons is to <strong>not</strong> remove fonts which might be used while editing a document. One of the historical challenges in font handling with Xfree86 or X.org is when some applications start adding font paths to the default font path setup by Xfree86 or X.org . The newer fontconfig mechanism and Freetype2 have greatly made brought sanity to one of the long standing end user problems with Linux on the desktop.</p>
 
 
 <h3>Adding additional font paths:</h3>
@@ -22,7 +22,7 @@
 <table width="100%"><tr><td align="center"><img src="images/fontpref1.png" alt="Adding additional font paths." title="Adding additional font paths."/></td></tr></table>
 
 <p>Here you can add font paths, which are not part of the XFree86 or X-org defaults. In the example here, we have added three user defined paths where there are fonts we wish to use within Scribus. The
-directory <code>.fonts</code> is the default directory for use with the new <a href="fontconfig.html">fontconfig</a> mechanism with Xft2 included with newer distributions. After clicking <strong>OK</strong>, Scribus will add these font paths and any correctly installed fonts will be available immediately to new or existing documents you open.</p>
+directory <code>.fonts</code> is the default directory for use with the new <a href="http://fontconfig.org">fontconfig</a> mechanism with Xft2 included with newer distributions. After clicking <strong>OK</strong>, Scribus will add these font paths and any correctly installed fonts will be available immediately to new or existing documents you open.</p>
 
 <h3>Font Substitutions</h3>
 
@@ -32,7 +32,7 @@ directory <code>.fonts</code> is the default directory for use with the new <a h
 
 <h4>Available Fonts</h4>
 
-<p>This tab shows available system-wide fonts, including user specified paths. You can also change which fonts are used within Scribus on a font by font basis, as well as which fonts are embedded within postscript output.</p>
+<p>This tab shows available system-wide fonts, including user specified paths. You can also change which fonts are used within Scribus on a font by font basis, as well as which fonts are embedded within PostScript output.</p>
 
 <table width="100%"><tr><td align="center"><img src="images/fontpref3.png" alt="Available Fonts and Embedding Preferences" title="Available Fonts and Embedding Preferences"/></td></tr></table>
 
@@ -40,9 +40,9 @@ directory <code>.fonts</code> is the default directory for use with the new <a h
 
 <h3>Other notes about fonts and font management:</h3>
 <ul>
-<li><strong>Sub-Setting</strong> fonts is including all the glyphs in the font in the postscript stream or a PDF. This allows smaller PDFs, at the expense of making it difficult to make minor edits in pre-press tools like Pit Stop. Unless you are sending PDF to commerical printer, you can sub-set fonts fairly reliably. This is important when you are trying to keep a downloadable PDF to the smallest size.</li>
-<li><strong>OpenType Fonts</strong> cannot be fully embedded by default. This greatly simplifies handling them in other applications. OpenType Fonts and Unicode TrueType Fonts can be quite large.  OpenType Fonts are exported as outlines in PDF. The allows them to be used in PDF, where often other applications cannot use them.</li>
-<li><strong>Converting to outlines.</strong> Scribus can optionally convert text to postscript outlines. This can be a valuable option when your printer might not have a new enough RIP or imagesetter to accept PDF 1.4. This is also sometime a good option before exporting SVG or EPS files. When you are certain EPS files will be imported into other applications or across platforms this is recommended.</li>
-<li><strong>Scribus does not create so called "faux" bold or italic fonts.</strong>  These are the bane of pre-press folks and has been known to cause issues when printing commercially and can result in degraded text quality. Thus, Scribus will not create an Italic version of a font if you really do not have an Italic font file for a given font family. Some page layour applications and word processors have chosen to offer this as a "feature". The Scribus development team has made a conscious decision <strong>not</strong> to enable this. </li>
+<li><strong>Sub-Setting</strong> fonts is including all the glyphs in the font in the PostScript stream or a PDF. This allows smaller PDFs, at the expense of making it difficult to make minor edits in pre-press tools like Pit Stop. Unless you are sending PDF to commerical printer, you can sub-set fonts fairly reliably. This is important when you are trying to keep a downloadable PDF to the smallest size.</li>
+<li><strong>OpenType Fonts</strong> cannot be fully embedded by default. This greatly simplifies handling them in other applications. OpenType Fonts and Unicode TrueType Fonts can be quite large.  OpenType Fonts are exported as outlines in PDF. This allows them to be used in PDF, where often other applications cannot use them.</li>
+<li><strong>Converting to outlines.</strong> Scribus can optionally convert text to PostScript outlines. This can be a valuable option when your printer might not have a new enough RIP or imagesetter to accept PDF 1.4. This is also sometimes a good option before exporting SVG or EPS files. When you are certain EPS files will be imported into other applications or across platforms this is recommended.</li>
+<li><strong>Scribus does not create so called "faux" bold or italic fonts.</strong>  These are the bane of pre-press folks and has been known to cause issues when printing commercially and can result in degraded text quality. Thus, Scribus will not create an Italic version of a font if you really do not have an Italic font file for a given font family. Some page layout applications and word processors have chosen to offer this as a "feature". The Scribus development team has made a conscious decision <strong>not</strong> to enable this. </li>
 </ul>
 </qt>
