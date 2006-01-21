@@ -2602,14 +2602,6 @@ Delete the named master page.
       <translation>Tietoja Scribuksesta %1</translation>
     </message>
     <message>
-      <source>Windows Port:</source>
-      <translation>Windows-versio:</translation>
-    </message>
-    <message>
-      <source>Mac OSX Aqua Port:</source>
-      <translation>Mac OSX Aqua -versio</translation>
-    </message>
-    <message>
       <source>Wiki</source>
       <translation>Wiki</translation>
     </message>
@@ -2644,6 +2636,14 @@ Delete the named master page.
     <message>
       <source>January</source>
       <translation>tammikuu</translation>
+    </message>
+    <message>
+      <source>Mac OS&amp;#174; X Aqua Port:</source>
+      <translation>Mac OS&amp;#174; X Aqua -versio:</translation>
+    </message>
+    <message>
+      <source>Windows&amp;#174; Port:</source>
+      <translation>Windows&amp;#174; -versio:</translation>
     </message>
   </context>
   <context>
@@ -3523,7 +3523,7 @@ Delete the named master page.
     </message>
     <message>
       <source>Page</source>
-      <translation>Sivu</translation>
+      <translation>Sivuun</translation>
     </message>
     <message>
       <source>Margins</source>
@@ -14861,7 +14861,7 @@ Käytä tarkastustyökalua korjataksesi ne.</translation>
     </message>
     <message>
       <source>Automatic check before printing or exporting</source>
-      <translation>Automaattinen tarkastus enne tulostusta tai vientiä</translation>
+      <translation>Automaattinen tarkastus ennen tulostusta tai vientiä</translation>
     </message>
     <message>
       <source>Check for missing glyphs</source>
@@ -15722,11 +15722,11 @@ Käytä tarkastustyökalua korjataksesi ne.</translation>
     </message>
     <message>
       <source>Double Page Left</source>
-      <translation>Vastakkaiset sivut, vasen</translation>
+      <translation>Aukeama, vasen</translation>
     </message>
     <message>
       <source>Double Page Right</source>
-      <translation>Vastakkaiset sivut, oikea</translation>
+      <translation>Aukeama, oikea</translation>
     </message>
     <message>
       <source>Visual Appearance</source>
@@ -15734,31 +15734,31 @@ Käytä tarkastustyökalua korjataksesi ne.</translation>
     </message>
     <message>
       <source>Use Viewers Defaults</source>
-      <translation>Käytä ohjelman oletusarvoja</translation>
+      <translation>Oletusarvot</translation>
     </message>
     <message>
       <source>Use Full Screen Mode</source>
-      <translation>Käytä kokonäytön tilaa</translation>
+      <translation>Kokonäytön tila</translation>
     </message>
     <message>
       <source>Display Bookmarks Tab</source>
-      <translation>Näytä kirjainmerkkipalkki</translation>
+      <translation>Kirjanmerkkipalkki</translation>
     </message>
     <message>
       <source>Display Thumbnails</source>
-      <translation>Näytä esikatselukuvat</translation>
+      <translation>Esikatselukuvat</translation>
     </message>
     <message>
       <source>Display Layers Tab</source>
-      <translation>Näytä tasot-palkki</translation>
+      <translation>Näytä tasovalikko</translation>
     </message>
     <message>
       <source>Hide Viewers Toolbar</source>
-      <translation>Piilota ohjelman työkalurivi</translation>
+      <translation>Piilota työkalurivi</translation>
     </message>
     <message>
       <source>Hide Viewers Menubar</source>
-      <translation>Piilota ohjelman valikkorivi</translation>
+      <translation>Piilota valikkorivi</translation>
     </message>
     <message>
       <source>Zoom Pages to fit Viewer Window</source>
