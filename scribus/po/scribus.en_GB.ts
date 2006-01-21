@@ -6136,6 +6136,10 @@ This can be set in the Preferences.</translation>
         <source>String</source>
         <translation>String</translation>
     </message>
+    <message>
+        <source>Real Number</source>
+        <translation>Real Number</translation>
+    </message>
 </context>
 <context>
     <name>DocumentItemAttributesBase</name>
@@ -6395,6 +6399,10 @@ a range of pages or a single page number.</translation>
     <message>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
         <translation>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</translation>
+    </message>
+    <message>
+        <source>Failed to retrieve printer settings</source>
+        <translation>Failed to retrieve printer settings</translation>
     </message>
 </context>
 <context>
@@ -9619,6 +9627,10 @@ Corners:</translation>
     <message>
         <source>Close</source>
         <translation>Close</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>File</translation>
     </message>
 </context>
 <context>
@@ -13360,6 +13372,13 @@ converting their vector data into Scribus objects.</translation>
     </message>
 </context>
 <context>
+    <name>ScWinPrint</name>
+    <message>
+        <source>Printing...</source>
+        <translation>Printing...</translation>
+    </message>
+</context>
+<context>
     <name>ScriXmlDoc</name>
     <message>
         <source>Copy #%1 of </source>
@@ -13827,6 +13846,14 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Y-Pos:</source>
         <translation>Y-Pos:</translation>
+    </message>
+    <message>
+        <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
+        <translation>Ghostscript : You cannot use EPS images or PostScript Print Preview</translation>
+    </message>
+    <message>
+        <source>Ghostscript is missing : Postscript Print Preview is not available</source>
+        <translation>Ghostscript is missing : Postscript Print Preview is not available</translation>
     </message>
 </context>
 <context>
