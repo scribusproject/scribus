@@ -4200,10 +4200,9 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							//currItem->convertTo(PageItem::PolyLine);
 							//currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
 							PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PolyLine);
-							newItem->SetPolyClip(qRound(QMAX(newItem->Pwidth / 2, 1)));
+							//newItem->SetPolyClip(qRound(QMAX(newItem->Pwidth / 2, 1)));
 							currItem=newItem;
 							emit PolyOpen();
-							
 						}
 						else
 						{
@@ -4507,6 +4506,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				HowTo = 0;
 				HanMove = false;
 	//			slotDoCurs(false);
+				int oldP=0;
 				if (GetItem(&currItem))
 				{
 					slotDoCurs(false);
@@ -4523,9 +4523,9 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							return;
 						}
 					}
+					oldP = currItem->CPos;
 				}
 				//CB Where we set the cursor for a click in text frame
-				int oldP = currItem->CPos;
 				inText = slotSetCurs(m->x(), m->y());
 				if (!inText)
 				{

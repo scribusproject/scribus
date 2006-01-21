@@ -7385,6 +7385,7 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 void ScribusMainWindow::manageMasterPagesEnd()
 {
 	view->hideMasterPage();
+	setAppMode(modeNormal);
 	scrActions["editMasterPages"]->setEnabled(true);
 	scrActions["fileNew"]->setEnabled(true);
 	scrActions["fileOpen"]->setEnabled(true);
