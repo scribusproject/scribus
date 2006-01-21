@@ -179,7 +179,7 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components,
 			PDF_Begin_Page(doc.Pages->at(pageNs[a]-1), pm);
 			ScQApp->processEvents();
 			if (abortExport) break;
-			PDF_ProcessPage(doc.Pages->at(pageNs[a]-1), pageNs[a]-1);
+			PDF_ProcessPage(doc.Pages->at(pageNs[a]-1), pageNs[a]-1, PrefsManager::instance()->appPrefs.ClipMargin);
 			ScQApp->processEvents();
 			if (abortExport) break;
 			PDF_End_Page();
