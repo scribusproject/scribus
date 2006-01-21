@@ -401,7 +401,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					if (!OnMasterPage.isEmpty())
 					{
 						Page* Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
-						Page* Dp = m_Doc->Pages->at(OwnPage);
+						Page* Dp = m_Doc->Pages->at(savedOwnPage);
 						for (a = 0; a < m_Doc->MasterItems.count(); ++a)
 						{
 							PageItem* docItem = m_Doc->MasterItems.at(a);
@@ -441,10 +441,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						for (a = 0; a < docItemsCount; ++a)
 						{
 							PageItem* docItem = m_Doc->Items->at(a);
-							if (docItem->textFlowsAroundFrame())
+							Page* Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
+							Page* Dp = m_Doc->Pages->at(OwnPage);
+							if ((docItem->textFlowsAroundFrame()) && (docItem->OwnPage == OwnPage))
 							{
 								pp.begin(view->viewport());
-								pp.translate(docItem->xPos(), docItem->yPos());
+//								pp.translate(docItem->xPos(), docItem->yPos());
+								pp.translate(docItem->xPos() - Mp->xOffset() + Dp->xOffset(), docItem->yPos() - Mp->yOffset() + Dp->yOffset());
 								pp.rotate(docItem->rotation());
 								if (docItem->textFlowUsesBoundingBox())
 								{
@@ -471,6 +474,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							}
 						}
 					}
+					else
+					{
 					for (a = 0; a < docItemsCount; ++a)
 					{
 						PageItem* docItem = m_Doc->Items->at(a);
@@ -506,6 +511,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								cl = cl.subtract(cm);
 							}
 						}
+					}
 					}
 				}
 				if (imageFlippedH())

@@ -8950,7 +8950,7 @@ Abstand eingestellt werden</translation>
     </message>
     <message>
         <source>New Master Page %1</source>
-        <translation>Neue Mustersiete %1</translation>
+        <translation>Neue Musterseite %1</translation>
     </message>
 </context>
 <context>

@@ -530,7 +530,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							continue;
 						if ((previewMode) && (!currItem->printable()))
 							continue;
-						int savedOwnPage = currItem->OwnPage;
+						currItem->savedOwnPage = currItem->OwnPage;
+//						int savedOwnPage = currItem->OwnPage;
 						double OldX = currItem->xPos();
 						double OldY = currItem->yPos();
 						double OldBX = currItem->BoundingX;
@@ -547,7 +548,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						QRect oldR(currItem->getRedrawBounding(Scale));
 						if (clip.intersects(oldR))
 							currItem->DrawObj(painter, clip);
-						currItem->OwnPage = savedOwnPage;
+						currItem->OwnPage = currItem->savedOwnPage;
+//						currItem->OwnPage = savedOwnPage;
 						if (!currItem->ChangedMasterItem)
 						{
 							currItem->setXYPos(OldX, OldY);
@@ -6025,7 +6027,7 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 		*/
 		if (((ClRe == static_cast<int>(StartInd)) || (ClRe == static_cast<int>(EndInd-2))) &&
 //		        ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame())))
-	((currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame)))
+	((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame)))
 		{
 			if (ClRe == static_cast<int>(StartInd))
 			{
@@ -6048,7 +6050,7 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 		}
 		if (((ClRe == static_cast<int>(StartInd+1)) || (ClRe == static_cast<int>(EndInd-1))) &&
 //		        ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame())) && (MoveSym)) 
-((currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame)) && (MoveSym))
+((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame)) && (MoveSym))
 		{
 			uint kon = 0;
 			if (ClRe == static_cast<int>(StartInd+1))

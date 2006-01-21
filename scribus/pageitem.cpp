@@ -355,6 +355,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	BaseOffs = 0;
 	OwnPage = m_Doc->currentPage->pageNr();
 	oldOwnPage = OwnPage;
+	savedOwnPage = OwnPage;
 	PicArt = true;
 	PicAvail = false;
 	isPrintable = true;

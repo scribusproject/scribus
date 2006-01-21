@@ -330,6 +330,7 @@ public:
 	int OwnPage;
 	/** @brief Old page number tracked for the move undo action */
 	int oldOwnPage;
+	int savedOwnPage;
   /** Darzustellendes Bild */
 	ScImage pixm;
   /** Dateiname des Bildes */
