@@ -1,4 +1,4 @@
-This is Scribus Version 1.3.2cvs, the third release of the 1.3.x development
+This is Scribus Version 1.3.2, the third release of the 1.3.x development
 series.
 
 CHANGES 1.2.x to 1.3.x
@@ -13,9 +13,11 @@ Important notes on the differences between 1.2.x and 1.3.x:
    short cuts are not migrated and will need to be recreated once on the first
    launch 1.3.x.
 
-3) On initial launch, 1.3.x will offer to convert preferences to the new 1.3.0
+3) On initial launch, 1.3.x will offer to convert preferences to the new 1.3.x
    format. This is recommended. Scribus 1.3.x will store its preferences
-   separately from 1.2.x.
+   separately from 1.2.x. Moreover, 1.3.2 caches available fonts. The first 
+   startup may take longer than anticipated. 
+
 
 4) You *can* install both versions in parallel and run them at the same time.
    The only caveat is to install them using different prefix/ directories e.g
@@ -60,28 +62,33 @@ Other notes/known issues at the time of release:
 There is a bug in font outline handling for some fonts in the freetype
 libraries. It's being worked on upstream. Don't file a bug report. Instead
 change the font used if you need the outlines. This is not a Scribus bug.
-Some testing has shown that this bug is not present in freetype 2.1.9+, but
+Some testing has shown that this bug is not present in freetype 2.1.10+, but
 we counsel caution trying to upgrade freetype2. Upgrading freetype2 on some
 distributions can be quite difficult.
 
 PSD/CMYK TIFF Support
 
-1.3.1 now has support for CMYK PSD and 8-bit CMYK TIFF support. RGB PSD and
+1.3.2 now has support for CMYK PSD and 8-bit CMYK TIFF support. RGB PSD and
 16-bit TIFF support is being developed. PSD and TIFF support includes layers, ICC 
 profiles and embedding clipping paths. 
 
 Issue with gradients:
 
-If you have gradient (e.g. with black color) with 50% shade in both beginning 
-and end of gradient, you end up with darker center than edges. One expects the
-gradient to be with equal shade from beginning to end, especially if there is
-no other Color-Stops in-between them.
+If you have gradient (e.g. with black color) with 50% shade in both beginning
+ and end of gradient, you end up with darker center than edges. One expects 
+the gradient to have equal shading from beginning to end, especially if there
+ is no other color-stops in-between them. This we believe is a libart issue
+ and not fixable by us. The gradient will export and print properly.
+ The optional cairo build is a compile time option. The is enabled by:
+./configure --enable-cairo
+The cairo build option is experimental, has not received all the needed
+ regression tests and requires cairo 0.9+ or greater. 
+Cario 1.0+ is strongly recommended.
 
-This we believe strongly is a libart issue and not fixable by us. The gradient
- will export and print properly. Our experimental Cairo build does not have 
-these issues.  We encourage those willing to test the Cairo backend builds 
-and report issues to the mailing list and/IRC. We *know* the Cairo enabled 
-build is slower, but are encouraged by the on-going development by the Cairo team.
+Our experimental Cairo build does not have these issues.  We encourage those
+ willing to test the Cairo backend builds and report issues to the mailing 
+list and/IRC. We *know* the Cairo enabled build is slower, but are encouraged
+ by the on-going development by the Cairo team.
 
 FONT ISSUES
 ===========
@@ -192,9 +199,6 @@ http://fedora.linux.duke.edu/wiki/StackTraces
 Mac OS X
 ========
 
-Scribus for Mac OS X is best obtained through fink. See:
-http://fink.sourceforge.net/
-
 There is also information about building and using Scribus on Mac OS X on the
 Scribus wiki: http://wiki.scribus.net/ .
 
@@ -204,11 +208,7 @@ on http://aqua.scribus.net/ .
 Microsoft Windows
 =================
 
-A native win32 port is in the early stages of development. There is no ETA.
-More information will be announced on the mailing list as progress continues.
-Some information on building Scribus for Cygwin under Windows is available on
-the Scribus Wiki: http://wiki.scribus.net/  This NOT supported officially and 
-no effort will be made to integrate Cygwin in the build system.
+There is a separate readme for Windows, please see readme-win32.html
 
 
 Additional information
@@ -227,4 +227,4 @@ the Scribus community so special.
 For the Scribus Team,
 Craig Ringer
 Peter Linnell
-in November 2005
+in January 2006
