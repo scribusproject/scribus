@@ -1,5 +1,7 @@
 Scribus - 1.3.2cvs
 ==================
+- 0002881: [PPCOSX] Scribus/Aqua cannot write or read directories/files (avox)
+- 0003040: [Win32] on the page layout palette every page has a white rectangle inside its icon. (jghali)
 - 0002843: [Story Editor / Text Frames] masterpages: table containing sample text doesnt display it (fschmid)
 - 0003046: [Translation] update of russian translation for upcoming v1.3.2 (cbradney)
 - 0003021: [Shape Drawing] Closing Polylines with the Node-Editor sometimes causes change of the object being edited (fschmid)
@@ -288,4 +290,3 @@ Scribus - 1.3.2cvs
 - 0002654: [Internal] Possible bug in slotEditCopy (avox)
 - 0002653: [Translation] updated translation into Russian (cbradney)
 - 0002070: [PPCOSX] Print preview does not work (avox)
-
