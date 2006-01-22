@@ -164,7 +164,7 @@ public slots:
 	void RebuildPage();
 	void Rebuild();
 	void selMasterPage();
-	QPixmap CreateIcon(int nr, QPixmap ret);
+	QPixmap CreateIcon(int nr, QPixmap pixin);
 	void languageChange();
 
 signals:

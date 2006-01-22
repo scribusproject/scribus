@@ -758,11 +758,16 @@ void PagePalette::selMasterPage()
 		emit EditTemp(masterPageList->CurItem->text());
 }
 
-QPixmap PagePalette::CreateIcon(int nr, QPixmap ret)
+QPixmap PagePalette::CreateIcon(int nr, QPixmap pixin)
 {
 	QPainter p;
+	// Necessary on windows to ensure the pixmap is drawable
+	QPixmap ret(pixin.width(), pixin.height(), pixin.depth());
 	if (p.begin(&ret))
 	{
+		bitBlt( &ret, 0, 0, &pixin, 0, 0, pixin.width(), pixin.height() );
+		if( pixin.mask() )
+			ret.setMask( *pixin.mask() );
 		p.setBrush(white);
 		p.setBackgroundColor(white);
 		p.setBackgroundMode(QPainter::OpaqueMode);
