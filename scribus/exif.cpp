@@ -44,24 +44,22 @@ static int SectionsRead;
 #define M_COM   0xFE            // COMment
 
 
-TagTable_t ProcessTable[] = {
-    { M_SOF0,   "Baseline"},
-    { M_SOF1,   "Extended sequential"},
-    { M_SOF2,   "Progressive"},
-    { M_SOF3,   "Lossless"},
-    { M_SOF5,   "Differential sequential"},
-    { M_SOF6,   "Differential progressive"},
-    { M_SOF7,   "Differential lossless"},
-    { M_SOF9,   "Extended sequential, arithmetic coding"},
-    { M_SOF10,  "Progressive, arithmetic coding"},
-    { M_SOF11,  "Lossless, arithmetic coding"},
-    { M_SOF13,  "Differential sequential, arithmetic coding"},
-    { M_SOF14,  "Differential progressive, arithmetic coding"},
-    { M_SOF15,  "Differential lossless, arithmetic coding"},
-    { 0,        "Unknown"}
+TagTable ProcessTable[] = {
+    TagTable(M_SOF0,   "Baseline"),
+    TagTable(M_SOF1,   "Extended sequential"),
+    TagTable(M_SOF2,   "Progressive"),
+    TagTable(M_SOF3,   "Lossless"),
+    TagTable(M_SOF5,   "Differential sequential"),
+    TagTable(M_SOF6,   "Differential progressive"),
+    TagTable(M_SOF7,   "Differential lossless"),
+    TagTable(M_SOF9,   "Extended sequential, arithmetic coding"),
+    TagTable(M_SOF10,  "Progressive, arithmetic coding"),
+    TagTable(M_SOF11,  "Lossless, arithmetic coding"),
+    TagTable(M_SOF13,  "Differential sequential, arithmetic coding"),
+    TagTable(M_SOF14,  "Differential progressive, arithmetic coding"),
+    TagTable(M_SOF15,  "Differential lossless, arithmetic coding"),
+    TagTable(0,        "Unknown")
 };
-
-
 
 //--------------------------------------------------------------------------
 // Describes format descriptor

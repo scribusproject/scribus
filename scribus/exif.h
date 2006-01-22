@@ -30,10 +30,13 @@ typedef struct {
 
 typedef unsigned char uchar;
 
-typedef struct {
+class TagTable 
+{
+public:
+	TagTable(unsigned short t, const char* d) : Tag(t), Desc(d) {}
     unsigned short Tag;
-    const char*const Desc;
-}TagTable_t;
+    const char*const Desc;   
+};
 
 #define MAX_SECTIONS 20
 #define PSEUDO_IMAGE_MARKER 0x123; // Extra value.
@@ -115,7 +118,7 @@ public:
     void debug_print() const { qDebug("exception: "); }
 };
 
-extern TagTable_t ProcessTable[];
+extern TagTable ProcessTable[];
 
 //--------------------------------------------------------------------------
 // Define comment writing code, impelemented in setcomment.c
