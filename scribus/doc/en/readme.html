@@ -1,12 +1,11 @@
 <qt>
 <title>Scribus Version 1.3.2 Readme</title>
-<h3>
-</h3>
+<h2>Scribus Version 1.3.2 Readme</h2>
 <h4>What's New ?</h4>
 <p>The Scribus 1.3.2 is the third development release of the next generation for Scribus. While it is fairly stable, there are a number of under the hood changes which are on-going. This is the first version of Scribus released as a native win32 application. </p>
 <h4>The file format has changed and is NOT backwardly compatible. You have been warned. We have specifically disabled the ability to open 1.3.x files in the stable 1.2.x versions. Our plans for a new file format should be settled in the 1.3.3 -1.3.4 development period.</h4>
 <ol>
-<li>Windows users are <strong>strongly encouraged</strong> to install the latest  <a href="http://ghostscript.com">Ghostscript</a> before installing Scribus. This greatly simplifies setting up EPS importing. Ghostscript is a mature PostScript interpreter and is essential for EPS import into Scribus.</li>
+<li>Windows users are <strong>strongly encouraged</strong> to install the latest  <a href="http://ghostscript.com">Ghostscript</a> <strong>before</strong> installing Scribus. This greatly simplifies setting up EPS importing. Ghostscript is a mature PostScript interpreter and is essential for EPS import into Scribus.</li>
 <li>Because of the new enhanced menu/keyboard shortcuts code, 1.2.x  keyboard short cuts are not migrated and will be recreated once on the first launch 1.3.x. There are vastly more keyboard shortcuts and they can be exported to use on other machines if customized.</li>
 <li>On initial launch, 1.3.x will offer to convert preferences to the new 1.3.x format. This is recommended. Scribus 1.3.x will store its preferences separately from 1.2.x.</li>
 <li>You <strong>can</strong> install both versions in parallel and run them at the same time. The only caveat is to install them using different prefix/ directories e.g 1.2 in /usr/local and 1.3 in /opt or $home/bin. You can use the --prefix argument to configure to set where Scribus should be installed.</li>
@@ -31,14 +30,18 @@
 <p>If you have a 64-bit version of Qt, sometimes ./configure will not detect the 64-bit version headers. Try : <pre>./configure --enable-libsuffix=64</pre> to test for 64-bit versions of libraries.</p>
 <h4>Other notes/known issues at the time of release:</h4>
 	
-<p>There is a bug in font outline handling for some fonts in the freetype libraries. It's being worked on upstream. Don't file a bug report. Instead change the font used if you need the outlines. This is not a Scribus bug. Some testing has shown that this bug is not present in freetype 2.1.9+, but we counsel caution trying to upgrade freetype2. Upgrading freetype2 on some distributions can be quite difficult.</p>
+<p>There is a bug in font outline handling for some fonts in the freetype libraries. It's being worked on upstream. Don't file a bug report. Instead change the font used if you need the outlines. This is not a Scribus bug. Some testing has shown that this bug is not present in freetype 2.1.10+, but we counsel caution trying to upgrade freetype2. Upgrading freetype2 on some distributions can be quite difficult.</p>
 	
 <h4>Issue with gradients:</h4>
 	
 <p>If you have gradient (e.g. with black color) with 50% shade in both beginning and end of gradient, you end up with darker center than edges. One expects the gradient to have equal shading from beginning to end, especially if there is no other color-stops in-between them. This we believe is a libart issue and not fixable by us. The gradient will export and print properly. The optional cairo build is a compile time option. The is enabled by:</p>
 <pre>./configure --enable-cairo</pre>
 
-<p>The cairo build option is experimental, has not received all the needed regression tests and requires cairo 0.9+ or greater. Cario 1.0+ is strongly recommended.</p>
+<p>Our experimental Cairo build does not have these issues.  We encourage those
+ willing to test the Cairo backend builds and report issues to the mailing 
+list and/IRC. We *know* the Cairo enabled build is slower, but are encouraged
+ by the on-going development by the Cairo team.
+</p>
 
 <h4>Font Issues</h4>
 <p>There are extensive notes and detailed on documentation on fonts and trouble shooting of font issues in the help documentation and online at http://docs.scribus.net.  Please read these carefully before filing bugs.</p>
