@@ -2,17 +2,33 @@
 <title>Settings and Preferences Panels</title>
 <h2>Settings and Preferences Panels</h2>
 
-<p>The settings panels are the heart of changing the default behaviors of Scribus and give you considerable flexibility in setting document and program defaults. If you are new to DTP, there are extensive tool tips which can guide you for each setting, as well as the included documentation. </p>
-<p>Scribus' preferences are kept in a hidden directory <code>.scribus</code>. Within the directory is a <code>.scribus.rc</code> file and a <code>scribusfont.rc</code> file which preserves your font preferences. This file is stored in XML format, so you can inspect its contents with a text editor. If you have installed the scripter plug-in, there will also be a <code>scripter.rc</code> file which lists most recently used scripts.</p>
+<p>The settings panels are the heart of changing the default behaviors of Scribus and give you considerable flexibility in setting document and program defaults. If you are new to page layout, some of these terms might not be familiar, but there is a multi-linugual glossary on <a href="http://wiki.scribus.net">http://wiki.scribus.net</a> compiled by a group of Scribus users, as well as the included documentation. </p>
 
-<p>You can change the preferences while a document is open and those preferences will remain with the currently open doc. Setting preferences globally for Scribus is done when all documents are closed. Then, any new documents will inherit these preferences.</p>
 
-<p>Within these 9 panels, you can change many of the defaults for Scribus, many of which can be changed or overridden in with a menu or right click context menu on an object while editing or in the measurements palette.</p>
+
+<h4>Where Are the Preferences Files ?</h4>
+<p>Scribus' preferences are kept in a hidden directory <code>.scribus</code>. The location of which is as follows:
+<ul>
+<li><strong>Linux:</strong> Under your $home directory, %username/.scribus</li>
+<li><strong>MacOSX:</strong> Under User/%username/.scribus</li>
+<li><strong>Windows:</strong> Documents and Settings/%username/.scribus</li>
+</ul>
+ Within the directory is a <code>.scribus13.rc</code> file and a <code>scribusfont.rc</code> file which preserves your font preferences. This file is stored in XML format, so you can inspect its contents with a text editor. If you have installed the scripter plug-in, there will also be a <code>scripter.rc</code> file which lists most recently used scripts. There might also be several directories, which are configuration or history files. If you are troubleshooting starting Scribus, <strong>rename</strong>, do not delete these files and directories. If you rename the directory, on re-starting Scribus, the launch time will be somewhat longer, as Scribus creates a cache of installed fonts. On the second re-start of Scribus, it will be much quicker. </p>
+
+<p>You can change the Document Setup preferences while a document is open and those preferences will remain only for the currently open doc. When you change the application preferences, any new documents will inherit these preferences and default settings.</p>
+
+<p>Within these panels below, you can change many of the defaults for Scribus, many of which can be changed or overridden in with a menu or right click context menu on an object while editing or in the measurements palette.</p>
+
+<p><strong>Note: The screen captures below are on Windows 2000, Linux and MacOSX may vary slightly.</strong></p>
 
 <h3>General Tab</h3>
-<p>You can change the default theme with Scribus to include themes like Liquid or the new themes based on KDE plug-ins. Scribus will inherit KDE themes and decorations if you have KDE running. If you do not have KDE installed, you can also tune the look of your Qt programs separately with <strong><code>qtconfig</code></strong> from the command line. Simply open a console window and type <code>qtconfig</code>. The configuration panels in Qtconfig are pretty self explanatory. I would advise not increasing the font size above 12 points, as some buttons in Scribus menus might be obscured. In this example, the fonts have been changed to TrueType fonts at 12 points and Scribus is using the default theme inherited from KDE. </p>
+<p>You can change the default theme with Scribus to include themes like Liquid or the new themes based on KDE plug-ins. Scribus will inherit KDE themes and decorations if you have KDE running. If you do not have KDE installed, you can also tune the look of your Qt programs separately with <strong><code>qtconfig</code></strong> from the command line. Simply open a console window and type <code>qtconfig</code>. The configuration panels in Qtconfig are pretty self explanatory. I would advise not increasing the font size above 12 points, as some buttons in Scribus menus might be obscured. In this example, the fonts have been changed to TrueType fonts at 12 points and Scribus is using the default theme inherited from KDE.</p>
 
-<table width="100%"><tr><td align="center"><img src="images/prefspanel1.png" align="center" alt="Edit Style Dialog" title="General Preferences" /></td></tr></table>
+<p>On MacOSX and Windows, you do not need to access qtconfig as it inherits the styles from the operating system. However, changing the default to Platinum or other style, may not appear so attractive and these styles are primarily for Linux and Unix systems.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/prefs.png" align="center" alt="Edit Style Dialog" title="General Preferences" /></td></tr></table>
+
+<p>Note also that the "Languages" drop down can be blank. This merely means Scribus will use the system's default language.</p>
 
 <h3>Mouse settings</h3>
 <p>If you have a wheel mouse, one of the nice defaults of Scribus is using this to scroll through a Document. Wheel jump changes the number of lines for each scroll of the mouse wheel. <strong>Grab Radius</strong> defines how much distance is allowed to select an object. Smaller numbers mean more
@@ -22,46 +38,96 @@ precise, but sometimes more difficult selection of smaller objects.</p>
 <p>These are user selectable paths for your documents, ICC color profiles and python scripts. Changing them is simply clicking on your preferred location. Note: hidden directories are not viewed by default, but can be seen by right clicking the file selector widget and choosing. "Show Hidden".</p>
 
 <h3>Document</h3>
-<p>This panel sets the defaults for paper size, page margins and Auto save options. Auto-save enables Scribus to save your file with a backup file with <code>.sla.bak</code> extension.</p>
+<p>This panel sets the defaults for paper size, page margins and Auto save options. Auto-save enables Scribus to save your file with a backup file with <code>.sla.bak</code> extension. The section "Preset Layouts" will offer you a choice of standard margin settings, depending on wether you are creating a book, magazine or other document. You can also choose to have the left or right page first as well.</p>
 
-<table width="100%"><tr><td align="center"><img src="images/prefspanel2.png" align="center" alt="Default Document Settings" title="Default Document Settings"  /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/prefs2.png" align="center" alt="Default Document Settings" title="Default Document Settings"  /></td></tr></table>
 
 <h3>Guides</h3>
 <p>This panel sets the default distances and colors, as well as the snap to settings. <strong>Baseline Grids</strong> is the set of horizontal guides which forces text in multiple columns to align horizontally, as shown below. Settings for the distances for baselines are in Paragraph Styles, as well as the next panel <strong>Typography</strong></p>
 
-<table width="100%"><tr><td align="center"><img src="images/prefsguides.png" alt="Guides and Baseline Grid Settings" align="middle" title="Guides and Baseline Grid Settings" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/prefs3.png" alt="Guides and Baseline Grid Settings" align="middle" title="Guides and Baseline Grid Settings" /></td></tr></table>
 
 <h3>Typography</h3>
 <p>Here you can change options for typographic features including subscript, superscript, automatic line spacing and scaling of small capitals. <strong>Disp.:</strong> means displacement or difference in distance above/below normal text. <strong>Baseline Grids</strong> are  non-printing grids which align text across multiple columns on the page. <strong>Baseline Offset</strong> is the distance from the top of the page where the topmost baseline is placed.</p>
 
 <table width="100%"><tr><td align="center"><img src="images/prefsblgrid1.png" alt="Baseline Grids"title="Baseline Grids" /></td></tr></table>
 
-<table width="100%"><tr><td align="center"><img src="images/prefspanel3.png" align="center" alt="Typography Tab Panel" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/prefs4.png" align="center" alt="Typography Tab Panel" /></td></tr></table>
 
 <h3>Tools</h3>
-<p>In the Tools tab you can change the defaults for many common tasks and tools: font, size and color, text frame defaults, image frame defaults and zoom defaults. Most all of these can be overridden or changed with the the right click context menu or in the Properties Palette when selecting an object.</p>
+<p>In the Tools tab you can change the defaults for many common tasks and tools: font, size and color, text frame defaults, image frame defaults and zoom defaults. Most all of these can be overridden or changed with the the right click context menu or in the Properties Palette when selecting an object.You can also override these in the Document Setup dialog.</p>
 
-<table width="100%"><tr><td align="center"><img src="images/prefspanel4.png" alt="Tools Tab Panel"/></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/prefs5.png" alt="Tools Tab Panel"/></td></tr></table>
 
 <h3>Polygon objects</h3>
 <p>You can make stars, triangles and convex polygons with intuitive controls. You can also apply gradient colors to all of these shapes within the measurements panel. This picture above makes a star the default.</p>
 
+<h3>Hyphenation</h3>
+<p>Hyphenation details are described here: <a href="hyphenator.html">Hyphenation in Scribus</a>.</p>
+
+<h3>Fonts</h3>
+<p>Selecting and installing fonts correctly is one of the most important configuration items with Scribus and an extensive set of notes is here: <a href="fonts1.html">Fonts and Scribus</a>. If there is one part of the documentation you really must read, it is this one.</p>
+
+
+
+
+<h3>Color Management Settings</h3>
+<p>Note in this dialog, the setting of sRGB is <strong>incorrect</strong> for a monitor profile. There are detailed notes on <a href="cms.html"> Color Management under Scribus</a> and <a href="moncal.html">Creating a Monitor Profile with Littlecms</a>. MacOSX and Windows users can use commercially available tools like Monaco's Color Tools,  Eye-One, Adobe Gamma and Scribus can use them along side other color savvy applications. MacOSX users can use any of the profiles available to Color Sync. Scribus will automatically discover any system profiles installed.</p>
+<table width="100%"><tr><td align="center"><img src="images/prefs10.png" alt="Setting the PDF Preferences for Scribus" title="Setting the PDF Preferences for Scribus" /></td></tr></table>
+<p><strong>Note: </strong>PDF/X-3 preferences are disabled if color management is disabled. CMS must be enabled to use PDF/X-3.</p>
+
+<h3>PDF Export Options</h3>
+<p> For more info on PDF look at <a href="pdfexport1.html">PDF Export Options</a> and <a href="pdfx3.html">PDF/X-3 and Scribus</a>.. This section of the preferences has extensive tool tips as well.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/prefs11.png" alt="Setting the PDF Preferences for Scribus" title="Setting the PDF Preferences for Scribus" /></td></tr></table>
+
+<h3>Documents Items and Table of Contents</h3>
+<p>This new functionality is explained here: <a href="http://wiki.scribus.net/index.php/Creating_a_Table_of_Contents">http://wiki.scribus.net/index.php/Creating_a_Table_of_Contents</a></p>
+
+<h3>Keyboard Short-Cuts</h3>
+
+<table width="100%"><tr><td align="center"><img src="images/prefs12.png" alt="Setting the Keyboard Shortcuts  for Scribus" title="Setting the Keyboard Shortcuts for Scribus" /></td></tr></table>
+
+<p>Scribus gives you complete flexibility with respect to keyboard shortcuts. Moreover, once customized, you can export them into a separate XML file which can be exported and saved separately, along with making it portable to other machines. The default file suffix is .ksxml. The XML is a unicode file and should not have issues being transported across platforms, with the only caveat that Macs have an option and command meta key, where Linux and Windows share common keyboards.</p>
+
 <h3>Scrapbook</h3>
 <p>With scrapbooks, you can <em>right button</em> drag and drop frequently used items, including pictures, images and text files for quick placement. Scrapbooks can be saved with a file or independently of a document, as a separate scrapbook which can be loaded use with many different Documents. Separate scrapbooks are kept with a <code>.scs</code> designation. This panel sets the defaults for the thumbnail size in the scrapbook palette and if scrapbooks should be saved automatically when changed.</p>
-
 <h3>Display</h3>
-<p>This panel sets the defaults and options for margin colors, frame display, page background and you have the option to display unprintable areas in the selected margin color. You can also enable page side by side or also known in DTP lingo as &#034;reader spreads&#034;.</p>
+<p>This panel sets the defaults and options for margin colors, frame display, page background and you have the option to display unprintable areas in the selected margin color. You can also enable page side by side or also known in DTP lingo as &#034;reader spreads&#034;.  The Adjust Display Size enables you to adjust the screen sizing in order that 1 inch on the screen actually measures 1 inch. Just take an accurate ruler and place it on the screen and adjust the slider until it matches your ruler</p>
 
-<table width="100%"><tr><td align="center"><img src="images/prefspanel5.png" alt="Setting the Display Preferences for Scribus" title="Setting the Display Preferences for Scribus" /></td></tr></table>
-
-<p>This panel also enables PDF 1.4 (Acrobat 5+) transparency features. The default is disabled. For more info on PDF look at <a href="pdfexport1.html">PDF Export Options</a> and <a href="pdfx3.html">PDF/X-3 and Scribus</a>. The Adjust Display Size enables you to adjust the screen sizing in order that 1 inch on the screen actually measures 1 inch. Just take an accurate ruler and place it on the screen and adjust the slider until it matches your ruler.</p>
-
-<table width="100%"><tr><td align="center"><img src="images/gsadv2.png" alt="External Tools Settings" title="External Tools Settings" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/prefsdisplay.png" alt="Global Color Management Preferences for Scribus" title="Global Color Management Preferences for Scribus" /></td></tr></table>
 
 <h3>External Tools</h3>
-<p>This panel enables you to change the default settings for the location of Ghostscript and your preferred image editing tool. In the example above, a parallel build of Ghostscript 8.51 has been installed in <code>/usr/local/bin/</code> for better results with EPS,PS and PDF importing, as well as speedier print-previews. See the hints in <a href="toolbox7.html" title="Advanced Setup of Ghostscript">Advanced Ghostscript.</a> One other important note, when using the GIMP as your image editor, <strong>you must close GIMP completely before, control will return to Scribus.</strong>The workaround for this is to use <strong>gimp-remote</strong> instead. This will then either start a new instance of gimp or use the currently running version of gimp. </p>
+
+<p>On Linux:</p>
+<table width="100%"><tr><td align="center"><img src="images/gsadv2.png" alt="External Tools Settings" title="External Tools Settings" /></td></tr></table>
+
+<p>On Windows:</p>
+<table width="100%"><tr><td align="center"><img src="images/prefs15.png" alt="External Tools Settings" title="External Tools Settings" /></td></tr></table>
+
+<p>This panel enables you to change the default settings for the location of Ghostscript and your preferred image editing tool. If you have installed Ghostscript on Windows before installing Scribus, it is usually automatically detected. In the example above, a parallel build of Ghostscript 8.53 has been installed in <code>/usr/local/bin/</code> for better results with EPS,PS and PDF importing, as well as speedier print-previews. See the hints in <a href="toolbox7.html" title="Advanced Setup of Ghostscript">Advanced Ghostscript.</a></p><p> One other important note, when using the GIMP as your image editor, <strong>you must close GIMP completely before, control will return to Scribus.</strong>The workaround for this is to use <strong>gimp-remote</strong> or <strong>gimp-remote.exe</strong>  as shown instead. This will then either start a new instance of gimp or use the currently running version of gimp. </p>
 <p>You can use other image editors including cinepaint, krita and even Photoshop with wine. With Crossover, you would use (with quotes)  in the dialog something like this :
 
 <pre>"/opt/cxoffice/bin/wine" --workdir "C://Adobe" --check --cx-app "C:////Adobe////Photoshp.exe"</pre>
  You can copy the exact settings from the desktop shortcut from the menu editor in KDE.</p>
+
+<h3>Miscellaneous</h3>
+<ul>
+   <li><strong>Clip to Page Margins</strong> - This option prevents any object which in not within the page margins from either printing or being exported to PDF. The content of an object within the margins will still print or export. </li>
+   <li><strong>Under Color Removal</strong> - This option changes the way grays are composed when printing. This is most often used with newsprint or other low gamut media.  </li>
+   <li><strong>Always ask before replacing fonts</strong> - This option will prompt you to choose replacement fonts when they are missing from your system when a document uses them in a layout.</li>
+   <li><strong>Preview </strong>of current style when editing paragraph styles, is an option to have a preview of your paragraph including the font used, font size and alignment using Lorem Ipsum (dummy) text. </li>
+   <li><strong>Show Startup Dialog</strong> - If you disabled the startup dialog, you can re-enable this here. </li>
+<li><strong>Lorem Ipsum</strong> - Lorem Ipsum is actually Latin text of a famous speech by Cicero, which has been used in page layout for a long time. This allows a designer to make a layout with dummy text which few people can actually read and moreover it uses most of the Roman alphabet. When inserting sample text into a text frame, you can choose the language and number of paragraphs. This option enforces the same settings for all documents.</li>
+ </ul>
+
+<h3>Plugins</h3>
+<p>This panel controls the loading and displays the type of plugins available to Scribus. Normally, you should not need to touch this panel.</p>
+
+<h3>Short Words</h3>
+<p>Short Words is a plug-in to assist hypenation. Details on configuration and use are here: <a href="short-words.html">Short Words in Scribus</a>. </p>
+
+<h3>Scripter</h3>
+<p>Scripter Extensions are special scripter module or scripts which are loaded at startup to modify the abilities of the python scripter plug-in within Scribus. Details are here: <a href="scripter-extensions.html">Scripter Extensions Howto</a>. The console tab is for choosing syntax highlighting colors within the scripter console.</p>
+<br />
 </qt>
