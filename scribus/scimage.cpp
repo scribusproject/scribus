@@ -595,9 +595,9 @@ void ScImage::applyCurve(bool cmyk)
 				unsigned char rc = 255 - QMIN(255, p[0] + p[3]);
 				unsigned char gc = 255 - QMIN(255, p[1] + p[3]);
 				unsigned char bc = 255 - QMIN(255, p[2] + p[3]);
-				c = 255 - curveTable[rc];
-				m = 255 - curveTable[gc];
-				y = 255 - curveTable[bc];
+				c = 255 - curveTable[(int)rc];
+				m = 255 - curveTable[(int)gc];
+				y = 255 - curveTable[(int)bc];
 				k = QMIN(QMIN(c, m), y);
 				*s = qRgba(y - k, m - k, c - k, k );
 			}
