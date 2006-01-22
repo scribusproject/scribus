@@ -47,7 +47,7 @@ void* PluginManager::loadDLL( QString plugin )
 	lib = dlopen(libpath, RTLD_LAZY | RTLD_GLOBAL);
 	if (!lib)
 	{
-		char* error = dlerror();
+		const char* error = dlerror();
 		qDebug("%s: %s",
 				tr("Cannot find plugin", "plugin manager").local8Bit().data(),
 				error ? error : tr("unknown error","plugin manager").local8Bit().data());
