@@ -11,14 +11,11 @@ for which a new license (GPL+exception) is in place.
 #include <qlistbox.h>
 #include <qstring.h>
 #include <qcstring.h>
-#include <qlabel.h>
-#include <qtextedit.h>
+//#include <qlabel.h>
+//#include <qtextedit.h>
+#include <qtextbrowser.h>
 #include <qfileinfo.h>
 
-// This class implements only the non-GUI parts of the
-// About Plug-ins dialog. Please use Qt Designer on
-// ui/aboutpluginsbase.ui if you need to modify the layout,
-// widget properties, etc.
 
 AboutPlugins::AboutPlugins( QWidget* parent )
 	: AboutPluginsBase( parent, "AboutPlugins" ),
@@ -57,20 +54,38 @@ void AboutPlugins::displayPlugin(int sel)
 	Q_ASSERT(plugin);
 	const ScPlugin::AboutData* about = plugin->getAboutData();
 	Q_ASSERT(about);
-	// Now set the text of the various about widgets.
-	authors->setText(about->authors);
-	copyright->setText(about->copyright);
-	if (about->description.isNull())
-		description->setText(about->shortDescription);
-	else
-		description->setText(about->description);
-	license->setText(about->license);
-	version->setText(about->version);
-	enabled->setText(pluginManager.enabled(name) ? tr("Yes") : tr("No"));
+	// Now set the text into the html "template"
 	// Set the filename using the basename of the path
 	QFileInfo fi(pluginManager.getPluginPath(name));
-	fileName->setText(fi.baseName(true));
+	QString html;
+	html = QString("<html><body><h1>%1</h1>").arg(plugin->fullTrName());
+	html += "<table>";
+	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg(tr("Filename:")).arg(fi.baseName(true));
+	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg(tr("Version:")).arg(about->version);
+	QString ena;
+	pluginManager.enabled(name) ? ena = tr("Yes") : ena = tr("No");
+	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg(tr("Enabled:")).arg(ena);
+	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg(tr("Release Date:")).arg(about->releaseDate.toString());
+	html += "</table>";
+	QString desc;
+	if (!about->shortDescription.isNull())
+		desc += QString("<p>%1</p>").arg(about->shortDescription);
+	if (!about->description.isNull())
+		desc += QString("<p>%1</p>").arg(about->description);
+	html += QString("<h2>%1</h2>%2").arg(tr("Description:")).arg(desc);
+	html += QString("<h2>%1</h2><p>%2</p>").arg(tr("Author(s):")).arg(htmlize(about->authors));
+	html += QString("<h2>%1</h2><p>%2</p>").arg(tr("Copyright:")).arg(about->copyright);
+	html += QString("<h2>%1</h2><p>%2</p>").arg(tr("License:")).arg(about->license);
+	html += "</html>";
+	infoBrowser->setText(html);
 	// Use the plugin to delete the about info, so we don't
 	// confuse win32's segmented memory.
 	plugin->deleteAboutData(about);
+}
+
+QString AboutPlugins::htmlize(QString s)
+{
+	QString ret = s.replace('<', "&lt;");
+	ret = ret.replace('>', "&gt;");
+	return ret;
 }

@@ -9,6 +9,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <aboutpluginsbase.h>
 
+/*! \brief Displays info about pligins.
+This class implements only the non-GUI parts of the
+About Plug-ins dialog. Please use Qt Designer on
+aboutpluginsbase.ui if you need to modify the layout,
+widget properties, etc.
+*/
 class AboutPlugins : public AboutPluginsBase
 {
 	Q_OBJECT
@@ -18,12 +24,17 @@ class AboutPlugins : public AboutPluginsBase
 		~AboutPlugins();
 
 	private slots:
-		// Update the info on a new selection
+		//! \brief Update the info on a new selection
 		void displayPlugin(int sel);
 
 	private:
-		// Map list entry IDs to plugin names
+		//! \brief Map list entry IDs to plugin names
 		QValueList<QCString> pluginNames;
+		/*! \brief Convert string into its HTML safe representation
+		\param s string to process
+		\retval QString a string with changed lt/gt
+		*/
+		QString htmlize(QString s);
 };
 
 #endif

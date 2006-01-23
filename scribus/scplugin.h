@@ -97,26 +97,26 @@ class SCRIBUS_API ScPlugin : public QObject
 	 */
 	public:
 
-		// A struct providing the information returned by getAboutData(), for
-		// the "About Plug-ins" menu item.
+		/*! \brief A struct providing the information returned by getAboutData(), for
+		the "About Plug-ins" menu item. */
 		struct AboutData
 		{
-			// Author name(s) and email address(es)
+			//! Author name(s) and email address(es)
 			QString authors;
-			// One-liner description of the function of the plugin
+			//! One-liner description of the function of the plugin
 			QString shortDescription;
-			// Longer description of the plugin
+			//! Longer description of the plugin
 			QString description;
-			// Text plug-in version string
+			//! Text plug-in version string
 			QString version;
-			// Date of the release of this version
+			//! Date of the release of this version
 			QDateTime releaseDate;
-			// Copyright string
+			//! Copyright string
 			QString copyright;
-			// License text / name / URL / whatever. Please don't include
-			// the GPL here, just reference it. Remember that Scribus is
-			// licensed under the GPL, so plug-in authors must take that
-			// into account.
+			//! License text / name / URL / whatever. Please don't include
+			//! the GPL here, just reference it. Remember that Scribus is
+			//! licensed under the GPL, so plug-in authors must take that
+			//! into account.
 			QString license;
 		};
 

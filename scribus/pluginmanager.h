@@ -14,21 +14,20 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
-/**
- * \brief PluginManager handles plugin loading, unloading, and running.
- *
- * It contains methods and attributes for plugin running and its settings
- * and returning values.
- *
- * Derived from Franz's ScribusMainWindow stuff (petr vanek)
- *
- */
-
 class ScPlugin;
 class ScActionPlugin;
 class ScPersistentPlugin;
 class PrefsContext;
 
+/**
+ * \brief PluginManager handles plugin loading, unloading, and running.
+		   *
+		   * It contains methods and attributes for plugin running and its settings
+		   * and returning values.
+		   *
+		   * Derived from Franz's ScribusMainWindow stuff (petr vanek)
+		   *
+ */
 class SCRIBUS_API PluginManager : public QObject
 {
 
