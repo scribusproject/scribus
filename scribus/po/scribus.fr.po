@@ -190,7 +190,7 @@ msgid ""
 "to change the font search path."
 msgstr "Les chemins d'accès aux polices ne peuvent être définis que dans les "
 "préférences, et lorsque aucun document n'est ouvert. Fermez tous les "
-"documents ouverts, et utilisez le menu Edition->Préférences pour modifier le "
+"documents ouverts, et utilisez le menu Édition > Préférences pour modifier le "
 "chemin d'accès aux polices."
 
 msgid "Additional &Paths"
@@ -618,7 +618,7 @@ msgid "&Position:"
 msgstr "&Position :"
 
 msgid "Fill Char:"
-msgstr "Caractère de remplissage :"
+msgstr "Points de conduite :"
 
 msgid "Delete All"
 msgstr "Tout effacer"
@@ -1684,7 +1684,7 @@ msgid "Horizontal Guides"
 msgstr "Repères horizontaux"
 
 msgid "Guide"
-msgstr "Guide"
+msgstr "Repère"
 
 msgid "Unit"
 msgstr "Unités"
@@ -2021,7 +2021,7 @@ msgid "Lorem Ipsum"
 msgstr "Faux texte"
 
 msgid "Always use standard Lorem Ipsum"
-msgstr "Toujours utiliser le faux texte standard"
+msgstr "Toujours utiliser le faux texte Lorem Ipsum"
 
 msgid "Count of the Paragraphs:"
 msgstr "Nombre de paragraphes :"
@@ -2038,7 +2038,7 @@ msgstr "(Dés)activer l'affichage des liens entre les cadres de texte"
 msgid ""
 "Display non-printing characters such as paragraph markers in text frames"
 msgstr ""
-"Affiche les caractères non imprimables tels que le symbole de paragraphe dans les cadres de texte"
+"Affiche les caractères invisibles tels que le symbole de paragraphe dans les cadres de texte"
 
 msgid "Turns the display of frames on or off"
 msgstr "(Dés)activer l'affichage des contours des cadres"
@@ -2879,13 +2879,13 @@ msgid "Align"
 msgstr "Aligner"
 
 msgid "&Relative to:"
-msgstr "En &rapport :"
+msgstr "En &rapport avec :"
 
 msgid "First Selected"
-msgstr "Premier sélectionné"
+msgstr "Premier objet sélectionné"
 
 msgid "Last Selected"
-msgstr "Dernier sélectionné"
+msgstr "Dernier objet sélectionné"
 
 msgid "Margins"
 msgstr "Marges"
@@ -2984,7 +2984,7 @@ msgid "&All Pages"
 msgstr "&Toutes les pages"
 
 msgid "C&hoose Pages"
-msgstr "&Déplacer une(des) page(s)"
+msgstr "&Les pages suivantes"
 
 msgid "File Options"
 msgstr "Options de fichier"
@@ -3173,7 +3173,7 @@ msgid "Visual Appearance"
 msgstr "Aspect"
 
 msgid "Use Viewers Defaults"
-msgstr "Utiliser les paramètres par défault des éditeurs"
+msgstr "Utiliser les paramètres par défaut du visualiseur"
 
 msgid "Use Full Screen Mode"
 msgstr "Mode plein écran"
@@ -3188,13 +3188,13 @@ msgid "Display Layers Tab"
 msgstr "Afficher l'onglet de calques"
 
 msgid "Hide Viewers Toolbar"
-msgstr "Masquer la barre d'outils des éditeurs"
+msgstr "Masquer la barre d'outils du visualiseur"
 
 msgid "Hide Viewers Menubar"
-msgstr "Masquer la barre d'outils des éditeurs"
+msgstr "Masquer la barre des menus du visualiseur"
 
 msgid "Zoom Pages to fit Viewer Window"
-msgstr "Zoom des pages ajusté à la fenêtre"
+msgstr "Zoomer les pages en fonction de la fenêtre du visualiseur"
 
 msgid "Special Actions"
 msgstr "Actions spéciales"
@@ -3252,7 +3252,7 @@ msgid "Printer"
 msgstr "Imprimante"
 
 msgid "Convert Spot Colors to Process Colors"
-msgstr ""
+msgstr "Convertir les couleurs d'accompagnement en couleurs quadrichromiques"
 
 msgid "&Use Custom Rendering Settings"
 msgstr "&Utiliser des options de rendu personnalisées"
@@ -3270,7 +3270,7 @@ msgid "S&pot Function:"
 msgstr "&Point de trame :"
 
 msgid "Simple Dot"
-msgstr "Simple"
+msgstr "Point"
 
 msgid "Round"
 msgstr "Rond"
@@ -3547,13 +3547,13 @@ msgstr ""
 "correctement et ne sera pas portable d'un système à un autre."
 
 msgid "Embed a color profile for solid colors"
-msgstr "Inclure un profil de couleur pour les couleurs unies"
+msgstr "Inclure un profil de couleur pour les couleurs d'accompagnement"
 
 msgid "Color profile for solid colors"
-msgstr "Profil de couleur pour les couleurs unies"
+msgstr "Profil de couleur pour les couleurs d'accompagnement"
 
 msgid "Rendering intent for solid colors"
-msgstr "Méthode de rendu pour les couleurs unies"
+msgstr "Méthode de rendu pour les couleurs d'accompagnement"
 
 msgid "Embed a color profile for images"
 msgstr "Inclure un profil de couleur pour les images"
@@ -3570,26 +3570,27 @@ msgstr "Méthode de rendu pour les images"
 msgid ""
 "Output profile for printing. If possible, get some guidance from your "
 "printer on profile selection."
-msgstr "Profil de sortie pour l'impression."
+msgstr "Profil de sortie pour l'impression. À ce sujet, consultez votre "
+"imprimeur, si possible."
 
 msgid ""
 "Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We "
 "recommend you use the title of the document."
 msgstr ""
 "Chaîne obligatoire pour PDF/X-3 sinon la compatibilité ne sera pas assurée. "
-"Il recommandé d'utiliser le titre du document."
+"Il est recommandé d'utiliser le titre du document."
 
 msgid "Distance for bleed from the top of the physical page"
-msgstr "Bord perdu en haut de la page"
+msgstr "Fond perdu en haut de la page"
 
 msgid "Distance for bleed from the bottom of the physical page"
-msgstr "Bord perdu en bas de la page"
+msgstr "Fond perdu en bas de la page"
 
 msgid "Distance for bleed from the left of the physical page"
-msgstr "Bord perdu à gauche de la page"
+msgstr "Fond perdu à gauche de la page"
 
 msgid "Distance for bleed from the right of the physical page"
-msgstr "Bord perdu à droite de la page"
+msgstr "Fond perdu à droite de la page"
 
 msgid "Mirror Page(s) horizontally"
 msgstr "Miroir horizontal des pages"
@@ -3601,7 +3602,9 @@ msgid ""
 "Enables Spot Colors to be converted to composite colors. Unless you are "
 "planning to print spot colors at a commercial printer, this is probably best "
 "left enabled."
-msgstr ""
+msgstr "Cette fonction permet de convertir les couleurs d'accompagnement " 
+"en un équivalent quadrichromique. Cochez cette option à moins de savoir "
+"exactement ce que vous faites."
 
 msgid "Double sided"
 msgstr "Recto-verso"
@@ -3613,13 +3616,13 @@ msgid "Right Page"
 msgstr "Page droite"
 
 msgid "3-Fold"
-msgstr "3 plis"
+msgstr "3 volets"
 
 msgid "Middle"
 msgstr "Centre"
 
 msgid "4-Fold"
-msgstr "4 plis"
+msgstr "4 volets"
 
 msgid "Middle Left"
 msgstr "Milieu gauche"
@@ -3628,7 +3631,7 @@ msgid "Middle Right"
 msgstr "Milieu droit"
 
 msgid "Migrate Old Scribus Settings?"
-msgstr "Migrer les anciens paramètres Scribus ?"
+msgstr "Migrer les anciens paramètres de Scribus ?"
 
 msgid ""
 "Scribus has detected existing Scribus 1.2 preferences files.\n"
@@ -4494,7 +4497,7 @@ msgid "Show &Text Chain"
 msgstr "Afficher les &liens entre cadres"
 
 msgid "Show Control Characters"
-msgstr "Afficher la caractères de contrôle"
+msgstr "Afficher les caractères invisibles"
 
 msgid "Sn&ap to Grid"
 msgstr "Grille m&agnétique"
@@ -5270,7 +5273,7 @@ msgid "&Color"
 msgstr "&Couleur"
 
 msgid "&Size"
-msgstr "&Taille"
+msgstr "&Corps"
 
 msgid "&Shade"
 msgstr "Tei&nte"
@@ -5632,7 +5635,8 @@ msgstr ""
 msgid ""
 "Allows you to embed ICC profiles in the print stream when color management "
 "is enabled"
-msgstr ""
+msgstr "Permet d'incorporer des profils colorimétriques ICC dans votre processus "
+"d'impression lorsque la gestion des couleurs est active."
 
 msgid ""
 "This enables you to explicitely set the media size of the PostScript file. "
