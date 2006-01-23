@@ -38,10 +38,10 @@ ColorListBox::ColorListBox(QWidget * parent, const char * name, WFlags f)
 	regIcon = loadIcon("register.png");
 }
 
+#include <qbitmap.h>
 void ColorListBox::updateBox(ColorList list)
 {
 	ColorList::Iterator it;
-	QPixmap pa = QPixmap(60, 15);
 	clear();
 	for (it = list.begin(); it != list.end(); ++it)
 	{
@@ -50,21 +50,8 @@ void ColorListBox::updateBox(ColorList list)
 			continue;
 
 		ScColor col = list[it.key()];
-		QPixmap * pm = getSmallPixmap(col.getRawRGBColor());
-		pa.fill(white);
-		paintAlert(*pm, pa, 0, 0);
-		col.checkGamut();
-		if (col.isOutOfGamut())
-			paintAlert(alertIcon, pa, 15, 0);
-		if ((col.getColorModel() == colorModelCMYK) || (col.isSpotColor()))
-			paintAlert(cmykIcon, pa, 30, 0);
-		else
-			paintAlert(rgbIcon, pa, 30, 0);
-		if (col.isSpotColor())
-			paintAlert(spotIcon, pa, 46, 2);
-		if (col.isRegistrationColor())
-			paintAlert(regIcon, pa, 45, 0);
-		insertItem(pa, it.key());
+		QPixmap * pm = getFancyPixmap(col);
+		insertItem(*pm, it.key());
 	}
 }
 

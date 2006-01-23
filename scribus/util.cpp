@@ -141,27 +141,6 @@ QImage ProofImage(QImage *Image)
 #endif
 }
 
- /**
-  * @brief Synchronously execute a new process, optionally saving its output
-  *
-  * Create a new process via QProcess and wait until finished.  Return the
-  * process exit code. Exit code 1 is returned if the process could not be
-  * started or terminated abnormally.
-  *
-  * Note that the argument list is handled exactly as documented by QProcess.
-  * In particular, no shell metacharacter expansion is performed (so you can't
-  * use $HOME for example, and no quoting is required or appropriate), and each
-  * list entry is one argument.
-  *
-  * If output file paths are provided, any existing file will be truncated and
-  * overwritten.
-  *
-  * @param args Arguments, as per QProcess documentation.
-  * @param fileStdErr Path to save error output to, or "" to discard.
-  * @param fileStdOut Path to save normal output to, or "" to discard.
-  * @return Program exit code, or 1 on failure.
-  *
-  */
 int System(const QStringList & args, const QString fileStdErr, const QString fileStdOut)
 {
 	QStringList stdErrData;
@@ -218,22 +197,6 @@ int System(const QStringList & args, const QString fileStdErr, const QString fil
 	return ex;
 }
 
-/**
- * @brief Call GhostScript synchronously and store output
- *
- * The gs commands are all similar and consist of a few constant
- * arguments, the variable arguments and the end arguments which
- * are also invariant. It will always use -q -dNOPAUSE and
- * will always end with -c showpage -c quit. It also does automatic
- * device selection unless overridden, and uses the user's antialiasing
- * preferences and font search path.
- *
- * Shell metacharacters are not expanded - that includes quotes.
- * @sa System .
- *
- * @param args_in Custom arguments to GhostScript
- * @param device GS device to use (defaults to an image device if omitted)
- */
 int callGS(const QStringList& args_in, const QString device)
 {
 	QString cmd;
@@ -643,11 +606,6 @@ bool loadText(QString filename, QString *Buffer)
 	return ret;
 }
 
-// Replacement version of loadText that returns a QCString as an out parameter.
-// The QCString is filled with the contents of the specified file. The return
-// byte string is of unknown encoding; the caller must handle encoding issues.
-// There is no need to preallocate the buffer, and the new data replaces any
-// old contents.
 bool loadRawText(const QString & filename, QCString & buf)
 {
 	bool ret = false;
@@ -1032,7 +990,8 @@ void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 	delete painter;
 }
 
-/*! 10/06/2004 - pv
+/*! \brief Helper function for sorting in sortQStringList.
+\author 10/06/2004 - pv
 \param QString s1 first string
 \param QString s2 second string
 \retval bool t/f related s1>s2
@@ -1044,13 +1003,6 @@ bool compareQStrings(QString s1, QString s2)
 	return true;
 }
 
-/*! 10/06/2004 - pv
-Returns a sorted list of QStrings - sorted by locale specific
-rules! Uses compareQStrings() as rule. There is STL used!
-TODO: Maybe we can implement one cass for various sorting...
-\param QStringList aList unsorted string list
-\retval QStringList sorted string list
-*/
 QStringList sortQStringList(QStringList aList)
 {
 	std::vector<QString> sortList;
@@ -1418,10 +1370,19 @@ QPixmap * getFancyPixmap(ScColor col) {
 
 void paintAlert(QPixmap &toPaint, QPixmap &target, int x, int y)
 {
+	// there is no alpha mask in the beginning
+	if (target.mask()==0)
+		target.setMask(QBitmap(target.width(), target.height(), true));
 	QPainter p;
+	QPainter alpha; // transparency handling
 	p.begin(&target);
+	alpha.begin(target.mask());
+	alpha.setBrush(Qt::color1);
+	alpha.setPen(Qt::color1);
 	p.drawPixmap(x, y, toPaint);
+	alpha.drawRect(x, y, 15, 15);
 	p.end();
+	alpha.end();
 }
 
 FPoint getMaxClipF(FPointArray* Clip)
@@ -1464,13 +1425,6 @@ FPoint getMinClipF(FPointArray* Clip)
 	return rp;
 }
 
-/*!
- \fn QString checkFileExtension(const QString &currName, const QString &extension)
- \author Craig Bradney
- \brief A quick function to make sure a filename has the correct extension and add it if not
- \param currName Current filename
- \param extension File extension to ensure exists
- */
 QString checkFileExtension(const QString &currName, const QString &extension)
 {
 	QString newName(currName);
@@ -1487,13 +1441,6 @@ QString checkFileExtension(const QString &currName, const QString &extension)
 	return newName;
 }
 
-/*! Creates a common name for page exports (SVG, bitmap, EPS).
-Output format is: documentname-page01.extension
-\param pageNo number of the exported page (begins from 1)
-\param extension "svg" or e.g. "png" etc.
-\retval QString standardized filename
-\author Petr Vanek
-*/
 QString getFileNameByPage(uint pageNo, QString extension)
 {
 	QString number;
@@ -1730,18 +1677,7 @@ void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCou
 	} while (!tmp.isEmpty());
 }
 
- /**
-  * @brief Check if a specified printer support postscript input
-  *
-  * On Windows, the function test postscript support for a specified printer
-  * and return true if ps is supported
-  * On non Windows systems, the function always return true
-  *
-  * @param printerName the printer name
-  * @return true is printer support postscript, false otherwise.
-  *
- */
-bool isPostscriptPrinter( QString printerName )
+bool isPostscriptPrinter( QString /*printerName */)
 {
 #ifdef _WIN32
 	HDC dc;
