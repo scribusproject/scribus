@@ -190,6 +190,7 @@ ScPainter::~ScPainter()
 #endif
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 #ifdef HAVE_CAIRO
+	cairo_surface_destroy(cairo_get_target(m_cr));
 	cairo_destroy( m_cr );
 #else
 	if (imageMode)
