@@ -61,7 +61,7 @@ AC_CANONICAL_SYSTEM
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(scribus,1.3.2)
+AM_INIT_AUTOMAKE(scribus,1.3.3cvs)
 
 dnl Check for --enable-lib64
 KDE_CHECK_LIB64
