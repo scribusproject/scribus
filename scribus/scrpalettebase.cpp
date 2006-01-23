@@ -141,11 +141,11 @@ void ScrPaletteBase::show()
 			int vleft   = QMIN(QMAX(-vwidth + gStrut.width(), palettePrefs->getInt("left")),
 			                   d->width() - gStrut.width());
 			int vtop = QMIN(palettePrefs->getInt("top"), d->height() - gStrut.height());
-#ifndef QT_MAC
-			vtop    = QMAX(-vheight + gStrut.height(), vtop);
-#else
-			// on Mac you're dead if the titlebar is not on screen
+#if defined(QT_MAC) || defined(_WIN32)
+			// on Mac and Windows you're dead if the titlebar is not on screen
 			vtop    = QMAX(64, vtop);
+#else
+			vtop    = QMAX(-vheight + gStrut.height(), vtop);
 #endif
 			
 //			qDebug(QString("root %1x%2 %7 palette %3x%4 @ (%5,%6)").arg(d->width()).arg(d->height())
@@ -176,8 +176,9 @@ void ScrPaletteBase::storePosition()
 {
 	if (palettePrefs)
 	{
-		palettePrefs->set("left", x());
-		palettePrefs->set("top", y());
+		QRect geo = geometry();
+		palettePrefs->set("left", geo.left());
+		palettePrefs->set("top", geo.top());
 	}
 }
 

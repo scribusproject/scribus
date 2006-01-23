@@ -2066,8 +2066,9 @@ StoryEditor::~StoryEditor()
 void StoryEditor::savePrefs()
 {
 	// save prefs
-	prefs->set("left", x());
-	prefs->set("top", y());
+	QRect geo = geometry();
+	prefs->set("left", geo.left());
+	prefs->set("top", geo.top());
 	prefs->set("width", width());
 	prefs->set("height", height());
 }
@@ -2076,10 +2077,10 @@ void StoryEditor::loadPrefs()
 {
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("StoryEditor");
 	int vleft   = QMAX(-80, prefs->getInt("left", 10));
-#ifndef QT_MAC
-	int vtop    = QMAX(-80, prefs->getInt("top", 10));
-#else
+#if defined(QT_MAC) || defined(_WIN32)
 	int vtop    = QMAX(64, prefs->getInt("top", 10));
+#else
+	int vtop    = QMAX(-80, prefs->getInt("top", 10));
 #endif
 	int vwidth  = QMAX(600, prefs->getInt("width", 600));
 	int vheight = QMAX(400, prefs->getInt("height", 400));
