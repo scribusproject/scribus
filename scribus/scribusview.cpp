@@ -2984,20 +2984,23 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	if ((Doc->appMode == modeDrawBezierLine) && (m->button() == RightButton))
 	{
 		currItem = Doc->selection->itemAt(0);
-		currItem->PoLine.resize(currItem->PoLine.size()-2);
-		if (currItem->PoLine.size() < 4)
+		if (currItem!=0)
 		{
-//			emit DelObj(Doc->currentPage->pageNr(), currItem->ItemNr);
-			Doc->Items->remove(currItem->ItemNr);
-			Doc->selection->removeFirst();
-			emit HaveSel(-1);
-		}
-		else
-		{
-			SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
-			currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
-			AdjustItemSize(currItem);
-			currItem->ContourLine = currItem->PoLine.copy();
+			currItem->PoLine.resize(currItem->PoLine.size()-2);
+			if (currItem->PoLine.size() < 4)
+			{
+	//			emit DelObj(Doc->currentPage->pageNr(), currItem->ItemNr);
+				Doc->Items->remove(currItem->ItemNr);
+				Doc->selection->removeFirst();
+				emit HaveSel(-1);
+			}
+			else
+			{
+				SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
+				currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
+				AdjustItemSize(currItem);
+				currItem->ContourLine = currItem->PoLine.copy();
+			}
 		}
 		Doc->appMode = modeNormal;
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
