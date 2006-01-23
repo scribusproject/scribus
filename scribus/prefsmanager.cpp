@@ -251,7 +251,7 @@ void PrefsManager::initDefaults()
 	appPrefs.pdfToolBarSettings.visible = true;
 	appPrefs.PSize = 40;
 	appPrefs.SaveAtQ = true;
-	appPrefs.ClipMargin = true;
+	appPrefs.ClipMargin = false;
 	appPrefs.GCRMode = false;
 	appPrefs.RecentDocs.clear();
 	appPrefs.RecentDCount = 5;
