@@ -1677,7 +1677,8 @@ void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCou
 	} while (!tmp.isEmpty());
 }
 
-bool isPostscriptPrinter( QString /*printerName */)
+//Parameter needed on win32..
+bool isPostscriptPrinter( QString printerName)
 {
 #ifdef _WIN32
 	HDC dc;
