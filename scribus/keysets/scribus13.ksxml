@@ -3,14 +3,10 @@
     <function shortcut="" name="ColorWheel" />
     <function shortcut="Ctrl+Shift+E" name="ExportAsImage" />
     <function shortcut="" name="ExportAsSVG" />
-    <function shortcut="" name="FontsPreview" />
-    <function shortcut="" name="ImportOpenOfficeDraw" />
-    <function shortcut="" name="ImportPS" />
-    <function shortcut="" name="ImportSVG" />
+    <function shortcut="" name="FontPreview" />
     <function shortcut="Ctrl+Alt+N" name="NewFromDocumentTemplate" />
     <function shortcut="Ctrl+Alt+P" name="PrintPreview" />
     <function shortcut="Ctrl+Alt+S" name="SaveAsDocumentTemplate" />
-    <function shortcut="" name="Scripter" />
     <function shortcut="" name="ShortWords" />
     <function shortcut="" name="alignBlock" />
     <function shortcut="" name="alignCenter" />
@@ -67,6 +63,7 @@
     <function shortcut="" name="fontSize72" />
     <function shortcut="" name="fontSize9" />
     <function shortcut="" name="fontSizeOther" />
+    <function shortcut="" name="helpAboutPlugins" />
     <function shortcut="" name="helpAboutQt" />
     <function shortcut="" name="helpAboutScribus" />
     <function shortcut="F1" name="helpManual" />
@@ -87,6 +84,7 @@
     <function shortcut="Ctrl+D" name="itemDuplicate" />
     <function shortcut="" name="itemExtendedImageProperties" />
     <function shortcut="Ctrl+G" name="itemGroup" />
+    <function shortcut="" name="itemImageInfo" />
     <function shortcut="" name="itemImageIsVisible" />
     <function shortcut="Ctrl+L" name="itemLock" />
     <function shortcut="Ctrl+Shift+L" name="itemLockSize" />
@@ -109,10 +107,12 @@
     <function shortcut="" name="itemUpdateImage" />
     <function shortcut="" name="pageApplyMasterPage" />
     <function shortcut="" name="pageCopy" />
+    <function shortcut="" name="pageCopyToMasterPage" />
     <function shortcut="" name="pageDelete" />
     <function shortcut="" name="pageImport" />
     <function shortcut="" name="pageInsert" />
     <function shortcut="" name="pageManageGuides" />
+    <function shortcut="" name="pageManageMargins" />
     <function shortcut="" name="pageMove" />
     <function shortcut="" name="shade0" />
     <function shortcut="" name="shade10" />
@@ -148,7 +148,6 @@
     <function shortcut="" name="specialQuoteDoubleReversed" />
     <function shortcut="" name="specialQuoteDoubleRight" />
     <function shortcut="" name="specialQuoteDoubleRightGuillemet" />
-    <function shortcut="" name="specialQuoteDoubleTurnedComma" />
     <function shortcut="" name="specialQuoteLowDoubleComma" />
     <function shortcut="" name="specialQuoteLowSingleComma" />
     <function shortcut="" name="specialQuoteSingleLeft" />
@@ -211,6 +210,7 @@
     <function shortcut="" name="viewFit50" />
     <function shortcut="" name="viewFit75" />
     <function shortcut="Ctrl+0" name="viewFitInWindow" />
+    <function shortcut="" name="viewRulerMode" />
     <function shortcut="" name="viewShowBaseline" />
     <function shortcut="" name="viewShowFrames" />
     <function shortcut="" name="viewShowGrid" />
@@ -221,4 +221,6 @@
     <function shortcut="" name="viewShowTextControls" />
     <function shortcut="" name="viewSnapToGrid" />
     <function shortcut="" name="viewSnapToGuides" />
+    <function shortcut="" name="windowsCascade" />
+    <function shortcut="" name="windowsTile" />
 </shortcutset>
