@@ -17,7 +17,7 @@ DocumentItemAttributes::DocumentItemAttributes(  QWidget* parent, const char* na
 	relationshipsData << "none" << "relation" << "parent" << "child";
 	autoAddTo << tr("None") << tr("Text Frames") << tr("Image Frames");
 	autoAddToData << "none" << "textframes" << "imageframes";
-	types << tr("None") << tr("Boolean") << tr("Integer") << "Real Number" << tr("String");
+	types << tr("None") << tr("Boolean") << tr("Integer") << tr("Real Number") << tr("String");
 	typesData << "none" << "boolean" << "integer" << "double" << "string";
 }
 
