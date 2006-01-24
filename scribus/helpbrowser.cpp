@@ -838,3 +838,7 @@ void HelpBrowser::readHistory()
 	reader.parse(source);
 }
 
+void HelpBrowser::setText(QString str)
+{
+	textBrowser->setText(str);
+}

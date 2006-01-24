@@ -69,10 +69,13 @@ public:
 	HelpBrowser( QWidget* parent, QString caption, QString guiLangage="en", QString jumpToSection="", QString jumpToFile="");
 	~HelpBrowser();
 
-	/*! History menu. It's public because of history reader - separate class */
+	/*! \brief History menu. It's public because of history reader - separate class */
 	QPopupMenu* histMenu;
-	/*! Mapping the documents for history. */
+	/*! \brief Mapping the documents for history. */
 	QMap<int, histd> mHistory;
+	/*! \brief Set text to the browser
+	\param str a QString with text (html) */
+	void setText(QString str);
 
 protected:
 	//! layouts
@@ -82,42 +85,42 @@ protected:
 	QHBoxLayout* buttonLayout;
 	QVBoxLayout* searchingMainLayout;
 	QHBoxLayout* searchingButtonLayout;
-	//! History tool buttons
+	//! \brief History tool buttons
 	QToolButton* homeButton;
-	//! Holds histMenu
+	//! \brief Holds histMenu
 	QToolButton* backButton;
 	QToolButton* forwButton;
 	//! bookmarks
 	QHBoxLayout* bookmarksButtonLayout;
 	QVBoxLayout* bookmarksMainLayout;
 
-	//! Widget holding the listviews
+	//! \brief Widget holding the listviews
 	QTabWidget* tabWidget;
-	//! Main table of contents - parent widget
+	//! \brief Main table of contents - parent widget
 	QWidget* tabContents;
-	//! Main table of contents
+	//! \brief Main table of contents
 	QListView* listView;
-	//! There is documentation shown
+	//! \brief There is documentation shown
 	QTextBrowser* textBrowser;
-	//! Rubber bar between ToC and browser
+	//! \brief Rubber bar between ToC and browser
 	QSplitter* splitter;
-	//! Selected language is here. If there is no docs for this language, "en" is used.
+	//! \brief Selected language is here. If there is no docs for this language, "en" is used.
 	QString language;
-	//! searching
+	//! \brief searching
 	QWidget* tabSearching;
 	QLineEdit* searchingEdit;
 	QPushButton* searchingButton;
 	QListView* searchingView;
-	//! bookmarks
+	//! \brief bookmarks
 	QWidget* tabBookmarks;
 	QPushButton* bookmarkButton;
 	QPushButton* deleteBookmarkButton;
 	QPushButton* deleteAllBookmarkButton;
 	QListView* bookmarksView;
-	//! menu
+	//! \brief menu
 	QMenuBar *menuBar;
 
-	/*! Text to be finded in document */
+	/*! \brief Text to be finded in document */
 	QString findText;
 
 	/*! \brief Search in doc files in spec. dir.
@@ -126,19 +129,19 @@ protected:
 	\author Petr Vanek <petr@yarpen.cz> */
 	void searchingInDirectory(QString);
 
-	/*! Reads saved bookmarks from external file */
+	/*! \brief Reads saved bookmarks from external file */
 	void readBookmarks();
 
-	/*! Reads saved history of browsing. */
+	/*! \brief Reads saved history of browsing. */
 	void readHistory();
 
 protected slots:
 	virtual void languageChange();
 
-	/*! Load doc file when user select filename in content view. */
+	/*! \brief Load doc file when user select filename in content view. */
 	void itemSelected( QListViewItem *);
 
-	/*! Load doc file when user select filename in search view.
+	/*! \brief Load doc file when user select filename in search view.
 	Then it performs some doc-finding and highlighting.
 	\author Petr Vanek <petr@yarpen.cz> */
 	void itemSearchSelected( QListViewItem *);
@@ -170,13 +173,13 @@ protected slots:
 	*/
 	void print();
 
-	/*! Add document into bookmarks. */
+	/*! \brief Add document into bookmarks. */
 	void bookmarkButton_clicked();
 
-	/*! Delete selected document from bookmarks. */
+	/*! \brief Delete selected document from bookmarks. */
 	void deleteBookmarkButton_clicked();
 
-	/*! Delete all bookmarks */
+	/*! \brief Delete all bookmarks */
 	void deleteAllBookmarkButton_clicked();
 
 };

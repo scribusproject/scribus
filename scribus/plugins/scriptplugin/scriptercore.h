@@ -32,12 +32,16 @@ public slots:
 	QString slotRunScript(QString Script);
 	void slotInteractiveScript(bool);
 	void slotExecute();
+	/*! \brief Show docstring of the script to the user.
+	* I don't know how to get docstring via e.g. pydoc because of
+	* it needs to run script => error cannot find scribus module
+	*/
 	void aboutScript();
-	/** Does setup for the main interpreter, particularly the interactive console. True for success. */
+	/** \brief Does setup for the main interpreter, particularly the interactive console. True for success. */
 	bool setupMainInterpreter();
-	/** Sets up the plugin for extension scripts, if enabled */
+	/** \brief Sets up the plugin for extension scripts, if enabled */
 	void initExtensionScripts();
-	/** Runs the startup script, if enabled */
+	/** \brief Runs the startup script, if enabled */
 	void runStartupScript();
 	void languageChange();
 
@@ -57,7 +61,7 @@ protected:
 	void rebuildScribusScriptsMenu();
 
 	//Internal members
-	//! Reference to the "IDE" widget
+	//! \brief Reference to the "IDE" widget
 	PythonConsole *pcon;
 	int cons;
 	int about;
@@ -68,11 +72,11 @@ protected:
 	QMap<QString, QGuardedPtr<ScrAction> > scrRecentScriptActions;
 
 	// Preferences
-	/** pref: Enable access to main interpreter and 'extension scripts' */
+	/** \brief pref: Enable access to main interpreter and 'extension scripts' */
 	bool m_enableExtPython;
-	/** pref: Run 'from scribus import *' at scripter startup */
+	/** \brief pref: Run 'from scribus import *' at scripter startup */
 	bool m_importAllNames;
-	/** pref: Load this script on startup */
+	/** \brief pref: Load this script on startup */
 	QString m_startupScript;
 };
 

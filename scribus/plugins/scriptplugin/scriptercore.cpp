@@ -502,41 +502,33 @@ void ScripterCore::SavePlugPrefs()
 	prefs->set("startupscript", m_startupScript);
 }
 
-/* 11/1/2004 pv - Show docstring of the script to the user.
- * I don't know how to get docstring via e.g. pydoc because of
- * it needs to run script => error cannot find scribus module
- */
 void ScripterCore::aboutScript()
 {
 	QString fname = ScMW->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py);;All Files (*)"), "", 0, 0, 0, 0);
 	if (fname == QString::null)
 		return;
+	QString html("<html><body>");
 	QFileInfo fi = QFileInfo(fname);
-	QString html = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/aboutScript.html");
 	QFile input(fname);
 	if(!input.open(IO_ReadOnly))
 		return;
-	QFile output(html);
-	if(!output.open(IO_WriteOnly))
-		return;
 	QTextStream intputstream(&input);
-	QTextStream outputstream(&output);
 	QString content = intputstream.read();
 	QString docstring = content.section("\"\"\"", 1, 1);
 	if (!docstring.isEmpty())
 	{
-		outputstream << "<h1>Documentation for: " << fi.fileName() << "</h1><p>";
-		outputstream << docstring.replace("\n\n", "<p>");
+		html += QString("<h1>%1 %2</h1>").arg(tr("Documentation for:")).arg(fi.fileName());
+		html += QString("<p>%1</p>").arg(docstring.replace("\n\n", "<br><br>"));
 	}
 	else
 	{
-		outputstream << "<pre>" << endl;
-		outputstream << "<p><b>Script "<< fi.fileName() << " doesn't contain any docstring!</b></p>" << content;
-		outputstream << "</pre>" << endl;
+		html += QString("<p><b>%1 %2 %3</b></p>").arg(tr("Script")).arg(fi.fileName()).arg(tr(" doesn't contain any docstring!"));
+		html += QString("<pre>%4</pre>").arg(content);
 	}
-	output.close();
+	html += "</body></html>";
 	input.close();
-	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("About Script") + " " + fi.fileName(), "en", "", html);
+	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("About Script") + " " + fi.fileName(), "en");
+	dia->setText(html);
 	dia->show();
 }
 
