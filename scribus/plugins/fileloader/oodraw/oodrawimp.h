@@ -61,9 +61,15 @@ class OODPlug : public QObject
 	Q_OBJECT
 
 public:
+
 	OODPlug();
 	~OODPlug();
+
 	bool import( QString fName, bool isInteractive );
+	static double parseUnit(const QString &unit);
+
+protected:
+
 	bool convert();
 	QPtrList<PageItem> parseGroup(const QDomElement &e);
 	void createStyleMap( QDomDocument &docstyles );
@@ -72,7 +78,6 @@ public:
 	void fillStyleStack( const QDomElement& object );
 	void addStyles( const QDomElement* style );
 	void storeObjectStyles( const QDomElement& object );
-	static double parseUnit(const QString &unit);
 	QColor parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );
 	void parseTransform(FPointArray *composite, const QString &transform);
@@ -99,7 +104,7 @@ public:
 	int PathLen;
 	QPtrList<PageItem> Elements;
 	bool FirstM, WasM, PathClosed, HaveMeta;
-protected:
+
 	bool interactive;
 };
 
