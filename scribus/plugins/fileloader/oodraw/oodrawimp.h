@@ -61,9 +61,10 @@ class OODPlug : public QObject
 	Q_OBJECT
 
 public:
-	OODPlug( QString fName, bool isInteractive );
+	OODPlug();
 	~OODPlug();
-	void convert();
+	bool import( QString fName, bool isInteractive );
+	bool convert();
 	QPtrList<PageItem> parseGroup(const QDomElement &e);
 	void createStyleMap( QDomDocument &docstyles );
 	void insertDraws( const QDomElement& styles );

@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "fpointarray.h"
 #include "customfdialog.h"
+#include "commonstrings.h"
 #include "color.h"
 #include "scribusXml.h"
 #include "mpalette.h"
@@ -176,19 +177,28 @@ bool OODrawImportPlugin::import(QString fileName)
 	}
 	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
 		UndoManager::instance()->setUndoEnabled(false);
-	OODPlug *dia = new OODPlug(fileName, interactive);
+	OODPlug dia;
+	bool importDone = dia.import(fileName, interactive);
 	if (UndoManager::undoEnabled())
 		UndoManager::instance()->commit();
 	else
 		UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
-	return true;
+	return importDone;
 }
 
-OODPlug::OODPlug(QString fileName, bool isInteractive )
+OODPlug::OODPlug()
 {
+	interactive = false;
+	Doku = NULL;
+}
+
+bool OODPlug::import( QString fileName, bool isInteractive )
+{
+	bool importDone = false;
 	interactive = isInteractive;
 	QString f, f2, f3;
+	if ( !QFile::exists(fileName) )
+		return false;
 	m_styles.setAutoDelete( true );
 	FileUnzip* fun = new FileUnzip(fileName);
 	stylePath   = fun->getFile("styles.xml");
@@ -201,10 +211,10 @@ OODPlug::OODPlug(QString fileName, bool isInteractive )
 		docname = docname.left(docname.findRev("."));
 		loadText(stylePath, &f);
 		if(!inpStyles.setContent(f))
-			return;
+			return false;
 		loadText(contentPath, &f2);
 		if(!inpContents.setContent(f2))
-			return;
+			return false;
 		QFile f1(stylePath);
 		f1.remove();
 		QFile f2(contentPath);
@@ -234,11 +244,12 @@ OODPlug::OODPlug(QString fileName, bool isInteractive )
 	QString CurDirP = QDir::currentDirPath();
 	QFileInfo efp(fileName);
 	QDir::setCurrent(efp.dirPath());
-	convert();
+	importDone = convert();
 	QDir::setCurrent(CurDirP);
+	return importDone;
 }
 
-void OODPlug::convert()
+bool OODPlug::convert()
 {
 	bool ret = false;
 	int PageCounter = 0;
@@ -249,6 +260,21 @@ void OODPlug::convert()
 		insertStyles( automaticStyles.toElement() );
 	QDomNode body = docElem.namedItem( "office:body" );
 	QDomNode drawPage = body.namedItem( "draw:page" );
+	if (drawPage.isNull() )
+	{
+		QDomNode offDraw = body.namedItem( "office:drawing" );
+		drawPage = offDraw.namedItem( "draw:page" );
+		if (drawPage.isNull())
+		{
+			QMessageBox::warning( ScMW, CommonStrings::trWarning, tr("This document does not seem to be an OpenOffice Draw file.") );
+			return false;
+		}
+		else
+		{
+			QMessageBox::warning( ScMW, CommonStrings::trWarning, tr("OpenOffice Draw 2.0 documents are currently not supported.") );
+			return false;
+		}
+	}
 	QDomElement dp = drawPage.toElement();
 	QDomElement *master = m_styles[dp.attribute( "draw:master-page-name" )];
 	QDomElement *style = m_styles[master->attribute( "style:page-master-name" )];
@@ -383,6 +409,7 @@ void OODPlug::convert()
 		Doku->setModified(false);
 		ScMW->slotDocCh();
 	}
+	return true;
 }
 
 QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
