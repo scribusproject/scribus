@@ -6947,37 +6947,41 @@ bool ScribusView::slotSetCurs(int x, int y)
 			else 
 				currItem->CPos = 0;
 			p.end();
-			if (currItem->itemText.count() != 0)
+			
+			if (currItem->itemText.count() > 0)
 			{
-				Doc->CurrFont = currItem->itemText.at(currItem->CPos-1)->cfont->scName();
-				Doc->CurrFontSize = currItem->itemText.at(currItem->CPos-1)->csize;
-				Doc->CurrTextFill = currItem->itemText.at(currItem->CPos-1)->ccolor;
-				Doc->CurrTextFillSh = currItem->itemText.at(currItem->CPos-1)->cshade;
-				Doc->CurrTextStroke = currItem->itemText.at(currItem->CPos-1)->cstroke;
-				Doc->CurrTextStrokeSh = currItem->itemText.at(currItem->CPos-1)->cshade2;
-				Doc->CurrTextScale = currItem->itemText.at(currItem->CPos-1)->cscale;
-				Doc->CurrTextScaleV = currItem->itemText.at(currItem->CPos-1)->cscalev;
-				Doc->CurrTextBase = currItem->itemText.at(currItem->CPos-1)->cbase;
-				Doc->CurrTextShadowX = currItem->itemText.at(currItem->CPos-1)->cshadowx;
-				Doc->CurrTextShadowY = currItem->itemText.at(currItem->CPos-1)->cshadowy;
-				Doc->CurrTextOutline = currItem->itemText.at(currItem->CPos-1)->coutline;
-				Doc->CurrTextUnderPos = currItem->itemText.at(currItem->CPos-1)->cunderpos;
-				Doc->CurrTextUnderWidth = currItem->itemText.at(currItem->CPos-1)->cunderwidth;
-				Doc->CurrTextStrikePos = currItem->itemText.at(currItem->CPos-1)->cstrikepos;
-				Doc->CurrTextStrikeWidth = currItem->itemText.at(currItem->CPos-1)->cstrikewidth;
-				emit ItemTextStrike(currItem->itemText.at(currItem->CPos-1)->cstrikepos, currItem->itemText.at(currItem->CPos-1)->cstrikewidth);
-				emit ItemTextUnderline(currItem->itemText.at(currItem->CPos-1)->cunderpos, currItem->itemText.at(currItem->CPos-1)->cunderwidth);
-				emit ItemTextOutline(currItem->itemText.at(currItem->CPos-1)->coutline);
-				emit ItemTextShadow(currItem->itemText.at(currItem->CPos-1)->cshadowx, currItem->itemText.at(currItem->CPos-1)->cshadowy);
-				emit ItemTextSca(currItem->itemText.at(currItem->CPos-1)->cscale);
-				emit ItemTextScaV(currItem->itemText.at(currItem->CPos-1)->cscalev);
-				emit ItemTextFarben(currItem->itemText.at(currItem->CPos-1)->cstroke, currItem->itemText.at(currItem->CPos-1)->ccolor, currItem->itemText.at(currItem->CPos-1)->cshade2, currItem->itemText.at(currItem->CPos-1)->cshade);
-				emit ItemTextFont(currItem->itemText.at(currItem->CPos-1)->cfont->scName());
-				emit ItemTextSize(currItem->itemText.at(currItem->CPos-1)->csize);
-				emit ItemTextUSval(currItem->itemText.at(currItem->CPos-1)->cextra);
-				emit ItemTextStil(currItem->itemText.at(currItem->CPos-1)->cstyle);
-				emit ItemTextAbs(currItem->itemText.at(currItem->CPos-1)->cab);
-				emit ItemTextBase(currItem->itemText.at(currItem->CPos-1)->cbase);
+				int b=currItem->CPos-1;
+				if (b<0)
+					b=0;
+				Doc->CurrFont = currItem->itemText.at(b)->cfont->scName();
+				Doc->CurrFontSize = currItem->itemText.at(b)->csize;
+				Doc->CurrTextFill = currItem->itemText.at(b)->ccolor;
+				Doc->CurrTextFillSh = currItem->itemText.at(b)->cshade;
+				Doc->CurrTextStroke = currItem->itemText.at(b)->cstroke;
+				Doc->CurrTextStrokeSh = currItem->itemText.at(b)->cshade2;
+				Doc->CurrTextScale = currItem->itemText.at(b)->cscale;
+				Doc->CurrTextScaleV = currItem->itemText.at(b)->cscalev;
+				Doc->CurrTextBase = currItem->itemText.at(b)->cbase;
+				Doc->CurrTextShadowX = currItem->itemText.at(b)->cshadowx;
+				Doc->CurrTextShadowY = currItem->itemText.at(b)->cshadowy;
+				Doc->CurrTextOutline = currItem->itemText.at(b)->coutline;
+				Doc->CurrTextUnderPos = currItem->itemText.at(b)->cunderpos;
+				Doc->CurrTextUnderWidth = currItem->itemText.at(b)->cunderwidth;
+				Doc->CurrTextStrikePos = currItem->itemText.at(b)->cstrikepos;
+				Doc->CurrTextStrikeWidth = currItem->itemText.at(b)->cstrikewidth;
+				emit ItemTextStrike(currItem->itemText.at(b)->cstrikepos, currItem->itemText.at(b)->cstrikewidth);
+				emit ItemTextUnderline(currItem->itemText.at(b)->cunderpos, currItem->itemText.at(b)->cunderwidth);
+				emit ItemTextOutline(currItem->itemText.at(b)->coutline);
+				emit ItemTextShadow(currItem->itemText.at(b)->cshadowx, currItem->itemText.at(b)->cshadowy);
+				emit ItemTextSca(currItem->itemText.at(b)->cscale);
+				emit ItemTextScaV(currItem->itemText.at(b)->cscalev);
+				emit ItemTextFarben(currItem->itemText.at(b)->cstroke, currItem->itemText.at(b)->ccolor, currItem->itemText.at(b)->cshade2, currItem->itemText.at(b)->cshade);
+				emit ItemTextFont(currItem->itemText.at(b)->cfont->scName());
+				emit ItemTextSize(currItem->itemText.at(b)->csize);
+				emit ItemTextUSval(currItem->itemText.at(b)->cextra);
+				emit ItemTextStil(currItem->itemText.at(b)->cstyle);
+				emit ItemTextAbs(currItem->itemText.at(b)->cab);
+				emit ItemTextBase(currItem->itemText.at(b)->cbase);
 				return true;
 			}
 			else
