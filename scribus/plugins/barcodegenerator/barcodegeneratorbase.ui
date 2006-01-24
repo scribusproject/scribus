@@ -1,0 +1,456 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>BarcodeGeneratorBase</class>
+<comment>This is base class for Scribus Barcode Generator. Always use designer for this file!</comment>
+<author>Petr Vanek &lt;petr@scribus.info&gt;</author>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>BarcodeGeneratorBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>489</width>
+            <height>348</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Barcode Creator</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QLayoutWidget" row="0" column="0">
+            <property name="name">
+                <cstring>layout15</cstring>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout13</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QGroupBox">
+                            <property name="name">
+                                <cstring>bcodeBox</cstring>
+                            </property>
+                            <property name="title">
+                                <string>Barcode</string>
+                            </property>
+                            <grid>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLayoutWidget" row="0" column="0">
+                                    <property name="name">
+                                        <cstring>layout12</cstring>
+                                    </property>
+                                    <vbox>
+                                        <property name="name">
+                                            <cstring>unnamed</cstring>
+                                        </property>
+                                        <widget class="QLayoutWidget">
+                                            <property name="name">
+                                                <cstring>layout11</cstring>
+                                            </property>
+                                            <hbox>
+                                                <property name="name">
+                                                    <cstring>unnamed</cstring>
+                                                </property>
+                                                <widget class="QLayoutWidget">
+                                                    <property name="name">
+                                                        <cstring>layout10</cstring>
+                                                    </property>
+                                                    <vbox>
+                                                        <property name="name">
+                                                            <cstring>unnamed</cstring>
+                                                        </property>
+                                                        <widget class="QLabel">
+                                                            <property name="name">
+                                                                <cstring>bcLabel</cstring>
+                                                            </property>
+                                                            <property name="text">
+                                                                <string>&amp;Type:</string>
+                                                            </property>
+                                                            <property name="buddy" stdset="0">
+                                                                <cstring>bcCombo</cstring>
+                                                            </property>
+                                                        </widget>
+                                                        <widget class="QLabel">
+                                                            <property name="name">
+                                                                <cstring>codeLabel</cstring>
+                                                            </property>
+                                                            <property name="text">
+                                                                <string>C&amp;ode:</string>
+                                                            </property>
+                                                            <property name="buddy" stdset="0">
+                                                                <cstring>codeEdit</cstring>
+                                                            </property>
+                                                        </widget>
+                                                    </vbox>
+                                                </widget>
+                                                <widget class="QLayoutWidget">
+                                                    <property name="name">
+                                                        <cstring>layout9</cstring>
+                                                    </property>
+                                                    <vbox>
+                                                        <property name="name">
+                                                            <cstring>unnamed</cstring>
+                                                        </property>
+                                                        <widget class="QComboBox">
+                                                            <property name="name">
+                                                                <cstring>bcCombo</cstring>
+                                                            </property>
+                                                            <property name="toolTip" stdset="0">
+                                                                <string>Select one of the available barcode type here</string>
+                                                            </property>
+                                                        </widget>
+                                                        <widget class="QLineEdit">
+                                                            <property name="name">
+                                                                <cstring>codeEdit</cstring>
+                                                            </property>
+                                                            <property name="frameShape">
+                                                                <enum>LineEditPanel</enum>
+                                                            </property>
+                                                            <property name="frameShadow">
+                                                                <enum>Sunken</enum>
+                                                            </property>
+                                                            <property name="toolTip" stdset="0">
+                                                                <string>The numeric representation of the code itself. See the help message below</string>
+                                                            </property>
+                                                        </widget>
+                                                    </vbox>
+                                                </widget>
+                                            </hbox>
+                                        </widget>
+                                        <widget class="QCheckBox">
+                                            <property name="name">
+                                                <cstring>textCheck</cstring>
+                                            </property>
+                                            <property name="text">
+                                                <string>&amp;Include text in barcode</string>
+                                            </property>
+                                            <property name="accel">
+                                                <string>Alt+I</string>
+                                            </property>
+                                            <property name="checked">
+                                                <bool>true</bool>
+                                            </property>
+                                            <property name="toolTip" stdset="0">
+                                                <string>If checked, there will be numbers in the barcode too</string>
+                                            </property>
+                                        </widget>
+                                        <widget class="QCheckBox">
+                                            <property name="name">
+                                                <cstring>guardCheck</cstring>
+                                            </property>
+                                            <property name="text">
+                                                <string>&amp;Guard whitespace</string>
+                                            </property>
+                                            <property name="accel">
+                                                <string>Alt+G</string>
+                                            </property>
+                                            <property name="toolTip" stdset="0">
+                                                <string>Draw arrows to be sure of space next the code</string>
+                                            </property>
+                                        </widget>
+                                    </vbox>
+                                </widget>
+                            </grid>
+                        </widget>
+                        <widget class="QGroupBox">
+                            <property name="name">
+                                <cstring>colorBox</cstring>
+                            </property>
+                            <property name="title">
+                                <string>Colors</string>
+                            </property>
+                            <grid>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLayoutWidget" row="0" column="0">
+                                    <property name="name">
+                                        <cstring>layout8</cstring>
+                                    </property>
+                                    <hbox>
+                                        <property name="name">
+                                            <cstring>unnamed</cstring>
+                                        </property>
+                                        <widget class="QLayoutWidget">
+                                            <property name="name">
+                                                <cstring>layout6</cstring>
+                                            </property>
+                                            <vbox>
+                                                <property name="name">
+                                                    <cstring>unnamed</cstring>
+                                                </property>
+                                                <widget class="QPushButton">
+                                                    <property name="name">
+                                                        <cstring>bgColorButton</cstring>
+                                                    </property>
+                                                    <property name="text">
+                                                        <string>&amp;Background</string>
+                                                    </property>
+                                                    <property name="accel">
+                                                        <string>Alt+B</string>
+                                                    </property>
+                                                    <property name="toolTip" stdset="0">
+                                                        <string>Background color - under the code lines</string>
+                                                    </property>
+                                                </widget>
+                                                <widget class="QPushButton">
+                                                    <property name="name">
+                                                        <cstring>lnColorButton</cstring>
+                                                    </property>
+                                                    <property name="text">
+                                                        <string>&amp;Lines</string>
+                                                    </property>
+                                                    <property name="accel">
+                                                        <string>Alt+L</string>
+                                                    </property>
+                                                    <property name="toolTip" stdset="0">
+                                                        <string>Color of the lines in barcode</string>
+                                                    </property>
+                                                </widget>
+                                                <widget class="QPushButton">
+                                                    <property name="name">
+                                                        <cstring>txtColorButton</cstring>
+                                                    </property>
+                                                    <property name="text">
+                                                        <string>&amp;Text</string>
+                                                    </property>
+                                                    <property name="accel">
+                                                        <string>Alt+T</string>
+                                                    </property>
+                                                    <property name="toolTip" stdset="0">
+                                                        <string>Color of the text and numbers</string>
+                                                    </property>
+                                                </widget>
+                                            </vbox>
+                                        </widget>
+                                        <widget class="QLayoutWidget">
+                                            <property name="name">
+                                                <cstring>layout7</cstring>
+                                            </property>
+                                            <vbox>
+                                                <property name="name">
+                                                    <cstring>unnamed</cstring>
+                                                </property>
+                                                <widget class="QLabel">
+                                                    <property name="name">
+                                                        <cstring>bgLabel</cstring>
+                                                    </property>
+                                                    <property name="minimumSize">
+                                                        <size>
+                                                            <width>10</width>
+                                                            <height>0</height>
+                                                        </size>
+                                                    </property>
+                                                    <property name="frameShape">
+                                                        <enum>Box</enum>
+                                                    </property>
+                                                    <property name="scaledContents">
+                                                        <bool>true</bool>
+                                                    </property>
+                                                </widget>
+                                                <widget class="QLabel">
+                                                    <property name="name">
+                                                        <cstring>linesLabel</cstring>
+                                                    </property>
+                                                    <property name="minimumSize">
+                                                        <size>
+                                                            <width>10</width>
+                                                            <height>0</height>
+                                                        </size>
+                                                    </property>
+                                                    <property name="frameShape">
+                                                        <enum>Box</enum>
+                                                    </property>
+                                                    <property name="scaledContents">
+                                                        <bool>true</bool>
+                                                    </property>
+                                                </widget>
+                                                <widget class="QLabel">
+                                                    <property name="name">
+                                                        <cstring>txtLabel</cstring>
+                                                    </property>
+                                                    <property name="minimumSize">
+                                                        <size>
+                                                            <width>10</width>
+                                                            <height>0</height>
+                                                        </size>
+                                                    </property>
+                                                    <property name="frameShape">
+                                                        <enum>Box</enum>
+                                                    </property>
+                                                    <property name="scaledContents">
+                                                        <bool>true</bool>
+                                                    </property>
+                                                </widget>
+                                            </vbox>
+                                        </widget>
+                                    </hbox>
+                                </widget>
+                            </grid>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout14</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QTextEdit">
+                            <property name="name">
+                                <cstring>commentEdit</cstring>
+                            </property>
+                            <property name="readOnly">
+                                <bool>true</bool>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>Hints and help is shown here</string>
+                            </property>
+                        </widget>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>sampleLabel</cstring>
+                            </property>
+                            <property name="frameShape">
+                                <enum>Box</enum>
+                            </property>
+                            <property name="scaledContents">
+                                <bool>true</bool>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>Preview of the result. 72dpi sample.</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout10</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <spacer>
+                            <property name="name">
+                                <cstring>spacer2</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>40</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>okButton</cstring>
+                            </property>
+                            <property name="text">
+                                <string></string>
+                            </property>
+                        </widget>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>cancelButton</cstring>
+                            </property>
+                            <property name="text">
+                                <string></string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+            </vbox>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>bcCombo</sender>
+        <signal>activated(const QString&amp;)</signal>
+        <receiver>BarcodeGeneratorBase</receiver>
+        <slot>bcComboChanged()</slot>
+    </connection>
+    <connection>
+        <sender>textCheck</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>BarcodeGeneratorBase</receiver>
+        <slot>textCheck_changed()</slot>
+    </connection>
+    <connection>
+        <sender>guardCheck</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>BarcodeGeneratorBase</receiver>
+        <slot>guardCheck_changed()</slot>
+    </connection>
+    <connection>
+        <sender>bgColorButton</sender>
+        <signal>clicked()</signal>
+        <receiver>BarcodeGeneratorBase</receiver>
+        <slot>bgColorButton_pressed()</slot>
+    </connection>
+    <connection>
+        <sender>lnColorButton</sender>
+        <signal>clicked()</signal>
+        <receiver>BarcodeGeneratorBase</receiver>
+        <slot>lnColorButton_pressed()</slot>
+    </connection>
+    <connection>
+        <sender>txtColorButton</sender>
+        <signal>clicked()</signal>
+        <receiver>BarcodeGeneratorBase</receiver>
+        <slot>txtColorButton_pressed()</slot>
+    </connection>
+    <connection>
+        <sender>okButton</sender>
+        <signal>clicked()</signal>
+        <receiver>BarcodeGeneratorBase</receiver>
+        <slot>okButton_pressed()</slot>
+    </connection>
+    <connection>
+        <sender>cancelButton</sender>
+        <signal>clicked()</signal>
+        <receiver>BarcodeGeneratorBase</receiver>
+        <slot>cancelButton_pressed()</slot>
+    </connection>
+    <connection>
+        <sender>codeEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>BarcodeGeneratorBase</receiver>
+        <slot>codeEdit_textChanged(const QString&amp;)</slot>
+    </connection>
+</connections>
+<slots>
+    <slot>bcComboChanged()</slot>
+    <slot>textCheck_changed()</slot>
+    <slot>guardCheck_changed()</slot>
+    <slot>bgColorButton_pressed()</slot>
+    <slot>lnColorButton_pressed()</slot>
+    <slot>txtColorButton_pressed()</slot>
+    <slot>okButton_pressed()</slot>
+    <slot>cancelButton_pressed()</slot>
+    <slot>codeEdit_textChanged( const QString &amp; )</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

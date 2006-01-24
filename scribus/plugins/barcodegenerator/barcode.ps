@@ -1,0 +1,2621 @@
+%!PS-Adobe-2.0
+%%Creator: Terry Burton
+%%DocumentPaperSizes: a4
+%%EndComments
+%%EndProlog
+
+% Barcode Writer in Pure PostScript - Version 2006-01-17
+% http://www.terryburton.co.uk/barcodewriter/
+%
+% Copyright (c) 2005 Terry Burton - tez@terryburton.co.uk
+%
+% Permission is hereby granted, free of charge, to any
+% person obtaining a copy of this software and associated
+% documentation files (the "Software"), to deal in the
+% Software without restriction, including without
+% limitation the rights to use, copy, modify, merge,
+% publish, distribute, sublicense, and/or sell copies of
+% the Software, and to permit persons to whom the Software
+% is furnished to do so, subject to the following
+% conditions:
+%
+% The above copyright notice and this permission notice
+% shall be included in all copies or substantial portions
+% of the Software.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+% KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+% THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+% PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+% THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+% DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+% CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+% CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+% IN THE SOFTWARE.
+
+% Uncomment this next line to allow these procedure definitions to 
+% remain resident within a printer's PostScript virtual machine 
+% so that the barcode generation capability persists between jobs.
+
+% serverdict begin 0 exitserver 
+
+% --BEGIN TEMPLATE--
+
+% --BEGIN ENCODER ean13--
+/ean13 {
+
+    0 begin
+
+    /options exch def                  % We are given an option string
+    /useropts options def
+    /barcode exch def                  % We are given a barcode string
+
+    /includetext false def             % Enable/disable text
+    /textfont /Helvetica def
+    /textsize 12 def
+    /textpos -4 def
+    /height 1 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+    
+    /barlen barcode length def         % Length of the code
+
+    % Add checksum digit to barcode if length is even
+    barlen 2 mod 0 eq {
+        /pad barlen 1 add string def   % Create pad one bigger than barcode
+        /checksum 0 def
+        0 1 barlen 1 sub {
+            /i exch def
+            /barchar barcode i get 48 sub def
+            i 2 mod 0 eq {
+                /checksum barchar checksum add def
+            } {
+                /checksum barchar 3 mul checksum add def
+            } ifelse
+        } for
+        /checksum 10 checksum 10 mod sub 10 mod def
+        pad 0 barcode putinterval       % Add barcode to the start of the pad
+        pad barlen checksum 48 add put  % Put ascii for checksum at end of pad
+        /barcode pad def                % barcode=pad
+        /barlen barlen 1 add def        % barlen++
+    } if
+
+    % Create an array containing the character mappings
+    /encs
+    [ (3211) (2221) (2122) (1411) (1132)
+      (1231) (1114) (1312) (1213) (3112)
+      (111) (11111) (111)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789) def
+
+    % Digits to mirror on left side
+    /mirrormaps
+    [ (000000) (001011) (001101) (001110) (010011)
+      (011001) (011100) (010101) (010110) (011010)
+    ] def
+
+    /sbs barlen 1 sub 4 mul 11 add string def
+    /txt barlen array def
+  
+    % Put the start character
+    sbs 0 encs 10 get putinterval
+
+    % First digit - determine mirrormap by this and show before guard bars
+    /mirrormap mirrormaps barcode 0 get 48 sub get def
+    txt 0 [barcode 0 1 getinterval -10 textpos textfont textsize] put
+
+    % Left side - performs mirroring
+    1 1 6 {
+        % Lookup the encoding for the each barcode character
+        /i exch def
+        barcode i 1 getinterval barchars exch search
+        pop                            % Discard true leaving pre
+        length /indx exch def          % indx is the length of pre
+        pop pop                        % Discard seek and post
+        /enc encs indx get def         % Get the indxth encoding
+        mirrormap i 1 sub get 49 eq {   % Reverse enc if 1 in this position in mirrormap
+            /enclen enc length def
+            /revenc enclen string def
+            0 1 enclen 1 sub {
+                /j exch def
+                /char enc j get def
+                revenc enclen j sub 1 sub char put
+            } for
+            /enc revenc def
+        } if
+        sbs i 1 sub 4 mul 3 add enc putinterval   % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval i 1 sub 7 mul 4 add textpos textfont textsize] put
+    } for
+
+    % Put the middle character
+    sbs 7 1 sub 4 mul 3 add encs 11 get putinterval
+
+    % Right side
+    7 1 12 {
+        % Lookup the encoding for the each barcode character
+        /i exch def
+        barcode i 1 getinterval barchars exch search
+        pop                            % Discard true leaving pre
+        length /indx exch def          % indx is the length of pre
+        pop pop                        % Discard seek and post
+        /enc encs indx get def         % Get the indxth encoding
+        sbs i 1 sub 4 mul 8 add enc putinterval  % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval i 1 sub 7 mul 8 add textpos textfont textsize] put
+    } for
+
+    % Put the end character
+    sbs barlen 1 sub 4 mul 8 add encs 12 get putinterval
+    
+    % Return the arguments
+    /retval 4 dict def
+    retval (sbs) sbs put
+    includetext {
+        retval (bhs) [height height 12{height .075 sub}repeat height height 12{height .075 sub}repeat height height] put
+        retval (bbs) [0 0 12{.075}repeat 0 0 12{.075}repeat 0 0] put
+        retval (txt) txt put
+    } {
+        retval (bhs) [30{height}repeat] put        
+        retval (bbs) [30{0}repeat] put
+    } ifelse
+    retval (opt) useropts put
+    retval (guardrightpos) 10 put
+    retval
+    
+    end
+
+} bind def
+/ean13 load 0 1 dict put
+% --END ENCODER ean13--
+
+% --BEGIN ENCODER ean8--
+/ean8 {
+
+    0 begin
+
+    /options exch def                  % We are given an option string
+    /useropts options def
+    /barcode exch def                  % We are given a barcode string
+
+    /includetext false def              % Enable/disable text
+    /textfont /Helvetica def
+    /textsize 12 def
+    /textpos -4 def
+    /height 1 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+    
+    % Create an array containing the character mappings
+    /encs
+    [ (3211) (2221) (2122) (1411) (1132)
+      (1231) (1114) (1312) (1213) (3112)
+      (111) (11111) (111)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789) def
+
+    /barlen barcode length def           % Length of the code
+    /sbs barlen 4 mul 11 add string def
+    /txt barlen array def
+    
+    % Put the start character
+    sbs 0 encs 10 get putinterval
+
+    % Left side
+    0 1 3 {
+        % Lookup the encoding for the each barcode character
+        /i exch def
+        barcode i 1 getinterval barchars exch search
+        pop                                % Discard true leaving pre
+        length /indx exch def              % indx is the length of pre
+        pop pop                            % Discard seek and post
+        /enc encs indx get def             % Get the indxth encoding
+        sbs i 4 mul 3 add enc putinterval  % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval i 7 mul 4 add textpos textfont textsize] put
+    } for
+
+    % Put the middle character
+    sbs 4 4 mul 3 add encs 11 get putinterval
+
+    % Right side
+    4 1 7 {
+        % Lookup the encoding for the each barcode character
+        /i exch def
+        barcode i 1 getinterval barchars exch search
+        pop                                % Discard true leaving pre
+        length /indx exch def              % indx is the length of pre
+        pop pop                            % Discard seek and post
+        /enc encs indx get def             % Get the indxth encoding
+        sbs i 4 mul 8 add enc putinterval  % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval i 7 mul 8 add textpos textfont textsize] put
+    } for
+
+    % Put the end character
+    sbs barlen 4 mul 8 add encs 12 get putinterval
+
+    % Return the arguments
+    /retval 4 dict def
+    retval (sbs) sbs put
+    includetext {
+        retval (bhs) [height height 8{height .075 sub}repeat height height 8{height .075 sub}repeat height height] put
+        retval (bbs) [0 0 8{.075}repeat 0 0 8{.075}repeat 0 0] put
+        retval (txt) txt put
+    } {
+        retval (bhs) [22{height}repeat] put        
+        retval (bbs) [22{0}repeat] put
+    } ifelse
+    retval (opt) useropts put
+    retval (guardleftpos) 10 put
+    retval (guardrightpos) 10 put
+    retval
+
+    end
+
+} bind def
+/ean8 load 0 1 dict put
+% --END ENCODER ean8--
+
+% --BEGIN ENCODER upca--
+/upca {
+
+    0 begin
+
+    /options exch def
+    /useropts options def
+    /barcode exch def             % We are given a barcode string
+
+    /includetext false def         % Enable/disable text
+    /textfont /Helvetica def
+    /textsize 12 def
+    /textpos -4 def
+    /height 1 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+    
+    /barlen barcode length def         % Length of the code
+
+    % Add checksum digit to barcode if length is odd
+    barlen 2 mod 0 ne {
+        /pad barlen 1 add string def   % Create pad one bigger than barcode
+        /checksum 0 def
+        0 1 barlen 1 sub {
+           /i exch def
+           /barchar barcode i get 48 sub def
+           i 2 mod 0 ne {
+               /checksum checksum barchar add def
+           } {
+               /checksum checksum barchar 3 mul add def
+           } ifelse
+        } for
+        /checksum 10 checksum 10 mod sub 10 mod def
+        pad 0 barcode putinterval       % Add barcode to the start of the pad
+        pad barlen checksum 48 add put  % Put ascii for checksum at end of pad
+        /barcode pad def                % barcode=pad
+        /barlen barlen 1 add def        % barlen++
+    } if
+
+    % Create an array containing the character mappings
+    /encs
+    [ (3211) (2221) (2122) (1411) (1132)
+      (1231) (1114) (1312) (1213) (3112)
+      (111) (11111) (111)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789) def
+
+    /sbs barlen 4 mul 11 add string def
+    /txt barlen array def
+
+    % Put the start character
+    sbs 0 encs 10 get putinterval
+
+    % Left side
+    0 1 5 {
+        % Lookup the encoding for the each barcode character
+        /i exch def
+        barcode i 1 getinterval barchars exch search
+        pop                                % Discard true leaving pre
+        length /indx exch def              % indx is the length of pre
+        pop pop                            % Discard seek and post
+        /enc encs indx get def             % Get the indxth encoding
+        sbs i 4 mul 3 add enc putinterval  % Put encoded digit into sbs
+        i 0 eq {      % First digit is before the guard bars
+            txt 0 [barcode 0 1 getinterval -7 textpos textfont textsize 2 sub] put
+        } {
+            txt i [barcode i 1 getinterval i 7 mul 4 add textpos textfont textsize] put
+        } ifelse
+    } for
+
+    % Put the middle character
+    sbs 6 4 mul 3 add encs 11 get putinterval
+
+    % Right side
+    6 1 11 {
+        % Lookup the encoding for the each barcode character
+        /i exch def
+        barcode i 1 getinterval barchars exch search
+        pop                                % Discard true leaving pre
+        length /indx exch def              % indx is the length of pre
+        pop pop                            % Discard seek and post
+        /enc encs indx get def             % Get the indxth encoding
+        sbs i 4 mul 8 add enc putinterval  % Put encoded digit into sbs
+        i 11 eq {       % Last digit is after guard bars
+            txt 11 [barcode 11 1 getinterval 96 textpos textfont textsize 2 sub] put
+        } {
+            txt i [barcode i 1 getinterval i 7 mul 8 add textpos textfont textsize] put
+        } ifelse
+    } for
+
+    % Put the end character
+    sbs barlen 4 mul 8 add encs 12 get putinterval
+
+    % Return the arguments
+    /retval 4 dict def
+    retval (sbs) sbs put
+    includetext {
+        retval (bhs) [4{height}repeat 10{height .075 sub}repeat height height 10{height .075 sub}repeat 5{height}repeat] put      
+        retval (bbs) [0 0 0 0 10{.075}repeat 0 0 10{.075}repeat 0 0 0 0 0] put
+        retval (txt) txt put
+    } {
+        retval (bhs) [31{height}repeat] put
+        retval (bbs) [31{0}repeat] put
+    } ifelse
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/upca load 0 1 dict put
+% --END ENCODER upca--
+
+% --BEGIN ENCODER upce--
+/upce {
+
+    0 begin
+
+    /options exch def                   % We are given an option string
+    /useropts options def
+    /barcode exch def                   % We are given a barcode string
+
+    /includetext false def               % Enable/disable text
+    /textfont /Helvetica def
+    /textsize 12 def
+    /textpos -4 def
+    /height 1 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+    
+    /barlen barcode length def          % Length of the code
+
+    % Create an array containing the character mappings
+    /encs
+    [ (3211) (2221) (2122) (1411) (1132)
+      (1231) (1114) (1312) (1213) (3112)
+      (111) (1111111)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789) def
+
+    /mirrormaps
+    [ (000111) (001011) (001101) (001110) (010011)
+      (011001) (011100) (010101) (010110) (011010)
+    ] def
+
+    % Add checksum digit to barcode if length is odd
+    barlen 2 mod 0 ne {
+        /pad barlen 1 add string def    % Create pad one bigger than barcode
+        /checksum 0 def
+        0 1 barlen 1 sub {
+            /i exch def
+            /barchar barcode i get 48 sub def
+            i 2 mod 0 ne {
+                /checksum barchar checksum add def
+            } {
+                /checksum barchar 3 mul checksum add def
+            } ifelse
+        } for
+        /checksum 10 checksum 10 mod sub 10 mod def
+        pad 0 barcode putinterval       % Add barcode to the start of the pad
+        pad barlen checksum 48 add put  % Put ascii for checksum at end of pad
+        /barcode pad def                % barcode=pad
+        /barlen barlen 1 add def        % barlen++
+    } if
+    /txt barlen array def
+    txt 0 [barcode 0 1 getinterval -7 textpos textfont textsize 2 sub] put
+
+    % Determine the mirror map based on checksum
+    /mirrormap mirrormaps barcode barlen 1 sub get 48 sub get def
+
+    % Invert the mirrormap if we are using a non-zero number system
+    barcode 0 get 48 eq {
+        /invt mirrormap length string def
+        0 1 mirrormap length 1 sub {
+            /i exch def
+            mirrormap i get 48 eq {
+                invt i 49 put
+            } {
+                invt i 48 put
+            } ifelse
+        } for
+        /mirrormap invt def
+    } if
+
+    /sbs barlen 2 sub 4 mul 10 add string def
+
+    % Put the start character
+    sbs 0 encs 10 get putinterval
+
+    1 1 6 {
+        /i exch def
+        % Lookup the encoding for the each barcode character
+        barcode i 1 getinterval barchars exch search
+        pop                            % Discard true leaving pre
+        length /indx exch def          % indx is the length of pre
+        pop pop                        % Discard seek and post
+        /enc encs indx get def         % Get the indxth encoding
+        mirrormap i 1 sub get 49 eq {  % Reverse enc if 1 in this position in mirrormap        
+            /enclen enc length def
+            /revenc enclen string def
+            0 1 enclen 1 sub {
+                /j exch def
+                /char enc j get def
+                revenc enclen j sub 1 sub char put
+            } for
+            /enc revenc def
+        } if
+        sbs i 1 sub 4 mul 3 add enc putinterval   % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval i 1 sub 7 mul 4 add textpos textfont textsize] put
+    } for
+
+    txt 7 [barcode 7 1 getinterval 6 7 mul 11 add textpos textfont textsize 2 sub] put
+
+    % Put the end character
+    sbs barlen 2 sub 4 mul 3 add encs 11 get putinterval
+
+    % Return the arguments
+    /retval 4 dict def
+    retval (sbs) sbs put
+    includetext {
+        retval (bhs) [height height 12{height .075 sub}repeat height height height] put      
+        retval (bbs) [0 0 12{.075}repeat 0 0 0] put    
+        retval (txt) txt put
+    } {
+        retval (bhs) [17{height}repeat] put      
+        retval (bbs) [17{0}repeat] put    
+    } ifelse
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/upce load 0 1 dict put
+% --END ENCODER upce--
+
+% --BEGIN ENCODER ean5--
+/ean5 {
+
+    0 begin
+
+    /options exch def                   % We are given an option string
+    /useropts options def
+    /barcode exch def                   % We are given a barcode string
+
+    /includetext false def              % Enable/disable text
+    /textfont /Helvetica def
+    /textsize 12 def
+    /textpos (unset) def
+    /height 0.7 def    
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /height height cvr def
+    textpos (unset) eq {
+        /textpos height 72 mul 1 add def
+    } {
+        /textpos textpos cvr def
+    } ifelse
+    
+    /barlen barcode length def          % Length of the code
+
+    % Create an array containing the character mappings
+    /encs
+    [ (3211) (2221) (2122) (1411) (1132)
+      (1231) (1114) (1312) (1213) (3112)
+      (112) (11)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789) def
+
+    % Determine the mirror map based on mod 10 checksum
+    /mirrormaps
+    [ (11000) (10100) (10010) (10001) (01100)
+      (00110) (00011) (01010) (01001) (00101)
+    ] def
+    /checksum 0 def
+    0 1 4 {
+        /i exch def
+        /barchar barcode i get 48 sub def
+        i 2 mod 0 eq {
+            /checksum barchar 3 mul checksum add def
+        } {
+            /checksum barchar 9 mul checksum add def
+        } ifelse
+    } for
+    /checksum checksum 10 mod def
+    /mirrormap mirrormaps checksum get def
+
+    /sbs 31 string def
+    /txt 5 array def
+   
+    0 1 4 {
+        /i exch def
+
+        % Prefix with either a start character or separator character
+        i 0 eq {
+            sbs 0 encs 10 get putinterval
+        } {
+            sbs i 1 sub 6 mul 7 add encs 11 get putinterval
+        } ifelse
+
+        % Lookup the encoding for the barcode character
+        barcode i 1 getinterval barchars exch search
+        pop                     % Discard true leaving pre
+        length /indx exch def   % indx is the length of pre
+        pop pop                 % Discard seek and post
+        /enc encs indx get def  % Get the indxth encoding
+        mirrormap i get 49 eq { % Reverse enc if 1 in this position in mirrormap
+            /enclen enc length def
+            /revenc enclen string def
+            0 1 enclen 1 sub {
+                /j exch def
+                /char enc j get def
+                revenc enclen j sub 1 sub char put
+            } for
+            /enc revenc def
+        } if
+        sbs i 6 mul 3 add enc putinterval   % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval i 1 sub 9 mul 13 add textpos textfont textsize] put
+    } for
+
+    % Return the arguments
+    /retval 4 dict def
+    retval (sbs) sbs put
+    retval (bhs) [16{height}repeat] put
+    retval (bbs) [16{0}repeat] put
+    includetext {
+        retval (txt) txt put
+    } if
+    retval (opt) useropts put
+    retval (guardrightpos) 10 put
+    retval (guardrightypos) textpos 4 add put
+    retval
+
+    end
+
+} bind def
+/ean5 load 0 1 dict put
+% --END ENCODER ean5--
+
+% --BEGIN ENCODER ean2--
+/ean2 {
+
+    0 begin
+
+    /options exch def                   % We are given an options string
+    /useropts options def
+    /barcode exch def                   % We are given a barcode string
+
+    /includetext false def               % Enable/disable text
+    /textfont /Helvetica def
+    /textsize 12 def
+    /textpos (unset) def
+    /height 0.7 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /height height cvr def
+    textpos (unset) eq {
+        /textpos height 72 mul 1 add def
+    } {
+        /textpos textpos cvr def
+    } ifelse
+    
+    /barlen barcode length def          % Length of the code
+
+    % Create an array containing the character mappings
+    /encs
+    [ (3211) (2221) (2122) (1411) (1132)
+      (1231) (1114) (1312) (1213) (3112)
+      (112) (11)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789) def
+
+    % Determine the mirror map based on mod 4 checksum
+    /mirrormap [(00) (01) (10) (11)] barcode 0 2 getinterval cvi 4 mod get def
+
+    /sbs 13 string def
+    /txt 2 array def
+    
+    0 1 1 {
+        /i exch def
+
+        % Prefix with either a start character or separator character
+        i 0 eq {
+            sbs 0 encs 10 get putinterval
+        } {
+            sbs i 1 sub 6 mul 7 add encs 11 get putinterval
+        } ifelse
+
+        % Lookup the encoding for the barcode character
+        barcode i 1 getinterval barchars exch search
+        pop                     % Discard true leaving pre
+        length /indx exch def   % indx is the length of pre
+        pop pop                 % Discard seek and post
+        /enc encs indx get def  % Get the indxth encoding
+        mirrormap i get 49 eq { % Reverse enc if 1 in this position in mirrormap    
+            /enclen enc length def
+            /revenc enclen string def
+            0 1 enclen 1 sub {
+                /j exch def
+                /char enc j get def
+                revenc enclen j sub 1 sub char put
+            } for
+            /enc revenc def
+        } if
+        sbs i 6 mul 3 add enc putinterval   % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval i 1 sub 9 mul 13 add textpos textfont textsize] put
+    } for
+
+    % Return the arguments
+    /retval 4 dict def
+    retval (sbs) sbs put
+    retval (bhs) [12{height}repeat] put
+    retval (bbs) [12{0}repeat] put
+    includetext {
+        retval (txt) txt put
+    } if
+    retval (opt) useropts put
+    retval (guardrightpos) 10 put
+    retval (guardrightypos) textpos 4 add put
+    retval
+
+    end
+
+} bind def
+/ean2 load 0 1 dict put
+% --END ENCODER ean2--
+
+% --BEGIN ENCODER isbn--
+% --REQUIRES ean13--
+/isbn {
+
+    0 begin
+
+    /options exch def      % We are given an options string
+    /useropts options def
+    /isbntxt exch def      % We are given the isbn text with dashes
+
+    /includetext false def  % Enable/disable ISBN text
+    /isbnfont /Courier def
+    /isbnsize 9 def
+    /isbnpos (unset) def
+    /height 1 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /isbnfont isbnfont cvlit def
+    /isbnsize isbnsize cvr def
+    /height height cvr def
+    isbnpos (unset) eq {
+        /isbnpos height 72 mul 3 add def
+    } {
+        /isbnpos isbnpos cvr def
+    } ifelse
+    
+    % Read the digits from isbntxt and calculate checksums
+    /isbn 13 string def
+    /checksum10 0 def
+    /checksum13 0 def
+    /i 0 def /n 0 def
+    { % loop
+        /isbnchar isbntxt i get 48 sub def
+        isbnchar -3 ne {     % Ignore dashes
+            isbn n isbnchar 48 add put
+            /checksum10 checksum10 10 n sub isbnchar mul add def
+            n 2 mod 0 eq {
+                /checksum13 isbnchar checksum13 add def
+            } {
+                /checksum13 isbnchar 3 mul checksum13 add def
+            } ifelse
+            /n n 1 add def
+        } if
+        /i i 1 add def
+        i isbntxt length eq {exit} if
+    } loop
+
+    % Add the ISBN header to the isbntxt
+    n 9 eq n 10 eq or {
+        /checksum 11 checksum10 11 mod sub 11 mod def
+        /isbn isbn 0 9 getinterval def
+        /pad 18 string def
+    } {
+        /checksum 10 checksum13 10 mod sub 10 mod def
+        /isbn isbn 0 12 getinterval def
+        /pad 22 string def
+    } ifelse
+    pad 0 (ISBN ) putinterval
+    pad 5 isbntxt putinterval  % Add isbntxt to the pad
+
+    % Add checksum digit if isbntxt length is 11 or 15
+    isbntxt length 11 eq isbntxt length 15 eq or {
+        pad isbntxt length 5 add 45 put  % Put a dash
+        checksum 10 eq {
+            pad isbntxt length 6 add checksum 78 add put  % Check digit for 10 is X
+        } {
+            pad isbntxt length 6 add checksum 48 add put  % Put check digit
+        } ifelse
+    } if
+    /isbntxt pad def                    % isbntxt=pad
+
+    % Convert ISBN digits to EAN-13
+    /barcode 12 string def
+    isbn length 9 eq {        
+        barcode 0 (978) putinterval
+        barcode 3 isbn putinterval
+    } {
+        barcode 0 isbn putinterval
+    } ifelse
+
+    % Get the result of encoding with ean13    
+    /args barcode options ean13 def
+
+    % Add the ISBN text
+    includetext {
+        isbn length 9 eq {
+            /isbnxpos -1 def
+        } {
+            /isbnxpos -12 def
+        } ifelse
+        args (txt) known {
+            /txt args (txt) get def
+            /newtxt txt length 1 add array def
+            newtxt 0 txt putinterval
+            newtxt newtxt length 1 sub [isbntxt isbnxpos isbnpos isbnfont isbnsize] put
+            args (txt) newtxt put
+        } {
+            args (txt) [ [isbntxt isbnxpos isbnpos isbnfont isbnsize] ] put
+        } ifelse
+    } if
+
+    args (opt) useropts put
+    args
+
+    end
+ 
+} bind def
+/isbn load 0 1 dict put
+% --END ENCODER isbn--
+
+% --BEGIN ENCODER code128--
+/code128 {
+
+    0 begin                  % Confine variables to local scope
+
+    /options exch def        % We are given an option string
+    /useropts options def
+    /barcode exch def        % We are given a barcode string
+
+    /includetext false def    % Enable/disable text
+    /textfont /Courier def
+    /textsize 10 def
+    /textpos -7 def
+    /height 1 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+    
+    % Create an array containing the character mappings
+    /encs
+    [ (212222) (222122) (222221) (121223) (121322) (131222) (122213)
+      (122312) (132212) (221213) (221312) (231212) (112232) (122132)
+      (122231) (113222) (123122) (123221) (223211) (221132) (221231)
+      (213212) (223112) (312131) (311222) (321122) (321221) (312212)
+      (322112) (322211) (212123) (212321) (232121) (111323) (131123)
+      (131321) (112313) (132113) (132311) (211313) (231113) (231311)
+      (112133) (112331) (132131) (113123) (113321) (133121) (313121)
+      (211331) (231131) (213113) (213311) (213131) (311123) (311321)
+      (331121) (312113) (312311) (332111) (314111) (221411) (431111)
+      (111224) (111422) (121124) (121421) (141122) (141221) (112214)
+      (112412) (122114) (122411) (142112) (142211) (241211) (221114)
+      (413111) (241112) (134111) (111242) (121142) (121241) (114212)
+      (124112) (124211) (411212) (421112) (421211) (212141) (214121)
+      (412121) (111143) (111341) (131141) (114113) (114311) (411113)
+      (411311) (113141) (114131) (311141) (411131) (211412) (211214)
+      (211232) (2331112)
+    ] def
+
+    % Create a string of the available characters for alphabets A and B
+    /barchars ( !"#$%&'\(\)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~) def
+    /barlen barcode length def    % Length of the code
+    /sbs barlen 6 mul string def  % sbs is 6 times length of barcode
+    /txt barlen array def
+
+    /mode -1 def         % A=0, B=1, C=2
+    /checksum barcode 1 3 getinterval cvi def  % Initialise the checksum
+
+    /i 0 def /j 0 def
+    { % loop
+        i barlen eq {exit} if
+        barcode i 1 getinterval (^) eq {
+            % indx is given by the next three characters
+            /indx barcode i 1 add 3 getinterval cvi def
+            txt j [( ) j 11 mul textpos textfont textsize] put
+            /i i 4 add def
+        } {
+            % indx depends on the mode
+            mode 2 eq {
+                /indx barcode i 2 getinterval cvi def
+                txt j [barcode i 2 getinterval j 11 mul textpos textfont textsize] put
+                /i i 2 add def
+            } {
+                barchars barcode i 1 getinterval search
+                pop                    % Discard true leaving pre
+                length /indx exch def  % indx is the length of pre
+                pop pop                % Discard seek and post
+                txt j [barchars indx 1 getinterval j 11 mul textpos textfont textsize] put
+                /i i 1 add def
+            } ifelse
+        } ifelse
+        /enc encs indx get def         % Get the indxth encoding
+        sbs j 6 mul enc putinterval    % Put encoded digit into sbs
+
+        % Update the mode
+        indx 101 eq indx 103 eq or {/mode 0 def} if
+        indx 100 eq indx 104 eq or {/mode 1 def} if
+        indx 99 eq indx 105 eq or {/mode 2 def} if
+
+        /checksum indx j mul checksum add def  % checksum+=indx*j
+        /j j 1 add def
+    } loop
+
+    % Put the checksum character
+    /checksum checksum 103 mod def
+    sbs j 6 mul encs checksum get putinterval
+
+    % Put the end character
+    sbs j 6 mul 6 add encs 106 get putinterval
+
+    % Shrink sbs and txt to fit exactly
+    /sbs sbs 0 j 6 mul 13 add getinterval def
+    /txt txt 0 j getinterval def
+
+    % Return the arguments
+    /retval 1 dict def
+    retval (sbs) sbs put
+    retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
+    retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
+    includetext {
+        retval (txt) txt put
+    } if
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/code128 load 0 1 dict put
+% --END ENCODER code128--
+
+% --BEGIN ENCODER code39--
+/code39 {
+
+    0 begin                 % Confine variables to local scope
+
+    /options exch def       % We are given an option string
+    /useropts options def
+    /barcode exch def       % We are given a barcode string
+
+    /includecheck false def  % Enable/disable checkdigit
+    /includetext false def
+    /includecheckintext false def
+    /textfont /Courier def
+    /textsize 10 def
+    /textpos -7 def
+    /height 1 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+    
+    % Create an array containing the character mappings
+    /encs
+    [ (1113313111) (3113111131) (1133111131) (3133111111) (1113311131)
+      (3113311111) (1133311111) (1113113131) (3113113111) (1133113111)
+      (3111131131) (1131131131) (3131131111) (1111331131) (3111331111)
+      (1131331111) (1111133131) (3111133111) (1131133111) (1111333111)
+      (3111111331) (1131111331) (3131111311) (1111311331) (3111311311)
+      (1131311311) (1111113331) (3111113311) (1131113311) (1111313311)
+      (3311111131) (1331111131) (3331111111) (1311311131) (3311311111)
+      (1331311111) (1311113131) (3311113111) (1331113111) (1313131111)
+      (1313111311) (1311131311) (1113131311) (1311313111)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%*) def
+
+    /barlen barcode length def  % Length of the code
+
+    includecheck {
+        /sbs barlen 10 mul 30 add string def
+        /txt barlen 3 add array def
+    } {
+        /sbs barlen 10 mul 20 add string def
+        /txt barlen 2 add array def
+    } ifelse
+
+    /checksum 0 def
+
+    % Put the start character
+    sbs 0 encs 43 get putinterval
+    txt 0 [(*) 0 textpos textfont textsize] put
+
+    0 1 barlen 1 sub {
+        /i exch def
+        % Lookup the encoding for the each barcode character
+        barcode i 1 getinterval barchars exch search
+        pop                                  % Discard true leaving pre
+        length /indx exch def                % indx is the length of pre
+        pop pop                              % Discard seek and post
+        /enc encs indx get def               % Get the indxth encoding
+        sbs i 10 mul 10 add enc putinterval  % Put encoded digit into sbs
+        txt i 1 add [barcode i 1 getinterval i 1 add 16 mul textpos textfont textsize] put
+        /checksum checksum indx add def
+    } for
+
+    % Put the checksum and end characters
+    includecheck {
+        /checksum checksum 43 mod def
+        sbs barlen 10 mul 10 add encs checksum get putinterval
+        includecheckintext {
+            txt barlen 1 add [barchars checksum 1 getinterval barlen 1 add 16 mul textpos textfont textsize] put
+        } {
+            txt barlen 1 add [() barlen 1 add 16 mul textpos textfont textsize] put
+        } ifelse
+        sbs barlen 10 mul 20 add encs 43 get putinterval
+        txt barlen 2 add [(*) barlen 2 add 16 mul textpos textfont textsize] put
+    } {
+        sbs barlen 10 mul 10 add encs 43 get putinterval
+        txt barlen 1 add [(*) barlen 1 add 16 mul textpos textfont textsize] put
+    } ifelse
+
+    % Return the arguments
+    /retval 2 dict def
+    retval (sbs) sbs put
+    retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
+    retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
+    includetext {
+        retval (txt) txt put
+    } if
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/code39 load 0 1 dict put
+% --END ENCODER code39--
+
+% --BEGIN ENCODER code93--
+/code93 {
+
+    0 begin                 % Confine variables to local scope
+
+    /options exch def       % We are given an option string
+    /useropts options def
+    /barcode exch def       % We are given a barcode string
+
+    /includecheck false def  % Enable/disable checkdigit
+    /includetext false def   % Enable/disable text
+    /textfont /Courier def
+    /textsize 10 def
+    /textpos -7 def
+    /height 1 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+    
+    /encs
+    [ (131112) (111213) (111312) (111411) (121113)
+      (121212) (121311) (111114) (131211) (141111)
+      (211113) (211212) (211311) (221112) (221211)
+      (231111) (112113) (112212) (112311) (122112)
+      (132111) (111123) (111222) (111321) (121122)
+      (131121) (212112) (212211) (211122) (211221)
+      (221121) (222111) (112122) (112221) (122121)
+      (123111) (121131) (311112) (311211) (321111)
+      (112131) (113121) (211131) (121221) (312111)
+      (311121) (122211) (111141) (1111411)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%) def
+
+    /barlen barcode length def  % Length of the code    
+    barcode {
+        (^) search false eq {pop exit} if
+        pop pop /barlen barlen 3 sub def
+    } loop
+
+    includecheck {
+        /sbs barlen 6 mul 25 add string def
+    } {
+        /sbs barlen 6 mul 13 add string def
+    } ifelse
+    /txt barlen array def
+    
+    % Put the start character
+    sbs 0 encs 47 get putinterval
+    
+    /checksum1 0 def /checksum2 0 def
+
+    /i 0 def /j 0 def
+    { % loop
+        j barlen eq {exit} if
+        barcode i 1 getinterval (^) eq {
+            % indx is given by the next three characters
+            /indx barcode i 1 add 3 getinterval cvi def
+            txt j [( ) j 9 mul 9 add textpos textfont textsize] put
+            /i i 4 add def
+        } {
+            barchars barcode i 1 getinterval search
+            pop                         % Discard true leaving pre
+            length /indx exch def       % indx is the length of pre
+            pop pop                     % Discard seek and post
+            txt j [barchars indx 1 getinterval j 9 mul 9 add textpos textfont textsize] put
+            /i i 1 add def
+        } ifelse
+        /enc encs indx get def             % Get the indxth encoding
+        sbs j 6 mul 6 add enc putinterval  % Put encoded digit into sbs
+        /checksum1 checksum1 barlen j sub 1 sub 20 mod 1 add indx mul add def
+        /checksum2 checksum2 barlen j sub 15 mod 1 add indx mul add def
+        /j j 1 add def
+    } loop
+    
+    includecheck {
+        % Put the first checksum character
+        /checksum1 checksum1 47 mod def
+        /checksum2 checksum2 checksum1 add 47 mod def
+        sbs j 6 mul 6 add encs checksum1 get putinterval
+        sbs j 6 mul 12 add encs checksum2 get putinterval
+        % Put the end character
+        sbs j 6 mul 18 add encs 48 get putinterval
+    } {
+        % Put the end character
+        sbs j 6 mul 6 add encs 48 get putinterval      
+    } ifelse
+
+    % Return the arguments
+    /retval 1 dict def
+    retval (sbs) sbs put
+    retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
+    retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
+    includetext {
+        retval (txt) txt put
+    } if
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/code93 load 0 1 dict put
+% --END ENCODER code93--
+
+% --BEGIN ENCODER interleaved2of5--
+/interleaved2of5 {
+
+    0 begin         % Confine variables to local scope
+
+    /options exch def               % We are given an option string
+    /useropts options def
+    /barcode exch def               % We are given a barcode string
+
+    /includecheck false def         % Enable/disable checkdigit
+    /includetext false def          % Enable/disable text
+    /includecheckintext false def
+    /textfont /Courier def
+    /textsize 10 def
+    /textpos -7 def
+    /height 1 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+    
+    /barlen barcode length def      % Length of the code
+
+    % Prefix 0 to barcode if length is even and including checkdigit
+    % or length is odd and not including checkdigit
+    barlen 2 mod 0 eq includecheck and          % even & includecheck
+    barlen 2 mod 0 ne includecheck not and or { % odd  & !includecheck
+        /pad barlen 1 add string def  % Create pad one bigger than barcode
+        pad 0 48 put                  % Put ascii 0 at start of pad
+        pad 1 barcode putinterval     % Add barcode to the end of pad
+        /barcode pad def              % barcode=pad
+        /barlen barlen 1 add def      % barlen++
+    } if
+
+    % Add checksum to end of barcode
+    includecheck {
+        /checksum 0 def
+        0 1 barlen 1 sub {
+            /i exch def
+            i 2 mod 0 eq {
+                /checksum checksum barcode i get 48 sub 3 mul add def
+            } {
+                /checksum checksum barcode i get 48 sub add def
+            } ifelse
+        } for
+        /checksum 10 checksum 10 mod sub 10 mod def
+        /pad barlen 1 add string def    % Create pad one bigger than barcode
+        pad 0 barcode putinterval       % Add barcode to the start of pad
+        pad barlen checksum 48 add put  % Add checksum to end of pad
+        /barcode pad def                % barcode=pad
+        /barlen barlen 1 add def        % barlen++
+    } if
+
+    % Create an array containing the character mappings
+    /encs
+    [ (11331) (31113) (13113) (33111) (11313)
+      (31311) (13311) (11133) (31131) (13131)
+      (1111)  (3111)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789) def
+    /sbs barlen 5 mul 8 add string def
+    /txt barlen array def
+
+    % Put the start character
+    sbs 0 encs 10 get putinterval
+
+    0 2 barlen 1 sub {
+    /i exch def
+        % Lookup the encodings for two consecutive barcode characters
+        barcode i 1 getinterval barchars exch search
+        pop                           % Discard true leaving pre
+        length /indx exch def         % indx is the length of pre
+        pop pop                       % Discard seek and post
+        /enca encs indx get def       % Get the indxth encoding
+
+        barcode i 1 add 1 getinterval barchars exch search
+        pop                           % Discard true leaving pre
+        length /indx exch def         % indx is the length of pre
+        pop pop                       % Discard seek and post
+        /encb encs indx get def       % Get the indxth encoding
+
+        % Interleave the two character encodings
+        /intl enca length 2 mul string def
+        0 1 enca length 1 sub {
+            /j exch def
+            /achar enca j get def
+            /bchar encb j get def
+            intl j 2 mul achar put
+            intl j 2 mul 1 add bchar put
+        } for
+
+        sbs i 5 mul 4 add intl putinterval   % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval i 9 mul 4 add textpos textfont textsize] put
+        includecheck includecheckintext not and barlen 2 sub i eq and {
+            txt i 1 add [( ) i 1 add 9 mul 4 add textpos textfont textsize] put
+        } {
+            txt i 1 add [barcode i 1 add 1 getinterval i 1 add 9 mul 4 add textpos textfont textsize] put
+        } ifelse
+    } for
+
+    % Put the end character
+    sbs barlen 5 mul 4 add encs 11 get putinterval
+
+    % Return the arguments
+    /retval 1 dict def
+    retval (sbs) sbs put
+    retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
+    retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
+    includetext {
+        retval (txt) txt put
+    } if
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/interleaved2of5 load 0 1 dict put
+% --END ENCODER interleaved2of5--
+
+% --BEGIN ENCODER code2of5--
+/code2of5 {
+
+    % Thanks to Michael Landers
+
+    0 begin                 % Confine variable to local scope
+
+    /options exch def       % We are given an option string
+    /useropts options def
+    /barcode exch def       % We are given a barcode string
+
+    /includecheck false def
+    /includetext false def   % Enable/disable text
+    /includecheckintext false def
+    /textfont /Courier def
+    /textsize 10 def
+    /textpos -7 def
+    /height 1 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+    
+    % Create an array containing the character mappings
+    /encs
+    [ (1111313111) (3111111131) (1131111131) (3131111111)
+      (1111311131) (3111311111) (1131311111) (1111113131)
+      (3111113111) (1131113111) (313111) (311131)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789) def
+
+    /barlen barcode length def            % Length of the code
+
+    includecheck {
+        /sbs barlen 10 mul 22 add string def
+        /txt barlen 1 add array def
+    } {
+        /sbs barlen 10 mul 12 add string def
+        /txt barlen array def
+    } ifelse
+    
+    % Put the start character
+    sbs 0 encs 10 get putinterval
+
+    /checksum 0 def
+    
+    0 1 barlen 1 sub {
+        /i exch def
+        % Lookup the encoding for the each barcode character
+        barcode i 1 getinterval barchars exch search
+        pop                                 % Discard true leaving pre
+        length /indx exch def               % indx is the length of pre
+        pop pop                             % Discard seek and post
+        /enc encs indx get def              % Get the indxth encoding
+        sbs i 10 mul 6 add enc putinterval  % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval i 14 mul 10 add textpos textfont textsize] put
+        barlen i sub 2 mod 0 eq {
+            /checksum checksum indx add def
+        } {            
+            /checksum checksum indx 3 mul add def
+        } ifelse        
+    } for
+    
+    % Put the checksum and end characters
+    includecheck {
+        /checksum 10 checksum 10 mod sub 10 mod def
+        sbs barlen 10 mul 6 add encs checksum get putinterval
+        sbs barlen 10 mul 16 add encs 11 get putinterval
+        includecheckintext {
+            txt barlen [barchars checksum 1 getinterval barlen 14 mul 10 add textpos textfont textsize] put
+        } {            
+            txt barlen [( ) barlen 14 mul 10 add textpos textfont textsize] put
+        } ifelse
+    } {
+        sbs barlen 10 mul 6 add encs 11 get putinterval
+    } ifelse
+    
+    % Return the arguments
+    /retval 1 dict def
+    retval (sbs) sbs put
+    retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
+    retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
+    includetext {
+        retval (txt) txt put
+    } if
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/code2of5 load 0 1 dict put
+% --END ENCODER code2of5--
+
+% --BEGIN ENCODER code11--
+/code11 {
+
+    0 begin            % Confine variables to local scope
+
+    /options exch def  % We are given an option string
+    /useropts options def
+    /barcode exch def  % We are given a barcode string
+
+    /includecheck false def
+    /includetext false def
+    /includecheckintext false def
+    /textfont /Courier def
+    /textsize 10 def
+    /textpos -7 def
+    /height 1 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+    
+    % Create an array containing the character mappings
+    /encs
+    [ (111131) (311131) (131131) (331111) (113131)
+      (313111) (133111) (111331) (311311) (311111)
+      (113111) (113311)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789-) def
+
+    /barlen barcode length def        % Length of the code
+
+    includecheck {
+        barlen 10 ge {
+            /sbs barlen 6 mul 24 add string def
+            /txt barlen 2 add array def
+        } {
+            /sbs barlen 6 mul 18 add string def
+            /txt barlen 1 add array def
+        } ifelse
+    } {
+        /sbs barlen 6 mul 12 add string def
+        /txt barlen array def
+    } ifelse
+
+    % Put the start character
+    sbs 0 encs 10 get putinterval
+
+    /checksum1 0 def /checksum2 0 def
+    
+    /xpos 8 def
+    0 1 barlen 1 sub {
+        /i exch def
+        % Lookup the encoding for the each barcode character
+        barcode i 1 getinterval barchars exch search
+        pop                                % Discard true leaving pre
+        length /indx exch def              % indx is the length of pre
+        pop pop                            % Discard seek and post
+        /enc encs indx get def             % Get the indxth encoding
+        sbs i 6 mul 6 add enc putinterval  % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval xpos textpos textfont textsize] put
+        0 1 5 {       % xpos+=width of the character
+            /xpos exch enc exch get 48 sub xpos add def
+        } for
+        /checksum1 checksum1 barlen i sub 1 sub 10 mod 1 add indx mul add def
+        /checksum2 checksum2 barlen i sub 9 mod 1 add indx mul add def
+    } for
+   
+    % Put the checksum and end characters
+    includecheck {
+        /checksum1 checksum1 11 mod def        
+        barlen 10 ge {
+            /checksum2 checksum2 checksum1 add 11 mod def
+            sbs barlen 6 mul 6 add encs checksum1 get putinterval        
+            sbs barlen 6 mul 12 add encs checksum2 get putinterval
+            includecheckintext {
+                txt barlen [barchars checksum1 1 getinterval xpos textpos textfont textsize] put
+                /enc encs checksum1 get def   
+                0 1 5 {       % xpos+=width of the character
+                    /xpos exch enc exch get 48 sub xpos add def
+                } for
+                txt barlen 1 add [barchars checksum2 1 getinterval xpos textpos textfont textsize] put
+            } {
+                txt barlen [() xpos textpos textfont textsize] put
+                txt barlen 1 add [() xpos textpos textfont textsize] put
+            } ifelse
+            sbs barlen 6 mul 18 add encs 11 get putinterval
+        } {
+            sbs barlen 6 mul 6 add encs checksum1 get putinterval          
+            includecheckintext {
+                txt barlen [barchars checksum1 1 getinterval xpos textpos textfont textsize] put
+            } {
+                txt barlen [() xpos textpos textfont textsize] put
+            } ifelse
+            sbs barlen 6 mul 12 add encs 11 get putinterval
+        } ifelse
+    } {
+        sbs barlen 6 mul 6 add encs 11 get putinterval
+    } ifelse
+
+    % Return the arguments
+    /retval 1 dict def
+    retval (sbs) sbs put
+    retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
+    retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
+    includetext {
+        retval (txt) txt put
+    } if
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/code11 load 0 1 dict put
+% --END ENCODER code11--
+
+% --BEGIN ENCODER rationalizedCodabar--
+/rationalizedCodabar {
+
+    0 begin                    % Confine variables to local scope
+
+    /options exch def          % We are given an option string
+    /useropts options def
+    /barcode exch def          % We are given a barcode string
+
+    /includecheck false def     % Enable/disable checkdigit
+    /includetext false def      % Enable/disable text
+    /includecheckintext false def
+    /textfont /Courier def
+    /textsize 10 def
+    /textpos -7 def
+    /height 1 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+    
+    % Create an array containing the character mappings
+    /encs
+    [ (11111331) (11113311) (11131131) (33111111) (11311311)
+      (31111311) (13111131) (13113111) (13311111) (31131111)
+      (11133111) (11331111) (31113131) (31311131) (31313111)
+      (11313131) (11331311) (13131131) (11131331) (11133311)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789-$:/.+ABCD) def
+
+    /barlen barcode length def    % Length of the code
+
+    includecheck {
+        /sbs barlen 8 mul 8 add string def
+        /txt barlen 1 add array def
+    } {
+        /sbs barlen 8 mul string def
+        /txt barlen array def
+    } ifelse
+
+    /checksum 0 def
+    /xpos 0 def
+    0 1 barlen 2 sub {
+        /i exch def
+        % Lookup the encoding for the each barcode character
+        barcode i 1 getinterval barchars exch search
+        pop                          % Discard true leaving pre
+        length /indx exch def        % indx is the length of pre
+        pop pop                      % Discard seek and post
+        /enc encs indx get def       % Get the indxth encoding
+        sbs i 8 mul enc putinterval  % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval xpos textpos textfont textsize] put
+        0 1 7 {       % xpos+=width of the character
+            /xpos exch enc exch get 48 sub xpos add def
+        } for
+        /checksum checksum indx add def
+    } for
+
+    % Find index of last character
+    barcode barlen 1 sub 1 getinterval barchars exch search
+    pop                          % Discard true leaving pre
+    length /indx exch def        % indx is the length of pre
+    pop pop                      % Discard seek and post
+
+    includecheck {
+        % Put the checksum character
+        /checksum checksum indx add def
+        /checksum 16 checksum 16 mod sub 16 mod def
+        sbs barlen 8 mul 8 sub encs checksum get putinterval
+        includecheckintext {
+            txt barlen 1 sub [barchars checksum 1 getinterval xpos textpos textfont textsize] put
+        } {
+            txt barlen 1 sub [( ) xpos textpos textfont textsize] put
+        } ifelse
+        0 1 7 {       % xpos+=width of the character
+            /xpos exch encs checksum get exch get 48 sub xpos add def
+        } for
+        % Put the end character
+        /enc encs indx get def            % Get the indxth encoding
+        sbs barlen 8 mul enc putinterval  % Put encoded digit into sbs
+        txt barlen [barcode barlen 1 sub 1 getinterval xpos textpos textfont textsize] put
+    } {
+        % Put the end character
+        /enc encs indx get def                  % Get the indxth encoding
+        sbs barlen 8 mul 8 sub enc putinterval  % Put encoded digit into sbs
+        txt barlen 1 sub [barcode barlen 1 sub 1 getinterval xpos textpos textfont textsize] put
+    } ifelse
+
+    % Return the arguments
+    /retval 1 dict def
+    retval (sbs) sbs put
+    retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
+    retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
+    includetext {
+        retval (txt) txt put
+    } if
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/rationalizedCodabar load 0 1 dict put
+% --END ENCODER rationalizedCodabar--
+
+% --BEGIN ENCODER postnet--
+/postnet {
+
+    % Thanks to Ross McFarland
+
+    0 begin
+
+    /options exch def              % We are given an option string
+    /useropts options def
+    /barcode exch def              % We are given a barcode string
+
+    /includetext false def          % Enable/disable text
+    /includecheckintext false def
+    /textfont /Courier def
+    /textsize 10 def
+    /textpos -7 def
+    /height 0.2 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+    
+    /barlen barcode length def
+
+    % Create an array containing the character mappings
+    /encs
+    [ (55222) (22255) (22525) (22552) (25225)
+      (25252) (25522) (52225) (52252) (52522)
+      (5) (5)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789) def
+
+    /bhs barlen 5 mul 7 add array def
+    /txt barlen 1 add array def
+
+    % Put start character
+    /enc encs 10 get def
+    /heights enc length array def
+    0 1 enc length 1 sub {
+        /j exch def
+        heights j enc j 1 getinterval cvi height mul 5 div put
+    } for
+    bhs 0 heights putinterval   % Put encoded digit into sbs
+
+    /checksum 0 def
+    0 1 barlen 1 sub {
+        /i exch def
+        % Lookup the encoding for the each barcode character
+        barcode i 1 getinterval barchars exch search
+        pop                                 % Discard true leaving pre
+        length /indx exch def               % indx is the length of pre
+        pop pop                             % Discard seek and post
+        /enc encs indx get def              % Get the indxth encoding
+        /heights enc length array def
+        0 1 enc length 1 sub {
+            /j exch def
+            heights j enc j 1 getinterval cvi height mul 5 div put
+        } for
+        bhs i 5 mul 1 add heights putinterval   % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval i 20 mul 4 add textpos textfont textsize] put
+        /checksum checksum indx add def     % checksum+=indx
+    } for
+
+    % Put the checksum character
+    /checksum 10 checksum 10 mod sub 10 mod def
+    /enc encs checksum get def
+    /heights enc length array def
+    0 1 enc length 1 sub {
+        /j exch def
+        heights j enc j 1 getinterval cvi height mul 5 div put
+    } for
+    bhs barlen 5 mul 1 add heights putinterval  
+    
+    includecheckintext {
+        txt barlen [barchars checksum 1 getinterval barlen 20 mul 4 add textpos textfont textsize] put
+    } {
+        txt barlen [( ) barlen 10 mul 4 add textpos textfont textsize] put
+    } ifelse
+    
+    % Put end character
+    /enc encs 11 get def
+    /heights enc length array def
+    0 1 enc length 1 sub {
+        /j exch def
+        heights j enc j 1 getinterval cvi height mul 5 div put
+    } for
+    bhs barlen 5 mul 6 add heights putinterval  
+
+    /retval 1 dict def
+    retval (bhs) bhs put
+    retval (bbs) [bhs length {0} repeat] put
+    /sbs bhs length 2 mul 1 sub string def
+    0 1 sbs length 1 sub {
+        sbs exch 50 put       % Fill with 2s
+    } for
+    retval (sbs) sbs put
+    includetext {
+        retval (txt) txt put
+    } if
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/postnet load 0 1 dict put
+% --END ENCODER postnet--
+
+% --BEGIN ENCODER royalmail--
+/royalmail {
+
+    0 begin
+
+    /options exch def              % We are given an option string
+    /useropts options def
+    /barcode exch def              % We are given a barcode string
+
+    /includetext false def          % Enable/disable text
+    /includecheckintext false def
+    /textfont /Courier def
+    /textsize 10 def
+    /textpos -7 def
+    /height 0.3 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+    
+    % Create an array containing the character mappings
+    /encs
+    [ (3300) (2211) (2301) (2310) (3201) (3210) 
+      (1122) (0033) (0123) (0132) (1023) (1032) 
+      (1302) (0213) (0303) (0312) (1203) (1212) 
+      (1320) (0231) (0321) (0330) (1221) (1230) 
+      (3102) (2013) (2103) (2112) (3003) (3012) 
+      (3120) (2031) (2121) (2130) (3021) (3030) 
+      (2) (3)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (ZUVWXY501234B6789AHCDEFGNIJKLMTOPQRS) def
+
+    /barlen barcode length def
+    /encstr barlen 4 mul 6 add string def
+    /txt barlen 1 add array def
+
+    % Put start character
+    encstr 0 encs 36 get putinterval
+    
+    /checksumrow 0 def
+    /checksumcol 0 def
+    0 1 barlen 1 sub {
+        /i exch def
+        % Lookup the encoding for the each barcode character
+        barcode i 1 getinterval barchars exch search
+        pop                                 % Discard true leaving pre
+        length /indx exch def               % indx is the length of pre
+        pop pop                             % Discard seek and post
+        /enc encs indx get def              % Get the indxth encoding
+        encstr i 4 mul 1 add enc putinterval
+        txt i [barcode i 1 getinterval i 16 mul 4 add textpos textfont textsize] put
+        /checksumrow checksumrow indx 6 idiv add def
+        /checksumcol checksumcol indx 6 mod add def 
+    } for
+
+    % Put the checksum character
+    /checksum checksumrow 6 mod 6 mul checksumcol 6 mod add def
+    /enc encs checksum get def
+    encstr barlen 4 mul 1 add enc putinterval
+    includecheckintext {
+        txt barlen [barchars checksum 1 getinterval barlen 16 mul 4 add textpos textfont textsize] put
+    } {
+        txt barlen [( ) barlen 16 mul 4 add textpos textfont textsize] put
+    } ifelse
+    
+    % Put end character
+    encstr barlen 4 mul 5 add encs 37 get putinterval  
+
+    /bbs encstr length array def    
+    /bhs encstr length array def
+    0 1 encstr length 1 sub {
+        /i exch def
+        /enc encstr i 1 getinterval def
+        enc (0) eq {
+            bbs i 3 height mul 8 div put
+            bhs i 2 height mul 8 div put
+        } if
+        enc (1) eq {
+            bbs i 0 height mul 8 div put
+            bhs i 5 height mul 8 div put
+        } if
+        enc (2) eq {
+            bbs i 3 height mul 8 div put
+            bhs i 5 height mul 8 div put
+        } if
+        enc (3) eq {
+            bbs i 0 height mul 8 div put
+            bhs i 8 height mul 8 div put
+        } if
+    } for
+    
+    /retval 4 dict def
+    retval (bbs) bbs put
+    retval (bhs) bhs put
+    /sbs bhs length 2 mul 1 sub string def
+    0 1 sbs length 1 sub {
+        sbs exch 50 put       % Fill with 2s
+    } for
+    retval (sbs) sbs put
+    includetext {
+        retval (txt) txt put
+    } if
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/royalmail load 0 1 dict put
+% --END ENCODER royalmail--
+
+% --BEGIN ENCODER auspost--
+/auspost {
+
+    0 begin
+
+    /options exch def              % We are given an option string
+    /useropts options def
+    /barcode exch def              % We are given a barcode string
+
+    /includetext false def         % Enable/disable text
+    /textfont /Courier def
+    /textsize 10 def
+    /textpos -7 def
+    /height 0.3 def
+    /custinfoenc (character) def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+
+    % Create an array containing the character mappings
+    /encs
+    [ (000) (001) (002) (010) (011) (012) (020) (021)
+      (022) (100) (101) (102) (110) (111) (112) (120)
+      (121) (122) (200) (201) (202) (210) (211) (212)
+      (220) (221) (222) (300) (301) (302) (310) (311)
+      (312) (320) (321) (322) (023) (030) (031) (032)
+      (033) (103) (113) (123) (130) (131) (132) (133)
+      (203) (213) (223) (230) (231) (232) (233) (303)
+      (313) (323) (330) (331) (332) (333) (003) (013)
+      (00) (01) (02) (10) (11) (12) (20) (21) (22) (30)
+      (13) (3)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz #) def
+    
+    /barlen barcode length def
+    barcode 0 2 getinterval (11) eq {37} if
+    barcode 0 2 getinterval (59) eq {52} if
+    barcode 0 2 getinterval (62) eq {67} if
+    /encstr exch string def
+    /txt barlen 2 sub array def
+
+    % Put start character
+    encstr 0 encs 74 get putinterval
+
+    % Encode the FCC
+    0 1 1 {
+        /i exch def       
+        encs barcode i 1 getinterval cvi 64 add get
+        encstr i 2 mul 2 add 3 2 roll putinterval
+    } for
+    
+    % Encode the DPID
+    2 1 9 {
+        /i exch def       
+        encs barcode i 1 getinterval cvi 64 add get
+        encstr i 2 mul 2 add 3 2 roll putinterval
+        txt i 2 sub [barcode i 1 getinterval i 2 sub 8 mul 24 add textpos textfont textsize] put
+    } for
+    
+    % Encode the customer information   
+    custinfoenc (numeric) eq {
+        0 1 barlen 11 sub {
+            /i exch def
+            encs barcode i 10 add 1 getinterval cvi 64 add get
+            encstr i 2 mul 22 add 3 2 roll putinterval
+            txt i 8 add [barcode i 10 add 1 getinterval i 8 mul 88 add textpos textfont textsize] put
+        } for        
+        /ciflen barlen 10 sub 2 mul def
+    } {
+        0 1 barlen 11 sub {
+            /i exch def           
+            barcode i 10 add 1 getinterval barchars exch search
+            pop                                
+            length /indx exch def           
+            pop pop                            
+            /enc encs indx get def          
+            encstr i 3 mul 22 add enc putinterval
+            txt i 8 add [barcode i 10 add 1 getinterval i 12 mul 88 add textpos textfont textsize] put
+        } for        
+        /ciflen barlen 10 sub 3 mul def
+    } ifelse
+
+    % Add any filler characters
+    22 ciflen add 1 encstr length 14 sub {        
+        encstr exch encs 75 get putinterval
+    } for
+    
+    % Create the 64x64 Reed-Solomon table
+    /rstable 64 64 mul array def
+    rstable 0 [ 64 {0} repeat ] putinterval
+    rstable 64 [ 0 1 63 {} for ] putinterval
+    /prev 1 def
+    64 {       
+        /next prev 1 bitshift def
+        next 64 and 0 ne {
+            /next next 67 xor def
+        } if        
+        0 1 63 {
+            /j exch def
+            /nextcell {rstable 64 next mul j add} def
+            nextcell rstable 64 prev mul j add get 1 bitshift put
+            nextcell get 64 and 0 ne {
+                nextcell nextcell get 67 xor put
+            } if
+        } for
+        /prev next def
+    } repeat
+    
+    % Calculate the Reed-Solomon codes for triples
+    /rscodes encstr length 16 sub 3 idiv 4 add array def
+    rscodes 0 [ 4 {0} repeat ] putinterval
+    2 3 encstr length 16 sub {
+        /i exch def
+        rscodes rscodes length i 2 sub 3 idiv sub 1 sub
+        encstr i 1 getinterval cvi 16 mul
+        encstr i 1 add 1 getinterval cvi 4 mul add
+        encstr i 2 add 1 getinterval cvi add        
+        put
+    } for    
+    rscodes length 5 sub -1 0 {
+       /i exch def
+       0 1 4 {
+           /j exch def
+           rscodes i j add rscodes i j add get
+           rstable 64 [48 17 29 30 1] j get mul rscodes i 4 add get add get
+           xor put
+       } for
+    } for
+    /checkcode (000000000000) def
+    0 1 3 {
+        /i exch def
+        /enc rscodes 3 i sub get 4 3 string cvrs def
+        checkcode i 3 mul 3 enc length sub add enc putinterval
+    } for
+    
+    % Put checkcode and end characters
+    encstr encstr length 14 sub checkcode putinterval
+    encstr encstr length 2 sub encs 74 get putinterval 
+
+    /bbs encstr length array def    
+    /bhs encstr length array def
+    0 1 encstr length 1 sub {
+        /i exch def
+        /enc encstr i 1 getinterval def
+        enc (0) eq {
+            bbs i 0 height mul 8 div put
+            bhs i 8 height mul 8 div put
+        } if
+        enc (1) eq {
+            bbs i 3 height mul 8 div put
+            bhs i 5 height mul 8 div put
+        } if
+        enc (2) eq {
+            bbs i 0 height mul 8 div put
+            bhs i 5 height mul 8 div put
+        } if
+        enc (3) eq {
+            bbs i 3 height mul 8 div put
+            bhs i 2 height mul 8 div put
+        } if
+    } for   
+    
+    /retval 4 dict def
+    retval (bbs) bbs put
+    retval (bhs) bhs put
+    /sbs bhs length 2 mul 1 sub string def
+    0 1 sbs length 1 sub {
+        sbs exch 50 put       % Fill with 2s
+    } for
+    retval (sbs) sbs put
+    includetext {
+        retval (txt) txt put
+    } if
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/auspost load 0 1 dict put
+% --END ENCODER auspost--
+
+% --BEGIN ENCODER kix--
+/kix {
+
+    0 begin
+
+    /options exch def              % We are given an option string
+    /useropts options def
+    /barcode exch def              % We are given a barcode string
+
+    /includetext false def          % Enable/disable text
+    /includecheckintext false def
+    /textfont /Courier def
+    /textsize 10 def
+    /textpos -7 def
+    /height 0.3 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+    
+    % Create an array containing the character mappings
+    /encs
+    [ (0033) (0123) (0132) (1023) (1032) (1122)
+      (0213) (0303) (0312) (1203) (1212) (1302) 
+      (0231) (0321) (0330) (1221) (1230) (1320)
+      (2013) (2103) (2112) (3003) (3012) (3102)
+      (2031) (2121) (2130) (3021) (3030) (3120) 
+      (2211) (2301) (2310) (3201) (3210) (3300) 
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ) def
+
+    /barlen barcode length def
+    /encstr barlen 4 mul string def
+    /txt barlen array def
+    
+    0 1 barlen 1 sub {
+        /i exch def
+        % Lookup the encoding for the each barcode character
+        barcode i 1 getinterval barchars exch search
+        pop                                 % Discard true leaving pre
+        length /indx exch def               % indx is the length of pre
+        pop pop                             % Discard seek and post
+        /enc encs indx get def              % Get the indxth encoding
+        encstr i 4 mul enc putinterval
+        txt i [barcode i 1 getinterval i 16 mul textpos textfont textsize] put
+    } for
+
+    /bbs encstr length array def    
+    /bhs encstr length array def
+    0 1 encstr length 1 sub {
+        /i exch def
+        /enc encstr i 1 getinterval def
+        enc (0) eq {
+            bbs i 3 height mul 8 div put
+            bhs i 2 height mul 8 div put
+        } if
+        enc (1) eq {
+            bbs i 0 height mul 8 div put
+            bhs i 5 height mul 8 div put
+        } if
+        enc (2) eq {
+            bbs i 3 height mul 8 div put
+            bhs i 5 height mul 8 div put
+        } if
+        enc (3) eq {
+            bbs i 0 height mul 8 div put
+            bhs i 8 height mul 8 div put
+        } if
+    } for
+    
+    /retval 4 dict def
+    retval (bbs) bbs put
+    retval (bhs) bhs put
+    /sbs bhs length 2 mul 1 sub string def
+    0 1 sbs length 1 sub {
+        sbs exch 50 put       % Fill with 2s
+    } for
+    retval (sbs) sbs put
+    includetext {
+        retval (txt) txt put
+    } if
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/kix load 0 1 dict put
+% --END ENCODER kix--
+
+% --BEGIN ENCODER msi--
+/msi {
+
+    0 begin                 % Confine variables to local scope
+
+    /options exch def       % We are given an option string
+    /useropts options def
+    /barcode exch def       % We are given a barcode string
+
+    /includecheck false def  % Enable/disable checkdigit
+    /includetext false def   % Enable/disable text
+    /includecheckintext false def
+    /textfont /Courier def
+    /textsize 10 def
+    /textpos -7 def
+    /height 1 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+    
+    % Create an array containing the character mappings
+    /encs
+    [ (13131313) (13131331) (13133113) (13133131) (13311313)
+      (13311331) (13313113) (13313131) (31131313) (31131331)
+      (31) (131)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789) def
+
+    /barlen barcode length def     % Length of the code
+
+    includecheck {
+        /sbs barlen 8 mul 13 add string def
+        /txt barlen 1 add array def
+    } {
+        /sbs barlen 8 mul 5 add string def
+        /txt barlen array def
+    } ifelse
+
+
+    % Put start character
+    sbs 0 encs 10 get putinterval
+    /checksum 0 def
+
+    0 1 barlen 1 sub {
+        /i exch def
+        % Lookup the encoding for the each barcode character
+        barcode i 1 getinterval barchars exch search
+        pop                                % Discard true leaving pre
+        length /indx exch def              % indx is the length of pre
+        pop pop                            % Discard seek and post
+        /enc encs indx get def             % Get the indxth encoding
+        sbs i 8 mul 2 add enc putinterval  % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval i 16 mul 4 add textpos textfont textsize] put
+        barlen i sub 2 mod 0 eq {
+            /checksum indx checksum add def
+        } {
+            /checksum indx 2 mul dup 10 idiv add checksum add def
+        } ifelse
+    } for
+
+    % Put the checksum and end characters
+    includecheck {
+        /checksum 10 checksum 10 mod sub 10 mod def
+        sbs barlen 8 mul 2 add encs checksum get putinterval
+        includecheckintext {
+            txt barlen [barchars checksum 1 getinterval barlen 16 mul 4 add textpos textfont textsize] put
+        } {
+            txt barlen [( ) barlen 16 mul 4 add textpos textfont textsize] put
+        } ifelse
+        sbs barlen 8 mul 10 add encs 11 get putinterval
+    } {
+        sbs barlen 8 mul 2 add encs 11 get putinterval
+    } ifelse
+
+    % Return the arguments
+    /retval 1 dict def
+    retval (sbs) sbs put
+    retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
+    retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
+    includetext {
+        retval (txt) txt put
+    } if
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/msi load 0 1 dict put
+% --END ENCODER msi--
+
+% --BEGIN ENCODER plessey--
+/plessey {
+
+    0 begin                  % Confine variables to local scope
+
+    /options exch def        % We are given an option string
+    /useropts options def
+    /barcode exch def        % We are given a barcode string
+
+    /includetext false def    % Enable/disable text
+    /includecheckintext false def
+    /textfont /Courier def
+    /textsize 10 def
+    /textpos -7 def
+    /height 1 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textpos textpos cvr def
+    /height height cvr def
+    
+    % Create an array containing the character mappings
+    /encs
+    [ (13131313) (31131313) (13311313) (31311313)
+      (13133113) (31133113) (13313113) (31313113)
+      (13131331) (31131331) (13311331) (31311331)
+      (13133131) (31133131) (13313131) (31313131)
+      (31311331) (331311313)
+    ] def
+
+    % Create a string of the available characters
+    /barchars (0123456789ABCDEF) def
+
+    /barlen barcode length def     % Length of the code
+    /sbs barlen 8 mul 33 add string def
+    /txt barlen 2 add array def
+    /checkbits barlen 4 mul 8 add array def
+    checkbits barlen 4 mul [ 0 0 0 0 0 0 0 0 ] putinterval
+
+    % Put start character
+    sbs 0 encs 16 get putinterval
+
+    0 1 barlen 1 sub {
+        /i exch def
+        % Lookup the encoding for the each barcode character
+        barcode i 1 getinterval barchars exch search
+        pop                                % Discard true leaving pre
+        length /indx exch def              % indx is the length of pre
+        pop pop                            % Discard seek and post
+        /enc encs indx get def             % Get the indxth encoding
+        sbs i 8 mul 8 add enc putinterval  % Put encoded digit into sbs
+        txt i [barcode i 1 getinterval i 16 mul 16 add textpos textfont textsize] put
+        checkbits i 4 mul [
+                indx 1 and
+                indx -1 bitshift 1 and
+                indx -2 bitshift 1 and
+                indx -3 bitshift
+        ] putinterval
+    } for
+
+    % Checksum is last 8 bits of a CRC using a salt
+    /checksalt [ 1 1 1 1 0 1 0 0 1 ] def
+    0 1 barlen 4 mul 1 sub {
+        /i exch def
+        checkbits i get 1 eq {
+            0 1 8 {
+                /j exch def
+                checkbits i j add checkbits i j add get checksalt j get xor put
+            } for
+        } if
+    } for
+
+    % Calculate the value of the checksum digits
+    /checkval 0 def
+    0 1 7 {
+        /i exch def
+        /checkval checkval 2 7 i sub exp cvi checkbits barlen 4 mul i add get mul add def
+    } for
+
+    % Put the checksum characters
+    /checksum1 checkval -4 bitshift def
+    /checksum2 checkval 15 and def
+    sbs barlen 8 mul 8 add encs checksum1 get putinterval
+    sbs barlen 8 mul 16 add encs checksum2 get putinterval
+    includecheckintext {
+        txt barlen [barchars checksum1 1 getinterval barlen 16 mul 16 add textpos textfont textsize] put
+        txt barlen 1 add [barchars checksum2 1 getinterval barlen 1 add 16 mul 16 add textpos textfont textsize] put
+    } {
+        txt barlen [( ) barlen 16 mul 16 add textpos textfont textsize] put
+        txt barlen 1 add [( ) barlen 1 add 16 mul 16 add textpos textfont textsize] put
+    } ifelse
+
+    % Put end character
+    sbs barlen 8 mul 24 add encs 17 get putinterval
+
+    % Return the arguments
+    /retval 1 dict def
+    retval (sbs) sbs put
+    retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
+    retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
+    includetext {
+        retval (txt) txt put
+    } if
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/plessey load 0 1 dict put
+% --END ENCODER plessey--
+
+% --BEGIN ENCODER symbol--
+/symbol {
+
+    0 begin            % Confine variables to local scope
+
+    /options exch def  % We are given an option string
+    /barcode exch def  % We are given a barcode string
+
+    barcode (fima) eq {
+        /sbs (111515111) def
+        /bhs [.25 .25 .25 .25 .25] def
+        /bbs [0 0 0 0 0] def
+    } if
+
+    barcode (fimb) eq {
+        /sbs (13111311131) def
+        /bhs [.25 .25 .25 .25 .25 .25] def
+        /bbs [0 0 0 0 0 0] def
+    } if
+
+    barcode (fimc) eq {
+        /sbs (11131313111) def
+        /bhs [.25 .25 .25 .25 .25 .25] def
+        /bbs [0 0 0 0 0 0] def
+    } if
+    
+    barcode (fimd) eq {
+        /sbs (1111131311111) def
+        /bhs [.25 .25 .25 .25 .25 .25 .25] def
+        /bbs [0 0 0 0 0 0 0] def
+    } if
+    
+    % Return the arguments
+    /retval 4 dict def
+    retval (sbs) sbs put
+    retval (bhs) bhs put
+    retval (bbs) bbs put
+    retval (opt) options put
+    retval
+
+    end
+
+} bind def
+/symbol load 0 1 dict put
+% --END ENCODER symbol--
+
+% --BEGIN RENDERER--
+/barcode {
+
+    0 begin          % Confine variables to local scope
+
+    /args exch def   % We are given some arguments
+
+    % Default options
+    /sbs () def
+    /bhs [] def
+    /bbs [] def
+    /txt [] def
+    /barcolor (000000) def
+    /textcolor (000000) def
+    /bordercolor (000000) def
+    /backgroundcolor (FFFFFF) def
+    /inkspread 0.15 def
+    /width 0 def
+    /barratio 1 def
+    /spaceratio 1 def
+    /showborder false def
+    /showbackground false def
+    /borderleft 10 def
+    /borderright 10 def
+    /bordertop 1 def
+    /borderbottom 1 def
+    /borderwidth 0.5 def
+    /guardwhitespace false def
+    /guardleftpos 0 def
+    /guardleftypos 0 def
+    /guardrightpos 0 def
+    /guardrightypos 0 def
+    /guardwidth 6 def
+    /guardheight 7 def
+    
+    % Apply the renderer options
+    args {exch cvlit exch def} forall
+       
+    % Parse the user options   
+    opt {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+
+    /barcolor barcolor cvlit def
+    /textcolor textcolor cvlit def
+    /bordercolor bordercolor cvlit def
+    /backgroundcolor backgroundcolor cvlit def
+    /inkspread inkspread cvr def
+    /width width cvr def
+    /barratio barratio cvr def
+    /spaceratio spaceratio cvr def
+    /borderleft borderleft cvr def
+    /borderright borderright cvr def
+    /bordertop bordertop cvr def
+    /borderbottom borderbottom cvr def
+    /borderwidth borderwidth cvr def
+    /guardleftpos guardleftpos cvr def
+    /guardleftypos guardleftypos cvr def
+    /guardrightpos guardrightpos cvr def
+    /guardrightypos guardrightypos cvr def
+    /guardwidth guardwidth cvr def
+    /guardheight guardheight cvr def
+    
+    % Create bar elements and put them into the bars array
+    /bars sbs length 1 add 2 idiv array def
+    /x 0.00 def /maxh 0 def
+    0 1 sbs length 1 add 2 idiv 2 mul 2 sub {
+        /i exch def
+        i 2 mod 0 eq {           % i is even
+            /d sbs i get 48 sub barratio mul barratio sub 1 add def  % d=digit*r-r+1 
+            /h bhs i 2 idiv get 72 mul def  % Height from bhs
+            /c d 2 div x add def            % Centre of the bar = x + d/2
+            /y bbs i 2 idiv get 72 mul def  % Baseline from bbs
+            /w d inkspread sub def          % bar width = digit - inkspread
+            bars i 2 idiv [h c y w] put     % Add the bar entry
+            h maxh gt {/maxh h def} if
+        } {
+            /d sbs i get 48 sub spaceratio mul spaceratio sub 1 add def  % d=digit*r-r+1 
+        } ifelse
+        /x x d add def  % x+=d
+    } for
+
+    gsave
+
+    currentpoint translate
+
+    % Force symbol to given width
+    width 0 ne {
+        width 72 mul x div 1 scale
+    } if
+
+    % Display the border and background
+    newpath
+    borderleft neg borderbottom neg moveto
+    x borderleft add borderright add 0 rlineto
+    0 maxh borderbottom add bordertop add rlineto
+    x borderleft add borderright add neg 0 rlineto
+    0 maxh borderbottom add bordertop add neg rlineto    
+    closepath
+    showbackground {
+        gsave
+        (<      >) dup 1 backgroundcolor putinterval cvx exec {255 div} forall setrgbcolor
+        fill
+        grestore  
+    } if     
+    showborder {
+        (<      >) dup 1 bordercolor putinterval cvx exec {255 div} forall setrgbcolor
+        borderwidth setlinewidth stroke
+    } if    
+   
+    % Display the bars for elements in the bars array
+    (<      >) dup 1 barcolor putinterval cvx exec {255 div} forall setrgbcolor
+    bars {
+        {} forall
+        newpath setlinewidth moveto 0 exch rlineto stroke
+    } forall
+
+    % Display the guard elements
+    guardwhitespace {
+        0.75 setlinewidth
+        guardleftpos 0 ne {
+            newpath
+            guardleftpos neg guardwidth add guardleftypos guardwidth 2 div add moveto
+            guardwidth neg guardheight -2 div rlineto
+            guardwidth guardheight -2 div rlineto
+            stroke            
+        } if
+        guardrightpos 0 ne {
+            newpath
+            guardrightpos x add guardwidth sub guardrightypos guardheight 2 div add moveto
+            guardwidth guardheight -2 div rlineto
+            guardwidth neg guardheight -2 div rlineto
+            stroke            
+        } if
+    } if
+    
+    % Display the text for elements in the text array
+    (<      >) dup 1 textcolor putinterval cvx exec {255 div} forall setrgbcolor
+    /s 0 def /f () def
+    txt {
+        {} forall
+        2 copy s ne exch f ne or {
+            2 copy /s exch def /f exch def            
+            exch findfont exch scalefont setfont          
+        } {
+            pop pop
+        } ifelse
+        moveto show
+    } forall
+
+    grestore
+    
+    end
+
+} bind def
+/barcode load 0 1 dict put
+% --END RENDERER--
+
+% --END TEMPLATE--
