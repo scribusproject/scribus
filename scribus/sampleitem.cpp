@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "loremipsum.h"
 #include "scribusdoc.h"
 #include "undomanager.h"
+//#include "prefsmanager.h"
 #include <qcolor.h>
 #include <qstring.h>
 
@@ -261,6 +262,8 @@ QPixmap SampleItem::getSample(int width, int height)
 	QPixmap pm(width, height);
 	ScPainter *painter = new ScPainter(&pm, width, height, 0, 0);
 	double sca = 1.0; // original scale to set back at the end...
+	int userAppMode = ScMW->doc->appMode; // We need to be in normal when creating/repainting items
+	ScMW->doc->appMode = modeNormal;
 
 	if (ScMW->view != NULL)
 	{
@@ -284,8 +287,10 @@ QPixmap SampleItem::getSample(int width, int height)
 		hg->ch = text.at(i);
 		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
 			hg->ch = QChar(13);
+//		hg->cfont = PrefsManager::instance()->appPrefs.AvailFonts[tmpStyle.Font];
 		previewItem->itemText.append(hg);
 	}
+
 	ScMW->view->chAbStyle(previewItem, tmpIndex);
 	previewItem->DrawObj(painter, QRect(0, 0, width, height));
 	painter->end();
@@ -294,6 +299,7 @@ QPixmap SampleItem::getSample(int width, int height)
 
 	if (ScMW->view != NULL)
 		ScMW->view->setScale(sca);
+	ScMW->doc->appMode = userAppMode;
 	doc->docParagraphStyles.remove(doc->docParagraphStyles.fromLast());
 	UndoManager::instance()->setUndoEnabled(true);
 	return pm;
