@@ -7,6 +7,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef _UTIL_H
 #define _UTIL_H
 
+#include <vector>
+
 #include <qstring.h>
 #include <qpixmap.h>
 #include <qimage.h>
