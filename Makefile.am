@@ -34,13 +34,28 @@ KDE_OPTIONS = noautodist
 # DO NOT INCLUDE THE "admin" DIR, ONLY FILES WITHIN IT. Otherwise you'll get
 # *everything* in admin, including the CVS dirs etc.
 #
+# Remember to add install rules for files you add here if you want them
+# installed.
 
-EXTRA_DIST = AUTHORS COPYING INSTALL README TODO NEWS PACKAGING BUILDING ChangeLog ChangeLogCVS scribus.xml \
+EXTRA_DIST = AUTHORS \
+			 BUILDING \
+			 ChangeLog \
+			 ChangeLogCVS \
+			 COPYING \
+			 INSTALL \
+			 NEWS \
+			 PACKAGING \
+			 README \
+			 README.MacOSX \
+			 TODO \
+			 scribus.xml \
 			 scribus.lsm scribus.desktop Scribus.pot \
-			 configure config.h.in configure.in configure.in.in configure.in.bot Makefile.cvs \
+			 configure config.h.in configure.in \
+			 configure.in.in configure.in.bot Makefile.cvs \
 			 stamp-h1 subdirs configure.files \
-			 admin/acinclude.m4.in admin/libtool.m4.in admin/Makefile.common \
-			 admin/cvs.sh admin/am_edit admin/detect-autoconf.sh 
+			 admin/acinclude.m4.in \
+			 admin/libtool.m4.in admin/Makefile.common \
+			 admin/cvs.sh admin/am_edit admin/detect-autoconf.sh
 
 dist-hook:
 	cd $(top_distdir) && perl admin/am_edit -padmin
@@ -54,3 +69,24 @@ AM_CPPFLAGS = \
     -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
     -DLIBDIR=\"$(libdir)/scribus/\" \
     -DPLUGINDIR=\"$(libdir)/scribus/plugins/\"
+
+#
+# Files here MUST appear in EXTRA_DIST above. Kindly keep this
+# list sorted the same as the matching part of EXTRA_DIST to
+# ease future maintainance.
+#
+install-data-local:
+	$(mkinstalldirs) $(prefix)/share
+	$(mkinstalldirs) $(prefix)/share/scribus
+	$(mkinstalldirs) $(prefix)/share/scribus/doc
+	$(INSTALL_DATA) $(top_srcdir)/AUTHORS $(prefix)/share/scribus/doc/AUTHORS
+	$(INSTALL_DATA) $(top_srcdir)/BUILDING $(prefix)/share/scribus/doc/BUILDING
+	$(INSTALL_DATA) $(top_srcdir)/ChangeLogCVS $(prefix)/share/scribus/doc/ChangeLogCVS
+	$(INSTALL_DATA) $(top_srcdir)/ChangeLog $(prefix)/share/scribus/doc/ChangeLog
+	$(INSTALL_DATA) $(top_srcdir)/COPYING $(prefix)/share/scribus/doc/COPYING
+	$(INSTALL_DATA) $(top_srcdir)/INSTALL $(prefix)/share/scribus/doc/INSTALL
+	$(INSTALL_DATA) $(top_srcdir)/NEWS $(prefix)/share/scribus/doc/NEWS
+	$(INSTALL_DATA) $(top_srcdir)/PACKAGING $(prefix)/share/scribus/doc/PACKAGING
+	$(INSTALL_DATA) $(top_srcdir)/README.MacOSX $(prefix)/share/scribus/doc/README.MacOSX
+	$(INSTALL_DATA) $(top_srcdir)/README $(prefix)/share/scribus/doc/README
+	$(INSTALL_DATA) $(top_srcdir)/TODO $(prefix)/share/scribus/doc/TODO
