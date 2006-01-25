@@ -679,13 +679,15 @@ void GuideManager::slotDrawPreview()
 	QValueList<double> vg = getValuesFromList(verList); // vert. g.
 	QValueList<double> hg = getValuesFromList(horList); // hor. g.
 	QValueList<double>::iterator it; // iterator for guides lists
+	// page size on pts
+	double pagew = ScMW->doc->currentPage->width() * docUnitRatio;
+	double pageh = ScMW->doc->currentPage->height() * docUnitRatio;
 
 	vg += getAutoCols();
 	hg += getAutoRows();
 	//! \note Sorting is a must here for GUI
 	horList->sort();
 	verList->sort();
-
 	// load the page only at the first time
 	if (previewPixmap.isNull())
 		previewPixmap = ScMW->view->PageToPixmap(ScMW->doc->currentPageNumber(), size);
@@ -696,26 +698,26 @@ void GuideManager::slotDrawPreview()
 	// all guides - paint it standard
 	for (it = vg.begin(); it != vg.end(); ++it)
 	{
-		x = (int)(pm.width() * (*it) / ScMW->doc->currentPage->width());
+		x = (int)(pm.width() * (*it) * docUnitRatio / pagew);
 		p->drawLine(x, 0, x, pm.height());
 	}
 	for (it = hg.begin(); it != hg.end(); ++it)
 	{
-		y = (int)(pm.height() * (*it) / ScMW->doc->currentPage->height());
+		y = (int)(pm.height() * (*it) * docUnitRatio / pageh);
 		p->drawLine(0, y, pm.width(), y);
 	}
 	// current guide - paint it bold and red...
-	p->setPen(QPen(QColor(200, 0, 0), 3, Qt::SolidLine));
-	val = verSpin->value();
+	p->setPen(QPen(QColor(200, 0, 0), 2, Qt::SolidLine));
+	val = verSpin->value(); // val is docUnitRatio'ned already
 	if (val > 0.0)
 	{
-		x = (int)(pm.width() * val / ScMW->doc->currentPage->width());
+		x = (int)(pm.width() * val / pagew);
 		p->drawLine(x, 0, x, pm.height());
 	}
 	val = horSpin->value();
 	if (val > 0.0)
 	{
-		y = (int)(pm.height() * val / ScMW->doc->currentPage->height());
+		y = (int)(pm.height() * val / pageh);
 		p->drawLine(0, y, pm.width(), y);
 	}
 	p->end();
