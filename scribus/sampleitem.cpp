@@ -36,6 +36,9 @@ SampleItem::SampleItem() : QObject()
 		used = false;
 	}
 	doc = ScMW->doc;
+	// tmp colors. to be removed in descrictor
+	ScMW->doc->PageColors.insert("__blackforpreview__", ScColor(0, 0, 0, 255));
+	ScMW->doc->PageColors.insert("__whiteforpreview__", ScColor(0, 0, 0, 0));
 	tmpStyle.Vname = "(preview temporary)";
 	tmpStyle.LineSpaMode = 0;
 	tmpStyle.LineSpa = ((doc->toolSettings.defSize / 10.0) * static_cast<double>(doc->typographicSettings.autoLineSpacing) / 100) + (doc->toolSettings.defSize / 10.0);
@@ -48,30 +51,33 @@ SampleItem::SampleItem() : QObject()
 	tmpStyle.FontSize = doc->toolSettings.defSize;
 	tmpStyle.TabValues.clear();
 	tmpStyle.Drop = false;
-	tmpStyle.DropLin = 2;
+	tmpStyle.DropLin = 0;//2;
 	tmpStyle.DropDist = 0;
 	tmpStyle.FontEffect = 0;
-	tmpStyle.FColor = doc->toolSettings.dBrush;
-	tmpStyle.FShade = doc->toolSettings.dShade;
-	tmpStyle.SColor = doc->toolSettings.dPen;
-	tmpStyle.SShade = doc->toolSettings.dShade2;
+	tmpStyle.FColor = "__blackforpreview__";
+	tmpStyle.FShade = 100; //doc->toolSettings.dShade;
+	tmpStyle.SColor = "__whiteforpreview__";
+	tmpStyle.SShade = 100; //doc->toolSettings.dShade2;
 	tmpStyle.BaseAdj = false;
 	tmpStyle.txtShadowX = 50;
 	tmpStyle.txtShadowY = -50;
 	tmpStyle.txtOutline = 10;
-	tmpStyle.txtUnderPos = doc->typographicSettings.valueUnderlinePos;
-	tmpStyle.txtUnderWidth = doc->typographicSettings.valueUnderlineWidth;
-	tmpStyle.txtStrikePos = doc->typographicSettings.valueStrikeThruPos;
-	tmpStyle.txtStrikeWidth = doc->typographicSettings.valueStrikeThruPos;
+	tmpStyle.txtUnderPos = 0; //doc->typographicSettings.valueUnderlinePos;
+	tmpStyle.txtUnderWidth = 0; //doc->typographicSettings.valueUnderlineWidth;
+	tmpStyle.txtStrikePos = 0; //doc->typographicSettings.valueStrikeThruPos;
+	tmpStyle.txtStrikeWidth = 0; //doc->typographicSettings.valueStrikeThruPos;
 	tmpStyle.scaleH = 1000;
 	tmpStyle.scaleV = 1000;
 	tmpStyle.baseOff = 0;
 	tmpStyle.kernVal = 0;
 	bgColor = QColor(255, 255, 255);
+
 }
 
 SampleItem::~SampleItem()
 {
+	cleanupTemporary();
+	// clean tmp document
 	if (used == false)
 	{
 		doc->setModified(false);
@@ -303,4 +309,11 @@ QPixmap SampleItem::getSample(int width, int height)
 	doc->docParagraphStyles.remove(doc->docParagraphStyles.fromLast());
 	UndoManager::instance()->setUndoEnabled(true);
 	return pm;
+}
+
+void SampleItem::cleanupTemporary()
+{
+	// clear tmp colors
+	ScMW->doc->PageColors.remove("__blackforpreview__");
+	ScMW->doc->PageColors.remove("__whiteforpreview__");
 }

@@ -40,6 +40,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 
 	sampleItem = new SampleItem();
 	sampleItem->setLoremIpsum(2);
+	sampleItem->cleanupTemporary();
 
 	EditStyleLayout = new QVBoxLayout( this, 10, 5, "EditStyleLayout");
 

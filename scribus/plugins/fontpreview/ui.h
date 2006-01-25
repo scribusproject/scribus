@@ -73,16 +73,16 @@ protected:
 	/** \brief Configuration structure */
 	PrefsContext* prefs;
 	/*! \brief Column for sorting. */
-    uint sortColumn;
+	uint sortColumn;
 	/*! \brief window size */
-    uint xsize;
-    uint ysize;
+	uint xsize;
+	uint ysize;
+	//! \brief Sample text frame to render the preview
+	SampleItem *sampleItem;
 	/*! \brief Setup fontList by search string.
 	If the search string is empty list all fonts
 	\param searchStr text to search */
 	void updateFontList(QString searchStr);
-	/*! \brief A sample text frame to render the pixmap. */
-	SampleItem *sampleItem;
 
 protected slots:
 	/** \brief Translations. */

@@ -38,7 +38,6 @@ FontPreview::FontPreview(QString fontName)
 	xsize = prefs->getUInt("xsize", 640);
 	ysize = prefs->getUInt("ysize", 480);
 	sampleItem = new SampleItem();
-	sampleItem->setBgColor(QColor(255, 255, 255));
 	sampleItem->setText(tr("Woven silk pyjamas exchanged for blue quartz", "font preview"));
 
 	FontPreviewLayout = new QGridLayout(this, 1, 1, 10, 5, "FontPreviewLayout");
@@ -149,6 +148,7 @@ FontPreview::~FontPreview()
    prefs->set("xsize", width());
    prefs->set("ysize", height());
    prefs->set("fontSize", sizeSpin->value());
+   sampleItem->cleanupTemporary(); // just to be sure
 }
 
 /**
