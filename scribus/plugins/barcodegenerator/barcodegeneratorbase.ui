@@ -50,7 +50,7 @@
                                 </property>
                                 <widget class="QLayoutWidget" row="0" column="0">
                                     <property name="name">
-                                        <cstring>layout12</cstring>
+                                        <cstring>layout16</cstring>
                                     </property>
                                     <vbox>
                                         <property name="name">
@@ -58,7 +58,7 @@
                                         </property>
                                         <widget class="QLayoutWidget">
                                             <property name="name">
-                                                <cstring>layout11</cstring>
+                                                <cstring>layout15</cstring>
                                             </property>
                                             <hbox>
                                                 <property name="name">
@@ -98,7 +98,7 @@
                                                 </widget>
                                                 <widget class="QLayoutWidget">
                                                     <property name="name">
-                                                        <cstring>layout9</cstring>
+                                                        <cstring>layout14</cstring>
                                                     </property>
                                                     <vbox>
                                                         <property name="name">
@@ -112,19 +112,54 @@
                                                                 <string>Select one of the available barcode type here</string>
                                                             </property>
                                                         </widget>
-                                                        <widget class="QLineEdit">
+                                                        <widget class="QLayoutWidget">
                                                             <property name="name">
-                                                                <cstring>codeEdit</cstring>
+                                                                <cstring>layout12</cstring>
                                                             </property>
-                                                            <property name="frameShape">
-                                                                <enum>LineEditPanel</enum>
-                                                            </property>
-                                                            <property name="frameShadow">
-                                                                <enum>Sunken</enum>
-                                                            </property>
-                                                            <property name="toolTip" stdset="0">
-                                                                <string>The numeric representation of the code itself. See the help message below</string>
-                                                            </property>
+                                                            <hbox>
+                                                                <property name="name">
+                                                                    <cstring>unnamed</cstring>
+                                                                </property>
+                                                                <widget class="QLineEdit">
+                                                                    <property name="name">
+                                                                        <cstring>codeEdit</cstring>
+                                                                    </property>
+                                                                    <property name="frameShape">
+                                                                        <enum>LineEditPanel</enum>
+                                                                    </property>
+                                                                    <property name="frameShadow">
+                                                                        <enum>Sunken</enum>
+                                                                    </property>
+                                                                    <property name="toolTip" stdset="0">
+                                                                        <string>The numeric representation of the code itself. See the help message below</string>
+                                                                    </property>
+                                                                </widget>
+                                                                <widget class="QPushButton">
+                                                                    <property name="name">
+                                                                        <cstring>resetButton</cstring>
+                                                                    </property>
+                                                                    <property name="sizePolicy">
+                                                                        <sizepolicy>
+                                                                            <hsizetype>0</hsizetype>
+                                                                            <vsizetype>0</vsizetype>
+                                                                            <horstretch>0</horstretch>
+                                                                            <verstretch>0</verstretch>
+                                                                        </sizepolicy>
+                                                                    </property>
+                                                                    <property name="maximumSize">
+                                                                        <size>
+                                                                            <width>24</width>
+                                                                            <height>32767</height>
+                                                                        </size>
+                                                                    </property>
+                                                                    <property name="text">
+                                                                        <string></string>
+                                                                    </property>
+                                                                    <property name="toolTip" stdset="0">
+                                                                        <string>Reset the barcode samples</string>
+                                                                    </property>
+                                                                </widget>
+                                                            </hbox>
                                                         </widget>
                                                     </vbox>
                                                 </widget>
@@ -329,8 +364,8 @@
                             <property name="frameShape">
                                 <enum>Box</enum>
                             </property>
-                            <property name="scaledContents">
-                                <bool>true</bool>
+                            <property name="alignment">
+                                <set>AlignCenter</set>
                             </property>
                             <property name="toolTip" stdset="0">
                                 <string>Preview of the result. 72dpi sample.</string>
@@ -440,7 +475,16 @@
         <receiver>BarcodeGeneratorBase</receiver>
         <slot>codeEdit_textChanged(const QString&amp;)</slot>
     </connection>
+    <connection>
+        <sender>resetButton</sender>
+        <signal>clicked()</signal>
+        <receiver>BarcodeGeneratorBase</receiver>
+        <slot>resetButton_clicked()</slot>
+    </connection>
 </connections>
+<includes>
+    <include location="local" impldecl="in implementation">barcodegeneratorbase.ui.h</include>
+</includes>
 <slots>
     <slot>bcComboChanged()</slot>
     <slot>textCheck_changed()</slot>
@@ -451,6 +495,7 @@
     <slot>okButton_pressed()</slot>
     <slot>cancelButton_pressed()</slot>
     <slot>codeEdit_textChanged( const QString &amp; )</slot>
+    <slot>resetButton_clicked()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

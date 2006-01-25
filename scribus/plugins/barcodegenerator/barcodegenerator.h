@@ -76,13 +76,17 @@ class BarcodeGenerator : public BarcodeGeneratorBase
 		QString tmpFile;
 		//! \brief A temporary PS file to store commants for Ghostscript.
 		QString psFile;
+		/*! \brief Flag if user modified the codeEditor.
+		To stop replacing his code with samples. */
+		bool useSamples;
 
 		/*! \brief Create bitmap for current BC.
 		When tt's called for preview, the 72dpi, small PNG image is
 		created each time user change GUI.
 		\param dpi optional DPI value. Default is 72 for preview.
+		\retval bool true on success.
 		*/
-		void paintBarcode(int dpi = 72);
+		bool paintBarcode(QString fileName = 0, int dpi = 72);
 		/*! \brief Create color preview.
 		Used for Color box feedback.
 		\param l A pointer to the sample QLabel
@@ -97,6 +101,7 @@ class BarcodeGenerator : public BarcodeGeneratorBase
 		void lnColorButton_pressed();
 		void txtColorButton_pressed();
 		void codeEdit_textChanged(const QString& s);
+		void resetButton_clicked();
 		void okButton_pressed();
 		void cancelButton_pressed();
 };

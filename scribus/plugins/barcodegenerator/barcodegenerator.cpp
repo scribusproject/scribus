@@ -7,6 +7,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "barcodegenerator.h"
 #include "util.h"
+#include "scribus.h"
+
 #include "commonstrings.h"
 #include <qcombobox.h>
 #include <qtextedit.h>
@@ -18,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include <qfile.h>
 #include <qdir.h>
+#include <qfiledialog.h> 
 
 
 BarcodeType::BarcodeType(QString cmd, QString exa, QString comm)
@@ -54,10 +57,11 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	map["Plessey"] = BarcodeType("plessey", "012345ABCDEF", "Variable number of hexadecimal characters");
 //    "Symbol"] = "symbol"
 	
+	useSamples = true;
 	bcCombo->insertStringList(map.keys());
 	okButton->setText(CommonStrings::tr_OK);
 	cancelButton->setText(CommonStrings::tr_Cancel);
-	
+	resetButton->setPixmap(loadIcon("u_undo16.png"));
 	lnColor = Qt::black;
 	txtColor = Qt::black;
 	bgColor = Qt::white;
@@ -92,7 +96,12 @@ void BarcodeGenerator::bcComboChanged()
 {
 	QString s = bcCombo->currentText();
 	commentEdit->setText(map[s].comment);
-	codeEdit->setText(map[s].example);
+	if (useSamples)
+	{
+		disconnect(codeEdit, SIGNAL(textChanged(const QString&)), this, SLOT(codeEdit_textChanged(const QString&)));
+		codeEdit->setText(map[s].example);
+		connect(codeEdit, SIGNAL(textChanged(const QString&)), this, SLOT(codeEdit_textChanged(const QString&)));
+	}
 	paintBarcode();
 }
 
@@ -146,7 +155,26 @@ void BarcodeGenerator::txtColorButton_pressed()
 
 void BarcodeGenerator::okButton_pressed()
 {
-	// todo load it!
+	QString s = QFileDialog::getSaveFileName(
+			QDir::currentDirPath(),
+			"PNG Images (*.png)",
+			this,
+			"save file dialog",
+			"Choose a filename to save under" );
+	if (s == QString::null)
+		return;
+	if (!paintBarcode(s, 300)) // in 300dpi
+	{
+		qDebug("Error creating barcode itself!");
+		return;
+	}
+	int z = ScMW->doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified,
+							   ScMW->doc->currentPage->Margins.Left + ScMW->doc->currentPage->xOffset(),
+							   ScMW->doc->currentPage->Margins.Top + ScMW->doc->currentPage->yOffset(),
+							   200, 150,
+							   1, "None", ScMW->doc->toolSettings.dPen, true);
+	ScMW->doc->LoadPict(s, z, true);
+	ScMW->view->DrawNew();
 	accept();
 }
 
@@ -157,11 +185,14 @@ void BarcodeGenerator::cancelButton_pressed()
 
 void BarcodeGenerator::codeEdit_textChanged(const QString&)
 {
+	useSamples = false;
 	paintBarcode();
 }
 
-void BarcodeGenerator::paintBarcode(int dpi)
+bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 {
+	if (fileName == QString::null)
+		fileName = tmpFile;
 	QString opts("barcolor=%1 showbackground backgroundcolor=%2 textcolor=%3");
 	opts = opts.arg(lnColor.name().replace('#', "")) \
 			.arg(bgColor.name().replace('#', "")) \
@@ -177,17 +208,30 @@ void BarcodeGenerator::paintBarcode(int dpi)
 	if (!f.open(IO_WriteOnly))
 	{
 		sampleLabel->setText("<qt>" + tr("Error opening file: %1").arg(psFile) + "</qt>");
-		return;
+		return false;
 	}
 	QTextStream ts(&f);
 	ts << comm;
 	f.close();
 	
-	QString gargs("-dDEVICEWIDTHPOINTS=160 -dDEVICEHEIGHTPOINTS=95 -r%1 -sOutputFile=%2 %3");
-	gargs = gargs.arg(dpi).arg(tmpFile).arg(psFile);
+	QString gargs("-dDEVICEWIDTHPOINTS=200 -dDEVICEHEIGHTPOINTS=150 -r%1 -sOutputFile=%2 %3");
+	gargs = gargs.arg(dpi).arg(fileName).arg(psFile);
 	int gs = callGS(gargs);
+	bool retval = true;
+	if (gs != 0)
+		retval = false;
+	// setup only preview
+	if (fileName != tmpFile)
+		return retval;
     if (gs == 0)
-		sampleLabel->setPixmap(QPixmap(tmpFile));
+		sampleLabel->setPixmap(QPixmap(fileName));
 	else
 		sampleLabel->setText("<qt>" + tr("Error creating preview") + "</qt>");
+	return retval;
+}
+
+void BarcodeGenerator::resetButton_clicked()
+{
+	useSamples = true;
+	bcComboChanged();
 }

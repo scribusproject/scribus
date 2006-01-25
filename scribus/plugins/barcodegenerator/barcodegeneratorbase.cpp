@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Form implementation generated from reading ui file 'barcodegeneratorbase.ui'
 **
-** Created: Út led 24 12:48:56 2006
+** Created: St led 25 12:58:43 2006
 **      by: The User Interface Compiler ($Id$)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -46,9 +46,9 @@ BarcodeGeneratorBase::BarcodeGeneratorBase( QWidget* parent, const char* name, b
     bcodeBoxLayout = new QGridLayout( bcodeBox->layout() );
     bcodeBoxLayout->setAlignment( Qt::AlignTop );
 
-    layout12 = new QVBoxLayout( 0, 0, 6, "layout12"); 
+    layout16 = new QVBoxLayout( 0, 0, 6, "layout16"); 
 
-    layout11 = new QHBoxLayout( 0, 0, 6, "layout11"); 
+    layout15_2 = new QHBoxLayout( 0, 0, 6, "layout15_2"); 
 
     layout10 = new QVBoxLayout( 0, 0, 6, "layout10"); 
 
@@ -57,28 +57,36 @@ BarcodeGeneratorBase::BarcodeGeneratorBase( QWidget* parent, const char* name, b
 
     codeLabel = new QLabel( bcodeBox, "codeLabel" );
     layout10->addWidget( codeLabel );
-    layout11->addLayout( layout10 );
+    layout15_2->addLayout( layout10 );
 
-    layout9 = new QVBoxLayout( 0, 0, 6, "layout9"); 
+    layout14 = new QVBoxLayout( 0, 0, 6, "layout14"); 
 
     bcCombo = new QComboBox( FALSE, bcodeBox, "bcCombo" );
-    layout9->addWidget( bcCombo );
+    layout14->addWidget( bcCombo );
+
+    layout12 = new QHBoxLayout( 0, 0, 6, "layout12"); 
 
     codeEdit = new QLineEdit( bcodeBox, "codeEdit" );
     codeEdit->setFrameShape( QLineEdit::LineEditPanel );
     codeEdit->setFrameShadow( QLineEdit::Sunken );
-    layout9->addWidget( codeEdit );
-    layout11->addLayout( layout9 );
-    layout12->addLayout( layout11 );
+    layout12->addWidget( codeEdit );
+
+    resetButton = new QPushButton( bcodeBox, "resetButton" );
+    resetButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, 0, 0, resetButton->sizePolicy().hasHeightForWidth() ) );
+    resetButton->setMaximumSize( QSize( 24, 32767 ) );
+    layout12->addWidget( resetButton );
+    layout14->addLayout( layout12 );
+    layout15_2->addLayout( layout14 );
+    layout16->addLayout( layout15_2 );
 
     textCheck = new QCheckBox( bcodeBox, "textCheck" );
     textCheck->setChecked( TRUE );
-    layout12->addWidget( textCheck );
+    layout16->addWidget( textCheck );
 
     guardCheck = new QCheckBox( bcodeBox, "guardCheck" );
-    layout12->addWidget( guardCheck );
+    layout16->addWidget( guardCheck );
 
-    bcodeBoxLayout->addLayout( layout12, 0, 0 );
+    bcodeBoxLayout->addLayout( layout16, 0, 0 );
     layout13->addWidget( bcodeBox );
 
     colorBox = new QGroupBox( this, "colorBox" );
@@ -127,17 +135,17 @@ BarcodeGeneratorBase::BarcodeGeneratorBase( QWidget* parent, const char* name, b
     layout13->addWidget( colorBox );
     layout15->addLayout( layout13 );
 
-    layout14 = new QHBoxLayout( 0, 0, 6, "layout14"); 
+    layout14_2 = new QHBoxLayout( 0, 0, 6, "layout14_2"); 
 
     commentEdit = new QTextEdit( this, "commentEdit" );
     commentEdit->setReadOnly( TRUE );
-    layout14->addWidget( commentEdit );
+    layout14_2->addWidget( commentEdit );
 
     sampleLabel = new QLabel( this, "sampleLabel" );
     sampleLabel->setFrameShape( QLabel::Box );
-    sampleLabel->setScaledContents( TRUE );
-    layout14->addWidget( sampleLabel );
-    layout15->addLayout( layout14 );
+    sampleLabel->setAlignment( int( QLabel::AlignCenter ) );
+    layout14_2->addWidget( sampleLabel );
+    layout15->addLayout( layout14_2 );
 
     layout10_2 = new QHBoxLayout( 0, 0, 6, "layout10_2"); 
     spacer2 = new QSpacerItem( 40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -165,6 +173,7 @@ BarcodeGeneratorBase::BarcodeGeneratorBase( QWidget* parent, const char* name, b
     connect( okButton, SIGNAL( clicked() ), this, SLOT( okButton_pressed() ) );
     connect( cancelButton, SIGNAL( clicked() ), this, SLOT( cancelButton_pressed() ) );
     connect( codeEdit, SIGNAL( textChanged(const QString&) ), this, SLOT( codeEdit_textChanged(const QString&) ) );
+    connect( resetButton, SIGNAL( clicked() ), this, SLOT( resetButton_clicked() ) );
 
     // buddies
     bcLabel->setBuddy( bcCombo );
@@ -191,6 +200,8 @@ void BarcodeGeneratorBase::languageChange()
     codeLabel->setText( tr( "C&ode:" ) );
     QToolTip::add( bcCombo, tr( "Select one of the available barcode type here" ) );
     QToolTip::add( codeEdit, tr( "The numeric representation of the code itself. See the help message below" ) );
+    resetButton->setText( QString::null );
+    QToolTip::add( resetButton, tr( "Reset the barcode samples" ) );
     textCheck->setText( tr( "&Include text in barcode" ) );
     textCheck->setAccel( QKeySequence( tr( "Alt+I" ) ) );
     QToolTip::add( textCheck, tr( "If checked, there will be numbers in the barcode too" ) );
@@ -256,5 +267,10 @@ void BarcodeGeneratorBase::cancelButton_pressed()
 void BarcodeGeneratorBase::codeEdit_textChanged(const QString&)
 {
     qWarning( "BarcodeGeneratorBase::codeEdit_textChanged(const QString&): Not implemented yet" );
+}
+
+void BarcodeGeneratorBase::resetButton_clicked()
+{
+    qWarning( "BarcodeGeneratorBase::resetButton_clicked(): Not implemented yet" );
 }
 

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Form interface generated from reading ui file 'barcodegeneratorbase.ui'
 **
-** Created: Út led 24 12:48:51 2006
+** Created: St led 25 12:58:41 2006
 **      by: The User Interface Compiler ($Id$)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -21,8 +21,8 @@ class QGroupBox;
 class QLabel;
 class QComboBox;
 class QLineEdit;
-class QCheckBox;
 class QPushButton;
+class QCheckBox;
 class QTextEdit;
 
 class BarcodeGeneratorBase : public QDialog
@@ -38,6 +38,7 @@ public:
     QLabel* codeLabel;
     QComboBox* bcCombo;
     QLineEdit* codeEdit;
+    QPushButton* resetButton;
     QCheckBox* textCheck;
     QCheckBox* guardCheck;
     QGroupBox* colorBox;
@@ -62,21 +63,23 @@ public slots:
     virtual void okButton_pressed();
     virtual void cancelButton_pressed();
     virtual void codeEdit_textChanged( const QString & );
+    virtual void resetButton_clicked();
 
 protected:
     QGridLayout* BarcodeGeneratorBaseLayout;
     QVBoxLayout* layout15;
     QHBoxLayout* layout13;
     QGridLayout* bcodeBoxLayout;
-    QVBoxLayout* layout12;
-    QHBoxLayout* layout11;
+    QVBoxLayout* layout16;
+    QHBoxLayout* layout15_2;
     QVBoxLayout* layout10;
-    QVBoxLayout* layout9;
+    QVBoxLayout* layout14;
+    QHBoxLayout* layout12;
     QGridLayout* colorBoxLayout;
     QHBoxLayout* layout8;
     QVBoxLayout* layout6;
     QVBoxLayout* layout7;
-    QHBoxLayout* layout14;
+    QHBoxLayout* layout14_2;
     QHBoxLayout* layout10_2;
     QSpacerItem* spacer2;
 
