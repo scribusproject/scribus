@@ -896,7 +896,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(CurY+BotOffset));
 							pt2 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY-TopOffset)));
 						}
-						if ((fBorder) && (!AbsHasDrop))
+//						if ((fBorder) && (!AbsHasDrop))
+						if (!AbsHasDrop)
 							CurX += Extra;
 						if (a > 0)
 						{
