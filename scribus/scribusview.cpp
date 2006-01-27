@@ -4526,6 +4526,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						p.begin(viewport());
 						Transform(currItem, &p);
 						HandleSizer(&p, currItem, mpo, m);
+						tx = p.xForm(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
 						p.end();
 						if (HowTo != 0)
 						{
@@ -4617,7 +4618,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						}
 						RefreshItem(currItem);
 					}
-					if (currItem->asImageFrame() && !currItem->pointWithinItem(m->x(), m->y()))
+					if (currItem->asImageFrame() && !tx.contains(m->x(), m->y()))
 					{
 						Deselect(true);
 						emit Amode(modeNormal);
