@@ -2409,7 +2409,10 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 				if (ite->fillColor() != "None")
 				{
 					tmp += SetClipPath(ite);
-					tmp += "h\nf*\n";
+					if (ite->fillRule)
+						tmp += "h\nf*\n";
+					else
+						tmp += "h\nf\n";
 				}
 			}
 			if ((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty()))

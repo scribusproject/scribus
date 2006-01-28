@@ -408,6 +408,22 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	pageLayout_2b->addWidget(Distance2);
 	TabStack2->addWidget( page_2b, 1 );
 
+	page_2c = new QWidget( TabStack2, "page" );
+	pageLayout_2c = new QVBoxLayout( page_2c, 0, 5, "pageLayout_2");
+	Distance3 = new QButtonGroup( "Fill Rule", page_2c, "Distance" );
+	Distance3->setColumnLayout(0, Qt::Vertical );
+	Distance3->layout()->setSpacing( 2 );
+	Distance3->layout()->setMargin( 5 );
+	DistanceLayout3 = new QVBoxLayout( Distance3->layout() );
+	DistanceLayout3->setAlignment( Qt::AlignTop );
+	EvenOdd = new QRadioButton( "Even-Odd", Distance3, "EvenOdd" );
+	DistanceLayout3->addWidget( EvenOdd );
+	NonZero = new QRadioButton( "Non Zero", Distance3, "NonZero" );
+	DistanceLayout3->addWidget( NonZero );
+	EvenOdd->setChecked( true );
+	pageLayout_2c->addWidget(Distance3);
+	TabStack2->addWidget( page_2c, 2 );
+
 	pageLayout_2->addWidget( TabStack2 );
 
 	textFlowsAroundFrame = new QButtonGroup( page_2, "textFlowsAroundFrame" );
@@ -803,6 +819,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	connect(lineSpacingPop, SIGNAL(activated(int)), this, SLOT(setLspMode(int )));
+	connect( EvenOdd, SIGNAL( clicked() ), this, SLOT(handleFillRule() ) );
+	connect( NonZero, SIGNAL( clicked() ), this, SLOT( handleFillRule() ) );
 	
 	connect(this, SIGNAL(DocChanged()), ScMW, SLOT(slotDocCh()));
 	connect(this, SIGNAL(NewAbStyle(int)), ScMW, SLOT(setNewAbStyle(int)));
@@ -1051,6 +1069,11 @@ void Mpalette::setCurrentItem(PageItem *i)
 		LineW->setValue(i->BaseOffs * -1);
 		Dist->setValue(i->textToFrameDistLeft());
 	}
+	else if (i->asPolygon())
+	{
+		TabStack2->raiseWidget(2);
+		EvenOdd->setChecked(i->fillRule);
+	}
 	else
 		TabStack2->raiseWidget(0);
 	// Frame type 3 is obsolete: CR 2005-02-06
@@ -1254,6 +1277,11 @@ void Mpalette::SetCurItem(PageItem *i)
 		showcurveCheckBox->setChecked(i->PoShow);
 		LineW->setValue(i->BaseOffs * -1);
 		Dist->setValue(i->textToFrameDistLeft());
+	}
+	else if (i->asPolygon())
+	{
+		TabStack2->raiseWidget(2);
+		EvenOdd->setChecked(i->fillRule);
 	}
 	else
 		TabStack2->raiseWidget(0);
@@ -3584,6 +3612,16 @@ void Mpalette::handlePathOffs()
 	}
 }
 
+void Mpalette::handleFillRule()
+{
+	if ((HaveDoc) && (HaveItem))
+	{
+		CurItem->fillRule = EvenOdd->isChecked();
+		ScMW->view->RefreshItem(CurItem);
+		emit DocChanged();
+	}
+}
+
 void Mpalette::NewName()
 {
 	if (ScMW->ScriptRunning || !HaveDoc || !HaveItem)
@@ -3751,7 +3789,10 @@ void Mpalette::languageChange()
 	Distance2->setTitle( tr("Path Text Properties"));
 	showcurveCheckBox->setText( tr("Show Curve"));
 	startoffsetLabel->setText( tr("Start Offset:"));
-	distfromcurveLabel->setText( tr("Distance from Curve:"));	
+	distfromcurveLabel->setText( tr("Distance from Curve:"));
+	Distance3->setTitle( tr("Fill Rule"));
+	EvenOdd->setText( tr("Even-Odd"));
+	NonZero->setText( tr("Non Zero"));
 	textFlowsAroundFrame->setTitle( tr("Text &Flows Around Frame"));
 	textFlowUsesBoundingBox->setText( tr("Use &Bounding Box"));
 	Textflow3->setText( tr("&Use Contour Line"));

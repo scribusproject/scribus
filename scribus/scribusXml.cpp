@@ -2434,6 +2434,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		ob.setAttribute("XPOS",item->xPos() - doc->currentPage->xOffset());
 		ob.setAttribute("YPOS",item->yPos() - doc->currentPage->yOffset());
 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
+		ob.setAttribute("fillRule", static_cast<int>(item->fillRule));
 		if (item->effectsInUse.count() != 0)
 		{
 			for (uint a = 0; a < item->effectsInUse.count(); ++a)
@@ -2760,6 +2761,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 		ob.setAttribute("ImageClip", item->pixm.imgInfo.usedPath);
 		ob.setAttribute("ImageRes", item->pixm.imgInfo.lowResType);
 		ob.setAttribute("isInline", static_cast<int>(item->isEmbedded));
+		ob.setAttribute("fillRule", static_cast<int>(item->fillRule));
 		ob.setAttribute("gXpos", item->gXpos);
 		ob.setAttribute("gYpos", item->gYpos);
 		ob.setAttribute("gWidth", item->gWidth);

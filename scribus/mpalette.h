@@ -220,6 +220,7 @@ private slots:
 	void handlePathLine();
 	void handlePathDist();
 	void handlePathOffs();
+	void handleFillRule();
 	void ChProf(const QString& prn);
 	void ChIntent();
 	void NewName();
@@ -251,6 +252,7 @@ protected:
 	QVBoxLayout* pageLayout_2;
 	QVBoxLayout* pageLayout_2a;
 	QVBoxLayout* pageLayout_2b;
+	QVBoxLayout* pageLayout_2c;
 	QVBoxLayout* pageLayout_3;
 	QVBoxLayout* pageLayout_4;
 	QVBoxLayout* pageLayout_5;
@@ -277,6 +279,7 @@ protected:
 	QHBoxLayout* ShapeGroupLayout;
 	QGridLayout* DistanceLayout;
 	QGridLayout* DistanceLayout2;
+	QVBoxLayout* DistanceLayout3;
 	QGridLayout* GroupBox3aLayout;
 	QVBoxLayout* GroupBoxCMLayout;
 	QVBoxLayout* textFlowsAroundFrameLayout;
@@ -289,6 +292,7 @@ protected:
 	QWidget* page_2;
 	QWidget* page_2a;
 	QWidget* page_2b;
+	QWidget* page_2c;
 	QWidget* page_3;
 	QWidget* page_4;
 	QWidget* page_5;
@@ -360,6 +364,7 @@ protected:
 
 
 	QButtonGroup* ShapeGroup;
+	QButtonGroup* Distance3;
 
 	QToolButton* TabsButton;
 
@@ -438,6 +443,8 @@ protected:
 	QRadioButton* BottomRight;
 	QRadioButton* FreeScale;
 	QRadioButton* FrameScale;
+	QRadioButton* EvenOdd;
+	QRadioButton* NonZero;
 
 	QFrame* Line1;
 	QFrame* Line2;

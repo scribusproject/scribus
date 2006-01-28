@@ -773,6 +773,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 		p->setLineWidth(0);
 	p->setBrushOpacity(1.0 - fillTransparency());
 	p->setPenOpacity(1.0 - lineTransparency());
+	p->setFillRule(fillRule);
 }
 
 void PageItem::DrawObj_Post(ScPainter *p)

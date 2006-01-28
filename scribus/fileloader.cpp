@@ -2174,6 +2174,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->setLocked(static_cast<bool>(obj->attribute("LOCK", "0").toInt()));
 	currItem->setSizeLocked(static_cast<bool>(obj->attribute("LOCKR", "0").toInt()));
 	currItem->setFillTransparency(obj->attribute("TransValue", "0.0").toDouble());
+	currItem->fillRule = static_cast<bool>(obj->attribute("fillRule", "1").toInt());
 	if (obj->hasAttribute("TransValueS"))
 		currItem->setLineTransparency(obj->attribute("TransValueS", "0.0").toDouble());
 	else

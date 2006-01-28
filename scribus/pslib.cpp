@@ -508,12 +508,18 @@ void PSLib::PS_selectfont(QString f, double s)
 
 void PSLib::PS_fill()
 {
-	PutSeite(FillColor + " cmyk eofill\n");
+	if (fillRule)
+		PutSeite(FillColor + " cmyk eofill\n");
+	else
+		PutSeite(FillColor + " cmyk fill\n");
 }
 
 void PSLib::PS_fillspot(QString color, int shade)
 {
-	PutSeite(ToStr(shade / 100.0)+" "+spotMap[color]+" eofill\n");
+	if (fillRule)
+		PutSeite(ToStr(shade / 100.0)+" "+spotMap[color]+" eofill\n");
+	else
+		PutSeite(ToStr(shade / 100.0)+" "+spotMap[color]+" fill\n");
 }
 
 void PSLib::PS_strokespot(QString color, int shade)
@@ -1409,6 +1415,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 	QString tmps, chx;
 	if (c->printable())
 	{
+		fillRule = true;
 		PS_save();
 		if (c->fillColor() != "None")
 		{
@@ -1639,6 +1646,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
+				fillRule = c->fillRule;
 				if (c->GrType != 0)
 					HandleGradient(c, c->width(), c->height(), gcr);
 				else
@@ -2618,7 +2626,12 @@ void PSLib::putColor(QString color, int shade, bool fill)
 			else
 			{
 				if ((color == currentSpot) || (colorsToUse[color].isRegistrationColor()))
-					PutSeite("0 0 0 "+ToStr(shade / 100.0)+" cmyk eofill\n");
+				{
+					if (fillRule)
+						PutSeite("0 0 0 "+ToStr(shade / 100.0)+" cmyk eofill\n");
+					else
+						PutSeite("0 0 0 "+ToStr(shade / 100.0)+" cmyk fill\n");
+				}
 			}
 		}
 		else

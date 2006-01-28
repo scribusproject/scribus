@@ -340,7 +340,10 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 						fill = "fill:url(#"+gradi+IToStr(GradCount)+");";
 						GradCount++;
 					}
-					fill += " fill-rule:evenodd;";
+					if (Item->fillRule)
+						fill += " fill-rule:evenodd;";
+					else
+						fill += " fill-rule:nonzero;";
 					if (Item->fillTransparency() != 0)
 						fill += " fill-opacity:"+FToStr(1.0 - Item->fillTransparency())+";";
 				}
