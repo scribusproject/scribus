@@ -3825,6 +3825,14 @@ bool ScribusMainWindow::DoFileClose()
 	doc = NULL;
 	ActWin = NULL;
 	tocGenerator->setDoc(doc);
+	if ( HaveDoc == 0 )
+	{
+		QString prefsDocDir( PrefsManager::instance()->documentDir() );
+		if ( QDir().exists(prefsDocDir) )
+			QDir::setCurrent( PrefsManager::instance()->documentDir() );
+		else
+			QDir::setCurrent( QDir::homeDirPath() );
+	}
 	return true;
 }
 

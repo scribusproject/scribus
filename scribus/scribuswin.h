@@ -57,6 +57,8 @@ signals:
 	void AutoSaved();
 
 protected:
+	virtual void windowActivationChange ( bool oldActive );
+	QString currentDir;
 	QHBoxLayout* statusFrameLayout;
 	ScribusView* m_View;
 	ScribusDoc* m_Doc;
