@@ -2656,15 +2656,8 @@ Delete the named master page.
       <source>No</source>
       <translation>Ei</translation>
     </message>
-  </context>
-  <context>
-    <name>AboutPluginsBase</name>
     <message>
-      <source>Scribus: About Plug-ins</source>
-      <translation>Scribus: Tietoja liitännäisistä</translation>
-    </message>
-    <message>
-      <source>File Name:</source>
+      <source>Filename:</source>
       <translation>Tiedostonimi:</translation>
     </message>
     <message>
@@ -2680,20 +2673,27 @@ Delete the named master page.
       <translation>Julkaisupäivämäärä:</translation>
     </message>
     <message>
-      <source>Copyright:</source>
-      <translation>Copyright:</translation>
+      <source>Description:</source>
+      <translation>Kuvaus:</translation>
     </message>
     <message>
       <source>Author(s):</source>
       <translation>Tekijät:</translation>
     </message>
     <message>
-      <source>Description:</source>
-      <translation>Kuvaus:</translation>
+      <source>Copyright:</source>
+      <translation>Copyright:</translation>
     </message>
     <message>
       <source>License:</source>
       <translation>Lisenssi:</translation>
+    </message>
+  </context>
+  <context>
+    <name>AboutPluginsBase</name>
+    <message>
+      <source>Scribus: About Plug-ins</source>
+      <translation>Scribus: Tietoja liitännäisistä</translation>
     </message>
     <message>
       <source>&amp;Close</source>
@@ -2908,7 +2908,7 @@ Delete the named master page.
     </message>
     <message>
       <source>&amp;Image Effects</source>
-      <translation>&amp;Kuvan muokkaus</translation>
+      <translation>&amp;Kuvaefektit</translation>
     </message>
     <message>
       <source>&amp;Tabulators...</source>
@@ -4351,6 +4351,131 @@ Delete the named master page.
     <message>
       <source>None</source>
       <translation>Ei mitään</translation>
+    </message>
+  </context>
+  <context>
+    <name>Barcode</name>
+    <message>
+      <source>&amp;Barcode Generator...</source>
+      <translation>&amp;Viivakoodi...</translation>
+    </message>
+    <message>
+      <source>Scribus frontend for Pure Postscript Barcode Writer</source>
+      <translation>Scribus-liitäntä Pure Postscript Barcode -ohjelmaan</translation>
+    </message>
+  </context>
+  <context>
+    <name>BarcodeGenerator</name>
+    <message>
+      <source>Error opening file: %1</source>
+      <translation>Virhe avattaessa tiedostoa: %1</translation>
+    </message>
+    <message>
+      <source>Error creating preview</source>
+      <translation>Virhe luotaessa esikatselua</translation>
+    </message>
+  </context>
+  <context>
+    <name>BarcodeGeneratorBase</name>
+    <message>
+      <source>Barcode Creator</source>
+      <translation>Viivakoodi</translation>
+    </message>
+    <message>
+      <source>Barcode</source>
+      <translation>Viivakoodi</translation>
+    </message>
+    <message>
+      <source>&amp;Type:</source>
+      <translation>&amp;Tyyppi:</translation>
+    </message>
+    <message>
+      <source>C&amp;ode:</source>
+      <translation>K&amp;oodi:</translation>
+    </message>
+    <message>
+      <source>Select one of the available barcode type here</source>
+      <translation>Valitse viivakoodityyppi</translation>
+    </message>
+    <message>
+      <source>The numeric representation of the code itself. See the help message below</source>
+      <translation>Koodin numeerinen eistys. Lisää tietoa ohjeessa alapuolella.</translation>
+    </message>
+    <message>
+      <source>Reset the barcode samples</source>
+      <translation>Tyhjennä viivakoodiesimerkit</translation>
+    </message>
+    <message>
+      <source>&amp;Include text in barcode</source>
+      <translation>&amp;Sisällytä teksti viivakoodiin</translation>
+    </message>
+    <message>
+      <source>Alt+I</source>
+      <translation>Alt+I</translation>
+    </message>
+    <message>
+      <source>If checked, there will be numbers in the barcode too</source>
+      <translation>Valittuna viivakoodiin sisällytetään myös numerot</translation>
+    </message>
+    <message>
+      <source>&amp;Guard whitespace</source>
+      <translation>&amp;Varmista tyhjä tila</translation>
+    </message>
+    <message>
+      <source>Alt+G</source>
+      <translation>Alt+G</translation>
+    </message>
+    <message>
+      <source>Draw arrows to be sure of space next the code</source>
+      <translation>Piirrä nuolet varmistaaksesi tilan koodin vieressä</translation>
+    </message>
+    <message>
+      <source>Colors</source>
+      <translation>Värit</translation>
+    </message>
+    <message>
+      <source>&amp;Background</source>
+      <translation>&amp;Tausta</translation>
+    </message>
+    <message>
+      <source>Alt+B</source>
+      <translation>Alt+B</translation>
+    </message>
+    <message>
+      <source>Background color - under the code lines</source>
+      <translation>Koodiviivojen taustan väri</translation>
+    </message>
+    <message>
+      <source>&amp;Lines</source>
+      <translation>&amp;Viivat</translation>
+    </message>
+    <message>
+      <source>Alt+L</source>
+      <translation>Alt+L</translation>
+    </message>
+    <message>
+      <source>Color of the lines in barcode</source>
+      <translation>Viivakoodin viivojen väri</translation>
+    </message>
+    <message>
+      <source>&amp;Text</source>
+      <translation>&amp;Teksti</translation>
+    </message>
+    <message>
+      <source>Alt+T</source>
+      <translation>Alt+T</translation>
+    </message>
+    <message>
+      <source>Color of the text and numbers</source>
+      <translation>Tekstin ja numeroiden väri</translation>
+    </message>
+    <message>
+      <source>Hints and help is shown here</source>
+      <translation>Ohje ja vihjeet näytetään tässä</translation>
+    </message>
+    <message>
+      <source>Preview of the result. 72dpi sample.</source>
+      <translation>Viivakoodin esikatselu (72 dpi)</translation>
     </message>
   </context>
   <context>
@@ -5972,6 +6097,14 @@ Voit määrittää sen asetuksissa.</translation>
       <source>Name: Optional name for section eg. Index&lt;br/>Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/>From: The page index for this section to start at.&lt;br/>To: The page index for this section to stop at.&lt;br/>Style: Select the page number style to be used.&lt;br/>Start: The index within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</source>
       <translation>Nimi: Valinnainen nimi alueelle&lt;br/>Näytä: Näytä sivunumero tällä alueella, jos yksi tai useampi tekstikehys on asetettu sivunumeroa varten.&lt;br/>Mistä: sivunumero, josta tämä alue alkaa (sivunumero on sivun järjestysnumero siten, että ensimmäinen sivu on 0)</translation>
     </message>
+    <message>
+      <source>Page Number Out Of Bounds</source>
+      <translation>Sivunumero sallitun alueen ulkopuolella</translation>
+    </message>
+    <message>
+      <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
+      <translation>Antamasi sivunumero on asiakirjan sallittujen arvojen ulkopuolella (%1-%2).</translation>
+    </message>
   </context>
   <context>
     <name>DocSectionsBase</name>
@@ -6048,15 +6181,19 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
       <source>Boolean</source>
-      <translation>Boolean</translation>
+      <translation>boolean</translation>
     </message>
     <message>
       <source>Integer</source>
-      <translation>Kokonaisluku</translation>
+      <translation>kokonaisluku</translation>
     </message>
     <message>
       <source>String</source>
-      <translation>Merkkijono</translation>
+      <translation>merkkijono</translation>
+    </message>
+    <message>
+      <source>Real Number</source>
+      <translation>reaaliluku</translation>
     </message>
   </context>
   <context>
@@ -6254,7 +6391,7 @@ kuvaamaan kaikkia sivuja tai 1-5 sivuväliä.</translation>
     </message>
     <message>
       <source>Mirror Page(s) Horizontal</source>
-      <translation>Peilaa sivuta vaakasuunnassa</translation>
+      <translation>Peilaa sivut vaakasuunnassa</translation>
     </message>
     <message>
       <source>Mirror Page(s) Vertical</source>
@@ -8335,7 +8472,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
       <source>Distance from Curve:</source>
-      <translation>Etäisyys käyrästä:</translation>
+      <translation>Etäisyys viivasta:</translation>
     </message>
     <message>
       <source>Round Join</source>
@@ -8371,7 +8508,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
       <source>Show Curve</source>
-      <translation>Näytä käyrä</translation>
+      <translation>Näytä viiva</translation>
     </message>
     <message>
       <source>Perceptual</source>
@@ -9282,6 +9419,17 @@ Corners:</source>
     <message>
       <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
       <translation>Koordinaatit ovat suhteessa sivuun, muuten suhteessa objektiin.</translation>
+    </message>
+  </context>
+  <context>
+    <name>OODPlug</name>
+    <message>
+      <source>This document does not seem to be an OpenOffice Draw file.</source>
+      <translation>Valittu asiakirja ei ole OpenOffice Draw -tiedosto.</translation>
+    </message>
+    <message>
+      <source>OpenOffice Draw 2.0 documents are currently not supported.</source>
+      <translation>OpenOffice Draw 2.0 -asiakirjat ei ole tuettuja.</translation>
     </message>
   </context>
   <context>
@@ -12683,6 +12831,10 @@ is not exhaustive due to exceptions from called functions.
       <source>&amp;Import</source>
       <translation>T&amp;uo</translation>
     </message>
+    <message>
+      <source>Barcode Generator</source>
+      <translation>Viivakoodi</translation>
+    </message>
   </context>
   <context>
     <name>QTextEdit</name>
@@ -14091,6 +14243,18 @@ Käytä tarkastustyökalua korjataksesi ne.</translation>
     <message>
       <source>Python Scripts (*.py);;All Files (*)</source>
       <translation>Python-skriptit (*.py);;Kaikki tiedostot (*)</translation>
+    </message>
+    <message>
+      <source>Documentation for:</source>
+      <translation>Dokumentaatio:</translation>
+    </message>
+    <message>
+      <source>Script</source>
+      <translation>Skripti</translation>
+    </message>
+    <message>
+      <source> doesn't contain any docstring!</source>
+      <translation> ei sisällä docstringiä.</translation>
     </message>
   </context>
   <context>
