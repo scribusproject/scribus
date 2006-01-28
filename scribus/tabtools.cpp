@@ -312,8 +312,8 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel5b = new QLabel(gapText, tr("&Gap:"), subTabText, "TextCol");
 	subTabTextLayout->addWidget( textLabel5b, 7, 2 );
 	previewText = new QLabel( tr( "Woven silk pyjamas exchanged for blue quartz" ), subTabText, "previewText" );
-	previewText->setMinimumSize(QSize(550, 170));
-	previewText->setMaximumSize(QSize(550, 170));
+	previewText->setMinimumSize(QSize(400, 170));
+	previewText->setMaximumSize(QSize(400, 170));
 	previewText->setFrameShape(QFrame::Box);
 	previewText->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
 	subTabTextLayout->addMultiCellWidget( previewText, 8, 8, 0, 3 );
