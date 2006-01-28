@@ -266,10 +266,18 @@ public:
 	void getBoundingRect(double *x1, double *y1, double *x2, double *y2);
 	/**
 	 * @brief Check if a QPoint is within the items boundaries
+	 * No coordinates transformation is performed
 	 * @param p 
 	 * @return 
 	 */
 	bool pointWithinItem(const int x, const int y);
+	/**
+	 * @brief Check if the mouse is within the items boundaries
+	 * This method performs necessary page to device transformations
+	 * @param p 
+	 * @return 
+	 */
+	bool mouseWithinItem(QWidget* vport, const int x, const int y, double scale);
 	void copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer);
 	
 	virtual void handleModeEditKey(QKeyEvent *k, bool &keyRepeat);

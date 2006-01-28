@@ -3212,6 +3212,19 @@ bool PageItem::pointWithinItem(const int x, const int y)
 	return itemRect.contains(x, y);
 }
 
+bool PageItem::mouseWithinItem(QWidget* vport, const int x, const int y, double scale)
+{
+	QPainter p;
+	QRect transRect;
+	p.begin(vport);
+	p.translate(static_cast<int>(Xpos * scale), static_cast<int>(Ypos*scale));
+	p.scale(scale, scale);
+	p.rotate(rotation());
+	transRect = p.xForm(QRect(0, 0, static_cast<int>(width()), static_cast<int>(height())));
+	p.end();
+	return transRect.contains(x, y);
+}
+
 bool PageItem::loadImage(const QString& filename, const bool reload, const int gsResolution)
 {
 	if (! asImageFrame())

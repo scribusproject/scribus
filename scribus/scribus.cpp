@@ -3694,7 +3694,6 @@ bool ScribusMainWindow::slotFileClose()
 	else
 		return true;
 	windowsMenuAboutToShow();
-
 }
 
 bool ScribusMainWindow::DoFileClose()
@@ -3813,11 +3812,13 @@ bool ScribusMainWindow::DoFileClose()
 		mainWindowStatusLabel->setText( tr("Ready"));
 		PrinterUsed = false;
 	}
+	QString fName(view->Doc->DocName);
 	view->close();
 	delete view;
 	doc->setLoading(true);
 	layerPalette->ClearInhalt();
 	docCheckerPalette->buildErrorList(0);
+	fileWatcher->removeFile(fName);
 	HaveDoc--;
 	view = NULL;
 	delete doc;
