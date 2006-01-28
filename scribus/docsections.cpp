@@ -32,8 +32,9 @@ for which a new license (GPL+exception) is in place.
 // ui/docsectionsbase.ui if you need to modify the layout,
 // widget properties, etc.
 
-#include <qtable.h>
+#include <qmessagebox.h>
 #include <qpushbutton.h>
+#include <qtable.h>
 #include <qtooltip.h>
 
 #include "pagestructs.h"
@@ -88,10 +89,10 @@ void DocSections::updateTable()
 		item2->setChecked((*it).active);
 		sectionsTable->setItem(row, i++, item2);
 		//FromIndex
-		QTableItem *item3 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).fromindex));
+		QTableItem *item3 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).fromindex+1));
 		sectionsTable->setItem(row, i++, item3);
 		//ToIndex
-		QTableItem *item4 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).toindex));
+		QTableItem *item4 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).toindex+1));
 		sectionsTable->setItem(row, i++, item4);
 		//Style
 		QComboTableItem *item5 = new QComboTableItem(sectionsTable, styles);
@@ -109,11 +110,14 @@ void DocSections::updateTable()
 		sectionsTable->verticalHeader()->setLabel(row, QString("%1").arg(row));
 		row++;
 	}
+	for (int i=0;i<6;++i)
+		sectionsTable->adjustColumn(i);
 	deleteButton->setEnabled(localSections.count()>1);
 }
 
 void DocSections::tableItemChanged( int row, int col )
 {
+	bool outOfRange=false;
 	switch (col)
 	{
 	case 0:
@@ -123,10 +127,32 @@ void DocSections::tableItemChanged( int row, int col )
 		localSections[row].active=static_cast<QCheckTableItem*>(sectionsTable->item(row, col))->isChecked();
 		break;
 	case 2:
-		localSections[row].fromindex=sectionsTable->text(row, col).toUInt();
+		localSections[row].fromindex=sectionsTable->text(row, col).toUInt()-1;
+		if (localSections[row].fromindex<1)
+		{
+			localSections[row].fromindex=1;
+			outOfRange=true;
+		}
+		else
+		if (localSections[row].fromindex>m_maxpageindex)
+		{
+			localSections[row].fromindex=m_maxpageindex;
+			outOfRange=true;
+		}
 		break;
 	case 3:
-		localSections[row].toindex=sectionsTable->text(row, col).toUInt();
+		localSections[row].toindex=sectionsTable->text(row, col).toUInt()-1;
+		if (localSections[row].toindex<1)
+		{
+			localSections[row].toindex=1;
+			outOfRange=true;
+		}
+		else
+		if (localSections[row].toindex>m_maxpageindex)
+		{
+			localSections[row].toindex=m_maxpageindex;
+			outOfRange=true;
+		}
 		break;
 	case 4:
 		{
@@ -144,6 +170,12 @@ void DocSections::tableItemChanged( int row, int col )
 		break;
 	default:
 		break;
+	}
+	
+	if (outOfRange)
+	{
+		updateTable();
+		QMessageBox::warning(parentWidget(), tr("Page Number Out Of Bounds"),"<qt>"+tr("The value you have entered is outside the range of page numbers in the current document (%1-%2).").arg(1).arg(m_maxpageindex+1)+"</qt>",QMessageBox::Ok,QMessageBox::NoButton,QMessageBox::NoButton);
 	}
 }
 
@@ -168,8 +200,8 @@ void DocSections::addEntry()
 		uint count=localSections.count();
 		blank.number=count;
 		blank.name=QString::number(count);
-		blank.fromindex=m_maxpageindex;
-		blank.toindex=m_maxpageindex;
+		blank.fromindex=m_maxpageindex+1;
+		blank.toindex=m_maxpageindex+1;
 		blank.type=Type_1_2_3;
 		blank.sectionstartindex=1;
 		blank.reversed=false;
@@ -193,8 +225,8 @@ void DocSections::addEntry()
 				struct DocumentSection blank;
 				blank.number=++i;
 				blank.name=QString::number(i);
-				blank.fromindex=(*it).toindex+1;
-				blank.toindex=(*it).toindex+2;
+				blank.fromindex=(*it).toindex+1+1;
+				blank.toindex=(*it).toindex+2+1;
 				blank.type=Type_1_2_3;
 				blank.sectionstartindex=1;
 				blank.reversed=false;
