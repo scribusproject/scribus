@@ -349,6 +349,7 @@ void ScPageOutput::DrawItem_Pre( PageItem* item, ScPainterExBase* painter, doubl
 		painter->setLineWidth(0);
 	painter->setBrushOpacity(1.0 - item->fillTransparency());
 	painter->setPenOpacity(1.0 - item->lineTransparency());
+	painter->setFillRule(item->fillRule);
 }
 
 void ScPageOutput::DrawItem_Post( PageItem* item, ScPainterExBase* painter )
@@ -1893,7 +1894,8 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 							pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(CurY+BotOffset));
 							pt2 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY-TopOffset)));
 						}
-						if ((fBorder) && (!AbsHasDrop))
+//						if ((fBorder) && (!AbsHasDrop))
+						if (!AbsHasDrop)
 							CurX += item->textToFrameDistLeft();
 						if (a > 0)
 						{
