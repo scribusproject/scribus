@@ -4647,6 +4647,7 @@ void ScribusMainWindow::slotNewPageP(int wo, QString templ)
 	view->Deselect(true);
 	slotNewPage(wo, templ); //master page is applied now
 	//applyNewMaster(templ);
+	doc->addPageToSection(wo-1, 1, 1);
 	outlinePalette->BuildTree();
 	pagePalette->RebuildPage();
 }
