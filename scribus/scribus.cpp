@@ -8424,8 +8424,34 @@ void ScribusMainWindow::callImageEditor()
 		PageItem *currItem = doc->selection->itemAt(0);
 		if (currItem->PicAvail)
 		{
+			int index;
+			QString imEditor;
 			ExternalApp = new QProcess(NULL);
-			QStringList cmd = QStringList::split(" ", imageEditorExecutable);
+			QStringList cmd;
+		#if defined(_WIN32)
+			index = imageEditorExecutable.find( ".exe" );
+			if ( index >= 0 )
+				imEditor = imageEditorExecutable.left( index + 4 );
+			imEditor.replace( "\\", "/" );
+			cmd.append(imEditor);
+			if ( imEditor.length() < imageEditorExecutable.length() )
+			{
+				int diffLength = imageEditorExecutable.length() - imEditor.length();
+				QString cmdStr = imageEditorExecutable.right( diffLength );
+				QStringList cmd1 = QStringList::split( " ", cmdStr);
+				cmd += cmd1;
+			}
+		#else
+			cmd = QStringList::split(" ", imageEditorExecutable);
+			if ( cmd.count() > 0 )
+				imEditor = cmd[0];
+		#endif
+			index = imEditor.findRev( "/" );
+			if (index > -1 )
+			{
+				QString imEditorDir = imEditor.left( index + 1 );
+				ExternalApp->setWorkingDirectory( imEditorDir );
+			}
 			cmd.append(currItem->Pfile);
 			ExternalApp->setArguments(cmd);
 			if ( !ExternalApp->start() )
