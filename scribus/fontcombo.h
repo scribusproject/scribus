@@ -67,6 +67,9 @@ public:
 	void RebuildList(ScribusDoc *currentDoc);
 private:
 	PrefsManager* prefsManager;
+	QPixmap ttfFont;
+	QPixmap otfFont;
+	QPixmap psFont;
 };
 
 class SCRIBUS_API FontComboH : public QWidget
@@ -95,6 +98,9 @@ private:
 	QComboBox* fontStyle;
 	PrefsManager* prefsManager;
 	ScribusDoc *currDoc;
+	QPixmap ttfFont;
+	QPixmap otfFont;
+	QPixmap psFont;
 
 protected:
 	QVBoxLayout* fontComboLayout;
