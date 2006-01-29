@@ -165,8 +165,9 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	dsGroupBox7Layout->addLayout( dsLayout4 );
 	dsLayout4pv->addWidget( dsGroupBox7 );
 
-	GroupRand = new MarginWidget(tabPage,  tr( "Margin Guides" ), &doc->pageMargins, decimals, unitRatio, ein, true );
+	GroupRand = new MarginWidget(tabPage,  tr( "Margin Guides" ), &doc->pageMargins, einheit, true );
 	GroupRand->setPageWidthHeight(pageWidth, pageHeight);
+	GroupRand->setPageSize(sizeQComboBox->currentText());
 	dsLayout4pv->addWidget( GroupRand );
 		
 	dsLayout4p->addLayout( dsLayout4pv );
@@ -647,6 +648,7 @@ void ReformDoc::setSize(const QString & gr)
 	heightMSpinBox->setValue(pageHeight * unitRatio);
 	GroupRand->setPageHeight(pageHeight);
 	GroupRand->setPageWidth(pageWidth);
+	GroupRand->setPageSize(gr);
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	delete ps2;

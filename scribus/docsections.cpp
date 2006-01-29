@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "pagestructs.h"
 
+
 DocSections::DocSections( QWidget* parent )
 	: DocSectionsBase( parent, "DocSections" )
 {

@@ -6,13 +6,16 @@ for which a new license (GPL+exception) is in place.
 */
 #include "marginWidget.h"
 #include "marginWidget.moc"
-#include "mspinbox.h"
 
 #include <qcheckbox.h>
 #include <qtooltip.h>
 
+#include "mspinbox.h"
+#include "units.h"
+#include "useprintermarginsdialog.h"
 
-MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int decimals, double unit, QString einh, bool showChangeAll) : QGroupBox( title, parent, "marginWidget")
+
+MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int unitIndex, bool showChangeAll) : QGroupBox( title, parent, "marginWidget")
 {
 	setColumnLayout(0, Qt::Vertical );
 	layout()->setSpacing( 5 );
@@ -21,26 +24,30 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	RandB = margs->Bottom;
 	RandR = margs->Right;
 	RandL = margs->Left;
-	unitRatio = unit;
-
+	
+	m_docUnitIndex=unitIndex;
+	m_unitRatio = unitGetRatioFromIndex(unitIndex);
+	m_suffix = unitGetSuffixFromIndex(unitIndex);
+	int decimals = unitGetDecimalsFromIndex(unitIndex);
+	
 	presetCombo = new PresetLayout(this, "presetCombo");
 	presetLabel = new QLabel(presetCombo, tr("Preset Layouts:"), this, "presetLabel");
 
 	leftR = new MSpinBox( 0, 1000, this, decimals );
-	leftR->setSuffix( einh );
-	leftR->setValue(RandL * unitRatio);
+	leftR->setSuffix( m_suffix );
+	leftR->setValue(RandL * m_unitRatio);
 
 	rightR = new MSpinBox( 0, 1000, this, decimals );
-	rightR->setSuffix( einh );
-	rightR->setValue(RandR * unitRatio);
+	rightR->setSuffix( m_suffix );
+	rightR->setValue(RandR * m_unitRatio);
 
 	topR = new MSpinBox( 0, 1000, this, decimals );
-	topR->setSuffix( einh );
-	topR->setValue(RandT * unitRatio);
+	topR->setSuffix( m_suffix );
+	topR->setValue(RandT * m_unitRatio);
 
 	bottomR = new MSpinBox( 0, 1000, this, decimals );
-	bottomR->setSuffix( einh );
-	bottomR->setValue(RandB * unitRatio);
+	bottomR->setSuffix( m_suffix );
+	bottomR->setValue(RandB * m_unitRatio);
 
 	bText = new QLabel( bottomR, tr( "&Bottom:" ), this, "bText" );
 	tText = new QLabel( topR, tr( "&Top:" ), this, "tText" );
@@ -65,23 +72,31 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 		marginsForAllPages = new QCheckBox( this, "moveObjects" );
 		marginsForAllPages->setText( tr( "Apply margin settings to all pages" ) );
 		marginsForAllPages->setChecked( false );
-		GroupLayout->addMultiCellWidget( marginsForAllPages, 5, 5, 0, 1);
+		//GroupLayout->addMultiCellWidget( marginsForAllPages, 5, 5, 0, 1);
+		GroupLayout->addWidget( marginsForAllPages, 5, 0 );
 		QToolTip::add( marginsForAllPages, "<qt>" + tr( "Apply the margin changes to all existing pages in the document" ) + "</qt>" );
+		
 	}
 	else
 		marginsForAllPages=NULL;
-
+	usePrinterMarginsButton=NULL;
+	#ifdef HAVE_CUPS
+	usePrinterMarginsButton=new QPushButton( tr("Printer Margins..."),this, "usePrinterMarginsButton" );
+	GroupLayout->addWidget( usePrinterMarginsButton, 5, 1 );
+	#endif
 	// hints
 	QToolTip::add( topR, "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>");
 	QToolTip::add( bottomR, "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>");
 	QToolTip::add( leftR, "<qt>" + tr( "Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
 	QToolTip::add( rightR, "<qt>" +tr( "Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
+	QToolTip::add( usePrinterMarginsButton, "<qt>" +tr( "Import the margins from the selected printer." ) + "</qt>");
 		// signals&slots
 	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
 	connect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
 	connect(presetCombo, SIGNAL(activated(int)), this, SLOT(setPreset()));
+	connect(usePrinterMarginsButton, SIGNAL(clicked()), this, SLOT(setMarginsToPrinterMargins()));
 }
 
 void MarginWidget::setFacingPages(bool facing)
@@ -93,56 +108,56 @@ void MarginWidget::setFacingPages(bool facing)
 
 void MarginWidget::setPageWidthHeight(double width, double height)
 {
-	rightR->setMaxValue(width * unitRatio - leftR->value());
-	leftR->setMaxValue(width * unitRatio - rightR->value());
+	rightR->setMaxValue(width * m_unitRatio - leftR->value());
+	leftR->setMaxValue(width * m_unitRatio - rightR->value());
 	pageWidth = width;
-	topR->setMaxValue(height * unitRatio - bottomR->value());
-	bottomR->setMaxValue(height * unitRatio - topR->value());
+	topR->setMaxValue(height * m_unitRatio - bottomR->value());
+	bottomR->setMaxValue(height * m_unitRatio - topR->value());
 	pageHeight = height;
 	setPreset();
 }
 
 void MarginWidget::setPageWidth(double width)
 {
-	rightR->setMaxValue(width * unitRatio - leftR->value());
-	leftR->setMaxValue(width * unitRatio - rightR->value());
+	rightR->setMaxValue(width * m_unitRatio - leftR->value());
+	leftR->setMaxValue(width * m_unitRatio - rightR->value());
 	pageWidth = width;
 	setPreset();
 }
 
 void MarginWidget::setPageHeight(double height)
 {
-	topR->setMaxValue(height * unitRatio - bottomR->value());
-	bottomR->setMaxValue(height * unitRatio - topR->value());
+	topR->setMaxValue(height * m_unitRatio - bottomR->value());
+	bottomR->setMaxValue(height * m_unitRatio - topR->value());
 	pageHeight = height;
 	setPreset();
 }
 
 void MarginWidget::setTop()
 {
-	RandT = topR->value() / unitRatio;
-	bottomR->setMaxValue(pageHeight * unitRatio - topR->value());
+	RandT = topR->value() / m_unitRatio;
+	bottomR->setMaxValue(pageHeight * m_unitRatio - topR->value());
 	setPreset();
 }
 
 void MarginWidget::setBottom()
 {
-	RandB = bottomR->value() / unitRatio;
-	topR->setMaxValue(pageHeight * unitRatio - bottomR->value());
+	RandB = bottomR->value() / m_unitRatio;
+	topR->setMaxValue(pageHeight * m_unitRatio - bottomR->value());
 	setPreset();
 }
 
 void MarginWidget::setLeft()
 {
-	RandL = leftR->value() / unitRatio;
-	rightR->setMaxValue(pageWidth * unitRatio - leftR->value());
+	RandL = leftR->value() / m_unitRatio;
+	rightR->setMaxValue(pageWidth * m_unitRatio - leftR->value());
 	setPreset();
 }
 
 void MarginWidget::setRight()
 {
-	RandR = rightR->value() / unitRatio;
-	leftR->setMaxValue(pageWidth * unitRatio - rightR->value());
+	RandR = rightR->value() / m_unitRatio;
+	leftR->setMaxValue(pageWidth * m_unitRatio - rightR->value());
 	setPreset();
 }
 
@@ -153,7 +168,7 @@ void MarginWidget::unitChange(double newUnit, int newDecimals, QString newSuffix
 	disconnect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
 	disconnect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
 	int decimalsOld;
-	double oldUnitRatio = unitRatio;
+	double oldUnitRatio = m_unitRatio;
 	double oldMin, oldMax, val;
 	topR->setSuffix(newSuffix);
 	bottomR->setSuffix(newSuffix);
@@ -168,7 +183,8 @@ void MarginWidget::unitChange(double newUnit, int newDecimals, QString newSuffix
 	leftR->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
 	rightR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	rightR->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
-	unitRatio = newUnit;
+	m_unitRatio = newUnit;
+	m_suffix=newSuffix;
 	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
@@ -182,21 +198,21 @@ void MarginWidget::setPreset()
 	disconnect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
 	disconnect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
 	int item = presetCombo->currentItem();
-	MarginStruct marg = presetCombo->getMargins(item, pageWidth * unitRatio, pageHeight * unitRatio, leftR->value());
+	MarginStruct marg = presetCombo->getMargins(item, pageWidth * m_unitRatio, pageHeight * m_unitRatio, leftR->value());
 	if (presetCombo->needUpdate())
 	{
 		leftR->setValue(marg.Left);
 		rightR->setValue(marg.Right);
 		topR->setValue(marg.Top);
 		bottomR->setValue(marg.Bottom);
-		RandT = topR->value() / unitRatio;
-		RandB = bottomR->value() / unitRatio;
-		RandL = leftR->value() / unitRatio;
-		RandR = rightR->value() / unitRatio;
-		bottomR->setMaxValue(pageHeight * unitRatio - topR->value());
-		topR->setMaxValue(pageHeight * unitRatio - bottomR->value());
-		rightR->setMaxValue(pageWidth * unitRatio - leftR->value());
-		leftR->setMaxValue(pageWidth * unitRatio - rightR->value());
+		RandT = topR->value() / m_unitRatio;
+		RandB = bottomR->value() / m_unitRatio;
+		RandL = leftR->value() / m_unitRatio;
+		RandR = rightR->value() / m_unitRatio;
+		bottomR->setMaxValue(pageHeight * m_unitRatio - topR->value());
+		topR->setMaxValue(pageHeight * m_unitRatio - bottomR->value());
+		rightR->setMaxValue(pageWidth * m_unitRatio - leftR->value());
+		leftR->setMaxValue(pageWidth * m_unitRatio - rightR->value());
 		rightR->setEnabled(false);
 		topR->setEnabled(false);
 		bottomR->setEnabled(false);
@@ -212,6 +228,41 @@ void MarginWidget::setPreset()
 	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
 	connect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
 }
+
+void MarginWidget::setPageSize(const QString& pageSize)
+{
+	m_pageSize=pageSize;
+}
+
+void MarginWidget::setMarginsToPrinterMargins()
+{
+	UsePrinterMarginsDialog upm(parentWidget(), m_pageSize, m_unitRatio, m_suffix);
+	if (upm.exec())
+	{
+		double t,b,l,r;
+		upm.getNewPrinterMargins(t,b,l,r);
+		presetCombo->setCurrentItem(PresetLayout::none);
+		topR->setValue(t * m_unitRatio);
+		bottomR->setValue(b * m_unitRatio);
+		leftR->setValue(l * m_unitRatio);
+		rightR->setValue(r * m_unitRatio);
+		
+		RandT = t;
+		RandB = b;
+		RandL = l;
+		RandR = r;
+		
+		bottomR->setMaxValue((pageHeight - t) * m_unitRatio);
+		topR->setMaxValue((pageHeight - b) * m_unitRatio);
+		rightR->setMaxValue((pageWidth - l) * m_unitRatio);
+		leftR->setMaxValue((pageWidth - r) * m_unitRatio);
+		
+		rightR->setEnabled(true);
+		topR->setEnabled(true);
+		bottomR->setEnabled(true);
+	}
+}
+
 
 /*
  * presets

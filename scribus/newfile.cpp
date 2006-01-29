@@ -169,7 +169,7 @@ void NewDoc::createNewDocPage()
 	marg.Bottom = prefsManager->appPrefs.RandUnten;
 	marg.Left = prefsManager->appPrefs.RandLinks;
 	marg.Right = prefsManager->appPrefs.RandRechts;
-	GroupRand = new MarginWidget(newDocFrame,  tr( "Margin Guides" ), &marg, precision, unitRatio, unitSuffix );
+	GroupRand = new MarginWidget(newDocFrame,  tr( "Margin Guides" ), &marg, unitIndex );
 	GroupRand->setPageWidthHeight(prefsManager->appPrefs.PageWidth, prefsManager->appPrefs.PageHeight);
 	GroupRand->setFacingPages(prefsManager->appPrefs.FacingPages == doublePage);
 	Layout9->addWidget( GroupRand );
@@ -182,6 +182,7 @@ void NewDoc::createNewDocPage()
 		ComboBox1->setCurrentItem(sizeIndex);
 	else
 		ComboBox1->setCurrentItem(ComboBox1->count()-1);
+	GroupRand->setPageSize(ComboBox1->currentText());
 	bool hwEnabled=(ComboBox1->currentText()==customTextTR);
 	Breite->setEnabled(hwEnabled);
 	Hoehe->setEnabled(hwEnabled);
@@ -413,6 +414,7 @@ void NewDoc::setPGsize(const QString &size)
 		setSize(size);
 		setOrien(ComboBox2->currentItem());
 	}
+	GroupRand->setPageSize(size);
 }
 
 void NewDoc::setSize(QString gr)

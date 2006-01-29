@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <qgroupbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
+#include <qpushbutton.h>
 
 class QCheckBox;
 
@@ -77,7 +78,7 @@ public:
 	\param unit mainly doc->unitRatio
 	\param einh unit text to display in the spin boxes (mm, pt etc)
 	*/
-	MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int decimals, double unitRatio, QString einh, bool showChangeAll=false);
+	MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int unitIndex, bool showChangeAll=false);
 	~MarginWidget() {};
 	/*! Setup the labels by facing pages option */
 	void setFacingPages(bool facing);
@@ -89,6 +90,8 @@ public:
 	void setPageHeight(double heigth);
 	/*! Setup the widgets by new options */
 	void unitChange(double newUnit, int newDecimals, QString newSuffix);
+	/*! Set the page size for margin getting from cups */
+	void setPageSize(const QString& pageSize);
 	
 	/*! Spinboxes */
 	MSpinBox* topR;
@@ -103,6 +106,7 @@ public:
 	QLabel* bText;
 	QLabel* presetLabel;
 	QCheckBox* marginsForAllPages;
+	QPushButton* usePrinterMarginsButton;
 	/*! Top margin value converted by unitRatio */
 	double RandT;
 	/*! Bottom margin value converted by unitRatio */
@@ -111,14 +115,10 @@ public:
 	double RandL;
 	/*! Right margin value converted by unitRatio */
 	double RandR;
-	/*! Self contained ratio taken in constructor */
-	double unitRatio;
 	/*! Internally used page width */
 	double pageWidth;
 	/*! Internally used page height */
 	double pageHeight;
-	/*! unused */
-	int docUnitIndex;
 
 public slots:
 	/*! Recompute the values after spinbox change */
@@ -128,9 +128,16 @@ public slots:
 	void setRight();
 	/*! Recompute margins in PresetLayout combobox and disable/enable widgets. */
 	void setPreset();
+	
+protected slots:	
+	virtual void setMarginsToPrinterMargins();
 
 protected:
 	QGridLayout* GroupLayout;
+	QString m_pageSize;
+	QString m_suffix;
+	double m_unitRatio;
+	int m_docUnitIndex;
 };
 
 #endif

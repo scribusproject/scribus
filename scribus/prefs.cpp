@@ -297,7 +297,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	marg.Bottom = prefsData->RandUnten;
 	marg.Left = prefsData->RandLinks;
 	marg.Right = prefsData->RandRechts;
-	GroupRand = new MarginWidget(tab_7,  tr( "Margin Guides" ), &marg, decimals, unitRatio, unitGetSuffixFromIndex(docUnitIndex) );
+	GroupRand = new MarginWidget(tab_7,  tr( "Margin Guides" ), &marg, docUnitIndex );
 	GroupRand->setPageWidthHeight(prefsData->PageWidth, prefsData->PageHeight);
 	dsLayout4pv->addWidget( GroupRand );
 	dsLayout4p->addLayout( dsLayout4pv );
@@ -1054,6 +1054,7 @@ void Preferences::setSize(const QString & gr)
 	pageHeight->setValue(Pageho * unitRatio);
 	GroupRand->setPageHeight(Pageho);
 	GroupRand->setPageWidth(Pagebr);
+	GroupRand->setPageSize(gr);
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	delete ps2;

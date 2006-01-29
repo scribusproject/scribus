@@ -159,6 +159,7 @@ scribus_SOURCES = \
 	prefsreader.cpp	\
 	prefstable.cpp	\
 	preview.cpp	\
+	printerutil.cpp	\
 	pslib.cpp	\
 	query.cpp	\
 	rc4.c	\
@@ -211,6 +212,8 @@ scribus_SOURCES = \
 	undostate.cpp	\
 	units.cpp	\
 	unzip.c	\
+	useprintermarginsdialogbase.ui \
+	useprintermarginsdialog.cpp \
 	util.cpp	\
 	vgradient.cpp	\
 	vruler.cpp	\

@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "docsectionsbase.h"
 #include "pagestructs.h"
 
+
 class DocSections : public DocSectionsBase
 {
 	Q_OBJECT
