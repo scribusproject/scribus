@@ -79,24 +79,27 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	}
 	else
 		marginsForAllPages=NULL;
+		
 	usePrinterMarginsButton=NULL;
 	#ifdef HAVE_CUPS
 	usePrinterMarginsButton=new QPushButton( tr("Printer Margins..."),this, "usePrinterMarginsButton" );
 	GroupLayout->addWidget( usePrinterMarginsButton, 5, 1 );
+	QToolTip::add( usePrinterMarginsButton, "<qt>" +tr( "Import the margins for the selected page size from the available printers." ) + "</qt>");
+	connect(usePrinterMarginsButton, SIGNAL(clicked()), this, SLOT(setMarginsToPrinterMargins()));
 	#endif
+	
 	// hints
 	QToolTip::add( topR, "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>");
 	QToolTip::add( bottomR, "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>");
 	QToolTip::add( leftR, "<qt>" + tr( "Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
 	QToolTip::add( rightR, "<qt>" +tr( "Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
-	QToolTip::add( usePrinterMarginsButton, "<qt>" +tr( "Import the margins from the selected printer." ) + "</qt>");
+	
 		// signals&slots
 	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
 	connect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
 	connect(presetCombo, SIGNAL(activated(int)), this, SLOT(setPreset()));
-	connect(usePrinterMarginsButton, SIGNAL(clicked()), this, SLOT(setMarginsToPrinterMargins()));
 }
 
 void MarginWidget::setFacingPages(bool facing)
