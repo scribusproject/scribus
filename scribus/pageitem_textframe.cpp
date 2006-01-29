@@ -291,7 +291,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						{
 							wide = Zli3.wide;
 							p->setFillMode(1);
-							p->setBrush(darkBlue);
+//							p->setBrush(darkBlue);
+							p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::Highlight));
 							p->setLineWidth(0);
 							if ((a > 0) && (Zli3.Zeich == QChar(9)))
 							{
@@ -300,7 +301,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							}
 							if (!m_Doc->RePos)
 								p->drawRect(xcoZli, qRound(Zli3.yco-asce * (Zli3.scalev / 1000.0)), wide+1, qRound((asce+desc) * (Zli3.scalev / 1000.0)));
-							p->setBrush(white);
+							p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText));
+//							p->setBrush(white);
 						}
 						if (Zli3.Farb2 != "None")
 						{
@@ -1516,7 +1518,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							{
 								wide = Zli2->wide;
 								p->setFillMode(1);
-								p->setBrush(darkBlue);
+								p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::Highlight));
+//								p->setBrush(darkBlue);
 								p->setLineWidth(0);
 								if ((zc > 0) && (Zli2->Zeich == QChar(9)))
 								{
@@ -1526,7 +1529,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								}
 								if (!m_Doc->RePos)
 									p->drawRect(xcoZli, qRound(Zli2->yco-asce * (Zli2->scalev / 1000.0)), wide+1, qRound((asce+desc) * (Zli2->scalev / 1000.0)));
-								p->setBrush(white);
+								p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText));
+//								p->setBrush(white);
 							}
 							if (Zli2->Farb2 != "None")
 							{
@@ -1795,7 +1799,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					{
 						wide = Zli2->wide;
 						p->setFillMode(1);
-						p->setBrush(darkBlue);
+						p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::Highlight));
+//						p->setBrush(darkBlue);
 						p->setLineWidth(0);
 						if ((zc > 0) && (Zli2->Zeich == QChar(9)))
 						{
@@ -1805,7 +1810,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						}
 						if (!m_Doc->RePos)
 							p->drawRect(xcoZli, qRound(Zli2->yco-asce * (Zli2->scalev / 1000.0)), wide+1, qRound((asce+desc) * (Zli2->scalev / 1000.0)));
-						p->setBrush(white);
+						p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText));
+//						p->setBrush(white);
 					}
 					if (Zli2->Farb2 != "None")
 					{
