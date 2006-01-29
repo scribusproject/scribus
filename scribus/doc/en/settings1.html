@@ -98,18 +98,20 @@ precise, but sometimes more difficult selection of smaller objects.</p>
 <table width="100%"><tr><td align="center"><img src="images/prefsdisplay.png" alt="Global Color Management Preferences for Scribus" title="Global Color Management Preferences for Scribus" /></td></tr></table>
 
 <h3>External Tools</h3>
-
-<p>On Linux:</p>
+<p>This panel enables you to change the default settings for the location of Ghostscript and your preferred image editing tool. If you have installed Ghostscript on Windows before installing Scribus, it is usually automatically detected.If you receive an error message on Windows indicating EPS files cannot be used. This is where the settings can be changed to allow Scribus to find the correct location of Ghostscript.</p>
+<p><strong>On Linux:</strong></p>
 <table width="100%"><tr><td align="center"><img src="images/gsadv2.png" alt="External Tools Settings" title="External Tools Settings" /></td></tr></table>
-
-<p>On Windows:</p>
-<table width="100%"><tr><td align="center"><img src="images/prefs15.png" alt="External Tools Settings" title="External Tools Settings" /></td></tr></table>
-
-<p>This panel enables you to change the default settings for the location of Ghostscript and your preferred image editing tool. If you have installed Ghostscript on Windows before installing Scribus, it is usually automatically detected. In the example above, a parallel build of Ghostscript 8.53 has been installed in <code>/usr/local/bin/</code> for better results with EPS,PS and PDF importing, as well as speedier print-previews. See the hints in <a href="toolbox7.html" title="Advanced Setup of Ghostscript">Advanced Ghostscript.</a></p><p> One other important note, when using the GIMP as your image editor, <strong>you must close GIMP completely before, control will return to Scribus.</strong>The workaround for this is to use <strong>gimp-remote</strong> or <strong>gimp-remote.exe</strong>  as shown instead. This will then either start a new instance of gimp or use the currently running version of gimp. </p>
-<p>You can use other image editors including cinepaint, krita and even Photoshop with wine. With Crossover, you would use (with quotes)  in the dialog something like this :
+<p> In the example above, a parallel build of Ghostscript 8.53 has been installed in <code>/usr/local/bin/</code> for better results with EPS,PS and PDF importing, as well as speedier print-previews. Linux and Unix users should see the hints in <a href="toolbox7.html" title="Advanced Setup of Ghostscript">Advanced Ghostscript.</a></p>
+<p>You can use any available image editor including cinepaint, krita and even Photoshop with wine. With Crossover, you would use (with quotes)  in the dialog something like this :
 
 <pre>"/opt/cxoffice/bin/wine" --workdir "C://Adobe" --check --cx-app "C:////Adobe////Photoshp.exe"</pre>
  You can copy the exact settings from the desktop shortcut from the menu editor in KDE.</p>
+<p> One other important note, when using the GIMP as your image editor, <strong>you must close GIMP completely before, control will return to Scribus.</strong> The workaround for this is to use <strong>gimp-remote</strong>
+<p><strong>On Windows:</strong></p>
+<table width="100%"><tr><td align="center"><img src="images/prefs15.png" alt="External Tools Settings" title="External Tools Settings" /></td></tr></table>
+
+<p>To use GIMP as your image editor on Windows , <strong>you must close GIMP completely before control will return to Scribus.</strong> The workaround for this is to use <strong>c:\path to\gimp-remote.exe gimp-2.2.exe</strong> as shown instead.<br /> The default on windows is:<br /> <code>C:/Program Files/GIMP-2.0/bin/gimp-win-remote.exe gimp-2.2.exe</code> This will then either start a new instance of gimp or use the currently running version of gimp. </p>
+
 
 <h3>Miscellaneous</h3>
 <ul>
