@@ -60,7 +60,10 @@ void LayerTable::endEdit ( int row, int col, bool accept, bool replace )
 			emit updtName(row);
 	}
 	else
+	{
 		setText(row, col, oldCont);
+		emit updtName(row);
+	}
 }
 
 LayerPalette::LayerPalette(QWidget* parent)
@@ -128,14 +131,14 @@ LayerPalette::LayerPalette(QWidget* parent)
 	connect(deleteLayerButton, SIGNAL(clicked()), this, SLOT(removeLayer()));
 	connect(raiseLayerButton, SIGNAL(clicked()), this, SLOT(upLayer()));
 	connect(lowerLayerButton, SIGNAL(clicked()), this, SLOT(downLayer()));
-	connect(Table, SIGNAL(valueChanged(int, int)), this, SLOT(changeName(int, int)));
+//	connect(Table, SIGNAL(valueChanged(int, int)), this, SLOT(changeName(int, int)));
 	connect(Table, SIGNAL(updtName(int)), this, SLOT(updateName(int)));
 
 }
 
 void LayerPalette::updateName(int r)
 {
-	changeName(r, 0);
+	changeName(r, 2);
 	ScMW->changeLayer(ScMW->doc->activeLayer());
 }
 
