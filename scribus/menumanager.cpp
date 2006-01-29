@@ -187,7 +187,7 @@ bool MenuManager::addMenuToMenuBar(const QString &menuName)
 
 bool MenuManager::addMenuToMenuBarAfter(const QString &menuName, const QString &afterMenuName)
 {
-	bool retVal;
+	bool retVal=false;
 	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
 	{
 		if (menuList[afterMenuName])
@@ -201,8 +201,6 @@ bool MenuManager::addMenuToMenuBarAfter(const QString &menuName, const QString &
 			}
 		}
 	}
-	else
-		retVal=false;
 	return retVal;
 }
 

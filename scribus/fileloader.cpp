@@ -1952,7 +1952,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			cl.scale(currItem->imageXScale(), currItem->imageYScale());
 			currItem->imageClip.map(cl);
 		}
-		currItem->PicArt = obj->attribute("PICART").toInt();
+		currItem->setImageShown(obj->attribute("PICART").toInt());
 /*		currItem->BBoxX = obj->attribute("BBOXX").toDouble();
 		currItem->BBoxH = obj->attribute("BBOXH").toDouble(); */
 		currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
@@ -2004,7 +2004,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
 			doc->LoadPict(currItem->Pfile, z);
 			currItem->setImageXYScale(scx, scy);
-			currItem->PicArt = obj->attribute("PICART").toInt();
+			currItem->setImageShown(obj->attribute("PICART").toInt());
 /*			currItem->BBoxX = obj->attribute("BBOXX").toDouble();
 			currItem->BBoxH = obj->attribute("BBOXH").toDouble(); */
 			currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
@@ -2030,7 +2030,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
 			doc->LoadPict(currItem->Pfile, z);
 			currItem->setImageXYScale(scx, scy);
-			currItem->PicArt = obj->attribute("PICART").toInt();
+			currItem->setImageShown(obj->attribute("PICART").toInt());
 /*			currItem->BBoxX = obj->attribute("BBOXX").toDouble();
 			currItem->BBoxH = obj->attribute("BBOXH").toDouble(); */
 			currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();

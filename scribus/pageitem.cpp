@@ -3640,6 +3640,11 @@ void PageItem::setAnnotation(const Annotation& ad)
 	m_annotation=ad;
 }
 
+void PageItem::setImageShown(bool isShown)
+{
+	PicArt=isShown;
+}
+
 void PageItem::updateConstants()
 {
 	if (OwnPage!=-1)

@@ -1289,11 +1289,14 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 				return;
 			}
 			//If we double click on an image frame and theres no image assigned, open the
-			//load picture dialog, else put it into edit mode
-			if ((currItem->itemType() == PageItem::ImageFrame) && (currItem->Pfile.isEmpty()))
- 				emit LoadPic();
- 			else
- 				emit Amode(modeEdit);
+			//load picture dialog, else put it into edit mode if the frame is set to show the image
+			if (currItem->itemType() == PageItem::ImageFrame)
+			{
+				if (currItem->Pfile.isEmpty())
+					emit LoadPic();
+				else if (currItem->imageShown())
+					emit Amode(modeEdit);
+ 			}
 		}
 		else
 			if (currItem->itemType() == PageItem::TextFrame)
@@ -10355,11 +10358,15 @@ void ScribusView::TogglePic()
 	{
 		for (uint a = 0; a < Doc->selection->count(); ++a)
 		{
-			Doc->selection->itemAt(a)->PicArt = !Doc->selection->itemAt(a)->PicArt;
-			ScMW->scrActions["itemImageIsVisible"]->setOn(Doc->selection->itemAt(a)->PicArt);
+			Doc->selection->itemAt(a)->setImageShown(!Doc->selection->itemAt(a)->imageShown());
+			ScMW->scrActions["itemImageIsVisible"]->setOn(Doc->selection->itemAt(a)->imageShown());
 			RefreshItem(Doc->selection->itemAt(a));
 		}
 		emit DocChanged();
+		//Return to normal mode if in edit mode. We should not allow dragging of
+		//an image in a frame if its not shown.
+		if (Doc->appMode == modeEdit)
+			emit Amode(modeNormal);
 	}
 }
 
@@ -10581,7 +10588,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		if (!Doc->Items->at(z)->Pfile.isEmpty())
 			Doc->LoadPict(Doc->Items->at(z)->Pfile, z);
 		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
-		Doc->Items->at(z)->PicArt = Buffer->PicArt;
+		Doc->Items->at(z)->setImageShown(Buffer->PicArt);
 /*		Doc->Items->at(z)->BBoxX = Buffer->BBoxX;
 		Doc->Items->at(z)->BBoxH = Buffer->BBoxH; */
 		Doc->Items->at(z)->ScaleType = Buffer->ScaleType;
@@ -10609,7 +10616,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			Doc->Items->at(z)->UseEmbedded = Buffer->UseEmbedded;
 			Doc->LoadPict(Doc->Items->at(z)->Pfile, z);
 			Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
-			Doc->Items->at(z)->PicArt = Buffer->PicArt;
+			Doc->Items->at(z)->setImageShown(Buffer->PicArt);
 /*			Doc->Items->at(z)->BBoxX = Buffer->BBoxX;
 			Doc->Items->at(z)->BBoxH = Buffer->BBoxH; */
 		}

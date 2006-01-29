@@ -355,8 +355,6 @@ public:
 	bool UseEmbedded;
 	QString EmProfile;
 	int IRender;
-  /** Darstellungsart Bild/Titel */
-	bool PicArt;
   /** Bild verfuegbar */
 	bool PicAvail;
 	int OrigW;
@@ -910,6 +908,9 @@ public:
 	void setAnnotation(const Annotation& ad);
 	Annotation& annotation() { return m_annotation; }
 	
+	bool imageShown() const { return PicArt; }
+	void setImageShown(bool);
+	
 	void updateConstants();
 	
 protected:
@@ -1149,6 +1150,9 @@ protected:
 	/** Flags and data for PDF Annotations */
 	bool m_isAnnotation;
 	Annotation m_annotation;
+	
+	/** Darstellungsart Bild/Titel */
+	bool PicArt;
 
 signals:
 	//Frame signals

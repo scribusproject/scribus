@@ -2291,7 +2291,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 		scrActions["toolsRotate"]->setEnabled(true);
 		scrActions["toolsCopyProperties"]->setEnabled(true);
-		scrActions["itemImageIsVisible"]->setOn(currItem->PicArt);
+		scrActions["itemImageIsVisible"]->setOn(currItem->imageShown());
 		scrActions["itemPreviewLow"]->setOn(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewLow"]->actionInt());
 		scrActions["itemPreviewNormal"]->setOn(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewNormal"]->actionInt());
 		scrActions["itemPreviewFull"]->setOn(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewFull"]->actionInt());
@@ -4951,7 +4951,7 @@ void ScribusMainWindow::TogglePics()
 	for (uint b=0; b<doc->Items->count(); ++b)
 	{
 		if (doc->Items->at(b)->asImageFrame())
-			doc->Items->at(b)->PicArt = doc->guidesSettings.showPic;
+			doc->Items->at(b)->setImageShown(doc->guidesSettings.showPic);
 	}
 	view->DrawNew();
 }

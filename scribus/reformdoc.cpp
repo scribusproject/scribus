@@ -1136,6 +1136,6 @@ void ReformDoc::updateDocumentSettings()
 	for (uint b=0; b<itemCount; ++b)
 	{
 		if (currDoc->Items->at(b)->itemType() == PageItem::ImageFrame)
-			currDoc->Items->at(b)->PicArt = currDoc->guidesSettings.showPic;
+			currDoc->Items->at(b)->setImageShown(currDoc->guidesSettings.showPic);
 	}
 }

@@ -269,7 +269,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("LOCALSCY",item->imageYScale());
 	ob->setAttribute("LOCALX",item->imageXOffset());
 	ob->setAttribute("LOCALY",item->imageYOffset());
-	ob->setAttribute("PICART", item->PicArt ? 1 : 0);
+	ob->setAttribute("PICART", item->imageShown() ? 1 : 0);
 	ob->setAttribute("PLTSHOW", item->PoShow ? 1 : 0);
 	ob->setAttribute("BASEOF", item->BaseOffs);
 	ob->setAttribute("FLIPPEDH", item->imageFlippedH());
