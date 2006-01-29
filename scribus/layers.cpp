@@ -39,9 +39,28 @@ LayerTable::LayerTable(QWidget* parent) : QTable(parent)
 void LayerTable::endEdit ( int row, int col, bool accept, bool replace )
 {
 	QTable::EditMode ed = editMode();
+	QString oldCont = text(row, col);
 	QTable::endEdit(row, col, accept, replace);
-	if (ed != QTable::NotEditing)
-		emit updtName(row);
+	QString newCont = item(row, col)->text();
+	bool realAccept = true;
+	int b = numRows();
+	for (int a = 0; a < b; ++a)
+	{
+		if (a != row)
+		{
+			if (newCont == text(a, 2))
+				realAccept = false;
+		}
+	}
+	if (newCont.isEmpty())
+		realAccept = false;
+	if (realAccept)
+	{
+		if (ed != QTable::NotEditing)
+			emit updtName(row);
+	}
+	else
+		setText(row, col, oldCont);
 }
 
 LayerPalette::LayerPalette(QWidget* parent)
