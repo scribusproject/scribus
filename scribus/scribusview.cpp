@@ -1047,79 +1047,75 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			update();
 			return;
 		}
-
 		//if ((SeleItemPos(e->pos())) && (!text.startsWith("<SCRIBUSELEM")))
-		if (Doc->selection->count()>0)
+		if (Doc->selection->count()>0 && Doc->selection->itemAt(0)->pointWithinItem(pscx, pscy) && (!text.startsWith("<SCRIBUSELEM")))
 		{
-			if (Doc->selection->itemAt(0)->pointWithinItem(pscx, pscy) && (!text.startsWith("<SCRIBUSELEM")))
+			PageItem *b = Doc->selection->itemAt(0);
+			if (b->itemType() == PageItem::ImageFrame)
 			{
-				PageItem *b = Doc->selection->itemAt(0);
-				if (b->itemType() == PageItem::ImageFrame)
+				if ((fi.exists()) && (img))
 				{
-					if ((fi.exists()) && (img))
-					{
-						Doc->LoadPict(ur.path(), b->ItemNr);
-						update();
-					}
+					Doc->LoadPict(ur.path(), b->ItemNr);
+					update();
 				}
-				/* CB leaving this out for now...
-				if (b->PType == 4)
-				{
-					if ((b->BackBox != 0) && (b->itemText.count() == 0))
-						return;
-					if ((fi.exists()) && (!img) && (fi.size() < 500000))
-					{
-						Serializer *ss = new Serializer(ur.path());
-						if (ss->Read())
-						{
-							int st = doku->currentParaStyle;
-							ss->GetText(b, st, doku->docParagraphStyles[st].Font, doku->docParagraphStyles[st].FontSize, true);
-							emit DocChanged();
-						}
-						delete ss;
-						ss=NULL;
-						update();
-					}
-					else
-					{
-						slotDoCurs(false);
-						slotSetCurs(e->pos().x(), e->pos().y());
-						if (text.startsWith("<SCRIBUSELEM"))
-							return;
-						for (a=0; a<text.length(); ++a)
-						{
-							hg = new ScText;
-							hg->ch = text.at(a);
-							if (hg->ch == QChar(10))
-								hg->ch = QChar(13);
-							if (hg->ch == QChar(4))
-								hg->ch = QChar(9);
-							if (hg->ch == QChar(5))
-								hg->ch = QChar(13);
-							hg->cfont = b->IFont;
-							hg->csize = b->ISize;
-							hg->ccolor = b->TxtFill;
-							hg->cshade = b->ShTxtFill;
-							hg->cstroke = b->TxtStroke;
-							hg->cshade2 = b->ShTxtStroke;
-							hg->cselect = false;
-							hg->cscale = b->TxtScale;
-							hg->cextra = 0;
-							hg->cstyle = 0;
-							hg->cab = 0;
-							hg->xp = 0;
-							hg->yp = 0;
-							hg->PRot = 0;
-							hg->PtransX = 0;
-							hg->PtransY = 0;
-							b->itemText.insert(b->CPos, hg);
-							b->CPos += 1;
-						}
-						emit DocChanged();
-						update();
-					}
-				}*/
 			}
+			/* CB leaving this out for now...
+			if (b->PType == 4)
+			{
+				if ((b->BackBox != 0) && (b->itemText.count() == 0))
+					return;
+				if ((fi.exists()) && (!img) && (fi.size() < 500000))
+				{
+					Serializer *ss = new Serializer(ur.path());
+					if (ss->Read())
+					{
+						int st = doku->currentParaStyle;
+						ss->GetText(b, st, doku->docParagraphStyles[st].Font, doku->docParagraphStyles[st].FontSize, true);
+						emit DocChanged();
+					}
+					delete ss;
+					ss=NULL;
+					update();
+				}
+				else
+				{
+					slotDoCurs(false);
+					slotSetCurs(e->pos().x(), e->pos().y());
+					if (text.startsWith("<SCRIBUSELEM"))
+						return;
+					for (a=0; a<text.length(); ++a)
+					{
+						hg = new ScText;
+						hg->ch = text.at(a);
+						if (hg->ch == QChar(10))
+							hg->ch = QChar(13);
+						if (hg->ch == QChar(4))
+							hg->ch = QChar(9);
+						if (hg->ch == QChar(5))
+							hg->ch = QChar(13);
+						hg->cfont = b->IFont;
+						hg->csize = b->ISize;
+						hg->ccolor = b->TxtFill;
+						hg->cshade = b->ShTxtFill;
+						hg->cstroke = b->TxtStroke;
+						hg->cshade2 = b->ShTxtStroke;
+						hg->cselect = false;
+						hg->cscale = b->TxtScale;
+						hg->cextra = 0;
+						hg->cstyle = 0;
+						hg->cab = 0;
+						hg->xp = 0;
+						hg->yp = 0;
+						hg->PRot = 0;
+						hg->PtransX = 0;
+						hg->PtransY = 0;
+						b->itemText.insert(b->CPos, hg);
+						b->CPos += 1;
+					}
+					emit DocChanged();
+					update();
+				}
+			}*/
 		}
 		else
 		{
