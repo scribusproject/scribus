@@ -118,12 +118,13 @@ FontComboH::FontComboH(QWidget* parent) : QWidget(parent, "FontComboH")
 	fontComboLayout->addWidget(fontFamily);
 	fontStyle = new ScComboBox( false, this, "fontStyle" );
 	fontComboLayout->addWidget(fontStyle);
-	QStringList flist = prefsManager->appPrefs.AvailFonts.fontMap.keys();
+	RebuildList(0);
+/*	QStringList flist = prefsManager->appPrefs.AvailFonts.fontMap.keys();
 	fontFamily->insertStringList(flist);
 	fontStyle->clear();
 	QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[fontFamily->currentText()];
 	slist.sort();
-	fontStyle->insertStringList(slist);
+	fontStyle->insertStringList(slist); */
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }
