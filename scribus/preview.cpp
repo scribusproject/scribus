@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scpaths.h"
 #include "pageselector.h"
+#include "printerutil.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -890,9 +891,9 @@ bool PPreview::usePostscriptPreview(QString printerName)
 	if ( printerName == tr("File") )
 		return true;
 	else if( printerName.isEmpty() )
-		return isPostscriptPrinter( ScWinPrint::getDefaultPrinter() );
+		return PrinterUtil::isPostscriptPrinter( ScWinPrint::getDefaultPrinter() );
 	else
-		return isPostscriptPrinter( printerName );
+		return PrinterUtil::isPostscriptPrinter( printerName );
 #else
 	return true;
 #endif

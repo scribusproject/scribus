@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qstringlist.h>
 #include "util.h"
+#include "scribus.h"
 
 QStringList PrinterUtil::getPrinterNames()
 {
@@ -72,9 +73,9 @@ QStringList PrinterUtil::getPrinterNames()
 	return printerNames;
 }
 
-bool PrinterUtil::getDefaultSettings( QString printerName )
+#if defined(_WIN32)
+bool PrinterUtil::getDefaultSettings( QString printerName, QByteArray& devModeA )
 {
-#ifdef _WIN32
 	bool done;
 	uint size;
 	QCString printer;
@@ -86,22 +87,20 @@ bool PrinterUtil::getDefaultSettings( QString printerName )
 	if(!done)
 		return false;
 	// Get size of DEVMODE structure (public + private data)
-	size = DocumentProperties( winId(), handle, printer.data(), NULL, NULL, 0);
+	size = DocumentProperties( ScMW->winId(), handle, printer.data(), NULL, NULL, 0);
 	// Allocate the memory needed by the DEVMODE structure
-	DevMode.resize( size );
+	devModeA.resize( size );
 	// Retrieve printer default settings
-	result = DocumentProperties( winId(), handle, printer.data(), (DEVMODE*) DevMode.data(), NULL, DM_OUT_BUFFER);
+	result = DocumentProperties( ScMW->winId(), handle, printer.data(), (DEVMODE*) devModeA.data(), NULL, DM_OUT_BUFFER);
 	// Free the printer handle
 	ClosePrinter( handle );
 	return ( result == IDOK );
-#else
-	return true;
-#endif
 }
+#endif
 
-bool PrinterUtil::initDeviceSettings( QString printerName )
+#if defined(_WIN32)
+bool PrinterUtil::initDeviceSettings( QString printerName, QByteArray& devModeA )
 {
-#ifdef _WIN32
 	bool done;
 	uint size;
 	QCString printer;
@@ -113,32 +112,30 @@ bool PrinterUtil::initDeviceSettings( QString printerName )
 	if(!done)
 		return false;
 	// Get size of DEVMODE structure (public + private data)
-	size = DocumentProperties( winId(), handle, printer.data(), NULL, NULL, 0);
+	size = DocumentProperties( ScMW->winId(), handle, printer.data(), NULL, NULL, 0);
 	// Compare size with DevMode structure size
-	if( DevMode.size() == size )
+	if( devModeA.size() == size )
 	{
 		// Merge printer settings
-		result = DocumentProperties( winId(), handle, printer.data(), (DEVMODE*) DevMode.data(), (DEVMODE*) DevMode.data(), DM_IN_BUFFER | DM_OUT_BUFFER);
+		result = DocumentProperties( ScMW->winId(), handle, printer.data(), (DEVMODE*) devModeA.data(), (DEVMODE*) devModeA.data(), DM_IN_BUFFER | DM_OUT_BUFFER);
 	}
 	else
 	{
 		// Retrieve default settings
-		DevMode.resize( size );
-		result = DocumentProperties( winId(), handle, printer.data(), (DEVMODE*) DevMode.data(), NULL, DM_OUT_BUFFER);
+		devModeA.resize( size );
+		result = DocumentProperties( ScMW->winId(), handle, printer.data(), (DEVMODE*) devModeA.data(), NULL, DM_OUT_BUFFER);
 	}
 	done = ( result == IDOK);
 	// Free the printer handle
 	ClosePrinter( handle );
 	return done;
-#else
-	return true;
-#endif
 }
+#endif
 
 bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QString& pageSize, double& ptsTopMargin, double& ptsBottomMargin, double& ptsLeftMargin, double& ptsRightMargin)
 {
 	bool retVal=false;
-	#if defined(HAVE_CUPS)
+#if defined(HAVE_CUPS)
 	const char *filename; // tmp PPD filename
 	filename=cupsGetPPD(printerName);
 	if (filename!=NULL)
@@ -161,7 +158,61 @@ bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QStri
 			ppdClose(ppd);
 		}
 	}
-	#endif
+#elif defined(_WIN32)
+	DWORD nPaper;
+	DWORD nPaperNames;
+	QCString printer;
+	typedef char char64[64];
+	printer = printerName.local8Bit();
+	nPaper = DeviceCapabilities( printerName.data(), NULL, DC_PAPERS, NULL, NULL );
+	nPaperNames = DeviceCapabilities( printerName.data(), NULL, DC_PAPERNAMES, NULL, NULL );
+	if ( (nPaper > 0) && (nPaperNames > 0) && (nPaper == nPaperNames) )
+	{
+		int paperIndex = -1;
+		DWORD *papers = new DWORD[nPaper];
+		char64 *paperNames = new char64[nPaperNames];
+		DWORD s1 = DeviceCapabilities( printerName.data(), NULL, DC_PAPERS, (LPSTR) papers, NULL );
+		DWORD s2 = DeviceCapabilities( printerName.data(), NULL, DC_PAPERNAMES, (LPSTR) paperNames, NULL );
+		for ( int i = 0; i < nPaperNames; i++ )
+		{
+			if ( pageSize == QString(paperNames[i]) )
+			{
+				paperIndex = i;
+				break;
+			}
+		}
+		if ( paperIndex >= 0 )
+		{
+			HANDLE handle = NULL;
+			if( OpenPrinter( printer.data(), &handle, NULL ) )
+			{
+				// Retrieve DEVMODE structure for selected device
+				uint size = DocumentProperties( ScMW->winId(), handle, printer.data(), NULL, NULL, 0);
+				QByteArray devModeA(size);
+				DEVMODE* devMode = (DEVMODE*) devModeA.data();
+				DocumentProperties( ScMW->winId(), handle, printer.data(), devMode, NULL, DM_OUT_BUFFER);
+				ClosePrinter( handle );
+				// Set paper size
+				devMode->dmPaperSize = papers[paperIndex];
+				// Create device context
+				HDC printerDC = CreateDC( NULL, printer.data(), NULL, devMode );
+				if( printerDC )
+				{
+					retVal = true;
+					int logPixelsX = GetDeviceCaps( printerDC, LOGPIXELSX );
+					int logPixelsY = GetDeviceCaps( printerDC, LOGPIXELSY );
+					int physicalOffsetX = GetDeviceCaps( printerDC, PHYSICALOFFSETX );
+					int physicalOffsetY = GetDeviceCaps( printerDC, PHYSICALOFFSETY );
+					ptsLeftMargin = ptsRightMargin = ( physicalOffsetX / (double) logPixelsX * 72 );
+					ptsTopMargin = ptsBottomMargin = ( physicalOffsetY / (double) logPixelsY * 72 );
+					DeleteDC(printerDC);
+				}
+			}
+		}
+		delete[] papers;
+		delete[] paperNames;
+	}
+#endif
 	return retVal;
 }
 

@@ -293,9 +293,10 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, QByte
 #endif
 
 	setStoredValues(gcr);
-
+#if defined(_WIN32)
 	if (!ToFile)
-		PrinterUtil::initDeviceSettings( PrintDest->currentText() );
+		PrinterUtil::initDeviceSettings( PrintDest->currentText(), DevMode );
+#endif
 	if ( PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || ToFile )
 		psLevel->setEnabled( true );
 	else
@@ -480,9 +481,11 @@ void Druck::SelPrinter(const QString& prn)
 #if defined(HAVE_CUPS) || defined(_WIN32)
 	OptButton->setEnabled(!setter);
 #endif
+#if defined(_WIN32)
 	if ( !ToFile )
-		if( !PrinterUtil::getDefaultSettings(PrintDest->currentText()) )
+		if( !PrinterUtil::getDefaultSettings(PrintDest->currentText(), DevMode) )
 			qWarning(tr("Failed to retrieve printer settings"));
+#endif
 	if ( ToFile || PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) )
 	{
 		psLevel->setEnabled( true );

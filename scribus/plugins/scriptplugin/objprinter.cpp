@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdir.h>
 #include <vector>
 #include "pslib.h"
+#include "gsutil.h"
 #include "util.h"
 
 #ifdef HAVE_CUPS

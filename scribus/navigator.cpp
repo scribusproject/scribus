@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qpainter.h>
 #include "scribusview.h"
-#include "util.h"
+#include "gsutil.h"
 
 Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QString fn) : QLabel(parent)
 {

@@ -80,6 +80,7 @@ scribus_SOURCES = \
 	fpoint.cpp	\
 	frameedit.cpp	\
 	gradienteditor.cpp	\
+	gsutil.cpp	\
 	gtaction.cpp	\
 	gtdialogs.cpp	\
 	gtfont.cpp	\

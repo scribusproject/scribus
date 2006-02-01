@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 
 #include "scconfig.h"
+#include "gsutil.h"
 #include "util.h"
 
 #include "langmgr.h"

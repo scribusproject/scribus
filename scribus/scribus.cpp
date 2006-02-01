@@ -151,6 +151,7 @@ for which a new license (GPL+exception) is in place.
 #include "documentinformation.h"
 #include "effectsdialog.h"
 #include "documentchecker.h"
+#include "gsutil.h"
 #include "util.h"
 #include "pagesize.h"
 #include "loremipsum.h"

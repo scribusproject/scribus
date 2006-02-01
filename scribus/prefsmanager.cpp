@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusstructs.h"
 #include "scribusapp.h"
+#include "gsutil.h"
 #include "util.h"
 #include "werktoolb.h"
 

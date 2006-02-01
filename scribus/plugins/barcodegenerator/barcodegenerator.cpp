@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "barcodegenerator.h"
+#include "gsutil.h"
 #include "util.h"
 #include "scribus.h"
 

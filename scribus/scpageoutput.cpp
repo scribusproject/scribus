@@ -649,7 +649,7 @@ void ScPageOutput::DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 	}
 	else
 	{
-		if ((!item->PicArt) || (!item->PicAvail))
+		if ((!item->imageShown()) || (!item->PicAvail))
 		{
 			if ((item->Frame) && (m_doc->guidesSettings.framesShown))
 			{
@@ -1139,7 +1139,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 				lineCorr = item->lineWidth() / 2.0;
 			else
 				lineCorr = 0;
-			if ((item->isAnnotation()) && (item->annotation().Type() == 2) && (!item->Pfile.isEmpty()) && (item->PicAvail) && (item->PicArt) && (item->annotation().UseIcons()))
+			if ((item->isAnnotation()) && (item->annotation().Type() == 2) && (!item->Pfile.isEmpty()) && (item->PicAvail) && (item->imageShown()) && (item->annotation().UseIcons()))
 			{
 				painter->setupPolygon(&item->PoLine);
 				painter->setClipPath();
@@ -1292,7 +1292,8 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						{
 							wide = Zli3.wide;
 							painter->setFillMode(1);
-							painter->setBrush(ScColorShade(Qt::darkBlue, 100));
+							//paintersetBrush( ScColorShade( Qt::darkBlue, 100) );
+							painter->setBrush( ScColorShade(qApp->palette().color(QPalette::Active, QColorGroup::Highlight), 100) );
 							painter->setLineWidth(0);
 							if ((a > 0) && (Zli3.Zeich == QChar(9)))
 							{
@@ -1301,7 +1302,8 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 							}
 							//if (!m_doc->RePos)
 								painter->drawRect(xcoZli, qRound(Zli3.yco-asce * (Zli3.scalev / 1000.0)), wide+1, qRound((asce+desc) * (Zli3.scalev / 1000.0)));
-							painter->setBrush(ScColorShade(Qt::white, 100));
+							//painter->setBrush(ScColorShade(Qt::white, 100));
+							painter->setBrush(ScColorShade(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText), 100));
 						}
 						if (Zli3.Farb2 != "None")
 						{
@@ -2514,7 +2516,8 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 							{
 								wide = Zli2->wide;
 								painter->setFillMode(1);
-								painter->setBrush(ScColorShade(Qt::darkBlue, 100));
+								//painter->setBrush( ScColorShade(Qt::darkBlue, 100) );
+								painter->setBrush( ScColorShade(qApp->palette().color(QPalette::Active, QColorGroup::Highlight), 100) );
 								painter->setLineWidth(0);
 								if ((zc > 0) && (Zli2->Zeich == QChar(9)))
 								{
@@ -2524,7 +2527,8 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 								}
 								/*if (!m_doc->RePos)*/
 									painter->drawRect(xcoZli, qRound(Zli2->yco-asce * (Zli2->scalev / 1000.0)), wide+1, qRound((asce+desc) * (Zli2->scalev / 1000.0)));
-								painter->setBrush(ScColorShade(Qt::white, 100));
+								//painter->setBrush(ScColorShade(Qt::white, 100));
+								painter->setBrush( ScColorShade(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText), 100) );
 							}
 							if (Zli2->Farb2 != "None")
 							{
@@ -2792,7 +2796,8 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 					{
 						wide = Zli2->wide;
 						painter->setFillMode(1);
-						painter->setBrush(ScColorShade(Qt::darkBlue, 100));
+						//painter->setBrush( ScColorShade(Qt::darkBlue, 100));
+						painter->setBrush( ScColorShade(qApp->palette().color(QPalette::Active, QColorGroup::Highlight), 100) );
 						painter->setLineWidth(0);
 						if ((zc > 0) && (Zli2->Zeich == QChar(9)))
 						{
@@ -2802,7 +2807,8 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						}
 						/*if (!m_doc->RePos)*/
 							painter->drawRect(xcoZli, qRound(Zli2->yco-asce * (Zli2->scalev / 1000.0)), wide+1, qRound((asce+desc) * (Zli2->scalev / 1000.0)));
-						painter->setBrush(ScColorShade(Qt::white, 100));
+						//painter->setBrush( ScColorShade(Qt::white, 100));
+						painter->setBrush( ScColorShade(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText), 100) );
 					}
 					if (Zli2->Farb2 != "None")
 					{

@@ -81,12 +81,12 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 		marginsForAllPages=NULL;
 		
 	usePrinterMarginsButton=NULL;
-	#ifdef HAVE_CUPS
+#if defined(HAVE_CUPS) || defined(_WIN32)
 	usePrinterMarginsButton=new QPushButton( tr("Printer Margins..."),this, "usePrinterMarginsButton" );
 	GroupLayout->addWidget( usePrinterMarginsButton, 5, 1 );
 	QToolTip::add( usePrinterMarginsButton, "<qt>" +tr( "Import the margins for the selected page size from the available printers." ) + "</qt>");
 	connect(usePrinterMarginsButton, SIGNAL(clicked()), this, SLOT(setMarginsToPrinterMargins()));
-	#endif
+#endif
 	
 	// hints
 	QToolTip::add( topR, "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>");

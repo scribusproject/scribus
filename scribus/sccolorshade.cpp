@@ -29,7 +29,7 @@ ScColorShade::ScColorShade(void)
 	shade = 100;
 }
 
-ScColorShade::ScColorShade( QColor& c, int level )
+ScColorShade::ScColorShade( const QColor& c, int level )
 {
 	color = ScColor(c.red(), c.green(), c.blue());
 	shade = level;

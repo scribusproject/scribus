@@ -23,7 +23,7 @@ extern bool CMSuse;
 extern int IntentMonitor;
 extern int IntentPrinter;
 #endif
-#include "util.h"
+#include "gsutil.h"
 #include "exif.h"
 
 
