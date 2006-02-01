@@ -145,8 +145,6 @@ int System(const QStringList & args, const QString fileStdErr, const QString fil
 {
 	QStringList stdErrData;
 	QStringList stdOutData;
-	QStringList::iterator pIterator;
-	QStringList::iterator pEnd;
 	QProcess proc(args);
 	if ( !proc.start() )
 		return 1;
@@ -168,7 +166,8 @@ int System(const QStringList & args, const QString fileStdErr, const QString fil
 	}
 	// TODO: What about proc.normalExit() ?
 	int ex = proc.exitStatus();
-
+	QStringList::iterator pIterator;
+	QStringList::iterator pEnd;
 	if ( !fileStdErr.isEmpty() )
 	{
 		QFile ferr(fileStdErr);
@@ -429,7 +428,7 @@ QString getGSDefaultExeName(void)
 // On Windows, return short path name, else return longPath;
 QString getShortPathName(QString longPath)
 {
-	QString shortPath = longPath;
+	QString shortPath(longPath);
 #if defined _WIN32
 	QFileInfo fInfo(longPath);
 	if(fInfo.exists())
@@ -637,7 +636,8 @@ QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor,
 	double di = factor;
 	int mx = 0;
 	int my = 0;
-	QPointArray pts = QPointArray();
+	//QPointArray pts = QPointArray();
+	QPointArray pts(cx);
 	for (uint x = 0; x < cx; ++x)
 	{
 		sc = seg * x + 180.0 + rota;
@@ -653,7 +653,7 @@ QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor,
 			mx = qRound(sin(sc / 180 * M_PI) * (w/2) + (w/2));
 			my = qRound(cos(sc / 180 * M_PI) * (h/2) + (h/2));
 		}
-		pts.resize(x+1);
+		//pts.resize(x+1);
 		pts.setPoint(x, mx, my);
 	}
 	return pts;
@@ -667,7 +667,8 @@ FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor
 	double di = factor;
 	double mx = 0;
 	double my = 0;
-	FPointArray pts;
+	//FPointArray pts;
+	FPointArray pts(cx);
 	for (uint x = 0; x < cx; ++x)
 	{
 		sc = seg * x + 180.0 + rota;
@@ -683,7 +684,7 @@ FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor
 			mx = sin(sc / 180 * M_PI) * (w/2) + (w/2);
 			my = cos(sc / 180 * M_PI) * (h/2) + (h/2);
 		}
-		pts.resize(x+1);
+		//pts.resize(x+1);
 		pts.setPoint(x, mx, my);
 	}
 	return pts;
@@ -1301,7 +1302,7 @@ QPixmap * getWidePixmap(QColor rgb)
 
 static Q_UINT64 code64(ScColor & col) {
 	int C, M, Y, K, R, G, B;
-	Q_UINT64 result;
+	Q_UINT64 result=0;
 	col.getRGB( &R, &G, &B );
 	col.getCMYK( &C, &M, &Y, &K );
 	result |= col.getColorModel() == colorModelRGB ? 1 : 0;
