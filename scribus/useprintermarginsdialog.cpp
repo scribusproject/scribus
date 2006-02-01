@@ -14,15 +14,10 @@ for which a new license (GPL+exception) is in place.
 #include "useprintermarginsdialog.h"
 #include "useprintermarginsdialog.moc"
 
-#include "scconfig.h"
-
 #include <qcombobox.h>
 #include <qgroupbox.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
-#ifdef HAVE_CUPS
-#include <cups/cups.h>
-#endif
 
 #include "printerutil.h"
 
@@ -40,15 +35,14 @@ UsePrinterMarginsDialog::UsePrinterMarginsDialog( QWidget* parent, const QString
 	m_pageSize=pageSize;
 	m_unitRatio=unitRatio;
 	m_suffix=suffix;
-	PrinterUtil pu;
-	QStringList printerNames=pu.getPrinterNames();
+	QStringList printerNames=PrinterUtil::getPrinterNames();
 	printerComboBox->clear();
 	if (printerNames.count()>0 && !pageSize.isEmpty())
 	{
 		printerComboBox->insertStringList(printerNames);
-		getPrinterMarginValuesFromCUPS(printerNames.first());
+		getPrinterMarginValues(printerNames.first());
 		marginsGroupBox->setTitle(tr("Minimum Margins for Page Size %1").arg(pageSize));
-		connect(printerComboBox, SIGNAL(activated(const QString&)), this, SLOT(getPrinterMarginValuesFromCUPS(const QString&)));
+		connect(printerComboBox, SIGNAL(activated(const QString&)), this, SLOT(getPrinterMarginValues(const QString&)));
 	}
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
@@ -66,35 +60,11 @@ void UsePrinterMarginsDialog::getNewPrinterMargins(double &topMargin,double &bot
 	rightMargin=m_ptsRightMargin;
 }
 
-void UsePrinterMarginsDialog::getPrinterMarginValuesFromCUPS(const QString& printerName)
+void UsePrinterMarginsDialog::getPrinterMarginValues(const QString& printerName)
 {
 	m_ptsTopMargin=m_ptsBottomMargin=m_ptsLeftMargin=m_ptsRightMargin=0.0;
-	
-	#if defined(HAVE_CUPS)
-	const char *filename; /* tmp PPD filename */
-	filename=cupsGetPPD(printerName);
-	bool foundSize=false;
-	if (filename!=NULL)
-	{
-		ppd_file_t *ppd; /* PPD data */
-		ppd = ppdOpenFile(filename);
-		if (ppd!=NULL)
-		{
-			ppd_size_t *size; /* page size data, null if printer doesnt support selected size */
-			size = ppdPageSize(ppd, m_pageSize);
-			if (size!=NULL)
-			{
-				//Store in pts for returning via getNewPrinterMargins in pts
-				foundSize=true;
-				m_ptsTopMargin=size->length-size->top;
-				m_ptsBottomMargin=size->bottom;
-				m_ptsLeftMargin=size->left;
-				m_ptsRightMargin=size->width-size->right;
-			}
-			ppdClose(ppd);
-		}
-	}
-	#endif
+	bool foundSize=PrinterUtil::getPrinterMarginValues(printerName, m_pageSize, m_ptsTopMargin, m_ptsBottomMargin, m_ptsLeftMargin, m_ptsRightMargin);
+
 	topLineEdit->setEnabled(foundSize);
 	bottomLineEdit->setEnabled(foundSize);
 	leftLineEdit->setEnabled(foundSize);

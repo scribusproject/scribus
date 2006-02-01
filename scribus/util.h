@@ -167,16 +167,4 @@ const QString SCRIBUS_API getStringFromSequence(DocumentSectionType type, uint p
 const QString SCRIBUS_API arabicToRoman(uint i);
 const QString SCRIBUS_API numberToLetterSequence(uint i);
 void SCRIBUS_API parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
-/**
- * @brief Check if a specified printer support postscript input
-   *
-   * On Windows, the function test postscript support for a specified printer
-   * and return true if ps is supported
-   * On non Windows systems, the function always return true
-   *
-   * @param printerName the printer name
-   * @return true is printer support postscript, false otherwise.
-   *
-*/
-bool SCRIBUS_API isPostscriptPrinter( QString printerName );
 #endif

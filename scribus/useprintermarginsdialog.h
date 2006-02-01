@@ -34,7 +34,7 @@ class SCRIBUS_API UsePrinterMarginsDialog : public UsePrinterMarginsDialogBase
 		 */
 		void getNewPrinterMargins(double &topMargin,double &bottomMargin,double &leftMargin,double &rightMargin);
 	protected slots:
-		void getPrinterMarginValuesFromCUPS(const QString& printerName);
+		void getPrinterMarginValues(const QString& printerName);
 		
 	protected:
 		QString m_pageSize;

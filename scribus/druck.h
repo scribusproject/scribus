@@ -120,9 +120,11 @@ private:
 	bool ToSeparation;
 	PrefsContext* prefs;
 	void setStoredValues(bool gcr);
+	/* CB Moved to printerutil.cpp
 	QStringList getPrinterNames(void);
 	bool getDefaultSettings( QString printerName );
 	bool initDeviceSettings( QString printerName );
+	*/
 };
 
 #endif // DRUCK_H

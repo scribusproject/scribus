@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "printerutil.h"
+#include "scconfig.h"
 
 #if defined( HAVE_CUPS )
  #include <cups/cups.h>
@@ -14,7 +15,6 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include <qstringlist.h>
-
 #include "util.h"
 
 QStringList PrinterUtil::getPrinterNames()
@@ -70,4 +70,150 @@ QStringList PrinterUtil::getPrinterNames()
 	}
 #endif
 	return printerNames;
+}
+
+bool PrinterUtil::getDefaultSettings( QString printerName )
+{
+#ifdef _WIN32
+	bool done;
+	uint size;
+	QCString printer;
+	LONG result = IDOK+1;
+	HANDLE handle = NULL;
+	printer = printerName.local8Bit();
+	// Get the printer handle
+	done = OpenPrinter( printer.data(), &handle, NULL );
+	if(!done)
+		return false;
+	// Get size of DEVMODE structure (public + private data)
+	size = DocumentProperties( winId(), handle, printer.data(), NULL, NULL, 0);
+	// Allocate the memory needed by the DEVMODE structure
+	DevMode.resize( size );
+	// Retrieve printer default settings
+	result = DocumentProperties( winId(), handle, printer.data(), (DEVMODE*) DevMode.data(), NULL, DM_OUT_BUFFER);
+	// Free the printer handle
+	ClosePrinter( handle );
+	return ( result == IDOK );
+#else
+	return true;
+#endif
+}
+
+bool PrinterUtil::initDeviceSettings( QString printerName )
+{
+#ifdef _WIN32
+	bool done;
+	uint size;
+	QCString printer;
+	LONG result = IDOK+1;
+	HANDLE handle = NULL;
+	printer = printerName.local8Bit();
+	// Get the printer handle
+	done = OpenPrinter( printer.data(), &handle, NULL );
+	if(!done)
+		return false;
+	// Get size of DEVMODE structure (public + private data)
+	size = DocumentProperties( winId(), handle, printer.data(), NULL, NULL, 0);
+	// Compare size with DevMode structure size
+	if( DevMode.size() == size )
+	{
+		// Merge printer settings
+		result = DocumentProperties( winId(), handle, printer.data(), (DEVMODE*) DevMode.data(), (DEVMODE*) DevMode.data(), DM_IN_BUFFER | DM_OUT_BUFFER);
+	}
+	else
+	{
+		// Retrieve default settings
+		DevMode.resize( size );
+		result = DocumentProperties( winId(), handle, printer.data(), (DEVMODE*) DevMode.data(), NULL, DM_OUT_BUFFER);
+	}
+	done = ( result == IDOK);
+	// Free the printer handle
+	ClosePrinter( handle );
+	return done;
+#else
+	return true;
+#endif
+}
+
+bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QString& pageSize, double& ptsTopMargin, double& ptsBottomMargin, double& ptsLeftMargin, double& ptsRightMargin)
+{
+	bool retVal=false;
+	#if defined(HAVE_CUPS)
+	const char *filename; // tmp PPD filename
+	filename=cupsGetPPD(printerName);
+	if (filename!=NULL)
+	{
+		ppd_file_t *ppd; // PPD data
+		ppd = ppdOpenFile(filename);
+		if (ppd!=NULL)
+		{
+			ppd_size_t *size; // page size data, null if printer doesnt support selected size
+			size = ppdPageSize(ppd, pageSize);
+			if (size!=NULL)
+			{
+				//Store in pts for returning via getNewPrinterMargins in pts
+				retVal=true;
+				ptsTopMargin=size->length-size->top;
+				ptsBottomMargin=size->bottom;
+				ptsLeftMargin=size->left;
+				ptsRightMargin=size->width-size->right;
+			}
+			ppdClose(ppd);
+		}
+	}
+	#endif
+	return retVal;
+}
+
+//Parameter needed on win32..
+bool PrinterUtil::isPostscriptPrinter( QString printerName)
+{
+#ifdef _WIN32
+	HDC dc;
+	int	escapeCode;
+	char technology[MAX_PATH] = {0};
+	QCString printer = printerName.local8Bit();
+	
+	// Create the default device context
+	dc = CreateDC( NULL, printer.data(), NULL, NULL );
+	if ( !dc )
+	{
+		qWarning( QString("isPostscriptPrinter() failed to create device context for %1").arg(printerName) );
+		return false;
+	}
+	// test if printer support the POSTSCRIPT_PASSTHROUGH escape code
+	escapeCode = POSTSCRIPT_PASSTHROUGH;
+	if ( ExtEscape( dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR)&escapeCode, 0, NULL ) > 0 )
+	{
+		DeleteDC( dc );
+		return true;
+	}
+	// test if printer support the POSTSCRIPT_DATA escape code
+	escapeCode = POSTSCRIPT_DATA;
+	if ( ExtEscape( dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR)&escapeCode, 0, NULL ) > 0 )
+	{
+		DeleteDC( dc );
+		return true;
+	}
+	// try to get postscript support by testing the printer technology
+	escapeCode = GETTECHNOLOGY;
+	if ( ExtEscape( dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR)&escapeCode, 0, NULL ) > 0 )
+	{
+		// if GETTECHNOLOGY is supported, then ... get technology
+		if ( ExtEscape( dc, GETTECHNOLOGY, 0, NULL, MAX_PATH, (LPSTR) technology ) > 0 )
+		{
+			// check technology string for postscript word
+			strupr( technology );
+			if ( strstr( technology, "POSTSCRIPT" ) )
+			{
+				DeleteDC( dc );
+				return true;
+			}
+		}
+	}
+	DeleteDC( dc );
+	return false;
+#else
+	return true;
+#endif
 }

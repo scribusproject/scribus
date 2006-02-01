@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #ifdef HAVE_CMS
 extern bool CMSuse;
 #endif
+#include "printerutil.h"
 #include "util.h"
 extern bool previewDinUse;
 
@@ -64,7 +65,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, QByte
 	PrintDest->setEditable(false);
 	QString Pcap;
 	QString printerName;
-	QStringList printerNames = getPrinterNames();
+	QStringList printerNames = PrinterUtil::getPrinterNames();
 	int numPrinters = printerNames.count();
 	for( int i = 0; i < numPrinters; i++)
 	{
@@ -294,13 +295,14 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, QByte
 	setStoredValues(gcr);
 
 	if (!ToFile)
-		initDeviceSettings( PrintDest->currentText() );
-	if ( isPostscriptPrinter(PrintDest->currentText()) || ToFile )
+		PrinterUtil::initDeviceSettings( PrintDest->currentText() );
+	if ( PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || ToFile )
 		psLevel->setEnabled( true );
 	else
 		psLevel->setEnabled( false );
 }
 
+/* CB Moved to printerutil.cpp
 QStringList Druck::getPrinterNames(void)
 {
 	QString printerName;
@@ -355,7 +357,7 @@ QStringList Druck::getPrinterNames(void)
 #endif
 	return printerNames;
 }
-
+*/
 void Druck::SetOptions()
 {
 #ifdef HAVE_CUPS
@@ -479,9 +481,9 @@ void Druck::SelPrinter(const QString& prn)
 	OptButton->setEnabled(!setter);
 #endif
 	if ( !ToFile )
-		if( !getDefaultSettings(PrintDest->currentText()) )
+		if( !PrinterUtil::getDefaultSettings(PrintDest->currentText()) )
 			qWarning(tr("Failed to retrieve printer settings"));
-	if ( ToFile || isPostscriptPrinter(PrintDest->currentText()) )
+	if ( ToFile || PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) )
 	{
 		psLevel->setEnabled( true );
 		PrintSep->setEnabled( true );
@@ -614,7 +616,7 @@ void Druck::setStoredValues(bool gcr)
 	if (CMSuse)
 	{
 		bool iccInUse = prefs->getBool("ICCinUse", false);
-		bool psPrinter = isPostscriptPrinter(PrintDest->currentText());
+		bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText());
 		UseICC->setChecked( psPrinter ? iccInUse : false );
 		UseICC->setEnabled( psPrinter );
 	}
@@ -711,6 +713,7 @@ bool Druck::ICCinUse()
 #endif
 }
 
+/* CB Moved to printerutil.cpp
 bool Druck::getDefaultSettings( QString printerName )
 {
 #ifdef _WIN32
@@ -773,3 +776,4 @@ bool Druck::initDeviceSettings( QString printerName )
 	return true;
 #endif
 }
+*/
