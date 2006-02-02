@@ -1,2 +1,9 @@
 Scribus - 1.2.5cvs
 ==================
+- 0002934: [Fonts] add fontconfig support for 1.2.X (ringerc)
+- 0001659: [Documentation] Editing overlapping frames is very challenging because when selected, a frame retains its stacking order (plinnell)
+- 0002060: [Scripter] Test all 1.2.x sample scripts and fix/toss as appropriate (plinnell)
+- 0000221: [Story Editor / Text Frames] selecting text in a multi-column text is a chore (cbradney)
+- 0003017: [Usability] Canvas Mode: SHIFT + mouseclick doesn't work as text selection tool (cbradney)
+- 0002993: [Styles] Convert to Masterpage always suggests "New Masterpage" as name for a masterpage (cbradney)
+- 0000952: [Documentation] Need a brief doc of what tags the HTML importer can handle (plinnell)

@@ -1,7 +1,7 @@
 <qt>
 <title>Scribus SVG Import/Export</title>
 <h2>Scribus SVG Import/Export</h2>
-<p>Scribus 1.2.x includes SVG import/export plug-ins, which enables you to export Scribus pages or objects as SVG. The import plug-in allows you to import SVG drawings and documents from illustration programs like Inkscape, Skencil and Adobe Illustrator.</p>
+<p>Scribus  includes SVG import/export plug-ins, which enables you to export Scribus pages or objects as SVG. The import plug-in allows you to import SVG drawings and documents from illustration programs like Inkscape, Skencil and Adobe Illustrator.</p>
 <p>These plug-ins have the capability to import and export SVG 1.0 standards 2D graphics primitives and text, which can then be displayed in web browsers with SVG capability, within SVG viewers or further edited with SVG capable vector editors, like Skencil, Inkscape or Adobe Illustrator.
 </p>
 <h4>Exporting using the Plug-in:</h4>
@@ -11,7 +11,7 @@
 
 <h4>SVG Importing Hints:</h4>
 <p>Scribus can handle most of the SVG features which can be created in Inkscape and Sketch, two well known vector drawing programs for Linux. The biggest issue I have observed is sometimes the paths when interpreted do not show up as closed. So parts of the SVG file look empty upon import. The simple fix is to ungroup the elements and then select the empty looking objects, then double click to bring up the editing palette for drawing objects and click on the close path button. Typically, then the invisible object will appear.</p>
-<p>I generally avoid creating special text effects in SVG, unless a: It cannot be done in Scribus and Scribus has very versatile text effect tools. b: The text effects are converted to outlines before importation. Why ? Scribus uses a postscript model for handling fonts and text, where SVG uses a model much like html. </p>
+<p>I <strong>strongly recommend against</strong> creating special text effects in SVG, unless a: It cannot be done in Scribus and Scribus has very versatile text effect tools. b: The text effects are converted to outlines before importation. Why ? Scribus uses a postscript model for handling fonts and text, where SVG uses a model much like html. In the case where you need to create them in another program, converting the text to outlines will be far more satisfactory.</p>
 
 <h3>Scribus - SVG Q and A</h3>
 <h4>What is an SVG?</h4>
@@ -40,13 +40,11 @@
 	<li>SVG is an open XML-based standard from the W3 consortium</li>
 	<li>It is platform neutral</li>
 	<li>Can be scripted for user interaction and control. Also has support for ICC color spaces so color display accurately, even within a browser.</li>
-	<li>Browser support is increasing. KDE has fairly complete native support for SVG in KDE 3.2+. KSVG will is now part of the kdegraphics package. More details: <a href="http://svg.kde.org">svg.kde.org</a></li>
 	<li>SVG can also be color managed and supports a well defined way to specify ICC profiles.</li>
 </ul>
 
 <h4>What about browser support?</h4>
-<p>Mozilla has long had special builds which have native SVG support. Mozilla trunk code is regularly built with SVG support. You can find them on the Mozilla ftp site. Also interesting is the
-latest SVG plug-in from Adobe; it works well in my testing with Mozilla 1.4+ and in Konqueror.</p>
+<p>Firefox 1.5 and Konqueror 3.4.0+ on Linux support SVG natively.   Also interesting is the latest SVG plug-in from Adobe; it works well in my testing with Mozilla 1.4+.</p>
 <h4>Where can I learn more?</h4>
 <p><a href="http://www.svgx.org/">SVG Foundation</a> has a wealth of links and news.</p><p>Other links are listed in the <a href="sclinks.html">Links page</a></p>
 <h4>A Scribus page displayed in a browser:</strong></h4>
