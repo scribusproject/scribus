@@ -151,9 +151,8 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	ignoreErrors = new QPushButton(this, "ignoreErrors" );
 	layout2->addWidget( ignoreErrors );
 	checkDocumentLayout->addLayout( layout2 );
-	ignoreErrors->hide();
-	noButton = true;
-	checkMode = 0;
+	setIgnoreEnabled(false);
+	checkMode = checkNULL;
 	languageChange();
 	itemMap.clear();
 	pageMap.clear();
@@ -226,20 +225,21 @@ void CheckDocument::clearErrorList()
 
 void CheckDocument::buildErrorList(ScribusDoc *doc)
 {
+	bool resultError = false;
 	document = doc;
 	disconnect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 	curCheckProfile->clear();
 	clearErrorList();
-	
+
 	if (document==0)
 		return;
-		
+
 	CheckerPrefsList::Iterator it;
 	CheckerPrefsList::Iterator itend=doc->checkerProfiles.end();
 	for (it = doc->checkerProfiles.begin(); it != itend ; ++it)
 		curCheckProfile->insertItem(it.key());
 	curCheckProfile->setCurrentText(doc->curCheckProfile);
-	
+
 	QString missingGlyph = tr("Glyphs missing");
 	QString textOverflow = tr("Text overflow");
 	QString notOnPage = tr("Object is not on a Page");
@@ -258,6 +258,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	}
 	else
 	{
+		resultError = true;
 		bool hasError = false;
 		bool hasGraveError = false;
 		QListViewItem * pagep = 0;
@@ -655,10 +656,6 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		item->setText( 1, tr( "Problems found" ) );
 		item->setOpen( true );
 	}
-	if (noButton)
-		ignoreErrors->hide();
-	else
-		ignoreErrors->show();
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
@@ -672,8 +669,21 @@ void CheckDocument::languageChange()
 	setCaption( tr( "Preflight Verifier" ) );
 	reportDisplay->header()->setLabel( 0, tr( "Items" ) );
 	reportDisplay->header()->setLabel( 1, tr( "Problems" ) );
-	
+
 	textLabel1->setText( tr("Current Profile:"));
-	ignoreErrors->setText( tr( "&Ignore Errors" ));
+	ignoreErrors->setText(tr("&Ignore Errors"));
 }
 
+void CheckDocument::setIgnoreEnabled(bool state)
+{
+	noButton = !state;
+	if (state)
+		ignoreErrors->show();
+	else
+		ignoreErrors->hide();
+}
+
+bool CheckDocument::isIgnoreEnabled()
+{
+	return !noButton;
+}
