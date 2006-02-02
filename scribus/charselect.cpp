@@ -773,6 +773,8 @@ void CharSelect::insChar()
 		delEdit();
 		return;
 	}
+	if (ite->HasSel)
+		ite->asTextFrame()->deleteSelectedTextFromFrame();
 	struct ScText *hg;
 	for (uint a=0; a<chToIns.length(); ++a)
 	{

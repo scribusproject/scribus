@@ -1083,7 +1083,7 @@ void ScribusMainWindow::wheelEvent(QWheelEvent *w)
 //keyPressEvent so process them here.
 void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodevalue)
 {
-	if (HaveDoc)
+	if (unicodevalue!=-1 && HaveDoc)
 	{
 		if (doc->appMode==modeEdit)
 		{
@@ -1091,8 +1091,11 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 			{
 				struct ScText *hg = new ScText;
 				PageItem *currItem = doc->selection->itemAt(0);
-				if (unicodevalue!=-1)
+				if (currItem!=NULL)
 				{
+					if (currItem->HasSel && currItem->itemType()==PageItem::TextFrame)
+						currItem->asTextFrame()->deleteSelectedTextFromFrame();
+				
 					hg->ch = QString(QChar(unicodevalue));
 					doc->setScTextDefaultsFromDoc(hg);
 					hg->cselect = false;
