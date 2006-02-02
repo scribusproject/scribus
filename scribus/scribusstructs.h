@@ -331,7 +331,20 @@ struct PrintOptions
 
 typedef QMap<QString,QString> ProfilesL;
 typedef QValueVector<SingleLine> multiLine;
-typedef QMap<int, int> errorCodes;
+
+
+typedef enum {
+	MissingGlyph=1,
+	TextOverflow=2,
+	ObjectNotOnPage=3,
+	MissingImage=4,
+	ImageDPITooLow=5,
+	Transparency=6,
+	PDFAnnotField=7,
+	PlacedPDF=8
+} PreflightError;
+
+typedef QMap<PreflightError, int> errorCodes;
 
 enum AppMode
 {

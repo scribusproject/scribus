@@ -30,7 +30,7 @@ class ScribusDoc;
 class SCRIBUS_API DocumentChecker
 {
 	public:
-		void checkDocument(ScribusDoc *currDoc);
+		void static checkDocument(ScribusDoc *currDoc);
 };
 
 #endif

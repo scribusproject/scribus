@@ -207,8 +207,7 @@ void CheckDocument::newScan(const QString& name)
 {
 	clearErrorList();
 	document->curCheckProfile = name;
-	DocumentChecker docChecker;
-	docChecker.checkDocument(document);
+	DocumentChecker::checkDocument(document);
 	buildErrorList(document);
 }
 
@@ -286,37 +285,37 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						it3 = it2.data().begin();
 						switch (it3.key())
 						{
-						case 1:
+						case MissingGlyph:
 							object->setText(1, missingGlyph);
 							hasGraveError = true;
 							pageGraveError = true;
 							itemError = true;
 							break;
-						case 2:
+						case TextOverflow:
 							object->setText(1, textOverflow);
 							break;
-						case 3:
+						case ObjectNotOnPage:
 							object->setText(1, notOnPage);
 							break;
-						case 4:
+						case MissingImage:
 							object->setText(1, missingImg);
 							hasGraveError = true;
 							pageGraveError = true;
 							itemError = true;
 							break;
-						case 5:
+						case ImageDPITooLow:
 							object->setText(1, lowDPI);
 							break;
-						case 6:
+						case Transparency:
 							object->setText(1, transpar);
 							hasGraveError = true;
 							pageGraveError = true;
 							itemError = true;
 							break;
-						case 7:
+						case PDFAnnotField:
 							object->setText(1, annot);
 							break;
-						case 8:
+						case PlacedPDF:
 							object->setText(1, rasterPDF);
 							break;
 						}
@@ -328,44 +327,44 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							QListViewItem * errorText = new QListViewItem( object, 0 );
 							switch (it3.key())
 							{
-							case 1:
+							case MissingGlyph:
 								errorText->setText(1, missingGlyph);
 								errorText->setPixmap( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								itemError = true;
 								break;
-							case 2:
+							case TextOverflow:
 								errorText->setText(1, textOverflow);
 								errorText->setPixmap( 0, onlyWarning );
 								break;
-							case 3:
+							case ObjectNotOnPage:
 								errorText->setText(1, notOnPage);
 								errorText->setPixmap( 0, onlyWarning );
 								break;
-							case 4:
+							case MissingImage:
 								errorText->setText(1, missingImg);
 								errorText->setPixmap( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								itemError = true;
 								break;
-							case 5:
+							case ImageDPITooLow:
 								errorText->setText(1, lowDPI);
 								errorText->setPixmap( 0, onlyWarning );
 								break;
-							case 6:
+							case Transparency:
 								errorText->setText(1, transpar);
 								errorText->setPixmap( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								itemError = true;
 								break;
-							case 7:
+							case PDFAnnotField:
 								errorText->setText(1, annot);
 								errorText->setPixmap( 0, onlyWarning );
 								break;
-							case 8:
+							case PlacedPDF:
 								errorText->setText(1, rasterPDF);
 								errorText->setPixmap( 0, onlyWarning );
 								break;
@@ -415,37 +414,37 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						it3 = it2.data().begin();
 						switch (it3.key())
 						{
-						case 1:
+						case MissingGlyph:
 							object->setText(1, missingGlyph);
 							hasGraveError = true;
 							pageGraveError = true;
 							itemError = true;
 							break;
-						case 2:
+						case TextOverflow:
 							object->setText(1, textOverflow);
 							break;
-						case 3:
+						case ObjectNotOnPage:
 							object->setText(1, notOnPage);
 							break;
-						case 4:
+						case MissingImage:
 							object->setText(1, missingImg);
 							hasGraveError = true;
 							pageGraveError = true;
 							itemError = true;
 							break;
-						case 5:
+						case ImageDPITooLow:
 							object->setText(1, lowDPI);
 							break;
-						case 6:
+						case Transparency:
 							object->setText(1, transpar);
 							hasGraveError = true;
 							pageGraveError = true;
 							itemError = true;
 							break;
-						case 7:
+						case PDFAnnotField:
 							object->setText(1, annot);
 							break;
-						case 8:
+						case PlacedPDF:
 							object->setText(1, rasterPDF);
 							break;
 						}

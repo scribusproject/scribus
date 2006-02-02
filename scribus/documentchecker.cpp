@@ -53,9 +53,9 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			continue;
 		itemError.clear();
 		if (((currItem->isAnnotation()) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
-			itemError.insert(7, 0);
+			itemError.insert(PDFAnnotField, 0);
 		if (((currItem->fillTransparency() != 0.0) || (currItem->lineTransparency() != 0.0)) && (checkerSettings.checkTransparency))
-			itemError.insert(6, 0);
+			itemError.insert(Transparency, 0);
 		if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
 		{
 			QPtrVector<VColorStop> colorStops = currItem->fill_gradient.colorStops();
@@ -63,32 +63,32 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			{
 				if (colorStops[offset]->opacity != 1.0)
 				{
-					itemError.insert(6, 0);
+					itemError.insert(Transparency, 0);
 					break;
 				}
 			}
 		}
 		if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
-			itemError.insert(3, 0);
+			itemError.insert(ObjectNotOnPage, 0);
 		if (currItem->asImageFrame())
 		{
 		 	if ((!currItem->PicAvail) && (checkerSettings.checkPictures))
-				itemError.insert(4, 0);
+				itemError.insert(MissingImage, 0);
 			else
 			{
 				if  (((qRound(72.0 / currItem->imageXScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
 				          && (currItem->isRaster) && (checkerSettings.checkResolution))
-					itemError.insert(5, 0);
+					itemError.insert(ImageDPITooLow, 0);
 				QFileInfo fi = QFileInfo(currItem->Pfile);
 				QString ext = fi.extension(false).lower();
 				if ((ext == "pdf") && (checkerSettings.checkRasterPDF))
-					itemError.insert(8, 0);
+					itemError.insert(PlacedPDF, 0);
 			}
 		}
 		if ((currItem->asTextFrame()) || (currItem->asPathText()))
 		{
 			if ((currItem->itemText.count() > currItem->MaxChars) && (checkerSettings.checkOverflow))
-				itemError.insert(2, 0);
+				itemError.insert(TextOverflow, 0);
 			for (uint e = 0; e < currItem->itemText.count(); ++e)
 			{
 				uint chr = currItem->itemText.at(e)->ch[0].unicode();
@@ -115,7 +115,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						}
 						chr = chx[0].unicode();
 						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
-							itemError.insert(1, 0);
+							itemError.insert(MissingGlyph, 0);
 					}
 					for (uint t1 = 0; t1 < currItem->TabValues.count(); t1++)
 					{
@@ -129,7 +129,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						}
 						chr = chx[0].unicode();
 						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
-							itemError.insert(1, 0);
+							itemError.insert(MissingGlyph, 0);
 					}
 					continue;
 				}
@@ -138,12 +138,12 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					for (uint numco = 0x30; numco < 0x3A; ++numco)
 					{
 						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(numco)) && (checkerSettings.checkGlyphs))
-							itemError.insert(1, 0);
+							itemError.insert(MissingGlyph, 0);
 					}
 					continue;
 				}
 				if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
-					itemError.insert(1, 0);
+					itemError.insert(MissingGlyph, 0);
 			}
 		}
 		if (itemError.count() != 0)
@@ -156,7 +156,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			continue;
 		itemError.clear();
 		if (((currItem->fillTransparency() != 0.0) || (currItem->lineTransparency() != 0.0)) && (checkerSettings.checkTransparency))
-			itemError.insert(6, 0);
+			itemError.insert(Transparency, 0);
 		if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
 		{
 			QPtrVector<VColorStop> colorStops = currItem->fill_gradient.colorStops();
@@ -164,34 +164,34 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			{
 				if (colorStops[offset]->opacity != 1.0)
 				{
-					itemError.insert(6, 0);
+					itemError.insert(Transparency, 0);
 					break;
 				}
 			}
 		}
 		if (((currItem->isAnnotation()) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
-			itemError.insert(7, 0);
+			itemError.insert(PDFAnnotField, 0);
 		if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
-			itemError.insert(3, 0);
+			itemError.insert(ObjectNotOnPage, 0);
 		if (currItem->asImageFrame())
 		{
 		 	if ((!currItem->PicAvail) && (checkerSettings.checkPictures))
-				itemError.insert(4, 0);
+				itemError.insert(MissingImage, 0);
 			else
 			{
 				if  (((qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
 				           && (currItem->isRaster) && (checkerSettings.checkResolution))
-					itemError.insert(5, 0);
+					itemError.insert(ImageDPITooLow, 0);
 				QFileInfo fi = QFileInfo(currItem->Pfile);
 				QString ext = fi.extension(false).lower();
 				if ((ext == "pdf") && (checkerSettings.checkRasterPDF))
-					itemError.insert(8, 0);
+					itemError.insert(PlacedPDF, 0);
 			}
 		}
 		if ((currItem->asTextFrame()) || (currItem->asPathText()))
 		{
 			if ((currItem->itemText.count() > currItem->MaxChars) && (checkerSettings.checkOverflow))
-				itemError.insert(2, 0);
+				itemError.insert(TextOverflow, 0);
 			for (uint e = 0; e < currItem->itemText.count(); ++e)
 			{
 				uint chr = currItem->itemText.at(e)->ch[0].unicode();
@@ -218,7 +218,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						}
 						chr = chx[0].unicode();
 						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
-							itemError.insert(1, 0);
+							itemError.insert(MissingGlyph, 0);
 					}
 					for (uint t1 = 0; t1 < currItem->TabValues.count(); t1++)
 					{
@@ -232,7 +232,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						}
 						chr = chx[0].unicode();
 						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
-							itemError.insert(1, 0);
+							itemError.insert(MissingGlyph, 0);
 					}
 					continue;
 				}
@@ -241,12 +241,12 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					for (uint numco = 0x30; numco < 0x3A; ++numco)
 					{
 						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(numco)) && (checkerSettings.checkGlyphs))
-							itemError.insert(1, 0);
+							itemError.insert(MissingGlyph, 0);
 					}
 					continue;
 				}
 				if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
-					itemError.insert(1, 0);
+					itemError.insert(MissingGlyph, 0);
 			}
 		}
 		if (itemError.count() != 0)
