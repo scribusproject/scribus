@@ -2616,7 +2616,6 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 void ScribusMainWindow::rebuildStyleMenu(int itemType)
 {
 	scrMenuMgr->clearMenu("Style");
-	/*
 	int iT=itemType;
 	if (!HaveDoc)
 		iT=-1;
@@ -2645,7 +2644,6 @@ void ScribusMainWindow::rebuildStyleMenu(int itemType)
 	}
 	else
 		scrMenuMgr->setMenuEnabled("Style", false);
-	*/
 }
 
 void ScribusMainWindow::slotDocCh(bool /*reb*/)
