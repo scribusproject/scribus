@@ -2616,15 +2616,17 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 void ScribusMainWindow::rebuildStyleMenu(int itemType)
 {
 	scrMenuMgr->clearMenu("Style");
-	PageItem *currItem = NULL;
+	/*
 	int iT=itemType;
+	if (!HaveDoc)
+		iT=-1;
 	if (iT != -1)
 	{
 		if (doc->selection->count() == 0)
 			iT = -1;
 		else
 		{
-			currItem = doc->selection->itemAt(0);
+			PageItem *currItem = doc->selection->itemAt(0);
 			if (!currItem)
 				iT=-1;
 		}
@@ -2643,6 +2645,7 @@ void ScribusMainWindow::rebuildStyleMenu(int itemType)
 	}
 	else
 		scrMenuMgr->setMenuEnabled("Style", false);
+	*/
 }
 
 void ScribusMainWindow::slotDocCh(bool /*reb*/)
@@ -8690,7 +8693,7 @@ void ScribusMainWindow::languageChange()
 			scrMenuMgr->setMenuText("Help", tr("&Help"));
 			scrMenuMgr->setMenuText("Alignment", tr("&Alignment"));
 			
-			rebuildStyleMenu(doc->CurrentSel);
+			rebuildStyleMenu(HaveDoc ? doc->CurrentSel : -1);
 		}
 		if (undoManager!=NULL)
 			undoManager->languageChange();
