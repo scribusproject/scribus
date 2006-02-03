@@ -2719,10 +2719,8 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 	{
 		QString strippedName=RecentDocs[m];
 		strippedName.remove(QDir::separator());
-		//CB 2991 removed until 1.3.3cvs
-		//QString localName(QDir::convertSeparators(RecentDocs[m]));
-		//scrRecentFileActions.insert(strippedName, new ScrAction( ScrAction::RecentFile, QIconSet(), localName, QKeySequence(), this, strippedName));
-		scrRecentFileActions.insert(strippedName, new ScrAction( ScrAction::RecentFile, QIconSet(), RecentDocs[m], QKeySequence(), this, strippedName));
+		QString localName(QDir::convertSeparators(RecentDocs[m]));
+		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QIconSet(), QString("&%1 %2").arg(m+1).arg(localName), QKeySequence(), this, strippedName,0,0.0,RecentDocs[m]));
 		connect( scrRecentFileActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(loadRecent(QString)) );
 		scrMenuMgr->addMenuItem(scrRecentFileActions[strippedName], recentFileMenuName);
 	}

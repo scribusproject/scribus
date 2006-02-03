@@ -54,6 +54,7 @@ ScrAction::ScrAction( ActionType aType, const QIconSet & icon, const QString & m
 			_dataQString=extraQString;
 			break;
 		case RecentFile:
+			_dataQString=extraQString;
 			break;
 		case DLL:
 			pluginID=extraInt;
@@ -118,7 +119,7 @@ void ScrAction::activatedToActivatedData()
 	if (_actionType==ScrAction::Window)
 		emit activatedData(windowID);
 	if (_actionType==ScrAction::RecentFile)
-		emit activatedData(menuText());
+		emit activatedData(_dataQString);
 	if (_actionType==ScrAction::RecentScript)
 		emit activatedData(menuText());
 	if (_actionType==ScrAction::UnicodeChar)
@@ -142,7 +143,7 @@ void ScrAction::toggledToToggledData(bool ison)
 		if (_actionType==ScrAction::Window)
 			emit toggledData(ison, windowID);
 		if (_actionType==ScrAction::RecentFile)
-			emit toggledData(ison, menuText());
+			emit toggledData(ison, _dataQString);
 		if (_actionType==ScrAction::RecentScript)
 			emit toggledData(ison, menuText());
 		if (_actionType==ScrAction::Layer)
