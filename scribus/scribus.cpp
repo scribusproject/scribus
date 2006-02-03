@@ -744,8 +744,9 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(SCustom, "ItemShapes");
 	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeFrame(int, int, double *)));
 	scrMenuMgr->addMenuItem(scrActions["itemShapeEdit"], "ItemShapes");
-	scrMenuMgr->createMenu("ItemConvertTo", tr("C&onvert To"));
-	scrMenuMgr->addMenuToMenu("ItemConvertTo", "Item");
+	scrMenuMgr->createMenu("ItemConvertTo", QPixmap(noIcon), tr("C&onvert To"), "Item");
+	//scrMenuMgr->createMenu("ItemConvertTo", tr("C&onvert To"));
+	//scrMenuMgr->addMenuToMenu("ItemConvertTo", "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToBezierCurve"], "ItemConvertTo");
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToImageFrame"], "ItemConvertTo");
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToOutlines"], "ItemConvertTo");
