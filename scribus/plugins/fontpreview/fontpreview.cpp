@@ -4,95 +4,207 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "fontpreview.h"
-#include "ui.h"
-#include "scribus.h"
-#include <qcursor.h>
+#include <qvariant.h>
+#include <qpushbutton.h>
 #include <qlistview.h>
+#include <qlabel.h>
+#include <qlayout.h>
+#include <qtooltip.h>
+#include <qwhatsthis.h>
+#include <qstring.h>
+#include <qspinbox.h>
 
-int fontpreview_getPluginAPIVersion()
-{
-	return PLUGIN_API_VERSION;
-}
+#include "fontpreview.h"
+#include "scribus.h"
+#include "prefsfile.h"
+#include "commonstrings.h"
+#include "prefsmanager.h"
+#include "scfontmetrics.h"
+#include "selection.h"
+#include "sampleitem.h"
 
-ScPlugin* fontpreview_getPlugin()
-{
-	FontPreviewPlugin* plug = new FontPreviewPlugin();
-	Q_CHECK_PTR(plug);
-	return plug;
-}
 
-void fontpreview_freePlugin(ScPlugin* plugin)
-{
-	FontPreviewPlugin* plug = dynamic_cast<FontPreviewPlugin*>(plugin);
-	Q_ASSERT(plug);
-	delete plug;
-}
+extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
-FontPreviewPlugin::FontPreviewPlugin() : ScActionPlugin()
+
+FontPreview::FontPreview(QString fontName)
+	: FontPreviewBase(ScMW, "FontPreview", true, 0)
 {
-	// Set action info in languageChange, so we only have to do
-	// it in one place.
+	setIcon(loadIcon("AppIcon.png"));
+
+	sampleItem = new SampleItem();
+
 	languageChange();
-}
 
-FontPreviewPlugin::~FontPreviewPlugin() {};
+	fontList->setAllColumnsShowFocus(true);
+	fontList->setShowSortIndicator(true);
+	fontList->setColumnAlignment(1, Qt::AlignCenter);
+	fontList->setColumnAlignment(3, Qt::AlignCenter);
+	resetDisplayButton->setPixmap(loadIcon("u_undo16.png"));
 
-void FontPreviewPlugin::languageChange()
-{
-	// Note that we leave the unused members unset. They'll be initialised
-	// with their default ctors during construction.
-	// Action name
-	m_actionInfo.name = "FontPreview";
-	// Action text for menu, including accel
-	m_actionInfo.text = tr("&Font Preview...");
-	// Menu
-	m_actionInfo.menu = "Extras";
-	m_actionInfo.enabledOnStartup = true;
-}
+	/* go through available fonts and check their properties */
+	reallyUsedFonts.clear();
+	ScMW->doc->getUsedFonts(&reallyUsedFonts);
+	ttfFont = loadIcon("font_truetype16.png");
+	otfFont = loadIcon("font_otf16.png");
+	psFont = loadIcon("font_type1_16.png");
+	okIcon = loadIcon("ok.png");
 
-const QString FontPreviewPlugin::fullTrName() const
-{
-	return QObject::tr("Font Preview");
-}
+	updateFontList("");
 
-const ScActionPlugin::AboutData* FontPreviewPlugin::getAboutData() const
-{
-	AboutData* about = new AboutData;
-	Q_CHECK_PTR(about);
-	about->authors = QString::fromUtf8("Petr Van\xc4\x9bk <petr@scribus.info>");
-	about->shortDescription = tr("Font Preview dialog");
-	about->description = tr("Sorting, searching and browsing available fonts.");
-	// about->version
-	// about->releaseDate
-	// about->copyright
-	about->license = "GPL";
-	return about;
-}
+	// set initial listitem
+	QListViewItem *item;
+	if (!fontName.isEmpty())
+		item = fontList->findItem(fontName, 0);
+	else
+	{
+		if (ScMW->doc->selection->count() != 0)
+			item = fontList->findItem(ScMW->doc->CurrFont, 0);
+		else
+			item = fontList->findItem(PrefsManager::instance()->appPrefs.toolSettings.defFont, 0);
+	}
+	if (item != 0)
+	{
+		fontList->setCurrentItem(item);
+		fontList_changed();
+	}
 
-void FontPreviewPlugin::deleteAboutData(const AboutData* about) const
-{
-	Q_ASSERT(about);
-	delete about;
+	// scribus config
+	defaultStr = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
+	prefs = PrefsManager::instance()->prefsFile->getPluginContext("fontpreview");
+	sortColumn = prefs->getUInt("sortColumn", 0);
+	fontList->setSorting(sortColumn);
+	xsize = prefs->getUInt("xsize", 640);
+	ysize = prefs->getUInt("ysize", 480);
+	sizeSpin->setValue(prefs->getUInt("fontSize", 18));
+	QString ph = prefs->get("phrase", defaultStr);
+	displayEdit->setText(ph);
+	displayButton_clicked();
+	resize(QSize(xsize, ysize).expandedTo(minimumSizeHint()));
 }
 
 /**
-Create dialog and insert font into Style menu when user accepts.
-*/
-bool FontPreviewPlugin::run(QString target)
+ * Writes configuration, destroys the object and frees any allocated resources.
+ */
+FontPreview::~FontPreview()
 {
-	// I don't know how many fonts user has...
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-	FontPreview *dlg = new FontPreview(target);
-	qApp->restoreOverrideCursor();
-	// run it and wait for user's reaction
-	if (dlg->exec() == QDialog::Accepted)
-	{
-		if  (target.isEmpty())
-			ScMW->SetNewFont(dlg->getCurrentFont());
-		else
-			m_runResult = dlg->getCurrentFont();
-	}
-	delete dlg;
-	return true;
+	prefs->set("sortColumn", fontList->sortColumn());
+	prefs->set("xsize", width());
+	prefs->set("ysize", height());
+	prefs->set("fontSize", sizeSpin->value());
+	prefs->set("phrase", displayEdit->text());
+	sampleItem->cleanupTemporary(); // just to be sure
 }
+
+/**
+ *  Sets the strings of the subwidgets using the current
+ *  language.
+ */
+void FontPreview::languageChange()
+{
+	QToolTip::add(okButton, "<qt>" + tr("Append selected font into Style, Font menu", "font preview") + "</qt>");
+	QToolTip::add(cancelButton,tr("Leave preview", "font preview"));
+	QToolTip::add(searchEdit, "<qt>" + tr("Typing the text here provides quick searching in the font names. E.g. 'bold' shows all fonts with Bold in name. Searching is case insensitive.") + "</qt>");
+	QToolTip::add(searchButton, tr("Start searching"));
+	QToolTip::add(sizeSpin, tr("Size of the selected font"));
+}
+
+void FontPreview::fontList_changed()
+{
+	QListViewItem *item = fontList->currentItem();
+	sampleItem->setFontSize(sizeSpin->value() * 10, true);
+	sampleItem->setFont(item->text(0));
+	QPixmap pixmap = sampleItem->getSample(fontPreview->maximumWidth(), fontPreview->maximumHeight());
+	fontPreview->clear();
+	if (!pixmap.isNull())
+		fontPreview->setPixmap(pixmap);
+}
+
+void FontPreview::updateFontList(QString searchStr)
+{
+	fontList->clear();
+	QString sstr = searchStr.lower();
+	for (SCFontsIterator fontIter(PrefsManager::instance()->appPrefs.AvailFonts); fontIter.current(); ++fontIter)
+	{
+		if (searchStr.length()!=0 && !fontIter.current()->scName().lower().contains(sstr))
+			continue;
+		if (fontIter.current()->UseFont)
+		{
+			QListViewItem *row = new QListViewItem(fontList);
+			Foi::FontType type = fontIter.current()->typeCode;
+
+			row->setText(0, fontIter.current()->scName());
+			// searching
+			if (reallyUsedFonts.contains(fontIter.current()->scName()))
+				row->setPixmap(1, okIcon);
+
+			if (type == Foi::OTF)
+			{
+				row->setPixmap(2, otfFont);
+				row->setText(2, "OpenType");
+			}
+			else
+				if (fontIter.current()->Subset)
+					row->setPixmap(3, okIcon);
+
+			if (type == Foi::TYPE1) // type1
+			{
+				row->setPixmap(2, psFont);
+				row->setText(2, "Type1");
+			}
+
+			if (type == Foi::TTF)
+			{
+				row->setPixmap(2, ttfFont);
+				row->setText(2, "TrueType");
+			}
+
+			QFileInfo fi(fontIter.current()->fontFilePath());
+			fi.absFilePath().contains(QDir::homeDirPath()) ?
+					row->setText(4, tr("User", "font preview")):
+					row->setText(4, tr("System", "font preview"));
+
+			fontList->insertItem(row);
+		}
+	} // for fontIter
+}
+
+void FontPreview::searchEdit_textChanged(const QString &s)
+{
+	if (s.length()==0)
+		updateFontList(s);
+}
+
+void FontPreview::searchButton_clicked()
+{
+	updateFontList(searchEdit->text());
+}
+
+QString FontPreview::getCurrentFont()
+{
+	return fontList->currentItem()->text(0);
+}
+
+void FontPreview::displayButton_clicked()
+{
+	sampleItem->setText(displayEdit->text());
+	fontList_changed();
+}
+
+void FontPreview::okButton_clicked()
+{
+	accept();
+}
+
+void FontPreview::cancelButton_clicked()
+{
+	reject();
+}
+
+void FontPreview::resetDisplayButton_clicked()
+{
+	displayEdit->setText(defaultStr);
+	displayButton_clicked();
+}
+
+#include "fontpreview.moc"

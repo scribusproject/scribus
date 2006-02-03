@@ -1,0 +1,353 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>FontPreviewBase</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>FontPreviewBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>624</width>
+            <height>490</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Fonts Preview</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QLayoutWidget" row="0" column="0">
+            <property name="name">
+                <cstring>layout13</cstring>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout1</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>searchLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>&amp;Quick Search:</string>
+                            </property>
+                            <property name="buddy" stdset="0">
+                                <cstring>searchEdit</cstring>
+                            </property>
+                        </widget>
+                        <widget class="QLineEdit">
+                            <property name="name">
+                                <cstring>searchEdit</cstring>
+                            </property>
+                        </widget>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>searchButton</cstring>
+                            </property>
+                            <property name="text">
+                                <string>&amp;Search</string>
+                            </property>
+                            <property name="accel">
+                                <string>Alt+S</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QListView">
+                    <column>
+                        <property name="text">
+                            <string>Font Name</string>
+                        </property>
+                        <property name="clickable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Doc</string>
+                        </property>
+                        <property name="clickable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Type</string>
+                        </property>
+                        <property name="clickable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Subset</string>
+                        </property>
+                        <property name="clickable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Access</string>
+                        </property>
+                        <property name="clickable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <property name="name">
+                        <cstring>fontList</cstring>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>fontPreview</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>600</width>
+                            <height>100</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>600</width>
+                            <height>100</height>
+                        </size>
+                    </property>
+                    <property name="frameShape">
+                        <enum>Box</enum>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout12</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>layout3</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>sizeLabel</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>&amp;Font Size:</string>
+                                    </property>
+                                    <property name="buddy" stdset="0">
+                                        <cstring>sizeSpin</cstring>
+                                    </property>
+                                </widget>
+                                <widget class="QSpinBox">
+                                    <property name="name">
+                                        <cstring>sizeSpin</cstring>
+                                    </property>
+                                    <property name="maxValue">
+                                        <number>72</number>
+                                    </property>
+                                    <property name="minValue">
+                                        <number>10</number>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>layout11</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>displayLabel</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Text</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLineEdit">
+                                    <property name="name">
+                                        <cstring>displayEdit</cstring>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>Sample text to display</string>
+                                    </property>
+                                </widget>
+                                <widget class="QPushButton">
+                                    <property name="name">
+                                        <cstring>displayButton</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Se&amp;t</string>
+                                    </property>
+                                    <property name="accel">
+                                        <string>Alt+T</string>
+                                    </property>
+                                </widget>
+                                <widget class="QPushButton">
+                                    <property name="name">
+                                        <cstring>resetDisplayButton</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string></string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>Reset the text</string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout4</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <spacer>
+                            <property name="name">
+                                <cstring>spacer1</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>40</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>okButton</cstring>
+                            </property>
+                            <property name="text">
+                                <string>&amp;Append</string>
+                            </property>
+                            <property name="accel">
+                                <string>Alt+A</string>
+                            </property>
+                        </widget>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>cancelButton</cstring>
+                            </property>
+                            <property name="text">
+                                <string>&amp;Close</string>
+                            </property>
+                            <property name="accel">
+                                <string>Alt+C</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+            </vbox>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>displayButton</sender>
+        <signal>clicked()</signal>
+        <receiver>FontPreviewBase</receiver>
+        <slot>displayButton_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>sizeSpin</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>FontPreviewBase</receiver>
+        <slot>fontList_changed()</slot>
+    </connection>
+    <connection>
+        <sender>fontList</sender>
+        <signal>selectionChanged()</signal>
+        <receiver>FontPreviewBase</receiver>
+        <slot>fontList_changed()</slot>
+    </connection>
+    <connection>
+        <sender>searchEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>FontPreviewBase</receiver>
+        <slot>searchEdit_textChanged(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>searchButton</sender>
+        <signal>clicked()</signal>
+        <receiver>FontPreviewBase</receiver>
+        <slot>searchButton_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>okButton</sender>
+        <signal>clicked()</signal>
+        <receiver>FontPreviewBase</receiver>
+        <slot>okButton_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>cancelButton</sender>
+        <signal>clicked()</signal>
+        <receiver>FontPreviewBase</receiver>
+        <slot>cancelButton_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>resetDisplayButton</sender>
+        <signal>clicked()</signal>
+        <receiver>FontPreviewBase</receiver>
+        <slot>resetDisplayButton_clicked()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">fontpreviewbase.ui.h</include>
+</includes>
+<slots>
+    <slot>displayButton_clicked()</slot>
+    <slot>fontList_changed()</slot>
+    <slot>searchEdit_textChanged( const QString &amp; )</slot>
+    <slot>searchButton_clicked()</slot>
+    <slot>okButton_clicked()</slot>
+    <slot>cancelButton_clicked()</slot>
+    <slot>resetDisplayButton_clicked()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
