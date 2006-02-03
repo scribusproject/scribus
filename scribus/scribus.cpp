@@ -2238,7 +2238,6 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["fileExportText"]->setEnabled(false);
-		scrMenuMgr->setMenuEnabled("Style", false);
 		scrMenuMgr->setMenuEnabled("Item", false);
 		scrMenuMgr->setMenuEnabled("ItemShapes", false);
 		scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
@@ -2255,7 +2254,6 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrActions["extrasDeHyphenateText"]->setEnabled(false);
-		scrMenuMgr->clearMenu("Style");
 
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
@@ -2277,7 +2275,6 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrActions["extrasDeHyphenateText"]->setEnabled(false);
-		scrMenuMgr->setMenuEnabled("Style", false);
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
 		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
@@ -2286,10 +2283,6 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
 		scrActions["itemConvertToPolygon"]->setEnabled(!currItem->isTableItem && doc->appMode != modeEdit);
 		scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != modeEdit);
-		scrMenuMgr->clearMenu("Style");
-//		scrMenuMgr->addMenuToMenu("Color","Style");
-//		if (currItem->isRaster)
-//			scrMenuMgr->addMenuItem(scrActions["styleInvertPict"], "Style");
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsEditContents"]->setEnabled(currItem->ScaleType);
@@ -2313,7 +2306,6 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["editSearchReplace"]->setEnabled(currItem->itemText.count() != 0);
 		scrActions["extrasHyphenateText"]->setEnabled(true);
 		scrActions["extrasDeHyphenateText"]->setEnabled(true);
-		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
 		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
@@ -2322,14 +2314,6 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["itemConvertToOutlines"]->setEnabled(!currItem->isTableItem && doc->appMode != modeEdit);
 		scrActions["itemConvertToPolygon"]->setEnabled(!currItem->isTableItem && doc->appMode != modeEdit);
 		scrActions["itemConvertToTextFrame"]->setEnabled(false);
-		scrMenuMgr->clearMenu("Style");
-		scrMenuMgr->addMenuToMenu("Font","Style");
-		scrMenuMgr->addMenuToMenu("FontSize","Style");
-		scrMenuMgr->addMenuToMenu("TypeEffects","Style");
-		scrMenuMgr->addMenuToMenu("Alignment","Style");
-		scrMenuMgr->addMenuToMenu("Color","Style");
-		scrMenuMgr->addMenuToMenu("Shade","Style");
-		scrMenuMgr->addMenuItem(scrActions["styleTabulators"], "Style");
 
 		scrActions["toolsRotate"]->setEnabled(true);
 		scrActions["toolsCopyProperties"]->setEnabled(true);
@@ -2436,14 +2420,6 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["itemConvertToPolygon"]->setEnabled(false);
 		scrActions["itemConvertToTextFrame"]->setEnabled(false);
 
-		scrMenuMgr->clearMenu("Style");
-		scrMenuMgr->setMenuEnabled("Style", true);
-		scrMenuMgr->addMenuToMenu("Font","Style");
-		scrMenuMgr->addMenuToMenu("FontSize","Style");
-		scrMenuMgr->addMenuToMenu("TypeEffects","Style");
-		scrMenuMgr->addMenuToMenu("Color","Style");
-		scrMenuMgr->addMenuToMenu("Shade","Style");
-
 		scrActions["toolsRotate"]->setEnabled(true);
 		scrActions["toolsCopyProperties"]->setEnabled(true);
 		scrActions["toolsEditContents"]->setEnabled(false);
@@ -2495,11 +2471,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrActions["extrasDeHyphenateText"]->setEnabled(false);
-		scrMenuMgr->setMenuEnabled("Style", false);
 		scrMenuMgr->setMenuEnabled("Item", true);
-		scrMenuMgr->clearMenu("Style");
-//		scrMenuMgr->addMenuToMenu("Color","Style");
-//		scrMenuMgr->addMenuToMenu("Shade","Style");
 		if (Nr == 6) //Polygon
 		{
 			scrMenuMgr->setMenuEnabled("ItemShapes", true);
@@ -2522,6 +2494,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		break;
 	}
 	doc->CurrentSel = Nr;
+	rebuildStyleMenu(Nr);
 	propertiesPalette->RotationGroup->setButton(doc->RotMode);
 	uint docSelectionCount=doc->selection->count();
 	if (docSelectionCount > 1)
@@ -2622,6 +2595,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["itemLock"]->setOn(currItem->locked());
 		scrActions["itemLockSize"]->setOn(currItem->sizeLocked());
 	}
+	
 	//propertiesPalette->NewSel(Nr);
 	if (Nr != -1)
 	{
@@ -2637,6 +2611,38 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	}
 	else
 		propertiesPalette->NewSel(Nr);
+}
+
+void ScribusMainWindow::rebuildStyleMenu(int itemType)
+{
+	scrMenuMgr->clearMenu("Style");
+	PageItem *currItem = NULL;
+	int iT=itemType;
+	if (iT != -1)
+	{
+		if (doc->selection->count() == 0)
+			iT = -1;
+		else
+		{
+			currItem = doc->selection->itemAt(0);
+			if (!currItem)
+				iT=-1;
+		}
+	}
+	if (iT==PageItem::TextFrame || iT==PageItem::PathText)
+	{
+		scrMenuMgr->addMenuToMenu("Font","Style");
+		scrMenuMgr->addMenuToMenu("FontSize","Style");
+		scrMenuMgr->addMenuToMenu("TypeEffects","Style");
+		scrMenuMgr->addMenuToMenu("Alignment","Style");
+		scrMenuMgr->addMenuToMenu("Color","Style");
+		scrMenuMgr->addMenuToMenu("Shade","Style");
+		if (itemType==PageItem::TextFrame)
+			scrMenuMgr->addMenuItem(scrActions["styleTabulators"], "Style");
+		scrMenuMgr->setMenuEnabled("Style", true);
+	}
+	else
+		scrMenuMgr->setMenuEnabled("Style", false);
 }
 
 void ScribusMainWindow::slotDocCh(bool /*reb*/)
@@ -8683,6 +8689,8 @@ void ScribusMainWindow::languageChange()
 			scrMenuMgr->setMenuText("Windows", tr("&Windows"));
 			scrMenuMgr->setMenuText("Help", tr("&Help"));
 			scrMenuMgr->setMenuText("Alignment", tr("&Alignment"));
+			
+			rebuildStyleMenu(doc->CurrentSel);
 		}
 		if (undoManager!=NULL)
 			undoManager->languageChange();

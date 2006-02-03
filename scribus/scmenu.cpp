@@ -373,3 +373,9 @@ void ScrPopupMenu::setEnabled(bool menuEnabled)
 	enabled=menuEnabled;
 	localPopupMenu->setEnabled(enabled);
 }
+
+void ScrPopupMenu::setParentMenuName(const QString& newParentMenuName)
+{
+	if (!parentMenuName.isEmpty())
+		parentMenuName=newParentMenuName;
+}

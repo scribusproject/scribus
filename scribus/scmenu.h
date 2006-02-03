@@ -66,6 +66,7 @@ class SCRIBUS_API ScrPopupMenu : public QObject
 		bool generateEntryList(QStringList *actNames);
 		void setParentMenuID(int);
 		const int getParentMenuID();
+		void setParentMenuName(const QString& newParentMenuName);
 		
 	protected:
 		QPopupMenu *localPopupMenu;

@@ -404,6 +404,7 @@ public slots:
 	void HaveNewDoc();
 	/** Element ausgewaehlt */
 	void HaveNewSel(int Nr);
+	void rebuildStyleMenu(int itemType);
 	/** Dokument ist geaendert worden */
 	void slotDocCh(bool reb = true);
 	/** Setzt die Farbe */
