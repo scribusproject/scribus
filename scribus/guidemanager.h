@@ -25,7 +25,7 @@ Guides lists contains double values in 1st (0) columns. Standard QListViewItem
 provides string sorting so I have to create some special number related one ;)
 \author Petr Vanek <petr@yarpen.cz>
 */
-class GuideListItem : public QListViewItem
+class SCRIBUS_API GuideListItem : public QListViewItem
 {
 public:
 	//! \brief Only 2 columns here...

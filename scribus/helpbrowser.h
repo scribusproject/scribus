@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <qvariant.h>
 #include <qdialog.h>
 #include <qstring.h>
+#include <qlistview.h>
 
 #include "scribusapi.h"
 
@@ -41,8 +42,6 @@ class QGridLayout;
 class QSpacerItem;
 class QTabWidget;
 class QWidget;
-class QListView;
-class QListViewItem;
 class QTextBrowser;
 class QToolButton;
 class QPopupMenu;
@@ -51,12 +50,36 @@ class QLabel;
 class QLineEdit;
 class QPushButton;
 class QMenuBar;
+class PrefsContext;
 
 
-//! A structure holding title/file url reference.
+//! \brief A structure holding title/file url reference.
 struct histd {
 	QString url;
 	QString title;
+};
+
+
+
+/*! \brief Inherited QListViewItem provides double number values sorting.
+Guides lists contains double values in 1st (0) columns. Standard QListViewItem
+provides string sorting so I have to create some special number related one ;)
+\author Petr Vanek <petr@yarpen.cz>
+ */
+class SCRIBUS_API HelpListItem : public QListViewItem
+{
+public:
+	//! \brief Only 3 columns here...
+	HelpListItem(QListView *parent, QString c1, QString c2, QString c3) : QListViewItem(parent, c1, c2, c3){};
+
+	/*! \brief Reimplemented compare method to handle int values.
+	When is no double in column col parent string compare() is called.
+	\param i QListViewItem to compare with.
+	\param col column to sort (1 here)
+	\param asc ascendent on true.
+	\retval int -1 for (x lt y), 1 for (x gt y). See Qt docs for more info.
+	 */
+	int compare(QListViewItem *i, int col, bool asc) const;
 };
 
 
@@ -122,6 +145,8 @@ protected:
 
 	/*! \brief Text to be finded in document */
 	QString findText;
+	/** \brief Configuration structure */
+	PrefsContext* prefs;
 
 	/*! \brief Search in doc files in spec. dir.
 	It uses directory-recursion. I hope that the documentation will have

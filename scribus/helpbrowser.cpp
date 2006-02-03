@@ -35,7 +35,6 @@ for which a new license (GPL+exception) is in place.
 #include <qtabwidget.h>
 #include <qwidget.h>
 #include <qheader.h>
-#include <qlistview.h>
 #include <qtextbrowser.h>
 #include <qlayout.h>
 #include <qtooltip.h>
@@ -65,6 +64,8 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "util.h"
 #include "scconfig.h"
+#include "prefsmanager.h"
+#include "prefsfile.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -169,6 +170,18 @@ class HistoryParser : public QXmlDefaultHandler
 		}
 };
 
+int HelpListItem::compare(QListViewItem *i, int col, bool asc) const
+{
+	if (col == 1)
+	{
+		int d = text(col).toInt() - i->text(col).toInt();
+		if (d > 0)
+			return 1;
+		return -1;
+	}
+	else
+		return QListViewItem::compare(i, col, asc);
+}
 
 HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLanguage, QString jumpToSection, QString jumpToFile)
 	: QWidget( parent, "Help", WType_TopLevel | WDestructiveClose | WGroupLeader )
@@ -237,14 +250,16 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	searchingButtonLayout->addWidget(searchingButton);
 	searchingMainLayout->addLayout(searchingButtonLayout);
 	searchingView = new QListView(tabSearching, "searchingView");
-	searchingView->addColumn( tr( "Contents" ) );
-	searchingView->addColumn( tr( "Link" ) , 0 );
+	searchingView->addColumn(tr("Contents"));
+	searchingView->addColumn(tr("Relevance"));
+	searchingView->addColumn(tr("Link" ) ,0);
 	searchingView->setColumnWidthMode( 0, QListView::Maximum );
 	searchingView->setColumnWidthMode( 1, QListView::Manual );
-	searchingView->setSorting(-1,-1);
+	searchingView->setSorting(1, false);
 	searchingView->setRootIsDecorated( true );
 	searchingView->setSelectionMode(QListView::Single);
 	searchingView->setDefaultRenameAction(QListView::Reject);
+	searchingView->setAllColumnsShowFocus(true);
 	searchingView->clear();
 	searchingMainLayout->addWidget(searchingView);
 	tabWidget->insertTab(tabSearching, tr("Se&arch"));
@@ -257,7 +272,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	bookmarksView->addColumn( tr( "Link" ) , 0 );
 	bookmarksView->setColumnWidthMode( 0, QListView::Maximum );
 	bookmarksView->setColumnWidthMode( 1, QListView::Manual );
-	bookmarksView->setSorting(-1,-1);
+	bookmarksView->setSorting(1, -1);
 	bookmarksView->setRootIsDecorated( true );
 	bookmarksView->setSelectionMode(QListView::Single);
 	bookmarksView->setDefaultRenameAction(QListView::Reject);
@@ -308,7 +323,11 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	readHistory();
 	splitter->setResizeMode( tabWidget, QSplitter::KeepSize );
 	splitter->setResizeMode( textBrowser, QSplitter::Stretch );
-	resize( QSize(640, 480).expandedTo(minimumSizeHint()) );
+	// reset previous size
+	prefs = PrefsManager::instance()->prefsFile->getPluginContext("helpbrowser");
+	int xsize = prefs->getUInt("xsize", 640);
+	int ysize = prefs->getUInt("ysize", 480);
+	resize(QSize(xsize, ysize).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
 
 	connect( homeButton, SIGNAL( clicked() ), textBrowser, SLOT( home() ) );
@@ -357,6 +376,9 @@ HelpBrowser::~HelpBrowser()
 		stream << "</history>\n";
 		histFile.close();
 	}
+	// size
+	prefs->set("xsize", width());
+	prefs->set("ysize", height());
 }
 
 void HelpBrowser::languageChange()
@@ -681,9 +703,9 @@ void HelpBrowser::itemSelected(QListViewItem *item)
 
 void HelpBrowser::itemSearchSelected(QListViewItem *item)
 {
-	if (item && !item->text(1).isNull())
+	if (item && !item->text(2).isNull())
 	{
-		loadHelp(item->text(1));
+		loadHelp(item->text(2));
 		findText = searchingEdit->text();
 		findNext();
 	}
@@ -691,7 +713,7 @@ void HelpBrowser::itemSearchSelected(QListViewItem *item)
 
 void HelpBrowser::searchingInDirectory(QString aDir)
 {
-	QDir dir(aDir + "/");
+	QDir dir(QDir::convertSeparators(aDir + "/"));
 	QStringList lst = dir.entryList("*.html");
 	for (QStringList::Iterator it = lst.begin(); it != lst.end(); ++it)
 	{
@@ -708,8 +730,8 @@ void HelpBrowser::searchingInDirectory(QString aDir)
 				QString fullname = fname;
 				QString title;
 				QListViewItem *refItem = listView->findItem(fname.remove(QDir::convertSeparators(ScPaths::instance().docDir()+language + "/")), 1);
-				refItem ? title = refItem->text(0) : title = tr("unknown");
-				QListViewItem *item = new QListViewItem(searchingView, QString("%1x %2").arg(cnt).arg(title), fullname);
+				title = refItem ? refItem->text(0) : fname;
+				HelpListItem *item = new HelpListItem(searchingView, QString("%2").arg(title), QString("%1").arg(cnt), fullname);
 				searchingView->insertItem(item);
 			}
 			f.close();
@@ -727,7 +749,7 @@ void HelpBrowser::searchingButton_clicked()
 	searchingView->clear();
 	// root files
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-	searchingInDirectory(ScPaths::instance().docDir() + language + "/");
+	searchingInDirectory(QDir::convertSeparators(ScPaths::instance().docDir() + language + "/"));
 	QApplication::restoreOverrideCursor();
 }
 
