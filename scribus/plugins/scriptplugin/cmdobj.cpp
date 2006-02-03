@@ -12,9 +12,9 @@ for which a new license (GPL+exception) is in place.
 
 PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 {
-	double x, y, b, h;
+	double x, y, w, h;
 	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &b, &h, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
@@ -23,9 +23,11 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	int i = ScMW->doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, pageUnitXToDocX(x), pageUnitYToDocY(y),
-									 ValueToPoint(b), ValueToPoint(h), ScMW->doc->toolSettings.dWidth,
-									 ScMW->doc->toolSettings.dBrush, ScMW->doc->toolSettings.dPen, true);
+	int i = ScMW->doc->itemAdd(PageItem::Polygon, PageItem::Rectangle,
+								pageUnitXToDocX(x), pageUnitYToDocY(y),
+								ValueToPoint(w), ValueToPoint(h),
+								ScMW->doc->toolSettings.dWidth,
+								ScMW->doc->toolSettings.dBrush, ScMW->doc->toolSettings.dPen, true);
 	ScMW->view->setRedrawBounding(ScMW->doc->Items->at(i));
 	if (Name != "")
 		ScMW->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
@@ -35,14 +37,17 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 {
-	double x, y, b, h;
+	double x, y, w, h;
 	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &b, &h, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = ScMW->doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, pageUnitXToDocX(x),
-										pageUnitYToDocY(y), b, h,
+	int i = ScMW->doc->itemAdd(PageItem::Polygon, PageItem::Ellipse,
+										pageUnitXToDocX(x),
+										pageUnitYToDocY(y),
+										ValueToPoint(w),
+										ValueToPoint(h),
 										ScMW->doc->toolSettings.dWidth,
 										ScMW->doc->toolSettings.dBrush,
 										ScMW->doc->toolSettings.dPen,
@@ -67,7 +72,13 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = ScMW->doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, pageUnitXToDocX(x), pageUnitYToDocY(y), w, h, 1, ScMW->doc->toolSettings.dBrushPict, "None", true);
+	int i = ScMW->doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified,
+									pageUnitXToDocX(x),
+									pageUnitYToDocY(y),
+									ValueToPoint(w),
+									ValueToPoint(h),
+									1, ScMW->doc->toolSettings.dBrushPict,
+									"None", true);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
@@ -82,13 +93,19 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 {
-	double x, y, b, h;
+	double x, y, w, h;
 	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &b, &h, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = ScMW->doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, pageUnitXToDocX(x), pageUnitYToDocY(y), b, h, ScMW->doc->toolSettings.dWidth, "None", ScMW->doc->toolSettings.dPenText, true);
+	int i = ScMW->doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified,
+								pageUnitXToDocX(x),
+								pageUnitYToDocY(y),
+								ValueToPoint(w),
+								ValueToPoint(h),
+								ScMW->doc->toolSettings.dWidth, "None",
+								ScMW->doc->toolSettings.dPenText, true);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
@@ -103,15 +120,15 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 {
-	double x, y, b, h;
+	double x, y, w, h;
 	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &b, &h, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
 	x = pageUnitXToDocX(x);
 	y = pageUnitYToDocY(y);
-	b = pageUnitXToDocX(b);
+	w = pageUnitXToDocX(w);
 	h = pageUnitYToDocY(h);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
@@ -124,8 +141,8 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 	it->PoLine.resize(4);
 	it->PoLine.setPoint(0, 0, 0);
 	it->PoLine.setPoint(1, 0, 0);
-	it->PoLine.setPoint(2, b-x, h-y);
-	it->PoLine.setPoint(3, b-x, h-y);
+	it->PoLine.setPoint(2, w-x, h-y);
+	it->PoLine.setPoint(3, w-x, h-y);
 	FPoint np2 = getMinClipF(&it->PoLine);
 	if (np2.x() < 0)
 	{
@@ -170,7 +187,7 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	double x, y, b, h;
+	double x, y, w, h;
 	int i = 0;
 	x = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
@@ -184,21 +201,21 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 	int pp = 6;
 	for (i = 2; i < len - 2; i += 2)
 	{
-		b = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+		w = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 		h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+1))));
 		it->PoLine.resize(pp);
-		it->PoLine.setPoint(pp-4, b-x, h-y);
-		it->PoLine.setPoint(pp-3, b-x, h-y);
-		it->PoLine.setPoint(pp-2, b-x, h-y);
-		it->PoLine.setPoint(pp-1, b-x, h-y);
+		it->PoLine.setPoint(pp-4, w-x, h-y);
+		it->PoLine.setPoint(pp-3, w-x, h-y);
+		it->PoLine.setPoint(pp-2, w-x, h-y);
+		it->PoLine.setPoint(pp-1, w-x, h-y);
 		pp += 4;
 	}
 	pp -= 2;
-	b = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-2))));
+	w = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-2))));
 	h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-1))));
 	it->PoLine.resize(pp);
-	it->PoLine.setPoint(pp-2, b-x, h-y);
-	it->PoLine.setPoint(pp-1, b-x, h-y);
+	it->PoLine.setPoint(pp-2, w-x, h-y);
+	it->PoLine.setPoint(pp-1, w-x, h-y);
 	FPoint np2 = getMinClipF(&it->PoLine);
 	if (np2.x() < 0)
 	{
@@ -245,7 +262,7 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	double x, y, b, h;
+	double x, y, w, h;
 	int i = 0;
 	x = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
@@ -259,22 +276,22 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 	int pp = 6;
 	for (i = 2; i < len - 2; i += 2)
 	{
-		b = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+		w = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 		h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+1))));
 		it->PoLine.resize(pp);
-		it->PoLine.setPoint(pp-4, b-x, h-y);
-		it->PoLine.setPoint(pp-3, b-x, h-y);
-		it->PoLine.setPoint(pp-2, b-x, h-y);
-		it->PoLine.setPoint(pp-1, b-x, h-y);
+		it->PoLine.setPoint(pp-4, w-x, h-y);
+		it->PoLine.setPoint(pp-3, w-x, h-y);
+		it->PoLine.setPoint(pp-2, w-x, h-y);
+		it->PoLine.setPoint(pp-1, w-x, h-y);
 		pp += 4;
 	}
-	b = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-2))));
+	w = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-2))));
 	h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-1))));
 	it->PoLine.resize(pp);
-	it->PoLine.setPoint(pp-4, b-x, h-y);
-	it->PoLine.setPoint(pp-3, b-x, h-y);
-	it->PoLine.setPoint(pp-2, b-x, h-y);
-	it->PoLine.setPoint(pp-1, b-x, h-y);
+	it->PoLine.setPoint(pp-4, w-x, h-y);
+	it->PoLine.setPoint(pp-3, w-x, h-y);
+	it->PoLine.setPoint(pp-2, w-x, h-y);
+	it->PoLine.setPoint(pp-1, w-x, h-y);
 	pp += 2;
 	it->PoLine.resize(pp);
 	it->PoLine.setPoint(pp-2, 0, 0);
@@ -322,7 +339,7 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	double x, y, b, h, kx, ky, kx2, ky2;
+	double x, y, w, h, kx, ky, kx2, ky2;
 	int i = 0;
 	x = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
@@ -345,26 +362,26 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 	int pp = 6;
 	for (i = 6; i < len - 6; i += 6)
 	{
-		b = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+		w = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 		h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+1))));
 		kx = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+2))));
 		ky = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+3))));
 		kx2 = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+4))));
 		ky2 = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+5))));
 		it->PoLine.resize(pp);
-		it->PoLine.setPoint(pp-4, b-x, h-y);
+		it->PoLine.setPoint(pp-4, w-x, h-y);
 		it->PoLine.setPoint(pp-3, kx-x, ky-y);
 		it->PoLine.setPoint(pp-2, it->PoLine.point(pp-4));
 		it->PoLine.setPoint(pp-1, kx2-x, ky2-y);
 		pp += 4;
 	}
 	pp -= 2;
-	b = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-6))));
+	w = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-6))));
 	h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-5))));
 	kx = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-4))));
 	ky = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-3))));
 	it->PoLine.resize(pp);
-	it->PoLine.setPoint(pp-2, b-x, h-y);
+	it->PoLine.setPoint(pp-2, w-x, h-y);
 	it->PoLine.setPoint(pp-1, kx-x, ky-y);
 	FPoint np2 = getMinClipF(&it->PoLine);
 	if (np2.x() < 0)
