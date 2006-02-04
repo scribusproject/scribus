@@ -52,7 +52,7 @@ public:
 	void mouseMoveEvent(QMouseEvent *m);
 	void UpdateTabList();
 	void setItemPosition(double pos, double width);
-	int offs;
+	double offs;
 	int Markp;
 	int oldMark;
 	bool Mpressed;

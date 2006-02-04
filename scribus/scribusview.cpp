@@ -270,10 +270,10 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 			uint docPagesCount=Doc->Pages->count();
 			for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
 			{
-				int x = static_cast<int>(Doc->Pages->at(a)->xOffset() * Scale);
-				int y = static_cast<int>(Doc->Pages->at(a)->yOffset() * Scale);
-				int w = static_cast<int>(Doc->Pages->at(a)->width() * Scale);
-				int h = static_cast<int>(Doc->Pages->at(a)->height() * Scale);
+				int x = qRound(Doc->Pages->at(a)->xOffset() * Scale);
+				int y = qRound(Doc->Pages->at(a)->yOffset() * Scale);
+				int w = qRound(Doc->Pages->at(a)->width() * Scale);
+				int h = qRound(Doc->Pages->at(a)->height() * Scale);
 				QRect drawRect = QRect(x, y, w+5, h+5);
 				drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
 				if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
@@ -8443,16 +8443,18 @@ void ScribusView::setRulerPos(int x, int y)
 		return;
 	if (Doc->guidesSettings.rulerMode)
 	{
-		horizRuler->offs = qRound(x / Scale - Doc->currentPage->xOffset());
-		vertRuler->offs = qRound(y / Scale - Doc->currentPage->yOffset());
+		horizRuler->offs = x / Scale - Doc->currentPage->xOffset();
+		vertRuler->offs = y / Scale - Doc->currentPage->yOffset();
 	}
 	else
 	{
-		horizRuler->offs = qRound(x / Scale);
-		vertRuler->offs = qRound(y / Scale);
+		horizRuler->offs = x / Scale;
+		vertRuler->offs = y / Scale;
 	}
-	horizRuler->offs += qRound(Doc->minCanvasCoordinate.x() - 1 - Doc->rulerXoffset);
-	vertRuler->offs += qRound(Doc->minCanvasCoordinate.y() - 1 - Doc->rulerYoffset);
+//	horizRuler->offs += qRound(Doc->minCanvasCoordinate.x() - 1 - Doc->rulerXoffset);
+//	vertRuler->offs += qRound(Doc->minCanvasCoordinate.y() - 1 - Doc->rulerYoffset);
+	horizRuler->offs += Doc->minCanvasCoordinate.x()  - Doc->rulerXoffset;
+	vertRuler->offs += Doc->minCanvasCoordinate.y()  - Doc->rulerYoffset;
 	horizRuler->repaint();
 	vertRuler->repaint();
 	evSpon = true;

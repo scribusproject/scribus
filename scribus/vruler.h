@@ -47,7 +47,7 @@ public:
 	void mouseReleaseEvent(QMouseEvent *m);
 	void mouseMoveEvent(QMouseEvent *m);
 	void drawNumber(QString num, int starty, QPainter *p);
-	int offs;
+	double offs;
 	bool repainted;
 	int oldMark;
 	bool Mpressed;
