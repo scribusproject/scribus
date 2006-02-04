@@ -45,6 +45,7 @@ enum Unit {
 
 const double SCRIBUS_API unitGetRatioFromIndex(const int index);
 const QString SCRIBUS_API unitGetStrFromIndex(const int index);
+const QString SCRIBUS_API unitGetUntranslatedStrFromIndex(const int index);
 const QString SCRIBUS_API unitGetSuffixFromIndex(const int index);
 const int SCRIBUS_API unitGetDecimalsFromIndex(const int index);
 const int SCRIBUS_API unitGetPrecisionFromIndex(const int index);

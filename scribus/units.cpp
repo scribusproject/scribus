@@ -135,6 +135,16 @@ const QString unitGetStrFromIndex(const int index)
 }
 
 /*!
+ * @brief Returns a general untranslated suffix for each of the units
+ */
+const QString unitGetUntranslatedStrFromIndex(const int index)
+{
+	if (index>UNITCOUNT) 
+		return "";
+	QString suffix[] = { "pt", "mm", "in", "p", "cm", "c" };
+	return suffix[index];
+}
+/*!
  * @brief Returns the decimals for the units
  */
 const int unitGetDecimalsFromIndex(const int index)
