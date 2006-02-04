@@ -4919,7 +4919,7 @@ Not recommended unless
     </message>
     <message>
         <source> pt</source>
-        <translation>тчк</translation>
+        <translation> тчк</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
@@ -5238,7 +5238,7 @@ Not recommended unless
     </message>
     <message>
         <source> pt</source>
-        <translation>точок</translation>
+        <translation> точок</translation>
     </message>
     <message>
         <source>Open</source>
@@ -6725,7 +6725,7 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source> pt</source>
-        <translation>тчк</translation>
+        <translation> тчк</translation>
     </message>
     <message>
         <source>X2:</source>
@@ -7987,7 +7987,7 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source> pt</source>
-        <translation>тчк</translation>
+        <translation> тчк</translation>
     </message>
     <message>
         <source>Effect:</source>
@@ -11006,7 +11006,7 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source> pt</source>
-        <translation>тчк</translation>
+        <translation> тчк</translation>
     </message>
     <message>
         <source>Basepoint:</source>
@@ -11693,7 +11693,7 @@ Corners:</source>
     </message>
     <message>
         <source> pt</source>
-        <translation>тчк</translation>
+        <translation> тчк</translation>
     </message>
     <message>
         <source> %</source>
@@ -11705,7 +11705,7 @@ Corners:</source>
     </message>
     <message>
         <source> pt </source>
-        <translation>тчк</translation>
+        <translation> тчк </translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -14635,7 +14635,7 @@ UCR найбільше впливає на ті частини зображен�
     </message>
     <message>
         <source> pt</source>
-        <translation>тчк</translation>
+        <translation> тчк</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
