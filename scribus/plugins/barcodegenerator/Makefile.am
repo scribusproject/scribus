@@ -15,15 +15,7 @@ KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS)
 
 AM_CPPFLAGS = \
-    -I$(top_builddir)/scribus \
-    -DDOCDIR=\"$(datadir)/scribus/doc/\" \
-    -DICONDIR=\"$(datadir)/scribus/icons/\" \
-    -DSAMPLESDIR=\"$(datadir)/scribus/samples/\" \
-    -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \
-    -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
-    -DLIBDIR=\"$(libdir)/scribus/\" \
-    -DPLUGINDIR=\"$(libdir)/scribus/plugins/\" \
-    -DPLUGINDATA=\"$(datadir)/scribus/plugins/\"
+    -I$(top_builddir)/scribus
 
 AM_CXXFLAGS = \
     $(GCC_CXX_VISIBILITY_FLAGS)

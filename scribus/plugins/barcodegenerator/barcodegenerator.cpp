@@ -6,10 +6,11 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "barcodegenerator.h"
+#include "barcodegenerator.moc"
 #include "gsutil.h"
 #include "util.h"
 #include "scribus.h"
-
+#include "scpaths.h"
 #include "commonstrings.h"
 #include <qcombobox.h>
 #include <qtextedit.h>
@@ -21,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include <qfile.h>
 #include <qdir.h>
-#include <qfiledialog.h> 
+#include <qfiledialog.h>
 
 
 BarcodeType::BarcodeType(QString cmd, QString exa, QString comm)
@@ -57,7 +58,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 //    "KIX"] = "kix"
 	map["Plessey"] = BarcodeType("plessey", "012345ABCDEF", "Variable number of hexadecimal characters");
 //    "Symbol"] = "symbol"
-	
+
 	useSamples = true;
 	bcCombo->insertStringList(map.keys());
 	okButton->setText(CommonStrings::tr_OK);
@@ -75,7 +76,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 
 	// PS engine
 	psCommand.append("%!PS-Adobe-2.0 EPSF-2.0\n");
-	QFile f(QString(PLUGINDATA) + QString("barcode.ps"));
+	QFile f( ScPaths::instance().shareDir() + QString("/plugins/barcode.ps") );
 	f.open(IO_ReadOnly);
 	QTextStream ts(&f);
 	QString s = ts.read();
@@ -214,9 +215,13 @@ bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 	QTextStream ts(&f);
 	ts << comm;
 	f.close();
-	
-	QString gargs("-dDEVICEWIDTHPOINTS=200 -dDEVICEHEIGHTPOINTS=150 -r%1 -sOutputFile=%2 %3");
-	gargs = gargs.arg(dpi).arg(fileName).arg(psFile);
+
+	QStringList gargs;
+	gargs.append("-dDEVICEWIDTHPOINTS=200");
+	gargs.append("-dDEVICEHEIGHTPOINTS=150");
+	gargs.append( QString("-r%1").arg(dpi) );
+	gargs.append( QString("-sOutputFile=%2").arg(fileName) );
+	gargs.append( psFile );
 	int gs = callGS(gargs);
 	bool retval = true;
 	if (gs != 0)
