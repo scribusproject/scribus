@@ -9042,9 +9042,17 @@ void ScribusView::SetYGuide(QMouseEvent *m, int oldIndex)
 	}
 	else if (oldIndex >= 0)
 	{
-		Doc->currentPage->removeYGuide(oldIndex);
+		if ((newY > Doc->currentPage->yOffset()) && (newY < Doc->currentPage->yOffset() + Doc->currentPage->height()))
+		{
+			Doc->currentPage->moveYGuide(oldIndex, newY-Doc->currentPage->yOffset());
+			emit signalGuideInformation(0, qRound((newY-Doc->currentPage->yOffset()) * 10000.0) / 10000.0);
+		}
+		else
+		{
+			Doc->currentPage->removeYGuide(oldIndex);
+			emit signalGuideInformation(-1, 0.0);
+		}
 		emit DocChanged();
-		emit signalGuideInformation(-1, 0.0);
 	}
 }
 
@@ -9065,9 +9073,17 @@ void ScribusView::SetXGuide(QMouseEvent *m, int oldIndex)
 	}
 	else if (oldIndex >= 0)
 	{
-		Doc->currentPage->removeXGuide(oldIndex);
+		if ((newX > Doc->currentPage->xOffset()) && (newX < Doc->currentPage->xOffset() + Doc->currentPage->width()))
+		{
+			Doc->currentPage->moveXGuide(oldIndex, newX-Doc->currentPage->xOffset());
+			emit signalGuideInformation(0, qRound((newX-Doc->currentPage->xOffset()) * 10000.0) / 10000.0);
+		}
+		else
+		{
+			Doc->currentPage->removeXGuide(oldIndex);
+			emit signalGuideInformation(-1, 0.0);
+		}
 		emit DocChanged();
-		emit signalGuideInformation(-1, 0.0);
 	}
 }
 
