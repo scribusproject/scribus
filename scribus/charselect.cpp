@@ -121,8 +121,13 @@ void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool
 		p->fillPath();
 		p->end();
 		int x = QMAX(0, (cr.width() - sz.width()) / 2);
-		int y = QMAX(0, (cr.height() - sz.height()) / 2);
-		qp->drawPixmap(x, y, pixm);
+//		int y = QMAX(0, (cr.height() - sz.height()) / 2);
+		qp->drawPixmap(x, 1, pixm);
+		QString tmp;
+		tmp.sprintf("%04X", par->characters[row*16+col]);
+//		tmp.prepend("0x");
+		qp->setPen(black);
+		qp->drawText(4, cr.height()-3, tmp);
 	}
 	qp->setPen(gray);
 	qp->drawRect(0, 0, cr.width(), cr.height());
