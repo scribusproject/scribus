@@ -22,7 +22,6 @@ extern QPixmap loadIcon(QString nam);
 
 Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "MeasurementsPalette", false, 0 )
 {
-	setCaption( tr( "Distances" ) );
 	setIcon( loadIcon("AppIcon.png") );
 
 	measurementsLayout = new QGridLayout( this, 1, 1, 10, 6, "measurementsLayout");
@@ -118,6 +117,8 @@ void Measurements::setValues(double x1, double y1, double x2, double y2, double 
 
 void Measurements::languageChange()
 {
+	setCaption( tr( "Distances" ) );
+	
 	x1Label->setText( tr( "X1:" ) );
 	y1Label->setText( tr( "Y1:" ) );
 	x2Label->setText( tr( "X2:" ) );
