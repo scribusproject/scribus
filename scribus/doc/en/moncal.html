@@ -3,7 +3,7 @@
 <h2>A Quick Start Guide to Monitor Profiling with littlecms</h2>
 
 <h4>Overview</h4>
-<p><em>Author's note, the littlecms profilers are no longer directly available from littecms, nor are they supported by the littlecms author. Some distros do have them in package form, as well as source mirrors. Google is your friend. However, nothing else on Linux is capable of the profile creation so easily as the profile construction tools. They are worth tracking down in rpm or other package form.</em></p>
+<p><em>Author's note, the littlecms profilers are no longer directly available from littecms, but they have been picked up by some volunteers and its is now a separate project from littlecms, nor are they supported by the littlecms author. Some distros do have them in package form, as well as source mirrors. Google is your friend. However, nothing else on Linux is capable of the profile creation so easily as the profile construction tools. They are worth tracking down in rpm or other package form.</em> Otherwise, visit <a href="http://lprof.sourceforge.net">http://lprof.sourceforge.net</a>. Note also these notes are based on the original package and will be updated for the new profilers soon. </p>
 
 <p>One of the best tools with littlecms is the profile construction tools. </a>. There are five separate tools included in the package:</p>
 
@@ -19,7 +19,7 @@
 
 <h4>Installation</h4>
 
-<p>It is simple to untar and simply type <code>make</code> in the source directory. This will build all five tools and leave the executables in the root source directory. If you are fussy like me, you can go in an hand edit the make files to taste. There is an option to compile this as a KDE application, but if KDE is in a non standard location, it will not compile in this manner. There is also available a patch availabe which enables correct compiling on Qt 3.x. Note: lprof as the package of tools is known is now a separate project. See: http://lprof.sourceforge.net</p>
+<p>It is simple to untar and simply type <code>make</code> in the source directory. This will build all five tools and leave the executables in the root source directory. If you are fussy like me, you can go in an hand edit the make files to taste. There is an option to compile this as a KDE application, but if KDE is in a non standard location, it will not compile in this manner. There is also available a patch availabe which enables correct compiling on Qt 3.x.<strong> Note: lprof as the package of tools is known is now a separate project. See: <a href="http://lprof.sourceforge.net">http://lprof.sourceforge.net</a></strong></p>
 
 <h4>Preparation</h4>
 
@@ -64,7 +64,7 @@
 
 <p>The last step is to <strong>click go</strong> and the profiler will create the icm file. This takes but a second or two. Now you can close the profiler for now.</p>
 
-<p>Then, copy the profile to the Scribus profiles directory from a console to $home/.color/icc : <code># cp ./d650023.icm $home/.color/icc</code> This is one the default directories Scribus will search for profiles.
+<p>Then, copy the profile to the Scribus profiles directory from a console to $home/.color/icc : <code>$ cp ./d650023.icm $home/.color/icc</code> This is one the default directories Scribus will search for profiles.
 </p>
 
 <p>Now Scribus can use this profile for more accurately managing screen previews. Start or restart Scribus and go <strong>Settings &gt; Color Management</strong>. Enable color management and select the monitor profile as below:</p>
