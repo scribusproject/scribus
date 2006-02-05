@@ -405,12 +405,8 @@ void ScribusMainWindow::initToolBars()
 	undoManager->registerGui(uWidget);
 
 	mainToolBar = new WerkToolB(this);
-	setDockEnabled(mainToolBar, DockLeft, false);
-	setDockEnabled(mainToolBar, DockRight, false);
 	mainToolBar->setEnabled(false);
 	pdfToolBar = new WerkToolBP(this);
-	setDockEnabled(pdfToolBar, DockLeft, false);
-	setDockEnabled(pdfToolBar, DockRight, false);
 	pdfToolBar->setEnabled(false);
 
 	connect(mainToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setOn(bool)));

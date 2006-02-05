@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "scraction.h"
 #include "scribus.h"
 #include "scribusdoc.h"
+#include <qdockarea.h>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -96,7 +97,11 @@ WerkToolB::WerkToolB(QMainWindow* parent) : ScToolBar(tr("Tools"), parent, QDock
 
 void WerkToolB::Docken(QDockWindow::Place p)
 {
-	setOrientation(p == InDock ? Horizontal : Vertical);
+	if (p == InDock) {
+		setOrientation(area()->orientation());
+	} else {
+		setOrientation(Vertical);
+	}
 }
 
 void WerkToolB::GetPolyProps()
@@ -176,9 +181,13 @@ void WerkToolBP::setPDFtool(int id)
 	emit NewMode(modeInsertPDFButton+PDFwerkz);
 }
 
-void WerkToolBP::Docken(QDockWindow::Place )
+void WerkToolBP::Docken(QDockWindow::Place p)
 {
-	setOrientation(Horizontal);
+	if (p == InDock) {
+		setOrientation(area()->orientation());
+	} else {
+		setOrientation(Horizontal);
+	}
 }
 
 void WerkToolBP::ModeFromTB()
