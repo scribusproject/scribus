@@ -2203,46 +2203,6 @@ void StoryEditor::buildGUI()
 	setIcon(loadIcon("AppIcon.png"));
 	QHBox* vb = new QHBox( this );
 	StoryEd2Layout = new QHBoxLayout( 0, 5, 5, "StoryEd2Layout");
-/* Setting up Menu Bar */
-/*
-	fmenu = new QPopupMenu();
-	fmenu->insertItem(loadIcon("editdelete.png"), tr("&New"), this, SLOT(Do_new()), CTRL+Key_N);
-	M_FileRevert = fmenu->insertItem(loadIcon("reload16.png"),  tr("&Reload Text from Frame"), this, SLOT(slotFileRevert()));
-	fmenu->insertSeparator();
-	fmenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save to File..."), this, SLOT(SaveTextFile()));
-	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Load from File..."), this, SLOT(LoadTextFile()));
-	fmenu->insertItem( tr("Save &Document"), this, SLOT(Do_saveDocument()), CTRL+Key_S);
-	fmenu->insertSeparator();
-	// changes to fit the #662 bug 05/28/04 petr vanek
-	fmenu->insertItem(loadIcon("ok.png"),  tr("&Update Text Frame and Exit"), this, SLOT(Do_leave2()));
-	fmenu->insertItem(loadIcon("exit.png"),  tr("&Exit Without Updating Text Frame"), this, SLOT(Do_leave()));
-*/
-	/* end of changes */
-	/*emenu = new QPopupMenu();
-	emenu->insertItem( tr("Select &All"), this, SLOT(Do_selectAll()), CTRL+Key_A);
-	Mcopy = emenu->insertItem(loadIcon("editcut.png"), tr("Cu&t"), this, SLOT(Do_cut()), CTRL+Key_X);
-	Mcut = emenu->insertItem(loadIcon("editcopy.png"), tr("&Copy"), this, SLOT(Do_copy()), CTRL+Key_C);
-	Mpaste = emenu->insertItem(loadIcon("editpaste.png"), tr("&Paste"), this, SLOT(Do_paste()), CTRL+Key_V);
-	Mdel = emenu->insertItem(loadIcon("editdelete.png"), tr("C&lear"), this, SLOT(Do_del()), Key_Delete);
-	emenu->insertSeparator();
-	emenu->insertItem(loadIcon("find16.png"),  tr("&Search/Replace..."), this, SLOT(SearchText()));
-	emenu->insertItem( tr("&Insert Glyph..."), this , SLOT(Do_insSp()));
-	emenu->insertSeparator();
-	emenu->insertItem( tr("&Edit Styles..."), this , SLOT(slotEditStyles()));
-	emenu->insertItem( tr("&Fonts Preview..."), this , SLOT(Do_fontPrev()));
-	Mupdt = emenu->insertItem(loadIcon("compfile16.png"),  tr("&Update Text Frame"), this, SLOT(updateTextFrame()), CTRL+Key_U);
-	*/
-	/*
-	settingsMenu = new QPopupMenu();
-	settingsMenu->insertItem( tr("&Background..."), this , SLOT(setBackPref()));
-	settingsMenu->insertItem( tr("&Display Font..."), this , SLOT(setFontPref()));
-	smartSel = settingsMenu->insertItem( tr("&Smart text selection"), this, SLOT(ToggleSmart()));
-	smartSelection = false;
-	settingsMenu->setItemChecked(smartSel, smartSelection);
-	*/
-	//menuBar()->insertItem( tr("&File"), fmenu);
-	//menuBar()->insertItem( tr("&Edit"), emenu);
-	//menuBar()->insertItem( tr("&Settings"), settingsMenu );
 
 /* Setting up Toolbars */
 	FileTools = new QToolBar(this);
@@ -2255,18 +2215,6 @@ void StoryEditor::buildGUI()
 	seActions["editUpdateFrame"]->addTo(FileTools);
 	seActions["editSearchReplace"]->addTo(FileTools);
 	
-	/*
-	DatNeu = new QToolButton(loadIcon("editdelete.png"), "", QString::null, this, SLOT(Do_new()), FileTools);
-	DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), "", QString::null, this, SLOT(LoadTextFile()), FileTools);
-	DatSav = new QToolButton(loadIcon("DateiSave2.png"), "", QString::null, this, SLOT(SaveTextFile()), FileTools);
-	DatClo = new QToolButton(loadIcon("ok22.png"), "", QString::null, this, SLOT(Do_leave2()), FileTools);
-	DatCan = new QToolButton(loadIcon("exit22.png"), "", QString::null, this, SLOT(Do_leave()), FileTools);
-	DatRel = new QToolButton(loadIcon("reload.png"), "", QString::null, this, SLOT(slotFileRevert()), FileTools);
-	DatUpdt = new QToolButton(loadIcon("compfile.png"), "", QString::null, this, SLOT(updateTextFrame()), FileTools);
-	DatFin = new QToolButton(loadIcon("find.png"), "", QString::null, this, SLOT(SearchText()), FileTools);
-	DatUpdt->setEnabled(false);
-	//DatRel->setEnabled(false);
-	*/
 	setDockEnabled(FileTools, DockLeft, false);
 	setDockEnabled(FileTools, DockRight, false);
 	setDockEnabled(FileTools, DockBottom, false);
@@ -2353,15 +2301,7 @@ void StoryEditor::buildGUI()
 	ButtonGroup2Layout->addWidget( CharC2, 1, 5 );
 	statusBar()->addWidget(ButtonGroup2, 1, true);
 	setCentralWidget( vb );
-	/*
-	// Final polishment
-	fmenu->setItemEnabled(M_FileRevert, 0);
-	emenu->setItemEnabled(Mcopy, 0);
-	emenu->setItemEnabled(Mcut, 0);
-	emenu->setItemEnabled(Mpaste, 0);
-	emenu->setItemEnabled(Mdel, 0);
-	emenu->setItemEnabled(Mupdt, 0);
-	*/
+	//Final setup
 	resize( QSize(660, 500).expandedTo(minimumSizeHint()) );
 	if (prefsManager==NULL)
 		sDebug(QString("%1").arg("prefsmgr null"));
@@ -2517,7 +2457,6 @@ void StoryEditor::doubleClick(int para, int position)
 void StoryEditor::setSmart(bool newSmartSelection)
 {
 	smartSelection = newSmartSelection;
-	//settingsMenu->setItemChecked(smartSel, smartSelection);
 }
 
 void StoryEditor::closeEvent(QCloseEvent *)
@@ -2587,12 +2526,6 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 				seActions["editCopy"]->setEnabled(false);
 				seActions["editCut"]->setEnabled(false);
 				seActions["editClear"]->setEnabled(false);
-				/*
-				emenu->setItemEnabled(Mcopy, 0);
-				emenu->setItemEnabled(Mcut, 0);
-				emenu->setItemEnabled(Mdel, 0);
-				fmenu->setItemEnabled(M_FileRevert, 0);
-				*/
 				textChanged = false;
 				Editor->loadItemText(currItem);
 				updateStatus();
@@ -3123,12 +3056,6 @@ bool StoryEditor::Do_new()
 	seActions["editCopy"]->setEnabled(false);
 	seActions["editCut"]->setEnabled(false);
 	seActions["editClear"]->setEnabled(false);
-	/*
-	emenu->setItemEnabled(Mcopy, 0);
-	emenu->setItemEnabled(Mcut, 0);
-	emenu->setItemEnabled(Mdel, 0);
-	fmenu->setItemEnabled(M_FileRevert, 0);
-	*/
 //	textChanged = false;
 	EditorBar->setRepaint(true);
 	EditorBar->doRepaint();
@@ -3195,24 +3122,12 @@ void StoryEditor::CopyAvail(bool u)
 	seActions["editCopy"]->setEnabled(u);
 	seActions["editCut"]->setEnabled(u);
 	seActions["editClear"]->setEnabled(u);
-	/*
-	emenu->setItemEnabled(Mcopy, u);
-	emenu->setItemEnabled(Mcut, u);
-	emenu->setItemEnabled(Mdel, u);
-	*/
 	seActions["editCopy"]->setEnabled(Editor->tBuffer.length() != 0);
-	/*
-	if (Editor->tBuffer.length() != 0)
-		emenu->setItemEnabled(Mpaste, 1);
-	else
-		emenu->setItemEnabled(Mpaste, 0);
-	*/
 }
 
 void StoryEditor::PasteAvail()
 {
 	seActions["editPaste"]->setEnabled(true);
-	//emenu->setItemEnabled(Mpaste, 1);
 }
 
 void StoryEditor::updateTextFrame()
@@ -3299,10 +3214,6 @@ void StoryEditor::updateTextFrame()
 	textChanged = false;
 	seActions["fileRevert"]->setEnabled(false);
 	seActions["editUpdateFrame"]->setEnabled(false);
-	//emenu->setItemEnabled(Mupdt, 0);
-	//fmenu->setItemEnabled(M_FileRevert, 0);
-	//DatUpdt->setEnabled(false);
-	//DatRel->setEnabled(false);
 	emit DocChanged();
 }
 
@@ -3635,17 +3546,7 @@ void StoryEditor::modifiedText()
 	firstSet = true;
 	seActions["fileRevert"]->setEnabled(true);
 	seActions["editUpdateFrame"]->setEnabled(true);
-	//emenu->setItemEnabled(Mupdt, 1);
-	//fmenu->setItemEnabled(M_FileRevert, 1);
 	seActions["editPaste"]->setEnabled(Editor->tBuffer.length() != 0);
-	/*
-	if (Editor->tBuffer.length() != 0)
-		emenu->setItemEnabled(Mpaste, 1);
-	else
-		emenu->setItemEnabled(Mpaste, 0);
-	*/
-	//DatUpdt->setEnabled(true);
-	//DatRel->setEnabled(true);
 	updateStatus();
 }
 
@@ -3677,12 +3578,6 @@ void StoryEditor::LoadTextFile()
 				seActions["editCopy"]->setEnabled(false);
 				seActions["editCut"]->setEnabled(false);
 				seActions["editClear"]->setEnabled(false);
-				/*
-				emenu->setItemEnabled(Mpaste, 0);
-				emenu->setItemEnabled(Mcopy, 0);
-				emenu->setItemEnabled(Mcut, 0);
-				emenu->setItemEnabled(Mdel, 0);
-				*/
 				delete ss;
 			}
 		}

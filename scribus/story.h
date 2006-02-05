@@ -339,58 +339,15 @@ public:
 	bool textDataChanged() const;
 	PageItem* currentItem() const;
 	ScribusDoc* currentDocument() const;
-/*
-	//QPopupMenu* fmenu;
-	//QPopupMenu* emenu;
-	//QPopupMenu* settingsMenu;
-*/
-	QToolBar* FileTools;
-/*	
-	QToolButton* DatNeu;
-	QToolButton* DatOpe;
-	QToolButton* DatSav;
-	QToolButton* DatFin;
-	QToolButton* DatClo;
-	QToolButton* DatCan;
-	QToolButton* DatRel;
-	QToolButton* DatUpdt;*/
-	SToolBFont* FontTools;
-	SToolBAlign* AlignTools;
-	SToolBColorF* FillTools;
-	SToolBColorS* StrokeTools;
-	SToolBStyle* StyleTools;
-	QSplitter* EdSplit;
-	SideBar* EditorBar;
-	SEditor* Editor;
-	QButtonGroup* ButtonGroup1;
-	QButtonGroup* ButtonGroup2;
-	QLabel* WordCT1;
-	QLabel* WordCT3;
-	QLabel* ParCT;
-	QLabel* ParC;
-	QLabel* WordCT;
-	QLabel* WordC;
-	QLabel* CharCT;
-	QLabel* CharC;
-	QLabel* WordCT2;
-	QLabel* WordC2;
-	QLabel* CharCT2;
-	QLabel* CharC2;
+
 	/*! Enables/disables the "smart" selection (#1203) - 10/16/2004 pv */
 	bool smartSelection;
 	int smartSel;
 
 	ScribusDoc* currDoc;
 	PageItem* currItem;
+	SEditor* Editor;	
 	bool textChanged;
-	/*
-	int Mcopy;
-	int Mcut;
-	int Mdel;
-	int Mpaste;
-	int Mupdt;
-	int M_FileRevert;
-	*/
 	bool firstSet;
 	bool activFromApp;
 	bool blockUpdate;
@@ -468,6 +425,29 @@ protected:
 	QMap<QString, QGuardedPtr<ScrAction> > seActions;
 	MenuManager* seMenuMgr;
 	QPixmap noIcon;
+	
+	QToolBar* FileTools;
+	SToolBFont* FontTools;
+	SToolBAlign* AlignTools;
+	SToolBColorF* FillTools;
+	SToolBColorS* StrokeTools;
+	SToolBStyle* StyleTools;
+	QSplitter* EdSplit;
+	SideBar* EditorBar;
+	QButtonGroup* ButtonGroup1;
+	QButtonGroup* ButtonGroup2;
+	QLabel* WordCT1;
+	QLabel* WordCT3;
+	QLabel* ParCT;
+	QLabel* ParC;
+	QLabel* WordCT;
+	QLabel* WordC;
+	QLabel* CharCT;
+	QLabel* CharC;
+	QLabel* WordCT2;
+	QLabel* WordC2;
+	QLabel* CharCT2;
+	QLabel* CharC2;
 };
 
 #endif
