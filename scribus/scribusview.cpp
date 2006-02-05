@@ -10616,7 +10616,10 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	//
 	case PageItem::PathText:
 	case PageItem::TextFrame:
-		z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, "None", Buffer->Pcolor, !Mpressed);
+		if (Buffer->PType == PageItem::PathText)
+			z = Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, "None", Buffer->Pcolor, !Mpressed);
+		else
+			z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, "None", Buffer->Pcolor, !Mpressed);
 		if ((Buffer->m_isAnnotation) && (Buffer->m_annotation.UseIcons()))
 		{
 			Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
@@ -10631,8 +10634,6 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			Doc->LoadPict(Doc->Items->at(z)->Pfile, z);
 			Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 			Doc->Items->at(z)->setImageShown(Buffer->PicArt);
-/*			Doc->Items->at(z)->BBoxX = Buffer->BBoxX;
-			Doc->Items->at(z)->BBoxH = Buffer->BBoxH; */
 		}
 		if (!Buffer->itemText.isEmpty())
 		{
@@ -10707,7 +10708,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			}
 		}
 		Doc->Items->at(z)->LineSp = Buffer->LineSp;
-		Doc->Items->at(z)->convertTo(Buffer->PType);
+//		Doc->Items->at(z)->convertTo(Buffer->PType);
 		break;
 	case PageItem::Line:
 		z = Doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w ,0, pw, "None", Buffer->Pcolor2, !Mpressed);
@@ -10855,6 +10856,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		currItem->setFont(Doc->toolSettings.defFont);
 	if (currItem->asPathText())
 	{
+		currItem->ClipEdited = true;
+		currItem->FrameType = 3;
 		currItem->UpdatePolyClip();
 		currItem->Frame = true;
 	}

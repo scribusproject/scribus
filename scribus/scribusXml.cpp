@@ -2119,6 +2119,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				TableItems.append(Neu);
 				TableID.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
 			}
+			if (Neu->asPathText())
+				Neu->UpdatePolyClip();
 		}
 		DOC=DOC.nextSibling();
 	}
