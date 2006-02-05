@@ -127,7 +127,7 @@ void ScPageOutput::DrawMasterItems(ScPainterExBase *painter, Page *page, QRect c
 							painter->save();
 							painter->translate(currItem->xPos() * m_scale, currItem->yPos() * m_scale);
 							painter->rotate(currItem->rotation());
-							if (currItem->lineColor() != "None")
+							if (currItem->lineColor() != CommonStrings::None)
 							{
 								ScColorShade tmp( m_doc->PageColors[currItem->lineColor()], currItem->lineShade());
 								if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
@@ -239,7 +239,7 @@ void ScPageOutput::DrawPageItems(ScPainterExBase *painter, Page *page, QRect cli
 						painter->save();
 						painter->translate(currItem->xPos() * m_scale, currItem->yPos() * m_scale);
 						painter->rotate(currItem->rotation());
-						if (currItem->lineColor() != "None")
+						if (currItem->lineColor() != CommonStrings::None)
 						{
 							ScColorShade tmp( m_doc->PageColors[currItem->lineColor()], currItem->lineShade() );
 							if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
@@ -325,7 +325,7 @@ void ScPageOutput::DrawItem_Pre( PageItem* item, ScPainterExBase* painter, doubl
 	else
 	{
 		painter->fill_gradient = VGradientEx(VGradientEx::linear);
-		if (item->fillColor() != "None")
+		if (item->fillColor() != CommonStrings::None)
 		{
 			painter->setBrush( ScColorShade(m_doc->PageColors[item->fillColor()], item->fillShade()) );
 			painter->setFillMode(ScPainterExBase::Solid);
@@ -333,7 +333,7 @@ void ScPageOutput::DrawItem_Pre( PageItem* item, ScPainterExBase* painter, doubl
 		else
 			painter->setFillMode(ScPainterExBase::None);
 	}
-	if (item->lineColor() != "None")
+	if (item->lineColor() != CommonStrings::None)
 	{
 		if ((item->Pwidth == 0) && !item->asLine())
 			painter->setLineWidth(0);
@@ -359,7 +359,7 @@ void ScPageOutput::DrawItem_Post( PageItem* item, ScPainterExBase* painter )
 		doStroke=false;
 	if ((doStroke))
 	{
-		if (item->lineColor() != "None")
+		if (item->lineColor() != CommonStrings::None)
 		{
 			ScColorShade tmp(m_doc->PageColors[item->lineColor()], item->lineShade());
 			painter->setPen(tmp, item->Pwidth, item->PLineArt, item->PLineEnd, item->PLineJoin);
@@ -440,7 +440,7 @@ void ScPageOutput::DrawCharacters( PageItem* item, ScPainterExBase *painter, str
 			}
 			else
 			{
-				if ((hl->Style & 256) && (hl->Farb2 != "None"))
+				if ((hl->Style & 256) && (hl->Farb2 != CommonStrings::None))
 				{
 					painter->save();
 					painter->translate((hl->Siz * hl->shadowX / 10000.0) * painter->zoomFactor(), -(hl->Siz * hl->shadowY / 10000.0) * painter->zoomFactor());
@@ -452,9 +452,9 @@ void ScPageOutput::DrawCharacters( PageItem* item, ScPainterExBase *painter, str
 					painter->restore();
 					painter->setupTextPolygon(&gly); // Necessary if path is not part of the graphic state
 				}
-				if (hl->Farb != "None")
+				if (hl->Farb != CommonStrings::None)
 					painter->fillPath();
-				if ((hl->Style & 4) && (hl->Farb2 != "None") && ((hl->Siz * hl->outline / 10000.0) != 0))
+				if ((hl->Style & 4) && (hl->Farb2 != CommonStrings::None) && ((hl->Siz * hl->outline / 10000.0) != 0))
 				{
 					painter->setLineWidth(hl->Siz * hl->outline / 10000.0);
 					painter->strokePath();
@@ -633,7 +633,7 @@ void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect 
 
 void ScPageOutput::DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBase* painter, double scale  )
 {
-	if ((item->fillColor() != "None") || (item->GrType != 0))
+	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
 	{
 		painter->setupPolygon(&item->PoLine);
 		painter->fillPath();
@@ -718,7 +718,7 @@ void ScPageOutput::DrawItem_Line( PageItem_Line* item, ScPainterExBase* painter 
 {
  int startArrowIndex;
  int endArrowIndex;
-	
+
 	startArrowIndex = item->startArrowIndex();
 	endArrowIndex = item->endArrowIndex();
 
@@ -792,7 +792,7 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 	double distCurX;
 	double CurX = item->textToFrameDistLeft(); // item->CurX = item->textToFrameDistLeft()
 	double CurY = 0;
-	if (item->lineColor() != "None" && item->PoShow)
+	if (item->lineColor() != CommonStrings::None && item->PoShow)
 	{
 		painter->setupPolygon(&item->PoLine, false);
 		painter->strokePath();
@@ -896,12 +896,12 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		painter->setWorldMatrix(trafo);
 		Zli = new PageItem::ZZ;
 		Zli->Zeich = chx;
-		if (hl->ccolor != "None")
+		if (hl->ccolor != CommonStrings::None)
 		{
 			ScColorShade tmp(m_doc->PageColors[hl->ccolor], hl->cshade);
 			painter->setBrush(tmp);
 		}
-		if (hl->cstroke != "None")
+		if (hl->cstroke != CommonStrings::None)
 		{
 			ScColorShade tmp(m_doc->PageColors[hl->cstroke], hl->cshade2);
 			painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -953,13 +953,13 @@ void ScPageOutput::DrawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 {
  int startArrowIndex;
  int endArrowIndex;
-	
+
 	startArrowIndex = item->startArrowIndex();
 	endArrowIndex = item->endArrowIndex();
 
 	if (item->PoLine.size()>=4)
 	{
-		if ((item->fillColor() != "None") || (item->GrType != 0))
+		if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
 		{
 			FPointArray cli;
 			FPoint Start;
@@ -1130,12 +1130,12 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 			pf2.rotate(item->rotation());
 			//painter->translate(item->xPos(), item->yPos());
 			//painter->rotate(item->rotation());
-			if ((item->fillColor() != "None") || (item->GrType != 0))
+			if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
 			{
 				painter->setupPolygon(&item->PoLine);
 				painter->fillPath();
 			}
-			if (item->lineColor() != "None")
+			if (item->lineColor() != CommonStrings::None)
 				lineCorr = item->lineWidth() / 2.0;
 			else
 				lineCorr = 0;
@@ -1185,12 +1185,12 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						continue;
 					if (hl->ch == QChar(30))
 						chx = item->ExpandToken(a);
-					if (hl->ccolor != "None")
+					if (hl->ccolor != CommonStrings::None)
 					{
 						ScColorShade tmp(m_doc->PageColors[hl->ccolor], hl->cshade);
 						painter->setBrush(tmp);
 					}
-					if (hl->cstroke != "None")
+					if (hl->cstroke != CommonStrings::None)
 					{
 						ScColorShade tmp(m_doc->PageColors[hl->cstroke], hl->cshade2);
 						painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -1305,7 +1305,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 							//painter->setBrush(ScColorShade(Qt::white, 100));
 							painter->setBrush(ScColorShade(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText), 100));
 						}
-						if (Zli3.Farb2 != "None")
+						if (Zli3.Farb2 != CommonStrings::None)
 						{
 							ScColorShade tmp(m_doc->PageColors[Zli3.Farb2], Zli3.shade2);
 							painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -2505,7 +2505,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 								tTabValues = item->TabValues;
 							else
 								tTabValues = m_doc->docParagraphStyles[item->itemText.at(startLin+zc)->cab].TabValues;
-							if (Zli2->Farb != "None")
+							if (Zli2->Farb != CommonStrings::None)
 							{
 								ScColorShade tmp(m_doc->PageColors[Zli2->Farb],  Zli2->shade);
 								painter->setBrush(tmp);
@@ -2530,7 +2530,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 								//painter->setBrush(ScColorShade(Qt::white, 100));
 								painter->setBrush( ScColorShade(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText), 100) );
 							}
-							if (Zli2->Farb2 != "None")
+							if (Zli2->Farb2 != CommonStrings::None)
 							{
 								ScColorShade tmp(m_doc->PageColors[Zli2->Farb2],  Zli2->shade2);
 								painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -2785,7 +2785,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						tTabValues = item->TabValues;
 					else
 						tTabValues = m_doc->docParagraphStyles[item->itemText.at(startLin+zc)->cab].TabValues;
-					if (Zli2->Farb != "None")
+					if (Zli2->Farb != CommonStrings::None)
 					{
 						ScColorShade tmp(m_doc->PageColors[Zli2->Farb],  Zli2->shade);
 						painter->setBrush(tmp);
@@ -2810,7 +2810,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						//painter->setBrush( ScColorShade(Qt::white, 100));
 						painter->setBrush( ScColorShade(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText), 100) );
 					}
-					if (Zli2->Farb2 != "None")
+					if (Zli2->Farb2 != CommonStrings::None)
 					{
 						ScColorShade tmp(m_doc->PageColors[Zli2->Farb2],  Zli2->shade2);
 						painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);

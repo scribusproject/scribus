@@ -432,8 +432,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 	QValueList<double> dashes;
 	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
-		QString StrokeColor = "None";
-		QString FillColor = "None";
+		QString StrokeColor = CommonStrings::None;
+		QString FillColor = CommonStrings::None;
 		FillTrans = 0;
 		StrokeTrans = 0;
 		int z = -1;
@@ -588,7 +588,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			double y1 = b.attribute( "svg:y1" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:y1" ) );
 			double x2 = b.attribute( "svg:x2" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:x2" ) );
 			double y2 = b.attribute( "svg:y2" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:y2" ) );
-			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, "None", StrokeColor, !ScMW->view->Mpressed);
+			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, CommonStrings::None, StrokeColor, !ScMW->view->Mpressed);
 			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(4);
 			ite->PoLine.setPoint(0, FPoint(x1, y1));
@@ -623,7 +623,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		else if( STag == "draw:polyline" )
 		{
-			z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, "None", StrokeColor, !ScMW->view->Mpressed);
+			z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, CommonStrings::None, StrokeColor, !ScMW->view->Mpressed);
 			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(0);
 			appendPoints(&ite->PoLine, b);
@@ -683,7 +683,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			y = parseUnit(b.attribute("svg:y")) ;
 			w = parseUnit(b.attribute("svg:width"));
 			h = parseUnit(b.attribute("svg:height"));
-			z = Doku->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), lwidth, "None", StrokeColor, !ScMW->view->Mpressed);
+			z = Doku->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), lwidth, CommonStrings::None, StrokeColor, !ScMW->view->Mpressed);
 		}
 		else
 		{
@@ -942,7 +942,7 @@ QColor OODPlug::parseColorN( const QString &rgbColor )
 QString OODPlug::parseColor( const QString &s )
 {
 	QColor c;
-	QString ret = "None";
+	QString ret = CommonStrings::None;
 	if( s.startsWith( "rgb(" ) )
 	{
 		QString parse = s.stripWhiteSpace();

@@ -174,7 +174,7 @@ void BarcodeGenerator::okButton_pressed()
 							   ScMW->doc->currentPage->Margins.Left + ScMW->doc->currentPage->xOffset(),
 							   ScMW->doc->currentPage->Margins.Top + ScMW->doc->currentPage->yOffset(),
 							   200, 150,
-							   1, "None", ScMW->doc->toolSettings.dPen, true);
+							   1, CommonStrings::None, ScMW->doc->toolSettings.dPen, true);
 	ScMW->doc->LoadPict(s, z, true);
 	ScMW->view->DrawNew();
 	accept();

@@ -25,6 +25,8 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "prefscontext.h"
 #include "scribusstructs.h"
+#include "commonstrings.h"
+
 
 extern QPixmap loadIcon(QString nam);
 
@@ -154,7 +156,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	ColorList::Iterator cit;
 	QPixmap * pm;
 	BorderC->insertItem( tr("None"));
-	if (item->annotation().borderColor() == "None")
+	if (item->annotation().borderColor() == CommonStrings::None)
 		BorderC->setCurrentItem(BorderC->count()-1);
 	for (cit = Farben.begin(); cit != Farben.end(); ++cit)
 	{
@@ -1706,7 +1708,7 @@ void Annot::SetVals()
 	item->annotation().setChkStil(ChkStil->currentItem());
 	item->annotation().setBorderColor(BorderC->currentText());
 	if (item->annotation().borderColor() == tr("None"))
-		item->annotation().setBorderColor("None");
+		item->annotation().setBorderColor(CommonStrings::None);
 	Limit->isChecked() ? item->annotation().setMaxChar(MaxChars->value()) : item->annotation().setMaxChar(-1);
 	if (item->annotation().Type() == 2)
 	{

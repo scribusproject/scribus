@@ -167,7 +167,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	Frame4Layout = new QVBoxLayout( Frame4 );
 	Frame4Layout->setSpacing( 6 );
 	Frame4Layout->setMargin( 0 );
-	
+
 	Swatches = new ScComboBox( false, Frame4, "ComboBox1" );
 	Swatches->insertItem( tr( "HSV-Colormap" ) );
 	Swatches->insertItem("X11 RGB-Set");
@@ -193,7 +193,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 		CColSet = realEx;
 	}
 	Frame4Layout->addWidget( Swatches );
-	
+
 	TabStack = new QWidgetStack( Frame4, "TabStack" );
 	TabStack->setFrameShape( QWidgetStack::NoFrame );
 
@@ -217,12 +217,12 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	Frame5Layout->addWidget( ColorMap );
 	Frame5aLayout->addWidget( Frame5, 0, AlignCenter);
 	TabStack->addWidget( Frame5a, 0 );
-	
+
 	ColorSwatch = new QListBox(TabStack, "StyledL");
 	TabStack->addWidget( ColorSwatch, 1 );
 
 	Frame4Layout->addWidget( TabStack );
-	
+
 	Layout2x = new QGridLayout;
 	Layout2x->setSpacing( 6 );
 	Layout2x->setMargin( 0 );
@@ -939,7 +939,7 @@ QColor CMYKChoose::CMYK2RGB(int c, int m, int y, int k)
 void CMYKChoose::Verlassen()
 {
 	// if condition 10/21/2004 pv #1191 - just be sure that user cannot create "None" color
-	if (Farbname->text() == "None" || Farbname->text() == tr("None"))
+	if (Farbname->text() == CommonStrings::None || Farbname->text() == tr("None"))
 	{
 		QMessageBox::information(this, CommonStrings::trWarning, tr("You cannot create a color named \"%1\".\nIt is a reserved name for transparent color").arg(Farbname->text()), 0);
 		Farbname->setFocus();

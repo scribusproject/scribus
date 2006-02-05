@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "undostate.h"
 #include "scconfig.h"
+#include "commonstrings.h"
 
 #include <ft2build.h>
 #include FT_GLYPH_H
@@ -127,12 +128,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			pf2.begin(view->viewport());
 			pf2.translate(Xpos, Ypos);
 			pf2.rotate(Rot);
-			if ((fillColor() != "None") || (GrType != 0))
+			if ((fillColor() != CommonStrings::None) || (GrType != 0))
 			{
 				p->setupPolygon(&PoLine);
 				p->fillPath();
 			}
-			if (lineColor() != "None")
+			if (lineColor() != CommonStrings::None)
 				lineCorr = Pwidth / 2.0;
 			else
 				lineCorr = 0;
@@ -182,13 +183,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						continue;
 					if (hl->ch == QChar(30))
 						chx = ExpandToken(a);
-					if (hl->ccolor != "None")
+					if (hl->ccolor != CommonStrings::None)
 					{
 						QColor tmp;
 						SetFarbe(&tmp, hl->ccolor, hl->cshade);
 						p->setBrush(tmp);
 					}
-					if (hl->cstroke != "None")
+					if (hl->cstroke != CommonStrings::None)
 					{
 						QColor tmp;
 						SetFarbe(&tmp, hl->cstroke, hl->cshade2);
@@ -304,7 +305,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText));
 //							p->setBrush(white);
 						}
-						if (Zli3.Farb2 != "None")
+						if (Zli3.Farb2 != CommonStrings::None)
 						{
 							QColor tmp;
 							SetFarbe(&tmp, Zli3.Farb2, Zli3.shade2);
@@ -1506,7 +1507,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								tTabValues = TabValues;
 							else
 								tTabValues = m_Doc->docParagraphStyles[itemText.at(startLin+zc)->cab].TabValues;
-							if (Zli2->Farb != "None")
+							if (Zli2->Farb != CommonStrings::None)
 							{
 								QColor tmp;
 								SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
@@ -1532,7 +1533,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText));
 //								p->setBrush(white);
 							}
-							if (Zli2->Farb2 != "None")
+							if (Zli2->Farb2 != CommonStrings::None)
 							{
 								QColor tmp;
 								SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
@@ -1787,7 +1788,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						tTabValues = TabValues;
 					else
 						tTabValues = m_Doc->docParagraphStyles[itemText.at(startLin+zc)->cab].TabValues;
-					if (Zli2->Farb != "None")
+					if (Zli2->Farb != CommonStrings::None)
 					{
 						QColor tmp;
 						SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
@@ -1813,7 +1814,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText));
 //						p->setBrush(white);
 					}
-					if (Zli2->Farb2 != "None")
+					if (Zli2->Farb2 != CommonStrings::None)
 					{
 						QColor tmp;
 						SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
@@ -1983,7 +1984,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	ScribusView* view = m_Doc->view();
 	if (!m_Doc->RePos)
 	{
-		if (lineColor() != "None")
+		if (lineColor() != CommonStrings::None)
 		{
 			p->setPen(strokeQColor, Pwidth, PLineArt, PLineEnd, PLineJoin);
 			if (DashValues.count() != 0)
@@ -2055,8 +2056,8 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			p->setupPolygon(&ContourLine);
 			p->strokePath();
 		}
-		
-		
+
+
 		//Draw the overflow icon
 		if (itemText.count() > MaxChars)
 		{//CB && added here for jghali prior to commit access
@@ -2099,7 +2100,7 @@ void PageItem_TextFrame::clearContents()
 
 /**
  * Handle keyboard interaction with the text frame while in edit mode
- * @param k 
+ * @param k
  */
 void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 {
@@ -2300,7 +2301,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				c = 13;
 			else
 				c = 0;
-			//CB 2740: Apart from not knowing what 28 did in 1.2.1, this forces us to go to 
+			//CB 2740: Apart from not knowing what 28 did in 1.2.1, this forces us to go to
 			//the next line, not the end of the current
 			//if (( c == 13 ) || (c = 28))
 			//CB 2995 13 allows end to be pressed and actually get to the last character
@@ -2910,7 +2911,7 @@ void PageItem_TextFrame::deselectAll()
 double PageItem_TextFrame::columnWidth()
 {
 	double lineCorr;
-	if (lineColor() != "None")
+	if (lineColor() != CommonStrings::None)
 		lineCorr = Pwidth;
 	else
 		lineCorr = 0;
@@ -2919,7 +2920,7 @@ double PageItem_TextFrame::columnWidth()
 
 void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 {
-	/*CB Old large corner indicator. 
+	/*CB Old large corner indicator.
 	double scp1 = 1.0/QMAX(ScMW->view->getScale(), 1);
 	double scp16 = 16.0*scp1;
 	double scp14 = 14.0*scp1;

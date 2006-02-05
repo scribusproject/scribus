@@ -48,7 +48,7 @@ for which a new license (GPL+exception) is in place.
 #include "undostate.h"
 #include "mpalette.h"
 #include "cpalette.h"
-
+#include "commonstrings.h"
 #include "scconfig.h"
 
 #include <ft2build.h>
@@ -460,11 +460,11 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	fillRule = true;
 	fill_gradient = VGradient(VGradient::linear);
 	fill_gradient.clearStops();
-	if (fillColor() == "None")
+	if (fillColor() == CommonStrings::None)
 		fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
 	else
 		fill_gradient.addStop(m_Doc->PageColors[fillColor()].getRGBColor(), 0.0, 0.5, 1.0, fillColor(), 100);
-	if (lineColor() == "None")
+	if (lineColor() == CommonStrings::None)
 		fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
 	else
 		fill_gradient.addStop(m_Doc->PageColors[lineColor()].getRGBColor(), 1.0, 0.5, 1.0, lineColor(), 100);
@@ -750,7 +750,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 	else
 	{
 		p->fill_gradient = VGradient(VGradient::linear);
-		if (fillColor() != "None")
+		if (fillColor() != CommonStrings::None)
 		{
 			p->setBrush(fillQColor);
 			p->setFillMode(ScPainter::Solid);
@@ -758,7 +758,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 		else
 			p->setFillMode(ScPainter::None);
 	}
-	if (lineColor() != "None")
+	if (lineColor() != CommonStrings::None)
 	{
 		if ((Pwidth == 0) && ! asLine())
 			p->setLineWidth(0);
@@ -784,7 +784,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		doStroke=false;
 	if ((doStroke) && (!m_Doc->RePos))
 	{
-		if (lineColor() != "None")
+		if (lineColor() != CommonStrings::None)
 		{
 			p->setPen(strokeQColor, Pwidth, PLineArt, PLineEnd, PLineJoin);
 			if (DashValues.count() != 0)
@@ -1270,7 +1270,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			}
 			else
 			{
-				if ((hl->Style & 256) && (hl->Farb2 != "None"))
+				if ((hl->Style & 256) && (hl->Farb2 != CommonStrings::None))
 				{
 					p->save();
 					p->translate((hl->Siz * hl->shadowX / 10000.0) * p->zoomFactor(), -(hl->Siz * hl->shadowY / 10000.0) * p->zoomFactor());
@@ -1286,9 +1286,9 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 					p->setupTextPolygon(&gly);
 #endif
 				}
-				if (hl->Farb != "None")
+				if (hl->Farb != CommonStrings::None)
 					p->fillPath();
-				if ((hl->Style & 4) && (hl->Farb2 != "None") && ((hl->Siz * hl->outline / 10000.0) != 0))
+				if ((hl->Style & 4) && (hl->Farb2 != CommonStrings::None) && ((hl->Siz * hl->outline / 10000.0) != 0))
 				{
 					p->setLineWidth(hl->Siz * hl->outline / 10000.0);
 					p->strokePath();
@@ -1545,13 +1545,13 @@ void PageItem::setLineShade(int newShade)
 
 void PageItem::setLineQColor()
 {
-	if (lineColorVal != "None")
+	if (lineColorVal != CommonStrings::None)
 		strokeQColor = m_Doc->PageColors[lineColorVal].getShadeColorProof(lineShadeVal);
 }
 
 void PageItem::setFillQColor()
 {
-	if (fillColorVal != "None")
+	if (fillColorVal != CommonStrings::None)
 		fillQColor = m_Doc->PageColors[fillColorVal].getShadeColorProof(fillShadeVal);
 }
 
@@ -2662,7 +2662,7 @@ void PageItem::restoreFontEffect(SimpleState *state, bool isUndo)
 }
 
 
-// This must go into class ScribusDoc! 
+// This must go into class ScribusDoc!
 // For now we'll just make it independent of 'this' -- AV
 void PageItem::restoreType(SimpleState *state, bool isUndo)
 {
@@ -2718,7 +2718,7 @@ void PageItem::restoreImageScaling(SimpleState *state, bool isUndo)
 		else
 			type = state->getBool("SCALE_TYPE");
 	}
-	
+
 	bool ratio=AspectRatio;
 	if (state->contains("ASPECT_RATIO"))
 	{
@@ -3361,7 +3361,7 @@ void PageItem::drawLockedMarker(ScPainter *p)
 	if (Locked)
 		p->drawLine(FPoint(bx1+scp1/2, ofy+scp1), FPoint(bx1+scp1/2, by1));
 	p->drawLine(FPoint(bx1+scp1*3.5, ofy+scp1), FPoint(bx1+scp1*3.5, by1));
-	p->drawLine(FPoint(bx1+scp1/2, ofy+scp1), FPoint(bx1+scp1*3.5, ofy+scp1));	
+	p->drawLine(FPoint(bx1+scp1/2, ofy+scp1), FPoint(bx1+scp1*3.5, ofy+scp1));
 }
 
 void PageItem::AdjustPictScale()
@@ -3542,7 +3542,7 @@ bool PageItem::connectToGUI()
 		return false;
 	if (!m_Doc->selection->primarySelectionIs(this))
 		return false;
-		
+
 	connect(this, SIGNAL(myself(PageItem *)), ScMW->propertiesPalette, SLOT(SetCurItem(PageItem *)));
 	connect(this, SIGNAL(frameType(int)), ScMW, SLOT(HaveNewSel(int)));
 	connect(this, SIGNAL(frameType(int)), m_Doc->view(), SLOT(selectionChanged()));
@@ -3566,7 +3566,7 @@ bool PageItem::connectToGUI()
 	//Frame text signals
 	connect(this, SIGNAL(lineSpacing(double)), ScMW->propertiesPalette, SLOT(setLsp(double)));
 	connect(this, SIGNAL(textToFrameDistances(double, double, double, double)), ScMW->propertiesPalette, SLOT(setDvals(double, double, double, double)));
-	connect(this, SIGNAL(textKerning(int)), ScMW->propertiesPalette, SLOT(setExtra(int)));	
+	connect(this, SIGNAL(textKerning(int)), ScMW->propertiesPalette, SLOT(setExtra(int)));
 	connect(this, SIGNAL(textStyle(int)), ScMW->propertiesPalette, SLOT(setStil(int)));
 	connect(this, SIGNAL(textStyle(int)), ScMW, SLOT(setStilvalue(int)));
 	connect(this, SIGNAL(textFont(QString)), ScMW, SLOT(AdjustFontMenu(QString)));
@@ -3598,7 +3598,7 @@ bool PageItem::disconnectFromGUI()
 void PageItem::emitAllToGUI()
 {
 	updateConstants();
-	
+
 	emit myself(this);
 	emit frameType(itemTypeVal);
 	emit position(Xpos, Ypos);

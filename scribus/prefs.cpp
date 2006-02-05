@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "pluginmanagerprefsgui.h"
 #include "scplugin.h"
 #include "sccombobox.h"
+#include "commonstrings.h"
 
 using namespace std;
 
@@ -1417,29 +1418,29 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.typographicSettings.valueStrikeThruWidth = qRound(tabTypo->strikethruWidth->value() * 10);
 	prefsManager->appPrefs.toolSettings.dTextBackGround = tabTools->colorComboTextBackground->currentText();
 	if (prefsManager->appPrefs.toolSettings.dTextBackGround == ScMW->noneString)
-		prefsManager->appPrefs.toolSettings.dTextBackGround = "None";
+		prefsManager->appPrefs.toolSettings.dTextBackGround = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dTextLineColor = tabTools->colorComboTextLine->currentText();
 	if (prefsManager->appPrefs.toolSettings.dTextLineColor == ScMW->noneString)
-		prefsManager->appPrefs.toolSettings.dTextLineColor = "None";
+		prefsManager->appPrefs.toolSettings.dTextLineColor = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dTextBackGroundShade = tabTools->shadingTextBack->value();
 	prefsManager->appPrefs.toolSettings.dTextLineShade = tabTools->shadingTextLine->value();
 	prefsManager->appPrefs.toolSettings.dTextPenShade = tabTools->shadingText->value();
 	prefsManager->appPrefs.toolSettings.dTextStrokeShade = tabTools->shadingTextStroke->value();
 	prefsManager->appPrefs.toolSettings.dPen = tabTools->colorComboLineShape->currentText();
 	if (prefsManager->appPrefs.toolSettings.dPen == ScMW->noneString)
-		prefsManager->appPrefs.toolSettings.dPen = "None";
+		prefsManager->appPrefs.toolSettings.dPen = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dPenText = tabTools->colorComboText->currentText();
 	if (prefsManager->appPrefs.toolSettings.dPenText == ScMW->noneString)
-		prefsManager->appPrefs.toolSettings.dPenText = "None";
+		prefsManager->appPrefs.toolSettings.dPenText = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dStrokeText = tabTools->colorComboStrokeText->currentText();
 	if (prefsManager->appPrefs.toolSettings.dStrokeText == ScMW->noneString)
-		prefsManager->appPrefs.toolSettings.dStrokeText = "None";
+		prefsManager->appPrefs.toolSettings.dStrokeText = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dCols = tabTools->columnsText->value();
 	prefsManager->appPrefs.toolSettings.dGap = tabTools->gapText->value() / prefsUnitRatio;
 	prefsManager->appPrefs.toolSettings.dTabWidth = tabTools->gapTab->value() / prefsUnitRatio;
 	prefsManager->appPrefs.toolSettings.dBrush = tabTools->comboFillShape->currentText();
 	if (prefsManager->appPrefs.toolSettings.dBrush == ScMW->noneString)
-		prefsManager->appPrefs.toolSettings.dBrush = "None";
+		prefsManager->appPrefs.toolSettings.dBrush = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dShade = tabTools->shadingFillShape->value();
 	prefsManager->appPrefs.toolSettings.dShade2 = tabTools->shadingLineShape->value();
 	switch (tabTools->tabFillCombo->currentItem())
@@ -1481,7 +1482,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.toolSettings.dWidth = tabTools->lineWidthShape->value();
 	prefsManager->appPrefs.toolSettings.dPenLine = tabTools->colorComboLine->currentText();
 	if (prefsManager->appPrefs.toolSettings.dPenLine == ScMW->noneString)
-		prefsManager->appPrefs.toolSettings.dPenLine = "None";
+		prefsManager->appPrefs.toolSettings.dPenLine = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dShadeLine = tabTools->shadingLine->value();
 	switch (tabTools->comboStyleLine->currentItem())
 	{
@@ -1509,7 +1510,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.toolSettings.magStep = tabTools->zoomStep->value();
 	prefsManager->appPrefs.toolSettings.dBrushPict = tabTools->comboFillImage->currentText();
 	if (prefsManager->appPrefs.toolSettings.dBrushPict == ScMW->noneString)
-		prefsManager->appPrefs.toolSettings.dBrushPict = "None";
+		prefsManager->appPrefs.toolSettings.dBrushPict = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.shadePict = tabTools->shadingFillImage->value();
 	prefsManager->appPrefs.toolSettings.scaleX = static_cast<double>(tabTools->scalingHorizontal->value()) / 100.0;
 	prefsManager->appPrefs.toolSettings.scaleY = static_cast<double>(tabTools->scalingVertical->value()) / 100.0;

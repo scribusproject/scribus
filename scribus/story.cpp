@@ -2674,7 +2674,7 @@ void StoryEditor::updateProps(int p, int ch)
 			StrokeTools->SetShade(currItem->ShTxtStroke);
 			FillTools->SetShade(currItem->ShTxtFill);
 			QString b = currItem->TxtFill;
-			if ((b != "None") && (!b.isEmpty()))
+			if ((b != CommonStrings::None) && (!b.isEmpty()))
 			{
 				c++;
 				for (it = currDoc->PageColors.begin(); it != currDoc->PageColors.end(); ++it)
@@ -2687,7 +2687,7 @@ void StoryEditor::updateProps(int p, int ch)
 			FillTools->SetColor(c);
 			c = 0;
 			b = currItem->TxtStroke;
-			if ((b != "None") && (!b.isEmpty()))
+			if ((b != CommonStrings::None) && (!b.isEmpty()))
 			{
 				c++;
 				for (it = currDoc->PageColors.begin(); it != currDoc->PageColors.end(); ++it)
@@ -2783,7 +2783,7 @@ void StoryEditor::updateProps(int p, int ch)
 	StrokeTools->SetShade(Editor->CurrTextStrokeSh);
 	FillTools->SetShade(Editor->CurrTextFillSh);
 	QString b = Editor->CurrTextFill;
-	if ((b != "None") && (!b.isEmpty()))
+	if ((b != CommonStrings::None) && (!b.isEmpty()))
 	{
 		c++;
 		for (it = currDoc->PageColors.begin(); it != currDoc->PageColors.end(); ++it)
@@ -2796,7 +2796,7 @@ void StoryEditor::updateProps(int p, int ch)
 	FillTools->SetColor(c);
 	c = 0;
 	b = Editor->CurrTextStroke;
-	if ((b != "None") && (!b.isEmpty()))
+	if ((b != CommonStrings::None) && (!b.isEmpty()))
 	{
 		c++;
 		for (it = currDoc->PageColors.begin(); it != currDoc->PageColors.end(); ++it)

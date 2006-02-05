@@ -44,7 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
-
+#include "commonstrings.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "scconfig.h"
@@ -66,7 +66,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, double sc)
 {
 	if(!m_Doc->RePos)
 	{
-		if ((fillColor() != "None") || (GrType != 0))
+		if ((fillColor() != CommonStrings::None) || (GrType != 0))
 		{
 			p->setupPolygon(&PoLine);
 			p->fillPath();
@@ -126,7 +126,7 @@ void PageItem_ImageFrame::clearContents()
 	PicAvail = false;
 	Pfile = "";
 	pixm = ScImage();
-	
+
 	LocalScX = 1;
 	LocalScY = 1;
 	OrigW = 0;
@@ -142,6 +142,6 @@ void PageItem_ImageFrame::clearContents()
 	setFillTransparency(0.0);
 	setLineTransparency(0.0);
 	imageClip.resize(0);
-	//				emit UpdtObj(Doc->currentPage->pageNr(), ItemNr); 
+	//				emit UpdtObj(Doc->currentPage->pageNr(), ItemNr);
 }
 

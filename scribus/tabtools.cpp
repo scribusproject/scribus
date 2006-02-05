@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scfonts.h"
 #include "sampleitem.h"
+#include "commonstrings.h"
 
 
 TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc) : QWidget( parent, "tabtools", 0 )
@@ -111,7 +112,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	colorComboText = new ScComboBox( false, subTabText, "colorComboText" );
 	ColorList::Iterator itc;
 	colorComboText->insertItem( tr("None"));
-	if (prefsData->dPenText == "None")
+	if (prefsData->dPenText == CommonStrings::None)
 		colorComboText->setCurrentItem(colorComboText->count()-1);
 	if (doc != 0)
 	{
@@ -149,7 +150,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 
 	colorComboStrokeText = new ScComboBox( false, subTabText, "colorComboStrokeText" );
 	colorComboStrokeText->insertItem( tr("None"));
-	if (prefsData->dStrokeText == "None")
+	if (prefsData->dStrokeText == CommonStrings::None)
 		colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
 	if (doc != 0)
 	{
@@ -187,7 +188,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 
 	colorComboTextBackground = new ScComboBox( false, subTabText, "colorComboTextBackground" );
 	colorComboTextBackground->insertItem( tr("None"));
-	if (prefsData->dTextBackGround == "None")
+	if (prefsData->dTextBackGround == CommonStrings::None)
 		colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
 	if (doc != 0)
 	{
@@ -225,7 +226,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 
 	colorComboTextLine = new ScComboBox( false, subTabText, "colorComboTextLine" );
 	colorComboTextLine->insertItem( tr("None"));
-	if (prefsData->dTextLineColor == "None")
+	if (prefsData->dTextLineColor == CommonStrings::None)
 		colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
 	if (doc != 0)
 	{
@@ -324,7 +325,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabShapeLayout->setAlignment( Qt::AlignTop );
 	colorComboLineShape = new ScComboBox( false, subTabShape, "colorComboLineShape" );
 	colorComboLineShape->insertItem( tr("None"));
-	if (prefsData->dPen == "None")
+	if (prefsData->dPen == CommonStrings::None)
 		colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
 	if (doc != 0)
 	{
@@ -361,7 +362,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabShapeLayout->addWidget( textLabel8b, 1, 0 );
 	comboFillShape = new ScComboBox( false, subTabShape, "comboFillShape" );
 	comboFillShape->insertItem( tr("None"));
-	if (prefsData->dBrush == "None")
+	if (prefsData->dBrush == CommonStrings::None)
 		comboFillShape->setCurrentItem(comboFillShape->count()-1);
 	if (doc != 0)
 	{
@@ -435,7 +436,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabLineLayout->setAlignment( Qt::AlignTop );
 	colorComboLine = new ScComboBox( false, subTabLine, "colorComboLine" );
 	colorComboLine->insertItem( tr("None"));
-	if (prefsData->dPenLine == "None")
+	if (prefsData->dPenLine == CommonStrings::None)
 		colorComboLine->setCurrentItem(colorComboLine->count()-1);
 	if (doc != 0)
 	{
@@ -574,7 +575,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabImageLayout->addMultiCellWidget( buttonGroup5, 1, 1, 0, 1 );
 	comboFillImage = new ScComboBox( false, subTabImage, "comboFillImage" );
 	comboFillImage->insertItem( tr("None"));
-	if (prefsData->dBrushPict == "None")
+	if (prefsData->dBrushPict == CommonStrings::None)
 		comboFillImage->setCurrentItem(comboFillImage->count()-1);
 	if (doc != 0)
 	{

@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "hyphenator.h"
 #include "selection.h"
+#include "commonstrings.h"
 
 
 gtAction::gtAction(bool append)
@@ -150,7 +151,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 		gtFrameStyle* fstyle = dynamic_cast<gtFrameStyle*>(style);
 		applyFrameStyle(fstyle);
 	}
-	
+
 	if ((inPara) && (!lastCharWasLineChange) && (text.left(1) != "\n") && (lastParagraphStyle != -1))
 		paragraphStyle = lastParagraphStyle;
 
@@ -262,7 +263,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	textFrame->setFillColor(parseColor(fstyle->getBgColor()));
 	textFrame->setFillShade(fstyle->getBgShade());
 	textFrame->TabValues = QValueList<PageItem::TabRecord>(*(fstyle->getTabValues()));
-	
+
 // 	gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
 // 	int pstyleIndex = findParagraphStyle(pstyle);
 // 	if (pstyleIndex == -1)
@@ -315,7 +316,7 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 	fstyle->setColumnsGap(textFrame->ColGap);
 	fstyle->setBgColor(textFrame->fillColor());
 	fstyle->setBgShade(textFrame->fillShade());
-	
+
 	struct ParagraphStyle vg = textFrame->document()->docParagraphStyles[textFrame->document()->currentParaStyle];
 	fstyle->setName(vg.Vname);
 	fstyle->setLineSpacing(vg.LineSpa);
@@ -327,7 +328,7 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 	fstyle->setDropCap(vg.Drop);
 	fstyle->setDropCapHeight(vg.DropLin);
 	fstyle->setAdjToBaseline(vg.BaseAdj);
-	
+
 	gtFont font;
 	getFrameFont(&font);
 	fstyle->setFont(font);
@@ -583,8 +584,8 @@ void gtAction::setOverridePStyleFont(bool newOPSF)
 
 QString gtAction::parseColor(const QString &s)
 {
-	QString ret = "None";
-	if (s == "None")
+	QString ret = CommonStrings::None;
+	if (s == CommonStrings::None)
 		return ret; // don't want None to become Black or any color
 	bool found = false;
 	ColorList::Iterator it;

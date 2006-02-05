@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "svgexplugin.h"
 
 #include "scconfig.h"
-
+#include "commonstrings.h"
 #include "customfdialog.h"
 #include "scribus.h"
 #include "page.h"
@@ -272,7 +272,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				int h2 = static_cast<int>(Item->BoundingH);
 				if (!QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
 					continue;
-				if ((Item->fillColor() != "None") || (Item->GrType != 0))
+				if ((Item->fillColor() != CommonStrings::None) || (Item->GrType != 0))
 				{
 					fill = "fill:"+SetFarbe(Item->fillColor(), Item->fillShade())+";";
 					if (Item->GrType != 0)
@@ -349,7 +349,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				}
 				else
 					fill = "fill:none;";
-				if (Item->lineColor() != "None")
+				if (Item->lineColor() != CommonStrings::None)
 				{
 					stroke = "stroke:"+SetFarbe(Item->lineColor(), Item->lineShade())+";";
 					if (Item->lineTransparency() != 0)
@@ -470,7 +470,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 						}
 					break;
 				case PageItem::ImageFrame:
-						if ((Item->fillColor() != "None") || (Item->GrType != 0))
+						if ((Item->fillColor() != CommonStrings::None) || (Item->GrType != 0))
 						{
 							ob = docu->createElement("path");
 							ob.setAttribute("d", SetClipPath(Item)+"Z");
@@ -542,7 +542,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 						}
 					break;
 				case PageItem::TextFrame:
-						if ((Item->fillColor() != "None") || (Item->GrType != 0))
+						if ((Item->fillColor() != CommonStrings::None) || (Item->GrType != 0))
 						{
 							ob = docu->createElement("path");
 							ob.setAttribute("d", SetClipPath(Item)+"Z");
@@ -760,11 +760,11 @@ QString SVGExPlug::IToStr(int c)
 void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl)
 {
 	int chst = hl->cstyle & 127;
-	if (hl->ccolor != "None")
+	if (hl->ccolor != CommonStrings::None)
 		tp->setAttribute("fill", SetFarbe(hl->ccolor, hl->cshade));
 	else
 		tp->setAttribute("fill", "none");
-	if ((hl->cstroke != "None") && (chst & 4))
+	if ((hl->cstroke != CommonStrings::None) && (chst & 4))
 		{
 		tp->setAttribute("stroke", SetFarbe(hl->cstroke, hl->cshade2));
 		tp->setAttribute("stroke-width", FToStr((*ScMW->doc->AllFonts)[hl->cfont->scName()]->strokeWidth * (hl->csize / 10.0))+"pt");

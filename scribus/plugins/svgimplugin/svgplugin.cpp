@@ -612,7 +612,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			double w = b.attribute( "width" ).isEmpty() ? 1.0 : parseUnit( b.attribute( "width" ) );
 			double h = b.attribute( "height" ).isEmpty() ? 1.0 : parseUnit( b.attribute( "height" ) );
 			//z = ScMW->view->PaintPict(x+BaseX, y+BaseY, w, h);
-			z = currDoc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x+BaseX, y+BaseY, w, h, 1, currDoc->toolSettings.dBrushPict, "None", true);
+			z = currDoc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x+BaseX, y+BaseY, w, h, 1, currDoc->toolSettings.dBrushPict, CommonStrings::None, true);
 			if (!fname.isEmpty())
 				currDoc->LoadPict(fname, z);
 			PageItem* ite = currDoc->Items->at(z);
@@ -1466,7 +1466,7 @@ QColor SVGPlug::parseColorN( const QString &rgbColor )
 QString SVGPlug::parseColor( const QString &s )
 {
 	QColor c;
-	QString ret = "None";
+	QString ret = CommonStrings::None;
 	if( s.startsWith( "rgb(" ) )
 	{
 		QString parse = s.stripWhiteSpace();
@@ -1551,7 +1551,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			obj->FillCol = obj->CurCol;
 		else if (params == "none")
 		{
-			obj->FillCol = "None";
+			obj->FillCol = CommonStrings::None;
 		}
 		else if( params.startsWith( "url(" ) )
 		{
@@ -1596,7 +1596,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 				obj->GY2 = m_gradients[key].Y2;
 			if (m_gradients[key].matrixValid)
 				obj->matrixg = m_gradients[key].matrix;
-			obj->FillCol = "None";
+			obj->FillCol = CommonStrings::None;
 		}
 		else
 			obj->FillCol = parseColor(params);
@@ -1604,10 +1604,10 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 	else if( command == "color" )
 	{
 		if (params == "none")
-			obj->CurCol = "None";
+			obj->CurCol = CommonStrings::None;
 		else if( params.startsWith( "url(" ) )
 		{
-			obj->CurCol = "None";
+			obj->CurCol = CommonStrings::None;
 		}
 		else
 		{
@@ -1620,11 +1620,11 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			obj->StrokeCol = obj->CurCol;
 		else if (params == "none")
 		{
-			obj->StrokeCol = "None";
+			obj->StrokeCol = CommonStrings::None;
 		}
 		else if( params.startsWith( "url(" ) )
 		{
-			obj->StrokeCol = "None";
+			obj->StrokeCol = CommonStrings::None;
 		}
 		else
 			obj->StrokeCol = parseColor(params);
@@ -1984,7 +1984,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			SvgStyle *gc = m_gc.current();
 			parseStyle(gc, tspan);
 			//int z = ScMW->view->PaintText(x, y, 10, 10, gc->LWidth, gc->FillCol);
-			int z = currDoc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, 10, 10, gc->LWidth, "None", gc->FillCol, true);
+			int z = currDoc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, 10, 10, gc->LWidth, CommonStrings::None, gc->FillCol, true);
 			PageItem* ite = currDoc->Items->at(z);
 			ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 			ite->LineSp = gc->FontSize / 10.0 + 2;
@@ -2105,7 +2105,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 	{
 		SvgStyle *gc = m_gc.current();
 		//int z = ScMW->view->PaintText(x, y - qRound(gc->FontSize / 10.0), 10, 10, gc->LWidth, gc->FillCol);
-		int z = currDoc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y - qRound(gc->FontSize / 10.0), 10, 10, gc->LWidth, "None", gc->FillCol, true);
+		int z = currDoc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y - qRound(gc->FontSize / 10.0), 10, 10, gc->LWidth, CommonStrings::None, gc->FillCol, true);
 		PageItem* ite = currDoc->Items->at(z);
 		ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 		ite->LineSp = gc->FontSize / 10.0 + 2;

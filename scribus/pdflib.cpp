@@ -169,9 +169,9 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components,
 					++pc_exportmasterpages;
 				}
 			}
-			
-			if (usingGUI) 
-			{	
+
+			if (usingGUI)
+			{
 				progressDialog->setProgress("EMP", pc_exportmasterpages);
 				progressDialog->setOverallProgress(pc_exportmasterpages+pc_exportpages);
 			}
@@ -353,7 +353,7 @@ void PDFlib::CalcOwnerKey(const QString & Owner, const QString & User)
 		for (uint a = 0; a < 32; ++a)
 			us[a] = static_cast<uchar>(QChar(pw.at(a)));
 		rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), 5);
-		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), 
+		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()),
 					reinterpret_cast<uchar*>(OwnerKey.data()), 32);
 	}
 }
@@ -572,9 +572,9 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 	ReallyUsed.clear();
 	PageItem* pgit;
 	QMap<int, QString> ind2PDFabr;
-	const QString tmpf[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique", 
+	const QString tmpf[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
 												"/Helvetica", "/Helvetica-Bold", "/Helvetica-Oblique", "/Helvetica-BoldOblique",
-												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic", 
+												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic",
 												"/ZapfDingbats", "/Symbol"};
 	size_t ar = sizeof(tmpf) / sizeof(*tmpf);
 	for (uint ax = 0; ax < ar; ++ax)
@@ -829,7 +829,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 				PutDoc("/FontFile "+QString::number(ObjCounter-1)+" 0 R\n");
 			PutDoc(">>\nendobj\n");
 			ObjCounter++;
-/*			if (!FT_Has_PS_Glyph_Names(AllFonts[it.key()]) 
+/*			if (!FT_Has_PS_Glyph_Names(AllFonts[it.key()])
 			{
 				StartObj(ObjCounter);
 				int chCount = 31;
@@ -909,7 +909,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 						}
 					}
 					PutDoc("]\n");
-	
+
 					PutDoc(">>\nendobj\n");
 					StartObj(ObjCounter);
 					PutDoc("<<\n/Type /Font\n/Subtype ");
@@ -1113,9 +1113,9 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 					PutPage("Q\n");
 					continue;
 				}
-				if (ite->fillColor() != "None")
+				if (ite->fillColor() != CommonStrings::None)
 					PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
-				if (ite->lineColor() != "None")
+				if (ite->lineColor() != CommonStrings::None)
 					PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 				Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
 				if (ite->DashValues.count() != 0)
@@ -1200,7 +1200,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 				switch (ite->itemType())
 				{
 					case PageItem::ImageFrame:
-						if ((ite->fillColor() != "None") || (ite->GrType != 0))
+						if ((ite->fillColor() != CommonStrings::None) || (ite->GrType != 0))
 						{
 							if (ite->GrType != 0)
 								PutPage(PDF_Gradient(ite));
@@ -1223,7 +1223,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 						if ((ite->PicAvail) && (!ite->Pfile.isEmpty()))
 							PutPage(PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), false, ite->IProfile, ite->UseEmbedded, ite->IRender));
 						PutPage("Q\n");
-						if (((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
+						if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 						{
 							if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 							{
@@ -1321,13 +1321,13 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 							PutPage(PDF_Gradient(ite));
 						else
 						{
-							if (ite->fillColor() != "None")
+							if (ite->fillColor() != CommonStrings::None)
 							{
 								PutPage(SetClipPath(ite));
 								PutPage("h\nf*\n");
 							}
 						}
-						if ((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty()))
+						if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 						{
 							if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 							{
@@ -1353,14 +1353,14 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 								PutPage(PDF_Gradient(ite));
 							else
 							{
-								if (ite->fillColor() != "None")
+								if (ite->fillColor() != CommonStrings::None)
 								{
 									PutPage(SetClipPath(ite));
 									PutPage("h\nf*\n");
 								}
 							}
 						}
-						if ((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty()))
+						if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 						{
 							if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 							{
@@ -1457,7 +1457,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 							if (ite->PoLine.size() > 3)
 							{
 								PutPage("q\n");
-								if ((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty()))
+								if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 								{
 									if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 									{
@@ -1467,7 +1467,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 									else
 									{
 										multiLine ml = doc.MLineStyles[ite->NamedLStyle];
-										for (int it = ml.size()-1; 
+										for (int it = ml.size()-1;
 											it > -1; it--)
 											{
 											PutPage(setStrokeMulti(&ml[it]));
@@ -1703,7 +1703,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	}
 	else
 		PutPage("0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" re W n\n");
-	
+
 	if (!pag->MPageNam.isEmpty())
 	{
 		Page* mPage = doc.MasterPages.at(doc.MasterNames[doc.Pages->at(PNr)->MPageNam]);
@@ -1734,9 +1734,9 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 							PutPage("q\n");
 							if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
 								PutPage(PDF_Transparenz(ite));
-							if (ite->fillColor() != "None")
+							if (ite->fillColor() != CommonStrings::None)
 								PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
-							if (ite->lineColor() != "None")
+							if (ite->lineColor() != CommonStrings::None)
 								PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 							Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
 							if (ite->DashValues.count() != 0)
@@ -1804,7 +1804,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 									sr = 0;
 								PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n");
 							}
-							if ((ite->fillColor() != "None") || (ite->GrType != 0))
+							if ((ite->fillColor() != CommonStrings::None) || (ite->GrType != 0))
 							{
 								if (ite->GrType != 0)
 									PutPage(PDF_Gradient(ite));
@@ -1821,7 +1821,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 								PutPage("1 0 0 -1 0 "+FToStr(-ite->height())+" cm\n");
 							PutPage(setTextSt(ite, PNr, pag));
 							PutPage("Q\n");
-							if (((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
+							if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 							{
 								if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 								{
@@ -1856,9 +1856,9 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						PutPage("q\n");
 						if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
 							PutPage(PDF_Transparenz(ite));
-						if (ite->fillColor() != "None")
+						if (ite->fillColor() != CommonStrings::None)
 							PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
-						if (ite->lineColor() != "None")
+						if (ite->lineColor() != CommonStrings::None)
 							PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 						Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
 						if (ite->DashValues.count() != 0)
@@ -2022,9 +2022,9 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						PutPage("Q\n");
 						continue;
 					}
-					if (ite->fillColor() != "None")
+					if (ite->fillColor() != CommonStrings::None)
 						PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
-					if (ite->lineColor() != "None")
+					if (ite->lineColor() != CommonStrings::None)
 						PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 					Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
 					if (ite->DashValues.count() != 0)
@@ -2155,9 +2155,9 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 		tmp += "Q\n";
 		return tmp;
 	}
-	if (ite->fillColor() != "None")
+	if (ite->fillColor() != CommonStrings::None)
 		tmp += putColor(ite->fillColor(), ite->fillShade(), true);
-	if (ite->lineColor() != "None")
+	if (ite->lineColor() != CommonStrings::None)
 		tmp += putColor(ite->lineColor(), ite->lineShade(), false);
 	tmp += FToStr(fabs(ite->Pwidth))+" w\n";
 	if (ite->DashValues.count() != 0)
@@ -2245,7 +2245,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 	switch (ite->itemType())
 	{
 		case PageItem::ImageFrame:
-			if ((ite->fillColor() != "None") || (ite->GrType != 0))
+			if ((ite->fillColor() != CommonStrings::None) || (ite->GrType != 0))
 			{
 				if (ite->GrType != 0)
 					tmp += PDF_Gradient(ite);
@@ -2268,7 +2268,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 			if ((ite->PicAvail) && (!ite->Pfile.isEmpty()))
 				tmp += PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), false, ite->IProfile, ite->UseEmbedded, ite->IRender);
 			tmp += "Q\n";
-			if (((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
+			if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 			{
 				if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 				{
@@ -2293,7 +2293,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 				PDF_Annotation(ite, PNr);
 				break;
 				}
-			if ((ite->fillColor() != "None") || (ite->GrType != 0))
+				if ((ite->fillColor() != CommonStrings::None) || (ite->GrType != 0))
 			{
 				if (ite->GrType != 0)
 					tmp += PDF_Gradient(ite);
@@ -2310,7 +2310,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 				tmp += "1 0 0 -1 0 "+FToStr(-ite->height())+" cm\n";
 			tmp += setTextSt(ite, PNr, pag);
 			tmp += "Q\n";
-			if (((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
+			if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 			{
 				if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 				{
@@ -2406,7 +2406,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 				tmp += PDF_Gradient(ite);
 			else
 			{
-				if (ite->fillColor() != "None")
+				if (ite->fillColor() != CommonStrings::None)
 				{
 					tmp += SetClipPath(ite);
 					if (ite->fillRule)
@@ -2415,7 +2415,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 						tmp += "h\nf\n";
 				}
 			}
-			if ((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty()))
+			if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 			{
 				if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 				{
@@ -2441,14 +2441,14 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 					tmp += PDF_Gradient(ite);
 				else
 				{
-					if (ite->fillColor() != "None")
+					if (ite->fillColor() != CommonStrings::None)
 					{
 						tmp += SetClipPath(ite);
 						tmp += "h\nf*\n";
 					}
 				}
 			}
-			if ((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty()))
+			if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 			{
 				if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 				{
@@ -2545,7 +2545,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 				if (ite->PoLine.size() > 3)
 				{
 					tmp += "q\n";
-					if ((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty()))
+					if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 					{
 						if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 						{
@@ -2582,7 +2582,7 @@ QString PDFlib::putColor(const QString& color, int shade, bool fill)
 	tmpC = doc.PageColors[color];
 	if (((tmpC.isSpotColor()) || (tmpC.isRegistrationColor())) && ((Options.isGrayscale == false) && (Options.UseRGB == false))  && (Options.UseSpotColors))
 	{
-		if (color != "None")
+		if (color != CommonStrings::None)
 		{
 			if (fill)
 			{
@@ -2599,7 +2599,7 @@ QString PDFlib::putColor(const QString& color, int shade, bool fill)
 	}
 	if (Options.isGrayscale)
 	{
-		if (color != "None")
+		if (color != CommonStrings::None)
 		{
 			if (fill)
 				tmp += colString+" g\n";
@@ -2610,7 +2610,7 @@ QString PDFlib::putColor(const QString& color, int shade, bool fill)
 	}
 	if (Options.UseRGB)
 	{
-		if (color != "None")
+		if (color != CommonStrings::None)
 		{
 			if (fill)
 				tmp += colString+" rg\n";
@@ -2625,7 +2625,7 @@ QString PDFlib::putColor(const QString& color, int shade, bool fill)
 		{
 			if (tmpC.getColorModel() == colorModelCMYK)
 			{
-				if (color != "None")
+				if (color != CommonStrings::None)
 				{
 					if (fill)
 						tmp += colString+" k\n";
@@ -2637,7 +2637,7 @@ QString PDFlib::putColor(const QString& color, int shade, bool fill)
 			{
 				QString tmp2[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
 				tmp += tmp2[Options.Intent]+ " ri\n";
-				if (color != "None")
+				if (color != CommonStrings::None)
 				{
 					if (fill)
 					{
@@ -2655,7 +2655,7 @@ QString PDFlib::putColor(const QString& color, int shade, bool fill)
 		else
 		{
 #endif
-			if (color != "None")
+			if (color != CommonStrings::None)
 			{
 				if (fill)
 					tmp += colString+" k\n";
@@ -2706,7 +2706,7 @@ QString PDFlib::putColorUncached(const QString& color, int shade, bool fill)
 	if (((tmpC.isSpotColor()) || (tmpC.isRegistrationColor())) && ((Options.isGrayscale == false) && (Options.UseRGB == false))  && (Options.UseSpotColors))
 	{
 		QString tmpSpot("");
-		if (color != "None")
+		if (color != CommonStrings::None)
 		{
 			if (fill)
 			{
@@ -2725,7 +2725,7 @@ QString PDFlib::putColorUncached(const QString& color, int shade, bool fill)
 	if (Options.isGrayscale)
 	{
 		QString tmpGray("");
-		if (color != "None")
+		if (color != CommonStrings::None)
 		{
 			if (fill)
 				tmpGray += colString+" g\n";
@@ -2737,7 +2737,7 @@ QString PDFlib::putColorUncached(const QString& color, int shade, bool fill)
 	QString tmp("");
 	if (Options.UseRGB)
 	{
-		if (color != "None")
+		if (color != CommonStrings::None)
 		{
 			if (fill)
 				tmp += colString+" rg\n";
@@ -2752,7 +2752,7 @@ QString PDFlib::putColorUncached(const QString& color, int shade, bool fill)
 		{
 			if (tmpC.getColorModel() == colorModelCMYK)
 			{
-				if (color != "None")
+				if (color != CommonStrings::None)
 				{
 					if (fill)
 						tmp += colString+" k\n";
@@ -2764,7 +2764,7 @@ QString PDFlib::putColorUncached(const QString& color, int shade, bool fill)
 			{
 				QString tmp2[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
 				tmp += tmp2[Options.Intent]+ " ri\n";
-				if (color != "None")
+				if (color != CommonStrings::None)
 				{
 					if (fill)
 					{
@@ -2782,7 +2782,7 @@ QString PDFlib::putColorUncached(const QString& color, int shade, bool fill)
 		else
 		{
 #endif
-			if (color != "None")
+			if (color != CommonStrings::None)
 			{
 				if (fill)
 					tmp += colString+" k\n";
@@ -2866,7 +2866,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 	uint tabCc = 0;
 	QValueList<PageItem::TabRecord> tTabValues;
 	double tabDist=ite->textToFrameDistLeft();
-	if (ite->lineColor() != "None")
+	if (ite->lineColor() != CommonStrings::None)
 		tabDist += ite->Pwidth / 2.0;
 	if (ite->itemType() == PageItem::TextFrame)
 		tmp += "BT\n";
@@ -2918,7 +2918,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 				for (int cx = 0; cx < coun; ++cx)
 				{
 					hl2.xp =  sPos + wt * cx;
-					if ((hl2.cstyle & 256) && (hl2.cstroke != "None"))
+					if ((hl2.cstyle & 256) && (hl2.cstroke != CommonStrings::None))
 					{
 						struct ScText hl3;
 						hl3.ch = hl2.ch;
@@ -2955,7 +2955,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 		}
 		if (hl->ch == QChar(9))
 			continue;
-		if ((hl->cstyle & 256) && (hl->cstroke != "None"))
+		if ((hl->cstyle & 256) && (hl->cstroke != CommonStrings::None))
 		{
 			struct ScText hl2;
 			hl2.ch = hl->ch;
@@ -3107,12 +3107,12 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		tsz = hl->csize * doc.typographicSettings.scalingSuperScript / 100;
 	if (hl->cstyle & 2)
 		tsz = hl->csize * doc.typographicSettings.scalingSubScript / 100;
-	if (hl->cstroke != "None")
+	if (hl->cstroke != CommonStrings::None)
 	{
 		StrokeColor = "";
 		StrokeColor += putColor(hl->cstroke, hl->cshade2, false);
 	}
-	if (hl->ccolor != "None")
+	if (hl->ccolor != CommonStrings::None)
 	{
 		FillColor = "";
 		FillColor += putColor(hl->ccolor, hl->cshade, true);
@@ -3122,12 +3122,12 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		uint chr = chx[0].unicode();
 		if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
 		{
-			if ((hl->cstroke != "None") && (hl->cstyle & 4))
+			if ((hl->cstroke != CommonStrings::None) && (hl->cstyle & 4))
 			{
 				tmp2 += FToStr((tsz * hl->coutline / 1000.0) / tsz)+" w\n[] 0 d\n0 J\n0 j\n";
 				tmp2 += StrokeColor;
 			}
-			if (hl->ccolor != "None")
+			if (hl->ccolor != CommonStrings::None)
 				tmp2 += FillColor;
 			tmp2 += "q\n";
 			if (ite->itemType() == PageItem::PathText)
@@ -3160,7 +3160,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			if (hl->cscalev != 1000)
 				tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (hl->cscalev / 1000.0)) / (tsz / 10.0)) * -1)+" cm\n";
 			tmp2 += FToStr(QMIN(QMAX(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 100), 4000) / 1000.0)+" 0 0 cm\n";
-			if (hl->ccolor != "None")
+			if (hl->ccolor != CommonStrings::None)
 				tmp2 += "/"+hl->cfont->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(chr)+" Do\n";
 			if (hl->cstyle & 4)
 			{
@@ -3246,20 +3246,20 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			idx = GlyphsIdxOfFont[hl->cfont->scName()][cc].Code;
 		idx1 = (idx >> 8) & 0xFF;
 		tmp += UsedFontsP[hl->cfont->scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
-		if (hl->cstroke != "None")
+		if (hl->cstroke != CommonStrings::None)
 		{
 			tmp += StrokeColor;
 			if ((hl->cstyle & 8) || (hl->cstyle & 16))
 				tmp2 += StrokeColor;
 		}
-		if (hl->ccolor != "None")
+		if (hl->ccolor != CommonStrings::None)
 		{
 			tmp += FillColor;
 			if ((hl->cstyle & 8) || (hl->cstyle & 16))
 				tmp2 += FillColor;
 		}
 		if (hl->cstyle & 4)
-			tmp += FToStr(tsz * hl->coutline / 10000.0) + (hl->ccolor != "None" ? " w 2 Tr\n" : " w 1 Tr\n");
+			tmp += FToStr(tsz * hl->coutline / 10000.0) + (hl->ccolor != CommonStrings::None ? " w 2 Tr\n" : " w 1 Tr\n");
 		else
 			tmp += "0 Tr\n";
 		if (!ite->asPathText())
@@ -3334,7 +3334,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		}
 		if (hl->cbase != 0)
 			Upos += (hl->csize / 10.0) * (hl->cbase / 1000.0);
-		if (hl->ccolor != "None")
+		if (hl->ccolor != CommonStrings::None)
 			tmp2 += putColor(hl->ccolor, hl->cshade, false);
 		tmp2 += FToStr(Uwid)+" w\n";
 		tmp2 += FToStr(hl->xp-kern)+" "+FToStr(-hl->yp+Upos)+" m\n";
@@ -3367,7 +3367,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		}
 		if (hl->cbase != 0)
 			Upos += (hl->csize / 10.0) * (hl->cbase / 1000.0);
-		if (hl->ccolor != "None")
+		if (hl->ccolor != CommonStrings::None)
 			tmp2 += putColor(hl->ccolor, hl->cshade, false);
 		tmp2 += FToStr(Uwid)+" w\n";
 		tmp2 += FToStr(hl->xp-kern)+" "+FToStr(-hl->yp+Upos)+" m\n";
@@ -3949,15 +3949,15 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			PutDoc(mm[ite->annotation().Vis()]);
 			PutDoc("\n");
 			PutDoc("/BS << /Type /Border /W ");
-			PutDoc(ite->annotation().borderColor() != "None" ? QString::number(ite->annotation().Bwid()) : QString("0"));
+			PutDoc(ite->annotation().borderColor() != CommonStrings::None ? QString::number(ite->annotation().Bwid()) : QString("0"));
 			PutDoc(" /S /");
 			const QString x[] = {"S", "D", "U", "B", "I"};
 			PutDoc(x[ite->annotation().Bsty()]);
 			PutDoc(" >>\n");
 			QString cnx = "("+ind2PDFabr[ite->annotation().Font()]+" "+FToStr(ite->fontSize() / 10.0)+" Tf";
-			if (ite->TxtFill != "None")
+			if (ite->TxtFill != CommonStrings::None)
 				cnx += " "+ putColor(ite->TxtFill, ite->ShTxtFill, true);
-			if (ite->fillColor() != "None")
+			if (ite->fillColor() != CommonStrings::None)
 				cnx += " "+ putColor(ite->fillColor(), ite->fillShade(), false);
 			cnx += ")";
 			PutDoc("/DA "+EncString(cnx,ObjCounter-1)+"\n");
@@ -3986,7 +3986,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 					break;
 				case 4:
 					PutDoc("/FT /Btn\n");
-					PutDoc(ite->annotation().IsChk() ? "/V /On\n/DV /On\n/AS /On\n" : 
+					PutDoc(ite->annotation().IsChk() ? "/V /On\n/DV /On\n/AS /On\n" :
 								"/V /Off\n/DV /Off\n/AS /Off\n");
 					PutDoc("/AP << /N << /On "+QString::number(ObjCounter)+" 0 R >> >>\n");
 					break;
@@ -4012,14 +4012,14 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			if ((ite->annotation().Type() == 5) || (ite->annotation().Type() == 6))
 			{
 				PutDoc("/BG [ 1 1 1 ] ");
-				if (ite->annotation().borderColor() != "None")
+				if (ite->annotation().borderColor() != CommonStrings::None)
 					PutDoc("/BC [ "+SetFarbe(ite->annotation().borderColor(), 100)+" ] ");
 			}
       			else
 			{
-				if (ite->fillColor() != "None")
+				if (ite->fillColor() != CommonStrings::None)
 					PutDoc("/BG [ "+SetFarbe(ite->fillColor(), ite->fillShade())+" ] ");
-				if (ite->annotation().borderColor() != "None")
+				if (ite->annotation().borderColor() != CommonStrings::None)
 					PutDoc("/BC [ "+SetFarbe(ite->annotation().borderColor(), 100)+" ] ");
 			}
 			int IconOb = 0;
@@ -4192,9 +4192,9 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	PutDoc("/Rect [ "+FToStr(x)+" "+FToStr(y2)+" "+FToStr(x2)+" "+FToStr(y)+" ]\n");
 	PutDoc(">>\nendobj\n");
 	QMap<int, QString> ind2PDFabr2;
-	const QString tmpf[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique", 
+	const QString tmpf[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
 												"/Helvetica", "/Helvetica-Bold", "/Helvetica-Oblique", "/Helvetica-BoldOblique",
-												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic", 
+												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic",
 												"/ZapfDingbats", "/Symbol"};
 	size_t ar2 = sizeof(tmpf) / sizeof(*tmpf);
 	for (uint ax = 0; ax < ar2; ++ax)
@@ -4226,11 +4226,11 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	if (ite->annotation().Type() == 3)
 	{
 		cc = "";
-		if (ite->fillColor() != "None")
+		if (ite->fillColor() != CommonStrings::None)
 			cc += putColor(ite->fillColor(), ite->fillShade(), false);
 		cc += FToStr(x)+" "+FToStr(y2)+" "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nf\n";
 		cc += "/Tx BMC\nBT\n";
-		if (ite->TxtFill != "None")
+		if (ite->TxtFill != CommonStrings::None)
 			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
 		cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
@@ -4252,7 +4252,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	if (ite->annotation().Type() == 4)
 	{
 		cc = "q\nBT\n";
-		if (ite->TxtFill != "None")
+		if (ite->TxtFill != CommonStrings::None)
 			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
 		cc += "/ZaDb "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		cc += "0 0 Td\n("+ct+") Tj\nET\nQ";
@@ -4265,7 +4265,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += "1 g\n";
 		cc += "0 0 "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nf\n";
 		cc += QString::number(ite->annotation().Bwid())+" w\n";
-		if (ite->annotation().borderColor() != "None")
+		if (ite->annotation().borderColor() != CommonStrings::None)
 			cc += putColor(ite->annotation().borderColor(), 100l, false);
 		else
 			cc += "0 G\n";
@@ -4814,7 +4814,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				if (Options.CompressMethod == 1)
 				{
 					QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.jpg");
-					if ((Options.UseRGB) || (Options.UseProfiles2) && (!realCMYK)) 
+					if ((Options.UseRGB) || (Options.UseProfiles2) && (!realCMYK))
 						img.Convert2JPG(tmpFile, Options.Quality, false, false);
 					else
 					{
@@ -4840,7 +4840,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			if ((Options.CompressMethod == 1) || (Options.CompressMethod == 0))
 			{
 				QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.jpg");
-				if ((Options.UseRGB) || (Options.UseProfiles2) && (!realCMYK)) 
+				if ((Options.UseRGB) || (Options.UseProfiles2) && (!realCMYK))
 					img.Convert2JPG(tmpFile, Options.Quality, false, false);
 				else
 				{
@@ -5204,7 +5204,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 				if (tel->OwnPage != -1)
 				{
 					bd.Page = PageTree.Kids[tel->OwnPage];
-					bd.Recht = QRect(static_cast<int>(tel->xPos() - doc.Pages->at(tel->OwnPage)->xOffset()), 
+					bd.Recht = QRect(static_cast<int>(tel->xPos() - doc.Pages->at(tel->OwnPage)->xOffset()),
 								static_cast<int>(doc.Pages->at(tel->OwnPage)->height() - (tel->yPos()  - doc.Pages->at(tel->OwnPage)->yOffset())),
 								static_cast<int>(tel->width()),
 								static_cast<int>(tel->height()));
@@ -5215,7 +5215,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 				Beads[Beads.count()-1].Next = fir;
 				for (uint beac = 0; beac < Beads.count(); ++beac)
 				{
-					StartObj(ObjCounter);	
+					StartObj(ObjCounter);
 					ObjCounter++;
 					PutDoc("<< /Type /Bead\n");
 					PutDoc("   /T "+QString::number(Beads[beac].Parent)+" 0 R\n");

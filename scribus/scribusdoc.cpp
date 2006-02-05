@@ -50,6 +50,7 @@ for which a new license (GPL+exception) is in place.
 #include "undostate.h"
 #include "units.h"
 #include "util.h"
+#include "commonstrings.h"
 
 
 extern ScribusQApp* ScQApp;
@@ -187,28 +188,28 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	toolSettings.tabFillChar = prefsData.toolSettings.tabFillChar;
 	PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	PageColors.insert("White", ScColor(0, 0, 0, 0));
-	if (prefsData.toolSettings.dPen != "None")
+	if (prefsData.toolSettings.dPen != CommonStrings::None)
 		PageColors.insert(prefsData.toolSettings.dPen, prefsData.DColors[prefsData.toolSettings.dPen]);
 	toolSettings.dPen = prefsData.toolSettings.dPen;
-	if (prefsData.toolSettings.dPenLine != "None")
+	if (prefsData.toolSettings.dPenLine != CommonStrings::None)
 		PageColors.insert(prefsData.toolSettings.dPenLine, prefsData.DColors[prefsData.toolSettings.dPenLine]);
 	toolSettings.dPenLine = prefsData.toolSettings.dPenLine;
-	if (prefsData.toolSettings.dPenText != "None")
+	if (prefsData.toolSettings.dPenText != CommonStrings::None)
 		PageColors.insert(prefsData.toolSettings.dPenText, prefsData.DColors[prefsData.toolSettings.dPenText]);
 	toolSettings.dPenText = prefsData.toolSettings.dPenText;
-	if (prefsData.toolSettings.dStrokeText != "None")
+	if (prefsData.toolSettings.dStrokeText != CommonStrings::None)
 		PageColors.insert(prefsData.toolSettings.dStrokeText, prefsData.DColors[prefsData.toolSettings.dStrokeText]);
 	toolSettings.dStrokeText = prefsData.toolSettings.dStrokeText;
-	if (prefsData.toolSettings.dBrush != "None")
+	if (prefsData.toolSettings.dBrush != CommonStrings::None)
 		PageColors.insert(prefsData.toolSettings.dBrush, prefsData.DColors[prefsData.toolSettings.dBrush]);
 	toolSettings.dBrush = prefsData.toolSettings.dBrush;
-	if (prefsData.toolSettings.dBrushPict != "None")
+	if (prefsData.toolSettings.dBrushPict != CommonStrings::None)
 		PageColors.insert(prefsData.toolSettings.dBrushPict, prefsData.DColors[prefsData.toolSettings.dBrushPict]);
 	toolSettings.dBrushPict = prefsData.toolSettings.dBrushPict;
-	if (prefsData.toolSettings.dTextBackGround != "None")
+	if (prefsData.toolSettings.dTextBackGround != CommonStrings::None)
 		PageColors.insert(prefsData.toolSettings.dTextBackGround, prefsData.DColors[prefsData.toolSettings.dTextBackGround]);
 	toolSettings.dTextBackGround = prefsData.toolSettings.dTextBackGround;
-	if (prefsData.toolSettings.dTextLineColor != "None")
+	if (prefsData.toolSettings.dTextLineColor != CommonStrings::None)
 		PageColors.insert(prefsData.toolSettings.dTextLineColor, prefsData.DColors[prefsData.toolSettings.dTextLineColor]);
 	struct ParagraphStyle vg;
 	vg.Vname = "Normal Internal";
@@ -331,7 +332,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	PDF_Options.PrintProf = CMSSettings.DefaultPrinterProfile;
 	PDF_Options.Intent = CMSSettings.DefaultIntentMonitor;
 	PDF_Options.Intent2 = CMSSettings.DefaultIntentImages;
-#ifdef HAVE_CMS	
+#ifdef HAVE_CMS
 	SoftProofing = CMSSettings.SoftProofOn;
 	Gamut = CMSSettings.GamutCheck;
 	IntentPrinter = CMSSettings.DefaultIntentPrinter;
@@ -714,7 +715,7 @@ void ScribusDoc::setPage(double b, double h, double t, double l, double r, doubl
 	PageSpa = ab;
 	currentPageLayout = fp;
 	automaticTextFrames = atf;
-	
+
 	//CB Moved from scribus.cpp. Overrides the defaults...
 	PDF_Options.BleedTop = pageMargins.Top;
 	PDF_Options.BleedLeft = pageMargins.Left;
@@ -997,11 +998,11 @@ int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 	Page *addToPage=DocPages.at(pageNumber);
 	if ((!masterPageMode()) && (usesAutomaticTextFrames()))// && (!isLoading()))
 	{
-		int z = itemAdd(PageItem::TextFrame, PageItem::Unspecified, 
+		int z = itemAdd(PageItem::TextFrame, PageItem::Unspecified,
 		                     addToPage->Margins.Left+addToPage->xOffset(),
 		                     addToPage->Margins.Top+addToPage->yOffset(), pageWidth-addToPage->Margins.Right-addToPage->Margins.Left,
 		                     pageHeight-addToPage->Margins.Bottom-addToPage->Margins.Top,
-		                     1, "None", toolSettings.dPen, true);
+							 1, CommonStrings::None, toolSettings.dPen, true);
 		Items->at(z)->isAutoText = true;
 		Items->at(z)->BackBox = LastAuto;
 		Items->at(z)->Cols = qRound(PageSp);
@@ -1166,7 +1167,7 @@ bool ScribusDoc::setActiveLayer(const int layerToActivate)
 {
 	bool found=false;
 	uint layerCount=Layers.count();
-	
+
 	for (uint i=0; i < layerCount; ++i)
 	{
 		if (Layers[i].LNr == layerToActivate)
@@ -1982,12 +1983,6 @@ void ScribusDoc::recalculateColors()
 	for (uint c=0; c<itemsCount; ++c)
 	{
 		PageItem *ite = Items->at(c);
-		/*
-		if (ite->fillColor() != "None")
-			ite->fillQColor = PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-		if (ite->lineColor() != "None")
-			ite->strokeQColor = PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-		*/
 		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
@@ -2000,12 +1995,6 @@ void ScribusDoc::recalculateColors()
 	for (uint c=0; c<masterItemsCount; ++c)
 	{
 		PageItem *ite = MasterItems.at(c);
-		/*
-		if (ite->fillColor() != "None")
-			ite->fillQColor = PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-		if (ite->lineColor() != "None")
-			ite->strokeQColor = PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-		*/
 		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
@@ -2018,12 +2007,6 @@ void ScribusDoc::recalculateColors()
 	for (uint c=0; c<frameItemsCount; ++c)
 	{
 		PageItem *ite = FrameItems.at(c);
-		/*
-		if (ite->fillColor() != "None")
-			ite->fillQColor = PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-		if (ite->lineColor() != "None")
-			ite->strokeQColor = PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-		*/
 		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
@@ -2107,7 +2090,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	struct CopyPasteBuffer BufferT;
 	uint end = DocItems.count();
 	//CB Need to set this so the paste works correctly. Should not need it really, but its a quick op.
-	setMasterPageMode(true); 
+	setMasterPageMode(true);
 	for (uint a = 0; a < end; ++a)
 	{
 		PageItem *itemToCopy = DocItems.at(a);
@@ -2144,7 +2127,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 			newItem->moveBy(-sourcePage->xOffset() + targetPage->xOffset(), -sourcePage->yOffset() + targetPage->yOffset());
 			newItem->BoundingX = OldBX - sourcePage->xOffset() + targetPage->xOffset();
 			newItem->BoundingY = OldBY - sourcePage->yOffset() + targetPage->yOffset();
-			
+
 		}
 	}
 	uint tableItemsCount = TableItems.count();
@@ -2174,7 +2157,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	targetPage->MPageNam = "";
 	setLoading(false);
 	GroupCounter = GrMax + 1;
-	//Reset the current page.. 
+	//Reset the current page..
 	setMasterPageMode(false);
 	currentPage=sourcePage;
 	return true;
@@ -2193,20 +2176,17 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 		//Q_ASSERTs here will warn on creation issues when a coder specifies the frameType incorrectly
 		//for items that do not have/need a frameType for creation.
 		case PageItem::ImageFrame:
-			//newItem = new PageItem(this, PageItem::ImageFrame, x, y, b, h, 1, toolSettings.dBrushPict, "None");
-			newItem = new PageItem_ImageFrame(this, x, y, b, h, 1, toolSettings.dBrushPict, "None");
+			newItem = new PageItem_ImageFrame(this, x, y, b, h, 1, toolSettings.dBrushPict, CommonStrings::None);
 			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::TextFrame:
-			//newItem = new PageItem(this, PageItem::TextFrame, x, y, b, h, w, "None", outline);
-			newItem = new PageItem_TextFrame(this, x, y, b, h, w, "None", outline);
+			newItem = new PageItem_TextFrame(this, x, y, b, h, w, CommonStrings::None, outline);
 			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::Line:
 			{
 				double lineWidth = w == 0.0 ? 1.0 : w;
-				//newItem = new PageItem(this, PageItem::Line, x, y, b, h, lineWidth, "None", outline);
-				newItem = new PageItem_Line(this, x, y, b, h, lineWidth, "None", outline);
+				newItem = new PageItem_Line(this, x, y, b, h, lineWidth, CommonStrings::None, outline);
 				Q_ASSERT(frameType==PageItem::Unspecified);
 			}
 			break;
@@ -2228,7 +2208,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 		default:
 			break;
 	}
-	Q_CHECK_PTR(newItem);	
+	Q_CHECK_PTR(newItem);
 	if (newItem==NULL)
 		return -1;
 	Items->append(newItem);
@@ -2299,7 +2279,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 		default:
 			break;
 	}
-	
+
 	if (frameType==PageItem::Rectangle || itemType==PageItem::TextFrame || itemType==PageItem::ImageFrame)
 	{
 		newItem->SetRectFrame();
@@ -2308,7 +2288,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 		//ScMW->view->setRedrawBounding(newItem);
 		newItem->ContourLine = newItem->PoLine.copy();
 	}
-	
+
 	if (frameType==PageItem::Ellipse)
 	{
 		newItem->SetOvalFrame();
@@ -2317,7 +2297,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 		//ScMW->view->setRedrawBounding(newItem);
 		newItem->ContourLine = newItem->PoLine.copy();
 	}
-	
+
 	//ItemType Polygon
 	if (itemType==PageItem::Polygon || itemType==PageItem::PolyLine)
 	{
@@ -2325,14 +2305,6 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 		newItem->setFillShade(toolSettings.dShade);
 		newItem->setLineShade(toolSettings.dShade2);
 	}
-	//ItemType::image,text,polygon,polyline
-	//CB handled by the set shade and line code
-	/*
-	if (newItem->fillColor() != "None")
-		newItem->fillQColor = PageColors[newItem->fillColor()].getShadeColorProof(newItem->fillShade());
-	if (newItem->lineColor() != "None")
-		newItem->strokeQColor = PageColors[newItem->lineColor()].getShadeColorProof(newItem->lineShade());
-	*/
 }
 
 
@@ -2567,7 +2539,7 @@ void ScribusDoc::reformPages(double& maxX, double& maxY, bool moveObjects)
 	int rowcounter = 0;
 	double maxYPos=0.0, maxXPos=0.0;
 	double currentXPos=ScratchLeft, currentYPos=ScratchTop, lastYPos=Pages->at(0)->initialHeight();
-	currentXPos += (pageWidth+pageSets[currentPageLayout].GapHorizontal) * counter;	
+	currentXPos += (pageWidth+pageSets[currentPageLayout].GapHorizontal) * counter;
 
 	lastYPos = Pages->at(0)->initialHeight();
 	Page* Seite;
@@ -2702,7 +2674,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	Q_ASSERT(currItem!=NULL);
 	if (currItem==NULL)
 		return false;
-	//Dont attempt a Line conversion	
+	//Dont attempt a Line conversion
 	if (currItem->itemType()==PageItem::Line || newType==PageItem::Line)
 		return false;
 	//Take the item to convert from the docs Items list
@@ -2758,7 +2730,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			undoManager->cancelTransaction();
 		return false;
 	}
-	//Do new item type specific adjustments to the new item. Some of this may move when new 
+	//Do new item type specific adjustments to the new item. Some of this may move when new
 	//constructors are built into the item classes
 	switch (newType)
 	{
@@ -2771,7 +2743,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			newItem->Frame = true;
 			if (oldItem->itemType()==PageItem::PathText)
 			{
-				uint newPolyItemNo = itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->Pwidth, "None", currItem->lineColor(), true);
+				uint newPolyItemNo = itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->Pwidth, CommonStrings::None, currItem->lineColor(), true);
 				PageItem *polyLineItem = Items->at(newPolyItemNo);
 				polyLineItem->PoLine = currItem->PoLine.copy();
 				polyLineItem->ClipEdited = true;
@@ -2779,8 +2751,8 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 				polyLineItem->setRotation(currItem->rotation());
 				polyLineItem->SetPolyClip(qRound(QMAX(polyLineItem->Pwidth / 2, 1)));
 				ScMW->view->AdjustItemSize(polyLineItem);
-				
-				newItem->setLineColor("None");
+
+				newItem->setLineColor(CommonStrings::None);
 				newItem->SetRectFrame();
 				newItem->setRedrawBounding();
 			}
@@ -2839,7 +2811,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	}
 	//Append the new item to the docs items list
 	//Items->append(newItem);
-	//We could append and renumber the list, or, we can insert at the same position.. 
+	//We could append and renumber the list, or, we can insert at the same position..
 	//for (uint a = 0; a < Items->count(); ++a)
 	//	Items->at(a)->ItemNr = a;
 	Items->insert(oldItem->ItemNr, newItem);
@@ -2984,7 +2956,7 @@ int ScribusDoc::getSectionKeyForPageIndex(const uint pageIndex) const
 			break;
 		}
 	}
-	
+
 	return retVal;
 }
 
@@ -2993,7 +2965,7 @@ const QString ScribusDoc::getSectionPageNumberForPageIndex(const uint pageIndex)
 	QString retVal(QString::null);
 	/*
 	bool found=false;
-	
+
 	DocumentSectionMap::ConstIterator it = sections.begin();
 	for (; it!= sections.end(); ++it)
 	{
@@ -3009,7 +2981,7 @@ const QString ScribusDoc::getSectionPageNumberForPageIndex(const uint pageIndex)
 	int key=getSectionKeyForPageIndex(pageIndex);
 	if (key==-1)
 		return retVal;
-	
+
 	uint sectionIndexOffset=pageIndex-sections[key].fromindex+sections[key].sectionstartindex;
 	//If a section is inactive, theres no page numbers printed
 	if (sections[key].active==false)
@@ -3042,8 +3014,8 @@ void ScribusDoc::addPageToSection(const uint otherPageIndex, const uint location
 	if (!found)
 		return;
 	DocumentSectionMap::Iterator it2(it);
-	
-	//For this if: We are adding before the beginning of a section, so we must put this 
+
+	//For this if: We are adding before the beginning of a section, so we must put this
 	//new page in the previous section and then increment the rest
 	if (otherPageIndex==it.data().fromindex && location==0 && it!=sections.begin())
 		--it2;
@@ -3101,7 +3073,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	bool autoText = usesAutomaticTextFrames();
 	setUsesAutomaticTextFrames(false);
 	Page* from = DocPages.at(pageNumberToCopy);
-	int GrMax = GroupCounter;	
+	int GrMax = GroupCounter;
 	for (int copyNumber=1; copyNumber<=copyCount; ++copyNumber)
 	{
 		//For multiple insertions we can insert in the same place
@@ -3227,7 +3199,7 @@ void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Right;
 		return;
 	}
-	
+
 	Page* pageToAdjust=DocPages.at(pageIndex);
 	PageLocation pageLoc=locationOfPage(pageIndex);
 	if (pageLoc==LeftPage) //Left hand page
@@ -3270,8 +3242,8 @@ void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 			xOffset+=DocPages.at(i)->width()+pageSets[currentPageLayout].GapHorizontal;
 	}
 	pageToAdjust->setXOffset(xOffset);
-	
-	
+
+
 	if (myRow!=0)
 	{
 		for (int i=0;i<myRow;++i)
@@ -3279,7 +3251,7 @@ void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 			double maxHeightOfRow=0.0;
 			yOffset+=DocPages.at(i)->width()+pageSets[currentPageLayout].GapHorizontal;
 		}
-		
+
 		if (pageIndex==0)
 		{
 			for (int i=0; i<myCol; ++i)
@@ -3308,7 +3280,7 @@ PageLocation ScribusDoc::locationOfPage(int pageIndex)
 	if (setcol==1)
 		return LeftPage;
 	int myCol=(pageIndex+pageSets[currentPageLayout].FirstPage)%setcol;
-	
+
 	if (myCol==0) //Left hand page
 		return LeftPage;
 	else if (myCol>= setcol-1) // Right hand page

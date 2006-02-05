@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "pageitemattributes.h"
+#include "commonstrings.h"
 
 #include <qstring.h>
 #include <qtable.h>
@@ -25,12 +26,12 @@ void PageItemAttributes::setup(ObjAttrVector *pageItemAttrs, ObjAttrVector *docI
 {
 	localAttributes=*pageItemAttrs;
 	localDocAttributes=*docItemAttrs;
-		
+
 	nameList.clear();
 	nameList.append("");
 	for(ObjAttrVector::Iterator it = localDocAttributes.begin(); it!= localDocAttributes.end(); ++it)
 		nameList.append((*it).name);
-	
+
 	updateTable();
 }
 
@@ -94,7 +95,7 @@ void PageItemAttributes::addEntry()
 {
 	ObjectAttribute blank;
 	blank.name="";
-	blank.relationship="None";
+	blank.relationship=CommonStrings::None;
 	blank.autoaddto="none";
 	localAttributes.append(blank);
 	updateTable();
@@ -200,9 +201,9 @@ void PageItemAttributes::updateTable()
 			(*it).autoaddto="none";
 			index=0;
 		}
-		item7->setCurrentItem(index);		
+		item7->setCurrentItem(index);
 		*/
-		
+
 		attributesTable->verticalHeader()->setLabel(row, QString("%1").arg(row));
 		row++;
 	}
@@ -224,7 +225,7 @@ void PageItemAttributes::okClicked()
 			selectCol=0;
 		else
 			selectCol=1;
-			
+
 		attributesTable->setCurrentCell(0,selectCol);
 		tableItemChanged(attributesTable->currentRow(), attributesTable->currentColumn());
 	}

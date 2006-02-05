@@ -26,9 +26,10 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "prefsmanager.h"
 #include "scpainter.h"
+#include "commonstrings.h"
+
 
 using namespace std;
-
 
 
 ScPreview::ScPreview()
@@ -203,7 +204,7 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.Shade = pg.attribute("SHADE").toInt();
 			OB.Shade2 = pg.attribute("SHADE2").toInt();
 			OB.TxtFill = pg.attribute("TXTFILL", "Black");
-			OB.TxtStroke = pg.attribute("TXTSTROKE", "None");
+			OB.TxtStroke = pg.attribute("TXTSTROKE", CommonStrings::None);
 			OB.ShTxtFill = pg.attribute("TXTFILLSH", "100").toInt();
 			OB.ShTxtStroke = pg.attribute("TXTSTRSH", "100").toInt();
 			OB.TxtScale = qRound(pg.attribute("TXTSCALE", "100").toDouble() * 10);
@@ -248,7 +249,7 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.BMnr = 0;
 			OB.m_isAnnotation = pg.attribute("ANNOTATION", "0").toInt();
 			if (pg.attribute("TRANSPARENT", "0").toInt() == 1)
-				OB.Pcolor = "None";
+				OB.Pcolor = CommonStrings::None;
 			OB.Textflow = pg.attribute("TEXTFLOW").toInt();
 			OB.Textflow2 = pg.attribute("TEXTFLOW2", "0").toInt();
 			OB.Extra = pg.attribute("EXTRA").toDouble();
@@ -331,7 +332,7 @@ QPixmap ScPreview::createPreview(QString data)
 					tmp3 += it.attribute("CSHADE") + "\t";
 					tmp3 += it.attribute("CSTYLE") + "\t";
 					tmp3 += "0\t";
-					tmp3 += it.attribute("CSTROKE","None") + "\t";
+					tmp3 += it.attribute("CSTROKE",CommonStrings::None) + "\t";
 					tmp3 += it.attribute("CSHADE2","100") + "\t";
 					tmp3 += it.attribute("CSCALE","100") + "\n";
 					for (uint cxx=0; cxx<tmp2.length(); cxx++)
@@ -382,7 +383,7 @@ QPixmap ScPreview::createPreview(QString data)
 						hg->cab = (*it).toInt();
 					it++;
 					if (it == NULL)
-						hg->cstroke = "None";
+						hg->cstroke = CommonStrings::None;
 					else
 						hg->cstroke = *it;
 					it++;
@@ -424,7 +425,7 @@ QPixmap ScPreview::createPreview(QString data)
 			pS->save();
 			pS->translate(OB.Xpos, OB.Ypos);
 			pS->rotate(static_cast<double>(OB.Rot));
-			if (OB.Pcolor != "None")
+			if (OB.Pcolor != CommonStrings::None)
 			{
 				SetFarbe(&tmpfa, OB.Pcolor, OB.Shade);
 				pS->setBrush(tmpfa);
@@ -440,19 +441,19 @@ QPixmap ScPreview::createPreview(QString data)
 				{
 					if (OB.GrType == 5)
 					{
-						if ((OB.GrColor != "None") && (!OB.GrColor.isEmpty()))
+						if ((OB.GrColor != CommonStrings::None) && (!OB.GrColor.isEmpty()))
 							SetFarbe(&tmpfa, OB.GrColor, OB.GrShade);
 						pS->fill_gradient.addStop(tmpfa, 0.0, 0.5, 1.0);
-						if ((OB.GrColor2 != "None") && (!OB.GrColor2.isEmpty()))
+						if ((OB.GrColor2 != CommonStrings::None) && (!OB.GrColor2.isEmpty()))
 							SetFarbe(&tmpfa, OB.GrColor2, OB.GrShade2);
 						pS->fill_gradient.addStop(tmpfa, 1.0, 0.5, 1.0);
 					}
 					else
 					{
-						if ((OB.GrColor2 != "None") && (!OB.GrColor2.isEmpty()))
+						if ((OB.GrColor2 != CommonStrings::None) && (!OB.GrColor2.isEmpty()))
 							SetFarbe(&tmpfa, OB.GrColor2, OB.GrShade2);
 						pS->fill_gradient.addStop(tmpfa, 0.0, 0.5, 1.0);
-						if ((OB.GrColor != "None") && (!OB.GrColor.isEmpty()))
+						if ((OB.GrColor != CommonStrings::None) && (!OB.GrColor.isEmpty()))
 							SetFarbe(&tmpfa, OB.GrColor, OB.GrShade);
 						pS->fill_gradient.addStop(tmpfa, 1.0, 0.5, 1.0);
 					}
@@ -499,7 +500,7 @@ QPixmap ScPreview::createPreview(QString data)
 					break;
 				}
 			}
-			if (OB.Pcolor2 != "None")
+			if (OB.Pcolor2 != CommonStrings::None)
 			{
 				SetFarbe(&tmpfa, OB.Pcolor2, OB.Shade2);
 				if ((OB.Pwidth == 0) && (OB.PType != 5))
@@ -517,7 +518,7 @@ QPixmap ScPreview::createPreview(QString data)
 			switch (OB.PType)
 			{
 			case PageItem::ImageFrame:
-				if ((OB.Pcolor != "None") || (OB.GrType != 0))
+				if ((OB.Pcolor != CommonStrings::None) || (OB.GrType != 0))
 				{
 					pS->setupPolygon(&OB.PoLine);
 					pS->drawPolygon();
@@ -553,7 +554,7 @@ QPixmap ScPreview::createPreview(QString data)
 				if (Ptexti.count() != 0)
 				{
 					pS->save();
-					if (OB.Pcolor != "None")
+					if (OB.Pcolor != CommonStrings::None)
 					{
 						pS->setupPolygon(&OB.PoLine);
 						pS->drawPolygon();
@@ -591,13 +592,13 @@ QPixmap ScPreview::createPreview(QString data)
 							}
 						}
 						mode = 0;
-						if (hl->ccolor != "None")
+						if (hl->ccolor != CommonStrings::None)
 						{
 							SetFarbe(&tmpfa, hl->ccolor, hl->cshade);
 							pS->setBrush(tmpfa);
 							mode = 2;
 						}
-						if (hl->cstroke != "None")
+						if (hl->cstroke != CommonStrings::None)
 						{
 							SetFarbe(&tmpfa, hl->cstroke, hl->cshade2);
 							pS->setPen(tmpfa, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -755,7 +756,7 @@ QPixmap ScPreview::createPreview(QString data)
 					chx = hl->ch;
 					if ((chx == QChar(30)) || (chx == QChar(13)))
 						continue;
-					if (hl->ccolor != "None")
+					if (hl->ccolor != CommonStrings::None)
 					{
 						SetFarbe(&tmpfa, hl->ccolor, hl->cshade);
 						pS->setPen(tmpfa);
@@ -822,7 +823,7 @@ QPixmap ScPreview::createPreview(QString data)
 			}
 			if (doStroke)
 			{
-				if (OB.Pcolor2 != "None")
+				if (OB.Pcolor2 != CommonStrings::None)
 				{
 					SetFarbe(&tmpfa, OB.Pcolor2, OB.Shade2);
 					pS->setPen(tmpfa, OB.Pwidth, Qt::PenStyle(OB.PLineArt), Qt::PenCapStyle(OB.PLineEnd), Qt::PenJoinStyle(OB.PLineJoin));

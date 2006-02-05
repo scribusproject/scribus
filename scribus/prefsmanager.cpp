@@ -219,8 +219,8 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.dPenLine = "Black";
 	appPrefs.toolSettings.dPenText = "Black";
 	appPrefs.toolSettings.dStrokeText = "Black";
-	appPrefs.toolSettings.dTextBackGround = "None";
-	appPrefs.toolSettings.dTextLineColor = "None";
+	appPrefs.toolSettings.dTextBackGround = CommonStrings::None;
+	appPrefs.toolSettings.dTextLineColor = CommonStrings::None;
 	appPrefs.toolSettings.dTextBackGroundShade = 100;
 	appPrefs.toolSettings.dTextLineShade = 100;
 	appPrefs.toolSettings.dTextPenShade = 100;
@@ -1384,8 +1384,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.toolSettings.dPenLine = dc.attribute("PENLINE");
 			appPrefs.toolSettings.dPenText = dc.attribute("PENTEXT");
 			appPrefs.toolSettings.dStrokeText = dc.attribute("StrokeText", appPrefs.toolSettings.dPenText);
-			appPrefs.toolSettings.dTextBackGround = dc.attribute("TextBackGround", "None");
-			appPrefs.toolSettings.dTextLineColor = dc.attribute("TextLineColor", "None");
+			appPrefs.toolSettings.dTextBackGround = dc.attribute("TextBackGround", CommonStrings::None);
+			appPrefs.toolSettings.dTextLineColor = dc.attribute("TextLineColor", CommonStrings::None);
 			appPrefs.toolSettings.dTextBackGroundShade = dc.attribute("TextBackGroundShade", "100").toInt();
 			appPrefs.toolSettings.dTextLineShade = dc.attribute("TextLineShade", "100").toInt();
 			appPrefs.toolSettings.dTextPenShade = dc.attribute("TextPenShade", "100").toInt();

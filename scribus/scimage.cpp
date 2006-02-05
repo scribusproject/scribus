@@ -25,7 +25,7 @@ extern int IntentPrinter;
 #endif
 #include "gsutil.h"
 #include "exif.h"
-
+#include "commonstrings.h"
 
 
 typedef struct my_error_mgr
@@ -114,7 +114,7 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScCo
 			if ((*effectsList.at(a)).effectCode == EF_COLORIZE)
 			{
 				QString tmpstr = (*effectsList.at(a)).effectParameters;
-				QString col = "None";
+				QString col = CommonStrings::None;
 				int shading = 100;
 				QTextStream fp(&tmpstr, IO_ReadOnly);
 				fp >> col;
@@ -3130,7 +3130,7 @@ bool ScImage::marker_is_photoshop (jpeg_saved_marker_ptr marker)
 	    GETJOCTET(marker->data[13]) == 0x0;
 }
 /* Small modification of original read_icc_profile method from jpegicc of lcms project
- * to enable read of Photoshop marker 
+ * to enable read of Photoshop marker
  */
 bool ScImage::read_jpeg_marker (UINT8 requestmarker, j_decompress_ptr cinfo, JOCTET **icc_data_ptr, unsigned int *icc_data_len)
 {
@@ -3537,7 +3537,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		{
 			unsigned widtht, heightt, size;
 			char *description=0, *copyright=0, *datetime=0, *artist=0, *scannerMake=0, *scannerModel=0;
-			
+
 			TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &widtht);
 			TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &heightt);
 			TIFFGetField(tif, TIFFTAG_XRESOLUTION, &xres);
@@ -3549,7 +3549,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bitspersample);
 			TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &samplesperpixel);
 			TIFFGetField(tif, TIFFTAG_FILLORDER, &fillorder);
-			
+
 			TIFFGetField(tif, TIFFTAG_MAKE, &scannerMake);
 			TIFFGetField(tif, TIFFTAG_MODEL, &scannerModel);
 			TIFFGetField(tif, TIFFTAG_IMAGEDESCRIPTION, &description);
@@ -3566,7 +3566,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			imgInfo.exifInfo.artist = QString(artist);
 			imgInfo.exifInfo.thumbnail = QImage();
 			imgInfo.exifDataValid = true;
-			
+
 			if (!create(widtht,heightt,32))
 			{
 				TIFFClose(tif);

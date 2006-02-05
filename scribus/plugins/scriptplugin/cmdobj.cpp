@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdutil.h"
 #include "selection.h"
 #include "util.h"
+#include "commonstrings.h"
 
 
 PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
@@ -78,7 +79,7 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 									ValueToPoint(w),
 									ValueToPoint(h),
 									1, ScMW->doc->toolSettings.dBrushPict,
-									"None", true);
+									CommonStrings::None, true);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
@@ -104,7 +105,7 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 								pageUnitYToDocY(y),
 								ValueToPoint(w),
 								ValueToPoint(h),
-								ScMW->doc->toolSettings.dWidth, "None",
+								ScMW->doc->toolSettings.dWidth, CommonStrings::None,
 								ScMW->doc->toolSettings.dPenText, true);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{

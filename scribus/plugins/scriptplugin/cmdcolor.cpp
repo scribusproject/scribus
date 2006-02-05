@@ -7,6 +7,8 @@ for which a new license (GPL+exception) is in place.
 #include "cmdcolor.h"
 #include "cmdutil.h"
 #include "prefsmanager.h"
+#include "commonstrings.h"
+
 
 PyObject *scribus_colornames(PyObject* /* self */)
 {
@@ -142,7 +144,7 @@ PyObject *scribus_newcolor(PyObject* /* self */, PyObject* args)
 PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
-	char *Repl = const_cast<char*>("None");
+	char *Repl = const_cast<char*>(CommonStrings::None.latin1());
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Name, "utf-8", &Repl))
 		return NULL;
 	if (Name == "")
@@ -154,7 +156,7 @@ PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
 	QString rep = QString::fromUtf8(Repl);
 	if (ScMW->HaveDoc)
 	{
-		if (ScMW->doc->PageColors.contains(col) && (ScMW->doc->PageColors.contains(rep) || (rep == "None")))
+		if (ScMW->doc->PageColors.contains(col) && (ScMW->doc->PageColors.contains(rep) || (rep == CommonStrings::None)))
 			{
 				ScMW->doc->PageColors.remove(col);
 				ReplaceColor(col, rep);
@@ -183,7 +185,7 @@ PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
 PyObject *scribus_replcolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
-	char *Repl = const_cast<char*>("None");
+	char *Repl = const_cast<char*>(CommonStrings::None.latin1());
 	//FIXME: this should definitely use keyword arguments
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Name, "utf-8", &Repl))
 		return NULL;
@@ -196,7 +198,7 @@ PyObject *scribus_replcolor(PyObject* /* self */, PyObject* args)
 	}
 	QString col = QString::fromUtf8(Name);
 	QString rep = QString::fromUtf8(Repl);
-	if (ScMW->doc->PageColors.contains(col) && (ScMW->doc->PageColors.contains(rep) || (rep == "None")))
+	if (ScMW->doc->PageColors.contains(col) && (ScMW->doc->PageColors.contains(rep) || (rep == CommonStrings::None)))
 		ReplaceColor(col, rep);
 	else
 	{

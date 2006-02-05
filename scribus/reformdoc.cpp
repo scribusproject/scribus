@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "polygonwidget.h"
 #include "hyphenator.h"
 #include "sccombobox.h"
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool CMSavail;
@@ -156,12 +157,12 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	unitQLabel = new QLabel(unitCombo, tr( "&Unit:" ), dsGroupBox7, "unitQLabel" );
 	dsLayout4->addWidget( unitQLabel, 2, 0 );
 	dsLayout4->addWidget( unitCombo, 2, 1 );
-	
+
 	sizeAllPages = new QCheckBox( dsGroupBox7, "moveObjects" );
 	sizeAllPages->setText( tr( "Apply size settings to all pages" ) );
 	sizeAllPages->setChecked( false );
 	dsLayout4->addMultiCellWidget( sizeAllPages, 3, 3, 0, 3 );
-	
+
 	dsGroupBox7Layout->addLayout( dsLayout4 );
 	dsLayout4pv->addWidget( dsGroupBox7 );
 
@@ -169,10 +170,10 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	GroupRand->setPageWidthHeight(pageWidth, pageHeight);
 	GroupRand->setPageSize(sizeQComboBox->currentText());
 	dsLayout4pv->addWidget( GroupRand );
-		
+
 	dsLayout4p->addLayout( dsLayout4pv );
 	reformDocLayout->addLayout( dsLayout4p );
-	
+
 	/*
 	groupBox7a = new QGroupBox( tabPage, "groupBox7" );
 	groupBox7a->setTitle( tr( "Options" ) );
@@ -186,17 +187,17 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	layout4a = new QGridLayout;
 	layout4a->setSpacing( 6 );
 	layout4a->setMargin( 0 );
-	
+
 	sizeAllPages = new QCheckBox( groupBox7a, "moveObjects" );
 	sizeAllPages->setText( tr( "Apply size settings to all Pages" ) );
 	sizeAllPages->setChecked( false );
 	layout4a->addMultiCellWidget( sizeAllPages, 1, 1, 0, 1 );
-	
+
 	marginsForAllPages = new QCheckBox( groupBox7a, "moveObjects" );
 	marginsForAllPages->setText( tr( "Apply margin settings to all Pages" ) );
 	marginsForAllPages->setChecked( false );
 	layout4a->addMultiCellWidget( marginsForAllPages, 1, 1, 2, 3 );
-	
+
 	TextLabel1_3 = new QLabel( tr( "F&irst Page Number:" ), groupBox7a, "TextLabel1_3" );
 	layout4a->addMultiCellWidget( TextLabel1_3, 0, 0, 0, 1 );
 	pageNumber = new QSpinBox( groupBox7a, "pageNumber" );
@@ -406,7 +407,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabDocSections = new DocSections(prefsWidgets);
 	tabDocSections->setup(currDoc->sections, currDoc->DocPages.count()-1);
 	addItem( tr("Sections"), loadIcon("tabtocindex.png"), tabDocSections);
-	
+
 	int cmsTab = 0;
 	if (CMSavail)
 	{
@@ -828,18 +829,17 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->toolSettings.tabFillChar = tabTools->tabFillCombo->currentText().right(1);
 			break;
 	}
-	// TODO fix these tr("None") things
 	if (currDoc->toolSettings.dStrokeText == ScMW->noneString)
-		currDoc->toolSettings.dStrokeText = "None";
+		currDoc->toolSettings.dStrokeText = CommonStrings::None;
 	currDoc->toolSettings.dPenText = tabTools->colorComboText->currentText();
 	if (currDoc->toolSettings.dPenText == ScMW->noneString)
-		currDoc->toolSettings.dPenText = "None";
+		currDoc->toolSettings.dPenText = CommonStrings::None;
 	currDoc->toolSettings.dTextBackGround = tabTools->colorComboTextBackground->currentText();
 	if (currDoc->toolSettings.dTextBackGround == ScMW->noneString)
-		currDoc->toolSettings.dTextBackGround = "None";
+		currDoc->toolSettings.dTextBackGround = CommonStrings::None;
 	currDoc->toolSettings.dTextLineColor = tabTools->colorComboTextLine->currentText();
 	if (currDoc->toolSettings.dTextLineColor == ScMW->noneString)
-		currDoc->toolSettings.dTextLineColor = "None";
+		currDoc->toolSettings.dTextLineColor = CommonStrings::None;
 	currDoc->toolSettings.dTextBackGroundShade = tabTools->shadingTextBack->value();
 	currDoc->toolSettings.dTextLineShade = tabTools->shadingTextLine->value();
 	currDoc->toolSettings.dTextPenShade = tabTools->shadingText->value();
@@ -849,10 +849,10 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->toolSettings.dTabWidth = tabTools->gapTab->value() / currDoc->unitRatio();
 	currDoc->toolSettings.dPen = tabTools->colorComboLineShape->currentText();
 	if (currDoc->toolSettings.dPen == ScMW->noneString)
-		currDoc->toolSettings.dPen = "None";
+		currDoc->toolSettings.dPen = CommonStrings::None;
 	currDoc->toolSettings.dBrush = tabTools->comboFillShape->currentText();
 	if (currDoc->toolSettings.dBrush == ScMW->noneString)
-		currDoc->toolSettings.dBrush = "None";
+		currDoc->toolSettings.dBrush = CommonStrings::None;
 	currDoc->toolSettings.dShade = tabTools->shadingFillShape->value();
 	currDoc->toolSettings.dShade2 = tabTools->shadingLineShape->value();
 	switch (tabTools->comboStyleShape->currentItem())
@@ -881,7 +881,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->toolSettings.magStep = tabTools->zoomStep->value();
 	currDoc->toolSettings.dPenLine = tabTools->colorComboLine->currentText();
 	if (currDoc->toolSettings.dPenLine == ScMW->noneString)
-		currDoc->toolSettings.dPenLine = "None";
+		currDoc->toolSettings.dPenLine = CommonStrings::None;
 	currDoc->toolSettings.dShadeLine = tabTools->shadingLine->value();
 	switch (tabTools->comboStyleLine->currentItem())
 	{
@@ -904,7 +904,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->toolSettings.dWidthLine = tabTools->lineWidthLine->value();
 	currDoc->toolSettings.dBrushPict = tabTools->comboFillImage->currentText();
 	if (currDoc->toolSettings.dBrushPict == ScMW->noneString)
-		currDoc->toolSettings.dBrushPict = "None";
+		currDoc->toolSettings.dBrushPict = CommonStrings::None;
 	currDoc->toolSettings.shadePict = tabTools->shadingFillImage->value();
 	currDoc->toolSettings.scaleX = static_cast<double>(tabTools->scalingHorizontal->value()) / 100.0;
 	currDoc->toolSettings.scaleY = static_cast<double>(tabTools->scalingVertical->value()) / 100.0;

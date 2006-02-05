@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "loremipsum.h"
 #include "scribusdoc.h"
 #include "undomanager.h"
-//#include "prefsmanager.h"
+#include "commonstrings.h"
 #include <qcolor.h>
 #include <qstring.h>
 
@@ -264,7 +264,7 @@ QPixmap SampleItem::getSample(int width, int height)
 {
 	UndoManager::instance()->setUndoEnabled(false); // disable undo
 
-	PageItem_TextFrame *previewItem = new PageItem_TextFrame(doc, 0, 0, width, width, 0, "None", "None");
+	PageItem_TextFrame *previewItem = new PageItem_TextFrame(doc, 0, 0, width, width, 0, CommonStrings::None, CommonStrings::None);
 	QPixmap pm(width, height);
 	ScPainter *painter = new ScPainter(&pm, width, height, 0, 0);
 	double sca = 1.0; // original scale to set back at the end...

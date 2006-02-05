@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "prefsmanager.h"
 #include "scribusview.h"
+#include "commonstrings.h"
 
 // We use some common routines defined in fileloader.h
 #include "fileloader.h"
@@ -49,7 +50,7 @@ ScriXmlDoc::ScriXmlDoc()
 {
 	prefsManager=PrefsManager::instance();
 }
- 
+
 
 /*!
 	\fn ScriXmlDoc::IsScribus(QString fileName)
@@ -123,7 +124,7 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 	int shade = it->attribute("CSHADE").toInt();
 	int style = it->attribute("CSTYLE").toInt() & 255;
 	int ab = it->attribute("CAB", "0").toInt();
-	QString stroke = it->attribute("CSTROKE","None");
+	QString stroke = it->attribute("CSTROKE",CommonStrings::None);
 	int shade2 = it->attribute("CSHADE2", "100").toInt();
 	int scale = qRound(it->attribute("CSCALE", "100").toDouble() * 10);
 	int scalev = qRound(it->attribute("CSCALEV", "100").toDouble() * 10);
@@ -758,7 +759,7 @@ bool ScriXmlDoc::ReadColors(QString fileName)
 		{
 			QDomElement pg=PAGE.toElement();
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
-			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!="None")
+			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
 			{
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
@@ -896,7 +897,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 		{
 			QDomElement pg=PAGE.toElement();
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
-			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!="None")
+			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
 			{
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
@@ -1340,7 +1341,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			dia2->setProgress(ObCount);
 			QDomElement pg=PAGE.toElement();
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
-			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!="None")
+			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
 			{
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
@@ -1494,7 +1495,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				//CB: Remove this unnecessarily "slow" slot call when we have no gui for the doc yet!
 				//Items dont appear in the right place if we just doc->addPage(a); for <=1.2.x docs
 				//so we have to call the view, but we certainly dont need to emit to the mainwindow!
-				//This call now picks up the added page and does some view black magic. A must for 
+				//This call now picks up the added page and does some view black magic. A must for
 				//1.2.x docs!
 				view->addPage(a);
 				//emit NewPage(a);
@@ -1972,7 +1973,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			DoFonts[pg.attribute("NAME")] = tmpf;
 		}
 		// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
-		if(pg.tagName()=="COLOR" && pg.attribute("Name")!="None")
+		if(pg.tagName()=="COLOR" && pg.attribute("Name")!=CommonStrings::None)
 		{
 			if (pg.hasAttribute("CMYK"))
 				lf.setNamedColor(pg.attribute("CMYK"));
@@ -2311,7 +2312,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			fo.setAttribute("NAME",UsedStyles[actSt].Vname);
 			fo.setAttribute("ALIGN",UsedStyles[actSt].textAlignment);
 			fo.setAttribute("LINESPMode",UsedStyles[actSt].LineSpaMode);
-			//CB #2738: 
+			//CB #2738:
 			//UsedStyles[actSt].LineSpa is something like this is using automatic from the font:
 			//10.34912109375000000000. Default attribute value is then 10.3491 which then becomes //10.34909999999999996589 and then does not compare. This fixes, should we change our
 			//default precision?

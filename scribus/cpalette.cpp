@@ -43,6 +43,8 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "util.h"
 #include "dynamictip.h"
+#include "commonstrings.h"
+
 
 Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 {
@@ -140,10 +142,10 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Inhalt->setOn(true);
 	InnenButton();
 	GradientMode = false;
-	
+
 	languageChange();
 	setActGradient(0);
-	
+
 	connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
 	connect(Innen, SIGNAL(clicked()), this, SLOT(InnenButton()));
 	connect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
@@ -277,7 +279,7 @@ void Cpalette::updateBoxS(QString colorName)
 	disconnect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	disconnect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	int c = 0;
-	if ((colorName != "None") && (!colorName.isEmpty()))
+	if ((colorName != CommonStrings::None) && (!colorName.isEmpty()))
 	{
 		if (!GradientMode)
 			++c;
@@ -556,9 +558,9 @@ void Cpalette::languageChange()
 	gX2->setSuffix(ptSuffix);
 	gY2->setSuffix(ptSuffix);
 	QString pctSuffix=tr(" %");
-	PM1->setSuffix(pctSuffix);	
+	PM1->setSuffix(pctSuffix);
 	TransSpin->setSuffix(pctSuffix);
-	
+
 	ShadeTxt->setText( tr( "Shade:" ) );
 	TransTxt->setText( tr( "Opacity:" ) );
 	GTextX1->setText( tr( "X1:"));
@@ -566,7 +568,7 @@ void Cpalette::languageChange()
 	GTextX2->setText( tr( "X2:" ));
 	GTextY2->setText( tr( "Y2:" ));
 	gradEditButton->setText( tr("Move Vector"));
-	
+
 	int oldGradient=gradientQCombo->currentItem();
 	gradientQCombo->clear();
 	gradientQCombo->insertItem( tr("Normal"));

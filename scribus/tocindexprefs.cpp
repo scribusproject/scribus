@@ -36,9 +36,10 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include "scribusdoc.h"
+#include "commonstrings.h"
 
-/*
- *  Constructs a TOCIndexPrefs as a child of 'parent', with the
+/*!
+ *  \brief Constructs a TOCIndexPrefs as a child of 'parent', with the
  *  name 'name' and widget flags set to 'f'.
  */
 TOCIndexPrefs::TOCIndexPrefs( QWidget* parent, const char* name, WFlags fl )
@@ -98,16 +99,16 @@ void TOCIndexPrefs::init()
 {
 	disconnect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
 	trStrNone=QT_TR_NOOP("None");
-	strNone="None";
+	strNone=CommonStrings::None;
 	trStrPNBeginning=QT_TR_NOOP("At the beginning");
 	strPNBeginning="At the beginning";
 	trStrPNEnd=QT_TR_NOOP("At the end");
 	strPNEnd="At the end";
 	trStrPNNotShown=QT_TR_NOOP("Not Shown");
 	strPNNotShown="Not Shown";
-	
+
 	itemNumberPlacementComboBox->clear();
-	itemNumberPlacementComboBox->insertItem(trStrPNEnd);	
+	itemNumberPlacementComboBox->insertItem(trStrPNEnd);
 	itemNumberPlacementComboBox->insertItem(trStrPNBeginning);
 	itemNumberPlacementComboBox->insertItem(trStrPNNotShown);
 	itemNumberPlacementComboBox->setCurrentText(trStrPNEnd);
@@ -198,15 +199,15 @@ void TOCIndexPrefs::selectToC( int numberSelected )
 		itemNumberPlacementComboBox->setCurrentText(trStrPNBeginning);
 	else
 		itemNumberPlacementComboBox->setCurrentText(trStrPNEnd);
-	
+
 	itemListNonPrintingCheckBox->setChecked(localToCSetupVector[numSelected].listNonPrintingFrames);
 	if (currDoc!=NULL)
-	{	
+	{
 		if (localToCSetupVector[numSelected].frameName==strNone)
 			itemDestFrameComboBox->setCurrentText(trStrNone);
 		else
 			itemDestFrameComboBox->setCurrentText(localToCSetupVector[numSelected].frameName);
-		
+
 		if (itemParagraphStyleComboBox->count()>0)
 		{
 			if (!paragraphStyleList.contains(localToCSetupVector[numSelected].textStyle) || localToCSetupVector[numSelected].textStyle==strNone)
@@ -215,10 +216,10 @@ void TOCIndexPrefs::selectToC( int numberSelected )
 				itemParagraphStyleComboBox->setCurrentText(localToCSetupVector[numSelected].textStyle);
 		}
 	}
-	
+
 	//if (numSelected>=0)
 		tocNameLineEdit->setText(tocListBox->currentText());
-		
+
 	connect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
 	connect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );
 	connect( itemDestFrameComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemFrameSelected(const QString&) ) );
@@ -268,7 +269,7 @@ void TOCIndexPrefs::updateParagraphStyleComboBox()
 {
 	paragraphStyleList.clear();
 	paragraphStyleList.append(trStrNone);
-	
+
 	if(currDoc!=NULL && currDoc->docParagraphStyles.count()>5)
 	{
 		for (uint i = 5; i < currDoc->docParagraphStyles.count(); ++i)

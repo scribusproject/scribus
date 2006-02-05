@@ -44,7 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
-
+#include "commonstrings.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "scconfig.h"
@@ -66,7 +66,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p)
 {
 	if (!m_Doc->RePos && PoLine.size()>=4)
 	{
-		if ((fillColor() != "None") || (GrType != 0))
+		if ((fillColor() != CommonStrings::None) || (GrType != 0))
 		{
 			FPointArray cli;
 			FPoint Start;

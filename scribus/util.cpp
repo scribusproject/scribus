@@ -580,7 +580,7 @@ QString Path2Relative(QString Path)
 	{
 		QString drive = Bdir.front();
 		QString currentDrive = Pdir.front();
-		if( drive != currentDrive ) 
+		if( drive != currentDrive )
 			return Path;
 	}
 #endif
@@ -622,7 +622,7 @@ bool overwrite(QWidget *parent, QString filename)
 	QFileInfo fi(filename);
 	if (fi.exists())
 	{
-		int t = ScMessageBox::warning(parent, QObject::tr("File exists"), 
+		int t = ScMessageBox::warning(parent, QObject::tr("File exists"),
 									"<qt>"+ QObject::tr("A file named '%1' already exists.<br/>Do you want to replace it with the file you are saving?").arg(filename) +"</qt>",
 									QObject::tr("&Replace"), CommonStrings::tr_Cancel, "", 1, 1);
 		if (t == 1)
@@ -765,7 +765,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	if ((!newVersion) && (OB->PType == 4))
 	{
 		OB->TxtFill = obj->attribute("PCOLOR2");
-		OB->Pcolor2 = "None";
+		OB->Pcolor2 = CommonStrings::None;
 	}
 	else
 	{
@@ -774,7 +774,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	}
 	OB->Shade = obj->attribute("SHADE").toInt();
 	OB->Shade2 = obj->attribute("SHADE2").toInt();
-	OB->TxtStroke=obj->attribute("TXTSTROKE", "None");
+	OB->TxtStroke=obj->attribute("TXTSTROKE", CommonStrings::None);
 	OB->ShTxtFill=obj->attribute("TXTFILLSH", "100").toInt();
 	OB->ShTxtStroke=obj->attribute("TXTSTRSH", "100").toInt();
 	OB->TxtScale=qRound(obj->attribute("TXTSCALE", "100").toDouble() * 10);
@@ -862,11 +862,11 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->m_annotation.setUseIcons(static_cast<bool>(obj->attribute("ANICON", "0").toInt()));
 	OB->m_annotation.setChkStil(obj->attribute("ANCHKS", "0").toInt());
 	OB->m_annotation.setMaxChar(obj->attribute("ANMC", "-1").toInt());
-	OB->m_annotation.setBorderColor(obj->attribute("ANBCOL","None"));
+	OB->m_annotation.setBorderColor(obj->attribute("ANBCOL",CommonStrings::None));
 	OB->m_annotation.setIPlace(obj->attribute("ANPLACE", "1").toInt());
 	OB->m_annotation.setScaleW(obj->attribute("ANSCALE", "0").toInt());
 	if (obj->attribute("TRANSPARENT", "0").toInt() == 1)
-		OB->Pcolor = "None";
+		OB->Pcolor = CommonStrings::None;
 	OB->Textflow=obj->attribute("TEXTFLOW").toInt();
 	OB->Textflow2 =obj->attribute("TEXTFLOW2", "0").toInt();
 	OB->UseContour = obj->attribute("TEXTFLOW3", "0").toInt();
@@ -1060,14 +1060,14 @@ static Q_UINT64 code64(ScColor & col) {
 
 QPixmap * getFancyPixmap(ScColor col) {
 	static QMap<Q_UINT64, QPixmap*> pxCache;
-	
+
 	static QPixmap alertIcon;
 	static QPixmap cmykIcon;
 	static QPixmap rgbIcon;
 	static QPixmap spotIcon;
 	static QPixmap regIcon;
 	static bool iconsInitialized = false;
-	
+
 	if ( !iconsInitialized ) {
 		alertIcon = loadIcon("alert.png");
 		cmykIcon = loadIcon("cmyk.png");
@@ -1076,11 +1076,11 @@ QPixmap * getFancyPixmap(ScColor col) {
 		regIcon = loadIcon("register.png");
 		iconsInitialized = true;
 	}
-	
+
 	Q_UINT64 res=code64(col);
 	if (pxCache.contains(res))
 		return pxCache[res];
-	
+
 	QPixmap *pa=new QPixmap(60, 15);
 	QPixmap *pm=getSmallPixmap(col.getRawRGBColor());
 	pa->fill(Qt::white);

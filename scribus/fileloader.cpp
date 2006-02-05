@@ -460,7 +460,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 		while(!PAGE.isNull())
 		{
 			QDomElement pg=PAGE.toElement();
-			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!="None")
+			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
 			{
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
@@ -850,7 +850,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 	/*
 	* Attribute von DOCUMENT auslesen
 	*/
-		//CB Add this in to set this in the file in memory. Its saved, why not load it. 
+		//CB Add this in to set this in the file in memory. Its saved, why not load it.
 		//Will of course be replaced by per page settings although we still probably need a document default
 		doc->PageSize = dc.attribute("PAGESIZE");
 		doc->PageOri = dc.attribute("ORIENTATION", "0").toInt();
@@ -999,8 +999,8 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 			doc->toolSettings.dPenText = dc.attribute("PENTEXT");
 		if (dc.hasAttribute("StrokeText"))
 			doc->toolSettings.dStrokeText = dc.attribute("StrokeText");
-		doc->toolSettings.dTextBackGround = dc.attribute("TextBackGround", "None");
-		doc->toolSettings.dTextLineColor = dc.attribute("TextLineColor", "None");
+		doc->toolSettings.dTextBackGround = dc.attribute("TextBackGround", CommonStrings::None);
+		doc->toolSettings.dTextLineColor = dc.attribute("TextLineColor", CommonStrings::None);
 		doc->toolSettings.dTextBackGroundShade = dc.attribute("TextBackGroundShade", "100").toInt();
 		doc->toolSettings.dTextLineShade = dc.attribute("TextLineShade", "100").toInt();
 		doc->toolSettings.dTextPenShade = dc.attribute("TextPenShade", "100").toInt();
@@ -1100,7 +1100,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				doc->checkerProfiles[pg.attribute("Name")] = checkerSettings;
 			}
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
-			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!="None")
+			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
 			{
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
@@ -1467,7 +1467,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					//doc->Pages = &doc->MasterPages;
 					doc->setMasterPageMode(true);
 				}
-				//CB: Stop calling damn GUI code in loading docs! IT doesnt *look* like 
+				//CB: Stop calling damn GUI code in loading docs! IT doesnt *look* like
 				//this makes a difference apart from being faster, of course.
 				//ScMW->slotNewPage(a);
 				//Apage = doc->Pages.at(a);
@@ -1609,7 +1609,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 						}
 						if (it.tagName()=="ITEXT")
 							GetItemText(&it, doc, Neu);
-						
+
 						//CB PageItemAttributes
 						if(it.tagName()=="PageItemAttributes")
 						{
@@ -1811,7 +1811,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 	int shade = it->attribute("CSHADE").toInt();
 	int style = it->attribute("CSTYLE").toInt();
 	int ab = it->attribute("CAB", "0").toInt();
-	QString stroke = it->attribute("CSTROKE","None");
+	QString stroke = it->attribute("CSTROKE", CommonStrings::None);
 	int shade2 = it->attribute("CSHADE2", "100").toInt();
 	int scale = qRound(it->attribute("CSCALE", "100").toDouble() * 10);
 	int scalev = qRound(it->attribute("CSCALEV", "100").toDouble() * 10);
@@ -1912,7 +1912,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		break;
 	//
 	case PageItem::ImageFrame:
-		z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, doc->toolSettings.dBrushPict, "None", true);
+		z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, doc->toolSettings.dBrushPict, CommonStrings::None, true);
 		currItem = doc->Items->at(z);
 		currItem->setImageXYScale(scx, scy);
 		currItem->setImageXYOffset(obj->attribute("LOCALX").toDouble(), obj->attribute("LOCALY").toDouble());
@@ -1989,7 +1989,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		break;
 	//
 	case PageItem::PathText:
-		z = doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, "None", Pcolor, true);
+		z = doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, true);
 		currItem = doc->Items->at(z);
 		if ((obj->attribute("ANNOTATION", "0").toInt()) && (static_cast<bool>(obj->attribute("ANICON", "0").toInt())))
 		{
@@ -2015,7 +2015,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		//currItem->convertTo(pt);
 		break;
 	case PageItem::TextFrame:
-		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, "None", Pcolor, true);
+		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, true);
 		currItem = doc->Items->at(z);
 		if ((obj->attribute("ANNOTATION", "0").toInt()) && (static_cast<bool>(obj->attribute("ANICON", "0").toInt())))
 		{
@@ -2041,7 +2041,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		//currItem->convertTo(pt);
 		break;
 	case PageItem::Line:
-		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, "None", Pcolor2, true);
+		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2, true);
 		currItem = doc->Items->at(z);
 		break;
 	case PageItem::Polygon:
@@ -2070,13 +2070,8 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->setLineColor(Pcolor2);
 	currItem->setFillShade(obj->attribute("SHADE").toInt());
 	currItem->setLineShade(obj->attribute("SHADE2").toInt());
-	//CB Moved to setFillColor and setFillShade
-	//if (currItem->fillColor() != "None")
-	//	currItem->fillQColor = doc->PageColors[currItem->fillColor()].getShadeColorProof(currItem->fillShade());
-	//if (currItem->lineColor() != "None")
-	//	currItem->strokeQColor = doc->PageColors[currItem->lineColor()].getShadeColorProof(currItem->lineShade());
 
-	currItem->TxtStroke = obj->attribute("TXTSTROKE", "None");
+	currItem->TxtStroke = obj->attribute("TXTSTROKE", CommonStrings::None);
 	currItem->TxtFill = obj->attribute("TXTFILL", "Black");
 	currItem->ShTxtStroke = obj->attribute("TXTSTRSH", "100").toInt();
 	currItem->ShTxtFill = obj->attribute("TXTFILLSH", "100").toInt();
@@ -2096,7 +2091,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 								obj->attribute("REXTRA", "1").toDouble(),
 								obj->attribute("TEXTRA", "1").toDouble(),
 								obj->attribute("BEXTRA", "1").toDouble());
-	
+
 	currItem->PLineArt = Qt::PenStyle(obj->attribute("PLINEART").toInt());
 	currItem->PLineEnd = Qt::PenCapStyle(obj->attribute("PLINEEND", "0").toInt());
 	currItem->PLineJoin = Qt::PenJoinStyle(obj->attribute("PLINEJOIN", "0").toInt());
@@ -2148,7 +2143,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->annotation().setUseIcons(static_cast<bool>(obj->attribute("ANICON", "0").toInt()));
 	currItem->annotation().setChkStil(obj->attribute("ANCHKS", "0").toInt());
 	currItem->annotation().setMaxChar(obj->attribute("ANMC", "-1").toInt());
-	currItem->annotation().setBorderColor(obj->attribute("ANBCOL","None"));
+	currItem->annotation().setBorderColor(obj->attribute("ANBCOL", CommonStrings::None));
 	currItem->annotation().setIPlace(obj->attribute("ANPLACE", "1").toInt());
 	currItem->annotation().setScaleW(obj->attribute("ANSCALE", "0").toInt());
 	currItem->TopLine = static_cast<bool>(obj->attribute("TopLine", "0").toInt());
@@ -2180,7 +2175,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	else
 		currItem->setLineTransparency(obj->attribute("TransValue", "0.0").toDouble());
 	if (obj->attribute("TRANSPARENT", "0").toInt() == 1)
-		currItem->setFillColor("None");
+		currItem->setFillColor(CommonStrings::None);
 	currItem->Cols = obj->attribute("COLUMNS", "1").toInt();
 	currItem->ColGap = obj->attribute("COLGAP", "0.0").toDouble();
 	if (obj->attribute("LAYER", "0").toInt() != -1)
@@ -2332,19 +2327,19 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		{
 			if (currItem->GrType == 5)
 			{
-				if ((GrColor != "None") && (!GrColor.isEmpty()))
+				if ((GrColor != CommonStrings::None) && (!GrColor.isEmpty()))
 					currItem->SetFarbe(&tmpc, GrColor, GrShade);
 				currItem->fill_gradient.addStop(tmpc, 0.0, 0.5, 1.0, GrColor, GrShade);
-				if ((GrColor2 != "None") && (!GrColor2.isEmpty()))
+				if ((GrColor2 != CommonStrings::None) && (!GrColor2.isEmpty()))
 					currItem->SetFarbe(&tmpc, GrColor2, GrShade2);
 				currItem->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor2, GrShade2);
 			}
 			else
 			{
-				if ((GrColor2 != "None") && (!GrColor2.isEmpty()))
+				if ((GrColor2 != CommonStrings::None) && (!GrColor2.isEmpty()))
 					currItem->SetFarbe(&tmpc, GrColor2, GrShade2);
 				currItem->fill_gradient.addStop(tmpc, 0.0, 0.5, 1.0, GrColor2, GrShade2);
-				if ((GrColor != "None") && (!GrColor.isEmpty()))
+				if ((GrColor != CommonStrings::None) && (!GrColor.isEmpty()))
 					currItem->SetFarbe(&tmpc, GrColor, GrShade);
 				currItem->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor, GrShade);
 			}
@@ -2740,7 +2735,7 @@ bool FileLoader::postLoad(bool is12doc)
 			ReplacedFonts.clear();
 		dummyFois.clear();
 	}
-	
+
 	//Calculate the canvas size
 	if (!is12doc)
 	{
@@ -2749,7 +2744,7 @@ bool FileLoader::postLoad(bool is12doc)
 		FPoint maximumCanvas(QMAX(maxcp.x(), maximumX), QMAX(maxcp.y(), maximumY));
 		ScMW->view->adjustCanvas(mincp, maximumCanvas);
 	}
-	
+
 	return true;
 }
 

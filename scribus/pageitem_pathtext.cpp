@@ -44,7 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
-
+#include "commonstrings.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "scconfig.h"
@@ -85,7 +85,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, double sc)
 	double segLen = 0;
 	double distCurX;
 	CurX = Extra;
-	if (lineColor() != "None" && PoShow)
+	if (lineColor() != CommonStrings::None && PoShow)
 	{
 		p->setupPolygon(&PoLine, false);
 		p->strokePath();
@@ -189,13 +189,13 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, double sc)
 		p->setWorldMatrix(trafo);
 		Zli = new ZZ;
 		Zli->Zeich = chx;
-		if (hl->ccolor != "None")
+		if (hl->ccolor != CommonStrings::None)
 		{
 			QColor tmp;
 			SetFarbe(&tmp, hl->ccolor, hl->cshade);
 			p->setBrush(tmp);
 		}
-		if (hl->cstroke != "None")
+		if (hl->cstroke != CommonStrings::None)
 		{
 			QColor tmp;
 			SetFarbe(&tmp, hl->cstroke, hl->cshade2);

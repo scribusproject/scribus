@@ -821,7 +821,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(lineSpacingPop, SIGNAL(activated(int)), this, SLOT(setLspMode(int )));
 	connect( EvenOdd, SIGNAL( clicked() ), this, SLOT(handleFillRule() ) );
 	connect( NonZero, SIGNAL( clicked() ), this, SLOT( handleFillRule() ) );
-	
+
 	connect(this, SIGNAL(DocChanged()), ScMW, SLOT(slotDocCh()));
 	connect(this, SIGNAL(NewAbStyle(int)), ScMW, SLOT(setNewAbStyle(int)));
 	connect(this, SIGNAL(Stellung(int)), ScMW, SLOT(setItemHoch(int)));
@@ -838,18 +838,18 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(this->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), ScMW, SLOT(updtGradFill()));
 	connect(this->Cpal, SIGNAL(gradientChanged()), ScMW, SLOT(updtGradFill()));
 	connect(this->Cpal, SIGNAL(QueryItem()), ScMW, SLOT(GetBrushPen()));
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
 	HaveItem = false;
 	Xpos->setValue(0);
 	Ypos->setValue(0);
@@ -923,7 +923,7 @@ void Mpalette::setDoc(ScribusDoc *d)
 	LineW->setLineStep(10);
 
 	updateCList();
-	
+
 	updateSpinBoxConstants();
 }
 
@@ -948,20 +948,20 @@ void Mpalette::setCurrentItem(PageItem *i)
 	disconnect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	HaveItem = false;
 	CurItem = i;
-	
+
 	NewSel(i->itemType());
 	NameEdit->setText(i->itemName());
 	setXY(i->xPos(), i->yPos());
 	setBH(i->width(), i->height());
 	setR(i->rotation());
-	
+
 	Revert->setOn(i->reversed());
 	setDvals(i->textToFrameDistLeft(), i->textToFrameDistTop(), i->textToFrameDistBottom(), i->textToFrameDistRight());
 	LevelTxt->setText(QString::number(i->ItemNr));
 	textFlowsAroundFrame->setChecked(i->textFlowsAroundFrame());
 	textFlowUsesBoundingBox->setChecked(i->textFlowUsesBoundingBox());
 	RoundRect->setValue(i->cornerRadius()*Umrech);
-	
+
 	Textflow3->setChecked(i->textFlowUsesContourLine());
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
 	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
@@ -1138,7 +1138,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
-	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));	
+	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 }
 
 
@@ -1157,7 +1157,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	disconnect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	disconnect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
-	
+
 	HaveItem = false;
 	CurItem = i;
 	if (TabStack->currentIndex() == 5)
@@ -1345,7 +1345,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		}
 	}
 	setXY(i->xPos(), i->yPos());
-	
+
 	updateSpinBoxConstants();
 }
 
@@ -2207,7 +2207,7 @@ void Mpalette::NewW()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		double x,y,w,h, gx, gy, gh, gw;	
+		double x,y,w,h, gx, gy, gh, gw;
 		x = Xpos->value() / Umrech;
 		y = Ypos->value() / Umrech;
 		w = Width->value() / Umrech;
@@ -2308,7 +2308,7 @@ void Mpalette::NewH()
 		x = Xpos->value() / Umrech;
 		y = Ypos->value() / Umrech;
 		w = Width->value() / Umrech;
-		h = Height->value() / Umrech;	
+		h = Height->value() / Umrech;
 		if (doc->selection->isMultipleSelection())
 		{
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
@@ -2475,7 +2475,7 @@ void Mpalette::NewGap()
 		else
 		{
 			double lineCorr;
-			if (CurItem->lineColor() != "None")
+			if (CurItem->lineColor() != CommonStrings::None)
 				lineCorr = CurItem->Pwidth;
 			else
 				lineCorr = 0;
@@ -3291,7 +3291,7 @@ void Mpalette::updateCList()
 		return;
 	TxFill->clear();
 	TxStroke->clear();
-	
+
 	TxFill->insertItem( tr("None"));
 	TxStroke->insertItem( tr("None"));
 	ColorList::Iterator itend=doc->PageColors.end();
@@ -3463,7 +3463,7 @@ void Mpalette::setActFarben(QString p, QString b, int shp, int shb)
 	int c = 0;
 	PM2->setValue(shb);
 	PM1->setValue(shp);
-	if ((b != "None") && (!b.isEmpty()))
+	if ((b != CommonStrings::None) && (!b.isEmpty()))
 	{
 		c++;
 		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
@@ -3475,7 +3475,7 @@ void Mpalette::setActFarben(QString p, QString b, int shp, int shb)
 	}
 	TxFill->setCurrentItem(c);
 	c = 0;
-	if ((p != "None") && (!p.isEmpty()))
+	if ((p != CommonStrings::None) && (!p.isEmpty()))
 	{
 		c++;
 		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
@@ -3758,14 +3758,14 @@ void Mpalette::mspinboxFinishUserAction()
 void Mpalette::languageChange()
 {
 	setCaption( tr("Properties"));
-	
+
 	TabStack->setItemLabel(idXYZItem, tr("X, Y, &Z"));
 	TabStack->setItemLabel(idTextItem, tr("&Text"));
 	TabStack->setItemLabel(idImageItem, tr("&Image"));
 	TabStack->setItemLabel(idShapeItem, tr("&Shape"));
 	TabStack->setItemLabel(idLineItem, tr("&Line"));
 	TabStack->setItemLabel(idColorsItem, tr("&Colors"));
-	
+
 	NameGroup->setTitle( tr("Name"));
 	GeoGroup->setTitle( tr("Geometry"));
 	xposLabel->setText( tr("&X-Pos:"));
@@ -3845,7 +3845,7 @@ void Mpalette::languageChange()
 	LJoinStyle->insertItem(loadIcon("BevelJoin.png"), tr("Bevel Join"));
 	LJoinStyle->insertItem(loadIcon("RoundJoin.png"), tr("Round Join"));
 	LJoinStyle->setCurrentItem(oldLJoinStyle);
-	
+
 	int oldLEndStyle=LEndStyle->currentItem();
 	LEndStyle->clear();
 	LEndStyle->insertItem(loadIcon("ButtCap.png"), tr("Flat Cap"));
@@ -3867,7 +3867,7 @@ void Mpalette::languageChange()
 	ScaleX->setSuffix(pctSuffix);
 	ScaleY->setSuffix(pctSuffix);
 	Extra->setSuffix(pctSuffix);
-	
+
 	QString ptSuffix = tr(" pt");
 	Dist->setSuffix(ptSuffix);
 	LineW->setSuffix(ptSuffix);
@@ -3876,7 +3876,7 @@ void Mpalette::languageChange()
 	LSize->setSuffix(ptSuffix);
 
 	QString ein = (HaveDoc) ? unitGetSuffixFromIndex(doc->unitIndex()) : ptSuffix;
-		
+
 	Xpos->setSuffix(ein);
 	Ypos->setSuffix(ein);
 	Width->setSuffix(ein);
@@ -3889,10 +3889,10 @@ void Mpalette::languageChange()
 	DBottom->setSuffix(ein);
 	DRight->setSuffix(ein);
 	RoundRect->setSuffix(ein);
-	
+
 	SeStyle->languageChange();
 	GroupAlign->languageChange();
-	
+
 	StyledLine->changeItem( tr("No Style"), 0);
 	updateCList();
 	updateCmsList();
@@ -3956,7 +3956,7 @@ void Mpalette::languageChange()
 	QToolTip::remove(DLeft);
 	QToolTip::remove(DRight);
 	QToolTip::remove(TabsButton);
-	
+
 	QToolTip::remove(FreeScale);
 	QToolTip::remove(LXpos);
 	QToolTip::remove(LYpos);
@@ -3968,7 +3968,7 @@ void Mpalette::languageChange()
 	QToolTip::remove(Aspect);
 	QToolTip::remove(InputP);
 	QToolTip::remove(MonitorI);
-	
+
 	QToolTip::add(NameEdit, tr("Name of selected object"));
 	QToolTip::add(Xpos, tr("Horizontal position of current basepoint"));
 	QToolTip::add(Ypos, tr("Vertical position of current basepoint"));
@@ -4039,7 +4039,7 @@ void Mpalette::languageChange()
 	QToolTip::add(FrameScale, tr("Make the image fit within the size of the frame"));
 	QToolTip::add(Aspect, tr("Use image proportions rather than those of the frame"));
 	QToolTip::add(InputP, tr("Source profile of the image"));
-	QToolTip::add(MonitorI, tr("Rendering intent for the image"));	
+	QToolTip::add(MonitorI, tr("Rendering intent for the image"));
 }
 
 

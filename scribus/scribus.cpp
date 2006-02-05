@@ -1093,7 +1093,7 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 				{
 					if (currItem->HasSel && currItem->itemType()==PageItem::TextFrame)
 						currItem->asTextFrame()->deleteSelectedTextFromFrame();
-				
+
 					hg->ch = QString(QChar(unicodevalue));
 					doc->setScTextDefaultsFromDoc(hg);
 					hg->cselect = false;
@@ -2341,7 +2341,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			if (currItem->asTextFrame())
 				actionManager->enableUnicodeActions(true);
 			view->horizRuler->setItemPosition(currItem->xPos(), currItem->width());
-			if (currItem->lineColor() != "None")
+			if (currItem->lineColor() != CommonStrings::None)
 				view->horizRuler->lineCorr = currItem->Pwidth / 2.0;
 			else
 				view->horizRuler->lineCorr = 0;
@@ -2592,7 +2592,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["itemLock"]->setOn(currItem->locked());
 		scrActions["itemLockSize"]->setOn(currItem->sizeLocked());
 	}
-	
+
 	//propertiesPalette->NewSel(Nr);
 	if (Nr != -1)
 	{
@@ -4328,7 +4328,7 @@ void ScribusMainWindow::slotEditPaste()
 					hg->cab = (*it).toInt();
 					it++;
 					if (it == NULL)
-						hg->cstroke = "None";
+						hg->cstroke = CommonStrings::None;
 					else
 						hg->cstroke = *it;
 					it++;
@@ -5875,7 +5875,7 @@ void ScribusMainWindow::setCSMenu(QString , QString l, int  , int ls)
 		la = l;
 		lb = ls;
 	}
-	if (la == "None")
+	if (la == CommonStrings::None)
 		la = tr("None");
 	for (uint a = 0; a < static_cast<uint>(ColorMenC->count()); ++a)
 	{
@@ -6370,19 +6370,9 @@ void ScribusMainWindow::slotEditColors()
 							}
 						}
 						if (it.key() == ite->fillColor())
-						{
 							ite->setFillColor(it.data());
-							//CB Moved to pageitem set** function
-							//if (ite->fillColor() != "None")
-							//	ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-						}
 						if (it.key() == ite->lineColor())
-						{
 							ite->setLineColor(it.data());
-							//CB Moved to pageitem set** function
-							//if (ite->lineColor() != "None")
-							//	ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-						}
 						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
@@ -6411,19 +6401,9 @@ void ScribusMainWindow::slotEditColors()
 							}
 						}
 						if (it.key() == ite->fillColor())
-						{
 							ite->setFillColor(it.data());
-							//CB Moved to pageitem set** function
-							//if (ite->fillColor() != "None")
-							//	ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-						}
 						if (it.key() == ite->lineColor())
-						{
 							ite->setLineColor(it.data());
-							//CB Moved to pageitem set** function
-							//if (ite->lineColor() != "None")
-							//	ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-						}
 						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
@@ -6452,19 +6432,9 @@ void ScribusMainWindow::slotEditColors()
 							}
 						}
 						if (it.key() == ite->fillColor())
-						{
 							ite->setFillColor(it.data());
-							//CB Moved to pageitem set** function
-							//if (ite->fillColor() != "None")
-							//	ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-						}
 						if (it.key() == ite->lineColor())
-						{
 							ite->setLineColor(it.data());
-							//CB Moved to pageitem set** function
-							//if (ite->lineColor() != "None")
-							//	ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-						}
 						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
@@ -6479,32 +6449,6 @@ void ScribusMainWindow::slotEditColors()
 				}
 			}
 			doc->updateAllItemQColors();
-			/*
-			for (c=0; c<doc->DocItems.count(); ++c)
-			{
-				ite = doc->DocItems.at(c);
-				if (ite->lineColor() != "None")
-					ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-				if (ite->fillColor() != "None")
-					ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-			}
-			for (c=0; c<doc->MasterItems.count(); ++c)
-			{
-				ite = doc->MasterItems.at(c);
-				if (ite->lineColor() != "None")
-					ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-				if (ite->fillColor() != "None")
-					ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-			}
-			for (c=0; c<doc->FrameItems.count(); ++c)
-			{
-				ite = doc->FrameItems.at(c);
-				if (ite->lineColor() != "None")
-					ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-				if (ite->fillColor() != "None")
-					ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-			}
-			*/
 			view->DrawNew();
 		}
 		else
@@ -8661,7 +8605,7 @@ void ScribusMainWindow::languageChange()
 			scrMenuMgr->setMenuText("Windows", tr("&Windows"));
 			scrMenuMgr->setMenuText("Help", tr("&Help"));
 			scrMenuMgr->setMenuText("Alignment", tr("&Alignment"));
-			
+
 			rebuildStyleMenu(HaveDoc ? doc->CurrentSel : -1);
 		}
 		if (undoManager!=NULL)

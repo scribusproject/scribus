@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 #include "scribus.h"
-
+#include "commonstrings.h"
 #include "customfdialog.h"
 #include "mpalette.h"
 #include "prefsfile.h"
@@ -202,7 +202,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 			//QDragObject *dr = new QTextDrag(ss->WriteElem(&ScMW->view->SelItem, Doku, ScMW->view), ScMW->view->viewport());
 			QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScMW->view, Doku->selection),ScMW->view->viewport());
 #ifndef QT_MAC
-// see #2196		
+// see #2196
 			ScMW->view->DeleteItem();
 #endif
 			ScMW->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScMW->view->getScale()), qRound((maxSize.y() - minSize.y()) * ScMW->view->getScale()));
@@ -338,7 +338,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 		currPath = "";
 		LineW = 0;
 		Opacity = 1;
-		CurrColor = "None";
+		CurrColor = CommonStrings::None;
 		JoinStyle = MiterJoin;
 		CapStyle = FlatCap;
 		DashPattern.clear();
@@ -388,11 +388,9 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					else
 					{
 						if (ClosedPath)
-							//z = ScMW->view->PaintPoly(0, 0, 10, 10, LineW, CurrColor, "None");
-							z = ScMW->doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, "None", true);
+							z = ScMW->doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, CommonStrings::None, true);
 						else
-							//z = ScMW->view->PaintPolyLine(0, 0, 10, 10, LineW, CurrColor, "None");
-							z = ScMW->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, "None", true);
+							z = ScMW->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, CommonStrings::None, true);
 						ite = ScMW->doc->Items->at(z);
 						ite->PoLine = Coords.copy();
 						ite->PoLine.translate(ScMW->doc->currentPage->xOffset(), ScMW->doc->currentPage->yOffset());
@@ -429,11 +427,9 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					{
 						ScribusDoc* Doku = ScMW->doc;
 						if (ClosedPath)
-							//z = ScMW->view->PaintPoly(0, 0, 10, 10, LineW, "None", CurrColor);
-							z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, "None", CurrColor, true);
+							z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, CommonStrings::None, CurrColor, true);
 						else
-							//z = ScMW->view->PaintPolyLine(0, 0, 10, 10, LineW, "None", CurrColor);
-							z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, "None", CurrColor, true);
+							z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CommonStrings::None, CurrColor, true);
 						ite = Doku->Items->at(z);
 						ite->PoLine = Coords.copy();
 						ite->PoLine.translate(Doku->currentPage->xOffset(), Doku->currentPage->yOffset());
@@ -610,7 +606,7 @@ void EPSPlug::Curve(FPointArray *i, QString vals)
 QString EPSPlug::parseColor(QString vals, colorModel model)
 {
 	ScribusDoc* Doku = ScMW->doc;
-	QString ret = "None";
+	QString ret = CommonStrings::None;
 	if (vals.isEmpty())
 		return ret;
 	double c, m, y, k, r, g, b;

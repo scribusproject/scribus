@@ -46,7 +46,7 @@ void ColorListBox::updateBox(ColorList list)
 	for (it = list.begin(); it != list.end(); ++it)
 	{
 		// if condition 10/21/2004 pv #1191
-		if (it.key() == "None" || it.key() == tr("None"))
+		if (it.key() == CommonStrings::None || it.key() == tr("None"))
 			continue;
 
 		ScColor col = list[it.key()];
