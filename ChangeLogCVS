@@ -1,6 +1,17 @@
 Scribus - 1.3.3cvs
 ==================
-- 0003172: [Story Editor / Text Frames] Show Unicode codes by default in "insert glyphs" dialogs (fschmid)
+
+- 0001757: [User Interface] toolbar customizations are not being saved on exit. the original toolbar setting is always restored (Tsoots)
+- 0003052: [User Interface] desire persistence of UI settings (Tsoots)
+- 0003103: [User Interface] Text size is always 0.5 pt (cbradney)
+- 0002596: [General] Switching GUI from German to Polish: some strings don't switch (cbradney)
+- 0003153: [Printing] Preflight does not ignore items marked 'printing disabled' (fschmid)
+- 0003121: [Story Editor / Text Frames] copy text frames with text attached to a path won't work (fschmid)
+- 0003165: [Story Editor / Text Frames] Inserting any character over selected text from the Insert menu doesn't overwrite the selection (cbradney)
+- 0003158: [User Interface] fonts in property palette are sorted A-Z, then a-z (fschmid)
+- 0002786: [Picture Frames] Use Exif info in jpeg,Tiff and PSD for previews and thumbnails (fschmid)
+- 0003174: [Plug-ins] Collect for output fails to include image files in the directory (subik)
+- 0002616: [User Interface] Arrange pages is still broken (fschmid)
 - 0003122: [Plug-ins] Change the sample text in the font preview window (subik)
 - 0003058: [User Interface] Horizontal (vertical) guides are removed when moving them to the scratch space at the right or left side (top or bottom) (fschmid)
 - 0003166: [User Interface] incorrect ruler origin, possible loss of precision in page item placement (fschmid)
