@@ -37,7 +37,15 @@ ScToolBar::ScToolBar(const QString& name, QMainWindow *parent, QDockWindow::Orie
 	if (m_prefs->contains("IsDocked"))
 	{
 		if (m_prefs->getBool("IsDocked", true)) {
-			dock();
+			QString dockPlace = m_prefs->get("DockPlace", "top");
+			if (dockPlace == "top")
+				mainWindow()->addDockWindow(this, Qt::DockTop);
+			else if (dockPlace == "bottom")
+				mainWindow()->addDockWindow(this, Qt::DockBottom);
+			else if (dockPlace == "right")
+				mainWindow()->addDockWindow(this, Qt::DockRight);
+			else if (dockPlace == "left")
+				mainWindow()->addDockWindow(this, Qt::DockLeft);
 		} else {
 			undock();
 			setOrientation(o);
@@ -63,6 +71,17 @@ void ScToolBar::slotPlaceChanged(QDockWindow::Place p)
 	m_prefs->set("IsDocked", p == QDockWindow::InDock);
 	m_prefs->set("x", x());
 	m_prefs->set("y", y());
+	if (p == QDockWindow::InDock) {
+		QString dockPlace = "top";
+		if (area() == mainWindow()->leftDock())
+			dockPlace = "left";
+		else if (area() == mainWindow()->rightDock())
+			dockPlace = "right";
+		else if (area() == mainWindow()->bottomDock())
+			dockPlace = "bottom";
+
+		m_prefs->set("DockPlace", dockPlace);
+	}
 }
 
 void ScToolBar::slotVisibilityChanged(bool visible)
