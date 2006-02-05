@@ -1103,8 +1103,10 @@ bool PrefsManager::WritePref(QString ho)
 	{
 		QDomElement co=docu.createElement("COLOR");
 		co.setAttribute("NAME",itc.key());
-		co.setAttribute("RGB",appPrefs.DColors[itc.key()].getRGBColor().name());
-		co.setAttribute("CMYK",appPrefs.DColors[itc.key()].name());
+		if (appPrefs.DColors[itc.key()].getColorModel() == colorModelRGB)
+			co.setAttribute("RGB",appPrefs.DColors[itc.key()].nameRGB());
+		else
+			co.setAttribute("CMYK",appPrefs.DColors[itc.key()].nameCMYK());
 		co.setAttribute("Spot",static_cast<int>(appPrefs.DColors[itc.key()].isSpotColor()));
 		co.setAttribute("Register",static_cast<int>(appPrefs.DColors[itc.key()].isRegistrationColor()));
 		elem.appendChild(co);

@@ -101,6 +101,10 @@ public:
 /** Returns the ScColor as an Hex-String in the Form #CCYYMMKK for
  * a CMYK color or ##RRGGBB for a RGB color*/
 	QString name();
+/** Returns the ScColor as an Hex-String in the Form #RRGGBB */
+	QString nameRGB();
+/** Returns the ScColor as an Hex-String in the Form #CCYYMMKK */
+	QString nameCMYK();
 
 /** Sets the Values of a color from an Hex-String in the Form #CCMMYYKK
  * or #RRGGBB */

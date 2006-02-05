@@ -269,6 +269,46 @@ QString ScColor::name()
 	return "";
 }
 
+QString ScColor::nameCMYK()
+{
+	QString tmp, name="#";
+	tmp.setNum(C, 16);
+	if (tmp.length() < 2)
+		tmp.insert(0, "0");
+	name += tmp;
+	tmp.setNum(M, 16);
+	if (tmp.length() < 2)
+		tmp.insert(0, "0");
+	name += tmp;
+	tmp.setNum(Y, 16);
+	if (tmp.length() < 2)
+		tmp.insert(0, "0");
+	name += tmp;
+	tmp.setNum(K, 16);
+	if (tmp.length() < 2)
+		tmp.insert(0, "0");
+	name += tmp;
+	return name;
+}
+
+QString ScColor::nameRGB()
+{
+	QString tmp, name="#";
+	tmp.setNum(R, 16);
+	if (tmp.length() < 2)
+		tmp.insert(0, "0");
+	name += tmp;
+	tmp.setNum(G, 16);
+	if (tmp.length() < 2)
+		tmp.insert(0, "0");
+	name += tmp;
+	tmp.setNum(B, 16);
+	if (tmp.length() < 2)
+		tmp.insert(0, "0");
+	name += tmp;
+	return name;
+}
+
 void ScColor::setNamedColor(QString name)
 {
 	bool ok;

@@ -2201,8 +2201,10 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	{
 		QDomElement co=docu.createElement("COLOR");
 		co.setAttribute("NAME",itc.key());
-		co.setAttribute("RGB",doc->PageColors[itc.key()].getRGBColor().name());
-		co.setAttribute("CMYK",doc->PageColors[itc.key()].name());
+		if (doc->PageColors[itc.key()].getColorModel() == colorModelRGB)
+			co.setAttribute("RGB",doc->PageColors[itc.key()].nameRGB());
+		else
+			co.setAttribute("CMYK",doc->PageColors[itc.key()].nameCMYK());
 		co.setAttribute("Spot",static_cast<int>(doc->PageColors[itc.key()].isSpotColor()));
 		co.setAttribute("Register",static_cast<int>(doc->PageColors[itc.key()].isRegistrationColor()));
 		elem.appendChild(co);
@@ -3256,8 +3258,10 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	{
 		QDomElement co=docu.createElement("COLOR");
 		co.setAttribute("NAME",itc.key());
-		co.setAttribute("RGB",doc->PageColors[itc.key()].getRGBColor().name());
-		co.setAttribute("CMYK",doc->PageColors[itc.key()].name());
+		if (doc->PageColors[itc.key()].getColorModel() == colorModelRGB)
+			co.setAttribute("RGB",doc->PageColors[itc.key()].nameRGB());
+		else
+			co.setAttribute("CMYK",doc->PageColors[itc.key()].nameCMYK());
 		co.setAttribute("Spot",static_cast<int>(doc->PageColors[itc.key()].isSpotColor()));
 		co.setAttribute("Register",static_cast<int>(doc->PageColors[itc.key()].isRegistrationColor()));
 		dc.appendChild(co);
