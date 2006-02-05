@@ -185,13 +185,41 @@ int MSpinBox::mapTextToValue(bool *)
 	QString su = suffix().stripWhiteSpace();
 	ts.replace(",", ".");
 	ts.replace("%", "");
+	
 	//Get all our units strings
-	QString strPT=unitGetStrFromIndex(SC_PT);
-	QString strMM=unitGetStrFromIndex(SC_MM);
-	QString strIN=unitGetStrFromIndex(SC_IN);
-	QString strP =unitGetStrFromIndex(SC_P);
-	QString strCM=unitGetStrFromIndex(SC_CM);
-	QString strC =unitGetStrFromIndex(SC_C);
+	QString trStrPT=unitGetStrFromIndex(SC_PT);
+	QString trStrMM=unitGetStrFromIndex(SC_MM);
+	QString trStrIN=unitGetStrFromIndex(SC_IN);
+	QString trStrP =unitGetStrFromIndex(SC_P);
+	QString trStrCM=unitGetStrFromIndex(SC_CM);
+	QString trStrC =unitGetStrFromIndex(SC_C);
+	QString strPT=unitGetUntranslatedStrFromIndex(SC_PT);
+	QString strMM=unitGetUntranslatedStrFromIndex(SC_MM);
+	QString strIN=unitGetUntranslatedStrFromIndex(SC_IN);
+	QString strP =unitGetUntranslatedStrFromIndex(SC_P);
+	QString strCM=unitGetUntranslatedStrFromIndex(SC_CM);
+	QString strC =unitGetUntranslatedStrFromIndex(SC_C);
+	//CB FParser doesn't handle unicode well/at all.
+	//So, instead of just getting the translated strings and
+	//sticking them in as variables in the parser, if they are
+	//not the same as the untranslated version, then we replace them.
+	//We lose the ability for now to have some strings in languages 
+	//that might use them in variables.
+	//To return to previous functionality, remove the follow replacement ifs,
+	//S&R in the trStr* assignments trStrPT->strPT and remove the current str* ones. 
+	//IE, send the translated strings through to the regexp.
+	if (trStrPT.localeAwareCompare(strPT)!=0)
+		ts.replace(trStrPT, strPT);
+	if (trStrMM.localeAwareCompare(strMM)!=0)
+		ts.replace(trStrMM, strMM);
+	if (trStrIN.localeAwareCompare(strIN)!=0)
+		ts.replace(trStrIN, strIN);
+	if (trStrP.localeAwareCompare(strP)!=0)
+		ts.replace(trStrP, strP);
+	if (trStrCM.localeAwareCompare(strCM)!=0)
+		ts.replace(trStrCM, strCM);
+	if (trStrC.localeAwareCompare(strPT)!=0)
+		ts.replace(trStrC, strC);
 	//Replace in our typed text all of the units strings with *unitstring
 	QRegExp rx("\\b(\\d+)\\s*("+strPT+"|"+strP+"|"+strMM+"|"+strC+"|"+strCM+"|"+strIN+")\\b");
 	int pos = 0;
@@ -211,7 +239,6 @@ int MSpinBox::mapTextToValue(bool *)
 	fp.AddConstant(strP, value2value(1.0, SC_P, toConvertToIndex));
 	fp.AddConstant(strCM, value2value(1.0, SC_CM, toConvertToIndex));
 	fp.AddConstant(strC, value2value(1.0, SC_C, toConvertToIndex));
-
 	int ret = fp.Parse(ts.latin1(), "", true);
 	if (ret >= 0)
 		return 0;
