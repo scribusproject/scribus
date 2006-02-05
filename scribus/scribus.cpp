@@ -390,7 +390,7 @@ void ScribusMainWindow::closeSplash()
 
 void ScribusMainWindow::initToolBars()
 {
-	fileToolBar = new QToolBar( tr("File"), this);
+	fileToolBar = new ScToolBar(tr("File"), this);
 	scrActions["fileNew"]->addTo(fileToolBar);
 	scrActions["fileOpen"]->addTo(fileToolBar);
 	scrMenuMgr->addMenuToWidgetOfAction("FileOpenRecent", scrActions["fileOpen"]);
@@ -400,24 +400,25 @@ void ScribusMainWindow::initToolBars()
 	scrActions["toolsPreflightVerifier"]->addTo(fileToolBar);
 	scrActions["fileExportAsPDF"]->addTo(fileToolBar);
 
-	editToolBar = new QToolBar( tr("Edit"), this);
+	editToolBar = new ScToolBar( tr("Edit"), this);
 	UndoWidget* uWidget = new UndoWidget(editToolBar, "uWidget");
 	undoManager->registerGui(uWidget);
 
 	mainToolBar = new WerkToolB(this);
 	setDockEnabled(mainToolBar, DockLeft, false);
 	setDockEnabled(mainToolBar, DockRight, false);
-	mainToolBar->Sichtbar = true;
 	mainToolBar->setEnabled(false);
 	pdfToolBar = new WerkToolBP(this);
 	setDockEnabled(pdfToolBar, DockLeft, false);
 	setDockEnabled(pdfToolBar, DockRight, false);
 	pdfToolBar->setEnabled(false);
-	pdfToolBar->Sichtbar = true;
 
-	connect(mainToolBar, SIGNAL(Schliessen()), this, SLOT(ToggleTools()));
+	connect(mainToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setOn(bool)));
+	connect(scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)), pdfToolBar, SLOT(setShown(bool)));
 	connect(pdfToolBar, SIGNAL(NewMode(int)), this, SLOT(setAppMode(int)));
-	connect(pdfToolBar, SIGNAL(Schliessen()), this, SLOT(TogglePDFTools()));
+	connect(pdfToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarPDF"], SLOT(setOn(bool)));
+	connect(scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)), mainToolBar, SLOT(setShown(bool)) );
+	
 }
 
 //Returns false when there are no fonts
@@ -4930,30 +4931,6 @@ void ScribusMainWindow::toggleUndoPalette()
 	PalettesStat[0] = false;
 }
 
-void ScribusMainWindow::setTools(bool visible)
-{
-	mainToolBar->setShown(visible);
-	mainToolBar->Sichtbar = visible;
-	scrActions["toolsToolbarTools"]->setOn(visible);
-}
-
-void ScribusMainWindow::ToggleTools()
-{
-	setTools(!mainToolBar->Sichtbar);
-}
-
-void ScribusMainWindow::setPDFTools(bool visible)
-{
-	pdfToolBar->setShown(visible);
-	pdfToolBar->Sichtbar = visible;
-	scrActions["toolsToolbarPDF"]->setOn(visible);
-}
-
-void ScribusMainWindow::TogglePDFTools()
-{
-	setPDFTools(!pdfToolBar->Sichtbar);
-}
-
 void ScribusMainWindow::TogglePics()
 {
 	doc->guidesSettings.showPic = !doc->guidesSettings.showPic;
@@ -6870,8 +6847,6 @@ void ScribusMainWindow::ShowSubs()
 	alignDistributePalette->startup();
 	undoPalette->startup();
 
-	setTools(prefsManager->appPrefs.mainToolBarSettings.visible);
-	setPDFTools(prefsManager->appPrefs.pdfToolBarSettings.visible);
 	setActiveWindow();
 	raise();
 }
@@ -8717,26 +8692,6 @@ void ScribusMainWindow::getDefaultPrinter(QString *name, QString *file, QString 
 	*name=PDef.Pname;
 	*file=PDef.Dname;
 	*command=PDef.Command;
-}
-
-const bool ScribusMainWindow::fileToolBarVisible()
-{
-	return fileToolBar->isVisible();
-}
-
-const bool ScribusMainWindow::editToolBarVisible()
-{
-	return editToolBar->isVisible();
-}
-
-const bool ScribusMainWindow::mainToolBarVisible()
-{
-	return mainToolBar->isVisible();
-}
-
-const bool ScribusMainWindow::pdfToolBarVisible()
-{
-	return pdfToolBar->isVisible();
 }
 
 const bool ScribusMainWindow::fileWatcherActive()

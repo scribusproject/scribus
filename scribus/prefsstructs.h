@@ -152,8 +152,6 @@ struct ApplicationPrefs
 	CheckerPrefsList checkerProfiles;
 	QString curCheckProfile;
 	int docUnitIndex;
-	windowPrefs mainToolBarSettings;
-	windowPrefs pdfToolBarSettings;
 	windowPrefs mainWinSettings;
 
 	PDFOptions PDF_Options;

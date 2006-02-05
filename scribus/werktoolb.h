@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtoolbar.h>
 #include <qmainwindow.h>
 #include "scribusapi.h"
+#include "sctoolbar.h"
 class QToolButton;
 class QPopupMenu;
 class AutoformButtonGroup;
@@ -35,7 +36,7 @@ class AutoformButtonGroup;
   *@author Franz Schmid
   */
 
-class SCRIBUS_API WerkToolB : public QToolBar
+class SCRIBUS_API WerkToolB : public ScToolBar
 {
 	Q_OBJECT
 
@@ -43,14 +44,12 @@ public:
 	WerkToolB(QMainWindow* parent);
 	~WerkToolB() {};
 
-	bool Sichtbar;
 	int SubMode;
 	int ValCount;
 	double *ShapeVals;
 
 public slots:
 	void Docken(QDockWindow::Place p);
-	void Verbergen(bool vis);
 	void GetPolyProps();
 	void SelShape(int s, int c, double *vals);
 	void languageChange();
@@ -65,7 +64,7 @@ signals:
 	void Schliessen();
 };
 
-class SCRIBUS_API WerkToolBP : public QToolBar  
+class SCRIBUS_API WerkToolBP : public ScToolBar
 {
 	Q_OBJECT
 
@@ -76,7 +75,6 @@ public:
 	QPopupMenu* PDFM;
 	QToolButton* PDFaTool;
 	QPopupMenu* PDFA;
-	bool Sichtbar;
 	int PDFwerkz;
 	int PDFnotiz;
 
@@ -84,7 +82,6 @@ public slots:
 	void setPDFnotiz(int id);
 	void setPDFtool(int id);
 	void Docken(QDockWindow::Place p);
-	void Verbergen(bool vis);
 	void ModeFromTB();
 	void languageChange();
 

@@ -249,8 +249,6 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.polyS = false;
 	appPrefs.toolSettings.polyFd = 0;
 	appPrefs.toolSettings.polyR = 0;
-	appPrefs.mainToolBarSettings.visible = true;
-	appPrefs.pdfToolBarSettings.visible = true;
 	appPrefs.PSize = 40;
 	appPrefs.SaveAtQ = true;
 	appPrefs.ClipMargin = false;
@@ -698,8 +696,6 @@ void PrefsManager::SavePrefs(const QString & fname)
 	appPrefs.mainWinSettings.yPosition = abs(ScMW->pos().y());
 	appPrefs.mainWinSettings.width = ScMW->size().width();
 	appPrefs.mainWinSettings.height = ScMW->size().height();
-	appPrefs.mainToolBarSettings.visible = ScMW->mainToolBarVisible();
-	appPrefs.pdfToolBarSettings.visible = ScMW->pdfToolBarVisible();
 
 	appPrefs.RecentDocs.clear();
 	uint max = QMIN(appPrefs.RecentDCount, ScMW->RecentDocs.count());
@@ -983,10 +979,6 @@ bool PrefsManager::WritePref(QString ho)
 	dc4.setAttribute("WIDTH",appPrefs.mainWinSettings.width);
 	dc4.setAttribute("HEIGHT",appPrefs.mainWinSettings.height);
 	elem.appendChild(dc4);
-	QDomElement dc5=docu.createElement("TOOLPALETTE");
-	dc5.setAttribute("VISIBLE", static_cast<int>(appPrefs.mainToolBarSettings.visible));
-	dc5.setAttribute("PDFVISIBLE", static_cast<int>(appPrefs.pdfToolBarSettings.visible));
-	elem.appendChild(dc5);
 	QDomElement dc73=docu.createElement("SCRAPBOOK");
 	dc73.setAttribute("PREVIEW",appPrefs.PSize);
 	dc73.setAttribute("SAVE", static_cast<int>(appPrefs.SaveAtQ));

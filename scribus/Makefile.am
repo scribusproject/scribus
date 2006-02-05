@@ -186,6 +186,7 @@ scribus_SOURCES = \
 	scribuswin.cpp	\
 	scribusXml.cpp	\
 	scrpalettebase.cpp	\
+	sctoolbar.cpp \
 	search.cpp	\
 	seiten.cpp	\
 	selection.cpp	\

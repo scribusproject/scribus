@@ -503,8 +503,6 @@ void ActionManager::initToolsMenuActions()
 	*nonEditActionNames << "itemLowerToBottom" << "itemRaiseToTop" << "itemRaise" << "itemLower";
 
 	connect( (*scrActions)["toolsActionHistory"], SIGNAL(toggled(bool)), ScMW, SLOT(setUndoPalette(bool)) );
-	connect( (*scrActions)["toolsToolbarTools"], SIGNAL(toggled(bool)), ScMW, SLOT(setTools(bool)) );
-	connect( (*scrActions)["toolsToolbarPDF"], SIGNAL(toggled(bool)), ScMW, SLOT(setPDFTools(bool)) );
 
 	connectModeActions();
 }

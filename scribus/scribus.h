@@ -86,6 +86,7 @@ class ScrAction;
 class ScribusMainWindow;
 class ScribusQApp;
 class ScribusWin;
+class ScToolBar;
 class SimpleState;
 class SplashScreen;
 class StilFormate;
@@ -127,10 +128,6 @@ public:
 	void startUpDialog();
 	void setDefaultPrinter(const QString&, const QString&, const QString&);
 	void getDefaultPrinter(QString*, QString*, QString*);
-	const bool mainToolBarVisible();
-	const bool pdfToolBarVisible();
-	const bool editToolBarVisible();
-	const bool fileToolBarVisible();
 	const bool fileWatcherActive();
 
 	bool doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, double sp,
@@ -371,11 +368,6 @@ public slots:
 	void ToggleTextLinks();
 	void ToggleTextControls();
 	void ToggleRuler();
-	/** Schaltet Werkzeuge ein/aus */
- 	void setTools(bool visible);
-	void ToggleTools();
- 	void setPDFTools(bool visible);
-	void TogglePDFTools();
 	/** Schaltet Masspalette ein/aus */
 	//void togglePropertiesPalette();
 	/** Schaltet Uebersichtspalette ein/aus*/
@@ -539,8 +531,8 @@ private:
 	/** FontMenu enthaelt die Fonts */
 	QPopupMenu *FontMenu;
 	FontCombo* FontSub;
-	QToolBar *fileToolBar;
-	QToolBar *editToolBar;
+	ScToolBar *fileToolBar;
+	ScToolBar *editToolBar;
 	WerkToolBP* pdfToolBar;
 	QToolButton* DatOpe;
 	QToolButton* DatSav;

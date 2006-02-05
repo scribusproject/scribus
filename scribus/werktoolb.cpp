@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap loadIcon(QString nam);
 
 
-WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
+WerkToolB::WerkToolB(QMainWindow* parent) : ScToolBar(tr("Tools"), parent, QDockWindow::Vertical)
 {
 	SubMode = 0;
 	ValCount = 32;
@@ -89,22 +89,14 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	ScMW->scrActions["toolsCopyProperties"]->addTo(this);
 	ScMW->scrActions["toolsEyeDropper"]->addTo(this);
 
-	setCloseMode(QDockWindow::Undocked);
 	languageChange();
 	connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));
-	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(Verbergen(bool)));
 	connect(Rechteck, SIGNAL(FormSel(int, int, double *)), this, SLOT(SelShape(int, int, double *)));
 }
 
 void WerkToolB::Docken(QDockWindow::Place p)
 {
 	setOrientation(p == InDock ? Horizontal : Vertical);
-}
-
-void WerkToolB::Verbergen(bool vis)
-{
-	if (!vis)
-		emit Schliessen();
 }
 
 void WerkToolB::GetPolyProps()
@@ -134,7 +126,7 @@ void WerkToolB::languageChange()
 }
 
 
-WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF Tools"), parent)
+WerkToolBP::WerkToolBP(QMainWindow* parent) : ScToolBar( tr("PDF Tools"), parent)
 {
 	PDFM = new QPopupMenu();
 	PDFTool = new QToolButton(loadIcon("pushbutton.png"), "Insert PDF Fields", QString::null, this, SLOT(ModeFromTB()), this);
@@ -151,7 +143,6 @@ WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF Tools"), parent)
 	setCloseMode(QDockWindow::Undocked);
 	languageChange();
 	connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));
-	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(Verbergen(bool)));
 	connect(PDFM, SIGNAL(activated(int)), this, SLOT(setPDFtool(int)));
 	connect(PDFA, SIGNAL(activated(int)), this, SLOT(setPDFnotiz(int)));
 }
@@ -188,12 +179,6 @@ void WerkToolBP::setPDFtool(int id)
 void WerkToolBP::Docken(QDockWindow::Place )
 {
 	setOrientation(Horizontal);
-}
-
-void WerkToolBP::Verbergen(bool vis)
-{
-	if (!vis)
-		emit Schliessen();
 }
 
 void WerkToolBP::ModeFromTB()
