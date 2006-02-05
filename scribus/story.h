@@ -24,12 +24,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef STORY_H
 #define STORY_H
 
+#include <qguardedptr.h>
 #include <qvariant.h>
 #include <qmainwindow.h>
 #include <qptrlist.h>
 #include <qtable.h>
 #include <qtextedit.h>
 #include <qpopupmenu.h>
+#include <qmap.h>
 #include <qmenubar.h>
 #include <qstatusbar.h>
 #include <qlabel.h>
@@ -44,11 +46,13 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "pageitem.h"
 
+class MenuManager;
 class MSpinBox;
 class Spalette;
 class StyleSelect;
 class AlignSelect;
 class FontCombo;
+class ScrAction;
 class ShadeButton;
 class PrefsManager;
 class PrefsContext;
@@ -335,11 +339,13 @@ public:
 	bool textDataChanged() const;
 	PageItem* currentItem() const;
 	ScribusDoc* currentDocument() const;
-
-	QPopupMenu* fmenu;
-	QPopupMenu* emenu;
-	QPopupMenu* settingsMenu;
+/*
+	//QPopupMenu* fmenu;
+	//QPopupMenu* emenu;
+	//QPopupMenu* settingsMenu;
+*/
 	QToolBar* FileTools;
+/*	
 	QToolButton* DatNeu;
 	QToolButton* DatOpe;
 	QToolButton* DatSav;
@@ -347,7 +353,7 @@ public:
 	QToolButton* DatClo;
 	QToolButton* DatCan;
 	QToolButton* DatRel;
-	QToolButton* DatUpdt;
+	QToolButton* DatUpdt;*/
 	SToolBFont* FontTools;
 	SToolBAlign* AlignTools;
 	SToolBColorF* FillTools;
@@ -377,12 +383,14 @@ public:
 	ScribusDoc* currDoc;
 	PageItem* currItem;
 	bool textChanged;
+	/*
 	int Mcopy;
 	int Mcut;
 	int Mdel;
 	int Mpaste;
 	int Mupdt;
 	int M_FileRevert;
+	*/
 	bool firstSet;
 	bool activFromApp;
 	bool blockUpdate;
@@ -431,7 +439,7 @@ public slots:
 	void SaveTextFile();
 	// 10/12/2004 - pv - #1203: wrong selection on double click
 	void doubleClick(int para, int pos);
-	void ToggleSmart();
+	void setSmart(bool);
 	void languageChange();
 
 signals:
@@ -439,6 +447,8 @@ signals:
 	void EditSt();
 
 protected:
+	void createActions();
+	void buildMenus();
 	void buildGUI();
 	void connectSignals();
 	void disconnectSignals();
@@ -454,6 +464,10 @@ protected:
 
 	PrefsManager* prefsManager;
 	PrefsContext* prefs;
+	
+	QMap<QString, QGuardedPtr<ScrAction> > seActions;
+	MenuManager* seMenuMgr;
+	QPixmap noIcon;
 };
 
 #endif

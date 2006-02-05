@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "customfdialog.h"
 #include "editformats.h"
 #include "fontcombo.h"
+#include "menumanager.h"
 #include "mspinbox.h"
 #include "pageitem.h"
 #include "pluginmanager.h"
@@ -1688,6 +1689,9 @@ void SToolBColorF::languageChange()
 	QToolTip::remove(PM2);
 	QToolTip::add(TxFill, tr( "Color of text fill" ));
 	QToolTip::add(PM2, tr( "Saturation of color of text fill" ));
+	
+	
+	
 }
 
 void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
@@ -2015,6 +2019,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 {
 	prefsManager=PrefsManager::instance();
 	currDoc = docc;
+	seMenuMgr=NULL;
 	buildGUI();
 	currItem = ite;
 	firstSet = false;
@@ -2087,12 +2092,119 @@ void StoryEditor::loadPrefs()
 	setGeometry(vleft, vtop, vwidth, vheight);
 }
 
+void StoryEditor::createActions()
+{
+	#ifdef Q_WS_MAC
+	noIcon = loadIcon("noicon.xpm");
+	#endif
+	seActions.clear();
+	//File Menu
+	seActions.insert("fileNew", new ScrAction(QIconSet(loadIcon("editdelete.png"), loadIcon("editdelete.png")), "", CTRL+Key_N, this, "fileNew"));
+	seActions.insert("fileRevert", new ScrAction(QIconSet(loadIcon("reload16.png"), loadIcon("reload.png")), "", QKeySequence(), this, "fileRevert"));
+	seActions.insert("fileSaveToFile", new ScrAction(QIconSet(loadIcon("DateiSave16.png"), loadIcon("DateiSave2.png")), "", QKeySequence(), this, "fileSaveToFile"));
+	seActions.insert("fileLoadFromFile", new ScrAction(QIconSet(loadIcon("DateiOpen16.png"), loadIcon("DateiOpen.xpm")), "", QKeySequence(), this, "fileLoadFromFile"));
+	seActions.insert("fileSaveDocument", new ScrAction(QIconSet(loadIcon("reload16.png"), loadIcon("reload.png")), "", CTRL+Key_S, this, "fileSaveDocument"));
+	seActions.insert("fileUpdateAndExit", new ScrAction(QIconSet(loadIcon("ok.png"), loadIcon("ok22.png")), "", QKeySequence(), this, "fileUpdateAndExit"));
+	seActions.insert("fileExit", new ScrAction(QIconSet(loadIcon("exit.png"), loadIcon("exit22.png")), "", QKeySequence(), this, "fileExit"));
+	
+	connect( seActions["fileNew"], SIGNAL(activated()), this, SLOT(Do_new()) );
+	connect( seActions["fileRevert"], SIGNAL(activated()), this, SLOT(slotFileRevert()) );
+	connect( seActions["fileSaveToFile"], SIGNAL(activated()), this, SLOT(SaveTextFile()) );
+	connect( seActions["fileLoadFromFile"], SIGNAL(activated()), this, SLOT(LoadTextFile()) );
+	connect( seActions["fileSaveDocument"], SIGNAL(activated()), this, SLOT(Do_saveDocument()) );
+	connect( seActions["fileUpdateAndExit"], SIGNAL(activated()), this, SLOT(Do_leave2()) );
+	connect( seActions["fileExit"], SIGNAL(activated()), this, SLOT(Do_leave()) );
+	
+	//Edit Menu
+	seActions.insert("editSelectAll", new ScrAction(QIconSet(noIcon), "", CTRL+Key_A, this, "editSelectAll"));
+	seActions.insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png")), "", CTRL+Key_X, this, "editCut"));
+	seActions.insert("editCopy", new ScrAction(QIconSet(loadIcon("editcopy.png")), "", CTRL+Key_C, this, "editCopy"));
+	seActions.insert("editPaste", new ScrAction(QIconSet(loadIcon("editpaste.png")), "", CTRL+Key_V, this, "editPaste"));
+	seActions.insert("editClear", new ScrAction(QIconSet(loadIcon("editdelete.png")), "", Key_Delete, this, "editClear"));
+	seActions.insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png")), "", QKeySequence(), this, "editSearchReplace"));
+	seActions.insert("editInsertGlyph", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "editInsertGlyph"));
+	seActions.insert("editEditStyle", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "editEditStyle"));
+	seActions.insert("editFontPreview", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "editFontPreview"));
+	seActions.insert("editUpdateFrame", new ScrAction(QIconSet(loadIcon("compfile16.png"),loadIcon("compfile.png")), "", CTRL+Key_U, this, "editUpdateFrame"));
+	
+	connect( seActions["editSelectAll"], SIGNAL(activated()), this, SLOT(Do_selectAll()) );
+	connect( seActions["editCut"], SIGNAL(activated()), this, SLOT(Do_cut()) );
+	connect( seActions["editCopy"], SIGNAL(activated()), this, SLOT(Do_copy()) );
+	connect( seActions["editPaste"], SIGNAL(activated()), this, SLOT(Do_paste()) );
+	connect( seActions["editClear"], SIGNAL(activated()), this, SLOT(Do_del()) );
+	connect( seActions["editSearchReplace"], SIGNAL(activated()), this, SLOT(SearchText()) );
+	connect( seActions["editInsertGlyph"], SIGNAL(activated()), this, SLOT(Do_insSp()) );
+	connect( seActions["editEditStyle"], SIGNAL(activated()), this, SLOT(slotEditStyles()) );
+	connect( seActions["editFontPreview"], SIGNAL(activated()), this, SLOT(Do_fontPrev()) );
+	connect( seActions["editUpdateFrame"], SIGNAL(activated()), this, SLOT(updateTextFrame()) );
+	
+	//Settings Menu
+	seActions.insert("settingsBackground", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "settingsBackground"));
+	seActions.insert("settingsDisplayFont", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "settingsDisplayFont"));
+	seActions.insert("settingsSmartTextSelection", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "settingsSmartTextSelection"));
+	smartSelection = false;
+	seActions["settingsSmartTextSelection"]->setOn(false);
+	seActions["settingsSmartTextSelection"]->setToggleAction(true);
+	
+	connect( seActions["settingsBackground"], SIGNAL(activated()), this, SLOT(setBackPref()) );
+	connect( seActions["settingsDisplayFont"], SIGNAL(activated()), this, SLOT(setFontPref()) );
+	connect( seActions["settingsSmartTextSelection"], SIGNAL(toggled(bool)), this, SLOT(setSmart(bool)) );
+	
+	
+	seActions["fileRevert"]->setEnabled(false);
+	seActions["editCopy"]->setEnabled(false);
+	seActions["editCut"]->setEnabled(false);
+	seActions["editPaste"]->setEnabled(false);
+	seActions["editClear"]->setEnabled(false);
+	seActions["editUpdateFrame"]->setEnabled(false);
+}
+
+void StoryEditor::buildMenus()
+{
+	seMenuMgr = new MenuManager(this->menuBar());
+	seMenuMgr->createMenu("File", tr("&File"));
+	seMenuMgr->addMenuItem(seActions["fileNew"], "File");
+	seMenuMgr->addMenuItem(seActions["fileRevert"], "File");
+	seMenuMgr->addMenuSeparator("File");
+	seMenuMgr->addMenuItem(seActions["fileSaveToFile"], "File");
+	seMenuMgr->addMenuItem(seActions["fileLoadFromFile"], "File");
+	seMenuMgr->addMenuItem(seActions["fileSaveDocument"], "File");
+	seMenuMgr->addMenuSeparator("File");
+	seMenuMgr->addMenuItem(seActions["fileUpdateAndExit"], "File");
+	seMenuMgr->addMenuItem(seActions["fileExit"], "File");
+	seMenuMgr->createMenu("Edit", tr("&Edit"));
+	seMenuMgr->addMenuItem(seActions["editSelectAll"], "Edit");
+	seMenuMgr->addMenuItem(seActions["editCut"], "Edit");
+	seMenuMgr->addMenuItem(seActions["editCopy"], "Edit");
+	seMenuMgr->addMenuItem(seActions["editPaste"], "Edit");
+	seMenuMgr->addMenuItem(seActions["editClear"], "Edit");
+	seMenuMgr->addMenuSeparator("Edit");
+	seMenuMgr->addMenuItem(seActions["editSearchReplace"], "Edit");
+	seMenuMgr->addMenuItem(seActions["editInsertGlyph"], "Edit");
+	seMenuMgr->addMenuSeparator("Edit");
+	seMenuMgr->addMenuItem(seActions["editEditStyle"], "Edit");
+	seMenuMgr->addMenuItem(seActions["editFontPreview"], "Edit");
+	seMenuMgr->addMenuItem(seActions["editUpdateFrame"], "Edit");
+	seMenuMgr->createMenu("Settings", tr("&Settings"));
+	seMenuMgr->addMenuItem(seActions["settingsBackground"], "Settings");
+	seMenuMgr->addMenuItem(seActions["settingsDisplayFont"], "Settings");
+	seMenuMgr->addMenuItem(seActions["settingsSmartTextSelection"], "Settings");
+	
+	seMenuMgr->addMenuToMenuBar("File");
+	seMenuMgr->addMenuToMenuBar("Edit");
+	seMenuMgr->addMenuToMenuBar("Settings");
+}
+
 void StoryEditor::buildGUI()
 {
+	createActions();
+	buildMenus();
+	
 	setIcon(loadIcon("AppIcon.png"));
 	QHBox* vb = new QHBox( this );
 	StoryEd2Layout = new QHBoxLayout( 0, 5, 5, "StoryEd2Layout");
 /* Setting up Menu Bar */
+/*
 	fmenu = new QPopupMenu();
 	fmenu->insertItem(loadIcon("editdelete.png"), tr("&New"), this, SLOT(Do_new()), CTRL+Key_N);
 	M_FileRevert = fmenu->insertItem(loadIcon("reload16.png"),  tr("&Reload Text from Frame"), this, SLOT(slotFileRevert()));
@@ -2101,11 +2213,12 @@ void StoryEditor::buildGUI()
 	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Load from File..."), this, SLOT(LoadTextFile()));
 	fmenu->insertItem( tr("Save &Document"), this, SLOT(Do_saveDocument()), CTRL+Key_S);
 	fmenu->insertSeparator();
-	/* changes to fit the #662 bug 05/28/04 petr vanek */
+	// changes to fit the #662 bug 05/28/04 petr vanek
 	fmenu->insertItem(loadIcon("ok.png"),  tr("&Update Text Frame and Exit"), this, SLOT(Do_leave2()));
 	fmenu->insertItem(loadIcon("exit.png"),  tr("&Exit Without Updating Text Frame"), this, SLOT(Do_leave()));
+*/
 	/* end of changes */
-	emenu = new QPopupMenu();
+	/*emenu = new QPopupMenu();
 	emenu->insertItem( tr("Select &All"), this, SLOT(Do_selectAll()), CTRL+Key_A);
 	Mcopy = emenu->insertItem(loadIcon("editcut.png"), tr("Cu&t"), this, SLOT(Do_cut()), CTRL+Key_X);
 	Mcut = emenu->insertItem(loadIcon("editcopy.png"), tr("&Copy"), this, SLOT(Do_copy()), CTRL+Key_C);
@@ -2118,18 +2231,31 @@ void StoryEditor::buildGUI()
 	emenu->insertItem( tr("&Edit Styles..."), this , SLOT(slotEditStyles()));
 	emenu->insertItem( tr("&Fonts Preview..."), this , SLOT(Do_fontPrev()));
 	Mupdt = emenu->insertItem(loadIcon("compfile16.png"),  tr("&Update Text Frame"), this, SLOT(updateTextFrame()), CTRL+Key_U);
+	*/
+	/*
 	settingsMenu = new QPopupMenu();
 	settingsMenu->insertItem( tr("&Background..."), this , SLOT(setBackPref()));
 	settingsMenu->insertItem( tr("&Display Font..."), this , SLOT(setFontPref()));
 	smartSel = settingsMenu->insertItem( tr("&Smart text selection"), this, SLOT(ToggleSmart()));
 	smartSelection = false;
 	settingsMenu->setItemChecked(smartSel, smartSelection);
-	menuBar()->insertItem( tr("&File"), fmenu);
-	menuBar()->insertItem( tr("&Edit"), emenu);
-	menuBar()->insertItem( tr("&Settings"), settingsMenu );
+	*/
+	//menuBar()->insertItem( tr("&File"), fmenu);
+	//menuBar()->insertItem( tr("&Edit"), emenu);
+	//menuBar()->insertItem( tr("&Settings"), settingsMenu );
 
 /* Setting up Toolbars */
 	FileTools = new QToolBar(this);
+	seActions["fileNew"]->addTo(FileTools);
+	seActions["fileLoadFromFile"]->addTo(FileTools);
+	seActions["fileSaveToFile"]->addTo(FileTools);
+	seActions["fileUpdateAndExit"]->addTo(FileTools);
+	seActions["fileExit"]->addTo(FileTools);
+	seActions["fileRevert"]->addTo(FileTools);
+	seActions["editUpdateFrame"]->addTo(FileTools);
+	seActions["editSearchReplace"]->addTo(FileTools);
+	
+	/*
 	DatNeu = new QToolButton(loadIcon("editdelete.png"), "", QString::null, this, SLOT(Do_new()), FileTools);
 	DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), "", QString::null, this, SLOT(LoadTextFile()), FileTools);
 	DatSav = new QToolButton(loadIcon("DateiSave2.png"), "", QString::null, this, SLOT(SaveTextFile()), FileTools);
@@ -2140,6 +2266,7 @@ void StoryEditor::buildGUI()
 	DatFin = new QToolButton(loadIcon("find.png"), "", QString::null, this, SLOT(SearchText()), FileTools);
 	DatUpdt->setEnabled(false);
 	//DatRel->setEnabled(false);
+	*/
 	setDockEnabled(FileTools, DockLeft, false);
 	setDockEnabled(FileTools, DockRight, false);
 	setDockEnabled(FileTools, DockBottom, false);
@@ -2226,13 +2353,15 @@ void StoryEditor::buildGUI()
 	ButtonGroup2Layout->addWidget( CharC2, 1, 5 );
 	statusBar()->addWidget(ButtonGroup2, 1, true);
 	setCentralWidget( vb );
-/* Final polishment */
+	/*
+	// Final polishment
 	fmenu->setItemEnabled(M_FileRevert, 0);
 	emenu->setItemEnabled(Mcopy, 0);
 	emenu->setItemEnabled(Mcut, 0);
 	emenu->setItemEnabled(Mpaste, 0);
 	emenu->setItemEnabled(Mdel, 0);
 	emenu->setItemEnabled(Mupdt, 0);
+	*/
 	resize( QSize(660, 500).expandedTo(minimumSizeHint()) );
 	if (prefsManager==NULL)
 		sDebug(QString("%1").arg("prefsmgr null"));
@@ -2251,16 +2380,35 @@ void StoryEditor::buildGUI()
 void StoryEditor::languageChange()
 {
 	setCaption( tr( "Story Editor" ) );
-
+	//File Menu
+	seMenuMgr->setMenuText("File", tr("&File"));
+	seActions["fileNew"]->setMenuText( tr("&New"));
+	seActions["fileNew"]->setText( tr("Clear All Text"));
+	seActions["fileRevert"]->setTexts( tr("&Reload Text from Frame"));
+	seActions["fileSaveToFile"]->setTexts( tr("&Save to File..."));
+	seActions["fileLoadFromFile"]->setTexts( tr("&Load from File..."));
+	seActions["fileSaveDocument"]->setTexts( tr("Save &Document"));
+	seActions["fileUpdateAndExit"]->setTexts( tr("&Update Text Frame and Exit"));
+	seActions["fileExit"]->setTexts( tr("&Exit Without Updating Text Frame"));
+	//Edit Menu
+	seMenuMgr->setMenuText("Edit", tr("&Edit"));
+	seActions["editSelectAll"]->setTexts( tr("Select &All"));
+	seActions["editCut"]->setTexts( tr("Cu&t"));
+	seActions["editCopy"]->setTexts( tr("&Copy"));
+	seActions["editPaste"]->setTexts( tr("&Paste"));
+	seActions["editClear"]->setTexts( tr("C&lear"));
+	seActions["editSearchReplace"]->setTexts( tr("&Search/Replace..."));
+	seActions["editInsertGlyph"]->setTexts( tr("&Insert Glyph..."));
+	seActions["editEditStyle"]->setTexts( tr("&Edit Styles..."));
+	seActions["editFontPreview"]->setTexts( tr("&Fonts Preview..."));
+	seActions["editUpdateFrame"]->setTexts( tr("&Update Text Frame"));
+	//Settings Menu
+	seMenuMgr->setMenuText("Settings", tr("&Settings"));
+	seActions["settingsBackground"]->setTexts( tr("&Background..."));
+	seActions["settingsDisplayFont"]->setTexts( tr("&Display Font..."));
+	seActions["settingsSmartTextSelection"]->setTexts( tr("&Smart text selection"));
+	
 	FileTools->setLabel( tr("File"));
-	DatNeu->setTextLabel( tr("Clear All Text"), true);
-	DatOpe->setTextLabel( tr("Load Text from File"), true);
-	DatSav->setTextLabel( tr("Save Text to File"), true);
-	DatClo->setTextLabel( tr("Update Text Frame and Exit"), true);
-	DatCan->setTextLabel( tr("Exit Without Updating Text Frame"), true);
-	DatRel->setTextLabel( tr("Reload Text from Frame"), true);
-	DatUpdt->setTextLabel( tr("Update Text Frame"), true);
-	DatFin->setTextLabel( tr("Search/Replace"), true);
 
 	WordCT1->setText( tr("Current Paragraph:"));
 	WordCT->setText( tr("Words: "));
@@ -2366,10 +2514,10 @@ void StoryEditor::doubleClick(int para, int position)
 	updateProps(para, position);
 }
 
-void StoryEditor::ToggleSmart()
+void StoryEditor::setSmart(bool newSmartSelection)
 {
-	smartSelection = !smartSelection;
-	settingsMenu->setItemChecked(smartSel, smartSelection);
+	smartSelection = newSmartSelection;
+	//settingsMenu->setItemChecked(smartSel, smartSelection);
 }
 
 void StoryEditor::closeEvent(QCloseEvent *)
@@ -2435,10 +2583,16 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 				Editor->setUndoRedoEnabled(false);
 				Editor->setUndoRedoEnabled(true);
 				Editor->setCursorPosition(0, 0);
+				seActions["fileRevert"]->setEnabled(false);
+				seActions["editCopy"]->setEnabled(false);
+				seActions["editCut"]->setEnabled(false);
+				seActions["editClear"]->setEnabled(false);
+				/*
 				emenu->setItemEnabled(Mcopy, 0);
 				emenu->setItemEnabled(Mcut, 0);
 				emenu->setItemEnabled(Mdel, 0);
 				fmenu->setItemEnabled(M_FileRevert, 0);
+				*/
 				textChanged = false;
 				Editor->loadItemText(currItem);
 				updateStatus();
@@ -2965,10 +3119,16 @@ bool StoryEditor::Do_new()
 	Editor->setUndoRedoEnabled(false);
 	Editor->setUndoRedoEnabled(true);
 	Editor->setCursorPosition(0, 0);
+	seActions["fileRevert"]->setEnabled(false);
+	seActions["editCopy"]->setEnabled(false);
+	seActions["editCut"]->setEnabled(false);
+	seActions["editClear"]->setEnabled(false);
+	/*
 	emenu->setItemEnabled(Mcopy, 0);
 	emenu->setItemEnabled(Mcut, 0);
 	emenu->setItemEnabled(Mdel, 0);
 	fmenu->setItemEnabled(M_FileRevert, 0);
+	*/
 //	textChanged = false;
 	EditorBar->setRepaint(true);
 	EditorBar->doRepaint();
@@ -3032,18 +3192,27 @@ void StoryEditor::Do_del()
 
 void StoryEditor::CopyAvail(bool u)
 {
+	seActions["editCopy"]->setEnabled(u);
+	seActions["editCut"]->setEnabled(u);
+	seActions["editClear"]->setEnabled(u);
+	/*
 	emenu->setItemEnabled(Mcopy, u);
 	emenu->setItemEnabled(Mcut, u);
 	emenu->setItemEnabled(Mdel, u);
+	*/
+	seActions["editCopy"]->setEnabled(Editor->tBuffer.length() != 0);
+	/*
 	if (Editor->tBuffer.length() != 0)
 		emenu->setItemEnabled(Mpaste, 1);
 	else
 		emenu->setItemEnabled(Mpaste, 0);
+	*/
 }
 
 void StoryEditor::PasteAvail()
 {
-	emenu->setItemEnabled(Mpaste, 1);
+	seActions["editPaste"]->setEnabled(true);
+	//emenu->setItemEnabled(Mpaste, 1);
 }
 
 void StoryEditor::updateTextFrame()
@@ -3128,9 +3297,11 @@ void StoryEditor::updateTextFrame()
 	}
 	ScMW->view->DrawNew();
 	textChanged = false;
-	emenu->setItemEnabled(Mupdt, 0);
-	fmenu->setItemEnabled(M_FileRevert, 0);
-	DatUpdt->setEnabled(false);
+	seActions["fileRevert"]->setEnabled(false);
+	seActions["editUpdateFrame"]->setEnabled(false);
+	//emenu->setItemEnabled(Mupdt, 0);
+	//fmenu->setItemEnabled(M_FileRevert, 0);
+	//DatUpdt->setEnabled(false);
 	//DatRel->setEnabled(false);
 	emit DocChanged();
 }
@@ -3462,13 +3633,18 @@ void StoryEditor::modifiedText()
 {
 	textChanged = true;
 	firstSet = true;
-	emenu->setItemEnabled(Mupdt, 1);
-	fmenu->setItemEnabled(M_FileRevert, 1);
+	seActions["fileRevert"]->setEnabled(true);
+	seActions["editUpdateFrame"]->setEnabled(true);
+	//emenu->setItemEnabled(Mupdt, 1);
+	//fmenu->setItemEnabled(M_FileRevert, 1);
+	seActions["editPaste"]->setEnabled(Editor->tBuffer.length() != 0);
+	/*
 	if (Editor->tBuffer.length() != 0)
 		emenu->setItemEnabled(Mpaste, 1);
 	else
 		emenu->setItemEnabled(Mpaste, 0);
-	DatUpdt->setEnabled(true);
+	*/
+	//DatUpdt->setEnabled(true);
 	//DatRel->setEnabled(true);
 	updateStatus();
 }
@@ -3497,10 +3673,16 @@ void StoryEditor::LoadTextFile()
 				data.replace(QRegExp("\r"), "");
 				data.replace(QRegExp("\n"), QChar(13));
 				Editor->loadText(data, currItem);
+				seActions["editPaste"]->setEnabled(false);
+				seActions["editCopy"]->setEnabled(false);
+				seActions["editCut"]->setEnabled(false);
+				seActions["editClear"]->setEnabled(false);
+				/*
 				emenu->setItemEnabled(Mpaste, 0);
 				emenu->setItemEnabled(Mcopy, 0);
 				emenu->setItemEnabled(Mcut, 0);
 				emenu->setItemEnabled(Mdel, 0);
+				*/
 				delete ss;
 			}
 		}
