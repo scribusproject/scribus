@@ -35,9 +35,84 @@ QString CommonStrings::tr_Save     = "";
 QString CommonStrings::Warning     = "";
 QString CommonStrings::trWarning   = "";
 
+QString CommonStrings::pageSet1    = "";
+QString CommonStrings::pageSet2    = "";
+QString CommonStrings::pageSet3    = "";
+QString CommonStrings::pageSet4    = "";
+QString CommonStrings::trPageSet1  = "";
+QString CommonStrings::trPageSet2  = "";
+QString CommonStrings::trPageSet3  = "";
+QString CommonStrings::trPageSet4  = "";
+QString CommonStrings::pageLocLeft          = "";
+QString CommonStrings::pageLocMiddle        = "";
+QString CommonStrings::pageLocMiddleLeft    = "";
+QString CommonStrings::pageLocMiddleRight   = "";
+QString CommonStrings::pageLocRight         = "";
+QString CommonStrings::trPageLocLeft        = "";
+QString CommonStrings::trPageLocMiddle      = "";
+QString CommonStrings::trPageLocMiddleLeft  = "";
+QString CommonStrings::trPageLocMiddleRight = "";
+QString CommonStrings::trPageLocRight       = "";
+
 CommonStrings::CommonStrings()
 {
 	languageChange();
+}
+
+const QString& CommonStrings::translatePageSetString(const QString &untrString)
+{
+	if (untrString==pageSet1)
+		return trPageSet1;
+	if (untrString==pageSet2)
+		return trPageSet2;
+	if (untrString==pageSet3)
+		return trPageSet3;
+	if (untrString==pageSet4)
+		return trPageSet4;
+	return untrString;
+}
+
+const QString& CommonStrings::translatePageSetLocString(const QString &untrString)
+{
+	if (untrString==pageLocLeft)
+		return trPageLocLeft;
+	if (untrString==pageLocMiddle)
+		return trPageLocMiddle;
+	if (untrString==pageLocMiddleLeft)
+		return trPageLocMiddleLeft;
+	if (untrString==pageLocMiddleRight)
+		return trPageLocMiddleRight;
+	if (untrString==pageLocRight)
+		return trPageLocRight;
+	return untrString;
+}
+
+const QString& CommonStrings::untranslatePageSetString(const QString &trString)
+{
+	if (trString==trPageSet1)
+		return pageSet1;
+	if (trString==trPageSet2)
+		return pageSet2;
+	if (trString==trPageSet3)
+		return pageSet3;
+	if (trString==trPageSet4)
+		return pageSet4;
+	return trString;
+}
+
+const QString& CommonStrings::untranslatePageSetLocString(const QString &trString)
+{
+	if (trString==trPageLocLeft)
+		return pageLocLeft;
+	if (trString==trPageLocMiddle)
+		return pageLocMiddle;
+	if (trString==trPageLocMiddleLeft)
+		return pageLocMiddleLeft;
+	if (trString==trPageLocMiddleRight)
+		return pageLocMiddleRight;
+	if (trString==trPageLocRight)
+		return pageLocRight;
+	return trString;
 }
 
 void CommonStrings::languageChange()
@@ -59,5 +134,25 @@ void CommonStrings::languageChange()
 	
 	CommonStrings::Warning    = "Warning";
 	CommonStrings::trWarning  = tr( "Warning" );
+	
+	CommonStrings::pageSet1    = "Single Page";
+	CommonStrings::pageSet2    = "Double Sided";
+	CommonStrings::pageSet3    = "3-Fold";
+	CommonStrings::pageSet4    = "4-Fold";
+	CommonStrings::trPageSet1  = tr( "Single Page" );
+	CommonStrings::trPageSet2  = tr( "Double Sided" );
+	CommonStrings::trPageSet3  = tr( "3-Fold" );
+	CommonStrings::trPageSet4  = tr( "4-Fold" );
+	
+	CommonStrings::pageLocLeft          = "Left Page";
+	CommonStrings::pageLocMiddle        = "Middle";
+	CommonStrings::pageLocMiddleLeft    = "Middle Left";
+	CommonStrings::pageLocMiddleRight   = "Middle Right";
+	CommonStrings::pageLocRight         = "Right Page";
+	CommonStrings::trPageLocLeft        = tr( "Left Page" );
+	CommonStrings::trPageLocMiddle      = tr( "Middle" );
+	CommonStrings::trPageLocMiddleLeft  = tr( "Middle Left" );
+	CommonStrings::trPageLocMiddleRight = tr( "Middle Right" );
+	CommonStrings::trPageLocRight       = tr( "Right Page" );
 }
 

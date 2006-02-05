@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefsmanager.h"
 #include "prefsmanager.moc"
+#include "commonstrings.h"
 #include "filewatcher.h"
 #include "missing.h"
 #include "keymanager.h"
@@ -315,7 +316,7 @@ void PrefsManager::initDefaults()
 	appPrefs.ScratchTop = 20;
 	appPrefs.ScratchBottom = 20;
 	struct PageSet pageS;
-	pageS.Name = tr( "Single Page" );
+	pageS.Name = CommonStrings::pageSet1;
 	pageS.FirstPage = 0;
 	pageS.Rows = 1;
 	pageS.Columns = 1;
@@ -324,29 +325,29 @@ void PrefsManager::initDefaults()
 	pageS.GapBelow = 40.0;
 	pageS.pageNames.clear();
 	appPrefs.pageSets.append(pageS);
-	pageS.Name = tr( "Double sided" );
+	pageS.Name = CommonStrings::pageSet2;
 	pageS.FirstPage = 1;
 	pageS.Columns = 2;
 	pageS.pageNames.clear();
-	pageS.pageNames.append( tr("Left Page"));
-	pageS.pageNames.append( tr("Right Page"));
+	pageS.pageNames.append(CommonStrings::pageLocLeft);
+	pageS.pageNames.append(CommonStrings::pageLocRight);
 	appPrefs.pageSets.append(pageS);
-	pageS.Name = tr( "3-Fold" );
+	pageS.Name = CommonStrings::pageSet3;
 	pageS.FirstPage = 0;
 	pageS.Columns = 3;
 	pageS.pageNames.clear();
-	pageS.pageNames.append( tr("Left Page"));
-	pageS.pageNames.append( tr("Middle"));
-	pageS.pageNames.append( tr("Right Page"));
+	pageS.pageNames.append(CommonStrings::pageLocLeft);
+	pageS.pageNames.append(CommonStrings::pageLocMiddle);
+	pageS.pageNames.append(CommonStrings::pageLocRight);
 	appPrefs.pageSets.append(pageS);
-	pageS.Name = tr( "4-Fold" );
+	pageS.Name = CommonStrings::pageSet4;
 	pageS.FirstPage = 0;
 	pageS.Columns = 4;
 	pageS.pageNames.clear();
-	pageS.pageNames.append( tr("Left Page"));
-	pageS.pageNames.append( tr("Middle Left"));
-	pageS.pageNames.append( tr("Middle Right"));
-	pageS.pageNames.append( tr("Right Page"));
+	pageS.pageNames.append(CommonStrings::pageLocLeft);
+	pageS.pageNames.append(CommonStrings::pageLocMiddleLeft);
+	pageS.pageNames.append(CommonStrings::pageLocMiddleRight);
+	pageS.pageNames.append(CommonStrings::pageLocRight);
 	appPrefs.pageSets.append(pageS);
 	appPrefs.FacingPages = singlePage;
 	appPrefs.askBeforeSubstituite = true;

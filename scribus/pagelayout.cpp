@@ -6,7 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 #include "pagelayout.h"
 #include "pagelayout.moc"
-#include "sccombobox.h"
 
 #include <qvariant.h>
 #include <qgroupbox.h>
@@ -17,6 +16,9 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qpixmap.h>
+
+#include "sccombobox.h"
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -68,16 +70,17 @@ void PageLayouts::updateLayoutSelector(QValueList<PageSet> pSets)
 	layoutsCombo->clear();
 	for (uint pg = 0; pg < pageSets.count(); ++pg)
 	{
+		QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
 		if (pg == 0)
-			layoutsCombo->insertItem(loadIcon("pagesingle16.png"), pageSets[pg].Name);
+			layoutsCombo->insertItem(loadIcon("pagesingle16.png"), psname);
 		else if (pg == 1)
-			layoutsCombo->insertItem(loadIcon("pagedouble16.png"), pageSets[pg].Name);
+			layoutsCombo->insertItem(loadIcon("pagedouble16.png"), psname);
 		else if (pg == 2)
-			layoutsCombo->insertItem(loadIcon("pagetriple16.png"), pageSets[pg].Name);
+			layoutsCombo->insertItem(loadIcon("pagetriple16.png"), psname);
 		else if (pg == 3)
-			layoutsCombo->insertItem(loadIcon("pagequadro16.png"), pageSets[pg].Name);
+			layoutsCombo->insertItem(loadIcon("pagequadro16.png"), psname);
 		else
-			layoutsCombo->insertItem(loadIcon("page16.png"), pageSets[pg].Name);
+			layoutsCombo->insertItem(loadIcon("page16.png"), psname);
 	}
 	connect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
 }
@@ -91,7 +94,7 @@ void PageLayouts::selectFirstP(int nr)
 
 void PageLayouts::selectItem(uint nr)
 {
-	QIconViewItem* ic;
+	QIconViewItem* ic=0;
 	uint cce;
 	if (modus)
 	{
@@ -116,7 +119,7 @@ void PageLayouts::selectItem(uint nr)
 				QStringList::Iterator pNames;
 				for(pNames = pageSets[cc].pageNames.begin(); pNames != pageSets[cc].pageNames.end(); ++pNames )
 				{
-					firstPage->insertItem((*pNames));
+					firstPage->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
 				}
 			}
 			else
@@ -154,7 +157,7 @@ void PageLayouts::itemSelectedPost(int choosen)
 		QStringList::Iterator pNames;
 		for(pNames = pageSets[choosen].pageNames.begin(); pNames != pageSets[choosen].pageNames.end(); ++pNames )
 		{
-			firstPage->insertItem((*pNames));
+			firstPage->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
 		}
 	}
 	else
@@ -188,16 +191,17 @@ void PageLayouts::languageChange()
 		layoutsView->clear();
 		for (uint pg = 0; pg < pageSets.count(); ++pg)
 		{
+			QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
 			if (pg == 0)
-				(void) new QIconViewItem( layoutsView, pageSets[pg].Name, loadIcon("pagesingle.png") );
+				(void) new QIconViewItem( layoutsView, psname, loadIcon("pagesingle.png") );
 			else if (pg == 1)
-				(void) new QIconViewItem( layoutsView, pageSets[pg].Name, loadIcon("pagedouble.png") );
+				(void) new QIconViewItem( layoutsView, psname, loadIcon("pagedouble.png") );
 			else if (pg == 2)
-				(void) new QIconViewItem( layoutsView, pageSets[pg].Name, loadIcon("pagetriple.png") );
+				(void) new QIconViewItem( layoutsView, psname, loadIcon("pagetriple.png") );
 			else if (pg == 3)
-				(void) new QIconViewItem( layoutsView, pageSets[pg].Name, loadIcon("pagequadro.png") );
+				(void) new QIconViewItem( layoutsView, psname, loadIcon("pagequadro.png") );
 			else
-				(void) new QIconViewItem( layoutsView, pageSets[pg].Name, loadIcon("page.png") );
+				(void) new QIconViewItem( layoutsView, psname, loadIcon("page.png") );
 		}
 		int maxWidth = 0;
 		QIconViewItem* ic = layoutsView->firstItem();
@@ -225,16 +229,17 @@ void PageLayouts::languageChange()
 		layoutsCombo->clear();
 		for (uint pg = 0; pg < pageSets.count(); ++pg)
 		{
+			QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
 			if (pg == 0)
-				layoutsCombo->insertItem(loadIcon("pagesingle16.png"), pageSets[pg].Name);
+				layoutsCombo->insertItem(loadIcon("pagesingle16.png"), psname);
 			else if (pg == 1)
-				layoutsCombo->insertItem(loadIcon("pagedouble16.png"), pageSets[pg].Name);
+				layoutsCombo->insertItem(loadIcon("pagedouble16.png"), psname);
 			else if (pg == 2)
-				layoutsCombo->insertItem(loadIcon("pagetriple16.png"), pageSets[pg].Name);
+				layoutsCombo->insertItem(loadIcon("pagetriple16.png"), psname);
 			else if (pg == 3)
-				layoutsCombo->insertItem(loadIcon("pagequadro16.png"), pageSets[pg].Name);
+				layoutsCombo->insertItem(loadIcon("pagequadro16.png"), psname);
 			else
-				layoutsCombo->insertItem(loadIcon("page16.png"), pageSets[pg].Name);
+				layoutsCombo->insertItem(loadIcon("page16.png"), psname);
 		}
 	}
 	layoutLabel1->setText( tr( "First Page is:" ) );

@@ -46,6 +46,31 @@ class SCRIBUS_API CommonStrings : public QObject
 	Q_OBJECT
 public:
 	CommonStrings();
+	
+	/**
+	 * Return the translated Page Set string if given the "untranslated" one
+	 * @param  "untranslated" string
+	 * @return translated string
+	 */
+	static const QString& translatePageSetString(const QString &);
+	/**
+	 * Return the translated Page Set Location string if given the "untranslated" one
+	 * @param  "untranslated" string
+	 * @return translated string
+	 */
+	static const QString& translatePageSetLocString(const QString &);
+	/**
+	 * Return the untranslated Page Set string if given the translated one
+	 * @param  translated string
+	 * @return "untranslated" string
+	 */
+	static const QString& untranslatePageSetString(const QString &);
+	/**
+	 * Return the untranslated Page Set Location string if given the translated one
+	 * @param  translated string
+	 * @return "untranslated" string
+	 */
+	static const QString& untranslatePageSetLocString(const QString &);
 	static void languageChange();
 	static QString _Apply;
 	static QString tr_Apply;
@@ -59,6 +84,26 @@ public:
 	static QString tr_Save;
 	static QString Warning;
 	static QString trWarning;
+	
+	//Page Sets
+	static QString pageSet1;
+	static QString pageSet2;
+	static QString pageSet3;
+	static QString pageSet4;
+	static QString trPageSet1;
+	static QString trPageSet2;
+	static QString trPageSet3;
+	static QString trPageSet4;
+	static QString pageLocLeft;
+	static QString pageLocMiddle;
+	static QString pageLocMiddleLeft;
+	static QString pageLocMiddleRight;
+	static QString pageLocRight;
+	static QString trPageLocLeft;
+	static QString trPageLocMiddle;
+	static QString trPageLocMiddleLeft;
+	static QString trPageLocMiddleRight;
+	static QString trPageLocRight;
 };
 
 #endif

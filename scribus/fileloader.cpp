@@ -1062,7 +1062,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					if(PgsAttr.tagName() == "Set")
 					{
 						struct PageSet pageS;
-						pageS.Name = PgsAttr.attribute("Name");
+						pageS.Name = CommonStrings::untranslatePageSetString(PgsAttr.attribute("Name"));
 						pageS.FirstPage = PgsAttr.attribute("FirstPage", "0").toInt();
 						pageS.Rows = PgsAttr.attribute("Rows", "1").toInt();
 						pageS.Columns = PgsAttr.attribute("Columns", "1").toInt();
@@ -1075,7 +1075,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 						{
 							QDomElement PgsAttrN = PGSN.toElement();
 							if(PgsAttrN.tagName() == "PageNames")
-								pageS.pageNames.append(PgsAttrN.attribute("Name"));
+								pageS.pageNames.append(CommonStrings::untranslatePageSetLocString(PgsAttrN.attribute("Name")));
 							PGSN = PGSN.nextSibling();
 						}
 						doc->pageSets.append(pageS);
