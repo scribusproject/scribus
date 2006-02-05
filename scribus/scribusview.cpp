@@ -11151,12 +11151,12 @@ void ScribusView::TextToPath()
 				bb->setFillShade(hl->cshade);
 				if (currItem->itemText.at(a)->cstyle & 4)
 				{
-					bb->lineColor() = hl->cstroke;
+					bb->setLineColor(hl->cstroke);
 					bb->setLineShade(hl->cshade2);
 				}
 				else
 				{
-					bb->lineColor() = "None";
+					bb->setLineColor("None");
 					bb->setLineShade(100);
 				}
 				bb->Pwidth = chs * hl->coutline / 10000.0;
