@@ -75,8 +75,8 @@ FontCombo::FontCombo(QWidget* pa) : QComboBox(true, pa)
 
 void FontCombo::RebuildList(ScribusDoc *currentDoc)
 {
-	QStringList rlist;
 	clear();
+	QMap<QString, QString> rlist;
 	rlist.clear();
 	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
 	for ( ; it.current(); ++it)
@@ -86,22 +86,21 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc)
 			if (currentDoc != NULL)
 			{
 				if ((currentDoc->DocName == it.current()->PrivateFont) || (it.current()->PrivateFont.isEmpty()))
-					rlist.append(it.currentKey());
+					rlist.insert(it.currentKey().lower(), it.currentKey());
 			}
 			else
-				rlist.append(it.currentKey());
+				rlist.insert(it.currentKey().lower(), it.currentKey());
 			}
 	}
-	rlist.sort();
-	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
+	for (QMap<QString,QString>::Iterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 	{
-			Foi::FontType type = prefsManager->appPrefs.AvailFonts[*it2]->typeCode;
+			Foi::FontType type = prefsManager->appPrefs.AvailFonts[it2.data()]->typeCode;
 			if (type == Foi::OTF)
-				insertItem(otfFont, *it2);
+				insertItem(otfFont, it2.data());
 			else if (type == Foi::TYPE1)
-				insertItem(psFont, *it2);
+				insertItem(psFont, it2.data());
 			else if (type == Foi::TTF)
-				insertItem(ttfFont, *it2);
+				insertItem(ttfFont, it2.data());
 	}
 	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 }
@@ -119,12 +118,6 @@ FontComboH::FontComboH(QWidget* parent) : QWidget(parent, "FontComboH")
 	fontStyle = new ScComboBox( false, this, "fontStyle" );
 	fontComboLayout->addWidget(fontStyle);
 	RebuildList(0);
-/*	QStringList flist = prefsManager->appPrefs.AvailFonts.fontMap.keys();
-	fontFamily->insertStringList(flist);
-	fontStyle->clear();
-	QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[fontFamily->currentText()];
-	slist.sort();
-	fontStyle->insertStringList(slist); */
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }
@@ -141,6 +134,8 @@ void FontComboH::familySelected(int id)
 		fontStyle->setCurrentText(curr);
 	else if (slist.contains("Regular"))
 		fontStyle->setCurrentText("Regular");
+	else if (slist.contains("Roman"))
+		fontStyle->setCurrentText("Roman");
 	emit fontSelected(fontFamily->text(id) + " " + fontStyle->currentText());
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }
@@ -191,7 +186,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc)
 	fontFamily->clear();
 	fontStyle->clear();
 	QStringList rlist = prefsManager->appPrefs.AvailFonts.fontMap.keys();
-	QStringList flist;
+	QMap<QString, QString> flist;
 	flist.clear();
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 	{
@@ -207,20 +202,20 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc)
 					ilist.append(*it3);
 			}
 			if (!ilist.isEmpty())
-				flist.append(*it2);
+				flist.insert((*it2).lower(), *it2);
 		}
 		else
-			flist.append(*it2);
+			flist.insert((*it2).lower(), *it2);
 	}
-	for (QStringList::ConstIterator it2a = flist.begin(); it2a != flist.end(); ++it2a)
+	for (QMap<QString,QString>::Iterator it2a = flist.begin(); it2a != flist.end(); ++it2a)
 	{
-			Foi::FontType type = prefsManager->appPrefs.AvailFonts[*it2a+" "+prefsManager->appPrefs.AvailFonts.fontMap[*it2a][0]]->typeCode;
+			Foi::FontType type = prefsManager->appPrefs.AvailFonts[it2a.data()+" "+prefsManager->appPrefs.AvailFonts.fontMap[it2a.data()][0]]->typeCode;
 			if (type == Foi::OTF)
-				fontFamily->insertItem(otfFont, *it2a);
+				fontFamily->insertItem(otfFont, it2a.data());
 			else if (type == Foi::TYPE1)
-				fontFamily->insertItem(psFont, *it2a);
+				fontFamily->insertItem(psFont, it2a.data());
 			else if (type == Foi::TTF)
-				fontFamily->insertItem(ttfFont, *it2a);
+				fontFamily->insertItem(ttfFont, it2a.data());
 	}
 	QString family = fontFamily->currentText();
 	QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[family];
