@@ -43,7 +43,10 @@ ScToolBar::ScToolBar(const QString& name, QMainWindow *parent, QDockWindow::Orie
 			setOrientation(o);
 			move(QPoint(m_prefs->getInt("x", 50), m_prefs->getInt("y", 50)));
 		}
+	}
 
+	if (m_prefs->contains("IsVisible")) 
+	{
 		if (m_prefs->getBool("IsVisible", true))
 			show();
 		else
