@@ -62,16 +62,16 @@ public:
 	QLabel* TextLabel1_3a;
 	QLabel* TextLabel2_2;
 	QLabel* TextLabel2_3;
-	QComboBox* ComboBox1;
-	QComboBox* ComboBox2;
+	QComboBox* pageSizeComboBox;
+	QComboBox* pageOrientationComboBox;
 	QComboBox* ComboBox3;
 	QCheckBox* startUpDialog;
 	MSpinBox* Distance;
 	QSpinBox* SpinBox10;
 	QSpinBox* PgNr;
 	QSpinBox* PgNum;
-	MSpinBox* Breite;
-	MSpinBox* Hoehe;
+	MSpinBox* widthMSpinBox;
+	MSpinBox* heightMSpinBox;
 	QFrame* openDocFrame;
 	CustomFDialog *fileDialog;
 	QFrame* recentDocFrame;
@@ -82,8 +82,8 @@ public:
 	int Orient;
 	int precision;
 	int choosenLayout;
-	double Pagebr;
-	double Pageho;
+	double pageWidth;
+	double pageHeight;
 	double Dist;
 	QString unitSuffix;
 	int unitIndex;
@@ -91,8 +91,8 @@ public:
 	bool onStartup;
 
 public slots:
-	void setHoehe(int v);
-	void setBreite(int v);
+	void setHeight(int v);
+	void setWidth(int v);
 	void setDist(int v);
 	void setUnit(int u);
 	void ExitOK();

@@ -72,6 +72,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	unitRatio = doc->unitRatio();
 	QString ein = unitGetSuffixFromIndex(einheit);
 	decimals = unitGetDecimalsFromIndex(einheit);
+	customText="Custom";
+	customTextTR=tr( "Custom" );
 	pageWidth = doc->pageWidth;
 	pageHeight = doc->pageHeight;
 	setCaption( tr( "Document Setup" ) );
@@ -103,53 +105,53 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	dsLayout4 = new QGridLayout;
 	dsLayout4->setSpacing( 5 );
 	dsLayout4->setMargin( 0 );
-	sizeQComboBox = new QComboBox( true, dsGroupBox7, "sizeQComboBox" );
-	sizeQComboBox->setEditable(false);
-	sizeQLabel = new QLabel( sizeQComboBox, tr( "&Size:" ), dsGroupBox7, "sizeQLabel" );
+	pageSizeComboBox = new QComboBox( true, dsGroupBox7, "pageSizeComboBox" );
+	pageSizeComboBox->setEditable(false);
+	sizeQLabel = new QLabel( pageSizeComboBox, tr( "&Size:" ), dsGroupBox7, "sizeQLabel" );
 
 	PageSize *ps=new PageSize(doc->PageSize);
 	QStringList pageSizes=ps->getPageSizeList();
-	sizeQComboBox->insertStringList(ps->getTrPageSizeList());
-	sizeQComboBox->insertItem( tr( "Custom" ) );
+	pageSizeComboBox->insertStringList(ps->getTrPageSizeList());
+	pageSizeComboBox->insertItem( customTextTR );
 	prefsPageSizeName=ps->getPageName();
 
 	int sizeIndex=pageSizes.findIndex(ps->getPageText());
 	//set Custom if we dont have one already as old docs wont have this attribute
 	if (sizeIndex!=-1)
-		sizeQComboBox->setCurrentItem(sizeIndex);
+		pageSizeComboBox->setCurrentItem(sizeIndex);
 	else
-		sizeQComboBox->setCurrentItem(sizeQComboBox->count()-1);
+		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
 
 	dsLayout4->addWidget( sizeQLabel, 0, 0 );
-	dsLayout4->addWidget( sizeQComboBox, 0, 1 );
-	orientationQComboBox = new QComboBox( true, dsGroupBox7, "orientationQComboBox" );
-	orientationQLabel = new QLabel( orientationQComboBox, tr( "Orie&ntation:" ), dsGroupBox7, "orientationQLabel" );
-	orientationQComboBox->insertItem( tr( "Portrait" ) );
-	orientationQComboBox->insertItem( tr( "Landscape" ) );
-	orientationQComboBox->setCurrentItem(doc->PageOri);
-	orientationQComboBox->setEditable(false);
+	dsLayout4->addWidget( pageSizeComboBox, 0, 1 );
+	pageOrientationComboBox = new QComboBox( true, dsGroupBox7, "pageOrientationComboBox" );
+	orientationQLabel = new QLabel( pageOrientationComboBox, tr( "Orie&ntation:" ), dsGroupBox7, "orientationQLabel" );
+	pageOrientationComboBox->insertItem( tr( "Portrait" ) );
+	pageOrientationComboBox->insertItem( tr( "Landscape" ) );
+	pageOrientationComboBox->setCurrentItem(doc->PageOri);
+	pageOrientationComboBox->setEditable(false);
 	dsLayout4->addWidget( orientationQLabel, 0, 2 );
-	dsLayout4->addWidget( orientationQComboBox, 0, 3 );
+	dsLayout4->addWidget( pageOrientationComboBox, 0, 3 );
 	widthMSpinBox = new MSpinBox( 1, 10000, dsGroupBox7, 2 );
 	widthQLabel = new QLabel( tr( "&Width:" ), dsGroupBox7, "widthLabel" );
-	widthMSpinBox->setEnabled( false );
+	//widthMSpinBox->setEnabled( false );
 	widthMSpinBox->setSuffix(ein);
 	widthMSpinBox->setValue(pageWidth * unitRatio);
 	widthQLabel->setBuddy(widthMSpinBox);
 	dsLayout4->addWidget( widthQLabel, 1, 0 );
 	dsLayout4->addWidget( widthMSpinBox, 1, 1 );
 	heightMSpinBox = new MSpinBox( 1, 10000, dsGroupBox7, 2 );
-	heightMSpinBox->setEnabled( false );
+	//heightMSpinBox->setEnabled( false );
 	heightMSpinBox->setSuffix(ein);
 	heightMSpinBox->setValue(pageHeight * unitRatio);
 	heightQLabel = new QLabel(heightMSpinBox,  tr( "&Height:" ), dsGroupBox7, "heightLabel" );
 	dsLayout4->addWidget( heightQLabel, 1, 2 );
 	dsLayout4->addWidget( heightMSpinBox, 1, 3 );
-	if (sizeQComboBox->currentText() == tr("Custom"))
+	/*if (pageSizeComboBox->currentText() == customTextTR)
 	{
 		heightMSpinBox->setEnabled( true );
 		widthMSpinBox->setEnabled( true );
-	}
+	}*/
 	unitCombo = new QComboBox( true, dsGroupBox7, "unitCombo" );
 	unitCombo->insertStringList(unitGetTextUnitList());
 	unitCombo->setEditable(false);
@@ -168,7 +170,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 
 	GroupRand = new MarginWidget(tabPage,  tr( "Margin Guides" ), &doc->pageMargins, einheit, true );
 	GroupRand->setPageWidthHeight(pageWidth, pageHeight);
-	GroupRand->setPageSize(sizeQComboBox->currentText());
+	GroupRand->setPageSize(pageSizeComboBox->currentText());
 	dsLayout4pv->addWidget( GroupRand );
 
 	dsLayout4p->addLayout( dsLayout4pv );
@@ -436,8 +438,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
 	connect(unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
 	connect(backToDefaults, SIGNAL(clicked()), this, SLOT(restoreDefaults()));
-	connect(orientationQComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
-	connect(sizeQComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
+	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
+	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
 
 	if (CMSavail)
 	{
@@ -612,31 +614,41 @@ void ReformDoc::setPageWidth(int)
 {
 	pageWidth = widthMSpinBox->value() / unitRatio;
 	GroupRand->setPageWidth(pageWidth);
+	QString psText=pageSizeComboBox->currentText();
+	if (psText!=customTextTR && psText!=customText)
+		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
 }
 
 void ReformDoc::setPageHeight(int)
 {
 	pageHeight = heightMSpinBox->value() / unitRatio;
 	GroupRand->setPageHeight(pageHeight);
+	QString psText=pageSizeComboBox->currentText();
+	if (psText!=customTextTR && psText!=customText)
+		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
 }
 
 void ReformDoc::setPageSize()
 {
-	setOrien(orientationQComboBox->currentItem());
+	setOrien(pageOrientationComboBox->currentItem());
 }
 
 void ReformDoc::setSize(const QString & gr)
 {
 	pageWidth = widthMSpinBox->value() / unitRatio;
 	pageHeight = heightMSpinBox->value() / unitRatio;
+	/*
 	widthMSpinBox->setEnabled(false);
 	heightMSpinBox->setEnabled(false);
+	*/
 	PageSize *ps2=new PageSize(gr);
 	prefsPageSizeName=ps2->getPageName();
-	if (gr == tr("Custom"))
+	if (gr == customTextTR)
 	{
+		/*
 		widthMSpinBox->setEnabled(true);
 		heightMSpinBox->setEnabled(true);
+		*/
 	}
 	else
 	{
@@ -658,12 +670,12 @@ void ReformDoc::setSize(const QString & gr)
 void ReformDoc::setOrien(int ori)
 {
 	double br;
-	setSize(sizeQComboBox->currentText());
+	setSize(pageSizeComboBox->currentText());
 	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	if (ori == 0)
 	{
-		if (sizeQComboBox->currentText() == tr("Custom"))
+		if (pageSizeComboBox->currentText() == customTextTR)
 		{
 			br = widthMSpinBox->value();
 			widthMSpinBox->setValue(heightMSpinBox->value());
@@ -722,7 +734,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->pageSets[fp].GapBelow = gapVertical->value() / currDoc->unitRatio();
 	//currDoc->FirstPnum = pageNumber->value();
 	currDoc->resetPage(tpr2, lr2, rr2, br2, fp);
-	currDoc->PageOri = orientationQComboBox->currentItem();
+	currDoc->PageOri = pageOrientationComboBox->currentItem();
 	currDoc->PageSize = prefsPageSizeName;
 	currDoc->pageWidth = pageWidth;
 	currDoc->pageHeight = pageHeight;

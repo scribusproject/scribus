@@ -85,6 +85,10 @@ public:
 	static QString Warning;
 	static QString trWarning;
 	
+	//Page Size
+	static QString customPageSize;
+	static QString trCustomPageSize;
+	
 	//Page Sets
 	static QString pageSet1;
 	static QString pageSet2;

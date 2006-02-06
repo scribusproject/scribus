@@ -71,11 +71,13 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 {
 	prefsManager=PrefsManager::instance();
 	ApplicationPrefs* prefsData=&(prefsManager->appPrefs);
-	int decimals;
 	ap = (ScribusMainWindow*)parent;
+	
+	customText="Custom";
+	customTextTR=tr( "Custom" );
 	docUnitIndex = prefsData->docUnitIndex;
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
-	decimals = unitGetPrecisionFromIndex(docUnitIndex);
+	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
 
 	DisScale = prefsData->DisScale;
 	setCaption( tr( "Preferences" ) );
@@ -227,41 +229,31 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	GroupSizeLayout->setAlignment( Qt::AlignTop );
 	Layout6 = new QGridLayout( 0, 1, 1, 0, 6, "Layout6");
 
-	GZComboF = new QComboBox( true, GroupSize, "GZComboF" );
-	/*
-	const QString ar_size[] =
-	    {"A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "B0", "B1", "B2", "B3",
-	     "B4", "B5", "B6", "B7", "B8", "B9", "B10", "C5E", "Comm10E", "DLE", tr("Executive"),
-	     tr("Folio"), tr("Ledger"), tr("Legal"), tr("Letter"), tr("Tabloid")
-	    };
-	size_t ar_s = sizeof(ar_size) / sizeof(*ar_size);
-	for (uint s = 0; s < ar_s; ++s)
-		GZComboF->insertItem(ar_size[s]);
-	*/
+	pageSizeComboBox = new QComboBox( true, GroupSize, "pageSizeComboBox" );
 
 	PageSize *ps=new PageSize(prefsData->pageSize);
-	GZComboF->insertStringList(ps->getTrPageSizeList());
-	GZComboF->insertItem( tr( "Custom" ) );
-	GZComboF->setEditable(false);
+	pageSizeComboBox->insertStringList(ps->getTrPageSizeList());
+	pageSizeComboBox->insertItem( customTextTR );
+	pageSizeComboBox->setEditable(false);
 
 	QStringList pageSizes=ps->getPageSizeList();
 	int sizeIndex=pageSizes.findIndex(ps->getPageText());
 	if (sizeIndex!=-1)
-		GZComboF->setCurrentItem(sizeIndex);
+		pageSizeComboBox->setCurrentItem(sizeIndex);
 	else
-		GZComboF->setCurrentItem(GZComboF->count()-1);
-	GZText1 = new QLabel( GZComboF, tr( "&Size:" ), GroupSize, "GZText1" );
+		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+	GZText1 = new QLabel( pageSizeComboBox, tr( "&Size:" ), GroupSize, "GZText1" );
 	Layout6->addWidget( GZText1, 0, 0 );
-	Layout6->addWidget( GZComboF, 0, 1 );
+	Layout6->addWidget( pageSizeComboBox, 0, 1 );
 
-	GZComboO = new QComboBox( true, GroupSize, "GZComboO" );
-	GZComboO->insertItem( tr( "Portrait" ) );
-	GZComboO->insertItem( tr( "Landscape" ) );
-	GZComboO->setEditable(false);
-	GZComboO->setCurrentItem(prefsData->pageOrientation);
-	GZText2 = new QLabel( GZComboO, tr( "Orie&ntation:" ), GroupSize, "GZText2" );
+	pageOrientationComboBox = new QComboBox( true, GroupSize, "pageOrientationComboBox" );
+	pageOrientationComboBox->insertItem( tr( "Portrait" ) );
+	pageOrientationComboBox->insertItem( tr( "Landscape" ) );
+	pageOrientationComboBox->setEditable(false);
+	pageOrientationComboBox->setCurrentItem(prefsData->pageOrientation);
+	GZText2 = new QLabel( pageOrientationComboBox, tr( "Orie&ntation:" ), GroupSize, "GZText2" );
 	Layout6->addWidget( GZText2, 1, 0 );
-	Layout6->addWidget( GZComboO, 1, 1 );
+	Layout6->addWidget( pageOrientationComboBox, 1, 1 );
 	UnitCombo = new QComboBox( true, GroupSize, "UnitCombo" );
 	UnitCombo->insertStringList(unitGetTextUnitList());
 	UnitCombo->setEditable(false);
@@ -275,7 +267,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	Layout5_2 = new QHBoxLayout( 0, 0, 6, "Layout5_2");
 
 	pageWidth = new MSpinBox( 1, 100000, GroupSize, decimals );
-	pageWidth->setEnabled( false );
+	//pageWidth->setEnabled( false );
 	pageWidth->setMinimumSize( QSize( 70, 20 ) );
 	pageWidth->setValue(prefsData->PageWidth * unitRatio);
 	GZText3 = new QLabel( pageWidth, tr( "&Width:" ), GroupSize, "GZText3" );
@@ -283,7 +275,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	Layout5_2->addWidget( pageWidth );
 
 	pageHeight = new MSpinBox( 1, 100000, GroupSize, decimals );
-	pageHeight->setEnabled( false );
+	//pageHeight->setEnabled( false );
 	pageHeight->setMinimumSize( QSize( 70, 20 ) );
 	pageHeight->setValue(prefsData->PageHeight * unitRatio);
 	GZText4 = new QLabel( pageHeight, tr( "&Height:" ), GroupSize, "GZText4" );
@@ -748,8 +740,8 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QToolTip::add( ScriptPfad, "<qt>" + tr( "Default Scripter scripts directory" ) + "</qt>" );
 	QToolTip::add( DocumentTemplateDir, "<qt>"+tr("Additional directory for document templates")+"</qt>" );
 
-	QToolTip::add( GZComboF, "<qt>" + tr( "Default page size, either a standard size or a custom size" ) + "</qt>" );
-	QToolTip::add( GZComboO, "<qt>" + tr( "Default orientation of document pages" ) + "</qt>" );
+	QToolTip::add( pageSizeComboBox, "<qt>" + tr( "Default page size, either a standard size or a custom size" ) + "</qt>" );
+	QToolTip::add( pageOrientationComboBox, "<qt>" + tr( "Default orientation of document pages" ) + "</qt>" );
 	QToolTip::add( pageWidth, "<qt>" + tr( "Width of document pages, editable if you have chosen a custom page size" ) + "</qt>" );
 	QToolTip::add( pageHeight, "<qt>" + tr( "Height of document pages, editable if you have chosen a custom page size" ) + "</qt>" );
 //	QToolTip::add( facingPages, tr( "Enable single or spread based layout" ) );
@@ -795,8 +787,8 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	connect(docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int) ) );
-	connect(GZComboO, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
-	connect(GZComboF, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
+	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
+	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
 	connect(FileC, SIGNAL(clicked()), this, SLOT(changeDocs()));
 	connect(FileC2, SIGNAL(clicked()), this, SLOT(changeProfs()));
 	connect(FileC3, SIGNAL(clicked()), this, SLOT(changeScripts()));
@@ -1001,6 +993,9 @@ void Preferences::setPageWidth(int)
 {
 	Pagebr = pageWidth->value() / unitRatio;
 	GroupRand->setPageWidth(Pagebr);
+	QString psText=pageSizeComboBox->currentText();
+	if (psText!=customTextTR && psText!=customText)
+		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
 }
 
 /*!
@@ -1015,11 +1010,14 @@ void Preferences::setPageHeight(int)
 {
 	Pageho = pageHeight->value() / unitRatio;
 	GroupRand->setPageHeight(Pageho);
+	QString psText=pageSizeComboBox->currentText();
+	if (psText!=customTextTR && psText!=customText)
+		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
 }
 
 void Preferences::setPageSize()
 {
-	setOrien(GZComboO->currentItem());
+	setOrien(pageOrientationComboBox->currentItem());
 }
 
 /*!
@@ -1034,15 +1032,15 @@ void Preferences::setSize(const QString & gr)
 {
 	Pagebr = pageWidth->value() / unitRatio;
 	Pageho = pageHeight->value() / unitRatio;
-	pageWidth->setEnabled(false);
-	pageHeight->setEnabled(false);
+	//pageWidth->setEnabled(false);
+	//pageHeight->setEnabled(false);
 	PageSize *ps2=new PageSize(gr);
 
 	prefsPageSizeName=ps2->getPageName();
-	if (gr == tr("Custom"))
+	if (gr == customTextTR)
 	{
-		pageWidth->setEnabled(true);
-		pageHeight->setEnabled(true);
+		//pageWidth->setEnabled(true);
+		//pageHeight->setEnabled(true);
 	}
 	else
 	{
@@ -1072,13 +1070,13 @@ void Preferences::setSize(const QString & gr)
 void Preferences::setOrien(int ori)
 {
 	double br;
-	setSize(GZComboF->currentText());
+	setSize(pageSizeComboBox->currentText());
 	disconnect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	if (ori == 0)
 	{
-		//if (GZComboF->currentItem() == 30)
-		if (GZComboF->currentText() == tr("Custom"))
+		//if (pageSizeComboBox->currentItem() == 30)
+		if (pageSizeComboBox->currentText() == customTextTR)
 		{
 			br = pageWidth->value();
 			pageWidth->setValue(pageHeight->value());
@@ -1347,7 +1345,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.GUI = GUICombo->currentText();
 	tabTools->polyWidget->getValues(&prefsManager->appPrefs.toolSettings.polyC, &prefsManager->appPrefs.toolSettings.polyFd, &prefsManager->appPrefs.toolSettings.polyF, &prefsManager->appPrefs.toolSettings.polyS, &prefsManager->appPrefs.toolSettings.polyR);
 	prefsManager->appPrefs.pageSize = prefsPageSizeName;
-	prefsManager->appPrefs.pageOrientation = GZComboO->currentItem();
+	prefsManager->appPrefs.pageOrientation = pageOrientationComboBox->currentItem();
 	prefsManager->appPrefs.PageWidth = Pagebr;
 	prefsManager->appPrefs.PageHeight = Pageho;
 	prefsManager->appPrefs.RandOben = GroupRand->RandT;

@@ -118,8 +118,8 @@ protected:
 	QLabel*	unitQLabel;
 	QLabel*	sizeQLabel;
 	QLabel*	orientationQLabel;
-	QComboBox*	sizeQComboBox;
-	QComboBox*	orientationQComboBox;
+	QComboBox*	pageSizeComboBox;
+	QComboBox*	pageOrientationComboBox;
 	QCheckBox* checkLink;
 	QCheckBox* checkFrame;
 	QCheckBox* checkPictures;
@@ -149,6 +149,8 @@ protected:
 	TOCIndexPrefs* tabTOCIndexPrefs;
 	
 	bool viewToRecalcPictureRes;
+	//Replace with commonstrings when translators have that one done.
+	QString customText, customTextTR;
 
 protected slots:
 	virtual void restoreDefaults();

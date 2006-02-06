@@ -34,6 +34,9 @@ QString CommonStrings::tr_Save     = "";
 QString CommonStrings::Warning     = "";
 QString CommonStrings::trWarning   = "";
 
+QString CommonStrings::customPageSize = "";
+QString CommonStrings::trCustomPageSize = "";
+
 QString CommonStrings::pageSet1    = "";
 QString CommonStrings::pageSet2    = "";
 QString CommonStrings::pageSet3    = "";
@@ -132,6 +135,9 @@ void CommonStrings::languageChange()
 
 	CommonStrings::Warning    = "Warning";
 	CommonStrings::trWarning  = tr( "Warning" );
+	
+	CommonStrings::customPageSize = "Custom";
+	CommonStrings::trCustomPageSize = tr( "Custom", "CommonStrings, custom page size" );
 	
 	CommonStrings::pageSet1    = "Single Page";
 	CommonStrings::pageSet2    = "Double Sided";

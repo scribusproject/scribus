@@ -146,8 +146,8 @@ public:
 	QWidget* tab_7;
 	QButtonGroup* GroupSize;
 	QLabel* GZText2;
-	QComboBox* GZComboF;
-	QComboBox* GZComboO;
+	QComboBox* pageSizeComboBox;
+	QComboBox* pageOrientationComboBox;
 	QLabel* GZText1;
 	QLabel* GZText3;
 	QLabel* GZText4;
@@ -275,6 +275,8 @@ protected:
 
 	LanguageManager langMgr;
 	PrefsManager* prefsManager;
+	//Replace with commonstrings when translators have that one done.
+	QString customText, customTextTR;
 
 protected slots:
 	virtual void setTOCIndexData(QWidget *widgetToShow);

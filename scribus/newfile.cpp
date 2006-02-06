@@ -36,7 +36,7 @@ NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", tru
 	tabSelected = 0;
 	onStartup = startUp;
 	customText="Custom";
-	customTextTR=QObject::tr( "Custom" );
+	customTextTR=tr( "Custom" );
 	unitIndex = prefsManager->appPrefs.docUnitIndex;
 	unitSuffix = unitGetSuffixFromIndex(unitIndex);
 	unitRatio = unitGetRatioFromIndex(unitIndex);
@@ -79,10 +79,10 @@ NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", tru
 	Layout1->addWidget( CancelB );
 	TabbedNewDocLayout->addLayout( Layout1 );
 	//tooltips
-	QToolTip::add( ComboBox1, tr( "Document page size, either a standard size or a custom size" ) );
-	QToolTip::add( ComboBox2, tr( "Orientation of the document's pages" ) );
-	QToolTip::add( Breite, tr( "Width of the document's pages, editable if you have chosen a custom page size" ) );
-	QToolTip::add( Hoehe, tr( "Height of the document's pages, editable if you have chosen a custom page size" ) );
+	QToolTip::add( pageSizeComboBox, tr( "Document page size, either a standard size or a custom size" ) );
+	QToolTip::add( pageOrientationComboBox, tr( "Orientation of the document's pages" ) );
+	QToolTip::add( widthMSpinBox, tr( "Width of the document's pages, editable if you have chosen a custom page size" ) );
+	QToolTip::add( heightMSpinBox, tr( "Height of the document's pages, editable if you have chosen a custom page size" ) );
 //	QToolTip::add( Doppelseiten, tr( "Enable single or spread based layout" ) );
 //	QToolTip::add( ErsteSeite, tr( "Make the first page the left page of the document" ) );
 	QToolTip::add( PgNr, tr( "First page number of the document" ) );
@@ -96,8 +96,8 @@ NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", tru
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( ExitOK() ) );
 	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int ) ) );
-	connect(ComboBox1, SIGNAL(activated(const QString &)), this, SLOT(setPGsize(const QString &)));
-	connect(ComboBox2, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
+	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPGsize(const QString &)));
+	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(ComboBox3, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
 	connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
 	if (startUp)
@@ -129,38 +129,38 @@ void NewDoc::createNewDocPage()
 	TextLabel1 = new QLabel( tr( "&Size:" ), ButtonGroup1_2, "TextLabel1" );
 	Layout6->addWidget( TextLabel1, 0, 0 );
 	PageSize *ps=new PageSize(prefsManager->appPrefs.pageSize);
-	ComboBox1 = new QComboBox( true, ButtonGroup1_2, "ComboBox1" );
-	ComboBox1->insertStringList(ps->getTrPageSizeList());
-	ComboBox1->insertItem( customTextTR );
-	ComboBox1->setEditable(false);
-	TextLabel1->setBuddy(ComboBox1);
-	Layout6->addWidget(ComboBox1, 0, 1 );
+	pageSizeComboBox = new QComboBox( true, ButtonGroup1_2, "pageSizeComboBox" );
+	pageSizeComboBox->insertStringList(ps->getTrPageSizeList());
+	pageSizeComboBox->insertItem( customTextTR );
+	pageSizeComboBox->setEditable(false);
+	TextLabel1->setBuddy(pageSizeComboBox);
+	Layout6->addWidget(pageSizeComboBox, 0, 1 );
 	TextLabel2 = new QLabel( tr( "Orie&ntation:" ), ButtonGroup1_2, "TextLabel2" );
 	Layout6->addWidget( TextLabel2, 1, 0 );
-	ComboBox2 = new QComboBox( true, ButtonGroup1_2, "ComboBox2" );
-	ComboBox2->insertItem( tr( "Portrait" ) );
-	ComboBox2->insertItem( tr( "Landscape" ) );
-	ComboBox2->setEditable(false);
-	ComboBox2->setCurrentItem(prefsManager->appPrefs.pageOrientation);
-	TextLabel2->setBuddy(ComboBox2);
-	Layout6->addWidget( ComboBox2, 1, 1 );
+	pageOrientationComboBox = new QComboBox( true, ButtonGroup1_2, "pageOrientationComboBox" );
+	pageOrientationComboBox->insertItem( tr( "Portrait" ) );
+	pageOrientationComboBox->insertItem( tr( "Landscape" ) );
+	pageOrientationComboBox->setEditable(false);
+	pageOrientationComboBox->setCurrentItem(prefsManager->appPrefs.pageOrientation);
+	TextLabel2->setBuddy(pageOrientationComboBox);
+	Layout6->addWidget( pageOrientationComboBox, 1, 1 );
 	ButtonGroup1_2Layout->addLayout( Layout6 );
 
 	Layout5 = new QHBoxLayout( 0, 0, 6, "Layout5");
 	TextLabel1_2 = new QLabel( tr( "&Width:" ), ButtonGroup1_2, "TextLabel1_2" );
 	Layout5->addWidget( TextLabel1_2 );
-	Breite = new MSpinBox( 1, 10000, ButtonGroup1_2, precision );
-	Breite->setMinimumSize( QSize( 70, 20 ) );
-	Breite->setSuffix(unitSuffix);
-	TextLabel1_2->setBuddy(Breite);
-	Layout5->addWidget( Breite );
+	widthMSpinBox = new MSpinBox( 1, 10000, ButtonGroup1_2, precision );
+	widthMSpinBox->setMinimumSize( QSize( 70, 20 ) );
+	widthMSpinBox->setSuffix(unitSuffix);
+	TextLabel1_2->setBuddy(widthMSpinBox);
+	Layout5->addWidget( widthMSpinBox );
 	TextLabel2_2 = new QLabel( tr( "&Height:" ), ButtonGroup1_2, "TextLabel2_2" );
 	Layout5->addWidget( TextLabel2_2 );
-	Hoehe = new MSpinBox( 1, 10000, ButtonGroup1_2, precision );
-	Hoehe->setMinimumSize( QSize( 70, 20 ) );
-	Hoehe->setSuffix(unitSuffix);
-	TextLabel2_2->setBuddy(Hoehe);
-	Layout5->addWidget( Hoehe );
+	heightMSpinBox = new MSpinBox( 1, 10000, ButtonGroup1_2, precision );
+	heightMSpinBox->setMinimumSize( QSize( 70, 20 ) );
+	heightMSpinBox->setSuffix(unitSuffix);
+	TextLabel2_2->setBuddy(heightMSpinBox);
+	Layout5->addWidget( heightMSpinBox );
 	ButtonGroup1_2Layout->addLayout( Layout5 );
 	Layout9->addWidget( ButtonGroup1_2 );
 
@@ -174,23 +174,25 @@ void NewDoc::createNewDocPage()
 	GroupRand->setFacingPages(prefsManager->appPrefs.FacingPages == doublePage);
 	Layout9->addWidget( GroupRand );
 	NewDocLayout->addLayout( Layout9 );
-	Breite->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
-	Hoehe->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
+	widthMSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
+	heightMSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
 	QStringList pageSizes=ps->getPageSizeList();
 	int sizeIndex=pageSizes.findIndex(ps->getPageText());
 	if (sizeIndex!=-1)
-		ComboBox1->setCurrentItem(sizeIndex);
+		pageSizeComboBox->setCurrentItem(sizeIndex);
 	else
-		ComboBox1->setCurrentItem(ComboBox1->count()-1);
-	GroupRand->setPageSize(ComboBox1->currentText());
-	bool hwEnabled=(ComboBox1->currentText()==customTextTR);
-	Breite->setEnabled(hwEnabled);
-	Hoehe->setEnabled(hwEnabled);
+		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+	GroupRand->setPageSize(pageSizeComboBox->currentText());
+	/*
+	bool hwEnabled=(pageSizeComboBox->currentText()==customTextTR);
+	widthMSpinBox->setEnabled(hwEnabled);
+	heightMSpinBox->setEnabled(hwEnabled);
+	*/
 	setDS(prefsManager->appPrefs.FacingPages);
 	setSize(prefsManager->appPrefs.pageSize);
 	setOrien(prefsManager->appPrefs.pageOrientation);
-	Breite->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
-	Hoehe->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
+	widthMSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
+	heightMSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
 	Layout10 = new QVBoxLayout( 0, 0, 6, "Layout10");
 
 	GroupBox3 = new QGroupBox( newDocFrame, "GroupBox3" );
@@ -308,16 +310,22 @@ void NewDoc::createRecentDocPage()
 	}
 }
 
-void NewDoc::setBreite(int)
+void NewDoc::setWidth(int)
 {
-	Pagebr = Breite->value() / unitRatio;
-	GroupRand->setPageWidth(Pagebr);
+	pageWidth = widthMSpinBox->value() / unitRatio;
+	GroupRand->setPageWidth(pageWidth);
+	QString psText=pageSizeComboBox->currentText();
+	if (psText!=customTextTR && psText!=customText)
+		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
 }
 
-void NewDoc::setHoehe(int)
+void NewDoc::setHeight(int)
 {
-	Pageho = Hoehe->value() / unitRatio;
-	GroupRand->setPageHeight(Pageho);
+	pageHeight = heightMSpinBox->value() / unitRatio;
+	GroupRand->setPageHeight(pageHeight);
+	QString psText=pageSizeComboBox->currentText();
+	if (psText!=customTextTR && psText!=customText)
+		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
 }
 
 void NewDoc::setDist(int)
@@ -327,49 +335,49 @@ void NewDoc::setDist(int)
 
 void NewDoc::setUnit(int newUnitIndex)
 {
-	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
-	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
+	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
+	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
 
 	double oldUnitRatio = unitRatio;
 	double val, oldB, oldBM, oldH, oldHM;
 	int decimals;
-	Breite->getValues(&oldB, &oldBM, &decimals, &val);
+	widthMSpinBox->getValues(&oldB, &oldBM, &decimals, &val);
 	oldB /= oldUnitRatio;
 	oldBM /= oldUnitRatio;
-	Hoehe->getValues(&oldH, &oldHM, &decimals, &val);
+	heightMSpinBox->getValues(&oldH, &oldHM, &decimals, &val);
 	oldH /= oldUnitRatio;
 	oldHM /= oldUnitRatio;
 
 	unitIndex = newUnitIndex;
 	unitRatio = unitGetRatioFromIndex(newUnitIndex);
 	decimals = unitGetDecimalsFromIndex(newUnitIndex);
-	if (ComboBox2->currentItem() == portraitPage)
+	if (pageOrientationComboBox->currentItem() == portraitPage)
 	{
-		Breite->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, Pagebr * unitRatio);
-		Hoehe->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, Pageho * unitRatio);
+		widthMSpinBox->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, pageWidth * unitRatio);
+		heightMSpinBox->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, pageHeight * unitRatio);
 	}
 	else
 	{
-		Breite->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, Pageho * unitRatio);
-		Hoehe->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, Pagebr * unitRatio);
+		widthMSpinBox->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, pageHeight * unitRatio);
+		heightMSpinBox->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, pageWidth * unitRatio);
 	}
 	Distance->setValue(Dist * unitRatio);
 	unitSuffix = unitGetSuffixFromIndex(newUnitIndex);
-	Breite->setSuffix(unitSuffix);
-	Hoehe->setSuffix(unitSuffix);
+	widthMSpinBox->setSuffix(unitSuffix);
+	heightMSpinBox->setSuffix(unitSuffix);
 	Distance->setSuffix( unitSuffix );
 	GroupRand->unitChange(unitRatio, decimals, unitSuffix);
-	GroupRand->setPageHeight(Pageho);
-	GroupRand->setPageWidth(Pagebr);
-	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
-	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
+	GroupRand->setPageHeight(pageHeight);
+	GroupRand->setPageWidth(pageWidth);
+	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
+	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
 
 }
 
 void NewDoc::ExitOK()
 {
-	Pagebr = Breite->value() / unitRatio;
-	Pageho = Hoehe->value() / unitRatio;
+	pageWidth = widthMSpinBox->value() / unitRatio;
+	pageHeight = heightMSpinBox->value() / unitRatio;
 	if (onStartup)
 		tabSelected = tabWidget->currentPageIndex();
 	else
@@ -380,89 +388,85 @@ void NewDoc::ExitOK()
 void NewDoc::setOrien(int ori)
 {
 	double br;
-	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
-	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
+	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
+	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
 	if (ori != Orient)
 	{
-		br = Breite->value();
-		Breite->setValue(Hoehe->value());
-		Hoehe->setValue(br);
+		br = widthMSpinBox->value();
+		widthMSpinBox->setValue(heightMSpinBox->value());
+		heightMSpinBox->setValue(br);
 	}
 	// #869 pv - defined constants added + code repeat (check w/h)
 	(ori == portraitPage) ? Orient = portraitPage : Orient = landscapePage;
-	if (ComboBox1->currentText() == customTextTR)
+	if (pageSizeComboBox->currentText() == customTextTR)
 	{
-		if (Breite->value() > Hoehe->value())
-			ComboBox2->setCurrentItem(landscapePage);
+		if (widthMSpinBox->value() > heightMSpinBox->value())
+			pageOrientationComboBox->setCurrentItem(landscapePage);
 		else
-			ComboBox2->setCurrentItem(portraitPage);
+			pageOrientationComboBox->setCurrentItem(portraitPage);
 	}
 	// end of #869
-	GroupRand->setPageHeight(Pageho);
-	GroupRand->setPageWidth(Pagebr);
-	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
-	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
+	GroupRand->setPageHeight(pageHeight);
+	GroupRand->setPageWidth(pageWidth);
+	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
+	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
 }
 
 void NewDoc::setPGsize(const QString &size)
 {
-	//if (ComboBox1->currentItem() == USERFORMAT)
+	//if (pageSizeComboBox->currentItem() == USERFORMAT)
 	if (size == customTextTR)
 		setSize(size);
 	else
 	{
 		setSize(size);
-		setOrien(ComboBox2->currentItem());
+		setOrien(pageOrientationComboBox->currentItem());
 	}
 	GroupRand->setPageSize(size);
 }
 
 void NewDoc::setSize(QString gr)
 {
-	Pagebr = Breite->value() / unitRatio;
-	Pageho = Hoehe->value() / unitRatio;
+	pageWidth = widthMSpinBox->value() / unitRatio;
+	pageHeight = heightMSpinBox->value() / unitRatio;
 
-	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
-	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
-	Breite->setEnabled(false);
-	Hoehe->setEnabled(false);
+	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
+	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
 	/*
-	int page_x[] = {2380, 1684, 1190, 842, 595, 421, 297, 210, 148, 105, 2836, 2004, 1418, 1002, 709, 501,
-	                355, 250, 178, 125, 89, 462, 298, 312, 542, 595, 1224, 612, 612, 792};
-	int page_y[] = {3368, 2380, 1684, 1190, 842, 595, 421, 297, 210, 148, 4008, 2836, 2004, 1418, 1002, 709,
-	                501, 355, 250, 178, 125, 649, 683, 624, 720, 935, 792, 1008, 792, 1225};
+	widthMSpinBox->setEnabled(false);
+	heightMSpinBox->setEnabled(false);
 	*/
 
 	//if (gr == USERFORMAT)
 	if (gr==customTextTR || gr==customText)
 	{
-		Breite->setEnabled(true);
-		Hoehe->setEnabled(true);
+		//widthMSpinBox->setEnabled(true);
+		//heightMSpinBox->setEnabled(true);
 	}
 	else
 	{
 		PageSize *ps2=new PageSize(gr);
 		// pv - correct handling of the disabled spins
-		if (ComboBox2->currentItem() == portraitPage)
+		if (pageOrientationComboBox->currentItem() == portraitPage)
 		{
-			//Pagebr = page_x[gr];
-			//Pageho = page_y[gr];
-			Pagebr = ps2->getPageWidth();
-			Pageho = ps2->getPageHeight();
+			//pageWidth = page_x[gr];
+			//pageHeight = page_y[gr];
+			pageWidth = ps2->getPageWidth();
+			pageHeight = ps2->getPageHeight();
 		} else {
-			Pagebr = ps2->getPageHeight();
-			Pageho = ps2->getPageWidth();
-			//Pagebr = page_y[gr];
-			//Pageho = page_x[gr];
+			pageWidth = ps2->getPageHeight();
+			pageHeight = ps2->getPageWidth();
+			//pageWidth = page_y[gr];
+			//pageHeight = page_x[gr];
 		}
 		delete ps2;
 	}
-	Breite->setValue(Pagebr * unitRatio);
-	Hoehe->setValue(Pageho * unitRatio);
-	GroupRand->setPageHeight(Pageho);
-	GroupRand->setPageWidth(Pagebr);
-	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
-	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
+	widthMSpinBox->setValue(pageWidth * unitRatio);
+	heightMSpinBox->setValue(pageHeight * unitRatio);
+	GroupRand->setPageHeight(pageHeight);
+	GroupRand->setPageWidth(pageWidth);
+	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
+	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
 }
 
 void NewDoc::setDS(int layout)
