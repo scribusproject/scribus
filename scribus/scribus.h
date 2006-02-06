@@ -503,6 +503,8 @@ signals:
 
 protected:
 	bool eventFilter( QObject *o, QEvent *e );
+	virtual void dragEnterEvent( QDragEnterEvent* e);
+	virtual void dropEvent( QDropEvent* e);
 
 private:
     /** init methods */

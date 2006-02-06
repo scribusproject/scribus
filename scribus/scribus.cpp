@@ -339,6 +339,7 @@ int ScribusMainWindow::initScribus(bool showSplash, bool showFontInfo, const QSt
 	closeSplash();
 	scribusInitialized=true;
 	//pluginManager->languageChange();
+	setAcceptDrops(true);
 	return retVal;
 }
 
@@ -8684,3 +8685,49 @@ void ScribusMainWindow::updateActiveWindowCaption(const QString &newCaption)
 	ActWin->setCaption(newCaption);
 }
 
+void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
+{
+	bool accepted = false;
+	if ( e->provides("text/uri-list") && QUriDrag::canDecode(e) )
+	{
+		QString fileUrl;
+		QStringList fileUrls;
+		QUriDrag::decodeLocalFiles(e, fileUrls);
+		for( uint i = 0; i < fileUrls.count(); ++i )
+		{
+			fileUrl = fileUrls[i].lower();
+			if ( fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") )
+			{
+				accepted = true;;
+				break;
+			}
+		}
+	}
+	e->accept(accepted);
+}
+
+void ScribusMainWindow::dropEvent ( QDropEvent * e)
+{
+	bool accepted = false;
+	if ( e->provides("text/uri-list") && QUriDrag::canDecode(e) )
+	{
+		QString fileUrl;
+		QStringList fileUrls;
+		QUriDrag::decodeLocalFiles(e, fileUrls);
+		for( uint i = 0; i < fileUrls.count(); ++i )
+		{
+			fileUrl = fileUrls[i].lower();
+			if ( fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") )
+			{
+				QUrl url( fileUrls[i] );
+				QFileInfo fi(url.path());
+				if ( fi.exists() )
+				{
+					accepted = true;
+					loadDoc( fi.fileName() );
+				}
+			}
+		}
+	}
+	e->accept( accepted );
+}
