@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include <qbuttongroup.h>
 #include <qspinbox.h>
+#include <qstringlist.h>
 #include <qtoolbutton.h>
 #include <qtoolbar.h>
 #include <qlayout.h>
@@ -56,6 +57,7 @@ class ScrAction;
 class ShadeButton;
 class PrefsManager;
 class PrefsContext;
+class StoryEditor;
 
 
 struct PtiSmall {
@@ -87,7 +89,7 @@ class SCRIBUS_API SEditor : public QTextEdit
 	Q_OBJECT
 
 public:
-	SEditor (QWidget* parent, ScribusDoc *docc);
+	SEditor (QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE);
 	~SEditor() {};
 	void setCurrentDocument(ScribusDoc *docc);
 	void setAlign(int style);
@@ -147,6 +149,7 @@ protected:
 	void imEndEvent(QIMEvent *e);
 	void focusOutEvent(QFocusEvent *e);
 	QPopupMenu* createPopupMenu(const QPoint & pos);
+	StoryEditor* parentStoryEditor;
 
 public slots:
 	void cut();
@@ -324,6 +327,7 @@ signals:
 class SCRIBUS_API StoryEditor : public QMainWindow
 {
 	Q_OBJECT
+	friend class SEditor;
 
 public:
 	StoryEditor( QWidget* parent );
@@ -399,6 +403,9 @@ public slots:
 	void setSmart(bool);
 	void languageChange();
 
+protected slots:
+	void specialActionKeyEvent(QString actionName, int unicodevalue);
+
 signals:
 	void DocChanged();
 	void EditSt();
@@ -423,6 +430,7 @@ protected:
 	PrefsContext* prefs;
 	
 	QMap<QString, QGuardedPtr<ScrAction> > seActions;
+	QStringList unicodeCharActionNames;
 	MenuManager* seMenuMgr;
 	QPixmap noIcon;
 	
