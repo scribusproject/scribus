@@ -311,7 +311,7 @@ void StyleSelect::languageChange()
 	QToolTip::add(subscriptButton, tr("Subscript"));
 	QToolTip::add(superscriptButton, tr("Superscript"));
 	QToolTip::add(strikeoutButton, tr("Strike Out"));
-	QToolTip::add(outlineButton, tr("Outline"));
+	QToolTip::add(outlineButton, tr("Outline", "Text Style Selector"));
 	QToolTip::add(shadowButton, tr("Shadow"));
 }
 
