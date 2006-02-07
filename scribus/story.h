@@ -412,7 +412,6 @@ signals:
 
 protected:
 	void initActions();
-	//void initUnicodeActions();
 	void buildMenus();
 	void buildGUI();
 	void connectSignals();

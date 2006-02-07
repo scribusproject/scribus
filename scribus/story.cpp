@@ -221,69 +221,6 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		keyMod |= ALT;
 
 	QString uc = k->text();
-	/*
-	QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
-	if (currKeySeq == parentStoryEditor->seActions["specialPageNumber"]->accel())
-	{
-		insChars(QString(QChar(parentStoryEditor->seActions["specialPageNumber"]->actionInt())));
-		setFarbe(true);
-		insert("#");
-		setFarbe(false);
-		emit SideBarUp(true);
-		emit SideBarUpdate();
-		return;
-	}
-	if (currKeySeq == parentStoryEditor->seActions["specialNonBreakingSpace"]->accel())
-	{
-		insChars(QString(QChar(parentStoryEditor->seActions["specialNonBreakingSpace"]->actionInt())));
-		setFarbe(true);
-		insert("_");
-		setFarbe(false);
-		emit SideBarUp(true);
-		emit SideBarUpdate();
-		return;
-	}
-	if (currKeySeq == parentStoryEditor->seActions["specialFrameBreak"]->accel())
-	{
-		insChars(QString(QChar(parentStoryEditor->seActions["specialFrameBreak"]->actionInt())));
-		setFarbe(true);
-		insert("|");
-		setFarbe(false);
-		emit SideBarUp(true);
-		emit SideBarUpdate();
-		return;
-	}
-	if (currKeySeq == parentStoryEditor->seActions["specialNewLine"]->accel())
-	{
-		insChars(QString(QChar(parentStoryEditor->seActions["specialNewLine"]->actionInt())));
-		setFarbe(true);
-		insert("*");
-		setFarbe(false);
-		emit SideBarUp(true);
-		emit SideBarUpdate();
-		return;
-	}
-	if (currKeySeq == parentStoryEditor->seActions["specialColumnBreak"]->accel())
-	{
-		insChars(QString(QChar(parentStoryEditor->seActions["specialColumnBreak"]->actionInt())));
-		setFarbe(true);
-		insert("^");
-		setFarbe(false);
-		emit SideBarUp(true);
-		emit SideBarUpdate();
-		return;
-	}
-	if (currKeySeq == parentStoryEditor->seActions["specialNonBreakingHyphen"]->accel())
-	{
-		insChars(QString(QChar(parentStoryEditor->seActions["specialNonBreakingHyphen"]->actionInt())));
-		setFarbe(true);
-		insert("=");
-		setFarbe(false);
-		emit SideBarUp(true);
-		emit SideBarUpdate();
-		return;
-	}
-	*/
 	switch (k->state())
 	{
 		case ControlButton:
@@ -2162,74 +2099,6 @@ void StoryEditor::initActions()
 	seActions["editUpdateFrame"]->setEnabled(false);
 }
 
-/*
-void StoryEditor::initUnicodeActions()
-{
-	//typography
-	//seActions.insert("specialSmartHyphen", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", CTRL+SHIFT+Key_Minus, this, "specialSmartHyphen",-1));
-	seActions.insert("specialNonBreakingHyphen", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", CTRL+ALT+Key_Minus, this, "specialNonBreakingHyphen",24));
-	seActions.insert("specialNonBreakingSpace", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", CTRL+Key_Space, this, "specialNonBreakingSpace",29));
-	seActions.insert("specialPageNumber", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", CTRL+SHIFT+ALT+Key_P, this, "specialPageNumber",30));
-	seActions.insert("specialNewLine", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", SHIFT+Key_Return, this, "specialNewLine",28));
-	seActions.insert("specialFrameBreak", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", CTRL+Key_Return, this, "specialFrameBreak",27));
-	seActions.insert("specialColumnBreak", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", CTRL+SHIFT+Key_Return, this, "specialColumnBreak",26));
-	seActions.insert("specialCopyRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialCopyRight",0x0A9));
-	seActions.insert("specialRegdTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialRegdTM",0x00AE));
-	seActions.insert("specialTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialTM",0x2122));
-	seActions.insert("specialBullet", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialBullet",0x2022));
-	seActions.insert("specialDashEm", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialDashEm",0x2014));
-	seActions.insert("specialDashEn", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialDashEn",0x2013));
-	seActions.insert("specialDashFigure", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialDashFigure",0x2012));
-	seActions.insert("specialDashQuotation", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialDashQuotation",0x2015));
-
-	seActions.insert("specialQuoteApostrophe", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteApostrophe",0x0027));
-	seActions.insert("specialQuoteStraight", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteStraight",0x0022));
-	seActions.insert("specialQuoteSingleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteSingleLeft",0x2018));
-	seActions.insert("specialQuoteSingleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteSingleRight",0x2019));
-	seActions.insert("specialQuoteDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteDoubleLeft",0x201C));
-	seActions.insert("specialQuoteDoubleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteDoubleRight",0x201D));
-	seActions.insert("specialQuoteSingleReversed", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteSingleReversed",0x201B));
-	seActions.insert("specialQuoteDoubleReversed", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteDoubleReversed",0x201F));
-	seActions.insert("specialQuoteSingleLeftGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteSingleLeftGuillemet",0x2039));
-	seActions.insert("specialQuoteSingleRightGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteSingleRightGuillemet",0x203A));
-	seActions.insert("specialQuoteDoubleLeftGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteDoubleLeftGuillemet",0x00AB));
-	seActions.insert("specialQuoteDoubleRightGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteDoubleRightGuillemet",0x00BB));
-	seActions.insert("specialQuoteLowSingleComma", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteLowSingleComma",0x201A));
-	seActions.insert("specialQuoteLowDoubleComma", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteLowDoubleComma",0x201E));
-	//seActions.insert("specialQuoteDoubleTurnedComma", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteDoubleTurnedComma",0x201C));
-	seActions.insert("specialQuoteCJKSingleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteCJKSingleLeft",0x300C));
-	seActions.insert("specialQuoteCJKSingleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteCJKSingleRight",0x300D));
-	seActions.insert("specialQuoteCJKDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteCJKDoubleLeft",0x300E));
-	seActions.insert("specialQuoteCJKDoubleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", QKeySequence(), this, "specialQuoteCJKDoubleRight",0x300F));
-	//Spaces and special characters
-	//<< "specialSmartHyphen"
-	unicodeCharActionNames << "specialNonBreakingHyphen" << "specialNonBreakingSpace" << "specialPageNumber";
-	//Breaks
-	unicodeCharActionNames << "specialNewLine" << "specialFrameBreak" << "specialColumnBreak";
-	//Copyrights and TMs
-	unicodeCharActionNames << "specialCopyRight" << "specialRegdTM" << "specialTM";
-	//Bullets
-	unicodeCharActionNames << "specialBullet";
-	//Dashes
-	unicodeCharActionNames << "specialDashEm" << "specialDashEn" << "specialDashFigure" << "specialDashQuotation";
-	//Straight quotes
-	unicodeCharActionNames << "specialQuoteApostrophe" << "specialQuoteStraight";
-	//Double quotes
-	unicodeCharActionNames << "specialQuoteDoubleLeft" << "specialQuoteDoubleRight" << "specialQuoteSingleLeft" << "specialQuoteSingleRight";
-	//Alternative single quotes
-	unicodeCharActionNames << "specialQuoteSingleReversed" << "specialQuoteDoubleReversed";
-	//French quotes
-	unicodeCharActionNames << "specialQuoteSingleLeftGuillemet" << "specialQuoteSingleRightGuillemet" << "specialQuoteDoubleLeftGuillemet" << "specialQuoteDoubleRightGuillemet";
-	//German quotes
-	unicodeCharActionNames << "specialQuoteLowSingleComma" << "specialQuoteLowDoubleComma";// << "specialQuoteDoubleTurnedComma";
-	//CJK Quotes
-	unicodeCharActionNames << "specialQuoteCJKSingleLeft" << "specialQuoteCJKSingleRight" << "specialQuoteCJKDoubleLeft" << "specialQuoteCJKDoubleRight";
-
-	connect( seActions["insertGlyph"], SIGNAL(activated()), this, SLOT(Do_insSp()) );
-	for ( QStringList::Iterator it = unicodeCharActionNames.begin(); it != unicodeCharActionNames.end(); ++it )
-		connect( seActions[*it], SIGNAL(activatedUnicodeShortcut(QString, int)), this, SLOT(specialActionKeyEvent(QString, int)) );
-}
-*/
 void StoryEditor::buildMenus()
 {
 	seMenuMgr = new MenuManager(this->menuBar());
@@ -2319,7 +2188,6 @@ void StoryEditor::buildGUI()
 	initActions();
 	ActionManager::initUnicodeActions(&seActions, this, &unicodeCharActionNames);
 	seActions["specialSmartHyphen"]->setEnabled(false);//CB TODO doesnt work in SE yet.
-	//initUnicodeActions();
 	buildMenus();
 	
 	setIcon(loadIcon("AppIcon.png"));
@@ -2477,52 +2345,8 @@ void StoryEditor::languageChange()
 	seActions["settingsDisplayFont"]->setTexts( tr("&Display Font..."));
 	seActions["settingsSmartTextSelection"]->setTexts( tr("&Smart text selection"));
 
+	//Unicode Actions
 	ActionManager::languageChangeUnicodeActions(&seActions);
-	/*
-	//typography
-	//seActions["specialSmartHyphen"]->setMenuText( tr("Smart &Hyphen"));
-	seActions["specialNonBreakingHyphen"]->setMenuText( tr("Non Breaking Dash"));
-	seActions["specialNonBreakingSpace"]->setMenuText( tr("Non Breaking &Space"));
-	seActions["specialPageNumber"]->setMenuText( tr("Page &Number"));
-	seActions["specialNewLine"]->setMenuText( tr("New Line"));
-	seActions["specialFrameBreak"]->setMenuText( tr("Frame Break"));
-	seActions["specialColumnBreak"]->setMenuText( tr("Column Break"));
-	seActions["specialCopyRight"]->setTexts( tr("Copyright"));
-	seActions["specialRegdTM"]->setTexts( tr("Registered Trademark"));
-	seActions["specialTM"]->setTexts( tr("Trademark"));
-	seActions["specialBullet"]->setTexts( tr("Bullet"));
-	seActions["specialDashEm"]->setTexts( tr("Em Dash"));
-	seActions["specialDashEn"]->setTexts( tr("En Dash"));
-	seActions["specialDashFigure"]->setTexts( tr("Figure Dash"));
-	seActions["specialDashQuotation"]->setTexts( tr("Quotation Dash"));
-
-	seActions["specialQuoteApostrophe"]->setTexts( tr("Apostrophe"));
-	seActions["specialQuoteStraight"]->setTexts( tr("Straight Double"));
-	seActions["specialQuoteSingleLeft"]->setTexts( tr("Single Left"));
-	seActions["specialQuoteSingleRight"]->setTexts( tr("Single Right"));
-	seActions["specialQuoteDoubleLeft"]->setTexts( tr("Double Left"));
-	seActions["specialQuoteDoubleRight"]->setTexts( tr("Double Right"));
-	seActions["specialQuoteSingleReversed"]->setTexts( tr("Single Reversed"));
-	seActions["specialQuoteDoubleReversed"]->setTexts( tr("Double Reversed"));
-	seActions["specialQuoteSingleLeftGuillemet"]->setTexts( tr("Single Left Guillemet"));
-	seActions["specialQuoteSingleRightGuillemet"]->setTexts( tr("Single Right Guillemet"));
-	seActions["specialQuoteDoubleLeftGuillemet"]->setTexts( tr("Double Left Guillemet"));
-	seActions["specialQuoteDoubleRightGuillemet"]->setTexts( tr("Double Right Guillemet"));
-	seActions["specialQuoteLowSingleComma"]->setTexts( tr("Low Single Comma"));
-	seActions["specialQuoteLowDoubleComma"]->setTexts( tr("Low Double Comma"));
-	seActions["specialQuoteCJKSingleLeft"]->setTexts( tr("CJK Single Left"));
-	seActions["specialQuoteCJKSingleRight"]->setTexts( tr("CJK Single Right"));
-	seActions["specialQuoteCJKDoubleLeft"]->setTexts( tr("CJK Double Left"));
-	seActions["specialQuoteCJKDoubleRight"]->setTexts( tr("CJK Double Right"));
-
-	//seActions["specialSmartHyphen"]->setText("Insert Smart Hyphen");
-	seActions["specialNonBreakingHyphen"]->setText("Insert Non Breaking Dash");
-	seActions["specialNonBreakingSpace"]->setText("Insert Non Breaking Space");
-	seActions["specialPageNumber"]->setText("Insert Page Number");
-	seActions["specialNewLine"]->setText("New Line");
-	seActions["specialFrameBreak"]->setText("Frame Break");
-	seActions["specialColumnBreak"]->setText( "Column Break");
-	*/
 	
 	FileTools->setLabel( tr("File"));
 
