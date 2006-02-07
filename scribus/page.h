@@ -58,6 +58,7 @@ public:
 	void setHeight(const double);
 	void setInitialWidth(const double);
 	void setInitialHeight(const double);
+	void copySizingProperties(Page *sourcePage, const MarginStruct& pageMargins);
 	MarginStruct Margins;
 	MarginStruct initialMargins;
   /** Nummer der Seite */

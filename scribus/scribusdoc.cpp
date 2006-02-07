@@ -2059,6 +2059,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	Page* targetPage=addMasterPage(nr, masterPageName);
 	Q_ASSERT(targetPage!=NULL);
 	setLoading(true);
+	targetPage->copySizingProperties(sourcePage, pageMargins);
 	//Grab the left page setting for the current document layout from the dialog, and increment, singlePage==1 remember.
 	if (currentPageLayout != singlePage)
 	{

@@ -390,3 +390,23 @@ void Page::setPageSectionNumber(const QString& newPageSectionNumber)
 	m_pageSectionNumber=newPageSectionNumber;
 }
 
+void Page::copySizingProperties(Page* sourcePage, const MarginStruct& pageMargins)
+{
+	if (sourcePage==NULL)
+		return;
+	PageSize = sourcePage->PageSize;
+	PageOri = sourcePage->PageOri;
+	m_width=sourcePage->m_width;
+	m_height=sourcePage->m_height;
+	m_initialWidth = sourcePage->m_initialWidth;
+	m_initialHeight = sourcePage->m_initialHeight;
+	
+	Margins.Top = pageMargins.Top;
+	Margins.Bottom = pageMargins.Bottom;
+	Margins.Left = pageMargins.Left;//todo fix for layouts
+	Margins.Right = pageMargins.Right;
+	initialMargins.Top = pageMargins.Top;
+	initialMargins.Bottom = pageMargins.Bottom;
+	initialMargins.Left = pageMargins.Left;
+	initialMargins.Right = pageMargins.Right;
+}
