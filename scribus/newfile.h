@@ -68,7 +68,7 @@ public:
 	QCheckBox* startUpDialog;
 	MSpinBox* Distance;
 	QSpinBox* SpinBox10;
-	QSpinBox* PgNr;
+	//QSpinBox* PgNr;
 	QSpinBox* PgNum;
 	MSpinBox* widthMSpinBox;
 	MSpinBox* heightMSpinBox;

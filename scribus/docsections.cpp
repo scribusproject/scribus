@@ -57,12 +57,12 @@ void DocSections::languageChange()
 {
 	QToolTip::add(addButton, "<qt>"+ tr("Add a page numbering section to the document. The new section will be added after the currently selected section.") + "</qt>");
 	QToolTip::add(deleteButton, "<qt>"+ tr("Delete the currently selected section.") + "</qt>");
-	QToolTip::add(sectionsTable, "<qt>"+ tr("Name: Optional name for section eg. Index<br/>"
-											"Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.<br/>"
-											"From: The page index for this section to start at.<br/>"
-											"To: The page index for this section to stop at.<br/>"
-											"Style: Select the page number style to be used.<br/>"
-											"Start: The index within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.") +"</qt>");
+	QToolTip::add(sectionsTable, "<qt>"+ tr("<b>Name:</b> Optional name for section eg. Index<br/>"
+											"<b>Shown:</b> Select to show the page numbers in this section if there is one or more text frames setup to do so.<br/>"
+											"<b>From:</b> The page index for this section to start at.<br/>"
+											"<b>To:</b> The page index for this section to stop at.<br/>"
+											"<b>Style:</b> Select the page number style to be used.<br/>"
+											"<b>Start:</b> The index within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.") +"</qt>");
 }
 
 void DocSections::setup(const DocumentSectionMap docSections, int maxPageIndex)

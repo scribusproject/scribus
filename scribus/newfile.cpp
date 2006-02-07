@@ -85,7 +85,7 @@ NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", tru
 	QToolTip::add( heightMSpinBox, tr( "Height of the document's pages, editable if you have chosen a custom page size" ) );
 //	QToolTip::add( Doppelseiten, tr( "Enable single or spread based layout" ) );
 //	QToolTip::add( ErsteSeite, tr( "Make the first page the left page of the document" ) );
-	QToolTip::add( PgNr, tr( "First page number of the document" ) );
+	//QToolTip::add( PgNr, tr( "First page number of the document" ) );
 	QToolTip::add( PgNum, tr( "Initial number of pages of the document" ) );
 	QToolTip::add( ComboBox3, tr( "Default unit of measurement for document editing" ) );
 	QToolTip::add( AutoFrame, tr( "Create text frames automatically when new pages are added" ) );
@@ -202,28 +202,29 @@ void NewDoc::createNewDocPage()
 	GroupBox3->layout()->setMargin( 10 );
 	GroupBox3Layout = new QGridLayout( GroupBox3->layout() );
 	GroupBox3Layout->setAlignment( Qt::AlignTop );
-	TextLabel1_3 = new QLabel( tr( "F&irst Page Number:" ), GroupBox3, "TextLabel1_3" );
+	/*TextLabel1_3 = new QLabel( tr( "F&irst Page Number:" ), GroupBox3, "TextLabel1_3" );
 	GroupBox3Layout->addMultiCellWidget( TextLabel1_3, 0, 0, 0, 1 );
 	PgNr = new QSpinBox( GroupBox3, "PgNr" );
 	PgNr->setMaxValue( 10000 );
 	PgNr->setMinValue( 1 );
 	TextLabel1_3->setBuddy(PgNr);
 	GroupBox3Layout->addWidget( PgNr, 0, 2, Qt::AlignRight );
+	*/
 	TextLabel1_3a = new QLabel( tr( "N&umber of Pages:" ), GroupBox3, "TextLabel1_3a" );
-	GroupBox3Layout->addMultiCellWidget( TextLabel1_3a, 1, 1, 0, 1 );
+	GroupBox3Layout->addMultiCellWidget( TextLabel1_3a, 0, 0, 0, 1 );
 	PgNum = new QSpinBox( GroupBox3, "PgNum" );
 	PgNum->setMaxValue( 10000 );
 	PgNum->setMinValue( 1 );
 	TextLabel1_3a->setBuddy(PgNum);
-	GroupBox3Layout->addWidget( PgNum, 1, 2, Qt::AlignRight );
+	GroupBox3Layout->addWidget( PgNum, 0, 2, Qt::AlignRight );
 	TextLabel2_3 = new QLabel( tr( "&Default Unit:" ), GroupBox3, "TextLabel2_3" );
-	GroupBox3Layout->addWidget( TextLabel2_3, 2, 0 );
+	GroupBox3Layout->addWidget( TextLabel2_3, 1, 0 );
 	ComboBox3 = new QComboBox( true, GroupBox3, "ComboBox3" );
 	ComboBox3->insertStringList(unitGetTextUnitList());
 	ComboBox3->setCurrentItem(unitIndex);
 	ComboBox3->setEditable(false);
 	TextLabel2_3->setBuddy(ComboBox3);
-	GroupBox3Layout->addMultiCellWidget( ComboBox3, 2, 2, 1, 2 );
+	GroupBox3Layout->addMultiCellWidget( ComboBox3, 1, 1, 1, 2 );
 	Layout10->addWidget( GroupBox3 );
 
 	AutoFrame = new QGroupBox( newDocFrame, "GroupBox4" );

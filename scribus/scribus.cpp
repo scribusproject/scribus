@@ -1637,7 +1637,7 @@ void ScribusMainWindow::startUpDialog()
 			int pageCount=dia->PgNum->value();
 			PageSize *ps2 = new PageSize(dia->pageSizeComboBox->currentText());
 			QString pagesize = ps2->getPageName();
-			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(), firstPage, orientation, dia->PgNr->value(), pagesize, pageCount);
+			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(), firstPage, orientation, 1, pagesize, pageCount);
 			doc->pageSets[facingPages].FirstPage = firstPage;
 			delete ps2;
 			HaveNewDoc();
@@ -1687,7 +1687,7 @@ bool ScribusMainWindow::slotFileNew()
 		int pageCount=dia->PgNum->value();
 		PageSize *ps2 = new PageSize(dia->pageSizeComboBox->currentText());
 		QString pagesize = ps2->getPageName();
-		retVal = doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(), firstPage, orientation, dia->PgNr->value(), pagesize, pageCount);
+		retVal = doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(), firstPage, orientation, 1, pagesize, pageCount);
 		doc->pageSets[facingPages].FirstPage = firstPage;
 		mainWindowStatusLabel->setText( tr("Ready"));
 		delete ps2;
