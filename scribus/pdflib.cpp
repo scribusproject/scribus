@@ -3437,6 +3437,54 @@ QString PDFlib::SetFarbe(const QString& farbe, int Shade)
 	return tmp;
 }
 
+QString PDFlib::SetFarbeGrad(const QString& farbe, int Shade)
+{
+	QString tmp;
+	ScColor tmpC;
+	int h, s, v, k;
+	tmpC = doc.PageColors[farbe];
+	QColor tmpR;
+	if (Options.isGrayscale)
+	{
+		tmpR = tmpC.getShadeColorProof(Shade);
+		tmpR.rgb(&h, &s, &v);
+		tmp = FToStr((0.3 * h + 0.59 * s + 0.11 * v) / 255.0);
+		return tmp;
+	}
+	if (Options.UseRGB)
+	{
+		tmpR = tmpC.getShadeColorProof(Shade);
+		tmpR.rgb(&h, &s, &v);
+		tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
+	}
+	else
+	{
+#ifdef HAVE_CMS
+		if ((CMSuse) && (Options.UseProfiles))
+		{
+			if (Options.SComp == 3)
+			{
+				tmpC.getShadeColorRGB(&h, &s, &v, Shade);
+				tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
+			}
+			else
+			{
+				tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
+				tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
+			}
+		}
+		else
+		{
+#endif
+			tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
+			tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
+		}
+#ifdef HAVE_CMS
+	}
+#endif
+	return tmp;
+}
+
 /*CB 2982: cache code is borked somehow, original function is above
 QString PDFlib::SetFarbe(const QString& farbe, int Shade)
 {
@@ -3687,7 +3735,7 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 		{
 			TransVec.prepend(cstops.at(cst)->opacity);
 			StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
-			Gcolors.prepend(SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade));
+			Gcolors.prepend(SetFarbeGrad(cstops.at(cst)->name, cstops.at(cst)->shade));
 		}
 	}
 	else
@@ -3703,7 +3751,7 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 			TransVec.append(cstops.at(cst)->opacity);
 			StopVec.append(x);
 			StopVec.append(-y);
-			Gcolors.append(SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade));
+			Gcolors.append(SetFarbeGrad(cstops.at(cst)->name, cstops.at(cst)->shade));
 		}
 	}
 	QString tmp(PDF_DoLinGradient(currItem, StopVec, TransVec, Gcolors));

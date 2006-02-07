@@ -84,6 +84,7 @@ private:
 	QString SetClipPathArray(FPointArray *ite, bool poly = true);
 	QString SetClipPathImage(PageItem *ite);
 	QString SetClipPath(PageItem *ite, bool poly = true);
+	QString SetFarbeGrad(const QString& farbe, int Shade);
 	QString SetFarbe(const QString& farbe, int Shade);
 	QString putColor(const QString& color, int Shade, bool fill);
 	QString putColorUncached(const QString& color, int Shade, bool fill);

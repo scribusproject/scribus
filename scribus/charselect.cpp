@@ -84,7 +84,7 @@ ChTable::ChTable(CharSelect* parent, ScribusMainWindow *pl) : QTable(parent)
 QRect ChTable::cellGeometry ( int /*row*/, int /*col*/ ) const
 {
 	int widthHeight = QMAX(18 + qRound(-(*ap->doc->AllFonts)[par->fontInUse]->numDescender * 18) + 5, 18);
-	return QRect(0, 0, widthHeight, widthHeight);
+	return QRect(0, 0, widthHeight, widthHeight+20);
 
 }
 
@@ -104,8 +104,11 @@ void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool
 	p->clear();
 	pixm.fill(white);
 	QWMatrix chma;
-	chma.scale(1.8, 1.8);
+	chma.scale(1.6, 1.6);
 	qp->eraseRect(0, 0, cr.width(), cr.height());
+	QFont fo = qp->font();
+	fo.setPixelSize(8);
+	qp->setFont(fo);
 	static FPointArray gly;
 	int len = (*ap->doc->AllFonts)[par->fontInUse]->GlyphArray[par->characters[cc]].Outlines.size();
 	gly.resize(len);
@@ -113,7 +116,7 @@ void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool
 	if (gly.size() > 4)
 	{
 		gly.map(chma);
-		double ww = sz.width() - (*ap->doc->AllFonts)[par->fontInUse]->CharWidth[par->characters[cc]]*18;
+		double ww = sz.width() - (*ap->doc->AllFonts)[par->fontInUse]->CharWidth[par->characters[cc]]*16;
 		p->translate(ww / 2, 1);
 		p->setBrush(black);
 		p->setFillMode(1);
@@ -124,9 +127,9 @@ void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool
 		qp->drawPixmap(x, 1, pixm);
 		QString tmp;
 		tmp.sprintf("%04X", par->characters[row*16+col]);
-//		tmp.prepend("0x");
+		tmp.prepend("0x");
 		qp->setPen(black);
-		qp->drawText(4, cr.height()-3, tmp);
+		qp->drawText(QRect(2, cr.height()-10, cr.width()-4, 9),Qt::AlignCenter, tmp);
 	}
 	qp->setPen(gray);
 	qp->drawRect(0, 0, cr.width(), cr.height());
