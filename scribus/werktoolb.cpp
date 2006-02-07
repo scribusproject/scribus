@@ -117,6 +117,7 @@ void WerkToolB::SelShape(int s, int c, double *vals)
 void WerkToolB::languageChange()
 {
 	insertPolygonButtonMenu->changeItem(idInsertPolygonButtonMenu, tr("Properties..."));
+	ScToolBar::languageChange();
 }
 
 
@@ -199,4 +200,6 @@ void WerkToolBP::languageChange()
 	PDFA->clear();
 	PDFA->insertItem(loadIcon("charset.png"), tr("Text"));
 	PDFA->insertItem(loadIcon("goto.png"), tr("Link"));
+
+	ScToolBar::languageChange();
 }
