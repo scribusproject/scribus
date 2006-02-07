@@ -2077,6 +2077,7 @@ void StoryEditor::initActions()
 	
 	//Insert Menu
 	seActions.insert("insertGlyph", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "insertGlyph"));
+	connect( seActions["insertGlyph"], SIGNAL(activated()), this, SLOT(Do_insSp()) );
 	
 	//Settings Menu
 	seActions.insert("settingsBackground", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "settingsBackground"));
