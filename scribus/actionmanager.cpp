@@ -554,64 +554,77 @@ void ActionManager::initHelpMenuActions()
 void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *actionMap, QWidget *actionParent, QStringList *actionNamesList)
 {
 	//typography
-	actionMap->insert("specialSmartHyphen", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+SHIFT+Key_Minus, actionParent, "specialSmartHyphen",-1));
-	actionMap->insert("specialNonBreakingHyphen", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+ALT+Key_Minus, actionParent, "specialNonBreakingHyphen",24));
-	actionMap->insert("specialNonBreakingSpace", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+Key_Space, actionParent, "specialNonBreakingSpace",29));
-	actionMap->insert("specialPageNumber", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+SHIFT+ALT+Key_P, actionParent, "specialPageNumber",30));
-	actionMap->insert("specialNewLine", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", SHIFT+Key_Return, actionParent, "specialNewLine",28));
-	actionMap->insert("specialFrameBreak", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+Key_Return, actionParent, "specialFrameBreak",27));
-	actionMap->insert("specialColumnBreak", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+SHIFT+Key_Return, actionParent, "specialColumnBreak",26));
-	actionMap->insert("specialCopyRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialCopyRight",0x0A9));
-	actionMap->insert("specialRegdTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialRegdTM",0x00AE));
-	actionMap->insert("specialTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialTM",0x2122));
-	actionMap->insert("specialBullet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialBullet",0x2022));
-	actionMap->insert("specialDashEm", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialDashEm",0x2014));
-	actionMap->insert("specialDashEn", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialDashEn",0x2013));
-	actionMap->insert("specialDashFigure", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialDashFigure",0x2012));
-	actionMap->insert("specialDashQuotation", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialDashQuotation",0x2015));
-
-	actionMap->insert("specialQuoteApostrophe", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteApostrophe",0x0027));
-	actionMap->insert("specialQuoteStraight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteStraight",0x0022));
-	actionMap->insert("specialQuoteSingleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteSingleLeft",0x2018));
-	actionMap->insert("specialQuoteSingleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteSingleRight",0x2019));
-	actionMap->insert("specialQuoteDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteDoubleLeft",0x201C));
-	actionMap->insert("specialQuoteDoubleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteDoubleRight",0x201D));
-	actionMap->insert("specialQuoteSingleReversed", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteSingleReversed",0x201B));
-	actionMap->insert("specialQuoteDoubleReversed", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteDoubleReversed",0x201F));
-	actionMap->insert("specialQuoteSingleLeftGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteSingleLeftGuillemet",0x2039));
-	actionMap->insert("specialQuoteSingleRightGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteSingleRightGuillemet",0x203A));
-	actionMap->insert("specialQuoteDoubleLeftGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteDoubleLeftGuillemet",0x00AB));
-	actionMap->insert("specialQuoteDoubleRightGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteDoubleRightGuillemet",0x00BB));
-	actionMap->insert("specialQuoteLowSingleComma", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteLowSingleComma",0x201A));
-	actionMap->insert("specialQuoteLowDoubleComma", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteLowDoubleComma",0x201E));
-	actionMap->insert("specialQuoteCJKSingleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteCJKSingleLeft",0x300C));
-	actionMap->insert("specialQuoteCJKSingleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteCJKSingleRight",0x300D));
-	actionMap->insert("specialQuoteCJKDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteCJKDoubleLeft",0x300E));
-	actionMap->insert("specialQuoteCJKDoubleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "specialQuoteCJKDoubleRight",0x300F));
-
-	//Spaces and special characters
-	*actionNamesList << "specialSmartHyphen" << "specialNonBreakingHyphen" << "specialNonBreakingSpace" << "specialPageNumber";
+	actionMap->insert("unicodeSmartHyphen", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+SHIFT+Key_Minus, actionParent, "unicodeSmartHyphen",-1));
+	actionMap->insert("unicodeNonBreakingHyphen", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+ALT+Key_Minus, actionParent, "unicodeNonBreakingHyphen",24));
+	actionMap->insert("unicodeNonBreakingSpace", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+Key_Space, actionParent, "unicodeNonBreakingSpace",29));
+	actionMap->insert("unicodePageNumber", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+SHIFT+ALT+Key_P, actionParent, "unicodePageNumber",30));
 	//Breaks
-	*actionNamesList << "specialNewLine" << "specialFrameBreak" << "specialColumnBreak";
-	//Copyrights and TMs
-	*actionNamesList << "specialCopyRight" << "specialRegdTM" << "specialTM";
-	//Bullets
-	*actionNamesList << "specialBullet";
+	actionMap->insert("unicodeNewLine", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", SHIFT+Key_Return, actionParent, "unicodeNewLine",28));
+	actionMap->insert("unicodeFrameBreak", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+Key_Return, actionParent, "unicodeFrameBreak",27));
+	actionMap->insert("unicodeColumnBreak", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+SHIFT+Key_Return, actionParent, "unicodeColumnBreak",26));
+	//Special
+	actionMap->insert("unicodeCopyRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeCopyRight",0x0A9));
+	actionMap->insert("unicodeRegdTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeRegdTM",0x00AE));
+	actionMap->insert("unicodeTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeTM",0x2122));
+	actionMap->insert("unicodeBullet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeBullet",0x2022));
 	//Dashes
-	*actionNamesList << "specialDashEm" << "specialDashEn" << "specialDashFigure" << "specialDashQuotation";
+	actionMap->insert("unicodeDashEm", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeDashEm",0x2014));
+	actionMap->insert("unicodeDashEn", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeDashEn",0x2013));
+	actionMap->insert("unicodeDashFigure", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeDashFigure",0x2012));
+	actionMap->insert("unicodeDashQuotation", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeDashQuotation",0x2015));
+	//Quotes
+	actionMap->insert("unicodeQuoteApostrophe", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteApostrophe",0x0027));
+	actionMap->insert("unicodeQuoteStraight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteStraight",0x0022));
+	actionMap->insert("unicodeQuoteSingleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteSingleLeft",0x2018));
+	actionMap->insert("unicodeQuoteSingleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteSingleRight",0x2019));
+	actionMap->insert("unicodeQuoteDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteDoubleLeft",0x201C));
+	actionMap->insert("unicodeQuoteDoubleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteDoubleRight",0x201D));
+	actionMap->insert("unicodeQuoteSingleReversed", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteSingleReversed",0x201B));
+	actionMap->insert("unicodeQuoteDoubleReversed", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteDoubleReversed",0x201F));
+	actionMap->insert("unicodeQuoteSingleLeftGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteSingleLeftGuillemet",0x2039));
+	actionMap->insert("unicodeQuoteSingleRightGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteSingleRightGuillemet",0x203A));
+	actionMap->insert("unicodeQuoteDoubleLeftGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteDoubleLeftGuillemet",0x00AB));
+	actionMap->insert("unicodeQuoteDoubleRightGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteDoubleRightGuillemet",0x00BB));
+	actionMap->insert("unicodeQuoteLowSingleComma", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteLowSingleComma",0x201A));
+	actionMap->insert("unicodeQuoteLowDoubleComma", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteLowDoubleComma",0x201E));
+	actionMap->insert("unicodeQuoteCJKSingleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteCJKSingleLeft",0x300C));
+	actionMap->insert("unicodeQuoteCJKSingleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteCJKSingleRight",0x300D));
+	actionMap->insert("unicodeQuoteCJKDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteCJKDoubleLeft",0x300E));
+	actionMap->insert("unicodeQuoteCJKDoubleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteCJKDoubleRight",0x300F));
+	//Ligatures
+	actionMap->insert("unicodeLigature_ff", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeLigature_ff",0xFB00));
+	actionMap->insert("unicodeLigature_fi", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeLigature_fi",0xFB01));
+	actionMap->insert("unicodeLigature_fl", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeLigature_fl",0xFB02));
+	actionMap->insert("unicodeLigature_ffi", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeLigature_ffi",0xFB03));
+	actionMap->insert("unicodeLigature_ffl", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeLigature_ffl",0xFB04));
+	actionMap->insert("unicodeLigature_ft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeLigature_ft",0xFB05));
+	actionMap->insert("unicodeLigature_st", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeLigature_st",0xFB06));
+	
+	//Spaces and special characters
+	*actionNamesList << "unicodeSmartHyphen" << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodePageNumber";
+	//Breaks
+	*actionNamesList << "unicodeNewLine" << "unicodeFrameBreak" << "unicodeColumnBreak";
+	//Copyrights and TMs
+	*actionNamesList << "unicodeCopyRight" << "unicodeRegdTM" << "unicodeTM";
+	//Bullets
+	*actionNamesList << "unicodeBullet";
+	//Dashes
+	*actionNamesList << "unicodeDashEm" << "unicodeDashEn" << "unicodeDashFigure" << "unicodeDashQuotation";
 	//Straight quotes
-	*actionNamesList << "specialQuoteApostrophe" << "specialQuoteStraight";
+	*actionNamesList << "unicodeQuoteApostrophe" << "unicodeQuoteStraight";
 	//Double quotes
-	*actionNamesList << "specialQuoteDoubleLeft" << "specialQuoteDoubleRight" << "specialQuoteSingleLeft" << "specialQuoteSingleRight";
+	*actionNamesList << "unicodeQuoteDoubleLeft" << "unicodeQuoteDoubleRight" << "unicodeQuoteSingleLeft" << "unicodeQuoteSingleRight";
 	//Alternative single quotes
-	*actionNamesList << "specialQuoteSingleReversed" << "specialQuoteDoubleReversed";
+	*actionNamesList << "unicodeQuoteSingleReversed" << "unicodeQuoteDoubleReversed";
 	//French quotes
-	*actionNamesList << "specialQuoteSingleLeftGuillemet" << "specialQuoteSingleRightGuillemet" << "specialQuoteDoubleLeftGuillemet" << "specialQuoteDoubleRightGuillemet";
+	*actionNamesList << "unicodeQuoteSingleLeftGuillemet" << "unicodeQuoteSingleRightGuillemet" << "unicodeQuoteDoubleLeftGuillemet" << "unicodeQuoteDoubleRightGuillemet";
 	//German quotes
-	*actionNamesList << "specialQuoteLowSingleComma" << "specialQuoteLowDoubleComma";
+	*actionNamesList << "unicodeQuoteLowSingleComma" << "unicodeQuoteLowDoubleComma";
 	//CJK Quotes
-	*actionNamesList << "specialQuoteCJKSingleLeft" << "specialQuoteCJKSingleRight" << "specialQuoteCJKDoubleLeft" << "specialQuoteCJKDoubleRight";
-
+	*actionNamesList << "unicodeQuoteCJKSingleLeft" << "unicodeQuoteCJKSingleRight" << "unicodeQuoteCJKDoubleLeft" << "unicodeQuoteCJKDoubleRight";
+	//Ligatures
+	*actionNamesList << "unicodeLigature_ff" << "unicodeLigature_fi" << "unicodeLigature_fl" << "unicodeLigature_ffi" << "unicodeLigature_ffl" << "unicodeLigature_ft" << "unicodeLigature_st";
+	
 	for ( QStringList::Iterator it = actionNamesList->begin(); it != actionNamesList->end(); ++it )
 		connect( (*actionMap)[*it], SIGNAL(activatedUnicodeShortcut(QString, int)), actionParent, SLOT(specialActionKeyEvent(QString, int)) );
 }
@@ -1017,47 +1030,55 @@ void ActionManager::languageChange()
 void ActionManager::languageChangeUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *actionMap)
 {
 	//typography
-	(*actionMap)["specialSmartHyphen"]->setMenuText( tr("Smart &Hyphen"));
-	(*actionMap)["specialNonBreakingHyphen"]->setMenuText( tr("Non Breaking Dash"));
-	(*actionMap)["specialNonBreakingSpace"]->setMenuText( tr("Non Breaking &Space"));
-	(*actionMap)["specialPageNumber"]->setMenuText( tr("Page &Number"));
-	(*actionMap)["specialNewLine"]->setMenuText( tr("New Line"));
-	(*actionMap)["specialFrameBreak"]->setMenuText( tr("Frame Break"));
-	(*actionMap)["specialColumnBreak"]->setMenuText( tr("Column Break"));
-	(*actionMap)["specialCopyRight"]->setTexts( tr("Copyright"));
-	(*actionMap)["specialRegdTM"]->setTexts( tr("Registered Trademark"));
-	(*actionMap)["specialTM"]->setTexts( tr("Trademark"));
-	(*actionMap)["specialBullet"]->setTexts( tr("Bullet"));
-	(*actionMap)["specialDashEm"]->setTexts( tr("Em Dash"));
-	(*actionMap)["specialDashEn"]->setTexts( tr("En Dash"));
-	(*actionMap)["specialDashFigure"]->setTexts( tr("Figure Dash"));
-	(*actionMap)["specialDashQuotation"]->setTexts( tr("Quotation Dash"));
+	(*actionMap)["unicodeSmartHyphen"]->setMenuText( tr("Smart &Hyphen"));
+	(*actionMap)["unicodeNonBreakingHyphen"]->setMenuText( tr("Non Breaking Dash"));
+	(*actionMap)["unicodeNonBreakingSpace"]->setMenuText( tr("Non Breaking &Space"));
+	(*actionMap)["unicodePageNumber"]->setMenuText( tr("Page &Number"));
+	(*actionMap)["unicodeNewLine"]->setMenuText( tr("New Line"));
+	(*actionMap)["unicodeFrameBreak"]->setMenuText( tr("Frame Break"));
+	(*actionMap)["unicodeColumnBreak"]->setMenuText( tr("Column Break"));
+	(*actionMap)["unicodeCopyRight"]->setTexts( tr("Copyright"));
+	(*actionMap)["unicodeRegdTM"]->setTexts( tr("Registered Trademark"));
+	(*actionMap)["unicodeTM"]->setTexts( tr("Trademark"));
+	(*actionMap)["unicodeBullet"]->setTexts( tr("Bullet"));
+	(*actionMap)["unicodeDashEm"]->setTexts( tr("Em Dash"));
+	(*actionMap)["unicodeDashEn"]->setTexts( tr("En Dash"));
+	(*actionMap)["unicodeDashFigure"]->setTexts( tr("Figure Dash"));
+	(*actionMap)["unicodeDashQuotation"]->setTexts( tr("Quotation Dash"));
 
-	(*actionMap)["specialQuoteApostrophe"]->setTexts( tr("Apostrophe"));
-	(*actionMap)["specialQuoteStraight"]->setTexts( tr("Straight Double"));
-	(*actionMap)["specialQuoteSingleLeft"]->setTexts( tr("Single Left"));
-	(*actionMap)["specialQuoteSingleRight"]->setTexts( tr("Single Right"));
-	(*actionMap)["specialQuoteDoubleLeft"]->setTexts( tr("Double Left"));
-	(*actionMap)["specialQuoteDoubleRight"]->setTexts( tr("Double Right"));
-	(*actionMap)["specialQuoteSingleReversed"]->setTexts( tr("Single Reversed"));
-	(*actionMap)["specialQuoteDoubleReversed"]->setTexts( tr("Double Reversed"));
-	(*actionMap)["specialQuoteSingleLeftGuillemet"]->setTexts( tr("Single Left Guillemet"));
-	(*actionMap)["specialQuoteSingleRightGuillemet"]->setTexts( tr("Single Right Guillemet"));
-	(*actionMap)["specialQuoteDoubleLeftGuillemet"]->setTexts( tr("Double Left Guillemet"));
-	(*actionMap)["specialQuoteDoubleRightGuillemet"]->setTexts( tr("Double Right Guillemet"));
-	(*actionMap)["specialQuoteLowSingleComma"]->setTexts( tr("Low Single Comma"));
-	(*actionMap)["specialQuoteLowDoubleComma"]->setTexts( tr("Low Double Comma"));
-	(*actionMap)["specialQuoteCJKSingleLeft"]->setTexts( tr("CJK Single Left"));
-	(*actionMap)["specialQuoteCJKSingleRight"]->setTexts( tr("CJK Single Right"));
-	(*actionMap)["specialQuoteCJKDoubleLeft"]->setTexts( tr("CJK Double Left"));
-	(*actionMap)["specialQuoteCJKDoubleRight"]->setTexts( tr("CJK Double Right"));
+	(*actionMap)["unicodeQuoteApostrophe"]->setTexts( tr("Apostrophe"));
+	(*actionMap)["unicodeQuoteStraight"]->setTexts( tr("Straight Double"));
+	(*actionMap)["unicodeQuoteSingleLeft"]->setTexts( tr("Single Left"));
+	(*actionMap)["unicodeQuoteSingleRight"]->setTexts( tr("Single Right"));
+	(*actionMap)["unicodeQuoteDoubleLeft"]->setTexts( tr("Double Left"));
+	(*actionMap)["unicodeQuoteDoubleRight"]->setTexts( tr("Double Right"));
+	(*actionMap)["unicodeQuoteSingleReversed"]->setTexts( tr("Single Reversed"));
+	(*actionMap)["unicodeQuoteDoubleReversed"]->setTexts( tr("Double Reversed"));
+	(*actionMap)["unicodeQuoteSingleLeftGuillemet"]->setTexts( tr("Single Left Guillemet"));
+	(*actionMap)["unicodeQuoteSingleRightGuillemet"]->setTexts( tr("Single Right Guillemet"));
+	(*actionMap)["unicodeQuoteDoubleLeftGuillemet"]->setTexts( tr("Double Left Guillemet"));
+	(*actionMap)["unicodeQuoteDoubleRightGuillemet"]->setTexts( tr("Double Right Guillemet"));
+	(*actionMap)["unicodeQuoteLowSingleComma"]->setTexts( tr("Low Single Comma"));
+	(*actionMap)["unicodeQuoteLowDoubleComma"]->setTexts( tr("Low Double Comma"));
+	(*actionMap)["unicodeQuoteCJKSingleLeft"]->setTexts( tr("CJK Single Left"));
+	(*actionMap)["unicodeQuoteCJKSingleRight"]->setTexts( tr("CJK Single Right"));
+	(*actionMap)["unicodeQuoteCJKDoubleLeft"]->setTexts( tr("CJK Double Left"));
+	(*actionMap)["unicodeQuoteCJKDoubleRight"]->setTexts( tr("CJK Double Right"));
 
-	(*actionMap)["specialSmartHyphen"]->setText("Insert Smart Hyphen");
-	(*actionMap)["specialNonBreakingHyphen"]->setText("Insert Non Breaking Dash");
-	(*actionMap)["specialNonBreakingSpace"]->setText("Insert Non Breaking Space");
-	(*actionMap)["specialPageNumber"]->setText("Insert Page Number");
-	(*actionMap)["specialNewLine"]->setText("New Line");
-	(*actionMap)["specialFrameBreak"]->setText("Frame Break");
-	(*actionMap)["specialColumnBreak"]->setText( "Column Break");
+	(*actionMap)["unicodeSmartHyphen"]->setText( tr("Insert Smart Hyphen"));
+	(*actionMap)["unicodeNonBreakingHyphen"]->setText( tr("Insert Non Breaking Dash"));
+	(*actionMap)["unicodeNonBreakingSpace"]->setText( tr("Insert Non Breaking Space"));
+	(*actionMap)["unicodePageNumber"]->setText( tr("Insert Page Number"));
+	(*actionMap)["unicodeNewLine"]->setText( tr("New Line"));
+	(*actionMap)["unicodeFrameBreak"]->setText( tr("Frame Break"));
+	(*actionMap)["unicodeColumnBreak"]->setText( tr("Column Break"));
+	
+	(*actionMap)["unicodeLigature_ff"]->setTexts( tr("ff"));
+	(*actionMap)["unicodeLigature_fi"]->setTexts( tr("fi"));
+	(*actionMap)["unicodeLigature_fl"]->setTexts( tr("fl"));
+	(*actionMap)["unicodeLigature_ffi"]->setTexts( tr("ffi"));
+	(*actionMap)["unicodeLigature_ffl"]->setTexts( tr("ffl"));
+	(*actionMap)["unicodeLigature_ft"]->setTexts( tr("ft"));
+	(*actionMap)["unicodeLigature_st"]->setTexts( tr("st"));
 }
 

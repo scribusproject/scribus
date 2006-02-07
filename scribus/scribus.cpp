@@ -787,53 +787,61 @@ void ScribusMainWindow::initMenuBar()
 
 	scrMenuMgr->createMenu("InsertChar", QPixmap(noIcon), tr("Character"), "Insert");
 	//scrMenuMgr->addMenuToMenu("InsertChar", "Insert");
-	scrMenuMgr->addMenuItem(scrActions["specialPageNumber"], "InsertChar");
-	scrMenuMgr->addMenuItem(scrActions["specialSmartHyphen"], "InsertChar");
-	scrMenuMgr->addMenuItem(scrActions["specialNonBreakingHyphen"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["unicodePageNumber"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["unicodeSmartHyphen"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["unicodeNonBreakingHyphen"], "InsertChar");
 	scrMenuMgr->addMenuSeparator("InsertChar");
-	scrMenuMgr->addMenuItem(scrActions["specialCopyRight"], "InsertChar");
-	scrMenuMgr->addMenuItem(scrActions["specialRegdTM"], "InsertChar");
-	scrMenuMgr->addMenuItem(scrActions["specialTM"], "InsertChar");
-	scrMenuMgr->addMenuItem(scrActions["specialBullet"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["unicodeCopyRight"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["unicodeRegdTM"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["unicodeTM"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["unicodeBullet"], "InsertChar");
 	scrMenuMgr->addMenuSeparator("InsertChar");
-	scrMenuMgr->addMenuItem(scrActions["specialDashEm"], "InsertChar");
-	scrMenuMgr->addMenuItem(scrActions["specialDashEn"], "InsertChar");
-	scrMenuMgr->addMenuItem(scrActions["specialDashFigure"], "InsertChar");
-	scrMenuMgr->addMenuItem(scrActions["specialDashQuotation"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["unicodeDashEm"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["unicodeDashEn"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["unicodeDashFigure"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["unicodeDashQuotation"], "InsertChar");
 
 	scrMenuMgr->createMenu("InsertQuote", QPixmap(noIcon), tr("Quote"), "Insert");
 	//scrMenuMgr->addMenuToMenu("InsertQuote", "Insert");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteApostrophe"], "InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteStraight"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteApostrophe"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteStraight"], "InsertQuote");
 	scrMenuMgr->addMenuSeparator("InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteSingleLeft"], "InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteSingleRight"], "InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleLeft"], "InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleRight"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteSingleLeft"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteSingleRight"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteDoubleLeft"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteDoubleRight"], "InsertQuote");
 	scrMenuMgr->addMenuSeparator("InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteLowSingleComma"], "InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteLowDoubleComma"], "InsertQuote");
-	//scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleTurnedComma"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteLowSingleComma"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteLowDoubleComma"], "InsertQuote");
 	scrMenuMgr->addMenuSeparator("InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteSingleReversed"], "InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleReversed"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteSingleReversed"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteDoubleReversed"], "InsertQuote");
 	scrMenuMgr->addMenuSeparator("InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteSingleLeftGuillemet"], "InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteSingleRightGuillemet"], "InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleLeftGuillemet"], "InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleRightGuillemet"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteSingleLeftGuillemet"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteSingleRightGuillemet"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteDoubleLeftGuillemet"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteDoubleRightGuillemet"], "InsertQuote");
 	scrMenuMgr->addMenuSeparator("InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteCJKSingleLeft"], "InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteCJKSingleRight"], "InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteCJKDoubleLeft"], "InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteCJKDoubleRight"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteCJKSingleLeft"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteCJKSingleRight"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteCJKDoubleLeft"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteCJKDoubleRight"], "InsertQuote");
 
 	scrMenuMgr->createMenu("InsertSpace", QPixmap(noIcon), tr("Space"), "Insert");
-	//scrMenuMgr->addMenuToMenu("InsertSpace", "Insert");
-	scrMenuMgr->addMenuItem(scrActions["specialNonBreakingSpace"], "InsertSpace");
-	scrMenuMgr->addMenuItem(scrActions["specialNewLine"], "InsertSpace");
-	scrMenuMgr->addMenuItem(scrActions["specialFrameBreak"], "InsertSpace");
-	scrMenuMgr->addMenuItem(scrActions["specialColumnBreak"], "InsertSpace");
+	scrMenuMgr->addMenuItem(scrActions["unicodeNonBreakingSpace"], "InsertSpace");
+	scrMenuMgr->addMenuItem(scrActions["unicodeNewLine"], "InsertSpace");
+	scrMenuMgr->addMenuItem(scrActions["unicodeFrameBreak"], "InsertSpace");
+	scrMenuMgr->addMenuItem(scrActions["unicodeColumnBreak"], "InsertSpace");
+	
+	scrMenuMgr->createMenu("InsertLigature", QPixmap(noIcon), tr("Ligature"), "Insert");
+	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_ff"], "InsertLigature");
+	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_fi"], "InsertLigature");
+	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_fl"], "InsertLigature");
+	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_ffi"], "InsertLigature");
+	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_ffl"], "InsertLigature");
+	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_ft"], "InsertLigature");
+	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_st"], "InsertLigature");
+	
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertSampleText"], "Insert");
 	scrActions["insertGlyph"]->setEnabled(false);
@@ -1110,7 +1118,7 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 					currItem->Tinput = true;
 					view->RefreshItem(currItem);
 				}
-				else if (actionName=="specialSmartHyphen") //ignore the char as we use an attribute if the text item, for now.
+				else if (actionName=="unicodeSmartHyphen") //ignore the char as we use an attribute if the text item, for now.
 				{
 					currItem->itemText.at(QMAX(currItem->CPos-1,0))->cstyle ^= 128;
 					currItem->Tinput = true;

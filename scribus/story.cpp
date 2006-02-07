@@ -979,7 +979,7 @@ void SEditor::loadItemText(PageItem *currItem)
 				}
 				if ((Ali == hg->cab) && (Csty == hg->cstyle))
 				{
-					if (hg->ch == QChar(parentStoryEditor->seActions["specialPageNumber"]->actionInt()))
+					if (hg->ch == QChar(parentStoryEditor->seActions["unicodePageNumber"]->actionInt()))
 					{
 						setAlign(Ali);
 						setStyle(Csty);
@@ -991,7 +991,7 @@ void SEditor::loadItemText(PageItem *currItem)
 						chars->append(hg);
 						continue;
 					}
-					else if (hg->ch == QChar(parentStoryEditor->seActions["specialNonBreakingSpace"]->actionInt()))
+					else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeNonBreakingSpace"]->actionInt()))
 					{
 						setAlign(Ali);
 						setStyle(Csty);
@@ -1003,7 +1003,7 @@ void SEditor::loadItemText(PageItem *currItem)
 						chars->append(hg);
 						continue;
 					}
-					else if (hg->ch == QChar(parentStoryEditor->seActions["specialFrameBreak"]->actionInt()))
+					else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeFrameBreak"]->actionInt()))
 					{
 						setAlign(Ali);
 						setStyle(Csty);
@@ -1015,7 +1015,7 @@ void SEditor::loadItemText(PageItem *currItem)
 						chars->append(hg);
 						continue;
 					}
-					else if (hg->ch == QChar(parentStoryEditor->seActions["specialColumnBreak"]->actionInt()))
+					else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeColumnBreak"]->actionInt()))
 					{
 						setAlign(Ali);
 						setStyle(Csty);
@@ -1027,7 +1027,7 @@ void SEditor::loadItemText(PageItem *currItem)
 						chars->append(hg);
 						continue;
 					}
-					else if (hg->ch == QChar(parentStoryEditor->seActions["specialNonBreakingHyphen"]->actionInt()))
+					else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeNonBreakingHyphen"]->actionInt()))
 					{
 						setAlign(Ali);
 						setStyle(Csty);
@@ -1039,7 +1039,7 @@ void SEditor::loadItemText(PageItem *currItem)
 						chars->append(hg);
 						continue;
 					}
-					else if (hg->ch == QChar(parentStoryEditor->seActions["specialNewLine"]->actionInt()))
+					else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeNewLine"]->actionInt()))
 					{
 						setAlign(Ali);
 						setStyle(Csty);
@@ -1189,7 +1189,7 @@ void SEditor::updateAll()
 			}
 			if ((Ali == hg->cab) && (Csty == hg->cstyle))
 			{
-				if (hg->ch == QChar(parentStoryEditor->seActions["specialPageNumber"]->actionInt()))
+				if (hg->ch == QChar(parentStoryEditor->seActions["unicodePageNumber"]->actionInt()))
 				{
 					setAlign(Ali);
 					setStyle(Csty);
@@ -1200,7 +1200,7 @@ void SEditor::updateAll()
 					Text = "";
 					continue;
 				}
-				else if (hg->ch == QChar(parentStoryEditor->seActions["specialNonBreakingSpace"]->actionInt()))
+				else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeNonBreakingSpace"]->actionInt()))
 				{
 					setAlign(Ali);
 					setStyle(Csty);
@@ -1211,7 +1211,7 @@ void SEditor::updateAll()
 					Text = "";
 					continue;
 				}
-				else if (hg->ch == QChar(parentStoryEditor->seActions["specialFrameBreak"]->actionInt()))
+				else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeFrameBreak"]->actionInt()))
 				{
 					setAlign(Ali);
 					setStyle(Csty);
@@ -1222,7 +1222,7 @@ void SEditor::updateAll()
 					Text = "";
 					continue;
 				}
-				else if (hg->ch == QChar(parentStoryEditor->seActions["specialColumnBreak"]->actionInt()))
+				else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeColumnBreak"]->actionInt()))
 				{
 					setAlign(Ali);
 					setStyle(Csty);
@@ -1234,7 +1234,7 @@ void SEditor::updateAll()
 					chars->append(hg);
 					continue;
 				}
-				else if (hg->ch == QChar(parentStoryEditor->seActions["specialNonBreakingHyphen"]->actionInt()))
+				else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeNonBreakingHyphen"]->actionInt()))
 				{
 					setAlign(Ali);
 					setStyle(Csty);
@@ -1246,7 +1246,7 @@ void SEditor::updateAll()
 					chars->append(hg);
 					continue;
 				}
-				else if (hg->ch == QChar(parentStoryEditor->seActions["specialNewLine"]->actionInt()))
+				else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeNewLine"]->actionInt()))
 				{
 					setAlign(Ali);
 					setStyle(Csty);
@@ -2127,48 +2127,56 @@ void StoryEditor::buildMenus()
 	seMenuMgr->createMenu("Insert", tr("&Insert"));
 	seMenuMgr->addMenuItem(seActions["insertGlyph"], "Insert");
 	seMenuMgr->createMenu("InsertChar", QPixmap(noIcon), tr("Character"), "Insert");
-	seMenuMgr->addMenuItem(seActions["specialPageNumber"], "InsertChar");
-	//seMenuMgr->addMenuItem(seActions["specialSmartHyphen"], "InsertChar");
-	seMenuMgr->addMenuItem(seActions["specialNonBreakingHyphen"], "InsertChar");
+	seMenuMgr->addMenuItem(seActions["unicodePageNumber"], "InsertChar");
+	//seMenuMgr->addMenuItem(seActions["unicodeSmartHyphen"], "InsertChar");
+	seMenuMgr->addMenuItem(seActions["unicodeNonBreakingHyphen"], "InsertChar");
 	seMenuMgr->addMenuSeparator("InsertChar");
-	seMenuMgr->addMenuItem(seActions["specialCopyRight"], "InsertChar");
-	seMenuMgr->addMenuItem(seActions["specialRegdTM"], "InsertChar");
-	seMenuMgr->addMenuItem(seActions["specialTM"], "InsertChar");
-	seMenuMgr->addMenuItem(seActions["specialBullet"], "InsertChar");
+	seMenuMgr->addMenuItem(seActions["unicodeCopyRight"], "InsertChar");
+	seMenuMgr->addMenuItem(seActions["unicodeRegdTM"], "InsertChar");
+	seMenuMgr->addMenuItem(seActions["unicodeTM"], "InsertChar");
+	seMenuMgr->addMenuItem(seActions["unicodeBullet"], "InsertChar");
 	seMenuMgr->addMenuSeparator("InsertChar");
-	seMenuMgr->addMenuItem(seActions["specialDashEm"], "InsertChar");
-	seMenuMgr->addMenuItem(seActions["specialDashEn"], "InsertChar");
-	seMenuMgr->addMenuItem(seActions["specialDashFigure"], "InsertChar");
-	seMenuMgr->addMenuItem(seActions["specialDashQuotation"], "InsertChar");
+	seMenuMgr->addMenuItem(seActions["unicodeDashEm"], "InsertChar");
+	seMenuMgr->addMenuItem(seActions["unicodeDashEn"], "InsertChar");
+	seMenuMgr->addMenuItem(seActions["unicodeDashFigure"], "InsertChar");
+	seMenuMgr->addMenuItem(seActions["unicodeDashQuotation"], "InsertChar");
 	seMenuMgr->createMenu("InsertQuote", QPixmap(noIcon), tr("Quote"), "Insert");
-	seMenuMgr->addMenuItem(seActions["specialQuoteApostrophe"], "InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteStraight"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteApostrophe"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteStraight"], "InsertQuote");
 	seMenuMgr->addMenuSeparator("InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteSingleLeft"], "InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteSingleRight"], "InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteDoubleLeft"], "InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteDoubleRight"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteSingleLeft"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteSingleRight"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteDoubleLeft"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteDoubleRight"], "InsertQuote");
 	seMenuMgr->addMenuSeparator("InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteLowSingleComma"], "InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteLowDoubleComma"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteLowSingleComma"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteLowDoubleComma"], "InsertQuote");
 	seMenuMgr->addMenuSeparator("InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteSingleReversed"], "InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteDoubleReversed"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteSingleReversed"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteDoubleReversed"], "InsertQuote");
 	seMenuMgr->addMenuSeparator("InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteSingleLeftGuillemet"], "InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteSingleRightGuillemet"], "InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteDoubleLeftGuillemet"], "InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteDoubleRightGuillemet"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteSingleLeftGuillemet"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteSingleRightGuillemet"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteDoubleLeftGuillemet"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteDoubleRightGuillemet"], "InsertQuote");
 	seMenuMgr->addMenuSeparator("InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteCJKSingleLeft"], "InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteCJKSingleRight"], "InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteCJKDoubleLeft"], "InsertQuote");
-	seMenuMgr->addMenuItem(seActions["specialQuoteCJKDoubleRight"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteCJKSingleLeft"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteCJKSingleRight"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteCJKDoubleLeft"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteCJKDoubleRight"], "InsertQuote");
 	seMenuMgr->createMenu("InsertSpace", QPixmap(noIcon), tr("Space"), "Insert");
-	seMenuMgr->addMenuItem(seActions["specialNonBreakingSpace"], "InsertSpace");
-	seMenuMgr->addMenuItem(seActions["specialNewLine"], "InsertSpace");
-	seMenuMgr->addMenuItem(seActions["specialFrameBreak"], "InsertSpace");
-	seMenuMgr->addMenuItem(seActions["specialColumnBreak"], "InsertSpace");
+	seMenuMgr->addMenuItem(seActions["unicodeNonBreakingSpace"], "InsertSpace");
+	seMenuMgr->addMenuItem(seActions["unicodeNewLine"], "InsertSpace");
+	seMenuMgr->addMenuItem(seActions["unicodeFrameBreak"], "InsertSpace");
+	seMenuMgr->addMenuItem(seActions["unicodeColumnBreak"], "InsertSpace");
+	seMenuMgr->createMenu("InsertLigature", QPixmap(noIcon), tr("Ligature"), "Insert");
+	seMenuMgr->addMenuItem(seActions["unicodeLigature_ff"], "InsertLigature");
+	seMenuMgr->addMenuItem(seActions["unicodeLigature_fi"], "InsertLigature");
+	seMenuMgr->addMenuItem(seActions["unicodeLigature_fl"], "InsertLigature");
+	seMenuMgr->addMenuItem(seActions["unicodeLigature_ffi"], "InsertLigature");
+	seMenuMgr->addMenuItem(seActions["unicodeLigature_ffl"], "InsertLigature");
+	seMenuMgr->addMenuItem(seActions["unicodeLigature_ft"], "InsertLigature");
+	seMenuMgr->addMenuItem(seActions["unicodeLigature_st"], "InsertLigature");
 	
 	seMenuMgr->createMenu("Settings", tr("&Settings"));
 	seMenuMgr->addMenuItem(seActions["settingsBackground"], "Settings");
@@ -2187,7 +2195,7 @@ void StoryEditor::buildGUI()
 	seActions.clear();
 	initActions();
 	ActionManager::initUnicodeActions(&seActions, this, &unicodeCharActionNames);
-	seActions["specialSmartHyphen"]->setEnabled(false);//CB TODO doesnt work in SE yet.
+	seActions["unicodeSmartHyphen"]->setEnabled(false);//CB TODO doesnt work in SE yet.
 	buildMenus();
 	
 	setIcon(loadIcon("AppIcon.png"));
@@ -3635,32 +3643,32 @@ void StoryEditor::specialActionKeyEvent(QString actionName, int unicodevalue)
 	Editor->insChars(QString(QChar(unicodevalue)));
 	QString guiInsertString=QChar(unicodevalue);
 	bool setColor=false;
-	if (unicodevalue == seActions["specialPageNumber"]->actionInt())
+	if (unicodevalue == seActions["unicodePageNumber"]->actionInt())
 	{
 		setColor=true;
 		guiInsertString="#";
 	}
-	if (unicodevalue == seActions["specialNonBreakingSpace"]->actionInt())
+	if (unicodevalue == seActions["unicodeNonBreakingSpace"]->actionInt())
 	{
 		setColor=true;
 		guiInsertString="_";
 	}
-	if (unicodevalue == seActions["specialFrameBreak"]->actionInt())
+	if (unicodevalue == seActions["unicodeFrameBreak"]->actionInt())
 	{
 		setColor=true;
 		guiInsertString="|";
 	}
-	if (unicodevalue == seActions["specialNewLine"]->actionInt())
+	if (unicodevalue == seActions["unicodeNewLine"]->actionInt())
 	{
 		setColor=true;
 		guiInsertString="*";
 	}
-	if (unicodevalue == seActions["specialColumnBreak"]->actionInt())
+	if (unicodevalue == seActions["unicodeColumnBreak"]->actionInt())
 	{
 		setColor=true;
 		guiInsertString="^";
 	}
-	if (unicodevalue == seActions["specialNonBreakingHyphen"]->actionInt())
+	if (unicodevalue == seActions["unicodeNonBreakingHyphen"]->actionInt())
 	{
 		setColor=true;
 		guiInsertString="=";
