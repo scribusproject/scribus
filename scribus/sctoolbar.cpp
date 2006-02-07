@@ -39,9 +39,9 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-ScToolBar::ScToolBar(const QString& name, QMainWindow *parent, QDockWindow::Orientation o)
-: QToolBar(tr(name), parent),
-  m_name(QString("ToolBar-%1").arg(name)),
+ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *parent, QDockWindow::Orientation o)
+: QToolBar(name, parent),
+  m_name(QString("ToolBar-%1").arg(prefName)),
   m_prefs(PrefsManager::instance()->prefsFile->getContext(m_name))
 {
 	setCloseMode(QDockWindow::Undocked);

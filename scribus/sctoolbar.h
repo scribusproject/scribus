@@ -41,7 +41,9 @@ class SCRIBUS_API ScToolBar : public QToolBar
 {
 	Q_OBJECT
 public:
-	ScToolBar(const QString& name, QMainWindow *parent, QDockWindow::Orientation o = QDockWindow::Horizontal);
+	// prefName is the name without tr() that will be used in the preferences for this toolbar
+	// if using name settings depend on the language
+	ScToolBar(const QString& name, const QString &prefName, QMainWindow *parent, QDockWindow::Orientation o = QDockWindow::Horizontal);
 	virtual ~ScToolBar();
 
 public slots:

@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap loadIcon(QString nam);
 
 
-WerkToolB::WerkToolB(QMainWindow* parent) : ScToolBar(tr("Tools"), parent, QDockWindow::Vertical)
+WerkToolB::WerkToolB(QMainWindow* parent) : ScToolBar(tr("Tools"), "Tools", parent, QDockWindow::Vertical)
 {
 	SubMode = 0;
 	ValCount = 32;
@@ -120,7 +120,7 @@ void WerkToolB::languageChange()
 }
 
 
-WerkToolBP::WerkToolBP(QMainWindow* parent) : ScToolBar( tr("PDF Tools"), parent)
+WerkToolBP::WerkToolBP(QMainWindow* parent) : ScToolBar( tr("PDF Tools"), "PDF_Tools", parent)
 {
 	PDFM = new QPopupMenu();
 	PDFTool = new QToolButton(loadIcon("pushbutton.png"), "Insert PDF Fields", QString::null, this, SLOT(ModeFromTB()), this);
