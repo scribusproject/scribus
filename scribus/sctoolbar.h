@@ -45,7 +45,7 @@ public:
 	virtual ~ScToolBar();
 
 public slots:
-	void languageChanged();
+	void languageChange();
 
 protected slots:
 	void slotPlaceChanged(QDockWindow::Place p);

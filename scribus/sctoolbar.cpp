@@ -97,7 +97,7 @@ ScToolBar::ScToolBar(const QString& name, QMainWindow *parent, QDockWindow::Orie
 		setOrientation(floatOrientation);
 
 	initPrefsButton();
-	languageChanged();
+	languageChange();
 
 	connect(this, SIGNAL(placeChanged(QDockWindow::Place)),
 	        this, SLOT(slotPlaceChanged(QDockWindow::Place)));
@@ -190,7 +190,7 @@ void ScToolBar::slotHor()
 		setOrientation(floatOrientation);
 }
 
-void ScToolBar::languageChanged()
+void ScToolBar::languageChange()
 {
 	popup->clear();
 
