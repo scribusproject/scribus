@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef WERKTOOLB_H
 #define WERKTOOLB_H
 
-#include <qtoolbar.h>
 #include <qmainwindow.h>
 #include "scribusapi.h"
 #include "sctoolbar.h"
@@ -49,7 +48,6 @@ public:
 	double *ShapeVals;
 
 public slots:
-	void Docken(QDockWindow::Place p);
 	void GetPolyProps();
 	void SelShape(int s, int c, double *vals);
 	void languageChange();
@@ -81,7 +79,6 @@ public:
 public slots:
 	void setPDFnotiz(int id);
 	void setPDFtool(int id);
-	void Docken(QDockWindow::Place p);
 	void ModeFromTB();
 	void languageChange();
 

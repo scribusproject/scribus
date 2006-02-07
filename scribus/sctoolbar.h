@@ -34,6 +34,8 @@ class QMainWindow;
 class QString;
 class PrefsContext;
 class QCloseEvent;
+class QToolButton;
+class QPopupMenu;
 
 class SCRIBUS_API ScToolBar : public QToolBar
 {
@@ -42,13 +44,36 @@ public:
 	ScToolBar(const QString& name, QMainWindow *parent, QDockWindow::Orientation o = QDockWindow::Horizontal);
 	virtual ~ScToolBar();
 
+public slots:
+	void languageChanged();
+
 protected slots:
 	void slotPlaceChanged(QDockWindow::Place p);
 	void slotVisibilityChanged(bool visible);
+	void slotTop();
+	void slotRight();
+	void slotBottom();
+	void slotLeft();
+	void slotVert();
+	void slotHor();
 
 private:
 	QString m_name;
 	PrefsContext *m_prefs;
+	QDockWindow::Orientation floatOrientation;
+	QToolButton *prefsButton;
+	QPopupMenu  *popup;
+	QPopupMenu  *dockMenu;
+	QPopupMenu  *orientationMenu;
+
+	bool dockTop;
+	bool dockRight;
+	bool dockBottom;
+	bool dockLeft;
+
+	void initPrefsButton();
+
+	enum Orientation { Vert, Hor };
 };
 
 #endif

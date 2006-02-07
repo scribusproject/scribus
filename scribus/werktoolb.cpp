@@ -34,7 +34,6 @@ for which a new license (GPL+exception) is in place.
 #include "scraction.h"
 #include "scribus.h"
 #include "scribusdoc.h"
-#include <qdockarea.h>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -91,17 +90,7 @@ WerkToolB::WerkToolB(QMainWindow* parent) : ScToolBar(tr("Tools"), parent, QDock
 	ScMW->scrActions["toolsEyeDropper"]->addTo(this);
 
 	languageChange();
-	connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));
 	connect(Rechteck, SIGNAL(FormSel(int, int, double *)), this, SLOT(SelShape(int, int, double *)));
-}
-
-void WerkToolB::Docken(QDockWindow::Place p)
-{
-	if (p == InDock) {
-		setOrientation(area()->orientation());
-	} else {
-		setOrientation(Vertical);
-	}
 }
 
 void WerkToolB::GetPolyProps()
@@ -147,7 +136,6 @@ WerkToolBP::WerkToolBP(QMainWindow* parent) : ScToolBar( tr("PDF Tools"), parent
 	PDFnotiz = 0;
 	setCloseMode(QDockWindow::Undocked);
 	languageChange();
-	connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));
 	connect(PDFM, SIGNAL(activated(int)), this, SLOT(setPDFtool(int)));
 	connect(PDFA, SIGNAL(activated(int)), this, SLOT(setPDFnotiz(int)));
 }
@@ -179,15 +167,6 @@ void WerkToolBP::setPDFtool(int id)
 	PDFTool->setOn(true);
 	PDFaTool->setOn(false);
 	emit NewMode(modeInsertPDFButton+PDFwerkz);
-}
-
-void WerkToolBP::Docken(QDockWindow::Place p)
-{
-	if (p == InDock) {
-		setOrientation(area()->orientation());
-	} else {
-		setOrientation(Horizontal);
-	}
 }
 
 void WerkToolBP::ModeFromTB()
