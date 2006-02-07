@@ -2223,6 +2223,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	scrActions["itemPreviewLow"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemPreviewNormal"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemPreviewFull"]->setEnabled(Nr==PageItem::ImageFrame);
+	scrActions["styleImageEffects"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["editEditWithImageEditor"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail && currItem->isRaster);
 	if (Nr!=PageItem::ImageFrame)
 	{
