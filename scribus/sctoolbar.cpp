@@ -44,7 +44,7 @@ ScToolBar::ScToolBar(const QString& name, QMainWindow *parent, QDockWindow::Orie
   m_name(QString("ToolBar-%1").arg(name)),
   m_prefs(PrefsManager::instance()->prefsFile->getContext(m_name))
 {
-	setCloseMode(QDockWindow::Never);
+	setCloseMode(QDockWindow::Undocked);
 	if (m_prefs->contains("IsDocked")) // set docking
 	{
 		if (m_prefs->getBool("IsDocked", true)) {

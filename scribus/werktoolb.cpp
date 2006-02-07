@@ -134,7 +134,7 @@ WerkToolBP::WerkToolBP(QMainWindow* parent) : ScToolBar( tr("PDF Tools"), parent
 	PDFaTool->setPopup(PDFA);
 	PDFaTool->setPopupDelay(0);
 	PDFnotiz = 0;
-	setCloseMode(QDockWindow::Undocked);
+
 	languageChange();
 	connect(PDFM, SIGNAL(activated(int)), this, SLOT(setPDFtool(int)));
 	connect(PDFA, SIGNAL(activated(int)), this, SLOT(setPDFnotiz(int)));
