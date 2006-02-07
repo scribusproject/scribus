@@ -366,8 +366,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	CMethod = new QComboBox( true, CBox, "CMethod" );
 	CMethod->clear();
 	CMethod->insertItem( tr( "Automatic" ) );
-	CMethod->insertItem( tr( "JPEG" ) );
-	CMethod->insertItem( tr( "Zip" ) );
+	CMethod->insertItem( tr( "Lossy - JPEG" ) );
+	CMethod->insertItem( tr( "Lossless - Zip" ) );
 	CMethod->insertItem( tr( "None" ) );
 	CMethod->setEditable(false);
 	CMethod->setCurrentItem(Opts.CompressMethod);
