@@ -411,7 +411,8 @@ signals:
 	void EditSt();
 
 protected:
-	void createActions();
+	void initActions();
+	//void initUnicodeActions();
 	void buildMenus();
 	void buildGUI();
 	void connectSignals();

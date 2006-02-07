@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include <qtextcodec.h>
 
+#include "actionmanager.h"
 #include "alignselect.h"
 #include "charselect.h"
 #include "commonstrings.h"
@@ -2022,7 +2023,6 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	prefsManager=PrefsManager::instance();
 	currDoc = docc;
 	seMenuMgr=NULL;
-	unicodeCharActionNames.clear();
 	buildGUI();
 	currItem = ite;
 	firstSet = false;
@@ -2048,8 +2048,11 @@ StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", W
 {
 	prefsManager=PrefsManager::instance();
 	currDoc = NULL;
-	buildGUI();
 	currItem = NULL;
+	#ifdef Q_WS_MAC
+	noIcon = loadIcon("noicon.xpm");
+	#endif
+	buildGUI();
 	CurrPara = 0;
 	CurrChar = 0;
 	firstSet = false;
@@ -2095,12 +2098,8 @@ void StoryEditor::loadPrefs()
 	setGeometry(vleft, vtop, vwidth, vheight);
 }
 
-void StoryEditor::createActions()
+void StoryEditor::initActions()
 {
-	#ifdef Q_WS_MAC
-	noIcon = loadIcon("noicon.xpm");
-	#endif
-	seActions.clear();
 	//File Menu
 	seActions.insert("fileNew", new ScrAction(QIconSet(loadIcon("editdelete.png"), loadIcon("editdelete.png")), "", CTRL+Key_N, this, "fileNew"));
 	seActions.insert("fileRevert", new ScrAction(QIconSet(loadIcon("reload16.png"), loadIcon("reload.png")), "", QKeySequence(), this, "fileRevert"));
@@ -2142,6 +2141,30 @@ void StoryEditor::createActions()
 	//Insert Menu
 	seActions.insert("insertGlyph", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "insertGlyph"));
 	
+	//Settings Menu
+	seActions.insert("settingsBackground", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "settingsBackground"));
+	seActions.insert("settingsDisplayFont", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "settingsDisplayFont"));
+	seActions.insert("settingsSmartTextSelection", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "settingsSmartTextSelection"));
+	smartSelection = false;
+	seActions["settingsSmartTextSelection"]->setOn(false);
+	seActions["settingsSmartTextSelection"]->setToggleAction(true);
+	
+	connect( seActions["settingsBackground"], SIGNAL(activated()), this, SLOT(setBackPref()) );
+	connect( seActions["settingsDisplayFont"], SIGNAL(activated()), this, SLOT(setFontPref()) );
+	connect( seActions["settingsSmartTextSelection"], SIGNAL(toggled(bool)), this, SLOT(setSmart(bool)) );
+	
+	
+	seActions["fileRevert"]->setEnabled(false);
+	seActions["editCopy"]->setEnabled(false);
+	seActions["editCut"]->setEnabled(false);
+	seActions["editPaste"]->setEnabled(false);
+	seActions["editClear"]->setEnabled(false);
+	seActions["editUpdateFrame"]->setEnabled(false);
+}
+
+/*
+void StoryEditor::initUnicodeActions()
+{
 	//typography
 	//seActions.insert("specialSmartHyphen", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", CTRL+SHIFT+Key_Minus, this, "specialSmartHyphen",-1));
 	seActions.insert("specialNonBreakingHyphen", new ScrAction(ScrAction::UnicodeChar, QIconSet(noIcon), "", CTRL+ALT+Key_Minus, this, "specialNonBreakingHyphen",24));
@@ -2205,29 +2228,8 @@ void StoryEditor::createActions()
 	connect( seActions["insertGlyph"], SIGNAL(activated()), this, SLOT(Do_insSp()) );
 	for ( QStringList::Iterator it = unicodeCharActionNames.begin(); it != unicodeCharActionNames.end(); ++it )
 		connect( seActions[*it], SIGNAL(activatedUnicodeShortcut(QString, int)), this, SLOT(specialActionKeyEvent(QString, int)) );
-	
-	
-	//Settings Menu
-	seActions.insert("settingsBackground", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "settingsBackground"));
-	seActions.insert("settingsDisplayFont", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "settingsDisplayFont"));
-	seActions.insert("settingsSmartTextSelection", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "settingsSmartTextSelection"));
-	smartSelection = false;
-	seActions["settingsSmartTextSelection"]->setOn(false);
-	seActions["settingsSmartTextSelection"]->setToggleAction(true);
-	
-	connect( seActions["settingsBackground"], SIGNAL(activated()), this, SLOT(setBackPref()) );
-	connect( seActions["settingsDisplayFont"], SIGNAL(activated()), this, SLOT(setFontPref()) );
-	connect( seActions["settingsSmartTextSelection"], SIGNAL(toggled(bool)), this, SLOT(setSmart(bool)) );
-	
-	
-	seActions["fileRevert"]->setEnabled(false);
-	seActions["editCopy"]->setEnabled(false);
-	seActions["editCut"]->setEnabled(false);
-	seActions["editPaste"]->setEnabled(false);
-	seActions["editClear"]->setEnabled(false);
-	seActions["editUpdateFrame"]->setEnabled(false);
 }
-
+*/
 void StoryEditor::buildMenus()
 {
 	seMenuMgr = new MenuManager(this->menuBar());
@@ -2312,7 +2314,12 @@ void StoryEditor::buildMenus()
 
 void StoryEditor::buildGUI()
 {
-	createActions();
+	unicodeCharActionNames.clear();
+	seActions.clear();
+	initActions();
+	ActionManager::initUnicodeActions(&seActions, this, &unicodeCharActionNames);
+	seActions["specialSmartHyphen"]->setEnabled(false);//CB TODO doesnt work in SE yet.
+	//initUnicodeActions();
 	buildMenus();
 	
 	setIcon(loadIcon("AppIcon.png"));
@@ -2463,6 +2470,15 @@ void StoryEditor::languageChange()
 	seMenuMgr->setMenuText("InsertQuote", tr("Quote"));
 	seMenuMgr->setMenuText("InsertSpace", tr("Space"));
 	seActions["insertGlyph"]->setTexts( tr("&Insert Glyph..."));
+	
+	//Settings Menu
+	seMenuMgr->setMenuText("Settings", tr("&Settings"));
+	seActions["settingsBackground"]->setTexts( tr("&Background..."));
+	seActions["settingsDisplayFont"]->setTexts( tr("&Display Font..."));
+	seActions["settingsSmartTextSelection"]->setTexts( tr("&Smart text selection"));
+
+	ActionManager::languageChangeUnicodeActions(&seActions);
+	/*
 	//typography
 	//seActions["specialSmartHyphen"]->setMenuText( tr("Smart &Hyphen"));
 	seActions["specialNonBreakingHyphen"]->setMenuText( tr("Non Breaking Dash"));
@@ -2506,12 +2522,7 @@ void StoryEditor::languageChange()
 	seActions["specialNewLine"]->setText("New Line");
 	seActions["specialFrameBreak"]->setText("Frame Break");
 	seActions["specialColumnBreak"]->setText( "Column Break");
-	
-	//Settings Menu
-	seMenuMgr->setMenuText("Settings", tr("&Settings"));
-	seActions["settingsBackground"]->setTexts( tr("&Background..."));
-	seActions["settingsDisplayFont"]->setTexts( tr("&Display Font..."));
-	seActions["settingsSmartTextSelection"]->setTexts( tr("&Smart text selection"));
+	*/
 	
 	FileTools->setLabel( tr("File"));
 
@@ -3835,6 +3846,7 @@ void StoryEditor::specialActionKeyEvent(QString actionName, int unicodevalue)
 	Editor->insert(guiInsertString);
 	if (setColor)
 		Editor->setFarbe(false);
+	modifiedText();
 	EditorBar->setRepaint(true);
 	EditorBar->doRepaint();
 }

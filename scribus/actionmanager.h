@@ -41,6 +41,7 @@ class SCRIBUS_API ActionManager : public QObject
 {
 	Q_OBJECT
 
+	friend class StoryEditor;
 	public:
 		ActionManager ( QObject * parent, const char * name );	
 		~ActionManager() {};
@@ -61,7 +62,7 @@ class SCRIBUS_API ActionManager : public QObject
 	public slots:
 		void languageChange();
 		
-	private:
+	protected:
 		void initFileMenuActions();
 		void initEditMenuActions();
 		void initStyleMenuActions();
@@ -74,7 +75,9 @@ class SCRIBUS_API ActionManager : public QObject
 		void initWindowsMenuActions();
 		void initScriptMenuActions();
 		void initHelpMenuActions();
+		static void initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *actionMap, QWidget *actionParent, QStringList *actionNamesList);
 		void initSpecialActions();
+		static void languageChangeUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *actionMap);
 	
 		QPixmap noIcon;
 		ScribusMainWindow *ScMW;
