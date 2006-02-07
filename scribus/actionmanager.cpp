@@ -239,9 +239,9 @@ void ActionManager::initStyleMenuActions()
 	connect( (*scrActions)["typeEffectShadow"], SIGNAL(activatedData(int)), ScMW, SLOT(setItemTypeStyle(int)));
 
 	//Other Style menu items that get added in various places
-	scrActions->insert("styleInvertPict", new ScrAction(ScMW, "styleInvertPict"));
+	scrActions->insert("styleImageEffects", new ScrAction("", CTRL+Key_E, ScMW, "styleImageEffects"));
 	scrActions->insert("styleTabulators", new ScrAction(ScMW, "styleTabulators"));
-	connect( (*scrActions)["styleInvertPict"], SIGNAL(activated()), ScMW, SLOT(ImageEffects()));
+	connect( (*scrActions)["styleImageEffects"], SIGNAL(activated()), ScMW, SLOT(ImageEffects()));
 	connect( (*scrActions)["styleTabulators"], SIGNAL(activated()), ScMW, SLOT(EditTabs()));
 
 }
@@ -882,7 +882,7 @@ void ActionManager::languageChange()
 	(*scrActions)["typeEffectOutline"]->setTexts( tr("&Outline"));
 	(*scrActions)["typeEffectShadow"]->setTexts( tr("S&hadow"));
 
-	(*scrActions)["styleInvertPict"]->setTexts( tr("&Image Effects"));
+	(*scrActions)["styleImageEffects"]->setTexts( tr("&Image Effects"));
 	(*scrActions)["styleTabulators"]->setTexts( tr("&Tabulators..."));
 
 	//Item Menu

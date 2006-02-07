@@ -1876,7 +1876,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						ScMW->scrActions["itemExtendedImageProperties"]->addTo(pmen);
 					if (currItem->PicAvail && currItem->isRaster)
 					{
-						ScMW->scrActions["styleInvertPict"]->addTo(pmen);
+						ScMW->scrActions["styleImageEffects"]->addTo(pmen);
 						ScMW->scrActions["editEditWithImageEditor"]->addTo(pmen);
 					}
 					if (currItem->PicAvail)

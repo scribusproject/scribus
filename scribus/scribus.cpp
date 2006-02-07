@@ -8231,7 +8231,7 @@ void ScribusMainWindow::HaveRaster(bool art)
 		{
 			scrMenuMgr->clearMenu("Style");
 			scrMenuMgr->addMenuToMenu("Color","Style");
-			scrMenuMgr->addMenuItem(scrActions["styleInvertPict"], "Style");
+			scrMenuMgr->addMenuItem(scrActions["styleImageEffects"], "Style");
 		}
 	}
 }
