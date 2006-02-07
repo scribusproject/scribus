@@ -225,12 +225,11 @@ void ScToolBar::languageChange()
 
 void ScToolBar::initPrefsButton()
 {
-	prefsButton = new QToolButton(this, "tbprefsbutton");
+	prefsButton = new QToolButton(Qt::DownArrow, this, "tbprefsbutton");
+	prefsButton->setAutoRaise(true);
 	popup = new QPopupMenu(0, "prefspopup");
 	prefsButton->setPopup(popup);
-	prefsButton->setPopupDelay(0);
-	prefsButton->setMinimumSize(8,20);
-	prefsButton->setMaximumSize(8,20);
+	prefsButton->setPopupDelay(1);
 }
 
 ScToolBar::~ScToolBar()
