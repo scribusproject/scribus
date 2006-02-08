@@ -14,7 +14,7 @@ extern QPixmap loadIcon(QString nam);
 #include "scribusdoc.h"
 #include "commonstrings.h"
 
-NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc)
+NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc, const QString& answerText)
 		: QDialog( parent, "newt", true, 0 )
 {
 	setCaption( titel );
@@ -59,6 +59,12 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc)
 	PushButton2 = new QPushButton( CommonStrings::tr_Cancel, this, "PushButton2" );
 	Layout1->addWidget( PushButton2 );
 	QueryLayout->addLayout( Layout1 );
+	if (!answerText.isEmpty())
+	{
+		Answer->setText(answerText);
+		Answer->setMinimumWidth(sizeHint().width());
+		Answer->selectAll();
+	}
 	setMinimumSize(sizeHint());
 	Answer->setFocus();
 

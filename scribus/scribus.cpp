@@ -4784,9 +4784,7 @@ void ScribusMainWindow::slotNewPage(int w, const QString& masterPageName, bool m
 
 void ScribusMainWindow::duplicateToMasterPage()
 {
-	NewTm *dia = new NewTm(this, tr("Name:"), tr("Convert Page to Master Page"), doc);
-	dia->Answer->setText( tr("New Master Page"));
-	dia->Answer->selectAll();
+	NewTm *dia = new NewTm(this, tr("Name:"), tr("Convert Page to Master Page"), doc, tr("New Master Page %1").arg(doc->MasterNames.count()));
 	view->Deselect(true);
 	if (dia->exec())
 	{

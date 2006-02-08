@@ -118,9 +118,7 @@ void MasterPagesPalette::duplicateMasterPage()
 	int nr;
 	//bool atf;
 	struct CopyPasteBuffer Buffer;
-	NewTm *dia = new NewTm(this, tr("&Name:"), tr("New Master Page"), currentDoc);
-	dia->Answer->setText( tr("Copy of %1").arg(sMuster));
-	dia->Answer->selectAll();
+	NewTm *dia = new NewTm(this, tr("&Name:"), tr("New Master Page"), currentDoc, tr("Copy of %1").arg(sMuster));
 	if (dia->exec())
 	{
 		MasterPageName = dia->Answer->text();
@@ -249,11 +247,8 @@ void MasterPagesPalette::duplicateMasterPage()
 void MasterPagesPalette::newMasterPage()
 {
 	QString MasterPageName;
-	NewTm *dia = new NewTm(this, tr("Name:"), tr("New MasterPage"), currentDoc);
 	int nr = currentDoc->Pages->count();
-	dia->Answer->setText( tr("New Master Page %1").arg(nr));
-	dia->Answer->resize(minimumSizeHint());
-	dia->Answer->selectAll();
+	NewTm *dia = new NewTm(this, tr("Name:"), tr("New MasterPage"), currentDoc, tr("New Master Page %1").arg(nr));
 	if (dia->exec())
 	{
 		MasterPageName = dia->Answer->text();
