@@ -1093,10 +1093,11 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 				int y = static_cast<int>(pag->yOffset());
 				int w = static_cast<int>(pag->width());
 				int h1 = static_cast<int>(pag->height());
-				int x2 = static_cast<int>(ite->BoundingX - ite->Pwidth / 2.0);
-				int y2 = static_cast<int>(ite->BoundingY - ite->Pwidth / 2.0);
-				int w2 = static_cast<int>(ite->BoundingW + ite->Pwidth);
-				int h2 = static_cast<int>(ite->BoundingH + ite->Pwidth);
+				double ilw=ite->lineWidth();
+				int x2 = static_cast<int>(ite->BoundingX - ilw / 2.0);
+				int y2 = static_cast<int>(ite->BoundingY - ilw / 2.0);
+				int w2 = static_cast<int>(ite->BoundingW + ilw);
+				int h2 = static_cast<int>(ite->BoundingH + ilw);
 				if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
 					continue;
 				if (ite->ChangedMasterItem)
@@ -1117,7 +1118,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 					PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
 				if (ite->lineColor() != CommonStrings::None)
 					PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
-				Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
+				Inhalt += FToStr(fabs(ite->lineWidth()))+" w\n";
 				if (ite->DashValues.count() != 0)
 				{
 					PutPage("[ ");
@@ -1132,8 +1133,8 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 				}
 				else
 				{
-					QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1));
-					QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1));
+					QString Dt = FToStr(QMAX(2*fabs(ite->lineWidth()), 1));
+					QString Da = FToStr(QMAX(6*fabs(ite->lineWidth()), 1));
 					switch (ite->PLineArt)
 					{
 						case Qt::SolidLine:
@@ -1225,7 +1226,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 						PutPage("Q\n");
 						if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 						{
-							if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
+							if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 							{
 								PutPage(SetClipPath(ite));
 								PutPage("h\nS\n");
@@ -1267,7 +1268,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 							QWMatrix arrowTrans;
 							FPointArray arrow = (*doc.arrowStyles.at(ite->startArrowIndex()-1)).points.copy();
 							arrowTrans.translate(0, 0);
-							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
+							arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 							arrowTrans.scale(-1,1);
 							arrow.map(arrowTrans);
 							if ((ite->lineTransparency() != 0) && (Options.Version >= 14))
@@ -1293,7 +1294,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 							QWMatrix arrowTrans;
 							FPointArray arrow = (*doc.arrowStyles.at(ite->endArrowIndex()-1)).points.copy();
 							arrowTrans.translate(ite->width(), 0);
-							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
+							arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 							arrow.map(arrowTrans);
 							if ((ite->lineTransparency() != 0) && (Options.Version >= 14))
 							{
@@ -1329,7 +1330,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 						}
 						if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 						{
-							if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
+							if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 							{
 								PutPage(SetClipPath(ite));
 								PutPage("h\nS\n");
@@ -1362,7 +1363,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 						}
 						if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 						{
-							if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
+							if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 							{
 								PutPage(SetClipPath(ite, false));
 								PutPage("S\n");
@@ -1391,7 +1392,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 									FPointArray arrow = (*doc.arrowStyles.at(ite->startArrowIndex()-1)).points.copy();
 									arrowTrans.translate(Start.x(), Start.y());
 									arrowTrans.rotate(r);
-									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
+									arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 									arrow.map(arrowTrans);
 									if ((ite->lineTransparency() != 0) && (Options.Version >= 14))
 									{
@@ -1427,7 +1428,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 									FPointArray arrow = (*doc.arrowStyles.at(ite->endArrowIndex()-1)).points.copy();
 									arrowTrans.translate(End.x(), End.y());
 									arrowTrans.rotate(r);
-									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
+									arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 									arrow.map(arrowTrans);
 									if ((ite->lineTransparency() != 0) && (Options.Version >= 14))
 									{
@@ -1459,7 +1460,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 								PutPage("q\n");
 								if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 								{
-									if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
+									if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 									{
 										PutPage(SetClipPath(ite, false));
 										PutPage("S\n");
@@ -1738,7 +1739,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 								PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
 							if (ite->lineColor() != CommonStrings::None)
 								PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
-							Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
+							Inhalt += FToStr(fabs(ite->lineWidth()))+" w\n";
 							if (ite->DashValues.count() != 0)
 							{
 								PutPage("[ ");
@@ -1753,8 +1754,8 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 							}
 							else
 							{
-								QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1));
-								QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1));
+								QString Dt = FToStr(QMAX(2*fabs(ite->lineWidth()), 1));
+								QString Da = FToStr(QMAX(6*fabs(ite->lineWidth()), 1));
 								switch (ite->PLineArt)
 								{
 									case Qt::SolidLine:
@@ -1823,7 +1824,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 							PutPage("Q\n");
 							if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 							{
-								if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
+								if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 								{
 									PutPage(SetClipPath(ite));
 									PutPage("h\nS\n");
@@ -1860,7 +1861,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 							PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
 						if (ite->lineColor() != CommonStrings::None)
 							PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
-						Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
+						Inhalt += FToStr(fabs(ite->lineWidth()))+" w\n";
 						if (ite->DashValues.count() != 0)
 						{
 							PutPage("[ ");
@@ -1875,8 +1876,8 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						}
 						else
 						{
-							QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1));
-							QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1));
+							QString Dt = FToStr(QMAX(2*fabs(ite->lineWidth()), 1));
+							QString Da = FToStr(QMAX(6*fabs(ite->lineWidth()), 1));
 							switch (ite->PLineArt)
 							{
 								case Qt::SolidLine:
@@ -2004,10 +2005,11 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					int y = static_cast<int>(pag->yOffset());
 					int w = static_cast<int>(pag->width());
 					int h1 = static_cast<int>(pag->height());
-					int x2 = static_cast<int>(ite->BoundingX - ite->Pwidth / 2.0);
-					int y2 = static_cast<int>(ite->BoundingY - ite->Pwidth / 2.0);
-					int w2 = static_cast<int>(ite->BoundingW + ite->Pwidth);
-					int h2 = static_cast<int>(ite->BoundingH + ite->Pwidth);
+					double ilw=ite->lineWidth();
+					int x2 = static_cast<int>(ite->BoundingX - ilw / 2.0);
+					int y2 = static_cast<int>(ite->BoundingY - ilw / 2.0);
+					int w2 = static_cast<int>(ite->BoundingW + ilw);
+					int h2 = static_cast<int>(ite->BoundingH + ilw);
 					if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
 						continue;
 					if (ite->ChangedMasterItem)
@@ -2026,7 +2028,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
 					if (ite->lineColor() != CommonStrings::None)
 						PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
-					Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
+					Inhalt += FToStr(fabs(ite->lineWidth()))+" w\n";
 					if (ite->DashValues.count() != 0)
 					{
 						PutPage("[ ");
@@ -2041,8 +2043,8 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					}
 					else
 					{
-						QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1));
-						QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1));
+						QString Dt = FToStr(QMAX(2*fabs(ite->lineWidth()), 1));
+						QString Da = FToStr(QMAX(6*fabs(ite->lineWidth()), 1));
 						switch (ite->PLineArt)
 						{
 							case Qt::SolidLine:
@@ -2135,10 +2137,11 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 	int y = static_cast<int>(pag->yOffset());
 	int w = static_cast<int>(pag->width());
 	int h1 = static_cast<int>(pag->height());
-	int x2 = static_cast<int>(ite->BoundingX - ite->Pwidth / 2.0);
-	int y2 = static_cast<int>(ite->BoundingY - ite->Pwidth / 2.0);
-	int w2 = static_cast<int>(ite->BoundingW + ite->Pwidth);
-	int h2 = static_cast<int>(ite->BoundingH + ite->Pwidth);
+	double ilw=ite->lineWidth();
+	int x2 = static_cast<int>(ite->BoundingX - ilw / 2.0);
+	int y2 = static_cast<int>(ite->BoundingY - ilw / 2.0);
+	int w2 = static_cast<int>(ite->BoundingW + ilw);
+	int h2 = static_cast<int>(ite->BoundingH + ilw);
 	if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
 		return tmp;
 	if (ite->ChangedMasterItem)
@@ -2159,7 +2162,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 		tmp += putColor(ite->fillColor(), ite->fillShade(), true);
 	if (ite->lineColor() != CommonStrings::None)
 		tmp += putColor(ite->lineColor(), ite->lineShade(), false);
-	tmp += FToStr(fabs(ite->Pwidth))+" w\n";
+	tmp += FToStr(fabs(ite->lineWidth()))+" w\n";
 	if (ite->DashValues.count() != 0)
 	{
 		tmp += "[ ";
@@ -2174,8 +2177,8 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 	}
 	else
 	{
-		QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1));
-		QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1));
+		QString Dt = FToStr(QMAX(2*fabs(ite->lineWidth()), 1));
+		QString Da = FToStr(QMAX(6*fabs(ite->lineWidth()), 1));
 		switch (ite->PLineArt)
 		{
 			case Qt::SolidLine:
@@ -2270,7 +2273,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 			tmp += "Q\n";
 			if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 			{
-				if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
+				if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 				{
 					tmp += SetClipPath(ite);
 					tmp += "h\nS\n";
@@ -2312,7 +2315,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 			tmp += "Q\n";
 			if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 			{
-				if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
+				if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 				{
 					tmp += SetClipPath(ite);
 					tmp += "h\nS\n";
@@ -2352,7 +2355,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 				QWMatrix arrowTrans;
 				FPointArray arrow = (*doc.arrowStyles.at(ite->startArrowIndex()-1)).points.copy();
 				arrowTrans.translate(0, 0);
-				arrowTrans.scale(ite->Pwidth, ite->Pwidth);
+				arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 				arrowTrans.scale(-1,1);
 				arrow.map(arrowTrans);
 				if ((ite->lineTransparency() != 0) && (Options.Version >= 14))
@@ -2378,7 +2381,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 				QWMatrix arrowTrans;
 				FPointArray arrow = (*doc.arrowStyles.at(ite->endArrowIndex()-1)).points.copy();
 				arrowTrans.translate(ite->width(), 0);
-				arrowTrans.scale(ite->Pwidth, ite->Pwidth);
+				arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 				arrow.map(arrowTrans);
 				if ((ite->lineTransparency() != 0) && (Options.Version >= 14))
 				{
@@ -2417,7 +2420,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 			}
 			if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 			{
-				if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
+				if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 				{
 					tmp += SetClipPath(ite);
 					tmp += "h\nS\n";
@@ -2450,7 +2453,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 			}
 			if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 			{
-				if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
+				if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 				{
 					tmp += SetClipPath(ite, false);
 					tmp += "S\n";
@@ -2479,7 +2482,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 						FPointArray arrow = (*doc.arrowStyles.at(ite->startArrowIndex()-1)).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
-						arrowTrans.scale(ite->Pwidth, ite->Pwidth);
+						arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 						arrow.map(arrowTrans);
 						if ((ite->lineTransparency() != 0) && (Options.Version >= 14))
 						{
@@ -2515,7 +2518,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 						FPointArray arrow = (*doc.arrowStyles.at(ite->endArrowIndex()-1)).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
-						arrowTrans.scale(ite->Pwidth, ite->Pwidth);
+						arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 						arrow.map(arrowTrans);
 						if ((ite->lineTransparency() != 0) && (Options.Version >= 14))
 						{
@@ -2547,7 +2550,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 					tmp += "q\n";
 					if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 					{
-						if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
+						if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 						{
 							tmp += SetClipPath(ite, false);
 							tmp += "S\n";
@@ -2867,7 +2870,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 	QValueList<PageItem::TabRecord> tTabValues;
 	double tabDist=ite->textToFrameDistLeft();
 	if (ite->lineColor() != CommonStrings::None)
-		tabDist += ite->Pwidth / 2.0;
+		tabDist += ite->lineWidth() / 2.0;
 	if (ite->itemType() == PageItem::TextFrame)
 		tmp += "BT\n";
 	// Loop over each character (!) in the pageItem...

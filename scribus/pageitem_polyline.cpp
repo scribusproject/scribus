@@ -134,7 +134,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p)
 					FPointArray arrow = (*m_Doc->arrowStyles.at(m_startArrowIndex-1)).points.copy();
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(r);
-					arrowTrans.scale(Pwidth, Pwidth);
+					arrowTrans.scale(m_lineWidth, m_lineWidth);
 					arrow.map(arrowTrans);
 					p->setBrush(p->pen());
 					p->setBrushOpacity(1.0 - lineTransparency());
@@ -159,7 +159,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p)
 					FPointArray arrow = (*m_Doc->arrowStyles.at(m_endArrowIndex-1)).points.copy();
 					arrowTrans.translate(End.x(), End.y());
 					arrowTrans.rotate(r);
-					arrowTrans.scale(Pwidth, Pwidth);
+					arrowTrans.scale(m_lineWidth, m_lineWidth);
 					arrow.map(arrowTrans);
 					p->setBrush(p->pen());
 					p->setBrushOpacity(1.0 - lineTransparency());

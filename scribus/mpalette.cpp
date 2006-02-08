@@ -2476,7 +2476,7 @@ void Mpalette::NewGap()
 		{
 			double lineCorr;
 			if (CurItem->lineColor() != CommonStrings::None)
-				lineCorr = CurItem->Pwidth;
+				lineCorr = CurItem->lineWidth();
 			else
 				lineCorr = 0;
 			double newWidth = dGap->value() / Umrech;

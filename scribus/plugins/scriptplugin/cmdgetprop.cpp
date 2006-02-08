@@ -51,7 +51,7 @@ PyObject *scribus_getlinewidth(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	return i != NULL ? PyFloat_FromDouble(static_cast<double>(i->Pwidth)) : NULL;
+	return i != NULL ? PyFloat_FromDouble(static_cast<double>(i->lineWidth())) : NULL;
 }
 
 PyObject *scribus_getlineshade(PyObject* /* self */, PyObject* args)

@@ -1277,7 +1277,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					else
 					{
 						view->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
-						currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
+						currItem->SetPolyClip(qRound(QMAX(currItem->lineWidth() / 2.0, 1)));
 						view->AdjustItemSize(currItem);
 						currItem->ContourLine = currItem->PoLine.copy();
 						currItem->ClipEdited = true;
@@ -2361,7 +2361,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 				actionManager->enableUnicodeActions(true);
 			view->horizRuler->setItemPosition(currItem->xPos(), currItem->width());
 			if (currItem->lineColor() != CommonStrings::None)
-				view->horizRuler->lineCorr = currItem->Pwidth / 2.0;
+				view->horizRuler->lineCorr = currItem->lineWidth() / 2.0;
 			else
 				view->horizRuler->lineCorr = 0;
 			view->horizRuler->ColGap = currItem->ColGap;
@@ -8784,10 +8784,16 @@ void ScribusMainWindow::slotEditPasteContents()
 										QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
 			if (t == QMessageBox::Yes)
 			{
+				imageItem->EmProfile = "";
+				imageItem->pixm.imgInfo.isRequest = false;
+				imageItem->IProfile = doc->CMSSettings.DefaultImageRGBProfile;
+				imageItem->IRender = doc->CMSSettings.DefaultIntentImages;
+				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
+				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				doc->loadPict(contentsBuffer.contentsFileName, imageItem);
-				currItem->AdjustPictScale();
+				imageItem->AdjustPictScale();
 				imageItem->setImageXYScale(contentsBuffer.LocalScX, contentsBuffer.LocalScY);
-				imageItem->setImageXYOffset(contentsBuffer.LocalX, contentsBuffer.LocalY);				
+				imageItem->setImageXYOffset(contentsBuffer.LocalX, contentsBuffer.LocalY);
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				qApp->restoreOverrideCursor();
 				view->DrawNew();

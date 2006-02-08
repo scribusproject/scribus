@@ -84,7 +84,7 @@ PyObject *scribus_setlinewidth(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	i->Pwidth = w;
+	i->setLineWidth(w);
 	Py_INCREF(Py_None);
 	return Py_None;
 }

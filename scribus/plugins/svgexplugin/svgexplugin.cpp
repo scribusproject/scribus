@@ -360,7 +360,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				trans = "translate("+FToStr(Item->xPos()-Seite->xOffset())+", "+FToStr(Item->yPos()-Seite->yOffset())+")";
 				if (Item->rotation() != 0)
 					trans += " rotate("+FToStr(Item->rotation())+")";
-				strokeW = "stroke-width:"+FToStr(Item->Pwidth)+"pt;";
+				strokeW = "stroke-width:"+FToStr(Item->lineWidth())+"pt;";
 				strokeLC = "stroke-linecap:";
 				switch (Item->PLineEnd)
 				{
@@ -405,8 +405,8 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				}
 				else
 				{
-					QString Dt = FToStr(QMAX(2*Item->Pwidth, 1));
-					QString Da = FToStr(QMAX(6*Item->Pwidth, 1));
+					QString Dt = FToStr(QMAX(2*Item->lineWidth(), 1));
+					QString Da = FToStr(QMAX(6*Item->lineWidth(), 1));
 					switch (Item->PLineArt)
 					{
 						case Qt::SolidLine:

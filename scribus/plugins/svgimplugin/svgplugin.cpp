@@ -641,7 +641,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 					//ite->Ypos += mm.dy();
 					ite->moveBy(mm.dx(), mm.dy());
 					ite->setWidthHeight(ite->width() * mm.m11(), ite->height() * mm.m22());
-					ite->Pwidth = ite->Pwidth * ((mm.m11() + mm.m22()) / 2.0);
+					ite->setLineWidth(ite->lineWidth() * ((mm.m11() + mm.m22()) / 2.0));
 					if (ite->PicAvail)
 						ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
 					break;
@@ -649,7 +649,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			case PageItem::TextFrame:
 				{
 					QWMatrix mm = gc->matrix;
-					ite->Pwidth = ite->Pwidth * ((mm.m11() + mm.m22()) / 2.0);
+					ite->setLineWidth(ite->lineWidth() * ((mm.m11() + mm.m22()) / 2.0));
 				}
 				break;
 			default:
@@ -665,7 +665,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 						mv.scale(viewScaleX, viewScaleY);
 						ite->PoLine.map(mv);
 					}
-					ite->Pwidth = ite->Pwidth * ((mm.m11() + mm.m22()) / 2.0);
+					ite->setLineWidth(ite->lineWidth() * ((mm.m11() + mm.m22()) / 2.0));
 					FPoint wh = getMaxClipF(&ite->PoLine);
 					ite->setWidthHeight(wh.x(), wh.y());
 					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);

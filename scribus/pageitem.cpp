@@ -91,8 +91,8 @@ PageItem::PageItem(const PageItem & other)
 	TxtStrikeWidth(other.TxtStrikeWidth),
 	Cols(other.Cols),
 	ColGap(other.ColGap),
-	Pwidth(other.Pwidth),
-	OldPwidth(other.OldPwidth),
+	m_lineWidth(other.m_lineWidth),
+	Oldm_lineWidth(other.Oldm_lineWidth),
 	PLineArt(other.PLineArt),
 	PLineEnd(other.PLineEnd),
 	PLineJoin(other.PLineJoin),
@@ -299,8 +299,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	GrStartY = 0;
 	GrEndX = w;
 	GrEndY = 0;
-	Pwidth = w2;
-	OldPwidth = w2;
+	m_lineWidth = w2;
+	Oldm_lineWidth = w2;
 	PLineArt = PenStyle(m_Doc->toolSettings.dLineArt);
 	PLineEnd = FlatCap;
 	PLineJoin = MiterJoin;
@@ -721,7 +721,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 //		p->rotate(Rot);
 	}
 		p->rotate(Rot);
-	p->setLineWidth(Pwidth);
+	p->setLineWidth(m_lineWidth);
 	if (GrType != 0)
 	{
 		p->setFillMode(ScPainter::Gradient);
@@ -760,11 +760,11 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 	}
 	if (lineColor() != CommonStrings::None)
 	{
-		if ((Pwidth == 0) && ! asLine())
+		if ((m_lineWidth == 0) && ! asLine())
 			p->setLineWidth(0);
 		else
 		{
-			p->setPen(strokeQColor, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
 			if (DashValues.count() != 0)
 				p->setDash(DashValues, DashOffset);
 		}
@@ -786,7 +786,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 	{
 		if (lineColor() != CommonStrings::None)
 		{
-			p->setPen(strokeQColor, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
 			if (DashValues.count() != 0)
 				p->setDash(DashValues, DashOffset);
 		}
@@ -925,7 +925,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 			p->scale(hl->scale / 1000.0, hl->scalev / 1000.0);
 			embedded->Dirty = Dirty;
 			double sc;
-			double pws = embedded->Pwidth;
+			double pws = embedded->m_lineWidth;
 			embedded->DrawObj_Pre(p, sc);
 			switch(embedded->itemType())
 			{
@@ -938,7 +938,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 					embedded->DrawObj_Item(p, e, sc);
 					break;
 				case Line:
-					embedded->Pwidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
+					embedded->m_lineWidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
 					//embedded->DrawObj_Line(p);
 					embedded->DrawObj_Item(p);
 					break;
@@ -947,7 +947,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 					embedded->DrawObj_Item(p);
 					break;
 				case PolyLine:
-					embedded->Pwidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
+					embedded->m_lineWidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
 					//embedded->DrawObj_PolyLine(p);
 					embedded->DrawObj_Item(p);
 					break;
@@ -958,10 +958,10 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 				default:
 					break;
 			}
-			embedded->Pwidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
+			embedded->m_lineWidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
 			embedded->DrawObj_Post(p);
 			p->restore();
-			embedded->Pwidth = pws;
+			embedded->m_lineWidth = pws;
 			for (int xxx=0; xxx<5; ++xxx)
 			{
 				m_Doc->docParagraphStyles[xxx].LineSpaMode = savedParagraphStyles[xxx].LineSpaMode;
@@ -1589,18 +1589,19 @@ void PageItem::setLineStyle(PenStyle newStyle)
 
 void PageItem::setLineWidth(double newWidth)
 {
-	if (Pwidth == newWidth)
+	if (m_lineWidth == newWidth)
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::LineWidth,
-						QString(Um::FromTo).arg(Pwidth).arg(newWidth),Um::ILineStyle);
+						QString(Um::FromTo).arg(m_lineWidth).arg(newWidth),Um::ILineStyle);
 		ss->set("LINE_WIDTH", "line_width");
-		ss->set("OLD_WIDTH", Pwidth);
+		ss->set("OLD_WIDTH", m_lineWidth);
 		ss->set("NEW_WIDTH", newWidth);
 		undoManager->action(this, ss);
 	}
-	Pwidth = newWidth;
+	Oldm_lineWidth=m_lineWidth;
+	m_lineWidth = newWidth;
 }
 
 void PageItem::setLineEnd(PenCapStyle newStyle)
@@ -2893,7 +2894,7 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->RadRect = RadRect;
 	Buffer->FrameType = FrameType;
 	Buffer->ClipEdited = ClipEdited;
-	Buffer->Pwidth = Pwidth;
+	Buffer->Pwidth = m_lineWidth;
 	Buffer->Pcolor = fillColor();
 	Buffer->Pcolor2 = lineColor();
 	Buffer->Shade = fillShade();
@@ -3399,10 +3400,10 @@ void PageItem::AdjustPictScale()
 
 QRect PageItem::getRedrawBounding(const double viewScale)
 {
-	int x = qRound(floor(BoundingX - OldPwidth / 2.0 - 5) * viewScale);
-	int y = qRound(floor(BoundingY - OldPwidth / 2.0 - 5) * viewScale);
-	int w = qRound(ceil(BoundingW + OldPwidth + 10) * viewScale);
-	int h = qRound(ceil(BoundingH + OldPwidth + 10) * viewScale);
+	int x = qRound(floor(BoundingX - Oldm_lineWidth / 2.0 - 5) * viewScale);
+	int y = qRound(floor(BoundingY - Oldm_lineWidth / 2.0 - 5) * viewScale);
+	int w = qRound(ceil(BoundingW + Oldm_lineWidth + 10) * viewScale);
+	int h = qRound(ceil(BoundingH + Oldm_lineWidth + 10) * viewScale);
 	QRect ret = QRect(x, y, w, h);
 	ret.moveBy(qRound(-m_Doc->minCanvasCoordinate.x() * viewScale), qRound(-m_Doc->minCanvasCoordinate.y() * viewScale));
 	return ret;
@@ -3604,7 +3605,7 @@ void PageItem::emitAllToGUI()
 	emit position(Xpos, Ypos);
 	emit widthAndHeight(Width, Height);
 	emit rotation(Rot);
-	emit lineWidth(Pwidth);
+	emit lineWidth(m_lineWidth);
 	emit lineStyleCapJoin(PLineArt, PLineEnd, PLineJoin);
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);

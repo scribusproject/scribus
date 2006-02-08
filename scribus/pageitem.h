@@ -316,9 +316,6 @@ public:
 	int TxtStrikeWidth;
 	int Cols;
 	double ColGap;
-  /** Strichstaerke */
-	double Pwidth;
-	double OldPwidth;
   /** Linienart */
 	PenStyle PLineArt;
 	PenCapStyle PLineEnd;
@@ -573,7 +570,7 @@ public:
 	void setLineStyle(PenStyle newStyle);
 
 	/** @brief Get the width of the line */
-	double lineWidth() const { return Pwidth; }
+	double lineWidth() const { return m_lineWidth; }
 	/**
 	 * @brief Set the width of line
 	 * @param newWidth width of line
@@ -1153,6 +1150,10 @@ protected:
 	
 	/** Darstellungsart Bild/Titel */
 	bool PicArt;
+	
+	 /** Line width */
+	double m_lineWidth;
+	double Oldm_lineWidth;
 
 signals:
 	//Frame signals

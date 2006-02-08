@@ -416,7 +416,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					{
 						ite = Elements.at(Elements.count()-1);
 						ite->setLineColor(CurrColor);
-						ite->Pwidth = LineW;
+						ite->setLineWidth(LineW);
 						ite->PLineEnd = CapStyle;
 						ite->PLineJoin = JoinStyle;
 						ite->setLineTransparency(1.0 - Opacity);

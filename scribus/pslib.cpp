@@ -1099,10 +1099,11 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 						int y = static_cast<int>(Doc->MasterPages.at(ap)->yOffset());
 						int w = static_cast<int>(Doc->MasterPages.at(ap)->width());
 						int h = static_cast<int>(Doc->MasterPages.at(ap)->height());
-						int x2 = static_cast<int>(it->BoundingX - it->Pwidth / 2.0);
-						int y2 = static_cast<int>(it->BoundingY - it->Pwidth / 2.0);
-						int w2 = static_cast<int>(it->BoundingW + it->Pwidth);
-						int h2 = static_cast<int>(it->BoundingH + it->Pwidth);
+						double ilw=it->lineWidth();
+						int x2 = static_cast<int>(it->BoundingX - ilw / 2.0);
+						int y2 = static_cast<int>(it->BoundingY - ilw / 2.0);
+						int w2 = static_cast<int>(it->BoundingW + ilw);
+						int h2 = static_cast<int>(it->BoundingH + ilw);
 						if (!QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
 							continue;
 						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->pageNr())) && (it->OwnPage != -1))
@@ -1232,11 +1233,11 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 								PS_restore();
 								if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 								{
-									if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
+									if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 									{
 										SetFarbe(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
 										PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-										PS_setlinewidth(ite->Pwidth);
+										PS_setlinewidth(ite->lineWidth());
 										PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
 										PS_setdash(ite->PLineArt, ite->DashOffset, ite->DashValues);
 										SetClipPath(&ite->PoLine);
@@ -1294,11 +1295,11 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 								setTextSt(Doc, ite, gcr, a, mPage, sep, farb, Ic, true);
 								if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 								{
-									if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
+									if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 									{
 										SetFarbe(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
 										PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-										PS_setlinewidth(ite->Pwidth);
+										PS_setlinewidth(ite->lineWidth());
 										PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
 										PS_setdash(ite->PLineArt, ite->DashOffset, ite->DashValues);
 										SetClipPath(&ite->PoLine);
@@ -1338,7 +1339,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 								SetFarbe(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
 								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 							}
-							PS_setlinewidth(ite->Pwidth);
+							PS_setlinewidth(ite->lineWidth());
 							PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
 							PS_setdash(ite->PLineArt, ite->DashOffset, ite->DashValues);
 							PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() - (ite->yPos() - mPage->yOffset()));
@@ -1427,7 +1428,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			SetFarbe(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 		}
-		PS_setlinewidth(c->Pwidth);
+		PS_setlinewidth(c->lineWidth());
 		PS_setcapjoin(c->PLineEnd, c->PLineJoin);
 		PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
 		if (!embedded)
@@ -1479,11 +1480,11 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			PS_restore();
 			if (((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty())) && (!c->isTableItem))
 			{
-				if ((c->NamedLStyle.isEmpty()) && (c->Pwidth != 0.0))
+				if ((c->NamedLStyle.isEmpty()) && (c->lineWidth() != 0.0))
 				{
 					SetFarbe(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-					PS_setlinewidth(c->Pwidth);
+					PS_setlinewidth(c->lineWidth());
 					PS_setcapjoin(c->PLineEnd, c->PLineJoin);
 					PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
 					SetClipPath(&c->PoLine);
@@ -1557,10 +1558,10 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				SetFarbe(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-				PS_setlinewidth(c->Pwidth);
+				PS_setlinewidth(c->lineWidth());
 				PS_setcapjoin(c->PLineEnd, c->PLineJoin);
 				PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
-				if ((c->NamedLStyle.isEmpty()) && (c->Pwidth != 0.0))
+				if ((c->NamedLStyle.isEmpty()) && (c->lineWidth() != 0.0))
 				{
 					SetClipPath(&c->PoLine);
 					PS_closepath();
@@ -1584,7 +1585,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			break;
 		case PageItem::Line:
-			if ((c->NamedLStyle.isEmpty()) && (c->Pwidth != 0.0))
+			if ((c->NamedLStyle.isEmpty()) && (c->lineWidth() != 0.0))
 			{
 				PS_moveto(0, 0);
 				PS_lineto(c->width(), 0);
@@ -1610,7 +1611,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				QWMatrix arrowTrans;
 				FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex()-1)).points.copy();
 				arrowTrans.translate(0, 0);
-				arrowTrans.scale(c->Pwidth, c->Pwidth);
+				arrowTrans.scale(c->lineWidth(), c->lineWidth());
 				arrowTrans.scale(-1,1);
 				arrow.map(arrowTrans);
 				SetFarbe(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
@@ -1625,7 +1626,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				QWMatrix arrowTrans;
 				FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex()-1)).points.copy();
 				arrowTrans.translate(c->width(), 0);
-				arrowTrans.scale(c->Pwidth, c->Pwidth);
+				arrowTrans.scale(c->lineWidth(), c->lineWidth());
 				arrow.map(arrowTrans);
 				SetFarbe(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 				PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -1654,7 +1655,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			if ((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty()))
 			{
-				if ((c->NamedLStyle.isEmpty()) && (c->Pwidth != 0.0))
+				if ((c->NamedLStyle.isEmpty()) && (c->lineWidth() != 0.0))
 				{
 					SetClipPath(&c->PoLine);
 					PS_closepath();
@@ -1690,7 +1691,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			if ((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty()))
 			{
-				if ((c->NamedLStyle.isEmpty()) && (c->Pwidth != 0.0))
+				if ((c->NamedLStyle.isEmpty()) && (c->lineWidth() != 0.0))
 				{
 					SetClipPath(&c->PoLine, false);
 					putColor(c->lineColor(), c->lineShade(), false);
@@ -1723,7 +1724,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex()-1)).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
-						arrowTrans.scale(c->Pwidth, c->Pwidth);
+						arrowTrans.scale(c->lineWidth(), c->lineWidth());
 						arrow.map(arrowTrans);
 						SetFarbe(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 						PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -1748,7 +1749,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex()-1)).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
-						arrowTrans.scale(c->Pwidth, c->Pwidth);
+						arrowTrans.scale(c->lineWidth(), c->lineWidth());
 						arrow.map(arrowTrans);
 						SetFarbe(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 						PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -1767,7 +1768,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				if (c->PoLine.size() > 3)
 				{
 					PS_save();
-					if ((c->NamedLStyle.isEmpty()) && (c->Pwidth != 0.0))
+					if ((c->NamedLStyle.isEmpty()) && (c->lineWidth() != 0.0))
 					{
 						SetClipPath(&c->PoLine, false);
 						putColor(c->lineColor(), c->lineShade(), false);
@@ -1943,10 +1944,11 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				int y = static_cast<int>(a->yOffset());
 				int w = static_cast<int>(a->width());
 				int h1 = static_cast<int>(a->height());
-				int x2 = static_cast<int>(c->BoundingX - c->Pwidth / 2.0);
-				int y2 = static_cast<int>(c->BoundingY - c->Pwidth / 2.0);
-				int w2 = static_cast<int>(c->BoundingW + c->Pwidth);
-				int h2 = static_cast<int>(c->BoundingH + c->Pwidth);
+				double ilw=c->lineWidth();
+				int x2 = static_cast<int>(c->BoundingX - ilw / 2.0);
+				int y2 = static_cast<int>(c->BoundingY - ilw / 2.0);
+				int w2 = static_cast<int>(c->BoundingW + ilw);
+				int h2 = static_cast<int>(c->BoundingH + ilw);
 				if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
 					continue;
 				if (c->ChangedMasterItem)
@@ -1969,10 +1971,11 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 			int y = static_cast<int>(a->yOffset());
 			int w = static_cast<int>(a->width());
 			int h1 = static_cast<int>(a->height());
-			int x2 = static_cast<int>(c->BoundingX - c->Pwidth / 2.0);
-			int y2 = static_cast<int>(c->BoundingY - c->Pwidth / 2.0);
-			int w2 = static_cast<int>(c->BoundingW + c->Pwidth);
-			int h2 = static_cast<int>(c->BoundingH + c->Pwidth);
+			double ilw=c->lineWidth();
+			int x2 = static_cast<int>(c->BoundingX - ilw / 2.0);
+			int y2 = static_cast<int>(c->BoundingY - ilw / 2.0);
+			int w2 = static_cast<int>(c->BoundingW + ilw);
+			int h2 = static_cast<int>(c->BoundingH + ilw);
 			if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
 				continue;
 			if (c->ChangedMasterItem)
@@ -1989,7 +1992,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 					SetFarbe(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				}
-				PS_setlinewidth(c->Pwidth);
+				PS_setlinewidth(c->lineWidth());
 				PS_setcapjoin(c->PLineEnd, c->PLineJoin);
 				PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
 				PS_translate(c->xPos() - a->xOffset(), a->height() - (c->yPos() - a->yOffset()));
@@ -2142,7 +2145,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 	QValueList<PageItem::TabRecord> tTabValues;
 	double tabDist = ite->textToFrameDistLeft();
 	if (ite->lineColor() != CommonStrings::None)
-		tabDist += ite->Pwidth / 2.0;
+		tabDist += ite->lineWidth() / 2.0;
 
 	for (uint d = 0; d < ite->MaxChars; ++d)
 	{

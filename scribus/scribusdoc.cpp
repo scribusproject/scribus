@@ -2744,13 +2744,13 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			newItem->Frame = true;
 			if (oldItem->itemType()==PageItem::PathText)
 			{
-				uint newPolyItemNo = itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->Pwidth, CommonStrings::None, currItem->lineColor(), true);
+				uint newPolyItemNo = itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), CommonStrings::None, currItem->lineColor(), true);
 				PageItem *polyLineItem = Items->at(newPolyItemNo);
 				polyLineItem->PoLine = currItem->PoLine.copy();
 				polyLineItem->ClipEdited = true;
 				polyLineItem->FrameType = 3;
 				polyLineItem->setRotation(currItem->rotation());
-				polyLineItem->SetPolyClip(qRound(QMAX(polyLineItem->Pwidth / 2, 1)));
+				polyLineItem->SetPolyClip(qRound(QMAX(polyLineItem->lineWidth() / 2, 1)));
 				ScMW->view->AdjustItemSize(polyLineItem);
 
 				newItem->setLineColor(CommonStrings::None);
@@ -2780,7 +2780,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		case PageItem::PolyLine:
 			newItem->convertTo(PageItem::PolyLine);
 			newItem->ClipEdited = true;
-			newItem->SetPolyClip(qRound(QMAX(newItem->Pwidth / 2, 1)));
+			newItem->SetPolyClip(qRound(QMAX(newItem->lineWidth() / 2, 1)));
 			ScMW->view->AdjustItemSize(newItem);
 			break;
 		case PageItem::PathText:
@@ -2789,7 +2789,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 				newItem->Frame = true;
 				newItem->ClipEdited = true;
 				newItem->PoLine = secondaryItem->PoLine.copy();
-				newItem->Pwidth = secondaryItem->Pwidth;
+				newItem->setLineWidth(secondaryItem->lineWidth());
 				newItem->setLineColor(secondaryItem->lineColor());
 				newItem->PLineArt = secondaryItem->PLineArt;
 				newItem->PLineEnd = secondaryItem->PLineEnd;

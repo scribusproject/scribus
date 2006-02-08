@@ -1957,7 +1957,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		currItem->BBoxH = obj->attribute("BBOXH").toDouble(); */
 		currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
 		currItem->AspectRatio = obj->attribute("RATIO", "0").toInt();
-		currItem->Pwidth = pw;
+		currItem->setLineWidth(pw);
 		if (currItem->pixm.imgInfo.layerInfo.count() != 0)
 		{
 			bool found = false;
@@ -2284,7 +2284,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	else
 	{
-		int ph = static_cast<int>(QMAX(1.0, currItem->Pwidth / 2.0));
+		int ph = static_cast<int>(QMAX(1.0, currItem->lineWidth() / 2.0));
 		currItem->Segments.clear();
 		currItem->PoLine.resize(0);
 		currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width()+ph),-ph,

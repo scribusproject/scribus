@@ -87,7 +87,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p)
 			QWMatrix arrowTrans;
 			FPointArray arrow = (*m_Doc->arrowStyles.at(m_startArrowIndex-1)).points.copy();
 			arrowTrans.translate(0, 0);
-			arrowTrans.scale(Pwidth, Pwidth);
+			arrowTrans.scale(m_lineWidth, m_lineWidth);
 			arrowTrans.scale(-1,1);
 			arrow.map(arrowTrans);
 			p->setBrush(p->pen());
@@ -102,7 +102,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p)
 			QWMatrix arrowTrans;
 			FPointArray arrow = (*m_Doc->arrowStyles.at(m_endArrowIndex-1)).points.copy();
 			arrowTrans.translate(Width, 0);
-			arrowTrans.scale(Pwidth, Pwidth);
+			arrowTrans.scale(m_lineWidth, m_lineWidth);
 			arrow.map(arrowTrans);
 			p->setBrush(p->pen());
 			p->setBrushOpacity(1.0 - lineTransparency());
