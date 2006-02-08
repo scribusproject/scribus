@@ -107,7 +107,7 @@ void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool
 	chma.scale(1.6, 1.6);
 	qp->eraseRect(0, 0, cr.width(), cr.height());
 	QFont fo = qp->font();
-	fo.setPixelSize(8);
+	fo.setPixelSize(9);
 	qp->setFont(fo);
 	static FPointArray gly;
 	int len = (*ap->doc->AllFonts)[par->fontInUse]->GlyphArray[par->characters[cc]].Outlines.size();
@@ -127,7 +127,7 @@ void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool
 		qp->drawPixmap(x, 1, pixm);
 		QString tmp;
 		tmp.sprintf("%04X", par->characters[row*16+col]);
-		tmp.prepend("0x");
+//		tmp.prepend("0x");
 		qp->setPen(black);
 		qp->drawText(QRect(2, cr.height()-10, cr.width()-4, 9),Qt::AlignCenter, tmp);
 	}
@@ -308,11 +308,35 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusMainWindow *pl
 	zTabelle->setRowMovingEnabled(false);
 	scanFont();
 	zAuswahlLayout->addWidget( zTabelle );
+	
+	layout3 = new QHBoxLayout;
+	layout3->setSpacing( 6 );
+	layout3->setMargin( 0 );
+	
+	layout2 = new QVBoxLayout;
+	layout2->setSpacing( 6 );
+	layout2->setMargin( 0 );
+
+	insText = new QLabel( this, "insText" );
+	insText->setText( tr("Insert Code"));
+	layout2->addWidget( insText );
+
+	insCode = new QLineEdit( this, "insText" );
+	insCode->setFixedWidth(insText->width());
+	insCode->setText("");
+	insCode->setMaxLength(4);
+	insCode->setInputMask(">NNNN");
+	layout2->addWidget( insCode );
+
+	layout3->addLayout(layout2, Qt::AlignLeft);
 
 	sample = new QLabel( this, "Zeichen" );
 	sample->setFrameShape(QFrame::Box);
 	sample->setPaletteBackgroundColor(paletteBackgroundColor());
-	zAuswahlLayout->addWidget( sample );
+	sample->setMinimumHeight(52);
+	sample->setMinimumWidth(460);
+	layout3->addWidget( sample );
+	zAuswahlLayout->addLayout( layout3 );
 
 	layout1 = new QHBoxLayout;
 	layout1->setSpacing( 6 );
@@ -327,7 +351,6 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusMainWindow *pl
 	closeButton = new QPushButton( tr("&Close"), this, "closeButton" );
 	layout1->addWidget( closeButton );
 	zAuswahlLayout->addLayout( layout1 );
-	sample->setMinimumHeight(52);
 	delEdit();
 //tooltips
 	QToolTip::add( insertButton, tr( "Insert the characters at the cursor in the text" ) );
@@ -341,6 +364,8 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusMainWindow *pl
 	connect(zTabelle, SIGNAL(delChar()), this, SLOT(delChar()));
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
+	connect(insCode, SIGNAL(returnPressed()), this, SLOT(newChar()));
+	connect(insCode, SIGNAL(lostFocus()), this, SLOT(newChar()));
 	setupRangeCombo();
 	newCharClass(0);
 }
@@ -737,6 +762,20 @@ void CharSelect::newFont(int font)
 	generatePreview(0);
 	characterClass = 0;
 	setupRangeCombo();
+}
+
+void CharSelect::newChar()
+{
+	QString tx = insCode->text();
+	tx.prepend("0x");
+	bool ok = false;
+	uint code = tx.toUInt(&ok, 16);
+	if ((ok) && (code > 31))
+	{
+		chToIns += QChar(code);
+		sample->setPixmap(FontSample((*ap->doc->AllFonts)[fontInUse], 28, chToIns, paletteBackgroundColor(), true));
+		insertButton->setEnabled(true);
+	}
 }
 
 void CharSelect::newChar(uint r, uint c) // , int b, const QPoint &pp)

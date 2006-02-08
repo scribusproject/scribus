@@ -20,6 +20,7 @@ class QStringList;
 class QComboBox;
 class QFont;
 class QWidget;
+class QLineEdit;
 
 class FontCombo;
 class PageItem;
@@ -56,9 +57,11 @@ public:
 	void setupRangeCombo();
 	void generatePreview(int charClass);
 	ChTable* zTabelle;
+	QLabel* insText;
 	QLabel* sample;
 	QLabel* fontLabel;
 	QLabel* rangeLabel;
+	QLineEdit* insCode;
 	FontCombo* fontSelector;
 	QComboBox* rangeSelector;
 	QPushButton* insertButton;
@@ -104,6 +107,7 @@ public:
 	int characterClass;
 
 public slots:
+	void newChar();
 	void newChar(uint r, uint c);
 	void delChar();
 	void newFont(int font);
@@ -118,6 +122,8 @@ protected:
 	QVBoxLayout* zAuswahlLayout;
 	QHBoxLayout* selectionsLayout;
 	QHBoxLayout* layout1;
+	QVBoxLayout* layout2;
+	QHBoxLayout* layout3;
 };
 
 class SCRIBUS_API ChTable : public QTable
