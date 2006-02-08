@@ -177,6 +177,7 @@ public:
 	void restoreAddPage(SimpleState *state, bool isUndo);
 	void restoreDeletePage(SimpleState *state, bool isUndo);
 	struct CopyPasteBuffer Buffer;
+	struct CopyContentsBuffer contentsBuffer;
 	QString Buffer2;
 	QString Buffer3;
 	bool BuFromApp;
@@ -329,6 +330,8 @@ public slots:
 	void slotEditCopy();
 	/** paste the clipboard into the document*/
 	void slotEditPaste();
+	void slotEditCopyContents();
+	void slotEditPasteContents();
 	void EnableTxEdit();
 	void DisableTxEdit();
 	void SelectAll();

@@ -88,42 +88,6 @@ struct CopyPasteBuffer
 	bool m_isAnnotation;
 	Annotation m_annotation;
 	QString AnName;
-	/*
-	int AnType;
-	QString AnAction;
-	QString An_E_act;
-	QString An_X_act;
-	QString An_D_act;
-	QString An_Fo_act;
-	QString An_Bl_act;
-	QString An_K_act;
-	QString An_F_act;
-	QString An_V_act;
-	QString An_C_act;
-	QString An_Extern;
-	int AnZiel;
-	int AnActType;
-	
-	QString AnToolTip;
-	QString AnRollOver;
-	QString AnDown;
-	QString AnBColor;
-	int AnBwid;
-	int AnBsty;
-	int AnFeed;
-	int AnFlag;
-	int AnMaxChar;
-	int AnVis;
-	int AnFont;
-	int AnChkStil;
-	int AnFormat;
-	bool AnIsChk;
-	bool AnAAact;
-	bool AnHTML;
-	bool AnUseIcons;
-	int AnIPlace;
-	int AnScaleW;
-	*/
 	double Extra;
 	double TExtra;
 	double BExtra;
@@ -176,6 +140,16 @@ struct CopyPasteBuffer
 	int startArrowIndex;
 	int endArrowIndex;
 	ObjAttrVector pageItemAttributes;
+};
+
+struct CopyContentsBuffer
+{
+	PageItem::ItemType sourceType;
+	QString contentsFileName;
+	double LocalScX;
+	double LocalScY;
+	double LocalX;
+	double LocalY;
 };
 
 /** Pagemargins */

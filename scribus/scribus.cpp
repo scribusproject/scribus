@@ -116,6 +116,7 @@ for which a new license (GPL+exception) is in place.
 #include "docitemattrprefs.h"
 #include "pageitemattributes.h"
 #include "pageitem_textframe.h"
+#include "pageitem_imageframe.h"
 #include "tocindexprefs.h"
 #include "tocgenerator.h"
 #include "collect4output.h"
@@ -640,6 +641,8 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editCut"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editCopy"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editPaste"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editCopyContents"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editPasteContents"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editClearContents"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editSelectAll"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editDeselectAll"], "Edit");
@@ -661,6 +664,8 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["editCut"]->setEnabled(false);
 	scrActions["editCopy"]->setEnabled(false);
 	scrActions["editPaste"]->setEnabled(false);
+	scrActions["editCopyContents"]->setEnabled(false);
+	scrActions["editPasteContents"]->setEnabled(false);
 	scrActions["editClearContents"]->setEnabled(false);
 	scrActions["editSelectAll"]->setEnabled(false);
 	scrActions["editDeselectAll"]->setEnabled(false);
@@ -2078,6 +2083,8 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["editCut"]->setEnabled(false);
 	scrActions["editCopy"]->setEnabled(false);
 	scrActions["editPaste"]->setEnabled(!Buffer2.isEmpty());
+	scrActions["editCopyContents"]->setEnabled(false);
+	scrActions["editPasteContents"]->setEnabled(false);
 	scrActions["editSelectAll"]->setEnabled(true);
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editParaStyles"]->setEnabled(true);
@@ -2224,6 +2231,8 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	scrActions["itemPreviewNormal"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemPreviewFull"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["styleImageEffects"]->setEnabled(Nr==PageItem::ImageFrame);
+	scrActions["editCopyContents"]->setEnabled(Nr==PageItem::ImageFrame);
+	scrActions["editPasteContents"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["editEditWithImageEditor"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail && currItem->isRaster);
 	if (Nr!=PageItem::ImageFrame)
 	{
@@ -2257,7 +2266,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["itemLockSize"]->setEnabled(false);
 		scrActions["editCut"]->setEnabled(false);
 		scrActions["editCopy"]->setEnabled(false);
-		scrActions["editClearContents"]->setEnabled(false);
+		scrActions["editCopyContents"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrActions["extrasDeHyphenateText"]->setEnabled(false);
@@ -3523,7 +3532,6 @@ void ScribusMainWindow::slotGetContent()
 				propertiesPalette->updateColorList();
 				propertiesPalette->updateCList();
 				propertiesPalette->ShowCMS();
-				//slotDocCh(); view->LoadPict does this now.
 			}
 		}
 		if (currItem->asTextFrame())
@@ -8737,4 +8745,56 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 		}
 	}
 	e->accept( accepted );
+}
+
+void ScribusMainWindow::slotEditCopyContents()
+{
+	PageItem *currItem=NULL;
+	contentsBuffer.contentsFileName="";
+	if (HaveDoc && (currItem=doc->selection->itemAt(0))!=NULL)
+	{
+		if (currItem->itemType()==PageItem::ImageFrame)
+		{
+			PageItem_ImageFrame* imageItem=currItem->asImageFrame();
+			if (imageItem->PicAvail)
+			{
+				contentsBuffer.sourceType=PageItem::ImageFrame;
+				contentsBuffer.contentsFileName=imageItem->Pfile;
+				contentsBuffer.LocalScX=imageItem->imageXScale();
+				contentsBuffer.LocalScY=imageItem->imageYScale();
+				contentsBuffer.LocalX=imageItem->imageXOffset();
+				contentsBuffer.LocalY=imageItem->imageYOffset();
+			}
+		}
+	}
+}
+
+void ScribusMainWindow::slotEditPasteContents()
+{
+	PageItem *currItem=NULL;
+	if (HaveDoc && !contentsBuffer.contentsFileName.isEmpty() && (currItem=doc->selection->itemAt(0))!=NULL)
+	{
+		if (currItem->itemType()==PageItem::ImageFrame)
+		{
+			PageItem_ImageFrame* imageItem=currItem->asImageFrame();
+			int t=QMessageBox::Yes;
+			if (imageItem->PicAvail)
+				t = ScMessageBox::warning(this, CommonStrings::trWarning,
+										tr("Do you really want to replace your existing image?"),
+										QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
+			if (t == QMessageBox::Yes)
+			{
+				doc->loadPict(contentsBuffer.contentsFileName, imageItem);
+				currItem->AdjustPictScale();
+				imageItem->setImageXYScale(contentsBuffer.LocalScX, contentsBuffer.LocalScY);
+				imageItem->setImageXYOffset(contentsBuffer.LocalX, contentsBuffer.LocalY);				
+				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+				qApp->restoreOverrideCursor();
+				view->DrawNew();
+				propertiesPalette->updateColorList();
+				propertiesPalette->updateCList();
+				propertiesPalette->ShowCMS();
+			}
+		}
+	}
 }

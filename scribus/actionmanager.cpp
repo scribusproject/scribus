@@ -124,6 +124,8 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png"), loadIcon("editcut22.png")), "", CTRL+Key_X, ScMW, "editCut"));
 	scrActions->insert("editCopy", new ScrAction(QIconSet(loadIcon("editcopy.png"), loadIcon("editcopy.png")), "", CTRL+Key_C, ScMW, "editCopy"));
 	scrActions->insert("editPaste", new ScrAction(QIconSet(loadIcon("editpaste.png"), loadIcon("editpaste.png")), "", CTRL+Key_V, ScMW, "editPaste"));
+	scrActions->insert("editCopyContents", new ScrAction(QIconSet(loadIcon("editcopy.png"), loadIcon("editcopy.png")), "", CTRL+SHIFT+Key_C, ScMW, "editCopyContents"));
+	scrActions->insert("editPasteContents", new ScrAction(QIconSet(loadIcon("editpaste.png"), loadIcon("editpaste.png")), "", CTRL+SHIFT+Key_V, ScMW, "editPasteContents"));
 	scrActions->insert("editClearContents", new ScrAction(QIconSet(loadIcon("editdelete.png"), loadIcon("editdelete22.png")), "", QKeySequence(), ScMW, "editClearContents"));
 	scrActions->insert("editSelectAll", new ScrAction(QIconSet(noIcon), "", CTRL+Key_A, ScMW, "editSelectAll"));
 	scrActions->insert("editDeselectAll", new ScrAction(QIconSet(noIcon), "", CTRL+SHIFT+Key_A, ScMW, "editDeselectAll"));
@@ -144,6 +146,8 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editCut"], SIGNAL(activated()), ScMW, SLOT(slotEditCut()) );
 	connect( (*scrActions)["editCopy"], SIGNAL(activated()), ScMW, SLOT(slotEditCopy()) );
 	connect( (*scrActions)["editPaste"], SIGNAL(activated()), ScMW, SLOT(slotEditPaste()) );
+	connect( (*scrActions)["editCopyContents"], SIGNAL(activated()), ScMW, SLOT(slotEditCopyContents()) );
+	connect( (*scrActions)["editPasteContents"], SIGNAL(activated()), ScMW, SLOT(slotEditPasteContents()) );
 	connect( (*scrActions)["editClearContents"], SIGNAL(activated()), ScMW, SLOT(clearContents()) );
 	connect( (*scrActions)["editSelectAll"], SIGNAL(activated()), ScMW, SLOT(SelectAll()) );
 	connect( (*scrActions)["editDeselectAll"], SIGNAL(activated()), ScMW, SLOT(deselectAll()) );
@@ -838,6 +842,8 @@ void ActionManager::languageChange()
 	(*scrActions)["editCut"]->setTexts( tr("Cu&t"));
 	(*scrActions)["editCopy"]->setTexts( tr("&Copy"));
 	(*scrActions)["editPaste"]->setTexts( tr("&Paste"));
+	(*scrActions)["editCopyContents"]->setTexts( tr("Copy Contents"));
+	(*scrActions)["editPasteContents"]->setTexts( tr("Paste Contents"));
 	(*scrActions)["editClearContents"]->setTexts( tr("C&lear Contents"));
 	(*scrActions)["editSelectAll"]->setTexts( tr("Select &All"));
 	(*scrActions)["editDeselectAll"]->setTexts( tr("&Deselect All"));
