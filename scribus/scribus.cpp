@@ -8764,6 +8764,9 @@ void ScribusMainWindow::slotEditCopyContents()
 				contentsBuffer.LocalScY=imageItem->imageYScale();
 				contentsBuffer.LocalX=imageItem->imageXOffset();
 				contentsBuffer.LocalY=imageItem->imageYOffset();
+				contentsBuffer.inputProfile=imageItem->IProfile;
+				contentsBuffer.useEmbedded=imageItem->UseEmbedded;
+				contentsBuffer.renderingIntent=imageItem->IRender;
 			}
 		}
 	}
@@ -8774,7 +8777,7 @@ void ScribusMainWindow::slotEditPasteContents()
 	PageItem *currItem=NULL;
 	if (HaveDoc && !contentsBuffer.contentsFileName.isEmpty() && (currItem=doc->selection->itemAt(0))!=NULL)
 	{
-		if (currItem->itemType()==PageItem::ImageFrame)
+		if (contentsBuffer.sourceType==PageItem::ImageFrame && currItem->itemType()==PageItem::ImageFrame)
 		{
 			PageItem_ImageFrame* imageItem=currItem->asImageFrame();
 			int t=QMessageBox::Yes;
@@ -8794,6 +8797,9 @@ void ScribusMainWindow::slotEditPasteContents()
 				imageItem->AdjustPictScale();
 				imageItem->setImageXYScale(contentsBuffer.LocalScX, contentsBuffer.LocalScY);
 				imageItem->setImageXYOffset(contentsBuffer.LocalX, contentsBuffer.LocalY);
+				imageItem->IProfile=contentsBuffer.inputProfile;
+				imageItem->UseEmbedded=contentsBuffer.useEmbedded;
+				imageItem->IRender=contentsBuffer.renderingIntent;
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				qApp->restoreOverrideCursor();
 				view->DrawNew();

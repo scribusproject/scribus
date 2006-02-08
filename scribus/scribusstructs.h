@@ -150,6 +150,9 @@ struct CopyContentsBuffer
 	double LocalScY;
 	double LocalX;
 	double LocalY;
+	QString inputProfile;
+	bool useEmbedded;
+	int renderingIntent;
 };
 
 /** Pagemargins */
