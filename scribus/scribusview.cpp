@@ -3197,8 +3197,12 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				QDragObject *dr = new QTextDrag(ss->WriteElem(Doc, this, Doc->selection), this);
 				dr->setPixmap(loadIcon("DragPix.xpm"));
-				if (!dr->drag())
-					qDebug("ScribusView::contentsMouseMoveEvent: couldn't start drag operation!");
+				dr->drag();
+//				if (!dr->drag())
+//					qDebug("ScribusView::contentsMouseMoveEvent: couldn't start drag operation!");
+/* commented out the code above as the debug message is incorrect,
+   see the Qt Reference: "The function returns TRUE if the caller should delete the original copy
+    of the dragged data (but see target()); otherwise returns FALSE." */
 				delete ss;
 				ss=NULL;
 				Doc->DragP = false;

@@ -3426,6 +3426,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			imgInfo.xres = qRound(gsRes);
 			imgInfo.yres = qRound(gsRes);
 			imgInfo.colorspace = 0;
+			setDotsPerMeterX ((int) (xres / 0.0254));
+			setDotsPerMeterY ((int) (yres / 0.0254));
 		}
 	}
 	if ((ext == "eps") || (ext == "ps"))
@@ -3522,6 +3524,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				imgInfo.xres = qRound(gsRes);
 				imgInfo.yres = qRound(gsRes);
 				imgInfo.colorspace = 0;
+				setDotsPerMeterX ((int) (xres / 0.0254));
+				setDotsPerMeterY ((int) (yres / 0.0254));
 			}
 		}
 	}
@@ -4225,9 +4229,9 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	}
 	if ((reqType == 0 || isCMYK) && !bilevel)
 		setAlphaBuffer(false);
-	setDotsPerMeterX (QMAX(2834, (int) (xres / 0.0254)));
+/*	setDotsPerMeterX (QMAX(2834, (int) (xres / 0.0254)));
 	setDotsPerMeterY (QMAX(2834, (int) (yres / 0.0254)));
 	imgInfo.xres = QMAX(72, qRound(xres));
-	imgInfo.yres = QMAX(72, qRound(yres));
+	imgInfo.yres = QMAX(72, qRound(yres)); */
 	return true;
 }

@@ -323,9 +323,9 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusMainWindow *pl
 
 	insCode = new QLineEdit( this, "insText" );
 	insCode->setFixedWidth(insText->width());
-	insCode->setText("");
 	insCode->setMaxLength(4);
 	insCode->setInputMask(">NNNN");
+	insCode->clear();
 	layout2->addWidget( insCode );
 
 	layout3->addLayout(layout2, Qt::AlignLeft);
@@ -694,44 +694,6 @@ void CharSelect::generatePreview(int charClass)
 	if (ac != 0)
 		ab++;
 	zTabelle->setNumRows( ab );
-/*
-	int bh = QMAX(16 + qRound(-(*ap->doc->AllFonts)[fontInUse]->numDescender * 16) + 3, 16);
-	QPixmap pixm(bh,bh);
-	for (int a = 0; a < ab; ++a)
-	{
-		for (int b = 0; b < 16; ++b)
-		{
-			ScPainter *p = new ScPainter(&pixm, bh, bh);
-			p->clear();
-			pixm.fill(white);
-			QWMatrix chma;
-			chma.scale(1.6, 1.6);
-			FPointArray gly = (*ap->doc->AllFonts)[fontInUse]->GlyphArray[characters[cc]].Outlines.copy();
-			if (gly.size() > 4)
-			{
-				gly.map(chma);
-				double ww = bh - (*ap->doc->AllFonts)[fontInUse]->CharWidth[characters[cc]]*16;
-				p->translate(ww / 2, 1);
-				p->setBrush(black);
-				p->setFillMode(1);
-				p->setupPolygon(&gly);
-				p->fillPath();
-				p->end();
-				QTableItem *it = new QTableItem(zTabelle, QTableItem::Never, "", pixm);
-				zTabelle->setItem(a, b, it);
-			}
-			cc++;
-			delete p;
-			if (cc >= maxCount)
-				break;
-		}
-	}
-	for (int d = 0; d < 16; ++d)
-		zTabelle->adjustColumn(d);
-	for (int d = 0; d < zTabelle->numRows(); ++d)
-		zTabelle->adjustRow(d);
-	zTabelle->setCurrentCell(0, 0);
-	*/
 	recalcCellSizes();
 }
 
@@ -785,6 +747,9 @@ void CharSelect::newChar(uint r, uint c) // , int b, const QPoint &pp)
 		chToIns += QChar(characters[r*16+c]);
 		sample->setPixmap(FontSample((*ap->doc->AllFonts)[fontInUse], 28, chToIns, paletteBackgroundColor(), true));
 		insertButton->setEnabled(true);
+		QString tmp;
+		tmp.sprintf("%04X", characters[r*16+c]);
+		insCode->setText(tmp);
 	}
 }
 

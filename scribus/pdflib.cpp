@@ -4037,9 +4037,9 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 					break;
 				case 4:
 					PutDoc("/FT /Btn\n");
-					PutDoc(ite->annotation().IsChk() ? "/V /On\n/DV /On\n/AS /On\n" :
+					PutDoc(ite->annotation().IsChk() ? "/V /Yes\n/DV /Yes\n/AS /Yes\n" :
 								"/V /Off\n/DV /Off\n/AS /Off\n");
-					PutDoc("/AP << /N << /On "+QString::number(ObjCounter)+" 0 R >> >>\n");
+					PutDoc("/AP << /N << /Yes "+QString::number(ObjCounter)+" 0 R >> >>\n");
 					break;
 				case 5:
 				case 6:
