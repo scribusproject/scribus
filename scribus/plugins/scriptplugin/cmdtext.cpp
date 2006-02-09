@@ -113,7 +113,7 @@ PyObject *scribus_getlinespace(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get line space of non-text frame.","python error"));
 		return NULL;
 	}
-	return PyFloat_FromDouble(static_cast<double>(i->LineSp));
+	return PyFloat_FromDouble(static_cast<double>(i->lineSpacing()));
 }
 
 PyObject *scribus_getcolumngap(PyObject* /* self */, PyObject* args)
@@ -465,7 +465,7 @@ PyObject *scribus_setfontsize(PyObject* /* self */, PyObject* args)
 	ScMW->doc->selection->addItem(i);
 	if (i->HasSel)
 		ScMW->doc->appMode = modeEdit;
-	ScMW->view->chFSize(qRound(size * 10.0));
+	ScMW->doc->chFSize(qRound(size * 10.0));
 	ScMW->doc->appMode = Apm;
 	ScMW->view->Deselect();
 	Py_INCREF(Py_None);
@@ -531,7 +531,7 @@ PyObject *scribus_setlinespace(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set line spacing on a non-text frame.","python error"));
 		return NULL;
 	}
-	i->LineSp = w;
+	i->setLineSpacing(w);
 	Py_INCREF(Py_None);
 	return Py_None;
 }

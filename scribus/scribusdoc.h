@@ -529,7 +529,42 @@ public:
 	
 	bool sendItemSelectionToBack();
 	bool bringItemSelectionToFront();
-
+	
+	void ChLineWidth(double w);
+	void ChLineArt(PenStyle w);
+	void ChLineJoin(PenJoinStyle w);
+	void ChLineEnd(PenCapStyle w);
+	void ChLineSpa(double w);
+	void ChLineSpaMode(int w);
+	void ChLocalXY(double x, double y);
+	void ChLocalSc(double x, double y);
+	void ItemFont(QString fon);
+	void ItemPen(QString farbe);
+	void ItemTextBrush(QString farbe);
+	void ItemTextBrushS(int sha);
+	void ItemTextPen(QString farbe);
+	void ItemTextPenS(int sha);
+	void ItemTextScaleV(int sha);
+	void ItemTextScale(int sha);
+	void setItemTextBase(int sha);
+	void setItemTextOutline(int sha);
+	void setItemTextShadow(int shx, int shy);
+	void setItemTextUnderline(int pos, int wid);
+	void setItemTextStrike(int pos, int wid);
+	void ItemBrush(QString farbe);
+	void ItemBrushShade(int sha);
+	void ItemPenShade(int sha);
+	void ItemGradFill(int typ);
+	void chTyStyle(int s);
+	void SetAbStyle(int s);
+	void chAbStyle(PageItem *currItem, int s);
+	void chKerning(int us);
+	void chFSize(int size);
+	void FlipImageH();
+	void FlipImageV();
+	void MirrorPolyH();
+	void MirrorPolyV();
+	
 protected:
 	void addSymbols();
 	ApplicationPrefs& prefsData;
@@ -729,7 +764,10 @@ private:
 	
 signals:
 	//Lets make our doc talk to our GUI rather than confusing all our normal stuff
-	
+	/**
+	 * @brief Let the document tell whatever is listening that it has changed
+	 */
+	void changed();
 	/**
 	 * @brief A signal for when the outline palette needs to rebuild itself
 	 * Emit when:

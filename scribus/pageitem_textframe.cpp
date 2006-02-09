@@ -2592,7 +2592,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		Tinput = false;
 		if ((cr == QChar(13)) && (itemText.count() != 0))
 		{
-			view->chAbStyle(this, itemText.at(QMAX(CPos-1,0))->cab);
+			m_Doc->chAbStyle(this, itemText.at(QMAX(CPos-1,0))->cab);
 			Tinput = false;
 		}
 		ScMW->setTBvals(this);
@@ -2621,7 +2621,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		Tinput = false;
 		if ((cr == QChar(13)) && (itemText.count() != 0))
 		{
-			view->chAbStyle(this, itemText.at(QMAX(CPos-1,0))->cab);
+			m_Doc->chAbStyle(this, itemText.at(QMAX(CPos-1,0))->cab);
 			Tinput = false;
 		}
 		ScMW->setTBvals(this);

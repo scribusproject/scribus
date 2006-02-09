@@ -2411,8 +2411,8 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			emit TextOutline(doc->CurrTextOutline);
 			setStilvalue(doc->CurrentStyle);
 		}
-		doc->docParagraphStyles[0].LineSpaMode = currItem->LineSpMode;
-		doc->docParagraphStyles[0].LineSpa = currItem->LineSp;
+		doc->docParagraphStyles[0].LineSpaMode = currItem->lineSpacingMode();
+		doc->docParagraphStyles[0].LineSpa = currItem->lineSpacing();
 		doc->docParagraphStyles[0].textAlignment = currItem->textAlignment;
 		break;
 	case PageItem::PathText: //Path Text
@@ -5481,7 +5481,7 @@ void ScribusMainWindow::setItemHoch(int h)
 		//setActiveWindow();
 		doc->CurrentStyle = h;
 		setStilvalue(doc->CurrentStyle);
-		view->chTyStyle(h);
+		doc->chTyStyle(h);
 		slotDocCh();
 	}
 }
@@ -5767,7 +5767,7 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 		}
 	}
 	AdjustFontMenu(nf2);
-	view->ItemFont(nf2);
+	doc->ItemFont(nf2);
 	doc->CurrFont = nf2;
 	slotDocCh();
 }
@@ -5788,7 +5788,7 @@ void ScribusMainWindow::setItemFSize(int id)
 {
 	int c = id;
 	if (c != -1)
-		view->chFSize(c*10);
+		doc->chFSize(c*10);
 	else
 	{
 		bool ok = false;
@@ -5797,7 +5797,7 @@ void ScribusMainWindow::setItemFSize(int id)
 		{
 			c = qRound(dia->getEditText().toDouble(&ok));
 			if ((ok) && (c < 1025) && (c > 0))
-				view->chFSize(c*10);
+				doc->chFSize(c*10);
 			delete dia;
 		}
 	}
@@ -5817,9 +5817,9 @@ void ScribusMainWindow::setItemFarbe(int id)
 	{
 		PageItem *currItem = doc->selection->itemAt(0);
 		if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
-			view->ItemTextBrush(ColorMenC->text(id));
+			doc->ItemTextBrush(ColorMenC->text(id));
 		else
-			view->ItemBrush(ColorMenC->text(id));
+			doc->ItemBrush(ColorMenC->text(id));
 	}
 	scrMenuMgr->getLocalPopupMenu("Color")->activateItemAt(0);
 	slotDocCh();
@@ -5835,9 +5835,9 @@ void ScribusMainWindow::setItemShade(int id)
 		if (c != -1)
 		{
 			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
-				view->ItemTextBrushS(c);
+				doc->ItemTextBrushS(c);
 			else
-				view->ItemBrushShade(c);
+				doc->ItemBrushShade(c);
 		}
 		else
 		{
@@ -5848,9 +5848,9 @@ void ScribusMainWindow::setItemShade(int id)
 				if (ok)
 				{
 					if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
-						view->ItemTextBrushS(c);
+						doc->ItemTextBrushS(c);
 					else
-						view->ItemBrushShade(c);
+						doc->ItemBrushShade(c);
 				}
 				delete dia;
 			}
@@ -6320,7 +6320,7 @@ void ScribusMainWindow::setNewAbStyle(int a)
 	if (HaveDoc)
 	{
 		doc->currentParaStyle = a;
-		view->SetAbStyle(a);
+		doc->SetAbStyle(a);
 		propertiesPalette->setAli(a);
 		PageItem *currItem = doc->selection->itemAt(0);
 		setTBvals(currItem);
@@ -6483,7 +6483,7 @@ void ScribusMainWindow::setPenFarbe(QString farbe)
 {
 	if (HaveDoc)
 	{
-		view->ItemPen(farbe);
+		doc->ItemPen(farbe);
 		slotDocCh();
 	}
 }
@@ -6493,7 +6493,7 @@ void ScribusMainWindow::setPenShade(int sh)
 	//setActiveWindow();
 	if (HaveDoc)
 	{
-		view->ItemPenShade(sh);
+		doc->ItemPenShade(sh);
 		slotDocCh();
 	}
 }
@@ -6502,7 +6502,7 @@ void ScribusMainWindow::setBrushFarbe(QString farbe)
 {
 	if (HaveDoc)
 	{
-		view->ItemBrush(farbe);
+		doc->ItemBrush(farbe);
 		slotDocCh();
 	}
 }
@@ -6512,7 +6512,7 @@ void ScribusMainWindow::setBrushShade(int sh)
 	//setActiveWindow();
 	if (HaveDoc)
 	{
-		view->ItemBrushShade(sh);
+		doc->ItemBrushShade(sh);
 		slotDocCh();
 	}
 }
@@ -6521,7 +6521,7 @@ void ScribusMainWindow::setGradFill(int typ)
 {
 	if (HaveDoc)
 	{
-		view->ItemGradFill(typ);
+		doc->ItemGradFill(typ);
 		slotDocCh();
 	}
 }
@@ -8547,12 +8547,12 @@ void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
 					if (currItem!=NULL)
 					{
 						if ((m->stateAfter() & Qt::ControlButton) && (currItem->asTextFrame() || currItem->asPathText()))
-							view->ItemTextBrush(colorName); //Text colour
+							doc->ItemTextBrush(colorName); //Text colour
 						else
 						if (m->stateAfter() & Qt::AltButton) //Line colour
 							setPenFarbe(colorName);
 						else
-							view->ItemBrush(colorName); //Fill colour
+							doc->ItemBrush(colorName); //Fill colour
 					}
 				}
 			}

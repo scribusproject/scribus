@@ -297,7 +297,7 @@ QPixmap SampleItem::getSample(int width, int height)
 		previewItem->itemText.append(hg);
 	}
 
-	ScMW->view->chAbStyle(previewItem, tmpIndex);
+	doc->chAbStyle(previewItem, tmpIndex);
 	previewItem->DrawObj(painter, QRect(0, 0, width, height));
 	painter->end();
 	delete(painter);
@@ -305,7 +305,7 @@ QPixmap SampleItem::getSample(int width, int height)
 
 	if (ScMW->view != NULL)
 		ScMW->view->setScale(sca);
-	ScMW->doc->appMode = userAppMode;
+	doc->appMode = userAppMode;
 	doc->docParagraphStyles.remove(doc->docParagraphStyles.fromLast());
 	UndoManager::instance()->setUndoEnabled(true);
 	return pm;

@@ -329,13 +329,13 @@ void NodePalette::ShearD()
 void NodePalette::MirrorH()
 {
 	if (doc != 0)
-		view->MirrorPolyH();
+		doc->MirrorPolyH();
 }
 
 void NodePalette::MirrorV()
 {
 	if (doc != 0)
-		view->MirrorPolyV();
+		doc->MirrorPolyV();
 }
 
 void NodePalette::ResetControl()

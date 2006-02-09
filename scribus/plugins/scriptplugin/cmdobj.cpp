@@ -560,7 +560,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 			int mode = ScMW->doc->appMode;
 			ScMW->doc->appMode = modeEdit;
 			for (int i = 0; i < ScMW->doc->selection->count(); ++i)
-				ScMW->view->chAbStyle(ScMW->doc->selection->itemAt(i), styleid);
+				ScMW->doc->chAbStyle(ScMW->doc->selection->itemAt(i), styleid);
 			ScMW->doc->appMode = mode;
 		}
 	}

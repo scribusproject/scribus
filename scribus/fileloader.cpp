@@ -729,10 +729,10 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					Neu->gWidth = pg.attribute("gWidth",defaultVal).toDouble();
 					defaultVal.setNum(Neu->height());
 					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
-					if (Neu->LineSpMode == 3)
+					if (Neu->lineSpacingMode() == 3)
 					{
 						doc->docParagraphStyles[0].BaseAdj = true;
-						Neu->LineSp = doc->typographicSettings.valueBaseGrid-1;
+						Neu->setLineSpacing(doc->typographicSettings.valueBaseGrid-1);
 					}
 					if (Neu->isAutoText)
 						doc->LastAuto = Neu;
@@ -1651,10 +1651,10 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					Neu->gWidth = pg.attribute("gWidth",defaultVal).toDouble();
 					defaultVal.setNum(Neu->height());
 					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
-					if (Neu->LineSpMode == 3)
+					if (Neu->lineSpacingMode() == 3)
 					{
 						doc->docParagraphStyles[0].BaseAdj = true;
-						Neu->LineSp = doc->typographicSettings.valueBaseGrid-1;
+						Neu->setLineSpacing(doc->typographicSettings.valueBaseGrid-1);
 					}
 					if (Neu->isAutoText)
 						doc->LastAuto = Neu;
@@ -2010,8 +2010,8 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
 			currItem->AspectRatio = obj->attribute("RATIO", "0").toInt();
 		}
-		currItem->LineSp = obj->attribute("LINESP").toDouble();
-		currItem->LineSpMode = obj->attribute("LINESPMode", "0").toInt();
+		currItem->setLineSpacing(obj->attribute("LINESP").toDouble());
+		currItem->setLineSpacingMode(obj->attribute("LINESPMode", "0").toInt());
 		//currItem->convertTo(pt);
 		break;
 	case PageItem::TextFrame:
@@ -2036,8 +2036,8 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
 			currItem->AspectRatio = obj->attribute("RATIO", "0").toInt();
 		}
-		currItem->LineSp = obj->attribute("LINESP").toDouble();
-		currItem->LineSpMode = obj->attribute("LINESPMode", "0").toInt();
+		currItem->setLineSpacing(obj->attribute("LINESP").toDouble());
+		currItem->setLineSpacingMode(obj->attribute("LINESPMode", "0").toInt());
 		//currItem->convertTo(pt);
 		break;
 	case PageItem::Line:

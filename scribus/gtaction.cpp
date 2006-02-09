@@ -275,8 +275,8 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 		linesp = getLineSpacing(fstyle->getFont()->getSize());
 	else
 		linesp = fstyle->getLineSpacing();
-	textFrame->LineSp = linesp;
-	textFrame->LineSpMode = 0;
+	textFrame->setLineSpacing(linesp);
+	textFrame->setLineSpacingMode(0);
 	gtFont* font = fstyle->getFont();
 	QString fontName = validateFont(font);
 	textFrame->setFont(fontName);

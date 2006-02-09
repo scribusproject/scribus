@@ -360,9 +360,6 @@ public:
 	double BBoxX;
   /** BoundingBox-H */
 	double BBoxH;
-  /** Linespacing */
-	double LineSp;
-	int LineSpMode;
   /** Zeichen X-Position */
 	double CurX;
   /** Zeichen Y-Position */
@@ -749,6 +746,14 @@ public:
 	 */
 	void setLineSpacing(double newSpacing);
 
+	/** @brief Get the PageItem-wide line spacing mode */
+	double lineSpacingMode() const { return LineSpMode; }
+	/**
+	 * @brief Set a line spacing for the frame
+	 * @param newSpacing line spacing for the frame
+	 */
+	void setLineSpacingMode(int newLineSpacingMode);
+	
 	/** @brief Get the hyphenation language for the frame */
 	QString language() const { return Language; }
 	/**
@@ -1155,6 +1160,10 @@ protected:
 	double m_lineWidth;
 	double Oldm_lineWidth;
 
+/** Linespacing */
+	double LineSp;
+	int LineSpMode;
+	
 signals:
 	//Frame signals
 	void myself(PageItem *);

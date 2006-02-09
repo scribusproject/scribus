@@ -263,8 +263,8 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("PLINEART",item->PLineArt);
 	ob->setAttribute("PLINEEND", item->PLineEnd);
 	ob->setAttribute("PLINEJOIN", item->PLineJoin);
-	ob->setAttribute("LINESP",item->LineSp);
-	ob->setAttribute("LINESPMode", item->LineSpMode);
+	ob->setAttribute("LINESP",item->lineSpacing());
+	ob->setAttribute("LINESPMode", item->lineSpacingMode());
 	ob->setAttribute("TXTKERN",item->ExtraV);
 	ob->setAttribute("LOCALSCX",item->imageXScale());
 	ob->setAttribute("LOCALSCY",item->imageYScale());

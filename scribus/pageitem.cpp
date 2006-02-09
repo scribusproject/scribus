@@ -1968,6 +1968,15 @@ void PageItem::setLineSpacing(double newSpacing)
 		undoManager->action(this, ss);
 	}
 	LineSp = newSpacing;
+	emit lineSpacing(LineSp);
+}
+
+void PageItem::setLineSpacingMode(int newLineSpacingMode)
+{
+	if (LineSpMode == newLineSpacingMode)
+		return; // nothing to do -> return
+	//TODO Add in undo
+	LineSpMode = newLineSpacingMode;
 }
 
 void PageItem::setLanguage(const QString& newLanguage)
@@ -2247,22 +2256,22 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		else if (ss->contains("IMAGEFLIPH"))
 		{
 			select();
-			view->FlipImageH();
+			m_Doc->FlipImageH();
 		}
 		else if (ss->contains("IMAGEFLIPV"))
 		{
 			select();
-			view->FlipImageV();
+			m_Doc->FlipImageV();
 		}
 		else if (ss->contains("LOCK"))
 		{
 			select();
-			view->ToggleLock();
+			m_Doc->view()->ToggleLock();
 		}
 		else if (ss->contains("SIZE_LOCK"))
 		{
 			select();
-			view->ToggleSizeLock();
+			m_Doc->view()->ToggleSizeLock();
 		}
 		else if (ss->contains("NEW_NAME"))
 			restoreName(ss, isUndo);
@@ -2327,7 +2336,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			bool editContour = view->EditContour;
 			view->EditContour = ss->getBool("IS_CONTOUR");
 			select();
-			view->MirrorPolyH();
+			m_Doc->MirrorPolyH();
 			view->EditContour = editContour;
 		}
 		else if (ss->contains("MIRROR_PATH_V"))
@@ -2335,7 +2344,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			bool editContour = view->EditContour;
 			view->EditContour = ss->getBool("IS_CONTOUR");
 			select();
-			view->MirrorPolyV();
+			m_Doc->MirrorPolyV();
 			view->EditContour = editContour;
 		}
 		else if (ss->contains("SEND_TO_LAYER"))
@@ -2444,7 +2453,7 @@ void PageItem::restoreFill(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		fill = state->get("NEW_FILL");
 	select();
-	m_Doc->view()->ItemBrush(fill);
+	m_Doc->ItemBrush(fill);
 }
 
 void PageItem::restoreShade(SimpleState *state, bool isUndo)
@@ -2453,7 +2462,7 @@ void PageItem::restoreShade(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		shade = state->getInt("NEW_SHADE");
 	select();
-	m_Doc->view()->ItemBrushShade(shade);
+	m_Doc->ItemBrushShade(shade);
 }
 
 void PageItem::restoreLineColor(SimpleState *state, bool isUndo)
@@ -2462,7 +2471,7 @@ void PageItem::restoreLineColor(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		fill = state->get("NEW_COLOR");
 	select();
-	m_Doc->view()->ItemPen(fill);
+	m_Doc->ItemPen(fill);
 }
 
 void PageItem::restoreLineShade(SimpleState *state, bool isUndo)
@@ -2471,7 +2480,7 @@ void PageItem::restoreLineShade(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		shade = state->getInt("NEW_SHADE");
 	select();
-	m_Doc->view()->ItemPenShade(shade);
+	m_Doc->ItemPenShade(shade);
 }
 
 void PageItem::restoreFillTP(SimpleState *state, bool isUndo)
@@ -2499,7 +2508,7 @@ void PageItem::restoreLineStyle(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		ps = static_cast<PenStyle>(state->getInt("NEW_STYLE"));
 	select();
-	m_Doc->view()->ChLineArt(ps);
+	m_Doc->ChLineArt(ps);
 }
 
 void PageItem::restoreLineEnd(SimpleState *state, bool isUndo)
@@ -2508,7 +2517,7 @@ void PageItem::restoreLineEnd(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		pcs = static_cast<PenCapStyle>(state->getInt("NEW_STYLE"));
 	select();
-	m_Doc->view()->ChLineEnd(pcs);
+	m_Doc->ChLineEnd(pcs);
 }
 
 void PageItem::restoreLineJoin(SimpleState *state, bool isUndo)
@@ -2517,7 +2526,7 @@ void PageItem::restoreLineJoin(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		pjs = static_cast<PenJoinStyle>(state->getInt("NEW_STYLE"));
 	select();
-	m_Doc->view()->ChLineJoin(pjs);
+	m_Doc->ChLineJoin(pjs);
 }
 
 void PageItem::restoreLineWidth(SimpleState *state, bool isUndo)
@@ -2526,7 +2535,7 @@ void PageItem::restoreLineWidth(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		w = state->getDouble("NEW_WIDTH");
 	select();
-	m_Doc->view()->ChLineWidth(w);
+	m_Doc->ChLineWidth(w);
 }
 
 void PageItem::restoreCustomLineStyle(SimpleState *state, bool isUndo)
@@ -2562,7 +2571,7 @@ void PageItem::restoreFont(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		font = state->get("NEW_FONT");
 	select();
-	m_Doc->view()->ItemFont(font);
+	m_Doc->ItemFont(font);
 }
 
 void PageItem::restoreFontSize(SimpleState *state, bool isUndo)
@@ -2571,7 +2580,7 @@ void PageItem::restoreFontSize(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		size = state->getInt("NEW_SIZE");
 	select();
-	m_Doc->view()->chFSize(size);
+	m_Doc->chFSize(size);
 }
 
 void PageItem::restoreFontWidth(SimpleState *state, bool isUndo)
@@ -2580,7 +2589,7 @@ void PageItem::restoreFontWidth(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		width = state->getInt("NEW_WIDTH");
 	select();
-	m_Doc->view()->ItemTextScale(width);
+	m_Doc->ItemTextScale(width);
 }
 
 void PageItem::restoreFontFill(SimpleState *state, bool isUndo)
@@ -2589,7 +2598,7 @@ void PageItem::restoreFontFill(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		color = state->get("NEW_FILL");
 	select();
-	m_Doc->view()->ItemTextBrush(color);
+	m_Doc->ItemTextBrush(color);
 }
 
 void PageItem::restoreFontStroke(SimpleState *state, bool isUndo)
@@ -2598,7 +2607,7 @@ void PageItem::restoreFontStroke(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		color = state->get("NEW_STROKE");
 	select();
-	m_Doc->view()->ItemTextPen(color);
+	m_Doc->ItemTextPen(color);
 }
 
 void PageItem::restoreFontFillShade(SimpleState *state, bool isUndo)
@@ -2607,7 +2616,7 @@ void PageItem::restoreFontFillShade(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		shade = state->getInt("NEW_SHADE");
 	select();
-	m_Doc->view()->ItemTextBrushS(shade);
+	m_Doc->ItemTextBrushS(shade);
 }
 
 void PageItem::restoreFontStrokeShade(SimpleState *state, bool isUndo)
@@ -2616,7 +2625,7 @@ void PageItem::restoreFontStrokeShade(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		shade = state->getInt("NEW_SHADE");
 	select();
-	m_Doc->view()->ItemTextPenS(shade);
+	m_Doc->ItemTextPenS(shade);
 }
 
 void PageItem::restoreKerning(SimpleState *state, bool isUndo)
@@ -2625,7 +2634,7 @@ void PageItem::restoreKerning(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		kerning = state->getInt("NEW_KERNING");
 	select();
-	m_Doc->view()->chKerning(kerning);
+	m_Doc->chKerning(kerning);
 }
 
 void PageItem::restoreLineSpacing(SimpleState *state, bool isUndo)
@@ -2634,7 +2643,7 @@ void PageItem::restoreLineSpacing(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		lsp = state->getDouble("NEW_SPACING");
 	select();
-	m_Doc->view()->ChLineSpa(lsp);
+	m_Doc->ChLineSpa(lsp);
 }
 
 void PageItem::restoreLanguage(SimpleState *state, bool isUndo)
@@ -2650,7 +2659,7 @@ void PageItem::restorePStyle(SimpleState *state, bool isUndo)
 	int styleid = state->getInt("OLD_STYLE");
 	if (!isUndo)
 		styleid = state->getInt("NEW_STYLE");
-	m_Doc->view()->chAbStyle(this, styleid);
+	m_Doc->chAbStyle(this, styleid);
 }
 
 void PageItem::restoreFontEffect(SimpleState *state, bool isUndo)
@@ -2659,7 +2668,7 @@ void PageItem::restoreFontEffect(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		effect = state->getInt("NEW_EFFECT");
 	select();
-	m_Doc->view()->chTyStyle(effect);
+	m_Doc->chTyStyle(effect);
 }
 
 

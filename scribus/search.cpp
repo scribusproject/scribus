@@ -758,17 +758,17 @@ void SearchReplace::slotDoReplace()
 		if (RStyle->isChecked())
 			emit NewAbs(RStyleVal->currentItem());
 		if (RFill->isChecked())
-			ScMW->view->ItemTextBrush(RFillVal->currentText());
+			Doc->ItemTextBrush(RFillVal->currentText());
 		if (RFillS->isChecked())
-			ScMW->view->ItemTextBrushS(RFillSVal->getValue());
+			Doc->ItemTextBrushS(RFillSVal->getValue());
 		if (RStroke->isChecked())
-			ScMW->view->ItemTextPen(RStrokeVal->currentText());
+			Doc->ItemTextPen(RStrokeVal->currentText());
 		if (RStrokeS->isChecked())
-			ScMW->view->ItemTextPenS(RStrokeSVal->getValue());
+			Doc->ItemTextPenS(RStrokeSVal->getValue());
 		if (RFont->isChecked())
 			emit NewFont(RFontVal->currentText());
 		if (RSize->isChecked())
-			ScMW->view->chFSize(qRound(RSizeVal->value() * 10.0));
+			Doc->chFSize(qRound(RSizeVal->value() * 10.0));
 		if (REffect->isChecked())
 			{
 			int s = REffVal->getStyle();

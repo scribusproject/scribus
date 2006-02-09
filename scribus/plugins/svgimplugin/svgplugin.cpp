@@ -1987,8 +1987,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			int z = currDoc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, 10, 10, gc->LWidth, CommonStrings::None, gc->FillCol, true);
 			PageItem* ite = currDoc->Items->at(z);
 			ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
-			ite->LineSp = gc->FontSize / 10.0 + 2;
-			ite->setHeight(ite->LineSp+desc+2);
+			ite->setLineSpacing(gc->FontSize / 10.0 + 2);
+			ite->setHeight(ite->lineSpacing()+desc+2);
 			ScMW->SetNewFont(gc->Family);
 			QWMatrix mm = gc->matrix;
 			if( (!tspan.attribute("x").isEmpty()) && (!tspan.attribute("y").isEmpty()) )
@@ -2065,7 +2065,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 				tempW += RealCWidth(currDoc, hg->cfont, hg->ch, hg->csize)+1;
 				if (hg->ch == QChar(13))
 				{
-					ite->setWidthHeight(QMAX(ite->width(), tempW), ite->height() + ite->LineSp+desc);
+					ite->setWidthHeight(QMAX(ite->width(), tempW), ite->height() + ite->lineSpacing()+desc);
 					tempW = 0;
 				}
 			}
@@ -2108,7 +2108,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		int z = currDoc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y - qRound(gc->FontSize / 10.0), 10, 10, gc->LWidth, CommonStrings::None, gc->FillCol, true);
 		PageItem* ite = currDoc->Items->at(z);
 		ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
-		ite->LineSp = gc->FontSize / 10.0 + 2;
+		ite->setLineSpacing(gc->FontSize / 10.0 + 2);
 		ScMW->SetNewFont(gc->Family);
 		ite->setFont(gc->Family);
 		ite->TxtFill = gc->FillCol;
@@ -2162,7 +2162,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			hg->cembedded = 0;
 			ite->itemText.append(hg);
 			ite->setWidth(ite->width() + RealCWidth(currDoc, hg->cfont, hg->ch, hg->csize)+1);
-			ite->setHeight(ite->LineSp+desc+2);
+			ite->setHeight(ite->lineSpacing()+desc+2);
 		}
 		ite->SetRectFrame();
 		ScMW->view->setRedrawBounding(ite);

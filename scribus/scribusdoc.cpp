@@ -33,6 +33,8 @@ for which a new license (GPL+exception) is in place.
 #include <qprogressbar.h>
 
 #include "filewatcher.h"
+//CBVTD
+#include "hruler.h"
 #include "hyphenator.h"
 #include "layers.h"
 #include "page.h"
@@ -45,6 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "pagestructs.h"
 #include "prefsmanager.h"
+#include "scfontmetrics.h"
 #include "selection.h"
 #include "undomanager.h"
 #include "undostate.h"
@@ -272,6 +275,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	m_masterPageMode=true; // quick hack to force the change of pointers in setMasterPageMode();
 	setMasterPageMode(false);
 	addSymbols();
+	
+	connect(this, SIGNAL(changed()), ScMW, SLOT(slotDocCh()));
 }
 
 ScribusDoc::~ScribusDoc()
@@ -3484,3 +3489,1252 @@ bool ScribusDoc::bringItemSelectionToFront()
 	return false;
 }
 
+void ScribusDoc::ChLineWidth(double w)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (selectedItemCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup,
+										  Um::IGroup, Um::LineWidth, "", Um::ILineStyle);
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			PageItem *currItem = selection->itemAt(a);
+			//cb moved to setlinewidth
+			//currItem->Oldm_lineWidth = currItem->lineWidth();
+			currItem->setLineWidth(w);
+			if (currItem->asPolyLine())
+				currItem->SetPolyClip(qRound(QMAX(currItem->lineWidth() / 2, 1)));
+			if (currItem->asLine())
+			{
+				int ph = static_cast<int>(QMAX(1.0, w / 2.0));
+				currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width()+ph),-ph,
+				                  static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
+				                  -ph,static_cast<int>(currItem->height()+ph));
+			}
+			ScMW->view->RefreshItem(currItem);
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::ChLineArt(PenStyle w)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (selectedItemCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup,
+						  Um::IGroup, Um::LineStyle, "", Um::ILineStyle);
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			selection->itemAt(a)->setLineStyle(w);
+			ScMW->view->RefreshItem(selection->itemAt(a));
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::ChLineJoin(PenJoinStyle w)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (selectedItemCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup,
+										  Um::IGroup, Um::LineJoin, "", Um::ILineStyle);
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			selection->itemAt(a)->setLineJoin(w);
+			ScMW->view->RefreshItem(selection->itemAt(a));
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::ChLineEnd(PenCapStyle w)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (selectedItemCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup,
+										  Um::IGroup, Um::LineEnd, "", Um::ILineStyle);
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			selection->itemAt(a)->setLineEnd(w);
+			ScMW->view->RefreshItem(selection->itemAt(a));
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::ChLineSpa(double w)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (selectedItemCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup,
+										  Um::IGroup, Um::SetLineSpacing, QString("%1").arg(w), Um::IFont);
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			selection->itemAt(a)->setLineSpacing(w);
+			ScMW->view->RefreshItem(selection->itemAt(a));
+		}
+		docParagraphStyles[0].LineSpa = w;
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::ChLocalXY(double x, double y)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			currItem->setImageXYOffset(x, y);
+			if (currItem->imageClip.size() != 0)
+			{
+				currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
+				QWMatrix cl;
+				cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
+				cl.scale(currItem->imageXScale(), currItem->imageYScale());
+				currItem->imageClip.map(cl);
+			}
+			ScMW->view->RefreshItem(currItem);
+		}
+	}
+}
+
+void ScribusDoc::ChLocalSc(double x, double y)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			currItem->setImageXYScale(x, y);
+			if (currItem->imageClip.size() != 0)
+			{
+				currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
+				QWMatrix cl;
+				cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
+				cl.scale(currItem->imageXScale(), currItem->imageYScale());
+				currItem->imageClip.map(cl);
+			}
+			ScMW->view->RefreshItem(currItem);
+		}
+	}
+}
+
+void ScribusDoc::ItemFont(QString fon)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (selectedItemCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFont, fon, Um::IFont);
+		for (uint aa = 0; aa < selectedItemCount; ++aa)
+		{
+			PageItem *currItem = selection->itemAt(aa);
+			if (appMode == modeNormal)
+			{
+				currItem->setFont(fon);
+				if (currItem->itemText.count() != 0)
+				{
+					for (uint a = 0; a < currItem->itemText.count(); ++a)
+						currItem->itemText.at(a)->cfont = (*AllFonts)[fon];
+					if (currItem->asPathText())
+					{
+						currItem->UpdatePolyClip();
+						ScMW->view->AdjustItemSize(currItem);
+					}
+/*					if (!Doc->loading)
+						emit UpdtObj(Doc->currentPage->pageNr(), currItem->ItemNr); */
+					ScMW->view->RefreshItem(currItem);
+				}
+			}
+			if ((currItem->HasSel) && (appMode == modeEdit))
+			{
+				if (currItem->itemText.count() != 0)
+				{
+					for (uint a = 0; a < currItem->itemText.count(); ++a)
+					{
+						if (currItem->itemText.at(a)->cselect)
+							currItem->itemText.at(a)->cfont = (*AllFonts)[fon];
+					}
+					ScMW->view->RefreshItem(currItem);
+				}
+			}
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::ItemPen(QString farbe)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (farbe == ScMW->noneString)
+			farbe = CommonStrings::None;
+		if (selectedItemCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup,
+										  Um::IGroup, Um::SetLineColor, farbe, Um::IFill);
+		PageItem *i;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			i = selection->itemAt(a);
+			if ((i->asLine()) && (farbe == CommonStrings::None))
+				continue;
+
+			i->setLineColor(farbe);
+			ScMW->view->RefreshItem(i);
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::ItemTextBrush(QString farbe)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (farbe == ScMW->noneString)
+			farbe = CommonStrings::None;
+		if (selectedItemCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontFill,
+										  farbe, Um::IFont);
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			if ((currItem->asTextFrame()) || (currItem->asPathText()))
+			{
+				if (appMode != modeEdit)
+					currItem->setFontFillColor(farbe);
+				for (uint i=0; i<currItem->itemText.count(); ++i)
+				{
+					if (appMode == modeEdit)
+					{
+						if (currItem->itemText.at(i)->cselect)
+							currItem->itemText.at(i)->ccolor = farbe;
+					}
+					else
+						currItem->itemText.at(i)->ccolor = farbe;
+				}
+			}
+			ScMW->view->RefreshItem(currItem);
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::ItemTextBrushS(int sha)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		PageItem *currItem;
+		if (selection->count() > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontFillShade,
+									  QString("%1").arg(sha), Um::IFont);
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			if (currItem->asTextFrame())
+			{
+				if (appMode != modeEdit)
+					currItem->setFontFillShade(sha);
+				for (uint i=0; i<currItem->itemText.count(); ++i)
+				{
+					if (appMode == modeEdit)
+					{
+						if (currItem->itemText.at(i)->cselect)
+							currItem->itemText.at(i)->cshade = sha;
+					}
+					else
+						currItem->itemText.at(i)->cshade = sha;
+				}
+			}
+			ScMW->view->RefreshItem(currItem);
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::ItemTextPen(QString farbe)
+{
+	if (farbe == ScMW->noneString)
+		farbe = CommonStrings::None;
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (selectedItemCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontStroke,
+										  farbe, Um::IFont);
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			if ((currItem->asTextFrame()) || (currItem->asPathText()))
+			{
+				if (appMode != modeEdit)
+					currItem->setFontStrokeColor(farbe);
+				for (uint i=0; i<currItem->itemText.count(); ++i)
+				{
+					if (appMode == modeEdit)
+					{
+						if (currItem->itemText.at(i)->cselect)
+							currItem->itemText.at(i)->cstroke = farbe;
+					}
+					else
+						currItem->itemText.at(i)->cstroke = farbe;
+				}
+			}
+			ScMW->view->RefreshItem(currItem);
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::ItemTextPenS(int sha)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (selectedItemCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontStrokeShade,
+									  QString("%1").arg(sha), Um::IFont);
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			if (currItem->asTextFrame())
+			{
+				if (appMode != modeEdit)
+					currItem->setFontStrokeShade(sha);
+				for (uint i=0; i<currItem->itemText.count(); ++i)
+				{
+					if (appMode == modeEdit)
+					{
+						if (currItem->itemText.at(i)->cselect)
+							currItem->itemText.at(i)->cshade2 = sha;
+					}
+					else
+						currItem->itemText.at(i)->cshade2 = sha;
+				}
+			}
+			ScMW->view->RefreshItem(currItem);
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::ItemTextScaleV(int sha)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (selectedItemCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontHeight, QString("%1").arg(sha), Um::IFont);
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			if ((currItem->asTextFrame()) || (currItem->asPathText()))
+			{
+				if (appMode != modeEdit)
+					currItem->setFontHeight(sha);
+				for (uint i=0; i<currItem->itemText.count(); ++i)
+				{
+					if (appMode == modeEdit)
+					{
+						if (currItem->itemText.at(i)->cselect)
+							currItem->itemText.at(i)->cscalev = sha;
+					}
+					else
+						currItem->itemText.at(i)->cscalev = sha;
+				}
+			}
+			ScMW->view->RefreshItem(currItem);
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::ItemTextScale(int sha)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (selectedItemCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontWidth,
+										  QString("%1").arg(sha), Um::IFont);
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			if ((currItem->asTextFrame()) || (currItem->asPathText()))
+			{
+				if (appMode != modeEdit)
+					currItem->setFontWidth(sha);
+				for (uint i=0; i<currItem->itemText.count(); ++i)
+				{
+					if (appMode == modeEdit)
+					{
+						if (currItem->itemText.at(i)->cselect)
+							currItem->itemText.at(i)->cscale = sha;
+					}
+					else
+						currItem->itemText.at(i)->cscale = sha;
+				}
+			}
+			ScMW->view->RefreshItem(currItem);
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::setItemTextShadow(int shx, int shy)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			if ((currItem->asTextFrame()) || (currItem->asPathText()))
+			{
+				if (appMode != modeEdit)
+				{
+					currItem->TxtShadowX = shx;
+					currItem->TxtShadowY = shy;
+				}
+				for (uint i=0; i<currItem->itemText.count(); ++i)
+				{
+					if (appMode == modeEdit)
+					{
+						if (currItem->itemText.at(i)->cselect)
+						{
+							currItem->itemText.at(i)->cshadowx = shx;
+							currItem->itemText.at(i)->cshadowy = shy;
+						}
+					}
+					else
+					{
+						currItem->itemText.at(i)->cshadowx = shx;
+						currItem->itemText.at(i)->cshadowy = shy;
+					}
+				}
+			}
+			ScMW->view->RefreshItem(currItem);
+		}
+	}
+}
+
+void ScribusDoc::setItemTextUnderline(int pos, int wid)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			if ((currItem->asTextFrame()) || (currItem->asPathText()))
+			{
+				if (appMode != modeEdit)
+				{
+					currItem->TxtUnderPos = pos;
+					currItem->TxtUnderWidth = wid;
+				}
+				for (uint i=0; i<currItem->itemText.count(); ++i)
+				{
+					if (appMode == modeEdit)
+					{
+						if (currItem->itemText.at(i)->cselect)
+						{
+							currItem->itemText.at(i)->cunderpos = pos;
+							currItem->itemText.at(i)->cunderwidth = wid;
+						}
+					}
+					else
+					{
+						currItem->itemText.at(i)->cunderpos = pos;
+						currItem->itemText.at(i)->cunderwidth = wid;
+					}
+				}
+			}
+			ScMW->view->RefreshItem(currItem);
+		}
+	}
+}
+
+void ScribusDoc::setItemTextStrike(int pos, int wid)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			if ((currItem->asTextFrame()) || (currItem->asPathText()))
+			{
+				if (appMode != modeEdit)
+				{
+					currItem->TxtStrikePos = pos;
+					currItem->TxtStrikeWidth = wid;
+				}
+				for (uint i=0; i<currItem->itemText.count(); ++i)
+				{
+					if (appMode == modeEdit)
+					{
+						if (currItem->itemText.at(i)->cselect)
+						{
+							currItem->itemText.at(i)->cstrikepos = pos;
+							currItem->itemText.at(i)->cstrikewidth = wid;
+						}
+					}
+					else
+					{
+						currItem->itemText.at(i)->cstrikepos = pos;
+						currItem->itemText.at(i)->cstrikewidth = wid;
+					}
+				}
+			}
+			ScMW->view->RefreshItem(currItem);
+		}
+	}
+}
+
+void ScribusDoc::setItemTextBase(int sha)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			if ((currItem->asTextFrame()) || (currItem->asPathText()))
+			{
+				if (appMode != modeEdit)
+					currItem->TxtBase = sha;
+				for (uint i=0; i<currItem->itemText.count(); ++i)
+				{
+					if (appMode == modeEdit)
+					{
+						if (currItem->itemText.at(i)->cselect)
+							currItem->itemText.at(i)->cbase = sha;
+					}
+					else
+						currItem->itemText.at(i)->cbase = sha;
+				}
+			}
+			ScMW->view->RefreshItem(currItem);
+		}
+	}
+}
+
+void ScribusDoc::setItemTextOutline(int sha)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			if ((currItem->asTextFrame()) || (currItem->asPathText()))
+			{
+				if (appMode != modeEdit)
+					currItem->TxtOutline = sha;
+				for (uint i=0; i<currItem->itemText.count(); ++i)
+				{
+					if (appMode == modeEdit)
+					{
+						if (currItem->itemText.at(i)->cselect)
+							currItem->itemText.at(i)->coutline = sha;
+					}
+					else
+						currItem->itemText.at(i)->coutline = sha;
+				}
+			}
+			ScMW->view->RefreshItem(currItem);
+		}
+	}
+}
+
+void ScribusDoc::ItemBrush(QString farbe)
+{
+	if (farbe == ScMW->noneString)
+		farbe = CommonStrings::None;
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (selectedItemCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup,
+										  Um::IGroup, Um::SetFill, farbe, Um::IFill);
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			currItem->setFillColor(farbe);
+			ScMW->view->RefreshItem(currItem);
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::ItemBrushShade(int sha)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (selectedItemCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup,
+										  Um::IGroup, Um::SetShade, QString("%1").arg(sha),
+										  Um::IShade);
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			currItem->setFillShade(sha);
+			ScMW->view->RefreshItem(currItem);
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::ItemPenShade(int sha)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		PageItem *currItem;
+		if (selectedItemCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup,
+							Um::IGroup, Um::SetLineShade, QString("%1").arg(sha), Um::IShade);
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			currItem->setLineShade(sha);
+			ScMW->view->RefreshItem(currItem);
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::ItemGradFill(int typ)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = selection->itemAt(a);
+			currItem->GrType = typ;
+			currItem->updateGradientVectors();
+			ScMW->view->RefreshItem(currItem);
+		}
+	}
+}
+
+void ScribusDoc::chTyStyle(int s)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (selectedItemCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontEffect, "", Um::IFont);
+		for (uint aa = 0; aa < selectedItemCount; ++aa)
+		{
+			PageItem *currItem = selection->itemAt(aa);
+			if (appMode != modeEdit)
+				currItem->setFontEffects(s);
+			if (currItem->itemText.count() != 0)
+			{
+				if (appMode == modeEdit)
+				{
+					for (uint a = 0; a < currItem->itemText.count(); ++a)
+					{
+						if (currItem->itemText.at(a)->cselect)
+						{
+							currItem->itemText.at(a)->cstyle &= ~1919;
+							currItem->itemText.at(a)->cstyle |= s;
+						}
+					}
+				}
+				else
+				{
+					for (uint a = 0; a < currItem->itemText.count(); ++a)
+					{
+						currItem->itemText.at(a)->cstyle &= ~1919;
+						currItem->itemText.at(a)->cstyle |= s;
+					}
+				}
+				ScMW->view->RefreshItem(currItem);
+			}
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::SetAbStyle(int s)
+{
+	PageItem *currItem;
+	if (ScMW->view->GetItem(&currItem))
+		chAbStyle(currItem, s);
+}
+
+void ScribusDoc::chAbStyle(PageItem *currItem, int s)
+{
+	int a, ax;
+	PageItem *nextItem;
+	bool cr = true;
+	if (appMode == modeEdit)
+	{
+		nextItem = currItem;
+		a = currItem->CPos;
+		if (a == static_cast<int>(nextItem->itemText.count()))
+			a -= 1;
+		while ((cr) && (nextItem != 0))
+		{
+			if (nextItem->itemText.count() == 0)
+			{
+				nextItem = nextItem->BackBox;
+				if (nextItem == 0)
+				{
+					cr = false;
+					break;
+				}
+				a = static_cast<int>(nextItem->itemText.count()-1);
+			}
+			ax = a;
+			for (int xx=0; xx<ax+1; ++xx)
+			{
+				if (nextItem->itemText.at(a)->ch == QChar(13))
+				{
+					cr = false;
+					break;
+				}
+				if (s > 4)
+				{
+					if (!docParagraphStyles[s].Font.isEmpty()
+						&& (!nextItem->HasSel || nextItem->itemText.at(a)->cselect))
+					{
+						nextItem->itemText.at(a)->cfont = (*AllFonts)[docParagraphStyles[s].Font];
+						nextItem->itemText.at(a)->csize = docParagraphStyles[s].FontSize;
+						nextItem->itemText.at(a)->cstyle &= ~1919;
+						nextItem->itemText.at(a)->cstyle |= docParagraphStyles[s].FontEffect;
+						nextItem->itemText.at(a)->ccolor = docParagraphStyles[s].FColor;
+						nextItem->itemText.at(a)->cshade = docParagraphStyles[s].FShade;
+						nextItem->itemText.at(a)->cstroke = docParagraphStyles[s].SColor;
+						nextItem->itemText.at(a)->cshade2 = docParagraphStyles[s].SShade;
+						nextItem->itemText.at(a)->cshadowx = docParagraphStyles[s].txtShadowX;
+						nextItem->itemText.at(a)->cshadowy = docParagraphStyles[s].txtShadowY;
+						nextItem->itemText.at(a)->coutline = docParagraphStyles[s].txtOutline;
+						nextItem->itemText.at(a)->cunderpos = docParagraphStyles[s].txtUnderPos;
+						nextItem->itemText.at(a)->cunderwidth = docParagraphStyles[s].txtUnderWidth;
+						nextItem->itemText.at(a)->cstrikepos = docParagraphStyles[s].txtStrikePos;
+						nextItem->itemText.at(a)->cstrikewidth = docParagraphStyles[s].txtStrikeWidth;
+						nextItem->itemText.at(a)->cscale = docParagraphStyles[s].scaleH;
+						nextItem->itemText.at(a)->cscalev = docParagraphStyles[s].scaleV;
+						nextItem->itemText.at(a)->cbase = docParagraphStyles[s].baseOff;
+						nextItem->itemText.at(a)->cextra = docParagraphStyles[s].kernVal;
+					}
+				}
+				if ((s < 5) && (nextItem->itemText.at(a)->cab > 4))
+				{
+					nextItem->itemText.at(a)->ccolor = nextItem->TxtFill;
+					nextItem->itemText.at(a)->cshade = nextItem->ShTxtFill;
+					nextItem->itemText.at(a)->cstroke = nextItem->TxtStroke;
+					nextItem->itemText.at(a)->cshade2 = nextItem->ShTxtStroke;
+					nextItem->itemText.at(a)->csize = nextItem->fontSize();
+					nextItem->itemText.at(a)->cfont = (*AllFonts)[nextItem->font()];
+					nextItem->itemText.at(a)->cstyle &= ~1919;
+					nextItem->itemText.at(a)->cstyle |= nextItem->TxTStyle;
+					nextItem->itemText.at(a)->cshadowx = nextItem->TxtShadowX;
+					nextItem->itemText.at(a)->cshadowy = nextItem->TxtShadowY;
+					nextItem->itemText.at(a)->coutline = nextItem->TxtOutline;
+					nextItem->itemText.at(a)->cunderpos = nextItem->TxtUnderPos;
+					nextItem->itemText.at(a)->cunderwidth = nextItem->TxtUnderWidth;
+					nextItem->itemText.at(a)->cstrikepos = nextItem->TxtStrikePos;
+					nextItem->itemText.at(a)->cstrikewidth = nextItem->TxtStrikeWidth;
+					nextItem->itemText.at(a)->cscale = nextItem->TxtScale;
+					nextItem->itemText.at(a)->cscalev = nextItem->TxtScaleV;
+					nextItem->itemText.at(a)->cbase = nextItem->TxtBase;
+					nextItem->itemText.at(a)->cextra = nextItem->ExtraV;
+				}
+				nextItem->itemText.at(a)->cab = s;
+				a--;
+			}
+			if (cr)
+			{
+				nextItem = nextItem->BackBox;
+				if (nextItem != 0)
+					a = static_cast<int>(nextItem->itemText.count()-1);
+			}
+		}
+		a = currItem->CPos;
+		cr = true;
+		nextItem = currItem;
+		if (a == static_cast<int>(nextItem->itemText.count()))
+			cr = false;
+		while ((cr) && (nextItem != 0))
+		{
+			while (a < static_cast<int>(nextItem->itemText.count()))
+			{
+				if (s > 4)
+				{
+					if (!docParagraphStyles[s].Font.isEmpty()
+						&& (!nextItem->HasSel || nextItem->itemText.at(a)->cselect))
+					{
+						nextItem->itemText.at(a)->cfont = (*AllFonts)[docParagraphStyles[s].Font];
+						nextItem->itemText.at(a)->csize = docParagraphStyles[s].FontSize;
+						nextItem->itemText.at(a)->cstyle &= ~1919;
+						nextItem->itemText.at(a)->cstyle |= docParagraphStyles[s].FontEffect;
+						nextItem->itemText.at(a)->ccolor = docParagraphStyles[s].FColor;
+						nextItem->itemText.at(a)->cshade = docParagraphStyles[s].FShade;
+						nextItem->itemText.at(a)->cstroke = docParagraphStyles[s].SColor;
+						nextItem->itemText.at(a)->cshade2 = docParagraphStyles[s].SShade;
+						nextItem->itemText.at(a)->cshadowx = docParagraphStyles[s].txtShadowX;
+						nextItem->itemText.at(a)->cshadowy = docParagraphStyles[s].txtShadowY;
+						nextItem->itemText.at(a)->coutline = docParagraphStyles[s].txtOutline;
+						nextItem->itemText.at(a)->cunderpos = docParagraphStyles[s].txtUnderPos;
+						nextItem->itemText.at(a)->cunderwidth = docParagraphStyles[s].txtUnderWidth;
+						nextItem->itemText.at(a)->cstrikepos = docParagraphStyles[s].txtStrikePos;
+						nextItem->itemText.at(a)->cstrikewidth = docParagraphStyles[s].txtStrikeWidth;
+						nextItem->itemText.at(a)->cscale = docParagraphStyles[s].scaleH;
+						nextItem->itemText.at(a)->cscalev = docParagraphStyles[s].scaleV;
+						nextItem->itemText.at(a)->cbase = docParagraphStyles[s].baseOff;
+						nextItem->itemText.at(a)->cextra = docParagraphStyles[s].kernVal;
+					}
+				}
+				if ((s < 5) && (nextItem->itemText.at(a)->cab > 4))
+				{
+					nextItem->itemText.at(a)->ccolor = nextItem->TxtFill;
+					nextItem->itemText.at(a)->cshade = nextItem->ShTxtFill;
+					nextItem->itemText.at(a)->cstroke = nextItem->TxtStroke;
+					nextItem->itemText.at(a)->cshade2 = nextItem->ShTxtStroke;
+					nextItem->itemText.at(a)->csize = nextItem->fontSize();
+					nextItem->itemText.at(a)->cfont = (*AllFonts)[nextItem->font()];
+					nextItem->itemText.at(a)->cstyle &= ~1919;
+					nextItem->itemText.at(a)->cstyle |= nextItem->TxTStyle;
+					nextItem->itemText.at(a)->cshadowx = nextItem->TxtShadowX;
+					nextItem->itemText.at(a)->cshadowy = nextItem->TxtShadowY;
+					nextItem->itemText.at(a)->coutline = nextItem->TxtOutline;
+					nextItem->itemText.at(a)->cunderpos = nextItem->TxtUnderPos;
+					nextItem->itemText.at(a)->cunderwidth = nextItem->TxtUnderWidth;
+					nextItem->itemText.at(a)->cstrikepos = nextItem->TxtStrikePos;
+					nextItem->itemText.at(a)->cstrikewidth = nextItem->TxtStrikeWidth;
+					nextItem->itemText.at(a)->cscale = nextItem->TxtScale;
+					nextItem->itemText.at(a)->cscalev = nextItem->TxtScaleV;
+					nextItem->itemText.at(a)->cbase = nextItem->TxtBase;
+					nextItem->itemText.at(a)->cextra = nextItem->ExtraV;
+				}
+				nextItem->itemText.at(a)->cab = s;
+				if ((nextItem->itemText.at(a)->ch == QChar(13)) && (!nextItem->itemText.at(a)->cselect))
+				{
+					cr = false;
+					break;
+				}
+				++a;
+			}
+			if (cr)
+			{
+				nextItem = nextItem->NextBox;
+				a = 0;
+			}
+		}
+	}
+	else
+	{
+		if (UndoManager::undoEnabled())
+		{
+			SimpleState *ss = new SimpleState(s > 4 ? Um::SetStyle : Um::AlignText, "", Um::IFont);
+			ss->set("PSTYLE", "pstyle");
+			ss->set("OLD_STYLE", currItem->textAlignment);
+			ss->set("NEW_STYLE", s);
+			undoManager->action(currItem, ss);
+		}
+		currItem->textAlignment = s;
+		if (currItem->itemText.count() != 0)
+		{
+			for (a = 0; a < static_cast<int>(currItem->itemText.count()); ++a)
+			{
+				if (s > 4)
+				{
+					if (!docParagraphStyles[s].Font.isEmpty())
+					{
+						currItem->itemText.at(a)->cfont = (*AllFonts)[docParagraphStyles[s].Font];
+						currItem->itemText.at(a)->csize = docParagraphStyles[s].FontSize;
+						currItem->itemText.at(a)->cstyle &= ~1919;
+						currItem->itemText.at(a)->cstyle |= docParagraphStyles[s].FontEffect;
+						currItem->itemText.at(a)->ccolor = docParagraphStyles[s].FColor;
+						currItem->itemText.at(a)->cshade = docParagraphStyles[s].FShade;
+						currItem->itemText.at(a)->cstroke = docParagraphStyles[s].SColor;
+						currItem->itemText.at(a)->cshade2 = docParagraphStyles[s].SShade;
+						currItem->itemText.at(a)->cshadowx = docParagraphStyles[s].txtShadowX;
+						currItem->itemText.at(a)->cshadowy = docParagraphStyles[s].txtShadowY;
+						currItem->itemText.at(a)->coutline = docParagraphStyles[s].txtOutline;
+						currItem->itemText.at(a)->cunderpos = docParagraphStyles[s].txtUnderPos;
+						currItem->itemText.at(a)->cunderwidth = docParagraphStyles[s].txtUnderWidth;
+						currItem->itemText.at(a)->cstrikepos = docParagraphStyles[s].txtStrikePos;
+						currItem->itemText.at(a)->cstrikewidth = docParagraphStyles[s].txtStrikeWidth;
+						currItem->itemText.at(a)->cscale = docParagraphStyles[s].scaleH;
+						currItem->itemText.at(a)->cscalev = docParagraphStyles[s].scaleV;
+						currItem->itemText.at(a)->cbase = docParagraphStyles[s].baseOff;
+						currItem->itemText.at(a)->cextra = docParagraphStyles[s].kernVal;
+					}
+				}
+				if ((s < 5) && (currItem->itemText.at(a)->cab > 4))
+				{
+					currItem->itemText.at(a)->ccolor = currItem->TxtFill;
+					currItem->itemText.at(a)->cshade = currItem->ShTxtFill;
+					currItem->itemText.at(a)->cstroke = currItem->TxtStroke;
+					currItem->itemText.at(a)->cshade2 = currItem->ShTxtStroke;
+					currItem->itemText.at(a)->cfont = (*AllFonts)[currItem->font()];
+					currItem->itemText.at(a)->csize = currItem->fontSize();
+					currItem->itemText.at(a)->cstyle &= ~1919;
+					currItem->itemText.at(a)->cstyle |= currItem->TxTStyle;
+					currItem->itemText.at(a)->cshadowx = currItem->TxtShadowX;
+					currItem->itemText.at(a)->cshadowy = currItem->TxtShadowY;
+					currItem->itemText.at(a)->coutline = currItem->TxtOutline;
+					currItem->itemText.at(a)->cunderpos = currItem->TxtUnderPos;
+					currItem->itemText.at(a)->cunderwidth = currItem->TxtUnderWidth;
+					currItem->itemText.at(a)->cstrikepos = currItem->TxtStrikePos;
+					currItem->itemText.at(a)->cstrikewidth = currItem->TxtStrikeWidth;
+					currItem->itemText.at(a)->cscale = currItem->TxtScale;
+					currItem->itemText.at(a)->cscalev = currItem->TxtScaleV;
+					currItem->itemText.at(a)->cbase = currItem->TxtBase;
+					currItem->itemText.at(a)->cextra = currItem->ExtraV;
+				}
+				currItem->itemText.at(a)->cab = s;
+			}
+		}
+	}
+	if (!currItem->Tinput)
+		ScMW->view->RefreshItem(currItem);
+	if (appMode == modeEdit)
+	{
+		ScMW->view->horizRuler->setItemPosition(currItem->xPos(), currItem->width());
+		if (currItem->lineColor() != CommonStrings::None)
+			ScMW->view->horizRuler->lineCorr = currItem->lineWidth() / 2.0;
+		else
+			ScMW->view->horizRuler->lineCorr = 0;
+		ScMW->view->horizRuler->ColGap = currItem->ColGap;
+		ScMW->view->horizRuler->Cols = currItem->Cols;
+		ScMW->view->horizRuler->Extra = currItem->textToFrameDistLeft();
+		ScMW->view->horizRuler->RExtra = currItem->textToFrameDistRight();
+		ScMW->view->horizRuler->First = docParagraphStyles[s].First;
+		ScMW->view->horizRuler->Indent = docParagraphStyles[s].Indent;
+		ScMW->view->horizRuler->Revers = (currItem->imageFlippedH() || (currItem->reversed()));
+		ScMW->view->horizRuler->ItemPosValid = true;
+		if (s < 5)
+			ScMW->view->horizRuler->TabValues = currItem->TabValues;
+		else
+			ScMW->view->horizRuler->TabValues = docParagraphStyles[s].TabValues;
+		ScMW->view->horizRuler->repaint();
+	}
+}
+
+void ScribusDoc::chKerning(int us)
+{
+	uint docSelectionCount=selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetKerning,
+										  QString("%1").arg(us), Um::IFont);
+		for (uint aa = 0; aa < docSelectionCount; ++aa)
+		{
+			PageItem *currItem = selection->itemAt(aa);
+			if ((currItem->HasSel) && (appMode == modeEdit))
+			{
+				if (currItem->itemText.count() != 0)
+				{
+					for (uint a = 0; a < currItem->itemText.count(); ++a)
+					{
+						if (currItem->itemText.at(a)->cselect)
+							currItem->itemText.at(a)->cextra = us;
+					}
+					ScMW->view->RefreshItem(currItem);
+				}
+			}
+			else
+			{
+				if (appMode != modeEdit)
+					currItem->setKerning(us);
+				if (currItem->itemText.count() != 0)
+				{
+					for (uint a = 0; a < currItem->itemText.count(); ++a)
+					{
+						currItem->itemText.at(a)->cextra = us;
+					}
+					ScMW->view->RefreshItem(currItem);
+				}
+			}
+		}
+		if (docSelectionCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::ChLineSpaMode(int w)
+{
+	if (appMode != modeEdit)
+	{
+		if (selection->count() != 0)
+		{
+			for (uint a = 0; a < selection->count(); ++a)
+			{
+				PageItem* currItem = selection->itemAt(a);
+				currItem->setLineSpacingMode(w);
+				if (w == 0)
+				{
+					currItem->setLineSpacing(((currItem->fontSize() / 10.0) * static_cast<double>(typographicSettings.autoLineSpacing) / 100) + (currItem->fontSize() / 10.0));
+					docParagraphStyles[0].BaseAdj = false;
+				}
+				else if (w == 1)
+				{
+					docParagraphStyles[0].BaseAdj = false;
+					currItem->setLineSpacing(RealFHeight(this, (*AllFonts)[currItem->font()], currItem->fontSize()));
+				}
+				else
+				{
+					docParagraphStyles[0].BaseAdj = true;
+					currItem->setLineSpacing(typographicSettings.valueBaseGrid-1);
+				}
+				docParagraphStyles[0].LineSpa = currItem->lineSpacing();
+				ScMW->view->RefreshItem(currItem);
+			}
+			docParagraphStyles[0].LineSpaMode = w;
+		}
+	}
+}
+
+void ScribusDoc::chFSize(int size)
+{
+	uint docSelectionCount=selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontSize,
+										  QString("%1").arg(size/10.0), Um::IFont);
+		for (uint aa = 0; aa < docSelectionCount; ++aa)
+		{
+			PageItem *currItem = selection->itemAt(0);
+			CurrFontSize = size;
+			if (appMode != modeEdit)
+			{
+				if (currItem->lineSpacingMode() == 0)
+				{
+					currItem->setLineSpacing(((size / 10.0) * static_cast<double>(typographicSettings.autoLineSpacing) / 100) + (size / 10.0));
+					docParagraphStyles[0].LineSpa = currItem->lineSpacing();
+				}
+				else if (currItem->lineSpacingMode() == 1)
+				{
+					currItem->setLineSpacing(RealFHeight(this, (*AllFonts)[currItem->font()], currItem->fontSize()));
+					docParagraphStyles[0].LineSpa = currItem->lineSpacing();
+				}
+				else
+				{
+					currItem->setLineSpacing(typographicSettings.valueBaseGrid-1);
+				}
+				currItem->setFontSize(size);
+				//CB move from view to doc.. why are we emitting column data here?
+				//emit ItemTextCols(currItem->Cols, currItem->ColGap);
+			}
+			uint currItemTextCount=currItem->itemText.count();
+			if (currItemTextCount != 0)
+			{
+				if (appMode == modeEdit)
+				{
+					for (uint a = 0; a < currItemTextCount; ++a)
+					{
+						if (currItem->itemText.at(a)->cselect)
+							currItem->itemText.at(a)->csize = size;
+					}
+				}
+				else
+				{
+					for (uint a = 0; a < currItemTextCount; ++a)
+					{
+						if (currItem->itemText.at(a)->cab < 5)
+							currItem->itemText.at(a)->csize = size;
+					}
+				}
+				if (currItem->asPathText())
+				{
+					currItem->UpdatePolyClip();
+					ScMW->view->AdjustItemSize(currItem);
+				}
+				ScMW->view->RefreshItem(currItem);
+			}
+		}
+		if (docSelectionCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::FlipImageH()
+{
+	uint docSelectionCount=selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
+										  Um::FlipH, 0, Um::IFlipH);
+		for (uint a = 0; a < docSelectionCount; ++a)
+		{
+			selection->itemAt(a)->flipImageH();
+			ScMW->view->RefreshItem(selection->itemAt(a));
+		}
+		emit changed();
+		if (docSelectionCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::FlipImageV()
+{
+	uint docSelectionCount=selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
+										  Um::FlipV, 0, Um::IFlipV);
+		for (uint a = 0; a < docSelectionCount; ++a)
+		{
+			selection->itemAt(a)->flipImageV();
+			ScMW->view->RefreshItem(selection->itemAt(a));
+		}
+		emit changed();
+		if (docSelectionCount > 1)
+			undoManager->commit();
+	}
+}
+
+void ScribusDoc::MirrorPolyH()
+{
+	PageItem *currItem = selection->itemAt(0);
+	currItem->ClipEdited = true;
+	QWMatrix ma;
+	if (ScMW->view->EditContour)
+	{
+		if (UndoManager::undoEnabled())
+		{
+			SimpleState *ss = new SimpleState(Um::FlipH, "", Um::IFlipH);
+			ss->set("MIRROR_PATH_H", "mirror_path_h");
+			ss->set("IS_CONTOUR", true);
+			undoManager->action(currItem, ss, Um::IBorder);
+		}
+		FPoint tp2(getMinClipF(&currItem->ContourLine));
+		FPoint tp(getMaxClipF(&currItem->ContourLine));
+		ma.translate(qRound(tp.x()), 0);
+		ma.scale(-1, 1);
+		currItem->ContourLine.map(ma);
+		ScMW->view->updateContents();
+		currItem->FrameOnly = true;
+		currItem->Tinput = true;
+		currItem->paintObj();
+		currItem->FrameOnly = false;
+		ScMW->view->MarkClip(currItem, currItem->ContourLine, true);
+		emit changed();
+		return;
+	}
+	ma.scale(-1, 1);
+	currItem->PoLine.map(ma);
+	currItem->PoLine.translate(currItem->width(), 0);
+	if (currItem->asPathText())
+		currItem->UpdatePolyClip();
+	else
+		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+	ScMW->view->setRedrawBounding(currItem);
+	ScMW->view->RefreshItem(currItem);
+	//MarkClip(currItem, currItem->PoLine, true);
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::FlipH, "", Um::IFlipH);
+		ss->set("MIRROR_PATH_H", "mirror_path_h");
+		ss->set("IS_CONTOUR", false);
+		undoManager->action(currItem, ss, Um::IBorder);
+	}
+	emit changed();
+}
+
+void ScribusDoc::MirrorPolyV()
+{
+	PageItem *currItem = selection->itemAt(0);
+	currItem->ClipEdited = true;
+	QWMatrix ma;
+	if (ScMW->view->EditContour)
+	{
+		if (UndoManager::undoEnabled())
+		{
+			SimpleState *ss = new SimpleState(Um::FlipV, "", Um::IFlipV);
+			ss->set("MIRROR_PATH_V", "mirror_path_v");
+			ss->set("IS_CONTOUR", true);
+			undoManager->action(currItem, ss, Um::IBorder);
+		}
+		FPoint tp2(getMinClipF(&currItem->ContourLine));
+		FPoint tp(getMaxClipF(&currItem->ContourLine));
+		ma.translate(0, qRound(tp.y()));
+		ma.scale(1, -1);
+		currItem->ContourLine.map(ma);
+		ScMW->view->updateContents();
+		currItem->FrameOnly = true;
+		currItem->Tinput = true;
+		currItem->paintObj();
+		currItem->FrameOnly = false;
+		ScMW->view->MarkClip(currItem, currItem->ContourLine, true);
+		emit changed();
+		return;
+	}
+	ma.scale(1, -1);
+	currItem->PoLine.map(ma);
+	currItem->PoLine.translate(0, currItem->height());
+	if (currItem->asPathText())
+		currItem->UpdatePolyClip();
+	else
+		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+	ScMW->view->setRedrawBounding(currItem);
+	ScMW->view->RefreshItem(currItem);
+	//MarkClip(currItem, currItem->PoLine, true);
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::FlipV, "", Um::IFlipV);
+		ss->set("MIRROR_PATH_V", "mirror_path_v");
+		ss->set("IS_CONTOUR", false);
+		undoManager->action(currItem, ss, Um::IBorder);
+	}
+	emit changed();
+}

@@ -1779,7 +1779,7 @@ void Mpalette::setLspMode(int id)
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->ChLineSpaMode(lineSpacingPop->indexOf(id));
+		doc->ChLineSpaMode(lineSpacingPop->indexOf(id));
 		emit DocChanged();
 	}
 }
@@ -1793,7 +1793,7 @@ void Mpalette::setLsp(double r)
 	LineSp->setValue(r);
 	if (tmp)
 	{
-		if (CurItem->LineSpMode > 0)
+		if (CurItem->lineSpacingMode() > 0)
 			LineSp->setEnabled(false);
 		else
 			LineSp->setEnabled(true);
@@ -1801,7 +1801,7 @@ void Mpalette::setLsp(double r)
 		{
 			lineSpacingPop->setItemChecked(lineSpacingPop->idAt(al), false);
 		}
-		lineSpacingPop->setItemChecked(lineSpacingPop->idAt(CurItem->LineSpMode), true);
+		lineSpacingPop->setItemChecked(lineSpacingPop->idAt(CurItem->lineSpacingMode()), true);
 	}
 	HaveItem = tmp;
 }
@@ -2031,7 +2031,7 @@ void Mpalette::NewTScaleV()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->ItemTextScaleV(qRound(ChScaleV->value() * 10));
+		doc->ItemTextScaleV(qRound(ChScaleV->value() * 10));
 		doc->CurrTextScaleV = qRound(ChScaleV->value() * 10);
 		emit DocChanged();
 	}
@@ -2041,7 +2041,7 @@ void Mpalette::NewTBase()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->setItemTextBase(qRound(ChBase->value() * 10));
+		doc->setItemTextBase(qRound(ChBase->value() * 10));
 		doc->CurrTextBase = qRound(ChBase->value() * 10);
 		emit DocChanged();
 	}
@@ -2071,7 +2071,7 @@ void Mpalette::NewTScale()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->ItemTextScale(qRound(ChScale->value() * 10));
+		doc->ItemTextScale(qRound(ChScale->value() * 10));
 		doc->CurrTextScale = qRound(ChScale->value() * 10);
 		emit DocChanged();
 	}
@@ -2433,7 +2433,7 @@ void Mpalette::NewLsp()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->ChLineSpa(LineSp->value());
+		doc->ChLineSpa(LineSp->value());
 		emit DocChanged();
 	}
 }
@@ -2494,7 +2494,7 @@ void Mpalette::NewSize()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->chFSize(qRound(Size->value()*10.0));
+		doc->chFSize(qRound(Size->value()*10.0));
 		emit DocChanged();
 	}
 }
@@ -2507,7 +2507,7 @@ void Mpalette::NewExtra()
 	{
 		if ((CurItem->HasSel) || (doc->appMode == modeNormal))
 		{
-			ScMW->view->chKerning(qRound(Extra->value() * 10.0));
+			doc->chKerning(qRound(Extra->value() * 10.0));
 			emit DocChanged();
 		}
 		else
@@ -2528,7 +2528,7 @@ void Mpalette::NewLocalXY()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->ChLocalXY(LXpos->value() / Umrech / CurItem->imageXScale(), LYpos->value() / Umrech / CurItem->imageYScale());
+		doc->ChLocalXY(LXpos->value() / Umrech / CurItem->imageXScale(), LYpos->value() / Umrech / CurItem->imageYScale());
 		emit DocChanged();
 	}
 }
@@ -2539,8 +2539,8 @@ void Mpalette::NewLocalSC()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->ChLocalSc(ScaleX->value() / 100.0 / CurItem->pixm.imgInfo.xres * 72.0, ScaleY->value() / 100.0 / CurItem->pixm.imgInfo.yres * 72.0);
-		ScMW->view->ChLocalXY(LXpos->value() / Umrech / CurItem->imageXScale(), LYpos->value() / Umrech / CurItem->imageYScale());
+		doc->ChLocalSc(ScaleX->value() / 100.0 / CurItem->pixm.imgInfo.xres * 72.0, ScaleY->value() / 100.0 / CurItem->pixm.imgInfo.yres * 72.0);
+		doc->ChLocalXY(LXpos->value() / Umrech / CurItem->imageXScale(), LYpos->value() / Umrech / CurItem->imageYScale());
 		disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
 		disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
 		imgDpiX->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0);
@@ -2557,8 +2557,8 @@ void Mpalette::NewLocalDpi()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->ChLocalSc(72.0 / imgDpiX->value(), 72.0 / imgDpiY->value());
-		ScMW->view->ChLocalXY(LXpos->value() / Umrech / CurItem->imageXScale(), LYpos->value() / Umrech / CurItem->imageYScale());
+		doc->ChLocalSc(72.0 / imgDpiX->value(), 72.0 / imgDpiY->value());
+		doc->ChLocalXY(LXpos->value() / Umrech / CurItem->imageXScale(), LYpos->value() / Umrech / CurItem->imageYScale());
 		disconnect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
 		disconnect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 		ScaleX->setValue(CurItem->imageXScale() * 100 / 72.0 * CurItem->pixm.imgInfo.xres);
@@ -2575,7 +2575,7 @@ void Mpalette::NewLS()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->ChLineWidth(LSize->value());
+		doc->ChLineWidth(LSize->value());
 		emit DocChanged();
 	}
 }
@@ -2629,7 +2629,7 @@ void Mpalette::NewLSty()
 	}
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->ChLineArt(c);
+		doc->ChLineArt(c);
 		emit DocChanged();
 	}
 }
@@ -2683,7 +2683,7 @@ void Mpalette::NewLJoin()
 	}
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->ChLineJoin(c);
+		doc->ChLineJoin(c);
 		emit DocChanged();
 	}
 }
@@ -2707,7 +2707,7 @@ void Mpalette::NewLEnd()
 	}
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->ChLineEnd(c);
+		doc->ChLineEnd(c);
 		emit DocChanged();
 	}
 }
@@ -2799,9 +2799,9 @@ void Mpalette::DoFlipH()
 	if ((HaveDoc) && (HaveItem))
 	{
 		if ((CurItem->itemType() == PageItem::ImageFrame) || (CurItem->itemType() == PageItem::TextFrame))
-			ScMW->view->FlipImageH();
+			doc->FlipImageH();
 		else
-			ScMW->view->MirrorPolyH();
+			doc->MirrorPolyH();
 		emit DocChanged();
 	}
 }
@@ -2813,9 +2813,9 @@ void Mpalette::DoFlipV()
 	if ((HaveDoc) && (HaveItem))
 	{
 		if ((CurItem->itemType() == PageItem::ImageFrame) || (CurItem->itemType() == PageItem::TextFrame))
-			ScMW->view->FlipImageV();
+			doc->FlipImageV();
 		else
-			ScMW->view->MirrorPolyV();
+			doc->MirrorPolyV();
 		emit DocChanged();
 	}
 }
@@ -2844,7 +2844,7 @@ void Mpalette::newShadowOffs()
 	int y = qRound(SeStyle->ShadowVal->Yoffset->value() * 10.0);
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->setItemTextShadow(x, y);
+		doc->setItemTextShadow(x, y);
 		doc->CurrTextShadowX = x;
 		doc->CurrTextShadowY = y;
 		emit DocChanged();
@@ -2869,7 +2869,7 @@ void Mpalette::newUnderline()
 	int y = qRound(SeStyle->UnderlineVal->LWidth->value() * 10.0);
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->setItemTextUnderline(x, y);
+		doc->setItemTextUnderline(x, y);
 		doc->CurrTextUnderPos = x;
 		doc->CurrTextUnderWidth = y;
 		emit DocChanged();
@@ -2894,7 +2894,7 @@ void Mpalette::newStrike()
 	int y = qRound(SeStyle->StrikeVal->LWidth->value() * 10.0);
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->setItemTextStrike(x, y);
+		doc->setItemTextStrike(x, y);
 		doc->CurrTextStrikePos = x;
 		doc->CurrTextStrikeWidth = y;
 		emit DocChanged();
@@ -2927,7 +2927,7 @@ void Mpalette::newOutlineW()
 	int x = qRound(SeStyle->OutlineVal->LWidth->value() * 10.0);
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->setItemTextOutline(x);
+		doc->setItemTextOutline(x);
 		doc->CurrTextOutline = x;
 		emit DocChanged();
 	}
@@ -3419,7 +3419,7 @@ void Mpalette::newTxtFill()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->ItemTextBrush(TxFill->currentText());
+		doc->ItemTextBrush(TxFill->currentText());
 		doc->CurrTextFill = TxFill->currentText();
 		emit DocChanged();
 	}
@@ -3429,7 +3429,7 @@ void Mpalette::newTxtStroke()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->ItemTextPen(TxStroke->currentText());
+		doc->ItemTextPen(TxStroke->currentText());
 		doc->CurrTextStroke = TxStroke->currentText();
 		emit DocChanged();
 	}
@@ -3443,13 +3443,13 @@ void Mpalette::setActShade()
 	if (PM1 == sender())
 	{
 		b = PM1->getValue();
-		ScMW->view->ItemTextPenS(b);
+		doc->ItemTextPenS(b);
 		doc->CurrTextFillSh = b;
 	}
 	else
 	{
 		b = PM2->getValue();
-		ScMW->view->ItemTextBrushS(b);
+		doc->ItemTextBrushS(b);
 		doc->CurrTextStrokeSh = b;
 	}
 	emit DocChanged();

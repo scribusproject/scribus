@@ -714,7 +714,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 					FontSize = m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt();
 				}
 /* ToDo: Add reading of Textstyles here */
-				ite->LineSp = FontSize + FontSize * 0.2;
+				ite->setLineSpacing(FontSize + FontSize * 0.2);
 				Serializer *ss = new Serializer("");
 				ss->Objekt = QString::fromUtf8(e.text())+QChar(10);
 				ss->GetText(ite, AbsStyle, Doku->toolSettings.defFont, FontSize*10, firstPa);
