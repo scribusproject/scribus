@@ -183,7 +183,7 @@ public:
 	void paintGroupRect(bool norm = true);
 	void PaintSizeRect(QPainter *p, QRect neu);
 	void ToView(QPainter *p);
-	void RefreshItem(PageItem *currItem);
+	//void RefreshItem(PageItem *currItem);
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	void MoveItemI(PageItem* currItem, double newX, double newY, bool redraw = true);
 	void UpdateClip(PageItem *currItem);
@@ -262,6 +262,7 @@ public slots: // Public slots
 	void editExtendedImageProperties();
 	void TogglePic();
 	void UpdatePic();
+	void RefreshItem(PageItem *currItem);
 	/**
 	 * Adjust an image frame's size to fit the size of the image in it
 	 */

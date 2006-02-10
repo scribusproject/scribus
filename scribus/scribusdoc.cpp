@@ -4635,7 +4635,8 @@ void ScribusDoc::FlipImageV()
 		for (uint a = 0; a < docSelectionCount; ++a)
 		{
 			selection->itemAt(a)->flipImageV();
-			ScMW->view->RefreshItem(selection->itemAt(a));
+			//ScMW->view->RefreshItem(selection->itemAt(a));
+			emit refreshItem(selection->itemAt(a));
 		}
 		emit changed();
 		if (docSelectionCount > 1)

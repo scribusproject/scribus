@@ -768,6 +768,7 @@ signals:
 	 * @brief Let the document tell whatever is listening that it has changed
 	 */
 	void changed();
+	void refreshItem(PageItem *);
 	/**
 	 * @brief A signal for when the outline palette needs to rebuild itself
 	 * Emit when:

@@ -1776,6 +1776,7 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 	connect(fileWatcher, SIGNAL(fileChanged(QString)), view, SLOT(updatePict(QString)));
 	connect(fileWatcher, SIGNAL(fileDeleted(QString)), view, SLOT(removePict(QString)));
+	connect(doc, SIGNAL(refreshItem(PageItem*)), view, SLOT(RefreshItem(PageItem*)));
 	scrActions["fileSave"]->setEnabled(false);
 	undoManager->switchStack(doc->DocName);
 	tocGenerator->setDoc(doc);
@@ -3433,6 +3434,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 		connect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
 		connect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
+		connect(doc, SIGNAL(refreshItem(PageItem*)), view, SLOT(RefreshItem(PageItem*)));
 		connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 		if (doc->AutoSave)
 			doc->autoSaveTimer->start(doc->AutoSaveTime);
