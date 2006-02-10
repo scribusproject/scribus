@@ -3512,7 +3512,8 @@ void ScribusDoc::ChLineWidth(double w)
 				                  static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
 				                  -ph,static_cast<int>(currItem->height()+ph));
 			}
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -3530,7 +3531,8 @@ void ScribusDoc::ChLineArt(PenStyle w)
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			selection->itemAt(a)->setLineStyle(w);
-			ScMW->view->RefreshItem(selection->itemAt(a));
+			//ScMW->view->RefreshItem(selection->itemAt(a));
+			emit refreshItem(selection->itemAt(a));
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -3548,7 +3550,8 @@ void ScribusDoc::ChLineJoin(PenJoinStyle w)
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			selection->itemAt(a)->setLineJoin(w);
-			ScMW->view->RefreshItem(selection->itemAt(a));
+			//ScMW->view->RefreshItem(selection->itemAt(a));
+			emit refreshItem(selection->itemAt(a));
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -3566,7 +3569,8 @@ void ScribusDoc::ChLineEnd(PenCapStyle w)
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			selection->itemAt(a)->setLineEnd(w);
-			ScMW->view->RefreshItem(selection->itemAt(a));
+			//ScMW->view->RefreshItem(selection->itemAt(a));
+			emit refreshItem(selection->itemAt(a));
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -3584,7 +3588,8 @@ void ScribusDoc::ChLineSpa(double w)
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			selection->itemAt(a)->setLineSpacing(w);
-			ScMW->view->RefreshItem(selection->itemAt(a));
+			//ScMW->view->RefreshItem(selection->itemAt(a));
+			emit refreshItem(selection->itemAt(a));
 		}
 		docParagraphStyles[0].LineSpa = w;
 		if (selectedItemCount > 1)
@@ -3610,7 +3615,8 @@ void ScribusDoc::ChLocalXY(double x, double y)
 				cl.scale(currItem->imageXScale(), currItem->imageYScale());
 				currItem->imageClip.map(cl);
 			}
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 	}
 }
@@ -3633,7 +3639,8 @@ void ScribusDoc::ChLocalSc(double x, double y)
 				cl.scale(currItem->imageXScale(), currItem->imageYScale());
 				currItem->imageClip.map(cl);
 			}
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 	}
 }
@@ -3662,7 +3669,8 @@ void ScribusDoc::ItemFont(QString fon)
 					}
 /*					if (!Doc->loading)
 						emit UpdtObj(Doc->currentPage->pageNr(), currItem->ItemNr); */
-					ScMW->view->RefreshItem(currItem);
+					//ScMW->view->RefreshItem(currItem);
+					emit refreshItem(currItem);
 				}
 			}
 			if ((currItem->HasSel) && (appMode == modeEdit))
@@ -3674,7 +3682,8 @@ void ScribusDoc::ItemFont(QString fon)
 						if (currItem->itemText.at(a)->cselect)
 							currItem->itemText.at(a)->cfont = (*AllFonts)[fon];
 					}
-					ScMW->view->RefreshItem(currItem);
+					//ScMW->view->RefreshItem(currItem);
+					emit refreshItem(currItem);
 				}
 			}
 		}
@@ -3701,7 +3710,8 @@ void ScribusDoc::ItemPen(QString farbe)
 				continue;
 
 			i->setLineColor(farbe);
-			ScMW->view->RefreshItem(i);
+			//ScMW->view->RefreshItem(i);
+			emit refreshItem(i);
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -3737,7 +3747,8 @@ void ScribusDoc::ItemTextBrush(QString farbe)
 						currItem->itemText.at(i)->ccolor = farbe;
 				}
 			}
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -3771,7 +3782,8 @@ void ScribusDoc::ItemTextBrushS(int sha)
 						currItem->itemText.at(i)->cshade = sha;
 				}
 			}
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -3807,7 +3819,8 @@ void ScribusDoc::ItemTextPen(QString farbe)
 						currItem->itemText.at(i)->cstroke = farbe;
 				}
 			}
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -3841,7 +3854,8 @@ void ScribusDoc::ItemTextPenS(int sha)
 						currItem->itemText.at(i)->cshade2 = sha;
 				}
 			}
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -3874,7 +3888,8 @@ void ScribusDoc::ItemTextScaleV(int sha)
 						currItem->itemText.at(i)->cscalev = sha;
 				}
 			}
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -3908,7 +3923,8 @@ void ScribusDoc::ItemTextScale(int sha)
 						currItem->itemText.at(i)->cscale = sha;
 				}
 			}
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -3948,7 +3964,8 @@ void ScribusDoc::setItemTextShadow(int shx, int shy)
 					}
 				}
 			}
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 	}
 }
@@ -3986,7 +4003,8 @@ void ScribusDoc::setItemTextUnderline(int pos, int wid)
 					}
 				}
 			}
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 	}
 }
@@ -4024,7 +4042,8 @@ void ScribusDoc::setItemTextStrike(int pos, int wid)
 					}
 				}
 			}
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 	}
 }
@@ -4053,7 +4072,8 @@ void ScribusDoc::setItemTextBase(int sha)
 						currItem->itemText.at(i)->cbase = sha;
 				}
 			}
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 	}
 }
@@ -4082,7 +4102,8 @@ void ScribusDoc::setItemTextOutline(int sha)
 						currItem->itemText.at(i)->coutline = sha;
 				}
 			}
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 	}
 }
@@ -4102,7 +4123,8 @@ void ScribusDoc::ItemBrush(QString farbe)
 		{
 			currItem = selection->itemAt(a);
 			currItem->setFillColor(farbe);
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -4123,7 +4145,8 @@ void ScribusDoc::ItemBrushShade(int sha)
 		{
 			currItem = selection->itemAt(a);
 			currItem->setFillShade(sha);
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -4143,7 +4166,8 @@ void ScribusDoc::ItemPenShade(int sha)
 		{
 			currItem = selection->itemAt(a);
 			currItem->setLineShade(sha);
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -4161,7 +4185,8 @@ void ScribusDoc::ItemGradFill(int typ)
 			currItem = selection->itemAt(a);
 			currItem->GrType = typ;
 			currItem->updateGradientVectors();
-			ScMW->view->RefreshItem(currItem);
+			//ScMW->view->RefreshItem(currItem);
+			emit refreshItem(currItem);
 		}
 	}
 }
@@ -4199,7 +4224,8 @@ void ScribusDoc::chTyStyle(int s)
 						currItem->itemText.at(a)->cstyle |= s;
 					}
 				}
-				ScMW->view->RefreshItem(currItem);
+				//ScMW->view->RefreshItem(currItem);
+				emit refreshItem(currItem);
 			}
 		}
 		if (selectedItemCount > 1)
@@ -4442,7 +4468,8 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 		}
 	}
 	if (!currItem->Tinput)
-		ScMW->view->RefreshItem(currItem);
+		//ScMW->view->RefreshItem(currItem);
+		emit refreshItem(currItem);
 	if (appMode == modeEdit)
 	{
 		ScMW->view->horizRuler->setItemPosition(currItem->xPos(), currItem->width());
@@ -4486,7 +4513,8 @@ void ScribusDoc::chKerning(int us)
 						if (currItem->itemText.at(a)->cselect)
 							currItem->itemText.at(a)->cextra = us;
 					}
-					ScMW->view->RefreshItem(currItem);
+					//ScMW->view->RefreshItem(currItem);
+					emit refreshItem(currItem);
 				}
 			}
 			else
@@ -4499,7 +4527,8 @@ void ScribusDoc::chKerning(int us)
 					{
 						currItem->itemText.at(a)->cextra = us;
 					}
-					ScMW->view->RefreshItem(currItem);
+					//ScMW->view->RefreshItem(currItem);
+					emit refreshItem(currItem);
 				}
 			}
 		}
@@ -4534,7 +4563,8 @@ void ScribusDoc::ChLineSpaMode(int w)
 					currItem->setLineSpacing(typographicSettings.valueBaseGrid-1);
 				}
 				docParagraphStyles[0].LineSpa = currItem->lineSpacing();
-				ScMW->view->RefreshItem(currItem);
+				//ScMW->view->RefreshItem(currItem);
+				emit refreshItem(currItem);
 			}
 			docParagraphStyles[0].LineSpaMode = w;
 		}
@@ -4551,7 +4581,7 @@ void ScribusDoc::chFSize(int size)
 										  QString("%1").arg(size/10.0), Um::IFont);
 		for (uint aa = 0; aa < docSelectionCount; ++aa)
 		{
-			PageItem *currItem = selection->itemAt(0);
+			PageItem *currItem = selection->itemAt(aa);
 			CurrFontSize = size;
 			if (appMode != modeEdit)
 			{
@@ -4597,7 +4627,8 @@ void ScribusDoc::chFSize(int size)
 					currItem->UpdatePolyClip();
 					ScMW->view->AdjustItemSize(currItem);
 				}
-				ScMW->view->RefreshItem(currItem);
+				//ScMW->view->RefreshItem(currItem);
+				emit refreshItem(currItem);
 			}
 		}
 		if (docSelectionCount > 1)
@@ -4616,7 +4647,8 @@ void ScribusDoc::FlipImageH()
 		for (uint a = 0; a < docSelectionCount; ++a)
 		{
 			selection->itemAt(a)->flipImageH();
-			ScMW->view->RefreshItem(selection->itemAt(a));
+			//ScMW->view->RefreshItem(selection->itemAt(a));
+			emit refreshItem(selection->itemAt(a));
 		}
 		emit changed();
 		if (docSelectionCount > 1)
@@ -4680,7 +4712,8 @@ void ScribusDoc::MirrorPolyH()
 	else
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	ScMW->view->setRedrawBounding(currItem);
-	ScMW->view->RefreshItem(currItem);
+	//ScMW->view->RefreshItem(currItem);
+	emit refreshItem(currItem);
 	//MarkClip(currItem, currItem->PoLine, true);
 	if (UndoManager::undoEnabled())
 	{
@@ -4728,7 +4761,8 @@ void ScribusDoc::MirrorPolyV()
 	else
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	ScMW->view->setRedrawBounding(currItem);
-	ScMW->view->RefreshItem(currItem);
+	//ScMW->view->RefreshItem(currItem);
+	emit refreshItem(currItem);
 	//MarkClip(currItem, currItem->PoLine, true);
 	if (UndoManager::undoEnabled())
 	{
