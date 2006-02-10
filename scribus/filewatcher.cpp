@@ -108,6 +108,7 @@ void FileWatcher::checkFiles()
 	blockAddRemove = true;
 	watchTimer->stop();
 	QDateTime time;
+	QStringList toRemove;
 	QMap<QString, fileMod>::Iterator it;
 	for ( it = watchedFiles.begin(); it != watchedFiles.end(); ++it )
 	{
@@ -118,7 +119,7 @@ void FileWatcher::checkFiles()
 				emit dirDeleted(it.key());
 			else
 				emit fileDeleted(it.key());
-			watchedFiles.remove(it);
+			toRemove.append(it.key());
 			continue;
 		}
 		time = it.data().info.lastModified();
@@ -152,6 +153,8 @@ void FileWatcher::checkFiles()
 			}
 		}
 	}
+	for(unsigned int i=0; i<toRemove.count(); ++i)
+		watchedFiles.remove(toRemove[i]);
 	blockAddRemove = false;
 	watchTimer->start(m_timeOut, true);
 }
