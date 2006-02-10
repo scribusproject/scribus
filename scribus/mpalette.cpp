@@ -1520,6 +1520,8 @@ void Mpalette::NewSel(int nr)
 			HaveItem = true;
 			break;
 		case 8:
+			FlipH->setEnabled(true);
+			FlipV->setEnabled(true);
 			TabStack->setItemEnabled(1, true);
 			TabStack->setItemEnabled(2, true);
 			TabStack->setItemEnabled(3, false);
@@ -1539,8 +1541,10 @@ void Mpalette::NewSel(int nr)
 
 void Mpalette::setMultipleSelection(bool isMultiple)
 {
-	FlipH->setEnabled(!isMultiple);
-	FlipV->setEnabled(!isMultiple);
+	//CB Having added the selection and undo transaction to mirrorpolyh/v in doc, 
+	//these can be enabled all the time
+	//FlipH->setEnabled(!isMultiple);
+	//FlipV->setEnabled(!isMultiple);
 }
 
 void Mpalette::UnitChange()
