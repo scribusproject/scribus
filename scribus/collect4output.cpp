@@ -84,7 +84,6 @@ QString CollectForOutput::collect()
 	if (withFonts)
 		collectFonts();
 
-	PrefsManager::instance()->setDocumentDir(outputDirectory);
 	QDir::setCurrent(outputDirectory);
 	ScMW->updateActiveWindowCaption(newName);
 	UndoManager::instance()->renameStack(newName);
