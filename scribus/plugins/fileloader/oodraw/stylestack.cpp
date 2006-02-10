@@ -30,10 +30,17 @@ for which a new license (GPL+exception) is in place.
 StyleStack::StyleStack()
 {
     clear();
+	fillNodeNameList(m_nodeNames, StyleStack::OODraw1x);
 }
 
 StyleStack::~StyleStack()
 {
+}
+
+void StyleStack::setMode( const StyleStack::Mode mode )
+{
+	m_nodeNames.clear();
+	fillNodeNameList(m_nodeNames, mode);
 }
 
 void StyleStack::clear()
@@ -73,7 +80,7 @@ bool StyleStack::hasAttribute( const QString& name ) const
     while ( it != m_stack.begin() )
     {
         --it;
-        QDomElement properties = (*it).namedItem( "style:properties" ).toElement();
+		QDomElement properties = searchAttribute( *it, m_nodeNames, name );
         if ( properties.hasAttribute( name ) )
             return true;
     }
@@ -88,7 +95,7 @@ QString StyleStack::attribute( const QString& name ) const
     while ( it != m_stack.begin() )
     {
         --it;
-        QDomElement properties = (*it).namedItem( "style:properties" ).toElement();
+        QDomElement properties = searchAttribute( *it, m_nodeNames, name );
         if ( properties.hasAttribute( name ) )
             return properties.attribute( name );
     }
@@ -105,7 +112,7 @@ bool StyleStack::hasAttribute( const QString& name, const QString& detail ) cons
     while ( it != m_stack.begin() )
     {
         --it;
-        QDomElement properties = (*it).namedItem( "style:properties" ).toElement();
+		QDomElement properties = searchAttribute( *it, m_nodeNames, name, fullName );
         if ( properties.hasAttribute( name ) || properties.hasAttribute( fullName ) )
             return true;
     }
@@ -122,7 +129,7 @@ QString StyleStack::attribute( const QString& name, const QString& detail ) cons
     while ( it != m_stack.begin() )
     {
         --it;
-        QDomElement properties = (*it).namedItem( "style:properties" ).toElement();
+        QDomElement properties = searchAttribute( *it, m_nodeNames, name, fullName );
         if ( properties.hasAttribute( fullName ) )
             return properties.attribute( fullName );
         if ( properties.hasAttribute( name ) )
@@ -143,7 +150,7 @@ double StyleStack::fontSize() const
     while ( it != m_stack.begin() )
     {
         --it;
-        QDomElement properties = (*it).namedItem( "style:properties" ).toElement();
+        QDomElement properties = searchAttribute( *it, m_nodeNames, name );
         if ( properties.hasAttribute( name ) ) {
             QString value = properties.attribute( name );
             if ( value.endsWith( "%" ) )
@@ -161,7 +168,7 @@ bool StyleStack::hasChildNode(const QString & name) const
     while ( it != m_stack.begin() )
     {
         --it;
-        QDomElement properties = (*it).namedItem( "style:properties" ).toElement();
+        QDomElement properties = searchAttribute( *it, m_nodeNames, name );
         if ( !properties.namedItem( name ).isNull() )
             return true;
     }
@@ -175,7 +182,7 @@ QDomNode StyleStack::childNode(const QString & name) const
     while ( it != m_stack.begin() )
     {
         --it;
-        QDomElement properties = (*it).namedItem( "style:properties" ).toElement();
+        QDomElement properties = searchAttribute( *it, m_nodeNames, name );
         if ( !properties.namedItem( name ).isNull() )
             return properties.namedItem( name );
     }
@@ -200,4 +207,60 @@ QString StyleStack::userStyleName() const
     }
     // Can this ever happen?
     return "Standard";
+}
+
+void StyleStack::fillNodeNameList( QStringList& names, const StyleStack::Mode mode )
+{
+	if ( mode == StyleStack::OODraw2x )
+	{
+		names.append("style:graphic-properties");
+		names.append("style:paragraph-properties");
+		names.append("style:page-layout-properties");
+		names.append("style:drawing-page-properties");
+		names.append("style:text-properties");
+	}
+	else
+		names.append("style:properties");		
+}
+
+QDomElement StyleStack::searchAttribute( const QDomElement& element, const QStringList& names,const QString& name ) const
+{
+	QDomElement node;
+	QDomNodeList childNodes;
+	childNodes = element.childNodes();
+	for ( uint i = 0; i < childNodes.count(); i++ )
+	{
+		QDomNode n = childNodes.item(i);
+		if ( n.isElement() )
+		{
+			QDomElement* e = (QDomElement*) (&n);
+			if ( (names.findIndex(e->nodeName()) >= 0) && e->hasAttribute(name) )
+			{
+				node = *e;
+				break;
+			}
+		}
+	}
+	return node;
+}
+
+QDomElement StyleStack::searchAttribute( const QDomElement& element, const QStringList& names, const QString& name, const QString& fullName ) const
+{
+	QDomElement node;
+	QDomNodeList childNodes;
+	childNodes = element.childNodes();
+	for ( uint i = 0; i < childNodes.count(); i++ )
+	{
+		QDomNode n = childNodes.item(i);
+		if ( n.isElement() )
+		{
+			QDomElement* e = (QDomElement*) (&n);
+			if ( (names.findIndex(e->nodeName()) >= 0) && (e->hasAttribute(name) || e->hasAttribute(fullName)) )
+			{
+				node = *e;
+				break;
+			}
+		}
+	}
+	return node;
 }

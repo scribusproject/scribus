@@ -162,7 +162,7 @@ bool OODrawImportPlugin::import(QString fileName)
 		interactive = true;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("OODrawImport");
 		QString wdir = prefs->get("wdir", ".");
-		CustomFDialog diaf(ScMW, wdir, QObject::tr("Open"), QObject::tr("OpenOffice.org Draw (*.sxd);;All Files (*)"));
+		CustomFDialog diaf(ScMW, wdir, QObject::tr("Open"), QObject::tr("OpenOffice.org Draw (*.sxd *.odg);;All Files (*)"));
 		if (diaf.exec())
 		{
 			fileName = diaf.selectedFile();
@@ -252,6 +252,8 @@ bool OODPlug::import( QString fileName, bool isInteractive )
 bool OODPlug::convert()
 {
 	bool ret = false;
+	bool isOODraw2 = false;
+	QDomNode drawPagePNode;
 	int PageCounter = 0;
 	createStyleMap( inpStyles );
 	QDomElement docElem = inpContents.documentElement();
@@ -260,7 +262,7 @@ bool OODPlug::convert()
 		insertStyles( automaticStyles.toElement() );
 	QDomNode body = docElem.namedItem( "office:body" );
 	QDomNode drawPage = body.namedItem( "draw:page" );
-	if (drawPage.isNull() )
+	if ( drawPage.isNull() )
 	{
 		QDomNode offDraw = body.namedItem( "office:drawing" );
 		drawPage = offDraw.namedItem( "draw:page" );
@@ -271,14 +273,28 @@ bool OODPlug::convert()
 		}
 		else
 		{
-			QMessageBox::warning( ScMW, CommonStrings::trWarning, tr("OpenOffice Draw 2.0 documents are currently not supported.") );
-			return false;
+			isOODraw2 = true;
+			drawPagePNode = body.namedItem( "office:drawing" );
 		}
 	}
+	else 
+		drawPagePNode = body;
+	StyleStack::Mode mode = isOODraw2 ? StyleStack::OODraw2x : StyleStack::OODraw1x;
+	m_styleStack.setMode( mode );
 	QDomElement dp = drawPage.toElement();
 	QDomElement *master = m_styles[dp.attribute( "draw:master-page-name" )];
-	QDomElement *style = m_styles[master->attribute( "style:page-master-name" )];
-	QDomElement properties = style->namedItem( "style:properties" ).toElement();
+	QDomElement *style = NULL;
+	QDomElement properties;
+	if (isOODraw2)
+	{
+		style = m_styles[master->attribute( "style:page-layout-name" )];
+		properties = style->namedItem( "style:page-layout-properties" ).toElement();
+	}
+	else
+	{
+		style = m_styles[master->attribute( "style:page-master-name" )];
+		properties = style->namedItem( "style:properties" ).toElement();
+	}
 	double width = !properties.attribute( "fo:page-width" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-width" ) ) : 550.0;
 	double height = !properties.attribute( "fo:page-height" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-height" ) ) : 841.0;
 	if (!interactive)
@@ -344,7 +360,7 @@ bool OODPlug::convert()
 	qApp->setOverrideCursor(QCursor(Qt::waitCursor), true);
 	if (!Doku->PageColors.contains("Black"))
 		Doku->PageColors.insert("Black", ScColor(0, 0, 0, 255));
-	for( QDomNode drawPag = body.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
+	for( QDomNode drawPag = drawPagePNode.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
 	{
 		QDomElement dpg = drawPag.toElement();
 		if (!interactive)
@@ -444,7 +460,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		QString STag = b.tagName();
 		QString drawID = b.attribute("draw:name");
 		storeObjectStyles(b);
-		if( m_styleStack.hasAttribute("draw:stroke"))
+		if( m_styleStack.hasAttribute("draw:stroke") )
 		{
 			if( m_styleStack.attribute( "draw:stroke" ) == "none" )
 				lwidth = 0.0;
@@ -697,6 +713,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			bool firstPa = false;
 			for ( QDomNode n = b.firstChild(); !n.isNull(); n = n.nextSibling() )
 			{
+				if ( !n.hasAttributes() && !n.hasChildNodes() )
+					continue;
 				int FontSize = Doku->toolSettings.defSize;
 				int AbsStyle = 0;
 				QDomElement e = n.toElement();
