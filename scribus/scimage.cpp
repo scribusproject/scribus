@@ -4073,8 +4073,10 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			*this = convertDepth(32);
 			setAlphaBuffer(true);
 			imgInfo.colorspace = 0;
-			imgInfo.xres = qRound(xres);
-			imgInfo.yres = qRound(yres);
+			setDotsPerMeterX (QMAX(2834, (int) (xres / 0.0254)));
+			setDotsPerMeterY (QMAX(2834, (int) (yres / 0.0254)));
+			imgInfo.xres = QMAX(72, qRound(xres));
+			imgInfo.yres = QMAX(72, qRound(yres));
 			imgInfo.lowResType = resInf;
 			imgInfo.BBoxX = 0;
 			imgInfo.BBoxH = height();
