@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcolor.h>
 #include <qtooltip.h>
 
+#include "colorsetmanager.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "query.h"
@@ -123,6 +124,9 @@ protected:
 	QVBoxLayout* layout3;
 	QVBoxLayout* ColsSetGroupLayout;
 	QVBoxLayout* Layout1;
+	
+	ColorSetManager csm;	
+	int customSetStartIndex;
 };
 
 #endif // FARBMANAGER_H

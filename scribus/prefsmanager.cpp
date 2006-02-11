@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefsmanager.h"
 #include "prefsmanager.moc"
+#include "colorsetmanager.h"
 #include "commonstrings.h"
 #include "filewatcher.h"
 #include "missing.h"
@@ -129,8 +130,14 @@ void PrefsManager::initDefaults()
 
 	/** Default colours **/
 	appPrefs.DColors.clear();
+	
+	ColorSetManager csm;
+	csm.initialiseDefaultPrefs(appPrefs);
+	csm.findPaletteLocations();
+	csm.findPalettes();
+	/*
 	QString pfadC = ScPaths::instance().libDir()+"swatches/";
-	QString pfadC2 = pfadC + "rgbscribus.txt";
+	QString pfadC2 = pfadC + "Scribus_X11.txt";
 	QFile fiC(pfadC2);
 	if (!fiC.exists())
 	{
@@ -168,6 +175,7 @@ void PrefsManager::initDefaults()
 		}
 		appPrefs.DColorSet = "X11 RGB-Set";
 	}
+	*/
 
 	appPrefs.Wheelval = 40;
 	/** Set Default window position and size to sane default values which should work on every screen */

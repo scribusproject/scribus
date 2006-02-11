@@ -170,11 +170,21 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 
 	Swatches = new ScComboBox( false, Frame4, "ComboBox1" );
 	Swatches->insertItem( tr( "HSV-Colormap" ) );
+/*
 	Swatches->insertItem("X11 RGB-Set");
 	Swatches->insertItem("X11 Grey-Set");
 	Swatches->insertItem("Gnome-Set");
 	Swatches->insertItem("SVG-Set");
 	Swatches->insertItem("OpenOffice.org-Set");
+*/
+	csm.findPaletteLocations();
+	csm.findPalettes();
+	QStringList allSets(csm.paletteNames());
+	for ( QStringList::Iterator it = allSets.begin(); it != allSets.end(); ++it )
+	{
+		Swatches->insertItem((*it));
+	}
+	customSetStartIndex=Swatches->count();
 
 	if (Cust.count() != 0)
 	{
@@ -551,28 +561,40 @@ void CMYKChoose::SelSwatch(int n)
 		CurrSwatch.clear();
 		QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+Swatches->currentText());
 		QString pfadC = ScPaths::instance().libDir()+"swatches/";
-		QString pfadC2 = pfadC + "rgbscribus.txt";
+		QString pfadC2 = pfadC + "Scribus_X11.txt";
 		switch (n)
 		{
+			/*
 		case 1:
-			pfadC2 = pfadC + "rgbscribus.txt";
+			pfadC2 = pfadC + "Scribus_X11.txt";
 			break;
 		case 2:
-			pfadC2 = pfadC + "rgbscribusgreys.txt";
+			pfadC2 = pfadC + "Scribus_X11Grey.txt";
 			break;
 		case 3:
-			pfadC2 = pfadC + "rgbscribusgnome.txt";
+			pfadC2 = pfadC + "Scribus_Gnome.txt";
 			break;
 		case 4:
-			pfadC2 = pfadC + "rgbsvg.txt";
+			pfadC2 = pfadC + "Scribus_SVG.txt";
 			break;
 		case 5:
-			pfadC2 = pfadC + "rgbscribusopenoffice.txt";
+			pfadC2 = pfadC + "Scribus_OpenOffice.txt";
 			cus = true;
 			break;
+			*/
 		default:
-			pfadC2 = Cpfad;
-			cus = true;
+			if (n<customSetStartIndex)
+			{
+				QString listText=Swatches->text(n);
+				if (listText=="Scribus OpenOffice")
+					cus=true;
+				pfadC2 = csm.paletteFileFromName(listText);
+			}
+			else
+			{
+				pfadC2 = Cpfad;
+				cus = true;
+			}
 			break;
 		}
 		if (n != 0)
@@ -603,6 +625,15 @@ void CMYKChoose::SelSwatch(int n)
 						Cname = CoE.read().stripWhiteSpace();
 						tmp.setColorRGB(Rval, Gval, Bval);
 					}
+					
+					if ((n<customSetStartIndex) && (Cname.length()==0))
+					{
+						Cname=QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).upper();
+						Cname.replace(" ","0");
+					}
+					if (CurrSwatch.contains(Cname))
+						Cname=QString("%1%2").arg(Cname).arg(CurrSwatch.count());
+					
 					CurrSwatch.insert(Cname, tmp);
 				}
 				fiC.close();

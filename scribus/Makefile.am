@@ -44,6 +44,7 @@ scribus_SOURCES = \
 	collect4output.cpp \
 	colorchart.cpp	\
 	colorm.cpp	\
+	colorsetmanager.cpp	\
 	commonstrings.cpp \
 	cpalette.cpp	\
 	cupsoptions.cpp	\

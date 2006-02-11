@@ -23,9 +23,10 @@ for which a new license (GPL+exception) is in place.
 #include <qlistbox.h>
 
 class ScColor;
-#include "scribusapi.h"
 #include "colorchart.h"
+#include "colorsetmanager.h"
 #include "mspinbox.h"
+#include "scribusapi.h"
 #include "scribusstructs.h"
 
 class SCRIBUS_API CMYKChoose : public QDialog
@@ -113,6 +114,9 @@ protected:
 	QVBoxLayout* Layout1_2_2;
 	QVBoxLayout* Layout1_2_3;
 	QVBoxLayout* Layout1_2_4;
+	
+	ColorSetManager csm;
+	int customSetStartIndex;
 };
 
 #endif // CMYKFARBEN_H

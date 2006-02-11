@@ -118,11 +118,21 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, bool haveDoc, QStrin
 		ColsSetGroupLayout->addWidget( textLabel1 );
 		CSets = new QPopupMenu();
 		CSets->insertItem("Scribus Small");
+/*
 		CSets->insertItem("X11 RGB-Set");
 		CSets->insertItem("X11 Grey-Set");
 		CSets->insertItem("Gnome-Set");
 		CSets->insertItem("SVG-Set");
 		CSets->insertItem("OpenOffice.org-Set");
+*/
+		csm.findPaletteLocations();
+		csm.findPalettes();
+		QStringList allSets(csm.paletteNames());
+		for ( QStringList::Iterator it = allSets.begin(); it != allSets.end(); ++it )
+		{
+			CSets->insertItem((*it));
+		}
+		customSetStartIndex=CSets->count();
 		if (custColSet.count() != 0)
 		{
 			QStringList realEx;
@@ -239,7 +249,7 @@ void ColorManager::loadDefaults(int id)
 	EditColors.clear();
 	QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+CSets->text(id));
 	QString pfadC = ScPaths::instance().libDir()+"swatches/";
-	QString pfadC2 = pfadC + "rgbscribus.txt";
+	QString pfadC2 = pfadC + "Scribus_X11.txt";
 	switch (c)
 	{
 	case 0:
@@ -253,25 +263,36 @@ void ColorManager::loadDefaults(int id)
 		EditColors.insert("Yellow", ScColor(0, 0, 255, 0));
 		EditColors.insert("Magenta", ScColor(0, 255, 0, 0));
 		break;
+		/*
 	case 1:
-		pfadC2 = pfadC + "rgbscribus.txt";
+		pfadC2 = pfadC + "Scribus_X11.txt";
 		break;
 	case 2:
-		pfadC2 = pfadC + "rgbscribusgreys.txt";
+		pfadC2 = pfadC + "Scribus_X11Grey.txt";
 		break;
 	case 3:
-		pfadC2 = pfadC + "rgbscribusgnome.txt";
+		pfadC2 = pfadC + "Scribus_Gnome.txt";
 		break;
 	case 4:
-		pfadC2 = pfadC + "rgbsvg.txt";
+		pfadC2 = pfadC + "Scribus_SVG.txt";
 		break;
 	case 5:
-		pfadC2 = pfadC + "rgbscribusopenoffice.txt";
+		pfadC2 = pfadC + "Scribus_OpenOffice.txt";
 		cus = true;
-		break;
+		break;*/
 	default:
-		pfadC2 = Cpfad;
-		cus = true;
+		if (c<customSetStartIndex)
+		{
+			QString listText=CSets->text(id);
+			if (listText=="Scribus OpenOffice")
+				cus=true;
+			pfadC2 = csm.paletteFileFromName(listText);
+		}
+		else
+		{
+			pfadC2 = Cpfad;
+			cus = true;
+		}
 		break;
 	}
 	if (c != 0)
@@ -302,6 +323,13 @@ void ColorManager::loadDefaults(int id)
 					Cname = CoE.read().stripWhiteSpace();
 					tmp.setColorRGB(Rval, Gval, Bval);
 				}
+				if ((c<customSetStartIndex) && (Cname.length()==0))
+				{
+					Cname=QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).upper();
+					Cname.replace(" ","0");
+				}
+				if (EditColors.contains(Cname))
+					Cname=QString("%1%2").arg(Cname).arg(EditColors.count());
 				EditColors.insert(Cname, tmp);
 			}
 			fiC.close();
