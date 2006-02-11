@@ -39,60 +39,61 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 
 /*!
- *  \brief Constructs a TOCIndexPrefs as a child of 'parent', with the
- *  name 'name' and widget flags set to 'f'.
- */
+*  \brief Constructs a TOCIndexPrefs as a child of 'parent', with the
+*  name 'name' and widget flags set to 'f'.
+*/
 TOCIndexPrefs::TOCIndexPrefs( QWidget* parent, const char* name, WFlags fl )
-    : TOCIndexPrefsBase( parent, name, fl )
+	: TOCIndexPrefsBase( parent, name, fl )
 {
-    languageChange();
-    resize( QSize(444, 234).expandedTo(minimumSizeHint()) );
-    clearWState( WState_Polished );
+	languageChange();
+	itemDestFrameComboBox->setMaximumWidth(400);
+	resize( QSize(444, 234).expandedTo(minimumSizeHint()) );
+	clearWState( WState_Polished );
 
-    // signals and slots connections
-    connect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
-    connect( tocAddButton, SIGNAL( clicked() ), this, SLOT( addToC() ) );
-    connect( tocDeleteButton, SIGNAL( clicked() ), this, SLOT( deleteToC() ) );
-    connect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );
-    connect( itemDestFrameComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemFrameSelected(const QString&) ) );
-    connect( itemParagraphStyleComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemParagraphStyleSelected(const QString&) ) );
-    connect( itemNumberPlacementComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemPageNumberPlacedSelected(const QString&) ) );
-    connect( tocNameLineEdit, SIGNAL( textChanged(const QString&) ), this, SLOT( setToCName(const QString&) ) );
-    connect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool) ) );
-    init();
+	// signals and slots connections
+	connect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
+	connect( tocAddButton, SIGNAL( clicked() ), this, SLOT( addToC() ) );
+	connect( tocDeleteButton, SIGNAL( clicked() ), this, SLOT( deleteToC() ) );
+	connect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );
+	connect( itemDestFrameComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemFrameSelected(const QString&) ) );
+	connect( itemParagraphStyleComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemParagraphStyleSelected(const QString&) ) );
+	connect( itemNumberPlacementComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemPageNumberPlacedSelected(const QString&) ) );
+	connect( tocNameLineEdit, SIGNAL( textChanged(const QString&) ), this, SLOT( setToCName(const QString&) ) );
+	connect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool) ) );
+	init();
 }
 
 /*
- *  Destroys the object and frees any allocated resources
- */
+*  Destroys the object and frees any allocated resources
+*/
 TOCIndexPrefs::~TOCIndexPrefs()
 {
-    // no need to delete child widgets, Qt does it all for us
+	// no need to delete child widgets, Qt does it all for us
 }
 
 /*
- *  Sets the strings of the subwidgets using the current
- *  language.
- */
+*  Sets the strings of the subwidgets using the current
+*  language.
+*/
 void TOCIndexPrefs::languageChange()
 {
-    setCaption( tr( "Table of Contents and Indexes" ) );
-    tocAddButton->setText( tr( "&Add" ) );
-    tocAddButton->setAccel( QKeySequence( tr( "Alt+A" ) ) );
-    tocDeleteButton->setText( tr( "&Delete" ) );
-    tocDeleteButton->setAccel( QKeySequence( tr( "Alt+D" ) ) );
-    QToolTip::add( itemDestFrameComboBox, tr( "The frame the table of contents will be placed into" ) );
-    tocNumberPlacementLabel->setText( tr( "Page Numbers Placed:" ) );
-    tocItemAttrLabel->setText( tr( "Item Attribute Name:" ) );
-    QToolTip::add( itemAttrComboBox, tr( "The Item Attribute that will be set on frames used as a basis for creation of the entries" ) );
-    QToolTip::add( itemNumberPlacementComboBox, tr( "Place page numbers of the entries at the beginning or the end of the line, or not at all" ) );
-    itemListNonPrintingCheckBox->setText( tr( "List Non-Printing Entries" ) );
-    QToolTip::add( itemListNonPrintingCheckBox, tr( "Include frames that are set to not print as well" ) );
-    QToolTip::add( itemParagraphStyleComboBox, tr( "The paragraph style used for the entry lines" ) );
-    tocParagraphStyleLabel->setText( tr( "Paragraph Style:" ) );
-    tocDestFrameLabel->setText( tr( "Destination Frame:" ) );
-    tabTOCIndexWidget->changeTab( tab, tr( "Table Of Contents" ) );
-    tabTOCIndexWidget->changeTab( tab_2, tr( "Inde&x" ) );
+	setCaption( tr( "Table of Contents and Indexes" ) );
+	tocAddButton->setText( tr( "&Add" ) );
+	tocAddButton->setAccel( QKeySequence( tr( "Alt+A" ) ) );
+	tocDeleteButton->setText( tr( "&Delete" ) );
+	tocDeleteButton->setAccel( QKeySequence( tr( "Alt+D" ) ) );
+	QToolTip::add( itemDestFrameComboBox, tr( "The frame the table of contents will be placed into" ) );
+	tocNumberPlacementLabel->setText( tr( "Page Numbers Placed:" ) );
+	tocItemAttrLabel->setText( tr( "Item Attribute Name:" ) );
+	QToolTip::add( itemAttrComboBox, tr( "The Item Attribute that will be set on frames used as a basis for creation of the entries" ) );
+	QToolTip::add( itemNumberPlacementComboBox, tr( "Place page numbers of the entries at the beginning or the end of the line, or not at all" ) );
+	itemListNonPrintingCheckBox->setText( tr( "List Non-Printing Entries" ) );
+	QToolTip::add( itemListNonPrintingCheckBox, tr( "Include frames that are set to not print as well" ) );
+	QToolTip::add( itemParagraphStyleComboBox, tr( "The paragraph style used for the entry lines" ) );
+	tocParagraphStyleLabel->setText( tr( "Paragraph Style:" ) );
+	tocDestFrameLabel->setText( tr( "Destination Frame:" ) );
+	tabTOCIndexWidget->changeTab( tab, tr( "Table Of Contents" ) );
+	tabTOCIndexWidget->changeTab( tab_2, tr( "Inde&x" ) );
 }
 
 void TOCIndexPrefs::init()
