@@ -46,7 +46,10 @@ TOCIndexPrefs::TOCIndexPrefs( QWidget* parent, const char* name, WFlags fl )
 	: TOCIndexPrefsBase( parent, name, fl )
 {
 	languageChange();
-	itemDestFrameComboBox->setMaximumWidth(400);
+	itemDestFrameComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
+	itemAttrComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
+	itemNumberPlacementComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
+	itemParagraphStyleComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
 	resize( QSize(444, 234).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
 
