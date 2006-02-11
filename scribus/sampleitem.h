@@ -98,8 +98,6 @@ class SCRIBUS_API SampleItem : QObject
 	private:
 		//! \brief Text to be rendered
 		QString text;
-		//! \brief Background color
-		QColor bgColor;
 		//! \brief Internal temporary paragraph style
 		ParagraphStyle tmpStyle;
 		/*! \brief Reference to a document.

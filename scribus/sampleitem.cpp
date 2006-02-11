@@ -70,8 +70,6 @@ SampleItem::SampleItem() : QObject()
 	tmpStyle.scaleV = 1000;
 	tmpStyle.baseOff = 0;
 	tmpStyle.kernVal = 0;
-	bgColor = QColor(255, 255, 255);
-
 }
 
 SampleItem::~SampleItem()
@@ -105,7 +103,8 @@ void SampleItem::setStyle(ParagraphStyle aStyle)
 
 void SampleItem::setBgColor(QColor c)
 {
-	bgColor = c;
+	ScColor sc;
+	ScMW->doc->PageColors["__whiteforpreview__"].fromQColor(c);
 }
 
 void SampleItem::setLineSpaMode(int lineSpaMode)
@@ -264,7 +263,7 @@ QPixmap SampleItem::getSample(int width, int height)
 {
 	UndoManager::instance()->setUndoEnabled(false); // disable undo
 
-	PageItem_TextFrame *previewItem = new PageItem_TextFrame(doc, 0, 0, width, width, 0, CommonStrings::None, CommonStrings::None);
+	PageItem_TextFrame *previewItem = new PageItem_TextFrame(doc, 0, 0, width, height, 0, "__whiteforpreview__", "__whiteforpreview__");
 	QPixmap pm(width, height);
 	ScPainter *painter = new ScPainter(&pm, width, height, 0, 0);
 	double sca = 1.0; // original scale to set back at the end...
@@ -293,7 +292,6 @@ QPixmap SampleItem::getSample(int width, int height)
 		hg->ch = text.at(i);
 		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
 			hg->ch = QChar(13);
-//		hg->cfont = PrefsManager::instance()->appPrefs.AvailFonts[tmpStyle.Font];
 		previewItem->itemText.append(hg);
 	}
 
