@@ -341,8 +341,8 @@ void SVGPlug::convert()
 // see #2526
 		ScMW->view->DeleteItem();
 #endif
-		ScMW->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScMW->view->getScale()), qRound((maxSize.y() - minSize.y()) * ScMW->view->getScale()));
-		ScMW->view->scrollBy(qRound((currDoc->minCanvasCoordinate.x() - minSize.x()) * ScMW->view->getScale()), qRound((currDoc->minCanvasCoordinate.y() - minSize.y()) * ScMW->view->getScale()));
+		ScMW->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScMW->view->scale()), qRound((maxSize.y() - minSize.y()) * ScMW->view->scale()));
+		ScMW->view->scrollBy(qRound((currDoc->minCanvasCoordinate.x() - minSize.x()) * ScMW->view->scale()), qRound((currDoc->minCanvasCoordinate.y() - minSize.y()) * ScMW->view->scale()));
 		currDoc->minCanvasCoordinate = minSize;
 		currDoc->maxCanvasCoordinate = maxSize;
 		dr->setPixmap(loadIcon("DragPix.xpm"));

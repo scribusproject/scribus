@@ -185,7 +185,7 @@ public:
 	void ToView(QPainter *p);
 	//void RefreshItem(PageItem *currItem);
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
-	void MoveItemI(PageItem* currItem, double newX, double newY, bool redraw = true);
+	//void MoveItemI(PageItem* currItem, double newX, double newY, bool redraw = true);
 	void UpdateClip(PageItem *currItem);
 	void ConvertClip(PageItem *currItem);
 	void MarkClip(PageItem *currItem, FPointArray cli, bool once = false);
@@ -233,7 +233,7 @@ public:
 	bool groupTransactionStarted();
 	void setGroupTransactionStarted(bool isOn);
 	void setScale(const double newScale);
-	double getScale() const { return Scale; }
+	double scale() const { return Scale; }
 
 
 	void adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute = false);

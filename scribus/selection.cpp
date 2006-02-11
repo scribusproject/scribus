@@ -177,12 +177,11 @@ PageItem *Selection::itemAt(int index)
 	if (!m_SelList.isEmpty() && static_cast<uint>(index)<m_SelList.count())
 	{
 		QGuardedPtr<PageItem> pi=m_SelList[index];
+		//If not NULL return it, otherwise remove from the list and return NULL
 		if (!pi.isNull())
 			return pi;
-		//If its NULL, we should remove it from the list now
 		SelectionList::Iterator it=m_SelList.at(index);
 		m_SelList.remove(it);
-		return NULL;
 	}
 	return NULL;
 }

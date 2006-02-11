@@ -2022,7 +2022,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	}
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
-		double scpInv = 1.0 / (QMAX(view->getScale(), 1));
+		double scpInv = 1.0 / (QMAX(view->scale(), 1));
 		if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
 		{
 			p->setPen(black, scpInv, DotLine, FlatCap, MiterJoin);
@@ -2944,7 +2944,7 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	*/
 	//TODO: CB clean
 	ScribusView* view = m_Doc->view();
-	double scp1 = 1 ;// / ScMW->view->getScale();
+	double scp1 = 1 ;// / ScMW->view->scale();
 	double ofwh = 6 * scp1;
 	//CB moved down while locked marker disabled
 	//double ofx = Width - ofwh/2;
@@ -2955,7 +2955,7 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	double ly1= ofy;
 	double lx2= ofx+ofwh;
 	double ly2= ofy+ofwh;
-	p->setPen(black, 0.5/ view->getScale(), SolidLine, FlatCap, MiterJoin);
+	p->setPen(black, 0.5/ view->scale(), SolidLine, FlatCap, MiterJoin);
 	p->setPenOpacity(1.0);
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);

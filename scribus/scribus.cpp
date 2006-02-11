@@ -1494,20 +1494,27 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			case modeEdit:
 				if (currItem->asImageFrame() && !currItem->locked())
 				{
+					double dX=0.0,dY=0.0;
 					switch (kk)
 					{
 						case Key_Left:
-							view->MoveItemI(currItem, -moveBy, 0, true);
+							dX=-moveBy;
 							break;
 						case Key_Right:
-							view->MoveItemI(currItem, moveBy, 0, true);
+							dX=moveBy;
 							break;
 						case Key_Up:
-							view->MoveItemI(currItem, 0, -moveBy, true);
+							dY=-moveBy;
 							break;
 						case Key_Down:
-							view->MoveItemI(currItem, 0, moveBy, true);
+							dY=moveBy;
 							break;
+					}
+					if (dX!=0.0 || dY!=0.0)
+					{
+						//view->MoveItemI(currItem, dX, dY, true);
+						currItem->moveImageInFrame(dX, dY);
+						view->updateContents(currItem->getRedrawBounding(view->scale()));
 					}
 				}
 				view->oldCp = currItem->CPos;
@@ -4441,8 +4448,8 @@ void ScribusMainWindow::slotEditPaste()
 				doc->selection->clear();
 				//doc->selection->restoreFromTempList(0, tempList);
 				*ScMW->doc->selection=tempSelection;
-				view->resizeContents(qRound((maxSize.x() - minSize.x()) * view->getScale()), qRound((maxSize.y() - minSize.y()) * view->getScale()));
-				view->scrollBy(qRound((doc->minCanvasCoordinate.x() - minSize.x()) * view->getScale()), qRound((doc->minCanvasCoordinate.y() - minSize.y()) * view->getScale()));
+				view->resizeContents(qRound((maxSize.x() - minSize.x()) * view->scale()), qRound((maxSize.y() - minSize.y()) * view->scale()));
+				view->scrollBy(qRound((doc->minCanvasCoordinate.x() - minSize.x()) * view->scale()), qRound((doc->minCanvasCoordinate.y() - minSize.y()) * view->scale()));
 				doc->minCanvasCoordinate = minSize;
 				doc->maxCanvasCoordinate = maxSize;
 				outlinePalette->BuildTree();
@@ -6671,7 +6678,7 @@ void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 			double x2 = cos((rotation+90.0)*MPI180) * currItem->height();
 			double mx = currItem->xPos() + ((x1 + x2)/2.0);
 			double my = currItem->yPos() + ((y1 + y2)/2.0);
-			double viewScale=view->getScale();
+			double viewScale=view->scale();
 			if ((qRound((currItem->xPos() + QMAX(x1, x2)) * viewScale) > view->contentsWidth()) ||
 				(qRound((currItem->yPos() + QMAX(y1, y2)) * viewScale) > view->contentsHeight()))
 				view->resizeContents(QMAX(qRound((currItem->xPos() + QMAX(x1, x2)) * viewScale),
@@ -6681,7 +6688,7 @@ void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 		}
 		else
 		{
-			double viewScale=view->getScale();
+			double viewScale=view->scale();
 			if ((qRound((currItem->xPos() + currItem->width()) * viewScale) > view->contentsWidth()) ||
 				(qRound((currItem->yPos() + currItem->height()) * viewScale) > view->contentsHeight())
 				)

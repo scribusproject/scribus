@@ -273,7 +273,7 @@ QPixmap SampleItem::getSample(int width, int height)
 
 	if (ScMW->view != NULL)
 	{
-		sca = ScMW->view->getScale();
+		sca = ScMW->view->scale();
 		ScMW->view->setScale(1.0);
 	}
 

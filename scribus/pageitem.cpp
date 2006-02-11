@@ -273,12 +273,12 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	OldH = Height;
 	OldB2 = Width;
 	OldH2 = Height;
-	itemTypeVal = newType;
+	m_ItemType = newType;
 	Rot = 0;
 	oldRot = 0;
 	m_Doc = pa;
 	fillColorVal = fill;
-	lineColorVal = itemTypeVal == PageItem::TextFrame ? fill : outline;
+	lineColorVal = m_ItemType == PageItem::TextFrame ? fill : outline;
 	TxtFill = m_Doc->toolSettings.dPenText;
 	TxtStroke = m_Doc->toolSettings.dStrokeText;
 	ShTxtStroke = 100;
@@ -338,12 +338,12 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	BBoxX = 0;
 	BBoxH = 0;
 	RadRect = 0;
-	if ((itemTypeVal == TextFrame) || (itemTypeVal == ImageFrame) || (itemTypeVal == PathText))
+	if ((m_ItemType == TextFrame) || (m_ItemType == ImageFrame) || (m_ItemType == PathText))
 		// TODO: Frame should become a read-only calculated property
 		Frame = true;
 	else
 		Frame = false;
-	switch (itemTypeVal)
+	switch (m_ItemType)
 	{
 		case Polygon:
 			Clip.setPoints(4, static_cast<int>(w/2), 0, static_cast<int>(w), static_cast<int>(h/2),
@@ -384,7 +384,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_annotation.setC_act("");
 	m_annotation.setExtern("");
 	*/
-	switch (itemTypeVal)
+	switch (m_ItemType)
 	{
 	case ImageFrame:
 		AnName = tr("Image");
@@ -496,8 +496,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	pageItemAttributes.clear();
 	for(ObjAttrVector::Iterator objAttrIt = m_Doc->docItemAttributes.begin() ; objAttrIt != m_Doc->docItemAttributes.end(); ++objAttrIt )
 	{
-		if (((*objAttrIt).autoaddto=="textframes" && itemTypeVal==TextFrame) ||
-			((*objAttrIt).autoaddto=="imageframes" && itemTypeVal==ImageFrame)
+		if (((*objAttrIt).autoaddto=="textframes" && m_ItemType==TextFrame) ||
+			((*objAttrIt).autoaddto=="imageframes" && m_ItemType==ImageFrame)
 			)
 			pageItemAttributes.append(*objAttrIt);
 	}
@@ -712,7 +712,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 {
 	ScribusView* view = m_Doc->view();
-	sc = view->getScale();
+	sc = view->scale();
 	p->save();
 	if (!isEmbedded)
 	{
@@ -815,7 +815,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 	}
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
-		double scpInv = 1.0 / (QMAX(view->getScale(), 1));
+		double scpInv = 1.0 / (QMAX(view->scale(), 1));
 		if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
 		{
 			p->setPen(black, scpInv, DotLine, FlatCap, MiterJoin);
@@ -990,7 +990,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	//qDebug("paintObj(QRect e, QPixmap *ppX)");
 	QPainter p;
 	ScribusView* view = m_Doc->view();
-	double sc = view->getScale();
+	double sc = view->scale();
 	if (toPixmap)
 		p.begin(ppX);
 	else
@@ -1376,7 +1376,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 				{
 					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 					p->setPen(QPen(tmp,
-									 QMAX(static_cast<int>(ml[it].Width* view->getScale()), 1),
+									 QMAX(static_cast<int>(ml[it].Width* view->scale()), 1),
 									 static_cast<PenStyle>(ml[it].Dash),
 									 static_cast<PenCapStyle>(ml[it].LineEnd),
 									 static_cast<PenJoinStyle>(ml[it].LineJoin)));
@@ -1394,7 +1394,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
-								 QMAX(static_cast<int>(ml[it].Width* view->getScale()), 1),
+								 QMAX(static_cast<int>(ml[it].Width* view->scale()), 1),
 								 static_cast<PenStyle>(ml[it].Dash),
 								 static_cast<PenCapStyle>(ml[it].LineEnd),
 								 static_cast<PenJoinStyle>(ml[it].LineJoin)));
@@ -1413,7 +1413,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
-								 QMAX(static_cast<int>(ml[it].Width*view->getScale()), 1),
+								 QMAX(static_cast<int>(ml[it].Width*view->scale()), 1),
 								 static_cast<PenStyle>(ml[it].Dash),
 								 static_cast<PenCapStyle>(ml[it].LineEnd),
 								 static_cast<PenJoinStyle>(ml[it].LineJoin)));
@@ -2043,12 +2043,12 @@ void PageItem::setTextFlowUsesContourLine(bool useContour)
 
 void PageItem::convertTo(ItemType newType)
 {
-	if (itemTypeVal == newType)
+	if (m_ItemType == newType)
 		return; // nothing to do -> return
 	assert(newType != 1);	//DEBUG CR 2005-02-06
 	assert(newType != 3);	//DEBUG CR 2005-02-06
 	QString fromType = "", toType = "";
-	switch (itemTypeVal)
+	switch (m_ItemType)
 	{
 		case ImageFrame:
 			fromType = Um::ImageFrame;
@@ -2093,13 +2093,13 @@ void PageItem::convertTo(ItemType newType)
 										  QString(Um::FromTo).arg(fromType).arg(toType));
 		ss->set("CONVERT", "convert");
 		ss->set("PAGEITEM", reinterpret_cast<int>(this));
-		ss->set("OLD_TYPE", itemTypeVal);
+		ss->set("OLD_TYPE", m_ItemType);
 		ss->set("NEW_TYPE", newType);
 		undoManager->action(this, ss);
 	}
 	*/
-	itemTypeVal = newType;
-	emit frameType(itemTypeVal);
+	m_ItemType = newType;
+	emit frameType(m_ItemType);
 }
 
 void PageItem::setLayer(int layerId)
@@ -3350,7 +3350,7 @@ void PageItem::DrawObj_Item(ScPainter * /* p */, QRect /* e */, double /* sc */)
 void PageItem::drawLockedMarker(ScPainter *p)
 {
 	//TODO: CB clean
-	double scp1 = 1 ;// / ScMW->view->getScale();
+	double scp1 = 1 ;// / ScMW->view->scale();
 	double ofwh = 6 * scp1;
 	double ofx = Width - ofwh/2;
 	double ofy = Height - ofwh*1.5;
@@ -3359,7 +3359,7 @@ void PageItem::drawLockedMarker(ScPainter *p)
 	double bw= 4*scp1;
 	double bh= 2*scp1;
 	ScribusView* view = m_Doc->view();
-	p->setPen(Qt::black, 0.5 / view->getScale(), SolidLine, FlatCap, MiterJoin);
+	p->setPen(Qt::black, 0.5 / view->scale(), SolidLine, FlatCap, MiterJoin);
 	p->setPenOpacity(1.0);
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);
@@ -3367,7 +3367,7 @@ void PageItem::drawLockedMarker(ScPainter *p)
 	p->drawRect(ofx, ofy, ofwh, ofwh);
 	p->setBrush(Qt::black);
 	p->drawRect(bx1, by1, bw, bh);
-	p->setPen(Qt::black, 1.5 / view->getScale(), SolidLine, FlatCap, RoundJoin);
+	p->setPen(Qt::black, 1.5 / view->scale(), SolidLine, FlatCap, RoundJoin);
 	if (Locked)
 		p->drawLine(FPoint(bx1+scp1/2, ofy+scp1), FPoint(bx1+scp1/2, by1));
 	p->drawLine(FPoint(bx1+scp1*3.5, ofy+scp1), FPoint(bx1+scp1*3.5, by1));
@@ -3610,7 +3610,7 @@ void PageItem::emitAllToGUI()
 	updateConstants();
 
 	emit myself(this);
-	emit frameType(itemTypeVal);
+	emit frameType(m_ItemType);
 	emit position(Xpos, Ypos);
 	emit widthAndHeight(Width, Height);
 	emit rotation(Rot);
@@ -3664,4 +3664,31 @@ void PageItem::updateConstants()
 	}
 	m_Doc->constants().insert("width", Width);
 	m_Doc->constants().insert("height", Height);
+}
+
+//CB Old ScribusView MoveItemI
+void PageItem::moveImageInFrame(double newX, double newY)
+{
+	if (m_ItemType!=PageItem::ImageFrame)
+		return;
+	if ((locked()) || (!ScaleType))
+		return;
+	double dX=0.0, dY=0.0;
+	if (imageFlippedH())
+		dX=-newX;
+	else
+		dX=newX;
+	if (imageFlippedV())
+		dY=-newY;
+	else
+		dY=newY;
+	moveImageXYOffsetBy(dX, dY);
+	if (imageClip.size() != 0)
+	{
+		imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
+		QWMatrix cl;
+		cl.translate(imageXOffset()*imageXScale(), imageYOffset()*imageYScale());
+		cl.scale(imageXScale(), imageYScale());
+		imageClip.map(cl);
+	}
 }

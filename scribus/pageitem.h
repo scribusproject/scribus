@@ -231,7 +231,12 @@ public:
 	 * @brief Update the gradient vectors, moved from the View
 	 */		
 	void updateGradientVectors();
-			
+	/**
+	 * @brief Move the image within the frame
+	 * Old ScribusView::MoveItemI
+	 * @todo Move to PageItem_ImageFrame
+	 */
+	void moveImageInFrame(double newX, double newY);
 
 	ObjAttrVector* getObjectAttributes();
 	/*!
@@ -818,7 +823,7 @@ public:
 	 *            It's here as an interim step to eliminate direct member access
 	 *            on PageItems.
 	 */
-	ItemType itemType() const { return itemTypeVal; }
+	ItemType itemType() const { return m_ItemType; }
 	/**
 	 * @brief Convert this PageItem to PageItem type <code>newType</code>
 	 * @param newType PageItem type for conversion
@@ -985,7 +990,7 @@ protected:
 	 * This will probably go away when pageitem is split into
 	 * subclasses.
 	 */
-	ItemType itemTypeVal;
+	ItemType m_ItemType;
 
 	/**
 	 * @brief Item name. Unicode. User visible (outline, property palette, etc).

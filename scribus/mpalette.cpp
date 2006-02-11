@@ -1396,8 +1396,6 @@ void Mpalette::NewSel(int nr)
 	else
 	{
 		NameEdit->setEnabled(true);
-		FlipH->setEnabled(false);
-		FlipV->setEnabled(false);
 		ShapeGroup->setEnabled(false);
 		RoundRect->setEnabled(false);
 		Distance->setEnabled(false);
@@ -1418,6 +1416,9 @@ void Mpalette::NewSel(int nr)
 		FlipV->setOn(false);
 		connect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
 		connect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
+		//CB Why not for lines?
+		FlipH->setEnabled(nr!=-1 && nr!=5);
+		FlipV->setEnabled(nr!=-1 && nr!=5);
 		switch (nr)
 		{
 		case -1:
@@ -1446,10 +1447,7 @@ void Mpalette::NewSel(int nr)
 			TabStack->setItemEnabled(2, false);
 			TabStack->setItemEnabled(3, true);
 			TabStack->setItemEnabled(4, true);
-			FlipH->setEnabled(true);
-			FlipV->setEnabled(true);
 			ShapeGroup->setEnabled(true);
-			//if ((ScMW->view->SelItem.at(0)->FrameType == 0) || (ScMW->view->SelItem.at(0)->FrameType == 2))
 			if ((doc->selection->itemAt(0)->FrameType == 0) || (doc->selection->itemAt(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			EditShape->setEnabled(true);
@@ -1462,10 +1460,7 @@ void Mpalette::NewSel(int nr)
 			TabStack->setItemEnabled(2, true);
 			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
-			FlipH->setEnabled(true);
-			FlipV->setEnabled(true);
 			ShapeGroup->setEnabled(true);
-			//if ((ScMW->view->SelItem.at(0)->FrameType == 0) || (ScMW->view->SelItem.at(0)->FrameType == 2))
 			if ((doc->selection->itemAt(0)->FrameType == 0) || (doc->selection->itemAt(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			Distance->setEnabled(true);
@@ -1498,9 +1493,6 @@ void Mpalette::NewSel(int nr)
 			TabStack->setItemEnabled(4, true);
 			ShapeGroup->setEnabled(true);
 			EditShape->setEnabled(true);
-			FlipH->setEnabled(true);
-			FlipV->setEnabled(true);
-			//if ((ScMW->view->SelItem.at(0)->FrameType == 0) || (ScMW->view->SelItem.at(0)->FrameType == 2))
 			if ((doc->selection->itemAt(0)->FrameType == 0) || (doc->selection->itemAt(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			if ((visID == 2) || (visID == 3))
@@ -1508,8 +1500,6 @@ void Mpalette::NewSel(int nr)
 			HaveItem = true;
 			break;
 		case 7:
-			FlipH->setEnabled(true);
-			FlipV->setEnabled(true);
 			TabStack->setItemEnabled(1, true);
 			TabStack->setItemEnabled(2, false);
 			TabStack->setItemEnabled(3, false);
@@ -1520,8 +1510,6 @@ void Mpalette::NewSel(int nr)
 			HaveItem = true;
 			break;
 		case 8:
-			FlipH->setEnabled(true);
-			FlipV->setEnabled(true);
 			TabStack->setItemEnabled(1, true);
 			TabStack->setItemEnabled(2, true);
 			TabStack->setItemEnabled(3, false);

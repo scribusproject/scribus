@@ -88,7 +88,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 		return;
 	QString tx = "";
 	double xl, frac;
-	double sc = currView->getScale();
+	double sc = currView->scale();
 	QFont ff = font();
 	ff.setPointSize(8);
 	setFont(ff);
@@ -246,7 +246,7 @@ void Vruler::Draw(int where)
 
 void Vruler::unitChange()
 {
-	double sc = currView->getScale();
+	double sc = currView->scale();
 	cor=1;
 	int docUnitIndex=currDoc->unitIndex();
 	switch (docUnitIndex)

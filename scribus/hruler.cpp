@@ -407,7 +407,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 		return;
 	QString tx = "";
 	double xl, frac;
-	double sc = currView->getScale();
+	double sc = currView->scale();
 	Scaling = sc;
 	QFont ff = font();
 	ff.setPointSize(8);
@@ -799,7 +799,7 @@ void Hruler::UpdateTabList()
 
 void Hruler::unitChange()
 {
-	double sc = currView->getScale();
+	double sc = currView->scale();
 	cor=1;
 	int docUnitIndex=currDoc->unitIndex();
 	switch (docUnitIndex)

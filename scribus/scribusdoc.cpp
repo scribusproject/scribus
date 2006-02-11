@@ -4235,8 +4235,8 @@ void ScribusDoc::chTyStyle(int s)
 
 void ScribusDoc::SetAbStyle(int s)
 {
-	PageItem *currItem;
-	if (ScMW->view->GetItem(&currItem))
+	PageItem *currItem = selection->itemAt(0);
+	if (currItem!=NULL)
 		chAbStyle(currItem, s);
 }
 
