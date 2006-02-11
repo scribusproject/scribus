@@ -35,7 +35,14 @@
 <p>After placing the linked object, import using one of the two methods below.</p>
 
 <h4>Importing Native OO.org Draw Files</h4>
-<p>There are two methods: First is to use the native importer. For most drawings this works very well and I have tested very complex Draw files which imported flawlessly. In some cases, especially with gradients, it may be preferable to test exporting EPS, with the settings further down. You should test both for best quality not only on screen, but exporting a PDF and then zooming is a good quality check. It is important to note Draw 3D objects do not export well, as they are limited to screen resolution. They do not print well in most cases and will appear pixellated at print resolutions. </p>
+<p>There are two methods: First is to use the native importer. For most drawings this works very well and I have tested very complex Draw files which imported flawlessly. In some cases, especially with gradients, it may be preferable to test exporting EPS, with the settings further down. The second method is to export EPS from OO.org. You should test both methods of export for best quality not only on screen, but exporting a PDF and then zooming is a good quality check.</p>
+
+<ul>
+   <li>  It is important to note Draw 3D objects do not export well, as they are limited to screen resolution. They do not print well in most cases and will appear pixellated at print resolutions.  </li>
+   <li>Not all shapes in OO.org Draw 2.x are supported. Contours and callouts do not currently work natively. The workaround is to go <strong>Edit > Select All</strong> in Draw and then right click the selection, then choose <strong>Convert to Curves or Convert to Polygons</strong> depending on the kind of content.</li>
+   <li>Most curves, polygons and bezier shapes are imported without issues. The same applies for star shapes, ellipses and markers - a type of line with arrows. </li>
+   <li>Text effects should be avoided in preference to doing them natively in Scribus which has very versatile text effects.  </li>
+ </ul>
 
 <h4>Importing Formulas</h4>
 <p>The most reliable way I have found is to save your formula as desired and Close Math. Then open OO.org Draw and create a new file. Then, <strong>Insert Object > Formula</strong>. You will have a tiny embedded square on Draw's canvas. Then, right click the embedded object > <strong>Edit Object</strong>. Then, Draw will launch Math. In Math, select <strong>Tools > Import Formula</strong> and browse to your saved formula. Then save to close the file and the embedded formula is now scalable in Draw with the context menus. Save this Draw file, then export as EPS and import into Scribus. The formulas and text will import as a grouped objects as scalable vector items. Any text is imported as outlines as well. This will result in formulas which will print with <strong>very</strong> high quality and little worries when exported as PDF. Saving the Draw file and attempting to import the Draw file with embedded objects will fail, as Scribus cannot access those object directly.</p>
