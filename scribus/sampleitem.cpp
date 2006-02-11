@@ -296,6 +296,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	}
 
 	doc->chAbStyle(previewItem, tmpIndex);
+	previewItem->Frame = false;
 	previewItem->DrawObj(painter, QRect(0, 0, width, height));
 	painter->end();
 	delete(painter);
