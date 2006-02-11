@@ -230,7 +230,7 @@ scribus_SOURCES = \
 INTERFACES =
 TRANSLATIONS =
 
-SUBDIRS = $(renderer_subdirs) dicts doc icons keysets manpages plugins po profiles qm templates dtd loremipsum
+SUBDIRS = $(renderer_subdirs) dicts doc icons keysets manpages plugins po profiles qm swatches templates dtd loremipsum
 
 #     NOTE: `EXTRA_DIST' is *NOT* required. The build system includes all
 #     loose files by default. You only need to use `EXTRA_DIST' when using
@@ -245,15 +245,6 @@ about_builddate.inc:
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/
-	$(INSTALL_DATA) $(srcdir)/rgbsvg.txt $(libdir)/scribus/rgbsvg.txt
-	$(mkinstalldirs) $(libdir)/scribus/
-	$(INSTALL_DATA) $(srcdir)/rgbscribusgreys.txt $(libdir)/scribus/rgbscribusgreys.txt
-	$(mkinstalldirs) $(libdir)/scribus/
-	$(INSTALL_DATA) $(srcdir)/rgbscribusgnome.txt $(libdir)/scribus/rgbscribusgnome.txt
-	$(mkinstalldirs) $(libdir)/scribus/
-	$(INSTALL_DATA) $(srcdir)/rgbscribus.txt                $(libdir)/scribus/rgbscribus.txt
-	$(mkinstalldirs) $(prefix)/include/scribus/
-	$(INSTALL_DATA) $(srcdir)/rgbscribusopenoffice.txt      $(libdir)/scribus/rgbscribusopenoffice.txt
 	$(mkinstalldirs) $(prefix)/include/scribus/
 	$(INSTALL_DATA) $(srcdir)/about.h                       $(prefix)/include/scribus/about.h
 	$(INSTALL_DATA) $(srcdir)/actionmanager.h               $(prefix)/include/scribus/actionmanager.h
@@ -432,11 +423,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/werktoolb.h                   $(prefix)/include/scribus/werktoolb.h
 
 uninstall-local:
-	-rm -f $(libdir)/scribus/rgbscribus.txt
-	-rm -f $(libdir)/scribus/rgbscribusgnome.txt
-	-rm -f $(libdir)/scribus/rgbscribusgreys.txt
-	-rm -f $(libdir)/scribus/rgbscribusopenoffice.txt
-	-rm -f $(libdir)/scribus/rgbsvg.txt
 	-rm -f $(prefix)/include/scribus/about.h
 	-rm -f $(prefix)/include/scribus/actionmanager.h
 	-rm -f $(prefix)/include/scribus/aligndistribute.h

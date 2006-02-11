@@ -224,6 +224,20 @@ QStringList ScPaths::getSystemProfilesDirs(void)
 	return iccProfDirs;
 }
 
+QStringList ScPaths::getSystemCreateDirs(void)
+{
+	QStringList createDirs;
+#ifdef Q_OS_MAC
+#elif defined(Q_WS_X11)
+	createDirs.append(QDir::homeDirPath()+"/create/swatches/");
+	createDirs.append(QDir::homeDirPath()+"/.create/swatches/");
+	createDirs.append("/usr/share/create/swatches/");
+	createDirs.append("/usr/local/share/create/swatches/");
+#elif defined(_WIN32)
+#endif
+	return createDirs;
+}
+
 QString ScPaths::getSpecialDir(int folder)
 {
 	QString qstr;

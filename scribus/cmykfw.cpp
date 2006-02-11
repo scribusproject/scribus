@@ -550,7 +550,7 @@ void CMYKChoose::SelSwatch(int n)
 		bool cus = false;
 		CurrSwatch.clear();
 		QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+Swatches->currentText());
-		QString pfadC = ScPaths::instance().libDir();
+		QString pfadC = ScPaths::instance().libDir()+"swatches/";
 		QString pfadC2 = pfadC + "rgbscribus.txt";
 		switch (n)
 		{

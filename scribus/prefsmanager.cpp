@@ -129,7 +129,7 @@ void PrefsManager::initDefaults()
 
 	/** Default colours **/
 	appPrefs.DColors.clear();
-	QString pfadC = ScPaths::instance().libDir();
+	QString pfadC = ScPaths::instance().libDir()+"swatches/";
 	QString pfadC2 = pfadC + "rgbscribus.txt";
 	QFile fiC(pfadC2);
 	if (!fiC.exists())

@@ -238,7 +238,7 @@ void ColorManager::loadDefaults(int id)
 	LoadColSet->setText(CSets->text(id));
 	EditColors.clear();
 	QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+CSets->text(id));
-	QString pfadC = ScPaths::instance().libDir();
+	QString pfadC = ScPaths::instance().libDir()+"swatches/";
 	QString pfadC2 = pfadC + "rgbscribus.txt";
 	switch (c)
 	{

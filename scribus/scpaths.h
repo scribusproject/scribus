@@ -53,6 +53,8 @@ public:
 	static QStringList getSystemFontDirs(void);
 	/** @brief Return paths to system icc profiles directories*/
 	static QStringList getSystemProfilesDirs(void);
+	/** @brief Return paths to system create project directories*/
+	static QStringList getSystemCreateDirs();
 
 protected:
 	/** @brief Constructor. Use ScPaths::instance() instead. */
