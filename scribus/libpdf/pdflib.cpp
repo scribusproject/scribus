@@ -2455,6 +2455,87 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 	return tmp;
 }
 
+QString PDFlib::SetFarbeGrad(QString farbe, int Shade)
+{
+	QString tmp;
+	CMYKColor tmpC;
+	int h, s, v, k, sneu;
+	tmpC = doc->PageColors[farbe];
+	tmpC.getCMYK(&h, &s, &v, &k);
+	QColor tmpR;
+	if (Options->UseRGB)
+	{
+		tmpC.getRawRGBColor(&h, &s, &v);
+		tmpR.setRgb(h, s, v);
+		if ((h == s) && (s == v))
+		{
+			tmpR.hsv(&h, &s, &v);
+			sneu = 255 - ((255 - v) * Shade / 100);
+			tmpR.setHsv(h, s, sneu);
+		}
+		else
+		{
+			tmpR.hsv(&h, &s, &v);
+			sneu = s * Shade / 100;
+			tmpR.setHsv(h, sneu, v);
+		}
+		tmpR.rgb(&h, &s, &v);
+		tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
+	}
+	else
+	{
+#ifdef HAVE_CMS
+		if ((CMSuse) && (Options->UseProfiles))
+		{
+			if (Options->SComp == 3)
+			{
+				tmpC.getRawRGBColor(&h, &s, &v);
+				tmpR.setRgb(h, s, v);
+				if ((h == s) && (s == v))
+				{
+					tmpR.hsv(&h, &s, &v);
+					sneu = 255 - ((255 - v) * Shade / 100);
+					tmpR.setHsv(h, s, sneu);
+				}
+				else
+				{
+					tmpR.hsv(&h, &s, &v);
+					sneu = s * Shade / 100;
+					tmpR.setHsv(h, sneu, v);
+				}
+				tmpR.rgb(&h, &s, &v);
+				tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
+			}
+			else
+			{
+				if (view->Prefs->GCRMode)
+					tmpC.applyGCR();
+				tmpC.getCMYK(&h, &s, &v, &k);
+				h = h * Shade / 100;
+				s = s * Shade / 100;
+				v = v * Shade / 100;
+				k = k * Shade / 100;
+				tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
+			}
+		}
+		else
+		{
+#endif
+			if (view->Prefs->GCRMode)
+				tmpC.applyGCR();
+			tmpC.getCMYK(&h, &s, &v, &k);
+			h = h * Shade / 100;
+			s = s * Shade / 100;
+			v = v * Shade / 100;
+			k = k * Shade / 100;
+			tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
+		}
+#ifdef HAVE_CMS
+	}
+#endif
+	return tmp;
+}
+
 QString PDFlib::SetFarbe(QString farbe, int Shade)
 {
 	QString tmp;
@@ -2700,7 +2781,7 @@ void PDFlib::PDF_Gradient(PageItem *b)
 		{
 			TransVec.prepend(cstops.at(cst)->opacity);
 			StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
-			Gcolors.prepend(SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade));
+			Gcolors.prepend(SetFarbeGrad(cstops.at(cst)->name, cstops.at(cst)->shade));
 		}
 	}
 	else
@@ -2716,7 +2797,7 @@ void PDFlib::PDF_Gradient(PageItem *b)
 			TransVec.append(cstops.at(cst)->opacity);
 			StopVec.append(x);
 			StopVec.append(-y);
-			Gcolors.append(SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade));
+			Gcolors.append(SetFarbeGrad(cstops.at(cst)->name, cstops.at(cst)->shade));
 		}
 	}
 	PDF_DoLinGradient(b, StopVec, TransVec, Gcolors);
