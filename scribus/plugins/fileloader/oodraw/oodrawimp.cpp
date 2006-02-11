@@ -715,9 +715,11 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			{
 				if ( !n.hasAttributes() && !n.hasChildNodes() )
 					continue;
+				QDomElement e = n.toElement();
+				if ( e.text().isEmpty() )
+					continue;
 				int FontSize = Doku->toolSettings.defSize;
 				int AbsStyle = 0;
-				QDomElement e = n.toElement();
 				if( m_styleStack.hasAttribute("fo:text-align"))
 				{
 					if (m_styleStack.attribute("fo:text-align") == "left")
