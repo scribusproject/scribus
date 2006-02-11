@@ -4997,7 +4997,7 @@ bool ScribusView::ApplyGuides(double *x, double *y)
 			*x = page->width() - page->Margins.Right+page->xOffset();
 			ret = true;
 		}
-		if ((page->Margins.Top+page->xOffset() < (*y+Doc->guidesSettings.guideRad)) && (page->Margins.Top+page->yOffset() > (*y-Doc->guidesSettings.guideRad)))
+		if ((page->Margins.Top+page->yOffset() < (*y+Doc->guidesSettings.guideRad)) && (page->Margins.Top+page->yOffset() > (*y-Doc->guidesSettings.guideRad)))
 		{
 			*y = page->Margins.Top+page->yOffset();
 			ret = true;
