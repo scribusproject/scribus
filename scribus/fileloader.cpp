@@ -593,10 +593,10 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 				Apage->setHeight(pg.attribute("PAGEHEIGHT").toDouble());
 				Apage->setInitialHeight(Apage->height());
 				Apage->setInitialWidth(Apage->width());
-				Apage->initialMargins.Top = pg.attribute("BORDERTOP").toDouble();
-				Apage->initialMargins.Bottom = pg.attribute("BORDERBOTTOM").toDouble();
-				Apage->initialMargins.Left = pg.attribute("BORDERLEFT").toDouble();
-				Apage->initialMargins.Right = pg.attribute("BORDERRIGHT").toDouble();
+				Apage->initialMargins.Top = QMAX(0.0, pg.attribute("BORDERTOP").toDouble());
+				Apage->initialMargins.Bottom = QMAX(0.0, pg.attribute("BORDERBOTTOM").toDouble());
+				Apage->initialMargins.Left = QMAX(0.0, pg.attribute("BORDERLEFT").toDouble());
+				Apage->initialMargins.Right = QMAX(0.0, pg.attribute("BORDERRIGHT").toDouble());
 				Apage->Margins.Top = Apage->initialMargins.Top;
 				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
 				pageX = pg.attribute("PAGEXPOS").toDouble();
@@ -943,10 +943,10 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		else
 			doc->pageWidth=dc.attribute("PAGEWITH").toDouble();
 		doc->pageHeight=dc.attribute("PAGEHEIGHT").toDouble();
-		doc->pageMargins.Left=dc.attribute("BORDERLEFT").toDouble();
-		doc->pageMargins.Right=dc.attribute("BORDERRIGHT").toDouble();
-		doc->pageMargins.Top=dc.attribute("BORDERTOP").toDouble();
-		doc->pageMargins.Bottom=dc.attribute("BORDERBOTTOM").toDouble();
+		doc->pageMargins.Left=QMAX(0.0, dc.attribute("BORDERLEFT").toDouble());
+		doc->pageMargins.Right=QMAX(0.0, dc.attribute("BORDERRIGHT").toDouble());
+		doc->pageMargins.Top=QMAX(0.0, dc.attribute("BORDERTOP").toDouble());
+		doc->pageMargins.Bottom=QMAX(0.0, dc.attribute("BORDERBOTTOM").toDouble());
 		doc->Automatic = static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt());
 		doc->AutoCheck = static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt());
 		doc->GuideLock = static_cast<bool>(dc.attribute("GUIDELOCK", "0").toInt());
@@ -1506,10 +1506,10 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				Apage->setHeight(pg.attribute("PAGEHEIGHT").toDouble());
 				Apage->setInitialHeight(Apage->height());
 				Apage->setInitialWidth(Apage->width());
-				Apage->initialMargins.Top = pg.attribute("BORDERTOP").toDouble();
-				Apage->initialMargins.Bottom = pg.attribute("BORDERBOTTOM").toDouble();
-				Apage->initialMargins.Left = pg.attribute("BORDERLEFT").toDouble();
-				Apage->initialMargins.Right = pg.attribute("BORDERRIGHT").toDouble();
+				Apage->initialMargins.Top = QMAX(0.0, pg.attribute("BORDERTOP").toDouble());
+				Apage->initialMargins.Bottom = QMAX(0.0, pg.attribute("BORDERBOTTOM").toDouble());
+				Apage->initialMargins.Left = QMAX(0.0, pg.attribute("BORDERLEFT").toDouble());
+				Apage->initialMargins.Right = QMAX(0.0, pg.attribute("BORDERRIGHT").toDouble());
 				Apage->Margins.Top = Apage->initialMargins.Top;
 				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
 				doc->setMasterPageMode(false);

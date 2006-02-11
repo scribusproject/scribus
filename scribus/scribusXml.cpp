@@ -1235,10 +1235,10 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		else
 			doc->pageWidth=dc.attribute("PAGEWITH").toDouble();
 		doc->pageHeight=dc.attribute("PAGEHEIGHT").toDouble();
-		doc->pageMargins.Left=dc.attribute("BORDERLEFT").toDouble();
-		doc->pageMargins.Right=dc.attribute("BORDERRIGHT").toDouble();
-		doc->pageMargins.Top=dc.attribute("BORDERTOP").toDouble();
-		doc->pageMargins.Bottom=dc.attribute("BORDERBOTTOM").toDouble();
+		doc->pageMargins.Left=QMAX(0.0, dc.attribute("BORDERLEFT").toDouble());
+		doc->pageMargins.Right=QMAX(0.0, dc.attribute("BORDERRIGHT").toDouble());
+		doc->pageMargins.Top=QMAX(0.0, dc.attribute("BORDERTOP").toDouble());
+		doc->pageMargins.Bottom=QMAX(0.0, dc.attribute("BORDERBOTTOM").toDouble());
 		doc->PageOri = dc.attribute("ORIENTATION", "0").toInt();
 		doc->PageSize = dc.attribute("PAGESIZE");
 		doc->FirstPnum = dc.attribute("FIRSTNUM", "1").toInt();
