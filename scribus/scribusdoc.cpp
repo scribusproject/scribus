@@ -1906,6 +1906,10 @@ bool ScribusDoc::applyMasterPage(const QString& in, const int pageNumber)
 		}
 		qHeapSort(Ap->XGuides);
 	}
+	Ap->initialMargins.Top = Mp->Margins.Top;
+	Ap->initialMargins.Bottom = Mp->Margins.Bottom;
+	Ap->initialMargins.Left = Mp->Margins.Left;
+	Ap->initialMargins.Right = Mp->Margins.Right;
 	//TODO make a return false if not possible to apply the master page
 	return true;
 }

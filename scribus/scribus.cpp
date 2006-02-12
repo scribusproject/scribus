@@ -4669,6 +4669,7 @@ void ScribusMainWindow::SaveText()
 void ScribusMainWindow::applyNewMaster(QString name)
 {
 	Apply_MasterPage(name, doc->currentPage->pageNr());
+	view->reformPages();
 	view->DrawNew();
 	slotDocCh();
 	pagePalette->Rebuild();
@@ -7425,6 +7426,7 @@ void ScribusMainWindow::ApplyMasterPage()
 			}
 		}
 	}
+	view->reformPages();
 	view->DrawNew();
 	slotDocCh();
 	pagePalette->Rebuild();
