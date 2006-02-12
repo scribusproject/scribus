@@ -72,6 +72,25 @@ ScColor::ScColor(int r, int g, int b)
 	Regist = false;
 }
 
+bool ScColor::operator==(const ScColor& rhs) const
+{
+	if (Model!=rhs.Model)
+		return false;
+	if (Spot!=rhs.Spot)
+		return false;
+	if (Regist!=rhs.Regist)
+		return false;
+	if (Model==colorModelRGB)
+	{
+		return (R==rhs.R && G==rhs.G && B==rhs.B);
+	}
+	if (Model==colorModelCMYK)
+	{
+		return (C==rhs.C && M==rhs.M && Y==rhs.Y && K==rhs.K);
+	}
+	return false;
+}
+
 void ScColor::setColor(int c, int m, int y, int k)
 {
 	C = c;

@@ -308,6 +308,8 @@ void ColorManager::loadDefaults(int id)
 			{
 				ScColor tmp;
 				ColorEn = tsC.readLine();
+				if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
+					continue;
 				QTextStream CoE(&ColorEn, IO_ReadOnly);
 				CoE >> Rval;
 				CoE >> Gval;
@@ -325,11 +327,18 @@ void ColorManager::loadDefaults(int id)
 				}
 				if ((c<customSetStartIndex) && (Cname.length()==0))
 				{
-					Cname=QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).upper();
+					if (!cus)
+						Cname=QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).upper();
+					else
+						Cname=QString("#%1%2%3%4").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).arg(Kval,2,16).upper();
 					Cname.replace(" ","0");
 				}
 				if (EditColors.contains(Cname))
+				{
+					if (tmp==EditColors[Cname])
+						continue;
 					Cname=QString("%1%2").arg(Cname).arg(EditColors.count());
+				}
 				EditColors.insert(Cname, tmp);
 			}
 			fiC.close();

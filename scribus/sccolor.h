@@ -55,6 +55,9 @@ public:
  * in the range from 0 - 255 */
 	ScColor(int r, int g, int b);
 	~ScColor() {};
+	
+	bool operator==(const ScColor& rhs) const;
+	
 /** flag to enable and disable use of color management (default: true) */
 	static bool UseProf;
 

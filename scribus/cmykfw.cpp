@@ -628,11 +628,18 @@ void CMYKChoose::SelSwatch(int n)
 					
 					if ((n<customSetStartIndex) && (Cname.length()==0))
 					{
-						Cname=QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).upper();
+						if (!cus)
+							Cname=QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).upper();
+						else
+							Cname=QString("#%1%2%3%4").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).arg(Kval,2,16).upper();
 						Cname.replace(" ","0");
 					}
 					if (CurrSwatch.contains(Cname))
+					{
+						if (tmp==CurrSwatch[Cname])
+							continue;
 						Cname=QString("%1%2").arg(Cname).arg(CurrSwatch.count());
+					}
 					
 					CurrSwatch.insert(Cname, tmp);
 				}
