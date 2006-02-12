@@ -561,7 +561,15 @@ void ScribusMainWindow::initPalettes()
 
 void ScribusMainWindow::initScrapbook()
 {
-	QString scrapbookFile = QDir::convertSeparators(PrefsPfad+"/scrap13.scs");
+	QString scrapbookFileO = QDir::convertSeparators(PrefsPfad+"/scrap13.scs");
+	QFileInfo scrapbookFileInfoO = QFileInfo(scrapbookFileO);
+	if (scrapbookFileInfoO.exists())
+	{
+		scrapbookPalette->readOldContents(scrapbookFileO, QDir::convertSeparators(PrefsPfad+"/scrapbook/main"));
+		QDir d = QDir();
+		d.rename(scrapbookFileO, QDir::convertSeparators(PrefsPfad+"/scrap13.backup"));
+	}
+	QString scrapbookFile = QDir::convertSeparators(PrefsPfad+"/scrapbook/main");
 	QFileInfo scrapbookFileInfo = QFileInfo(scrapbookFile);
 	if (scrapbookFileInfo.exists())
 		scrapbookPalette->readContents(scrapbookFile);
@@ -1612,14 +1620,6 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	if (!emergencyActivated)
 		prefsManager->SavePrefs();
 	UndoManager::deleteInstance();
-	if ((prefsManager->appPrefs.SaveAtQ) && (scrapbookPalette->changed()))
-	{
-		if (scrapbookPalette->getScrapbookFileName().isEmpty())
-			scrapbookPalette->setScrapbookFileName(PrefsPfad+"/scrap13.scs");
-		scrapbookPalette->Save();
-	}
-	if (scrapbookPalette->objectCount() == 0)
-		unlink(PrefsPfad+"/scrap13.scs");
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	exit(0);
 }

@@ -397,18 +397,6 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabLayout_5 = new QGridLayout( tab_5 );
 	tabLayout_5->setSpacing( 5 );
 	tabLayout_5->setMargin( 0 );
-	saving = new QGroupBox( tr( "Other Options" ), tab_5, "Saving" );
-	saving->setColumnLayout(0, Qt::Vertical );
-	saving->layout()->setSpacing( 0 );
-	saving->layout()->setMargin( 0 );
-	savingLayout = new QHBoxLayout( saving->layout() );
-	savingLayout->setAlignment( Qt::AlignTop );
-	savingLayout->setSpacing( 6 );
-	savingLayout->setMargin( 25 );
-	SaveAtQuit = new QCheckBox( tr( "Sa&ve Contents on Changes" ), saving, "SaveAtQuit" );
-	SaveAtQuit->setChecked(prefsData->SaveAtQ);
-	savingLayout->addWidget( SaveAtQuit );
-	tabLayout_5->addWidget( saving, 1, 0 );
 	preview = new QGroupBox( tr( "Preview" ), tab_5, "Preview" );
 	preview->setColumnLayout(0, Qt::Vertical );
 	preview->layout()->setSpacing( 0 );
@@ -722,7 +710,6 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QWidget::setTabOrder( ScriptPfad, FileC3 );
 	QWidget::setTabOrder( FileC3, DocumentTemplateDir );
 	QWidget::setTabOrder( DocumentTemplateDir, FileC4 );
-	QWidget::setTabOrder( PreviewSize, SaveAtQuit );
 
 	QToolTip::add( checkLink, "<qt>" + tr("Enable or disable  the display of linked frames.") + "</qt>");
 	QToolTip::add( checkControl, "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
@@ -752,7 +739,6 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QToolTip::add( urSpinBox, "<qt>" + tr("Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.") + "</qt>");
 
 	QToolTip::add( PreviewSize, "<qt>" + tr( "Choose the size of the preview in the scrapbook palette" ) + "</qt>" );
-	QToolTip::add( SaveAtQuit, "<qt>" + tr( "Save the scrapbook contents everytime after a change" ) + "</qt>" );
 
 	QToolTip::add( backColor, "<qt>" + tr( "Color for paper" ) + "</qt>");
 	QToolTip::add( checkUnprintable, "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
@@ -1340,7 +1326,6 @@ void Preferences::updatePreferences()
 			prefsManager->appPrefs.PSize = 80;
 			break;
 	}
-	prefsManager->appPrefs.SaveAtQ = SaveAtQuit->isChecked();
 	prefsManager->appPrefs.guiLanguage=selectedGUILang;
 	prefsManager->appPrefs.GUI = GUICombo->currentText();
 	tabTools->polyWidget->getValues(&prefsManager->appPrefs.toolSettings.polyC, &prefsManager->appPrefs.toolSettings.polyFd, &prefsManager->appPrefs.toolSettings.polyF, &prefsManager->appPrefs.toolSettings.polyS, &prefsManager->appPrefs.toolSettings.polyR);

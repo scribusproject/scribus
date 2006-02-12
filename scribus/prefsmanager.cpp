@@ -258,7 +258,6 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.polyFd = 0;
 	appPrefs.toolSettings.polyR = 0;
 	appPrefs.PSize = 40;
-	appPrefs.SaveAtQ = true;
 	appPrefs.ClipMargin = false;
 	appPrefs.GCRMode = false;
 	appPrefs.RecentDocs.clear();
@@ -542,6 +541,15 @@ QString PrefsManager::setupPreferencesLocation()
 		QFileInfo oldPi3 = QFileInfo(oldPR3);
 		if (oldPi3.exists())
 			moveFile(oldPR3, Pff+"/scrap.scs");
+	}
+	QString scB = QDir::convertSeparators(Pff+"/scrapbook");
+	QFileInfo scBi = QFileInfo(scB);
+	if (!scBi.exists())
+	{
+		QDir scrapDirectory = QDir();
+		scrapDirectory.mkdir(scB);
+		QDir scrapMainDirectory = QDir();
+		scrapDirectory.mkdir(QDir::convertSeparators(scB+"/main"));
 	}
 	prefsLocation=PrefsPfad;
 	return PrefsPfad;
@@ -989,7 +997,6 @@ bool PrefsManager::WritePref(QString ho)
 	elem.appendChild(dc4);
 	QDomElement dc73=docu.createElement("SCRAPBOOK");
 	dc73.setAttribute("PREVIEW",appPrefs.PSize);
-	dc73.setAttribute("SAVE", static_cast<int>(appPrefs.SaveAtQ));
 	elem.appendChild(dc73);
 	QDomElement dc75=docu.createElement("PAGEPALETTE");
 	dc75.setAttribute("THUMBS", static_cast<int>(appPrefs.SepalT));
@@ -1477,7 +1484,6 @@ bool PrefsManager::ReadPref(QString ho)
 		if (dc.tagName()=="SCRAPBOOK")
 		{
 			appPrefs.PSize = dc.attribute("PREVIEW").toInt();
-			appPrefs.SaveAtQ = static_cast<bool>(dc.attribute("SAVE").toInt());
 		}
 		if (dc.tagName() == "DOKUMENT")
 		{

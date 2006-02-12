@@ -56,7 +56,8 @@ QDragObject *BibView::dragObject()
 {
 	QString dt = objectMap[currentItem()->text()].Data.utf8();
 	QDragObject *dr = new QTextDrag(dt, this);
-	dr->setPixmap(loadIcon("DragPix.xpm"));
+	dr->setPixmap(objectMap[currentItem()->text()].Preview);
+//	dr->setPixmap(loadIcon("DragPix.xpm"));
 	return dr;
 }
 
@@ -68,29 +69,27 @@ void BibView::AddObj(QString name, QString daten, QPixmap Bild)
 	objectMap.insert(name, DrElem);
 }
 
-void BibView::SaveContents(QString name)
+void BibView::SaveContents(QString name, QString oldName)
 {
-	QDomDocument docu("scribus");
-	QString st="<SCRIBUSSCRAPUTF8></SCRIBUSSCRAPUTF8>";
-	docu.setContent(st);
-	QDomElement ele=docu.documentElement();
-	for (QMap<QString,Elem>::Iterator itf = objectMap.begin(); itf != objectMap.end(); ++itf)
+	QDir d(oldName, "*.sce", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+	if ((d.exists()) && (d.count() != 0))
 	{
-		QDomElement dc=docu.createElement("OBJEKT");
-		dc.setAttribute("NAME",itf.key());
-		dc.setAttribute("DATA",itf.data().Data);
-		ele.appendChild(dc);
+		for (uint dc = 0; dc < d.count(); ++dc)
+		{
+			QString f = "";
+			if (!loadText(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d[dc])), &f))
+				continue;
+			QFile fi(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])));
+			if(!fi.open(IO_WriteOnly))
+				continue ;
+			QTextStream s(&fi);
+			s.writeRawBytes(f, f.length());
+			fi.close();
+		}
 	}
-	QFile f(name);
-	if(!f.open(IO_WriteOnly))
-		return ;
-	QTextStream s(&f);
-	QString wr = docu.toString().utf8();
-	s.writeRawBytes(wr, wr.length());
-	f.close();
 }
 
-void BibView::ReadContents(QString name)
+void BibView::ReadOldContents(QString name, QString newName)
 {
 	QDomDocument docu("scridoc");
 	QString f = "";
@@ -106,19 +105,41 @@ void BibView::ReadContents(QString name)
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUSSCRAP") && (elem.tagName() != "SCRIBUSSCRAPUTF8"))
 		return;
-	clear();
-	objectMap.clear();
 	QDomNode DOC=elem.firstChild();
 	while(!DOC.isNull())
 	{
 		QDomElement dc=DOC.toElement();
 		if (dc.tagName()=="OBJEKT")
 		{
-			ScPreview *pre = new ScPreview();
-			AddObj(GetAttr(&dc, "NAME"), GetAttr(&dc, "DATA"), pre->createPreview(GetAttr(&dc, "DATA")));
-			delete pre;
+			QFile fi(QDir::cleanDirPath(QDir::convertSeparators(newName + "/" + GetAttr(&dc, "NAME") + ".sce")));
+			if(!fi.open(IO_WriteOnly))
+				continue ;
+			QTextStream s(&fi);
+			QString fn = GetAttr(&dc, "DATA");
+			s.writeRawBytes(fn, fn.length());
+			fi.close();
 		}
 		DOC=DOC.nextSibling();
+	}
+}
+
+void BibView::ReadContents(QString name)
+{
+	clear();
+	objectMap.clear();
+	QDir d(name, "*.sce", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+	if ((d.exists()) && (d.count() != 0))
+	{
+		for (uint dc = 0; dc < d.count(); ++dc)
+		{
+			QString f = "";
+			if (!loadText(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])), &f))
+				continue;
+			QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])));
+			ScPreview *pre = new ScPreview();
+			AddObj(fi.baseName(), QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])), pre->createPreview(f));
+			delete pre;
+		}
 	}
 	QMap<QString,Elem>::Iterator itf;
 	for (itf = objectMap.begin(); itf != objectMap.end(); ++itf)
@@ -133,8 +154,10 @@ void BibView::RebuildView()
 	QMap<QString,Elem>::Iterator itf;
 	for (itf = objectMap.begin(); itf != objectMap.end(); ++itf)
 	{
+		QString f = "";
+		loadText(itf.data().Data, &f);
 		ScPreview *pre = new ScPreview();
-		itf.data().Preview = pre->createPreview(itf.data().Data);
+		itf.data().Preview = pre->createPreview(f);
 		(void) new QIconViewItem(this, itf.key(), itf.data().Preview);
 		delete pre;
 	}
@@ -153,8 +176,7 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	fmenu = new QPopupMenu();
 	fNew = fmenu->insertItem(loadIcon("DateiNeu16.png"), "", this, SLOT(NewLib()), CTRL+Key_N);
 	fLoad = fmenu->insertItem(loadIcon("DateiOpen16.png"), "", this, SLOT(Load()), CTRL+Key_O);
-	fSave = fmenu->insertItem(loadIcon("DateiSave16.png"), "", this, SLOT(Save()), CTRL+Key_S);
-	fSaveAs = fmenu->insertItem( "", this, SLOT(SaveAs()));
+	fSaveAs = fmenu->insertItem( loadIcon("DateiSave16.png"), "", this, SLOT(SaveAs()));
 	fClose = fmenu->insertItem(loadIcon("DateiClos16.png"), "", this, SLOT(close()));
 	vmenu = new QPopupMenu();
 	vSmall = vmenu->insertItem( "" );
@@ -222,6 +244,11 @@ void Biblio::rebuildView()
 	BibWin->RebuildView();	
 }
 
+void Biblio::readOldContents(QString fileName, QString newName)
+{
+	BibWin->ReadOldContents(fileName, newName);
+}
+
 void Biblio::readContents(QString fileName)
 {
 	BibWin->ReadContents(fileName);
@@ -233,46 +260,28 @@ void Biblio::installEventFilter(const QObject *filterObj)
 	BibWin->installEventFilter(filterObj);
 }
 
-
-void Biblio::Save()
-{
-	if ((!ScFilename.isEmpty()) && (BibWin->objectMap.count() != 0))
-	{
-		BibWin->SaveContents(ScFilename);
-		Changed = false;
-	}
-}
-
 void Biblio::SaveAs()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	QString fn = QFileDialog::getSaveFileName(dirs->get("scrap_saveas", "."),
-	                                          tr("Scrapbooks (*.scs);;All Files (*)"), this);
+	QString fn = QFileDialog::getExistingDirectory(dirs->get("scrap_saveas", "."), this, "d", tr("Choose a Directory"), true);
 	if (!fn.isEmpty())
 	{
-		QString saveFileName;
-		if (fn.endsWith(".scs"))
-			saveFileName = fn;
-		else
-			saveFileName = fn+".scs";
-		dirs->set("scrap_saveas", saveFileName.left(saveFileName.findRev("/")));
-		BibWin->SaveContents(saveFileName);
-		ScFilename = saveFileName;
-		setCaption(saveFileName);
-		fmenu->setItemEnabled(fSave, 1);
+		dirs->set("scrap_saveas", fn);
+		BibWin->SaveContents(fn, ScFilename);
+		ScFilename = fn;
+		setCaption(fn);
+		fmenu->setItemEnabled(fSaveAs, 1);
 		Changed = false;
 	}
 }
 
 void Biblio::Load()
 {
-	Save();
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	QString fileName = QFileDialog::getOpenFileName(dirs->get("scrap_load", "."),
-	                                                tr("Scrapbooks (*.scs);;All Files (*)"),this);
+	QString fileName = QFileDialog::getExistingDirectory(dirs->get("scrap_load", "."), this, "d", tr("Choose a Scrapbook Directory"), true);
 	if (!fileName.isEmpty())
 	{
-		dirs->set("scrap_load", fileName.left(fileName.findRev("/")));
+		dirs->set("scrap_load", fileName);
 		BibWin->ReadContents(fileName);
 		ScFilename = fileName;
 		setCaption(fileName);
@@ -343,23 +352,26 @@ void Biblio::HandleMouse(QIconViewItem *ite)
 
 void Biblio::NewLib()
 {
-	Save();
-	BibWin->objectMap.clear();
-	BibWin->clear();
-	ScFilename = "";
-	setCaption( tr("Scrapbook"));
-	fmenu->setItemEnabled(fSave, 0);
+	QString fileName = QFileDialog::getExistingDirectory("", this, "d", tr("Choose a Scrapbook Directory"), true);
+	if (!fileName.isEmpty())
+	{
+		BibWin->objectMap.clear();
+		BibWin->clear();
+		ScFilename = fileName;
+		setCaption(fileName);
+		fmenu->setItemEnabled(fSaveAs, 0);
+	}
 }
 
 void Biblio::DeleteObj(QString name, QIconViewItem *ite)
 {
+	QFile f(BibWin->objectMap[name].Data);
+	f.remove();
 	BibWin->objectMap.remove(name);
 	delete ite;
 	BibWin->sort(BibWin->sortDirection());
 	BibWin->arrangeItemsInGrid(true);
 	Changed = true;
-	if (PrefsManager::instance()->appPrefs.SaveAtQ)
-		Save();
 }
 
 void Biblio::ItemRenamed(QIconViewItem *ite)
@@ -378,13 +390,13 @@ void Biblio::ItemRenamed(QIconViewItem *ite)
 		{
 			ObjData = BibWin->objectMap[OldName].Data;
 			ObjPreview = BibWin->objectMap[OldName].Preview;
+			QDir d = QDir();
+			d.rename(ObjData, QDir::cleanDirPath(QDir::convertSeparators(ScFilename + "/" + ite->text() + ".sce")));
 			BibWin->objectMap.remove(OldName);
-			BibWin->AddObj(ite->text(), ObjData, ObjPreview);
+			BibWin->AddObj(ite->text(), QDir::cleanDirPath(QDir::convertSeparators(ScFilename + "/" + ite->text() + ".sce")), ObjPreview);
 			BibWin->sort(BibWin->sortDirection());
 			BibWin->arrangeItemsInGrid(true);
 			Changed = true;
-			if (PrefsManager::instance()->appPrefs.SaveAtQ)
-				Save();
 		}
 	}
 	connect(BibWin, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
@@ -419,8 +431,6 @@ void Biblio::DropOn(QDropEvent *e)
 			}
 		}
 		ObjFromMenu(text);
-		if (PrefsManager::instance()->appPrefs.SaveAtQ)
-			Save();
 	}
 }
 
@@ -455,9 +465,15 @@ void Biblio::ObjFromMenu(QString text)
 		ff = QString::fromUtf8(tmp);
 	else
 		ff = tmp;
+	QFile f(QDir::cleanDirPath(QDir::convertSeparators(ScFilename + "/" + nam + ".sce")));
+	if(!f.open(IO_WriteOnly))
+		return ;
+	QTextStream s(&f);
+	s.writeRawBytes(ff, ff.length());
+	f.close();
 	ScPreview *pre = new ScPreview();
 	QPixmap pm = pre->createPreview(ff);
-	BibWin->AddObj(nam, ff, pm);
+	BibWin->AddObj(nam, QDir::cleanDirPath(QDir::convertSeparators(ScFilename + "/" + nam + ".sce")), pm);
 	(void) new QIconViewItem(BibWin, nam, pm);
 	Changed = true;
 	delete pre;
@@ -471,7 +487,6 @@ void Biblio::languageChange()
 
 	fmenu->changeItem(fNew, tr("&New"));
 	fmenu->changeItem(fLoad, tr("&Load..."));
-	fmenu->changeItem(fSave, tr("&Save"));
 	fmenu->changeItem(fSaveAs, tr("Save &As..."));
 	fmenu->changeItem(fClose, tr("&Close"));
 	vmenu->changeItem(vSmall, tr("&Small" ));

@@ -29,7 +29,8 @@ public:
 	~BibView() {};
 	void keyPressEvent(QKeyEvent *k);
 	void AddObj(QString name, QString daten, QPixmap Bild);
-	void SaveContents(QString name);
+	void SaveContents(QString name, QString oldName);
+	void ReadOldContents(QString, QString newName);
 	void ReadContents(QString name);
 	void RebuildView();
 	struct Elem
@@ -64,10 +65,10 @@ public:
 	const int objectCount();
 	void rebuildView();
 	void readContents(QString);
+	void readOldContents(QString, QString);
 	void installEventFilter(const QObject *);
 	
 public slots:
-	void Save();
 	void languageChange();
 
 private slots:

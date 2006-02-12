@@ -139,8 +139,6 @@ public:
 
 	QLabel* textLabelP;
 	QWidget* tab_5;
-	QGroupBox* saving;
-	QCheckBox* SaveAtQuit;
 	QGroupBox* preview;
 	QComboBox* PreviewSize;
 	QWidget* tab_7;
@@ -242,7 +240,6 @@ protected:
 	QGridLayout* ButtonGroup1Layout;
 	QGridLayout* GroupBox200Layout;
 	QGridLayout* tabLayout_5;
-	QHBoxLayout* savingLayout;
 	QHBoxLayout* previewLayout;
 	QHBoxLayout* Layout3;
 	QHBoxLayout* tabLayout_7;

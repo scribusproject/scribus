@@ -160,7 +160,6 @@ struct ApplicationPrefs
 	bool SepalT;
 	bool SepalN;
 	int PSize;
-	bool SaveAtQ;
 	bool marginColored;
 	QStringList RecentDocs;
 	uint RecentDCount;
