@@ -648,8 +648,10 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					Neu->moveBy(-pageX + Apage->xOffset(), - pageY + Apage->yOffset());
 					//view->setRedrawBounding(Neu);
 					Neu->setRedrawBounding();
-					//Neu->OwnPage = view->OnPage(Neu);
-					Neu->OwnPage = PageToLoad;
+					//CB Must run onpage as we cant use pagetoload if the page has been renamedash. 
+					//CB TODO Make this accept a page to place onto.
+					Neu->OwnPage = doc->OnPage(Neu);
+					//Neu->OwnPage = PageToLoad;
 					if (pg.tagName()=="PAGEOBJECT")
 						Neu->OnMasterPage = "";
 					doc->GroupCounter = docGc;
