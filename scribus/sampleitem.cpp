@@ -39,6 +39,8 @@ SampleItem::SampleItem() : QObject()
 	// tmp colors. to be removed in descrictor
 	ScMW->doc->PageColors.insert("__blackforpreview__", ScColor(0, 0, 0, 255));
 	ScMW->doc->PageColors.insert("__whiteforpreview__", ScColor(0, 0, 0, 0));
+	ScMW->doc->PageColors.insert("__whiteforpreviewbg__", ScColor(0, 0, 0, 0));
+	bgShade = 100;
 	tmpStyle.Vname = "(preview temporary)";
 	tmpStyle.LineSpaMode = 0;
 	tmpStyle.LineSpa = ((doc->toolSettings.defSize / 10.0) * static_cast<double>(doc->typographicSettings.autoLineSpacing) / 100) + (doc->toolSettings.defSize / 10.0);
@@ -103,8 +105,22 @@ void SampleItem::setStyle(ParagraphStyle aStyle)
 
 void SampleItem::setBgColor(QColor c)
 {
-	ScColor sc;
-	ScMW->doc->PageColors["__whiteforpreview__"].fromQColor(c);
+	ScMW->doc->PageColors["__whiteforpreviewbg__"].fromQColor(c);
+}
+
+void SampleItem::setBgShade(int c)
+{
+	bgShade = c;
+}
+
+void SampleItem::setTxColor(QColor c)
+{
+	ScMW->doc->PageColors["__blackforpreview__"].fromQColor(c);
+}
+
+void SampleItem::setTxShade(int c)
+{
+	tmpStyle.FShade = c;
 }
 
 void SampleItem::setLineSpaMode(int lineSpaMode)
@@ -263,7 +279,7 @@ QPixmap SampleItem::getSample(int width, int height)
 {
 	UndoManager::instance()->setUndoEnabled(false); // disable undo
 
-	PageItem_TextFrame *previewItem = new PageItem_TextFrame(doc, 0, 0, width, height, 0, "__whiteforpreview__", "__whiteforpreview__");
+	PageItem_TextFrame *previewItem = new PageItem_TextFrame(doc, 0, 0, width, height, 0, "__whiteforpreviewbg__", "__whiteforpreview__");
 	QPixmap pm(width, height);
 	ScPainter *painter = new ScPainter(&pm, width, height, 0, 0);
 	double sca = 1.0; // original scale to set back at the end...
@@ -296,6 +312,9 @@ QPixmap SampleItem::getSample(int width, int height)
 	}
 
 	doc->chAbStyle(previewItem, tmpIndex);
+	previewItem->setFillColor("__whiteforpreviewbg__");
+	previewItem->setFillShade(bgShade);
+	previewItem->SetRectFrame();
 	previewItem->Frame = false;
 	previewItem->DrawObj(painter, QRect(0, 0, width, height));
 	painter->end();
@@ -315,4 +334,5 @@ void SampleItem::cleanupTemporary()
 	// clear tmp colors
 	ScMW->doc->PageColors.remove("__blackforpreview__");
 	ScMW->doc->PageColors.remove("__whiteforpreview__");
+	ScMW->doc->PageColors.remove("__whiteforpreviewbg__");
 }

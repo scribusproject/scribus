@@ -33,7 +33,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	unit = unitGetSuffixFromIndex(unitIndex);
 	precision = unitGetPrecisionFromIndex(unitIndex);
 	unitRatio = unitGetRatioFromIndex(unitIndex);
-
+	docu = doc;
 	tabToolsLayout = new QHBoxLayout( this, 0, 5, "tabToolsLayout");
 	buttonGroupTools = new QButtonGroup( this, "buttonGroupTools" );
 	buttonGroupTools->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)5, 0, 0, buttonGroupTools->sizePolicy().hasHeightForWidth() ) );
@@ -722,6 +722,10 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	connect(toolZoom, SIGNAL(clicked()), this, SLOT(setTool()));
 	connect(fontComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
 	connect(sizeComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
+	connect(colorComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
+	connect(colorComboTextBackground, SIGNAL(activated(int)), this, SLOT(setSample()));
+	connect(shadingTextBack, SIGNAL(valueChanged(int)), this, SLOT(setSample()));
+	connect(shadingText, SIGNAL(valueChanged(int)), this, SLOT(setSample()));
 	connect(buttonGroup3, SIGNAL(clicked(int)), this, SLOT(changeImageScalingFree(int)));
 	connect(buttonGroup5, SIGNAL(clicked(int)), this, SLOT(changeImageScalingRatio(int)));
 	connect(chainButton, SIGNAL(clicked()), this, SLOT(toggleChain()));
@@ -846,7 +850,40 @@ void TabTools::setSample()
 {
 	SampleItem *si = new SampleItem();
 	si->setText(tr("Woven silk pyjamas exchanged for blue quartz"));
-	si->setBgColor(paletteBackgroundColor());
+	if (colorComboTextBackground->currentText() != tr("None"))
+	{
+		if (docu != 0)
+		{
+			si->setBgColor(docu->PageColors[colorComboTextBackground->currentText()].getRawRGBColor());
+			si->setBgShade(shadingTextBack->value());
+		}
+		else
+		{
+			PrefsManager* prefsManager=PrefsManager::instance();
+			ColorList* colorList=prefsManager->colorSetPtr();
+			si->setBgColor((*colorList)[colorComboTextBackground->currentText()].getRawRGBColor());
+			si->setBgShade(shadingTextBack->value());
+		}
+	}
+	else
+		si->setBgColor(paletteBackgroundColor());
+	if (colorComboText->currentText() != tr("None"))
+	{
+		if (docu != 0)
+		{
+			si->setTxColor(docu->PageColors[colorComboText->currentText()].getRawRGBColor());
+			si->setTxShade(shadingText->value());
+		}
+		else
+		{
+			PrefsManager* prefsManager=PrefsManager::instance();
+			ColorList* colorList=prefsManager->colorSetPtr();
+			si->setTxColor((*colorList)[colorComboText->currentText()].getRawRGBColor());
+			si->setTxShade(shadingText->value());
+		}
+	}
+	else
+		si->setTxColor(paletteBackgroundColor());
 	si->setFont(fontComboText->currentText());
 	si->setFontSize(sizeComboText->currentText().left(2).toInt() * 10, true);
 	QPixmap pm = si->getSample(previewText->width(), previewText->height());

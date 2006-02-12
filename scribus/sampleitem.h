@@ -47,6 +47,11 @@ class SCRIBUS_API SampleItem : QObject
 		/*! \brief Set backgroud color of the pixmap.
 		\param c a QColor */
 		void setBgColor(QColor c);
+		void setBgShade(int c);
+		/*! \brief Set Text color of the pixmap.
+		\param c a QColor */
+		void setTxColor(QColor c);
+		void setTxShade(int c);
 
 		/*! \brief Set whole Scribus paragraph style in one.
 		\param aStyle Paragraph style to set.*/
@@ -105,6 +110,7 @@ class SCRIBUS_API SampleItem : QObject
 		ScribusDoc *doc;
 		//! \brief Is the doc created used only? true = used
 		bool used;
+		int bgShade;
 };
 
 #endif

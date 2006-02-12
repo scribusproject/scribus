@@ -153,7 +153,7 @@ protected:
 	QVBoxLayout* buttonGroupResLayout;
 	QHBoxLayout* subTabPolygonLayout;
 	QGridLayout* subTabZoomLayout;
-	
+	ScribusDoc* docu;
 	double unitRatio;
 	QString unit;
 	int precision;
