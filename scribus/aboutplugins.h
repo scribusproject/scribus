@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef ABOUTPLUGINS_H
 #define ABOUTPLUGINS_H
 
-#include <aboutpluginsbase.h>
+#include "aboutpluginsbase.h"
 
 /*! \brief Displays info about pligins.
 This class implements only the non-GUI parts of the
