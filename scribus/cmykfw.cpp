@@ -606,12 +606,12 @@ void CMYKChoose::SelSwatch(int n)
 				int Rval, Gval, Bval, Kval;
 				QTextStream tsC(&fiC);
 				ColorEn = tsC.readLine();
-				if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
-					continue;
 				while (!tsC.atEnd())
 				{
 					ScColor tmp;
 					ColorEn = tsC.readLine();
+					if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
+						continue;
 					QTextStream CoE(&ColorEn, IO_ReadOnly);
 					CoE >> Rval;
 					CoE >> Gval;
