@@ -105,6 +105,19 @@ void MasterPagesPalette::deleteMasterPage()
 	if (exit == 0)
 	{
 		ScMW->DeletePage2(currentDoc->MasterNames[sMuster]);
+		//<<CB TODO Move back into ScribusDoc::deleteMasterPage();
+		//This must happen after the pages have been reformed (view/doc)
+		currentDoc->MasterNames.clear();
+		for (uint a = 0; a < currentDoc->Pages->count(); ++a)
+			currentDoc->MasterNames[currentDoc->Pages->at(a)->PageNam] = currentDoc->Pages->at(a)->pageNr();
+		// and fix up any pages that refer to the deleted master page
+		for (Page* docPage = currentDoc->DocPages.first(); docPage; docPage = currentDoc->DocPages.next() )
+		{
+			if (docPage->MPageNam == sMuster)
+				docPage->MPageNam = "Normal";
+		}
+		//>>
+		
 		sMuster = "Normal";
 		updateMasterPageList(sMuster);
 		//currentDoc->MasterPages = currentDoc->Pages;

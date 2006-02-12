@@ -945,16 +945,24 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 {
 	Q_ASSERT( Pages->count() > 1 && Pages->count() > static_cast<uint>(pageNumber) );
 	Page* page = Pages->at(pageNumber);
+	QString oldPageName=page->PageNam;
 	Pages->remove(pageNumber);
 	delete page;
 	// remove the master page from the master page name list
-	MasterNames.remove(page->PageNam);
+	//MasterNames.remove(page->PageNam);
+	/*CB TODO moved back to muster.cpp for now as this must happen after reformPages
+	MasterNames.clear();
+	for (uint a = 0; a < Pages->count(); ++a)
+		MasterNames[Pages->at(a)->PageNam] = Pages->at(a)->pageNr();
 	// and fix up any pages that refer to the deleted master page
 	for (Page* docPage = DocPages.first(); docPage; docPage = DocPages.next() )
 	{
-		if (docPage->MPageNam == page->PageNam)
+		if (docPage->MPageNam == oldPageName)
 			docPage->MPageNam = "Normal";
 	}
+	*/
+	//QPtrList docs: The item after the removed item becomes the new current list item if the removed item is not the last item in the list. If the last item is removed, the new last item becomes the current item. 
+	currentPage = Pages->at(0);
 }
 
 void ScribusDoc::deletePage(const int pageNumber)

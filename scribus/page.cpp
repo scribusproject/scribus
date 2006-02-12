@@ -52,8 +52,7 @@ Page::Page(const double x, const double y, const double b, const double h) :
 Page::~Page()
 {
 	// Clean up any modified template items (unused)
-	PageItem *currItem;
-	for (currItem = FromMaster.first(); currItem; currItem = FromMaster.next())
+	for (PageItem *currItem = FromMaster.first(); currItem; currItem = FromMaster.next())
 	{
 		if (currItem->ChangedMasterItem)
 		{
