@@ -64,8 +64,13 @@ typedef bool (STDAPICALLTYPE *gradientFillFunc) (HDC, PTRIVERTEX, ULONG, PVOID, 
 class SCRIBUS_API ScPainterEx_GDI : public ScPainterExBase
 {
 public:
+
 	ScPainterEx_GDI( HDC hDC, QRect& rect, bool gray );
 	virtual ~ScPainterEx_GDI();
+
+	virtual int supportedModes() { return (int) rgbMode; }
+	virtual ColorMode preferredMode() { return rgbMode; }
+
 	virtual void begin();
 	virtual void end();
 	virtual void clear();

@@ -51,6 +51,10 @@ public:
 
 	virtual ~ScPainterExBase() {};
 	enum FillMode { None, Solid, Gradient };
+	enum ColorMode { rgbMode = 1, cmykMode = 2 };
+
+	virtual int supportedModes() = 0;
+	virtual ColorMode preferredMode() = 0;
 	
 	virtual void begin() = 0;
 	virtual void end() = 0;
