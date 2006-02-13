@@ -79,7 +79,7 @@ public slots:
 	void setGradTrans(double val);
 	void slotTrans(int val);
 	void UseTrans(bool b);
-	void UnitChange(double old, double neww, int ein);
+	void unitChange(double old, double neww, int ein);
 	void languageChange();
 
 signals:

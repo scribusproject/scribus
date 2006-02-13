@@ -18,6 +18,8 @@ extern QPixmap loadIcon(QString nam);
 
 NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalette", false, 0)
 {
+	doc=0;
+	unitRatio=1.0;
 	setIcon(loadIcon("AppIcon.png"));
 	NodePaletteLayout = new QVBoxLayout( this );
 	NodePaletteLayout->setSpacing( 2 );
@@ -143,16 +145,31 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	Expand->setText( "" );
 	Expand->setPixmap(loadIcon("expand.png"));
 	ButtonGroup1Layout->addWidget( Expand, 5, 0 );
-	Crop = new QToolButton( ButtonGroup1, "Crop" );
-	Crop->setAutoRepeat(true);
-	Crop->setText( "" );
-	Crop->setPixmap(loadIcon("crop.png"));
-	ButtonGroup1Layout->addWidget( Crop, 5, 1 );
-	ScaleVal = new QSpinBox( ButtonGroup1, "RotVal");
-	ScaleVal->setMinValue(1);
-	ScaleVal->setMaxValue(100);
-	ScaleVal->setValue(10);
-	ButtonGroup1Layout->addMultiCellWidget( ScaleVal, 5, 5, 2, 3 );
+	Shrink = new QToolButton( ButtonGroup1, "Shrink" );
+	Shrink->setAutoRepeat(true);
+	Shrink->setText( "" );
+	Shrink->setPixmap(loadIcon("crop.png"));
+	ButtonGroup1Layout->addWidget( Shrink, 5, 1 );
+	scalePercentage = new QSpinBox( ButtonGroup1, "scalePercentage");
+	scalePercentage->setMinValue(1);
+	scalePercentage->setMaxValue(100);
+	scalePercentage->setValue(0);
+	ButtonGroup1Layout->addMultiCellWidget( scalePercentage, 5, 5, 2, 3 );
+	
+	Enlarge = new QToolButton( ButtonGroup1, "Enlarge" );
+	Enlarge->setAutoRepeat(true);
+	Enlarge->setText( "" );
+	Enlarge->setPixmap(loadIcon("expand.png"));
+	ButtonGroup1Layout->addWidget( Enlarge, 6, 0 );
+	Reduce = new QToolButton( ButtonGroup1, "Reduce" );
+	Reduce->setAutoRepeat(true);
+	Reduce->setText( "" );
+	Reduce->setPixmap(loadIcon("crop.png"));
+	ButtonGroup1Layout->addWidget( Reduce, 6, 1 );
+	scaleDistance = new MSpinBox( 1, 30000, ButtonGroup1, 2);
+	scaleDistance->setValue(10);
+	scaleDistance->setSuffix("");
+	ButtonGroup1Layout->addMultiCellWidget( scaleDistance, 6, 6, 2, 3 );
 
 	/*    QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	    ButtonGroup4Layout->addItem( spacer_2 );  */
@@ -212,8 +229,10 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	connect(PolyShearD, SIGNAL(clicked()), this, SLOT(ShearD()));
 	connect(RotateCCW, SIGNAL(clicked()), this, SLOT(doRotCCW()));
 	connect(RotateCW, SIGNAL(clicked()), this, SLOT(doRotCW()));
-	connect(Crop, SIGNAL(clicked()), this, SLOT(doCrop()));
+	connect(Shrink, SIGNAL(clicked()), this, SLOT(doShrink()));
 	connect(Expand, SIGNAL(clicked()), this, SLOT(doExpand()));
+	connect(Reduce, SIGNAL(clicked()), this, SLOT(doReduce()));
+	connect(Enlarge, SIGNAL(clicked()), this, SLOT(doEnlarge()));	
 	connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 	connect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	connect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
@@ -223,6 +242,7 @@ void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 {
 	doc = dc;
 	view = vi;
+	unitChange();
 	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 	YSpin->setSuffix(unitGetSuffixFromIndex(doc->unitIndex()));
@@ -290,16 +310,28 @@ void NodePalette::doRotCW()
 		view->TransformPoly(1, RotVal->value());
 }
 
-void NodePalette::doCrop()
+void NodePalette::doShrink()
 {
 	if (doc != 0)
-		view->TransformPoly(2, 1, ScaleVal->value());
+		view->TransformPoly(2, 1, scalePercentage->value());
 }
 
 void NodePalette::doExpand()
 {
 	if (doc != 0)
-		view->TransformPoly(3, 1, ScaleVal->value());
+		view->TransformPoly(3, 1, scalePercentage->value());
+}
+
+void NodePalette::doReduce()
+{
+	if (doc != 0)
+		view->TransformPoly(8, 1, scaleDistance->value()/unitGetRatioFromIndex(doc->unitIndex()));
+}
+
+void NodePalette::doEnlarge()
+{
+	if (doc != 0)
+		view->TransformPoly(9, 1, scaleDistance->value()/unitGetRatioFromIndex(doc->unitIndex()));
 }
 
 void NodePalette::ShearR()
@@ -605,7 +637,7 @@ void NodePalette::EndEdit()
 void NodePalette::languageChange()
 {
 	setCaption( tr( "Nodes" ) );
-	ScaleVal->setSuffix( tr(" %"));
+	scalePercentage->setSuffix( tr(" %"));
 	
 	AbsMode->setText( tr("&Absolute Coordinates"));
 	TextLabel1->setText( tr("&X-Pos:"));
@@ -631,12 +663,27 @@ void NodePalette::languageChange()
 	QToolTip::add(PolyShearD, tr("Shear the Path Vertically Down"));
 	QToolTip::add(RotateCCW, tr("Rotate the Path Counter-Clockwise"));
 	QToolTip::add(RotateCW, tr("Rotate the Path Clockwise"));
-	QToolTip::add(Crop, tr("Reduce the Size of the Path by shown %"));
+	QToolTip::add(Shrink, tr("Shrink the Size of the Path by shown %"));
 	QToolTip::add(Expand, tr("Enlarge the Size of the Path by shown %"));
 	QToolTip::add(RotVal, tr("Angle of Rotation"));
-	QToolTip::add(ScaleVal, tr("% to Enlarge or Reduce By"));
+	QToolTip::add(scalePercentage, tr("% to Enlarge or Shrink By"));
+	QToolTip::add(scaleDistance, tr("Value to Enlarge or Shrink By"));
 	QToolTip::add(EditCont, tr("Activate Contour Line Editing Mode"));
 	QToolTip::add(ResetCont, tr("Reset the Contour Line to the Original Shape of the Frame"));
 	QToolTip::add(AbsMode,  "<qt>" + tr("When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.") + "</qt>");
 }
 
+void NodePalette::unitChange()
+{
+	if (doc==0)
+		return;
+	double oldRatio = unitRatio;
+	unitRatio = doc->unitRatio();
+	double maxVal=30000 * unitRatio;
+	double minVal=-30000 * unitRatio;
+	double newScaleDistance = scaleDistance->value() * unitRatio / oldRatio;
+	scaleDistance->setSuffix( unitGetSuffixFromIndex(doc->unitIndex()) );
+	int decimals = unitGetDecimalsFromIndex(doc->unitIndex());
+	scaleDistance->setValues( minVal, maxVal, decimals, newScaleDistance );
+	//scaleDistance->setMinimumWidth(fontMetrics().width( scaleDistance->text() ));
+}

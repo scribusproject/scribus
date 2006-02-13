@@ -5656,6 +5656,12 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		case 7:
 			ma.shear(0, 0.017455);
 			break;
+		case 8:
+			ma.scale(1.0 - (scaling / 100.0), 1.0 - (scaling / 100.0));
+			break;
+		case 9:
+			ma.scale(1.0 + (scaling / 100.0), 1.0 + (scaling / 100.0));
+			break;
 		}
 		currItem->ContourLine.map(ma);
 		currItem->ContourLine.translate(qRound((tp.x() + tp2.x()) / 2.0), qRound((tp.y() + tp2.y()) / 2.0));
@@ -5710,6 +5716,12 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	case 7:
 		ma.shear(0, 0.017455);
 		break;
+	case 8:
+		ma.scale(1.0 - (scaling / currItem->width()),1.0 - (scaling / currItem->height()));
+		break;
+	case 9:
+		ma.scale(1.0 + (scaling / currItem->width()),1.0 + (scaling / currItem->height()));
+		break;
 	}
 	currItem->PoLine.map(ma);
 	currItem->PoLine.translate(offsX, offsY);
@@ -5744,6 +5756,12 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		break;
 	case 7:
 		ma2.shear(0, 0.017455);
+		break;
+	case 8:
+		ma2.scale(1.0 - (scaling / currItem->width()),1.0 - (scaling / currItem->height()));
+		break;
+	case 9:
+		ma2.scale(1.0 + (scaling / currItem->width()),1.0 + (scaling / currItem->height()));
 		break;
 	}
 	double x = ma2.m11() * n.x() + ma2.m21() * n.y() + ma2.dx();

@@ -1535,7 +1535,7 @@ void Mpalette::setMultipleSelection(bool isMultiple)
 	//FlipV->setEnabled(!isMultiple);
 }
 
-void Mpalette::UnitChange()
+void Mpalette::unitChange()
 {
 	double oldRatio = Umrech;
 	Umrech = doc->unitRatio();
@@ -1613,7 +1613,7 @@ void Mpalette::UnitChange()
 	DRight->setValue(newDR);
 
 	RoundRect->setValues(-newRM, newRM, decimals, newRR);
-	Cpal->UnitChange(oldRatio, Umrech, doc->unitIndex());
+	Cpal->unitChange(oldRatio, Umrech, doc->unitIndex());
 	HaveItem = tmp;
 }
 

@@ -51,7 +51,9 @@ public:
 	QToolButton* RotateCCW;
 	QToolButton* RotateCW;
 	QToolButton* Expand;
-	QToolButton* Crop;
+	QToolButton* Shrink;
+	QToolButton* Enlarge;
+	QToolButton* Reduce;
 	QCheckBox* AbsMode;
 	QCheckBox* EditCont;
 	QLabel* TextLabel1;
@@ -59,7 +61,8 @@ public:
 	QLabel* TextLabel2;
 	MSpinBox* XSpin;
 	QSpinBox *RotVal;
-	QSpinBox *ScaleVal;
+	QSpinBox *scalePercentage;
+	MSpinBox *scaleDistance;
 	QPushButton* ResetCont;
 	QPushButton* PushButton1;
 	void setDoc(ScribusDoc *dc, ScribusView *vi);
@@ -84,8 +87,10 @@ private slots:
 	void MirrorV();
 	void doRotCCW();
 	void doRotCW();
-	void doCrop();
+	void doShrink();
 	void doExpand();
+	void doReduce();
+	void doEnlarge();
 	void ShearR();
 	void ShearL();
 	void ShearU();
@@ -100,11 +105,14 @@ public slots:
 	void IsOpen();
 	void PolyStatus(int typ, uint size);
 	void languageChange();
+	void unitChange();
 
 protected:
 	QVBoxLayout* NodePaletteLayout;
 	QGridLayout* ButtonGroup1Layout;
 	QGridLayout* Layout2;
+	
+	double unitRatio;
 	
 signals:
 	void Schliessen();

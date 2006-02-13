@@ -7284,7 +7284,8 @@ void ScribusMainWindow::slotChangeUnit(int unitIndex, bool draw)
 {
 	doc->setUnitIndex(unitIndex);
 	view->unitSwitcher->setCurrentText(unitGetStrFromIndex(doc->unitIndex()));
-	propertiesPalette->UnitChange();
+	propertiesPalette->unitChange();
+	nodePalette->unitChange();
 	alignDistributePalette->unitChange();
 	if (draw)
 		view->DrawNew();

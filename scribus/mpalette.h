@@ -127,7 +127,7 @@ public slots:
 	void setMultipleSelection(bool);
 	void NewSel(int nr);
 	void SetCurItem(PageItem *i);
-	void UnitChange();
+	void unitChange();
 	void setLevel(uint l);
 	void setXY(double x, double y);
 	void setBH(double x, double y);

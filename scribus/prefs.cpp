@@ -1101,7 +1101,7 @@ void Preferences::changePaperColor()
 }
 
 /*!
- \fn void Preferences::UnitChange()
+ \fn void Preferences::unitChange()
  \author Franz Schmid
  \date
  \brief Preferences (General, Units). Sets scaling factors and units descriptions when default units are changed. Updates preference values

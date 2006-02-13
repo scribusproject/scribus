@@ -504,7 +504,7 @@ void Cpalette::setActShade()
 	}
 }
 
-void Cpalette::UnitChange(double oldUnitRatio, double newUnitRatio, int unitIndex)
+void Cpalette::unitChange(double oldUnitRatio, double newUnitRatio, int unitIndex)
 {
 	disconnect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	disconnect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
