@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "scribusstructs.h"
 #include "scimage.h"
-#include <util.h>
+#include "util.h"
 
 extern QString DocDir;
 

@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define PREFSPANEL_H
 
 #include <qwidget.h>
-#include <scribusapi.h>
+#include "scribusapi.h"
 
 /**
  * \brief A base class for all preferences panels.

@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <qvariant.h>
 #include <qstringlist.h>
-#include <page.h>
 #include <qpushbutton.h>
 #include <qtabwidget.h>
 #include <qlistbox.h>
@@ -35,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
+#include "page.h"
 #include "scribusdoc.h"
 #include "commonstrings.h"
 
