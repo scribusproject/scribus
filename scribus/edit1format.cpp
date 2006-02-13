@@ -338,6 +338,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	werte = vor;
 	allV = v;
 	// tooltips
+	QToolTip::add(previewBgColor, "<qt>" + tr("Select for easier reading of light coloured text styles") + "</qt>");
 	QToolTip::add( Name, "<qt>" + tr( "Name of your paragraph style" ) + "</qt>" );
 	QToolTip::add( FontC, "<qt>" + tr( "Font of selected text or object" ) + "</qt>" );
 	QToolTip::add( SizeC, "<qt>" + tr( "Font Size" ) + "</qt>" );
