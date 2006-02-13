@@ -1382,10 +1382,20 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		if (doc->selection->count() != 0)
 		{
 			double moveBy=1.0;
-			if (buttonState & ShiftButton)
+			if ((buttonState & ShiftButton) && !(buttonState & ControlButton))
 				moveBy=10.0;
-			else if (buttonState & ControlButton)
+			else if ((buttonState & ShiftButton) && (buttonState & ControlButton))
 				moveBy=0.1;
+			moveBy/=doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
+			bool resizing=(buttonState & AltButton);
+			bool resizingsmaller=(resizing && (buttonState & ShiftButton));
+			double resizeBy=1.0;
+			if (buttonState & ControlButton)
+				resizeBy*=10.0;
+			resizeBy/=doc->unitRatio();
+			if (resizingsmaller)
+				resizeBy*=-1.0;
+			
 
 			PageItem *currItem = doc->selection->itemAt(0);
 			switch (doc->appMode)
@@ -1418,19 +1428,27 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				case Key_Left:
 					if (!currItem->locked())
 					{
-						if ((doc->EditClip) && (view->ClRe != -1))
+						if (!resizing)
 						{
-							FPoint np;
-							if (view->EditContour)
-								np = currItem->ContourLine.point(view->ClRe);
+							if ((doc->EditClip) && (view->ClRe != -1))
+							{
+								FPoint np;
+								if (view->EditContour)
+									np = currItem->ContourLine.point(view->ClRe);
+								else
+									np = currItem->PoLine.point(view->ClRe);
+								np = np - FPoint(moveBy, 0);
+								view->MoveClipPoint(currItem, np);
+							}
 							else
-								np = currItem->PoLine.point(view->ClRe);
-							np = np - FPoint(moveBy, 0);
-							view->MoveClipPoint(currItem, np);
+							{
+								view->moveGroup(-moveBy, 0);
+							}
 						}
 						else
 						{
-							view->moveGroup(-moveBy, 0);
+							ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
+							view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 						}
 						slotDocCh();
 					}
@@ -1438,19 +1456,26 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				case Key_Right:
 					if (!currItem->locked())
 					{
-						if ((doc->EditClip) && (view->ClRe != -1))
+						if (!resizing)
 						{
-							FPoint np;
-							if (view->EditContour)
-								np = currItem->ContourLine.point(view->ClRe);
+							if ((doc->EditClip) && (view->ClRe != -1))
+							{
+								FPoint np;
+								if (view->EditContour)
+									np = currItem->ContourLine.point(view->ClRe);
+								else
+									np = currItem->PoLine.point(view->ClRe);
+								np = np + FPoint(moveBy, 0);
+								view->MoveClipPoint(currItem, np);
+							}
 							else
-								np = currItem->PoLine.point(view->ClRe);
-							np = np + FPoint(moveBy, 0);
-							view->MoveClipPoint(currItem, np);
+							{
+								view->moveGroup(moveBy, 0);
+							}
 						}
 						else
 						{
-							view->moveGroup(moveBy, 0);
+							view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 						}
 						slotDocCh();
 					}
@@ -1458,19 +1483,27 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				case Key_Up:
 					if (!currItem->locked())
 					{
-						if ((doc->EditClip) && (view->ClRe != -1))
+						if (!resizing)
 						{
-							FPoint np;
-							if (view->EditContour)
-								np = currItem->ContourLine.point(view->ClRe);
+							if ((doc->EditClip) && (view->ClRe != -1))
+							{
+								FPoint np;
+								if (view->EditContour)
+									np = currItem->ContourLine.point(view->ClRe);
+								else
+									np = currItem->PoLine.point(view->ClRe);
+								np = np - FPoint(0, moveBy);
+								view->MoveClipPoint(currItem, np);
+							}
 							else
-								np = currItem->PoLine.point(view->ClRe);
-							np = np - FPoint(0, moveBy);
-							view->MoveClipPoint(currItem, np);
+							{
+								view->moveGroup(0, -moveBy);
+							}
 						}
 						else
 						{
-							view->moveGroup(0, -moveBy);
+							ScMW->view->MoveItem(0, -resizeBy, currItem, false);
+							view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
 						}
 						slotDocCh();
 					}
@@ -1478,19 +1511,26 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				case Key_Down:
 					if (!currItem->locked())
 					{
-						if ((doc->EditClip) && (view->ClRe != -1))
+						if (!resizing)
 						{
-							FPoint np;
-							if (view->EditContour)
-								np = currItem->ContourLine.point(view->ClRe);
+							if ((doc->EditClip) && (view->ClRe != -1))
+							{
+								FPoint np;
+								if (view->EditContour)
+									np = currItem->ContourLine.point(view->ClRe);
+								else
+									np = currItem->PoLine.point(view->ClRe);
+								np = np + FPoint(0, moveBy);
+								view->MoveClipPoint(currItem, np);
+							}
 							else
-								np = currItem->PoLine.point(view->ClRe);
-							np = np + FPoint(0, moveBy);
-							view->MoveClipPoint(currItem, np);
+							{
+								view->moveGroup(0, moveBy);
+							}
 						}
 						else
 						{
-							view->moveGroup(0, moveBy);
+							view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
 						}
 						slotDocCh();
 					}
