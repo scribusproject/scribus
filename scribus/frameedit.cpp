@@ -665,6 +665,8 @@ void NodePalette::languageChange()
 	QToolTip::add(RotateCW, tr("Rotate the Path Clockwise"));
 	QToolTip::add(Shrink, tr("Shrink the Size of the Path by shown %"));
 	QToolTip::add(Expand, tr("Enlarge the Size of the Path by shown %"));
+	QToolTip::add(Reduce, tr("Reduce the Size of the Path by the shown value"));
+	QToolTip::add(Enlarge, tr("Enlarge the Size of the Path by the shown value"));
 	QToolTip::add(RotVal, tr("Angle of Rotation"));
 	QToolTip::add(scalePercentage, tr("% to Enlarge or Shrink By"));
 	QToolTip::add(scaleDistance, tr("Value to Enlarge or Shrink By"));
