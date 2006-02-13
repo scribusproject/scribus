@@ -91,8 +91,6 @@ PageItem::PageItem(const PageItem & other)
 	TxtStrikeWidth(other.TxtStrikeWidth),
 	Cols(other.Cols),
 	ColGap(other.ColGap),
-	m_lineWidth(other.m_lineWidth),
-	Oldm_lineWidth(other.Oldm_lineWidth),
 	PLineArt(other.PLineArt),
 	PLineEnd(other.PLineEnd),
 	PLineJoin(other.PLineJoin),
@@ -119,14 +117,12 @@ PageItem::PageItem(const PageItem & other)
 	UseEmbedded(other.UseEmbedded),
 	EmProfile(other.EmProfile),
 	IRender(other.IRender),
-	PicArt(other.PicArt),
+
 	PicAvail(other.PicAvail),
 	OrigW(other.OrigW),
 	OrigH(other.OrigH),
 	BBoxX(other.BBoxX),
 	BBoxH(other.BBoxH),
-	LineSp(other.LineSp),
-	LineSpMode(other.LineSpMode),
 	CurX(other.CurX),
 	CurY(other.CurY),
 	CPos(other.CPos),
@@ -232,7 +228,12 @@ PageItem::PageItem(const PageItem & other)
 	m_FontSize(other.m_FontSize),
 	m_Doc(other.m_Doc),
 	m_isAnnotation(other.m_isAnnotation),
-	m_annotation(other.m_annotation)
+	m_annotation(other.m_annotation),
+	PicArt(other.PicArt),
+	m_lineWidth(other.m_lineWidth),
+	Oldm_lineWidth(other.Oldm_lineWidth),
+	LineSp(other.LineSp),
+	LineSpMode(other.LineSpMode)
 {
 }
 
@@ -506,12 +507,14 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 void PageItem::setXPos(const double newXPos)
 {
 	Xpos = newXPos;
+	checkChanges();
 	emit position(Xpos, Ypos);
 }
 
 void PageItem::setYPos(const double newYPos)
 {
 	Ypos = newYPos;
+	checkChanges();
 	emit position(Xpos, Ypos);
 }
 
@@ -519,6 +522,7 @@ void PageItem::setXYPos(const double newXPos, const double newYPos)
 {
 	Xpos = newXPos;
 	Ypos = newYPos;
+	checkChanges();
 	emit position(Xpos, Ypos);
 }
 
@@ -530,18 +534,21 @@ void PageItem::moveBy(const double dX, const double dY)
 		Xpos+=dX;
 	if (dY!=0.0)
 		Ypos+=dY;
+	checkChanges();
 	emit position(Xpos, Ypos);
 }
 
 void PageItem::setWidth(const double newWidth)
 {
 	Width = newWidth;
+	checkChanges();
 	emit widthAndHeight(Width, Height);
 }
 
 void PageItem::setHeight(const double newHeight)
 {
 	Height = newHeight;
+	checkChanges();
 	emit widthAndHeight(Width, Height);
 }
 
@@ -549,6 +556,7 @@ void PageItem::setWidthHeight(const double newWidth, const double newHeight)
 {
 	Width = newWidth;
 	Height = newHeight;
+	checkChanges();
 	emit widthAndHeight(Width, Height);
 }
 
@@ -560,12 +568,14 @@ void PageItem::resizeBy(const double dH, const double dW)
 		Width+=dH;
 	if (dW!=0.0)
 		Height+=dW;
+	checkChanges();
 	emit widthAndHeight(Width, Height);
 }
 
 void PageItem::setRotation(const double newRotation)
 {
 	Rot=newRotation;
+	checkChanges();
 	emit rotation(Rot);
 }
 
@@ -574,6 +584,7 @@ void PageItem::rotateBy(const double dR)
 	if (dR==0.0)
 		return;
 	Rot+=dR;
+	checkChanges();
 	emit rotation(Rot);
 }
 
