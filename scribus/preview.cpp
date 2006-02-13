@@ -749,6 +749,16 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			int w = qRound(b);
 			int h2 = qRound(h);
 			image = QImage(w, h2, 32);
+			QRgb clean = qRgba(0, 0, 0, 0);
+			for( int yi=0; yi < h2; ++yi )
+			{
+				QRgb *q = (QRgb*)(image.scanLine( yi ));
+				for(int xi=0; xi < w; ++xi )
+				{
+					*q = clean;
+					q++;
+				}
+			}
 			if (flagsVisible["Cyan"]->isChecked())
 			{
 				im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Cyan.tif", "", 0, false, false, 1, 72, &mode);

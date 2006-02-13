@@ -903,7 +903,9 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					lf.setNamedColor(pg.attribute("CMYK"));
 				else
 					lf.fromQColor(QColor(pg.attribute("RGB")));
-		  		doc->PageColors[pg.attribute("NAME")] = lf;
+				lf.setSpotColor(false);
+				lf.setRegistrationColor(false);
+				doc->PageColors[pg.attribute("NAME")] = lf;
 			}
 			if(pg.tagName()=="STYLE")
 			{
@@ -1347,7 +1349,9 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					lf.setNamedColor(pg.attribute("CMYK"));
 				else
 					lf.fromQColor(QColor(pg.attribute("RGB")));
-			  doc->PageColors[pg.attribute("NAME")] = lf;
+				lf.setSpotColor(false);
+				lf.setRegistrationColor(false);
+				doc->PageColors[pg.attribute("NAME")] = lf;
 			}
 			if(pg.tagName()=="STYLE")
 			{
@@ -1980,9 +1984,13 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			else
 				lf.fromQColor(QColor(pg.attribute("RGB")));
 			if (pg.hasAttribute("Spot"))
-				lf.setSpotColor(static_cast<bool>(pg.attribute("Spot")));
+				lf.setSpotColor(static_cast<bool>(pg.attribute("Spot").toInt()));
 			else
 				lf.setSpotColor(false);
+			if (pg.hasAttribute("Register"))
+				lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
+			else
+				lf.setRegistrationColor(false);
 			if (!doc->PageColors.contains(pg.attribute("NAME")))
 			  	doc->PageColors[pg.attribute("NAME")] = lf;
 		}
