@@ -76,9 +76,9 @@ void ActionManager::initFileMenuActions()
 	scrActions->insert("fileRevert", new ScrAction(loadIcon("revert.png"), "", QKeySequence(), ScMW, "fileRevert"));
 	scrActions->insert("fileCollect", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "fileCollect"));
 	//File Import Menu
-	scrActions->insert("fileImportText", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "fileImportText"));
+	scrActions->insert("fileImportText", new ScrAction(QIconSet(noIcon),"", CTRL+Key_D, ScMW, "fileImportText"));
 	scrActions->insert("fileImportAppendText", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "fileImportAppendText"));
-	scrActions->insert("fileImportImage", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "fileImportImage"));
+	scrActions->insert("fileImportImage", new ScrAction(QIconSet(noIcon),"", CTRL+Key_D, ScMW, "fileImportImage"));
 
 	//File Export Menu
 	scrActions->insert("fileExportText", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "fileExportText"));
@@ -253,11 +253,11 @@ void ActionManager::initStyleMenuActions()
 void ActionManager::initItemMenuActions()
 {
 	//Item Menu
-	scrActions->insert("itemDuplicate", new ScrAction("", CTRL+Key_D, ScMW, "itemDuplicate"));
+	scrActions->insert("itemDuplicate", new ScrAction("", CTRL+ALT+SHIFT+Key_D, ScMW, "itemDuplicate"));
 	scrActions->insert("itemMulDuplicate", new ScrAction(ScMW, "itemMulDuplicate"));
 	scrActions->insert("itemDelete", new ScrAction("", CTRL+Key_K, ScMW, "itemDelete"));
 	scrActions->insert("itemGroup", new ScrAction("", CTRL+Key_G, ScMW, "itemGroup"));
-	scrActions->insert("itemUngroup", new ScrAction("", CTRL+Key_U, ScMW, "itemUngroup"));
+	scrActions->insert("itemUngroup", new ScrAction("", CTRL+SHIFT+Key_G, ScMW, "itemUngroup"));
 	scrActions->insert("itemLock", new ScrAction("", CTRL+Key_L, ScMW, "itemLock"));
 	scrActions->insert("itemLockSize", new ScrAction("", CTRL+SHIFT+Key_L, ScMW, "itemLockSize"));
 	(*scrActions)["itemLock"]->setToggleAction(true);
