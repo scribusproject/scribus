@@ -1,6 +1,13 @@
 Scribus - 1.3.3cvs
 ==================
-
+- 0002741: [Usability] changes on the properties pallete are never undone (cbradney)
+- 0003231: [Printing] Images will be printing in black when you apply effects (jghali)
+- 0002684: [Picture Frames] Enlargement of shapes on values other than per cent (cbradney)
+- 0003230: [Import / Export] Master page import and deletion issues (cbradney)
+- 0002054: [General] Hang on saving a complex drawing as an scs. (fschmid)
+- 0003212: [User Interface] Applying Master doesn't change margins on page. (fschmid)
+- 0003110: [Shape Drawing] 'Combine Polygons' may leave holes in objects. (fschmid)
+- 0003166: [User Interface] incorrect ruler origin, possible loss of precision in page item placement (fschmid)
 - 0001757: [User Interface] toolbar customizations are not being saved on exit. the original toolbar setting is always restored (Tsoots)
 - 0003052: [User Interface] desire persistence of UI settings (Tsoots)
 - 0003103: [User Interface] Text size is always 0.5 pt (cbradney)
