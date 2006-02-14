@@ -8,7 +8,12 @@
 Returns a list containing the names of all defined colors in the document.
 If no document is open, returns a list of the default document colors.
 </source>
-      <translation type="unfinished" ></translation>
+      <translation type="unfinished" >
+      getColorNames() -> list
+
+      返回文档中所有预设的颜色名称的列表
+      
+      </translation>
     </message>
     <message>
       <source>newDocDialog() -> bool
@@ -17,7 +22,11 @@ Displays the &quot;New Document&quot; dialog box. Creates a new document if the 
 accepts the settings. Does not create a document if the user presses cancel.
 Returns true if a new document was created.
 </source>
-      <translation type="unfinished" ></translation>
+      <translation type="unfinished" >
+      newDocDialog() -> bool
+
+      显示 &quot;新建文档&quot; 对话窗口。如果用户接受了设定，一个新文挡将被创建。如果用户按取消键，文档将不被创建。如果信文档被创建，返回真。
+      </translation>
     </message>
     <message>
       <source>getFillColor([&quot;name&quot;]) -> string
@@ -2723,7 +2732,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
       <source>Get Text...</source>
-      <translation>导入文本...</translation>
+      <translation> 导入文本...</translation>
     </message>
     <message>
       <source>Append &amp;Text...</source>
@@ -2731,7 +2740,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
       <source>Get Image...</source>
-      <translation>导入图像...</translation>
+      <translation> 导入图像...</translation>
     </message>
     <message>
       <source>Save &amp;Text...</source>
@@ -2915,7 +2924,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
       <source>Lower to &amp;Bottom</source>
-      <translation type="unfinished" ></translation>
+      <translation type="unfinished" >&amp;B 降低到底部</translation>
     </message>
     <message>
       <source>Raise to &amp;Top</source>
@@ -3103,7 +3112,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
       <source>&amp;Layers</source>
-      <translation>&amp;L 层</translation>
+      <translation>&amp;L 图层</translation>
     </message>
     <message>
       <source>&amp;Bookmarks</source>
@@ -4108,11 +4117,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
       <source>sum</source>
-      <translation>数字</translation>
+      <translation>求和</translation>
     </message>
     <message>
       <source>product</source>
-      <translation type="unfinished" ></translation>
+      <translation type="unfinished" >相乘</translation>
     </message>
     <message>
       <source>average</source>
@@ -4120,11 +4129,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
       <source>minimum</source>
-      <translation>最少</translation>
+      <translation>最小值</translation>
     </message>
     <message>
       <source>maximum</source>
-      <translation>最多</translation>
+      <translation>最大值</translation>
     </message>
     <message>
       <source>of the following fields:</source>
@@ -5126,7 +5135,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
       <source>Copy of %1</source>
-      <translation type="unfinished" >复件 %1</translation>
+      <translation type="unfinished" >Copy %1</translation>
     </message>
     <message>
       <source>New Color</source>
@@ -5563,59 +5572,59 @@ It is a reserved name for transparent color</source>
     <name>CupsOptions</name>
     <message>
       <source>Printer Options</source>
-      <translation type="unfinished" >Printer Options</translation>
+      <translation type="unfinished" >打印机选项</translation>
     </message>
     <message>
       <source>Option</source>
-      <translation type="unfinished" >Option</translation>
+      <translation type="unfinished" >选项</translation>
     </message>
     <message>
       <source>Value</source>
-      <translation type="unfinished" >Value</translation>
+      <translation type="unfinished" >数值</translation>
     </message>
     <message>
       <source>Page Set</source>
-      <translation type="unfinished" >Page Set</translation>
+      <translation type="unfinished" >页面套</translation>
     </message>
     <message>
       <source>All Pages</source>
-      <translation type="unfinished" >All Pages</translation>
+      <translation type="unfinished" >全部页面</translation>
     </message>
     <message>
       <source>Even Pages only</source>
-      <translation type="unfinished" >Even Pages only</translation>
+      <translation type="unfinished" >偶数页</translation>
     </message>
     <message>
       <source>Odd Pages only</source>
-      <translation type="unfinished" >Odd Pages only</translation>
+      <translation type="unfinished" >奇数页</translation>
     </message>
     <message>
       <source>Mirror</source>
-      <translation type="unfinished" >Mirror</translation>
+      <translation type="unfinished" >镜像</translation>
     </message>
     <message>
       <source>No</source>
-      <translation type="unfinished" >No</translation>
+      <translation type="unfinished" >否</translation>
     </message>
     <message>
       <source>Yes</source>
-      <translation type="unfinished" >Yes</translation>
+      <translation type="unfinished" >是</translation>
     </message>
     <message>
       <source>Orientation</source>
-      <translation type="unfinished" >Orientation</translation>
+      <translation type="unfinished" >页面方向</translation>
     </message>
     <message>
       <source>Portrait</source>
-      <translation type="unfinished" >Portrait</translation>
+      <translation type="unfinished" >竖式</translation>
     </message>
     <message>
       <source>Landscape</source>
-      <translation type="unfinished" >Landscape</translation>
+      <translation type="unfinished" >横式</translation>
     </message>
     <message>
       <source>N-Up Printing</source>
-      <translation type="unfinished" >N-Up Printing</translation>
+      <translation type="unfinished" >N-Up 打印</translation>
     </message>
     <message>
       <source>Page per Sheet</source>
@@ -5634,13 +5643,13 @@ It is a reserved name for transparent color</source>
     <name>CustomFDialog</name>
     <message>
       <source>Encoding:</source>
-      <translation type="unfinished" >Encoding:</translation>
+      <translation type="unfinished" >编码：</translation>
     </message>
     <message>
       <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
-      <translation type="unfinished" >Moves to your Document Directory.
-This can be set in the Preferences.</translation>
+      <translation type="unfinished" >移动到你的文档目录。这个可以在首选项里设定。
+</translation>
     </message>
     <message>
       <source>&amp;Compress File</source>
@@ -6388,7 +6397,7 @@ failed!</source>
     </message>
     <message>
       <source> %</source>
-      <translation type="unfinished" >％</translation>
+      <translation type="unfinished" >%</translation>
     </message>
     <message>
       <source>Distances</source>
@@ -6671,7 +6680,7 @@ Name of the export file will be 'documentname-pagenumber.filetype'</source>
     </message>
     <message>
       <source>&amp;Range</source>
-      <translation type="unfinished" >&amp;Range</translation>
+      <translation type="unfinished" >&amp;R 范围</translation>
     </message>
     <message>
       <source>C</source>
@@ -6679,7 +6688,7 @@ Name of the export file will be 'documentname-pagenumber.filetype'</source>
     </message>
     <message>
       <source>Export a range of pages</source>
-      <translation>导出页段</translation>
+      <translation>导出一个页面范围</translation>
     </message>
     <message>
       <source>Insert a comma separated list of tokens where
@@ -6807,7 +6816,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
       <source>Layers</source>
-      <translation>层</translation>
+      <translation>图层</translation>
     </message>
     <message>
       <source>Don't use any Path</source>
@@ -7243,11 +7252,11 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
       <source>Preview</source>
-      <translation type="unfinished" >Preview</translation>
+      <translation type="unfinished" >预览</translation>
     </message>
     <message>
       <source>There is empty (0.0) guide already</source>
-      <translation type="unfinished" ></translation>
+      <translation type="unfinished" >已经有空白的(0.0)参考线</translation>
     </message>
   </context>
   <context>
@@ -7416,11 +7425,11 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
       <source>Enables automatic hyphenation of your text while typing.</source>
-      <translation type="unfinished" >Enables automatic hyphenation of your text while typing.</translation>
+      <translation type="unfinished" >启用在输入时自动用连字符</translation>
     </message>
     <message>
       <source>Consecutive Hyphenations &amp;Allowed:</source>
-      <translation type="unfinished" >Consecutive Hyphenations &amp;Allowed:</translation>
+      <translation type="unfinished" >&amp;A 允许连续连字符：</translation>
     </message>
   </context>
   <context>
@@ -7775,11 +7784,11 @@ converting their vector data into Scribus objects.</source>
     <name>LayerPalette</name>
     <message>
       <source>Layers</source>
-      <translation>层</translation>
+      <translation>图层</translation>
     </message>
     <message>
       <source>Delete Layer</source>
-      <translation>删除层</translation>
+      <translation>删除图层</translation>
     </message>
     <message>
       <source>Name</source>
@@ -7787,23 +7796,23 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
       <source>Do you want to delete all objects on this layer too?</source>
-      <translation>你确信一并删除此层上的所有对象吗？</translation>
+      <translation>你确信一并删除此图层上的所有对象吗？</translation>
     </message>
     <message>
       <source>Add a new layer</source>
-      <translation>增加层</translation>
+      <translation>添加图层</translation>
     </message>
     <message>
       <source>Delete layer</source>
-      <translation>删除层</translation>
+      <translation>删除图层</translation>
     </message>
     <message>
       <source>Raise layer</source>
-      <translation>升高层</translation>
+      <translation>升高图层</translation>
     </message>
     <message>
       <source>Lower layer</source>
-      <translation>降低层</translation>
+      <translation>降低图层</translation>
     </message>
   </context>
   <context>
@@ -7814,7 +7823,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
       <source>Copy of %1</source>
-      <translation>复件 %1</translation>
+      <translation>Copy of %1</translation>
     </message>
     <message>
       <source>New Style</source>
@@ -7880,7 +7889,7 @@ converting their vector data into Scribus objects.</source>
     <name>LoremManager</name>
     <message>
       <source>Select Lorem Ipsum</source>
-      <translation>选择 Lorem Ipsum</translation>
+      <translation>选择范例文本</translation>
     </message>
     <message>
       <source>Author:</source>
@@ -7896,7 +7905,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
       <source>Lorem Ipsum</source>
-      <translation type="unfinished" >Lorem Ipsum</translation>
+      <translation type="unfinished" >范例文本</translation>
     </message>
     <message>
       <source>Paragraphs:</source>
@@ -8045,7 +8054,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
       <source>Copy of %1</source>
-      <translation>复件 %1</translation>
+      <translation>Copy of %1</translation>
     </message>
     <message>
       <source>Name:</source>
@@ -8057,7 +8066,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
       <source>Copy #%1 of </source>
-      <translation>复件 #%1 </translation>
+      <translation>Copy #%1 of</translation>
     </message>
     <message>
       <source>Normal</source>
@@ -8765,31 +8774,31 @@ Corners:</source>
     </message>
     <message>
       <source>Scale &amp;To Frame Size</source>
-      <translation type="unfinished" >Scale &amp;To Frame Size</translation>
+      <translation type="unfinished" >&amp;T 缩放到框体大小</translation>
     </message>
     <message>
       <source>P&amp;roportional</source>
-      <translation type="unfinished" >P&amp;roportional</translation>
+      <translation type="unfinished" >&amp;R 按比例</translation>
     </message>
     <message>
       <source>&amp;Basepoint:</source>
-      <translation type="unfinished" >&amp;Basepoint:</translation>
+      <translation type="unfinished" >&amp;B 基点：</translation>
     </message>
     <message>
       <source>T&amp;ype of Line:</source>
-      <translation type="unfinished" >T&amp;ype of Line:</translation>
+      <translation type="unfinished" >&amp;Y 线条类型：</translation>
     </message>
     <message>
       <source>Line &amp;Width:</source>
-      <translation type="unfinished" >Line &amp;Width:</translation>
+      <translation type="unfinished" >&amp;W 线宽：</translation>
     </message>
     <message>
       <source>Ed&amp;ges:</source>
-      <translation type="unfinished" >Ed&amp;ges:</translation>
+      <translation type="unfinished" >d&amp;G 边缘：</translation>
     </message>
     <message>
       <source>&amp;Endings:</source>
-      <translation type="unfinished" >&amp;Endings:</translation>
+      <translation type="unfinished" >&amp;E 结尾：</translation>
     </message>
     <message>
       <source>&amp;X1:</source>
@@ -9198,51 +9207,51 @@ Corners:</source>
     </message>
     <message>
       <source>Mirror the Path Horizontally</source>
-      <translation type="unfinished" >Mirror the Path Horizontally</translation>
+      <translation type="unfinished" >水平镜像路径</translation>
     </message>
     <message>
       <source>Mirror the Path Vertically</source>
-      <translation type="unfinished" >Mirror the Path Vertically</translation>
+      <translation type="unfinished" >垂直镜像路径</translation>
     </message>
     <message>
       <source>Shear the Path Horizontally to the Left</source>
-      <translation type="unfinished" >Shear the Path Horizontally to the Left</translation>
+      <translation type="unfinished" >向左水平切变路径</translation>
     </message>
     <message>
       <source>Shear the Path Vertically Up</source>
-      <translation type="unfinished" >Shear the Path Vertically Up</translation>
+      <translation type="unfinished" >向上垂直切变路径</translation>
     </message>
     <message>
       <source>Shear the Path Vertically Down</source>
-      <translation type="unfinished" >Shear the Path Vertically Down</translation>
+      <translation type="unfinished" >向下垂直切变路径</translation>
     </message>
     <message>
       <source>Rotate the Path Counter-Clockwise</source>
-      <translation type="unfinished" >Rotate the Path Counter-Clockwise</translation>
+      <translation type="unfinished" >逆时针旋转路径</translation>
     </message>
     <message>
       <source>Rotate the Path Clockwise</source>
-      <translation type="unfinished" >Rotate the Path Clockwise</translation>
+      <translation type="unfinished" >顺时针旋转路径</translation>
     </message>
     <message>
       <source>Reduce the Size of the Path by shown %</source>
-      <translation type="unfinished" >Reduce the Size of the Path by shown %</translation>
+      <translation type="unfinished" >按所示减少路径尺寸 %</translation>
     </message>
     <message>
       <source>Enlarge the Size of the Path by shown %</source>
-      <translation type="unfinished" >Enlarge the Size of the Path by shown %</translation>
+      <translation type="unfinished" >按所示增加路径尺寸 %</translation>
     </message>
     <message>
       <source>Angle of Rotation</source>
-      <translation type="unfinished" >Angle of Rotation</translation>
+      <translation type="unfinished" >旋转角度</translation>
     </message>
     <message>
       <source>% to Enlarge or Reduce By</source>
-      <translation type="unfinished" >% to Enlarge or Reduce By</translation>
+      <translation type="unfinished" >% 来增加或减少</translation>
     </message>
     <message>
       <source>Activate Contour Line Editing Mode</source>
-      <translation type="unfinished" >Activate Contour Line Editing Mode</translation>
+      <translation type="unfinished" >激活轮廓线条编辑模式</translation>
     </message>
     <message>
       <source>Reset the Contour Line to the Original Shape of the Frame</source>
@@ -9290,23 +9299,23 @@ Corners:</source>
     <name>OdtDialog</name>
     <message>
       <source>Use document name as a prefix for paragraph styles</source>
-      <translation type="unfinished" >Use document name as a prefix for paragraph styles</translation>
+      <translation type="unfinished" >用文档名称作为段落样式的前缀</translation>
     </message>
     <message>
       <source>Do not ask again</source>
-      <translation type="unfinished" >Do not ask again</translation>
+      <translation type="unfinished" >下次不问</translation>
     </message>
     <message>
       <source>OK</source>
-      <translation type="unfinished" >OK</translation>
+      <translation type="unfinished" >确认</translation>
     </message>
     <message>
       <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-      <translation type="unfinished" >Enabling this will overwrite existing styles in the current Scribus document</translation>
+      <translation type="unfinished" >启用这个将覆盖当前Scribus中的现存样式</translation>
     </message>
     <message>
       <source>Merge Paragraph Styles</source>
-      <translation type="unfinished" >Merge Paragraph Styles</translation>
+      <translation type="unfinished" >合并段落样式</translation>
     </message>
     <message>
       <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document's styles are named differently.</source>
@@ -9322,26 +9331,26 @@ Corners:</source>
     </message>
     <message>
       <source>Overwrite Paragraph Styles</source>
-      <translation type="unfinished" >Overwrite Paragraph Styles</translation>
+      <translation type="unfinished" >覆盖段落样式</translation>
     </message>
     <message>
       <source>OpenDocument Importer Options</source>
-      <translation type="unfinished" >OpenDocument Importer Options</translation>
+      <translation type="unfinished" >OpenDocument导入器选项</translation>
     </message>
     <message>
       <source>Cancel</source>
-      <translation type="unfinished" >Cancel</translation>
+      <translation type="unfinished" >取消</translation>
     </message>
   </context>
   <context>
     <name>OldScribusFormat</name>
     <message>
       <source>Scribus Document</source>
-      <translation type="unfinished" >Scribus Document</translation>
+      <translation type="unfinished" >Scribus文档</translation>
     </message>
     <message>
       <source>Scribus 1.2.x Document</source>
-      <translation type="unfinished" >Scribus 1.2.x Document</translation>
+      <translation type="unfinished" >Scribus 1.2.x文档</translation>
     </message>
   </context>
   <context>
@@ -9352,7 +9361,7 @@ Corners:</source>
     </message>
     <message>
       <source>Linewidth</source>
-      <translation type="unfinished" >Linewidth</translation>
+      <translation type="unfinished" >线宽</translation>
     </message>
   </context>
   <context>
@@ -9375,7 +9384,7 @@ Corners:</source>
     </message>
     <message>
       <source>&amp;Save</source>
-      <translation type="unfinished" >&amp; S 保存</translation>
+      <translation type="unfinished" >&amp;S 保存</translation>
     </message>
     <message>
       <source>Save as</source>
@@ -9509,11 +9518,11 @@ Corners:</source>
     </message>
     <message>
       <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-      <translation type="unfinished" >在阅读器中提供更加悦目的文本项目，代价是稍微缓慢的预览。这只影响Type 1 字体</translation>
+      <translation type="unfinished" >在阅读器中提供更加悦目的文本显示，代价是预览稍微缓慢。这只影响Type 1字体</translation>
     </message>
     <message>
       <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-      <translation type="unfinished" >Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</translation>
+      <translation type="unfinished" >在预览中提供了对TrueType字体，OpenType字体，EPS，PDF和矢量图更加悦目的显示，代价是预览速度轻微的缓慢。</translation>
     </message>
     <message>
       <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -9571,7 +9580,7 @@ Corners:</source>
     </message>
     <message>
       <source>Copy of</source>
-      <translation>复件</translation>
+      <translation>Copy of</translation>
     </message>
   </context>
   <context>
@@ -9617,11 +9626,11 @@ Corners:</source>
     </message>
     <message>
       <source>Relationship</source>
-      <translation type="unfinished" >Relationship</translation>
+      <translation type="unfinished" >关系</translation>
     </message>
     <message>
       <source>Relationship To</source>
-      <translation type="unfinished" >Relationship To</translation>
+      <translation type="unfinished" >关系于</translation>
     </message>
     <message>
       <source>&amp;Add</source>
@@ -9687,11 +9696,11 @@ Corners:</source>
     </message>
     <message>
       <source>Drag pages or master pages onto the trashbin to delete them</source>
-      <translation type="unfinished" >Drag pages or master pages onto the trashbin to delete them</translation>
+      <translation type="unfinished" >把页面或者母页拖拉到垃圾箱里来删除它们</translation>
     </message>
     <message>
       <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
-      <translation type="unfinished" >Here are all your master pages. To create a new page, drag a master page to the page view below</translation>
+      <translation type="unfinished" >这是你所有的母页。要创建新页，请把母页拖拉到下面页面视图</translation>
     </message>
     <message>
       <source>Normal</source>
@@ -9733,11 +9742,11 @@ Corners:</source>
     </message>
     <message>
       <source>Letter</source>
-      <translation type="unfinished" >信纸</translation>
+      <translation type="unfinished" >Letter</translation>
     </message>
     <message>
       <source>Government Letter</source>
-      <translation type="unfinished" >公文</translation>
+      <translation type="unfinished" >Government Letter</translation>
     </message>
     <message>
       <source>Legal</source>
@@ -9753,7 +9762,7 @@ Corners:</source>
     </message>
     <message>
       <source>Post</source>
-      <translation type="unfinished" >海报</translation>
+      <translation type="unfinished" >Post</translation>
     </message>
     <message>
       <source>Crown</source>
@@ -9761,7 +9770,7 @@ Corners:</source>
     </message>
     <message>
       <source>Large Post</source>
-      <translation type="unfinished" >大海报</translation>
+      <translation type="unfinished" >Large Post</translation>
     </message>
     <message>
       <source>Demy</source>
@@ -9773,7 +9782,7 @@ Corners:</source>
     </message>
     <message>
       <source>Royal</source>
-      <translation type="unfinished" >皇家</translation>
+      <translation type="unfinished" >Royal</translation>
     </message>
     <message>
       <source>Elephant</source>
@@ -9816,7 +9825,7 @@ Corners:</source>
     <name>PicSearch</name>
     <message>
       <source>Result</source>
-      <translation type="unfinished" >接过</translation>
+      <translation type="unfinished" >结果</translation>
     </message>
     <message>
       <source>Search Results for: </source>
@@ -9947,7 +9956,7 @@ Corners:</source>
     <message>
       <source>unknown plugin type</source>
       <comment>plugin load error</comment>
-      <translation type="unfinished" >unknown plugin type</translation>
+      <translation type="unfinished" >未知插件类型</translation>
     </message>
     <message>
       <source>Plugin: %1 loaded</source>
@@ -10026,7 +10035,7 @@ Corners:</source>
     </message>
     <message>
       <source> %</source>
-      <translation type="unfinished" >％</translation>
+      <translation type="unfinished" >%</translation>
     </message>
     <message>
       <source>&amp;Factor:</source>
@@ -10042,15 +10051,15 @@ Corners:</source>
     </message>
     <message>
       <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-      <translation type="unfinished" >Apply Convex/Concave Factor to change shape of Polygons</translation>
+      <translation type="unfinished" >应用凹凸大小来改变多边形的形状</translation>
     </message>
     <message>
       <source>Sample Polygon</source>
-      <translation type="unfinished" >Sample Polygon</translation>
+      <translation type="unfinished" >多边形样本</translation>
     </message>
     <message>
       <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
-      <translation type="unfinished" >A negative value will make the polygon concave (or star shaped), a positive value will make it convex</translation>
+      <translation type="unfinished" >一个负数值将会使多边形变为凹形（或者星形），一个正数值将使它成为凸形。</translation>
     </message>
   </context>
   <context>
@@ -10121,7 +10130,7 @@ Corners:</source>
     </message>
     <message>
       <source>min</source>
-      <translation type="unfinished" >min</translation>
+      <translation type="unfinished" >分钟</translation>
     </message>
     <message>
       <source> pt</source>
@@ -10129,67 +10138,67 @@ Corners:</source>
     </message>
     <message>
       <source>Other Options</source>
-      <translation type="unfinished" >Other Options</translation>
+      <translation>其它选项</translation>
     </message>
     <message>
       <source>Preview</source>
-      <translation type="unfinished" >Preview</translation>
+      <translation type="unfinished" >预览</translation>
     </message>
     <message>
       <source>Small</source>
-      <translation type="unfinished" >Small</translation>
+      <translation type="unfinished" >小</translation>
     </message>
     <message>
       <source>Medium</source>
-      <translation type="unfinished" >Medium</translation>
+      <translation type="unfinished" >中</translation>
     </message>
     <message>
       <source>Choose a Directory</source>
-      <translation type="unfinished" >Choose a Directory</translation>
+      <translation type="unfinished" >选择一个目录</translation>
     </message>
     <message>
       <source>External Tools</source>
-      <translation type="unfinished" >External Tools</translation>
+      <translation type="unfinished" >外部工具</translation>
     </message>
     <message>
       <source>Image Processing Tool</source>
-      <translation type="unfinished" >Image Processing Tool</translation>
+      <translation type="unfinished" >图像处理工具</translation>
     </message>
     <message>
       <source>Printing</source>
-      <translation type="unfinished" >Printing</translation>
+      <translation type="unfinished" >打印</translation>
     </message>
     <message>
       <source>Default font size for the menus and windows</source>
-      <translation type="unfinished" >Default font size for the menus and windows</translation>
+      <translation type="unfinished" >菜单和窗口的默认字体大小</translation>
     </message>
     <message>
       <source>Default unit of measurement for document editing</source>
-      <translation type="unfinished" >Default unit of measurement for document editing</translation>
+      <translation type="unfinished" >文档编辑默认的长度单位</translation>
     </message>
     <message>
       <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-      <translation type="unfinished" >Number of lines Scribus will scroll for each move of the mouse wheel</translation>
+      <translation type="unfinished" >Scribus鼠标滚轮每次滚动移动行数</translation>
     </message>
     <message>
       <source>Number of recently edited documents to show in the File menu</source>
-      <translation type="unfinished" >Number of recently edited documents to show in the File menu</translation>
+      <translation type="unfinished" >在文件菜单里显示最近编辑文档数目</translation>
     </message>
     <message>
       <source>Default documents directory</source>
-      <translation type="unfinished" >Default documents directory</translation>
+      <translation type="unfinished" >默认文档目录</translation>
     </message>
     <message>
       <source>Default Scripter scripts directory</source>
-      <translation type="unfinished" >Default Scripter scripts directory</translation>
+      <translation type="unfinished" >默认脚本器脚本目录</translation>
     </message>
     <message>
       <source>Default page size, either a standard size or a custom size</source>
-      <translation type="unfinished" >Default page size, either a standard size or a custom size</translation>
+      <translation type="unfinished" >默认页面尺寸，或是标准的，或是自定义的尺寸</translation>
     </message>
     <message>
       <source>Default orientation of document pages</source>
-      <translation type="unfinished" >Default orientation of document pages</translation>
+      <translation type="unfinished" >默认文档页面方向</translation>
     </message>
     <message>
       <source>Width of document pages, editable if you have chosen a custom page size</source>
@@ -10237,31 +10246,31 @@ Corners:</source>
     </message>
     <message>
       <source>&amp;Theme:</source>
-      <translation type="unfinished" >&amp;Theme:</translation>
+      <translation type="unfinished" >&amp;T 主题：</translation>
     </message>
     <message>
       <source>&amp;Wheel Jump:</source>
-      <translation type="unfinished" >&amp;Wheel Jump:</translation>
+      <translation type="unfinished" >&amp;W 滚轮跳行：</translation>
     </message>
     <message>
       <source>&amp;Recent Documents:</source>
-      <translation type="unfinished" >&amp;Recent Documents:</translation>
+      <translation type="unfinished" >&amp;R 最近文档：</translation>
     </message>
     <message>
       <source>&amp;Documents:</source>
-      <translation type="unfinished" >&amp;Documents:</translation>
+      <translation type="unfinished" >&amp;D 文档：</translation>
     </message>
     <message>
       <source>&amp;Change...</source>
-      <translation type="unfinished" >&amp;Change...</translation>
+      <translation type="unfinished" >&amp;C 更改...</translation>
     </message>
     <message>
       <source>&amp;ICC Profiles:</source>
-      <translation type="unfinished" >&amp;ICC Profiles:</translation>
+      <translation type="unfinished" >&amp;ICC配置文件：</translation>
     </message>
     <message>
       <source>C&amp;hange...</source>
-      <translation type="unfinished" >C&amp;hange...</translation>
+      <translation type="unfinished" >&amp;H 更改...</translation>
     </message>
     <message>
       <source>&amp;Scripts:</source>
@@ -10269,107 +10278,107 @@ Corners:</source>
     </message>
     <message>
       <source>Ch&amp;ange...</source>
-      <translation type="unfinished" >Ch&amp;ange...</translation>
+      <translation type="unfinished" >&amp;A 更改...</translation>
     </message>
     <message>
       <source>&amp;Size:</source>
-      <translation type="unfinished" >&amp;Size:</translation>
+      <translation type="unfinished" >&amp;S 尺寸：</translation>
     </message>
     <message>
       <source>Orie&amp;ntation:</source>
-      <translation type="unfinished" >Orie&amp;ntation:</translation>
+      <translation type="unfinished" >&amp;N 方向：</translation>
     </message>
     <message>
       <source>&amp;Width:</source>
-      <translation type="unfinished" >&amp;Width:</translation>
+      <translation type="unfinished" >&amp;W 宽度：</translation>
     </message>
     <message>
       <source>&amp;Height:</source>
-      <translation type="unfinished" >&amp;Height:</translation>
+      <translation type="unfinished" >&amp;H 高度：</translation>
     </message>
     <message>
       <source>&amp;Bottom:</source>
-      <translation type="unfinished" >&amp;Bottom:</translation>
+      <translation type="unfinished" >&amp;B 底部：</translation>
     </message>
     <message>
       <source>&amp;Top:</source>
-      <translation type="unfinished" >&amp;Top:</translation>
+      <translation type="unfinished" >&amp;T 顶部：</translation>
     </message>
     <message>
       <source>&amp;Right:</source>
-      <translation type="unfinished" >&amp;Right:</translation>
+      <translation type="unfinished" >&amp;R 右：</translation>
     </message>
     <message>
       <source>&amp;Left:</source>
-      <translation type="unfinished" >&amp;Left:</translation>
+      <translation type="unfinished" >&amp;L 左：</translation>
     </message>
     <message>
       <source>&amp;Interval:</source>
-      <translation type="unfinished" >&amp;Interval:</translation>
+      <translation type="unfinished" >&amp;I 间隔：</translation>
     </message>
     <message>
       <source>Sa&amp;ve Contents on Changes</source>
-      <translation type="unfinished" >Sa&amp;ve Contents on Changes</translation>
+      <translation type="unfinished" >&amp;V 更改时保存内容</translation>
     </message>
     <message>
       <source>Large</source>
-      <translation type="unfinished" >Large</translation>
+      <translation type="unfinished" >大</translation>
     </message>
     <message>
       <source>Display &amp;Unprintable Area in Margin Color</source>
-      <translation>Display &amp;Unprintable Area in Margin Colour</translation>
+      <translation>&amp;U 用页边颜色标出非打印区域</translation>
     </message>
     <message>
       <source>&amp;Adjust Display Size</source>
-      <translation type="unfinished" >&amp;Adjust Display Size</translation>
+      <translation type="unfinished" >&amp;A 调整显示尺寸</translation>
     </message>
     <message>
       <source>&amp;Name of Executable:</source>
-      <translation type="unfinished" >&amp;Name of Executable:</translation>
+      <translation type="unfinished" >&amp;N 可执行文件的名称：</translation>
     </message>
     <message>
       <source>Antialias &amp;Text</source>
-      <translation type="unfinished" >Antialias &amp;Text</translation>
+      <translation type="unfinished" >&amp;T 反锯齿文本</translation>
     </message>
     <message>
       <source>Antialias &amp;Graphics</source>
-      <translation type="unfinished" >Antialias &amp;Graphics</translation>
+      <translation type="unfinished" >&amp;G 反锯齿图形</translation>
     </message>
     <message>
       <source>Name of &amp;Executable:</source>
-      <translation type="unfinished" >Name of &amp;Executable:</translation>
+      <translation type="unfinished" >&amp;E 可执行文件的名字：</translation>
     </message>
     <message>
       <source>Clip to Page &amp;Margins</source>
-      <translation type="unfinished" >Clip to Page &amp;Margins</translation>
+      <translation type="unfinished" >&amp;M 按页边距线裁剪</translation>
     </message>
     <message>
       <source>Apply &amp;Under Color Removal</source>
-      <translation>Apply &amp;Under Colour Removal</translation>
+      <translation>&amp;U 应用底色清除</translation>
     </message>
     <message>
       <source>Cha&amp;nge...</source>
-      <translation type="unfinished" >Cha&amp;nge...</translation>
+      <translation type="unfinished" >&amp;N 更改...</translation>
     </message>
     <message>
       <source>&amp;Language:</source>
-      <translation type="unfinished" >&amp;Language:</translation>
+      <translation type="unfinished" >&amp;L 语言：</translation>
     </message>
     <message>
       <source>Document T&amp;emplates:</source>
-      <translation type="unfinished" >Document T&amp;emplates:</translation>
+      <translation type="unfinished" >&amp;E 模板：</translation>
     </message>
     <message>
       <source>Units:</source>
-      <translation type="unfinished" >Units:</translation>
+      <translation type="unfinished" >单位：</translation>
     </message>
     <message>
       <source>Undo/Redo</source>
-      <translation type="unfinished" >Undo/Redo</translation>
+      <translation type="unfinished" >撤销/重做</translation>
     </message>
     <message>
       <source>Action history length</source>
-      <translation type="unfinished" >Action history length</translation>
+      <translation type="unfinished" >动作历史长度</translation>
     </message>
     <message>
       <source>Hyphenator</source>
@@ -10457,15 +10466,15 @@ Corners:</source>
     </message>
     <message>
       <source>Show Text Control Characters</source>
-      <translation type="unfinished" >Show Text Control Characters</translation>
+      <translation type="unfinished" >显示文本控制符</translation>
     </message>
     <message>
       <source>Preview of current Paragraph Style visible when editing Styles</source>
-      <translation type="unfinished" >Preview of current Paragraph Style visible when editing Styles</translation>
+      <translation type="unfinished" >当编辑样式时显示当前段落样式的预览</translation>
     </message>
     <message>
       <source>To adjust the display drag the ruler below with the slider.</source>
-      <translation type="unfinished" >To adjust the display drag the ruler below with the slider.</translation>
+      <translation type="unfinished" >要调节显示，拖拉标尺下面的滑动按钮</translation>
     </message>
     <message>
       <source>Display non-printing characters such as paragraph markers in text frames</source>
@@ -10505,11 +10514,11 @@ Corners:</source>
     </message>
     <message>
       <source>Lorem Ipsum</source>
-      <translation type="unfinished" >Lorem Ipsum</translation>
+      <translation type="unfinished" >范例文本</translation>
     </message>
     <message>
       <source>Always use standard Lorem Ipsum</source>
-      <translation type="unfinished" >总是使用标准的 Lorem Ipsum</translation>
+      <translation type="unfinished" >总是使用标准的范例文本 </translation>
     </message>
     <message>
       <source>Count of the Paragraphs:</source>
@@ -10541,27 +10550,27 @@ Corners:</source>
     </message>
     <message>
       <source>Locate your image editor</source>
-      <translation type="unfinished" >Locate your image editor</translation>
+      <translation type="unfinished" >定位图像编辑器</translation>
     </message>
     <message>
       <source>PostScript Interpreter</source>
-      <translation type="unfinished" >PostScript Interpreter</translation>
+      <translation type="unfinished" >PostScript解析器</translation>
     </message>
     <message>
       <source>Enable or disable  the display of linked frames.</source>
-      <translation type="unfinished" >Enable or disable  the display of linked frames.</translation>
+      <translation type="unfinished" >开闭连锁框体显示。</translation>
     </message>
     <message>
       <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-      <translation type="unfinished" >Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</translation>
+      <translation type="unfinished" >选择你要Scribus默认使用的语言。留白将默认使用系统环境设定。你还可以在命令行运行Scribus时给出选项。</translation>
     </message>
     <message>
       <source>&amp;Font Size (Menus):</source>
-      <translation type="unfinished" >&amp;Font Size (Menus):</translation>
+      <translation type="unfinished" >&amp;F 字体大小（菜单）：</translation>
     </message>
     <message>
       <source>Font Size (&amp;Palettes):</source>
-      <translation type="unfinished" >Font Size (&amp;Palettes):</translation>
+      <translation type="unfinished" >字体大小（&amp;P 调色板）：</translation>
     </message>
     <message>
       <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
@@ -10569,7 +10578,7 @@ Corners:</source>
     </message>
     <message>
       <source>Default font size for the tool windows</source>
-      <translation type="unfinished" >Default font size for the tool windows</translation>
+      <translation type="unfinished" >工具窗口的默认尺寸大小</translation>
     </message>
     <message>
       <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
@@ -10596,15 +10605,15 @@ Corners:</source>
     <name>PrefsDialogBase</name>
     <message>
       <source>&amp;Defaults</source>
-      <translation type="unfinished" >&amp;Defaults</translation>
+      <translation type="unfinished" >&amp;D 默认</translation>
     </message>
     <message>
       <source>Save...</source>
-      <translation type="unfinished" >Save...</translation>
+      <translation type="unfinished" >保存...</translation>
     </message>
     <message>
       <source>Save Preferences</source>
-      <translation type="unfinished" >Save Preferences</translation>
+      <translation type="unfinished" >保存首选项</translation>
     </message>
   </context>
   <context>
@@ -10706,7 +10715,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
       <source>Scribus was not able to load its preferences:&lt;br>%1&lt;br>Default settings will be loaded.</source>
-      <translation type="unfinished" >Scribus was not able to load its preferences:&lt;br>%1&lt;br>Default settings will be loaded.</translation>
+      <translation type="unfinished" >Scribus无法载入它的首选项 &lt;br>%1&lt;br&lt; 默认设置将被载入</translation>
     </message>
   </context>
   <context>
@@ -10776,19 +10785,19 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
       <source>Write your commands here. A selection is processed as script</source>
-      <translation type="unfinished" >Write your commands here. A selection is processed as script</translation>
+      <translation type="unfinished" >在此写你的命令。一个选择作为脚本运行</translation>
     </message>
     <message>
       <source>Output of your script</source>
-      <translation type="unfinished" >Output of your script</translation>
+      <translation type="unfinished" >你的脚本输出</translation>
     </message>
     <message>
       <source>Python Scripts (*.py)</source>
-      <translation type="unfinished" >Python Scripts (*.py)</translation>
+      <translation type="unfinished" >Python 脚本 (*.py)</translation>
     </message>
     <message>
       <source>Save the Python Commands in File</source>
-      <translation type="unfinished" >Save the Python Commands in File</translation>
+      <translation type="unfinished" >保存Python命令于文件中</translation>
     </message>
     <message>
       <source>Warning</source>
@@ -10898,7 +10907,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
       <source>File &amp;name:</source>
-      <translation type="unfinished" >File &amp;name:</translation>
+      <translation type="unfinished" >&amp;N 文件名：</translation>
     </message>
     <message>
       <source>File &amp;type:</source>
@@ -10978,47 +10987,47 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
       <source>Write-only</source>
-      <translation type="unfinished" >Write-only</translation>
+      <translation type="unfinished" >只写</translation>
     </message>
     <message>
       <source>Inaccessible</source>
-      <translation type="unfinished" >Inaccessible</translation>
+      <translation type="unfinished" >不可达</translation>
     </message>
     <message>
       <source>Symlink to File</source>
-      <translation type="unfinished" >Symlink to File</translation>
+      <translation type="unfinished" >指向文件的链接</translation>
     </message>
     <message>
       <source>Symlink to Directory</source>
-      <translation type="unfinished" >Symlink to Directory</translation>
+      <translation type="unfinished" >指向目录的链接</translation>
     </message>
     <message>
       <source>Symlink to Special</source>
-      <translation type="unfinished" >Symlink to Special</translation>
+      <translation type="unfinished" >指向特别对象的链接</translation>
     </message>
     <message>
       <source>File</source>
-      <translation type="unfinished" >File</translation>
+      <translation type="unfinished" >文件</translation>
     </message>
     <message>
       <source>Dir</source>
-      <translation type="unfinished" >Dir</translation>
+      <translation type="unfinished" >目录</translation>
     </message>
     <message>
       <source>Special</source>
-      <translation type="unfinished" >Special</translation>
+      <translation type="unfinished" >特别对象</translation>
     </message>
     <message>
       <source>Open</source>
-      <translation type="unfinished" >Open</translation>
+      <translation type="unfinished" >打开</translation>
     </message>
     <message>
       <source>Save As</source>
-      <translation type="unfinished" >Save As</translation>
+      <translation type="unfinished" >另存为</translation>
     </message>
     <message>
       <source>&amp;Open</source>
-      <translation type="unfinished" >&amp;Open</translation>
+      <translation type="unfinished" >&amp;O 打开</translation>
     </message>
     <message>
       <source>&amp;Save</source>
@@ -11026,63 +11035,63 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
       <source>&amp;Rename</source>
-      <translation type="unfinished" >&amp;Rename</translation>
+      <translation type="unfinished" >&amp;R 重命名</translation>
     </message>
     <message>
       <source>&amp;Delete</source>
-      <translation type="unfinished" >&amp;Delete</translation>
+      <translation type="unfinished" >&amp;D 删除</translation>
     </message>
     <message>
       <source>R&amp;eload</source>
-      <translation type="unfinished" >R&amp;eload</translation>
+      <translation type="unfinished" >&amp;E 重新载入</translation>
     </message>
     <message>
       <source>Sort by &amp;Name</source>
-      <translation type="unfinished" >Sort by &amp;Name</translation>
+      <translation type="unfinished" >&amp;N 按名称排序</translation>
     </message>
     <message>
       <source>Sort by &amp;Size</source>
-      <translation type="unfinished" >Sort by &amp;Size</translation>
+      <translation type="unfinished" >&amp;S 按大小排序</translation>
     </message>
     <message>
       <source>Sort by &amp;Date</source>
-      <translation type="unfinished" >Sort by &amp;Date</translation>
+      <translation type="unfinished" >&amp;D 按日期排序</translation>
     </message>
     <message>
       <source>&amp;Unsorted</source>
-      <translation type="unfinished" >&amp;Unsorted</translation>
+      <translation type="unfinished" >&amp;U 不排序</translation>
     </message>
     <message>
       <source>Sort</source>
-      <translation type="unfinished" >Sort</translation>
+      <translation type="unfinished" >排序</translation>
     </message>
     <message>
       <source>Show &amp;hidden files</source>
-      <translation type="unfinished" >Show &amp;hidden files</translation>
+      <translation type="unfinished" >&amp;H 显示隐藏文件</translation>
     </message>
     <message>
       <source>the file</source>
-      <translation type="unfinished" >the file</translation>
+      <translation type="unfinished" >文件</translation>
     </message>
     <message>
       <source>the directory</source>
-      <translation type="unfinished" >the directory</translation>
+      <translation type="unfinished" >目录</translation>
     </message>
     <message>
       <source>the symlink</source>
-      <translation type="unfinished" >the symlink</translation>
+      <translation type="unfinished" >链接</translation>
     </message>
     <message>
       <source>Delete %1</source>
-      <translation type="unfinished" >Delete %1</translation>
+      <translation type="unfinished" >删除 %1</translation>
     </message>
     <message>
       <source>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</source>
-      <translation type="unfinished" >&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
+      <translation type="unfinished" >&lt;qt&gt;你真的要删除 %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
     </message>
     <message>
       <source>&amp;Yes</source>
-      <translation type="unfinished" >&amp;Yes</translation>
+      <translation type="unfinished" >&amp;Y 是</translation>
     </message>
     <message>
       <source>&amp;No</source>
@@ -11090,47 +11099,47 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
       <source>New Folder 1</source>
-      <translation type="unfinished" >New Folder 1</translation>
+      <translation type="unfinished" >新文件夹 1</translation>
     </message>
     <message>
       <source>New Folder</source>
-      <translation type="unfinished" >New Folder</translation>
+      <translation type="unfinished" >新建文件夹</translation>
     </message>
     <message>
       <source>New Folder %1</source>
-      <translation type="unfinished" >New Folder %1</translation>
+      <translation type="unfinished" >新文件夹 %1</translation>
     </message>
     <message>
       <source>Find Directory</source>
-      <translation type="unfinished" >Find Directory</translation>
+      <translation type="unfinished" >查找文件夹</translation>
     </message>
     <message>
       <source>Directories</source>
-      <translation type="unfinished" >Directories</translation>
+      <translation type="unfinished" >目录</translation>
     </message>
     <message>
       <source>Save</source>
-      <translation type="unfinished" >Save</translation>
+      <translation type="unfinished" >保存</translation>
     </message>
     <message>
       <source>Error</source>
-      <translation type="unfinished" >Error</translation>
+      <translation type="unfinished" >错误</translation>
     </message>
     <message>
       <source>%1
 File not found.
 Check path and filename.</source>
       <translation type="unfinished" >%1
-File not found.
-Check path and filename.</translation>
+文件未找到。
+请检查路径和文件名。</translation>
     </message>
     <message>
       <source>All Files (*.*)</source>
-      <translation type="unfinished" >All Files (*.*)</translation>
+      <translation type="unfinished" >全部文件 (*.*)</translation>
     </message>
     <message>
       <source>Select a Directory</source>
-      <translation type="unfinished" >Select a Directory</translation>
+      <translation type="unfinished" >选择一个目录</translation>
     </message>
     <message>
       <source>Directory:</source>
@@ -11253,17 +11262,17 @@ Check path and filename.</translation>
     </message>
     <message>
       <source>Background</source>
-      <translation type="unfinished" >Background</translation>
+      <translation type="unfinished" >背景</translation>
     </message>
     <message>
       <source>Warning</source>
-      <translation type="unfinished" >Warning</translation>
+      <translation type="unfinished" >警告</translation>
     </message>
     <message>
       <source>Do you really want to overwrite the File:
 %1 ?</source>
-      <translation type="unfinished" >Do you really want to overwrite the File:
-%1 ?</translation>
+      <translation type="unfinished" >你真的要覆盖文件：
+%1 ？</translation>
     </message>
     <message>
       <source>Open</source>
@@ -11271,155 +11280,155 @@ Check path and filename.</translation>
     </message>
     <message>
       <source>Save as</source>
-      <translation type="unfinished" >Save as</translation>
+      <translation type="unfinished" >另存为</translation>
     </message>
     <message>
       <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
-      <translation type="unfinished" >SVG-Images (*.svg *.svgz);;All Files (*)</translation>
+      <translation type="unfinished" >SVG-图像 (*.svg *.svgz);;全部文件 (*)</translation>
     </message>
     <message>
       <source>SVG-Images (*.svg);;All Files (*)</source>
-      <translation type="unfinished" >SVG-Images (*.svg);;All Files (*)</translation>
+      <translation type="unfinished" >SVG-图像 (*.svg);;全部文件 (*)</translation>
     </message>
     <message>
       <source>Yes</source>
-      <translation type="unfinished" >Yes</translation>
+      <translation type="unfinished" >是</translation>
     </message>
     <message>
       <source>No</source>
-      <translation type="unfinished" >No</translation>
+      <translation type="unfinished" >否</translation>
     </message>
     <message>
       <source>Save as Image</source>
-      <translation type="unfinished" >Save as Image</translation>
+      <translation type="unfinished" >另存为图像</translation>
     </message>
     <message>
       <source>Error writing the output file(s).</source>
-      <translation type="unfinished" >Error writing the output file(s).</translation>
+      <translation type="unfinished" >写入输出文件错误。</translation>
     </message>
     <message>
       <source>Export successful.</source>
-      <translation type="unfinished" >Export successful.</translation>
+      <translation type="unfinished" >输出成功。</translation>
     </message>
     <message>
       <source>File exists. Overwrite?</source>
-      <translation type="unfinished" >File exists. Overwrite?</translation>
+      <translation type="unfinished" >文件存在。覆盖吗？</translation>
     </message>
     <message>
       <source>exists already. Overwrite?</source>
-      <translation type="unfinished" >exists already. Overwrite?</translation>
+      <translation type="unfinished" >已经存在。覆盖吗？</translation>
     </message>
     <message>
       <source>Yes all</source>
-      <translation type="unfinished" >Yes all</translation>
+      <translation type="unfinished" >全部是</translation>
     </message>
     <message>
       <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
-      <translation type="unfinished" >All Supported Formats (*.eps *.EPS *.ps *.PS);;</translation>
+      <translation type="unfinished" >所以支持的格式 (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
       <source>All Files (*)</source>
-      <translation type="unfinished" >All Files (*)</translation>
+      <translation type="unfinished" >全部文件 (*)</translation>
     </message>
     <message>
       <source>Newsletters</source>
-      <translation type="unfinished" >Newsletters</translation>
+      <translation type="unfinished" >时事传报</translation>
     </message>
     <message>
       <source>Brochures</source>
-      <translation type="unfinished" >Brochures</translation>
+      <translation type="unfinished" >小册子</translation>
     </message>
     <message>
       <source>Catalogs</source>
-      <translation>Catalogues</translation>
+      <translation>商品目录</translation>
     </message>
     <message>
       <source>Flyers</source>
-      <translation type="unfinished" >Flyers</translation>
+      <translation type="unfinished" >传单</translation>
     </message>
     <message>
       <source>Signs</source>
-      <translation type="unfinished" >Signs</translation>
+      <translation type="unfinished" >标志</translation>
     </message>
     <message>
       <source>Cards</source>
-      <translation type="unfinished" >Cards</translation>
+      <translation type="unfinished" >卡片</translation>
     </message>
     <message>
       <source>Letterheads</source>
-      <translation type="unfinished" >Letterheads</translation>
+      <translation type="unfinished" >信头</translation>
     </message>
     <message>
       <source>Envelopes</source>
-      <translation type="unfinished" >Envelopes</translation>
+      <translation type="unfinished" >信封</translation>
     </message>
     <message>
       <source>Business Cards</source>
-      <translation type="unfinished" >Business Cards</translation>
+      <translation type="unfinished" >名片</translation>
     </message>
     <message>
       <source>Calendars</source>
-      <translation type="unfinished" >Calendars</translation>
+      <translation type="unfinished" >日历</translation>
     </message>
     <message>
       <source>Advertisements</source>
-      <translation type="unfinished" >Advertisements</translation>
+      <translation type="unfinished" >广告</translation>
     </message>
     <message>
       <source>Labels</source>
-      <translation type="unfinished" >Labels</translation>
+      <translation type="unfinished" >标签</translation>
     </message>
     <message>
       <source>Menus</source>
-      <translation type="unfinished" >Menus</translation>
+      <translation type="unfinished" >菜单</translation>
     </message>
     <message>
       <source>Programs</source>
-      <translation type="unfinished" >Programs</translation>
+      <translation type="unfinished" >程序</translation>
     </message>
     <message>
       <source>PDF Forms</source>
-      <translation type="unfinished" >PDF Forms</translation>
+      <translation type="unfinished" >PDF表单</translation>
     </message>
     <message>
       <source>PDF Presentations</source>
-      <translation type="unfinished" >PDF Presentations</translation>
+      <translation type="unfinished" >PDF报告</translation>
     </message>
     <message>
       <source>Magazines</source>
-      <translation type="unfinished" >Magazines</translation>
+      <translation type="unfinished" >杂志</translation>
     </message>
     <message>
       <source>Posters</source>
-      <translation type="unfinished" >Posters</translation>
+      <translation type="unfinished" >海报</translation>
     </message>
     <message>
       <source>Announcements</source>
-      <translation type="unfinished" >Announcements</translation>
+      <translation type="unfinished" >公告</translation>
     </message>
     <message>
       <source>Text Documents</source>
-      <translation type="unfinished" >Text Documents</translation>
+      <translation type="unfinished" >文本文档</translation>
     </message>
     <message>
       <source>Folds</source>
-      <translation type="unfinished" >Folds</translation>
+      <translation type="unfinished" >折页</translation>
     </message>
     <message>
       <source>Own Templates</source>
-      <translation type="unfinished" >Own Templates</translation>
+      <translation type="unfinished" >自己模板</translation>
     </message>
     <message>
       <source>Importing text</source>
-      <translation type="unfinished" >Importing text</translation>
+      <translation type="unfinished" >导入文本</translation>
     </message>
     <message>
       <source>All Supported Formats</source>
-      <translation type="unfinished" >All Supported Formats</translation>
+      <translation type="unfinished" >全部支持的格式</translation>
     </message>
     <message>
       <source>HTML Files</source>
-      <translation type="unfinished" >HTML Files</translation>
+      <translation type="unfinished" >HTML文件</translation>
     </message>
     <message>
       <source>html</source>
@@ -11427,170 +11436,170 @@ Check path and filename.</translation>
     </message>
     <message>
       <source>Text Files</source>
-      <translation type="unfinished" >Text Files</translation>
+      <translation type="unfinished" >Text文件</translation>
     </message>
     <message>
       <source>Comma Separated Value Files</source>
-      <translation type="unfinished" >Comma Separated Value Files</translation>
+      <translation type="unfinished" >以逗号分开数值的文件</translation>
     </message>
     <message>
       <source>CSV_data</source>
-      <translation type="unfinished" >CSV_data</translation>
+      <translation type="unfinished" >CSV_数据</translation>
     </message>
     <message>
       <source>CSV_header</source>
-      <translation type="unfinished" >CSV_header</translation>
+      <translation type="unfinished" >CSV_头</translation>
     </message>
     <message>
       <source>Font %1 is broken, discarding it</source>
-      <translation type="unfinished" >Font %1 is broken, discarding it</translation>
+      <translation type="unfinished" >字体 %1 破损，忽略它</translation>
     </message>
     <message>
       <source>
 External Links
 </source>
       <translation>
-External Links</translation>
+外部链接</translation>
     </message>
     <message>
       <source>Text Filters</source>
-      <translation type="unfinished" >Text Filters</translation>
+      <translation type="unfinished" >文本过滤器</translation>
     </message>
     <message>
       <source>Media Cases</source>
-      <translation type="unfinished" >Media Cases</translation>
+      <translation type="unfinished" >媒质</translation>
     </message>
     <message>
       <source>Albanian</source>
-      <translation type="unfinished" >Albanian</translation>
+      <translation type="unfinished" >阿尔巴尼亚语</translation>
     </message>
     <message>
       <source>Basque</source>
-      <translation type="unfinished" >Basque</translation>
+      <translation type="unfinished" >巴斯克语</translation>
     </message>
     <message>
       <source>Bulgarian</source>
-      <translation type="unfinished" >Bulgarian</translation>
+      <translation type="unfinished" >保加利亚语</translation>
     </message>
     <message>
       <source>Brazilian</source>
-      <translation type="unfinished" >Brazilian</translation>
+      <translation type="unfinished" >巴西语</translation>
     </message>
     <message>
       <source>Catalan</source>
-      <translation type="unfinished" >Catalan</translation>
+      <translation type="unfinished" >加态隆语</translation>
     </message>
     <message>
       <source>Chinese</source>
-      <translation type="unfinished" >Chinese</translation>
+      <translation type="unfinished" >汉语</translation>
     </message>
     <message>
       <source>Czech</source>
-      <translation type="unfinished" >Czech</translation>
+      <translation type="unfinished" >捷克语</translation>
     </message>
     <message>
       <source>Danish</source>
-      <translation type="unfinished" >Danish</translation>
+      <translation type="unfinished" >丹麦语</translation>
     </message>
     <message>
       <source>Dutch</source>
-      <translation type="unfinished" >Dutch</translation>
+      <translation type="unfinished" >荷兰语</translation>
     </message>
     <message>
       <source>English</source>
-      <translation type="unfinished" >English</translation>
+      <translation type="unfinished" >英语</translation>
     </message>
     <message>
       <source>English (British)</source>
-      <translation type="unfinished" >English (British)</translation>
+      <translation type="unfinished" >英式英语</translation>
     </message>
     <message>
       <source>Esperanto</source>
-      <translation type="unfinished" >Esperanto</translation>
+      <translation type="unfinished" >世界语</translation>
     </message>
     <message>
       <source>German</source>
-      <translation type="unfinished" >German</translation>
+      <translation type="unfinished" >德语</translation>
     </message>
     <message>
       <source>Finnish</source>
-      <translation type="unfinished" >Finnish</translation>
+      <translation type="unfinished" >芬兰语</translation>
     </message>
     <message>
       <source>French</source>
-      <translation type="unfinished" >French</translation>
+      <translation type="unfinished" >法语</translation>
     </message>
     <message>
       <source>Galician</source>
-      <translation type="unfinished" >Galician</translation>
+      <translation type="unfinished" >加利西亚语</translation>
     </message>
     <message>
       <source>Greek</source>
-      <translation type="unfinished" >Greek</translation>
+      <translation type="unfinished" >希腊语</translation>
     </message>
     <message>
       <source>Hungarian</source>
-      <translation type="unfinished" >Hungarian</translation>
+      <translation type="unfinished" >匈牙利语</translation>
     </message>
     <message>
       <source>Indonesian</source>
-      <translation type="unfinished" >Indonesian</translation>
+      <translation type="unfinished" >印尼语</translation>
     </message>
     <message>
       <source>Italian</source>
-      <translation type="unfinished" >Italian</translation>
+      <translation type="unfinished" >意大利语</translation>
     </message>
     <message>
       <source>Korean</source>
-      <translation type="unfinished" >Korean</translation>
+      <translation type="unfinished" >韩语</translation>
     </message>
     <message>
       <source>Lithuanian</source>
-      <translation type="unfinished" >Lithuanian</translation>
+      <translation type="unfinished" >立陶宛语</translation>
     </message>
     <message>
       <source>Norwegian (Bokmaal)</source>
-      <translation type="unfinished" >Norwegian (Bokmaal)</translation>
+      <translation type="unfinished" >挪威语 (Bokmaal)</translation>
     </message>
     <message>
       <source>Norwegian (Nnyorsk)</source>
-      <translation type="unfinished" >Norwegian (Nnyorsk)</translation>
+      <translation type="unfinished" >挪威语 (Nnyorsk)</translation>
     </message>
     <message>
       <source>Norwegian</source>
-      <translation type="unfinished" >Norwegian</translation>
+      <translation type="unfinished" >挪威语</translation>
     </message>
     <message>
       <source>Polish</source>
-      <translation type="unfinished" >Polish</translation>
+      <translation type="unfinished" >波兰语</translation>
     </message>
     <message>
       <source>Russian</source>
-      <translation type="unfinished" >Russian</translation>
+      <translation type="unfinished" >俄语</translation>
     </message>
     <message>
       <source>Swedish</source>
-      <translation type="unfinished" >Swedish</translation>
+      <translation type="unfinished" >瑞典语</translation>
     </message>
     <message>
       <source>Spanish</source>
-      <translation type="unfinished" >Spanish</translation>
+      <translation type="unfinished" >西班牙语</translation>
     </message>
     <message>
       <source>Spanish (Latin)</source>
-      <translation type="unfinished" >Spanish (Latin)</translation>
+      <translation type="unfinished" >西班牙语（拉丁）</translation>
     </message>
     <message>
       <source>Slovak</source>
-      <translation type="unfinished" >Slovak</translation>
+      <translation type="unfinished" >斯洛伐克语</translation>
     </message>
     <message>
       <source>Slovenian</source>
-      <translation type="unfinished" >Slovenian</translation>
+      <translation type="unfinished" >斯洛文尼亚语</translation>
     </message>
     <message>
       <source>Serbian</source>
-      <translation type="unfinished" >Serbian</translation>
+      <translation type="unfinished" >塞尔维亚语</translation>
     </message>
     <message>
       <source>Cannot get font size of non-text frame.</source>
@@ -11726,20 +11735,20 @@ External Links</translation>
     </message>
     <message>
       <source>Turkish</source>
-      <translation type="unfinished" >Turkish</translation>
+      <translation type="unfinished" >土耳其语</translation>
     </message>
     <message>
       <source>Ukranian</source>
-      <translation type="unfinished" >Ukranian</translation>
+      <translation type="unfinished" >乌克兰语</translation>
     </message>
     <message>
       <source>Welsh</source>
-      <translation type="unfinished" >Welsh</translation>
+      <translation type="unfinished" >威尔士语</translation>
     </message>
     <message>
       <source>The filename must be a string.</source>
       <comment>python error</comment>
-      <translation type="unfinished" >The filename must be a string.</translation>
+      <translation type="unfinished" >文件名必须是个字串。</translation>
     </message>
     <message>
       <source>Cannot delete image type settings.</source>
@@ -11947,27 +11956,27 @@ External Links</translation>
     </message>
     <message>
       <source>Croatian</source>
-      <translation type="unfinished" >Croatian</translation>
+      <translation type="unfinished" >克罗地亚语</translation>
     </message>
     <message>
       <source>Portuguese</source>
-      <translation type="unfinished" >Portuguese</translation>
+      <translation type="unfinished" >葡萄牙语</translation>
     </message>
     <message>
       <source>Portuguese (BR)</source>
-      <translation type="unfinished" >Portuguese (BR)</translation>
+      <translation type="unfinished" >葡萄牙语 (BR)</translation>
     </message>
     <message>
       <source>Custom</source>
-      <translation type="unfinished" >Custom</translation>
+      <translation type="unfinished" >自定义</translation>
     </message>
     <message>
       <source>Page</source>
-      <translation type="unfinished" >Page</translation>
+      <translation type="unfinished" >页面</translation>
     </message>
     <message>
       <source>Master Page </source>
-      <translation type="unfinished" >Master Page </translation>
+      <translation type="unfinished" >母页</translation>
     </message>
     <message>
       <source>4A0</source>
@@ -11987,7 +11996,7 @@ External Links</translation>
     </message>
     <message>
       <source>Output stream not writeable</source>
-      <translation type="unfinished" >Output stream not writeable</translation>
+      <translation type="unfinished" >输出流不可写</translation>
     </message>
     <message>
       <source>Verification of settings failed: %1</source>
@@ -12052,7 +12061,7 @@ External Links</translation>
     </message>
     <message>
       <source>Scribus Development Version</source>
-      <translation type="unfinished" >Scribus Development Version</translation>
+      <translation type="unfinished" >Scribus 开发中版本</translation>
     </message>
     <message>
       <source> pt</source>
@@ -12096,65 +12105,65 @@ External Links</translation>
     </message>
     <message>
       <source>Points (pt)</source>
-      <translation type="unfinished" >Points (pt)</translation>
+      <translation type="unfinished" >点 (pt)</translation>
     </message>
     <message>
       <source>Millimeters (mm)</source>
-      <translation>Millimetres (mm)</translation>
+      <translation>毫米 (mm)</translation>
     </message>
     <message>
       <source>Inches (in)</source>
-      <translation type="unfinished" >Inches (in)</translation>
+      <translation type="unfinished" >英寸 (in)</translation>
     </message>
     <message>
       <source>Picas (p)</source>
-      <translation type="unfinished" >Picas (p)</translation>
+      <translation type="unfinished" >十二点活字 (p)</translation>
     </message>
     <message>
       <source>Centimeters (cm)</source>
-      <translation>Centimetres (cm)</translation>
+      <translation>厘米 (cm)</translation>
     </message>
     <message>
       <source>File exists</source>
-      <translation type="unfinished" >File exists</translation>
+      <translation type="unfinished" >文件存在</translation>
     </message>
     <message>
       <source>&amp;Replace</source>
-      <translation type="unfinished" >&amp;Replace</translation>
+      <translation type="unfinished" >&amp;R 替换</translation>
     </message>
     <message>
       <source>All</source>
-      <translation type="unfinished" >All</translation>
+      <translation type="unfinished" >全部</translation>
     </message>
     <message>
       <source>Document Template: </source>
-      <translation type="unfinished" >Document Template: </translation>
+      <translation type="unfinished" >文档模板：</translation>
     </message>
     <message>
       <source>Failed to open document.</source>
       <comment>python error</comment>
-      <translation type="unfinished" >Failed to open document.</translation>
+      <translation type="unfinished" >无法打开文档</translation>
     </message>
     <message>
       <source>Failed to save document.</source>
-      <comment>python error</comment>
+      <comment>python 错误</comment>
       <translation type="unfinished" >Failed to save document.</translation>
     </message>
     <message>
       <source>Argument must be page item name, or PyCObject instance</source>
-      <translation type="unfinished" >Argument must be page item name, or PyCObject instance</translation>
+      <translation type="unfinished" >参数必须是页面项目名称，或者是PyCObject实例</translation>
     </message>
     <message>
       <source>Property not found</source>
-      <translation type="unfinished" >Property not found</translation>
+      <translation type="unfinished" >没找到属性</translation>
     </message>
     <message>
       <source>Child not found</source>
-      <translation type="unfinished" >Child not found</translation>
+      <translation type="unfinished" >没找到子级</translation>
     </message>
     <message>
       <source>Couldn't convert result type '%1'.</source>
-      <translation type="unfinished" >Couldn't convert result type '%1'.</translation>
+      <translation type="unfinished" >无法转换结果类型 '%1'.</translation>
     </message>
     <message>
       <source>Property type '%1' not supported</source>
@@ -12509,7 +12518,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>Copy #%1 of </source>
-      <translation>复件 #%1 </translation>
+      <translation>Copy #%1 of</translation>
     </message>
     <message>
       <source>Black</source>
@@ -12622,19 +12631,19 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>Old .sla format support</source>
-      <translation type="unfinished" >Old .sla format support</translation>
+      <translation type="unfinished" >老 .sla 格式支持</translation>
     </message>
     <message>
       <source>German (Trad.)</source>
-      <translation type="unfinished" >German (Trad.)</translation>
+      <translation type="unfinished" >德语 (传统)</translation>
     </message>
     <message>
       <source>Exporting PostScript File</source>
-      <translation type="unfinished" >Exporting PostScript File</translation>
+      <translation type="unfinished" >输出PostScript文件</translation>
     </message>
     <message>
       <source>Printing File</source>
-      <translation type="unfinished" >Printing File</translation>
+      <translation type="unfinished" >打印文件</translation>
     </message>
     <message>
     <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
@@ -12642,15 +12651,15 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>C&amp;reate</source>
-      <translation type="unfinished" >C&amp;reate</translation>
+      <translation type="unfinished" >&amp;R 创建</translation>
     </message>
     <message>
       <source>&amp;Import</source>
-      <translation type="unfinished" >&amp;Import</translation>
+      <translation type="unfinished" >&amp;I 导入</translation>
     </message>
     <message>
       <source>Thai</source>
-      <translation type="unfinished" ></translation>
+      <translation type="unfinished" >泰语</translation>
     </message>
   </context>
   <context>
@@ -12661,105 +12670,105 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>Select All</source>
-      <translation type="unfinished" >Select All</translation>
+      <translation type="unfinished" >全选</translation>
     </message>
     <message>
       <source>&amp;Undo</source>
-      <translation type="unfinished" >&amp;Undo</translation>
+      <translation type="unfinished" >&amp;U 撤销</translation>
     </message>
     <message>
       <source>&amp;Redo</source>
-      <translation type="unfinished" >&amp;Redo</translation>
+      <translation type="unfinished" >&amp;R 重做</translation>
     </message>
     <message>
       <source>Cu&amp;t</source>
-      <translation type="unfinished" >Cu&amp;t</translation>
+      <translation type="unfinished" >&amp;T 剪切</translation>
     </message>
     <message>
       <source>&amp;Copy</source>
-      <translation type="unfinished" >&amp;Copy</translation>
+      <translation type="unfinished" >&amp;C 复制</translation>
     </message>
     <message>
       <source>&amp;Paste</source>
-      <translation type="unfinished" >&amp;Paste</translation>
+      <translation type="unfinished" >&amp;P 粘贴</translation>
     </message>
   </context>
   <context>
     <name>QTitleBar</name>
     <message>
       <source>System Menu</source>
-      <translation type="unfinished" >System Menu</translation>
+      <translation type="unfinished" >系统菜单</translation>
     </message>
     <message>
       <source>Shade</source>
-      <translation type="unfinished" >Shade</translation>
+      <translation type="unfinished" >阴暗</translation>
     </message>
     <message>
       <source>Unshade</source>
-      <translation type="unfinished" >Unshade</translation>
+      <translation type="unfinished" >取消阴暗</translation>
     </message>
     <message>
       <source>Normalize</source>
-      <translation>Normalise</translation>
+      <translation>正常化</translation>
     </message>
     <message>
       <source>Minimize</source>
-      <translation>Minimise</translation>
+      <translation>最小化</translation>
     </message>
     <message>
       <source>Maximize</source>
-      <translation>Maximise</translation>
+      <translation>最大化</translation>
     </message>
     <message>
       <source>Close</source>
-      <translation type="unfinished" >Close</translation>
+      <translation type="unfinished" >关闭</translation>
     </message>
   </context>
   <context>
     <name>QWorkspace</name>
     <message>
       <source>&amp;Restore</source>
-      <translation type="unfinished" >&amp;Restore</translation>
+      <translation type="unfinished" >&amp;R 恢复</translation>
     </message>
     <message>
       <source>&amp;Move</source>
-      <translation type="unfinished" >&amp;Move</translation>
+      <translation type="unfinished" >&amp;M 移动</translation>
     </message>
     <message>
       <source>&amp;Size</source>
-      <translation type="unfinished" >&amp;Size</translation>
+      <translation type="unfinished" >&amp;S 尺寸</translation>
     </message>
     <message>
       <source>Mi&amp;nimize</source>
-      <translation>Mi&amp;nimise</translation>
+      <translation>&amp;N 最小化</translation>
     </message>
     <message>
       <source>Ma&amp;ximize</source>
-      <translation>Ma&amp;ximise</translation>
+      <translation>&amp;X 最大化</translation>
     </message>
     <message>
       <source>&amp;Close</source>
-      <translation type="unfinished" >&amp;Close</translation>
+      <translation type="unfinished" >&amp;C 关闭</translation>
     </message>
     <message>
       <source>Stay on &amp;Top</source>
-      <translation type="unfinished" >Stay on &amp;Top</translation>
+      <translation type="unfinished" >&amp;T 呆在顶上</translation>
     </message>
     <message>
       <source>Minimize</source>
-      <translation>Minimise</translation>
+      <translation>最小化</translation>
     </message>
     <message>
       <source>Restore Down</source>
-      <translation type="unfinished" >Restore Down</translation>
+      <translation type="unfinished" >往下恢复</translation>
     </message>
     <message>
       <source>Close</source>
-      <translation type="unfinished" >Close</translation>
+      <translation type="unfinished" >关闭</translation>
     </message>
     <message>
       <source>Sh&amp;ade</source>
-      <translation type="unfinished" >Sh&amp;ade</translation>
+      <translation type="unfinished" >&amp;A 阴暗</translation>
     </message>
     <message>
       <source>%1 - [%2]</source>
@@ -13093,14 +13102,14 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source> %</source>
-      <translation type="unfinished" > %</translation>
+      <translation type="unfinished" >%</translation>
     </message>
   </context>
   <context>
     <name>SVGExportPlugin</name>
     <message>
       <source>Save Page as &amp;SVG...</source>
-      <translation type="unfinished" >amp;S 页面另存为SVG...</translation>
+      <translation type="unfinished" >&amp;S 页面另存为SVG...</translation>
     </message>
     <message>
       <source>Exports SVG Files</source>
@@ -13280,7 +13289,7 @@ converting their vector data into Scribus objects.</source>
     <name>ScriXmlDoc</name>
     <message>
       <source>Copy #%1 of </source>
-      <translation>复件 #%1</translation>
+      <translation>Copy #%1 of</translation>
     </message>
     <message>
       <source>Background</source>
@@ -13298,7 +13307,7 @@ converting their vector data into Scribus objects.</source>
     <name>ScribusDoc</name>
     <message>
       <source>New Layer</source>
-      <translation>新层</translation>
+      <translation>新图层</translation>
     </message>
     <message>
       <source>Normal</source>
@@ -13437,7 +13446,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
       <source>Send to La&amp;yer</source>
-      <translation>&amp;Y 发送到层</translation>
+      <translation>&amp;Y 发送到图层</translation>
     </message>
     <message>
       <source>&amp;PDF Options</source>
@@ -13727,7 +13736,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
       <source>Send to Layer</source>
-      <translation>发送到层</translation>
+      <translation>发送到图层</translation>
     </message>
     <message>
       <source>Previe&amp;w Settings</source>
@@ -13849,11 +13858,11 @@ Consider using the Preflight Verifier to correct them</source>
     <name>ScribusView</name>
     <message>
       <source> %</source>
-      <translation>％</translation>
+      <translation>%</translation>
     </message>
     <message>
       <source>Layer</source>
-      <translation>层</translation>
+      <translation>图层</translation>
     </message>
     <message>
       <source>Copy Here</source>
@@ -13937,7 +13946,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
       <source>Send to La&amp;yer</source>
-      <translation>&amp;Y 发送到层</translation>
+      <translation>&amp;Y 发送到图层</translation>
     </message>
     <message>
       <source>Le&amp;vel</source>
@@ -14086,7 +14095,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
       <source>Errors:</source>
       <comment>syntax highlighting</comment>
-      <translation>错误：</translation>
+      <translation>语法高亮：</translation>
     </message>
     <message>
       <source>Comments:</source>
@@ -14116,7 +14125,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
       <source>Base Texts:</source>
       <comment>syntax highlighting</comment>
-      <translation>基本颜色：</translation>
+      <translation>基本文本：</translation>
     </message>
     <message>
       <source>Select Color</source>
@@ -14336,7 +14345,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
       <source>Copy of %1</source>
-      <translation>复件 %1</translation>
+      <translation>Copy of %1</translation>
     </message>
     <message>
       <source>New Style</source>
@@ -14379,91 +14388,91 @@ Consider using the Preflight Verifier to correct them</source>
     <name>StoryEditor</name>
     <message>
       <source>Story Editor</source>
-      <translation type="unfinished" >Story Editor</translation>
+      <translation type="unfinished" >故事编辑器</translation>
     </message>
     <message>
       <source>Current Paragraph:</source>
-      <translation type="unfinished" >Current Paragraph:</translation>
+      <translation type="unfinished" >当前段落：</translation>
     </message>
     <message>
       <source>Words: </source>
-      <translation type="unfinished" >Words: </translation>
+      <translation type="unfinished" >字：</translation>
     </message>
     <message>
       <source>Chars: </source>
-      <translation type="unfinished" >Chars: </translation>
+      <translation type="unfinished" >字符：</translation>
     </message>
     <message>
       <source>Totals:</source>
-      <translation type="unfinished" >Totals:</translation>
+      <translation type="unfinished" >总计：</translation>
     </message>
     <message>
       <source>Paragraphs: </source>
-      <translation type="unfinished" >Paragraphs: </translation>
+      <translation type="unfinished" >段落：</translation>
     </message>
     <message>
       <source>Open</source>
-      <translation type="unfinished" >Open</translation>
+      <translation type="unfinished" >打开</translation>
     </message>
     <message>
       <source>Text Files (*.txt);;All Files(*)</source>
-      <translation type="unfinished" >Text Files (*.txt);;All Files(*)</translation>
+      <translation type="unfinished" >文本文件 (*.txt);;全部文件(*)</translation>
     </message>
     <message>
       <source>Save as</source>
-      <translation type="unfinished" >Save as</translation>
+      <translation type="unfinished" >另存</translation>
     </message>
     <message>
       <source>Do you want to save your changes?</source>
-      <translation type="unfinished" >Do you want to save your changes?</translation>
+      <translation type="unfinished" >你要保存更改吗？</translation>
     </message>
     <message>
       <source>&amp;New</source>
-      <translation type="unfinished" >&amp;New</translation>
+      <translation type="unfinished" >&amp;N 新建</translation>
     </message>
     <message>
       <source>&amp;Reload Text from Frame</source>
-      <translation type="unfinished" >&amp;Reload Text from Frame</translation>
+      <translation type="unfinished" >&amp;R 从框体重新载入文本</translation>
     </message>
     <message>
       <source>&amp;Save to File...</source>
-      <translation type="unfinished" >&amp;Save to File...</translation>
+      <translation type="unfinished" >&amp;S 保存到文件...</translation>
     </message>
     <message>
       <source>&amp;Load from File...</source>
-      <translation type="unfinished" >&amp;Load from File...</translation>
+      <translation type="unfinished" >&amp;L 从文件载入...</translation>
     </message>
     <message>
       <source>Save &amp;Document</source>
-      <translation type="unfinished" >Save &amp;Document</translation>
+      <translation type="unfinished" >&amp;D 保存文档</translation>
     </message>
     <message>
       <source>&amp;Update Text Frame and Exit</source>
-      <translation type="unfinished" >&amp;Update Text Frame and Exit</translation>
+      <translation type="unfinished" >&amp;U 更新文本框然后退出</translation>
     </message>
     <message>
       <source>&amp;Exit Without Updating Text Frame</source>
-      <translation type="unfinished" >&amp;Exit Without Updating Text Frame</translation>
+      <translation type="unfinished" >&amp;E 不更新文本框就退出</translation>
     </message>
     <message>
       <source>Cu&amp;t</source>
-      <translation type="unfinished" >Cu&amp;t</translation>
+      <translation type="unfinished" >&amp;T 剪切</translation>
     </message>
     <message>
       <source>&amp;Copy</source>
-      <translation type="unfinished" >&amp;Copy</translation>
+      <translation type="unfinished" >&amp;C 复制</translation>
     </message>
     <message>
       <source>&amp;Paste</source>
-      <translation type="unfinished" >&amp;Paste</translation>
+      <translation type="unfinished" >&amp;P 粘贴</translation>
     </message>
     <message>
       <source>C&amp;lear</source>
-      <translation type="unfinished" >C&amp;lear</translation>
+      <translation type="unfinished" >&amp;L 清除</translation>
     </message>
     <message>
       <source>&amp;Update Text Frame</source>
-      <translation type="unfinished" >&amp;Update Text Frame</translation>
+      <translation type="unfinished" >&amp;U 更新文本框</translation>
     </message>
     <message>
       <source>&amp;File</source>
@@ -14487,55 +14496,55 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
       <source>Load Text from File</source>
-      <translation type="unfinished" >Load Text from File</translation>
+      <translation type="unfinished" >从文件加载文本</translation>
     </message>
     <message>
       <source>Save Text to File</source>
-      <translation type="unfinished" >Save Text to File</translation>
+      <translation type="unfinished" >把文本另存到文件</translation>
     </message>
     <message>
       <source>Update Text Frame and Exit</source>
-      <translation type="unfinished" >Update Text Frame and Exit</translation>
+      <translation type="unfinished" >更新文本框并退出</translation>
     </message>
     <message>
       <source>Exit Without Updating Text Frame</source>
-      <translation type="unfinished" >Exit Without Updating Text Frame</translation>
+      <translation type="unfinished" >退出而不更新文本框</translation>
     </message>
     <message>
       <source>Reload Text from Frame</source>
-      <translation type="unfinished" >Reload Text from Frame</translation>
+      <translation type="unfinished" >从框重新加载文本</translation>
     </message>
     <message>
       <source>Update Text Frame</source>
-      <translation type="unfinished" >Update Text Frame</translation>
+      <translation type="unfinished" >更新文本框</translation>
     </message>
     <message>
       <source>&amp;Search/Replace...</source>
-      <translation type="unfinished" >&amp;Search/Replace...</translation>
+      <translation type="unfinished" >&amp;S 查找/替代...</translation>
     </message>
     <message>
       <source>&amp;Fonts Preview...</source>
-      <translation type="unfinished" >&amp;Fonts Preview...</translation>
+      <translation type="unfinished" >&amp;F 字体预览...</translation>
     </message>
     <message>
       <source>&amp;Background...</source>
-      <translation type="unfinished" >&amp;Background...</translation>
+      <translation type="unfinished" >&amp;B 背景...</translation>
     </message>
     <message>
       <source>&amp;Display Font...</source>
-      <translation type="unfinished" >&amp;Display Font...</translation>
+      <translation type="unfinished" >&amp;D 显示字体...</translation>
     </message>
     <message>
       <source>&amp;Settings</source>
-      <translation type="unfinished" >&amp;Settings</translation>
+      <translation type="unfinished" >&amp;S 设置</translation>
     </message>
     <message>
       <source>Search/Replace</source>
-      <translation type="unfinished" >Search/Replace</translation>
+      <translation type="unfinished" >查找/替代</translation>
     </message>
     <message>
       <source>&amp;Smart text selection</source>
-      <translation type="unfinished" >&amp;Smart text selection</translation>
+      <translation type="unfinished" >&amp;S 智能文本选择</translation>
     </message>
     <message>
       <source>&amp;Insert Glyph...</source>
@@ -14543,7 +14552,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
       <source>Clear All Text</source>
-      <translation type="unfinished" >Clear All Text</translation>
+      <translation type="unfinished" >清除全部文本</translation>
     </message>
     <message>
       <source>Story Editor - %1</source>
@@ -14566,7 +14575,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
       <source> %</source>
-      <translation>％</translation>
+      <translation>%</translation>
     </message>
     <message>
       <source>Displacement</source>
@@ -14644,15 +14653,15 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
       <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document's styles are named differently.</source>
-      <translation type="unfinished" >Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document's styles are named differently.</translation>
+      <translation type="unfinished" >按属性合并段落样式。这将减少类似段落样式的数量，将保持段落样式的属性，即使原始文档的样式的命名不同。</translation>
     </message>
     <message>
       <source>Prepend the document name to the paragraph style name in Scribus.</source>
-      <translation type="unfinished" >Prepend the document name to the paragraph style name in Scribus.</translation>
+      <translation type="unfinished" >把文档名称追加到Scribus里的段落样式的名称。</translation>
     </message>
     <message>
       <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-      <translation type="unfinished" >Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</translation>
+      <translation type="unfinished" >把这些设定作为默认值而且不要在每次导入一个 OpenOffice.org 1.x 文件时又询问</translation>
     </message>
     <message>
       <source>Overwrite Paragraph Styles</source>
@@ -14825,39 +14834,39 @@ Consider using the Preflight Verifier to correct them</source>
     <name>TabCheckDoc</name>
     <message>
       <source>Ignore all errors</source>
-      <translation type="unfinished" >Ignore all errors</translation>
+      <translation type="unfinished" >忽略全部错误</translation>
     </message>
     <message>
       <source>Automatic check before printing or exporting</source>
-      <translation type="unfinished" >Automatic check before printing or exporting</translation>
+      <translation type="unfinished" >在打印或输出前自动检测</translation>
     </message>
     <message>
       <source>Check for missing glyphs</source>
-      <translation type="unfinished" >Check for missing glyphs</translation>
+      <translation type="unfinished" >检测丢失字形</translation>
     </message>
     <message>
       <source>Check for objects not on a page</source>
-      <translation type="unfinished" >Check for objects not on a page</translation>
+      <translation type="unfinished" >检测不在页面上的对象</translation>
     </message>
     <message>
       <source>Check for overflow in text frames</source>
-      <translation type="unfinished" >Check for overflow in text frames</translation>
+      <translation type="unfinished" >检测文本框溢出</translation>
     </message>
     <message>
       <source>Check for transparencies used</source>
-      <translation type="unfinished" >Check for transparencies used</translation>
+      <translation type="unfinished" >检测使用透明度</translation>
     </message>
     <message>
       <source>Check for missing images</source>
-      <translation type="unfinished" >Check for missing images</translation>
+      <translation type="unfinished" >检测丢失图像</translation>
     </message>
     <message>
       <source>Check image resolution</source>
-      <translation type="unfinished" >Check image resolution</translation>
+      <translation type="unfinished" >检测图像分辨率</translation>
     </message>
     <message>
       <source>Lowest allowed resolution</source>
-      <translation type="unfinished" >Lowest allowed resolution</translation>
+      <translation type="unfinished" >最低允许分辨率</translation>
     </message>
     <message>
       <source> dpi</source>
@@ -14865,50 +14874,50 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
       <source>Check for placed PDF Files</source>
-      <translation type="unfinished" >Check for placed PDF Files</translation>
+      <translation type="unfinished" >检测置入PDF文件</translation>
     </message>
     <message>
       <source>Check for PDF Annotations and Fields</source>
-      <translation type="unfinished" >Check for PDF Annotations and Fields</translation>
+      <translation type="unfinished" >检测PDF注释和域</translation>
     </message>
     <message>
       <source>Add Profile</source>
-      <translation type="unfinished" >Add Profile</translation>
+      <translation type="unfinished" >添加配置文件</translation>
     </message>
     <message>
       <source>Remove Profile</source>
-      <translation type="unfinished" >Remove Profile</translation>
+      <translation type="unfinished" >移除配置文件</translation>
     </message>
   </context>
   <context>
     <name>TabGuides</name>
     <message>
       <source>Common Settings</source>
-      <translation type="unfinished" >Common Settings</translation>
+      <translation type="unfinished" >普通设置</translation>
     </message>
     <message>
       <source>Placing in Documents</source>
-      <translation type="unfinished" >Placing in Documents</translation>
+      <translation type="unfinished" >文档中的位置</translation>
     </message>
     <message>
       <source>In the Background</source>
-      <translation type="unfinished" >In the Background</translation>
+      <translation type="unfinished" >在背景</translation>
     </message>
     <message>
       <source>In the Foreground</source>
-      <translation type="unfinished" >In the Foreground</translation>
+      <translation type="unfinished" >在前景</translation>
     </message>
     <message>
       <source>Snapping</source>
-      <translation type="unfinished" >Snapping</translation>
+      <translation type="unfinished" >附着</translation>
     </message>
     <message>
       <source>Snap Distance:</source>
-      <translation type="unfinished" >Snap Distance:</translation>
+      <translation type="unfinished" >附着距离：</translation>
     </message>
     <message>
       <source>Grab Radius:</source>
-      <translation type="unfinished" >Grab Radius:</translation>
+      <translation type="unfinished" >抓取半径：</translation>
     </message>
     <message>
       <source> px</source>
@@ -14916,35 +14925,35 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
       <source>Show Guides</source>
-      <translation type="unfinished" >Show Guides</translation>
+      <translation type="unfinished" >显示参考线</translation>
     </message>
     <message>
       <source>Color:</source>
-      <translation>Colour:</translation>
+      <translation>颜色：</translation>
     </message>
     <message>
       <source>Show Margins</source>
-      <translation type="unfinished" >Show Margins</translation>
+      <translation type="unfinished" >显示页边距</translation>
     </message>
     <message>
       <source>Show Page Grid</source>
-      <translation type="unfinished" >Show Page Grid</translation>
+      <translation type="unfinished" >显示页面网格</translation>
     </message>
     <message>
       <source>Major Grid</source>
-      <translation type="unfinished" >Major Grid</translation>
+      <translation type="unfinished" >主网格</translation>
     </message>
     <message>
       <source>Spacing:</source>
-      <translation type="unfinished" >Spacing:</translation>
+      <translation type="unfinished" >间距：</translation>
     </message>
     <message>
       <source>Minor Grid</source>
-      <translation type="unfinished" >Minor Grid</translation>
+      <translation type="unfinished" >次网格</translation>
     </message>
     <message>
       <source>Show Baseline Grid</source>
-      <translation type="unfinished" >Show Baseline Grid</translation>
+      <translation type="unfinished" >显示基线网格</translation>
     </message>
     <message>
       <source>Baseline Settings</source>
@@ -14952,11 +14961,11 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
       <source>Baseline &amp;Grid:</source>
-      <translation type="unfinished" >Baseline &amp;Grid:</translation>
+      <translation type="unfinished" >&amp;G 基线网格：</translation>
     </message>
     <message>
       <source>Baseline &amp;Offset:</source>
-      <translation type="unfinished" >Baseline &amp;Offset:</translation>
+      <translation type="unfinished" >&amp;O 基线位移：</translation>
     </message>
     <message>
       <source>Distance between the minor grid lines</source>
@@ -15498,47 +15507,47 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
       <source>Choose a password for users to be able to read your PDF.</source>
-      <translation type="unfinished" >Choose a password for users to be able to read your PDF.</translation>
+      <translation type="unfinished" >选择一个用户可以读取你的PDF文件的密码。</translation>
     </message>
     <message>
       <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-      <translation type="unfinished" >Allow printing of the PDF. If un-checked, printing is prevented. </translation>
+      <translation type="unfinished" >允许打印PDF。如果不勾选，打印被禁止。</translation>
     </message>
     <message>
       <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-      <translation type="unfinished" >Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</translation>
+      <translation type="unfinished" >允许修改PDF。如果不勾选，修改PDF被禁止。</translation>
     </message>
     <message>
       <source>Embed a color profile for solid colors</source>
-      <translation>Embed a colour profile for solid colours</translation>
+      <translation>为单色嵌入颜色配置文件</translation>
     </message>
     <message>
       <source>Color profile for solid colors</source>
-      <translation>Colour profile for solid colours</translation>
+      <translation>单色的颜色配置文件</translation>
     </message>
     <message>
       <source>Rendering intent for solid colors</source>
-      <translation>Rendering intent for solid colours</translation>
+      <translation>单色的渲染意图</translation>
     </message>
     <message>
       <source>Embed a color profile for images</source>
-      <translation>Embed a colour profile for images</translation>
+      <translation>为图像嵌入一个颜色配置文件</translation>
     </message>
     <message>
       <source>Do not use color profiles that are embedded in source images</source>
-      <translation>Do not use colour profiles that are embedded in source images</translation>
+      <translation>不使用源图像中嵌入的颜色配置文件</translation>
     </message>
     <message>
       <source>Color profile for images</source>
-      <translation>Colour profile for images</translation>
+      <translation>图像的颜色配置文件</translation>
     </message>
     <message>
       <source>Rendering intent for images</source>
-      <translation type="unfinished" >Rendering intent for images</translation>
+      <translation type="unfinished" >图像的渲染意图</translation>
     </message>
     <message>
       <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-      <translation type="unfinished" >Output profile for printing. If possible, get some guidance from your printer on profile selection.</translation>
+      <translation type="unfinished" >用于打印的输出配置文件。如果允许，从你的打印者那里获取关于配置文件选择的指导。</translation>
     </message>
     <message>
       <source>Distance for bleed from the top of the physical page</source>
@@ -15794,7 +15803,7 @@ when Document is opened:</source>
     </message>
     <message>
       <source> %</source>
-      <translation type="unfinished" >％</translation>
+      <translation type="unfinished" >%</translation>
     </message>
     <message>
       <source>&amp;Shading:</source>
@@ -16270,7 +16279,7 @@ when Document is opened:</source>
     </message>
     <message>
       <source> %</source>
-      <translation type="unfinished" >％</translation>
+      <translation type="unfinished" >%</translation>
     </message>
     <message>
       <source>Displacement</source>
@@ -16665,39 +16674,39 @@ to %2</translation>
     </message>
     <message>
       <source>Add layer</source>
-      <translation>添加层</translation>
+      <translation>添加图层</translation>
     </message>
     <message>
       <source>Delete layer</source>
-      <translation>删除层</translation>
+      <translation>删除图层</translation>
     </message>
     <message>
       <source>Rename layer</source>
-      <translation>重命名层</translation>
+      <translation>重命名图层</translation>
     </message>
     <message>
       <source>Raise layer</source>
-      <translation>升高层</translation>
+      <translation>升高图层</translation>
     </message>
     <message>
       <source>Lower layer</source>
-      <translation>降低层</translation>
+      <translation>降低图层</translation>
     </message>
     <message>
       <source>Send to layer</source>
-      <translation>发送到层</translation>
+      <translation>发送到图层</translation>
     </message>
     <message>
       <source>Enable printing of layer</source>
-      <translation>允许层打印</translation>
+      <translation>允许图层打印</translation>
     </message>
     <message>
       <source>Disable printing of layer</source>
-      <translation>取消层打印</translation>
+      <translation>取消图层打印</translation>
     </message>
     <message>
       <source>Change name of the layer</source>
-      <translation>更改层名称</translation>
+      <translation>更改图层名称</translation>
     </message>
     <message>
       <source>Get image</source>
