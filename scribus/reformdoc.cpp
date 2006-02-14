@@ -466,6 +466,7 @@ void ReformDoc::restoreDefaults()
 		docLayout->selectItem(currDoc->currentPageLayout);
 		setDS(currDoc->currentPageLayout);
 		docLayout->firstPage->setCurrentItem(currDoc->pageSets[currDoc->currentPageLayout].FirstPage);
+		/* PV - moved into MarginWidget class
 		GroupRand->rightR->setValue(currDoc->pageMargins.Right * unitRatio);
 		GroupRand->bottomR->setValue(currDoc->pageMargins.Bottom * unitRatio);
 		GroupRand->leftR->setValue(currDoc->pageMargins.Left * unitRatio);
@@ -473,7 +474,11 @@ void ReformDoc::restoreDefaults()
 		GroupRand->RandR = GroupRand->rightR->value() / unitRatio;
 		GroupRand->RandL = GroupRand->leftR->value() / unitRatio;
 		GroupRand->RandB = GroupRand->bottomR->value() / unitRatio;
-		GroupRand->RandT = GroupRand->topR->value() / unitRatio;
+		GroupRand->RandT = GroupRand->topR->value() / unitRatio; */
+		GroupRand->setNewMargins(currDoc->pageMargins.Top,
+								 currDoc->pageMargins.Bottom,
+								 currDoc->pageMargins.Left,
+								 currDoc->pageMargins.Right);
 	}
 	else if (current == tabView)
 	{
@@ -724,10 +729,10 @@ const bool ReformDoc::imageResolutionChanged()
 void ReformDoc::updateDocumentSettings()
 {
 	double tpr2, lr2, rr2, br2;
-	tpr2 = GroupRand->RandT;
-	br2 = GroupRand->RandB;
-	lr2 = GroupRand->RandL;
-	rr2 = GroupRand->RandR;
+	tpr2 = GroupRand->top();
+	br2 = GroupRand->bottom();
+	lr2 = GroupRand->left();
+	rr2 = GroupRand->right();
 	int fp = choosenLayout;
 	currDoc->pageSets[fp].FirstPage = docLayout->firstPage->currentItem();
 	currDoc->pageSets[fp].GapHorizontal = gapHorizontal->value() / currDoc->unitRatio();
@@ -752,7 +757,7 @@ void ReformDoc::updateDocumentSettings()
 			pp->setInitialWidth(currDoc->pageWidth);
 			pp->setInitialHeight(currDoc->pageHeight);
 		}
-		if (GroupRand->marginsForAllPages->isChecked())
+		if (GroupRand->getMarginsForAllPages())
 		{
 			pp->initialMargins.Left = lr2;
 			pp->initialMargins.Right = rr2;
@@ -768,7 +773,7 @@ void ReformDoc::updateDocumentSettings()
 			pp->setInitialWidth(currDoc->pageWidth);
 			pp->setInitialHeight(currDoc->pageHeight);
 		}
-		if (GroupRand->marginsForAllPages->isChecked())
+		if (GroupRand->getMarginsForAllPages())
 		{
 			pp->initialMargins.Left = lr2;
 			pp->initialMargins.Right = rr2;

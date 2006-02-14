@@ -171,7 +171,8 @@ void NewDoc::createNewDocPage()
 	marg.Right = prefsManager->appPrefs.RandRechts;
 	GroupRand = new MarginWidget(newDocFrame,  tr( "Margin Guides" ), &marg, unitIndex );
 	GroupRand->setPageWidthHeight(prefsManager->appPrefs.PageWidth, prefsManager->appPrefs.PageHeight);
-	GroupRand->setFacingPages(prefsManager->appPrefs.FacingPages == doublePage);
+	//GroupRand->setFacingPages(prefsManager->appPrefs.FacingPages == doublePage);
+	GroupRand->setFacingPages(!(prefsManager->appPrefs.FacingPages == singlePage));
 	Layout9->addWidget( GroupRand );
 	NewDocLayout->addLayout( Layout9 );
 	widthMSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);

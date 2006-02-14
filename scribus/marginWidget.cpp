@@ -24,6 +24,7 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	RandB = margs->Bottom;
 	RandR = margs->Right;
 	RandL = margs->Left;
+	facingPages = false;
 	
 	m_docUnitIndex=unitIndex;
 	m_unitRatio = unitGetRatioFromIndex(unitIndex);
@@ -104,6 +105,7 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 
 void MarginWidget::setFacingPages(bool facing)
 {
+	facingPages = facing;
 	lText->setText(facing == true ? tr( "&Inside:" ) : tr( "&Left:" ));
 	rText->setText(facing == true ? tr( "O&utside:" ) : tr( "&Right:" ));
 	setPreset();
@@ -202,7 +204,8 @@ void MarginWidget::setPreset()
 	disconnect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
 	int item = presetCombo->currentItem();
 	MarginStruct marg = presetCombo->getMargins(item, pageWidth * m_unitRatio, pageHeight * m_unitRatio, leftR->value());
-	if (presetCombo->needUpdate())
+	facingPages ? presetCombo->setEnabled(true) : presetCombo->setEnabled(false);
+	if (presetCombo->needUpdate() && facingPages)
 	{
 		leftR->setValue(QMAX(0.0, marg.Left));
 		rightR->setValue(QMAX(0.0, marg.Right));
@@ -264,6 +267,43 @@ void MarginWidget::setMarginsToPrinterMargins()
 		topR->setEnabled(true);
 		bottomR->setEnabled(true);
 	}
+}
+
+double MarginWidget::top()
+{
+	return RandT;
+}
+
+double MarginWidget::bottom()
+{
+	return RandB;
+}
+
+double MarginWidget::left()
+{
+	return RandL;
+}
+
+double MarginWidget::right()
+{
+	return RandR;
+}
+
+void MarginWidget::setNewMargins(double t, double b, double l, double r)
+{
+	topR->setValue(t * m_unitRatio);
+	//RandT = val; // it's called by signal emitted by setValue()
+	bottomR->setValue(b * m_unitRatio);
+	//RandB = val;
+	leftR->setValue(l * m_unitRatio);
+	//RandL = val;
+	rightR->setValue(r * m_unitRatio);
+	//RandR = val;
+}
+
+bool MarginWidget::getMarginsForAllPages()
+{
+	return marginsForAllPages->isChecked();
 }
 
 

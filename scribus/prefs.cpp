@@ -1333,10 +1333,10 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.pageOrientation = pageOrientationComboBox->currentItem();
 	prefsManager->appPrefs.PageWidth = Pagebr;
 	prefsManager->appPrefs.PageHeight = Pageho;
-	prefsManager->appPrefs.RandOben = GroupRand->RandT;
-	prefsManager->appPrefs.RandUnten = GroupRand->RandB;
-	prefsManager->appPrefs.RandLinks = GroupRand->RandL;
-	prefsManager->appPrefs.RandRechts = GroupRand->RandR;
+	prefsManager->appPrefs.RandOben = GroupRand->top();
+	prefsManager->appPrefs.RandUnten = GroupRand->bottom();
+	prefsManager->appPrefs.RandLinks = GroupRand->left();
+	prefsManager->appPrefs.RandRechts = GroupRand->right();
 	double prefsUnitRatio = unitGetRatioFromIndex(UnitCombo->currentItem());
 	prefsManager->appPrefs.FacingPages  = choosenLayout;
 	prefsManager->appPrefs.pageSets[choosenLayout].FirstPage = docLayout->firstPage->currentItem();

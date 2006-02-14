@@ -21,7 +21,7 @@ class QCheckBox;
 class MSpinBox;
 
 
-/*! This is inherited QComboBox widget used in MarginWidget as "Preset List".
+/*! \brief This is inherited QComboBox widget used in MarginWidget as "Preset List".
 It contains functionality for margins setting in various ways.
 \author Petr Vanek, <petr@yarpen.cz>
 */
@@ -30,11 +30,11 @@ class SCRIBUS_API PresetLayout: public QComboBox
 	Q_OBJECT
 
 public:
-	/*! QComboBox like constructor. Values/names are set here. Tooltip etc. too. */
+	/*! \brief QComboBox like constructor. Values/names are set here. Tooltip etc. too. */
 	PresetLayout(QWidget *parent = 0, const char * name = 0);
 	~PresetLayout(){};
 
-	/*! Compute the margins here.
+	/*! \brief Compute the margins here.
 	\param index selected item
 	\param pageWidth width of the page. Taken from NewDoc dialog.
 	\param pageHeight height of the page. Taken from NewDoc dialog.
@@ -42,7 +42,7 @@ public:
 	*/
 	MarginStruct getMargins(int index, double pageWidth, double pageHeight, double leftMargin);
 
-	/*! Integerized indexes for tr() strings*/
+	/*! \brief Integerized indexes for tr() strings*/
 	enum presetID
 	{
 		none = 0,
@@ -53,16 +53,16 @@ public:
 		nineparts = 5
 	};
 
-	/*! returns updateMargins value */
+	/*! \brief returns updateMargins value */
 	bool needUpdate();
 
 private:
-	/*! Flag if is needed to recompute values and disable widgets */
+	/*! \brief Flag if is needed to recompute values and disable widgets */
 	bool updateMargins;
 };
 
 
-/*! Widget for Margins setting.
+/*! \brief Widget for Margins setting.
 Used e.g. in "New Doc Dialog" or "Preferences".
 */
 class SCRIBUS_API MarginWidget : public QGroupBox
@@ -70,7 +70,7 @@ class SCRIBUS_API MarginWidget : public QGroupBox
 	Q_OBJECT
 
 public:
-	/*! It creates an user interface for base margin settings for the document.
+	/*! \brief It creates an user interface for base margin settings for the document.
 	\param parent Parent widget (used as standard in Qt)
 	\param title Title of the Group box
 	\param MarginStruct* margs: A reference to the margins in the preferences.
@@ -80,19 +80,47 @@ public:
 	*/
 	MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int unitIndex, bool showChangeAll=false);
 	~MarginWidget() {};
-	/*! Setup the labels by facing pages option */
+	/*! \brief Setup the labels by facing pages option */
 	void setFacingPages(bool facing);
-	/*! Setup the spinboxes properties (min/max value etc.) by width and height */
+	/*! \brief Setup the spinboxes properties (min/max value etc.) by width and height */
 	void setPageWidthHeight(double width, double height);
-	/*! Setup the spinboxes properties (min/max value etc.) by width */
+	/*! \brief Setup the spinboxes properties (min/max value etc.) by width */
 	void setPageWidth(double width);
-	/*! Setup the spinboxes properties (min/max value etc.) by height */
+	/*! \brief Setup the spinboxes properties (min/max value etc.) by height */
 	void setPageHeight(double heigth);
-	/*! Setup the widgets by new options */
+	/*! \brief Setup the widgets by new options */
 	void unitChange(double newUnit, int newDecimals, QString newSuffix);
-	/*! Set the page size for margin getting from cups */
+	/*! \brief Set the page size for margin getting from cups */
 	void setPageSize(const QString& pageSize);
 	
+	/*! \brief Top Margin
+	\retval double margin size */
+	double top();
+	/*! \brief Bottom Margin
+	\retval double margin size */
+	double bottom();
+	/*! \brief Left Margin
+	\retval double margin size */
+	double left();
+	/*! \brief Right Margin
+	\retval double margin size */
+	double right();
+
+	/*! \brief set new margin values for the dialog
+	It calls overridden setTop(), setBottom() etc. slots itself
+	via signals emitted from spinboxes.
+	\param t new top value
+	\param b new bottom value
+	\param l new left value
+	\param r new right value
+	*/
+	void setNewMargins(double t, double b, double l, double r);
+	
+	/*! \brief Return marginsForAllPages property
+	\retval bool true to apply for all pages */
+	bool getMarginsForAllPages();
+
+private:
 	/*! Spinboxes */
 	MSpinBox* topR;
 	MSpinBox* bottomR;
@@ -107,26 +135,26 @@ public:
 	QLabel* presetLabel;
 	QCheckBox* marginsForAllPages;
 	QPushButton* usePrinterMarginsButton;
-	/*! Top margin value converted by unitRatio */
+	/*! \brief Top margin value converted by unitRatio */
 	double RandT;
-	/*! Bottom margin value converted by unitRatio */
+	/*! \brief Bottom margin value converted by unitRatio */
 	double RandB;
-	/*! Left margin value converted by unitRatio */
+	/*! \brief Left margin value converted by unitRatio */
 	double RandL;
-	/*! Right margin value converted by unitRatio */
+	/*! \brief Right margin value converted by unitRatio */
 	double RandR;
-	/*! Internally used page width */
+	/*! \brief Internally used page width */
 	double pageWidth;
-	/*! Internally used page height */
+	/*! \brief Internally used page height */
 	double pageHeight;
 
 public slots:
-	/*! Recompute the values after spinbox change */
+	/*! \brief Recompute the values after spinbox change */
 	void setTop();
 	void setBottom();
 	void setLeft();
 	void setRight();
-	/*! Recompute margins in PresetLayout combobox and disable/enable widgets. */
+	/*! \brief Recompute margins in PresetLayout combobox and disable/enable widgets. */
 	void setPreset();
 	
 protected slots:	
@@ -138,6 +166,8 @@ protected:
 	QString m_suffix;
 	double m_unitRatio;
 	int m_docUnitIndex;
+	//! \brief if the outer facing palette points to the facing pages item
+	bool facingPages;
 };
 
 #endif

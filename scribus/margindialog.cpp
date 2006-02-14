@@ -221,3 +221,60 @@ void MarginDialog::setOrien(int ori)
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 }
+
+int MarginDialog::pageOrder()
+{
+	int lp = Links->currentItem();
+	if (lp == 0)
+		lp = 1;
+	else if (lp == static_cast<int>(Links->count()-1))
+		lp = 0;
+	else
+		lp++;
+	return lp;
+}
+
+double MarginDialog::getPageWidth()
+{
+	return pageWidth;
+}
+
+double MarginDialog::getPageHeight()
+{
+	return pageHeight;
+}
+
+int MarginDialog::getPageOrientation()
+{
+	return orientationQComboBox->currentItem();
+}
+
+QString MarginDialog::getpPrefsPageSizeName()
+{
+	return prefsPageSizeName;
+}
+
+bool MarginDialog::getMoveObjects()
+{
+	return moveObjects->isChecked();
+}
+
+double MarginDialog::top()
+{
+	return GroupRand->top();
+}
+
+double MarginDialog::bottom()
+{
+	return GroupRand->bottom();
+}
+
+double MarginDialog::left()
+{
+	return GroupRand->left();
+}
+
+double MarginDialog::right()
+{
+	return GroupRand->right();
+}

@@ -1735,10 +1735,10 @@ void ScribusMainWindow::startUpDialog()
 		{
 			int facingPages = dia->choosenLayout;
 			int firstPage = dia->docLayout->firstPage->currentItem();
-			double topMargin = dia->GroupRand->RandT;
-			double bottomMargin = dia->GroupRand->RandB;
-			double leftMargin = dia->GroupRand->RandL;
-			double rightMargin = dia->GroupRand->RandR;
+			double topMargin = dia->GroupRand->top();
+			double bottomMargin = dia->GroupRand->bottom();
+			double leftMargin = dia->GroupRand->left();
+			double rightMargin = dia->GroupRand->right();
 			double columnDistance = dia->Dist;
 			double pageWidth = dia->pageWidth;
 			double pageHeight = dia->pageHeight;
@@ -1785,10 +1785,10 @@ bool ScribusMainWindow::slotFileNew()
 	{
 		int facingPages = dia->choosenLayout;
 		int firstPage = dia->docLayout->firstPage->currentItem();
-		double topMargin = dia->GroupRand->RandT;
-		double bottomMargin = dia->GroupRand->RandB;
-		double leftMargin = dia->GroupRand->RandL;
-		double rightMargin = dia->GroupRand->RandR;
+		double topMargin = dia->GroupRand->top();
+		double bottomMargin = dia->GroupRand->bottom();
+		double leftMargin = dia->GroupRand->left();
+		double rightMargin = dia->GroupRand->right();
 		double columnDistance = dia->Dist;
 		double pageWidth = dia->pageWidth;
 		double pageHeight = dia->pageHeight;
@@ -5802,23 +5802,25 @@ void ScribusMainWindow::changePageMargins()
 	MarginDialog *dia = new MarginDialog(this, doc);
 	if (dia->exec())
 	{
+		int orientation = dia->getPageOrientation();
+		double ph = dia->getPageHeight();
+		double pw = dia->getPageWidth();
+		QString sizeName = dia->getpPrefsPageSizeName();
 		if (doc->masterPageMode())
 		{
 			if (doc->currentPageLayout != singlePage)
-			{
-				lp = dia->Links->currentItem();
-				if (lp == 0)
-					lp = 1;
-				else if (lp == static_cast<int>(dia->Links->count()-1))
-					lp = 0;
-				else
-					lp++;
-			}
-			doc->changePageMargins(dia->GroupRand->RandT, dia->GroupRand->RandB, dia->GroupRand->RandL, dia->GroupRand->RandR, dia->pageHeight, dia->pageWidth, dia->pageHeight, dia->pageWidth, dia->orientationQComboBox->currentItem(), dia->prefsPageSizeName, doc->currentPage->pageNr(), lp);
+				lp = dia->pageOrder();
+			doc->changePageMargins(dia->top(), dia->bottom(),
+								   dia->left(), dia->right(),
+								   ph, pw, ph, pw, orientation,
+								   sizeName, doc->currentPage->pageNr(), lp);
 		}
 		else
-			doc->changePageMargins(dia->GroupRand->RandT, dia->GroupRand->RandB, dia->GroupRand->RandL, dia->GroupRand->RandR, dia->pageHeight, dia->pageWidth, dia->pageHeight, dia->pageWidth, dia->orientationQComboBox->currentItem(), dia->prefsPageSizeName, doc->currentPage->pageNr());
-		view->reformPages(dia->moveObjects->isChecked());
+			doc->changePageMargins(dia->top(), dia->bottom(),
+								   dia->left(), dia->right(),
+								   ph, pw, ph, pw, orientation,
+								   sizeName, doc->currentPage->pageNr());
+		view->reformPages(dia->getMoveObjects());
 		view->DrawNew();
 		slotDocCh();
 	}
