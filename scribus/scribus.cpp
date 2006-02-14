@@ -1377,7 +1377,16 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		 * -- Use backspace or delete to delete the item
 		 * -- Use PageUp to raise an item
 		 * -- Use PageDown to lower an item
-		 * -- Use the arrow keys to move an item or group around, with no meta, by 1.0, Ctrl by 0.1, Shift by 10.0.
+		 * -- Use the arrow keys to move an item or group around:
+		 		With no meta, by 1.0 unit
+		 		Ctrl Shift, by 0.1 units
+		 		Shift by 10.0 units
+		 		Ctrl Alt Shift 0.01 units
+		 * -- Use the arrow keys to resize an item:
+		 		Alt right arrow, move right side outwards (expand)
+		 		Alt left arrow, move left side outwards (expand)
+		 		Alt Shift right arrow, move left side inwards (shrink)
+		 		Alt Shift left arrow, move right side inwards (shrink)
 		 */
 		if (doc->selection->count() != 0)
 		{
@@ -1392,8 +1401,10 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			bool resizing=((buttonState & AltButton) && !(buttonState & ControlButton));
 			bool resizingsmaller=(resizing && (buttonState & ShiftButton));
 			double resizeBy=1.0;
-			if (buttonState & ControlButton)
-				resizeBy*=10.0;
+			//CB with control locked out due to the requirement of moveby of 0.01, we cannot support
+			//resizeby 10 units unless we move to supporting modifier keys that most people dont have.
+			//if (buttonState & ControlButton)
+			//	resizeBy*=10.0;
 			resizeBy/=doc->unitRatio();
 			if (resizingsmaller)
 				resizeBy*=-1.0;
