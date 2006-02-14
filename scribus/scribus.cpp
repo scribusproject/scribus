@@ -1447,8 +1447,17 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-							ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
-							view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+							if (resizingsmaller)
+							{
+								currItem->Sizing = false;
+								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+							}
+							else
+							{
+								ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
+								currItem->Sizing = false;
+								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+							}
 						}
 						slotDocCh();
 					}
@@ -1475,7 +1484,17 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-							view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+							if (resizingsmaller)
+							{
+								ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
+								currItem->Sizing = false;
+								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+							}
+							else
+							{
+								currItem->Sizing = false;
+								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+							}
 						}
 						slotDocCh();
 					}
@@ -1502,8 +1521,17 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-							ScMW->view->MoveItem(0, -resizeBy, currItem, false);
-							view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+							if (resizingsmaller)
+							{
+								currItem->Sizing = false;
+								view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+							}
+							else
+							{
+								ScMW->view->MoveItem(0, -resizeBy, currItem, false);
+								currItem->Sizing = false;
+								view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+							}
 						}
 						slotDocCh();
 					}
@@ -1530,7 +1558,17 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-							view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+							if (resizingsmaller)
+							{
+								ScMW->view->MoveItem(0, -resizeBy, currItem, false);
+								currItem->Sizing = false;
+								view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+							}
+							else
+							{
+								currItem->Sizing = false;
+								view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+							}
 						}
 						slotDocCh();
 					}

@@ -2073,6 +2073,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			currItem->ContourLine = currItem->PoLine.copy();
 			setRedrawBounding(currItem);
 			currItem->OwnPage = Doc->OnPage(currItem);
+			currItem->OldB2 = currItem->width();
+			currItem->OldH2 = currItem->height();
 			updateContents();
 		}
 		if (Doc->appMode == modeDrawLine)
