@@ -2842,9 +2842,12 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						continue;
 					//CB Finally Items are selected here
 					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == Doc->activeLayer()))
+					{
 					//CB set draw to true to (dis)enable some actions via emit to HaveNewSel in scapp.
 					//CB FIXME emit from selection when multiple selected instead
-						SelectItemNr(a, true);
+						bool redrawSelection=(a==docItemCount-1);
+						SelectItemNr(a, redrawSelection);
+					}
 				}
 			}
 			HaveSelRect = false;
@@ -7217,6 +7220,7 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 				}
 				else
 					Doc->selection->addItem(currItem);
+				
 				for (uint ga=0; ga<Doc->Items->count(); ++ga)
 				{
 					if (Doc->Items->at(ga)->Groups.count() != 0)
@@ -7242,6 +7246,9 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 				currItem->FrameOnly = true;
 				currItem->paintObj();
 			}
+			//CB FIXME/TODO We are surely prepending here and we have turned off 
+			//emitting in prepend below so do it here.
+			Doc->selection->itemAt(0)->emitAllToGUI();
 		}
 	}
 	else
@@ -7250,7 +7257,7 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 		{
 			PageItem *bb = Doc->selection->itemAt(0);
 			Doc->selection->removeItem(currItem);
-			Doc->selection->prependItem(currItem);
+			Doc->selection->prependItem(currItem, false);
 			currItem->FrameOnly = true;
 			currItem->paintObj();
 			bb->FrameOnly = true;

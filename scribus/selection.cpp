@@ -149,7 +149,7 @@ bool Selection::addItem(PageItem *item, bool ignoreGUI)
 	return false;
 }
 
-bool Selection::prependItem(PageItem *item)
+bool Selection::prependItem(PageItem *item, bool doEmit)
 {
 	if (item==NULL)
 		return false;
@@ -164,7 +164,8 @@ bool Selection::prependItem(PageItem *item)
 		if (m_isGUISelection)
 		{
 			item->connectToGUI();
-			item->emitAllToGUI();
+			if (doEmit)
+				item->emitAllToGUI();
 			emit selectionIsMultiple(m_hasGroupSelection);
 		}
 		return true;

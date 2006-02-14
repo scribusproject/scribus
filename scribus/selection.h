@@ -81,7 +81,7 @@ class SCRIBUS_API Selection : public QObject
 		 * @param item Item to add
 		 * @return If the item was added
 		 */
-		bool prependItem(PageItem *item);
+		bool prependItem(PageItem *item, bool doEmit=true);
 		/**
 		 * Unused
 		 * @return 
