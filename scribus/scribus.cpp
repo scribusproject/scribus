@@ -618,7 +618,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsEPS"], "FileExport");
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsPDF"], "FileExport");
 	scrMenuMgr->addMenuSeparator("File");
-	scrMenuMgr->addMenuItem(scrActions["fileDocSetup"], "File");
+	//scrMenuMgr->addMenuItem(scrActions["fileDocSetup"], "File");
 	scrMenuMgr->addMenuItem(scrActions["filePrint"], "File");
 	scrMenuMgr->addMenuItem(scrActions["PrintPreview"], "File");
 	scrMenuMgr->addMenuSeparator("File");
@@ -665,6 +665,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editJavascripts"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
+	scrMenuMgr->addMenuItem(scrActions["fileDocSetup"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editPreferences"], "Edit");
 	scrActions["editUndoAction"]->setEnabled(false);
 	scrActions["editRedoAction"]->setEnabled(false);
