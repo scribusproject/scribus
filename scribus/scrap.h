@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qiconview.h>
 #include <qframe.h>
+#include <qtabwidget.h>
 #include <qpopupmenu.h>
 #include <qmenubar.h>
 #include <qlayout.h>
@@ -39,6 +40,7 @@ public:
 		QPixmap Preview;
 	};
 	QMap<QString,Elem> objectMap;
+	QString ScFilename;
 
 signals:
 	void ToggleAllPalettes();
@@ -61,7 +63,6 @@ public:
 	void ObjFromMenu(QString text);
 	void setScrapbookFileName(QString);
 	const QString getScrapbookFileName();
-	const bool changed();
 	const int objectCount();
 	void rebuildView();
 	void readContents(QString);
@@ -76,10 +77,11 @@ private slots:
 	void DeleteObj(QString name, QIconViewItem *ite);
 	void ItemRenamed(QIconViewItem *ite);
 	void DropOn(QDropEvent *e);
-	void SaveAs();
-	void Load();
-	//void CloseWin();
 	void NewLib();
+	void Load();
+	void SaveAs();
+	void closeLib();
+	void libChanged(QWidget *lib);
 	void SetPreview(int id);
 
 protected:
@@ -88,12 +90,9 @@ protected:
 	QPopupMenu* fmenu;
 	QPopupMenu* vmenu;
 	QMenuBar* menuBar;
-	QFrame* Frame3;
+	QTabWidget* Frame3;
 	QVBoxLayout* BiblioLayout;
-	QVBoxLayout* Frame3Layout;
-	QString ScFilename;
-	bool Changed;
-	BibView* BibWin;
+	BibView* activeBView;
 	QString OldName;
 	int mFile;
 	int mView;

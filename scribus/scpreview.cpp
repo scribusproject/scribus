@@ -569,6 +569,8 @@ QPixmap ScPreview::createPreview(QString data)
 						pS->translate(0, OB.Height);
 						pS->scale(1, -1);
 					}
+					if ((OB.Width < 4) || (OB.Height < 4))
+						break;
 					for (uint a = 0; a < Ptexti.count(); a++)
 					{
 						hl = Ptexti.at(a);
@@ -576,6 +578,8 @@ QPixmap ScPreview::createPreview(QString data)
 							continue;
 						chx = hl->ch;
 						chs = hl->csize;
+						if (chs < 10)
+							continue;
 						if (hl->cstyle != 0)
 						{
 							if (hl->cstyle & 1)

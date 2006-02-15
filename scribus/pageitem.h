@@ -752,7 +752,7 @@ public:
 	void setLineSpacing(double newSpacing);
 
 	/** @brief Get the PageItem-wide line spacing mode */
-	double lineSpacingMode() const { return LineSpMode; }
+	int lineSpacingMode() const { return LineSpMode; }
 	/**
 	 * @brief Set a line spacing for the frame
 	 * @param newSpacing line spacing for the frame
