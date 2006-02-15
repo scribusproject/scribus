@@ -6689,8 +6689,8 @@ bool ScribusView::slotSetCurs(int x, int y)
 			return false;
 		QRect mpo;
 		int xP, yP;
-		xP = qRound((x + Doc->minCanvasCoordinate.x()) / Scale);
-		yP = qRound((y + Doc->minCanvasCoordinate.x()) / Scale);
+		xP = qRound(x/Scale + Doc->minCanvasCoordinate.x());
+		yP = qRound(y/Scale + Doc->minCanvasCoordinate.y());
 		QPainter p;
 		QString chx;
 		p.begin(this);
