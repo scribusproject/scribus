@@ -49,7 +49,7 @@ for which a new license (GPL+exception) is in place.
 #define SC_USE_PIXBUF
 #endif
 
-// If defined, use Win32 GDI functions for ScPainter::end() on Win32 (ignored 
+// If defined, use Win32 GDI functions for ScPainter::end() on Win32 (ignored
 // on other platforms). Otherwise use portable ScPainter::end()
 #ifndef SC_USE_GDI
 #define SC_USE_GDI
@@ -141,11 +141,11 @@ private:
 #ifdef HAVE_CAIRO
 	void drawVPath( int mode );
 #else
-	void drawVPath( struct ArtVpath *vec, int mode, bool preCal = false );
-	void applyGradient( ArtSVP *svp, bool fill );
+	void drawVPath( struct _ArtVpath *vec, int mode, bool preCal = false );
+	void applyGradient( _ArtSVP *svp, bool fill );
 	virtual void resize( unsigned int w, unsigned int h );
 	_ArtGradientStop *buildStopArray( VGradient &gradient, int & );
-	void clampToViewport( const ArtSVP &svp, int &x0, int &y0, int &x1, int &y1 );
+	void clampToViewport( const _ArtSVP &svp, int &x0, int &y0, int &x1, int &y1 );
 	void clampToViewport( int &x0, int &y0, int &x1, int &y1 );
 	void ensureSpace( unsigned int );
 	struct _ArtBpath *m_path;
@@ -168,27 +168,27 @@ private:
 	bool mf_strikeout;
 	bool mf_shadow;
 	bool mf_outlined;
-/* Filling */
+	/*! \brief Filling */
 	QColor m_fill;
 	double fill_trans;
 	bool m_fillRule;
 	int fillMode;				// 0 = none, 1 = solid, 2 = gradient
 	int gradientMode;		// 1 = linear, 2 = radial
-/* Stroking */
+	/*! \brief Stroking */
 	QColor m_stroke;
 	double stroke_trans;
 	double LineWidth;
 
-/* Line End Style */
+	/*! \brief Line End Style */
   Qt::PenCapStyle PLineEnd;
-/* Line Join Style */
+  /*! \brief Line Join Style */
   Qt::PenJoinStyle PLineJoin;
-/* The Dash Array */
+  /*! \brief The Dash Array */
 	QValueList<double> m_array;
 	double m_offset;
-/* Transformation Stack */
+	/*! \brief Transformation Stack */
 	QValueStack<QWMatrix> MStack;
-/* Zoom Factor of the Painter */
+	/*! \brief Zoom Factor of the Painter */
 	double m_zoomFactor;
 	bool imageMode;
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)

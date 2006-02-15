@@ -400,7 +400,7 @@ void ScPainter::moveTo( const double &x, const double &y )
 #endif
 }
 
-void 
+void
 ScPainter::lineTo( const double &x, const double &y )
 {
 #ifdef HAVE_CAIRO
@@ -417,12 +417,12 @@ ScPainter::lineTo( const double &x, const double &y )
 void ScPainter::curveTo( FPoint p1, FPoint p2, FPoint p3 )
 {
 #ifdef HAVE_CAIRO
-	cairo_curve_to(m_cr, 
-								p1.x() * m_zoomFactor, 
-								p1.y() * m_zoomFactor, 
-								p2.x() * m_zoomFactor, 
-								p2.y() * m_zoomFactor, 
-								p3.x() * m_zoomFactor, 
+	cairo_curve_to(m_cr,
+								p1.x() * m_zoomFactor,
+								p1.y() * m_zoomFactor,
+								p2.x() * m_zoomFactor,
+								p2.y() * m_zoomFactor,
+								p3.x() * m_zoomFactor,
 								p3.y() * m_zoomFactor);
 #else
 	ensureSpace( m_index + 1 );
@@ -492,7 +492,7 @@ void ScPainter::fillPath()
 	if( fillMode != 0)
 		drawVPath( 0 );
 #else
-	if( m_index == 0 ) 
+	if( m_index == 0 )
 		return;
 	if( fillMode != 0)
 	{
@@ -736,7 +736,7 @@ void ScPainter::drawVPath( int mode )
 	}
 	cairo_restore( m_cr );
 #else
-void ScPainter::drawVPath( struct ArtVpath *vec, int mode, bool preCal )
+void ScPainter::drawVPath( struct _ArtVpath *vec, int mode, bool preCal )
 {
 	ArtSVP *strokeSvp = 0L;
 	ArtSVP *fillSvp = 0L;
@@ -922,12 +922,12 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 			if ((np == np1) && (np2 == np3))
 				cairo_line_to( m_cr, np3.x() * m_zoomFactor, np3.y() * m_zoomFactor);
 			else
-				cairo_curve_to(m_cr, 
-											np1.x() * m_zoomFactor, 
-											np1.y() * m_zoomFactor, 
-											np2.x() * m_zoomFactor, 
-											np2.y() * m_zoomFactor, 
-											np3.x() * m_zoomFactor, 
+				cairo_curve_to(m_cr,
+											np1.x() * m_zoomFactor,
+											np1.y() * m_zoomFactor,
+											np2.x() * m_zoomFactor,
+											np2.y() * m_zoomFactor,
+											np3.x() * m_zoomFactor,
 											np3.y() * m_zoomFactor);
 		}
 		if (closed)
@@ -1151,7 +1151,7 @@ void ScPainter::clampToViewport( int &x0, int &y0, int &x1, int &y1 )
 	y1 = QMIN( y1, static_cast<int>( m_height ) );
 }
 
-void ScPainter::clampToViewport( const ArtSVP &svp, int &x0, int &y0, int &x1, int &y1 )
+void ScPainter::clampToViewport( const _ArtSVP &svp, int &x0, int &y0, int &x1, int &y1 )
 {
 	ArtDRect bbox;
 	art_drect_svp( &bbox, &svp );
@@ -1169,7 +1169,7 @@ void ScPainter::clampToViewport( const ArtSVP &svp, int &x0, int &y0, int &x1, i
 	y1 = QMIN( y1, static_cast<int>( m_height ) );
 }
 
-void ScPainter::applyGradient( ArtSVP *svp, bool fill )
+void ScPainter::applyGradient( _ArtSVP *svp, bool fill )
 {
 	int x0, y0, x1, y1;
 	clampToViewport( *svp, x0, y0, x1, y1 );
