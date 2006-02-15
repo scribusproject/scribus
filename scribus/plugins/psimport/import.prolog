@@ -362,10 +362,8 @@
 	writecurrentlinecap
 	writecurrentlinejoin
 	writecurrentdash
-%	Clipping is disabled for now as it gives unpredictable results.
-%	(Lines with jaggies etc....)
-%	clipCnt 1 eq
-%		{ clipsave clip newpath clippath cliprestore } if
+	clipCnt 1 eq
+		{ clipsave clip newpath clippath cliprestore } if
 	storeMatrix
 	{_move} {_line} {_curve} {_close} pathforall
 	(s\n)print			% stroke path
@@ -380,10 +378,8 @@
 	writecurrentlinecap
 	writecurrentlinejoin
 	writecurrentdash
-%	Clipping is disabled for now as it gives unpredictable results.
-%	(Lines with jaggies etc....)
-%	clipCnt 1 eq
-%		{ clipsave clip newpath clippath cliprestore } if
+	clipCnt 1 eq
+		{ clipsave clip newpath clippath cliprestore } if
 	storeMatrix			% take transformation, scaling, rotation from PostScript
 	{_move} {_line} {_curve} {_close} pathforall
 	(f\n)print			% close polygon
@@ -527,22 +523,58 @@
 	end
 } bind def
 
-/widthshow	% cx cy char string
-{
-	exch pop
-	exch pop
-	exch pop
-	show
-} bind def
-
 /awidthshow		% cx cy char ax ay string
 {
-	exch pop
-	exch pop
-	exch pop
-	exch pop
-	exch pop
-	show
+	% ax ay string
+	exch /ydist exch def
+	exch /xdist exch def
+	% cx cy char string
+	exch /char exch def
+	exch /cydist exch def
+	exch /cxdist exch def
+	userdict begin
+	storeMatrix
+	currentfont /FontName known
+	% stack: string
+	{
+		currentpoint /ycur exch def /xcur exch def
+		currentpoint	% x y
+		newpath
+		/clipCnt 0 def
+		moveto
+		% we process each char separately to get smaller paths
+		0 1 2 index length 1 sub
+		{
+			(n\n)print			% start polygon
+			writecurrentcolor	% write color
+			storeMatrix
+			1 index exch 1 getinterval dup /curstr exch def false root_charpath
+			{_move} {_line} {_curve} {_close} pathforall
+			(f\n)print			% close polygon
+			newpath
+			curstr stringwidth exch xcur add exch ycur add
+			exch xdist add exch ydist add moveto
+			curstr 0 get char eq
+			{
+				currentpoint exch cxdist add exch cydist add moveto
+			} if
+			currentpoint /ycur exch def /xcur exch def
+			newpath			% clear graphic stack
+			xcur ycur moveto
+		} for
+		currentpoint	% x y
+		newpath				% clear graphic stack (and current point)
+		moveto
+	} if
+	pop
+	end
+} bind def
+
+/widthshow	% cx cy char string
+{
+	0 exch
+	0 exch
+	awidthshow
 } bind def
 
 /cshow	% proc string
