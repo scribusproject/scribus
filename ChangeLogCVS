@@ -1,5 +1,9 @@
 Scribus - 1.3.3cvs
 ==================
+- 0003212: [User Interface] Applying Master doesn't change margins on page. (fschmid)
+- 0003145: [General] Switching UI language doesn't work for all dialogs (cbradney)
+- 0003216: [Import / Export] Misplacing Characters/lines on eps Load (avox)
+- 0003237: [Translation] Translation update: pt_BR (cbradney)
 - 0002741: [Usability] changes on the properties pallete are never undone (cbradney)
 - 0003231: [Printing] Images will be printing in black when you apply effects (jghali)
 - 0002684: [Picture Frames] Enlargement of shapes on values other than per cent (cbradney)
