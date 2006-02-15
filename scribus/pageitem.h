@@ -436,10 +436,10 @@ public:
 	double xPos() const { return Xpos; }
 	double yPos() const { return Ypos; }
 	FPoint xyPos() const { return FPoint(Xpos, Ypos); }
-	void setXPos(const double);
-	void setYPos(const double);
-	void setXYPos(const double, const double);
-	void moveBy(const double, const double);
+	void setXPos(const double, bool drawingOnly=false);
+	void setYPos(const double, bool drawingOnly=false);
+	void setXYPos(const double, const double, bool drawingOnly=false);
+	void moveBy(const double, const double, bool drawingOnly=false);
 	//Size
 	double width() const { return Width; }
 	double height() const { return Height; }

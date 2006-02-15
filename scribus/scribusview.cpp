@@ -545,7 +545,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						currItem->OwnPage = page->pageNr();
 						if (!currItem->ChangedMasterItem)
 						{
-							currItem->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset());
+							//Hack to not check for undo changes, indicate drawing only
+							currItem->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset(), true);
 							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
 							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 						}
@@ -558,7 +559,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 //						currItem->OwnPage = savedOwnPage;
 						if (!currItem->ChangedMasterItem)
 						{
-							currItem->setXYPos(OldX, OldY);
+							//Hack to not check for undo changes, indicate drawing only
+							currItem->setXYPos(OldX, OldY, true);
 							currItem->BoundingX = OldBX;
 							currItem->BoundingY = OldBY;
 						}
@@ -578,7 +580,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						double OldBY = currItem->BoundingY;
 						if (!currItem->ChangedMasterItem)
 						{
-							currItem->setXYPos(OldX - Mp->xOffset() + page->xOffset(), OldY - Mp->yOffset() + page->yOffset());
+							//Hack to not check for undo changes, indicate drawing only
+							currItem->setXYPos(OldX - Mp->xOffset() + page->xOffset(), OldY - Mp->yOffset() + page->yOffset(), true);
 							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
 							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 						}
@@ -610,7 +613,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						}
 						if (!currItem->ChangedMasterItem)
 						{
-							currItem->setXYPos(OldX, OldY);
+							//Hack to not check for undo changes, indicate drawing only
+							currItem->setXYPos(OldX, OldY, true);
 							currItem->BoundingX = OldBX;
 							currItem->BoundingY = OldBY;
 						}
@@ -7255,6 +7259,7 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 	}
 	else
 	{
+	/*
 		if (Doc->selection->count() > 1)
 		{
 			PageItem *bb = Doc->selection->itemAt(0);
@@ -7264,7 +7269,7 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 			currItem->paintObj();
 			bb->FrameOnly = true;
 			bb->paintObj();
-		}
+		}*/
 	}
 	if (draw)
 	{

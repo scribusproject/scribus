@@ -504,29 +504,35 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	}
 }
 
-void PageItem::setXPos(const double newXPos)
+void PageItem::setXPos(const double newXPos, bool drawingOnly)
 {
 	Xpos = newXPos;
+	if (drawingOnly || m_Doc->isLoading())
+		return;
 	checkChanges();
 	emit position(Xpos, Ypos);
 }
 
-void PageItem::setYPos(const double newYPos)
+void PageItem::setYPos(const double newYPos, bool drawingOnly)
 {
 	Ypos = newYPos;
+	if (drawingOnly || m_Doc->isLoading())
+		return;
 	checkChanges();
 	emit position(Xpos, Ypos);
 }
 
-void PageItem::setXYPos(const double newXPos, const double newYPos)
+void PageItem::setXYPos(const double newXPos, const double newYPos, bool drawingOnly)
 {
 	Xpos = newXPos;
 	Ypos = newYPos;
+	if (drawingOnly || m_Doc->isLoading())
+		return;
 	checkChanges();
 	emit position(Xpos, Ypos);
 }
 
-void PageItem::moveBy(const double dX, const double dY)
+void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
 {
 	if (dX==0.0 && dY==0.0)
 		return;
@@ -534,6 +540,8 @@ void PageItem::moveBy(const double dX, const double dY)
 		Xpos+=dX;
 	if (dY!=0.0)
 		Ypos+=dY;
+	if (drawingOnly || m_Doc->isLoading())
+		return;
 	checkChanges();
 	emit position(Xpos, Ypos);
 }
