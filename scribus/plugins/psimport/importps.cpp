@@ -30,16 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "prefsmanager.h"
 
-/*!
- \fn EPSPlug::EPSPlug( QWidget* parent, ScribusMainWindow *plug, QString fName )
- \author Franz Schmid
- \date
- \brief Create the EPS importer window.
- \param parent QWidget *
- \param plug ScribusMainWindow *
- \param fName QString
- \retval EPSPlug plugin
- */
+
 EPSPlug::EPSPlug(QString fName, bool isInteractive)
 {
 	interactive = isInteractive;
@@ -245,16 +236,6 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 		Doku->setLoading(false);
 }
 
-/*!
- \fn void EPSPlug::convert(QString fn, double b, double h)
- \author Franz Schmid
- \date
- \brief Does the conversion.
- \param fn QString
- \param b double
- \param h double
- \retval bool true if conversion was ok
- */
 bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 {
 	QStringList args;
@@ -315,14 +296,6 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	return true;
 }
 
-/*!
- \fn void EPSPlug::parseOutput(QString fn)
- \author Franz Schmid
- \date
- \brief Parses the Output Ghostscript has created.
- \param None
- \retval None
- */
 void EPSPlug::parseOutput(QString fn, bool eps)
 {
 	QString tmp, token, params, lasttoken, lastPath, currPath;
@@ -532,16 +505,6 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	}
 }
 
-/*!
- \fn void EPSPlug::LineTo(FPointArray *i, QString vals)
- \author Franz Schmid
- \date
- \brief
- \param i FPointArray *
- \param vals QString
- \retval none
-*/
-
 void EPSPlug::LineTo(FPointArray *i, QString vals)
 {
 	if (vals.isEmpty())
@@ -562,15 +525,6 @@ void EPSPlug::LineTo(FPointArray *i, QString vals)
 	i->addPoint(FPoint(x2, y2));
 }
 
-/*!
- \fn void EPSPlug::Curve(FPointArray *i, QString vals)
- \author Franz Schmid
- \date
- \brief
- \param i FPointArray *
- \param vals QString
- \retval None
- */
 void EPSPlug::Curve(FPointArray *i, QString vals)
 {
 	if (vals.isEmpty())
@@ -595,14 +549,6 @@ void EPSPlug::Curve(FPointArray *i, QString vals)
 	i->addPoint(FPoint(x3, y3));
 }
 
-/*!
- \fn QString EPSPlug::parseColor(QString vals)
- \author Franz Schmid
- \date
- \brief Returns a Color Name, if the Color doesn't exist it's created
- \param vals QString
- \retval QString Color Name
- */
 QString EPSPlug::parseColor(QString vals, colorModel model)
 {
 	ScribusDoc* Doku = ScMW->doc;

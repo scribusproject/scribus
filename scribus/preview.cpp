@@ -51,17 +51,6 @@ for which a new license (GPL+exception) is in place.
 
 extern bool printDinUse;
 
-/*!
- \fn PPreview::PPreview( QWidget* parent, ScribusMainWindow *pl)
- \author Franz Schmid
- \date
- \brief Create the Print Preview window
- \param parent QWidget *
- \param vin ScribusView *
- \param docu ScribusDoc *
- \param pngAlpha int
- \retval PPreview window
- */
 PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha, int tiffSep, QString printer ) : QDialog( parent, "Preview", true, 0 )
 {
 	Q_ASSERT(!docu->masterPageMode());
@@ -313,14 +302,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	connect(scaleBox, SIGNAL(activated(int)), this, SLOT(scaleBox_valueChanged(int)));
 }
 
-/*!
- \fn void PPreview::ToSeite(int num)
- \author Franz Schmid
- \date
- \brief Jump to newly selected page and create the new preview
- \param num int Page Number
- \retval None
- */
 void PPreview::ToSeite(int num)
 {
 	int n = num-1;
@@ -329,53 +310,21 @@ void PPreview::ToSeite(int num)
 	Anz->setPixmap(CreatePreview(n, qRound(72 * scaleFactor)));
 }
 
-/*!
- \fn void PPreview::ToggleTextAA()
- \author Franz Schmid
- \date
- \brief Toggle Text anti-aliasing and create the new preview
- \param None
- \retval None
- */
 void PPreview::ToggleTextAA()
 {
 	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 }
 
-/*!
- \fn void PPreview::ToggleGr()
- \author Franz Schmid
- \date
- \brief Toggle Graphics anti-aliasing and create the new preview
- \param None
- \retval None
- */
 void PPreview::ToggleGr()
 {
 	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 }
 
-/*!
- \fn void PPreview::ToggleTr()
- \author Franz Schmid
- \date
- \brief Toggle transparency and create the new preview
- \param None
- \retval None
- */
 void PPreview::ToggleTr()
 {
 	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 }
 
-/*!
- \fn void PPreview::ToggleCMYK()
- \author Craig Bradney
- \date
- \brief When CMYK preview is toggled, (dis)enable the CMYK controls and create the new preview
- \param None
- \retval None
- */
 void PPreview::ToggleCMYK()
 {
 	bool c = EnableCMYK->isChecked() ? true : false;
@@ -395,27 +344,13 @@ void PPreview::ToggleGCR()
 {
 	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 }
-/*!
- \fn void PPreview::ToggleCMYK_Colour()
- \author Craig Bradney
- \date
- \brief If CMYK preview is enabled, create a new preview with the new CMYK plate settings
- \param None
- \retval None
- */
+
 void PPreview::ToggleCMYK_Colour()
 {
 	if (EnableCMYK->isChecked())
 		Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 }
 
-/*!
-\fn void PPreview::scaleBox_valueChanged(int value)
-\author Petr Vanek
-\date 09/03/2005
-\brief Recompute scaling factor of the preview image
-\param value spinbox value from signal
- */
 void PPreview::scaleBox_valueChanged(int value)
 {
 	switch (value)
@@ -439,15 +374,6 @@ void PPreview::scaleBox_valueChanged(int value)
 	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 }
 
-/*!
- \fn void PPreview::RenderPreview(int Seite, int Res)
- \author Franz Schmid
- \date
- \brief Renders the Preview to a file on Disk
- \param Seite int page number
- \param Res int
- \retval int Flag indicating error
- */
 int PPreview::RenderPreview(int Seite, int Res)
 {
 	int ret = -1;
@@ -699,15 +625,6 @@ void PPreview::blendImages(QImage &target, ScImage &source, ScColor col)
 	}
 }
 
-/*!
- \fn QPixmap PPreview::CreatePreview(int Seite, int Res)
- \author Franz Schmid
- \date
- \brief Creates the Preview of the Actual Page
- \param Seite int page number
- \param Res int
- \retval Bild QPixmap print preview
- */
 QPixmap PPreview::CreatePreview(int Seite, int Res)
 {
 	int ret = -1;

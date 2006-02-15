@@ -39,7 +39,7 @@ void SCRIBUS_API GetItemProps(bool newVersion, QDomElement *obj, struct CopyPast
 /*! \brief Returns a sorted list of QStrings - sorted by locale specific rules!
 Uses compareQStrings() as rule. There is STL used!
 \author Petr Vanek
-\param QStringList aList unsorted string list
+\param aList unsorted string list
 \retval QStringList sorted string list
  */
 QStringList SCRIBUS_API sortQStringList(QStringList aList);

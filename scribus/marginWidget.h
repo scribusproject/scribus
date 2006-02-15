@@ -73,10 +73,9 @@ public:
 	/*! \brief It creates an user interface for base margin settings for the document.
 	\param parent Parent widget (used as standard in Qt)
 	\param title Title of the Group box
-	\param MarginStruct* margs: A reference to the margins in the preferences.
-	\param decimals How much decimals in spinboxes: e.g. 0.00 for 2 decimals.
-	\param unit mainly doc->unitRatio
-	\param einh unit text to display in the spin boxes (mm, pt etc)
+	\param margs A reference to the margins in the preferences.
+	\param unitIndex and index of the unit combobox
+	\param showChangeAll show "apply to all pages" related items
 	*/
 	MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int unitIndex, bool showChangeAll=false);
 	~MarginWidget() {};

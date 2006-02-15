@@ -3658,7 +3658,6 @@ void ScribusMainWindow::slotGetContent()
 }
 
 /*!
- \fn void slotFileAppend()
  \author Franz Schmid
  \date
  \brief Appends a Textfile to the Text in the selected Textframe at the Cursorposition
@@ -4112,7 +4111,6 @@ void ScribusMainWindow::slotReallyPrint()
 }
 
 /*!
- \fn ScribusMainWindow::doPrint()
  \author Franz Schmid
  \date
  \brief Generate and print PostScript from a doc

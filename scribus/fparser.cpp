@@ -223,7 +223,7 @@ bool FunctionParser::isValidName(const std::string& name) const
 
 
 // Constants:
-bool FunctionParser::AddConstant(const string& name, double value)
+bool FunctionParser::AddConstant(const std::string& name, double value)
 {
     if(isValidName(name))
     {

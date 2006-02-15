@@ -32,11 +32,20 @@ for which a new license (GPL+exception) is in place.
   *@author Franz Schmid
   */
 
+/*! \brief A Bookmark Palette */
 class SCRIBUS_API BookPalette : public ScrPaletteBase
 {
 	Q_OBJECT
 
 public:
+	/*!
+	\fn BookPalette::BookPalette(QWidget* parent)
+	\author Franz Schmid
+	\date
+	\brief Constructor for Bookmark Palette
+	\param parent Parent Window
+	\retval None
+	*/
 	BookPalette(QWidget* parent);
 	~BookPalette() {};
 	//void keyPressEvent(QKeyEvent *k);

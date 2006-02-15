@@ -22,6 +22,12 @@ class PLUGIN_API ImportPSPlugin : public LoadSavePlugin
 		// Standard plugin implementation
 		ImportPSPlugin();
 		virtual ~ImportPSPlugin();
+		/*!
+		\author Franz Schmid
+		\date
+		\brief Returns name of plugin
+		\retval QString containing name of plugin: Import EPS/PDF/PS...
+		*/
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
@@ -30,8 +36,14 @@ class PLUGIN_API ImportPSPlugin : public LoadSavePlugin
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt);
 
 	public slots:
-		// Import menu item
-		virtual bool import(QString target = QString::null);
+		/*!
+		\author Franz Schmid
+		\date
+		\brief Run the EPS import
+		\param fileName input filename, or QString::null to prompt.
+		\retval bool always true
+		 */
+		virtual bool import(QString fileName = QString::null);
 
 	private:
 		void registerFormats();

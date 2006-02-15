@@ -47,11 +47,10 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 
 /*!
- \fn FileLoader::FileLoader(QString fileName)
  \author Franz Schmid
  \date
  \brief Constructor, sets the variable "FileName" to the input parameter fileName
- \param QString fileName
+ \param fileName filename to load
  \retval None
  */
 FileLoader::FileLoader(const QString & fileName) :
@@ -99,7 +98,6 @@ const QString FileLoader::getLoadFilterString()
  \author Franz Schmid
  \date
  \brief Tests if the file "FileName" exists and determines the type of the file.
- \param None
  \retval int -1 if the file doesn't exist or any other error has occured, 0 for the old Format, 1 for the new Format, 2 for EPS and PS files, 3 for SVG files and 4 for PDF files
  */
 int FileLoader::TestFile()
@@ -130,7 +128,6 @@ int FileLoader::TestFile()
  \author Franz Schmid
  \date
  \brief Checks which Scribus fileformat the File in FileName has.
- \param None
  \retval 0 for old Scribus files, 1 for Scribus files created by Scribus 1.3 and above
  */
 int FileLoader::CheckScribus()
@@ -147,11 +144,10 @@ int FileLoader::CheckScribus()
 }
 
 /*!
- \fn QString FileLoader::readSLA(QString fileName)
  \author Franz Schmid
  \date
  \brief Auxiliary function loads the file "fileName" into a QString, taking care of any encoding issues
- \param QString fileName
+ \param fileName a filename to load
  \retval QString Contents of the file
 
  Note that this method will use the system text encoding when loading .sla /

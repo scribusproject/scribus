@@ -105,15 +105,6 @@ void SVGExportPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-/*!
- \fn void Run(QWidget *d, ScribusMainWindow *plug)
- \author Franz Schmid
- \date
- \brief Run the SVG export
- \param d QWidget *
- \param plug ScribusMainWindow *
- \retval None
- */
 bool SVGExportPlugin::run(QString filename)
 {
 	Q_ASSERT(filename.isEmpty());
@@ -158,16 +149,6 @@ bool SVGExportPlugin::run(QString filename)
 	return true;
 }
 
-/*!
- \fn SVGExPlug::SVGExPlug( QWidget* parent, ScribusMainWindow *plug, QString fName )
- \author Franz Schmid
- \date
- \brief Create the SVG exporter window
- \param parent QWidget *
- \param plug ScribusMainWindow *
- \param fName QString
- \retval SVGExPlug plugin
- */
 SVGExPlug::SVGExPlug( QString fName )
 {
 	QDomDocument docu("svgdoc");
@@ -220,17 +201,6 @@ SVGExPlug::SVGExPlug( QString fName )
 #endif
 }
 
-/*!
- \fn void SVGExPlug::ProcessPage(ScribusMainWindow *plug, Page *Seite, QDomDocument *docu, QDomElement *elem)
- \author Franz Schmid
- \date
- \brief Process a page to export to SVG format
- \param plug ScribusMainWindow
- \param Seite Page *
- \param docu QDomDocument *
- \param elem QDomElement *
- \retval None
- */
 void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 {
 	QString tmp, trans, fill, stroke, strokeW, strokeLC, strokeLJ, strokeDA, gradi, Clipi, chx;
@@ -647,14 +617,6 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 	ScMW->doc->currentPage = SavedAct;
 }
 
-/*!
- \fn QString SVGExPlug::SetClipPath(PageItem *ite)
- \author Franz Schmid
- \date
- \brief
- \param ite PageItem *
- \retval QString Clipping Path
- */
 QString SVGExPlug::SetClipPath(PageItem *ite)
 {
 	QString tmp = "";
@@ -719,44 +681,18 @@ QString SVGExPlug::SetClipPathImage(PageItem *ite)
 	return tmp;
 }
 
-/*!
- \fn QString SVGExPlug::FToStr(double c)
- \author Franz Schmid
- \date
- \brief Converts double to string
- \param c double
- \retval QString
- */
 QString SVGExPlug::FToStr(double c)
 {
 	QString cc;
 	return cc.setNum(c);
 }
 
-/*!
- \fn QString SVGExPlug::IToStr(int c)
- \author Franz Schmid
- \date
- \brief Converts integer to QString
- \param c int
- \retval QString representation of value
- */
 QString SVGExPlug::IToStr(int c)
 {
 	QString cc;
 	return cc.setNum(c);
 }
 
-/*!
- \fn void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl, ScribusMainWindow *plug)
- \author Franz Schmid
- \date
- \brief Set text properties
- \param tp QDomElement *
- \param hl struct ScText *
- \param plug ScribusMainWindow *
- \retval None
- */
 void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl)
 {
 	int chst = hl->cstyle & 127;
@@ -786,31 +722,11 @@ void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl)
 		}
 }
 
-/*!
- \fn QString SVGExPlug::SetFarbe(QString farbe, int shad, ScribusMainWindow *plug)
- \author Franz Schmid
- \date
- \brief
- \param farbe QString
- \param shad int
- \param plug ScribusMainWindow *
- \retval QString Colour settings
- */
 QString SVGExPlug::SetFarbe(QString farbe, int shad)
 {
 	return ScMW->doc->PageColors[farbe].getShadeColorProof(shad).name();
 }
 
-/*!
- \fn QString SVGExPlug::GetMultiStroke(ScribusMainWindow *plug, struct SingleLine *sl, PageItem *Item)
- \author Franz Schmid
- \date
- \brief
- \param plug ScribusMainWindow *
- \param sl struct SingleLine *
- \param Item PageItem *
- \retval QString Stroke settings
- */
 QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 {
 	QString tmp = "fill:none; ";
@@ -877,14 +793,6 @@ QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 	return tmp;
 }
 
-/*!
- \fn SVGExPlug::~SVGExPlug()
- \author Franz Schmid
- \date
- \brief Destructore
- \param None
- \retval None
- */
 SVGExPlug::~SVGExPlug()
 {
 }

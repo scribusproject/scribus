@@ -49,29 +49,29 @@ public:
 	CommonStrings();
 	
 	/**
-	 * Return the translated Page Set string if given the "untranslated" one
-	 * @param  "untranslated" string
+	 * \brief Return the translated Page Set string if given the "untranslated" one
+	 * @param untrString "untranslated" string
 	 * @return translated string
 	 */
-	static const QString& translatePageSetString(const QString &);
+	static const QString& translatePageSetString(const QString &untrString);
 	/**
-	 * Return the translated Page Set Location string if given the "untranslated" one
-	 * @param  "untranslated" string
+	 * \brief Return the translated Page Set Location string if given the "untranslated" one
+	 * @param untrString "untranslated" string
 	 * @return translated string
 	 */
-	static const QString& translatePageSetLocString(const QString &);
+	static const QString& translatePageSetLocString(const QString &untrString);
 	/**
-	 * Return the untranslated Page Set string if given the translated one
-	 * @param  translated string
+	 * \brief Return the untranslated Page Set string if given the translated one
+	 * @param trString translated string
 	 * @return "untranslated" string
 	 */
-	static const QString& untranslatePageSetString(const QString &);
+	static const QString& untranslatePageSetString(const QString &trString);
 	/**
-	 * Return the untranslated Page Set Location string if given the translated one
-	 * @param  translated string
+	 * \brief Return the untranslated Page Set Location string if given the translated one
+	 * @param trString translated string
 	 * @return "untranslated" string
 	 */
-	static const QString& untranslatePageSetLocString(const QString &);
+	static const QString& untranslatePageSetLocString(const QString &trString);
 	static void languageChange();
 	static QString _Apply;
 	static QString tr_Apply;

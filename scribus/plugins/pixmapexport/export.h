@@ -38,39 +38,43 @@ extern "C" PLUGIN_API void scribusexportpixmap_freePlugin(ScPlugin* plugin);
 
 
 
-/*! Handles export. */
+/*! \brief Handles export. */
 class ExportBitmap: public QObject
 {
 	Q_OBJECT
 public:
-	/*! Initializing the default export variables and attributes */
+	/*! \brief Initializing the default export variables and attributes */
 	ExportBitmap();
-	/*! nothing doing destructor. */
+	/*! \brief nothing doing destructor. */
 	~ExportBitmap();
 
-	/*! Type of the exported image */
+	/*! \brief Type of the exported image */
 	QString bitmapType;
-	/*! Dpi of the exported image */
+	/*! \brief Dpi of the exported image */
 	int pageDPI;
-	/*! Enlargement of the exported image... 2x 3x etc. */
+	/*! \brief Enlargement of the exported image... 2x 3x etc. */
 	int enlargement;
-	/*! Quality of the image <0; 100> */
+	/*! \brief Quality of the image <0; 100> */
 	int quality;
-	/*! A place for stored images */
+	/*! \brief A place for stored images */
 	QString exportDir;
-	/*! Overwrite the existing files? */
+	/*! \brief Overwrite the existing files? */
 	bool overwrite;
 
-	/*! Exports only the actual page */
+	/*! \brief Exports only the actual page
+	\retval bool true on success */
 	bool exportActual();
-	/*! Exports chosen interval of the pages */
+	/*! \brief Exports chosen interval of the pages
+	\param pageNs interval of the page numbers
+	\retval true on success */
 	bool exportInterval(std::vector<int> &pageNs);
 private:
-	/*! create specified filename "docfilename-005.ext" */
+	/*! \brief create specified filename "docfilename-005.ext" */
 	QString getFileName(uint pageNr);
-	/*! export one specified page
+	/*! \brief export one specified page
 	\param pageNr number of the page
 	\param single bool TRUE if only the one page is exported
+	\retval bool true on success
 	*/
 	bool exportPage(uint pageNr, bool single);
 };

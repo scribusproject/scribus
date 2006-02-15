@@ -83,6 +83,7 @@ public:
 	\param parent a reference to the QWidget parent.
 	\param wDir starting working directory
 	\param caption text caption of the dialog window
+	\param filter a mask/filter. E.g.: *.txt
 	\param preview When true - display text/image previewer. When false do not display.
 	\param existing Set to the QFileDialog::ExistingFile mode when true. When false QFileDialog::AnyFile
 	\param compress Show and handle the "Compress" behaviour and CheckBox (true)

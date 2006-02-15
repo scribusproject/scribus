@@ -16,14 +16,14 @@ for which a new license (GPL+exception) is in place.
 class ScrAction;
 
 /**
- * The ID for the SVG Import format. This must be a macro not a static const member
+ * \brief The ID for the SVG Import format. This must be a macro not a static const member
  * because it must be available even when the SVGImportPlugin is not linked in
  * or even compiled.
  */
 #define FORMATID_SVGIMPORT 3
 
 /**
- * A class providing the plugin interface implementation for this plugin
+ * \brief A class providing the plugin interface implementation for this plugin
  */
 class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 {
@@ -41,7 +41,13 @@ class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt);
 
 	public slots:
-		virtual bool import(QString target = QString::null);
+		/*!
+		\author Franz Schmid
+		\brief Run the SVG import
+		\param filename a file name to import
+		\retval true for success
+		 */
+		virtual bool import(QString filename = QString::null);
 
 	private:
 		void registerFormats();
@@ -162,6 +168,12 @@ class SVGPlug : public QObject
 	Q_OBJECT
 
 public:
+	/*!
+	\author Franz Schmid
+	\brief Create the SVG importer window
+	\param fName QString
+	\param isInteractive flag to use GUI
+	 */
 	SVGPlug(QString fname, bool isInteractive);
 	~SVGPlug();
 	void convert();

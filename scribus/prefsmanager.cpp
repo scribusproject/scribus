@@ -503,14 +503,6 @@ void PrefsManager::initArrowStyles()
 	appPrefs.arrowStyles.append(arrow);
 }
 
-/*!
- \fn QString PrefsManager::getPreferencesLocation()
- \author Craig Bradney
- \date Thu 18 Nov 2004
- \brief Set the user's preference file location. Rename any existing old preferences files
- \retval QString Location of the user's preferences
- */
-
 QString PrefsManager::setupPreferencesLocation()
 {
 	QString Pff = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
@@ -555,23 +547,11 @@ QString PrefsManager::setupPreferencesLocation()
 	return PrefsPfad;
 }
 
-/*!
- \fn QString PrefsManager::getPreferencesLocation()
- \retval QString Location of the user's preferences
- */
 const QString PrefsManager::preferencesLocation()
 {
 	return prefsLocation;
 }
 
-/*!
- \fn bool ScribusMainWindow::copy12Preferences(const QString prefsLocation)
- \author Craig Bradney
- \date Sun 09 Jan 2005
- \brief Copy 1.2 prefs XML before loading, and copy rc files we don't yet convert
- \param prefsLocation Location of user preferences
- \retval bool true if prefs were imported
- */
 bool PrefsManager::copy12Preferences()
 {
 	//Now make copies for 1.3 use and leave the old ones alone for <1.3.0 usage
@@ -623,13 +603,6 @@ bool PrefsManager::copy12Preferences()
 	return retVal;
 }
 
-/*!
- \fn void PrefsManager::convert12Preferences()
- \author Craig Ringer
- \date Sun 26 June 2005
- \brief Import 1.2.x prefs rc data into new prefs xml
- \retval None
- */
 void PrefsManager::convert12Preferences()
 {
 	// Import 1.2 font search path prefs
@@ -1271,8 +1244,6 @@ bool PrefsManager::WritePref(QString ho)
 	return result;
 }
 
-// Returns false on error. It's the caller's job to make sure the prefs file
-// actually exists.
 bool PrefsManager::ReadPref(QString ho)
 {
 	QDomDocument docu("scridoc");

@@ -30,22 +30,54 @@ for which a new license (GPL+exception) is in place.
 
 class FunctionParser;
 
-/**
+/** \brief Enthanced QSpinBox
   *@author Franz Schmid
   */
-
 class SCRIBUS_API MSpinBox : public QSpinBox  
 {
 	Q_OBJECT
 	
-public: 
+public:
+	/*!
+	\author Franz Schmid
+	\param pa Parent Widget
+	\param s Number of Decimals
+	*/
 	MSpinBox(QWidget *pa, int s);
+	/*!
+	\author Franz Schmid
+	\param minValue minimal bound
+	\param maxValue maximal bound
+	\param pa Parent Widget
+	\param s Number of Decimals
+	*/
 	MSpinBox(double minValue, double maxValue, QWidget *pa, int s);
 	~MSpinBox() {};
+	/*!
+	\author Franz Schmid
+	\brief Returns the current Value of the SpinBox
+	\retval double The Value
+	 */
 	double value();
+	/*!
+	\author Franz Schmid
+	\brief Gets the Minimum Value of the Spinbox
+	\retval The Value
+	*/
 	double minValue();
+	/*!
+	\author Franz Schmid
+	\brief Gets the Maximim Value of the Spinbox
+	\retval The Value
+	*/
 	double maxValue();
 	QString mapValueToText(int value);
+	/*!
+	\author Franz Schmid
+	\brief Maps the Text of the Spinbox to the Value, does Unit Conversion and Calculations
+	\param ok not used
+	\retval int The Value
+	*/
 	int mapTextToValue(bool *ok);
 	int Decimals;
 	int Width;
@@ -57,8 +89,23 @@ public:
 public slots:
 	void textChanged();
 	void stepDown();
+	/*!
+	\author Franz Schmid
+	\brief Sets the Maximum Value of the Spinbox
+	\param val new Value
+	 */
 	void setMaxValue(double val);
+	/*!
+	\author Franz Schmid
+	\brief Sets the Minimum Value of the Spinbox
+	\param val new Value
+	*/
 	void setMinValue(double val);
+	/*!
+	\author Franz Schmid
+	\brief Sets the Value of the Spinbox
+	\param val new Value
+	*/
 	void setValue(double val);
 	void setReadOnly(bool ro);
 	void setValues(double min, double max, int deci, double val);

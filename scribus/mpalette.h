@@ -103,6 +103,10 @@ public:
 	void updateCList();
 	void updateCmsList();
 	void ShowCMS();
+	/*! \brief fills the langs combobox in language specific order
+	\author 10/07/2004 - Petr Vanek - rewritten to fix #1185.
+	Uses sortQStringList from utils.cpp - STL!
+	\param langMap a structure with languages/hyphs*/
 	void fillLangCombo(QMap<QString,QString> langMap);
 	/** @brief Returns true if there is a user action going on at the moment of call. */
 	bool userActionOn(); // not yet implemented!!! This is needed badly.

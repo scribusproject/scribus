@@ -36,18 +36,15 @@ public:
 	typedef enum {Normal, DataInt, DataDouble, DataQString, RecentFile, DLL, Window, RecentScript, UnicodeChar, Layer } ActionType;
 	
 	/*!
-		\fn ScrAction::ScrAction( QObject * parent, const char * name )
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Constructor from QAction, sets menuType to Normal
 		\param parent Parent object of this action.
 		\param name Name of the action
-		\retval None
 	*/
 	ScrAction ( QObject *parent, const char *name = 0 ) ;
 		
 	/*!
-		\fn ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * parent, const char * name )
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Constructor from QAction, sets menuType to normal
@@ -55,26 +52,25 @@ public:
 		\param accel Accelerator QKeySequence
 		\param parent Parent object of this action
 		\param name Name of the action
-		\retval None
 	*/
 	ScrAction( const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0 );
 		
 	/*!
-		\fn ScrAction::ScrAction( MenuType mType, const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null )
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Constructor for an action that may require a specific menu type, such as a DLL menu
 		\param mType menuType, of Normal, RecentFile or DLL
-					\param icon Iconset for the action
+		\param icon Iconset for the action
 		\param menuText Text to be in the menus for this action
 		\param accel Accelerator QKeySequence
 		\param parent Parent of this action
 		\param name Name of the action
-		\retval None
+		\param extraInt extra int value
+		\param extraDouble extra double value
+		\param extraQString extra QString value
 	 */
 	ScrAction( ActionType mType, const QIconSet & icon, const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0, int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
 	/*!
-		\fn ScrAction::ScrAction( const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name )
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Constructor for a normal action. Stores iconset.
@@ -83,33 +79,19 @@ public:
 		\param accel Accelerator QKeySequence
 		\param parent Parent of this action
 		\param name Name of the action
-		\retval None
-	*/			
-	ScrAction( const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject *parent, const char * name = 0 );
-	
-	
-	/*!
-		\fn ScrAction::~ScrAction()
-		\author Craig Bradney
-		\date Jan 2005
-		\brief Default destructor
-		\param None
-		\retval None
 	*/
-    ~ScrAction();
+	ScrAction( const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject *parent, const char * name = 0 );
+	~ScrAction();
 	
 	/*!
-		\fn ScrAction::getMenuIndex()
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Return the stored menuIndex as QActions cannot deal with these well
-		\param None
 		\retval int Index of menu the action was inserted into
 	*/	
 	const int getMenuIndex();
 			
 	/*!
-		\fn ScrAction::addTo ( QWidget * w )
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Overriden addTo() call for storing addedTo widget
@@ -119,89 +101,66 @@ public:
 	bool addTo(QWidget *w);
 	
 	/*!
-		\fn ScrAction::getWidgetAddedTo()
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Return a pointer to the widget we added this action too. Given actions can be added to many, this might need some controls.
-		\param None
 		\retval QWidget * Pointer to widget
 	*/
 	QWidget *getWidgetAddedTo();
 			
 	/*!
-		\fn ScrAction::cleanMenuText()
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Return a copy of the menu text, without the &s, possibility to remove ellipses in future.
-		\param None
 		\retval QString Stripped copy of the menu text
 	*/
 	QString cleanMenuText();
 
 	/*!
-		\fn ScrAction::isDLLAction()
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Return true if action is a DLL
-		\param None
 		\retval bool True if action is from a DLL
 	 */
 	const bool isDLLAction();
 	
 	/*!
-		\fn ScrAction::dllID()
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Return DLL ID if the action is from a DLL, otherwise return -1
-		\param None
 		\retval int DLL ID or -1
 	 */
 	const int dllID();
 	
 	/*!
-		\fn ScrAction::setToggleAction(bool)
 		\author Craig Bradney
 		\date Feb 2005
 		\brief Connect the internal toggle connections
-		\param None
-		\retval None
 	 */		
 	void setToggleAction(bool);
 	
 	/*!
-		\fn ScrAction::saveShortCut()
 		\author Craig Bradney
 		\date Feb 2005
 		\brief Store the shortcut in a private variable as these must be removed in editmode
-		\param None
-		\retval None
 	 */		
 	void saveShortcut();
 	/*!
-		\fn ScrAction::restoreShortCut()
 		\author Craig Bradney
 		\date Feb 2005
 		\brief Restore the saved shortcut to be the active one
-		\param None
-		\retval None
 	 */		
 	void restoreShortcut();	
 	/*!
-		\fn ScrAction::actionType()
 		\author Craig Bradney
 		\date Apr 2005
 		\brief Return the action data type
-		\param None
-		\retval None
 	 */		
 	ActionType actionType();
 	/*!
-		\fn ScrAction::actionInt()
 		\author Craig Bradney
 		\date Apr 2005
 		\brief Return the action data of int action type
-		\param None
-		\retval None
 	 */		
 	const int actionInt();	
 	const double actionDouble();	
@@ -236,56 +195,44 @@ protected:
 	bool shortcutSaved;
 	
 	/*!
-		\fn ScrAction::addedTo ( int index, QPopupMenu * menu )
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Overridden addedTo QPopupmenu based function to save a pointer to the QPopupMenu we are adding to.
 		\param index The saved index within the QPopupMenu
 		\param menu The menu we are adding this action to
-		\retval None
 	*/
 	void addedTo( int index, QPopupMenu * menu );
 			
 	/*!
-		\fn ScrAction::addedTo( QWidget * actionWidget, QWidget * container )
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Overridden addedTo QWidget based function to save a pointer to the widget we are adding to and its container widget.
 		\param actionWidget Widget action is added to
 		\param container Container widget of actionWidget
-		\retval None
 	*/
 	void addedTo( QWidget * actionWidget, QWidget * container );
 	
 	/*!
-		\fn ScrAction::setIconSizes()
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Set the icon size for the actions that have them assigned. 16x16 for menus (small), 22x22 for toolbars.
-		\param None
-		\retval None
 	*/
 	void setIconSizes();
 			
 private slots:
 	/*!
-		\fn ScrAction::activatedtoactivatedData()
 		\author Craig Bradney
 		\date Jan 2005
 		\brief This passed the activated() action signal in and back out but with some data, easier than 	overriding menu and menu bar classes for now.
-		\param None
-		\retval None
 	 */
 	void activatedToActivatedData();
 	/*!
-		\fn ScrAction::toggledToToggledData()
 		\author Craig Bradney
 		\date Jan 2005
 		\brief This passed the toggled() action signal in and back out but with some data, easier than 	overriding menu and menu bar classes for now.
-		\param None
-		\retval None
+		\param ison true if toggled = on
 	 */
-	void toggledToToggledData(bool);
+	void toggledToToggledData(bool ison);
 };
 
 #endif

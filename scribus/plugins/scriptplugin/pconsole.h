@@ -100,8 +100,7 @@ class SyntaxColors
 		QColor textColor;
 	private:
 		/*! \brief Converts QColor into #rrggbb string.
-		\param color a QColor to convert.
-		\retval QString with "web" color string */
+		\param color a QColor to convert. */
 		QString qcolor2named(QColor color);
 };
 

@@ -22,6 +22,8 @@ class PLUGIN_API Barcode : public ScActionPlugin
 	public:
 		Barcode();
 		virtual ~Barcode();
+		/*! \brief run the plug
+		\param target none usage here */
 		virtual bool run(QString target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;

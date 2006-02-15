@@ -93,7 +93,7 @@ class SCRIBUS_API SampleItem : QObject
 
 		/*! \brief Get the sample.
 		\param width W of the sample
-		\param width H of the sample
+		\param height H of the sample
 		\retval QPixmap rendered image
 		*/
 		QPixmap getSample(int width, int height);

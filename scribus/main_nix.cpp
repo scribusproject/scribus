@@ -51,14 +51,13 @@ int main(int argc, char *argv[])
 }
 
 /*!
-\fn int mainGui(int argc, char **argv)
 \author Franz Schmid
 \author Alessandro Rimoldi
 \author Craig Bradney
 \date Mon Feb  9 14:07:46 CET 2004
 \brief Launches the Gui
-\param int Number of arguments passed to Scribus
-\param char *argv list of the arguments passed to Scribus
+\param argc Number of arguments passed to Scribus
+\param argv *argv list of the arguments passed to Scribus
 \retval int Error code from the execution of Scribus
 */
 int mainApp(int argc, char **argv)

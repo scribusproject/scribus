@@ -181,14 +181,14 @@ public slots:
 	 * @param target Target of the undo action
 	 * @param state State describing the action
 	 */
-	void insertUndoItem(UndoObject*, UndoState* state);
+	void insertUndoItem(UndoObject* target, UndoState* state);
 
 	/**
 	 * @brief Insert a new redo item.
 	 * @param target Target of the redo action
 	 * @param state State describing the action
 	 */
-	void insertRedoItem(UndoObject*, UndoState* state);
+	void insertRedoItem(UndoObject* target, UndoState* state);
 
 	/**
 	 * @brief Update undo stack representation with number of steps.
@@ -296,6 +296,7 @@ private:
 		 * tooltip when the mouse cursor is over the item.
 		 * @param actionPixmap Icon for the state (action). Will appear on front
 		 * of the text parts.
+		 * @param targetPixmap An icon for the undo target
 		 */ 
 		UndoItem(const QString &targetName,
                  const QString &actionName,

@@ -63,12 +63,31 @@ public:
 	void initDefaultGUIFont(const QFont&);
 	void initDefaultCheckerPrefs(CheckerPrefsList* cp);
 	void initArrowStyles();
-	//! \brief Locate our preferences
+	/*!
+	\author Craig Bradney
+	\date Thu 18 Nov 2004
+	\brief Set the user's preference file location. Rename any existing old preferences files
+	\retval QString Location of the user's preferences
+	*/
 	QString setupPreferencesLocation();
-	//! \brief copy 1.2 prefs XML before loading, and old .rc files that we do not yet convert
+	/*!
+	\author Craig Bradney
+	\date Sun 09 Jan 2005
+	\brief Copy 1.2 prefs XML before loading, and copy rc files we don't yet convert
+	\retval bool true if prefs were imported
+	*/
 	bool copy12Preferences();
-	//! \brief convert 1.2 style preferences to new XML format
+	/*!
+	\author Craig Ringer
+	\date Sun 26 June 2005
+	\brief Move and convert 1.2 style preferences to new XML format
+	\retval None
+	*/
 	void convert12Preferences();
+	/*!
+	\brief Get the prefs location property
+	\retval QString Location of the user's preferences
+	*/
 	const QString preferencesLocation();
 
 	/*! \brief Read the preferences.
@@ -89,7 +108,8 @@ public:
 	\retval bool true on success, false on write error */
 	bool WritePref(QString ho);
 	/*! \brief Reads the preferences physically from the file.
-	Here is the XML file parsed itself.
+	Here is the XML file parsed itself. Returns false on error. 
+	It's the caller's job to make sure the prefs file actually exists.
 	\param ho a file name to write
 	\retval bool true on success, false on write error */
 	bool ReadPref(QString ho);

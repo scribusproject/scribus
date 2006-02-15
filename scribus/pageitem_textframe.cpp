@@ -2105,10 +2105,6 @@ void PageItem_TextFrame::clearContents()
 	}
 }
 
-/**
- * Handle keyboard interaction with the text frame while in edit mode
- * @param k
- */
 void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 {
 	int oldPos = CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key

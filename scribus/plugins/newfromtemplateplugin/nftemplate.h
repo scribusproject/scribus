@@ -20,6 +20,7 @@ class PLUGIN_API NewFromTemplatePlugin : public ScActionPlugin
 		// Standard plugin implementation
 		NewFromTemplatePlugin();
 		virtual ~NewFromTemplatePlugin();
+		//! \brief main method
 		virtual bool run(QString target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;

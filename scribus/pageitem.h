@@ -272,15 +272,19 @@ public:
 	/**
 	 * @brief Check if a QPoint is within the items boundaries
 	 * No coordinates transformation is performed
-	 * @param p 
-	 * @return 
+	 * @param x X position
+		@param y Y position
+	 * @return bool true if x, i in the item
 	 */
 	bool pointWithinItem(const int x, const int y);
 	/**
 	 * @brief Check if the mouse is within the items boundaries
 	 * This method performs necessary page to device transformations
-	 * @param p 
-	 * @return 
+	 * @param vport a view port
+		@param x X position
+		@param y Y position
+		@param scale scale of the vport
+	 * @return bool true if the x, y is in the bounds 
 	 */
 	bool mouseWithinItem(QWidget* vport, const int x, const int y, double scale);
 	void copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer);
@@ -484,11 +488,11 @@ public:
 	void setTextToFrameDistTop(double);
 	void setTextToFrameDistBottom(double);
 	/**
-	 * Set the text to frame distances all at once
-	 * @param Left
-	 * @param Right
-	 * @param Top
-	 * @param Bottom
+	 * \brief Set the text to frame distances all at once
+	 * @param newLeft left distance
+	 * @param newRight right distance
+	 * @param newTop top distance
+	 * @param newBottom bottom distance
 	 */
 	void setTextToFrameDist(double newLeft, double newRight, double newTop, double newBottom);
 
@@ -537,7 +541,7 @@ public:
 	QString lineColor() const { return lineColorVal; }
 	/**
 	 * @brief Set the line color of the object.
-	 * @param newFill line color for the object
+	 * @param newColor line color for the object
 	 */
 	void setLineColor(const QString &newColor);
 
@@ -545,7 +549,7 @@ public:
 	int lineShade() const { return lineShadeVal; }
 	/**
 	 * @brief Set the line color shade.
-	 * @param newColor shade for the line color
+	 * @param newShade shade for the line color
 	 */
 	void setLineShade(int newShade);
 
@@ -680,7 +684,7 @@ public:
 	int fontHeight() const { return TxtScaleV; }
 	/**
 	 * @brief Set scaling height of character
-	 * @param newWidth width of character
+	 * @param newHeight height of character
 	 */
 	void setFontHeight(int newHeight);
 
@@ -755,7 +759,7 @@ public:
 	int lineSpacingMode() const { return LineSpMode; }
 	/**
 	 * @brief Set a line spacing for the frame
-	 * @param newSpacing line spacing for the frame
+	 * @param newLineSpacingMode line spacing for the frame
 	 */
 	void setLineSpacingMode(int newLineSpacingMode);
 	
@@ -862,7 +866,7 @@ public:
 	 *        in use it is returned unchanged.
 	 * @author Craig Ringer
 	 *
-	 * Usually of the form 'Copy of <name>' or 'Copy of <name> (n)'
+	 * Usually of the form 'Copy of [name]' or 'Copy of [name] (n)'
 	 */
 	QString generateUniqueCopyName(const QString originalName) const;
 	/**

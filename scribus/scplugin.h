@@ -280,7 +280,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		 * Plug-in authors might want to consider implementing this using the
 		 * DeferredTask subclass used in runAsync, if the plug-in supports it.
 		 *
-		 * @param QString target Optional target to operate on (see
+		 * @param target Optional target to operate on (see
 		 *                above)
 		 * @returns bool True for success.
 		 *

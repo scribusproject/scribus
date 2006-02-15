@@ -141,12 +141,12 @@ private:
 #ifdef HAVE_CAIRO
 	void drawVPath( int mode );
 #else
-	void drawVPath( struct _ArtVpath *vec, int mode, bool preCal = false );
-	void applyGradient( _ArtSVP *, bool );
+	void drawVPath( struct ArtVpath *vec, int mode, bool preCal = false );
+	void applyGradient( ArtSVP *svp, bool fill );
 	virtual void resize( unsigned int w, unsigned int h );
 	_ArtGradientStop *buildStopArray( VGradient &gradient, int & );
-	void clampToViewport( const _ArtSVP &, int &, int &, int &, int & );
-	void clampToViewport( int &, int &, int &, int & );
+	void clampToViewport( const ArtSVP &svp, int &x0, int &y0, int &x1, int &y1 );
+	void clampToViewport( int &x0, int &y0, int &x1, int &y1 );
 	void ensureSpace( unsigned int );
 	struct _ArtBpath *m_path;
 	struct _ArtBpath *m_path2;

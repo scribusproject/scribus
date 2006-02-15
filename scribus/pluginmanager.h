@@ -181,7 +181,7 @@ protected:
 	/*! \brief Shuts down one plug-in. The DLL may not be unloaded, but
 	 *         it is cleaned up and its ScPlugin instance is destroyed.
 	 *         The plug-in is marked unloaded in the map.
-	 *  \param pluginID key from the pluginMap. Plugin identifier
+	 *  \param pda plugin data
 	 */
 	void finalizePlug(PluginData & pda);
 

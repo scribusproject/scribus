@@ -60,14 +60,6 @@ ImportPSPlugin::~ImportPSPlugin()
 	unregisterAll();
 };
 
-/*!
- \fn QString Name()
- \author Franz Schmid
- \date
- \brief Returns name of plugin
- \param None
- \retval QString containing name of plugin: Import EPS/PDF/PS...
- */
 const QString ImportPSPlugin::fullTrName() const
 {
 	return QObject::tr("PS/EPS Importer");
@@ -118,14 +110,6 @@ bool ImportPSPlugin::loadFile(const QString & fileName, const FileFormat &)
 	return import(fileName);
 }
 
-/*!
- \fn void import(QString fileName)
- \author Franz Schmid
- \date
- \brief Run the EPS import
- \param fileName input filename, or QString::null to prompt.
- \retval None
- */
 bool ImportPSPlugin::import(QString fileName)
 {
 	bool interactive = fileName.isEmpty();

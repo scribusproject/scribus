@@ -83,6 +83,7 @@ class BarcodeGenerator : public BarcodeGeneratorBase
 		/*! \brief Create bitmap for current BC.
 		When tt's called for preview, the 72dpi, small PNG image is
 		created each time user change GUI.
+		\param fileName a optional file name to store on user's filesyste,
 		\param dpi optional DPI value. Default is 72 for preview.
 		\retval bool true on success.
 		*/

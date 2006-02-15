@@ -34,10 +34,25 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API LinkButton : public QToolButton  
 {
 public: 
+	/*!
+	\author Franz Schmid
+	\brief Constructor for Link buttons
+	\param pa Parent Window
+	 */
 	LinkButton(QWidget *pa);
 	~LinkButton() {};
+	/*!
+	\author Franz Schmid
+	\brief Returns size of QPixmap, see the Qt-Documentation for further explaining of that.
+	\retval QSize size
+	*/
 	virtual QSize sizeHint();
+	/*!
+	\author Franz Schmid
+	\brief Returns minimum size of QPixmap, see the Qt-Documentation for further explaining of that.
+	\retval QSize size
+	*/
 	virtual QSize minimumSizeHint();
 };
-
+ 
 #endif

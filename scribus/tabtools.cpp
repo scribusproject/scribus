@@ -781,7 +781,6 @@ void TabTools::setFillChar(int act)
 }
 
 /*!
- \fn void TabTools::ToggleKette()
  \author Franz Schmid
  \date
  \brief TabTools (Tools, Image Frame), Sets Y Scale value from X Scale value when chain is toggled
@@ -795,7 +794,6 @@ void TabTools::toggleChain()
 }
 
 /*!
- \fn void TabTools::HChange()
  \author Franz Schmid
  \date
  \brief TabTools (Tools, Image Frame), Sets Y Scale value from X Scale value when X Scale value is changed
@@ -839,7 +837,6 @@ void TabTools::changeImageScalingRatio(int)
 }
 
 /*!
- \fn void TabTools::SetSample()
  \author Franz Schmid
  \date
  \brief TabTools (Tools, Text frame), Sets the sample text in selected font in text frame preferences
@@ -892,7 +889,6 @@ void TabTools::setSample()
 }
 
 /*!
- \fn void TabTools::SetTool()
  \author Franz Schmid
  \date
  \brief TabTools (Tools), Raises widget for selected Tool properties

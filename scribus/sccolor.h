@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 
 /**
   *@author Franz Schmid
-  * This Class adds support for CMYK-Colors to QT.
+  * \brief This Class adds support for CMYK-Colors to QT.
   * its API is based on the API of QColor
   */
 
@@ -48,68 +48,68 @@ class SCRIBUS_API ScColor
 {
 public:
 	ScColor();
-/** Constructs a ScColor with 4 Components
+/** \brief Constructs a ScColor with 4 Components
  * in the range from 0 - 255 */
 	ScColor(int c, int m, int y, int k);
-/** Constructs a RGBColor with 3 Components
+/** \brief Constructs a RGBColor with 3 Components
  * in the range from 0 - 255 */
 	ScColor(int r, int g, int b);
 	~ScColor() {};
 	
 	bool operator==(const ScColor& rhs) const;
 	
-/** flag to enable and disable use of color management (default: true) */
+	/** \brief flag to enable and disable use of color management (default: true) */
 	static bool UseProf;
 
-/** Same as the Constructor but for an existing Color */
+	/** \brief Same as the Constructor but for an existing Color */
 	void setColor(int c, int m, int y, int k);
 
-/** Computes a ScColor from an RGB-Color
- * Applies Gray-Component-Removal to the resulting ScColor
- * or if color management is enabled, an approriate transform */
+	/** \brief Computes a ScColor from an RGB-Color
+	* Applies Gray-Component-Removal to the resulting ScColor
+	* or if color management is enabled, an approriate transform */
 	void setColorRGB(int r, int g, int b);
 
-/** set the color model */
+	/** \brief set the color model */
 	void setColorModel (colorModel cm);
 
-/** get the color model */
+	/** \brief get the color model */
 	colorModel getColorModel ();
 
-/** Computes a ScColor for a QColor */
+	/** \brief Computes a ScColor for a QColor */
 	void fromQColor(QColor color);
 
-/** Returns the transformed/proofed RGB color  */
+	/** \brief Returns the transformed/proofed RGB color  */
 	QColor getRGBColor();
 	void getRawRGBColor(int *r, int *g, int *b);
 	QColor getRawRGBColor();
 
-/** Returns the 4 Values that form an ScColor */
+	/** \brief Returns the 4 Values that form an ScColor */
 	void getCMYK(int *c, int *m, int *y, int *k);
 
-/** Returns the 3 Values that form an RGBColor */
+	/** \brief Returns the 3 Values that form an RGBColor */
 	void getRGB(int *r, int *g, int *b);
 
-/** get CMYK values of a specified shade */
+	/** \brief get CMYK values of a specified shade */
 	void getShadeColorCMYK(int *c, int *m, int *y, int *k, int level);
 
-/** get RGB values of a specified shade */
+	/** \brief get RGB values of a specified shade */
 	void getShadeColorRGB(int *r, int *g, int *b, int level);
 
-/** Return a proofed QColor with the specified shade */
+	/** \brief Return a proofed QColor with the specified shade */
 	QColor getShadeColorProof(int level);
 
-/** Applys Gray-Component-Removal to an ScColor */
+	/** \brief Applys Gray-Component-Removal to an ScColor */
 	void applyGCR();
 
-/** Returns the ScColor as an Hex-String in the Form #CCYYMMKK for
+/** \brief Returns the ScColor as an Hex-String in the Form #CCYYMMKK for
  * a CMYK color or ##RRGGBB for a RGB color*/
 	QString name();
-/** Returns the ScColor as an Hex-String in the Form #RRGGBB */
+	/** \brief Returns the ScColor as an Hex-String in the Form #RRGGBB */
 	QString nameRGB();
-/** Returns the ScColor as an Hex-String in the Form #CCYYMMKK */
+	/** \brief Returns the ScColor as an Hex-String in the Form #CCYYMMKK */
 	QString nameCMYK();
 
-/** Sets the Values of a color from an Hex-String in the Form #CCMMYYKK
+/** \brief Sets the Values of a color from an Hex-String in the Form #CCMMYYKK
  * or #RRGGBB */
 	void setNamedColor(QString nam);
 	void RecalcRGB();
@@ -121,44 +121,44 @@ public:
 	void setRegistrationColor(bool s);
 
 private:
-/** Cyan-Component of Color */
+	/** \brief Cyan-Component of Color */
 	int C;
 	
-/** Magenta-Component of Color */
+	/** \brief Magenta-Component of Color */
 	int M;
 
-/** Yellow-Component of Color */
+	/** \brief Yellow-Component of Color */
 	int Y;
 
-/** Black-Component of Color */
+	/** \brief Black-Component of Color */
 	int K;
 
-/** Red-Component of Color */
+	/** \brief Red-Component of Color */
 	int R;
 
-/** Green-Component of Color */
+	/** \brief Green-Component of Color */
 	int G;
 
-/** Blue-Component of Color */
+	/** \brief Blue-Component of Color */
 	int B;
 
-/** RGB-Equivalent including color transforms */
+	/** \brief RGB-Equivalent including color transforms */
 	QColor RGB;
 
-/** Flag, true if the Color is a Spotcolor */
+	/** \brief Flag, true if the Color is a Spotcolor */
 	bool Spot;
 
-/** Flag, true if the Color is a Registration color */
+	/** \brief Flag, true if the Color is a Registration color */
 	bool Regist;
 
-/** Color model of the current color */
+	/** \brief Color model of the current color */
 	colorModel Model;
 
-/** Flag, true if out of Gamut */
+	/** \brief Flag, true if out of Gamut */
 	bool outOfGamutFlag;
 };
 
-/** Definition der Farbenlisten */
+/** \brief Definition of the Color list */
 typedef QMap<QString,ScColor> ColorList;
 
 #endif

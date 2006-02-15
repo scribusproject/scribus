@@ -10,14 +10,19 @@ for which a new license (GPL+exception) is in place.
 #include "pluginapi.h"
 #include "scplugin.h"
 
+/*! \brief See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods do.
+That documentatation is not duplicated here.
+Please don't implement the functionality of your plugin here; do that
+in mypluginimpl.h and mypluginimpl.cpp. */
 class PLUGIN_API MyPlugin : public ScActionPlugin
 {
 	Q_OBJECT
 
 	public:
-		// Standard plugin implementation
+		//! \brief Standard plugin implementation
 		MyPlugin();
 		virtual ~MyPlugin();
+		//! \brief main method to run the plug
 		virtual bool run(QString target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;

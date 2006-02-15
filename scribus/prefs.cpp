@@ -58,15 +58,6 @@ extern bool CMSavail;
 extern bool CMSuse;
 
 
-/*!
- \fn Preferences::Preferences( QWidget* parent)
- \author Franz Schmid
- \date
- \brief Constructor for Preferences dialog box
- \param parent QWidget pointer to parent window
- \param prefsData->ApplicationPrefs * struct
- \retval Preferences dialog
- */
 Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 {
 	prefsManager=PrefsManager::instance();
@@ -802,20 +793,6 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	clearWState( WState_Polished );
 }
 
-/*!
- \fn Preferences::~Preferences
- \author Franz Schmid
- \date
- \brief Destructor for Preferences dialog box
- \param None
- \retval None
- */
-Preferences::~Preferences()
-{
-	// no need to delete child widgets, Qt does it all for us
-}
-
-
 void Preferences::addPlugins()
 {
 	// Scan for plugins that provide a prefs widget, and add it to the
@@ -860,14 +837,6 @@ void Preferences::accept()
 	return PrefsDialogBase::accept();
 }
 
-/*!
- \fn void Preferences::ChangeDocs()
- \author Franz Schmid
- \date
- \brief Runs QFileDialog to get Preferences (General) Path to Documents directory
- \param None
- \retval None
- */
 void Preferences::changeDocs()
 {
 	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
@@ -875,14 +844,6 @@ void Preferences::changeDocs()
 		Docs->setText(s);
 }
 
-/*!
- \fn void Preferences::ChangeProfs()
- \author Franz Schmid
- \date
- \brief Runs QFileDialog to get Preferences (General) Path to Colour Profiles directory
- \param None
- \retval None
- */
 void Preferences::changeProfs()
 {
 	QString s = QFileDialog::getExistingDirectory(ProPfad->text(), this, "d", tr("Choose a Directory"), true);
@@ -890,14 +851,6 @@ void Preferences::changeProfs()
 		ProPfad->setText(s);
 }
 
-/*!
- \fn void Preferences::ChangeScripts()
- \author Franz Schmid
- \date
- \brief Runs QFileDialog to get Preferences (General) Path to Scripts directory
- \param None
- \retval None
- */
 void Preferences::changeScripts()
 {
 	QString s = QFileDialog::getExistingDirectory(ScriptPfad->text(), this, "d", tr("Choose a Directory"), true);
@@ -905,14 +858,6 @@ void Preferences::changeScripts()
 		ScriptPfad->setText(s);
 }
 
-/*!
- \fn void Preferences::ChangeDocumentTemplates()
- \author Riku Leino
- \date
- \brief Runs QFileDialog to get Preferences (General) Path to Document Templates directory
- \param None
- \retval None
- */
 void Preferences::changeDocumentTemplates()
 {
 	QString s = QFileDialog::getExistingDirectory(DocumentTemplateDir->text(), this, "d", tr("Choose a Directory"), true);
@@ -920,13 +865,6 @@ void Preferences::changeDocumentTemplates()
 		DocumentTemplateDir->setText(s);
 }
 
-/*!
- \fn void Preferences::ChangeDocumentTemplates()
- \author Craig Bradney
- \brief Runs QFileDialog to get Preferences Path to Ghostscript
- \param None
- \retval None
- */
 void Preferences::changeGhostscript()
 {
 	QFileInfo fi(ghostscriptLineEdit->text());
@@ -935,13 +873,6 @@ void Preferences::changeGhostscript()
 		ghostscriptLineEdit->setText(s);
 }
 
-/*!
- \fn void Preferences::ChangeDocumentTemplates()
- \author Craig Bradney
- \brief Runs QFileDialog to get Preferences Path to Image Editor
- \param None
- \retval None
- */
 void Preferences::changeImageEditor()
 {
 	QFileInfo fi(imageEditorLineEdit->text());
@@ -950,14 +881,6 @@ void Preferences::changeImageEditor()
 		imageEditorLineEdit->setText(s);
 }
 
-/*!
- \fn void Preferences::setDS()
- \author Franz Schmid
- \date
- \brief Preferences (Document / Page Size), switches default between Facing Pages and swaps text labels for margin guides
- \param None
- \retval None
- */
 void Preferences::setDS(int layout)
 {
 	GroupRand->setFacingPages(!(layout == singlePage));
@@ -967,14 +890,6 @@ void Preferences::setDS(int layout)
 	gapVertical->setValue(prefsManager->appPrefs.pageSets[choosenLayout].GapVertical * unitRatio);
 }
 
-/*!
- \fn void Preferences::setPageWidth(int v)
- \author Franz Schmid
- \date
- \brief Preferences (Document / Page Size), sets Page width values
- \param v Width value
- \retval None
- */
 void Preferences::setPageWidth(int)
 {
 	Pagebr = pageWidth->value() / unitRatio;
@@ -984,14 +899,6 @@ void Preferences::setPageWidth(int)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
 }
 
-/*!
- \fn void Preferences::setPageHeight(int v)
- \author Franz Schmid
- \date
- \brief Preferences (Document / Page Size), sets Page height values
- \param v Height value
- \retval None
- */
 void Preferences::setPageHeight(int)
 {
 	Pageho = pageHeight->value() / unitRatio;
@@ -1006,14 +913,6 @@ void Preferences::setPageSize()
 	setOrien(pageOrientationComboBox->currentItem());
 }
 
-/*!
- \fn void Preferences::setSize(QString gr)
- \author Franz Schmid
- \date
- \brief Preferences (Document / Page Size), sets Page size values. Connects signals for setting page dimensions.
- \param gr Standard page size value (eg A4)
- \retval None
- */
 void Preferences::setSize(const QString & gr)
 {
 	Pagebr = pageWidth->value() / unitRatio;
@@ -1045,14 +944,6 @@ void Preferences::setSize(const QString & gr)
 	delete ps2;
 }
 
-/*!
- \fn void Preferences::setOrien(int ori)
- \author Franz Schmid
- \date
- \brief Preferences (Document / Page Size), sets Page orientation value and page dimensions
- \param ori Orientation value
- \retval None
- */
 void Preferences::setOrien(int ori)
 {
 	double br;
@@ -1079,14 +970,6 @@ void Preferences::setOrien(int ori)
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 }
 
-/*!
- \fn void Preferences::changePaperColor()
- \author Franz Schmid
- \date
- \brief Preferences ([dox?], [dox?]), Sets Paper color [dox?]
- \param None
- \retval None
- */
 void Preferences::changePaperColor()
 {
 	QColor neu = QColor();
@@ -1100,14 +983,6 @@ void Preferences::changePaperColor()
 	}
 }
 
-/*!
- \fn void Preferences::unitChange()
- \author Franz Schmid
- \date
- \brief Preferences (General, Units). Sets scaling factors and units descriptions when default units are changed. Updates preference values
- \param None
- \retval None
- */
 void Preferences::unitChange()
 {
 	disconnect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
@@ -1181,14 +1056,6 @@ void Preferences::unitChange()
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 }
 
-/*!
- \fn void Preferences::SetDisScale()
- \author Franz Schmid
- \date
- \brief Preferences (Display, Display Size). Sets Scale for ruler scale
- \param None
- \retval None
- */
 void Preferences::setDisScale()
 {
 	DisScale = QMAX((100.0 + CaliSlider->value()) / 100.0, 0.01);
@@ -1196,14 +1063,6 @@ void Preferences::setDisScale()
 	CaliAnz->setText(QString::number(DisScale*100, 'f', 2)+" %");
 }
 
-/*!
- \fn void Preferences::DrawRuler()
- \author Franz Schmid
- \date
- \brief Preferences (Display, Display Size). Draws ruler depending on scaling factor
- \param None
- \retval None
- */
 void Preferences::drawRuler()
 {
 	double xl, iter, iter2, maxi;

@@ -25,7 +25,13 @@ class PLUGIN_API SVGExportPlugin : public ScActionPlugin
 		// Standard plugin implementation
 		SVGExportPlugin();
 		virtual ~SVGExportPlugin();
-		virtual bool run(QString target = QString::null);
+		/*!
+		\author Franz Schmid
+		\brief Run the SVG export
+		\param filename a file to export to
+		\retval bool true
+		*/
+		virtual bool run(QString filename = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
@@ -43,17 +49,65 @@ class SVGExPlug : public QObject
     Q_OBJECT
 
 public:
-    SVGExPlug( QString fName );
-    ~SVGExPlug();
+	/*!
+	\author Franz Schmid
+	\brief Create the SVG exporter window
+	\param fName QString file name
+	 */
+	SVGExPlug( QString fName );
+	~SVGExPlug();
 
 private:
+		/*!
+		\author Franz Schmid
+		\brief Process a page to export to SVG format
+		\param Seite Page *
+		\param docu QDomDocument *
+		\param elem QDomElement *
+		*/
 		void ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem);
 		QString SetClipPathImage(PageItem *ite);
+		/*!
+		\author Franz Schmid
+		\param ite PageItem *
+		\retval QString Clipping Path
+		*/
 		QString SetClipPath(PageItem *ite);
+		/*!
+		\author Franz Schmid
+		\brief Converts double to string
+		\param c double
+		\retval QString
+		 */
 		QString FToStr(double c);
+		/*!
+		\author Franz Schmid
+		\brief Converts integer to QString
+		\param c int
+		\retval QString representation of value
+ 		*/
 		QString IToStr(int c);
+		/*!
+		\author Franz Schmid
+		\brief Set text properties
+		\param tp QDomElement *
+		\param hl struct ScText *
+		*/
 		void SetTextProps(QDomElement *tp, struct ScText *hl);
+		/*!
+		\author Franz Schmid
+		\param farbe QString color
+		\param shad int
+		\param plug ScribusMainWindow *
+		\retval QString Colour settings
+		*/
 		QString SetFarbe(QString farbe, int shad);
+		/*!
+		\author Franz Schmid
+		\param sl struct SingleLine *
+		\param Item PageItem *
+		\retval QString Stroke settings
+		*/
 		QString GetMultiStroke(struct SingleLine *sl, PageItem *Item);
 		int GradCount;
 		int ClipCount;

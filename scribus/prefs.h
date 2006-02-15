@@ -56,8 +56,18 @@ class SCRIBUS_API Preferences : public PrefsDialogBase
     	Q_OBJECT
 
 public:
+	
+	/*!
+	\author Franz Schmid
+	\brief Constructor for Preferences dialog box
+	\param parent QWidget pointer to parent window
+	*/
 	Preferences( QWidget* parent);
-	~Preferences();
+	~Preferences(){};
+	/*!
+	\author Franz Schmid
+	\brief Preferences (Display, Display Size). Draws ruler depending on scaling factor
+ 	*/
 	void drawRuler();
 	void updatePreferences();
 
@@ -184,7 +194,7 @@ public:
 	QCheckBox* AskForSubs;
 	QCheckBox* stylePreview;
 	QCheckBox* startUpDialog;
-	//! lorem ipsum
+	//! \brief lorem ipsum
 	QGroupBox* groupLI;
 	QCheckBox* useStandardLI;
 	QSpinBox* paragraphsLI;
@@ -201,28 +211,88 @@ public:
 	QColor colorPaper;
 
 signals:
-	/// Panels listen to this and save their changes when they get it.
+	/// \brief Panels listen to this and save their changes when they get it.
 	void accepted();
 
 public slots:
-	/// Overridden to emit accepted(), which plugin panels use
+	/// \brief Overridden to emit accepted(), which plugin panels use
 	void accept();
 
+	/*!
+	\author Franz Schmid
+	\brief Runs QFileDialog to get Preferences (General) Path to Documents directory
+	*/
 	void changeDocs();
+	/*!
+	\author Franz Schmid
+	\brief Runs QFileDialog to get Preferences (General) Path to Colour Profiles directory
+	*/
 	void changeProfs();
+	/*!
+	\author Franz Schmid
+	\brief Runs QFileDialog to get Preferences (General) Path to Scripts directory
+	*/
 	void changeScripts();
+	/*!
+	\author Riku Leino
+	\brief Runs QFileDialog to get Preferences (General) Path to Document Templates directory
+	*/
 	void changeDocumentTemplates();
+	/*!
+	\author Craig Bradney
+	\brief Runs QFileDialog to get Preferences Path to Ghostscript
+	*/
 	void changeGhostscript();
+	/*!
+	\author Craig Bradney
+	\brief Runs QFileDialog to get Preferences Path to Image Editor
+	*/
 	void changeImageEditor();
+	/*!
+	\author Franz Schmid
+	\brief Preferences ([dox?], [dox?]), Sets Paper color [dox?]
+	*/
 	virtual void changePaperColor();
 
+	/*!
+	\author Franz Schmid
+	\brief Preferences (Document / Page Size), switches default between Facing Pages and swaps text labels for margin guides
+	 */
 	void setDS(int layout);
+	/*!
+	\author Franz Schmid
+	\brief Preferences (Document / Page Size), sets Page width values
+	\param v Width value
+	*/
 	void setPageWidth(int v);
+	/*!
+	\author Franz Schmid
+	\brief Preferences (Document / Page Size), sets Page height values
+	\param v Height value
+	*/
 	void setPageHeight(int v);
 	void setPageSize();
-	void setSize(const QString &);
+	/*!
+	\author Franz Schmid
+	\brief Preferences (Document / Page Size), sets Page size values. Connects signals for setting page dimensions.
+	\param gr Standard page size value (eg A4)
+	*/
+	void setSize(const QString &gr);
+	/*!
+	\author Franz Schmid
+	\brief Preferences (Document / Page Size), sets Page orientation value and page dimensions
+	\param ori Orientation value
+	*/
 	void setOrien(int ori);
+	/*!
+	\author Franz Schmid
+	\brief Preferences (General, Units). Sets scaling factors and units descriptions when default units are changed. Updates preference values
+	*/
 	void unitChange();
+	/*!
+	\author Franz Schmid
+	\brief Preferences (Display, Display Size). Sets Scale for ruler scale
+	*/
 	void setDisScale();
 	void switchCMS(bool enable);
 
@@ -256,7 +326,7 @@ protected:
 	QHBoxLayout* GSlayout2;
 	QVBoxLayout* MiscLayout;
 	QVBoxLayout* groupPrintLayout;
-	//! layout of the lorem ipsum group
+	//! \brief layout of the lorem ipsum group
 	QVBoxLayout* groupLILayout;
 	QVBoxLayout* tabViewLayout;
 	QGridLayout* pageBackgroundLayout;

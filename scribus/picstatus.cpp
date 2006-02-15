@@ -54,17 +54,6 @@ QString PicStatus::trSearch = "";
 QString PicStatus::trCancelSearch = "";
 QString PicStatus::trGoto = "";
 
-/*!
- \fn void PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
- \author Franz Schmid
- \date
- \brief Constructs a Dialog, which list all Images in the current Document. In this Dialog it is possible
-to search for missing Images.
- \param parent Pointer to parent window
- \param docu Pointer to the current Document
- \param viewi Pointer to the current View
- \retval None
- */
 
 PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 	QDialog( parent, "pic", true, 0 )
@@ -219,14 +208,6 @@ void PicStatus::languageChange()
 	PicStatus::trGoto = tr("Goto");
 }
 
-/*!
- \fn void PicStatus::GotoPic()
- \author Franz Schmid
- \date
- \brief Moves to the Page containing the selected Image.
- \param None
- \retval None
- */
 void PicStatus::GotoPic()
 {
 	QString pageText = PicTable->text(QString(sender()->name()).toInt(), 2);
@@ -239,14 +220,6 @@ void PicStatus::GotoPic()
 		emit selectPage(pageNum-1);
 }
 
-/*!
- \fn void PicStatus::SearchPic()
- \author Franz Schmid
- \date
- \brief Searches for the given Picture. Displays a Dialog when more than one Picture is found.
- \param None
- \retval None
- */
 void PicStatus::SearchPic()
 {
 	// FIXME: This is a pretty ugly hack IMO - carried over from the old
@@ -376,14 +349,6 @@ int PicStatus::getRowByFileName(const QString & fileName)
 	return row;
 }
 
-/*!
- \fn void PicStatus::PrintPic()
- \author Franz Schmid
- \date
- \brief Enables or disables printing of the selected Image.
- \param None
- \retval None
- */
 void PicStatus::PrintPic()
 {
 	uint ZNr = QString(sender()->name()).toUInt();

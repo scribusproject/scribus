@@ -1916,7 +1916,7 @@ void Mpalette::setSvalue(double s)
 	HaveItem = tmp;
 }
 
-void Mpalette::setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj)
+void Mpalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj)
 {
 	if (ScMW->ScriptRunning)
 		return;
@@ -3651,9 +3651,6 @@ void Mpalette::NewName()
 	}
 }
 
-/*! 10/07/2004 - pv - rewritten to fix #1185.
-Uses sortQStringList from utils.cpp - STL!
- \param QMap<QString,QString> langMap a structure with languages/hyphs*/
 void Mpalette::fillLangCombo(QMap<QString,QString> langMap)
 {
 	QStringList sortList;

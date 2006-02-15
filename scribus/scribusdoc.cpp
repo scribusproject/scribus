@@ -1031,7 +1031,7 @@ int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 	return -1;
 }
 
-int ScribusDoc::addLayer(const QString& layerName=QString::null, const bool activate=false)
+int ScribusDoc::addLayer(const QString& layerName, const bool activate)
 {
 	struct Layer ll;
 	ll.LNr = Layers.last().LNr + 1;

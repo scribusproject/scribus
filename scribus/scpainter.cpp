@@ -736,7 +736,7 @@ void ScPainter::drawVPath( int mode )
 	}
 	cairo_restore( m_cr );
 #else
-void ScPainter::drawVPath( ArtVpath *vec, int mode, bool preCal )
+void ScPainter::drawVPath( struct ArtVpath *vec, int mode, bool preCal )
 {
 	ArtSVP *strokeSvp = 0L;
 	ArtSVP *fillSvp = 0L;

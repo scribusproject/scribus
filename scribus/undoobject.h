@@ -137,6 +137,7 @@ class SCRIBUS_API DummyUndoObject : public UndoObject
 public:
 	DummyUndoObject() {};
 	virtual ~DummyUndoObject() {};
+	//! \brief dummy implementation of the inherited one
 	void restore(UndoState*, bool) {};
 };
 

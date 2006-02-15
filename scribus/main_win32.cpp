@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 \author Jean Ghali
 \date Mon Feb  9 14:07:46 CET 2004
 \brief Launches the Gui
-\param ScribusQApp& app a Scribus QApplication object
+\param app a Scribus QApplication object
 \retval int Error code from the execution of Scribus
 */
 int mainApp(ScribusQApp& app)

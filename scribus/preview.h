@@ -29,17 +29,43 @@ class PrefsManager;
 class QImage;
 class QTable;
 
+
+//! \brief Print Preview dialog
 class SCRIBUS_API PPreview : public QDialog
 {
 	Q_OBJECT
 
 public:
+	/*!
+	\author Franz Schmid
+	\brief Create the Print Preview window
+	\param parent QWidget *
+	\param vin ScribusView *
+	\param docu ScribusDoc *
+	\param tiffSep tiff separations
+	\param printer printer name
+	\param pngAlpha int
+	*/
 	PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha, int tiffSep, QString printer = "" );
 	~PPreview() {};
+	/*!
+	\author Franz Schmid
+	\brief Renders the Preview to a file on Disk
+	\param Seite int page number
+	\param Res int
+	\retval int Flag indicating error
+	*/
 	int RenderPreview(int Seite, int Res);
 	int RenderPreviewSep(int Seite, int Res);
 	void blendImages(QImage &target, ScImage &source, ScColor col);
 	static bool usePostscriptPreview(QString printerName);
+	/*!
+	\author Franz Schmid
+	\brief Creates the Preview of the Actual Page
+	\param Seite int page number
+	\param Res int
+	\retval Bild QPixmap print preview
+	*/
 	QPixmap CreatePreview(int Seite, int Res);
 	PageSelector *PGSel;
 	QCheckBox* AliasText;
@@ -76,20 +102,51 @@ public:
 	QTable* Table;
 
 public slots:
+	/*!
+	\author Franz Schmid
+	\brief Jump to newly selected page and create the new preview
+	\param num int Page Number
+	*/
 	void ToSeite(int num);
+	/*!
+	\author Franz Schmid
+	\brief Toggle Text anti-aliasing and create the new preview
+	*/
 	void ToggleTextAA();
+	/*!
+	\author Franz Schmid
+	\brief Toggle Graphics anti-aliasing and create the new preview
+	*/
 	void ToggleGr();
+	/*!
+	\author Franz Schmid
+	\brief Toggle transparency and create the new preview
+	*/
 	void ToggleTr();
+	/*!
+	\author Craig Bradney
+	\brief When CMYK preview is toggled, (dis)enable the CMYK controls and create the new preview
+	*/
 	void ToggleCMYK();
+	/*!
+	\author Craig Bradney
+	\brief If CMYK preview is enabled, create a new preview with the new CMYK plate settings
+	*/
 	void ToggleGCR();
 	void ToggleCMYK_Colour();
-	void scaleBox_valueChanged(int);
+	/*!
+	\author Petr Vanek
+	\date 09/03/2005
+	\brief Recompute scaling factor of the preview image
+	\param value spinbox value from signal
+	*/
+	void scaleBox_valueChanged(int value);
 
 signals:
 	void doPrint();
 
 protected:
-	/*! Percentage value of the scaling widget */
+	/*! \brief Percentage value of the scaling widget */
 	double scaleFactor;
 	QVBoxLayout* PLayout;
 	QHBoxLayout* Layout1;

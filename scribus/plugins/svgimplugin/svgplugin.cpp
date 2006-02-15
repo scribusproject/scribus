@@ -137,13 +137,6 @@ bool SVGImportPlugin::loadFile(const QString & fileName, const FileFormat & /* f
 	return import(fileName);
 }
 
-/*!
- \fn void import(QString filename)
- \author Franz Schmid
- \date
- \brief Run the SVG import
- \retval true for success
- */
 bool SVGImportPlugin::import(QString filename)
 {
 	bool interactive = false;
@@ -187,14 +180,6 @@ bool SVGImportPlugin::import(QString filename)
 	return true;
 }
 
-/*!
- \fn SVGPlug::SVGPlug( QString fName )
- \author Franz Schmid
- \date
- \brief Create the SVG importer window
- \param fName QString
- \retval SVGPlug plugin
- */
 SVGPlug::SVGPlug( QString fName, bool isInteractive ) :
 	QObject(ScMW)
 {
@@ -232,14 +217,6 @@ SVGPlug::SVGPlug( QString fName, bool isInteractive ) :
 	QDir::setCurrent(CurDirP);
 }
 
-/*!
- \fn void SVGPlug::convert()
- \author Franz Schmid
- \date
- \brief
- \param None
- \retval None
- */
 void SVGPlug::convert()
 {
 	bool ret = false;
@@ -360,14 +337,6 @@ void SVGPlug::convert()
 	}
 }
 
-/*!
- \fn void SVGPlug::addGraphicContext()
- \author Franz Schmid
- \date
- \brief
- \param None
- \retval None
- */
 void SVGPlug::addGraphicContext()
 {
 	SvgStyle *gc = new SvgStyle;
@@ -376,14 +345,6 @@ void SVGPlug::addGraphicContext()
 	m_gc.push( gc );
 }
 
-/*!
- \fn void SVGPlug::setupTransform( const QDomElement &e )
- \author Franz Schmid
- \date
- \brief
- \param e const QDomElement &
- \retval None
- */
 void SVGPlug::setupTransform( const QDomElement &e )
 {
 	SvgStyle *gc = m_gc.current();
@@ -392,14 +353,6 @@ void SVGPlug::setupTransform( const QDomElement &e )
 		gc->matrix = mat * gc->matrix;
 }
 
-/*!
- \fn void SVGPlug::parseGroup(const QDomElement &e)
- \author Franz Schmid
- \date
- \brief
- \param e const QDomElement &
- \retval None
- */
 QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 {
 	QPtrList<PageItem> GElements;
@@ -736,14 +689,6 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 	return GElements;
 }
 
-/*!
- \fn double SVGPlug::fromPercentage( const QString &s )
- \author Franz Schmid
- \date
- \brief
- \param s const QString &
- \retval double
- */
 double SVGPlug::fromPercentage( const QString &s )
 {
 	if( s.endsWith( "%" ) )
@@ -752,14 +697,6 @@ double SVGPlug::fromPercentage( const QString &s )
 		return s.toDouble();
 }
 
-/*!
- \fn double SVGPlug::parseUnit(const QString &unit)
- \author Franz Schmid
- \date
- \brief
- \param unit const QString &
- \retval double
- */
 double SVGPlug::parseUnit(const QString &unit)
 {
 	bool noUnit = false;
@@ -792,14 +729,6 @@ double SVGPlug::parseUnit(const QString &unit)
 	return value;
 }
 
-/*!
- \fn QWMatrix SVGPlug::parseTransform( const QString &transform )
- \author Franz Schmid
- \date
- \brief
- \param transform const QString
- \retval QWMatrix
- */
 QWMatrix SVGPlug::parseTransform( const QString &transform )
 {
 	QWMatrix ret;
@@ -862,15 +791,6 @@ QWMatrix SVGPlug::parseTransform( const QString &transform )
 	return ret;
 }
 
-/*!
- \fn const char * SVGPlug::getCoord( const char *ptr, double &number )
- \author Franz Schmid
- \date
- \brief
- \param ptr const char *
- \param number double &
- \retval const char *
- */
 const char * SVGPlug::getCoord( const char *ptr, double &number )
 {
 	int integer, exponent;
@@ -933,15 +853,6 @@ const char * SVGPlug::getCoord( const char *ptr, double &number )
 	return ptr;
 }
 
-/*!
- \fn bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
- \author Franz Schmid
- \date
- \brief
- \param s const QString &
- \param ite FPointArray *
- \retval bool
- */
 bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 {
 	QString d = s;
@@ -1188,24 +1099,6 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 	return ret;
 }
 
-/*!
- \fn void SVGPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag)
- \author Franz Schmid
- \date
- \brief
- \param ite FPointArray *
- \param relative bool
- \param curx double &
- \param cury double &
- \param angle double
- \param x double
- \param y double
- \param r1 double
- \param r2 double
- \param largeArcFlag bool
- \param sweepFlag bool
- \retval None
- */
 void SVGPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag)
 {
 	double sin_th, cos_th;
@@ -1315,16 +1208,6 @@ void SVGPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
 		cury += y;
 }
 
-/*!
- \fn void SVGPlug::svgMoveTo(double x1, double y1)
- \author Franz Schmid
- \date
- \brief
- \param i FPointArray *
- \param x1 double
- \param y1 double
- \retval None
- */
 void SVGPlug::svgMoveTo(double x1, double y1)
 {
 	CurrX = x1;
@@ -1334,16 +1217,6 @@ void SVGPlug::svgMoveTo(double x1, double y1)
 	PathLen = 0;
 }
 
-/*!
- \fn void SVGPlug::svgLineTo(FPointArray *i, double x1, double y1)
- \author Franz Schmid
- \date
- \brief
- \param i FPointArray *
- \param x1 double
- \param y1 double
- \retval None
- */
 void SVGPlug::svgLineTo(FPointArray *i, double x1, double y1)
 {
 	if ((!FirstM) && (WasM))
@@ -1373,20 +1246,6 @@ void SVGPlug::svgLineTo(FPointArray *i, double x1, double y1)
 	PathLen += 4;
 }
 
-/*!
- \fn void SVGPlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3)
- \author Franz Schmid
- \date
- \brief
- \param i FPointArray *
- \param x1 double
- \param y1 double
- \param x2 double
- \param y2 double
- \param x3 double
- \param y3 double
- \retval None
- */
 void SVGPlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3)
 {
 	if ((!FirstM) && (WasM))
@@ -1418,14 +1277,6 @@ void SVGPlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, d
 	PathLen += 4;
 }
 
-/*!
- \fn void SVGPlug::svgClosePath(FPointArray *i)
- \author Franz Schmid
- \date
- \brief
- \param i FPointArray *
- \retval None
- */
 void SVGPlug::svgClosePath(FPointArray *i)
 {
 	if (PathLen > 2)
@@ -1440,14 +1291,6 @@ void SVGPlug::svgClosePath(FPointArray *i)
 	}
 }
 
-/*!
- \fn QColor SVGPlug::parseColorN( const QString &rgbColor )
- \author Franz Schmid
- \date
- \brief
- \param rgbColor const QString &
- \retval Qcolor
- */
 QColor SVGPlug::parseColorN( const QString &rgbColor )
 {
 	int r, g, b;
@@ -1455,14 +1298,7 @@ QColor SVGPlug::parseColorN( const QString &rgbColor )
 	return QColor( r, g, b );
 }
 
-/*!
- \fn QString SVGPlug::parseColor( const QString &s )
- \author Franz Schmid
- \date
- \brief
- \param s const QString &
- \retval QString
- */
+
 QString SVGPlug::parseColor( const QString &s )
 {
 	QColor c;
@@ -1524,16 +1360,6 @@ QString SVGPlug::parseColor( const QString &s )
 	return ret;
 }
 
-/*!
- \fn void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &params )
- \author Franz Schmid
- \date
- \brief
- \param obj SvgStyle *
- \param command const QString &
- \param params const QString &
- \retval None
- */
 void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &params )
 {
 	if( command == "stroke-opacity" )
@@ -1712,15 +1538,6 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		unsupported = true;
 }
 
-/*!
- \fn void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
- \author Franz Schmid
- \date
- \brief
- \param obj SvgStyle *
- \param e const QDomElement &
- \retval None
- */
 void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 {
 	SvgStyle *gc = m_gc.current();
@@ -1771,15 +1588,6 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 	return;
 }
 
-/*!
- \fn void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
- \author Franz Schmid
- \date
- \brief
- \param gradient GradientHelper *
- \param e const QDomElement &
- \retval None
- */
 void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 {
 	QString Col = "Black";
@@ -1824,14 +1632,6 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 	}
 }
 
-/*!
- \fn void SVGPlug::parseGradient( const QDomElement &e )
- \author Franz Schmid
- \date
- \brief
- \param e const QDomElement &
- \retval None
- */
 void SVGPlug::parseGradient( const QDomElement &e )
 {
 	GradientHelper gradhelper;
@@ -1949,15 +1749,6 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	m_gradients.insert(e.attribute("id"), gradhelper);
 }
 
-/*!
- \fn void SVGPlug::parseText(PageItem *ite, const QDomElement &e)
- \author Franz Schmid
- \date
- \brief
- \param ite PageItem *
- \param e const QDomElement &
- \retval None
- */
 QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 {
 	struct ScText *hg;
@@ -2189,13 +1980,5 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 	return GElements;
 }
 
-/*!
- \fn SVGPlug::~SVGPlug()
- \author Franz Schmid
- \date
- \brief Destructor
- \param None
- \retval None
- */
 SVGPlug::~SVGPlug()
 {}

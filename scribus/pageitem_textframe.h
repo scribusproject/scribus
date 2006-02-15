@@ -59,6 +59,11 @@ public:
 	
 	virtual void clearContents();
 	
+	/**
+	* \brief Handle keyboard interaction with the text frame while in edit mode
+	* @param k key event
+	* @param keyRepeat a reference to the keyRepeat property
+	*/
 	virtual void handleModeEditKey(QKeyEvent *k, bool& keyRepeat);
 	void deleteSelectedTextFromFrame();
 	void setNewPos(int oldPos, int len, int dir);

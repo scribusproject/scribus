@@ -56,7 +56,8 @@ public:
 	 *
 	 * @warning unimplemented, always fails.
 	 *
-	 * @param outStream QTextStream to write output to.
+	 * @param outDevice QIODevice to write output to.
+	 * @param includePasswords true if with passwords
 	 * @return True for success.
 	 */
 	bool writeTo(QIODevice& outDevice, bool includePasswords = false);
@@ -70,7 +71,7 @@ public:
 	 *
 	 * @warning on failure, struct contents are undefined.
 	 *
-	 * @param inStream QTextStream to settings data from.
+	 * @param inStream QIODevice to settings data from.
 	 * @return True for success.
 	 */
 	bool readFrom(QIODevice& inStream);

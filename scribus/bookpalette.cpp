@@ -25,15 +25,6 @@ for which a new license (GPL+exception) is in place.
 #include "bookpalette.moc"
 extern QPixmap loadIcon(QString nam);
 
-/*!
- \fn BookPalette::BookPalette(QWidget* parent)
- \author Franz Schmid
- \date
- \brief Constructor for Bookmark Palette
- \param parent Parent Window
- \retval None
- */
-
 BookPalette::BookPalette(QWidget* parent) : ScrPaletteBase( parent, "Books", false, 0 )
 {
 	setIcon(loadIcon("AppIcon.png"));
@@ -44,7 +35,7 @@ BookPalette::BookPalette(QWidget* parent) : ScrPaletteBase( parent, "Books", fal
 	languageChange();
 }
 
-/*!
+/*
  \fn void BookPalette::closeEvent(QCloseEvent *ce)
  \author Franz Schmid
  \date

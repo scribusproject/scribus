@@ -725,8 +725,8 @@ void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 
 /*! \brief Helper function for sorting in sortQStringList.
 \author 10/06/2004 - pv
-\param QString s1 first string
-\param QString s2 second string
+\param s1 first string
+\param s2 second string
 \retval bool t/f related s1>s2
  */
 bool compareQStrings(QString s1, QString s2)

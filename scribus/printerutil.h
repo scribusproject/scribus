@@ -50,13 +50,13 @@ class SCRIBUS_API PrinterUtil
 		/**
 		 * @brief Get the 4 minimum page margins for a certain paper size on the given printer
 		 *
-		 * @param w a non-null widget pointer (necessary on Windows)
 		 * @param printerName the printer name 
 		 * @param pageSize the page size to get the margins for
 		 * @param ptsTopMargin the page's top margin in points
-		 * @param ptsTopMargin the page's bottom margin in points
-		 * @param ptsTopMargin the page's left margin in points
-		 * @param ptsTopMargin the page's right margin in points
+		 * @param m_ptsBottomMargin the page's bottom margin in points
+		 * @param m_ptsLeftMargin the page's left margin in points
+		 * @param m_ptsRightMargin the page's right margin in points
+		\retval bool true on success
 		 */
 		bool static getPrinterMarginValues( const QString& printerName, const QString& pageSize, double& ptsTopMargin, double& m_ptsBottomMargin, double& m_ptsLeftMargin, double& m_ptsRightMargin);
 		/**

@@ -30,15 +30,6 @@ for which a new license (GPL+exception) is in place.
 #include "fparser.h"
 #include "units.h"
 
-/*!
- \fn MSpinBox(QWidget *pa, int s)
- \author Franz Schmid
- \date
- \brief Constructor
- \param pa Parent Widget
- \param s Number of Decimals
- \retval None
- */
 
 MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 {
@@ -51,15 +42,6 @@ MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 	edited = false;
     connect( ed, SIGNAL(textChanged(const QString&)), SLOT(textChanged()) );
 }
-/*!
- \fn MSpinBox(double minValue, double maxValue, QWidget *pa, int s)
- \author Franz Schmid
- \date
- \brief Constructor
- \param pa Parent Widget
- \param s Number of Decimals
- \retval None
- */
 
 MSpinBox::MSpinBox(double minValue, double maxValue, QWidget *pa, int s):QSpinBox(pa)
 {
@@ -167,15 +149,6 @@ QString MSpinBox::mapValueToText(int value)
 {
 	return QString::number(static_cast<double>(value) / Decimals, 'f', Width);
 }
-
-/*!
- \fn MSpinBox::mapTextToValue(bool *)
- \author Franz Schmid
- \date
- \brief Maps the Text of the Spinbox to the Value, does Unit Conversion and Calculations
- \param None
- \retval The Value
- */
 
 int MSpinBox::mapTextToValue(bool *)
 {
@@ -294,42 +267,15 @@ void MSpinBox::setDecimals(int deci)
 		Width = 4;
 }
 
-/*!
- \fn MSpinBox::setMaxValue()
- \author Franz Schmid
- \date
- \brief Sets the Maximum Value of the Spinbox
- \param val new Value
- \retval None
- */
-
 void MSpinBox::setMaxValue(double val)
 {
 	QSpinBox::setMaxValue(qRound(val*Decimals));
 }
 
-/*!
- \fn MSpinBox::setMinValue()
- \author Franz Schmid
- \date
- \brief Sets the Minimum Value of the Spinbox
- \param val new Value
- \retval None
- */
-
 void MSpinBox::setMinValue(double val)
 {
 	QSpinBox::setMinValue(qRound(val*Decimals));
 }
-
-/*!
- \fn MSpinBox::setValue()
- \author Franz Schmid
- \date
- \brief Sets the Value of the Spinbox
- \param val new Value
- \retval None
- */
 
 void MSpinBox::setValue(double val)
 {
@@ -337,42 +283,15 @@ void MSpinBox::setValue(double val)
 	edited = false;
 }
 
-/*!
- \fn MSpinBox::value()
- \author Franz Schmid
- \date
- \brief Returns the current Value of the SpinBox
- \param None
- \retval The Value
- */
-
 double MSpinBox::value()
 {
 	return static_cast<double>(QSpinBox::value()) / Decimals;
 }
 
-/*!
- \fn MSpinBox::minValue()
- \author Franz Schmid
- \date
- \brief Gets the Minimum Value of the Spinbox
- \param None
- \retval The Value
- */
-
 double MSpinBox::minValue()
 {
 	return static_cast<double>(QSpinBox::minValue()) / Decimals;
 }
-
-/*!
- \fn MSpinBox::maxValue()
- \author Franz Schmid
- \date
- \brief Gets the Maximum Value of the Spinbox
- \param None
- \retval The Value
- */
 
 double MSpinBox::maxValue()
 {

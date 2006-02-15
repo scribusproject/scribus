@@ -105,10 +105,10 @@ public:
 
 	/**
 	 * @brief Add the automatic text frame to the page
-	 * @param pageIndex
+	 * @param pageNumber page number
 	 * @return number of frame
 	 */
-	int addAutomaticTextFrame(const int);
+	int addAutomaticTextFrame(const int pageNumber);
 	/**
 	 * Set the left and right margins based on the location of the page
 	 * @param pageIndex 
@@ -135,18 +135,18 @@ public:
 	// Add, delete and move layers
 	/**
 	 * @brief Add a layer to the current document
-	 * @param Name of layer
-	 * @param Mark the layer active
+	 * @param layerName name of layer
+	 * @param active the layer active
 	 * @return Number of the layer created
 	 */
-	int addLayer(const QString&, const bool);
+	int addLayer(const QString& layerName=QString::null, const bool activate=false);
 	/**
 	 * @brief Delete a layer from the current document
-	 * @param Number of layer
-	 * @param Delete the items on the layer too?
+	 * @param layerNumber of layer
+	 * @param deleteItems the items on the layer too?
 	 * @return Success or failure
 	 */
-	bool deleteLayer(const int, const bool);
+	bool deleteLayer(const int layerNumber, const bool deleteItems);
 	/**
 	 * @brief Return the number of the current layer
 	 * @return Active layer number
@@ -245,11 +245,11 @@ public:
 	const QString &layerName(const int) const;
 	/**
 	 * @brief Change the name of a layer
-	 * @param Number of the layer
-	 * @param New name of the layer
+	 * @param layerNumber number of the layer
+	 * @param newName new name of the layer
 	 * @return Success or failure
 	 */
-	bool changeLayerName(const int, const QString&);
+	bool changeLayerName(const int layerNumber, const QString& newName);
 	/**
 	 * @brief Does the layer have items on it?
 	 * @param Number of the layer

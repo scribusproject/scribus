@@ -228,7 +228,6 @@ int ScribusQApp::init()
 }
 
 /*!
-\fn void getLang(QString lang)
 \author Franz Schmid
 \author Alessandro Rimoldi
 \date Mon Feb  9 14:07:46 CET 2004
@@ -243,7 +242,6 @@ with "en", no locale is returned.
 \param lang QString a two letter string describing the lang environement
 \retval QString A string describing the language environement
 */
-
 QStringList ScribusQApp::getLang(QString lang)
 {
 	QStringList langs;
@@ -297,7 +295,6 @@ QStringList ScribusQApp::getLang(QString lang)
 
 
 /*!
-\fn void installTranslators(QApplication *app, QStringList langs)
 \author Franz Schmid
 \author Alessandro Rimoldi
 \date Mon Feb  9 14:07:46 CET 2004
@@ -373,7 +370,6 @@ static void printArgLine(QTextStream & ts, const char * smallArg,
 }
 
 /*!
-\fn void showUsage()
 \author Franz Schmid
 \author Alessandro Rimoldi
 \date Mon Feb  9 14:07:46 CET 2004
@@ -381,7 +377,6 @@ static void printArgLine(QTextStream & ts, const char * smallArg,
 \param lang QString a two letter string describing the lang environement
 \retval QString A string describing the language environement
 */
-
 void ScribusQApp::showUsage()
 {
 	QFile f;
@@ -414,14 +409,12 @@ void ScribusQApp::showUsage()
 }
 
 /*!
-\fn void showAvailLangs()
 \author Craig Bradney
 \date Wed Nov 18 2004
 \brief Instantiates the Language Manager and prints installed languages with brief instructions around
 \param None
 \retval None
 */
-
 void ScribusQApp::showAvailLangs()
 {
 	QFile f;
