@@ -35,36 +35,33 @@ class SCRIBUS_API Selection : public QObject
 	Q_OBJECT
 	public:
 		/**
-		 * Create an empty selection that is not a GUI selection
-		 * @param  parent
-		 * @return Selection
+		 * \brief Create an empty selection that is not a GUI selection
+		 * @param  parent QObject
 		 */
-		Selection(QObject*);
+		Selection(QObject* parent);
 		/**
-		 * Create an empty selection that may be a GUI selection
-		 * @param  parent
-		 * @param  If the selection is to be a GUI selection
-		 * @return Selection
+		 * \brief Create an empty selection that may be a GUI selection
+		 * @param  parent QObject
+		 * @param  guiSelection If the selection is to be a GUI selection
 		 */
-		Selection(QObject*, bool);
+		Selection(QObject* parent, bool guiSelection);
 		/**
-		 * Copy a selection
-		 * NOTE: We are leaving the connections of the items in place
+		 * \brief Copy a selection
+		 * \note We are leaving the connections of the items in place
 		 * and the isGUISelection set in the copy. We cannot disconnect them
 		 * as they may be connected via the main GUI selection.
-		 * @param  Other selection
-		 * @return New selection
+		 * @param  other selection
 		 */
-		Selection(const Selection&);
+		Selection(const Selection& other);
 		Selection& operator=( const Selection & );
 		~Selection();
 		
 		bool connectItemToGUI();
 		/**
-		 * Disconnect all items from the GUI slots. 
+		 * \brief Disconnect all items from the GUI slots. 
 		 * This should not really be necessary if all things are going ok
 		 * except for within the clearAll function.
-		 * @return 
+		 * @return bool true on success
 		 */
 		bool disconnectAllItemsFromGUI();
 		/**
@@ -79,61 +76,55 @@ class SCRIBUS_API Selection : public QObject
 		 * @brief Prepend an item to the selection. 
 		 * If its added to a GUI selection selection and its item 0, its connected to the GUI too
 		 * @param item Item to add
+		 * @param doEmit call emitAllToGUI()
 		 * @return If the item was added
 		 */
 		bool prependItem(PageItem *item, bool doEmit=true);
 		/**
-		 * Unused
-		 * @return 
+		 * \brief Unused
 		 */
 		bool addGroup();
 		/**
-		 * Remove an item from list
-		 * @param item 
-		 * @return 
+		 * \brief Remove an item from list
+		 * @param item page item
 		 */
 		bool removeItem(PageItem *item);
 		/**
-		 * Remove the first item from the list
+		 * \brief Remove the first item from the list
 		 * @return If the remove was successful
 		 */
 		bool removeFirst();
 		/**
-		 * Unused
-		 * @return 
+		 * \brief Unused
 		 */
 		bool removeGroup();
 		/**
-		 * Remove an item from list listNumber and return a pointer to it
+		 * \brief Remove an item from list listNumber and return a pointer to it
 		 * @param itemIndex Index of the item in the list
 		 * @return Item
 		 */
 		PageItem* takeItem(uint itemIndex);
 		/**
-		 * Find an item from the selection and return an index to it
+		 * \brief Find an item from the selection and return an index to it
 		 * @param item Item pointer to find in the list
 		 * @return Item
 		 */
 		int findItem(PageItem *item) const { return m_SelList.findIndex(item); }
 		/**
-		 * Return the count of the selection
-		 * @return 
+		 * \brief Return the count of the selection
 		 */
 		uint count() const { return m_SelList.count(); }
 		/**
-		 * Check if the selection is empty.
-		 * @return
+		 * \brief Check if the selection is empty.
 		 */
 		bool isEmpty() const { return m_SelList.count()==0; }
 		/**
-		 * Clear a list
-		 * @return 
+		 * \brief Clear a list
 		 */
 		bool clear();
 		/**
-		 * See if the first selected item is "me", usually called from an item object with "this".
-		 * @param item 
-		 * @return 
+		 * \brief See if the first selected item is "me", usually called from an item object with "this".
+		 * @param item PageItem reference
 		 */
 		bool primarySelectionIs(const PageItem* item) const { return (!m_SelList.isEmpty() && (item==m_SelList.first())); }
 		PageItem *itemAt(int index=0);

@@ -68,10 +68,8 @@ class ScribusView;
 class QProgressBar;
 
 
-/**
-  * the Document Class
+/**! \brief the Document Class
   */
-
 class SCRIBUS_API ScribusDoc : public QObject, public UndoObject
 {
 	Q_OBJECT
@@ -116,12 +114,12 @@ public:
 	void setLocationBasedPageLRMargins(uint pageIndex);
 	/**
 	 * @brief Move page(s) within the document
-	 * @param From page index
-	 * @param To page index
-	 * @param Position to move to (page index)
-	 * @param Before, After or at the end
+	 * @param from page index
+	 * @param to page index
+	 * @param ziel target to move to (page index)
+	 * @param art Before, After or at the end
 	 */
-	void movePage(const int, const int, const int, const int);
+	void movePage(const int from, const int to, const int ziel, const int art);
 	
 	/**
 	 * @brief Copy a page (pageNumberToCopy) copyCount times, whereToInsert(before or after) the existingPage or at the end.
@@ -136,7 +134,7 @@ public:
 	/**
 	 * @brief Add a layer to the current document
 	 * @param layerName name of layer
-	 * @param active the layer active
+	 * @param activate the layer active
 	 * @return Number of the layer created
 	 */
 	int addLayer(const QString& layerName=QString::null, const bool activate=false);
@@ -160,54 +158,54 @@ public:
 	const QString& activeLayerName();
 	/**
 	 * @brief Set the active layer via the layer number
-	 * @param Number of the layer
+	 * @param layerToActivate Number of the layer
 	 * @return Success or failure
 	 */
-	bool setActiveLayer(const int);
+	bool setActiveLayer(const int layerToActivate);
 	/**
 	 * @brief Set the active layer via the layer name
-	 * @param Name of the layer
+	 * @param layerNameToActivate Name of the layer
 	 * @return Success or failure
 	 */
-	bool setActiveLayer(const QString &);
+	bool setActiveLayer(const QString & layerNameToActivate);
 	/**
 	 * @brief Set the layer printable via the layer number
-	 * @param Number of the layer
-	 * @param Printable bool
+	 * @param layerNumber Number of the layer
+	 * @param isPrintable bool true = layer is prantable
 	 * @return Success or failure
 	 */
-	bool setLayerPrintable(const int, const bool);
+	bool setLayerPrintable(const int layerNumber, const bool isPrintable);
 	/**
 	 * @brief Is the layer printable
-	 * @param Number of the layer
+	 * @param layerNumber Number of the layer
 	 * @return Printable or not
 	 */
-	bool layerPrintable(const int);
+	bool layerPrintable(const int layerNumber);
 	/**
 	 * @brief Set the layer visible via the layer number
-	 * @param Number of the layer
-	 * @param Visible bool
+	 * @param layerNumber Number of the layer
+	 * @param isViewable true = layer is visible
 	 * @return Success or failure
 	 */
-	bool setLayerVisible(const int, const bool);
+	bool setLayerVisible(const int layerNumber, const bool isViewable);
 	/**
 	 * @brief Is the layer visible
-	 * @param Number of the layer
+	 * @param layerNumber Number of the layer
 	 * @return Visible or not
 	 */
-	bool layerVisible(const int);
+	bool layerVisible(const int layerNumber);
 	/**
 	 * @brief Return the level of the requested layer
-	 * @param Number of the layer
+	 * @param layerNumber Number of the layer
 	 * @return Level of the layer
 	 */
-	int layerLevelFromNumber(const int);
+	int layerLevelFromNumber(const int layerNumber);
 	/**
 	 * @brief Return the number of the layer at a certain level
-	 * @param Layer level
+	 * @param layerLevel Layer level
 	 * @return Layer number
 	 */
-	int layerNumberFromLevel(const int);
+	int layerNumberFromLevel(const int layerLevel);
 	/**
 	 * @brief Return the layer count
 	 * @return Number of layers in doc
@@ -215,34 +213,34 @@ public:
 	int layerCount() const;
 	/**
 	 * @brief Lower a layer
-	 * @param Number of the layer
+	 * @param layerNumber Number of the layer
 	 * @return Success or failure
 	 */
-	bool lowerLayer(const int);
+	bool lowerLayer(const int layerNumber);
 	/**
 	 * @brief Lower a layer using the level
-	 * @param Level of the layer
+	 * @param layerLevel Level of the layer
 	 * @return Success or failure
 	 */
-	bool lowerLayerByLevel(const int);
+	bool lowerLayerByLevel(const int layerLevel);
 	/**
 	 * @brief Raise a layer
-	 * @param Number of the layer
+	 * @param layerNumber Number of the layer
 	 * @return Success or failure
 	 */
-	bool raiseLayer(const int);
+	bool raiseLayer(const int layerNumber);
 	/**
 	 * @brief Raise a layer using the level
-	 * @param Level of the layer
+	 * @param layerLevel Level of the layer
 	 * @return Success or failure
 	 */
-	bool raiseLayerByLevel(const int);
+	bool raiseLayerByLevel(const int layerLevel);
 	/**
 	 * @brief Return the layer name
-	 * @param Number of the layer
+	 * @param layerNumber Number of the layer
 	 * @return Name of the layer
 	 */
-	const QString &layerName(const int) const;
+	const QString &layerName(const int layerNumber) const;
 	/**
 	 * @brief Change the name of a layer
 	 * @param layerNumber number of the layer
@@ -252,22 +250,22 @@ public:
 	bool changeLayerName(const int layerNumber, const QString& newName);
 	/**
 	 * @brief Does the layer have items on it?
-	 * @param Number of the layer
+	 * @param layerNumber Number of the layer
 	 * @return Layer contains items bool
 	 */
-	bool layerContainsItems(const int);
+	bool layerContainsItems(const int layerNumber);
 	/**
 	 * @brief Renumber a layer. Used in particular for reinsertion for undo/redo
-	 * @param Existing layer number
-	 * @param New layer number
+	 * @param layerNumber old layer number
+	 * @param newLayerNumber New layer number
 	 * @return Success or failure
 	 */
-	bool renumberLayer(const int, const int);
+	bool renumberLayer(const int layerNumber, const int newLayerNumber);
 	/**
 	 * @brief Return a list of the layers in their order
-	 * @param QStringList to insert the layer names into
+	 * @param list QStringList to insert the layer names into
 	 */
-	void orderedLayerList(QStringList*);
+	void orderedLayerList(QStringList* list);
 	//Items
 	bool deleteTaggedItems();
 
@@ -362,7 +360,16 @@ public:
 	 *
 	 * @param itemFinalised Used to handle item creation for undo while the user is still dragging.
 	 * @return Number of created item, -1 on failure.
-	 */
+	\param itemType type
+	\param frameType frame type
+	\param x X pos
+	\param y Y pos
+	\param b width
+	\param h height
+	\param w ?
+	\param fill fill color name
+	\param outline outline color name
+	*/
 	int itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline, const bool itemFinalised);
 	
 	/**
@@ -406,9 +413,10 @@ public:
 	 */
 	bool loadPict(QString fn, PageItem *pageItem, bool reload = false);
 	/**
-	 * 
-	 * @param currItem 
-	 * @return 
+	 * \brief Handle image with color profiles
+	 * @param Pr profile
+	   @param PrCMYK cmyk profile
+	   @param dia optional progress widget
 	 */
 	void RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = 0);
 	/**
@@ -509,7 +517,7 @@ public:
 	 */
 	void buildAlignItemList();
 	/**
-	 * Insert a color into the documents color list
+	 * \brief Insert a color into the documents color list
 	 * @param nam Name of the colour
 	 * @param c Cyan component
 	 * @param m Magenta component
@@ -520,12 +528,12 @@ public:
 	
 	QMap<QString, double>& constants() { return m_constants; }
 	/**
-	 * Get the location of the page on the canvas, ie, left, middle, or right
+	 * \brief Get the location of the page on the canvas, ie, left, middle, or right
 	 * Does not give information about middle left, etc.
-	 * @param  Index of page to find location for
+	 * @param pageIndex Index of page to find location for
 	 * @return LeftPage, MiddlePage, RightPage, enum from pagestructs.h
 	 */
-	PageLocation locationOfPage(int);
+	PageLocation locationOfPage(int pageIndex);
 	
 	bool sendItemSelectionToBack();
 	bool bringItemSelectionToFront();

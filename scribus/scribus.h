@@ -103,7 +103,7 @@ extern SCRIBUS_API ScribusQApp* ScQApp;
 extern SCRIBUS_API ScribusMainWindow* ScMW;
 
 /**
-  * This Class is the base class for your application. It sets up the main
+  * \brief This Class is the base class for your application. It sets up the main
   * window and providing a menubar, toolbar
   * and statusbar. For the main view, an instance of class ScribusView is
   * created which creates your view.
@@ -113,10 +113,13 @@ class SCRIBUS_API ScribusMainWindow : public QMainWindow, public UndoObject
 	Q_OBJECT
 
 public:
-	/** constructor */
+	/** \brief constructor */
 	ScribusMainWindow();
-	/** destructor */
+	/** \brief destructor */
 	~ScribusMainWindow();
+	/*!
+	* \retval 0 - ok, 1 - no fonts, ...
+	*/
 	int initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile);
 	void showSplash(bool);
 	bool splashShowing() const;
@@ -152,7 +155,9 @@ public:
 						bool onlyDirs = false, bool *docom = 0, bool *doFont = 0);
 	void GetCMSProfiles();
 	void GetCMSProfilesDir(QString pfad);
-	//Recalculate the colors after changing CMS settings. Call the appropriate document function and then update the GUI elements.
+	/*! \brief Recalculate the colors after changing CMS settings.
+	Call the appropriate document function and then update the GUI elements.
+	\param dia optional progress widget */
 	void recalcColors(QProgressBar *dia = 0);
 	void SwitchWin();
 	void RestoreBookMarks();
@@ -191,17 +196,17 @@ public:
 	int HaveDoc;
 	QString noneString;
 	PrefsContext* dirs;
-	/** view is the main widget which represents your working area. The View
+	/** \brief view is the main widget which represents your working area. The View
 	 * class should handle all events of the view widget.  It is kept empty so
 	 * you can create your view according to your application's needs by
 	 * changing the view class.
 	 */
 	ScribusView *view;
-	/** doc represents your actual document and is created only once. It keeps
+	/** \brief doc represents your actual document and is created only once. It keeps
 	 * information such as filename and does the serialization of your files.
 	 */
 	ScribusDoc *doc;
-    /** the splash screen */
+    /** \brief the splash screen */
 	SplashScreen *splashScreen;
 	QLabel* mainWindowStatusLabel;
 	QProgressBar* mainWindowProgressBar;
@@ -289,14 +294,18 @@ public slots:
 	void ManageJava();
 	void manageMasterPages(QString temp = "");
 	void manageMasterPagesEnd();
-	/** generate a new document in the current view */
+	/** \brief generate a new document in the current view */
 	bool slotFileNew();
 	bool slotPageImport();
 	bool loadPage(QString fileName, int Nr, bool Mpa);
-	/** open a document */
+
 	void slotGetContent();
+	/*!
+	\author Franz Schmid
+	\brief Appends a Textfile to the Text in the selected Textframe at the Cursorposition
+	*/
 	void slotFileAppend();
-	/** open a document */
+
 	void removeRecent(QString fn);
 	void loadRecent(QString fn);
 	void rebuildRecentFileMenu();
@@ -308,27 +317,33 @@ public slots:
 	 */
 	bool postLoadDoc();
 	void slotAutoSaved();
-	/** save a document */
+	/** \brief save a document */
 	bool slotFileSave();
-	/** save a document under a different filename*/
+	/** \brief save a document under a different filename*/
 	bool slotFileSaveAs();
 	void slotFileRevert();
-	/** Sichert den Text eines Elements */
+	/** \brief Sichert den Text eines Elements */
 	void SaveText();
-	/** close the actual file */
+	/** \brief close the actual file */
 	bool slotFileClose();
-	/** print the actual file */
+	/** \brief print the actual file */
 	void slotFilePrint();
 	void slotReallyPrint();
+	/*!
+	\author Franz Schmid
+	\brief Generate and print PostScript from a doc
+	\param options PrintOptions struct to control all settings
+	\sa ScribusMainWindow::slotFilePrint()
+	\retval bool True for success */
 	bool doPrint(PrintOptions *options);
-	/** exits the application */
+	/** \brief exits the application */
 	void slotFileQuit();
-	/** put the marked text/object into the clipboard and remove
+	/** \brief put the marked text/object into the clipboard and remove
 	 * it from the document */
 	void slotEditCut();
-	/** put the marked text/object into the clipboard*/
+	/** \brief put the marked text/object into the clipboard*/
 	void slotEditCopy();
-	/** paste the clipboard into the document*/
+	/** \brief paste the clipboard into the document*/
 	void slotEditPaste();
 	void slotEditCopyContents();
 	void slotEditPasteContents();
@@ -338,42 +353,48 @@ public slots:
 	void deselectAll();
 	void ClipChange();
 	void clearContents();
-	/** shows an about dlg*/
+	/** \brief shows an about dialog*/
 	void slotHelpAbout();
 	void slotHelpAboutPlugins();
     void slotHelpAboutQt();
 	void slotOnlineHelp();
 	void ToggleTips();
-	/** Erzeugt eine neue Seite */
+	/** \brief Erzeugt eine neue Seite */
 	void slotNewPageP(int wo, QString templ);
 	void slotNewPageM();
 	void slotNewMasterPage(int w, const QString &);
 	void slotNewPage(int w, const QString& masterPageName=QString::null, bool mov = true);
 	void duplicateToMasterPage();
-	/** Loescht die aktuelle Seite */
+	/** \brief Loescht die aktuelle Seite */
 	void DeletePage();
 	/**
-	 * Delete pages
+	 * \brief Delete pages
 	 * @param from First page to delete
 	 * @param to Last page to delete
 	 */
 	void DeletePage(int from, int to);
 	void DeletePage2(int pg);
-	/** Verschiebt Seiten */
+	/** \brief Verschiebt Seiten */
 	void MovePage();
 	void CopyPage();
 	void changePageMargins();
-	/** Zoom the view */
+	/*!
+	\author Craig Bradney
+	\date Sun 30 Jan 2005
+	\brief Zoom the view.
+	Take the ScMW zoom actions and pass the view a %. Actions have whole number values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
+	\param zoomFactor Value stored in the ScrAction.
+	 */
 	void slotZoom(double zoomFactor); // 20, 50, 100, or -100 for Fit
-	/** Schaltet Raender ein/aus */
+	/** \brief Schaltet Raender ein/aus */
 	void ToggleMarks();
 	void ToggleFrames();
 	void ToggleTextLinks();
 	void ToggleTextControls();
 	void ToggleRuler();
-	/** Schaltet Masspalette ein/aus */
+	/* Schaltet Masspalette ein/aus */
 	//void togglePropertiesPalette();
-	/** Schaltet Uebersichtspalette ein/aus*/
+	/* Schaltet Uebersichtspalette ein/aus*/
 	//void toggleOutlinePalette();
 	//void toggleScrapbookPalette();
 	//void toggleLayerPalette();
@@ -383,21 +404,21 @@ public slots:
 	void toggleUndoPalette();
 	void setUndoPalette(bool visible);
 	void toggleCheckPal();
-	/** Schaltet M_ViewShowImages ein/aus */
+	/** \brief Schaltet M_ViewShowImages ein/aus */
 	void TogglePics();
-	/** Schaltet Raster ein/aus */
+	/** \brief Schaltet Raster ein/aus */
 	void ToggleRaster();
-	/** Schaltet Rasterbenutzung ein/aus */
+	/** \brief Schaltet Rasterbenutzung ein/aus */
 	void ToggleURaster();
-	/** Schaltet Rahmenbearbeitung ein/aus */
+	/** \brief Schaltet Rahmenbearbeitung ein/aus */
 	void ToggleFrameEdit();
 	void slotSelect();
-	/** Switch appMode */
+	/** \brief Switch appMode
+	\param mode TODO learn modes*/
 	void setAppMode(int mode);
 	void setAppModeByToggle(bool isOn, int newMode);
-	/** Neues Dokument erzeugt */
+	/** \brief Neues Dokument erzeugt */
 	void HaveNewDoc();
-	/** Element ausgewaehlt */
 	void HaveNewSel(int Nr);
 	void rebuildStyleMenu(int itemType);
 	/** Dokument ist geaendert worden */
@@ -466,6 +487,10 @@ public slots:
 	void slotElemRead(QString Name, double x, double y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie);
 	void slotChangeUnit(int art, bool draw = true);
 	void NoFrameEdit();
+	/*!
+	 * @brief Apply master pages from the Apply Master Page dialog
+	 * @todo Make this work with real page numbers, negative numbers and document sections when they are implemented
+	*/
 	void ApplyMasterPage();
 	void Apply_MasterPage(QString in, int Snr, bool reb = true);
 	void GroupObj(bool showLockDia = true);
@@ -479,11 +504,12 @@ public slots:
 	void EditTabs();
 	void SearchText();
 	void imageEditorExited();
+	/*! \brief call gimp and wait upon completion */
 	void callImageEditor();
 	void docCheckToggle(bool visible);
 	void scanDocument();
 	void setUndoMode(bool isObjectSpecific);
-	//! Apply a Lorem Ipsum to the each item in a selection
+	//! \brief Apply a Lorem Ipsum to the each item in a selection
 	void insertSampleText();
 	void sendToLayer(int layerNumber);
 	void updateItemLayerList();
@@ -505,6 +531,9 @@ signals:
 	void prefsChanged();
 
 protected:
+	/*!
+	\brief Receive key events from palettes such as palette hiding events. Possibly easier way but this is cleaner than before. No need to modify all those palettes and each new one in future.
+	 */
 	bool eventFilter( QObject *o, QEvent *e );
 	virtual void dragEnterEvent( QDragEnterEvent* e);
 	virtual void dropEvent( QDropEvent* e);
@@ -516,6 +545,7 @@ private:
 	void addDefaultWindowMenuItems(); // addDefaultWindowMenuItems adds the basic Windows menu items, excluding the actual list of windows
 	void initStatusBar(); // setup the statusbar
 	void initToolBars(); // setup the toolbars
+	//Returns false when there are no fonts
 	const bool initFonts(const bool showFontInfo);
 	void initHyphenator();
 	void initDefaultValues();

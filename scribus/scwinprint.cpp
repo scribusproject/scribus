@@ -65,19 +65,11 @@ typedef struct
 // Generic type for page printing function
 //typedef bool (ScWinPrint::*PrintPageFunc) ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODE* devMode );
 
-/*! ScWinPrint Constructor
-\param none
-\author Jean Ghali
-*/
 ScWinPrint::ScWinPrint(void)
 {
 	resetData();
 }
 
-/*! ScWinPrint Constructor
-\param none
-\author Jean Ghali
-*/
 void ScWinPrint::resetData(void)
 {
 	m_abort = false;
@@ -88,14 +80,6 @@ void ScWinPrint::cancelRequested()
 	m_abort = true;
 }
 
-/*! Print a Scribus document
-\param doc the document whose pages are to be printer
-\param options print options
-\param devMode a bytearray containing a DEVMODE structure to use for device context creation
-\param forceGDI force use of GDI printing method
-\retval return true if no error occured 
-\author Jean Ghali
-*/
 bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devMode, bool forceGDI )
 {
 	bool toFile;
@@ -164,14 +148,6 @@ bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devM
 	return success;
 }
 
-/*! Draw print preview to an image
-\param doc the document whose page is to be preview
-\param page the page to be previewed
-\param image the image on which preview is to be drawn
-\param options print options
-\retval true on success 
-\author Jean Ghali
-*/
 bool ScWinPrint::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* image, PrintOptions& options, double scale )
 {
 	HDC dc = NULL;
@@ -298,14 +274,6 @@ bool ScWinPrint::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* image, Pr
 	return success;
 }
 
-/*! Print selected pages to a printer
-\param doc the document whose pages are to be printer
-\param options print options
-\printerDC an initialized printer device context
-\param devMode the DEVMODE structure used for creating printerDC
-\retval true on success 
-\author Jean Ghali
-*/
 bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODE* devMode, QCString& fileName, bool forceGDI )
 {
  int  jobId;
@@ -374,16 +342,6 @@ bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printer
 	return success;
 }
 
-/*! Print a page to a gdi printer
-\param doc the document whose page is to be printer
-\param page the page to print
-\param options print options
-\printerDC an initialized printer device context
-\devMode the DEVMODE structure used for creating printerDC
-\param devMode pointer to a DEVMODE structure
-\retval true on success 
-\author Jean Ghali
-*/
 bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODE* devMode )
 {
 	int logPixelsX;
@@ -527,16 +485,6 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 	return success;
 }
 
-/*! Print a page to a PostScript printer using passthroughs
-\param doc the document whose page is to be printer
-\param page the page to print
-\param options print options
-\printerDC an initialized printer device context
-\devMode the DEVMODE structure used for creating printerDC
-\param devMode pointer to a DEVMODE structure
-\retval true on success 
-\author Jean Ghali
-*/
 bool ScWinPrint::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODE* devMode )
 {
 	bool succeed = false;
@@ -589,12 +537,6 @@ bool ScWinPrint::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& optio
 	return succeed;
 }
 
-/*! Send a file to printer using PostScript Passthrough
-\param filePath the Postscript file path
-\param printerDC the printer deice context
-\retval true on success 
-\author Jean Ghali
-*/
 bool ScWinPrint::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int pageHeight  )
 {
 	int  escape;
@@ -663,12 +605,6 @@ bool ScWinPrint::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int
 	return ( (fileSize == bw) && ( br >= 0 ) );
 }
 
-/*! Set device params into DEVMODE structure according to print options
-\param options print options
-\param devMode pointer to a DEVMODE structure
-\retval none 
-\author Jean Ghali
-*/
 void ScWinPrint::setDeviceParams( PrintOptions& options, DEVMODE* devMode )
 {
 	HANDLE handle;
@@ -693,10 +629,6 @@ void ScWinPrint::setDeviceParams( PrintOptions& options, DEVMODE* devMode )
 	ClosePrinter( handle );
 }
 
-/*! Get the default printer
-\retval the default printer name on success or an empty string 
-\author Jean Ghali
-*/
 QString ScWinPrint::getDefaultPrinter( void )
 {
 	QString defPrinter;
@@ -743,11 +675,6 @@ QString ScWinPrint::getDefaultPrinter( void )
 	return defPrinter;
 }
 
-/*! Check if PostScript is supported by a printer device context
-\param dc the printer device context
-\retval return true if PostScript is supported 
-\author Jean Ghali
-*/
 bool ScWinPrint::isPostscriptPrinter( HDC dc )
 {
 	int	escapeCode;
@@ -780,11 +707,6 @@ bool ScWinPrint::isPostscriptPrinter( HDC dc )
 	return false;
 }
 
-/*! Get support for PostScript Passthrough
-\param dc the printer device context
-\retval the postscript passthrough escape code if success, 0 if the function fails
-\author Jean Ghali
-*/
 int	 ScWinPrint::getPSPassthroughSupport( HDC printerDC )
 {
 	int	escapeCode;
@@ -806,11 +728,6 @@ int	 ScWinPrint::getPSPassthroughSupport( HDC printerDC )
 	return 0;
 }
 
-/*! Check if a specified printer use the FILE: port
-\param printerName the printer name
-\retval return true if the specified printer print to the FILE: port 
-\author Jean Ghali
-*/
 bool ScWinPrint::printerUseFilePort( QString& printerName )
 {
  bool done;

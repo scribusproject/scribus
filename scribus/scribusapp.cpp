@@ -227,21 +227,6 @@ int ScribusQApp::init()
 	return EXIT_SUCCESS;
 }
 
-/*!
-\author Franz Schmid
-\author Alessandro Rimoldi
-\date Mon Feb  9 14:07:46 CET 2004
-\brief If the lang argument is empty, returns the value in the locales
-
-The lang is always a two character code, except for "en_GB" where
-the whole string is returned. For all the other locales starting
-with "en", no locale is returned.
-
-(Inspired from Klocale.cpp)
-
-\param lang QString a two letter string describing the lang environement
-\retval QString A string describing the language environement
-*/
 QStringList ScribusQApp::getLang(QString lang)
 {
 	QStringList langs;
@@ -293,16 +278,6 @@ QStringList ScribusQApp::getLang(QString lang)
 	return langs;
 }
 
-
-/*!
-\author Franz Schmid
-\author Alessandro Rimoldi
-\date Mon Feb  9 14:07:46 CET 2004
-\brief Loads the translations for Scribus and for the Plugins
-\param app QApplication pointer to the application object
-\param lang QString a two letter string describing the lang environement
-\retval void
-*/
 void ScribusQApp::installTranslators(const QStringList & langs)
 {
 	static QTranslator *trans = 0;
@@ -354,7 +329,8 @@ void ScribusQApp::changeGUILanguage(const QString & newGUILang)
 	installTranslators(newLangs);
 }
 
-// Format an arguments line for printing
+/*! \brief Format an arguments line for printing
+Helper procedure */
 static void printArgLine(QTextStream & ts, const char * smallArg,
 						  const char* fullArg, const QString desc)
 {
@@ -369,14 +345,6 @@ static void printArgLine(QTextStream & ts, const char * smallArg,
 	endl(ts);
 }
 
-/*!
-\author Franz Schmid
-\author Alessandro Rimoldi
-\date Mon Feb  9 14:07:46 CET 2004
-\brief If no argument specified the lang, returns the one in the locales
-\param lang QString a two letter string describing the lang environement
-\retval QString A string describing the language environement
-*/
 void ScribusQApp::showUsage()
 {
 	QFile f;
@@ -408,13 +376,6 @@ void ScribusQApp::showUsage()
 	endl(ts);
 }
 
-/*!
-\author Craig Bradney
-\date Wed Nov 18 2004
-\brief Instantiates the Language Manager and prints installed languages with brief instructions around
-\param None
-\retval None
-*/
 void ScribusQApp::showAvailLangs()
 {
 	QFile f;

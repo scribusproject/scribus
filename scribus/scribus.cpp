@@ -1145,9 +1145,6 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 	}
 }
 
-/*!
-  \brief Receive key events from palettes such as palette hiding events. Possibly easier way but this is cleaner than before. No need to modify all those palettes and each new one in future.
- */
 bool ScribusMainWindow::eventFilter( QObject */*o*/, QEvent *e )
 {
 	bool retVal;
@@ -3657,13 +3654,6 @@ void ScribusMainWindow::slotGetContent()
 	}
 }
 
-/*!
- \author Franz Schmid
- \date
- \brief Appends a Textfile to the Text in the selected Textframe at the Cursorposition
- \param None
- \retval None
- */
 void ScribusMainWindow::slotFileAppend()
 {
 	if (doc->selection->count() != 0)
@@ -4111,14 +4101,6 @@ void ScribusMainWindow::slotReallyPrint()
 	mainWindowStatusLabel->setText( tr("Ready"));
 }
 
-/*!
- \author Franz Schmid
- \date
- \brief Generate and print PostScript from a doc
- \param options PrintOptions struct to control all settings
- \sa ScribusMainWindow::slotFilePrint()
- \retval True for success
- */
 bool ScribusMainWindow::doPrint(PrintOptions *options)
 {
 	bool retw = false;
@@ -4923,13 +4905,6 @@ void ScribusMainWindow::duplicateToMasterPage()
 	delete dia;
 }
 
-/*!
-	\fn void ScribusMainWindow::slotZoom(double zoomFactor)
-	\author Craig Bradney
-	\date Sun 30 Jan 2005
-	\brief Take the ScMW zoom actions and pass the view a %. Actions have whole number values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
-	\param zoomFactor Value stored in the ScrAction.
- */
 void ScribusMainWindow::slotZoom(double zoomFactor)
 {
 	double finalZoomFactor;
@@ -7479,10 +7454,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 //	outlinePalette->reopenTree(doc->OpenNodes);
 //	slotDocCh();
 }
-/*!
- * @brief Apply master pages from the Apply Master Page dialog
- * @todo Make this work with real page numbers, negative numbers and document sections when they are implemented
- */
+
 void ScribusMainWindow::ApplyMasterPage()
 {
 	Q_ASSERT(!doc->masterPageMode());

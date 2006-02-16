@@ -131,12 +131,32 @@ public:
 	QLabel* arrowText;
 
 protected slots:
+	/*!
+	\author Franz Schmid
+	\brief TabTools (Tools, Image Frame), Sets Y Scale value from X Scale value when chain is toggled
+	*/
 	virtual void toggleChain();
+	/*!
+	\author Franz Schmid
+	\brief TabTools (Tools, Image Frame), Sets Y Scale value from X Scale value when X Scale value is changed
+	*/
 	virtual void hChange();
+	/*!
+	\author Franz Schmid
+	\brief TabTools (Tools, Image Frame). Sets X Scale value from Y Scale value when Y Scale value is changed
+	*/
 	virtual void vChange();
 	virtual void changeImageScalingFree(int);
 	virtual void changeImageScalingRatio(int);
+	/*!
+	\author Franz Schmid
+	\brief TabTools (Tools, Text frame), Sets the sample text in selected font in text frame preferences
+	*/
 	virtual void setSample();
+	/*!
+	\author Franz Schmid
+	\brief TabTools (Tools), Raises widget for selected Tool properties
+	*/
 	virtual void setTool();
 	virtual void setFillChar(int act);
 	virtual void setCustomFillChar(const QString &txt);

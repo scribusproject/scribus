@@ -37,7 +37,26 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		int init();
 		void initLang();
 		void parseCommandLine();
+		/*!
+		\author Franz Schmid
+		\author Alessandro Rimoldi
+		\date Mon Feb  9 14:07:46 CET 2004
+		\brief If the lang argument is empty, returns the value in the locales
+		The lang is always a two character code, except for "en_GB" where
+		the whole string is returned. For all the other locales starting
+		with "en", no locale is returned.
+		(Inspired from Klocale.cpp)
+		\param lang QString a two letter string describing the lang environement
+		\retval QStringList A string describing the language environement
+		*/
 		QStringList getLang(QString lang);
+		/*!
+		\author Franz Schmid
+		\author Alessandro Rimoldi
+		\date Mon Feb  9 14:07:46 CET 2004
+		\brief Loads the translations for Scribus and for the Plugins
+		\param langs QString a two letter string describing the lang environement
+		*/
 		void installTranslators(const QStringList & langs);
 		void changeGUILanguage(const QString & lang);
 		bool usingGUI() const;
@@ -63,7 +82,18 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		ScribusMainWindow *scribus;
 		void showHeader();
 		void showVersion();
+		/*!
+		\author Franz Schmid
+		\author Alessandro Rimoldi
+		\date Mon Feb  9 14:07:46 CET 2004
+		\brief If no argument specified the lang, returns the one in the locales
+		*/
 		void showUsage();
+		/*!
+		\author Craig Bradney
+		\date Wed Nov 18 2004
+		\brief Instantiates the Language Manager and prints installed languages with brief instructions around
+		*/
 		void showAvailLangs();
 
 		QString lang;
@@ -77,4 +107,5 @@ class SCRIBUS_API ScribusQApp : public QApplication
 	signals:
 		void appStarted();
 };
+
 #endif

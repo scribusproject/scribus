@@ -780,40 +780,18 @@ void TabTools::setFillChar(int act)
 	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
 }
 
-/*!
- \author Franz Schmid
- \date
- \brief TabTools (Tools, Image Frame), Sets Y Scale value from X Scale value when chain is toggled
- \param None
- \retval None
- */
 void TabTools::toggleChain()
 {
 	if (chainButton->isOn())
 		scalingVertical->setValue(scalingHorizontal->value());
 }
 
-/*!
- \author Franz Schmid
- \date
- \brief TabTools (Tools, Image Frame), Sets Y Scale value from X Scale value when X Scale value is changed
- \param None
- \retval None
- */
 void TabTools::hChange()
 {
 	if (chainButton->isOn())
 		scalingVertical->setValue(scalingHorizontal->value());
 }
 
-/*!
- \fn void TabTools::vChange()
- \author Franz Schmid
- \date
- \brief TabTools (Tools, Image Frame). Sets X Scale value from Y Scale value when Y Scale value is changed
- \param None
- \retval None
- */
 void TabTools::vChange()
 {
 	if (chainButton->isOn())
@@ -836,13 +814,6 @@ void TabTools::changeImageScalingRatio(int)
 		buttonGroup3->setChecked(true);
 }
 
-/*!
- \author Franz Schmid
- \date
- \brief TabTools (Tools, Text frame), Sets the sample text in selected font in text frame preferences
- \param None
- \retval None
- */
 void TabTools::setSample()
 {
 	SampleItem *si = new SampleItem();
@@ -888,13 +859,6 @@ void TabTools::setSample()
 	delete si;
 }
 
-/*!
- \author Franz Schmid
- \date
- \brief TabTools (Tools), Raises widget for selected Tool properties
- \param None
- \retval None
- */
 void TabTools::setTool()
 {
 	if (toolText == sender())

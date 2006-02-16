@@ -51,15 +51,6 @@ ScriXmlDoc::ScriXmlDoc()
 	prefsManager=PrefsManager::instance();
 }
 
-
-/*!
-	\fn ScriXmlDoc::IsScribus(QString fileName)
-	\author Frederic Dubuy <effediwhy@gmail.com>, Petr Vanek
-	\date august 17th 2004, 10/03/2004
-	\brief Preliminary Scribus file validator. totally rewritten when fixing crash bug #1092. It's much simpler now.
-	\param Qtring filename of file to test
-	\retval true = Scribus format file, false : not Scribus
-*/
 bool ScriXmlDoc::IsScribus(QString fileName)
 {
 	QString fText(FileLoader::readSLA(fileName));
