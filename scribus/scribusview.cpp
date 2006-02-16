@@ -10171,6 +10171,15 @@ void ScribusView::unitChange()
 	horizRuler->unitChange();
 }
 
+void ScribusView::setRulersShown(bool isShown)
+{
+	vertRuler->setShown(isShown);
+	horizRuler->setShown(isShown);
+	rulerMover->setShown(isShown);
+	int newTopLeftMargin = isShown ? 17 : 0;
+	setMargins(newTopLeftMargin, newTopLeftMargin, 0, 0);
+}
+
 void ScribusView::setScale(const double newScale)
 {
 	Scale=newScale;

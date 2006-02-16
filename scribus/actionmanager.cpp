@@ -387,6 +387,7 @@ void ActionManager::initViewMenuActions()
 	scrActions->insert("viewShowBaseline", new ScrAction(ScMW, "viewShowBaseline"));
 	scrActions->insert("viewShowTextChain", new ScrAction(ScMW, "viewShowTextChain"));
 	scrActions->insert("viewShowTextControls", new ScrAction(ScMW, "viewShowTextControls"));
+	scrActions->insert("viewShowRulers", new ScrAction("", CTRL+SHIFT+Key_R, ScMW, "viewShowRulers"));
 	scrActions->insert("viewRulerMode", new ScrAction(ScMW, "viewRulerMode"));
 	scrActions->insert("viewSnapToGrid", new ScrAction(ScMW, "viewSnapToGrid"));
 	scrActions->insert("viewSnapToGuides", new ScrAction(ScMW, "viewSnapToGuides"));
@@ -400,6 +401,7 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewShowBaseline"]->setToggleAction(true);
 	(*scrActions)["viewShowTextChain"]->setToggleAction(true);
 	(*scrActions)["viewShowTextControls"]->setToggleAction(true);
+	(*scrActions)["viewShowRulers"]->setToggleAction(true);
 	(*scrActions)["viewRulerMode"]->setToggleAction(true);
 	(*scrActions)["viewSnapToGrid"]->setToggleAction(true);
 	(*scrActions)["viewSnapToGuides"]->setToggleAction(true);
@@ -408,6 +410,7 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewShowFrames"]->setOn(true);
 	(*scrActions)["viewShowImages"]->setOn(true);
 	(*scrActions)["viewShowGuides"]->setOn(true);
+	(*scrActions)["viewShowRulers"]->setOn(true);
 	(*scrActions)["viewRulerMode"]->setOn(true);
 
 	connect( (*scrActions)["viewFitInWindow"], SIGNAL(activatedData(double)), ScMW, SLOT(slotZoom(double)) );
@@ -424,7 +427,8 @@ void ActionManager::initViewMenuActions()
 	connect( (*scrActions)["viewShowBaseline"], SIGNAL(activated()), ScMW, SLOT(ToggleBase()) );
 	connect( (*scrActions)["viewShowTextChain"], SIGNAL(activated()), ScMW, SLOT(ToggleTextLinks()) );
 	connect( (*scrActions)["viewShowTextControls"], SIGNAL(activated()), ScMW, SLOT(ToggleTextControls()) );
-	connect( (*scrActions)["viewRulerMode"], SIGNAL(activated()), ScMW, SLOT(ToggleRuler()) );
+	connect( (*scrActions)["viewShowRulers"], SIGNAL(activated()), ScMW, SLOT(ToggleRulers()) );
+	connect( (*scrActions)["viewRulerMode"], SIGNAL(activated()), ScMW, SLOT(ToggleRulerMode()) );
 	connect( (*scrActions)["viewSnapToGrid"], SIGNAL(activated()), ScMW, SLOT(ToggleURaster()) );
 	connect( (*scrActions)["viewSnapToGuides"], SIGNAL(activated()), ScMW, SLOT(ToggleUGuides()) );
 //	connect( (*scrActions)["viewNewView"], SIGNAL(activated()), ScMW, SLOT(newView()) );
@@ -958,6 +962,7 @@ void ActionManager::languageChange()
 	(*scrActions)["viewShowBaseline"]->setTexts( tr("Show &Baseline Grid"));
 	(*scrActions)["viewShowTextChain"]->setTexts( tr("Show &Text Chain"));
 	(*scrActions)["viewShowTextControls"]->setTexts( tr("Show Control Characters"));
+	(*scrActions)["viewShowRulers"]->setTexts( tr("Show Rulers"));
 	(*scrActions)["viewRulerMode"]->setTexts( tr("Rulers relative to Page"));
 	(*scrActions)["viewSnapToGrid"]->setTexts( tr("Sn&ap to Grid"));
 	(*scrActions)["viewSnapToGuides"]->setTexts( tr("Sna&p to Guides"));

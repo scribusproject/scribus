@@ -391,7 +391,8 @@ public slots:
 	void ToggleFrames();
 	void ToggleTextLinks();
 	void ToggleTextControls();
-	void ToggleRuler();
+	void ToggleRulers();
+	void ToggleRulerMode();
 	/* Schaltet Masspalette ein/aus */
 	//void togglePropertiesPalette();
 	/* Schaltet Uebersichtspalette ein/aus*/
@@ -587,8 +588,8 @@ private:
 	int viewBopal;
 	int viewUndoPalette;
 
-	bool PalettesStat[10];
-	bool GuidesStat[9];
+	bool palettesStatus[10];
+	bool guidesStatus[10];
 
 	bool keyrep;
 	/** @brief Tells if an arrow key is pressed down */

@@ -644,7 +644,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					Neu->moveBy(-pageX + Apage->xOffset(), - pageY + Apage->yOffset());
 					//view->setRedrawBounding(Neu);
 					Neu->setRedrawBounding();
-					//CB Must run onpage as we cant use pagetoload if the page has been renamedash. 
+					//CB Must run onpage as we cant use pagetoload if the page has been renamed. 
 					//CB TODO Make this accept a page to place onto.
 					Neu->OwnPage = doc->OnPage(Neu);
 					//Neu->OwnPage = PageToLoad;
@@ -959,6 +959,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		doc->guidesSettings.linkShown = static_cast<bool>(dc.attribute("SHOWLINK", "0").toInt());
 		doc->guidesSettings.showControls = static_cast<bool>(dc.attribute("SHOWControl", "0").toInt());
 		doc->guidesSettings.rulerMode = static_cast<bool>(dc.attribute("rulerMode", "1").toInt());
+		doc->guidesSettings.rulersShown = static_cast<bool>(dc.attribute("showrulers", "1").toInt());
 		doc->rulerXoffset = dc.attribute("rulerXoffset", "0").toDouble();
 		doc->rulerYoffset =dc.attribute("rulerYoffset", "0").toDouble();
 		doc->SnapGuides = static_cast<bool>(dc.attribute("SnapToGuides", "0").toInt());

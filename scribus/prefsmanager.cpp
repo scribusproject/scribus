@@ -191,6 +191,7 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesSettings.showPic = true;
 	appPrefs.guidesSettings.showControls = false;
 	appPrefs.guidesSettings.linkShown = false;
+	appPrefs.guidesSettings.rulersShown = true;
 	appPrefs.guidesSettings.rulerMode = true;
 	appPrefs.guidesSettings.grabRad = 4;
 	appPrefs.guidesSettings.guideRad = 10;
@@ -862,6 +863,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("SHOWLINK", static_cast<int>(appPrefs.guidesSettings.linkShown));
 	dc.setAttribute("SHOWPICT", static_cast<int>(appPrefs.guidesSettings.showPic));
 	dc.setAttribute("SHOWControl", static_cast<int>(appPrefs.guidesSettings.showControls));
+	dc.setAttribute("rulersShown", static_cast<int>(appPrefs.guidesSettings.rulersShown));
 	dc.setAttribute("rulerMode", static_cast<int>(appPrefs.guidesSettings.rulerMode));
 	dc.setAttribute("ScratchBottom", appPrefs.ScratchBottom);
 	dc.setAttribute("ScratchLeft", appPrefs.ScratchLeft);
@@ -1299,6 +1301,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.guidesSettings.linkShown = static_cast<bool>(dc.attribute("SHOWLINK", "0").toInt());
 			appPrefs.guidesSettings.showPic = static_cast<bool>(dc.attribute("SHOWPICT", "1").toInt());
 			appPrefs.guidesSettings.showControls = static_cast<bool>(dc.attribute("SHOWControl", "0").toInt());
+			appPrefs.guidesSettings.rulersShown = static_cast<bool>(dc.attribute("rulersShown", "1").toInt());
 			appPrefs.guidesSettings.rulerMode = static_cast<bool>(dc.attribute("rulerMode", "1").toInt());
 			appPrefs.haveStylePreview = static_cast<bool>(dc.attribute("STYLEPREVIEW", "1").toInt());
 			appPrefs.showStartupDialog = static_cast<bool>(dc.attribute("StartUp", "1").toInt());

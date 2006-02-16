@@ -241,6 +241,7 @@ public:
 public slots: // Public slots
 	void languageChange();
 	void unitChange();
+	void setRulersShown(bool isShown);
   /** Zooms in or out */
 	void slotDoZoom();
 	void slotZoom100();
