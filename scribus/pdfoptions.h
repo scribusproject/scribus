@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 /**
  * @file pdfoptions.h
- * @author Franz Schmidt
+ * @author Franz Schmid
  * @author Craig Ringer
  * @brief Defines class PDFOptions, used for loading/saving/passing around PDF options
  */
@@ -97,6 +97,7 @@ public:
 	QValueList<QString> SubsetList;
 	bool MirrorH;
 	bool MirrorV;
+	bool doClip;
 	int RotateDeg;
 	bool PresentMode;
 	QValueList<PDFPresentationData> PresentVals;

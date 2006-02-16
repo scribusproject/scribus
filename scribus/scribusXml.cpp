@@ -3349,6 +3349,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	pdf.setAttribute("Quality", doc->PDF_Options.Quality);
 	pdf.setAttribute("MirrorH", static_cast<int>(doc->PDF_Options.MirrorH));
 	pdf.setAttribute("MirrorV", static_cast<int>(doc->PDF_Options.MirrorV));
+	pdf.setAttribute("Clip", static_cast<int>(doc->PDF_Options.doClip));
 	pdf.setAttribute("RotateDeg", static_cast<int>(doc->PDF_Options.RotateDeg));
 	pdf.setAttribute("PresentMode", static_cast<int>(doc->PDF_Options.PresentMode));
 	pdf.setAttribute("RecalcPic", static_cast<int>(doc->PDF_Options.RecalcPic));

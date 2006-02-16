@@ -1066,6 +1066,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->PDF_Options.BleedTop = tabPDF->BleedTop->value() / currDoc->unitRatio();
 	currDoc->PDF_Options.BleedLeft = tabPDF->BleedLeft->value() / currDoc->unitRatio();
 	currDoc->PDF_Options.BleedRight = tabPDF->BleedRight->value() / currDoc->unitRatio();
+	currDoc->PDF_Options.doClip = tabPDF->ClipMarg->isChecked();
 	/* DISABLED CR 2006-12-07 Work around #2964
 	currDoc->PDF_Options.displayBookmarks = tabPDF->useBookmarks->isChecked();
 	currDoc->PDF_Options.displayFullscreen = tabPDF->useFullScreen->isChecked();

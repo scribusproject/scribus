@@ -180,6 +180,7 @@ void PDFExportDialog::updateDocOptions()
 	Opts.Binding = Options->ComboBind->currentItem();
 	Opts.MirrorH = Options->MirrorH->isOn();
 	Opts.MirrorV = Options->MirrorV->isOn();
+	Opts.doClip = Options->ClipMarg->isChecked();
 	Opts.RotateDeg = Options->RotateDeg->currentItem() * 90;
 	Opts.PresentMode = Options->CheckBox10->isChecked();
 	Opts.PresentVals = EffVal;

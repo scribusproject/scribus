@@ -466,7 +466,7 @@ static PyObject *Printer_print(Printer *self)
 		if (PSfile)
 		{
 			QStringList spots;
-			dd->CreatePS(ScMW->doc, /*ScMW->view, */pageNs, sep, SepName, spots, color, mirrorH, mirrorV, useICC, DoGCR, false);
+			dd->CreatePS(ScMW->doc, /*ScMW->view, */pageNs, sep, SepName, spots, color, mirrorH, mirrorV, useICC, DoGCR, false, false);
 			if (PSLevel != 3)
 			{
 				QString tmp;

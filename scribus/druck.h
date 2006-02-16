@@ -52,6 +52,7 @@ public:
 	bool mirrorHorizontal();
 	bool mirrorVertical();
 	bool doGCR();
+	bool doClip();
 	int PSLevel();
 	bool doDev();
 	bool doSpot();
@@ -108,6 +109,7 @@ private:
 	QCheckBox* MirrorVert;
 	QCheckBox* devPar;
 	QButtonGroup* colorOpts;
+	QCheckBox* ClipMarg;
 	QCheckBox* GcR;
 	QCheckBox* spotColors;
 	QCheckBox* UseICC;

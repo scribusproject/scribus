@@ -554,7 +554,7 @@ bool ScWinPrint::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& optio
 	PSLib *dd = new PSLib( true, PrefsManager::instance()->appPrefs.AvailFonts, usedFonts, usedColors, false, options.useSpotColors );
 	dd->PS_set_file( tempFilePath );
 	dd->CreatePS( doc, pageNumber, options.outputSeparations, options.separationName, options.allSeparations, options.useColor, 
-				  options.mirrorH, options.mirrorV, options.useICC, options.doGCR, options.setDevParam);
+				  options.mirrorH, options.mirrorV, options.useICC, options.doGCR, options.setDevParam, options.doClip);
 	delete dd;
 
 	if ( options.PSLevel == 1 || options.PSLevel == 2 )

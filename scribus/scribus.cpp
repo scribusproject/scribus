@@ -574,7 +574,7 @@ void ScribusMainWindow::initScrapbook()
 	if (scrapbookFileInfo.exists())
 		scrapbookPalette->readContents(scrapbookFile);
 	scrapbookPalette->setScrapbookFileName(scrapbookFile);
-	scrapbookPalette->AdjustMenu();
+//	scrapbookPalette->AdjustMenu();
 }
 
 const QString ScribusMainWindow::getGuiLanguage()
@@ -4061,6 +4061,7 @@ void ScribusMainWindow::slotReallyPrint()
 		options.mirrorH = printer->mirrorHorizontal();
 		options.mirrorV = printer->mirrorVertical();
 		options.useICC = printer->ICCinUse();
+		options.doClip = printer->doClip();
 		options.doGCR = printer->doGCR();
 		options.PSLevel = printer->PSLevel();
 		options.setDevParam = printer->doDev();
@@ -4152,7 +4153,7 @@ bool ScribusMainWindow::doPrint(PrintOptions *options)
 			// Write the PS to a file
 			ScColor::UseProf = options->useICC;
 			int psCreationRetVal=dd->CreatePS(doc, options->pageNumbers, options->outputSeparations, options->separationName, options->allSeparations,
-			               options->useColor, options->mirrorH, options->mirrorV, options->useICC, options->doGCR, options->setDevParam);
+			               options->useColor, options->mirrorH, options->mirrorV, options->useICC, options->doGCR, options->setDevParam, options->doClip);
 			if (psCreationRetVal!=0)
 			{
 				unlink(filename);
@@ -6851,8 +6852,8 @@ void ScribusMainWindow::slotPrefsOrg()
 		dia->updatePreferences();
 		prefsManager->SavePrefs();
 		DocDir = prefsManager->documentDir();
-		scrapbookPalette->rebuildView();
-		scrapbookPalette->AdjustMenu();
+//		scrapbookPalette->rebuildView();
+//		scrapbookPalette->AdjustMenu();
 		QString newGUILanguage=prefsManager->guiLanguage();
 		if (oldGUILanguage!=newGUILanguage)
 			ScQApp->changeGUILanguage(newGUILanguage);
@@ -7020,7 +7021,7 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn)
 	if (dd != NULL)
 	{
 		if (dd->PS_set_file(fn))
-			dd->CreatePS(doc, /*view, */pageNs, false, tr("All"), spots, true, false, false, true, prefsManager->appPrefs.GCRMode, false);
+			dd->CreatePS(doc, /*view, */pageNs, false, tr("All"), spots, true, false, false, true, prefsManager->appPrefs.GCRMode, false, true);
 		else
 			return_value = false;
 		delete dd;

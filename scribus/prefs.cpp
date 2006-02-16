@@ -383,7 +383,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	tabKeys = new KeyManager(prefsWidgets, prefsData->KeyActions);
 	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), tabKeys);
-
+/*
 	tab_5 = new QWidget( prefsWidgets, "tab_5" );
 	tabLayout_5 = new QGridLayout( tab_5 );
 	tabLayout_5->setSpacing( 5 );
@@ -408,7 +408,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	previewLayout->addWidget( PreviewSize );
 	tabLayout_5->addWidget( preview, 0, 0 );
 	addItem(  tr("Scrapbook"), loadIcon("scrap.png"), tab_5);
-
+*/
 	tabView = new QWidget( prefsWidgets, "tabView" );
 	tabViewLayout = new QVBoxLayout( tabView, 0, 5, "tabViewLayout");
 	tabViewLayout->setAlignment( Qt::AlignTop );
@@ -634,7 +634,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	Misc = new QWidget( prefsWidgets, "Misc" );
 	MiscLayout = new QVBoxLayout( Misc, 0, 5, "MiscLayout");
 	MiscLayout->setAlignment( Qt::AlignTop );
-	groupPrint = new QGroupBox( tr( "Printing" ), Misc, "groupPrint" );
+/*	groupPrint = new QGroupBox( tr( "Printing" ), Misc, "groupPrint" );
 	groupPrint->setColumnLayout(0, Qt::Vertical );
 	groupPrint->layout()->setSpacing( 10 );
 	groupPrint->layout()->setMargin( 10 );
@@ -646,7 +646,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	DoGCR = new QCheckBox( tr( "Apply &Under Color Removal" ), groupPrint, "ClipMarg" );
 	DoGCR->setChecked(prefsData->GCRMode);
 	groupPrintLayout->addWidget( DoGCR );
-	MiscLayout->addWidget( groupPrint );
+	MiscLayout->addWidget( groupPrint ); */
 	AskForSubs = new QCheckBox( tr( "Always ask before fonts are replaced when loading a document" ), Misc, "askforSubs" );
 	AskForSubs->setChecked(prefsData->askBeforeSubstituite);
 	MiscLayout->addWidget( AskForSubs );
@@ -729,7 +729,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	QToolTip::add( urSpinBox, "<qt>" + tr("Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.") + "</qt>");
 
-	QToolTip::add( PreviewSize, "<qt>" + tr( "Choose the size of the preview in the scrapbook palette" ) + "</qt>" );
+//	QToolTip::add( PreviewSize, "<qt>" + tr( "Choose the size of the preview in the scrapbook palette" ) + "</qt>" );
 
 	QToolTip::add( backColor, "<qt>" + tr( "Color for paper" ) + "</qt>");
 	QToolTip::add( checkUnprintable, "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
@@ -743,14 +743,14 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 						"and your distro includes it, we recommend 'gimp-remote', "
 						"as it allows you to edit the image in an already running "
 								"instance of gimp." ) + "</qt>" );
-	QToolTip::add( ClipMarg, "<qt>" + tr( "Do not show objects outside the margins on the printed page or exported file" ) + "</qt>" );
+/*	QToolTip::add( ClipMarg, "<qt>" + tr( "Do not show objects outside the margins on the printed page or exported file" ) + "</qt>" );
 	QToolTip::add( DoGCR, "<qt>" + tr( "A way of switching off some of the gray shades which are composed "
 		                          "of cyan, yellow and magenta and using black instead. "
 		                          "UCR most affects parts of images which are neutral and/or dark tones "
 		                          "which are close to the gray. Use of this may improve printing some images "
 		                          "and some experimentation and testing is need on a case by case basis. "
 										  "UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>" );
-
+*/
 	QToolTip::add( leftScratch, "<qt>" + tr( "Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
 	QToolTip::add( rightScratch, "<qt>" + tr( "Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
 	QToolTip::add( topScratch, "<qt>" + tr( "Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
@@ -1173,7 +1173,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.ProfileDir = ProPfad->text();
 	prefsManager->appPrefs.ScriptDir = ScriptPfad->text();
 	prefsManager->appPrefs.documentTemplatesDir = DocumentTemplateDir->text();
-	switch (PreviewSize->currentItem())
+/*	switch (PreviewSize->currentItem())
 	{
 		case 0:
 			prefsManager->appPrefs.PSize = 40;
@@ -1184,7 +1184,7 @@ void Preferences::updatePreferences()
 		case 2:
 			prefsManager->appPrefs.PSize = 80;
 			break;
-	}
+	} */
 	prefsManager->appPrefs.guiLanguage=selectedGUILang;
 	prefsManager->appPrefs.GUI = GUICombo->currentText();
 	tabTools->polyWidget->getValues(&prefsManager->appPrefs.toolSettings.polyC, &prefsManager->appPrefs.toolSettings.polyFd, &prefsManager->appPrefs.toolSettings.polyF, &prefsManager->appPrefs.toolSettings.polyS, &prefsManager->appPrefs.toolSettings.polyR);
@@ -1206,8 +1206,8 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.gs_AntiAliasText = GSantiText->isChecked();
 	prefsManager->setGhostscriptExecutable(ghostscriptLineEdit->text());
 	prefsManager->appPrefs.gs_Resolution = GSResolution->value();
-	prefsManager->appPrefs.ClipMargin = ClipMarg->isChecked();
-	prefsManager->appPrefs.GCRMode = DoGCR->isChecked();
+//	prefsManager->appPrefs.ClipMargin = ClipMarg->isChecked();
+//	prefsManager->appPrefs.GCRMode = DoGCR->isChecked();
 	prefsManager->appPrefs.guidesSettings.before = tabGuides->inBackground->isChecked();
 	prefsManager->appPrefs.marginColored = checkUnprintable->isChecked();
 	prefsManager->appPrefs.askBeforeSubstituite = AskForSubs->isChecked();
@@ -1410,6 +1410,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.PDF_Options.BleedTop = tabPDF->BleedTop->value() / prefsUnitRatio;
 	prefsManager->appPrefs.PDF_Options.BleedLeft = tabPDF->BleedLeft->value() / prefsUnitRatio;
 	prefsManager->appPrefs.PDF_Options.BleedRight = tabPDF->BleedRight->value() / prefsUnitRatio;
+	prefsManager->appPrefs.PDF_Options.doClip = tabPDF->ClipMarg->isChecked();
 	if (tabPDF->Encry->isChecked())
 	{
 		int Perm = -64;

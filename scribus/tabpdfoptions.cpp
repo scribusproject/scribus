@@ -53,6 +53,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	CheckBM(0),
 	CheckBox1(0),
 	CMethod(0),
+	ClipMarg(0),
 	ComboBind(0),
 	Compression(0),
 	continuousPages(0),
@@ -277,6 +278,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	MirrorV->setOn(Opts.MirrorV);
 	Layout11a->addWidget( MirrorV, 0, 1 );
 	RangeGroupLayout->addLayout( Layout11a );
+	ClipMarg = new QCheckBox( tr( "Clip to Page Margins" ), RangeGroup, "ClipMarg" );
+	ClipMarg->setChecked(Opts.doClip);
+	RangeGroupLayout->addWidget( ClipMarg );
 	Layout13->addWidget( RangeGroup );
 
 	GroupBox1 = new QGroupBox( tr( "File Options" ), tabGeneral, "GroupBox1" );

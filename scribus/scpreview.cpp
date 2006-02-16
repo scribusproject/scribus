@@ -81,7 +81,8 @@ QPixmap ScPreview::createPreview(QString data)
 	double GrY = elem.attribute("YP").toDouble();
 	double GrW = elem.attribute("W").toDouble();
 	double GrH = elem.attribute("H").toDouble();
-	double pmmax = prefsManager->appPrefs.PSize / QMAX(GrW+50, GrH+50);
+//	double pmmax = prefsManager->appPrefs.PSize / QMAX(GrW+50, GrH+50);
+	double pmmax = 60 / QMAX(GrW+50, GrH+50);
 	QPixmap tmp(static_cast<int>(GrW)+50, static_cast<int>(GrH)+50);
 	ScPainter *pS = new ScPainter(&tmp, tmp.width(), tmp.height());
 	pS->translate(25,25);

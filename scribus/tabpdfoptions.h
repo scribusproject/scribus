@@ -64,6 +64,7 @@ public:
 	QCheckBox* CheckBM;
 	QCheckBox* CheckBox1;
 	QComboBox* CMethod;
+	QCheckBox* ClipMarg;
 	QComboBox* ComboBind;
 	QCheckBox* Compression;
 	QRadioButton* continuousPages;

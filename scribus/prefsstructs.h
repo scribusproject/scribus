@@ -159,7 +159,7 @@ struct ApplicationPrefs
 	ToCSetupVector defaultToCSetups;
 	bool SepalT;
 	bool SepalN;
-	int PSize;
+//	int PSize;
 	bool marginColored;
 	QStringList RecentDocs;
 	uint RecentDCount;

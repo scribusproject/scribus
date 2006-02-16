@@ -147,10 +147,11 @@ public:
 	TOCIndexPrefs* tabDefaultTOCIndexPrefs;
 	KeyManager* tabKeys;
 
-	QLabel* textLabelP;
+/*	QLabel* textLabelP;
 	QWidget* tab_5;
 	QGroupBox* preview;
 	QComboBox* PreviewSize;
+*/
 	QWidget* tab_7;
 	QButtonGroup* GroupSize;
 	QLabel* GZText2;
@@ -188,9 +189,9 @@ public:
 	QLineEdit* imageEditorLineEdit;
 	QToolButton* imageEditorChangeButton;
 	QWidget* Misc;
-	QGroupBox* groupPrint;
-	QCheckBox* ClipMarg;
-	QCheckBox* DoGCR;
+//	QGroupBox* groupPrint;
+//	QCheckBox* ClipMarg;
+//	QCheckBox* DoGCR;
 	QCheckBox* AskForSubs;
 	QCheckBox* stylePreview;
 	QCheckBox* startUpDialog;
@@ -309,8 +310,8 @@ protected:
 	QGridLayout* tabLayout;
 	QGridLayout* ButtonGroup1Layout;
 	QGridLayout* GroupBox200Layout;
-	QGridLayout* tabLayout_5;
-	QHBoxLayout* previewLayout;
+//	QGridLayout* tabLayout_5;
+//	QHBoxLayout* previewLayout;
 	QHBoxLayout* Layout3;
 	QHBoxLayout* tabLayout_7;
 	QVBoxLayout* Layout21;
@@ -325,8 +326,8 @@ protected:
 	
 	QHBoxLayout* GSlayout2;
 	QVBoxLayout* MiscLayout;
-	QVBoxLayout* groupPrintLayout;
-	//! \brief layout of the lorem ipsum group
+//	QVBoxLayout* groupPrintLayout;
+	//! layout of the lorem ipsum group
 	QVBoxLayout* groupLILayout;
 	QVBoxLayout* tabViewLayout;
 	QGridLayout* pageBackgroundLayout;

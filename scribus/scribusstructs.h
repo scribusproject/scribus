@@ -300,6 +300,7 @@ struct PrintOptions
 	bool mirrorV;
 	bool useICC;
 	bool doGCR;
+	bool doClip;
 	bool setDevParam;
 	int copies;
 	std::vector<int> pageNumbers;

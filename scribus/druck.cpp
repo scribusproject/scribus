@@ -209,6 +209,8 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, QByte
 	devPar = new QCheckBox( pageOpts, "devPar" );
 	devPar->setText( tr( "Set Media Size" ) );
 	pageOptsLayout->addWidget( devPar );
+	ClipMarg = new QCheckBox( tr( "Clip to Page Margins" ), pageOpts, "ClipMarg" );
+	pageOptsLayout->addWidget( ClipMarg );
 	tabLayout_2->addWidget( pageOpts );
 	colorOpts = new QButtonGroup( tab_2, "colorOpts" );
 	colorOpts->setTitle( tr( "Color" ) );
@@ -266,6 +268,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, QByte
 
 	setMaximumSize(sizeHint());
 	PrintDest->setFocus();
+	QToolTip::add( ClipMarg, "<qt>" + tr( "Do not show objects outside the margins on the printed page or exported file" ) + "</qt>" );
 	QToolTip::add( PageNr, tr( "Insert a comma separated list of tokens where\n"
 		                           "a token can be * for all the pages, 1-5 for\n"
 		                           "a range of pages or a single page number.") );
@@ -515,6 +518,7 @@ void Druck::okButtonClicked()
 	prefs->set("MirrorH", MirrorHor->isChecked());
 	prefs->set("MirrorV", MirrorVert->isChecked());
 	prefs->set("DoGCR", GcR->isChecked());
+	prefs->set("Clip", ClipMarg->isChecked());
 	prefs->set("PSLevel", psLevel->currentItem() + 1);
 	prefs->set("doDev", devPar->isChecked());
 	prefs->set("doSpot", !spotColors->isChecked());
@@ -558,6 +562,7 @@ void Druck::setStoredValues(bool gcr)
 	MirrorHor->setChecked(prefs->getBool("MirrorV", false));
 	devPar->setChecked(prefs->getBool("doDev", false));
 	GcR->setChecked(prefs->getBool("DoGCR", gcr));
+	ClipMarg->setChecked(prefs->getBool("Clip", false));
 	spotColors->setChecked(!prefs->getBool("doSpot", true));
 #ifdef HAVE_CMS
 	if (CMSuse)
@@ -631,6 +636,11 @@ bool Druck::mirrorVertical()
 bool Druck::doGCR()
 {
 	return GcR->isChecked();
+}
+
+bool Druck::doClip()
+{
+	return ClipMarg->isChecked();
 }
 
 int Druck::PSLevel()

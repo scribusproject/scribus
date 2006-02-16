@@ -980,7 +980,7 @@ void PSLib::PS_insert(QString i)
 	PutDoc(i);
 }
 
-int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev)
+int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev, bool doClip)
 {
 	uint a;
 	int sepac;
@@ -1138,7 +1138,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 			PS_begin_page(Doc->Pages->at(a)->width(), Doc->Pages->at(a)->height(), &Ma, true);
 		}
 		else
-			PS_begin_page(Doc->Pages->at(a)->width(), Doc->Pages->at(a)->height(), &Doc->Pages->at(a)->Margins, PrefsManager::instance()->appPrefs.ClipMargin);
+			PS_begin_page(Doc->Pages->at(a)->width(), Doc->Pages->at(a)->height(), &Doc->Pages->at(a)->Margins, doClip);
 		if (Hm)
 		{
 			PS_translate(Doc->Pages->at(a)->width(), 0);

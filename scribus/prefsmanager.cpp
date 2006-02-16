@@ -257,7 +257,7 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.polyS = false;
 	appPrefs.toolSettings.polyFd = 0;
 	appPrefs.toolSettings.polyR = 0;
-	appPrefs.PSize = 40;
+//	appPrefs.PSize = 40;
 	appPrefs.ClipMargin = false;
 	appPrefs.GCRMode = false;
 	appPrefs.RecentDocs.clear();
@@ -379,6 +379,7 @@ void PrefsManager::initDefaults()
 	appPrefs.PDF_Options.SubsetList.clear();
 	appPrefs.PDF_Options.MirrorH = false;
 	appPrefs.PDF_Options.MirrorV = false;
+	appPrefs.PDF_Options.doClip = false;
 	appPrefs.PDF_Options.RotateDeg = 0;
 	appPrefs.PDF_Options.PresentMode = false;
 	appPrefs.PDF_Options.Datei = "";
@@ -968,9 +969,9 @@ bool PrefsManager::WritePref(QString ho)
 	dc4.setAttribute("WIDTH",appPrefs.mainWinSettings.width);
 	dc4.setAttribute("HEIGHT",appPrefs.mainWinSettings.height);
 	elem.appendChild(dc4);
-	QDomElement dc73=docu.createElement("SCRAPBOOK");
+/*	QDomElement dc73=docu.createElement("SCRAPBOOK");
 	dc73.setAttribute("PREVIEW",appPrefs.PSize);
-	elem.appendChild(dc73);
+	elem.appendChild(dc73); */
 	QDomElement dc75=docu.createElement("PAGEPALETTE");
 	dc75.setAttribute("THUMBS", static_cast<int>(appPrefs.SepalT));
 	dc75.setAttribute("NAMES", static_cast<int>(appPrefs.SepalN));
@@ -1140,6 +1141,7 @@ bool PrefsManager::WritePref(QString ho)
 	pdf.setAttribute("Quality", appPrefs.PDF_Options.Quality);
 	pdf.setAttribute("MirrorH", static_cast<int>(appPrefs.PDF_Options.MirrorH));
 	pdf.setAttribute("MirrorV", static_cast<int>(appPrefs.PDF_Options.MirrorV));
+	pdf.setAttribute("Clip", static_cast<int>(appPrefs.PDF_Options.doClip));
 	pdf.setAttribute("RotateDeg", static_cast<int>(appPrefs.PDF_Options.RotateDeg));
 	pdf.setAttribute("PresentMode", static_cast<int>(appPrefs.PDF_Options.PresentMode));
 	pdf.setAttribute("RecalcPic", static_cast<int>(appPrefs.PDF_Options.RecalcPic));
@@ -1452,10 +1454,10 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.SepalT = static_cast<bool>(dc.attribute("THUMBS").toInt());
 			appPrefs.SepalN = static_cast<bool>(dc.attribute("NAMES").toInt());
 		}
-		if (dc.tagName()=="SCRAPBOOK")
+/*		if (dc.tagName()=="SCRAPBOOK")
 		{
 			appPrefs.PSize = dc.attribute("PREVIEW").toInt();
-		}
+		} */
 		if (dc.tagName() == "DOKUMENT")
 		{
 			appPrefs.pageSize = dc.attribute("PAGESIZE","A4");
@@ -1654,6 +1656,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.PDF_Options.Bookmarks = static_cast<bool>(dc.attribute("Bookmarks").toInt());
 			appPrefs.PDF_Options.MirrorH = static_cast<bool>(dc.attribute("MirrorH").toInt());
 			appPrefs.PDF_Options.MirrorV = static_cast<bool>(dc.attribute("MirrorV").toInt());
+			appPrefs.PDF_Options.doClip = static_cast<bool>(dc.attribute("Clip").toInt());
 			appPrefs.PDF_Options.RotateDeg = dc.attribute("RotateDeg", "0").toInt();
 			appPrefs.PDF_Options.PresentMode = static_cast<bool>(dc.attribute("PresentMode").toInt());
 			appPrefs.PDF_Options.PicRes = dc.attribute("PicRes").toInt();

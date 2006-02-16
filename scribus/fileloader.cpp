@@ -1289,6 +1289,10 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					doc->PDF_Options.RotateDeg = pg.attribute("RotateDeg", "0").toInt();
 				else
 					doc->PDF_Options.RotateDeg = 0;
+				if (pg.hasAttribute("Clip"))
+					doc->PDF_Options.doClip = static_cast<bool>(pg.attribute("Clip").toInt());
+				else
+					doc->PDF_Options.doClip = false;
 				doc->PDF_Options.PresentMode = static_cast<bool>(pg.attribute("PresentMode").toInt());
 				doc->PDF_Options.PicRes = pg.attribute("PicRes").toInt();
 				// Fixme: check input pdf version

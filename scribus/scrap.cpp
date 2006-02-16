@@ -61,6 +61,7 @@ QDragObject *BibView::dragObject()
 	QString dt = objectMap[currentItem()->text()].Data.utf8();
 	QDragObject *dr = new QTextDrag(dt, this);
 	dr->setPixmap(objectMap[currentItem()->text()].Preview);
+	clearSelection();
 //	dr->setPixmap(loadIcon("DragPix.xpm"));
 	return dr;
 }
@@ -83,12 +84,25 @@ void BibView::SaveContents(QString name, QString oldName)
 			QString f = "";
 			if (!loadText(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d[dc])), &f))
 				continue;
-			QFile fi(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])));
-			if(!fi.open(IO_WriteOnly))
+			QFile fil(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])));
+			if(!fil.open(IO_WriteOnly))
 				continue ;
-			QTextStream s(&fi);
+			QTextStream s(&fil);
 			s.writeRawBytes(f, f.length());
-			fi.close();
+			fil.close();
+			QPixmap pm;
+			QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d[dc])));
+			QFileInfo fi2(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
+			if (fi2.exists())
+				pm.load(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
+			else
+			{
+				ScPreview *pre = new ScPreview();
+				pm = pre->createPreview(f);
+				delete pre;
+			}
+			QFileInfo fi3(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d[dc])));
+			pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi3.dirPath()+"/"+fi3.baseName()+".png")), "PNG");
 		}
 	}
 }
@@ -137,12 +151,21 @@ void BibView::ReadContents(QString name)
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
 			QString f = "";
+			QPixmap pm;
 			if (!loadText(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])), &f))
 				continue;
 			QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])));
-			ScPreview *pre = new ScPreview();
-			AddObj(fi.baseName(), QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])), pre->createPreview(f));
-			delete pre;
+			QFileInfo fi2(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
+			if (fi2.exists())
+				pm.load(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
+			else
+			{
+				ScPreview *pre = new ScPreview();
+				pm = pre->createPreview(f);
+				pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")), "PNG");
+				delete pre;
+			}
+			AddObj(fi.baseName(), QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])), pm);
 		}
 	}
 	QMap<QString,Elem>::Iterator itf;
@@ -151,7 +174,7 @@ void BibView::ReadContents(QString name)
 		(void) new QIconViewItem(this, itf.key(), itf.data().Preview);
 	}
 }
-
+/*
 void BibView::RebuildView()
 {
 	clear();
@@ -166,7 +189,7 @@ void BibView::RebuildView()
 		delete pre;
 	}
 }
-
+*/
 /* This is the main Dialog-Class for the Scrapbook */
 Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 {
@@ -180,7 +203,7 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	fLoad = fmenu->insertItem(loadIcon("DateiOpen16.png"), "", this, SLOT(Load()), CTRL+Key_O);
 	fSaveAs = fmenu->insertItem( loadIcon("DateiSave16.png"), "", this, SLOT(SaveAs()));
 	fClose = fmenu->insertItem(loadIcon("DateiClos16.png"), "", this, SLOT(closeLib()));
-	vmenu = new QPopupMenu();
+/*	vmenu = new QPopupMenu();
 	vSmall = vmenu->insertItem( "" );
 	vMedium = vmenu->insertItem( "" );
 	vLarge = vmenu->insertItem( "" );
@@ -195,10 +218,10 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	case 80:
 		vmenu->setItemChecked(vLarge, true);
 		break;
-	}
+	} */
 	menuBar = new QMenuBar(this);
 	mFile=menuBar->insertItem( "", fmenu);
-	mView=menuBar->insertItem( "", vmenu);
+//	mView=menuBar->insertItem( "", vmenu);
 	BiblioLayout->setMenuBar( menuBar );
 
 	Frame3 = new QTabWidget( this, "Frame3" );
@@ -211,7 +234,7 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	connect(activeBView, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
 	connect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 	connect(Frame3, SIGNAL(currentChanged(QWidget*)), this, SLOT(libChanged(QWidget* )));
-	connect(vmenu, SIGNAL(activated(int)), this, SLOT(SetPreview(int)));
+//	connect(vmenu, SIGNAL(activated(int)), this, SLOT(SetPreview(int)));
 }
 
 void Biblio::setScrapbookFileName(QString fileName)
@@ -228,12 +251,12 @@ const int Biblio::objectCount()
 {
 	return activeBView->objectMap.count();
 }
-
+/*
 void Biblio::rebuildView()
 {
 	activeBView->RebuildView();	
 }
-
+*/
 void Biblio::readOldContents(QString fileName, QString newName)
 {
 	activeBView->ReadOldContents(fileName, newName);
@@ -265,12 +288,13 @@ void Biblio::NewLib()
 		disconnect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
 		disconnect(activeBView, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
 		disconnect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
-		dirs->set("scrap_load", fileName);
 		QDir d(fileName);
 		activeBView = new BibView(this);
 		Frame3->addTab(activeBView, d.dirName());
 		activeBView->ScFilename = fileName;
 		Frame3->showPage(activeBView);
+		d.cdUp();
+		dirs->set("scrap_load", d.absPath());
 		connect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
 		connect(activeBView, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
 		connect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
@@ -292,13 +316,14 @@ void Biblio::Load()
 		disconnect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
 		disconnect(activeBView, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
 		disconnect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
-		dirs->set("scrap_load", fileName);
 		QDir d(fileName);
 		activeBView = new BibView(this);
 		Frame3->addTab(activeBView, d.dirName());
 		activeBView->ReadContents(fileName);
 		activeBView->ScFilename = fileName;
 		Frame3->showPage(activeBView);
+		d.cdUp();
+		dirs->set("scrap_load", d.absPath());
 		connect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
 		connect(activeBView, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
 		connect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
@@ -317,20 +342,19 @@ void Biblio::SaveAs()
 			if (fn == bv->ScFilename)
 				return;
 		}
+		QDir d(fn);
 		dirs->set("scrap_saveas", fn);
 		activeBView->SaveContents(fn, activeBView->ScFilename);
 		activeBView->ScFilename = fn;
-		QDir d(fn);
 		Frame3->changeTab(activeBView, d.dirName());
+		d.cdUp();
+		dirs->set("scrap_saveas", d.absPath());
 	}
 }
 
 void Biblio::closeLib()
 {
-	close();
-/* Real code is commented out, because the call to Frame3->removePage(activeBView) closes the whole
-   Tabwidget instead of only removing the current Tab */
-/*	if (Frame3->count() == 1)
+	if (Frame3->count() == 1)
 		close();
 	else
 	{
@@ -338,13 +362,13 @@ void Biblio::closeLib()
 		disconnect(activeBView, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
 		disconnect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 		Frame3->removePage(activeBView);
-		delete activeBView;
-		activeBView = (BibView*)Frame3->page(Frame3->count()-1);
-		Frame3->showPage(activeBView);
+//		delete activeBView;   currently disabled as the whole TabWidget vanishes when executing that delete?????
+		activeBView = (BibView*)Frame3->page(0);
+		Frame3->setCurrentPage(0);
 		connect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
 		connect(activeBView, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
 		connect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
-	} */
+	}
 }
 
 void Biblio::libChanged(QWidget *lib)
@@ -357,7 +381,7 @@ void Biblio::libChanged(QWidget *lib)
 	connect(activeBView, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
 	connect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 }
-
+/*
 void Biblio::SetPreview(int id)
 {
 	int a = vmenu->indexOf(id);
@@ -395,7 +419,7 @@ void Biblio::AdjustMenu()
 		break;
 	}
 }
-
+*/
 void Biblio::HandleMouse(QIconViewItem *ite)
 {
 	int mret, del, ren;
@@ -423,6 +447,12 @@ void Biblio::DeleteObj(QString name, QIconViewItem *ite)
 {
 	QFile f(activeBView->objectMap[name].Data);
 	f.remove();
+	QFileInfo fi(QDir::convertSeparators(activeBView->ScFilename + "/" + name + ".png"));
+	if (fi.exists())
+	{
+		QFile f2(QDir::convertSeparators(activeBView->ScFilename + "/" + name + ".png"));
+		f2.remove();
+	}
 	activeBView->objectMap.remove(name);
 	delete ite;
 	activeBView->sort(activeBView->sortDirection());
@@ -447,6 +477,9 @@ void Biblio::ItemRenamed(QIconViewItem *ite)
 			ObjPreview = activeBView->objectMap[OldName].Preview;
 			QDir d = QDir();
 			d.rename(ObjData, QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".sce")));
+			QFileInfo fi(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName + ".png"));
+			if (fi.exists())
+				d.rename(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName + ".png"), QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".png")));
 			activeBView->objectMap.remove(OldName);
 			activeBView->AddObj(ite->text(), QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".sce")), ObjPreview);
 			activeBView->sort(activeBView->sortDirection());
@@ -528,6 +561,7 @@ void Biblio::ObjFromMenu(QString text)
 	ScPreview *pre = new ScPreview();
 	QPixmap pm = pre->createPreview(ff);
 	activeBView->AddObj(nam, QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam + ".sce")), pm);
+	pm.save(QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam +".png")), "PNG");
 	(void) new QIconViewItem(activeBView, nam, pm);
 	delete pre;
 }
@@ -542,7 +576,7 @@ void Biblio::languageChange()
 	fmenu->changeItem(fLoad, tr("&Load..."));
 	fmenu->changeItem(fSaveAs, tr("Save &As..."));
 	fmenu->changeItem(fClose, tr("&Close"));
-	vmenu->changeItem(vSmall, tr("&Small" ));
+/*	vmenu->changeItem(vSmall, tr("&Small" ));
 	vmenu->changeItem(vMedium, tr("&Medium" ));
-	vmenu->changeItem(vLarge, tr("&Large" ));
+	vmenu->changeItem(vLarge, tr("&Large" )); */
 }
