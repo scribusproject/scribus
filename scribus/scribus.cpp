@@ -898,6 +898,8 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["viewShowTextControls"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowRulers"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewRulerMode"], "View");
+	
+	scrActions["viewShowRulers"]->setEnabled(false);
 
 	//CB If this is viewNewView imeplemented, it should be on the windows menu
 //	scrMenuMgr->addMenuItem(scrActions["viewNewView"], "View");
@@ -2197,6 +2199,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrMenuMgr->setMenuEnabled("View", true);
 	scrActions["viewSnapToGrid"]->setOn(doc->useRaster);
 	scrActions["viewSnapToGuides"]->setOn(doc->SnapGuides);
+	scrActions["viewShowRulers"]->setEnabled(true);
 
 	scrMenuMgr->setMenuEnabled("Insert", true);
 	//scrMenuMgr->setMenuEnabled("Windows", true);
@@ -3917,6 +3920,7 @@ bool ScribusMainWindow::DoFileClose()
 		//scrMenuMgr->setMenuEnabled("Windows", false);
 		scrActions["viewSnapToGuides"]->setOn(false);
 		scrActions["viewSnapToGrid"]->setOn(false);
+		scrActions["viewShowRulers"]->setEnabled(false);
 
 		scrMenuMgr->setMenuEnabled("Insert", false);
 		scrMenuMgr->setMenuEnabled("Page", false);
