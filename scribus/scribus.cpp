@@ -1109,7 +1109,7 @@ void ScribusMainWindow::wheelEvent(QWheelEvent *w)
 //keyPressEvent so process them here.
 void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodevalue)
 {
-	if (unicodevalue!=-1 && HaveDoc)
+	if (HaveDoc)
 	{
 		if (doc->appMode==modeEdit)
 		{
@@ -1119,29 +1119,32 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 				PageItem *currItem = doc->selection->itemAt(0);
 				if (currItem!=NULL)
 				{
-					if (currItem->HasSel && currItem->itemType()==PageItem::TextFrame)
-						currItem->asTextFrame()->deleteSelectedTextFromFrame();
-
-					hg->ch = QString(QChar(unicodevalue));
-					doc->setScTextDefaultsFromDoc(hg);
-					hg->cselect = false;
-					hg->cextra = 0;
-					hg->xp = 0;
-					hg->yp = 0;
-					hg->PRot = 0;
-					hg->PtransX = 0;
-					hg->PtransY = 0;
-					hg->cembedded = 0;
-					currItem->itemText.insert(currItem->CPos, hg);
-					currItem->CPos += 1;
-					currItem->Tinput = true;
-					view->RefreshItem(currItem);
-				}
-				else if (actionName=="unicodeSmartHyphen") //ignore the char as we use an attribute if the text item, for now.
-				{
-					currItem->itemText.at(QMAX(currItem->CPos-1,0))->cstyle ^= 128;
-					currItem->Tinput = true;
-					view->RefreshItem(currItem);
+					if (unicodevalue!=-1)
+					{
+						if (currItem->HasSel && currItem->itemType()==PageItem::TextFrame)
+							currItem->asTextFrame()->deleteSelectedTextFromFrame();
+	
+						hg->ch = QString(QChar(unicodevalue));
+						doc->setScTextDefaultsFromDoc(hg);
+						hg->cselect = false;
+						hg->cextra = 0;
+						hg->xp = 0;
+						hg->yp = 0;
+						hg->PRot = 0;
+						hg->PtransX = 0;
+						hg->PtransY = 0;
+						hg->cembedded = 0;
+						currItem->itemText.insert(currItem->CPos, hg);
+						currItem->CPos += 1;
+						currItem->Tinput = true;
+						view->RefreshItem(currItem);
+					}
+					else if (actionName=="unicodeSmartHyphen") //ignore the char as we use an attribute if the text item, for now.
+					{
+						currItem->itemText.at(QMAX(currItem->CPos-1,0))->cstyle ^= 128;
+						currItem->Tinput = true;
+						view->RefreshItem(currItem);
+					}
 				}
 			}
 		}
