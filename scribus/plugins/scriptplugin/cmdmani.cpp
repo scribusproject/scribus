@@ -271,10 +271,10 @@ PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
 		return NULL;
 	ScMW->view->Deselect();
 	ScMW->view->SelectItemNr(i->ItemNr);
-	int h = ScMW->view->HowTo;
-	ScMW->view->HowTo = 1;
+	int h = ScMW->view->frameResizeHandle;
+	ScMW->view->frameResizeHandle = 1;
 	ScMW->view->scaleGroup(sc, sc);
-	ScMW->view->HowTo = h;
+	ScMW->view->frameResizeHandle = h;
 	Py_INCREF(Py_None);
 	return Py_None;
 }

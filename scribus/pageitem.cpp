@@ -580,10 +580,12 @@ void PageItem::resizeBy(const double dH, const double dW)
 	emit widthAndHeight(Width, Height);
 }
 
-void PageItem::setRotation(const double newRotation)
+void PageItem::setRotation(const double newRotation, bool drawingOnly)
 {
 	Rot=newRotation;
 	checkChanges();
+	if (drawingOnly || m_Doc->isLoading())
+		return;
 	emit rotation(Rot);
 }
 

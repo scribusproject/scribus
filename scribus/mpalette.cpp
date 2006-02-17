@@ -2209,13 +2209,13 @@ void Mpalette::NewW()
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if (keepFrameWHRatioButton->isOn())
 			{
-				ScMW->view->HowTo = 1;
+				ScMW->view->frameResizeHandle = 1;
 				ScMW->view->scaleGroup(w / gw, w / gw);
 				setBH(w, (w / gw) * gh);
 			}
 			else
 			{
-				ScMW->view->HowTo = 6;
+				ScMW->view->frameResizeHandle = 6;
 				ScMW->view->scaleGroup(w / gw, 1.0);
 			}
 		}
@@ -2306,13 +2306,13 @@ void Mpalette::NewH()
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if (keepFrameWHRatioButton->isOn())
 			{
-				ScMW->view->HowTo = 1;
+				ScMW->view->frameResizeHandle = 1;
 				ScMW->view->scaleGroup(h / gh, h / gh);
 				setBH((h / gh) * gw, h);
 			}
 			else
 			{
-				ScMW->view->HowTo = 5;
+				ScMW->view->frameResizeHandle = 5;
 				ScMW->view->scaleGroup(1.0, h / gh);
 			}
 		}
@@ -3733,9 +3733,7 @@ void Mpalette::mspinboxFinishUserAction()
 {
 	_userActionOn = false;
 
-	//for (uint i = 0; i < ScMW->view->SelItem.count(); ++i)
 	for (uint i = 0; i < doc->selection->count(); ++i)
-		//ScMW->view->SelItem.at(i)->checkChanges(true);
 		doc->selection->itemAt(i)->checkChanges(true);
 	if (ScMW->view->groupTransactionStarted())
 	{

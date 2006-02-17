@@ -101,7 +101,13 @@ public:
 	int Myp;
 	int Dxp;
 	int Dyp;
-	int HowTo;
+	/*!
+	 * Frame handle used for resize
+	 * 283
+	 * 7 6
+	 * 451
+	 */
+	int frameResizeHandle;
 	int SeRx;
 	int SeRy;
 	int GyM;
@@ -115,16 +121,16 @@ public:
 	int DrVX;
 	bool EdPoints;
 	bool Mpressed;
-	bool Imoved;
+	bool operItemMoving;
 	bool MoveGY;
 	bool MoveGX;
 	bool HaveSelRect;
-	bool mCG;
+	bool operItemResizing;
 	bool EditContour;
 	//bool GroupSel;
 	bool DraggedGroup;
 	bool DraggedGroupFirst;
-	bool HanMove;
+	bool operItemResizeInEditMode;
 	bool MidButt;
 	bool updateOn;
 	bool FirstPoly;

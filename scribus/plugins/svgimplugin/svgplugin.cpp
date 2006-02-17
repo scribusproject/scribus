@@ -1864,9 +1864,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			ite->SetRectFrame();
 			ScMW->view->setRedrawBounding(ite);
 			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-			//ScMW->view->SelItem.append(ite);
 			currDoc->selection->addItem(ite);
-			ScMW->view->HowTo = 1;
+			ScMW->view->frameResizeHandle = 1;
 			ScMW->view->setGroupRect();
 			ScMW->view->scaleGroup(mm.m11(), mm.m22());
 			ScMW->view->Deselect();

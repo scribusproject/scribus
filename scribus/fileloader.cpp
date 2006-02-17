@@ -2073,7 +2073,6 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->setLineColor(Pcolor2);
 	currItem->setFillShade(obj->attribute("SHADE").toInt());
 	currItem->setLineShade(obj->attribute("SHADE2").toInt());
-
 	currItem->TxtStroke = obj->attribute("TXTSTROKE", CommonStrings::None);
 	currItem->TxtFill = obj->attribute("TXTFILL", "Black");
 	currItem->ShTxtStroke = obj->attribute("TXTSTRSH", "100").toInt();

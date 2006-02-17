@@ -453,7 +453,7 @@ public:
 	void resizeBy(const double, const double);
 	//Rotation
 	double rotation() const { return Rot; }
-	void setRotation(const double);
+	void setRotation(const double, bool drawingOnly=false);
 	void rotateBy(const double);
 	//Selection
 	bool isSelected() const { return Select; }
