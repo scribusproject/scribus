@@ -6,10 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "docim.h"
-
-#ifdef HAVE_AW
-
 #include "docim.moc"
+#include "gtwriter.h"
 #include "scribusstructs.h"
 #include <qobject.h>
 #include <qcstring.h>
@@ -19,18 +17,51 @@ for which a new license (GPL+exception) is in place.
 #include <qstringlist.h>
 #include <qtextcodec.h>
 
+bool hasAntiword()
+{
+	static bool searched = false, found = false;
+	if (searched) // searched already in this run
+		return found;
+
+	QProcess *test = new QProcess();
+	test->addArgument("antiword");
+	if (test->start())
+	{
+		found = true;
+		test->tryTerminate();
+#ifndef _WIN32
+		usleep(5000);
+#else
+		Sleep(5);
+#endif
+		test->kill();
+		delete test;
+	}
+	searched = true;
+	return found;
+}
+
 QString FileFormatName()
 {
-    return QObject::tr("Word Documents");
+	if (hasAntiword())
+    	return QObject::tr("Word Documents");
+	else
+		return QString();
 }
 
 QStringList FileExtensions()
 {
-    return QStringList("doc");
+	if (hasAntiword())
+    	return QStringList("doc");
+	else
+		return QStringList();
 }
 
 void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
 {
+	if (!hasAntiword())
+		return;
+
 	DocIm *dim = new DocIm(filename, encoding, textOnly, writer);
 	while (dim->isRunning())
 	{
@@ -122,24 +153,7 @@ void DocIm::slotLaunchFinished()
 
 DocIm::~DocIm()
 {
-
+	delete proc;
 }
 
-#else
 
-QString FileFormatName()
-{
-    return QString();
-}
-
-QStringList FileExtensions()
-{
-    return QStringList();
-}
-
-void GetText(QString, QString, bool, gtWriter*)
-{
-
-}
-
-#endif

@@ -10,9 +10,9 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 #include "pluginapi.h"
-#include "gtwriter.h"
 #include <qobject.h>
 
+class gtWriter;
 class QProcess;
 
 extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
@@ -20,8 +20,6 @@ extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool text
 extern "C" PLUGIN_API QString FileFormatName();
 
 extern "C" PLUGIN_API QStringList FileExtensions();
-
-#ifdef HAVE_AW
 
 class DocIm : public QObject
 {
@@ -48,6 +46,4 @@ private slots:
 	void slotLaunchFinished();
 };
 
-#endif
-
-#endif // TXTIM_H
+#endif // DOCIM_H
