@@ -1,5 +1,10 @@
 Scribus - 1.3.3cvs
 ==================
+- 0003252: [Translation] GenericName[sv] in scribus.desktop is not in Swedish (plinnell)
+- 0003253: [Import / Export] Add Microsoft Office Word Importer (Tsoots)
+- 0003249: [User Interface] Allow showing and hiding of rulers (cbradney)
+- 0003216: [Import / Export] Misplacing Characters/lines on eps Load (avox)
+- 0003245: [Story Editor / Text Frames] Cursor positioning when the canvas size is extended by a frame off a page is incorrect (cbradney)
 - 0003212: [User Interface] Applying Master doesn't change margins on page. (fschmid)
 - 0003145: [General] Switching UI language doesn't work for all dialogs (cbradney)
 - 0003216: [Import / Export] Misplacing Characters/lines on eps Load (avox)
