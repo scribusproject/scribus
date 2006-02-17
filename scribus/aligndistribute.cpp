@@ -408,9 +408,7 @@ bool AlignDistributePalette::startAlign()
 	}
 	
 	QString targetTooltip = Um::ItemsInvolved + "\n";
-	//for (uint i = 0; i < currView->SelItem.count(); ++i)
 	for (uint i = 0; i < currDoc->selection->count(); ++i)
-		//targetTooltip += "\t" + currView->SelItem.at(i)->getUName() + "\n";
 		targetTooltip += "\t" + currDoc->selection->itemAt(i)->getUName() + "\n";
 		// Make the align action a single action in Action History
 	undoManager->beginTransaction(Um::Selection, 0, Um::AlignDistribute, targetTooltip, Um::IAlignDistribute);
@@ -420,16 +418,9 @@ bool AlignDistributePalette::startAlign()
 void AlignDistributePalette::endAlign()
 {
 	emit documentChanged();
-	//ScMW->HaveNewSel(currView->SelItem.at(0)->itemType());
 	ScMW->HaveNewSel(currDoc->selection->itemAt(0)->itemType());
-	//for (uint i = 0; i < currView->SelItem.count(); ++i)
 	for (uint i = 0; i < currDoc->selection->count(); ++i)
-	{
-		//currView->SelItem.at(i)->checkChanges(true); // force aligned items to check their changes
-		currDoc->selection->itemAt(i)->checkChanges(true); // force aligned items to check their changes
-		//currView->setRedrawBounding(currView->SelItem.at(i));
 		currView->setRedrawBounding(currDoc->selection->itemAt(i));
-	}
 	undoManager->commit(); // commit and send the action to the UndoManager
 	currView->updateContents();
 }
