@@ -242,6 +242,8 @@ public slots: // Public slots
 	void languageChange();
 	void unitChange();
 	void setRulersShown(bool isShown);
+	void slotUpdateContents();
+	void slotUpdateContents(const QRect &r);
   /** Zooms in or out */
 	void slotDoZoom();
 	void slotZoom100();
@@ -336,6 +338,11 @@ protected: // Protected methods
 	virtual void setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
 
 	void drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end);
+	
+	
+	//The width of vertical ruler/height of horizontal ruler, set to 17 in scribusview.cpp
+	int m_vhRulerHW;
+	
 
 signals:
 	void changeUN(int);
