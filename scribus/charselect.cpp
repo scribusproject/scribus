@@ -317,15 +317,13 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusMainWindow *pl
 	layout2->setSpacing( 6 );
 	layout2->setMargin( 0 );
 
-	insText = new QLabel( this, "insText" );
-	insText->setText( tr("Insert Code"));
-	layout2->addWidget( insText );
-
 	insCode = new QLineEdit( this, "insText" );
-	insCode->setFixedWidth(insText->width());
 	insCode->setMaxLength(4);
 	insCode->setInputMask(">NNNN");
 	insCode->clear();
+	insText = new QLabel( insCode, tr("&Insert Code:"), this, "insText" );
+	insCode->setFixedWidth(insText->width());
+	layout2->addWidget( insText );
 	layout2->addWidget( insCode );
 
 	layout3->addLayout(layout2, Qt::AlignLeft);
@@ -355,7 +353,8 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusMainWindow *pl
 //tooltips
 	QToolTip::add( insertButton, tr( "Insert the characters at the cursor in the text" ) );
 	QToolTip::add( deleteButton, tr( "Delete the current selection(s)." ) );
-	QToolTip::add( closeButton, tr( "Close this dialog and return to text editing." ) );
+	QToolTip::add( closeButton, tr( "Close this dialog and return to text editing" ) );
+	QToolTip::add( insCode, tr( "Type in a four digit unicode value directly here" ) );
 	// signals and slots connections
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(delEdit()));
