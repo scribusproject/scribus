@@ -1348,7 +1348,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 						}
 						break;
 					case PageItem::PolyLine:
-						if ((ite->PoLine.size() > 3) && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3))))
+						if (ite->PoLine.size() > 4) // && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3))))
 						{
 							if (ite->GrType != 0)
 								PutPage(PDF_Gradient(ite));
