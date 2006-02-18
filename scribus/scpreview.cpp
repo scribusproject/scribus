@@ -671,9 +671,47 @@ QPixmap ScPreview::createPreview(QString data)
 				pS->drawPolygon();
 				break;
 			case PageItem::PolyLine:
-				pS->setupPolygon(&OB.PoLine);
+				if ((OB.Pcolor != CommonStrings::None) || (OB.GrType != 0))
+				{
+					FPointArray cli;
+					FPoint Start;
+					bool firstp = true;
+					for (uint n = 0; n < OB.PoLine.size()-3; n += 4)
+					{
+						if (firstp)
+						{
+							Start = OB.PoLine.point(n);
+							firstp = false;
+						}
+						if (OB.PoLine.point(n).x() > 900000)
+						{
+							cli.addPoint(OB.PoLine.point(n-2));
+							cli.addPoint(OB.PoLine.point(n-2));
+							cli.addPoint(Start);
+							cli.addPoint(Start);
+							cli.setMarker();
+							firstp = true;
+							continue;
+						}
+						cli.addPoint(OB.PoLine.point(n));
+						cli.addPoint(OB.PoLine.point(n+1));
+						cli.addPoint(OB.PoLine.point(n+2));
+						cli.addPoint(OB.PoLine.point(n+3));
+					}
+					if (cli.size() > 2)
+					{
+						FPoint l1 = cli.point(cli.size()-2);
+						cli.addPoint(l1);
+						cli.addPoint(l1);
+						cli.addPoint(Start);
+						cli.addPoint(Start);
+					}
+					pS->setupPolygon(&cli);
+					pS->fillPath();
+				}
+				pS->setupPolygon(&OB.PoLine, false);
 				if (OB.NamedLStyle.isEmpty())
-					pS->drawPolyLine();
+					pS->strokePath();
 				else
 				{
 					multiLine ml = MLineStyles[OB.NamedLStyle];
