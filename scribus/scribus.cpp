@@ -7405,6 +7405,10 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 		}
 		else
 		{
+			storedPageNum = doc->currentPageNumber();
+			storedViewXCoor = view->contentsX();
+			storedViewYCoor = view->contentsY();
+			storedViewScale = view->scale();
 			MasterPagesPalette *dia = new MasterPagesPalette(this, doc, view, temp);
 			//connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewMasterPage(int)));
 			connect(dia, SIGNAL(removePage(int )), this, SLOT(DeletePage2(int )));
@@ -7442,6 +7446,7 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 
 void ScribusMainWindow::manageMasterPagesEnd()
 {
+	view->setScale(storedViewScale);
 	view->hideMasterPage();
 	setAppMode(modeNormal);
 	scrActions["editMasterPages"]->setEnabled(true);
@@ -7466,11 +7471,13 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	uint pageCount=doc->DocPages.count();
 	for (uint c=0; c<pageCount; ++c)
 		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);
-	doc->setMasterPageMode(false);
+//	doc->setMasterPageMode(false);
 	pagePalette->enablePalette(true);
 	pagePalette->RebuildTemp();
 	ActWin->setMasterPagesPalette(NULL);
+	doc->currentPage = doc->DocPages.at(storedPageNum);
 	view->reformPages(false);
+	view->setContentsPos(static_cast<int>(storedViewXCoor * storedViewScale), static_cast<int>(storedViewYCoor * storedViewScale));
 	view->DrawNew();
 	pagePalette->Rebuild();
 	outlinePalette->BuildTree();

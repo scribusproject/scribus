@@ -8652,16 +8652,17 @@ void ScribusView::hideMasterPage()
 {
 	Deselect(true);
 	Doc->setMasterPageMode(false);
-	Doc->currentPage = Doc->Pages->at(0);
+//	Doc->currentPage = Doc->Pages->at(0);
 	pageSelector->setEnabled(true);
-	setScale(OldScale);
-	updateOn = false;
-	GotoPage(0);
-	slotDoZoom();
-	oldX = qRound(Doc->currentPage->xOffset()- 10);
-	oldY = qRound(Doc->currentPage->yOffset()- 10);
-	SetCPo(oldX, oldY);
-	updateOn = true;
+	resizeContents(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * Scale), qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * Scale));
+//	setScale(OldScale);
+//	updateOn = false;
+//	GotoPage(0);
+//	slotDoZoom();
+//	oldX = qRound(Doc->currentPage->xOffset()- 10);
+//	oldY = qRound(Doc->currentPage->yOffset()- 10);
+//	SetCPo(oldX, oldY);
+//	updateOn = true;
 //	DrawNew();
 }
 

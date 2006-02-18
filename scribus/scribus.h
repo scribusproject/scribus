@@ -612,6 +612,10 @@ private:
 					QByteArray DevMode;
 				} PDef ;
 	TOCGenerator *tocGenerator;
+	int storedPageNum;
+	int storedViewXCoor;
+	int storedViewYCoor;
+	double storedViewScale;
 };
 
 #endif
