@@ -7146,7 +7146,6 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 								if (Doc->selection->findItem(Doc->Items->at(ga)) == -1)
 									Doc->selection->addItem(Doc->Items->at(ga));
 							}
-							//Doc->Items->at(ga)->Select = true;
 							Doc->Items->at(ga)->FrameOnly = true;
 							Doc->Items->at(ga)->paintObj();
 						}
@@ -7156,7 +7155,6 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 			else
 			{
 				Doc->selection->addItem(currItem);
-				//currItem->Select = true;
 				currItem->FrameOnly = true;
 				currItem->paintObj();
 			}
@@ -7167,6 +7165,8 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 	}
 	else
 	{
+	//CB Prepend used to occur to enable level changes to work properly, however with 
+	//current selection code we dont seem to need that anymore
 	/*
 		if (Doc->selection->count() > 1)
 		{
@@ -7338,7 +7338,6 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 
 											}
 											Doc->Items->at(ga)->isSingleSel = false;
-											//Doc->Items->at(ga)->Select = true;
 											Doc->Items->at(ga)->FrameOnly = true;
 										}
 									}
@@ -7347,7 +7346,6 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 							else
 							{
 								currItem->isSingleSel = true;
-								//currItem->Select = true;
 								currItem->FrameOnly = true;
 								currItem->paintObj();
 							}
@@ -7355,7 +7353,6 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						else
 						{
 							Doc->selection->addItem(currItem);
-							//currItem->Select = true;
 							currItem->FrameOnly = true;
 							currItem->paintObj();
 						}
@@ -7481,7 +7478,6 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 												Doc->selection->addItem(Doc->Items->at(ga));
 										}
 										Doc->Items->at(ga)->isSingleSel = false;
-										//Doc->Items->at(ga)->Select = true;
 										Doc->Items->at(ga)->FrameOnly = true;
 									}
 								}
@@ -7490,7 +7486,6 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						else
 						{
 							currItem->isSingleSel = true;
-							//currItem->Select = true;
 							currItem->FrameOnly = true;
 							currItem->paintObj();
 						}
@@ -7499,7 +7494,6 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 					//If we are just selecting one item
 					{
 						Doc->selection->addItem(currItem);
-						//currItem->Select = true;
 						currItem->FrameOnly = true;
 						currItem->paintObj();
 					}
@@ -7536,12 +7530,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 				else
 				{
 					//CB Dont need this as creating the 0th selection does this
-					//EmitValues(currItem);
-					//currItem->emitAllToGUI();
 					currItem->paintObj();
-					//if (currItem->asLine())
-					//	emit ItemGeom(currItem->width(), currItem->height());
-					//emit HaveSel(currItem->itemType());
 				}
 				if (Doc->selection->count() == 1)
 				{
@@ -7606,8 +7595,6 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		//	emit signalGuideInformation(-1, 0.0);
 	}
 	Deselect(true);
-	//SelItem.clear();
-	//Doc->selection->clear();
 	return false;
 }
 
@@ -7700,8 +7687,6 @@ void ScribusView::Deselect(bool prop)
 			currItem = Doc->selection->itemAt(a);
 			if ((currItem->asTextFrame()) && (currItem->isBookmark))
 				emit ChBMText(currItem);
-			//currItem->Select = false;
-			//currItem->isSingleSel = false;
 		}
 		if (Doc->selection->isMultipleSelection())
 		{
@@ -7715,7 +7700,6 @@ void ScribusView::Deselect(bool prop)
 		}
 		else
 		{
-			//SelItem.clear();
 			Doc->selection->clear();
 			updateContents(currItem->getRedrawBounding(Scale));
 		}
@@ -8211,8 +8195,6 @@ void ScribusView::DeleteItem()
 			if (currItem->isBookmark)
 				emit DelBM(currItem);
 			Doc->Items->remove(currItem);
-			//currItem->Select = false;
-			//delItems.removeFirst();
 			delItems.removeLast();
 			// send the undo action to the UndoManager
 			if (UndoManager::undoEnabled())
@@ -8619,7 +8601,6 @@ void ScribusView::ChgUnit(int art)
 void ScribusView::GotoPa(int Seite)
 {
 	GotoPage(Seite-1);
-	//ScMW->setFocus();
 }
 
 void ScribusView::GotoPage(int Seite)
@@ -8665,43 +8646,6 @@ void ScribusView::hideMasterPage()
 //	updateOn = true;
 //	DrawNew();
 }
-
-/*CB Moved to doc
-void ScribusView::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
-{
-	uint docItemCount=Doc->Items->count();
-	if ( docItemCount!= 0)
-	{
-		int counter;
-		if (dia != NULL)
-			counter = dia->progress();
-		else
-			counter = 0;
-		PageItem* it;
-		for (uint i=0; i < docItemCount; ++i)
-		{
-			it = Doc->Items->at(i);
-			if ((it->itemType() == PageItem::ImageFrame) && (it->PicAvail))
-			{
-				if (it->pixm.imgInfo.colorspace == 1)
-				{
-					if (!PrCMYK->contains(it->IProfile))
-						it->IProfile = Doc->CMSSettings.DefaultImageCMYKProfile;
-				}
-				else
-				{
-					if (!Pr->contains(it->IProfile))
-						it->IProfile = Doc->CMSSettings.DefaultImageRGBProfile;
-				}
-				Doc->LoadPict(it->Pfile, i, true);
-			}
-			++counter;
-			if (dia != NULL)
-				dia->setProgress(counter);
-		}
-	}
-}
-*/
 
 QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 {
@@ -9001,18 +8945,6 @@ void ScribusView::SetFrameOval()
 	}
 }
 
-/* CB moved to the doc
-void ScribusView::insertColor(QString nam, double c, double m, double y, double k)
-{
-	if (!Doc->PageColors.contains(nam))
-	{
-		ScColor tmp = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m),
-		                          static_cast<int>(255 * y), static_cast<int>(255 * k));
-		Doc->PageColors.insert(nam, tmp);
-	}
-}
-*/
-
 void ScribusView::editExtendedImageProperties()
 {
 	if (Doc->selection->count() != 0)
@@ -9067,9 +8999,12 @@ void ScribusView::TogglePic()
 	{
 		for (uint a = 0; a < Doc->selection->count(); ++a)
 		{
-			Doc->selection->itemAt(a)->setImageShown(!Doc->selection->itemAt(a)->imageShown());
-			ScMW->scrActions["itemImageIsVisible"]->setOn(Doc->selection->itemAt(a)->imageShown());
-			RefreshItem(Doc->selection->itemAt(a));
+			PageItem_ImageFrame* imageItem=Doc->selection->itemAt(a)->asImageFrame();
+			if (imageItem==NULL)
+				continue;
+			imageItem->setImageShown(!imageItem->imageShown());
+			ScMW->scrActions["itemImageIsVisible"]->setOn(imageItem->imageShown());
+			RefreshItem(imageItem);
 		}
 		emit DocChanged();
 		//Return to normal mode if in edit mode. We should not allow dragging of
@@ -9215,7 +9150,7 @@ void ScribusView::UpdatePic()
 			if (Doc->selection->itemAt(i)!=NULL)
 				if (Doc->selection->itemAt(i)->asImageFrame())
 				{
-					PageItem *currItem = Doc->selection->itemAt(i);//CB should be i, not 0
+					PageItem *currItem = Doc->selection->itemAt(i);
 					if (currItem->PicAvail)
 					{
 						int fho = currItem->imageFlippedH();
