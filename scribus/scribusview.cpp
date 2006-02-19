@@ -7869,38 +7869,6 @@ void ScribusView::ToBack()
 		emit DocChanged();
 		updateContents();
 	}
-	/*
-	int d;
-	QMap<int, uint> ObjOrder;
-	PageItem *currItem;
-	uint docSelectionCount=Doc->selection->count();
-	if ((Doc->Items->count() > 1) && (docSelectionCount != 0))
-	{
-		for (uint c = 0; c < docSelectionCount; ++c)
-		{
-			currItem = Doc->selection->itemAt(c);
-			if (currItem->isTableItem && currItem->isSingleSel)
-				return;
-			ObjOrder.insert(currItem->ItemNr, c);
-			d = Doc->Items->findRef(currItem);
-			Doc->Items->take(d);
-		}
-		QValueList<uint> Oindex = ObjOrder.values();
-		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
-		{
-			Doc->Items->prepend(Doc->selection->itemAt(Oindex[c]));
-		}
-		for (uint a = 0; a < Doc->Items->count(); ++a)
-		{
-			Doc->Items->at(a)->ItemNr = a;
-			if (Doc->Items->at(a)->isBookmark)
-				emit NewBMNr(Doc->Items->at(a)->BMnr, a);
-		}
-		ScMW->outlinePalette->BuildTree();
-		emit LevelChanged(0);
-		emit DocChanged();
-		updateContents();
-	}*/
 }
 
 void ScribusView::ToFront()
@@ -7919,39 +7887,6 @@ void ScribusView::ToFront()
 		emit DocChanged();
 		updateContents();
 	}
-	/*
-	int d;
-	QMap<int, uint> ObjOrder;
-	PageItem *currItem;
-	uint docSelectionCount=Doc->selection->count();
-	if ((Doc->Items->count() > 1) && (docSelectionCount != 0))
-	{
-		for (uint c = 0; c < docSelectionCount; ++c)
-		{
-			currItem = Doc->selection->itemAt(c);
-			if (currItem->isTableItem && currItem->isSingleSel)
-				return;
-			ObjOrder.insert(currItem->ItemNr, c);
-			d = Doc->Items->findRef(currItem);
-			Doc->Items->take(d);
-		}
-		QValueList<uint> Oindex = ObjOrder.values();
-		for (int c = 0; c <static_cast<int>(Oindex.count()); ++c)
-		{
-			Doc->Items->append(Doc->selection->itemAt(Oindex[c]));
-		}
-		for (uint a = 0; a < Doc->Items->count(); ++a)
-		{
-			Doc->Items->at(a)->ItemNr = a;
-			if (Doc->Items->at(a)->isBookmark)
-				emit NewBMNr(Doc->Items->at(a)->BMnr, a);
-		}
-		ScMW->outlinePalette->BuildTree();
-		emit LevelChanged(Doc->selection->itemAt(0)->ItemNr);
-		emit DocChanged();
-		updateContents();
-	}
-	*/
 }
 
 void ScribusView::LowerItem()
@@ -8379,22 +8314,6 @@ Page* ScribusView::addPage(int nr, bool mov)
 void ScribusView::reformPages(bool moveObjects)
 {
 	Doc->reformPages(moveObjects);
-	/*
-	double maxXPos=0.0,maxYPos=0.0;
-	Doc->reformPages(maxXPos, maxYPos, moveObjects);
-	if (!Doc->isLoading())
-	{
-		FPoint minPoint, maxPoint;
-		Doc->canvasMinMax(minPoint, maxPoint);
-		FPoint maxSize(QMAX(maxXPos, maxPoint.x()+Doc->ScratchRight), QMAX(maxYPos, maxPoint.y()+Doc->ScratchBottom));
-		Doc->adjustCanvas(FPoint(QMIN(0, minPoint.x()-Doc->ScratchLeft),QMIN(0, minPoint.y()-Doc->ScratchTop)), maxSize, true);
-	}
-	else
-	{
-		FPoint maxSize(maxXPos, maxYPos);
-		Doc->adjustCanvas(FPoint(0, 0), maxSize);
-	}
-	*/
 	if (!ScMW->ScriptRunning)
 		setContentsPos(qRound((Doc->currentPage->xOffset()-10 - Doc->minCanvasCoordinate.x()) * Scale), qRound((Doc->currentPage->yOffset()-10 - Doc->minCanvasCoordinate.y()) * Scale));
 	if (!Doc->isLoading())
@@ -8404,41 +8323,6 @@ void ScribusView::reformPages(bool moveObjects)
 	}
 }
 
-/*
-void ScribusView::adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute)
-{
-	double newMaxX, newMaxY, newMinX, newMinY;
-	if (absolute)
-	{
-		newMaxX = maxPos.x();
-		newMaxY = maxPos.y();
-		newMinX = minPos.x();
-		newMinY = minPos.y();
-	}
-	else
-	{
-		newMaxX = QMAX(Doc->maxCanvasCoordinate.x(), maxPos.x());
-		newMaxY = QMAX(Doc->maxCanvasCoordinate.y(), maxPos.y());
-		newMinX = QMIN(Doc->minCanvasCoordinate.x(), minPos.x());
-		newMinY = QMIN(Doc->minCanvasCoordinate.y(), minPos.y());
-	}
-	if ((newMaxX != Doc->maxCanvasCoordinate.x()) || (newMaxY != Doc->maxCanvasCoordinate.y())
-	  || (newMinX != Doc->minCanvasCoordinate.x()) || (newMinY != Doc->minCanvasCoordinate.y()))
-	{
-		if (!operItemMoving)
-		{
-			updateOn = false;
-			resizeContents(qRound((newMaxX - newMinX) * Scale), qRound((newMaxY - newMinY) * Scale));
-			scrollBy(qRound((Doc->minCanvasCoordinate.x() - newMinX) * Scale), qRound((Doc->minCanvasCoordinate.y() - newMinY) * Scale));
-			Doc->maxCanvasCoordinate = FPoint(newMaxX, newMaxY);
-			Doc->minCanvasCoordinate = FPoint(newMinX, newMinY);
-			setRulerPos(contentsX(), contentsY());
-			updateOn = true;
-		}
-	}
-	evSpon = false;
-}
-	*/
 void ScribusView::adjustCanvas(double width, double height, double dX, double dY)
 {
 	if (!operItemMoving)
