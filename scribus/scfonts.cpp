@@ -918,7 +918,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 	
 	if (face != 0)
 		FT_Done_Face( face );
-	return false;
+	return error && faceindex == 0;
 }
 
 void SCFonts::removeFont(QString name)
