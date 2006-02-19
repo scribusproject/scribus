@@ -223,7 +223,7 @@ QString FileLoader::readSLA(const QString & fileName)
 	return docText;
 }
 
-bool FileLoader::LoadPage(int PageToLoad, bool Mpage)
+bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 {
 	bool ret = false;
 	newReplacement = false;
@@ -245,7 +245,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage)
 			}
 			break;
 		case 1:
-			ret = ReadPage(FileName, prefsManager->appPrefs.AvailFonts, ScMW->doc, PageToLoad, Mpage);
+			ret = ReadPage(FileName, prefsManager->appPrefs.AvailFonts, ScMW->doc, PageToLoad, Mpage, renamedPageName);
 			break;
 		default:
 			ret = false;
@@ -401,7 +401,7 @@ bool FileLoader::LoadFile()
 	return ret;
 }
 
-bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *doc, int PageToLoad, bool Mpage)
+bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *doc, int PageToLoad, bool Mpage, QString renamedPageName)
 {
 	struct ParagraphStyle vg;
 	struct Layer la;
@@ -576,7 +576,11 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 				if (Mpage)
 				{
 					Apage->LeftPg=pg.attribute("LEFT", "0").toInt();
-					Apage->setPageName(pg.attribute("NAM",""));
+					
+					if (!renamedPageName.isEmpty())
+						Apage->setPageName(renamedPageName);
+					else
+						Apage->setPageName(pg.attribute("NAM",""));
 				}
 				if (pg.hasAttribute("Size"))
 					Apage->PageSize = pg.attribute("Size");
@@ -642,12 +646,12 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					doc->GroupCounter = 0;
 					Neu = PasteItem(&pg, doc);
 					Neu->moveBy(-pageX + Apage->xOffset(), - pageY + Apage->yOffset());
-					//view->setRedrawBounding(Neu);
 					Neu->setRedrawBounding();
 					//CB Must run onpage as we cant use pagetoload if the page has been renamed. 
 					//CB TODO Make this accept a page to place onto.
 					//Neu->OwnPage = doc->OnPage(Neu);
-					Neu->OwnPage = PageToLoad;
+					//Neu->OwnPage = PageToLoad;
+					Neu->OwnPage = doc->currentPageNumber();
 					if (pg.tagName()=="PAGEOBJECT")
 						Neu->OnMasterPage = "";
 					doc->GroupCounter = docGc;

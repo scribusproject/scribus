@@ -30,9 +30,9 @@ public:
 	~FileLoader() {};
 	int TestFile();
 	int CheckScribus();
-	bool LoadPage(int PageToLoad, bool Mpage);
+	bool LoadPage(int PageToLoad, bool Mpage, QString renamedPageName=QString::null);
 	bool LoadFile();
-	bool ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *doc, int PageToLoad, bool Mpage);
+	bool ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *doc, int PageToLoad, bool Mpage, QString renamedPageName=QString::null);
 	bool ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *doc, QProgressBar *dia2);
 	void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bool impo=false, bool VorLFound=false);
 	PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc);
