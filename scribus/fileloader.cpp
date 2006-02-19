@@ -646,8 +646,8 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					Neu->setRedrawBounding();
 					//CB Must run onpage as we cant use pagetoload if the page has been renamed. 
 					//CB TODO Make this accept a page to place onto.
-					Neu->OwnPage = doc->OnPage(Neu);
-					//Neu->OwnPage = PageToLoad;
+					//Neu->OwnPage = doc->OnPage(Neu);
+					Neu->OwnPage = PageToLoad;
 					if (pg.tagName()=="PAGEOBJECT")
 						Neu->OnMasterPage = "";
 					doc->GroupCounter = docGc;
@@ -1716,11 +1716,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		}
 	}
 	doc->setActiveLayer(layerToSetActive);
-	//doc->Pages = &doc->DocPages;
 	doc->setMasterPageMode(false);
-	//doc->pageCount = doc->Pages->count();
-	//doc->Items = doc->DocItems;
-	//ScMW->view->reformPages();
 	doc->reformPages();
 
 	if (doc->Layers.count() == 0)
@@ -1800,8 +1796,6 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 	{
 		if (!doc->UsedFonts.contains(tmpf))
 		{
-//			QFont fo = prefsManager->appPrefs.AvailFonts[tmpf]->Font;
-//			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
 			doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 		}
 	}
@@ -2347,7 +2341,6 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 				currItem->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor, GrShade);
 			}
 		}
-		//ScMW->view->updateGradientVectors(currItem);
 		currItem->updateGradientVectors();
 	}
 	//currItem->setRedrawBounding();
@@ -2385,8 +2378,6 @@ void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	{
 		if (!doc->UsedFonts.contains(tmpf))
 		{
-//			QFont fo = prefsManager->appPrefs.AvailFonts[tmpf]->Font;
-//			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
 			doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 		}
 	}
@@ -2606,7 +2597,6 @@ void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	}
 }
 
-//bool FileLoader::postLoad(bool is12doc)
 bool FileLoader::postLoad()
 {
 /*	for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
@@ -2740,16 +2730,6 @@ bool FileLoader::postLoad()
 		dummyFois.clear();
 	}
 
-	//Calculate the canvas size
-	/*
-	if (!is12doc)
-	{
-		FPoint mincp, maxcp;
-		ScMW->doc->canvasMinMax(mincp, maxcp);
-		FPoint maximumCanvas(QMAX(maxcp.x(), maximumX), QMAX(maxcp.y(), maximumY));
-		ScMW->doc->adjustCanvas(mincp, maximumCanvas);
-	}
-	*/
 	return true;
 }
 
