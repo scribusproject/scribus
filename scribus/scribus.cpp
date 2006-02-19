@@ -1834,9 +1834,7 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 	doc->setPage(width, h, tpr, lr, rr, br, sp, ab, atf, fp);
 	doc->setMasterPageMode(false);
 	doc->addMasterPage(0, "Normal");
-	int createCount=pageCount;
-	if (createCount<=0)
-		createCount=1;
+	int createCount=QMAX(pageCount,1);
 	for (int i = 0; i < createCount; ++i)
 		doc->addPage(i, "Normal", true);
 	doc->addSection();
@@ -1876,11 +1874,10 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 	else
 		w->show();
 	view->show();
-	connect(doc->autoSaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 	connect(fileWatcher, SIGNAL(fileChanged(QString)), view, SLOT(updatePict(QString)));
 	connect(fileWatcher, SIGNAL(fileDeleted(QString)), view, SLOT(removePict(QString)));
-	connect(doc, SIGNAL(refreshItem(PageItem*)), view, SLOT(RefreshItem(PageItem*)));
+	doc->connectDocSignals();
 	scrActions["fileSave"]->setEnabled(false);
 	undoManager->switchStack(doc->DocName);
 	tocGenerator->setDoc(doc);
@@ -3204,7 +3201,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		//Do the font replacement check from here, when we have a GUI. TODO do this also somehow without the GUI
 		//This also gives the user the opportunity to cancel the load when finding theres a replacement required.
 		if (loadSuccess && ScQApp->usingGUI())
-			loadSuccess=fileLoader->postLoad(is12doc);
+			loadSuccess=fileLoader->postLoad();
 		if(!loadSuccess)
 		{
 			view->close();
@@ -3537,12 +3534,11 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		view->slotDoZoom();
 		view->GotoPage(0);
 		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
-		connect(doc->autoSaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 		connect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
 		connect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
-		connect(doc, SIGNAL(refreshItem(PageItem*)), view, SLOT(RefreshItem(PageItem*)));
 		connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
+		doc->connectDocSignals();
 		if (doc->AutoSave)
 			doc->autoSaveTimer->start(doc->AutoSaveTime);
 		scrActions["fileSave"]->setEnabled(false);
@@ -6663,15 +6659,15 @@ void ScribusMainWindow::MakeFrame(int f, int c, double *vals)
 	{
 	case 0:
 		currItem->SetRectFrame();
-		view->setRedrawBounding(currItem);
+		doc->setRedrawBounding(currItem);
 		break;
 	case 1:
 		currItem->SetOvalFrame();
-		view->setRedrawBounding(currItem);
+		doc->setRedrawBounding(currItem);
 		break;
 	default:
 		currItem->SetFrameShape(c, vals);
-		view->setRedrawBounding(currItem);
+		doc->setRedrawBounding(currItem);
 		currItem->FrameType = f+2;
 		break;
 	}

@@ -420,7 +420,7 @@ void AlignDistributePalette::endAlign()
 	emit documentChanged();
 	ScMW->HaveNewSel(currDoc->selection->itemAt(0)->itemType());
 	for (uint i = 0; i < currDoc->selection->count(); ++i)
-		currView->setRedrawBounding(currDoc->selection->itemAt(i));
+		currDoc->setRedrawBounding(currDoc->selection->itemAt(i));
 	undoManager->commit(); // commit and send the action to the UndoManager
 	currView->updateContents();
 }

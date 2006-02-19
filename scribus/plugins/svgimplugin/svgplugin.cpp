@@ -411,7 +411,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			{
 				ite->setCornerRadius(QMAX(rx, ry));
 				ite->SetFrameRound();
-				ScMW->view->setRedrawBounding(ite);
+				currDoc->setRedrawBounding(ite);
 			}
 			QWMatrix mm = QWMatrix();
 			mm.translate(x, y);
@@ -1862,7 +1862,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			}
 			ite->setWidth(QMAX(ite->width(), tempW));
 			ite->SetRectFrame();
-			ScMW->view->setRedrawBounding(ite);
+			currDoc->setRedrawBounding(ite);
 			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 			currDoc->selection->addItem(ite);
 			ScMW->view->frameResizeHandle = 1;
@@ -1955,7 +1955,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			ite->setHeight(ite->lineSpacing()+desc+2);
 		}
 		ite->SetRectFrame();
-		ScMW->view->setRedrawBounding(ite);
+		currDoc->setRedrawBounding(ite);
 		if( !e.attribute("id").isEmpty() )
 			ite->setItemName(" "+e.attribute("id"));
 		ite->setFillTransparency(gc->Transparency);

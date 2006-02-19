@@ -3093,15 +3093,15 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 		{
 		case 0:
 			CurItem->SetRectFrame();
-			ScMW->view->setRedrawBounding(CurItem);
+			doc->setRedrawBounding(CurItem);
 			break;
 		case 1:
 			CurItem->SetOvalFrame();
-			ScMW->view->setRedrawBounding(CurItem);
+			doc->setRedrawBounding(CurItem);
 			break;
 		default:
 			CurItem->SetFrameShape(c, vals);
-			ScMW->view->setRedrawBounding(CurItem);
+			doc->setRedrawBounding(CurItem);
 			CurItem->FrameType = f+2;
 			break;
 		}

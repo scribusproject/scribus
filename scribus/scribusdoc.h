@@ -427,7 +427,8 @@ public:
 	int OnPage(double x2, double  y2);
 	int OnPage(PageItem *currItem);
 	void GroupOnPage(PageItem *currItem);
-	void reformPages(double& maxX, double& maxY, bool moveObjects = true);
+	//void reformPages(double& maxX, double& maxY, bool moveObjects = true);
+	void reformPages(bool moveObjects = true);
 	
 	/**
 	 * @brief Return the x or y offset for a page on the canvas
@@ -572,6 +573,11 @@ public:
 	void FlipImageV();
 	void MirrorPolyH();
 	void MirrorPolyV();
+	
+	void setRedrawBounding(PageItem *currItem);
+	void adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute = false);
+	
+	void connectDocSignals();
 	
 protected:
 	void addSymbols();
@@ -777,6 +783,7 @@ signals:
 	 */
 	void changed();
 	void refreshItem(PageItem *);
+	void canvasAdjusted(double width, double height, double dX, double dY);
 	/**
 	 * @brief A signal for when the outline palette needs to rebuild itself
 	 * Emit when:

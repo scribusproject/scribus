@@ -1721,7 +1721,8 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 	//doc->pageCount = doc->Pages->count();
 	//doc->Items = doc->DocItems;
 	//ScMW->view->reformPages();
-	doc->reformPages(maximumX, maximumY);
+	doc->reformPages();
+
 	if (doc->Layers.count() == 0)
 	{
 		la.LNr = 0;
@@ -2605,7 +2606,8 @@ void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	}
 }
 
-bool FileLoader::postLoad(bool is12doc)
+//bool FileLoader::postLoad(bool is12doc)
+bool FileLoader::postLoad()
 {
 /*	for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 	{
@@ -2739,14 +2741,15 @@ bool FileLoader::postLoad(bool is12doc)
 	}
 
 	//Calculate the canvas size
+	/*
 	if (!is12doc)
 	{
 		FPoint mincp, maxcp;
 		ScMW->doc->canvasMinMax(mincp, maxcp);
 		FPoint maximumCanvas(QMAX(maxcp.x(), maximumX), QMAX(maxcp.y(), maximumY));
-		ScMW->view->adjustCanvas(mincp, maximumCanvas);
+		ScMW->doc->adjustCanvas(mincp, maximumCanvas);
 	}
-
+	*/
 	return true;
 }
 

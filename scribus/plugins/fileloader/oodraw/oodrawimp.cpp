@@ -587,7 +587,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			{
 				ite->setCornerRadius(corner);
 				ite->SetFrameRound();
-				ScMW->view->setRedrawBounding(ite);
+				Doku->setRedrawBounding(ite);
 			}
 		}
 		else if( STag == "draw:circle" || STag == "draw:ellipse" )

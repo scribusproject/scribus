@@ -2549,7 +2549,7 @@ void ScribusDoc::GroupOnPage(PageItem* currItem)
 
 //CB TODO make a function to determine the place of the page.. ie, so we know the left and right margins
 // without running this monster
-void ScribusDoc::reformPages(double& maxX, double& maxY, bool moveObjects)
+void ScribusDoc::reformPages(bool moveObjects)
 {
 	QMap<uint, ScribusView::oldPageVar> pageTable;
 	struct ScribusView::oldPageVar oldPg;
@@ -2668,8 +2668,23 @@ void ScribusDoc::reformPages(double& maxX, double& maxY, bool moveObjects)
 			item->setRedrawBounding();
 		}
 	}
-	maxX=maxXPos;
-	maxY=maxYPos;
+	//maxX=maxXPos;
+	//maxY=maxYPos;
+	
+	if(isLoading() && is12doc)
+		return;
+	if (!isLoading())
+	{
+		FPoint minPoint, maxPoint;
+		canvasMinMax(minPoint, maxPoint);
+		FPoint maxSize(QMAX(maxXPos, maxPoint.x()+ScratchRight), QMAX(maxYPos, maxPoint.y()+ScratchBottom));
+		adjustCanvas(FPoint(QMIN(0, minPoint.x()-ScratchLeft),QMIN(0, minPoint.y()-ScratchTop)), maxSize, true);
+	}
+	else
+	{
+		FPoint maxSize(maxXPos, maxYPos);
+		adjustCanvas(FPoint(0, 0), maxSize);
+	}
 }
 
 const double ScribusDoc::getXOffsetForPage(const int pageNumber)
@@ -4731,7 +4746,7 @@ void ScribusDoc::MirrorPolyH()
 				currItem->UpdatePolyClip();
 			else
 				currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-			ScMW->view->setRedrawBounding(currItem);
+			setRedrawBounding(currItem);
 			//ScMW->view->RefreshItem(currItem);
 			emit refreshItem(currItem);
 			//MarkClip(currItem, currItem->PoLine, true);
@@ -4792,7 +4807,7 @@ void ScribusDoc::MirrorPolyV()
 				currItem->UpdatePolyClip();
 			else
 				currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-			ScMW->view->setRedrawBounding(currItem);
+			setRedrawBounding(currItem);
 			//ScMW->view->RefreshItem(currItem);
 			emit refreshItem(currItem);
 			//MarkClip(currItem, currItem->PoLine, true);
@@ -4808,4 +4823,55 @@ void ScribusDoc::MirrorPolyV()
 			undoManager->commit();
 	}
 	emit changed();
+}
+
+void ScribusDoc::setRedrawBounding(PageItem *currItem)
+{
+	currItem->setRedrawBounding();
+	FPoint maxSize(currItem->BoundingX+currItem->BoundingW+ScratchRight, currItem->BoundingY+currItem->BoundingH+ScratchBottom);
+	FPoint minSize(currItem->BoundingX-ScratchLeft, currItem->BoundingY-ScratchTop);
+	adjustCanvas(minSize, maxSize);
+}
+
+void ScribusDoc::adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute)
+{
+	double newMaxX, newMaxY, newMinX, newMinY;
+	if (absolute)
+	{
+		newMaxX = maxPos.x();
+		newMaxY = maxPos.y();
+		newMinX = minPos.x();
+		newMinY = minPos.y();
+	}
+	else
+	{
+		newMaxX = QMAX(maxCanvasCoordinate.x(), maxPos.x());
+		newMaxY = QMAX(maxCanvasCoordinate.y(), maxPos.y());
+		newMinX = QMIN(minCanvasCoordinate.x(), minPos.x());
+		newMinY = QMIN(minCanvasCoordinate.y(), minPos.y());
+	}
+	if ((newMaxX != maxCanvasCoordinate.x()) || (newMaxY != maxCanvasCoordinate.y())
+	|| (newMinX != minCanvasCoordinate.x()) || (newMinY != minCanvasCoordinate.y()))
+	{
+		//CB TODO Make a list of views we belong to and make this the doc's active view via an internal*
+		if (ScQApp->usingGUI() && !ScMW->view->operItemMoving)
+		{
+			//Save the old values for the emit, but update now to ensure we are all ready
+			double oldMinX=minCanvasCoordinate.x();
+			double oldMinY=minCanvasCoordinate.y();
+			maxCanvasCoordinate = FPoint(newMaxX, newMaxY);
+			minCanvasCoordinate = FPoint(newMinX, newMinY);
+			emit canvasAdjusted(newMaxX - newMinX, newMaxY - newMinY, oldMinX - newMinX, oldMinY - newMinY);
+		}
+	}
+}
+
+void ScribusDoc::connectDocSignals()
+{
+	if (ScQApp->usingGUI())
+	{
+		connect(autoSaveTimer, SIGNAL(timeout()), WinHan, SLOT(slotAutoSave()));
+		connect(this, SIGNAL(refreshItem(PageItem*)), ScMW->view, SLOT(RefreshItem(PageItem*)));
+		connect(this, SIGNAL(canvasAdjusted(double, double, double, double)), ScMW->view, SLOT(adjustCanvas(double, double, double, double)));
+	}
 }

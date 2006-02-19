@@ -37,7 +37,7 @@ public:
 	void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bool impo=false, bool VorLFound=false);
 	PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc);
 	void GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
-	bool postLoad(bool is12doc = false);
+	bool postLoad();
 	void informReplacementFonts();
 	QString FileName;
 	int FileType;

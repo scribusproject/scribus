@@ -2076,7 +2076,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 			AdjustItemSize(currItem);
 			currItem->ContourLine = currItem->PoLine.copy();
-			setRedrawBounding(currItem);
+			Doc->setRedrawBounding(currItem);
 			currItem->OwnPage = Doc->OnPage(currItem);
 			currItem->OldB2 = currItem->width();
 			currItem->OldH2 = currItem->height();
@@ -2096,7 +2096,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			currItem->setWidthHeight(sqrt(pow(np.x(),2.0)+pow(np.y(),2.0)), 1.0);
 			currItem->Sizing = false;
 			UpdateClip(currItem);
-			setRedrawBounding(currItem);
+			Doc->setRedrawBounding(currItem);
 			currItem->OwnPage = Doc->OnPage(currItem);
 			updateContents();
 		}
@@ -2714,7 +2714,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					updateContents();
 					emit DocChanged();
 				}
-				setRedrawBounding(currItem);
+				Doc->setRedrawBounding(currItem);
 				currItem->OwnPage = Doc->OnPage(currItem);
 			}
 			if (operItemMoving)
@@ -2776,9 +2776,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					getGroupRect(&gx, &gy, &gw, &gh);
 					FPoint maxSize(gx+gw+Doc->ScratchRight, gy+gh+Doc->ScratchBottom);
 					FPoint minSize(gx-Doc->ScratchLeft, gy-Doc->ScratchTop);
-					adjustCanvas(minSize, maxSize);
+					Doc->adjustCanvas(minSize, maxSize);
 				}
-				setRedrawBounding(currItem);
+				Doc->setRedrawBounding(currItem);
 				currItem->OwnPage = Doc->OnPage(currItem);
 				if (currItem->OwnPage != -1)
 				{
@@ -4505,7 +4505,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			default:
 				z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !Mpressed);
 				Doc->Items->at(z)->SetFrameShape(Doc->ValCount, Doc->ShapeValues);
-				setRedrawBounding(Doc->Items->at(z));
+				Doc->setRedrawBounding(Doc->Items->at(z));
 				Doc->Items->at(z)->FrameType = Doc->SubMode+2;
 				SetupDraw(z);
 				break;
@@ -5084,7 +5084,8 @@ FPoint ScribusView::ApplyGridF(const FPoint& in)
 	return np;
 }
 
-//CB-->Doc adjustcanvas?
+
+/*CB-->Doc setRedrawBounding
 void ScribusView::setRedrawBounding(PageItem *currItem)
 {
 	currItem->setRedrawBounding();
@@ -5092,6 +5093,7 @@ void ScribusView::setRedrawBounding(PageItem *currItem)
 	FPoint minSize(currItem->BoundingX-Doc->ScratchLeft, currItem->BoundingY-Doc->ScratchTop);
 	adjustCanvas(minSize, maxSize);
 }
+*/
 
 //CB-->Doc
 void ScribusView::setGroupRect()
@@ -5243,7 +5245,7 @@ bool ScribusView::MoveItem(double newX, double newY, PageItem* currItem, bool fr
 /*	if (!Doc->loading)
 		emit UpdtObj(Doc->currentPage->pageNr(), b->ItemNr); */
 	QRect oldR(currItem->getRedrawBounding(Scale));
-	setRedrawBounding(currItem);
+	Doc->setRedrawBounding(currItem);
 	QRect newR(currItem->getRedrawBounding(Scale));
 	if ((!operItemMoving) && (!currItem->Sizing))
 		updateContents(newR.unite(oldR));
@@ -5271,7 +5273,7 @@ void ScribusView::ConvertClip(PageItem *currItem)
 	else
 	{
 		currItem->SetRectFrame();
-		setRedrawBounding(currItem);
+		Doc->setRedrawBounding(currItem);
 	}
 }
 
@@ -5295,16 +5297,16 @@ void ScribusView::UpdateClip(PageItem* currItem)
 			{
 			case 0:
 				currItem->SetRectFrame();
-				setRedrawBounding(currItem);
+				Doc->setRedrawBounding(currItem);
 				break;
 			case 1:
 				currItem->SetOvalFrame();
-				setRedrawBounding(currItem);
+				Doc->setRedrawBounding(currItem);
 				break;
 			case 2:
 				ClRe = -1;
 				currItem->SetFrameRound();
-				setRedrawBounding(currItem);
+				Doc->setRedrawBounding(currItem);
 				break;
 			default:
 				break;
@@ -5346,15 +5348,15 @@ void ScribusView::UpdateClip(PageItem* currItem)
 				{
 				case 0:
 					currItem->SetRectFrame();
-					setRedrawBounding(currItem);
+					Doc->setRedrawBounding(currItem);
 					break;
 				case 1:
 					currItem->SetOvalFrame();
-					setRedrawBounding(currItem);
+					Doc->setRedrawBounding(currItem);
 					break;
 				default:
 					currItem->SetFrameShape(Doc->ValCount, Doc->ShapeValues);
-					setRedrawBounding(currItem);
+					Doc->setRedrawBounding(currItem);
 					break;
 				}
 				currItem->OldB2 = currItem->width();
@@ -5710,7 +5712,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	MoveItem(x-oldPos.x(), y-oldPos.y(), currItem);
 	if (currItem->asPathText())
 		currItem->UpdatePolyClip();
-	setRedrawBounding(currItem);
+	Doc->setRedrawBounding(currItem);
 	RefreshItem(currItem);
 	MarkClip(currItem, currItem->PoLine, true);
 	currItem->FrameType = 3;
@@ -6043,7 +6045,7 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 		                  static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
 		                  -ph,static_cast<int>(currItem->height()+ph));
 	}
-	setRedrawBounding(currItem);
+	Doc->setRedrawBounding(currItem);
 	currItem->OwnPage = Doc->OnPage(currItem);
 	if (currItem->Sizing)
 	{
@@ -6135,7 +6137,7 @@ bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP)
 		currItem->setRotation(xy2Deg(mx - currItem->xPos(), my - currItem->yPos()));
 		currItem->setWidthHeight(sqrt(pow(mx - currItem->xPos(),2)+pow(my - currItem->yPos(),2)), 1.0);
 		UpdateClip(currItem);
-		setRedrawBounding(currItem);
+		Doc->setRedrawBounding(currItem);
 		QRect newR(currItem->getRedrawBounding(Scale));
 		updateContents(newR.unite(oldR));
 	}
@@ -6284,7 +6286,7 @@ void ScribusView::RotateGroup(double win)
 		n = FPoint(currItem->xPos() - RCenter.x(), currItem->yPos() - RCenter.y());
 		currItem->setXYPos(ma.m11() * n.x() + ma.m21() * n.y() + ma.dx(), ma.m22() * n.y() + ma.m12() * n.x() + ma.dy());
 		currItem->rotateBy(win);
-		setRedrawBounding(currItem);
+		Doc->setRedrawBounding(currItem);
 	}
 	currItem = Doc->selection->itemAt(0);
 	Doc->GroupOnPage(currItem);
@@ -6508,7 +6510,7 @@ void ScribusView::RotateItem(double win, PageItem *currItem)
 	else
 	{
 		currItem->setRotation(win);
-		setRedrawBounding(currItem);
+		Doc->setRedrawBounding(currItem);
 	}
 	QRect newR(currItem->getRedrawBounding(Scale));
 	updateContents(newR.unite(oldR));
@@ -8376,6 +8378,8 @@ Page* ScribusView::addPage(int nr, bool mov)
 
 void ScribusView::reformPages(bool moveObjects)
 {
+	Doc->reformPages(moveObjects);
+	/*
 	double maxXPos=0.0,maxYPos=0.0;
 	Doc->reformPages(maxXPos, maxYPos, moveObjects);
 	if (!Doc->isLoading())
@@ -8383,13 +8387,14 @@ void ScribusView::reformPages(bool moveObjects)
 		FPoint minPoint, maxPoint;
 		Doc->canvasMinMax(minPoint, maxPoint);
 		FPoint maxSize(QMAX(maxXPos, maxPoint.x()+Doc->ScratchRight), QMAX(maxYPos, maxPoint.y()+Doc->ScratchBottom));
-		adjustCanvas(FPoint(QMIN(0, minPoint.x()-Doc->ScratchLeft),QMIN(0, minPoint.y()-Doc->ScratchTop)), maxSize, true);
+		Doc->adjustCanvas(FPoint(QMIN(0, minPoint.x()-Doc->ScratchLeft),QMIN(0, minPoint.y()-Doc->ScratchTop)), maxSize, true);
 	}
 	else
 	{
 		FPoint maxSize(maxXPos, maxYPos);
-		adjustCanvas(FPoint(0, 0), maxSize);
+		Doc->adjustCanvas(FPoint(0, 0), maxSize);
 	}
+	*/
 	if (!ScMW->ScriptRunning)
 		setContentsPos(qRound((Doc->currentPage->xOffset()-10 - Doc->minCanvasCoordinate.x()) * Scale), qRound((Doc->currentPage->yOffset()-10 - Doc->minCanvasCoordinate.y()) * Scale));
 	if (!Doc->isLoading())
@@ -8399,6 +8404,7 @@ void ScribusView::reformPages(bool moveObjects)
 	}
 }
 
+/*
 void ScribusView::adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute)
 {
 	double newMaxX, newMaxY, newMinX, newMinY;
@@ -8429,6 +8435,19 @@ void ScribusView::adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute)
 			setRulerPos(contentsX(), contentsY());
 			updateOn = true;
 		}
+	}
+	evSpon = false;
+}
+	*/
+void ScribusView::adjustCanvas(double width, double height, double dX, double dY)
+{
+	if (!operItemMoving)
+	{
+		updateOn = false;
+		resizeContents(qRound((width) * Scale), qRound((height) * Scale));
+		scrollBy(qRound((dX) * Scale), qRound((dY) * Scale));
+		setRulerPos(contentsX(), contentsY());
+		updateOn = true;
 	}
 	evSpon = false;
 }
@@ -8911,7 +8930,7 @@ void ScribusView::SetFrameRect()
 	if (GetItem(&currItem))
 	{
 		currItem->SetRectFrame();
-		setRedrawBounding(currItem);
+		Doc->setRedrawBounding(currItem);
 		updateContents(currItem->getRedrawBounding(Scale));
 	}
 }
@@ -8928,7 +8947,7 @@ void ScribusView::SetFrameRounded()
 			return;
 		}
 		currItem->SetFrameRound();
-		setRedrawBounding(currItem);
+		Doc->setRedrawBounding(currItem);
 		updateContents(currItem->getRedrawBounding(Scale));
 	}
 }
@@ -8940,7 +8959,7 @@ void ScribusView::SetFrameOval()
 	if (GetItem(&currItem))
 	{
 		currItem->SetOvalFrame();
-		setRedrawBounding(currItem);
+		Doc->setRedrawBounding(currItem);
 		updateContents(currItem->getRedrawBounding(Scale));
 	}
 }
@@ -9462,7 +9481,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	if (currItem->itemType() == PageItem::ItemType1)
 	{
 		currItem->SetOvalFrame();
-		setRedrawBounding(currItem);
+		Doc->setRedrawBounding(currItem);
 	}
 	// OBSOLETE CR 2005-02-06
 	if (currItem->itemType() == PageItem::ItemType3)
@@ -9471,12 +9490,12 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		{
 			ClRe = -1;
 			currItem->SetFrameRound();
-			setRedrawBounding(currItem);
+			Doc->setRedrawBounding(currItem);
 		}
 		else
 		{
 			currItem->SetRectFrame();
-			setRedrawBounding(currItem);
+			Doc->setRedrawBounding(currItem);
 		}
 		currItem->ClipEdited = true;
 	}
@@ -9525,7 +9544,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		currItem->updateGradientVectors();
 	}
 	currItem->setObjectAttributes(&(Buffer->pageItemAttributes));
-	setRedrawBounding(currItem);
+	Doc->setRedrawBounding(currItem);
 	currItem->OwnPage = Doc->OnPage(currItem);
 	if (!loading)
 	{
@@ -9814,7 +9833,7 @@ void ScribusView::TextToPath()
 				}
 				bb->ContourLine = bb->PoLine.copy();
 				bb->ClipEdited = true;
-				setRedrawBounding(bb);
+				Doc->setRedrawBounding(bb);
 				newGroupedItems.append(bb);
 			}
 			if ((currItem->asPathText()) && (currItem->PoShow))

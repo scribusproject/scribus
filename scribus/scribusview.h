@@ -182,7 +182,7 @@ public:
 	void SnapToGuides(PageItem *currItem);
 	QPoint ApplyGrid(const QPoint& in);
 	FPoint ApplyGridF(const FPoint& in);
-	void setRedrawBounding(PageItem *currItem);
+	//->doc void setRedrawBounding(PageItem *currItem);
 	void setGroupRect();
 	void getGroupRect(double *x, double *y, double *w, double *h);
 	void getGroupRectScreen(double *x, double *y, double *w, double *h);
@@ -242,7 +242,7 @@ public:
 	double scale() const { return Scale; }
 
 
-	void adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute = false);
+	//void adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute = false);
 
 public slots: // Public slots
 	void languageChange();
@@ -302,6 +302,7 @@ public slots: // Public slots
 	void updatePict(QString name);
 	void removePict(QString name);
 	void changePreview(int id);
+	void adjustCanvas(double width, double height, double dX=0.0, double dY=0.0);
 
 private: // Private attributes
 	QPopupMenu *pmen3;

@@ -29,7 +29,7 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 								ValueToPoint(w), ValueToPoint(h),
 								ScMW->doc->toolSettings.dWidth,
 								ScMW->doc->toolSettings.dBrush, ScMW->doc->toolSettings.dPen, true);
-	ScMW->view->setRedrawBounding(ScMW->doc->Items->at(i));
+	ScMW->doc->setRedrawBounding(ScMW->doc->Items->at(i));
 	if (Name != "")
 		ScMW->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(ScMW->doc->Items->at(i)->itemName().utf8());
@@ -58,7 +58,7 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	ScMW->view->setRedrawBounding(ScMW->doc->Items->at(i));
+	ScMW->doc->setRedrawBounding(ScMW->doc->Items->at(i));
 	if (Name != "")
 		ScMW->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(ScMW->doc->Items->at(i)->itemName().utf8());
@@ -85,7 +85,7 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	ScMW->view->setRedrawBounding(ScMW->doc->Items->at(i));
+	ScMW->doc->setRedrawBounding(ScMW->doc->Items->at(i));
 	if (Name != "")
 		ScMW->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(ScMW->doc->Items->at(i)->itemName().utf8());
@@ -112,7 +112,7 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	ScMW->view->setRedrawBounding(ScMW->doc->Items->at(i));
+	ScMW->doc->setRedrawBounding(ScMW->doc->Items->at(i));
 	if (Name != "")
 		ScMW->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(ScMW->doc->Items->at(i)->itemName().utf8());
