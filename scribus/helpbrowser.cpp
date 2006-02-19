@@ -67,6 +67,11 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "prefsfile.h"
 
+#if defined(_WIN32)
+#include <windows.h>
+#include <shellapi.h>
+#endif
+
 extern QPixmap loadIcon(QString nam);
 
 
@@ -183,6 +188,29 @@ int HelpListItem::compare(QListViewItem *i, int col, bool asc) const
 		return QListViewItem::compare(i, col, asc);
 }
 
+TextBrowser::TextBrowser(QWidget * parent, const char * name) : QTextBrowser(parent, name)
+{
+}
+
+void TextBrowser::setSource(const QString &name)
+{
+#if defined(_WIN32)
+	int index = name.find( "http:/" );
+	if ( index >=0 )
+	{
+		QString url = name.right(name.length() - index);
+		//textBrowser->setSource( textBrowser->source() );
+		QT_WA( {
+		ShellExecute( winId(), 0, (TCHAR*)url.ucs2(), 0, 0, SW_SHOWNORMAL );
+	    } , {
+		ShellExecuteA( winId(), 0, url.local8Bit(), 0, 0, SW_SHOWNORMAL );
+	    } );
+		return;
+	}
+#endif
+	QTextBrowser::setSource(name);
+}
+
 HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLanguage, QString jumpToSection, QString jumpToFile)
 	: QWidget( parent, "Help", WType_TopLevel | WDestructiveClose | WGroupLeader )
 {
@@ -288,7 +316,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	bookmarksMainLayout->addLayout(bookmarksButtonLayout);
 	tabWidget->insertTab(tabBookmarks, tr("Book&marks"));
 
-	textBrowser = new QTextBrowser( splitter, "textBrowser" );
+	textBrowser = new TextBrowser( splitter, "textBrowser" );
 	textBrowser->setSizePolicy( QSizePolicy( QSizePolicy::Maximum, QSizePolicy::Maximum, false ) );
 	textBrowser->setFrameShape( QTextBrowser::StyledPanel );
 	QMimeSourceFactory *textBrowserMSF=textBrowser->mimeSourceFactory();

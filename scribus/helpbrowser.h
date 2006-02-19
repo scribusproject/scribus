@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdialog.h>
 #include <qstring.h>
 #include <qlistview.h>
-
+#include <qtextbrowser.h>
 #include "scribusapi.h"
 
 class QVBoxLayout;
@@ -42,7 +42,6 @@ class QGridLayout;
 class QSpacerItem;
 class QTabWidget;
 class QWidget;
-class QTextBrowser;
 class QToolButton;
 class QPopupMenu;
 class QSplitter;
@@ -80,6 +79,22 @@ public:
 	\retval int -1 for (x lt y), 1 for (x gt y). See Qt docs for more info.
 	 */
 	int compare(QListViewItem *i, int col, bool asc) const;
+};
+
+/*! \brief Text browser widget used in help browser.
+On Windows, launch automatically default browser when an http link is clicked
+*/
+class SCRIBUS_API TextBrowser : public QTextBrowser
+{
+	Q_OBJECT
+public:
+	TextBrowser(QWidget * parent = 0, const char * name = 0);
+
+public slots:
+	/*! \brief Sets the name of the displayed document to name. 
+	On Windows, the default web browser is launched if a web link is clicked
+	*/
+	virtual void setSource(const QString &name);
 };
 
 
