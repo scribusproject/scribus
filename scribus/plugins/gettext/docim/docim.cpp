@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "docim.h"
 #include "docim.moc"
 #include "gtwriter.h"
+#include "scpaths.h"
 #include "scribusstructs.h"
 #include <qobject.h>
 #include <qcstring.h>
@@ -17,6 +18,10 @@ for which a new license (GPL+exception) is in place.
 #include <qstringlist.h>
 #include <qtextcodec.h>
 
+#if defined(_WIN32)
+#include <windows.h>
+#endif
+
 bool hasAntiword()
 {
 	static bool searched = false, found = false;
@@ -24,7 +29,11 @@ bool hasAntiword()
 		return found;
 
 	QProcess *test = new QProcess();
+#if defined(_WIN32)
+	test->addArgument( ScPaths::instance().libDir() + "tools/antiword/antiword.exe" );
+#else
 	test->addArgument("antiword");
+#endif
 	if (test->start())
 	{
 		found = true;
@@ -34,9 +43,9 @@ bool hasAntiword()
 #else
 		Sleep(5);
 #endif
-		test->kill();
-		delete test;
+		test->kill();	
 	}
+	delete test;
 	searched = true;
 	return found;
 }
@@ -90,16 +99,50 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 	text = "";
 	error = "";
 	proc = new QProcess();
+#if defined(_WIN32)
+	proc->addArgument( ScPaths::instance().libDir() + "tools/antiword/antiword.exe" );
+	proc->setWorkingDirectory( ScPaths::instance().libDir() + "tools/antiword/" ); 
+#else
 	proc->addArgument("antiword");
+#endif
 	proc->addArgument("-t");
 	proc->addArgument("-w 0");
 	proc->addArgument(filename);
 	connect(proc, SIGNAL(readyReadStdout()), this, SLOT(slotReadOutput()));
 	connect(proc, SIGNAL(readyReadStderr()), this, SLOT(slotReadErr()));
-	connect(proc, SIGNAL(processExited()), this, SLOT(slotLaunchFinished()));
-	if (!proc->start()) {
+#if defined(_WIN32)
+	QStringList envVar;
+	QString homeDir =  QDir::convertSeparators(ScPaths::instance().libDir() + "tools");
+	envVar.append( QString("HOME=%1").arg(homeDir) );
+	if (!proc->start(&envVar))
+	{
 		failed = true;
+		return;
+	}	
+#else
+	if (proc->start())
+	{
+		failed = true;
+		return;
 	}
+#endif
+
+	while(proc->isRunning())
+	{
+	#ifndef _WIN32
+		usleep(5000);
+	#else
+		Sleep(5);
+	#endif
+	}
+
+	if (proc->normalExit()) 
+	{
+		toUnicode();
+		write();
+	} 
+	else
+		failed = true;
 }
 
 bool DocIm::isRunning()
@@ -140,15 +183,6 @@ void DocIm::slotReadErr()
 	QByteArray bb = proc->readStderr();
 	if (bb)
 		error += QString(bb);
-}
-
-void DocIm::slotLaunchFinished()
-{
-	if (proc->normalExit()) {
-		toUnicode();
-		write();
-	} else
-		failed = true; // some info to the user too
 }
 
 DocIm::~DocIm()

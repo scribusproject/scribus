@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "pluginapi.h"
 #include <qobject.h>
+#include <qstringlist.h>
 
 class gtWriter;
 class QProcess;
@@ -43,7 +44,6 @@ private:
 private slots:
 	void slotReadOutput();
 	void slotReadErr();
-	void slotLaunchFinished();
 };
 
 #endif // DOCIM_H
