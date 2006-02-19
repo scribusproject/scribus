@@ -253,7 +253,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	LockRes(false),
 	textFlowsAroundFrameVal(false),
 	textFlowUsesBoundingBoxVal(false),
-	textFlowUsesContourLineVal(false)
+	textFlowUsesContourLineVal(false),
+	itemText(pa)
 {
 	QString tmp;
 	BackBox = 0;

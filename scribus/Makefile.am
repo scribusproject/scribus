@@ -231,7 +231,7 @@ scribus_SOURCES = \
 INTERFACES =
 TRANSLATIONS =
 
-SUBDIRS = $(renderer_subdirs) dicts doc icons keysets manpages plugins po profiles qm swatches templates dtd loremipsum
+SUBDIRS = $(renderer_subdirs) dicts doc icons keysets manpages plugins po profiles qm swatches templates dtd loremipsum text
 
 #     NOTE: `EXTRA_DIST' is *NOT* required. The build system includes all
 #     loose files by default. You only need to use `EXTRA_DIST' when using
@@ -601,7 +601,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/vruler.h
 	-rm -f $(prefix)/include/scribus/werktoolb.h
 
-scribus_LDADD  = $(LIBCAIRO_LIBS) $(LIBJPEG) $(LIBART_LIBS) $(LIBFREETYPE_LIBS) $(LIBFONTCONFIG_LIBS) $(LIBCUPS) $(LIBLCMS) $(LIBDL) $(LIBDL2) $(LIBTIFF) -lm $(LIB_QT) $(LIB_X11) $(LIBSOCKET) $(renderer_libs) $(COREFOUNDATION_LIBS)
+scribus_LDADD  = $(LIBCAIRO_LIBS) $(LIBJPEG) $(LIBART_LIBS) $(LIBFREETYPE_LIBS) $(LIBFONTCONFIG_LIBS) $(LIBCUPS) $(LIBLCMS) $(LIBDL) $(LIBDL2) $(LIBTIFF) -lm $(LIB_QT) $(LIB_X11) $(LIBSOCKET) $(renderer_libs) text/libtext.la $(COREFOUNDATION_LIBS)
 
 AM_LDFLAGS = -export-dynamic $(LIBFREETYPE_LIBS)
 # set the include path for X, qt and KDE

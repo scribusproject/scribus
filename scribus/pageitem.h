@@ -39,6 +39,8 @@ for which a new license (GPL+exception) is in place.
 #include "pagestructs.h"
 #include "annotation.h"
 #include "sctextstruct.h"
+#include "text/storytext.h"
+
 class ScribusDoc;
 class UndoManager;
 class UndoState;
@@ -376,7 +378,7 @@ public:
   /** Cursorposition */
 	int CPos;
   /** Text des Elements */
-	QPtrList<ScText> itemText;
+	StoryText itemText;
   /** Flag fuer PDF-Bookmark */
 	bool isBookmark;
 	int BMnr;
