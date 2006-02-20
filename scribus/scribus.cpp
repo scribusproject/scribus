@@ -1290,7 +1290,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					else
 					{
 						view->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
-						currItem->SetPolyClip(qRound(QMAX(currItem->lineWidth() / 2.0, 1)));
+						currItem->setPolyClip(qRound(QMAX(currItem->lineWidth() / 2.0, 1)));
 						view->AdjustItemSize(currItem);
 						currItem->ContourLine = currItem->PoLine.copy();
 						currItem->ClipEdited = true;
@@ -1842,7 +1842,7 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 	doc->setLoading(false);
 	doc->currentPage = doc->Pages->at(0);
 	doc->OpenNodes.clear();
-
+	actionManager->connectNewDocActions(doc);
 	//<<View and window code
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	if (view!=NULL)
@@ -1875,11 +1875,12 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 		w->show();
 	view->show();
 	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
-	connect(fileWatcher, SIGNAL(fileChanged(QString)), view, SLOT(updatePict(QString)));
-	connect(fileWatcher, SIGNAL(fileDeleted(QString)), view, SLOT(removePict(QString)));
+	connect(fileWatcher, SIGNAL(fileChanged(QString)), doc, SLOT(updatePict(QString)));
+	connect(fileWatcher, SIGNAL(fileDeleted(QString)), doc, SLOT(removePict(QString)));
 	scrActions["fileSave"]->setEnabled(false);
 	undoManager->switchStack(doc->DocName);
 	tocGenerator->setDoc(doc);
+	
 	return true;
 }
 
@@ -2046,7 +2047,7 @@ bool ScribusMainWindow::slotDocSetup()
 		slotChangeUnit(dia->getSelectedUnit(), false);
 		dia->updateDocumentSettings();
 		if (dia->imageResolutionChanged())
-			view->RecalcPicturesRes();
+			doc->recalcPicturesRes();
 		FontSub->RebuildList(doc);
 		propertiesPalette->Fonts->RebuildList(doc);
 		scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
@@ -2726,7 +2727,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			SCustom->setPixmap(SCustom->getIconPixmap(1));
 		if (currItem->FrameType > 3)
 			SCustom->setPixmap(SCustom->getIconPixmap(currItem->FrameType-2));
-		actionManager->connectNewSelectionActions(view);
+		actionManager->connectNewSelectionActions(view, doc);
 	}
 	else
 		propertiesPalette->NewSel(Nr);
@@ -2952,8 +2953,7 @@ bool ScribusMainWindow::slotDocOpen()
 		// User cancelled
 		return false;
 	docContext->set("docsopen", fileName.left(fileName.findRev("/")));
-	bool ret = loadDoc(fileName);
-	return ret;
+	return loadDoc(fileName);
 }
 
 bool ScribusMainWindow::slotPageImport()
@@ -3416,7 +3416,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				if (ite->asPathText())
 				{
 					ite->Frame = true;
-					ite->UpdatePolyClip();
+					ite->updatePolyClip();
 				}
 				else
 				{
@@ -3455,7 +3455,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				if (ite->itemType() == PageItem::PathText)
 				{
 					ite->Frame = true;
-					ite->UpdatePolyClip();
+					ite->updatePolyClip();
 					ite->DrawObj(painter, rd);
 				}
 				else
@@ -3496,7 +3496,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				if (ite->itemType() == PageItem::PathText)
 				{
 					ite->Frame = true;
-					ite->UpdatePolyClip();
+					ite->updatePolyClip();
 				}
 				ite->DrawObj(painter, rd);
 			}
@@ -3533,9 +3533,10 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		view->GotoPage(0);
 		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
-		connect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
-		connect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
+		connect(fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
+		connect(fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
 		connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
+		actionManager->connectNewDocActions(doc);
 		doc->connectDocSignals();
 		if (doc->AutoSave)
 			doc->autoSaveTimer->start(doc->AutoSaveTime);
@@ -3819,6 +3820,7 @@ bool ScribusMainWindow::DoFileClose()
 {
 	if (doc==storyEditor->currentDocument())
 		storyEditor->close();
+	actionManager->disconnectNewDocActions();
 	actionManager->disconnectNewViewActions();
 	disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	if (doc->viewCount > 1)
@@ -3826,8 +3828,8 @@ bool ScribusMainWindow::DoFileClose()
 		--doc->viewCount;
 		closeActiveWindowMasterPageEditor();
 		setAppMode(modeNormal);
-		disconnect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
-		disconnect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
+		disconnect(fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
+		disconnect(fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
 		view->close();
 		delete view;
 		view = NULL;
@@ -3841,8 +3843,8 @@ bool ScribusMainWindow::DoFileClose()
 	doc->autoSaveTimer->stop();
 	disconnect(doc->autoSaveTimer, SIGNAL(timeout()), doc->WinHan, SLOT(slotAutoSave()));
 	disconnect(doc->WinHan, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
-	disconnect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
-	disconnect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
+	disconnect(fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
+	disconnect(fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
 	for (uint a = 0; a < doc->Items->count(); ++a)
 	{
 		PageItem *currItem = doc->Items->at(a);
@@ -7302,7 +7304,7 @@ void ScribusMainWindow::StoreBookmarks()
 		Boma.ItemNr = ip->ItemNr;
 		Boma.PageObject = ip->PageObject;
 //		Boma.Seite = ip->Seite;
-//		Boma.Element = ip->Element;
+// 		Boma.Element = ip->Element;
 		Boma.Parent = ip->Pare;
 		Boma.First = ip->First;
 		Boma.Prev = ip->Prev;
@@ -7378,7 +7380,7 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 			MasterPagesPalette *dia = new MasterPagesPalette(this, doc, view, temp);
 			//connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewMasterPage(int)));
 			connect(dia, SIGNAL(removePage(int )), this, SLOT(DeletePage2(int )));
-			connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(loadPage(QString, int, bool)));
+			//connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(loadPage(QString, int, bool)));
 			connect(dia, SIGNAL(finished()), this, SLOT(manageMasterPagesEnd()));
 			connect(dia, SIGNAL(docAltered()), outlinePalette, SLOT(BuildTree()));
 			connect(dia, SIGNAL(docAltered()), SLOT(slotDocCh()));
@@ -8249,7 +8251,7 @@ void ScribusMainWindow::ImageEffects()
 			if (dia->exec())
 			{
 				currItem->effectsInUse = dia->effectsList;
-				view->UpdatePic();
+				doc->updatePic();
 			}
 			delete dia;
 			slotDocCh();

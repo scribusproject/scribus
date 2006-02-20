@@ -2323,7 +2323,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		currItem->setFont(doc->toolSettings.defFont);
 	if (currItem->asPathText())
 	{
-		currItem->UpdatePolyClip();
+		currItem->updatePolyClip();
 		currItem->Frame = true;
 	}
 	currItem->GrType = obj->attribute("GRTYP", "0").toInt();

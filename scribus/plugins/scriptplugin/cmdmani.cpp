@@ -48,7 +48,7 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 	}
 	item->setImageXYScale(x, y);
 	ScMW->doc->ChLocalSc(x, y);
-	ScMW->view->UpdatePic();
+	ScMW->doc->updatePic();
 	Py_INCREF(Py_None);
 	return Py_None;
 }

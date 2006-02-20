@@ -3584,7 +3584,7 @@ void Mpalette::handlePathDist()
 	{
 		CurItem->setTextToFrameDistLeft(Dist->value());
 		ScMW->view->AdjustItemSize(CurItem);
-		CurItem->UpdatePolyClip();
+		CurItem->updatePolyClip();
 		ScMW->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
@@ -3598,7 +3598,7 @@ void Mpalette::handlePathOffs()
 	{
 		CurItem->BaseOffs = -LineW->value();
 		ScMW->view->AdjustItemSize(CurItem);
-		CurItem->UpdatePolyClip();
+		CurItem->updatePolyClip();
 		ScMW->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}

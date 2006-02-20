@@ -192,8 +192,8 @@ public:
 	//void RefreshItem(PageItem *currItem);
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	//void MoveItemI(PageItem* currItem, double newX, double newY, bool redraw = true);
-	void UpdateClip(PageItem *currItem);
-	void ConvertClip(PageItem *currItem);
+	//void UpdateClip(PageItem *currItem);
+	//void ConvertClip(PageItem *currItem);
 	void MarkClip(PageItem *currItem, FPointArray cli, bool once = false);
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
 	void TransformPoly(int mode, int rot = 1, double scaling = 1.0);
@@ -241,7 +241,6 @@ public:
 	void setScale(const double newScale);
 	double scale() const { return Scale; }
 
-
 	//void adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute = false);
 
 public slots: // Public slots
@@ -269,8 +268,8 @@ public slots: // Public slots
 	void SetCPo(int x, int y);
 	void SetCCPo(int x, int y);
 	void editExtendedImageProperties();
-	void TogglePic();
-	void UpdatePic();
+	//void TogglePic();
+	//void UpdatePic();
 	void RefreshItem(PageItem *currItem);
 	/**
 	 * Adjust an image frame's size to fit the size of the image in it
@@ -278,8 +277,8 @@ public slots: // Public slots
 	void adjustFrametoImageSize();
 	void ToggleBookmark();
 	void ToggleAnnotation();
-	void ToggleLock();
-	void ToggleSizeLock();
+	//void ToggleLock();
+	//void ToggleSizeLock();
 	void sentToScrap();
 	void ToBack();
 	void ToFront();
@@ -299,8 +298,8 @@ public slots: // Public slots
 	void PasteToPage();
 	void TextToPath();
 	void BlinkCurs();
-	void updatePict(QString name);
-	void removePict(QString name);
+	//void updatePict(QString name);
+	//void removePict(QString name);
 	void changePreview(int id);
 	void adjustCanvas(double width, double height, double dX=0.0, double dY=0.0);
 

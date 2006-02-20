@@ -161,14 +161,13 @@ void ScripterCore::FinishScriptRun()
 				ScMW->doc->GroupOnPage(ite);
 			else
 				ite->OwnPage = ScMW->doc->OnPage(ite);
-			//ScMW->view->setRedrawBounding(ite);
 			ite->setRedrawBounding();
 			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText) && (!ite->Redrawn))
 			{
 				if (ite->itemType() == PageItem::PathText)
 				{
 					ite->Frame = false;
-					ite->UpdatePolyClip();
+					ite->updatePolyClip();
 					ite->DrawObj(painter, rd);
 				}
 				else
@@ -193,13 +192,9 @@ void ScripterCore::FinishScriptRun()
 		}
 		delete painter;
 		ScMW->doc->RePos = false;
-		//if (ScMW->view->SelItem.count() != 0)
 		if (ScMW->doc->selection->count() != 0)
 		{
-			//ScMW->view->EmitValues(ScMW->view->SelItem.at(0));
-			//ScMW->view->EmitValues(ScMW->doc->selection->itemAt(0));
 			ScMW->doc->selection->itemAt(0)->emitAllToGUI();
-			//ScMW->HaveNewSel(ScMW->view->SelItem.at(0)->itemType());
 			ScMW->HaveNewSel(ScMW->doc->selection->itemAt(0)->itemType());
 		}
 		else
@@ -240,7 +235,6 @@ void ScripterCore::StdScript(QString basefilename)
 	QString pfad2;
 	pfad2 = QDir::convertSeparators(pfad);
 	QString fn = pfad2+basefilename+".py";
-	//QString fn = pfad2+smen->text(id)+".py";
 	QFileInfo fd(fn);
 	if (!fd.exists())
 		return;
@@ -250,7 +244,6 @@ void ScripterCore::StdScript(QString basefilename)
 
 void ScripterCore::RecentScript(QString fn)
 {
-	//QString fn = rmen->text(id);
 	QFileInfo fd(fn);
 	if (!fd.exists())
 	{

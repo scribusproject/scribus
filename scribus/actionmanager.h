@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scraction.h"
 
+class ScribusDoc;
 class ScribusMainWindow;
 class ScribusQApp;
 class ScribusView;
@@ -51,8 +52,10 @@ class SCRIBUS_API ActionManager : public QObject
 		void connectModeActions();
 		void disconnectNewViewActions();
 		void connectNewViewActions(ScribusView *);
+		void disconnectNewDocActions();
+		void connectNewDocActions(ScribusDoc *);
 		void disconnectNewSelectionActions();
-		void connectNewSelectionActions(ScribusView *);
+		void connectNewSelectionActions(ScribusView *,ScribusDoc *);
 		void saveActionShortcutsPreEditMode();
 		void restoreActionShortcutsPostEditMode();
 		void enableActionStringList(QStringList *list, bool enabled, bool checkingUnicode=false);

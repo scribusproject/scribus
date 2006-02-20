@@ -2078,6 +2078,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	FrameOnly = false;
 	p->restore();
 }
+
 void PageItem_TextFrame::clearContents()
 {
 	//FIXME use PageItem_TextFrame pointers

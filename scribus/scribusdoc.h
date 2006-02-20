@@ -576,8 +576,9 @@ public:
 	
 	void setRedrawBounding(PageItem *currItem);
 	void adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute = false);
-	
+	void recalcPicturesRes();
 	void connectDocSignals();
+	
 	
 protected:
 	void addSymbols();
@@ -781,8 +782,11 @@ signals:
 	 * @brief Let the document tell whatever is listening that it has changed
 	 */
 	void changed();
+	void updateContents();
 	void refreshItem(PageItem *);
 	void canvasAdjusted(double width, double height, double dX, double dY);
+	void firstSelectedItemType(int);
+	void setApplicationMode(int);
 	/**
 	 * @brief A signal for when the outline palette needs to rebuild itself
 	 * Emit when:
@@ -793,6 +797,14 @@ signals:
 	 * This also applies to Master Pages
 	 */
 	void signalRebuildOutLinePalette();
+	
+public slots:
+	void itemSelection_ToggleLock();
+	void itemSelection_ToggleSizeLock();
+	void itemSelection_ToggleImageShown();
+	void updatePic();
+	void updatePict(QString name);
+	void removePict(QString name);
 };
 
 #endif

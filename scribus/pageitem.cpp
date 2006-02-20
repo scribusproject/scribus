@@ -241,6 +241,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	// Initialize superclass(es)
 	: QObject(pa),
 	// Initialize member variables
+	itemText(pa),
 	undoManager(UndoManager::instance()),
 	lineShadeVal(100),
 	fillShadeVal(100),
@@ -252,8 +253,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	LockRes(false),
 	textFlowsAroundFrameVal(false),
 	textFlowUsesBoundingBoxVal(false),
-	textFlowUsesContourLineVal(false),
-	itemText(pa)
+	textFlowUsesContourLineVal(false)
 {
 	QString tmp;
 	BackBox = 0;
@@ -1800,9 +1800,7 @@ void PageItem::toggleSizeLock()
 
 void PageItem::setSizeLocked(bool isLocked)
 {
-	if (isLocked == LockRes)
-		return; // nothing to do return
-	else
+	if (isLocked != LockRes)
 		toggleSizeLock();
 }
 
@@ -2286,12 +2284,12 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		else if (ss->contains("LOCK"))
 		{
 			select();
-			m_Doc->view()->ToggleLock();
+			m_Doc->itemSelection_ToggleLock();
 		}
 		else if (ss->contains("SIZE_LOCK"))
 		{
 			select();
-			m_Doc->view()->ToggleSizeLock();
+			m_Doc->itemSelection_ToggleSizeLock();
 		}
 		else if (ss->contains("NEW_NAME"))
 			restoreName(ss, isUndo);
@@ -3507,7 +3505,7 @@ void PageItem::updateGradientVectors()
 	emit gradientColorUpdate(GrStartX*dur, GrStartY*dur, GrEndX*dur, GrEndY*dur, Width*dur, Height*dur);
 }
 
-void PageItem::SetPolyClip(int up)
+void PageItem::setPolyClip(int up)
 {
 	Clip.resize(0);
 	if (PoLine.size() < 4)
@@ -3543,7 +3541,7 @@ void PageItem::SetPolyClip(int up)
 	}
 }
 
-void PageItem::UpdatePolyClip()
+void PageItem::updatePolyClip()
 {
 	struct ScText *hl;
 	int asce = 1;
@@ -3559,7 +3557,7 @@ void PageItem::UpdatePolyClip()
 		if (des > desc)
 			desc = des;
 	}
-	SetPolyClip(static_cast<int>(asce-BaseOffs));
+	setPolyClip(static_cast<int>(asce-BaseOffs));
 }
 
 void PageItem::handleModeEditKey(QKeyEvent * /* k */, bool & /* keyRepeat */)
@@ -3711,4 +3709,144 @@ void PageItem::moveImageInFrame(double newX, double newY)
 		cl.scale(imageXScale(), imageYScale());
 		imageClip.map(cl);
 	}
+}
+
+
+
+void PageItem::convertClip()
+{
+	if (Clip.count() != 0)
+	{
+		FPoint np(Clip.point(0));
+		PoLine.resize(2);
+		PoLine.setPoint(0, np);
+		PoLine.setPoint(1, np);
+		for (uint a = 1; a < Clip.size(); ++a)
+		{
+			np = FPoint(Clip.point(a));
+			PoLine.putPoints(PoLine.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
+		}
+		np = FPoint(Clip.point(0));
+		PoLine.putPoints(PoLine.size(), 2, np.x(), np.y(), np.x(), np.y());
+		Clip = FlattenPath(PoLine, Segments);
+	}
+	else
+	{
+		SetRectFrame();
+		m_Doc->setRedrawBounding(this);
+	}
+}
+
+void PageItem::updateClip()
+{
+	if (m_Doc->appMode == modeDrawBezierLine)
+		return;
+	int ph = static_cast<int>(QMAX(1.0, lineWidth() / 2.0));
+	switch (itemType())
+	{
+	case PageItem::Line:
+		Clip.setPoints(4, -ph,-ph, static_cast<int>(width()+ph),-ph,
+		                  static_cast<int>(width()+ph),static_cast<int>(height()+ph),
+		                  -ph,static_cast<int>(height()+ph));
+		break;
+	default:
+		if (((!ClipEdited) || (FrameType < 3)) && !(asPathText()))
+		{
+			switch (FrameType)
+			{
+			case 0:
+				SetRectFrame();
+				m_Doc->setRedrawBounding(this);
+				break;
+			case 1:
+				SetOvalFrame();
+				m_Doc->setRedrawBounding(this);
+				break;
+			case 2:
+				//CB FIXME: stop using clre or move out of here
+				m_Doc->view()->ClRe = -1;
+				SetFrameRound();
+				m_Doc->setRedrawBounding(this);
+				break;
+			default:
+				break;
+			}
+			if ((OldB2 != 0) && (OldH2 != 0))
+			{
+				double scx = width() / OldB2;
+				double scy = height() / OldH2;
+				QWMatrix ma;
+				ma.scale(scx, scy);
+				FPointArray gr;
+				gr.addPoint(GrStartX, GrStartY);
+				gr.addPoint(GrEndX, GrEndY);
+				gr.map(ma);
+				GrStartX = gr.point(0).x();
+				GrStartY = gr.point(0).y();
+				GrEndX = gr.point(1).x();
+				GrEndY = gr.point(1).y();
+				if (FrameType > 2)
+				{
+					PoLine.map(ma);
+					ContourLine.map(ma);
+					if (asPathText())
+						updatePolyClip();
+					else
+						Clip = FlattenPath(PoLine, Segments);
+				}
+			}
+			OldB2 = width();
+			OldH2 = height();
+			if (FrameType < 3)
+				ContourLine = PoLine.copy();
+		}
+		else
+		{
+			if (m_Doc->SubMode != -1)
+			{
+				switch (m_Doc->SubMode)
+				{
+				case 0:
+					SetRectFrame();
+					m_Doc->setRedrawBounding(this);
+					break;
+				case 1:
+					SetOvalFrame();
+					m_Doc->setRedrawBounding(this);
+					break;
+				default:
+					SetFrameShape(m_Doc->ValCount, m_Doc->ShapeValues);
+					m_Doc->setRedrawBounding(this);
+					break;
+				}
+				OldB2 = width();
+				OldH2 = height();
+				ContourLine = PoLine.copy();
+			}
+			if ((OldB2 == 0) || (OldH2 == 0))
+				return;
+			double scx = width() / OldB2;
+			double scy = height() / OldH2;
+			QWMatrix ma;
+			ma.scale(scx, scy);
+			FPointArray gr;
+			gr.addPoint(GrStartX, GrStartY);
+			gr.addPoint(GrEndX, GrEndY);
+			gr.map(ma);
+			GrStartX = gr.point(0).x();
+			GrStartY = gr.point(0).y();
+			GrEndX = gr.point(1).x();
+			GrEndY = gr.point(1).y();
+			PoLine.map(ma);
+			ContourLine.map(ma);
+			if (asPathText())
+				updatePolyClip();
+			else
+				Clip = FlattenPath(PoLine, Segments);
+			OldB2 = width();
+			OldH2 = height();
+		}
+		break;
+	}
+	updateGradientVectors();
 }

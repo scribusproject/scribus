@@ -266,8 +266,10 @@ public:
 	void SetRectFrame();
 	void SetOvalFrame();
 	void SetFrameRound();
-	void SetPolyClip(int up);
-	void UpdatePolyClip();
+	void setPolyClip(int up);
+	void updatePolyClip();
+	void updateClip();
+	void convertClip();
 	//QRect getRedrawBounding(const double);
 	//void setRedrawBounding();
 	void getBoundingRect(double *x1, double *y1, double *x2, double *y2);

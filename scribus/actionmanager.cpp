@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "actionmanager.moc"
 
 #include "scribus.h"
+#include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
 #include "undomanager.h"
@@ -659,6 +660,22 @@ void ActionManager::connectModeActions()
 		connect( (*scrActions)[*it], SIGNAL(toggledData(bool, int)) , ScMW, SLOT(setAppModeByToggle(bool, int)) );
 }
 
+void ActionManager::disconnectNewDocActions()
+{
+	disconnect( (*scrActions)["itemLock"], 0, 0, 0);
+	disconnect( (*scrActions)["itemLockSize"], 0, 0, 0);
+	disconnect( (*scrActions)["itemUpdateImage"], 0, 0, 0 );
+}
+
+void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
+{
+	if (currDoc==NULL)
+		return;
+	connect( (*scrActions)["itemLock"], SIGNAL(activated()), currDoc, SLOT(itemSelection_ToggleLock()) );
+	connect( (*scrActions)["itemLockSize"], SIGNAL(activated()), currDoc, SLOT(itemSelection_ToggleSizeLock()));
+	connect( (*scrActions)["itemUpdateImage"], SIGNAL(activated()), currDoc, SLOT(updatePic()) );
+}
+
 void ActionManager::disconnectNewViewActions()
 {
 	disconnect( (*scrActions)["toolsZoomIn"], 0, 0, 0);
@@ -679,10 +696,10 @@ void ActionManager::disconnectNewViewActions()
 	disconnect( (*scrActions)["itemConvertToTextFrame"], 0, 0, 0);
 	disconnect( (*scrActions)["itemAttachTextToPath"], 0, 0, 0);
 	disconnect( (*scrActions)["itemDetachTextFromPath"], 0, 0, 0);
-	disconnect( (*scrActions)["itemLock"], 0, 0, 0);
-	disconnect( (*scrActions)["itemLockSize"], 0, 0, 0);
+	//disconnect( (*scrActions)["itemLock"], 0, 0, 0);
+	//disconnect( (*scrActions)["itemLockSize"], 0, 0, 0);
 	disconnect( (*scrActions)["itemAdjustFrameToImage"], 0, 0, 0 );
-	disconnect( (*scrActions)["itemUpdateImage"], 0, 0, 0 );
+	//disconnect( (*scrActions)["itemUpdateImage"], 0, 0, 0 );
 	disconnect( (*scrActions)["itemExtendedImageProperties"], 0, 0, 0 );
 }
 
@@ -705,10 +722,10 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 	connect( (*scrActions)["itemConvertToTextFrame"], SIGNAL(activated()), currView, SLOT(ToTextFrame()) );
 	connect( (*scrActions)["itemAttachTextToPath"], SIGNAL(activated()), currView, SLOT(ToPathText()) );
 	connect( (*scrActions)["itemDetachTextFromPath"], SIGNAL(activated()), currView, SLOT(FromPathText()) );
-	connect( (*scrActions)["itemLock"], SIGNAL(activated()), currView, SLOT(ToggleLock()) );
-	connect( (*scrActions)["itemLockSize"], SIGNAL(activated()), currView, SLOT(ToggleSizeLock()) );
+	//connect( (*scrActions)["itemLock"], SIGNAL(activated()), currView, SLOT(ToggleLock()) );
+	//connect( (*scrActions)["itemLockSize"], SIGNAL(activated()), currView, SLOT(ToggleSizeLock()) );
 	connect( (*scrActions)["itemAdjustFrameToImage"], SIGNAL(activated()), currView, SLOT(adjustFrametoImageSize()) );
-	connect( (*scrActions)["itemUpdateImage"], SIGNAL(activated()), currView, SLOT(UpdatePic()) );
+	//connect( (*scrActions)["itemUpdateImage"], SIGNAL(activated()), currView, SLOT(UpdatePic()) );
 	connect( (*scrActions)["itemExtendedImageProperties"], SIGNAL(activated()), currView, SLOT(editExtendedImageProperties()) );
 }
 
@@ -720,9 +737,9 @@ void ActionManager::disconnectNewSelectionActions()
 	disconnect( (*scrActions)["itemPreviewFull"], SIGNAL(activatedData(int)) , 0, 0 );
 }
 
-void ActionManager::connectNewSelectionActions(ScribusView *currView)
+void ActionManager::connectNewSelectionActions(ScribusView *currView, ScribusDoc* currDoc)
 {
-	connect( (*scrActions)["itemImageIsVisible"], SIGNAL(toggled(bool)) , currView, SLOT(TogglePic()) );
+	connect( (*scrActions)["itemImageIsVisible"], SIGNAL(toggled(bool)) , currDoc, SLOT(itemSelection_ToggleImageShown()) );
 	connect( (*scrActions)["itemPreviewLow"], SIGNAL(activatedData(int)) , currView, SLOT(changePreview(int)) );
 	connect( (*scrActions)["itemPreviewNormal"], SIGNAL(activatedData(int)) , currView, SLOT(changePreview(int)) );
 	connect( (*scrActions)["itemPreviewFull"], SIGNAL(activatedData(int)) , currView, SLOT(changePreview(int)) );

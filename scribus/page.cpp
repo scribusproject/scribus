@@ -337,7 +337,7 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 		ScMW->doc->Items->take(newItem->ItemNr);
 		ScMW->doc->Items->append(oldItem);
 		oldItem->ItemNr = ScMW->doc->Items->count()-1;
-		oldItem->UpdatePolyClip();
+		oldItem->updatePolyClip();
 		ScMW->view->AdjustItemSize(oldItem);
 	}
 	else
@@ -346,12 +346,6 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 		ScMW->doc->Items->append(newItem);
 		newItem->ItemNr = ScMW->doc->Items->count()-1;
 	}
-	/*
-	if (ScMW->doc->masterPageMode())
-		ScMW->doc->MasterItems = ScMW->doc->Items;
-	else
-		ScMW->doc->DocItems = ScMW->doc->Items;
-	*/
 }
 
 void Page::setXOffset(const double newCanvasXOffset)

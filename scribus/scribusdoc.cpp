@@ -48,6 +48,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagestructs.h"
 #include "prefsmanager.h"
 #include "scfontmetrics.h"
+#include "scraction.h"
 #include "selection.h"
 #include "undomanager.h"
 #include "undostate.h"
@@ -275,8 +276,6 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	m_masterPageMode=true; // quick hack to force the change of pointers in setMasterPageMode();
 	setMasterPageMode(false);
 	addSymbols();
-	
-	connect(this, SIGNAL(changed()), ScMW, SLOT(slotDocCh()));
 }
 
 ScribusDoc::~ScribusDoc()
@@ -2668,8 +2667,6 @@ void ScribusDoc::reformPages(bool moveObjects)
 			item->setRedrawBounding();
 		}
 	}
-	//maxX=maxXPos;
-	//maxY=maxYPos;
 	
 	if(isLoading() && is12doc)
 		return;
@@ -2782,7 +2779,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 				polyLineItem->ClipEdited = true;
 				polyLineItem->FrameType = 3;
 				polyLineItem->setRotation(currItem->rotation());
-				polyLineItem->SetPolyClip(qRound(QMAX(polyLineItem->lineWidth() / 2, 1)));
+				polyLineItem->setPolyClip(qRound(QMAX(polyLineItem->lineWidth() / 2, 1)));
 				ScMW->view->AdjustItemSize(polyLineItem);
 
 				newItem->setLineColor(CommonStrings::None);
@@ -2812,7 +2809,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		case PageItem::PolyLine:
 			newItem->convertTo(PageItem::PolyLine);
 			newItem->ClipEdited = true;
-			newItem->SetPolyClip(qRound(QMAX(newItem->lineWidth() / 2, 1)));
+			newItem->setPolyClip(qRound(QMAX(newItem->lineWidth() / 2, 1)));
 			ScMW->view->AdjustItemSize(newItem);
 			break;
 		case PageItem::PathText:
@@ -2830,7 +2827,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 					emit UpdtObj(Doc->currentPage->pageNr(), b->ItemNr); */
 				//FIXME: Stop using the view here
 				ScMW->view->AdjustItemSize(newItem);
-				newItem->UpdatePolyClip();
+				newItem->updatePolyClip();
 				double dx = secondaryItem->xPos() - newItem->xPos();
 				double dy = secondaryItem->yPos() - newItem->yPos();
 				ScMW->view->MoveItem(dx, dy, newItem);
@@ -3524,7 +3521,7 @@ void ScribusDoc::ChLineWidth(double w)
 			//currItem->Oldm_lineWidth = currItem->lineWidth();
 			currItem->setLineWidth(w);
 			if (currItem->asPolyLine())
-				currItem->SetPolyClip(qRound(QMAX(currItem->lineWidth() / 2, 1)));
+				currItem->setPolyClip(qRound(QMAX(currItem->lineWidth() / 2, 1)));
 			if (currItem->asLine())
 			{
 				int ph = static_cast<int>(QMAX(1.0, w / 2.0));
@@ -3684,7 +3681,7 @@ void ScribusDoc::ItemFont(QString fon)
 						currItem->itemText.at(a)->cfont = (*AllFonts)[fon];
 					if (currItem->asPathText())
 					{
-						currItem->UpdatePolyClip();
+						currItem->updatePolyClip();
 						ScMW->view->AdjustItemSize(currItem);
 					}
 /*					if (!Doc->loading)
@@ -4644,7 +4641,7 @@ void ScribusDoc::chFSize(int size)
 				}
 				if (currItem->asPathText())
 				{
-					currItem->UpdatePolyClip();
+					currItem->updatePolyClip();
 					ScMW->view->AdjustItemSize(currItem);
 				}
 				//ScMW->view->RefreshItem(currItem);
@@ -4736,7 +4733,7 @@ void ScribusDoc::MirrorPolyH()
 			currItem->PoLine.map(ma);
 			currItem->PoLine.translate(currItem->width(), 0);
 			if (currItem->asPathText())
-				currItem->UpdatePolyClip();
+				currItem->updatePolyClip();
 			else
 				currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 			setRedrawBounding(currItem);
@@ -4797,7 +4794,7 @@ void ScribusDoc::MirrorPolyV()
 			currItem->PoLine.map(ma);
 			currItem->PoLine.translate(0, currItem->height());
 			if (currItem->asPathText())
-				currItem->UpdatePolyClip();
+				currItem->updatePolyClip();
 			else
 				currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 			setRedrawBounding(currItem);
@@ -4863,8 +4860,236 @@ void ScribusDoc::connectDocSignals()
 {
 	if (ScQApp->usingGUI())
 	{
+		connect(this, SIGNAL(setApplicationMode(int)), ScMW, SLOT(setAppMode(int)));
+		connect(this, SIGNAL(changed()), ScMW, SLOT(slotDocCh()));
+		connect(this, SIGNAL(firstSelectedItemType(int)), ScMW, SLOT(HaveNewSel(int)));
 		connect(autoSaveTimer, SIGNAL(timeout()), WinHan, SLOT(slotAutoSave()));
 		connect(this, SIGNAL(refreshItem(PageItem*)), ScMW->view, SLOT(RefreshItem(PageItem*)));
+		connect(this, SIGNAL(updateContents()), ScMW->view, SLOT(slotUpdateContents()));
 		connect(this, SIGNAL(canvasAdjusted(double, double, double, double)), ScMW->view, SLOT(adjustCanvas(double, double, double, double)));
+	}
+}
+
+void ScribusDoc::itemSelection_ToggleLock( )
+{
+	uint docSelectionCount=selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+		{
+			if (selection->itemAt(0)->locked())
+				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::UnLock, 0, Um::IUnLock);
+			else
+				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Lock, 0, Um::ILock);
+		}
+		for ( uint a = 0; a < docSelectionCount; ++a)
+		{
+			selection->itemAt(a)->toggleLock();
+			emit refreshItem(selection->itemAt(a));
+		}
+		if (docSelectionCount > 1)
+			undoManager->commit();
+		emit changed();
+		emit firstSelectedItemType(selection->itemAt(0)->itemType());
+	}
+}
+
+void ScribusDoc::itemSelection_ToggleSizeLock( )
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (selectedItemCount > 1)
+		{
+			if (selection->itemAt(0)->sizeLocked())
+				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SizeUnLock, 0, Um::IUnLock);
+			else
+				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SizeLock, 0, Um::ILock);
+		}
+		for ( uint a = 0; a < selectedItemCount; ++a)
+		{
+			selection->itemAt(a)->toggleSizeLock();
+			emit refreshItem(selection->itemAt(a));
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+		emit changed();
+		emit firstSelectedItemType(selection->itemAt(0)->itemType());
+	}
+}
+
+
+void ScribusDoc::itemSelection_ToggleImageShown()
+{
+	if (selection->count() != 0)
+	{
+		for (uint a = 0; a < selection->count(); ++a)
+		{
+			PageItem_ImageFrame* imageItem=selection->itemAt(a)->asImageFrame();
+			if (imageItem==NULL)
+				continue;
+			imageItem->setImageShown(!imageItem->imageShown());
+			ScMW->scrActions["itemImageIsVisible"]->setOn(imageItem->imageShown());
+			emit refreshItem(imageItem);
+		}
+		emit changed();
+		//Return to normal mode if in edit mode. We should not allow dragging of
+		//an image in a frame if its not shown.
+		if (appMode == modeEdit)
+			emit setApplicationMode(modeNormal);
+	}
+}
+
+//CB Same as RecalcPicturesRes apart from the name checking, which should be able to be removed
+void ScribusDoc::updatePict(QString name)
+{
+	for (uint a = 0; a < DocItems.count(); ++a)
+	{
+		PageItem *currItem = DocItems.at(a);
+		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		{
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->AdjustPictScale();
+		}
+	}
+	for (uint a = 0; a < MasterItems.count(); ++a)
+	{
+		PageItem *currItem = MasterItems.at(a);
+		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		{
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->AdjustPictScale();
+		}
+	}
+	for (uint a = 0; a <FrameItems.count(); ++a)
+	{
+		PageItem *currItem = FrameItems.at(a);
+		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		{
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->AdjustPictScale();
+		}
+	}
+	emit updateContents();
+	emit changed();
+}
+
+//CB Same as updatePict apart from the name checking, this should be able to be removed
+void ScribusDoc::recalcPicturesRes()
+{
+	for (uint a = 0; a < DocItems.count(); ++a)
+	{
+		PageItem *currItem = DocItems.at(a);
+		if (currItem->PicAvail)
+		{
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->AdjustPictScale();
+		}
+	}
+	for (uint a = 0; a < MasterItems.count(); ++a)
+	{
+		PageItem *currItem = MasterItems.at(a);
+		if (currItem->PicAvail)
+		{
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->AdjustPictScale();
+		}
+	}
+	for (uint a = 0; a < FrameItems.count(); ++a)
+	{
+		PageItem *currItem = FrameItems.at(a);
+		if (currItem->PicAvail)
+		{
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->AdjustPictScale();
+		}
+	}
+	emit updateContents();
+	emit changed();
+}
+
+void ScribusDoc::removePict(QString name)
+{
+	for (uint a = 0; a < DocItems.count(); ++a)
+	{
+		PageItem *currItem = DocItems.at(a);
+		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		{
+			currItem->PicAvail = false;
+			currItem->pixm = ScImage();
+		}
+	}
+	for (uint a = 0; a < MasterItems.count(); ++a)
+	{
+		PageItem *currItem = MasterItems.at(a);
+		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		{
+			currItem->PicAvail = false;
+			currItem->pixm = ScImage();
+		}
+	}
+	for (uint a = 0; a < FrameItems.count(); ++a)
+	{
+		PageItem *currItem = FrameItems.at(a);
+		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		{
+			currItem->PicAvail = false;
+			currItem->pixm = ScImage();
+		}
+	}
+	emit updateContents();
+	emit changed();
+}
+
+void ScribusDoc::updatePic()
+{
+	uint docSelectionCount=selection->count();
+	if (docSelectionCount > 0)
+	{
+		bool toUpdate=false;
+		for (uint i = 0; i < docSelectionCount; ++i)
+		{
+			if (selection->itemAt(i)!=NULL)
+				if (selection->itemAt(i)->asImageFrame())
+				{
+					PageItem *currItem = selection->itemAt(i);
+					if (currItem->PicAvail)
+					{
+						int fho = currItem->imageFlippedH();
+						int fvo = currItem->imageFlippedV();
+						LoadPict(currItem->Pfile, currItem->ItemNr, true);
+						currItem->setImageFlippedH(fho);
+						currItem->setImageFlippedV(fvo);
+						currItem->AdjustPictScale();
+						toUpdate=true;
+					}
+				}
+		}
+		if (toUpdate)
+			emit updateContents();
 	}
 }
