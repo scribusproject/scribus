@@ -1751,7 +1751,7 @@ void SVGPlug::parseGradient( const QDomElement &e )
 
 QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 {
-	struct ScText *hg;
+	ScText *hg;
 	QPainter p;
 	QPtrList<PageItem> GElements;
 	p.begin(ScMW->view->viewport());

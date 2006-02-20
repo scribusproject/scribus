@@ -47,7 +47,7 @@ ScribusColorList::ScribusColorList(QWidget* parent, const char* name, bool modal
 
 	listView = new ColorListBox(this, "listView");
 	listLayout->addWidget(listView);
-	listView->updateBox(ScMW->doc->PageColors);
+	listView->updateBox(ScMW->doc->PageColors, ColorListBox::fancyPixmap);
 
 	btnLayout = new QHBoxLayout(0, 0, 6, "btnLayout");
 	btnSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
