@@ -32,7 +32,7 @@ public:
 };
 
 class CharStyle;
-class ParagraphStyle;
+struct ParagraphStyle;
 class PageItem;
 //class ScTextEngine;
 //class ScScriptItem;
