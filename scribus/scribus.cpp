@@ -1859,6 +1859,7 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 	ActWin = w;
 	doc->WinHan = w;
 	w->setCentralWidget(view);
+	doc->connectDocSignals(); //Must be before the first reformpages
 	view->reformPages(true);
 	//>>
 
@@ -1876,7 +1877,6 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 	connect(fileWatcher, SIGNAL(fileChanged(QString)), view, SLOT(updatePict(QString)));
 	connect(fileWatcher, SIGNAL(fileDeleted(QString)), view, SLOT(removePict(QString)));
-	doc->connectDocSignals();
 	scrActions["fileSave"]->setEnabled(false);
 	undoManager->switchStack(doc->DocName);
 	tocGenerator->setDoc(doc);
