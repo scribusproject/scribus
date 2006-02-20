@@ -328,7 +328,10 @@ void MasterPagesPalette::appendPage()
 		qApp->processEvents();
 		//CB TODO: If we are loading to a new name, we rely on doc->onpage in 
 		//FileLoader::PasteItem as this call doesnt pass in the new destination page
-		ScMW->loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true, MasterPageName2);
+// Following line disabled and replaced to fix compiling error,
+// Something seems to be missing there ??
+//		ScMW->loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true, MasterPageName2);
+		ScMW->loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true);
 		qApp->processEvents();
 		/*
 		MasterPageName = currentDoc->Pages->at(nr)->PageNam;
