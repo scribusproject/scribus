@@ -58,7 +58,8 @@ void StoryText::clear()
 	firstFrameItem = 0;
 	lastFrameItem = -1;
 	
-//FIXME:NLS
+	QPtrList<ScText>::clear();
+//FIXME:NLS  add deletion of embedded objects here
 	invalidateAll();
 }
 
