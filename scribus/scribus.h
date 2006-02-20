@@ -295,7 +295,7 @@ public slots:
 	/** \brief generate a new document in the current view */
 	bool slotFileNew();
 	bool slotPageImport();
-	bool loadPage(QString fileName, int Nr, bool Mpa);
+	bool loadPage(QString fileName, int Nr, bool Mpa, const QString& renamedPageName=QString::null);
 
 	void slotGetContent();
 	/*!

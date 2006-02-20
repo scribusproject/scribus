@@ -3050,7 +3050,7 @@ bool ScribusMainWindow::slotPageImport()
 	return ret;
 }
 
-bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa)
+bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QString& renamedPageName)
 {
 	bool ret = false;
 	if (!fileName.isEmpty())
@@ -3065,7 +3065,7 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa)
 		}
 		doc->setLoading(true);
 		uint oldItemsCount = doc->Items->count();
-		if(!fl->LoadPage(Nr, Mpa))
+		if(!fl->LoadPage(Nr, Mpa, renamedPageName))
 		{
 			delete fl;
 			doc->setLoading(false);
