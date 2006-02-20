@@ -25,6 +25,55 @@ for which a new license (GPL+exception) is in place.
 
 class DynamicTip;
 
+class SCRIBUS_API ColorListBoxItem : public QListBoxItem
+{
+	protected:
+
+		ScColor color;
+
+	public:
+		ColorListBoxItem( const ScColor& col, const QString colName );
+		~ColorListBoxItem() {};
+
+		virtual int	height( const QListBox * ) const;
+};
+
+class SCRIBUS_API ColorSmallPixmapItem : public ColorListBoxItem
+{
+	public:
+		ColorSmallPixmapItem( const ScColor& col, const QString colName );
+		~ColorSmallPixmapItem() {};
+
+		virtual int	width( const QListBox * )  const;
+
+		virtual void paint( QPainter * );
+		virtual int rtti() const { return 654873547; };
+};
+
+class SCRIBUS_API ColorWidePixmapItem : public ColorListBoxItem
+{
+	public:
+		ColorWidePixmapItem( const ScColor& col, const QString colName );
+		~ColorWidePixmapItem() {};
+
+		virtual int	width( const QListBox * )  const;
+
+		virtual void paint( QPainter * );
+		virtual int rtti() const { return 654873548; };
+};
+
+class SCRIBUS_API ColorFancyPixmapItem : public ColorListBoxItem
+{
+	public:
+		ColorFancyPixmapItem( const ScColor& col, const QString colName );
+		~ColorFancyPixmapItem() {};
+
+		virtual int	width( const QListBox * )  const;
+
+		virtual void paint( QPainter * );
+		virtual int rtti() const { return 654873549; };
+};
+
 
 /*! \brief Very nice list box with color names and samples.
 It's inherited from QListBox with all its methods and properties.
@@ -38,6 +87,14 @@ class SCRIBUS_API ColorListBox : public QListBox
 	Q_OBJECT
 
 	public:
+
+		enum PixmapType
+		{
+			smallPixmap,
+			widePixmap,
+			fancyPixmap
+		};
+
 		/*! \brief Standard QListBox like constructor.
 		Just there are initialized pixmaps for icon drawing. */
 		ColorListBox(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
@@ -45,16 +102,10 @@ class SCRIBUS_API ColorListBox : public QListBox
 		/*! \brief Fill the list box with values taken from list.
 		The list is cleared itself. Then is rendered an icon with
 		color attributes (RGB/CMYK/Spot etc.).
-		\param list a ColorList to present. */
-		void updateBox(ColorList list);
-	
-	private:
-		//! \brief Icons for color characteristics to render.
-		QPixmap alertIcon;
-		QPixmap cmykIcon;
-		QPixmap rgbIcon;
-		QPixmap spotIcon;
-		QPixmap regIcon;
+		\param list a ColorList to present. 
+		\param the pixmap type to use
+		\param if the list should be cleared first */
+		void updateBox(ColorList list, ColorListBox::PixmapType type, bool clearFirst = true);
 };
 
 

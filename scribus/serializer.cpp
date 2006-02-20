@@ -57,7 +57,7 @@ void Serializer::PutText(PageItem *Item)
 
 void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, bool Append)
 {
-	struct ScText *hg;
+	ScText *hg;
 	PageItem *nextItem;
 	PageItem *it = Item;
 	ScribusDoc* doku = it->document();

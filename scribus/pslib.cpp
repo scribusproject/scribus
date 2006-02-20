@@ -1410,7 +1410,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 {
 	int h, s, v, k, tsz;
 	uint d;
-	struct ScText *hl;
+	ScText *hl;
 	QValueList<double> dum;
 	dum.clear();
 	QString tmps, chx;
@@ -2140,7 +2140,7 @@ void PSLib::SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k, bo
 
 void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg, bool sep, bool farb, bool ic, bool master)
 {
-	struct ScText *hl;
+	ScText *hl;
 	uint tabCc = 0;
 	QValueList<PageItem::TabRecord> tTabValues;
 	double tabDist = ite->textToFrameDistLeft();
@@ -2166,7 +2166,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 		{
 			if ((!tTabValues[tabCc].tabFillChar.isNull()) && (tabCc < tTabValues.count()))
 			{
-				struct ScText hl2;
+				ScText hl2;
 				double wt = Cwidth(Doc, hl->cfont, QString(tTabValues[tabCc].tabFillChar), hl->csize);
 				int coun = static_cast<int>((hl->xp - tabDist) / wt);
 				double sPos = hl->xp - (hl->xp - tabDist) + 1;
@@ -2195,7 +2195,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 					hl2.xp =  sPos + wt * cx;
 					if ((hl2.cstyle & 256) && (hl2.cstroke != CommonStrings::None))
 					{
-						struct ScText hl3;
+						ScText hl3;
 						hl3.ch = hl2.ch;
 						hl3.ccolor = hl2.cstroke;
 						hl3.cstroke = hl2.cstroke;
@@ -2232,7 +2232,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 			continue;
 		if ((hl->cstyle & 256) && (hl->cstroke != CommonStrings::None))
 		{
-			struct ScText hl2;
+			ScText hl2;
 			hl2.ch = hl->ch;
 			hl2.ccolor = hl->cstroke;
 			hl2.cstroke = hl->cstroke;
@@ -2261,7 +2261,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 	}
 }
 
-void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, struct ScText *hl, Page* pg, bool sep, bool farb, bool ic, bool master)
+void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, ScText *hl, Page* pg, bool sep, bool farb, bool ic, bool master)
 {
 	QString chx;
 	int h, s, v, k, tsz;

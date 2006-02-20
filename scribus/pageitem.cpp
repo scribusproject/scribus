@@ -1169,7 +1169,7 @@ void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 	*tmp = m_Doc->PageColors[farbe].getShadeColorProof(shad);
 }
 
-double PageItem::SetZeichAttr(struct ScText *hl, int *chs, QString *chx)
+double PageItem::SetZeichAttr(ScText *hl, int *chs, QString *chx)
 {
 	double retval = 0.0;
 	double asce = hl->cfont->numAscent * (hl->csize / 10.0);
@@ -3543,7 +3543,7 @@ void PageItem::setPolyClip(int up)
 
 void PageItem::updatePolyClip()
 {
-	struct ScText *hl;
+	ScText *hl;
 	int asce = 1;
 	int desc = 1;
 	uint itemTextCount=itemText.count();

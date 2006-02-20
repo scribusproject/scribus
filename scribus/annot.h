@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 
 class PageItem;
 class Navigator;
+class ColorCombo;
 class ScribusView;
 class PrefsContext;
 
@@ -97,7 +98,7 @@ public:
     QLabel* TextLabel90;
     QComboBox* Visib;
     QGroupBox* GroupBox20;
-    QComboBox* BorderC;
+    ColorCombo* BorderC;
     QLabel* TextLabel40a;
     QComboBox* BorderW;
     QLabel* TextLabel40;

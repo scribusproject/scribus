@@ -70,6 +70,7 @@ class BookPalette;
 class CheckDocument;
 class FileWatcher;
 class FontCombo;
+class ColorCombo;
 class LayerPalette;
 class LineFormate;
 class Mpalette;
@@ -560,7 +561,7 @@ private:
 	QString layerMenuName;
 	QPixmap noIcon;
 	bool scribusInitialized;
-	QComboBox *ColorMenC;
+	ColorCombo *ColorMenC;
 	/** ShapeMenu enthaelt die Rahmenformen */
 	QPopupMenu *ShapeMenu;
 	/** FontMenu enthaelt die Fonts */

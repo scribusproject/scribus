@@ -68,7 +68,7 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 	tmp2.replace(QRegExp("\t"), QChar(4));
 	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
 	bool unknown = false;
-	struct ScText *hg;
+	ScText *hg;
 	Foi* dummy;
 	if ((!prefsManager->appPrefs.AvailFonts.find(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf]->UseFont))
 	{

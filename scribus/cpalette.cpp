@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include <qbuttongroup.h>
 #include <qlabel.h>
 #include <qspinbox.h>
+#include "colorm.h"
 #include "sccombobox.h"
 #include "scribusdoc.h"
 #include "mspinbox.h"
@@ -134,7 +135,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	freeGradientLayout->addMultiCellWidget(gradEditButton, 2, 2, 0, 3);
 	GradLayout->addWidget( freeGradientQFrame );
 	Form1Layout->addLayout(GradLayout);
-	colorListQLBox = new QListBox(this, "colorListQLBox");
+	colorListQLBox = new ColorListBox(this, "colorListQLBox");
 	colorListQLBox->setMinimumSize( QSize( 150, 30 ) );
 	colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	Form1Layout->addWidget(colorListQLBox);
@@ -232,13 +233,14 @@ void Cpalette::updateCList()
 	colorListQLBox->clear();
 	if ((!GradientMode) || (Mode == 1))
 		colorListQLBox->insertItem( tr("None"));
-	ColorList::Iterator itend=colorList.end();
+	colorListQLBox->updateBox(colorList, ColorListBox::fancyPixmap, false);
+	/*ColorList::Iterator itend=colorList.end();
 	for (ColorList::Iterator it = colorList.begin(); it != itend; ++it)
 	{
 		ScColor col = colorList[it.key()];
 		QPixmap * pm = getFancyPixmap(col);
 		colorListQLBox->insertItem(*pm, it.key());
-	}
+	}*/
 	colorListQLBox->setSelected(colorListQLBox->currentItem(), false);
 	connect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	connect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));

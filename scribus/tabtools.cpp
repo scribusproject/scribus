@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <qspinbox.h>
 
 #include "sccombobox.h"
+#include "colorcombo.h"
 #include "units.h"
 #include "mspinbox.h"
 #include "linecombo.h"
@@ -25,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "scfonts.h"
 #include "sampleitem.h"
 #include "commonstrings.h"
+#include "colorm.h"
 
 
 TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc) : QWidget( parent, "tabtools", 0 )
@@ -109,7 +111,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel2b = new QLabel(sizeComboText, tr( "Size:" ), subTabText, "textLabel2b" );
 	subTabTextLayout->addWidget( textLabel2b, 1, 0 );
 
-	colorComboText = new ScComboBox( false, subTabText, "colorComboText" );
+	colorComboText = new ColorCombo( false, subTabText, "colorComboText" );
 	ColorList::Iterator itc;
 	colorComboText->insertItem( tr("None"));
 	if (prefsData->dPenText == CommonStrings::None)
@@ -118,8 +120,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	{
 		for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRawRGBColor());
-			colorComboText->insertItem( *pm, itc.key());
+			colorComboText->insertSmallItem( doc->PageColors[itc.key()], itc.key() );
 			if (itc.key() == prefsData->dPenText)
 				colorComboText->setCurrentItem(colorComboText->count()-1);
 		}
@@ -130,8 +131,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRawRGBColor());
-			colorComboText->insertItem( *pm, itc.key());
+			colorComboText->insertSmallItem( (*colorList)[itc.key()], itc.key() );
 			if (itc.key() == prefsData->dPenText)
 				colorComboText->setCurrentItem(colorComboText->count()-1);
 		}
@@ -148,7 +148,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabelTS = new QLabel( shadingText, tr( "Shading:" ), subTabText, "textLabelTS" );
 	subTabTextLayout->addWidget( textLabelTS, 2, 2 );
 
-	colorComboStrokeText = new ScComboBox( false, subTabText, "colorComboStrokeText" );
+	colorComboStrokeText = new ColorCombo( false, subTabText, "colorComboStrokeText" );
 	colorComboStrokeText->insertItem( tr("None"));
 	if (prefsData->dStrokeText == CommonStrings::None)
 		colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
@@ -156,8 +156,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	{
 		for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRawRGBColor());
-			colorComboStrokeText->insertItem( *pm, itc.key());
+			colorComboStrokeText->insertSmallItem( doc->PageColors[itc.key()], itc.key() );
 			if (itc.key() == prefsData->dStrokeText)
 				colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
 		}
@@ -168,8 +167,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRawRGBColor());
-			colorComboStrokeText->insertItem( *pm, itc.key());
+			colorComboStrokeText->insertSmallItem( (*colorList)[itc.key()], itc.key() );
 			if (itc.key() == prefsData->dStrokeText)
 				colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
 		}
@@ -186,7 +184,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabelTSS = new QLabel( shadingTextStroke, tr( "Shading:" ), subTabText, "textLabelTS" );
 	subTabTextLayout->addWidget( textLabelTSS, 3, 2 );
 
-	colorComboTextBackground = new ScComboBox( false, subTabText, "colorComboTextBackground" );
+	colorComboTextBackground = new ColorCombo( false, subTabText, "colorComboTextBackground" );
 	colorComboTextBackground->insertItem( tr("None"));
 	if (prefsData->dTextBackGround == CommonStrings::None)
 		colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
@@ -194,8 +192,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	{
 		for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRawRGBColor());
-			colorComboTextBackground->insertItem( *pm, itc.key());
+			colorComboTextBackground->insertSmallItem( doc->PageColors[itc.key()], itc.key() );
 			if (itc.key() == prefsData->dTextBackGround)
 				colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
 		}
@@ -206,8 +203,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRawRGBColor());
-			colorComboTextBackground->insertItem( *pm, itc.key());
+			colorComboTextBackground->insertSmallItem( (*colorList)[itc.key()], itc.key() );
 			if (itc.key() == prefsData->dTextBackGround)
 				colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
 		}
@@ -224,7 +220,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabelTSB = new QLabel( shadingTextBack, tr( "Shading:" ), subTabText, "textLabelTSS" );
 	subTabTextLayout->addWidget( textLabelTSB, 4, 2 );
 
-	colorComboTextLine = new ScComboBox( false, subTabText, "colorComboTextLine" );
+	colorComboTextLine = new ColorCombo( false, subTabText, "colorComboTextLine" );
 	colorComboTextLine->insertItem( tr("None"));
 	if (prefsData->dTextLineColor == CommonStrings::None)
 		colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
@@ -232,8 +228,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	{
 		for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRawRGBColor());
-			colorComboTextLine->insertItem( *pm, itc.key());
+			colorComboTextLine->insertSmallItem( doc->PageColors[itc.key()], itc.key() );
 			if (itc.key() == prefsData->dTextLineColor)
 				colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
 		}
@@ -244,8 +239,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRawRGBColor());
-			colorComboTextLine->insertItem( *pm, itc.key());
+			colorComboTextLine->insertSmallItem( (*colorList)[itc.key()], itc.key() );
 			if (itc.key() == prefsData->dTextLineColor)
 				colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
 		}
@@ -323,7 +317,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabShape = new QWidget( subStackTools, "subTabShape" );
 	subTabShapeLayout = new QGridLayout( subTabShape, 1, 1, 11, 6, "subTabShapeLayout");
 	subTabShapeLayout->setAlignment( Qt::AlignTop );
-	colorComboLineShape = new ScComboBox( false, subTabShape, "colorComboLineShape" );
+	colorComboLineShape = new ColorCombo( false, subTabShape, "colorComboLineShape" );
 	colorComboLineShape->insertItem( tr("None"));
 	if (prefsData->dPen == CommonStrings::None)
 		colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
@@ -331,8 +325,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	{
 		for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRawRGBColor());
-			colorComboLineShape->insertItem(*pm, itc.key());
+			colorComboLineShape->insertSmallItem( doc->PageColors[itc.key()], itc.key() );
 			if (itc.key() == prefsData->dPen)
 				colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
 		}
@@ -343,8 +336,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRawRGBColor());
-			colorComboLineShape->insertItem( *pm, itc.key());
+			colorComboLineShape->insertSmallItem( (*colorList)[itc.key()], itc.key() );
 			if (itc.key() == prefsData->dPen)
 				colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
 		}
@@ -360,7 +352,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabShapeLayout->addWidget( shadingLineShape, 1, 1, Qt::AlignLeft );
 	textLabel8b = new QLabel( shadingLineShape, tr( "&Shading:" ), subTabShape, "textLabel8b" );
 	subTabShapeLayout->addWidget( textLabel8b, 1, 0 );
-	comboFillShape = new ScComboBox( false, subTabShape, "comboFillShape" );
+	comboFillShape = new ColorCombo( false, subTabShape, "comboFillShape" );
 	comboFillShape->insertItem( tr("None"));
 	if (prefsData->dBrush == CommonStrings::None)
 		comboFillShape->setCurrentItem(comboFillShape->count()-1);
@@ -368,8 +360,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	{
 		for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRawRGBColor());
-			comboFillShape->insertItem( *pm, itc.key());
+			comboFillShape->insertSmallItem( doc->PageColors[itc.key()], itc.key() );
 			if (itc.key() == prefsData->dBrush)
 				comboFillShape->setCurrentItem(comboFillShape->count()-1);
 		}
@@ -380,8 +371,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRawRGBColor());
-			comboFillShape->insertItem( *pm, itc.key());
+			comboFillShape->insertSmallItem( (*colorList)[itc.key()], itc.key() );
 			if (itc.key() == prefsData->dBrush)
 				comboFillShape->setCurrentItem(comboFillShape->count()-1);
 		}
@@ -434,7 +424,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabLine = new QWidget( subStackTools, "subTabLine" );
 	subTabLineLayout = new QGridLayout( subTabLine, 1, 1, 11, 6, "subTabLineLayout");
 	subTabLineLayout->setAlignment( Qt::AlignTop );
-	colorComboLine = new ScComboBox( false, subTabLine, "colorComboLine" );
+	colorComboLine = new ColorCombo( false, subTabLine, "colorComboLine" );
 	colorComboLine->insertItem( tr("None"));
 	if (prefsData->dPenLine == CommonStrings::None)
 		colorComboLine->setCurrentItem(colorComboLine->count()-1);
@@ -442,8 +432,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	{
 		for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRawRGBColor());
-			colorComboLine->insertItem( *pm, itc.key());
+			colorComboLine->insertSmallItem( doc->PageColors[itc.key()], itc.key() );
 			if (itc.key() == prefsData->dPenLine)
 				colorComboLine->setCurrentItem(colorComboLine->count()-1);
 		}
@@ -454,8 +443,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRawRGBColor());
-			colorComboLine->insertItem( *pm, itc.key());
+			colorComboLine->insertSmallItem( (*colorList)[itc.key()], itc.key() );
 			if (itc.key() == prefsData->dPenLine)
 				colorComboLine->setCurrentItem(colorComboLine->count()-1);
 		}
@@ -573,7 +561,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	checkRatioImage->setChecked(prefsData->aspectRatio);
 	buttonGroup5Layout->addWidget( checkRatioImage );
 	subTabImageLayout->addMultiCellWidget( buttonGroup5, 1, 1, 0, 1 );
-	comboFillImage = new ScComboBox( false, subTabImage, "comboFillImage" );
+	comboFillImage = new ColorCombo( false, subTabImage, "comboFillImage" );
 	comboFillImage->insertItem( tr("None"));
 	if (prefsData->dBrushPict == CommonStrings::None)
 		comboFillImage->setCurrentItem(comboFillImage->count()-1);
@@ -581,8 +569,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	{
 		for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRawRGBColor());
-			comboFillImage->insertItem( *pm, itc.key());
+			comboFillImage->insertSmallItem( doc->PageColors[itc.key()], itc.key() );
 			if (itc.key() == prefsData->dBrushPict)
 				comboFillImage->setCurrentItem(comboFillImage->count()-1);
 		}
@@ -593,8 +580,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRawRGBColor());
-			comboFillImage->insertItem( *pm, itc.key());
+			comboFillImage->insertSmallItem( (*colorList)[itc.key()], itc.key() );
 			if (itc.key() == prefsData->dBrushPict)
 				comboFillImage->setCurrentItem(comboFillImage->count()-1);
 		}

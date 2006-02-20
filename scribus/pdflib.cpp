@@ -2894,7 +2894,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 		{
 			if ((!tTabValues[tabCc].tabFillChar.isNull()) && (tabCc < tTabValues.count()))
 			{
-				struct ScText hl2;
+				ScText hl2;
 				double wt = Cwidth(&doc, hl->cfont, QString(tTabValues[tabCc].tabFillChar), hl->csize);
 				int coun = static_cast<int>((hl->xp - tabDist) / wt);
 				double sPos = hl->xp - (hl->xp - tabDist) + 1;
@@ -2924,7 +2924,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 					hl2.xp =  sPos + wt * cx;
 					if ((hl2.cstyle & 256) && (hl2.cstroke != CommonStrings::None))
 					{
-						struct ScText hl3;
+						ScText hl3;
 						hl3.ch = hl2.ch;
 						hl3.ccolor = hl2.cstroke;
 						hl3.cstroke = hl2.cstroke;
@@ -2961,7 +2961,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 			continue;
 		if ((hl->cstyle & 256) && (hl->cstroke != CommonStrings::None))
 		{
-			struct ScText hl2;
+			ScText hl2;
 			hl2.ch = hl->ch;
 			hl2.ccolor = hl->cstroke;
 			hl2.cstroke = hl->cstroke;

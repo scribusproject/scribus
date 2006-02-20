@@ -12,8 +12,11 @@ for which a new license (GPL+exception) is in place.
  *  Copyright 2005 under GPL2. All rights reserved.
  *
  */
-#include <qcombobox.h>
 
+#ifndef SCCOMBOBOX_H
+#define SCCOMBOBOX_H
+
+#include <qcombobox.h>
 
 /*!
     \class ScComboBox sccombobox.h
@@ -27,3 +30,4 @@ public:
 	ScComboBox( bool rw, QWidget* parent=0, const char* name=0 );
 };
 
+#endif

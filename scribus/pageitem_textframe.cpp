@@ -85,7 +85,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			uint BuPos, LastSP, MaxText;
 			double oldCurY, LastXp, EndX, OFs, OFs2, wide, lineCorr, ColWidth, kernVal, RTabX;
 			QString chx, chx2, chx3;
-			struct ScText *hl;
+			ScText *hl;
 			struct ZZ *Zli;
 			struct ZZ *Zli2;
 
@@ -2109,7 +2109,7 @@ void PageItem_TextFrame::clearContents()
 void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 {
 	int oldPos = CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
-	struct ScText *hg;
+	ScText *hg;
 	int kk = k->key();
 	int as = k->ascii();
 	double altx, alty;

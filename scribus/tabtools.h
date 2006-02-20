@@ -27,6 +27,7 @@ class ArrowChooser;
 class MSpinBox;
 class LineCombo;
 class ScribusDoc;
+class ColorCombo;
 
 class SCRIBUS_API TabTools : public QWidget
 {
@@ -59,10 +60,10 @@ public:
 	QLabel* previewText;
 	FontCombo* fontComboText;
 	QComboBox* sizeComboText;
-	QComboBox* colorComboText;
-	QComboBox* colorComboStrokeText;
-	QComboBox* colorComboTextBackground;
-	QComboBox* colorComboTextLine;
+	ColorCombo* colorComboText;
+	ColorCombo* colorComboStrokeText;
+	ColorCombo* colorComboTextBackground;
+	ColorCombo* colorComboTextLine;
 	QSpinBox* shadingText;
 	QSpinBox* shadingTextStroke;
 	QSpinBox* shadingTextBack;
@@ -83,22 +84,22 @@ public:
 	QLabel* textLabel11b;
 	LineCombo* comboStyleShape;
 	QSpinBox* shadingFillShape;
-	QComboBox* comboFillShape;
+	ColorCombo* comboFillShape;
 	QSpinBox* shadingLineShape;
 	QLabel* textLabel7b;
-	QComboBox* colorComboLineShape;
+	ColorCombo* colorComboLineShape;
 	QLabel* textLabel8b;
 	QWidget* subTabLine;
 	MSpinBox* lineWidthLine;
 	QSpinBox* shadingLine;
-	QComboBox* colorComboLine;
+	ColorCombo* colorComboLine;
 	QLabel* textLabel13b;
 	QLabel* textLabel14b;
 	QLabel* textLabel15b;
 	QLabel* textLabel16b;
 	LineCombo* comboStyleLine;
 	QWidget* subTabImage;
-	QComboBox* comboFillImage;
+	ColorCombo* comboFillImage;
 	QLabel* textLabel19b;
 	QSpinBox* shadingFillImage;
 	QLabel* textLabel20b;

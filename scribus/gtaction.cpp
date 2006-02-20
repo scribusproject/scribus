@@ -168,7 +168,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 	{
 		if ((text.at(a) == QChar(0)) || (text.at(a) == QChar(13)))
 			continue;
-		struct ScText *hg = new ScText;
+		ScText *hg = new ScText;
 		hg->ch = text.at(a);
 		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
 			hg->ch = QChar(13);

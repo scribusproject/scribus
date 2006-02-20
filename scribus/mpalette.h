@@ -39,6 +39,7 @@ class ScribusDoc;
 #include "linecombo.h"
 #include "spalette.h"
 #include "fontcombo.h"
+#include "colorcombo.h"
 class StyleSelect;
 #include "alignselect.h"
 #include "shadebutton.h"
@@ -404,10 +405,10 @@ protected:
 	QComboBox* InputP;
 	QComboBox* MonitorI;
 	QComboBox* LineMode;
-	QComboBox* TxStroke;
+	ColorCombo* TxStroke;
 	QComboBox* LJoinStyle;
 	QComboBox* LEndStyle;
-	QComboBox* TxFill;
+	ColorCombo* TxFill;
 
 	QListBox* StyledLine;
 

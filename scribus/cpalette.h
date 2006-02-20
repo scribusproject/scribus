@@ -42,6 +42,7 @@ class QComboBox;
 class QLabel;
 class QSpinBox;
 class DynamicTip;
+class ColorListBox;
 class MSpinBox;
 
 /**
@@ -108,7 +109,7 @@ protected:
 	DynamicTip* dynTip;
 	
 	
-	QListBox *colorListQLBox;
+	ColorListBox *colorListQLBox;
 	QToolButton *Inhalt;
 	QToolButton *Innen;
 	QSpinBox *PM1;

@@ -99,7 +99,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void HandleGradient(PageItem *c, double w, double h, bool gcr);
 		virtual void SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k, bool gcr);
 		virtual void setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg, bool sep, bool farb, bool ic, bool master);
-		virtual void setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, struct ScText *hl, Page* pg, bool sep, bool farb, bool ic, bool master);
+		virtual void setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, ScText *hl, Page* pg, bool sep, bool farb, bool ic, bool master);
 		bool Art;
 	private:
 		void PutSeite(QString c);

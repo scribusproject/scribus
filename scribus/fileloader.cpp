@@ -1786,7 +1786,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 
 void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bool impo, bool VorLFound)
 {
-	struct ScText *hg;
+	ScText *hg;
 	Foi* dummy;
 	bool unknown = false;
 	QString tmp2, tmpf;

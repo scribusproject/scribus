@@ -785,7 +785,7 @@ void CharSelect::insChar()
 	}
 	if (ite->HasSel)
 		ite->asTextFrame()->deleteSelectedTextFromFrame();
-	struct ScText *hg;
+	ScText *hg;
 	for (uint a=0; a<chToIns.length(); ++a)
 	{
 		hg = new ScText;

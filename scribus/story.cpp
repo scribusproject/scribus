@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include "sccombobox.h"
+#include "colorcombo.h"
 #include "scfonts.h"
 #include "story.h"
 #include "story.moc"
@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "actionmanager.h"
 #include "alignselect.h"
 #include "charselect.h"
+#include "colorm.h"
 #include "commonstrings.h"
 #include "customfdialog.h"
 #include "editformats.h"
@@ -723,7 +724,7 @@ void SEditor::saveItemText(PageItem *currItem)
 		if (p != 0)
 		{
 			c = StyledText.at(p-1)->count()-1;
-			struct ScText *hg;
+			ScText *hg;
 			hg = new ScText;
 			hg->ch = QChar(13);
 			chars = StyledText.at(p-1);
@@ -787,7 +788,7 @@ void SEditor::saveItemText(PageItem *currItem)
 		chars = StyledText.at(p);
 		for (uint c = 0; c < chars->count(); ++c)
 		{
-			struct ScText *hg;
+			ScText *hg;
 			hg = new ScText;
 			hg->ch = chars->at(c)->ch;
 			hg->cfont = (*doc->AllFonts)[chars->at(c)->cfont];
@@ -1613,7 +1614,7 @@ SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	FillIcon = new QLabel( "", this, "FillIcon" );
 	FillIcon->setPixmap(loadIcon("fill.png"));
 	FillIcon->setScaledContents( false );
-	TxFill = new ScComboBox( false, this, "TxFill" );
+	TxFill = new ColorCombo( false, this, "TxFill" );
 	PM2 = new ShadeButton(this);
 	setCurrentDocument(doc);
 	//TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
@@ -1640,11 +1641,9 @@ void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
 	TxFill->insertItem( tr("None"));
 	if (doc!=NULL)
 	{
-		QPixmap * pm;
 		for (ColorList::Iterator it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		{
-			pm = getSmallPixmap(doc->PageColors[it.key()].getRawRGBColor());
-			TxFill->insertItem(*pm, it.key());
+			TxFill->insertSmallItem( doc->PageColors[it.key()], it.key() );
 		}
 	}
 	resize(minimumSizeHint());
@@ -1675,7 +1674,7 @@ SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	StrokeIcon = new QLabel( "", this, "StrokeIcon" );
 	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
 	StrokeIcon->setScaledContents( false );
-	TxStroke = new ScComboBox( false, this, "TxStroke" );
+	TxStroke = new ColorCombo( false, this, "TxStroke" );
 	PM1 = new ShadeButton(this);
 	setCurrentDocument(doc);
 	//TxStroke->listBox()->setMinimumWidth(TxStroke->listBox()->maxItemWidth()+24);
@@ -1699,11 +1698,9 @@ void SToolBColorS::setCurrentDocument(ScribusDoc *doc)
 	TxStroke->insertItem( tr("None"));
 	if (doc!=NULL)
 	{
-		QPixmap * pm;
 		for (ColorList::Iterator it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		{
-			pm = getSmallPixmap(doc->PageColors[it.key()].getRawRGBColor());
-			TxStroke->insertItem(*pm, it.key());
+			TxStroke->insertSmallItem( doc->PageColors[it.key()], it.key() );
 		}
 	}
 	resize(minimumSizeHint());

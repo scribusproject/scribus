@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstringlist.h>
 #include <qdatetime.h>
 #include <qpixmap.h>
+#include "colorm.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "scimage.h"
@@ -26,7 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "scribusstructs.h"
 #include "commonstrings.h"
-
+#include "sccombobox.h"
+#include "colorcombo.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -152,16 +154,14 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	TextLabel40a = new QLabel( GroupBox20, "TextLabel4a" );
 	TextLabel40a->setText( tr( "Color:" ) );
 	GroupBox20Layout->addWidget( TextLabel40a, 0, 0 );
-	BorderC = new QComboBox( true, GroupBox20, "BorderC" );
+	BorderC = new ColorCombo( true, GroupBox20, "BorderC" );
 	ColorList::Iterator cit;
-	QPixmap * pm;
 	BorderC->insertItem( tr("None"));
 	if (item->annotation().borderColor() == CommonStrings::None)
 		BorderC->setCurrentItem(BorderC->count()-1);
 	for (cit = Farben.begin(); cit != Farben.end(); ++cit)
 	{
-		pm = getSmallPixmap(Farben[cit.key()].getRawRGBColor());
-		BorderC->insertItem(*pm, cit.key());
+		BorderC->insertSmallItem(Farben[cit.key()], cit.key());
 		if (cit.key() == item->annotation().borderColor())
 			BorderC->setCurrentItem(BorderC->count()-1);
 	}

@@ -77,8 +77,10 @@ int main(int argc, char *argv[])
 int mainApp(ScribusQApp& app)
 {
 	int appRetVal;
+#ifndef _DEBUG
 	__try
 	{
+#endif
 		app.parseCommandLine();
 		if (app.usingGUI())
 		{
@@ -86,11 +88,13 @@ int mainApp(ScribusQApp& app)
 			if (appRetVal != EXIT_FAILURE)
 				appRetVal = app.exec();
 		}
+#ifndef _DEBUG
 	}
 	__except( exceptionFilter(GetExceptionCode()) )
 	{
 		defaultCrashHandler( GetExceptionCode() );
 	}
+#endif
 	return appRetVal;
 }
 
@@ -104,7 +108,7 @@ int mainApp(ScribusQApp& app)
 */
 LONG exceptionFilter(DWORD exceptionCode)
 {
- LONG result; 
+ LONG result;
 	switch( exceptionCode )
 	{
 	case EXCEPTION_ACCESS_VIOLATION:

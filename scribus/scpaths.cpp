@@ -234,6 +234,16 @@ QStringList ScPaths::getSystemCreateDirs(void)
 	createDirs.append("/usr/share/create/swatches/");
 	createDirs.append("/usr/local/share/create/swatches/");
 #elif defined(_WIN32)
+	QString localAppData = getSpecialDir(CSIDL_LOCAL_APPDATA);
+	QString commonAppData = getSpecialDir(CSIDL_COMMON_APPDATA);
+	QString programFilesCommon = getSpecialDir(CSIDL_PROGRAM_FILES_COMMON);
+	createDirs.append(getSpecialDir(CSIDL_APPDATA) + "create/swatches/");
+	if ( !localAppData.isEmpty() )
+		createDirs.append(localAppData + "create/swatches/");
+	if ( !commonAppData.isEmpty() )
+		createDirs.append(commonAppData + "create/swatches/");
+	if ( !programFilesCommon.isEmpty() )
+		createDirs.append(programFilesCommon + "create/swatches/");
 #endif
 	return createDirs;
 }
@@ -243,11 +253,13 @@ QString ScPaths::getSpecialDir(int folder)
 	QString qstr;
 #if defined(_WIN32)
 	char dir[256];
-	SHGetSpecialFolderPath(NULL, dir, folder , false);
-	qstr = dir;
-	if( !qstr.endsWith("\\") )
-		qstr += "\\";
-	qstr.replace( '\\', '/' );
+	if ( SHGetSpecialFolderPath(NULL, dir, folder , false) )
+	{
+		qstr = dir;
+		if( !qstr.endsWith("\\") )
+			qstr += "\\";
+		qstr.replace( '\\', '/' );
+	}
 #else
 	Q_ASSERT(false);
 #endif

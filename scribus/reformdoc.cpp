@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "prefsmanager.h"
 #include "pagelayout.h"
+#include "colorcombo.h"
 #include "fontcombo.h"
 #include "linecombo.h"
 #include "arrowchooser.h"

@@ -27,6 +27,7 @@ class ShadeButton;
 class PrefsContext;
 class QLabel;
 
+class ColorCombo;
 class ScribusDoc;
 class PageItem;
 
@@ -57,9 +58,9 @@ public:
 	QComboBox* SStyleVal;
 	FontCombo* SFontVal;
 	MSpinBox* SSizeVal;
-	QComboBox* SFillVal;
+	ColorCombo* SFillVal;
 	ShadeButton *SFillSVal;
-	QComboBox* SStrokeVal;
+	ColorCombo* SStrokeVal;
 	ShadeButton *SStrokeSVal;
 	QGroupBox* Replace;
 	QCheckBox* RStroke;
@@ -74,9 +75,9 @@ public:
 	QComboBox* RStyleVal;
 	FontCombo* RFontVal;
 	MSpinBox* RSizeVal;
-	QComboBox* RFillVal;
+	ColorCombo* RFillVal;
 	ShadeButton *RFillSVal;
-	QComboBox* RStrokeVal;
+	ColorCombo* RStrokeVal;
 	ShadeButton *RStrokeSVal;
 	StyleSelect* SEffVal;
 	StyleSelect* REffVal;

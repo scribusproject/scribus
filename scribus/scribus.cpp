@@ -132,6 +132,7 @@ for which a new license (GPL+exception) is in place.
 #include "tabmanager.h"
 #include "search.h"
 #include "fontcombo.h"
+#include "colorcombo.h"
 #include "prefsfile.h"
 #include "undomanager.h"
 #include "polygonwidget.h"
@@ -692,7 +693,7 @@ void ScribusMainWindow::initMenuBar()
 	//Color menu
 	// CB TODO
 	scrMenuMgr->createMenu("Color", tr("&Color"));
-	ColorMenC = new ScComboBox(false);
+	ColorMenC = new ColorCombo(false);
 	ColorMenC->setEditable(false);
 	scrMenuMgr->addMenuItem(ColorMenC, "Color");
 
@@ -1114,7 +1115,7 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 		{
 			if (doc->selection->count() == 1)
 			{
-				struct ScText *hg = new ScText;
+				ScText *hg = new ScText;
 				PageItem *currItem = doc->selection->itemAt(0);
 				if (currItem!=NULL)
 				{
@@ -3501,6 +3502,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				ite->DrawObj(painter, rd);
 			}
 		}
+		painter->end();
 		delete painter;
 //		if (doc->OldBM)
 //			StoreBookmarks();
@@ -4389,7 +4391,7 @@ void ScribusMainWindow::slotEditCopy()
 
 void ScribusMainWindow::slotEditPaste()
 {
-	struct ScText *hg;
+	ScText *hg;
 	NoFrameEdit();
 	if (HaveDoc)
 	{
@@ -7843,7 +7845,13 @@ void ScribusMainWindow::GetCMSProfilesDir(QString pfad)
 				GetCMSProfilesDir(fi.filePath()+"/");
 				continue;
 			}
-#ifdef QT_MAC
+
+#ifndef QT_MAC
+			QString ext = fi.extension(false).lower();
+			if ((ext != "icm") && (ext != "icc"))
+				continue;
+#endif
+
 			QFile f(fi.filePath());
 			QByteArray bb(40);
 			if (!f.open(IO_ReadOnly)) {
@@ -7853,10 +7861,6 @@ void ScribusMainWindow::GetCMSProfilesDir(QString pfad)
 			int len = f.readBlock(bb.data(), 40);
 			f.close();
 			if (len == 40 && bb[36] == 'a' && bb[37] == 'c' && bb[38] == 's' && bb[39] == 'p')
-#else
-			QString ext = fi.extension(false).lower();
-			if ((ext == "icm") || (ext == "icc"))
-#endif
 			{
 				const QCString profilePath( QString(pfad + d[dc]).local8Bit() );
 				hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
@@ -8747,8 +8751,7 @@ void ScribusMainWindow::updateColorMenu(QProgressBar* progressBar)
 		ColorList::Iterator itend=doc->PageColors.end();
 		for (ColorList::Iterator it = doc->PageColors.begin(); it != itend; ++it)
 		{
-			QPixmap *pm = getSmallPixmap(doc->PageColors[it.key()].getRawRGBColor());
-			ColorMenC->insertItem(*pm, it.key());
+			ColorMenC->insertSmallItem( doc->PageColors[it.key()], it.key() );
 			if (it.key() == doc->toolSettings.dBrush)
 				ColorMenC->setCurrentItem(a);
 			++a;

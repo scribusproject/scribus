@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpainter.h>
 #include <qmessagebox.h>
 
+#include "colorm.h"
 #include "sccombobox.h"
 #include "scribusdoc.h"
 #include "page.h"
@@ -102,11 +103,9 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	layout4 = new QHBoxLayout( 0, 0, 6, "layout4");
 	Color = new ScComboBox( false, Properties, "Color" );
 	ColorList::Iterator it;
-	QPixmap * pm;
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		pm = getWidePixmap(doc->PageColors[it.key()].getRawRGBColor());
-		Color->insertItem(*pm, it.key());
+		Color->listBox()->insertItem( new ColorWidePixmapItem(doc->PageColors[it.key()], it.key()) );
 	}
 	layout4->addWidget( Color );
 	Shade = new QSpinBox( Properties, "Shade" );

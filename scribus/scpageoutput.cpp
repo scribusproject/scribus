@@ -780,7 +780,7 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 	int chs;
 	double wide;
 	QString chx, chx2, chx3;
-	struct ScText *hl;
+	ScText *hl;
 	struct PageItem::ZZ *Zli;
 	double dx;
 	double sp = 0;
@@ -1091,7 +1091,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 			uint BuPos, LastSP, MaxText;
 			double oldCurY, LastXp, EndX, OFs, OFs2, wide, lineCorr, ColWidth, kernVal, RTabX;
 			QString chx, chx2, chx3;
-			struct ScText *hl;
+			ScText *hl;
 			struct PageItem::ZZ *Zli;
 			struct PageItem::ZZ *Zli2;
 

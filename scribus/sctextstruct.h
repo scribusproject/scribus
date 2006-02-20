@@ -11,6 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #endif
 
+#include "scribusapi.h"
+
 #ifdef NLS_CONFORMANCE
 #define NLS_PRIVATE private
 #else
@@ -54,7 +56,7 @@ enum StyleFlag {
 };
 
 
-class CharStyle {
+class SCRIBUS_API CharStyle {
 public:
 	static const short NOVALUE = -16000;
 	static const QString NOCOLOR;
@@ -285,7 +287,7 @@ inline void CharStyle::eraseStyle(const CharStyle & other)
 
 
 
-class ScText : public CharStyle
+class SCRIBUS_API ScText : public CharStyle
 {
 public:
 	bool cselect;

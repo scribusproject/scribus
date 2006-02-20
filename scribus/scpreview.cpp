@@ -43,8 +43,8 @@ ScPreview::ScPreview()
 QPixmap ScPreview::createPreview(QString data)
 {
 	struct CopyPasteBuffer OB;
-	struct ScText *hg;
-	struct ScText *hl;
+	ScText *hg;
+	ScText *hl;
 	QPtrList<ScText> Ptexti;
 	bool error;
 	ScColor lf = ScColor();

@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "arrowchooser.h"
 #include "autoform.h"
 #include "commonstrings.h"
+#include "colorm.h"
 #include "cpalette.h"
 #include "sccombobox.h"
 #include "scfonts.h"
@@ -510,7 +511,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
 	StrokeIcon->setScaledContents( false );
 	layout23->addWidget( StrokeIcon );
-	TxStroke = new ScComboBox( false, page_3, "TxStroke" );
+	TxStroke = new ColorCombo( false, page_3, "TxStroke" );
 	layout23->addWidget( TxStroke );
 	ShadeTxt1 = new QLabel( "", page_3, "ShadeTxt" );
 	ShadeTxt1->setPixmap(loadIcon("shade.png"));
@@ -523,7 +524,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	FillIcon = new QLabel( "", page_3, "FillIcon" );
 	FillIcon->setPixmap(loadIcon("fill.png"));
 	layout24->addWidget( FillIcon );
-	TxFill = new ScComboBox( false, page_3, "TxFill" );
+	TxFill = new ColorCombo( false, page_3, "TxFill" );
 	layout24->addWidget( TxFill );
 	ShadeTxt2 = new QLabel("", page_3, "ShadeTxt" );
 	ShadeTxt2->setPixmap(loadIcon("shade.png"));
@@ -3289,9 +3290,8 @@ void Mpalette::updateCList()
 	ColorList::Iterator itend=doc->PageColors.end();
 	for (ColorList::Iterator it = doc->PageColors.begin(); it != itend; ++it)
 	{
-		QPixmap * pm = getSmallPixmap(doc->PageColors[it.key()].getRawRGBColor());
-		TxFill->insertItem(*pm, it.key());
-		TxStroke->insertItem(*pm, it.key());
+		TxFill->insertSmallItem( doc->PageColors[it.key()], it.key() );
+		TxStroke->insertSmallItem( doc->PageColors[it.key()], it.key() );
 	}
 	TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
 	TxStroke->listBox()->setMinimumWidth(TxStroke->listBox()->maxItemWidth()+24);

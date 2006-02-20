@@ -58,7 +58,7 @@ class ShadeButton;
 class PrefsManager;
 class PrefsContext;
 class StoryEditor;
-
+class ColorCombo;
 
 struct PtiSmall {
 		    int csize;
@@ -206,7 +206,7 @@ public:
 	~SToolBColorF() {};
 	void setCurrentDocument(ScribusDoc *doc);
 	QLabel* FillIcon;
-	QComboBox* TxFill;
+	ColorCombo* TxFill;
 	ShadeButton *PM2;
 
 public slots:
@@ -228,7 +228,7 @@ public:
 	~SToolBColorS() {};
 	void setCurrentDocument(ScribusDoc *doc);
 	QLabel* StrokeIcon;
-	QComboBox* TxStroke;
+	ColorCombo* TxStroke;
 	ShadeButton *PM1;
 
 public slots:

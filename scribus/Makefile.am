@@ -45,6 +45,7 @@ scribus_SOURCES = \
 	colorchart.cpp	\
 	colorm.cpp	\
 	colorsetmanager.cpp	\
+	colorcombo.cpp \
 	commonstrings.cpp \
 	cpalette.cpp	\
 	cupsoptions.cpp	\
@@ -268,6 +269,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/collect4output.h              $(prefix)/include/scribus/collect4output.h
 	$(INSTALL_DATA) $(srcdir)/color.h                       $(prefix)/include/scribus/color.h
 	$(INSTALL_DATA) $(srcdir)/colorchart.h                  $(prefix)/include/scribus/colorchart.h
+	$(INSTALL_DATA) $(srcdir)/colorcombo.h			$(prefix)/include/scribus/colorcombo.h
 	$(INSTALL_DATA) $(srcdir)/colorm.h                      $(prefix)/include/scribus/colorm.h
 	$(INSTALL_DATA) $(srcdir)/cpalette.h                    $(prefix)/include/scribus/cpalette.h
 	$(INSTALL_DATA) $(srcdir)/crypt.h                       $(prefix)/include/scribus/crypt.h
@@ -393,6 +395,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scribuswin.h                  $(prefix)/include/scribus/scribuswin.h
 	$(INSTALL_DATA) $(srcdir)/scribusXml.h                  $(prefix)/include/scribus/scribusXml.h
 	$(INSTALL_DATA) $(srcdir)/scrpalettebase.h              $(prefix)/include/scribus/scrpalettebase.h
+	$(INSTALL_DATA) $(srcdir)/scpixmapcache.h              $(prefix)/include/scribus/scpixmapcache.h
 	$(INSTALL_DATA) $(srcdir)/search.h                      $(prefix)/include/scribus/search.h
 	$(INSTALL_DATA) $(srcdir)/seiten.h                      $(prefix)/include/scribus/seiten.h
 	$(INSTALL_DATA) $(srcdir)/selection.h                   $(prefix)/include/scribus/selection.h
@@ -452,6 +455,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/collect4output.h
 	-rm -f $(prefix)/include/scribus/color.h
 	-rm -f $(prefix)/include/scribus/colorchart.h
+	-rm -f $(prefix)/include/scribus/colorcombo.h
 	-rm -f $(prefix)/include/scribus/colorm.h
 	-rm -f $(prefix)/include/scribus/cpalette.h
 	-rm -f $(prefix)/include/scribus/crypt.h
@@ -571,6 +575,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/scribuswin.h
 	-rm -f $(prefix)/include/scribus/scribusXml.h
 	-rm -f $(prefix)/include/scribus/scrpalettebase.h
+	-rm -f $(prefix)/include/scribus/scpixmapcache.h
 	-rm -f $(prefix)/include/scribus/search.h
 	-rm -f $(prefix)/include/scribus/seiten.h
 	-rm -f $(prefix)/include/scribus/selection.h

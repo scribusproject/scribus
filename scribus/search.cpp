@@ -20,7 +20,9 @@ for which a new license (GPL+exception) is in place.
 #include <qwhatsthis.h>
 #include <qmessagebox.h>
 
+#include "colorm.h"
 #include "commonstrings.h"
+#include "colorcombo.h"
 #include "fontcombo.h"
 #include "mspinbox.h"
 #include "page.h"
@@ -42,7 +44,6 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 {
 	setCaption( tr( "Search/Replace" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	QPixmap * pm;
 	ColorList::Iterator it;
 	Item = ite;
 	Doc = doc;
@@ -118,13 +119,12 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SEffVal->setStyle(0);
 	SEffVal->setEnabled(false);
 	SearchLayout->addWidget( SEffVal, 4, 1, Qt::AlignLeft );
-	SFillVal = new QComboBox( true, Search, "SFillVal" );
+	SFillVal = new ColorCombo( true, Search, "SFillVal" );
 	SFillVal->setEditable(false);
 	SFillVal->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		pm = getWidePixmap(doc->PageColors[it.key()].getRawRGBColor());
-		SFillVal->insertItem(*pm, it.key());
+		SFillVal->insertWideItem( doc->PageColors[it.key()], it.key() );
 	}
 	SFillVal->listBox()->setMinimumWidth(SFillVal->listBox()->maxItemWidth()+24);
 	SFillVal->setCurrentText(doc->CurrTextFill);
@@ -133,13 +133,12 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SFillSVal = new ShadeButton(Search);
 	SFillSVal->setEnabled(false);
 	SearchLayout->addWidget( SFillSVal, 6, 1, Qt::AlignLeft );
-	SStrokeVal = new QComboBox( true, Search, "SStrokeVal" );
+	SStrokeVal = new ColorCombo( true, Search, "SStrokeVal" );
 	SStrokeVal->setEditable(false);
 	SStrokeVal->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		pm = getWidePixmap(doc->PageColors[it.key()].getRawRGBColor());
-		SStrokeVal->insertItem(*pm, it.key());
+		SStrokeVal->insertWideItem( doc->PageColors[it.key()], it.key() );
 	}
 	SStrokeVal->listBox()->setMinimumWidth(SStrokeVal->listBox()->maxItemWidth()+24);
 	SStrokeVal->setCurrentText(doc->CurrTextStroke);
@@ -216,13 +215,12 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	REffVal->setStyle(0);
 	REffVal->setEnabled(false);
 	ReplaceLayout->addWidget( REffVal, 4, 1, Qt::AlignLeft );
-	RFillVal = new QComboBox( true, Replace, "RFillVal" );
+	RFillVal = new ColorCombo( true, Replace, "RFillVal" );
 	RFillVal->setEditable(false);
 	RFillVal->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		pm = getWidePixmap(doc->PageColors[it.key()].getRawRGBColor());
-		RFillVal->insertItem(*pm, it.key());
+		RFillVal->insertWideItem( doc->PageColors[it.key()], it.key() );
 	}
 	RFillVal->listBox()->setMinimumWidth(RFillVal->listBox()->maxItemWidth()+24);
 	RFillVal->setCurrentText(doc->CurrTextFill);
@@ -231,13 +229,12 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RFillSVal = new ShadeButton(Replace);
 	RFillSVal->setEnabled(false);
 	ReplaceLayout->addWidget( RFillSVal, 6, 1, Qt::AlignLeft );
-	RStrokeVal = new QComboBox( true, Replace, "RStrokeVal" );
+	RStrokeVal = new ColorCombo( true, Replace, "RStrokeVal" );
 	RStrokeVal->setEditable(false);
 	RStrokeVal->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		pm = getWidePixmap(doc->PageColors[it.key()].getRawRGBColor());
-		RStrokeVal->insertItem(*pm, it.key());
+		RStrokeVal->insertWideItem( doc->PageColors[it.key()], it.key() );
 	}
 	RStrokeVal->listBox()->setMinimumWidth(RStrokeVal->listBox()->maxItemWidth()+24);
 	RStrokeVal->setCurrentText(doc->CurrTextStroke);
@@ -675,7 +672,7 @@ void SearchReplace::slotDoReplace()
 	{
 		QString repl, sear;
 		uint cs, cx;
-		struct ScText *hg;
+		ScText *hg;
 		if (RText->isChecked())
 		{
 			repl = RTextVal->text();

@@ -68,7 +68,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, double sc)
 	int chs;
 	double wide;
 	QString chx, chx2, chx3;
-	struct ScText *hl;
+	ScText *hl;
 	struct ZZ *Zli;
 	double dx;
 	double sp = 0;

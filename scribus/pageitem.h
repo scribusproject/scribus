@@ -296,7 +296,7 @@ public:
 	virtual void handleModeEditKey(QKeyEvent *k, bool &keyRepeat);
 	
 	
-	double SetZeichAttr(struct ScText *hl, int *chs, QString *chx);
+	double SetZeichAttr(ScText *hl, int *chs, QString *chx);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
 	void DrawZeichenS(ScPainter *p, struct ZZ *hl);
 	void DrawPolyL(QPainter *p, QPointArray pts);

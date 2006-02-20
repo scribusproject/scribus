@@ -511,7 +511,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 		Page* Mp = Doc->MasterPages.at(Doc->MasterNames[page->MPageNam]);
 		if (page->FromMaster.count() != 0)
 		{
-			QPainter p;
+			//QPainter p;
 			int Lnr;
 			struct Layer ll;
 			PageItem *currItem;
@@ -634,7 +634,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 	double z = painter->zoomFactor();
 	if (Doc->Items->count() != 0)
 	{
-		QPainter p;
+		//QPainter p;
 		int Lnr=0;
 		struct Layer ll;
 		PageItem *currItem;
@@ -4691,8 +4691,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							Doc->RotMode = 3;
 						}
 						oldW = xy2Deg(m->x()/Scale - RCenter.x(), m->y()/Scale - RCenter.y());
-						p.end();
 					}
+					p.end();
 				}
 			}
 			break;
@@ -9067,7 +9067,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	double h = Buffer->Height;
 	double pw = Buffer->Pwidth;
 	int z = 0;
-	struct ScText *hg;
+	ScText *hg;
 	switch (Buffer->PType)
 	{
 	// OBSOLETE CR 2005-02-06
@@ -9532,7 +9532,7 @@ void ScribusView::TextToPath()
 			double x, y, wide;
 			QString chx, ccounter;
 			PageItem* bb;
-			struct ScText *hl;
+			ScText *hl;
 			for (uint a = 0; a < currItem->MaxChars; ++a)
 			{
 				pts.resize(0);

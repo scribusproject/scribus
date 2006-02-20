@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "pluginmanagerprefsgui.h"
 #include "scplugin.h"
 #include "sccombobox.h"
+#include "colorcombo.h"
 #include "commonstrings.h"
 
 using namespace std;
