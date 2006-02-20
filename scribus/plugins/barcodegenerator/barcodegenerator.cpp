@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scpaths.h"
 #include "commonstrings.h"
+#include "undomanager.h"
+#include "../psimport/importps.h"
 #include <qcombobox.h>
 #include <qtextedit.h>
 #include <qlineedit.h>
@@ -157,26 +159,21 @@ void BarcodeGenerator::txtColorButton_pressed()
 
 void BarcodeGenerator::okButton_pressed()
 {
-	QString s = QFileDialog::getSaveFileName(
-			QDir::currentDirPath(),
-			"PNG Images (*.png)",
-			this,
-			"save file dialog",
-			"Choose a filename to save under" );
-	if (s == QString::null)
-		return;
-	if (!paintBarcode(s, 300)) // in 300dpi
+	// no need to call paintBarcode(tmpFile, 300); because
+	// it's created by previous run...
+	if (UndoManager::undoEnabled() && ScMW->HaveDoc)
 	{
-		qDebug("Error creating barcode itself!");
-		return;
+		UndoManager::instance()->beginTransaction(ScMW->doc->currentPage->getUName(),Um::IImageFrame,Um::ImportEPS, psFile, Um::IEPS);
 	}
-	int z = ScMW->doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified,
-							   ScMW->doc->currentPage->Margins.Left + ScMW->doc->currentPage->xOffset(),
-							   ScMW->doc->currentPage->Margins.Top + ScMW->doc->currentPage->yOffset(),
-							   200, 150,
-							   1, CommonStrings::None, ScMW->doc->toolSettings.dPen, true);
-	ScMW->doc->LoadPict(s, z, true);
-	ScMW->view->DrawNew();
+	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
+		UndoManager::instance()->setUndoEnabled(false);
+	EPSPlug *dia = new EPSPlug(psFile, false);
+	Q_CHECK_PTR(dia);
+	if (UndoManager::undoEnabled())
+		UndoManager::instance()->commit();
+	else
+		UndoManager::instance()->setUndoEnabled(true);
+	delete dia;
 	accept();
 }
 
@@ -220,7 +217,7 @@ bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 	gargs.append("-dDEVICEWIDTHPOINTS=200");
 	gargs.append("-dDEVICEHEIGHTPOINTS=150");
 	gargs.append( QString("-r%1").arg(dpi) );
-	gargs.append( QString("-sOutputFile=%2").arg(fileName) );
+	gargs.append( QString("-sOutputFile=%1").arg(fileName) );
 	gargs.append( psFile );
 	int gs = callGS(gargs);
 	bool retval = true;
