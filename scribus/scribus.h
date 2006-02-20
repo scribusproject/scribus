@@ -161,7 +161,6 @@ public:
 	void recalcColors(QProgressBar *dia = 0);
 	void SwitchWin();
 	void RestoreBookMarks();
-	void AdjustBM();
 	void ReorgFonts();
 
 	void emergencySave();
@@ -265,7 +264,6 @@ public slots:
 	void slotCharSelect();
 	void ImageEffects();
 	QString Collect(const bool compress = false, const bool withFonts = false, const QString& newDirectory=QString::null);
-	void ChBookmarks(int s, int e, int n);
 	void AddBookMark(PageItem *ite);
 	void DelBookMark(PageItem *ite);
 	void BookMarkTxT(PageItem *ite);
@@ -473,6 +471,7 @@ public slots:
 	void saveLStyles(LineFormate *dia);
 	void setNewAbStyle(int a);
 	void setAbsValue(int a);
+	void selectItemsFromOutlines(PageItem *ite);
 	void selectItemsFromOutlines(int Page, int Item, bool single = false);
 	void selectPagesFromOutlines(int Page);
 	void doPrintPreview();

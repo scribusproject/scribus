@@ -1107,8 +1107,9 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 				PutPage("q\n");
 				if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
 					PutPage(PDF_Transparenz(ite));
-				if ((ite->isBookmark) && (Options.Bookmarks))
-					PDF_Bookmark(ite->BMnr, pag->height() - (ite->yPos() - pag->yOffset()));
+/* Bookmarks on Master Pages do not make any sense */
+//				if ((ite->isBookmark) && (Options.Bookmarks))
+//					PDF_Bookmark(ite, pag->height() - (ite->yPos() - pag->yOffset()));
 				if (!ite->printable() || ((ite->itemType() == PageItem::TextFrame) && (!pag->PageNam.isEmpty())))
 				{
 					PutPage("Q\n");
@@ -2152,7 +2153,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 	if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
 		tmp += PDF_Transparenz(ite);
 	if ((ite->isBookmark) && (Options.Bookmarks))
-		PDF_Bookmark(ite->BMnr, pag->height() - (ite->yPos() - pag->yOffset()));
+		PDF_Bookmark(ite, pag->height() - (ite->yPos() - pag->yOffset()));
 	if (!ite->printable() || ((ite->itemType() == PageItem::TextFrame) && (!pag->PageNam.isEmpty())))
 	{
 		tmp += "Q\n";
@@ -4478,9 +4479,9 @@ void PDFlib::PDF_Form(const QString& im)
 	PutDoc(">>\nstream\n"+EncStream(im, ObjCounter-1)+"\nendstream\nendobj\n");
 }
 
-void PDFlib::PDF_Bookmark(int nr, double ypos)
+void PDFlib::PDF_Bookmark(PageItem *currItem, double ypos)
 {
-	Bvie->SetAction(nr, "/XYZ 0 "+FToStr(ypos)+" 0]");
+	Bvie->SetAction(currItem, "/XYZ 0 "+FToStr(ypos)+" 0]");
 	BookMinUse = true;
 }
 
@@ -5049,8 +5050,8 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 				Inhal += "/Last "+QString::number(ip->Last+Basis)+" 0 R\n";
 			if (ip->firstChild())
 				Inhal += "/Count -"+QString::number(ip->childCount())+"\n";
-			if (ip->Seite < static_cast<int>(PageTree.Kids.count()))
-				Inhal += "/Dest ["+QString::number(PageTree.Kids[ip->Seite])+" 0 R "+ip->Action+"\n";
+			if ((ip->PageObject->OwnPage != -1) && (ip->PageObject->OwnPage < static_cast<int>(PageTree.Kids.count())))
+				Inhal += "/Dest ["+QString::number(PageTree.Kids[ip->PageObject->OwnPage])+" 0 R "+ip->Action+"\n";
 			Inhal += ">>\nendobj\n";
 			Inha[ip->ItemNr] = Inhal;
 		}

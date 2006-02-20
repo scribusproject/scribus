@@ -4217,12 +4217,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 									bb->ClipEdited = true;
 									PageItem *bx = Doc->Items->take(bb->ItemNr);
 									Doc->Items->insert(bb->ItemNr-1, bx);
-									for (uint al = 0; al < Doc->Items->count(); ++al)
-									{
-										Doc->Items->at(al)->ItemNr = al;
-										if (Doc->Items->at(al)->isBookmark)
-											emit NewBMNr(Doc->Items->at(al)->BMnr, al);
-									}
 								}
 								currItem->PoLine = cli.copy();
 							}
@@ -4618,12 +4612,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							ss=NULL;
 							if (Doc->docHyphenator->AutoCheck)
 								Doc->docHyphenator->slotHyphenate(currItem);
-							for (uint a = 0; a < Doc->Items->count(); ++a)
-							{
-								Doc->Items->at(a)->ItemNr = a;
-								if (Doc->Items->at(a)->isBookmark)
-									emit NewBMNr(Doc->Items->at(a)->BMnr, a);
-							}
+							emit ChBMText(currItem);
 							ScMW->outlinePalette->BuildTree();
 						}
 						else
@@ -4722,12 +4711,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					{
 						Doc->Items->insert(currItem->ItemNr+1, bb);
 						bb = Doc->Items->take(bb->ItemNr);
-						for (uint a = 0; a < Doc->Items->count(); ++a)
-						{
-							Doc->Items->at(a)->ItemNr = a;
-							if (Doc->Items->at(a)->isBookmark)
-								emit NewBMNr(Doc->Items->at(a)->BMnr, a);
-						}
 					}
 					updateContents();
 					emit DocChanged();
@@ -7857,13 +7840,6 @@ void ScribusView::ToBack()
 {
 	if (Doc->sendItemSelectionToBack())
 	{
-		//CB TODO move this loop out of here
-		for (uint a = 0; a < Doc->Items->count(); ++a)
-		{
-			Doc->Items->at(a)->ItemNr = a;
-			if (Doc->Items->at(a)->isBookmark)
-				emit NewBMNr(Doc->Items->at(a)->BMnr, a);
-		}
 		ScMW->outlinePalette->BuildTree();
 		emit LevelChanged(0);
 		emit DocChanged();
@@ -7875,13 +7851,6 @@ void ScribusView::ToFront()
 {
 	if (Doc->bringItemSelectionToFront())
 	{
-		//CB TODO move this loop out of here
-		for (uint a = 0; a < Doc->Items->count(); ++a)
-		{
-			Doc->Items->at(a)->ItemNr = a;
-			if (Doc->Items->at(a)->isBookmark)
-				emit NewBMNr(Doc->Items->at(a)->BMnr, a);
-		}
 		ScMW->outlinePalette->BuildTree();
 		emit LevelChanged(Doc->selection->itemAt(0)->ItemNr);
 		emit DocChanged();
@@ -7937,8 +7906,6 @@ void ScribusView::LowerItem()
 		for (uint a = 0; a < Doc->Items->count(); ++a)
 		{
 			Doc->Items->at(a)->ItemNr = a;
-			if (Doc->Items->at(a)->isBookmark)
-				emit NewBMNr(Doc->Items->at(a)->BMnr, a);
 		}
 		ScMW->outlinePalette->BuildTree();
 		if (wasGUISelection)
@@ -8000,8 +7967,6 @@ void ScribusView::RaiseItem()
 		for (uint a = 0; a < Doc->Items->count(); ++a)
 		{
 			Doc->Items->at(a)->ItemNr = a;
-			if (Doc->Items->at(a)->isBookmark)
-				emit NewBMNr(Doc->Items->at(a)->BMnr, a);
 		}
 		ScMW->outlinePalette->BuildTree();
 		if (wasGUISelection)
@@ -8147,13 +8112,11 @@ void ScribusView::DeleteItem()
 				undoManager->action(target, is, currItem->getUPixmap());
 			}
 		}
-		for (a = 0; a < Doc->Items->count(); ++a)
+		Doc->updateFrameItems();
+		for (uint a = 0; a < Doc->Items->count(); ++a)
 		{
 			Doc->Items->at(a)->ItemNr = a;
-			if (Doc->Items->at(a)->isBookmark)
-				emit NewBMNr(Doc->Items->at(a)->BMnr, a);
 		}
-		Doc->updateFrameItems();
 		if (docSelectionCount > 1)
 			undoManager->commit();
 		updateContents();
@@ -9290,7 +9253,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->PLineJoin = PenJoinStyle(Buffer->PLineJoin);
 	currItem->setPrintable(Buffer->isPrintable);
 	currItem->isBookmark = Buffer->isBookmark;
-	currItem->BMnr = Buffer->BMnr;
+//	currItem->BMnr = Buffer->BMnr;
 	currItem->setIsAnnotation(Buffer->m_isAnnotation);
 	currItem->setAnnotation(Buffer->m_annotation);
 	if (!Buffer->AnName.isEmpty())
@@ -9438,8 +9401,6 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		emit DocChanged();
 		updateContents();
 	}
-/*	if ((currItem->isBookmark) && (!loading))
-		emit NewBMNr(currItem->BMnr, z); */
 }
 
 void ScribusView::QueryFarben()

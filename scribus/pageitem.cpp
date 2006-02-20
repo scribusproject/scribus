@@ -128,7 +128,6 @@ PageItem::PageItem(const PageItem & other)
 	CPos(other.CPos),
 	itemText(other.itemText),
 	isBookmark(other.isBookmark),
-	BMnr(other.BMnr),
 	HasSel(other.HasSel),
 	FrameOnly(other.FrameOnly),
 	BackBox(other.BackBox),
@@ -368,7 +367,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	PicAvail = false;
 	isPrintable = true;
 	isBookmark = false;
-	BMnr = 0;
 	m_isAnnotation = false;
 	/*
 	m_annotation.setType(0);
@@ -2971,7 +2969,7 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->BBoxH = BBoxH; */
 	Buffer->isPrintable = printable();
 	Buffer->isBookmark = isBookmark;
-	Buffer->BMnr = BMnr;
+//	Buffer->BMnr = BMnr;
 	Buffer->m_isAnnotation = m_isAnnotation;
 	Buffer->m_annotation = m_annotation;
 	/*

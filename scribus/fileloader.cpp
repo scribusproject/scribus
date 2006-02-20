@@ -506,21 +506,6 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					doc->Layers.append(la);
 				}
 			}
-			if(pg.tagName()=="Bookmark")
-			{
-				bok.Title = pg.attribute("Title");
-				bok.Text = pg.attribute("Text");
-				bok.Aktion = pg.attribute("Aktion");
-				bok.ItemNr = pg.attribute("ItemNr").toInt();
-				bok.Seite = pg.attribute("Seite").toInt();
-				bok.Element = pg.attribute("Element").toInt();
-				bok.First = pg.attribute("First").toInt();
-				bok.Last = pg.attribute("Last").toInt();
-				bok.Prev = pg.attribute("Prev").toInt();
-				bok.Next = pg.attribute("Next").toInt();
-				bok.Parent = pg.attribute("Parent").toInt();
-				doc->BookMarks.append(bok);
-			}
 			if(pg.tagName()=="MultiLine")
 			{
 				multiLine ml;
@@ -751,6 +736,26 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					}
 				}
 				counter++;
+			}
+			PAGE=PAGE.nextSibling();
+		}
+		PAGE=DOC.firstChild();
+		while(!PAGE.isNull())
+		{
+			QDomElement pg=PAGE.toElement();
+			if(pg.tagName()=="Bookmark")
+			{
+				bok.Title = pg.attribute("Title");
+				bok.Text = pg.attribute("Text");
+				bok.Aktion = pg.attribute("Aktion");
+				bok.ItemNr = pg.attribute("ItemNr").toInt();
+				bok.PageObject = doc->Items->at(pg.attribute("Element").toInt());
+				bok.First = pg.attribute("First").toInt();
+				bok.Last = pg.attribute("Last").toInt();
+				bok.Prev = pg.attribute("Prev").toInt();
+				bok.Next = pg.attribute("Next").toInt();
+				bok.Parent = pg.attribute("Parent").toInt();
+				doc->BookMarks.append(bok);
 			}
 			PAGE=PAGE.nextSibling();
 		}
@@ -1223,7 +1228,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				la.isPrintable = pg.attribute("DRUCKEN").toInt();
 				doc->Layers.append(la);
 			}
-			if(pg.tagName()=="Bookmark")
+/*			if(pg.tagName()=="Bookmark")
 			{
 				bok.Title = pg.attribute("Title");
 				bok.Text = pg.attribute("Text");
@@ -1237,7 +1242,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				bok.Next = pg.attribute("Next").toInt();
 				bok.Parent = pg.attribute("Parent").toInt();
 				doc->BookMarks.append(bok);
-			}
+			} */
 			if(pg.tagName()=="MultiLine")
 			{
 				multiLine ml;
@@ -1694,6 +1699,26 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				}
 			PAGE=PAGE.nextSibling();
 		}
+		PAGE=DOC.firstChild();
+		while(!PAGE.isNull())
+		{
+			QDomElement pg=PAGE.toElement();
+			if(pg.tagName()=="Bookmark")
+			{
+				bok.Title = pg.attribute("Title");
+				bok.Text = pg.attribute("Text");
+				bok.Aktion = pg.attribute("Aktion");
+				bok.ItemNr = pg.attribute("ItemNr").toInt();
+				bok.PageObject = doc->Items->at(pg.attribute("Element").toInt());
+				bok.First = pg.attribute("First").toInt();
+				bok.Last = pg.attribute("Last").toInt();
+				bok.Prev = pg.attribute("Prev").toInt();
+				bok.Next = pg.attribute("Next").toInt();
+				bok.Parent = pg.attribute("Parent").toInt();
+				doc->BookMarks.append(bok);
+			}
+			PAGE=PAGE.nextSibling();
+		}
 		DOC=DOC.nextSibling();
 	}
 	if (TableItems.count() != 0)
@@ -2062,7 +2087,6 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->isBookmark = obj->attribute("BOOKMARK").toInt();
 	if ((currItem->isBookmark) && (doc->BookMarks.count() == 0))
 		doc->OldBM = true;
-	currItem->BMnr = obj->attribute("BookNr", "0").toInt();
 	currItem->textAlignment = obj->attribute("ALIGN", "0").toInt();
 	currItem->setImageFlippedH(obj->attribute("FLIPPEDH").toInt());
 	currItem->setImageFlippedV(obj->attribute("FLIPPEDV").toInt());

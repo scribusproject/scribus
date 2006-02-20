@@ -555,8 +555,7 @@ void ScribusMainWindow::initPalettes()
 	connect(layerPalette, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
 
 	connect(bookmarkPalette->BView, SIGNAL(MarkMoved()), this, SLOT(StoreBookmarks()));
-	connect(bookmarkPalette->BView, SIGNAL(ChangeBMNr(int, int, int)), this, SLOT(ChBookmarks(int, int, int)));
-	connect(bookmarkPalette->BView, SIGNAL(SelectElement(int, int)), this, SLOT(selectItemsFromOutlines(int, int)));
+	connect(bookmarkPalette->BView, SIGNAL(SelectElement(PageItem *)), this, SLOT(selectItemsFromOutlines(PageItem *)));
 }
 
 void ScribusMainWindow::initScrapbook()
@@ -2246,7 +2245,6 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(ItemPos(double, double)), propertiesPalette, SLOT(setXY(double, double)));
 	connect(view, SIGNAL(ItemGeom(double, double)), propertiesPalette, SLOT(setBH(double, double)));
 	connect(view, SIGNAL(ChBMText(PageItem *)), this, SLOT(BookMarkTxT(PageItem *)));
-	connect(view, SIGNAL(NewBMNr(int, int)), bookmarkPalette->BView, SLOT(ChangeItem(int, int)));
 	connect(view, SIGNAL(HaveSel(int)), this, SLOT(HaveNewSel(int)));
 	connect(view, SIGNAL(SetAngle(double)), propertiesPalette, SLOT(setR(double)));
 	connect(view, SIGNAL(SetSizeValue(double)), propertiesPalette, SLOT(setSvalue(double)));
@@ -3648,11 +3646,10 @@ void ScribusMainWindow::slotGetContent()
 				doc->docHyphenator->slotHyphenate(currItem);
 			for (uint a = 0; a < doc->Items->count(); ++a)
 			{
-				doc->Items->at(a)->ItemNr = a;
 				if (doc->Items->at(a)->isBookmark)
-					bookmarkPalette->BView->ChangeItem(doc->Items->at(a)->BMnr, a);
+					bookmarkPalette->BView->ChangeText(doc->Items->at(a));
 			}
-			outlinePalette->BuildTree();
+//			outlinePalette->BuildTree();
 			view->DrawNew();
 			slotDocCh();
 		}
@@ -4869,8 +4866,6 @@ void ScribusMainWindow::slotNewPage(int w, const QString& masterPageName, bool m
 	bool setter = doc->DocPages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
-	if ((!doc->isLoading()) && (!doc->masterPageMode()))
-		AdjustBM();
 /*	if ((!doc->loading) && (!doc->masterPageMode))
 	{
 		AdjustBM();
@@ -5583,29 +5578,6 @@ void ScribusMainWindow::setItemHoch(int h)
 	}
 }
 
-void ScribusMainWindow::AdjustBM()
-{
-	for (uint b = 0; b < doc->Items->count(); ++b)
-	{
-		PageItem* bb = doc->Items->at(b);
-		if (bb->isBookmark)
-		{
-			int it = bb->BMnr;
-			QListViewItemIterator itn(bookmarkPalette->BView);
-			for ( ; itn.current(); ++itn)
-			{
-				BookMItem *ite = (BookMItem*)itn.current();
-				if (ite->ItemNr == it)
-				{
-					ite->Seite = bb->OwnPage;
-					break;
-				}
-			}
-		}
-	}
-	StoreBookmarks();
-}
-
 void ScribusMainWindow::DeletePage2(int pg)
 {
 	PageItem* ite;
@@ -5655,7 +5627,6 @@ void ScribusMainWindow::DeletePage2(int pg)
 	view->pageSelector->GotoPg(0);
 	connect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
 	view->reformPages();
-	AdjustBM();
 	view->DrawNew();
 	doc->OpenNodes.clear();
 	outlinePalette->BuildTree();
@@ -5701,7 +5672,6 @@ void ScribusMainWindow::DeletePage(int from, int to)
 				doc->selection->addItem(ite);
 			}
 		}
-		AdjustBM();
 	}
 	if (doc->selection->count() != 0)
 		view->DeleteItem();
@@ -5762,7 +5732,6 @@ void ScribusMainWindow::MovePage()
 		}
 		slotDocCh();
 		view->DrawNew();
-		AdjustBM();
 		pagePalette->RebuildPage();
 		outlinePalette->BuildTree();
 		outlinePalette->reopenTree(doc->OpenNodes);
@@ -5786,7 +5755,6 @@ void ScribusMainWindow::CopyPage()
 		slotDocCh();
 		pagePalette->RebuildPage();
 		outlinePalette->BuildTree();
-		AdjustBM();
 	}
 	delete dia;
 }
@@ -6746,6 +6714,12 @@ void ScribusMainWindow::ObjektDupM()
 	delete dia;
 }
 
+void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite)
+{
+	int d = doc->Items->findRef(ite);
+	selectItemsFromOutlines(ite->OwnPage, d, true);
+}
+
 void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 {
 	NoFrameEdit();
@@ -7244,7 +7218,7 @@ void ScribusMainWindow::AddBookMark(PageItem *ite)
 
 void ScribusMainWindow::DelBookMark(PageItem *ite)
 {
-	bookmarkPalette->BView->DeleteItem(ite->BMnr);
+	bookmarkPalette->BView->DeleteItem(ite);
 	StoreBookmarks();
 }
 
@@ -7252,11 +7226,6 @@ void ScribusMainWindow::BookMarkTxT(PageItem *ite)
 {
 	bookmarkPalette->BView->ChangeText(ite);
 	StoreBookmarks();
-}
-
-void ScribusMainWindow::ChBookmarks(int /*s*/, int /*e*/, int /*n*/)
-{
-//	view->Pages.at(s)->Items.at(e)->BMnr = n;
 }
 
 void ScribusMainWindow::RestoreBookMarks()
@@ -7331,8 +7300,9 @@ void ScribusMainWindow::StoreBookmarks()
 		Boma.Text = ip->text(0);
 		Boma.Aktion = ip->Action;
 		Boma.ItemNr = ip->ItemNr;
-		Boma.Seite = ip->Seite;
-		Boma.Element = ip->Element;
+		Boma.PageObject = ip->PageObject;
+//		Boma.Seite = ip->Seite;
+//		Boma.Element = ip->Element;
 		Boma.Parent = ip->Pare;
 		Boma.First = ip->First;
 		Boma.Prev = ip->Prev;

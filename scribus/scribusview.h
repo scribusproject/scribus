@@ -397,7 +397,6 @@ signals:
 	void Amode(int);
 	void AddBM(PageItem *);
 	void DelBM(PageItem *);
-	void NewBMNr(int, int);
 	void ChBMText(PageItem *);
 	void ToScrap(QString);
 	void LoadElem(QString, double, double, bool, bool, ScribusDoc *, ScribusView *);

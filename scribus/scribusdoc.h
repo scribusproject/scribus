@@ -735,9 +735,8 @@ public: // Public attributes
 					QString Title;
 					QString Text;
 					QString Aktion;
+					PageItem *PageObject;
 					int Parent;
-					int Seite;
-					int Element;
 					int ItemNr;
 					int First;
 					int Last;

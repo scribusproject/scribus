@@ -104,7 +104,7 @@ private:
 	void WritePDFStream(const QString& cc);
 	QString PDFEncode(const QString & in);
 	QByteArray ComputeMD5(const QString& in);
-	void PDF_Bookmark(int nr, double ypos);
+	void PDF_Bookmark(PageItem *currItem, double ypos);
 	QString PDF_Gradient(PageItem *currItem);
 	QString PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, const QStringList& Colors);
 	QString PDF_Transparenz(PageItem *currItem);

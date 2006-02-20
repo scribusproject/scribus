@@ -3470,13 +3470,10 @@ bool ScribusDoc::sendItemSelectionToBack()
 		{
 			Items->prepend(selection->itemAt(Oindex[c]));
 		}
-		/*
 		for (uint a = 0; a < Items->count(); ++a)
 		{
 			Items->at(a)->ItemNr = a;
-			if (Items->at(a)->isBookmark)
-				emit NewBMNr(Items->at(a)->BMnr, a);
-		}*/
+		}
 		return true;
 	}
 	return false;
@@ -3503,14 +3500,10 @@ bool ScribusDoc::bringItemSelectionToFront()
 		{
 			Items->append(selection->itemAt(Oindex[c]));
 		}
-		/*
 		for (uint a = 0; a < Items->count(); ++a)
 		{
 			Items->at(a)->ItemNr = a;
-			if (Items->at(a)->isBookmark)
-				emit NewBMNr(Items->at(a)->BMnr, a);
 		}
-		*/
 		return true;
 	}
 	return false;

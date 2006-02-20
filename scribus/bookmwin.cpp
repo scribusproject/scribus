@@ -51,11 +51,10 @@ BookMItem::BookMItem(QListView* parent, struct ScribusDoc::BookMa *Bm) : QListVi
 	SetUp(Bm);
 }
 
-BookMItem::BookMItem(QListView* parent, QListViewItem* after, int nr, int s, int el) : QListViewItem(parent, after)
+BookMItem::BookMItem(QListView* parent, QListViewItem* after, int nr, PageItem* PObject) : QListViewItem(parent, after)
 {
 	ItemNr = nr;
-	Seite = s;
-	Element = el;
+	PageObject = PObject;
 	PdfObj = 0;
 	Action = "";
 	First = 0;
@@ -65,11 +64,10 @@ BookMItem::BookMItem(QListView* parent, QListViewItem* after, int nr, int s, int
 	Pare = 0;
 }
 
-BookMItem::BookMItem(QListView* parent, int nr, int s, int el) : QListViewItem(parent)
+BookMItem::BookMItem(QListView* parent, int nr, PageItem* PObject) : QListViewItem(parent)
 {
 	ItemNr = nr;
-	Seite = s;
-	Element = el;
+	PageObject = PObject;
 	PdfObj = 0;
 	Action = "";
 	First = 0;
@@ -82,8 +80,6 @@ BookMItem::BookMItem(QListView* parent, int nr, int s, int el) : QListViewItem(p
 void BookMItem::SetUp(struct ScribusDoc::BookMa *Bm)
 {
 	ItemNr = Bm->ItemNr;
-	Seite = Bm->Seite;
-	Element = Bm->Element;
 	PdfObj = 0;
 	Action = Bm->Aktion;
 	First = Bm->First;
@@ -92,6 +88,7 @@ void BookMItem::SetUp(struct ScribusDoc::BookMa *Bm)
 	Next = Bm->Next;
 	Pare = Bm->Parent;
 	Titel = Bm->Title;
+	PageObject = Bm->PageObject;
 	setText(0, Bm->Text);
 }
 
@@ -137,8 +134,7 @@ void BookMView::AddPageItem(PageItem* ite)
 		bm += cc;
 		bm2 += cc;
 	}
-	AddItem(bm, bm2, ite->OwnPage, ite->ItemNr);
-	ite->BMnr = NrItems;
+	AddItem(bm, bm2, ite);
 	Last = NrItems;
 }
 
@@ -155,7 +151,7 @@ void BookMView::contentsMouseReleaseEvent(QMouseEvent *e)
 			{
 				BookMItem *ip;
 				ip = (BookMItem*)i;
-				emit SelectElement(ip->Seite, ip->Element);
+				emit SelectElement(ip->PageObject);
 			}
 		}
 	}
@@ -393,7 +389,7 @@ void BookMView::contentsDragMoveEvent(QDragMoveEvent *e)
 		e->ignore();
 }
 
-void BookMView::AddItem(QString text, QString Tit, int s, int el)
+void BookMView::AddItem(QString text, QString Tit, PageItem *PageObject)
 {
 	QListViewItem *lv = firstChild();
 	while (lv)
@@ -405,9 +401,9 @@ void BookMView::AddItem(QString text, QString Tit, int s, int el)
 	BookMItem *ip;
 	BookMItem *ite;
 	if (lv)
-		ite = new BookMItem(this, lv, NrItems+1, s, el);
+		ite = new BookMItem(this, lv, NrItems+1, PageObject);
 	else
-		ite = new BookMItem(this, NrItems+1, s, el);
+		ite = new BookMItem(this, NrItems+1, PageObject);
 	ite->setText(0, text);
 	ite->Titel = Tit;
 	ite->Next = 0;
@@ -420,9 +416,20 @@ void BookMView::AddItem(QString text, QString Tit, int s, int el)
 	NrItems++;
 }
 
-void BookMView::DeleteItem(int nr)
+void BookMView::DeleteItem(PageItem *pObject)
 {
 	BookMItem *ite;
+	int nr;
+	QListViewItemIterator itx(this);
+	for ( ; itx.current(); ++itx)
+	{
+		ite = (BookMItem*)itx.current();
+		if (ite->PageObject == pObject)
+		{
+			nr = ite->ItemNr;
+			break;
+		}
+	}
 	BookMItem *ite2 = 0;
 	BookMItem *ite3;
 	BookMItem *ite4;
@@ -485,33 +492,17 @@ void BookMView::DeleteItem(int nr)
 		ite->Prev = Tabl[ite->Prev];
 		ite->First = Tabl[ite->First];
 		ite->Last = Tabl[ite->Last];
-		emit ChangeBMNr(ite->Seite, ite->Element, ite->ItemNr);
 	}
 }
 
-void BookMView::ChangeItem(int nr, int itnr)
+void BookMView::SetAction(PageItem *currItem, QString Act)
 {
 	BookMItem *ite;
 	QListViewItemIterator it(this);
 	for ( ; it.current(); ++it)
 	{
 		ite = (BookMItem*)it.current();
-		if (ite->ItemNr == nr)
-		{
-			ite->Element = itnr;
-			break;
-		}
-	}
-}
-
-void BookMView::SetAction(int nr, QString Act)
-{
-	BookMItem *ite;
-	QListViewItemIterator it(this);
-	for ( ; it.current(); ++it)
-	{
-		ite = (BookMItem*)it.current();
-		if (ite->ItemNr == nr)
+		if (ite->PageObject == currItem)
 		{
 			ite->Action = Act;
 			break;
@@ -525,7 +516,6 @@ void BookMView::ChangeText(PageItem *currItem)
 	QString bm = "";
 	QString bm2 = "";
 	QString cc;
-	int nr = currItem->BMnr;
 	for (uint d = 0; d < currItem->itemText.count(); ++d)
 	{
 		cc = currItem->itemText.at(d)->ch;
@@ -540,7 +530,7 @@ void BookMView::ChangeText(PageItem *currItem)
 	for ( ; it.current(); ++it)
 	{
 		ite = (BookMItem*)it.current();
-		if (ite->ItemNr == nr)
+		if (ite->PageObject == currItem)
 		{
 			ite->setText(0, bm);
 			ite->Titel = bm2;

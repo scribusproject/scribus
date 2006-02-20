@@ -80,11 +80,8 @@ struct CopyPasteBuffer
 	bool PicArt;
 	bool flippedH;
 	bool flippedV;
-/*	double BBoxX;
-	double BBoxH; */
 	bool isPrintable;
 	bool isBookmark;
-	int BMnr;
 	bool m_isAnnotation;
 	Annotation m_annotation;
 	QString AnName;

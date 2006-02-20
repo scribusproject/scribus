@@ -46,14 +46,13 @@ public:
 	BookMItem(QListViewItem* parent, QListViewItem* after, struct ScribusDoc::BookMa *Bm);
 	BookMItem(QListView* parent, QListViewItem* after, struct ScribusDoc::BookMa *Bm);
 	BookMItem(QListView* parent, struct ScribusDoc::BookMa *Bm);
-	BookMItem(QListView* parent, QListViewItem* after, int nr, int s, int el);
-	BookMItem(QListView* parent, int nr, int s, int el);
+	BookMItem(QListView* parent, QListViewItem* after, int nr, PageItem *PObject);
+	BookMItem(QListView* parent, int nr, PageItem *PObject);
 	~BookMItem() {};
 	void SetUp(struct ScribusDoc::BookMa *Bm);
 	virtual QString key(int, bool) const;
+	PageItem *PageObject;
 	int ItemNr;
-	int Seite;
-	int Element;
 	int PdfObj;
 	QString Action;
 	QString Titel;
@@ -71,9 +70,9 @@ class SCRIBUS_API BookMView : public QListView
 public:
 	BookMView(QWidget* parent);
 	~BookMView() {};
-	void AddItem(QString text, QString Tit, int s, int el);
-	void DeleteItem(int nr);
-	void SetAction(int nr, QString Act);
+	void AddItem(QString text, QString Tit, PageItem *PageObject);
+	void DeleteItem(PageItem *PageObject);
+	void SetAction(PageItem *currItem, QString Act);
 	int NrItems;
 	bool Mpressed;
 	QPoint Mpos;
@@ -83,14 +82,13 @@ public:
 
 public slots:
 	void AddPageItem(PageItem* ite);
-	void ChangeItem(int nr, int itnr);
 	void ChangeText(PageItem *currItem);
 	void languageChange();
 
 signals:
 	void MarkMoved();
 	void ChangeBMNr(int, int, int);
-	void SelectElement(int, int);
+	void SelectElement(PageItem *);
 
 protected:
 	void contentsMouseReleaseEvent(QMouseEvent *m);

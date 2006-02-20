@@ -243,11 +243,8 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.flippedV = pg.attribute("FLIPPEDV").toInt();
 			OB.ScaleType = pg.attribute("SCALETYPE", "1").toInt();
 			OB.AspectRatio = pg.attribute("RATIO", "0").toInt();
-/*			OB.BBoxX = pg.attribute("BBOXX").toDouble();
-			OB.BBoxH = pg.attribute("BBOXH").toDouble(); */
 			OB.isPrintable = pg.attribute("PRINTABLE").toInt();
 			OB.isBookmark = false;
-			OB.BMnr = 0;
 			OB.m_isAnnotation = pg.attribute("ANNOTATION", "0").toInt();
 			if (pg.attribute("TRANSPARENT", "0").toInt() == 1)
 				OB.Pcolor = CommonStrings::None;

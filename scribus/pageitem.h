@@ -381,7 +381,6 @@ public:
 	StoryText itemText;
   /** Flag fuer PDF-Bookmark */
 	bool isBookmark;
-	int BMnr;
   /** Flag fuer neuzeichnen im EditMode */
 	bool Dirty;
   /** Flag fuer Auswahl */
