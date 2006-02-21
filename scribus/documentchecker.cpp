@@ -49,7 +49,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	for (uint d = 0; d < currDoc->MasterItems.count(); ++d)
 	{
 		currItem = currDoc->MasterItems.at(d);
-		if (!currItem->printable())
+		if (!currItem->printEnabled())
 			continue;
 		itemError.clear();
 		if (((currItem->isAnnotation()) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
@@ -152,7 +152,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	for (uint d = 0; d < currDoc->DocItems.count(); ++d)
 	{
 		currItem = currDoc->DocItems.at(d);
-		if (!currItem->printable())
+		if (!currItem->printEnabled())
 			continue;
 		itemError.clear();
 		if (((currItem->fillTransparency() != 0.0) || (currItem->lineTransparency() != 0.0)) && (checkerSettings.checkTransparency))

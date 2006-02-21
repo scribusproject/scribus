@@ -802,6 +802,7 @@ public slots:
 	void itemSelection_ToggleLock();
 	void itemSelection_ToggleSizeLock();
 	void itemSelection_ToggleImageShown();
+	void itemSelection_TogglePrintEnabled();
 	void updatePic();
 	void updatePict(QString name);
 	void removePict(QString name);

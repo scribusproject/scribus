@@ -1032,7 +1032,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
-	NoPrint->setOn(!i->printable());
+	setPrintingEnabled(i->printEnabled());
 	setLocked(i->locked());
 	if ((i->isTableItem) && (i->isSingleSel))
 	{
@@ -1227,8 +1227,10 @@ void Mpalette::SetCurItem(PageItem *i)
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
-	NoPrint->setOn(!i->printable());
-	setLocked(i->locked());
+	//CB not needed, done from pageitem->emitalltogui or individual emit. 
+	//NoPrint->setOn(!i->printEnabled());
+	//setLocked(i->locked());
+	//setSizeLocked(i->sizeLocked());
 	if ((i->isTableItem) && (i->isSingleSel))
 	{
 		setter = true;
@@ -1244,7 +1246,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	Xpos->setReadOnly(setter);
 	Ypos->setReadOnly(setter);
 	Rot->setReadOnly(setter);
-	setSizeLocked(i->sizeLocked());
+	
 	if (i->asPathText())
 	{
 		TabStack2->raiseWidget(1);
@@ -3469,15 +3471,10 @@ void Mpalette::handleLockSize()
 
 void Mpalette::handlePrint()
 {
-	if ((HaveDoc) && (HaveItem))
-	{
-		for ( uint a = 0; a < doc->selection->count(); ++a)
-			doc->selection->itemAt(a)->setPrintable(!NoPrint->isOn());
-		emit DocChanged();
-	}
+	if (ScMW->ScriptRunning)
+		return;
+	ScMW->scrActions["itemPrintingEnabled"]->toggle();
 }
-
-
 
 void Mpalette::handlePathLine()
 {
@@ -4025,4 +4022,9 @@ void Mpalette::setSizeLocked(bool isSizeLocked)
 	Width->setReadOnly(isSizeLocked);
 	Height->setReadOnly(isSizeLocked);
 	NoResize->setOn(isSizeLocked);
+}
+
+void Mpalette::setPrintingEnabled(bool isPrintingEnabled)
+{
+	NoPrint->setOn(!isPrintingEnabled);
 }

@@ -1093,7 +1093,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 					{
 						QString tmps;
 						PageItem *it = Doc->MasterItems.at(api);
-						if ((it->LayerNr != ll.LNr) || (!it->printable()))
+						if ((it->LayerNr != ll.LNr) || (!it->printEnabled()))
 							continue;
 						int x = static_cast<int>(Doc->MasterPages.at(ap)->xOffset());
 						int y = static_cast<int>(Doc->MasterPages.at(ap)->yOffset());
@@ -1108,7 +1108,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 							continue;
 						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->pageNr())) && (it->OwnPage != -1))
 							continue;
-						if ((it->asImageFrame()) && (it->PicAvail) && (!it->Pfile.isEmpty()) && (it->printable()) && (!sep) && (farb))
+						if ((it->asImageFrame()) && (it->PicAvail) && (!it->Pfile.isEmpty()) && (it->printEnabled()) && (!sep) && (farb))
 							PS_ImageData(it, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded, Ic);
 						PS_TemplateStart(Doc->MasterPages.at(ap)->PageNam + tmps.setNum(it->ItemNr));
 						ProcessItem(Doc, Doc->MasterPages.at(ap), it, ap+1, sep, farb, Ic, gcr, true);
@@ -1185,7 +1185,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 						{
 							QString tmps;
 							PageItem *ite = Doc->Pages->at(a)->FromMaster.at(am);
-							if ((ite->LayerNr != ll.LNr) || (!ite->printable()))
+							if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
 								continue;
 							if (!(ite->asTextFrame()) && !(ite->asImageFrame()))
 								PS_UseTemplate(Doc->Pages->at(a)->MPageNam + tmps.setNum(ite->ItemNr));
@@ -1331,7 +1331,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 						PageItem *ite = Doc->Pages->at(a)->FromMaster.at(am);
 						if (!ite->isTableItem)
 							continue;
-						if (ite->printable())
+						if (ite->printEnabled())
 						{
 							PS_save();
 							if (ite->lineColor() != CommonStrings::None)
@@ -1414,7 +1414,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 	QValueList<double> dum;
 	dum.clear();
 	QString tmps, chx;
-	if (c->printable())
+	if (c->printEnabled())
 	{
 		fillRule = true;
 		PS_save();
@@ -1984,7 +1984,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				continue;
 			if ((!a->PageNam.isEmpty()) && (c->OwnPage != static_cast<int>(a->pageNr())) && (c->OwnPage != -1))
 				continue;
-			if (c->printable())
+			if (c->printEnabled())
 			{
 				PS_save();
 				if (c->lineColor() != CommonStrings::None)

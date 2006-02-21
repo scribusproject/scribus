@@ -1110,7 +1110,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 /* Bookmarks on Master Pages do not make any sense */
 //				if ((ite->isBookmark) && (Options.Bookmarks))
 //					PDF_Bookmark(ite, pag->height() - (ite->yPos() - pag->yOffset()));
-				if (!ite->printable() || ((ite->itemType() == PageItem::TextFrame) && (!pag->PageNam.isEmpty())))
+				if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->PageNam.isEmpty())))
 				{
 					PutPage("Q\n");
 					continue;
@@ -1724,7 +1724,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					for (uint am = 0; am < pag->FromMaster.count(); ++am)
 					{
 						ite = pag->FromMaster.at(am);
-						if ((ite->LayerNr != ll.LNr) || (!ite->printable()))
+						if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
 							continue;
 						if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 							continue;
@@ -1847,7 +1847,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					for (uint am = 0; am < pag->FromMaster.count(); ++am)
 					{
 						ite = pag->FromMaster.at(am);
-						if ((ite->LayerNr != ll.LNr) || (!ite->printable()))
+						if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
 							continue;
 						if (ite->ChangedMasterItem)
 							continue;
@@ -2020,7 +2020,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					PutPage("q\n");
 					if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
 						PutPage(PDF_Transparenz(ite));
-					if (!ite->printable())
+					if (!ite->printEnabled())
 					{
 						PutPage("Q\n");
 						continue;
@@ -2154,7 +2154,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 		tmp += PDF_Transparenz(ite);
 	if ((ite->isBookmark) && (Options.Bookmarks))
 		PDF_Bookmark(ite, pag->height() - (ite->yPos() - pag->yOffset()));
-	if (!ite->printable() || ((ite->itemType() == PageItem::TextFrame) && (!pag->PageNam.isEmpty())))
+	if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->PageNam.isEmpty())))
 	{
 		tmp += "Q\n";
 		return tmp;

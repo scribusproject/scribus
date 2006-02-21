@@ -92,7 +92,7 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject
 	Q_PROPERTY(QString language READ language WRITE setLanguage DESIGNABLE false)
 	Q_PROPERTY(bool textFlowsAroundFrame READ textFlowsAroundFrame WRITE setTextFlowsAroundFrame DESIGNABLE false)
 	Q_PROPERTY(bool textFlowUsesBoundingBox READ textFlowUsesBoundingBox WRITE setTextFlowUsesBoundingBox DESIGNABLE false)
-	Q_PROPERTY(bool isPrintable READ printable WRITE setPrintable DESIGNABLE false)
+	Q_PROPERTY(bool m_PrintEnabled READ printEnabled WRITE setPrintEnabled DESIGNABLE false)
 	Q_PROPERTY(double xPos READ xPos WRITE setXPos DESIGNABLE false)
 	Q_PROPERTY(double yPos READ yPos WRITE setYPos DESIGNABLE false)
 	Q_PROPERTY(double width READ width WRITE setWidth DESIGNABLE false)
@@ -874,14 +874,19 @@ public:
 	QString generateUniqueCopyName(const QString originalName) const;
 	/**
 	 * @brief Is this item printed?
-	 * @sa setPrintable()
+	 * @sa setPrintEnabled()
 	 */
-	bool printable() const { return isPrintable; }
+	bool printEnabled() const { return m_PrintEnabled; }
 	/**
 	 * @brief Tells if the frame is set to be printed or not
 	 * @sa printable()
 	 */
-	void setPrintable(bool toPrint);
+	void setPrintEnabled(bool toPrint);
+	
+	/** @brief Toggle printable
+	 * @sa setPrintable()
+	 */
+	void togglePrintEnabled();
 	
 	/**
 	 * @brief Tells if the frame is tagged or not
@@ -1096,7 +1101,7 @@ protected:
 	 * @brief Is this item set to be printed/exported
 	 * @sa PageItem::printable(), PageItem::setPrintable()
 	 */
-	bool isPrintable;
+	bool m_PrintEnabled;
 	
 	/**
 	 * @brief Is this item set to have an action done to it, eg deleted
@@ -1189,6 +1194,9 @@ signals:
 	void transparency(double, double); //fillTransparency, lineTransparency
 	void frameLocked(bool); //Frame lock
 	void frameSizeLocked(bool); //Frame size lock
+	void frameFlippedH(bool); //Frame flipped horizontally
+	void frameFlippedV(bool); //Frame flipped vertically
+	void printEnabled(bool); //Frame is set to print or not
 	//Shape signals
 	void columns(int, double); //Number, gap
 	void cornerRadius(double); //Corner radius of the shape

@@ -780,6 +780,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["itemSplitPolygons"]->setEnabled(false);
 	scrActions["itemLock"]->setEnabled(false);
 	scrActions["itemLockSize"]->setEnabled(false);
+	scrActions["itemPrintingEnabled"]->setEnabled(false);
 	scrActions["itemImageIsVisible"]->setEnabled(false);
 	scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
 	scrActions["itemConvertToBezierCurve"]->setEnabled(false);
@@ -2372,6 +2373,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["itemConvertToTextFrame"]->setEnabled(false);
 		scrActions["itemLock"]->setEnabled(false);
 		scrActions["itemLockSize"]->setEnabled(false);
+		scrActions["itemPrintingEnabled"]->setEnabled(false);
 		scrActions["editCut"]->setEnabled(false);
 		scrActions["editCopy"]->setEnabled(false);
 		scrActions["editCopyContents"]->setEnabled(false);
@@ -2674,6 +2676,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		propertiesPalette->textFlowsAroundFrame->setChecked(currItem->textFlowsAroundFrame());
 		scrActions["itemLock"]->setEnabled(true);
 		scrActions["itemLockSize"]->setEnabled(true);
+		scrActions["itemPrintingEnabled"]->setEnabled(true);
 		if (currItem->Groups.count() != 0)
 			scrActions["itemUngroup"]->setEnabled(true);
 		else
@@ -2718,6 +2721,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		}
 		scrActions["itemLock"]->setOn(currItem->locked());
 		scrActions["itemLockSize"]->setOn(currItem->sizeLocked());
+		scrActions["itemPrintingEnabled"]->setOn(currItem->printEnabled());
 	}
 
 	//propertiesPalette->NewSel(Nr);

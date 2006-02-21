@@ -196,7 +196,7 @@ PageItem::PageItem(const PageItem & other)
 	textFlowUsesBoundingBoxVal(other.textFlowUsesBoundingBoxVal),
 	textFlowUsesContourLineVal(other.textFlowUsesContourLineVal),
 	pageItemAttributes(other.pageItemAttributes),
-	isPrintable(other.isPrintable),
+	m_PrintEnabled(other.m_PrintEnabled),
 	tagged(other.tagged),
 	fillQColor(other.fillQColor),
 	strokeQColor(other.strokeQColor),
@@ -365,7 +365,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	savedOwnPage = OwnPage;
 	PicArt = true;
 	PicAvail = false;
-	isPrintable = true;
+	m_PrintEnabled = true;
 	isBookmark = false;
 	m_isAnnotation = false;
 	/*
@@ -1718,6 +1718,7 @@ void PageItem::flipImageH()
 		undoManager->action(this, ss);
 	}
 	imageIsFlippedH = !imageIsFlippedH;
+	emit frameFlippedH(imageIsFlippedH);
 }
 
 void PageItem::setImageFlippedV(bool flipped)
@@ -1735,6 +1736,7 @@ void PageItem::flipImageV()
 		undoManager->action(this, ss);
 	}
 	imageIsFlippedV = !imageIsFlippedV;
+	emit frameFlippedV(imageIsFlippedV);
 }
 
 void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
@@ -1804,6 +1806,29 @@ void PageItem::setSizeLocked(bool isLocked)
 {
 	if (isLocked != m_SizeLocked)
 		toggleSizeLock();
+}
+
+
+void PageItem::setPrintEnabled(bool toPrint)
+{
+	if (toPrint != m_PrintEnabled)
+		togglePrintEnabled();
+}
+
+void PageItem::togglePrintEnabled()
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss;
+		if (m_PrintEnabled)
+			ss = new SimpleState(Um::DisablePrint, 0, Um::IDisablePrint);
+		else
+			ss = new SimpleState(Um::EnablePrint, 0, Um::IEnablePrint);
+		ss->set("PRINT_ENABLED", "print_enabled");
+		undoManager->action(this, ss);
+	}
+	m_PrintEnabled=!m_PrintEnabled;
+	emit printEnabled(m_PrintEnabled);
 }
 
 void PageItem::setFont(const QString& newFont)
@@ -2292,6 +2317,11 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		{
 			select();
 			m_Doc->itemSelection_ToggleSizeLock();
+		}
+		else if (ss->contains("PRINT_ENABLED"))
+		{
+			select();
+			m_Doc->itemSelection_TogglePrintEnabled();
 		}
 		else if (ss->contains("NEW_NAME"))
 			restoreName(ss, isUndo);
@@ -2903,11 +2933,6 @@ QString PageItem::generateUniqueCopyName(const QString originalName) const
 	return newname;
 }
 
-void PageItem::setPrintable(bool toPrint)
-{
-	isPrintable=toPrint;
-}
-
 void PageItem::setTagged(bool tag)
 {
 	tagged=tag;
@@ -2967,7 +2992,7 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->flippedV = imageFlippedV();
 /*	Buffer->BBoxX = BBoxX;
 	Buffer->BBoxH = BBoxH; */
-	Buffer->isPrintable = printable();
+	Buffer->isPrintable = printEnabled();
 	Buffer->isBookmark = isBookmark;
 //	Buffer->BMnr = BMnr;
 	Buffer->m_isAnnotation = m_isAnnotation;
@@ -3579,6 +3604,9 @@ bool PageItem::connectToGUI()
 	connect(this, SIGNAL(frameType(int)), ScMW->propertiesPalette, SLOT(NewSel(int)));
 	connect(this, SIGNAL(frameLocked(bool)), ScMW->propertiesPalette, SLOT(setLocked(bool)));
 	connect(this, SIGNAL(frameSizeLocked(bool)), ScMW->propertiesPalette, SLOT(setSizeLocked(bool)));
+	connect(this, SIGNAL(frameFlippedH(bool)), ScMW->propertiesPalette, SLOT(setLocked(bool)));
+	connect(this, SIGNAL(frameFlippedV(bool)), ScMW->propertiesPalette, SLOT(setSizeLocked(bool)));
+	connect(this, SIGNAL(printEnabled(bool)), ScMW->propertiesPalette, SLOT(setPrintingEnabled(bool)));
 	connect(this, SIGNAL(position(double, double)), ScMW->propertiesPalette, SLOT(setXY(double, double)));
 	connect(this, SIGNAL(widthAndHeight(double, double)), ScMW->propertiesPalette, SLOT(setBH(double, double)));
 	connect(this, SIGNAL(colors(QString, QString, int, int)), ScMW, SLOT(setCSMenu(QString, QString, int, int)));
@@ -3638,6 +3666,7 @@ void PageItem::emitAllToGUI()
 	emit rotation(Rot);
 	emit frameLocked(m_Locked);
 	emit frameSizeLocked(m_SizeLocked);
+	emit printEnabled(m_PrintEnabled);
 	emit lineWidth(m_lineWidth);
 	emit lineStyleCapJoin(PLineArt, PLineEnd, PLineJoin);
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);

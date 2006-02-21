@@ -272,7 +272,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("ISIZE",item->fontSize() / 10.0 );
 	ob->setAttribute("SCALETYPE", item->ScaleType ? 1 : 0);
 	ob->setAttribute("RATIO", item->AspectRatio ? 1 : 0);
-	ob->setAttribute("PRINTABLE", item->printable() ? 1 : 0);
+	ob->setAttribute("PRINTABLE", item->printEnabled() ? 1 : 0);
 	if(item->isAnnotation())
 	{
 		ob->setAttribute("ANNOTATION",1);

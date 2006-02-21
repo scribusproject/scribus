@@ -484,6 +484,8 @@ public:
 	static QString UnLock;
 	static QString SizeLock;
 	static QString SizeUnLock;
+	static QString EnablePrint;
+	static QString DisablePrint;
 	static QString Ungroup;
 	static QString Delete;
 	static QString Rename;
@@ -587,6 +589,8 @@ public:
 	static QPixmap *IFlipV;
 	static QPixmap *ILock;
 	static QPixmap *IUnLock;
+	static QPixmap *IEnablePrint;
+	static QPixmap *IDisablePrint;
 	static QPixmap *IDelete;
 	static QPixmap *ICreate;
 	static QPixmap *IPaste;

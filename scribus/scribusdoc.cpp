@@ -4870,76 +4870,6 @@ void ScribusDoc::connectDocSignals()
 	}
 }
 
-void ScribusDoc::itemSelection_ToggleLock( )
-{
-	uint docSelectionCount=selection->count();
-	if (docSelectionCount != 0)
-	{
-		if (docSelectionCount > 1)
-		{
-			if (selection->itemAt(0)->locked())
-				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::UnLock, 0, Um::IUnLock);
-			else
-				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Lock, 0, Um::ILock);
-		}
-		for ( uint a = 0; a < docSelectionCount; ++a)
-		{
-			selection->itemAt(a)->toggleLock();
-			emit refreshItem(selection->itemAt(a));
-		}
-		if (docSelectionCount > 1)
-			undoManager->commit();
-		emit changed();
-		emit firstSelectedItemType(selection->itemAt(0)->itemType());
-	}
-}
-
-void ScribusDoc::itemSelection_ToggleSizeLock( )
-{
-	uint selectedItemCount=selection->count();
-	if (selectedItemCount != 0)
-	{
-		if (selectedItemCount > 1)
-		{
-			if (selection->itemAt(0)->sizeLocked())
-				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SizeUnLock, 0, Um::IUnLock);
-			else
-				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SizeLock, 0, Um::ILock);
-		}
-		for ( uint a = 0; a < selectedItemCount; ++a)
-		{
-			selection->itemAt(a)->toggleSizeLock();
-			emit refreshItem(selection->itemAt(a));
-		}
-		if (selectedItemCount > 1)
-			undoManager->commit();
-		emit changed();
-		emit firstSelectedItemType(selection->itemAt(0)->itemType());
-	}
-}
-
-
-void ScribusDoc::itemSelection_ToggleImageShown()
-{
-	if (selection->count() != 0)
-	{
-		for (uint a = 0; a < selection->count(); ++a)
-		{
-			PageItem_ImageFrame* imageItem=selection->itemAt(a)->asImageFrame();
-			if (imageItem==NULL)
-				continue;
-			imageItem->setImageShown(!imageItem->imageShown());
-			ScMW->scrActions["itemImageIsVisible"]->setOn(imageItem->imageShown());
-			emit refreshItem(imageItem);
-		}
-		emit changed();
-		//Return to normal mode if in edit mode. We should not allow dragging of
-		//an image in a frame if its not shown.
-		if (appMode == modeEdit)
-			emit setApplicationMode(modeNormal);
-	}
-}
-
 //CB Same as RecalcPicturesRes apart from the name checking, which should be able to be removed
 void ScribusDoc::updatePict(QString name)
 {
@@ -5091,5 +5021,99 @@ void ScribusDoc::updatePic()
 		}
 		if (toUpdate)
 			emit updateContents();
+	}
+}
+
+void ScribusDoc::itemSelection_ToggleLock( )
+{
+	uint docSelectionCount=selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+		{
+			if (selection->itemAt(0)->locked())
+				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::UnLock, 0, Um::IUnLock);
+			else
+				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Lock, 0, Um::ILock);
+		}
+		for ( uint a = 0; a < docSelectionCount; ++a)
+		{
+			selection->itemAt(a)->toggleLock();
+			emit refreshItem(selection->itemAt(a));
+		}
+		if (docSelectionCount > 1)
+			undoManager->commit();
+		emit changed();
+		emit firstSelectedItemType(selection->itemAt(0)->itemType());
+	}
+}
+
+void ScribusDoc::itemSelection_ToggleSizeLock( )
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (selectedItemCount > 1)
+		{
+			if (selection->itemAt(0)->sizeLocked())
+				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SizeUnLock, 0, Um::IUnLock);
+			else
+				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SizeLock, 0, Um::ILock);
+		}
+		for ( uint a = 0; a < selectedItemCount; ++a)
+		{
+			selection->itemAt(a)->toggleSizeLock();
+			emit refreshItem(selection->itemAt(a));
+		}
+		if (selectedItemCount > 1)
+			undoManager->commit();
+		emit changed();
+		emit firstSelectedItemType(selection->itemAt(0)->itemType());
+	}
+}
+
+
+void ScribusDoc::itemSelection_ToggleImageShown()
+{
+	if (selection->count() != 0)
+	{
+		for (uint a = 0; a < selection->count(); ++a)
+		{
+			PageItem_ImageFrame* imageItem=selection->itemAt(a)->asImageFrame();
+			if (imageItem==NULL)
+				continue;
+			imageItem->setImageShown(!imageItem->imageShown());
+			ScMW->scrActions["itemImageIsVisible"]->setOn(imageItem->imageShown());
+			emit refreshItem(imageItem);
+		}
+		emit changed();
+		//Return to normal mode if in edit mode. We should not allow dragging of
+		//an image in a frame if its not shown.
+		if (appMode == modeEdit)
+			emit setApplicationMode(modeNormal);
+	}
+}
+
+void ScribusDoc::itemSelection_TogglePrintEnabled( )
+{
+	uint docSelectionCount=selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+		{
+			if (selection->itemAt(0)->printEnabled())
+				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::DisablePrint, 0, Um::IDisablePrint);
+			else
+				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::EnablePrint, 0, Um::IEnablePrint);
+		}
+		for ( uint a = 0; a < docSelectionCount; ++a)
+		{
+			selection->itemAt(a)->togglePrintEnabled();
+			emit refreshItem(selection->itemAt(a));
+		}
+		if (docSelectionCount > 1)
+			undoManager->commit();
+		emit changed();
+		emit firstSelectedItemType(selection->itemAt(0)->itemType());
 	}
 }

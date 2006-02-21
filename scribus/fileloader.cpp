@@ -2120,7 +2120,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->PLineArt = Qt::PenStyle(obj->attribute("PLINEART").toInt());
 	currItem->PLineEnd = Qt::PenCapStyle(obj->attribute("PLINEEND", "0").toInt());
 	currItem->PLineJoin = Qt::PenJoinStyle(obj->attribute("PLINEJOIN", "0").toInt());
-	currItem->setPrintable(obj->attribute("PRINTABLE").toInt());
+	currItem->setPrintEnabled(obj->attribute("PRINTABLE").toInt());
 	currItem->setIsAnnotation(obj->attribute("ANNOTATION", "0").toInt());
 	currItem->annotation().setType(obj->attribute("ANTYPE", "0").toInt());
 	QString AnName = obj->attribute("ANNAME","");
