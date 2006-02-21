@@ -261,8 +261,8 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert("itemUngroup", new ScrAction("", CTRL+SHIFT+Key_G, ScMW, "itemUngroup"));
 	scrActions->insert("itemLock", new ScrAction("", CTRL+Key_L, ScMW, "itemLock"));
 	scrActions->insert("itemLockSize", new ScrAction("", CTRL+SHIFT+Key_L, ScMW, "itemLockSize"));
-	(*scrActions)["itemLock"]->setToggleAction(true);
-	(*scrActions)["itemLockSize"]->setToggleAction(true);
+	(*scrActions)["itemLock"]->setToggleAction(true, true);
+	(*scrActions)["itemLockSize"]->setToggleAction(true, true);
 	scrActions->insert("itemLowerToBottom", new ScrAction(QIconSet(loadIcon("lower-to-bottom.png"), loadIcon("lower-to-bottom.png")), "", QKeySequence(Key_End), ScMW, "itemLowerToBottom"));
 	scrActions->insert("itemRaiseToTop", new ScrAction(QIconSet(loadIcon("raise-to-top.png"), loadIcon("raise-to-top.png")), "", QKeySequence(Key_Home), ScMW, "itemRaiseToTop"));
 	scrActions->insert("itemLower", new ScrAction(QIconSet(loadIcon("lower.png"), loadIcon("lower.png")), "", QKeySequence(CTRL+Key_End), ScMW, "itemLower"));

@@ -172,6 +172,8 @@ public slots:
 	void setActShade();
 	void setActFarben(QString p, QString b, int shp, int shb);
 	void ManageTabs();
+	void setLocked(bool);
+	void setSizeLocked(bool);
 
 private slots:
 
@@ -220,8 +222,8 @@ private slots:
 	void toggleGradientEdit();
 	void DoRevert();
 	void handleLock();
+	void handleLockSize();
 	void handlePrint();
-	void handleResize();
 	void handlePathLine();
 	void handlePathDist();
 	void handlePathOffs();

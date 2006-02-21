@@ -133,11 +133,13 @@ public:
 	const int dllID();
 	
 	/*!
-		\author Craig Bradney
-		\date Feb 2005
-		\brief Connect the internal toggle connections
+	 *	\author Craig Bradney
+	 *	\date Feb 2005
+	 *	\brief Connect the internal toggle connections. Fake toggle actions are toggle actions
+	 *         but we connect activated() only, eg itemLock. This means they can be setOn()
+	 *         to the status of an item's bool, eg isLocked(), without toggling anything.
 	 */		
-	void setToggleAction(bool);
+	void setToggleAction(bool isToggle, bool fakeToggle=false);
 	
 	/*!
 		\author Craig Bradney
@@ -169,6 +171,9 @@ public:
 	/*! \brief Set up text and menuText at the same time */
 	void setTexts(const QString &newText, bool setTextToo = true);
 	
+public slots:
+	void toggle();
+	
 signals:
 	void activatedData(int);
 	void activatedData(double);
@@ -193,6 +198,7 @@ protected:
 	QPopupMenu *popupMenuAddedTo;
 	QKeySequence savedKeySequence;
 	bool shortcutSaved;
+	bool fakeToggle;
 	
 	/*!
 		\author Craig Bradney

@@ -190,8 +190,8 @@ PageItem::PageItem(const PageItem & other)
 	lineTransparencyVal(other.fillTransparencyVal),
 	imageIsFlippedH(other.imageIsFlippedH),
 	imageIsFlippedV(other.imageIsFlippedV),
-	Locked(other.Locked),
-	LockRes(other.LockRes),
+	m_Locked(other.m_Locked),
+	m_SizeLocked(other.m_SizeLocked),
 	textFlowsAroundFrameVal(other.textFlowsAroundFrameVal),
 	textFlowUsesBoundingBoxVal(other.textFlowUsesBoundingBoxVal),
 	textFlowUsesContourLineVal(other.textFlowUsesContourLineVal),
@@ -249,8 +249,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	lineTransparencyVal(0.0),
 	imageIsFlippedH(0),
 	imageIsFlippedV(0),
-	Locked(false),
-	LockRes(false),
+	m_Locked(false),
+	m_SizeLocked(false),
 	textFlowsAroundFrameVal(false),
 	textFlowUsesBoundingBoxVal(false),
 	textFlowUsesContourLineVal(false)
@@ -843,7 +843,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				p->setPen(blue, scpInv, DotLine, FlatCap, MiterJoin);
 			if ((BackBox != 0) || (NextBox != 0))
 				p->setPen(red, scpInv, SolidLine, FlatCap, MiterJoin);
-			if (Locked)
+			if (m_Locked)
 				p->setPen(darkRed, scpInv, SolidLine, FlatCap, MiterJoin);
 
 			p->setFillMode(0);
@@ -1054,7 +1054,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					pr.begin(view->viewport());
 					pr.translate(out.x(), out.y());
 					pr.rotate(Rot);
-					if (Locked)
+					if (m_Locked)
 						pr.setPen(QPen(darkRed, 1, SolidLine, FlatCap, MiterJoin));
 					else
 						pr.setPen(QPen(red, 1, DotLine, FlatCap, MiterJoin));
@@ -1062,7 +1062,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					pr.drawRect(-1, -1, static_cast<int>(Width*sc)+2, static_cast<int>(Height*sc)+2);
 					pr.setPen(QPen(red, 1, SolidLine, FlatCap, MiterJoin));
 					pr.setBrush(red);
-					if ((!Locked) && (!LockRes))
+					if ((!m_Locked) && (!m_SizeLocked))
 					{
 						if (! asLine())
 						{
@@ -1767,19 +1767,20 @@ void PageItem::toggleLock()
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss;
-		if (Locked)
+		if (m_Locked)
 			ss = new SimpleState(Um::UnLock, 0, Um::IUnLock);
 		else
 			ss = new SimpleState(Um::Lock, 0, Um::ILock);
 		ss->set("LOCK", "lock");
 		undoManager->action(this, ss);
 	}
-	Locked = !Locked;
+	m_Locked = !m_Locked;
+	emit frameLocked(m_Locked);
 }
 
 void PageItem::setLocked(bool isLocked)
 {
-	if (isLocked != Locked)
+	if (isLocked != m_Locked)
 		toggleLock();
 }
 
@@ -1788,19 +1789,20 @@ void PageItem::toggleSizeLock()
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss;
-		if (Locked)
+		if (m_Locked)
 			ss = new SimpleState(Um::SizeUnLock, 0, Um::IUnLock);
 		else
 			ss = new SimpleState(Um::SizeLock, 0, Um::ILock);
 		ss->set("SIZE_LOCK", "size_lock");
 		undoManager->action(this, ss);
 	}
-	LockRes = !LockRes;
+	m_SizeLocked = !m_SizeLocked;
+	emit frameSizeLocked(m_SizeLocked);
 }
 
 void PageItem::setSizeLocked(bool isLocked)
 {
-	if (isLocked != LockRes)
+	if (isLocked != m_SizeLocked)
 		toggleSizeLock();
 }
 
@@ -3386,7 +3388,7 @@ void PageItem::drawLockedMarker(ScPainter *p)
 	p->setBrush(Qt::black);
 	p->drawRect(bx1, by1, bw, bh);
 	p->setPen(Qt::black, 1.5 / view->scale(), SolidLine, FlatCap, RoundJoin);
-	if (Locked)
+	if (m_Locked)
 		p->drawLine(FPoint(bx1+scp1/2, ofy+scp1), FPoint(bx1+scp1/2, by1));
 	p->drawLine(FPoint(bx1+scp1*3.5, ofy+scp1), FPoint(bx1+scp1*3.5, by1));
 	p->drawLine(FPoint(bx1+scp1/2, ofy+scp1), FPoint(bx1+scp1*3.5, ofy+scp1));
@@ -3575,6 +3577,8 @@ bool PageItem::connectToGUI()
 	connect(this, SIGNAL(frameType(int)), ScMW, SLOT(HaveNewSel(int)));
 	connect(this, SIGNAL(frameType(int)), m_Doc->view(), SLOT(selectionChanged()));
 	connect(this, SIGNAL(frameType(int)), ScMW->propertiesPalette, SLOT(NewSel(int)));
+	connect(this, SIGNAL(frameLocked(bool)), ScMW->propertiesPalette, SLOT(setLocked(bool)));
+	connect(this, SIGNAL(frameSizeLocked(bool)), ScMW->propertiesPalette, SLOT(setSizeLocked(bool)));
 	connect(this, SIGNAL(position(double, double)), ScMW->propertiesPalette, SLOT(setXY(double, double)));
 	connect(this, SIGNAL(widthAndHeight(double, double)), ScMW->propertiesPalette, SLOT(setBH(double, double)));
 	connect(this, SIGNAL(colors(QString, QString, int, int)), ScMW, SLOT(setCSMenu(QString, QString, int, int)));
@@ -3632,6 +3636,8 @@ void PageItem::emitAllToGUI()
 	emit position(Xpos, Ypos);
 	emit widthAndHeight(Width, Height);
 	emit rotation(Rot);
+	emit frameLocked(m_Locked);
+	emit frameSizeLocked(m_SizeLocked);
 	emit lineWidth(m_lineWidth);
 	emit lineStyleCapJoin(PLineArt, PLineEnd, PLineJoin);
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);

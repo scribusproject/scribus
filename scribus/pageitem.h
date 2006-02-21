@@ -656,14 +656,14 @@ public:
 	/** @brief Lock or unlock this pageitem. */
 	void toggleLock();
 	/** @brief is the item locked ? */
-	bool locked() const { return Locked; }
+	bool locked() const { return m_Locked; }
 	/** @brief Lock or unlock this pageitem */
 	void setLocked(bool isLocked);
 
 	/** @brief Toggle lock for resizing */
 	void toggleSizeLock();
 	/** @brief Is the item's size locked? */
-	bool sizeLocked() const { return LockRes; }
+	bool sizeLocked() const { return m_SizeLocked; }
 	/** @brief set lock for resizing */
 	void setSizeLocked(bool isLocked);
 
@@ -1060,13 +1060,13 @@ protected:
 	 * @brief Is the item locked (cannot be moved, resized, etc)?
 	 * @sa PageItem::locked(), PageItem::setLocked(), PageItem::toggleLock()
 	 */
-	bool Locked;
+	bool m_Locked;
 
 	/**
 	 * @brief Is the item's size locked?
 	 * @sa PageItem::sizeLocked(), PageItem::setSizeLocked(), PageItem::toggleSizeLock()
 	 */
-	bool LockRes;
+	bool m_SizeLocked;
 
 	/**
 	 * @brief Should text flow around the item
@@ -1187,6 +1187,8 @@ signals:
 	void gradientType(int); //Normal, horizontal, vertical, etc.
 	void gradientColorUpdate(double, double, double, double, double, double); //Cpal updatespecialgradient
 	void transparency(double, double); //fillTransparency, lineTransparency
+	void frameLocked(bool); //Frame lock
+	void frameSizeLocked(bool); //Frame size lock
 	//Shape signals
 	void columns(int, double); //Number, gap
 	void cornerRadius(double); //Corner radius of the shape

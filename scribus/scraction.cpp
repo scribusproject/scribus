@@ -90,6 +90,7 @@ void ScrAction::initScrAction()
 	containerWidgetAddedTo=NULL;
 	savedKeySequence=QKeySequence("");
 	shortcutSaved=false;
+	fakeToggle=false;
 }
 
 ScrAction::~ScrAction()
@@ -204,7 +205,7 @@ const int ScrAction::dllID()
 	return -1;
 }
 
-void ScrAction::setToggleAction(bool isToggle)
+void ScrAction::setToggleAction(bool isToggle, bool isFakeToggle)
 {
 	if (_actionType!=Normal)
 	{
@@ -214,6 +215,9 @@ void ScrAction::setToggleAction(bool isToggle)
 			disconnect(this, SIGNAL(toggled(bool)), this, SLOT(toggledToToggledData(bool)));
 	}
 	QAction::setToggleAction(isToggle);
+	fakeToggle=isFakeToggle;
+	//if (fakeToggle)
+		//connect(this, toggled(bool), this, activated());
 }
 
 void ScrAction::saveShortcut()
@@ -261,4 +265,11 @@ void ScrAction::setTexts(const QString &newText, bool setTextToo)
 	QAction::setMenuText(newText);
 	if (setTextToo)
 		QAction::setText(cleanMenuText());
+}
+
+void ScrAction::toggle()
+{
+	QAction::toggle();
+	if (fakeToggle)
+		emit activated();
 }

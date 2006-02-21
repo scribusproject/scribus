@@ -5069,16 +5069,6 @@ FPoint ScribusView::ApplyGridF(const FPoint& in)
 }
 
 
-/*CB-->Doc setRedrawBounding
-void ScribusView::setRedrawBounding(PageItem *currItem)
-{
-	currItem->setRedrawBounding();
-	FPoint maxSize(currItem->BoundingX+currItem->BoundingW+Doc->ScratchRight, currItem->BoundingY+currItem->BoundingH+Doc->ScratchBottom);
-	FPoint minSize(currItem->BoundingX-Doc->ScratchLeft, currItem->BoundingY-Doc->ScratchTop);
-	adjustCanvas(minSize, maxSize);
-}
-*/
-
 //CB-->Doc
 void ScribusView::setGroupRect()
 {
@@ -5236,145 +5226,6 @@ bool ScribusView::MoveItem(double newX, double newY, PageItem* currItem, bool fr
 	currItem->OwnPage = Doc->OnPage(currItem);
 	return retw;
 }
-
-/*CB Moved to PageItem
-void ScribusView::ConvertClip(PageItem *currItem)
-{
-	if (currItem->Clip.count() != 0)
-	{
-		FPoint np(currItem->Clip.point(0));
-		currItem->PoLine.resize(2);
-		currItem->PoLine.setPoint(0, np);
-		currItem->PoLine.setPoint(1, np);
-		for (uint a = 1; a < currItem->Clip.size(); ++a)
-		{
-			np = FPoint(currItem->Clip.point(a));
-			currItem->PoLine.putPoints(currItem->PoLine.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
-		}
-		np = FPoint(currItem->Clip.point(0));
-		currItem->PoLine.putPoints(currItem->PoLine.size(), 2, np.x(), np.y(), np.x(), np.y());
-		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-	}
-	else
-	{
-		currItem->SetRectFrame();
-		Doc->setRedrawBounding(currItem);
-	}
-}
-
-void ScribusView::UpdateClip(PageItem* currItem)
-{
-	if (Doc->appMode == modeDrawBezierLine)
-		return;
-	int ph = static_cast<int>(QMAX(1.0, currItem->lineWidth() / 2.0));
-	switch (currItem->itemType())
-	{
-	case PageItem::Line:
-		currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width()+ph),-ph,
-		                  static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
-		                  -ph,static_cast<int>(currItem->height()+ph));
-		break;
-	default:
-		if (((!currItem->ClipEdited) || (currItem->FrameType < 3)) && !(currItem->asPathText()))
-		{
-			switch (currItem->FrameType)
-			{
-			case 0:
-				currItem->SetRectFrame();
-				Doc->setRedrawBounding(currItem);
-				break;
-			case 1:
-				currItem->SetOvalFrame();
-				Doc->setRedrawBounding(currItem);
-				break;
-			case 2:
-				ClRe = -1;
-				currItem->SetFrameRound();
-				Doc->setRedrawBounding(currItem);
-				break;
-			default:
-				break;
-			}
-			if ((currItem->OldB2 != 0) && (currItem->OldH2 != 0))
-			{
-				double scx = currItem->width() / currItem->OldB2;
-				double scy = currItem->height() / currItem->OldH2;
-				QWMatrix ma;
-				ma.scale(scx, scy);
-				FPointArray gr;
-				gr.addPoint(currItem->GrStartX, currItem->GrStartY);
-				gr.addPoint(currItem->GrEndX, currItem->GrEndY);
-				gr.map(ma);
-				currItem->GrStartX = gr.point(0).x();
-				currItem->GrStartY = gr.point(0).y();
-				currItem->GrEndX = gr.point(1).x();
-				currItem->GrEndY = gr.point(1).y();
-				if (currItem->FrameType > 2)
-				{
-					currItem->PoLine.map(ma);
-					currItem->ContourLine.map(ma);
-					if (currItem->asPathText())
-						currItem->UpdatePolyClip();
-					else
-						currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-				}
-			}
-			currItem->OldB2 = currItem->width();
-			currItem->OldH2 = currItem->height();
-			if (currItem->FrameType < 3)
-				currItem->ContourLine = currItem->PoLine.copy();
-		}
-		else
-		{
-			if (Doc->SubMode != -1)
-			{
-				switch (Doc->SubMode)
-				{
-				case 0:
-					currItem->SetRectFrame();
-					Doc->setRedrawBounding(currItem);
-					break;
-				case 1:
-					currItem->SetOvalFrame();
-					Doc->setRedrawBounding(currItem);
-					break;
-				default:
-					currItem->SetFrameShape(Doc->ValCount, Doc->ShapeValues);
-					Doc->setRedrawBounding(currItem);
-					break;
-				}
-				currItem->OldB2 = currItem->width();
-				currItem->OldH2 = currItem->height();
-				currItem->ContourLine = currItem->PoLine.copy();
-			}
-			if ((currItem->OldB2 == 0) || (currItem->OldH2 == 0))
-				return;
-			double scx = currItem->width() / currItem->OldB2;
-			double scy = currItem->height() / currItem->OldH2;
-			QWMatrix ma;
-			ma.scale(scx, scy);
-			FPointArray gr;
-			gr.addPoint(currItem->GrStartX, currItem->GrStartY);
-			gr.addPoint(currItem->GrEndX, currItem->GrEndY);
-			gr.map(ma);
-			currItem->GrStartX = gr.point(0).x();
-			currItem->GrStartY = gr.point(0).y();
-			currItem->GrEndX = gr.point(1).x();
-			currItem->GrEndY = gr.point(1).y();
-			currItem->PoLine.map(ma);
-			currItem->ContourLine.map(ma);
-			if (currItem->asPathText())
-				currItem->UpdatePolyClip();
-			else
-				currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-			currItem->OldB2 = currItem->width();
-			currItem->OldH2 = currItem->height();
-		}
-		break;
-	}
-	currItem->updateGradientVectors();
-}
-*/
 
 void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 {
@@ -7105,7 +6956,6 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 		if (single)
 		{
 			Doc->selection->addItem(currItem);
-			//currItem->Select = true;
 			currItem->isSingleSel = true;
 			currItem->FrameOnly = true;
 			currItem->paintObj();
@@ -7374,12 +7224,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 					}
 					else
 					{
-						//EmitValues(currItem);
 						currItem->emitAllToGUI();
-						//CB done by the emitAllToGUI
-						//if (currItem->asLine())
-						//	emit ItemGeom(currItem->width(), currItem->height());
-						//emit HaveSel(currItem->itemType());
 					}
 					p.end();
 					if (!currItem->ChangedMasterItem)
@@ -7696,16 +7541,6 @@ void ScribusView::Deselect(bool prop)
 	ScMW->propertiesPalette->setGradientEditMode(false);
 }
 
-/*
-void ScribusView::updateGradientVectors(PageItem *currItem)
-{
-	currItem->updateGradientVectors();
-	//if (currItem==SelItem.at(0))
-	if (Doc->selection->primarySelectionIsMyself(currItem))
-		ScMW->propertiesPalette->updateColorSpecialGradient();
-}
-*/
-
 void ScribusView::SetupDraw(int nr)
 {
 	PageItem* currItem = Doc->Items->at(nr);
@@ -7779,58 +7614,6 @@ void ScribusView::ToggleAnnotation()
 		emit DocChanged();
 	}
 }
-
-/*
-void ScribusView::ToggleLock()
-{
-	uint docSelectionCount=Doc->selection->count();
-	if (docSelectionCount != 0)
-	{
-		if (docSelectionCount > 1)
-		{
-			if (Doc->selection->itemAt(0)->locked())
-				undoManager->beginTransaction(Um::SelectionGroup,
-											  Um::IGroup, Um::UnLock, 0, Um::IUnLock);
-			else
-				undoManager->beginTransaction(Um::SelectionGroup,
-											  Um::IGroup, Um::Lock, 0, Um::ILock);
-		}
-		for ( uint a = 0; a < docSelectionCount; ++a)
-		{
-			Doc->selection->itemAt(a)->toggleLock();
-			RefreshItem(Doc->selection->itemAt(a));
-		}
-		if (docSelectionCount > 1)
-			undoManager->commit();
-		emit DocChanged();
-		emit HaveSel(Doc->selection->itemAt(0)->itemType());
-	}
-}
-
-void ScribusView::ToggleSizeLock()
-{
-	uint selectedItemCount=Doc->selection->count();
-	if (selectedItemCount != 0)
-	{
-		if (selectedItemCount > 1)
-		{
-			if (Doc->selection->itemAt(0)->sizeLocked())
-				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SizeUnLock, 0, Um::IUnLock);
-			else
-				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SizeLock, 0, Um::ILock);
-		}
-		for ( uint a = 0; a < selectedItemCount; ++a)
-		{
-			Doc->selection->itemAt(a)->toggleSizeLock();
-			RefreshItem(Doc->selection->itemAt(a));
-		}
-		if (selectedItemCount > 1)
-			undoManager->commit();
-		emit DocChanged();
-		emit HaveSel(Doc->selection->itemAt(0)->itemType());
-	}
-}
-*/
 
 void ScribusView::sentToScrap()
 {
@@ -8845,183 +8628,6 @@ void ScribusView::changePreview(int id)
 		connect( ScMW->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)), this, SLOT(changePreview(int)) );
 	}
 }
-
-/*
-void ScribusView::TogglePic()
-{
-	if (Doc->selection->count() != 0)
-	{
-		for (uint a = 0; a < Doc->selection->count(); ++a)
-		{
-			PageItem_ImageFrame* imageItem=Doc->selection->itemAt(a)->asImageFrame();
-			if (imageItem==NULL)
-				continue;
-			imageItem->setImageShown(!imageItem->imageShown());
-			ScMW->scrActions["itemImageIsVisible"]->setOn(imageItem->imageShown());
-			RefreshItem(imageItem);
-		}
-		emit DocChanged();
-		//Return to normal mode if in edit mode. We should not allow dragging of
-		//an image in a frame if its not shown.
-		if (Doc->appMode == modeEdit)
-			emit Amode(modeNormal);
-	}
-}
-
-//CB Same as RecalcPicturesRes apart from the name checking, which should be able to be removed
-void ScribusView::updatePict(QString name)
-{
-	for (uint a = 0; a < Doc->DocItems.count(); ++a)
-	{
-		PageItem *currItem = Doc->DocItems.at(a);
-		if ((currItem->PicAvail) && (currItem->Pfile == name))
-		{
-			bool fho = currItem->imageFlippedH();
-			bool fvo = currItem->imageFlippedV();
-			Doc->LoadPict(currItem->Pfile, currItem->ItemNr, true);
-			currItem->setImageFlippedH(fho);
-			currItem->setImageFlippedV(fvo);
-			currItem->AdjustPictScale();
-		}
-	}
-	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
-	{
-		PageItem *currItem = Doc->MasterItems.at(a);
-		if ((currItem->PicAvail) && (currItem->Pfile == name))
-		{
-			bool fho = currItem->imageFlippedH();
-			bool fvo = currItem->imageFlippedV();
-			Doc->LoadPict(currItem->Pfile, currItem->ItemNr, true);
-			currItem->setImageFlippedH(fho);
-			currItem->setImageFlippedV(fvo);
-			currItem->AdjustPictScale();
-		}
-	}
-	for (uint a = 0; a < Doc->FrameItems.count(); ++a)
-	{
-		PageItem *currItem = Doc->FrameItems.at(a);
-		if ((currItem->PicAvail) && (currItem->Pfile == name))
-		{
-			bool fho = currItem->imageFlippedH();
-			bool fvo = currItem->imageFlippedV();
-			Doc->LoadPict(currItem->Pfile, currItem->ItemNr, true);
-			currItem->setImageFlippedH(fho);
-			currItem->setImageFlippedV(fvo);
-			currItem->AdjustPictScale();
-		}
-	}
-	updateContents();
-	emit DocChanged();
-}
-
-//CB Same as updatePict apart from the name checking, this should be able to be removed
-void ScribusView::RecalcPicturesRes()
-{
-	for (uint a = 0; a < Doc->DocItems.count(); ++a)
-	{
-		PageItem *currItem = Doc->DocItems.at(a);
-		if (currItem->PicAvail)
-		{
-			bool fho = currItem->imageFlippedH();
-			bool fvo = currItem->imageFlippedV();
-			Doc->LoadPict(currItem->Pfile, currItem->ItemNr, true);
-			currItem->setImageFlippedH(fho);
-			currItem->setImageFlippedV(fvo);
-			currItem->AdjustPictScale();
-		}
-	}
-	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
-	{
-		PageItem *currItem = Doc->MasterItems.at(a);
-		if (currItem->PicAvail)
-		{
-			bool fho = currItem->imageFlippedH();
-			bool fvo = currItem->imageFlippedV();
-			Doc->LoadPict(currItem->Pfile, currItem->ItemNr, true);
-			currItem->setImageFlippedH(fho);
-			currItem->setImageFlippedV(fvo);
-			currItem->AdjustPictScale();
-		}
-	}
-	for (uint a = 0; a < Doc->FrameItems.count(); ++a)
-	{
-		PageItem *currItem = Doc->FrameItems.at(a);
-		if (currItem->PicAvail)
-		{
-			bool fho = currItem->imageFlippedH();
-			bool fvo = currItem->imageFlippedV();
-			Doc->LoadPict(currItem->Pfile, currItem->ItemNr, true);
-			currItem->setImageFlippedH(fho);
-			currItem->setImageFlippedV(fvo);
-			currItem->AdjustPictScale();
-		}
-	}
-	updateContents();
-	emit DocChanged();
-}
-
-void ScribusView::removePict(QString name)
-{
-	for (uint a = 0; a < Doc->DocItems.count(); ++a)
-	{
-		PageItem *currItem = Doc->DocItems.at(a);
-		if ((currItem->PicAvail) && (currItem->Pfile == name))
-		{
-			currItem->PicAvail = false;
-			currItem->pixm = ScImage();
-		}
-	}
-	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
-	{
-		PageItem *currItem = Doc->MasterItems.at(a);
-		if ((currItem->PicAvail) && (currItem->Pfile == name))
-		{
-			currItem->PicAvail = false;
-			currItem->pixm = ScImage();
-		}
-	}
-	for (uint a = 0; a < Doc->FrameItems.count(); ++a)
-	{
-		PageItem *currItem = Doc->FrameItems.at(a);
-		if ((currItem->PicAvail) && (currItem->Pfile == name))
-		{
-			currItem->PicAvail = false;
-			currItem->pixm = ScImage();
-		}
-	}
-	updateContents();
-	emit DocChanged();
-}
-
-void ScribusView::UpdatePic()
-{
-	uint docSelectionCount=Doc->selection->count();
-	if (docSelectionCount > 0)
-	{
-		bool toUpdate=false;
-		for (uint i = 0; i < docSelectionCount; ++i)
-		{
-			if (Doc->selection->itemAt(i)!=NULL)
-				if (Doc->selection->itemAt(i)->asImageFrame())
-				{
-					PageItem *currItem = Doc->selection->itemAt(i);
-					if (currItem->PicAvail)
-					{
-						int fho = currItem->imageFlippedH();
-						int fvo = currItem->imageFlippedV();
-						Doc->LoadPict(currItem->Pfile, currItem->ItemNr, true);
-						currItem->setImageFlippedH(fho);
-						currItem->setImageFlippedV(fvo);
-						currItem->AdjustPictScale();
-						toUpdate=true;
-					}
-				}
-		}
-		if (toUpdate)
-			updateContents();
-	}
-}
-*/
 
 void ScribusView::adjustFrametoImageSize()
 {

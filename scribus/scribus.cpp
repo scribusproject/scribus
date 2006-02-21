@@ -1944,8 +1944,10 @@ void ScribusMainWindow::newActWin(QWidget *w)
 		return;
 	QString oldDocName = "";
 	if (ActWin && ActWin->document())
+	{
 		oldDocName = ActWin->document()->DocName;
-
+		actionManager->disconnectNewDocActions();
+	}
 /*	if (doc != NULL)
 	{
 		if ((HaveDoc) && (doc != ActWin->doc))
@@ -1969,6 +1971,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	doc = ActWin->document();
 	view = ActWin->view();
 	actionManager->connectNewViewActions(view);
+	actionManager->connectNewDocActions(doc);
 	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	if (ScQApp->usingGUI())
 		connect(doc->selection, SIGNAL(selectionIsMultiple(bool)), propertiesPalette, SLOT( setMultipleSelection(bool)));

@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "scfonts.h"
 #include "scribus.h"
+#include "scraction.h"
 #include "scribusview.h"
 #include "selection.h"
 #include "spalette.h"
@@ -801,7 +802,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(ChBase, SIGNAL(valueChanged(int)), this, SLOT(NewTBase()));
 	connect(Locked, SIGNAL(clicked()), this, SLOT(handleLock()));
 	connect(NoPrint, SIGNAL(clicked()), this, SLOT(handlePrint()));
-	connect(NoResize, SIGNAL(clicked()), this, SLOT(handleResize()));
+	connect(NoResize, SIGNAL(clicked()), this, SLOT(handleLockSize()));
 	connect(showcurveCheckBox, SIGNAL(clicked()), this, SLOT(handlePathLine()));
 	connect(Dist, SIGNAL(valueChanged(int)), this, SLOT(handlePathDist()));
 	connect(LineW, SIGNAL(valueChanged(int)), this, SLOT(handlePathOffs()));
@@ -1032,15 +1033,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	NoPrint->setOn(!i->printable());
-	setter = i->locked();
-	//keepFrameWHRatioButton->setOn(false);
-	Width->setReadOnly(setter);
-	Height->setReadOnly(setter);
-	RoundRect->setEnabled(!setter);
-	EditShape->setEnabled(!setter);
-	ShapeGroup->setEnabled(!setter);
-	LayerGroup->setEnabled(!setter);
-	Locked->setOn(setter);
+	setLocked(i->locked());
 	if ((i->isTableItem) && (i->isSingleSel))
 	{
 		setter = true;
@@ -1056,13 +1049,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 	Xpos->setReadOnly(setter);
 	Ypos->setReadOnly(setter);
 	Rot->setReadOnly(setter);
-	setter = i->sizeLocked();
-	NoResize->setOn(setter);
-	if (!i->locked())
-	{
-		Width->setReadOnly(setter);
-		Height->setReadOnly(setter);
-	}
+	setSizeLocked(i->sizeLocked());
 	if (i->asPathText())
 	{
 		TabStack2->raiseWidget(1);
@@ -1241,15 +1228,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	NoPrint->setOn(!i->printable());
-	setter = i->locked();
-	//keepFrameWHRatioButton->setOn(false);
-	Width->setReadOnly(setter);
-	Height->setReadOnly(setter);
-	RoundRect->setEnabled(!setter);
-	EditShape->setEnabled(!setter);
-	ShapeGroup->setEnabled(!setter);
-	LayerGroup->setEnabled(!setter);
-	Locked->setOn(setter);
+	setLocked(i->locked());
 	if ((i->isTableItem) && (i->isSingleSel))
 	{
 		setter = true;
@@ -1265,13 +1244,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	Xpos->setReadOnly(setter);
 	Ypos->setReadOnly(setter);
 	Rot->setReadOnly(setter);
-	setter = i->sizeLocked();
-	NoResize->setOn(setter);
-	if (!i->locked())
-	{
-		Width->setReadOnly(setter);
-		Height->setReadOnly(setter);
-	}
+	setSizeLocked(i->sizeLocked());
 	if (i->asPathText())
 	{
 		TabStack2->raiseWidget(1);
@@ -3484,85 +3457,27 @@ void Mpalette::handleLock()
 {
 	if (ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		//uint selectedItemCount=ScMW->view->SelItem.count();
-		uint selectedItemCount=doc->selection->count();
-		if (selectedItemCount > 1)
-		{
-			//if (ScMW->view->SelItem.at(0)->locked())
-			if (doc->selection->itemAt(0)->locked())
-				ScMW->view->undoManager->beginTransaction(Um::SelectionGroup,
-											  Um::IGroup, Um::UnLock, 0, Um::IUnLock);
-			else
-				ScMW->view->undoManager->beginTransaction(Um::SelectionGroup,
-											  Um::IGroup, Um::Lock, 0, Um::ILock);
-		}
-		for ( uint a = 0; a < selectedItemCount; ++a)
-		{
-			//ScMW->view->SelItem.at(a)->setLocked(Locked->isOn());
-			doc->selection->itemAt(a)->setLocked(Locked->isOn());
-			//ScMW->view->RefreshItem(ScMW->view->SelItem.at(a));
-			ScMW->view->RefreshItem(doc->selection->itemAt(a));
-		}
-		bool setter = Locked->isOn();
-		Xpos->setReadOnly(setter);
-		Ypos->setReadOnly(setter);
-		Width->setReadOnly(setter);
-		Height->setReadOnly(setter);
-		Rot->setReadOnly(setter);
-		RoundRect->setEnabled(!setter);
-		EditShape->setEnabled(!setter);
-		ShapeGroup->setEnabled(!setter);
-		LayerGroup->setEnabled(!setter);
-		emit DocChanged();
-		if (selectedItemCount > 1)
-			ScMW->view->undoManager->commit();
-	}
+	ScMW->scrActions["itemLock"]->toggle();
+}
+
+void Mpalette::handleLockSize()
+{
+	if (ScMW->ScriptRunning)
+		return;
+	ScMW->scrActions["itemLockSize"]->toggle();
 }
 
 void Mpalette::handlePrint()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		//for ( uint a = 0; a < ScMW->view->SelItem.count(); ++a)
 		for ( uint a = 0; a < doc->selection->count(); ++a)
-			//ScMW->view->SelItem.at(a)->setPrintable(!NoPrint->isOn());
 			doc->selection->itemAt(a)->setPrintable(!NoPrint->isOn());
 		emit DocChanged();
 	}
 }
 
-void Mpalette::handleResize()
-{
-	if ((HaveDoc) && (HaveItem))
-	{
-		//uint selectedItemCount=ScMW->view->SelItem.count();
-		uint selectedItemCount=doc->selection->count();
-		if (selectedItemCount > 1)
-		{
-			//if (ScMW->view->SelItem.at(0)->sizeLocked())
-			if (doc->selection->itemAt(0)->sizeLocked())
-				ScMW->view->undoManager->beginTransaction(Um::SelectionGroup,
-											  Um::IGroup, Um::SizeUnLock, 0, Um::IUnLock);
-			else
-				ScMW->view->undoManager->beginTransaction(Um::SelectionGroup,
-											  Um::IGroup, Um::SizeLock, 0, Um::ILock);
-		}
-		for ( uint a = 0; a < selectedItemCount; ++a)
-		{
-			//ScMW->view->SelItem.at(a)->setSizeLocked(NoResize->isOn());
-			doc->selection->itemAt(a)->setSizeLocked(NoResize->isOn());
-			//ScMW->view->RefreshItem(ScMW->view->SelItem.at(a));
-			ScMW->view->RefreshItem(doc->selection->itemAt(a));
-		}
-		Width->setReadOnly(NoResize->isOn());
-		Height->setReadOnly(NoResize->isOn());
-		emit DocChanged();
-		if (selectedItemCount > 1)
-			ScMW->view->undoManager->commit();
-	}
-}
+
 
 void Mpalette::handlePathLine()
 {
@@ -4089,4 +4004,25 @@ bool UserActionSniffer::eventFilter(QObject*, QEvent *e)
 			emit actionEnd();
 	}
 	return false;
+}
+
+void Mpalette::setLocked(bool isLocked)
+{
+	Xpos->setReadOnly(isLocked);
+	Ypos->setReadOnly(isLocked);
+	Width->setReadOnly(isLocked);
+	Height->setReadOnly(isLocked);
+	Rot->setReadOnly(isLocked);
+	RoundRect->setEnabled(!isLocked);
+	EditShape->setEnabled(!isLocked);
+	ShapeGroup->setEnabled(!isLocked);
+	LayerGroup->setEnabled(!isLocked);
+	Locked->setOn(isLocked);
+}
+
+void Mpalette::setSizeLocked(bool isSizeLocked)
+{
+	Width->setReadOnly(isSizeLocked);
+	Height->setReadOnly(isSizeLocked);
+	NoResize->setOn(isSizeLocked);
 }

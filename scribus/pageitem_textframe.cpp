@@ -2034,7 +2034,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 				p->setPen(blue, scpInv, DotLine, FlatCap, MiterJoin);
 			if ((BackBox != 0) || (NextBox != 0))
 				p->setPen(red, scpInv, SolidLine, FlatCap, MiterJoin);
-			if (Locked)
+			if (m_Locked)
 				p->setPen(darkRed, scpInv, SolidLine, FlatCap, MiterJoin);
 
 			p->setFillMode(0);
