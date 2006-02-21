@@ -26,6 +26,8 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "commonstrings.h"
 #include "prefsmanager.h"
+#include "stencilreader.h"
+extern QPixmap loadIcon(QString nam);
 //CB TODO bring in the prefsManager instance locally here too
 
 /* The Scrapbook View Class
@@ -145,6 +147,8 @@ void BibView::ReadContents(QString name)
 {
 	clear();
 	objectMap.clear();
+	QFileInfo fd(name);
+	canWrite = fd.isWritable();
 	QDir d(name, "*.sce", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
 	{
@@ -162,10 +166,35 @@ void BibView::ReadContents(QString name)
 			{
 				ScPreview *pre = new ScPreview();
 				pm = pre->createPreview(f);
-				pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")), "PNG");
+				if (canWrite)
+					pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")), "PNG");
 				delete pre;
 			}
 			AddObj(fi.baseName(), QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])), pm);
+		}
+	}
+	QDir d2(name, "*.sml", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+	if ((d2.exists()) && (d2.count() != 0))
+	{
+		for (uint dc = 0; dc < d2.count(); ++dc)
+		{
+			QString f = "";
+			QPixmap pm;
+			if (!loadText(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d2[dc])), &f))
+				continue;
+			QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d2[dc])));
+			QFileInfo fi2(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
+			if (fi2.exists())
+				pm.load(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
+			else
+			{
+				StencilReader *pre = new StencilReader();
+				pm = pre->createPreview(f);
+				if (canWrite)
+					pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")), "PNG");
+				delete pre;
+			}
+			AddObj(fi.baseName(), QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d2[dc])), pm);
 		}
 	}
 	QMap<QString,Elem>::Iterator itf;
@@ -174,22 +203,7 @@ void BibView::ReadContents(QString name)
 		(void) new QIconViewItem(this, itf.key(), itf.data().Preview);
 	}
 }
-/*
-void BibView::RebuildView()
-{
-	clear();
-	QMap<QString,Elem>::Iterator itf;
-	for (itf = objectMap.begin(); itf != objectMap.end(); ++itf)
-	{
-		QString f = "";
-		loadText(itf.data().Data, &f);
-		ScPreview *pre = new ScPreview();
-		itf.data().Preview = pre->createPreview(f);
-		(void) new QIconViewItem(this, itf.key(), itf.data().Preview);
-		delete pre;
-	}
-}
-*/
+
 /* This is the main Dialog-Class for the Scrapbook */
 Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 {
@@ -203,25 +217,8 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	fLoad = fmenu->insertItem(loadIcon("DateiOpen16.png"), "", this, SLOT(Load()), CTRL+Key_O);
 	fSaveAs = fmenu->insertItem( loadIcon("DateiSave16.png"), "", this, SLOT(SaveAs()));
 	fClose = fmenu->insertItem(loadIcon("DateiClos16.png"), "", this, SLOT(closeLib()));
-/*	vmenu = new QPopupMenu();
-	vSmall = vmenu->insertItem( "" );
-	vMedium = vmenu->insertItem( "" );
-	vLarge = vmenu->insertItem( "" );
-	switch (PrefsManager::instance()->appPrefs.PSize)
-	{
-	case 40:
-		vmenu->setItemChecked(vSmall, true);
-		break;
-	case 60:
-		vmenu->setItemChecked(vMedium, true);
-		break;
-	case 80:
-		vmenu->setItemChecked(vLarge, true);
-		break;
-	} */
 	menuBar = new QMenuBar(this);
 	mFile=menuBar->insertItem( "", fmenu);
-//	mView=menuBar->insertItem( "", vmenu);
 	BiblioLayout->setMenuBar( menuBar );
 
 	Frame3 = new QTabWidget( this, "Frame3" );
@@ -234,7 +231,6 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	connect(activeBView, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
 	connect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 	connect(Frame3, SIGNAL(currentChanged(QWidget*)), this, SLOT(libChanged(QWidget* )));
-//	connect(vmenu, SIGNAL(activated(int)), this, SLOT(SetPreview(int)));
 }
 
 void Biblio::setScrapbookFileName(QString fileName)
@@ -251,12 +247,7 @@ const int Biblio::objectCount()
 {
 	return activeBView->objectMap.count();
 }
-/*
-void Biblio::rebuildView()
-{
-	activeBView->RebuildView();	
-}
-*/
+
 void Biblio::readOldContents(QString fileName, QString newName)
 {
 	activeBView->ReadOldContents(fileName, newName);
@@ -318,7 +309,10 @@ void Biblio::Load()
 		disconnect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 		QDir d(fileName);
 		activeBView = new BibView(this);
-		Frame3->addTab(activeBView, d.dirName());
+		if (!activeBView->canWrite)
+			Frame3->addTab(activeBView, loadIcon("spot.png"), d.dirName());
+		else
+			Frame3->addTab(activeBView, d.dirName());
 		activeBView->ReadContents(fileName);
 		activeBView->ScFilename = fileName;
 		Frame3->showPage(activeBView);
@@ -381,45 +375,7 @@ void Biblio::libChanged(QWidget *lib)
 	connect(activeBView, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
 	connect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 }
-/*
-void Biblio::SetPreview(int id)
-{
-	int a = vmenu->indexOf(id);
-	switch (a)
-	{
-	case 0:
-		PrefsManager::instance()->appPrefs.PSize = 40;
-		break;
-	case 1:
-		PrefsManager::instance()->appPrefs.PSize = 60;
-		break;
-	case 2:
-		PrefsManager::instance()->appPrefs.PSize = 80;
-		break;
-	}
-	AdjustMenu();
-	activeBView->RebuildView();
-}
 
-void Biblio::AdjustMenu()
-{
-	vmenu->setItemChecked(vSmall, false);
-	vmenu->setItemChecked(vMedium, false);
-	vmenu->setItemChecked(vLarge, false);
-	switch (PrefsManager::instance()->appPrefs.PSize)
-	{
-	case 40:
-		vmenu->setItemChecked(vSmall, true);
-		break;
-	case 60:
-		vmenu->setItemChecked(vMedium, true);
-		break;
-	case 80:
-		vmenu->setItemChecked(vLarge, true);
-		break;
-	}
-}
-*/
 void Biblio::HandleMouse(QIconViewItem *ite)
 {
 	int mret, del, ren;
@@ -445,6 +401,8 @@ void Biblio::HandleMouse(QIconViewItem *ite)
 
 void Biblio::DeleteObj(QString name, QIconViewItem *ite)
 {
+	if (!activeBView->canWrite)
+		return;
 	QFile f(activeBView->objectMap[name].Data);
 	f.remove();
 	QFileInfo fi(QDir::convertSeparators(activeBView->ScFilename + "/" + name + ".png"));
@@ -461,6 +419,8 @@ void Biblio::DeleteObj(QString name, QIconViewItem *ite)
 
 void Biblio::ItemRenamed(QIconViewItem *ite)
 {
+	if (!activeBView->canWrite)
+		return;
 	QString ObjData;
 	QPixmap ObjPreview;
 	disconnect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
@@ -524,6 +484,8 @@ void Biblio::DropOn(QDropEvent *e)
 void Biblio::ObjFromMenu(QString text)
 {
 	QString nam, tmp;
+	if (!activeBView->canWrite)
+		return;
 	nam = tr("Object") + tmp.setNum(activeBView->objectMap.count());
 	Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
 	dia->setEditText(nam, true);

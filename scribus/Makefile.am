@@ -197,6 +197,7 @@ scribus_SOURCES = \
 	shadebutton.cpp	\
 	spalette.cpp	\
 	splash.cpp	\
+	stencilreader.cpp	\
 	story.cpp	\
 	styleselect.cpp	\
 	tabcheckdoc.cpp	\
@@ -404,6 +405,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/shadebutton.h                 $(prefix)/include/scribus/shadebutton.h
 	$(INSTALL_DATA) $(srcdir)/spalette.h                    $(prefix)/include/scribus/spalette.h
 	$(INSTALL_DATA) $(srcdir)/splash.h                      $(prefix)/include/scribus/splash.h
+	$(INSTALL_DATA) $(srcdir)/stencilreader.h               $(prefix)/include/scribus/stencilreader.h
 	$(INSTALL_DATA) $(srcdir)/story.h                       $(prefix)/include/scribus/story.h
 	$(INSTALL_DATA) $(srcdir)/styleselect.h                 $(prefix)/include/scribus/styleselect.h
 	$(INSTALL_DATA) $(srcdir)/tabcheckdoc.h                 $(prefix)/include/scribus/tabcheckdoc.h
@@ -584,6 +586,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/shadebutton.h
 	-rm -f $(prefix)/include/scribus/spalette.h
 	-rm -f $(prefix)/include/scribus/splash.h
+	-rm -f $(prefix)/include/scribus/stencilreader.h
 	-rm -f $(prefix)/include/scribus/story.h
 	-rm -f $(prefix)/include/scribus/styleselect.h
 	-rm -f $(prefix)/include/scribus/tabcheckdoc.h

@@ -41,6 +41,7 @@ public:
 	};
 	QMap<QString,Elem> objectMap;
 	QString ScFilename;
+	bool canWrite;
 
 signals:
 	void ToggleAllPalettes();
