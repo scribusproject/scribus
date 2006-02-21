@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Form implementation generated from reading ui file 'fontpreviewbase.ui'
 **
-** Created: Pá úno 3 13:25:24 2006
+** Created: Út úno 21 09:56:55 2006
 **      by: The User Interface Compiler ($Id$)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -109,13 +109,12 @@ FontPreviewBase::FontPreviewBase( QWidget* parent, const char* name, bool modal,
 
     // signals and slots connections
     connect( displayButton, SIGNAL( clicked() ), this, SLOT( displayButton_clicked() ) );
-    connect( sizeSpin, SIGNAL( valueChanged(int) ), this, SLOT( fontList_changed() ) );
-    connect( fontList, SIGNAL( selectionChanged() ), this, SLOT( fontList_changed() ) );
     connect( searchEdit, SIGNAL( textChanged(const QString&) ), this, SLOT( searchEdit_textChanged(const QString&) ) );
     connect( searchButton, SIGNAL( clicked() ), this, SLOT( searchButton_clicked() ) );
     connect( okButton, SIGNAL( clicked() ), this, SLOT( okButton_clicked() ) );
     connect( cancelButton, SIGNAL( clicked() ), this, SLOT( cancelButton_clicked() ) );
     connect( resetDisplayButton, SIGNAL( clicked() ), this, SLOT( resetDisplayButton_clicked() ) );
+    connect( fontList, SIGNAL( currentChanged(QListViewItem*) ), this, SLOT( fontList_currentChanged(QListViewItem*) ) );
 
     // buddies
     searchLabel->setBuddy( searchEdit );
@@ -163,11 +162,6 @@ void FontPreviewBase::displayButton_clicked()
     qWarning( "FontPreviewBase::displayButton_clicked(): Not implemented yet" );
 }
 
-void FontPreviewBase::fontList_changed()
-{
-    qWarning( "FontPreviewBase::fontList_changed(): Not implemented yet" );
-}
-
 void FontPreviewBase::searchEdit_textChanged(const QString&)
 {
     qWarning( "FontPreviewBase::searchEdit_textChanged(const QString&): Not implemented yet" );
@@ -191,5 +185,10 @@ void FontPreviewBase::cancelButton_clicked()
 void FontPreviewBase::resetDisplayButton_clicked()
 {
     qWarning( "FontPreviewBase::resetDisplayButton_clicked(): Not implemented yet" );
+}
+
+void FontPreviewBase::fontList_currentChanged(QListViewItem*)
+{
+    qWarning( "FontPreviewBase::fontList_currentChanged(QListViewItem*): Not implemented yet" );
 }
 

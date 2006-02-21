@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <qwhatsthis.h>
 #include <qstring.h>
 #include <qspinbox.h>
+#include <qprogressdialog.h> 
 
 #include "fontpreview.h"
 #include "scribus.h"
@@ -51,7 +52,7 @@ FontPreview::FontPreview(QString fontName)
 	okIcon = loadIcon("ok.png");
 
 	updateFontList("");
-
+	cacheSamples();
 	// set initial listitem
 	QListViewItem *item;
 	if (!fontName.isEmpty())
@@ -66,7 +67,7 @@ FontPreview::FontPreview(QString fontName)
 	if (item != 0)
 	{
 		fontList->setCurrentItem(item);
-		fontList_changed();
+		fontList_currentChanged(item);
 	}
 
 	// scribus config
@@ -109,15 +110,37 @@ void FontPreview::languageChange()
 	QToolTip::add(sizeSpin, tr("Size of the selected font"));
 }
 
-void FontPreview::fontList_changed()
+void FontPreview::fontList_currentChanged(QListViewItem * item)
 {
-	QListViewItem *item = fontList->currentItem();
 	sampleItem->setFontSize(sizeSpin->value() * 10, true);
 	sampleItem->setFont(item->text(0));
 	QPixmap pixmap = sampleItem->getSample(fontPreview->maximumWidth(), fontPreview->maximumHeight());
 	fontPreview->clear();
 	if (!pixmap.isNull())
 		fontPreview->setPixmap(pixmap);
+}
+
+void FontPreview::cacheSamples()
+{
+	QProgressDialog progress( "<qt>" + tr("Preparing font previews. It will run only once for this Scribus run") + "</qt>",
+							  CommonStrings::tr_Cancel, 
+							  PrefsManager::instance()->appPrefs.AvailFonts.count(),
+							  this, "progress", true );
+	sampleItem->setFontSize(2);
+	sampleItem->setText("");
+	uint cnt = 0;
+	for (SCFontsIterator fontIter(PrefsManager::instance()->appPrefs.AvailFonts); fontIter.current(); ++fontIter, ++cnt)
+	{
+		progress.setProgress(cnt);
+		qApp->processEvents();
+		if (progress.wasCancelled())
+			break;
+		if (!fontIter.current()->UseFont)
+			continue;
+		sampleItem->setFont(fontIter.current()->scName());
+		sampleItem->getSample(1, 1);
+	}
+	progress.setProgress(PrefsManager::instance()->appPrefs.AvailFonts.count());
 }
 
 void FontPreview::updateFontList(QString searchStr)
@@ -188,7 +211,7 @@ QString FontPreview::getCurrentFont()
 void FontPreview::displayButton_clicked()
 {
 	sampleItem->setText(displayEdit->text());
-	fontList_changed();
+	fontList_currentChanged(fontList->currentItem());
 }
 
 void FontPreview::okButton_clicked()

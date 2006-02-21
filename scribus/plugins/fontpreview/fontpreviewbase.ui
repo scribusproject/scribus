@@ -295,18 +295,6 @@
         <slot>displayButton_clicked()</slot>
     </connection>
     <connection>
-        <sender>sizeSpin</sender>
-        <signal>valueChanged(int)</signal>
-        <receiver>FontPreviewBase</receiver>
-        <slot>fontList_changed()</slot>
-    </connection>
-    <connection>
-        <sender>fontList</sender>
-        <signal>selectionChanged()</signal>
-        <receiver>FontPreviewBase</receiver>
-        <slot>fontList_changed()</slot>
-    </connection>
-    <connection>
         <sender>searchEdit</sender>
         <signal>textChanged(const QString&amp;)</signal>
         <receiver>FontPreviewBase</receiver>
@@ -336,18 +324,24 @@
         <receiver>FontPreviewBase</receiver>
         <slot>resetDisplayButton_clicked()</slot>
     </connection>
+    <connection>
+        <sender>fontList</sender>
+        <signal>currentChanged(QListViewItem*)</signal>
+        <receiver>FontPreviewBase</receiver>
+        <slot>fontList_currentChanged(QListViewItem*)</slot>
+    </connection>
 </connections>
 <includes>
     <include location="local" impldecl="in implementation">fontpreviewbase.ui.h</include>
 </includes>
 <slots>
     <slot>displayButton_clicked()</slot>
-    <slot>fontList_changed()</slot>
     <slot>searchEdit_textChanged( const QString &amp; )</slot>
     <slot>searchButton_clicked()</slot>
     <slot>okButton_clicked()</slot>
     <slot>cancelButton_clicked()</slot>
     <slot>resetDisplayButton_clicked()</slot>
+    <slot>fontList_currentChanged( QListViewItem * )</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

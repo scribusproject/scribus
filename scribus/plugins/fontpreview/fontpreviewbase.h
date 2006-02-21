@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Form interface generated from reading ui file 'fontpreviewbase.ui'
 **
-** Created: Pá úno 3 13:25:22 2006
+** Created: Út úno 21 09:56:53 2006
 **      by: The User Interface Compiler ($Id$)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -48,12 +48,12 @@ public:
 
 public slots:
     virtual void displayButton_clicked();
-    virtual void fontList_changed();
     virtual void searchEdit_textChanged( const QString & );
     virtual void searchButton_clicked();
     virtual void okButton_clicked();
     virtual void cancelButton_clicked();
     virtual void resetDisplayButton_clicked();
+    virtual void fontList_currentChanged( QListViewItem * );
 
 protected:
     QGridLayout* FontPreviewBaseLayout;

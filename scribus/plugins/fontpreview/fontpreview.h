@@ -59,6 +59,9 @@ protected:
 	If the search string is empty list all fonts
 	\param searchStr text to search */
 	void updateFontList(QString searchStr);
+	/*! \brief Prepare the font samples at the dialog start.
+	It runs very long only once a Scribus run due the pixmap caching. */
+	void cacheSamples();
 
 protected slots:
 	/** \brief Translations. */
@@ -71,8 +74,9 @@ protected slots:
 	virtual void searchEdit_textChanged(const QString &s);
 	/** \brief Fill the font list by search mask. */
 	virtual void searchButton_clicked();
-	/*! \brief Creates pixmap with font sample */
-	virtual void fontList_changed();
+	/*! \brief Creates pixmap with font sample
+	\param item current list item */
+	virtual void fontList_currentChanged( QListViewItem * item);
 	//! \brief Setup the preview phrase instead of "blue quartz..."
 	void displayButton_clicked();
 	//! \brief Reset the sample phrase to the standard "blue quartz"
