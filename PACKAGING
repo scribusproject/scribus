@@ -17,7 +17,7 @@ part of the main package. Please consider adding:
 	Obsoletes:      scribus-svg
 	Obsoletes:      scribus-scripting
 	Obsoletes:      scribus-short-words
-	Obsoletes:	scribus-vnla
+	Obsoletes:      scribus-vlna
 
 to ensure these old packages are removed on upgrade.
 
