@@ -71,10 +71,10 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject
 	Q_PROPERTY(int lineShade READ lineShade WRITE setLineShade DESIGNABLE false)
 	Q_PROPERTY(double fillTransparency READ fillTransparency WRITE setFillTransparency DESIGNABLE false)
 	Q_PROPERTY(double lineTransparency READ lineTransparency WRITE setLineTransparency DESIGNABLE false)
-	Q_PROPERTY(bool locked READ locked WRITE setLocked DESIGNABLE false)
-	Q_PROPERTY(bool sizeLocked READ sizeLocked WRITE setSizeLocked DESIGNABLE false)
-	Q_PROPERTY(bool imageFlippedV READ imageFlippedV WRITE setImageFlippedV DESIGNABLE false)
-	Q_PROPERTY(bool imageFlippedH READ imageFlippedH WRITE setImageFlippedH DESIGNABLE false)
+	Q_PROPERTY(bool m_Locked READ locked WRITE setLocked DESIGNABLE false)
+	Q_PROPERTY(bool m_SizeLocked READ sizeLocked WRITE setSizeLocked DESIGNABLE false)
+	Q_PROPERTY(bool m_ImageIsFlippedV READ imageFlippedV WRITE setImageFlippedV DESIGNABLE false)
+	Q_PROPERTY(bool m_ImageIsFlippedH READ imageFlippedH WRITE setImageFlippedH DESIGNABLE false)
 	Q_PROPERTY(double lineWidth READ lineWidth WRITE setLineWidth DESIGNABLE false)
 	Q_PROPERTY(QString customLineStyle READ customLineStyle WRITE setCustomLineStyle DESIGNABLE false)
 	Q_PROPERTY(int startArrowIndex READ startArrowIndex WRITE setStartArrowIndex DESIGNABLE false)
@@ -633,14 +633,14 @@ public:
 	void setEndArrowIndex(int newIndex);
 
 	/** @brief Is the image flipped horizontally? */
-	bool imageFlippedH() const { return imageIsFlippedH; }
+	bool imageFlippedH() const { return m_ImageIsFlippedH; }
 	/** @brief Horizontally flip / unflip the image */
 	void setImageFlippedH(bool flipped);
 	/** @brief Flip an image horizontally. */
 	void flipImageH();
 
 	/** @brief Is the image flipped vertically? */
-	bool imageFlippedV() const { return imageIsFlippedV; }
+	bool imageFlippedV() const { return m_ImageIsFlippedV; }
 	/** @brief Vertically flip / unflip the image */
 	void setImageFlippedV(bool flipped);
 	/** @brief Flip an image vertically */
@@ -1052,14 +1052,14 @@ protected:
 	 * @sa PageItem::isImageFlippedH(), PageItem::setImageFlippedH(),
 	 *     PageItem::flipImageH(), PageItem::flippedV
 	 */
-	bool imageIsFlippedH;
+	bool m_ImageIsFlippedH;
 
 	/**
 	 * @brief Is the image in this image item flipped vertically?
 	 * @sa PageItem::isImageFlippedV(), PageItem::setImageFlippedV(),
 	 *     PageItem::flipImageV(), PageItem::flippedH
 	 */
-	bool imageIsFlippedV;
+	bool m_ImageIsFlippedV;
 
 	/**
 	 * @brief Is the item locked (cannot be moved, resized, etc)?

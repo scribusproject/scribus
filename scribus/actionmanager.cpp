@@ -262,9 +262,13 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert("itemLock", new ScrAction("", CTRL+Key_L, ScMW, "itemLock"));
 	scrActions->insert("itemLockSize", new ScrAction("", CTRL+SHIFT+Key_L, ScMW, "itemLockSize"));
 	scrActions->insert("itemPrintingEnabled", new ScrAction("", QKeySequence(), ScMW, "itemPrintingEnabled"));
+	scrActions->insert("itemFlipH", new ScrAction("", QKeySequence(), ScMW, "itemFlipH"));
+	scrActions->insert("itemFlipV", new ScrAction("", QKeySequence(), ScMW, "itemFlipV"));
 	(*scrActions)["itemLock"]->setToggleAction(true, true);
 	(*scrActions)["itemLockSize"]->setToggleAction(true, true);
 	(*scrActions)["itemPrintingEnabled"]->setToggleAction(true, true);
+	(*scrActions)["itemFlipH"]->setToggleAction(true, true);
+	(*scrActions)["itemFlipV"]->setToggleAction(true, true);
 	scrActions->insert("itemLowerToBottom", new ScrAction(QIconSet(loadIcon("lower-to-bottom.png"), loadIcon("lower-to-bottom.png")), "", QKeySequence(Key_End), ScMW, "itemLowerToBottom"));
 	scrActions->insert("itemRaiseToTop", new ScrAction(QIconSet(loadIcon("raise-to-top.png"), loadIcon("raise-to-top.png")), "", QKeySequence(Key_Home), ScMW, "itemRaiseToTop"));
 	scrActions->insert("itemLower", new ScrAction(QIconSet(loadIcon("lower.png"), loadIcon("lower.png")), "", QKeySequence(CTRL+Key_End), ScMW, "itemLower"));
@@ -667,6 +671,8 @@ void ActionManager::disconnectNewDocActions()
 	disconnect( (*scrActions)["itemLock"], 0, 0, 0);
 	disconnect( (*scrActions)["itemLockSize"], 0, 0, 0);
 	disconnect( (*scrActions)["itemPrintingEnabled"], 0, 0, 0);
+	disconnect( (*scrActions)["itemFlipH"], 0, 0, 0);
+	disconnect( (*scrActions)["itemFlipV"], 0, 0, 0);
 	disconnect( (*scrActions)["itemUpdateImage"], 0, 0, 0 );
 }
 
@@ -677,6 +683,8 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 	connect( (*scrActions)["itemLock"], SIGNAL(activated()), currDoc, SLOT(itemSelection_ToggleLock()) );
 	connect( (*scrActions)["itemLockSize"], SIGNAL(activated()), currDoc, SLOT(itemSelection_ToggleSizeLock()));
 	connect( (*scrActions)["itemPrintingEnabled"], SIGNAL(activated()), currDoc, SLOT(itemSelection_TogglePrintEnabled()));
+	connect( (*scrActions)["itemFlipH"], SIGNAL(activated()), currDoc, SLOT(itemSelection_FlipH()));
+	connect( (*scrActions)["itemFlipV"], SIGNAL(activated()), currDoc, SLOT(itemSelection_FlipV()));
 	connect( (*scrActions)["itemUpdateImage"], SIGNAL(activated()), currDoc, SLOT(updatePic()) );
 }
 
@@ -925,6 +933,8 @@ void ActionManager::languageChange()
 	(*scrActions)["itemLock"]->setTexts( tr("Is &Locked"));
 	(*scrActions)["itemLockSize"]->setTexts( tr("Si&ze is Locked"));
 	(*scrActions)["itemPrintingEnabled"]->setTexts( tr("&Printing Enabled"));
+	(*scrActions)["itemFlipH"]->setTexts( tr("&Flip Horizontally"));
+	(*scrActions)["itemFlipV"]->setTexts( tr("&Flip Vertically"));
 	(*scrActions)["itemLowerToBottom"]->setTexts( tr("Lower to &Bottom"));
 	(*scrActions)["itemRaiseToTop"]->setTexts( tr("Raise to &Top"));
 	(*scrActions)["itemLower"]->setTexts( tr("&Lower"));

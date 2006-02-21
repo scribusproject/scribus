@@ -4652,7 +4652,7 @@ void ScribusDoc::chFSize(int size)
 			undoManager->commit();
 	}
 }
-
+/*
 void ScribusDoc::FlipImageH()
 {
 	uint docSelectionCount=selection->count();
@@ -4664,7 +4664,6 @@ void ScribusDoc::FlipImageH()
 		for (uint a = 0; a < docSelectionCount; ++a)
 		{
 			selection->itemAt(a)->flipImageH();
-			//ScMW->view->RefreshItem(selection->itemAt(a));
 			emit refreshItem(selection->itemAt(a));
 		}
 		emit changed();
@@ -4684,7 +4683,6 @@ void ScribusDoc::FlipImageV()
 		for (uint a = 0; a < docSelectionCount; ++a)
 		{
 			selection->itemAt(a)->flipImageV();
-			//ScMW->view->RefreshItem(selection->itemAt(a));
 			emit refreshItem(selection->itemAt(a));
 		}
 		emit changed();
@@ -4693,9 +4691,10 @@ void ScribusDoc::FlipImageV()
 	}
 }
 
-void ScribusDoc::MirrorPolyH()
+*/
+void ScribusDoc::MirrorPolyH(PageItem* currItem)
 {
-	uint docSelectionCount=selection->count();
+	/*uint docSelectionCount=selection->count();
 	if (docSelectionCount != 0)
 	{
 		if (docSelectionCount > 1)
@@ -4704,6 +4703,7 @@ void ScribusDoc::MirrorPolyH()
 		for (uint a = 0; a < docSelectionCount; ++a)
 		{
 			PageItem *currItem = selection->itemAt(a);
+			*/
 			currItem->ClipEdited = true;
 			QWMatrix ma;
 			if (ScMW->view->EditContour)
@@ -4737,9 +4737,7 @@ void ScribusDoc::MirrorPolyH()
 			else
 				currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 			setRedrawBounding(currItem);
-			//ScMW->view->RefreshItem(currItem);
 			emit refreshItem(currItem);
-			//MarkClip(currItem, currItem->PoLine, true);
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState *ss = new SimpleState(Um::FlipH, "", Um::IFlipH);
@@ -4747,15 +4745,18 @@ void ScribusDoc::MirrorPolyH()
 				ss->set("IS_CONTOUR", false);
 				undoManager->action(currItem, ss, Um::IBorder);
 			}
+	/*
 		}
 		if (docSelectionCount > 1)
 			undoManager->commit();
 	}
+	*/
 	emit changed();
 }
 
-void ScribusDoc::MirrorPolyV()
+void ScribusDoc::MirrorPolyV(PageItem* currItem)
 {
+/*
 	uint docSelectionCount=selection->count();
 	if (docSelectionCount != 0)
 	{
@@ -4765,6 +4766,7 @@ void ScribusDoc::MirrorPolyV()
 		for (uint a = 0; a < docSelectionCount; ++a)
 		{
 			PageItem *currItem = selection->itemAt(a);
+			*/
 			currItem->ClipEdited = true;
 			QWMatrix ma;
 			if (ScMW->view->EditContour)
@@ -4798,9 +4800,7 @@ void ScribusDoc::MirrorPolyV()
 			else
 				currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 			setRedrawBounding(currItem);
-			//ScMW->view->RefreshItem(currItem);
 			emit refreshItem(currItem);
-			//MarkClip(currItem, currItem->PoLine, true);
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState *ss = new SimpleState(Um::FlipV, "", Um::IFlipV);
@@ -4808,10 +4808,12 @@ void ScribusDoc::MirrorPolyV()
 				ss->set("IS_CONTOUR", false);
 				undoManager->action(currItem, ss, Um::IBorder);
 			}
+	/*			
 		}
 		if (docSelectionCount > 1)
 			undoManager->commit();
 	}
+	*/
 	emit changed();
 }
 
@@ -5109,6 +5111,56 @@ void ScribusDoc::itemSelection_TogglePrintEnabled( )
 		for ( uint a = 0; a < docSelectionCount; ++a)
 		{
 			selection->itemAt(a)->togglePrintEnabled();
+			emit refreshItem(selection->itemAt(a));
+		}
+		if (docSelectionCount > 1)
+			undoManager->commit();
+		emit changed();
+		emit firstSelectedItemType(selection->itemAt(0)->itemType());
+	}
+}
+
+void ScribusDoc::itemSelection_FlipH()
+{
+	uint docSelectionCount=selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
+										  Um::FlipH, 0, Um::IFlipH);
+		for (uint a = 0; a < docSelectionCount; ++a)
+		{
+			PageItem* currItem=selection->itemAt(a);
+			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+				currItem->flipImageH();
+			else
+				if (currItem->itemType() != PageItem::Line)
+					MirrorPolyH(currItem);
+			emit refreshItem(selection->itemAt(a));
+		}
+		if (docSelectionCount > 1)
+			undoManager->commit();
+		emit changed();
+		emit firstSelectedItemType(selection->itemAt(0)->itemType());
+	}
+}
+
+void ScribusDoc::itemSelection_FlipV()
+{
+	uint docSelectionCount=selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
+										  Um::FlipV, 0, Um::IFlipV);
+		for (uint a = 0; a < docSelectionCount; ++a)
+		{
+			PageItem* currItem=selection->itemAt(a);
+			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+				currItem->flipImageV();
+			else
+				if (currItem->itemType() != PageItem::Line)
+					MirrorPolyV(currItem);
 			emit refreshItem(selection->itemAt(a));
 		}
 		if (docSelectionCount > 1)

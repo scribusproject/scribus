@@ -761,8 +761,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(LineMode, SIGNAL(activated(int)), this, SLOT(NewLMode()));
 	connect(keepImageWHRatioButton, SIGNAL(clicked()), this, SLOT(ToggleKette()));
 	connect(keepImageDPIRatioButton, SIGNAL(clicked()), this, SLOT(ToggleKetteD()));
-	connect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
-	connect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
+	connect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
+	connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 	connect(GroupAlign, SIGNAL(State(int)), this, SLOT(NewAli(int)));
 	connect(Revert, SIGNAL(clicked()), this, SLOT(DoRevert()));
 	connect(SeStyle, SIGNAL(State(int)), this, SLOT(setTypeStyle(int)));
@@ -965,12 +965,14 @@ void Mpalette::setCurrentItem(PageItem *i)
 	RoundRect->setValue(i->cornerRadius()*Umrech);
 
 	Textflow3->setChecked(i->textFlowUsesContourLine());
-	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
-	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
+	/*
+	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
+	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 	FlipH->setOn(i->imageFlippedH());
 	FlipV->setOn(i->imageFlippedV());
-	connect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
-	connect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
+	connect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
+	connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
+	*/
 	langCombo->setCurrentText(ScMW->LangTransl[i->Language]);
 	if (TabStack->currentIndex() == 5)
 		Cpal->setActGradient(CurItem->GrType);
@@ -1201,12 +1203,14 @@ void Mpalette::SetCurItem(PageItem *i)
 	textFlowsAroundFrame->setChecked(i->textFlowsAroundFrame());
 	textFlowUsesBoundingBox->setChecked(i->textFlowUsesBoundingBox());
 	Textflow3->setChecked(i->textFlowUsesContourLine());
-	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
-	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
+	/*
+	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
+	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 	FlipH->setOn(i->imageFlippedH());
 	FlipV->setOn(i->imageFlippedV());
-	connect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
-	connect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
+	connect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
+	connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
+	*/
 	langCombo->setCurrentText(ScMW->LangTransl[i->Language]);
 	bool setter;
 	if (i->NamedLStyle.isEmpty())
@@ -1386,12 +1390,14 @@ void Mpalette::NewSel(int nr)
 		TabStack->item(0)->setEnabled(true);
 		TabStack->setItemEnabled(0, true);
 		TabStack->setItemEnabled(5, true);
-		disconnect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
-		disconnect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
+		/*
+		disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
+		disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 		FlipH->setOn(false);
 		FlipV->setOn(false);
-		connect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
-		connect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
+		connect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
+		connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
+		*/
 		//CB Why not for lines?
 		FlipH->setEnabled(nr!=-1 && nr!=5);
 		FlipV->setEnabled(nr!=-1 && nr!=5);
@@ -2760,34 +2766,6 @@ void Mpalette::VChangeD()
 	connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
 }
 
-void Mpalette::DoFlipH()
-{
-	if (ScMW->ScriptRunning)
-		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		if ((CurItem->itemType() == PageItem::ImageFrame) || (CurItem->itemType() == PageItem::TextFrame))
-			doc->FlipImageH();
-		else
-			doc->MirrorPolyH();
-		emit DocChanged();
-	}
-}
-
-void Mpalette::DoFlipV()
-{
-	if (ScMW->ScriptRunning)
-		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		if ((CurItem->itemType() == PageItem::ImageFrame) || (CurItem->itemType() == PageItem::TextFrame))
-			doc->FlipImageV();
-		else
-			doc->MirrorPolyV();
-		emit DocChanged();
-	}
-}
-
 void Mpalette::NewAli(int a)
 {
 	if (ScMW->ScriptRunning)
@@ -3476,6 +3454,41 @@ void Mpalette::handlePrint()
 	ScMW->scrActions["itemPrintingEnabled"]->toggle();
 }
 
+void Mpalette::handleFlipH()
+{
+	if (ScMW->ScriptRunning)
+		return;
+	ScMW->scrActions["itemFlipH"]->toggle();
+	/*
+	if ((HaveDoc) && (HaveItem))
+	{
+		if ((CurItem->itemType() == PageItem::ImageFrame) || (CurItem->itemType() == PageItem::TextFrame))
+			doc->FlipImageH();
+		else
+			doc->MirrorPolyH();
+		emit DocChanged();
+	}
+	*/
+}
+
+void Mpalette::handleFlipV()
+{
+	if (ScMW->ScriptRunning)
+		return;
+	ScMW->scrActions["itemFlipV"]->toggle();
+	/*
+	if ((HaveDoc) && (HaveItem))
+	{
+		if ((CurItem->itemType() == PageItem::ImageFrame) || (CurItem->itemType() == PageItem::TextFrame))
+			doc->FlipImageV();
+		else
+			doc->MirrorPolyV();
+		emit DocChanged();
+	}
+	*/
+}
+
+
 void Mpalette::handlePathLine()
 {
 	if (ScMW->ScriptRunning)
@@ -4027,4 +4040,14 @@ void Mpalette::setSizeLocked(bool isSizeLocked)
 void Mpalette::setPrintingEnabled(bool isPrintingEnabled)
 {
 	NoPrint->setOn(!isPrintingEnabled);
+}
+
+void Mpalette::setFlippedH(bool isFlippedH)
+{
+	FlipH->setOn(!isFlippedH);
+}
+
+void Mpalette::setFlippedV(bool isFlippedV)
+{
+	FlipV->setOn(!isFlippedV);
 }

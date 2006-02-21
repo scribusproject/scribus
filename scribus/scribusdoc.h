@@ -569,10 +569,10 @@ public:
 	void chAbStyle(PageItem *currItem, int s);
 	void chKerning(int us);
 	void chFSize(int size);
-	void FlipImageH();
-	void FlipImageV();
-	void MirrorPolyH();
-	void MirrorPolyV();
+	//void FlipImageH();
+	//void FlipImageV();
+	void MirrorPolyH(PageItem *currItem);
+	void MirrorPolyV(PageItem *currItem);
 	
 	void setRedrawBounding(PageItem *currItem);
 	void adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute = false);
@@ -803,6 +803,8 @@ public slots:
 	void itemSelection_ToggleSizeLock();
 	void itemSelection_ToggleImageShown();
 	void itemSelection_TogglePrintEnabled();
+	void itemSelection_FlipH();
+	void itemSelection_FlipV();
 	void updatePic();
 	void updatePict(QString name);
 	void removePict(QString name);

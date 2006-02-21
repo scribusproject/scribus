@@ -174,6 +174,9 @@ public slots:
 	void ManageTabs();
 	void setLocked(bool);
 	void setSizeLocked(bool);
+	void setPrintingEnabled(bool);
+	void setFlippedH(bool);
+	void setFlippedV(bool);
 
 private slots:
 
@@ -190,8 +193,8 @@ private slots:
 	void NewGap();
 	void NewSize();
 	void NewExtra();
-	void DoFlipH();
-	void DoFlipV();
+	void handleFlipH();
+	void handleFlipV();
 	void ToggleKette();
 	void HChange();
 	void VChange();

@@ -188,8 +188,8 @@ PageItem::PageItem(const PageItem & other)
 	fillShadeVal(other.fillShadeVal),
 	fillTransparencyVal(other.fillTransparencyVal),
 	lineTransparencyVal(other.fillTransparencyVal),
-	imageIsFlippedH(other.imageIsFlippedH),
-	imageIsFlippedV(other.imageIsFlippedV),
+	m_ImageIsFlippedH(other.m_ImageIsFlippedH),
+	m_ImageIsFlippedV(other.m_ImageIsFlippedV),
 	m_Locked(other.m_Locked),
 	m_SizeLocked(other.m_SizeLocked),
 	textFlowsAroundFrameVal(other.textFlowsAroundFrameVal),
@@ -247,8 +247,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	fillShadeVal(100),
 	fillTransparencyVal(0.0),
 	lineTransparencyVal(0.0),
-	imageIsFlippedH(0),
-	imageIsFlippedV(0),
+	m_ImageIsFlippedH(0),
+	m_ImageIsFlippedV(0),
 	m_Locked(false),
 	m_SizeLocked(false),
 	textFlowsAroundFrameVal(false),
@@ -691,7 +691,6 @@ void PageItem::setCornerRadius(double newRadius)
 	RadRect=newRadius;
 	emit cornerRadius(RadRect);
 }
-
 
 
 
@@ -1705,7 +1704,7 @@ void PageItem::setEndArrowIndex(int newIndex)
 
 void PageItem::setImageFlippedH(bool flipped)
 {
-	if (flipped != imageIsFlippedH)
+	if (flipped != m_ImageIsFlippedH)
 		flipImageH();
 }
 
@@ -1717,13 +1716,13 @@ void PageItem::flipImageH()
 		ss->set("IMAGEFLIPH", "imagefliph");
 		undoManager->action(this, ss);
 	}
-	imageIsFlippedH = !imageIsFlippedH;
-	emit frameFlippedH(imageIsFlippedH);
+	m_ImageIsFlippedH = !m_ImageIsFlippedH;
+	emit frameFlippedH(m_ImageIsFlippedH);
 }
 
 void PageItem::setImageFlippedV(bool flipped)
 {
-	if (flipped != imageIsFlippedV)
+	if (flipped != m_ImageIsFlippedV)
 		flipImageV();
 }
 
@@ -1735,8 +1734,8 @@ void PageItem::flipImageV()
 		ss->set("IMAGEFLIPV", "imageflipv");
 		undoManager->action(this, ss);
 	}
-	imageIsFlippedV = !imageIsFlippedV;
-	emit frameFlippedV(imageIsFlippedV);
+	m_ImageIsFlippedV = !m_ImageIsFlippedV;
+	emit frameFlippedV(m_ImageIsFlippedV);
 }
 
 void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
@@ -2301,12 +2300,12 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		else if (ss->contains("IMAGEFLIPH"))
 		{
 			select();
-			m_Doc->FlipImageH();
+			m_Doc->itemSelection_FlipH();
 		}
 		else if (ss->contains("IMAGEFLIPV"))
 		{
 			select();
-			m_Doc->FlipImageV();
+			m_Doc->itemSelection_FlipV();
 		}
 		else if (ss->contains("LOCK"))
 		{
@@ -2386,7 +2385,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			bool editContour = view->EditContour;
 			view->EditContour = ss->getBool("IS_CONTOUR");
 			select();
-			m_Doc->MirrorPolyH();
+			m_Doc->MirrorPolyH(m_Doc->selection->itemAt(0));
 			view->EditContour = editContour;
 		}
 		else if (ss->contains("MIRROR_PATH_V"))
@@ -2394,7 +2393,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			bool editContour = view->EditContour;
 			view->EditContour = ss->getBool("IS_CONTOUR");
 			select();
-			m_Doc->MirrorPolyV();
+			m_Doc->MirrorPolyV(m_Doc->selection->itemAt(0));
 			view->EditContour = editContour;
 		}
 		else if (ss->contains("SEND_TO_LAYER"))
@@ -3604,8 +3603,8 @@ bool PageItem::connectToGUI()
 	connect(this, SIGNAL(frameType(int)), ScMW->propertiesPalette, SLOT(NewSel(int)));
 	connect(this, SIGNAL(frameLocked(bool)), ScMW->propertiesPalette, SLOT(setLocked(bool)));
 	connect(this, SIGNAL(frameSizeLocked(bool)), ScMW->propertiesPalette, SLOT(setSizeLocked(bool)));
-	connect(this, SIGNAL(frameFlippedH(bool)), ScMW->propertiesPalette, SLOT(setLocked(bool)));
-	connect(this, SIGNAL(frameFlippedV(bool)), ScMW->propertiesPalette, SLOT(setSizeLocked(bool)));
+	connect(this, SIGNAL(frameFlippedH(bool)), ScMW->propertiesPalette, SLOT(setFlippedH(bool)));
+	connect(this, SIGNAL(frameFlippedV(bool)), ScMW->propertiesPalette, SLOT(setFlippedV(bool)));
 	connect(this, SIGNAL(printEnabled(bool)), ScMW->propertiesPalette, SLOT(setPrintingEnabled(bool)));
 	connect(this, SIGNAL(position(double, double)), ScMW->propertiesPalette, SLOT(setXY(double, double)));
 	connect(this, SIGNAL(widthAndHeight(double, double)), ScMW->propertiesPalette, SLOT(setBH(double, double)));
@@ -3666,6 +3665,8 @@ void PageItem::emitAllToGUI()
 	emit rotation(Rot);
 	emit frameLocked(m_Locked);
 	emit frameSizeLocked(m_SizeLocked);
+	emit frameFlippedH(m_ImageIsFlippedH);
+	emit frameFlippedV(m_ImageIsFlippedV);
 	emit printEnabled(m_PrintEnabled);
 	emit lineWidth(m_lineWidth);
 	emit lineStyleCapJoin(PLineArt, PLineEnd, PLineJoin);

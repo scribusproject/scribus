@@ -361,13 +361,13 @@ void NodePalette::ShearD()
 void NodePalette::MirrorH()
 {
 	if (doc != 0)
-		doc->MirrorPolyH();
+		doc->MirrorPolyH(doc->selection->itemAt(0));
 }
 
 void NodePalette::MirrorV()
 {
 	if (doc != 0)
-		doc->MirrorPolyV();
+		doc->MirrorPolyV(doc->selection->itemAt(0));
 }
 
 void NodePalette::ResetControl()
