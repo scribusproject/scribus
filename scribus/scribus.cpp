@@ -1307,7 +1307,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					break;
 			}
 		}
-		view->Mpressed = false;
+		view->m_MouseButtonPressed = false;
 		doc->DragP = false;
 		doc->leaveDrag = false;
 		view->operItemMoving = false;
@@ -2391,6 +2391,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		//CB 061005 moved to cpalette choosegrad
 		//propertiesPalette->Cpal->gradientQCombo->setCurrentItem(0);
 		outlinePalette->slotShowSelect(doc->currentPageNumber(), -1);
+		propertiesPalette->setGradientEditMode(false);
 		break;
 	case PageItem::ImageFrame: //Image Frame
 		scrActions["fileImportAppendText"]->setEnabled(false);
@@ -5321,7 +5322,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			disconnect(view, SIGNAL(MVals(double, double, double, double, double, double, int )), measurementPalette, SLOT(setValues(double, double, double, double, double, double, int )));
 		if (mode != modeEdit && doc->CurTimer!=NULL)
 		{
-			disconnect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(BlinkCurs()));
+			disconnect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(blinkCursor()));
 			doc->CurTimer->stop();
 			delete doc->CurTimer;
 			doc->CurTimer = NULL;
@@ -5380,7 +5381,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			doc->CurTimer = new QTimer(view);
 			if (doc->CurTimer!=NULL)
 			{
-				connect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(BlinkCurs()));
+				connect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(blinkCursor()));
 				doc->CurTimer->start(500);
 			}
 			if (currItem != 0)

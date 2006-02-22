@@ -581,7 +581,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			w = parseUnit(b.attribute("svg:width"));
 			h = parseUnit(b.attribute("svg:height"));
 			double corner = parseUnit(b.attribute("draw:corner-radius"));
-			z = Doku->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor, !ScMW->view->Mpressed);
+			z = Doku->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor, true);
 			PageItem* ite = Doku->Items->at(z);
 			if (corner != 0)
 			{
@@ -596,7 +596,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			y = parseUnit(b.attribute("svg:y")) ;
 			w = parseUnit(b.attribute("svg:width"));
 			h = parseUnit(b.attribute("svg:height"));
-			z = Doku->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor, !ScMW->view->Mpressed);
+			z = Doku->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor, true);
 		}
 		else if( STag == "draw:line" ) // line
 		{
@@ -604,7 +604,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			double y1 = b.attribute( "svg:y1" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:y1" ) );
 			double x2 = b.attribute( "svg:x2" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:x2" ) );
 			double y2 = b.attribute( "svg:y2" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:y2" ) );
-			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, CommonStrings::None, StrokeColor, !ScMW->view->Mpressed);
+			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, CommonStrings::None, StrokeColor, true);
 			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(4);
 			ite->PoLine.setPoint(0, FPoint(x1, y1));
@@ -623,7 +623,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		else if ( STag == "draw:polygon" )
 		{
-			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, !ScMW->view->Mpressed);
+			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, true);
 			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(0);
 			appendPoints(&ite->PoLine, b);
@@ -639,7 +639,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		else if( STag == "draw:polyline" )
 		{
-			z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, CommonStrings::None, StrokeColor, !ScMW->view->Mpressed);
+			z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, CommonStrings::None, StrokeColor, true);
 			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(0);
 			appendPoints(&ite->PoLine, b);
@@ -655,14 +655,13 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		else if( STag == "draw:path" )
 		{
-			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, !ScMW->view->Mpressed);
+			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, true);
 			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(0);
 			if (parseSVG( b.attribute( "svg:d" ), &ite->PoLine ))
 				ite->convertTo(PageItem::PolyLine);
 			if (ite->PoLine.size() < 4)
 			{
-				//ScMW->view->SelItem.append(ite);
 				Doku->selection->addItem(ite);
 				ScMW->view->DeleteItem();
 				z = -1;
@@ -699,7 +698,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			y = parseUnit(b.attribute("svg:y")) ;
 			w = parseUnit(b.attribute("svg:width"));
 			h = parseUnit(b.attribute("svg:height"));
-			z = Doku->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), lwidth, CommonStrings::None, StrokeColor, !ScMW->view->Mpressed);
+			z = Doku->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), lwidth, CommonStrings::None, StrokeColor, true);
 		}
 		else
 		{

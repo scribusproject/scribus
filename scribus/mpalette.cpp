@@ -3961,7 +3961,7 @@ const VGradient Mpalette::getFillGradient()
 	return Cpal->gradEdit->Preview->fill_gradient;
 }
 
-void Mpalette::setGradientEditMode(const bool on)
+void Mpalette::setGradientEditMode(bool on)
 {
 	Cpal->gradEditButton->setOn(on);
 }
@@ -3970,7 +3970,7 @@ void Mpalette::updateColorSpecialGradient()
 {
 	if (!HaveDoc)
 		return;
-	if(doc->selection->count()==0)
+	if(doc->selection->isEmpty())
 		return;
 	double dur=doc->unitRatio();
 	PageItem *currItem=doc->selection->itemAt(0);

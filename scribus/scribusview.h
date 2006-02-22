@@ -120,7 +120,7 @@ public:
 	int DrHY;
 	int DrVX;
 	bool EdPoints;
-	bool Mpressed;
+	bool m_MouseButtonPressed;
 	bool operItemMoving;
 	bool MoveGY;
 	bool MoveGX;
@@ -136,7 +136,6 @@ public:
 	bool FirstPoly;
 	bool Magnify;
 	bool MoveSym;
-	bool CursVis;
 	bool previewMode;
 	FPoint RCenter;
 	FPointArray RecordP;
@@ -210,7 +209,7 @@ public:
 	void RotateItem(double win, int ite);
 	void RotateItem(double win, PageItem *currItem);
 	void AdjustItemSize(PageItem *currItem);
-	void AdvanceSel(PageItem *currItem, int oldPos, int len, int dir, int expandSel, int state);
+	//void AdvanceSel(PageItem *currItem, int oldPos, int len, int dir, int expandSel, int state);
 	bool slotSetCurs(int x, int y);
 	void slotDoCurs(bool draw);
 	void HandleCurs(QPainter *p, PageItem *currItem, QRect mpo);
@@ -297,7 +296,7 @@ public slots: // Public slots
 	void DeleteItem();
 	void PasteToPage();
 	void TextToPath();
-	void BlinkCurs();
+	void blinkCursor();
 	//void updatePict(QString name);
 	//void removePict(QString name);
 	void changePreview(int id);
@@ -316,7 +315,7 @@ private: // Private attributes
 	double Scale;
 
 private slots:
-	void Zval();
+	void setZoom();
 	/**
 	 * Called to update the GUI when the canvas(view) scrollbars are moved
 	 * @param x 
@@ -345,10 +344,9 @@ protected: // Protected methods
 
 	void drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end);
 	
-	
 	//The width of vertical ruler/height of horizontal ruler, set to 17 in scribusview.cpp
 	int m_vhRulerHW;
-	
+	bool m_cursorVisible;
 
 signals:
 	void changeUN(int);

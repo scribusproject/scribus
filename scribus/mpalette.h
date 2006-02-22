@@ -100,7 +100,7 @@ public:
 	void updateColorSpecialGradient();
 	const VGradient getFillGradient();
 	void updateColorList();
-	void setGradientEditMode(const bool);
+	void setGradientEditMode(bool);
 	void updateCList();
 	void updateCmsList();
 	void ShowCMS();
