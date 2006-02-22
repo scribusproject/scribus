@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 
 class PrefsContext;
 class SampleItem;
+class QTimer;
 
 
 /*! \brief Main window for "Font Preview" plugin. It's only gui.
@@ -55,13 +56,13 @@ protected:
 	uint ysize;
 	//! \brief Sample text frame to render the preview
 	SampleItem *sampleItem;
+
 	/*! \brief Setup fontList by search string.
 	If the search string is empty list all fonts
 	\param searchStr text to search */
 	void updateFontList(QString searchStr);
-	/*! \brief Prepare the font samples at the dialog start.
-	It runs very long only once a Scribus run due the pixmap caching. */
-	void cacheSamples();
+	void keyReleaseEvent(QKeyEvent *k);
+	void paintSample(QListViewItem *item);
 
 protected slots:
 	/** \brief Translations. */
@@ -76,13 +77,15 @@ protected slots:
 	virtual void searchButton_clicked();
 	/*! \brief Creates pixmap with font sample
 	\param item current list item */
-	virtual void fontList_currentChanged( QListViewItem * item);
+	//virtual void fontList_currentChanged( QListViewItem * item);
+	virtual void fontList_mouseButtonClicked(int button, QListViewItem *item, const QPoint &point, int column);
 	//! \brief Setup the preview phrase instead of "blue quartz..."
 	void displayButton_clicked();
 	//! \brief Reset the sample phrase to the standard "blue quartz"
 	void resetDisplayButton_clicked();
 	void cancelButton_clicked();
 	void okButton_clicked();
+	void timeout();
 };
 
 #endif // FONTPREVIEW_H

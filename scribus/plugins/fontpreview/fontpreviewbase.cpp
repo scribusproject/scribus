@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Form implementation generated from reading ui file 'fontpreviewbase.ui'
 **
-** Created: Út úno 21 09:56:55 2006
+** Created: St úno 22 10:25:34 2006
 **      by: The User Interface Compiler ($Id$)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -114,7 +114,7 @@ FontPreviewBase::FontPreviewBase( QWidget* parent, const char* name, bool modal,
     connect( okButton, SIGNAL( clicked() ), this, SLOT( okButton_clicked() ) );
     connect( cancelButton, SIGNAL( clicked() ), this, SLOT( cancelButton_clicked() ) );
     connect( resetDisplayButton, SIGNAL( clicked() ), this, SLOT( resetDisplayButton_clicked() ) );
-    connect( fontList, SIGNAL( currentChanged(QListViewItem*) ), this, SLOT( fontList_currentChanged(QListViewItem*) ) );
+    connect( fontList, SIGNAL( mouseButtonClicked(int,QListViewItem*,const QPoint&,int) ), this, SLOT( fontList_mouseButtonClicked(int,QListViewItem*,const QPoint&,int) ) );
 
     // buddies
     searchLabel->setBuddy( searchEdit );
@@ -187,8 +187,8 @@ void FontPreviewBase::resetDisplayButton_clicked()
     qWarning( "FontPreviewBase::resetDisplayButton_clicked(): Not implemented yet" );
 }
 
-void FontPreviewBase::fontList_currentChanged(QListViewItem*)
+void FontPreviewBase::fontList_mouseButtonClicked(int,QListViewItem*,const QPoint&,int)
 {
-    qWarning( "FontPreviewBase::fontList_currentChanged(QListViewItem*): Not implemented yet" );
+    qWarning( "FontPreviewBase::fontList_mouseButtonClicked(int,QListViewItem*,const QPoint&,int): Not implemented yet" );
 }
 
