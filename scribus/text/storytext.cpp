@@ -30,10 +30,14 @@ StoryText::StoryText(ScribusDoc * doc_) : doc(doc_)
 	clear();
 }
 
-StoryText::StoryText(const StoryText & other) : QPtrList<ScText>(), doc(other.doc)
+StoryText::StoryText(const StoryText & other) : QPtrList<ScText>(other), doc(other.doc)
 {
-	//FIXME:NLS
-	assert (false);
+	selFirst = 0;
+	selLast = -1;
+	
+	firstFrameItem = 0;
+	lastFrameItem = -1;
+	
 	invalidateLayout();
 }
 
@@ -43,9 +47,13 @@ StoryText::~StoryText()
 
 StoryText& StoryText::operator= (const StoryText & other)
 {
+	selFirst = 0;
+	selLast = -1;
+	
+	firstFrameItem = 0;
+	lastFrameItem = -1;
+
 	invalidateLayout();
-//FIXME:NLS
-	assert (false);
 	return *this;
 }
 
