@@ -39,22 +39,22 @@ QPixmap StencilReader::createPreview(QString data)
 		QDomElement pg=DOC.toElement();
 		if(pg.tagName()=="Dimensions")
 		{
-			GrW = pg.attribute("w").toDouble();
-			GrH = pg.attribute("h").toDouble();
+			GrW = pg.attribute("w").toDouble()+10;
+			GrH = pg.attribute("h").toDouble()+10;
 			pmmax = 60 / QMAX(GrW, GrH);
 			tmp = QPixmap(static_cast<int>(GrW), static_cast<int>(GrH));
 			pS = new ScPainter(&tmp, tmp.width(), tmp.height());
+			pS->translate(5, 5);
 		}
 		if(pg.tagName()=="KivioShape")
 		{
 			FPointArray PoLine;
 			PoLine.resize(0);
-			double x, y, currx, curry, startx, starty;
+			double x, y, x1, y1, currx, curry, startx, starty;
 			QString typ = pg.attribute("type");
 			QDomNode point = DOC.firstChild();
 			bool first = true;
-			bool first2 = true;
-			bool second = true;
+			int count = 0;
 			while(!point.isNull())
 			{
 				QDomElement pt = point.toElement();
@@ -78,12 +78,14 @@ QPixmap StencilReader::createPreview(QString data)
 						startx = x;
 						starty = y;
 						first = false;
-						if (pt.hasAttribute("bezier"))
-							PoLine.addPoint(x, y);
+						if (pt.attribute("type") == "bezier")
+							count = 0;
+						else
+							count = -1;
 					}
 					else
 					{
-						if (!pt.hasAttribute("bezier"))
+						if (pt.attribute("type") != "bezier")
 						{
 							PoLine.addPoint(currx, curry);
 							PoLine.addPoint(currx, curry);
@@ -94,32 +96,55 @@ QPixmap StencilReader::createPreview(QString data)
 						}
 						else
 						{
-							if (first2)
+							if (count == -1)
+							{
+								if (FPoint(currx, curry) != FPoint(x, y))
+								{
+									PoLine.addPoint(currx, curry);
+									PoLine.addPoint(currx, curry);
+									PoLine.addPoint(x, y);
+									PoLine.addPoint(x, y);
+								}
+								currx = x;
+								curry = y;
+								count++;
+							}
+							else if (count == 0)
+							{
+								PoLine.addPoint(currx, curry);
+								PoLine.addPoint(x, y);
+								count++;
+							}
+							else if (count == 1)
 							{
 								currx = x;
 								curry = y;
-								first2 = false;
+								count++;
 							}
-							else
+							else if (count == 2)
 							{
-								if (second)
-								{
-									PoLine.addPoint(x, y);
-									second = false;
-								}
-								else
-								{
-									PoLine.addPoint(currx, curry);
-									PoLine.addPoint(currx, curry);
-									PoLine.addPoint(x, y);
-									PoLine.addPoint(x, y);
-									first = true;
-									first2 = true;
-									second = true;
-								}
+								PoLine.addPoint(x, y);
+								PoLine.addPoint(currx, curry);
+								currx = x;
+								curry = y;
+								count = -1;
 							}
 						}
 					}
+				}
+				if(pt.tagName()=="Line")
+				{
+					if (!first)
+						PoLine.setMarker();
+					x = pt.attribute("x1").toDouble();
+					y = pt.attribute("y1").toDouble();
+					x1 = pt.attribute("x2").toDouble();
+					y1 = pt.attribute("y2").toDouble();
+					PoLine.addPoint(x, y);
+					PoLine.addPoint(x, y);
+					PoLine.addPoint(x1, y1);
+					PoLine.addPoint(x1, y1);
+					first = false;
 				}
 				point = point.nextSibling();
 			}
@@ -128,9 +153,29 @@ QPixmap StencilReader::createPreview(QString data)
 				pS->setBrush(fill);
 				pS->setFillMode(1);
 				pS->setLineWidth(strokewidth);
+				pS->setPen(stroke);
 				pS->setupPolygon(&PoLine);
 				pS->drawPolygon();
 				pS->drawPolyLine();
+			}
+			else if ((typ == "Bezier") || (typ == "OpenPath") || (typ == "LineArray") || (typ == "Polyline"))
+			{
+				pS->setLineWidth(strokewidth);
+				pS->setPen(stroke);
+				pS->setupPolygon(&PoLine, false);
+				pS->drawPolyLine();
+			}
+			if (typ == "Rectangle")
+			{
+				pS->setBrush(fill);
+				pS->setFillMode(1);
+				pS->setLineWidth(strokewidth);
+				pS->setPen(stroke);
+				x = pg.attribute("x").toDouble();
+				y = pg.attribute("y").toDouble();
+				x1 = pg.attribute("w").toDouble();
+				y1 = pg.attribute("h").toDouble();
+				pS->drawRect(x, y, x1, y1);
 			}
 		}
 		DOC = DOC.nextSibling();

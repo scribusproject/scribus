@@ -148,7 +148,7 @@ void BibView::ReadContents(QString name)
 	clear();
 	objectMap.clear();
 	QFileInfo fd(name);
-	canWrite = fd.isWritable();
+	canWrite = fd.permission( QFileInfo::WriteUser );
 	QDir d(name, "*.sce", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
 	{
