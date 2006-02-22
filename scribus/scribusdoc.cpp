@@ -47,6 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "pagestructs.h"
 #include "prefsmanager.h"
+#include "scmessagebox.h"
 #include "scfontmetrics.h"
 #include "scraction.h"
 #include "selection.h"
@@ -2387,9 +2388,7 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload)
 		ScMW->HaveRaster(pageItem->isRaster);
 		//TODO: Previously commented out.. unsure why, remove later
 		//emit UpdtObj(PageNr, ItNr);
-		//TODO: Make this a signal again one day
-		//emit DocChanged();
-		ScMW->slotDocCh();
+		emit changed();
 	}
 	return true;
 }
@@ -5140,5 +5139,72 @@ void ScribusDoc::itemSelection_FlipV()
 			undoManager->commit();
 		emit changed();
 		emit firstSelectedItemType(selection->itemAt(0)->itemType());
+	}
+}
+
+void ScribusDoc::itemSelection_ChangePreviewResolution(int id)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		PageItem *currItem;
+		bool found=false;
+		for (uint i = 0; i < selectedItemCount; ++i)
+		{
+			currItem = selection->itemAt(i);
+			if (currItem!=NULL)
+				if (currItem->asImageFrame())
+				{
+					currItem->pixm.imgInfo.lowResType = id;
+					if (!found)
+						found=true;
+				}
+		}
+		if (!found) //No image frames in the current selection!
+			return;
+		updatePic();
+		disconnect( ScMW->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)) , 0, 0 );
+		disconnect( ScMW->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)) , 0, 0 );
+		disconnect( ScMW->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)) , 0, 0 );
+		ScMW->scrActions["itemPreviewLow"]->setOn(id==ScMW->scrActions["itemPreviewLow"]->actionInt());
+		ScMW->scrActions["itemPreviewNormal"]->setOn(id==ScMW->scrActions["itemPreviewNormal"]->actionInt());
+		ScMW->scrActions["itemPreviewFull"]->setOn(id==ScMW->scrActions["itemPreviewFull"]->actionInt());
+		connect( ScMW->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)), this, SLOT(itemSelection_ChangePreviewResolution(int)) );
+		connect( ScMW->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)), this, SLOT(itemSelection_ChangePreviewResolution(int)) );
+		connect( ScMW->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)), this, SLOT(itemSelection_ChangePreviewResolution(int)) );
+	}
+}
+
+void ScribusDoc::itemSelection_ClearItem()
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		PageItem *currItem;
+		for (uint i = 0; i < selectedItemCount; ++i)
+		{
+			currItem = selection->itemAt(i);
+			if (currItem->asImageFrame())
+			{
+				if ((ScMW->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail))
+					ScMW->fileWatcher->removeFile(currItem->Pfile);
+			}
+			else
+			if (currItem->asTextFrame() && ScQApp->usingGUI())
+			{
+				if (currItem->itemText.count() != 0 && (currItem->NextBox == 0 || currItem->BackBox == 0))
+				{
+					int t = ScMessageBox::warning(ScMW, CommonStrings::trWarning,
+										tr("Do you really want to clear all your text?"),
+										QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
+					if (t == QMessageBox::No)
+						continue;
+				}
+			}
+			currItem->clearContents();
+		}
+		updateFrameItems();
+		emit updateContents();
+		emit changed();
 	}
 }

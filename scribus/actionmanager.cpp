@@ -149,7 +149,6 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editPaste"], SIGNAL(activated()), ScMW, SLOT(slotEditPaste()) );
 	connect( (*scrActions)["editCopyContents"], SIGNAL(activated()), ScMW, SLOT(slotEditCopyContents()) );
 	connect( (*scrActions)["editPasteContents"], SIGNAL(activated()), ScMW, SLOT(slotEditPasteContents()) );
-	connect( (*scrActions)["editClearContents"], SIGNAL(activated()), ScMW, SLOT(clearContents()) );
 	connect( (*scrActions)["editSelectAll"], SIGNAL(activated()), ScMW, SLOT(SelectAll()) );
 	connect( (*scrActions)["editDeselectAll"], SIGNAL(activated()), ScMW, SLOT(deselectAll()) );
 	connect( (*scrActions)["editSearchReplace"], SIGNAL(activated()), ScMW, SLOT(SearchText()) );
@@ -744,17 +743,20 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 void ActionManager::disconnectNewSelectionActions()
 {
 	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
-	disconnect( (*scrActions)["itemPreviewLow"], SIGNAL(activatedData(int)) , 0, 0 );
-	disconnect( (*scrActions)["itemPreviewNormal"], SIGNAL(activatedData(int)) , 0, 0 );
-	disconnect( (*scrActions)["itemPreviewFull"], SIGNAL(activatedData(int)) , 0, 0 );
+	//Only disconnect activatedData for data based actions or you will disconnect the internal signal
+	disconnect( (*scrActions)["itemPreviewLow"], SIGNAL(activatedData(int)) , 0, 0);
+	disconnect( (*scrActions)["itemPreviewNormal"], SIGNAL(activatedData(int)) , 0, 0);
+	disconnect( (*scrActions)["itemPreviewFull"], SIGNAL(activatedData(int)) , 0, 0);
+	disconnect( (*scrActions)["editClearContents"], 0, 0, 0);
 }
 
 void ActionManager::connectNewSelectionActions(ScribusView *currView, ScribusDoc* currDoc)
 {
-	connect( (*scrActions)["itemImageIsVisible"], SIGNAL(toggled(bool)) , currDoc, SLOT(itemSelection_ToggleImageShown()) );
-	connect( (*scrActions)["itemPreviewLow"], SIGNAL(activatedData(int)) , currView, SLOT(changePreview(int)) );
-	connect( (*scrActions)["itemPreviewNormal"], SIGNAL(activatedData(int)) , currView, SLOT(changePreview(int)) );
-	connect( (*scrActions)["itemPreviewFull"], SIGNAL(activatedData(int)) , currView, SLOT(changePreview(int)) );
+	connect( (*scrActions)["itemImageIsVisible"], SIGNAL(toggled(bool)), currDoc, SLOT(itemSelection_ToggleImageShown()) );
+	connect( (*scrActions)["itemPreviewLow"], SIGNAL(activatedData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
+	connect( (*scrActions)["itemPreviewNormal"], SIGNAL(activatedData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
+	connect( (*scrActions)["itemPreviewFull"], SIGNAL(activatedData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
+	connect( (*scrActions)["editClearContents"], SIGNAL(activated()), currDoc, SLOT(itemSelection_ClearItem()) );
 }
 
 void ActionManager::saveActionShortcutsPreEditMode()

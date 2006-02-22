@@ -4687,12 +4687,12 @@ void ScribusMainWindow::ClipChange()
 			scrActions["editPaste"]->setEnabled(true);
 	}
 }
-
+/*
 void ScribusMainWindow::clearContents()
 {
 	view->ClearItem();
 }
-
+*/
 void ScribusMainWindow::EnableTxEdit()
 {
 	scrActions["editCut"]->setEnabled(true);

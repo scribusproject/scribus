@@ -2801,7 +2801,8 @@ void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
 	if (fn.isEmpty())
 	{
 		select();
-		m_Doc->view()->ClearItem();
+		//CB Why not clear contents and a refresh?
+		m_Doc->itemSelection_ClearItem();
 	}
 	else
 		loadImage(fn, false);

@@ -292,14 +292,14 @@ public slots: // Public slots
 	void UniteObj();
 	void SplitObj();
 	void Bezier2Poly();
-	void ClearItem();
+	//void ClearItem();
 	void DeleteItem();
 	void PasteToPage();
 	void TextToPath();
 	void blinkCursor();
 	//void updatePict(QString name);
 	//void removePict(QString name);
-	void changePreview(int id);
+	//void changePreview(int id);
 	void adjustCanvas(double width, double height, double dX=0.0, double dY=0.0);
 
 private: // Private attributes

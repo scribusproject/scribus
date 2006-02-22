@@ -117,6 +117,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) :
 	RotMode(0),
 	DrHY(-1), DrVX(-1),
 	EdPoints(true),
+	m_MouseButtonPressed(false),	
 	operItemMoving(false),
 	MoveGY(false), MoveGX(false),
 	HaveSelRect(false),
@@ -142,7 +143,6 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) :
 	forceRedraw(false),
 	Scale(Prefs->DisScale),
 	m_vhRulerHW(17),
-	m_MouseButtonPressed(false),
 	m_cursorVisible(false)
 {
 	setHScrollBarMode(QScrollView::AlwaysOn);
@@ -7784,41 +7784,6 @@ void ScribusView::RaiseItem()
 }
 
 //CB-->Doc/Fix
-void ScribusView::ClearItem()
-{
-	uint selectedItemCount=Doc->selection->count();
-	if (selectedItemCount != 0)
-	{
-		PageItem *currItem;
-		for (uint i = 0; i < selectedItemCount; ++i)
-		{
-			currItem = Doc->selection->itemAt(i);
-			if (currItem->asImageFrame())
-			{
-				if ((ScMW->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail))
-					ScMW->fileWatcher->removeFile(currItem->Pfile);
-			}
-			else
-			if (currItem->asTextFrame())
-			{
-				if (currItem->itemText.count() != 0 && (currItem->NextBox == 0 || currItem->BackBox == 0))
-				{
-					int t = ScMessageBox::warning(this, CommonStrings::trWarning,
-										tr("Do you really want to clear all your text?"),
-										QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
-					if (t == QMessageBox::No)
-						continue;
-				}
-			}
-			currItem->clearContents();
-		}
-		Doc->updateFrameItems();
-		updateContents();
-		emit DocChanged();
-	}
-}
-
-//CB-->Doc/Fix
 void ScribusView::DeleteItem()
 {
 	uint a, c;
@@ -8200,9 +8165,9 @@ void ScribusView::DrawNew()
 	updateContents();
 	setRulerPos(contentsX(), contentsY());
 	setMenTxt(Doc->currentPage->pageNr());
-	disconnect(zoomSpinBox, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
+	disconnect(zoomSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setZoom()));
 	zoomSpinBox->setValue(Scale/Prefs->DisScale*100);
-	connect(zoomSpinBox, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
+	connect(zoomSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setZoom()));
 }
 
 void ScribusView::SetCCPo(int x, int y)
@@ -8622,40 +8587,6 @@ void ScribusView::editExtendedImageProperties()
 			delete dia;
 			dia=NULL;
 		}
-	}
-}
-
-//CB-->Doc
-void ScribusView::changePreview(int id)
-{
-	uint selectedItemCount=Doc->selection->count();
-	if (selectedItemCount != 0)
-	{
-		PageItem *pageItem;
-		bool found=false;
-		for (uint i = 0; i < selectedItemCount; ++i)
-		{
-			pageItem = Doc->selection->itemAt(i);
-			if (pageItem!=NULL)
-				if (pageItem->asImageFrame())
-				{
-					pageItem->pixm.imgInfo.lowResType = id;
-					if (!found)
-						found=true;
-				}
-		}
-		if (!found) //No image frames in the current selection!
-			return;
-		Doc->updatePic();
-		disconnect( ScMW->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)) , 0, 0 );
-		disconnect( ScMW->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)) , 0, 0 );
-		disconnect( ScMW->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)) , 0, 0 );
-		ScMW->scrActions["itemPreviewLow"]->setOn(id==ScMW->scrActions["itemPreviewLow"]->actionInt());
-		ScMW->scrActions["itemPreviewNormal"]->setOn(id==ScMW->scrActions["itemPreviewNormal"]->actionInt());
-		ScMW->scrActions["itemPreviewFull"]->setOn(id==ScMW->scrActions["itemPreviewFull"]->actionInt());
-		connect( ScMW->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)), this, SLOT(changePreview(int)) );
-		connect( ScMW->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)), this, SLOT(changePreview(int)) );
-		connect( ScMW->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)), this, SLOT(changePreview(int)) );
 	}
 }
 

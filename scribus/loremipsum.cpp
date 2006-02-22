@@ -206,23 +206,18 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 	// is it really applied?
 	bool done = false;
 
-	//for (uint i = 0; i < ScMW->view->SelItem.count(); ++i)
 	for (uint i = 0; i < ScMW->doc->selection->count(); ++i)
 	{
-		//if (ScMW->view->SelItem.at(i) == NULL)
 		PageItem* currItem=ScMW->doc->selection->itemAt(i);
 		if (currItem == NULL)
 			continue;
-		//if (! ScMW->view->SelItem.at(i)->asTextFrame())
 		if (!currItem->asTextFrame())
 			continue;
-		//if (ScMW->view->SelItem.at(i)->itemText.count() != 0)
 		if (currItem->itemText.count() != 0)
 		{
-			ScMW->view->ClearItem();
+			ScMW->doc->itemSelection_ClearItem();
 			/* ClearItem() doesn't return true or false so
 			the following test has to be done */
-			//if (ScMW->view->SelItem.at(i)->itemText.count() != 0)
 			if (currItem->itemText.count() != 0)
 				continue;
 		}
@@ -238,13 +233,10 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 		{
 			done = true;
 			ss->Objekt = lp->createLorem(paraCount);
-			//int st = ScMW->view->SelItem.at(i)->Doc->currentParaStyle;
 			int st = currItem->document()->currentParaStyle;
 			if (st > 5)
-				//ss->GetText(ScMW->view->SelItem.at(i), st, ScMW->view->SelItem.at(i)->Doc->docParagraphStyles[st].Font, ScMW->view->SelItem.at(i)->Doc->docParagraphStyles[st].FontSize, true);
 				ss->GetText(currItem, st, currItem->document()->docParagraphStyles[st].Font, currItem->document()->docParagraphStyles[st].FontSize, true);
 			else
-				//ss->GetText(ScMW->view->SelItem.at(i), st, ScMW->view->SelItem.at(i)->IFont, ScMW->view->SelItem.at(i)->ISize, true);
 				ss->GetText(currItem, st, currItem->font(), currItem->fontSize(), true);
 			delete ss;
 		}

@@ -351,7 +351,7 @@ public slots:
 	void SelectAll();
 	void deselectAll();
 	void ClipChange();
-	void clearContents();
+	//void clearContents();
 	/** \brief shows an about dialog*/
 	void slotHelpAbout();
 	void slotHelpAboutPlugins();
