@@ -26,7 +26,7 @@ QPixmap StencilReader::createPreview(QString data)
 	QPixmap tmp = QPixmap(0, 0);
 	QColor stroke = Qt::black;
 	QColor fill = Qt::white;
-	ScPainter *pS;
+	ScPainter *pS = NULL;
 	double strokewidth = 1.0;
 	QDomDocument docu("scridoc");
 	docu.setContent(data);
@@ -180,7 +180,11 @@ QPixmap StencilReader::createPreview(QString data)
 		}
 		DOC = DOC.nextSibling();
 	}
-	pS->end();
+	if (pS)
+	{
+		pS->end();
+		delete pS;
+	}
 	QImage tmpi1 = tmp.convertToImage();
 	QImage tmpi = tmpi1.smoothScale(static_cast<int>(tmp.width()*pmmax), static_cast<int>(tmp.height()*pmmax));
 	tmp.convertFromImage(tmpi);
