@@ -7835,7 +7835,6 @@ void ScribusView::DeleteItem()
 
 		for (uint de = 0; de < docSelectionCount; ++de)
 		{
-			//currItem = delItems.at(0);
 			currItem = delItems.last();
 			if ((currItem->asImageFrame()) && ((ScMW->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail)))
 				ScMW->fileWatcher->removeFile(currItem->Pfile);
@@ -7908,12 +7907,17 @@ void ScribusView::DeleteItem()
 			undoManager->commit();
 		updateContents();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		
 		ScMW->outlinePalette->BuildTree();
 		if (Doc->selection->count() == 0)
 			emit HaveSel(-1);
 		else
-			emit HaveSel(Doc->selection->itemAt(0)->itemType());
+		{
+			//emit HaveSel(Doc->selection->itemAt(0)->itemType());
+			Doc->selection->itemAt(0)->emitAllToGUI();
+		}
 		emit DocChanged();
+		
 	}
 }
 

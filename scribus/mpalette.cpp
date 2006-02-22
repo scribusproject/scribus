@@ -1335,7 +1335,7 @@ void Mpalette::NewSel(int nr)
 		return;
 	int visID;
 	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
-	if (doc->selection->isMultipleSelection())
+	if (doc->selection->count()>1)
 	{
 		RoVal = 0;
 		double gx, gy, gh, gw;
@@ -1515,6 +1515,7 @@ void Mpalette::setMultipleSelection(bool isMultiple)
 	//these can be enabled all the time
 	//FlipH->setEnabled(!isMultiple);
 	//FlipV->setEnabled(!isMultiple);
+	NameEdit->setEnabled(!isMultiple);
 }
 
 void Mpalette::unitChange()

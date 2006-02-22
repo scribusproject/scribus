@@ -1844,6 +1844,7 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 	doc->setLoading(false);
 	doc->currentPage = doc->Pages->at(0);
 	doc->OpenNodes.clear();
+	actionManager->disconnectNewDocActions();
 	actionManager->connectNewDocActions(doc);
 	//<<View and window code
 	ScribusWin* w = new ScribusWin(wsp, doc);
@@ -1947,7 +1948,6 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	if (ActWin && ActWin->document())
 	{
 		oldDocName = ActWin->document()->DocName;
-		actionManager->disconnectNewDocActions();
 	}
 /*	if (doc != NULL)
 	{
@@ -1972,6 +1972,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	doc = ActWin->document();
 	view = ActWin->view();
 	actionManager->connectNewViewActions(view);
+	actionManager->disconnectNewDocActions();
 	actionManager->connectNewDocActions(doc);
 	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	if (ScQApp->usingGUI())
@@ -3545,6 +3546,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		connect(fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
 		connect(fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
 		connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
+		actionManager->disconnectNewDocActions();
 		actionManager->connectNewDocActions(doc);
 		doc->connectDocSignals();
 		if (doc->AutoSave)

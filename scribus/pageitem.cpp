@@ -368,22 +368,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_PrintEnabled = true;
 	isBookmark = false;
 	m_isAnnotation = false;
-	/*
-	m_annotation.setType(0);
-	m_annotation.setActionType(0);
-	m_annotation.setBwid(1);
-	m_annotation.setAction("");
-	m_annotation.setE_act("");
-	m_annotation.setX_act("");
-	m_annotation.setD_act("");
-	m_annotation.setFo_act("");
-	m_annotation.setBl_act("");
-	m_annotation.setK_act("");
-	m_annotation.setF_act("");
-	m_annotation.setV_act("");
-	m_annotation.setC_act("");
-	m_annotation.setExtern("");
-	*/
 	switch (m_ItemType)
 	{
 	case ImageFrame:
@@ -418,25 +402,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	AutoName = true;
 	setUName(AnName);
 	m_Doc->TotalItems++;
-	/*
-	m_annotation.setToolTip("");
-	m_annotation.setRollOver("");
-	m_annotation.setDown("");
-	m_annotation.setBsty(0);
-	m_annotation.setFeed(1);
-	m_annotation.setFlag(0);
-	m_annotation.setZiel(0);
-	m_annotation.setVis(0);
-	m_annotation.setChkStil(0);
-	m_annotation.setFormat(0);
-	m_annotation.setFont(4);
-	m_annotation.setIsChk(false);
-	m_annotation.setAAact(false);
-	m_annotation.setHTML(false);
-	m_annotation.setUseIcons(false);
-	m_annotation.setIPlace(1);
-	m_annotation.setScaleW(0);
-	m_annotation.setMaxChar(-1);*/
 	m_annotation.setBorderColor(outline);
 	HasSel = false;
 	Tinput = false;
@@ -949,29 +914,23 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 			switch(embedded->itemType())
 			{
 				case ImageFrame:
-					//embedded->DrawObj_ImageFrame(p, sc);
 					embedded->DrawObj_Item(p, sc);
 					break;
 				case TextFrame:
-					//embedded->DrawObj_TextFrame(p, e, sc);
 					embedded->DrawObj_Item(p, e, sc);
 					break;
 				case Line:
 					embedded->m_lineWidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
-					//embedded->DrawObj_Line(p);
 					embedded->DrawObj_Item(p);
 					break;
 				case Polygon:
-					//embedded->DrawObj_Polygon(p);
 					embedded->DrawObj_Item(p);
 					break;
 				case PolyLine:
 					embedded->m_lineWidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
-					//embedded->DrawObj_PolyLine(p);
 					embedded->DrawObj_Item(p);
 					break;
 				case PathText:
-					//embedded->DrawObj_PathText(p, sc);
 					embedded->DrawObj_Item(p, sc);
 					break;
 				default:
@@ -1093,7 +1052,6 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					p.setPen(QPen(darkCyan, 1, DotLine, FlatCap, MiterJoin));
 					p.setBrush(NoBrush);
 					p.drawRect(-1, -1, static_cast<int>(Width+2), static_cast<int>(Height+2));
-					//if (ScMW->view->SelItem.count() == 1)
 					if (m_Doc->selection->count() == 1)
 					{
 						QPainter pr;
@@ -2854,7 +2812,6 @@ void PageItem::select()
 	m_Doc->view()->Deselect(false);
 	//CB #2969 add this true parm to addItem so we dont connectToGUI, the rest of view->SelectItem isnt needed anyway
 	m_Doc->selection->addItem(this, true);
-	//m_Doc->view()->SelectItem(this, false);
 }
 
 ObjAttrVector* PageItem::getObjectAttributes()

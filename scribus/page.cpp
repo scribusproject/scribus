@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "page.h"
 #include "scribus.h"
+#include "selection.h"
 #include "undomanager.h"
 #include "undostate.h"
 
@@ -282,21 +283,22 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	PageItem *ite = state->getItem();
 	if (isUndo)
 	{
+		/*
 		ScMW->view->Deselect();
-		ScMW->view->SelectItem(ite, false);
+		ScMW->doc->selection->addItem(ite, true);
 		ScMW->view->DeleteItem();
 		ScMW->view->Deselect();
+		*/
+		ScMW->doc->selection->clear();
+		ScMW->doc->selection->addItem(ite, true);
+		ScMW->view->DeleteItem();
+		ScMW->doc->selection->clear();
 	}
 	else
 	{
 		ScMW->doc->Items->append(ite);
-		/*
-		if (ScMW->doc->masterPageMode())
-			ScMW->doc->MasterItems = ScMW->doc->Items;
-		else
-			ScMW->doc->DocItems = ScMW->doc->Items;
-		*/
 		ite->ItemNr = ScMW->doc->Items->count()-1;
+		ScMW->view->updateContents();
 	}
 }
 
@@ -308,20 +310,20 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 	if (isUndo)
 	{
 		ScMW->doc->Items->append(ite);
-		/*
-		if (ScMW->doc->masterPageMode())
-			ScMW->doc->MasterItems = ScMW->doc->Items;
-		else
-			ScMW->doc->DocItems = ScMW->doc->Items;
-		*/
 		ite->ItemNr = ScMW->doc->Items->count()-1;
+		ScMW->view->updateContents();
 	}
 	else
 	{
-		ScMW->view->Deselect();
-		ScMW->view->SelectItem(ite, false);
+		/*ScMW->view->Deselect();
+		ScMW->doc->selection->addItem(ite, true);
 		ScMW->view->DeleteItem();
 		ScMW->view->Deselect();
+		*/
+		ScMW->doc->selection->clear();
+		ScMW->doc->selection->addItem(ite, true);
+		ScMW->view->DeleteItem();
+		ScMW->doc->selection->clear();
 	}
 }
 
