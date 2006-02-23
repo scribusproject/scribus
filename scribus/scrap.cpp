@@ -61,6 +61,15 @@ void BibView::keyPressEvent(QKeyEvent *k)
 QDragObject *BibView::dragObject()
 {
 	QString dt = objectMap[currentItem()->text()].Data.utf8();
+	QFileInfo fi(dt);
+	if (fi.extension(true).lower() == "sml")
+	{
+		QString f = "";
+		loadText(dt, &f);
+		StencilReader *pre = new StencilReader();
+		dt = pre->createObjects(f);
+		delete pre;
+	}
 	QDragObject *dr = new QTextDrag(dt, this);
 	dr->setPixmap(objectMap[currentItem()->text()].Preview);
 	clearSelection();
@@ -147,7 +156,10 @@ void BibView::ReadContents(QString name)
 {
 	clear();
 	objectMap.clear();
-	QFileInfo fd(name);
+	QString nd;
+	if (name.endsWith(QDir::convertSeparators("/")))
+		nd = name.left(name.length()-1);
+	QFileInfo fd(nd);
 	canWrite = fd.permission( QFileInfo::WriteUser );
 	QDir d(name, "*.sce", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
