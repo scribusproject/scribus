@@ -316,7 +316,7 @@ void SVGPlug::convert()
 		QDragObject *dr = new QTextDrag(ss->WriteElem(currDoc, ScMW->view, currDoc->selection), ScMW->view->viewport());
 #ifndef QT_MAC
 // see #2526
-		ScMW->view->DeleteItem();
+		currDoc->itemSelection_DeleteItem();
 #endif
 		ScMW->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScMW->view->scale()), qRound((maxSize.y() - minSize.y()) * ScMW->view->scale()));
 		ScMW->view->scrollBy(qRound((currDoc->minCanvasCoordinate.x() - minSize.x()) * ScMW->view->scale()), qRound((currDoc->minCanvasCoordinate.y() - minSize.y()) * ScMW->view->scale()));
@@ -404,7 +404,6 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			double ry = b.attribute( "ry" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "ry" ) );
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
-			//z = ScMW->view->PaintRect(BaseX, BaseY, width, height, gc->LWidth, gc->FillCol, gc->StrokeCol);
 			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			PageItem* ite = currDoc->Items->at(z);
 			if ((rx != 0) || (ry != 0))
@@ -428,7 +427,6 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			double y = parseUnit( b.attribute( "cy" ) ) - ry;
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
-			//z = ScMW->view->PaintEllipse(BaseX, BaseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
 			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			PageItem* ite = currDoc->Items->at(z);
 			QWMatrix mm = QWMatrix();
@@ -445,7 +443,6 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			double y = parseUnit( b.attribute( "cy" ) ) - r;
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
-			//z = ScMW->view->PaintEllipse(BaseX, BaseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
 			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			PageItem* ite = currDoc->Items->at(z);
 			QWMatrix mm = QWMatrix();
@@ -463,7 +460,6 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			double y2 = b.attribute( "y2" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "y2" ) );
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
-			//z = ScMW->view->PaintPoly(BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			PageItem* ite = currDoc->Items->at(z);
 			ite->PoLine.resize(4);
@@ -484,7 +480,6 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			addGraphicContext();
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
-			//z = ScMW->view->PaintPoly(BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			PageItem* ite = currDoc->Items->at(z);
 			ite->PoLine.resize(0);
@@ -492,9 +487,8 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 				ite->convertTo(PageItem::PolyLine);
 			if (ite->PoLine.size() < 4)
 			{
-				//ScMW->view->SelItem.append(ite);
 				currDoc->selection->addItem(ite);
-				ScMW->view->DeleteItem();
+				currDoc->itemSelection_DeleteItem();
 				z = -1;
 			}
 		}
@@ -504,10 +498,8 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
 			if( b.tagName() == "polygon" )
-				//z = ScMW->view->PaintPoly(BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 				z = currDoc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			else
-				//z = ScMW->view->PaintPolyLine(BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 				z = currDoc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			PageItem* ite = currDoc->Items->at(z);
 			ite->PoLine.resize(0);
@@ -590,8 +582,6 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			case PageItem::ImageFrame:
 				{
 					QWMatrix mm = gc->matrix;
-					//ite->Xpos += mm.dx();
-					//ite->Ypos += mm.dy();
 					ite->moveBy(mm.dx(), mm.dy());
 					ite->setWidthHeight(ite->width() * mm.m11(), ite->height() * mm.m22());
 					ite->setLineWidth(ite->lineWidth() * ((mm.m11() + mm.m22()) / 2.0));

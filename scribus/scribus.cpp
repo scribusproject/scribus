@@ -1427,7 +1427,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				case Key_Delete:
 					if (!doc->EditClip)
 					{
-						view->DeleteItem();
+						doc->itemSelection_DeleteItem();
 						slotDocCh();
 					}
 					break;
@@ -4307,7 +4307,7 @@ void ScribusMainWindow::slotEditCut()
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(doc, view, doc->selection);
 			Buffer2 = BufferI;
-			view->DeleteItem();
+			doc->itemSelection_DeleteItem();
 		}
 		slotDocCh();
 		BuFromApp = true;
@@ -5617,7 +5617,7 @@ void ScribusMainWindow::DeletePage2(int pg)
 		}
 	}
 	if (doc->selection->count() != 0)
-		view->DeleteItem();
+		doc->itemSelection_DeleteItem();
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::DeletePage, "", Um::ICreate);
@@ -5688,7 +5688,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 		}
 	}
 	if (doc->selection->count() != 0)
-		view->DeleteItem();
+		doc->itemSelection_DeleteItem();
 	for (int a = to - 1; a >= from - 1; a--)
 	{
 		if (UndoManager::undoEnabled())
@@ -6662,7 +6662,7 @@ void ScribusMainWindow::DeleteObjekt()
 {
 	if (HaveDoc)
 		if (!doc->EditClip)
-			view->DeleteItem();
+			doc->itemSelection_DeleteItem();
 }
 
 void ScribusMainWindow::ObjektDup()
@@ -8046,7 +8046,7 @@ void ScribusMainWindow::LayerRemove(int l, bool dl)
 		}
 	}
 	if (doc->selection->count() != 0)
-		view->DeleteItem();
+		doc->itemSelection_DeleteItem();
 	doc->selection->clear();
 	for (uint b = 0; b < doc->DocItems.count(); ++b)
 	{
@@ -8062,7 +8062,7 @@ void ScribusMainWindow::LayerRemove(int l, bool dl)
 		}
 	}
 	if (doc->selection->count() != 0)
-		view->DeleteItem();
+		doc->itemSelection_DeleteItem();
 	rebuildLayersList();
 	view->updateLayerMenu();
 }

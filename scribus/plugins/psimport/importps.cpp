@@ -194,7 +194,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 			QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScMW->view, Doku->selection),ScMW->view->viewport());
 #ifndef QT_MAC
 // see #2196
-			ScMW->view->DeleteItem();
+			Doku->itemSelection_DeleteItem();
 #endif
 			ScMW->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScMW->view->scale()), qRound((maxSize.y() - minSize.y()) * ScMW->view->scale()));
 			ScMW->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * ScMW->view->scale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * ScMW->view->scale()));

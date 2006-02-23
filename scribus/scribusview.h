@@ -293,7 +293,7 @@ public slots: // Public slots
 	void SplitObj();
 	void Bezier2Poly();
 	//void ClearItem();
-	void DeleteItem();
+	//void DeleteItem();
 	void PasteToPage();
 	void TextToPath();
 	void blinkCursor();

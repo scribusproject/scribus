@@ -406,7 +406,7 @@ bool OODPlug::convert()
 		QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScMW->view, Doku->selection), ScMW->view->viewport());
 #ifndef QT_MAC
 // see #2196, #2526
-		ScMW->view->DeleteItem();
+		Doku->itemSelection_DeleteItem();
 #endif
 		ScMW->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScMW->view->scale()), qRound((maxSize.y() - minSize.y()) * ScMW->view->scale()));
 		ScMW->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * ScMW->view->scale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * ScMW->view->scale()));
@@ -663,7 +663,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			if (ite->PoLine.size() < 4)
 			{
 				Doku->selection->addItem(ite);
-				ScMW->view->DeleteItem();
+				Doku->itemSelection_DeleteItem();
 				z = -1;
 			}
 			else

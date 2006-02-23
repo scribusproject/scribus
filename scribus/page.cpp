@@ -291,7 +291,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 		*/
 		ScMW->doc->selection->clear();
 		ScMW->doc->selection->addItem(ite, true);
-		ScMW->view->DeleteItem();
+		ScMW->doc->itemSelection_DeleteItem();
 		ScMW->doc->selection->clear();
 	}
 	else
@@ -322,7 +322,7 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 		*/
 		ScMW->doc->selection->clear();
 		ScMW->doc->selection->addItem(ite, true);
-		ScMW->view->DeleteItem();
+		ScMW->doc->itemSelection_DeleteItem();
 		ScMW->doc->selection->clear();
 	}
 }

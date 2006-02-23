@@ -805,6 +805,7 @@ public slots:
 	void itemSelection_TogglePrintEnabled();
 	void itemSelection_ChangePreviewResolution(int id);
 	void itemSelection_ClearItem();
+	void itemSelection_DeleteItem();
 	void itemSelection_FlipH();
 	void itemSelection_FlipV();
 	void updatePic();

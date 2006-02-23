@@ -1211,7 +1211,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 							currItem->BackBox = 0;
 						}
 						pasted.clear();
-						DeleteItem();
+						Doc->itemSelection_DeleteItem();
 					}
 				}
 				if ((!img) && ((re == 0)))
@@ -7783,129 +7783,6 @@ void ScribusView::RaiseItem()
 	}
 }
 
-//CB-->Doc/Fix
-void ScribusView::DeleteItem()
-{
-	uint a, c;
-	QPtrList<PageItem> delItems;
-	PageItem *currItem;
-	uint docSelectionCount = Doc->selection->count();
-	if (docSelectionCount != 0)
-	{
-		uint offs = 0;
-		QString tooltip = Um::ItemsInvolved + "\n";
-		for (uint de = 0; de < docSelectionCount; ++de)
-		{
-			currItem = Doc->selection->itemAt(offs);
-			if ((currItem->isTableItem && currItem->isSingleSel) || (currItem->locked()))
-			{
-				offs++;
-				continue;
-			}
-			if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==ScMW->storyEditor->currentItem() && Doc==ScMW->storyEditor->currentDocument())
-			{
-				QMessageBox::critical(ScMW, tr("Cannot Delete In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The delete operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
-				return;
-			}
-			tooltip += "\t" + currItem->getUName() + "\n";
-			delItems.append(Doc->selection->takeItem(offs));
-		}
-		if (delItems.count() == 0)
-			return;
-		docSelectionCount = delItems.count();
-
-		if (docSelectionCount > 1)
-			undoManager->beginTransaction(Um::Group + "/" + Um::Selection, Um::IGroup,
-										  Um::Delete, tooltip, Um::IDelete);
-
-		for (uint de = 0; de < docSelectionCount; ++de)
-		{
-			currItem = delItems.last();
-			if ((currItem->asImageFrame()) && ((ScMW->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail)))
-				ScMW->fileWatcher->removeFile(currItem->Pfile);
-			if (currItem->asTextFrame())
-			{
-				for (ScText *it = currItem->itemText.first(); it != 0; it = currItem->itemText.next())
-				{
-					if ((it->ch == QChar(25)) && (it->cembedded != 0))
-						Doc->FrameItems.remove(it->cembedded);
-				}
-				if ((currItem->NextBox != 0) || (currItem->BackBox != 0))
-				{
-					if (currItem->BackBox == 0)
-					{
-						currItem->NextBox->BackBox = currItem->BackBox;
-						c = currItem->itemText.count();
-						for (a = 0; a < c; ++a)
-							currItem->NextBox->itemText.prepend(currItem->itemText.take(currItem->itemText.count()-1));
-						if ((currItem->isAutoText) && (currItem->NextBox == 0))
-							Doc->LastAuto = 0;
-					}
-					else
-					{
-						currItem->BackBox->NextBox = currItem->NextBox;
-						if (currItem->NextBox != 0)
-							currItem->NextBox->BackBox = currItem->BackBox;
-						else
-						{
-							if (currItem->isAutoText)
-								Doc->LastAuto = currItem->BackBox;
-						}
-						c = currItem->itemText.count();
-						for (a = 0; a < c; ++a)
-							currItem->BackBox->itemText.append(currItem->itemText.take(0));
-					}
-				}
-				else
-				{
-					if (currItem->isAutoText)
-					{
-						Doc->LastAuto = 0;
-						Doc->FirstAuto = 0;
-					}
-				}
-			}
-			if (currItem->isBookmark)
-				emit DelBM(currItem);
-			Doc->Items->remove(currItem);
-			delItems.removeLast();
-			// send the undo action to the UndoManager
-			if (UndoManager::undoEnabled())
-			{
-				ItemState<PageItem*> *is = new ItemState<PageItem*>(Um::Delete + " " + currItem->getUName(), "", Um::IDelete);
-				is->setItem(currItem);
-				is->set("DELETE_ITEM", "delete_item");
-				UndoObject *target;
-				if (currItem->OwnPage > -1)
-					target = Doc->Pages->at(currItem->OwnPage);
-				else
-					target = Doc->Pages->at(0);
-				undoManager->action(target, is, currItem->getUPixmap());
-			}
-		}
-		Doc->updateFrameItems();
-		for (uint a = 0; a < Doc->Items->count(); ++a)
-		{
-			Doc->Items->at(a)->ItemNr = a;
-		}
-		if (docSelectionCount > 1)
-			undoManager->commit();
-		updateContents();
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		
-		ScMW->outlinePalette->BuildTree();
-		if (Doc->selection->count() == 0)
-			emit HaveSel(-1);
-		else
-		{
-			//emit HaveSel(Doc->selection->itemAt(0)->itemType());
-			Doc->selection->itemAt(0)->emitAllToGUI();
-		}
-		emit DocChanged();
-		
-	}
-}
-
 //CB Remove emit/start pasting objects
 void ScribusView::PasteToPage()
 {
@@ -9272,7 +9149,7 @@ void ScribusView::TextToPath()
 			Doc->selection->clear();
 			for(uint i=0; i<toDeleteItemCount; ++i)
 				Doc->selection->addItem(delItems.take(0)); //yes, 0, remove the first
-			DeleteItem();
+			Doc->itemSelection_DeleteItem();
 		}
 	}
 }
@@ -9313,7 +9190,7 @@ void ScribusView::UniteObj()
 		Deselect(true);
 		for (uint c = 0; c < toDel.count(); ++c)
 			SelectItemNr(*toDel.at(c));
-		DeleteItem();
+		Doc->itemSelection_DeleteItem();
 		updateContents();
 	}
 }

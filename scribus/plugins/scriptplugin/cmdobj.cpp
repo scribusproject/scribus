@@ -456,11 +456,9 @@ PyObject *scribus_deleteobj(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	//ScMW->view->SelItem.clear();
 	ScMW->doc->selection->clear();
-	//ScMW->view->SelItem.append(i);
 	ScMW->doc->selection->addItem(i);
-	ScMW->view->DeleteItem();
+	ScMW->doc->itemSelection_DeleteItem();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
