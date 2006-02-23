@@ -1445,16 +1445,15 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 									currasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
 								else if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
 									currasce = QMAX(currasce, (Zli2->embedded->gHeight + Zli2->embedded->lineWidth()) * (Zli2->scalev / 1000.0));
-//								else
-//									currasce = RealCAscent(m_Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz);
+								else
+									currasce = RealCAscent(m_Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz);
 								for (uint zc = 0; zc < LiList.count(); ++zc)
 								{
 									Zli2 = LiList.at(zc);
 									if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10))
 										|| (Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(24))
 										|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
-										|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29))
-										|| (Zli2->Zeich == QChar(32)))
+										|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 										continue;
 									if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
 										currasce = QMAX(currasce, (Zli2->embedded->gHeight + Zli2->embedded->lineWidth()) * (Zli2->scalev / 1000.0));
@@ -1472,19 +1471,18 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							{
 								Zli2 = LiList.at(0);
 								double firstasce = m_Doc->docParagraphStyles[hl->cab].LineSpa;
-								double currasce = 0;
+								double currasce;
 								if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
 									currasce = QMAX(currasce, (Zli2->embedded->gHeight + Zli2->embedded->lineWidth()) * (Zli2->scalev / 1000.0));
-//								else
-//									currasce = RealFHeight(m_Doc, Zli2->ZFo, Zli2->realSiz);
+								else
+									currasce = RealFHeight(m_Doc, Zli2->ZFo, Zli2->realSiz);
 								for (uint zc = 0; zc < LiList.count(); ++zc)
 								{
 									Zli2 = LiList.at(zc);
 									if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10))
 										|| (Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(24))
 										|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
-										|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29))
-										|| (Zli2->Zeich == QChar(32)))
+										|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 										continue;
 									if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
 										currasce = QMAX(currasce, (Zli2->embedded->gHeight + Zli2->embedded->lineWidth()) * (Zli2->scalev / 1000.0));
@@ -1739,8 +1737,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10))
 								|| (Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(24))
 								|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
-								|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29))
-								|| (Zli2->Zeich == QChar(32)))
+								|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 								continue;
 							if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
 								currasce = QMAX(currasce, (Zli2->embedded->gHeight + Zli2->embedded->lineWidth()) * (Zli2->scalev / 1000.0));
@@ -1769,8 +1766,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10))
 								|| (Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(24))
 								|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
-								|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29))
-								|| (Zli2->Zeich == QChar(32)))
+								|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 								continue;
 							if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
 								currasce = QMAX(currasce, (Zli2->embedded->gHeight + Zli2->embedded->lineWidth()) * (Zli2->scalev / 1000.0));
@@ -2349,6 +2345,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				++CPos;
 				if (CPos == static_cast<int>(itemText.count()))
 					break;
+				//CB Catch some funny empty lines. still testing
+				//if ((CPos < static_cast<int>(itemText.count())-1) && itemText.at(CPos+1)->ch[0].digitValue()==-1 && itemText.at(CPos)->ch[0].digitValue()==-1 && itemText.at(CPos)->xp == altx && itemText.at(CPos)->yp == alty)
+				//	break;
 				if (itemText.at(CPos)->yp > alty)
 				{
 					if (down1 && itemText.at(CPos)->yp > newy)
