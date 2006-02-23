@@ -270,8 +270,8 @@ public slots:
 	void BookMarkTxT(PageItem *ite);
 	void StoreBookmarks();
 	void ManageGuides();
-	void setItemFillTransparency(double t);
-	void setItemLineTransparency(double t);
+	//void setItemFillTransparency(double t);
+	//void setItemLineTransparency(double t);
 	void setMousePositionOnStatusBar(double xp, double yp);
 	bool DoFileClose();
 	//bool DoSaveClose();
@@ -282,14 +282,14 @@ public slots:
 	void windowsMenuActivated(int id);
 	void UnDoAction();
 	void RedoAction();
-	void doHyphenate();
-	void doDeHyphenate();
+	//void doHyphenate();
+	//void doDeHyphenate();
 	void slotTest();
 	void slotTest2();
 	void PutScrap();
 	void changeLayer(int);
 	void showLayer();
-	void LayerRemove(int l, bool dl = false);
+	//void LayerRemove(int l, bool dl = false);
 	void ManageJava();
 	void manageMasterPages(QString temp = "");
 	void manageMasterPagesEnd();
@@ -453,8 +453,8 @@ public slots:
 	void GetBrushPen();
 	/** Erzeugt einen Rahmen */
 	void MakeFrame(int f, int c, double *vals);
-	/** Loescht ein Element */
-	void DeleteObjekt();
+	//** Loescht ein Element */
+	//void DeleteObjekt();
 	/** Dupliziert das Element */
 	void ObjektDup();
 	/** Dupliziert das Element mehrfach*/
@@ -512,7 +512,7 @@ public slots:
 	void setUndoMode(bool isObjectSpecific);
 	//! \brief Apply a Lorem Ipsum to the each item in a selection
 	void insertSampleText();
-	void sendToLayer(int layerNumber);
+	//void sendToLayer(int layerNumber);
 	void updateItemLayerList();
 
 signals:

@@ -578,7 +578,7 @@ public:
 	void adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute = false);
 	void recalcPicturesRes();
 	void connectDocSignals();
-	
+	void removeLayer(int l, bool dl = false); //FIXME: Make protected once scripter function no longer uses this directly
 	
 protected:
 	void addSymbols();
@@ -806,8 +806,13 @@ public slots:
 	void itemSelection_ChangePreviewResolution(int id);
 	void itemSelection_ClearItem();
 	void itemSelection_DeleteItem();
+	void itemSelection_SetItemFillTransparency(double t);
+	void itemSelection_SetItemLineTransparency(double t);
 	void itemSelection_FlipH();
 	void itemSelection_FlipV();
+	void itemSelection_DoHyphenate();
+	void itemSelection_DoDeHyphenate();
+	void itemSelection_SendToLayer(int layerNumber);
 	void updatePic();
 	void updatePict(QString name);
 	void removePict(QString name);

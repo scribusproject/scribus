@@ -2496,7 +2496,7 @@ void PageItem::restoreFillTP(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		tp = state->getDouble("NEW_TP");
 	select();
-	ScMW->setItemFillTransparency(tp);
+	m_Doc->itemSelection_SetItemFillTransparency(tp);
 }
 
 void PageItem::restoreLineTP(SimpleState *state, bool isUndo)
@@ -2505,7 +2505,7 @@ void PageItem::restoreLineTP(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		tp = state->getDouble("NEW_TP");
 	select();
-	ScMW->setItemLineTransparency(tp);
+	m_Doc->itemSelection_SetItemLineTransparency(tp);
 }
 
 

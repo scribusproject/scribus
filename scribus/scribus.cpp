@@ -1043,6 +1043,8 @@ void ScribusMainWindow::setMousePositionOnStatusBar(double xp, double yp)
 	mainWindowYPosDataLabel->setText(tmp.setNum(qRound(yn*doc->unitRatio() * multiplier) / divisor, 'f', precision) + suffix);
 }
 
+
+//CB-->Doc
 void ScribusMainWindow::setTBvals(PageItem *currItem)
 {
 	if (currItem->itemText.count() != 0)
@@ -1425,11 +1427,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				{
 				case Key_Backspace:
 				case Key_Delete:
-					if (!doc->EditClip)
-					{
-						doc->itemSelection_DeleteItem();
-						slotDocCh();
-					}
+					doc->itemSelection_DeleteItem();
 					break;
 				case Key_Prior:
 					if (!currItem->locked())
@@ -1618,7 +1616,6 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					}
 					if (dX!=0.0 || dY!=0.0)
 					{
-						//view->MoveItemI(currItem, dX, dY, true);
 						currItem->moveImageInFrame(dX, dY);
 						view->updateContents(currItem->getRedrawBounding(view->scale()));
 					}
@@ -2896,7 +2893,7 @@ void ScribusMainWindow::rebuildLayersList()
 		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
 		{
 			scrMenuMgr->addMenuItem((*it), layerMenuName);
-			connect( (*it), SIGNAL(activatedData(int)), this, SLOT(sendToLayer(int)) );
+			connect( (*it), SIGNAL(activatedData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
 		}
 	}
 }
@@ -2914,10 +2911,11 @@ void ScribusMainWindow::updateItemLayerList()
 		if (doc->selection->count()>0 && doc->selection->itemAt(0))
 			scrLayersActions[QString("%1").arg(doc->selection->itemAt(0)->LayerNr)]->setOn(true);
 		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
-			connect( (*it), SIGNAL(activatedData(int)), this, SLOT(sendToLayer(int)) );
+			connect( (*it), SIGNAL(activatedData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
 	}
 }
 
+/*
 void ScribusMainWindow::sendToLayer(int layerNumber)
 {
 	if (HaveDoc)
@@ -2947,6 +2945,7 @@ void ScribusMainWindow::sendToLayer(int layerNumber)
 		slotDocCh();
 	}
 }
+*/
 
 bool ScribusMainWindow::slotDocOpen()
 {
@@ -4599,6 +4598,7 @@ void ScribusMainWindow::slotEditPaste()
 	}
 }
 
+//CB-->Doc ?????
 void ScribusMainWindow::SelectAll()
 {
 	if (doc->appMode == modeEdit)
@@ -4687,12 +4687,7 @@ void ScribusMainWindow::ClipChange()
 			scrActions["editPaste"]->setEnabled(true);
 	}
 }
-/*
-void ScribusMainWindow::clearContents()
-{
-	view->ClearItem();
-}
-*/
+
 void ScribusMainWindow::EnableTxEdit()
 {
 	scrActions["editCut"]->setEnabled(true);
@@ -5580,11 +5575,12 @@ void ScribusMainWindow::setStilvalue(int s)
 	emit TextStil(s);
 }
 
+
+//CB-->Doc ????
 void ScribusMainWindow::setItemHoch(int h)
 {
 	if (doc->selection->count() != 0)
 	{
-		//setActiveWindow();
 		doc->CurrentStyle = h;
 		setStilvalue(doc->CurrentStyle);
 		doc->chTyStyle(h);
@@ -5592,6 +5588,7 @@ void ScribusMainWindow::setItemHoch(int h)
 	}
 }
 
+//CB-->Doc partly
 void ScribusMainWindow::DeletePage2(int pg)
 {
 	PageItem* ite;
@@ -5766,7 +5763,7 @@ void ScribusMainWindow::CopyPage()
 		doc->copyPage(pageNumberToCopy, wo, whereToInsert, copyCount);
 		view->Deselect(true);
 		view->DrawNew();
-		slotDocCh();
+		slotDocCh(); //FIXME emit from doc
 		pagePalette->RebuildPage();
 		outlinePalette->BuildTree();
 	}
@@ -5837,7 +5834,7 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 			FontID.insert(a, prefsManager->appPrefs.AvailFonts[nf]->scName());
 		}
 		else
-		{
+		{//CB FIXME: to doc?
 			if (doc->selection->count() != 0)
 			{
 				PageItem *currItem = doc->selection->itemAt(0);
@@ -5892,6 +5889,7 @@ void ScribusMainWindow::setFSizeMenu(int size)
 		scrActions[QString("fontSize%1").arg(size/10)]->setOn(true);
 }
 
+//CB-->Doc
 void ScribusMainWindow::setItemFarbe(int id)
 {
 	if (doc->selection->count() != 0)
@@ -5906,6 +5904,7 @@ void ScribusMainWindow::setItemFarbe(int id)
 	slotDocCh();
 }
 
+//CB-->Doc partly
 void ScribusMainWindow::setItemShade(int id)
 {
 	int c = id;
@@ -6395,6 +6394,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 	slotDocCh();
 }
 
+//CB-->Doc
 void ScribusMainWindow::setNewAbStyle(int a)
 {
 	setActiveWindow();
@@ -6560,6 +6560,7 @@ void ScribusMainWindow::slotEditColors()
 	delete dia;
 }
 
+//CB-->Doc
 void ScribusMainWindow::setPenFarbe(QString farbe)
 {
 	if (HaveDoc)
@@ -6569,6 +6570,7 @@ void ScribusMainWindow::setPenFarbe(QString farbe)
 	}
 }
 
+//CB-->Doc
 void ScribusMainWindow::setPenShade(int sh)
 {
 	//setActiveWindow();
@@ -6579,6 +6581,7 @@ void ScribusMainWindow::setPenShade(int sh)
 	}
 }
 
+//CB-->Doc
 void ScribusMainWindow::setBrushFarbe(QString farbe)
 {
 	if (HaveDoc)
@@ -6588,6 +6591,7 @@ void ScribusMainWindow::setBrushFarbe(QString farbe)
 	}
 }
 
+//CB-->Doc
 void ScribusMainWindow::setBrushShade(int sh)
 {
 	//setActiveWindow();
@@ -6598,6 +6602,7 @@ void ScribusMainWindow::setBrushShade(int sh)
 	}
 }
 
+//CB-->Doc
 void ScribusMainWindow::setGradFill(int typ)
 {
 	if (HaveDoc)
@@ -6607,6 +6612,7 @@ void ScribusMainWindow::setGradFill(int typ)
 	}
 }
 
+//CB-->Doc
 void ScribusMainWindow::updtGradFill()
 {
 	if (HaveDoc)
@@ -6621,6 +6627,7 @@ void ScribusMainWindow::updtGradFill()
 	}
 }
 
+//CB-->Doc
 void ScribusMainWindow::GetBrushPen()
 {
 	//What? we come back here from mpalette and then go to the view.. someones kidding
@@ -6634,6 +6641,7 @@ void ScribusMainWindow::GetBrushPen()
 	}
 }
 
+//CB-->??
 void ScribusMainWindow::MakeFrame(int f, int c, double *vals)
 {
 	PageItem *currItem = doc->selection->itemAt(0);
@@ -6658,12 +6666,15 @@ void ScribusMainWindow::MakeFrame(int f, int c, double *vals)
 	slotDocCh();
 }
 
+/*
+//CB-->Doc
 void ScribusMainWindow::DeleteObjekt()
 {
 	if (HaveDoc)
 		if (!doc->EditClip)
 			doc->itemSelection_DeleteItem();
 }
+*/
 
 void ScribusMainWindow::ObjektDup()
 {
@@ -6684,6 +6695,7 @@ void ScribusMainWindow::ObjektDup()
 	doc->SnapGuides = savedAlignGuides;
 }
 
+//CB-->Doc
 void ScribusMainWindow::ObjektDupM()
 {
 	slotSelect();
@@ -7224,24 +7236,28 @@ void ScribusMainWindow::doSaveAsPDF()
 	}
 }
 
+//CB-->Doc, stop _storing_ bookmarks in the palette
 void ScribusMainWindow::AddBookMark(PageItem *ite)
 {
 	bookmarkPalette->BView->AddPageItem(ite);
 	StoreBookmarks();
 }
 
+//CB-->Doc, stop _storing_ bookmarks in the palette
 void ScribusMainWindow::DelBookMark(PageItem *ite)
 {
 	bookmarkPalette->BView->DeleteItem(ite);
 	StoreBookmarks();
 }
 
+//CB-->Doc, stop _storing_ bookmarks in the palette
 void ScribusMainWindow::BookMarkTxT(PageItem *ite)
 {
 	bookmarkPalette->BView->ChangeText(ite);
 	StoreBookmarks();
 }
 
+//CB-->Doc, stop _storing_ bookmarks in the palette
 void ScribusMainWindow::RestoreBookMarks()
 {
 	QValueList<ScribusDoc::BookMa>::Iterator it2 = doc->BookMarks.begin();
@@ -7301,6 +7317,7 @@ void ScribusMainWindow::RestoreBookMarks()
 	bookmarkPalette->BView->Last = bookmarkPalette->BView->NrItems;
 }
 
+//CB-->Doc, stop _storing_ bookmarks in the palette
 void ScribusMainWindow::StoreBookmarks()
 {
 	doc->BookMarks.clear();
@@ -7524,6 +7541,7 @@ void ScribusMainWindow::Apply_MasterPage(QString in, int Snr, bool reb)
 	}
 }
 
+//CB-->Doc
 void ScribusMainWindow::GroupObj(bool showLockDia)
 {
 	if (HaveDoc)
@@ -7589,6 +7607,7 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 	}
 }
 
+//CB-->Doc
 void ScribusMainWindow::UnGroupObj()
 {
 	if (HaveDoc)
@@ -8028,6 +8047,7 @@ void ScribusMainWindow::showLayer()
 	view->DrawNew();
 }
 
+/*
 //TODO replace with the ScribusDoc::deleteTaggedItems
 void ScribusMainWindow::LayerRemove(int l, bool dl)
 {
@@ -8066,6 +8086,7 @@ void ScribusMainWindow::LayerRemove(int l, bool dl)
 	rebuildLayersList();
 	view->updateLayerMenu();
 }
+*/
 
 void ScribusMainWindow::UnDoAction()
 {
@@ -8167,6 +8188,7 @@ QString ScribusMainWindow::GetLang(QString inLang)
 	return inLang;
 }
 
+/*
 void ScribusMainWindow::doHyphenate()
 {
 	if (HaveDoc)
@@ -8181,7 +8203,7 @@ void ScribusMainWindow::doHyphenate()
 					doc->docHyphenator->slotNewDict(currItem->Language);
 				doc->docHyphenator->slotHyphenate(currItem);
 			}
-			view->DrawNew();
+			view->DrawNew(); //CB draw new until NLS for redraw through text chains
 			slotDocCh();
 		}
 	}
@@ -8199,11 +8221,12 @@ void ScribusMainWindow::doDeHyphenate()
 				PageItem *currItem = doc->selection->itemAt(i);
 				doc->docHyphenator->slotDeHyphenate(currItem);
 			}
-			view->DrawNew();
+			view->DrawNew(); //CB draw new until NLS for redraw through text chains
 			slotDocCh();
 		}
 	}
 }
+*/
 
 void ScribusMainWindow::ManageGuides()
 {
@@ -8217,6 +8240,7 @@ void ScribusMainWindow::ManageGuides()
 	}
 }
 
+/*
 void ScribusMainWindow::setItemFillTransparency(double t)
 {
 	if (HaveDoc)
@@ -8252,6 +8276,7 @@ void ScribusMainWindow::setItemLineTransparency(double t)
 		}
 	}
 }
+*/
 
 void ScribusMainWindow::ImageEffects()
 {

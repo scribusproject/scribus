@@ -834,23 +834,10 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(this->Cpal, SIGNAL(NewBrush(QString)), ScMW, SLOT(setBrushFarbe(QString)));
 	connect(this->Cpal, SIGNAL(NewPenShade(int)), ScMW, SLOT(setPenShade(int)));
 	connect(this->Cpal, SIGNAL(NewBrushShade(int)), ScMW, SLOT(setBrushShade(int)));
-	connect(this->Cpal, SIGNAL(NewTrans(double)), ScMW, SLOT(setItemFillTransparency(double)));
-	connect(this->Cpal, SIGNAL(NewTransS(double)), ScMW, SLOT(setItemLineTransparency(double)));
 	connect(this->Cpal, SIGNAL(NewGradient(int)), ScMW, SLOT(setGradFill(int)));
 	connect(this->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), ScMW, SLOT(updtGradFill()));
 	connect(this->Cpal, SIGNAL(gradientChanged()), ScMW, SLOT(updtGradFill()));
 	connect(this->Cpal, SIGNAL(QueryItem()), ScMW, SLOT(GetBrushPen()));
-
-
-
-
-
-
-
-
-
-
-
 
 	HaveItem = false;
 	Xpos->setValue(0);
@@ -886,6 +873,9 @@ void Mpalette::SelTab(int t)
 
 void Mpalette::setDoc(ScribusDoc *d)
 {
+	disconnect(this->Cpal, SIGNAL(NewTrans(double)), 0, 0);
+	disconnect(this->Cpal, SIGNAL(NewTransS(double)), 0, 0);
+	
 	doc = d;
 	Umrech=doc->unitRatio();
 	double maxXYWHVal= 30000 * Umrech;
@@ -927,6 +917,9 @@ void Mpalette::setDoc(ScribusDoc *d)
 	updateCList();
 
 	updateSpinBoxConstants();
+	
+	connect(this->Cpal, SIGNAL(NewTrans(double)), doc, SLOT(itemSelection_SetItemFillTransparency(double)));
+	connect(this->Cpal, SIGNAL(NewTransS(double)), doc, SLOT(itemSelection_SetItemLineTransparency(double)));
 }
 
 void Mpalette::unsetDoc()

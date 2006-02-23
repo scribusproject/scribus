@@ -349,6 +349,7 @@ PyObject *scribus_glayerprint(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 {
+//FIXME: Use the docs remove layer code
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return NULL;
@@ -386,7 +387,7 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 				if ((*it).Level > num)
 					(*it).Level -= 1;
 			}
-			ScMW->LayerRemove(num2);
+			ScMW->doc->removeLayer(num2);
 			ScMW->doc->setActiveLayer(0);
 			ScMW->changeLayer(0);
 			found = true;

@@ -315,7 +315,7 @@ void ActionManager::initItemMenuActions()
 
 	connect( (*scrActions)["itemDuplicate"], SIGNAL(activated()), ScMW, SLOT(ObjektDup()) );
 	connect( (*scrActions)["itemMulDuplicate"], SIGNAL(activated()), ScMW, SLOT(ObjektDupM()) );
-	connect( (*scrActions)["itemDelete"], SIGNAL(activated()), ScMW, SLOT(DeleteObjekt()) );
+	//connect( (*scrActions)["itemDelete"], SIGNAL(activated()), ScMW, SLOT(DeleteObjekt()) );
 	connect( (*scrActions)["itemGroup"], SIGNAL(activated()), ScMW, SLOT(GroupObj()) );
 	connect( (*scrActions)["itemUngroup"], SIGNAL(activated()), ScMW, SLOT(UnGroupObj()) );
 	//connect( (*scrActions)["itemLock"], SIGNAL(activated()), ScMW, SLOT(ToggleObjLock()) );
@@ -531,8 +531,6 @@ void ActionManager::initExtrasMenuActions()
 	scrActions->insert("extrasGenerateTableOfContents", new ScrAction(ScMW, "extrasGenerateTableOfContents"));
 
 	connect( (*scrActions)["extrasManagePictures"], SIGNAL(activated()), ScMW, SLOT(StatusPic()) );
-	connect( (*scrActions)["extrasHyphenateText"], SIGNAL(activated()), ScMW, SLOT(doHyphenate()) );
-	connect( (*scrActions)["extrasDeHyphenateText"], SIGNAL(activated()), ScMW, SLOT(doDeHyphenate()) );
 	connect( (*scrActions)["extrasGenerateTableOfContents"], SIGNAL(activated()), ScMW, SLOT(generateTableOfContents()) );
 }
 
@@ -673,6 +671,10 @@ void ActionManager::disconnectNewDocActions()
 	disconnect( (*scrActions)["itemFlipH"], 0, 0, 0);
 	disconnect( (*scrActions)["itemFlipV"], 0, 0, 0);
 	disconnect( (*scrActions)["itemUpdateImage"], 0, 0, 0 );
+	disconnect( (*scrActions)["itemDelete"], 0, 0, 0);
+	disconnect( (*scrActions)["extrasHyphenateText"], 0, 0, 0 );
+	disconnect( (*scrActions)["extrasDeHyphenateText"], 0, 0, 0 );
+
 }
 
 void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
@@ -685,6 +687,9 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 	connect( (*scrActions)["itemFlipH"], SIGNAL(activated()), currDoc, SLOT(itemSelection_FlipH()));
 	connect( (*scrActions)["itemFlipV"], SIGNAL(activated()), currDoc, SLOT(itemSelection_FlipV()));
 	connect( (*scrActions)["itemUpdateImage"], SIGNAL(activated()), currDoc, SLOT(updatePic()) );
+	connect( (*scrActions)["extrasHyphenateText"], SIGNAL(activated()), currDoc, SLOT(itemSelection_DoHyphenate()) );
+	connect( (*scrActions)["extrasDeHyphenateText"], SIGNAL(activated()), currDoc, SLOT(itemSelection_DoDeHyphenate()) );
+	connect( (*scrActions)["itemDelete"], SIGNAL(activated()), currDoc, SLOT(itemSelection_DeleteItem()) );
 }
 
 void ActionManager::disconnectNewViewActions()

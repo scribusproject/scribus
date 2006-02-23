@@ -1471,7 +1471,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							{
 								Zli2 = LiList.at(0);
 								double firstasce = m_Doc->docParagraphStyles[hl->cab].LineSpa;
-								double currasce;
+								double currasce = 0;
 								if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
 									currasce = QMAX(currasce, (Zli2->embedded->gHeight + Zli2->embedded->lineWidth()) * (Zli2->scalev / 1000.0));
 								else

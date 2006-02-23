@@ -1086,7 +1086,7 @@ bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 		undoManager->beginTransaction("Layer", Um::IDocument, Um::DeleteLayer, "", Um::IDelete);
 
 	if (ScQApp->usingGUI())
-		ScMW->LayerRemove(layerNumber, deleteItems);
+		removeLayer(layerNumber, deleteItems);
 	/*
 	//Layer found, do we want to delete its items too?
 	if (masterPageMode)
@@ -2855,7 +2855,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		//FIXME: Stop using the view here
 		ScMW->view->SelectItem(secondaryItem);
 		itemSelection_DeleteItem();
-		ScMW->view->updateContents();
+		emit updateContents();
 		ScMW->view->Deselect(true);
 	}
 	//Create the undo action for the new item
@@ -3530,7 +3530,6 @@ void ScribusDoc::ChLineWidth(double w)
 				                  static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
 				                  -ph,static_cast<int>(currItem->height()+ph));
 			}
-			//ScMW->view->RefreshItem(currItem);
 			emit refreshItem(currItem);
 		}
 		if (selectedItemCount > 1)
@@ -4693,7 +4692,7 @@ void ScribusDoc::MirrorPolyH(PageItem* currItem)
 				ma.translate(qRound(tp.x()), 0);
 				ma.scale(-1, 1);
 				currItem->ContourLine.map(ma);
-				ScMW->view->updateContents();
+				emit updateContents();
 				currItem->FrameOnly = true;
 				currItem->Tinput = true;
 				currItem->paintObj();
@@ -4757,7 +4756,7 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 				ma.translate(0, qRound(tp.y()));
 				ma.scale(1, -1);
 				currItem->ContourLine.map(ma);
-				ScMW->view->updateContents();
+				emit updateContents();
 				currItem->FrameOnly = true;
 				currItem->Tinput = true;
 				currItem->paintObj();
@@ -5000,6 +4999,46 @@ void ScribusDoc::updatePic()
 	}
 }
 
+//TODO replace with the ScribusDoc::deleteTaggedItems
+void ScribusDoc::removeLayer(int l, bool dl)
+{
+	ScMW->view->Deselect();
+	for (uint b = 0; b < MasterItems.count(); ++b)
+	{
+		if (MasterItems.at(b)->LayerNr == l)
+		{
+			if (dl)
+			{
+				selection->addItem(MasterItems.at(b));
+				DocItems.at(b)->setLocked(false);
+			}
+			else
+				MasterItems.at(b)->setLayer(0);
+		}
+	}
+	if (selection->count() != 0)
+		itemSelection_DeleteItem();
+	selection->clear();
+	for (uint b = 0; b < DocItems.count(); ++b)
+	{
+		if (DocItems.at(b)->LayerNr == l)
+		{
+			if (dl)
+			{
+				selection->addItem(DocItems.at(b));
+				DocItems.at(b)->setLocked(false);
+			}
+			else
+				DocItems.at(b)->setLayer(0);
+		}
+	}
+	if (selection->count() != 0)
+		itemSelection_DeleteItem();
+	//FIXME signal these
+	ScMW->rebuildLayersList();
+	ScMW->view->updateLayerMenu();
+}
+
 void ScribusDoc::itemSelection_ToggleLock( )
 {
 	uint docSelectionCount=selection->count();
@@ -5213,124 +5252,217 @@ void ScribusDoc::itemSelection_ClearItem()
 
 void ScribusDoc::itemSelection_DeleteItem()
 {
+	if (EditClip)
+		return;
+	uint docSelectionCount = selection->count();
+	if (docSelectionCount == 0)
+		return;
 	uint a, c;
 	QPtrList<PageItem> delItems;
 	PageItem *currItem;
-	uint docSelectionCount = selection->count();
-	if (docSelectionCount != 0)
+	uint offs = 0;
+	QString tooltip = Um::ItemsInvolved + "\n";
+	for (uint de = 0; de < docSelectionCount; ++de)
 	{
-		uint offs = 0;
-		QString tooltip = Um::ItemsInvolved + "\n";
-		for (uint de = 0; de < docSelectionCount; ++de)
+		currItem = selection->itemAt(offs);
+		if ((currItem->isTableItem && currItem->isSingleSel) || (currItem->locked()))
 		{
-			currItem = selection->itemAt(offs);
-			if ((currItem->isTableItem && currItem->isSingleSel) || (currItem->locked()))
-			{
-				offs++;
-				continue;
-			}
-			//CB FIXME remove this and include of story.h too
-			if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==ScMW->storyEditor->currentItem() && this==ScMW->storyEditor->currentDocument())
-			{
-				QMessageBox::critical(ScMW, tr("Cannot Delete In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The delete operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
-				return;
-			}
-			tooltip += "\t" + currItem->getUName() + "\n";
-			delItems.append(selection->takeItem(offs));
+			offs++;
+			continue;
 		}
-		if (delItems.count() == 0)
-			return;
-		docSelectionCount = delItems.count();
-
-		if (docSelectionCount > 1)
-			undoManager->beginTransaction(Um::Group + "/" + Um::Selection, Um::IGroup,
-										  Um::Delete, tooltip, Um::IDelete);
-
-		for (uint de = 0; de < docSelectionCount; ++de)
+		//CB FIXME remove this and include of story.h too
+		if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==ScMW->storyEditor->currentItem() && this==ScMW->storyEditor->currentDocument())
 		{
-			currItem = delItems.last();
-			if ((currItem->asImageFrame()) && ((ScMW->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail)))
-				ScMW->fileWatcher->removeFile(currItem->Pfile);
-			if (currItem->asTextFrame())
+			QMessageBox::critical(ScMW, tr("Cannot Delete In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The delete operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+			return;
+		}
+		tooltip += "\t" + currItem->getUName() + "\n";
+		delItems.append(selection->takeItem(offs));
+	}
+	if (delItems.count() == 0)
+		return;
+	docSelectionCount = delItems.count();
+
+	if (docSelectionCount > 1)
+		undoManager->beginTransaction(Um::Group + "/" + Um::Selection, Um::IGroup,
+										Um::Delete, tooltip, Um::IDelete);
+
+	for (uint de = 0; de < docSelectionCount; ++de)
+	{
+		currItem = delItems.last();
+		if ((currItem->asImageFrame()) && ((ScMW->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail)))
+			ScMW->fileWatcher->removeFile(currItem->Pfile);
+		if (currItem->asTextFrame())
+		{
+			for (ScText *it = currItem->itemText.first(); it != 0; it = currItem->itemText.next())
 			{
-				for (ScText *it = currItem->itemText.first(); it != 0; it = currItem->itemText.next())
+				if ((it->ch == QChar(25)) && (it->cembedded != 0))
+					FrameItems.remove(it->cembedded);
+			}
+			if ((currItem->NextBox != 0) || (currItem->BackBox != 0))
+			{
+				if (currItem->BackBox == 0)
 				{
-					if ((it->ch == QChar(25)) && (it->cembedded != 0))
-						FrameItems.remove(it->cembedded);
+					currItem->NextBox->BackBox = currItem->BackBox;
+					c = currItem->itemText.count();
+					for (a = 0; a < c; ++a)
+						currItem->NextBox->itemText.prepend(currItem->itemText.take(currItem->itemText.count()-1));
+					if ((currItem->isAutoText) && (currItem->NextBox == 0))
+						LastAuto = 0;
 				}
-				if ((currItem->NextBox != 0) || (currItem->BackBox != 0))
+				else
 				{
-					if (currItem->BackBox == 0)
-					{
+					currItem->BackBox->NextBox = currItem->NextBox;
+					if (currItem->NextBox != 0)
 						currItem->NextBox->BackBox = currItem->BackBox;
-						c = currItem->itemText.count();
-						for (a = 0; a < c; ++a)
-							currItem->NextBox->itemText.prepend(currItem->itemText.take(currItem->itemText.count()-1));
-						if ((currItem->isAutoText) && (currItem->NextBox == 0))
-							LastAuto = 0;
-					}
 					else
 					{
-						currItem->BackBox->NextBox = currItem->NextBox;
-						if (currItem->NextBox != 0)
-							currItem->NextBox->BackBox = currItem->BackBox;
-						else
-						{
-							if (currItem->isAutoText)
-								LastAuto = currItem->BackBox;
-						}
-						c = currItem->itemText.count();
-						for (a = 0; a < c; ++a)
-							currItem->BackBox->itemText.append(currItem->itemText.take(0));
+						if (currItem->isAutoText)
+							LastAuto = currItem->BackBox;
 					}
-				}
-				else
-				{
-					if (currItem->isAutoText)
-					{
-						LastAuto = 0;
-						FirstAuto = 0;
-					}
+					c = currItem->itemText.count();
+					for (a = 0; a < c; ++a)
+						currItem->BackBox->itemText.append(currItem->itemText.take(0));
 				}
 			}
-			if (currItem->isBookmark)
-				//CB From view   emit DelBM(currItem);
-				ScMW->DelBookMark(currItem);
-			Items->remove(currItem);
-			delItems.removeLast();
-			// send the undo action to the UndoManager
-			if (UndoManager::undoEnabled())
+			else
 			{
-				ItemState<PageItem*> *is = new ItemState<PageItem*>(Um::Delete + " " + currItem->getUName(), "", Um::IDelete);
-				is->setItem(currItem);
-				is->set("DELETE_ITEM", "delete_item");
-				UndoObject *target;
-				if (currItem->OwnPage > -1)
-					target = Pages->at(currItem->OwnPage);
-				else
-					target = Pages->at(0);
-				undoManager->action(target, is, currItem->getUPixmap());
+				if (currItem->isAutoText)
+				{
+					LastAuto = 0;
+					FirstAuto = 0;
+				}
 			}
 		}
-		updateFrameItems();
-		for (uint a = 0; a < Items->count(); ++a)
+		if (currItem->isBookmark)
+			//CB From view   emit DelBM(currItem);
+			ScMW->DelBookMark(currItem);
+		Items->remove(currItem);
+		delItems.removeLast();
+		// send the undo action to the UndoManager
+		if (UndoManager::undoEnabled())
 		{
-			Items->at(a)->ItemNr = a;
+			ItemState<PageItem*> *is = new ItemState<PageItem*>(Um::Delete + " " + currItem->getUName(), "", Um::IDelete);
+			is->setItem(currItem);
+			is->set("DELETE_ITEM", "delete_item");
+			UndoObject *target;
+			if (currItem->OwnPage > -1)
+				target = Pages->at(currItem->OwnPage);
+			else
+				target = Pages->at(0);
+			undoManager->action(target, is, currItem->getUPixmap());
 		}
-		if (docSelectionCount > 1)
-			undoManager->commit();
-		updateContents();
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		//CB FIXME remove this and tree.h too
-		ScMW->outlinePalette->BuildTree();
-		if (selection->count() == 0)
-			emit firstSelectedItemType(-1);
-		else
-		{
-			//emit HaveSel(Doc->selection->itemAt(0)->itemType());
-			selection->itemAt(0)->emitAllToGUI();
-		}
-		emit changed();
-		
 	}
+	updateFrameItems();
+	for (uint a = 0; a < Items->count(); ++a)
+	{
+		Items->at(a)->ItemNr = a;
+	}
+	if (docSelectionCount > 1)
+		undoManager->commit();
+	updateContents();
+	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	//CB FIXME remove this and tree.h too
+	ScMW->outlinePalette->BuildTree();
+	if (selection->count() == 0)
+		emit firstSelectedItemType(-1);
+	else
+	{
+		//emit HaveSel(Doc->selection->itemAt(0)->itemType());
+		selection->itemAt(0)->emitAllToGUI();
+	}
+	emit changed();
+}
+
+
+void ScribusDoc::itemSelection_SetItemFillTransparency(double t)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		for (uint i = 0; i < selectedItemCount; ++i)
+		{
+			PageItem *currItem = selection->itemAt(i);
+			currItem->setFillTransparency(t);
+		}
+		emit updateContents();
+		emit changed();
+	}
+}
+
+void ScribusDoc::itemSelection_SetItemLineTransparency(double t)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		for (uint i = 0; i < selectedItemCount; ++i)
+		{
+			PageItem *currItem = selection->itemAt(i);
+			currItem->setLineTransparency(t);
+		}
+		emit updateContents();
+		emit changed();
+	}
+}
+
+void ScribusDoc::itemSelection_DoHyphenate()
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		for (uint i = 0; i < selectedItemCount; ++i)
+		{
+			PageItem *currItem = selection->itemAt(i);
+			if (docHyphenator->Language != currItem->Language)
+				docHyphenator->slotNewDict(currItem->Language);
+			docHyphenator->slotHyphenate(currItem);
+		}
+		ScMW->view->DrawNew(); //CB draw new until NLS for redraw through text chains
+		emit changed();
+	}
+}
+
+void ScribusDoc::itemSelection_DoDeHyphenate()
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		for (uint i = 0; i < selectedItemCount; ++i)
+		{
+			PageItem *currItem = selection->itemAt(i);
+			docHyphenator->slotDeHyphenate(currItem);
+		}
+		ScMW->view->DrawNew(); //CB draw new until NLS for redraw through text chains
+		emit changed();
+	}
+}
+
+
+void ScribusDoc::itemSelection_SendToLayer(int layerNumber)
+{
+	uint docSelectionCount=selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (UndoManager::undoEnabled() && docSelectionCount > 1)
+			undoManager->beginTransaction();
+		QString tooltip = Um::ItemsInvolved + "\n";
+		for (uint a = 0; a < docSelectionCount; ++a)
+		{
+			PageItem *currItem = selection->itemAt(a);
+			currItem->setLayer(layerNumber);
+			tooltip += "\t" + currItem->getUName() + "\n";
+		}
+		if (UndoManager::undoEnabled() && docSelectionCount > 1)
+			undoManager->commit(Um::Selection,
+								Um::IGroup,
+								Um::SendToLayer,
+								tooltip,
+								Um::ILayerAction);
+	}
+	
+	//CB why not just the following as we are calling for updatecontents anyway and we arent reflowing text
+	//Doc->selection->clear();
+	ScMW->view->Deselect(true);
+	emit updateContents();
+	emit changed();
 }
