@@ -26,7 +26,9 @@ StencilReader::StencilReader()
 
 QPixmap StencilReader::createPreview(QString data)
 {
-	double GrW, GrH, pmmax;
+	double pmmax;
+	double GrW = 50.0;
+	double GrH = 50.0;
 	QPixmap tmp = QPixmap(0, 0);
 	QColor stroke = Qt::black;
 	QColor fill = Qt::white;
@@ -47,8 +49,8 @@ QPixmap StencilReader::createPreview(QString data)
 		QDomElement pg=DOC.toElement();
 		if(pg.tagName()=="Dimensions")
 		{
-			GrW = pg.attribute("w").toDouble()+10;
-			GrH = pg.attribute("h").toDouble()+10;
+			GrW = pg.attribute("w","50").toDouble()+10;
+			GrH = pg.attribute("h","50").toDouble()+10;
 			pmmax = 60 / QMAX(GrW, GrH);
 			tmp = QPixmap(static_cast<int>(GrW), static_cast<int>(GrH));
 			pS = new ScPainter(&tmp, tmp.width(), tmp.height());
@@ -247,7 +249,8 @@ QPixmap StencilReader::createPreview(QString data)
 
 QString StencilReader::createObjects(QString data)
 {
-	double GrW, GrH;
+	double GrW = 50.0;
+	double GrH = 50.0;
 	QString tmp = "";
 	QColor stroke = Qt::black;
 	QColor fill = Qt::white;
@@ -284,8 +287,8 @@ QString StencilReader::createObjects(QString data)
 		QDomElement pg=DOC.toElement();
 		if(pg.tagName()=="Dimensions")
 		{
-			GrW = pg.attribute("w").toDouble();
-			GrH = pg.attribute("h").toDouble();
+			GrW = pg.attribute("w","50").toDouble();
+			GrH = pg.attribute("h","50").toDouble();
 		}
 		if(pg.tagName()=="KivioShape")
 		{

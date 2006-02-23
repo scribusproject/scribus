@@ -44,7 +44,7 @@ public:
     const char*const Desc;   
 };
 
-#define MAX_SECTIONS 20
+#define MAX_SECTIONS 60
 #define PSEUDO_IMAGE_MARKER 0x123; // Extra value.
 
 class ExifData {
