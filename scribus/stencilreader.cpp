@@ -521,7 +521,7 @@ QString StencilReader::createObjects(QString data)
 		tmp = ss->WriteElem(currDoc, ScMW->view, currDoc->selection);
 #ifndef QT_MAC
 // see #2526
-		ScMW->view->DeleteItem();
+		currDoc->itemSelection_DeleteItem();
 #endif
 //		ScMW->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScMW->view->scale()), qRound((maxSize.y() - minSize.y()) * ScMW->view->scale()));
 //		ScMW->view->scrollBy(qRound((currDoc->minCanvasCoordinate.x() - minSize.x()) * ScMW->view->scale()), qRound((currDoc->minCanvasCoordinate.y() - minSize.y()) * ScMW->view->scale()));
