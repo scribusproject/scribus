@@ -2011,7 +2011,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			if ((Doc->appMode == modeEdit) && (ScMW->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
 				ScMW->scrActions["editPaste"]->addTo(pmen);
 			if (!currItem->locked() && (Doc->appMode != modeEdit) && (!(currItem->isTableItem && currItem->isSingleSel)))
-				pmen->insertItem( tr("&Delete"), this, SLOT(DeleteItem()));
+				pmen->insertItem( tr("&Delete"), Doc, SLOT(itemSelection_DeleteItem()));
 			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 				ScMW->scrActions["editClearContents"]->addTo(pmen);
 			pmen->insertSeparator();
