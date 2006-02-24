@@ -270,7 +270,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/collect4output.h              $(prefix)/include/scribus/collect4output.h
 	$(INSTALL_DATA) $(srcdir)/color.h                       $(prefix)/include/scribus/color.h
 	$(INSTALL_DATA) $(srcdir)/colorchart.h                  $(prefix)/include/scribus/colorchart.h
-	$(INSTALL_DATA) $(srcdir)/colorcombo.h			$(prefix)/include/scribus/colorcombo.h
+	$(INSTALL_DATA) $(srcdir)/colorcombo.h                  $(prefix)/include/scribus/colorcombo.h
 	$(INSTALL_DATA) $(srcdir)/colorm.h                      $(prefix)/include/scribus/colorm.h
 	$(INSTALL_DATA) $(srcdir)/cpalette.h                    $(prefix)/include/scribus/cpalette.h
 	$(INSTALL_DATA) $(srcdir)/crypt.h                       $(prefix)/include/scribus/crypt.h
@@ -375,7 +375,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/rc4.h                         $(prefix)/include/scribus/rc4.h
 	$(INSTALL_DATA) $(srcdir)/rulermover.h                  $(prefix)/include/scribus/rulermover.h
 	$(INSTALL_DATA) $(srcdir)/reformdoc.h                   $(prefix)/include/scribus/reformdoc.h
-	$(INSTALL_DATA) $(srcdir)/sampleitem.h                     $(prefix)/include/scribus/sampleitem.h
+	$(INSTALL_DATA) $(srcdir)/sampleitem.h                  $(prefix)/include/scribus/sampleitem.h
 	$(INSTALL_DATA) $(srcdir)/sccolor.h                     $(prefix)/include/scribus/sccolor.h
 	$(INSTALL_DATA) $(srcdir)/scfonts.h                     $(prefix)/include/scribus/scfonts.h
 	$(INSTALL_DATA) $(srcdir)/scfonts_ttf.h                 $(prefix)/include/scribus/scfonts_ttf.h
