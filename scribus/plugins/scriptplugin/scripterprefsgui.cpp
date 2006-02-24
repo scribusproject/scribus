@@ -18,7 +18,9 @@ for which a new license (GPL+exception) is in place.
 #include <prefspanel.h>
 #include <qtabwidget.h>
 #include <qpushbutton.h>
+#include <qtoolbutton.h>
 #include <qcolordialog.h>
+#include <qfiledialog.h>
 
 
 ScripterPrefsGui::ScripterPrefsGui(QWidget* parent )
@@ -42,10 +44,14 @@ ScripterPrefsGui::ScripterPrefsGui(QWidget* parent )
 	startupScriptLayout = new QHBoxLayout(0, 10, 5, "startupScriptLayout");
 
 	startupScriptEditLabel = new QLabel(startupTab, "startupScriptEditLabel");
-	startupScriptLayout->addWidget(startupScriptEditLabel);
-
 	startupScriptEdit = new QLineEdit(startupTab, "startupScriptEdit");
+	startupScriptChangeButton = new QToolButton( startupTab, "startupScriptChangeButton" );
+	startupScriptChangeButton->setMinimumSize( QSize( 88, 24 ) );
+	startupScriptChangeButton->setText( tr( "Change..." ) );
+	
+	startupScriptLayout->addWidget(startupScriptEditLabel);
 	startupScriptLayout->addWidget(startupScriptEdit);
+	startupScriptLayout->addWidget(startupScriptChangeButton);
 	extLayout->addLayout(startupScriptLayout);
 	extScriptSpacer = new QSpacerItem(10, 10, QSizePolicy::Minimum, QSizePolicy::Expanding);
 	extLayout->addItem(extScriptSpacer);
@@ -106,6 +112,7 @@ ScripterPrefsGui::ScripterPrefsGui(QWidget* parent )
 	connect(signButton, SIGNAL(clicked()), this, SLOT(setColor()));
 	connect(stringButton, SIGNAL(clicked()), this, SLOT(setColor()));
 	connect(numberButton, SIGNAL(clicked()), this, SLOT(setColor()));
+	connect(startupScriptChangeButton, SIGNAL(clicked()), this, SLOT(changeStartupScript()));
 }
 
 /*
@@ -170,6 +177,14 @@ void ScripterPrefsGui::setupSyntaxColors()
 	stringButton->setPaletteBackgroundColor(syntax->stringColor);
 	numberButton->setPaletteBackgroundColor(syntax->numberColor);
 	delete(syntax);
+}
+
+void ScripterPrefsGui::changeStartupScript()
+{
+	QFileInfo fi(startupScriptEdit->text());
+	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "d", tr("Locate Startup Script"));
+	if (!s.isEmpty())
+		startupScriptEdit->setText(s);
 }
 
 #include "scripterprefsgui.moc"
