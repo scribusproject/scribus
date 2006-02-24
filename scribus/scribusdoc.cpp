@@ -932,11 +932,11 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	addedPage->initialMargins.Bottom = pageMargins.Bottom;
 	addedPage->initialMargins.Left = pageMargins.Left;
 	addedPage->initialMargins.Right = pageMargins.Right;
-	addedPage->setPageNr(pageNumber);
 	addedPage->PageSize = PageSize;
 	addedPage->PageOri = PageOri;
 	addedPage->MPageNam = "";
 	addedPage->setPageName(pageName);
+	addedPage->setPageNr(pageNumber);
 	MasterNames.insert(pageName, pageNumber);
 	bool insertsuccess=MasterPages.insert(pageNumber, addedPage);
 	Q_ASSERT(insertsuccess==true && MasterPages.at(pageNumber)!=NULL);

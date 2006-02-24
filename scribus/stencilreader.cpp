@@ -58,6 +58,8 @@ QPixmap StencilReader::createPreview(QString data)
 		}
 		if(pg.tagName()=="KivioShape")
 		{
+			stroke = Qt::black;
+			fill = Qt::white;
 			FPointArray PoLine;
 			PoLine.resize(0);
 			double x, y, x1, y1, currx, curry, startx, starty;
@@ -262,19 +264,22 @@ QString StencilReader::createObjects(QString data)
 	if (!ScMW->HaveDoc)
 		return tmp;
 	currDoc = ScMW->doc;
-	if (!currDoc->PageColors.contains("Black"))
-		currDoc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
-	if (!currDoc->PageColors.contains("White"))
-		currDoc->PageColors.insert("White", ScColor(0, 0, 0, 255));
-	QString FillCol = "White";
-	QString StrokeCol = "Black";
+	view = ScMW->view;
+	if (!currDoc->PageColors.contains("FromKivio_Black"))
+		currDoc->PageColors.insert("FromKivio_Black", ScColor(0, 0, 0, 255));
+	if (!currDoc->PageColors.contains("FromKivio_White"))
+		currDoc->PageColors.insert("FromKivio_White", ScColor(0, 0, 0, 0));
+	QString FillCol = "FromKivio_White";
+	QString StrokeCol = "FromKivio_Black";
 	FPoint minSize = currDoc->minCanvasCoordinate;
 	FPoint maxSize = currDoc->maxCanvasCoordinate;
-	ScMW->view->Deselect();
+	double BaseX = currDoc->currentPage->xOffset();
+	double BaseY = currDoc->currentPage->yOffset();
+	view->Deselect();
 	Elements.clear();
 	currDoc->setLoading(true);
 	currDoc->DoDrawing = false;
-	ScMW->view->setUpdatesEnabled(false);
+	view->setUpdatesEnabled(false);
 	ScMW->ScriptRunning = true;
 	QDomDocument docu("scridoc");
 	docu.setContent(data);
@@ -292,6 +297,8 @@ QString StencilReader::createObjects(QString data)
 		}
 		if(pg.tagName()=="KivioShape")
 		{
+			FillCol = "FromKivio_White";
+			StrokeCol = "FromKivio_Black";
 			FPointArray PoLine;
 			PoLine.resize(0);
 			double x, y, x1, y1, currx, curry, startx, starty;
@@ -304,6 +311,7 @@ QString StencilReader::createObjects(QString data)
 				QDomElement pt = point.toElement();
 				if(pt.tagName()=="KivioFillStyle")
 				{
+					fillStyle = pt.attribute("colorStyle","1").toInt();
 					QString colnam = pt.attribute("color","#000000");
 					fill.setNamedColor("#"+colnam.right(6));
 					ColorList::Iterator it;
@@ -327,7 +335,8 @@ QString StencilReader::createObjects(QString data)
 						currDoc->PageColors.insert("FromKivio"+fill.name(), tmp);
 						FillCol = "FromKivio"+fill.name();
 					}
-					fillStyle = pt.attribute("colorStyle","1").toInt();
+					if (fillStyle == 0)
+						FillCol = "None";
 				}
 				if(pt.tagName()=="KivioLineStyle")
 				{
@@ -442,7 +451,7 @@ QString StencilReader::createObjects(QString data)
 			}
 			if ((typ == "Polygon") || (typ == "ClosedPath"))
 			{
-				int z = currDoc->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, GrW, GrH, strokewidth, FillCol, StrokeCol, true);
+				int z = currDoc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, GrW, GrH, strokewidth, FillCol, StrokeCol, true);
 				PageItem* ite = currDoc->Items->at(z);
 				ite->PoLine.resize(0);
 				ite->PoLine = PoLine.copy();
@@ -454,12 +463,12 @@ QString StencilReader::createObjects(QString data)
 				FPoint wh = getMaxClipF(&ite->PoLine);
 				ite->setWidthHeight(wh.x(), wh.y());
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-				ScMW->view->AdjustItemSize(ite);
+				view->AdjustItemSize(ite);
 				Elements.append(ite);
 			}
 			else if ((typ == "Bezier") || (typ == "OpenPath") || (typ == "LineArray") || (typ == "Polyline"))
 			{
-				int z = currDoc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, GrW, GrH, strokewidth, FillCol, StrokeCol, true);
+				int z = currDoc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, GrW, GrH, strokewidth, FillCol, StrokeCol, true);
 				PageItem* ite = currDoc->Items->at(z);
 				ite->PoLine.resize(0);
 				ite->PoLine = PoLine.copy();
@@ -471,7 +480,7 @@ QString StencilReader::createObjects(QString data)
 				FPoint wh = getMaxClipF(&ite->PoLine);
 				ite->setWidthHeight(wh.x(), wh.y());
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-				ScMW->view->AdjustItemSize(ite);
+				view->AdjustItemSize(ite);
 				Elements.append(ite);
 			}
 			if (typ == "Rectangle")
@@ -480,7 +489,7 @@ QString StencilReader::createObjects(QString data)
 				y = pg.attribute("y").toDouble();
 				x1 = pg.attribute("w").toDouble();
 				y1 = pg.attribute("h").toDouble();
-				int z = currDoc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, x1, y1, strokewidth, FillCol, StrokeCol, true);
+				int z = currDoc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX+x, BaseY+y, x1, y1, strokewidth, FillCol, StrokeCol, true);
 				PageItem* ite = currDoc->Items->at(z);
 				ite->PLineEnd = LineEnd;
 				ite->PLineJoin = LineJoin;
@@ -493,7 +502,7 @@ QString StencilReader::createObjects(QString data)
 				y = pg.attribute("y").toDouble();
 				x1 = pg.attribute("w").toDouble();
 				y1 = pg.attribute("h").toDouble();
-				int z = currDoc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, x1, y1, strokewidth, FillCol, StrokeCol, true);
+				int z = currDoc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX+x, BaseY+y, x1, y1, strokewidth, FillCol, StrokeCol, true);
 				PageItem* ite = currDoc->Items->at(z);
 				ite->PLineEnd = LineEnd;
 				ite->PLineJoin = LineJoin;
@@ -520,20 +529,17 @@ QString StencilReader::createObjects(QString data)
 			currDoc->selection->addItem(Elements.at(dre));
 		}
 		ScriXmlDoc *ss = new ScriXmlDoc();
-		ScMW->view->setGroupRect();
-		tmp = ss->WriteElem(currDoc, ScMW->view, currDoc->selection);
-#ifndef QT_MAC
-// see #2526
+		view->setGroupRect();
+		tmp = ss->WriteElem(currDoc, view, currDoc->selection);
 		currDoc->itemSelection_DeleteItem();
-#endif
-//		ScMW->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScMW->view->scale()), qRound((maxSize.y() - minSize.y()) * ScMW->view->scale()));
-//		ScMW->view->scrollBy(qRound((currDoc->minCanvasCoordinate.x() - minSize.x()) * ScMW->view->scale()), qRound((currDoc->minCanvasCoordinate.y() - minSize.y()) * ScMW->view->scale()));
-//		currDoc->minCanvasCoordinate = minSize;
-//		currDoc->maxCanvasCoordinate = maxSize;
+		view->resizeContents(qRound((maxSize.x() - minSize.x()) * view->scale()), qRound((maxSize.y() - minSize.y()) * view->scale()));
+		view->scrollBy(qRound((currDoc->minCanvasCoordinate.x() - minSize.x()) * view->scale()), qRound((currDoc->minCanvasCoordinate.y() - minSize.y()) * view->scale()));
+		currDoc->minCanvasCoordinate = minSize;
+		currDoc->maxCanvasCoordinate = maxSize;
 		delete ss;
 	}
 	ScMW->ScriptRunning = false;
 	currDoc->DoDrawing = true;
-	ScMW->view->setUpdatesEnabled(true);
+	view->setUpdatesEnabled(true);
 	return tmp;
 }

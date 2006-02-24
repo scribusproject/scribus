@@ -33,7 +33,6 @@ public:
 	void SaveContents(QString name, QString oldName);
 	void ReadOldContents(QString, QString newName);
 	void ReadContents(QString name);
-//	void RebuildView();
 	struct Elem
 	{
 		QString Data;
@@ -60,12 +59,10 @@ class SCRIBUS_API Biblio : public ScrPaletteBase
 public:
 	Biblio( QWidget* parent);
 	~Biblio() {};
-//	void AdjustMenu();
 	void ObjFromMenu(QString text);
 	void setScrapbookFileName(QString);
 	const QString getScrapbookFileName();
 	const int objectCount();
-//	void rebuildView();
 	void readContents(QString);
 	void readOldContents(QString, QString);
 	void installEventFilter(const QObject *);
@@ -83,13 +80,11 @@ private slots:
 	void SaveAs();
 	void closeLib();
 	void libChanged(QWidget *lib);
-//	void SetPreview(int id);
 
 protected:
 //	QMap<QString, QGuardedPtr<ScrAction> > scrapbookActions;
 	QPopupMenu* pmenu;
 	QPopupMenu* fmenu;
-//	QPopupMenu* vmenu;
 	QMenuBar* menuBar;
 	QTabWidget* Frame3;
 	QVBoxLayout* BiblioLayout;
@@ -102,9 +97,6 @@ protected:
 	int fSave;
 	int fSaveAs;
 	int fClose;
-/*	int vSmall;
-	int vMedium;
-	int vLarge; */
 };
 
 #endif // BIBLIO_H
