@@ -438,16 +438,20 @@ public slots:
 	void setFSizeMenu(int size);
 	/** Farbeditor */
 	void slotEditColors();
-	/** Setzt den Pen-Tonwert */
+	/*
+	// Setzt den Pen-Tonwert
 	void setPenShade(int sh);
-	/** Setzt den Brush-Tonwert */
+	// Setzt den Brush-Tonwert
 	void setBrushShade(int sh);
 	void setGradFill(int typ);
+	*/
 	void updtGradFill();
-	/** Setzt die Pen-Farbe */
+	/*
+	// Setzt die Pen-Farbe
 	void setPenFarbe(QString farbe);
-	/** Setzt die Brush-Farbe */
+	// Setzt die Brush-Farbe
 	void setBrushFarbe(QString farbe);
+	*/
 	void setCSMenu(QString f, QString l, int fs, int ls);
 	/** Fragt nach den Farben */
 	void GetBrushPen();

@@ -100,6 +100,7 @@ void NameWidget::focusOutEvent(QFocusEvent *e)
 
 Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalette", false, 0)
 {
+	doc=NULL;
 	HaveDoc = false;
 	HaveItem = false;
 	RoVal = 0;
@@ -830,14 +831,9 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(this, SIGNAL(EditCL()), ScMW, SLOT(ToggleFrameEdit()));
 	connect(this, SIGNAL(NewTF(const QString&)), ScMW, SLOT(SetNewFont(const QString&)));
 	connect(this, SIGNAL(UpdtGui(int)), ScMW, SLOT(HaveNewSel(int)));
-	connect(this->Cpal, SIGNAL(NewPen(QString)), ScMW, SLOT(setPenFarbe(QString)));
-	connect(this->Cpal, SIGNAL(NewBrush(QString)), ScMW, SLOT(setBrushFarbe(QString)));
-	connect(this->Cpal, SIGNAL(NewPenShade(int)), ScMW, SLOT(setPenShade(int)));
-	connect(this->Cpal, SIGNAL(NewBrushShade(int)), ScMW, SLOT(setBrushShade(int)));
-	connect(this->Cpal, SIGNAL(NewGradient(int)), ScMW, SLOT(setGradFill(int)));
-	connect(this->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), ScMW, SLOT(updtGradFill()));
-	connect(this->Cpal, SIGNAL(gradientChanged()), ScMW, SLOT(updtGradFill()));
 	connect(this->Cpal, SIGNAL(QueryItem()), ScMW, SLOT(GetBrushPen()));
+	connect(this->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), ScMW, SLOT(updtGradFill()));
+	connect(this->Cpal, SIGNAL(gradientChanged()), ScMW, SLOT(updtGradFill()));	
 
 	HaveItem = false;
 	Xpos->setValue(0);
@@ -875,6 +871,11 @@ void Mpalette::setDoc(ScribusDoc *d)
 {
 	disconnect(this->Cpal, SIGNAL(NewTrans(double)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewTransS(double)), 0, 0);
+	disconnect(this->Cpal, SIGNAL(NewPen(QString)), 0, 0);
+	disconnect(this->Cpal, SIGNAL(NewBrush(QString)), 0, 0);
+	disconnect(this->Cpal, SIGNAL(NewPenShade(int)), 0, 0);
+	disconnect(this->Cpal, SIGNAL(NewBrushShade(int)), 0, 0);
+	disconnect(this->Cpal, SIGNAL(NewGradient(int)), 0, 0);
 	
 	doc = d;
 	Umrech=doc->unitRatio();
@@ -920,11 +921,18 @@ void Mpalette::setDoc(ScribusDoc *d)
 	
 	connect(this->Cpal, SIGNAL(NewTrans(double)), doc, SLOT(itemSelection_SetItemFillTransparency(double)));
 	connect(this->Cpal, SIGNAL(NewTransS(double)), doc, SLOT(itemSelection_SetItemLineTransparency(double)));
+	connect(this->Cpal, SIGNAL(NewPen(QString)), doc, SLOT(ItemPen(QString)));
+	connect(this->Cpal, SIGNAL(NewBrush(QString)), doc, SLOT(ItemBrush(QString)));
+	connect(this->Cpal, SIGNAL(NewPenShade(int)), doc, SLOT(ItemPenShade(int)));
+	connect(this->Cpal, SIGNAL(NewBrushShade(int)), doc, SLOT(ItemBrushShade(int)));
+	connect(this->Cpal, SIGNAL(NewGradient(int)), doc, SLOT(ItemGradFill(int)));
 }
 
 void Mpalette::unsetDoc()
 {
 	HaveDoc = false;
+	HaveItem = false;
+	doc=NULL;
 }
 
 void Mpalette::setCurrentItem(PageItem *i)

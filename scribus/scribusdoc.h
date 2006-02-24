@@ -548,7 +548,6 @@ public:
 	void ChLocalXY(double x, double y);
 	void ChLocalSc(double x, double y);
 	void ItemFont(QString fon);
-	void ItemPen(QString farbe);
 	void ItemTextBrush(QString farbe);
 	void ItemTextBrushS(int sha);
 	void ItemTextPen(QString farbe);
@@ -560,10 +559,6 @@ public:
 	void setItemTextShadow(int shx, int shy);
 	void setItemTextUnderline(int pos, int wid);
 	void setItemTextStrike(int pos, int wid);
-	void ItemBrush(QString farbe);
-	void ItemBrushShade(int sha);
-	void ItemPenShade(int sha);
-	void ItemGradFill(int typ);
 	void chTyStyle(int s);
 	void SetAbStyle(int s);
 	void chAbStyle(PageItem *currItem, int s);
@@ -813,6 +808,13 @@ public slots:
 	void itemSelection_DoHyphenate();
 	void itemSelection_DoDeHyphenate();
 	void itemSelection_SendToLayer(int layerNumber);
+	
+	void ItemPen(QString farbe);
+	void ItemPenShade(int sha);
+	void ItemBrush(QString farbe);
+	void ItemBrushShade(int sha);
+	void ItemGradFill(int typ);
+	
 	void updatePic();
 	void updatePict(QString name);
 	void removePict(QString name);

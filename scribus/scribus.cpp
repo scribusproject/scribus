@@ -1897,13 +1897,6 @@ void ScribusMainWindow::newView()
 	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 }
 
-/*CB Unnecessary code, used once, lets use the slot directly
-bool ScribusMainWindow::DoSaveClose()
-{
-	return slotFileSave();
-}
-*/
-
 void ScribusMainWindow::windowsMenuAboutToShow()
 {
 	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrWindowsActions.begin(); it!=scrWindowsActions.end(); ++it )
@@ -2914,38 +2907,6 @@ void ScribusMainWindow::updateItemLayerList()
 			connect( (*it), SIGNAL(activatedData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
 	}
 }
-
-/*
-void ScribusMainWindow::sendToLayer(int layerNumber)
-{
-	if (HaveDoc)
-	{
-		uint docSelectionCount=doc->selection->count();
-		if (docSelectionCount != 0)
-		{
-			if (UndoManager::undoEnabled() && docSelectionCount > 1)
-				undoManager->beginTransaction();
-			QString tooltip = Um::ItemsInvolved + "\n";
-			for (uint a = 0; a < docSelectionCount; ++a)
-			{
-				PageItem *currItem = doc->selection->itemAt(a);
-				currItem->setLayer(layerNumber);
-				tooltip += "\t" + currItem->getUName() + "\n";
-			}
-			if (UndoManager::undoEnabled() && docSelectionCount > 1)
-				undoManager->commit(Um::Selection,
-									Um::IGroup,
-									Um::SendToLayer,
-									tooltip,
-									Um::ILayerAction);
-		}
-
-		view->Deselect(true);
-		view->updateContents();
-		slotDocCh();
-	}
-}
-*/
 
 bool ScribusMainWindow::slotDocOpen()
 {
@@ -6560,59 +6521,6 @@ void ScribusMainWindow::slotEditColors()
 	delete dia;
 }
 
-//CB-->Doc
-void ScribusMainWindow::setPenFarbe(QString farbe)
-{
-	if (HaveDoc)
-	{
-		doc->ItemPen(farbe);
-		slotDocCh();
-	}
-}
-
-//CB-->Doc
-void ScribusMainWindow::setPenShade(int sh)
-{
-	//setActiveWindow();
-	if (HaveDoc)
-	{
-		doc->ItemPenShade(sh);
-		slotDocCh();
-	}
-}
-
-//CB-->Doc
-void ScribusMainWindow::setBrushFarbe(QString farbe)
-{
-	if (HaveDoc)
-	{
-		doc->ItemBrush(farbe);
-		slotDocCh();
-	}
-}
-
-//CB-->Doc
-void ScribusMainWindow::setBrushShade(int sh)
-{
-	//setActiveWindow();
-	if (HaveDoc)
-	{
-		doc->ItemBrushShade(sh);
-		slotDocCh();
-	}
-}
-
-//CB-->Doc
-void ScribusMainWindow::setGradFill(int typ)
-{
-	if (HaveDoc)
-	{
-		doc->ItemGradFill(typ);
-		slotDocCh();
-	}
-}
-
-//CB-->Doc
 void ScribusMainWindow::updtGradFill()
 {
 	if (HaveDoc)
@@ -6665,16 +6573,6 @@ void ScribusMainWindow::MakeFrame(int f, int c, double *vals)
 	view->RefreshItem(currItem);
 	slotDocCh();
 }
-
-/*
-//CB-->Doc
-void ScribusMainWindow::DeleteObjekt()
-{
-	if (HaveDoc)
-		if (!doc->EditClip)
-			doc->itemSelection_DeleteItem();
-}
-*/
 
 void ScribusMainWindow::ObjektDup()
 {
@@ -8047,47 +7945,6 @@ void ScribusMainWindow::showLayer()
 	view->DrawNew();
 }
 
-/*
-//TODO replace with the ScribusDoc::deleteTaggedItems
-void ScribusMainWindow::LayerRemove(int l, bool dl)
-{
-	view->Deselect();
-	for (uint b = 0; b < doc->MasterItems.count(); ++b)
-	{
-		if (doc->MasterItems.at(b)->LayerNr == l)
-		{
-			if (dl)
-			{
-				doc->selection->addItem(doc->MasterItems.at(b));
-				doc->DocItems.at(b)->setLocked(false);
-			}
-			else
-				doc->MasterItems.at(b)->setLayer(0);
-		}
-	}
-	if (doc->selection->count() != 0)
-		doc->itemSelection_DeleteItem();
-	doc->selection->clear();
-	for (uint b = 0; b < doc->DocItems.count(); ++b)
-	{
-		if (doc->DocItems.at(b)->LayerNr == l)
-		{
-			if (dl)
-			{
-				doc->selection->addItem(doc->DocItems.at(b));
-				doc->DocItems.at(b)->setLocked(false);
-			}
-			else
-				doc->DocItems.at(b)->setLayer(0);
-		}
-	}
-	if (doc->selection->count() != 0)
-		doc->itemSelection_DeleteItem();
-	rebuildLayersList();
-	view->updateLayerMenu();
-}
-*/
-
 void ScribusMainWindow::UnDoAction()
 {
 	undoManager->undo(1);
@@ -8188,46 +8045,6 @@ QString ScribusMainWindow::GetLang(QString inLang)
 	return inLang;
 }
 
-/*
-void ScribusMainWindow::doHyphenate()
-{
-	if (HaveDoc)
-	{
-		uint selectedItemCount=doc->selection->count();
-		if (selectedItemCount != 0)
-		{
-			for (uint i = 0; i < selectedItemCount; ++i)
-			{
-				PageItem *currItem = doc->selection->itemAt(i);
-				if (doc->docHyphenator->Language != currItem->Language)
-					doc->docHyphenator->slotNewDict(currItem->Language);
-				doc->docHyphenator->slotHyphenate(currItem);
-			}
-			view->DrawNew(); //CB draw new until NLS for redraw through text chains
-			slotDocCh();
-		}
-	}
-}
-
-void ScribusMainWindow::doDeHyphenate()
-{
-	if (HaveDoc)
-	{
-		uint selectedItemCount=doc->selection->count();
-		if (selectedItemCount != 0)
-		{
-			for (uint i = 0; i < selectedItemCount; ++i)
-			{
-				PageItem *currItem = doc->selection->itemAt(i);
-				doc->docHyphenator->slotDeHyphenate(currItem);
-			}
-			view->DrawNew(); //CB draw new until NLS for redraw through text chains
-			slotDocCh();
-		}
-	}
-}
-*/
-
 void ScribusMainWindow::ManageGuides()
 {
 	if (HaveDoc)
@@ -8239,44 +8056,6 @@ void ScribusMainWindow::ManageGuides()
 		delete dia;
 	}
 }
-
-/*
-void ScribusMainWindow::setItemFillTransparency(double t)
-{
-	if (HaveDoc)
-	{
-		uint selectedItemCount=doc->selection->count();
-		if (selectedItemCount != 0)
-		{
-			for (uint i = 0; i < selectedItemCount; ++i)
-			{
-				PageItem *currItem = doc->selection->itemAt(i);
-				currItem->setFillTransparency(t);
-			}
-			view->DrawNew();
-			slotDocCh();
-		}
-	}
-}
-
-void ScribusMainWindow::setItemLineTransparency(double t)
-{
-	if (HaveDoc)
-	{
-		uint selectedItemCount=doc->selection->count();
-		if (selectedItemCount != 0)
-		{
-			for (uint i = 0; i < selectedItemCount; ++i)
-			{
-				PageItem *currItem = doc->selection->itemAt(i);
-				currItem->setLineTransparency(t);
-			}
-			view->DrawNew();
-			slotDocCh();
-		}
-	}
-}
-*/
 
 void ScribusMainWindow::ImageEffects()
 {
@@ -8666,7 +8445,7 @@ void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
 							doc->ItemTextBrush(colorName); //Text colour
 						else
 						if (m->stateAfter() & Qt::AltButton) //Line colour
-							setPenFarbe(colorName);
+							doc->ItemPen(colorName);
 						else
 							doc->ItemBrush(colorName); //Fill colour
 					}

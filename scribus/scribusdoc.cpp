@@ -3724,6 +3724,7 @@ void ScribusDoc::ItemPen(QString farbe)
 		if (selectedItemCount > 1)
 			undoManager->commit();
 	}
+	emit changed();
 }
 
 void ScribusDoc::ItemTextBrush(QString farbe)
@@ -4124,6 +4125,7 @@ void ScribusDoc::ItemBrush(QString farbe)
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
+		emit changed();
 	}
 }
 
@@ -4145,6 +4147,7 @@ void ScribusDoc::ItemBrushShade(int sha)
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
+		emit changed();
 	}
 }
 
@@ -4165,6 +4168,7 @@ void ScribusDoc::ItemPenShade(int sha)
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
+		emit changed();
 	}
 }
 
@@ -4181,6 +4185,7 @@ void ScribusDoc::ItemGradFill(int typ)
 			currItem->updateGradientVectors();
 			emit refreshItem(currItem);
 		}
+		emit changed();
 	}
 }
 
