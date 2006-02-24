@@ -542,7 +542,11 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 	StartObj(2);
 	PutDoc("<<\n/Creator "+EncString("(Scribus "+QString(VERSION)+")",2)+"\n");
 	PutDoc("/Producer "+EncString("(Libpdf for Scribus "+QString(VERSION)+")",2)+"\n");
-	PutDoc("/Title "+EncString("("+doc.documentInfo.getTitle()+")",2)+"\n");
+	QString docTitle = doc.documentInfo.getTitle();
+	if ((Options.Version == 12) && (docTitle.isEmpty()))
+		PutDoc("/Title "+EncString("("+doc.DocName+")",2)+"\n");
+	else
+		PutDoc("/Title "+EncString("("+doc.documentInfo.getTitle()+")",2)+"\n");
 	PutDoc("/Author "+EncString("("+doc.documentInfo.getAuthor()+")",2)+"\n");
 	PutDoc("/Keywords "+EncString("("+doc.documentInfo.getKeywords()+")",2)+"\n");
 	PutDoc("/CreationDate "+EncString("("+Datum+")",2)+"\n");
