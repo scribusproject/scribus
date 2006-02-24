@@ -2132,7 +2132,9 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItem(seActions["unicodeCopyRight"], "InsertChar");
 	seMenuMgr->addMenuItem(seActions["unicodeRegdTM"], "InsertChar");
 	seMenuMgr->addMenuItem(seActions["unicodeTM"], "InsertChar");
+	seMenuMgr->addMenuItem(seActions["unicodeSolidus"], "InsertChar");
 	seMenuMgr->addMenuItem(seActions["unicodeBullet"], "InsertChar");
+	seMenuMgr->addMenuItem(seActions["unicodeMidpoint"], "InsertChar");
 	seMenuMgr->addMenuSeparator("InsertChar");
 	seMenuMgr->addMenuItem(seActions["unicodeDashEm"], "InsertChar");
 	seMenuMgr->addMenuItem(seActions["unicodeDashEn"], "InsertChar");
@@ -2162,8 +2164,15 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItem(seActions["unicodeQuoteCJKSingleRight"], "InsertQuote");
 	seMenuMgr->addMenuItem(seActions["unicodeQuoteCJKDoubleLeft"], "InsertQuote");
 	seMenuMgr->addMenuItem(seActions["unicodeQuoteCJKDoubleRight"], "InsertQuote");
-	seMenuMgr->createMenu("InsertSpace", QPixmap(noIcon), tr("Space"), "Insert");
+	seMenuMgr->createMenu("InsertSpace", QPixmap(noIcon), tr("Spaces && Breaks"), "Insert");
 	seMenuMgr->addMenuItem(seActions["unicodeNonBreakingSpace"], "InsertSpace");
+	seMenuMgr->addMenuItem(seActions["unicodeSpaceEN"], "InsertSpace");
+	seMenuMgr->addMenuItem(seActions["unicodeSpaceEM"], "InsertSpace");
+	seMenuMgr->addMenuItem(seActions["unicodeSpaceThin"], "InsertSpace");
+	seMenuMgr->addMenuItem(seActions["unicodeSpaceThick"], "InsertSpace");
+	seMenuMgr->addMenuItem(seActions["unicodeSpaceMid"], "InsertSpace");
+	seMenuMgr->addMenuItem(seActions["unicodeSpaceHair"], "InsertSpace");
+	seMenuMgr->addMenuSeparator("InsertSpace");
 	seMenuMgr->addMenuItem(seActions["unicodeNewLine"], "InsertSpace");
 	seMenuMgr->addMenuItem(seActions["unicodeFrameBreak"], "InsertSpace");
 	seMenuMgr->addMenuItem(seActions["unicodeColumnBreak"], "InsertSpace");

@@ -811,7 +811,9 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["unicodeCopyRight"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeRegdTM"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeTM"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["unicodeSolidus"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeBullet"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["unicodeMidpoint"], "InsertChar");
 	scrMenuMgr->addMenuSeparator("InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeDashEm"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeDashEn"], "InsertChar");
@@ -844,8 +846,15 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteCJKDoubleLeft"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteCJKDoubleRight"], "InsertQuote");
 
-	scrMenuMgr->createMenu("InsertSpace", QPixmap(noIcon), tr("Space"), "Insert");
+	scrMenuMgr->createMenu("InsertSpace", QPixmap(noIcon), tr("Spaces && Breaks"), "Insert");
 	scrMenuMgr->addMenuItem(scrActions["unicodeNonBreakingSpace"], "InsertSpace");
+	scrMenuMgr->addMenuItem(scrActions["unicodeSpaceEN"], "InsertSpace");
+	scrMenuMgr->addMenuItem(scrActions["unicodeSpaceEM"], "InsertSpace");
+	scrMenuMgr->addMenuItem(scrActions["unicodeSpaceThin"], "InsertSpace");
+	scrMenuMgr->addMenuItem(scrActions["unicodeSpaceThick"], "InsertSpace");
+	scrMenuMgr->addMenuItem(scrActions["unicodeSpaceMid"], "InsertSpace");
+	scrMenuMgr->addMenuItem(scrActions["unicodeSpaceHair"], "InsertSpace");
+	scrMenuMgr->addMenuSeparator("InsertSpace");
 	scrMenuMgr->addMenuItem(scrActions["unicodeNewLine"], "InsertSpace");
 	scrMenuMgr->addMenuItem(scrActions["unicodeFrameBreak"], "InsertSpace");
 	scrMenuMgr->addMenuItem(scrActions["unicodeColumnBreak"], "InsertSpace");

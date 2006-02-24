@@ -570,6 +570,13 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	actionMap->insert("unicodeNonBreakingHyphen", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+ALT+Key_Minus, actionParent, "unicodeNonBreakingHyphen",24));
 	actionMap->insert("unicodeNonBreakingSpace", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+Key_Space, actionParent, "unicodeNonBreakingSpace",29));
 	actionMap->insert("unicodePageNumber", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+SHIFT+ALT+Key_P, actionParent, "unicodePageNumber",30));
+	//Spaces
+	actionMap->insert("unicodeSpaceEN", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeSpaceEN",0x2002));
+	actionMap->insert("unicodeSpaceEM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeSpaceEM",0x2003));
+	actionMap->insert("unicodeSpaceThin", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeSpaceThin",0x2009));
+	actionMap->insert("unicodeSpaceThick", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeSpaceThick",0x2004));
+	actionMap->insert("unicodeSpaceMid", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeSpaceMid",0x2005));
+	actionMap->insert("unicodeSpaceHair", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeSpaceHair",0x200A));
 	//Breaks
 	actionMap->insert("unicodeNewLine", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", SHIFT+Key_Return, actionParent, "unicodeNewLine",28));
 	actionMap->insert("unicodeFrameBreak", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+Key_Return, actionParent, "unicodeFrameBreak",27));
@@ -579,6 +586,8 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	actionMap->insert("unicodeRegdTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeRegdTM",0x00AE));
 	actionMap->insert("unicodeTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeTM",0x2122));
 	actionMap->insert("unicodeBullet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeBullet",0x2022));
+	actionMap->insert("unicodeMidpoint", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeMidpoint",0x00B7));
+	actionMap->insert("unicodeSolidus", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeSolidus",0x2044));
 	//Dashes
 	actionMap->insert("unicodeDashEm", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeDashEm",0x2014));
 	actionMap->insert("unicodeDashEn", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeDashEn",0x2013));
@@ -614,12 +623,15 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	
 	//Spaces and special characters
 	*actionNamesList << "unicodeSmartHyphen" << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodePageNumber";
+	*actionNamesList << "unicodeSpaceEN" << "unicodeSpaceEM" << "unicodeSpaceThin" << "unicodeSpaceThick" << "unicodeSpaceMid" << "unicodeSpaceHair";
 	//Breaks
 	*actionNamesList << "unicodeNewLine" << "unicodeFrameBreak" << "unicodeColumnBreak";
 	//Copyrights and TMs
 	*actionNamesList << "unicodeCopyRight" << "unicodeRegdTM" << "unicodeTM";
+	//Slashes
+	*actionNamesList << "unicodeSolidus";
 	//Bullets
-	*actionNamesList << "unicodeBullet";
+	*actionNamesList << "unicodeBullet" << "unicodeMidpoint";
 	//Dashes
 	*actionNamesList << "unicodeDashEm" << "unicodeDashEn" << "unicodeDashFigure" << "unicodeDashQuotation";
 	//Straight quotes
@@ -1090,7 +1102,9 @@ void ActionManager::languageChangeUnicodeActions(QMap<QString, QGuardedPtr<ScrAc
 	(*actionMap)["unicodeCopyRight"]->setTexts( tr("Copyright"));
 	(*actionMap)["unicodeRegdTM"]->setTexts( tr("Registered Trademark"));
 	(*actionMap)["unicodeTM"]->setTexts( tr("Trademark"));
+	(*actionMap)["unicodeSolidus"]->setTexts( tr("Solidus"));
 	(*actionMap)["unicodeBullet"]->setTexts( tr("Bullet"));
+	(*actionMap)["unicodeMidpoint"]->setTexts( tr("Middle Dot"));
 	(*actionMap)["unicodeDashEm"]->setTexts( tr("Em Dash"));
 	(*actionMap)["unicodeDashEn"]->setTexts( tr("En Dash"));
 	(*actionMap)["unicodeDashFigure"]->setTexts( tr("Figure Dash"));
@@ -1114,6 +1128,13 @@ void ActionManager::languageChangeUnicodeActions(QMap<QString, QGuardedPtr<ScrAc
 	(*actionMap)["unicodeQuoteCJKSingleRight"]->setTexts( tr("CJK Single Right"));
 	(*actionMap)["unicodeQuoteCJKDoubleLeft"]->setTexts( tr("CJK Double Left"));
 	(*actionMap)["unicodeQuoteCJKDoubleRight"]->setTexts( tr("CJK Double Right"));
+
+	(*actionMap)["unicodeSpaceEN"]->setTexts( tr("En Space"));
+	(*actionMap)["unicodeSpaceEM"]->setTexts( tr("Em Space"));
+	(*actionMap)["unicodeSpaceThin"]->setTexts( tr("Thin Space"));
+	(*actionMap)["unicodeSpaceThick"]->setTexts( tr("Thick Space"));
+	(*actionMap)["unicodeSpaceMid"]->setTexts( tr("Mid Space"));
+	(*actionMap)["unicodeSpaceHair"]->setTexts( tr("Hair Space"));
 
 	(*actionMap)["unicodeSmartHyphen"]->setText( tr("Insert Smart Hyphen"));
 	(*actionMap)["unicodeNonBreakingHyphen"]->setText( tr("Insert Non Breaking Dash"));
