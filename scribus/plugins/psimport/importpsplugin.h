@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 class ScrAction;
 
 #define FORMATID_PSIMPORT 4
+#define FORMATID_PDFIMPORT 9
 
 class PLUGIN_API ImportPSPlugin : public LoadSavePlugin
 {

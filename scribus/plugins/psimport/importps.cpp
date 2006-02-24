@@ -249,6 +249,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString ext = fi.extension(false).lower();
 	args.append( getShortPathName(PrefsManager::instance()->ghostscriptExecutable()) );
 	args.append( "-q" );
+	args.append( "-dWRITESYSTEMDICT" );
 	args.append( "-dNOPAUSE" );
 	args.append( "-dNODISPLAY" );
 	args.append( "-dBATCH" );
@@ -271,6 +272,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( tmp.setNum(-y) );
 	args.append( "translate" );
 	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(tmpFile)) );
+	args.append( QString("-sInputFile=%1").arg(QDir::convertSeparators(fn)) );
 	args.append( pfad2 );
 	args.append( QDir::convertSeparators(fn) );
 	args.append( "-c" );
@@ -497,13 +499,83 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 				}
 				currPath += params;
 			}
-			else if (token == "cp")
+			else if (token == "cp") {
 				ClosedPath = true;
+			}
+			else if (token == "im") {
+				Image(params);
+			}
 			lasttoken = token;
 		}
 		f.close();
 	}
 }
+
+void EPSPlug::Image(QString vals)
+{
+	double x, y, w, h, angle;
+	int horpix, verpix;
+	QString filename, device;
+	QTextStream Code(&vals, IO_ReadOnly);
+	Code >> x;
+	Code >> y;
+	Code >> w;
+	Code >> h;
+	Code >> angle;
+	Code >> horpix;
+	Code >> verpix;
+	Code >> device;
+	Code >> filename;
+	qDebug(QString("import %6 image %1: %2x%3 @ (%4,%5) °%5").arg(filename).arg(w).arg(h).arg(x).arg(y).arg(angle).arg(device));
+	QString rawfile = filename.mid(0, filename.length()-3) + "dat";
+	QStringList args;
+	args.append( getShortPathName(PrefsManager::instance()->ghostscriptExecutable()) );
+	args.append( "-q" );
+	args.append( "-dNOPAUSE" );
+	args.append( QString("-sDEVICE=%1").arg(device) );    
+	args.append( "-dBATCH" );
+	args.append( QString("-g%1x%2").arg(horpix).arg(verpix) );
+	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(filename)) );
+	args.append( QDir::convertSeparators(rawfile) );
+	args.append( "-c" );
+	args.append( "showpage" );
+	args.append( "quit" );
+	QCString finalCmd = args.join(" ").local8Bit();
+	int ret = System(args);
+	if (ret != 0)
+	{
+		qDebug("PostScript image conversion failed when calling gs as: \n%s\n", finalCmd.data());
+		qDebug("Error code: %i", ret);
+		QString mess = tr("Converting Image:\n%1\nfailed!").arg(rawfile);
+		QMessageBox::critical(0, tr("Error"), mess, 1, 0, 0);
+	}
+	else {
+		QFile::remove(rawfile);
+	}
+	int z = ScMW->doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, w, h, LineW, CommonStrings::None, CurrColor, true);
+	PageItem * ite = ScMW->doc->Items->at(z);
+	ite->setXYPos(ScMW->doc->currentPage->xOffset() + x, ScMW->doc->currentPage->yOffset() + y);
+	ite->setWidthHeight(w, h);
+	ite->clearContents();
+/*	FPoint a(x, y);
+	FPoint b(x+w, y);
+	FPoint c(x+w, y-h);
+	FPoint d(x, y-h);
+	ite->PoLine.resize(0);
+	ite->PoLine.addQuadPoint(a, a, b, b);
+	ite->PoLine.addQuadPoint(b, b, c, c);
+	ite->PoLine.addQuadPoint(c, c, d, d);
+	ite->PoLine.addQuadPoint(d, d, a, a);
+	ite->PoLine.translate(ScMW->doc->currentPage->xOffset(), ScMW->doc->currentPage->yOffset());
+	ite->ClipEdited = true;
+	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+*/	ScMW->doc->loadPict(filename, ite, -1);
+	ite->setRotation(angle);
+	ite->setImageScalingMode(false, true); // fit to frame, keep ratio
+//	ScMW->view->AdjustItemSize(ite);
+	Elements.append(ite);	
+}
+
 
 void EPSPlug::LineTo(FPointArray *i, QString vals)
 {

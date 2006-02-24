@@ -7,6 +7,9 @@
 % created:  2000-09-09
 % modified: 
 %
+
+%%% this file also contains a section taken from GPL Ghostscript 8.50 "traceimg.ps", see below
+
 % this PostScript code writes a file with the structure below.
 % # # # # l		(x0 y0 x1 y1) line
 % # # # # # # # #c	(x0 y0 x1 y1 x2 y2 x3 y3) curve
@@ -39,9 +42,11 @@
 % lj #              linejoin
 % lc #              linecap
 % ld # # #n         linedash count offset d1, d2, dx
+% im #              image <name>
 % 15.05.2004 Added the Glyphshow Operator.
 % 17.05.2004 Made clipping working.
 % 20.05.2004 kshow is working now.
+% 22.02.2006 added image and colorimage ops
 
 /cfile OutputFile (w) file def
 /print { cfile exch writestring } bind def
@@ -412,8 +417,259 @@
 % because this doesn't work for flattening text (show, charpath) with NeXT PostScript Code
 /rectclip
 {
-	pop pop pop pop
+	% let Scribus decide what to do with rci: pop pop pop pop
+	(rci ) print 
+	str cvs print ( ) print
+	str cvs print ( ) print
+	str cvs print ( ) print
+	str cvs print (\n) print
 } bind def
+
+
+%    Copyright (C) 1994 Aladdin Enterprises.  All rights reserved.
+% 
+% This software is provided AS-IS with no warranty, either express or
+% implied.
+% 
+% This software is distributed under license and may not be copied,
+% modified or distributed except as expressly authorized under the terms
+% of the license contained in the file LICENSE in this distribution.
+% 
+% For more information about licensing, please refer to
+% http://www.ghostscript.com/licensing/. For information on
+% commercial licensing, go to http://www.artifex.com/licensing/ or
+% contact Artifex Software, Inc., 101 Lucas Valley Road #110,
+% San Rafael, CA  94903, U.S.A., +1(415)492-9861.
+
+% $Id$
+% traceimg.ps
+% Trace the data supplied to the 'image' operator.
+
+% This code currently handles only the (Level 2) dictionary form of image,
+% with a single data source and 8-bit pixels.
+
+% changed for Scribus image import by Andreas Vox, 2006-2-21
+% added support for colorimage and other image variant
+
+/concatenate   % str1 str2 concatenate str12
+{
+	dup length 2 index length add string
+	dup 3 index length 3 index putinterval
+	dup 0 4 index putinterval
+	exch pop exch pop
+} bind def 
+
+/==write  % any ==write -
+{ 
+	dup type dup /arraytype eq exch /packedarraytype eq or
+	{ 
+		i_file ([) writestring 
+			{ ==write i_file ( ) writestring } forall 
+		i_file (]) writestring
+	} {
+	dup type /nametype eq
+	{
+		i_file (/) writestring i_file exch str cvs writestring
+	} {
+	dup type /dicttype eq
+	{
+		i_file (<<) writestring
+		{ ==write ( ) ==write ==write (\n) ==write } forall
+		i_file (>>) writestring
+	} {
+		i_file exch str cvs writestring
+	} ifelse } ifelse } ifelse
+} def
+
+/_image			% <dict> _image -
+{
+	begin 
+		/i_left Width Height mul Decode length 2 idiv mul BitsPerComponent mul 8 idiv dup /i_size exch store store 
+		/i_dict currentdict store 
+		/i_nsources 1 store 
+		/i_source 0 store 
+		/i_datasource currentdict /DataSource get store
+		currentdict /MultipleDataSources known not 
+			{ /MultipleDataSources false def } if
+		MultipleDataSources
+		{
+			/i_nsources  DataSource length store
+			/i_datasource DataSource 0 get store
+		} if
+	end
+	storeMatrix 
+	i_dict /ImageMatrix get matrix invertmatrix matrix currentmatrix matrix concatmatrix /i_m exch def
+	i_dict /Width get  0 i_m dtransform dup mul exch dup mul add sqrt /i_w exch def 
+	0 i_dict /Height get i_m dtransform dup mul exch dup mul add sqrt /i_h exch def
+	0  0 i_m transform  /i_y exch def /i_x exch def 
+	/i_angle 0 def  % FIXME
+	/InputFile where { /InputFile get (.) search { exch pop exch pop } if } { (imagefile) } ifelse
+	    (-) concatenate i_filecount 9 string cvs concatenate
+		(\nim ) print											% im x y w h angle ...
+		i_x str cvs print ( ) print
+		i_y str cvs print ( ) print
+		i_w str cvs print ( ) print
+		i_h str cvs print ( ) print
+		i_angle str cvs print ( ) print
+		i_dict /Width get  str cvs print ( ) print			% ... hpix vpix ...
+		i_dict /Height get str cvs print ( ) print
+		currentcolorspace 0 get /DeviceRGB eq
+			{ (tiff24nc ) print } 
+		{ currentcolorspace 0 get /DeviceCMYK eq
+			{ (tiff32nc ) print } 
+		{ currentcolorspace 0 get /DeviceGray eq
+			{ (tiffgray ) print } 
+			{ (tiff32nc ) print }
+		ifelse } ifelse } ifelse
+        dup  (.tif) concatenate print (\n) print flush        % ... dev filename
+		(.dat) concatenate (w) file /i_file exch store
+	i_filecount 1 add /i_filecount exch store
+	currentcolorspace ==write ( setcolorspace\n) ==write
+	(<<\n) ==write 
+	i_dict { exch
+		  dup /DataSource eq 
+			{ pop pop (/DataSource currentfile\n) ==write }
+		  {
+			dup /ImageMatrix eq 
+				{ pop pop (/ImageMatrix [1 0 0 -1 0 ) ==write i_dict /Height get ==write (]\n) ==write }
+				{ ==write ( ) ==write ==write (\n) ==write }
+			ifelse 
+		  } ifelse 
+		} forall 
+	(>>\nimage\n) ==write i_file flushfile
+
+    { %loop
+      i_left 0 le 
+      { 
+		i_source 1 add /i_source exch def
+        i_source i_nsources ge { exit } if
+        i_dict /DataSource get i_source get /i_datasource exch def
+		/i_left i_size def
+      } if
+      /i_datasource load exec
+      dup type /filetype eq
+       { i_buf 0 i_left 32 .min getinterval readstring pop
+       } if
+      dup i_file exch writestring 
+      i_left exch length sub /i_left exch def
+    } loop
+    i_file flushfile
+ } bind def
+
+/colorimage
+{
+      % width height bits/sample matrix datasource0..n-1 multi ncomp
+      /tmpN exch def
+      {
+         /tmpN load array astore
+      } if
+      /tmpN load 6 add dict
+      dup 7 -1 roll /Width exch put 
+      dup 6 -1 roll /Height exch put 
+      dup 5 -1 roll /BitsPerComponent exch put 
+      dup 4 -1 roll /ImageMatrix exch put 
+      dup 3 -1 roll /DataSource exch put 
+      dup /DataSource get type /array eq
+      {
+         dup /MultipleDataSources true put
+      } if
+      dup /ImageType 1 put
+      gsave
+      /tmpN load
+         dup 1 eq
+         {
+            1 index /Decode [0 1] /Decode put
+            /DeviceGray setcolorspace
+         } if
+         dup 3 eq
+         {
+             1 index /Decode [0 1 0 1 0 1] put
+            /DeviceRGB setcolorspace
+         } if
+         dup 4 eq
+         {
+            1 index /Decode [0 1 0 1 0 1 0 1]  put
+            /DeviceCMYK setcolorspace
+         } if
+      pop
+      _image
+	  grestore
+} bind def
+
+/image {
+   gsave
+   dup type /dicttype ne 
+   {
+      % width height bits/sample matrix datasource
+      7 dict
+      dup 7 -1 roll /Width exch put
+      dup 6 -1 roll /Height exch put
+      dup 5 -1 roll /BitsPerComponent  exch put
+      dup 4 -1 roll /ImageMatrix exch put
+      dup 3 -1 roll /DataSource exch put
+      dup 1 /ImageType exch put
+      dup [0 1] /Decode exch put
+      /DeviceGray setcolorspace
+   } if
+   _image
+   grestore
+} bind def
+
+/imagemask
+{
+	dup type /dicttype ne 
+	{
+      % width height pol matrix datasource
+      7 dict
+      dup 7 -1 roll /Width exch put
+      dup 6 -1 roll /Height exch put
+      dup 5 -1 roll { [0 1] } { [1 0] } ifelse /Decode exch put
+      dup 4 -1 roll /ImageMatrix exch put
+      dup 3 -1 roll /DataSource exch put
+	} if
+    dup 1 /ImageType exch put
+    dup 1 /BitsPerComponent exch put
+	gsave
+	/DeviceGray setcolorspace
+	_image
+	grestore
+	
+	% for now only print the dict, FIXME
+%	currentcolorspace 
+%	dup == (setcolorspace) =
+%	dup 0 get /DeviceGray eq
+%		{ currentcolor == (setcolor) = }
+%	{ dup 0 get /DeviceRGB eq
+%		{ currentcolor == == == (setcolor) = }
+%	{ dup 0 get /DeviceCMYK eq
+%		{ currentcolor == == == == (setcolor) = }
+%	{ currentcolor type /dicttype eq
+%		{ (<<) = currentcolor { exch == == } forall (>>\nsetcolor) = }
+%		{ currentcolor == (setcolor) = }
+%	ifelse } ifelse } ifelse } ifelse pop
+%	(<<) =
+%	{ 
+%		exch
+%		== ==
+%	} forall 
+%	(>>\nimagemask) = flush
+} bind def
+
+
+% declare some global vars
+
+/i_left 0 def
+/i_size 0 def
+/i_dict null def
+/i_buf 32 string def
+/i_nsources 1 def
+/i_source 0 def
+/i_datasource (x) def
+/i_file null def
+/i_filecount 1 def
+
+%%%% End of traceimage code
+
 
 /stateArray 500 array def
 /stateTop 0 def

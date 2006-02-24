@@ -96,6 +96,18 @@ void ImportPSPlugin::registerFormats()
 	fmt.mimeTypes = QStringList("application/postscript"); // MIME types
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);
+
+	QString pdfName = tr("PDF");
+	FileFormat fmt2(this);
+	fmt2.trName = pdfName; // Human readable name
+	fmt2.formatId = FORMATID_PDFIMPORT;
+	fmt2.filter = pdfName + " (*.pdf *.PDF)"; // QFileDialog filter
+	fmt2.nameMatch = QRegExp("\\.pdf$", false);
+	fmt2.load = true;
+	fmt2.save = false;
+	fmt2.mimeTypes = QStringList("application/pdf"); // MIME types
+	fmt2.priority = 64; // Priority
+	registerFormat(fmt2);
 }
 
 bool ImportPSPlugin::fileSupported(QIODevice* /* file */) const
