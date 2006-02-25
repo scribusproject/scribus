@@ -272,7 +272,8 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( tmp.setNum(-y) );
 	args.append( "translate" );
 	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(tmpFile)) );
-	args.append( QString("-sInputFile=%1").arg(QDir::convertSeparators(fn)) );
+	QString exportPath = fi.dirPath(true) + "/" + fi.baseName();
+	args.append( QString("-sExportFiles=%1").arg(QDir::convertSeparators(fn)) );
 	args.append( pfad2 );
 	args.append( QDir::convertSeparators(fn) );
 	args.append( "-c" );
@@ -285,7 +286,19 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	if (ret != 0)
 	{
 		qDebug("PostScript import failed when calling gs as: \n%s\n", finalCmd.data());
-		qDebug("Error code: %i", ret);
+		qDebug("Ghostscript diagnostics:\n");
+		QFile diag(tmpFile);
+		if (diag.open(IO_ReadOnly)) {
+			QString line;
+			for (int i=0; i < 20; ++i) {
+				diag.readLine(line, 120);
+				qDebug("\t%s", line.ascii());
+			}
+			diag.close();
+		}
+		else {
+			qDebug("-- no output --");
+		}
 		QString mess = tr("Importing File:\n%1\nfailed!").arg(fn);
 		QMessageBox::critical(0, tr("Fatal Error"), mess, 1, 0, 0);
 		return false;
@@ -545,7 +558,19 @@ void EPSPlug::Image(QString vals)
 	if (ret != 0)
 	{
 		qDebug("PostScript image conversion failed when calling gs as: \n%s\n", finalCmd.data());
-		qDebug("Error code: %i", ret);
+		qDebug("Ghostscript diagnostics:\n");
+		QFile diag(filename);
+		if (diag.open(IO_ReadOnly)) {
+			QString line;
+			for (int i=0; i < 20; ++i) {
+				diag.readLine(line, 120);
+				qDebug("\t%s", line.ascii());
+			}
+			diag.close();
+		}
+		else {
+			qDebug("-- no output --");
+		}
 		QString mess = tr("Converting Image:\n%1\nfailed!").arg(rawfile);
 		QMessageBox::critical(0, tr("Error"), mess, 1, 0, 0);
 	}

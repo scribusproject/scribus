@@ -66,7 +66,7 @@
 /beginY 0 def
 
 % dummy for converting strings
-/str 50 string def
+/i_str 50 string def
 
 % 0 = mirror at
 /mirror 0 def
@@ -106,31 +106,31 @@
 	{
 		currentrgbcolor	% -> r g b
 		(corgb )print
-		2 index str cvs print
+		2 index i_str cvs print
 		( ) print
-		1 index str cvs print
+		1 index i_str cvs print
 		( ) print
-		str cvs print
+		i_str cvs print
 		( ) print
 		pop pop
 		.currentopacityalpha	% a
-		str cvs print
+		i_str cvs print
 		(\n) print
 	} 
 	{
 		currentcmykcolor	% -> c m y k
 		(co )print
-		3 index str cvs print
+		3 index i_str cvs print
 		( ) print
-		2 index str cvs print
+		2 index i_str cvs print
 		( ) print
-		1 index str cvs print
+		1 index i_str cvs print
 		( ) print
-		str cvs print
+		i_str cvs print
 		( ) print
 		pop pop pop
 		.currentopacityalpha	% a
-		str cvs print
+		i_str cvs print
 		(\n) print
 	} ifelse
 
@@ -139,24 +139,24 @@
 /writecurrentlinecap
 {
 	(lc ) print
-	currentlinecap str cvs print
+	currentlinecap i_str cvs print
 	(\n) print
 } bind def
 
 /writecurrentlinejoin
 {
 	(lj ) print
-	currentlinejoin str cvs print
+	currentlinejoin i_str cvs print
 	(\n) print
 } bind def
 
 /writecurrentdash
 {
 	(ld ) print
-	currentdash 1 index length str cvs print ( ) print str cvs print ( ) print
+	currentdash 1 index length i_str cvs print ( ) print i_str cvs print ( ) print
 	0 1 2 index length 1 sub
 	{
-		1 index exch get str cvs print ( ) print
+		1 index exch get i_str cvs print ( ) print
 	} for
 	pop
 	(\n) print
@@ -171,7 +171,7 @@
 	% (wb + wd + wa + wc) / 2
 	dup dup dup m_b abs mul exch m_d abs mul add  exch m_a abs mul add  exch m_c abs mul add  2 div  abs
 	(w ) print
-	str cvs print
+	i_str cvs print
 	(\n) print
 	end
 } bind def
@@ -197,14 +197,14 @@
 	currentX x1 sub abs 0.001 gt  currentY y1 sub abs 0.001 gt or
 	{
 		(l ) print
-		currentX currentY matrix_x str cvs print
+		currentX currentY matrix_x i_str cvs print
 		( ) print
-		currentX currentY matrix_y str cvs print
+		currentX currentY matrix_y i_str cvs print
 		( ) print
 
-		x1 y1 matrix_x str cvs print
+		x1 y1 matrix_x i_str cvs print
 		( ) print
-		x1 y1 matrix_y str cvs print
+		x1 y1 matrix_y i_str cvs print
 		(\n) print
 		/currentX x1 def
 		/currentY y1 def
@@ -217,25 +217,25 @@
 	userdict begin
 	% x1 y1 x2 y2 x3 y3
 	(c ) print
-	currentX currentY matrix_x str cvs print
+	currentX currentY matrix_x i_str cvs print
 	( ) print
-	currentX currentY matrix_y str cvs print
+	currentX currentY matrix_y i_str cvs print
 	( ) print
-	5 index 5 index matrix_x str cvs print
+	5 index 5 index matrix_x i_str cvs print
 	( ) print
-	5 index 5 index matrix_y str cvs print
+	5 index 5 index matrix_y i_str cvs print
 	( ) print
-	3 index 3 index matrix_x str cvs print
+	3 index 3 index matrix_x i_str cvs print
 	( ) print
-	3 index 3 index matrix_y str cvs print
+	3 index 3 index matrix_y i_str cvs print
 	( ) print
 
 	/currentY exch def
 	/currentX exch def
 
-	currentX currentY matrix_x str cvs print
+	currentX currentY matrix_x i_str cvs print
 	( ) print
-	currentX currentY matrix_y str cvs print
+	currentX currentY matrix_y i_str cvs print
 	(\n)print
 	pop pop pop pop
 	end
@@ -419,10 +419,10 @@
 {
 	% let Scribus decide what to do with rci: pop pop pop pop
 	(rci ) print 
-	str cvs print ( ) print
-	str cvs print ( ) print
-	str cvs print ( ) print
-	str cvs print (\n) print
+	i_str cvs print ( ) print
+	i_str cvs print ( ) print
+	i_str cvs print ( ) print
+	i_str cvs print (\n) print
 } bind def
 
 
@@ -469,7 +469,7 @@
 	} {
 	dup type /nametype eq
 	{
-		i_file (/) writestring i_file exch str cvs writestring
+		i_file (/) writestring i_file exch i_str cvs writestring
 	} {
 	dup type /dicttype eq
 	{
@@ -477,11 +477,11 @@
 		{ ==write ( ) ==write ==write (\n) ==write } forall
 		i_file (>>) writestring
 	} {
-		i_file exch str cvs writestring
+		i_file exch i_str cvs writestring
 	} ifelse } ifelse } ifelse
 } def
 
-/_image			% <dict> _image -
+/i_image			% <dict> i_image -
 {
 	begin 
 		/i_left Width Height mul Decode length 2 idiv mul BitsPerComponent mul 8 idiv dup /i_size exch store store 
@@ -503,16 +503,16 @@
 	0 i_dict /Height get i_m dtransform dup mul exch dup mul add sqrt /i_h exch def
 	0  0 i_m transform  /i_y exch def /i_x exch def 
 	/i_angle 0 def  % FIXME
-	/InputFile where { /InputFile get (.) search { exch pop exch pop } if } { (imagefile) } ifelse
-	    (-) concatenate i_filecount 9 string cvs concatenate
-		(\nim ) print											% im x y w h angle ...
-		i_x str cvs print ( ) print
-		i_y str cvs print ( ) print
-		i_w str cvs print ( ) print
-		i_h str cvs print ( ) print
-		i_angle str cvs print ( ) print
-		i_dict /Width get  str cvs print ( ) print			% ... hpix vpix ...
-		i_dict /Height get str cvs print ( ) print
+	/ExportFiles where { /ExportFiles get (.) search { exch pop exch pop } if } { (imagefile) } ifelse
+	    (-) concatenate i_filecount 9 string cvs concatenate 
+		(im ) print												% im x y w h angle ...
+		i_x i_str cvs print ( ) print
+		i_y i_str cvs print ( ) print
+		i_w i_str cvs print ( ) print
+		i_h i_str cvs print ( ) print
+		i_angle i_str cvs print ( ) print
+		i_dict /Width get  i_str cvs print ( ) print			% ... hpix vpix ...
+		i_dict /Height get i_str cvs print ( ) print
 		currentcolorspace 0 get /DeviceRGB eq
 			{ (tiff24nc ) print } 
 		{ currentcolorspace 0 get /DeviceCMYK eq
@@ -560,6 +560,8 @@
 {
       % width height bits/sample matrix datasource0..n-1 multi ncomp
       /tmpN exch def
+	  /tmpMulti exch def
+	  tmpMulti
       {
          /tmpN load array astore
       } if
@@ -569,7 +571,7 @@
       dup 5 -1 roll /BitsPerComponent exch put 
       dup 4 -1 roll /ImageMatrix exch put 
       dup 3 -1 roll /DataSource exch put 
-      dup /DataSource get type /array eq
+      tmpMulti
       {
          dup /MultipleDataSources true put
       } if
@@ -592,7 +594,7 @@
             /DeviceCMYK setcolorspace
          } if
       pop
-      _image
+      i_image
 	  grestore
 } bind def
 
@@ -611,7 +613,7 @@
       dup [0 1] /Decode exch put
       /DeviceGray setcolorspace
    } if
-   _image
+   i_image
    grestore
 } bind def
 
@@ -631,7 +633,7 @@
     dup 1 /BitsPerComponent exch put
 	gsave
 	/DeviceGray setcolorspace
-	_image
+	i_image
 	grestore
 	
 	% for now only print the dict, FIXME
@@ -664,7 +666,7 @@
 /i_buf 32 string def
 /i_nsources 1 def
 /i_source 0 def
-/i_datasource (x) def
+/i_datasource { (x) } def
 /i_file null def
 /i_filecount 1 def
 
@@ -676,7 +678,7 @@
 /gsave
 {
 	userdict begin
-%	(gs\n) print
+	(-gs\n) print
 	stateArray stateTop gstate currentgstate put
 	/stateTop stateTop 1 add def
 	end
@@ -689,7 +691,7 @@
 	{
 	}
 	{
-%		(gr\n) print
+		(-gr\n) print
 		stateArray stateTop 1 sub get setgstate
 		/stateTop stateTop 1 sub def
 		stateArray stateTop 0 put
@@ -704,8 +706,8 @@
 	charpath
 } bind def
 
-/show
-{
+/show % string show -
+{ 
 	userdict begin
 	storeMatrix
 	currentfont /FontName known
@@ -716,18 +718,27 @@
 		newpath
 		/clipCnt 0 def
 		moveto
+		/completeString exch def
 		% we process each char separately to get smaller paths
-		0 1 2 index length 1 sub
+		0 1 completeString length 1 sub
 		{
 			(n\n)print			% start polygon
 			writecurrentcolor	% write color
 			storeMatrix
-			1 index exch 1 getinterval dup /curstr exch def 
+			dup completeString length 1 sub eq 
+			{	0 0 }
+			{ % stringwidth( [n..n+1] ) - stringwidth( [n+1] )
+				dup completeString exch 2 getinterval stringwidth exch	% y2 x2
+				completeString 3 index 1 add 1 getinterval stringwidth		% y2 x2 x1 y1
+				4 1 roll sub											% y1 y2 (x2-x1)
+				3 1 roll exch sub										% (x2-x1) (y2-y1)
+			} ifelse /curwidthy exch def /curwidthx exch def
+			completeString exch 1 getinterval dup /curstr exch def
 			false root_charpath
 			{_move} {_line} {_curve} {_close} pathforall
 			(f\n)print			% close polygon
 			newpath
-			curstr stringwidth exch xcur add exch ycur add moveto
+			curwidthx xcur add curwidthy ycur add moveto
 			currentpoint /ycur exch def /xcur exch def
 			newpath			% clear graphic stack
 			xcur ycur moveto
@@ -735,8 +746,9 @@
 		currentpoint	% x y
 		newpath				% clear graphic stack (and current point)
 		moveto
-	} if
-	pop
+	} {
+		pop		% string
+	} ifelse
 	end
 } def
 
@@ -755,17 +767,27 @@
 		newpath
 		/clipCnt 0 def
 		moveto
+		/completeString exch def
 		% we process each char separately to get smaller paths
-		0 1 2 index length 1 sub
+		0 1 completeString length 1 sub
 		{
 			(n\n)print			% start polygon
 			writecurrentcolor	% write color
 			storeMatrix
-			1 index exch 1 getinterval dup /curstr exch def false root_charpath
+			dup completeString length 1 sub eq 
+			{	0 0 }
+			{ % stringwidth( [n..n+1] ) - stringwidth( [n+1] )
+				dup completeString exch 2 getinterval stringwidth exch	% y2 x2
+				completeString 3 index 1 add 1 getinterval stringwidth		% y2 x2 x1 y1
+				4 1 roll sub											% y1 y2 (x2-x1)
+				3 1 roll exch sub								% (x2-x1) (y2-y1)
+			} ifelse /curwidthy exch def /curwidthx exch def
+			completeString exch 1 getinterval dup /curstr exch def 
+			false root_charpath
 			{_move} {_line} {_curve} {_close} pathforall
 			(f\n)print			% close polygon
 			newpath
-			curstr stringwidth exch xcur add exch ycur add
+			curwidthx xcur add curwidthy ycur add
 			exch xdist add exch ydist add moveto
 			currentpoint /ycur exch def /xcur exch def
 			newpath			% clear graphic stack
@@ -774,8 +796,9 @@
 		currentpoint	% x y
 		newpath				% clear graphic stack (and current point)
 		moveto
-	} if
-	pop
+	} {
+		pop
+	} ifelse
 	end
 } bind def
 
@@ -798,17 +821,27 @@
 		newpath
 		/clipCnt 0 def
 		moveto
+		/completeString exch def
 		% we process each char separately to get smaller paths
-		0 1 2 index length 1 sub
+		0 1 completeString length 1 sub
 		{
 			(n\n)print			% start polygon
 			writecurrentcolor	% write color
 			storeMatrix
-			1 index exch 1 getinterval dup /curstr exch def false root_charpath
+			dup completeString length 1 sub eq 
+			{	0 0 }
+			{ % stringwidth( [n..n+1] ) - stringwidth( [n+1] )
+				dup completeString exch 2 getinterval stringwidth exch	% y2 x2
+				completeString 3 index 1 add 1 getinterval stringwidth		% y2 x2 x1 y1
+				4 1 roll sub											% y1 y2 (x2-x1)
+				3 1 roll exch sub								% (x2-x1) (y2-y1)
+			} ifelse /curwidthy exch def /curwidthx exch def
+			completeString exch 1 getinterval dup /curstr exch def 
+			false root_charpath
 			{_move} {_line} {_curve} {_close} pathforall
 			(f\n)print			% close polygon
 			newpath
-			curstr stringwidth exch xcur add exch ycur add
+			curwidthx xcur add curwidthy ycur add
 			exch xdist add exch ydist add moveto
 			curstr 0 get char eq
 			{
@@ -821,8 +854,9 @@
 		currentpoint	% x y
 		newpath				% clear graphic stack (and current point)
 		moveto
-	} if
-	pop
+	} {
+		pop
+	} ifelse
 	end
 } bind def
 
