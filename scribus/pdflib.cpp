@@ -2006,15 +2006,15 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						continue;
 					if (!ite->isTableItem)
 						continue;
-					int x = static_cast<int>(pag->xOffset());
-					int y = static_cast<int>(pag->yOffset());
-					int w = static_cast<int>(pag->width());
-					int h1 = static_cast<int>(pag->height());
+					int x = qRound(pag->xOffset()*100);
+					int y = qRound(pag->yOffset()*100);
+					int w = qRound(pag->width()*100);
+					int h1 = qRound(pag->height()*100);
 					double ilw=ite->lineWidth();
-					int x2 = static_cast<int>(ite->BoundingX - ilw / 2.0);
-					int y2 = static_cast<int>(ite->BoundingY - ilw / 2.0);
-					int w2 = static_cast<int>(ite->BoundingW + ilw);
-					int h2 = static_cast<int>(ite->BoundingH + ilw);
+					int x2 = qRound((ite->BoundingX - ilw / 2.0)*100);
+					int y2 = qRound((ite->BoundingY - ilw / 2.0)*100);
+					int w2 = qRound((ite->BoundingW + ilw)*100);
+					int h2 = qRound((ite->BoundingH + ilw)*100);
 					if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
 						continue;
 					if (ite->ChangedMasterItem)
