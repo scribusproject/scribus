@@ -27,9 +27,14 @@ class PluginManagerPrefsGui : public PrefsPanel
 		~PluginManagerPrefsGui();
 
 	public slots:
+		/*! \brief Set selected item(=plugin) un/loadable
+		\author Petr Vanek
+		\param item atual item
+		\param column id of the column clicked 0=1st
+		*/
 		void updateSettings(QListViewItem *item, const QPoint &, int column);
 
-		/// Apply changes to each plugin's PluginSettings
+		//! \brief Apply changes to each plugin's PluginSettings
 		void apply();
 
 	protected:
@@ -40,7 +45,7 @@ class PluginManagerPrefsGui : public PrefsPanel
 		QListView* pluginsList;
 		QLabel* pluginWarning;
 
-		/* \brief Stores current settings for each plugin
+		/*! \brief Stores current settings for each plugin
 		 * \param enableOnStartup - Load the plug-in on startup?
 		 */
 		struct PluginSettings
@@ -48,7 +53,7 @@ class PluginManagerPrefsGui : public PrefsPanel
 			bool enableOnStartup;
 		};
 
-		/// Store current settings about each plug-in
+		//! \brief Store current settings about each plug-in
 		QMap<QCString,PluginSettings> pluginSettings;
 };
 

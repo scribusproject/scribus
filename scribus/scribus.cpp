@@ -221,7 +221,6 @@ ScribusMainWindow::ScribusMainWindow()
 int ScribusMainWindow::initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile)
 {
 	CommonStrings::languageChange();
-	noneString = tr("None", "to be removed");
 	int retVal=0;
 	ExternalApp = 0;
 	previewDinUse = false;
@@ -8536,7 +8535,6 @@ void ScribusMainWindow::languageChange()
 		mainWindowXPosDataLabel->setText("         ");
 		mainWindowYPosDataLabel->setText("         ");
 		mainWindowStatusLabel->setText( tr("Ready"));
-		noneString = tr("None", "to be removed");
 	}
 }
 
@@ -8568,7 +8566,7 @@ void ScribusMainWindow::updateColorMenu(QProgressBar* progressBar)
 	ColorMenC->insertItem(CommonStrings::NoneColor);
 	if (HaveDoc)
 	{
-		if (doc->toolSettings.dBrush == tr("None", "brush"))
+		if (doc->toolSettings.dBrush == CommonStrings::NoneColor)
 			ColorMenC->setCurrentItem(0);
 		int a = 1;
 		ColorList::Iterator itend=doc->PageColors.end();

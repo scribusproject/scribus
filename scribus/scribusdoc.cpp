@@ -963,7 +963,7 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 			docPage->MPageNam = "Normal";
 	}
 	*/
-	//QPtrList docs: The item after the removed item becomes the new current list item if the removed item is not the last item in the list. If the last item is removed, the new last item becomes the current item. 
+	//QPtrList docs: The item after the removed item becomes the new current list item if the removed item is not the last item in the list. If the last item is removed, the new last item becomes the current item.
 	currentPage = Pages->at(0);
 }
 
@@ -2668,7 +2668,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 			item->setRedrawBounding();
 		}
 	}
-	
+
 	if(isLoading() && is12doc)
 		return;
 	if (!isLoading())
@@ -3706,7 +3706,7 @@ void ScribusDoc::ItemPen(QString farbe)
 	uint selectedItemCount=selection->count();
 	if (selectedItemCount != 0)
 	{
-		if (farbe == ScMW->noneString)
+		if (farbe == CommonStrings::NoneColor)
 			farbe = CommonStrings::None;
 		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
@@ -3732,7 +3732,7 @@ void ScribusDoc::ItemTextBrush(QString farbe)
 	uint selectedItemCount=selection->count();
 	if (selectedItemCount != 0)
 	{
-		if (farbe == ScMW->noneString)
+		if (farbe == CommonStrings::NoneColor)
 			farbe = CommonStrings::None;
 		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontFill,
@@ -3799,7 +3799,7 @@ void ScribusDoc::ItemTextBrushS(int sha)
 
 void ScribusDoc::ItemTextPen(QString farbe)
 {
-	if (farbe == ScMW->noneString)
+	if (farbe == CommonStrings::NoneColor)
 		farbe = CommonStrings::None;
 	uint selectedItemCount=selection->count();
 	if (selectedItemCount != 0)
@@ -4108,7 +4108,7 @@ void ScribusDoc::setItemTextOutline(int sha)
 
 void ScribusDoc::ItemBrush(QString farbe)
 {
-	if (farbe == ScMW->noneString)
+	if (farbe == CommonStrings::NoneColor)
 		farbe = CommonStrings::None;
 	uint selectedItemCount=selection->count();
 	if (selectedItemCount != 0)
@@ -4786,7 +4786,7 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 				ss->set("IS_CONTOUR", false);
 				undoManager->action(currItem, ss, Um::IBorder);
 			}
-	/*			
+	/*
 		}
 		if (docSelectionCount > 1)
 			undoManager->commit();
@@ -5464,7 +5464,7 @@ void ScribusDoc::itemSelection_SendToLayer(int layerNumber)
 								tooltip,
 								Um::ILayerAction);
 	}
-	
+
 	//CB why not just the following as we are calling for updatecontents anyway and we arent reflowing text
 	//Doc->selection->clear();
 	ScMW->view->Deselect(true);

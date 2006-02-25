@@ -89,9 +89,6 @@ PluginManagerPrefsGui::~PluginManagerPrefsGui()
 {
 }
 
-/*! Set selected item(=plugin) un/loadable
-\author Petr Vanek
-*/
 void PluginManagerPrefsGui::updateSettings(QListViewItem *item, const QPoint &, int column)
 {
 	if (column != 3)

@@ -64,7 +64,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	prefsManager=PrefsManager::instance();
 	ApplicationPrefs* prefsData=&(prefsManager->appPrefs);
 	ap = (ScribusMainWindow*)parent;
-	
+
 	customText="Custom";
 	customTextTR=tr( "Custom" );
 	docUnitIndex = prefsData->docUnitIndex;
@@ -1260,29 +1260,29 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.typographicSettings.valueStrikeThruPos = qRound(tabTypo->strikethruPos->value() * 10);
 	prefsManager->appPrefs.typographicSettings.valueStrikeThruWidth = qRound(tabTypo->strikethruWidth->value() * 10);
 	prefsManager->appPrefs.toolSettings.dTextBackGround = tabTools->colorComboTextBackground->currentText();
-	if (prefsManager->appPrefs.toolSettings.dTextBackGround == ScMW->noneString)
+	if (prefsManager->appPrefs.toolSettings.dTextBackGround == CommonStrings::NoneColor)
 		prefsManager->appPrefs.toolSettings.dTextBackGround = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dTextLineColor = tabTools->colorComboTextLine->currentText();
-	if (prefsManager->appPrefs.toolSettings.dTextLineColor == ScMW->noneString)
+	if (prefsManager->appPrefs.toolSettings.dTextLineColor == CommonStrings::NoneColor)
 		prefsManager->appPrefs.toolSettings.dTextLineColor = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dTextBackGroundShade = tabTools->shadingTextBack->value();
 	prefsManager->appPrefs.toolSettings.dTextLineShade = tabTools->shadingTextLine->value();
 	prefsManager->appPrefs.toolSettings.dTextPenShade = tabTools->shadingText->value();
 	prefsManager->appPrefs.toolSettings.dTextStrokeShade = tabTools->shadingTextStroke->value();
 	prefsManager->appPrefs.toolSettings.dPen = tabTools->colorComboLineShape->currentText();
-	if (prefsManager->appPrefs.toolSettings.dPen == ScMW->noneString)
+	if (prefsManager->appPrefs.toolSettings.dPen == CommonStrings::NoneColor)
 		prefsManager->appPrefs.toolSettings.dPen = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dPenText = tabTools->colorComboText->currentText();
-	if (prefsManager->appPrefs.toolSettings.dPenText == ScMW->noneString)
+	if (prefsManager->appPrefs.toolSettings.dPenText == CommonStrings::NoneColor)
 		prefsManager->appPrefs.toolSettings.dPenText = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dStrokeText = tabTools->colorComboStrokeText->currentText();
-	if (prefsManager->appPrefs.toolSettings.dStrokeText == ScMW->noneString)
+	if (prefsManager->appPrefs.toolSettings.dStrokeText == CommonStrings::NoneColor)
 		prefsManager->appPrefs.toolSettings.dStrokeText = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dCols = tabTools->columnsText->value();
 	prefsManager->appPrefs.toolSettings.dGap = tabTools->gapText->value() / prefsUnitRatio;
 	prefsManager->appPrefs.toolSettings.dTabWidth = tabTools->gapTab->value() / prefsUnitRatio;
 	prefsManager->appPrefs.toolSettings.dBrush = tabTools->comboFillShape->currentText();
-	if (prefsManager->appPrefs.toolSettings.dBrush == ScMW->noneString)
+	if (prefsManager->appPrefs.toolSettings.dBrush == CommonStrings::NoneColor)
 		prefsManager->appPrefs.toolSettings.dBrush = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dShade = tabTools->shadingFillShape->value();
 	prefsManager->appPrefs.toolSettings.dShade2 = tabTools->shadingLineShape->value();
@@ -1324,7 +1324,7 @@ void Preferences::updatePreferences()
 	}
 	prefsManager->appPrefs.toolSettings.dWidth = tabTools->lineWidthShape->value();
 	prefsManager->appPrefs.toolSettings.dPenLine = tabTools->colorComboLine->currentText();
-	if (prefsManager->appPrefs.toolSettings.dPenLine == ScMW->noneString)
+	if (prefsManager->appPrefs.toolSettings.dPenLine == CommonStrings::NoneColor)
 		prefsManager->appPrefs.toolSettings.dPenLine = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dShadeLine = tabTools->shadingLine->value();
 	switch (tabTools->comboStyleLine->currentItem())
@@ -1352,7 +1352,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.toolSettings.magMax = tabTools->maximumZoom->value();
 	prefsManager->appPrefs.toolSettings.magStep = tabTools->zoomStep->value();
 	prefsManager->appPrefs.toolSettings.dBrushPict = tabTools->comboFillImage->currentText();
-	if (prefsManager->appPrefs.toolSettings.dBrushPict == ScMW->noneString)
+	if (prefsManager->appPrefs.toolSettings.dBrushPict == CommonStrings::NoneColor)
 		prefsManager->appPrefs.toolSettings.dBrushPict = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.shadePict = tabTools->shadingFillImage->value();
 	prefsManager->appPrefs.toolSettings.scaleX = static_cast<double>(tabTools->scalingHorizontal->value()) / 100.0;

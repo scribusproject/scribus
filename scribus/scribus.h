@@ -194,7 +194,6 @@ public:
 	double DispX;
 	double DispY;
 	int HaveDoc;
-	QString noneString;
 	PrefsContext* dirs;
 	/** \brief view is the main widget which represents your working area. The View
 	 * class should handle all events of the view widget.  It is kept empty so
