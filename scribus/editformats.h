@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 class ScribusDoc;
 class ScComboBox;
 
+/*! \brief Dialog to replace deleted style with one existing */
 class SCRIBUS_API DelStyle : public QDialog
 {
 	Q_OBJECT
@@ -46,6 +47,7 @@ private slots:
 	virtual void ReplaceStyle(int);
 };
 
+
 class SCRIBUS_API ChooseStyles : public QDialog
 {
 	Q_OBJECT
@@ -64,6 +66,7 @@ protected:
 	QHBoxLayout* layout2;
 
 };
+
 
 class SCRIBUS_API StilFormate : public QDialog
 {

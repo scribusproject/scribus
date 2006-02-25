@@ -18,13 +18,15 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "page.h"
 #include "sccombobox.h"
+#include "util.h"
 
 extern QPixmap loadIcon(QString nam);
 
+
 DelStyle::DelStyle(QWidget* parent, QValueList<ParagraphStyle> sty, QString styleName)
-		: QDialog( parent, "dd", true, 0 )
+		: QDialog( parent, "DelStyle", true, 0 )
 {
-	setName( "DelColor" );
+	setName( "DelStyle" );
 	setCaption( tr( "Delete Style" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	dialogLayout = new QVBoxLayout( this, 10, 5 );
@@ -39,11 +41,17 @@ DelStyle::DelStyle(QWidget* parent, QValueList<ParagraphStyle> sty, QString styl
 	delStyleLayout->addWidget( replaceLabel, 1, 0 );
 	replacementStyleData = new ScComboBox(false, this);
 	replacementStyleData->insertItem( tr("No Style"));
+
+	// sort the names in language specific order (PV)
+	QStringList existingStyles;
 	for (uint x = 5; x < sty.count(); ++x)
 	{
 		if (sty[x].Vname != styleName)
-			replacementStyleData->insertItem(sty[x].Vname);
+			existingStyles.append(sty[x].Vname);
 	}
+	existingStyles = sortQStringList(existingStyles);
+	replacementStyleData->insertStringList(existingStyles);
+
 	delStyleLayout->addWidget( replacementStyleData, 1, 1 );
 	replacementStyle = replacementStyleData->text(0);
 	dialogLayout->addLayout( delStyleLayout );
