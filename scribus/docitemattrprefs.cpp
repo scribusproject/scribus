@@ -13,11 +13,11 @@ for which a new license (GPL+exception) is in place.
 DocumentItemAttributes::DocumentItemAttributes(  QWidget* parent, const char* name, WFlags fl  )
 	: DocumentItemAttributesBase(parent, name, fl)
 {
-	relationships << tr("None") << tr("Relates To") << tr("Is Parent Of") << tr("Is Child Of");
+	relationships << tr("None", "relationship") << tr("Relates To") << tr("Is Parent Of") << tr("Is Child Of");
 	relationshipsData << "none" << "relation" << "parent" << "child";
-	autoAddTo << tr("None") << tr("Text Frames") << tr("Image Frames");
+	autoAddTo << tr("None", "auto add") << tr("Text Frames") << tr("Image Frames");
 	autoAddToData << "none" << "textframes" << "imageframes";
-	types << tr("None") << tr("Boolean") << tr("Integer") << tr("Real Number") << tr("String");
+	types << tr("None", "types") << tr("Boolean") << tr("Integer") << tr("Real Number") << tr("String");
 	typesData << "none" << "boolean" << "integer" << "double" << "string";
 }
 
@@ -151,8 +151,8 @@ void DocumentItemAttributes::updateTable()
 			(*it).autoaddto="none";
 			index=0;
 		}
-		item7->setCurrentItem(index);		
-		
+		item7->setCurrentItem(index);
+
 		attributesTable->verticalHeader()->setLabel(row, QString("%1").arg(row));
 		row++;
 	}

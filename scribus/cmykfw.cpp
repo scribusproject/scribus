@@ -627,7 +627,7 @@ void CMYKChoose::SelSwatch(int n)
 						Cname = CoE.read().stripWhiteSpace();
 						tmp.setColorRGB(Rval, Gval, Bval);
 					}
-					
+
 					if ((n<customSetStartIndex) && (Cname.length()==0))
 					{
 						if (!cus)
@@ -642,7 +642,7 @@ void CMYKChoose::SelSwatch(int n)
 							continue;
 						Cname=QString("%1%2").arg(Cname).arg(CurrSwatch.count());
 					}
-					
+
 					CurrSwatch.insert(Cname, tmp);
 				}
 				fiC.close();
@@ -979,7 +979,7 @@ QColor CMYKChoose::CMYK2RGB(int c, int m, int y, int k)
 void CMYKChoose::Verlassen()
 {
 	// if condition 10/21/2004 pv #1191 - just be sure that user cannot create "None" color
-	if (Farbname->text() == CommonStrings::None || Farbname->text() == tr("None"))
+	if (Farbname->text() == CommonStrings::None || Farbname->text() == CommonStrings::NoneColor)
 	{
 		QMessageBox::information(this, CommonStrings::trWarning, tr("You cannot create a color named \"%1\".\nIt is a reserved name for transparent color").arg(Farbname->text()), 0);
 		Farbname->setFocus();

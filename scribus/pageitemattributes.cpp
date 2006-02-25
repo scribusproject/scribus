@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 PageItemAttributes::PageItemAttributes( QWidget* parent, const char* name, bool modal, WFlags fl )
 	: PageItemAttributesBase(parent, name, modal, fl)
 {
-	relationships << tr("None") << tr("Relates To") << tr("Is Parent Of") << tr("Is Child Of");
+	relationships << tr("None", "relationship") << tr("Relates To") << tr("Is Parent Of") << tr("Is Child Of");
 	relationshipsData << "none" << "relation" << "parent" << "child";
 }
 

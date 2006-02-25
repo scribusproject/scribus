@@ -49,8 +49,8 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	Doc = doc;
 	NotFound = false;
 	SMode = mode;
-	SearchReplaceLayout = new QVBoxLayout( this, 10, 5, "SearchReplaceLayout"); 
-	SelLayout = new QHBoxLayout( 0, 0, 6, "SelLayout"); 
+	SearchReplaceLayout = new QVBoxLayout( this, 10, 5, "SearchReplaceLayout");
+	SelLayout = new QHBoxLayout( 0, 0, 6, "SelLayout");
 	Search = new QGroupBox( this, "Search" );
 	Search->setTitle( tr( "Search for:" ) );
 	Search->setColumnLayout(0, Qt::Vertical );
@@ -121,7 +121,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SearchLayout->addWidget( SEffVal, 4, 1, Qt::AlignLeft );
 	SFillVal = new ColorCombo( true, Search, "SFillVal" );
 	SFillVal->setEditable(false);
-	SFillVal->insertItem( tr("None"));
+	SFillVal->insertItem(CommonStrings::NoneColor);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
 		SFillVal->insertWideItem( doc->PageColors[it.key()], it.key() );
@@ -135,7 +135,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SearchLayout->addWidget( SFillSVal, 6, 1, Qt::AlignLeft );
 	SStrokeVal = new ColorCombo( true, Search, "SStrokeVal" );
 	SStrokeVal->setEditable(false);
-	SStrokeVal->insertItem( tr("None"));
+	SStrokeVal->insertItem(CommonStrings::NoneColor);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
 		SStrokeVal->insertWideItem( doc->PageColors[it.key()], it.key() );
@@ -217,7 +217,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	ReplaceLayout->addWidget( REffVal, 4, 1, Qt::AlignLeft );
 	RFillVal = new ColorCombo( true, Replace, "RFillVal" );
 	RFillVal->setEditable(false);
-	RFillVal->insertItem( tr("None"));
+	RFillVal->insertItem(CommonStrings::NoneColor);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
 		RFillVal->insertWideItem( doc->PageColors[it.key()], it.key() );
@@ -231,7 +231,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	ReplaceLayout->addWidget( RFillSVal, 6, 1, Qt::AlignLeft );
 	RStrokeVal = new ColorCombo( true, Replace, "RStrokeVal" );
 	RStrokeVal->setEditable(false);
-	RStrokeVal->insertItem( tr("None"));
+	RStrokeVal->insertItem(CommonStrings::NoneColor);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
 		RStrokeVal->insertWideItem( doc->PageColors[it.key()], it.key() );
@@ -246,7 +246,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SelLayout->addWidget( Replace );
 	SearchReplaceLayout->addLayout( SelLayout );
 
-	OptsLayout = new QHBoxLayout( 0, 0, 6, "OptsLayout"); 
+	OptsLayout = new QHBoxLayout( 0, 0, 6, "OptsLayout");
 	Word = new QCheckBox( tr( "&Whole Word" ), this, "Word" );
 	if (mode)
 		Word->setEnabled(false);
@@ -257,7 +257,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	OptsLayout->addWidget( CaseIgnore );
 	SearchReplaceLayout->addLayout( OptsLayout );
 
-	ButtonsLayout = new QHBoxLayout( 0, 0, 4, "ButtonsLayout"); 
+	ButtonsLayout = new QHBoxLayout( 0, 0, 4, "ButtonsLayout");
 	DoSearch = new QPushButton( tr( "&Search" ), this, "DoSearch" );
 	DoSearch->setDefault( true );
 	ButtonsLayout->addWidget( DoSearch );
@@ -334,7 +334,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	setTabOrder( DoSearch, DoReplace );
 	setTabOrder( DoReplace, AllReplace );
 	setTabOrder( AllReplace, Leave );
-	
+
 	prefs = PrefsManager::instance()->prefsFile->getContext("SearchReplace");
 	readPrefs();
 }
@@ -454,7 +454,7 @@ void SearchReplace::slotDoSearch()
 					found = false;
 				}
 			if (SFill->isChecked())
-			{			
+			{
 				if (Item->itemText.at(a)->ccolor != fCol)
 					found = false;
 			}

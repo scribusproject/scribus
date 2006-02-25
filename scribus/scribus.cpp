@@ -221,7 +221,7 @@ ScribusMainWindow::ScribusMainWindow()
 int ScribusMainWindow::initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile)
 {
 	CommonStrings::languageChange();
-	noneString = tr("None");
+	noneString = tr("None", "to be removed");
 	int retVal=0;
 	ExternalApp = 0;
 	previewDinUse = false;
@@ -417,7 +417,7 @@ void ScribusMainWindow::initToolBars()
 	connect(pdfToolBar, SIGNAL(NewMode(int)), this, SLOT(setAppMode(int)));
 	connect(pdfToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarPDF"], SLOT(setOn(bool)));
 	connect(scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)), mainToolBar, SLOT(setShown(bool)) );
-	
+
 }
 
 //Returns false when there are no fonts
@@ -858,7 +858,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["unicodeNewLine"], "InsertSpace");
 	scrMenuMgr->addMenuItem(scrActions["unicodeFrameBreak"], "InsertSpace");
 	scrMenuMgr->addMenuItem(scrActions["unicodeColumnBreak"], "InsertSpace");
-	
+
 	scrMenuMgr->createMenu("InsertLigature", QPixmap(noIcon), tr("Ligature"), "Insert");
 	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_ff"], "InsertLigature");
 	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_fi"], "InsertLigature");
@@ -867,7 +867,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_ffl"], "InsertLigature");
 	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_ft"], "InsertLigature");
 	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_st"], "InsertLigature");
-	
+
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertSampleText"], "Insert");
 	scrActions["insertGlyph"]->setEnabled(false);
@@ -908,7 +908,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["viewShowTextControls"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowRulers"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewRulerMode"], "View");
-	
+
 	scrActions["viewShowRulers"]->setEnabled(false);
 
 	//CB If this is viewNewView imeplemented, it should be on the windows menu
@@ -1135,7 +1135,7 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 					{
 						if (currItem->HasSel && currItem->itemType()==PageItem::TextFrame)
 							currItem->asTextFrame()->deleteSelectedTextFromFrame();
-	
+
 						hg->ch = QString(QChar(unicodevalue));
 						doc->setScTextDefaultsFromDoc(hg);
 						hg->cselect = false;
@@ -1426,7 +1426,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			resizeBy/=doc->unitRatio();
 			if (resizingsmaller)
 				resizeBy*=-1.0;
-			
+
 
 			PageItem *currItem = doc->selection->itemAt(0);
 			switch (doc->appMode)
@@ -1889,7 +1889,7 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 	scrActions["fileSave"]->setEnabled(false);
 	undoManager->switchStack(doc->DocName);
 	tocGenerator->setDoc(doc);
-	
+
 	return true;
 }
 
@@ -5942,7 +5942,7 @@ void ScribusMainWindow::setCSMenu(QString , QString l, int  , int ls)
 		lb = ls;
 	}
 	if (la == CommonStrings::None)
-		la = tr("None");
+		la = CommonStrings::NoneColor;
 	for (uint a = 0; a < static_cast<uint>(ColorMenC->count()); ++a)
 	{
 		if (ColorMenC->text(a) == la)
@@ -8536,7 +8536,7 @@ void ScribusMainWindow::languageChange()
 		mainWindowXPosDataLabel->setText("         ");
 		mainWindowYPosDataLabel->setText("         ");
 		mainWindowStatusLabel->setText( tr("Ready"));
-		noneString = tr("None");
+		noneString = tr("None", "to be removed");
 	}
 }
 
@@ -8565,10 +8565,10 @@ void ScribusMainWindow::updateColorMenu(QProgressBar* progressBar)
 {
 	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	ColorMenC->clear();
-	ColorMenC->insertItem( tr("None"));
+	ColorMenC->insertItem(CommonStrings::NoneColor);
 	if (HaveDoc)
 	{
-		if (doc->toolSettings.dBrush == tr("None"))
+		if (doc->toolSettings.dBrush == tr("None", "brush"))
 			ColorMenC->setCurrentItem(0);
 		int a = 1;
 		ColorList::Iterator itend=doc->PageColors.end();

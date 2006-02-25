@@ -47,7 +47,7 @@ class SCRIBUS_API CommonStrings : public QObject
 	Q_OBJECT
 public:
 	CommonStrings();
-	
+
 	/**
 	 * \brief Return the translated Page Set string if given the "untranslated" one
 	 * @param untrString "untranslated" string
@@ -78,17 +78,18 @@ public:
 	static QString _Cancel;
 	static QString tr_Cancel;
 	static QString None;
+	static QString NoneColor;
 	static QString _OK;
 	static QString tr_OK;
 	static QString _Save;
 	static QString tr_Save;
 	static QString Warning;
 	static QString trWarning;
-	
+
 	//Page Size
 	static QString customPageSize;
 	static QString trCustomPageSize;
-	
+
 	//Page Sets
 	static QString pageSet1;
 	static QString pageSet2;

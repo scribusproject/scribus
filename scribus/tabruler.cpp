@@ -480,7 +480,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<PageIt
 	layout1->addWidget( tabData );
 	tabFillCombo = new QComboBox( true, this, "tabFillCombo" );
 	tabFillCombo->setEditable(false);
-	tabFillCombo->insertItem( tr("None"));
+	tabFillCombo->insertItem( tr("None"), "tab fill");
 	tabFillCombo->insertItem( tr("Dot"));
 	tabFillCombo->insertItem( tr("Hyphen"));
 	tabFillCombo->insertItem( tr("Underscore"));

@@ -113,7 +113,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 
 	colorComboText = new ColorCombo( false, subTabText, "colorComboText" );
 	ColorList::Iterator itc;
-	colorComboText->insertItem( tr("None"));
+	colorComboText->insertItem(CommonStrings::NoneColor);
 	if (prefsData->dPenText == CommonStrings::None)
 		colorComboText->setCurrentItem(colorComboText->count()-1);
 	if (doc != 0)
@@ -149,7 +149,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabTextLayout->addWidget( textLabelTS, 2, 2 );
 
 	colorComboStrokeText = new ColorCombo( false, subTabText, "colorComboStrokeText" );
-	colorComboStrokeText->insertItem( tr("None"));
+	colorComboStrokeText->insertItem(CommonStrings::NoneColor);
 	if (prefsData->dStrokeText == CommonStrings::None)
 		colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
 	if (doc != 0)
@@ -185,7 +185,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabTextLayout->addWidget( textLabelTSS, 3, 2 );
 
 	colorComboTextBackground = new ColorCombo( false, subTabText, "colorComboTextBackground" );
-	colorComboTextBackground->insertItem( tr("None"));
+	colorComboTextBackground->insertItem(CommonStrings::NoneColor);
 	if (prefsData->dTextBackGround == CommonStrings::None)
 		colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
 	if (doc != 0)
@@ -221,7 +221,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabTextLayout->addWidget( textLabelTSB, 4, 2 );
 
 	colorComboTextLine = new ColorCombo( false, subTabText, "colorComboTextLine" );
-	colorComboTextLine->insertItem( tr("None"));
+	colorComboTextLine->insertItem(CommonStrings::NoneColor);
 	if (prefsData->dTextLineColor == CommonStrings::None)
 		colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
 	if (doc != 0)
@@ -257,7 +257,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabTextLayout->addWidget( textLabelTSL, 5, 2 );
 
 	tabFillCombo = new ScComboBox( false, subTabText, "tabFillCombo" );
-	tabFillCombo->insertItem( tr("None"));
+	tabFillCombo->insertItem( tr("None"), "tab fill");
 	tabFillCombo->insertItem( tr("Dot"));
 	tabFillCombo->insertItem( tr("Hyphen"));
 	tabFillCombo->insertItem( tr("Underscore"));
@@ -318,7 +318,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabShapeLayout = new QGridLayout( subTabShape, 1, 1, 11, 6, "subTabShapeLayout");
 	subTabShapeLayout->setAlignment( Qt::AlignTop );
 	colorComboLineShape = new ColorCombo( false, subTabShape, "colorComboLineShape" );
-	colorComboLineShape->insertItem( tr("None"));
+	colorComboLineShape->insertItem(CommonStrings::NoneColor);
 	if (prefsData->dPen == CommonStrings::None)
 		colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
 	if (doc != 0)
@@ -353,7 +353,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel8b = new QLabel( shadingLineShape, tr( "&Shading:" ), subTabShape, "textLabel8b" );
 	subTabShapeLayout->addWidget( textLabel8b, 1, 0 );
 	comboFillShape = new ColorCombo( false, subTabShape, "comboFillShape" );
-	comboFillShape->insertItem( tr("None"));
+	comboFillShape->insertItem( tr("None"), "fill shape");
 	if (prefsData->dBrush == CommonStrings::None)
 		comboFillShape->setCurrentItem(comboFillShape->count()-1);
 	if (doc != 0)
@@ -425,7 +425,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabLineLayout = new QGridLayout( subTabLine, 1, 1, 11, 6, "subTabLineLayout");
 	subTabLineLayout->setAlignment( Qt::AlignTop );
 	colorComboLine = new ColorCombo( false, subTabLine, "colorComboLine" );
-	colorComboLine->insertItem( tr("None"));
+	colorComboLine->insertItem(CommonStrings::NoneColor);
 	if (prefsData->dPenLine == CommonStrings::None)
 		colorComboLine->setCurrentItem(colorComboLine->count()-1);
 	if (doc != 0)
@@ -562,7 +562,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	buttonGroup5Layout->addWidget( checkRatioImage );
 	subTabImageLayout->addMultiCellWidget( buttonGroup5, 1, 1, 0, 1 );
 	comboFillImage = new ColorCombo( false, subTabImage, "comboFillImage" );
-	comboFillImage->insertItem( tr("None"));
+	comboFillImage->insertItem(CommonStrings::NoneColor);
 	if (prefsData->dBrushPict == CommonStrings::None)
 		comboFillImage->setCurrentItem(comboFillImage->count()-1);
 	if (doc != 0)
@@ -804,7 +804,7 @@ void TabTools::setSample()
 {
 	SampleItem *si = new SampleItem();
 	si->setText(tr("Woven silk pyjamas exchanged for blue quartz"));
-	if (colorComboTextBackground->currentText() != tr("None"))
+	if (colorComboTextBackground->currentText() != CommonStrings::NoneColor)
 	{
 		if (docu != 0)
 		{
@@ -821,7 +821,7 @@ void TabTools::setSample()
 	}
 	else
 		si->setBgColor(paletteBackgroundColor());
-	if (colorComboText->currentText() != tr("None"))
+	if (colorComboText->currentText() != CommonStrings::NoneColor)
 	{
 		if (docu != 0)
 		{

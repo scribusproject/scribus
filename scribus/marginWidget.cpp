@@ -25,12 +25,12 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	RandR = margs->Right;
 	RandL = margs->Left;
 	facingPages = false;
-	
+
 	m_docUnitIndex=unitIndex;
 	m_unitRatio = unitGetRatioFromIndex(unitIndex);
 	m_suffix = unitGetSuffixFromIndex(unitIndex);
 	int decimals = unitGetDecimalsFromIndex(unitIndex);
-	
+
 	presetCombo = new PresetLayout(this, "presetCombo");
 	presetLabel = new QLabel(presetCombo, tr("Preset Layouts:"), this, "presetLabel");
 
@@ -76,11 +76,11 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 		//GroupLayout->addMultiCellWidget( marginsForAllPages, 5, 5, 0, 1);
 		GroupLayout->addWidget( marginsForAllPages, 5, 0 );
 		QToolTip::add( marginsForAllPages, "<qt>" + tr( "Apply the margin changes to all existing pages in the document" ) + "</qt>" );
-		
+
 	}
 	else
 		marginsForAllPages=NULL;
-		
+
 	usePrinterMarginsButton=NULL;
 #if defined(HAVE_CUPS) || defined(_WIN32)
 	usePrinterMarginsButton=new QPushButton( tr("Printer Margins..."),this, "usePrinterMarginsButton" );
@@ -88,13 +88,13 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	QToolTip::add( usePrinterMarginsButton, "<qt>" +tr( "Import the margins for the selected page size from the available printers." ) + "</qt>");
 	connect(usePrinterMarginsButton, SIGNAL(clicked()), this, SLOT(setMarginsToPrinterMargins()));
 #endif
-	
+
 	// hints
 	QToolTip::add( topR, "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>");
 	QToolTip::add( bottomR, "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>");
 	QToolTip::add( leftR, "<qt>" + tr( "Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
 	QToolTip::add( rightR, "<qt>" +tr( "Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
-	
+
 		// signals&slots
 	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
@@ -252,17 +252,17 @@ void MarginWidget::setMarginsToPrinterMargins()
 		bottomR->setValue(b * m_unitRatio);
 		leftR->setValue(l * m_unitRatio);
 		rightR->setValue(r * m_unitRatio);
-		
+
 		RandT = t;
 		RandB = b;
 		RandL = l;
 		RandR = r;
-		
+
 		bottomR->setMaxValue((QMAX(0.0, pageHeight - t) * m_unitRatio));
 		topR->setMaxValue((QMAX(0.0, pageHeight - b) * m_unitRatio));
 		rightR->setMaxValue((QMAX(0.0, pageWidth - l) * m_unitRatio));
 		leftR->setMaxValue((QMAX(0.0, pageWidth - r) * m_unitRatio));
-		
+
 		rightR->setEnabled(true);
 		topR->setEnabled(true);
 		bottomR->setEnabled(true);
@@ -312,7 +312,7 @@ bool MarginWidget::getMarginsForAllPages()
  */
 PresetLayout::PresetLayout(QWidget *parent, const char * name) : QComboBox(parent, name)
 {
-	insertItem(tr("None"), PresetLayout::none);
+	insertItem(tr("None", "layout type"), PresetLayout::none);
 	insertItem(tr("Gutenberg"), PresetLayout::gutenberg);
 	insertItem(tr("Magazine"), PresetLayout::magazine);
 	insertItem(tr("Fibonacci"), PresetLayout::fibonacci);

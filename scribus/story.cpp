@@ -1630,15 +1630,15 @@ void SToolBColorF::languageChange()
 	QToolTip::remove(PM2);
 	QToolTip::add(TxFill, tr( "Color of text fill" ));
 	QToolTip::add(PM2, tr( "Saturation of color of text fill" ));
-	
-	
-	
+
+
+
 }
 
 void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
 {
 	TxFill->clear();
-	TxFill->insertItem( tr("None"));
+	TxFill->insertItem(CommonStrings::NoneColor);
 	if (doc!=NULL)
 	{
 		for (ColorList::Iterator it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
@@ -1695,7 +1695,7 @@ void SToolBColorS::languageChange()
 void SToolBColorS::setCurrentDocument(ScribusDoc *doc)
 {
 	TxStroke->clear();
-	TxStroke->insertItem( tr("None"));
+	TxStroke->insertItem(CommonStrings::NoneColor);
 	if (doc!=NULL)
 	{
 		for (ColorList::Iterator it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
@@ -2042,7 +2042,7 @@ void StoryEditor::initActions()
 	seActions.insert("fileSaveDocument", new ScrAction(QIconSet(loadIcon("reload16.png"), loadIcon("reload.png")), "", CTRL+Key_S, this, "fileSaveDocument"));
 	seActions.insert("fileUpdateAndExit", new ScrAction(QIconSet(loadIcon("ok.png"), loadIcon("ok22.png")), "", CTRL+Key_W, this, "fileUpdateAndExit"));
 	seActions.insert("fileExit", new ScrAction(QIconSet(loadIcon("exit.png"), loadIcon("exit22.png")), "", QKeySequence(), this, "fileExit"));
-	
+
 	connect( seActions["fileNew"], SIGNAL(activated()), this, SLOT(Do_new()) );
 	connect( seActions["fileRevert"], SIGNAL(activated()), this, SLOT(slotFileRevert()) );
 	connect( seActions["fileSaveToFile"], SIGNAL(activated()), this, SLOT(SaveTextFile()) );
@@ -2050,7 +2050,7 @@ void StoryEditor::initActions()
 	connect( seActions["fileSaveDocument"], SIGNAL(activated()), this, SLOT(Do_saveDocument()) );
 	connect( seActions["fileUpdateAndExit"], SIGNAL(activated()), this, SLOT(Do_leave2()) );
 	connect( seActions["fileExit"], SIGNAL(activated()), this, SLOT(Do_leave()) );
-	
+
 	//Edit Menu
 	seActions.insert("editSelectAll", new ScrAction(QIconSet(noIcon), "", CTRL+Key_A, this, "editSelectAll"));
 	seActions.insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png")), "", CTRL+Key_X, this, "editCut"));
@@ -2061,7 +2061,7 @@ void StoryEditor::initActions()
 	seActions.insert("editEditStyle", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "editEditStyle"));
 	seActions.insert("editFontPreview", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "editFontPreview"));
 	seActions.insert("editUpdateFrame", new ScrAction(QIconSet(loadIcon("compfile16.png"),loadIcon("compfile.png")), "", CTRL+Key_U, this, "editUpdateFrame"));
-	
+
 	connect( seActions["editSelectAll"], SIGNAL(activated()), this, SLOT(Do_selectAll()) );
 	connect( seActions["editCut"], SIGNAL(activated()), this, SLOT(Do_cut()) );
 	connect( seActions["editCopy"], SIGNAL(activated()), this, SLOT(Do_copy()) );
@@ -2071,11 +2071,11 @@ void StoryEditor::initActions()
 	connect( seActions["editEditStyle"], SIGNAL(activated()), this, SLOT(slotEditStyles()) );
 	connect( seActions["editFontPreview"], SIGNAL(activated()), this, SLOT(Do_fontPrev()) );
 	connect( seActions["editUpdateFrame"], SIGNAL(activated()), this, SLOT(updateTextFrame()) );
-	
+
 	//Insert Menu
 	seActions.insert("insertGlyph", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "insertGlyph"));
 	connect( seActions["insertGlyph"], SIGNAL(activated()), this, SLOT(Do_insSp()) );
-	
+
 	//Settings Menu
 	seActions.insert("settingsBackground", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "settingsBackground"));
 	seActions.insert("settingsDisplayFont", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "settingsDisplayFont"));
@@ -2083,12 +2083,12 @@ void StoryEditor::initActions()
 	smartSelection = false;
 	seActions["settingsSmartTextSelection"]->setOn(false);
 	seActions["settingsSmartTextSelection"]->setToggleAction(true);
-	
+
 	connect( seActions["settingsBackground"], SIGNAL(activated()), this, SLOT(setBackPref()) );
 	connect( seActions["settingsDisplayFont"], SIGNAL(activated()), this, SLOT(setFontPref()) );
 	connect( seActions["settingsSmartTextSelection"], SIGNAL(toggled(bool)), this, SLOT(setSmart(bool)) );
-	
-	
+
+
 	seActions["fileRevert"]->setEnabled(false);
 	seActions["editCopy"]->setEnabled(false);
 	seActions["editCut"]->setEnabled(false);
@@ -2184,12 +2184,12 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItem(seActions["unicodeLigature_ffl"], "InsertLigature");
 	seMenuMgr->addMenuItem(seActions["unicodeLigature_ft"], "InsertLigature");
 	seMenuMgr->addMenuItem(seActions["unicodeLigature_st"], "InsertLigature");
-	
+
 	seMenuMgr->createMenu("Settings", tr("&Settings"));
 	seMenuMgr->addMenuItem(seActions["settingsBackground"], "Settings");
 	seMenuMgr->addMenuItem(seActions["settingsDisplayFont"], "Settings");
 	seMenuMgr->addMenuItem(seActions["settingsSmartTextSelection"], "Settings");
-	
+
 	seMenuMgr->addMenuToMenuBar("File");
 	seMenuMgr->addMenuToMenuBar("Edit");
 	seMenuMgr->addMenuToMenuBar("Insert");
@@ -2204,7 +2204,7 @@ void StoryEditor::buildGUI()
 	ActionManager::initUnicodeActions(&seActions, this, &unicodeCharActionNames);
 	seActions["unicodeSmartHyphen"]->setEnabled(false);//CB TODO doesnt work in SE yet.
 	buildMenus();
-	
+
 	setIcon(loadIcon("AppIcon.png"));
 	QHBox* vb = new QHBox( this );
 	StoryEd2Layout = new QHBoxLayout( 0, 5, 5, "StoryEd2Layout");
@@ -2219,7 +2219,7 @@ void StoryEditor::buildGUI()
 	seActions["fileRevert"]->addTo(FileTools);
 	seActions["editUpdateFrame"]->addTo(FileTools);
 	seActions["editSearchReplace"]->addTo(FileTools);
-	
+
 	setDockEnabled(FileTools, DockLeft, false);
 	setDockEnabled(FileTools, DockRight, false);
 	setDockEnabled(FileTools, DockBottom, false);
@@ -2346,14 +2346,14 @@ void StoryEditor::languageChange()
 	seActions["editEditStyle"]->setTexts( tr("&Edit Styles..."));
 	seActions["editFontPreview"]->setTexts( tr("&Fonts Preview..."));
 	seActions["editUpdateFrame"]->setTexts( tr("&Update Text Frame"));
-	
+
 	//Insert menu
 	seMenuMgr->setMenuText("Insert", tr("&Insert"));
 	seMenuMgr->setMenuText("InsertChar", tr("Character"));
 	seMenuMgr->setMenuText("InsertQuote", tr("Quote"));
 	seMenuMgr->setMenuText("InsertSpace", tr("Space"));
 	seActions["insertGlyph"]->setTexts( tr("&Insert Glyph..."));
-	
+
 	//Settings Menu
 	seMenuMgr->setMenuText("Settings", tr("&Settings"));
 	seActions["settingsBackground"]->setTexts( tr("&Background..."));
@@ -2362,7 +2362,7 @@ void StoryEditor::languageChange()
 
 	//Unicode Actions
 	ActionManager::languageChangeUnicodeActions(&seActions);
-	
+
 	FileTools->setLabel( tr("File"));
 
 	WordCT1->setText( tr("Current Paragraph:"));

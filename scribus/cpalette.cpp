@@ -232,7 +232,7 @@ void Cpalette::updateCList()
 	disconnect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	colorListQLBox->clear();
 	if ((!GradientMode) || (Mode == 1))
-		colorListQLBox->insertItem( tr("None"));
+		colorListQLBox->insertItem(CommonStrings::NoneColor);
 	colorListQLBox->updateBox(colorList, ColorListBox::fancyPixmap, false);
 	/*ColorList::Iterator itend=colorList.end();
 	for (ColorList::Iterator it = colorList.begin(); it != itend; ++it)

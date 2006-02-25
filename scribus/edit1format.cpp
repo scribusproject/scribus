@@ -159,8 +159,8 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	TxStroke->clear();
 	ColorList::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
-	TxFill->insertItem( tr("None"));
-	TxStroke->insertItem( tr("None"));
+	TxFill->insertItem(CommonStrings::NoneColor);
+	TxStroke->insertItem(CommonStrings::NoneColor);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
 		pm.fill(doc->PageColors[it.key()].getRawRGBColor());

@@ -833,7 +833,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(this, SIGNAL(UpdtGui(int)), ScMW, SLOT(HaveNewSel(int)));
 	connect(this->Cpal, SIGNAL(QueryItem()), ScMW, SLOT(GetBrushPen()));
 	connect(this->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), ScMW, SLOT(updtGradFill()));
-	connect(this->Cpal, SIGNAL(gradientChanged()), ScMW, SLOT(updtGradFill()));	
+	connect(this->Cpal, SIGNAL(gradientChanged()), ScMW, SLOT(updtGradFill()));
 
 	HaveItem = false;
 	Xpos->setValue(0);
@@ -876,7 +876,7 @@ void Mpalette::setDoc(ScribusDoc *d)
 	disconnect(this->Cpal, SIGNAL(NewPenShade(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewBrushShade(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewGradient(int)), 0, 0);
-	
+
 	doc = d;
 	Umrech=doc->unitRatio();
 	double maxXYWHVal= 30000 * Umrech;
@@ -918,7 +918,7 @@ void Mpalette::setDoc(ScribusDoc *d)
 	updateCList();
 
 	updateSpinBoxConstants();
-	
+
 	connect(this->Cpal, SIGNAL(NewTrans(double)), doc, SLOT(itemSelection_SetItemFillTransparency(double)));
 	connect(this->Cpal, SIGNAL(NewTransS(double)), doc, SLOT(itemSelection_SetItemLineTransparency(double)));
 	connect(this->Cpal, SIGNAL(NewPen(QString)), doc, SLOT(ItemPen(QString)));
@@ -1232,7 +1232,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
-	//CB not needed, done from pageitem->emitalltogui or individual emit. 
+	//CB not needed, done from pageitem->emitalltogui or individual emit.
 	//NoPrint->setOn(!i->printEnabled());
 	//setLocked(i->locked());
 	//setSizeLocked(i->sizeLocked());
@@ -1251,7 +1251,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	Xpos->setReadOnly(setter);
 	Ypos->setReadOnly(setter);
 	Rot->setReadOnly(setter);
-	
+
 	if (i->asPathText())
 	{
 		TabStack2->raiseWidget(1);
@@ -1512,7 +1512,7 @@ void Mpalette::NewSel(int nr)
 
 void Mpalette::setMultipleSelection(bool isMultiple)
 {
-	//CB Having added the selection and undo transaction to mirrorpolyh/v in doc, 
+	//CB Having added the selection and undo transaction to mirrorpolyh/v in doc,
 	//these can be enabled all the time
 	//FlipH->setEnabled(!isMultiple);
 	//FlipV->setEnabled(!isMultiple);
@@ -3240,8 +3240,8 @@ void Mpalette::updateCList()
 	TxFill->clear();
 	TxStroke->clear();
 
-	TxFill->insertItem( tr("None"));
-	TxStroke->insertItem( tr("None"));
+	TxFill->insertItem(CommonStrings::NoneColor);
+	TxStroke->insertItem(CommonStrings::NoneColor);
 	ColorList::Iterator itend=doc->PageColors.end();
 	for (ColorList::Iterator it = doc->PageColors.begin(); it != itend; ++it)
 	{

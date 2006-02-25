@@ -156,7 +156,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	GroupBox20Layout->addWidget( TextLabel40a, 0, 0 );
 	BorderC = new ColorCombo( true, GroupBox20, "BorderC" );
 	ColorList::Iterator cit;
-	BorderC->insertItem( tr("None"));
+	BorderC->insertItem(CommonStrings::NoneColor);
 	if (item->annotation().borderColor() == CommonStrings::None)
 		BorderC->setCurrentItem(BorderC->count()-1);
 	for (cit = Farben.begin(); cit != Farben.end(); ++cit)
@@ -171,8 +171,8 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	TextLabel40->setText( tr( "Width:" ) );
 	GroupBox20Layout->addWidget( TextLabel40, 1, 0 );
 	BorderW = new QComboBox( true, GroupBox20, "BorderW" );
-	/* PFJ - 28/02/04 - Altered to the QString/size_t/for style */
-	QString borders[] = {tr("None"), tr("Thin"), tr("Normal"), tr("Wide")};
+	// PFJ - 28/02/04 - Altered to the QString/size_t/for style
+	QString borders[] = {CommonStrings::NoneColor, tr("Thin"), tr("Normal"), tr("Wide")};
 	size_t bordersArray = sizeof(borders) / sizeof(*borders);
 	for (uint propogate = 0; propogate < bordersArray; ++propogate)
 		BorderW->insertItem(borders[propogate]);
@@ -385,8 +385,8 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	GroupBox30aLayout = new QGridLayout( GroupBox30a->layout() );
 	GroupBox30aLayout->setAlignment( Qt::AlignTop );
 	ComboBox7_2 = new QComboBox( true, GroupBox30a, "ComboBox7_2" );
-	/* PFJ - 28/02/04 - Altered to QString/size_t/for style */
-	QString combo[] = {tr("None"), tr("Invert"), tr("Outlined"), tr("Push")};
+	// PFJ - 28/02/04 - Altered to QString/size_t/for style
+	QString combo[] = {tr("None", "highlight"), tr("Invert"), tr("Outlined"), tr("Push")};
 	size_t comboArray = sizeof(combo) / sizeof(*combo);
 	for (uint propogate = 0; propogate < comboArray; ++propogate)
 		ComboBox7_2->insertItem(combo[propogate]);
@@ -497,7 +497,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Layout20->addWidget( TextLabel70 );
 
 	ActionCombo = new QComboBox( true, tab_2, "ActTyp" );
-	QString tmp_actcom[] = {tr("None"), tr("JavaScript"), tr("Go To"),
+	QString tmp_actcom[] = {tr("None", "action"), tr("JavaScript"), tr("Go To"),
 	                        tr("Submit Form"), tr("Reset Form"), tr("Import Data")};
 	size_t array_act = sizeof(tmp_actcom) / sizeof(*tmp_actcom);
 	/* PFJ - 28/02/04 - Altered from uint to int and var name */
@@ -1707,7 +1707,7 @@ void Annot::SetVals()
 	item->annotation().setIsChk(isChkd->isChecked());
 	item->annotation().setChkStil(ChkStil->currentItem());
 	item->annotation().setBorderColor(BorderC->currentText());
-	if (item->annotation().borderColor() == tr("None"))
+	if (item->annotation().borderColor() == CommonStrings::NoneColor)
 		item->annotation().setBorderColor(CommonStrings::None);
 	Limit->isChecked() ? item->annotation().setMaxChar(MaxChars->value()) : item->annotation().setMaxChar(-1);
 	if (item->annotation().Type() == 2)
@@ -1950,7 +1950,7 @@ void Annot::SetZiel(int it)
 			NoExport->setEnabled(false);
 			NoExport->setChecked(false);
 			ActionCombo->clear();
-			QString tmp_actcom[] = {tr("None"), tr("JavaScript"), tr("Go To"),
+			QString tmp_actcom[] = {tr("None", "action"), tr("JavaScript"), tr("Go To"),
 			                        tr("Submit Form"), tr("Reset Form"), tr("Import Data")};
 			size_t array_act = sizeof(tmp_actcom) / sizeof(*tmp_actcom);
 			/* PFJ - 28/02/04 - Altered from uint to int and varname */

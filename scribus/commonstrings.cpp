@@ -27,6 +27,7 @@ QString CommonStrings::tr_Apply    = "";
 QString CommonStrings::_Cancel     = "";
 QString CommonStrings::tr_Cancel   = "";
 QString CommonStrings::None        = "";
+QString CommonStrings::NoneColor   = "";
 QString CommonStrings::_OK         = "";
 QString CommonStrings::tr_OK       = "";
 QString CommonStrings::_Save       = "";
@@ -126,6 +127,7 @@ void CommonStrings::languageChange()
 	CommonStrings::tr_Cancel  = tr( "&Cancel" );
 
 	CommonStrings::None       = "None";
+	CommonStrings::NoneColor  = tr("None", "color name");
 
 	CommonStrings::_OK        = "&OK";
 	CommonStrings::tr_OK      = tr( "&OK" );
@@ -135,10 +137,10 @@ void CommonStrings::languageChange()
 
 	CommonStrings::Warning    = "Warning";
 	CommonStrings::trWarning  = tr( "Warning" );
-	
+
 	CommonStrings::customPageSize = "Custom";
 	CommonStrings::trCustomPageSize = tr( "Custom", "CommonStrings, custom page size" );
-	
+
 	CommonStrings::pageSet1    = "Single Page";
 	CommonStrings::pageSet2    = "Double Sided";
 	CommonStrings::pageSet3    = "3-Fold";
@@ -147,7 +149,7 @@ void CommonStrings::languageChange()
 	CommonStrings::trPageSet2  = tr( "Double Sided" );
 	CommonStrings::trPageSet3  = tr( "3-Fold" );
 	CommonStrings::trPageSet4  = tr( "4-Fold" );
-	
+
 	CommonStrings::pageLocLeft          = "Left Page";
 	CommonStrings::pageLocMiddle        = "Middle";
 	CommonStrings::pageLocMiddleLeft    = "Middle Left";

@@ -16,8 +16,10 @@ for which a new license (GPL+exception) is in place.
 #include <qlistbox.h>
 #include "colorcombo.h"
 #include "colorcombo.moc"
+#include "commonstrings.h"
 
-ColorCombo::ColorCombo( QWidget* parent, const char* name ) : QComboBox(false, parent, name) 
+
+ColorCombo::ColorCombo( QWidget* parent, const char* name ) : QComboBox(false, parent, name)
 {
 #ifdef QT_MAC
 	setStyle( new ColorCombo::ScMacStyle() );
@@ -40,7 +42,7 @@ void ColorCombo::updateBox(ColorList& list, ColorCombo::PixmapType pixType , boo
 	{
 		clb->clear();
 		if ( insertNone )
-			clb->insertItem( tr("None") );
+			clb->insertItem(CommonStrings::NoneColor);
 		if ( pixType == ColorCombo::fancyPixmaps )
 			clb->updateBox(list, ColorListBox::fancyPixmap, false);
 		else if ( pixType == ColorCombo::widePixmaps )

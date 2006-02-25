@@ -53,7 +53,7 @@ void ColorSmallPixmapItem::paint( QPainter *p )
 
 	int itemHeight = height( listBox() );
     int yPos;
-		
+
 	QColor rgb = color.getRawRGBColor();
 	smallPix.fill(rgb);
 	QPainter painter(&smallPix);
@@ -95,7 +95,7 @@ void ColorWidePixmapItem::paint( QPainter *p )
 
 	int itemHeight = height( listBox() );
     int yPos;
-		
+
 	QColor rgb = color.getRawRGBColor();
 	widePix.fill(rgb);
 
@@ -148,7 +148,7 @@ void ColorFancyPixmapItem::paint( QPainter *p )
 
 	int itemHeight = height( listBox() );
     int yPos;
-		
+
 	QColor rgb = color.getRawRGBColor();
 	smallPix.fill(rgb);
 	QPainter painter(&smallPix);
@@ -209,7 +209,7 @@ void ColorListBox::updateBox(ColorList list, ColorListBox::PixmapType type, bool
 	for (it = list.begin(); it != list.end(); ++it)
 	{
 		// if condition 10/21/2004 pv #1191
-		if (it.key() == CommonStrings::None || it.key() == tr("None"))
+		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor)
 			continue;
 
 		ScColor col = list[it.key()];
