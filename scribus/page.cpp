@@ -281,14 +281,22 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	if (!state)
 		return;
 	PageItem *ite = state->getItem();
+	bool switchedStacks = false;
+
+	if (ite->OnMasterPage.isEmpty()) {
+		if (ScMW->doc->Items == &ScMW->doc->MasterItems) {
+			ScMW->doc->Items = &ScMW->doc->DocItems;
+			switchedStacks = true;
+		}
+	} else {
+		if (ScMW->doc->Items == &ScMW->doc->DocItems) {
+			ScMW->doc->Items = &ScMW->doc->MasterItems;
+			switchedStacks = true;
+		}
+	}
+
 	if (isUndo)
 	{
-		/*
-		ScMW->view->Deselect();
-		ScMW->doc->selection->addItem(ite, true);
-		ScMW->view->DeleteItem();
-		ScMW->view->Deselect();
-		*/
 		ScMW->doc->selection->clear();
 		ScMW->doc->selection->addItem(ite, true);
 		ScMW->doc->itemSelection_DeleteItem();
@@ -299,6 +307,13 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 		ScMW->doc->Items->append(ite);
 		ite->ItemNr = ScMW->doc->Items->count()-1;
 		ScMW->view->updateContents();
+	}
+
+	if (switchedStacks) {
+		if (ScMW->doc->Items == &ScMW->doc->MasterItems)
+			ScMW->doc->Items = &ScMW->doc->DocItems;
+		else
+			ScMW->doc->Items = &ScMW->doc->MasterItems;
 	}
 }
 
@@ -307,6 +322,20 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 	if (!state)
 		return;
 	PageItem *ite = state->getItem();
+	bool switchedStacks = false;
+
+	if (ite->OnMasterPage.isEmpty()) {
+		if (ScMW->doc->Items == &ScMW->doc->MasterItems) {
+			ScMW->doc->Items = &ScMW->doc->DocItems;
+			switchedStacks = true;
+		}
+	} else {
+		if (ScMW->doc->Items == &ScMW->doc->DocItems) {
+			ScMW->doc->Items = &ScMW->doc->MasterItems;
+			switchedStacks = true;
+		}
+	}
+
 	if (isUndo)
 	{
 		ScMW->doc->Items->append(ite);
@@ -315,15 +344,17 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 	}
 	else
 	{
-		/*ScMW->view->Deselect();
-		ScMW->doc->selection->addItem(ite, true);
-		ScMW->view->DeleteItem();
-		ScMW->view->Deselect();
-		*/
 		ScMW->doc->selection->clear();
 		ScMW->doc->selection->addItem(ite, true);
 		ScMW->doc->itemSelection_DeleteItem();
 		ScMW->doc->selection->clear();
+	}
+
+	if (switchedStacks) {
+		if (ScMW->doc->Items == &ScMW->doc->MasterItems)
+			ScMW->doc->Items = &ScMW->doc->DocItems;
+		else
+			ScMW->doc->Items = &ScMW->doc->MasterItems;
 	}
 }
 
@@ -334,6 +365,19 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 
 	PageItem *oldItem=state->getItem().first;
 	PageItem *newItem=state->getItem().second;
+	bool switchedStacks = false;
+	if (oldItem->OnMasterPage.isEmpty()) {
+		if (ScMW->doc->Items == &ScMW->doc->MasterItems) {
+			ScMW->doc->Items = &ScMW->doc->DocItems;
+			switchedStacks = true;
+		}
+	} else {
+		if (ScMW->doc->Items == &ScMW->doc->DocItems) {
+			ScMW->doc->Items = &ScMW->doc->MasterItems;
+			switchedStacks = true;
+		}
+	}
+
 	if (isUndo)
 	{
 		ScMW->doc->Items->take(newItem->ItemNr);
@@ -347,6 +391,13 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 		ScMW->doc->Items->take(oldItem->ItemNr);
 		ScMW->doc->Items->append(newItem);
 		newItem->ItemNr = ScMW->doc->Items->count()-1;
+	}
+
+	if (switchedStacks) {
+		if (ScMW->doc->Items == &ScMW->doc->MasterItems)
+			ScMW->doc->Items = &ScMW->doc->DocItems;
+		else
+			ScMW->doc->Items = &ScMW->doc->MasterItems;
 	}
 }
 
