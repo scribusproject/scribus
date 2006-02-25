@@ -59,6 +59,11 @@ QPixmap StencilReader::createPreview(QString data)
 		{
 			stroke = Qt::black;
 			fill = Qt::white;
+			fillStyle = 1;
+			strokewidth = 1.0;
+			Dash = Qt::SolidLine;
+			LineEnd = Qt::FlatCap;
+			LineJoin = Qt::MiterJoin;
 			FPointArray PoLine;
 			PoLine.resize(0);
 			double x, y, x1, y1, currx, curry, startx, starty;
@@ -298,7 +303,7 @@ QString StencilReader::createObjects(QString datain)
 	co2.setAttribute("RGB", "#ffffff");
 	co2.setAttribute("Spot","0");
 	co2.setAttribute("Register","0");
-	group.appendChild(co);
+	group.appendChild(co2);
 	QDomNodeList listStrokes = elem.elementsByTagName("KivioLineStyle");
 	for (uint st = 0; st < listStrokes.count(); st++)
 	{
@@ -377,6 +382,11 @@ QString StencilReader::createObjects(QString datain)
 		{
 			FillCol = "FromKivio#ffffff";
 			StrokeCol = "FromKivio#000000";
+			fillStyle = 1;
+			strokewidth = 1.0;
+			Dash = Qt::SolidLine;
+			LineEnd = Qt::FlatCap;
+			LineJoin = Qt::MiterJoin;
 			FPointArray PoLine;
 			PoLine.resize(0);
 			double x, y, x1, y1, currx, curry, startx, starty;
@@ -393,7 +403,7 @@ QString StencilReader::createObjects(QString datain)
 					QString colnam = pt.attribute("color","#000000");
 					fill.setNamedColor("#"+colnam.right(6));
 					if (fillStyle == 0)
-						FillCol = "None";
+						FillCol = CommonStrings::None;
 					else
 						FillCol = "FromKivio"+fill.name();
 				}
@@ -494,10 +504,18 @@ QString StencilReader::createObjects(QString datain)
 			ob.setAttribute("FRTYPE",  3);
 			ob.setAttribute("CLIPEDIT", 1);
 			ob.setAttribute("PWIDTH", strokewidth);
-			ob.setAttribute("PCOLOR", FillCol);
-			ob.setAttribute("PCOLOR2", StrokeCol);
-			ob.setAttribute("TXTFILL", FillCol);
-			ob.setAttribute("TXTSTROKE", StrokeCol);
+			if (typ == "TextBox")
+			{
+				ob.setAttribute("PCOLOR", CommonStrings::None);
+				ob.setAttribute("PCOLOR2", CommonStrings::None);
+			}
+			else
+			{
+				ob.setAttribute("PCOLOR", FillCol);
+				ob.setAttribute("PCOLOR2", StrokeCol);
+			}
+			ob.setAttribute("TXTFILL", prefsManager->appPrefs.toolSettings.dPenText);
+			ob.setAttribute("TXTSTROKE", prefsManager->appPrefs.toolSettings.dStrokeText);
 			ob.setAttribute("TXTSTRSH", 100);
 			ob.setAttribute("TXTFILLSH", 100);
 			ob.setAttribute("TXTSCALE", 100);
@@ -534,7 +552,7 @@ QString StencilReader::createObjects(QString datain)
 			ob.setAttribute("FLIPPEDH", 0);
 			ob.setAttribute("FLIPPEDV", 0);
 			ob.setAttribute("IFONT", prefsManager->appPrefs.toolSettings.defFont);
-			ob.setAttribute("ISIZE", 12.0 );
+			ob.setAttribute("ISIZE", prefsManager->appPrefs.toolSettings.defSize / 10.0);
 			ob.setAttribute("SCALETYPE", 1);
 			ob.setAttribute("RATIO", 0);
 			ob.setAttribute("PRINTABLE", 1);
@@ -600,9 +618,12 @@ QString StencilReader::createObjects(QString datain)
 				ob.setAttribute("PTYPE", PageItem::PolyLine);
 				valid = true;
 			}
-			else if (typ == "Rectangle")
+			else if ((typ == "Rectangle") || (typ == "TextBox"))
 			{
-				ob.setAttribute("PTYPE", PageItem::Polygon);
+				if (typ == "Rectangle")
+					ob.setAttribute("PTYPE", PageItem::Polygon);
+				else
+					ob.setAttribute("PTYPE", PageItem::TextFrame);
 				x = pg.attribute("x").toDouble();
 				y = pg.attribute("y").toDouble();
 				x1 = pg.attribute("w").toDouble();

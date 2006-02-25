@@ -262,6 +262,7 @@ void PrefsManager::initDefaults()
 	appPrefs.ClipMargin = false;
 	appPrefs.GCRMode = false;
 	appPrefs.RecentDocs.clear();
+	appPrefs.RecentScrapbooks.clear();
 	appPrefs.RecentDCount = 5;
 	appPrefs.marginColored = false;
 	appPrefs.pageSize = "A4";
@@ -695,7 +696,6 @@ void PrefsManager::SavePrefs(const QString & fname)
 		appPrefs.RecentDocs.append(ScMW->RecentDocs[m]);
 	}
 	ScMW->getDefaultPrinter(&appPrefs.PrinterName, &appPrefs.PrinterFile, &appPrefs.PrinterCommand);
-
 	SavePrefsXML();
 	QString realFile;
 	if (fname.isNull())
@@ -971,9 +971,14 @@ bool PrefsManager::WritePref(QString ho)
 	dc4.setAttribute("WIDTH",appPrefs.mainWinSettings.width);
 	dc4.setAttribute("HEIGHT",appPrefs.mainWinSettings.height);
 	elem.appendChild(dc4);
-/*	QDomElement dc73=docu.createElement("SCRAPBOOK");
-	dc73.setAttribute("PREVIEW",appPrefs.PSize);
-	elem.appendChild(dc73); */
+	QDomElement dc73=docu.createElement("SCRAPBOOK");
+	for (uint rd=0; rd<appPrefs.RecentScrapbooks.count(); ++rd)
+	{
+		QDomElement rde=docu.createElement("RECENT");
+		rde.setAttribute("NAME",appPrefs.RecentScrapbooks[rd]);
+		dc73.appendChild(rde);
+	}
+	elem.appendChild(dc73);
 	QDomElement dc75=docu.createElement("PAGEPALETTE");
 	dc75.setAttribute("THUMBS", static_cast<int>(appPrefs.SepalT));
 	dc75.setAttribute("NAMES", static_cast<int>(appPrefs.SepalN));
@@ -1457,10 +1462,22 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.SepalT = static_cast<bool>(dc.attribute("THUMBS").toInt());
 			appPrefs.SepalN = static_cast<bool>(dc.attribute("NAMES").toInt());
 		}
-/*		if (dc.tagName()=="SCRAPBOOK")
+		if (dc.tagName()=="SCRAPBOOK")
 		{
-			appPrefs.PSize = dc.attribute("PREVIEW").toInt();
-		} */
+			QDomNode scrp = dc.firstChild();
+			while(!scrp.isNull())
+			{
+				QDomElement scrpElem = scrp.toElement();
+				if (scrpElem.tagName()=="RECENT")
+				{
+					QString nam = scrpElem.attribute("NAME");
+					QFileInfo fd(nam);
+					if (fd.exists())
+						appPrefs.RecentScrapbooks.append(nam);
+				}
+				scrp = scrp.nextSibling();
+			}
+		}
 		if (dc.tagName() == "DOKUMENT")
 		{
 			appPrefs.pageSize = dc.attribute("PAGESIZE","A4");

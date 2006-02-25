@@ -163,6 +163,7 @@ struct ApplicationPrefs
 //	int PSize;
 	bool marginColored;
 	QStringList RecentDocs;
+	QStringList RecentScrapbooks;
 	uint RecentDCount;
 	CMSData DCMSset;
 	QMap<QString,Keys> KeyActions;

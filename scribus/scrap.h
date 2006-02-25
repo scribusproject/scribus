@@ -66,6 +66,8 @@ public:
 	void readContents(QString);
 	void readOldContents(QString, QString);
 	void installEventFilter(const QObject *);
+	void setOpenScrapbooks(QStringList &fileNames);
+	QStringList getOpenScrapbooks();
 	
 public slots:
 	void languageChange();

@@ -70,10 +70,15 @@ QDragObject *BibView::dragObject()
 		dt = pre->createObjects(f);
 		delete pre;
 	}
+	else if (fi.extension(true).lower() == "sce")
+	{
+		QString f = "";
+		loadText(dt, &f);
+		dt = f;
+	}
 	QDragObject *dr = new QTextDrag(dt, this);
 	dr->setPixmap(objectMap[currentItem()->text()].Preview);
 	clearSelection();
-//	dr->setPixmap(loadIcon("DragPix.xpm"));
 	return dr;
 }
 
@@ -113,6 +118,35 @@ void BibView::SaveContents(QString name, QString oldName)
 				delete pre;
 			}
 			QFileInfo fi3(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d[dc])));
+			pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi3.dirPath()+"/"+fi3.baseName()+".png")), "PNG");
+		}
+	}
+	QDir d2(oldName, "*.sml", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+	if ((d.exists()) && (d.count() != 0))
+	{
+		for (uint dc = 0; dc < d2.count(); ++dc)
+		{
+			QString f = "";
+			if (!loadText(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d2[dc])), &f))
+				continue;
+			QFile fil(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d2[dc])));
+			if(!fil.open(IO_WriteOnly))
+				continue ;
+			QTextStream s(&fil);
+			s.writeRawBytes(f, f.length());
+			fil.close();
+			QPixmap pm;
+			QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d2[dc])));
+			QFileInfo fi2(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
+			if (fi2.exists())
+				pm.load(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
+			else
+			{
+				StencilReader *pre = new StencilReader();
+				pm = pre->createPreview(f);
+				delete pre;
+			}
+			QFileInfo fi3(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d2[dc])));
 			pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi3.dirPath()+"/"+fi3.baseName()+".png")), "PNG");
 		}
 	}
@@ -159,8 +193,9 @@ void BibView::ReadContents(QString name)
 	QString nd;
 	if (name.endsWith(QDir::convertSeparators("/")))
 		nd = name.left(name.length()-1);
-	QFileInfo fd(nd);
-	canWrite = fd.permission( QFileInfo::WriteUser );
+//	QFileInfo fd(nd);
+//	canWrite = fd.permission( QFileInfo::WriteUser );
+// Above code is commented out because QFileInfo::permissons does not work properly
 	QDir d(name, "*.sce", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
 	{
@@ -178,7 +213,8 @@ void BibView::ReadContents(QString name)
 			{
 				ScPreview *pre = new ScPreview();
 				pm = pre->createPreview(f);
-				if (canWrite)
+//				if (canWrite)
+// Above code is commented out because QFileInfo::permissons does not work properly
 					pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")), "PNG");
 				delete pre;
 			}
@@ -202,7 +238,8 @@ void BibView::ReadContents(QString name)
 			{
 				StencilReader *pre = new StencilReader();
 				pm = pre->createPreview(f);
-				if (canWrite)
+//				if (canWrite)
+// Above code is commented out because QFileInfo::permissons does not work properly
 					pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")), "PNG");
 				delete pre;
 			}
@@ -243,6 +280,49 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	connect(activeBView, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
 	connect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 	connect(Frame3, SIGNAL(currentChanged(QWidget*)), this, SLOT(libChanged(QWidget* )));
+}
+
+void Biblio::setOpenScrapbooks(QStringList &fileNames)
+{
+	disconnect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
+	disconnect(activeBView, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
+	disconnect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
+	for (uint rd = 0; rd < fileNames.count(); ++rd)
+	{
+		QString fileName = fileNames[rd];
+		if (!fileName.isEmpty())
+		{
+			QDir d(fileName);
+			activeBView = new BibView(this);
+/*			if (!activeBView->canWrite)
+				Frame3->addTab(activeBView, loadIcon("spot.png"), d.dirName());
+			else */
+// Above code is commented out because QFileInfo::permissons does not work properly
+			Frame3->addTab(activeBView, d.dirName());
+			activeBView->ReadContents(fileName);
+			activeBView->ScFilename = fileName;
+		}
+	}
+	activeBView = (BibView*)Frame3->page(0);
+	Frame3->setCurrentPage(0);
+	connect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
+	connect(activeBView, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
+	connect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
+}
+
+QStringList Biblio::getOpenScrapbooks()
+{
+	QStringList ret;
+	ret.clear();
+	if (Frame3->count() > 1)
+	{
+		for (int a = 1; a < Frame3->count(); a++)
+		{
+			BibView* bv = (BibView*)Frame3->page(a);
+			ret.append(bv->ScFilename);
+		}
+	}
+	return ret;
 }
 
 void Biblio::setScrapbookFileName(QString fileName)
@@ -321,9 +401,10 @@ void Biblio::Load()
 		disconnect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 		QDir d(fileName);
 		activeBView = new BibView(this);
-		if (!activeBView->canWrite)
+/*		if (!activeBView->canWrite)
 			Frame3->addTab(activeBView, loadIcon("spot.png"), d.dirName());
-		else
+		else */
+// Above code is commented out because QFileInfo::permissons does not work properly
 			Frame3->addTab(activeBView, d.dirName());
 		activeBView->ReadContents(fileName);
 		activeBView->ScFilename = fileName;
@@ -413,8 +494,9 @@ void Biblio::HandleMouse(QIconViewItem *ite)
 
 void Biblio::DeleteObj(QString name, QIconViewItem *ite)
 {
-	if (!activeBView->canWrite)
-		return;
+/*	if (!activeBView->canWrite)
+		return; */
+// Above code is commented out because QFileInfo::permissons does not work properly
 	QFile f(activeBView->objectMap[name].Data);
 	f.remove();
 	QFileInfo fi(QDir::convertSeparators(activeBView->ScFilename + "/" + name + ".png"));
@@ -431,8 +513,9 @@ void Biblio::DeleteObj(QString name, QIconViewItem *ite)
 
 void Biblio::ItemRenamed(QIconViewItem *ite)
 {
-	if (!activeBView->canWrite)
-		return;
+/*	if (!activeBView->canWrite)
+		return; */
+// Above code is commented out because QFileInfo::permissons does not work properly
 	QString ObjData;
 	QPixmap ObjPreview;
 	disconnect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
@@ -496,8 +579,9 @@ void Biblio::DropOn(QDropEvent *e)
 void Biblio::ObjFromMenu(QString text)
 {
 	QString nam, tmp;
-	if (!activeBView->canWrite)
-		return;
+/*	if (!activeBView->canWrite)
+		return; */
+// Above code is commented out because QFileInfo::permissons does not work properly
 	nam = tr("Object") + tmp.setNum(activeBView->objectMap.count());
 	Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
 	dia->setEditText(nam, true);
@@ -550,7 +634,4 @@ void Biblio::languageChange()
 	fmenu->changeItem(fLoad, tr("&Load..."));
 	fmenu->changeItem(fSaveAs, tr("Save &As..."));
 	fmenu->changeItem(fClose, tr("&Close"));
-/*	vmenu->changeItem(vSmall, tr("&Small" ));
-	vmenu->changeItem(vMedium, tr("&Medium" ));
-	vmenu->changeItem(vLarge, tr("&Large" )); */
 }

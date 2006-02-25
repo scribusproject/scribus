@@ -573,7 +573,7 @@ void ScribusMainWindow::initScrapbook()
 	if (scrapbookFileInfo.exists())
 		scrapbookPalette->readContents(scrapbookFile);
 	scrapbookPalette->setScrapbookFileName(scrapbookFile);
-//	scrapbookPalette->AdjustMenu();
+	scrapbookPalette->setOpenScrapbooks(prefsManager->appPrefs.RecentScrapbooks);
 }
 
 const QString ScribusMainWindow::getGuiLanguage()
@@ -1720,6 +1720,8 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 
 	// Clean up plugins, THEN save prefs to disk
 	pluginManager->cleanupPlugins();
+	prefsManager->appPrefs.RecentScrapbooks.clear();
+	prefsManager->appPrefs.RecentScrapbooks = scrapbookPalette->getOpenScrapbooks();
 	if (!emergencyActivated)
 		prefsManager->SavePrefs();
 	UndoManager::deleteInstance();
