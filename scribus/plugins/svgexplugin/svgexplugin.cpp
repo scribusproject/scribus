@@ -232,15 +232,15 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				Item = Items.at(j);
 				if (Item->LayerNr != ll.LNr)
 					continue;
-				int x = static_cast<int>(Seite->xOffset());
-				int y = static_cast<int>(Seite->yOffset());
-				int w = static_cast<int>(Seite->width());
-				int h = static_cast<int>(Seite->height());
-				int x2 = static_cast<int>(Item->BoundingX);
-				int y2 = static_cast<int>(Item->BoundingY);
-				int w2 = static_cast<int>(Item->BoundingW);
-				int h2 = static_cast<int>(Item->BoundingH);
-				if (!QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
+				double x = Seite->xOffset();
+				double y = Seite->yOffset();
+				double w = Seite->width();
+				double h = Seite->height();
+				double x2 = Item->BoundingX;
+				double y2 = Item->BoundingY;
+				double w2 = Item->BoundingW;
+				double h2 = Item->BoundingH;
+				if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h, y2+h2 )))
 					continue;
 				if ((Item->fillColor() != CommonStrings::None) || (Item->GrType != 0))
 				{

@@ -1940,16 +1940,16 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				//if ((!Art) && (view->SelItem.count() != 0) && (!c->Select))
 				if ((!Art) && (!c->isSelected()) && (Doc->selection->count() != 0))
 					continue;
-				int x = static_cast<int>(a->xOffset());
-				int y = static_cast<int>(a->yOffset());
-				int w = static_cast<int>(a->width());
-				int h1 = static_cast<int>(a->height());
-				double ilw=c->lineWidth();
-				int x2 = static_cast<int>(c->BoundingX - ilw / 2.0);
-				int y2 = static_cast<int>(c->BoundingY - ilw / 2.0);
-				int w2 = static_cast<int>(c->BoundingW + ilw);
-				int h2 = static_cast<int>(c->BoundingH + ilw);
-				if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
+				double x = a->xOffset();
+				double y = a->yOffset();
+				double w = a->width();
+				double h1 = a->height();
+				double ilw = c->lineWidth();
+				double x2 = c->BoundingX - ilw / 2.0;
+				double y2 = c->BoundingY - ilw / 2.0;
+				double w2 = c->BoundingW + ilw;
+				double h2 = c->BoundingH + ilw;
+				if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
 					continue;
 				if (c->ChangedMasterItem)
 					continue;
@@ -1967,16 +1967,16 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				continue;
 			if ((!a->PageNam.isEmpty()) && (c->asImageFrame()) && ((sep) || (!farb)))
 				continue;
-			int x = static_cast<int>(a->xOffset());
-			int y = static_cast<int>(a->yOffset());
-			int w = static_cast<int>(a->width());
-			int h1 = static_cast<int>(a->height());
+			double x = a->xOffset();
+			double y = a->yOffset();
+			double w = a->width();
+			double h1 = a->height();
 			double ilw=c->lineWidth();
-			int x2 = static_cast<int>(c->BoundingX - ilw / 2.0);
-			int y2 = static_cast<int>(c->BoundingY - ilw / 2.0);
-			int w2 = static_cast<int>(c->BoundingW + ilw);
-			int h2 = static_cast<int>(c->BoundingH + ilw);
-			if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
+			double x2 = c->BoundingX - ilw / 2.0;
+			double y2 = c->BoundingY - ilw / 2.0;
+			double w2 = c->BoundingW + ilw;
+			double h2 = c->BoundingH + ilw;
+			if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
 				continue;
 			if (c->ChangedMasterItem)
 				continue;

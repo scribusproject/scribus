@@ -1093,16 +1093,16 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 				ite =PItems.at(a);
 				if (ite->LayerNr != ll.LNr)
 					continue;
-				int x = static_cast<int>(pag->xOffset());
-				int y = static_cast<int>(pag->yOffset());
-				int w = static_cast<int>(pag->width());
-				int h1 = static_cast<int>(pag->height());
+				double x = pag->xOffset();
+				double y = pag->yOffset();
+				double w = pag->width();
+				double h1 = pag->height();
 				double ilw=ite->lineWidth();
-				int x2 = static_cast<int>(ite->BoundingX - ilw / 2.0);
-				int y2 = static_cast<int>(ite->BoundingY - ilw / 2.0);
-				int w2 = static_cast<int>(ite->BoundingW + ilw);
-				int h2 = static_cast<int>(ite->BoundingH + ilw);
-				if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
+				double x2 = ite->BoundingX - ilw / 2.0;
+				double y2 = ite->BoundingY - ilw / 2.0;
+				double w2 = ite->BoundingW + ilw;
+				double h2 = ite->BoundingH + ilw;
+				if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
 					continue;
 				if (ite->ChangedMasterItem)
 					continue;
@@ -2006,16 +2006,16 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						continue;
 					if (!ite->isTableItem)
 						continue;
-					int x = qRound(pag->xOffset()*100);
-					int y = qRound(pag->yOffset()*100);
-					int w = qRound(pag->width()*100);
-					int h1 = qRound(pag->height()*100);
+					double x = pag->xOffset();
+					double y = pag->yOffset();
+					double w = pag->width();
+					double h1 = pag->height();
 					double ilw=ite->lineWidth();
-					int x2 = qRound((ite->BoundingX - ilw / 2.0)*100);
-					int y2 = qRound((ite->BoundingY - ilw / 2.0)*100);
-					int w2 = qRound((ite->BoundingW + ilw)*100);
-					int h2 = qRound((ite->BoundingH + ilw)*100);
-					if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
+					double x2 = ite->BoundingX - ilw / 2.0;
+					double y2 = ite->BoundingY - ilw / 2.0;
+					double w2 = ite->BoundingW + ilw;
+					double h2 = ite->BoundingH + ilw;
+					if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
 						continue;
 					if (ite->ChangedMasterItem)
 						continue;
@@ -2138,16 +2138,16 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool embedded)
 {
 	QString tmp("");
-	int x = qRound(pag->xOffset()*100);
-	int y = qRound(pag->yOffset()*100);
-	int w = qRound(pag->width()*100);
-	int h1 = qRound(pag->height()*100);
+	double x = pag->xOffset();
+	double y = pag->yOffset();
+	double w = pag->width();
+	double h1 = pag->height();
 	double ilw=ite->lineWidth();
-	int x2 = qRound((ite->BoundingX - ilw / 2.0)*100);
-	int y2 = qRound((ite->BoundingY - ilw / 2.0)*100);
-	int w2 = qRound((ite->BoundingW + ilw)*100);
-	int h2 = qRound((ite->BoundingH + ilw)*100);
-	if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
+	double x2 = ite->BoundingX - ilw / 2.0;
+	double y2 = ite->BoundingY - ilw / 2.0;
+	double w2 = ite->BoundingW + ilw;
+	double h2 = ite->BoundingH + ilw;
+	if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
 		return tmp;
 	if (ite->ChangedMasterItem)
 		return tmp;
