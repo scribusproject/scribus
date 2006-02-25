@@ -281,20 +281,8 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	if (!state)
 		return;
 	PageItem *ite = state->getItem();
-	bool switchedStacks = false;
-
-	if (ite->OnMasterPage.isEmpty()) {
-		if (ScMW->doc->Items == &ScMW->doc->MasterItems) {
-			ScMW->doc->Items = &ScMW->doc->DocItems;
-			switchedStacks = true;
-		}
-	} else {
-		if (ScMW->doc->Items == &ScMW->doc->DocItems) {
-			ScMW->doc->Items = &ScMW->doc->MasterItems;
-			switchedStacks = true;
-		}
-	}
-
+	bool oldMPMode=ScMW->doc->masterPageMode();
+	ScMW->doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
 	if (isUndo)
 	{
 		ScMW->doc->selection->clear();
@@ -308,13 +296,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 		ite->ItemNr = ScMW->doc->Items->count()-1;
 		ScMW->view->updateContents();
 	}
-
-	if (switchedStacks) {
-		if (ScMW->doc->Items == &ScMW->doc->MasterItems)
-			ScMW->doc->Items = &ScMW->doc->DocItems;
-		else
-			ScMW->doc->Items = &ScMW->doc->MasterItems;
-	}
+	ScMW->doc->setMasterPageMode(oldMPMode);
 }
 
 void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
@@ -322,20 +304,8 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 	if (!state)
 		return;
 	PageItem *ite = state->getItem();
-	bool switchedStacks = false;
-
-	if (ite->OnMasterPage.isEmpty()) {
-		if (ScMW->doc->Items == &ScMW->doc->MasterItems) {
-			ScMW->doc->Items = &ScMW->doc->DocItems;
-			switchedStacks = true;
-		}
-	} else {
-		if (ScMW->doc->Items == &ScMW->doc->DocItems) {
-			ScMW->doc->Items = &ScMW->doc->MasterItems;
-			switchedStacks = true;
-		}
-	}
-
+	bool oldMPMode=ScMW->doc->masterPageMode();
+	ScMW->doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
 	if (isUndo)
 	{
 		ScMW->doc->Items->append(ite);
@@ -349,13 +319,7 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 		ScMW->doc->itemSelection_DeleteItem();
 		ScMW->doc->selection->clear();
 	}
-
-	if (switchedStacks) {
-		if (ScMW->doc->Items == &ScMW->doc->MasterItems)
-			ScMW->doc->Items = &ScMW->doc->DocItems;
-		else
-			ScMW->doc->Items = &ScMW->doc->MasterItems;
-	}
+	ScMW->doc->setMasterPageMode(oldMPMode);
 }
 
 void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >*state, bool isUndo)
@@ -365,19 +329,8 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 
 	PageItem *oldItem=state->getItem().first;
 	PageItem *newItem=state->getItem().second;
-	bool switchedStacks = false;
-	if (oldItem->OnMasterPage.isEmpty()) {
-		if (ScMW->doc->Items == &ScMW->doc->MasterItems) {
-			ScMW->doc->Items = &ScMW->doc->DocItems;
-			switchedStacks = true;
-		}
-	} else {
-		if (ScMW->doc->Items == &ScMW->doc->DocItems) {
-			ScMW->doc->Items = &ScMW->doc->MasterItems;
-			switchedStacks = true;
-		}
-	}
-
+	bool oldMPMode=ScMW->doc->masterPageMode();
+	ScMW->doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
 	if (isUndo)
 	{
 		ScMW->doc->Items->take(newItem->ItemNr);
@@ -392,13 +345,7 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 		ScMW->doc->Items->append(newItem);
 		newItem->ItemNr = ScMW->doc->Items->count()-1;
 	}
-
-	if (switchedStacks) {
-		if (ScMW->doc->Items == &ScMW->doc->MasterItems)
-			ScMW->doc->Items = &ScMW->doc->DocItems;
-		else
-			ScMW->doc->Items = &ScMW->doc->MasterItems;
-	}
+	ScMW->doc->setMasterPageMode(oldMPMode);
 }
 
 void Page::setXOffset(const double newCanvasXOffset)
