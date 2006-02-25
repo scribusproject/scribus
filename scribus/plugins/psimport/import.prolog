@@ -504,7 +504,13 @@
 	0  0 i_m transform  /i_y exch def /i_x exch def 
 	/i_angle 0 def  % FIXME
 	/ExportFiles where { /ExportFiles get (.) search { exch pop exch pop } if } { (imagefile) } ifelse
-	    (-) concatenate i_filecount 9 string cvs concatenate 
+	    (-) concatenate dup /i_basename exch def i_filecount 9 string cvs concatenate
+		{
+			i_filecount 1 add /i_filecount exch store
+			dup (.dat) concatenate status not { exit } if
+			pop pop pop pop pop
+			i_basename i_filecount 9 string cvs concatenate
+		} loop
 		(im ) print												% im x y w h angle ...
 		i_x i_str cvs print ( ) print
 		i_y i_str cvs print ( ) print
@@ -523,7 +529,6 @@
 		ifelse } ifelse } ifelse
         dup  (.tif) concatenate print (\n) print flush        % ... dev filename
 		(.dat) concatenate (w) file /i_file exch store
-	i_filecount 1 add /i_filecount exch store
 	currentcolorspace ==write ( setcolorspace\n) ==write
 	(<<\n) ==write 
 	i_dict { exch
