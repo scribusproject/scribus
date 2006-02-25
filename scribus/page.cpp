@@ -330,7 +330,7 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 	PageItem *oldItem=state->getItem().first;
 	PageItem *newItem=state->getItem().second;
 	bool oldMPMode=ScMW->doc->masterPageMode();
-	ScMW->doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
+	ScMW->doc->setMasterPageMode(!oldItem->OnMasterPage.isEmpty());
 	if (isUndo)
 	{
 		ScMW->doc->Items->take(newItem->ItemNr);
