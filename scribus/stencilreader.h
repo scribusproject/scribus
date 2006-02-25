@@ -9,9 +9,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
-class ScribusView;
-class ScribusDoc;
-class PageItem;
 
 class SCRIBUS_API StencilReader
 {
@@ -20,8 +17,6 @@ public:
 	~StencilReader() {};
 	QPixmap createPreview(QString data);
 	QString createObjects(QString data);
-	ScribusDoc *currDoc;
-	ScribusView *view;
-	QPtrList<PageItem> Elements;
+	ColorList PageColors;
 };
 #endif
