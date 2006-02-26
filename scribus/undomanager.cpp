@@ -805,6 +805,7 @@ void UndoManager::languageChange()
 	UndoManager::DoNotPrintLayer    = tr("Disable printing of layer");
 	UndoManager::SetLayerName       = tr("Change name of the layer");
 	UndoManager::GetImage           = tr("Get image");
+	UndoManager::MultipleDuplicate  = tr("Multiple duplicate");
 }
 
 /*** UndoManager::TransactionState *****************************************************/
@@ -941,6 +942,7 @@ void UndoManager::initIcons()
 // 	UndoManager::IUp              = new QPixmap(iconDir + "u_up.png");
 // 	UndoManager::IDown            = new QPixmap(iconDir + "u_down.png");
 // 	UndoManager::IGetImage        = new QPixmap(iconDir + "u_get_image.png");
+	UndoManager::IMultipleDuplicate = new QPixmap(iconDir + "u_multiple.png");
 }
 QString UndoManager::AddVGuide          = "";
 QString UndoManager::AddHGuide          = "";
@@ -1050,6 +1052,7 @@ QString UndoManager::PrintLayer         = "";
 QString UndoManager::DoNotPrintLayer    = "";
 QString UndoManager::SetLayerName       = "";
 QString UndoManager::GetImage           = "";
+QString UndoManager::MultipleDuplicate  = "";
 /*
 const QString UndoManager::AddVGuide          = tr("Add vertical guide");
 const QString UndoManager::AddHGuide          = tr("Add horizontal guide");
@@ -1200,4 +1203,5 @@ QPixmap *UndoManager::IUp              = 0;
 QPixmap *UndoManager::IDown            = 0;
 QPixmap *UndoManager::IPrint           = 0;
 QPixmap *UndoManager::IGetImage        = 0;
+QPixmap *UndoManager::IMultipleDuplicate = 0;
 

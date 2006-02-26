@@ -275,6 +275,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/u_margins.png $(prefix)/share/scribus/icons/u_margins.png
 	$(INSTALL_DATA) $(srcdir)/u_margins_locked.png $(prefix)/share/scribus/icons/u_margins_locked.png
 	$(INSTALL_DATA) $(srcdir)/u_move.png $(prefix)/share/scribus/icons/u_move.png
+	$(INSTALL_DATA) $(srcdir)/u_multiple.png $(prefix)/share/scribus/icons/u_multiple.png
 	$(INSTALL_DATA) $(srcdir)/u_redo.png $(prefix)/share/scribus/icons/u_redo.png
 	$(INSTALL_DATA) $(srcdir)/u_redo16.png $(prefix)/share/scribus/icons/u_redo16.png
 	$(INSTALL_DATA) $(srcdir)/u_resize.png $(prefix)/share/scribus/icons/u_resize.png
@@ -548,6 +549,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/u_margins.png
 	-rm -f $(prefix)/share/scribus/icons/u_margins_locked.png
 	-rm -f $(prefix)/share/scribus/icons/u_move.png
+	-rm -f $(prefix)/share/scribus/icons/u_multiple.png
 	-rm -f $(prefix)/share/scribus/icons/u_redo.png
 	-rm -f $(prefix)/share/scribus/icons/u_redo16.png
 	-rm -f $(prefix)/share/scribus/icons/u_resize.png

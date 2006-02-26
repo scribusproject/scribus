@@ -560,6 +560,7 @@ public:
 	static QString DoNotPrintLayer;
 	static QString SetLayerName;
 	static QString GetImage;
+	static QString MultipleDuplicate;
 	/*@}*/
 
 	/**
@@ -611,6 +612,7 @@ public:
 	static QPixmap *IDown;
 	static QPixmap *IPrint;
 	static QPixmap *IGetImage;
+	static QPixmap *IMultipleDuplicate;
 	/*@}*/
 
 protected:

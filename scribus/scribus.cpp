@@ -6615,6 +6615,16 @@ void ScribusMainWindow::ObjektDupM()
 	slotSelect();
 	NoFrameEdit();
 	Mdup *dia = new Mdup(this, DispX * doc->unitRatio(), DispY * doc->unitRatio(), doc->unitIndex());
+	if (UndoManager::undoEnabled())
+	{ // Make multiple duplicate a single action in the action history
+		if (doc->selection->count() > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::MultipleDuplicate,"",Um::IMultipleDuplicate);
+		else
+		{
+			PageItem* item=doc->selection->itemAt(0);
+			undoManager->beginTransaction(item->getUName(), item->getUPixmap(), Um::MultipleDuplicate, "", Um::IMultipleDuplicate);
+		}
+	}
 	if (dia->exec())
 	{
 		bool savedAlignGrid = doc->useRaster;
@@ -6647,10 +6657,18 @@ void ScribusMainWindow::ObjektDupM()
 			DispY = dV;
 			slotDocCh();
 			view->Deselect(true);
+			QString tooltip = tr("Number of copies: %1\nHorizontal shift: %2\nVertical shift: %3").arg(anz).arg(dH).arg(dV);
+			if (UndoManager::undoEnabled())
+				undoManager->commit("", 0, "", tooltip, 0);
 		}
+		else
+			undoManager->cancelTransaction();
 		doc->useRaster = savedAlignGrid;
 		doc->SnapGuides = savedAlignGuides;
+
 	}
+	else if (UndoManager::undoEnabled())
+		undoManager->cancelTransaction();
 	delete dia;
 }
 
