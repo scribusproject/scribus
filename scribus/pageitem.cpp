@@ -2154,11 +2154,11 @@ void PageItem::moveUndoAction()
 		if (oldOwnPage == -1)
 			oldp = Um::ScratchSpace;
 		else
-			oldp = QString(Um::PageNmbr).arg(ScMW->doc->FirstPnum + oldOwnPage);
+			oldp = QString(Um::PageNmbr).arg(m_Doc->FirstPnum + oldOwnPage);
 		if (OwnPage == -1)
 			newp = Um::ScratchSpace;
 		else
-			newp = QString(Um::PageNmbr).arg(ScMW->doc->FirstPnum + OwnPage);
+			newp = QString(Um::PageNmbr).arg(m_Doc->FirstPnum + OwnPage);
 		SimpleState *ss = new SimpleState(Um::Move,
                                           QString(Um::MoveFromTo).arg(oldXpos).arg(oldYpos).arg(oldp).
                                                                   arg(Xpos).arg(Ypos).arg(newp), Um::IMove);
@@ -2239,13 +2239,13 @@ void PageItem::restore(UndoState *state, bool isUndo)
 {
 	ScribusView* view = m_Doc->view();
 	SimpleState *ss = dynamic_cast<SimpleState*>(state);
-	bool oldMPMode=ScMW->doc->masterPageMode();
-	ScMW->doc->setMasterPageMode(!OnMasterPage.isEmpty());
+	bool oldMPMode=m_Doc->masterPageMode();
+	m_Doc->setMasterPageMode(!OnMasterPage.isEmpty());
 	Page *oldCurrentPage;
 	if (!OnMasterPage.isEmpty())
 	{
-		oldCurrentPage = ScMW->doc->currentPage;
-		ScMW->doc->currentPage = ScMW->doc->MasterPages.at(OwnPage);
+		oldCurrentPage = m_Doc->currentPage;
+		m_Doc->currentPage = m_Doc->MasterPages.at(OwnPage);
 	}
 
 	if (ss)
@@ -2369,8 +2369,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreGetImage(ss, isUndo);
 	}
 	if (!OnMasterPage.isEmpty())
-		ScMW->doc->currentPage = oldCurrentPage;
-	ScMW->doc->setMasterPageMode(oldMPMode);
+		m_Doc->currentPage = oldCurrentPage;
+	m_Doc->setMasterPageMode(oldMPMode);
 }
 
 void PageItem::restoreMove(SimpleState *state, bool isUndo)
