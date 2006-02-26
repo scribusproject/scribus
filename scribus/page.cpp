@@ -46,7 +46,8 @@ Page::Page(const double x, const double y, const double b, const double h) :
 	m_width(b),
 	m_height(h),
 	m_initialWidth(b),
-	m_initialHeight(h)
+	m_initialHeight(h),
+	m_Doc(NULL)
 {
 }
 
@@ -64,7 +65,12 @@ Page::~Page()
 	FromMaster.clear();
 }
 
-void Page::setPageNr(const int pageNr)
+void Page::setDocument(ScribusDoc *doc)
+{
+	m_Doc=doc;
+}
+
+void Page::setPageNr(int pageNr)
 {
 	m_pageNr = pageNr;
 	if (PageNam.isEmpty())

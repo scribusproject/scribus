@@ -89,6 +89,8 @@ bool Selection::clear()
 	}
 	m_SelList.clear();
 	m_hasGroupSelection=false;
+// 	if (m_isGUISelection)
+// 		emit empty();
 	return true;
 }
 
@@ -210,8 +212,12 @@ bool Selection::removeItem(PageItem *item)
 			item->setSelected(false);
 			item->isSingleSel = false;
 		}
-		if (m_SelList.count()==0)
+		if (m_SelList.isEmpty())
+		{
 			m_hasGroupSelection=false;
+// 			if (m_isGUISelection)
+// 				emit empty();
+		}
 		else if (m_isGUISelection)
 			m_SelList.first()->connectToGUI();
 		return removeOk;
@@ -238,8 +244,12 @@ PageItem* Selection::takeItem(uint itemIndex)
 						m_SelList[0]->connectToGUI();
 				}
 			}
-			if (m_SelList.count()==0)
+			if (m_SelList.isEmpty())
+			{
 				m_hasGroupSelection=false;
+// 				if (m_isGUISelection)
+// 					emit empty();
+			}
 			return item;
 		}
 	}

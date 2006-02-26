@@ -37,6 +37,7 @@ class QString;
 
 class UndoManager;
 class UndoState;
+class ScribusDoc;
 
 /**
   *@author Franz Schmid
@@ -69,8 +70,10 @@ public:
 	int PageOri;
 	QValueList<double> XGuides;
 	QValueList<double> YGuides;
+	ScribusDoc* document() const { return m_Doc; }
+	void setDocument(ScribusDoc* doc);
 	uint pageNr() const { return m_pageNr; }
-	void setPageNr(const int pageNr);
+	void setPageNr(int pageNr);
 	const QString& pageSectionNumber() const { return m_pageSectionNumber; }
 	void setPageSectionNumber(const QString&);
 	void addXGuide(double position);
@@ -93,7 +96,7 @@ public:
 	// proper access methods later.
 	mutable QPtrList<PageItem> FromMaster;
 
-private:
+protected:
 	UndoManager * const undoManager;
 	void restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo);
 	void restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo);
@@ -106,6 +109,7 @@ private:
 	double m_initialWidth;
 	double m_initialHeight;
 	uint m_pageNr;
+	ScribusDoc* m_Doc;	
 	QString m_pageSectionNumber;
 };
 

@@ -897,6 +897,7 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	Q_ASSERT(masterPageMode()==false);
 	Page* addedPage = new Page(ScratchLeft, DocPages.count()*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
 	Q_ASSERT(addedPage!=NULL);
+	addedPage->setDocument(this);
 	addedPage->Margins.Top = pageMargins.Top;
 	addedPage->Margins.Bottom = pageMargins.Bottom;
 	addedPage->initialMargins.Top = pageMargins.Top;
@@ -924,6 +925,7 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	//Page* addedPage = new Page(ScratchLeft, MasterPages.count()*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
 	Page* addedPage = new Page(ScratchLeft, ScratchTop, pageWidth, pageHeight);
 	Q_ASSERT(addedPage!=NULL);
+	addedPage->setDocument(this);
 	addedPage->Margins.Top = pageMargins.Top;
 	addedPage->Margins.Bottom = pageMargins.Bottom;
 	addedPage->Margins.Left = pageMargins.Left;//todo fix for layouts
@@ -2211,12 +2213,10 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 			}
 			break;
 		case PageItem::Polygon:
-			//newItem = new PageItem(this, PageItem::Polygon, x, y, b, h, w, fill, outline);
 			newItem = new PageItem_Polygon(this, x, y, b, h, w, fill, outline);
 			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Ellipse || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::PolyLine:
-			//newItem = new PageItem(this, PageItem::PolyLine, x, y, b, h, w, fill, outline);
 			newItem = new PageItem_PolyLine(this, x, y, b, h, w, fill, outline);
 			Q_ASSERT(frameType==PageItem::Unspecified);
 			break;
@@ -2390,7 +2390,7 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload)
 		ScMW->HaveRaster(pageItem->isRaster);
 		//TODO: Previously commented out.. unsure why, remove later
 		//emit UpdtObj(PageNr, ItNr);
-		emit changed();
+		changed();
 	}
 	return true;
 }
@@ -2899,7 +2899,7 @@ bool ScribusDoc::itemNameExists(const QString checkItemName)
 	return found;
 }
 
-void ScribusDoc::setMasterPageMode(const bool changeToMasterPageMode)
+void ScribusDoc::setMasterPageMode(bool changeToMasterPageMode)
 {
 	if (changeToMasterPageMode==m_masterPageMode)
 		return;
@@ -3724,7 +3724,7 @@ void ScribusDoc::ItemPen(QString farbe)
 		if (selectedItemCount > 1)
 			undoManager->commit();
 	}
-	emit changed();
+	changed();
 }
 
 void ScribusDoc::ItemTextBrush(QString farbe)
@@ -4125,7 +4125,7 @@ void ScribusDoc::ItemBrush(QString farbe)
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
-		emit changed();
+		changed();
 	}
 }
 
@@ -4147,7 +4147,7 @@ void ScribusDoc::ItemBrushShade(int sha)
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
-		emit changed();
+		changed();
 	}
 }
 
@@ -4168,7 +4168,7 @@ void ScribusDoc::ItemPenShade(int sha)
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
-		emit changed();
+		changed();
 	}
 }
 
@@ -4185,7 +4185,7 @@ void ScribusDoc::ItemGradFill(int typ)
 			currItem->updateGradientVectors();
 			emit refreshItem(currItem);
 		}
-		emit changed();
+		changed();
 	}
 }
 
@@ -4641,7 +4641,7 @@ void ScribusDoc::FlipImageH()
 			selection->itemAt(a)->flipImageH();
 			emit refreshItem(selection->itemAt(a));
 		}
-		emit changed();
+		changed();
 		if (docSelectionCount > 1)
 			undoManager->commit();
 	}
@@ -4660,7 +4660,7 @@ void ScribusDoc::FlipImageV()
 			selection->itemAt(a)->flipImageV();
 			emit refreshItem(selection->itemAt(a));
 		}
-		emit changed();
+		changed();
 		if (docSelectionCount > 1)
 			undoManager->commit();
 	}
@@ -4703,7 +4703,7 @@ void ScribusDoc::MirrorPolyH(PageItem* currItem)
 				currItem->paintObj();
 				currItem->FrameOnly = false;
 				ScMW->view->MarkClip(currItem, currItem->ContourLine, true);
-				emit changed();
+				changed();
 				return;
 			}
 			ma.scale(-1, 1);
@@ -4728,7 +4728,7 @@ void ScribusDoc::MirrorPolyH(PageItem* currItem)
 			undoManager->commit();
 	}
 	*/
-	emit changed();
+	changed();
 }
 
 //CB removed looping, called by itemSelection_FlipV
@@ -4767,7 +4767,7 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 				currItem->paintObj();
 				currItem->FrameOnly = false;
 				ScMW->view->MarkClip(currItem, currItem->ContourLine, true);
-				emit changed();
+				changed();
 				return;
 			}
 			ma.scale(1, -1);
@@ -4792,7 +4792,7 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 			undoManager->commit();
 	}
 	*/
-	emit changed();
+	changed();
 }
 
 void ScribusDoc::setRedrawBounding(PageItem *currItem)
@@ -4841,7 +4841,7 @@ void ScribusDoc::connectDocSignals()
 	if (ScQApp->usingGUI())
 	{
 		connect(this, SIGNAL(setApplicationMode(int)), ScMW, SLOT(setAppMode(int)));
-		connect(this, SIGNAL(changed()), ScMW, SLOT(slotDocCh()));
+		connect(this, SIGNAL(docChanged()), ScMW, SLOT(slotDocCh()));
 		connect(this, SIGNAL(firstSelectedItemType(int)), ScMW, SLOT(HaveNewSel(int)));
 		connect(autoSaveTimer, SIGNAL(timeout()), WinHan, SLOT(slotAutoSave()));
 		connect(this, SIGNAL(refreshItem(PageItem*)), ScMW->view, SLOT(RefreshItem(PageItem*)));
@@ -4893,7 +4893,7 @@ void ScribusDoc::updatePict(QString name)
 		}
 	}
 	emit updateContents();
-	emit changed();
+	changed();
 }
 
 //CB Same as updatePict apart from the name checking, this should be able to be removed
@@ -4939,7 +4939,7 @@ void ScribusDoc::recalcPicturesRes()
 		}
 	}
 	emit updateContents();
-	emit changed();
+	changed();
 }
 
 void ScribusDoc::removePict(QString name)
@@ -4972,7 +4972,7 @@ void ScribusDoc::removePict(QString name)
 		}
 	}
 	emit updateContents();
-	emit changed();
+	changed();
 }
 
 void ScribusDoc::updatePic()
@@ -5063,7 +5063,7 @@ void ScribusDoc::itemSelection_ToggleLock( )
 		}
 		if (docSelectionCount > 1)
 			undoManager->commit();
-		emit changed();
+		changed();
 		emit firstSelectedItemType(selection->itemAt(0)->itemType());
 	}
 }
@@ -5087,7 +5087,7 @@ void ScribusDoc::itemSelection_ToggleSizeLock( )
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
-		emit changed();
+		changed();
 		emit firstSelectedItemType(selection->itemAt(0)->itemType());
 	}
 }
@@ -5106,7 +5106,7 @@ void ScribusDoc::itemSelection_ToggleImageShown()
 			ScMW->scrActions["itemImageIsVisible"]->setOn(imageItem->imageShown());
 			emit refreshItem(imageItem);
 		}
-		emit changed();
+		changed();
 		//Return to normal mode if in edit mode. We should not allow dragging of
 		//an image in a frame if its not shown.
 		if (appMode == modeEdit)
@@ -5133,7 +5133,7 @@ void ScribusDoc::itemSelection_TogglePrintEnabled( )
 		}
 		if (docSelectionCount > 1)
 			undoManager->commit();
-		emit changed();
+		changed();
 		emit firstSelectedItemType(selection->itemAt(0)->itemType());
 	}
 }
@@ -5158,7 +5158,7 @@ void ScribusDoc::itemSelection_FlipH()
 		}
 		if (docSelectionCount > 1)
 			undoManager->commit();
-		emit changed();
+		changed();
 		emit firstSelectedItemType(selection->itemAt(0)->itemType());
 	}
 }
@@ -5183,7 +5183,7 @@ void ScribusDoc::itemSelection_FlipV()
 		}
 		if (docSelectionCount > 1)
 			undoManager->commit();
-		emit changed();
+		changed();
 		emit firstSelectedItemType(selection->itemAt(0)->itemType());
 	}
 }
@@ -5251,7 +5251,7 @@ void ScribusDoc::itemSelection_ClearItem()
 		}
 		updateFrameItems();
 		emit updateContents();
-		emit changed();
+		changed();
 	}
 }
 
@@ -5376,7 +5376,7 @@ void ScribusDoc::itemSelection_DeleteItem()
 		//emit HaveSel(Doc->selection->itemAt(0)->itemType());
 		selection->itemAt(0)->emitAllToGUI();
 	}
-	emit changed();
+	changed();
 }
 
 
@@ -5391,7 +5391,7 @@ void ScribusDoc::itemSelection_SetItemFillTransparency(double t)
 			currItem->setFillTransparency(t);
 		}
 		emit updateContents();
-		emit changed();
+		changed();
 	}
 }
 
@@ -5406,7 +5406,7 @@ void ScribusDoc::itemSelection_SetItemLineTransparency(double t)
 			currItem->setLineTransparency(t);
 		}
 		emit updateContents();
-		emit changed();
+		changed();
 	}
 }
 
@@ -5423,7 +5423,7 @@ void ScribusDoc::itemSelection_DoHyphenate()
 			docHyphenator->slotHyphenate(currItem);
 		}
 		ScMW->view->DrawNew(); //CB draw new until NLS for redraw through text chains
-		emit changed();
+		changed();
 	}
 }
 
@@ -5438,7 +5438,7 @@ void ScribusDoc::itemSelection_DoDeHyphenate()
 			docHyphenator->slotDeHyphenate(currItem);
 		}
 		ScMW->view->DrawNew(); //CB draw new until NLS for redraw through text chains
-		emit changed();
+		changed();
 	}
 }
 
@@ -5469,5 +5469,11 @@ void ScribusDoc::itemSelection_SendToLayer(int layerNumber)
 	//Doc->selection->clear();
 	ScMW->view->Deselect(true);
 	emit updateContents();
-	emit changed();
+	changed();
+}
+
+void ScribusDoc::changed()
+{
+	modified=true;
+	emit docChanged();
 }

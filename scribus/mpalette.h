@@ -128,6 +128,7 @@ public slots:
 	void languageChange();
 	void setDoc(ScribusDoc *d);
 	void unsetDoc();
+	void unsetItem();
 	void setCurrentItem(PageItem *);
 	void setMultipleSelection(bool);
 	void NewSel(int nr);

@@ -935,6 +935,13 @@ void Mpalette::unsetDoc()
 	doc=NULL;
 }
 
+void Mpalette::unsetItem()
+{
+	HaveItem=false;
+	CurItem = NULL;
+	NewSel(-1);
+}
+
 void Mpalette::setCurrentItem(PageItem *i)
 {
 	if (ScMW->ScriptRunning)

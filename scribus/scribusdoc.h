@@ -460,7 +460,7 @@ public:
 	 * @brief Set the doc into Master page mode
 	 * Do we need to return if the move to master page mode was successful?
 	 */
-	void setMasterPageMode(const bool);
+	void setMasterPageMode(bool);
 
 	/*** Is the document in master page mode? */
 	bool masterPageMode() const { return m_masterPageMode; }
@@ -574,6 +574,7 @@ public:
 	void recalcPicturesRes();
 	void connectDocSignals();
 	void removeLayer(int l, bool dl = false); //FIXME: Make protected once scripter function no longer uses this directly
+	void changed();
 	
 protected:
 	void addSymbols();
@@ -776,7 +777,7 @@ signals:
 	/**
 	 * @brief Let the document tell whatever is listening that it has changed
 	 */
-	void changed();
+	void docChanged();
 	void updateContents();
 	void refreshItem(PageItem *);
 	void canvasAdjusted(double width, double height, double dX, double dY);

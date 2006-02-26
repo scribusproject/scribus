@@ -1967,7 +1967,10 @@ void ScribusMainWindow::newActWin(QWidget *w)
 		actionManager->disconnectNewViewActions();
 		disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 		if (ScQApp->usingGUI())
+		{
 			disconnect(doc->selection, SIGNAL(selectionIsMultiple(bool)), 0, 0);
+			//disconnect(doc->selection, SIGNAL(empty()), 0, 0);
+		}
 	}
 	doc = ActWin->document();
 	view = ActWin->view();
@@ -1976,7 +1979,10 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	actionManager->connectNewDocActions(doc);
 	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	if (ScQApp->usingGUI())
+	{
 		connect(doc->selection, SIGNAL(selectionIsMultiple(bool)), propertiesPalette, SLOT( setMultipleSelection(bool)));
+		//connect(doc->selection, SIGNAL(empty()), propertiesPalette, SLOT( unsetItem()));
+	}
 
 	pagePalette->setView(view);
 	alignDistributePalette->setView(view);
