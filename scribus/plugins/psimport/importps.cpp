@@ -249,9 +249,10 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString ext = fi.extension(false).lower();
 	args.append( getShortPathName(PrefsManager::instance()->ghostscriptExecutable()) );
 	args.append( "-q" );
-	args.append( "-dWRITESYSTEMDICT" );
 	args.append( "-dNOPAUSE" );
-	args.append( "-dNODISPLAY" );
+	args.append( "-sDEVICE=pngalpha" );
+	args.append( "-dTextAlphaBits=4" );
+	args.append( "-dGraphicsAlphaBits=4" );
 	args.append( "-dBATCH" );
 	// Add any extra font paths being used by Scribus to gs's font search
 	// path We have to use Scribus's prefs context, not a plugin context, to
@@ -271,7 +272,8 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( tmp.setNum(-x) );
 	args.append( tmp.setNum(-y) );
 	args.append( "translate" );
-	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(tmpFile)) );
+	args.append( QString("-sTraceFile=%1").arg(QDir::convertSeparators(tmpFile)) );
+	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators("/dev/null")) );
 	QString exportPath = fi.dirPath(true) + "/" + fi.baseName();
 	args.append( QString("-sExportFiles=%1").arg(QDir::convertSeparators(fn)) );
 	args.append( pfad2 );
@@ -290,10 +292,15 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		QFile diag(tmpFile);
 		if (diag.open(IO_ReadOnly)) {
 			QString line;
-			for (int i=0; i < 20; ++i) {
-				diag.readLine(line, 120);
-				qDebug("\t%s", line.ascii());
+			long int len;
+			bool gs_error = false;
+			do {
+				len = diag.readLine(line, 120);
+				gs_error |= line.contains("Error");
+				if (gs_error)
+					qDebug("\t%s", line.ascii());
 			}
+			while (len > 0);
 			diag.close();
 		}
 		else {
@@ -562,10 +569,15 @@ void EPSPlug::Image(QString vals)
 		QFile diag(filename);
 		if (diag.open(IO_ReadOnly)) {
 			QString line;
-			for (int i=0; i < 20; ++i) {
-				diag.readLine(line, 120);
-				qDebug("\t%s", line.ascii());
+			long int len;
+			bool gs_error = false;
+			do {
+				len = diag.readLine(line, 120);
+				gs_error |= line.contains("Error");
+				if (gs_error)
+					qDebug("\t%s", line.ascii());
 			}
+			while (len > 0);
 			diag.close();
 		}
 		else {

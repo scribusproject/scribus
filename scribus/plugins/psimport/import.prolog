@@ -48,7 +48,7 @@
 % 20.05.2004 kshow is working now.
 % 22.02.2006 added image and colorimage ops
 
-/cfile OutputFile (w) file def
+/cfile TraceFile (w) file def
 /print { cfile exch writestring } bind def
 
 % whether we have to flatten the text
@@ -711,6 +711,37 @@
 	charpath
 } bind def
 
+/i_kerningI
+{
+	exch 1 getinterval stringwidth
+} bind def
+
+% find kerning value
+/i_kerningII		% index string   i_kerning   dx dy 
+{
+	% stringwidth( [n..n+1] ) - stringwidth( [n+1] )
+	/i_pstring exch def
+	/i_pindex exch def
+	i_pstring i_pindex 2 getinterval stringwidth exch	% y2 x2
+	i_pstring i_pindex 1 add 1 getinterval stringwidth		% y2 x2 x1 y1
+	4 1 roll sub											% y1 y2 (x2-x1)
+	3 1 roll exch sub										% (x2-x1) (y2-y1)
+} bind def
+
+
+/i_kerningIII		% index string   i_kerning   dx dy 
+{
+	% stringwidth( [n..n+1] ) - stringwidth( [n+1] )
+	/i_pstring exch def
+	/i_pindex exch def
+	i_pstring i_pindex 2 getinterval (l) exch concatenate stringwidth exch	% y2 x2
+	i_pstring i_pindex 1 add 1 getinterval (l) exch concatenate stringwidth		% y2 x2 x1 y1
+	4 1 roll sub											% y1 y2 (x2-x1)
+	3 1 roll exch sub										% (x2-x1) (y2-y1)
+} bind def
+
+/i_kerning /i_kerningI load def
+
 /show % string show -
 { 
 	userdict begin
@@ -731,13 +762,8 @@
 			writecurrentcolor	% write color
 			storeMatrix
 			dup completeString length 1 sub eq 
-			{	0 0 }
-			{ % stringwidth( [n..n+1] ) - stringwidth( [n+1] )
-				dup completeString exch 2 getinterval stringwidth exch	% y2 x2
-				completeString 3 index 1 add 1 getinterval stringwidth		% y2 x2 x1 y1
-				4 1 roll sub											% y1 y2 (x2-x1)
-				3 1 roll exch sub										% (x2-x1) (y2-y1)
-			} ifelse /curwidthy exch def /curwidthx exch def
+			{ 0 0 } { dup completeString i_kerning } ifelse 
+			/curwidthy exch def /curwidthx exch def
 			completeString exch 1 getinterval dup /curstr exch def
 			false root_charpath
 			{_move} {_line} {_curve} {_close} pathforall
@@ -755,7 +781,7 @@
 		pop		% string
 	} ifelse
 	end
-} def
+} bind def
 
 /ashow
 {
@@ -780,13 +806,8 @@
 			writecurrentcolor	% write color
 			storeMatrix
 			dup completeString length 1 sub eq 
-			{	0 0 }
-			{ % stringwidth( [n..n+1] ) - stringwidth( [n+1] )
-				dup completeString exch 2 getinterval stringwidth exch	% y2 x2
-				completeString 3 index 1 add 1 getinterval stringwidth		% y2 x2 x1 y1
-				4 1 roll sub											% y1 y2 (x2-x1)
-				3 1 roll exch sub								% (x2-x1) (y2-y1)
-			} ifelse /curwidthy exch def /curwidthx exch def
+			{ 0 0 } { dup completeString i_kerning } ifelse 
+			/curwidthy exch def /curwidthx exch def
 			completeString exch 1 getinterval dup /curstr exch def 
 			false root_charpath
 			{_move} {_line} {_curve} {_close} pathforall
@@ -834,13 +855,8 @@
 			writecurrentcolor	% write color
 			storeMatrix
 			dup completeString length 1 sub eq 
-			{	0 0 }
-			{ % stringwidth( [n..n+1] ) - stringwidth( [n+1] )
-				dup completeString exch 2 getinterval stringwidth exch	% y2 x2
-				completeString 3 index 1 add 1 getinterval stringwidth		% y2 x2 x1 y1
-				4 1 roll sub											% y1 y2 (x2-x1)
-				3 1 roll exch sub								% (x2-x1) (y2-y1)
-			} ifelse /curwidthy exch def /curwidthx exch def
+			{ 0 0 } { dup completeString i_kerning } ifelse 
+			/curwidthy exch def /curwidthx exch def
 			completeString exch 1 getinterval dup /curstr exch def 
 			false root_charpath
 			{_move} {_line} {_curve} {_close} pathforall
