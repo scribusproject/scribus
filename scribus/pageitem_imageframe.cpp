@@ -94,10 +94,19 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, double sc)
 			else
 			{
 				p->save();
+#ifdef HAVE_CAIRO
+				if (imageClip.size() != 0)
+				{
+					p->setupPolygon(&imageClip);
+					p->setClipPath();
+				}
+				p->setupPolygon(&PoLine);
+#else
 				if (imageClip.size() != 0)
 					p->setupPolygon(&imageClip);
 				else
 					p->setupPolygon(&PoLine);
+#endif
 				p->setClipPath();
 				if (imageFlippedH())
 				{

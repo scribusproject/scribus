@@ -1218,9 +1218,11 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 						}
 						PutPage("q\n");
 						if (ite->imageClip.size() != 0)
+						{
 							PutPage(SetClipPathImage(ite));
-						else
-							PutPage(SetClipPath(ite));
+							PutPage("h\nW*\nn\n");
+						}
+						PutPage(SetClipPath(ite));
 						PutPage("h\nW*\nn\n");
 						if (ite->imageFlippedH())
 							PutPage("-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n");
@@ -2265,9 +2267,11 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 			}
 			tmp += "q\n";
 			if (ite->imageClip.size() != 0)
+			{
 				tmp += SetClipPathImage(ite);
-			else
-				tmp += SetClipPath(ite);
+				tmp += "h\nW*\nn\n";
+			}
+			tmp += SetClipPath(ite);
 			tmp += "h\nW*\nn\n";
 			if (ite->imageFlippedH())
 				tmp += "-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n";

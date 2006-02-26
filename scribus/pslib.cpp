@@ -1454,9 +1454,12 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			PS_save();
 			if (c->imageClip.size() != 0)
+			{
 				SetClipPath(&c->imageClip);
-			else
-				SetClipPath(&c->PoLine);
+				PS_closepath();
+				PS_clip(true);
+			}
+			SetClipPath(&c->PoLine);
 			PS_closepath();
 			PS_clip(true);
 			if (c->imageFlippedH())
