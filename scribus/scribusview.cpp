@@ -3945,9 +3945,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					tx = p.xForm(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
 					if ((tx.intersects(mpo)) && (!currItem->locked()))
 					{
-						qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 						if (Doc->appMode == modeRotation)
 							qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
+						else
 						if (Doc->appMode == modeEdit)
 						{
 							if (currItem->asTextFrame())
@@ -3955,6 +3955,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							if (currItem->asImageFrame())
 								qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
 						}
+						else
+							qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 						if (!currItem->sizeLocked())
 							HandleCurs(&p, currItem, mpo);
 					}
