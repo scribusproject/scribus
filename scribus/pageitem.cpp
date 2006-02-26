@@ -2239,6 +2239,15 @@ void PageItem::restore(UndoState *state, bool isUndo)
 {
 	ScribusView* view = m_Doc->view();
 	SimpleState *ss = dynamic_cast<SimpleState*>(state);
+	bool oldMPMode=ScMW->doc->masterPageMode();
+	ScMW->doc->setMasterPageMode(!OnMasterPage.isEmpty());
+	Page *oldCurrentPage;
+	if (!OnMasterPage.isEmpty())
+	{
+		oldCurrentPage = ScMW->doc->currentPage;
+		ScMW->doc->currentPage = ScMW->doc->MasterPages.at(OwnPage);
+	}
+
 	if (ss)
 	{
 		if (ss->contains("OLD_XPOS"))
@@ -2359,6 +2368,9 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		else if (ss->contains("GET_IMAGE"))
 			restoreGetImage(ss, isUndo);
 	}
+	if (!OnMasterPage.isEmpty())
+		ScMW->doc->currentPage = oldCurrentPage;
+	ScMW->doc->setMasterPageMode(oldMPMode);
 }
 
 void PageItem::restoreMove(SimpleState *state, bool isUndo)
