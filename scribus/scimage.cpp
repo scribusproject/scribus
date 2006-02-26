@@ -2290,22 +2290,28 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 				s >> type;
 				s >> data1;
 				frac1 = (data1 & 0x00FFFFFF) / 16777215.0;
-				man1 = (data1 & 0xFF000000) >> 24;
+				man1 = (data1 & 0x0F000000) >> 24;
+				frac1 = (frac1 + man1) * header.height;
 				s >> data2;
 				frac2 = (data2 & 0x00FFFFFF) / 16777215.0;
-				man2 = (data2 & 0xFF000000) >> 24;
+				man2 = (data2 & 0x0F000000) >> 24;
+				frac2 = (frac2 + man2) * header.width;
 				s >> data3;
 				frac3 = (data3 & 0x00FFFFFF) / 16777215.0;
-				man3 = (data3 & 0xFF000000) >> 24;
+				man3 = (data3 & 0x0F000000) >> 24;
+				frac3 = (frac3 + man3) * header.height;
 				s >> data4;
 				frac4 = (data4 & 0x00FFFFFF) / 16777215.0;
-				man4 = (data4 & 0xFF000000) >> 24;
+				man4 = (data4 & 0x0F000000) >> 24;
+				frac4 = (frac4 + man4) * header.width;
 				s >> data5;
 				frac5 = (data5 & 0x00FFFFFF) / 16777215.0;
-				man5 = (data5 & 0xFF000000) >> 24;
+				man5 = (data5 & 0x0F000000) >> 24;
+				frac5 = (frac5 + man5) * header.height;
 				s >> data6;
 				frac6 = (data6 & 0x00FFFFFF) / 16777215.0;
-				man6 = (data6 & 0xFF000000) >> 24;
+				man6 = (data6 & 0x0F000000) >> 24;
+				frac6 = (frac6 + man6) * header.width;
 				switch (type)
 				{
 				case 0:
@@ -2321,19 +2327,21 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 					break;
 				case 1:
 				case 2:
+				case 4:
+				case 5:
 					if (first)
 					{
-						firstControl = FPoint(frac2 * header.width, frac1 * header.height);
-						firstPoint = FPoint(frac4 * header.width, frac3 * header.height);
-						clip2.addPoint(FPoint(frac4 * header.width, frac3 * header.height));
-						clip2.addPoint(FPoint(frac6 * header.width, frac5 * header.height));
+						firstControl = FPoint(frac2, frac1);
+						firstPoint = FPoint(frac4, frac3);
+						clip2.addPoint(FPoint(frac4, frac3));
+						clip2.addPoint(FPoint(frac6, frac5));
 					}
 					else
 					{
-						clip2.addPoint(frac4 * header.width, frac3 * header.height);
-						clip2.addPoint(frac2 * header.width, frac1 * header.height);
-						clip2.addPoint(frac4 * header.width, frac3 * header.height);
-						clip2.addPoint(frac6 * header.width, frac5 * header.height);
+						clip2.addPoint(frac4, frac3);
+						clip2.addPoint(frac2, frac1);
+						clip2.addPoint(frac4, frac3);
+						clip2.addPoint(frac6, frac5);
 					}
 					pathOpen = true;
 					first = false;
