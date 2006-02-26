@@ -2244,7 +2244,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				altx =  itemText.at(pos)->yp;
 				if ( altx > alty )
 				{
-					// we was at begin of line
+					// we were at begin of line
 					break;
 				}
 			}
@@ -2255,6 +2255,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		else
 		{
+			//Control Home for start of frame text
+			pos=0;
+			/*
 			// paragraph begin
 			if ( pos < len &&
 					itemText.at(pos)->ch.at(0).latin1() == 13 )
@@ -2267,10 +2270,14 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				}
 				else
 					--pos;
+			*/
 		}
 		CPos = pos;
 		if ( buttonState & ShiftButton )
 			ExpandSel(-1, oldPos);
+		if ( this->HasSel )
+			view->RefreshItem(this);
+		ScMW->setTBvals(this);
 		break;
 	case Key_End:
 		// go to end of line
@@ -2315,6 +2322,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		else
 		{
+			//Control End for end of frame text
+			pos=static_cast<int>(itemText.count());
+			/*
 			// go to end of paragraph
 			if ( itemText.at(CPos)->ch.at(0).latin1() == 13 )
 			{
@@ -2328,77 +2338,106 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				else
 					++pos;
 			}
+			*/
 			CPos = pos;
 		}
 		if ( buttonState & ShiftButton )
 			ExpandSel(1, oldPos);
+		if ( this->HasSel )
+			view->RefreshItem(this);
+		ScMW->setTBvals(this);
 		break;
 	case Key_Down:
-		if (CPos != static_cast<int>(itemText.count()))
+		if (buttonState & ControlButton)
 		{
-			bool down1=false;
-			double newy;
-			newy = alty = itemText.at(CPos)->yp;
-			altx = itemText.at(CPos)->xp;
-			do
+			// go to end of paragraph
+			len = static_cast<int>(itemText.count());
+			if ( CPos >= len )
+				break; // at end of frame
+			if ( itemText.at(CPos)->ch.at(0).latin1() == 13 )
 			{
-				++CPos;
-				if (CPos == static_cast<int>(itemText.count()))
-					break;
-				//CB Catch some funny empty lines. still testing
-				//if ((CPos < static_cast<int>(itemText.count())-1) && itemText.at(CPos+1)->ch[0].digitValue()==-1 && itemText.at(CPos)->ch[0].digitValue()==-1 && itemText.at(CPos)->xp == altx && itemText.at(CPos)->yp == alty)
-				//	break;
-				if (itemText.at(CPos)->yp > alty)
-				{
-					if (down1 && itemText.at(CPos)->yp > newy)
-					{
-						--CPos;
-						break;
-					}
-					if (itemText.at(CPos)->xp >= altx)
-						break;
-					down1=true;
-				}
-				//CB Make the cursor move forward a column
-				if (itemText.at(CPos)->yp < alty)
-				{
-					double newX=altx+columnWidth();
-					while (itemText.at(CPos)->xp<newX && CPos < static_cast<int>(itemText.count())-1)
-						++CPos;
-					break;
-				}
-				newy=itemText.at(CPos)->yp;
+				break;
 			}
-			while (CPos < static_cast<int>(itemText.count()));
+			pos = CPos;
+			while ( pos < len )
+			{
+				if ( itemText.at(pos)->ch.at(0).latin1() == 13 )
+					break;
+				else
+					++pos;
+			}
+			CPos = pos;
 			if ( buttonState & ShiftButton )
-			{
-				if ( buttonState & AltButton )
-					CPos = itemText.count();
 				ExpandSel(1, oldPos);
-			}
-			else
-				if (CPos == static_cast<int>(itemText.count()))
-					if (NextBox != 0)
-					{
-						if (NextBox->itemText.count() != 0)
-						{
-							view->Deselect(true);
-							NextBox->CPos = 0;
-							view->SelectItemNr(NextBox->ItemNr);
-							//currItem = currItem->NextBox;
-						}
-					}
 		}
 		else
 		{
-			if (NextBox != 0)
+			if (CPos != static_cast<int>(itemText.count()))
 			{
-				if (NextBox->itemText.count() != 0)
+				bool down1=false;
+				double newy;
+				newy = alty = itemText.at(CPos)->yp;
+				altx = itemText.at(CPos)->xp;
+				do
 				{
-					view->Deselect(true);
-					NextBox->CPos = 0;
-					view->SelectItemNr(NextBox->ItemNr);
-					//currItem = currItem->NextBox;
+					++CPos;
+					if (CPos == static_cast<int>(itemText.count()))
+						break;
+					//CB Catch some funny empty lines. still testing
+					//if ((CPos < static_cast<int>(itemText.count())-1) && itemText.at(CPos+1)->ch[0].digitValue()==-1 && itemText.at(CPos)->ch[0].digitValue()==-1 && itemText.at(CPos)->xp == altx && itemText.at(CPos)->yp == alty)
+					//	break;
+					if (itemText.at(CPos)->yp > alty)
+					{
+						if (down1 && itemText.at(CPos)->yp > newy)
+						{
+							--CPos;
+							break;
+						}
+						if (itemText.at(CPos)->xp >= altx)
+							break;
+						down1=true;
+					}
+					//CB Make the cursor move forward a column
+					if (itemText.at(CPos)->yp < alty)
+					{
+						double newX=altx+columnWidth();
+						while (itemText.at(CPos)->xp<newX && CPos < static_cast<int>(itemText.count())-1)
+							++CPos;
+						break;
+					}
+					newy=itemText.at(CPos)->yp;
+				}
+				while (CPos < static_cast<int>(itemText.count()));
+				if ( buttonState & ShiftButton )
+				{
+					if ( buttonState & AltButton )
+						CPos = itemText.count();
+					ExpandSel(1, oldPos);
+				}
+				else
+					if (CPos == static_cast<int>(itemText.count()))
+						if (NextBox != 0)
+						{
+							if (NextBox->itemText.count() != 0)
+							{
+								view->Deselect(true);
+								NextBox->CPos = 0;
+								view->SelectItemNr(NextBox->ItemNr);
+								//currItem = currItem->NextBox;
+							}
+						}
+			}
+			else
+			{
+				if (NextBox != 0)
+				{
+					if (NextBox->itemText.count() != 0)
+					{
+						view->Deselect(true);
+						NextBox->CPos = 0;
+						view->SelectItemNr(NextBox->ItemNr);
+						//currItem = currItem->NextBox;
+					}
 				}
 			}
 		}
@@ -2407,64 +2446,90 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		ScMW->setTBvals(this);
 		break;
 	case Key_Up:
-		if (CPos > 0)
+		if (buttonState & ControlButton)
 		{
-			if (CPos == static_cast<int>(itemText.count()))
-				--CPos;
-			alty = itemText.at(CPos)->yp;
-			altx = itemText.at(CPos)->xp;
-			if (CPos > 0)
-			{
-				do
+			if ( (pos = CPos) == 0 )
+				break; // at begin of frame
+			len = static_cast<int>(itemText.count());
+			if ( pos == len )
+				pos--;
+			// paragraph begin
+			if ( pos < len &&
+					itemText.at(pos)->ch.at(0).latin1() == 13 )
+				--pos;
+			while(pos > 0 )
+				if ( itemText.at(pos)->ch.at(0).latin1() == 13 )
 				{
-					--CPos;
-					if (CPos == 0)
-						break;
-					if  ( itemText.at(CPos)->ch.at(0).latin1() == 13 )
-						break;
-					if (itemText.at(CPos)->yp < alty)
-					{
-						if (itemText.at(CPos)->xp <= altx)
-							break;
-					}
-					//CB Make the cursor move back a column
-					if (itemText.at(CPos)->yp > alty)
-					{
-						double newX=altx-columnWidth();
-						while (itemText.at(CPos)->xp>newX && CPos > 0)
-							--CPos;
-						break;
-					}
+					++pos;
+					break;
 				}
-				while (CPos > 0);
-			}
+				else
+					--pos;
+			CPos = pos;
 			if ( buttonState & ShiftButton )
-			{
-				if ( buttonState & AltButton )
-					CPos = 0;
 				ExpandSel(-1, oldPos);
-			}
-			else
-				if (CPos == 0)
-				{
-					if (BackBox != 0)
-					{
-						view->Deselect(true);
-						BackBox->CPos = BackBox->itemText.count();
-						view->SelectItemNr(BackBox->ItemNr);
-						//currItem = currItem->BackBox;
-					}
-				}
 		}
 		else
 		{
-			CPos = 0;
-			if (BackBox != 0)
+			if (CPos > 0)
 			{
-				view->Deselect(true);
-				BackBox->CPos = BackBox->itemText.count();
-				view->SelectItemNr(BackBox->ItemNr);
-				//currItem = currItem->BackBox;
+				if (CPos == static_cast<int>(itemText.count()))
+					--CPos;
+				alty = itemText.at(CPos)->yp;
+				altx = itemText.at(CPos)->xp;
+				if (CPos > 0)
+				{
+					do
+					{
+						--CPos;
+						if (CPos == 0)
+							break;
+						if  ( itemText.at(CPos)->ch.at(0).latin1() == 13 )
+							break;
+						if (itemText.at(CPos)->yp < alty)
+						{
+							if (itemText.at(CPos)->xp <= altx)
+								break;
+						}
+						//CB Make the cursor move back a column
+						if (itemText.at(CPos)->yp > alty)
+						{
+							double newX=altx-columnWidth();
+							while (itemText.at(CPos)->xp>newX && CPos > 0)
+								--CPos;
+							break;
+						}
+					}
+					while (CPos > 0);
+				}
+				if ( buttonState & ShiftButton )
+				{
+					if ( buttonState & AltButton )
+						CPos = 0;
+					ExpandSel(-1, oldPos);
+				}
+				else
+					if (CPos == 0)
+					{
+						if (BackBox != 0)
+						{
+							view->Deselect(true);
+							BackBox->CPos = BackBox->itemText.count();
+							view->SelectItemNr(BackBox->ItemNr);
+							//currItem = currItem->BackBox;
+						}
+					}
+			}
+			else
+			{
+				CPos = 0;
+				if (BackBox != 0)
+				{
+					view->Deselect(true);
+					BackBox->CPos = BackBox->itemText.count();
+					view->SelectItemNr(BackBox->ItemNr);
+					//currItem = currItem->BackBox;
+				}
 			}
 		}
 		if ( this->HasSel )
