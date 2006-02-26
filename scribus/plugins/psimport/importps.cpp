@@ -250,7 +250,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( getShortPathName(PrefsManager::instance()->ghostscriptExecutable()) );
 	args.append( "-q" );
 	args.append( "-dNOPAUSE" );
-	args.append( "-sDEVICE=pngalpha" );
+	args.append( "-sDEVICE=nullpage" );
 	args.append( "-dTextAlphaBits=4" );
 	args.append( "-dGraphicsAlphaBits=4" );
 	args.append( "-dBATCH" );
@@ -273,7 +273,6 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( tmp.setNum(-y) );
 	args.append( "translate" );
 	args.append( QString("-sTraceFile=%1").arg(QDir::convertSeparators(tmpFile)) );
-	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators("/dev/null")) );
 	QString exportPath = fi.dirPath(true) + "/" + fi.baseName();
 	args.append( QString("-sExportFiles=%1").arg(QDir::convertSeparators(fn)) );
 	args.append( pfad2 );
