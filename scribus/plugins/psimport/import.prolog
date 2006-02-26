@@ -740,7 +740,7 @@
 	3 1 roll exch sub										% (x2-x1) (y2-y1)
 } bind def
 
-/i_kerning /i_kerningI load def
+/i_kerning /i_kerningII load def
 
 /show % string show -
 { 
