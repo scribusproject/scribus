@@ -88,7 +88,7 @@ void StoryText::removeChars(int pos, uint len)
 	assert( pos >= 0 );
 	assert( pos + static_cast<int>(len) <= length() );
 
-	for ( int i=0; i < len; ++i )
+	for ( uint i=0; i < len; ++i )
 	{
 		ScText *it = take(i);
 		if ((it->ch == SpecialChars::OBJECT) && (it->cembedded != 0)) {
@@ -111,7 +111,7 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 	
 	const CharStyle style = charStyle(pos);
 	
-	for (int i = 0; i < txt.length(); ++i) {
+	for (uint i = 0; i < txt.length(); ++i) {
 		ScText * item = new ScText();
 		item->ch= txt.mid(i, 1);
 		*static_cast<CharStyle *>(item) = style;
@@ -314,7 +314,7 @@ int StoryText::lengthOfSelection() const
 bool StoryText::selected(int pos) const
 {
 	return (selFirst <= pos && pos <= selLast) 
-	       || (pos >= 0 && pos < length() && at(pos)->cselect);
+	       || (pos >= 0 && pos < length() && const_cast<StoryText*>(this)->at(pos)->cselect);
 }
 
 void StoryText::select(int pos, uint len, bool on)
