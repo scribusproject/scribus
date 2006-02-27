@@ -101,6 +101,9 @@ public:
 	virtual void setFillMode( int fill );
 	virtual void setGradient( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
 	virtual void setClipPath();
+#ifndef HAVE_CAIRO
+	virtual void setClipPath2(FPointArray *points, bool closed);
+#endif
 
 	virtual void drawImage( QImage *image );
 	virtual void setupPolygon(FPointArray *points, bool closed = true);

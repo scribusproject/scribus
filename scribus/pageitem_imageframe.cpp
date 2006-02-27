@@ -101,13 +101,19 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, double sc)
 					p->setClipPath();
 				}
 				p->setupPolygon(&PoLine);
+				p->setClipPath();
 #else
 				if (imageClip.size() != 0)
+				{
 					p->setupPolygon(&imageClip);
+					p->setClipPath2(&PoLine, true);
+				}
 				else
+				{
 					p->setupPolygon(&PoLine);
+					p->setClipPath();
+				}
 #endif
-				p->setClipPath();
 				if (imageFlippedH())
 				{
 					p->translate(Width * sc, 0);
