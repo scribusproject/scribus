@@ -2091,7 +2091,38 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			p.end();
 			np += QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 			np = ApplyGrid(np);
-			currItem->setRotation(xy2Deg(np.x(), np.y()));
+			double newRot=xy2Deg(np.x(), np.y());
+			if (m->state() & ControlButton)
+			{
+				if (newRot<0.0)
+					newRot+=360.0;
+				if (newRot<22.5)
+					newRot=0.0;
+				else
+				if (newRot>22.5 && newRot<67.5)
+					newRot=45.0;
+				else
+				if (newRot>67.5 && newRot<112.5)
+					newRot=90.0;
+				else
+				if (newRot>112. && newRot<157.5)
+					newRot=135.0;
+				else
+				if (newRot>157.5 && newRot<202.5)
+					newRot=180.0;
+				else
+				if (newRot>202.5 && newRot<247.5)
+					newRot=225.0;
+				else
+				if (newRot>247.5 && newRot<292.5)
+					newRot=270.0;
+				else
+				if (newRot>292.5 && newRot<337.5)
+					newRot=315.0;
+				else
+					newRot=0.0;
+			}
+			currItem->setRotation(newRot);
 			currItem->setWidthHeight(sqrt(pow(np.x(),2.0)+pow(np.y(),2.0)), 1.0);
 			currItem->Sizing = false;
 			currItem->updateClip();
@@ -3324,10 +3355,55 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				newX = static_cast<int>(qRound(newX / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid);
 				newY = static_cast<int>(qRound(newY / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid);
 			}
+			double newRot=xy2Deg(newX - currItem->xPos(), newY - currItem->yPos());
+			if (m->state() & ControlButton)
+			{
+				if (newRot<0.0)
+					newRot=-newRot;
+				else
+					newRot=360-newRot;
+				
+				if (newRot<0.0)
+					newRot+=360.0;
+				if (newRot<22.5)
+					newRot=0.0;
+				else
+				if (newRot>22.5 && newRot<67.5)
+					newRot=45.0;
+				else
+				if (newRot>67.5 && newRot<112.5)
+					newRot=90.0;
+				else
+				if (newRot>112. && newRot<157.5)
+					newRot=135.0;
+				else
+				if (newRot>157.5 && newRot<202.5)
+					newRot=180.0;
+				else
+				if (newRot>202.5 && newRot<247.5)
+					newRot=225.0;
+				else
+				if (newRot>247.5 && newRot<292.5)
+					newRot=270.0;
+				else
+				if (newRot>292.5 && newRot<337.5)
+					newRot=315.0;
+				else
+					newRot=0.0;
+				
+				double hlen=sqrt(pow(newX - currItem->xPos(),2)+pow(newY - currItem->yPos(),2));
+				double newX2 = currItem->xPos()+(hlen * cos(newRot));
+				double newY2 = currItem->yPos()-(hlen * sin(newRot));
+				double newRot2=xy2Deg(newX2 - currItem->xPos(), newY2 - currItem->yPos());
+				//qDebug(QString("%1 %2 %3 %4 %5 %6").arg(currItem->xPos()).arg(currItem->yPos()).arg(newRot).arg(newRot2).arg(newX2).arg(newY2));
+				newX=newX2;
+				newY=newY2;
+			}
+			
 			p.drawLine(static_cast<int>(currItem->xPos()*sc), static_cast<int>(currItem->yPos()*sc), static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc));
 			p.drawLine(static_cast<int>(currItem->xPos()*sc), static_cast<int>(currItem->yPos()*sc), static_cast<int>(newX*sc), static_cast<int>(newY*sc));
 			p.end();
-			emit SetAngle(xy2Deg(newX - currItem->xPos(), newY - currItem->yPos()));
+			emit SetAngle(newRot);
 			emit ItemGeom(sqrt(pow(newX - currItem->xPos(),2)+pow(newY - currItem->yPos(),2)), 0);
 			Mxp = newX;
 			Myp = newY;
