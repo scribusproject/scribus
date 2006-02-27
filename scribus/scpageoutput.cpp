@@ -22,13 +22,12 @@ for which a new license (GPL+exception) is in place.
 
 //extern SCRIBUS_API ScribusMainWindow* ScMW;
 
-ScPageOutput::ScPageOutput(ScribusDoc* doc, bool reloadImages, imageLoadMode loadMode, int resolution, bool useProfiles)
+ScPageOutput::ScPageOutput(ScribusDoc* doc, bool reloadImages, int resolution, bool useProfiles)
 {
 	m_doc = doc;
 	m_reloadImages = reloadImages;
 	m_imageRes = resolution;
 	m_useProfiles = useProfiles;
-	m_imageMode = loadMode;
 }
 
 void ScPageOutput::DrawPage( Page* page, ScPainterExBase* painter)
@@ -73,7 +72,7 @@ void ScPageOutput::DrawMasterItems(ScPainterExBase *painter, Page *page, QRect c
 							continue;
 						if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
 							continue;
-						if (!currItem->printable())
+						if (!currItem->printEnabled())
 							continue;
 						int savedOwnPage = currItem->OwnPage;
 						double OldX = currItem->xPos();
@@ -191,7 +190,7 @@ void ScPageOutput::DrawPageItems(ScPainterExBase *painter, Page *page, QRect cli
 					++docItem;
 					if (currItem->LayerNr != ll.LNr)
 						continue;
-					if (!currItem->printable())
+					if (!currItem->printEnabled())
 						continue;
 					if ((m_doc->masterPageMode()) && ((currItem->OwnPage != -1) && (currItem->OwnPage != docCurrPageNo)))
 						continue;
@@ -669,9 +668,8 @@ void ScPageOutput::DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 			{
 				bool dummy;
 				bool useCmyk = false;
-				int  modes = painter->supportedModes();
-				ScPainterExBase::ColorMode mode = painter->preferredMode();
-				if ( (modes & ScPainterExBase::cmykMode) && (mode == ScPainterExBase::cmykMode)  )
+				ScPainterExBase::ImageMode imageMode = painter->imageMode();
+				if ( imageMode == ScPainterExBase::cmykImages )
 					useCmyk = true;
 				QFileInfo fInfo(item->Pfile);
 				QString ext = fInfo.extension(false);
@@ -681,7 +679,7 @@ void ScPageOutput::DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 				scImg.imgInfo.layerInfo.clear();
 				scImg.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
 				scImg.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
-				scImg.LoadPicture(item->Pfile, item->IProfile, 0, item->UseEmbedded, m_useProfiles, (int) m_imageMode, m_imageRes, &dummy);
+				scImg.LoadPicture(item->Pfile, item->IProfile, 0, item->UseEmbedded, m_useProfiles, (int) imageMode, m_imageRes, &dummy);
 				if( ext == "eps" || ext == "pdf" || ext == "ps" )
 				{
 					imScaleX *= (72.0 / (double) m_imageRes);
@@ -695,9 +693,11 @@ void ScPageOutput::DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 
 			painter->save();
 			if (item->imageClip.size() != 0)
+			{
 				painter->setupPolygon(&item->imageClip);
-			else
-				painter->setupPolygon(&item->PoLine);
+				painter->setClipPath();
+			}
+			painter->setupPolygon(&item->PoLine);
 			painter->setClipPath();
 			if (item->imageFlippedH())
 			{

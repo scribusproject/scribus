@@ -23,16 +23,6 @@ class PageItem_TextFrame;
 
 class SCRIBUS_API ScPageOutput
 {
-public:
-
-	typedef enum
-	{
-		loadImagesAsCMYK,
-		loadImagesAsRGB,
-		loadImagesAsRGBProof,
-		loadImagesAsRawData
-	} imageLoadMode;
-
 protected:
 
 	ScribusDoc* m_doc;
@@ -41,7 +31,6 @@ protected:
 	bool m_reloadImages;
 	int m_imageRes;
 	bool m_useProfiles;
-	imageLoadMode m_imageMode;
 
 	virtual void DrawMasterItems(ScPainterExBase *painter, Page *page, QRect clip);
 	virtual void DrawPageItems(ScPainterExBase *painter, Page *page, QRect clip);
@@ -62,9 +51,10 @@ protected:
 
 public:
 
-	ScPageOutput(ScribusDoc* doc, bool reloadImages = false, imageLoadMode loadMode = loadImagesAsRGB, int resolution = 72, bool useProfiles = false);
+	ScPageOutput(ScribusDoc* doc, bool reloadImages = false, int resolution = 72, bool useProfiles = false);
 
 	virtual void begin(void) {};
+	virtual void DrawPage( Page* page ) {};
 	virtual void DrawPage( Page* page, ScPainterExBase* painter);
 	virtual void end(void) {};
 

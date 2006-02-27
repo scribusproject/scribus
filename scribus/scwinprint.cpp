@@ -462,7 +462,7 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 #endif
 	 
 	// Create the GDI painter
-	pageOutput = new ScPageOutput(doc, true, ScPageOutput::loadImagesAsRGBProof, 300, options.useICC);
+	pageOutput = new ScPageOutput(doc, true, 300, options.useICC);
 	pageOutput->setScale( 1.0 );
 	
 	QRect drawRect( 0, 0, physicalWidth, physicalHeight);
@@ -574,9 +574,26 @@ bool ScWinPrint::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int
 	if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
 		return false;
 
+	// Set some necessary stuff for embedding ps into ps
+	QString eBegin = "/b4_Inc_state save def\n";
+	eBegin += "/dict_count countdictstack def\n";
+	eBegin += "/op_count count 1 sub def\n";
+	eBegin += "userdict begin\n";
+	eBegin += "/showpage { } def\n";
+	eBegin += "0 setgray 0 setlinecap\n";
+	eBegin += "1 setlinewidth 0 setlinejoin\n";
+	eBegin += "10 setmiterlimit [ ] 0 setdash newpath\n";
+	eBegin += "/languagelevel where\n";
+	eBegin += "{pop languagelevel\n";
+	eBegin += "1 ne\n";
+	eBegin += "{false setstrokeadjust false setoverprint\n";
+	eBegin += "} if } if\n";
+	sprintf( (char*) sps.data, "%s", eBegin.latin1() );
+	sps.numBytes = strlen( (char*) sps.data );
+	if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
+		return false;
+
 	// Center the printed page in paper zone
-	//transx = 0;
-	//transy = -pageHeight;
 	transx = ( physicalWidth - pageWidth ) / 2.0;
 	transy = ( pageHeight - physicalHeight ) / 2.0 - pageHeight;
 	sprintf( (char*) sps.data, "%0.3f %0.3f translate\n", transx, transy );
@@ -587,7 +604,6 @@ bool ScWinPrint::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int
 	if ( !file.open( IO_ReadOnly ) )
 		return false;
 	fileSize = file.size();
-
 	bw = 0; // bytes written
 	br = file.readBlock( (char*) sps.data, sizeof( sps.data ) );
 	while( br > 0 )
@@ -599,8 +615,16 @@ bool ScWinPrint::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int
 			break;
 		br = file.readBlock( (char*) sps.data, sizeof( sps.data ) );
 	}
-
 	file.close();
+
+	// Set some necessary stuff for embedding ps into ps
+	QString eEnd = "count op_count sub {pop} repeat\n";
+	eEnd += "countdictstack dict_count sub {end} repeat\n";
+	eEnd += "b4_Inc_state restore\n";
+	sprintf( (char*) sps.data, "%s", eEnd.latin1() );
+	sps.numBytes = strlen( (char*) sps.data );
+	if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
+		return false;
 
 	return ( (fileSize == bw) && ( br >= 0 ) );
 }

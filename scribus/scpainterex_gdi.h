@@ -68,8 +68,9 @@ public:
 	ScPainterEx_GDI( HDC hDC, QRect& rect, bool gray );
 	virtual ~ScPainterEx_GDI();
 
-	virtual int supportedModes() { return (int) rgbMode; }
-	virtual ColorMode preferredMode() { return rgbMode; }
+	virtual int supportedColorModes() { return (int) rgbMode; }
+	virtual ColorMode preferredColorMode() { return rgbMode; }
+	virtual ImageMode imageMode() { return rgbImages; }
 
 	virtual void begin();
 	virtual void end();
