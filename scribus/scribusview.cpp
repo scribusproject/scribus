@@ -3392,12 +3392,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					newRot=0.0;
 				
 				double hlen=sqrt(pow(newX - currItem->xPos(),2)+pow(newY - currItem->yPos(),2));
-				double newX2 = currItem->xPos()+(hlen * cos(newRot));
-				double newY2 = currItem->yPos()-(hlen * sin(newRot));
-				double newRot2=xy2Deg(newX2 - currItem->xPos(), newY2 - currItem->yPos());
-				//qDebug(QString("%1 %2 %3 %4 %5 %6").arg(currItem->xPos()).arg(currItem->yPos()).arg(newRot).arg(newRot2).arg(newX2).arg(newY2));
-				newX=newX2;
-				newY=newY2;
+				newX = currItem->xPos()+(hlen * cos(newRot/(180.0/M_PI)));
+				newY = currItem->yPos()-(hlen * sin(newRot/(180.0/M_PI)));
 			}
 			
 			p.drawLine(static_cast<int>(currItem->xPos()*sc), static_cast<int>(currItem->yPos()*sc), static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc));
