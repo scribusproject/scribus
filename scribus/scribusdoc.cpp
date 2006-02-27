@@ -1536,11 +1536,11 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 			}
 			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
 			{
-				for (uint d=0; d<ite->itemText.count(); ++d)
+				for (int d=0; d<ite->itemText.length(); ++d)
 				{
-					if (it.key() == ite->itemText.at(d)->ccolor)
+					if (it.key() == ite->itemText.charStyle(d).ccolor)
 						found = true;
-					if (it.key() == ite->itemText.at(d)->cstroke)
+					if (it.key() == ite->itemText.charStyle(d).cstroke)
 						found = true;
 					if (found)
 						break;
@@ -1576,10 +1576,10 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 			}
 			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
 			{
-				for (uint d=0; d<ite->itemText.count(); ++d)
+				for (int d=0; d<ite->itemText.length(); ++d)
 				{
 					/* PFJ - 29.02.04 - Merged if's */
-					if ((it.key() == ite->itemText.at(d)->ccolor) || (it.key() == ite->itemText.at(d)->cstroke))
+					if ((it.key() == ite->itemText.charStyle(d).ccolor) || (it.key() == ite->itemText.charStyle(d).cstroke))
 						found = true;
 					if (found)
 						break;
@@ -1615,10 +1615,10 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 			}
 			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
 			{
-				for (uint d=0; d<ite->itemText.count(); ++d)
+				for (int d=0; d<ite->itemText.length(); ++d)
 				{
 					/* PFJ - 29.02.04 - Merged if's */
-					if ((it.key() == ite->itemText.at(d)->ccolor) || (it.key() == ite->itemText.at(d)->cstroke))
+					if ((it.key() == ite->itemText.charStyle(d).ccolor) || (it.key() == ite->itemText.charStyle(d).cstroke))
 						found = true;
 					if (found)
 						break;
@@ -1680,10 +1680,10 @@ void ScribusDoc::getUsedFonts(QMap<QString,int> *Really)
 			}
 			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
-				for (uint e = 0; e < it->itemText.count(); ++e)
+				for (int e = 0; e < it->itemText.length(); ++e)
 				{
-					Really->insert(it->itemText.at(e)->cfont->scName(), UsedFonts[it->itemText.at(e)->cfont->scName()]);
-					uint chr = it->itemText.at(e)->ch[0].unicode();
+					Really->insert(it->itemText.charStyle(e).cfont->scName(), UsedFonts[it->itemText.charStyle(e).cfont->scName()]);
+					uint chr = it->itemText.text(e).unicode();
 					if ((chr == 13) || (chr == 32) || (chr == 29))
 						continue;
 					if (chr == 9)
@@ -1693,28 +1693,28 @@ void ScribusDoc::getUsedFonts(QMap<QString,int> *Really)
 							if (docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
 								continue;
 							chx = QString(docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar);
-							if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+							if ((it->itemText.charStyle(e).cstyle & ScStyle_SmallCaps) || (it->itemText.charStyle(e).cstyle & ScStyle_AllCaps))
 							{
 								if (chx.upper() != QString(docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar))
 									chx = chx.upper();
 							}
 							chr = chx[0].unicode();
-							gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
-							it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+							gly = it->itemText.charStyle(e).cfont->GlyphArray[chr].Outlines.copy();
+							it->itemText.charStyle(e).cfont->RealGlyphs.insert(chr, gly);
 						}
 						for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
 						{
 							if (it->TabValues[t1].tabFillChar.isNull())
 								continue;
 							chx = QString(it->TabValues[t1].tabFillChar);
-							if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+							if ((it->itemText.charStyle(e).cstyle & ScStyle_SmallCaps) || (it->itemText.charStyle(e).cstyle & ScStyle_AllCaps))
 							{
 								if (chx.upper() != QString(it->TabValues[t1].tabFillChar))
 									chx = chx.upper();
 							}
 							chr = chx[0].unicode();
-							gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
-							it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+							gly = it->itemText.charStyle(e).cfont->GlyphArray[chr].Outlines.copy();
+							it->itemText.charStyle(e).cfont->RealGlyphs.insert(chr, gly);
 						}
 						continue;
 					}
@@ -1723,10 +1723,10 @@ void ScribusDoc::getUsedFonts(QMap<QString,int> *Really)
 						/* CB Removed forced loading of 0-9 for section based numbering
 						for (uint numco = 0x30; numco < 0x3A; ++numco)
 						{
-							if (it->itemText.at(e)->cfont->CharWidth.contains(numco))
+							if (it->itemText.charStyle(e)->cfont->CharWidth.contains(numco))
 							{
-								gly = it->itemText.at(e)->cfont->GlyphArray[numco].Outlines.copy();
-								it->itemText.at(e)->cfont->RealGlyphs.insert(numco, gly);
+								gly = it->itemText.charStyle(e)->cfont->GlyphArray[numco].Outlines.copy();
+								it->itemText.charStyle(e)->cfont->RealGlyphs.insert(numco, gly);
 							}
 						}*/
 						//Our page number collection string
@@ -1757,25 +1757,25 @@ void ScribusDoc::getUsedFonts(QMap<QString,int> *Really)
 						for (uint pnti=0;pnti<pageNumberText.length(); ++pnti)
 						{
 							uint chr = pageNumberText[pnti].unicode();
-							if (it->itemText.at(e)->cfont->CharWidth.contains(chr))
+							if (it->itemText.charStyle(e).cfont->CharWidth.contains(chr))
 							{
-								FPointArray gly(it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy());
-								it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+								FPointArray gly(it->itemText.charStyle(e).cfont->GlyphArray[chr].Outlines.copy());
+								it->itemText.charStyle(e).cfont->RealGlyphs.insert(chr, gly);
 							}
 						}
 						continue;
 					}
-					if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+					if ((it->itemText.charStyle(e).cstyle & ScStyle_SmallCaps) || (it->itemText.charStyle(e).cstyle & ScStyle_AllCaps))
 					{
-						chx = it->itemText.at(e)->ch;
-						if (chx.upper() != it->itemText.at(e)->ch)
+						chx = it->itemText.text(e, 1);
+						if (chx.upper() != it->itemText.text(e, 1))
 							chx = chx.upper();
 						chr = chx[0].unicode();
 					}
-					if (it->itemText.at(e)->cfont->CharWidth.contains(chr))
+					if (it->itemText.charStyle(e).cfont->CharWidth.contains(chr))
 					{
-						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
-						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+						gly = it->itemText.charStyle(e).cfont->GlyphArray[chr].Outlines.copy();
+						it->itemText.charStyle(e).cfont->RealGlyphs.insert(chr, gly);
 					}
 				}
 			}
@@ -1821,10 +1821,10 @@ void ScribusDoc::reorganiseFonts()
 			Really.insert(it->font(), UsedFonts[it->font()]);
 			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
-				uint itemTextCount=it->itemText.count();
+				uint itemTextCount=it->itemText.length();
 				for (uint e = 0; e < itemTextCount; ++e)
 				{
-					Really.insert(it->itemText.at(e)->cfont->scName(), UsedFonts[it->itemText.at(e)->cfont->scName()]);
+					Really.insert(it->itemText.charStyle(e).cfont->scName(), UsedFonts[it->itemText.charStyle(e).cfont->scName()]);
 				}
 			}
 		}
@@ -3669,9 +3669,9 @@ void ScribusDoc::ItemFont(QString fon)
 			if (appMode == modeNormal)
 			{
 				currItem->setFont(fon);
-				if (currItem->itemText.count() != 0)
+				if (currItem->itemText.length() != 0)
 				{
-					for (uint a = 0; a < currItem->itemText.count(); ++a)
+					for (int a = 0; a < currItem->itemText.length(); ++a)
 						currItem->itemText.at(a)->cfont = (*AllFonts)[fon];
 					if (currItem->asPathText())
 					{
@@ -3685,11 +3685,11 @@ void ScribusDoc::ItemFont(QString fon)
 			}
 			if ((currItem->HasSel) && (appMode == modeEdit))
 			{
-				if (currItem->itemText.count() != 0)
+				if (currItem->itemText.length() != 0)
 				{
-					for (uint a = 0; a < currItem->itemText.count(); ++a)
+					for (int a = 0; a < currItem->itemText.length(); ++a)
 					{
-						if (currItem->itemText.at(a)->cselect)
+						if (currItem->itemText.selected(a))
 							currItem->itemText.at(a)->cfont = (*AllFonts)[fon];
 					}
 					emit refreshItem(currItem);
@@ -4209,7 +4209,7 @@ void ScribusDoc::chTyStyle(int s)
 					{
 						if (currItem->itemText.at(a)->cselect)
 						{
-							currItem->itemText.at(a)->cstyle &= ~1919;
+							currItem->itemText.at(a)->cstyle &= ~1919; // 0x11101111111
 							currItem->itemText.at(a)->cstyle |= s;
 						}
 					}
@@ -4218,7 +4218,7 @@ void ScribusDoc::chTyStyle(int s)
 				{
 					for (uint a = 0; a < currItem->itemText.count(); ++a)
 					{
-						currItem->itemText.at(a)->cstyle &= ~1919;
+						currItem->itemText.at(a)->cstyle &= ~1919; // 1024+512+256+64+32+16+8+4+2+1
 						currItem->itemText.at(a)->cstyle |= s;
 					}
 				}
@@ -5299,11 +5299,6 @@ void ScribusDoc::itemSelection_DeleteItem()
 			ScMW->fileWatcher->removeFile(currItem->Pfile);
 		if (currItem->asTextFrame())
 		{
-			for (ScText *it = currItem->itemText.first(); it != 0; it = currItem->itemText.next())
-			{
-				if ((it->ch == QChar(25)) && (it->cembedded != 0))
-					FrameItems.remove(it->cembedded);
-			}
 			if ((currItem->NextBox != 0) || (currItem->BackBox != 0))
 			{
 				if (currItem->BackBox == 0)
@@ -5332,6 +5327,7 @@ void ScribusDoc::itemSelection_DeleteItem()
 			}
 			else
 			{
+				currItem->itemText.clear();
 				if (currItem->isAutoText)
 				{
 					LastAuto = 0;

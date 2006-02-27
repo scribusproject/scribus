@@ -66,8 +66,15 @@ void StoryText::clear()
 	firstFrameItem = 0;
 	lastFrameItem = -1;
 	
+	for (ScText *it = first(); it != 0; it = next())
+	{
+		if ((it->ch == SpecialChars::OBJECT) && (it->cembedded != 0)) {
+			doc->FrameItems.remove(it->cembedded);
+			it->cembedded = 0;
+		}
+	}
+	
 	QPtrList<ScText>::clear();
-//FIXME:NLS  add deletion of embedded objects here
 	invalidateAll();
 }
 
@@ -80,11 +87,20 @@ void StoryText::removeChars(int pos, uint len)
 	assert( len > 0 );
 	assert( pos >= 0 );
 	assert( pos + static_cast<int>(len) <= length() );
-	//FIXME:NLS
-	invalidate(pos, pos + len);
+
+	for ( int i=0; i < len; ++i )
+	{
+		ScText *it = take(i);
+		if ((it->ch == SpecialChars::OBJECT) && (it->cembedded != 0)) {
+			doc->FrameItems.remove(it->cembedded);
+			it->cembedded = 0;
+		}
+		delete it;
+	}
+	invalidate(pos, -1);
 }
 
-void StoryText::insertChars(int pos, QString txt)
+void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 {
 	if (pos < 0)
 		pos += length();
@@ -92,7 +108,16 @@ void StoryText::insertChars(int pos, QString txt)
 	assert(txt.length() > 0);
 	assert(pos >= 0);
 	assert(pos <= length());
-	//FIXME:NLS
+	
+	const CharStyle style = charStyle(pos);
+	
+	for (int i = 0; i < txt.length(); ++i) {
+		ScText * item = new ScText();
+		item->ch= txt.mid(i, 1);
+		*static_cast<CharStyle *>(item) = style;
+		insert(pos + i, item);
+	}
+
 	invalidate(pos, pos + txt.length());
 }
 
@@ -203,8 +228,8 @@ void StoryText::applyStyle(int pos, uint len, const CharStyle& style )
 	if (len == 0)
 		return;
 
-//	for (uint i=pos; i < pos+len; ++i)
-//			at(i).applyStyle(&style);
+	for (uint i=pos; i < pos+len; ++i)
+		at(i)->applyStyle(style);
 
 	invalidate(pos, pos + len);
 }
@@ -288,7 +313,8 @@ int StoryText::lengthOfSelection() const
 
 bool StoryText::selected(int pos) const
 {
-	return selFirst <= pos && pos <= selLast;
+	return (selFirst <= pos && pos <= selLast) 
+	       || (pos >= 0 && pos < length() && at(pos)->cselect);
 }
 
 void StoryText::select(int pos, uint len, bool on)
@@ -374,7 +400,7 @@ void StoryText::invalidateAll()
 {
 }
 
-void StoryText::invalidate(int firstRun, int lastRun)
+void StoryText::invalidate(int firstitem, int lastitem)
 {
 }
 

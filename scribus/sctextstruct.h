@@ -37,22 +37,23 @@ class PageItem;
  */
 
 enum StyleFlag {
-	ScStyle_Default=0,
-    ScStyle_Superscript=1,
-    ScStyle_Subcript=2,
-    ScStyle_Outline=4,
-    ScStyle_Underline=8,
-    ScStyle_Strikethrough=16,
-    ScStyle_AllCaps=32,
-    ScStyle_SmallCaps=64,
+	ScStyle_Default       = 0,
+    ScStyle_Superscript   = 1,
+    ScStyle_Subcript      = 2,
+    ScStyle_Outline       = 4,
+    ScStyle_Underline     = 8,
+    ScStyle_Strikethrough = 16,
+    ScStyle_AllCaps       = 32,
+    ScStyle_SmallCaps     = 64,
     ScStyle_HyphenationPossible=128, //Hyphenation possible here (Smart Hyphen)
-    ScStyle_Shadowed=256,
+    ScStyle_Shadowed      = 256,
     ScStyle_UnderlineWords=512,
-    ScStyle_Reserved01=1024, //free, not used in the moment
-    ScStyle_DropCap=2048,
-    ScStyle_SuppressSpace=4096,//internal use in PageItem (Suppresses spaces when in Block alignment)
+    ScStyle_Reserved01    = 1024, //free, not used in the moment
+    ScStyle_DropCap       = 2048,
+    ScStyle_SuppressSpace = 4096,//internal use in PageItem (Suppresses spaces when in Block alignment)
     ScStyle_SmartHyphenVisible=8192, //Smart Hyphen visible at line end
-    ScStyle_StartOfLine=16384
+    ScStyle_StartOfLine   = 16384,
+	ScStyle_UserStyles    = 1919
 };
 
 
@@ -214,7 +215,7 @@ inline void CharStyle::applyStyle(const CharStyle & other)
 	if (other.cshade2 != NOVALUE)
 		cshade2 = other.cshade2;
 	if (other.cstyle != NOVALUE)
-		cstyle = other.cstyle;
+		cstyle = (cstyle & ScStyle_UserStyles) | (other.cstyle & ScStyle_UserStyles);
 	if (other.cscale != NOVALUE)
 		cscale = other.cscale;
 	if (other.cscalev != NOVALUE)
@@ -253,7 +254,7 @@ inline void CharStyle::eraseStyle(const CharStyle & other)
 		cshade = NOVALUE;
 	if (other.cshade2 == cshade2)
 		cshade2 = NOVALUE;
-	if (other.cstyle == cstyle)
+	if (other.cstyle  & ScStyle_UserStyles == cstyle & ScStyle_UserStyles)
 		cstyle = NOVALUE;
 	if (other.cscale == cscale)
 		cscale = NOVALUE;
