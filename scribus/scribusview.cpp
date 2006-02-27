@@ -3710,23 +3710,38 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			}
 			else
 			{
+				//Dragging an item (plus more?)
 				newX = static_cast<int>(m->x()/sc);
 				newY = static_cast<int>(m->y()/sc);
 				operItemMoving = true;
 				erf = false;
+				int dX=newX-Mxp, dY=newY-Myp;
 				if (!Doc->selection->isMultipleSelection())
 				{
+					erf=true;
 					currItem = Doc->selection->itemAt(0);
-					if ((currItem->asImageFrame()) && (m->state() & (ControlButton | AltButton)))
+					if ((currItem->asImageFrame()) && (m->state() & ControlButton) && (m->state() & AltButton))
 					{
-						currItem->moveImageInFrame((newX-Mxp)/currItem->imageXScale(), (newY-Myp)/currItem->imageYScale());
+						currItem->moveImageInFrame(dX/currItem->imageXScale(),dY/currItem->imageYScale());
 						updateContents(currItem->getRedrawBounding(Scale));
+						
 					}
 					else
 					{
+						if (m->state() & ControlButton)
+						{
+							if (abs(dX)>abs(dY))
+								dY=0;
+							else
+							if (abs(dY)>abs(dX))
+								dX=0;
+							erf=false;
+							dX+=dragConstrainInitPtX-currItem->xPos();
+							dY+=dragConstrainInitPtY-currItem->yPos();
+						}
 						if (!(currItem->isTableItem && currItem->isSingleSel))
 						{
-							moveGroup(newX-Mxp, newY-Myp, false);
+							moveGroup(dX, dY, false);
 							if (Doc->SnapGuides)
 							{
 								double nx = currItem->xPos();
@@ -3740,20 +3755,36 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							}
 						}
 					}
-					erf = true;
+					//erf = true;
 				}
 				else
 				{
 					setGroupRect();
 					double gx, gy, gh, gw;
-					getGroupRectScreen(&gx, &gy, &gw, &gh);
-					moveGroup(newX-Mxp, newY-Myp, false);
+					getGroupRect(&gx, &gy, &gw, &gh);
+					double gxs, gys, ghs, gws;
+					getGroupRectScreen(&gxs, &gys, &gws, &ghs);
+					int dX=newX-Mxp, dY=newY-Myp;
+					erf = true;
+					if (m->state() & ControlButton)
+					{
+						if (abs(dX)>abs(dY))
+							dY=0;
+						else
+						if (abs(dY)>abs(dX))
+							dX=0;
+						erf=false;
+						dX+=dragConstrainInitPtX-qRound(gx);
+						dY+=dragConstrainInitPtY-qRound(gy);
+					}
+					
+					moveGroup(dX, dY, false);
 					if (Doc->SnapGuides)
 					{
 						double nx = gx;
 						double ny = gy;
 						ApplyGuides(&nx, &ny);
-						moveGroup(nx-gx, ny-gy, false);
+						moveGroup(nx-gxs, ny-gys, false);
 						setGroupRect();
 						getGroupRect(&gx, &gy, &gw, &gh);
 						nx = gx+gw;
@@ -3763,7 +3794,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					}
 					setGroupRect();
 					getGroupRect(&gx, &gy, &gw, &gh);
-					erf = true;
+					//erf = true;
 				}
 				if (erf)
 				{
@@ -4356,6 +4387,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					p.end();
 					double gx, gy, gh, gw;;
 					getGroupRect(&gx, &gy, &gw, &gh);
+					dragConstrainInitPtX = gx;
+					dragConstrainInitPtY = gy;
 					mpo = QRect(qRound(m->x() / Scale) - Doc->guidesSettings.grabRad, qRound(m->y() / Scale) - Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
 					mpo.moveBy(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 					if ((QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
@@ -4433,6 +4466,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				else
 				{
+					dragConstrainInitPtX = currItem->xPos();
+					dragConstrainInitPtY = currItem->yPos();
 					SeleItem(m); //Where we send the mouse press event to select an item
 					if (Doc->selection->count() != 0)
 					{

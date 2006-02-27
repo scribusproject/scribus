@@ -99,6 +99,8 @@ public:
 	int oldCp;
 	int Mxp;
 	int Myp;
+	int dragConstrainInitPtX;
+	int dragConstrainInitPtY;
 	int Dxp;
 	int Dyp;
 	/*!
