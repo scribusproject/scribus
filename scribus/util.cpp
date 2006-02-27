@@ -1199,6 +1199,18 @@ inline double distance(double x, double y)
 	return sqrt(x*x+y*y);
 }
 
+double constrainAngle(double angle)
+{
+	double newAngle=angle;
+	double constrainTo=15.0;
+	if (newAngle<0.0)
+		newAngle+=360.0;
+	newAngle=qRound(angle/constrainTo)*constrainTo;
+	if (newAngle==360.0)
+		newAngle=0.0;
+	return newAngle;
+}
+
 const QString getStringFromSequence(DocumentSectionType type, uint position)
 {
 	QString retVal("");

@@ -135,6 +135,12 @@ QString SCRIBUS_API getFileNameByPage(uint pageNo, QString extension);
 void SCRIBUS_API sDebug(QString message);
 inline double SCRIBUS_API square(double);
 inline double SCRIBUS_API distance(double, double);
+/*! \brief Constrains an angle of rotation to 45 degree intervals
+   Will make code simpler and reduce interval or provide as a parameter
+   \param double angle Angle in degrees
+   \retval double Constrained angle
+ */
+double SCRIBUS_API constrainAngle(double angle);
 const QString SCRIBUS_API getStringFromSequence(DocumentSectionType type, uint position);
 const QString SCRIBUS_API arabicToRoman(uint i);
 const QString SCRIBUS_API numberToLetterSequence(uint i);

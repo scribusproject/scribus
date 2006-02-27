@@ -205,7 +205,7 @@ public:
 	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
 	void moveGroup(double x, double y, bool fromMP = false);
 	void MoveRotated(PageItem *currItem, FPoint npv, bool fromMP = false);
-	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false);
+	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false, bool constrainRotation=false);
 	void RotateGroup(double win);
 	void scaleGroup(double scx, double scy, bool scaleText=true);
 	void RotateItem(double win, int ite);

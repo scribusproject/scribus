@@ -2092,36 +2092,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			np += QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 			np = ApplyGrid(np);
 			double newRot=xy2Deg(np.x(), np.y());
+			//Constrain rotation angle, when the mouse is released from drawing a line
 			if (m->state() & ControlButton)
-			{
-				if (newRot<0.0)
-					newRot+=360.0;
-				if (newRot<22.5)
-					newRot=0.0;
-				else
-				if (newRot>22.5 && newRot<67.5)
-					newRot=45.0;
-				else
-				if (newRot>67.5 && newRot<112.5)
-					newRot=90.0;
-				else
-				if (newRot>112. && newRot<157.5)
-					newRot=135.0;
-				else
-				if (newRot>157.5 && newRot<202.5)
-					newRot=180.0;
-				else
-				if (newRot>202.5 && newRot<247.5)
-					newRot=225.0;
-				else
-				if (newRot>247.5 && newRot<292.5)
-					newRot=270.0;
-				else
-				if (newRot>292.5 && newRot<337.5)
-					newRot=315.0;
-				else
-					newRot=0.0;
-			}
+				newRot=constrainAngle(newRot);
 			currItem->setRotation(newRot);
 			currItem->setWidthHeight(sqrt(pow(np.x(),2.0)+pow(np.y(),2.0)), 1.0);
 			currItem->Sizing = false;
@@ -2397,6 +2370,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						}
 						else
 						{
+						qDebug("3");
 							if (sav)
 							{
 								double nx = m->pos().x()/Scale + Doc->minCanvasCoordinate.x();
@@ -3356,41 +3330,15 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				newY = static_cast<int>(qRound(newY / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid);
 			}
 			double newRot=xy2Deg(newX - currItem->xPos(), newY - currItem->yPos());
+			//Constrain rotation angle, when the mouse is being dragged around for a new line
 			if (m->state() & ControlButton)
 			{
+				//Flip our angles around here
 				if (newRot<0.0)
 					newRot=-newRot;
 				else
 					newRot=360-newRot;
-				
-				if (newRot<0.0)
-					newRot+=360.0;
-				if (newRot<22.5)
-					newRot=0.0;
-				else
-				if (newRot>22.5 && newRot<67.5)
-					newRot=45.0;
-				else
-				if (newRot>67.5 && newRot<112.5)
-					newRot=90.0;
-				else
-				if (newRot>112. && newRot<157.5)
-					newRot=135.0;
-				else
-				if (newRot>157.5 && newRot<202.5)
-					newRot=180.0;
-				else
-				if (newRot>202.5 && newRot<247.5)
-					newRot=225.0;
-				else
-				if (newRot>247.5 && newRot<292.5)
-					newRot=270.0;
-				else
-				if (newRot>292.5 && newRot<337.5)
-					newRot=315.0;
-				else
-					newRot=0.0;
-				
+				newRot=constrainAngle(newRot);
 				double hlen=sqrt(pow(newX - currItem->xPos(),2)+pow(newY - currItem->yPos(),2));
 				newX = currItem->xPos()+(hlen * cos(newRot/(180.0/M_PI)));
 				newY = currItem->yPos()-(hlen * sin(newRot/(180.0/M_PI)));
@@ -3682,9 +3630,19 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 									p.translate(qRound(-Doc->minCanvasCoordinate.x()), qRound(-Doc->minCanvasCoordinate.y()));
 									np = p.xFormDev(QPoint(m->x(), m->y()));
 									p.end();
+									double sizeItemX=np.x(), sizeItemY=np.y();
+									//Constrain rotation angle, when the mouse is moving the non-origin point of a line
+									if (m->state() & ControlButton)
+									{
+										double newRot=xy2Deg(np.x(), np.y());
+										rba=constrainAngle(newRot);
+										double hlen=sqrt(pow(newX - currItem->xPos(),2)+pow(newY - currItem->yPos(),2));
+										sizeItemX = hlen * cos(rba/(180.0/M_PI));
+										sizeItemY = hlen * sin(rba/(180.0/M_PI));
+									}
 									currItem->setRotation(rba);
 									np = ApplyGrid(np);
-									erf = SizeItem(np.x(), np.y(), currItem->ItemNr);
+									erf = SizeItem(sizeItemX, sizeItemY, currItem->ItemNr);
 									if (Doc->SnapGuides)
 									{
 										p.begin(viewport());
@@ -3704,7 +3662,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								{
 									double sav = Doc->SnapGuides;
 									npf2 = FPoint(newX-Mxp, newY-Myp);
-									erf = MoveSizeItem(npf2, FPoint(0, 0), currItem->ItemNr);
+									erf = MoveSizeItem(npf2, FPoint(0, 0), currItem->ItemNr, false, (m->state() & ControlButton));
 									Doc->SnapGuides = sav;
 									if (sav)
 										currItem->Sizing = true;
@@ -6074,7 +6032,7 @@ void ScribusView::MoveRotated(PageItem *currItem, FPoint npv, bool fromMP)
 }
 
 //CB-->Doc
-bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP)
+bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bool constrainRotation)
 {
 	PageItem *currItem = Doc->Items->at(ite);
 	QRect oldR(currItem->getRedrawBounding(Scale));
@@ -6083,10 +6041,14 @@ bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP)
 		QWMatrix ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
 		ma.rotate(currItem->rotation());
-		double mx = ma.m11() * currItem->width()  + ma.dx();
+		double mx = ma.m11() * currItem->width() + ma.dx();
 		double my = ma.m12() * currItem->width() + ma.dy();
 		MoveItem(newX.x(), newX.y(), currItem, fromMP);
-		currItem->setRotation(xy2Deg(mx - currItem->xPos(), my - currItem->yPos()));
+		double newRot=xy2Deg(mx - currItem->xPos(), my - currItem->yPos());
+		//CB Hmm should work, doesnt. (constraining on the first point of a line)
+		//if (constrainRotation)
+		//	qDebug(QString("%1").arg(constrainAngle(newRot)));
+		currItem->setRotation(newRot);
 		currItem->setWidthHeight(sqrt(pow(mx - currItem->xPos(),2)+pow(my - currItem->yPos(),2)), 1.0);
 		currItem->updateClip();
 		Doc->setRedrawBounding(currItem);
