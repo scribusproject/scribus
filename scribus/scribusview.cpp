@@ -2370,7 +2370,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						}
 						else
 						{
-						qDebug("3");
 							if (sav)
 							{
 								double nx = m->pos().x()/Scale + Doc->minCanvasCoordinate.x();
@@ -3340,8 +3339,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					newRot=360-newRot;
 				newRot=constrainAngle(newRot);
 				double hlen=sqrt(pow(newX - currItem->xPos(),2)+pow(newY - currItem->yPos(),2));
-				newX = currItem->xPos()+(hlen * cos(newRot/(180.0/M_PI)));
-				newY = currItem->yPos()-(hlen * sin(newRot/(180.0/M_PI)));
+				newX = qRound(currItem->xPos()+(hlen * cos(newRot/(180.0/M_PI))));
+				newY = qRound(currItem->yPos()-(hlen * sin(newRot/(180.0/M_PI))));
 			}
 			
 			p.drawLine(static_cast<int>(currItem->xPos()*sc), static_cast<int>(currItem->yPos()*sc), static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc));
@@ -3662,6 +3661,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								{
 									double sav = Doc->SnapGuides;
 									npf2 = FPoint(newX-Mxp, newY-Myp);
+									//Constrain rotation on left point move, disabled for now in movesizeitem
 									erf = MoveSizeItem(npf2, FPoint(0, 0), currItem->ItemNr, false, (m->state() & ControlButton));
 									Doc->SnapGuides = sav;
 									if (sav)
@@ -3766,8 +3766,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							if (abs(dY)>abs(dX))
 								dX=0;
 							erf=false;
-							dX+=dragConstrainInitPtX-currItem->xPos();
-							dY+=dragConstrainInitPtY-currItem->yPos();
+							dX+=qRound(dragConstrainInitPtX-currItem->xPos());
+							dY+=qRound(dragConstrainInitPtY-currItem->yPos());
 						}
 						if (!(currItem->isTableItem && currItem->isSingleSel))
 						{
@@ -4417,8 +4417,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					p.end();
 					double gx, gy, gh, gw;;
 					getGroupRect(&gx, &gy, &gw, &gh);
-					dragConstrainInitPtX = gx;
-					dragConstrainInitPtY = gy;
+					dragConstrainInitPtX = qRound(gx);
+					dragConstrainInitPtY = qRound(gy);
 					mpo = QRect(qRound(m->x() / Scale) - Doc->guidesSettings.grabRad, qRound(m->y() / Scale) - Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
 					mpo.moveBy(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 					if ((QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
@@ -4496,8 +4496,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				else
 				{
-					dragConstrainInitPtX = currItem->xPos();
-					dragConstrainInitPtY = currItem->yPos();
+					dragConstrainInitPtX = qRound(currItem->xPos());
+					dragConstrainInitPtY = qRound(currItem->yPos());
 					SeleItem(m); //Where we send the mouse press event to select an item
 					if (Doc->selection->count() != 0)
 					{
