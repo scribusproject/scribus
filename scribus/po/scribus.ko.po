@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.2.cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-12 15:23+0100\n"
+"POT-Creation-Date: 2006-02-28 01:56+0100\n"
 "PO-Revision-Date: 2004-09-29 23:27+0800\n"
 "Last-Translator: Kitae Kim <neeum@yahoo.com>\n"
 "Language-Team: Korean\n"
@@ -69,10 +69,10 @@ msgstr "타입:"
 msgid "Margin Guides"
 msgstr ""
 
-msgid "Distances"
+msgid "pt"
 msgstr ""
 
-msgid "pt"
+msgid "Distances"
 msgstr ""
 
 msgid "X1:"
@@ -646,6 +646,17 @@ msgstr ""
 msgid "Normal"
 msgstr "보통"
 
+msgid "Do you really want to clear all your text?"
+msgstr ""
+
+msgid "Cannot Delete In-Use Item"
+msgstr ""
+
+msgid ""
+"The item %1 is currently being edited by Story Editor. The delete operation "
+"will be cancelled"
+msgstr ""
+
 msgid "Nodes"
 msgstr ""
 
@@ -721,17 +732,26 @@ msgstr ""
 msgid "Rotate the Path Clockwise"
 msgstr ""
 
-msgid "Reduce the Size of the Path by shown %"
+msgid "Shrink the Size of the Path by shown %"
 msgstr ""
 
 msgid "Enlarge the Size of the Path by shown %"
+msgstr ""
+
+msgid "Reduce the Size of the Path by the shown value"
+msgstr ""
+
+msgid "Enlarge the Size of the Path by the shown value"
 msgstr ""
 
 msgid "Angle of Rotation"
 msgstr ""
 
 #, c-format
-msgid "% to Enlarge or Reduce By"
+msgid "% to Enlarge or Shrink By"
+msgstr ""
+
+msgid "Value to Enlarge or Shrink By"
 msgstr ""
 
 msgid "Activate Contour Line Editing Mode"
@@ -778,6 +798,10 @@ msgstr ""
 #, fuzzy
 msgid "Integer"
 msgstr "거꾸로"
+
+#, fuzzy
+msgid "Real Number"
+msgstr "숫자"
 
 #, fuzzy
 msgid "String"
@@ -1008,6 +1032,12 @@ msgid "Lock size"
 msgstr ""
 
 msgid "Unlock size"
+msgstr ""
+
+msgid "Enable Item Printing"
+msgstr ""
+
+msgid "Disable Item Printing"
 msgstr ""
 
 #, fuzzy
@@ -1252,6 +1282,10 @@ msgstr ""
 msgid "Get image"
 msgstr ""
 
+#, fuzzy
+msgid "Multiple duplicate"
+msgstr "여러개 사본 복사(&M)"
+
 msgid "Move Pages"
 msgstr ""
 
@@ -1389,17 +1423,6 @@ msgstr "전체 선택"
 msgid "You are trying to link to a filled frame, or a frame to itself."
 msgstr ""
 
-msgid "Do you really want to clear all your text?"
-msgstr ""
-
-msgid "Cannot Delete In-Use Item"
-msgstr ""
-
-msgid ""
-"The item %1 is currently being edited by Story Editor. The delete operation "
-"will be cancelled"
-msgstr ""
-
 #, fuzzy
 msgid "Page %1 to %2"
 msgstr "페이지:"
@@ -1455,6 +1478,42 @@ msgstr ""
 msgid "Remove Profile"
 msgstr "삭제"
 
+#, fuzzy
+msgid "Use Printer Margins"
+msgstr "목적 대상"
+
+#, fuzzy
+msgid "Select &Printer:"
+msgstr "전체 선택"
+
+msgid "Margins"
+msgstr ""
+
+#, fuzzy
+msgid "Right:"
+msgstr "강조"
+
+msgid "&Top:"
+msgstr ""
+
+msgid "&Bottom:"
+msgstr ""
+
+msgid "&Left:"
+msgstr ""
+
+msgid "&OK"
+msgstr "확인(&O)"
+
+msgid "Alt+O"
+msgstr ""
+
+msgid "&Cancel"
+msgstr "취소(&C)"
+
+msgid "Alt+C"
+msgstr ""
+
 msgid "Page"
 msgstr ""
 
@@ -1467,9 +1526,6 @@ msgstr ""
 
 msgid "Scribus crashes due to Signal #%1"
 msgstr ""
-
-msgid "&OK"
-msgstr "확인(&O)"
 
 msgid "Cannot find plugin"
 msgstr ""
@@ -1570,12 +1626,14 @@ msgid "Delete the currently selected section."
 msgstr ""
 
 msgid ""
-"Name: Optional name for section eg. Index<br/>Shown: Select to show the page "
-"numbers in this section if there is one or more text frames setup to do so."
-"<br/>From: The page index for this section to start at.<br/>To: The page "
-"index for this section to stop at.<br/>Style: Select the page number style "
-"to be used.<br/>Start: The index within the Style's range to star at. Eg. If "
-"Start=2 and Style=a,b,c, ..., the numbers will begin at b."
+"<b>Name:</b> Optional name for section eg. Index<br/><b>Shown:</b> Select to "
+"show the page numbers in this section if there is one or more text frames "
+"setup to do so.<br/><b>From:</b> The page index for this section to start at."
+"<br/><b>To:</b> The page index for this section to stop at.<br/><b>Style:</"
+"b> Select the page number style to be used.<br/><b>Start:</b> The index "
+"within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., "
+"the numbers will begin at b. For the first section in the document this "
+"replaces the older First Page Number in the new file window."
 msgstr ""
 
 msgid "1, 2, 3, ..."
@@ -1591,6 +1649,15 @@ msgid "a, b, c, ..."
 msgstr ""
 
 msgid "A, B, C, ..."
+msgstr ""
+
+#, fuzzy
+msgid "Page Number Out Of Bounds"
+msgstr "숫자 형식"
+
+msgid ""
+"The value you have entered is outside the range of page numbers in the "
+"current document (%1-%2)."
 msgstr ""
 
 msgid "Importing text"
@@ -1874,24 +1941,6 @@ msgstr ""
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-msgid "Other Options"
-msgstr ""
-
-msgid "Sa&ve Contents on Changes"
-msgstr ""
-
-msgid "Small"
-msgstr ""
-
-msgid "Medium"
-msgstr ""
-
-msgid "Large"
-msgstr ""
-
-msgid "Scrapbook"
-msgstr ""
-
 msgid "Page Display"
 msgstr ""
 
@@ -1921,15 +1970,6 @@ msgid "Rulers relative to Page"
 msgstr ""
 
 msgid "Scratch Space"
-msgstr ""
-
-msgid "&Top:"
-msgstr ""
-
-msgid "&Left:"
-msgstr ""
-
-msgid "&Bottom:"
 msgstr ""
 
 msgid "&Right:"
@@ -1980,15 +2020,6 @@ msgid "Name of &Executable:"
 msgstr ""
 
 msgid "External Tools"
-msgstr ""
-
-msgid "Printing"
-msgstr ""
-
-msgid "Clip to Page &Margins"
-msgstr ""
-
-msgid "Apply &Under Color Removal"
 msgstr ""
 
 msgid "Always ask before fonts are replaced when loading a document"
@@ -2097,12 +2128,6 @@ msgid ""
 "of actions will be stored."
 msgstr ""
 
-msgid "Choose the size of the preview in the scrapbook palette"
-msgstr ""
-
-msgid "Save the scrapbook contents everytime after a change"
-msgstr ""
-
 msgid "Color for paper"
 msgstr ""
 
@@ -2130,19 +2155,6 @@ msgid ""
 "File system location for graphics editor. If you use gimp and your distro "
 "includes it, we recommend 'gimp-remote', as it allows you to edit the image "
 "in an already running instance of gimp."
-msgstr ""
-
-msgid ""
-"Do not show objects outside the margins on the printed page or exported file"
-msgstr ""
-
-msgid ""
-"A way of switching off some of the gray shades which are composed of cyan, "
-"yellow and magenta and using black instead. UCR most affects parts of images "
-"which are neutral and/or dark tones which are close to the gray. Use of this "
-"may improve printing some images and some experimentation and testing is "
-"need on a case by case basis. UCR reduces the possibility of over saturation "
-"with CMY inks."
 msgstr ""
 
 msgid ""
@@ -2495,9 +2507,6 @@ msgstr "눌려짐"
 msgid "Overall Progress:"
 msgstr ""
 
-msgid "&Cancel"
-msgstr "취소(&C)"
-
 msgid "Font %1 is broken (FreeType), discarding it"
 msgstr ""
 
@@ -2595,6 +2604,15 @@ msgid ""
 "colors"
 msgstr ""
 
+msgid ""
+"A way of switching off some of the gray shades which are composed of cyan, "
+"yellow and magenta and using black instead. UCR most affects parts of images "
+"which are neutral and/or dark tones which are close to the gray. Use of this "
+"may improve printing some images and some experimentation and testing is "
+"need on a case by case basis. UCR reduces the possibility of over saturation "
+"with CMY inks."
+msgstr ""
+
 msgid "Resize the scale of the page."
 msgstr ""
 
@@ -2629,12 +2647,6 @@ msgstr "파일로:"
 #, fuzzy
 msgid "Paragraphs:"
 msgstr "문단 스타일(&P)..."
-
-msgid "Alt+O"
-msgstr ""
-
-msgid "Alt+C"
-msgstr ""
 
 msgid "DPI"
 msgstr ""
@@ -2732,34 +2744,6 @@ msgstr ""
 msgid "Scribus: About Plug-ins"
 msgstr ""
 
-#, fuzzy
-msgid "File Name:"
-msgstr "이름:"
-
-msgid "Version:"
-msgstr ""
-
-#, fuzzy
-msgid "Enabled:"
-msgstr "이벤트:"
-
-#, fuzzy
-msgid "Release Date:"
-msgstr "이른 바꾸기"
-
-msgid "Copyright:"
-msgstr ""
-
-msgid "Author(s):"
-msgstr ""
-
-#, fuzzy
-msgid "Description:"
-msgstr "목적 대상"
-
-msgid "License:"
-msgstr ""
-
 msgid "Align Text Left"
 msgstr ""
 
@@ -2833,9 +2817,6 @@ msgid "First Selected"
 msgstr ""
 
 msgid "Last Selected"
-msgstr ""
-
-msgid "Margins"
 msgstr ""
 
 msgid "Align right sides of objects to left side of anchor"
@@ -2944,6 +2925,9 @@ msgstr ""
 msgid "C&hoose Pages"
 msgstr ""
 
+msgid "Clip to Page Margins"
+msgstr ""
+
 msgid "File Options"
 msgstr ""
 
@@ -2980,10 +2964,10 @@ msgstr ""
 msgid "Image Settings"
 msgstr ""
 
-msgid "JPEG"
+msgid "Lossy - JPEG"
 msgstr ""
 
-msgid "Zip"
+msgid "Lossless - Zip"
 msgstr ""
 
 msgid "Compression Metho&d:"
@@ -2993,6 +2977,9 @@ msgid "Maximum"
 msgstr ""
 
 msgid "High"
+msgstr ""
+
+msgid "Medium"
 msgstr ""
 
 msgid "Low"
@@ -3502,33 +3489,6 @@ msgid ""
 "left enabled."
 msgstr ""
 
-msgid "Double sided"
-msgstr ""
-
-msgid "Left Page"
-msgstr ""
-
-msgid "Right Page"
-msgstr ""
-
-msgid "3-Fold"
-msgstr ""
-
-#, fuzzy
-msgid "Middle"
-msgstr "중앙"
-
-msgid "4-Fold"
-msgstr ""
-
-#, fuzzy
-msgid "Middle Left"
-msgstr "중앙"
-
-#, fuzzy
-msgid "Middle Right"
-msgstr "중앙"
-
 msgid "Migrate Old Scribus Settings?"
 msgstr ""
 
@@ -3601,9 +3561,6 @@ msgid ""
 "size"
 msgstr ""
 
-msgid "First page number of the document"
-msgstr ""
-
 msgid "Initial number of pages of the document"
 msgstr ""
 
@@ -3619,9 +3576,6 @@ msgstr ""
 msgid "Options"
 msgstr "옵션"
 
-msgid "F&irst Page Number:"
-msgstr ""
-
 #, fuzzy
 msgid "N&umber of Pages:"
 msgstr "숫자 형식"
@@ -3633,6 +3587,34 @@ msgid "&Automatic Text Frames"
 msgstr ""
 
 msgid "Open"
+msgstr ""
+
+#, fuzzy
+msgid "Filename:"
+msgstr "이름:"
+
+msgid "Version:"
+msgstr ""
+
+#, fuzzy
+msgid "Enabled:"
+msgstr "이벤트:"
+
+#, fuzzy
+msgid "Release Date:"
+msgstr "이른 바꾸기"
+
+#, fuzzy
+msgid "Description:"
+msgstr "목적 대상"
+
+msgid "Author(s):"
+msgstr ""
+
+msgid "Copyright:"
+msgstr ""
+
+msgid "License:"
 msgstr ""
 
 msgid "Move Vector"
@@ -4122,6 +4104,13 @@ msgstr ""
 msgid "&Copy"
 msgstr ""
 
+#, fuzzy
+msgid "Copy Contents"
+msgstr "색깔(&C)..."
+
+msgid "Paste Contents"
+msgstr ""
+
 msgid "C&lear Contents"
 msgstr ""
 
@@ -4240,6 +4229,17 @@ msgstr ""
 
 msgid "Si&ze is Locked"
 msgstr ""
+
+msgid "&Printing Enabled"
+msgstr ""
+
+#, fuzzy
+msgid "&Flip Horizontally"
+msgstr "수평의"
+
+#, fuzzy
+msgid "&Flip Vertically"
+msgstr "수직으로"
 
 msgid "Lower to &Bottom"
 msgstr ""
@@ -4406,6 +4406,10 @@ msgstr "바꾸지 말것(&N)"
 msgid "Show Control Characters"
 msgstr "문자들"
 
+#, fuzzy
+msgid "Show Rulers"
+msgstr "레이어 보이기"
+
 msgid "Sn&ap to Grid"
 msgstr ""
 
@@ -4559,6 +4563,14 @@ msgid "Scribus &Manual..."
 msgstr ""
 
 #, fuzzy
+msgid "Toggle Palettes"
+msgstr "페이지 팔렛트 보이기"
+
+#, fuzzy
+msgid "Toggle Guides"
+msgstr "윗면"
+
+#, fuzzy
 msgid "Smart &Hyphen"
 msgstr "하이픈 능동적용"
 
@@ -4590,8 +4602,16 @@ msgstr ""
 msgid "Trademark"
 msgstr ""
 
+#, fuzzy
+msgid "Solidus"
+msgstr "채움"
+
 msgid "Bullet"
 msgstr ""
+
+#, fuzzy
+msgid "Middle Dot"
+msgstr "중앙"
 
 #, fuzzy
 msgid "Em Dash"
@@ -4663,12 +4683,63 @@ msgid "CJK Double Right"
 msgstr ""
 
 #, fuzzy
-msgid "Toggle Palettes"
-msgstr "페이지 팔렛트 보이기"
+msgid "En Space"
+msgstr "이른 바꾸기"
 
 #, fuzzy
-msgid "Toggle Guides"
-msgstr "윗면"
+msgid "Em Space"
+msgstr "이른 바꾸기"
+
+#, fuzzy
+msgid "Thin Space"
+msgstr "이른 바꾸기"
+
+#, fuzzy
+msgid "Thick Space"
+msgstr "이른 바꾸기"
+
+#, fuzzy
+msgid "Mid Space"
+msgstr "이른 바꾸기"
+
+#, fuzzy
+msgid "Hair Space"
+msgstr "이른 바꾸기"
+
+#, fuzzy
+msgid "Insert Smart Hyphen"
+msgstr "하이픈 능동적용"
+
+msgid "Insert Non Breaking Dash"
+msgstr ""
+
+msgid "Insert Non Breaking Space"
+msgstr ""
+
+#, fuzzy
+msgid "Insert Page Number"
+msgstr "페이지 번호 삽입"
+
+msgid "ff"
+msgstr ""
+
+msgid "fi"
+msgstr ""
+
+msgid "fl"
+msgstr ""
+
+msgid "ffi"
+msgstr ""
+
+msgid "ffl"
+msgstr ""
+
+msgid "ft"
+msgstr ""
+
+msgid "st"
+msgstr ""
 
 msgid "&Title:"
 msgstr ""
@@ -4805,6 +4876,14 @@ msgstr ""
 msgid "Apply the margin changes to all existing pages in the document"
 msgstr ""
 
+#, fuzzy
+msgid "Printer Margins..."
+msgstr "목적 대상"
+
+msgid ""
+"Import the margins for the selected page size from the available printers."
+msgstr ""
+
 msgid "Distance between the top margin guide and the edge of the page"
 msgstr ""
 
@@ -4864,6 +4943,10 @@ msgstr ""
 msgid "Character Class:"
 msgstr "문자들"
 
+#, fuzzy
+msgid "&Insert Code:"
+msgstr "페이지 번호 삽입"
+
 msgid "&Insert"
 msgstr ""
 
@@ -4876,7 +4959,10 @@ msgstr ""
 msgid "Delete the current selection(s)."
 msgstr ""
 
-msgid "Close this dialog and return to text editing."
+msgid "Close this dialog and return to text editing"
+msgstr ""
+
+msgid "Type in a four digit unicode value directly here"
 msgstr ""
 
 #, fuzzy
@@ -5201,9 +5287,11 @@ msgstr ""
 msgid "Quote"
 msgstr "종료"
 
-#, fuzzy
-msgid "Space"
-msgstr "이른 바꾸기"
+msgid "Spaces && Breaks"
+msgstr ""
+
+msgid "Ligature"
+msgstr ""
 
 msgid "&View"
 msgstr ""
@@ -5318,10 +5406,22 @@ msgstr ""
 msgid "No Style"
 msgstr ""
 
+msgid ""
+"Number of copies: %1\n"
+"Horizontal shift: %2\n"
+"Vertical shift: %3"
+msgstr ""
+
 msgid "The following programs are missing:"
 msgstr ""
 
 msgid "Ghostscript : You cannot use EPS images or Print Preview"
+msgstr ""
+
+msgid "Ghostscript : You cannot use EPS images or PostScript Print Preview"
+msgstr ""
+
+msgid "Ghostscript is missing : Postscript Print Preview is not available"
 msgstr ""
 
 msgid ""
@@ -5376,6 +5476,13 @@ msgid "Send to Layer"
 msgstr "뒤로 보내기"
 
 msgid "Previe&w Settings"
+msgstr ""
+
+#, fuzzy
+msgid "Space"
+msgstr "이른 바꾸기"
+
+msgid "Do you really want to replace your existing image?"
 msgstr ""
 
 #, fuzzy
@@ -5487,6 +5594,10 @@ msgid "&Print"
 msgstr ""
 
 msgid ""
+"Do not show objects outside the margins on the printed page or exported file"
+msgstr ""
+
+msgid ""
 "Insert a comma separated list of tokens where\n"
 "a token can be * for all the pages, 1-5 for\n"
 "a range of pages or a single page number."
@@ -5519,6 +5630,9 @@ msgstr ""
 msgid ""
 "This enables you to explicitely set the media size of the PostScript file. "
 "Not recommended unless requested by your printer."
+msgstr ""
+
+msgid "Failed to retrieve printer settings"
 msgstr ""
 
 msgid "PostScript Files (*.ps);;All Files (*)"
@@ -5815,7 +5929,7 @@ msgstr ""
 msgid "About Scribus %1"
 msgstr "스크리부스"
 
-msgid "January"
+msgid "February"
 msgstr ""
 
 msgid "%1 %2 %3"
@@ -5845,10 +5959,10 @@ msgstr ""
 msgid "Contributions from:"
 msgstr ""
 
-msgid "Mac OSX Aqua Port:"
+msgid "Mac OS&#174; X Aqua Port:"
 msgstr ""
 
-msgid "Windows Port:"
+msgid "Windows&#174; Port:"
 msgstr ""
 
 msgid "Official Documentation:"
@@ -5957,6 +6071,33 @@ msgstr ""
 msgid "&Apply"
 msgstr "적용(&A)"
 
+msgid "Double Sided"
+msgstr ""
+
+msgid "3-Fold"
+msgstr ""
+
+msgid "4-Fold"
+msgstr ""
+
+msgid "Left Page"
+msgstr ""
+
+#, fuzzy
+msgid "Middle"
+msgstr "중앙"
+
+#, fuzzy
+msgid "Middle Left"
+msgstr "중앙"
+
+#, fuzzy
+msgid "Middle Right"
+msgstr "중앙"
+
+msgid "Right Page"
+msgstr ""
+
 msgid "Fixed Linespacing"
 msgstr ""
 
@@ -6030,6 +6171,17 @@ msgstr ""
 
 msgid "Distance from Curve:"
 msgstr ""
+
+#, fuzzy
+msgid "Fill Rule"
+msgstr "색깔"
+
+msgid "Even-Odd"
+msgstr ""
+
+#, fuzzy
+msgid "Non Zero"
+msgstr "없음"
 
 msgid "Text &Flows Around Frame"
 msgstr ""
@@ -6443,6 +6595,9 @@ msgstr ""
 msgid "Preview of the Paragraph Style"
 msgstr "문단 스타일(&P)..."
 
+msgid "Select for easier reading of light coloured text styles"
+msgstr ""
+
 msgid "Name of your paragraph style"
 msgstr ""
 
@@ -6552,7 +6707,7 @@ msgstr ""
 msgid "Key Set XML Files (*.ksxml)"
 msgstr ""
 
-msgid "Scrapbooks (*.scs);;All Files (*)"
+msgid "Choose a Scrapbook Directory"
 msgstr ""
 
 msgid ""
@@ -6566,19 +6721,13 @@ msgstr "객체"
 msgid "New Entry"
 msgstr ""
 
+msgid "Scrapbook"
+msgstr ""
+
 msgid "&Preview"
 msgstr ""
 
 msgid "&Load..."
-msgstr ""
-
-msgid "&Small"
-msgstr ""
-
-msgid "&Medium"
-msgstr ""
-
-msgid "&Large"
 msgstr ""
 
 msgid "Polygon Properties"
@@ -6772,6 +6921,9 @@ msgstr ""
 msgid "Show Page Previews"
 msgstr ""
 
+msgid "Double sided"
+msgstr ""
+
 msgid "Drag pages or master pages onto the trashbin to delete them"
 msgstr ""
 
@@ -6811,6 +6963,15 @@ msgstr ""
 msgid "Font of selected text"
 msgstr ""
 
+msgid "&Settings"
+msgstr ""
+
+msgid "Story Editor"
+msgstr ""
+
+msgid "Clear All Text"
+msgstr ""
+
 msgid "&Reload Text from Frame"
 msgstr ""
 
@@ -6829,9 +6990,6 @@ msgstr ""
 msgid "&Exit Without Updating Text Frame"
 msgstr ""
 
-msgid "&Insert Glyph..."
-msgstr ""
-
 msgid "&Edit Styles..."
 msgstr ""
 
@@ -6841,6 +6999,9 @@ msgstr ""
 msgid "&Update Text Frame"
 msgstr ""
 
+msgid "&Insert Glyph..."
+msgstr ""
+
 msgid "&Background..."
 msgstr ""
 
@@ -6848,33 +7009,6 @@ msgid "&Display Font..."
 msgstr ""
 
 msgid "&Smart text selection"
-msgstr ""
-
-msgid "&Settings"
-msgstr ""
-
-msgid "Story Editor"
-msgstr ""
-
-msgid "Clear All Text"
-msgstr ""
-
-msgid "Load Text from File"
-msgstr ""
-
-msgid "Save Text to File"
-msgstr ""
-
-msgid "Update Text Frame and Exit"
-msgstr ""
-
-msgid "Exit Without Updating Text Frame"
-msgstr ""
-
-msgid "Reload Text from Frame"
-msgstr ""
-
-msgid "Update Text Frame"
 msgstr ""
 
 msgid "Current Paragraph:"
@@ -7117,8 +7251,8 @@ msgid "Alt+W"
 msgstr ""
 
 msgid ""
-"Apply the selected template to even, odd or all pages within the following "
-"range"
+"Apply the selected master page to even, odd or all pages within the "
+"following range"
 msgstr ""
 
 msgid "to"
@@ -7138,6 +7272,19 @@ msgid "Page Item Attributes"
 msgstr ""
 
 msgid "Alt+L"
+msgstr ""
+
+msgid "Top"
+msgstr ""
+
+#, fuzzy
+msgid "Bottom"
+msgstr "아랫면"
+
+msgid "Allow Docking To..."
+msgstr ""
+
+msgid "Floating Orientation..."
 msgstr ""
 
 msgid "&Activate Color Management"
@@ -7244,6 +7391,10 @@ msgstr ""
 msgid "&Contents"
 msgstr ""
 
+#, fuzzy
+msgid "Relevance"
+msgstr "이른 바꾸기"
+
 msgid "Se&arch"
 msgstr ""
 
@@ -7286,9 +7437,6 @@ msgid ""
 "Sorry, no manual available! Please see: http://docs.scribus.net for updated "
 "docs\n"
 "and www.scribus.net for downloads."
-msgstr ""
-
-msgid "unknown"
 msgstr ""
 
 msgid "Find"
@@ -7509,6 +7657,9 @@ msgstr ""
 #, fuzzy
 msgid "page"
 msgstr "페이지:"
+
+msgid "Minimum Margins for Page Size %1"
+msgstr ""
 
 msgid "New From Template"
 msgstr ""
@@ -7816,8 +7967,47 @@ msgstr "최근 문서 열기(&)"
 msgid "OpenOffice.org 1.x Draw"
 msgstr "기존문서 열기"
 
-msgid "OpenOffice.org Draw (*.sxd);;All Files (*)"
+#, fuzzy
+msgid "OpenOffice.org Draw (*.sxd *.odg);;All Files (*)"
+msgstr "기존문서 열기"
+
+msgid "This document does not seem to be an OpenOffice Draw file."
 msgstr ""
+
+msgid "Doc"
+msgstr ""
+
+msgid "Access"
+msgstr ""
+
+msgid "Fonts Preview"
+msgstr ""
+
+msgid "&Quick Search:"
+msgstr ""
+
+msgid "Alt+S"
+msgstr ""
+
+msgid "&Font Size:"
+msgstr ""
+
+#, fuzzy
+msgid "Sample text to display"
+msgstr "텍스트 저장(&T)..."
+
+msgid "Se&t"
+msgstr ""
+
+msgid "Alt+T"
+msgstr ""
+
+msgid "Reset the text"
+msgstr ""
+
+#, fuzzy
+msgid "&Append"
+msgstr "적용(&A)"
 
 msgid "&Font Preview..."
 msgstr ""
@@ -7829,25 +8019,6 @@ msgid "Font Preview dialog"
 msgstr ""
 
 msgid "Sorting, searching and browsing available fonts."
-msgstr ""
-
-msgid "Doc"
-msgstr ""
-
-msgid "Access"
-msgstr ""
-
-msgid "Font Size:"
-msgstr ""
-
-msgid "Fonts Preview"
-msgstr ""
-
-#, fuzzy
-msgid "&Append"
-msgstr "적용(&A)"
-
-msgid "Quick Search: "
 msgstr ""
 
 msgid "Append selected font into Style, Font menu"
@@ -7865,6 +8036,9 @@ msgid "Start searching"
 msgstr ""
 
 msgid "Size of the selected font"
+msgstr ""
+
+msgid "Sample will be shown after key release"
 msgstr ""
 
 msgid "User"
@@ -7967,6 +8141,19 @@ msgid "CSV_header"
 msgstr ""
 
 #, fuzzy
+msgid "Word Documents"
+msgstr "기존문서 열기"
+
+#, fuzzy
+msgid "Importing failed"
+msgstr "페이지 삽입(&S)"
+
+msgid ""
+"Importing Word document failed \n"
+"%1"
+msgstr ""
+
+#, fuzzy
 msgid "OpenDocument Text Documents"
 msgstr "기존문서 열기"
 
@@ -8004,6 +8191,25 @@ msgstr ""
 msgid ""
 "Make these settings the default and do not prompt again when importing an "
 "OASIS OpenDocument."
+msgstr ""
+
+#, fuzzy
+msgid "Palm PDB Documents"
+msgstr "기존문서 열기"
+
+msgid "PDB_data"
+msgstr ""
+
+#, fuzzy
+msgid "PDB Import"
+msgstr "삽일(&I)"
+
+msgid "Could not open file %1"
+msgstr ""
+
+msgid ""
+"This file is not recognized as a PDB document propably. Please, report this "
+"as a bug if you are sure it is one."
 msgstr ""
 
 #, fuzzy
@@ -8094,6 +8300,10 @@ msgstr "텍스트 저장(&T)..."
 #, fuzzy
 msgid "Select Color"
 msgstr "전체 선택(&A)"
+
+#, fuzzy
+msgid "Locate Startup Script"
+msgstr "자바 스크립트"
 
 msgid "Argument must be page item name, or PyCObject instance"
 msgstr ""
@@ -8268,6 +8478,17 @@ msgstr "자바 스크립트"
 #, fuzzy
 msgid "Python Scripts (*.py);;All Files (*)"
 msgstr "스크립트:"
+
+#, fuzzy
+msgid "Documentation for:"
+msgstr "문서 설정..."
+
+#, fuzzy
+msgid "Script"
+msgstr "스크립트:"
+
+msgid " doesn't contain any docstring!"
+msgstr ""
 
 #, fuzzy
 msgid "About Script"
@@ -8884,6 +9105,84 @@ msgstr ""
 msgid "Yes all"
 msgstr ""
 
+msgid "Barcode Creator"
+msgstr ""
+
+#, fuzzy
+msgid "Barcode"
+msgstr "테두리"
+
+msgid "C&ode:"
+msgstr ""
+
+msgid "Select one of the available barcode type here"
+msgstr ""
+
+msgid ""
+"The numeric representation of the code itself. See the help message below"
+msgstr ""
+
+msgid "Reset the barcode samples"
+msgstr ""
+
+msgid "&Include text in barcode"
+msgstr ""
+
+msgid "Alt+I"
+msgstr ""
+
+msgid "If checked, there will be numbers in the barcode too"
+msgstr ""
+
+msgid "&Guard whitespace"
+msgstr ""
+
+msgid "Alt+G"
+msgstr ""
+
+msgid "Draw arrows to be sure of space next the code"
+msgstr ""
+
+msgid "&Background"
+msgstr ""
+
+msgid "Alt+B"
+msgstr ""
+
+msgid "Background color - under the code lines"
+msgstr ""
+
+msgid "&Lines"
+msgstr ""
+
+msgid "Color of the lines in barcode"
+msgstr ""
+
+msgid "Color of the text and numbers"
+msgstr ""
+
+msgid "Hints and help is shown here"
+msgstr ""
+
+#, fuzzy
+msgid "Preview of the result. 72dpi sample."
+msgstr "문단 스타일(&P)..."
+
+msgid "Error opening file: %1"
+msgstr ""
+
+msgid "Error creating preview"
+msgstr ""
+
+msgid "&Barcode Generator..."
+msgstr ""
+
+msgid "Barcode Generator"
+msgstr ""
+
+msgid "Scribus frontend for Pure Postscript Barcode Writer"
+msgstr ""
+
 msgid "Save Page as &SVG..."
 msgstr ""
 
@@ -8917,11 +9216,20 @@ msgid ""
 "converting their vector data into Scribus objects."
 msgstr ""
 
+msgid "PDF"
+msgstr ""
+
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
 msgstr ""
 
 msgid ""
 "Importing File:\n"
+"%1\n"
+"failed!"
+msgstr ""
+
+msgid ""
+"Converting Image:\n"
 "%1\n"
 "failed!"
 msgstr ""
@@ -8951,10 +9259,6 @@ msgstr "단순"
 #, fuzzy
 #~ msgid "End"
 #~ msgstr "이벤트:"
-
-#, fuzzy
-#~ msgid "OpenOffice.org Draw (*.sxd);;"
-#~ msgstr "기존문서 열기"
 
 #, fuzzy
 #~ msgid "&Proceed"
@@ -9018,9 +9322,6 @@ msgstr "단순"
 #~ msgid "Top Sides"
 #~ msgstr "윗면"
 
-#~ msgid "Bottom Sides"
-#~ msgstr "아랫면"
-
 #~ msgid "Bet&ween:"
 #~ msgstr "가운데(&w):"
 
@@ -9048,10 +9349,6 @@ msgstr "단순"
 #, fuzzy
 #~ msgid "Pack paragraph styles"
 #~ msgstr "문단 스타일(&P)..."
-
-#, fuzzy
-#~ msgid "Height:"
-#~ msgstr "강조"
 
 #~ msgid "Create a new Document"
 #~ msgstr "새문서 만들기"

@@ -2667,6 +2667,50 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>Show Rulers</source>
         <translation>Показывать линейки</translation>
     </message>
+    <message>
+        <source>&amp;Printing Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Flip Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Flip Vertically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Solidus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Middle Dot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Em Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thin Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thick Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mid Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hair Space</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -3382,6 +3426,16 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
         <translation>Изображения (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Все файлы (*)</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>highlight</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>action</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -4041,7 +4095,7 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Ничего</translation>
+        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>Is Spot Color</source>
@@ -4346,7 +4400,7 @@ It is a reserved name for transparent color</source>
     <name>ColorListBox</name>
     <message>
         <source>None</source>
-        <translation>Ничего</translation>
+        <translation type="obsolete">Ничего</translation>
     </message>
 </context>
 <context>
@@ -4785,6 +4839,11 @@ It is a reserved name for transparent color</source>
         <comment>CommonStrings, custom page size</comment>
         <translation>Свой</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>color name</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -4822,7 +4881,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Ничего</translation>
+        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>Shade:</source>
@@ -4905,7 +4964,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Ничего</translation>
+        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>First row is a header</source>
@@ -4918,6 +4977,11 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Cancel</source>
         <translation>Отменить</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>delimiter</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5098,7 +5162,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Ничего</translation>
+        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>Delete Color:</source>
@@ -5385,7 +5449,7 @@ This can be set in the Preferences.</source>
     <name>DocumentItemAttributes</name>
     <message>
         <source>None</source>
-        <translation>Ничего</translation>
+        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>Relates To</source>
@@ -5422,6 +5486,21 @@ This can be set in the Preferences.</source>
     <message>
         <source>Real Number</source>
         <translation>Число Real</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>relationship</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>auto add</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>types</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5712,6 +5791,16 @@ failed!</source>
         <source>Fatal Error</source>
         <translation>Критическая ошибка</translation>
     </message>
+    <message>
+        <source>Converting Image:
+%1
+failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished">Ошибка</translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -5733,7 +5822,7 @@ failed!</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Не задано</translation>
+        <translation type="obsolete">Не задано</translation>
     </message>
     <message>
         <source>Name of your paragraph style</source>
@@ -6412,6 +6501,10 @@ Use 72 dpi for Images intended for the Screen</source>
         <source>Size of the selected font</source>
         <translation>Кегль выбранного шрифта</translation>
     </message>
+    <message>
+        <source>Sample will be shown after key release</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FontPreviewBase</name>
@@ -6944,6 +7037,10 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>PostScript</source>
         <translation>PostScript</translation>
+    </message>
+    <message>
+        <source>PDF</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7818,7 +7915,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Ничего</translation>
+        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>Shape:</source>
@@ -9056,7 +9153,7 @@ Corners:</source>
     <name>PageItemAttributes</name>
     <message>
         <source>None</source>
-        <translation>Ничего</translation>
+        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>Relates To</source>
@@ -9069,6 +9166,11 @@ Corners:</source>
     <message>
         <source>Is Child Of</source>
         <translation>Ниже по иерархии</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>relationship</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10103,7 +10205,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <name>PresetLayout</name>
     <message>
         <source>None</source>
-        <translation>Ничего</translation>
+        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>Magazine</source>
@@ -10128,6 +10230,11 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation>Здесь можно выбрать готовые настройки макета. «Ничего» - оставить поля как есть. «Гутенберг» устанавливает обычные книжные поля. «Журнал» устанавливает одинаковое значение для всех полей. Ведущим является значение Слева/Изнутри.</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>layout type</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12415,7 +12522,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>None</source>
-        <translation>Ничего</translation>
+        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>Color of text fill</source>
@@ -12434,7 +12541,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>None</source>
-        <translation>Ничего</translation>
+        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -12743,12 +12850,24 @@ converting their vector data into Scribus objects.</source>
         <source>Background</source>
         <translation>Фон</translation>
     </message>
+    <message>
+        <source>Do you really want to clear all your text?</source>
+        <translation type="unfinished">Вы действительно хотите удалить весь текст?</translation>
+    </message>
+    <message>
+        <source>Cannot Delete In-Use Item</source>
+        <translation type="unfinished">Невозможно удалить используемый объект</translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
+        <translation type="unfinished">Объект %1 сейчас изменяется в редакторе текста. Его невозможно удалить</translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
     <message>
         <source>None</source>
-        <translation>Ничего</translation>
+        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>Initializing Plugins</source>
@@ -13192,6 +13311,16 @@ Consider using the Preflight Verifier to correct them</source>
         <source>Do you really want to replace your existing image?</source>
         <translation>Вы действительно хотите заменить уже присутствующее изображение?</translation>
     </message>
+    <message>
+        <source>Spaces &amp;&amp; Breaks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -13392,11 +13521,11 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
-        <translation>Невозможно удалить используемый объект</translation>
+        <translation type="obsolete">Невозможно удалить используемый объект</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation>Объект %1 сейчас изменяется в редакторе текста. Его невозможно удалить</translation>
+        <translation type="obsolete">Объект %1 сейчас изменяется в редакторе текста. Его невозможно удалить</translation>
     </message>
     <message>
         <source>Linking Text Frames</source>
@@ -13408,7 +13537,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation>Вы действительно хотите удалить весь текст?</translation>
+        <translation type="obsolete">Вы действительно хотите удалить весь текст?</translation>
     </message>
     <message>
         <source>Cannot Convert In-Use Item</source>
@@ -13575,6 +13704,14 @@ Consider using the Preflight Verifier to correct them</source>
         <source>Select Color</source>
         <translation>Выберите цвет</translation>
     </message>
+    <message>
+        <source>Change...</source>
+        <translation type="unfinished">Изменить...</translation>
+    </message>
+    <message>
+        <source>Locate Startup Script</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SeList</name>
@@ -13655,7 +13792,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Не задано</translation>
+        <translation type="obsolete">Не задано</translation>
     </message>
     <message>
         <source>Replace with:</source>
@@ -14001,6 +14138,10 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>Ligature</source>
         <translation>Лигатура</translation>
+    </message>
+    <message>
+        <source>Spaces &amp;&amp; Breaks</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16179,6 +16320,18 @@ to %2</source>
     <message>
         <source>Text on a Path</source>
         <translation>Текст по контуру</translation>
+    </message>
+    <message>
+        <source>Enable Item Printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable Item Printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Multiple duplicate</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

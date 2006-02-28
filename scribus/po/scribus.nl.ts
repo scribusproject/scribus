@@ -5620,14 +5620,6 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
         <translation>Eerdere bijdragers van vertalingen:</translation>
     </message>
     <message>
-        <source>Mac OSX Aqua Port:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Windows Port:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Wiki</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5660,7 +5652,15 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>January</source>
+        <source>February</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mac OS&amp;#174; X Aqua Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Windows&amp;#174; Port:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5674,15 +5674,8 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
         <source>No</source>
         <translation type="unfinished">Nee</translation>
     </message>
-</context>
-<context>
-    <name>AboutPluginsBase</name>
     <message>
-        <source>Scribus: About Plug-ins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File Name:</source>
+        <source>Filename:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5698,20 +5691,31 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Copyright:</source>
-        <translation type="unfinished"></translation>
+        <source>Description:</source>
+        <translation type="unfinished">Omschrijving:</translation>
     </message>
     <message>
         <source>Author(s):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Description:</source>
-        <translation type="unfinished">Omschrijving:</translation>
+        <source>Copyright:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>License:</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AboutPluginsBase</name>
+    <message>
+        <source>Scribus: About Plug-ins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="obsolete">Omschrijving:</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -6518,6 +6522,111 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>More Info...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paste Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Printing Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Flip Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Flip Vertically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Rulers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>Document Outline Palette</comment>
+        <translation type="unfinished">&amp;Outline</translation>
+    </message>
+    <message>
+        <source>Solidus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Middle Dot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Em Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thin Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thick Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mid Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hair Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Smart Hyphen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Non Breaking Dash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Non Breaking Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Page Number</source>
+        <translation type="unfinished">Paginanummer invoegen</translation>
+    </message>
+    <message>
+        <source>ff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>fi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>fl</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ffi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ffl</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ft</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>st</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7425,6 +7534,16 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>highlight</comment>
+        <translation type="unfinished">Geen</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>action</comment>
+        <translation type="unfinished">Geen</translation>
+    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -7592,7 +7711,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
         <translation type="unfinished">Alt+A</translation>
     </message>
     <message>
-        <source>Apply the selected template to even, odd or all pages within the following range</source>
+        <source>Apply the selected master page to even, odd or all pages within the following range</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7647,6 +7766,131 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
 </context>
 <context>
+    <name>Barcode</name>
+    <message>
+        <source>&amp;Barcode Generator...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus frontend for Pure Postscript Barcode Writer</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BarcodeGenerator</name>
+    <message>
+        <source>Error opening file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error creating preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BarcodeGeneratorBase</name>
+    <message>
+        <source>Barcode Creator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation type="unfinished">&amp;Type:</translation>
+    </message>
+    <message>
+        <source>C&amp;ode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select one of the available barcode type here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The numeric representation of the code itself. See the help message below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset the barcode samples</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Include text in barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If checked, there will be numbers in the barcode too</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Guard whitespace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Draw arrows to be sure of space next the code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished">Kleuren</translation>
+    </message>
+    <message>
+        <source>&amp;Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background color - under the code lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the lines in barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Text</source>
+        <translation type="unfinished">&amp;Tekst</translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the text and numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hints and help is shown here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview of the result. 72dpi sample.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Biblio</name>
     <message>
         <source>Scrapbook</source>
@@ -7662,7 +7906,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>Op&amp;slaan</translation>
+        <translation type="obsolete">Op&amp;slaan</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
@@ -7674,15 +7918,15 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>&amp;Small</source>
-        <translation>&amp;Klein</translation>
+        <translation type="obsolete">&amp;Klein</translation>
     </message>
     <message>
         <source>&amp;Medium</source>
-        <translation>&amp;Middel</translation>
+        <translation type="obsolete">&amp;Middel</translation>
     </message>
     <message>
         <source>&amp;Large</source>
-        <translation>&amp;Groot</translation>
+        <translation type="obsolete">&amp;Groot</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -7694,7 +7938,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Scrapbooks (*.scs);;All Files (*)</source>
-        <translation>Kladblokbestanden (*.scs);;Alle bestanden (*)</translation>
+        <translation type="obsolete">Kladblokbestanden (*.scs);;Alle bestanden (*)</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -7733,6 +7977,14 @@ Kies een andere naam.</translation>
     <message>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a Scrapbook Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8094,7 +8346,7 @@ Als uw document foto&apos;s bevat wordt deze instelling aangeraden.</translation
     </message>
     <message>
         <source>None</source>
-        <translation>Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
@@ -8167,7 +8419,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Close this dialog and return to text editing.</source>
-        <translation type="unfinished">Sluit deze dialoog om verder te werken aan de tekst.</translation>
+        <translation type="obsolete">Sluit deze dialoog om verder te werken aan de tekst.</translation>
     </message>
     <message>
         <source>Full Character Set</source>
@@ -8279,6 +8531,18 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Hebrew</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Insert Code:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close this dialog and return to text editing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type in a four digit unicode value directly here</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8401,6 +8665,113 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Cannot collect the file: 
 %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ColorManager</name>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished">Kleuren</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Importeren</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Nieuw</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished">D&amp;upliceren</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">Verwij&amp;deren</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Unused</source>
+        <translation type="unfinished">Ongebruikte ve&amp;rwijderen</translation>
+    </message>
+    <message>
+        <source>Color Sets</source>
+        <translation type="unfinished">Kleurensets</translation>
+    </message>
+    <message>
+        <source>Current Color Set:</source>
+        <translation type="unfinished">Huidige kleurenset:</translation>
+    </message>
+    <message>
+        <source>&amp;Save Color Set</source>
+        <translation type="unfinished">Kleurenset op&amp;slaan</translation>
+    </message>
+    <message>
+        <source>Choose a color set to load</source>
+        <translation type="unfinished">Kies de te laden kleurenset</translation>
+    </message>
+    <message>
+        <source>Save the current color set</source>
+        <translation type="unfinished">De huidige kleurenset opslaan</translation>
+    </message>
+    <message>
+        <source>Remove unused colors from current document&apos;s color set</source>
+        <translation type="unfinished">Verwijdert de ongebruikte kleuren uit de kleurenset van dit document</translation>
+    </message>
+    <message>
+        <source>Import colors to the current set from an existing document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a new color within the current set</source>
+        <translation type="unfinished">Een nieuwe kleur aanmaken in de huidige set</translation>
+    </message>
+    <message>
+        <source>Edit the currently selected color</source>
+        <translation type="unfinished">De huidige kleur bewerken</translation>
+    </message>
+    <message>
+        <source>Make a copy of the currently selected color</source>
+        <translation type="unfinished">Een kopie van de momenteel geselecteerde kleur maken</translation>
+    </message>
+    <message>
+        <source>Delete the currently selected color</source>
+        <translation type="unfinished">De huidige kleur verwijderen</translation>
+    </message>
+    <message>
+        <source>Make the current colorset the default color set</source>
+        <translation type="unfinished">Stelt de huidige kleurenset in als standaard</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation type="unfinished">&amp;Naam:</translation>
+    </message>
+    <message>
+        <source>Choose a Name</source>
+        <translation type="unfinished">Kies een naam</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Openen</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation type="unfinished">Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;All Files (*)</source>
+        <translation type="unfinished">Documenten (*.sla *.scd);;Alle bestanden (*)</translation>
+    </message>
+    <message>
+        <source>Copy of %1</source>
+        <translation type="unfinished">Kopie van %1</translation>
+    </message>
+    <message>
+        <source>New Color</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8681,7 +9052,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -8694,6 +9065,52 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Warning</source>
         <translation type="unfinished">Waarschuwing</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>color name</comment>
+        <translation type="unfinished">Geen</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <comment>CommonStrings, custom page size</comment>
+        <translation type="unfinished">Aangepast</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Sided</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3-Fold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>4-Fold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Middle Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Middle Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right Page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8788,7 +9205,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source> mm</source>
@@ -8831,7 +9248,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>First row is a header</source>
@@ -8844,6 +9261,11 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Cancel</source>
         <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>delimiter</comment>
+        <translation type="unfinished">Geen</translation>
     </message>
 </context>
 <context>
@@ -9064,7 +9486,7 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -9151,6 +9573,18 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
     <message>
         <source>OK</source>
         <translation type="obsolete">OK</translation>
+    </message>
+</context>
+<context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9367,7 +9801,15 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Name: Optional name for section eg. Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</source>
+        <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Number Out Of Bounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9422,7 +9864,7 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
     <name>DocumentItemAttributes</name>
     <message>
         <source>None</source>
-        <translation type="unfinished">Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>Relates To</source>
@@ -9487,6 +9929,25 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
     <message>
         <source>C&amp;lear</source>
         <translation type="obsolete">W&amp;issen</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>relationship</comment>
+        <translation type="unfinished">Geen</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>auto add</comment>
+        <translation type="unfinished">Geen</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>types</comment>
+        <translation type="unfinished">Geen</translation>
+    </message>
+    <message>
+        <source>Real Number</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9795,6 +10256,18 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins on the printed page or exported file</source>
+        <translation type="unfinished">Objecten die buiten de marges vallen niet weergeven bij afdrukken of exporteren</translation>
+    </message>
+    <message>
+        <source>Failed to retrieve printer settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EPSPlug</name>
@@ -9809,6 +10282,16 @@ is mislukt!</translation>
     <message>
         <source>Fatal Error</source>
         <translation>Fatale fout</translation>
+    </message>
+    <message>
+        <source>Converting Image:
+%1
+failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished">Fout</translation>
     </message>
 </context>
 <context>
@@ -9874,7 +10357,7 @@ is mislukt!</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>Vertical Spaces</source>
@@ -10023,6 +10506,10 @@ is mislukt!</translation>
     <message>
         <source>Background</source>
         <translation type="unfinished">Achtergrond</translation>
+    </message>
+    <message>
+        <source>Select for easier reading of light coloured text styles</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10480,7 +10967,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <name>Farbmanager</name>
     <message>
         <source>Colors</source>
-        <translation>Kleuren</translation>
+        <translation type="obsolete">Kleuren</translation>
     </message>
     <message>
         <source>&amp;Append</source>
@@ -10488,35 +10975,35 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Nieuw</translation>
+        <translation type="obsolete">&amp;Nieuw</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>Be&amp;werken</translation>
+        <translation type="obsolete">Be&amp;werken</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation>D&amp;upliceren</translation>
+        <translation type="obsolete">D&amp;upliceren</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>Verwij&amp;deren</translation>
+        <translation type="obsolete">Verwij&amp;deren</translation>
     </message>
     <message>
         <source>&amp;Remove Unused</source>
-        <translation>Ongebruikte ve&amp;rwijderen</translation>
+        <translation type="obsolete">Ongebruikte ve&amp;rwijderen</translation>
     </message>
     <message>
         <source>Color Sets</source>
-        <translation>Kleurensets</translation>
+        <translation type="obsolete">Kleurensets</translation>
     </message>
     <message>
         <source>Current Color Set:</source>
-        <translation>Huidige kleurenset:</translation>
+        <translation type="obsolete">Huidige kleurenset:</translation>
     </message>
     <message>
         <source>&amp;Save Color Set</source>
-        <translation>Kleurenset op&amp;slaan</translation>
+        <translation type="obsolete">Kleurenset op&amp;slaan</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -10528,15 +11015,15 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Choose a color set to load</source>
-        <translation>Kies de te laden kleurenset</translation>
+        <translation type="obsolete">Kies de te laden kleurenset</translation>
     </message>
     <message>
         <source>Save the current color set</source>
-        <translation>De huidige kleurenset opslaan</translation>
+        <translation type="obsolete">De huidige kleurenset opslaan</translation>
     </message>
     <message>
         <source>Remove unused colors from current document&apos;s color set</source>
-        <translation>Verwijdert de ongebruikte kleuren uit de kleurenset van dit document</translation>
+        <translation type="obsolete">Verwijdert de ongebruikte kleuren uit de kleurenset van dit document</translation>
     </message>
     <message>
         <source>Append colors to the current set from an existing document</source>
@@ -10544,63 +11031,59 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Create a new color within the current set</source>
-        <translation>Een nieuwe kleur aanmaken in de huidige set</translation>
+        <translation type="obsolete">Een nieuwe kleur aanmaken in de huidige set</translation>
     </message>
     <message>
         <source>Edit the currently selected color</source>
-        <translation>De huidige kleur bewerken</translation>
+        <translation type="obsolete">De huidige kleur bewerken</translation>
     </message>
     <message>
         <source>Make a copy of the currently selected color</source>
-        <translation>Een kopie van de momenteel geselecteerde kleur maken</translation>
+        <translation type="obsolete">Een kopie van de momenteel geselecteerde kleur maken</translation>
     </message>
     <message>
         <source>Delete the currently selected color</source>
-        <translation>De huidige kleur verwijderen</translation>
+        <translation type="obsolete">De huidige kleur verwijderen</translation>
     </message>
     <message>
         <source>Make the current colorset the default color set</source>
-        <translation>Stelt de huidige kleurenset in als standaard</translation>
+        <translation type="obsolete">Stelt de huidige kleurenset in als standaard</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation>&amp;Naam:</translation>
+        <translation type="obsolete">&amp;Naam:</translation>
     </message>
     <message>
         <source>Choose a Name</source>
-        <translation>Kies een naam</translation>
+        <translation type="obsolete">Kies een naam</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Openen</translation>
+        <translation type="obsolete">Openen</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
+        <translation type="obsolete">Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Documenten (*.sla *.scd);;Alle bestanden (*)</translation>
+        <translation type="obsolete">Documenten (*.sla *.scd);;Alle bestanden (*)</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation>Kopie van %1</translation>
+        <translation type="obsolete">Kopie van %1</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation>Nieuwe kleur</translation>
+        <translation type="obsolete">Nieuwe kleur</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Importeren</translation>
-    </message>
-    <message>
-        <source>Import colors to the current set from an existing document</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Importeren</translation>
     </message>
 </context>
 <context>
@@ -10779,27 +11262,17 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <source>Font Name</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Lettertype Naam</translation>
-    </message>
-    <message>
-        <source>Doc</source>
-        <comment>font preview</comment>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Lettertype Naam</translation>
     </message>
     <message>
         <source>Type</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Type</translation>
+        <translation type="obsolete">Type</translation>
     </message>
     <message>
         <source>Subset</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Subset</translation>
-    </message>
-    <message>
-        <source>Access</source>
-        <comment>font preview</comment>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Subset</translation>
     </message>
     <message>
         <source>User</source>
@@ -10814,7 +11287,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <source>Fonts Preview</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Lettertypevoorbeeld</translation>
+        <translation type="obsolete">Lettertypevoorbeeld</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -10824,12 +11297,12 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <source>Alt+O</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Atl+O</translation>
+        <translation type="obsolete">Atl+O</translation>
     </message>
     <message>
         <source>Alt+C</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Alt+A</translation>
+        <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
@@ -10848,20 +11321,11 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Font Size:</source>
-        <translation type="unfinished">Afmeting Lettertype:</translation>
-    </message>
-    <message>
-        <source>Quick Search: </source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Afmeting Lettertype:</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Zoeken</translation>
-    </message>
-    <message>
-        <source>&amp;Close</source>
-        <comment>font preview</comment>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Zoeken</translation>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
@@ -10876,8 +11340,87 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Sample will be shown after key release</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FontPreviewBase</name>
+    <message>
+        <source>Fonts Preview</source>
+        <translation type="unfinished">Lettertypevoorbeeld</translation>
+    </message>
+    <message>
+        <source>&amp;Quick Search:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Zoeken</translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font Name</source>
+        <translation type="unfinished">Lettertype Naam</translation>
+    </message>
+    <message>
+        <source>Doc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">Type</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <translation type="unfinished">Subset</translation>
+    </message>
+    <message>
+        <source>Access</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Font Size:</source>
+        <translation type="unfinished">&amp;Tekengrootte:</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation type="unfinished">Tekst</translation>
+    </message>
+    <message>
+        <source>Sample text to display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Se&amp;t</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset the text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;Append</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+A</translation>
     </message>
 </context>
 <context>
@@ -11142,10 +11685,6 @@ documentatie en op http://www.scribus.net/ voor downloads.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>unknown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Find</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11192,6 +11731,10 @@ documentatie en op http://www.scribus.net/ voor downloads.</translation>
     <message>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Bladwijzers</translation>
+    </message>
+    <message>
+        <source>Relevance</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11366,6 +11909,10 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12054,6 +12601,14 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Printer Margins...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import the margins for the selected page size from the available printers.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13044,7 +13599,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -13114,6 +13669,18 @@ Kies een andere naam.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill Rule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Even-Odd</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Non Zero</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13393,7 +13960,7 @@ Kies een andere naam.</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="obsolete">Aangepast</translation>
+        <translation type="unfinished">Aangepast</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
@@ -13449,7 +14016,7 @@ Kies een andere naam.</translation>
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
-        <translation>N&amp;ummer eerste pagina:</translation>
+        <translation type="obsolete">N&amp;ummer eerste pagina:</translation>
     </message>
     <message>
         <source>&amp;Default Unit:</source>
@@ -13541,7 +14108,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>First page number of the document</source>
-        <translation>Eerste paginanummer van dit document</translation>
+        <translation type="obsolete">Eerste paginanummer van dit document</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
@@ -13754,7 +14321,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Reduce the Size of the Path by shown %</source>
-        <translation>Pad met getoonde % vergroten</translation>
+        <translation type="obsolete">Pad met getoonde % vergroten</translation>
     </message>
     <message>
         <source>Enlarge the Size of the Path by shown %</source>
@@ -13766,7 +14333,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>% to Enlarge or Reduce By</source>
-        <translation>Te vergroten of verkleinen %</translation>
+        <translation type="obsolete">Te vergroten of verkleinen %</translation>
     </message>
     <message>
         <source>Activate Contour Line Editing Mode</source>
@@ -13788,6 +14355,33 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shrink the Size of the Path by shown %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reduce the Size of the Path by the shown value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enlarge the Size of the Path by the shown value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% to Enlarge or Shrink By</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value to Enlarge or Shrink By</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OODPlug</name>
+    <message>
+        <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14843,6 +15437,10 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
         <source>Close</source>
         <translation type="unfinished">Sluiten</translation>
     </message>
+    <message>
+        <source>File</source>
+        <translation type="unfinished">Bestand</translation>
+    </message>
 </context>
 <context>
     <name>PSLib</name>
@@ -15181,7 +15779,7 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     <name>PageItemAttributes</name>
     <message>
         <source>None</source>
-        <translation type="unfinished">Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>Relates To</source>
@@ -15230,6 +15828,11 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     <message>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>relationship</comment>
+        <translation type="unfinished">Geen</translation>
     </message>
 </context>
 <context>
@@ -15797,7 +16400,7 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
         <source>Scrapbook</source>
-        <translation>Kladblok</translation>
+        <translation type="obsolete">Kladblok</translation>
     </message>
     <message>
         <source>Display</source>
@@ -16189,27 +16792,27 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
         <source>Other Options</source>
-        <translation>Overige opties</translation>
+        <translation type="obsolete">Overige opties</translation>
     </message>
     <message>
         <source>Sa&amp;ve Contents on Changes</source>
-        <translation>Inhoud &amp;opslaan bij wijzigen</translation>
+        <translation type="obsolete">Inhoud &amp;opslaan bij wijzigen</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation>Voorbeeld</translation>
+        <translation type="obsolete">Voorbeeld</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation>Klein</translation>
+        <translation type="obsolete">Klein</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation>Middel</translation>
+        <translation type="obsolete">Middel</translation>
     </message>
     <message>
         <source>Large</source>
-        <translation>Groot</translation>
+        <translation type="obsolete">Groot</translation>
     </message>
     <message>
         <source>Display Pages &amp;Side by Side</source>
@@ -16269,15 +16872,15 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
         <source>Printing</source>
-        <translation>Afdrukken</translation>
+        <translation type="obsolete">Afdrukken</translation>
     </message>
     <message>
         <source>Clip to Page &amp;Margins</source>
-        <translation>Bij pagina-&amp;marges afknippen</translation>
+        <translation type="obsolete">Bij pagina-&amp;marges afknippen</translation>
     </message>
     <message>
         <source>Apply &amp;Under Color Removal</source>
-        <translation>Onde&amp;rliggende kleuren verwijderen</translation>
+        <translation type="obsolete">Onde&amp;rliggende kleuren verwijderen</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -16585,11 +17188,11 @@ van uw document opslaan met de .bak-extensie</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
-        <translation>Kies de grootte van de voorbeeldweergave in het kladblok-palet</translation>
+        <translation type="obsolete">Kies de grootte van de voorbeeldweergave in het kladblok-palet</translation>
     </message>
     <message>
         <source>Save the scrapbook contents everytime after a change</source>
-        <translation>Het kladblok telkens opslaan na een wijziging</translation>
+        <translation type="obsolete">Het kladblok telkens opslaan na een wijziging</translation>
     </message>
     <message>
         <source>When using facing pages, show the two pages side by side</source>
@@ -16633,7 +17236,7 @@ van uw document opslaan met de .bak-extensie</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation>Objecten die buiten de marges vallen niet weergeven bij afdrukken of exporteren</translation>
+        <translation type="obsolete">Objecten die buiten de marges vallen niet weergeven bij afdrukken of exporteren</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -16971,10 +17574,6 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>PrefsDialogBase</name>
@@ -16997,42 +17596,6 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
 </context>
 <context>
     <name>PrefsManager</name>
-    <message>
-        <source>Single Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Double sided</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Left Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Right Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>3-Fold</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Middle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>4-Fold</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Middle Left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Middle Right</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Postscript</source>
         <translation type="unfinished">Postscript</translation>
@@ -17100,7 +17663,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <name>PresetLayout</name>
     <message>
         <source>None</source>
-        <translation type="unfinished">Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>Magazine</source>
@@ -17125,6 +17688,11 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>layout type</comment>
+        <translation type="unfinished">Geen</translation>
     </message>
 </context>
 <context>
@@ -18220,7 +18788,7 @@ Externe koppelingen
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation>OpenOffice.org Draw-bestanden (*.sxd);;Alle bestanden (*)</translation>
+        <translation type="obsolete">OpenOffice.org Draw-bestanden (*.sxd);;Alle bestanden (*)</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
@@ -19137,6 +19705,43 @@ is not exhaustive due to exceptions from called functions.
         <source>Thai</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Barcode Generator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Palm PDB Documents</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDB_data</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDB Import</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open file %1</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -19620,7 +20225,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>None</source>
-        <translation>Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>Color of text fill</source>
@@ -19639,7 +20244,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>None</source>
-        <translation>Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -19879,6 +20484,48 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Unknown</source>
         <translation type="unfinished">Onbekend</translation>
+    </message>
+</context>
+<context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">Rechts</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Links</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished">Horizontaal</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished">Verticaal</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ScWinPrint</name>
+    <message>
+        <source>Printing...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21157,15 +21804,15 @@ converting their vector data into Scribus objects.</source>
     <name>ScribusColorList</name>
     <message>
         <source>Sample</source>
-        <translation type="unfinished">Voorbeeld</translation>
+        <translation type="obsolete">Voorbeeld</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished">Kleur</translation>
+        <translation type="obsolete">Kleur</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>Document Colors</source>
@@ -21190,12 +21837,24 @@ converting their vector data into Scribus objects.</source>
         <source>Background</source>
         <translation type="unfinished">Achtergrond</translation>
     </message>
+    <message>
+        <source>Do you really want to clear all your text?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot Delete In-Use Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
     <message>
         <source>None</source>
-        <translation type="unfinished">Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>Initializing Plugins</source>
@@ -21507,10 +22166,6 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>New Master Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Size:</source>
         <translation type="unfinished">&amp;Grootte:</translation>
     </message>
@@ -21618,6 +22273,36 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Y-Pos:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spaces &amp;&amp; Breaks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ligature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ghostscript is missing : Postscript Print Preview is not available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you really want to replace your existing image?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -21971,19 +22656,7 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cannot Delete In-Use Item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Do you really want to clear all your text?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -22131,6 +22804,18 @@ Consider using the Preflight Verifier to correct them</source>
         <source>Python Scripts (*.py);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Documentation for:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> doesn&apos;t contain any docstring!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScripterPreferences</name>
@@ -22206,6 +22891,14 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Select Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locate Startup Script</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22295,7 +22988,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>Replace with:</source>
@@ -22661,31 +23354,31 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     </message>
     <message>
         <source>Load Text from File</source>
-        <translation>Tekst laden uit bestand</translation>
+        <translation type="obsolete">Tekst laden uit bestand</translation>
     </message>
     <message>
         <source>Save Text to File</source>
-        <translation>Tekst opslaan naar bestand</translation>
+        <translation type="obsolete">Tekst opslaan naar bestand</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation>Tekstframe bijwerken en sluiten</translation>
+        <translation type="obsolete">Tekstframe bijwerken en sluiten</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation>Sluiten zonder tekstframe bij te werken</translation>
+        <translation type="obsolete">Sluiten zonder tekstframe bij te werken</translation>
     </message>
     <message>
         <source>Reload Text from Frame</source>
-        <translation>Tekst uit frame herladen</translation>
+        <translation type="obsolete">Tekst uit frame herladen</translation>
     </message>
     <message>
         <source>Update Text Frame</source>
-        <translation>Tekstframe bijwerken</translation>
+        <translation type="obsolete">Tekstframe bijwerken</translation>
     </message>
     <message>
         <source>Search/Replace</source>
-        <translation>Zoeken/vervangen</translation>
+        <translation type="obsolete">Zoeken/vervangen</translation>
     </message>
     <message>
         <source>Current Paragraph:</source>
@@ -22767,6 +23460,30 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <source>Do you really want to clear all your text?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Insert</source>
+        <translation type="unfinished">&amp;Invoegen</translation>
+    </message>
+    <message>
+        <source>Character</source>
+        <translation type="unfinished">Teken</translation>
+    </message>
+    <message>
+        <source>Quote</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spaces &amp;&amp; Breaks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ligature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Space</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>StrikeValues</name>
@@ -22814,10 +23531,6 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <translation type="obsolete">Outline tekst</translation>
     </message>
     <message>
-        <source>Outline</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Underline Words Only</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22827,6 +23540,11 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     </message>
     <message>
         <source>Shadow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline</source>
+        <comment>Text Style Selector</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23398,11 +24116,11 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>JPEG</source>
-        <translation type="unfinished">JPEG</translation>
+        <translation type="obsolete">JPEG</translation>
     </message>
     <message>
         <source>Zip</source>
-        <translation type="unfinished">Zip</translation>
+        <translation type="obsolete">Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -24181,6 +24899,18 @@ when Document is opened:</source>
     </message>
     <message>
         <source>Viewer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lossy - JPEG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lossless - Zip</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -25235,6 +25965,18 @@ to %2</source>
         <source>Text on a Path</source>
         <translation type="unfinished">Tekst op een pad</translation>
     </message>
+    <message>
+        <source>Enable Item Printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable Item Printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Multiple duplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -25265,6 +26007,60 @@ to %2</source>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UsePrinterMarginsDialog</name>
+    <message>
+        <source>Minimum Margins for Page Size %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UsePrinterMarginsDialogBase</name>
+    <message>
+        <source>Use Printer Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select &amp;Printer:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right:</source>
+        <translation type="unfinished">Rechts:</translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation type="unfinished">&amp;Boven:</translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished">On&amp;der:</translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished">&amp;Links:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Atl+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+A</translation>
     </message>
 </context>
 <context>

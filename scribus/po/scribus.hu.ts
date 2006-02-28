@@ -1713,11 +1713,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Mac OSX Aqua Port:</source>
-        <translation>Mac OSX Aqua Port:</translation>
+        <translation type="obsolete">Mac OSX Aqua Port:</translation>
     </message>
     <message>
         <source>Windows Port:</source>
-        <translation>Windows Port:</translation>
+        <translation type="obsolete">Windows Port:</translation>
     </message>
     <message>
         <source>Wiki</source>
@@ -1752,7 +1752,15 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>January</source>
+        <source>February</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mac OS&amp;#174; X Aqua Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Windows&amp;#174; Port:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1766,6 +1774,38 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>No</source>
         <translation>Nem</translation>
     </message>
+    <message>
+        <source>Filename:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Verzió:</translation>
+    </message>
+    <message>
+        <source>Enabled:</source>
+        <translation type="unfinished">Engedélyezve:</translation>
+    </message>
+    <message>
+        <source>Release Date:</source>
+        <translation type="unfinished">Kiadás dátuma:</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished">Leírás:</translation>
+    </message>
+    <message>
+        <source>Author(s):</source>
+        <translation type="unfinished">Szerző(k):</translation>
+    </message>
+    <message>
+        <source>Copyright:</source>
+        <translation type="unfinished">Copyright:</translation>
+    </message>
+    <message>
+        <source>License:</source>
+        <translation type="unfinished">Licensz:</translation>
+    </message>
 </context>
 <context>
     <name>AboutPluginsBase</name>
@@ -1775,35 +1815,35 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>File Name:</source>
-        <translation>Fájlnév:</translation>
+        <translation type="obsolete">Fájlnév:</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation>Verzió:</translation>
+        <translation type="obsolete">Verzió:</translation>
     </message>
     <message>
         <source>Enabled:</source>
-        <translation>Engedélyezve:</translation>
+        <translation type="obsolete">Engedélyezve:</translation>
     </message>
     <message>
         <source>Release Date:</source>
-        <translation>Kiadás dátuma:</translation>
+        <translation type="obsolete">Kiadás dátuma:</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation>Copyright:</translation>
+        <translation type="obsolete">Copyright:</translation>
     </message>
     <message>
         <source>Author(s):</source>
-        <translation>Szerző(k):</translation>
+        <translation type="obsolete">Szerző(k):</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation>Leírás:</translation>
+        <translation type="obsolete">Leírás:</translation>
     </message>
     <message>
         <source>License:</source>
-        <translation>Licensz:</translation>
+        <translation type="obsolete">Licensz:</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -2608,6 +2648,111 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>More Info...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Copy Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paste Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Printing Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Flip Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Flip Vertically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Rulers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>Document Outline Palette</comment>
+        <translation type="unfinished">&amp;Körvonal</translation>
+    </message>
+    <message>
+        <source>Solidus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Middle Dot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Em Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thin Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thick Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mid Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hair Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Smart Hyphen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Non Breaking Dash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Non Breaking Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Page Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>fi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>fl</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ffi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ffl</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ft</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>st</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -3325,6 +3470,16 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
         <translation>Képek (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Minden fájl (*)</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>highlight</comment>
+        <translation type="unfinished">Nincs</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>action</comment>
+        <translation type="unfinished">Nincs</translation>
+    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -3460,7 +3615,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Alt+C</translation>
     </message>
     <message>
-        <source>Apply the selected template to even, odd or all pages within the following range</source>
+        <source>Apply the selected master page to even, odd or all pages within the following range</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3469,6 +3624,131 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>None</source>
         <translation>Nincs</translation>
+    </message>
+</context>
+<context>
+    <name>Barcode</name>
+    <message>
+        <source>&amp;Barcode Generator...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus frontend for Pure Postscript Barcode Writer</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BarcodeGenerator</name>
+    <message>
+        <source>Error opening file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error creating preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BarcodeGeneratorBase</name>
+    <message>
+        <source>Barcode Creator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation type="unfinished">&amp;Típus:</translation>
+    </message>
+    <message>
+        <source>C&amp;ode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select one of the available barcode type here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The numeric representation of the code itself. See the help message below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset the barcode samples</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Include text in barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If checked, there will be numbers in the barcode too</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Guard whitespace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Draw arrows to be sure of space next the code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished">Színek</translation>
+    </message>
+    <message>
+        <source>&amp;Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background color - under the code lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
+    </message>
+    <message>
+        <source>Color of the lines in barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Text</source>
+        <translation type="unfinished">&amp;Szöveg</translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the text and numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hints and help is shown here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview of the result. 72dpi sample.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3487,7 +3767,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Mentés</translation>
+        <translation type="obsolete">&amp;Mentés</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
@@ -3499,15 +3779,15 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;Small</source>
-        <translation>&amp;Kicsi</translation>
+        <translation type="obsolete">&amp;Kicsi</translation>
     </message>
     <message>
         <source>&amp;Medium</source>
-        <translation>Kö&amp;zepes</translation>
+        <translation type="obsolete">Kö&amp;zepes</translation>
     </message>
     <message>
         <source>&amp;Large</source>
-        <translation>&amp;Nagy</translation>
+        <translation type="obsolete">&amp;Nagy</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -3519,7 +3799,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Scrapbooks (*.scs);;All Files (*)</source>
-        <translation>Gyűjtőalbumok (*.scs);;Minden fájl (*)</translation>
+        <translation type="obsolete">Gyűjtőalbumok (*.scs);;Minden fájl (*)</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -3554,6 +3834,14 @@ Válasszon másikat.</translation>
     <message>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a Scrapbook Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3877,7 +4165,7 @@ It is recommended that you enable this if you have photos in your document.</sou
     </message>
     <message>
         <source>None</source>
-        <translation>Nincs</translation>
+        <translation type="obsolete">Nincs</translation>
     </message>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
@@ -3955,7 +4243,7 @@ Az Insert gomb beszúrt egy Glyph-et az alábbi Kiválasztásba, a Törlés gomb
     </message>
     <message>
         <source>Close this dialog and return to text editing.</source>
-        <translation>Dialódus bezárása és visszatérés a szöveg szerkesztéséhez</translation>
+        <translation type="obsolete">Dialódus bezárása és visszatérés a szöveg szerkesztéséhez</translation>
     </message>
     <message>
         <source>Full Character Set</source>
@@ -4069,6 +4357,18 @@ Az Insert gomb beszúrt egy Glyph-et az alábbi Kiválasztásba, a Törlés gomb
         <source>Hebrew</source>
         <translation>Héber</translation>
     </message>
+    <message>
+        <source>&amp;Insert Code:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close this dialog and return to text editing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type in a four digit unicode value directly here</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CheckDocument</name>
@@ -4179,6 +4479,113 @@ Az Insert gomb beszúrt egy Glyph-et az alábbi Kiválasztásba, a Törlés gomb
         <source>Cannot collect the file: 
 %1</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ColorManager</name>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished">Színek</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Importálás</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Új</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Szerkesztés</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished">&amp;Kettőzés</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Törlés</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Unused</source>
+        <translation type="unfinished">&amp;Nem használtak eltávolítása</translation>
+    </message>
+    <message>
+        <source>Color Sets</source>
+        <translation type="unfinished">Szín paletta</translation>
+    </message>
+    <message>
+        <source>Current Color Set:</source>
+        <translation type="unfinished">Jelenlegi szín készlet:</translation>
+    </message>
+    <message>
+        <source>&amp;Save Color Set</source>
+        <translation type="unfinished">&amp;Szín készket mentése</translation>
+    </message>
+    <message>
+        <source>Choose a color set to load</source>
+        <translation type="unfinished">Válassza ki a betöltendő szín készletet</translation>
+    </message>
+    <message>
+        <source>Save the current color set</source>
+        <translation type="unfinished">Jelenlegi szín készlet mentése</translation>
+    </message>
+    <message>
+        <source>Remove unused colors from current document&apos;s color set</source>
+        <translation type="unfinished">Nem használt színek eltávolítása a jelenlegi dokumentum szín készletéből</translation>
+    </message>
+    <message>
+        <source>Import colors to the current set from an existing document</source>
+        <translation type="unfinished">Egy létező dokumentumból a színek importálása a jelenlegi készletbe.</translation>
+    </message>
+    <message>
+        <source>Create a new color within the current set</source>
+        <translation type="unfinished">Új szín létrehozása a jelenlegi készletben</translation>
+    </message>
+    <message>
+        <source>Edit the currently selected color</source>
+        <translation type="unfinished">Kiválasztott szín szerkesztése</translation>
+    </message>
+    <message>
+        <source>Make a copy of the currently selected color</source>
+        <translation type="unfinished">Jelenleg kijelölt szín lemásolása</translation>
+    </message>
+    <message>
+        <source>Delete the currently selected color</source>
+        <translation type="unfinished">A kiválasztott szín törlése</translation>
+    </message>
+    <message>
+        <source>Make the current colorset the default color set</source>
+        <translation type="unfinished">A jelenlegi szín készlet legyen az alapértelmezett</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation type="unfinished">&amp;Név:</translation>
+    </message>
+    <message>
+        <source>Choose a Name</source>
+        <translation type="unfinished">Név kiválasztása</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Megnyitás</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation type="unfinished">Dokumentumok (*.sla *.sla.gz *.scd *.scd.gz);;Minden fájl (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;All Files (*)</source>
+        <translation type="unfinished">Dokumentumok (*.sla *.scd);;Minden fájl (*)</translation>
+    </message>
+    <message>
+        <source>Copy of %1</source>
+        <translation type="unfinished">%1 másolása</translation>
+    </message>
+    <message>
+        <source>New Color</source>
+        <translation type="unfinished">Új szín</translation>
     </message>
 </context>
 <context>
@@ -4466,7 +4873,7 @@ Az Insert gomb beszúrt egy Glyph-et az alábbi Kiválasztásba, a Törlés gomb
     </message>
     <message>
         <source>None</source>
-        <translation>Nincs</translation>
+        <translation type="obsolete">Nincs</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -4479,6 +4886,52 @@ Az Insert gomb beszúrt egy Glyph-et az alábbi Kiválasztásba, a Törlés gomb
     <message>
         <source>Warning</source>
         <translation type="unfinished">Figyelmeztetés</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>color name</comment>
+        <translation type="unfinished">Nincs</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <comment>CommonStrings, custom page size</comment>
+        <translation type="unfinished">Egyedi</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished">Egyoldalas</translation>
+    </message>
+    <message>
+        <source>Double Sided</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3-Fold</source>
+        <translation type="unfinished">3 lapos</translation>
+    </message>
+    <message>
+        <source>4-Fold</source>
+        <translation type="unfinished">4 lapos</translation>
+    </message>
+    <message>
+        <source>Left Page</source>
+        <translation type="unfinished">Bal oldal</translation>
+    </message>
+    <message>
+        <source>Middle</source>
+        <translation type="unfinished">Középső</translation>
+    </message>
+    <message>
+        <source>Middle Left</source>
+        <translation type="unfinished">Középső bal</translation>
+    </message>
+    <message>
+        <source>Middle Right</source>
+        <translation type="unfinished">Középső jobb</translation>
+    </message>
+    <message>
+        <source>Right Page</source>
+        <translation type="unfinished">Jobb oldal</translation>
     </message>
 </context>
 <context>
@@ -4569,7 +5022,7 @@ Az Insert gomb beszúrt egy Glyph-et az alábbi Kiválasztásba, a Törlés gomb
     </message>
     <message>
         <source>None</source>
-        <translation>Nincs</translation>
+        <translation type="obsolete">Nincs</translation>
     </message>
     <message>
         <source>Move Vector</source>
@@ -4600,7 +5053,7 @@ Az Insert gomb beszúrt egy Glyph-et az alábbi Kiválasztásba, a Törlés gomb
     </message>
     <message>
         <source>None</source>
-        <translation>Nincs</translation>
+        <translation type="obsolete">Nincs</translation>
     </message>
     <message>
         <source>First row is a header</source>
@@ -4613,6 +5066,11 @@ Az Insert gomb beszúrt egy Glyph-et az alábbi Kiválasztásba, a Törlés gomb
     <message>
         <source>Cancel</source>
         <translation>Mégsem</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>delimiter</comment>
+        <translation type="unfinished">Nincs</translation>
     </message>
 </context>
 <context>
@@ -4792,7 +5250,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Nincs</translation>
+        <translation type="obsolete">Nincs</translation>
     </message>
     <message>
         <source>Delete Color:</source>
@@ -4835,6 +5293,18 @@ This can be set in the Preferences.</source>
     <message>
         <source>No Style</source>
         <translation type="unfinished">Nincs stílus megadva</translation>
+    </message>
+</context>
+<context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4983,10 +5453,6 @@ This can be set in the Preferences.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Name: Optional name for section eg. Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>1, 2, 3, ...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5004,6 +5470,18 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>A, B, C, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Number Out Of Bounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5058,7 +5536,7 @@ This can be set in the Preferences.</source>
     <name>DocumentItemAttributes</name>
     <message>
         <source>None</source>
-        <translation>Nincs</translation>
+        <translation type="obsolete">Nincs</translation>
     </message>
     <message>
         <source>Relates To</source>
@@ -5147,6 +5625,25 @@ This can be set in the Preferences.</source>
     <message>
         <source>Alt+L</source>
         <translation type="obsolete">Alt+L</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>relationship</comment>
+        <translation type="unfinished">Nincs</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>auto add</comment>
+        <translation type="unfinished">Nincs</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>types</comment>
+        <translation type="unfinished">Nincs</translation>
+    </message>
+    <message>
+        <source>Real Number</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5410,6 +5907,18 @@ a range of pages or a single page number.</source>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins on the printed page or exported file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to retrieve printer settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EPSPlug</name>
@@ -5422,6 +5931,16 @@ failed!</source>
     <message>
         <source>Fatal Error</source>
         <translation>Végzetes hiba</translation>
+    </message>
+    <message>
+        <source>Converting Image:
+%1
+failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished">hiba</translation>
     </message>
 </context>
 <context>
@@ -5448,7 +5967,7 @@ failed!</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Nincs</translation>
+        <translation type="obsolete">Nincs</translation>
     </message>
     <message>
         <source>Tabulators and Indentation</source>
@@ -5544,6 +6063,10 @@ failed!</source>
     </message>
     <message>
         <source>Name of the style is not unique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select for easier reading of light coloured text styles</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5987,111 +6510,111 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <name>Farbmanager</name>
     <message>
         <source>Colors</source>
-        <translation>Színek</translation>
+        <translation type="obsolete">Színek</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Új</translation>
+        <translation type="obsolete">&amp;Új</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;Szerkesztés</translation>
+        <translation type="obsolete">&amp;Szerkesztés</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation>&amp;Kettőzés</translation>
+        <translation type="obsolete">&amp;Kettőzés</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Törlés</translation>
+        <translation type="obsolete">&amp;Törlés</translation>
     </message>
     <message>
         <source>&amp;Remove Unused</source>
-        <translation>&amp;Nem használtak eltávolítása</translation>
+        <translation type="obsolete">&amp;Nem használtak eltávolítása</translation>
     </message>
     <message>
         <source>Color Sets</source>
-        <translation>Szín paletta</translation>
+        <translation type="obsolete">Szín paletta</translation>
     </message>
     <message>
         <source>Current Color Set:</source>
-        <translation>Jelenlegi szín készlet:</translation>
+        <translation type="obsolete">Jelenlegi szín készlet:</translation>
     </message>
     <message>
         <source>&amp;Save Color Set</source>
-        <translation>&amp;Szín készket mentése</translation>
+        <translation type="obsolete">&amp;Szín készket mentése</translation>
     </message>
     <message>
         <source>Choose a color set to load</source>
-        <translation>Válassza ki a betöltendő szín készletet</translation>
+        <translation type="obsolete">Válassza ki a betöltendő szín készletet</translation>
     </message>
     <message>
         <source>Save the current color set</source>
-        <translation>Jelenlegi szín készlet mentése</translation>
+        <translation type="obsolete">Jelenlegi szín készlet mentése</translation>
     </message>
     <message>
         <source>Remove unused colors from current document&apos;s color set</source>
-        <translation>Nem használt színek eltávolítása a jelenlegi dokumentum szín készletéből</translation>
+        <translation type="obsolete">Nem használt színek eltávolítása a jelenlegi dokumentum szín készletéből</translation>
     </message>
     <message>
         <source>Create a new color within the current set</source>
-        <translation>Új szín létrehozása a jelenlegi készletben</translation>
+        <translation type="obsolete">Új szín létrehozása a jelenlegi készletben</translation>
     </message>
     <message>
         <source>Edit the currently selected color</source>
-        <translation>Kiválasztott szín szerkesztése</translation>
+        <translation type="obsolete">Kiválasztott szín szerkesztése</translation>
     </message>
     <message>
         <source>Make a copy of the currently selected color</source>
-        <translation>Jelenleg kijelölt szín lemásolása</translation>
+        <translation type="obsolete">Jelenleg kijelölt szín lemásolása</translation>
     </message>
     <message>
         <source>Delete the currently selected color</source>
-        <translation>A kiválasztott szín törlése</translation>
+        <translation type="obsolete">A kiválasztott szín törlése</translation>
     </message>
     <message>
         <source>Make the current colorset the default color set</source>
-        <translation>A jelenlegi szín készlet legyen az alapértelmezett</translation>
+        <translation type="obsolete">A jelenlegi szín készlet legyen az alapértelmezett</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation>&amp;Név:</translation>
+        <translation type="obsolete">&amp;Név:</translation>
     </message>
     <message>
         <source>Choose a Name</source>
-        <translation>Név kiválasztása</translation>
+        <translation type="obsolete">Név kiválasztása</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Megnyitás</translation>
+        <translation type="obsolete">Megnyitás</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Dokumentumok (*.sla *.sla.gz *.scd *.scd.gz);;Minden fájl (*)</translation>
+        <translation type="obsolete">Dokumentumok (*.sla *.sla.gz *.scd *.scd.gz);;Minden fájl (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumentumok (*.sla *.scd);;Minden fájl (*)</translation>
+        <translation type="obsolete">Dokumentumok (*.sla *.scd);;Minden fájl (*)</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation>%1 másolása</translation>
+        <translation type="obsolete">%1 másolása</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation>Új szín</translation>
+        <translation type="obsolete">Új szín</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Nincs</translation>
+        <translation type="obsolete">Nincs</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>&amp;Importálás</translation>
+        <translation type="obsolete">&amp;Importálás</translation>
     </message>
     <message>
         <source>Import colors to the current set from an existing document</source>
-        <translation>Egy létező dokumentumból a színek importálása a jelenlegi készletbe.</translation>
+        <translation type="obsolete">Egy létező dokumentumból a színek importálása a jelenlegi készletbe.</translation>
     </message>
 </context>
 <context>
@@ -6198,27 +6721,22 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <source>Font Name</source>
         <comment>font preview</comment>
-        <translation>Betűtípus neve</translation>
-    </message>
-    <message>
-        <source>Doc</source>
-        <comment>font preview</comment>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Betűtípus neve</translation>
     </message>
     <message>
         <source>Type</source>
         <comment>font preview</comment>
-        <translation>Típus</translation>
+        <translation type="obsolete">Típus</translation>
     </message>
     <message>
         <source>Subset</source>
         <comment>font preview</comment>
-        <translation>Részhalmaz</translation>
+        <translation type="obsolete">Részhalmaz</translation>
     </message>
     <message>
         <source>Access</source>
         <comment>font preview</comment>
-        <translation>Hozzáférés</translation>
+        <translation type="obsolete">Hozzáférés</translation>
     </message>
     <message>
         <source>User</source>
@@ -6233,17 +6751,17 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <source>Fonts Preview</source>
         <comment>font preview</comment>
-        <translation>Betűtípus előnézet</translation>
+        <translation type="obsolete">Betűtípus előnézet</translation>
     </message>
     <message>
         <source>Alt+O</source>
         <comment>font preview</comment>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <source>Alt+C</source>
         <comment>font preview</comment>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
@@ -6262,20 +6780,20 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Font Size:</source>
-        <translation>Betűtípus méret:</translation>
+        <translation type="obsolete">Betűtípus méret:</translation>
     </message>
     <message>
         <source>Quick Search: </source>
-        <translation>Gyors keresés: </translation>
+        <translation type="obsolete">Gyors keresés: </translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation>&amp;Keresés</translation>
+        <translation type="obsolete">&amp;Keresés</translation>
     </message>
     <message>
         <source>&amp;Close</source>
         <comment>font preview</comment>
-        <translation>Be&amp;zárás</translation>
+        <translation type="obsolete">Be&amp;zárás</translation>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
@@ -6291,7 +6809,90 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation>&amp;Hozzáfűzés</translation>
+        <translation type="obsolete">&amp;Hozzáfűzés</translation>
+    </message>
+    <message>
+        <source>Sample will be shown after key release</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FontPreviewBase</name>
+    <message>
+        <source>Fonts Preview</source>
+        <translation type="unfinished">Betűtípus előnézet</translation>
+    </message>
+    <message>
+        <source>&amp;Quick Search:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Keresés</translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font Name</source>
+        <translation type="unfinished">Betűtípus neve</translation>
+    </message>
+    <message>
+        <source>Doc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">Típus</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <translation type="unfinished">Részhalmaz</translation>
+    </message>
+    <message>
+        <source>Access</source>
+        <translation type="unfinished">Hozzáférés</translation>
+    </message>
+    <message>
+        <source>&amp;Font Size:</source>
+        <translation type="unfinished">Betűméret</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation type="unfinished">Szöveg</translation>
+    </message>
+    <message>
+        <source>Sample text to display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Se&amp;t</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset the text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished">&amp;Hozzáfűzés</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">Be&amp;zárás</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
     </message>
 </context>
 <context>
@@ -6532,7 +7133,7 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>unknown</source>
-        <translation>ismeretlen</translation>
+        <translation type="obsolete">ismeretlen</translation>
     </message>
     <message>
         <source>Find</source>
@@ -6581,6 +7182,10 @@ and www.scribus.net for downloads.</source>
     <message>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Könyvjelző</translation>
+    </message>
+    <message>
+        <source>Relevance</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6739,6 +7344,10 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>PostScript</source>
         <translation type="unfinished">PostScript</translation>
+    </message>
+    <message>
+        <source>PDF</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7261,6 +7870,14 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Printer Margins...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import the margins for the selected page size from the available printers.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8091,7 +8708,7 @@ Corners:</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Nincs</translation>
+        <translation type="obsolete">Nincs</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -8157,6 +8774,18 @@ Válasszon másikat.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill Rule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Even-Odd</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Non Zero</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8322,7 +8951,7 @@ Válasszon másikat.</translation>
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
-        <translation>&amp;Első oldal száma:</translation>
+        <translation type="obsolete">&amp;Első oldal száma:</translation>
     </message>
     <message>
         <source>&amp;Default Unit:</source>
@@ -8358,7 +8987,7 @@ Válasszon másikat.</translation>
     </message>
     <message>
         <source>First page number of the document</source>
-        <translation>Dolumentum első oldal száma</translation>
+        <translation type="obsolete">Dolumentum első oldal száma</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
@@ -8423,6 +9052,10 @@ Válasszon másikat.</translation>
     <message>
         <source>Open Recent &amp;Document</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished">Egyedi</translation>
     </message>
 </context>
 <context>
@@ -8543,20 +9176,12 @@ Válasszon másikat.</translation>
         <translation>Órajárás irányába forgatás</translation>
     </message>
     <message>
-        <source>Reduce the Size of the Path by shown %</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Angle of Rotation</source>
         <translation>Forgatási szög</translation>
-    </message>
-    <message>
-        <source>% to Enlarge or Reduce By</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Activate Contour Line Editing Mode</source>
@@ -8573,6 +9198,33 @@ Válasszon másikat.</translation>
     <message>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation>Ha kijelöli, a koordináták az oldalhoz viszonyítva értendők, egyébként az objektumhoz</translation>
+    </message>
+    <message>
+        <source>Shrink the Size of the Path by shown %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reduce the Size of the Path by the shown value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enlarge the Size of the Path by the shown value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% to Enlarge or Shrink By</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value to Enlarge or Shrink By</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OODPlug</name>
+    <message>
+        <source>This document does not seem to be an OpenOffice Draw file.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8872,6 +9524,10 @@ Válasszon másikat.</translation>
         <source>Close</source>
         <translation type="unfinished">Bezárás</translation>
     </message>
+    <message>
+        <source>File</source>
+        <translation type="unfinished">Fájl</translation>
+    </message>
 </context>
 <context>
     <name>PSLib</name>
@@ -8919,7 +9575,7 @@ Válasszon másikat.</translation>
     <name>PageItemAttributes</name>
     <message>
         <source>None</source>
-        <translation>Nincs</translation>
+        <translation type="obsolete">Nincs</translation>
     </message>
     <message>
         <source>Relates To</source>
@@ -8996,6 +9652,11 @@ Válasszon másikat.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Mégsem</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>relationship</comment>
+        <translation type="unfinished">Nincs</translation>
     </message>
 </context>
 <context>
@@ -9498,7 +10159,7 @@ Válasszon másikat.</translation>
     </message>
     <message>
         <source>Scrapbook</source>
-        <translation>Gyűjtőalbum</translation>
+        <translation type="obsolete">Gyűjtőalbum</translation>
     </message>
     <message>
         <source>Display</source>
@@ -9626,27 +10287,23 @@ Válasszon másikat.</translation>
     </message>
     <message>
         <source>Other Options</source>
-        <translation>Egyéb opciók</translation>
-    </message>
-    <message>
-        <source>Sa&amp;ve Contents on Changes</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Egyéb opciók</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation>Előnézet</translation>
+        <translation type="obsolete">Előnézet</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation>Kicsi</translation>
+        <translation type="obsolete">Kicsi</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation>Közepes</translation>
+        <translation type="obsolete">Közepes</translation>
     </message>
     <message>
         <source>Large</source>
-        <translation>Nagy</translation>
+        <translation type="obsolete">Nagy</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
@@ -9678,15 +10335,7 @@ Válasszon másikat.</translation>
     </message>
     <message>
         <source>Printing</source>
-        <translation>Nyomtatás</translation>
-    </message>
-    <message>
-        <source>Clip to Page &amp;Margins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Apply &amp;Under Color Removal</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Nyomtatás</translation>
     </message>
     <message>
         <source>Default font size for the menus and windows</source>
@@ -9733,14 +10382,6 @@ Válasszon másikat.</translation>
         <translation>Automatikus mentések közötti időtartam</translation>
     </message>
     <message>
-        <source>Choose the size of the preview in the scrapbook palette</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save the scrapbook contents everytime after a change</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Color for paper</source>
         <translation>Lap színe</translation>
     </message>
@@ -9762,10 +10403,6 @@ Válasszon másikat.</translation>
     </message>
     <message>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Do not show objects outside the margins on the printed page or exported file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10019,10 +10656,6 @@ instance of gimp.</source>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>PrefsDialogBase</name>
@@ -10043,39 +10676,39 @@ instance of gimp.</source>
     <name>PrefsManager</name>
     <message>
         <source>Single Page</source>
-        <translation>Egyoldalas</translation>
+        <translation type="obsolete">Egyoldalas</translation>
     </message>
     <message>
         <source>Double sided</source>
-        <translation>Kétoldalas</translation>
+        <translation type="obsolete">Kétoldalas</translation>
     </message>
     <message>
         <source>Left Page</source>
-        <translation>Bal oldal</translation>
+        <translation type="obsolete">Bal oldal</translation>
     </message>
     <message>
         <source>Right Page</source>
-        <translation>Jobb oldal</translation>
+        <translation type="obsolete">Jobb oldal</translation>
     </message>
     <message>
         <source>3-Fold</source>
-        <translation>3 lapos</translation>
+        <translation type="obsolete">3 lapos</translation>
     </message>
     <message>
         <source>Middle</source>
-        <translation>Középső</translation>
+        <translation type="obsolete">Középső</translation>
     </message>
     <message>
         <source>4-Fold</source>
-        <translation>4 lapos</translation>
+        <translation type="obsolete">4 lapos</translation>
     </message>
     <message>
         <source>Middle Left</source>
-        <translation>Középső bal</translation>
+        <translation type="obsolete">Középső bal</translation>
     </message>
     <message>
         <source>Middle Right</source>
-        <translation>Középső jobb</translation>
+        <translation type="obsolete">Középső jobb</translation>
     </message>
     <message>
         <source>Postscript</source>
@@ -10144,7 +10777,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <name>PresetLayout</name>
     <message>
         <source>None</source>
-        <translation>Nincs</translation>
+        <translation type="obsolete">Nincs</translation>
     </message>
     <message>
         <source>Book</source>
@@ -10173,6 +10806,11 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>layout type</comment>
+        <translation type="unfinished">Nincs</translation>
     </message>
 </context>
 <context>
@@ -11125,7 +11763,7 @@ External Links
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation>OpenOffice.org Rajz (*.sxd);; Minden fájl (*)</translation>
+        <translation type="obsolete">OpenOffice.org Rajz (*.sxd);; Minden fájl (*)</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
@@ -12131,6 +12769,43 @@ is not exhaustive due to exceptions from called functions.
         <source>Thai</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Barcode Generator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Palm PDB Documents</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDB_data</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDB Import</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open file %1</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -12515,7 +13190,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>None</source>
-        <translation>Nincs</translation>
+        <translation type="obsolete">Nincs</translation>
     </message>
     <message>
         <source>Color of text fill</source>
@@ -12534,7 +13209,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>None</source>
-        <translation>Nincs</translation>
+        <translation type="obsolete">Nincs</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -12785,6 +13460,48 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Unknown</source>
         <translation type="unfinished">Ismeretlen</translation>
+    </message>
+</context>
+<context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">Jobbra</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Bal</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished">Vízszintes</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished">Függőleges</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ScWinPrint</name>
+    <message>
+        <source>Printing...</source>
+        <translation type="unfinished">Nyomtatás...</translation>
     </message>
 </context>
 <context>
@@ -13343,15 +14060,15 @@ Consider using the Pre-flight Checker to correct them</source>
     <name>ScribusColorList</name>
     <message>
         <source>Sample</source>
-        <translation>Minta</translation>
+        <translation type="obsolete">Minta</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Szín</translation>
+        <translation type="obsolete">Szín</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Nincs</translation>
+        <translation type="obsolete">Nincs</translation>
     </message>
     <message>
         <source>Document Colors</source>
@@ -13376,12 +14093,24 @@ Consider using the Pre-flight Checker to correct them</source>
         <source>Background</source>
         <translation>Háttér</translation>
     </message>
+    <message>
+        <source>Do you really want to clear all your text?</source>
+        <translation type="unfinished">Tényleg törölni akarja a teljes szöveget?</translation>
+    </message>
+    <message>
+        <source>Cannot Delete In-Use Item</source>
+        <translation type="unfinished">Nem törölhető a használatban lévő elem.</translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
+        <translation type="unfinished">%1 elem jelenleg a szövegszerkesztőben változtatható. A törlés megszakítva.</translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
     <message>
         <source>None</source>
-        <translation type="unfinished">Nincs</translation>
+        <translation type="obsolete">Nincs</translation>
     </message>
     <message>
         <source>Initializing Plugins</source>
@@ -13694,7 +14423,7 @@ Consider using the Pre-flight Checker to correct them</source>
     </message>
     <message>
         <source>New Master Page</source>
-        <translation type="unfinished">Új mester oldal</translation>
+        <translation type="obsolete">Új mester oldal</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -13805,6 +14534,36 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>Y-Pos:</source>
         <translation type="unfinished">Y pozíció:</translation>
+    </message>
+    <message>
+        <source>Spaces &amp;&amp; Breaks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ligature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ghostscript is missing : Postscript Print Preview is not available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you really want to replace your existing image?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14014,11 +14773,11 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
-        <translation>Nem törölhető a használatban lévő elem.</translation>
+        <translation type="obsolete">Nem törölhető a használatban lévő elem.</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation>%1 elem jelenleg a szövegszerkesztőben változtatható. A törlés megszakítva.</translation>
+        <translation type="obsolete">%1 elem jelenleg a szövegszerkesztőben változtatható. A törlés megszakítva.</translation>
     </message>
     <message>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
@@ -14026,7 +14785,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation>Tényleg törölni akarja a teljes szöveget?</translation>
+        <translation type="obsolete">Tényleg törölni akarja a teljes szöveget?</translation>
     </message>
     <message>
         <source>Cannot Convert In-Use Item</source>
@@ -14137,6 +14896,18 @@ Consider using the Preflight Verifier to correct them</source>
         <source>Python Scripts (*.py);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Documentation for:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> doesn&apos;t contain any docstring!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScripterPrefsGui</name>
@@ -14205,6 +14976,14 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Select Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation type="unfinished">Módosítás...</translation>
+    </message>
+    <message>
+        <source>Locate Startup Script</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14294,7 +15073,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Nincs</translation>
+        <translation type="obsolete">Nincs</translation>
     </message>
     <message>
         <source>Replace with:</source>
@@ -14618,31 +15397,31 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Load Text from File</source>
-        <translation>Szöveg betöltése fájlból</translation>
+        <translation type="obsolete">Szöveg betöltése fájlból</translation>
     </message>
     <message>
         <source>Save Text to File</source>
-        <translation>Szöveg mentése fájlba</translation>
+        <translation type="obsolete">Szöveg mentése fájlba</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation>Szöveg keret frissítése és kilépés</translation>
+        <translation type="obsolete">Szöveg keret frissítése és kilépés</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation>Kilépés a szöveg keret frissírése nélkül</translation>
+        <translation type="obsolete">Kilépés a szöveg keret frissírése nélkül</translation>
     </message>
     <message>
         <source>Reload Text from Frame</source>
-        <translation>Szöveg újratöltése a keretből</translation>
+        <translation type="obsolete">Szöveg újratöltése a keretből</translation>
     </message>
     <message>
         <source>Update Text Frame</source>
-        <translation>Szöveg keret frissítése</translation>
+        <translation type="obsolete">Szöveg keret frissítése</translation>
     </message>
     <message>
         <source>Search/Replace</source>
-        <translation>Keresés/csere</translation>
+        <translation type="obsolete">Keresés/csere</translation>
     </message>
     <message>
         <source>Current Paragraph:</source>
@@ -14708,6 +15487,30 @@ Consider using the Preflight Verifier to correct them</source>
         <source>Do you really want to clear all your text?</source>
         <translation>Tényleg törölni akarja a teljes szöveget?</translation>
     </message>
+    <message>
+        <source>&amp;Insert</source>
+        <translation type="unfinished">&amp;Beillesztés</translation>
+    </message>
+    <message>
+        <source>Character</source>
+        <translation type="unfinished">Karakter</translation>
+    </message>
+    <message>
+        <source>Quote</source>
+        <translation type="unfinished">Idézet</translation>
+    </message>
+    <message>
+        <source>Spaces &amp;&amp; Breaks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ligature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Space</source>
+        <translation type="unfinished">Távolság</translation>
+    </message>
 </context>
 <context>
     <name>StrikeValues</name>
@@ -14752,7 +15555,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Outline</source>
-        <translation>Szerkezet</translation>
+        <translation type="obsolete">Szerkezet</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
@@ -14765,6 +15568,11 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>Shadow</source>
         <translation>Árnyék</translation>
+    </message>
+    <message>
+        <source>Outline</source>
+        <comment>Text Style Selector</comment>
+        <translation type="unfinished">Szerkezet</translation>
     </message>
 </context>
 <context>
@@ -15253,11 +16061,11 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>JPEG</source>
-        <translation>JPEG</translation>
+        <translation type="obsolete">JPEG</translation>
     </message>
     <message>
         <source>Zip</source>
-        <translation>Zip</translation>
+        <translation type="obsolete">Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -15915,6 +16723,18 @@ when Document is opened:</source>
     </message>
     <message>
         <source>Viewer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lossy - JPEG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lossless - Zip</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16882,6 +17702,18 @@ to %2</source>
         <source>Text on a Path</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Enable Item Printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable Item Printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Multiple duplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -16912,6 +17744,60 @@ to %2</source>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation>%1: %2</translation>
+    </message>
+</context>
+<context>
+    <name>UsePrinterMarginsDialog</name>
+    <message>
+        <source>Minimum Margins for Page Size %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UsePrinterMarginsDialogBase</name>
+    <message>
+        <source>Use Printer Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select &amp;Printer:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Margins</source>
+        <translation type="unfinished">Margók</translation>
+    </message>
+    <message>
+        <source>Right:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation type="unfinished">&amp;Felső:</translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished">&amp;Alsó:</translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished">&amp;Bal:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Rendben</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Mégsem</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
     </message>
 </context>
 <context>
