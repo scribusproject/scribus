@@ -2185,6 +2185,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			else
 			{
+				//Where a single frame resize stops when the mouse buttno is released
+				//FIXME: reduce code!
 				if (currItem->Sizing)
 				{
 					FPoint npx;
@@ -2273,6 +2275,18 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 								if (bb != currItem)
 									MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr);
 							}
+							//<<Swap location if width/height is <0
+							if (currItem->width()<0)
+							{
+								currItem->setWidth(-currItem->width());
+								currItem->setXPos(currItem->xPos()-currItem->width());
+							}
+							if (currItem->height()<0)
+							{
+								currItem->setHeight(-currItem->height());
+								currItem->setYPos(currItem->yPos()-currItem->height());
+							}
+							//>>
 							if (currItem->imageFlippedH())
 								currItem->moveImageInFrame(-(currItem->width() - currItem->OldB2)/currItem->imageXScale(), 0);
 							if (currItem->imageFlippedV())
@@ -2356,6 +2370,20 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							}
 							else
 								MoveSizeItem(npx, npx, currItem->ItemNr);
+								
+							//<<Swap location if width/height is <0
+							if (currItem->width()<0)
+							{
+								currItem->setWidth(-currItem->width());
+								currItem->setXPos(currItem->xPos()-currItem->width());
+							}
+							if (currItem->height()<0)
+							{
+								currItem->setHeight(-currItem->height());
+								currItem->setYPos(currItem->yPos()-currItem->height());
+							}
+							//>>
+								
 							currItem->Sizing = false;
 							if (!currItem->imageFlippedH())
 							{
@@ -2451,6 +2479,20 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						}
 						else
 							MoveSizeItem(FPoint(0, npx.y()), FPoint(currItem->width() - npx.x(), npx.y()), currItem->ItemNr);
+							
+						//<<Swap location if width/height is <0
+						if (currItem->width()<0)
+						{
+							currItem->setWidth(-currItem->width());
+							currItem->setXPos(currItem->xPos()-currItem->width());
+						}
+						if (currItem->height()<0)
+						{
+							currItem->setHeight(-currItem->height());
+							currItem->setYPos(currItem->yPos()-currItem->height());
+						}
+						//>>
+							
 						currItem->Sizing = false;
 						if (currItem->imageFlippedH())
 							currItem->moveImageInFrame(-(currItem->width() - currItem->OldB2)/currItem->imageXScale(), 0);
@@ -2511,6 +2553,20 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						}
 						else
 							MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), currItem->height() - npx.y()), currItem->ItemNr);
+						
+						//<<Swap location if width/height is <0
+						if (currItem->width()<0)
+						{
+							currItem->setWidth(-currItem->width());
+							currItem->setXPos(currItem->xPos()-currItem->width());
+						}
+						if (currItem->height()<0)
+						{
+							currItem->setHeight(-currItem->height());
+							currItem->setYPos(currItem->yPos()-currItem->height());
+						}
+						//>>
+							
 						currItem->Sizing = false;
 						if (!currItem->imageFlippedH())
 							currItem->moveImageInFrame((currItem->width() - currItem->OldB2)/currItem->imageXScale(), 0);
@@ -2550,6 +2606,20 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							MoveSizeItem(FPoint(0, 0), FPoint(0, currItem->height() - npx.y()), currItem->ItemNr);
 						if (currItem->imageFlippedV())
 							currItem->moveImageInFrame(0, -(currItem->height() - currItem->OldH2)/currItem->imageYScale());
+						
+						//<<Swap location if width/height is <0
+						if (currItem->width()<0)
+						{
+							currItem->setWidth(-currItem->width());
+							currItem->setXPos(currItem->xPos()-currItem->width());
+						}
+						if (currItem->height()<0)
+						{
+							currItem->setHeight(-currItem->height());
+							currItem->setYPos(currItem->yPos()-currItem->height());
+						}
+						//>>
+							
 						currItem->Sizing = false;
 						break;
 					case 6:
@@ -2585,6 +2655,20 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							MoveSizeItem(FPoint(0, 0), FPoint(currItem->width() - npx.x(), 0), currItem->ItemNr);
 						if (currItem->imageFlippedH())
 							currItem->moveImageInFrame(-(currItem->width() - currItem->OldB2)/currItem->imageXScale(), 0);
+						
+						//<<Swap location if width/height is <0
+						if (currItem->width()<0)
+						{
+							currItem->setWidth(-currItem->width());
+							currItem->setXPos(currItem->xPos()-currItem->width());
+						}
+						if (currItem->height()<0)
+						{
+							currItem->setHeight(-currItem->height());
+							currItem->setYPos(currItem->yPos()-currItem->height());
+						}
+						//>>
+						
 						currItem->Sizing = false;
 						break;
 					case 7:
@@ -2617,6 +2701,20 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						}
 						else
 							MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), currItem->ItemNr);
+						
+						//<<Swap location if width/height is <0
+						if (currItem->width()<0)
+						{
+							currItem->setWidth(-currItem->width());
+							currItem->setXPos(currItem->xPos()-currItem->width());
+						}
+						if (currItem->height()<0)
+						{
+							currItem->setHeight(-currItem->height());
+							currItem->setYPos(currItem->yPos()-currItem->height());
+						}
+						//>>
+							
 						currItem->Sizing = false;
 						if (!currItem->imageFlippedH())
 							currItem->moveImageInFrame((currItem->width() - currItem->OldB2)/currItem->imageXScale(), 0);
@@ -2653,6 +2751,20 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						}
 						else
 							MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), currItem->ItemNr);
+							
+						//<<Swap location if width/height is <0
+						if (currItem->width()<0)
+						{
+							currItem->setWidth(-currItem->width());
+							currItem->setXPos(currItem->xPos()-currItem->width());
+						}
+						if (currItem->height()<0)
+						{
+							currItem->setHeight(-currItem->height());
+							currItem->setYPos(currItem->yPos()-currItem->height());
+						}
+						//>>
+							
 						currItem->Sizing = false;
 						if (currItem->imageFlippedH())
 							currItem->moveImageInFrame(-(currItem->width() - currItem->OldB2)/currItem->imageXScale(), 0);
@@ -2660,6 +2772,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							currItem->moveImageInFrame(0, (currItem->height() - currItem->OldH2)/currItem->imageYScale());
 						break;
 					}
+					
+							
 					//TextFrame resize - Resize text with resize of frame
 					//alt resize, free resize with text scaling
 					//shift alt, square resize with text scaling
@@ -3405,6 +3519,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				emit currItem->HasSel ? HasTextSel() : HasNoTextSel();
 			}
 		}
+		//Operations run here:
+		//Item resize, esp after creating a new one
 		if (m_MouseButtonPressed && (m->state() & LeftButton) && ((Doc->appMode == modeNormal) || ((Doc->appMode == modeEdit) && operItemResizeInEditMode)) && (!currItem->locked()))
 		{
 			if (Doc->EditClip)
@@ -3568,7 +3684,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				}
 				else
 				{
-					//qDebug(QString("frameResizeHandle %1").arg(frameResizeHandle));
+					qDebug(QString("frameResizeHandle %1").arg(frameResizeHandle));
 					for (a = 0; a < Doc->selection->count(); ++a)
 					{
 						currItem = Doc->selection->itemAt(0);
@@ -3613,6 +3729,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								p.end();
 								if (!currItem->asLine())
 								{
+								qDebug(QString("%1").arg("!line resize"));
 									if ((Doc->useRaster) && (Doc->OnPage(currItem) != -1))
 									{
 										dx = currItem->xPos() - int (currItem->xPos() / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid;
@@ -3628,6 +3745,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 										nx -= currItem->xPos();
 										ny -= currItem->yPos();
 									}
+									qDebug(QString("%1 %2").arg(nx).arg(ny));
 									if ((m->state() & ControlButton) || ((m->state() & ShiftButton)))
 										erf = SizeItem(nx, nh, currItem->ItemNr);
 									else
@@ -5925,11 +6043,15 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 		return false;
 	QPainter p;
 	QRect oldR(currItem->getRedrawBounding(Scale));
+	//Uncomment for stopping resize in any direction
+	//and remove the height/width <0 tests in item sizing switch
+	/*
 	if (!currItem->asLine())
 	{
 		newX = QMAX(newX, 1);
 		newY = QMAX(newY, 1);
 	}
+	*/
 	int ph = static_cast<int>(QMAX(1.0, currItem->lineWidth() / 2.0));
 	QWMatrix ma;
 	ma.rotate(currItem->rotation());
