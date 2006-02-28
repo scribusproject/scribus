@@ -52,7 +52,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	map["EAN-2"] = BarcodeType("ean2", "42", "2 digits",
 							   "[0-9]{2,2}");
 	map["ISBN"] = BarcodeType("isbn", "1-58880-149",
-							  "9 or 10 digits seperated appropriately with dashes",
+							  "9 or 10 digits separated appropriately with dashes",
 							  "[0-9]*\\-[0-9]*\\-[0-9]*");
 //    "Code-11"] = "code11"
 	map["Code-39"] = BarcodeType("code39", "CODE-39",
@@ -60,10 +60,10 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 								 "[0-9a-zA-Z\\-\\.\\ \\*\\$\\/\\+\\%]*");
 //    "Code-93"] = "code93"
 	map["Code-128"] = BarcodeType("code128", "^104^102Count^0991234^101!",
-								  "Variable number of ASCII characters and special funtion symbols, starting with the approriate start character for the initial character set. UCC/EAN-128s must have a manditory FNC 1 symbol immediately following the start character.",
+								  "Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.",
 								  "\\^[0-9a-zA-Z\\^\\!]*");
 	map["UCC/EAN-128"] = BarcodeType("code128", "^104^102Count^0991234^101!",
-									 "Variable number of ASCII characters and special funtion symbols, starting with the approriate start character for the initial character set. UCC/EAN-128s must have a manditory FNC 1 symbol immediately following the start character.",
+									 "Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.",
 									 "\\^[0-9a-zA-Z\\^\\!]*");
 	map["Rationalized Codabar"] = BarcodeType("rationalizedCodabar", "0123456789",
 											  "Variable number of digits and any of the symbols -$:/.+ABCD.",
@@ -78,13 +78,13 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 									 "Variable number of digits",
 									 "[0-9]*");
 	map["Postnet"] = BarcodeType("postnet", "01234567",
-								 "Variable number digits",
+								 "Variable number of digits",
 								 "[0-9]*");
 	map["Royal Mail"] = BarcodeType("royalmail", "LE28HS9Z",
-									"Variable number digits and capital letters",
+									"Variable number of digits and capital letters",
 									"[0-9A-Z]*");
 //    "Auspost"] = "auspost"
-	map["MSI"] = BarcodeType("msi", "0120823635162", "Variable number digits",
+	map["MSI"] = BarcodeType("msi", "0120823635162", "Variable number of digits",
 							 "[0-9]*");
 //    "KIX"] = "kix"
 	map["Plessey"] = BarcodeType("plessey", "012345ABCDEF",
@@ -223,7 +223,7 @@ bool BarcodeGenerator::codeEdit_check(const QString& s)
 	if (!rx.exactMatch(s))
 	{
 		codeEdit->setPaletteBackgroundColor(QColor(255, 0, 0));
-		sampleLabel->setText("<qt>" + tr("Your barcode did not match its definition rules") + "</qt>");
+		sampleLabel->setText("<qt>" + tr("Barcode incomplete") + "</qt>");
 		okButton->setEnabled(false);
 		return false;
 	}
