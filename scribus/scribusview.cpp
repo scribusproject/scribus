@@ -3237,10 +3237,23 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		if (m_MouseButtonPressed && (Doc->appMode == modeRotation))
 		{
 			double newW = xy2Deg(m->x()/sc - RCenter.x(), m->y()/sc - RCenter.y());
-			if (Doc->selection->isMultipleSelection())
-				RotateGroup(newW - oldW);
+			if (m->state() & ControlButton)
+			{
+				newW=constrainAngle(newW);
+				oldW=constrainAngle(oldW);
+				//RotateGroup uses MoveBy so its pretty hard to constrain the result
+				if (Doc->selection->isMultipleSelection())
+					RotateGroup(newW-oldW);
+				else
+					RotateItem(newW, currItem->ItemNr);
+			}
 			else
-				RotateItem(currItem->rotation() - (oldW - newW), currItem->ItemNr);
+			{
+				if (Doc->selection->isMultipleSelection())
+					RotateGroup(newW - oldW);
+				else
+					RotateItem(currItem->rotation() - (oldW - newW), currItem->ItemNr);
+			}
 			oldW = newW;
 			emit DocChanged();
 		}
