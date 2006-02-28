@@ -3684,7 +3684,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				}
 				else
 				{
-					qDebug(QString("frameResizeHandle %1").arg(frameResizeHandle));
+					//qDebug(QString("frameResizeHandle %1").arg(frameResizeHandle));
 					for (a = 0; a < Doc->selection->count(); ++a)
 					{
 						currItem = Doc->selection->itemAt(0);
@@ -3729,7 +3729,6 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								p.end();
 								if (!currItem->asLine())
 								{
-								qDebug(QString("%1").arg("!line resize"));
 									if ((Doc->useRaster) && (Doc->OnPage(currItem) != -1))
 									{
 										dx = currItem->xPos() - int (currItem->xPos() / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid;
@@ -3745,7 +3744,6 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 										nx -= currItem->xPos();
 										ny -= currItem->yPos();
 									}
-									qDebug(QString("%1 %2").arg(nx).arg(ny));
 									if ((m->state() & ControlButton) || ((m->state() & ShiftButton)))
 										erf = SizeItem(nx, nh, currItem->ItemNr);
 									else
