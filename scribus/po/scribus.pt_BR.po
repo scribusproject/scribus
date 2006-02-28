@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: scribus.pt_BR2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-12 15:23+0100\n"
-"PO-Revision-Date: 2006-02-14 08:51-0200\n"
+"PO-Revision-Date: 2006-02-27 16:18-0300\n"
 "Last-Translator: Ludi Maciel <iludi@uol.com.br>\n"
 "Language-Team:  <pt@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1356,7 +1356,7 @@ msgid "Preview Settings"
 msgstr "Configurações de visualização"
 
 msgid "&PDF Options"
-msgstr "Opções do &PDF"
+msgstr "Opções de &PDF"
 
 msgid "Send to La&yer"
 msgstr "Enviar para a &camada"
@@ -3589,13 +3589,13 @@ msgid "Right Page"
 msgstr "Página direita"
 
 msgid "3-Fold"
-msgstr "3 dobras"
+msgstr "Página tripla"
 
 msgid "Middle"
 msgstr "Central"
 
 msgid "4-Fold"
-msgstr "4 dobras"
+msgstr "Página quadrupla"
 
 msgid "Middle Left"
 msgstr "Centro-esquerda"
@@ -4666,10 +4666,10 @@ msgid "Straight Double"
 msgstr "Aspas"
 
 msgid "Single Left"
-msgstr "Apenas esquerda"
+msgstr "Esquerda simples"
 
 msgid "Single Right"
-msgstr "Apenas direita"
+msgstr "Direita simples"
 
 msgid "Double Left"
 msgstr "Dupla esquerda"
