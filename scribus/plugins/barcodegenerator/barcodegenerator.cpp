@@ -167,7 +167,7 @@ void BarcodeGenerator::okButton_pressed()
 	}
 	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
 		UndoManager::instance()->setUndoEnabled(false);
-	EPSPlug *dia = new EPSPlug(psFile, false);
+	EPSPlug *dia = new EPSPlug(psFile, true);
 	Q_CHECK_PTR(dia);
 	if (UndoManager::undoEnabled())
 		UndoManager::instance()->commit();
