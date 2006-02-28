@@ -25,10 +25,12 @@ class BarcodeType
 		//! \brief Constructor provided for QMap initialization only.
 		BarcodeType(){};
 		/*! \brief Setup the Barcode entity.
+		\todo Make better regular expressions for BCDs.
 		\param cmd a Postsript command for given BC type
 		\param exa an example of the BC
-		\param comm a comment/help for current BC type */
-		BarcodeType(QString cmd, QString exa, QString comm);
+		\param comm a comment/help for current BC type
+		\param checkType how to validate the input */
+		BarcodeType(QString cmd, QString exa, QString comm, QString regExp);
 		~BarcodeType(){};
 		//! \brief postscript command
 		QString command;
@@ -36,6 +38,8 @@ class BarcodeType
 		QString example;
 		//! \brief comment or help for given BC type
 		QString comment;
+		//! \brief Regular expression for valid barcode of this type.
+		QString regularExp;
 };
 
 
@@ -79,6 +83,7 @@ class BarcodeGenerator : public BarcodeGeneratorBase
 		/*! \brief Flag if user modified the codeEditor.
 		To stop replacing his code with samples. */
 		bool useSamples;
+		QColor guiColor;
 
 		/*! \brief Create bitmap for current BC.
 		When tt's called for preview, the 72dpi, small PNG image is
@@ -94,6 +99,9 @@ class BarcodeGenerator : public BarcodeGeneratorBase
 		\param l A pointer to the sample QLabel
 		\param c A color to fill */
 		void paintColorSample(QLabel *l, QColor c);
+		/*! \brief Perform BarcodeCheckType checks here
+		\param s new string */
+		bool codeEdit_check(const QString& s);
 
 	protected slots:
 		void bcComboChanged();
