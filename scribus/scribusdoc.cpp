@@ -2076,9 +2076,12 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	int GrMax = GroupCounter;
 	Page* sourcePage = Pages->at(pageNumber);
 	int nr = MasterPages.count();
-	//pageCount = 0;
 	Page* targetPage=addMasterPage(nr, masterPageName);
 	Q_ASSERT(targetPage!=NULL);
+	//Backup currentpage, and dont use sourcepage here as we might convert a non current page
+	Page* oldCurrentPage = currentPage;
+	//Must set current page for pasteitem to work properly
+	currentPage=targetPage;
 	setLoading(true);
 	targetPage->copySizingProperties(sourcePage, pageMargins);
 	//Grab the left page setting for the current document layout from the dialog, and increment, singlePage==1 remember.
@@ -2181,7 +2184,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	GroupCounter = GrMax + 1;
 	//Reset the current page..
 	setMasterPageMode(false);
-	currentPage=sourcePage;
+	currentPage=oldCurrentPage;
 	return true;
 }
 
