@@ -120,7 +120,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 			case 2:
 				xl = (markC * iter2 / iter2) / cor;
 				tx = QString::number(static_cast<int>(xl));
-				frac = xl - static_cast<int>(xl);
+				frac = fabs(xl - static_cast<int>(xl));
 				if ((static_cast<int>(xl) == 0) && (frac > 0.1))
 					tx = "";
 				if ((frac > 0.24) && (frac < 0.26))
