@@ -1,3 +1,5 @@
+//FIXME: this include must go to sctextstruct.h !
+#include <qvaluelist.h>
 
 #include "fpoint.h"
 #include "sctextstruct.h"
@@ -170,7 +172,7 @@ QString StoryText::text(int pos, uint len) const
 	assert(pos + signed(len) <= length());
 
 	QString result;
-	for (uint i = pos; pos < pos+signed(len); ++pos)
+	for (uint i = pos; i < pos+signed(len); ++i)
 		result += const_cast<StoryText *>(this)->at(i)->ch;
 
 	return result;
