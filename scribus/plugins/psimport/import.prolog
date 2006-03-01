@@ -68,15 +68,54 @@
 	{
 		i_file (/) writestring i_file exch i_str cvs writestring
 	} {
+	dup type /stringtype eq
+	{
+		true 1 index { 2 index exch get 32 ge and } forall
+		{
+			i_file (\() writestring i_file exch writestring i_file (\)) writestring
+		}
+		{
+			i_file (<) writestring
+			i_file /ASCIIHexEncode filter dup
+			3 -1 roll
+			writestring closefile % close filter 
+			i_file (\n) writestring			
+		} ifelse
+	} {
 	dup type /dicttype eq
 	{
 		i_file (<<) writestring
-		{ ==write ( ) ==write ==write (\n) ==write } forall
+		{ ==write ( ) =write ==write (\n) =write } forall
 		i_file (>>) writestring
 	} {
 		i_file exch i_str cvs writestring
-	} ifelse } ifelse } ifelse
+	} ifelse } ifelse } ifelse } ifelse
 } def
+
+/=write  % any =write -
+{ 
+	dup type dup /arraytype eq exch /packedarraytype eq or
+	{ 
+			{ =write i_file ( ) writestring } forall 
+	} {
+	dup type /nametype eq
+	{
+		i_file exch i_str cvs writestring
+	} {
+	dup type /stringtype eq
+	{
+		i_file exch writestring
+	} {
+	dup type /dicttype eq
+	{
+		i_file (<<) writestring
+		{ =write ( ) =write =write (\n) =write } forall
+		i_file (>>) writestring
+	} {
+		i_file exch i_str cvs writestring
+	} ifelse } ifelse } ifelse } ifelse
+} def
+
 
 % flag to deactivate our substitutions
 /i_shortcut false def
@@ -699,19 +738,19 @@
 		ifelse } ifelse } ifelse
         dup  (.tif) concatenate print (\n) print flush			% ... dev filename
 		(.dat) concatenate (w) file /i_file exch store			% temp file
-	currentcolorspace ==write ( setcolorspace\n) ==write
-	(<<\n) ==write 
+	currentcolorspace ==write ( setcolorspace\n) =write
+	(<<\n) =write 
 	i_dict { exch
 		  dup /DataSource eq 
-			{ pop pop (/DataSource currentfile\n) ==write }
+			{ pop pop (/DataSource currentfile\n) =write }
 		  {
 			dup /ImageMatrix eq 
-				{ pop pop (/ImageMatrix [1 0 0 -1 0 ) ==write i_dict /Height get ==write (]\n) ==write }
-				{ ==write ( ) ==write ==write (\n) ==write }
+				{ pop pop (/ImageMatrix [1 0 0 -1 0 ) =write i_dict /Height get ==write (]\n) =write }
+				{ ==write ( ) =write ==write (\n) =write }
 			ifelse 
 		  } ifelse 
 		} forall 
-	(>>\nimage\n) ==write i_file flushfile
+	(>>\nimage\n) =write i_file flushfile
 
     { %loop
       i_left 0 le 
@@ -921,7 +960,8 @@
 			writecurrentcolor	% write color
 			storeMatrix
 			dup completeString length 1 sub eq 
-			{ 0 0 } { dup completeString i_kerning } ifelse 
+			{ dup completeString exch 1 getinterval stringwidth } 
+			{ dup completeString i_kerning } ifelse 
 			/curwidthy exch def /curwidthx exch def
 			completeString exch 1 getinterval dup /curstr exch def
 			false root_charpath
@@ -965,7 +1005,8 @@
 			writecurrentcolor	% write color
 			storeMatrix
 			dup completeString length 1 sub eq 
-			{ 0 0 } { dup completeString i_kerning } ifelse 
+			{ dup completeString exch 1 getinterval stringwidth } 
+			{ dup completeString i_kerning } ifelse 
 			/curwidthy exch def /curwidthx exch def
 			completeString exch 1 getinterval dup /curstr exch def 
 			false root_charpath
@@ -1014,7 +1055,8 @@
 			writecurrentcolor	% write color
 			storeMatrix
 			dup completeString length 1 sub eq 
-			{ 0 0 } { dup completeString i_kerning } ifelse 
+			{ dup completeString exch 1 getinterval stringwidth } 
+			{ dup completeString i_kerning } ifelse 
 			/curwidthy exch def /curwidthx exch def
 			completeString exch 1 getinterval dup /curstr exch def 
 			false root_charpath
