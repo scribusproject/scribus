@@ -103,6 +103,7 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	if (checkerProfile.count() == 1)
 		removeProfile->setEnabled(false);
 	addProfile->setEnabled(false);
+	tempNewProfileName="";
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
 	connect(curCheckProfile, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));
 	
@@ -151,10 +152,14 @@ void TabCheckDoc::setProfile(const QString& name)
 	{
 		putProfile();
 		updateProfile(name);
+		tempNewProfileName="";
 		addProfile->setEnabled(false);
 	}
 	else
+	{
+		tempNewProfileName=name;
 		addProfile->setEnabled(true);
+	}
 }
 
 void TabCheckDoc::updateProfile(const QString& name)
@@ -207,11 +212,27 @@ void TabCheckDoc::addProf()
 	checkerSettings.minResolution = resolutionValue->value();
 	checkerSettings.checkAnnotations = useAnnotations->isChecked();
 	checkerSettings.checkRasterPDF = rasterPDF->isChecked();
-	checkerProfile.insert(curCheckProfile->currentText(), checkerSettings);
-	currentProfile = curCheckProfile->currentText();
+	checkerProfile.insert(tempNewProfileName, checkerSettings);
+	currentProfile = tempNewProfileName;
 	if (checkerProfile.count() > 1)
 		removeProfile->setEnabled(true);
 	addProfile->setEnabled(false);
+	curCheckProfile->clear();
+	
+	disconnect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
+	disconnect(curCheckProfile, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));	
+	CheckerPrefsList::Iterator it;
+	int j,i=0;
+	for (it = checkerProfile.begin(), j=0; it != checkerProfile.end(); ++it, ++j)
+	{
+		curCheckProfile->insertItem(it.key());
+		if (it.key()==currentProfile)
+			i=j;
+	}
+	curCheckProfile->setCurrentItem(i);
+	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
+	connect(curCheckProfile, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));
+	tempNewProfileName="";
 }
 
 void TabCheckDoc::delProf()

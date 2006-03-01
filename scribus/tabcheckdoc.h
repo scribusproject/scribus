@@ -59,6 +59,7 @@ protected:
 	QVBoxLayout* TabCheckDocLayout;
 	QHBoxLayout* pictResolutionLayout;
 	QHBoxLayout* layout1;
+	QString tempNewProfileName;
 };
 
 #endif // TABCHECKDOC_H
