@@ -154,7 +154,7 @@
     <function shortcut="" name="toolsOutline" />
     <function shortcut="" name="toolsPages" />
     <function shortcut="" name="toolsPreflightVerifier" />
-    <function shortcut="" name="toolsProperties" />
+    <function shortcut="F2" name="toolsProperties" />
     <function shortcut="R" name="toolsRotate" />
     <function shortcut="" name="toolsScrapbook" />
     <function shortcut="C" name="toolsSelect" />
