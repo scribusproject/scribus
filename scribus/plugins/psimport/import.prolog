@@ -43,6 +43,10 @@
 % lc #              linecap
 % ld # # #n         linedash count offset d1, d2, dx
 % im #              image <name>
+% pat # #           makepattern params tmpfilename
+% mask				imagemask, followed by b/w image
+% fill-evenodd		set fill rule
+% fill-winding		- " -
 % 15.05.2004 Added the Glyphshow Operator.
 % 17.05.2004 Made clipping working.
 % 20.05.2004 kshow is working now.
@@ -50,6 +54,41 @@
 
 /cfile TraceFile (w) file def
 /print { cfile exch writestring } bind def
+
+
+/==write  % any ==write -
+{ 
+	dup type dup /arraytype eq exch /packedarraytype eq or
+	{ 
+		i_file ([) writestring 
+			{ ==write i_file ( ) writestring } forall 
+		i_file (]) writestring
+	} {
+	dup type /nametype eq
+	{
+		i_file (/) writestring i_file exch i_str cvs writestring
+	} {
+	dup type /dicttype eq
+	{
+		i_file (<<) writestring
+		{ ==write ( ) ==write ==write (\n) ==write } forall
+		i_file (>>) writestring
+	} {
+		i_file exch i_str cvs writestring
+	} ifelse } ifelse } ifelse
+} def
+
+% flag to deactivate our substitutions
+/i_shortcut false def
+
+% defines an overloaded function     name proc i_shortcutOverload -
+% equvalent to /name { i_shortcut { //name } { proc } ifelse } bind def
+/i_shortcutOverload
+{
+	[ /i_shortcut /load load [ 5 index load ] cvx 4 index /ifelse load ] cvx 
+	exch pop 
+	bind def
+} def
 
 % whether we have to flatten the text
 /flattenText 1 def
@@ -97,43 +136,203 @@
 	m_d mul exch m_b mul add m_y add
 } bind def
 
+
+/concatenate   % str1 str2 concatenate str12
+{
+	dup length 2 index length add string
+	dup 3 index length 3 index putinterval
+	dup 0 4 index putinterval
+	exch pop exch pop
+} bind def 
+
+
+% returns a unique filename for the given extension
+/i_exportfilename   % string i_exportfilename string
+{
+	/ExportFiles where { /ExportFiles get (.) search { exch pop exch pop } if } { (imagefile) } ifelse
+	    (-) concatenate dup /i_basename exch def i_filecount 9 string cvs concatenate
+		{
+			i_filecount 1 add /i_filecount exch store
+			dup 2 index concatenate status not { exit } if
+			pop pop pop pop pop
+			i_basename i_filecount 9 string cvs concatenate
+		} loop
+	exch pop
+} bind def
+
+/makepattern { % dict matrix  makepattern patterndict
+/makepattern =
+	% we will do some real painting here:
+	/i_shortcut true store
+	% params:
+	/i_m exch def
+	/i_dict exch def
+	% define export filename	
+	/i_basename (.png) i_exportfilename (.png) concatenate def
+	i_dict /BBox get
+		dup 0 get /i_x exch def
+		dup 1 get /i_y exch def
+		dup 2 get i_x sub /i_w exch def
+		3 get i_y sub /i_h exch def
+	% we want those in devspace:
+		i_x i_y i_m itransform matrix currentmatrix transform
+			/i_y exch def /i_x exch def
+		i_w i_h i_m idtransform matrix currentmatrix dtransform
+			/i_h exch def /i_w exch def
+		% i_h < 0 ?
+		i_h 0 le
+		{
+			/i_y i_h i_y add def
+			/i_h i_h neg def
+		} if
+		% i_w < 0 ?
+		i_w 0 le
+		{
+			/i_x i_w i_x add def
+			/i_w i_w neg def
+		} if
+	% now we can use the current matrix as pattern matrix, but with (0,0) origin
+	i_m ==
+	i_x i_y matrix currentmatrix translate /i_m exch def
+	i_m ==
+	i_dict /BBox [ 0 0 i_w i_h ] put 
+	(w x h =) = i_w = i_h =
+	% paint pattern to png file
+	gsave
+	currentcolor currentcolorspace
+	<< 
+		/OutputFile i_basename
+		/OutputDevice (pngalpha)
+		/TextAlphaBits 4
+		/GraphicsAlphaBits 4
+		/BackgroundColor 16777215
+		/PageUsesTransparency true
+		/HWResolution [i_w i_h]
+		/ProcessColorModel /DeviceRGB
+		/PageSize [i_w i_h]
+	/pngalpha finddevice putdeviceprops setdevice 
+	currentdevice getdeviceprops pstack cleartomark 
+	setcolorspace setcolor
+	matrix currentmatrix ==
+	0 0 transform exch = =
+	1 1 transform exch = =
+	1 0.5 0 setrgbcolor
+	0 0 i_w i_h rectfill
+	0 1 0 setrgbcolor
+	1 setlinewidth
+	newpath
+	0 0 moveto i_w i_h lineto
+	0 i_h moveto
+	i_w 0 lineto
+	stroke
+	i_dict i_w i_h matrix identmatrix scale //makepattern setpattern
+	0 0 i_w i_h rectfill
+	showpage
+/MP1 =
+	currentdevice getdeviceprops pstack cleartomark
+	grestore
+	% create pattern with our extensions:
+	i_dict dup /ExportFile i_basename put
+	dup /Origin [ 0 0 transform ] put
+	i_m //makepattern
+/MP2 =
+	/i_shortcut false store
+/makepatternE =
+} i_shortcutOverload
+
+/writecurrentpattern
+{
+/WP =
+	currentcolor
+	(pat ) print
+	dup /Origin get
+	dup 0 get i_str cvs print ( ) print
+	    1 get i_str cvs print ( ) print
+	/ExportFile get print
+	(\n) print
+/WPE =
+} bind def
+
+/writecurrentcmykcolor
+{
+	currentcmykcolor	% -> c m y k
+	(co )print
+	3 index i_str cvs print
+	( ) print
+	2 index i_str cvs print
+	( ) print
+	1 index i_str cvs print
+	( ) print
+	i_str cvs print
+	( ) print
+	pop pop pop
+	.currentopacityalpha	% a
+	i_str cvs print
+	(\n) print
+} bind def
+
+
+/writecurrentrgbcolor
+{
+	currentrgbcolor	% -> r g b
+	(corgb )print
+	2 index i_str cvs print
+	( ) print
+	1 index i_str cvs print
+	( ) print
+	i_str cvs print
+	( ) print
+	pop pop
+	.currentopacityalpha	% a
+	i_str cvs print
+	(\n) print
+} bind def
+
+
 /writecurrentcolor
 {
-	currentcolorspace 0 get /CIEBasedABC eq
-	{	currentcolor setrgbcolor
-	} if
-	currentcolorspace 0 get /DeviceRGB eq
-	{
-		currentrgbcolor	% -> r g b
-		(corgb )print
-		2 index i_str cvs print
-		( ) print
-		1 index i_str cvs print
-		( ) print
-		i_str cvs print
-		( ) print
-		pop pop
-		.currentopacityalpha	% a
-		i_str cvs print
-		(\n) print
-	} 
-	{
-		currentcmykcolor	% -> c m y k
-		(co )print
-		3 index i_str cvs print
-		( ) print
-		2 index i_str cvs print
-		( ) print
-		1 index i_str cvs print
-		( ) print
-		i_str cvs print
-		( ) print
-		pop pop pop
-		.currentopacityalpha	% a
-		i_str cvs print
-		(\n) print
-	} ifelse
+	currentcolorspace 0 get 
 
+	% try to find a base colorspace first
+	dup	/Indexed eq
+	{
+		pop
+		currentcolorspace 1 get
+		dup type /arraytype eq { 0 get } if
+	} if
+
+	dup dup /DeviceN eq exch /Separation eq or
+	{
+		pop
+		currentcolorspace 2 get
+		dup type /arraytype eq { 0 get } if
+	} if
+
+	% now write values
+	dup /CIEBasedABC eq
+	{ % this must be a hack....
+		gsave
+		currentcolor setrgbcolor
+		writecurrentrgbcolor
+		grestore
+	} {
+ 	dup /DeviceRGB eq
+	{
+		writecurrentrgbcolor
+	} {
+	dup dup /DeviceCMYK eq exch /DeviceGray eq or
+	{
+		writecurrentcmykcolor
+	} { 
+	dup /Pattern eq
+	{
+		writecurrentpattern
+	} {
+		% TODO: other CIE
+		writecurrentrgbcolor % will always be 0
+	}
+	ifelse } ifelse } ifelse } ifelse
+	pop
 } bind def
 
 /writecurrentlinecap
@@ -176,7 +375,7 @@
 	end
 } bind def
 
-/_move	% x y
+/i_move	% x y
 {
 	userdict begin
 	(m\n) print
@@ -187,7 +386,7 @@
 	end
 } bind def
 
-/_line
+/i_line
 {
 	userdict begin
 	/y1 exch def
@@ -212,7 +411,7 @@
 	end
 } bind def
 
-/_curve
+/i_curve
 {
 	userdict begin
 	% x1 y1 x2 y2 x3 y3
@@ -242,10 +441,10 @@
 } bind def
 
 % modified: 18.10.96
-/_close
+/i_close
 {
 	(cp\n) print
-	beginX beginY _line
+	beginX beginY i_line
 } bind def
 
 /storeMatrix
@@ -284,11 +483,11 @@
 		/wr exch def
 		/yr exch def
 		/xr exch def
-		xr yr _move
-		xr wr add yr _line
-		xr wr add yr hr add _line
-		xr yr hr add _line
-		xr yr _line
+		xr yr i_move
+		xr wr add yr i_line
+		xr wr add yr hr add i_line
+		xr yr hr add i_line
+		xr yr i_line
 	}
 	% numarray
 	% numstring
@@ -301,17 +500,17 @@
 			ar n 1 add get /yr exch def
 			ar n 2 add get /wr exch def
 			ar n 3 add get /hr exch def
-			xr yr _move
-			xr wr add yr _line
-			xr wr add yr hr add _line
-			xr yr hr add _line
-			xr yr _line
+			xr yr i_move
+			xr wr add yr i_line
+			xr wr add yr hr add i_line
+			xr yr hr add i_line
+			xr yr i_line
 		} for
 	}ifelse
 
 	(f\n)print			% close polygon
 	end
-} bind def
+} i_shortcutOverload
 
 /rectstroke
 {
@@ -331,11 +530,11 @@
 		/wr exch def
 		/yr exch def
 		/xr exch def
-		xr yr _move
-		xr wr add yr _line
-		xr wr add yr hr add _line
-		xr yr hr add _line
-		xr yr _line
+		xr yr i_move
+		xr wr add yr i_line
+		xr wr add yr hr add i_line
+		xr yr hr add i_line
+		xr yr i_line
 	}
 	% numarray
 	% numstring
@@ -348,16 +547,16 @@
 			ar n 1 add get /yr exch def
 			ar n 2 add get /wr exch def
 			ar n 3 add get /hr exch def
-			xr yr _move
-			xr wr add yr _line
-			xr wr add yr hr add _line
-			xr yr hr add _line
-			xr yr _line
+			xr yr i_move
+			xr wr add yr i_line
+			xr wr add yr hr add i_line
+			xr yr hr add i_line
+			xr yr i_line
 		} for
 	}ifelse
 	(n\n)print			% stroke rect
 	end
-} bind def
+} i_shortcutOverload
 
 /stroke
 {
@@ -370,10 +569,10 @@
 	clipCnt 1 eq
 		{ clipsave clip newpath clippath cliprestore } if
 	storeMatrix
-	{_move} {_line} {_curve} {_close} pathforall
+	{i_move} {i_line} {i_curve} {i_close} pathforall
 	(s\n)print			% stroke path
 	newpath
-} bind def
+} i_shortcutOverload
 
 /eofill
 {
@@ -386,16 +585,18 @@
 	clipCnt 1 eq
 		{ clipsave clip newpath clippath cliprestore } if
 	storeMatrix			% take transformation, scaling, rotation from PostScript
-	{_move} {_line} {_curve} {_close} pathforall
+	{i_move} {i_line} {i_curve} {i_close} pathforall
 	(f\n)print			% close polygon
 
 	newpath				% clear stack
-} bind def
+} i_shortcutOverload
 
-/fill
+/fill 
 {
-	eofill
-} bind def
+	(fill-winding\n) print
+	eofill 
+	(fill-evenodd\n) print
+} i_shortcutOverload
 
 /clip
 {
@@ -403,7 +604,7 @@
 	(n\n)print			% start clip polygon
 
 	storeMatrix			% take transformation, scaling, rotation from PostScript
-	{_move} {_line} {_curve} {_close} pathforall
+	{i_move} {i_line} {i_curve} {i_close} pathforall
 
 	(ci\n)print			% close clip polygon begin path
 						% we have to close the path!!
@@ -411,7 +612,7 @@
 	/clipCnt 1 def
 	newpath				% clear stack
 	end
-} bind def
+} i_shortcutOverload
 
 % we don't clip
 % because this doesn't work for flattening text (show, charpath) with NeXT PostScript Code
@@ -423,7 +624,7 @@
 	i_str cvs print ( ) print
 	i_str cvs print ( ) print
 	i_str cvs print (\n) print
-} bind def
+} i_shortcutOverload
 
 
 %    Copyright (C) 1994 Aladdin Enterprises.  All rights reserved.
@@ -451,38 +652,9 @@
 % changed for Scribus image import by Andreas Vox, 2006-2-21
 % added support for colorimage and other image variant
 
-/concatenate   % str1 str2 concatenate str12
-{
-	dup length 2 index length add string
-	dup 3 index length 3 index putinterval
-	dup 0 4 index putinterval
-	exch pop exch pop
-} bind def 
-
-/==write  % any ==write -
-{ 
-	dup type dup /arraytype eq exch /packedarraytype eq or
-	{ 
-		i_file ([) writestring 
-			{ ==write i_file ( ) writestring } forall 
-		i_file (]) writestring
-	} {
-	dup type /nametype eq
-	{
-		i_file (/) writestring i_file exch i_str cvs writestring
-	} {
-	dup type /dicttype eq
-	{
-		i_file (<<) writestring
-		{ ==write ( ) ==write ==write (\n) ==write } forall
-		i_file (>>) writestring
-	} {
-		i_file exch i_str cvs writestring
-	} ifelse } ifelse } ifelse
-} def
-
 /i_image			% <dict> i_image -
 {
+/i_image =
 	begin 
 		/i_left Width Height mul Decode length 2 idiv mul BitsPerComponent mul 8 idiv dup /i_size exch store store 
 		/i_dict currentdict store 
@@ -502,15 +674,13 @@
 	i_dict /Width get  0 i_m dtransform dup mul exch dup mul add sqrt /i_w exch def 
 	0 i_dict /Height get i_m dtransform dup mul exch dup mul add sqrt /i_h exch def
 	0  0 i_m transform  /i_y exch def /i_x exch def 
-	/i_angle 0 def  % FIXME
-	/ExportFiles where { /ExportFiles get (.) search { exch pop exch pop } if } { (imagefile) } ifelse
-	    (-) concatenate dup /i_basename exch def i_filecount 9 string cvs concatenate
-		{
-			i_filecount 1 add /i_filecount exch store
-			dup (.dat) concatenate status not { exit } if
-			pop pop pop pop pop
-			i_basename i_filecount 9 string cvs concatenate
-		} loop
+	0 i_dict /Height get i_m dtransform i_y sub exch i_x sub	% dy2 dx2
+	atan														% angleVert
+	i_dict /Width get 0 i_m dtransform i_y sub exch i_x sub		% dy1 dx1
+	atan sub													% angleVert-angleHor
+	pop 0 % not working, TODO
+	/i_angle exch def
+	(.tif) i_exportfilename
 		(im ) print												% im x y w h angle ...
 		i_x i_str cvs print ( ) print
 		i_y i_str cvs print ( ) print
@@ -527,8 +697,8 @@
 			{ (tiffgray ) print } 
 			{ (tiff32nc ) print }
 		ifelse } ifelse } ifelse
-        dup  (.tif) concatenate print (\n) print flush        % ... dev filename
-		(.dat) concatenate (w) file /i_file exch store
+        dup  (.tif) concatenate print (\n) print flush			% ... dev filename
+		(.dat) concatenate (w) file /i_file exch store			% temp file
 	currentcolorspace ==write ( setcolorspace\n) ==write
 	(<<\n) ==write 
 	i_dict { exch
@@ -559,108 +729,97 @@
       i_left exch length sub /i_left exch def
     } loop
     i_file flushfile
+/i_imageE =
  } bind def
 
 /colorimage
 {
-      % width height bits/sample matrix datasource0..n-1 multi ncomp
-      /tmpN exch def
-	  /tmpMulti exch def
-	  tmpMulti
-      {
-         /tmpN load array astore
-      } if
-      /tmpN load 6 add dict
-      dup 7 -1 roll /Width exch put 
-      dup 6 -1 roll /Height exch put 
-      dup 5 -1 roll /BitsPerComponent exch put 
-      dup 4 -1 roll /ImageMatrix exch put 
-      dup 3 -1 roll /DataSource exch put 
-      tmpMulti
-      {
-         dup /MultipleDataSources true put
-      } if
-      dup /ImageType 1 put
-      gsave
-      /tmpN load
-         dup 1 eq
-         {
-            1 index /Decode [0 1] /Decode put
+/colorimage =
+	% width height bits/sample matrix datasource0..n-1 multi ncomp
+	/tmpN exch def
+	/tmpMulti exch def
+	tmpMulti
+	{
+		/tmpN load array astore
+	} if
+	/tmpN load 6 add dict
+	dup 7 -1 roll /Width exch put 
+	dup 6 -1 roll /Height exch put 
+	dup 5 -1 roll /BitsPerComponent exch put 
+	dup 4 -1 roll /ImageMatrix exch put 
+	dup 3 -1 roll /DataSource exch put 
+	tmpMulti
+	{
+		dup /MultipleDataSources true put
+	} if
+	dup /ImageType 1 put
+	gsave
+	/tmpN load
+		dup 1 eq
+		{
+			1 index /Decode [0 1] /Decode put
             /DeviceGray setcolorspace
-         } if
-         dup 3 eq
-         {
-             1 index /Decode [0 1 0 1 0 1] put
-            /DeviceRGB setcolorspace
-         } if
-         dup 4 eq
-         {
-            1 index /Decode [0 1 0 1 0 1 0 1]  put
-            /DeviceCMYK setcolorspace
-         } if
-      pop
-      i_image
-	  grestore
-} bind def
+		} if
+		dup 3 eq
+		{
+			1 index /Decode [0 1 0 1 0 1] put
+			/DeviceRGB setcolorspace
+		} if
+		dup 4 eq
+		{
+			1 index /Decode [0 1 0 1 0 1 0 1]  put
+			/DeviceCMYK setcolorspace
+		} if
+	pop
+	i_image
+	grestore
+/colorimageE =
+} i_shortcutOverload
 
 /image {
-   gsave
-   dup type /dicttype ne 
-   {
-      % width height bits/sample matrix datasource
-      7 dict
-      dup 7 -1 roll /Width exch put
-      dup 6 -1 roll /Height exch put
-      dup 5 -1 roll /BitsPerComponent  exch put
-      dup 4 -1 roll /ImageMatrix exch put
-      dup 3 -1 roll /DataSource exch put
-      dup 1 /ImageType exch put
-      dup [0 1] /Decode exch put
-      /DeviceGray setcolorspace
-   } if
-   i_image
-   grestore
-} bind def
+/image =
+	gsave
+	dup type /dicttype ne 
+	{
+		% width height bits/sample matrix datasource
+		7 dict
+		dup 7 -1 roll /Width exch put
+		dup 6 -1 roll /Height exch put
+		dup 5 -1 roll /BitsPerComponent  exch put
+		dup 4 -1 roll /ImageMatrix exch put
+		dup 3 -1 roll /DataSource exch put
+		dup 1 /ImageType exch put
+		dup [0 1] /Decode exch put
+		/DeviceGray setcolorspace
+	} if
+	i_image
+	grestore
+/imageE =
+} i_shortcutOverload
 
 /imagemask
 {
+/imagemask =
+	writecurrentcolor
+	(mask\n) print
+	gsave
 	dup type /dicttype ne 
 	{
-      % width height pol matrix datasource
-      7 dict
-      dup 7 -1 roll /Width exch put
-      dup 6 -1 roll /Height exch put
-      dup 5 -1 roll { [0 1] } { [1 0] } ifelse /Decode exch put
-      dup 4 -1 roll /ImageMatrix exch put
-      dup 3 -1 roll /DataSource exch put
+		% width height pol matrix datasource
+		7 dict
+		dup 7 -1 roll /Width exch put
+		dup 6 -1 roll /Height exch put
+		dup 5 -1 roll { [0 1] } { [1 0] } ifelse /Decode exch put
+		dup 4 -1 roll /ImageMatrix exch put
+		dup 3 -1 roll /DataSource exch put
 	} if
-    dup 1 /ImageType exch put
-    dup 1 /BitsPerComponent exch put
-	gsave
+	dup 1 /ImageType exch put
+	dup 1 /BitsPerComponent exch put
 	/DeviceGray setcolorspace
 	i_image
 	grestore
-	
-	% for now only print the dict, FIXME
-%	currentcolorspace 
-%	dup == (setcolorspace) =
-%	dup 0 get /DeviceGray eq
-%		{ currentcolor == (setcolor) = }
-%	{ dup 0 get /DeviceRGB eq
-%		{ currentcolor == == == (setcolor) = }
-%	{ dup 0 get /DeviceCMYK eq
-%		{ currentcolor == == == == (setcolor) = }
-%	{ currentcolor type /dicttype eq
-%		{ (<<) = currentcolor { exch == == } forall (>>\nsetcolor) = }
-%		{ currentcolor == (setcolor) = }
-%	ifelse } ifelse } ifelse } ifelse pop
-%	(<<) =
-%	{ 
-%		exch
-%		== ==
-%	} forall 
-%	(>>\nimagemask) = flush
-} bind def
+/imagemaskE =
+} i_shortcutOverload
 
 
 % declare some global vars
@@ -683,11 +842,11 @@
 /gsave
 {
 	userdict begin
-	(-gs\n) print
+%	(gs\n) print
 	stateArray stateTop gstate currentgstate put
 	/stateTop stateTop 1 add def
 	end
-} bind def
+} i_shortcutOverload
 
 /grestore
 {
@@ -696,13 +855,13 @@
 	{
 	}
 	{
-		(-gr\n) print
+%		(gr\n) print
 		stateArray stateTop 1 sub get setgstate
 		/stateTop stateTop 1 sub def
 		stateArray stateTop 0 put
 	}ifelse
 	end
-} bind def
+} i_shortcutOverload
 
 % a bind def of the show operator doesn't work,
 % so this is our way to get a charpath entry for flattening text
@@ -766,7 +925,7 @@
 			/curwidthy exch def /curwidthx exch def
 			completeString exch 1 getinterval dup /curstr exch def
 			false root_charpath
-			{_move} {_line} {_curve} {_close} pathforall
+			{i_move} {i_line} {i_curve} {i_close} pathforall
 			(f\n)print			% close polygon
 			newpath
 			curwidthx xcur add curwidthy ycur add moveto
@@ -781,7 +940,7 @@
 		pop		% string
 	} ifelse
 	end
-} bind def
+} i_shortcutOverload
 
 /ashow
 {
@@ -810,7 +969,7 @@
 			/curwidthy exch def /curwidthx exch def
 			completeString exch 1 getinterval dup /curstr exch def 
 			false root_charpath
-			{_move} {_line} {_curve} {_close} pathforall
+			{i_move} {i_line} {i_curve} {i_close} pathforall
 			(f\n)print			% close polygon
 			newpath
 			curwidthx xcur add curwidthy ycur add
@@ -826,7 +985,7 @@
 		pop
 	} ifelse
 	end
-} bind def
+} i_shortcutOverload
 
 /awidthshow		% cx cy char ax ay string
 {
@@ -859,7 +1018,7 @@
 			/curwidthy exch def /curwidthx exch def
 			completeString exch 1 getinterval dup /curstr exch def 
 			false root_charpath
-			{_move} {_line} {_curve} {_close} pathforall
+			{i_move} {i_line} {i_curve} {i_close} pathforall
 			(f\n)print			% close polygon
 			newpath
 			curwidthx xcur add curwidthy ycur add
@@ -879,7 +1038,7 @@
 		pop
 	} ifelse
 	end
-} bind def
+} i_shortcutOverload
 
 /widthshow	% cx cy char string
 {
@@ -892,7 +1051,7 @@
 {
 	exch pop
 	show
-} bind def
+} i_shortcutOverload
 
 /kshow	% proc string
 {
@@ -920,27 +1079,27 @@
 		pop dup show
 	} ifelse
 	pop pop
-} bind def
+} i_shortcutOverload
 
 /xshow	% string array
 {
-	pop
+	pop %FIXME
 	show
-} bind def
+} i_shortcutOverload
 
 /xyshow	% string array
 {
-	pop
+	pop %FIXME
 	show
-} bind def
+} i_shortcutOverload
 
 /yshow	% string array
 {
-	pop
+	pop %FIXME
 	show
-} bind def
+} i_shortcutOverload
 
-/ReEnc % newfontname reencodevector origfontdict -> ReEncode -> newfontdict
+/i_reencode % newfontname reencodevector origfontdict -> i_reencode -> newfontdict
 {
 	userdict begin
  dup begin dup maxlength dict begin
@@ -956,14 +1115,14 @@
 /glyphshow {
     save % So can reclaim VM from reencoding
     currentfont /Encoding get dup length array copy dup 0 5 -1 roll put
-    /GlyphShowTempFont exch currentfont ReEnc
+    /GlyphShowTempFont exch currentfont i_reencode
     setfont
     (\000) show 
 	restore
-} bind def
+} i_shortcutOverload
 
 /showpage
 {
 	(sp\n) print
-} bind def
+} i_shortcutOverload
 

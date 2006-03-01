@@ -322,6 +322,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	QString tmp, token, params, lasttoken, lastPath, currPath;
 	int z, lcap, ljoin, dc, pagecount;
 	double dcp;
+	bool fillRuleEvenOdd = true;
 	PageItem* ite;
 	QFile f(fn);
 	lasttoken = "";
@@ -369,8 +370,17 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 				LineTo(&Coords, params);
 				currPath += params;
 			}
+			else if (token == "fill-winding")
+			{
+				fillRuleEvenOdd = false;
+			}
+			else if (token == "fill-evenodd")
+			{
+				fillRuleEvenOdd = true;
+			}
 			else if (token == "f")
 			{
+				//TODO: pattern -> Imageframe + Clip
 				if (Coords.size() != 0)
 				{
 					if ((Elements.count() != 0) && (lastPath == currPath))
@@ -390,6 +400,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->PoLine.translate(ScMW->doc->currentPage->xOffset(), ScMW->doc->currentPage->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
+						ite->fillRule = (fillRuleEvenOdd);
 						FPoint wh = getMaxClipF(&ite->PoLine);
 						ite->setWidthHeight(wh.x(),wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
@@ -524,6 +535,12 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			else if (token == "im") {
 				Image(params);
 			}
+			else if (token == "mask") {
+				//TODO: 
+			}
+			else if (token == "pat") {
+				//TODO
+			}
 			lasttoken = token;
 		}
 		f.close();
@@ -544,7 +561,7 @@ void EPSPlug::Image(QString vals)
 	Code >> horpix;
 	Code >> verpix;
 	Code >> device;
-	Code >> filename;
+	Code >> filename; //FIXME: spaces in filenames
 	qDebug(QString("import %6 image %1: %2x%3 @ (%4,%5) °%5").arg(filename).arg(w).arg(h).arg(x).arg(y).arg(angle).arg(device));
 	QString rawfile = filename.mid(0, filename.length()-3) + "dat";
 	QStringList args;
