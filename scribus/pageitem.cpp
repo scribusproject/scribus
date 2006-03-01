@@ -35,8 +35,10 @@ for which a new license (GPL+exception) is in place.
 #include <qmessagebox.h>
 #include <cmath>
 #include <cassert>
+
 #include "scpaths.h"
 #include "page.h"
+#include "scpainter.h"
 #include "scribus.h"
 #include "scribusapp.h"
 #include "scribusstructs.h"

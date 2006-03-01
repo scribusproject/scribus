@@ -33,14 +33,15 @@ for which a new license (GPL+exception) is in place.
 #include <qvaluelist.h>
 
 #include "scribusapi.h"
-#include "scpainter.h"
-#include "undoobject.h"
-#include "scimage.h"
-#include "pagestructs.h"
 #include "annotation.h"
+#include "pagestructs.h"
+#include "scimage.h"
 #include "sctextstruct.h"
+#include "undoobject.h"
+#include "vgradient.h"
 #include "text/storytext.h"
 
+class ScPainter;
 class ScribusDoc;
 class UndoManager;
 class UndoState;
