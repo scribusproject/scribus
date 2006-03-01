@@ -86,6 +86,8 @@
     <function shortcut="" name="itemDetachTextFromPath" />
     <function shortcut="Ctrl+Alt+Shift+D" name="itemDuplicate" />
     <function shortcut="" name="itemExtendedImageProperties" />
+    <function shortcut="" name="itemFlipH" />
+    <function shortcut="" name="itemFlipV" />
     <function shortcut="Ctrl+G" name="itemGroup" />
     <function shortcut="" name="itemImageInfo" />
     <function shortcut="" name="itemImageIsVisible" />
@@ -101,6 +103,7 @@
     <function shortcut="" name="itemPreviewFull" />
     <function shortcut="" name="itemPreviewLow" />
     <function shortcut="" name="itemPreviewNormal" />
+    <function shortcut="" name="itemPrintingEnabled" />
     <function shortcut="Ctrl+Home" name="itemRaise" />
     <function shortcut="Home" name="itemRaiseToTop" />
     <function shortcut="" name="itemSendToScrapbook" />
@@ -189,6 +192,7 @@
     <function shortcut="" name="unicodeLigature_fl" />
     <function shortcut="" name="unicodeLigature_ft" />
     <function shortcut="" name="unicodeLigature_st" />
+    <function shortcut="" name="unicodeMidpoint" />
     <function shortcut="Shift+Return" name="unicodeNewLine" />
     <function shortcut="Ctrl+Alt+-" name="unicodeNonBreakingHyphen" />
     <function shortcut="Ctrl+Space" name="unicodeNonBreakingSpace" />
@@ -213,6 +217,13 @@
     <function shortcut="" name="unicodeQuoteStraight" />
     <function shortcut="" name="unicodeRegdTM" />
     <function shortcut="Ctrl+Shift+-" name="unicodeSmartHyphen" />
+    <function shortcut="" name="unicodeSolidus" />
+    <function shortcut="" name="unicodeSpaceEM" />
+    <function shortcut="" name="unicodeSpaceEN" />
+    <function shortcut="" name="unicodeSpaceHair" />
+    <function shortcut="" name="unicodeSpaceMid" />
+    <function shortcut="" name="unicodeSpaceThick" />
+    <function shortcut="" name="unicodeSpaceThin" />
     <function shortcut="" name="unicodeTM" />
     <function shortcut="Ctrl+1" name="viewFit100" />
     <function shortcut="" name="viewFit20" />
@@ -227,6 +238,7 @@
     <function shortcut="" name="viewShowGuides" />
     <function shortcut="" name="viewShowImages" />
     <function shortcut="" name="viewShowMargins" />
+    <function shortcut="Ctrl+Shift+R" name="viewShowRulers" />
     <function shortcut="" name="viewShowTextChain" />
     <function shortcut="" name="viewShowTextControls" />
     <function shortcut="" name="viewSnapToGrid" />

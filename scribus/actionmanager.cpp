@@ -444,7 +444,7 @@ void ActionManager::initViewMenuActions()
 void ActionManager::initToolsMenuActions()
 {
 	//Tool menu
-	scrActions->insert("toolsProperties", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "toolsProperties"));
+	scrActions->insert("toolsProperties", new ScrAction(QIconSet(noIcon),"", Key_F2, ScMW, "toolsProperties"));
 	scrActions->insert("toolsOutline", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "toolsOutline"));
 	scrActions->insert("toolsScrapbook", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "toolsScrapbook"));
 	scrActions->insert("toolsLayers", new ScrAction(QIconSet(noIcon),"", QKeySequence(Key_F6), ScMW, "toolsLayers"));
