@@ -87,8 +87,8 @@ public slots:
 
 signals:
 	void MarkMoved();
-	void ChangeBMNr(int, int, int);
 	void SelectElement(PageItem *);
+	void changed();
 
 protected:
 	void contentsMouseReleaseEvent(QMouseEvent *m);

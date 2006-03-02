@@ -1744,7 +1744,7 @@ void ScribusDoc::getUsedFonts(QMap<QString,int> *Really)
 							uint docPageCount=DocPages.count();
 							for (uint a = 0; a < docPageCount; ++a)
 							{
-								if ((DocPages.at(a)->MPageNam) == (MasterPages.at(it->OwnPage)->PageNam))
+								if (DocPages.at(a)->MPageNam == it->OnMasterPage)
 								{
 									newText=getSectionPageNumberForPageIndex(a);
 									for (uint nti=0;nti<newText.length();++nti)

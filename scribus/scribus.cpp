@@ -555,6 +555,7 @@ void ScribusMainWindow::initPalettes()
 	connect(layerPalette, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
 
 	connect(bookmarkPalette->BView, SIGNAL(MarkMoved()), this, SLOT(StoreBookmarks()));
+	connect(bookmarkPalette->BView, SIGNAL(changed()), this, SLOT(slotDocCh()));
 	connect(bookmarkPalette->BView, SIGNAL(SelectElement(PageItem *)), this, SLOT(selectItemsFromOutlines(PageItem *)));
 }
 

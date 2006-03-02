@@ -1582,7 +1582,10 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					doc->GroupCounter = 0;
 					Neu = PasteItem(&pg, doc);
 					Neu->setRedrawBounding();
-					Neu->OwnPage = pg.attribute("OwnPage").toInt();
+					if (pg.tagName()=="MASTEROBJECT")
+						Neu->OwnPage = doc->OnPage(Neu);
+					else
+						Neu->OwnPage = pg.attribute("OwnPage").toInt();
 					if (pg.tagName()=="PAGEOBJECT")
 						Neu->OnMasterPage = "";
 					doc->GroupCounter = docGc;
