@@ -1044,6 +1044,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	setPrintingEnabled(i->printEnabled());
 	setLocked(i->locked());
+	setSizeLocked(i->sizeLocked());
 	if ((i->isTableItem) && (i->isSingleSel))
 	{
 		setter = true;
@@ -1056,10 +1057,11 @@ void Mpalette::setCurrentItem(PageItem *i)
 	else
 		TabStack3->raiseWidget(0);
 	LayerGroup->setEnabled(!setter);
+	/*
 	Xpos->setReadOnly(setter);
 	Ypos->setReadOnly(setter);
 	Rot->setReadOnly(setter);
-	setSizeLocked(i->sizeLocked());
+	*/
 	if (i->asPathText())
 	{
 		TabStack2->raiseWidget(1);
@@ -1255,10 +1257,11 @@ void Mpalette::SetCurItem(PageItem *i)
 	else
 		TabStack3->raiseWidget(0);
 	LayerGroup->setEnabled(!setter);
+	/*
 	Xpos->setReadOnly(setter);
 	Ypos->setReadOnly(setter);
 	Rot->setReadOnly(setter);
-
+	*/
 	if (i->asPathText())
 	{
 		TabStack2->raiseWidget(1);
@@ -1416,8 +1419,8 @@ void Mpalette::NewSel(int nr)
 			widthLabel->setText( tr( "&Width:" ) );
 			yposLabel->setText( tr( "&Y-Pos:" ) );
 			heightLabel->setText( tr( "&Height:" ) );
-			Rot->setEnabled(true);
-			Height->setEnabled(true);
+			//Rot->setEnabled(true);
+			//Height->setEnabled(true);
 			HaveItem = false;
 			Xpos->setValue(0);
 			Ypos->setValue(0);
@@ -4041,8 +4044,11 @@ void Mpalette::setLocked(bool isLocked)
 
 void Mpalette::setSizeLocked(bool isSizeLocked)
 {
-	Width->setReadOnly(isSizeLocked);
-	Height->setReadOnly(isSizeLocked);
+	bool b=isSizeLocked;
+	if (HaveItem && CurItem->locked())
+		b=true;
+	Width->setReadOnly(b);
+	Height->setReadOnly(b);
 	NoResize->setOn(isSizeLocked);
 }
 
