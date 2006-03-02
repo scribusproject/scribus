@@ -44,19 +44,93 @@ class MultiProgressDialog : public MultiProgressDialogBase
 
 	public:
 		MultiProgressDialog(QWidget* parent=0, const char*name=0, bool modal=false, WFlags f=0);
+		/**
+		 * Create a multi progress bar dialog for long operations with multiple steps. The dialog includes
+		 * one standard progress bar, typically for the overall progress and others may be added easily.
+		 * @param titleText Title of the dialog
+		 * @param cancelButtonText Text of the cancel button.. Cancel, Close, @sa CommontStrings::
+		 * @param parent Parent widget for the dialog, commonly ScMW
+		 * @param name
+		 * @param modal 
+		 * @param f 
+		 * @return 
+		 */
 		MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent=0, const char*name=0, bool modal=true, WFlags f=0);
 		~MultiProgressDialog();
 		
+		/**
+		 * Remove all progress bars other than the main one
+		 */
 		void removeExtraProgressBars();
+		/**
+		 * Add a list of progress bars, where barsList contains a list of references and barTexts
+		 * contains the labels for the bars.
+		 * Eg:
+		 * "MYBAR1" -> "My Bar 1:"
+		 * "MYBAR2" -> "My Bar 2:"
+		 * @param barsList 
+		 * @param barsTexts 
+		 * @return Success
+		 */
 		bool addExtraProgressBars(const QStringList &barsList, const QStringList &barsTexts);
+		/**
+		 * Set a new label for a user defined progress bar
+		 * @param barName Progress bar name
+		 * @param newLabel New label
+		 * @return Success
+		 */
 		bool setLabel(const QString &barName, const QString & newLabel);
+		/**
+		 * Set the total steps for a user defined progress bar
+		 * @param barName 
+		 * @param totalSteps 
+		 * @return Success
+		 */
 		bool setTotalSteps(const QString &barName, int totalSteps);
+		/**
+		 * Set the progress for a user defined progress bar
+		 * @param barName 
+		 * @param progress 
+		 * @return 
+		 */
 		bool setProgress(const QString &barName, int progress);
+		/**
+		 * Set the prgress and total steps for a user defined progress bar
+		 * @param barName 
+		 * @param progress 
+		 * @param totalSteps 
+		 * @return 
+		 */
 		bool setProgress(const QString &barName, int progress, int totalSteps);
+		/**
+		 * Set the overall total steps for the dialog
+		 * @param totalSteps 
+		 */
 		void setOverallTotalSteps(int totalSteps);
+		/**
+		 * Set the overall progress for the dialog
+		 * @param progress 
+		 */
 		void setOverallProgress(int progress);
+		/**
+		 * Set the overall progress and total steps for the dialog
+		 * @param progress 
+		 * @param totalSteps 
+		 */
 		void setOverallProgress(int progress, int totalSteps);
+		/**
+		 * Create a new progress bar in one step
+		 * @param barName 
+		 * @param barText 
+		 * @param progress 
+		 * @param totalSteps 
+		 * @return 
+		 */
 		bool setupBar(const QString &barName, const QString &barText, int progress, int totalSteps);
+		/**
+		 * Set the cancel button text
+		 * @param cancelButtonText 
+		 */
 		void setCancelButtonText(const QString & cancelButtonText);
 		
 	protected:
