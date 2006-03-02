@@ -1825,8 +1825,9 @@ bool ScribusMainWindow::slotFileNew()
 	return retVal;
 }
 
-bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, double sp,
-                           bool atf, int fp, int einh, int firstleft, int Ori, int SNr, const QString& defaultPageSize, int pageCount)
+bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, 
+									double sp, bool atf, int fp, int einh, int firstleft, int Ori, int SNr, 
+									const QString& defaultPageSize, int pageCount, bool showView)
 {
 	QString cc;
 	if (HaveDoc)
@@ -1880,11 +1881,14 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
 
 	//Independent finishing tasks after doc setup
-	if ( wsp->windowList().isEmpty() )
-		w->showMaximized();
-	else
-		w->show();
-	view->show();
+	if (showView)
+	{
+		if ( wsp->windowList().isEmpty() )
+			w->showMaximized();
+		else
+			w->show();
+		view->show();
+	}
 	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 	connect(fileWatcher, SIGNAL(fileChanged(QString)), doc, SLOT(updatePict(QString)));
 	connect(fileWatcher, SIGNAL(fileDeleted(QString)), doc, SLOT(removePict(QString)));

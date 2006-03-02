@@ -31,7 +31,7 @@ SampleItem::SampleItem() : QObject()
 									//pagesType, unit, firstPageOrder,
 									1, 1, 1,
 									//orientation, firstPageNr, "Custom");
-									1, 1, "custom");
+									1, 1, "custom", 1, false);
 		ScMW->doc->pageSets[1/*pagesType*/].FirstPage = 1;//firstPageOrder;
 		used = false;
 	}
