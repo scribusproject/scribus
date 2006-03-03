@@ -2,6 +2,7 @@
  * CSS file for Scribus doxygen docs.
  * author: Petr Vanek, <petr@yarpen.cz>
  */
+/*
 body {
 	font-color: black;
 	font-size: 12pt;
@@ -11,6 +12,16 @@ body {
 	padding: 0px;
 	margin: 0px;
 }
+*/
+body {
+    color: #000000;
+#    background: #ffffff;
+background-color: #1e72a8;
+    padding: 0px;
+    margin: 0px;
+    font-family: Trebuchet, "Trebuchet MS", Tahoma, Verdana, Arial, Sans-Serif;
+    font-size: 12px;
+}
 .maincontent {
 	border: 1px solid black;
 	margin: 1em;
@@ -19,11 +30,12 @@ body {
 }
 
 .scheader {
-	background:url(images/logo3m.png) repeat-x;
+	background:url(../images/logo3m.png) repeat-x;
 	margin: 0px;
 	padding: 0px;
 	margin-bottom: 1em;
 	height: 87px;
+	width:100%;
 	border-bottom: 0px #33347a solid;
 	border-top: 0px #33347a solid;
 }
