@@ -4,7 +4,7 @@
 %%EndComments
 %%EndProlog
 
-% Barcode Writer in Pure PostScript - Version 2006-03-02
+% Barcode Writer in Pure PostScript - Version 2006-03-03
 % http://www.terryburton.co.uk/barcodewriter/
 %
 % Copyright (c) 2006 Terry Burton - tez@terryburton.co.uk
@@ -1688,7 +1688,7 @@
     /textfont /Courier def
     /textsize 10 def
     /textpos -7 def
-    /height 0.2 def
+    /height 0.125 def
     
     % Parse the input options
     options {
@@ -1740,7 +1740,7 @@
             heights j enc j 1 getinterval cvi height mul 5 div put
         } for
         bhs i 5 mul 1 add heights putinterval   % Put encoded digit into sbs
-        txt i [barcode i 1 getinterval i 20 mul 4 add textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 5 mul 1 add 72 mul 25 div textpos textfont textsize] put
         /checksum checksum indx add def     % checksum+=indx
     } for
 
@@ -1755,9 +1755,9 @@
     bhs barlen 5 mul 1 add heights putinterval  
     
     includecheckintext {
-        txt barlen [barchars checksum 1 getinterval barlen 20 mul 4 add textpos textfont textsize] put
+        txt barlen [barchars checksum 1 getinterval barlen 5 mul 1 add 72 mul 25 div textpos textfont textsize] put
     } {
-        txt barlen [( ) barlen 10 mul 4 add textpos textfont textsize] put
+        txt barlen [( ) barlen 5 mul 1 add 72 mul 25 div textpos textfont textsize] put
     } ifelse
     
     % Put end character
@@ -1774,7 +1774,7 @@
     retval (bbs) [bhs length {0} repeat] put
     /sbs bhs length 2 mul 1 sub array def
     0 1 sbs length 1 sub {
-        sbs exch 2 put       % Fill with 2s
+        sbs exch 1.44 put       % 0.02in
     } for
     retval (sbs) sbs put
     includetext {
@@ -1803,7 +1803,7 @@
     /textfont /Courier def
     /textsize 10 def
     /textpos -7 def
-    /height 0.3 def
+    /height 0.175 def
     
     % Parse the input options
     options {
@@ -1848,7 +1848,7 @@
         pop pop                             % Discard seek and post
         /enc encs indx get def              % Get the indxth encoding
         encstr i 4 mul 1 add enc putinterval
-        txt i [barcode i 1 getinterval i 16 mul 4 add textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 4 mul 1 add 72 mul 25 div textpos textfont textsize] put
         /checksumrow checksumrow indx 6 idiv add def
         /checksumcol checksumcol indx 6 mod add def 
     } for
@@ -1858,9 +1858,9 @@
     /enc encs checksum get def
     encstr barlen 4 mul 1 add enc putinterval
     includecheckintext {
-        txt barlen [barchars checksum 1 getinterval barlen 16 mul 4 add textpos textfont textsize] put
+        txt barlen [barchars checksum 1 getinterval barlen 4 mul 1 add 72 mul 25 div textpos textfont textsize] put
     } {
-        txt barlen [( ) barlen 16 mul 4 add textpos textfont textsize] put
+        txt barlen [( ) barlen 4 mul 1 add 72 mul 25 div textpos textfont textsize] put
     } ifelse
     
     % Put end character
@@ -1894,7 +1894,7 @@
     retval (bhs) bhs put
     /sbs bhs length 2 mul 1 sub array def
     0 1 sbs length 1 sub {
-        sbs exch 2 put       % Fill with 2s
+        sbs exch 1.44 put       % 0.02in
     } for
     retval (sbs) sbs put
     includetext {
@@ -1922,7 +1922,7 @@
     /textfont /Courier def
     /textsize 10 def
     /textpos -7 def
-    /height 0.3 def
+    /height 0.175 def
     /custinfoenc (character) def
     
     % Parse the input options
@@ -1975,7 +1975,7 @@
         /i exch def       
         encs barcode i 1 getinterval cvi 64 add get
         encstr i 2 mul 2 add 3 2 roll putinterval
-        txt i 2 sub [barcode i 1 getinterval i 2 sub 8 mul 24 add textpos textfont textsize] put
+        txt i 2 sub [barcode i 1 getinterval i 2 sub 2 mul 6 add 72 mul 25 div textpos textfont textsize] put
     } for
     
     % Encode the customer information   
@@ -1984,7 +1984,7 @@
             /i exch def
             encs barcode i 10 add 1 getinterval cvi 64 add get
             encstr i 2 mul 22 add 3 2 roll putinterval
-            txt i 8 add [barcode i 10 add 1 getinterval i 8 mul 88 add textpos textfont textsize] put
+            txt i 8 add [barcode i 10 add 1 getinterval i 2 mul 22 add 72 mul 25 div textpos textfont textsize] put
         } for        
         /ciflen barlen 10 sub 2 mul def
     } {
@@ -1996,7 +1996,7 @@
             pop pop                            
             /enc encs indx get def          
             encstr i 3 mul 22 add enc putinterval
-            txt i 8 add [barcode i 10 add 1 getinterval i 12 mul 88 add textpos textfont textsize] put
+            txt i 8 add [barcode i 10 add 1 getinterval i 3 mul 22 add 72 mul 25 div textpos textfont textsize] put
         } for        
         /ciflen barlen 10 sub 3 mul def
     } ifelse
@@ -2086,7 +2086,7 @@
     retval (bhs) bhs put
     /sbs bhs length 2 mul 1 sub array def
     0 1 sbs length 1 sub {
-        sbs exch 2 put       % Fill with 2s
+        sbs exch 1.44 put       % Fill with 0.02in
     } for
     retval (sbs) sbs put
     includetext {
@@ -2115,7 +2115,7 @@
     /textfont /Courier def
     /textsize 10 def
     /textpos -7 def
-    /height 0.3 def
+    /height 0.175 def
     
     % Parse the input options
     options {
@@ -2154,7 +2154,7 @@
         pop pop                             % Discard seek and post
         /enc encs indx get def              % Get the indxth encoding
         encstr i 4 mul enc putinterval
-        txt i [barcode i 1 getinterval i 16 mul textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 4 mul 72 mul 25 div textpos textfont textsize] put
     } for
 
     /bbs encstr length array def    
@@ -2185,7 +2185,7 @@
     retval (bhs) bhs put
     /sbs bhs length 2 mul 1 sub array def
     0 1 sbs length 1 sub {
-        sbs exch 2 put       % Fill with 2s
+        sbs exch 1.44 put       % 0.02in 
     } for
     retval (sbs) sbs put
     includetext {
@@ -2571,12 +2571,12 @@
         grestore  
     } if     
     showborder {
-	gsave
+        gsave
         bordercolor (unset) ne {
             (<      >) dup 1 bordercolor putinterval cvx exec {255 div} forall setrgbcolor
         } if
         borderwidth setlinewidth stroke
-	grestore
+        grestore
     } if    
    
     % Display the bars for elements in the bars array
