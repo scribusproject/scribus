@@ -8401,42 +8401,44 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 
 QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 {
-	QImage pm;
+//	QImage pm;
 	QImage im;
-	int clipx = static_cast<int>(Doc->Pages->at(Nr)->xOffset());
-	int clipy = static_cast<int>(Doc->Pages->at(Nr)->yOffset());
-	int clipw = qRound(Doc->Pages->at(Nr)->width());
-	int cliph = qRound(Doc->Pages->at(Nr)->height());
+	double sx = maxGr / Doc->Pages->at(Nr)->width();
+	double sy = maxGr / Doc->Pages->at(Nr)->height();
+	double sc = QMIN(sx, sy);
+	int clipx = static_cast<int>(Doc->Pages->at(Nr)->xOffset() * sc);
+	int clipy = static_cast<int>(Doc->Pages->at(Nr)->yOffset() * sc);
+	int clipw = qRound(Doc->Pages->at(Nr)->width() * sc);
+	int cliph = qRound(Doc->Pages->at(Nr)->height() * sc);
 	if ((clipw > 0) && (cliph > 0))
 	{
 		double sca = Scale;
 		bool frs = Doc->guidesSettings.framesShown;
 		Doc->guidesSettings.framesShown = false;
-		setScale(1.0);
+		setScale(sc);
 		previewMode = true;
 		Page* act = Doc->currentPage;
 		Doc->currentPage = Doc->Pages->at(Nr);
-		pm = QImage(clipw, cliph, 32, QImage::BigEndian);
-		ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height());
+		im = QImage(clipw, cliph, 32, QImage::BigEndian);
+		ScPainter *painter = new ScPainter(&im, im.width(), im.height());
 		painter->clear(Doc->papColor);
 		painter->translate(-clipx, -clipy);
 		painter->setFillMode(ScPainter::Solid);
 		painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 		painter->setBrush(Doc->papColor);
 		painter->drawRect(clipx, clipy, clipw, cliph);
-//		painter->translate(0.5, 0.5);
 		DrawMasterItems(painter, Doc->Pages->at(Nr), QRect(clipx, clipy, clipw, cliph));
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 		painter->end();
 		Doc->guidesSettings.framesShown = frs;
 		setScale(sca);
 		Doc->currentPage = act;
-		double sx = pm.width() / static_cast<double>(maxGr);
+/*		double sx = pm.width() / static_cast<double>(maxGr);
 		double sy = pm.height() / static_cast<double>(maxGr);
 		if (sy < sx)
 			im = pm.smoothScale(static_cast<int>(pm.width() / sx), static_cast<int>(pm.height() / sx));
 		else
-			im = pm.smoothScale(static_cast<int>(pm.width() / sy), static_cast<int>(pm.height() / sy));
+			im = pm.smoothScale(static_cast<int>(pm.width() / sy), static_cast<int>(pm.height() / sy)); */
 		delete painter;
 		painter=NULL;
 		previewMode = false;
