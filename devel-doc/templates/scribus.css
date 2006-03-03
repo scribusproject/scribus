@@ -83,6 +83,8 @@ a:visited {
  */
 div.qindex {
 	background-color: #1e72a8;
+	background: #e3ce94;
+	color: #785D2C;
 	padding: 0.1em;
 	border: 1px solid black;
 	border-top: 0px;
@@ -94,13 +96,15 @@ div.qindex {
 	margin-right: -1em;
 }
 a.qindex, a.qindexHL {
-	color: white;
+	color: black;
 	margin-left: 0.5em;
 	margin-right: 0.5em;
+	font-family: Arial, Helvetica, Sans-Serif;
+	font-size:12px;
+	text-decoration: none;
 } 
 a.qindex:hover, a.qindexHL:hover {
-	color: #1e72a8;
-	background: white;
+	background: #cbb072;
 }
 
 h1 {
