@@ -101,6 +101,7 @@ a.qindex, a.qindexHL {
 	margin-right: 0.5em;
 	font-family: Arial, Helvetica, Sans-Serif;
 	font-size:12px;
+	font-weight:bold;
 	text-decoration: none;
 } 
 a.qindex:hover, a.qindexHL:hover {
