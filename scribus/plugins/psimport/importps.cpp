@@ -251,8 +251,6 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( "-q" );
 	args.append( "-dNOPAUSE" );
 	args.append( "-sDEVICE=nullpage" );
-	args.append( "-dTextAlphaBits=4" );
-	args.append( "-dGraphicsAlphaBits=4" );
 	args.append( "-dBATCH" );
 	// Add any extra font paths being used by Scribus to gs's font search
 	// path We have to use Scribus's prefs context, not a plugin context, to
@@ -267,7 +265,10 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	if( !cmd.isEmpty() )
 		args.append( cmd );
 	// then finish building the command and call gs
-	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b-x))).arg(tmp3.setNum(qRound(h-y))) );
+	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound((b-x)*4))).arg(tmp3.setNum(qRound((h-y)*4))) );
+	args.append( "-r288");
+	args.append( "-dTextAlphaBits=4" );
+	args.append( "-dGraphicsAlphaBits=4" );
 	args.append( "-c" );
 	args.append( tmp.setNum(-x) );
 	args.append( tmp.setNum(-y) );
@@ -536,7 +537,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 				Image(params);
 			}
 			else if (token == "mask") {
-				//TODO: 
+				//TODO
 			}
 			else if (token == "pat") {
 				//TODO
@@ -561,7 +562,7 @@ void EPSPlug::Image(QString vals)
 	Code >> horpix;
 	Code >> verpix;
 	Code >> device;
-	Code >> filename; //FIXME: spaces in filenames
+	filename = Code.read().stripWhiteSpace();
 	qDebug(QString("import %6 image %1: %2x%3 @ (%4,%5) °%5").arg(filename).arg(w).arg(h).arg(x).arg(y).arg(angle).arg(device));
 	QString rawfile = filename.mid(0, filename.length()-3) + "dat";
 	QStringList args;

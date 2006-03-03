@@ -50,7 +50,8 @@
 % 15.05.2004 Added the Glyphshow Operator.
 % 17.05.2004 Made clipping working.
 % 20.05.2004 kshow is working now.
-% 22.02.2006 added image and colorimage ops
+% 22.02.2006 added image and colorimage ops -- av
+% 02.03.2006 added code to divide reported coordinates by (device resolution/72) -- av
 
 /cfile TraceFile (w) file def
 /print { cfile exch writestring } bind def
@@ -158,6 +159,11 @@
 } bind def
 
 % scale
+
+currentpagedevice /HWResolution get aload pop
+72 div /i_vscale exch def
+72 div /i_hscale exch def
+
 /m_a 1 def
 /m_b 0 def
 /m_c 0 def
@@ -167,12 +173,12 @@
 /matrix_x	% x y
 {
 	% ax + cy + tx
-	m_c mul exch m_a mul add m_x add
+	m_c mul exch m_a mul add m_x add i_hscale div
 } bind def
 /matrix_y	% x y
 {
 	% bx + dy + ty
-	m_d mul exch m_b mul add m_y add
+	m_d mul exch m_b mul add m_y add i_vscale div
 } bind def
 
 
@@ -184,11 +190,33 @@
 	exch pop exch pop
 } bind def 
 
+% this is like search but returns the last match in string
+/rsearch	% string seek  rsearch  post match pre true // string false
+{
+	2 copy search	% string seek post1 match1 pre1 true
+	{
+		2 index 4 index rsearch		% string seek post1 match1 pre1 post2 match2 pre2 true
+		{
+			6 -1 roll pop			% string seek match1 pre1 post2 match2 pre2 
+			% combine (pre1 match1 pre2) into one string
+			5 -1 roll exch concatenate	% string seek pre1 post2 match2 (match1+pre2)
+			4 -1 roll exch concatenate	% string seek post2 match2 (pre1+match1+pre2)
+		} {		% string seek post1 match1 pre1 post1
+			pop
+		} ifelse
+		% string seek post match pre
+		5 -2 roll pop pop
+		true
+	} {		% string seek string 
+		pop pop false
+	} ifelse
+} bind def
+
 
 % returns a unique filename for the given extension
 /i_exportfilename   % string i_exportfilename string
 {
-	/ExportFiles where { /ExportFiles get (.) search { exch pop exch pop } if } { (imagefile) } ifelse
+	/ExportFiles where { /ExportFiles get (.) rsearch { exch pop exch pop } if } { (imagefile) } ifelse
 	    (-) concatenate dup /i_basename exch def i_filecount 9 string cvs concatenate
 		{
 			i_filecount 1 add /i_filecount exch store
@@ -250,31 +278,19 @@
 		/ProcessColorModel /DeviceRGB
 		/PageSize [i_w i_h]
 	/pngalpha finddevice putdeviceprops setdevice 
-	currentdevice getdeviceprops pstack cleartomark 
 	setcolorspace setcolor
 	matrix currentmatrix ==
 	0 0 transform exch = =
 	1 1 transform exch = =
-	1 0.5 0 setrgbcolor
-	0 0 i_w i_h rectfill
-	0 1 0 setrgbcolor
-	1 setlinewidth
-	newpath
-	0 0 moveto i_w i_h lineto
-	0 i_h moveto
-	i_w 0 lineto
-	stroke
-	i_dict i_w i_h matrix identmatrix scale //makepattern setpattern
-	0 0 i_w i_h rectfill
+	i_dict %i_w i_h matrix identmatrix scale 
+			matrix identmatrix //makepattern setpattern
+	0 0 i_w i_h pstack rectfill
 	showpage
-/MP1 =
-	currentdevice getdeviceprops pstack cleartomark
 	grestore
 	% create pattern with our extensions:
 	i_dict dup /ExportFile i_basename put
 	dup /Origin [ 0 0 transform ] put
 	i_m //makepattern
-/MP2 =
 	/i_shortcut false store
 /makepatternE =
 } i_shortcutOverload
@@ -285,8 +301,8 @@
 	currentcolor
 	(pat ) print
 	dup /Origin get
-	dup 0 get i_str cvs print ( ) print
-	    1 get i_str cvs print ( ) print
+	dup 0 get i_hscale div i_str cvs print ( ) print
+	    1 get i_vscale div i_str cvs print ( ) print
 	/ExportFile get print
 	(\n) print
 /WPE =
@@ -407,7 +423,9 @@
 	storeMatrix
 
 	% (wb + wd + wa + wc) / 2
-	dup dup dup m_b abs mul exch m_d abs mul add  exch m_a abs mul add  exch m_c abs mul add  2 div  abs
+%??av	dup dup dup m_b abs mul exch m_d abs mul add  exch m_a abs mul add  exch m_c abs mul add  2 div  abs
+	% transform (w,w) and take length
+	dup dtransform i_vscale div dup mul exch i_hscale div dup mul add sqrt
 	(w ) print
 	i_str cvs print
 	(\n) print
@@ -490,16 +508,11 @@
 {
 	userdict begin
 	matrix currentmatrix
-	0 get /m_a exch def
-	matrix currentmatrix
-	1 get /m_b exch def
-	matrix currentmatrix
-	2 get /m_c exch def
-	matrix currentmatrix
-	3 get /m_d exch def
-	matrix currentmatrix
-	4 get /m_x exch def
-	matrix currentmatrix
+	dup 0 get /m_a exch def
+	dup 1 get /m_b exch def
+	dup 2 get /m_c exch def
+	dup 3 get /m_d exch def
+	dup 4 get /m_x exch def
 	5 get /m_y exch def
 	end
 } bind def
@@ -563,7 +576,7 @@
 	storeMatrix
 
 	% x y width height
-	dup type /arraytype ne
+	dup type dup /arraytype ne exch /stringtype ne and
 	{
 		/hr exch def
 		/wr exch def
@@ -605,7 +618,7 @@
 	writecurrentlinecap
 	writecurrentlinejoin
 	writecurrentdash
-	clipCnt 1 eq
+	clipCnt 1 eq % pop false  % av: this just doesn't work right with strokes :-(
 		{ clipsave clip newpath clippath cliprestore } if
 	storeMatrix
 	{i_move} {i_line} {i_curve} {i_close} pathforall
@@ -657,12 +670,46 @@
 % because this doesn't work for flattening text (show, charpath) with NeXT PostScript Code
 /rectclip
 {
-	% let Scribus decide what to do with rci: pop pop pop pop
-	(rci ) print 
-	i_str cvs print ( ) print
-	i_str cvs print ( ) print
-	i_str cvs print ( ) print
-	i_str cvs print (\n) print
+	% let Scribus decide what to do with ci; was: pop pop pop pop
+	userdict begin
+	(n\n)print			% start clip polygon
+
+	storeMatrix			% take transformation, scaling, rotation from PostScript
+	dup type dup /arraytype ne exch /stringtype ne and
+	{
+		4 copy
+		/i_h exch def
+		/i_w exch def
+		/i_y exch def
+		/i_x exch def
+		i_x i_y i_move
+		i_x i_w add i_y i_line
+		i_x i_w add i_y i_h add i_line
+		i_x i_y i_h add i_line
+	} {
+		% array or string
+		0 4 dup length 1 sub 
+		{
+			1 index 1 index get /i_x exch def
+			1 add
+			1 index 1 index get /i_y exch def
+			1 add
+			1 index 1 index get /i_w exch def
+			1 add
+			1 index 1 index get /i_y exch def
+			i_x i_y i_move
+			i_x i_w add i_y i_line
+			i_x i_w add i_y i_h add i_line
+			i_x i_y i_h add i_line
+		} for
+	} ifelse
+	
+	(ci\n)print			% close clip polygon begin path
+						% we have to close the path!!
+	rectclip
+	/clipCnt 1 def
+	newpath				% clear stack
+	end
 } i_shortcutOverload
 
 
@@ -721,10 +768,10 @@
 	/i_angle exch def
 	(.tif) i_exportfilename
 		(im ) print												% im x y w h angle ...
-		i_x i_str cvs print ( ) print
-		i_y i_str cvs print ( ) print
-		i_w i_str cvs print ( ) print
-		i_h i_str cvs print ( ) print
+		i_x i_hscale div i_str cvs print ( ) print
+		i_y i_vscale div i_str cvs print ( ) print
+		i_w i_hscale div i_str cvs print ( ) print
+		i_h i_vscale div i_str cvs print ( ) print
 		i_angle i_str cvs print ( ) print
 		i_dict /Width get  i_str cvs print ( ) print			% ... hpix vpix ...
 		i_dict /Height get i_str cvs print ( ) print
