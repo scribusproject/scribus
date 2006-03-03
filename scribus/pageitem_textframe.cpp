@@ -2384,8 +2384,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					if (CPos == static_cast<int>(itemText.count()))
 						break;
 					//CB Catch some funny empty lines. still testing
-					//if ((CPos < static_cast<int>(itemText.count())-1) && itemText.at(CPos+1)->ch[0].digitValue()==-1 && itemText.at(CPos)->ch[0].digitValue()==-1 && itemText.at(CPos)->xp == altx && itemText.at(CPos)->yp == alty)
-					//	break;
+					if ((CPos < static_cast<int>(itemText.count())-1) && itemText.at(CPos+1)->ch[0].digitValue()==-1 && itemText.at(CPos)->ch[0].digitValue()==-1 && itemText.at(CPos)->xp == altx && itemText.at(CPos)->yp == alty)
+						break;
 					if (itemText.at(CPos)->yp > alty)
 					{
 						if (down1 && itemText.at(CPos)->yp > newy)
