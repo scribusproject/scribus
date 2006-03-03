@@ -2820,9 +2820,21 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame()
 void PageItem_TextFrame::setNewPos(int oldPos, int len, int dir)
 {
 	int i;
-	bool isSpace;
+	bool isSpace, wasSpace;
 	if ( dir > 0 && oldPos < len )
 	{
+		wasSpace = itemText.at(oldPos)->ch.at(0).isSpace();
+		CPos=oldPos+1;
+		while (CPos<len)
+		{
+			isSpace = itemText.at(CPos)->ch.at(0).isSpace();
+			if (wasSpace && !isSpace)
+				break;
+			++CPos;
+			wasSpace=isSpace;
+			
+		}
+		/*
 		isSpace = itemText.at(oldPos)->ch.at(0).isSpace();
 		CPos = oldPos +1;
 		for (i=oldPos+1; i < len; i++)
@@ -2831,9 +2843,25 @@ void PageItem_TextFrame::setNewPos(int oldPos, int len, int dir)
 				break;
 			CPos++;
 		}
+		*/
 	}
 	else if ( dir < 0 && oldPos > 0 )
 	{
+		CPos=oldPos-1;
+		wasSpace = itemText.at(CPos)->ch.at(0).isSpace();
+		while (CPos>0)
+		{
+			isSpace = itemText.at(CPos)->ch.at(0).isSpace();
+			if (!wasSpace && isSpace)
+			{
+				++CPos;
+				break;
+			}
+			--CPos;
+			wasSpace=isSpace;
+			
+		}
+		/*
 		oldPos--;
 		isSpace = itemText.at(oldPos)->ch.at(0).isSpace();
 		for (i=oldPos; i >= 0; i--)
@@ -2842,6 +2870,7 @@ void PageItem_TextFrame::setNewPos(int oldPos, int len, int dir)
 				break;
 			CPos--;
 		}
+		*/
 	}
 }
 
