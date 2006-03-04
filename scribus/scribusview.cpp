@@ -1650,7 +1650,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			MarkClip(currItem, currItem->PoLine, true);
 		return;
 	}
-	if ((Doc->EditClip) && (SegP1 == -1) && (SegP2 == -1))
+	if ((moveTimer.elapsed() > 500) && (Doc->EditClip) && (SegP1 == -1) && (SegP2 == -1))
 	{
 		currItem = Doc->selection->itemAt(0);
 		if (operItemMoving)
@@ -1674,7 +1674,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		operItemMoving = false;
 		return;
 	}
-	if ((Doc->EditClip) && (SegP1 != -1) && (SegP2 != -1))
+	if ((moveTimer.elapsed() > 500) && (Doc->EditClip) && (SegP1 != -1) && (SegP2 != -1))
 	{
 		SegP1 = -1;
 		SegP2 = -1;
@@ -2103,7 +2103,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			currItem->OwnPage = Doc->OnPage(currItem);
 			updateContents();
 		}
-		if (GetItem(&currItem))
+		if ((moveTimer.elapsed() > 500) && (GetItem(&currItem)))
 		{
 			if (Doc->selection->isMultipleSelection())
 			{
@@ -3317,7 +3317,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	{
 		newX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
 		newY = qRound(m->y()/sc + Doc->minCanvasCoordinate.y());
-		if ((m_MouseButtonPressed) && (m->state() == RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal) && (!currItem->locked()) && (!(currItem->isTableItem && currItem->isSingleSel)))
+		if ((moveTimer.elapsed() > 500) && (m_MouseButtonPressed) && (m->state() == RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal) && (!currItem->locked()) && (!(currItem->isTableItem && currItem->isSingleSel)))
 		{
 			if ((abs(Dxp - newX) > 10) || (abs(Dyp - newY) > 10))
 			{
@@ -3348,7 +3348,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		}
 		if (Doc->DragP)
 			return;
-		if (m_MouseButtonPressed && (Doc->appMode == modeRotation))
+		if ((moveTimer.elapsed() > 500) && m_MouseButtonPressed && (Doc->appMode == modeRotation))
 		{
 			double newW = xy2Deg(m->x()/sc - RCenter.x(), m->y()/sc - RCenter.y());
 			if (m->state() & ControlButton)
@@ -3521,7 +3521,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		}
 		//Operations run here:
 		//Item resize, esp after creating a new one
-		if (m_MouseButtonPressed && (m->state() & LeftButton) && ((Doc->appMode == modeNormal) || ((Doc->appMode == modeEdit) && operItemResizeInEditMode)) && (!currItem->locked()))
+		if ((moveTimer.elapsed() > 500) && m_MouseButtonPressed && (m->state() & LeftButton) && ((Doc->appMode == modeNormal) || ((Doc->appMode == modeEdit) && operItemResizeInEditMode)) && (!currItem->locked()))
 		{
 			if (Doc->EditClip)
 			{
@@ -4240,6 +4240,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 	HaveSelRect = false;
 	Doc->DragP = false;
 	Doc->leaveDrag = false;
+	moveTimer.start();
 	Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
 	Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
 	QRect mpo(m->x()-Doc->guidesSettings.grabRad, m->y()-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
@@ -7759,6 +7760,7 @@ void ScribusView::SetupDraw(int nr)
 	Doc->appMode = modeNormal;
 	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;
+	moveTimer = moveTimer.addMSecs(500);
 }
 
 //CB-->Doc/Fix

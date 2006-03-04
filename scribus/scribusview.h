@@ -307,6 +307,7 @@ public slots: // Public slots
 private: // Private attributes
 	QPopupMenu *pmen3;
 	QPopupMenu *pmenResolution;
+	QTime moveTimer;
 	bool Ready;
 	int  oldX;
 	int  oldY;
