@@ -7760,7 +7760,7 @@ void ScribusView::SetupDraw(int nr)
 	Doc->appMode = modeNormal;
 	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;
-	moveTimer = moveTimer.addMSecs(500);
+	moveTimer = moveTimer.addSecs(1500);
 }
 
 //CB-->Doc/Fix
