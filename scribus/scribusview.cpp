@@ -3542,43 +3542,31 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					HaveSelRect = true;
 					return;
 				}
-				newX = static_cast<int>(m->x()/sc);
-				newY = static_cast<int>(m->y()/sc);
+				newX = m->x();
+				newY = m->y();
 				operItemMoving = true;
 				currItem = Doc->selection->itemAt(0);
 				currItem->OldB2 = currItem->width();
 				currItem->OldH2 = currItem->height();
-				p.begin(viewport());
-				Transform(currItem, &p);
-				npf = FPoint(p.xFormDev(m->pos()));
-				p.end();
+				FPointArray Clip;
+				if (EditContour)
+					Clip = currItem->ContourLine;
+				else
+					Clip = currItem->PoLine;
+				npf.setX(Clip.point(ClRe).x() + (newX-Mxp) / Scale);
+				npf.setY(Clip.point(ClRe).y() + (newY-Myp) / Scale);
 				if ((SegP1 != -1) && (SegP2 != -1))
 				{
-					FPointArray Clip;
-					if (EditContour)
-						Clip = currItem->ContourLine;
-					else
-						Clip = currItem->PoLine;
-					p.begin(viewport());
-					p.translate(static_cast<int>(currItem->xPos()*Scale), static_cast<int>(currItem->yPos()*Scale));
-					p.rotate(currItem->rotation());
-					FPoint npfN(p.xFormDev(QPoint(newX, newY)));
-					FPoint npfM(p.xFormDev(QPoint(Mxp, Myp)));
-					npf.setX(Clip.point(SegP2).x() + (npfN.x()-npfM.x()));
-					npf.setY(Clip.point(SegP2).y() + (npfN.y()-npfM.y()));
+					npf.setX(Clip.point(SegP2).x() + (newX-Mxp) / Scale);
+					npf.setY(Clip.point(SegP2).y() + (newY-Myp) / Scale);
 					ClRe = SegP2;
 					MoveClipPoint(currItem, npf);
 					currItem->OldB2 = currItem->width();
 					currItem->OldH2 = currItem->height();
-					if (EditContour)
-						Clip = currItem->ContourLine;
-					else
-						Clip = currItem->PoLine;
 					ClRe = SegP1;
-					npf2.setX(Clip.point(SegP1).x() + (npfN.x()-npfM.x()));
-					npf2.setY(Clip.point(SegP1).y() + (npfN.y()-npfM.y()));
+					npf2.setX(Clip.point(SegP1).x() + (newX-Mxp) / Scale);
+					npf2.setY(Clip.point(SegP1).y() + (newY-Myp) / Scale);
 					MoveClipPoint(currItem, npf2);
-					p.end();
 					Mxp = newX;
 					Myp = newY;
 				}
@@ -3587,21 +3575,10 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					if ((SelNode.count() != 0) && (EdPoints))
 					{
 						int storedClRe = ClRe;
-						FPointArray Clip;
 						for (uint itm = 0; itm < SelNode.count(); ++itm)
 						{
-							if (EditContour)
-								Clip = currItem->ContourLine;
-							else
-								Clip = currItem->PoLine;
-							p.begin(viewport());
-							p.translate(static_cast<int>(currItem->xPos()*Scale), static_cast<int>(currItem->yPos()*Scale));
-							p.rotate(currItem->rotation());
-							FPoint npfN(p.xFormDev(QPoint(newX, newY)));
-							FPoint npfM(p.xFormDev(QPoint(Mxp, Myp)));
-							p.end();
-							npf.setX(Clip.point(*SelNode.at(itm)).x() + (npfN.x()-npfM.x()));
-							npf.setY(Clip.point(*SelNode.at(itm)).y() + (npfN.y()-npfM.y()));
+							npf.setX(Clip.point(*SelNode.at(itm)).x() + (newX-Mxp) / Scale);
+							npf.setY(Clip.point(*SelNode.at(itm)).y() + (newY-Myp) / Scale);
 							ClRe = *SelNode.at(itm);
 							currItem->OldB2 = currItem->width();
 							currItem->OldH2 = currItem->height();
@@ -4534,6 +4511,11 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						MarkClip(currItem, currItem->PoLine, true);
 					emit DocChanged();
 				}
+				if ((SelNode.count() != 0) || ((SegP1 != -1) && (SegP2 != -1)))
+				{
+					Mxp = m->x();
+					Myp = m->y();
+				}
 				return;
 			}
 			if (GetItem(&currItem))
@@ -5431,6 +5413,7 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 	p.begin(viewport());
 	ToView(&p);
 	Transform(currItem, &p);
+	p.scale(0.1, 0.1);
 	if (once)
 		p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
 	else
@@ -5453,7 +5436,10 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 				p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
 			else
 				p.setPen(QPen(yellow, 1, SolidLine, FlatCap, MiterJoin));
-			BezierPoints(&Bez, cli.pointQ(poi), cli.pointQ(poi+1), cli.pointQ(poi+3), cli.pointQ(poi+2));
+			BezierPoints(&Bez,	QPoint(qRound(cli.point(poi).x()*10), qRound(cli.point(poi).y()*10)),
+												QPoint(qRound(cli.point(poi+1).x()*10), qRound(cli.point(poi+1).y()*10)),
+												QPoint(qRound(cli.point(poi+3).x()*10), qRound(cli.point(poi+3).y()*10)),
+												QPoint(qRound(cli.point(poi+2).x()*10), qRound(cli.point(poi+2).y()*10)));
 			p.drawCubicBezier(Bez);
 			if (once)
 				p.setPen(QPen(blue, 1, DotLine, FlatCap, MiterJoin));
@@ -5484,7 +5470,7 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 					p.setPen(QPen(green, 8, SolidLine, RoundCap, MiterJoin));
 			}
 			cli.point(a+1, &x, &y);
-			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
+			p.drawLine(qRound(x*10), qRound(y*10), qRound(x*10), qRound(y*10));
 			if (ClRe == static_cast<int>(a))
 			{
 				if (once)
@@ -5500,7 +5486,7 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 					p.setPen(QPen(yellow, 8, SolidLine, RoundCap, MiterJoin));
 			}
 			cli.point(a, &x, &y);
-			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
+			p.drawLine(qRound(x*10), qRound(y*10), qRound(x*10), qRound(y*10));
 		}
 		else
 		{
@@ -5519,7 +5505,7 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 					p.setPen(QPen(yellow, 8, SolidLine, RoundCap, MiterJoin));
 			}
 			cli.point(a, &x, &y);
-			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
+			p.drawLine(qRound(x*10), qRound(y*10), qRound(x*10), qRound(y*10));
 			if (ClRe == static_cast<int>(a+1))
 			{
 				if (once)
@@ -5535,7 +5521,7 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 					p.setPen(QPen(green, 8, SolidLine, RoundCap, MiterJoin));
 			}
 			cli.point(a+1, &x, &y);
-			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
+			p.drawLine(qRound(x*10), qRound(y*10), qRound(x*10), qRound(y*10));
 		}
 	}
 	if (ClRe != -1)
@@ -5546,12 +5532,12 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 //		else
 //			p.setPen(QPen(cyan, 8, SolidLine, RoundCap, MiterJoin));
 			cli.point(ClRe, &x, &y);
-			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
+			p.drawLine(qRound(x*10), qRound(y*10), qRound(x*10), qRound(y*10));
 			QValueList<int>::Iterator itm;
 			for (itm = SelNode.begin(); itm != SelNode.end(); ++itm)
 			{
 				cli.point((*itm), &x, &y);
-				p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
+				p.drawLine(qRound(x*10), qRound(y*10), qRound(x*10), qRound(y*10));
 			}
 		}
 		emit HavePoint(true, MoveSym);
