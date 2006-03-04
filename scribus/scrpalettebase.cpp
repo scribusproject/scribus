@@ -147,7 +147,16 @@ void ScrPaletteBase::show()
 #else
 			vtop    = QMAX(-vheight + gStrut.height(), vtop);
 #endif
-			
+			// Check values against current screen size
+			QRect scr = QApplication::desktop()->screenGeometry(this);
+			if ( vleft >= scr.width() )
+				vleft = 0;
+			if ( vtop >= scr.height() )
+				vtop = 64;
+			if ( vwidth >= scr.width() )
+				vwidth = QMAX( gStrut.width(), scr.width() - vleft );
+			if ( vheight >= scr.height() )
+				vheight = QMAX( gStrut.height(), scr.height() - vtop );
 //			qDebug(QString("root %1x%2 %7 palette %3x%4 @ (%5,%6)").arg(d->width()).arg(d->height())
 //				.arg(vwidth).arg(vheight).arg(vleft).arg(vtop).arg(name()));
 			setGeometry(vleft, vtop, vwidth, vheight);
