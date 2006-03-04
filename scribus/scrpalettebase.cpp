@@ -148,7 +148,7 @@ void ScrPaletteBase::show()
 			vtop    = QMAX(-vheight + gStrut.height(), vtop);
 #endif
 			// Check values against current screen size
-			QRect scr = QApplication::desktop()->screenGeometry(this);
+			QRect scr = QApplication::desktop()->screen()->geometry();
 			if ( vleft >= scr.width() )
 				vleft = 0;
 			if ( vtop >= scr.height() )

@@ -2030,7 +2030,7 @@ void StoryEditor::loadPrefs()
 	int vwidth  = QMAX(600, prefs->getInt("width", 600));
 	int vheight = QMAX(400, prefs->getInt("height", 400));
 	// Check values against current screen size
-	QRect scr = QApplication::desktop()->screenGeometry(this);
+	QRect scr = QApplication::desktop()->screen()->geometry();
 	QSize gStrut = QApplication::globalStrut();
 	if ( vleft >= scr.width() )
 		vleft = 0;
