@@ -71,7 +71,7 @@
 	} {
 	dup type /stringtype eq
 	{
-		true 1 index { 2 index exch get 32 ge and } forall
+		true 1 index { 32 ge and } forall
 		{
 			i_file (\() writestring i_file exch writestring i_file (\)) writestring
 		}
@@ -766,7 +766,7 @@ currentpagedevice /HWResolution get aload pop
 	atan sub													% angleVert-angleHor
 	pop 0 % not working, TODO
 	/i_angle exch def
-	(.tif) i_exportfilename
+	(.dat) i_exportfilename
 		(im ) print												% im x y w h angle ...
 		i_x i_hscale div i_str cvs print ( ) print
 		i_y i_vscale div i_str cvs print ( ) print

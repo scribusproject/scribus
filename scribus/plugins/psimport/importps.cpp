@@ -243,6 +243,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	// import.prolog do not cope with filenames containing blank spaces
 	// so take care that output filename does not (win32 compatibility)
 	QString tmpFile = getShortPathName(ScMW->PrefsPfad)+ "/ps.out";
+	QString errFile = getShortPathName(ScMW->PrefsPfad)+ "/ps.err";
 	QString pfad = ScPaths::instance().libDir();
 	QString pfad2 = QDir::convertSeparators(pfad + "import.prolog");
 	QFileInfo fi = QFileInfo(fn);
@@ -274,8 +275,20 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( tmp.setNum(-y) );
 	args.append( "translate" );
 	args.append( QString("-sTraceFile=%1").arg(QDir::convertSeparators(tmpFile)) );
-	QString exportPath = fi.dirPath(true) + "/" + fi.baseName();
-	args.append( QString("-sExportFiles=%1").arg(QDir::convertSeparators(fn)) );
+	QString exportPath = ScMW->doc->DocName + "-" + fi.baseName();
+	QFileInfo exportFi(exportPath);
+	if ( !exportFi.isWritable() ) {
+		PrefsContext* docContext = PrefsManager::instance()->prefsFile->getContext("docdirs", false);
+		QString docDir = ".";
+		QString prefsDocDir=PrefsManager::instance()->documentDir();
+		if (!prefsDocDir.isEmpty())
+			docDir = docContext->get("docsopen", prefsDocDir);
+		else
+			docDir = docContext->get("docsopen", ".");		
+		exportFi.setFile(docDir + "/" + exportFi.baseName());
+	}
+	qDebug(QString("using export path %1").arg(exportFi.absFilePath()));
+	args.append( QString("-sExportFiles=%1").arg(QDir::convertSeparators(exportFi.absFilePath())) );
 	args.append( pfad2 );
 	args.append( QDir::convertSeparators(fn) );
 	args.append( "-c" );
@@ -284,23 +297,17 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( "closefile" );
 	args.append( "quit" );
 	QCString finalCmd = args.join(" ").local8Bit();
-	int ret = System(args);
+	int ret = System(args, errFile, errFile);
 	if (ret != 0)
 	{
 		qDebug("PostScript import failed when calling gs as: \n%s\n", finalCmd.data());
 		qDebug("Ghostscript diagnostics:\n");
-		QFile diag(tmpFile);
-		if (diag.open(IO_ReadOnly)) {
+		QFile diag(errFile);
+		if (diag.open(IO_ReadOnly) && !diag.atEnd() ) {
 			QString line;
-			long int len;
-			bool gs_error = false;
-			do {
-				len = diag.readLine(line, 120);
-				gs_error |= line.contains("Error");
-				if (gs_error)
-					qDebug("\t%s", line.ascii());
+			while (diag.readLine(line, 120) > 0) {
+				qDebug("\t%s", line.ascii());
 			}
-			while (len > 0);
 			diag.close();
 		}
 		else {
@@ -343,9 +350,8 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 		{
 			tmp = "";
 			tmp = ts.readLine();
-			QTextStream Code(&tmp, IO_ReadOnly);
-			Code >> token;
-			params = Code.read();
+			token = tmp.section(' ', 0, 0);
+			params = tmp.section(' ', 1, -1, QString::SectionIncludeTrailingSep);
 			if ((lasttoken == "sp") && (!interactive) && (!eps))
 			{
 				ScMW->doc->addPage(pagecount);
@@ -397,7 +403,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						else
 							z = ScMW->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, CommonStrings::None, true);
 						ite = ScMW->doc->Items->at(z);
-						ite->PoLine = Coords.copy();
+						ite->PoLine = Coords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
 						ite->PoLine.translate(ScMW->doc->currentPage->xOffset(), ScMW->doc->currentPage->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
@@ -437,7 +443,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						else
 							z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CommonStrings::None, CurrColor, true);
 						ite = Doku->Items->at(z);
-						ite->PoLine = Coords.copy();
+						ite->PoLine = Coords.copy(); //FIXME: try to avoid copy when FPointArray is properly shared
 						ite->PoLine.translate(Doku->currentPage->xOffset(), Doku->currentPage->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
@@ -636,11 +642,10 @@ void EPSPlug::LineTo(FPointArray *i, QString vals)
 	if (vals.isEmpty())
 		return;
 	double x1, x2, y1, y2;
-	QTextStream Code(&vals, IO_ReadOnly);
-	Code >> x1;
-	Code >> y1;
-	Code >> x2;
-	Code >> y2;
+	x1 = vals.section(' ', 0, 0, QString::SectionSkipEmpty).toDouble();
+	y1 = vals.section(' ', 1, 1, QString::SectionSkipEmpty).toDouble();
+	x2 = vals.section(' ', 2, 2, QString::SectionSkipEmpty).toDouble();
+	y2 = vals.section(' ', 3, 3, QString::SectionSkipEmpty).toDouble();
 	if ((!FirstM) && (WasM))
 		i->setMarker();
 	FirstM = false;
@@ -656,15 +661,14 @@ void EPSPlug::Curve(FPointArray *i, QString vals)
 	if (vals.isEmpty())
 		return;
 	double x1, x2, y1, y2, x3, y3, x4, y4;
-	QTextStream Code(&vals, IO_ReadOnly);
-	Code >> x1;
-	Code >> y1;
-	Code >> x2;
-	Code >> y2;
-	Code >> x3;
-	Code >> y3;
-	Code >> x4;
-	Code >> y4;
+	x1 = vals.section(' ', 0, 0, QString::SectionSkipEmpty).toDouble();
+	y1 = vals.section(' ', 1, 1, QString::SectionSkipEmpty).toDouble();
+	x2 = vals.section(' ', 2, 2, QString::SectionSkipEmpty).toDouble();
+	y2 = vals.section(' ', 3, 3, QString::SectionSkipEmpty).toDouble();
+	x3 = vals.section(' ', 4, 4, QString::SectionSkipEmpty).toDouble();
+	y3 = vals.section(' ', 5, 5, QString::SectionSkipEmpty).toDouble();
+	x4 = vals.section(' ', 6, 6, QString::SectionSkipEmpty).toDouble();
+	y4 = vals.section(' ', 7, 7, QString::SectionSkipEmpty).toDouble();
 	if ((!FirstM) && (WasM))
 		i->setMarker();
 	FirstM = false;
