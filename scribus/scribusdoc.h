@@ -560,7 +560,6 @@ public:
 	void setItemTextUnderline(int pos, int wid);
 	void setItemTextStrike(int pos, int wid);
 	void chTyStyle(int s);
-	void SetAbStyle(int s);
 	void chAbStyle(PageItem *currItem, int s);
 	void chKerning(int us);
 	void chFSize(int size);
@@ -809,6 +808,7 @@ public slots:
 	void itemSelection_DoHyphenate();
 	void itemSelection_DoDeHyphenate();
 	void itemSelection_SendToLayer(int layerNumber);
+	void itemSelection_SetParagraphStyle(int s);
 	
 	void ItemPen(QString farbe);
 	void ItemPenShade(int sha);

@@ -6383,9 +6383,10 @@ void ScribusMainWindow::setNewAbStyle(int a)
 	if (HaveDoc)
 	{
 		doc->currentParaStyle = a;
-		doc->SetAbStyle(a);
+		doc->itemSelection_SetParagraphStyle(a);
 		propertiesPalette->setAli(a);
 		PageItem *currItem = doc->selection->itemAt(0);
+		//view->RefreshItem(currItem); //CB Now calling drawnew in itemSelection_SetParagraphStyle
 		setTBvals(currItem);
 		slotDocCh();
 	}

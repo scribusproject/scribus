@@ -4233,13 +4233,6 @@ void ScribusDoc::chTyStyle(int s)
 	}
 }
 
-void ScribusDoc::SetAbStyle(int s)
-{
-	PageItem *currItem = selection->itemAt(0);
-	if (currItem!=NULL)
-		chAbStyle(currItem, s);
-}
-
 void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 {
 	int a, ax;
@@ -5471,8 +5464,34 @@ void ScribusDoc::itemSelection_SendToLayer(int layerNumber)
 	changed();
 }
 
+
+void ScribusDoc::itemSelection_SetParagraphStyle(int s)
+{
+	uint docSelectionCount=selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (UndoManager::undoEnabled() && docSelectionCount > 1)
+			undoManager->beginTransaction();
+		QString tooltip = Um::ItemsInvolved + "\n";
+		for (uint a = 0; a < docSelectionCount; ++a)
+		{
+			PageItem *currItem = selection->itemAt(a);
+			if (currItem!=NULL)
+				chAbStyle(currItem, s);
+		}
+		if (UndoManager::undoEnabled() && docSelectionCount > 1)
+			undoManager->commit(Um::Selection,
+								Um::IGroup,
+								s > 4 ? Um::SetStyle : Um::AlignText,
+								tooltip,
+								Um::IFont);
+		ScMW->view->DrawNew(); //CB draw new until NLS for redraw through text chains
+	}
+}
+
 void ScribusDoc::changed()
 {
 	modified=true;
 	emit docChanged();
 }
+
