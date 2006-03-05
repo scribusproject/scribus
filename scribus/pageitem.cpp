@@ -1019,7 +1019,31 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					else
 						pr.setPen(QPen(red, 1, DotLine, FlatCap, MiterJoin));
 					pr.setBrush(NoBrush);
-					pr.drawRect(-1, -1, static_cast<int>(Width*sc)+2, static_cast<int>(Height*sc)+2);
+					int lw2 = 1;
+					int lw = 1;
+					PenCapStyle le = FlatCap;
+					if (NamedLStyle.isEmpty())
+					{
+						lw2 = qRound(m_lineWidth * sc  / 2.0);
+						lw = qRound(QMAX(m_lineWidth * sc, 1.0));
+						le = PLineEnd;
+					}
+					else
+					{
+						multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+						lw2 = qRound(ml[ml.size()-1].Width * sc  / 2.0);
+						lw = qRound(QMAX(ml[ml.size()-1].Width * sc, 1.0));
+						le = static_cast<PenCapStyle>(ml[ml.size()-1].LineEnd);
+					}
+					if (asLine())
+					{
+						if (le != FlatCap)
+							pr.drawRect(-lw2, -lw2, qRound(Width*sc)+lw, lw);
+						else
+							pr.drawRect(-1, -lw2, qRound(Width*sc), lw);
+					}
+					else
+						pr.drawRect(-1, -1, qRound(Width*sc)+2, qRound(Height*sc)+2);
 					pr.setPen(QPen(red, 1, SolidLine, FlatCap, MiterJoin));
 					pr.setBrush(red);
 					if ((!m_Locked) && (!m_SizeLocked))
@@ -1027,24 +1051,24 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 						if (! asLine())
 						{
 							pr.drawRect(-1, -1, 6, 6);
-							pr.drawRect(static_cast<int>(Width*sc), static_cast<int>(Height*sc), -6, -6);
-							pr.drawRect(static_cast<int>(Width*sc), -1, -6, 6);
-							pr.drawRect(-1, static_cast<int>(Height*sc), 6, -6);
+							pr.drawRect(qRound(Width*sc), qRound(Height*sc), -6, -6);
+							pr.drawRect(qRound(Width*sc), -1, -6, 6);
+							pr.drawRect(-1, qRound(Height*sc), 6, -6);
 							if (Width > 6)
 							{
-								pr.drawRect(static_cast<int>(Width/2*sc - 3), static_cast<int>(Height*sc), 6, -6);
-								pr.drawRect(static_cast<int>(Width/2*sc - 3), -1, 6, 6);
+								pr.drawRect(qRound(Width/2*sc - 3), qRound(Height*sc), 6, -6);
+								pr.drawRect(qRound(Width/2*sc - 3), -1, 6, 6);
 							}
 							if (Height > 6)
 							{
-								pr.drawRect(static_cast<int>(Width*sc), static_cast<int>(Height/2*sc - 3), -6, 6);
-								pr.drawRect(-1, static_cast<int>(Height/2*sc - 3), 6, 6);
+								pr.drawRect(qRound(Width*sc), qRound(Height/2*sc - 3), -6, 6);
+								pr.drawRect(-1, qRound(Height/2*sc - 3), 6, 6);
 							}
 						}
 						else
 						{
 							pr.drawRect(-3, -3, 6, 6);
-							pr.drawRect(static_cast<int>(Width*sc)+3, -3, -6, 6);
+							pr.drawRect(qRound(Width*sc)+3, -3, -6, 6);
 						}
 					}
 					pr.end();
