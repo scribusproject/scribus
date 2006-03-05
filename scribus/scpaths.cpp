@@ -224,7 +224,7 @@ QStringList ScPaths::getSystemProfilesDirs(void)
 	return iccProfDirs;
 }
 
-QStringList ScPaths::getSystemCreateDirs(void)
+QStringList ScPaths::getSystemCreateSwatchesDirs(void)
 {
 	QStringList createDirs;
 #ifdef Q_OS_MAC

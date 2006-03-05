@@ -54,7 +54,7 @@ public:
 	/** @brief Return paths to system icc profiles directories*/
 	static QStringList getSystemProfilesDirs(void);
 	/** @brief Return paths to system create project directories*/
-	static QStringList getSystemCreateDirs();
+	static QStringList getSystemCreateSwatchesDirs();
 
 protected:
 	/** @brief Constructor. Use ScPaths::instance() instead. */

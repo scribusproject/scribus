@@ -66,7 +66,7 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 void ColorSetManager::findPaletteLocations()
 {
 	paletteLocations.clear();
-	QStringList locations=ScPaths::instance().getSystemCreateDirs();
+	QStringList locations=ScPaths::instance().getSystemCreateSwatchesDirs();
 	locations << ScPaths::instance().libDir()+"swatches/";
 	for ( QStringList::Iterator it = locations.begin(); it != locations.end(); ++it )
 	{
