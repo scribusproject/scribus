@@ -346,6 +346,7 @@ protected: // Protected methods
 	virtual void setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
 
 	void drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end);
+	inline bool moveTimerElapsed();
 	
 	//The width of vertical ruler/height of horizontal ruler, set to 17 in scribusview.cpp
 	int m_vhRulerHW;
