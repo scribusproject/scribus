@@ -92,6 +92,7 @@ class SimpleState;
 class SplashScreen;
 class StilFormate;
 class StoryEditor;
+class StyleManager;
 class TOCGenerator;
 class Tree;
 class UndoManager;
@@ -437,6 +438,8 @@ public slots:
 	void setFSizeMenu(int size);
 	/** Farbeditor */
 	void slotEditColors();
+	/** Style Manager */
+	void slotStyleManager();
 	/*
 	// Setzt den Pen-Tonwert
 	void setPenShade(int sh);
@@ -619,6 +622,7 @@ private:
 	int storedViewXCoor;
 	int storedViewYCoor;
 	double storedViewScale;
+	StyleManager *styleManager;
 };
 
 #endif

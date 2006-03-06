@@ -168,6 +168,8 @@ for which a new license (GPL+exception) is in place.
 #include "scmessagebox.h"
 #include "imageinfodialog.h"
 #include "selection.h"
+#include "stylemanager.h"
+#include "smlinestyle.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -541,6 +543,10 @@ void ScribusMainWindow::initPalettes()
 	connect(undoPalette, SIGNAL(paletteShown(bool)), this, SLOT(setUndoPalette(bool)));
 	connect(undoPalette, SIGNAL(objectMode(bool)), this, SLOT(setUndoMode(bool)));
 
+	// initializing style manager here too even it's not strictly a palette
+	styleManager = new StyleManager(this, "styleManager");
+	styleManager->addStyle(new SMLineStyle());
+	connect(styleManager, SIGNAL(closed()), scrActions["editStyles"], SLOT(toggle()));
 
 	connect(docCheckerPalette, SIGNAL(selectElement(int, int)), this, SLOT(selectItemsFromOutlines(int, int)));
 	connect(docCheckerPalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
@@ -662,6 +668,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editEditWithImageEditor"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
+//	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editParaStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editLineStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit");
@@ -1894,6 +1901,7 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 	connect(fileWatcher, SIGNAL(fileDeleted(QString)), doc, SLOT(removePict(QString)));
 	scrActions["fileSave"]->setEnabled(false);
 	undoManager->switchStack(doc->DocName);
+	styleManager->currentDoc(doc);
 	tocGenerator->setDoc(doc);
 
 	return true;
@@ -1982,6 +1990,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	actionManager->connectNewViewActions(view);
 	actionManager->disconnectNewDocActions();
 	actionManager->connectNewDocActions(doc);
+	styleManager->currentDoc(doc);
 	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	if (ScQApp->usingGUI())
 	{
@@ -3543,6 +3552,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		pagePalette->setView(0);
 	}
 	undoManager->switchStack(doc->DocName);
+	styleManager->currentDoc(doc);
 	pagePalette->Rebuild();
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	undoManager->setUndoEnabled(true);
@@ -6541,6 +6551,12 @@ void ScribusMainWindow::slotEditColors()
 	if (!HaveDoc)
 		prefsManager->appPrefs.CustomColorSets = dia->customColSet;
 	delete dia;
+}
+
+void ScribusMainWindow::slotStyleManager()
+{
+	styleManager->currentDoc(HaveDoc ? doc : 0);
+	styleManager->setShown(!styleManager->isVisible());
 }
 
 void ScribusMainWindow::updtGradFill()

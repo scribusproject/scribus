@@ -135,11 +135,14 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert("editEditWithImageEditor", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "editEditWithImageEditor"));
 
 	scrActions->insert("editColors", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "editColors"));
+	scrActions->insert("editStyles", new ScrAction(QIconSet(noIcon), "", QKeySequence(), ScMW, "editStyles"));
 	scrActions->insert("editParaStyles", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "editParaStyles"));
 	scrActions->insert("editLineStyles", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "editLineStyles"));
 	scrActions->insert("editMasterPages", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "editMasterPages"));
 	scrActions->insert("editJavascripts", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "editJavascripts"));
 	scrActions->insert("editPreferences", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "editPreferences"));
+
+	(*scrActions)["editStyles"]->setToggleAction(true);
 
 	connect( (*scrActions)["editUndoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(undo(int)) );
 	connect( (*scrActions)["editRedoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(redo(int)) );
@@ -154,6 +157,7 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editSearchReplace"], SIGNAL(activated()), ScMW, SLOT(SearchText()) );
 	connect( (*scrActions)["editEditWithImageEditor"], SIGNAL(activated()), ScMW, SLOT(callImageEditor()) );
 	connect( (*scrActions)["editColors"], SIGNAL(activated()), ScMW, SLOT(slotEditColors()) );
+	connect( (*scrActions)["editStyles"], SIGNAL(activated()), ScMW, SLOT(slotStyleManager()) );
 	connect( (*scrActions)["editParaStyles"], SIGNAL(activated()), ScMW, SLOT(slotEditStyles()) );
 	connect( (*scrActions)["editLineStyles"], SIGNAL(activated()), ScMW, SLOT(slotEditLineStyles()) );
 	connect( (*scrActions)["editMasterPages"], SIGNAL(activated()), ScMW, SLOT(manageMasterPages()) );
@@ -902,6 +906,7 @@ void ActionManager::languageChange()
 	(*scrActions)["editSearchReplace"]->setTexts( tr("&Search/Replace..."));
 	(*scrActions)["editEditWithImageEditor"]->setTexts( tr("Edit Image..."));
 	(*scrActions)["editColors"]->setTexts( tr("C&olors..."));
+	(*scrActions)["editStyles"]->setTexts( tr("S&tyles..."));
 	(*scrActions)["editParaStyles"]->setTexts( tr("&Paragraph Styles..."));
 	(*scrActions)["editLineStyles"]->setTexts( tr("&Line Styles..."));
 	(*scrActions)["editMasterPages"]->setTexts( tr("&Master Pages..."));

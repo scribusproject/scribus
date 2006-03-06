@@ -195,10 +195,14 @@ scribus_SOURCES = \
 	selfield.cpp	\
 	serializer.cpp	\
 	shadebutton.cpp	\
+	smlinestyle.cpp \
+	smlinestylewbase.ui \
 	spalette.cpp	\
 	splash.cpp	\
 	stencilreader.cpp	\
 	story.cpp	\
+	stylemanager.cpp \
+	stylemanagerbase.ui \
 	styleselect.cpp	\
 	tabcheckdoc.cpp	\
 	tabguides.cpp	\
