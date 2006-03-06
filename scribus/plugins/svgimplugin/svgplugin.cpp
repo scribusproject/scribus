@@ -506,10 +506,12 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			bool bFirst = true;
 			double x = 0.0;
 			double y = 0.0;
-			QString points = b.attribute( "points" ).simplifyWhiteSpace();
+			QString points = b.attribute( "points" ).simplifyWhiteSpace().replace(',', " ");
+			/*
 			points.replace( QRegExp( "," ), " " );
 			points.replace( QRegExp( "\r" ), "" );
 			points.replace( QRegExp( "\n" ), "" );
+			*/
 			QStringList pointList = QStringList::split( ' ', points );
 			FirstM = true;
 			for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
