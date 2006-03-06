@@ -5475,7 +5475,7 @@ void ScribusDoc::itemSelection_SetImageOffset(double x, double y)
 								Um::IGroup,
 								Um::ImageOffset,
 								tooltip,
-								Um::IMove);
+								Um::IImageScaling);
 		changed();
 	}
 }
@@ -5508,7 +5508,7 @@ void ScribusDoc::itemSelection_SetImageScale(double x, double y)
 								Um::IGroup,
 								Um::ImageScale,
 								tooltip,
-								Um::IMove);
+								Um::IImageScaling);
 		changed();
 	}
 }
@@ -5542,7 +5542,7 @@ void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, doub
 								Um::IImageFrame,
 								Um::ImageScale,
 								tooltip,
-								Um::IMove);
+								Um::IImageScaling);
 			emit refreshItem(currItem);
 		}
 		if (UndoManager::undoEnabled() && selectedItemCount > 1)
@@ -5550,7 +5550,7 @@ void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, doub
 								Um::IGroup,
 								Um::ImageScale,
 								tooltip,
-								Um::IMove);
+								Um::IImageScaling);
 		changed();
 	}
 }
