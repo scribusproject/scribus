@@ -434,10 +434,10 @@ protected:
 	MSpinBox* Size;
 	MSpinBox* LineSp;
 	MSpinBox* Extra;
-	MSpinBox* LYpos;
-	MSpinBox* LXpos;
-	MSpinBox* ScaleY;
-	MSpinBox* ScaleX;
+	MSpinBox* imageYOffsetSpinBox;
+	MSpinBox* imageXOffsetSpinBox;
+	MSpinBox* imageYScaleSpinBox;
+	MSpinBox* imageXScaleSpinBox;
 	MSpinBox* imgDpiX;
 	MSpinBox* imgDpiY;
 	MSpinBox* LSize;

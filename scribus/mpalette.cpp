@@ -578,22 +578,26 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	pageLayout_4->addWidget( FreeScale );
 
 	layout43 = new QGridLayout( 0, 1, 1, 0, 5, "layout43");
-	LXpos = new MSpinBox( page_4, 2 );
-	xposImgLabel = new QLabel( LXpos, "&X-Pos:", page_4, "xposImgLabel" );
+	imageXOffsetSpinBox = new MSpinBox( page_4, 2 );
+	installSniffer(imageXOffsetSpinBox);
+	xposImgLabel = new QLabel( imageXOffsetSpinBox, "&X-Pos:", page_4, "xposImgLabel" );
 	layout43->addWidget( xposImgLabel, 0, 0 );
-	layout43->addWidget( LXpos, 0, 1 );
-	LYpos = new MSpinBox( page_4, 2 );
-	yposImgLabel = new QLabel( LYpos, "&Y-Pos:", page_4, "yposImgLabel" );
+	layout43->addWidget( imageXOffsetSpinBox, 0, 1 );
+	imageYOffsetSpinBox = new MSpinBox( page_4, 2 );
+	installSniffer(imageYOffsetSpinBox);
+	yposImgLabel = new QLabel( imageYOffsetSpinBox, "&Y-Pos:", page_4, "yposImgLabel" );
 	layout43->addWidget( yposImgLabel, 1, 0 );
-	layout43->addWidget( LYpos, 1, 1 );
-	ScaleX = new MSpinBox( page_4, 1 );
-	xscaleLabel = new QLabel( ScaleX, "X-Sc&ale:", page_4, "xscaleLabel" );
+	layout43->addWidget( imageYOffsetSpinBox, 1, 1 );
+	imageXScaleSpinBox = new MSpinBox( page_4, 1 );
+	installSniffer(imageXScaleSpinBox);
+	xscaleLabel = new QLabel( imageXScaleSpinBox, "X-Sc&ale:", page_4, "xscaleLabel" );
 	layout43->addWidget( xscaleLabel, 2, 0 );
-	layout43->addWidget( ScaleX, 2, 1 );
-	ScaleY = new MSpinBox( page_4, 1 );
-	yscaleLabel = new QLabel( ScaleY, "Y-Scal&e:", page_4, "yscaleLabel" );
+	layout43->addWidget( imageXScaleSpinBox, 2, 1 );
+	imageYScaleSpinBox = new MSpinBox( page_4, 1 );
+	installSniffer(imageYScaleSpinBox);
+	yscaleLabel = new QLabel( imageYScaleSpinBox, "Y-Scal&e:", page_4, "yscaleLabel" );
 	layout43->addWidget( yscaleLabel, 3, 0 );
-	layout43->addWidget( ScaleY, 3, 1 );
+	layout43->addWidget( imageYScaleSpinBox, 3, 1 );
 	keepImageWHRatioButton = new LinkButton( page_4 );
 	keepImageWHRatioButton->setToggleButton( true );
 	keepImageWHRatioButton->setAutoRaise( true );
@@ -749,10 +753,10 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(LineSp, SIGNAL(valueChanged(int)), this, SLOT(NewLsp()));
 	connect(Size, SIGNAL(valueChanged(int)), this, SLOT(NewSize()));
 	connect(Extra, SIGNAL(valueChanged(int)), this, SLOT(NewExtra()));
-	connect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	connect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
-	connect(LXpos, SIGNAL(valueChanged(int)), this, SLOT(NewLocalXY()));
-	connect(LYpos, SIGNAL(valueChanged(int)), this, SLOT(NewLocalXY()));
+	connect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	connect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	connect(imageXOffsetSpinBox, SIGNAL(valueChanged(int)), this, SLOT(NewLocalXY()));
+	connect(imageYOffsetSpinBox, SIGNAL(valueChanged(int)), this, SLOT(NewLocalXY()));
 	connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
 	connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
 	connect(LSize, SIGNAL(valueChanged(int)), this, SLOT(NewLS()));
@@ -888,16 +892,16 @@ void Mpalette::setDoc(ScribusDoc *d)
 	Ypos->setValues( minXYVal, maxXYWHVal, 100, minXYVal);
 	Width->setValues( Umrech, maxXYWHVal, 100, Umrech);
 	Height->setValues( Umrech, maxXYWHVal, 100, Umrech);
-	LXpos->setValues( -30000, maxXYWHVal, 100, 0);
-	LYpos->setValues( -30000, maxXYWHVal, 100, 0);
+	imageXOffsetSpinBox->setValues( -30000, maxXYWHVal, 100, 0);
+	imageYOffsetSpinBox->setValues( -30000, maxXYWHVal, 100, 0);
 
 	Rot->setValues( 0, 359.99, 100, 0);
 	RoundRect->setValues( -300, 300, 10, 0);
 	Extra->setValues( -300, 300, 10, 0);
 	Size->setValues( 0.5, 2048, 10, 1);
 	LineSp->setValues( 1, 2048, 10, 1);
-	ScaleX->setValues( 1, 30000, 10, 1);
-	ScaleY->setValues( 1, 30000, 10, 1);
+	imageXScaleSpinBox->setValues( 1, 30000, 10, 1);
+	imageYScaleSpinBox->setValues( 1, 30000, 10, 1);
 	imgDpiX->setValues( 1, 30000, 10, 1);
 	imgDpiY->setValues( 1, 30000, 10, 1);
 
@@ -1127,10 +1131,10 @@ void Mpalette::setCurrentItem(PageItem *i)
 			}
 			Aspect->setEnabled(!setter);
 			Aspect->setChecked(i->AspectRatio);
-			LXpos->setEnabled(setter);
-			LYpos->setEnabled(setter);
-			ScaleX->setEnabled(setter);
-			ScaleY->setEnabled(setter);
+			imageXOffsetSpinBox->setEnabled(setter);
+			imageYOffsetSpinBox->setEnabled(setter);
+			imageXScaleSpinBox->setEnabled(setter);
+			imageYScaleSpinBox->setEnabled(setter);
 			imgDpiX->setEnabled(setter);
 			imgDpiY->setEnabled(setter);
 		}
@@ -1327,10 +1331,10 @@ void Mpalette::SetCurItem(PageItem *i)
 			}
 			Aspect->setEnabled(!setter);
 			Aspect->setChecked(i->AspectRatio);
-			LXpos->setEnabled(setter);
-			LYpos->setEnabled(setter);
-			ScaleX->setEnabled(setter);
-			ScaleY->setEnabled(setter);
+			imageXOffsetSpinBox->setEnabled(setter);
+			imageYOffsetSpinBox->setEnabled(setter);
+			imageXScaleSpinBox->setEnabled(setter);
+			imageYScaleSpinBox->setEnabled(setter);
 			imgDpiX->setEnabled(setter);
 			imgDpiY->setEnabled(setter);
 		}
@@ -1543,8 +1547,8 @@ void Mpalette::unitChange()
 	double newY = Ypos->value() * ratioDivisor;
 	double newW = Width->value() * ratioDivisor;
 	double newH = Height->value() * ratioDivisor;
-	double newLX = LXpos->value() * ratioDivisor;
-	double newLY = LYpos->value() * ratioDivisor;
+	double newLX = imageXOffsetSpinBox->value() * ratioDivisor;
+	double newLY = imageYOffsetSpinBox->value() * ratioDivisor;
 	double newG = dGap->value() * ratioDivisor;
 	double newGM = dGap->maxValue() * ratioDivisor;
 	double newDT = DTop->value() * ratioDivisor;
@@ -1562,8 +1566,8 @@ void Mpalette::unitChange()
 	Ypos->setSuffix( ein );
 	Width->setSuffix( ein );
 	Height->setSuffix( ein );
-	LXpos->setSuffix( ein );
-	LYpos->setSuffix( ein );
+	imageXOffsetSpinBox->setSuffix( ein );
+	imageYOffsetSpinBox->setSuffix( ein );
 	dGap->setSuffix( ein );
 	DLeft->setSuffix( ein );
 	DTop->setSuffix( ein );
@@ -1578,13 +1582,13 @@ void Mpalette::unitChange()
 	Width->setValues( Umrech, maxXYWHVal, decimals, newW );
 	Height->setValues( Umrech, maxXYWHVal, decimals, newH );
 
-	LXpos->setDecimals(decimals);
-	LXpos->setMaxValue( maxXYWHVal );
-	LXpos->setValue(newLX);
+	imageXOffsetSpinBox->setDecimals(decimals);
+	imageXOffsetSpinBox->setMaxValue( maxXYWHVal );
+	imageXOffsetSpinBox->setValue(newLX);
 
-	LYpos->setDecimals(decimals);
-	LYpos->setMaxValue( maxXYWHVal );
-	LYpos->setValue(newLY);
+	imageYOffsetSpinBox->setDecimals(decimals);
+	imageYOffsetSpinBox->setMaxValue( maxXYWHVal );
+	imageYOffsetSpinBox->setValue(newLY);
 
 	dGap->setDecimals(decimals);
 	dGap->setMaxValue(newGM);
@@ -1845,10 +1849,10 @@ void Mpalette::ChangeScaling()
 		FrameScale->setChecked(false);
 		FreeScale->setChecked(true);
 		Aspect->setEnabled(false);
-		LXpos->setEnabled(true);
-		LYpos->setEnabled(true);
-		ScaleX->setEnabled(true);
-		ScaleY->setEnabled(true);
+		imageXOffsetSpinBox->setEnabled(true);
+		imageYOffsetSpinBox->setEnabled(true);
+		imageXScaleSpinBox->setEnabled(true);
+		imageYScaleSpinBox->setEnabled(true);
 		imgDpiX->setEnabled(true);
 		imgDpiY->setEnabled(true);
 	}
@@ -1857,10 +1861,10 @@ void Mpalette::ChangeScaling()
 		FrameScale->setChecked(true);
 		FreeScale->setChecked(false);
 		Aspect->setEnabled(true);
-		LXpos->setEnabled(false);
-		LYpos->setEnabled(false);
-		ScaleX->setEnabled(false);
-		ScaleY->setEnabled(false);
+		imageXOffsetSpinBox->setEnabled(false);
+		imageYOffsetSpinBox->setEnabled(false);
+		imageXScaleSpinBox->setEnabled(false);
+		imageYScaleSpinBox->setEnabled(false);
 		imgDpiX->setEnabled(false);
 		imgDpiY->setEnabled(false);
 	}
@@ -1881,19 +1885,19 @@ void Mpalette::setLvalue(double scx, double scy, double x, double y)
 	HaveItem = false;
 	if (tmp)
 	{
-		LXpos->setValue(x * Umrech * CurItem->imageXScale());
-		LYpos->setValue(y * Umrech * CurItem->imageYScale());
-		ScaleX->setValue(scx * 100 / 72.0 * CurItem->pixm.imgInfo.xres);
-		ScaleY->setValue(scy * 100 / 72.0 * CurItem->pixm.imgInfo.yres);
+		imageXOffsetSpinBox->setValue(x * Umrech * CurItem->imageXScale());
+		imageYOffsetSpinBox->setValue(y * Umrech * CurItem->imageYScale());
+		imageXScaleSpinBox->setValue(scx * 100 / 72.0 * CurItem->pixm.imgInfo.xres);
+		imageYScaleSpinBox->setValue(scy * 100 / 72.0 * CurItem->pixm.imgInfo.yres);
 		imgDpiX->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0);
 		imgDpiY->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0); //CB I assume this douple X is right?
 	}
 	else
 	{
-		LXpos->setValue(x * Umrech);
-		LYpos->setValue(y * Umrech);
-		ScaleX->setValue(scx * 100);
-		ScaleY->setValue(scy * 100);
+		imageXOffsetSpinBox->setValue(x * Umrech);
+		imageYOffsetSpinBox->setValue(y * Umrech);
+		imageXScaleSpinBox->setValue(scx * 100);
+		imageYScaleSpinBox->setValue(scy * 100);
 		imgDpiX->setValue(72);
 		imgDpiY->setValue(72);
 	}
@@ -2514,8 +2518,7 @@ void Mpalette::NewLocalXY()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ChLocalXY(LXpos->value() / Umrech / CurItem->imageXScale(), LYpos->value() / Umrech / CurItem->imageYScale());
-		emit DocChanged();
+		doc->itemSelection_SetImageOffset(imageXOffsetSpinBox->value() / Umrech / CurItem->imageXScale(), imageYOffsetSpinBox->value() / Umrech / CurItem->imageYScale());
 	}
 }
 
@@ -2525,15 +2528,17 @@ void Mpalette::NewLocalSC()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ChLocalSc(ScaleX->value() / 100.0 / CurItem->pixm.imgInfo.xres * 72.0, ScaleY->value() / 100.0 / CurItem->pixm.imgInfo.yres * 72.0);
-		doc->ChLocalXY(LXpos->value() / Umrech / CurItem->imageXScale(), LYpos->value() / Umrech / CurItem->imageYScale());
+		/*doc->itemSelection_SetImageScale(imageXScaleSpinBox->value() / 100.0 / CurItem->pixm.imgInfo.xres * 72.0, imageYScaleSpinBox->value() / 100.0 / CurItem->pixm.imgInfo.yres * 72.0);
+		doc->itemSelection_SetImageOffset(imageXOffsetSpinBox->value() / Umrech / CurItem->imageXScale(), imageYOffsetSpinBox->value() / Umrech / CurItem->imageYScale());
+		*/
+		//CB Dont pass in the scale to the offset change as its taken from the new scale
+		doc->itemSelection_SetImageScaleAndOffset(imageXScaleSpinBox->value() / 100.0 / CurItem->pixm.imgInfo.xres * 72.0, imageYScaleSpinBox->value() / 100.0 / CurItem->pixm.imgInfo.yres * 72.0, imageXOffsetSpinBox->value() / Umrech, imageYOffsetSpinBox->value() / Umrech);
 		disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
 		disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
 		imgDpiX->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0);
 		imgDpiY->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0);
 		connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
 		connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
-		emit DocChanged();
 	}
 }
 
@@ -2543,15 +2548,18 @@ void Mpalette::NewLocalDpi()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ChLocalSc(72.0 / imgDpiX->value(), 72.0 / imgDpiY->value());
-		doc->ChLocalXY(LXpos->value() / Umrech / CurItem->imageXScale(), LYpos->value() / Umrech / CurItem->imageYScale());
-		disconnect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-		disconnect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
-		ScaleX->setValue(CurItem->imageXScale() * 100 / 72.0 * CurItem->pixm.imgInfo.xres);
-		ScaleY->setValue(CurItem->imageYScale() * 100 / 72.0 * CurItem->pixm.imgInfo.yres);
-		connect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-		connect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
-		emit DocChanged();
+		/*
+		doc->itemSelection_SetImageScale(72.0 / imgDpiX->value(), 72.0 / imgDpiY->value());
+		doc->itemSelection_SetImageOffset(imageXOffsetSpinBox->value() / Umrech / CurItem->imageXScale(), imageYOffsetSpinBox->value() / Umrech / CurItem->imageYScale());
+		*/
+		//CB Dont pass in the scale to the offset change as its taken from the new scale
+		doc->itemSelection_SetImageScaleAndOffset(72.0 / imgDpiX->value(), 72.0 / imgDpiY->value(), imageXOffsetSpinBox->value() / Umrech, imageYOffsetSpinBox->value() / Umrech);
+		disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+		disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+		imageXScaleSpinBox->setValue(CurItem->imageXScale() * 100 / 72.0 * CurItem->pixm.imgInfo.xres);
+		imageYScaleSpinBox->setValue(CurItem->imageYScale() * 100 / 72.0 * CurItem->pixm.imgInfo.yres);
+		connect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+		connect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 	}
 }
 
@@ -2702,40 +2710,40 @@ void Mpalette::ToggleKette()
 {
 	if (ScMW->ScriptRunning)
 		return;
-	disconnect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	disconnect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 	if (keepImageWHRatioButton->isOn())
 	{
-		ScaleY->setValue(ScaleX->value());
+		imageYScaleSpinBox->setValue(imageXScaleSpinBox->value());
 		NewLocalSC();
 		keepImageDPIRatioButton->setOn(true);
 	}
 	else
 		keepImageDPIRatioButton->setOn(false);
-	connect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	connect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	connect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	connect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 }
 
 void Mpalette::HChange()
 {
-	disconnect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	disconnect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 	if (keepImageWHRatioButton->isOn())
-		ScaleY->setValue(ScaleX->value());
+		imageYScaleSpinBox->setValue(imageXScaleSpinBox->value());
 	NewLocalSC();
-	connect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	connect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	connect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	connect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 }
 
 void Mpalette::VChange()
 {
-	disconnect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	disconnect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 	if (keepImageWHRatioButton->isOn())
-		ScaleX->setValue(ScaleY->value());
+		imageXScaleSpinBox->setValue(imageYScaleSpinBox->value());
 	NewLocalSC();
-	connect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	connect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	connect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	connect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 }
 
 void Mpalette::ToggleKetteD()
@@ -3788,8 +3796,8 @@ void Mpalette::languageChange()
 	ChBase->setSuffix(pctSuffix);
 	ChScale->setSuffix(pctSuffix);
 	ChScaleV->setSuffix(pctSuffix);
-	ScaleX->setSuffix(pctSuffix);
-	ScaleY->setSuffix(pctSuffix);
+	imageXScaleSpinBox->setSuffix(pctSuffix);
+	imageYScaleSpinBox->setSuffix(pctSuffix);
 	Extra->setSuffix(pctSuffix);
 
 	QString ptSuffix = tr(" pt");
@@ -3805,8 +3813,8 @@ void Mpalette::languageChange()
 	Ypos->setSuffix(ein);
 	Width->setSuffix(ein);
 	Height->setSuffix(ein);
-	LXpos->setSuffix(ein);
-	LYpos->setSuffix(ein);
+	imageXOffsetSpinBox->setSuffix(ein);
+	imageYOffsetSpinBox->setSuffix(ein);
 	dGap->setSuffix(ein);
 	DLeft->setSuffix(ein);
 	DTop->setSuffix(ein);
@@ -3882,10 +3890,10 @@ void Mpalette::languageChange()
 	QToolTip::remove(TabsButton);
 
 	QToolTip::remove(FreeScale);
-	QToolTip::remove(LXpos);
-	QToolTip::remove(LYpos);
-	QToolTip::remove(ScaleX);
-	QToolTip::remove(ScaleY);
+	QToolTip::remove(imageXOffsetSpinBox);
+	QToolTip::remove(imageYOffsetSpinBox);
+	QToolTip::remove(imageXScaleSpinBox);
+	QToolTip::remove(imageYScaleSpinBox);
 	QToolTip::remove(keepImageWHRatioButton);
 	QToolTip::remove(keepFrameWHRatioButton);
 	QToolTip::remove(FrameScale);
@@ -3954,10 +3962,10 @@ void Mpalette::languageChange()
 	QToolTip::add(TabsButton, tr("Edit tab settings of text frame..."));
 
 	QToolTip::add(FreeScale, tr("Allow the image to be a different size to the frame"));
-	QToolTip::add(LXpos, tr("Horizontal offset of image within frame"));
-	QToolTip::add(LYpos, tr("Vertical offset of image within frame"));
-	QToolTip::add(ScaleX, tr("Resize the image horizontally"));
-	QToolTip::add(ScaleY, tr("Resize the image vertically"));
+	QToolTip::add(imageXOffsetSpinBox, tr("Horizontal offset of image within frame"));
+	QToolTip::add(imageYOffsetSpinBox, tr("Vertical offset of image within frame"));
+	QToolTip::add(imageXScaleSpinBox, tr("Resize the image horizontally"));
+	QToolTip::add(imageYScaleSpinBox, tr("Resize the image vertically"));
 	QToolTip::add(keepImageWHRatioButton, tr("Keep the X and Y scaling the same"));
 	QToolTip::add(keepFrameWHRatioButton, tr("Keep the aspect ratio"));
 	QToolTip::add(FrameScale, tr("Make the image fit within the size of the frame"));

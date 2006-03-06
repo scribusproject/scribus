@@ -465,6 +465,10 @@ public:
 	static QString Rotate;
 	static QString MoveFromTo;
 	static QString ResizeFromTo;
+	static QString ImageOffset;
+	static QString ImageScale;
+	static QString ImageOffsetFromTo;
+	static QString ImageScaleFromTo;
 	static QString Selection;
 	static QString Group;
 	static QString SelectionGroup;

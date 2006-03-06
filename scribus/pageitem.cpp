@@ -225,6 +225,10 @@ PageItem::PageItem(const PageItem & other)
 	oldWidth(other.oldWidth),
 	oldHeight(other.oldHeight),
 	oldRot(other.oldRot),
+	oldLocalScX(other.oldLocalScX),
+	oldLocalScY(other.oldLocalScY),
+	oldLocalX(other.oldLocalX),
+	oldLocalY(other.oldLocalY),
 	m_Font(other.m_Font),
 	m_FontSize(other.m_FontSize),
 	m_Doc(other.m_Doc),
@@ -260,25 +264,17 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	QString tmp;
 	BackBox = 0;
 	NextBox = 0;
-	Xpos = x;
-	oldXpos = x;
-	Ypos = y;
-	oldYpos = y;
-	Width = w;
-	oldWidth = w;
-	Height = h;
-	oldHeight = h;
+	oldXpos = Xpos = x;
+	oldYpos = Ypos = y;
+	//CB Surely we can remove some of these?
+	OldB2 = OldB = oldWidth = Width = w;
+	OldH2 = OldH = oldHeight = Height = h;
 	BoundingX = x;
 	BoundingY = y;
 	BoundingW = w;
 	BoundingH = h;
-	OldB = Width;
-	OldH = Height;
-	OldB2 = Width;
-	OldH2 = Height;
 	m_ItemType = newType;
-	Rot = 0;
-	oldRot = 0;
+	oldRot = Rot = 0;
 	m_Doc = pa;
 	fillColorVal = fill;
 	lineColorVal = m_ItemType == PageItem::TextFrame ? fill : outline;
@@ -332,12 +328,12 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	pixm.imgInfo.lowResType = m_Doc->toolSettings.lowResType;
 	Pfile2 = "";
 	Pfile3 = "";
-	LocalScX = 1;
-	LocalScY = 1;
+	oldLocalScX = LocalScX = 1;
+	oldLocalScY = LocalScY = 1;
 	OrigW = 0;
 	OrigH = 0;
-	LocalX = 0;
-	LocalY = 0;
+	oldLocalX = LocalX = 0;
+	oldLocalY = LocalY = 0;
 	BBoxX = 0;
 	BBoxH = 0;
 	RadRect = 0;
@@ -572,28 +568,33 @@ void PageItem::setSelected(const bool toSelect)
 void PageItem::setImageXScale(const double newImageXScale)
 {
 	LocalScX=newImageXScale;
+	checkChanges();
 }
 
 void PageItem::setImageYScale(const double newImageYScale)
 {
 	LocalScY=newImageYScale;
+	checkChanges();
 }
 
 void PageItem::setImageXYScale(const double newImageXScale, const double newImageYScale)
 {
 	LocalScX=newImageXScale;
 	LocalScY=newImageYScale;
+	checkChanges();
 }
 
 void PageItem::setImageXOffset(const double newImageXOffset)
 {
 	LocalX=newImageXOffset;
+	checkChanges();
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
 void PageItem::setImageYOffset(const double newImageYOffset)
 {
 	LocalY=newImageYOffset;
+	checkChanges();
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
@@ -601,6 +602,7 @@ void PageItem::setImageXYOffset(const double newImageXOffset, const double newIm
 {
 	LocalX=newImageXOffset;
 	LocalY=newImageYOffset;
+	checkChanges();
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
@@ -612,6 +614,7 @@ void PageItem::moveImageXYOffsetBy(const double dX, const double dY)
 		LocalX+=dX;
 	if (dY!=0.0)
 		LocalY+=dY;
+	checkChanges();
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
@@ -2158,6 +2161,12 @@ void PageItem::checkChanges(bool force)
 	// has the item been moved
 	if (force || ((oldXpos != Xpos || oldYpos != Ypos) && shouldCheck()))
 		moveUndoAction();
+	// has the item's image been moved
+	if (force || ((oldLocalX != LocalX || oldLocalY != LocalY) && shouldCheck()))
+		changeImageOffsetUndoAction();
+	// has the item's image been scaled
+	if (force || ((oldLocalScX != LocalScX || oldLocalScY != LocalScY) && shouldCheck()))
+		changeImageScaleUndoAction();
 }
 
 bool PageItem::shouldCheck()
@@ -2259,6 +2268,46 @@ void PageItem::rotateUndoAction()
 	oldOwnPage = OwnPage;
 	oldWidth = Width;
 	oldHeight = Height;
+}
+
+void PageItem::changeImageOffsetUndoAction()
+{
+	if (!shouldCheck())
+		return;
+	if (oldLocalX == LocalX && oldLocalY == LocalY)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::ImageOffset,
+			QString(Um::ImageOffsetFromTo).arg(oldLocalX).arg(oldLocalY).arg(LocalX).arg(LocalY), Um::IMove);
+		ss->set("OLD_IMAGEXOFFSET", oldLocalX);
+		ss->set("OLD_IMAGEYOFFSET", oldLocalY);
+		ss->set("NEW_IMAGEXOFFSET", LocalX);
+		ss->set("NEW_IMAGEYOFFSET", LocalY);
+		undoManager->action(this, ss);
+	}
+	oldLocalX = LocalX;
+	oldLocalY = LocalY;
+}
+
+void PageItem::changeImageScaleUndoAction()
+{
+	if (!shouldCheck())
+		return;
+	if (oldLocalScX == LocalScX && oldLocalScY == LocalScY)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::ImageScale,
+			QString(Um::ImageScaleFromTo).arg(oldLocalScX).arg(oldLocalScY).arg(LocalScX).arg(LocalScY), Um::IMove);
+		ss->set("OLD_IMAGEXSCALE", oldLocalScX);
+		ss->set("OLD_IMAGEYSCALE", oldLocalScY);
+		ss->set("NEW_IMAGEXSCALE", LocalScX);
+		ss->set("NEW_IMAGEYSCALE", LocalScY);
+		undoManager->action(this, ss);
+	}
+	oldLocalScX = LocalScX;
+	oldLocalScY = LocalScY;
 }
 
 void PageItem::restore(UndoState *state, bool isUndo)
@@ -2364,9 +2413,13 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		else if (ss->contains("TEXT_FLOW"))
 			restoreTextFlowing(ss, isUndo);
 		else if (ss->contains("SCALE_TYPE"))
-			restoreImageScaling(ss, isUndo);
+			restoreImageScaleType(ss, isUndo);
+		else if (ss->contains("OLD_IMAGEXSCALE"))
+			restoreImageScaleChange(ss, isUndo);
+		else if (ss->contains("OLD_IMAGEXOFFSET"))
+			restoreImageOffsetChange(ss, isUndo);	
 		else if (ss->contains("ASPECT_RATIO"))
-			restoreImageScaling(ss, isUndo);
+			restoreImageScaleType(ss, isUndo);
 		else if (ss->contains("EDIT_CONTOUR"))
 			restorePoly(ss, isUndo, true);
 		else if (ss->contains("EDIT_SHAPE"))
@@ -2763,7 +2816,7 @@ void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
 	}
 }
 
-void PageItem::restoreImageScaling(SimpleState *state, bool isUndo)
+void PageItem::restoreImageScaleType(SimpleState *state, bool isUndo)
 {
 	bool type=ScaleType;
 	if (state->contains("SCALE_TYPE"))
@@ -2784,6 +2837,32 @@ void PageItem::restoreImageScaling(SimpleState *state, bool isUndo)
 	}
 
 	setImageScalingMode(type, ratio);
+}
+
+void PageItem::restoreImageScaleChange(SimpleState *state, bool isUndo)
+{
+	double oscx = state->getDouble("OLD_IMAGEXSCALE");
+	double oscy = state->getDouble("OLD_IMAGEYSCALE");
+	double  scx = state->getDouble("NEW_IMAGEXSCALE");
+	double  scy = state->getDouble("NEW_IMAGEYSCALE");
+	select();
+	if (!isUndo)
+		m_Doc->itemSelection_SetImageScale(scx,scy);
+	else
+		m_Doc->itemSelection_SetImageScale(oscx,oscy);
+}
+
+void PageItem::restoreImageOffsetChange(SimpleState *state, bool isUndo)
+{
+	double ox = state->getDouble("OLD_IMAGEXOFFSET");
+	double oy = state->getDouble("OLD_IMAGEYOFFSET");
+	double  x = state->getDouble("NEW_IMAGEXOFFSET");
+	double  y = state->getDouble("NEW_IMAGEYOFFSET");
+	select();
+	if (!isUndo)
+		m_Doc->itemSelection_SetImageOffset(x,y);
+	else
+		m_Doc->itemSelection_SetImageOffset(ox,oy);
 }
 
 void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
@@ -3313,12 +3392,14 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		double yres = pixm.imgInfo.yres;
 		PicAvail = true;
 //		PicArt = true;
+		
 		if (Pfile != filename)
 		{
-			LocalScX = 72.0 / xres;
-			LocalScY = 72.0 / yres;
-			LocalX = 0;
-			LocalY = 0;
+			oldLocalScX = LocalScX = 72.0 / xres;
+			oldLocalScY = LocalScY = 72.0 / yres;
+			oldLocalX = LocalX = 0;
+			oldLocalY = LocalY = 0;
+			
 			if ((m_Doc->toolSettings.useEmbeddedPath) && (!pixm.imgInfo.clipPath.isEmpty()))
 			{
 				pixm.imgInfo.usedPath = pixm.imgInfo.clipPath;
@@ -3334,6 +3415,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				}
 			}
 		}
+		
 		Pfile = fi.absFilePath();
 		if (reload && pixm.imgInfo.PDSpathData.contains(clPath))
 		{

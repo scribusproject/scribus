@@ -860,6 +860,8 @@ public:
 	void moveUndoAction();
 	void resizeUndoAction();
 	void rotateUndoAction();
+	void changeImageOffsetUndoAction();
+	void changeImageScaleUndoAction();
 	/*@}*/
 	/** @brief Required by the UndoObject */
 	void restore(UndoState *state, bool isUndo);
@@ -975,7 +977,9 @@ protected:
 	void restoreFontEffect(SimpleState *state, bool isUndo);
 	void restoreType(SimpleState *state, bool isUndo);
 	void restoreTextFlowing(SimpleState *state, bool isUndo);
-	void restoreImageScaling(SimpleState *state, bool isUndo);
+	void restoreImageScaleType(SimpleState *state, bool isUndo);
+	void restoreImageScaleChange(SimpleState *state, bool isUndo);
+	void restoreImageOffsetChange(SimpleState *state, bool isUndo);
 	void restorePoly(SimpleState *state, bool isUndo, bool isContour);
 	void restoreContourLine(SimpleState *state, bool isUndo);
 	void restoreLayer(SimpleState *state, bool isUndo);
@@ -1158,6 +1162,14 @@ protected:
 	double oldHeight;
 	/** @brief Stores the old rotation value for undo action. Is used to detect rotation actions. */
 	double oldRot;
+	/** @brief Stores the old LocalScX value for undo action. Is used to detect image scale actions. */
+	double oldLocalScX;
+	/** @brief Stores the old LocalScY value for undo action. Is used to detect image scale actions. */
+	double oldLocalScY;
+	/** @brief Stores the old LocalX value for undo action. Is used to detect image offset actions. */
+	double oldLocalX;
+	/** @brief Stores the old LocalY value for undo action. Is used to detect image offset actions. */
+	double oldLocalY;
 	
 	/** Item Font */
 	QString m_Font;

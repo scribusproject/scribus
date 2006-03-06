@@ -809,6 +809,9 @@ public slots:
 	void itemSelection_DoDeHyphenate();
 	void itemSelection_SendToLayer(int layerNumber);
 	void itemSelection_SetParagraphStyle(int s);
+	void itemSelection_SetImageOffset(double x, double y);
+	void itemSelection_SetImageScale(double x, double y);
+	void itemSelection_SetImageScaleAndOffset(double ox, double oy, double sx, double sy);
 	
 	void ItemPen(QString farbe);
 	void ItemPenShade(int sha);

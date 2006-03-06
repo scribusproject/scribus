@@ -3613,52 +3613,6 @@ void ScribusDoc::ChLineSpa(double w)
 	}
 }
 
-void ScribusDoc::ChLocalXY(double x, double y)
-{
-	uint selectedItemCount=selection->count();
-	if (selectedItemCount != 0)
-	{
-		PageItem *currItem;
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			currItem = selection->itemAt(a);
-			currItem->setImageXYOffset(x, y);
-			if (currItem->imageClip.size() != 0)
-			{
-				currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
-				QWMatrix cl;
-				cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
-				cl.scale(currItem->imageXScale(), currItem->imageYScale());
-				currItem->imageClip.map(cl);
-			}
-			emit refreshItem(currItem);
-		}
-	}
-}
-
-void ScribusDoc::ChLocalSc(double x, double y)
-{
-	uint selectedItemCount=selection->count();
-	if (selectedItemCount != 0)
-	{
-		PageItem *currItem;
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			currItem = selection->itemAt(a);
-			currItem->setImageXYScale(x, y);
-			if (currItem->imageClip.size() != 0)
-			{
-				currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
-				QWMatrix cl;
-				cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
-				cl.scale(currItem->imageXScale(), currItem->imageYScale());
-				currItem->imageClip.map(cl);
-			}
-			emit refreshItem(currItem);
-		}
-	}
-}
-
 void ScribusDoc::ItemFont(QString fon)
 {
 	uint selectedItemCount=selection->count();
@@ -5437,19 +5391,19 @@ void ScribusDoc::itemSelection_DoDeHyphenate()
 
 void ScribusDoc::itemSelection_SendToLayer(int layerNumber)
 {
-	uint docSelectionCount=selection->count();
-	if (docSelectionCount != 0)
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
 	{
-		if (UndoManager::undoEnabled() && docSelectionCount > 1)
+		if (UndoManager::undoEnabled() && selectedItemCount > 1)
 			undoManager->beginTransaction();
 		QString tooltip = Um::ItemsInvolved + "\n";
-		for (uint a = 0; a < docSelectionCount; ++a)
+		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			PageItem *currItem = selection->itemAt(a);
 			currItem->setLayer(layerNumber);
 			tooltip += "\t" + currItem->getUName() + "\n";
 		}
-		if (UndoManager::undoEnabled() && docSelectionCount > 1)
+		if (UndoManager::undoEnabled() && selectedItemCount > 1)
 			undoManager->commit(Um::Selection,
 								Um::IGroup,
 								Um::SendToLayer,
@@ -5467,25 +5421,137 @@ void ScribusDoc::itemSelection_SendToLayer(int layerNumber)
 
 void ScribusDoc::itemSelection_SetParagraphStyle(int s)
 {
-	uint docSelectionCount=selection->count();
-	if (docSelectionCount != 0)
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
 	{
-		if (UndoManager::undoEnabled() && docSelectionCount > 1)
+		if (UndoManager::undoEnabled() && selectedItemCount > 1)
 			undoManager->beginTransaction();
 		QString tooltip = Um::ItemsInvolved + "\n";
-		for (uint a = 0; a < docSelectionCount; ++a)
+		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			PageItem *currItem = selection->itemAt(a);
 			if (currItem!=NULL)
+			{
 				chAbStyle(currItem, s);
+				tooltip += "\t" + currItem->getUName() + "\n";
+			}
 		}
-		if (UndoManager::undoEnabled() && docSelectionCount > 1)
+		if (UndoManager::undoEnabled() && selectedItemCount > 1)
 			undoManager->commit(Um::Selection,
 								Um::IGroup,
 								s > 4 ? Um::SetStyle : Um::AlignText,
 								tooltip,
 								Um::IFont);
 		ScMW->view->DrawNew(); //CB draw new until NLS for redraw through text chains
+	}
+}
+
+
+void ScribusDoc::itemSelection_SetImageOffset(double x, double y)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (UndoManager::undoEnabled() && selectedItemCount > 1)
+			undoManager->beginTransaction();
+		QString tooltip = Um::ItemsInvolved + "\n";
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			PageItem *currItem = selection->itemAt(a);
+			currItem->setImageXYOffset(x, y);
+			if (currItem->imageClip.size() != 0)
+			{
+				currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
+				QWMatrix cl;
+				cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
+				cl.scale(currItem->imageXScale(), currItem->imageYScale());
+				currItem->imageClip.map(cl);
+			}
+			tooltip += "\t" + currItem->getUName() + "\n";
+			emit refreshItem(currItem);
+		}
+		if (UndoManager::undoEnabled() && selectedItemCount > 1)
+			undoManager->commit(Um::Selection,
+								Um::IGroup,
+								Um::ImageOffset,
+								tooltip,
+								Um::IMove);
+		changed();
+	}
+}
+
+void ScribusDoc::itemSelection_SetImageScale(double x, double y)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (UndoManager::undoEnabled() && selectedItemCount > 1)
+			undoManager->beginTransaction();
+		QString tooltip = Um::ItemsInvolved + "\n";
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			PageItem *currItem = selection->itemAt(a);
+			currItem->setImageXYScale(x, y);
+			if (currItem->imageClip.size() != 0)
+			{
+				currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
+				QWMatrix cl;
+				cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
+				cl.scale(currItem->imageXScale(), currItem->imageYScale());
+				currItem->imageClip.map(cl);
+			}
+			tooltip += "\t" + currItem->getUName() + "\n";
+			emit refreshItem(currItem);
+		}
+		if (UndoManager::undoEnabled() && selectedItemCount > 1)
+			undoManager->commit(Um::Selection,
+								Um::IGroup,
+								Um::ImageScale,
+								tooltip,
+								Um::IMove);
+		changed();
+	}
+}
+
+void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, double ox, double oy)
+{
+	uint selectedItemCount=selection->count();
+	if (selectedItemCount != 0)
+	{
+		if (UndoManager::undoEnabled() && selectedItemCount > 1)
+			undoManager->beginTransaction();
+		QString tooltip = Um::ItemsInvolved + "\n";
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			PageItem *currItem = selection->itemAt(a);
+			if (UndoManager::undoEnabled())
+				undoManager->beginTransaction();
+			currItem->setImageXYScale(sx, sy);
+			currItem->setImageXYOffset(ox/sx, oy/sy);
+			if (currItem->imageClip.size() != 0)
+			{
+				currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
+				QWMatrix cl;
+				cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
+				cl.scale(currItem->imageXScale(), currItem->imageYScale());
+				currItem->imageClip.map(cl);
+			}
+			tooltip += "\t" + currItem->getUName() + "\n";
+			if (UndoManager::undoEnabled())
+			undoManager->commit(Um::Selection,
+								Um::IImageFrame,
+								Um::ImageScale,
+								tooltip,
+								Um::IMove);
+			emit refreshItem(currItem);
+		}
+		if (UndoManager::undoEnabled() && selectedItemCount > 1)
+			undoManager->commit(Um::Selection,
+								Um::IGroup,
+								Um::ImageScale,
+								tooltip,
+								Um::IMove);
+		changed();
 	}
 }
 
