@@ -2814,12 +2814,14 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame()
 	ScMW->DisableTxEdit();
 }
 
+
+//CB Rewrote JJSA code, March 06
 // jjsa added on 15-mar-2004
 // calculate the end position while ctrl + arrow pressed
 
 void PageItem_TextFrame::setNewPos(int oldPos, int len, int dir)
 {
-	int i;
+	
 	bool isSpace, wasSpace;
 	if ( dir > 0 && oldPos < len )
 	{
@@ -2837,7 +2839,7 @@ void PageItem_TextFrame::setNewPos(int oldPos, int len, int dir)
 		/*
 		isSpace = itemText.at(oldPos)->ch.at(0).isSpace();
 		CPos = oldPos +1;
-		for (i=oldPos+1; i < len; i++)
+		for (int i=oldPos+1; i < len; i++)
 		{
 			if ( itemText.at(i)->ch.at(0).isSpace() != isSpace )
 				break;
@@ -2864,7 +2866,7 @@ void PageItem_TextFrame::setNewPos(int oldPos, int len, int dir)
 		/*
 		oldPos--;
 		isSpace = itemText.at(oldPos)->ch.at(0).isSpace();
-		for (i=oldPos; i >= 0; i--)
+		for (int i=oldPos; i >= 0; i--)
 		{
 			if (  itemText.at(i)->ch.at(0).isSpace() != isSpace )
 				break;

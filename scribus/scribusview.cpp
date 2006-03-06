@@ -3856,6 +3856,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				{
 					erf=true;
 					currItem = Doc->selection->itemAt(0);
+					//Control Alt drag image in frame without being in edit mode
 					if ((currItem->asImageFrame()) && (m->state() & ControlButton) && (m->state() & AltButton))
 					{
 						currItem->moveImageInFrame(dX/currItem->imageXScale(),dY/currItem->imageYScale());
@@ -3864,7 +3865,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					}
 					else
 					{
-						if (m->state() & ControlButton)
+						//Dragging orthogonally - Ctrl Drag
+						if ((m->state() & ControlButton) && !(m->state() & ShiftButton) && !(m->state() & AltButton))
 						{
 							if (abs(dX)>abs(dY))
 								dY=0;
