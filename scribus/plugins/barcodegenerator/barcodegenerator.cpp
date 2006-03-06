@@ -39,56 +39,56 @@ BarcodeType::BarcodeType(QString cmd, QString exa, QString comm, QString regExp)
 BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	: BarcodeGeneratorBase(parent, name, true)
 {
-	map["EAN-13"] = BarcodeType("ean13", "9781860742712", "12 or 13 digits",
+	map["EAN-13"] = BarcodeType("ean13", "9781860742712", tr("12 or 13 digits"),
 								"[0-9]{12,13}");
-	map["EAN-8"] = BarcodeType("ean8", "12345678", "8 digits",
+	map["EAN-8"] = BarcodeType("ean8", "12345678", tr("8 digits"),
 							   "[0-9]{8,8}");
-	map["UPC-A"] = BarcodeType("upca", "78858101497", "11 or 12 digits",
+	map["UPC-A"] = BarcodeType("upca", "78858101497", tr("11 or 12 digits"),
 							   "[0-9]{11,12}");
-	map["UPC-E"] = BarcodeType("upce", "0123456", "7 or 8 digits",
+	map["UPC-E"] = BarcodeType("upce", "0123456", tr("7 or 8 digits"),
 							   "[0-9]{7,8}");
-	map["EAN-5"] = BarcodeType("ean5", "90200", "5 digits",
+	map["EAN-5"] = BarcodeType("ean5", "90200", tr("5 digits"),
 							   "[0-9]{5,5}");
-	map["EAN-2"] = BarcodeType("ean2", "42", "2 digits",
+	map["EAN-2"] = BarcodeType("ean2", "42", tr("2 digits"),
 							   "[0-9]{2,2}");
 	map["ISBN"] = BarcodeType("isbn", "1-58880-149",
-							  "9 or 10 digits separated appropriately with dashes",
+							  tr("9 or 10 digits separated appropriately with dashes"),
 							  "[0-9]*\\-[0-9]*\\-[0-9]*");
 //    "Code-11"] = "code11"
 	map["Code-39"] = BarcodeType("code39", "CODE-39",
-								 "Variable number of characters, digits and any of the symbols -. *$/+%.",
+								 tr("Variable number of characters, digits and any of the symbols -. *$/+%."),
 								 "[0-9a-zA-Z\\-\\.\\ \\*\\$\\/\\+\\%]*");
 //    "Code-93"] = "code93"
 	map["Code-128"] = BarcodeType("code128", "^104^102Count^0991234^101!",
-								  "Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.",
+								  tr("Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character."),
 								  "\\^[0-9a-zA-Z\\^\\!]*");
 	map["UCC/EAN-128"] = BarcodeType("code128", "^104^102Count^0991234^101!",
-									 "Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.",
+									 tr("Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character."),
 									 "\\^[0-9a-zA-Z\\^\\!]*");
 	map["Rationalized Codabar"] = BarcodeType("rationalizedCodabar", "0123456789",
-											  "Variable number of digits and any of the symbols -$:/.+ABCD.",
+											  tr("Variable number of digits and any of the symbols -$:/.+ABCD."),
 											  "[0-9A-D\\-\\$\\:\\/\\.\\+]*");
 	map["Interleaved 2 of 5"] = BarcodeType("interleaved2of5", "05012345678900",
-											"Variable number of digits. An ITF-14 is 14 characters and does not have a check digit",
+											tr("Variable number of digits. An ITF-14 is 14 characters and does not have a check digit"),
 											"[0-9]*");
 	map["ITF-14"] = BarcodeType("interleaved2of5", "05012345678900",
-								"Variable number of digits. An ITF-14 is 14 characters and does not have a check digit",
+								tr("Variable number of digits. An ITF-14 is 14 characters and does not have a check digit"),
 								"[0-9]*");
 	map["Code 2 of 5"] = BarcodeType("code2of5", "0123456789",
-									 "Variable number of digits",
+									 tr("Variable number of digits"),
 									 "[0-9]*");
 	map["Postnet"] = BarcodeType("postnet", "01234567",
-								 "Variable number of digits",
+								 tr("Variable number of digits"),
 								 "[0-9]*");
 	map["Royal Mail"] = BarcodeType("royalmail", "LE28HS9Z",
-									"Variable number of digits and capital letters",
+									tr("Variable number of digits and capital letters"),
 									"[0-9A-Z]*");
 //    "Auspost"] = "auspost"
-	map["MSI"] = BarcodeType("msi", "0120823635162", "Variable number of digits",
+	map["MSI"] = BarcodeType("msi", "0120823635162", tr("Variable number of digits"),
 							 "[0-9]*");
 //    "KIX"] = "kix"
 	map["Plessey"] = BarcodeType("plessey", "012345ABCDEF",
-								 "Variable number of hexadecimal characters",
+								 tr("Variable number of hexadecimal characters"),
 								 "[0-9A-F]*");
 	//    "Symbol"] = "symbol"
 
@@ -218,7 +218,7 @@ void BarcodeGenerator::cancelButton_pressed()
 
 bool BarcodeGenerator::codeEdit_check(const QString& s)
 {
-	bool paint = true;
+	/* propably not needed as the backend do it for us (PV)
 	QRegExp rx(map[bcCombo->currentText()].regularExp);
 	if (!rx.exactMatch(s))
 	{
@@ -233,7 +233,9 @@ bool BarcodeGenerator::codeEdit_check(const QString& s)
 		okButton->setEnabled(true);
 		paintBarcode();
 		return true;
-	}
+	} */
+	paintBarcode();
+	return true;
 }
 
 void BarcodeGenerator::codeEdit_textChanged(const QString& s)
@@ -268,8 +270,12 @@ bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 	f.close();
 
 	QStringList gargs;
-	gargs.append("-dDEVICEWIDTHPOINTS=200");
-	gargs.append("-dDEVICEHEIGHTPOINTS=150");
+	// limit the area only for preview. EPS importer bounds the box itself.
+	if (fileName == tmpFile)
+	{
+		gargs.append("-dDEVICEWIDTHPOINTS=200");
+		gargs.append("-dDEVICEHEIGHTPOINTS=150");
+	}
 	gargs.append( QString("-r%1").arg(dpi) );
 	gargs.append( QString("-sOutputFile=%1").arg(fileName) );
 	gargs.append( psFile );
@@ -287,7 +293,7 @@ bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 	}
 	else
 	{
-		sampleLabel->setText("<qt>" + tr("Ghostscript: Error creating preview") + "</qt>");
+		sampleLabel->setText("<qt>" + tr("Barcode incomplete") + "</qt>");
 		okButton->setEnabled(false);
 	}
 	return retval;

@@ -88,7 +88,7 @@
                                                                 <cstring>codeLabel</cstring>
                                                             </property>
                                                             <property name="text">
-                                                                <string>C&amp;ode:</string>
+                                                                <string>Co&amp;de:</string>
                                                             </property>
                                                             <property name="buddy" stdset="0">
                                                                 <cstring>codeEdit</cstring>
@@ -482,9 +482,6 @@
         <slot>resetButton_clicked()</slot>
     </connection>
 </connections>
-<includes>
-    <include location="local" impldecl="in implementation">barcodegeneratorbase.ui.h</include>
-</includes>
 <slots>
     <slot>bcComboChanged()</slot>
     <slot>textCheck_changed()</slot>

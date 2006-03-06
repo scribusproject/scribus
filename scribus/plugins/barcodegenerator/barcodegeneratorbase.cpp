@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Form implementation generated from reading ui file 'barcodegeneratorbase.ui'
 **
-** Created: St led 25 12:58:43 2006
+** Created: Po bře 6 12:51:56 2006
 **      by: The User Interface Compiler ($Id$)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -197,7 +197,7 @@ void BarcodeGeneratorBase::languageChange()
     setCaption( tr( "Barcode Creator" ) );
     bcodeBox->setTitle( tr( "Barcode" ) );
     bcLabel->setText( tr( "&Type:" ) );
-    codeLabel->setText( tr( "C&ode:" ) );
+    codeLabel->setText( tr( "Co&de:" ) );
     QToolTip::add( bcCombo, tr( "Select one of the available barcode type here" ) );
     QToolTip::add( codeEdit, tr( "The numeric representation of the code itself. See the help message below" ) );
     resetButton->setText( QString::null );
