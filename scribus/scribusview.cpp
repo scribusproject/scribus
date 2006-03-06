@@ -3544,6 +3544,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				}
 				newX = m->x();
 				newY = m->y();
+				FPoint np(newX-Mxp, newY-Myp, 0, 0, currItem->rotation(), 1, 1, true);
 				operItemMoving = true;
 				currItem = Doc->selection->itemAt(0);
 				currItem->OldB2 = currItem->width();
@@ -3553,19 +3554,19 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					Clip = currItem->ContourLine;
 				else
 					Clip = currItem->PoLine;
-				npf.setX(Clip.point(ClRe).x() + (newX-Mxp) / Scale);
-				npf.setY(Clip.point(ClRe).y() + (newY-Myp) / Scale);
+				npf.setX(Clip.point(ClRe).x() + np.x() / Scale);
+				npf.setY(Clip.point(ClRe).y() + np.y() / Scale);
 				if ((SegP1 != -1) && (SegP2 != -1))
 				{
-					npf.setX(Clip.point(SegP2).x() + (newX-Mxp) / Scale);
-					npf.setY(Clip.point(SegP2).y() + (newY-Myp) / Scale);
+					npf.setX(Clip.point(SegP2).x() + np.x() / Scale);
+					npf.setY(Clip.point(SegP2).y() + np.y() / Scale);
 					ClRe = SegP2;
 					MoveClipPoint(currItem, npf);
 					currItem->OldB2 = currItem->width();
 					currItem->OldH2 = currItem->height();
 					ClRe = SegP1;
-					npf2.setX(Clip.point(SegP1).x() + (newX-Mxp) / Scale);
-					npf2.setY(Clip.point(SegP1).y() + (newY-Myp) / Scale);
+					npf2.setX(Clip.point(SegP1).x() + np.x() / Scale);
+					npf2.setY(Clip.point(SegP1).y() + np.y() / Scale);
 					MoveClipPoint(currItem, npf2);
 					Mxp = newX;
 					Myp = newY;
@@ -3577,8 +3578,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						int storedClRe = ClRe;
 						for (uint itm = 0; itm < SelNode.count(); ++itm)
 						{
-							npf.setX(Clip.point(*SelNode.at(itm)).x() + (newX-Mxp) / Scale);
-							npf.setY(Clip.point(*SelNode.at(itm)).y() + (newY-Myp) / Scale);
+							npf.setX(Clip.point(*SelNode.at(itm)).x() + np.x() / Scale);
+							npf.setY(Clip.point(*SelNode.at(itm)).y() + np.y() / Scale);
 							ClRe = *SelNode.at(itm);
 							currItem->OldB2 = currItem->width();
 							currItem->OldH2 = currItem->height();
@@ -6287,10 +6288,13 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 		QRect oldR = QRect(qRound(currItem->BoundingX * Scale), qRound(currItem->BoundingY * Scale), qRound(currItem->BoundingW * Scale), qRound(currItem->BoundingH * Scale));
 		//CB this breaks dragging an item when the canvas has been push resized
 		//oldR.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
-		p.begin(viewport());
-		ToView(&p);
-		PaintSizeRect(&p, oldR);
-		p.end();
+		if (!currItem->asLine())
+		{
+			p.begin(viewport());
+			ToView(&p);
+			PaintSizeRect(&p, oldR);
+			p.end();
+		}
 	}
 }
 
