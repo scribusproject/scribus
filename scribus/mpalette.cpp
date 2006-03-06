@@ -604,10 +604,12 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	keepImageWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
 	layout43->addMultiCellWidget( keepImageWHRatioButton, 2, 3, 2, 2 );
 	imgDpiX = new MSpinBox( page_4, 1 );
+	installSniffer(imgDpiX);
 	imgDPIXLabel = new QLabel( imgDpiX, "Actual X-DPI:", page_4, "imgDPIYLabel" );
 	layout43->addWidget( imgDPIXLabel, 4, 0 );
 	layout43->addWidget( imgDpiX, 4, 1 );
 	imgDpiY = new MSpinBox( page_4, 1 );
+	installSniffer(imgDpiY);
 	imgDPIYLabel = new QLabel( imgDpiY, "Actual Y-DPI:", page_4, "imgDPIYLabel" );
 	layout43->addWidget( imgDPIYLabel, 5, 0 );
 	layout43->addWidget( imgDpiY, 5, 1 );
