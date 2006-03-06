@@ -122,12 +122,15 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert("editRedoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("u_redo16.png"), loadIcon("u_redo.png")), "", CTRL+SHIFT+Key_Z, ScMW, "editRedoAction", 1));
 	scrActions->insert("editActionMode", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "editActionMode"));
 	(*scrActions)["editActionMode"]->setToggleAction(true);
+	
 	scrActions->insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png"), loadIcon("editcut22.png")), "", CTRL+Key_X, ScMW, "editCut"));
 	scrActions->insert("editCopy", new ScrAction(QIconSet(loadIcon("editcopy.png"), loadIcon("editcopy.png")), "", CTRL+Key_C, ScMW, "editCopy"));
 	scrActions->insert("editPaste", new ScrAction(QIconSet(loadIcon("editpaste.png"), loadIcon("editpaste.png")), "", CTRL+Key_V, ScMW, "editPaste"));
 	scrActions->insert("editCopyContents", new ScrAction(QIconSet(loadIcon("editcopy.png"), loadIcon("editcopy.png")), "", CTRL+SHIFT+Key_C, ScMW, "editCopyContents"));
-	scrActions->insert("editPasteContents", new ScrAction(QIconSet(loadIcon("editpaste.png"), loadIcon("editpaste.png")), "", CTRL+SHIFT+Key_V, ScMW, "editPasteContents"));
+	scrActions->insert("editPasteContents", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("editpaste.png")), "", CTRL+SHIFT+Key_V, ScMW, "editPasteContents",0));
+	scrActions->insert("editPasteContentsAbs", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("editpaste.png")), "", CTRL+SHIFT+ALT+Key_V, ScMW, "editPasteContentsAbs",1));
 	scrActions->insert("editClearContents", new ScrAction(QIconSet(loadIcon("editdelete.png"), loadIcon("editdelete22.png")), "", QKeySequence(), ScMW, "editClearContents"));
+	
 	scrActions->insert("editSelectAll", new ScrAction(QIconSet(noIcon), "", CTRL+Key_A, ScMW, "editSelectAll"));
 	scrActions->insert("editDeselectAll", new ScrAction(QIconSet(noIcon), "", CTRL+SHIFT+Key_A, ScMW, "editDeselectAll"));
 	scrActions->insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png"), loadIcon("find16.png")), "", QKeySequence(CTRL+Key_F), ScMW, "editSearchReplace"));
@@ -151,7 +154,8 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editCopy"], SIGNAL(activated()), ScMW, SLOT(slotEditCopy()) );
 	connect( (*scrActions)["editPaste"], SIGNAL(activated()), ScMW, SLOT(slotEditPaste()) );
 	connect( (*scrActions)["editCopyContents"], SIGNAL(activated()), ScMW, SLOT(slotEditCopyContents()) );
-	connect( (*scrActions)["editPasteContents"], SIGNAL(activated()), ScMW, SLOT(slotEditPasteContents()) );
+	connect( (*scrActions)["editPasteContents"], SIGNAL(activatedData(int)), ScMW, SLOT(slotEditPasteContents(int)) );
+	connect( (*scrActions)["editPasteContentsAbs"], SIGNAL(activatedData(int)), ScMW, SLOT(slotEditPasteContents(int)) );
 	connect( (*scrActions)["editSelectAll"], SIGNAL(activated()), ScMW, SLOT(SelectAll()) );
 	connect( (*scrActions)["editDeselectAll"], SIGNAL(activated()), ScMW, SLOT(deselectAll()) );
 	connect( (*scrActions)["editSearchReplace"], SIGNAL(activated()), ScMW, SLOT(SearchText()) );
@@ -900,6 +904,7 @@ void ActionManager::languageChange()
 	(*scrActions)["editPaste"]->setTexts( tr("&Paste"));
 	(*scrActions)["editCopyContents"]->setTexts( tr("Copy Contents"));
 	(*scrActions)["editPasteContents"]->setTexts( tr("Paste Contents"));
+	(*scrActions)["editPasteContentsAbs"]->setTexts( tr("Paste Contents (Absolute)"));
 	(*scrActions)["editClearContents"]->setTexts( tr("C&lear Contents"));
 	(*scrActions)["editSelectAll"]->setTexts( tr("Select &All"));
 	(*scrActions)["editDeselectAll"]->setTexts( tr("&Deselect All"));

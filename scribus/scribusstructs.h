@@ -147,6 +147,8 @@ struct CopyContentsBuffer
 	double LocalScY;
 	double LocalX;
 	double LocalY;
+	double ItemX;
+	double ItemY;
 	QString inputProfile;
 	bool useEmbedded;
 	int renderingIntent;

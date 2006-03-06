@@ -2012,6 +2012,12 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				ScMW->scrActions["editPaste"]->addTo(pmen);
 			if (!currItem->locked() && (Doc->appMode != modeEdit) && (!(currItem->isTableItem && currItem->isSingleSel)))
 				pmen->insertItem( tr("&Delete"), Doc, SLOT(itemSelection_DeleteItem()));
+			if (currItem->itemType() == PageItem::ImageFrame)
+			{
+				ScMW->scrActions["editCopyContents"]->addTo(pmen);
+				ScMW->scrActions["editPasteContents"]->addTo(pmen);
+				ScMW->scrActions["editPasteContentsAbs"]->addTo(pmen);
+			}
 			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 				ScMW->scrActions["editClearContents"]->addTo(pmen);
 			pmen->insertSeparator();

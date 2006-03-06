@@ -345,7 +345,7 @@ public slots:
 	/** \brief paste the clipboard into the document*/
 	void slotEditPaste();
 	void slotEditCopyContents();
-	void slotEditPasteContents();
+	void slotEditPasteContents(int absolute=0);
 	void EnableTxEdit();
 	void DisableTxEdit();
 	void SelectAll();

@@ -659,6 +659,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editPaste"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editCopyContents"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editPasteContents"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editPasteContentsAbs"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editClearContents"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editSelectAll"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editDeselectAll"], "Edit");
@@ -668,7 +669,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editEditWithImageEditor"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
-//	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
+// 	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editParaStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editLineStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit");
@@ -684,6 +685,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["editPaste"]->setEnabled(false);
 	scrActions["editCopyContents"]->setEnabled(false);
 	scrActions["editPasteContents"]->setEnabled(false);
+	scrActions["editPasteContentsAbs"]->setEnabled(false);
 	scrActions["editClearContents"]->setEnabled(false);
 	scrActions["editSelectAll"]->setEnabled(false);
 	scrActions["editDeselectAll"]->setEnabled(false);
@@ -2215,6 +2217,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["editPaste"]->setEnabled(!Buffer2.isEmpty());
 	scrActions["editCopyContents"]->setEnabled(false);
 	scrActions["editPasteContents"]->setEnabled(false);
+	scrActions["editPasteContentsAbs"]->setEnabled(false);
 	scrActions["editSelectAll"]->setEnabled(true);
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editParaStyles"]->setEnabled(true);
@@ -2363,6 +2366,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	scrActions["styleImageEffects"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["editCopyContents"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["editPasteContents"]->setEnabled(Nr==PageItem::ImageFrame);
+	scrActions["editPasteContentsAbs"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["editEditWithImageEditor"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail && currItem->isRaster);
 	if (Nr!=PageItem::ImageFrame)
 	{
@@ -8713,6 +8717,8 @@ void ScribusMainWindow::slotEditCopyContents()
 				contentsBuffer.LocalScY=imageItem->imageYScale();
 				contentsBuffer.LocalX=imageItem->imageXOffset();
 				contentsBuffer.LocalY=imageItem->imageYOffset();
+				contentsBuffer.ItemX=imageItem->xPos();
+				contentsBuffer.ItemY=imageItem->yPos();
 				contentsBuffer.inputProfile=imageItem->IProfile;
 				contentsBuffer.useEmbedded=imageItem->UseEmbedded;
 				contentsBuffer.renderingIntent=imageItem->IRender;
@@ -8721,7 +8727,7 @@ void ScribusMainWindow::slotEditCopyContents()
 	}
 }
 
-void ScribusMainWindow::slotEditPasteContents()
+void ScribusMainWindow::slotEditPasteContents(int absolute)
 {
 	PageItem *currItem=NULL;
 	if (HaveDoc && !contentsBuffer.contentsFileName.isEmpty() && (currItem=doc->selection->itemAt(0))!=NULL)
@@ -8745,7 +8751,12 @@ void ScribusMainWindow::slotEditPasteContents()
 				doc->loadPict(contentsBuffer.contentsFileName, imageItem);
 				imageItem->AdjustPictScale();
 				imageItem->setImageXYScale(contentsBuffer.LocalScX, contentsBuffer.LocalScY);
-				imageItem->setImageXYOffset(contentsBuffer.LocalX, contentsBuffer.LocalY);
+				if (absolute==0)
+					imageItem->setImageXYOffset(contentsBuffer.LocalX, contentsBuffer.LocalY);
+				else
+					imageItem->setImageXYOffset(
+					((contentsBuffer.ItemX-imageItem->xPos()) / contentsBuffer.LocalScX)+contentsBuffer.LocalX,
+					((contentsBuffer.ItemY-imageItem->yPos()) / contentsBuffer.LocalScY)+contentsBuffer.LocalY);
 				imageItem->IProfile=contentsBuffer.inputProfile;
 				imageItem->UseEmbedded=contentsBuffer.useEmbedded;
 				imageItem->IRender=contentsBuffer.renderingIntent;
