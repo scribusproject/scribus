@@ -58,7 +58,7 @@ void LanguageManager::generateLangList()
 	langList.insert("en_GB", langPair("English (British)", QObject::tr( "English (British)" )) );
 	langList.insert("eo",    langPair("Esperanto", QObject::tr( "Esperanto" )) );
 	langList.insert("de",    langPair("German", QObject::tr( "German" )) );
-	langList.insert("de_ol",langPair("German (Trad.)", QObject::tr( "German (Trad.)" )) );
+	langList.insert("de_ol", langPair("German (Trad.)", QObject::tr( "German (Trad.)" )) );
 	langList.insert("fi",    langPair("Finnish", QObject::tr( "Finnish" )) );
 	langList.insert("fr",    langPair("French", QObject::tr( "French" )) );
 	langList.insert("ga",    langPair("Galician", QObject::tr( "Galician" )) );
@@ -71,6 +71,7 @@ void LanguageManager::generateLangList()
 	langList.insert("ko",    langPair("Korean", QObject::tr( "Korean" )) );
 	langList.insert("lt",    langPair("Lithuanian", QObject::tr( "Lithuanian" )) );
 	langList.insert("lt_LT", langPair("Lithuanian", QObject::tr( "Lithuanian" )) );
+	langList.insert("lu",    langPair("Luxembourgish", QObject::tr( "Luxembourgish" )) );
 	langList.insert("nb",    langPair("Norwegian (Bokmaal)", QObject::tr( "Norwegian (Bokmaal)" )) );
 	langList.insert("nb_NO", langPair("Norwegian (Bokmaal)", QObject::tr( "Norwegian (Bokmaal)" )) );
 	langList.insert("nn",    langPair("Norwegian (Nnyorsk)", QObject::tr( "Norwegian (Nnyorsk)" )) );
