@@ -47,7 +47,7 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	item->setImageXYScale(x, y);
-	ScMW->doc->ChLocalSc(x, y);
+	ScMW->doc->itemSelection_SetImageScale(x, y); //CB why when this is done above?
 	ScMW->doc->updatePic();
 	Py_INCREF(Py_None);
 	return Py_None;

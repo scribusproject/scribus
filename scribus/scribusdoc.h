@@ -545,8 +545,8 @@ public:
 	void ChLineEnd(PenCapStyle w);
 	void ChLineSpa(double w);
 	void ChLineSpaMode(int w);
-	void ChLocalXY(double x, double y);
-	void ChLocalSc(double x, double y);
+	//void ChLocalXY(double x, double y);
+	//void ChLocalSc(double x, double y);
 	void ItemFont(QString fon);
 	void ItemTextBrush(QString farbe);
 	void ItemTextBrushS(int sha);
