@@ -5768,7 +5768,7 @@ void ScribusMainWindow::CopyPage()
 
 void ScribusMainWindow::changePageMargins()
 {
-	int lp;
+	int lp=0;
 	NoFrameEdit();
 	MarginDialog *dia = new MarginDialog(this, doc);
 	if (dia->exec())
