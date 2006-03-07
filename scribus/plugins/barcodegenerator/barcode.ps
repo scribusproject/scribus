@@ -4,7 +4,7 @@
 %%EndComments
 %%EndProlog
 
-% Barcode Writer in Pure PostScript - Version 2006-03-03
+% Barcode Writer in Pure PostScript - Version 2006-03-04
 % http://www.terryburton.co.uk/barcodewriter/
 %
 % Copyright (c) 2006 Terry Burton - tez@terryburton.co.uk
@@ -159,7 +159,7 @@
     
     % Return the arguments
     /retval 4 dict def
-    retval (sbs) mark sbs {48 sub} forall ] put
+    retval (sbs) [sbs {48 sub} forall] put
     includetext {
         retval (bhs) [height height 12{height .075 sub}repeat height height 12{height .075 sub}repeat height height] put
         retval (bbs) [0 0 12{.075}repeat 0 0 12{.075}repeat 0 0] put
@@ -256,7 +256,7 @@
 
     % Return the arguments
     /retval 4 dict def
-    retval (sbs) mark sbs {48 sub} forall ] put
+    retval (sbs) [sbs {48 sub} forall] put
     includetext {
         retval (bhs) [height height 8{height .075 sub}repeat height height 8{height .075 sub}repeat height height] put
         retval (bbs) [0 0 8{.075}repeat 0 0 8{.075}repeat 0 0] put
@@ -383,7 +383,7 @@
 
     % Return the arguments
     /retval 4 dict def
-    retval (sbs) mark sbs {48 sub} forall ] put
+    retval (sbs) [sbs {48 sub} forall] put
     includetext {
         retval (bhs) [4{height}repeat 10{height .075 sub}repeat height height 10{height .075 sub}repeat 5{height}repeat] put      
         retval (bbs) [0 0 0 0 10{.075}repeat 0 0 10{.075}repeat 0 0 0 0 0] put
@@ -518,7 +518,7 @@
 
     % Return the arguments
     /retval 4 dict def
-    retval (sbs) mark sbs {48 sub} forall ] put
+    retval (sbs) [sbs {48 sub} forall] put
     includetext {
         retval (bhs) [height height 12{height .075 sub}repeat height height height] put      
         retval (bbs) [0 0 12{.075}repeat 0 0 0] put    
@@ -632,7 +632,7 @@
 
     % Return the arguments
     /retval 4 dict def
-    retval (sbs) mark sbs {48 sub} forall ] put
+    retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [16{height}repeat] put
     retval (bbs) [16{0}repeat] put
     includetext {
@@ -730,7 +730,7 @@
 
     % Return the arguments
     /retval 4 dict def
-    retval (sbs) mark sbs {48 sub} forall ] put
+    retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [12{height}repeat] put
     retval (bbs) [12{0}repeat] put
     includetext {
@@ -966,7 +966,7 @@
 
     % Return the arguments
     /retval 1 dict def
-    retval (sbs) mark sbs {48 sub} forall ] put
+    retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
     includetext {
@@ -1072,7 +1072,7 @@
     
     % Return the arguments
     /retval 2 dict def
-    retval (sbs) mark sbs {48 sub} forall ] put
+    retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
     includetext {
@@ -1186,7 +1186,7 @@
 
     % Return the arguments
     /retval 1 dict def
-    retval (sbs) mark sbs {48 sub} forall ] put
+    retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
     includetext {
@@ -1315,7 +1315,7 @@
 
     % Return the arguments
     /retval 1 dict def
-    retval (sbs) mark sbs {48 sub} forall ] put
+    retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
     includetext {
@@ -1418,7 +1418,7 @@
     
     % Return the arguments
     /retval 1 dict def
-    retval (sbs) mark sbs {48 sub} forall ] put
+    retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
     includetext {
@@ -1543,7 +1543,7 @@
 
     % Return the arguments
     /retval 1 dict def
-    retval (sbs) mark sbs {48 sub} forall ] put
+    retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
     includetext {
@@ -1657,7 +1657,7 @@
 
     % Return the arguments
     /retval 1 dict def
-    retval (sbs) mark sbs {48 sub} forall ] put
+    retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
     includetext {
@@ -1740,7 +1740,7 @@
             heights j enc j 1 getinterval cvi height mul 5 div put
         } for
         bhs i 5 mul 1 add heights putinterval   % Put encoded digit into sbs
-        txt i [barcode i 1 getinterval i 5 mul 1 add 72 mul 25 div textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 5 mul 1 add 3.312 mul textpos textfont textsize] put
         /checksum checksum indx add def     % checksum+=indx
     } for
 
@@ -1755,7 +1755,7 @@
     bhs barlen 5 mul 1 add heights putinterval  
     
     includecheckintext {
-        txt barlen [barchars checksum 1 getinterval barlen 5 mul 1 add 72 mul 25 div textpos textfont textsize] put
+        txt barlen [barchars checksum 1 getinterval barlen 5 mul 1 add 3.312 mul textpos textfont textsize] put
     } {
         txt barlen [( ) barlen 5 mul 1 add 72 mul 25 div textpos textfont textsize] put
     } ifelse
@@ -1772,11 +1772,7 @@
     /retval 1 dict def
     retval (bhs) bhs put
     retval (bbs) [bhs length {0} repeat] put
-    /sbs bhs length 2 mul 1 sub array def
-    0 1 sbs length 1 sub {
-        sbs exch 1.44 put       % 0.02in
-    } for
-    retval (sbs) sbs put
+    retval (sbs) [bhs length 1 sub {1.44 1.872} repeat 1.44] put
     includetext {
         retval (txt) txt put
     } if
@@ -1848,7 +1844,7 @@
         pop pop                             % Discard seek and post
         /enc encs indx get def              % Get the indxth encoding
         encstr i 4 mul 1 add enc putinterval
-        txt i [barcode i 1 getinterval i 4 mul 1 add 72 mul 25 div textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 4 mul 1 add 3.312 mul textpos textfont textsize] put
         /checksumrow checksumrow indx 6 idiv add def
         /checksumcol checksumcol indx 6 mod add def 
     } for
@@ -1858,9 +1854,9 @@
     /enc encs checksum get def
     encstr barlen 4 mul 1 add enc putinterval
     includecheckintext {
-        txt barlen [barchars checksum 1 getinterval barlen 4 mul 1 add 72 mul 25 div textpos textfont textsize] put
+        txt barlen [barchars checksum 1 getinterval barlen 4 mul 1 add 3.312 mul textpos textfont textsize] put
     } {
-        txt barlen [( ) barlen 4 mul 1 add 72 mul 25 div textpos textfont textsize] put
+        txt barlen [( ) barlen 4 mul 1 add 3.312 mul textpos textfont textsize] put
     } ifelse
     
     % Put end character
@@ -1892,11 +1888,7 @@
     /retval 4 dict def
     retval (bbs) bbs put
     retval (bhs) bhs put
-    /sbs bhs length 2 mul 1 sub array def
-    0 1 sbs length 1 sub {
-        sbs exch 1.44 put       % 0.02in
-    } for
-    retval (sbs) sbs put
+    retval (sbs) [bhs length 1 sub {1.44 1.872} repeat 1.44] put
     includetext {
         retval (txt) txt put
     } if
@@ -1975,7 +1967,7 @@
         /i exch def       
         encs barcode i 1 getinterval cvi 64 add get
         encstr i 2 mul 2 add 3 2 roll putinterval
-        txt i 2 sub [barcode i 1 getinterval i 2 sub 2 mul 6 add 72 mul 25 div textpos textfont textsize] put
+        txt i 2 sub [barcode i 1 getinterval i 2 sub 2 mul 6 add 3.312 mul textpos textfont textsize] put
     } for
     
     % Encode the customer information   
@@ -1984,7 +1976,7 @@
             /i exch def
             encs barcode i 10 add 1 getinterval cvi 64 add get
             encstr i 2 mul 22 add 3 2 roll putinterval
-            txt i 8 add [barcode i 10 add 1 getinterval i 2 mul 22 add 72 mul 25 div textpos textfont textsize] put
+            txt i 8 add [barcode i 10 add 1 getinterval i 2 mul 22 add 3.312 mul textpos textfont textsize] put
         } for        
         /ciflen barlen 10 sub 2 mul def
     } {
@@ -1996,7 +1988,7 @@
             pop pop                            
             /enc encs indx get def          
             encstr i 3 mul 22 add enc putinterval
-            txt i 8 add [barcode i 10 add 1 getinterval i 3 mul 22 add 72 mul 25 div textpos textfont textsize] put
+            txt i 8 add [barcode i 10 add 1 getinterval i 3 mul 22 add 3.312 mul textpos textfont textsize] put
         } for        
         /ciflen barlen 10 sub 3 mul def
     } ifelse
@@ -2084,11 +2076,7 @@
     /retval 4 dict def
     retval (bbs) bbs put
     retval (bhs) bhs put
-    /sbs bhs length 2 mul 1 sub array def
-    0 1 sbs length 1 sub {
-        sbs exch 1.44 put       % Fill with 0.02in
-    } for
-    retval (sbs) sbs put
+    retval (sbs) [bhs length 1 sub {1.44 1.872} repeat 1.44] put
     includetext {
         retval (txt) txt put
     } if
@@ -2154,7 +2142,7 @@
         pop pop                             % Discard seek and post
         /enc encs indx get def              % Get the indxth encoding
         encstr i 4 mul enc putinterval
-        txt i [barcode i 1 getinterval i 4 mul 72 mul 25 div textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 4 mul 3.312 mul textpos textfont textsize] put
     } for
 
     /bbs encstr length array def    
@@ -2183,11 +2171,7 @@
     /retval 4 dict def
     retval (bbs) bbs put
     retval (bhs) bhs put
-    /sbs bhs length 2 mul 1 sub array def
-    0 1 sbs length 1 sub {
-        sbs exch 1.44 put       % 0.02in 
-    } for
-    retval (sbs) sbs put
+    retval (sbs) [bhs length 1 sub {1.44 1.872} repeat 1.44] put
     includetext {
         retval (txt) txt put
     } if
@@ -2286,7 +2270,7 @@
 
     % Return the arguments
     /retval 1 dict def
-    retval (sbs) mark sbs {48 sub} forall ] put
+    retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
     includetext {
@@ -2404,7 +2388,7 @@
 
     % Return the arguments
     /retval 1 dict def
-    retval (sbs) mark sbs {48 sub} forall ] put
+    retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
     includetext {
@@ -2428,26 +2412,26 @@
     /barcode exch def  % We are given a barcode string
 
     barcode (fima) eq {
-        /sbs [1 1 1 5 1 5 1 1 1] def
-        /bhs [.25 .25 .25 .25 .25] def
+        /sbs [2.25 2.25 2.25 11.25 2.25 11.25 2.25 2.25 2.25] def
+        /bhs [.625 .625 .625 .625 .625] def
         /bbs [0 0 0 0 0] def
     } if
 
     barcode (fimb) eq {
-        /sbs [1 1 1 5 1 5 1 1 1] def
-        /bhs [.25 .25 .25 .25 .25 .25] def
+        /sbs [2.25 2.25 2.25 11.25 2.25 11.25 2.25 2.25 2.25] def
+        /bhs [.625 .625 .625 .625 .625 .625] def
         /bbs [0 0 0 0 0 0] def
     } if
 
     barcode (fimc) eq {
-        /sbs [1 1 1 3 1 3 1 3 1 1 1] def
-        /bhs [.25 .25 .25 .25 .25 .25] def
+        /sbs [2.25 2.25 2.25 6.75 2.25 6.75 2.25 6.75 2.25 2.25 2.25] def
+        /bhs [.625 .625 .625 .625 .625 .625] def
         /bbs [0 0 0 0 0 0] def
     } if
     
     barcode (fimd) eq {
-        /sbs [1 1 1 1 1 3 1 3 1 1 1 1 1] def
-        /bhs [.25 .25 .25 .25 .25 .25 .25] def
+        /sbs [2.25 2.25 2.25 2.25 2.25 6.75 2.25 6.75 2.25 2.25 2.25 2.25 2.25] def
+        /bhs [.625 .625 .625 .625 .625 .625 .625] def
         /bbs [0 0 0 0 0 0 0] def
     } if
     
