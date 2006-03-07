@@ -4825,9 +4825,9 @@ void ScribusDoc::connectDocSignals()
 		connect(this, SIGNAL(docChanged()), ScMW, SLOT(slotDocCh()));
 		connect(this, SIGNAL(firstSelectedItemType(int)), ScMW, SLOT(HaveNewSel(int)));
 		connect(autoSaveTimer, SIGNAL(timeout()), WinHan, SLOT(slotAutoSave()));
-		connect(this, SIGNAL(refreshItem(PageItem*)), ScMW->view, SLOT(RefreshItem(PageItem*)));
-		connect(this, SIGNAL(updateContents()), ScMW->view, SLOT(slotUpdateContents()));
-		connect(this, SIGNAL(canvasAdjusted(double, double, double, double)), ScMW->view, SLOT(adjustCanvas(double, double, double, double)));
+		connect(this, SIGNAL(refreshItem(PageItem*)), view(), SLOT(RefreshItem(PageItem*)));
+		connect(this, SIGNAL(updateContents()), view(), SLOT(slotUpdateContents()));
+		connect(this, SIGNAL(canvasAdjusted(double, double, double, double)), view(), SLOT(adjustCanvas(double, double, double, double)));
 	}
 }
 
