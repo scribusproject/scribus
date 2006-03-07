@@ -255,6 +255,7 @@ struct Layer
 	QString Name;
 	bool isPrintable;
 	bool isViewable;
+	bool isEditable;
 };
 
 struct PDFPresentationData

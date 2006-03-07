@@ -48,7 +48,7 @@ void LayerTable::endEdit ( int row, int col, bool accept, bool replace )
 	{
 		if (a != row)
 		{
-			if (newCont == text(a, 2))
+			if (newCont == text(a, 3))
 				realAccept = false;
 		}
 	}
@@ -74,14 +74,17 @@ LayerPalette::LayerPalette(QWidget* parent)
 
 	Table = new LayerTable( this );
 	Table->setNumRows( 0 );
-	Table->setNumCols( 3 );
+	Table->setNumCols( 4 );
 	QHeader *header = Table->horizontalHeader();
 	header->setLabel(0, loadIcon("Layervisible.xpm"), "");
 	header->setLabel(1, loadIcon("DateiPrint16.png"), "");
+	header->setLabel(2, loadIcon("locked.png"), "");
 	Table->setColumnReadOnly(0, true);
 	Table->setColumnReadOnly(1, true);
+	Table->setColumnReadOnly(2, true);
 	Table->setColumnWidth(0, 24);
 	Table->setColumnWidth(1, 24);
+	Table->setColumnWidth(2, 24);
 	Table->setRowMovingEnabled(false);
 	Table->setSorting(false);
 	Table->setSelectionMode( QTable::SingleRow );
@@ -138,7 +141,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 
 void LayerPalette::updateName(int r)
 {
-	changeName(r, 2);
+	changeName(r, 3);
 	ScMW->changeLayer(ScMW->doc->activeLayer());
 }
 
@@ -184,7 +187,7 @@ void LayerPalette::rebuildList()
 		//TODO once "layers" is not set anymore, need to get layer number differently
 		int layerLevel=ScMW->doc->layerLevelFromNumber(layerNumber);
 		int row=layerCount-layerLevel-1;
-		Table->setText(row, 2, ScMW->doc->layerName(layerNumber));
+		Table->setText(row, 3, ScMW->doc->layerName(layerNumber));
 		QCheckBox *cp = new QCheckBox(this, tmp.setNum(layerLevel));
 		cp->setChecked(ScMW->doc->layerPrintable(layerNumber));
 		Table->setCellWidget(row, 1, cp);
@@ -195,10 +198,15 @@ void LayerPalette::rebuildList()
 		flagsVisible.append(cp2);
 		connect(cp2, SIGNAL(clicked()), this, SLOT(visibleLayer()));
 		Table->setCellWidget(row, 0, cp2);
+		QCheckBox *cp3 = new QCheckBox(this, tmp.setNum(layerLevel));
+		cp3->setChecked(ScMW->doc->layerLocked(layerNumber));
+		flagsLocked.append(cp3);
+		connect(cp3, SIGNAL(clicked()), this, SLOT(lockLayer()));
+		Table->setCellWidget(row, 2, cp3);
 		Header->setLabel(row, tmp.setNum(layerLevel));
 	}
-	Table->setColumnStretchable(2, true);
-	Table->adjustColumn(2);
+	Table->setColumnStretchable(3, true);
+	Table->adjustColumn(3);
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 }
 
@@ -271,7 +279,7 @@ void LayerPalette::downLayer()
 
 void LayerPalette::changeName(int row, int col)
 {
-	if (col == 2)
+	if (col == 3)
 	{
 		int layerLevel = ScMW->doc->layerCount()-1-row;
 		int layerNumber=ScMW->doc->layerNumberFromLevel(layerLevel);
@@ -312,6 +320,20 @@ void LayerPalette::printLayer()
 	}
 }
 
+void LayerPalette::lockLayer()
+{
+	int level = QString(sender()->name()).toInt();
+	int layerNumber=ScMW->doc->layerNumberFromLevel(level);
+	if (layerNumber==-1)
+		return;
+	const QObject* senderBox=sender();
+	if (senderBox->isA("QCheckBox"))
+	{
+		ScMW->doc->setLayerLocked(layerNumber,((QCheckBox*)(senderBox))->isChecked());
+		ScMW->slotDocCh();
+	}
+}
+
 void LayerPalette::markActiveLayer(int layerNumber)
 {
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
@@ -333,7 +355,7 @@ void LayerPalette::setActiveLayer(int row)
 void LayerPalette::languageChange()
 {
 	setCaption( tr( "Layers" ) );
-	Table->horizontalHeader()->setLabel(2, tr("Name"));
+	Table->horizontalHeader()->setLabel(3, tr("Name"));
 	QToolTip::remove( newLayerButton );
 	QToolTip::remove( deleteLayerButton );
 	QToolTip::remove( raiseLayerButton );

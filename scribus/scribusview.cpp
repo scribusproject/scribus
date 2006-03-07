@@ -1929,7 +1929,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						layerMap.insert((*it).Level, (*it).LNr);
 					int i=layerMap.count()-1;
 					while (i>=0)
+					{
+						if (Doc->layerLocked(layerMap[i]))
+							ScMW->scrLayersActions[QString::number(layerMap[i])]->setEnabled(false);
+						else
+							ScMW->scrLayersActions[QString::number(layerMap[i])]->setEnabled(true);
 						ScMW->scrLayersActions[QString::number(layerMap[i--])]->addTo(pmen3);
+					}
 
 					pmen->insertItem( tr("Send to La&yer"), pmen3);
 				}
@@ -2957,7 +2963,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					if ((Doc->masterPageMode()) && (docItem->OnMasterPage != Doc->currentPage->PageNam))
 						continue;
 					//CB Finally Items are selected here
-					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == Doc->activeLayer()))
+					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == Doc->activeLayer()) && (!Doc->layerLocked(docItem->LayerNr)))
 					{
 					//CB set draw to true to (dis)enable some actions via emit to HaveNewSel in scapp.
 					//CB FIXME emit from selection when multiple selected instead
@@ -6242,6 +6248,29 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 			{
 				if (!(currItem->asLine()) && (currItem->FrameType != 0) || (currItem->asPolyLine()))
 					currItem->DrawPolyL(&p, currItem->Clip);
+				else
+				{
+					int lw2 = 1;
+					int lw = 1;
+					PenCapStyle le = FlatCap;
+					if (currItem->NamedLStyle.isEmpty())
+					{
+						lw2 = qRound(currItem->lineWidth() * sc  / 2.0);
+						lw = qRound(QMAX(currItem->lineWidth() * sc, 1.0));
+						le = currItem->PLineEnd;
+					}
+					else
+					{
+						multiLine ml = Doc->MLineStyles[currItem->NamedLStyle];
+						lw2 = qRound(ml[ml.size()-1].Width * sc  / 2.0);
+						lw = qRound(QMAX(ml[ml.size()-1].Width * sc, 1.0));
+						le = static_cast<PenCapStyle>(ml[ml.size()-1].LineEnd);
+					}
+					if (le != FlatCap)
+						p.drawRect(-lw2, -lw2, qRound(currItem->width()*sc)+lw, lw);
+					else
+						p.drawRect(-1, -lw2, qRound(currItem->width()*sc), lw);
+				}
 			}
 			else
 				p.drawRect(0, 0, static_cast<int>(currItem->width())+1, static_cast<int>(currItem->height())+1);
@@ -6262,6 +6291,29 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 			{
 				if (!(currItem->asLine()) && (currItem->FrameType != 0) || (currItem->asPolyLine()))
 					currItem->DrawPolyL(&p, currItem->Clip);
+				else
+				{
+					int lw2 = 1;
+					int lw = 1;
+					PenCapStyle le = FlatCap;
+					if (currItem->NamedLStyle.isEmpty())
+					{
+						lw2 = qRound(currItem->lineWidth() * sc  / 2.0);
+						lw = qRound(QMAX(currItem->lineWidth() * sc, 1.0));
+						le = currItem->PLineEnd;
+					}
+					else
+					{
+						multiLine ml = Doc->MLineStyles[currItem->NamedLStyle];
+						lw2 = qRound(ml[ml.size()-1].Width * sc  / 2.0);
+						lw = qRound(QMAX(ml[ml.size()-1].Width * sc, 1.0));
+						le = static_cast<PenCapStyle>(ml[ml.size()-1].LineEnd);
+					}
+					if (le != FlatCap)
+						p.drawRect(-lw2, -lw2, qRound(currItem->width()*sc)+lw, lw);
+					else
+						p.drawRect(-1, -lw2, qRound(currItem->width()*sc), lw);
+				}
 			}
 			else
 				p.drawRect(0, 0, static_cast<int>(currItem->width())+1, static_cast<int>(currItem->height())+1);
@@ -7347,7 +7399,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		currItem = Doc->currentPage->FromMaster.last();
 		for (a = 0; a < Doc->currentPage->FromMaster.count(); ++a)
 		{
-			if (currItem->LayerNr == Doc->activeLayer())
+			if ((currItem->LayerNr == Doc->activeLayer()) && (!Doc->layerLocked(currItem->LayerNr)))
 			{
 				p.begin(this);
 				double OldX = currItem->xPos();
@@ -7488,7 +7540,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			currItem = Doc->Items->prev();
 			continue;
 		}
-		if (currItem->LayerNr == Doc->activeLayer())
+		if ((currItem->LayerNr == Doc->activeLayer()) && (!Doc->layerLocked(currItem->LayerNr)))
 		{
 			p.begin(this);
 			Transform(currItem, &p);

@@ -59,6 +59,7 @@ public slots:
 	void changeName(int row, int col);
 	void visibleLayer();
 	void printLayer();
+	void lockLayer();
 	void setActiveLayer(int row);
 	void ClearInhalt();
 	void markActiveLayer(int layerNumber=-1);
@@ -78,6 +79,7 @@ protected:
 	QPushButton* lowerLayerButton;
 	QPtrList<QCheckBox> flagsPrintable;
 	QPtrList<QCheckBox> flagsVisible;
+	QPtrList<QCheckBox> flagsLocked;
 	QValueList<Layer> *layers;
 };
 

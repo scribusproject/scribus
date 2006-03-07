@@ -4628,7 +4628,7 @@ void ScribusMainWindow::SelectAll()
 		for (uint a = 0; a < docItemsCount; ++a)
 		{
 			currItem = doc->Items->at(a);
-			if (currItem->LayerNr == doc->activeLayer())
+			if ((currItem->LayerNr == doc->activeLayer()) && (!doc->layerLocked(currItem->LayerNr)))
 			{
 				if (!currItem->isSelected())
 				{

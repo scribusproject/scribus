@@ -195,6 +195,19 @@ public:
 	 */
 	bool layerVisible(const int layerNumber);
 	/**
+	 * @brief Set the layer locked via the layer number
+	 * @param layerNumber Number of the layer
+	 * @param isViewable true = layer is locked
+	 * @return Success or failure
+	 */
+	bool setLayerLocked(const int layerNumber, const bool isViewable);
+	/**
+	 * @brief Is the layer locked
+	 * @param layerNumber Number of the layer
+	 * @return Locked or not
+	 */
+	bool layerLocked(const int layerNumber);
+	/**
 	 * @brief Return the level of the requested layer
 	 * @param layerNumber Number of the layer
 	 * @return Level of the layer
