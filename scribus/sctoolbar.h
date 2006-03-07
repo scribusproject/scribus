@@ -46,6 +46,10 @@ public:
 	ScToolBar(const QString& name, const QString &prefName, QMainWindow *parent, QDockWindow::Orientation o = QDockWindow::Horizontal);
 	virtual ~ScToolBar();
 
+	int position();
+	void storeDockPosition();
+	void moveDock();
+
 public slots:
 	void languageChange();
 
@@ -74,6 +78,8 @@ private:
 	bool dockLeft;
 
 	void initPrefsButton();
+	void storeDockPositions();
+	void moveDocks();
 
 	enum Orientation { Vert, Hor };
 };

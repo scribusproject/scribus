@@ -45,6 +45,7 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
   m_prefs(PrefsManager::instance()->prefsFile->getContext(m_name))
 {
 	setCloseMode(QDockWindow::Undocked);
+
 	if (m_prefs->contains("IsDocked")) // set docking
 	{
 		if (m_prefs->getBool("IsDocked", true)) {
@@ -82,6 +83,11 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
 		m_prefs->set("FloatOrientation", o == QDockWindow::Horizontal ? Hor : Vert);
 	}
 
+	if (!m_prefs->contains("PosIndex"))
+		storeDockPosition();
+	else
+		moveDocks();
+
 	dockTop = m_prefs->getBool("DockTop", 1);
 	dockRight = m_prefs->getBool("DockRight", 1);
 	dockBottom = m_prefs->getBool("DockBottom", 1);
@@ -104,6 +110,49 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
 	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(slotVisibilityChanged(bool)));
 }
 
+int ScToolBar::position()
+{
+	if (place() == QDockWindow::OutsideDock)
+		return -1;
+
+	int index = -1;
+	area()->hasDockWindow(this, &index);
+
+	return index;
+}
+
+void ScToolBar::storeDockPosition()
+{
+	m_prefs->set("PosIndex", position());
+	m_prefs->set("Offset", offset());
+}
+
+void ScToolBar::storeDockPositions()
+{
+	QPtrList<QDockWindow> tbs = area()->dockWindowList();
+	for (uint i = 0; i < tbs.count(); ++i)
+	{
+		if (ScToolBar *sctb = dynamic_cast<ScToolBar*>(tbs.at(i)))
+			sctb->storeDockPosition();
+	}
+}
+
+void ScToolBar::moveDocks()
+{
+	QPtrList<QDockWindow> tbs = area()->dockWindowList();
+	for (uint i = 0; i < tbs.count(); ++i)
+	{
+		if (ScToolBar *sctb = dynamic_cast<ScToolBar*>(tbs.at(i)))
+			sctb->moveDock();
+	}
+}
+
+void ScToolBar::moveDock()
+{
+	area()->moveDockWindow(this, m_prefs->getInt("PosIndex", -1));
+	setOffset(m_prefs->getInt("Offset", 0));
+}
+
 void ScToolBar::slotPlaceChanged(QDockWindow::Place p)
 {
 	m_prefs->set("IsDocked", p == QDockWindow::InDock);
@@ -120,6 +169,7 @@ void ScToolBar::slotPlaceChanged(QDockWindow::Place p)
 			dockPlace = "bottom";
 
 		m_prefs->set("DockPlace", dockPlace);
+		storeDockPositions();
 	} else {
 		setOrientation(floatOrientation);
 	}
