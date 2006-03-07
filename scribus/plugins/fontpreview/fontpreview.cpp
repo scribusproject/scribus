@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <qwhatsthis.h>
 #include <qstring.h>
 #include <qspinbox.h>
+#include <qregexp.h>
 
 #include "fontpreview.h"
 #include "scribus.h"
@@ -104,9 +105,17 @@ void FontPreview::languageChange()
 {
 	QToolTip::add(okButton, "<qt>" + tr("Append selected font into Style, Font menu", "font preview") + "</qt>");
 	QToolTip::add(cancelButton,tr("Leave preview", "font preview"));
-	QToolTip::add(searchEdit, "<qt>" + tr("Typing the text here provides quick searching in the font names. E.g. 'bold' shows all fonts with Bold in name. Searching is case insensitive.") + "</qt>");
+	QToolTip::add(searchEdit, "<qt>" + tr("Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.") + "</qt>");
 	QToolTip::add(searchButton, tr("Start searching"));
 	QToolTip::add(sizeSpin, tr("Size of the selected font"));
+}
+
+bool FontPreview::allowSample()
+{
+	if (fontList->childCount() != 0)
+		return true;
+	fontPreview->setText("No font selected");
+	return false;
 }
 
 void FontPreview::keyReleaseEvent(QKeyEvent *k)
@@ -116,20 +125,23 @@ void FontPreview::keyReleaseEvent(QKeyEvent *k)
 		fontPreview->setText(tr("Sample will be shown after key release"));
 		return;
 	}
-	paintSample(fontList->currentItem());
+	if (allowSample())
+		paintSample(fontList->currentItem());
 }
 
 //void FontPreview::fontList_currentChanged(QListViewItem * item)
 void FontPreview::fontList_mouseButtonClicked( int, QListViewItem *item, const QPoint &, int )
 {
-	paintSample(item);
+	if (allowSample())
+		paintSample(item);
 }
 
 void FontPreview::paintSample(QListViewItem *item)
 {
 	sampleItem->setFontSize(sizeSpin->value() * 10, true);
 	sampleItem->setFont(item->text(0));
-	QPixmap pixmap = sampleItem->getSample(fontPreview->maximumWidth(), fontPreview->maximumHeight());
+	QPixmap pixmap = sampleItem->getSample(fontPreview->maximumWidth(),
+										   fontPreview->maximumHeight());
 	fontPreview->clear();
 	if (!pixmap.isNull())
 		fontPreview->setPixmap(pixmap);
@@ -138,11 +150,16 @@ void FontPreview::paintSample(QListViewItem *item)
 void FontPreview::updateFontList(QString searchStr)
 {
 	fontList->clear();
-	QString sstr = searchStr.lower();
-	for (SCFontsIterator fontIter(PrefsManager::instance()->appPrefs.AvailFonts); fontIter.current(); ++fontIter)
+	QRegExp re(searchStr);
+	re.setCaseSensitive(false);
+	re.setWildcard(true);
+
+	for (SCFontsIterator fontIter(PrefsManager::instance()->appPrefs.AvailFonts);
+			fontIter.current(); ++fontIter)
 	{
-		if (searchStr.length()!=0 && !fontIter.current()->scName().lower().contains(sstr))
+		if (searchStr.length()!=0 & !re.exactMatch(fontIter.current()->scName()))
 			continue;
+
 		if (fontIter.current()->UseFont)
 		{
 			QListViewItem *row = new QListViewItem(fontList);
@@ -203,7 +220,8 @@ QString FontPreview::getCurrentFont()
 void FontPreview::displayButton_clicked()
 {
 	sampleItem->setText(displayEdit->text());
-	paintSample(fontList->currentItem());
+	if (allowSample())
+		paintSample(fontList->currentItem());
 }
 
 void FontPreview::okButton_clicked()

@@ -61,8 +61,20 @@ protected:
 	If the search string is empty list all fonts
 	\param searchStr text to search */
 	void updateFontList(QString searchStr);
+	/*! \brief Overriden key event to prevent "preview freeze"
+	waiting for preview painting.
+	Sample is painted only on key release, no in the repeat mode.
+	\param k event to get the mode */
 	void keyReleaseEvent(QKeyEvent *k);
+	/*! \brief Create a pixmap sample with font preview.
+	\param item a reference to existing item (see allowSample()) */
 	void paintSample(QListViewItem *item);
+	/*! \brief Check if is there any item in list to prevent crashes.
+	It allows not to paint the sample if there could be memory leak.
+	E.g. if (allowSample()) paintSample(fontList->currentItem());
+	See code as example.
+	\retval bool true if you can paint sample safely. */
+	bool allowSample();
 
 protected slots:
 	/** \brief Translations. */
