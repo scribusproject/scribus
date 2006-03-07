@@ -3211,6 +3211,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			delete view;
 			delete doc;
 			delete w;
+			view=NULL;
+			doc=NULL;
 			ScMW->ScriptRunning = false;
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			mainWindowStatusLabel->setText("");
