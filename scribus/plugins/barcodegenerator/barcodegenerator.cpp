@@ -248,7 +248,7 @@ void BarcodeGenerator::cancelButton_pressed()
 	reject();
 }
 
-bool BarcodeGenerator::codeEdit_check(const QString& s)
+bool BarcodeGenerator::codeEdit_check(const QString& )//s)
 {
 	/* propably not needed as the backend do it for us (PV)
 	QRegExp rx(map[bcCombo->currentText()].regularExp);

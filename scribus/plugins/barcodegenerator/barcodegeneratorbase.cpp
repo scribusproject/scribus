@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Form implementation generated from reading ui file 'barcodegeneratorbase.ui'
 **
-** Created: Út bře 7 10:41:46 2006
+** Created: Út bře 7 12:30:20 2006
 **      by: The User Interface Compiler ($Id$)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -217,11 +217,12 @@ void BarcodeGeneratorBase::languageChange()
     guardCheck->setText( tr( "&Guard whitespace" ) );
     guardCheck->setAccel( QKeySequence( tr( "Alt+G" ) ) );
     QToolTip::add( guardCheck, tr( "Draw arrows to be sure of space next the code" ) );
-    includeCheck->setText( tr( "Include chec&k in BC" ) );
-    includeCheck->setAccel( QKeySequence( tr( "Alt+K" ) ) );
-    QToolTip::add( includeCheck, tr( "Enable check digit" ) );
-    includeCheckInText->setText( tr( "Inclu&de check in text" ) );
-    includeCheckInText->setAccel( QKeySequence( tr( "Alt+D" ) ) );
+    includeCheck->setText( tr( "I&nclude checksum" ) );
+    includeCheck->setAccel( QKeySequence( tr( "Alt+N" ) ) );
+    QToolTip::add( includeCheck, tr( "Generate and include a checksum in barcode" ) );
+    includeCheckInText->setText( tr( "Incl&ude checksum digit" ) );
+    includeCheckInText->setAccel( QKeySequence( tr( "Alt+U" ) ) );
+    QToolTip::add( includeCheckInText, tr( "Include the checksum digit in the barcode text" ) );
     colorBox->setTitle( tr( "Colors" ) );
     bgColorButton->setText( tr( "&Background" ) );
     bgColorButton->setAccel( QKeySequence( tr( "Alt+B" ) ) );

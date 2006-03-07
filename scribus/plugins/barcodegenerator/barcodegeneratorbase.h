@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Form interface generated from reading ui file 'barcodegeneratorbase.ui'
 **
-** Created: Út bře 7 10:41:43 2006
+** Created: Út bře 7 12:30:18 2006
 **      by: The User Interface Compiler ($Id$)
 **
 ** WARNING! All changes made in this file will be lost!

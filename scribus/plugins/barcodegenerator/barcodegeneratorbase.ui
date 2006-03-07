@@ -204,13 +204,13 @@
                                                 <cstring>includeCheck</cstring>
                                             </property>
                                             <property name="text">
-                                                <string>Include chec&amp;k in BC</string>
+                                                <string>I&amp;nclude checksum</string>
                                             </property>
                                             <property name="accel">
-                                                <string>Alt+K</string>
+                                                <string>Alt+N</string>
                                             </property>
                                             <property name="toolTip" stdset="0">
-                                                <string>Enable check digit</string>
+                                                <string>Generate and include a checksum in barcode</string>
                                             </property>
                                         </widget>
                                         <widget class="QCheckBox">
@@ -218,10 +218,13 @@
                                                 <cstring>includeCheckInText</cstring>
                                             </property>
                                             <property name="text">
-                                                <string>Inclu&amp;de check in text</string>
+                                                <string>Incl&amp;ude checksum digit</string>
                                             </property>
                                             <property name="accel">
-                                                <string>Alt+D</string>
+                                                <string>Alt+U</string>
+                                            </property>
+                                            <property name="toolTip" stdset="0">
+                                                <string>Include the checksum digit in the barcode text</string>
                                             </property>
                                         </widget>
                                     </vbox>
@@ -522,9 +525,6 @@
         <slot>includeCheckInText_stateChanged(int)</slot>
     </connection>
 </connections>
-<includes>
-    <include location="local" impldecl="in implementation">barcodegeneratorbase.ui.h</include>
-</includes>
 <slots>
     <slot>bcComboChanged()</slot>
     <slot>textCheck_changed()</slot>
