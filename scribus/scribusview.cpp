@@ -1650,7 +1650,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			MarkClip(currItem, currItem->PoLine, true);
 		return;
 	}
-	if (moveTimerElapsed() && (Doc->EditClip) && (SegP1 == -1) && (SegP2 == -1))
+/*	if (moveTimerElapsed() && (Doc->EditClip) && (SegP1 == -1) && (SegP2 == -1))
 	{
 		currItem = Doc->selection->itemAt(0);
 		if (operItemMoving)
@@ -1674,7 +1674,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		operItemMoving = false;
 		return;
 	}
-	if (moveTimerElapsed() && (Doc->EditClip) && (SegP1 != -1) && (SegP2 != -1))
+	if (moveTimerElapsed() && (Doc->EditClip) && (SegP1 != -1) && (SegP2 != -1)) */
+	if (moveTimerElapsed() && (Doc->EditClip))
 	{
 		SegP1 = -1;
 		SegP2 = -1;
