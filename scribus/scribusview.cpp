@@ -4528,7 +4528,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						MarkClip(currItem, currItem->PoLine, true);
 					emit DocChanged();
 				}
-				if ((SelNode.count() != 0) || ((SegP1 != -1) && (SegP2 != -1)))
+				if ((SelNode.count() != 0) || ((SegP1 != -1) && (SegP2 != -1)) || ((ClRe != -1) && (!EdPoints)))
 				{
 					Mxp = m->x();
 					Myp = m->y();
@@ -6251,26 +6251,29 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 					currItem->DrawPolyL(&p, currItem->Clip);
 				else
 				{
-					int lw2 = 1;
-					int lw = 1;
-					PenCapStyle le = FlatCap;
-					if (currItem->NamedLStyle.isEmpty())
+					if (currItem->asLine())
 					{
-						lw2 = qRound(currItem->lineWidth() * sc  / 2.0);
-						lw = qRound(QMAX(currItem->lineWidth() * sc, 1.0));
-						le = currItem->PLineEnd;
+						int lw2 = 1;
+						int lw = 1;
+						PenCapStyle le = FlatCap;
+						if (currItem->NamedLStyle.isEmpty())
+						{
+							lw2 = qRound(currItem->lineWidth()  / 2.0);
+							lw = qRound(QMAX(currItem->lineWidth(), 1.0));
+							le = currItem->PLineEnd;
+						}
+						else
+						{
+							multiLine ml = Doc->MLineStyles[currItem->NamedLStyle];
+							lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
+							lw = qRound(QMAX(ml[ml.size()-1].Width, 1.0));
+							le = static_cast<PenCapStyle>(ml[ml.size()-1].LineEnd);
+						}
+						if (le != FlatCap)
+							p.drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
+						else
+							p.drawRect(-1, -lw2, qRound(currItem->width()), lw);
 					}
-					else
-					{
-						multiLine ml = Doc->MLineStyles[currItem->NamedLStyle];
-						lw2 = qRound(ml[ml.size()-1].Width * sc  / 2.0);
-						lw = qRound(QMAX(ml[ml.size()-1].Width * sc, 1.0));
-						le = static_cast<PenCapStyle>(ml[ml.size()-1].LineEnd);
-					}
-					if (le != FlatCap)
-						p.drawRect(-lw2, -lw2, qRound(currItem->width()*sc)+lw, lw);
-					else
-						p.drawRect(-1, -lw2, qRound(currItem->width()*sc), lw);
 				}
 			}
 			else
@@ -6294,26 +6297,29 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 					currItem->DrawPolyL(&p, currItem->Clip);
 				else
 				{
-					int lw2 = 1;
-					int lw = 1;
-					PenCapStyle le = FlatCap;
-					if (currItem->NamedLStyle.isEmpty())
+					if (currItem->asLine())
 					{
-						lw2 = qRound(currItem->lineWidth() * sc  / 2.0);
-						lw = qRound(QMAX(currItem->lineWidth() * sc, 1.0));
-						le = currItem->PLineEnd;
+						int lw2 = 1;
+						int lw = 1;
+						PenCapStyle le = FlatCap;
+						if (currItem->NamedLStyle.isEmpty())
+						{
+							lw2 = qRound(currItem->lineWidth()  / 2.0);
+							lw = qRound(QMAX(currItem->lineWidth(), 1.0));
+							le = currItem->PLineEnd;
+						}
+						else
+						{
+							multiLine ml = Doc->MLineStyles[currItem->NamedLStyle];
+							lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
+							lw = qRound(QMAX(ml[ml.size()-1].Width, 1.0));
+							le = static_cast<PenCapStyle>(ml[ml.size()-1].LineEnd);
+						}
+						if (le != FlatCap)
+							p.drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
+						else
+							p.drawRect(-1, -lw2, qRound(currItem->width()), lw);
 					}
-					else
-					{
-						multiLine ml = Doc->MLineStyles[currItem->NamedLStyle];
-						lw2 = qRound(ml[ml.size()-1].Width * sc  / 2.0);
-						lw = qRound(QMAX(ml[ml.size()-1].Width * sc, 1.0));
-						le = static_cast<PenCapStyle>(ml[ml.size()-1].LineEnd);
-					}
-					if (le != FlatCap)
-						p.drawRect(-lw2, -lw2, qRound(currItem->width()*sc)+lw, lw);
-					else
-						p.drawRect(-1, -lw2, qRound(currItem->width()*sc), lw);
 				}
 			}
 			else
