@@ -150,6 +150,8 @@ void FontPreview::paintSample(QListViewItem *item)
 void FontPreview::updateFontList(QString searchStr)
 {
 	fontList->clear();
+	if (searchStr.find('*') == -1)
+		searchStr = '*' + searchStr + '*';
 	QRegExp re(searchStr);
 	re.setCaseSensitive(false);
 	re.setWildcard(true);
