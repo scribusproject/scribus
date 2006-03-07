@@ -268,7 +268,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, QByte
 
 	setMaximumSize(sizeHint());
 	PrintDest->setFocus();
-	QToolTip::add( ClipMarg, "<qt>" + tr( "Do not show objects outside the margins on the printed page or exported file" ) + "</qt>" );
+	QToolTip::add( ClipMarg, "<qt>" + tr( "Do not show objects outside the margins on the printed page" ) + "</qt>" );
 	QToolTip::add( PageNr, tr( "Insert a comma separated list of tokens where\n"
 		                           "a token can be * for all the pages, 1-5 for\n"
 		                           "a range of pages or a single page number.") );
