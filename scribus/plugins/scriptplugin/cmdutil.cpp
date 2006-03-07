@@ -63,10 +63,8 @@ int GetItem(QString Name)
 	}
 	else
 	{
-		//if (ScMW->view->SelItem.count() != 0)
-		if (ScMW->doc->selection->count() != 0)
-			//return ScMW->view->SelItem.at(0)->ItemNr;
-			return ScMW->doc->selection->itemAt(0)->ItemNr;
+		if (ScMW->doc->m_Selection->count() != 0)
+			return ScMW->doc->m_Selection->itemAt(0)->ItemNr;
 	}
 	return -1;
 }
@@ -136,10 +134,8 @@ void ReplaceColor(QString col, QString rep)
 PageItem* GetUniqueItem(QString name)
 {
 	if (name.length()==0)
-		//if (ScMW->view->SelItem.count() != 0)
-		if (ScMW->doc->selection->count() != 0)
-			//return ScMW->view->SelItem.at(0);
-			return ScMW->doc->selection->itemAt(0);
+		if (ScMW->doc->m_Selection->count() != 0)
+			return ScMW->doc->m_Selection->itemAt(0);
 		else
 		{
 			PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection"));
@@ -209,7 +205,7 @@ QStringList getSelectedItemsByName()
 		names.append(it.current()->itemName());
 	return names;
 	*/
-	return ScMW->doc->selection->getSelectedItemsByName();
+	return ScMW->doc->m_Selection->getSelectedItemsByName();
 }
 
 bool setSelectedItemsByName(QStringList& itemNames)

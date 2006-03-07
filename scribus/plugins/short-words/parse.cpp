@@ -117,13 +117,13 @@ void SWParse::parseItem(PageItem *aFrame)
 void SWParse::parseSelection()
 {
 	//uint docSelectionCount = ScMW->view->SelItem.count();
-	uint docSelectionCount = ScMW->doc->selection->count();
+	uint docSelectionCount = ScMW->doc->m_Selection->count();
 	ScMW->mainWindowProgressBar->setTotalSteps(docSelectionCount);
 	for (uint i=0; i < docSelectionCount; ++i)
 	{
 		ScMW->mainWindowProgressBar->setProgress(i);
 		//parseItem(ScMW->view->SelItem.at(i));
-		parseItem(ScMW->doc->selection->itemAt(i));
+		parseItem(ScMW->doc->m_Selection->itemAt(i));
 	} // for items
 	ScMW->mainWindowProgressBar->setProgress(docSelectionCount);
 }

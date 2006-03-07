@@ -1023,7 +1023,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 		}
 	}
 	//if ((!Art) && (view->SelItem.count() != 0))
-	uint docSelectionCount=Doc->selection->count();
+	uint docSelectionCount=Doc->m_Selection->count();
 	if ((!Art) && (docSelectionCount != 0))
 	{
 		double minx = 99999.9;
@@ -1033,7 +1033,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 		for (uint ep = 0; ep < docSelectionCount; ++ep)
 		{
 			//PageItem* currItem = view->SelItem.at(ep);
-			PageItem* currItem = Doc->selection->itemAt(ep);
+			PageItem* currItem = Doc->m_Selection->itemAt(ep);
 			double lw = currItem->lineWidth() / 2.0;
 			if (currItem->rotation() != 0)
 			{
@@ -1128,7 +1128,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 		ScQApp->processEvents();
 		a = pageNs[aa]-1;
 		//if ((!Art) && (view->SelItem.count() != 0))
-		if ((!Art) && (Doc->selection->count() != 0))
+		if ((!Art) && (Doc->m_Selection->count() != 0))
 		{
 			struct MarginStruct Ma;
 			Ma.Left = gx;
@@ -1941,7 +1941,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				if ((!a->PageNam.isEmpty()) && (c->asImageFrame()) && ((sep) || (!farb)))
 					continue;
 				//if ((!Art) && (view->SelItem.count() != 0) && (!c->Select))
-				if ((!Art) && (!c->isSelected()) && (Doc->selection->count() != 0))
+				if ((!Art) && (!c->isSelected()) && (Doc->m_Selection->count() != 0))
 					continue;
 				double x = a->xOffset();
 				double y = a->yOffset();

@@ -390,7 +390,7 @@ void GuideManager::resetMarginsForPage()
 	FPoint selectionTopLeft = FPoint(0, 0);
 	FPoint selectionBottomRight = FPoint(0, 0);
 
-	int docSelectionCount = ScMW->doc->selection->count();
+	int docSelectionCount = ScMW->doc->m_Selection->count();
 	// multiselection
 	if (docSelectionCount > 1)
 	{
@@ -402,7 +402,7 @@ void GuideManager::resetMarginsForPage()
 	// only one item selected
 	else if (docSelectionCount == 1)
 	{
-		PageItem *currItem = ScMW->doc->selection->itemAt(0);
+		PageItem *currItem = ScMW->doc->m_Selection->itemAt(0);
 		selectionTopLeft.setXY(currItem->xPos() - ScMW->doc->currentPage->xOffset(),
 							   currItem->yPos() - ScMW->doc->currentPage->yOffset());
 		selectionBottomRight.setXY(currItem->width(), currItem->height());

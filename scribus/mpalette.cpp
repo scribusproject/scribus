@@ -1352,7 +1352,7 @@ void Mpalette::NewSel(int nr)
 		return;
 	int visID;
 	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
-	if (doc->selection->count()>1)
+	if (doc->m_Selection->count()>1)
 	{
 		RoVal = 0;
 		double gx, gy, gh, gw;
@@ -1447,7 +1447,7 @@ void Mpalette::NewSel(int nr)
 			TabStack->setItemEnabled(3, true);
 			TabStack->setItemEnabled(4, true);
 			ShapeGroup->setEnabled(true);
-			if ((doc->selection->itemAt(0)->FrameType == 0) || (doc->selection->itemAt(0)->FrameType == 2))
+			if ((doc->m_Selection->itemAt(0)->FrameType == 0) || (doc->m_Selection->itemAt(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			EditShape->setEnabled(true);
 			if (visID == 2)
@@ -1460,7 +1460,7 @@ void Mpalette::NewSel(int nr)
 			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
 			ShapeGroup->setEnabled(true);
-			if ((doc->selection->itemAt(0)->FrameType == 0) || (doc->selection->itemAt(0)->FrameType == 2))
+			if ((doc->m_Selection->itemAt(0)->FrameType == 0) || (doc->m_Selection->itemAt(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			Distance->setEnabled(true);
 			EditShape->setEnabled(true);
@@ -1492,7 +1492,7 @@ void Mpalette::NewSel(int nr)
 			TabStack->setItemEnabled(4, true);
 			ShapeGroup->setEnabled(true);
 			EditShape->setEnabled(true);
-			if ((doc->selection->itemAt(0)->FrameType == 0) || (doc->selection->itemAt(0)->FrameType == 2))
+			if ((doc->m_Selection->itemAt(0)->FrameType == 0) || (doc->m_Selection->itemAt(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			if ((visID == 2) || (visID == 3))
 				TabStack->setCurrentIndex(0);
@@ -1635,7 +1635,7 @@ void Mpalette::setXY(double x, double y)
 	FPoint n;
 	if (HaveItem)
 	{
-		if (doc->selection->isMultipleSelection())
+		if (doc->m_Selection->isMultipleSelection())
 		{
 			ScMW->view->getGroupRect(&dummy1, &dummy2, &b, &h);
 			r = 0.0;
@@ -2089,7 +2089,7 @@ void Mpalette::NewX()
 			x += doc->currentPage->xOffset();
 			y += doc->currentPage->yOffset();
 		}
-		if (doc->selection->isMultipleSelection())
+		if (doc->m_Selection->isMultipleSelection())
 		{
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if ((TopLeft->isChecked()) || (BottomLeft->isChecked()))
@@ -2151,7 +2151,7 @@ void Mpalette::NewY()
 			x += doc->currentPage->xOffset();
 			y += doc->currentPage->yOffset();
 		}
-		if (doc->selection->isMultipleSelection())
+		if (doc->m_Selection->isMultipleSelection())
 		{
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if ((TopLeft->isChecked()) || (TopRight->isChecked()))
@@ -2204,7 +2204,7 @@ void Mpalette::NewW()
 		y = Ypos->value() / Umrech;
 		w = Width->value() / Umrech;
 		h = Height->value() / Umrech;
-		if (doc->selection->isMultipleSelection())
+		if (doc->m_Selection->isMultipleSelection())
 		{
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if (keepFrameWHRatioButton->isOn())
@@ -2301,7 +2301,7 @@ void Mpalette::NewH()
 		y = Ypos->value() / Umrech;
 		w = Width->value() / Umrech;
 		h = Height->value() / Umrech;
-		if (doc->selection->isMultipleSelection())
+		if (doc->m_Selection->isMultipleSelection())
 		{
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if (keepFrameWHRatioButton->isOn())
@@ -2394,7 +2394,7 @@ void Mpalette::NewR()
 	double gx, gy, gh, gw;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (doc->selection->isMultipleSelection())
+		if (doc->m_Selection->isMultipleSelection())
 		{
 			ScMW->view->RotateGroup((Rot->value() - RoVal)*(-1));
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
@@ -2955,7 +2955,7 @@ void Mpalette::NewRotMode(int m)
 	if ((HaveDoc) && (HaveItem))
 	{
 		HaveItem = false;
-		if (doc->selection->isMultipleSelection())
+		if (doc->m_Selection->isMultipleSelection())
 		{
 			ScMW->view->setGroupRect();
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
@@ -3680,8 +3680,8 @@ void Mpalette::mspinboxFinishUserAction()
 {
 	_userActionOn = false;
 
-	for (uint i = 0; i < doc->selection->count(); ++i)
-		doc->selection->itemAt(i)->checkChanges(true);
+	for (uint i = 0; i < doc->m_Selection->count(); ++i)
+		doc->m_Selection->itemAt(i)->checkChanges(true);
 	if (ScMW->view->groupTransactionStarted())
 	{
 		UndoManager::instance()->commit();
@@ -3991,10 +3991,10 @@ void Mpalette::updateColorSpecialGradient()
 {
 	if (!HaveDoc)
 		return;
-	if(doc->selection->isEmpty())
+	if(doc->m_Selection->isEmpty())
 		return;
 	double dur=doc->unitRatio();
-	PageItem *currItem=doc->selection->itemAt(0);
+	PageItem *currItem=doc->m_Selection->itemAt(0);
 	Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur,
 							currItem->GrEndX * dur, currItem->GrEndY * dur,
 							currItem->width() * dur, currItem->height() * dur);
@@ -4004,7 +4004,7 @@ void Mpalette::updateSpinBoxConstants()
 {
 	if (!HaveDoc)
 		return;
-	if(doc->selection->count()==0)
+	if(doc->m_Selection->count()==0)
 		return;
 	Width->setConstants(doc->constants());
 	Height->setConstants(doc->constants());

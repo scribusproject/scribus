@@ -206,9 +206,9 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 	// is it really applied?
 	bool done = false;
 
-	for (uint i = 0; i < ScMW->doc->selection->count(); ++i)
+	for (uint i = 0; i < ScMW->doc->m_Selection->count(); ++i)
 	{
-		PageItem* currItem=ScMW->doc->selection->itemAt(i);
+		PageItem* currItem=ScMW->doc->m_Selection->itemAt(i);
 		if (currItem == NULL)
 			continue;
 		if (!currItem->asTextFrame())

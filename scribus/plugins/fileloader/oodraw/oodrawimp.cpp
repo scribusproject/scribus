@@ -373,8 +373,7 @@ bool OODPlug::convert()
 		fillStyleStack( dpg );
 		parseGroup( dpg );
 	}
-	//ScMW->view->SelItem.clear();
-	Doku->selection->clear();
+	Doku->m_Selection->clear();
 	if ((Elements.count() > 1) && (interactive))
 	{
 		for (uint a = 0; a < Elements.count(); ++a)
@@ -397,13 +396,11 @@ bool OODPlug::convert()
 		for (uint dre=0; dre<Elements.count(); ++dre)
 		{
 			Doku->DragElements.append(Elements.at(dre)->ItemNr);
-			//ScMW->view->SelItem.append(Elements.at(dre));
-			Doku->selection->addItem(Elements.at(dre));
+			Doku->m_Selection->addItem(Elements.at(dre));
 		}
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		ScMW->view->setGroupRect();
-		//QDragObject *dr = new QTextDrag(ss->WriteElem(&ScMW->view->SelItem, Doku, ScMW->view), ScMW->view->viewport());
-		QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScMW->view, Doku->selection), ScMW->view->viewport());
+		QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScMW->view, Doku->m_Selection), ScMW->view->viewport());
 #ifndef QT_MAC
 // see #2196, #2526
 		Doku->itemSelection_DeleteItem();
@@ -662,7 +659,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				ite->convertTo(PageItem::PolyLine);
 			if (ite->PoLine.size() < 4)
 			{
-				Doku->selection->addItem(ite);
+				Doku->m_Selection->addItem(ite);
 				Doku->itemSelection_DeleteItem();
 				z = -1;
 			}

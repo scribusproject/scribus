@@ -192,10 +192,10 @@ void ScripterCore::FinishScriptRun()
 		}
 		delete painter;
 		ScMW->doc->RePos = false;
-		if (ScMW->doc->selection->count() != 0)
+		if (ScMW->doc->m_Selection->count() != 0)
 		{
-			ScMW->doc->selection->itemAt(0)->emitAllToGUI();
-			ScMW->HaveNewSel(ScMW->doc->selection->itemAt(0)->itemType());
+			ScMW->doc->m_Selection->itemAt(0)->emitAllToGUI();
+			ScMW->HaveNewSel(ScMW->doc->m_Selection->itemAt(0)->itemType());
 		}
 		else
 			ScMW->HaveNewSel(-1);

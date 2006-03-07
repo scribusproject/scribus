@@ -429,12 +429,9 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Object not found.","python error"));
 		return NULL;
 	}
-	//ScMW->view->SelItem.clear();
-	ScMW->doc->selection->clear();
-	//ScMW->view->SelItem.append(ScMW->doc->Items->at(i));
-	ScMW->doc->selection->addItem(ScMW->doc->Items->at(i));
-	//ScMW->view->SelItem.append(ScMW->doc->Items->at(ii));
-	ScMW->doc->selection->addItem(ScMW->doc->Items->at(ii));
+	ScMW->doc->m_Selection->clear();
+	ScMW->doc->m_Selection->addItem(ScMW->doc->Items->at(i));
+	ScMW->doc->m_Selection->addItem(ScMW->doc->Items->at(ii));
 	PageItem *it = ScMW->doc->Items->at(i);
 	ScMW->view->ToPathText();
 	ScMW->view->MoveItem(pageUnitXToDocX(x) - it->xPos(), pageUnitYToDocY(y) - it->yPos(), it);
@@ -456,8 +453,8 @@ PyObject *scribus_deleteobj(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	ScMW->doc->selection->clear();
-	ScMW->doc->selection->addItem(i);
+	ScMW->doc->m_Selection->clear();
+	ScMW->doc->m_Selection->addItem(i);
 	ScMW->doc->itemSelection_DeleteItem();
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -541,7 +538,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 			return NULL;
 		}
 		// for current item only
-		if (ScMW->doc->selection->count() == 0 || name != "")
+		if (ScMW->doc->m_Selection->count() == 0 || name != "")
 		{
 			// quick hack to always apply on the right frame - pv
 			ScMW->view->Deselect(true);
@@ -557,8 +554,8 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		{
 			int mode = ScMW->doc->appMode;
 			ScMW->doc->appMode = modeEdit;
-			for (int i = 0; i < ScMW->doc->selection->count(); ++i)
-				ScMW->doc->chAbStyle(ScMW->doc->selection->itemAt(i), styleid);
+			for (int i = 0; i < ScMW->doc->m_Selection->count(); ++i)
+				ScMW->doc->chAbStyle(ScMW->doc->m_Selection->itemAt(i), styleid);
 			ScMW->doc->appMode = mode;
 		}
 	}

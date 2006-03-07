@@ -41,7 +41,7 @@ gtAction::gtAction(bool append)
 {
 	prefsManager=PrefsManager::instance();
 	//textFrame = ScMW->view->SelItem.at(0);
-	textFrame = ScMW->doc->selection->itemAt(0);
+	textFrame = ScMW->doc->m_Selection->itemAt(0);
 	it = textFrame;
 	lastParagraphStyle = -1;
 	inPara = false;

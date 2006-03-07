@@ -171,13 +171,11 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 			switch (RulerCode)
 			{
 				case 1:
-					//currView->SelItem.at(0)->Extra = Extra;
-					currDoc->selection->itemAt(0)->setTextToFrameDistLeft(Extra);
+					currDoc->m_Selection->itemAt(0)->setTextToFrameDistLeft(Extra);
 					emit DocChanged(false);
 					break;
 				case 2:
-					//currView->SelItem.at(0)->RExtra = RExtra;
-					currDoc->selection->itemAt(0)->setTextToFrameDistRight(RExtra);
+					currDoc->m_Selection->itemAt(0)->setTextToFrameDistRight(RExtra);
 					emit DocChanged(false);
 					break;
 				case 3:
@@ -199,8 +197,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 					if (currDoc->currentParaStyle > 4)
 						currDoc->docParagraphStyles[currDoc->currentParaStyle].TabValues = TabValues;
 					else
-						//currView->SelItem.at(0)->TabValues = TabValues;
-						currDoc->selection->itemAt(0)->TabValues = TabValues;
+						currDoc->m_Selection->itemAt(0)->TabValues = TabValues;
 					emit DocChanged(false);
 					break;
 				default:
@@ -218,17 +215,14 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 				if (currDoc->currentParaStyle > 4)
 					currDoc->docParagraphStyles[currDoc->currentParaStyle].TabValues = TabValues;
 				else
-					//currView->SelItem.at(0)->TabValues = TabValues;
-					currDoc->selection->itemAt(0)->TabValues = TabValues;
+					currDoc->m_Selection->itemAt(0)->TabValues = TabValues;
 				emit DocChanged(false);
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			}
 		}
 		RulerCode = 0;
 		currView->DrawNew();
-		//currView->EmitValues(currView->SelItem.at(0));
-		//currView->EmitValues(currDoc->selection->itemAt(0));
-		currDoc->selection->itemAt(0)->emitAllToGUI();
+		currDoc->m_Selection->itemAt(0)->emitAllToGUI();
 	}
 	else
 	{

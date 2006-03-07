@@ -67,23 +67,22 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 	// Grab the old selection
 	//QPtrList<PageItem> oldSelection = ScMW->view->SelItem;
 	//int tempList=ScMW->doc->selection->backupToTempList(0);
-	Selection tempSelection(*ScMW->doc->selection);
-	ScMW->doc->selection->clear();
+	Selection tempSelection(*ScMW->doc->m_Selection);
+	ScMW->doc->m_Selection->clear();
 	// Clear the selection
 	ScMW->view->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
 	ScMW->view->SelectItemNr(item->ItemNr);
 	// Move the item, or items
-	//if (ScMW->view->SelItem.count() > 1)
-	if (ScMW->doc->selection->count() > 1)
+	if (ScMW->doc->m_Selection->count() > 1)
 		ScMW->view->moveGroup(ValueToPoint(x), ValueToPoint(y));
 	else
 		ScMW->view->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
 	// Now restore the selection. We just have to go through and select
 	// each and every item, unfortunately.
 	//ScMW->doc->selection->restoreFromTempList(0, tempList);
-	*ScMW->doc->selection=tempSelection;
+	*ScMW->doc->m_Selection=tempSelection;
 	//ScMW->view->Deselect();
 	//for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
 	//	ScMW->view->SelectItemNr(oldSelection.current()->ItemNr);
@@ -105,15 +104,14 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	// Grab the old selection
 	//QPtrList<PageItem> oldSelection = ScMW->view->SelItem;
 	//int tempList=ScMW->doc->selection->backupToTempList(0);
-	Selection tempSelection(*ScMW->doc->selection);
+	Selection tempSelection(*ScMW->doc->m_Selection);
 	// Clear the selection
 	ScMW->view->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
 	ScMW->view->SelectItemNr(item->ItemNr);
 	// Move the item, or items
-	//if (ScMW->view->SelItem.count() > 1)
-	if (ScMW->doc->selection->count() > 1)
+	if (ScMW->doc->m_Selection->count() > 1)
 	{
 		double x2, y2, w, h;
 		ScMW->view->getGroupRect(&x2, &y2, &w, &h);
@@ -124,7 +122,7 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	// Now restore the selection. We just have to go through and select
 	// each and every item, unfortunately.
 	//ScMW->doc->selection->restoreFromTempList(0, tempList);
-	*ScMW->doc->selection=tempSelection;
+	*ScMW->doc->m_Selection=tempSelection;
 	//ScMW->view->Deselect();
 	//for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
 //		ScMW->view->SelectItemNr(oldSelection.current()->ItemNr);
@@ -216,11 +214,9 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 		setSelectedItemsByName(oldSelection);
 	}
 	// or if no argument list was given but there is a selection...
-	//else if (ScMW->view->SelItem.count() != 0)
-	else if (ScMW->doc->selection->count() != 0)
+	else if (ScMW->doc->m_Selection->count() != 0)
 	{
-		//if (ScMW->view->SelItem.count() < 2)
-		if (ScMW->doc->selection->count() < 2)
+		if (ScMW->doc->m_Selection->count() < 2)
 		{
 			// We can't very well group only one item
 			PyErr_SetString(NoValidObjectError, QObject::tr("Can't group less than two items", "python error"));
@@ -286,10 +282,8 @@ PyObject *scribus_getselobjnam(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	//if ((i < static_cast<int>(ScMW->view->SelItem.count())) && (i > -1))
-	if ((i < static_cast<int>(ScMW->doc->selection->count())) && (i > -1))
-		//return PyString_FromString(ScMW->view->SelItem.at(i)->itemName().utf8());
-		return PyString_FromString(ScMW->doc->selection->itemAt(i)->itemName().utf8());
+	if ((i < static_cast<int>(ScMW->doc->m_Selection->count())) && (i > -1))
+		return PyString_FromString(ScMW->doc->m_Selection->itemAt(i)->itemName().utf8());
 	else
 		// FIXME: Should probably return None if no selection?
 		return PyString_FromString("");
@@ -299,8 +293,7 @@ PyObject *scribus_selcount(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	//return PyInt_FromLong(static_cast<long>(ScMW->view->SelItem.count()));
-	return PyInt_FromLong(static_cast<long>(ScMW->doc->selection->count()));
+	return PyInt_FromLong(static_cast<long>(ScMW->doc->m_Selection->count()));
 }
 
 PyObject *scribus_selectobj(PyObject* /* self */, PyObject* args)

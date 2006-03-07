@@ -361,13 +361,13 @@ void NodePalette::ShearD()
 void NodePalette::MirrorH()
 {
 	if (doc != 0)
-		doc->MirrorPolyH(doc->selection->itemAt(0));
+		doc->MirrorPolyH(doc->m_Selection->itemAt(0));
 }
 
 void NodePalette::MirrorV()
 {
 	if (doc != 0)
-		doc->MirrorPolyV(doc->selection->itemAt(0));
+		doc->MirrorPolyV(doc->m_Selection->itemAt(0));
 }
 
 void NodePalette::ResetControl()
@@ -389,15 +389,15 @@ void NodePalette::ResetContour()
 			ItemState<FPointArray> *is = new ItemState<FPointArray>(Um::ResetContourLine, "",Um::IBorder);
 			is->set("RESET_CONTOUR", "reset_contour");
 			//is->setItem(view->SelItem.at(0)->ContourLine);
-			is->setItem(doc->selection->itemAt(0)->ContourLine);
+			is->setItem(doc->m_Selection->itemAt(0)->ContourLine);
 			//UndoManager::instance()->action(view->SelItem.at(0), is);
-			UndoManager::instance()->action(doc->selection->itemAt(0), is);
+			UndoManager::instance()->action(doc->m_Selection->itemAt(0), is);
 		}
 		//view->SelItem.at(0)->ContourLine = view->SelItem.at(0)->PoLine.copy();
 		//FIXME make an internal item copy poline to contourline member
-		doc->selection->itemAt(0)->ContourLine = doc->selection->itemAt(0)->PoLine.copy();
+		doc->m_Selection->itemAt(0)->ContourLine = doc->m_Selection->itemAt(0)->PoLine.copy();
 		//view->SelItem.at(0)->ClipEdited = true;
-		doc->selection->itemAt(0)->ClipEdited = true;
+		doc->m_Selection->itemAt(0)->ClipEdited = true;
 		view->updateContents();
 	}
 }
@@ -407,11 +407,11 @@ void NodePalette::MovePoint()
 	if (doc->EditClipMode == 0)
 	{
 		FPoint np(XSpin->value()/doc->unitRatio(), YSpin->value()/doc->unitRatio());
-		FPoint zp(doc->selection->itemAt(0)->xPos(), doc->selection->itemAt(0)->yPos());
+		FPoint zp(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
 		if (AbsMode->isChecked())
 			np -= zp;
-		view->MoveClipPoint(doc->selection->itemAt(0), np);
-		view->AdjustItemSize(doc->selection->itemAt(0));
+		view->MoveClipPoint(doc->m_Selection->itemAt(0), np);
+		view->AdjustItemSize(doc->m_Selection->itemAt(0));
 		emit DocChanged();
 	}
 }
@@ -433,7 +433,7 @@ void NodePalette::SetXY(double x, double y)
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	if (AbsMode->isChecked())
 		//zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
-		zp = FPoint(doc->selection->itemAt(0)->xPos(), doc->selection->itemAt(0)->yPos());
+		zp = FPoint(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
 	XSpin->setValue((x + zp.x())*doc->unitRatio());
 	YSpin->setValue((y + zp.y())*doc->unitRatio());
 	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
@@ -443,7 +443,7 @@ void NodePalette::SetXY(double x, double y)
 void NodePalette::ToggleAbsMode()
 {
 	//FPoint zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
-	FPoint zp(doc->selection->itemAt(0)->xPos(), doc->selection->itemAt(0)->yPos());
+	FPoint zp(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	double unitRatio=doc->unitRatio();
@@ -519,7 +519,7 @@ void NodePalette::HaveNode(bool have, bool mov)
 	{
 		uint cc;
 		bool leaveEd = false;
-		PageItem*currItem=doc->selection->itemAt(0);
+		PageItem*currItem=doc->m_Selection->itemAt(0);
 		if (view->EditContour)
 			//cc = view->SelItem.at(0)->ContourLine.size();
 			cc = currItem->ContourLine.size();
@@ -550,7 +550,7 @@ void NodePalette::MoveK()
 	doc->EditClipMode = 0;
 	view->EdPoints = false;
 	//PageItem *currItem = view->SelItem.at(0);
-	PageItem *currItem = doc->selection->itemAt(0);
+	PageItem *currItem = doc->m_Selection->itemAt(0);
 	if (view->EditContour)
 		view->MarkClip(currItem, currItem->ContourLine, true);
 	else
@@ -566,7 +566,7 @@ void NodePalette::MoveN()
 	doc->EditClipMode = 0;
 	view->EdPoints = true;
 	//PageItem *currItem = view->SelItem.at(0);
-	PageItem *currItem = doc->selection->itemAt(0);
+	PageItem *currItem = doc->m_Selection->itemAt(0);
 	if (view->EditContour)
 		view->MarkClip(currItem, currItem->ContourLine, true);
 	else

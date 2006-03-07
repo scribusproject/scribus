@@ -283,8 +283,7 @@ void SVGPlug::convert()
 		haveViewBox = true;
 	}
 	parseGroup( docElem );
-	//ScMW->view->SelItem.clear();
-	currDoc->selection->clear();
+	currDoc->m_Selection->clear();
 	if (Elements.count() > 1)
 	{
 		for (uint a = 0; a < Elements.count(); ++a)
@@ -307,13 +306,12 @@ void SVGPlug::convert()
 		for (uint dre=0; dre<Elements.count(); ++dre)
 		{
 			currDoc->DragElements.append(Elements.at(dre)->ItemNr);
-			//ScMW->view->SelItem.append(Elements.at(dre));
-			currDoc->selection->addItem(Elements.at(dre));
+			currDoc->m_Selection->addItem(Elements.at(dre));
 		}
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		ScMW->view->setGroupRect();
 		//QDragObject *dr = new QTextDrag(ss->WriteElem(&ScMW->view->SelItem, currDoc, ScMW->view), ScMW->view->viewport());
-		QDragObject *dr = new QTextDrag(ss->WriteElem(currDoc, ScMW->view, currDoc->selection), ScMW->view->viewport());
+		QDragObject *dr = new QTextDrag(ss->WriteElem(currDoc, ScMW->view, currDoc->m_Selection), ScMW->view->viewport());
 #ifndef QT_MAC
 // see #2526
 		currDoc->itemSelection_DeleteItem();
@@ -487,7 +485,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 				ite->convertTo(PageItem::PolyLine);
 			if (ite->PoLine.size() < 4)
 			{
-				currDoc->selection->addItem(ite);
+				currDoc->m_Selection->addItem(ite);
 				currDoc->itemSelection_DeleteItem();
 				z = -1;
 			}
@@ -1856,7 +1854,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			ite->SetRectFrame();
 			currDoc->setRedrawBounding(ite);
 			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-			currDoc->selection->addItem(ite);
+			currDoc->m_Selection->addItem(ite);
 			ScMW->view->frameResizeHandle = 1;
 			ScMW->view->setGroupRect();
 			ScMW->view->scaleGroup(mm.m11(), mm.m22());

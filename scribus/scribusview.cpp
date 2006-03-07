@@ -333,7 +333,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 			if ((!Doc->guidesSettings.before) && (drawRect.intersects(QRect(clipx, clipy, clipw, cliph))))
 				DrawPageMarks(painter, Doc->currentPage, QRect(clipx, clipy, clipw, cliph));
 		}
-		if ((Doc->selection->count() != 0) || (linkedFramesToShow.count() != 0))
+		if ((Doc->m_Selection->count() != 0) || (linkedFramesToShow.count() != 0))
 		{
 			double z = painter->zoomFactor();
 			painter->setZoomFactor(Scale);
@@ -346,7 +346,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 				if (linkedFramesToShow.count() != 0)
 					currItem = linkedFramesToShow.at(0);
 				else
-					currItem = Doc->selection->itemAt(0);
+					currItem = Doc->m_Selection->itemAt(0);
 			}
 			//Draw the frame links
 			if ((((Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
@@ -464,9 +464,9 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 		delete painter;
 		painter=NULL;
 	}
-	if (Doc->selection->count() != 0)
+	if (Doc->m_Selection->count() != 0)
 	{
-		PageItem *currItem = Doc->selection->itemAt(0);
+		PageItem *currItem = Doc->m_Selection->itemAt(0);
 		currItem->paintObj();
 		if ((Doc->EditClip) && (currItem->isSelected()))
 		{
@@ -475,7 +475,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 		else
 			MarkClip(currItem, currItem->PoLine, true);
 		}
-		if (Doc->selection->isMultipleSelection())
+		if (Doc->m_Selection->isMultipleSelection())
 		{
 			setGroupRect();
 			paintGroupRect();
@@ -485,7 +485,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 		slotDoCurs(true);
 	if (Doc->appMode == modeEditGradientVectors)
 	{
-		PageItem *currItem = Doc->selection->itemAt(0);
+		PageItem *currItem = Doc->m_Selection->itemAt(0);
 		QPainter p;
 		p.begin(viewport());
 		ToView(&p);
@@ -1052,9 +1052,9 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			return;
 		}
 		//if ((SeleItemPos(e->pos())) && (!text.startsWith("<SCRIBUSELEM")))
-		if (Doc->selection->count()>0 && Doc->selection->itemAt(0)->pointWithinItem(pscx, pscy) && (!text.startsWith("<SCRIBUSELEM")))
+		if (Doc->m_Selection->count()>0 && Doc->m_Selection->itemAt(0)->pointWithinItem(pscx, pscy) && (!text.startsWith("<SCRIBUSELEM")))
 		{
-			PageItem *b = Doc->selection->itemAt(0);
+			PageItem *b = Doc->m_Selection->itemAt(0);
 			if (b->itemType() == PageItem::ImageFrame)
 			{
 				if ((fi.exists()) && (img))
@@ -1134,11 +1134,11 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					emit LoadElem(ur.path(), ex, ey, true, false, Doc, this);
 				else
 					emit LoadElem(QString(text), ex, ey, false, false, Doc, this);
-				Doc->selection->clear();
+				Doc->m_Selection->clear();
 				for (uint as = oldDocItemCount; as < Doc->Items->count(); ++as)
 				{
 					currItem = Doc->Items->at(as);
-					Doc->selection->addItem(currItem);
+					Doc->m_Selection->addItem(currItem);
 					if (currItem->isBookmark)
 						emit AddBM(currItem);
 				}
@@ -1173,23 +1173,23 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						{
 							pasted.append(Doc->Items->at(as));
 						}
-						Doc->selection->clear();
+						Doc->m_Selection->clear();
 						for (uint dre=0; dre<Doc->DragElements.count(); ++dre)
 						{
-							Doc->selection->addItem(Doc->Items->at(Doc->DragElements[dre]));
+							Doc->m_Selection->addItem(Doc->Items->at(Doc->DragElements[dre]));
 						}
 						PageItem* bb;
 						int fin;
 						for (uint dre=0; dre<Doc->DragElements.count(); ++dre)
 						{
 							bb = pasted.at(dre);
-							currItem = Doc->selection->itemAt(dre);
+							currItem = Doc->m_Selection->itemAt(dre);
 							if ((currItem->asTextFrame()) && ((currItem->NextBox != 0) || (currItem->BackBox != 0)))
 							{
 								if (currItem->BackBox != 0)
 								{
 									bb->BackBox = currItem->BackBox;
-									fin = Doc->selection->findItem(currItem->BackBox);
+									fin = Doc->m_Selection->findItem(currItem->BackBox);
 									if (fin != -1)
 										bb->BackBox = pasted.at(fin);
 									bb->BackBox->NextBox = bb;
@@ -1197,7 +1197,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 								if (currItem->NextBox != 0)
 								{
 									bb->NextBox = currItem->NextBox;
-									fin = Doc->selection->findItem(currItem->NextBox);
+									fin = Doc->m_Selection->findItem(currItem->NextBox);
 									if (fin != -1)
 										bb->NextBox = pasted.at(fin);
 									bb->NextBox->BackBox = bb;
@@ -1206,7 +1206,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						}
 						for (uint dre=0; dre<Doc->DragElements.count(); ++dre)
 						{
-							currItem = Doc->selection->itemAt(dre);
+							currItem = Doc->m_Selection->itemAt(dre);
 							currItem->NextBox = 0;
 							currItem->BackBox = 0;
 						}
@@ -1218,16 +1218,16 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					emit LoadElem(QString(text), ex, ey, false, false, Doc, this);
 				Doc->DraggedElem = 0;
 				Doc->DragElements.clear();
-				Doc->selection->clear();
+				Doc->m_Selection->clear();
 				for (uint as = oldDocItemCount; as < Doc->Items->count(); ++as)
 				{
 					currItem = Doc->Items->at(as);
-					Doc->selection->addItem(currItem);
+					Doc->m_Selection->addItem(currItem);
 					if (currItem->isBookmark)
 						emit AddBM(currItem);
 				}
 			}
-			if (Doc->selection->count() > 1)
+			if (Doc->m_Selection->count() > 1)
 			{
 				setGroupRect();
 				paintGroupRect();
@@ -1251,19 +1251,19 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 		emit EndNodeEdit();
 		return;
 	}
-	if ((Doc->selection->isMultipleSelection()) || (Doc->appMode != modeNormal))
+	if ((Doc->m_Selection->isMultipleSelection()) || (Doc->appMode != modeNormal))
 	{
-		if ((Doc->selection->isMultipleSelection()) && (Doc->appMode == modeNormal))
+		if ((Doc->m_Selection->isMultipleSelection()) && (Doc->appMode == modeNormal))
 		{
 			if (GetItem(&currItem))
 			{
 				if (currItem->isTableItem)
 				{
 					Deselect(false);
-					Doc->selection->addItem(currItem);
+					Doc->m_Selection->addItem(currItem);
 					currItem->isSingleSel = true;
 					//CB FIXME dont call this if the added item is item 0
-					if (!Doc->selection->primarySelectionIs(currItem))
+					if (!Doc->m_Selection->primarySelectionIs(currItem))
 						currItem->emitAllToGUI();
 					currItem->paintObj();
 				}
@@ -1445,7 +1445,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	}
 	if (Doc->appMode == modeDrawTable)
 	{
-		if ((Doc->selection->count() == 0) && (HaveSelRect) && (!MidButt))
+		if ((Doc->m_Selection->count() == 0) && (HaveSelRect) && (!MidButt))
 		{
 			QRect AreaR = QRect(static_cast<int>(Mxp), static_cast<int>(Myp), static_cast<int>(SeRx-Mxp), static_cast<int>(SeRy-Myp));
 			QPainter p;
@@ -1503,7 +1503,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			deltaY = Th / Rows;
 			offX = 0.0;
 			offY = 0.0;
-			Doc->selection->clear();
+			Doc->m_Selection->clear();
 			if (UndoManager::undoEnabled())
 				undoManager->beginTransaction(Doc->currentPage->getUName(), Um::ITable, Um::CreateTable,
 											  QString(Um::RowsCols).arg(Rows).arg(Cols), Um::ICreate);
@@ -1517,7 +1517,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					currItem->isTableItem = true;
 					currItem->setTextFlowsAroundFrame(true);
 					currItem->setTextFlowUsesBoundingBox(true);
-					Doc->selection->addItem(currItem);
+					Doc->m_Selection->addItem(currItem);
 					offX += deltaX;
 				}
 				offY += deltaY;
@@ -1527,23 +1527,23 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			{
 				for (int cc = 0; cc < Cols; ++cc)
 				{
-					currItem = Doc->selection->itemAt((rc * Cols) + cc);
+					currItem = Doc->m_Selection->itemAt((rc * Cols) + cc);
 					if (rc == 0)
 						currItem->TopLink = 0;
 					else
-						currItem->TopLink = Doc->selection->itemAt(((rc-1)*Cols)+cc);
+						currItem->TopLink = Doc->m_Selection->itemAt(((rc-1)*Cols)+cc);
 					if (rc == Rows-1)
 						currItem->BottomLink = 0;
 					else
-						currItem->BottomLink = Doc->selection->itemAt(((rc+1)*Cols)+cc);
+						currItem->BottomLink = Doc->m_Selection->itemAt(((rc+1)*Cols)+cc);
 					if (cc == 0)
 						currItem->LeftLink = 0;
 					else
-						currItem->LeftLink = Doc->selection->itemAt((rc*Cols)+cc-1);
+						currItem->LeftLink = Doc->m_Selection->itemAt((rc*Cols)+cc-1);
 					if (cc == Cols-1)
 						currItem->RightLink = 0;
 					else
-						currItem->RightLink = Doc->selection->itemAt((rc*Cols)+cc+1);
+						currItem->RightLink = Doc->m_Selection->itemAt((rc*Cols)+cc+1);
 				}
 			}
 			emit DoGroup();
@@ -1575,8 +1575,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			currItem->PoLine.addPoint(RecordP.point(RecordP.size()-1));
 			currItem->PoLine.addPoint(RecordP.point(RecordP.size()-1));
 			AdjustItemSize(currItem);
-			Doc->selection->clear();
-			Doc->selection->addItem(currItem);
+			Doc->m_Selection->clear();
+			Doc->m_Selection->addItem(currItem);
 			currItem->ClipEdited = true;
 			//currItem->Select = true;
 			currItem->FrameType = 3;
@@ -1620,7 +1620,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			SeRy=static_cast<int>(Myp);
 			Myp=static_cast<int>(tmp);
 		}
-		currItem = Doc->selection->itemAt(0);
+		currItem = Doc->m_Selection->itemAt(0);
 		SelNode.clear();
 		QRect Sele = QRect(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc), static_cast<int>((SeRx-Mxp)*sc), static_cast<int>((SeRy-Myp)*sc));
 		FPointArray Clip;
@@ -1652,7 +1652,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	}
 /*	if (moveTimerElapsed() && (Doc->EditClip) && (SegP1 == -1) && (SegP2 == -1))
 	{
-		currItem = Doc->selection->itemAt(0);
+		currItem = Doc->m_Selection->itemAt(0);
 		if (operItemMoving)
 		{
 			currItem->OldB2 = currItem->width();
@@ -1679,7 +1679,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	{
 		SegP1 = -1;
 		SegP2 = -1;
-		currItem = Doc->selection->itemAt(0);
+		currItem = Doc->m_Selection->itemAt(0);
 		operItemMoving = false;
 		AdjustItemSize(currItem);
 		emit DocChanged();
@@ -1943,17 +1943,17 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			if (!currItem->locked())
 			{
-				if (Doc->selection->count() > 1)
+				if (Doc->m_Selection->count() > 1)
 				{
 					bool isGroup = true;
 					int firstElem = -1;
 					if (currItem->Groups.count() != 0)
 						firstElem = currItem->Groups.top();
-					for (uint bx = 0; bx < Doc->selection->count(); ++bx)
+					for (uint bx = 0; bx < Doc->m_Selection->count(); ++bx)
 					{
-						if (Doc->selection->itemAt(bx)->Groups.count() != 0)
+						if (Doc->m_Selection->itemAt(bx)->Groups.count() != 0)
 						{
-							if (Doc->selection->itemAt(bx)->Groups.top() != firstElem)
+							if (Doc->m_Selection->itemAt(bx)->Groups.top() != firstElem)
 								isGroup = false;
 						}
 						else
@@ -2062,7 +2062,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		}
 		if (Doc->appMode == modeDrawRegularPolygon)
 		{
-			currItem = Doc->selection->itemAt(0);
+			currItem = Doc->m_Selection->itemAt(0);
 			FPoint np1(m->x() / Scale + Doc->minCanvasCoordinate.x(), m->y() / Scale + Doc->minCanvasCoordinate.y());
 			np1 = ApplyGridF(np1);
 			currItem->setWidthHeight(np1.x() - currItem->xPos(), np1.y()- currItem->yPos());
@@ -2096,7 +2096,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		}
 		if (Doc->appMode == modeDrawLine)
 		{
-			currItem = Doc->selection->itemAt(0);
+			currItem = Doc->m_Selection->itemAt(0);
 			QPainter p;
 			p.begin(viewport());
 			Transform(currItem, &p);
@@ -2118,7 +2118,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		}
 		if (moveTimerElapsed() && (GetItem(&currItem)))
 		{
-			if (Doc->selection->isMultipleSelection())
+			if (Doc->m_Selection->isMultipleSelection())
 			{
 				if (operItemResizing)
 				{
@@ -2850,7 +2850,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			if (operItemMoving)
 			{
 				evSpon = false;
-				if (Doc->selection->isMultipleSelection())
+				if (Doc->m_Selection->isMultipleSelection())
 				{
 					setGroupRect();
 					double gx, gy, gh, gw;
@@ -2875,7 +2875,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				}
 				else
 				{
-					currItem = Doc->selection->itemAt(0);
+					currItem = Doc->m_Selection->itemAt(0);
 					if (!currItem->asLine())
 					{
 						if (fabs(currItem->width()) < 5)
@@ -2900,7 +2900,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						MoveItem(0, 0, currItem, false);
 				}
 				operItemMoving = false;
-				if (Doc->selection->isMultipleSelection())
+				if (Doc->m_Selection->isMultipleSelection())
 				{
 					double gx, gy, gh, gw;
 					getGroupRect(&gx, &gy, &gw, &gh);
@@ -2926,7 +2926,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 		}
 		//CB Drag selection performed here
-		if ((Doc->selection->count() == 0) && (HaveSelRect) && (!MidButt))
+		if ((Doc->m_Selection->count() == 0) && (HaveSelRect) && (!MidButt))
 		{
 			double sc = Scale;
 			QPainter p;
@@ -2985,7 +2985,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		}
 		if (GetItem(&currItem))
 		{
-			if (Doc->selection->count() > 1)
+			if (Doc->m_Selection->count() > 1)
 			{
 				setGroupRect();
 				paintGroupRect();
@@ -3010,7 +3010,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	}
 	if ((Doc->appMode == modeEdit) && !operItemResizeInEditMode)
 	{
-		currItem = Doc->selection->itemAt(0);
+		currItem = Doc->m_Selection->itemAt(0);
 		uint a;
 		if (currItem->asTextFrame())
 		{
@@ -3074,7 +3074,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	}
 	if ((Doc->appMode == modeDrawBezierLine) && (m->button() == LeftButton))
 	{
-		currItem = Doc->selection->itemAt(0);
+		currItem = Doc->m_Selection->itemAt(0);
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
 		QPainter p;
@@ -3127,7 +3127,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	}
 	if ((Doc->appMode == modeDrawBezierLine) && (m->button() == RightButton))
 	{
-		currItem = Doc->selection->itemAt(0);
+		currItem = Doc->m_Selection->itemAt(0);
 		if (currItem!=0)
 		{
 			currItem->PoLine.resize(currItem->PoLine.size()-2);
@@ -3135,7 +3135,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			{
 	//			emit DelObj(Doc->currentPage->pageNr(), currItem->ItemNr);
 				Doc->Items->remove(currItem->ItemNr);
-				Doc->selection->removeFirst();
+				Doc->m_Selection->removeFirst();
 				emit HaveSel(-1);
 			}
 			else
@@ -3161,20 +3161,20 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	Doc->SubMode = -1;
 	if (_groupTransactionStarted)
 	{
-		for (uint i = 0; i < Doc->selection->count(); ++i)
-			Doc->selection->itemAt(i)->checkChanges(true);
+		for (uint i = 0; i < Doc->m_Selection->count(); ++i)
+			Doc->m_Selection->itemAt(i)->checkChanges(true);
 		undoManager->commit();
 		_groupTransactionStarted = false;
 	}
 
-	for (uint i = 0; i < Doc->selection->count(); ++i)
-		Doc->selection->itemAt(i)->checkChanges(true);
+	for (uint i = 0; i < Doc->m_Selection->count(); ++i)
+		Doc->m_Selection->itemAt(i)->checkChanges(true);
 	//Commit drag created items to undo manager. View needs to emit this AddObj() for the outline palette (for now)
-	if (Doc->selection->itemAt(0)!=NULL)
+	if (Doc->m_Selection->itemAt(0)!=NULL)
 	{
-		bool emitToOutline = Doc->itemAddCommit(Doc->selection->itemAt(0)->ItemNr);
+		bool emitToOutline = Doc->itemAddCommit(Doc->m_Selection->itemAt(0)->ItemNr);
 		if (emitToOutline)
-			emit AddObj(Doc->selection->itemAt(0));
+			emit AddObj(Doc->m_Selection->itemAt(0));
 	}
 	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
 	zoomSpinBox->clearFocus();
@@ -3243,7 +3243,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 
 	if (m_MouseButtonPressed && (Doc->appMode == modeEditGradientVectors))
 	{
-		PageItem *currItem = Doc->selection->itemAt(0);
+		PageItem *currItem = Doc->m_Selection->itemAt(0);
 		newX = m->x();
 		newY = m->y();
 		if (m->state() == LeftButton)
@@ -3338,10 +3338,10 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				Doc->leaveDrag = false;
 				Doc->DraggedElem = currItem;
 				Doc->DragElements.clear();
-				for (uint dre=0; dre<Doc->selection->count(); ++dre)
-					Doc->DragElements.append(Doc->selection->itemAt(dre)->ItemNr);
+				for (uint dre=0; dre<Doc->m_Selection->count(); ++dre)
+					Doc->DragElements.append(Doc->m_Selection->itemAt(dre)->ItemNr);
 				ScriXmlDoc *ss = new ScriXmlDoc();
-				QDragObject *dr = new QTextDrag(ss->WriteElem(Doc, this, Doc->selection), this);
+				QDragObject *dr = new QTextDrag(ss->WriteElem(Doc, this, Doc->m_Selection), this);
 				dr->setPixmap(loadIcon("DragPix.xpm"));
 				dr->drag();
 //				if (!dr->drag())
@@ -3369,14 +3369,14 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				newW=constrainAngle(newW);
 				oldW=constrainAngle(oldW);
 				//RotateGroup uses MoveBy so its pretty hard to constrain the result
-				if (Doc->selection->isMultipleSelection())
+				if (Doc->m_Selection->isMultipleSelection())
 					RotateGroup(newW-oldW);
 				else
 					RotateItem(newW, currItem->ItemNr);
 			}
 			else
 			{
-				if (Doc->selection->isMultipleSelection())
+				if (Doc->m_Selection->isMultipleSelection())
 					RotateGroup(newW - oldW);
 				else
 					RotateItem(currItem->rotation() - (oldW - newW), currItem->ItemNr);
@@ -3559,7 +3559,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				newY = m->y();
 				FPoint np(newX-Mxp, newY-Myp, 0, 0, currItem->rotation(), 1, 1, true);
 				operItemMoving = true;
-				currItem = Doc->selection->itemAt(0);
+				currItem = Doc->m_Selection->itemAt(0);
 				currItem->OldB2 = currItem->width();
 				currItem->OldH2 = currItem->height();
 				FPointArray Clip;
@@ -3615,7 +3615,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				newX = static_cast<int>(m->x()/sc);
 				newY = static_cast<int>(m->y()/sc);
 				operItemMoving = false;
-				if (Doc->selection->isMultipleSelection())
+				if (Doc->m_Selection->isMultipleSelection())
 				{
 					newX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
 					newY = qRound(m->y()/sc + Doc->minCanvasCoordinate.y());
@@ -3676,9 +3676,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				else
 				{
 					//qDebug(QString("frameResizeHandle %1").arg(frameResizeHandle));
-					for (a = 0; a < Doc->selection->count(); ++a)
+					for (a = 0; a < Doc->m_Selection->count(); ++a)
 					{
-						currItem = Doc->selection->itemAt(0);
+						currItem = Doc->m_Selection->itemAt(0);
 						double nh = currItem->height();
 						if ((frameResizeHandle == 1) || (frameResizeHandle == 2))
 						{
@@ -3866,10 +3866,10 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				operItemMoving = true;
 				erf = false;
 				int dX=newX-Mxp, dY=newY-Myp;
-				if (!Doc->selection->isMultipleSelection())
+				if (!Doc->m_Selection->isMultipleSelection())
 				{
 					erf=true;
-					currItem = Doc->selection->itemAt(0);
+					currItem = Doc->m_Selection->itemAt(0);
 					//Control Alt drag image in frame without being in edit mode
 					if ((currItem->asImageFrame()) && (m->state() & ControlButton) && (m->state() & AltButton))
 					{
@@ -3962,7 +3962,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
 				return;
 			}
-			if (Doc->selection->isMultipleSelection())
+			if (Doc->m_Selection->isMultipleSelection())
 			{
 				QRect mpo = QRect(qRound(m->x()/Scale)-Doc->guidesSettings.grabRad, qRound(m->y()/Scale)-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
 				mpo.moveBy(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
@@ -4057,9 +4057,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				}
 				return;
 			}
-			for (a = 0; a < Doc->selection->count(); ++a)
+			for (a = 0; a < Doc->m_Selection->count(); ++a)
 			{
-				currItem = Doc->selection->itemAt(a);
+				currItem = Doc->m_Selection->itemAt(a);
 				if (currItem->locked())
 					break;
 				p.begin(viewport());
@@ -4282,9 +4282,9 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			Myp = qRound(m->y()/Scale);
 			SeRx = Mxp;
 			SeRy = Myp;
-			if ((Doc->EditClip) && (Doc->selection->count() != 0))
+			if ((Doc->EditClip) && (Doc->m_Selection->count() != 0))
 			{
-				currItem = Doc->selection->itemAt(0);
+				currItem = Doc->m_Selection->itemAt(0);
 				FPointArray Clip;
 				bool edited = false;
 				bool pfound = false;
@@ -4537,7 +4537,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			if (GetItem(&currItem))
 			{
-				if (Doc->selection->isMultipleSelection())
+				if (Doc->m_Selection->isMultipleSelection())
 				{
 					p.begin(viewport());
 					QRect ne = QRect();
@@ -4614,7 +4614,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					}
 					else
 						SeleItem(m);
-					if (Doc->selection->count() == 0)
+					if (Doc->m_Selection->count() == 0)
 					{
 						Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
 						Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
@@ -4627,9 +4627,9 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					dragConstrainInitPtX = qRound(currItem->xPos());
 					dragConstrainInitPtY = qRound(currItem->yPos());
 					SeleItem(m); //Where we send the mouse press event to select an item
-					if (Doc->selection->count() != 0)
+					if (Doc->m_Selection->count() != 0)
 					{
-						currItem = Doc->selection->itemAt(0);
+						currItem = Doc->m_Selection->itemAt(0);
 						p.begin(viewport());
 						Transform(currItem, &p);
 						if (!currItem->locked())
@@ -4656,7 +4656,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			else
 			{
 				SeleItem(m);
-				if (Doc->selection->count() == 0)
+				if (Doc->m_Selection->count() == 0)
 				{
 					Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
 					Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
@@ -4667,11 +4667,11 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			if (m->button() == MidButton)
 			{
 				MidButt = true;
-				if (Doc->selection->count() != 0)
+				if (Doc->m_Selection->count() != 0)
 					Deselect(true);
 				DrawNew();
 			}
-			if ((Doc->selection->count() != 0) && (m->button() == RightButton))
+			if ((Doc->m_Selection->count() != 0) && (m->button() == RightButton))
 			{
 				m_MouseButtonPressed = true;
 				Dxp = Mxp;
@@ -4761,14 +4761,14 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				else //>>CB
 					oldCp = currItem->CPos;
-				currItem = Doc->selection->itemAt(0);
+				currItem = Doc->m_Selection->itemAt(0);
 				slotDoCurs(true);
 				if ((!inText) && ((currItem->asTextFrame()) || (currItem->asImageFrame())))
 				{
 					Deselect(true);
 					if (SeleItem(m))
 					{
-						currItem = Doc->selection->itemAt(0);
+						currItem = Doc->m_Selection->itemAt(0);
 						if ((currItem->asTextFrame()) || (currItem->asImageFrame()))
 							emit Amode(modeEdit);
 						else
@@ -4829,8 +4829,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			z = Doc->itemAdd(PageItem::Line, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, Rypd, Doc->toolSettings.dWidthLine, CommonStrings::None, Doc->toolSettings.dPenLine, !m_MouseButtonPressed);
 			currItem = Doc->Items->at(z);
 			qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-			Doc->selection->clear();
-			Doc->selection->addItem(currItem);
+			Doc->m_Selection->clear();
+			Doc->m_Selection->addItem(currItem);
 			currItem->paintObj();
 			operItemMoving = true;
 			break;
@@ -4838,7 +4838,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			if (GetItem(&currItem))
 			{
 				RotMode = Doc->RotMode;
-				if (Doc->selection->isMultipleSelection())
+				if (Doc->m_Selection->isMultipleSelection())
 				{
 					double gx, gy, gh, gw;
 					double gxR, gyR, ghR, gwR;
@@ -4963,8 +4963,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				currItem->PoLine.putPoints(currItem->PoLine.size(), 2, np.x(), np.y(), np.x(), np.y());
 				currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 				qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-				Doc->selection->clear();
-				Doc->selection->addItem(currItem);
+				Doc->m_Selection->clear();
+				Doc->m_Selection->addItem(currItem);
 				currItem->paintObj();
 				operItemMoving = true;
 				break;
@@ -4977,11 +4977,11 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				selectPage(m);
 				z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, CommonStrings::None, Doc->toolSettings.dPenLine, !m_MouseButtonPressed);
 				currItem = Doc->Items->at(z);
-				Doc->selection->clear();
-				Doc->selection->addItem(currItem);
+				Doc->m_Selection->clear();
+				Doc->m_Selection->addItem(currItem);
 				qApp->setOverrideCursor(QCursor(crossCursor), true);
 			}
-			currItem = Doc->selection->itemAt(0);
+			currItem = Doc->m_Selection->itemAt(0);
 			p.begin(viewport());
 			Transform(currItem, &p);
 			npf = FPoint(p.xFormDev(m->pos()));
@@ -5271,10 +5271,10 @@ void ScribusView::setGroupRect()
 	double miny = 99999.9;
 	double maxx = -99999.9;
 	double maxy = -99999.9;
-	uint selectedItemCount=Doc->selection->count();
+	uint selectedItemCount=Doc->m_Selection->count();
 	for (uint gc = 0; gc < selectedItemCount; ++gc)
 	{
-		currItem = Doc->selection->itemAt(gc);
+		currItem = Doc->m_Selection->itemAt(gc);
 		if (currItem->rotation() != 0)
 		{
 			FPointArray pb(4);
@@ -5602,7 +5602,7 @@ bool ScribusView::PointOnLine(QPoint Start, QPoint Ende, QRect MArea)
 //CB-->Doc??
 void ScribusView::TransformPoly(int mode, int rot, double scaling)
 {
-	PageItem *currItem = Doc->selection->itemAt(0);
+	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	currItem->ClipEdited = true;
 	QWMatrix ma;
 	if (EditContour)
@@ -5770,7 +5770,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 
 void ScribusView::Reset1Control()
 {
-	PageItem *currItem = Doc->selection->itemAt(0);
+	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	currItem->ClipEdited = true;
 	FPoint np;
 	if (EditContour)
@@ -5804,7 +5804,7 @@ void ScribusView::Reset1Control()
 
 void ScribusView::ResetControl()
 {
-	PageItem *currItem = Doc->selection->itemAt(0);
+	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	currItem->ClipEdited = true;
 	FPoint np;
 	if (EditContour)
@@ -6145,7 +6145,7 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 	}
 	if (!fromMP)
 	{
-		if (Doc->selection->isMultipleSelection())
+		if (Doc->m_Selection->isMultipleSelection())
 		{
 			double gx, gy, gh, gw;
 			setGroupRect();
@@ -6218,12 +6218,12 @@ bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, b
 //CB-->Doc
 void ScribusView::moveGroup(double x, double y, bool fromMP)
 {
-	uint docSelectionCount=Doc->selection->count();
+	uint docSelectionCount=Doc->m_Selection->count();
 	if (!_groupTransactionStarted && docSelectionCount > 1)
 	{
 		QString tooltip = Um::ItemsInvolved + "\n";
 		for (uint i = 0; i < docSelectionCount; ++i)
-			tooltip += "\t" + Doc->selection->itemAt(i)->getUName() + "\n";
+			tooltip += "\t" + Doc->m_Selection->itemAt(i)->getUName() + "\n";
 		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
 									  Um::Move, tooltip, Um::IMove);
 		_groupTransactionStarted = true;
@@ -6234,7 +6234,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 	double sc = Scale;
 	for (uint a = 0; a < docSelectionCount; ++a)
 	{
-		currItem = Doc->selection->itemAt(a);
+		currItem = Doc->m_Selection->itemAt(a);
 		if ((!fromMP) && (docSelectionCount < moveWithBoxesOnlyThreshold))
 		{
 			p.begin(viewport());
@@ -6281,7 +6281,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 			p.end();
 		}
 		MoveItem(x, y, currItem, fromMP);
-		if ((!fromMP) && (Doc->selection->count() < moveWithBoxesOnlyThreshold))
+		if ((!fromMP) && (Doc->m_Selection->count() < moveWithBoxesOnlyThreshold))
 		{
 			p.begin(viewport());
 			ToView(&p);
@@ -6291,7 +6291,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 			p.setRasterOp(XorROP);
 			p.setBrush(NoBrush);
 			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-			if (Doc->selection->count() < moveWithFullOutlinesThreshold)
+			if (Doc->m_Selection->count() < moveWithFullOutlinesThreshold)
 			{
 				if (!(currItem->asLine()) && (currItem->FrameType != 0) || (currItem->asPolyLine()))
 					currItem->DrawPolyL(&p, currItem->Clip);
@@ -6327,12 +6327,12 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 			p.end();
 		}
 	}
-	if (Doc->selection->isMultipleSelection())
+	if (Doc->m_Selection->isMultipleSelection())
 	{
 			setGroupRect();
 			getGroupRect(&gx, &gy, &gw, &gh);
 			emit ItemPos(gx, gy);
-		currItem = Doc->selection->itemAt(0);
+		currItem = Doc->m_Selection->itemAt(0);
 		Doc->GroupOnPage(currItem);
 		if (fromMP)
 		{
@@ -6349,7 +6349,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 	else
 	{
 		//Paint the drag moved item, ie the black dashed line representing the frame
-		currItem = Doc->selection->itemAt(0);
+		currItem = Doc->m_Selection->itemAt(0);
 		QRect oldR = QRect(qRound(currItem->BoundingX * Scale), qRound(currItem->BoundingY * Scale), qRound(currItem->BoundingW * Scale), qRound(currItem->BoundingH * Scale));
 		//CB this breaks dragging an item when the canvas has been push resized
 		//oldR.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
@@ -6366,11 +6366,11 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 //CB-->Doc
 void ScribusView::RotateGroup(double win)
 {
-	if (!_groupTransactionStarted && Doc->selection->count() > 1)
+	if (!_groupTransactionStarted && Doc->m_Selection->count() > 1)
 	{
 		QString tooltip = Um::ItemsInvolved + "\n";
-		for (uint i = 0; i < Doc->selection->count(); ++i)
-			tooltip += "\t" + Doc->selection->itemAt(i)->getUName() + "\n";
+		for (uint i = 0; i < Doc->m_Selection->count(); ++i)
+			tooltip += "\t" + Doc->m_Selection->itemAt(i)->getUName() + "\n";
 		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
 									  Um::Rotate, tooltip, Um::IRotate);
 		_groupTransactionStarted = true;
@@ -6387,15 +6387,15 @@ void ScribusView::RotateGroup(double win)
 	gyS -= Doc->minCanvasCoordinate.y();
 	QRect oldR = QRect(static_cast<int>(gxS*sc-5), static_cast<int>(gyS*sc-5), static_cast<int>(gwS*sc+10), static_cast<int>(ghS*sc+10));
 	FPoint n;
-	for (uint a = 0; a < Doc->selection->count(); ++a)
+	for (uint a = 0; a < Doc->m_Selection->count(); ++a)
 	{
-		currItem = Doc->selection->itemAt(a);
+		currItem = Doc->m_Selection->itemAt(a);
 		n = FPoint(currItem->xPos() - RCenter.x(), currItem->yPos() - RCenter.y());
 		currItem->setXYPos(ma.m11() * n.x() + ma.m21() * n.y() + ma.dx(), ma.m22() * n.y() + ma.m12() * n.x() + ma.dy());
 		currItem->rotateBy(win);
 		Doc->setRedrawBounding(currItem);
 	}
-	currItem = Doc->selection->itemAt(0);
+	currItem = Doc->m_Selection->itemAt(0);
 	Doc->GroupOnPage(currItem);
 	setGroupRect();
 	getGroupRect(&gxS, &gyS, &gwS, &ghS);
@@ -6407,12 +6407,12 @@ void ScribusView::RotateGroup(double win)
 //CB-->Doc
 void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 {
-	uint docSelectionCount=Doc->selection->count();
+	uint docSelectionCount=Doc->m_Selection->count();
 	if (!_groupTransactionStarted && docSelectionCount > 1)
 	{
 		QString tooltip = Um::ItemsInvolved + "\n";
 		for (uint i = 0; i < docSelectionCount; ++i)
-			tooltip += "\t" + Doc->selection->itemAt(i)->getUName() + "\n";
+			tooltip += "\t" + Doc->m_Selection->itemAt(i)->getUName() + "\n";
 		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
 									  Um::Resize, tooltip, Um::IResize);
 		_groupTransactionStarted = true;
@@ -6430,10 +6430,10 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 	double origGW = gw;
 	double origGH = gh;
 	setUpdatesEnabled(false);
-	uint selectedItemCount=Doc->selection->count();
+	uint selectedItemCount=Doc->m_Selection->count();
 	for (uint a = 0; a < selectedItemCount; ++a)
 	{
-		bb = Doc->selection->itemAt(a);
+		bb = Doc->m_Selection->itemAt(a);
 		if ((bb->locked()) || (bb->sizeLocked()))
 			continue;
 		bb->OldB = bb->width();
@@ -6540,7 +6540,7 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 			}
 		}
 	}
-	bb = Doc->selection->itemAt(0);
+	bb = Doc->m_Selection->itemAt(0);
 	Doc->GroupOnPage(bb);
 	setGroupRect();
 	getGroupRect(&gx, &gy, &gw, &gh);
@@ -7228,7 +7228,7 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 	{
 		if (single)
 		{
-			Doc->selection->addItem(currItem);
+			Doc->m_Selection->addItem(currItem);
 			currItem->isSingleSel = true;
 			currItem->FrameOnly = true;
 			currItem->paintObj();
@@ -7237,13 +7237,13 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 		{
 			if (currItem->Groups.count() != 0)
 			{
-				if (Doc->selection->count() != 0)
+				if (Doc->m_Selection->count() != 0)
 				{
-					if (Doc->selection->findItem(currItem) == -1)
-						Doc->selection->addItem(currItem);
+					if (Doc->m_Selection->findItem(currItem) == -1)
+						Doc->m_Selection->addItem(currItem);
 				}
 				else
-					Doc->selection->addItem(currItem);
+					Doc->m_Selection->addItem(currItem);
 				
 				for (uint ga=0; ga<Doc->Items->count(); ++ga)
 				{
@@ -7253,8 +7253,8 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 						{
 							if (Doc->Items->at(ga)->ItemNr != currItem->ItemNr)
 							{
-								if (Doc->selection->findItem(Doc->Items->at(ga)) == -1)
-									Doc->selection->addItem(Doc->Items->at(ga));
+								if (Doc->m_Selection->findItem(Doc->Items->at(ga)) == -1)
+									Doc->m_Selection->addItem(Doc->Items->at(ga));
 							}
 							Doc->Items->at(ga)->FrameOnly = true;
 							Doc->Items->at(ga)->paintObj();
@@ -7264,13 +7264,13 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 			}
 			else
 			{
-				Doc->selection->addItem(currItem);
+				Doc->m_Selection->addItem(currItem);
 				currItem->FrameOnly = true;
 				currItem->paintObj();
 			}
 			//CB FIXME/TODO We are surely prepending here and we have turned off 
 			//emitting in prepend below so do it here.
-			//Doc->selection->itemAt(0)->emitAllToGUI();
+			//Doc->m_Selection->itemAt(0)->emitAllToGUI();
 		}
 	}
 	else
@@ -7278,11 +7278,11 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 	//CB Prepend used to occur to enable level changes to work properly, however with 
 	//current selection code we dont seem to need that anymore
 	/*
-		if (Doc->selection->count() > 1)
+		if (Doc->m_Selection->count() > 1)
 		{
-			PageItem *bb = Doc->selection->itemAt(0);
-			Doc->selection->removeItem(currItem);
-			Doc->selection->prependItem(currItem, false);
+			PageItem *bb = Doc->m_Selection->itemAt(0);
+			Doc->m_Selection->removeItem(currItem);
+			Doc->m_Selection->prependItem(currItem, false);
 			currItem->FrameOnly = true;
 			currItem->paintObj();
 			bb->FrameOnly = true;
@@ -7291,7 +7291,7 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 	}
 	if (draw)
 	{
-		if (Doc->selection->count() > 1)
+		if (Doc->m_Selection->count() > 1)
 		{
 			setGroupRect();
 			paintGroupRect();
@@ -7313,9 +7313,9 @@ void ScribusView::selectionChanged()
 {
 	if (ScMW->isObjectSpecificUndo())
 	{
-		uint docSelectionCount=Doc->selection->count();
+		uint docSelectionCount=Doc->m_Selection->count();
 		if (docSelectionCount == 1)
-			undoManager->showObject(Doc->selection->itemAt(0)->getUId());
+			undoManager->showObject(Doc->m_Selection->itemAt(0)->getUId());
 		else if (docSelectionCount == 0)
 			undoManager->showObject(Doc->currentPage->getUId());
 		else
@@ -7371,8 +7371,8 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 	mpo = QRect(m->x()-Doc->guidesSettings.grabRad, m->y()-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
 	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
 	ClRe = -1;
-	if ((Doc->selection->count() != 0) && (m->state() == ControlButton))
-		currItem = Doc->selection->itemAt(0);
+	if ((Doc->m_Selection->count() != 0) && (m->state() == ControlButton))
+		currItem = Doc->m_Selection->itemAt(0);
 	else
 		currItem = Doc->Items->last();
 	uint a;
@@ -7425,13 +7425,13 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 							Deselect(false);
 						if (currItem->Groups.count() != 0)
 						{
-							if (Doc->selection->count() != 0)
+							if (Doc->m_Selection->count() != 0)
 							{
-								if (Doc->selection->findItem(currItem) == -1)
-									Doc->selection->addItem(currItem);
+								if (Doc->m_Selection->findItem(currItem) == -1)
+									Doc->m_Selection->addItem(currItem);
 							}
 							else
-								Doc->selection->addItem(currItem);
+								Doc->m_Selection->addItem(currItem);
 							if (m->state() != (ControlButton | AltButton))
 							{
 								for (uint ga=0; ga<Doc->Items->count(); ++ga)
@@ -7442,9 +7442,9 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 										{
 											if (Doc->Items->at(ga)->ItemNr != currItem->ItemNr)
 											{
-												if (Doc->selection->findItem(Doc->Items->at(ga)) == -1)
+												if (Doc->m_Selection->findItem(Doc->Items->at(ga)) == -1)
 												{
-													Doc->selection->addItem(Doc->Items->at(ga));
+													Doc->m_Selection->addItem(Doc->Items->at(ga));
 												}
 
 											}
@@ -7463,29 +7463,29 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						}
 						else
 						{
-							Doc->selection->addItem(currItem);
+							Doc->m_Selection->addItem(currItem);
 							currItem->FrameOnly = true;
 							currItem->paintObj();
 						}
 					}
 					else
 					{
-						if (Doc->selection->count() > 1)
+						if (Doc->m_Selection->count() > 1)
 						{
-							PageItem *bb = Doc->selection->itemAt(0);
-							Doc->selection->removeItem(currItem);
-							Doc->selection->prependItem(currItem);
+							PageItem *bb = Doc->m_Selection->itemAt(0);
+							Doc->m_Selection->removeItem(currItem);
+							Doc->m_Selection->prependItem(currItem);
 							currItem->FrameOnly = true;
 							currItem->paintObj();
 							bb->FrameOnly = true;
 							bb->paintObj();
 						}
 					}
-					if (Doc->selection->count() > 1)
+					if (Doc->m_Selection->count() > 1)
 					{
-						for (uint aa = 0; aa < Doc->selection->count(); ++aa)
+						for (uint aa = 0; aa < Doc->m_Selection->count(); ++aa)
 						{
-							PageItem *bb = Doc->selection->itemAt(aa);
+							PageItem *bb = Doc->m_Selection->itemAt(aa);
 							bb->paintObj();
 						}
 						setGroupRect();
@@ -7516,7 +7516,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			currItem = Doc->currentPage->FromMaster.prev();
 		}
 	}
-	if ((m->state() == (ControlButton | ShiftButton)) && (Doc->selection->count() != 0))
+	if ((m->state() == (ControlButton | ShiftButton)) && (Doc->m_Selection->count() != 0))
 	{
 		for (a = 0; a < Doc->Items->count(); ++a)
 		{
@@ -7539,7 +7539,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		if (currItem == NULL)
 		{
 			Deselect(true);
-			//Doc->selection->clear();
+			//Doc->m_Selection->clear();
 			return false;
 		}
 		if ((Doc->masterPageMode())  && (!((currItem->OwnPage == -1) || (currItem->OwnPage == static_cast<int>(Doc->currentPage->pageNr())))))
@@ -7562,13 +7562,13 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 					//If we are selecting an item that is part of a group...
 					if (currItem->Groups.count() != 0)
 					{
-						if (Doc->selection->count() != 0)
+						if (Doc->m_Selection->count() != 0)
 						{
-							if (Doc->selection->findItem(currItem) == -1)
-								Doc->selection->addItem(currItem);
+							if (Doc->m_Selection->findItem(currItem) == -1)
+								Doc->m_Selection->addItem(currItem);
 						}
 						else
-							Doc->selection->addItem(currItem);
+							Doc->m_Selection->addItem(currItem);
 						//CB This is where we add the items of an unselected group
 						if (m->state() != (ControlButton | AltButton))
 						{
@@ -7580,8 +7580,8 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 									{
 										if (Doc->Items->at(ga)->ItemNr != currItem->ItemNr)
 										{
-											if (Doc->selection->findItem(Doc->Items->at(ga)) == -1)
-												Doc->selection->addItem(Doc->Items->at(ga));
+											if (Doc->m_Selection->findItem(Doc->Items->at(ga)) == -1)
+												Doc->m_Selection->addItem(Doc->Items->at(ga));
 										}
 										Doc->Items->at(ga)->isSingleSel = false;
 										Doc->Items->at(ga)->FrameOnly = true;
@@ -7599,18 +7599,18 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 					else
 					//If we are just selecting one item
 					{
-						Doc->selection->addItem(currItem);
+						Doc->m_Selection->addItem(currItem);
 						currItem->FrameOnly = true;
 						currItem->paintObj();
 					}
 				}
 				else
 				{
-					if (Doc->selection->count() > 1)
+					if (Doc->m_Selection->count() > 1)
 					{
-						PageItem *bb = Doc->selection->itemAt(0);
-						Doc->selection->removeItem(currItem);
-						Doc->selection->prependItem(currItem);
+						PageItem *bb = Doc->m_Selection->itemAt(0);
+						Doc->m_Selection->removeItem(currItem);
+						Doc->m_Selection->prependItem(currItem);
 						currItem->FrameOnly = true;
 						currItem->paintObj();
 						bb->FrameOnly = true;
@@ -7618,11 +7618,11 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						bb->paintObj();
 					}
 				}
-				if (Doc->selection->count() > 1)
+				if (Doc->m_Selection->count() > 1)
 				{
-					for (uint aa = 0; aa < Doc->selection->count(); ++aa)
+					for (uint aa = 0; aa < Doc->m_Selection->count(); ++aa)
 					{
-						PageItem *bb = Doc->selection->itemAt(aa);
+						PageItem *bb = Doc->m_Selection->itemAt(aa);
 						bb->paintObj();
 					}
 					setGroupRect();
@@ -7638,7 +7638,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 					//CB Dont need this as creating the 0th selection does this
 					currItem->paintObj();
 				}
-				if (Doc->selection->count() == 1)
+				if (Doc->m_Selection->count() == 1)
 				{
 					HandleSizer(&p, currItem, mpo, m);
 					if ((frameResizeHandle == 0) && (!currItem->locked()))
@@ -7780,35 +7780,35 @@ bool ScribusView::GetItem(PageItem **currItem, int nr)
 	int n=nr;
 	if (n == -1)
 		n=0;
-	*(currItem) = Doc->selection->itemAt(n);
+	*(currItem) = Doc->m_Selection->itemAt(n);
 	return (*(currItem)!=NULL);
 }
 
 //CB Remove bookmark interaction here, item/doc should do it
 void ScribusView::Deselect(bool prop)
 {
-	if (!Doc->selection->isEmpty())
+	if (!Doc->m_Selection->isEmpty())
 	{
 		PageItem* currItem=NULL;
-		for (uint a = 0; a < Doc->selection->count(); ++a)
+		for (uint a = 0; a < Doc->m_Selection->count(); ++a)
 		{
-			currItem = Doc->selection->itemAt(a);
+			currItem = Doc->m_Selection->itemAt(a);
 			if ((currItem->asTextFrame()) && (currItem->isBookmark))
 				emit ChBMText(currItem);
 		}
-		if (Doc->selection->isMultipleSelection())
+		if (Doc->m_Selection->isMultipleSelection())
 		{
 			double x, y, w, h;
 			getGroupRect(&x, &y, &w, &h);
-			Doc->selection->clear();
+			Doc->m_Selection->clear();
 			x -= Doc->minCanvasCoordinate.x();
 			y -= Doc->minCanvasCoordinate.y();
 			updateContents(static_cast<int>(x*Scale-5), static_cast<int>(y*Scale-5), static_cast<int>(w*Scale+10), static_cast<int>(h*Scale+10));
 		}
 		else
 		{
-			currItem=Doc->selection->itemAt(0);
-			Doc->selection->clear();
+			currItem=Doc->m_Selection->itemAt(0);
+			Doc->m_Selection->clear();
 			if (currItem!=NULL)
 				updateContents(currItem->getRedrawBounding(Scale));
 		}
@@ -7825,8 +7825,8 @@ void ScribusView::SetupDraw(int nr)
 	operItemResizing = true;
 	frameResizeHandle = 1;
 	qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-	Doc->selection->clear();
-	Doc->selection->addItem(currItem);
+	Doc->m_Selection->clear();
+	Doc->m_Selection->addItem(currItem);
 	currItem->paintObj();
 	operItemMoving = true;
 	Doc->appMode = modeNormal;
@@ -7838,12 +7838,12 @@ void ScribusView::SetupDraw(int nr)
 //CB-->Doc/Fix
 void ScribusView::ToggleBookmark()
 {
-	uint docSelectionCount=Doc->selection->count();
+	uint docSelectionCount=Doc->m_Selection->count();
 	if (docSelectionCount != 0)
 	{
 		for (uint a = 0; a < docSelectionCount; ++a)
 		{
-			PageItem* currItem = Doc->selection->itemAt(a);
+			PageItem* currItem = Doc->m_Selection->itemAt(a);
 			if (currItem->asTextFrame())
 			{
 				if (currItem->OwnPage != -1)
@@ -7871,11 +7871,11 @@ void ScribusView::ToggleBookmark()
 //CB-->Doc/Fix
 void ScribusView::ToggleAnnotation()
 {
-	if (Doc->selection->count() != 0)
+	if (Doc->m_Selection->count() != 0)
 	{
-		for (uint a = 0; a < Doc->selection->count(); ++a)
+		for (uint a = 0; a < Doc->m_Selection->count(); ++a)
 		{
-			PageItem* currItem = Doc->selection->itemAt(a);
+			PageItem* currItem = Doc->m_Selection->itemAt(a);
 			if (currItem->asTextFrame())
 			{
 				bool old = currItem->isBookmark;
@@ -7896,7 +7896,7 @@ void ScribusView::ToggleAnnotation()
 void ScribusView::sentToScrap()
 {
 	ScriXmlDoc *ss = new ScriXmlDoc();
-	emit ToScrap(ss->WriteElem(Doc, this, Doc->selection));
+	emit ToScrap(ss->WriteElem(Doc, this, Doc->m_Selection));
 	delete ss;
 	ss=NULL;
 }
@@ -7919,7 +7919,7 @@ void ScribusView::ToFront()
 	if (Doc->bringItemSelectionToFront())
 	{
 		ScMW->outlinePalette->BuildTree();
-		emit LevelChanged(Doc->selection->itemAt(0)->ItemNr);
+		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
 		emit DocChanged();
 		updateContents();
 	}
@@ -7934,19 +7934,19 @@ void ScribusView::LowerItem()
 	QMap<int, uint> ObjOrder;
 	PageItem *currItem;
 	PageItem *b2;
-	uint docSelectionCount=Doc->selection->count();
+	uint docSelectionCount=Doc->m_Selection->count();
 	if ((Doc->Items->count() > 1) && (docSelectionCount != 0))
 	{
-		bool wasGUISelection=Doc->selection->isGUISelection();
+		bool wasGUISelection=Doc->m_Selection->isGUISelection();
 		if (wasGUISelection)
 		{
-			Doc->selection->setIsGUISelection(false);
-			Doc->selection->disconnectAllItemsFromGUI();
+			Doc->m_Selection->setIsGUISelection(false);
+			Doc->m_Selection->disconnectAllItemsFromGUI();
 		}
-		Selection tempSelection(*Doc->selection);
+		Selection tempSelection(*Doc->m_Selection);
 		for (uint c = 0; c < docSelectionCount; ++c)
 		{
-			currItem = Doc->selection->itemAt(c);
+			currItem = Doc->m_Selection->itemAt(c);
 			if (currItem->isTableItem && currItem->isSingleSel)
 				return;
 			low = QMIN(currItem->ItemNr, low);
@@ -7955,11 +7955,11 @@ void ScribusView::LowerItem()
 		if (low == 0)
 			return;
 		b2 = Doc->Items->at(high);
-		Doc->selection->clear();
+		Doc->m_Selection->clear();
 		SelectItemNr(low-1, false);
-		for (uint c = 0; c < Doc->selection->count(); ++c)
+		for (uint c = 0; c < Doc->m_Selection->count(); ++c)
 		{
-			currItem = Doc->selection->itemAt(c);
+			currItem = Doc->m_Selection->itemAt(c);
 			ObjOrder.insert(currItem->ItemNr, c);
 			d = Doc->Items->findRef(currItem);
 			Doc->Items->take(d);
@@ -7968,9 +7968,9 @@ void ScribusView::LowerItem()
 		QValueList<uint> Oindex = ObjOrder.values();
 		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
 		{
-			Doc->Items->insert(d+1, Doc->selection->itemAt(Oindex[c]));
+			Doc->Items->insert(d+1, Doc->m_Selection->itemAt(Oindex[c]));
 		}
-		Doc->selection->clear();
+		Doc->m_Selection->clear();
 		for (uint a = 0; a < Doc->Items->count(); ++a)
 		{
 			Doc->Items->at(a)->ItemNr = a;
@@ -7978,8 +7978,8 @@ void ScribusView::LowerItem()
 		ScMW->outlinePalette->BuildTree();
 		if (wasGUISelection)
 			tempSelection.setIsGUISelection(true);
-		*Doc->selection=tempSelection;
-		emit LevelChanged(Doc->selection->itemAt(0)->ItemNr);
+		*Doc->m_Selection=tempSelection;
+		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
 		emit DocChanged();
 		updateContents();
 	}
@@ -7994,19 +7994,19 @@ void ScribusView::RaiseItem()
 	QMap<int, uint> ObjOrder;
 	PageItem *currItem;
 	PageItem *b2;
-	uint docSelectionCount=Doc->selection->count();
+	uint docSelectionCount=Doc->m_Selection->count();
 	if ((Doc->Items->count() > 1) && (docSelectionCount != 0))
 	{
-		bool wasGUISelection=Doc->selection->isGUISelection();
+		bool wasGUISelection=Doc->m_Selection->isGUISelection();
 		if (wasGUISelection)
 		{
-			Doc->selection->setIsGUISelection(false);
-			Doc->selection->disconnectAllItemsFromGUI();
+			Doc->m_Selection->setIsGUISelection(false);
+			Doc->m_Selection->disconnectAllItemsFromGUI();
 		}
-		Selection tempSelection(*Doc->selection);
+		Selection tempSelection(*Doc->m_Selection);
 		for (uint c = 0; c < docSelectionCount; ++c)
 		{
-			currItem = Doc->selection->itemAt(c);
+			currItem = Doc->m_Selection->itemAt(c);
 			if (currItem->isTableItem && currItem->isSingleSel)
 				return;
 			low = QMIN(currItem->ItemNr, low);
@@ -8015,11 +8015,11 @@ void ScribusView::RaiseItem()
 		if (high == Doc->Items->count()-1)
 			return;
 		b2 = Doc->Items->at(low);
-		Doc->selection->clear();
+		Doc->m_Selection->clear();
 		SelectItemNr(high+1, false);
-		for (uint c = 0; c < Doc->selection->count(); ++c)
+		for (uint c = 0; c < Doc->m_Selection->count(); ++c)
 		{
-			currItem = Doc->selection->itemAt(c);
+			currItem = Doc->m_Selection->itemAt(c);
 			ObjOrder.insert(currItem->ItemNr, c);
 			d = Doc->Items->findRef(currItem);
 			Doc->Items->take(d);
@@ -8030,9 +8030,9 @@ void ScribusView::RaiseItem()
 			d = Doc->Items->findRef(b2);
 			if (d==-1)
 				d=0;
-			Doc->Items->insert(d, Doc->selection->itemAt(Oindex[c]));
+			Doc->Items->insert(d, Doc->m_Selection->itemAt(Oindex[c]));
 		}
-		Doc->selection->clear();
+		Doc->m_Selection->clear();
 		for (uint a = 0; a < Doc->Items->count(); ++a)
 		{
 			Doc->Items->at(a)->ItemNr = a;
@@ -8040,8 +8040,8 @@ void ScribusView::RaiseItem()
 		ScMW->outlinePalette->BuildTree();
 		if (wasGUISelection)
 			tempSelection.setIsGUISelection(true);
-		*Doc->selection=tempSelection;
-		emit LevelChanged(Doc->selection->itemAt(0)->ItemNr);
+		*Doc->m_Selection=tempSelection;
+		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
 		emit DocChanged();
 		updateContents();
 	}
@@ -8240,9 +8240,9 @@ void ScribusView::slotDoZoom()
 	}
 	updateOn = false;
 	resizeContents(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * Scale), qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * Scale));
-	if (Doc->selection->count() != 0)
+	if (Doc->m_Selection->count() != 0)
 	{
-		PageItem *currItem = Doc->selection->itemAt(0);
+		PageItem *currItem = Doc->m_Selection->itemAt(0);
 		SetCCPo(static_cast<int>(currItem->xPos() + currItem->width()/2), static_cast<int>(currItem->yPos() + currItem->height()/2));
 	}
 	else
@@ -8540,7 +8540,7 @@ void ScribusView::setNewRulerOrigin(QMouseEvent *m)
 	}
 	setRulerPos(contentsX(), contentsY());
 	updateContents();
-	int docSelectionCount=Doc->selection->count();
+	int docSelectionCount=Doc->m_Selection->count();
 	if (docSelectionCount != 0)
 	{
 		if (docSelectionCount > 1)
@@ -8551,7 +8551,7 @@ void ScribusView::setNewRulerOrigin(QMouseEvent *m)
 			emit ItemGeom(w, h);
 		}
 		else
-			Doc->selection->itemAt(0)->emitAllToGUI();
+			Doc->m_Selection->itemAt(0)->emitAllToGUI();
 	}
 }
 
@@ -8720,9 +8720,9 @@ void ScribusView::SetFrameOval()
 
 void ScribusView::editExtendedImageProperties()
 {
-	if (Doc->selection->count() != 0)
+	if (Doc->m_Selection->count() != 0)
 	{
-		PageItem *currItem = Doc->selection->itemAt(0);
+		PageItem *currItem = Doc->m_Selection->itemAt(0);
 		if (currItem->pixm.imgInfo.valid)
 		{
 			ExtImageProps* dia = new ExtImageProps(this, &currItem->pixm.imgInfo, currItem, this);
@@ -8737,13 +8737,13 @@ void ScribusView::editExtendedImageProperties()
 //Fix size/move item calls
 void ScribusView::adjustFrametoImageSize()
 {
-	uint docSelectionCount=Doc->selection->count();
+	uint docSelectionCount=Doc->m_Selection->count();
 	if (docSelectionCount > 0)
 	{
 		bool toUpdate=false;
 		for (uint i = 0; i < docSelectionCount; ++i)
 		{
-			PageItem *currItem = Doc->selection->itemAt(i);
+			PageItem *currItem = Doc->m_Selection->itemAt(i);
 			if (currItem!=NULL)
 			{
 				if (currItem->asImageFrame() && currItem->PicAvail && !currItem->isTableItem)
@@ -9098,7 +9098,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->OwnPage = Doc->OnPage(currItem);
 	if (!loading)
 	{
-		Doc->selection->addItem(currItem);
+		Doc->m_Selection->addItem(currItem);
 		emit HaveSel(currItem->itemType());
 		currItem->emitAllToGUI();
 		emit DocChanged();
@@ -9120,7 +9120,7 @@ void ScribusView::QueryFarben()
 
 void ScribusView::ToPicFrame()
 {
-	PageItem *currItem = Doc->selection->itemAt(0);
+	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	Deselect(true);
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::ImageFrame);
 	RefreshItem(newItem);
@@ -9132,7 +9132,7 @@ void ScribusView::ToPicFrame()
 
 void ScribusView::ToPolyFrame()
 {
-	PageItem *currItem = new PageItem_Polygon(*Doc->selection->itemAt(0));
+	PageItem *currItem = new PageItem_Polygon(*Doc->m_Selection->itemAt(0));
 	Deselect(true);
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::Polygon);
 	RefreshItem(newItem);
@@ -9144,7 +9144,7 @@ void ScribusView::ToPolyFrame()
 
 void ScribusView::ToTextFrame()
 {
-	PageItem *currItem = Doc->selection->itemAt(0);
+	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	Deselect(true);
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::TextFrame);
 	RefreshItem(newItem);
@@ -9156,7 +9156,7 @@ void ScribusView::ToTextFrame()
 
 void ScribusView::ToBezierFrame()
 {
-	PageItem *currItem = Doc->selection->itemAt(0);
+	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	Deselect(true);
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PolyLine);
 	RefreshItem(newItem);
@@ -9168,7 +9168,7 @@ void ScribusView::ToBezierFrame()
 
 void ScribusView::Bezier2Poly()
 {
-	PageItem *currItem = Doc->selection->itemAt(0);
+	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	Deselect(true);
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::Polygon);
 	RefreshItem(newItem);
@@ -9180,16 +9180,16 @@ void ScribusView::Bezier2Poly()
 
 void ScribusView::ToPathText()
 {
-	if (Doc->selection->count() > 1)
+	if (Doc->m_Selection->count() > 1)
 	{
-		PageItem* currItem=Doc->selection->itemAt(0);
+		PageItem* currItem=Doc->m_Selection->itemAt(0);
 		PageItem *polyLineItem;
 		if (currItem->asTextFrame())
-			polyLineItem=Doc->selection->itemAt(1);
+			polyLineItem=Doc->m_Selection->itemAt(1);
 		else
 		{
-			polyLineItem=Doc->selection->itemAt(0);
-			currItem=Doc->selection->itemAt(1);
+			polyLineItem=Doc->m_Selection->itemAt(0);
+			currItem=Doc->m_Selection->itemAt(1);
 		}
 		if (!polyLineItem->asPolyLine())
 			return;
@@ -9220,14 +9220,14 @@ void ScribusView::FromPathText()
 void ScribusView::TextToPath()
 {
 	ScMW->NoFrameEdit();
-	uint selectedItemCount=Doc->selection->count();
+	uint selectedItemCount=Doc->m_Selection->count();
 	if (selectedItemCount != 0)
 	{
 		QPtrList<PageItem> delItems,newGroupedItems;
 		uint offset=0;
 		for(uint i=0; i<selectedItemCount; ++i)
 		{
-			PageItem *currItem = Doc->selection->itemAt(offset);
+			PageItem *currItem = Doc->m_Selection->itemAt(offset);
 			bool cont=false;
 			if ((!((currItem->asTextFrame()) || (currItem->asPathText()))) || (currItem->isTableItem && currItem->isSingleSel) || (currItem->locked()) || currItem->itemText.count() == 0)
 				cont=true;
@@ -9406,15 +9406,15 @@ void ScribusView::TextToPath()
 				}
 			}
 			Doc->GroupCounter++;
-			delItems.append(Doc->selection->takeItem(offset));
+			delItems.append(Doc->m_Selection->takeItem(offset));
 		}
 
 		uint toDeleteItemCount=delItems.count();
 		if (toDeleteItemCount != 0)
 		{
-			Doc->selection->clear();
+			Doc->m_Selection->clear();
 			for(uint i=0; i<toDeleteItemCount; ++i)
-				Doc->selection->addItem(delItems.take(0)); //yes, 0, remove the first
+				Doc->m_Selection->addItem(delItems.take(0)); //yes, 0, remove the first
 			Doc->itemSelection_DeleteItem();
 		}
 	}
@@ -9426,16 +9426,16 @@ void ScribusView::UniteObj()
 	PageItem *bb;
 	QValueList<int> toDel;
 	toDel.clear();
-	uint docSelectionCount=Doc->selection->count();
+	uint docSelectionCount=Doc->m_Selection->count();
 	if (docSelectionCount > 1)
 	{
-		currItem = Doc->selection->itemAt(0);
+		currItem = Doc->m_Selection->itemAt(0);
 		currItem->Frame = false;
 		currItem->ClipEdited = true;
 		currItem->Groups.clear();
 		for (uint a = 1; a < docSelectionCount; ++a)
 		{
-			bb = Doc->selection->itemAt(a);
+			bb = Doc->m_Selection->itemAt(a);
 			bb->Groups.clear();
 			toDel.append(bb->ItemNr);
 			QWMatrix ma;
@@ -9466,7 +9466,7 @@ void ScribusView::SplitObj()
 	PageItem *bb;
 	uint StartInd = 0;
 	uint z;
-	PageItem *currItem = Doc->selection->itemAt(0);
+	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	uint EndInd = currItem->PoLine.size();
 	for (uint a = EndInd-1; a > 0; --a)
 	{
@@ -9520,9 +9520,9 @@ void ScribusView::setObjectUndoMode()
 	if (ScMW->HaveDoc)
 	{
 		ScMW->scrActions["editActionMode"]->setOn(true);
-		uint docSelectionCount=Doc->selection->count();
+		uint docSelectionCount=Doc->m_Selection->count();
 		if (docSelectionCount == 1)
-			undoManager->showObject(Doc->selection->itemAt(0)->getUId());
+			undoManager->showObject(Doc->m_Selection->itemAt(0)->getUId());
 		else if (docSelectionCount > 1)
 			undoManager->showObject(Um::NO_UNDO_STACK);
 		else if (docSelectionCount == 0)
@@ -9539,9 +9539,9 @@ void ScribusView::setGlobalUndoMode()
 			undoManager->showObject(Um::GLOBAL_UNDO_MODE);
 		else
 		{
-			uint docSelectionCount=Doc->selection->count();
+			uint docSelectionCount=Doc->m_Selection->count();
 			if (docSelectionCount == 1)
-				undoManager->showObject(Doc->selection->itemAt(0)->getUId());
+				undoManager->showObject(Doc->m_Selection->itemAt(0)->getUId());
 			else if (docSelectionCount > 1)
 				undoManager->showObject(Um::NO_UNDO_STACK);
 			else if (docSelectionCount == 0)

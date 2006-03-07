@@ -423,10 +423,8 @@ PyObject *scribus_setalign(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	int Apm = ScMW->doc->appMode;
-	//ScMW->view->SelItem.clear();
-	ScMW->doc->selection->clear();
-	//ScMW->view->SelItem.append(i);
-	ScMW->doc->selection->addItem(i);
+	ScMW->doc->m_Selection->clear();
+	ScMW->doc->m_Selection->addItem(i);
 	if (i->HasSel)
 		ScMW->doc->appMode = modeEdit;
 	ScMW->setNewAbStyle(alignment);
@@ -459,10 +457,8 @@ PyObject *scribus_setfontsize(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	int Apm = ScMW->doc->appMode;
-	//ScMW->view->SelItem.clear();
-	ScMW->doc->selection->clear();
-	//ScMW->view->SelItem.append(i);
-	ScMW->doc->selection->addItem(i);
+	ScMW->doc->m_Selection->clear();
+	ScMW->doc->m_Selection->addItem(i);
 	if (i->HasSel)
 		ScMW->doc->appMode = modeEdit;
 	ScMW->doc->chFSize(qRound(size * 10.0));
@@ -491,10 +487,8 @@ PyObject *scribus_setfont(PyObject* /* self */, PyObject* args)
 	if (PrefsManager::instance()->appPrefs.AvailFonts.find(QString::fromUtf8(Font)))
 	{
 		int Apm = ScMW->doc->appMode;
-		//ScMW->view->SelItem.clear();
-		ScMW->doc->selection->clear();
-		//ScMW->view->SelItem.append(i);
-		ScMW->doc->selection->addItem(i);
+		ScMW->doc->m_Selection->clear();
+		ScMW->doc->m_Selection->addItem(i);
 		if (i->HasSel)
 			ScMW->doc->appMode = modeEdit;
 		ScMW->SetNewFont(QString::fromUtf8(Font));

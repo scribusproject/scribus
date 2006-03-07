@@ -161,8 +161,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 	QDir::setCurrent(fi.dirPath());
 	if (convert(fName, x, y, b, h))
 	{
-		//ScMW->view->SelItem.clear();
-		Doku->selection->clear();
+		Doku->m_Selection->clear();
 		QDir::setCurrent(CurDirP);
 		if ((Elements.count() > 1) && (interactive))
 		{
@@ -185,13 +184,12 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 			for (uint dre=0; dre<Elements.count(); ++dre)
 			{
 				Doku->DragElements.append(Elements.at(dre)->ItemNr);
-				//ScMW->view->SelItem.append(Elements.at(dre));
-				Doku->selection->addItem(Elements.at(dre));
+				Doku->m_Selection->addItem(Elements.at(dre));
 			}
 			ScMW->view->setGroupRect();
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			//QDragObject *dr = new QTextDrag(ss->WriteElem(&ScMW->view->SelItem, Doku, ScMW->view), ScMW->view->viewport());
-			QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScMW->view, Doku->selection),ScMW->view->viewport());
+			QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScMW->view, Doku->m_Selection),ScMW->view->viewport());
 #ifndef QT_MAC
 // see #2196
 			Doku->itemSelection_DeleteItem();

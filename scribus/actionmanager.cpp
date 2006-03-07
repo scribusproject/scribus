@@ -836,8 +836,7 @@ void ActionManager::setPDFActions(ScribusView *currView)
 {
 	if (currView==NULL)
 		return;
-	//PageItem* currItem = currView->SelItem.at(0);
-	PageItem* currItem = ScMW->doc->selection->itemAt(0);
+	PageItem* currItem = ScMW->doc->m_Selection->itemAt(0);
 	if (currItem==NULL)
 		return;
 
@@ -947,7 +946,7 @@ void ActionManager::languageChange()
 	(*scrActions)["typeEffectSmallCaps"]->setTexts( tr("Small &Caps"));
 	(*scrActions)["typeEffectSuperscript"]->setTexts( tr("Su&perscript"));
 	(*scrActions)["typeEffectSubscript"]->setTexts( tr("Su&bscript"));
-	(*scrActions)["typeEffectOutline"]->setTexts( tr("&Outline"));
+	(*scrActions)["typeEffectOutline"]->setTexts( tr("&Outline", "type effect"));
 	(*scrActions)["typeEffectShadow"]->setTexts( tr("S&hadow"));
 
 	(*scrActions)["styleImageEffects"]->setTexts( tr("&Image Effects"));
@@ -989,7 +988,7 @@ void ActionManager::languageChange()
 	(*scrActions)["itemSplitPolygons"]->setTexts( tr("Split &Polygons"));
 	(*scrActions)["itemConvertToBezierCurve"]->setTexts( tr("&Bezier Curve"));
 	(*scrActions)["itemConvertToImageFrame"]->setTexts( tr("&Image Frame"));
-	(*scrActions)["itemConvertToOutlines"]->setTexts( tr("&Outlines"));
+	(*scrActions)["itemConvertToOutlines"]->setTexts( tr("&Outlines", "Convert to oulines"));
 	(*scrActions)["itemConvertToPolygon"]->setTexts( tr("&Polygon"));
 	(*scrActions)["itemConvertToTextFrame"]->setTexts( tr("&Text Frame"));
 

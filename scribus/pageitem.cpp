@@ -846,7 +846,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			p->strokePath();
 		}
 		//CB disabled for now
-		//if (m_Doc->selection->findItem(this)!=-1)
+		//if (m_Doc->m_Selection->findItem(this)!=-1)
 		//	drawLockedMarker(p);
 	}
 	Tinput = false;
@@ -1009,7 +1009,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	{
 		if (Select) // && (!Doc->EditClip))
 		{
-			if (!m_Doc->selection->isEmpty())
+			if (!m_Doc->m_Selection->isEmpty())
 			{
 				if (Groups.count() == 0)
 				{
@@ -1081,7 +1081,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					p.setPen(QPen(darkCyan, 1, DotLine, FlatCap, MiterJoin));
 					p.setBrush(NoBrush);
 					p.drawRect(-1, -1, static_cast<int>(Width+2), static_cast<int>(Height+2));
-					if (m_Doc->selection->count() == 1)
+					if (m_Doc->m_Selection->count() == 1)
 					{
 						QPainter pr;
 						pr.begin(view->viewport());
@@ -1108,7 +1108,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 				}
 			}
 		}
-		//if (m_Doc->selection->findItem(this)!=-1)
+		//if (m_Doc->m_Selection->findItem(this)!=-1)
 		//	drawLockedMarker(p);
 	}
 	Tinput = false;
@@ -2431,7 +2431,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			bool editContour = view->EditContour;
 			view->EditContour = ss->getBool("IS_CONTOUR");
 			select();
-			m_Doc->MirrorPolyH(m_Doc->selection->itemAt(0));
+			m_Doc->MirrorPolyH(m_Doc->m_Selection->itemAt(0));
 			view->EditContour = editContour;
 		}
 		else if (ss->contains("MIRROR_PATH_V"))
@@ -2439,7 +2439,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			bool editContour = view->EditContour;
 			view->EditContour = ss->getBool("IS_CONTOUR");
 			select();
-			m_Doc->MirrorPolyV(m_Doc->selection->itemAt(0));
+			m_Doc->MirrorPolyV(m_Doc->m_Selection->itemAt(0));
 			view->EditContour = editContour;
 		}
 		else if (ss->contains("SEND_TO_LAYER"))
@@ -2845,11 +2845,12 @@ void PageItem::restoreImageScaleChange(SimpleState *state, bool isUndo)
 	double oscy = state->getDouble("OLD_IMAGEYSCALE");
 	double  scx = state->getDouble("NEW_IMAGEXSCALE");
 	double  scy = state->getDouble("NEW_IMAGEYSCALE");
-	select();
+	Selection tempSelection(this, false);
+	tempSelection.addItem(this, true);
 	if (!isUndo)
-		m_Doc->itemSelection_SetImageScale(scx,scy);
+		m_Doc->itemSelection_SetImageScale(scx, scy, &tempSelection);
 	else
-		m_Doc->itemSelection_SetImageScale(oscx,oscy);
+		m_Doc->itemSelection_SetImageScale(oscx, oscy, &tempSelection);
 }
 
 void PageItem::restoreImageOffsetChange(SimpleState *state, bool isUndo)
@@ -2858,11 +2859,12 @@ void PageItem::restoreImageOffsetChange(SimpleState *state, bool isUndo)
 	double oy = state->getDouble("OLD_IMAGEYOFFSET");
 	double  x = state->getDouble("NEW_IMAGEXOFFSET");
 	double  y = state->getDouble("NEW_IMAGEYOFFSET");
-	select();
+	Selection tempSelection(this, false);
+	tempSelection.addItem(this, true);
 	if (!isUndo)
-		m_Doc->itemSelection_SetImageOffset(x,y);
+		m_Doc->itemSelection_SetImageOffset(x, y, &tempSelection);
 	else
-		m_Doc->itemSelection_SetImageOffset(ox,oy);
+		m_Doc->itemSelection_SetImageOffset(ox, oy, &tempSelection);
 }
 
 void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
@@ -2929,7 +2931,7 @@ void PageItem::select()
 {
 	m_Doc->view()->Deselect(false);
 	//CB #2969 add this true parm to addItem so we dont connectToGUI, the rest of view->SelectItem isnt needed anyway
-	m_Doc->selection->addItem(this, true);
+	m_Doc->m_Selection->addItem(this, true);
 }
 
 ObjAttrVector* PageItem::getObjectAttributes()
@@ -3602,7 +3604,7 @@ void PageItem::updateGradientVectors()
 	GrStartX = QMIN(QMAX(GrStartX, 0), Width);
 	GrStartY = QMIN(QMAX(GrStartY, 0), Height);
 	//if (ScMW->view->SelItem.count()!=0 && this==ScMW->view->SelItem.at(0))
-	//if (m_Doc->selection->count()!=0 && m_Doc->selection->primarySelectionIsMyself(this))
+	//if (m_Doc->m_Selection->count()!=0 && m_Doc->m_Selection->primarySelectionIsMyself(this))
 	//	ScMW->propertiesPalette->updateColorSpecialGradient();
 	//CB Will only emit if connected, ie is first in GUI selection
 	double dur=m_Doc->unitRatio();
@@ -3672,7 +3674,7 @@ bool PageItem::connectToGUI()
 {
 	if (!ScQApp->usingGUI())
 		return false;
-	if (!m_Doc->selection->primarySelectionIs(this))
+	if (!m_Doc->m_Selection->primarySelectionIs(this))
 		return false;
 
 	connect(this, SIGNAL(myself(PageItem *)), ScMW->propertiesPalette, SLOT(SetCurItem(PageItem *)));
