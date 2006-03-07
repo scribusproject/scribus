@@ -3117,6 +3117,7 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 
 bool ScribusMainWindow::loadDoc(QString fileName)
 {
+	bool undoWasEnabled=undoManager->undoEnabled();
 	undoManager->setUndoEnabled(false);
 	QFileInfo fi(fileName);
 	if (!fi.exists())
@@ -3218,6 +3219,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			mainWindowStatusLabel->setText("");
 			mainWindowProgressBar->reset();
 			ActWin = NULL;
+			undoManager->setUndoEnabled(undoWasEnabled);
 			if (windows.count() != 0)
 				newActWin(ActWinOld);
 			return false;
