@@ -10,12 +10,15 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>489</width>
-            <height>348</height>
+            <width>462</width>
+            <height>426</height>
         </rect>
     </property>
     <property name="caption">
         <string>Barcode Creator</string>
+    </property>
+    <property name="toolTip" stdset="0">
+        <string>Make check digit visible in text</string>
     </property>
     <grid>
         <property name="name">
@@ -31,7 +34,7 @@
                 </property>
                 <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>layout13</cstring>
+                        <cstring>layout14</cstring>
                     </property>
                     <hbox>
                         <property name="name">
@@ -50,7 +53,7 @@
                                 </property>
                                 <widget class="QLayoutWidget" row="0" column="0">
                                     <property name="name">
-                                        <cstring>layout16</cstring>
+                                        <cstring>layout13</cstring>
                                     </property>
                                     <vbox>
                                         <property name="name">
@@ -194,6 +197,31 @@
                                             </property>
                                             <property name="toolTip" stdset="0">
                                                 <string>Draw arrows to be sure of space next the code</string>
+                                            </property>
+                                        </widget>
+                                        <widget class="QCheckBox">
+                                            <property name="name">
+                                                <cstring>includeCheck</cstring>
+                                            </property>
+                                            <property name="text">
+                                                <string>Include chec&amp;k in BC</string>
+                                            </property>
+                                            <property name="accel">
+                                                <string>Alt+K</string>
+                                            </property>
+                                            <property name="toolTip" stdset="0">
+                                                <string>Enable check digit</string>
+                                            </property>
+                                        </widget>
+                                        <widget class="QCheckBox">
+                                            <property name="name">
+                                                <cstring>includeCheckInText</cstring>
+                                            </property>
+                                            <property name="text">
+                                                <string>Inclu&amp;de check in text</string>
+                                            </property>
+                                            <property name="accel">
+                                                <string>Alt+D</string>
                                             </property>
                                         </widget>
                                     </vbox>
@@ -481,7 +509,22 @@
         <receiver>BarcodeGeneratorBase</receiver>
         <slot>resetButton_clicked()</slot>
     </connection>
+    <connection>
+        <sender>includeCheck</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>BarcodeGeneratorBase</receiver>
+        <slot>includeCheck_stateChanged(int)</slot>
+    </connection>
+    <connection>
+        <sender>includeCheckInText</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>BarcodeGeneratorBase</receiver>
+        <slot>includeCheckInText_stateChanged(int)</slot>
+    </connection>
 </connections>
+<includes>
+    <include location="local" impldecl="in implementation">barcodegeneratorbase.ui.h</include>
+</includes>
 <slots>
     <slot>bcComboChanged()</slot>
     <slot>textCheck_changed()</slot>
@@ -493,6 +536,8 @@
     <slot>cancelButton_pressed()</slot>
     <slot>codeEdit_textChanged( const QString &amp; )</slot>
     <slot>resetButton_clicked()</slot>
+    <slot>includeCheck_stateChanged( int )</slot>
+    <slot>includeCheckInText_stateChanged( int )</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

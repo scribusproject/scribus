@@ -30,7 +30,9 @@ class BarcodeType
 		\param exa an example of the BC
 		\param comm a comment/help for current BC type
 		\param checkType how to validate the input */
-		BarcodeType(QString cmd, QString exa, QString comm, QString regExp);
+		BarcodeType(QString cmd, QString exa,
+					QString comm, QString regExp,
+				   bool includeCheck=false, bool includeCheckInText=false);
 		~BarcodeType(){};
 		//! \brief postscript command
 		QString command;
@@ -40,6 +42,8 @@ class BarcodeType
 		QString comment;
 		//! \brief Regular expression for valid barcode of this type.
 		QString regularExp;
+		bool includeCheck;
+		bool includeCheckInText;
 };
 
 
@@ -107,6 +111,8 @@ class BarcodeGenerator : public BarcodeGeneratorBase
 		void bcComboChanged();
 		void textCheck_changed();
 		void guardCheck_changed();
+		void includeCheck_stateChanged(int state);
+		void includeCheckInText_stateChanged(int state);
 		void bgColorButton_pressed();
 		void lnColorButton_pressed();
 		void txtColorButton_pressed();

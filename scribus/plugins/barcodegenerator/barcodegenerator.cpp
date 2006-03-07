@@ -28,12 +28,16 @@ for which a new license (GPL+exception) is in place.
 #include <qregexp.h>
 
 
-BarcodeType::BarcodeType(QString cmd, QString exa, QString comm, QString regExp)
+BarcodeType::BarcodeType(QString cmd, QString exa,
+						 QString comm, QString regExp,
+						 bool includeCheck, bool includeCheckInText)
 {
 	command = cmd;
 	example = exa;
 	comment = comm;
 	regularExp = regExp;
+	this->includeCheck = includeCheck;
+	this->includeCheckInText = includeCheckInText;
 }
 
 BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
@@ -57,39 +61,48 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 //    "Code-11"] = "code11"
 	map["Code-39"] = BarcodeType("code39", "CODE-39",
 								 tr("Variable number of characters, digits and any of the symbols -. *$/+%."),
-								 "[0-9a-zA-Z\\-\\.\\ \\*\\$\\/\\+\\%]*");
+								 "[0-9a-zA-Z\\-\\.\\ \\*\\$\\/\\+\\%]*",
+								true, true);
 //    "Code-93"] = "code93"
 	map["Code-128"] = BarcodeType("code128", "^104^102Count^0991234^101!",
 								  tr("Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character."),
-								  "\\^[0-9a-zA-Z\\^\\!]*");
+								  "\\^[0-9a-zA-Z\\^\\!]*",
+								  true, true);
 	map["UCC/EAN-128"] = BarcodeType("code128", "^104^102Count^0991234^101!",
 									 tr("Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character."),
 									 "\\^[0-9a-zA-Z\\^\\!]*");
 	map["Rationalized Codabar"] = BarcodeType("rationalizedCodabar", "0123456789",
 											  tr("Variable number of digits and any of the symbols -$:/.+ABCD."),
-											  "[0-9A-D\\-\\$\\:\\/\\.\\+]*");
+											  "[0-9A-D\\-\\$\\:\\/\\.\\+]*",
+											 true, true);
 	map["Interleaved 2 of 5"] = BarcodeType("interleaved2of5", "05012345678900",
 											tr("Variable number of digits. An ITF-14 is 14 characters and does not have a check digit"),
-											"[0-9]*");
+											"[0-9]*",
+										   true, true);
 	map["ITF-14"] = BarcodeType("interleaved2of5", "05012345678900",
 								tr("Variable number of digits. An ITF-14 is 14 characters and does not have a check digit"),
-								"[0-9]*");
+								"[0-9]*",
+							   true, true);
 	map["Code 2 of 5"] = BarcodeType("code2of5", "0123456789",
 									 tr("Variable number of digits"),
 									 "[0-9]*");
 	map["Postnet"] = BarcodeType("postnet", "01234567",
 								 tr("Variable number of digits"),
-								 "[0-9]*");
+								 "[0-9]*",
+								false, true);
 	map["Royal Mail"] = BarcodeType("royalmail", "LE28HS9Z",
 									tr("Variable number of digits and capital letters"),
-									"[0-9A-Z]*");
+									"[0-9A-Z]*",
+									false, true);
 //    "Auspost"] = "auspost"
 	map["MSI"] = BarcodeType("msi", "0120823635162", tr("Variable number of digits"),
-							 "[0-9]*");
+							 "[0-9]*",
+							true, true);
 //    "KIX"] = "kix"
 	map["Plessey"] = BarcodeType("plessey", "012345ABCDEF",
 								 tr("Variable number of hexadecimal characters"),
-								 "[0-9A-F]*");
+								 "[0-9A-F]*",
+								false, true);
 	//    "Symbol"] = "symbol"
 
 	useSamples = true;
@@ -138,17 +151,36 @@ void BarcodeGenerator::bcComboChanged()
 		codeEdit->setText(map[s].example);
 		connect(codeEdit, SIGNAL(textChanged(const QString&)), this, SLOT(codeEdit_textChanged(const QString&)));
 	}
+
+	includeCheck->setEnabled(map[s].includeCheck ? true : false);
+	if (textCheck->isChecked())
+		includeCheckInText->setEnabled(map[s].includeCheckInText ? true : false);
+	else
+		includeCheckInText->setEnabled(false);
+
 	codeEdit_check(codeEdit->text());
 	paintBarcode();
 }
 
 void BarcodeGenerator::textCheck_changed()
 {
-	txtColorButton->setEnabled(textCheck->state());
+	bool s = textCheck->state();
+	txtColorButton->setEnabled(s);
+	includeCheckInText->setEnabled(s);
 	paintBarcode();
 }
 
 void BarcodeGenerator::guardCheck_changed()
+{
+	paintBarcode();
+}
+
+void BarcodeGenerator::includeCheck_stateChanged(int)
+{
+	paintBarcode();
+}
+
+void BarcodeGenerator::includeCheckInText_stateChanged(int)
 {
 	paintBarcode();
 }
@@ -256,6 +288,10 @@ bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 		opts += " includetext";
 	if (guardCheck->isChecked())
 		opts += " guardwhitespace";
+	if (includeCheckInText->isChecked() & includeCheckInText->isEnabled())
+		opts += " includecheckintext";
+	if (includeCheck->isChecked() & includeCheck->isEnabled())
+		opts += " includecheck";
 	QString comm("15 10 moveto (%1) (%2) %3 barcode");
 	comm = comm.arg(codeEdit->text()).arg(opts).arg(map[bcCombo->currentText()].command);
 	comm = psCommand + comm;
