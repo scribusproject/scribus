@@ -152,9 +152,11 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	if (!checkBox1->isChecked())
 	{
 		simulate->setEnabled( false );
-		gamutC->setEnabled( false );
+		//gamutC->setEnabled( false );
 		blackP->setEnabled( false );
 	}
+	
+	gamutC->setEnabled(simulate->isEnabled() && simulate->isChecked());
 
 	QToolTip::add( inputPCMYK, tr( "Default color profile for imported CMYK images" ) );
 	QToolTip::add( inputP, tr( "Default color profile for imported RGB images" ) );
