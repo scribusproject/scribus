@@ -1667,7 +1667,7 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 				unsigned int *src = (unsigned int *)tmpImg.scanLine(QMIN(i, tmpImg.height()-1));
 				dst += QMIN(static_cast<int>(startDstX), width()-1);
 				src += QMIN(static_cast<int>(startSrcX), tmpImg.width()-1);
-				unsigned int *srcm;
+				unsigned int *srcm = 0;
 				if (!mask.isNull())
 				{
 					srcm = (unsigned int *)mask.scanLine(QMIN(i, mask.height()-1));
@@ -1675,7 +1675,11 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 				}
 				startDstY++;
 				unsigned char r, g, b, a, src_r, src_g, src_b, src_a, mask_a;
-				for (unsigned int j = startSrcX; j < static_cast<unsigned int>(layerInfo[layer].width); j++)
+				//<<#3356
+				unsigned int maxDestX = width() - startDstX + startSrcX - 1;
+				for (unsigned int j = startSrcX; j < QMIN(maxDestX, static_cast<unsigned int>(layerInfo[layer].width)); j++)
+				//for (unsigned int j = startSrcX; j < static_cast<unsigned int>(layerInfo[layer].width); j++)
+				//>>#3356
 				{
 					unsigned char *d = (unsigned char *) dst;
 					unsigned char *s = (unsigned char *) src;
@@ -1975,6 +1979,7 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 							}
 						}
 					}
+					
 					int layOpa = layerInfo[layer].opacity;
 					if ((imgInfo.isRequest) && (imgInfo.RequestProps.contains(layer)))
 						layOpa = imgInfo.RequestProps[layer].opacity;
@@ -2008,6 +2013,7 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 					{
 						if (src_a > 0)
 						{
+							//#3356 was crashing here
 							d[0] = r;
 							d[1] = g;
 							d[2] = b;
@@ -2018,7 +2024,8 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 					}
 					dst++;
 					src++;
-					srcm++;
+					if (!mask.isNull())
+						srcm++;
 				}
 			}
 		}
