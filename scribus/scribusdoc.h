@@ -811,7 +811,7 @@ public slots:
 	void itemSelection_ToggleImageShown();
 	void itemSelection_TogglePrintEnabled();
 	void itemSelection_ChangePreviewResolution(int id);
-	void itemSelection_ClearItem();
+	void itemSelection_ClearItem(Selection* customSelection=0);
 	void itemSelection_DeleteItem();
 	void itemSelection_SetItemFillTransparency(double t);
 	void itemSelection_SetItemLineTransparency(double t);

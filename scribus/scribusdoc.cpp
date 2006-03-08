@@ -5203,15 +5203,17 @@ void ScribusDoc::itemSelection_ChangePreviewResolution(int id)
 	}
 }
 
-void ScribusDoc::itemSelection_ClearItem()
+void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 {
-	uint selectedItemCount=m_Selection->count();
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	Q_ASSERT(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount != 0)
 	{
 		PageItem *currItem;
 		for (uint i = 0; i < selectedItemCount; ++i)
 		{
-			currItem = m_Selection->itemAt(i);
+			currItem = itemSelection->itemAt(i);
 			if (currItem->asImageFrame())
 			{
 				if ((ScMW->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail))
@@ -5486,7 +5488,7 @@ void ScribusDoc::itemSelection_SetImageOffset(double x, double y, Selection* cus
 		itemSelection=customSelection;
 	else
 		itemSelection=m_Selection;
-	Q_ASSERT(itemSelection!=NULL);
+	Q_ASSERT(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount != 0)
 	{
@@ -5520,12 +5522,8 @@ void ScribusDoc::itemSelection_SetImageOffset(double x, double y, Selection* cus
 
 void ScribusDoc::itemSelection_SetImageScale(double x, double y, Selection* customSelection)
 {
-	Selection* itemSelection;
-	if (customSelection!=0)
-		itemSelection=customSelection;
-	else
-		itemSelection=m_Selection;
-	Q_ASSERT(itemSelection!=NULL);
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	Q_ASSERT(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount != 0)
 	{
@@ -5559,11 +5557,7 @@ void ScribusDoc::itemSelection_SetImageScale(double x, double y, Selection* cust
 
 void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, double ox, double oy, Selection* customSelection)
 {
-	Selection* itemSelection;
-	if (customSelection!=0)
-		itemSelection=customSelection;
-	else
-		itemSelection=m_Selection;
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	Q_ASSERT(itemSelection!=NULL);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount != 0)

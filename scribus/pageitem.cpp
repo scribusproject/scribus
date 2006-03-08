@@ -2919,9 +2919,9 @@ void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
 		fn = state->get("NEW_IMAGE_PATH");
 	if (fn.isEmpty())
 	{
-		select();
-		//CB Why not clear contents and a refresh?
-		m_Doc->itemSelection_ClearItem();
+		Selection tempSelection(this, false);
+		tempSelection.addItem(this, true);
+		m_Doc->itemSelection_ClearItem(&tempSelection);
 	}
 	else
 		loadImage(fn, false);
