@@ -291,10 +291,16 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	ScMW->doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
 	if (isUndo)
 	{
+		ScMW->doc->m_Selection->removeItem(ite);
+		Selection tempSelection(ScMW->doc, false);
+		tempSelection.addItem(ite);
+		ScMW->doc->itemSelection_DeleteItem(&tempSelection);
+		/*
 		ScMW->doc->m_Selection->clear();
 		ScMW->doc->m_Selection->addItem(ite, true);
 		ScMW->doc->itemSelection_DeleteItem();
 		ScMW->doc->m_Selection->clear();
+		*/
 	}
 	else
 	{

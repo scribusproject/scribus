@@ -5239,21 +5239,23 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 	}
 }
 
-void ScribusDoc::itemSelection_DeleteItem()
+void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
 {
 	if (EditClip)
 		return;
-	uint docSelectionCount = m_Selection->count();
-	if (docSelectionCount == 0)
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	Q_ASSERT(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
 		return;
 	uint a, c;
 	QPtrList<PageItem> delItems;
 	PageItem *currItem;
 	uint offs = 0;
 	QString tooltip = Um::ItemsInvolved + "\n";
-	for (uint de = 0; de < docSelectionCount; ++de)
+	for (uint de = 0; de < selectedItemCount; ++de)
 	{
-		currItem = m_Selection->itemAt(offs);
+		currItem = itemSelection->itemAt(offs);
 		if ((currItem->isTableItem && currItem->isSingleSel) || (currItem->locked()))
 		{
 			offs++;
@@ -5266,17 +5268,17 @@ void ScribusDoc::itemSelection_DeleteItem()
 			return;
 		}
 		tooltip += "\t" + currItem->getUName() + "\n";
-		delItems.append(m_Selection->takeItem(offs));
+		delItems.append(itemSelection->takeItem(offs));
 	}
 	if (delItems.count() == 0)
 		return;
-	docSelectionCount = delItems.count();
+	selectedItemCount = delItems.count();
 
-	if (docSelectionCount > 1)
+	if (selectedItemCount > 1)
 		undoManager->beginTransaction(Um::Group + "/" + Um::Selection, Um::IGroup,
 										Um::Delete, tooltip, Um::IDelete);
 
-	for (uint de = 0; de < docSelectionCount; ++de)
+	for (uint de = 0; de < selectedItemCount; ++de)
 	{
 		currItem = delItems.last();
 		if ((currItem->asImageFrame()) && ((ScMW->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail)))
@@ -5343,18 +5345,22 @@ void ScribusDoc::itemSelection_DeleteItem()
 	{
 		Items->at(a)->ItemNr = a;
 	}
-	if (docSelectionCount > 1)
+	if (selectedItemCount > 1)
 		undoManager->commit();
 	updateContents();
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	//CB FIXME remove this and tree.h too
 	ScMW->outlinePalette->BuildTree();
-	if (m_Selection->count() == 0)
-		emit firstSelectedItemType(-1);
-	else
+	
+	if (itemSelection->isGUISelection())
 	{
-		//emit HaveSel(Doc->m_Selection->itemAt(0)->itemType());
-		m_Selection->itemAt(0)->emitAllToGUI();
+		if (itemSelection->count() == 0)
+			emit firstSelectedItemType(-1);
+		else
+		{
+			//emit HaveSel(Doc->m_Selection->itemAt(0)->itemType());
+			itemSelection->itemAt(0)->emitAllToGUI();
+		}
 	}
 	changed();
 }
@@ -5483,11 +5489,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(int s)
 
 void ScribusDoc::itemSelection_SetImageOffset(double x, double y, Selection* customSelection)
 {
-	Selection* itemSelection;
-	if (customSelection!=0)
-		itemSelection=customSelection;
-	else
-		itemSelection=m_Selection;
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	Q_ASSERT(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount != 0)
