@@ -2523,20 +2523,37 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 	double   h = state->getDouble("NEW_RHEIGHT");
 	double mx = ox - x;
 	double my = oy - y;
+	QRect oldR(getRedrawBounding(view->scale()));
 	if (isUndo)
 	{
-		view->RotateItem(ort, this);
-		view->MoveItem(mx, my, this, false);
-		view->SizeItem(ow, oh, this, false, true, true);
+		Rot=ort;
+		Xpos+=mx;
+		Ypos+=my;
+		Width=ow;
+		Height=oh;
+		//view->RotateItem(ort, this);
+		//view->MoveItem(mx, my, this, false);
+		//view->SizeItem(ow, oh, this, false, true, true);
 	}
 	else
 	{
-		mx = -mx;
-		my = -my;
+		//mx = -mx;
+		//my = -my;
+		Rot=rt;
+		Xpos-=mx;
+		Ypos-=my;
+		Width=w;
+		Height=h;
+		/*
 		view->RotateItem(rt, this);
 		view->MoveItem(mx, my, this, false);
 		view->SizeItem(w, h, this, false, true, true);
+		*/
 	}
+	m_Doc->setRedrawBounding(this);
+	QRect newR(getRedrawBounding(view->scale()));
+	view->updateContents(newR.unite(oldR));
+	OwnPage = m_Doc->OnPage(this);
 	oldRot = Rot;
 	oldXpos = Xpos;
 	oldYpos = Ypos;
