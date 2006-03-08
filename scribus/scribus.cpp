@@ -4921,8 +4921,8 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 	//Zoom to Fit
 	if (zoomFactor==-100.0)
 	{
-		double dx = (view->width()-50) / (doc->pageWidth+30);
-		double dy = (view->height()-70) / (doc->pageHeight+30);
+		double dx = (view->width()-50) / (doc->currentPage->width()+30);
+		double dy = (view->height()-70) / (doc->currentPage->height()+30);
 		finalZoomFactor = (dx > dy) ? dy : dx;
 	}
 	//Zoom to %
