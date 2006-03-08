@@ -6864,6 +6864,12 @@ void ScribusMainWindow::ShowSubs()
 	alignDistributePalette->startup();
 	undoPalette->startup();
 
+	// init the toolbars
+	fileToolBar->initVisibility();
+	editToolBar->initVisibility();
+	mainToolBar->initVisibility();
+	pdfToolBar->initVisibility();
+
 	setActiveWindow();
 	raise();
 }

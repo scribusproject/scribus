@@ -44,6 +44,7 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
   m_name(QString("ToolBar-%1").arg(prefName)),
   m_prefs(PrefsManager::instance()->prefsFile->getContext(m_name))
 {
+	hide();
 	setCloseMode(QDockWindow::Undocked);
 
 	if (m_prefs->contains("IsDocked")) // set docking
@@ -62,14 +63,6 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
 			undock();
 			move(QPoint(m_prefs->getInt("x", 50), m_prefs->getInt("y", 50)));
 		}
-	}
-
-	if (m_prefs->contains("IsVisible")) // set visibility
-	{
-		if (m_prefs->getBool("IsVisible", true))
-			show();
-		else
-			hide();
 	}
 
 	if (m_prefs->contains("FloatOrientation")) // set float orientation
@@ -107,6 +100,15 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
 
 	connect(this, SIGNAL(placeChanged(QDockWindow::Place)),
 	        this, SLOT(slotPlaceChanged(QDockWindow::Place)));
+}
+
+void ScToolBar::initVisibility()
+{
+	if (m_prefs->getBool("IsVisible", true))
+		show();
+	else
+		hide();
+
 	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(slotVisibilityChanged(bool)));
 }
 
@@ -129,6 +131,8 @@ void ScToolBar::storeDockPosition()
 
 void ScToolBar::storeDockPositions()
 {
+	if (place() == QDockWindow::OutsideDock)
+		return; // nothing to store if not docked
 	QPtrList<QDockWindow> tbs = area()->dockWindowList();
 	for (uint i = 0; i < tbs.count(); ++i)
 	{
@@ -139,6 +143,8 @@ void ScToolBar::storeDockPositions()
 
 void ScToolBar::moveDocks()
 {
+	if (place() == QDockWindow::OutsideDock)
+		return; // do not move if not docked;
 	QPtrList<QDockWindow> tbs = area()->dockWindowList();
 	for (uint i = 0; i < tbs.count(); ++i)
 	{
@@ -149,6 +155,8 @@ void ScToolBar::moveDocks()
 
 void ScToolBar::moveDock()
 {
+	if (place() == QDockWindow::OutsideDock)
+		return; // do not move if not docked
 	area()->moveDockWindow(this, m_prefs->getInt("PosIndex", -1));
 	setOffset(m_prefs->getInt("Offset", 0));
 }

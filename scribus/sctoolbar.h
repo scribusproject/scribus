@@ -49,6 +49,7 @@ public:
 	int position();
 	void storeDockPosition();
 	void moveDock();
+	void initVisibility();
 
 public slots:
 	void languageChange();
