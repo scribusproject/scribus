@@ -4189,7 +4189,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Decimals:</source>
-        <translation>十进制：</translation>
+        <translation>小数位：</translation>
     </message>
     <message>
         <source>Use Currency Symbol</source>
@@ -4245,11 +4245,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Custom validate script:</source>
-        <translation type="unfinished">Custom validate script:</translation>
+        <translation type="unfinished">自定义验证脚本</translation>
     </message>
     <message>
         <source>Validate</source>
-        <translation>检验</translation>
+        <translation>验证</translation>
     </message>
     <message>
         <source>Value is not calculated</source>
@@ -4351,7 +4351,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>None</source>
         <comment>action</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">无</translation>
     </message>
 </context>
 <context>
@@ -4503,33 +4503,33 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <name>Barcode</name>
     <message>
         <source>&amp;Barcode Generator...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;B 条形码生成器...</translation>
     </message>
     <message>
         <source>Scribus frontend for Pure Postscript Barcode Writer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Scribus 纯Postscript条形码输出前端</translation>
     </message>
 </context>
 <context>
     <name>BarcodeGenerator</name>
     <message>
         <source>Error opening file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">打开文件错误：%1</translation>
     </message>
     <message>
         <source>Error creating preview</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">生成预览错误</translation>
     </message>
 </context>
 <context>
     <name>BarcodeGeneratorBase</name>
     <message>
         <source>Barcode Creator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">条形码生成器</translation>
     </message>
     <message>
         <source>Barcode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">条形码</translation>
     </message>
     <message>
         <source>&amp;Type:</source>
@@ -4537,43 +4537,43 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>C&amp;ode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;O 编码：</translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">在此选择一个可用的条形码类型</translation>
     </message>
     <message>
         <source>The numeric representation of the code itself. See the help message below</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">代表编码的数字。下面有帮助信息可循</translation>
     </message>
     <message>
         <source>Reset the barcode samples</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">重置条形码范例</translation>
     </message>
     <message>
         <source>&amp;Include text in barcode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;I 在条形码中包含文字</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+I</translation>
     </message>
     <message>
         <source>If checked, there will be numbers in the barcode too</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">如果勾选，在条形码中也会有数字</translation>
     </message>
     <message>
         <source>&amp;Guard whitespace</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;G 注意留白</translation>
     </message>
     <message>
         <source>Alt+G</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+G</translation>
     </message>
     <message>
         <source>Draw arrows to be sure of space next the code</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">画箭头确保编码旁的空位 </translation>
     </message>
     <message>
         <source>Colors</source>
@@ -4581,27 +4581,27 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;Background</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;B 背景</translation>
     </message>
     <message>
         <source>Alt+B</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+B</translation>
     </message>
     <message>
         <source>Background color - under the code lines</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">背景颜色－在编码线下面</translation>
     </message>
     <message>
         <source>&amp;Lines</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;L 线条</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+L</translation>
     </message>
     <message>
         <source>Color of the lines in barcode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">条形码线条的颜色</translation>
     </message>
     <message>
         <source>&amp;Text</source>
@@ -4609,19 +4609,19 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Alt+T</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+T</translation>
     </message>
     <message>
         <source>Color of the text and numbers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">文字和数字的颜色</translation>
     </message>
     <message>
         <source>Hints and help is shown here</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">在这里显示诀窍和帮助</translation>
     </message>
     <message>
         <source>Preview of the result. 72dpi sample.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">预览效果。72dpi范例</translation>
     </message>
 </context>
 <context>
@@ -5031,7 +5031,7 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>Is Spot Color</source>
-        <translation>Is Spot Colour</translation>
+        <translation>是专色</translation>
     </message>
     <message>
         <source>Is Registration Color</source>
@@ -8529,11 +8529,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Printer Margins...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">打印边距...</translation>
     </message>
     <message>
         <source>Import the margins for the selected page size from the available printers.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">从可用打印机里导入所选页码的页边距。</translation>
     </message>
 </context>
 <context>
@@ -8600,7 +8600,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>New Master Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">新建母页 %1</translation>
     </message>
 </context>
 <context>
@@ -9046,31 +9046,31 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Choose the shape of frame...</source>
-        <translation type="unfinished">Choose the shape of frame...</translation>
+        <translation type="unfinished">选择框体的形状...</translation>
     </message>
     <message>
         <source>Edit shape of the frame...</source>
-        <translation type="unfinished">Edit shape of the frame...</translation>
+        <translation type="unfinished">编辑框体的形状...</translation>
     </message>
     <message>
         <source>Set radius of corner rounding</source>
-        <translation type="unfinished">Set radius of corner rounding</translation>
+        <translation type="unfinished">设置圆角幅度</translation>
     </message>
     <message>
         <source>Number of columns in text frame</source>
-        <translation type="unfinished">Number of columns in text frame</translation>
+        <translation type="unfinished">文本框中的列数</translation>
     </message>
     <message>
         <source>Distance between columns</source>
-        <translation type="unfinished">Distance between columns</translation>
+        <translation type="unfinished">列间距</translation>
     </message>
     <message>
         <source>Distance of text from top of frame</source>
-        <translation type="unfinished">Distance of text from top of frame</translation>
+        <translation type="unfinished">文本和框体顶部距离</translation>
     </message>
     <message>
         <source>Distance of text from bottom of frame</source>
-        <translation type="unfinished">Distance of text from bottom of frame</translation>
+        <translation type="unfinished">文本和框体底部距离</translation>
     </message>
     <message>
         <source>Distance of text from left of frame</source>
@@ -17465,11 +17465,11 @@ to %2</translation>
     </message>
     <message>
         <source>Disable Item Printing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">取消项目打印</translation>
     </message>
     <message>
         <source>Multiple duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">多重复制</translation>
     </message>
 </context>
 <context>
@@ -17507,18 +17507,18 @@ to %2</translation>
     <name>UsePrinterMarginsDialog</name>
     <message>
         <source>Minimum Margins for Page Size %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">页面大小为 %1 的最小页边距</translation>
     </message>
 </context>
 <context>
     <name>UsePrinterMarginsDialogBase</name>
     <message>
         <source>Use Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">用户打印机页边距</translation>
     </message>
     <message>
         <source>Select &amp;Printer:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;P 选择打印机：</translation>
     </message>
     <message>
         <source>Margins</source>
@@ -17526,7 +17526,7 @@ to %2</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">右边：</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
@@ -17534,11 +17534,11 @@ to %2</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;B 底部</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;L 左边</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -17550,7 +17550,7 @@ to %2</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;C 取消</translation>
+        <translation>&amp;C 取消</translation>
     </message>
     <message>
         <source>Alt+C</source>
