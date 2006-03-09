@@ -285,7 +285,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 			docDir = docContext->get("docsopen", ".");		
 		exportFi.setFile(docDir + "/" + exportFi.baseName());
 	}
-	qDebug(QString("using export path %1").arg(exportFi.absFilePath()));
+	//qDebug(QString("using export path %1").arg(exportFi.absFilePath()));
 	args.append( QString("-sExportFiles=%1").arg(QDir::convertSeparators(exportFi.absFilePath())) );
 	args.append( pfad2 );
 	args.append( QDir::convertSeparators(fn) );
