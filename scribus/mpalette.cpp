@@ -2099,7 +2099,7 @@ void Mpalette::NewX()
 			if ((TopRight->isChecked()) || (BottomRight->isChecked()))
 				base = gx + gw;
 			ScMW->view->moveGroup(x - base, 0, true);
-			if (ScMW->view->groupTransactionStarted())
+			if (!_userActionOn && ScMW->view->groupTransactionStarted())
 			{
 				UndoManager::instance()->commit();
 				ScMW->view->setGroupTransactionStarted(false);
@@ -2166,7 +2166,7 @@ void Mpalette::NewY()
 			if ((BottomLeft->isChecked()) || (BottomRight->isChecked()))
 				base = gy + gh;
 			ScMW->view->moveGroup(0, y - base, true);
-			if (ScMW->view->groupTransactionStarted())
+			if (!_userActionOn && ScMW->view->groupTransactionStarted())
 			{
 				UndoManager::instance()->commit();
 				ScMW->view->setGroupTransactionStarted(false);
@@ -2228,7 +2228,7 @@ void Mpalette::NewW()
 				ScMW->view->frameResizeHandle = 6;
 				ScMW->view->scaleGroup(w / gw, 1.0);
 			}
-			if (ScMW->view->groupTransactionStarted())
+			if (!_userActionOn && ScMW->view->groupTransactionStarted())
 			{
 				UndoManager::instance()->commit();
 				ScMW->view->setGroupTransactionStarted(false);
@@ -2330,7 +2330,7 @@ void Mpalette::NewH()
 				ScMW->view->frameResizeHandle = 5;
 				ScMW->view->scaleGroup(1.0, h / gh);
 			}
-			if (ScMW->view->groupTransactionStarted())
+			if (!_userActionOn && ScMW->view->groupTransactionStarted())
 			{
 				UndoManager::instance()->commit();
 				ScMW->view->setGroupTransactionStarted(false);
@@ -2417,7 +2417,7 @@ void Mpalette::NewR()
 		if (doc->m_Selection->isMultipleSelection())
 		{
 			ScMW->view->RotateGroup((Rot->value() - RoVal)*(-1));
-			if (ScMW->view->groupTransactionStarted())
+			if (!_userActionOn && ScMW->view->groupTransactionStarted())
 			{
 				UndoManager::instance()->commit();
 				ScMW->view->setGroupTransactionStarted(false);
