@@ -275,7 +275,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		initscribus(ScMW);
 	}
 	// Make sure sys.argv[0] is the path to the script
-	char* comm[1];
+	char* comm[2];
 	comm[0] = na.data();
 	// and tell the script if it's running in the main intepreter or
 	// a subinterpreter using the second argument, ie sys.argv[1]
