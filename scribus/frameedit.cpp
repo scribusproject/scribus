@@ -198,17 +198,17 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	EditCont->setChecked(false);
 	NodePaletteLayout->addWidget( EditCont );
 
-	ResetCont = new QPushButton( "&Reset Contour Line", this, "PushButton1" );
+	ResetCont = new QPushButton( "&Reset Contour Line", this, "editEditButton" );
 	NodePaletteLayout->addWidget( ResetCont );
 
-	PushButton1 = new QPushButton( "&End Editing", this, "PushButton1" );
-	PushButton1->setDefault(true);
-	NodePaletteLayout->addWidget( PushButton1 );
+	editEditButton = new QPushButton( "&End Editing", this, "editEditButton" );
+	editEditButton->setDefault(true);
+	NodePaletteLayout->addWidget( editEditButton );
 
 	languageChange();
 	
 	// signals and slots connections
-	connect(PushButton1, SIGNAL(clicked()), this, SLOT(EndEdit()));
+	connect(editEditButton, SIGNAL(clicked()), this, SLOT(EndEdit()));
 	connect(DeleteNode, SIGNAL(clicked()), this, SLOT(DelN()));
 	connect(AddNode, SIGNAL(clicked()), this, SLOT(AddN()));
 	connect(MoveNode, SIGNAL(clicked()), this, SLOT(MoveN()));
@@ -644,7 +644,7 @@ void NodePalette::languageChange()
 	TextLabel2->setText( tr("&Y-Pos:"));
 	EditCont->setText( tr("Edit &Contour Line"));
 	ResetCont->setText( tr("&Reset Contour Line"));
-	PushButton1->setText( tr("&End Editing"));
+	editEditButton->setText( tr("&End Editing"));
 	QToolTip::add(MoveNode, tr("Move Nodes"));
 	QToolTip::add(MoveControl, tr("Move Control Points"));
 	QToolTip::add(AddNode, tr("Add Nodes"));

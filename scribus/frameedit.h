@@ -64,7 +64,7 @@ public:
 	QSpinBox *scalePercentage;
 	MSpinBox *scaleDistance;
 	QPushButton* ResetCont;
-	QPushButton* PushButton1;
+	QPushButton* editEditButton;
 	void setDoc(ScribusDoc *dc, ScribusView *vi);
 	ScribusDoc *doc;
 	ScribusView *view;
