@@ -8702,7 +8702,7 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 				if ( fi.exists() )
 				{
 					accepted = true;
-					loadDoc( fi.fileName() );
+					loadDoc( fi.absFilePath() );
 				}
 			}
 		}
