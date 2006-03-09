@@ -2227,6 +2227,8 @@ void Mpalette::NewW()
 			{
 				ScMW->view->frameResizeHandle = 6;
 				ScMW->view->scaleGroup(w / gw, 1.0);
+				ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+				setBH(gw, gh);
 			}
 			if (!_userActionOn && ScMW->view->groupTransactionStarted())
 			{
@@ -2329,6 +2331,8 @@ void Mpalette::NewH()
 			{
 				ScMW->view->frameResizeHandle = 5;
 				ScMW->view->scaleGroup(1.0, h / gh);
+				ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+				setBH(gw, gh);
 			}
 			if (!_userActionOn && ScMW->view->groupTransactionStarted())
 			{
