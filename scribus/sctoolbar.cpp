@@ -105,10 +105,15 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
 void ScToolBar::initVisibility()
 {
 	if (m_prefs->getBool("IsVisible", true))
+	{
 		show();
+		if (place() == InDock)
+			setOrientation(area()->orientation());
+		else
+			setOrientation(floatOrientation);
+	}
 	else
 		hide();
-
 	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(slotVisibilityChanged(bool)));
 }
 
