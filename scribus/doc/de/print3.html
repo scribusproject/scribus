@@ -1,28 +1,17 @@
 <qt>
-<title>Prepping files for Commercial Printing</title>
-<h2>Prepping files for Commercial Printing</h2>
-<p>If you have never dealt with printers, nothing will assure a worry free experience for printing files commercially better than talking to your printer well in advance. Preventing mis-understandings and making them well aware in advance of your goals will more than likely prevent 90% of the mistakes. If you do not get satisfactory answers shop around. The printing business is competitive. The best  offer both technical savvy and good service. </p>
-
-
-<h3>Ask questions:</h3>
-
-<h4>If they accept PDF, which level ?</h4>
-
-<p> PDF 1.3 (Acrobat 4), PDF 1.4 (Acrobat 5) or  PDF/X-3 (ISO Standard)  ? If they accept PDF/X-3, consider yourself lucky. This type of PDF is the most advanced for commercial printing. 
-PDF/X is expressly designed to assure good color fidelity between systems. If they can recommend specific ICC profiles to use, then even better.</p>
-
-<h4>Will they be converting the PDF to other formats like EPS? </h4>
-
-<p>Be aware, not all page layout app;ications are capable of supporting some of the advanced PS3 or PDF 1.4 features Scribus supports. Unless the printer's systems are using PDF 1.4, this is <strong>not</strong> a recommended solution.</p>
-
-<h4>Can they provide an ICC profile of their printer if color fidelity is critical?</h4>
-
-<h4>What is the PS level of their RIP ?</h4>
-
-<p>This can be a determining factor in how you prepare the files. If their RIP is  3015.xxx+, you can be sure their RIP can handle 100% of the features of Scribus. They might not be able to directly answer that, but... </p>
-
-<p>Consult <a href="prepress.html">The Pre-Press Notes</a> and you can even take a printed copy of the PDF with you if the printer has not heard of Scribus. We have an online a listing of printers who support Scribus. See: <a href="scprinters.html">Scribus Printers</a></p>
-
-<p>If there remains unanswered issues, ask on the mailing list or on IRC. Usually, there is someone knowledgable who can answer your questions.</p>
-
+<title>Druckvorschau</title>
+<h2>Druckvorschau</h2>
+<p>Wie schon im vorherigen Kapitel angesprochen, geh&ouml;rt sie zu den Herausforderungen f&uuml;r eine fortschrittliche DTP-Anwendung wie Scribus, n&auml;mlich die F&auml;higkeit, etwas zu erzeugen, was ich gern als &quot;anspruchsvolle&quot; PostScript- oder PDF-Funktionen bezeichne. Die Druckvorschau in Scribus ist schon etwas besonderes, da sie mehr kann als nur einen Bildschirmabzug Ihres Dokuments zu liefern. Scribus erzeugt seine Druckvorschau de facto durch Ausgabe einer temp&ouml;r&auml;ren PS-Datei und verwendet dabei einige der speziellen &quot;devices&quot; von Ghostscript. Zeigen Sie beim Starten der Druckvorschau etwas Geduld, denn Scribus und Ghostscript haben im Hintergrund viel zu leisten. Die neueren Ghostscript-Versionen ab 8.x sind &uuml;brigens deutlich weniger eingeschr&auml;nkt, wenn fortschrittliches PS in seinen Variationen dargestellt werden soll. Bei der Druckvorschau haben Sie au&szlig;erdem die M&ouml;glichkeit, die einzelnen Tinten als CMYK-Farben anzuzeigen.</p>
+<p>Die Druckvorschaufunktion kann Ihnen dabei helfen, Bilder oder grafische Elemente zu identifizieren, die sich mit Ihren vorhandenen Druckeinstellungen vielleicht nicht gut direkt drucken lassen. Dies ist meist von den F&auml;higkeiten Ihres Drucksystems abh&auml;ngig, und ebenso davon, welche Arten fortschrittlicher Merkmale und Funktionen Ihre Dokumente enthalten. Zu den Merkmalen und Funktionen, die unter bestimmten Druckeinstellungen problematisch sein k&ouml;nnen, z&auml;hlen Farbverl&auml;ufe, die Transparenz und komplexes Maskieren ... um nur einige zu nennen. Die Druckvorschau kann auch praktisch sein, um vorab zu sehen, welche Farbverschiebungen auftreten k&ouml;nnten, wenn im CMYK-Modus gedruckt wird.</p>
+<p><strong>Anmerkung:</strong> Da die Druckvorschau auf PS3 (Postscript-Level 3) basiert, gibt es einige F&auml;lle, in denen der Bildschirminhalt <strong>nur</strong> &uuml;ber das PDF-Format (ab Version 1.4 ) exportiert werden kann, insbesondere wenn Transparenz oder Farbverlauf-Effekte betroffen sind. Hier haben wir abermals einen Fall, wo eine neuere Ghostscript-Version von Vorteil ist. </p>
+<table width="100%"><tr><td align="center"><img src="images/printpreview.png" align="center" alt="Print Previewer" title="Print Previewer" /></td></tr></table>
+<h4>Druckvorschau-Optionen</h4>
+<p>Die meisten dieser Optionen sind f&uuml;r fortgeschrittenes CMYK oder den kommerziellen Druck bestimmt. Die ersten beiden K&auml;stchen sind f&uuml;r jeden Anwender von Nutzen.</p>
+<ul>
+ <li><strong>Anti-Alias-Text </strong>- aktiviert/deaktiviert die Vorschau bei Schriftarten mit Kantengl&auml;ttung. Dies betrifft nur Schriftarten des Typs 1 und verz&ouml;gert das Rendering-Tempo ein wenig.</li>
+ <li><strong>Anti-Alias-Grafik</strong> - aktiviert/deaktiviert die Vorsschau bei Vektorgrafiken, betrifft aber auch TrueType- und OpenType-Schriftarten. Dies verz&ouml;gert das Rendering-Tempo ein wenig.</li>
+ <li><strong>Transparenz anzeigen </strong>- rendert Objekte mit Transparenz, erm&ouml;glicht mittels speziellem GS-Treiber. Anmerkung: Diese Funktion ben&ouml;tigt GhostScript ab Version 7.07 sowie das Ger&auml;t <strong>pngAlpha</strong> in GS. Au&szlig;erdem werden hierbei nicht alle Transparenzeffekte auf dem Bildschirm dargestellt, wie oben zu sehen. Zuverl&auml;ssig angezeigt werden Pfade zum Maskieren und Ausblenden f&uuml;r transparente Effekte. </li>
+ <li><strong>Unterfarbenreduzierung</strong> - Diese Funktion aktiviert/deaktiviert Unterfarbenreduzierung (UCR), eine Methode zur Verbesserung der CMYK-Druckausgabe, insbesondere bei Medien wie Zeitungspapier oder anderen stark absorbierenden Papieren. UCR wird in solchen F&auml;llen eingesetzt, um eine &Uuml;bers&auml;ttigung von Farben zu vermeiden. Im Normalfall, also beim &uuml;blichem Tintenstrahldruck, sollte diese Funktion nicht aktiv sein.</li>
+ <li><strong>CMYK anzeigen</strong> - Das Aktivieren dieser Option bringt Ihnen eine Simulation typischer CMYK-Farben auf den Bildschirm. Sobald sie aktiviert ist, k&ouml;nnen Sie jede der 4 Farben (C f&uuml;r Cyan, M f&uuml;r Magenta,Y f&uuml;r Gelb und K f&uuml;r Schwarz) beliebig ein- oder ausblenden. </li> 
+</ul>
 </qt>

@@ -1,16 +1,27 @@
 <qt>
-<title>Print Previewing</title>
-<h2>Print Previewing</h2>
-<p>As mentioned in the prior section, one of the challenges of an advanced DTP application like Scribus, is the ability to generate what I refer to as "high-level" postscript or PDF features. The print previewer in Scribus is quite special, as it does more than just generate a screen dump of your document. Scribus generates its print preview by actually outputting a temporary PS file and then using some of the special "devices" from Ghostscript. Have patience when launching the print preview, Scribus and Ghostscript do a lot of work in the background. Newer GS 8.x versions will have far fewer limits on the kinds of advanced PS which can be displayed. The print previewer also gives you the option to preview the individual inks in CMYK color.</p>
-<p>The print previewer can help you to identify images and artwork, which may have difficulty printing directly on your particular printing setup. This often depends on the capabilities of your printing system, along with the types of advanced features included in your documents. The types of features which can be troublesome with some printing setups include gradients, transparency and complex masking to name a few. The print previewer also can help to give you an idea of color shifts which might occur when printing in CMYK mode.</p>
-<table width="100%"><tr><td align="center"><img src="../en/images/printpreview.png" align="center" alt="Print Previewer" title="Print Previewer" /></td></tr></table>
-<h4>Print Previewer Options</h4>
-<p>Most of these options are for advanced CMYK or commercial printing. The first two check boxes are useful for all users.</p>
-<ul>
-	<li><strong>Anti-Alias Text </strong>- enables/disables previewing text with anti-aliased fonts. This only affects Type 1 fonts and does slow down rendering slightly.</li>
-	<li><strong>Anti-Alias Graphics</strong> - enables/disables previewing vector graphics, as well as TrueType and OpenType fonts. This does slow down rendering slightly.</li>
-	<li><strong>Display Transparency </strong>- renders items with transparency enabled with a special GS driver. Note: This function requires GS 7.07 or newer and the <strong>pngalpha</strong> device in GS. </li>
-	<li><strong>Under Color Removal</strong> - This feature enables/disables Under Color Removal, a technique which can improve CMYK printing, especially with media like newspaper or other highly absorbant papers. UCR, for short is used to prevent over saturation of inks in these situations. Normally, for common ink-jet printing this should be disabled.</li>
-	<li><strong>Display CMYK</strong> - Enabling this option gives you a simulation of generic CMYK inks on the screen. Once enabled, you can selectivly disable/enable any of the C (Cyan), M (Magenta),Y (Yellow) or K (BlacK) ink displays. </li>  
-</ul>
+<title>Dateien f&uuml;r den kommerziellen Druck vorbereiten</title>
+<h2>Dateien f&uuml;r den kommerziellen Druck vorbereiten</h2>
+<p>Wenn Sie noch nie mit Druckereien zu tun hatten und f&uuml;r den reibungslosen Ablauf einer kommerziellen Druckserie sorgen m&ouml;chten, dann k&ouml;nnen Sie nichts besseres tun als m&ouml;glichst fr&uuml;hzeitig den Kontakt zu Ihrer Druckerei zu suchen. Wenn Sie Mi&szlig;verst&auml;ndnisse vermeiden und Ihre Zielvorstellung optimal vermitteln, werden 90% der m&ouml;glichen Fehler gar nicht erst auftreten. Sollte ein Betrieb Ihre Fragen nicht zufriedenstellend beantworten, dann gehen Sie zum n&auml;chsten! In der Druckereibranche gibt es viel Konkurrenz. Die besten bieten ebenso solides Fachwissen wie guten Service. </p>
+
+
+<h3>Stellen Sie Fragen:</h3>
+
+<h4>Wenn ein Betrieb das PDF-Format akzepiert, welches Level?</h4>
+
+<p> PDF 1.3 (Acrobat 4), PDF 1.4 (Acrobat 5) oder PDF/X-3 (ISO-Standard)? Wenn PDF/X-3 akzepiert wird, k&ouml;nnen Sie sich gl&uuml;cklich sch&auml;tzen. Dieser PDF-Typ ist f&uuml;r kommerzielles Drucken am weitesten fortgeschritten und ausdr&uuml;cklich daf&uuml;r konzipiert, eine solide Farbtreue zwischen Systemen sicherzustellen. Wenn ein Betrieb den Gebrauch bestimmter ICC-Profile empfehlen kann - um so besser!</p>
+
+<h4>Wie sieht es mit dem Konvertieren von PDF in andere Formate (wie EPS) aus? </h4>
+
+<p>Sein Sie sich bewu&szlig;t, da&szlig; nicht alle DTP-Anwendungen in der Lage sind, die neueren Merkmale und Funktionen von PS3 oder PDF 1.4 so zu unterst&uuml;tzen, wie Scribus es tut. Wenn die Systeme der Druckerei unterhalb von PDF 1.4 arbeiten, dann ist diese L&ouml;sung <strong>nicht</strong> empfehlenswert.</p>
+
+<h4>Kann der Betrieb ein ICC-Profil des von ihm verwendeten Druckers erstellen und vorlegen, falls die Farbtreue zu w&uuml;nschen &uuml;brig l&auml;&szlig;t?</h4>
+
+<h4>Welches PS-Level verwendet der eingesetzte Rastergrafik-Wandler (RIP)?</h4>
+
+<p>Dies kann ein entscheidender Faktor daf&uuml;r sein, wie Sie Ihre Dateien vorbereiten m&uuml;ssen. Besitzt der Betrieb einen RIP mit 3015.xxx oder dar&uuml;ber, k&ouml;nnen Sie sicher sein, da&szlig; dieser RIP zu 100% mit den Merkmalen und Funktionen von Scribus umgehen kann. Vielleicht kann Ihnen das dort niemand so direkt beantworten, aber... </p>
+
+<p>Schauen Sie sich die Anmerkungen zur <a href="prepress.html">Druckvorstufe</a> an, und Sie erhalten sogar ein gedrucktes Exemplar der PDF-Datei, auch wenn die Druckerei noch nie etwas von Scribus geh&ouml;rt hat. Eine Liste mit Druckereien, die Scribus unterst&uuml;tzen, wird demn&auml;chst hier online zu finden sein.</p>
+
+<p>Sollten Sie noch weitere Fragen haben, stellen Sie diese bitte in der Mailingliste oder im IRC-Chat. Normalerweise findet sich dort ein kluger Geist, der Ihre Fragen beantworten kann.</p>
+
 </qt>
