@@ -2947,7 +2947,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation>D&amp;okumentstruktur</translation>
+        <translation type="obsolete">D&amp;okumentstruktur</translation>
     </message>
     <message>
         <source>S&amp;hadow</source>
@@ -3087,7 +3087,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation>&amp;Umrisse</translation>
+        <translation type="obsolete">&amp;Umrisse</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
@@ -3661,6 +3661,16 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <source>S&amp;tyles...</source>
         <translation>&amp;Stile...</translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>type effect</comment>
+        <translation type="unfinished">D&amp;okumentstruktur</translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <comment>Convert to oulines</comment>
+        <translation type="unfinished">&amp;Umrisse</translation>
     </message>
 </context>
 <context>

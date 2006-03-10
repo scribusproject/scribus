@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-28 01:56+0100\n"
+"POT-Creation-Date: 2006-03-10 00:36+0100\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
 "Content-Type: text/plain; charset=cp1251\n"
@@ -1052,6 +1052,24 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+msgid "Change Image Offset"
+msgstr "Ефекти"
+
+#, fuzzy
+msgid "Change Image Scale"
+msgstr "Вмъкване на текстова кутия"
+
+msgid ""
+"X1: %1, Y1: %2\n"
+"X2: %4, Y2: %5"
+msgstr ""
+
+msgid ""
+"X: %1, Y: %2\n"
+"X: %4, Y: %5"
+msgstr ""
+
+#, fuzzy
 msgid "Selection"
 msgstr "Избери шрифт"
 
@@ -1614,6 +1632,9 @@ msgstr "Печат във файл:"
 msgid "Remove Profile"
 msgstr "Печат във файл:"
 
+msgid "More than one item selected"
+msgstr ""
+
 #, fuzzy
 msgid "Use Printer Margins"
 msgstr "Други опции"
@@ -1694,6 +1715,47 @@ msgstr ""
 
 msgid "Plugin: %1 failed to load: %2"
 msgstr ""
+
+msgid "Flat Cap"
+msgstr ""
+
+msgid "Square Cap"
+msgstr ""
+
+msgid "Round Cap"
+msgstr ""
+
+msgid "Miter Join"
+msgstr ""
+
+msgid "Bevel Join"
+msgstr ""
+
+msgid "Round Join"
+msgstr ""
+
+msgid "Solid Line"
+msgstr ""
+
+#, fuzzy
+msgid "Dashed Line"
+msgstr "Вмукване на линии"
+
+msgid "Dotted Line"
+msgstr ""
+
+msgid "Dash Dot Line"
+msgstr ""
+
+msgid "Dash Dot Dot Line"
+msgstr ""
+
+msgid "Properties"
+msgstr ""
+
+#, fuzzy
+msgid "Lines"
+msgstr "Линия"
 
 #, fuzzy
 msgid "%1 of %1"
@@ -2442,41 +2504,7 @@ msgstr "до:"
 msgid "Edit Style"
 msgstr "Редактиране на стил"
 
-msgid "Flat Cap"
-msgstr ""
-
-msgid "Square Cap"
-msgstr ""
-
-msgid "Round Cap"
-msgstr ""
-
-msgid "Miter Join"
-msgstr ""
-
-msgid "Bevel Join"
-msgstr ""
-
-msgid "Round Join"
-msgstr ""
-
 msgid " pt "
-msgstr ""
-
-msgid "Solid Line"
-msgstr ""
-
-#, fuzzy
-msgid "Dashed Line"
-msgstr "Вмукване на линии"
-
-msgid "Dotted Line"
-msgstr ""
-
-msgid "Dash Dot Line"
-msgstr ""
-
-msgid "Dash Dot Dot Line"
 msgstr ""
 
 msgid "Name \"%1\" isn't unique.<br/>Please choose another."
@@ -2588,6 +2616,11 @@ msgid ""
 "This enables exporting one individually named PDF file for each page in the "
 "document. Page numbers are added automatically. This is most useful for "
 "imposing PDF for commercial printing."
+msgstr ""
+
+msgid ""
+"The save button will be disabled if you are trying to export PDF/X-3 and the "
+"info string is missing from the PDF/X-3 tab."
 msgstr ""
 
 msgid "Save as"
@@ -3217,8 +3250,8 @@ msgid "Com&press Text and Vector Graphics"
 msgstr "Компресиране на текст и векторна графика"
 
 #, fuzzy
-msgid "Image Settings"
-msgstr "параметри на устройството"
+msgid "Image Compression Method"
+msgstr "Изход"
 
 msgid "Lossy - JPEG"
 msgstr ""
@@ -3421,7 +3454,7 @@ msgstr "Вмъкване на правоъгълници"
 
 msgid ""
 "Javascript to be executed\n"
-"when Document is opened:"
+"when PDF document is opened:"
 msgstr ""
 
 #, fuzzy
@@ -3566,8 +3599,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Enables presentation effects when using Adobe&#174; Reader&#174; in full "
-"screen mode."
+"Enables presentation effects when using Adobe&#174; Reader&#174; and other "
+"PDF viewers which support this in full screen mode."
 msgstr ""
 
 msgid "Show page previews of each page listed above."
@@ -3613,11 +3646,12 @@ msgstr ""
 msgid ""
 "Determines the PDF compatibility. The default is PDF 1.3 which gives the "
 "widest compatibility. Choose PDF 1.4 if your file uses features such as "
-"transparency or you require 128 bit encryption. PDF/X-3 is for exporting the "
-"PDF when you want color managed RGB for commercial printing and is "
-"selectable when you have activated color management. Use only when advised "
-"by your printer or in some cases printing to a 4 color digital color laser "
-"printer."
+"transparency or you require 128 bit encryption. PDF 1.5 is necessary when "
+"you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is "
+"for exporting the PDF when you want color managed RGB for commercial "
+"printing and is selectable when you have activated color management. Use "
+"only when advised by your printer or in some cases printing to a 4 color "
+"digital color laser printer."
 msgstr ""
 
 msgid ""
@@ -3637,7 +3671,7 @@ msgstr ""
 
 msgid ""
 "Layers in your document are exported to the PDF Only available if PDF 1.5 is "
-"choosen."
+"chosen."
 msgstr ""
 
 msgid ""
@@ -3660,7 +3694,7 @@ msgid ""
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic unless you have a "
-"need for special compression options."
+"need for special compression options. This only affects JPEG images"
 msgstr ""
 
 msgid ""
@@ -3672,8 +3706,8 @@ msgstr ""
 
 msgid ""
 "Re-sample your bitmap images to the selected DPI. Leaving this unchecked "
-"will render them at their native resolution. This can increase memory usage "
-"and slow down export."
+"will render them at their native resolution. Enabling this will increase "
+"memory usage and slow down export."
 msgstr ""
 
 msgid "DPI (Dots Per Inch) for image export."
@@ -3714,7 +3748,8 @@ msgstr ""
 msgid ""
 "Color model for the output of your PDF. Choose Screen/Web for PDFs which are "
 "used for screen display and for printing on typical inkjets. Choose Printer "
-"when printing to a true 4 color CMYK printer."
+"when printing to a true 4 color CMYK printer. Choose Grayscale when you want "
+"a grey scale PDF."
 msgstr ""
 
 msgid ""
@@ -3777,6 +3812,9 @@ msgid ""
 "Enables Spot Colors to be converted to composite colors. Unless you are "
 "planning to print spot colors at a commercial printer, this is probably best "
 "left enabled."
+msgstr ""
+
+msgid "Do not show objects outside the margins in the exported file"
 msgstr ""
 
 msgid "Migrate Old Scribus Settings?"
@@ -4010,9 +4048,6 @@ msgid "Exporting Items on Current Page:"
 msgstr "Страници за отпечатване"
 
 msgid "Field Properties"
-msgstr ""
-
-msgid "Properties"
 msgstr ""
 
 msgid "Tool-Tip:"
@@ -4443,6 +4478,10 @@ msgid "Paste Contents"
 msgstr "Съдържание"
 
 #, fuzzy
+msgid "Paste Contents (Absolute)"
+msgstr "Съдържание"
+
+#, fuzzy
 msgid "C&lear Contents"
 msgstr "Съдържание"
 
@@ -4464,6 +4503,10 @@ msgstr "Вземи текст..."
 #, fuzzy
 msgid "C&olors..."
 msgstr "Цветове..."
+
+#, fuzzy
+msgid "S&tyles..."
+msgstr "Стилове..."
 
 #, fuzzy
 msgid "&Paragraph Styles..."
@@ -6103,8 +6146,7 @@ msgstr "Преглед"
 msgid "&Print"
 msgstr "Печат"
 
-msgid ""
-"Do not show objects outside the margins on the printed page or exported file"
+msgid "Do not show objects outside the margins on the printed page"
 msgstr ""
 
 msgid ""
@@ -6474,8 +6516,9 @@ msgstr "Избери шрифт"
 msgid "About Scribus %1"
 msgstr "За Scribus"
 
-msgid "February"
-msgstr ""
+#, fuzzy
+msgid "March"
+msgstr "Търси"
 
 #, fuzzy
 msgid "%1 %2 %3"
@@ -7486,6 +7529,13 @@ msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "Документи (*.scd);; Всички документи (*)"
 
 #, fuzzy
+msgid "LineStyleWBase"
+msgstr "Стил на линия"
+
+msgid "%"
+msgstr ""
+
+#, fuzzy
 msgid "Document:"
 msgstr "Документ "
 
@@ -7740,6 +7790,46 @@ msgstr ""
 msgid "JavaScripts (*.js);;All Files (*)"
 msgstr "Библиотека (*.scs);; Всички файлове (*)"
 
+#, fuzzy
+msgid "Column 1"
+msgstr "Колонни линии"
+
+#, fuzzy
+msgid "Style Manager"
+msgstr "Страници за отпечатване"
+
+#, fuzzy
+msgid "C&lone"
+msgstr "Затвори"
+
+#, fuzzy
+msgid "Alt+L"
+msgstr "Всички"
+
+#, fuzzy
+msgid "O&K"
+msgstr "Да"
+
+#, fuzzy
+msgid "Alt+K"
+msgstr "Всички"
+
+#, fuzzy
+msgid "A&pply"
+msgstr "Отрази промените"
+
+#, fuzzy
+msgid "Alt+P"
+msgstr "Всички"
+
+#, fuzzy
+msgid "Ca&ncel"
+msgstr "Отказ"
+
+#, fuzzy
+msgid "Alt+N"
+msgstr "Всички"
+
 msgid "Move Bookmark"
 msgstr ""
 
@@ -7893,10 +7983,6 @@ msgid "Current &page"
 msgstr "Страници за отпечатване"
 
 #, fuzzy
-msgid "Alt+P"
-msgstr "Всички"
-
-#, fuzzy
 msgid "&Even pages"
 msgstr "Мпреместване на страници"
 
@@ -7942,10 +8028,6 @@ msgstr "Разделителна способност:"
 #, fuzzy
 msgid "Page Item Attributes"
 msgstr "За Scribus"
-
-#, fuzzy
-msgid "Alt+L"
-msgstr "Всички"
 
 #, fuzzy
 msgid "Top"
@@ -8297,6 +8379,9 @@ msgid "Korean"
 msgstr ""
 
 msgid "Lithuanian"
+msgstr ""
+
+msgid "Luxembourgish"
 msgstr ""
 
 msgid "Norwegian (Bokmaal)"
@@ -8787,8 +8872,10 @@ msgid "Leave preview"
 msgstr "Преглед"
 
 msgid ""
-"Typing the text here provides quick searching in the font names. E.g. 'bold' "
-"shows all fonts with Bold in name. Searching is case insensitive."
+"Typing the text here provides quick searching in the font names. Searching "
+"is case insensitive. You can provide a common wild cards (*, ?, [...]) in "
+"your phrase. Examples: t* will list all fonts starting with t or T. *bold* "
+"will list all fonts with word bold, bolder etc. in the name."
 msgstr ""
 
 #, fuzzy
@@ -9948,11 +10035,14 @@ msgstr "Размаркиране на всичко"
 msgid "Barcode Creator"
 msgstr ""
 
+msgid "Make check digit visible in text"
+msgstr ""
+
 msgid "Barcode"
 msgstr ""
 
 #, fuzzy
-msgid "C&ode:"
+msgid "Co&de:"
 msgstr "Сянка:"
 
 msgid "Select one of the available barcode type here"
@@ -9986,6 +10076,19 @@ msgid "Draw arrows to be sure of space next the code"
 msgstr ""
 
 #, fuzzy
+msgid "I&nclude checksum"
+msgstr "Отбелязан ли е PDF-а"
+
+msgid "Generate and include a checksum in barcode"
+msgstr ""
+
+msgid "Incl&ude checksum digit"
+msgstr ""
+
+msgid "Include the checksum digit in the barcode text"
+msgstr ""
+
+#, fuzzy
 msgid "&Background"
 msgstr "Фон:"
 
@@ -10013,6 +10116,54 @@ msgstr ""
 msgid "Preview of the result. 72dpi sample."
 msgstr "Стилове..."
 
+msgid "12 or 13 digits"
+msgstr ""
+
+msgid "8 digits"
+msgstr ""
+
+msgid "11 or 12 digits"
+msgstr ""
+
+msgid "7 or 8 digits"
+msgstr ""
+
+msgid "5 digits"
+msgstr ""
+
+msgid "2 digits"
+msgstr ""
+
+msgid "9 or 10 digits separated appropriately with dashes"
+msgstr ""
+
+msgid "Variable number of characters, digits and any of the symbols -. *$/+%."
+msgstr ""
+
+msgid ""
+"Variable number of ASCII characters and special function symbols, starting "
+"with the appropriate start character for the initial character set. UCC/EAN-"
+"128s must have a mandatory FNC 1 symbol immediately following the start "
+"character."
+msgstr ""
+
+msgid "Variable number of digits and any of the symbols -$:/.+ABCD."
+msgstr ""
+
+msgid ""
+"Variable number of digits. An ITF-14 is 14 characters and does not have a "
+"check digit"
+msgstr ""
+
+msgid "Variable number of digits"
+msgstr ""
+
+msgid "Variable number of digits and capital letters"
+msgstr ""
+
+msgid "Variable number of hexadecimal characters"
+msgstr ""
+
 #, fuzzy
 msgid "Error opening file: %1"
 msgstr ""
@@ -10020,8 +10171,8 @@ msgstr ""
 "%1 ?"
 
 #, fuzzy
-msgid "Error creating preview"
-msgstr "Грешка при създаване на PDF файл"
+msgid "Barcode incomplete"
+msgstr "Печатът завършен"
 
 msgid "&Barcode Generator..."
 msgstr ""
@@ -10102,6 +10253,14 @@ msgstr "Поставяне:"
 #, fuzzy
 msgid "My Plugin"
 msgstr "Поставяне:"
+
+#, fuzzy
+#~ msgid "Image Settings"
+#~ msgstr "параметри на устройството"
+
+#, fuzzy
+#~ msgid "Error creating preview"
+#~ msgstr "Грешка при създаване на PDF файл"
 
 #~ msgid "Other Options"
 #~ msgstr "Други опции"
@@ -10660,9 +10819,6 @@ msgstr "Поставяне:"
 #~ msgid "Select all"
 #~ msgstr "Маркиране на всичко"
 
-#~ msgid "Styles..."
-#~ msgstr "Стилове..."
-
 #~ msgid "Templates..."
 #~ msgstr "Форми..."
 
@@ -10810,10 +10966,6 @@ msgstr "Поставяне:"
 #, fuzzy
 #~ msgid "&Save Source As..."
 #~ msgstr "Запиши като..."
-
-#, fuzzy
-#~ msgid "Alt+N"
-#~ msgstr "Всички"
 
 #, fuzzy
 #~ msgid "<qt>Create a new macro.</qt>"
@@ -11018,9 +11170,6 @@ msgstr "Поставяне:"
 
 #~ msgid "Printing-Error"
 #~ msgstr "Грешка при печат"
-
-#~ msgid "Printing completed"
-#~ msgstr "Печатът завършен"
 
 #~ msgid "Saving aborted"
 #~ msgstr "Прекъснато записване"

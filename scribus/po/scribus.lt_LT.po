@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-28 01:56+0100\n"
+"POT-Creation-Date: 2006-03-10 00:36+0100\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -1077,6 +1077,24 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+msgid "Change Image Offset"
+msgstr "Efektai"
+
+#, fuzzy
+msgid "Change Image Scale"
+msgstr "Teksto rëmelis"
+
+msgid ""
+"X1: %1, Y1: %2\n"
+"X2: %4, Y2: %5"
+msgstr ""
+
+msgid ""
+"X: %1, Y: %2\n"
+"X: %4, Y: %5"
+msgstr ""
+
+#, fuzzy
 msgid "Selection"
 msgstr "Paþymëti"
 
@@ -1656,6 +1674,9 @@ msgstr "Spausdinti á failà:"
 msgid "Remove Profile"
 msgstr "Sistemos ðablonai"
 
+msgid "More than one item selected"
+msgstr ""
+
 #, fuzzy
 msgid "Use Printer Margins"
 msgstr "Kitos parinktys"
@@ -1737,6 +1758,54 @@ msgstr ""
 
 msgid "Plugin: %1 failed to load: %2"
 msgstr ""
+
+#, fuzzy
+msgid "Flat Cap"
+msgstr "Plokðèias virðus"
+
+#, fuzzy
+msgid "Square Cap"
+msgstr "Kvadratinis virðus"
+
+#, fuzzy
+msgid "Round Cap"
+msgstr "Apvalus virðus"
+
+#, fuzzy
+msgid "Miter Join"
+msgstr "Áþambi jungtis"
+
+#, fuzzy
+msgid "Bevel Join"
+msgstr "Nuoþulni jungtis"
+
+#, fuzzy
+msgid "Round Join"
+msgstr "Kreiva jungtis"
+
+#, fuzzy
+msgid "Solid Line"
+msgstr "Ryðkus"
+
+#, fuzzy
+msgid "Dashed Line"
+msgstr "Punktyris"
+
+msgid "Dotted Line"
+msgstr ""
+
+msgid "Dash Dot Line"
+msgstr ""
+
+msgid "Dash Dot Dot Line"
+msgstr ""
+
+msgid "Properties"
+msgstr "Savybës"
+
+#, fuzzy
+msgid "Lines"
+msgstr "Linija"
 
 #, fuzzy
 msgid "%1 of %1"
@@ -2498,48 +2567,7 @@ msgstr "iki:"
 msgid "Edit Style"
 msgstr "Keisti stiliø"
 
-#, fuzzy
-msgid "Flat Cap"
-msgstr "Plokðèias virðus"
-
-#, fuzzy
-msgid "Square Cap"
-msgstr "Kvadratinis virðus"
-
-#, fuzzy
-msgid "Round Cap"
-msgstr "Apvalus virðus"
-
-#, fuzzy
-msgid "Miter Join"
-msgstr "Áþambi jungtis"
-
-#, fuzzy
-msgid "Bevel Join"
-msgstr "Nuoþulni jungtis"
-
-#, fuzzy
-msgid "Round Join"
-msgstr "Kreiva jungtis"
-
 msgid " pt "
-msgstr ""
-
-#, fuzzy
-msgid "Solid Line"
-msgstr "Ryðkus"
-
-#, fuzzy
-msgid "Dashed Line"
-msgstr "Punktyris"
-
-msgid "Dotted Line"
-msgstr ""
-
-msgid "Dash Dot Line"
-msgstr ""
-
-msgid "Dash Dot Dot Line"
 msgstr ""
 
 msgid "Name \"%1\" isn't unique.<br/>Please choose another."
@@ -2653,6 +2681,11 @@ msgid ""
 "This enables exporting one individually named PDF file for each page in the "
 "document. Page numbers are added automatically. This is most useful for "
 "imposing PDF for commercial printing."
+msgstr ""
+
+msgid ""
+"The save button will be disabled if you are trying to export PDF/X-3 and the "
+"info string is missing from the PDF/X-3 tab."
 msgstr ""
 
 msgid "Save as"
@@ -3293,8 +3326,8 @@ msgid "Com&press Text and Vector Graphics"
 msgstr "Suspausti tekstinius ir vektorinës grafikos failus"
 
 #, fuzzy
-msgid "Image Settings"
-msgstr "Simboliø parinktys"
+msgid "Image Compression Method"
+msgstr "Suspaudimas"
 
 msgid "Lossy - JPEG"
 msgstr ""
@@ -3511,7 +3544,7 @@ msgstr "Deðimtainis:"
 
 msgid ""
 "Javascript to be executed\n"
-"when Document is opened:"
+"when PDF document is opened:"
 msgstr ""
 
 #, fuzzy
@@ -3660,8 +3693,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Enables presentation effects when using Adobe&#174; Reader&#174; in full "
-"screen mode."
+"Enables presentation effects when using Adobe&#174; Reader&#174; and other "
+"PDF viewers which support this in full screen mode."
 msgstr ""
 
 msgid "Show page previews of each page listed above."
@@ -3709,11 +3742,12 @@ msgstr ""
 msgid ""
 "Determines the PDF compatibility. The default is PDF 1.3 which gives the "
 "widest compatibility. Choose PDF 1.4 if your file uses features such as "
-"transparency or you require 128 bit encryption. PDF/X-3 is for exporting the "
-"PDF when you want color managed RGB for commercial printing and is "
-"selectable when you have activated color management. Use only when advised "
-"by your printer or in some cases printing to a 4 color digital color laser "
-"printer."
+"transparency or you require 128 bit encryption. PDF 1.5 is necessary when "
+"you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is "
+"for exporting the PDF when you want color managed RGB for commercial "
+"printing and is selectable when you have activated color management. Use "
+"only when advised by your printer or in some cases printing to a 4 color "
+"digital color laser printer."
 msgstr ""
 
 msgid ""
@@ -3733,7 +3767,7 @@ msgstr ""
 
 msgid ""
 "Layers in your document are exported to the PDF Only available if PDF 1.5 is "
-"choosen."
+"chosen."
 msgstr ""
 
 msgid ""
@@ -3756,7 +3790,7 @@ msgid ""
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic unless you have a "
-"need for special compression options."
+"need for special compression options. This only affects JPEG images"
 msgstr ""
 
 msgid ""
@@ -3768,8 +3802,8 @@ msgstr ""
 
 msgid ""
 "Re-sample your bitmap images to the selected DPI. Leaving this unchecked "
-"will render them at their native resolution. This can increase memory usage "
-"and slow down export."
+"will render them at their native resolution. Enabling this will increase "
+"memory usage and slow down export."
 msgstr ""
 
 msgid "DPI (Dots Per Inch) for image export."
@@ -3810,7 +3844,8 @@ msgstr ""
 msgid ""
 "Color model for the output of your PDF. Choose Screen/Web for PDFs which are "
 "used for screen display and for printing on typical inkjets. Choose Printer "
-"when printing to a true 4 color CMYK printer."
+"when printing to a true 4 color CMYK printer. Choose Grayscale when you want "
+"a grey scale PDF."
 msgstr ""
 
 msgid ""
@@ -3875,6 +3910,9 @@ msgid ""
 "Enables Spot Colors to be converted to composite colors. Unless you are "
 "planning to print spot colors at a commercial printer, this is probably best "
 "left enabled."
+msgstr ""
+
+msgid "Do not show objects outside the margins in the exported file"
 msgstr ""
 
 msgid "Migrate Old Scribus Settings?"
@@ -4113,9 +4151,6 @@ msgstr "Spausdinimo eiliðkumas"
 
 msgid "Field Properties"
 msgstr "Laukeliø parinktys"
-
-msgid "Properties"
-msgstr "Savybës"
 
 msgid "Tool-Tip:"
 msgstr "Patarëjas:"
@@ -4549,6 +4584,10 @@ msgid "Paste Contents"
 msgstr "Turinys"
 
 #, fuzzy
+msgid "Paste Contents (Absolute)"
+msgstr "Turinys"
+
+#, fuzzy
 msgid "C&lear Contents"
 msgstr "Turinys"
 
@@ -4570,6 +4609,10 @@ msgstr "Naudoti tekstà..."
 #, fuzzy
 msgid "C&olors..."
 msgstr "Spalvos..."
+
+#, fuzzy
+msgid "S&tyles..."
+msgstr "Stiliai..."
 
 #, fuzzy
 msgid "&Paragraph Styles..."
@@ -6235,8 +6278,7 @@ msgstr "Pasiþiûrëti kaip atrodys"
 msgid "&Print"
 msgstr "Spausdinti"
 
-msgid ""
-"Do not show objects outside the margins on the printed page or exported file"
+msgid "Do not show objects outside the margins on the printed page"
 msgstr ""
 
 msgid ""
@@ -6616,8 +6658,9 @@ msgstr "Pasirink ðriftà"
 msgid "About Scribus %1"
 msgstr "Apie Scribus"
 
-msgid "February"
-msgstr ""
+#, fuzzy
+msgid "March"
+msgstr "Ieðkoti"
 
 #, fuzzy
 msgid "%1 %2 %3"
@@ -7647,6 +7690,13 @@ msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "Dokumentai (*.sdc);; Visi failai (*)"
 
 #, fuzzy
+msgid "LineStyleWBase"
+msgstr "Linijos forma"
+
+msgid "%"
+msgstr ""
+
+#, fuzzy
 msgid "Document:"
 msgstr "Dokumentas "
 
@@ -7912,6 +7962,46 @@ msgstr "Gauti laukelio pavadinimus"
 msgid "JavaScripts (*.js);;All Files (*)"
 msgstr "JavaScript (*.js);; Visi failai (*)"
 
+#, fuzzy
+msgid "Column 1"
+msgstr "Stulpeliø linijos"
+
+#, fuzzy
+msgid "Style Manager"
+msgstr "Spausdinimo eiliðkumas"
+
+#, fuzzy
+msgid "C&lone"
+msgstr "Uþdaryti"
+
+#, fuzzy
+msgid "Alt+L"
+msgstr "Viskà"
+
+#, fuzzy
+msgid "O&K"
+msgstr "Tinka!"
+
+#, fuzzy
+msgid "Alt+K"
+msgstr "Viskà"
+
+#, fuzzy
+msgid "A&pply"
+msgstr "Pritaikyti"
+
+#, fuzzy
+msgid "Alt+P"
+msgstr "Viskà"
+
+#, fuzzy
+msgid "Ca&ncel"
+msgstr "Netinka"
+
+#, fuzzy
+msgid "Alt+N"
+msgstr "Viskà"
+
 msgid "Move Bookmark"
 msgstr "Perkelti nuorodà"
 
@@ -8066,10 +8156,6 @@ msgid "Current &page"
 msgstr "Esamas derinys"
 
 #, fuzzy
-msgid "Alt+P"
-msgstr "Viskà"
-
-#, fuzzy
 msgid "&Even pages"
 msgstr "Perkelti puslapius"
 
@@ -8116,10 +8202,6 @@ msgstr "Skiriamoji geba:"
 #, fuzzy
 msgid "Page Item Attributes"
 msgstr "Apie Scribus"
-
-#, fuzzy
-msgid "Alt+L"
-msgstr "Viskà"
 
 #, fuzzy
 msgid "Top"
@@ -8482,6 +8564,9 @@ msgstr ""
 #, fuzzy
 msgid "Lithuanian"
 msgstr "Lietuviø:"
+
+msgid "Luxembourgish"
+msgstr ""
 
 msgid "Norwegian (Bokmaal)"
 msgstr ""
@@ -8980,8 +9065,10 @@ msgid "Leave preview"
 msgstr "Pasiþiûrëti kaip atrodys"
 
 msgid ""
-"Typing the text here provides quick searching in the font names. E.g. 'bold' "
-"shows all fonts with Bold in name. Searching is case insensitive."
+"Typing the text here provides quick searching in the font names. Searching "
+"is case insensitive. You can provide a common wild cards (*, ?, [...]) in "
+"your phrase. Examples: t* will list all fonts starting with t or T. *bold* "
+"will list all fonts with word bold, bolder etc. in the name."
 msgstr ""
 
 #, fuzzy
@@ -10157,12 +10244,15 @@ msgstr "Nuimti þymëjimà"
 msgid "Barcode Creator"
 msgstr ""
 
+msgid "Make check digit visible in text"
+msgstr ""
+
 #, fuzzy
 msgid "Barcode"
 msgstr "Kontûras"
 
 #, fuzzy
-msgid "C&ode:"
+msgid "Co&de:"
 msgstr "Ðeðëlis:"
 
 msgid "Select one of the available barcode type here"
@@ -10196,6 +10286,19 @@ msgid "Draw arrows to be sure of space next the code"
 msgstr ""
 
 #, fuzzy
+msgid "I&nclude checksum"
+msgstr "Slëpti sluoksná"
+
+msgid "Generate and include a checksum in barcode"
+msgstr ""
+
+msgid "Incl&ude checksum digit"
+msgstr ""
+
+msgid "Include the checksum digit in the barcode text"
+msgstr ""
+
+#, fuzzy
 msgid "&Background"
 msgstr "Pagrindas"
 
@@ -10225,6 +10328,54 @@ msgstr ""
 msgid "Preview of the result. 72dpi sample."
 msgstr "Stiliai..."
 
+msgid "12 or 13 digits"
+msgstr ""
+
+msgid "8 digits"
+msgstr ""
+
+msgid "11 or 12 digits"
+msgstr ""
+
+msgid "7 or 8 digits"
+msgstr ""
+
+msgid "5 digits"
+msgstr ""
+
+msgid "2 digits"
+msgstr ""
+
+msgid "9 or 10 digits separated appropriately with dashes"
+msgstr ""
+
+msgid "Variable number of characters, digits and any of the symbols -. *$/+%."
+msgstr ""
+
+msgid ""
+"Variable number of ASCII characters and special function symbols, starting "
+"with the appropriate start character for the initial character set. UCC/EAN-"
+"128s must have a mandatory FNC 1 symbol immediately following the start "
+"character."
+msgstr ""
+
+msgid "Variable number of digits and any of the symbols -$:/.+ABCD."
+msgstr ""
+
+msgid ""
+"Variable number of digits. An ITF-14 is 14 characters and does not have a "
+"check digit"
+msgstr ""
+
+msgid "Variable number of digits"
+msgstr ""
+
+msgid "Variable number of digits and capital letters"
+msgstr ""
+
+msgid "Variable number of hexadecimal characters"
+msgstr ""
+
 #, fuzzy
 msgid "Error opening file: %1"
 msgstr ""
@@ -10233,8 +10384,8 @@ msgstr ""
 " turiná?"
 
 #, fuzzy
-msgid "Error creating preview"
-msgstr "Klaida PDFo áraðyme"
+msgid "Barcode incomplete"
+msgstr "Atspausdinta"
 
 msgid "&Barcode Generator..."
 msgstr ""
@@ -10317,6 +10468,14 @@ msgstr "Paprastas"
 #, fuzzy
 msgid "My Plugin"
 msgstr "Paprastas"
+
+#, fuzzy
+#~ msgid "Image Settings"
+#~ msgstr "Simboliø parinktys"
+
+#, fuzzy
+#~ msgid "Error creating preview"
+#~ msgstr "Klaida PDFo áraðyme"
 
 #~ msgid "Other Options"
 #~ msgstr "Kitos parinktys"
@@ -10984,9 +11143,6 @@ msgstr "Paprastas"
 #~ msgid "Select all"
 #~ msgstr "Paþymëti viskà"
 
-#~ msgid "Styles..."
-#~ msgstr "Stiliai..."
-
 #~ msgid "Templates..."
 #~ msgstr "Ðablonai..."
 
@@ -11164,10 +11320,6 @@ msgstr "Paprastas"
 #, fuzzy
 #~ msgid "&Save Source As..."
 #~ msgstr "Iðsaugoti kitu vardu..."
-
-#, fuzzy
-#~ msgid "Alt+N"
-#~ msgstr "Viskà"
 
 #, fuzzy
 #~ msgid "<qt>Create a new macro.</qt>"
@@ -11422,9 +11574,6 @@ msgstr "Paprastas"
 
 #~ msgid "Printing-Error"
 #~ msgstr "Spausdinimo klaida"
-
-#~ msgid "Printing completed"
-#~ msgstr "Atspausdinta"
 
 #~ msgid "Saving aborted"
 #~ msgstr "Áraðymas nutrauktas"

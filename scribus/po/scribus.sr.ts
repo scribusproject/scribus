@@ -1862,15 +1862,15 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>February</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Windows&amp;#174; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>March</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2132,7 +2132,7 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation type="unfinished">&amp;Контура</translation>
+        <translation type="obsolete">&amp;Контура</translation>
     </message>
     <message>
         <source>S&amp;hadow</source>
@@ -2272,7 +2272,7 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation type="unfinished">&amp;Оквирне линије</translation>
+        <translation type="obsolete">&amp;Оквирне линије</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
@@ -2834,6 +2834,24 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
     <message>
         <source>st</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paste Contents (Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;tyles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>type effect</comment>
+        <translation type="unfinished">&amp;Контура</translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <comment>Convert to oulines</comment>
+        <translation type="unfinished">&amp;Оквирне линије</translation>
     </message>
 </context>
 <context>
@@ -3961,7 +3979,63 @@ UCR смањује могућност презасићености CMY маст�
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error creating preview</source>
+        <source>12 or 13 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>8 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>11 or 12 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>7 or 8 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>5 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>9 or 10 digits separated appropriately with dashes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits and capital letters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of hexadecimal characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Barcode incomplete</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3978,10 +4052,6 @@ UCR смањује могућност презасићености CMY маст�
     <message>
         <source>&amp;Type:</source>
         <translation type="unfinished">&amp;Врста:</translation>
-    </message>
-    <message>
-        <source>C&amp;ode:</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
@@ -4065,6 +4135,38 @@ UCR смањује могућност презасићености CMY маст�
     </message>
     <message>
         <source>Preview of the result. 72dpi sample.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make check digit visible in text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Co&amp;de:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I&amp;nclude checksum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate and include a checksum in barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Incl&amp;ude checksum digit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Include the checksum digit in the barcode text</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6432,10 +6534,14 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation type="unfinished">Немој да приказујеш објекте изван маргина на одштампаној страници или извезеном фајлу</translation>
+        <translation type="obsolete">Немој да приказујеш објекте изван маргина на одштампаној страници или извезеном фајлу</translation>
     </message>
     <message>
         <source>Failed to retrieve printer settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins on the printed page</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7500,10 +7606,6 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <translation type="obsolete">&amp;Затвори</translation>
     </message>
     <message>
-        <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Start searching</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7517,6 +7619,10 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Sample will be shown after key release</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8548,6 +8654,72 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Do you really want to delete this style?</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LineStyleWBase</name>
+    <message>
+        <source>LineStyleWBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Width:</source>
+        <translation type="unfinished">Ширина линије:</translation>
+    </message>
+</context>
+<context>
+    <name>LineStyleWidget</name>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> тач.</translation>
+    </message>
+    <message>
+        <source>Flat Cap</source>
+        <translation type="unfinished">Раван поклопац</translation>
+    </message>
+    <message>
+        <source>Square Cap</source>
+        <translation type="unfinished">Квадратни поклопац</translation>
+    </message>
+    <message>
+        <source>Round Cap</source>
+        <translation type="unfinished">Кружни поклопац</translation>
+    </message>
+    <message>
+        <source>Miter Join</source>
+        <translation type="unfinished">Угаони спој</translation>
+    </message>
+    <message>
+        <source>Bevel Join</source>
+        <translation type="unfinished">Коси спој</translation>
+    </message>
+    <message>
+        <source>Round Join</source>
+        <translation type="unfinished">Кружни спој</translation>
+    </message>
+    <message>
+        <source>Solid Line</source>
+        <translation type="unfinished">Непрекидна линија</translation>
+    </message>
+    <message>
+        <source>Dashed Line</source>
+        <translation type="unfinished">Испрекидана линија</translation>
+    </message>
+    <message>
+        <source>Dotted Line</source>
+        <translation type="unfinished">Тачкаста линија</translation>
+    </message>
+    <message>
+        <source>Dash Dot Line</source>
+        <translation type="unfinished">Црта-тачка</translation>
+    </message>
+    <message>
+        <source>Dash Dot Dot Line</source>
+        <translation type="unfinished">Црта-тачка-тачка</translation>
     </message>
 </context>
 <context>
@@ -10671,6 +10843,10 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15868,6 +16044,10 @@ is not exhaustive due to exceptions from called functions.
         <comment>PDB Importer</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Luxembourgish</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -16333,6 +16513,80 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Run as Extension Script</source>
         <comment>run script dialog</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMBase</name>
+    <message>
+        <source>Style Manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Додај</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Обриши</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">Име:</translation>
+    </message>
+    <message>
+        <source>O&amp;K</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+K</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;pply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ca&amp;ncel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMLineStyle</name>
+    <message>
+        <source>Properties</source>
+        <translation type="unfinished">Својства</translation>
+    </message>
+    <message>
+        <source>Lines</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19634,6 +19888,13 @@ drag a Template to the Pageview below.</source>
     </message>
 </context>
 <context>
+    <name>StyleManager</name>
+    <message>
+        <source>More than one item selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
@@ -20219,7 +20480,7 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Image Settings</source>
-        <translation type="unfinished">Поставке слике</translation>
+        <translation type="obsolete">Поставке слике</translation>
     </message>
     <message>
         <source>Automatic</source>
@@ -20830,23 +21091,11 @@ PDF-а PDF/X-3-у. Препоручујемо да користите насло
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Convert Spot Colors to Process Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Compression &amp;Quality:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -20898,10 +21147,6 @@ PDF-а PDF/X-3-у. Препоручујемо да користите насло
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20914,19 +21159,11 @@ PDF-а PDF/X-3-у. Препоручујемо да користите насло
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -21002,11 +21239,6 @@ PDF-а PDF/X-3-у. Препоручујемо да користите насло
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Javascript to be executed
-when Document is opened:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No Script</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21024,6 +21256,43 @@ when Document is opened:</source>
     </message>
     <message>
         <source>Lossless - Zip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Compression Method</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when PDF document is opened:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins in the exported file</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22084,6 +22353,24 @@ to %2</source>
     </message>
     <message>
         <source>Multiple duplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change Image Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change Image Scale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X1: %1, Y1: %2
+X2: %4, Y2: %5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X: %1, Y: %2
+X: %4, Y: %5</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

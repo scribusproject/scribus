@@ -2728,15 +2728,15 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 певної бібліотеки позначається зірочкою (*). На цій панелі також показано версію Ghostscript знайдену Scribus.</translation>
     </message>
     <message>
-        <source>February</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Windows&amp;#174; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>March</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2994,7 +2994,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation>С&amp;хема документу</translation>
+        <translation type="obsolete">С&amp;хема документу</translation>
     </message>
     <message>
         <source>S&amp;hadow</source>
@@ -3134,7 +3134,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation>&amp;Контури</translation>
+        <translation type="obsolete">&amp;Контури</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
@@ -3696,6 +3696,24 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>st</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paste Contents (Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;tyles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>type effect</comment>
+        <translation type="unfinished">С&amp;хема документу</translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <comment>Convert to oulines</comment>
+        <translation type="unfinished">&amp;Контури</translation>
     </message>
 </context>
 <context>
@@ -4584,7 +4602,63 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error creating preview</source>
+        <source>12 or 13 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>8 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>11 or 12 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>7 or 8 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>5 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>9 or 10 digits separated appropriately with dashes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits and capital letters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of hexadecimal characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Barcode incomplete</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4601,10 +4675,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>&amp;Type:</source>
         <translation type="unfinished">&amp;Тип:</translation>
-    </message>
-    <message>
-        <source>C&amp;ode:</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
@@ -4688,6 +4758,38 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Preview of the result. 72dpi sample.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make check digit visible in text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Co&amp;de:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I&amp;nclude checksum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate and include a checksum in barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Incl&amp;ude checksum digit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished">Alt+U</translation>
+    </message>
+    <message>
+        <source>Include the checksum digit in the barcode text</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6791,7 +6893,11 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation type="unfinished">Не показувати об&apos;єкти за полями на друкованій сторінці чи в експортованому файлі</translation>
+        <translation type="obsolete">Не показувати об&apos;єкти за полями на друкованій сторінці чи в експортованому файлі</translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins on the printed page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7493,7 +7599,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
-        <translation>Ввід текту тут дозволяє проводити швидкий пошук в іменах шрифтів. Наприклад, &apos;жирний&apos; показує всі шрифти з словом &apos;жирний&apos; в імені. Пошук не залежить від реєстру літер.</translation>
+        <translation type="obsolete">Ввід текту тут дозволяє проводити швидкий пошук в іменах шрифтів. Наприклад, &apos;жирний&apos; показує всі шрифти з словом &apos;жирний&apos; в імені. Пошук не залежить від реєстру літер.</translation>
     </message>
     <message>
         <source>Start searching</source>
@@ -7520,6 +7626,10 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Sample will be shown after key release</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8402,6 +8512,72 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Do you really want to delete this style?</source>
         <translation>Ви справді бажаєте видалити цей стиль?</translation>
+    </message>
+</context>
+<context>
+    <name>LineStyleWBase</name>
+    <message>
+        <source>LineStyleWBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Width:</source>
+        <translation type="unfinished">Товщина лінії:</translation>
+    </message>
+</context>
+<context>
+    <name>LineStyleWidget</name>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Flat Cap</source>
+        <translation type="unfinished">Пласка верхівка</translation>
+    </message>
+    <message>
+        <source>Square Cap</source>
+        <translation type="unfinished">Квадратна верхівка</translation>
+    </message>
+    <message>
+        <source>Round Cap</source>
+        <translation type="unfinished">Заокруглена верхівка</translation>
+    </message>
+    <message>
+        <source>Miter Join</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bevel Join</source>
+        <translation type="unfinished">Фасочне з&apos;єднання</translation>
+    </message>
+    <message>
+        <source>Round Join</source>
+        <translation type="unfinished">Заокруглене з&apos;єднання</translation>
+    </message>
+    <message>
+        <source>Solid Line</source>
+        <translation type="unfinished">Суцільна лінія</translation>
+    </message>
+    <message>
+        <source>Dashed Line</source>
+        <translation type="unfinished">Переривчаста лінія</translation>
+    </message>
+    <message>
+        <source>Dotted Line</source>
+        <translation type="unfinished">Лінія з точок</translation>
+    </message>
+    <message>
+        <source>Dash Dot Line</source>
+        <translation type="unfinished">Переривчасто точкова лінія</translation>
+    </message>
+    <message>
+        <source>Dash Dot Dot Line</source>
+        <translation type="unfinished">Риска-точка-точка лінія</translation>
     </message>
 </context>
 <context>
@@ -9981,6 +10157,10 @@ Scribus.</translation>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
         <translation>Дозволяє експортування одного індивідуально названого PDF файля для кожної сторінки документа. Номери сторінок
 додаються автоматично. Цей метод найбільш корисний для імпозиції PDF для комерційного друку.</translation>
+    </message>
+    <message>
+        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13272,6 +13452,10 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
         <comment>PDB Importer</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Luxembourgish</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13619,6 +13803,80 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
         <source>Run as Extension Script</source>
         <comment>run script dialog</comment>
         <translation>Запустити, як зовнішній сценарій</translation>
+    </message>
+</context>
+<context>
+    <name>SMBase</name>
+    <message>
+        <source>Style Manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Додати</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>C&amp;lone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Видалити</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;K</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+K</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;pply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="unfinished">Alt+P</translation>
+    </message>
+    <message>
+        <source>Ca&amp;ncel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMLineStyle</name>
+    <message>
+        <source>Properties</source>
+        <translation type="unfinished">Властивості</translation>
+    </message>
+    <message>
+        <source>Lines</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15314,6 +15572,13 @@ Ctrl-V для вставки його в систему обробітку пр�
     </message>
 </context>
 <context>
+    <name>StyleManager</name>
+    <message>
+        <source>More than one item selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
@@ -15844,7 +16109,7 @@ Scribus.</translation>
     </message>
     <message>
         <source>Image Settings</source>
-        <translation>Установки зображення</translation>
+        <translation type="obsolete">Установки зображення</translation>
     </message>
     <message>
         <source>Automatic</source>
@@ -16200,7 +16465,7 @@ Scribus.</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
-        <translation>Вмикає презентаційні ефекти при використанні  Adobe&amp;#174; Reader&amp;#174; в повноекранному режимі.</translation>
+        <translation type="obsolete">Вмикає презентаційні ефекти при використанні  Adobe&amp;#174; Reader&amp;#174; в повноекранному режимі.</translation>
     </message>
     <message>
         <source>Show page previews of each page listed above.</source>
@@ -16325,11 +16590,11 @@ Scribus.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation>Визначає сумісність PDF. Стандартним є PDF 1.3, який забезпечує найширшу сумісність. Виберіть PDF 1.4, якщо у Вашому файлі використовується прозорість, або 128-бітне шифрування. PDF/X-3 призначений для експорту PDF при використанні кольорових профілів RGB для комерційного друку. Цей формат доступний лише при ввімкненому керуванні кольоровими профілями. Використовуйте його лише при пораді друкаря чи в деяких випадках для друку на 4-х колірному лазерному прінтері.</translation>
+        <translation type="obsolete">Визначає сумісність PDF. Стандартним є PDF 1.3, який забезпечує найширшу сумісність. Виберіть PDF 1.4, якщо у Вашому файлі використовується прозорість, або 128-бітне шифрування. PDF/X-3 призначений для експорту PDF при використанні кольорових профілів RGB для комерційного друку. Цей формат доступний лише при ввімкненому керуванні кольоровими профілями. Використовуйте його лише при пораді друкаря чи в деяких випадках для друку на 4-х колірному лазерному прінтері.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation>Метод стиснення зображень. Автоматичний дозволяє Scribus вибрати найкращий метод. ZIP не має втрат якості і найкраще підходить для однотонних зображень. JPEG краще працює при створенні менших PDF файлів, які містять багато фотографічних зображень (з деякою втратою якості зображень). Залиште цю установку на &apos;Автоматичний&apos;, якщо Ви не впевнені в необхідності використання особливих методів стиснення.</translation>
+        <translation type="obsolete">Метод стиснення зображень. Автоматичний дозволяє Scribus вибрати найкращий метод. ZIP не має втрат якості і найкраще підходить для однотонних зображень. JPEG краще працює при створенні менших PDF файлів, які містять багато фотографічних зображень (з деякою втратою якості зображень). Залиште цю установку на &apos;Автоматичний&apos;, якщо Ви не впевнені в необхідності використання особливих методів стиснення.</translation>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
@@ -16384,7 +16649,7 @@ Scribus.</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</source>
-        <translation>Плани документа експортуються в PDF. Доступно лише для PDF 1.5.</translation>
+        <translation type="obsolete">Плани документа експортуються в PDF. Доступно лише для PDF 1.5.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
@@ -16400,7 +16665,7 @@ Scribus.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
-        <translation>Перерахувати растрові зображення до вибраного ТНД. Вимкнення цієї установки приведе до збереження початкового розрішення зображень і може призвести до підвищенного використання оперативної пам&apos;яті та сповільнення експортування.</translation>
+        <translation type="obsolete">Перерахувати растрові зображення до вибраного ТНД. Вимкнення цієї установки приведе до збереження початкового розрішення зображень і може призвести до підвищенного використання оперативної пам&apos;яті та сповільнення експортування.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
@@ -16412,7 +16677,7 @@ Scribus.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation>Кольорова модель експортованого PDF.  Виберіть Екран/Веб для PDF призначених для показу на екрані або для друку на типових струменевих прінтерах. Виберіть &apos;Прінтер&apos; при друці на справжньому 4-х колірному СМЖК прінтері.</translation>
+        <translation type="obsolete">Кольорова модель експортованого PDF.  Виберіть Екран/Веб для PDF призначених для показу на екрані або для друку на типових струменевих прінтерах. Виберіть &apos;Прінтер&apos; при друці на справжньому 4-х колірному СМЖК прінтері.</translation>
     </message>
     <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
@@ -16489,7 +16754,7 @@ Scribus.</translation>
     <message>
         <source>Javascript to be executed
 when Document is opened:</source>
-        <translation>Javascript сценарій, який буде виконано при відкритті документа:</translation>
+        <translation type="obsolete">Javascript сценарій, який буде виконано при відкритті документа:</translation>
     </message>
     <message>
         <source>No Script</source>
@@ -16509,6 +16774,43 @@ when Document is opened:</source>
     </message>
     <message>
         <source>Lossless - Zip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Compression Method</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when PDF document is opened:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins in the exported file</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17487,6 +17789,24 @@ to %2</source>
     </message>
     <message>
         <source>Multiple duplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change Image Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change Image Scale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X1: %1, Y1: %2
+X2: %4, Y2: %5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X: %1, Y: %2
+X: %4, Y: %5</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

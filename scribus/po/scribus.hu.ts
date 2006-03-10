@@ -1752,15 +1752,15 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>February</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Windows&amp;#174; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>March</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2050,7 +2050,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation>&amp;Körvonal</translation>
+        <translation type="obsolete">&amp;Körvonal</translation>
     </message>
     <message>
         <source>S&amp;hadow</source>
@@ -2190,7 +2190,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation>&amp;Körvonalak</translation>
+        <translation type="obsolete">&amp;Körvonalak</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
@@ -2752,6 +2752,24 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>st</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paste Contents (Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;tyles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>type effect</comment>
+        <translation type="unfinished">&amp;Körvonal</translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <comment>Convert to oulines</comment>
+        <translation type="unfinished">&amp;Körvonalak</translation>
     </message>
 </context>
 <context>
@@ -3644,7 +3662,63 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error creating preview</source>
+        <source>12 or 13 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>8 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>11 or 12 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>7 or 8 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>5 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>9 or 10 digits separated appropriately with dashes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits and capital letters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of hexadecimal characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Barcode incomplete</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3661,10 +3735,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>&amp;Type:</source>
         <translation type="unfinished">&amp;Típus:</translation>
-    </message>
-    <message>
-        <source>C&amp;ode:</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
@@ -3748,6 +3818,38 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Preview of the result. 72dpi sample.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make check digit visible in text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Co&amp;de:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I&amp;nclude checksum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate and include a checksum in barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Incl&amp;ude checksum digit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished">Alt+U</translation>
+    </message>
+    <message>
+        <source>Include the checksum digit in the barcode text</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5912,11 +6014,11 @@ a range of pages or a single page number.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Do not show objects outside the margins on the printed page or exported file</source>
+        <source>Failed to retrieve printer settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to retrieve printer settings</source>
+        <source>Do not show objects outside the margins on the printed page</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6796,10 +6898,6 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <translation type="obsolete">Be&amp;zárás</translation>
     </message>
     <message>
-        <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Start searching</source>
         <translation>Keresés indítása</translation>
     </message>
@@ -6813,6 +6911,10 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Sample will be shown after key release</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7718,6 +7820,72 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Do you really want to delete this style?</source>
         <translation type="unfinished">Tényleg törölni akarja ezt a stílust?</translation>
+    </message>
+</context>
+<context>
+    <name>LineStyleWBase</name>
+    <message>
+        <source>LineStyleWBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Width:</source>
+        <translation type="unfinished">Vonalvastagság:</translation>
+    </message>
+</context>
+<context>
+    <name>LineStyleWidget</name>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished">pt</translation>
+    </message>
+    <message>
+        <source>Flat Cap</source>
+        <translation type="unfinished">14*17\&quot; papíralak</translation>
+    </message>
+    <message>
+        <source>Square Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Round Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Miter Join</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bevel Join</source>
+        <translation type="unfinished">Ferde átlapolás</translation>
+    </message>
+    <message>
+        <source>Round Join</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Solid Line</source>
+        <translation type="unfinished">Folytonos vonal</translation>
+    </message>
+    <message>
+        <source>Dashed Line</source>
+        <translation type="unfinished">Szaggatott vonal</translation>
+    </message>
+    <message>
+        <source>Dotted Line</source>
+        <translation type="unfinished">Pontozott vonal</translation>
+    </message>
+    <message>
+        <source>Dash Dot Line</source>
+        <translation type="unfinished">Tá-ti vonal</translation>
+    </message>
+    <message>
+        <source>Dash Dot Dot Line</source>
+        <translation type="unfinished">Tá-ti-ti vonal</translation>
     </message>
 </context>
 <context>
@@ -9361,6 +9529,10 @@ Válasszon másikat.</translation>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12806,6 +12978,10 @@ is not exhaustive due to exceptions from called functions.
         <comment>PDB Importer</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Luxembourgish</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13169,6 +13345,80 @@ is not exhaustive due to exceptions from called functions.
         <source>Run as Extension Script</source>
         <comment>run script dialog</comment>
         <translation>Bővítő szkript futtatása</translation>
+    </message>
+</context>
+<context>
+    <name>SMBase</name>
+    <message>
+        <source>Style Manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Hozzáadás</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>C&amp;lone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Törlés</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">Név:</translation>
+    </message>
+    <message>
+        <source>O&amp;K</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+K</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;pply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="unfinished">Alt+P</translation>
+    </message>
+    <message>
+        <source>Ca&amp;ncel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMLineStyle</name>
+    <message>
+        <source>Properties</source>
+        <translation type="unfinished">Tulajdonságok</translation>
+    </message>
+    <message>
+        <source>Lines</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15532,6 +15782,13 @@ Vertical shift: %3</source>
     </message>
 </context>
 <context>
+    <name>StyleManager</name>
+    <message>
+        <source>More than one item selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
@@ -16053,7 +16310,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Image Settings</source>
-        <translation>Kép beállítások</translation>
+        <translation type="obsolete">Kép beállítások</translation>
     </message>
     <message>
         <source>Automatic</source>
@@ -16541,10 +16798,6 @@ A shorter time will speed up the effect, a longer one will slow it down.</source
         <translation>&amp;EPS grafika felbontása:</translation>
     </message>
     <message>
-        <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Convert Spot Colors to Process Colors</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16577,19 +16830,11 @@ A shorter time will speed up the effect, a longer one will slow it down.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16605,15 +16850,7 @@ A shorter time will speed up the effect, a longer one will slow it down.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16630,10 +16867,6 @@ A shorter time will speed up the effect, a longer one will slow it down.</source
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16713,11 +16946,6 @@ A shorter time will speed up the effect, a longer one will slow it down.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Javascript to be executed
-when Document is opened:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No Script</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16735,6 +16963,43 @@ when Document is opened:</source>
     </message>
     <message>
         <source>Lossless - Zip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Compression Method</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when PDF document is opened:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins in the exported file</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17712,6 +17977,24 @@ to %2</source>
     </message>
     <message>
         <source>Multiple duplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change Image Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change Image Scale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X1: %1, Y1: %2
+X2: %4, Y2: %5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X: %1, Y: %2
+X: %4, Y: %5</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

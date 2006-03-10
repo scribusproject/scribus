@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.pt_BR2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-28 01:56+0100\n"
+"POT-Creation-Date: 2006-03-10 00:36+0100\n"
 "PO-Revision-Date: 2006-02-27 16:18-0300\n"
 "Last-Translator: Ludi Maciel <iludi@uol.com.br>\n"
 "Language-Team:  <pt@li.org>\n"
@@ -984,6 +984,30 @@ msgstr ""
 "L1: %1, A1: %2\n"
 "L2: %3, A2: %4"
 
+#, fuzzy
+msgid "Change Image Offset"
+msgstr "Efeitos de imagem"
+
+#, fuzzy
+msgid "Change Image Scale"
+msgstr "Insere um quadro de imagem"
+
+#, fuzzy
+msgid ""
+"X1: %1, Y1: %2\n"
+"X2: %4, Y2: %5"
+msgstr ""
+"X1: %1, Y1: %2, %3\n"
+"X2: %4, Y2: %5, %6"
+
+#, fuzzy
+msgid ""
+"X: %1, Y: %2\n"
+"X: %4, Y: %5"
+msgstr ""
+"X: %1, Y: %2\n"
+"L: %3, A: %4"
+
 msgid "Selection"
 msgstr "Seleção"
 
@@ -1476,6 +1500,9 @@ msgstr "Adicionar perfil"
 msgid "Remove Profile"
 msgstr "Remover perfil"
 
+msgid "More than one item selected"
+msgstr ""
+
 #, fuzzy
 msgid "Use Printer Margins"
 msgstr "Opções da impressora"
@@ -1547,6 +1574,46 @@ msgstr "Plugin: %1 carregado"
 
 msgid "Plugin: %1 failed to load: %2"
 msgstr "Plugin: %1 falou ao carregar: %2"
+
+msgid "Flat Cap"
+msgstr "Ponta achatada"
+
+msgid "Square Cap"
+msgstr "Ponta quadrada"
+
+msgid "Round Cap"
+msgstr "Ponta arredondada"
+
+msgid "Miter Join"
+msgstr "Junção angulada"
+
+msgid "Bevel Join"
+msgstr "Junta chanfrada"
+
+msgid "Round Join"
+msgstr "Junção arredondada"
+
+msgid "Solid Line"
+msgstr "Linha contínua"
+
+msgid "Dashed Line"
+msgstr "Linha tracejada"
+
+msgid "Dotted Line"
+msgstr "Linha pontilhada"
+
+msgid "Dash Dot Line"
+msgstr "Linha de traço ponto"
+
+msgid "Dash Dot Dot Line"
+msgstr "Linha de traço ponto ponto"
+
+msgid "Properties"
+msgstr "Propriedades"
+
+#, fuzzy
+msgid "Lines"
+msgstr "&Linhas:"
 
 msgid "%1 of %1"
 msgstr "%1 de %1"
@@ -2285,41 +2352,8 @@ msgstr "a:"
 msgid "Edit Style"
 msgstr "Editar estilo"
 
-msgid "Flat Cap"
-msgstr "Ponta achatada"
-
-msgid "Square Cap"
-msgstr "Ponta quadrada"
-
-msgid "Round Cap"
-msgstr "Ponta arredondada"
-
-msgid "Miter Join"
-msgstr "Junção angulada"
-
-msgid "Bevel Join"
-msgstr "Junta chanfrada"
-
-msgid "Round Join"
-msgstr "Junção arredondada"
-
 msgid " pt "
 msgstr " pt "
-
-msgid "Solid Line"
-msgstr "Linha contínua"
-
-msgid "Dashed Line"
-msgstr "Linha tracejada"
-
-msgid "Dotted Line"
-msgstr "Linha pontilhada"
-
-msgid "Dash Dot Line"
-msgstr "Linha de traço ponto"
-
-msgid "Dash Dot Dot Line"
-msgstr "Linha de traço ponto ponto"
 
 msgid "Name \"%1\" isn't unique.<br/>Please choose another."
 msgstr "O nome \"%1\" já existe.<br/>Por favor, escolha outro."
@@ -2416,6 +2450,11 @@ msgstr ""
 "Isto habilita a exportação individual de cada página do documento para um "
 "arquivo PDF. Os números de páginas são adicionados automáticamente. Isto é "
 "útil na imposição de PDF para impressão comercial."
+
+msgid ""
+"The save button will be disabled if you are trying to export PDF/X-3 and the "
+"info string is missing from the PDF/X-3 tab."
+msgstr ""
 
 msgid "Save as"
 msgstr "Salvar como"
@@ -2999,8 +3038,9 @@ msgstr "&Resolução para gráficos EPS:"
 msgid "Com&press Text and Vector Graphics"
 msgstr "Com&primir texto e imagens vetoriais"
 
-msgid "Image Settings"
-msgstr "Configurações da imagem"
+#, fuzzy
+msgid "Image Compression Method"
+msgstr "Méto&do de compressão:"
 
 msgid "Lossy - JPEG"
 msgstr ""
@@ -3182,9 +3222,10 @@ msgstr "Redimensionar páginas para ajustar à janela de visualização"
 msgid "Special Actions"
 msgstr "Ações especiais"
 
+#, fuzzy
 msgid ""
 "Javascript to be executed\n"
-"when Document is opened:"
+"when PDF document is opened:"
 msgstr ""
 "Javascript a ser executado\n"
 "quando o documento estiver aberto:"
@@ -3313,9 +3354,10 @@ msgstr ""
 "Incorpora as fontes ao PDF. Isso preserva o layout e a aparência do seu "
 "documento."
 
+#, fuzzy
 msgid ""
-"Enables presentation effects when using Adobe&#174; Reader&#174; in full "
-"screen mode."
+"Enables presentation effects when using Adobe&#174; Reader&#174; and other "
+"PDF viewers which support this in full screen mode."
 msgstr ""
 "Habilita efeitos de apresentação quando o Adobe&#174; Reader está sendo "
 "usado em modo de tela cheia."
@@ -3368,14 +3410,16 @@ msgstr ""
 "todas as páginas, 1-5 para uma seqüência de páginas ou o número de uma única "
 "página."
 
+#, fuzzy
 msgid ""
 "Determines the PDF compatibility. The default is PDF 1.3 which gives the "
 "widest compatibility. Choose PDF 1.4 if your file uses features such as "
-"transparency or you require 128 bit encryption. PDF/X-3 is for exporting the "
-"PDF when you want color managed RGB for commercial printing and is "
-"selectable when you have activated color management. Use only when advised "
-"by your printer or in some cases printing to a 4 color digital color laser "
-"printer."
+"transparency or you require 128 bit encryption. PDF 1.5 is necessary when "
+"you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is "
+"for exporting the PDF when you want color managed RGB for commercial "
+"printing and is selectable when you have activated color management. Use "
+"only when advised by your printer or in some cases printing to a 4 color "
+"digital color laser printer."
 msgstr ""
 "Determina a compatibilidade do PDF. O padrão é o PDF 1.3, que oferece a "
 "compatibilidade mais ampla. Selecione PDF 1.4 se o seu arquivo possuir "
@@ -3406,9 +3450,10 @@ msgstr ""
 "Gera Artigos PDF, que são úteis para navegar por artigos associados em um "
 "PDF."
 
+#, fuzzy
 msgid ""
 "Layers in your document are exported to the PDF Only available if PDF 1.5 is "
-"choosen."
+"chosen."
 msgstr ""
 "As camadas de seu documento são exportadas para PDF apenas se o PDF 1.5 "
 "estiver marcado."
@@ -3434,12 +3479,13 @@ msgstr ""
 "Compressão sem perdas de texto e gráficos. Ao menos que você tenha uma "
 "razão, deixe isto selecionado. Isso reduz o tamanho do arquivo PDF."
 
+#, fuzzy
 msgid ""
 "Method of compression to use for images. Automatic allows Scribus to choose "
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic unless you have a "
-"need for special compression options."
+"need for special compression options. This only affects JPEG images"
 msgstr ""
 "Método de compressão a ser utilizado para as imagens. Automático permite ao "
 "Scribus escolher o melhor método. ZIP é sem perdas e bom para imagens com "
@@ -3460,10 +3506,11 @@ msgstr ""
 "resultante - ambos tamanho e qualidade da compactação variam de imagem para "
 "imagem independente da taxa fornecida."
 
+#, fuzzy
 msgid ""
 "Re-sample your bitmap images to the selected DPI. Leaving this unchecked "
-"will render them at their native resolution. This can increase memory usage "
-"and slow down export."
+"will render them at their native resolution. Enabling this will increase "
+"memory usage and slow down export."
 msgstr ""
 "Re-escala a resolução de suas imagens bitmap para o DPI selecionado. Se "
 "desmarcado, renderiza as imagens em sua resolução nativa. Isso pode aumentar "
@@ -3516,10 +3563,12 @@ msgstr ""
 "Permite acrescentar anotações e campos ao PDF. Se desmarcado, a edição de "
 "anotações e campos é prevenida."
 
+#, fuzzy
 msgid ""
 "Color model for the output of your PDF. Choose Screen/Web for PDFs which are "
 "used for screen display and for printing on typical inkjets. Choose Printer "
-"when printing to a true 4 color CMYK printer."
+"when printing to a true 4 color CMYK printer. Choose Grayscale when you want "
+"a grey scale PDF."
 msgstr ""
 "Modelo de cor para a saída do seu PDF.Selecione Tela/Web para PDF's que "
 "serão exibidos na tela ou enviados para impressoras jato-de-tinta típicas."
@@ -3600,6 +3649,12 @@ msgstr ""
 "composição. Ao menos que você esteja planejando imprimir por separações em "
 "uma impressora comercial, provavelmente é melhor deixar essa opção "
 "habilitada."
+
+#, fuzzy
+msgid "Do not show objects outside the margins in the exported file"
+msgstr ""
+"Não mostra os objetos fora das margens na página impressa ou no arquivo "
+"exportado"
 
 msgid "Migrate Old Scribus Settings?"
 msgstr "Migrar configurações passadas do Scribus?"
@@ -3824,9 +3879,6 @@ msgstr "Exportando ítens da página atual:"
 
 msgid "Field Properties"
 msgstr "Propriedades do campo"
-
-msgid "Properties"
-msgstr "Propriedades"
 
 msgid "Tool-Tip:"
 msgstr "Dica das ferramentas:"
@@ -4233,6 +4285,10 @@ msgstr "Conteúdo"
 msgid "Paste Contents"
 msgstr "Conteúdo"
 
+#, fuzzy
+msgid "Paste Contents (Absolute)"
+msgstr "Conteúdo"
+
 msgid "C&lear Contents"
 msgstr "&Limpar conteúdo"
 
@@ -4250,6 +4306,10 @@ msgstr "Editar imagem..."
 
 msgid "C&olors..."
 msgstr "C&ores..."
+
+#, fuzzy
+msgid "S&tyles..."
+msgstr "Editar estilos..."
 
 msgid "&Paragraph Styles..."
 msgstr "Estilos de &parágrafo..."
@@ -5737,8 +5797,8 @@ msgstr "Visualizar..."
 msgid "&Print"
 msgstr "&Imprimir"
 
-msgid ""
-"Do not show objects outside the margins on the printed page or exported file"
+#, fuzzy
+msgid "Do not show objects outside the margins on the printed page"
 msgstr ""
 "Não mostra os objetos fora das margens na página impressa ou no arquivo "
 "exportado"
@@ -6100,8 +6160,9 @@ msgstr "Selecionar fonte"
 msgid "About Scribus %1"
 msgstr "Sobre o Scribus %1"
 
-msgid "February"
-msgstr ""
+#, fuzzy
+msgid "March"
+msgstr "Procurar"
 
 msgid "%1 %2 %3"
 msgstr "%1 %2 %3"
@@ -7032,6 +7093,14 @@ msgstr "Pos.&X"
 msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "Documentos PDF (*.pdf);;Todos os arquivos (*)"
 
+#, fuzzy
+msgid "LineStyleWBase"
+msgstr "Estilos de linha:"
+
+#, fuzzy
+msgid "%"
+msgstr " %"
+
 msgid "Document:"
 msgstr "O documento:"
 
@@ -7259,6 +7328,44 @@ msgstr "&Obter os nomes dos campos"
 msgid "JavaScripts (*.js);;All Files (*)"
 msgstr "JavaScripts (*.js);;Todos os arquivos (*)"
 
+#, fuzzy
+msgid "Column 1"
+msgstr "Distâ&ncia entre colunas"
+
+#, fuzzy
+msgid "Style Manager"
+msgstr "Gerenciamento de plugin"
+
+#, fuzzy
+msgid "C&lone"
+msgstr "Fechar"
+
+msgid "Alt+L"
+msgstr "Alt+L"
+
+#, fuzzy
+msgid "O&K"
+msgstr "Ok"
+
+#, fuzzy
+msgid "Alt+K"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "A&pply"
+msgstr "Aplicar"
+
+msgid "Alt+P"
+msgstr "Alt+P"
+
+#, fuzzy
+msgid "Ca&ncel"
+msgstr "Cancelar"
+
+#, fuzzy
+msgid "Alt+N"
+msgstr "Alt+"
+
 msgid "Move Bookmark"
 msgstr "Move o marcador"
 
@@ -7394,9 +7501,6 @@ msgstr "Aplicar a"
 msgid "Current &page"
 msgstr "&Página atual"
 
-msgid "Alt+P"
-msgstr "Alt+P"
-
 msgid "&Even pages"
 msgstr "Páginas par&es"
 
@@ -7437,9 +7541,6 @@ msgstr "Relacionado a"
 
 msgid "Page Item Attributes"
 msgstr "Atributos de item da página"
-
-msgid "Alt+L"
-msgstr "Alt+L"
 
 #, fuzzy
 msgid "Top"
@@ -7781,6 +7882,9 @@ msgstr "Coreano"
 
 msgid "Lithuanian"
 msgstr "Lituano"
+
+msgid "Luxembourgish"
+msgstr ""
 
 msgid "Norwegian (Bokmaal)"
 msgstr "Norueguês (Bokmaal)"
@@ -8245,12 +8349,11 @@ msgid "Leave preview"
 msgstr "Sai da visualização"
 
 msgid ""
-"Typing the text here provides quick searching in the font names. E.g. 'bold' "
-"shows all fonts with Bold in name. Searching is case insensitive."
+"Typing the text here provides quick searching in the font names. Searching "
+"is case insensitive. You can provide a common wild cards (*, ?, [...]) in "
+"your phrase. Examples: t* will list all fonts starting with t or T. *bold* "
+"will list all fonts with word bold, bolder etc. in the name."
 msgstr ""
-"Digite um nome de uma fonte para encontra-la rapidamente. Exemplo: Digite "
-"'bold' para listar todas as fonte que possuem Bold em seu nome. A busca é "
-"sensitiva à maiúsculas e minúsculas."
 
 msgid "Start searching"
 msgstr "Iniciar procura"
@@ -9368,12 +9471,15 @@ msgstr "Sim para todos"
 msgid "Barcode Creator"
 msgstr ""
 
+msgid "Make check digit visible in text"
+msgstr ""
+
 #, fuzzy
 msgid "Barcode"
 msgstr "Borda"
 
 #, fuzzy
-msgid "C&ode:"
+msgid "Co&de:"
 msgstr "&Intensidade:"
 
 msgid "Select one of the available barcode type here"
@@ -9407,6 +9513,19 @@ msgid "Draw arrows to be sure of space next the code"
 msgstr ""
 
 #, fuzzy
+msgid "I&nclude checksum"
+msgstr "Inc&luir camadas"
+
+msgid "Generate and include a checksum in barcode"
+msgstr ""
+
+msgid "Incl&ude checksum digit"
+msgstr ""
+
+msgid "Include the checksum digit in the barcode text"
+msgstr ""
+
+#, fuzzy
 msgid "&Background"
 msgstr "Plano de Fundo"
 
@@ -9436,13 +9555,60 @@ msgstr ""
 msgid "Preview of the result. 72dpi sample."
 msgstr "Visualizar o estilo de parágrafo"
 
+msgid "12 or 13 digits"
+msgstr ""
+
+msgid "8 digits"
+msgstr ""
+
+msgid "11 or 12 digits"
+msgstr ""
+
+msgid "7 or 8 digits"
+msgstr ""
+
+msgid "5 digits"
+msgstr ""
+
+msgid "2 digits"
+msgstr ""
+
+msgid "9 or 10 digits separated appropriately with dashes"
+msgstr ""
+
+msgid "Variable number of characters, digits and any of the symbols -. *$/+%."
+msgstr ""
+
+msgid ""
+"Variable number of ASCII characters and special function symbols, starting "
+"with the appropriate start character for the initial character set. UCC/EAN-"
+"128s must have a mandatory FNC 1 symbol immediately following the start "
+"character."
+msgstr ""
+
+msgid "Variable number of digits and any of the symbols -$:/.+ABCD."
+msgstr ""
+
+msgid ""
+"Variable number of digits. An ITF-14 is 14 characters and does not have a "
+"check digit"
+msgstr ""
+
+msgid "Variable number of digits"
+msgstr ""
+
+msgid "Variable number of digits and capital letters"
+msgstr ""
+
+msgid "Variable number of hexadecimal characters"
+msgstr ""
+
 #, fuzzy
 msgid "Error opening file: %1"
 msgstr "Não é possível abrir o arquivo %1"
 
-#, fuzzy
-msgid "Error creating preview"
-msgstr "Erro de gravação das preferências"
+msgid "Barcode incomplete"
+msgstr ""
 
 msgid "&Barcode Generator..."
 msgstr ""
@@ -9518,6 +9684,21 @@ msgstr "Meu &Plugin"
 
 msgid "My Plugin"
 msgstr "Meu Plugin"
+
+#~ msgid "Image Settings"
+#~ msgstr "Configurações da imagem"
+
+#~ msgid ""
+#~ "Typing the text here provides quick searching in the font names. E.g. "
+#~ "'bold' shows all fonts with Bold in name. Searching is case insensitive."
+#~ msgstr ""
+#~ "Digite um nome de uma fonte para encontra-la rapidamente. Exemplo: Digite "
+#~ "'bold' para listar todas as fonte que possuem Bold em seu nome. A busca é "
+#~ "sensitiva à maiúsculas e minúsculas."
+
+#, fuzzy
+#~ msgid "Error creating preview"
+#~ msgstr "Erro de gravação das preferências"
 
 #~ msgid "Other Options"
 #~ msgstr "Outras opções"

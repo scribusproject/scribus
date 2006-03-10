@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-28 01:56+0100\n"
+"POT-Creation-Date: 2006-03-10 00:36+0100\n"
 "PO-Revision-Date: 2005-01-08 17:40+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -1032,6 +1032,24 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+msgid "Change Image Offset"
+msgstr "Efektoj"
+
+#, fuzzy
+msgid "Change Image Scale"
+msgstr "Enmetu tekstokadron"
+
+msgid ""
+"X1: %1, Y1: %2\n"
+"X2: %4, Y2: %5"
+msgstr ""
+
+msgid ""
+"X: %1, Y: %2\n"
+"X: %4, Y: %5"
+msgstr ""
+
+#, fuzzy
 msgid "Selection"
 msgstr "Elektu"
 
@@ -1601,6 +1619,9 @@ msgstr "Profilo:"
 msgid "Remove Profile"
 msgstr "Administraj agordaroj"
 
+msgid "More than one item selected"
+msgstr ""
+
 #, fuzzy
 msgid "Use Printer Margins"
 msgstr "Printil-opcioj"
@@ -1677,6 +1698,46 @@ msgstr ""
 
 msgid "Plugin: %1 failed to load: %2"
 msgstr ""
+
+msgid "Flat Cap"
+msgstr "Plata"
+
+msgid "Square Cap"
+msgstr "Kvadrata"
+
+msgid "Round Cap"
+msgstr "Ronda"
+
+msgid "Miter Join"
+msgstr "Pinta"
+
+msgid "Bevel Join"
+msgstr "Bevelita"
+
+msgid "Round Join"
+msgstr "Ronda"
+
+msgid "Solid Line"
+msgstr "Kontinua linio"
+
+msgid "Dashed Line"
+msgstr "Strek-linio"
+
+msgid "Dotted Line"
+msgstr "Punkt-linio"
+
+msgid "Dash Dot Line"
+msgstr "Streko-punkto"
+
+msgid "Dash Dot Dot Line"
+msgstr "Streko-punkto-punkto"
+
+msgid "Properties"
+msgstr "Ecoj"
+
+#, fuzzy
+msgid "Lines"
+msgstr "&Linioj:"
 
 #, fuzzy
 msgid "%1 of %1"
@@ -2420,41 +2481,8 @@ msgstr "ĝis:"
 msgid "Edit Style"
 msgstr "Redaktu stilon"
 
-msgid "Flat Cap"
-msgstr "Plata"
-
-msgid "Square Cap"
-msgstr "Kvadrata"
-
-msgid "Round Cap"
-msgstr "Ronda"
-
-msgid "Miter Join"
-msgstr "Pinta"
-
-msgid "Bevel Join"
-msgstr "Bevelita"
-
-msgid "Round Join"
-msgstr "Ronda"
-
 msgid " pt "
 msgstr " pt "
-
-msgid "Solid Line"
-msgstr "Kontinua linio"
-
-msgid "Dashed Line"
-msgstr "Strek-linio"
-
-msgid "Dotted Line"
-msgstr "Punkt-linio"
-
-msgid "Dash Dot Line"
-msgstr "Streko-punkto"
-
-msgid "Dash Dot Dot Line"
-msgstr "Streko-punkto-punkto"
 
 #, fuzzy
 msgid "Name \"%1\" isn't unique.<br/>Please choose another."
@@ -2569,6 +2597,11 @@ msgid ""
 "This enables exporting one individually named PDF file for each page in the "
 "document. Page numbers are added automatically. This is most useful for "
 "imposing PDF for commercial printing."
+msgstr ""
+
+msgid ""
+"The save button will be disabled if you are trying to export PDF/X-3 and the "
+"info string is missing from the PDF/X-3 tab."
 msgstr ""
 
 msgid "Save as"
@@ -3208,8 +3241,9 @@ msgstr ""
 msgid "Com&press Text and Vector Graphics"
 msgstr "&Densigu tekston kaj vektorajn grafikaĵojn"
 
-msgid "Image Settings"
-msgstr "Bildagordaro"
+#, fuzzy
+msgid "Image Compression Method"
+msgstr "Kv&alito:"
 
 msgid "Lossy - JPEG"
 msgstr ""
@@ -3407,7 +3441,7 @@ msgstr "Speciala"
 
 msgid ""
 "Javascript to be executed\n"
-"when Document is opened:"
+"when PDF document is opened:"
 msgstr ""
 
 #, fuzzy
@@ -3541,8 +3575,8 @@ msgstr ""
 
 #, fuzzy
 msgid ""
-"Enables presentation effects when using Adobe&#174; Reader&#174; in full "
-"screen mode."
+"Enables presentation effects when using Adobe&#174; Reader&#174; and other "
+"PDF viewers which support this in full screen mode."
 msgstr ""
 "Ebligas prezentoefektojn kiam oni utiligas Acrobat Reader en tutekrana "
 "reĝimo."
@@ -3600,11 +3634,12 @@ msgstr ""
 msgid ""
 "Determines the PDF compatibility. The default is PDF 1.3 which gives the "
 "widest compatibility. Choose PDF 1.4 if your file uses features such as "
-"transparency or you require 128 bit encryption. PDF/X-3 is for exporting the "
-"PDF when you want color managed RGB for commercial printing and is "
-"selectable when you have activated color management. Use only when advised "
-"by your printer or in some cases printing to a 4 color digital color laser "
-"printer."
+"transparency or you require 128 bit encryption. PDF 1.5 is necessary when "
+"you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is "
+"for exporting the PDF when you want color managed RGB for commercial "
+"printing and is selectable when you have activated color management. Use "
+"only when advised by your printer or in some cases printing to a 4 color "
+"digital color laser printer."
 msgstr ""
 "Difinas la PDF-kongruecon. La apriora estas Acrobat 4.0, kiu donas la plej "
 "grandan kongruon.\n"
@@ -3638,7 +3673,7 @@ msgstr ""
 
 msgid ""
 "Layers in your document are exported to the PDF Only available if PDF 1.5 is "
-"choosen."
+"chosen."
 msgstr ""
 
 #, fuzzy
@@ -3672,7 +3707,7 @@ msgid ""
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic unless you have a "
-"need for special compression options."
+"need for special compression options. This only affects JPEG images"
 msgstr ""
 "Tipo de densigo por la bildoj.\n"
 "Aŭtomata permesas al Scribus elekti la plej bonan metodon.\n"
@@ -3691,8 +3726,8 @@ msgstr ""
 #, fuzzy
 msgid ""
 "Re-sample your bitmap images to the selected DPI. Leaving this unchecked "
-"will render them at their native resolution. This can increase memory usage "
-"and slow down export."
+"will render them at their native resolution. Enabling this will increase "
+"memory usage and slow down export."
 msgstr ""
 "Malgrandigas la rastrumbildojn ĝis la elektita DPI.\n"
 "Se vi ne markas la bildoj restos kun la origina distingivo."
@@ -3756,7 +3791,8 @@ msgstr ""
 msgid ""
 "Color model for the output of your PDF. Choose Screen/Web for PDFs which are "
 "used for screen display and for printing on typical inkjets. Choose Printer "
-"when printing to a true 4 color CMYK printer."
+"when printing to a true 4 color CMYK printer. Choose Grayscale when you want "
+"a grey scale PDF."
 msgstr ""
 "Kolormodelo por la eligo de la PDF-dosiero.\n"
 "Elektu Ekrano/Teksaĵo por PDF-dosieroj uzotaj por montro en la ekrano kaj "
@@ -3835,6 +3871,12 @@ msgid ""
 "planning to print spot colors at a commercial printer, this is probably best "
 "left enabled."
 msgstr ""
+
+#, fuzzy
+msgid "Do not show objects outside the margins in the exported file"
+msgstr ""
+"Ne montru objektojn ekster la marĝenojn de la printita paĝo aŭ eksportita "
+"dosiero"
 
 msgid "Migrate Old Scribus Settings?"
 msgstr ""
@@ -4066,9 +4108,6 @@ msgstr "Eksportu nur ĉi tiun paĝon"
 
 msgid "Field Properties"
 msgstr "Kampo-ecoj"
-
-msgid "Properties"
-msgstr "Ecoj"
 
 msgid "Tool-Tip:"
 msgstr "Sugesto:"
@@ -4478,6 +4517,10 @@ msgstr "Enteno"
 msgid "Paste Contents"
 msgstr "Enteno"
 
+#, fuzzy
+msgid "Paste Contents (Absolute)"
+msgstr "Enteno"
+
 msgid "C&lear Contents"
 msgstr "&Forviŝu entenon"
 
@@ -4497,6 +4540,10 @@ msgstr "Enmetu tekston..."
 
 msgid "C&olors..."
 msgstr "K&oloroj..."
+
+#, fuzzy
+msgid "S&tyles..."
+msgstr "Stiloj..."
 
 msgid "&Paragraph Styles..."
 msgstr "&Aline-stiloj..."
@@ -6095,8 +6142,8 @@ msgstr "Antaŭrigardo"
 msgid "&Print"
 msgstr "&Printu"
 
-msgid ""
-"Do not show objects outside the margins on the printed page or exported file"
+#, fuzzy
+msgid "Do not show objects outside the margins on the printed page"
 msgstr ""
 "Ne montru objektojn ekster la marĝenojn de la printita paĝo aŭ eksportita "
 "dosiero"
@@ -6459,8 +6506,9 @@ msgstr "Elektu tiparon"
 msgid "About Scribus %1"
 msgstr "Pri Scribus%1"
 
-msgid "February"
-msgstr ""
+#, fuzzy
+msgid "March"
+msgstr "Serĉu"
 
 #, fuzzy
 msgid "%1 %2 %3"
@@ -7442,6 +7490,14 @@ msgstr "&X-Poz"
 msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "PDF-Dokumentoj (*.pdf);; Ĉiaj dosieroj (*)"
 
+#, fuzzy
+msgid "LineStyleWBase"
+msgstr "&Linistiloj..."
+
+#, fuzzy
+msgid "%"
+msgstr " %"
+
 msgid "Document:"
 msgstr "Dokumento:"
 
@@ -7687,6 +7743,46 @@ msgstr "Enmetu &kamponomojn"
 msgid "JavaScripts (*.js);;All Files (*)"
 msgstr "Ĝavaskriptoj (*.js);; Ĉiaj dosieroj (*)"
 
+#, fuzzy
+msgid "Column 1"
+msgstr "Kolumnogvidiloj"
+
+#, fuzzy
+msgid "Style Manager"
+msgstr "Printu inter&valon"
+
+#, fuzzy
+msgid "C&lone"
+msgstr "Fermu"
+
+#, fuzzy
+msgid "Alt+L"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "O&K"
+msgstr "Konfirmu"
+
+#, fuzzy
+msgid "Alt+K"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "A&pply"
+msgstr "Apliku"
+
+#, fuzzy
+msgid "Alt+P"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "Ca&ncel"
+msgstr "Rezignu"
+
+#, fuzzy
+msgid "Alt+N"
+msgstr "Alt+"
+
 msgid "Move Bookmark"
 msgstr "Movu legosignon"
 
@@ -7846,10 +7942,6 @@ msgid "Current &page"
 msgstr "A&ktuala paĝo"
 
 #, fuzzy
-msgid "Alt+P"
-msgstr "Alt+"
-
-#, fuzzy
 msgid "&Even pages"
 msgstr "Nur paraj paĝoj"
 
@@ -7894,10 +7986,6 @@ msgstr "Ril&ato:"
 #, fuzzy
 msgid "Page Item Attributes"
 msgstr "Atributoj"
-
-#, fuzzy
-msgid "Alt+L"
-msgstr "Alt+"
 
 #, fuzzy
 msgid "Top"
@@ -8259,6 +8347,9 @@ msgstr "Korea"
 
 msgid "Lithuanian"
 msgstr "Litva"
+
+msgid "Luxembourgish"
+msgstr ""
 
 msgid "Norwegian (Bokmaal)"
 msgstr "Norvega (Bokmaal)"
@@ -8740,8 +8831,10 @@ msgid "Leave preview"
 msgstr "Fermu antaŭrigardon"
 
 msgid ""
-"Typing the text here provides quick searching in the font names. E.g. 'bold' "
-"shows all fonts with Bold in name. Searching is case insensitive."
+"Typing the text here provides quick searching in the font names. Searching "
+"is case insensitive. You can provide a common wild cards (*, ?, [...]) in "
+"your phrase. Examples: t* will list all fonts starting with t or T. *bold* "
+"will list all fonts with word bold, bolder etc. in the name."
 msgstr ""
 
 #, fuzzy
@@ -9972,12 +10065,15 @@ msgstr "Jes ĉiujn"
 msgid "Barcode Creator"
 msgstr ""
 
+msgid "Make check digit visible in text"
+msgstr ""
+
 #, fuzzy
 msgid "Barcode"
 msgstr "Rando"
 
 #, fuzzy
-msgid "C&ode:"
+msgid "Co&de:"
 msgstr "Inten&so:"
 
 msgid "Select one of the available barcode type here"
@@ -10011,6 +10107,19 @@ msgid "Draw arrows to be sure of space next the code"
 msgstr ""
 
 #, fuzzy
+msgid "I&nclude checksum"
+msgstr "Inkludu legosigno&jn"
+
+msgid "Generate and include a checksum in barcode"
+msgstr ""
+
+msgid "Incl&ude checksum digit"
+msgstr ""
+
+msgid "Include the checksum digit in the barcode text"
+msgstr ""
+
+#, fuzzy
 msgid "&Background"
 msgstr "&Fono:"
 
@@ -10040,15 +10149,62 @@ msgstr ""
 msgid "Preview of the result. 72dpi sample."
 msgstr "Nomo de la aline-stilo"
 
+msgid "12 or 13 digits"
+msgstr ""
+
+msgid "8 digits"
+msgstr ""
+
+msgid "11 or 12 digits"
+msgstr ""
+
+msgid "7 or 8 digits"
+msgstr ""
+
+msgid "5 digits"
+msgstr ""
+
+msgid "2 digits"
+msgstr ""
+
+msgid "9 or 10 digits separated appropriately with dashes"
+msgstr ""
+
+msgid "Variable number of characters, digits and any of the symbols -. *$/+%."
+msgstr ""
+
+msgid ""
+"Variable number of ASCII characters and special function symbols, starting "
+"with the appropriate start character for the initial character set. UCC/EAN-"
+"128s must have a mandatory FNC 1 symbol immediately following the start "
+"character."
+msgstr ""
+
+msgid "Variable number of digits and any of the symbols -$:/.+ABCD."
+msgstr ""
+
+msgid ""
+"Variable number of digits. An ITF-14 is 14 characters and does not have a "
+"check digit"
+msgstr ""
+
+msgid "Variable number of digits"
+msgstr ""
+
+msgid "Variable number of digits and capital letters"
+msgstr ""
+
+msgid "Variable number of hexadecimal characters"
+msgstr ""
+
 #, fuzzy
 msgid "Error opening file: %1"
 msgstr ""
 "Ne eblas skribi la dosieron: \n"
 "%1"
 
-#, fuzzy
-msgid "Error creating preview"
-msgstr "Legas preferojn"
+msgid "Barcode incomplete"
+msgstr ""
 
 msgid "&Barcode Generator..."
 msgstr ""
@@ -10137,6 +10293,13 @@ msgstr "Normala"
 #, fuzzy
 msgid "My Plugin"
 msgstr "Normala"
+
+#~ msgid "Image Settings"
+#~ msgstr "Bildagordaro"
+
+#, fuzzy
+#~ msgid "Error creating preview"
+#~ msgstr "Legas preferojn"
 
 #~ msgid "Other Options"
 #~ msgstr "Aliaj opcioj"
@@ -10872,9 +11035,6 @@ msgstr "Normala"
 #~ msgid "Select all"
 #~ msgstr "Elektu ĉion"
 
-#~ msgid "Styles..."
-#~ msgstr "Stiloj..."
-
 #~ msgid "Templates..."
 #~ msgstr "Ŝablonoj..."
 
@@ -11060,10 +11220,6 @@ msgstr "Normala"
 #, fuzzy
 #~ msgid "&Save Source As..."
 #~ msgstr "&Konservu kiel..."
-
-#, fuzzy
-#~ msgid "Alt+N"
-#~ msgstr "Alt+"
 
 #, fuzzy
 #~ msgid "<qt>Create a new macro.</qt>"

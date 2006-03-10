@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_LA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-28 01:56+0100\n"
+"POT-Creation-Date: 2006-03-10 00:36+0100\n"
 "Last-Translator: Gonzalo Huerta C.\n"
 "Language-Team:  <gonzalo@huerta.cl>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -1076,6 +1076,24 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+msgid "Change Image Offset"
+msgstr "Efectos"
+
+#, fuzzy
+msgid "Change Image Scale"
+msgstr "Marco Texto"
+
+msgid ""
+"X1: %1, Y1: %2\n"
+"X2: %4, Y2: %5"
+msgstr ""
+
+msgid ""
+"X: %1, Y: %2\n"
+"X: %4, Y: %5"
+msgstr ""
+
+#, fuzzy
 msgid "Selection"
 msgstr "Selecciona"
 
@@ -1654,6 +1672,9 @@ msgstr "Imprimir en Archivo:"
 msgid "Remove Profile"
 msgstr "Perfiles del Sistema"
 
+msgid "More than one item selected"
+msgstr ""
+
 #, fuzzy
 msgid "Use Printer Margins"
 msgstr "Otras Opciones"
@@ -1735,6 +1756,54 @@ msgstr ""
 
 msgid "Plugin: %1 failed to load: %2"
 msgstr ""
+
+#, fuzzy
+msgid "Flat Cap"
+msgstr "Encapsulado Plano"
+
+#, fuzzy
+msgid "Square Cap"
+msgstr "Encapsulado Cuadrado"
+
+#, fuzzy
+msgid "Round Cap"
+msgstr "Encapsulado Redondeado"
+
+#, fuzzy
+msgid "Miter Join"
+msgstr "Juntas Articuladas"
+
+#, fuzzy
+msgid "Bevel Join"
+msgstr "Juntas Biseladas"
+
+#, fuzzy
+msgid "Round Join"
+msgstr "Juntas Redondeadas"
+
+#, fuzzy
+msgid "Solid Line"
+msgstr "Sólido"
+
+#, fuzzy
+msgid "Dashed Line"
+msgstr "Punteado"
+
+msgid "Dotted Line"
+msgstr ""
+
+msgid "Dash Dot Line"
+msgstr ""
+
+msgid "Dash Dot Dot Line"
+msgstr ""
+
+msgid "Properties"
+msgstr "Propiedades"
+
+#, fuzzy
+msgid "Lines"
+msgstr "Línea"
 
 #, fuzzy
 msgid "%1 of %1"
@@ -2496,48 +2565,7 @@ msgstr "a:"
 msgid "Edit Style"
 msgstr "Editar Estilo"
 
-#, fuzzy
-msgid "Flat Cap"
-msgstr "Encapsulado Plano"
-
-#, fuzzy
-msgid "Square Cap"
-msgstr "Encapsulado Cuadrado"
-
-#, fuzzy
-msgid "Round Cap"
-msgstr "Encapsulado Redondeado"
-
-#, fuzzy
-msgid "Miter Join"
-msgstr "Juntas Articuladas"
-
-#, fuzzy
-msgid "Bevel Join"
-msgstr "Juntas Biseladas"
-
-#, fuzzy
-msgid "Round Join"
-msgstr "Juntas Redondeadas"
-
 msgid " pt "
-msgstr ""
-
-#, fuzzy
-msgid "Solid Line"
-msgstr "Sólido"
-
-#, fuzzy
-msgid "Dashed Line"
-msgstr "Punteado"
-
-msgid "Dotted Line"
-msgstr ""
-
-msgid "Dash Dot Line"
-msgstr ""
-
-msgid "Dash Dot Dot Line"
 msgstr ""
 
 msgid "Name \"%1\" isn't unique.<br/>Please choose another."
@@ -2651,6 +2679,11 @@ msgid ""
 "This enables exporting one individually named PDF file for each page in the "
 "document. Page numbers are added automatically. This is most useful for "
 "imposing PDF for commercial printing."
+msgstr ""
+
+msgid ""
+"The save button will be disabled if you are trying to export PDF/X-3 and the "
+"info string is missing from the PDF/X-3 tab."
 msgstr ""
 
 msgid "Save as"
@@ -3291,8 +3324,8 @@ msgid "Com&press Text and Vector Graphics"
 msgstr "Comprimir Texto y Gráficos Vectoriales"
 
 #, fuzzy
-msgid "Image Settings"
-msgstr "Configuración de los Dispositivos"
+msgid "Image Compression Method"
+msgstr "Compresión"
 
 msgid "Lossy - JPEG"
 msgstr ""
@@ -3509,7 +3542,7 @@ msgstr "Decimales:"
 
 msgid ""
 "Javascript to be executed\n"
-"when Document is opened:"
+"when PDF document is opened:"
 msgstr ""
 
 #, fuzzy
@@ -3658,8 +3691,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Enables presentation effects when using Adobe&#174; Reader&#174; in full "
-"screen mode."
+"Enables presentation effects when using Adobe&#174; Reader&#174; and other "
+"PDF viewers which support this in full screen mode."
 msgstr ""
 
 msgid "Show page previews of each page listed above."
@@ -3707,11 +3740,12 @@ msgstr ""
 msgid ""
 "Determines the PDF compatibility. The default is PDF 1.3 which gives the "
 "widest compatibility. Choose PDF 1.4 if your file uses features such as "
-"transparency or you require 128 bit encryption. PDF/X-3 is for exporting the "
-"PDF when you want color managed RGB for commercial printing and is "
-"selectable when you have activated color management. Use only when advised "
-"by your printer or in some cases printing to a 4 color digital color laser "
-"printer."
+"transparency or you require 128 bit encryption. PDF 1.5 is necessary when "
+"you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is "
+"for exporting the PDF when you want color managed RGB for commercial "
+"printing and is selectable when you have activated color management. Use "
+"only when advised by your printer or in some cases printing to a 4 color "
+"digital color laser printer."
 msgstr ""
 
 msgid ""
@@ -3731,7 +3765,7 @@ msgstr ""
 
 msgid ""
 "Layers in your document are exported to the PDF Only available if PDF 1.5 is "
-"choosen."
+"chosen."
 msgstr ""
 
 msgid ""
@@ -3754,7 +3788,7 @@ msgid ""
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic unless you have a "
-"need for special compression options."
+"need for special compression options. This only affects JPEG images"
 msgstr ""
 
 msgid ""
@@ -3766,8 +3800,8 @@ msgstr ""
 
 msgid ""
 "Re-sample your bitmap images to the selected DPI. Leaving this unchecked "
-"will render them at their native resolution. This can increase memory usage "
-"and slow down export."
+"will render them at their native resolution. Enabling this will increase "
+"memory usage and slow down export."
 msgstr ""
 
 msgid "DPI (Dots Per Inch) for image export."
@@ -3808,7 +3842,8 @@ msgstr ""
 msgid ""
 "Color model for the output of your PDF. Choose Screen/Web for PDFs which are "
 "used for screen display and for printing on typical inkjets. Choose Printer "
-"when printing to a true 4 color CMYK printer."
+"when printing to a true 4 color CMYK printer. Choose Grayscale when you want "
+"a grey scale PDF."
 msgstr ""
 
 msgid ""
@@ -3873,6 +3908,9 @@ msgid ""
 "Enables Spot Colors to be converted to composite colors. Unless you are "
 "planning to print spot colors at a commercial printer, this is probably best "
 "left enabled."
+msgstr ""
+
+msgid "Do not show objects outside the margins in the exported file"
 msgstr ""
 
 msgid "Migrate Old Scribus Settings?"
@@ -4111,9 +4149,6 @@ msgstr "Imprimir el intervalo"
 
 msgid "Field Properties"
 msgstr "Propiedades Campo"
-
-msgid "Properties"
-msgstr "Propiedades"
 
 msgid "Tool-Tip:"
 msgstr "Consejos de Herramienta:"
@@ -4548,6 +4583,10 @@ msgid "Paste Contents"
 msgstr "Contenidos"
 
 #, fuzzy
+msgid "Paste Contents (Absolute)"
+msgstr "Contenidos"
+
+#, fuzzy
 msgid "C&lear Contents"
 msgstr "Contenidos"
 
@@ -4569,6 +4608,10 @@ msgstr "Insertar Texto..."
 #, fuzzy
 msgid "C&olors..."
 msgstr "Colores..."
+
+#, fuzzy
+msgid "S&tyles..."
+msgstr "Estilos..."
 
 #, fuzzy
 msgid "&Paragraph Styles..."
@@ -6233,8 +6276,7 @@ msgstr "Previsualizar"
 msgid "&Print"
 msgstr "Imprimir"
 
-msgid ""
-"Do not show objects outside the margins on the printed page or exported file"
+msgid "Do not show objects outside the margins on the printed page"
 msgstr ""
 
 msgid ""
@@ -6614,8 +6656,9 @@ msgstr "Seleccionar Fuente"
 msgid "About Scribus %1"
 msgstr "Sobre Scribus"
 
-msgid "February"
-msgstr ""
+#, fuzzy
+msgid "March"
+msgstr "Buscar"
 
 #, fuzzy
 msgid "%1 %2 %3"
@@ -7644,6 +7687,13 @@ msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "Documentos (*.scd);; Todos los archivos (*)"
 
 #, fuzzy
+msgid "LineStyleWBase"
+msgstr "Estilo Línea:"
+
+msgid "%"
+msgstr ""
+
+#, fuzzy
 msgid "Document:"
 msgstr "Documento "
 
@@ -7909,6 +7959,46 @@ msgstr "Conseguir Nombre de los Campos"
 msgid "JavaScripts (*.js);;All Files (*)"
 msgstr "JavaScripts (*.js);; Todos los Archivos (*)"
 
+#, fuzzy
+msgid "Column 1"
+msgstr "Columnas de las Guías"
+
+#, fuzzy
+msgid "Style Manager"
+msgstr "Imprimir el intervalo"
+
+#, fuzzy
+msgid "C&lone"
+msgstr "Cerrar"
+
+#, fuzzy
+msgid "Alt+L"
+msgstr "Todos"
+
+#, fuzzy
+msgid "O&K"
+msgstr "Aceptar"
+
+#, fuzzy
+msgid "Alt+K"
+msgstr "Todos"
+
+#, fuzzy
+msgid "A&pply"
+msgstr "Aplicar"
+
+#, fuzzy
+msgid "Alt+P"
+msgstr "Todos"
+
+#, fuzzy
+msgid "Ca&ncel"
+msgstr "Cancelar"
+
+#, fuzzy
+msgid "Alt+N"
+msgstr "Todos"
+
 msgid "Move Bookmark"
 msgstr "Mover Marcador"
 
@@ -8063,10 +8153,6 @@ msgid "Current &page"
 msgstr "Tecla Actual"
 
 #, fuzzy
-msgid "Alt+P"
-msgstr "Todos"
-
-#, fuzzy
 msgid "&Even pages"
 msgstr "Mover Páginas"
 
@@ -8113,10 +8199,6 @@ msgstr "Resolución"
 #, fuzzy
 msgid "Page Item Attributes"
 msgstr "Sobre Scribus"
-
-#, fuzzy
-msgid "Alt+L"
-msgstr "Todos"
 
 #, fuzzy
 msgid "Top"
@@ -8479,6 +8561,9 @@ msgstr ""
 #, fuzzy
 msgid "Lithuanian"
 msgstr "Lituano:"
+
+msgid "Luxembourgish"
+msgstr ""
 
 msgid "Norwegian (Bokmaal)"
 msgstr ""
@@ -8975,8 +9060,10 @@ msgid "Leave preview"
 msgstr "Previsualizar"
 
 msgid ""
-"Typing the text here provides quick searching in the font names. E.g. 'bold' "
-"shows all fonts with Bold in name. Searching is case insensitive."
+"Typing the text here provides quick searching in the font names. Searching "
+"is case insensitive. You can provide a common wild cards (*, ?, [...]) in "
+"your phrase. Examples: t* will list all fonts starting with t or T. *bold* "
+"will list all fonts with word bold, bolder etc. in the name."
 msgstr ""
 
 #, fuzzy
@@ -10151,12 +10238,15 @@ msgstr "Deseleccionar Todo"
 msgid "Barcode Creator"
 msgstr ""
 
+msgid "Make check digit visible in text"
+msgstr ""
+
 #, fuzzy
 msgid "Barcode"
 msgstr "Borde"
 
 #, fuzzy
-msgid "C&ode:"
+msgid "Co&de:"
 msgstr "Intensidad:"
 
 msgid "Select one of the available barcode type here"
@@ -10190,6 +10280,19 @@ msgid "Draw arrows to be sure of space next the code"
 msgstr ""
 
 #, fuzzy
+msgid "I&nclude checksum"
+msgstr "Ocultar Capas"
+
+msgid "Generate and include a checksum in barcode"
+msgstr ""
+
+msgid "Incl&ude checksum digit"
+msgstr ""
+
+msgid "Include the checksum digit in the barcode text"
+msgstr ""
+
+#, fuzzy
 msgid "&Background"
 msgstr "Fondo:"
 
@@ -10219,6 +10322,54 @@ msgstr ""
 msgid "Preview of the result. 72dpi sample."
 msgstr "Estilos..."
 
+msgid "12 or 13 digits"
+msgstr ""
+
+msgid "8 digits"
+msgstr ""
+
+msgid "11 or 12 digits"
+msgstr ""
+
+msgid "7 or 8 digits"
+msgstr ""
+
+msgid "5 digits"
+msgstr ""
+
+msgid "2 digits"
+msgstr ""
+
+msgid "9 or 10 digits separated appropriately with dashes"
+msgstr ""
+
+msgid "Variable number of characters, digits and any of the symbols -. *$/+%."
+msgstr ""
+
+msgid ""
+"Variable number of ASCII characters and special function symbols, starting "
+"with the appropriate start character for the initial character set. UCC/EAN-"
+"128s must have a mandatory FNC 1 symbol immediately following the start "
+"character."
+msgstr ""
+
+msgid "Variable number of digits and any of the symbols -$:/.+ABCD."
+msgstr ""
+
+msgid ""
+"Variable number of digits. An ITF-14 is 14 characters and does not have a "
+"check digit"
+msgstr ""
+
+msgid "Variable number of digits"
+msgstr ""
+
+msgid "Variable number of digits and capital letters"
+msgstr ""
+
+msgid "Variable number of hexadecimal characters"
+msgstr ""
+
 #, fuzzy
 msgid "Error opening file: %1"
 msgstr ""
@@ -10226,8 +10377,8 @@ msgstr ""
 "%1 ?"
 
 #, fuzzy
-msgid "Error creating preview"
-msgstr "Error creando el archivo PDF"
+msgid "Barcode incomplete"
+msgstr "Impresión Completada"
 
 msgid "&Barcode Generator..."
 msgstr ""
@@ -10309,6 +10460,14 @@ msgstr "Plano"
 #, fuzzy
 msgid "My Plugin"
 msgstr "Plano"
+
+#, fuzzy
+#~ msgid "Image Settings"
+#~ msgstr "Configuración de los Dispositivos"
+
+#, fuzzy
+#~ msgid "Error creating preview"
+#~ msgstr "Error creando el archivo PDF"
 
 #~ msgid "Other Options"
 #~ msgstr "Otras Opciones"
@@ -10975,9 +11134,6 @@ msgstr "Plano"
 #~ msgid "Select all"
 #~ msgstr "Seleccionar Todo"
 
-#~ msgid "Styles..."
-#~ msgstr "Estilos..."
-
 #~ msgid "Templates..."
 #~ msgstr "Plantillas..."
 
@@ -11155,10 +11311,6 @@ msgstr "Plano"
 #, fuzzy
 #~ msgid "&Save Source As..."
 #~ msgstr "Guardar como..."
-
-#, fuzzy
-#~ msgid "Alt+N"
-#~ msgstr "Todos"
 
 #, fuzzy
 #~ msgid "<qt>Create a new macro.</qt>"
@@ -11413,9 +11565,6 @@ msgstr "Plano"
 
 #~ msgid "Printing-Error"
 #~ msgstr "Error de la Impresión"
-
-#~ msgid "Printing completed"
-#~ msgstr "Impresión Completada"
 
 #~ msgid "Saving aborted"
 #~ msgstr "Guardar Abortado"

@@ -2726,7 +2726,7 @@ Sletter den navngivne masterside.
         <translation>Windows&amp;#174; Port:</translation>
     </message>
     <message>
-        <source>February</source>
+        <source>March</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3016,7 +3016,7 @@ Sletter den navngivne masterside.
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation>&amp;Omrids</translation>
+        <translation type="obsolete">&amp;Omrids</translation>
     </message>
     <message>
         <source>S&amp;hadow</source>
@@ -3156,7 +3156,7 @@ Sletter den navngivne masterside.
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation>&amp;Figurer</translation>
+        <translation type="obsolete">&amp;Figurer</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
@@ -3718,6 +3718,24 @@ Sletter den navngivne masterside.
     <message>
         <source>st</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paste Contents (Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;tyles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>type effect</comment>
+        <translation type="unfinished">&amp;Omrids</translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <comment>Convert to oulines</comment>
+        <translation type="unfinished">&amp;Figurer</translation>
     </message>
 </context>
 <context>
@@ -4615,7 +4633,67 @@ Sletter den navngivne masterside.
     </message>
     <message>
         <source>Error creating preview</source>
-        <translation>Fejl ved fremstilling af forhåndsvisning</translation>
+        <translation type="obsolete">Fejl ved fremstilling af forhåndsvisning</translation>
+    </message>
+    <message>
+        <source>12 or 13 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>8 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>11 or 12 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>7 or 8 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>5 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>9 or 10 digits separated appropriately with dashes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits and capital letters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of hexadecimal characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Barcode incomplete</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4634,7 +4712,7 @@ Sletter den navngivne masterside.
     </message>
     <message>
         <source>C&amp;ode:</source>
-        <translation>K&amp;ode:</translation>
+        <translation type="obsolete">K&amp;ode:</translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
@@ -4719,6 +4797,38 @@ Sletter den navngivne masterside.
     <message>
         <source>Preview of the result. 72dpi sample.</source>
         <translation>Visning af resultatet. 72dpi prøve.</translation>
+    </message>
+    <message>
+        <source>Make check digit visible in text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Co&amp;de:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I&amp;nclude checksum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate and include a checksum in barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Incl&amp;ude checksum digit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished">Alt+U</translation>
+    </message>
+    <message>
+        <source>Include the checksum digit in the barcode text</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6926,7 +7036,11 @@ billeder og nogen eksperimenteren og testning er nødvendigt fra billede til bil
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation type="unfinished">Vis ikke objekter udenfor margener på den udskrevne side eller i den eksporterede fil</translation>
+        <translation type="obsolete">Vis ikke objekter udenfor margener på den udskrevne side eller i den eksporterede fil</translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins on the printed page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7797,7 +7911,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
-        <translation>Indtastning af tekst her giver en hurtig søgning i fontnavne. F.eks. &apos;bold&apos; viser alle fonte med &apos;Bold&apos; i navnet.  Søgning er ufølsom for brug af Store/små bogstaver.</translation>
+        <translation type="obsolete">Indtastning af tekst her giver en hurtig søgning i fontnavne. F.eks. &apos;bold&apos; viser alle fonte med &apos;Bold&apos; i navnet.  Søgning er ufølsom for brug af Store/små bogstaver.</translation>
     </message>
     <message>
         <source>Start searching</source>
@@ -7828,6 +7942,10 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Sample will be shown after key release</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8720,6 +8838,72 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <message>
         <source>Do you really want to delete this style?</source>
         <translation>Ønsker du virkelig at slette denne typografi?</translation>
+    </message>
+</context>
+<context>
+    <name>LineStyleWBase</name>
+    <message>
+        <source>LineStyleWBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Width:</source>
+        <translation type="unfinished">Liniebredde:</translation>
+    </message>
+</context>
+<context>
+    <name>LineStyleWidget</name>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Flat Cap</source>
+        <translation type="unfinished">Flade</translation>
+    </message>
+    <message>
+        <source>Square Cap</source>
+        <translation type="unfinished">Firkantede</translation>
+    </message>
+    <message>
+        <source>Round Cap</source>
+        <translation type="unfinished">Runde</translation>
+    </message>
+    <message>
+        <source>Miter Join</source>
+        <translation type="unfinished">Spidse</translation>
+    </message>
+    <message>
+        <source>Bevel Join</source>
+        <translation type="unfinished">Afskårne</translation>
+    </message>
+    <message>
+        <source>Round Join</source>
+        <translation type="unfinished">Runde</translation>
+    </message>
+    <message>
+        <source>Solid Line</source>
+        <translation type="unfinished">Massiv linie</translation>
+    </message>
+    <message>
+        <source>Dashed Line</source>
+        <translation type="unfinished">Streg linie</translation>
+    </message>
+    <message>
+        <source>Dotted Line</source>
+        <translation type="unfinished">Prik linie</translation>
+    </message>
+    <message>
+        <source>Dash Dot Line</source>
+        <translation type="unfinished">Streg prik linie</translation>
+    </message>
+    <message>
+        <source>Dash Dot Dot Line</source>
+        <translation type="unfinished">Streg prik prik linie</translation>
     </message>
 </context>
 <context>
@@ -10316,6 +10500,10 @@ hjørner:</translation>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF filer (*.pdf);;Alle filer (*)</translation>
+    </message>
+    <message>
+        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13898,6 +14086,10 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
         <comment>PDB Importer</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Luxembourgish</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14245,6 +14437,80 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
         <source>Run as Extension Script</source>
         <comment>run script dialog</comment>
         <translation>Kør som udvidelses script</translation>
+    </message>
+</context>
+<context>
+    <name>SMBase</name>
+    <message>
+        <source>Style Manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Tilføj</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>C&amp;lone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Slet</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">Navn:</translation>
+    </message>
+    <message>
+        <source>O&amp;K</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+K</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;pply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="unfinished">Alt+P</translation>
+    </message>
+    <message>
+        <source>Ca&amp;ncel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMLineStyle</name>
+    <message>
+        <source>Properties</source>
+        <translation type="unfinished">Egenskaber</translation>
+    </message>
+    <message>
+        <source>Lines</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16403,6 +16669,13 @@ Vertical shift: %3</source>
     </message>
 </context>
 <context>
+    <name>StyleManager</name>
+    <message>
+        <source>More than one item selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>StyleSelect</name>
     <message>
         <source>Small Caps</source>
@@ -16932,7 +17205,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Image Settings</source>
-        <translation>Billed-indstillinger</translation>
+        <translation type="obsolete">Billed-indstillinger</translation>
     </message>
     <message>
         <source>Automatic</source>
@@ -17298,7 +17571,7 @@ Dette vil bevare opsætning og udseende af dokumentet.</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
-        <translation>Aktiverer præsentations-effekter, når Adobe&amp;#174; Reader&amp;#174; bruges i fuldskærm tilstand.</translation>
+        <translation type="obsolete">Aktiverer præsentations-effekter, når Adobe&amp;#174; Reader&amp;#174; bruges i fuldskærm tilstand.</translation>
     </message>
     <message>
         <source>Show page previews of each page listed above.</source>
@@ -17509,7 +17782,7 @@ Dette kan give øget brug af hukommelse og forlænge eksport-tiden.</translation
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation>Bestemmer PDF kompatibiliteten. Standarden er PDF 1.3, som giver den største kompatibilitet. Vælg PDF 1.4, hvis filen har egenskaber som f.eks. gennemsigtighed, eller hvis du ønsker 128 bit kryptering. PDF/X-3 bruges til eksport til PDF, når du ønsker farvestyring af RGB for kommerciel udskrivning og kan vælges, når du har aktiveret farvestyring. Bruges kun når dit trykkeri ønsker det, eller i nogle tilfælde, når der udskrives til en 4 farve digital farve laserprinter.</translation>
+        <translation type="obsolete">Bestemmer PDF kompatibiliteten. Standarden er PDF 1.3, som giver den største kompatibilitet. Vælg PDF 1.4, hvis filen har egenskaber som f.eks. gennemsigtighed, eller hvis du ønsker 128 bit kryptering. PDF/X-3 bruges til eksport til PDF, når du ønsker farvestyring af RGB for kommerciel udskrivning og kan vælges, når du har aktiveret farvestyring. Bruges kun når dit trykkeri ønsker det, eller i nogle tilfælde, når der udskrives til en 4 farve digital farve laserprinter.</translation>
     </message>
     <message>
         <source>Enables lossless compression of text and graphics.
@@ -17535,7 +17808,7 @@ Medmindre du har grund til andet, så lad dette være aktiveret, Det reducerer s
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation>Komprimerings-metode for billeder. Tillader Scribus automatisk at vælge den bedste metode. ZIP er tabsløs og god til billeder med massive farver. JPEG er bedre til at lave PDF-filerne mindre, når der er mange fotografier (med et lille tab af billedkvalitet). Lad indstillingen blive ved automatisk, medmindre du har brug for specielle komprimerings-indstillinger.</translation>
+        <translation type="obsolete">Komprimerings-metode for billeder. Tillader Scribus automatisk at vælge den bedste metode. ZIP er tabsløs og god til billeder med massive farver. JPEG er bedre til at lave PDF-filerne mindre, når der er mange fotografier (med et lille tab af billedkvalitet). Lad indstillingen blive ved automatisk, medmindre du har brug for specielle komprimerings-indstillinger.</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
@@ -17567,7 +17840,7 @@ Medmindre du har grund til andet, så lad dette være aktiveret, Det reducerer s
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</source>
-        <translation>Lag i dokumentet bliver eksporteret til PDF-filen. Kun tilgængelig hvis du har valgt PDF 1.5.</translation>
+        <translation type="obsolete">Lag i dokumentet bliver eksporteret til PDF-filen. Kun tilgængelig hvis du har valgt PDF 1.5.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
@@ -17583,7 +17856,7 @@ Medmindre du har grund til andet, så lad dette være aktiveret, Det reducerer s
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
-        <translation>Ændrer bitmap-billederne til valgte DPI. Hvis dette ikke vælges, så bruges billedets oprindelige opløsning. Dette kan give øget brug af hukommelse og forlænge eksport-tiden.</translation>
+        <translation type="obsolete">Ændrer bitmap-billederne til valgte DPI. Hvis dette ikke vælges, så bruges billedets oprindelige opløsning. Dette kan give øget brug af hukommelse og forlænge eksport-tiden.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
@@ -17595,7 +17868,7 @@ Medmindre du har grund til andet, så lad dette være aktiveret, Det reducerer s
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation>Farvemodel for uddata fra PDF-dokumentet. Vælg Skærm/Web for PDF-filer, som bruges til visning på skærm og til udskrivning på almindelige Blæk-printere. Vælg Printer, når der udskrives til en rigtig 4 farvet CMYK-printer.</translation>
+        <translation type="obsolete">Farvemodel for uddata fra PDF-dokumentet. Vælg Skærm/Web for PDF-filer, som bruges til visning på skærm og til udskrivning på almindelige Blæk-printere. Vælg Printer, når der udskrives til en rigtig 4 farvet CMYK-printer.</translation>
     </message>
     <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
@@ -17684,7 +17957,7 @@ Medmindre du har grund til andet, så lad dette være aktiveret, Det reducerer s
     <message>
         <source>Javascript to be executed
 when Document is opened:</source>
-        <translation>Javascript der skal udføres
+        <translation type="obsolete">Javascript der skal udføres
 når dokument åbnes:</translation>
     </message>
     <message>
@@ -17705,6 +17978,43 @@ når dokument åbnes:</translation>
     </message>
     <message>
         <source>Lossless - Zip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Compression Method</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when PDF document is opened:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins in the exported file</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18683,6 +18993,24 @@ til %2</translation>
     </message>
     <message>
         <source>Multiple duplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change Image Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change Image Scale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X1: %1, Y1: %2
+X2: %4, Y2: %5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X: %1, Y: %2
+X: %4, Y: %5</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
