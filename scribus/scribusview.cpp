@@ -2216,6 +2216,14 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						SizeItem(npx.x(), npx.y(), currItem->ItemNr);
 					bool sav = Doc->SnapGuides;
 					Doc->SnapGuides = false;
+					if (frameResizeHandle!=1 && frameResizeHandle!=5 && frameResizeHandle!=6)
+					{
+						if (UndoManager::undoEnabled())
+						{
+							undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(),
+													Um::Resize, QString(Um::ResizeFromTo).arg(currItem->width()).arg(currItem->height()).arg(currItem->width() - npx.x()).arg(currItem->height() - npx.y()), Um::IResize);
+						}
+					}
 					switch (frameResizeHandle)
 					{
 					case 1:
@@ -2513,6 +2521,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							currItem->moveImageInFrame(0, (currItem->height() - currItem->OldH2)/currItem->imageYScale());
 						break;
 					case 4:
+					
 						if (currItem->isTableItem)
 						{
 							double dist = npx.y() - currItem->height();
@@ -2785,7 +2794,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							currItem->moveImageInFrame(0, (currItem->height() - currItem->OldH2)/currItem->imageYScale());
 						break;
 					}
-					
+					if (frameResizeHandle!=1 && frameResizeHandle!=5 && frameResizeHandle!=6)
+						if (UndoManager::undoEnabled())
+							undoManager->commit();
+
 							
 					//TextFrame resize - Resize text with resize of frame
 					//alt resize, free resize with text scaling
@@ -3929,12 +3941,11 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						dX+=dragConstrainInitPtX-qRound(gx);
 						dY+=dragConstrainInitPtY-qRound(gy);
 					}
-					
 					moveGroup(dX, dY, false);
 					if (Doc->SnapGuides)
 					{
-						double nx = gx;
-						double ny = gy;
+						double nx = gxs;
+						double ny = gys;
 						ApplyGuides(&nx, &ny);
 						moveGroup(nx-gxs, ny-gys, false);
 						setGroupRect();
