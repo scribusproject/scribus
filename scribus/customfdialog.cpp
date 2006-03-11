@@ -334,7 +334,9 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption,
 	}
 	HomeB = new QToolButton(this);
 	HomeB->setIconSet(loadIcon("gohome.png"));
+	#ifdef _WIN32
 	HomeB->setAutoRaise(true);
+	#endif
 	HomeB->setTextLabel( tr("Moves to your Document Directory.\nThis can be set in the Preferences."));
 	connect(HomeB, SIGNAL(clicked()), this, SLOT(slotHome()));
 	addToolButton(HomeB);
