@@ -2635,7 +2635,9 @@ void StoryEditor::newTxFont(const QString &f)
 			return;
 		};
 	}
+	Editor->prevFont = Editor->CurrFont;
 	Editor->CurrFont = f;
+	updateUnicodeActions();
 	struct PtiSmall hg;
 	hg.cfont = Editor->CurrFont;
 	Editor->updateSel(2, &hg);
@@ -2768,6 +2770,7 @@ void StoryEditor::updateProps(int p, int ch)
 			Editor->CurrTextFillSh = currItem->ShTxtFill;
 			Editor->CurrTextStroke = currItem->TxtStroke;
 			Editor->CurrTextStrokeSh = currItem->ShTxtStroke;
+			Editor->prevFont = Editor->CurrFont;
 			Editor->CurrFont = currItem->font();
 			Editor->CurrFontSize = currItem->fontSize();
 			Editor->CurrentStyle = currItem->TxTStyle;
@@ -2835,6 +2838,7 @@ void StoryEditor::updateProps(int p, int ch)
 		}
 		Editor->setStyle(Editor->CurrentStyle);
 		firstSet = true;
+		updateUnicodeActions();
 		return;
 	}
 	chars = Editor->StyledText.at(p);
@@ -2843,6 +2847,7 @@ void StoryEditor::updateProps(int p, int ch)
 	{
 		if (Editor->currentParaStyle > 4)
 		{
+			Editor->prevFont = Editor->CurrFont;
 			Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
 			Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;
 			Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
@@ -2878,6 +2883,7 @@ void StoryEditor::updateProps(int p, int ch)
 		Editor->CurrTextFillSh = hg->cshade;
 		Editor->CurrTextStroke = hg->cstroke;
 		Editor->CurrTextStrokeSh = hg->cshade2;
+		Editor->prevFont = Editor->CurrFont;
 		Editor->CurrFont = hg->cfont;
 		Editor->CurrFontSize = hg->csize;
 		Editor->CurrentStyle = hg->cstyle & 1919;
@@ -2941,6 +2947,7 @@ void StoryEditor::updateProps(int p, int ch)
 	FontTools->SetScale(Editor->CurrTextScale);
 	FontTools->SetScaleV(Editor->CurrTextScaleV);
 	AlignTools->SetAlign(Editor->currentParaStyle);
+	updateUnicodeActions();
 	updateStatus();
 }
 
@@ -3363,6 +3370,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 		{
 			if (!currDoc->docParagraphStyles[Editor->currentParaStyle].Font.isEmpty())
 			{
+				Editor->prevFont = Editor->CurrFont;
 				Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
 				Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;
 				Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
@@ -3385,6 +3393,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 			Editor->CurrTextFillSh = currItem->ShTxtFill;
 			Editor->CurrTextStroke = currItem->TxtStroke;
 			Editor->CurrTextStrokeSh = currItem->ShTxtStroke;
+			Editor->prevFont = Editor->CurrFont;
 			Editor->CurrFont = currItem->font();
 			Editor->CurrFontSize = currItem->fontSize();
 			Editor->CurrentStyle = currItem->TxTStyle;
@@ -3509,6 +3518,7 @@ void StoryEditor::changeAlign(int )
 		{
 			if (!currDoc->docParagraphStyles[Editor->currentParaStyle].Font.isEmpty())
 			{
+				Editor->prevFont = Editor->CurrFont;
 				Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
 				Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;
 				Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
@@ -3531,6 +3541,7 @@ void StoryEditor::changeAlign(int )
 			Editor->CurrTextFillSh = currItem->ShTxtFill;
 			Editor->CurrTextStroke = currItem->TxtStroke;
 			Editor->CurrTextStrokeSh = currItem->ShTxtStroke;
+			Editor->prevFont = Editor->CurrFont;
 			Editor->CurrFont = currItem->font();
 			Editor->CurrFontSize = currItem->fontSize();
 			Editor->CurrentStyle = currItem->TxTStyle;
@@ -3699,4 +3710,10 @@ void StoryEditor::specialActionKeyEvent(QString actionName, int unicodevalue)
 	modifiedText();
 	EditorBar->setRepaint(true);
 	EditorBar->doRepaint();
+}
+
+void StoryEditor::updateUnicodeActions()
+{
+	if (Editor->prevFont!=Editor->CurrFont)
+		ScMW->actionManager->enableUnicodeActions(&seActions, true, Editor->CurrFont);	
 }

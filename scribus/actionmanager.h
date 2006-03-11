@@ -58,8 +58,8 @@ class SCRIBUS_API ActionManager : public QObject
 		void connectNewSelectionActions(ScribusView *,ScribusDoc *);
 		void saveActionShortcutsPreEditMode();
 		void restoreActionShortcutsPostEditMode();
-		void enableActionStringList(QStringList *list, bool enabled, bool checkingUnicode=false);
-		void enableUnicodeActions(bool enabled);
+		void enableActionStringList(QMap<QString, QGuardedPtr<ScrAction> > *actionMap, QStringList *list, bool enabled, bool checkingUnicode=false, const QString& fontName=QString::null);
+		void enableUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString::null);
 		void setPDFActions(ScribusView *);
 		
 	public slots:

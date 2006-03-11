@@ -133,6 +133,7 @@ public:
 	int CurrTextKern;
 	QString CurrTextStroke;
 	QString CurrTextFill;
+	QString prevFont;
 	QString CurrFont;
 	QString unicodeInputString;
 	QString tBuffer;
@@ -412,6 +413,7 @@ signals:
 
 protected:
 	void initActions();
+	void updateUnicodeActions();
 	void buildMenus();
 	void buildGUI();
 	void connectSignals();

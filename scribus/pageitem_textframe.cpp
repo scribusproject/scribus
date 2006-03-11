@@ -2257,20 +2257,6 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			//Control Home for start of frame text
 			pos=0;
-			/*
-			// paragraph begin
-			if ( pos < len &&
-					itemText.at(pos)->ch.at(0).latin1() == 13 )
-				--pos;
-			while(pos > 0 )
-				if ( itemText.at(pos)->ch.at(0).latin1() == 13 )
-				{
-					++pos;
-					break;
-				}
-				else
-					--pos;
-			*/
 		}
 		CPos = pos;
 		if ( buttonState & ShiftButton )
@@ -2324,21 +2310,6 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			//Control End for end of frame text
 			pos=static_cast<int>(itemText.count());
-			/*
-			// go to end of paragraph
-			if ( itemText.at(CPos)->ch.at(0).latin1() == 13 )
-			{
-				break;
-			}
-			pos = CPos;
-			while ( pos < len )
-			{
-				if ( itemText.at(pos)->ch.at(0).latin1() == 13 )
-					break;
-				else
-					++pos;
-			}
-			*/
 			CPos = pos;
 		}
 		if ( buttonState & ShiftButton )

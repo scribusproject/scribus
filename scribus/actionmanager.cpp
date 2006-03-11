@@ -62,7 +62,7 @@ void ActionManager::createActions()
 	initScriptMenuActions();
 	initHelpMenuActions();
 	initUnicodeActions(scrActions, ScMW, unicodeCharActionNames);
-	enableUnicodeActions(false);
+	enableUnicodeActions(scrActions, false);
 	initSpecialActions();
 }
 
@@ -323,32 +323,14 @@ void ActionManager::initItemMenuActions()
 
 	connect( (*scrActions)["itemDuplicate"], SIGNAL(activated()), ScMW, SLOT(ObjektDup()) );
 	connect( (*scrActions)["itemMulDuplicate"], SIGNAL(activated()), ScMW, SLOT(ObjektDupM()) );
-	//connect( (*scrActions)["itemDelete"], SIGNAL(activated()), ScMW, SLOT(DeleteObjekt()) );
 	connect( (*scrActions)["itemGroup"], SIGNAL(activated()), ScMW, SLOT(GroupObj()) );
 	connect( (*scrActions)["itemUngroup"], SIGNAL(activated()), ScMW, SLOT(UnGroupObj()) );
-	//connect( (*scrActions)["itemLock"], SIGNAL(activated()), ScMW, SLOT(ToggleObjLock()) );
-	//connect( (*scrActions)["itemLockSize"], SIGNAL(activated()), ScMW, SLOT(ToggleObjSizeLock()) );
-	//connect( (*scrActions)["itemPDFIsAnnotation"], SIGNAL(activated()), ScMW, SLOT(ToggleObjPDFAnnotation()) );
-	//connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(activated()), ScMW, SLOT(ToggleObjPDFBookmark()) );
 	connect( (*scrActions)["itemPDFAnnotationProps"], SIGNAL(activated()), ScMW, SLOT(ModifyAnnot()) );
 	connect( (*scrActions)["itemPDFFieldProps"], SIGNAL(activated()), ScMW, SLOT(ModifyAnnot()) );
-	//connect( (*scrActions)["itemLowerToBottom"], SIGNAL(activated()), ScMW, SLOT(Objekt2Back()) );
-	//connect( (*scrActions)["itemRaiseToTop"], SIGNAL(activated()), ScMW, SLOT(Objekt2Front()) );
-	//connect( (*scrActions)["itemLower"], SIGNAL(activated()), ScMW, SLOT(ObjektLower()) );
-	//connect( (*scrActions)["itemRaise"], SIGNAL(activated()), ScMW, SLOT(ObjektRaise()) );
 	connect( (*scrActions)["itemSendToScrapbook"], SIGNAL(activated()), ScMW, SLOT(PutScrap()) );
 	connect( (*scrActions)["itemAttributes"], SIGNAL(activated()), ScMW, SLOT(objectAttributes()) );
 	connect( (*scrActions)["itemShapeEdit"], SIGNAL(activated()), ScMW, SLOT(ToggleFrameEdit()) );
 	connect( (*scrActions)["itemImageInfo"], SIGNAL(activated()), ScMW, SLOT(getImageInfo()) );
-	//connect( (*scrActions)["itemAttachTextToPath"], SIGNAL(activated()), ScMW, SLOT(Pfadtext()) );
-	//connect( (*scrActions)["itemDetachTextFromPath"], SIGNAL(activated()), ScMW, SLOT(noPfadtext()) );
-	//connect( (*scrActions)["itemCombinePolygons"], SIGNAL(activated()), ScMW, SLOT(UniteOb()) );
-	//connect( (*scrActions)["itemSplitPolygons"], SIGNAL(activated()), ScMW, SLOT(SplitUniteOb()) );
-	//connect( (*scrActions)["itemConvertToBezierCurve"], SIGNAL(activated()), ScMW, SLOT(convertToBezierCurve()) );
-	//connect( (*scrActions)["itemConvertToImageFrame"], SIGNAL(activated()), ScMW, SLOT(convertToImageFrame()) );
-	//connect( (*scrActions)["itemConvertToOutlines"], SIGNAL(activated()), ScMW, SLOT(convertToOutlines()) );
-	//connect( (*scrActions)["itemConvertToPolygon"], SIGNAL(activated()), ScMW, SLOT(convertToPolygon()) );
-	//connect( (*scrActions)["itemConvertToTextFrame"], SIGNAL(activated()), ScMW, SLOT(convertToTextFrame()) );
 }
 
 void ActionManager::initInsertMenuActions()
@@ -732,10 +714,7 @@ void ActionManager::disconnectNewViewActions()
 	disconnect( (*scrActions)["itemConvertToTextFrame"], 0, 0, 0);
 	disconnect( (*scrActions)["itemAttachTextToPath"], 0, 0, 0);
 	disconnect( (*scrActions)["itemDetachTextFromPath"], 0, 0, 0);
-	//disconnect( (*scrActions)["itemLock"], 0, 0, 0);
-	//disconnect( (*scrActions)["itemLockSize"], 0, 0, 0);
 	disconnect( (*scrActions)["itemAdjustFrameToImage"], 0, 0, 0 );
-	//disconnect( (*scrActions)["itemUpdateImage"], 0, 0, 0 );
 	disconnect( (*scrActions)["itemExtendedImageProperties"], 0, 0, 0 );
 }
 
@@ -758,10 +737,7 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 	connect( (*scrActions)["itemConvertToTextFrame"], SIGNAL(activated()), currView, SLOT(ToTextFrame()) );
 	connect( (*scrActions)["itemAttachTextToPath"], SIGNAL(activated()), currView, SLOT(ToPathText()) );
 	connect( (*scrActions)["itemDetachTextFromPath"], SIGNAL(activated()), currView, SLOT(FromPathText()) );
-	//connect( (*scrActions)["itemLock"], SIGNAL(activated()), currView, SLOT(ToggleLock()) );
-	//connect( (*scrActions)["itemLockSize"], SIGNAL(activated()), currView, SLOT(ToggleSizeLock()) );
 	connect( (*scrActions)["itemAdjustFrameToImage"], SIGNAL(activated()), currView, SLOT(adjustFrametoImageSize()) );
-	//connect( (*scrActions)["itemUpdateImage"], SIGNAL(activated()), currView, SLOT(UpdatePic()) );
 	connect( (*scrActions)["itemExtendedImageProperties"], SIGNAL(activated()), currView, SLOT(editExtendedImageProperties()) );
 }
 
@@ -801,35 +777,38 @@ void ActionManager::restoreActionShortcutsPostEditMode()
 		(*scrActions)[*it]->restoreShortcut();
 }
 
-void ActionManager::enableActionStringList(QStringList *list, bool enabled, bool checkingUnicode)
+void ActionManager::enableActionStringList(QMap<QString, QGuardedPtr<ScrAction> > *actionMap, QStringList *list, bool enabled, bool checkingUnicode, const QString& fontName)
 {
 	for ( QStringList::Iterator it = list->begin(); it != list->end(); ++it )
 	{
 		if(!checkingUnicode)
-			(*scrActions)[*it]->setEnabled(enabled);
+			(*actionMap)[*it]->setEnabled(enabled);
 		else
 		{
 			//For UnicodeChar actions, only enable when the current font has that character.
-			if (ScMW->HaveDoc && (*scrActions)[*it]->actionType()==ScrAction::UnicodeChar)
+			if (ScMW->HaveDoc && (*actionMap)[*it]->actionType()==ScrAction::UnicodeChar)
 			{
-				int charCode=(*scrActions)[*it]->actionInt();
+				int charCode=(*actionMap)[*it]->actionInt();
 				if(charCode==-1 ||
-				   charCode==24 ||
-				   charCode==26 ||
-				   charCode==27 ||
-				   charCode==28 ||
-				   charCode==29 ||
-				   charCode==30 ||
-				   (*ScMW->doc->AllFonts)[ScMW->doc->CurrFont]->CharWidth.contains(charCode) )
-					(*scrActions)[*it]->setEnabled(enabled);
+					charCode==24 ||
+					charCode==26 ||
+					charCode==27 ||
+					charCode==28 ||
+					charCode==29 ||
+					charCode==30 ||
+					((*ScMW->doc->AllFonts)[fontName]!=0 && 
+					(*ScMW->doc->AllFonts)[fontName]->CharWidth.contains(charCode)) )
+						(*actionMap)[*it]->setEnabled(true);
+				else
+					(*actionMap)[*it]->setEnabled(false);
 			}
 		}
 	}
 }
 
-void ActionManager::enableUnicodeActions(bool enabled)
+void ActionManager::enableUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *actionMap, bool enabled, const QString& fontName)
 {
-	enableActionStringList(unicodeCharActionNames, enabled, enabled);
+	enableActionStringList(actionMap, unicodeCharActionNames, enabled, enabled, fontName);
 }
 
 void ActionManager::setPDFActions(ScribusView *currView)

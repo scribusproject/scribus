@@ -2376,7 +2376,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["itemPreviewFull"]->setOn(false);
 	}
 	if ((Nr==-1) || (Nr!=-1 && !currItem->asTextFrame()))
-		actionManager->enableUnicodeActions(false);
+		actionManager->enableUnicodeActions(&scrActions, false);
 	scrActions["insertSampleText"]->setEnabled(false);
 
 	view->horizRuler->ItemPosValid = false;
@@ -2494,7 +2494,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			scrActions["editSelectAll"]->setEnabled(true);
 			scrActions["insertGlyph"]->setEnabled(true);
 			if (currItem->asTextFrame())
-				actionManager->enableUnicodeActions(true);
+				actionManager->enableUnicodeActions(&scrActions, true, doc->CurrFont);
 			view->horizRuler->setItemPosition(currItem->xPos(), currItem->width());
 			if (currItem->lineColor() != CommonStrings::None)
 				view->horizRuler->lineCorr = currItem->lineWidth() / 2.0;
@@ -3117,7 +3117,6 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 
 bool ScribusMainWindow::loadDoc(QString fileName)
 {
-	bool undoWasEnabled=undoManager->undoEnabled();
 	undoManager->setUndoEnabled(false);
 	QFileInfo fi(fileName);
 	if (!fi.exists())
@@ -3219,7 +3218,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			mainWindowStatusLabel->setText("");
 			mainWindowProgressBar->reset();
 			ActWin = NULL;
-			undoManager->setUndoEnabled(undoWasEnabled);
+			undoManager->setUndoEnabled(true);
 			if (windows.count() != 0)
 				newActWin(ActWinOld);
 			return false;
@@ -5183,6 +5182,8 @@ void ScribusMainWindow::ToggleFrameEdit()
 	}
 	else
 	{
+		//CB Enable/Disable undo in frame edit mode
+		//undoManager->setUndoEnabled(false);
 		slotSelect();
 		nodePalette->setDoc(doc, view);
 		nodePalette->MoveN();
@@ -5261,6 +5262,8 @@ void ScribusMainWindow::NoFrameEdit()
 			HaveNewSel(-1);
 	}
 	actionManager->connectModeActions();
+	//CB Enable/Disable undo in frame edit mode
+	//undoManager->setUndoEnabled(true);
 }
 
 void ScribusMainWindow::slotSelect()
@@ -5361,7 +5364,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			scrActions["editPaste"]->setEnabled(false);
 			scrActions["insertGlyph"]->setEnabled(true);
 			if (currItem!=NULL && currItem->asTextFrame())
-				actionManager->enableUnicodeActions(true);
+				actionManager->enableUnicodeActions(&scrActions, true, doc->CurrFont);
 			if (!Buffer2.isNull())
 			{
 //				if (!Buffer2.startsWith("<SCRIBUSELEM"))
