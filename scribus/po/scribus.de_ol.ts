@@ -62,7 +62,7 @@ setRedraw(True) in a finally: clause at the top level of your script.
 
 Wenn bool=False, dann wird die Seite nicht neu neu aufgebaut (redraw ist deaktiviert).
 Standard ist bool=True. Diese Einstellung bleibt bestehen, auch wenn das Script beendet ist.
-Stellen Sie also sicher, dass setRedraw(True) aufgerufen wird, bevor das Script beendet wird.</translation>
+Stellen Sie also sicher, daß setRedraw(True) aufgerufen wird, bevor das Script beendet wird.</translation>
     </message>
     <message>
         <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -119,7 +119,7 @@ must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
         <translation>messagebarText(&quot;string&quot;)
 
-Schreibt &quot;string&quot; in die Statuszeile von Scribus. Der Text muss
+Schreibt &quot;string&quot; in die Statuszeile von Scribus. Der Text muß
 UTF8-kodiert oder ein &apos;unicode&apos;-String sein (empfohlen).</translation>
     </message>
     <message>
@@ -210,8 +210,8 @@ Parameter &quot;masterpage&quot; legt den Namen der Musterseite für die neue Se
 The &quot;string&quot; must be a valid filename for a SVG image. The text
 must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
-        <translation>&quot;string&quot; muss ein gültiger Dateiname einer SVG-Datei sein. Der Text
-muss UTF8-kodiert oder ein Unicode-String (empfohlen) sein.</translation>
+        <translation>&quot;string&quot; muß ein gültiger Dateiname einer SVG-Datei sein. Der Text
+muß UTF8-kodiert oder ein Unicode-String (empfohlen) sein.</translation>
     </message>
     <message>
         <source>newDocument(size, margins, orientation, firstPageNumber,
@@ -815,7 +815,7 @@ items are used.
 </source>
         <translation>groupObjects(list)
 
-Gruppiert die Elemente in &quot;list&quot;. &quot;list&quot; muss die Namen der zu gruppierenden 
+Gruppiert die Elemente in &quot;list&quot;. &quot;list&quot; muß die Namen der zu gruppierenden 
 Objekte enthalten. Ist &quot;list&quot; nicht angegeben, werden die aktuell gewählten 
 Objekte verwendet.</translation>
     </message>
@@ -842,7 +842,7 @@ May raise ValueError if an invalid scale factor is passed.
 
 Skaliert die Gruppe, zu dem das Objekt &quot;name&quot; gehört. Werte größer als 1 vergrößern das Objekt, 
 Werte kleiner als 1 verkleinert das Objekt. Zum Beispiel bedeutet 0.5 = 50 % oder 1.5=150% der 
-Originalgröße. &quot;factor&quot; muss größer als 0 sein. Ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt
+Originalgröße. &quot;factor&quot; muß größer als 0 sein. Ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt
 benutzt.</translation>
     </message>
     <message>
@@ -964,7 +964,7 @@ May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
 
-Verschiebt das Objekt &quot;name&quot; auf die Ebene &quot;layer&quot;. Die Ebene muss
+Verschiebt das Objekt &quot;name&quot; auf die Ebene &quot;layer&quot;. Die Ebene muß
 vorhanden sein. Ist &quot;name&quot; nicht angegeben, wird das aktive Objekt benutzt.
 
 Ist die Ebene nicht vorhanden, tritt der Fehler NotFoundError auf.
@@ -998,7 +998,7 @@ May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation>setLayerPrintable(&quot;layer&quot;, printable)
 
-Legt fest, ob die Ebene &quot;layer&quot; gedruckt werden soll oder nicht. False bedeutet, dass
+Legt fest, ob die Ebene &quot;layer&quot; gedruckt werden soll oder nicht. False bedeutet, daß
 die Ebene nicht gedruckt wird.
 
 Ist die Ebene nicht vorhanden, tritt der Fehler NotFoundError auf.
@@ -1393,7 +1393,7 @@ Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any l
 </source>
         <translation>setHGuides(list)
 
-Legt horizontale Hilfslinien fest, list muss eine Liste der Linien sein, angegeben in der Maßeinheit
+Legt horizontale Hilfslinien fest, list muß eine Liste der Linien sein, angegeben in der Maßeinheit
 des Dokuments, siehe UNIT-Konstanten.
 
 Beispiel:
@@ -1442,7 +1442,7 @@ the page...
 Gibt eine Liste zurück mit den Objekten auf der aktuelle Seite. Die Reihenfolge
 der Werte ist: (Name, Typ des Objekts, Anordnung).
 
-Beispiel: [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)] bedeutet, dass das Objekt Text1 heißt, 
+Beispiel: [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)] bedeutet, daß das Objekt Text1 heißt, 
 ein Textrahmen ist  (type 4) und sich auf der ersten Seite befindet...</translation>
     </message>
     <message>
@@ -1480,7 +1480,7 @@ May raise ValueError if the line width is out of bounds.
 </source>
         <translation>setLineWidth(width, [&quot;name&quot;])
 
-Setzt die Linienbreite für das Objekt &quot;name&quot; auf &quot;width&quot;. &quot;width&quot; muss zwischen 
+Setzt die Linienbreite für das Objekt &quot;name&quot; auf &quot;width&quot;. &quot;width&quot; muß zwischen 
 0.0 und 12.0 groß sein und wird in Punkt angegeben. Ist &quot;name&quot; nicht angegeben,
 wird das aktuelle Objekt verwendet.
 
@@ -1556,7 +1556,7 @@ May raise ValueError if the fill shade is out of bounds.
         <translation>setFillShade(shade, [&quot;name&quot;])
 
 Setzt den Tonwert der Füllfarbe für das Objekt &quot;name&quot; auf &quot;shade&quot;.
-&quot;shade&quot; muss eine ganze Zahl zwischen 0 und 100 sein. Ist &quot;name&quot;
+&quot;shade&quot; muß eine ganze Zahl zwischen 0 und 100 sein. Ist &quot;name&quot;
 nicht angegeben, wird das aktuelle Objekt benutzt.
 
 Ist der Tonwert ungültig, tritt der Fehler ValueError auf.</translation>
@@ -1692,7 +1692,7 @@ used.
         <translation>setText(&quot;text&quot;, [&quot;name&quot;])
 
 Ändert den Text im Rahmen &quot;name&quot; auf den String &quot;text&quot;.
-Der Text muss URF8-kodiert sein - verwenden Sie z.B. unicode(text, &apos;iso-8859-2&apos;).
+Der Text muß URF8-kodiert sein - verwenden Sie z.B. unicode(text, &apos;iso-8859-2&apos;).
 Lesen Sie in der FAQ nach für weitere Informationen. Ist &quot;name&quot; nicht angegeben, 
 wird der aktuelle Textrahmen verwendet.</translation>
     </message>
@@ -1864,7 +1864,7 @@ used.
 
 Setzt den Tonwert für den Textrahmen &quot;name&quot; auf &quot;shade&quot;.
 Ist Text in dem Rahmen ausgewählt, wird nur der ausgewählt Text
-verändert. &quot;shade&quot; muss eine ganze Zahl zwischen 0 und 100 sein.
+verändert. &quot;shade&quot; muß eine ganze Zahl zwischen 0 und 100 sein.
 Ist &quot;name&quot; nicht vorhanden oder angegeben, wird der aktuelle Rahmen verwendet.</translation>
     </message>
     <message>
@@ -1879,7 +1879,7 @@ May throw ScribusException if linking rules are violated.
         <translation>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
 
 Zwei Textrahmen verketten. &quot;Fromname&quot; wird mit &quot;Toname&quot; verkettet. Der Zielrahmen
-muss leer sein und darf nicht mit anderen Rahmen verkettet sein.
+muß leer sein und darf nicht mit anderen Rahmen verkettet sein.
 
 Werden die Regeln verletzt, erscheint der Fehler ScribusException.</translation>
     </message>
@@ -2005,8 +2005,8 @@ May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
 
-Gibt zurück, ob die Ebene gedruckt wird oder nicht. True bedeutet, dass die Ebene
-gedruckt wird, False bedeutet, dass das Drucken deaktiviert ist.
+Gibt zurück, ob die Ebene gedruckt wird oder nicht. True bedeutet, daß die Ebene
+gedruckt wird, False bedeutet, daß das Drucken deaktiviert ist.
 
 Der Fehler NotFoundError tritt auf, wenn die Ebene nicht existiert.
 Der Fehler ValueError tritt auf, wenn der Ebenenname ungültig ist.</translation>
@@ -3665,7 +3665,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
-        <translation>&amp;Umriss</translation>
+        <translation>&amp;Umriß</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
@@ -4200,7 +4200,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Password</source>
-        <translation>Passwort</translation>
+        <translation>Paßwort</translation>
     </message>
     <message>
         <source>Limit of</source>
@@ -4348,7 +4348,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Value must be greater than or equal to:</source>
-        <translation>Wert muss größer oder gleich sein als:</translation>
+        <translation>Wert muß größer oder gleich sein als:</translation>
     </message>
     <message>
         <source>and less or equal to:</source>
@@ -4516,7 +4516,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Mouse Exit</source>
-        <translation>Mauszeiger verlässt Feld</translation>
+        <translation>Mauszeiger verläßt Feld</translation>
     </message>
     <message>
         <source>On Focus</source>
@@ -5257,7 +5257,7 @@ This requires very accurate profiles and serves only as a warning.</source>
         <translation>Aktiviert die Gamut-Warnung, d. h. die Anzeige von Farben, welche 
 auf Grund der Eigenschaften des gewählten Ausgabegerätes für den 
 Druck nicht korrekt wiedergegeben werden können. Bitte beachten Sie, 
-dass dies sehr genaue Geräteprofile erfordert.</translation>
+daß dies sehr genaue Geräteprofile erfordert.</translation>
     </message>
     <message>
         <source>&amp;Activate Color Management</source>
@@ -6801,7 +6801,7 @@ in die Meta-Daten einer PDF-Datei eingebettet werden</translation>
     </message>
     <message>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>Ein Abriss des Inhalts.
+        <translation>Ein Abriß des Inhalts.
 Hier kann eine kurze Beschreibung oder Zusammenfassung stehen. 
 Sie wird in die PDF-Datei exportiert</translation>
     </message>
@@ -7301,7 +7301,7 @@ um zusätzliche Optionen einstellen zu können</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Schmuckfarben in Prozessfarben umwandeln</translation>
+        <translation>Schmuckfarben in Prozeßfarben umwandeln</translation>
     </message>
     <message>
         <source>Apply ICC Profiles</source>
@@ -7450,7 +7450,7 @@ failed!</source>
     </message>
     <message>
         <source>Color of text stroke</source>
-        <translation>Textumrissfarbe</translation>
+        <translation>Textumrißfarbe</translation>
     </message>
     <message>
         <source>Determines the overall height, in line numbers, of the Drop Caps</source>
@@ -7891,7 +7891,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>Exclusion</source>
-        <translation>Ausschluss</translation>
+        <translation>Ausschluß</translation>
     </message>
     <message>
         <source>Color Dodge</source>
@@ -7903,7 +7903,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>Exlusion</source>
-        <translation>Ausschluss</translation>
+        <translation>Ausschluß</translation>
     </message>
     <message>
         <source>Blend Mode:</source>
@@ -9370,7 +9370,7 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation>Gefasst</translation>
+        <translation>Gefaßt</translation>
     </message>
     <message>
         <source>Round Join</source>
@@ -9979,7 +9979,7 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation>Gefasst</translation>
+        <translation>Gefaßt</translation>
     </message>
     <message>
         <source>Round Join</source>
@@ -10125,7 +10125,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
-        <translation>Tonwert der Textumrissfarbe</translation>
+        <translation>Tonwert der Textumrißfarbe</translation>
     </message>
     <message>
         <source>Saturation of color of text fill</source>
@@ -10337,7 +10337,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>&amp;Use Contour Line</source>
-        <translation>&amp;Objektumriss benutzen</translation>
+        <translation>&amp;Objektumriß benutzen</translation>
     </message>
     <message>
         <source>&amp;Edit Shape...</source>
@@ -10443,11 +10443,11 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation>Für den Textumfluss wird das umgebende Rechteck statt der Form genutzt</translation>
+        <translation>Für den Textumfluß wird das umgebende Rechteck statt der Form genutzt</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation>Für den Textumfluss wird eine zweite Linie benutzt, die auf der ursprünglichen Form basiert</translation>
+        <translation>Für den Textumfluß wird eine zweite Linie benutzt, die auf der ursprünglichen Form basiert</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
@@ -10507,11 +10507,11 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Farbe der Textumrandung. Nur möglich, wenn als Textoption &quot;Umriss&quot; gewählt ist.</translation>
+        <translation>Farbe der Textumrandung. Nur möglich, wenn als Textoption &quot;Umriß&quot; gewählt ist.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Farbe der Textfüllung. Nur möglich, wenn als Textoption &quot;Umriss&quot; gewählt ist.</translation>
+        <translation>Farbe der Textfüllung. Nur möglich, wenn als Textoption &quot;Umriß&quot; gewählt ist.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -10550,7 +10550,7 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation>Gefasst</translation>
+        <translation>Gefaßt</translation>
     </message>
     <message>
         <source>Round Join</source>
@@ -10921,11 +10921,11 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Edit &amp;Contour Line</source>
-        <translation>&amp;Objektumriss bearbeiten</translation>
+        <translation>&amp;Objektumriß bearbeiten</translation>
     </message>
     <message>
         <source>&amp;Reset Contour Line</source>
-        <translation>Objektumriss &amp;zurücksetzen</translation>
+        <translation>Objektumriß &amp;zurücksetzen</translation>
     </message>
     <message>
         <source>&amp;End Editing</source>
@@ -11399,7 +11399,7 @@ Dafür erhöht sich benötigte Renderzeit geringfügig</translation>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
 durch reine Abstufungen von Schwarz ersetzt.
-Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst,
+Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflußt,
 die Grau sehr ähnlich sind. Diese Option kann zu besseren Bildern führen.
 Sie müssen jedoch von Fall zu Fall entscheiden, ob Sie bessere Ergebnisse
 erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
@@ -12763,7 +12763,7 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation>Wählen Sie die Standard-Fensterdekoration. Scribus zeigt Ihnen alle KDE- und Qt-Stile an, falls Qt so konfiguriert ist, dass es die KDE-Plugins durchsucht.</translation>
+        <translation>Wählen Sie die Standard-Fensterdekoration. Scribus zeigt Ihnen alle KDE- und Qt-Stile an, falls Qt so konfiguriert ist, daß es die KDE-Plugins durchsucht.</translation>
     </message>
     <message>
         <source>Default font size for the tool windows</source>
@@ -13305,7 +13305,7 @@ Der ausschlaggebende Wert ist der Bundsteg.</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Sind Sie sicher, dass Sie %1 &quot;%2&quot; löschen möchten?&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Sind Sie sicher, daß Sie %1 &quot;%2&quot; löschen möchten?&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
@@ -13922,7 +13922,7 @@ Externe Links</translation>
     <message>
         <source>Corner radius must be a positive number.</source>
         <comment>python error</comment>
-        <translation>Eckenradius muss positiv sein.</translation>
+        <translation>Eckenradius muß positiv sein.</translation>
     </message>
     <message>
         <source>Cannot get font size of non-text frame.</source>
@@ -14050,7 +14050,7 @@ Externe Links</translation>
     <message>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
-        <translation>Der Dateiname muss eine Zeichenfolge sein.</translation>
+        <translation>Der Dateiname muß eine Zeichenfolge sein.</translation>
     </message>
     <message>
         <source>Cannot delete image type settings.</source>
@@ -14060,7 +14060,7 @@ Externe Links</translation>
     <message>
         <source>The image type must be a string.</source>
         <comment>python error</comment>
-        <translation>Der Bildtyp muss eine Zeichenfolge sein.</translation>
+        <translation>Der Bildtyp muß eine Zeichenfolge sein.</translation>
     </message>
     <message>
         <source>&apos;allTypes&apos; attribute is READ-ONLY</source>
@@ -14135,7 +14135,7 @@ Externe Links</translation>
     <message>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Die Textrichtung lässt sich nur für Textrahmen festlegen.</translation>
+        <translation>Die Textrichtung läßt sich nur für Textrahmen festlegen.</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
@@ -14155,7 +14155,7 @@ Externe Links</translation>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
-        <translation>Zeilenabstand ist muss größer oder gleich 0,1 sein.</translation>
+        <translation>Zeilenabstand muß größer oder gleich 0,1 sein.</translation>
     </message>
     <message>
         <source>Cannot set line spacing on a non-text frame.</source>
@@ -14175,7 +14175,7 @@ Externe Links</translation>
     <message>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
-        <translation>Spaltenanzahl muss größer gleich 1 sein.</translation>
+        <translation>Spaltenanzahl muß größer gleich 1 sein.</translation>
     </message>
     <message>
         <source>Cannot set number of columns on a non-text frame.</source>
@@ -14215,7 +14215,7 @@ Externe Links</translation>
     <message>
         <source>Target frame must be empty.</source>
         <comment>python error</comment>
-        <translation>Der Zielrahmen muss leer sein.</translation>
+        <translation>Der Zielrahmen muß leer sein.</translation>
     </message>
     <message>
         <source>Target frame links to another frame.</source>
@@ -14655,7 +14655,7 @@ Wollen Sie diese Datei mit der Datei, die Sie speichern wollen, überschreiben?<
     </message>
     <message>
         <source>Argument must be page item name, or PyCObject instance</source>
-        <translation>Das Argument muss entweder ein Seiteneintrag oder eine Instanz von PyCObject sein</translation>
+        <translation>Das Argument muß entweder ein Seiteneintrag oder eine Instanz von PyCObject sein</translation>
     </message>
     <message>
         <source>Property not found</source>
@@ -15021,7 +15021,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>German (Trad.)</source>
-        <translation>Deutsch (Klassische Rechtschreibung)</translation>
+        <translation>Deutsch (herkömmlich)</translation>
     </message>
     <message>
         <source>Exporting PostScript File</source>
@@ -15600,15 +15600,15 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Color of text stroke</source>
-        <translation>Textumrissfarbe</translation>
+        <translation>Textumrißfarbe</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
-        <translation>Tonwert der Textumrissfarbe</translation>
+        <translation>Tonwert der Textumrißfarbe</translation>
     </message>
     <message>
         <source>Stroke Color Settings</source>
-        <translation>Umrissfarbe verändern</translation>
+        <translation>Umrißfarbe verändern</translation>
     </message>
 </context>
 <context>
@@ -18169,7 +18169,7 @@ umgewandelt werden</translation>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation>Umriss</translation>
+        <translation>Umriß</translation>
     </message>
 </context>
 <context>
@@ -18267,7 +18267,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Page Numbers Placed:</source>
-        <translation>Platzierung der Seitenzahlen:</translation>
+        <translation>Plazierung der Seitenzahlen:</translation>
     </message>
     <message>
         <source>Item Attribute Name:</source>
@@ -18279,7 +18279,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation>Platzierung von Seitennummern am Anfang oder am Ende einer Zeile, beziehungsweise überhaupt nicht</translation>
+        <translation>Plazierung von Seitennummern am Anfang oder am Ende einer Zeile, beziehungsweise überhaupt nicht</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
@@ -18338,7 +18338,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Page Numbers Placed:</source>
-        <translation>Platzierung der Seitenzahlen:</translation>
+        <translation>Plazierung der Seitenzahlen:</translation>
     </message>
     <message>
         <source>Item Attribute Name:</source>
@@ -18350,7 +18350,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation>Platzierung von Seitennummern am Anfang oder am Ende einer Zeile, beziehungsweise überhaupt nicht</translation>
+        <translation>Plazierung von Seitennummern am Anfang oder am Ende einer Zeile, beziehungsweise überhaupt nicht</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
@@ -18393,7 +18393,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Check for objects not on a page</source>
-        <translation>Auf Objekte überprüfen, die außerhalb des Dokuments platziert sind</translation>
+        <translation>Auf Objekte überprüfen, die außerhalb des Dokuments plaziert sind</translation>
     </message>
     <message>
         <source>Check for overflow in text frames</source>
@@ -18444,7 +18444,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Placing in Documents</source>
-        <translation>Platzierung im Dokument</translation>
+        <translation>Plazierung im Dokument</translation>
     </message>
     <message>
         <source>In the Background</source>
@@ -19173,7 +19173,7 @@ in der exportierten Datei aktiviert</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation>Wählen Sie ein Passwort, das es Benutzern erlaubt, die PDF-Datei anzusehen.</translation>
+        <translation>Wählen Sie ein Paßwort, das es Benutzern erlaubt, die PDF-Datei anzusehen.</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
@@ -19305,7 +19305,7 @@ Sie reduziert die Dateigröße.</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Konvertiert Schmuckfarben zu Prozessfarben</translation>
+        <translation>Konvertiert Schmuckfarben zu Prozeßfarben</translation>
     </message>
     <message>
         <source>Compression &amp;Method:</source>
@@ -19317,7 +19317,7 @@ Sie reduziert die Dateigröße.</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation>Fonts in PDF einbetten. Dadurch bleibt das Layout und das Aussehen des Dokuments erhalten.</translation>
+        <translation>Fonts in PDF einbetten. Dadurch bleiben das Layout und das Aussehen des Dokuments erhalten.</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -19349,7 +19349,7 @@ Sie reduziert die Dateigröße.</translation>
     </message>
     <message>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
-        <translation>Auflösung für Text und Vektorgrafiken. Beeinflusst nicht die Auflösung von Bitmapdaten wie Fotos.</translation>
+        <translation>Auflösung für Text und Vektorgrafiken. Beeinflußt nicht die Auflösung von Bitmapdaten wie Fotos.</translation>
     </message>
     <message>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
@@ -19369,11 +19369,11 @@ Sie reduziert die Dateigröße.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation>Aktiviert die Sicherheitsfunktionen in der exportierten PDF-Datei. Wenn Sie PDF 1.3 gewählt haben, wird die Datei mit 40-Bit-Verschlüsselung geschützt, bei PDF 1.4 wird 128-Bit-Verschlüsselung verwendet. Warnung: PDF-Verschlüsselung ist nicht so verlässlich wie GPG- oder PGP-Verschlüsselung und besitzt einige Einschränkungen.</translation>
+        <translation>Aktiviert die Sicherheitsfunktionen in der exportierten PDF-Datei. Wenn Sie PDF 1.3 gewählt haben, wird die Datei mit 40-Bit-Verschlüsselung geschützt, bei PDF 1.4 wird 128-Bit-Verschlüsselung verwendet. Warnung: PDF-Verschlüsselung ist nicht so verläßlich wie GPG- oder PGP-Verschlüsselung und besitzt einige Einschränkungen.</translation>
     </message>
     <message>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
-        <translation>Wählen Sie ein Master-Passwort, das alle Sicherheitsfunktionen in der PDF-Datei aktiviert oder deaktiviert</translation>
+        <translation>Wählen Sie ein Master-Paßwort, das alle Sicherheitsfunktionen in der PDF-Datei aktiviert oder deaktiviert</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
@@ -19397,7 +19397,7 @@ Sie reduziert die Dateigröße.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Ermöglicht die Umwandlung von Schmuck- in Prozessfarben. Solange Sie Schmuckfarben nicht wirklich benötigen, sollten Sie dies am besten aktiviert lassen.</translation>
+        <translation>Ermöglicht die Umwandlung von Schmuck- in Prozeßfarben. Solange Sie Schmuckfarben nicht wirklich benötigen, sollten Sie dies am besten aktiviert lassen.</translation>
     </message>
     <message>
         <source>Include La&amp;yers</source>
@@ -19832,7 +19832,7 @@ der PDF-Datei ausgeführt wird:</translation>
     </message>
     <message>
         <source>Text Stroke:</source>
-        <translation>Umriss:</translation>
+        <translation>Umriß:</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -20399,7 +20399,7 @@ bis %2</translation>
     </message>
     <message>
         <source>No text flow</source>
-        <translation>Kein Textfluss</translation>
+        <translation>Kein Textfluß</translation>
     </message>
     <message>
         <source>No bounding box</source>
@@ -20972,11 +20972,11 @@ eigenen Einstellungen ersetzen.</translation>
     </message>
     <message>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Sie müssen sicherstellen, dass Bilder und Schriften frei benutzt werden können. Wenn Sie Fonts nicht verbreiten dürfen, dann binden Sie diese beim Export als Vorlage nicht ein.</translation>
+        <translation>Sie müssen sicherstellen, daß Bilder und Schriften frei benutzt werden können. Wenn Sie Fonts nicht verbreiten dürfen, dann binden Sie diese beim Export als Vorlage nicht ein.</translation>
     </message>
     <message>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>Wenn Sie Vorlagen erstellen, sollten Sie darauf achten, dass Sie die Informationen im Abschnitt &quot;Vorlagen installieren&quot; beachten. Das bedeutet, Benutzer sollten in der Lage sein, die Vorlage einfach in das entsprechende Verzeichnis zu kopieren und zu benutzen.</translation>
+        <translation>Wenn Sie Vorlagen erstellen, sollten Sie darauf achten, daß Sie die Informationen im Abschnitt &quot;Vorlagen installieren&quot; beachten. Das bedeutet, Benutzer sollten in der Lage sein, die Vorlage einfach in das entsprechende Verzeichnis zu kopieren und zu benutzen.</translation>
     </message>
     <message>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
@@ -20984,7 +20984,7 @@ eigenen Einstellungen ersetzen.</translation>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
-        <translation>Kopieren Sie die existierende template.xml nach template.lang_COUNTRY.xml (derselbe Ländercode wie bei den qm-Dateien), zum Beispiel template.fi.xml für Finnisch. Diese Kopie muss sich im selben Verzeichnis wie template.xml befinden.</translation>
+        <translation>Kopieren Sie die existierende template.xml nach template.lang_COUNTRY.xml (derselbe Ländercode wie bei den qm-Dateien), zum Beispiel template.fi.xml für Finnisch. Diese Kopie muß sich im selben Verzeichnis wie template.xml befinden.</translation>
     </message>
 </context>
 <context>
