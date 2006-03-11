@@ -76,7 +76,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 											  "[0-9A-D\\-\\$\\:\\/\\.\\+]*",
 											 true, true);
 	map["Interleaved 2 of 5"] = BarcodeType("interleaved2of5", "05012345678900",
-											tr("Variable number of digits. An ITF-14 is 14 characters and does not have a check digit"),
+											tr("Variable number of digits"),
 											"[0-9]*",
 										   true, true);
 	map["ITF-14"] = BarcodeType("interleaved2of5", "05012345678900",
