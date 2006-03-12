@@ -1,18 +1,32 @@
 <qt>
-<title>Driving CUPS and Gimp-Print with Scribus</title>
-<h2>Driving CUPS and Gimp-Print with Scribus</h2>
-<p>CUPS, GIMP Print and Scribus make a great combination. With Scribus  you can &#034;drive&#034; CUPS directly from Scribus.</p>
-<p>First, make sure you have the the correct CUPS development libraries installed before compiling Scribus. On Redhat, for example, they are named cups-devel. Windows users will find Scribus find the native drivers installed on your machine.</p>
+<title>Linux Printing with CUPS, Gimp-Print and  Scribus</title>
+<h2>Linux Printing with CUPS, Gimp-Print and  Scribus</h2>
+<p>CUPS, GIMP Print and Scribus together can give very good print output on Linux, provided it is installed and configured properly. With Scribus  you can &#034;drive&#034; CUPS directly from Scribus.</p>
+<p>First, make sure you have the the correct CUPS development libraries installed before compiling Scribus. On Redhat, for example, they are named cups-devel. Complete details are in the BUILDING file with the source</p>
+<p>Second, on many Linux distributions there are optional gimp-print drivers. These drivers are not only for gimp, but can be used in any program to give you more exacting print control and in some cases much better output with photographs. Often many inkjet printers on Linux are supported by more than one driver - typically an 'ijs' driver and gimp-print. The difference lies mostly in the added options versus some speed loss. By the way, the next release of the gimp-print drivers  will be known as gutenprint to avoid confusion.</p>
 <p>The cups control panel in Scribus with the regular ijs plus ghostscript driver:</p>
 <table width="100%"><tr><td align="center"><img align="center" alt="Cups Control Panel in Scribus" src="images/cups1.png" /></td></tr></table>
 <h3>Hints:</h3>
 <ul>
-	<li>CUPS has a separate gimp-print plug in which really improves the output of Scribus and any color docs GIMP-Print Drivers</li>
+	<li>CUPS has a separate gimp-print plug in which really improves the output of Scribus and any color docs GIMP-Print Drivers, especially those which have lots of pictures.</li>
+
 	<li><strong>cups-calibrate</strong> is a command line program you can run as root to calibrate the printer. This only works with the gimp-print drivers - not other CUPS drivers. This is a step by step procedure which in some cases can improve the sharpness of your prints.</li>
-	<li>CUPS also has an <strong>escputil</strong> command line utility for cleaning the heads etc. Simply type: <strong>escputil -help</strong> for options. This is for Epson printers only.</li>
+	<li>CUPS also has an <strong>escputil</strong> command line utility for cleaning the heads or checking ink levels on Epson printers. If you have KDE installed, this can be accessed via the KDE Print Manager. Otherwise simply type: <strong>escputil -help</strong> for options.</li>
+<li>To access setup and configuration for locally installed CUPS printers, there are 2 recommended methods to this with CUPS: 1. Type: <code>http://localhost:631</code> to use the CUPS web interface. 2. Use the KDE Print Manager. No other option will give you full access to all the features with CUPS.</li>
 </ul>
 <p>The image below shows the difference with the GIMP-Print Plug-in installed.</p>
 <table width="100%"><tr><td align="center"><img align="center" alt="Cups Control Panel in Scribus With Gimp-Print" src="images/cups2.png" /></td></tr></table>
-<p>The main difference is the more refined color adjustments and color space adjustments available in GIMP Print. It is slower than other drivers, but the output quality is the main reason. You can also use kprinter in combination with other programs which are not CUPS aware, but can benefit from high quality printing. As an example, Acrobat Reader on Linux does not recognize CUPS, but has a command line window to call kprinter. Thus, you can print high resolution PDF's with the same high quality as Scribus.</p>
+<p>The main difference is the more refined color and ink density adjustments available in GIMP Print. Often it will be slower than other drivers, but the output quality is the main reason. You can also use kprinter in combination with other programs which are not CUPS aware, but can benefit from high quality printing. As an example, Acrobat Reader on Linux before version 7.0.5 does not recognize CUPS, but has a command line window to call kprinter. Thus, you can with the correct settings, print high resolution PDF's with the same high quality as Scribus. </p>
 <p>What I recommend with CUPS is to set up your everyday printer with the ijs or regular kprinter driver and then add a second printer instance with GIMP Print, so you have quicker output with everyday docs like text files etc..</p>
+<h3>PostScript Printers and CUPS</h3>
+<p>Based on my experience working with a handful of true postscript printers with Scribus:</p>
+
+<p>When you are using a real postscript printer on Linux, expecially more complex ones which have multiple bins, sorting or advanced image and resolution settings, ideally you have the PPD file which comes on the driver disk with the printer. If not try to download the latest from the manufacturer's site. Then use the <strong>cupstestppd</strong> tool to verify the file. This is a very important step. </p>
+
+<p>A great many printer drivers come as windows .exe files. I know many of the HP ones are simple WinZip self extractors. Any recent wine will open them easily. Then, I strongly recommend that you run cupstestppd on the file to make sure it follows the PPD spec. If there is an error, and there are often minor ones, the actual specs are here:</p>
+
+<a href="http://partners.adobe.com/public/developer/ps/index_specs.html">http://partners.adobe.com/public/developer/ps/index_specs.html</a>
+
+<p><strong>cupstestppd</strong> is a command line utility which you can use to verify the correctness of PPD files. What is a PPD file ? A PPD file is a specially formatted text file which can be used on Linux,  MacOSX and Windows to install a true postscript printer. On Linux in combination with foomatic and CUPS it is used for <strong>all </strong>printers to enumerate all the printer's capabilities. This command line tool verifies that the ppd file meets the specs for ppd files. It there are issues, it will indicate how to remedy this. cupstestppd is most useful when using the manufactuerer's supplied PPD on Linux. </p>
+
 </qt>
