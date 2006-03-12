@@ -1897,8 +1897,7 @@ void PageItem::setFontFillColor(const QString& newColor)
 		undoManager->action(this, ss);
 	}
 	TxtFill = newColor;
-	//CB Moved from the view, but we havent updated this, so unsure why we need this.
-	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
+	emit textColor(TxtStroke, TxtFill, ShTxtStroke, ShTxtFill);
 }
 
 void PageItem::setFontStrokeColor(const QString& newColor)
@@ -1915,6 +1914,7 @@ void PageItem::setFontStrokeColor(const QString& newColor)
 		undoManager->action(this, ss);
 	}
 	TxtStroke = newColor;
+	emit textColor(TxtStroke, TxtFill, ShTxtStroke, ShTxtFill);
 }
 
 void PageItem::setFontFillShade(int newShade)
@@ -1932,8 +1932,7 @@ void PageItem::setFontFillShade(int newShade)
 		undoManager->action(this, ss);
 	}
 	ShTxtFill = newShade;
-	//CB Moved from the view, but we havent updated this, so unsure why we need this.
-	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
+	emit textColor(TxtStroke, TxtFill, ShTxtStroke, ShTxtFill);
 }
 
 void PageItem::setFontStrokeShade(int newShade)
@@ -1951,6 +1950,7 @@ void PageItem::setFontStrokeShade(int newShade)
 		undoManager->action(this, ss);
 	}
 	ShTxtStroke = newShade;
+	emit textColor(TxtStroke, TxtFill, ShTxtStroke, ShTxtFill);
 }
 
 void PageItem::setFontEffects(int newEffects)
