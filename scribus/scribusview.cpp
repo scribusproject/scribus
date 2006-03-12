@@ -1781,6 +1781,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					               txtC2.setNum(qRound(72.0 / currItem->imageYScale())));
 					InfoGroupLayout->addWidget( CharC, 3, 1 );
 					ColCT->setText( tr("Colorspace: "));
+					ColCT->show();
 					InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
 					QString cSpace;
 					QString ext = fi.extension(false).lower();
@@ -1802,7 +1803,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						}
 					}
 					ColC->setText(cSpace);
+					ColC->show();
 					InfoGroupLayout->addWidget( ColC, 4, 1 );
+					
 				}
 				if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
 				{
@@ -1812,6 +1815,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					int ParagN = 0;
 					int WordsN = 0;
 					int CharaN = 0;
+					ColC->hide();
+					ColCT->hide();
 					if (currItem->itemType() == PageItem::TextFrame)
 					{
 						if ((currItem->NextBox != 0) || (currItem->BackBox != 0))
