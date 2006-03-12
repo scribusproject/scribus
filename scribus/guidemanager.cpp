@@ -240,15 +240,6 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 
 	mainWidgetsLayout->addLayout(Layout7);
 
-	QHBoxLayout *Layout5 = new QHBoxLayout(0, 0, 6, "Layout5");
-	lockedCheckBox = new QCheckBox( tr( "&Lock Guides" ), this, "lockedCheckBox");
-	lockedCheckBox->setChecked(ScMW->doc->GuideLock);
-	Layout5->addWidget(lockedCheckBox);
-
-	allPages = new QCheckBox(tr("&Apply to All Pages"), this, "allPages");
-	allPages->setChecked(false);
-	Layout5->addWidget(allPages);
-
 	QHBoxLayout *buttonLayout = new QHBoxLayout(0, 0, 6, "buttonLayout");
 	QSpacerItem* spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	buttonLayout->addItem(spacer);
@@ -264,12 +255,12 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	buttonLayout->addWidget(okButton);
 	buttonLayout->addWidget(cancelButton);
 
-	mainWidgetsLayout->addLayout(Layout5);
+	//mainWidgetsLayout->addLayout(Layout5);
 	mainWidgetsLayout->addLayout(buttonLayout);
 
 	// preview pixmap
 	// prevMainLayout is here due the aligning with the others widgets
-	QHBoxLayout *prevMainLayout = new QHBoxLayout(0, 11, 6, "prevMainLayout");
+	QVBoxLayout *prevMainLayout = new QVBoxLayout(0, 11, 6, "prevMainLayout");
 	QGroupBox *previewGBox = new QGroupBox(this, "previewGBox");
 	previewGBox->setTitle(tr("Preview"));
 	previewGBox->setColumnLayout(0, Qt::Vertical);
@@ -280,6 +271,17 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	previewLabel = new QLabel(previewGBox, "previewLabel");
 	previewGBoxLayout->addWidget(previewLabel);
 	prevMainLayout->addWidget(previewGBox);
+
+	//QHBoxLayout *Layout5 = new QHBoxLayout(0, 0, 6, "Layout5");
+	lockedCheckBox = new QCheckBox( tr( "&Lock Guides" ), this, "lockedCheckBox");
+	lockedCheckBox->setChecked(ScMW->doc->GuideLock);
+	prevMainLayout->addWidget(lockedCheckBox);
+
+	allPages = new QCheckBox(tr("&Apply to All Pages"), this, "allPages");
+	allPages->setChecked(false);
+	prevMainLayout->addWidget(allPages);
+	QSpacerItem* spacer3 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+	prevMainLayout->addItem(spacer3);
 
 	guideManagerLayout->addLayout(mainWidgetsLayout);
 	guideManagerLayout->addLayout(prevMainLayout);
