@@ -58,16 +58,29 @@ SWDialog::SWDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
 	layout3 = new QHBoxLayout(0, 0, 6, "layout3");
 
 	buttonGroup = new QButtonGroup(this, "buttonGroup");
-	buttonGroup->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)3, 0, 0, buttonGroup->sizePolicy().hasHeightForWidth()));
+	//buttonGroup->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)3, 0, 0, buttonGroup->sizePolicy().hasHeightForWidth()));
+
+	QGridLayout *gridLayout = new QGridLayout(buttonGroup);
+	gridLayout->setSpacing(6);
+	gridLayout->setMargin(9);
+	
+	QVBoxLayout *vboxLayout = new QVBoxLayout();
+	vboxLayout->setSpacing(6);
+	vboxLayout->setMargin(0);
 
 	frameRadio = new QRadioButton(buttonGroup, "frameRadio");
-	frameRadio->setGeometry(QRect(20, 30, 160, 22));
+	vboxLayout->addWidget(frameRadio);
 
 	pageRadio = new QRadioButton(buttonGroup, "pageRadio");
-	pageRadio->setGeometry(QRect(20, 60, 140, 22));
+	vboxLayout->addWidget(pageRadio);
 
 	allRadio = new QRadioButton(buttonGroup, "allRadio");
-	allRadio->setGeometry(QRect(20, 90, 140, 22));
+	vboxLayout->addWidget(allRadio);
+
+	gridLayout->addLayout(vboxLayout, 0, 0);
+	buttonGroup->setMinimumWidth(250); // these Germans withe their long words...
+	buttonGroup->adjustSize();
+
 	layout3->addWidget(buttonGroup);
 
 	layout2 = new QVBoxLayout(0, 0, 6, "layout2");
