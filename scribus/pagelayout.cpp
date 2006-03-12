@@ -226,6 +226,8 @@ void PageLayouts::languageChange()
 	}
 	else
 	{
+		disconnect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
+		int currIndex=layoutsCombo->currentItem();
 		layoutsCombo->clear();
 		for (uint pg = 0; pg < pageSets.count(); ++pg)
 		{
@@ -241,6 +243,20 @@ void PageLayouts::languageChange()
 			else
 				layoutsCombo->insertItem(loadIcon("page16.png"), psname);
 		}
+		layoutsCombo->setCurrentItem(currIndex);
+		connect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
+		
+		disconnect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
+		int currFirstPageIndex=firstPage->currentItem();
+		firstPage->clear();
+		for(QStringList::Iterator pNames = pageSets[currIndex].pageNames.begin(); pNames != pageSets[currIndex].pageNames.end(); ++pNames )
+		{
+			firstPage->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
+		}
+		firstPage->setCurrentItem(currFirstPageIndex);
+		connect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
 	}
 	layoutLabel1->setText( tr( "First Page is:" ) );
+	
+
 }
