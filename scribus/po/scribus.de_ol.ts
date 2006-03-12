@@ -3199,7 +3199,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation>&amp;Eigenschaften</translation>
+        <translation>&amp;Eigenschaftenpalette</translation>
     </message>
     <message>
         <source>&amp;Scrapbook</source>
@@ -3571,7 +3571,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Show Rulers</source>
-        <translation>Linaele anzeigen</translation>
+        <translation>Lineale anzeigen</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
@@ -11178,7 +11178,7 @@ Dies ist außerordentlich nützlich für das Ausschießen von PDF-Dateien im pro
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
-        <translation>Jede Seite wird mit automatischer Nummerierung als separate PDF-Datei exportiert. Hilfreich fürs Ausschießen.</translation>
+        <translation>Jede Seite wird mit automatischer Numerierung als separate PDF-Datei exportiert. Hilfreich fürs Ausschießen.</translation>
     </message>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
@@ -13794,7 +13794,7 @@ Externe Links</translation>
     </message>
     <message>
         <source>German</source>
-        <translation>Deutsch</translation>
+        <translation>Deutsch (reformiert)</translation>
     </message>
     <message>
         <source>Finnish</source>
@@ -20033,7 +20033,7 @@ der PDF-Datei ausgeführt wird:</translation>
     <name>Tree</name>
     <message>
         <source>Outline</source>
-        <translation>Übersicht</translation>
+        <translation>Dokumentstruktur</translation>
     </message>
     <message>
         <source>Element</source>
@@ -20573,7 +20573,7 @@ X: %4, Y: %5</translation>
     <name>UsePrinterMarginsDialog</name>
     <message>
         <source>Minimum Margins for Page Size %1</source>
-        <translation>Minimale Seitenränder für Seitengröße %1</translation>
+        <translation>Minimale Seitenränder für Format %1</translation>
     </message>
 </context>
 <context>

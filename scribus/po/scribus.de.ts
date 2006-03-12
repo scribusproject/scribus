@@ -3199,7 +3199,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation>&amp;Eigenschaften</translation>
+        <translation>&amp;Eigenschaftenpalette</translation>
     </message>
     <message>
         <source>&amp;Scrapbook</source>
@@ -3571,7 +3571,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Show Rulers</source>
-        <translation>Linaele anzeigen</translation>
+        <translation>Lineale anzeigen</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
@@ -13794,7 +13794,7 @@ Externe Links</translation>
     </message>
     <message>
         <source>German</source>
-        <translation>Deutsch</translation>
+        <translation>Deutsch (reformiert)</translation>
     </message>
     <message>
         <source>Finnish</source>
@@ -15021,7 +15021,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>German (Trad.)</source>
-        <translation>Deutsch (Klassische Rechtschreibung)</translation>
+        <translation>Deutsch (herkömmlich)</translation>
     </message>
     <message>
         <source>Exporting PostScript File</source>
@@ -20033,7 +20033,7 @@ der PDF-Datei ausgeführt wird:</translation>
     <name>Tree</name>
     <message>
         <source>Outline</source>
-        <translation>Übersicht</translation>
+        <translation>Dokumentstruktur</translation>
     </message>
     <message>
         <source>Element</source>
@@ -20573,7 +20573,7 @@ X: %4, Y: %5</translation>
     <name>UsePrinterMarginsDialog</name>
     <message>
         <source>Minimum Margins for Page Size %1</source>
-        <translation>Minimale Seitenränder für Seitengröße %1</translation>
+        <translation>Minimale Seitenränder für Format: %1</translation>
     </message>
 </context>
 <context>
