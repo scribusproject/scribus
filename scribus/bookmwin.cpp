@@ -474,6 +474,7 @@ void BookMView::DeleteItem(PageItem *pObject)
 				if (ite2)
 					ite2->Next = 0;
 			delete ite;
+			NrItems--;
 		}
 	}
 	QMap<int,int> Tabl;
