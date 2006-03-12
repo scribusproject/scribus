@@ -183,6 +183,7 @@ void PrefsManager::initDefaults()
 	appPrefs.mainWinSettings.yPosition = 0;
 	appPrefs.mainWinSettings.width = 640;
 	appPrefs.mainWinSettings.height = 480;
+	appPrefs.mainWinSettings.maximized = false;
 	appPrefs.guidesSettings.marginsShown = true;
 	appPrefs.guidesSettings.framesShown = true;
 	appPrefs.guidesSettings.gridShown = false;
@@ -655,6 +656,8 @@ void PrefsManager::ReadPrefs(const QString & fname)
 	ScMW->rebuildRecentFileMenu();
 	ScMW->move(appPrefs.mainWinSettings.xPosition, appPrefs.mainWinSettings.yPosition);
 	ScMW->resize(appPrefs.mainWinSettings.width, appPrefs.mainWinSettings.height);
+	if (appPrefs.mainWinSettings.maximized)
+		ScMW->setWindowState(ScMW->windowState() & ~Qt::WindowMinimized | Qt::WindowMaximized);
 	ReadPrefsXML();
 	if (appPrefs.checkerProfiles.count() == 0)
 	{
@@ -688,6 +691,7 @@ void PrefsManager::SavePrefs(const QString & fname)
 	appPrefs.mainWinSettings.yPosition = abs(ScMW->pos().y());
 	appPrefs.mainWinSettings.width = ScMW->size().width();
 	appPrefs.mainWinSettings.height = ScMW->size().height();
+	appPrefs.mainWinSettings.maximized = ScMW->isMaximized();
 
 	appPrefs.RecentDocs.clear();
 	uint max = QMIN(appPrefs.RecentDCount, ScMW->RecentDocs.count());
@@ -970,6 +974,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc4.setAttribute("YPOS",appPrefs.mainWinSettings.yPosition);
 	dc4.setAttribute("WIDTH",appPrefs.mainWinSettings.width);
 	dc4.setAttribute("HEIGHT",appPrefs.mainWinSettings.height);
+	dc4.setAttribute("MAXIMIZED",static_cast<int>(appPrefs.mainWinSettings.maximized));
 	elem.appendChild(dc4);
 	QDomElement dc73=docu.createElement("SCRAPBOOK");
 	for (uint rd=0; rd<appPrefs.RecentScrapbooks.count(); ++rd)
@@ -1425,6 +1430,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.mainWinSettings.yPosition = dc.attribute("YPOS", "0").toInt();
 			appPrefs.mainWinSettings.width = dc.attribute("WIDTH", "640").toInt();
 			appPrefs.mainWinSettings.height = dc.attribute("HEIGHT", "480").toInt();
+			appPrefs.mainWinSettings.maximized = static_cast<bool>(dc.attribute("MAXIMIZED", "0").toInt());
 			QDesktopWidget *d = QApplication::desktop();
 			QSize gStrut = QApplication::globalStrut();
 			int minX = 0;

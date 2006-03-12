@@ -58,6 +58,7 @@ struct windowPrefs
 	int height;
 	bool visible;
 	bool docked;
+	bool maximized;
 };
 
 struct guidesPrefs
