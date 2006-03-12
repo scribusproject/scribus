@@ -4098,10 +4098,10 @@ void Mpalette::setPrintingEnabled(bool isPrintingEnabled)
 
 void Mpalette::setFlippedH(bool isFlippedH)
 {
-	FlipH->setOn(!isFlippedH);
+	FlipH->setOn(isFlippedH);
 }
 
 void Mpalette::setFlippedV(bool isFlippedV)
 {
-	FlipV->setOn(!isFlippedV);
+	FlipV->setOn(isFlippedV);
 }
