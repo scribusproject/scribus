@@ -1313,7 +1313,7 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 				//else if not in mode edit, set mode edit
 				else if (Doc->appMode != modeEdit)
 				{
-					Amode(modeEdit);
+					emit Amode(modeEdit);
 					//CB ignore the double click and go with a single one
 					//if we werent in mode edit before.
 					//unsure if this is correct, but its ok given we had no

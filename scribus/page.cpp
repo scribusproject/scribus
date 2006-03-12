@@ -291,7 +291,12 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	ScMW->doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
 	if (isUndo)
 	{
-		ScMW->doc->m_Selection->removeItem(ite);
+		if (ScMW->doc->m_Selection->findItem(ite)!=-1)
+		{
+			if (ScMW->doc->appMode == modeEdit)
+				ScMW->setAppMode(modeNormal);
+			ScMW->doc->m_Selection->removeItem(ite);
+		}
 		Selection tempSelection(ScMW->doc, false);
 		tempSelection.addItem(ite);
 		ScMW->doc->itemSelection_DeleteItem(&tempSelection);
@@ -326,10 +331,21 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 	}
 	else
 	{
+		if (ScMW->doc->m_Selection->findItem(ite)!=-1)
+		{
+			if (ScMW->doc->appMode == modeEdit)
+				ScMW->setAppMode(modeNormal);
+			ScMW->doc->m_Selection->removeItem(ite);
+		}
+		Selection tempSelection(ScMW->doc, false);
+		tempSelection.addItem(ite);
+		ScMW->doc->itemSelection_DeleteItem(&tempSelection);
+		/*
 		ScMW->doc->m_Selection->clear();
 		ScMW->doc->m_Selection->addItem(ite, true);
 		ScMW->doc->itemSelection_DeleteItem();
 		ScMW->doc->m_Selection->clear();
+		*/
 	}
 	ScMW->doc->setMasterPageMode(oldMPMode);
 }
