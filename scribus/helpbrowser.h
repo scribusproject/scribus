@@ -91,7 +91,7 @@ public:
 	TextBrowser(QWidget * parent = 0, const char * name = 0);
 
 public slots:
-	/*! \brief Sets the name of the displayed document to name. 
+	/*! \brief Sets the name of the displayed document to name.
 	On Windows, the default web browser is launched if a web link is clicked
 	*/
 	virtual void setSource(const QString &name);
@@ -185,6 +185,9 @@ protected slots:
 	Then it performs some doc-finding and highlighting.
 	\author Petr Vanek <petr@yarpen.cz> */
 	void itemSearchSelected( QListViewItem *);
+	/*! \brief Load doc file when user select filename in bookmark view.
+	\author Petr Vanek <petr@yarpen.cz> */
+	void itemBookmarkSelected( QListViewItem *);
 	void histChosen(int i);
 	void jumpToHelpSection(QString jumpToSection, QString jumpToFile="");
 	void loadHelp(QString filename);

@@ -371,7 +371,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	connect(bookmarkButton, SIGNAL(clicked()), this, SLOT(bookmarkButton_clicked()));
 	connect(deleteBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteBookmarkButton_clicked()));
 	connect(deleteAllBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteAllBookmarkButton_clicked()));
-	connect(bookmarksView, SIGNAL(clicked(QListViewItem *)), this, SLOT(itemSearchSelected(QListViewItem *)));
+	connect(bookmarksView, SIGNAL(clicked(QListViewItem *)), this, SLOT(itemBookmarkSelected(QListViewItem *)));
 }
 
 HelpBrowser::~HelpBrowser()
@@ -738,6 +738,13 @@ void HelpBrowser::itemSearchSelected(QListViewItem *item)
 		findNext();
 	}
 }
+
+void HelpBrowser::itemBookmarkSelected(QListViewItem *item)
+{
+	if (item && !item->text(1).isNull())
+		loadHelp(item->text(1));
+}
+
 
 void HelpBrowser::searchingInDirectory(QString aDir)
 {
