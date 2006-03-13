@@ -1,3 +1,4 @@
+# translation of scribus.po to
 # translation of Scribus2.po to
 # translation of Scribus.po to
 # This file is distributed under the same license as the PACKAGE package.
@@ -6,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Scribus2\n"
+"Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-10 01:02+0100\n"
-"PO-Revision-Date: 2006-03-10 17:59-0300\n"
+"PO-Revision-Date: 2006-03-13 18:31-0300\n"
 "Last-Translator: Ludi Maciel <iludi@uol.com.br>\n"
 "Language-Team:  <pt@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +19,7 @@ msgstr ""
 "X-Generator: KBabel 1.10.2\n"
 
 msgid "Custom"
-msgstr "Personalizado"
+msgstr "fPersonalizado"
 
 msgid "4A0"
 msgstr "4A0"
@@ -267,7 +268,7 @@ msgid "Page "
 msgstr "Página "
 
 msgid "Outline"
-msgstr "Esquema"
+msgstr "Delineado"
 
 msgid "Element"
 msgstr "Elemento"
@@ -372,7 +373,7 @@ msgid "F&ill Color:"
 msgstr "Cor do preench&imento:"
 
 msgid "Use embedded Clipping Path"
-msgstr "Usar curtos caminhos incorporados"
+msgstr "Usar caminho incorporado"
 
 msgid "On Screen Preview"
 msgstr "Visualização em tela"
@@ -2003,7 +2004,7 @@ msgid "Show Text Chains"
 msgstr "Mostrar conexões de texto"
 
 msgid "Show Text Control Characters"
-msgstr "Mostrar controle de caracteres do texto"
+msgstr "Mostrar caracteres de controle de texto"
 
 msgid "Show Frames"
 msgstr "Mostrar quadros"
@@ -2042,10 +2043,10 @@ msgid "&Name of Executable:"
 msgstr "&Nome do executável:"
 
 msgid "Antialias &Text"
-msgstr "Suavizar (antialias) o &texto"
+msgstr "Suavizar o &texto"
 
 msgid "Antialias &Graphics"
-msgstr "Suavizar (antialias) as &imagens"
+msgstr "Suavizar as &imagens"
 
 msgid "dpi"
 msgstr "dpi"
@@ -2161,12 +2162,12 @@ msgstr "Orientação padrão das páginas do documento"
 
 msgid "Width of document pages, editable if you have chosen a custom page size"
 msgstr ""
-"Largura das páginas do documento, editável se você escolheu um tamanho "
+"Largura das páginas do documento. Editável se você escolheu um tamanho "
 "personalizado"
 
 msgid "Height of document pages, editable if you have chosen a custom page size"
 msgstr ""
-"Altura das páginas do documento, editável se você escolheu um tamanho "
+"Altura das páginas do documento. Editável se você escolheu um tamanho "
 "personalizado"
 
 msgid ""
@@ -2794,10 +2795,10 @@ msgid "Scribus: About Plug-ins"
 msgstr "Scribus - Sobre os Plug-ins"
 
 msgid "Align Text Left"
-msgstr "Alinhar o texto a esquerda"
+msgstr "Alinhar o texto à esquerda"
 
 msgid "Align Text Right"
-msgstr "Alinhar o texto a direita"
+msgstr "Alinhar o texto à direita"
 
 msgid "Align Text Center"
 msgstr "Centralizar o texto"
@@ -2902,11 +2903,11 @@ msgid "Distribute"
 msgstr "Distribuir"
 
 msgid "Make horizontal gaps between objects equal"
-msgstr "Distribui igualmente as lacunas horizontais entre os objetos "
+msgstr "Distribui as lacunas horizontais entre os objetos uniformemente"
 
 msgid "Make horizontal gaps between objects equal to the value specified"
 msgstr ""
-"Distribui igualmente as lacunas horizontais entre os objetos usando o valor "
+"Distribui as lacunas horizontais entre os objetos uniformemente usando o valor "
 "especificado"
 
 msgid "Distribute right sides equidistantly"
@@ -2927,13 +2928,13 @@ msgstr ""
 "especificado"
 
 msgid "Distribute left sides equidistantly"
-msgstr "Distribui uniformemente os lados esquerdos"
+msgstr "Distribui o lado esquerdo uniformemente"
 
 msgid "Distribute centers equidistantly vertically"
-msgstr "Distribui uniformemente os centros na vertical"
+msgstr "Distribui os centros uniformemente na vertical"
 
 msgid "Distribute tops equidistantly"
-msgstr "Distribuir uniformemente os topos"
+msgstr "Distribuir os topos  uniformemente"
 
 msgid "&Distance:"
 msgstr "&Distância:"
@@ -3487,8 +3488,8 @@ msgid ""
 "PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is "
 "not as reliable as GPG or PGP encryption and does have some limitations."
 msgstr ""
-"Habilita os recursos de segurança no seu PDF a ser exportado.Se você "
-"selecionar PDF 1.3, o PDF será protegido por uma criptografia de 40 bit.Se "
+"Habilita os recursos de segurança no seu PDF a ser exportado. Se você "
+"selecionar PDF 1.3, o PDF será protegido por uma criptografia de 40 bit. Se "
 "você selecionar PDF 1.4, o PDF será protegido por uma criptografia de 128 "
 "bit.Aviso: a criptografia PDF não é tão confiável quanto a encriptação GPG "
 "ou PGP e possui algumas limitações."
@@ -3513,7 +3514,7 @@ msgid ""
 "Allow copying of text or graphics from the PDF. If unchecked, text and "
 "graphics cannot be copied."
 msgstr ""
-"Permite a cópia de texto ou imagens do PDF.Se desmarcado, não se pode copiar "
+"Permite a cópia de texto ou imagens do PDF. Se desmarcado, não se pode copiar "
 "texto nem imagens."
 
 msgid ""
@@ -3529,7 +3530,7 @@ msgid ""
 "when printing to a true 4 color CMYK printer. Choose Grayscale when you want "
 "a grey scale PDF."
 msgstr ""
-"Modelo de cor para a saída do seu PDF.Selecione Tela/Web para PDF's que "
+"Modelo de cor para a saída do seu PDF. Selecione Tela/Web para PDF's que "
 "serão exibidos na tela ou enviados para impressoras jato-de-tinta típicas."
 "Selecione Impressora para enviar para uma impressora que suporte 4 cores "
 "CMYK. Selecione Tons de Cinza quando você desejar um PDF nessa escala."
@@ -3685,14 +3686,14 @@ msgstr "Orientação das páginas do documento"
 
 msgid "Width of the document's pages, editable if you have chosen a custom page size"
 msgstr ""
-"Largura das páginas do documento; editável se você escolheu um tamanho de "
+"Largura das páginas do documento. Editável se você escolheu um tamanho de "
 "página personalizado"
 
 msgid ""
 "Height of the document's pages, editable if you have chosen a custom page "
 "size"
 msgstr ""
-"Altura das páginas do documento; editável se você escolheu um tamanho de "
+"Altura das páginas do documento. Editável se você escolheu um tamanho de "
 "página personalizado"
 
 msgid "Initial number of pages of the document"
@@ -3798,7 +3799,7 @@ msgid "&Unit:"
 msgstr "&Unidade:"
 
 msgid "Apply size settings to all pages"
-msgstr "Aplicar as configurações de tamanhos em todas as páginas"
+msgstr "Aplicar as configurações de tamanhos a todas as páginas"
 
 msgid "Document Information"
 msgstr "Informações do documento"
@@ -4517,7 +4518,7 @@ msgid "Show &Text Chain"
 msgstr "Mostrar conexões de &texto"
 
 msgid "Show Control Characters"
-msgstr "Mostrar controle de caracteres"
+msgstr "Mostrar caracteres de controle"
 
 msgid "Show Rulers"
 msgstr "Mostrar réguas"
@@ -4676,7 +4677,7 @@ msgid "Smart &Hyphen"
 msgstr "&Hifenização inteligente"
 
 msgid "Non Breaking Dash"
-msgstr "Sem quebra"
+msgstr "Traço sem quebra"
 
 msgid "Non Breaking &Space"
 msgstr "E&spaço sem quebra"
@@ -4736,46 +4737,46 @@ msgid "Single Right"
 msgstr "Direita simples"
 
 msgid "Double Left"
-msgstr "Dupla esquerda"
+msgstr "Dupla à esquerda"
 
 msgid "Double Right"
-msgstr "Dupla direita"
+msgstr "Dupla à direita"
 
 msgid "Single Reversed"
-msgstr "Simples revertida"
+msgstr "Revertida simples"
 
 msgid "Double Reversed"
-msgstr "Dupla revertida"
+msgstr "Revertida dupla"
 
 msgid "Single Left Guillemet"
-msgstr "Guillemet simples a esquerda"
+msgstr "Guillemet simples à esquerda"
 
 msgid "Single Right Guillemet"
-msgstr "Guillemet simples a direita"
+msgstr "Guillemet simples à direita"
 
 msgid "Double Left Guillemet"
-msgstr "Guillemet dupla a esquerda"
+msgstr "Guillemet dupla à esquerda"
 
 msgid "Double Right Guillemet"
-msgstr "Guillemet dupla a direita"
+msgstr "Guillemet dupla à direita"
 
 msgid "Low Single Comma"
 msgstr "Vírgula baixa"
 
 msgid "Low Double Comma"
-msgstr "Dupla vírgula baixa"
+msgstr "Vírgula dupla baixa"
 
 msgid "CJK Single Left"
-msgstr "CJK esquerda simples"
+msgstr "CJK simples à esquerda"
 
 msgid "CJK Single Right"
-msgstr "CJK direita simples"
+msgstr "CJK simples à direita"
 
 msgid "CJK Double Left"
-msgstr "CJK dupla esquerda"
+msgstr "CJK dupla à esquerda"
 
 msgid "CJK Double Right"
-msgstr "CJK dupla direita"
+msgstr "CJK dupla à direita"
 
 msgid "En Space"
 msgstr "Espaço en"
@@ -4987,7 +4988,7 @@ msgid "Preset Layouts:"
 msgstr "Aparência:"
 
 msgid "Apply margin settings to all pages"
-msgstr "Aplicar as configurações de margem em todas as páginas"
+msgstr "Aplicar as configurações de margem a todas as páginas"
 
 msgid "Apply the margin changes to all existing pages in the document"
 msgstr "Aplica as configurações de margem em todas as páginas existentes do documento"
@@ -5009,7 +5010,7 @@ msgid ""
 "Pages is selected, this margin space can be used to achieve the correct "
 "margins for binding"
 msgstr ""
-"Distância entre a guia da margem esquerda e a borda da página.Se for "
+"Distância entre a guia da margem esquerda e a borda da página. Se for "
 "selecionado Páginas Espelhadas, essa medida pode ser usada para ajustar as "
 "margens para encadernação"
 
@@ -5048,8 +5049,8 @@ msgid ""
 "Gutenberg sets margins classically. 'Magazine' sets all margins for same "
 "value. Leading is Left/Inside value."
 msgstr ""
-"Você pode selecionar aqui layout de páginas predefinidos.'Nenhum' deixa as "
-"margens como estão. Gutenberg deixa as margens na forma clássica. 'Revista' "
+"Você pode selecionar aqui um layout de página predefinido.'Nenhum' deixa as "
+"margens como estão. 'Gutenberg' deixa as margens na forma clássica. 'Revista' "
 "deixa todas as margens com o mesmo valor. Leading é o valor Esquerda/"
 "Interior."
 
@@ -6254,7 +6255,7 @@ msgid "Automatic Linespacing"
 msgstr "Espaçamento automático de linhas"
 
 msgid "Align to Baseline Grid"
-msgstr "Alinha à linha base da grade"
+msgstr "Alinhar à grade da pauta"
 
 msgid "&X1:"
 msgstr "&X1:"
@@ -6503,14 +6504,12 @@ msgid "Scaling height of characters"
 msgstr "Escalona a altura dos caracteres"
 
 msgid "Color of text stroke. Only available with \"outline\" text decoration."
-msgstr ""
-"Cor de traço do texto. Apenas disponível com a decoração de texto \"contorno"
-"\"."
+msgstr "Cor de traço do texto. Apenas disponível com a decoração de texto \"delineado\"."
 
 msgid "Color of text fill. Only available with \"outline\" text decoration."
 msgstr ""
 "Cor de preenchimento do texto. Apenas disponível com a decoração de texto "
-"\"contorno\"."
+"\"delineado\"."
 
 msgid "Saturation of color of text stroke"
 msgstr "Saturação da cor da borda de texto"
@@ -7317,7 +7316,7 @@ msgid "Show Margins"
 msgstr "Mostrar margens"
 
 msgid "Show Page Grid"
-msgstr "Mostrar grade da página"
+msgstr "Mostrar grade de página"
 
 msgid "Major Grid"
 msgstr "Grade maior"
@@ -7374,10 +7373,10 @@ msgid "Color for the baseline grid"
 msgstr "Cor de grade da pauta"
 
 msgid "Turns the basegrid on or off"
-msgstr "Torna a grade base ativa ou inativa"
+msgstr "Torna a pauta ativa ou inativa"
 
 msgid "Distance between the lines of the baseline grid"
-msgstr "Distância entre as linhas da grade da pauta"
+msgstr "Distância entre as linhas de grade da pauta"
 
 msgid "Distance from the top of the page for the first baseline"
 msgstr "Distância do topo da página para a primeira linha de pauta"
@@ -7483,7 +7482,7 @@ msgid "Sim&ulate Printer on the Screen"
 msgstr "Sim&ular o resultado da impressão na tela"
 
 msgid "Mark Colors out of &Gamut"
-msgstr "Marcar cores fora da &gama"
+msgstr "Marcar cores fora de &gama"
 
 msgid "Use &Blackpoint Compensation"
 msgstr "Usar Compensação de &Pontos Negros"
@@ -7775,7 +7774,7 @@ msgid "Lithuanian"
 msgstr "Lituano"
 
 msgid "Luxembourgish"
-msgstr ""
+msgstr "Luxemburguês"
 
 msgid "Norwegian (Bokmaal)"
 msgstr "Norueguês (Bokmaal)"
@@ -8613,7 +8612,7 @@ msgid ""
 "esp. in the case of whitespaces. Please consult Scribus manual for more "
 "informations."
 msgstr ""
-"Isto é uma derivação do console Python padrão, então possui algumas "
+"Isto é uma derivação do console Python padrão, possuindo algumas "
 "limitações como no caso de espaços em branco. Por favor, consulte o manual "
 "do Scribus para maiores informações."
 
@@ -8621,7 +8620,7 @@ msgid "Script Console"
 msgstr "Console de scripts"
 
 msgid "Write your commands here. A selection is processed as script"
-msgstr "Escreva seus comandos aqui. um seleção é processada como um script"
+msgstr "Escreva seus comandos aqui. Uma seleção é processada como um script"
 
 msgid "Output of your script"
 msgstr "Saída do seu script"
@@ -8905,7 +8904,7 @@ msgid ""
 "Object the last frame in a series, can't unlink. Unlink the previous frame "
 "instead."
 msgstr ""
-"Não é possível desconectar o último objeto de uma série.Separe o quadro "
+"Não é possível desconectar o último objeto de uma série. Separe o quadro "
 "anterior no lugar."
 
 msgid "Cannot convert a non-text frame to outlines."
@@ -9204,7 +9203,7 @@ msgid "Tetradic (Double Complementary)"
 msgstr "Tritônico (duplo complementar)"
 
 msgid "Base Color"
-msgstr "Cores base"
+msgstr "Cor base"
 
 msgid "Monochromatic Light"
 msgstr "Luz monocromática"
@@ -9336,7 +9335,7 @@ msgid "Barcode Creator"
 msgstr "Gerador de código de barra"
 
 msgid "Make check digit visible in text"
-msgstr "Tornar o dígito de checagem visível no texto"
+msgstr "Torna o dígito de checagem visível no texto"
 
 msgid "Barcode"
 msgstr "Código de barras"
