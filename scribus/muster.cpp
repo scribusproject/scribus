@@ -66,7 +66,7 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 		currentView->showMasterPage(currentDoc->MasterNames[sMuster]);
 	}
 
-	setMaximumSize(sizeHint());
+	setMinimumSize(sizeHint());
 
 	QToolTip::add( duplicateButton, tr( "Duplicate the selected master page" ) );
 	QToolTip::add( deleteButton, tr( "Delete the selected master page" ) );
