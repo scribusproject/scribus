@@ -1909,7 +1909,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>March</source>
-        <translation type="unfinished"></translation>
+        <translation>Mars</translation>
     </message>
 </context>
 <context>
@@ -1924,42 +1924,42 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Filename:</source>
-        <translation type="unfinished"></translation>
+        <translation>Filnavn:</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished">Versjon:</translation>
+        <translation>Versjon:</translation>
     </message>
     <message>
         <source>Enabled:</source>
-        <translation type="unfinished">Skrudd på:</translation>
+        <translation>Skrudd på:</translation>
     </message>
     <message>
         <source>Release Date:</source>
-        <translation type="unfinished">Utgivelses dato:</translation>
+        <translation>Utgivelsesdato:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished">Beskrivelse:</translation>
+        <translation>Beskrivelse:</translation>
     </message>
     <message>
         <source>Author(s):</source>
-        <translation type="unfinished">Forfatter(e):</translation>
+        <translation>Forfatter(e):</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation type="unfinished">Copyright:</translation>
+        <translation>Copyright:</translation>
     </message>
     <message>
         <source>License:</source>
-        <translation type="unfinished">Lisens:</translation>
+        <translation>Lisens:</translation>
     </message>
 </context>
 <context>
     <name>AboutPluginsBase</name>
     <message>
         <source>Scribus: About Plug-ins</source>
-        <translation>Scribus: om Plug-ins</translation>
+        <translation>Scribus: om tilleggsprogram</translation>
     </message>
     <message>
         <source>File Name:</source>
@@ -2794,7 +2794,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;About Plug-ins</source>
-        <translation>&amp;Om Plug-ins</translation>
+        <translation>&amp;Om tilleggsprogram</translation>
     </message>
     <message>
         <source>More Info...</source>
@@ -2802,11 +2802,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Copy Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopier innhold</translation>
     </message>
     <message>
         <source>Paste Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Lim inn innhold</translation>
     </message>
     <message>
         <source>&amp;Printing Enabled</source>
@@ -2822,7 +2822,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Show Rulers</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis linjal</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
@@ -2875,35 +2875,35 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Insert Page Number</source>
-        <translation type="unfinished">Sett inn sidenummer</translation>
+        <translation>Sett inn sidenummer</translation>
     </message>
     <message>
         <source>ff</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>fi</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>fl</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>ffi</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>ffl</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>ft</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>st</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Paste Contents (Absolute)</source>
@@ -3835,12 +3835,12 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     <message>
         <source>None</source>
         <comment>highlight</comment>
-        <translation type="unfinished">Ingen</translation>
+        <translation>Ingen</translation>
     </message>
     <message>
         <source>None</source>
         <comment>action</comment>
-        <translation type="unfinished">Ingen</translation>
+        <translation>Ingen</translation>
     </message>
 </context>
 <context>
@@ -3962,7 +3962,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>&amp;Within range</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Innenfor område</translation>
     </message>
     <message>
         <source>Alt+W</source>
@@ -4047,7 +4047,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     <name>Barcode</name>
     <message>
         <source>&amp;Barcode Generator...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Strekkode generator ...</translation>
     </message>
     <message>
         <source>Scribus frontend for Pure Postscript Barcode Writer</source>
@@ -4058,31 +4058,31 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     <name>BarcodeGenerator</name>
     <message>
         <source>Error opening file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Feil ved åpning av fil: %1</translation>
     </message>
     <message>
         <source>12 or 13 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>12 eller 13 siffer</translation>
     </message>
     <message>
         <source>8 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>8 siffer</translation>
     </message>
     <message>
         <source>11 or 12 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>11 eller 12 siffer</translation>
     </message>
     <message>
         <source>7 or 8 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>7 eller 8 siffer</translation>
     </message>
     <message>
         <source>5 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>5 siffer</translation>
     </message>
     <message>
         <source>2 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>2 siffer</translation>
     </message>
     <message>
         <source>9 or 10 digits separated appropriately with dashes</source>
@@ -4125,15 +4125,15 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     <name>BarcodeGeneratorBase</name>
     <message>
         <source>Barcode Creator</source>
-        <translation type="unfinished"></translation>
+        <translation>Strekkode forfatter</translation>
     </message>
     <message>
         <source>Barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>Strekkode</translation>
     </message>
     <message>
         <source>&amp;Type:</source>
-        <translation type="unfinished">&amp;Type:</translation>
+        <translation>&amp;Type:</translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
@@ -4153,7 +4153,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished">Alt+I</translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
         <source>If checked, there will be numbers in the barcode too</source>
@@ -4165,7 +4165,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>Alt+G</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
         <source>Draw arrows to be sure of space next the code</source>
@@ -4173,15 +4173,15 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Farger</translation>
+        <translation>Farger</translation>
     </message>
     <message>
         <source>&amp;Background</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bakgrunn</translation>
     </message>
     <message>
         <source>Alt+B</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+B</translation>
     </message>
     <message>
         <source>Background color - under the code lines</source>
@@ -4189,11 +4189,11 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>&amp;Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Linjer</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>Color of the lines in barcode</source>
@@ -4201,11 +4201,11 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>&amp;Text</source>
-        <translation type="unfinished">&amp;Tekst</translation>
+        <translation>&amp;Tekst</translation>
     </message>
     <message>
         <source>Alt+T</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>Color of the text and numbers</source>
@@ -4233,7 +4233,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished">Alt+N</translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <source>Generate and include a checksum in barcode</source>
@@ -4245,7 +4245,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <source>Include the checksum digit in the barcode text</source>
@@ -4352,7 +4352,7 @@ Velg et annet.</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation type="unfinished">Velg en katalog</translation>
+        <translation>Velg en katalog</translation>
     </message>
 </context>
 <context>
@@ -4981,7 +4981,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>&amp;Ignore Errors</source>
-        <translation type="unfinished">&amp;fIgnorer feil</translation>
+        <translation>&amp;Ignorer feil</translation>
     </message>
 </context>
 <context>
@@ -5030,7 +5030,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Collecting...</source>
-        <translation type="unfinished"></translation>
+        <translation>Henter ...</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -5051,55 +5051,55 @@ It is a reserved name for transparent color</source>
     <name>ColorManager</name>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Farger</translation>
+        <translation>Farger</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Importer</translation>
+        <translation>&amp;Importer</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ny</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Rediger</translation>
+        <translation>&amp;Rediger</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>K&amp;opier</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Slett</translation>
     </message>
     <message>
         <source>&amp;Remove Unused</source>
-        <translation type="unfinished">&amp;Fjern ubrukte</translation>
+        <translation>&amp;Fjern ubrukte</translation>
     </message>
     <message>
         <source>Color Sets</source>
-        <translation type="unfinished">Fargesett</translation>
+        <translation>Fargesett</translation>
     </message>
     <message>
         <source>Current Color Set:</source>
-        <translation type="unfinished">Nåværende fargesett:</translation>
+        <translation>Nåværende fargesett:</translation>
     </message>
     <message>
         <source>&amp;Save Color Set</source>
-        <translation type="unfinished">&amp;Lagre fargevalg</translation>
+        <translation>&amp;Lagre fargevalg</translation>
     </message>
     <message>
         <source>Choose a color set to load</source>
-        <translation type="unfinished">Velg et fargesett å laste inn</translation>
+        <translation>Velg et fargesett å laste inn</translation>
     </message>
     <message>
         <source>Save the current color set</source>
-        <translation type="unfinished">Lagre nåværende fargesett</translation>
+        <translation>Lagre nåværende fargesett</translation>
     </message>
     <message>
         <source>Remove unused colors from current document&apos;s color set</source>
-        <translation type="unfinished">Slett ikke-brukte farger fra dette dokuments fargesett</translation>
+        <translation>Slett ikke-brukte farger fra dette dokumentets fargesett</translation>
     </message>
     <message>
         <source>Import colors to the current set from an existing document</source>
@@ -5107,35 +5107,35 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Create a new color within the current set</source>
-        <translation type="unfinished">Lag en ny farge innenfor det nåværende sett</translation>
+        <translation>Lag en ny farge innenfor det nåværende sett</translation>
     </message>
     <message>
         <source>Edit the currently selected color</source>
-        <translation type="unfinished">Rediger den nåværende aktive farge</translation>
+        <translation>Rediger den nåværende aktive farge</translation>
     </message>
     <message>
         <source>Make a copy of the currently selected color</source>
-        <translation type="unfinished">Lag en kopi av den nåværende aktive farge</translation>
+        <translation>Lag en kopi av den nåværende aktive farge</translation>
     </message>
     <message>
         <source>Delete the currently selected color</source>
-        <translation type="unfinished">Slett den nåværende aktive farge</translation>
+        <translation>Slett den nåværende aktive farge</translation>
     </message>
     <message>
         <source>Make the current colorset the default color set</source>
-        <translation type="unfinished">Sett det nåværende fargesett til standard fargesett</translation>
+        <translation>Sett det nåværende fargesett til standard fargesett</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation type="unfinished">&amp;Navn:</translation>
+        <translation>&amp;Navn:</translation>
     </message>
     <message>
         <source>Choose a Name</source>
-        <translation type="unfinished">Velg et navn</translation>
+        <translation>Velg et navn</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Åpne</translation>
+        <translation>Åpne</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
@@ -5147,11 +5147,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation type="unfinished">Kopi av %1</translation>
+        <translation>Kopi av %1</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation type="unfinished">Ny farge</translation>
+        <translation>Ny farge</translation>
     </message>
 </context>
 <context>
@@ -5456,20 +5456,20 @@ It is a reserved name for transparent color</source>
     <message>
         <source>None</source>
         <comment>color name</comment>
-        <translation type="unfinished">Ingen</translation>
+        <translation>Ingen</translation>
     </message>
     <message>
         <source>Custom</source>
         <comment>CommonStrings, custom page size</comment>
-        <translation type="unfinished">Brukerdefinert</translation>
+        <translation>Brukerdefinert</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished">Enkel side</translation>
+        <translation>Enkeltsidig</translation>
     </message>
     <message>
         <source>Double Sided</source>
-        <translation type="unfinished"></translation>
+        <translation>Dobbeltsidig</translation>
     </message>
     <message>
         <source>3-Fold</source>
@@ -5481,23 +5481,23 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Left Page</source>
-        <translation type="unfinished">Venstre side</translation>
+        <translation>Venstre side</translation>
     </message>
     <message>
         <source>Middle</source>
-        <translation type="unfinished">I midten</translation>
+        <translation>I midten</translation>
     </message>
     <message>
         <source>Middle Left</source>
-        <translation type="unfinished">I midten til venstre</translation>
+        <translation>I midten mot venstre</translation>
     </message>
     <message>
         <source>Middle Right</source>
-        <translation type="unfinished">Høyre mot høyre</translation>
+        <translation>I midten mot høyre</translation>
     </message>
     <message>
         <source>Right Page</source>
-        <translation type="unfinished">Høyre side</translation>
+        <translation>Høyre side</translation>
     </message>
 </context>
 <context>
@@ -5652,7 +5652,7 @@ It is a reserved name for transparent color</source>
     <message>
         <source>None</source>
         <comment>delimiter</comment>
-        <translation type="unfinished">Ingen</translation>
+        <translation>Ingen</translation>
     </message>
 </context>
 <context>
@@ -5957,12 +5957,13 @@ dokumenter. Denne kan du selv velge i Preferanser.</translation>
     <name>DocIm</name>
     <message>
         <source>Importing failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Import feilet</translation>
     </message>
     <message>
         <source>Importing Word document failed 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Import av Word dokument feilet
+%1</translation>
     </message>
 </context>
 <context>
@@ -6335,17 +6336,17 @@ eventuelt fulgt av en dash og en ISO-3166 lande kode, f.eks nn-NO, nb-NO, fr-CH,
     <message>
         <source>None</source>
         <comment>relationship</comment>
-        <translation type="unfinished">Ingen</translation>
+        <translation>Ingen</translation>
     </message>
     <message>
         <source>None</source>
         <comment>auto add</comment>
-        <translation type="unfinished">Ingen</translation>
+        <translation>Ingen</translation>
     </message>
     <message>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">Ingen</translation>
+        <translation>Ingen</translation>
     </message>
     <message>
         <source>Real Number</source>
@@ -6396,7 +6397,7 @@ eventuelt fulgt av en dash og en ISO-3166 lande kode, f.eks nn-NO, nb-NO, fr-CH,
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kopier</translation>
     </message>
     <message>
         <source>Alt+C</source>
@@ -6404,7 +6405,7 @@ eventuelt fulgt av en dash og en ISO-3166 lande kode, f.eks nn-NO, nb-NO, fr-CH,
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Slett</translation>
     </message>
     <message>
         <source>Alt+D</source>
@@ -6701,7 +6702,7 @@ failed!</source>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished">Feil</translation>
+        <translation>Feil</translation>
     </message>
 </context>
 <context>
@@ -7551,7 +7552,7 @@ Bruk 72 dpi for bilder som er ment for skjermen</translation>
     <name>FileLoader</name>
     <message>
         <source>Some fonts used by this document have been substituted:</source>
-        <translation>Noen skrifttyper i dette dokumentet ar blitt erstattet:</translation>
+        <translation>Noen skrifttyper i dette dokumentet har blitt erstattet:</translation>
     </message>
     <message>
         <source> was replaced by: </source>
@@ -7814,7 +7815,7 @@ Bruk 72 dpi for bilder som er ment for skjermen</translation>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation type="unfinished">Forhåndsvisning av skrifttyper</translation>
+        <translation>Forhåndsvisning av skrifttyper</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -7822,27 +7823,27 @@ Bruk 72 dpi for bilder som er ment for skjermen</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Søk</translation>
+        <translation>&amp;Søk</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>Font Name</source>
-        <translation type="unfinished">Navn på skrifttype</translation>
+        <translation>Navn på skrifttype</translation>
     </message>
     <message>
         <source>Doc</source>
-        <translation type="unfinished"></translation>
+        <translation>Doc</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation type="unfinished">Senket skrift</translation>
+        <translation>Senket skrift</translation>
     </message>
     <message>
         <source>Access</source>
@@ -7850,11 +7851,11 @@ Bruk 72 dpi for bilder som er ment for skjermen</translation>
     </message>
     <message>
         <source>&amp;Font Size:</source>
-        <translation type="unfinished">&amp;Skriftstørrelse:</translation>
+        <translation>&amp;Skriftstørrelse:</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished">Tekst</translation>
+        <translation>Tekst</translation>
     </message>
     <message>
         <source>Sample text to display</source>
@@ -7866,7 +7867,7 @@ Bruk 72 dpi for bilder som er ment for skjermen</translation>
     </message>
     <message>
         <source>Alt+T</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>Reset the text</source>
@@ -7874,19 +7875,19 @@ Bruk 72 dpi for bilder som er ment for skjermen</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation type="unfinished">&amp;Legg til</translation>
+        <translation>&amp;Legg til</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Lukk</translation>
+        <translation>&amp;Lukk</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -8087,7 +8088,7 @@ Bruk 72 dpi for bilder som er ment for skjermen</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation type="unfinished">Forhåndsvis</translation>
+        <translation>Forhåndsvis</translation>
     </message>
     <message>
         <source>There is empty (0.0) guide already</source>
@@ -8207,7 +8208,7 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>Relevance</source>
-        <translation type="unfinished"></translation>
+        <translation>Relevans</translation>
     </message>
 </context>
 <context>
@@ -8382,7 +8383,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF</translation>
     </message>
 </context>
 <context>
@@ -8860,7 +8861,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>%</source>
-        <translation type="unfinished"></translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>Line Width:</source>
@@ -8871,19 +8872,19 @@ converting their vector data into Scribus objects.</source>
     <name>LineStyleWidget</name>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Flat Cap</source>
-        <translation type="unfinished">Flat Cap</translation>
+        <translation>Flat Cap</translation>
     </message>
     <message>
         <source>Square Cap</source>
-        <translation type="unfinished">Firkant Cap</translation>
+        <translation>Firkant Cap</translation>
     </message>
     <message>
         <source>Round Cap</source>
-        <translation type="unfinished">Rund Cap</translation>
+        <translation>Rund Cap</translation>
     </message>
     <message>
         <source>Miter Join</source>
@@ -8891,31 +8892,31 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation type="unfinished">Bevel sammenføyning</translation>
+        <translation>Bevel sammenføyning</translation>
     </message>
     <message>
         <source>Round Join</source>
-        <translation type="unfinished">Rund sammenføyning</translation>
+        <translation>Rund sammenføyning</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation type="unfinished">Heltrukken linje</translation>
+        <translation>Heltrukken linje</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation type="unfinished">Prikket linje</translation>
+        <translation>Prikket linje</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation type="unfinished">Prikket linje</translation>
+        <translation>Prikket linje</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation type="unfinished">Bindestrek punktum linje</translation>
+        <translation>Bindestrek punktum linje</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation type="unfinished">Bindestrek punktum punktum linje</translation>
+        <translation>Bindestrek punktum punktum linje</translation>
     </message>
 </context>
 <context>
@@ -11035,7 +11036,7 @@ ellers er Koordinater relative til Objektet.</translation>
     <name>OODPlug</name>
     <message>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dette dokumentet ser ikke ut til å være et OpenOffice.org Draw (Tegning) dokument.</translation>
     </message>
 </context>
 <context>
@@ -11050,7 +11051,7 @@ ellers er Koordinater relative til Objektet.</translation>
     </message>
     <message>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
-        <translation>Importerer de fleste OpenOffice.org Draw filene inn i det gjeldene dokumentet, ved å konvertere deres vektor data til Scribus objekter.</translation>
+        <translation>Importerer de fleste OpenOffice.org Draw filene inn i det gjeldene dokumentet, ved å konvertere deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>OpenDocument 1.0 Draw</source>
@@ -11107,7 +11108,7 @@ ellers er Koordinater relative til Objektet.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Avbryt</translation>
+        <translation>Avbryt</translation>
     </message>
 </context>
 <context>
@@ -12034,7 +12035,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>Scaling:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <source>Print...</source>
@@ -12062,7 +12063,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">Fil</translation>
+        <translation>Fil</translation>
     </message>
 </context>
 <context>
@@ -12475,7 +12476,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     <message>
         <source>None</source>
         <comment>relationship</comment>
-        <translation type="unfinished">Ingen</translation>
+        <translation>Ingen</translation>
     </message>
 </context>
 <context>
@@ -12564,11 +12565,11 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     <name>PagePalette</name>
     <message>
         <source>Double sided</source>
-        <translation type="unfinished"></translation>
+        <translation>Dobbeltsidig</translation>
     </message>
     <message>
         <source>Middle Right</source>
-        <translation type="unfinished">Høyre mot høyre</translation>
+        <translation>I midten mot høyre</translation>
     </message>
     <message>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
@@ -14385,7 +14386,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <source>None</source>
         <comment>layout type</comment>
-        <translation type="unfinished">Ingen</translation>
+        <translation>Ingen</translation>
     </message>
 </context>
 <context>
@@ -16535,7 +16536,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Importer</translation>
+        <translation>&amp;Importer</translation>
     </message>
     <message>
         <source>Thai</source>
@@ -16547,7 +16548,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenOffice.org Draw (*.sxd *.odg);;Alle filer (*)</translation>
     </message>
     <message>
         <source>Word Documents</source>
@@ -17050,15 +17051,15 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
         <source>Column 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolonne 1</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Legg til</translation>
+        <translation>&amp;Legg til</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>C&amp;lone</source>
@@ -17066,54 +17067,54 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Slett</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished">Navn:</translation>
+        <translation>Navn:</translation>
     </message>
     <message>
         <source>O&amp;K</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Greit</translation>
     </message>
     <message>
         <source>Alt+K</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
         <source>A&amp;pply</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bruk</translation>
     </message>
     <message>
         <source>Alt+P</source>
-        <translation type="unfinished">Alt+P</translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <source>Ca&amp;ncel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Avbryt</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished">Alt+N</translation>
+        <translation>Alt+N</translation>
     </message>
 </context>
 <context>
     <name>SMLineStyle</name>
     <message>
         <source>Properties</source>
-        <translation type="unfinished">Egenskaper</translation>
+        <translation>Egenskaper</translation>
     </message>
     <message>
         <source>Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Linjer</translation>
     </message>
 </context>
 <context>
@@ -17405,19 +17406,19 @@ converting their vector data into Scribus objects.</source>
     <name>ScToolBar</name>
     <message>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Topp</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished">Høyre</translation>
+        <translation>Høyre</translation>
     </message>
     <message>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Bunn</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished">Venstre</translation>
+        <translation>Venstre</translation>
     </message>
     <message>
         <source>Allow Docking To...</source>
@@ -17425,11 +17426,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished"></translation>
+        <translation>Horisontal</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikal</translation>
     </message>
     <message>
         <source>Floating Orientation...</source>
@@ -17440,7 +17441,7 @@ converting their vector data into Scribus objects.</source>
     <name>ScWinPrint</name>
     <message>
         <source>Printing...</source>
-        <translation type="unfinished">Skriver ut ...</translation>
+        <translation>Skriver ut ...</translation>
     </message>
 </context>
 <context>
@@ -18843,7 +18844,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Document Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentfarger</translation>
     </message>
 </context>
 <context>
@@ -19308,7 +19309,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Ligature</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligatur</translation>
     </message>
     <message>
         <source>New Master Page %1</source>
@@ -19401,7 +19402,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Scribus Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus versjon</translation>
     </message>
     <message>
         <source>Scribus, Open Source Desktop Publishing</source>
@@ -20066,7 +20067,7 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     </message>
     <message>
         <source>Short Words</source>
-        <translation type="unfinished">Short Words</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20370,11 +20371,11 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation type="unfinished">Sett &amp;inn</translation>
+        <translation>Sett &amp;inn</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation type="unfinished">Tegn</translation>
+        <translation>Tegn</translation>
     </message>
     <message>
         <source>Quote</source>
@@ -20390,7 +20391,7 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     </message>
     <message>
         <source>Space</source>
-        <translation type="unfinished">Mellomrom</translation>
+        <translation>Mellomrom</translation>
     </message>
 </context>
 <context>
@@ -20464,7 +20465,7 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation type="unfinished">Oversikt</translation>
+        <translation>Oversikt</translation>
     </message>
 </context>
 <context>
@@ -20526,7 +20527,7 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Avbryt</translation>
+        <translation>Avbryt</translation>
     </message>
 </context>
 <context>
@@ -21634,11 +21635,11 @@ følge PDF/X3-conformance. Vi foreslår at du bruker dokumentets tittel.</transl
     </message>
     <message>
         <source>Page Layout</source>
-        <translation type="unfinished">Side utseende</translation>
+        <translation>Side utseende</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished">Enkel side</translation>
+        <translation>Enkel side</translation>
     </message>
     <message>
         <source>Continuous</source>
@@ -21646,11 +21647,11 @@ følge PDF/X3-conformance. Vi foreslår at du bruker dokumentets tittel.</transl
     </message>
     <message>
         <source>Double Page Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Dobbeltsidig venstre</translation>
     </message>
     <message>
         <source>Double Page Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Dobbeltsidig høyre</translation>
     </message>
     <message>
         <source>Visual Appearance</source>
@@ -22781,7 +22782,7 @@ til %2</translation>
     </message>
     <message>
         <source>Lower layer</source>
-        <translation type="unfinished">Senk lag</translation>
+        <translation>Senk lag</translation>
     </message>
     <message>
         <source>Send to layer</source>
@@ -22830,12 +22831,14 @@ til %2</translation>
     <message>
         <source>X1: %1, Y1: %2
 X2: %4, Y2: %5</source>
-        <translation type="unfinished"></translation>
+        <translation>X1: %1, Y1: %2
+X2: %4, Y2: %5</translation>
     </message>
     <message>
         <source>X: %1, Y: %2
 X: %4, Y: %5</source>
-        <translation type="unfinished"></translation>
+        <translation>X: %1, Y: %2
+X: %4, Y: %5</translation>
     </message>
 </context>
 <context>
@@ -22880,47 +22883,47 @@ X: %4, Y: %5</source>
     <name>UsePrinterMarginsDialogBase</name>
     <message>
         <source>Use Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Bruk printermarg</translation>
     </message>
     <message>
         <source>Select &amp;Printer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Velg &amp;skriver:</translation>
     </message>
     <message>
         <source>Margins</source>
-        <translation type="unfinished">Marger</translation>
+        <translation>Marger</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation type="unfinished"></translation>
+        <translation>Høyre:</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation type="unfinished">&amp;Topp:</translation>
+        <translation>&amp;Topp:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bunn:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation type="unfinished">&amp;Venstre:</translation>
+        <translation>&amp;Venstre:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Greit</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Avbryt</translation>
+        <translation>&amp;Avbryt</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
