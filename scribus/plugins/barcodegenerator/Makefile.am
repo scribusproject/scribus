@@ -6,7 +6,7 @@ INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
 
 libbarcodegenerator_la_LDFLAGS = -version-info 0:0:0
 libbarcodegenerator_la_METASOURCES = AUTO
-libbarcodegenerator_la_SOURCES = barcode.cpp barcodegeneratorbase.cpp barcodegenerator.cpp
+libbarcodegenerator_la_SOURCES = barcode.cpp barcodegeneratorbase.ui barcodegenerator.cpp
 
 EXTRA_DIST = barcode.h barcodegeneratorbase.h barcodegenerator.h barcodegeneratorbase.ui barcode.ps
 
@@ -26,3 +26,4 @@ install-data-local:
 
 uninstall-local:
 	-rm -f $(datadir)/scribus/plugins/barcode.ps
+

@@ -18,7 +18,7 @@
         <string>Barcode Creator</string>
     </property>
     <property name="toolTip" stdset="0">
-        <string>Make check digit visible in text</string>
+        <string></string>
     </property>
     <grid>
         <property name="name">
