@@ -152,11 +152,14 @@ int System(const QStringList & args, const QString fileStdErr, const QString fil
 	/* wait a little bit */
 	while( proc.isRunning() || proc.canReadLineStdout() || proc.canReadLineStderr() )
 	{
+		// Otherwise Scribus will sleep a *lot* when proc has huge std output
+		if ( !proc.canReadLineStdout() && !proc.canReadLineStderr()) {
 #ifndef _WIN32
 		usleep(5000);
 #else
 		Sleep(5);
 #endif
+		}
 		// Some configurations needs stdout and stderr to be read
 		// if needed before the created process can exit
 		if ( proc.canReadLineStdout() )
