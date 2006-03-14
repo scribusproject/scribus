@@ -8,7 +8,7 @@ libbarcodegenerator_la_LDFLAGS = -version-info 0:0:0
 libbarcodegenerator_la_METASOURCES = AUTO
 libbarcodegenerator_la_SOURCES = barcode.cpp barcodegeneratorbase.ui barcodegenerator.cpp
 
-EXTRA_DIST = barcode.h barcodegeneratorbase.h barcodegenerator.h barcodegeneratorbase.ui barcode.ps
+EXTRA_DIST = barcode.h barcodegenerator.h barcodegeneratorbase.ui barcode.ps
 
 KDE_OPTIONS = qtonly
 
