@@ -2141,6 +2141,7 @@ void ScribusMainWindow::SwitchWin()
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
 	doc->currentParaStyle = 0;
+	nodePalette->setDoc(doc, view);
 	slotChangeUnit(doc->unitIndex(), false);
 	if (doc->EditClip)
 	{
@@ -5161,6 +5162,13 @@ void ScribusMainWindow::ToggleRulerMode()
 {
 	guidesStatus[0] = false;
 	doc->guidesSettings.rulerMode = !doc->guidesSettings.rulerMode;
+	if (doc->m_Selection->count()==1)
+	{
+		PageItem* currItem=doc->m_Selection->itemAt(0);
+		if (currItem!=NULL)
+			currItem->emitAllToGUI();
+	}
+	//TODO emit from selection, handle group widths
 	view->DrawNew();
 }
 
