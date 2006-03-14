@@ -1,9 +1,9 @@
 <qt>
-<title>Scribus Version 1.3.2 Readme</title>
-<h2>Scribus Version 1.3.2 Readme</h2>
+<title>Scribus Version 1.3.3 Readme</title>
+<h2>Scribus Version 1.3.3 Readme</h2>
 <h4>What's New ?</h4>
-<p>The Scribus 1.3.2 is the third development release of the next generation for Scribus. While it is fairly stable, there are a number of under the hood changes which are on-going. This is the first version of Scribus released as a native win32 application. </p>
-<h4>The file format has changed and is NOT backwardly compatible. You have been warned. We have specifically disabled the ability to open 1.3.x files in the stable 1.2.x versions. Our plans for a new file format should be settled in the 1.3.3 -1.3.4 development period.</h4>
+<p>The Scribus 1.3.3 is the fourth development release of the next generation for Scribus. While it is fairly stable, there are a number of under the hood changes which are on-going. This is the second version of Scribus released as a native win32 application. </p>
+<h4>The file format has changed and is NOT backwardly compatible. You have been warned. We have specifically disabled the ability to open 1.3.x files in the stable 1.2.x versions. Our plans for a new file format should be settled in the 1.3.4 -1.3.5 development period.</h4>
 <ol>
 <li>Windows users are <strong>strongly encouraged</strong> to install the latest  <a href="http://ghostscript.com">Ghostscript</a> <strong>before</strong> installing Scribus. This greatly simplifies setting up EPS importing. Ghostscript is a mature PostScript interpreter and is essential for EPS import into Scribus.</li>
 <li>Because of the new enhanced menu/keyboard shortcuts code, 1.2.x  keyboard short cuts are not migrated and will be recreated once on the first launch 1.3.x. There are vastly more keyboard shortcuts and they can be exported to use on other machines if customized.</li>
@@ -13,7 +13,7 @@
 <h4>Scribus 1.3.x is based on the latest 1.2.x branch code, but also includes:</h4>
 <ul>
 <li>Undo with objects specific undo capabilities. The number of undo/redo steps can be set in the preferences. There is also a new palette which has the undo history with details of each action. </li>
-<li>Much more extensive support for CMYK images, including clipping paths in TIFF files, as well as extensive support for native Photoshop &#174; PSD files. 16 bit CMYK TIFF and PSD support will follow soon. Use of CMYK images is recommended with color management properly setup and active for best on screen appearance. CMYK-JPEG is also supported. </li>
+<li>Much more extensive support for CMYK images, including clipping paths in TIFF and JPEG files, as well as extensive support for native Photoshop &#174; PSD files. 16 bit CMYK TIFF and PSD support will follow soon. Use of CMYK images is recommended with color management properly setup and active for best on screen appearance. CMYK-JPEG is also supported. </li>
 <li>Completely revised document and application preferences. They are independently set of each other. New documents will inherit the current application preferences. Moreover 1.3.x preferences can exist side by side with 1.2.x preferences without issue.</li>
 <li>This documentation is mostly based on 1.2.x, but there are some updates for 1.3, notably concerning the preferences and printing.</li>
 <li>Scribus now has true facing pages and images and other objects can span them.</li>
@@ -55,15 +55,14 @@ list and/IRC. We *know* the Cairo enabled build is slower, but are encouraged
 <ul>
 <li>The littlecms libs 1.10, which shipped with Suse 9.0 does not offer complete support for all the the latest CMS features in Scribus 1.2. There are updated Suse 9.x RPM's available on the Scribus.net site. We also recommend using the latest version of lcms.littlecms 1.1.4 is the current version.</li>
 <li>We recommend using the latest Qt-3.3.4 rpms from Suse.</li>
-<li>To enable direct CUPS support which we recommend, make sure both cups-devel and openssl-devel are installed. Suse enables ssl support in CUPS.</li></ul>
+<li>To enable direct CUPS support which we recommend, make sure both cups-devel and openssl-devel are installed. Suse enables ssl support in CUPS. See the BUILDING file.</li></ul>
 <p>Fedora/RH with Qt 3.3.2-6+ has the same fixes.</p>
 <p>There is a separate file, PACKAGING for detailed hints and notes on building packages for Scribus.</p>
 <p> More hints and other information are on the <a href="http://www.scribus.net">http://www.scribus.net</a> and <a href="http://docs.scribus.net">http://docs.scribus.net</a> sites. Full compile, install and FAQs are available there.</p>
 	
 <p>There is a lively on-line community, both on IRC @ #scribus on irc.freenode.net and the mailing list. Mailing list info can be found at: http://nashi.altmuehlnet.de/mailman/listinfo/scribus</p>
 <p>For the Scribus Team,</p>
-<p>Franz Schmid<br />
-Peter Linnell<br />
-in January 2006<br />
+<p>Peter Linnell<br />
+in March 2006<br />
 </p>
 </qt>
