@@ -120,7 +120,7 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 		return;
 	}	
 #else
-	if (proc->start())
+	if (!proc->start())
 	{
 		failed = true;
 		return;
