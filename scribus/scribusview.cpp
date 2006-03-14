@@ -7057,7 +7057,7 @@ void ScribusView::slotDoCurs(bool draw)
 				chx = " ";
 			int chs = currItem->itemText.at(offs)->csize;
 			currItem->SetZeichAttr(currItem->itemText.at(offs), &chs, &chx);
-			if (currItem->CPos != static_cast<int>(currItem->itemText.count()))
+			if (currItem->CPos < static_cast<int>(currItem->itemText.count()))
 			{
 				if (currItem->itemText.at(currItem->CPos)->ch == QChar(9))
 				{
