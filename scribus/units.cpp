@@ -31,7 +31,7 @@ const double unitGetRatioFromIndex(const int index)
 	//PT, MM, IN, P, CM, C (Cicero)
 	//NOTE: Calling functions that divide by this value will crash on divide by 0. They shouldnt be getting
 	// a zero value if they are accessing here with a correct index.
-	if (index>UNITCOUNT) 
+	if (index<UNITMIN || index>UNITMAX)
 		return 0;
 	double ratio[] = { 1.0, 25.4/72.0, 1.0/72.0, 1.0/12.0, 2.54/72.0, 25.4/72.0/4.512 };
 	return ratio[index];
@@ -117,7 +117,7 @@ const Unit unitIndexFromString(const QString& value)
 const QString unitGetSuffixFromIndex(const int index)
 {
 	//Could also return " "+unitGetStrFromIndex(indeX);
-	if (index>UNITCOUNT) 
+	if (index<UNITMIN || index>UNITMAX) 
 		return "";
 	QString suffix[] = { QObject::tr(" pt"), QObject::tr(" mm"), QObject::tr(" in"), QObject::tr(" p"), QObject::tr(" cm"), QObject::tr(" c") };
 	return suffix[index];
@@ -128,7 +128,7 @@ const QString unitGetSuffixFromIndex(const int index)
  */
 const QString unitGetStrFromIndex(const int index)
 {
-	if (index>UNITCOUNT) 
+	if (index<UNITMIN || index>UNITMAX) 
 		return "";
 	QString suffix[] = { QObject::tr("pt"), QObject::tr("mm"), QObject::tr("in"), QObject::tr("p"), QObject::tr("cm"), QObject::tr("c") };
 	return suffix[index];
@@ -139,7 +139,7 @@ const QString unitGetStrFromIndex(const int index)
  */
 const QString unitGetUntranslatedStrFromIndex(const int index)
 {
-	if (index>UNITCOUNT) 
+	if (index<UNITMIN || index>UNITMAX) 
 		return "";
 	QString suffix[] = { "pt", "mm", "in", "p", "cm", "c" };
 	return suffix[index];
@@ -149,7 +149,7 @@ const QString unitGetUntranslatedStrFromIndex(const int index)
  */
 const int unitGetDecimalsFromIndex(const int index)
 {
-	if (index>UNITCOUNT) 
+	if (index<UNITMIN || index>UNITMAX) 
 		return 0;
 	//                      PT,   MM,    IN,   P,    CM,   C
 	int decimalPoints[] = {100, 1000, 10000, 100, 10000, 10000};
@@ -161,7 +161,7 @@ const int unitGetDecimalsFromIndex(const int index)
  */
 const int unitGetPrecisionFromIndex(const int index)
 {
-	if (index>UNITCOUNT) 
+	if (index<UNITMIN || index>UNITMAX) 
 		return 0;
 	//                PT,MM,IN, P,CM, C
 	int precision[] = {2, 3, 4, 2, 4, 4};
@@ -188,7 +188,7 @@ const QStringList unitGetTextUnitList()
  */
 const int unitGetMaxIndex()
 {
-	return UNITCOUNT;
+	return UNITMAX;
 }
 
 /*!
@@ -327,7 +327,7 @@ double value2value(double unitValue, int primaryUnit, int secondaryUnit)
  */
 double unitRulerGetIter1FromIndex(const int index)
 {
-	if (index>UNITCOUNT) 
+	if (index<UNITMIN || index>UNITMAX) 
 		return 0;
 	//                 PT,         MM,   IN,    P,        CM,               C
 	double iter[] = {10.0, 720.0/25.4, 18.0, 12.0, 72.0/25.4, 72.0/25.4*4.512};
@@ -339,7 +339,7 @@ double unitRulerGetIter1FromIndex(const int index)
  */
 double unitRulerGetIter2FromIndex(const int index)
 {
-	if (index>UNITCOUNT) 
+	if (index<UNITMIN || index>UNITMAX) 
 		return 0;
 	//                  PT,          MM,   IN,     P,         CM,                C
 	double iter[] = {100.0, 7200.0/25.4, 72.0, 120.0, 720.0/25.4, 720.0/25.4*4.512};

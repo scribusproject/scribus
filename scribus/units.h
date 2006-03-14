@@ -26,7 +26,8 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 #include <qstringlist.h>
 
-#define UNITCOUNT 5
+#define UNITMIN 0
+#define UNITMAX 5
 
 enum Unit {
 	SC_POINTS      = 0,
