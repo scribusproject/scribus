@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "sccolor.h"
 #include "fpointarray.h"
+#include "multiprogressdialog.h"
 
 //! \brief POSTSCRIPT importer plugin
 class EPSPlug : public QObject
@@ -83,10 +84,16 @@ private:
 	QValueList<double> DashPattern;
 	QString CurrColor;
 	FPointArray Coords;
+	FPointArray clipCoords;
 	bool FirstM, WasM, ClosedPath;
 	PenCapStyle CapStyle;
 	PenJoinStyle JoinStyle;
 	bool interactive;
+	MultiProgressDialog * progressDialog;
+	bool cancel;
+
+public slots:
+	void cancelRequested() { cancel = true; }
 };
 
 #endif

@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "commonstrings.h"
 #include "customfdialog.h"
 #include "mpalette.h"
@@ -30,16 +31,33 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "prefsmanager.h"
 
+extern ScribusQApp * ScQApp;
 
 EPSPlug::EPSPlug(QString fName, bool isInteractive)
 {
 	interactive = isInteractive;
+	cancel = false;
 	double x, y, b, h, c, m, k;
 	bool ret = false;
 	bool found = false;
 	CustColors.clear();
 	QFileInfo fi = QFileInfo(fName);
 	QString ext = fi.extension(false).lower();
+	progressDialog = new MultiProgressDialog(tr("Importing Postscript"), CommonStrings::tr_Cancel, ScMW, "psexportprogress");
+	if (progressDialog != NULL)
+	{
+		QStringList barNames, barTexts;
+		barNames << "GI";
+		barTexts << tr("Analyzing Postscript:");
+		progressDialog->addExtraProgressBars(barNames, barTexts);
+		progressDialog->setOverallTotalSteps(3);
+		progressDialog->setOverallProgress(0);
+		progressDialog->setProgress("GI", 0);
+		progressDialog->show();
+		connect(progressDialog->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
+		ScQApp->processEvents();
+	}
+	
 /* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
@@ -246,6 +264,11 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString pfad2 = QDir::convertSeparators(pfad + "import.prolog");
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
+	
+	if (progressDialog) {
+		progressDialog->setOverallProgress(1);
+		ScQApp->processEvents();
+	}
 	args.append( getShortPathName(PrefsManager::instance()->ghostscriptExecutable()) );
 	args.append( "-q" );
 	args.append( "-dNOPAUSE" );
@@ -315,11 +338,17 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		QMessageBox::critical(0, tr("Fatal Error"), mess, 1, 0, 0);
 		return false;
 	}
-	if (ext == "eps")
-		parseOutput(tmpFile, true);
-	else
-		parseOutput(tmpFile, false);
+	if(progressDialog) {
+		progressDialog->setOverallProgress(2);
+		progressDialog->setLabel("GI", tr("Generating Items"));
+		ScQApp->processEvents();
+	}
+	if (!cancel) {
+		parseOutput(tmpFile, ext == "eps");
+	}
 	QFile::remove(tmpFile);
+	if (progressDialog)
+		progressDialog->close();
 	return true;
 }
 
@@ -335,6 +364,10 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	pagecount = 1;
 	if (f.open(IO_ReadOnly))
 	{
+		if (progressDialog) {
+			progressDialog->setTotalSteps("GI", (int) f.size());
+			ScQApp->processEvents();
+		}
 		lastPath = "";
 		currPath = "";
 		LineW = 0;
@@ -344,10 +377,15 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 		CapStyle = FlatCap;
 		DashPattern.clear();
 		QTextStream ts(&f);
-		while (!ts.atEnd())
+		int line_cnt = 0;
+		while (!ts.atEnd() && !cancel)
 		{
 			tmp = "";
 			tmp = ts.readLine();
+			if (progressDialog && (++line_cnt % 100 == 0)) {
+				progressDialog->setProgress("GI", (int) f.at());
+				ScQApp->processEvents();
+			}
 			token = tmp.section(' ', 0, 0);
 			params = tmp.section(' ', 1, -1, QString::SectionIncludeTrailingSep);
 			if ((lasttoken == "sp") && (!interactive) && (!eps))
@@ -466,7 +504,8 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 				CurrColor = parseColor(params, colorModelRGB);
 			else if (token == "ci")
 			{
-				Coords.resize(0);
+				clipCoords = Coords;
+				Coords   = FPointArray(0);
 				lastPath = "";
 				currPath = "";
 			}
@@ -540,12 +579,6 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			else if (token == "im") {
 				Image(params);
 			}
-			else if (token == "mask") {
-				//TODO
-			}
-			else if (token == "pat") {
-				//TODO
-			}
 			lasttoken = token;
 		}
 		f.close();
@@ -607,9 +640,7 @@ void EPSPlug::Image(QString vals)
 		QString mess = tr("Converting Image:\n%1\nfailed!").arg(rawfile);
 		QMessageBox::critical(0, tr("Error"), mess, 1, 0, 0);
 	}
-	else {
-		QFile::remove(rawfile);
-	}
+	QFile::remove(rawfile);
 	int z = ScMW->doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, w, h, LineW, CommonStrings::None, CurrColor, true);
 	PageItem * ite = ScMW->doc->Items->at(z);
 	ite->setXYPos(ScMW->doc->currentPage->xOffset() + x, ScMW->doc->currentPage->yOffset() + y);
