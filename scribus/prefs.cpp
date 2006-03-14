@@ -737,7 +737,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QToolTip::add( CaliText, "<qt>" + tr( "Set the default zoom level" )  + "</qt>");
 	QToolTip::add( CaliGroup, "<qt>" + tr( "Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size" ) + "</qt>" );
 
-	QToolTip::add( ghostscriptLineEdit, "<qt>" + tr( "Filesystem location for the Ghostscript interpreter. On Window it is important to note the correct .exe name for Ghostscript is gswin32c.exe, <strong>not</strong> gswin32.exe." ) + "</qt>" );
+	QToolTip::add( ghostscriptLineEdit, "<qt>" + tr( "Filesystem location for the Ghostscript interpreter." ) + "</qt>" );
 	QToolTip::add( GSantiText, "<qt>" + tr( "Antialias text for EPS and PDF onscreen rendering" ) + "</qt>");
 	QToolTip::add( GSantiGraph, "<qt>" + tr( "Antialias graphics for EPS and PDF onscreen rendering" ) + "</qt>" );
 	QToolTip::add( imageEditorLineEdit, "<qt>" + tr( "File system location for graphics editor. If you use gimp "
