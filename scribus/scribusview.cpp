@@ -8958,6 +8958,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->TxtScale = Buffer->TxtScale;
 	currItem->TxtScaleV = Buffer->TxtScaleV;
 	currItem->TxTStyle = Buffer->TxTStyle;
+	currItem->TxtBase = Buffer->TxTBase;
 	currItem->TxtShadowX = Buffer->TxtShadowX;
 	currItem->TxtShadowY = Buffer->TxtShadowY;
 	currItem->TxtOutline = Buffer->TxtOutline;
