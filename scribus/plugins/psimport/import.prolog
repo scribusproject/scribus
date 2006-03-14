@@ -228,7 +228,7 @@ currentpagedevice /HWResolution get aload pop
 } bind def
 
 /makepattern { % dict matrix  makepattern patterndict
-/makepattern =
+%/makepattern =
 	% we will do some real painting here:
 	/i_shortcut true store
 	% params:
@@ -259,11 +259,11 @@ currentpagedevice /HWResolution get aload pop
 			/i_w i_w neg def
 		} if
 	% now we can use the current matrix as pattern matrix, but with (0,0) origin
-	i_m ==
+%	i_m ==
 	i_x i_y matrix currentmatrix translate /i_m exch def
-	i_m ==
+%	i_m ==
 	i_dict /BBox [ 0 0 i_w i_h ] put 
-	(w x h =) = i_w = i_h =
+%	(w x h =) = i_w = i_h =
 	% paint pattern to png file
 	gsave
 	currentcolor currentcolorspace
@@ -279,12 +279,12 @@ currentpagedevice /HWResolution get aload pop
 		/PageSize [i_w i_h]
 	/pngalpha finddevice putdeviceprops setdevice 
 	setcolorspace setcolor
-	matrix currentmatrix ==
-	0 0 transform exch = =
-	1 1 transform exch = =
+%	matrix currentmatrix ==
+%	0 0 transform exch = =
+%	1 1 transform exch = =
 	i_dict %i_w i_h matrix identmatrix scale 
 			matrix identmatrix //makepattern setpattern
-	0 0 i_w i_h pstack rectfill
+	0 0 i_w i_h rectfill
 	showpage
 	grestore
 	% create pattern with our extensions:
@@ -292,12 +292,11 @@ currentpagedevice /HWResolution get aload pop
 	dup /Origin [ 0 0 transform ] put
 	i_m //makepattern
 	/i_shortcut false store
-/makepatternE =
+%/makepatternE =
 } i_shortcutOverload
 
 /writecurrentpattern
 {
-/WP =
 	currentcolor
 	(pat ) print
 	dup /Origin get
@@ -305,7 +304,6 @@ currentpagedevice /HWResolution get aload pop
 	    1 get i_vscale div i_str cvs print ( ) print
 	/ExportFile get print
 	(\n) print
-/WPE =
 } bind def
 
 /writecurrentcmykcolor
@@ -423,9 +421,11 @@ currentpagedevice /HWResolution get aload pop
 	storeMatrix
 
 	% (wb + wd + wa + wc) / 2
-%??av	dup dup dup m_b abs mul exch m_d abs mul add  exch m_a abs mul add  exch m_c abs mul add  2 div  abs
+%??	
+	dup dup dup m_b abs mul exch m_d abs mul add  exch m_a abs mul add  exch m_c abs mul add  2 div  abs
+	i_hscale div
 	% transform (w,w) and take length
-	dup dtransform i_vscale div dup mul exch i_hscale div dup mul add sqrt
+%av-test:	dup dtransform i_vscale div dup mul exch i_hscale div dup mul add sqrt
 	(w ) print
 	i_str cvs print
 	(\n) print
@@ -515,6 +515,149 @@ currentpagedevice /HWResolution get aload pop
 	dup 4 get /m_x exch def
 	5 get /m_y exch def
 	end
+} bind def
+
+/pathClipAndClose % this is not nice: closes all open paths & flattens the path :-(
+{
+	clipsave 
+	clip				% combine clippath and path
+	newpath clippath	% copy (closed) clippath to path
+	cliprestore
+} bind def
+
+
+% find out if the point is within the clipping area
+/i_in_clip					% x y  i_in_clip  bool
+{
+	gsave
+	newpath clippath
+	infill
+	grestore
+} bind def
+
+
+% find out if two points are within the clipping area
+/i_in_clip2					% x1 y1 x2 y2 i_in_clip  bool1 bool2
+{
+	gsave
+	newpath clippath
+	infill					% x1 y1 bool2
+	3 1 roll				% bool2 x1 y1
+	infill					% bool2 bool1
+	exch
+	grestore
+} bind def
+
+
+/i_clip_move
+{
+	/beginY exch store 
+	/beginX exch store 
+	/currentX beginX store
+	/currentY beginY store
+	% test if within cliparea
+	currentX currentY i_in_clip
+	{
+		currentX currentY /moveto load
+	} if
+} bind def
+
+
+% find intersection with line x1,y1 -> x2,y2 with clip path.
+% x1,y2 is outside the clip area, x2, y2, x3, y3 inside
+
+/i_find_clip_intersect		% x1 y1 x2 y2  i_find_clip_intersect  x3 y3
+{
+	3 index 2 index sub		% x1 y1 x2 y2 dx
+	3 index 2 index sub		% x1 y1 x2 y2 dx dy
+	gsave
+	newpath clippath
+	{
+		2 div exch 2 div exch				% half interval
+		2 copy abs 0.01 lt exch abs 0.01 lt and
+			{ exit } if						% done
+		2 copy 4 index add exch				% x1 y1 x2 y2 dx dy (y2+dy) dx
+		       5 index add exch				% x1 y1 x2 y2 dx dy (x2+dx) (y2+dy)
+%		/Intersect = 7 index = 6 index = 5 index = 4 index = 3 index = 2 index = 1 index = 0 index = 
+		2 copy infill
+		{									% replace x2,y2
+			6 -2 roll pop pop
+			4 2 roll
+		} {
+			8 -2 roll pop pop				% replace x1,y1
+			6 2 roll
+		} ifelse
+	} loop
+	grestore
+	6 -2 roll								% return x2,y2
+	4 { pop } repeat
+} bind def
+
+/i_clip_line
+{
+	/endY exch store
+	/endX exch store
+	currentX currentY endX endY i_in_clip2 
+	pstack
+	{ % end in
+		{  
+			% both in. just draw it. FIXME check if line leaves cliparea
+			endX endY /lineto load
+		} {
+			% current not in
+			% find new current point
+			currentX currentY endX endY i_find_clip_intersect 
+			/moveto load
+			endX endY /lineto load
+		} ifelse
+	} { % end not in
+		{   % current in
+			% find new endpoint
+			endX endY currentX currentY i_find_clip_intersect 
+			/lineto load
+		} {
+			% both not in
+			% try to find a point within cliparea
+			currentX currentY endX endY i_find_clip_intersect
+			2 copy i_in_clip
+			{
+				% yeah
+				/moveto load
+				% now find point from other end
+				endX endY currentX currentY i_find_clip_intersect
+				/lineto load
+			} {
+				pop pop
+			} ifelse
+		} ifelse
+	} ifelse
+	/currentX endX store
+	/currentY endY store
+	pstack
+} bind def
+
+
+/pathClipForStroke 
+{
+	% only lines
+	flattenpath
+	% create a userpath from currentpath
+	userdict begin
+	/beginX 0 def /beginY 0 def
+	/currentX 0 def /currentY 0 def
+	/endX 0 def /endY 0 def
+	systemdict begin							% some EPS redefine moveto & Co :-(
+	[
+			{ i_clip_move }						% remember last move
+			{ i_clip_line }						% clip lines individually
+			{ 6 {pop} repeat /OOPS = }			% won't happen
+			{ beginX beginY i_clip_line }		% close with line
+		pathforall
+	] cvx 
+%	dup ==
+	newpath % uappend % userpaths SUCK!
+	end end
+	exec
 } bind def
 
 /rectfill
@@ -618,9 +761,10 @@ currentpagedevice /HWResolution get aload pop
 	writecurrentlinecap
 	writecurrentlinejoin
 	writecurrentdash
-	clipCnt 1 eq % pop false  % av: this just doesn't work right with strokes :-(
-		{ clipsave clip newpath clippath cliprestore } if
+	clipCnt 1 eq 
+		{ pathClipForStroke } if
 	storeMatrix
+
 	{i_move} {i_line} {i_curve} {i_close} pathforall
 	(s\n)print			% stroke path
 	newpath
@@ -635,7 +779,7 @@ currentpagedevice /HWResolution get aload pop
 	writecurrentlinejoin
 	writecurrentdash
 	clipCnt 1 eq
-		{ clipsave clip newpath clippath cliprestore } if
+		{ pathClipAndClose } if
 	storeMatrix			% take transformation, scaling, rotation from PostScript
 	{i_move} {i_line} {i_curve} {i_close} pathforall
 	(f\n)print			% close polygon
@@ -654,6 +798,8 @@ currentpagedevice /HWResolution get aload pop
 {
 	userdict begin
 	(n\n)print			% start clip polygon
+
+% FIXME: pathClipAndClose first?
 
 	storeMatrix			% take transformation, scaling, rotation from PostScript
 	{i_move} {i_line} {i_curve} {i_close} pathforall
