@@ -1610,7 +1610,8 @@ void PDFlib::PDF_End_Page()
 	}
 	if (Options.PresentMode)
 	{
-		PutDoc("/Dur "+QString::number(Options.PresentVals[PgNr].pageViewDuration)+"\n");
+		if (Options.PresentVals[PgNr].pageViewDuration > 0)
+			PutDoc("/Dur "+QString::number(Options.PresentVals[PgNr].pageViewDuration)+"\n");
 		if (Options.PresentVals[PgNr].effectType != 0)
 		{
 			PutDoc("/Trans << /Type /Trans\n");

@@ -576,7 +576,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		PageTime = new QSpinBox( Effects, "PageTime" );
 		PageTime->setSuffix( tr( " sec" ) );
 		PageTime->setMaxValue( 3600 );
-		PageTime->setMinValue( 1 );
+		PageTime->setMinValue( 0 );
 		PageTime->setValue(EffVal[0].pageViewDuration);
 		TextLabel1e->setBuddy(PageTime);
 		EffectsLayout->addWidget( PageTime, 0, 1 );
