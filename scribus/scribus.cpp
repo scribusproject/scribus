@@ -1299,7 +1299,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				case modeUnlinkFrames:
 				case modeEdit:
 				case modeRotation:
-						view->Deselect(false);
+				case modeEditGradientVectors:
+					view->Deselect(false);
 				case modePanning:
 					break;
 				case modeDrawBezierLine:
@@ -6408,7 +6409,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 //CB-->Doc
 void ScribusMainWindow::setNewAbStyle(int a)
 {
-	setActiveWindow();
+	//setActiveWindow();
 	if (HaveDoc)
 	{
 		doc->currentParaStyle = a;
