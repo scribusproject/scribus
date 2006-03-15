@@ -142,6 +142,7 @@ public:
 	double dashOffset;
 	QString Family;
 	QString FillCol;
+	QString fillRule;
 	int FontSize;
 	QString GCol1;
 	QString GCol2;

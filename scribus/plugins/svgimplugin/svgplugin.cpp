@@ -480,6 +480,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			parseStyle( gc, b );
 			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			PageItem* ite = currDoc->Items->at(z);
+			ite->fillRule = (gc->fillRule != "nonzero"); 
 			ite->PoLine.resize(0);
 			if (parseSVG( b.attribute( "d" ), &ite->PoLine ))
 				ite->convertTo(PageItem::PolyLine);
@@ -500,6 +501,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			else
 				z = currDoc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			PageItem* ite = currDoc->Items->at(z);
+			ite->fillRule = (gc->fillRule != "nonzero"); 
 			ite->PoLine.resize(0);
 			bool bFirst = true;
 			double x = 0.0;
@@ -568,6 +570,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 		}
 		else
 		{
+			qDebug(QString("unsupported SVG feature: %1").arg(STag));
 			// warn if unsupported SVG feature
 			unsupported = true;
 			continue;
@@ -1416,6 +1419,10 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		}
 		else
 			obj->FillCol = parseColor(params);
+	}
+	else if( command == "fill-rule" )
+	{
+		obj->fillRule = params;
 	}
 	else if( command == "color" )
 	{
