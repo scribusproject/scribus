@@ -3748,7 +3748,8 @@ void PageItem::emitAllToGUI()
 	emit columns(Cols, ColGap);
 	if (m_Doc->appMode != modeEdit)
 	{
-		emit textStyle(textAlignment);
+		emit textStyle(TxTStyle);
+		emit textFormatting(textAlignment);
 		emit textFont(m_Font);
 		emit textSize(m_FontSize);
 	}
