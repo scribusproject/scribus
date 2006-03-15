@@ -17,7 +17,8 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "sccolor.h"
 #include "fpointarray.h"
-#include "multiprogressdialog.h"
+
+class MultiProgressDialog;
 
 //! \brief POSTSCRIPT importer plugin
 class EPSPlug : public QObject

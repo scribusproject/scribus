@@ -24,12 +24,14 @@ for which a new license (GPL+exception) is in place.
 #include <qregexp.h>
 #include <cmath>
 #include <cstdlib>
-#include "undomanager.h"
+
+#include "multiprogressdialog.h"
 #include "scpaths.h"
 #include "scfontmetrics.h"
 #include "selection.h"
-#include "util.h"
 #include "prefsmanager.h"
+#include "undomanager.h"
+#include "util.h"
 
 extern ScribusQApp * ScQApp;
 
