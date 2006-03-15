@@ -2,7 +2,7 @@
 # French translation of Scribus.
 # Michel Briand <michelbriand@free.fr> ????.
 # Yves Ceccone <yves@yeccoe.org> ????.
-# Nicolas Boos <nicolas.boos@wanadoo.fr> 2002-2004.
+# Nicolas Boos <nicolas.boos@wanadoo.fr> 2002,2003,2004,2005.
 # memoire de traduction :
 # ---------------------------------------
 # baseline      ligne de base
@@ -31,24 +31,22 @@
 # within        à l'intérieur duquel
 # ---------------------------------------
 # Frederic Dubuy <effediwhy@gmail.com>, 2005.
-# Nicolas Boos <nicolas.boos@wanadoo.fr>, 2005.
 # Louis Desjardins, janvier 2006
 # Louis Desjardins, mars 2006
 # Frederic Dubuy mars 2006.
-# 
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.3.x\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-10 00:36+0100\n"
-"PO-Revision-Date: 2006-03-07 10:55+0100\n"
+"PO-Revision-Date: 2006-03-13 15:27+0100\n"
 "Last-Translator: Louis Desjardins <louis_desjardins@mardigrafe.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n>1;\n"
+"Plural-Forms: nplurals=2; plural=n>1;"
 
 msgid "Custom"
 msgstr "Sur mesure"
@@ -780,7 +778,7 @@ msgstr "Augmenter la taille du tracé de la valeur indiquée"
 msgid "Angle of Rotation"
 msgstr "Angle de rotation"
 
-#, fuzzy, c-format
+#, c-format
 msgid "% to Enlarge or Shrink By"
 msgstr "% d'agrandissement ou de réduction"
 
@@ -1006,29 +1004,25 @@ msgstr ""
 "W1 :·%1,·H1 :·%2\n"
 "W2 :·%3,·H2 :·%4"
 
-#, fuzzy
 msgid "Change Image Offset"
-msgstr "Effets"
+msgstr "Changer le décalage de l'image"
 
-#, fuzzy
 msgid "Change Image Scale"
-msgstr "Insérer un cadre d'image"
+msgstr "Changer l'échelle de l'image"
 
-#, fuzzy
 msgid ""
 "X1: %1, Y1: %2\n"
 "X2: %4, Y2: %5"
 msgstr ""
-"X1 :·%1,·Y1 :·%2,·%3\n"
-"X2 :·%4,·Y2 :·%5,·%6"
+"X1 :·%1,·Y1 :·%2\n"
+"X2 :·%4,·Y2 :·%5"
 
-#, fuzzy
 msgid ""
 "X: %1, Y: %2\n"
 "X: %4, Y: %5"
 msgstr ""
 "X :·%1,·Y :·%2\n"
-"L :·%3,·H :·%4"
+"X :·%4,· y:·%5"
 
 msgid "Selection"
 msgstr "Sélection"
@@ -1521,7 +1515,7 @@ msgid "Remove Profile"
 msgstr "Supprimer un profil"
 
 msgid "More than one item selected"
-msgstr ""
+msgstr "Plus d'un objet sélectionné"
 
 msgid "Use Printer Margins"
 msgstr "Marges de votre imprimante"
@@ -1628,9 +1622,8 @@ msgstr "Ligne mixte trait-point-point"
 msgid "Properties"
 msgstr "Propriétés"
 
-#, fuzzy
 msgid "Lines"
-msgstr "&Barres"
+msgstr "Barres"
 
 msgid "%1 of %1"
 msgstr "%1 sur %1"
@@ -2473,6 +2466,8 @@ msgid ""
 "The save button will be disabled if you are trying to export PDF/X-3 and the "
 "info string is missing from the PDF/X-3 tab."
 msgstr ""
+"Le bouton \"enregistrer\" sera désactivé si vous tentez d'exporter au format PDF/X-3"
+"et que la chaîne d'information de l'onglet PDF/X-3 est vide."
 
 msgid "Save as"
 msgstr "Enregistrer sous"
@@ -2998,11 +2993,11 @@ msgstr "Un ou des objets sont verrouillés."
 msgid "&Unlock All"
 msgstr "To&ut déverrouiller"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Y: %1%2"
 msgstr "Y : %1 %2"
 
-#, fuzzy, c-format
+#, c-format
 msgid "X: %1%2"
 msgstr "X : %1 %2"
 
@@ -3051,9 +3046,8 @@ msgstr "&Résolution des graphiques EPS :"
 msgid "Com&press Text and Vector Graphics"
 msgstr "Comprimer le texte et les graphiques &vectoriels"
 
-#, fuzzy
 msgid "Image Compression Method"
-msgstr "Métho&de de compression :"
+msgstr "Méthode de compression"
 
 msgid "Lossy - JPEG"
 msgstr "Avec perte - JPEG"
@@ -3235,13 +3229,12 @@ msgstr "Zoomer les pages en fonction de la fenêtre du visualiseur"
 msgid "Special Actions"
 msgstr "Actions spéciales"
 
-#, fuzzy
 msgid ""
 "Javascript to be executed\n"
 "when PDF document is opened:"
 msgstr ""
 "Javascript à exécuter\n"
-"à l'ouverture du document :"
+"à l'ouverture du document PDF :"
 
 msgid "No Script"
 msgstr "Aucun script"
@@ -3367,13 +3360,12 @@ msgstr ""
 "Inclure les polices dans le fichier PDF. Ceci permet de conserver "
 "l'apparence intégrale de votre document."
 
-#, fuzzy
 msgid ""
 "Enables presentation effects when using Adobe&#174; Reader&#174; and other "
 "PDF viewers which support this in full screen mode."
 msgstr ""
-"Active les effets de présentation lors de l'utilisation d'Acrobat Reader en "
-"mode plein écran."
+"Active les effets de présentation en mode plein écran lors de l'utilisation d'Adobe&#174; "
+"Reader&#174; ou des autres visionneuses PDF le supportant."
 
 msgid "Show page previews of each page listed above."
 msgstr "Afficher les aperçus de chaque page dans la liste ci-dessus."
@@ -3422,7 +3414,6 @@ msgstr ""
 "être « * » pour toutes les pages, 1-5 pour une sélection de pages, ou bien "
 "un simple numéro de page."
 
-#, fuzzy
 msgid ""
 "Determines the PDF compatibility. The default is PDF 1.3 which gives the "
 "widest compatibility. Choose PDF 1.4 if your file uses features such as "
@@ -3435,7 +3426,8 @@ msgid ""
 msgstr ""
 "Compatibilité PDF. PDF 1.3 est l'option par défaut et offre la meilleure "
 "compatibilité possible. Choisir PDF 1.4 si vous avez besoin des "
-"fonctionnalités telles que la transparence ou le chiffrement 128 bits. PDF/X-"
+"fonctionnalités telles que la transparence ou le chiffrement 128 bits. Le PDF 1.5"
+"permet de préserver les objets sur différents calques dans le fichier PDF. PDF/X-"
 "3 permet l'exportation de fichiers PDF pour l'impression professionnelle et "
 "est disponible si vous avez activé la gestion des couleurs. A n'utiliser "
 "qu'à la demande d'un imprimeur ou dans quelques cas d'impression sur une "
@@ -3462,7 +3454,6 @@ msgstr ""
 "Générer les articles PDF, pratique pour la navigation entre les articles "
 "liés dans un fichier PDF."
 
-#, fuzzy
 msgid ""
 "Layers in your document are exported to the PDF Only available if PDF 1.5 is "
 "chosen."
@@ -3492,7 +3483,6 @@ msgstr ""
 "particulière, à laisser activé. Cela permet de réduire la taille du fichier "
 "PDF."
 
-#, fuzzy
 msgid ""
 "Method of compression to use for images. Automatic allows Scribus to choose "
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
@@ -3502,9 +3492,10 @@ msgid ""
 msgstr ""
 "Type de compression pour les images. Automatique laisse Scribus choisir la "
 "meilleure méthode. ZIP pour une compression sans pertes. JPEG permet de "
-"réduirela taille des fichiers PDF qui ont de nombreuses photos (avec une "
+"réduire la taille des fichiers PDF qui ont de nombreuses photos (avec une "
 "possible petite perte de qualité d'image). Laisser sur Automatique, sauf si "
-"vous avez des besoins spéciaux de compression."
+"vous avez des besoins spéciaux de compression. Cette option ne concerne"
+"que les images au format JPEG"
 
 msgid ""
 "Compression quality levels for lossy compression methods: Minimum (25%), Low "
@@ -3518,7 +3509,6 @@ msgstr ""
 "résultants. La taille et la perte de qualité varient d'une image à l'autre à "
 "niveau constant."
 
-#, fuzzy
 msgid ""
 "Re-sample your bitmap images to the selected DPI. Leaving this unchecked "
 "will render them at their native resolution. Enabling this will increase "
@@ -3526,7 +3516,8 @@ msgid ""
 msgstr ""
 "Réduire la résolution de vos images matricielles à celle sélectionnée. Si "
 "cette option est désactivée, les images seront rendues dans leur résolution "
-"native. Cela peut augmenter l'utilisation mémoire et ralentir l'exportation."
+"native. Activer cette option peut augmenter l'utilisation mémoire et ralentir "
+"l'exportation."
 
 msgid "DPI (Dots Per Inch) for image export."
 msgstr "PPP (Points Par Pouce) pour l'exportation d'image."
@@ -3573,7 +3564,6 @@ msgstr ""
 "Si cochée, l'ajout et la modification d'annotations et de champs dans le "
 "fichier PDF est autorisé."
 
-#, fuzzy
 msgid ""
 "Color model for the output of your PDF. Choose Screen/Web for PDFs which are "
 "used for screen display and for printing on typical inkjets. Choose Printer "
@@ -3582,7 +3572,8 @@ msgid ""
 msgstr ""
 "Modèle de couleur pour la sortie du fichier PDF. Choisir Écran / Web pour "
 "une utilisation standard ou une impression sur une imprimante à jet d'encre. "
-"Choisir Imprimante pour un fichier PDF destiné à une impression CMJN."
+"Choisir Imprimante pour un fichier PDF destiné à une impression CMJN. Choisir"
+"échelle de gris pour créer un fichier PDF en niveaux de gris."
 
 msgid ""
 "This is an advanced setting which is not enabled by default. This should "
@@ -3657,11 +3648,8 @@ msgstr ""
 "équivalent quadrichromique. Cochez cette option à moins de savoir exactement "
 "ce que vous faites."
 
-#, fuzzy
 msgid "Do not show objects outside the margins in the exported file"
-msgstr ""
-"Ne pas afficher les objets en-dehors des marges lors d'une impression ou "
-"d'une exportation"
+msgstr "Ne pas afficher les objets en-dehors des marges dans le fichier exporté"
 
 msgid "Migrate Old Scribus Settings?"
 msgstr "Migrer les anciens paramètres de Scribus ?"
@@ -4290,9 +4278,8 @@ msgstr "Copier le contenu"
 msgid "Paste Contents"
 msgstr "Coller le contenu"
 
-#, fuzzy
 msgid "Paste Contents (Absolute)"
-msgstr "Coller le contenu"
+msgstr "Coller le contenu (Absolu)"
 
 msgid "C&lear Contents"
 msgstr "&Effacer le contenu"
@@ -4312,9 +4299,8 @@ msgstr "Editer l'image..."
 msgid "C&olors..."
 msgstr "C&ouleurs..."
 
-#, fuzzy
 msgid "S&tyles..."
-msgstr "Styles..."
+msgstr "S&tyles..."
 
 msgid "&Paragraph Styles..."
 msgstr "Styles de p&aragraphes..."
@@ -4565,9 +4551,8 @@ msgstr "Afficher la &grille"
 msgid "Show G&uides"
 msgstr "Afficher les &repères"
 
-#, fuzzy
 msgid "Show &Baseline Grid"
-msgstr "Afficher la grille typographique"
+msgstr "Afficher la grille t&ypographique"
 
 msgid "Show &Text Chain"
 msgstr "Afficher les &liens entre cadres"
@@ -4860,7 +4845,6 @@ msgstr "Insérer un trait d'union insécable"
 msgid "Insert Non Breaking Space"
 msgstr "Insérer une espace insécable"
 
-#, fuzzy
 msgid "Insert Page Number"
 msgstr "Insérer le folio"
 
@@ -5775,11 +5759,8 @@ msgstr "Aperçu..."
 msgid "&Print"
 msgstr "Im&primer"
 
-#, fuzzy
 msgid "Do not show objects outside the margins on the printed page"
-msgstr ""
-"Ne pas afficher les objets en-dehors des marges lors d'une impression ou "
-"d'une exportation"
+msgstr "Ne pas afficher les objets en-dehors des marges lors de l'impression"
 
 msgid ""
 "Insert a comma separated list of tokens where\n"
@@ -6139,9 +6120,8 @@ msgstr "Sélectionnez une police"
 msgid "About Scribus %1"
 msgstr "À propos de Scribus %1"
 
-#, fuzzy
 msgid "March"
-msgstr "Rechercher"
+msgstr "Mars"
 
 msgid "%1 %2 %3"
 msgstr "%1 %2 %3"
@@ -7066,11 +7046,9 @@ msgstr "&X"
 msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "Documents PDF (*.pdf);;Tous les fichiers (*)"
 
-#, fuzzy
 msgid "LineStyleWBase"
-msgstr "Styles de filets :"
+msgstr "LineStyleWBase"
 
-#, fuzzy
 msgid "%"
 msgstr " %"
 
@@ -7302,39 +7280,32 @@ msgstr "O&btenir les noms des champs"
 msgid "JavaScripts (*.js);;All Files (*)"
 msgstr "Javascripts (*.js);;Tous les fichiers (*)"
 
-#, fuzzy
 msgid "Column 1"
-msgstr "Espace entre les colo&nnes"
+msgstr "Colonne 1"
 
-#, fuzzy
 msgid "Style Manager"
-msgstr "Gestionnaire d'extensions"
+msgstr "Gestionnaire de styles"
 
-#, fuzzy
 msgid "C&lone"
-msgstr "Fermer"
+msgstr "C&loner"
 
 msgid "Alt+L"
 msgstr "Alt+L"
 
-#, fuzzy
 msgid "O&K"
-msgstr "OK"
+msgstr "O&K"
 
-#, fuzzy
 msgid "Alt+K"
-msgstr "Alt+"
+msgstr "Alt+K"
 
-#, fuzzy
 msgid "A&pply"
-msgstr "Appliquer"
+msgstr "A&ppliquer"
 
 msgid "Alt+P"
 msgstr "Alt+P"
 
-#, fuzzy
 msgid "Ca&ncel"
-msgstr "Annuler"
+msgstr "An&nuler"
 
 msgid "Alt+N"
 msgstr "Alt+N"
@@ -7849,7 +7820,7 @@ msgid "Lithuanian"
 msgstr "Lithuanien"
 
 msgid "Luxembourgish"
-msgstr ""
+msgstr "Luxembourgeois"
 
 msgid "Norwegian (Bokmaal)"
 msgstr "Norvégien bokmål"
@@ -8308,6 +8279,10 @@ msgid ""
 "your phrase. Examples: t* will list all fonts starting with t or T. *bold* "
 "will list all fonts with word bold, bolder etc. in the name."
 msgstr ""
+"Saisissez ici le texte de recherche rapide dans les noms de polices. La recherche"
+"est insensible à la casse. Les jokers habituels (*,·?,·[...]) sont disponibles. Par"
+"exemple, t* listera toutes les polices dont le nom débute par t ou T; *bold* "
+"affichera les polices dont le nom contient bold, bolder, etc."
 
 msgid "Start searching"
 msgstr "Démarrer la recherche"
@@ -9367,13 +9342,12 @@ msgstr ""
 "Résolution des images\n"
 "Utiliser 72 ppp pour des images destinées à la lecture sur écran"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Size of the images. 100% for no changes, 200% for two times larger etc."
-msgstr ""
-"Dimensions des images. 100% pour des dimensions identiques, 200% pour les "
+msgstr "Dimensions des images. 100% pour des dimensions identiques, 200% pour les "
 "doubler, etc."
 
-#, fuzzy, c-format
+#, c-format
 msgid "The quality of your images - 100% is the best, 1% the lowest quality"
 msgstr "Qualité des images - 100% pour la plus haute, 1% pour la plus basse"
 
@@ -9421,12 +9395,11 @@ msgid "Barcode Creator"
 msgstr "Créateur de codes à barres"
 
 msgid "Make check digit visible in text"
-msgstr ""
+msgstr "Rendre le nombre de contrôle visible dans le texte"
 
 msgid "Barcode"
 msgstr "Code à barres"
 
-#, fuzzy
 msgid "Co&de:"
 msgstr "C&ode :"
 
@@ -9458,19 +9431,17 @@ msgstr "Alt+G"
 msgid "Draw arrows to be sure of space next the code"
 msgstr "Détermine la réserve autour du code"
 
-#, fuzzy
 msgid "I&nclude checksum"
-msgstr "Inclure les cal&ques"
+msgstr "I&nclure la somme de contrôle"
 
 msgid "Generate and include a checksum in barcode"
-msgstr ""
+msgstr "Calculer et inclure une somme de contrôle dans le code à barres"
 
 msgid "Incl&ude checksum digit"
-msgstr ""
+msgstr "Incl&ure un nombre de contrôle"
 
-#, fuzzy
 msgid "Include the checksum digit in the barcode text"
-msgstr "&Ajouter un texte au code à barres"
+msgstr "Inclure le nombre de contrôle dans le texte du code à barres"
 
 msgid "&Background"
 msgstr "Couleur de &fond"
@@ -9497,28 +9468,28 @@ msgid "Preview of the result. 72dpi sample."
 msgstr "Prévisualisation du code à 72 ppp"
 
 msgid "12 or 13 digits"
-msgstr ""
+msgstr "12 ou 13 chiffres"
 
 msgid "8 digits"
-msgstr ""
+msgstr "8 chiffres"
 
 msgid "11 or 12 digits"
-msgstr ""
+msgstr "11 ou 12 chiffres"
 
 msgid "7 or 8 digits"
-msgstr ""
+msgstr "7 ou 8 chiffres"
 
 msgid "5 digits"
-msgstr ""
+msgstr "5 chiffres"
 
 msgid "2 digits"
-msgstr ""
+msgstr "2 chiffres"
 
 msgid "9 or 10 digits separated appropriately with dashes"
-msgstr ""
+msgstr "9 ou 10 chiffres séparés par des tirets"
 
 msgid "Variable number of characters, digits and any of the symbols -. *$/+%."
-msgstr ""
+msgstr "Nombre variable de caractères, chiffres et des symboles -.·*$/+%."
 
 msgid ""
 "Variable number of ASCII characters and special function symbols, starting "
@@ -9526,30 +9497,35 @@ msgid ""
 "128s must have a mandatory FNC 1 symbol immediately following the start "
 "character."
 msgstr ""
+"Chaîne composée d'un nombre variable de caractères ASCII et de symboles "
+"spéciaux, débutant par le caractère approprié.  Le code UCC/EAN 128 "
+"présente en première position après le caractère de début, un caractère non "
+"signifiant en terme de données : le caractère fonction 1 (FNC1)."
 
 msgid "Variable number of digits and any of the symbols -$:/.+ABCD."
-msgstr ""
+msgstr "Nombre variable de chiffres et des symboles -$:/.+ABCD."
 
 msgid ""
 "Variable number of digits. An ITF-14 is 14 characters and does not have a "
 "check digit"
 msgstr ""
+"Nombre variable de chiffres. Un symbole ITF 14 contient 14 caractères sans"
+"somme de contrôle."
 
 msgid "Variable number of digits"
-msgstr ""
+msgstr "Nombre variable de chiffres"
 
 msgid "Variable number of digits and capital letters"
-msgstr ""
+msgstr "Nombre variables de chiffres et de lettres majuscules"
 
 msgid "Variable number of hexadecimal characters"
-msgstr ""
+msgstr "Nombre variable de caractères héxadécimaux"
 
 msgid "Error opening file: %1"
 msgstr "Erreur à l'ouverture du fichier %1"
 
-#, fuzzy
 msgid "Barcode incomplete"
-msgstr "Créateur de codes à barres"
+msgstr "Codes à barres incomplet"
 
 msgid "&Barcode Generator..."
 msgstr "C&réateur de codes à barres..."
