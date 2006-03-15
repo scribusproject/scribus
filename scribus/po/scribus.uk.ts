@@ -199,7 +199,7 @@ PAGE_4, 3)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation type="unfinished">newDocument(size, margins, orientation, firstPageNumber,
+        <translation>newDocument(size, margins, orientation, firstPageNumber,
                         unit, pagesType, firstPageOrder) -&gt; bool
 
 Створює новий документ та повертає true після успішного завершення. 
@@ -2729,15 +2729,15 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Мак ОС&amp;#174; Х Аква Порт:</translation>
     </message>
     <message>
         <source>Windows&amp;#174; Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Віндоус&amp;#174; Порт:</translation>
     </message>
     <message>
         <source>March</source>
-        <translation type="unfinished"></translation>
+        <translation>Березень</translation>
     </message>
 </context>
 <context>
@@ -2752,35 +2752,35 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Filename:</source>
-        <translation type="unfinished"></translation>
+        <translation>Назва файла:</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished">Версія:</translation>
+        <translation>Версія:</translation>
     </message>
     <message>
         <source>Enabled:</source>
-        <translation type="unfinished">Доступна:</translation>
+        <translation>Ввімкнено:</translation>
     </message>
     <message>
         <source>Release Date:</source>
-        <translation type="unfinished">Дата випуску:</translation>
+        <translation>Дата випуску:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished">Опис:</translation>
+        <translation>Опис:</translation>
     </message>
     <message>
         <source>Author(s):</source>
-        <translation type="unfinished">Автор(и):</translation>
+        <translation>Автор(и):</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation type="unfinished">Авторські права:</translation>
+        <translation>Авторські права:</translation>
     </message>
     <message>
         <source>License:</source>
-        <translation type="unfinished">Ліцензія:</translation>
+        <translation>Ліцензія:</translation>
     </message>
 </context>
 <context>
@@ -3594,126 +3594,126 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Copy Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Копіювати вміст</translation>
     </message>
     <message>
         <source>Paste Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити вміст</translation>
     </message>
     <message>
         <source>&amp;Printing Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Друк ввімкнено</translation>
     </message>
     <message>
         <source>&amp;Flip Horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Перевернути по горизонталі</translation>
     </message>
     <message>
         <source>&amp;Flip Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Перевернути по вертикалі</translation>
     </message>
     <message>
         <source>Show Rulers</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати лінійки</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
-        <translation type="unfinished">С&amp;хема документу</translation>
+        <translation>С&amp;хема</translation>
     </message>
     <message>
         <source>Solidus</source>
-        <translation type="unfinished"></translation>
+        <translation>Солідус</translation>
     </message>
     <message>
         <source>Middle Dot</source>
-        <translation type="unfinished"></translation>
+        <translation>Середня точка</translation>
     </message>
     <message>
         <source>En Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Ен проміжок</translation>
     </message>
     <message>
         <source>Em Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Ем проміжок</translation>
     </message>
     <message>
         <source>Thin Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Вузький проміжок</translation>
     </message>
     <message>
         <source>Thick Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Широкий проміжок</translation>
     </message>
     <message>
         <source>Mid Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Середній проміжок</translation>
     </message>
     <message>
         <source>Hair Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Волосинний проміжок</translation>
     </message>
     <message>
         <source>Insert Smart Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити розумний знак переносу</translation>
     </message>
     <message>
         <source>Insert Non Breaking Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити непереносне тире</translation>
     </message>
     <message>
         <source>Insert Non Breaking Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити непереносний проміжок</translation>
     </message>
     <message>
         <source>Insert Page Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити номер сторінки</translation>
     </message>
     <message>
         <source>ff</source>
-        <translation type="unfinished"></translation>
+        <translation>Лігатура ff</translation>
     </message>
     <message>
         <source>fi</source>
-        <translation type="unfinished"></translation>
+        <translation>Лігатура fi</translation>
     </message>
     <message>
         <source>fl</source>
-        <translation type="unfinished"></translation>
+        <translation>Лігатура fl</translation>
     </message>
     <message>
         <source>ffi</source>
-        <translation type="unfinished"></translation>
+        <translation>Лігатура ffi</translation>
     </message>
     <message>
         <source>ffl</source>
-        <translation type="unfinished"></translation>
+        <translation>Лігатура ffl</translation>
     </message>
     <message>
         <source>ft</source>
-        <translation type="unfinished"></translation>
+        <translation>Лігатура ft</translation>
     </message>
     <message>
         <source>st</source>
-        <translation type="unfinished"></translation>
+        <translation>Лігатура st</translation>
     </message>
     <message>
         <source>Paste Contents (Absolute)</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставка вмісту (Абсолютна)</translation>
     </message>
     <message>
         <source>S&amp;tyles...</source>
-        <translation type="unfinished"></translation>
+        <translation>С&amp;тилі...</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
-        <translation type="unfinished">С&amp;хема документу</translation>
+        <translation>С&amp;хема документу</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
-        <translation type="unfinished">&amp;Контури</translation>
+        <translation>&amp;Контури</translation>
     </message>
 </context>
 <context>
@@ -4431,12 +4431,12 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>None</source>
         <comment>highlight</comment>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
     <message>
         <source>None</source>
         <comment>action</comment>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
 </context>
 <context>
@@ -4574,7 +4574,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Apply the selected master page to even, odd or all pages within the following range</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосувати вибрану головну сторінку до непарних, парних, чи всіх сторінок в цьому діапазоні</translation>
     </message>
 </context>
 <context>
@@ -4588,209 +4588,209 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <name>Barcode</name>
     <message>
         <source>&amp;Barcode Generator...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Генератор штрих-кодів...</translation>
     </message>
     <message>
         <source>Scribus frontend for Pure Postscript Barcode Writer</source>
-        <translation type="unfinished"></translation>
+        <translation>Інтерфейс Scribus для самостійного генератора Postscript штрих-кодів</translation>
     </message>
 </context>
 <context>
     <name>BarcodeGenerator</name>
     <message>
         <source>Error opening file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Відчинити файл: %1 не вдалося</translation>
     </message>
     <message>
         <source>12 or 13 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>12 чи 13 цифр</translation>
     </message>
     <message>
         <source>8 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>8 цифр</translation>
     </message>
     <message>
         <source>11 or 12 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>11 чи 12 цифр</translation>
     </message>
     <message>
         <source>7 or 8 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>7 чи 8 цифр</translation>
     </message>
     <message>
         <source>5 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>5 цифр</translation>
     </message>
     <message>
         <source>2 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>2 цифри</translation>
     </message>
     <message>
         <source>9 or 10 digits separated appropriately with dashes</source>
-        <translation type="unfinished"></translation>
+        <translation>9 чи 10 цифр відповідно розділених тире</translation>
     </message>
     <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
-        <translation type="unfinished"></translation>
+        <translation>Змінне число знаків, цифр чи символів -. *$/+%.</translation>
     </message>
     <message>
         <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
-        <translation type="unfinished"></translation>
+        <translation>Змінне число ASCII знаків та особливих символів функцій починаючи з відповідного початкового знаку для початкового набору знаків. UCC/EAN-128s повинен містити обов&apos;язковий символ FNC 1 відразу після початкового знаку.</translation>
     </message>
     <message>
         <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
-        <translation type="unfinished"></translation>
+        <translation>Змінне число знаків, цифр чи символів -$:/.+ABCD.</translation>
     </message>
     <message>
         <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
-        <translation type="unfinished"></translation>
+        <translation>Змінне число цифр.  ITF-14 включає 14 знаків і не містить перевірочної цифри</translation>
     </message>
     <message>
         <source>Variable number of digits</source>
-        <translation type="unfinished"></translation>
+        <translation>Змінне число цифр</translation>
     </message>
     <message>
         <source>Variable number of digits and capital letters</source>
-        <translation type="unfinished"></translation>
+        <translation>Змінне число цифр та заголовних знаків</translation>
     </message>
     <message>
         <source>Variable number of hexadecimal characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Змінне число шістнадцятеричних знаків</translation>
     </message>
     <message>
         <source>Barcode incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>Штрих-код неповний</translation>
     </message>
 </context>
 <context>
     <name>BarcodeGeneratorBase</name>
     <message>
         <source>Barcode Creator</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактор штрих-кодів</translation>
     </message>
     <message>
         <source>Barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>Штрих-код</translation>
     </message>
     <message>
         <source>&amp;Type:</source>
-        <translation type="unfinished">&amp;Тип:</translation>
+        <translation>&amp;Тип:</translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть один з усталених типів штрих-кодів</translation>
     </message>
     <message>
         <source>The numeric representation of the code itself. See the help message below</source>
-        <translation type="unfinished"></translation>
+        <translation>Чисельне представлення штрих-коду. Дивіться інформаційне повідомлення внизу</translation>
     </message>
     <message>
         <source>Reset the barcode samples</source>
-        <translation type="unfinished"></translation>
+        <translation>Перезавантажити зразки штрих-кодів</translation>
     </message>
     <message>
         <source>&amp;Include text in barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Включити текст в штрих-код</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished">Alt+I</translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
         <source>If checked, there will be numbers in the barcode too</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо вибрано, в штрих-коді будуть присутні цифри</translation>
     </message>
     <message>
         <source>&amp;Guard whitespace</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Оберігати проміжки</translation>
     </message>
     <message>
         <source>Alt+G</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
         <source>Draw arrows to be sure of space next the code</source>
-        <translation type="unfinished"></translation>
+        <translation>Рисувати стрілки для явного представлення простору біля коду</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Кольори</translation>
+        <translation>Кольори</translation>
     </message>
     <message>
         <source>&amp;Background</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Фон</translation>
     </message>
     <message>
         <source>Alt+B</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+B</translation>
     </message>
     <message>
         <source>Background color - under the code lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Фоновий колір - під штрихами коду</translation>
     </message>
     <message>
         <source>&amp;Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Штрихи</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>Color of the lines in barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір штрихів штрих-коду</translation>
     </message>
     <message>
         <source>&amp;Text</source>
-        <translation type="unfinished">&amp;Текст</translation>
+        <translation>&amp;Текст</translation>
     </message>
     <message>
         <source>Alt+T</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>Color of the text and numbers</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір тексту на цифр</translation>
     </message>
     <message>
         <source>Hints and help is shown here</source>
-        <translation type="unfinished"></translation>
+        <translation>Тут показуються підказки та допомога</translation>
     </message>
     <message>
         <source>Preview of the result. 72dpi sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд результатів. 72тнд зразок.</translation>
     </message>
     <message>
         <source>Make check digit visible in text</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Показувати контрольну цифру в тексті</translation>
     </message>
     <message>
         <source>Co&amp;de:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ко&amp;д:</translation>
     </message>
     <message>
         <source>I&amp;nclude checksum</source>
-        <translation type="unfinished"></translation>
+        <translation>В&amp;ключити контрольну суму</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <source>Generate and include a checksum in barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>Згенерувати та включити в штрих-код контрольну суму</translation>
     </message>
     <message>
         <source>Incl&amp;ude checksum digit</source>
-        <translation type="unfinished"></translation>
+        <translation>Вк&amp;лючити контрольну цифру</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <source>Include the checksum digit in the barcode text</source>
-        <translation type="unfinished"></translation>
+        <translation>Включити в текст штрих-коду контрольну цифру</translation>
     </message>
 </context>
 <context>
@@ -4871,11 +4871,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>Choose a Scrapbook Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть директорію для чорновика</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть директорію</translation>
     </message>
 </context>
 <context>
@@ -5380,15 +5380,15 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>&amp;Insert Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Вставити код:</translation>
     </message>
     <message>
         <source>Close this dialog and return to text editing</source>
-        <translation type="unfinished"></translation>
+        <translation>Зачинити діалогове вікно та повернутися до редагування тексту</translation>
     </message>
     <message>
         <source>Type in a four digit unicode value directly here</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставте чотиризначне  значення Юнікоду прямо в цьому місці</translation>
     </message>
 </context>
 <context>
@@ -5948,12 +5948,12 @@ It is a reserved name for transparent color</source>
     <message>
         <source>None</source>
         <comment>color name</comment>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
     <message>
         <source>Custom</source>
         <comment>CommonStrings, custom page size</comment>
-        <translation type="unfinished">Нестандартний</translation>
+        <translation>Нестандартний</translation>
     </message>
 </context>
 <context>
@@ -6092,7 +6092,7 @@ It is a reserved name for transparent color</source>
     <message>
         <source>None</source>
         <comment>delimiter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
 </context>
 <context>
@@ -6323,12 +6323,12 @@ This can be set in the Preferences.</source>
     <name>DocIm</name>
     <message>
         <source>Importing failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпорт не вдався</translation>
     </message>
     <message>
         <source>Importing Word document failed 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортувати документ Ворда %1 не вдалося</translation>
     </message>
 </context>
 <context>
@@ -6502,15 +6502,15 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Page Number Out Of Bounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Число сторінок виходить за межі</translation>
     </message>
     <message>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation type="unfinished"></translation>
+        <translation>Введене Вами значення виходить за діапазон номерів сторінок активного документа (%1-%2).</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Назва:&lt;/b&gt; Необов&apos;язкова назва розділу, напр. Індекс &lt;br/&gt;&lt;b&gt;Показ:&lt;/b&gt; Виберіть, щоб показати номери сторінок в цьому розділі, якщо необхідні для цього текстові рамки присутні. &lt;br/&gt;&lt;b&gt;Від:&lt;/b&gt; Початковий індекс для цього розділу.&lt;br/&gt;&lt;b&gt;До:&lt;/b&gt; Індекс кінця р&lt;br/&gt;&lt;b&gt;Стиль:&lt;/b&gt; Виберіть для використання стиль нумерації сторінок. &lt;br/&gt;&lt;b&gt;Старт:&lt;/b&gt; Початковий індекс в діапазоні стилю. Напр., якщо Старт=2 і Стиль=а,б,в..., то нумерація сторінок почнеться з б. Для першого розділу документа це заміщує старий номер першої сторінки у діалоговому вікні нового файла.</translation>
     </message>
 </context>
 <context>
@@ -6600,22 +6600,22 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Real Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Дійсне число</translation>
     </message>
     <message>
         <source>None</source>
         <comment>relationship</comment>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
     <message>
         <source>None</source>
         <comment>auto add</comment>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
     <message>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
 </context>
 <context>
@@ -6889,7 +6889,7 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Clip to Page Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Обрізати по полях сторінки</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
@@ -6897,7 +6897,7 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page</source>
-        <translation type="unfinished"></translation>
+        <translation>Не показувати об&apos;єкти за полями на друкованій сторінці</translation>
     </message>
 </context>
 <context>
@@ -6918,11 +6918,25 @@ failed!</source>
         <source>Converting Image:
 %1
 failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>Конвертувати зображення:
+%1 
+не вдалося!</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished">Помилка</translation>
+        <translation>Помилка</translation>
+    </message>
+    <message>
+        <source>Importing Postscript</source>
+        <translation>Імпорт постскрипту</translation>
+    </message>
+    <message>
+        <source>Analyzing Postscript:</source>
+        <translation>Аналіз постскрипту:</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation>Генерація об&apos;єктів</translation>
     </message>
 </context>
 <context>
@@ -7041,7 +7055,7 @@ failed!</source>
     </message>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть для зручнішого читання стилів тексту з світлими кольорами</translation>
     </message>
 </context>
 <context>
@@ -7626,90 +7640,90 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Sample will be shown after key release</source>
-        <translation type="unfinished"></translation>
+        <translation>Зразок буде показано після відпускання клавіші</translation>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Друкування тексту тут дозволяє проводити швидкий пошук імен шрифтів. Пошук залежить від реєстру літер. Ви можете задавати розповсюджені шаблони (*, ?, [...]) у фразі для пошуку. Наприклад т* покаже всі шрифти, назви яких починаються з т чи Т. *жирн* покаже всі шрифти з жирний чи жирніший і т.п. в назві.</translation>
     </message>
 </context>
 <context>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation type="unfinished">Попередній перегляд шрифтів</translation>
+        <translation>Попередній перегляд шрифтів</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Швидкий пошук:</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Пошук</translation>
+        <translation>&amp;Пошук</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>Font Name</source>
-        <translation type="unfinished">Ім&apos;я шрифта</translation>
+        <translation>Назва шрифта</translation>
     </message>
     <message>
         <source>Doc</source>
-        <translation type="unfinished">Документ</translation>
+        <translation>Документ</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Тип</translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation type="unfinished">Вибірка</translation>
+        <translation>Вибірка</translation>
     </message>
     <message>
         <source>Access</source>
-        <translation type="unfinished">Доступ</translation>
+        <translation>Доступ</translation>
     </message>
     <message>
         <source>&amp;Font Size:</source>
-        <translation type="unfinished">&amp;Розмір шрифта:</translation>
+        <translation>&amp;Розмір шрифта:</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished">Текст</translation>
+        <translation>Текст</translation>
     </message>
     <message>
         <source>Sample text to display</source>
-        <translation type="unfinished"></translation>
+        <translation>Зразок тексту для показу</translation>
     </message>
     <message>
         <source>Se&amp;t</source>
-        <translation type="unfinished"></translation>
+        <translation>На&amp;бір</translation>
     </message>
     <message>
         <source>Alt+T</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>Reset the text</source>
-        <translation type="unfinished"></translation>
+        <translation>Перезавантажити текст</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation type="unfinished">&amp;Добавити</translation>
+        <translation>&amp;Добавити</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Зачинити</translation>
+        <translation>&amp;Зачинити</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -7999,7 +8013,7 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>Relevance</source>
-        <translation type="unfinished"></translation>
+        <translation>Відношення</translation>
     </message>
 </context>
 <context>
@@ -8164,7 +8178,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF</translation>
     </message>
 </context>
 <context>
@@ -8518,66 +8532,66 @@ converting their vector data into Scribus objects.</source>
     <name>LineStyleWBase</name>
     <message>
         <source>LineStyleWBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Стиль лінії з широкою основою</translation>
     </message>
     <message>
         <source>%</source>
-        <translation type="unfinished"></translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation type="unfinished">Товщина лінії:</translation>
+        <translation>Товщина лінії:</translation>
     </message>
 </context>
 <context>
     <name>LineStyleWidget</name>
     <message>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation> тчк</translation>
     </message>
     <message>
         <source>Flat Cap</source>
-        <translation type="unfinished">Пласка верхівка</translation>
+        <translation>Пласка верхівка</translation>
     </message>
     <message>
         <source>Square Cap</source>
-        <translation type="unfinished">Квадратна верхівка</translation>
+        <translation>Квадратна верхівка</translation>
     </message>
     <message>
         <source>Round Cap</source>
-        <translation type="unfinished">Заокруглена верхівка</translation>
+        <translation>Заокруглена верхівка</translation>
     </message>
     <message>
         <source>Miter Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Фацетне з&apos;єднання</translation>
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation type="unfinished">Фасочне з&apos;єднання</translation>
+        <translation>Фасочне з&apos;єднання</translation>
     </message>
     <message>
         <source>Round Join</source>
-        <translation type="unfinished">Заокруглене з&apos;єднання</translation>
+        <translation>Заокруглене з&apos;єднання</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation type="unfinished">Суцільна лінія</translation>
+        <translation>Суцільна лінія</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation type="unfinished">Переривчаста лінія</translation>
+        <translation>Переривчаста лінія</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation type="unfinished">Лінія з точок</translation>
+        <translation>Лінія з точок</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation type="unfinished">Переривчасто точкова лінія</translation>
+        <translation>Переривчасто точкова лінія</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation type="unfinished">Риска-точка-точка лінія</translation>
+        <translation>Риска-точка-точка лінія</translation>
     </message>
 </context>
 <context>
@@ -8729,11 +8743,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Printer Margins...</source>
-        <translation type="unfinished"></translation>
+        <translation>Поля принтера...</translation>
     </message>
     <message>
         <source>Import the margins for the selected page size from the available printers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортувати поля для вибраного розміру сторінки від доступних принтерів.</translation>
     </message>
 </context>
 <context>
@@ -9596,15 +9610,15 @@ Corners:</source>
     </message>
     <message>
         <source>Fill Rule</source>
-        <translation type="unfinished"></translation>
+        <translation>Правило заливки</translation>
     </message>
     <message>
         <source>Even-Odd</source>
-        <translation type="unfinished"></translation>
+        <translation>Непарний-парний</translation>
     </message>
     <message>
         <source>Non Zero</source>
-        <translation type="unfinished"></translation>
+        <translation>Не нульовий</translation>
     </message>
 </context>
 <context>
@@ -9843,7 +9857,7 @@ Corners:</source>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Нестандартний</translation>
+        <translation>Нестандартний</translation>
     </message>
 </context>
 <context>
@@ -9997,30 +10011,30 @@ Corners:</source>
     </message>
     <message>
         <source>Shrink the Size of the Path by shown %</source>
-        <translation type="unfinished"></translation>
+        <translation>Зменшити розмір шляху на вказані %</translation>
     </message>
     <message>
         <source>Reduce the Size of the Path by the shown value</source>
-        <translation type="unfinished"></translation>
+        <translation>Зменшити розмір шляху на показане значення</translation>
     </message>
     <message>
         <source>Enlarge the Size of the Path by the shown value</source>
-        <translation type="unfinished"></translation>
+        <translation>Збільшити розмір шляху на показане значення</translation>
     </message>
     <message>
         <source>% to Enlarge or Shrink By</source>
-        <translation type="unfinished"></translation>
+        <translation>% збільшення чи зменшення</translation>
     </message>
     <message>
         <source>Value to Enlarge or Shrink By</source>
-        <translation type="unfinished"></translation>
+        <translation>Значення для збільшення чи зменшення</translation>
     </message>
 </context>
 <context>
     <name>OODPlug</name>
     <message>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Цей документ не схожий на файл OpenOffice Draw.</translation>
     </message>
 </context>
 <context>
@@ -10160,7 +10174,7 @@ Scribus.</translation>
     </message>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation type="unfinished"></translation>
+        <translation>Кнопка запису буде недоступна, якщо Ви намагаєтеся експортувати PDF/X-3 і інформаційний рядок відсутній з закладки PDF/X-3.</translation>
     </message>
 </context>
 <context>
@@ -10375,7 +10389,7 @@ UCR найбільше впливає на ті частини зображен�
     <message>
         <source>None</source>
         <comment>relationship</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ніякого</translation>
     </message>
 </context>
 <context>
@@ -11007,7 +11021,7 @@ UCR найбільше впливає на ті частини зображен�
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Розміщення інтерпретатора Ghostscript на жорсткому диску</translation>
+        <translation type="obsolete">Розміщення інтерпретатора Ghostscript на жорсткому диску</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -11387,6 +11401,10 @@ UCR найбільше впливає на ті частини зображен�
 тестування можуть бути необхідними в певних випадках. UCR зменшує
 ймовірність перенасичення паперу СЖМ чорнилами.</translation>
     </message>
+    <message>
+        <source>Filesystem location for the Ghostscript interpreter.</source>
+        <translation>Розміщення інтерпретатора Ghostscript в файловій системі.</translation>
+    </message>
 </context>
 <context>
     <name>PrefsDialogBase</name>
@@ -11503,7 +11521,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <source>None</source>
         <comment>layout type</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ніякого</translation>
     </message>
 </context>
 <context>
@@ -13417,44 +13435,44 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
     </message>
     <message>
         <source>Barcode Generator</source>
-        <translation type="unfinished"></translation>
+        <translation>Генератор штрих-коду</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenOffice.org Draw (*.sxd *.odg);;Всі файли (*)</translation>
     </message>
     <message>
         <source>Word Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Документи MSWord</translation>
     </message>
     <message>
         <source>Palm PDB Documents</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>Документи Palm PDB</translation>
     </message>
     <message>
         <source>PDB_data</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>PDB_дані</translation>
     </message>
     <message>
         <source>PDB Import</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>Імпорт PDB</translation>
     </message>
     <message>
         <source>Could not open file %1</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо відчинити файл %1</translation>
     </message>
     <message>
         <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>Цей файл можливо не було розпізнано, як PDB документ. Будь-ласка повідомте розробників про помилку, якщо Ви впевнені у наявності проблеми.</translation>
     </message>
     <message>
         <source>Luxembourgish</source>
-        <translation type="unfinished"></translation>
+        <translation>Люксембурзька</translation>
     </message>
 </context>
 <context>
@@ -13809,74 +13827,74 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
     <name>SMBase</name>
     <message>
         <source>Style Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Менеджер стилів</translation>
     </message>
     <message>
         <source>Column 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Стовпець 1</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Додати</translation>
+        <translation>&amp;Додати</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+А</translation>
     </message>
     <message>
         <source>C&amp;lone</source>
-        <translation type="unfinished"></translation>
+        <translation>К&amp;лонувати</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+Л</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Видалити</translation>
+        <translation>&amp;Видалити</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+В</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Назва:</translation>
     </message>
     <message>
         <source>O&amp;K</source>
-        <translation type="unfinished"></translation>
+        <translation>Га&amp;разд</translation>
     </message>
     <message>
         <source>Alt+K</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+Г</translation>
     </message>
     <message>
         <source>A&amp;pply</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Застосувати</translation>
     </message>
     <message>
         <source>Alt+P</source>
-        <translation type="unfinished">Alt+P</translation>
+        <translation>Alt+З</translation>
     </message>
     <message>
         <source>Ca&amp;ncel</source>
-        <translation type="unfinished"></translation>
+        <translation>В&amp;ихід</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+И</translation>
     </message>
 </context>
 <context>
     <name>SMLineStyle</name>
     <message>
         <source>Properties</source>
-        <translation type="unfinished">Властивості</translation>
+        <translation>Властивості</translation>
     </message>
     <message>
         <source>Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Лінії</translation>
     </message>
 </context>
 <context>
@@ -14153,35 +14171,35 @@ converting their vector data into Scribus objects.</source>
     <name>ScToolBar</name>
     <message>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished">Правий край</translation>
+        <translation>Правий край</translation>
     </message>
     <message>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished">Лівий край</translation>
+        <translation>Лівий край</translation>
     </message>
     <message>
         <source>Allow Docking To...</source>
-        <translation type="unfinished"></translation>
+        <translation>Дозволити приєднання до...</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished">Горизонтально</translation>
+        <translation>Горизонтально</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished">Вертикально</translation>
+        <translation>Вертикально</translation>
     </message>
     <message>
         <source>Floating Orientation...</source>
-        <translation type="unfinished"></translation>
+        <translation>Плаваюче розміщення...</translation>
     </message>
 </context>
 <context>
@@ -14229,15 +14247,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви справді бажаєте очистити весь Ваш текст?</translation>
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
-        <translation type="unfinished">Неможливо видалити об&apos;єкт під час його використання</translation>
+        <translation>Неможливо видалити об&apos;єкт під час його використання</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation type="unfinished">Об&apos;єкт %1 в даний час редагується в редакторі тексту. Операція видалення буде відмінена</translation>
+        <translation>Об&apos;єкт %1 в даний час редагується в редакторі тексту. Операція видалення буде відмінена</translation>
     </message>
 </context>
 <context>
@@ -14682,25 +14700,27 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Spaces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
+        <translation>Проміжки та переноси</translation>
     </message>
     <message>
         <source>Ligature</source>
-        <translation type="unfinished"></translation>
+        <translation>Лігатура</translation>
     </message>
     <message>
         <source>New Master Page %1</source>
-        <translation type="unfinished">Нова майстер сторінка %1</translation>
+        <translation>Нова майстер сторінка %1</translation>
     </message>
     <message>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Число копій: %1(new line)
+Горизонтальний зсув: %2(new line)
+Вертикальний зсув: %3</translation>
     </message>
     <message>
         <source>Do you really want to replace your existing image?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви справді бажаєте замінити існуюче зображення?</translation>
     </message>
 </context>
 <context>
@@ -15012,15 +15032,15 @@ Ctrl-V для вставки його в систему обробітку пр�
     </message>
     <message>
         <source>Documentation for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Документація для:</translation>
     </message>
     <message>
         <source>Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Сценарій</translation>
     </message>
     <message>
         <source> doesn&apos;t contain any docstring!</source>
-        <translation type="unfinished"></translation>
+        <translation> не містить ніякого опису!</translation>
     </message>
 </context>
 <context>
@@ -15086,11 +15106,11 @@ Ctrl-V для вставки його в систему обробітку пр�
     </message>
     <message>
         <source>Change...</source>
-        <translation type="unfinished">Змінити...</translation>
+        <translation>Змінити...</translation>
     </message>
     <message>
         <source>Locate Startup Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Знайти початковий сценарій</translation>
     </message>
 </context>
 <context>
@@ -15529,27 +15549,27 @@ Ctrl-V для вставки його в систему обробітку пр�
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation type="unfinished">&amp;Вставити</translation>
+        <translation>&amp;Вставити</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation type="unfinished">Символ</translation>
+        <translation>Символ</translation>
     </message>
     <message>
         <source>Quote</source>
-        <translation type="unfinished">Цитата</translation>
+        <translation>Цитата</translation>
     </message>
     <message>
         <source>Spaces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
+        <translation>Проміжки та переноси</translation>
     </message>
     <message>
         <source>Ligature</source>
-        <translation type="unfinished"></translation>
+        <translation>Лігатура</translation>
     </message>
     <message>
         <source>Space</source>
-        <translation type="unfinished">Проміжок</translation>
+        <translation>Проміжок</translation>
     </message>
 </context>
 <context>
@@ -15575,7 +15595,7 @@ Ctrl-V для вставки його в систему обробітку пр�
     <name>StyleManager</name>
     <message>
         <source>More than one item selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибрано більш ніж один об&apos;єкт</translation>
     </message>
 </context>
 <context>
@@ -15619,7 +15639,7 @@ Ctrl-V для вставки його в систему обробітку пр�
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation type="unfinished"></translation>
+        <translation>Схема</translation>
     </message>
 </context>
 <context>
@@ -16766,52 +16786,53 @@ when Document is opened:</source>
     </message>
     <message>
         <source>Clip to Page Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Обрізати по полях сторінки</translation>
     </message>
     <message>
         <source>Lossy - JPEG</source>
-        <translation type="unfinished"></translation>
+        <translation>З втратами - JPEG</translation>
     </message>
     <message>
         <source>Lossless - Zip</source>
-        <translation type="unfinished"></translation>
+        <translation>Без втрат - Zip</translation>
     </message>
     <message>
         <source>Image Compression Method</source>
-        <translation type="unfinished"></translation>
+        <translation>Метод стиснення зображень</translation>
     </message>
     <message>
         <source>Javascript to be executed
 when PDF document is opened:</source>
-        <translation type="unfinished"></translation>
+        <translation>Javascript сценарій, який буде виконано
+при відчиненні PDF документа:</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Дозволяє використання презентаційних ефектів при застосуванні Adobe&amp;#174; Reader&amp;#174; та інших програм для перегляду PDF, які дозволяють це в повноекранному режимі.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Визначає рівень сумісності PDF. По умовчанню використовується PDF 1.3, який має найбільшу сумісність. Виберіть PDF 1.4, якщо Ваш файл використовує такі можливості, як прозорість або Ви потребуєте використання 128-бітного шифрування. Використовуйте PDF 1.5, якщо Ви бажаєте зберегти об&apos;єкти на різних планах всередині PDF документа. PDF/X-3 використовується для експортування PDF при застосуванні керування RGB кольорами для комерційного друку і може бути вибраний лише при ввімкненому керуванні кольорами. Використовуйте лише з поради Вашого друкаря або, в деяких випадках, при друці на 4-х колірному лазерному принтері.</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Плани у Вашому документі будуть експортовані в PDF лише при виборі PDF 1.5.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation type="unfinished"></translation>
+        <translation>Метод стиснення зображень. Автоматичний дозволяє Scribus вибрати найкращий метод. ZIP - метод без втрат і найкраще всього підходить для зображень з однотонними кольорами. JPEG краще використовувати для створення PDF файлів меншого розміру з багатьма фотографічними зображеннями (можлива деяка втрата якості). Залиште цю установку автоматичною, якщо у Вас немає потреби в особливих методах стиснення. Ця установка лише впливає на JPEG зображення</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Перерахувати растрові зображення до вибраних DPI. Вимкнення цієї установки приведе до того, що зображення будуть залишені з початковим розрішенням. Ввімкнення привете до підвищеного використання пам&apos;яті та сповільнення експортування.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Кольорова модель PDF експорту. Виберіть Екран/Веб для PDF документів призначених для показу на екрані комп&apos;ютера чи для друку на типових струменевих принтерах. Виберіть Принтер для друку на справжньому 4-х колірному СМЖЧ принтері. Виберіть Відтінки сірого для експорту PDF у відтінках сірого кольору.</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
-        <translation type="unfinished"></translation>
+        <translation>Не показувати об&apos;єкти за полями в експортованому файлі</translation>
     </message>
 </context>
 <context>
@@ -17781,33 +17802,35 @@ to %2</source>
     </message>
     <message>
         <source>Enable Item Printing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ввімкнути друк об&apos;єкта</translation>
     </message>
     <message>
         <source>Disable Item Printing</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнути друк об&apos;єкта</translation>
     </message>
     <message>
         <source>Multiple duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Множинне дублювання</translation>
     </message>
     <message>
         <source>Change Image Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Змінити зміщення зображення</translation>
     </message>
     <message>
         <source>Change Image Scale</source>
-        <translation type="unfinished"></translation>
+        <translation>Змінити масштабування зображення</translation>
     </message>
     <message>
         <source>X1: %1, Y1: %2
 X2: %4, Y2: %5</source>
-        <translation type="unfinished"></translation>
+        <translation>X1: %1, Y1: %2
+X2: %4, Y2: %5</translation>
     </message>
     <message>
         <source>X: %1, Y: %2
 X: %4, Y: %5</source>
-        <translation type="unfinished"></translation>
+        <translation>X: %1, Y: %2
+X: %4, Y: %5</translation>
     </message>
 </context>
 <context>
@@ -17845,54 +17868,54 @@ X: %4, Y: %5</source>
     <name>UsePrinterMarginsDialog</name>
     <message>
         <source>Minimum Margins for Page Size %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Мінімальні поля для розміру сторінки %1</translation>
     </message>
 </context>
 <context>
     <name>UsePrinterMarginsDialogBase</name>
     <message>
         <source>Use Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовувати поля принтера</translation>
     </message>
     <message>
         <source>Select &amp;Printer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибрати &amp;принтер:</translation>
     </message>
     <message>
         <source>Margins</source>
-        <translation type="unfinished">Поля</translation>
+        <translation>Поля</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation type="unfinished"></translation>
+        <translation>Праве:</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation type="unfinished">&amp;Верх:</translation>
+        <translation>&amp;Верхнє:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished">&amp;Низ:</translation>
+        <translation>&amp;Нижнє:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation type="unfinished">&amp;Лівий край:</translation>
+        <translation>&amp;Ліве:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Гаразд</translation>
+        <translation>&amp;Гаразд</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+Г</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">В&amp;ихід</translation>
+        <translation>В&amp;ихід</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+И</translation>
     </message>
 </context>
 <context>
@@ -18007,7 +18030,7 @@ X: %4, Y: %5</source>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Remember association</source>
