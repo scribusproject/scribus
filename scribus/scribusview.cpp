@@ -8169,18 +8169,6 @@ void ScribusView::setRulerPos(int x, int y)
 	ScMW->mainWindowStatusLabel->setText(newStatusBarText);
 }
 
-void ScribusView::setZoom()
-{
-	int x = qRound(QMAX(contentsX() / Scale, 0));
-	int y = qRound(QMAX(contentsY() / Scale, 0));
-	int w = qRound(QMIN(visibleWidth() / Scale, Doc->pageWidth));
-	int h = qRound(QMIN(visibleHeight() / Scale, Doc->pageHeight));
-	rememberPreviousSettings(w / 2 + x,h / 2 + y);
-	setScale(zoomSpinBox->value() / 100.0 * Prefs->DisScale);
-	slotDoZoom();
-	ScMW->setFocus();
-}
-
 //CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
 //does NOT create a page anymore.
 Page* ScribusView::addPage(int nr, bool mov)
@@ -8266,6 +8254,18 @@ void ScribusView::slotDoZoom()
 	updateOn = true;
 	DrawNew();
 	undoManager->setUndoEnabled(true);
+}
+
+void ScribusView::setZoom()
+{
+	int x = qRound(QMAX(contentsX() / Scale, 0));
+	int y = qRound(QMAX(contentsY() / Scale, 0));
+	int w = qRound(QMIN(visibleWidth() / Scale, Doc->currentPage->width()));
+	int h = qRound(QMIN(visibleHeight() / Scale, Doc->currentPage->height()));
+	rememberPreviousSettings(w / 2 + x,h / 2 + y);
+	setScale(zoomSpinBox->value() / 100.0 * Prefs->DisScale);
+	slotDoZoom();
+	ScMW->setFocus();
 }
 
 void ScribusView::slotZoom100()
