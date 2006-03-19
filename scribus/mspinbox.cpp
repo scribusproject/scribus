@@ -158,6 +158,22 @@ int MSpinBox::mapTextToValue(bool *)
 	QString su = suffix().stripWhiteSpace();
 	ts.replace(",", ".");
 	ts.replace("%", "");
+	int pos = ts.length();
+	while (pos > 0)
+	{
+		pos = ts.findRev(".", pos);
+		if (pos >= 0) 
+		{
+			if (pos < static_cast<int>(ts.length()))
+			{
+				if (!ts[pos+1].isDigit())
+					ts.insert(pos+1, "0 ");
+			}
+			pos--;
+		}
+	}
+	if (ts.endsWith("."))
+		ts.append("0");
 	
 	//Get all our units strings
 	QString trStrPT=unitGetStrFromIndex(SC_PT);
@@ -195,7 +211,7 @@ int MSpinBox::mapTextToValue(bool *)
 		ts.replace(trStrC, strC);
 	//Replace in our typed text all of the units strings with *unitstring
 	QRegExp rx("\\b(\\d+)\\s*("+strPT+"|"+strP+"|"+strMM+"|"+strC+"|"+strCM+"|"+strIN+")\\b");
-	int pos = 0;
+	pos = 0;
 	while (pos >= 0) {
 		pos = rx.search(ts, pos);
 		if (pos >= 0) {
