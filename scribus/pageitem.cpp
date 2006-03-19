@@ -396,10 +396,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 		AnName = "Item";
 		break;
 	}
+	m_Doc->TotalItems++;
 	AnName += tmp.setNum(m_Doc->TotalItems); // +" "+QDateTime::currentDateTime().toString();
 	AutoName = true;
 	setUName(AnName);
-	m_Doc->TotalItems++;
 	m_annotation.setBorderColor(outline);
 	HasSel = false;
 	Tinput = false;
