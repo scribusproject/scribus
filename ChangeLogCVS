@@ -1,5 +1,12 @@
 Scribus - 1.3.3cvs
 ==================
+- 0003456: [User Interface] Frame type cannot be changed from the context menu (fschmid)
+- 0003418: [Shape Drawing] "Round corners" in PP needs to be greyed out for polygons and shapes (fschmid)
+- 0003405: [User Interface] zoom from view menu changes page displayed (fschmid)
+- 0003435: [User Interface] Counting of items in document outline starts with zero (fschmid)
+- 0003413: [General] arrowheads on lines not duplicated (fschmid)
+- 0003447: [User Interface] Current icons to add objects don't work well on very dark objects (NEW ICONS INCLUDED) (fschmid)
+- 0003453: [Translation] translation update for 1.3.3 (fschmid)
 - 0003384: [User Interface] Barcode Generator: Wrong tooltip displayed (cbradney)
 - 0003388: [User Interface] Dialog for master pages is too small (cbradney)
 - 0003401: [Translation] pt_BR translation update (plinnell)
