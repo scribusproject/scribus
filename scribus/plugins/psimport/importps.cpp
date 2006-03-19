@@ -45,12 +45,12 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 	CustColors.clear();
 	QFileInfo fi = QFileInfo(fName);
 	QString ext = fi.extension(false).lower();
-	progressDialog = new MultiProgressDialog(tr("Importing Postscript"), CommonStrings::tr_Cancel, ScMW, "psexportprogress");
+	progressDialog = new MultiProgressDialog(tr("Importing PostScript"), CommonStrings::tr_Cancel, ScMW, "psexportprogress");
 	if (progressDialog != NULL)
 	{
 		QStringList barNames, barTexts;
 		barNames << "GI";
-		barTexts << tr("Analyzing Postscript:");
+		barTexts << tr("Analyzing PostScript:");
 		progressDialog->addExtraProgressBars(barNames, barTexts);
 		progressDialog->setOverallTotalSteps(3);
 		progressDialog->setOverallProgress(0);

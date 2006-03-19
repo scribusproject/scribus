@@ -78,6 +78,7 @@ public:
 public slots:
 	void setPos(double);
 	void changePos(int);
+	void languageChange();
 
 signals:
 	void gradientChanged();

@@ -266,20 +266,18 @@ GradientEditor::GradientEditor(QWidget *pa) : QLabel(pa)
 	Layout1 = new QHBoxLayout(0,0,0,"Layout1");
 	Layout1->setSpacing( 4 );
 	Layout1->setMargin( 0 );
-	Desc = new QLabel( this, "Desc" );
-	Desc->setText( tr( "Position:" ) );
-	Layout1->addWidget( Desc );
 	Position = new QSpinBox( this, "shspin" );
 	Position->setMinValue(0);
 	Position->setMaxValue(100);
 	Position->setLineStep(1);
-	Position->setSuffix( tr(" %"));
 	Position->setValue(0);
+	Desc = new QLabel( this, "Desc" );
+	languageChange();
+	Layout1->addWidget( Desc );
 	Layout1->addWidget(Position);
 	Form1Layout->addLayout(Layout1);
 	connect(Position, SIGNAL(valueChanged(int)), this, SLOT(changePos(int)));
 	connect(Preview, SIGNAL(currStep(double)), this, SLOT(setPos(double)));
-	QToolTip::add( Preview, QRect(10,43, Preview->width()-20, 13), tr( "Here you can add, change or remove Color-Stops." ) );
 	resize(minimumSizeHint());
 }
 
@@ -294,4 +292,12 @@ void GradientEditor::changePos(int v)
 {
 	Preview->setActStep(static_cast<double>(v) / 100.0);
 	emit gradientChanged();
+}
+
+void GradientEditor::languageChange()
+{
+	QToolTip::remove(Preview);
+	QToolTip::add(Preview, QRect(10,43, Preview->width()-20, 13), tr( "Add, change or remove color stops here" ) );
+	Desc->setText( tr( "Position:" ) );
+	Position->setSuffix( tr(" %") );
 }
