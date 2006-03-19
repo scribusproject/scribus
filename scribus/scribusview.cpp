@@ -4700,10 +4700,12 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			{
 			case 0:
 				z = Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
+				Doc->Items->at(z)->FrameType = 0;
 				SetupDraw(z);
 				break;
 			case 1:
 				z = Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
+				Doc->Items->at(z)->FrameType = 1;
 				SetupDraw(z);
 				break;
 			default:

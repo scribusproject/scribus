@@ -2764,6 +2764,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		if (currItem->FrameType > 3)
 			SCustom->setPixmap(SCustom->getIconPixmap(currItem->FrameType-2));
 		actionManager->connectNewSelectionActions(view, doc);
+		propertiesPalette->NewSel(Nr);
 	}
 	else
 		propertiesPalette->NewSel(Nr);

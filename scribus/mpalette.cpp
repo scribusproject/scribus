@@ -1284,11 +1284,11 @@ void Mpalette::SetCurItem(PageItem *i)
 		TabStack2->raiseWidget(0);
 	// Frame type 3 is obsolete: CR 2005-02-06
 	//if (((i->itemType() == PageItem::TextFrame) || (i->itemType() == PageItem::ImageFrame) || (i->itemType() == 3)) &&  (!i->ClipEdited))
-	if (((i->asTextFrame()) || (i->asImageFrame())) &&  (!i->ClipEdited))
+	if (((i->asTextFrame()) || (i->asImageFrame())) &&  (!i->ClipEdited) && ((i->FrameType == 0) || (i->FrameType == 2)))
 		RoundRect->setEnabled(true);
 	else
 	{
-		if ((i->asPolygon()) && ((i->FrameType == 0) || (i->FrameType == 2)))
+		if ((i->asPolygon()) &&  (!i->ClipEdited)  && ((i->FrameType == 0) || (i->FrameType == 2)))
 			RoundRect->setEnabled(true);
 		else
 			RoundRect->setEnabled(false);
@@ -1351,6 +1351,7 @@ void Mpalette::NewSel(int nr)
 	if (ScMW->ScriptRunning)
 		return;
 	int visID;
+	PageItem *i;
 	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 	if (doc->m_Selection->count()>1)
 	{
@@ -1447,6 +1448,11 @@ void Mpalette::NewSel(int nr)
 			TabStack->setItemEnabled(3, true);
 			TabStack->setItemEnabled(4, true);
 			ShapeGroup->setEnabled(true);
+			i = doc->m_Selection->itemAt(0);
+			if ((!i->ClipEdited) && ((i->FrameType == 0) || (i->FrameType == 2)))
+				RoundRect->setEnabled(true);
+			else
+				RoundRect->setEnabled(false);
 			if ((doc->m_Selection->itemAt(0)->FrameType == 0) || (doc->m_Selection->itemAt(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			EditShape->setEnabled(true);
@@ -1460,8 +1466,11 @@ void Mpalette::NewSel(int nr)
 			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
 			ShapeGroup->setEnabled(true);
-			if ((doc->m_Selection->itemAt(0)->FrameType == 0) || (doc->m_Selection->itemAt(0)->FrameType == 2))
+			i = doc->m_Selection->itemAt(0);
+			if ((!i->ClipEdited) && ((i->FrameType == 0) || (i->FrameType == 2)))
 				RoundRect->setEnabled(true);
+			else
+				RoundRect->setEnabled(false);
 			Distance->setEnabled(true);
 			EditShape->setEnabled(true);
 			if (visID == 3)
@@ -1492,8 +1501,11 @@ void Mpalette::NewSel(int nr)
 			TabStack->setItemEnabled(4, true);
 			ShapeGroup->setEnabled(true);
 			EditShape->setEnabled(true);
-			if ((doc->m_Selection->itemAt(0)->FrameType == 0) || (doc->m_Selection->itemAt(0)->FrameType == 2))
+			i = doc->m_Selection->itemAt(0);
+			if ((!i->ClipEdited) && ((i->FrameType == 0) || (i->FrameType == 2)))
 				RoundRect->setEnabled(true);
+			else
+				RoundRect->setEnabled(false);
 			if ((visID == 2) || (visID == 3))
 				TabStack->setCurrentIndex(0);
 			HaveItem = true;
@@ -4074,11 +4086,17 @@ void Mpalette::setLocked(bool isLocked)
 	Width->setReadOnly(isLocked);
 	Height->setReadOnly(isLocked);
 	Rot->setReadOnly(isLocked);
-	RoundRect->setEnabled(!isLocked);
 	EditShape->setEnabled(!isLocked);
 	ShapeGroup->setEnabled(!isLocked);
 	LayerGroup->setEnabled(!isLocked);
 	Locked->setOn(isLocked);
+	if ((HaveDoc) && (HaveItem))
+	{
+		if (((CurItem->asTextFrame()) || (CurItem->asImageFrame()) || (CurItem->asPolygon())) &&  (!CurItem->ClipEdited) && ((CurItem->FrameType == 0) || (CurItem->FrameType == 2)))
+			RoundRect->setEnabled(!isLocked);
+		else
+			RoundRect->setEnabled(false);
+	}
 }
 
 void Mpalette::setSizeLocked(bool isSizeLocked)
