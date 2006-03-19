@@ -8976,6 +8976,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 //	currItem->BMnr = Buffer->BMnr;
 	currItem->setIsAnnotation(Buffer->m_isAnnotation);
 	currItem->setAnnotation(Buffer->m_annotation);
+	currItem->setEndArrowIndex(Buffer->endArrowIndex);
+	currItem->setStartArrowIndex(Buffer->startArrowIndex);
 	if (!Buffer->AnName.isEmpty())
 	{
 		if (!drag)
