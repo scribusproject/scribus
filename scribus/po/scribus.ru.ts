@@ -1742,10 +1742,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Здесь показывается версия, дата сборки и статус поддержки тех или иных возможностей в этой сборке Scribus. Сокращение C-C-T-F означает: C=littlecms C=CUPS T=TIFF F=Fontconfig. Последняя буква - это либо C=cairo, либо A=libart. Если библиотека не использована, вместо буквы подставляется астериск - *. Здесь также отображается номер используемой версии Ghostscript.</translation>
     </message>
     <message>
-        <source>February</source>
-        <translation type="obsolete">Февраль</translation>
-    </message>
-    <message>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
         <translation>Портирование на Mac OS&amp;#174; X Aqua:</translation>
     </message>
@@ -1755,7 +1751,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>March</source>
-        <translation type="unfinished"></translation>
+        <translation>Март</translation>
     </message>
 </context>
 <context>
@@ -2011,10 +2007,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>&amp;Нижний индекс</translation>
     </message>
     <message>
-        <source>&amp;Outline</source>
-        <translation type="obsolete">&amp;Схема документа</translation>
-    </message>
-    <message>
         <source>S&amp;hadow</source>
         <translation>&amp;Тень</translation>
     </message>
@@ -2149,10 +2141,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>&amp;Image Frame</source>
         <translation>&amp;Изображение</translation>
-    </message>
-    <message>
-        <source>&amp;Outlines</source>
-        <translation type="obsolete">&amp;Контуры</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
@@ -2672,20 +2660,38 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Показывать линейки</translation>
     </message>
     <message>
+        <source>Paste Contents (Absolute)</source>
+        <translation>Вставить содержимое блока в исходную позицию</translation>
+    </message>
+    <message>
+        <source>S&amp;tyles...</source>
+        <translation>С&amp;тили...</translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>type effect</comment>
+        <translation>&amp;Контур</translation>
+    </message>
+    <message>
         <source>&amp;Printing Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Печать включена</translation>
     </message>
     <message>
         <source>&amp;Flip Horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Переворот по &amp;горизонтали</translation>
     </message>
     <message>
         <source>&amp;Flip Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Переворот по &amp;вертикали</translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <comment>Convert to oulines</comment>
+        <translation>&amp;Контуры</translation>
     </message>
     <message>
         <source>Solidus</source>
-        <translation type="unfinished"></translation>
+        <translation>Косая черта</translation>
     </message>
     <message>
         <source>Middle Dot</source>
@@ -2714,24 +2720,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>Hair Space</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Paste Contents (Absolute)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>S&amp;tyles...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Outline</source>
-        <comment>type effect</comment>
-        <translation type="unfinished">&amp;Схема документа</translation>
-    </message>
-    <message>
-        <source>&amp;Outlines</source>
-        <comment>Convert to oulines</comment>
-        <translation type="unfinished">&amp;Контуры</translation>
     </message>
 </context>
 <context>
@@ -3451,12 +3439,12 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>None</source>
         <comment>highlight</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ничего</translation>
     </message>
     <message>
         <source>None</source>
         <comment>action</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ничего</translation>
     </message>
 </context>
 <context>
@@ -3618,68 +3606,64 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Ошибка при открытии файла: %1</translation>
     </message>
     <message>
-        <source>Error creating preview</source>
-        <translation type="obsolete">Ошибка при создании предпросмотра</translation>
-    </message>
-    <message>
         <source>12 or 13 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>12 или 13 цифр</translation>
     </message>
     <message>
         <source>8 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>8 цифр</translation>
     </message>
     <message>
         <source>11 or 12 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>11 или 12 цифр</translation>
     </message>
     <message>
         <source>7 or 8 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>7 или 8 цифр</translation>
     </message>
     <message>
         <source>5 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>5 цифр</translation>
     </message>
     <message>
         <source>2 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>2 цифры</translation>
     </message>
     <message>
         <source>9 or 10 digits separated appropriately with dashes</source>
-        <translation type="unfinished"></translation>
+        <translation>9 или 10 цифр, разделённых тире</translation>
     </message>
     <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
-        <translation type="unfinished"></translation>
+        <translation>Разное количество букв, цифр и любой из символов -. *$/+%.</translation>
     </message>
     <message>
         <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
-        <translation type="unfinished"></translation>
+        <translation>Разное количество символов из набора ASCII и специальных функций, начиная с первого символа каждого набора. В случае с UCC/EAN-128s вслед за первым символом сразу должен идти обязательный символ FNC 1. -. *$/+%.</translation>
     </message>
     <message>
         <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
-        <translation type="unfinished"></translation>
+        <translation>Разное количество цифр и любой из символов -. *$/+%.</translation>
     </message>
     <message>
         <source>Variable number of digits</source>
-        <translation type="unfinished"></translation>
+        <translation>Разное количество цифр</translation>
+    </message>
+    <message>
+        <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
+        <translation>Разное количество цифр. Код ITF-14 состоит из 14 символов и не содержит цифры контрольной суммы</translation>
     </message>
     <message>
         <source>Variable number of digits and capital letters</source>
-        <translation type="unfinished"></translation>
+        <translation>Разное количество цифр и заглавных букв</translation>
     </message>
     <message>
         <source>Variable number of hexadecimal characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Разное количество цифр и шестнадцатеричных символов</translation>
     </message>
     <message>
         <source>Barcode incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>Штрих-код не завершён</translation>
     </message>
 </context>
 <context>
@@ -3695,10 +3679,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>&amp;Type:</source>
         <translation>&amp;Тип:</translation>
-    </message>
-    <message>
-        <source>C&amp;ode:</source>
-        <translation type="obsolete">&amp;Код:</translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
@@ -3785,36 +3765,32 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Предпросмотр результата с расчётом 72dpi.</translation>
     </message>
     <message>
-        <source>Make check digit visible in text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Co&amp;de:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Код:</translation>
     </message>
     <message>
         <source>I&amp;nclude checksum</source>
-        <translation type="unfinished"></translation>
+        <translation>До&amp;бавить контрольную сумму</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+Б</translation>
     </message>
     <message>
         <source>Generate and include a checksum in barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать и добавить контрольную сумму в штрих-код</translation>
     </message>
     <message>
         <source>Incl&amp;ude checksum digit</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить &amp;цифру контрольной суммы</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+Ц</translation>
     </message>
     <message>
         <source>Include the checksum digit in the barcode text</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить в текст штрих-кода цифру контрольной суммы</translation>
     </message>
 </context>
 <context>
@@ -4208,10 +4184,6 @@ This requires very accurate profiles and serves only as a warning.</source>
         <translation>Цветовая &amp;модель</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Ничего</translation>
-    </message>
-    <message>
         <source>Is Spot Color</source>
         <translation>Это плашечный цвет</translation>
     </message>
@@ -4508,13 +4480,6 @@ It is a reserved name for transparent color</source>
 %1</source>
         <translation>Невозможно собрать для вывода следующий файл: 
 %1</translation>
-    </message>
-</context>
-<context>
-    <name>ColorListBox</name>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Ничего</translation>
     </message>
 </context>
 <context>
@@ -4956,7 +4921,7 @@ It is a reserved name for transparent color</source>
     <message>
         <source>None</source>
         <comment>color name</comment>
-        <translation type="unfinished"></translation>
+        <translation>Никакого</translation>
     </message>
 </context>
 <context>
@@ -4992,10 +4957,6 @@ It is a reserved name for transparent color</source>
     <message>
         <source> %</source>
         <translation>%</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>Shade:</source>
@@ -5077,10 +5038,6 @@ It is a reserved name for transparent color</source>
         <translation>Разделитель значений:</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Ничего</translation>
-    </message>
-    <message>
         <source>First row is a header</source>
         <translation>Первая строка как заголовок</translation>
     </message>
@@ -5095,7 +5052,7 @@ It is a reserved name for transparent color</source>
     <message>
         <source>None</source>
         <comment>delimiter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ничего</translation>
     </message>
 </context>
 <context>
@@ -5273,10 +5230,6 @@ This can be set in the Preferences.</source>
     <message>
         <source>Delete Color</source>
         <translation>Удаление цвета</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>Delete Color:</source>
@@ -5509,7 +5462,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Имя:&lt;/b&gt; Опциональное имя для раздела, например, Индекс&lt;br/&gt;&lt;b&gt;Показано:&lt;/b&gt; Показывать ли номера страниц в этом разделе, если один или более текстовых блоков настроены для этого.&lt;br/&gt;&lt;b&gt;От:&lt;/b&gt; Индекс страницы, с которой начать.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; Индекс страницы, которой закончить.&lt;br/&gt;&lt;b&gt;Стиль:&lt;/b&gt; Используемый стиль нумерации.&lt;br/&gt;&lt;b&gt;Начало:&lt;/b&gt; С какого индекса в рамках стиля начать. Например, если Начало=2 и Стиль=a,b,c, ..., то нумерация начнётся с b. Для первого раздела в документе это заменит прежний номер первой страницы в новом окне файла.</translation>
     </message>
 </context>
 <context>
@@ -5562,10 +5515,6 @@ This can be set in the Preferences.</source>
 <context>
     <name>DocumentItemAttributes</name>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Ничего</translation>
-    </message>
-    <message>
         <source>Relates To</source>
         <translation>Соотносится с</translation>
     </message>
@@ -5604,17 +5553,17 @@ This can be set in the Preferences.</source>
     <message>
         <source>None</source>
         <comment>relationship</comment>
-        <translation type="unfinished"></translation>
+        <translation>Никакого</translation>
     </message>
     <message>
         <source>None</source>
         <comment>auto add</comment>
-        <translation type="unfinished"></translation>
+        <translation>Никакого</translation>
     </message>
     <message>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished"></translation>
+        <translation>Никакого</translation>
     </message>
 </context>
 <context>
@@ -5887,12 +5836,8 @@ a range of pages or a single page number.</source>
         <translation>Обрезать до полей</translation>
     </message>
     <message>
-        <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation type="obsolete">Не показывать объекты вне полей на распечатанной странице или в экспортированном файле</translation>
-    </message>
-    <message>
         <source>Do not show objects outside the margins on the printed page</source>
-        <translation type="unfinished"></translation>
+        <translation>Не показывать объекты вне полей на распечатанной странице</translation>
     </message>
 </context>
 <context>
@@ -5913,11 +5858,25 @@ failed!</source>
         <source>Converting Image:
 %1
 failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>Преобразование файла:
+%1
+не удался!</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished">Ошибка</translation>
+        <translation>Ошибка</translation>
+    </message>
+    <message>
+        <source>Importing Postscript</source>
+        <translation>Импорт PostScript</translation>
+    </message>
+    <message>
+        <source>Analyzing Postscript:</source>
+        <translation>Анализ PostScript:</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation>Обобщение объектов</translation>
     </message>
 </context>
 <context>
@@ -5937,10 +5896,6 @@ failed!</source>
     <message>
         <source>Line Spacing</source>
         <translation>Между строк</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Не задано</translation>
     </message>
     <message>
         <source>Name of your paragraph style</source>
@@ -6608,10 +6563,6 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation>А ещё неплохо бы на зависть другим уметь красиво читать и писать</translation>
     </message>
     <message>
-        <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
-        <translation type="obsolete">По вводу сюда автоматически запускается поиск шрифта по имени. Например, по запросу &apos;bold&apos; будут осталвены все шрифтыс Bold в имени. Поиск нечувствителен к регистру.</translation>
-    </message>
-    <message>
         <source>Start searching</source>
         <translation>Начать поиск</translation>
     </message>
@@ -6620,12 +6571,12 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation>Кегль выбранного шрифта</translation>
     </message>
     <message>
-        <source>Sample will be shown after key release</source>
-        <translation type="unfinished"></translation>
+        <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
+        <translation>Для быстрого поиска нужного шрифта введите сюда его имя. Поиск регистронезависим, можно использовать шаблоны (*, ?, [...]). Пример: t* выведет все шрифты, начинающиеся с t или T. *bold* выведет все шрифты, имеющие в названии слово bold.</translation>
     </message>
     <message>
-        <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
-        <translation type="unfinished"></translation>
+        <source>Sample will be shown after key release</source>
+        <translation>Пример будет показан здесь по отпускании клавиши</translation>
     </message>
 </context>
 <context>
@@ -7162,7 +7113,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF</translation>
     </message>
 </context>
 <context>
@@ -7519,62 +7470,62 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>%</source>
-        <translation type="unfinished"></translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation type="unfinished">Толщина линии:</translation>
+        <translation>Толщина линии:</translation>
     </message>
 </context>
 <context>
     <name>LineStyleWidget</name>
     <message>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Flat Cap</source>
-        <translation type="unfinished">Плоская шляпка</translation>
+        <translation>Плоская шляпка</translation>
     </message>
     <message>
         <source>Square Cap</source>
-        <translation type="unfinished">Квадратная шляпка</translation>
+        <translation>Квадратная шляпка</translation>
     </message>
     <message>
         <source>Round Cap</source>
-        <translation type="unfinished">Округлая шляпка</translation>
+        <translation>Округлая шляпка</translation>
     </message>
     <message>
         <source>Miter Join</source>
-        <translation type="unfinished">Фацетное соединение</translation>
+        <translation>Фацетное соединение</translation>
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation type="unfinished">Фасочное соединение</translation>
+        <translation>Фасочное соединение</translation>
     </message>
     <message>
         <source>Round Join</source>
-        <translation type="unfinished">Скруглённое соединение</translation>
+        <translation>Скруглённое соединение</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation type="unfinished">Целая линия</translation>
+        <translation>Целая линия</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation type="unfinished">Линейный пунктир</translation>
+        <translation>Линейный пунктир</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation type="unfinished">Пунктир</translation>
+        <translation>Пунктир</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation type="unfinished">Тире-точка</translation>
+        <translation>Тире-точка</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation type="unfinished">Тире-точка-точка</translation>
+        <translation>Тире-точка-точка</translation>
     </message>
 </context>
 <context>
@@ -8100,10 +8051,6 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Line Spacing</source>
         <translation>Межстрочное расстояние</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>Shape:</source>
@@ -9153,7 +9100,7 @@ Corners:</source>
     </message>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation type="unfinished"></translation>
+        <translation>Кнопка «Сохранить» станет недоступной при попытке экспортировать в PDF/X-3 с отстутствующей инфострокой.</translation>
     </message>
 </context>
 <context>
@@ -9344,10 +9291,6 @@ Corners:</source>
 <context>
     <name>PageItemAttributes</name>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Ничего</translation>
-    </message>
-    <message>
         <source>Relates To</source>
         <translation>Соотносится с</translation>
     </message>
@@ -9362,7 +9305,7 @@ Corners:</source>
     <message>
         <source>None</source>
         <comment>relationship</comment>
-        <translation type="unfinished"></translation>
+        <translation>Никак</translation>
     </message>
 </context>
 <context>
@@ -9967,10 +9910,6 @@ Corners:</source>
         <translation>Указать стандартный масштаб вида страницы</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Путь к интерпретатору Ghostscript в системе</translation>
-    </message>
-    <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation>Сглаживать текст для EPS и PDF при отображении на экране</translation>
     </message>
@@ -10311,6 +10250,10 @@ Corners:</source>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
         <translation>Местоположение исполняемого файла графического редактора. Если вы используете GIMP, рекомендуется использовать &apos;gimp-remote&apos; для открытия файлов в той же сессии GIMP.</translation>
     </message>
+    <message>
+        <source>Filesystem location for the Ghostscript interpreter.</source>
+        <translation>Путь к интерпретатору Ghostscript в системе.</translation>
+    </message>
 </context>
 <context>
     <name>PrefsDialogBase</name>
@@ -10396,10 +10339,6 @@ Do you want to migrate them to the new Scribus version?</source>
 <context>
     <name>PresetLayout</name>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Ничего</translation>
-    </message>
-    <message>
         <source>Magazine</source>
         <translation>Журнал</translation>
     </message>
@@ -10426,7 +10365,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <source>None</source>
         <comment>layout type</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ничего</translation>
     </message>
 </context>
 <context>
@@ -10838,7 +10777,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation>Раз&amp;мер</translation>
+        <translation>&amp;Кегль</translation>
     </message>
     <message>
         <source>Effects</source>
@@ -11830,7 +11769,7 @@ External Links
     <message>
         <source>Line style not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Стиль линии не найден.</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
@@ -12344,11 +12283,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Word Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Документы MS Word</translation>
     </message>
     <message>
         <source>Luxembourgish</source>
-        <translation type="unfinished"></translation>
+        <translation>Люксембургский</translation>
     </message>
 </context>
 <context>
@@ -12703,74 +12642,74 @@ is not exhaustive due to exceptions from called functions.
     <name>SMBase</name>
     <message>
         <source>Style Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Управление стилями</translation>
     </message>
     <message>
         <source>Column 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Столбец 1</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Добавить</translation>
+        <translation>&amp;Добавить</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+Д</translation>
     </message>
     <message>
         <source>C&amp;lone</source>
-        <translation type="unfinished"></translation>
+        <translation>С&amp;клонировать</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+К</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Удалить</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+У</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished">Имя:</translation>
+        <translation>Имя:</translation>
     </message>
     <message>
         <source>O&amp;K</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ОК</translation>
     </message>
     <message>
         <source>Alt+K</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+О</translation>
     </message>
     <message>
         <source>A&amp;pply</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Применить</translation>
     </message>
     <message>
         <source>Alt+P</source>
-        <translation type="unfinished">Alt+т</translation>
+        <translation>Alt+П</translation>
     </message>
     <message>
         <source>Ca&amp;ncel</source>
-        <translation type="unfinished"></translation>
+        <translation>О&amp;тменить</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+Т</translation>
     </message>
 </context>
 <context>
     <name>SMLineStyle</name>
     <message>
         <source>Properties</source>
-        <translation type="unfinished">Свойства</translation>
+        <translation>Свойства</translation>
     </message>
     <message>
         <source>Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Линии</translation>
     </message>
 </context>
 <context>
@@ -12791,10 +12730,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>Настройки заливки цветом</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Ничего</translation>
-    </message>
-    <message>
         <source>Color of text fill</source>
         <translation>Цвет заливки текста</translation>
     </message>
@@ -12808,10 +12743,6 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Stroke Color Settings</source>
         <translation>Настройки цвета контура</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -13122,23 +13053,19 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation type="unfinished">Вы действительно хотите удалить весь текст?</translation>
+        <translation>Вы действительно хотите удалить весь текст?</translation>
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
-        <translation type="unfinished">Невозможно удалить используемый объект</translation>
+        <translation>Невозможно удалить используемый объект</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation type="unfinished">Объект %1 сейчас изменяется в редакторе текста. Его невозможно удалить</translation>
+        <translation>Объект %1 сейчас изменяется в редакторе текста. Его невозможно удалить</translation>
     </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Ничего</translation>
-    </message>
     <message>
         <source>Initializing Plugins</source>
         <translation>Инициализируются модули</translation>
@@ -13583,13 +13510,15 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Spaces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
+        <translation>Пробелы и разрывы</translation>
     </message>
     <message>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Количество копий: %1
+Смещение по горизонтали: %2
+Смещение по вертикали: %3</translation>
     </message>
 </context>
 <context>
@@ -13790,24 +13719,12 @@ Vertical shift: %3</source>
         <translation>Настройки предпросмотра</translation>
     </message>
     <message>
-        <source>Cannot Delete In-Use Item</source>
-        <translation type="obsolete">Невозможно удалить используемый объект</translation>
-    </message>
-    <message>
-        <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation type="obsolete">Объект %1 сейчас изменяется в редакторе текста. Его невозможно удалить</translation>
-    </message>
-    <message>
         <source>Linking Text Frames</source>
         <translation>Связанные текстовые блоки</translation>
     </message>
     <message>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
         <translation>Вы пытаетесь перенести текст в уже заполненный блок или исходный блок.</translation>
-    </message>
-    <message>
-        <source>Do you really want to clear all your text?</source>
-        <translation type="obsolete">Вы действительно хотите удалить весь текст?</translation>
     </message>
     <message>
         <source>Cannot Convert In-Use Item</source>
@@ -13976,11 +13893,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Change...</source>
-        <translation type="unfinished">Изменить...</translation>
+        <translation>Изменить...</translation>
     </message>
     <message>
         <source>Locate Startup Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Указать сценарий запуска</translation>
     </message>
 </context>
 <context>
@@ -14059,10 +13976,6 @@ Vertical shift: %3</source>
     <message>
         <source> pt</source>
         <translation>pt</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Не задано</translation>
     </message>
     <message>
         <source>Replace with:</source>
@@ -14411,7 +14324,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Spaces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
+        <translation>Пробелы и разрывы</translation>
     </message>
 </context>
 <context>
@@ -14437,7 +14350,7 @@ Vertical shift: %3</source>
     <name>StyleManager</name>
     <message>
         <source>More than one item selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрано больше одного объекта</translation>
     </message>
 </context>
 <context>
@@ -14957,10 +14870,6 @@ Vertical shift: %3</source>
         <translation>С&amp;жать текст и векторную графику</translation>
     </message>
     <message>
-        <source>Image Settings</source>
-        <translation type="obsolete">Характеристики изображения</translation>
-    </message>
-    <message>
         <source>Automatic</source>
         <translation>Автоматически</translation>
     </message>
@@ -15432,24 +15341,12 @@ Vertical shift: %3</source>
         <translation>&amp;Разрешение для EPS-графики:</translation>
     </message>
     <message>
-        <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
-        <translation type="obsolete">Включает презентационные эффекты в полноэкранном режиме Adobe&amp;#174; Reader&amp;#174;.</translation>
-    </message>
-    <message>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Преобразовать сплошные тона в печатные</translation>
     </message>
     <message>
         <source>Compression &amp;Quality:</source>
-        <translation>Степень сжат&amp;ия:</translation>
-    </message>
-    <message>
-        <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="obsolete">Здесь определяется совместимость PDF. По умолчанию используется PDF 1.3, обеспечивающий максимально возможную совместимость. Выбирайте PDF 1.4, если в документе используется полупрозрачность или необходимо 128-битное шифрование. PDF/X-3 предназначен для экспорта в PDF, когда необходим файл с управлением цветом в RGB для  коммерческой печати, и когда управление цветом включено. Используйте PDF/X-3 только если точно знаете, что он поддерживается, либо, в некоторых случаях, когда ожидается печать на 4-цветный лазерный принтер.</translation>
-    </message>
-    <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="obsolete">Способ сжатия изображений. По умолчанию Scribus сам выбирает подходящий. ZIP сжимает без потерь в качестве изображения. JPEG больше подходит для создания небольших файлов PDF с большим количеством изображений внутри, но удаляет полезную информацию. Предоставьте Scribus самостоятельно выбрать подходящий способ, если не думаете, что лучше программы знаете, что к чему.</translation>
+        <translation>Качество после сжат&amp;ия:</translation>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
@@ -15500,10 +15397,6 @@ Vertical shift: %3</source>
         <translation>Создать миниатюрыне изображения каждой страницы в файле PDF. В некоторых просмотрщиках это облегчает навигацию по документу.</translation>
     </message>
     <message>
-        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</source>
-        <translation type="obsolete">Слои в вашем документе экспортируются в PDF только если выбран формат PDF 1.5.</translation>
-    </message>
-    <message>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
         <translation>Встроить в документ созданные вами закладки, упрощающие навигацию по большим документам.</translation>
     </message>
@@ -15516,20 +15409,12 @@ Vertical shift: %3</source>
         <translation>Включить сжатие текста и графики без потерь в качестве, чтобы снизить размер файла PDF. Оставьте включённым, если нет особых причин отключить.</translation>
     </message>
     <message>
-        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
-        <translation type="obsolete">Пересэмплировать все растровые изображения до указанного значения DPI. Отключите, если хотите, чтобы изображения сохранили исходное разрешение. При пересэмплировании может увеличиться потребление памяти и замедлиться экспорт.</translation>
-    </message>
-    <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation>Включить функции безопасности в экспортируемом файле PDF. Если выбран PDF 1.3, файл будет зашифрован 40-битным ключом. Если выбран PDF 1.4, файл будет зашифрован 128-битным ключом. Помните, что шифрование в PDF менее мощное и более ограниченное в сравнении с GPG и PGP.</translation>
     </message>
     <message>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
         <translation>Выберите общий пароль для включения и отключения функций безопасности в экспортируемом файле PDF</translation>
-    </message>
-    <message>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation type="obsolete">Цветовая модель для экспортируемого PDF. Выберите «Просмотр с монитора/Веб» для PDF, которые предполагается читать с экрана или печатать на обычном струйном принтере. Выберите «Вывод на печать», если собираетесь печатать на 4-цветный CMYK принтер.</translation>
     </message>
     <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
@@ -15604,12 +15489,6 @@ Vertical shift: %3</source>
         <translation>Специальные действия</translation>
     </message>
     <message>
-        <source>Javascript to be executed
-when Document is opened:</source>
-        <translation type="obsolete">Javascript для исполнения
-при открытии документа:</translation>
-    </message>
-    <message>
         <source>No Script</source>
         <translation>Без сценария</translation>
     </message>
@@ -15631,40 +15510,40 @@ when Document is opened:</source>
     </message>
     <message>
         <source>Image Compression Method</source>
-        <translation type="unfinished"></translation>
+        <translation>Способ сжатия изображений</translation>
     </message>
     <message>
         <source>Javascript to be executed
 when PDF document is opened:</source>
-        <translation type="unfinished"></translation>
+        <translation>Javascript для исполнения при открытии PDF-документа:</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Включает презентационные эффекты, работающие в Adobe&amp;#174; Reader&amp;#174; и других просмотрщиках PDF-документов, имеющих полноэкранный режим и поддержку этой функции.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Здесь определяется совместимость PDF. По умолчанию используется PDF 1.3, обеспечивающий максимально возможную совместимость. Выбирайте PDF 1.4, если в документе используется полупрозрачность или необходимо 128-битное шифрование.  PDF 1.5 необходим, если объекты должны остаться в своих слоях.  PDF/X-3 предназначен для экспорта в PDF, когда необходим файл с управлением цветом в RGB для  коммерческой печати, и когда управление цветом включено.  Используйте PDF/X-3 только если точно знаете, что он поддерживается, либо, в некоторых случаях, когда ожидается печать на 4-цветный лазерный принтер.</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Слои в вашем документе экспортируются в PDF только если выбран формат PDF 1.5.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation type="unfinished"></translation>
+        <translation>Способ сжатия изображений. По умолчанию Scribus сам выбирает подходящий. ZIP сжимает без потерь в качестве изображения. JPEG больше подходит для создания небольших файлов PDF с большим количеством изображений внутри, но удаляет полезную информацию. В типовых ситуациях предоставьте Scribus самостоятельно выбрать подходящий способ. Всё это относится только к JPEG</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пересэмплировать все растровые изображения до указанного значения DPI. Отключите, если хотите, чтобы изображения сохранили исходное разрешение. При пересэмплировании может увеличиться потребление памяти и замедлиться экспорт.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Цветовая модель для экспортируемого PDF. Выберите «Просмотр с монитора/Веб» для PDF, которые предполагается читать с экрана или печатать на обычном струйном принтере. Выберите «Вывод на печать», если собираетесь печатать на 4-цветный CMYK-принтер.</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
-        <translation type="unfinished"></translation>
+        <translation>Не показывать объекты за полями в экспортируемом файле</translation>
     </message>
 </context>
 <context>
@@ -16636,34 +16515,36 @@ to %2</source>
         <translation>Текст по контуру</translation>
     </message>
     <message>
-        <source>Enable Item Printing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Disable Item Printing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Multiple duplicate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Change Image Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменение смещение изображения</translation>
     </message>
     <message>
         <source>Change Image Scale</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменён масштаб изображения</translation>
     </message>
     <message>
         <source>X1: %1, Y1: %2
 X2: %4, Y2: %5</source>
-        <translation type="unfinished"></translation>
+        <translation>X1: %1, Y1: %2
+X2: %4, Y2: %5</translation>
     </message>
     <message>
         <source>X: %1, Y: %2
 X: %4, Y: %5</source>
-        <translation type="unfinished"></translation>
+        <translation>X: %1, Y: %2
+X: %4, Y: %5</translation>
+    </message>
+    <message>
+        <source>Enable Item Printing</source>
+        <translation>Включена печать объекта</translation>
+    </message>
+    <message>
+        <source>Disable Item Printing</source>
+        <translation>Отключена печать объекта</translation>
+    </message>
+    <message>
+        <source>Multiple duplicate</source>
+        <translation>Многократное дублирование</translation>
     </message>
 </context>
 <context>
