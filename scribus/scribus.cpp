@@ -2475,6 +2475,11 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["insertSampleText"]->setEnabled(true);
 		if ((currItem->NextBox != 0) || (currItem->BackBox != 0))
 		{
+			scrActions["itemConvertToBezierCurve"]->setEnabled(false);
+			scrActions["itemConvertToImageFrame"]->setEnabled(false);
+			scrActions["itemConvertToOutlines"]->setEnabled(false);
+			scrActions["itemConvertToPolygon"]->setEnabled(false);
+			scrActions["itemConvertToTextFrame"]->setEnabled(false);
 			scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
 			if ((currItem->BackBox != 0) && (currItem->itemText.count() == 0))
 				scrActions["toolsEditContents"]->setEnabled(false);

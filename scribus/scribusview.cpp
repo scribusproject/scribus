@@ -1980,40 +1980,45 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			if (Doc->appMode != modeEdit) //Create convertTo Menu
 			{
-				bool insertConvertToMenu=false;
+				ScMW->scrActions["itemConvertToBezierCurve"]->addTo(pmen2);
+				ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+				ScMW->scrActions["itemConvertToOutlines"]->addTo(pmen2);
+				ScMW->scrActions["itemConvertToPolygon"]->addTo(pmen2);
+				ScMW->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
+				ScMW->scrActions["itemConvertToBezierCurve"]->setEnabled(false);
+				ScMW->scrActions["itemConvertToImageFrame"]->setEnabled(false);
+				ScMW->scrActions["itemConvertToOutlines"]->setEnabled(false);
+				ScMW->scrActions["itemConvertToPolygon"]->setEnabled(false);
+				ScMW->scrActions["itemConvertToTextFrame"]->setEnabled(false);
 				if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
 				{
-					insertConvertToMenu=true;
 					if (currItem->itemType() == PageItem::PathText)
-						ScMW->scrActions["itemConvertToOutlines"]->addTo(pmen2);
+						ScMW->scrActions["itemConvertToOutlines"]->setEnabled(true);
 					else
 					{
 						if (currItem->isTableItem)
-							ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+							ScMW->scrActions["itemConvertToImageFrame"]->setEnabled(true);
 						if ((!currItem->isTableItem) && (currItem->BackBox == 0) && (currItem->NextBox == 0))
 						{
-							ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
-							ScMW->scrActions["itemConvertToOutlines"]->addTo(pmen2);
-							ScMW->scrActions["itemConvertToPolygon"]->addTo(pmen2);
+							ScMW->scrActions["itemConvertToImageFrame"]->setEnabled(true);
+							ScMW->scrActions["itemConvertToOutlines"]->setEnabled(true);
+							ScMW->scrActions["itemConvertToPolygon"]->setEnabled(true);
 						}
 					}
 				}
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
-					insertConvertToMenu=true;
-					ScMW->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
+					ScMW->scrActions["itemConvertToTextFrame"]->setEnabled(true);
 					if (!currItem->isTableItem)
-						ScMW->scrActions["itemConvertToPolygon"]->addTo(pmen2);
+						ScMW->scrActions["itemConvertToPolygon"]->setEnabled(true);
 				}
 				if (currItem->itemType() == PageItem::Polygon)
 				{
-					insertConvertToMenu=true;
-					ScMW->scrActions["itemConvertToBezierCurve"]->addTo(pmen2);
-					ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
-					ScMW->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
+					ScMW->scrActions["itemConvertToBezierCurve"]->setEnabled(true);
+					ScMW->scrActions["itemConvertToImageFrame"]->setEnabled(true);
+					ScMW->scrActions["itemConvertToTextFrame"]->setEnabled(true);
 				}
-				if (insertConvertToMenu)
-					pmen->insertItem( tr("Conve&rt to"), pmen2);
+				pmen->insertItem( tr("Conve&rt to"), pmen2);
 			}
 			pmen->insertSeparator();
 			if (!currItem->locked() && !(currItem->isTableItem && currItem->isSingleSel))
