@@ -3228,7 +3228,7 @@ La falta de llibreries està indicat per un *
     </message>
     <message>
         <source>About Scribus %1</source>
-        <translation></translation>
+        <translation>Quant a Scribus %1</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and
@@ -3316,7 +3316,7 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>March</source>
-        <translation></translation>
+        <translation>Març</translation>
     </message>
 </context>
 <context>
@@ -11889,7 +11889,7 @@ A&amp;rrodonits:</translation>
     </message>
     <message>
         <source>Rendering intent for the image</source>
-        <translation></translation>
+        <translation>Intent de representació de la imatge</translation>
     </message>
     <message>
         <source>&amp;X1:</source>
@@ -12018,15 +12018,15 @@ Si us plau tria&apos;n un altre.</translation>
     </message>
     <message>
         <source>Flat Cap</source>
-        <translation></translation>
+        <translation>Tap planer</translation>
     </message>
     <message>
         <source>Square Cap</source>
-        <translation></translation>
+        <translation>Tap rectangular</translation>
     </message>
     <message>
         <source>Round Cap</source>
-        <translation></translation>
+        <translation>Tap arrodonit</translation>
     </message>
     <message>
         <source>Miter Join</source>
@@ -25928,11 +25928,11 @@ per fitxers d&apos;aquest tipus.</translation>
     </message>
     <message>
         <source>portrait</source>
-        <translation></translation>
+        <translation>vertical</translation>
     </message>
     <message>
         <source>custom</source>
-        <translation></translation>
+        <translation>personalitzat</translation>
     </message>
 </context>
 <context>
