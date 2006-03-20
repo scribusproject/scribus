@@ -171,15 +171,20 @@ QListViewItem* Tree::getListItem(uint SNr, int Nr)
 			retVal = masterPageMapRev[currDoc->MasterPages.at(SNr)->PageNam];
 		else
 		{
-			if (currDoc->MasterItems.at(Nr)->Groups.count() == 0)
-				retVal = masterPageItemMapRev[Nr];
-			else
+			if (currDoc->MasterItems.at(Nr)!=0)
 			{
-				if (currDoc->MasterItems.at(Nr)->isSingleSel)
+				if (currDoc->MasterItems.at(Nr)->Groups.count() == 0)
 					retVal = masterPageItemMapRev[Nr];
 				else
-					retVal = masterPageGroupMapRev[Nr];
+				{
+					if (currDoc->MasterItems.at(Nr)->isSingleSel)
+						retVal = masterPageItemMapRev[Nr];
+					else
+						retVal = masterPageGroupMapRev[Nr];
+				}
 			}
+			else
+				retVal = pageMapRev[SNr];
 		}
 	}
 	else

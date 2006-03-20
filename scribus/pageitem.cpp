@@ -2320,7 +2320,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 	if (!OnMasterPage.isEmpty())
 	{
 		oldCurrentPage = m_Doc->currentPage;
-		m_Doc->currentPage = m_Doc->MasterPages.at(OwnPage);
+		m_Doc->currentPage = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
 	}
 
 	if (ss)
