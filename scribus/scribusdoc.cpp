@@ -5313,7 +5313,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
 			}
 			else
 			{
-				currItem->itemText.clear();
+				//CB #3372 currItem->itemText.clear();
 				if (currItem->isAutoText)
 				{
 					LastAuto = 0;
