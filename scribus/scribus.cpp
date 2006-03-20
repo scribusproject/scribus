@@ -657,10 +657,13 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editCut"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editCopy"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editPaste"], "Edit");
-	scrMenuMgr->addMenuItem(scrActions["editCopyContents"], "Edit");
-	scrMenuMgr->addMenuItem(scrActions["editPasteContents"], "Edit");
-	scrMenuMgr->addMenuItem(scrActions["editPasteContentsAbs"], "Edit");
-	scrMenuMgr->addMenuItem(scrActions["editClearContents"], "Edit");
+	scrMenuMgr->createMenu("EditContents", tr("Contents"));
+	scrMenuMgr->addMenuToMenu("EditContents", "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editCopyContents"], "EditContents");
+	scrMenuMgr->addMenuItem(scrActions["editPasteContents"], "EditContents");
+	scrMenuMgr->addMenuItem(scrActions["editPasteContentsAbs"], "EditContents");
+	scrMenuMgr->addMenuItem(scrActions["editClearContents"], "EditContents");
+	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editSelectAll"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editDeselectAll"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
@@ -8585,6 +8588,7 @@ void ScribusMainWindow::languageChange()
 			scrMenuMgr->setMenuText("FileImport", tr("&Import"));
 			scrMenuMgr->setMenuText("FileExport", tr("&Export"));
 			scrMenuMgr->setMenuText("Edit", tr("&Edit"));
+			scrMenuMgr->setMenuText("EditContents", tr("Contents"));
 			scrMenuMgr->setMenuText("Style", tr("St&yle"));
 			scrMenuMgr->setMenuText("Color", tr("&Color"));
 			scrMenuMgr->setMenuText("FontSize", tr("&Size"));

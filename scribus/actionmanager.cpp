@@ -880,10 +880,10 @@ void ActionManager::languageChange()
 	(*scrActions)["editCut"]->setTexts( tr("Cu&t"));
 	(*scrActions)["editCopy"]->setTexts( tr("&Copy"));
 	(*scrActions)["editPaste"]->setTexts( tr("&Paste"));
-	(*scrActions)["editCopyContents"]->setTexts( tr("Copy Contents"));
-	(*scrActions)["editPasteContents"]->setTexts( tr("Paste Contents"));
-	(*scrActions)["editPasteContentsAbs"]->setTexts( tr("Paste Contents (Absolute)"));
-	(*scrActions)["editClearContents"]->setTexts( tr("C&lear Contents"));
+	(*scrActions)["editCopyContents"]->setTexts( tr("&Copy"));
+	(*scrActions)["editPasteContents"]->setTexts( tr("&Paste"));
+	(*scrActions)["editPasteContentsAbs"]->setTexts( tr("Paste (&Absolute)"));
+	(*scrActions)["editClearContents"]->setTexts( tr("C&lear"));
 	(*scrActions)["editSelectAll"]->setTexts( tr("Select &All"));
 	(*scrActions)["editDeselectAll"]->setTexts( tr("&Deselect All"));
 	(*scrActions)["editSearchReplace"]->setTexts( tr("&Search/Replace..."));

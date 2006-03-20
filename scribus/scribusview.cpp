@@ -1732,9 +1732,19 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			pmen3 = new QPopupMenu();
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			QPopupMenu *pmen4 = new QPopupMenu();
+			QPopupMenu *pmenEditContents = new QPopupMenu();
 			QPopupMenu *pmenLevel = new QPopupMenu();
 			QPopupMenu *pmenPDF = new QPopupMenu();
 			pmenResolution = new QPopupMenu();
+			
+			Q_CHECK_PTR(pmen);
+			Q_CHECK_PTR(pmen2);
+			Q_CHECK_PTR(pmen3);
+			Q_CHECK_PTR(pmen4);
+			Q_CHECK_PTR(pmenEditContents);
+			Q_CHECK_PTR(pmenLevel);
+			Q_CHECK_PTR(pmenPDF);
+			
 			setObjectUndoMode();
 			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
 			{
@@ -2031,12 +2041,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("&Delete"), Doc, SLOT(itemSelection_DeleteItem()));
 			if (currItem->itemType() == PageItem::ImageFrame)
 			{
-				ScMW->scrActions["editCopyContents"]->addTo(pmen);
-				ScMW->scrActions["editPasteContents"]->addTo(pmen);
-				ScMW->scrActions["editPasteContentsAbs"]->addTo(pmen);
+				pmen->insertItem( tr("Contents"), pmenEditContents);
+				ScMW->scrActions["editCopyContents"]->addTo(pmenEditContents);
+				ScMW->scrActions["editPasteContents"]->addTo(pmenEditContents);
+				ScMW->scrActions["editPasteContentsAbs"]->addTo(pmenEditContents);
 			}
 			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
-				ScMW->scrActions["editClearContents"]->addTo(pmen);
+				ScMW->scrActions["editClearContents"]->addTo(pmenEditContents);
 			pmen->insertSeparator();
 			ScMW->scrActions["toolsProperties"]->addTo(pmen);
 
@@ -2046,6 +2057,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			delete pmen2;
 			delete pmen3;
 			delete pmen4;
+			delete pmenEditContents;
 			delete pmenLevel;
 			delete pmenPDF;
 			delete pmenResolution;
