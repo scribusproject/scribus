@@ -2652,7 +2652,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation>W&amp;yczyść zawartość</translation>
+        <translation type="obsolete">W&amp;yczyść zawartość</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -3368,11 +3368,11 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>Copy Contents</source>
-        <translation>Skopiuj zawartość</translation>
+        <translation type="obsolete">Skopiuj zawartość</translation>
     </message>
     <message>
         <source>Paste Contents</source>
-        <translation>Wklej zawartość</translation>
+        <translation type="obsolete">Wklej zawartość</translation>
     </message>
     <message>
         <source>&amp;Printing Enabled</source>
@@ -3473,7 +3473,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>Paste Contents (Absolute)</source>
-        <translation>Wklej zawartość (bezwzględna)</translation>
+        <translation type="obsolete">Wklej zawartość (bezwzględna)</translation>
     </message>
     <message>
         <source>S&amp;tyles...</source>
@@ -3488,6 +3488,14 @@ Brak wsparcia oznaczony jest symbolem *</translation>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation>&amp;Krzywe</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation>Wklej (&amp;bezwzględnie)</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>W&amp;yczyść</translation>
     </message>
 </context>
 <context>
@@ -4788,7 +4796,7 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
     </message>
     <message>
         <source>Make check digit visible in text</source>
-        <translation>Wyświetlaj w tekscie cyfrę kontrolną</translation>
+        <translation type="obsolete">Wyświetlaj w tekscie cyfrę kontrolną</translation>
     </message>
     <message>
         <source>Co&amp;de:</source>
@@ -7212,7 +7220,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Clip to Page Margins</source>
-        <translation>Przycinaj do krawędzi strony</translation>
+        <translation>Przycinaj do marginesów strony</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
@@ -7251,6 +7259,18 @@ nie powiodła się!</translation>
     <message>
         <source>Error</source>
         <translation>Błąd</translation>
+    </message>
+    <message>
+        <source>Importing PostScript</source>
+        <translation>Importowanie PostScriptu</translation>
+    </message>
+    <message>
+        <source>Analyzing PostScript:</source>
+        <translation>Analizowanie Postscriptu:</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation>Generewanie obiektów</translation>
     </message>
 </context>
 <context>
@@ -8396,7 +8416,11 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Tutaj można dodawać, zmieniać i usuwać stopery kolorów.</translation>
+        <translation type="obsolete">Tutaj można dodawać, zmieniać i usuwać stopery kolorów.</translation>
+    </message>
+    <message>
+        <source>Add, change or remove color stops here</source>
+        <translation>Tutaj można dodawać, zmieniać i usuwać stopery kolorów</translation>
     </message>
 </context>
 <context>
@@ -10407,15 +10431,15 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
-        <translation type="unfinished"></translation>
+        <translation>Reguła wypełniania</translation>
     </message>
     <message>
         <source>Even-Odd</source>
-        <translation type="unfinished"></translation>
+        <translation>Parzyste-Nieparzyste</translation>
     </message>
     <message>
         <source>Non Zero</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie zero</translation>
     </message>
 </context>
 <context>
@@ -10949,15 +10973,15 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Shrink the Size of the Path by shown %</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmniejsz rozmiar krzywej o pokazaną wartość w %</translation>
     </message>
     <message>
         <source>Reduce the Size of the Path by the shown value</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmniejsz rozmiar krzywej o pokazaną wartość</translation>
     </message>
     <message>
         <source>Enlarge the Size of the Path by the shown value</source>
-        <translation type="unfinished"></translation>
+        <translation>Zwiększ rozmiar krzywej o pokazaną wartość</translation>
     </message>
     <message>
         <source>% to Enlarge or Shrink By</source>
@@ -12585,7 +12609,7 @@ Wartość 0 oznacza zapamiętanie nieograniczonej ilości operacji.</translation
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Położenie interpretera Ghostscriptu w systemie plików</translation>
+        <translation type="obsolete">Położenie interpretera Ghostscriptu w systemie plików</translation>
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
@@ -12733,6 +12757,10 @@ lub ciemne odcienie bliskie szarości. Użycie go może poprawić wydruk niektó
 obrazków, jednakże wymaga wykonania wcześniej kilku prób i testów dla każdego
 przypadku.
 UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
+    </message>
+    <message>
+        <source>Filesystem location for the Ghostscript interpreter.</source>
+        <translation>Położenie interpretera Ghostscriptu w systemie plików.</translation>
     </message>
 </context>
 <context>
@@ -14978,12 +15006,12 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>PDB_data</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dane PDB</translation>
     </message>
     <message>
         <source>PDB Import</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>Import PDB</translation>
     </message>
     <message>
         <source>Could not open file %1</source>
@@ -14998,6 +15026,10 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Luxembourgish</source>
         <translation>Luksemburski</translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation>Japoński</translation>
     </message>
 </context>
 <context>
@@ -17056,6 +17088,10 @@ Przesunięcie w pionie: %3</translation>
         <source>Do you really want to replace your existing image?</source>
         <translation>Czy naprawdę zastąpić istniejący obrazek?</translation>
     </message>
+    <message>
+        <source>Contents</source>
+        <translation>Zawartość</translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -17345,6 +17381,10 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>Grayscale</source>
         <translation>Odcienie szarości</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation>Zawartość</translation>
     </message>
 </context>
 <context>
@@ -19049,7 +19089,7 @@ pozwoli na zachowanie układu graficznego i wyglądu dokumentu.</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation>Czas, przez jaki strona będzie pokazywana, zanim włączy się efekt prezentacyjny dla wybranej strony.</translation>
+        <translation type="obsolete">Czas, przez jaki strona będzie pokazywana, zanim włączy się efekt prezentacyjny dla wybranej strony.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
@@ -19476,7 +19516,7 @@ w trakcie otwierania dokumentu PDF:</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącza efekty prezentacyjne w programie  Adobe&amp;#174; Reader&amp;#174; i innych przeglądarkach PDF wspierających wyświetlanie w trybie pełnoekranowym.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
@@ -19484,11 +19524,12 @@ w trakcie otwierania dokumentu PDF:</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Warstwy zawarte w dokumencie będą wyeksportowane do pliku PDF tylko wtedy, kiedy zostanie wybrany PDF 1.5.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation type="unfinished"></translation>
+        <translation>Metoda kompresji obrazków. Automatyczna pozwala Scribusowi na wybór najlepszej metody. ZIP jest bezstratny i dobry dla obrazków o jednolitych kolorach.
+JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo zdjęć (przy najmniejszej z możliwych utracie informacji obrazka). Wybierz kompresję automatyczną, chyba, że potrzebujesz specjalnych opcji przy kompresji. Dotyczy to jedynie obrazków JPEG</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
@@ -19500,7 +19541,11 @@ w trakcie otwierania dokumentu PDF:</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie pokazuj obiektów poza marginesami eksportowanego pliku</translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page changing.</source>
+        <translation>Czas, przez jaki strona będzie pokazywana, zanim włączy się efekt prezentacyjny dla wybranej strony. Wartość 0 wyłączy automatyczne przełączanie stron.</translation>
     </message>
 </context>
 <context>
