@@ -2115,7 +2115,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	//Must set current page for pasteitem to work properly
 	currentPage=targetPage;
 	setLoading(true);
-	targetPage->copySizingProperties(sourcePage, pageMargins);
+	targetPage->copySizingProperties(sourcePage, sourcePage->Margins);
 	//Grab the left page setting for the current document layout from the dialog, and increment, singlePage==1 remember.
 	if (currentPageLayout != singlePage)
 	{
