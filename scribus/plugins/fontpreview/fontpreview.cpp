@@ -67,7 +67,8 @@ FontPreview::FontPreview(QString fontName)
 	if (item != 0)
 	{
 		fontList->setCurrentItem(item);
-		paintSample(fontList->currentItem());
+		paintSample(item);
+		fontList->center(0, fontList->currentItem()->itemPos());
 	}
 
 	// scribus config
