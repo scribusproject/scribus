@@ -358,6 +358,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 {
 	QString tmp, token, params, lasttoken, lastPath, currPath;
 	int z, lcap, ljoin, dc, pagecount;
+	int failedImages = 0;
 	double dcp;
 	bool fillRuleEvenOdd = true;
 	PageItem* ite;
@@ -579,15 +580,21 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 				ClosedPath = true;
 			}
 			else if (token == "im") {
-				Image(params);
+				if ( !Image(params) )
+					++failedImages;
 			}
 			lasttoken = token;
 		}
 		f.close();
 	}
+	if (failedImages > 0)
+	{
+		QString mess = tr("Converting of %1 images failed!").arg(failedImages);
+		QMessageBox::critical(0, tr("Error"), mess, 1, 0, 0);
+	}
 }
 
-void EPSPlug::Image(QString vals)
+bool EPSPlug::Image(QString vals)
 {
 	double x, y, w, h, angle;
 	int horpix, verpix;
@@ -639,8 +646,6 @@ void EPSPlug::Image(QString vals)
 		else {
 			qDebug("-- no output --");
 		}
-		QString mess = tr("Converting Image:\n%1\nfailed!").arg(rawfile);
-		QMessageBox::critical(0, tr("Error"), mess, 1, 0, 0);
 	}
 	QFile::remove(rawfile);
 	int z = ScMW->doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, w, h, LineW, CommonStrings::None, CurrColor, true);
@@ -664,7 +669,8 @@ void EPSPlug::Image(QString vals)
 	ite->setRotation(angle);
 	ite->setImageScalingMode(false, true); // fit to frame, keep ratio
 //	ScMW->view->AdjustItemSize(ite);
-	Elements.append(ite);	
+	Elements.append(ite);
+	return ret == 0;
 }
 
 

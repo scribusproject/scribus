@@ -77,7 +77,7 @@ private:
 	\retval QString Color Name
 	*/
 	QString parseColor(QString vals, colorModel model = colorModelCMYK);
-	void Image(QString vals);
+	bool Image(QString vals);
 	
 	QPtrList<PageItem> Elements;
 	ColorList CustColors;
