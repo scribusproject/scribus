@@ -569,12 +569,14 @@ void PageItem::setImageXScale(const double newImageXScale)
 {
 	LocalScX=newImageXScale;
 	checkChanges();
+	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
 void PageItem::setImageYScale(const double newImageYScale)
 {
 	LocalScY=newImageYScale;
 	checkChanges();
+	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
 void PageItem::setImageXYScale(const double newImageXScale, const double newImageYScale)
@@ -582,6 +584,7 @@ void PageItem::setImageXYScale(const double newImageXScale, const double newImag
 	LocalScX=newImageXScale;
 	LocalScY=newImageYScale;
 	checkChanges();
+	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
 void PageItem::setImageXOffset(const double newImageXOffset)
