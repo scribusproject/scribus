@@ -330,6 +330,12 @@
         <receiver>FontPreviewBase</receiver>
         <slot>fontList_mouseButtonClicked(int,QListViewItem*,const QPoint&amp;,int)</slot>
     </connection>
+    <connection>
+        <sender>sizeSpin</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>FontPreviewBase</receiver>
+        <slot>sizeSpin_valueChanged(int)</slot>
+    </connection>
 </connections>
 <includes>
     <include location="local" impldecl="in implementation">fontpreviewbase.ui.h</include>
@@ -342,6 +348,7 @@
     <slot>cancelButton_clicked()</slot>
     <slot>resetDisplayButton_clicked()</slot>
     <slot>fontList_mouseButtonClicked( int, QListViewItem *, const QPoint &amp;, int )</slot>
+    <slot>sizeSpin_valueChanged( int )</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

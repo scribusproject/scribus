@@ -95,6 +95,7 @@ protected slots:
 	void displayButton_clicked();
 	//! \brief Reset the sample phrase to the standard "blue quartz"
 	void resetDisplayButton_clicked();
+	void sizeSpin_valueChanged( int );
 	void cancelButton_clicked();
 	void okButton_clicked();
 	void timeout();

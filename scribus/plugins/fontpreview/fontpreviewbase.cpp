@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Form implementation generated from reading ui file 'fontpreviewbase.ui'
 **
-** Created: St úno 22 10:25:34 2006
+** Created: Út bře 21 13:21:18 2006
 **      by: The User Interface Compiler ($Id$)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -115,6 +115,7 @@ FontPreviewBase::FontPreviewBase( QWidget* parent, const char* name, bool modal,
     connect( cancelButton, SIGNAL( clicked() ), this, SLOT( cancelButton_clicked() ) );
     connect( resetDisplayButton, SIGNAL( clicked() ), this, SLOT( resetDisplayButton_clicked() ) );
     connect( fontList, SIGNAL( mouseButtonClicked(int,QListViewItem*,const QPoint&,int) ), this, SLOT( fontList_mouseButtonClicked(int,QListViewItem*,const QPoint&,int) ) );
+    connect( sizeSpin, SIGNAL( valueChanged(int) ), this, SLOT( sizeSpin_valueChanged(int) ) );
 
     // buddies
     searchLabel->setBuddy( searchEdit );
@@ -190,5 +191,10 @@ void FontPreviewBase::resetDisplayButton_clicked()
 void FontPreviewBase::fontList_mouseButtonClicked(int,QListViewItem*,const QPoint&,int)
 {
     qWarning( "FontPreviewBase::fontList_mouseButtonClicked(int,QListViewItem*,const QPoint&,int): Not implemented yet" );
+}
+
+void FontPreviewBase::sizeSpin_valueChanged(int)
+{
+    qWarning( "FontPreviewBase::sizeSpin_valueChanged(int): Not implemented yet" );
 }
 

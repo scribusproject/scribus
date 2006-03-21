@@ -243,4 +243,10 @@ void FontPreview::resetDisplayButton_clicked()
 	displayButton_clicked();
 }
 
+void FontPreview::sizeSpin_valueChanged( int )
+{
+	if (allowSample())
+		paintSample(fontList->currentItem());
+}
+
 #include "fontpreview.moc"
