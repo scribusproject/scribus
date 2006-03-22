@@ -2881,10 +2881,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>&amp;Paste</translation>
     </message>
     <message>
-        <source>C&amp;lear Contents</source>
-        <translation>C&amp;lear Contents</translation>
-    </message>
-    <message>
         <source>Select &amp;All</source>
         <translation>Select &amp;All</translation>
     </message>
@@ -3569,14 +3565,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>More Info...</translation>
     </message>
     <message>
-        <source>Copy Contents</source>
-        <translation>Copy Contents</translation>
-    </message>
-    <message>
-        <source>Paste Contents</source>
-        <translation>Paste Contents</translation>
-    </message>
-    <message>
         <source>&amp;Printing Enabled</source>
         <translation>&amp;Printing Enabled</translation>
     </message>
@@ -3674,10 +3662,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>st</translation>
     </message>
     <message>
-        <source>Paste Contents (Absolute)</source>
-        <translation>Paste Contents (Absolute)</translation>
-    </message>
-    <message>
         <source>S&amp;tyles...</source>
         <translation>S&amp;tyles...</translation>
     </message>
@@ -3690,6 +3674,14 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation>&amp;Outlines</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation>Paste (&amp;Absolute)</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>C&amp;lear</translation>
     </message>
 </context>
 <context>
@@ -4731,10 +4723,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>Preview of the result. 72dpi sample.</source>
         <translation>Preview of the result. 72dpi sample.</translation>
-    </message>
-    <message>
-        <source>Make check digit visible in text</source>
-        <translation>Make check digit visible in text</translation>
     </message>
     <message>
         <source>Co&amp;de:</source>
@@ -6814,16 +6802,24 @@ failed!</translation>
         <translation>Fatal Error</translation>
     </message>
     <message>
-        <source>Converting Image:
-%1
-failed!</source>
-        <translation>Converting Image:
-%1
-failed!</translation>
-    </message>
-    <message>
         <source>Error</source>
         <translation>Error</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation>Generating Items</translation>
+    </message>
+    <message>
+        <source>Importing PostScript</source>
+        <translation>Importing PostScript</translation>
+    </message>
+    <message>
+        <source>Analyzing PostScript:</source>
+        <translation>Analysing PostScript:</translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation>Converting of %1 images failed!</translation>
     </message>
 </context>
 <context>
@@ -6939,6 +6935,18 @@ failed!</translation>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
         <translation>Select for easier reading of light coloured text styles</translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation>Manual Tracking</translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation>Offset to baseline of characters</translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation>Click to select the line spacing mode</translation>
     </message>
 </context>
 <context>
@@ -7663,8 +7671,8 @@ Use 72 dpi for Images intended for the Screen</translation>
         <translation> %</translation>
     </message>
     <message>
-        <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Here you can add, change or remove Colour-Stops.</translation>
+        <source>Add, change or remove color stops here</source>
+        <translation>Add, change or remove colour stops here</translation>
     </message>
 </context>
 <context>
@@ -9490,6 +9498,10 @@ Corners:</translation>
         <source>Non Zero</source>
         <translation>Non Zero</translation>
     </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation>Click to select the line spacing mode</translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -11031,10 +11043,6 @@ Corners:</translation>
         <translation>Additional directory for document templates</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Filesystem location for the Ghostscript interpreter</translation>
-    </message>
-    <message>
         <source>Always ask before fonts are replaced when loading a document</source>
         <translation>Always ask before fonts are replaced when loading a document</translation>
     </message>
@@ -11169,6 +11177,10 @@ Corners:</translation>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
         <translation>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</translation>
+    </message>
+    <message>
+        <source>Filesystem location for the Ghostscript interpreter.</source>
+        <translation>Filesystem location for the Ghostscript interpreter.</translation>
     </message>
 </context>
 <context>
@@ -13233,6 +13245,10 @@ is not exhaustive due to exceptions from called functions.
         <source>Luxembourgish</source>
         <translation>Luxembourgish</translation>
     </message>
+    <message>
+        <source>Japanese</source>
+        <translation>Japanese</translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14464,6 +14480,10 @@ Vertical shift: %3</translation>
         <source>Do you really want to replace your existing image?</source>
         <translation>Do you really want to replace your existing image?</translation>
     </message>
+    <message>
+        <source>Contents</source>
+        <translation>Contents</translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -14701,6 +14721,10 @@ Vertical shift: %3</translation>
     <message>
         <source>Grayscale</source>
         <translation>Greyscale</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation>Contents</translation>
     </message>
 </context>
 <context>
@@ -16164,10 +16188,6 @@ Vertical shift: %3</translation>
         <translation>Show page previews of each page listed above.</translation>
     </message>
     <message>
-        <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation>Length of time the page is shown before the presentation starts on the selected page.</translation>
-    </message>
-    <message>
         <source>Type of the display effect.</source>
         <translation>Type of the display effect.</translation>
     </message>
@@ -16476,6 +16496,10 @@ when PDF document is opened:</translation>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
         <translation>Do not show objects outside the margins in the exported file</translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
+        <translation>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</translation>
     </message>
 </context>
 <context>
