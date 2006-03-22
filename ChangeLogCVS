@@ -1,5 +1,17 @@
 Scribus - 1.3.3cvs
 ==================
+- 0003485: [Translation] Updated Danish Translation (plinnell)
+- 0003487: [Story Editor / Text Frames] Crash caused by middle clicking text frame when in frame linking mode. (cbradney)
+- 0003478: [General] Converting page to Master Page doesn't carry margins. (cbradney)
+- 0003438: [Plug-ins] font preview: on startup a preview is shown although no font is selected (subik)
+- 0003371: [Import / Export] Scribus doesn't read its own EPS export correctly (avox)
+- 0003483: [Translation] Polish translation update for 1.3.3 (cbradney)
+- 0003470: [Translation] Catalan translation update (plinnell)
+- 0003372: [Undo/Redo] Restored text frames lose their content and don't accept sample text (avox)
+- 0003467: [Translation] Galician translation update (plinnell)
+- 0003145: [General] Switching UI language doesn't work for all dialogs (cbradney)
+- 0003464: [Translation] Japanese Translation FIle for Scribus 1.3.2 (cbradney)
+- 0003411: [Story Editor / Text Frames] X/Y position co-ordinates revert to 0 (fschmid)
 - 0003456: [User Interface] Frame type cannot be changed from the context menu (fschmid)
 - 0003418: [Shape Drawing] "Round corners" in PP needs to be greyed out for polygons and shapes (fschmid)
 - 0003405: [User Interface] zoom from view menu changes page displayed (fschmid)
