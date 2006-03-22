@@ -22,7 +22,8 @@ extern QPixmap loadIcon(QString nam);
  \retval None
  */
 SplashScreen::SplashScreen() 
-	: QWidget( 0, 0, WStyle_Customize | WStyle_NoBorder | WStyle_StaysOnTop | WStyle_Tool | WX11BypassWM )
+//	: QWidget( 0, 0, WStyle_Customize | WStyle_NoBorder | WStyle_StaysOnTop | WStyle_Tool | WX11BypassWM )
+	: QWidget( 0, 0, WStyle_Customize | WStyle_NoBorder | WStyle_StaysOnTop | WStyle_Tool | WÂStyle_Splash )
 {
 	pix = loadIcon("Splash.png");
 	setErasePixmap( pix );
