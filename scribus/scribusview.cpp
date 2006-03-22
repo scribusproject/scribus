@@ -1348,7 +1348,7 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 						else
 							break;
 					}
-					oldCp=a;
+					oldCp = a;
 					cItem->CPos=b;
 					cItem->ExpandSel(1, oldCp);
 					slotDoCurs(true);
@@ -3545,7 +3545,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					currItem->itemText.at(a)->cselect = false;
 				currItem->HasSel = false;
 				slotSetCurs(m->x(), m->y());
-				if (currItem->itemText.count() > 0)
+				//Make sure we dont go here if the old cursor position was not set
+				if (oldCp!=-1 && currItem->itemText.count() > 0)
 				{
 					if (currItem->CPos < oldCp)
 					{
@@ -4938,19 +4939,23 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				{
 					currItem->NextBox = bb;
 					bb->BackBox = currItem;
-					/* CB Why do this? Corrupts the list right now. */
+					// CB Why do this? Corrupts the list right now. 
 					if (bb->ItemNr < currItem->ItemNr)
 					{
 						Doc->Items->insert(currItem->ItemNr+1, bb);
 						bb = Doc->Items->take(bb->ItemNr);
-					}/**/
+					}//
 					updateContents();
 					emit DocChanged();
 					Doc->ElemToLink = bb;
 				}
 				else
+				{
+					//CB Mouse is released when this messagebox takes focus
+					m_MouseButtonPressed = false;
 					QMessageBox::warning(this, tr("Linking Text Frames"),
 											 "<qt>" + tr("You are trying to link to a filled frame, or a frame to itself.") + "</qt>");
+				}
 			}
 			else
 				Doc->ElemToLink = NULL;
