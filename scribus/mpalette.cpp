@@ -479,13 +479,13 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	lineSpacingPop->insertItem( tr("Fixed Linespacing"));
 	lineSpacingPop->insertItem( tr("Automatic Linespacing"));
 	lineSpacingPop->insertItem( tr("Align to Baseline Grid"));
-	linespacingLabel = new QToolButton(page_3, "linespacingLabel" );
-	linespacingLabel->setText("");
-	linespacingLabel->setPixmap(loadIcon("linespacing.png"));
-	linespacingLabel->setPopup(lineSpacingPop);
-	linespacingLabel->setPopupDelay(400);
-	linespacingLabel->setAutoRaise(true);
-	layout41->addWidget( linespacingLabel, 2, 0 );
+	linespacingButton = new QToolButton(page_3, "linespacingButton" );
+	linespacingButton->setText("");
+	linespacingButton->setPixmap(loadIcon("linespacing.png"));
+	linespacingButton->setPopup(lineSpacingPop);
+	linespacingButton->setPopupDelay(400);
+	linespacingButton->setAutoRaise(true);
+	layout41->addWidget( linespacingButton, 2, 0 );
 	Extra = new MSpinBox( page_3, 1 );
 	layout41->addWidget( Extra, 2, 3 );
 	trackingLabel = new QLabel( "", page_3, "trackingLabel" );
@@ -3910,6 +3910,7 @@ void Mpalette::languageChange()
 	QToolTip::remove(Revert);
 	QToolTip::remove(Extra);
 	QToolTip::remove(LineSp);
+	QToolTip::remove(linespacingButton);
 	QToolTip::remove(Spal);
 	QToolTip::remove(langCombo);
 
@@ -3982,6 +3983,7 @@ void Mpalette::languageChange()
 	QToolTip::add(Revert, tr("Right to Left Writing"));
 	QToolTip::add(Extra, tr("Manual Tracking"));
 	QToolTip::add(LineSp, tr("Line Spacing"));
+	QToolTip::add(linespacingButton, tr("Click to select the line spacing mode"));
 	QToolTip::add(Spal, tr("Style of current paragraph"));
 	QToolTip::add(langCombo, tr("Hyphenation language of frame"));
 

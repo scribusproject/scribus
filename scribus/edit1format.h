@@ -60,7 +60,7 @@ public:
 	MSpinBox* fontBase;
 	MSpinBox* fontKern;
 	QPopupMenu* lineSpacingPop;
-	QToolButton* linespacingLabel;
+	QToolButton* linespacingButton;
 	Tabruler* TabList;
 	MSpinBox* AboveV;
 	MSpinBox* BelowV;

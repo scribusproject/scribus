@@ -466,7 +466,7 @@ protected:
 
 	QPopupMenu* lineSpacingPop;
 
-	QToolButton* linespacingLabel;
+	QToolButton* linespacingButton;
 	QToolButton* FlipH;
 	QToolButton* FlipV;
 	QToolButton* Locked;

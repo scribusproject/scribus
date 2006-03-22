@@ -190,13 +190,13 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	lineSpacingPop->insertItem( tr("Fixed Linespacing"));
 	lineSpacingPop->insertItem( tr("Automatic Linespacing"));
 	lineSpacingPop->insertItem( tr("Align to Baseline Grid"));
-	linespacingLabel = new QToolButton(AbstandV, "linespacingLabel" );
-	linespacingLabel->setText("");
-	linespacingLabel->setPixmap( loadIcon("linespacing.png") );
-	linespacingLabel->setPopup(lineSpacingPop);
-	linespacingLabel->setPopupDelay(400);
-	linespacingLabel->setAutoRaise(true);
-	AbstandVLayout->addWidget( linespacingLabel, 0, 0 );
+	linespacingButton = new QToolButton(AbstandV, "linespacingButton" );
+	linespacingButton->setText("");
+	linespacingButton->setPixmap( loadIcon("linespacing.png") );
+	linespacingButton->setPopup(lineSpacingPop);
+	linespacingButton->setPopupDelay(400);
+	linespacingButton->setAutoRaise(true);
+	AbstandVLayout->addWidget( linespacingButton, 0, 0 );
 	LineSpVal = new MSpinBox( 1, 300, AbstandV, 1 );
 	LineSpVal->setSuffix( tr( " pt" ) );
 	LineSpVal->setValue(vor->LineSpa);
@@ -350,7 +350,10 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	//	QToolTip::add( BaseGrid, "<qt>" + tr( "Align text to baseline grid" ) + "</qt>" );
 	QToolTip::add( AboveV, "<qt>" + tr( "Spacing above the paragraph" ) + "</qt>" );
 	QToolTip::add( BelowV, "<qt>" + tr( "Spacing below the paragraph" ) + "</qt>" );
+	QToolTip::add( fontKern, tr("Manual Tracking"));
+	QToolTip::add( fontBase, tr("Offset to baseline of characters"));
 	QToolTip::add( LineSpVal, "<qt>" + tr( "Line Spacing" ) + "</qt>" );
+	QToolTip::add( linespacingButton, tr("Click to select the line spacing mode"));
 	QToolTip::add( previewText, "<qt>" + tr( "Toggles sample text of this paragraph style" ) + "</qt>");
 
 	// signals and slots connections
