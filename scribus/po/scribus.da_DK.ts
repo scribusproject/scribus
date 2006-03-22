@@ -2859,10 +2859,6 @@ Sletter den navngivne masterside.
         <translation>&amp;Indsæt</translation>
     </message>
     <message>
-        <source>C&amp;lear Contents</source>
-        <translation>&amp;Fjern indhold</translation>
-    </message>
-    <message>
         <source>Select &amp;All</source>
         <translation>Ma&amp;rkér alt</translation>
     </message>
@@ -3555,14 +3551,6 @@ Sletter den navngivne masterside.
         <translation>Mere Info...</translation>
     </message>
     <message>
-        <source>Copy Contents</source>
-        <translation>Kopiér indhold</translation>
-    </message>
-    <message>
-        <source>Paste Contents</source>
-        <translation>Indsæt indhold</translation>
-    </message>
-    <message>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
         <translation>&amp;Oversigt</translation>
@@ -3610,10 +3598,6 @@ Sletter den navngivne masterside.
     <message>
         <source>st</source>
         <translation>st</translation>
-    </message>
-    <message>
-        <source>Paste Contents (Absolute)</source>
-        <translation>Indsæt indhold (Ubetinget)</translation>
     </message>
     <message>
         <source>S&amp;tyles...</source>
@@ -3676,6 +3660,14 @@ Sletter den navngivne masterside.
     <message>
         <source>Hair Space</source>
         <translation>Hår spatie</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation>Indsæt (&amp;Ubetinget)</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>Nu&amp;lstil</translation>
     </message>
 </context>
 <context>
@@ -4721,10 +4713,6 @@ Sletter den navngivne masterside.
     <message>
         <source>Preview of the result. 72dpi sample.</source>
         <translation>Visning af resultatet. 72dpi prøve.</translation>
-    </message>
-    <message>
-        <source>Make check digit visible in text</source>
-        <translation>Lav kontrol-ciffer synlig i tekst</translation>
     </message>
     <message>
         <source>Co&amp;de:</source>
@@ -6819,16 +6807,24 @@ fejlede!</translation>
         <translation>Fatal fejl</translation>
     </message>
     <message>
-        <source>Converting Image:
-%1
-failed!</source>
-        <translation>Convertering af billede:
-%1
-fejlede!</translation>
-    </message>
-    <message>
         <source>Error</source>
         <translation>Fejl</translation>
+    </message>
+    <message>
+        <source>Importing PostScript</source>
+        <translation>Importerer PostScript</translation>
+    </message>
+    <message>
+        <source>Analyzing PostScript:</source>
+        <translation>Analyserer Postscript:</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation>Genererer elementer</translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation>Convertering af %1 billeder fejlede!</translation>
     </message>
 </context>
 <context>
@@ -6944,6 +6940,18 @@ fejlede!</translation>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
         <translation>Vælg for lettere læsning af lyst farvede typografier</translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation>Manuel spatiering</translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation>Forskydning til tegnenes basislinie</translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation>Tryk for at vælge linieafstandens type</translation>
     </message>
 </context>
 <context>
@@ -7668,8 +7676,8 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
         <translation> %</translation>
     </message>
     <message>
-        <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Her kan du tilføje, ændre og fjerne farve-stop.</translation>
+        <source>Add, change or remove color stops here</source>
+        <translation>Tilføje, ændr eller fjern farveskift her</translation>
     </message>
 </context>
 <context>
@@ -9507,6 +9515,10 @@ hjørner:</translation>
         <source>Non Zero</source>
         <translation>Ikke Nul</translation>
     </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation>Tryk for at vælge linieafstandens type</translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -11087,10 +11099,6 @@ hjørner:</translation>
         <translation>Placer en linial mod din skærm og træk glideren for at sætte zoom-niveauet, så Scribus viser dine sider og objekter på dem i den rigtige størrelse</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Placering af Ghostscript fortolkeren i filsystemet</translation>
-    </message>
-    <message>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
         <translation>Definerer mængden af plads til venstre for dokument-området tilgængeligt som et midlertidigt arbejdssted til at lave og ændre elementer og derefter trække dem ind på den aktive side</translation>
     </message>
@@ -11202,6 +11210,10 @@ denne, da det tillader dig at redigere billedet i en allerede kørende gimp.</tr
     <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
         <translation>Standard ICC-profilmappe. Denne kan ikke ændres, når der er åbnede dokumenter. Som standard vil Scribus se i system-mapperne under Mac OSX og Windows. På Linux og Unix, søger Scribus i $HOME/.color/icc, /usr/share/color/icc og /usr/local/share/color/icc </translation>
+    </message>
+    <message>
+        <source>Filesystem location for the Ghostscript interpreter.</source>
+        <translation>Placering af Ghostscript fortolkeren i filsystemet.</translation>
     </message>
 </context>
 <context>
@@ -13265,6 +13277,10 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
         <comment>PDB Importer</comment>
         <translation>Denne fil er ikke genkendt som et PDB dokument. Reportér venligst dette som en fejl, hvis du er sikker på det er det.</translation>
     </message>
+    <message>
+        <source>Japanese</source>
+        <translation>Japansk</translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14503,6 +14519,10 @@ Vertical shift: %3</source>
 Horisontal forskydning: %2
 Vertikal forskydning: %3</translation>
     </message>
+    <message>
+        <source>Contents</source>
+        <translation>Indhold</translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -14740,6 +14760,10 @@ Vertikal forskydning: %3</translation>
     <message>
         <source>Grayscale</source>
         <translation>Gråskala</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation>Indhold</translation>
     </message>
 </context>
 <context>
@@ -16203,10 +16227,6 @@ Vertikal forskydning: %3</translation>
         <translation>Viser en miniature af hver side, som er vist her ovenover.</translation>
     </message>
     <message>
-        <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation>Den tid siden er vist, før præsentationen starter på den valgte side.</translation>
-    </message>
-    <message>
         <source>Type of the display effect.</source>
         <translation>Skærm-effektens type.</translation>
     </message>
@@ -16516,6 +16536,10 @@ når PDF dokument åbnes:</translation>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
         <translation>Vis ikke objekter udenfor margener i den eksporterede fil</translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
+        <translation>Den tid siden er vist, før præsentationen starter på den valgte side. Værdien 0 deaktiverer automatisk sideskift.</translation>
     </message>
 </context>
 <context>
