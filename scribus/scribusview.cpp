@@ -2039,15 +2039,17 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				ScMW->scrActions["editPaste"]->addTo(pmen);
 			if (!currItem->locked() && (Doc->appMode != modeEdit) && (!(currItem->isTableItem && currItem->isSingleSel)))
 				pmen->insertItem( tr("&Delete"), Doc, SLOT(itemSelection_DeleteItem()));
-			if (currItem->itemType() == PageItem::ImageFrame)
+			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 			{
 				pmen->insertItem( tr("Contents"), pmenEditContents);
-				ScMW->scrActions["editCopyContents"]->addTo(pmenEditContents);
-				ScMW->scrActions["editPasteContents"]->addTo(pmenEditContents);
-				ScMW->scrActions["editPasteContentsAbs"]->addTo(pmenEditContents);
-			}
-			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+				if (currItem->itemType() == PageItem::ImageFrame)
+				{
+					ScMW->scrActions["editCopyContents"]->addTo(pmenEditContents);
+					ScMW->scrActions["editPasteContents"]->addTo(pmenEditContents);
+					ScMW->scrActions["editPasteContentsAbs"]->addTo(pmenEditContents);
+				}
 				ScMW->scrActions["editClearContents"]->addTo(pmenEditContents);
+			}
 			pmen->insertSeparator();
 			ScMW->scrActions["toolsProperties"]->addTo(pmen);
 
@@ -4936,11 +4938,12 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				{
 					currItem->NextBox = bb;
 					bb->BackBox = currItem;
+					/* CB Why do this? Corrupts the list right now. */
 					if (bb->ItemNr < currItem->ItemNr)
 					{
 						Doc->Items->insert(currItem->ItemNr+1, bb);
 						bb = Doc->Items->take(bb->ItemNr);
-					}
+					}/**/
 					updateContents();
 					emit DocChanged();
 					Doc->ElemToLink = bb;
