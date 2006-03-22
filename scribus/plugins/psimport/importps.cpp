@@ -662,10 +662,11 @@ bool EPSPlug::Image(QString vals)
 	ite->PoLine.addQuadPoint(b, b, c, c);
 	ite->PoLine.addQuadPoint(c, c, d, d);
 	ite->PoLine.addQuadPoint(d, d, a, a);
-	ite->PoLine.translate(ScMW->doc->currentPage->xOffset(), ScMW->doc->currentPage->yOffset());
+	ite->PoLine.translate(ScMW->doc->currentPage->xOffset() - x, ScMW->doc->currentPage->yOffset() - y);
 	ite->ClipEdited = true;
 	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-*/	ScMW->doc->loadPict(filename, ite, -1);
+*/
+	ScMW->doc->loadPict(filename, ite, -1);
 	ite->setRotation(angle);
 	ite->setImageScalingMode(false, true); // fit to frame, keep ratio
 //	ScMW->view->AdjustItemSize(ite);

@@ -89,7 +89,9 @@
 		{ ==write ( ) =write ==write (\n) =write } forall
 		i_file (>>) writestring
 	} {
-		i_file exch i_str cvs writestring
+		i_file exch i_str cvs
+		dup dup length 1 sub get (-) 0 get eq { pop (null) } if 
+		writestring
 	} ifelse } ifelse } ifelse } ifelse
 } def
 
@@ -243,9 +245,9 @@ currentpagedevice /HWResolution get aload pop
 		3 get i_y sub /i_h exch def
 	% we want those in devspace:
 		i_x i_y i_m itransform matrix currentmatrix transform
-			/i_y exch def /i_x exch def
+			i_vscale div /i_y exch def i_hscale div /i_x exch def
 		i_w i_h i_m idtransform matrix currentmatrix dtransform
-			/i_h exch def /i_w exch def
+			i_vscale div /i_h exch def i_hscale div /i_w exch def
 		% i_h < 0 ?
 		i_h 0 le
 		{
@@ -259,11 +261,11 @@ currentpagedevice /HWResolution get aload pop
 			/i_w i_w neg def
 		} if
 	% now we can use the current matrix as pattern matrix, but with (0,0) origin
-%	i_m ==
+	i_m ==
 	i_x i_y matrix currentmatrix translate /i_m exch def
-%	i_m ==
+	i_m ==
 	i_dict /BBox [ 0 0 i_w i_h ] put 
-%	(w x h =) = i_w = i_h =
+	(w x h =) = i_w = i_h =
 	% paint pattern to png file
 	gsave
 	currentcolor currentcolorspace
@@ -272,9 +274,10 @@ currentpagedevice /HWResolution get aload pop
 		/OutputDevice (pngalpha)
 		/TextAlphaBits 4
 		/GraphicsAlphaBits 4
-		/BackgroundColor 16777215
+%		/BackgroundColor 16777215
+%		/BackgroundColor 0
 		/PageUsesTransparency true
-		/HWResolution [i_w i_h]
+		/HWResolution [ 72 72 ]
 		/ProcessColorModel /DeviceRGB
 		/PageSize [i_w i_h]
 	/pngalpha finddevice putdeviceprops setdevice 
@@ -282,8 +285,9 @@ currentpagedevice /HWResolution get aload pop
 %	matrix currentmatrix ==
 %	0 0 transform exch = =
 %	1 1 transform exch = =
-	i_dict %i_w i_h matrix identmatrix scale 
-			matrix identmatrix //makepattern setpattern
+	i_dict i_w i_h matrix identmatrix scale 
+			%matrix identmatrix 
+			//makepattern setpattern
 	0 0 i_w i_h rectfill
 	showpage
 	grestore
@@ -598,7 +602,6 @@ currentpagedevice /HWResolution get aload pop
 	/endY exch store
 	/endX exch store
 	currentX currentY endX endY i_in_clip2 
-	pstack
 	{ % end in
 		{  
 			% both in. just draw it. FIXME check if line leaves cliparea
@@ -633,7 +636,6 @@ currentpagedevice /HWResolution get aload pop
 	} ifelse
 	/currentX endX store
 	/currentY endY store
-	pstack
 } bind def
 
 
@@ -906,11 +908,11 @@ currentpagedevice /HWResolution get aload pop
 	i_dict /Width get  0 i_m dtransform dup mul exch dup mul add sqrt /i_w exch def 
 	0 i_dict /Height get i_m dtransform dup mul exch dup mul add sqrt /i_h exch def
 	0  0 i_m transform  /i_y exch def /i_x exch def 
-	0 i_dict /Height get i_m dtransform i_y sub exch i_x sub	% dy2 dx2
-	atan														% angleVert
-	i_dict /Width get 0 i_m dtransform i_y sub exch i_x sub		% dy1 dx1
-	atan sub													% angleVert-angleHor
-	pop 0 % not working, TODO
+	i_dict /Width get i_dict /Height get i_m transform
+	/i_hflip -1 def /i_vflip 1 def 
+	dup i_y le { /i_y exch def } { pop /i_vflip -1 def } ifelse
+	dup i_x le { /i_x exch def } { pop /i_hflip  1 def } ifelse
+	0 i_dict /Height get i_m dtransform atan
 	/i_angle exch def
 	(.dat) i_exportfilename
 		(im ) print												% im x y w h angle ...
@@ -938,7 +940,13 @@ currentpagedevice /HWResolution get aload pop
 			{ pop pop (/DataSource currentfile\n) =write }
 		  {
 			dup /ImageMatrix eq 
-				{ pop pop (/ImageMatrix [1 0 0 -1 0 ) =write i_dict /Height get ==write (]\n) =write }
+				{ pop pop (/ImageMatrix [) =write
+					i_hflip ==write ( 0 0 ) =write i_vflip ==write 
+					( ) =write 
+					i_hflip 0 lt { i_dict /Width get } { 0 } ifelse ==write 
+					( ) =write 
+					i_vflip 0 lt { i_dict /Height get} { 0 } ifelse ==write 
+					(]\n) =write }
 				{ ==write ( ) =write ==write (\n) =write }
 			ifelse 
 		  } ifelse 
