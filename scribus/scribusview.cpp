@@ -4780,8 +4780,23 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				//CB Where we set the cursor for a click in text frame
 				inText = slotSetCurs(m->x(), m->y());
+				//CB If we clicked outside a text frame to go out of edit mode and deselect the frame
 				if (!inText)
 				{
+					//<<CB Redraw subsequent frames after being in edit mode
+					//No intelligence, may slow things down when drawing unnecessarily
+					PageItem *nextItem=currItem;
+					while (nextItem != 0)
+					{
+						if (nextItem->NextBox != 0)
+						{
+							nextItem = nextItem->NextBox;
+							RefreshItem(nextItem);
+						}
+						else
+							break;
+					}
+					//>>
 					Deselect(true);
 					slotDoCurs(true);
 					emit Amode(modeNormal);
@@ -4939,12 +4954,15 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				{
 					currItem->NextBox = bb;
 					bb->BackBox = currItem;
-					// CB Why do this? Corrupts the list right now. 
+					// CB We need to do this because we draw in the order of the item list
+					// Which is also item numbver list.. but #3488: we must also renumber the items
 					if (bb->ItemNr < currItem->ItemNr)
 					{
 						Doc->Items->insert(currItem->ItemNr+1, bb);
 						bb = Doc->Items->take(bb->ItemNr);
-					}//
+						for (uint a = 0; a < Doc->Items->count(); ++a)
+							Doc->Items->at(a)->ItemNr = a;
+					}
 					updateContents();
 					emit DocChanged();
 					Doc->ElemToLink = bb;
