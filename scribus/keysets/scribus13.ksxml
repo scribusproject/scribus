@@ -28,10 +28,12 @@
     <function shortcut="" name="editParaStyles" />
     <function shortcut="Ctrl+V" name="editPaste" />
     <function shortcut="Ctrl+Shift+V" name="editPasteContents" />
+    <function shortcut="Ctrl+Alt+Shift+V" name="editPasteContentsAbs" />
     <function shortcut="" name="editPreferences" />
     <function shortcut="Ctrl+Shift+Z" name="editRedoAction" />
     <function shortcut="Ctrl+F" name="editSearchReplace" />
     <function shortcut="Ctrl+A" name="editSelectAll" />
+    <function shortcut="" name="editStyles" />
     <function shortcut="Ctrl+Z" name="editUndoAction" />
     <function shortcut="" name="extrasDeHyphenateText" />
     <function shortcut="" name="extrasGenerateTableOfContents" />
