@@ -5621,43 +5621,46 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Wiki</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiki</translation>
     </message>
     <message>
         <source>%1 %2 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 %3</translation>
     </message>
     <message>
         <source>%3-%2-%1 %4 %5</source>
-        <translation type="unfinished"></translation>
+        <translation>%3-%2-%1 %4 %5</translation>
     </message>
     <message>
         <source>Using Ghostscript version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript versie %1</translation>
     </message>
     <message>
         <source>No Ghostscript version available</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen Ghostscript beschikbaar</translation>
     </message>
     <message>
         <source>&lt;b&gt;Scribus Version %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Scribus Versie %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Build ID:</source>
-        <translation type="unfinished"></translation>
+        <translation>Build ID:</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dit paneel toont de versie, compileerdatum en de
+ingebouwde ondersteuning voor bibliotheken in Scribus.
+&quot;C-C-T-F&quot; staat voor C=CUPS, C=littlecms, T=TIFF, F=Fontconfig-onder-
+steuning. De laaatse letter betekent de renderer C=cairo of A=libart. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mac OS&amp;#174; X Aqua Port:</translation>
     </message>
     <message>
         <source>Windows&amp;#174; Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows&amp;#174; Port:</translation>
     </message>
     <message>
         <source>March</source>
@@ -5668,50 +5671,50 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     <name>AboutPlugins</name>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Ja</translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Nee</translation>
+        <translation>Nee</translation>
     </message>
     <message>
         <source>Filename:</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam van het bestand:</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Versie:</translation>
     </message>
     <message>
         <source>Enabled:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aangezet:</translation>
     </message>
     <message>
         <source>Release Date:</source>
-        <translation type="unfinished"></translation>
+        <translation>Datum van publicatie:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished">Omschrijving:</translation>
+        <translation>Omschrijving:</translation>
     </message>
     <message>
         <source>Author(s):</source>
-        <translation type="unfinished"></translation>
+        <translation>Auteur(s):</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation type="unfinished"></translation>
+        <translation>Auteursrecht:</translation>
     </message>
     <message>
         <source>License:</source>
-        <translation type="unfinished"></translation>
+        <translation>Licentie:</translation>
     </message>
 </context>
 <context>
     <name>AboutPluginsBase</name>
     <message>
         <source>Scribus: About Plug-ins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Scribus: Over Plug-ins</translation>
     </message>
     <message>
         <source>Description:</source>
@@ -5719,86 +5722,86 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sluiten</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
 </context>
 <context>
     <name>ActionManager</name>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Nieuw</translation>
+        <translation>&amp;Nieuw</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation type="unfinished">&amp;Openen...</translation>
+        <translation>&amp;Openen...</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;luiten</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished">Op&amp;slaan</translation>
+        <translation>Op&amp;slaan</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation type="unfinished">Opslaan &amp;als...</translation>
+        <translation>Opslaan &amp;als...</translation>
     </message>
     <message>
         <source>Re&amp;vert to Saved</source>
-        <translation type="unfinished">Terug&amp;zetten naar opgeslagen</translation>
+        <translation>Terug&amp;zetten naar opgeslagen</translation>
     </message>
     <message>
         <source>Collect for O&amp;utput...</source>
-        <translation type="unfinished">Verzamelen voor &amp;uitvoer...</translation>
+        <translation>Verzamelen voor &amp;uitvoer...</translation>
     </message>
     <message>
         <source>Get Text...</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst verkrijgen ...</translation>
     </message>
     <message>
         <source>Append &amp;Text...</source>
-        <translation type="unfinished">Tekst &amp;toevoegen...</translation>
+        <translation>Tekst &amp;toevoegen...</translation>
     </message>
     <message>
         <source>Get Image...</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeelding verkrijgen ...</translation>
     </message>
     <message>
         <source>Save &amp;Text...</source>
-        <translation type="unfinished">&amp;Tekst opslaan...</translation>
+        <translation>&amp;Tekst opslaan...</translation>
     </message>
     <message>
         <source>Save Page as &amp;EPS...</source>
-        <translation type="unfinished">Pagina opslaan als &amp;EPS...</translation>
+        <translation>Pagina opslaan als &amp;EPS...</translation>
     </message>
     <message>
         <source>Save as P&amp;DF...</source>
-        <translation type="unfinished">Opslaan als P&amp;DF...</translation>
+        <translation>Opslaan als P&amp;DF...</translation>
     </message>
     <message>
         <source>Document &amp;Setup...</source>
-        <translation type="unfinished">Documentin&amp;stellingen...</translation>
+        <translation>Documentin&amp;stellingen...</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation type="unfinished">Afdru&amp;kken...</translation>
+        <translation>Afdru&amp;kken...</translation>
     </message>
     <message>
         <source>&amp;Quit</source>
-        <translation type="unfinished">A&amp;fsluiten</translation>
+        <translation>A&amp;fsluiten</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation type="unfinished">&amp;Ongedaan maken</translation>
+        <translation>&amp;Ongedaan maken</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation type="unfinished">O&amp;pnieuw doen</translation>
+        <translation>O&amp;pnieuw doen</translation>
     </message>
     <message>
         <source>&amp;Item Action Mode</source>
@@ -5806,51 +5809,51 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="unfinished">Kni&amp;ppen</translation>
+        <translation>Kni&amp;ppen</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Kopiëren</translation>
+        <translation>&amp;Kopiëren</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Pla&amp;kken</translation>
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation type="unfinished">Inhoud &amp;leegmaken</translation>
+        <translation>Inhoud &amp;leegmaken</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
-        <translation type="unfinished">&amp;Alles selecteren</translation>
+        <translation>&amp;Alles selecteren</translation>
     </message>
     <message>
         <source>&amp;Deselect All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alle&amp;s deselecteren</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
-        <translation type="unfinished">&amp;Zoeken/vervangen...</translation>
+        <translation>&amp;Zoeken/vervangen...</translation>
     </message>
     <message>
         <source>Edit Image...</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeelding bewerken ...</translation>
     </message>
     <message>
         <source>C&amp;olors...</source>
-        <translation type="unfinished">Kle&amp;uren...</translation>
+        <translation>Kle&amp;uren...</translation>
     </message>
     <message>
         <source>&amp;Paragraph Styles...</source>
-        <translation type="unfinished">&amp;Alineastijlen...</translation>
+        <translation>&amp;Alineastijlen...</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
-        <translation type="unfinished">&amp;Lijnstijlen...</translation>
+        <translation>&amp;Lijnstijlen...</translation>
     </message>
     <message>
         <source>&amp;Master Pages...</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;jablonen ...</translation>
     </message>
     <message>
         <source>&amp;Javascripts...</source>
@@ -5858,71 +5861,71 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>P&amp;references...</source>
-        <translation type="unfinished">&amp;Voorkeuren...</translation>
+        <translation>&amp;Voorkeuren...</translation>
     </message>
     <message>
         <source>%1 pt</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 pt</translation>
     </message>
     <message>
         <source>&amp;Other...</source>
-        <translation type="unfinished">&amp;Overig...</translation>
+        <translation>&amp;Overig...</translation>
     </message>
     <message>
         <source>&amp;Left</source>
-        <translation type="unfinished">&amp;Links</translation>
+        <translation>&amp;Links</translation>
     </message>
     <message>
         <source>&amp;Center</source>
-        <translation type="unfinished">&amp;Midden</translation>
+        <translation>&amp;Midden</translation>
     </message>
     <message>
         <source>&amp;Right</source>
-        <translation type="unfinished">&amp;Rechts</translation>
+        <translation>&amp;Rechts</translation>
     </message>
     <message>
         <source>&amp;Block</source>
-        <translation type="unfinished">&amp;Blok</translation>
+        <translation>&amp;Blok</translation>
     </message>
     <message>
         <source>&amp;Forced</source>
-        <translation type="unfinished">Ge&amp;forceerd</translation>
+        <translation>Ge&amp;forceerd</translation>
     </message>
     <message>
         <source>&amp;%1 %</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;%1 %</translation>
     </message>
     <message>
         <source>&amp;Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Normaal</translation>
     </message>
     <message>
         <source>&amp;Underline</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Onderstreept</translation>
     </message>
     <message>
         <source>Underline &amp;Words</source>
-        <translation type="unfinished"></translation>
+        <translation>Onderstreep &amp;worden</translation>
     </message>
     <message>
         <source>&amp;Strike Through</source>
-        <translation type="unfinished"></translation>
+        <translation>Door&amp;haalen</translation>
     </message>
     <message>
         <source>&amp;All Caps</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bo&amp;venkasten</translation>
     </message>
     <message>
         <source>Small &amp;Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleinkap&amp;itaal</translation>
     </message>
     <message>
         <source>Su&amp;perscript</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">S&amp;uperieur</translation>
     </message>
     <message>
         <source>Su&amp;bscript</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">In&amp;ferieur</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
@@ -5930,7 +5933,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>S&amp;hadow</source>
-        <translation type="unfinished"></translation>
+        <translation>Schadu&amp;w</translation>
     </message>
     <message>
         <source>&amp;Image Effects</source>
@@ -5962,19 +5965,19 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Is &amp;Locked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Is &amp;vergrendelt</translation>
     </message>
     <message>
         <source>Si&amp;ze is Locked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Groo%tte is vergrendelt</translation>
     </message>
     <message>
         <source>Lower to &amp;Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Naar achte&amp;rgrond</translation>
     </message>
     <message>
         <source>Raise to &amp;Top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Naar voorgron&amp;d</translation>
     </message>
     <message>
         <source>&amp;Lower</source>
@@ -5990,7 +5993,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>&amp;Attributes...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eigensch&amp;appen</translation>
     </message>
     <message>
         <source>I&amp;mage Visible</source>
@@ -5998,27 +6001,27 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>&amp;Update Image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afbeelding bij&amp;werken</translation>
     </message>
     <message>
         <source>Adjust Frame to Image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ka&amp;der an afbeelding aanpassen</translation>
     </message>
     <message>
         <source>Extended Image Properties</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uitgebreide Afbeeldingseigenschappen</translation>
     </message>
     <message>
         <source>&amp;Low Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Lage resolutie</translation>
     </message>
     <message>
         <source>&amp;Normal Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Normale resolutie</translation>
     </message>
     <message>
         <source>&amp;Full Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Volledige resolutie</translation>
     </message>
     <message>
         <source>Is PDF &amp;Bookmark</source>
@@ -6062,7 +6065,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>&amp;Image Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Afbeeldingskader</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
@@ -6070,7 +6073,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Polygoon</translation>
     </message>
     <message>
         <source>&amp;Text Frame</source>
@@ -6082,43 +6085,43 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Sample Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Voorbeeldtekst</translation>
     </message>
     <message>
         <source>&amp;Insert...</source>
-        <translation type="unfinished">&amp;Invoegen...</translation>
+        <translation>&amp;Invoegen...</translation>
     </message>
     <message>
         <source>Im&amp;port...</source>
-        <translation type="unfinished"></translation>
+        <translation>Im&amp;porteren ...</translation>
     </message>
     <message>
         <source>&amp;Delete...</source>
-        <translation type="unfinished">Verwij&amp;deren...</translation>
+        <translation>Verwij&amp;deren...</translation>
     </message>
     <message>
         <source>&amp;Copy...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kopiëren ...</translation>
     </message>
     <message>
         <source>&amp;Move...</source>
-        <translation type="unfinished">&amp;Verplaatsen...</translation>
+        <translation>&amp;Verplaatsen...</translation>
     </message>
     <message>
         <source>&amp;Apply Master Page...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sjabloon toepassen ...</translation>
     </message>
     <message>
         <source>Manage &amp;Guides...</source>
-        <translation type="unfinished">&amp;Hulplijnen beheren...</translation>
+        <translation>&amp;Hulplijnen beheren...</translation>
     </message>
     <message>
         <source>Manage Page Properties...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paginaeigenschappen bewerken ...</translation>
     </message>
     <message>
         <source>&amp;Fit in window</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Schaal naar venster</translation>
     </message>
     <message>
         <source>&amp;50%</source>
@@ -6166,7 +6169,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Show &amp;Text Chain</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Tekstkoppeling tonen</translation>
     </message>
     <message>
         <source>Show Control Characters</source>
@@ -6198,7 +6201,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>&amp;Arrange Pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Paginatablet</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
@@ -6206,7 +6209,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>&amp;Measurements</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Eenheden</translation>
     </message>
     <message>
         <source>Action &amp;History</source>
@@ -6214,11 +6217,11 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Preflight &amp;Verifier</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Preflightcontrole</translation>
     </message>
     <message>
         <source>&amp;Align and Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verdelen/uitlijnen</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
@@ -6230,11 +6233,11 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Select Item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Item selecteren</translation>
     </message>
     <message>
         <source>T&amp;able</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">T&amp;abel</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -6246,11 +6249,11 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>&amp;Freehand Line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Vrijehand-curve</translation>
     </message>
     <message>
         <source>Rotate Item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Item roteren</translation>
     </message>
     <message>
         <source>Zoom in or out</source>
@@ -6258,15 +6261,15 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Zoom in</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inzoomen</translation>
     </message>
     <message>
         <source>Zoom out</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uitzoomen</translation>
     </message>
     <message>
         <source>Edit Contents of Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inhoud bewerken</translation>
     </message>
     <message>
         <source>Edit Text...</source>
@@ -6286,7 +6289,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Copy Item Properties</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Itemeigenschappen kopiëren</translation>
     </message>
     <message>
         <source>Edit the text with the Story Editor</source>
@@ -6298,7 +6301,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Insert Image Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afbeelding invoegen</translation>
     </message>
     <message>
         <source>Insert Table</source>
@@ -6306,19 +6309,19 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Insert Shape</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Form invoegen</translation>
     </message>
     <message>
         <source>Insert Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Polygoon invoegen</translation>
     </message>
     <message>
         <source>Insert Line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lijn invoegen</translation>
     </message>
     <message>
         <source>Insert Bezier Curve</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Beziercurve invoegen</translation>
     </message>
     <message>
         <source>Insert Freehand Line</source>
@@ -6334,11 +6337,11 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Dehyphenate Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afbreeking ongedaan maken</translation>
     </message>
     <message>
         <source>&amp;Generate Table Of Contents</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Inhoudsopgave invoegen</translation>
     </message>
     <message>
         <source>&amp;About Scribus</source>
@@ -6370,11 +6373,11 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Page &amp;Number</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paginanummer</translation>
     </message>
     <message>
         <source>New Line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nieuwe regel</translation>
     </message>
     <message>
         <source>Frame Break</source>
@@ -6386,15 +6389,15 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Copyright</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Auteursrecht</translation>
     </message>
     <message>
         <source>Registered Trademark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Handelsmerk</translation>
     </message>
     <message>
         <source>Trademark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Handelsmerk</translation>
     </message>
     <message>
         <source>Bullet</source>
@@ -6832,11 +6835,11 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation>Verdelen/uitlijnen</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uitlijnen</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -6844,11 +6847,11 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>First Selected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eerste geselecteerde</translation>
     </message>
     <message>
         <source>Last Selected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Laatste geselecteerde</translation>
     </message>
     <message>
         <source>Page</source>
@@ -6856,15 +6859,15 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Marges</translation>
     </message>
     <message>
         <source>Guide</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hulplijn</translation>
     </message>
     <message>
         <source>Selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Selectie</translation>
     </message>
     <message>
         <source>Align right sides of objects to left side of anchor</source>
@@ -6880,7 +6883,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Align right sides</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rechterkanten uitlijnen</translation>
     </message>
     <message>
         <source>Align tops of objects to bottom of anchor</source>
@@ -6904,15 +6907,15 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Align tops</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bovenkanten uitlijnen</translation>
     </message>
     <message>
         <source>&amp;Selected Guide:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Geselecteerde hulplijn</translation>
     </message>
     <message>
         <source>Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verdelen</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
@@ -6956,7 +6959,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>&amp;Distance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Afstand</translation>
     </message>
     <message>
         <source>Distribute the items with the distance specified</source>
@@ -6964,7 +6967,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>None Selected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Niets geselecteerd</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -6972,19 +6975,19 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sommige objecten zijn vergrendeld</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Alle losmaken</translation>
     </message>
     <message>
         <source>Y: %1%2</source>
-        <translation type="unfinished"></translation>
+        <translation>Y: %1%2</translation>
     </message>
     <message>
         <source>X: %1%2</source>
-        <translation type="unfinished"></translation>
+        <translation>X: %1%2</translation>
     </message>
 </context>
 <context>
@@ -7546,21 +7549,21 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>JavaScript</source>
-        <translation type="unfinished"></translation>
+        <translation>JavaScript</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afbeeldingen (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Alle formaten (*)</translation>
     </message>
     <message>
         <source>None</source>
         <comment>highlight</comment>
-        <translation type="unfinished">Geen</translation>
+        <translation>Geen</translation>
     </message>
     <message>
         <source>None</source>
         <comment>action</comment>
-        <translation type="unfinished">Geen</translation>
+        <translation>Geen</translation>
     </message>
 </context>
 <context>
@@ -7686,19 +7689,19 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>&amp;Even pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Even pagina&apos;s</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <source>O&amp;dd pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">O&amp;neven pagina&apos;s</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>&amp;All pages</source>
@@ -7706,19 +7709,19 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Within range</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Toepassen vanaf</translation>
     </message>
     <message>
         <source>Alt+W</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+W</translation>
     </message>
     <message>
         <source>to</source>
-        <translation type="unfinished">aan</translation>
+        <translation>tot</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -7730,7 +7733,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Apply the selected master page to even, odd or all pages within the following range</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Geselecteerde sjabloon op even, oneven of alle pagina&apos;s binnen het bereik toepassen</translation>
     </message>
 </context>
 <context>
@@ -7780,96 +7783,96 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     <name>ArrowChooser</name>
     <message>
         <source>None</source>
-        <translation type="unfinished">Geen</translation>
+        <translation>Geen</translation>
     </message>
 </context>
 <context>
     <name>Barcode</name>
     <message>
         <source>&amp;Barcode Generator...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Streepjescodegenerator</translation>
     </message>
     <message>
         <source>Scribus frontend for Pure Postscript Barcode Writer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Scribus frontend om zuiver Postscript streepjescode te schrijven</translation>
     </message>
 </context>
 <context>
     <name>BarcodeGenerator</name>
     <message>
         <source>Error opening file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Faut bij het openen van bestand: %1</translation>
     </message>
     <message>
         <source>12 or 13 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>12 of 13 cijfers</translation>
     </message>
     <message>
         <source>8 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>8 cijfers</translation>
     </message>
     <message>
         <source>11 or 12 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>11 of 12 cijfers</translation>
     </message>
     <message>
         <source>7 or 8 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>7 of 8 cijfers</translation>
     </message>
     <message>
         <source>5 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>5 cijfers</translation>
     </message>
     <message>
         <source>2 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>2 cijfers</translation>
     </message>
     <message>
         <source>9 or 10 digits separated appropriately with dashes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">9 of 10 cijfers, correct gescheiden door streepjes</translation>
     </message>
     <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Variabele aantal tekens, cijfers en de symbolen -. *$/+%.</translation>
     </message>
     <message>
         <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Variabele aantal van ADCII tekens en smbolen voor speciale functies, beginnend met het korrekte teken voor het tekenstel. UCC/EAN-128-codes hebben in ieder geval een FNC1-symbool na het startteken nodig.</translation>
     </message>
     <message>
         <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Varaibele aantal cijfers en de symbolen -$:/.+ABCD.</translation>
     </message>
     <message>
         <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Variabele aantal cijfers. Een ITF-14-code bestaat uit 14 tekens en heeft geen controlecijfer</translation>
     </message>
     <message>
         <source>Variable number of digits</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Variabele aantal cijfers.</translation>
     </message>
     <message>
         <source>Variable number of digits and capital letters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Variabele aantal cijfers en hoofdletters</translation>
     </message>
     <message>
         <source>Variable number of hexadecimal characters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Variabele aantal hexadecimale tekens</translation>
     </message>
     <message>
         <source>Barcode incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>Streepjescode onvolledig</translation>
     </message>
 </context>
 <context>
     <name>BarcodeGeneratorBase</name>
     <message>
         <source>Barcode Creator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Streepjescodegenerator</translation>
     </message>
     <message>
         <source>Barcode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Streepjescode</translation>
     </message>
     <message>
         <source>&amp;Type:</source>
@@ -7877,7 +7880,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kies een van de beschikbare streepjescodes</translation>
     </message>
     <message>
         <source>The numeric representation of the code itself. See the help message below</source>
@@ -7885,19 +7888,19 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Reset the barcode samples</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Reset de streepjescode-voorbeelden</translation>
     </message>
     <message>
         <source>&amp;Include text in barcode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tekst in streepjescode invoegen</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+I</translation>
     </message>
     <message>
         <source>If checked, there will be numbers in the barcode too</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Als geselecteerd, zullen er ook cijfers in de streepjescode staan</translation>
     </message>
     <message>
         <source>&amp;Guard whitespace</source>
@@ -7905,11 +7908,11 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Alt+G</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+G</translation>
     </message>
     <message>
         <source>Draw arrows to be sure of space next the code</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tekent een pijl om een afstand tussen tekst en streepjescode te waarborgen</translation>
     </message>
     <message>
         <source>Colors</source>
@@ -7917,27 +7920,27 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>&amp;Background</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Achtergrond</translation>
     </message>
     <message>
         <source>Alt+B</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+B</translation>
     </message>
     <message>
         <source>Background color - under the code lines</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kleur van de achtergrond - beneden de codestreepjes</translation>
     </message>
     <message>
         <source>&amp;Lines</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Lijnen</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+L</translation>
     </message>
     <message>
         <source>Color of the lines in barcode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kleur van de streepjes in code</translation>
     </message>
     <message>
         <source>&amp;Text</source>
@@ -7945,51 +7948,51 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Alt+T</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+T</translation>
     </message>
     <message>
         <source>Color of the text and numbers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kleur van tekst en cijfers</translation>
     </message>
     <message>
         <source>Hints and help is shown here</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tips en hulp worden hier getoond</translation>
     </message>
     <message>
         <source>Preview of the result. 72dpi sample.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Voorbeeld van het resultaat in 72 dpi.</translation>
     </message>
     <message>
         <source>Make check digit visible in text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Controlecijfer zichtbaar</translation>
     </message>
     <message>
         <source>Co&amp;de:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Co&amp;de:</translation>
     </message>
     <message>
         <source>I&amp;nclude checksum</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Controlenummer inhouden</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+N</translation>
     </message>
     <message>
         <source>Generate and include a checksum in barcode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Controlenummer in streepjescode aanmaken en inhouden</translation>
     </message>
     <message>
         <source>Incl&amp;ude checksum digit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Controlenummercijfer inhouden</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+U</translation>
     </message>
     <message>
         <source>Include the checksum digit in the barcode text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Controlenummer in streepjescodetekst inhouden</translation>
     </message>
 </context>
 <context>
@@ -8079,15 +8082,16 @@ Kies een andere naam.</translation>
     <message>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
-        <translation type="unfinished"></translation>
+        <translation>De naam &quot;%1&quot; is niet uniek.
+Kies een andere naam.</translation>
     </message>
     <message>
         <source>Choose a Scrapbook Directory</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kies een kladblokmap voor </translation>
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kies een map</translation>
     </message>
 </context>
 <context>
@@ -8333,19 +8337,19 @@ Als uw document foto&apos;s bevat wordt deze instelling aangeraden.</translation
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;RGB-afbeeldingen</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;CMYK-afbeeldingen</translation>
     </message>
     <message>
         <source>Default color profile for imported CMYK images</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Standaard-kleurprofiel voor geïmporteerde CMYK-afbeeldingen</translation>
     </message>
     <message>
         <source>Default color profile for imported RGB images</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Standaard-kleurprofiel voor geïmporteerde RGB-afbeeldingen</translation>
     </message>
 </context>
 <context>
@@ -9600,11 +9604,11 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
     </message>
     <message>
         <source>Delete Color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kleur verwijderen</translation>
     </message>
     <message>
         <source>Replace With:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vervangen door:</translation>
     </message>
 </context>
 <context>
