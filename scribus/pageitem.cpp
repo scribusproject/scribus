@@ -3328,7 +3328,8 @@ bool PageItem::pointWithinItem(const int x, const int y)
 	setRedrawBounding();
 	// FIXME: We should be rounding or truncating here, not letting the compiler do it.
 	// Should we be rounding, truncating up, or truncating down?
-	QRect itemRect( BoundingX, BoundingY, BoundingW, BoundingH );
+	//CB is this now correct?
+	QRect itemRect( floor(BoundingX), floor(BoundingY), ceil(BoundingW), ceil(BoundingH) );
 	return itemRect.contains(x, y);
 }
 
