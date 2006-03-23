@@ -392,7 +392,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			token = tmp.section(' ', 0, 0);
 			params = tmp.section(' ', 1, -1, QString::SectionIncludeTrailingSep);
-			if ((lasttoken == "sp")) //av: messes up anyway && (!interactive) && (!eps))
+			if ((lasttoken == "sp")) //av: messes up anyway: && (!interactive) && (!eps))
 			{
 				ScMW->doc->addPage(pagecount);
 				ScMW->view->addPage(pagecount, true);
@@ -629,7 +629,7 @@ bool EPSPlug::Image(QString vals)
 	if (ret != 0)
 	{
 		qDebug("PostScript image conversion failed when calling gs as: \n%s\n", finalCmd.data());
-		qDebug("Ghostscript diagnostics:\n");
+		qDebug("Ghostscript diagnostics: %d\n", ret);
 		QFile diag(filename);
 		if (diag.open(IO_ReadOnly)) {
 			QString line;
@@ -652,12 +652,11 @@ bool EPSPlug::Image(QString vals)
 		if (dat.open(IO_ReadOnly)) {
 			QString line;
 			long int len;
-			int i = 0;
 			do {
 				len = dat.readLine(line, 120);
 				qDebug("\t%s", line.ascii());
 			}
-			while (len > 0 && ++i < 12);
+			while ( len > 0 && !line.contains("image") );
 			dat.close();
 		}
 		else {
