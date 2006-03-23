@@ -52,14 +52,21 @@
 % 20.05.2004 kshow is working now.
 % 22.02.2006 added image and colorimage ops -- av
 % 02.03.2006 added code to divide reported coordinates by (device resolution/72) -- av
+% 23.03.2006 added code to trace PDF commands
+
+% some hacks to get access to PDF operators, needs -sDELAYBIND
 
 currentglobal true setglobal
-GS_PDF_ProcSet dup begin
-/setshowstate
+GS_PDF_ProcSet begin
+currentdict /setshowstate
 {
 	dup WordSpacing 0 32 TextSpacing 0 6 -1 roll awidthshow
 	//setshowstate exec
 } .forceput 
+currentdict /endpage {
+	(sp\n) print
+	//endpage exec
+} .forceput
 end
 setglobal
 .bindnow

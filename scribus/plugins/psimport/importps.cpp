@@ -392,7 +392,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			token = tmp.section(' ', 0, 0);
 			params = tmp.section(' ', 1, -1, QString::SectionIncludeTrailingSep);
-			if ((lasttoken == "sp") && (!interactive) && (!eps))
+			if ((lasttoken == "sp")) //av: messes up anyway && (!interactive) && (!eps))
 			{
 				ScMW->doc->addPage(pagecount);
 				ScMW->view->addPage(pagecount, true);
@@ -643,9 +643,25 @@ bool EPSPlug::Image(QString vals)
 			}
 			while (len > 0);
 			diag.close();
-		}
+			}
 		else {
 			qDebug("-- no output --");
+		}
+		qDebug("Failed file was:\n");
+		QFile dat(rawfile);
+		if (dat.open(IO_ReadOnly)) {
+			QString line;
+			long int len;
+			int i = 0;
+			do {
+				len = dat.readLine(line, 120);
+				qDebug("\t%s", line.ascii());
+			}
+			while (len > 0 && ++i < 12);
+			dat.close();
+		}
+		else {
+			qDebug("-- empty --");
 		}
 	}
 	QFile::remove(rawfile);
