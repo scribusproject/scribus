@@ -58,9 +58,6 @@ class ColorWheel : public QLabel
 		Colors can be added into Scribus color list later. */
 		ColorList colorList;
 
-		/** \brief Draw a color wheel. */
-		void paintWheel();
-
 		/** \brief Returns localized name of the type.
 		\param aType Type of the color algorithm. See MethodType.
 		\retval QString Translated method name. */
@@ -123,6 +120,8 @@ class ColorWheel : public QLabel
 		int widthH;
 		int heightH;
 
+		MethodType currentType;
+
 		/** \brief An event for mouse actions handling.
 		See \see clicked() for more info.
 		\param e Mouse properties. */
@@ -135,9 +134,14 @@ class ColorWheel : public QLabel
 		It calls mouseReleaseEvent
 		\param e Mouse properties.*/
 		void mouseMoveEvent(QMouseEvent *e);
+		/*! \brief Repaint the widget.
+		It prevents the bugs with another window moving over it */
+		void paintEvent(QPaintEvent *);
 
 		/** \brief Draw center circle filled with base color */
 		void paintCenterSample();
+		/** \brief Draw a color wheel. */
+		void paintWheel();
 
 		/** \brief Appends a color into \see colorList.
 		\param angle Angle of the color in the wheel. An angle for transformation counting.

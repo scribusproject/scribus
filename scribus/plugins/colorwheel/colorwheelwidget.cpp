@@ -15,11 +15,24 @@ for which a new license (GPL+exception) is in place.
 #include "sccolor.h"
 
 
-ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, name, 0)
+ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, name, WNoAutoErase)
 {
 	baseAngle = 0;
 	angleShift = 270;
 	widthH = heightH = 150;
+	// create color map
+	colorMap.clear();
+	// fit the colorMap 1st value with matrix beginning
+	int mapIndex = angleShift;
+	for (int i = 0; i < 360; ++i)
+	{
+		QColor c;
+		c.setHsv(i, 255, 255);
+		colorMap[mapIndex] = c;
+		++mapIndex;
+		if (mapIndex > 359)
+			mapIndex = 0;
+	}
 }
 
 void ColorWheel::mousePressEvent(QMouseEvent *e)
@@ -39,6 +52,24 @@ void ColorWheel::mouseReleaseEvent(QMouseEvent *e)
 	emit clicked(e->button(), e->pos());
 }
 
+void ColorWheel::paintEvent(QPaintEvent *)
+{
+	paintWheel();
+	paintCenterSample();
+	if (currentType == Monochromatic)
+		makeMonochromatic();
+	if (currentType == Analogous)
+		makeAnalogous();
+	if (currentType == Complementary)
+		makeComplementary();
+	if (currentType == Split)
+		makeSplit();
+	if (currentType == Triadic)
+		makeTriadic();
+	if (currentType == Tetradic)
+		makeTetradic();
+}
+
 void ColorWheel::paintCenterSample()
 {
 	QPainter p;
@@ -53,42 +84,29 @@ void ColorWheel::paintWheel()
 {
 	int h, s, v;
 	actualColor.hsv(&h, &s, &v);
-
-	colorMap.clear();
-	QPixmap pm(width(), height());
-	pm.fill(Qt::white);
-	QPainter *p = new QPainter(&pm);
-	p->setWindow( 0, 0, width(), height());
-	p->setPen(Qt::white);
-	p->drawRect(0, 0, width(), height());
+	int width = this->width();
+	int height = this->height();
+	QPainter p;
+	p.begin(this);
+	p.setWindow( 0, 0, width, height);
+	p.fillRect(0, 0, width, height, Qt::white);
+	p.setPen(Qt::black);
+	p.drawRect(0, 0, width, height);
 	// Half sizes
-	heightH = height() / 2;
-	widthH = width() / 2;
-	// fit the colorMap 1st value with matrix beginning
-	int mapIndex = angleShift;
+	heightH = height / 2;
+	widthH = width / 2;
 	for (int i = 0; i < 360; ++i)
 	{
 		QWMatrix matrix;
 		matrix.translate(widthH, heightH);
 		matrix.rotate((float)i);
-		p->setWorldMatrix(matrix);
+		p.setWorldMatrix(matrix);
 		QColor c;
 		c.setHsv(i, 255, 255);
-		colorMap[mapIndex] = c;
-		++mapIndex;
-		if (mapIndex > 359)
-			mapIndex = 0;
-		p->setPen(QPen(c, 7));
-		p->setBrush(c);
-		p->drawLine(0, 0, 130, 0);
+		p.setPen(QPen(c, 7));
+		p.setBrush(c);
+		p.drawLine(0, 0, 130, 0);
 	}
-	p->setPen(QPen(Qt::black, 2));
-	p->setBrush(actualColor);
-	p->drawEllipse(-20, -20, 40, 40);
-	p->end();
-	delete(p);
-	clear();
-	setPixmap(pm);
 }
 
 QString ColorWheel::getTypeDescription(MethodType aType)
@@ -132,7 +150,6 @@ ScColor ColorWheel::cmykColor(QColor col)
 
 void ColorWheel::baseColor()
 {
-	paintCenterSample();
 	clearBorder();
 	drawBorderPoint(baseAngle, true);
 	paintCenterSample();
@@ -149,6 +166,7 @@ void ColorWheel::makeMonochromatic()
 	d.fromQColor(actualColor.dark());
 	colorList[tr("Monochromatic Light")] = l;
 	colorList[tr("Monochromatic Dark")] = d;
+	currentType = Monochromatic;
 }
 
 void ColorWheel::makeAnalogous()
@@ -156,12 +174,14 @@ void ColorWheel::makeAnalogous()
 	baseColor();
 	colorList[tr("1st. Analogous")] = sampleByAngle(baseAngle + angle);
 	colorList[tr("2nd. Analogous")] = sampleByAngle(baseAngle - angle);
+	currentType = Analogous;
 }
 
 void ColorWheel::makeComplementary()
 {
 	baseColor();
 	colorList[tr("Complementary")] = sampleByAngle(baseAngle + 180);
+	currentType = Complementary;
 }
 
 void ColorWheel::makeSplit()
@@ -171,6 +191,7 @@ void ColorWheel::makeSplit()
 	colorList[tr("2nd. Split")] = sampleByAngle(baseAngle - angle);
 	colorList[tr("3rd. Split")] = sampleByAngle(baseAngle + 180 + angle);
 	colorList[tr("4th. Split")] = sampleByAngle(baseAngle + 180 - angle);
+	currentType = Split;
 }
 
 void ColorWheel::makeTriadic()
@@ -178,6 +199,7 @@ void ColorWheel::makeTriadic()
 	baseColor();
 	colorList[tr("1st. Triadic")] = sampleByAngle(baseAngle + 120);
 	colorList[tr("2nd. Triadic")] = sampleByAngle(baseAngle - 120);
+	currentType = Triadic;
 }
 
 void ColorWheel::makeTetradic()
@@ -186,6 +208,7 @@ void ColorWheel::makeTetradic()
 	colorList[tr("1st. Tetradic (base opposite)")] = sampleByAngle(baseAngle + 180);
 	colorList[tr("2nd. Tetradic (angle)")] = sampleByAngle(baseAngle + angle);
 	colorList[tr("3rd. Tetradic (angle opposite)")] = sampleByAngle(baseAngle + angle + 180);
+	currentType = Tetradic;
 }
 
 void ColorWheel::clearBorder()

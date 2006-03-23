@@ -150,10 +150,13 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 
 	buttonLayout = new QHBoxLayout(0, 0, 6, "buttonLayout");
 	addButton = new QPushButton(this, "addButton");
+	addButton->setAutoDefault(false);
 	buttonLayout->addWidget(addButton);
 	replaceButton = new QPushButton(this, "replaceButton");
+	replaceButton->setAutoDefault(false);
 	buttonLayout->addWidget(replaceButton);
 	cancelButton = new QPushButton(this, "cancelButton");
+	cancelButton->setAutoDefault(false);
 	buttonLayout->addWidget(cancelButton);
 
 	listLayout->addLayout(buttonLayout);
@@ -185,7 +188,6 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	colorWheel->angle = angleSpin->value();
 	colorWheel->baseAngle = prefs->getInt("cw_baseangle", 0);
 	colorWheel->actualColor = QColor(prefs->getInt("cw_r", 0), prefs->getInt("cw_g", 0), prefs->getInt("cw_b", 0));
-	colorWheel->paintWheel();
 
 	// actions
 	typeCombo_activated(typeCombo->currentItem());
