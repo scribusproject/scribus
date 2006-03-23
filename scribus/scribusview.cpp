@@ -6229,7 +6229,7 @@ void ScribusView::MoveRotated(PageItem *currItem, FPoint npv, bool fromMP)
 }
 
 //CB-->Doc
-bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bool constrainRotation)
+bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bool /*constrainRotation*/)
 {
 	PageItem *currItem = Doc->Items->at(ite);
 	QRect oldR(currItem->getRedrawBounding(Scale));
