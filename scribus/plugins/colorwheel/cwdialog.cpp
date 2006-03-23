@@ -65,6 +65,7 @@ ScribusColorList::ScribusColorList(QWidget* parent, const char* name, bool modal
 	resize(QSize(288, 310).expandedTo(minimumSizeHint()));
 	clearWState(WState_Polished);
 
+	connect(listView, SIGNAL(doubleClicked(QListBoxItem *)), this, SLOT(okButton_clicked()));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(okButton_clicked()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 }
