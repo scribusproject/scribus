@@ -276,6 +276,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( "-dNOPAUSE" );
 	args.append( "-sDEVICE=nullpage" );
 	args.append( "-dBATCH" );
+	args.append( "-dDELAYBIND" );
 	// Add any extra font paths being used by Scribus to gs's font search
 	// path We have to use Scribus's prefs context, not a plugin context, to
 	// get to the required information.

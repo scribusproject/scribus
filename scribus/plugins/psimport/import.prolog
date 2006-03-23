@@ -53,6 +53,17 @@
 % 22.02.2006 added image and colorimage ops -- av
 % 02.03.2006 added code to divide reported coordinates by (device resolution/72) -- av
 
+currentglobal true setglobal
+GS_PDF_ProcSet dup begin
+/setshowstate
+{
+	dup WordSpacing 0 32 TextSpacing 0 6 -1 roll awidthshow
+	//setshowstate exec
+} .forceput 
+end
+setglobal
+.bindnow
+
 /cfile TraceFile (w) file def
 /print { cfile exch writestring } bind def
 
