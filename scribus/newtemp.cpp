@@ -42,7 +42,8 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc, con
 		QStringList::Iterator pNames;
 		for(pNames = doc->pageSets[doc->currentPageLayout].pageNames.begin(); pNames != doc->pageSets[doc->currentPageLayout].pageNames.end(); ++pNames )
 		{
-			Links->insertItem((*pNames));
+			//Links->insertItem((*pNames));
+			Links->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
 		}
 		Links->setEditable(false);
 		Layout3->addWidget( Links );

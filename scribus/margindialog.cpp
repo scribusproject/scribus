@@ -93,7 +93,8 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 		QStringList::Iterator pNames;
 		for(pNames = doc->pageSets[doc->currentPageLayout].pageNames.begin(); pNames != doc->pageSets[doc->currentPageLayout].pageNames.end(); ++pNames )
 		{
-			Links->insertItem((*pNames));
+			//Links->insertItem((*pNames));
+			Links->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
 		}
 		Links->setEditable(false);
 		dsGroupBox7Layout->addMultiCellWidget( Links, 4, 4, 2, 3 );
