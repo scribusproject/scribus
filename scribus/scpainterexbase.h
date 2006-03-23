@@ -87,7 +87,7 @@ public:
 	virtual void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0)) = 0;
 	virtual void setClipPath() = 0;
 
-	virtual void drawImage( ScImage *image ) = 0;
+	virtual void drawImage( ScImage *image, ScPainterExBase::ImageMode mode ) = 0;
 	virtual void setupPolygon(FPointArray *points, bool closed = true) = 0;
 	virtual void setupTextPolygon(FPointArray *points) = 0;
 	virtual void drawPolygon() = 0;

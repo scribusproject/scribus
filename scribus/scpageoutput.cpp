@@ -633,6 +633,7 @@ void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect 
 
 void ScPageOutput::DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBase* painter, double scale  )
 {
+	ScPainterExBase::ImageMode mode = ScPainterExBase::rgbImages;
 	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
 	{
 		painter->setupPolygon(&item->PoLine);
@@ -686,6 +687,7 @@ void ScPageOutput::DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 					imScaleY *= (72.0 / (double) m_imageRes);
 				}
 				scImg.applyEffect(item->effectsInUse, m_doc->PageColors, useCmyk);
+				mode = imageMode;
 				pImage = &scImg;
 			}
 			else
@@ -714,7 +716,7 @@ void ScPageOutput::DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 			painter->scale( imScaleX, imScaleY );
 			if (pImage->imgInfo.lowResType != 0)
 				painter->scale(pImage->imgInfo.lowResScale, pImage->imgInfo.lowResScale);
-			painter->drawImage(pImage);
+			painter->drawImage(pImage, mode);
 			painter->restore();
 		}
 	}
@@ -1153,7 +1155,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 				painter->scale(item->imageXScale(), item->imageYScale());
 				painter->translate(static_cast<int>(item->imageXOffset() * item->imageXScale()), static_cast<int>(item->imageYOffset()  * item->imageYScale()));
 				if (!item->pixm.isNull())
-					painter->drawImage(&item->pixm);
+					painter->drawImage(&item->pixm, ScPainterExBase::rgbImages);
 				painter->restore();
 			}
 			if ((item->itemText.count() != 0))

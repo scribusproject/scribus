@@ -686,7 +686,7 @@ void ScPainterEx_GDI::setClipPath()
 #endif
 }
 
-void ScPainterEx_GDI::drawImage( ScImage *image )
+void ScPainterEx_GDI::drawImage( ScImage *image, ScPainterExBase::ImageMode mode )
 {
 #ifdef SC_USE_GDIPLUS
 	FPoint ulp( 0, 0 );
@@ -891,7 +891,7 @@ void ScPainterEx_GDI::drawGradient( VGradientEx& gradient )
 	if ( gradient.type() == VGradientEx::linear && haveMsImg32 )
 		drawLinearGradient_GradientFill( gradient, clipPathRect );
 	else if ( gradient.type() == VGradientEx::linear )
-		drawLinearGradient_GradientFill( gradient, clipPathRect );
+		drawLinearGradient( gradient, clipPathRect );
 	else if (gradient.type() == VGradientEx::radial)
 		drawCircularGradient( gradient, clipPathRect );
 	RestoreDC( dc, -1 );
@@ -1027,9 +1027,6 @@ void ScPainterEx_GDI::drawLinearGradient( VGradientEx& gradient, const QRect& re
 	cosa = dx * scale;
 	sina = dy * scale;
 
-	p1a.setXY( p1.x() - cosa * maxDim, p1.y() - sina * maxDim);
-	p2a.setXY( p2.x() + cosa * maxDim, p2.y() + sina * maxDim );
-
 	ramp1 = stop1.rampPoint;
 	color =  transformColor( ScColorShade(stop1.color, stop1.shade), 1.0 );
 	r1 = color.red();
@@ -1057,6 +1054,7 @@ void ScPainterEx_GDI::drawLinearGradient( VGradientEx& gradient, const QRect& re
 		a2 = stop2.opacity * 255;
 		int xMin = length * ramp1;
 		int xMax = length * ramp2;
+		int r4= -1, b4= -1, g4= -1, a4= -1;
 		for( xCurrent = xMin; xCurrent < xMax; xCurrent += increment )
 		{
 			colorCoeff = ( xCurrent - xMin ) / ( (double) xMax - xMin ) ;
@@ -1064,7 +1062,13 @@ void ScPainterEx_GDI::drawLinearGradient( VGradientEx& gradient, const QRect& re
 			g3 = ( 1 - colorCoeff ) * g1 + colorCoeff * g2;
 			b3 = ( 1 - colorCoeff ) * b1 + colorCoeff * b2;
 			a3 = ( 1 - colorCoeff ) * a1 + colorCoeff * a2;
-			drawRectangleStrip( xCurrent, -maxDim/2, maxDim, maxDim, r3, g3, b3, a3 );
+			if( (r3 != r4) || (g3 != g4) || (b3 != b4) )
+			{
+				drawRectangleStrip( xCurrent, -maxDim/2, maxDim, maxDim, r3, g3, b3, a3 );
+				r4 = r3;
+				g4 = g3;
+				b4 = b3;
+			}
 		}
 		stop1 = stop2;
 		ramp1 = ramp2;
@@ -1089,7 +1093,7 @@ void ScPainterEx_GDI::drawLinearGradient_GradientFill( VGradientEx& gradient, co
 	QPtrVector<VColorStopEx> colorStops = gradient.colorStops();
 	VColorStopEx stop1( *colorStops[0] );
 	VColorStopEx stop2( *colorStops[0] );
-	FPoint p1, p1a, p2, p2a;
+	FPoint p1, p2;
 	QColor color;
 
 	if ( gradient.Stops() < 2 ) 
@@ -1116,9 +1120,6 @@ void ScPainterEx_GDI::drawLinearGradient_GradientFill( VGradientEx& gradient, co
 		scale = 1.0 / length;
 	cosa = dx * scale;
 	sina = dy * scale;
-
-	p1a.setXY( p1.x() - cosa * maxDim, p1.y() - sina * maxDim);
-	p2a.setXY( p2.x() + cosa * maxDim, p2.y() + sina * maxDim );
 
 	xform.eM11 = cosa;
 	xform.eM12 = sina;
@@ -1332,13 +1333,14 @@ void ScPainterEx_GDI::drawCircularGradient( VGradientEx& gradient, const QRect& 
 	{
 		stop1 = *colorStops[index];
 		ramp1 = stop1.rampPoint;
-		color = color =  transformColor( ScColorShade(stop1.color, stop1.shade), 1.0 );
+		color =  transformColor( ScColorShade(stop1.color, stop1.shade), 1.0 );
 		r1 = color.red();
 		g1 = color.green();
 		b1 = color.blue();
 		a1 = stop1.opacity * 255;
 		int radMax = rad * ramp2;
 		int radMin = rad * ramp1;
+		int r4= -1, b4= -1, g4= -1, a4= -1;
 		for( radius = radMax; radius > radMin; radius -= increment )
 		{
 			colorCoeff = ( radius - radMin ) / ( (double) radMax - radMin );
@@ -1346,7 +1348,13 @@ void ScPainterEx_GDI::drawCircularGradient( VGradientEx& gradient, const QRect& 
 			g3 = (1 - colorCoeff) * g1 + colorCoeff * g2;
 			b3 = (1 - colorCoeff) * b1 + colorCoeff * b2;
 			a3 = (1 - colorCoeff) * a1 + colorCoeff * a2;
-			drawCircleStrip( cx - radius, cy - radius, radius * 2, radius * 2, r3, g3, b3, a3 );
+			if( (r3 != r4) || (g3 != g4) || (b3 != b4) )
+			{
+				drawCircleStrip( cx - radius, cy - radius, radius * 2, radius * 2, r3, g3, b3, a3 );
+				r4 = r3;
+				g4 = g3;
+				b4 = b3;
+			}
 		}
 		stop2 = stop1;
 		ramp2 = ramp1;
