@@ -180,7 +180,8 @@ void UndoWidget::updateUndoMenu()
 	//BnF
 	//undoButton->setEnabled(undoMenu->count() != 0);
 	//SCribus
-	ScMW->scrActions["editUndoAction"]->setEnabled(undoMenu->count() != 0);
+	//ScMW->scrActions["editUndoAction"]->setEnabled(undoMenu->count() != 0);
+	updateUndoActions();
 }
 
 void UndoWidget::updateRedoMenu()
@@ -191,6 +192,13 @@ void UndoWidget::updateRedoMenu()
 	//BnF
 	//redoButton->setEnabled(redoMenu->count() != 0);
 	//Scribus
+	//ScMW->scrActions["editRedoAction"]->setEnabled(redoMenu->count() != 0);
+	updateUndoActions();
+}
+
+void UndoWidget::updateUndoActions()
+{
+	ScMW->scrActions["editUndoAction"]->setEnabled(undoMenu->count() != 0);
 	ScMW->scrActions["editRedoAction"]->setEnabled(redoMenu->count() != 0);
 }
 
@@ -353,6 +361,12 @@ void UndoPalette::updateList()
 	undoButton->setEnabled(currentSelection > 0);
 	if (!undoList->itemVisible(currentSelection))
 		undoList->setBottomItem(currentSelection);
+}
+
+void UndoPalette::updateUndoActions()
+{
+	//ScMW->scrActions["editUndoAction"]->setEnabled(currentSelection > 0);
+	//ScMW->scrActions["editRedoAction"]->setEnabled(currentSelection < undoList->numRows() - 1);
 }
 
 void UndoPalette::clearRedo()

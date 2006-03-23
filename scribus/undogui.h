@@ -116,7 +116,12 @@ public slots:
 	 * @param steps Number of steps to take
 	 */
 	virtual void updateRedo(int steps) = 0;
-
+	
+	/**
+	 * @brief Update the scrActions
+	 */
+	virtual void updateUndoActions() = 0;
+	
 	/** @brief Clear the redo action items. */
 	virtual void clearRedo() = 0;
 
@@ -166,6 +171,11 @@ public:
 
 	/** @brief Empties the undo stack for this widget. */
 	void clear();
+	/**
+	 * @brief Update the scrActions
+	 */
+	virtual void updateUndoActions();
+		
 private slots:
 	void undoClicked();
 	void redoClicked();
@@ -209,7 +219,7 @@ public slots:
 	 * @param steps Number of steps to take
 	 */
 	void updateRedo(int steps);
-
+	
 	/** @brief Clear the redo action items. */
 	void clearRedo();
 	
@@ -334,6 +344,10 @@ public:
 
 	/** @brief Empties the undo stack for this widget. */
 	void clear();
+	/**
+	 * @brief Update the scrActions
+	 */
+	virtual void updateUndoActions();
 	
 public slots:
 	/** @brief Sets GUI strings on language change */

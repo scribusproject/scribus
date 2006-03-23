@@ -260,6 +260,8 @@ void UndoManager::connectGuis()
 		connect(this, SIGNAL(undoSignal(int)), gui, SLOT(updateUndo(int)));
 		connect(this, SIGNAL(redoSignal(int)), gui, SLOT(updateRedo(int)));
 		connect(this, SIGNAL(clearRedo()), gui, SLOT(clearRedo()));
+		gui->setEnabled(true);
+		gui->updateUndoActions();
 	}
 }
 
@@ -277,6 +279,7 @@ void UndoManager::disconnectGuis()
 		disconnect(this, SIGNAL(undoSignal(int)), gui, SLOT(updateUndo(int)));
 		disconnect(this, SIGNAL(redoSignal(int)), gui, SLOT(updateRedo(int)));
 		disconnect(this, SIGNAL(clearRedo()), gui, SLOT(clearRedo()));
+		gui->setEnabled(false);
 	}
 }
 
