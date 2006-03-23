@@ -178,6 +178,7 @@ for which a new license (GPL+exception) is in place.
 using namespace std;
 
 #ifdef HAVE_CMS
+#include "cmserrorhandling.h"
 cmsHPROFILE CMSoutputProf;
 cmsHPROFILE CMSprinterProf;
 cmsHTRANSFORM stdTransG;
@@ -7860,7 +7861,7 @@ void ScribusMainWindow::GetCMSProfilesDir(QString pfad)
 	{
 		QString nam = "";
 		const char *Descriptor;
-		cmsHPROFILE hIn;
+		cmsHPROFILE hIn = NULL;
 
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
@@ -7888,6 +7889,19 @@ void ScribusMainWindow::GetCMSProfilesDir(QString pfad)
 			if (len == 40 && bb[36] == 'a' && bb[37] == 'c' && bb[38] == 's' && bb[39] == 'p')
 			{
 				const QCString profilePath( QString(pfad + d[dc]).local8Bit() );
+				if (setjmp(cmsJumpBuffer))
+				{
+					// Reset to the default handler otherwise may enter a loop
+					// if an error occur in cmsCloseProfile()
+					cmsSetErrorHandler(NULL);
+					if (hIn)
+					{
+						cmsCloseProfile(hIn);
+						hIn = NULL;
+					}
+					continue;
+				}
+				cmsSetErrorHandler(&cmsErrorHandler);
 				hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
 				if (hIn == NULL)
 					continue;
@@ -7921,8 +7935,10 @@ void ScribusMainWindow::GetCMSProfilesDir(QString pfad)
 					break;
 				}
 				cmsCloseProfile(hIn);
+				hIn = NULL;
 			}
 		}
+		cmsSetErrorHandler(NULL);
 	}
 #endif
 }
