@@ -4935,16 +4935,12 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 		double dx = (view->width()-50) / (doc->currentPage->width()+30);
 		double dy = (view->height()-70) / (doc->currentPage->height()+30);
 		finalZoomFactor = (dx > dy) ? dy : dx;
-		if (finalZoomFactor == view->scale())
-			return;
 	}
 	//Zoom to %
 	else
-	{
 		finalZoomFactor = zoomFactor*prefsManager->displayScale()/100.0;
-		if (finalZoomFactor == view->scale())
-			return;
-	}
+	if (finalZoomFactor == view->scale())
+		return;
 	int x = qRound(QMAX(view->contentsX() / view->scale(), 0));
 	int y = qRound(QMAX(view->contentsY() / view->scale(), 0));
 	int w = qRound(QMIN(view->visibleWidth() / view->scale(), doc->currentPage->width()));
