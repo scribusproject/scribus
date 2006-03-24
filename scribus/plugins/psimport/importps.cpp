@@ -258,6 +258,9 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive, bool showProgress)
 	}
 	if (interactive)
 		Doku->setLoading(false);
+	//CB If we have a gui we must refresh it if we have used the progressbar
+	if (showProgress)
+		ScMW->view->DrawNew();
 }
 
 bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
