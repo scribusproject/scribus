@@ -39,7 +39,7 @@ scribus_SOURCES = \
 	buttonicon.cpp	\
 	charselect.cpp	\
 	checkDocument.cpp	\
-	cmserrorhandling.cpp Â\
+	cmserrorhandling.cpp \
 	cmsprefs.cpp	\
 	cmykfw.cpp	\
 	collect4output.cpp \
