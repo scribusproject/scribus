@@ -401,7 +401,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			token = tmp.section(' ', 0, 0);
 			params = tmp.section(' ', 1, -1, QString::SectionIncludeTrailingSep);
-			if ((lasttoken == "sp")) //av: messes up anyway: && (!interactive) && (!eps))
+			if (lasttoken == "sp"  && !eps && token != "sp" ) //av: messes up anyway: && (!interactive))
 			{
 				ScMW->doc->addPage(pagecount);
 				ScMW->view->addPage(pagecount, true);
