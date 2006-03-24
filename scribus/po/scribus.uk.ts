@@ -2889,10 +2889,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>&amp;Вклеїти</translation>
     </message>
     <message>
-        <source>C&amp;lear Contents</source>
-        <translation>Очистити &amp;вміст</translation>
-    </message>
-    <message>
         <source>Select &amp;All</source>
         <translation>Виді&amp;лити все</translation>
     </message>
@@ -2991,10 +2987,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>Su&amp;bscript</source>
         <translation>Ни&amp;жній індекс</translation>
-    </message>
-    <message>
-        <source>&amp;Outline</source>
-        <translation type="obsolete">С&amp;хема документу</translation>
     </message>
     <message>
         <source>S&amp;hadow</source>
@@ -3131,10 +3123,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>&amp;Image Frame</source>
         <translation>Рамка &amp;зображення</translation>
-    </message>
-    <message>
-        <source>&amp;Outlines</source>
-        <translation type="obsolete">&amp;Контури</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
@@ -3593,14 +3581,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Додаткова інформація...</translation>
     </message>
     <message>
-        <source>Copy Contents</source>
-        <translation>Копіювати вміст</translation>
-    </message>
-    <message>
-        <source>Paste Contents</source>
-        <translation>Вставити вміст</translation>
-    </message>
-    <message>
         <source>&amp;Printing Enabled</source>
         <translation>&amp;Друк ввімкнено</translation>
     </message>
@@ -3698,10 +3678,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Лігатура st</translation>
     </message>
     <message>
-        <source>Paste Contents (Absolute)</source>
-        <translation>Вставка вмісту (Абсолютна)</translation>
-    </message>
-    <message>
         <source>S&amp;tyles...</source>
         <translation>С&amp;тилі...</translation>
     </message>
@@ -3714,6 +3690,14 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation>&amp;Контури</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation>Вставка (&amp;Абсолютна)</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>О&amp;чистити</translation>
     </message>
 </context>
 <context>
@@ -4569,10 +4553,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Alt+C</translation>
     </message>
     <message>
-        <source>Apply the selected template to even, odd or all pages within the following range</source>
-        <translation type="obsolete">Застосувати вибраний шаблон на парних, непарних та всіх сторінках в заданому діапазоні</translation>
-    </message>
-    <message>
         <source>Apply the selected master page to even, odd or all pages within the following range</source>
         <translation>Застосувати вибрану головну сторінку до непарних, парних, чи всіх сторінок в цьому діапазоні</translation>
     </message>
@@ -4761,10 +4741,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Попередній перегляд результатів. 72тнд зразок.</translation>
     </message>
     <message>
-        <source>Make check digit visible in text</source>
-        <translation type="obsolete">Показувати контрольну цифру в тексті</translation>
-    </message>
-    <message>
         <source>Co&amp;de:</source>
         <translation>Ко&amp;д:</translation>
     </message>
@@ -4800,10 +4776,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Чорновик</translation>
     </message>
     <message>
-        <source>Scrapbooks (*.scs);;All Files (*)</source>
-        <translation type="obsolete">Чорновики (*.scs);;Всі файли (*)</translation>
-    </message>
-    <message>
         <source>Delete</source>
         <translation>Видалити</translation>
     </message>
@@ -4828,28 +4800,12 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>За&amp;вантажити...</translation>
     </message>
     <message>
-        <source>&amp;Save</source>
-        <translation type="obsolete">&amp;Записати</translation>
-    </message>
-    <message>
         <source>Save &amp;As...</source>
         <translation>Записати &amp;як...</translation>
     </message>
     <message>
         <source>&amp;Close</source>
         <translation>&amp;Зачинити</translation>
-    </message>
-    <message>
-        <source>&amp;Small</source>
-        <translation type="obsolete">&amp;Малий</translation>
-    </message>
-    <message>
-        <source>&amp;Medium</source>
-        <translation type="obsolete">&amp;Середній</translation>
-    </message>
-    <message>
-        <source>&amp;Large</source>
-        <translation type="obsolete">&amp;Великий</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -5197,10 +5153,6 @@ It is recommended that you enable this if you have photos in your document.</sou
         <translation>Кольорова &amp;модель</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Нічого</translation>
-    </message>
-    <message>
         <source>Is Spot Color</source>
         <translation>Точковий колір</translation>
     </message>
@@ -5261,10 +5213,6 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Delete the current selection(s).</source>
         <translation>Видалити активну вибірку.</translation>
-    </message>
-    <message>
-        <source>Close this dialog and return to text editing.</source>
-        <translation type="obsolete">Зачинити цей діалог та повернутися до редагування тексту.</translation>
     </message>
     <message>
         <source>Full Character Set</source>
@@ -5502,13 +5450,6 @@ It is a reserved name for transparent color</source>
 %1</source>
         <translation>Неможливо зібрати файл: 
 %1</translation>
-    </message>
-</context>
-<context>
-    <name>ColorListBox</name>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Нічого</translation>
     </message>
 </context>
 <context>
@@ -5894,10 +5835,6 @@ It is a reserved name for transparent color</source>
         <translation>В&amp;ихід</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Нічого</translation>
-    </message>
-    <message>
         <source>&amp;OK</source>
         <translation>&amp;Гаразд</translation>
     </message>
@@ -5991,10 +5928,6 @@ It is a reserved name for transparent color</source>
         <translation>%</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Немає</translation>
-    </message>
-    <message>
         <source>Shade:</source>
         <translation>Тінь:</translation>
     </message>
@@ -6084,10 +6017,6 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Cancel</source>
         <translation>Вихід</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Немає</translation>
     </message>
     <message>
         <source>None</source>
@@ -6271,10 +6200,6 @@ This can be set in the Preferences.</source>
     <message>
         <source>Delete Color</source>
         <translation>Видалити колір</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Нічого</translation>
     </message>
     <message>
         <source>Delete Color:</source>
@@ -6497,10 +6422,6 @@ This can be set in the Preferences.</source>
         <translation>A, B, C, ...</translation>
     </message>
     <message>
-        <source>Name: Optional name for section eg. Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</source>
-        <translation type="obsolete">Назва: Необов&quot;язкова назва розділа. Наприклад, Індекс&lt;br/&gt;Показані: Виберіть, щоб ввімкнути показ номерів сторінок в цьому розділі, якщо доступна одна або більше текстових рамок підготованих для цього.&lt;br/&gt;Від: індекс сторінки якою починається цей розділ.&lt;br/&gt;До: Індекс сторінки якою закінчується цей розділ.&lt;br/&gt;Стиль: Виберіть для використання стиль нумерації сторінок.&lt;br/&gt;Початок: Початковий індекс в діапазоні стиля. Наприклад, якщо Start=2 та Style=a,b,c, ..., то номери почнуться з b.</translation>
-    </message>
-    <message>
         <source>Page Number Out Of Bounds</source>
         <translation>Число сторінок виходить за межі</translation>
     </message>
@@ -6562,10 +6483,6 @@ This can be set in the Preferences.</source>
 </context>
 <context>
     <name>DocumentItemAttributes</name>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Нічого</translation>
-    </message>
     <message>
         <source>Relates To</source>
         <translation>Відноситься до</translation>
@@ -6892,10 +6809,6 @@ a range of pages or a single page number.</source>
         <translation>Обрізати по полях сторінки</translation>
     </message>
     <message>
-        <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation type="obsolete">Не показувати об&apos;єкти за полями на друкованій сторінці чи в експортованому файлі</translation>
-    </message>
-    <message>
         <source>Do not show objects outside the margins on the printed page</source>
         <translation>Не показувати об&apos;єкти за полями на друкованій сторінці</translation>
     </message>
@@ -6915,28 +6828,24 @@ failed!</source>
         <translation>Фатальна помилка</translation>
     </message>
     <message>
-        <source>Converting Image:
-%1
-failed!</source>
-        <translation>Конвертувати зображення:
-%1 
-не вдалося!</translation>
-    </message>
-    <message>
         <source>Error</source>
         <translation>Помилка</translation>
     </message>
     <message>
-        <source>Importing Postscript</source>
-        <translation>Імпорт постскрипту</translation>
+        <source>Generating Items</source>
+        <translation>Генерація об&apos;єктів</translation>
     </message>
     <message>
-        <source>Analyzing Postscript:</source>
+        <source>Importing PostScript</source>
+        <translation>Імпортування постскрипту</translation>
+    </message>
+    <message>
+        <source>Analyzing PostScript:</source>
         <translation>Аналіз постскрипту:</translation>
     </message>
     <message>
-        <source>Generating Items</source>
-        <translation>Генерація об&apos;єктів</translation>
+        <source>Converting of %1 images failed!</source>
+        <translation>Конвертувати зображення %1 не вдалося!</translation>
     </message>
 </context>
 <context>
@@ -6952,10 +6861,6 @@ failed!</source>
     <message>
         <source> pt</source>
         <translation> тчк</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Немає</translation>
     </message>
     <message>
         <source>Line Spacing</source>
@@ -7056,6 +6961,18 @@ failed!</source>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
         <translation>Виберіть для зручнішого читання стилів тексту з світлими кольорами</translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation>Трекінг вручну</translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation>Відступ від основи знаків</translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation>Кляцніть для вибору режиму установки міжрядкових проміжків</translation>
     </message>
 </context>
 <context>
@@ -7612,10 +7529,6 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation>Вихід з попереднього перегляду</translation>
     </message>
     <message>
-        <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
-        <translation type="obsolete">Ввід текту тут дозволяє проводити швидкий пошук в іменах шрифтів. Наприклад, &apos;жирний&apos; показує всі шрифти з словом &apos;жирний&apos; в імені. Пошук не залежить від реєстру літер.</translation>
-    </message>
-    <message>
         <source>Start searching</source>
         <translation>Почати пошук</translation>
     </message>
@@ -7788,8 +7701,8 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation>%</translation>
     </message>
     <message>
-        <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Тут Ви можете добавити, змінити або видалити переходи кольорів.</translation>
+        <source>Add, change or remove color stops here</source>
+        <translation>Додати, змінити, чи видалити кольорові зупинки тут</translation>
     </message>
 </context>
 <context>
@@ -9127,10 +9040,6 @@ converting their vector data into Scribus objects.</source>
         <translation>Проміжки між рядками</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Немає</translation>
-    </message>
-    <message>
         <source>Name of selected object</source>
         <translation>Назва вибраного об&apos;єкту</translation>
     </message>
@@ -9620,6 +9529,10 @@ Corners:</source>
         <source>Non Zero</source>
         <translation>Не нульовий</translation>
     </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation>Кляцніть для вибору режиму установки міжрядкових проміжків</translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -9772,10 +9685,6 @@ Corners:</source>
         <translation>Висота сторінок документу. Може бути змінена, якщо вибраний нестандартний розмір сторінки</translation>
     </message>
     <message>
-        <source>First page number of the document</source>
-        <translation type="obsolete">Номер першої сторінки документа</translation>
-    </message>
-    <message>
         <source>Default unit of measurement for document editing</source>
         <translation>Стандартна одиниця вимірювання для редагування документа</translation>
     </message>
@@ -9806,10 +9715,6 @@ Corners:</source>
     <message>
         <source>&amp;Height:</source>
         <translation>&amp;Висота:</translation>
-    </message>
-    <message>
-        <source>F&amp;irst Page Number:</source>
-        <translation type="obsolete">Номер &amp;першої сторінки:</translation>
     </message>
     <message>
         <source>&amp;Default Unit:</source>
@@ -9974,20 +9879,12 @@ Corners:</source>
         <translation>Повернути шлях по годинній стрілці</translation>
     </message>
     <message>
-        <source>Reduce the Size of the Path by shown %</source>
-        <translation type="obsolete">Зменшити розмір шляху на вказані %</translation>
-    </message>
-    <message>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Збільшити розмір шляху на вказані %</translation>
     </message>
     <message>
         <source>Angle of Rotation</source>
         <translation>Кут повороту</translation>
-    </message>
-    <message>
-        <source>% to Enlarge or Reduce By</source>
-        <translation type="obsolete">% для збільшення або зменшення</translation>
     </message>
     <message>
         <source>Activate Contour Line Editing Mode</source>
@@ -10370,10 +10267,6 @@ UCR найбільше впливає на ті частини зображен�
 </context>
 <context>
     <name>PageItemAttributes</name>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Нічого</translation>
-    </message>
     <message>
         <source>Relates To</source>
         <translation>Відноситься до</translation>
@@ -10880,10 +10773,6 @@ UCR найбільше впливає на ті частини зображен�
         <translation>Інструменти</translation>
     </message>
     <message>
-        <source>Scrapbook</source>
-        <translation type="obsolete">Чорновик</translation>
-    </message>
-    <message>
         <source>Display</source>
         <translation>Відображення</translation>
     </message>
@@ -10928,22 +10817,6 @@ UCR найбільше впливає на ті частини зображен�
         <translation> тчк</translation>
     </message>
     <message>
-        <source>Other Options</source>
-        <translation type="obsolete">Інші установки</translation>
-    </message>
-    <message>
-        <source>Preview</source>
-        <translation type="obsolete">Попередній перегляд</translation>
-    </message>
-    <message>
-        <source>Small</source>
-        <translation type="obsolete">Малий</translation>
-    </message>
-    <message>
-        <source>Medium</source>
-        <translation type="obsolete">Середній</translation>
-    </message>
-    <message>
         <source>Choose a Directory</source>
         <translation>Вибрати директорію</translation>
     </message>
@@ -10954,10 +10827,6 @@ UCR найбільше впливає на ті частини зображен�
     <message>
         <source>Image Processing Tool</source>
         <translation>Інструмент для обробки зображень</translation>
-    </message>
-    <message>
-        <source>Printing</source>
-        <translation type="obsolete">Друк</translation>
     </message>
     <message>
         <source>Default font size for the menus and windows</source>
@@ -11004,10 +10873,6 @@ UCR найбільше впливає на ті частини зображен�
         <translation>Період часу між двома автоматичними записами файла</translation>
     </message>
     <message>
-        <source>Choose the size of the preview in the scrapbook palette</source>
-        <translation type="obsolete">Змінити розмір попереднього перегляду в палітрі чорновика</translation>
-    </message>
-    <message>
         <source>Color for paper</source>
         <translation>Колір паперу</translation>
     </message>
@@ -11020,24 +10885,12 @@ UCR найбільше впливає на ті частини зображен�
         <translation>Установити стандартний масштаб зображення</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Розміщення інтерпретатора Ghostscript на жорсткому диску</translation>
-    </message>
-    <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation>Антиаліасинг тексту для рендерингу EPS та PDF на екрані</translation>
     </message>
     <message>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
         <translation>Антиаліасинг графіки для рендерингу EPS та PDF на екрані</translation>
-    </message>
-    <message>
-        <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation type="obsolete">Не показувати об&apos;єкти за полями на друкованій сторінці чи в експортованому файлі</translation>
-    </message>
-    <message>
-        <source>Save the scrapbook contents everytime after a change</source>
-        <translation type="obsolete">Зберегти вміст чорновика після зміни</translation>
     </message>
     <message>
         <source>&amp;Theme:</source>
@@ -11112,14 +10965,6 @@ UCR найбільше впливає на ті частини зображен�
         <translation>&amp;Інтервал:</translation>
     </message>
     <message>
-        <source>Sa&amp;ve Contents on Changes</source>
-        <translation type="obsolete">З&amp;берегти вміст при зміні</translation>
-    </message>
-    <message>
-        <source>Large</source>
-        <translation type="obsolete">Великий</translation>
-    </message>
-    <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
         <translation>Виділити &amp;недрукуєму область кольором поля</translation>
     </message>
@@ -11142,14 +10987,6 @@ UCR найбільше впливає на ті частини зображен�
     <message>
         <source>Name of &amp;Executable:</source>
         <translation>Назва файла про&amp;грами:</translation>
-    </message>
-    <message>
-        <source>Clip to Page &amp;Margins</source>
-        <translation type="obsolete">Обрізати по поля&amp;х сторінки</translation>
-    </message>
-    <message>
-        <source>Apply &amp;Under Color Removal</source>
-        <translation type="obsolete">Виконати видалення &amp;кольорів</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
@@ -11392,16 +11229,6 @@ Scribus виконає пошук в системних директоріях �
 рекомендуємо &apos;gimp-remote&apos;, тому що це дозволяє редагувати зображення в уже запущеному редакторі.</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">Метод видалення деяких відтінків сірого, скомпонованих з салатового,
-жовтого та малинового кольорів, і використання чорного кольору натомість.
-UCR найбільше впливає на ті частини зображень, які містять нейтральні чи
-темні відтінки, близькі до сірого кольору. Використання цього методу може
-покращити друк деяких зображень, але деяке експериментування та
-тестування можуть бути необхідними в певних випадках. UCR зменшує
-ймовірність перенасичення паперу СЖМ чорнилами.</translation>
-    </message>
-    <message>
         <source>Filesystem location for the Ghostscript interpreter.</source>
         <translation>Розміщення інтерпретатора Ghostscript в файловій системі.</translation>
     </message>
@@ -11489,10 +11316,6 @@ Do you want to migrate them to the new Scribus version?</source>
 </context>
 <context>
     <name>PresetLayout</name>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Нічого</translation>
-    </message>
     <message>
         <source>Magazine</source>
         <translation>Журнал</translation>
@@ -12508,10 +12331,6 @@ scribus.UNIT_* констант.</translation>
         <translation>Неможливо замінити колір з пустим ім&apos;ям.</translation>
     </message>
     <message>
-        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation type="obsolete">OpenOffice.org Draw (*.sxd);;Всі файли (*)</translation>
-    </message>
-    <message>
         <source>OpenOffice.org Writer Documents</source>
         <translation>Документи OpenOffice.org Writer</translation>
     </message>
@@ -13474,6 +13293,10 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
         <source>Luxembourgish</source>
         <translation>Люксембурзька</translation>
     </message>
+    <message>
+        <source>Japanese</source>
+        <translation>Японська</translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13911,10 +13734,6 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
 <context>
     <name>SToolBColorF</name>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Ніякого</translation>
-    </message>
-    <message>
         <source>Color of text fill</source>
         <translation>Колір заповнення тексту</translation>
     </message>
@@ -13929,10 +13748,6 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
 </context>
 <context>
     <name>SToolBColorS</name>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Ніякого</translation>
-    </message>
     <message>
         <source>Color of text stroke</source>
         <translation>Колір силуетів тексту</translation>
@@ -14261,10 +14076,6 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>ScribusMainWindow</name>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Нічого</translation>
-    </message>
-    <message>
         <source>Initializing Plugins</source>
         <translation>Ініціалізація модулів</translation>
     </message>
@@ -14575,10 +14386,6 @@ converting their vector data into Scribus objects.</source>
         <translation>Конвертувати сторінку в майстер сторінку</translation>
     </message>
     <message>
-        <source>New Master Page</source>
-        <translation type="obsolete">Нова майстер сторінка</translation>
-    </message>
-    <message>
         <source>&amp;Size:</source>
         <translation>&amp;Розмір:</translation>
     </message>
@@ -14721,6 +14528,10 @@ Vertical shift: %3</source>
     <message>
         <source>Do you really want to replace your existing image?</source>
         <translation>Ви справді бажаєте замінити існуюче зображення?</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation>Зміст</translation>
     </message>
 </context>
 <context>
@@ -14921,24 +14732,12 @@ Vertical shift: %3</source>
         <translation>&amp;Видалити</translation>
     </message>
     <message>
-        <source>Cannot Delete In-Use Item</source>
-        <translation type="obsolete">Неможливо видалити об&apos;єкт під час його використання</translation>
-    </message>
-    <message>
-        <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation type="obsolete">Об&apos;єкт %1 в даний час редагується в редакторі тексту. Операція видалення буде відмінена</translation>
-    </message>
-    <message>
         <source>Linking Text Frames</source>
         <translation>Установка зв&apos;язку між текстовими рамками</translation>
     </message>
     <message>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
         <translation>Ви намагаєтеся установити зв&apos;язок до заповненої рамки або до цієї ж рамки.</translation>
-    </message>
-    <message>
-        <source>Do you really want to clear all your text?</source>
-        <translation type="obsolete">Ви справді бажаєте очистити весь текст?</translation>
     </message>
     <message>
         <source>Page %1 to %2</source>
@@ -14971,6 +14770,10 @@ Vertical shift: %3</source>
     <message>
         <source>Grayscale</source>
         <translation>Відтінки сірого</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation>Зміст</translation>
     </message>
 </context>
 <context>
@@ -15169,10 +14972,6 @@ Ctrl-V для вставки його в систему обробітку пр�
     <message>
         <source> pt</source>
         <translation>тчк</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Немає</translation>
     </message>
     <message>
         <source>Replace with:</source>
@@ -15408,20 +15207,8 @@ Ctrl-V для вставки його в систему обробітку пр�
         <translation>Записати як</translation>
     </message>
     <message>
-        <source>Update Text Frame</source>
-        <translation type="obsolete">Обновити вміст текстової рамки</translation>
-    </message>
-    <message>
         <source>Do you want to save your changes?</source>
         <translation>Записати зміни?</translation>
-    </message>
-    <message>
-        <source>Update Text Frame and Exit</source>
-        <translation type="obsolete">Поновити текстову рамку та вийти</translation>
-    </message>
-    <message>
-        <source>Exit Without Updating Text Frame</source>
-        <translation type="obsolete">Вийти без поновлення текстової рамки</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -15488,18 +15275,6 @@ Ctrl-V для вставки його в систему обробітку пр�
         <translation>&amp;Редагувати стилі...</translation>
     </message>
     <message>
-        <source>Load Text from File</source>
-        <translation type="obsolete">Завантажити текст з файла</translation>
-    </message>
-    <message>
-        <source>Save Text to File</source>
-        <translation type="obsolete">Записати текст в файл</translation>
-    </message>
-    <message>
-        <source>Reload Text from Frame</source>
-        <translation type="obsolete">Поновити текст з рамки</translation>
-    </message>
-    <message>
         <source>&amp;Search/Replace...</source>
         <translation>&amp;Пошук/Заміна...</translation>
     </message>
@@ -15518,10 +15293,6 @@ Ctrl-V для вставки його в систему обробітку пр�
     <message>
         <source>&amp;Settings</source>
         <translation>&amp;Установки</translation>
-    </message>
-    <message>
-        <source>Search/Replace</source>
-        <translation type="obsolete">Пошук/Заміна</translation>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
@@ -15627,10 +15398,6 @@ Ctrl-V для вставки його в систему обробітку пр�
     <message>
         <source>All Caps</source>
         <translation>Всі великі літери</translation>
-    </message>
-    <message>
-        <source>Outline</source>
-        <translation type="obsolete">Контур</translation>
     </message>
     <message>
         <source>Shadow</source>
@@ -16128,20 +15895,8 @@ Scribus.</translation>
         <translation>Стис&amp;нути текст та векторну графіку</translation>
     </message>
     <message>
-        <source>Image Settings</source>
-        <translation type="obsolete">Установки зображення</translation>
-    </message>
-    <message>
         <source>Automatic</source>
         <translation>Автоматичний</translation>
-    </message>
-    <message>
-        <source>JPEG</source>
-        <translation type="obsolete">JPEG</translation>
-    </message>
-    <message>
-        <source>Zip</source>
-        <translation type="obsolete">Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -16484,16 +16239,8 @@ Scribus.</translation>
         <translation>PDF/X-&amp;3</translation>
     </message>
     <message>
-        <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
-        <translation type="obsolete">Вмикає презентаційні ефекти при використанні  Adobe&amp;#174; Reader&amp;#174; в повноекранному режимі.</translation>
-    </message>
-    <message>
         <source>Show page previews of each page listed above.</source>
         <translation>Показувати попередній перегляд кожної сторінки вказаної вверху.</translation>
-    </message>
-    <message>
-        <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation>Тривалість показу сторінки перед початком прозентації на вибраній сторінці.</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
@@ -16609,14 +16356,6 @@ Scribus.</translation>
         <translation>Стиснення та &amp;Якість:</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="obsolete">Визначає сумісність PDF. Стандартним є PDF 1.3, який забезпечує найширшу сумісність. Виберіть PDF 1.4, якщо у Вашому файлі використовується прозорість, або 128-бітне шифрування. PDF/X-3 призначений для експорту PDF при використанні кольорових профілів RGB для комерційного друку. Цей формат доступний лише при ввімкненому керуванні кольоровими профілями. Використовуйте його лише при пораді друкаря чи в деяких випадках для друку на 4-х колірному лазерному прінтері.</translation>
-    </message>
-    <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="obsolete">Метод стиснення зображень. Автоматичний дозволяє Scribus вибрати найкращий метод. ZIP не має втрат якості і найкраще підходить для однотонних зображень. JPEG краще працює при створенні менших PDF файлів, які містять багато фотографічних зображень (з деякою втратою якості зображень). Залиште цю установку на &apos;Автоматичний&apos;, якщо Ви не впевнені в необхідності використання особливих методів стиснення.</translation>
-    </message>
-    <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
         <translation>Рівні якості стиснення для методів, які допускають втрату якості: Мінімальна (25%), Низька (50%), Середня (75%), Висока (85%), Максимальна (95%). Майте на увазі, що рівень якості прямо не визначає розмір кінцевого зображення - і розмір і втрата якості будуть різними для різних зображень на любому рівні якості.</translation>
     </message>
@@ -16668,10 +16407,6 @@ Scribus.</translation>
         <translation>Створює зменшені зображення кожної сторінки в PDF.  Деякі програми для перегляду PDF можуть використовувати ці зменшені зображення для навігації.</translation>
     </message>
     <message>
-        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</source>
-        <translation type="obsolete">Плани документа експортуються в PDF. Доступно лише для PDF 1.5.</translation>
-    </message>
-    <message>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
         <translation>Вбудувати закладки в документ. Вони можуть бути корисними для навігації в довгих PDF документах.</translation>
     </message>
@@ -16684,20 +16419,12 @@ Scribus.</translation>
         <translation>Ввімкнути стиснення тексту та графіки без втрат якості. Залиште ввімкненим, якщо Ви не впевнені в необхідності зміни цієї установки. Приводить до зменшення розміру PDF файла.</translation>
     </message>
     <message>
-        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
-        <translation type="obsolete">Перерахувати растрові зображення до вибраного ТНД. Вимкнення цієї установки приведе до збереження початкового розрішення зображень і може призвести до підвищенного використання оперативної пам&apos;яті та сповільнення експортування.</translation>
-    </message>
-    <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation>Ввімкнути систему захисту в експортованому PDF. Якщо вибрано PDF 1.3, файл буде захищено 40-бітним шифруванням. PDF 1.4 дозволяє 128-бітне шифрування. Попередження: шифрування PDF не є таким надійним, як GPG чи PGP шифрування і має певні додаткові обмеження.</translation>
     </message>
     <message>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
         <translation>Виберіть головний пароль, який керує всіма засобами захисту в експортованому PDF</translation>
-    </message>
-    <message>
-        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation type="obsolete">Кольорова модель експортованого PDF.  Виберіть Екран/Веб для PDF призначених для показу на екрані або для друку на типових струменевих прінтерах. Виберіть &apos;Прінтер&apos; при друці на справжньому 4-х колірному СМЖК прінтері.</translation>
     </message>
     <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
@@ -16772,11 +16499,6 @@ Scribus.</translation>
         <translation>Особливі дії</translation>
     </message>
     <message>
-        <source>Javascript to be executed
-when Document is opened:</source>
-        <translation type="obsolete">Javascript сценарій, який буде виконано при відкритті документа:</translation>
-    </message>
-    <message>
         <source>No Script</source>
         <translation>Ніякого сценарію</translation>
     </message>
@@ -16833,6 +16555,10 @@ when PDF document is opened:</source>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
         <translation>Не показувати об&apos;єкти за полями в експортованому файлі</translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
+        <translation>Скільки часу буде показана сторінка до початку презентації. Вибір 0 приведе до вимкнення автоматичної зміни сторінок.</translation>
     </message>
 </context>
 <context>
