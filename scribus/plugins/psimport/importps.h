@@ -34,7 +34,7 @@ public:
 	\param isInteractive flag if it will raise GUI and allow user to place objects manually
 	\retval EPSPlug plugin
 	*/
-	EPSPlug( QString fName, bool isInteractive );
+	EPSPlug( QString fName, bool isInteractive, bool showProgress = true );
 	~EPSPlug() {};
 
 private:

@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 
 extern ScribusQApp * ScQApp;
 
-EPSPlug::EPSPlug(QString fName, bool isInteractive)
+EPSPlug::EPSPlug(QString fName, bool isInteractive, bool showProgress)
 {
 	interactive = isInteractive;
 	cancel = false;
@@ -45,9 +45,12 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 	CustColors.clear();
 	QFileInfo fi = QFileInfo(fName);
 	QString ext = fi.extension(false).lower();
-	progressDialog = new MultiProgressDialog(tr("Importing PostScript"), CommonStrings::tr_Cancel, ScMW, "psexportprogress");
-	if (progressDialog != NULL)
-	{
+	if ( !ScQApp->usingGUI() ) {
+		interactive = false;
+		showProgress = false;
+	}
+	if ( showProgress ) {
+		progressDialog = new MultiProgressDialog(tr("Importing PostScript"), CommonStrings::tr_Cancel, ScMW, "psexportprogress");
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing PostScript:");
@@ -58,6 +61,9 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 		progressDialog->show();
 		connect(progressDialog->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
 		ScQApp->processEvents();
+	}
+	else {
+		progressDialog = NULL;
 	}
 	
 /* Set default Page to size defined in Preferences */
@@ -610,6 +616,10 @@ bool EPSPlug::Image(QString vals)
 	Code >> verpix;
 	Code >> device;
 	filename = Code.read().stripWhiteSpace();
+	if (device.startsWith("psd")) {
+		filename = filename.mid(0, filename.length()-3) + "psd";
+	}
+		
 	qDebug(QString("import %6 image %1: %2x%3 @ (%4,%5) °%5").arg(filename).arg(w).arg(h).arg(x).arg(y).arg(angle).arg(device));
 	QString rawfile = filename.mid(0, filename.length()-3) + "dat";
 	QStringList args;

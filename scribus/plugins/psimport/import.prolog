@@ -944,7 +944,7 @@ currentpagedevice /HWResolution get aload pop
 		currentcolorspace 0 get /DeviceRGB eq
 			{ (tiff24nc ) print } 
 		{ currentcolorspace 0 get /DeviceCMYK eq
-			{ (tiff32nc ) print } 
+			{ (psdcmyk ) print } 
 		{ currentcolorspace 0 get /DeviceGray eq
 			{ (tiffgray ) print } 
 			{ (tiff32nc ) print }
