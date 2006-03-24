@@ -13843,7 +13843,7 @@ Externe Links</translation>
     </message>
     <message>
         <source>German</source>
-        <translation>Deutsch</translation>
+        <translation>Deutsch (reformiert)</translation>
     </message>
     <message>
         <source>Finnish</source>
@@ -15070,7 +15070,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>German (Trad.)</source>
-        <translation>Deutsch (Alte Rechtschreibung)</translation>
+        <translation>Deutsch (traditionell)</translation>
     </message>
     <message>
         <source>Exporting PostScript File</source>
@@ -15761,7 +15761,7 @@ und wandelt deren Vektordaten in Scribus-Objekte um.
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation>Umbruchkontrolle anwenden auf:</translation>
+        <translation>Anwenden auf:</translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
@@ -19590,19 +19590,25 @@ der PDF-Datei ausgeführt wird:</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Legt die PDF-Kompatiblität fest. Standard ist PDF 1.3, weil das die größte Kompatiblität ermöglicht.
+Wählen Sie PDF 1.4, wenn Sie Funktionen wie Transparenz oder 128 bit-Verschlüsselung benötigen. PDF 1.5 ist notwendig, um Objekte in verschiedenen Ebenen in der PDF-Datei zu erhalten.
+PDF/X-3 ist gedacht für gewerbliche Druckereien und nur möglich, wenn Sie das Farbmanagement aktiviert haben. Verwenden Sie es nur, wenn Ihr Drucker dies verlangt oder in einigen Fällen zum Ausdruck auf einem Vierfarb-Digital-Laserdrucker.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation type="unfinished"></translation>
+        <translation>Kompressionsmethode für Bilddateien. Automatisch überlässt Scribus die Wahl der besten Methode. ZIP ist verlustfrei und sinnvoll für Bilder mit Füllfarben. JPEG ist besser geeignet zur Erstellung kleinerer PDF-Dateien, die viele Fotos enthalten, auch wenn damit unter Umständen ein geringer Qualitätsverlust einhergeht. Belassen Sie die Einstellung bei Automatisch, solange Sie keine spezielle Kompressionsmethode benötigen. Diese Einstellung betrifft nur JPEG-Bilder</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Berechnet die Auflösung von Bitmap-Grafiken in der gewünschten Höhe neu. 
+Ansonsten wird die ursprüngliche Auflösung verwendet. Die Aktivierung dieser 
+Option kann den Speicherbedarf erhöhen und die Ausgabe verlangsamen.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbmodell für die Ausgabe der PDF-Datei.
+Wählen Sie Monitor/Internet für PDF-Dateien, die auf dem Monitor angezeigt oder mit herkömmlichen Druckern gedruckt werden sollen.
+Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen Sie Graustufen, wenn Sie eine Graustufen-PDF benötigen.</translation>
     </message>
 </context>
 <context>
