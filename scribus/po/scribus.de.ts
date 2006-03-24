@@ -907,7 +907,7 @@ Returns a list with the names of all available fonts.
 </source>
         <translation>getFontNames() -&gt; list
 
-Gibt eine Liste mit allen verfügbaren Schriftarten zurück.</translation>
+Gibt eine Liste mit allen verfügbaren Schriften zurück.</translation>
     </message>
     <message>
         <source>getXFontNames() -&gt; list of tuples
@@ -3571,7 +3571,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Show Rulers</source>
-        <translation>Linaele anzeigen</translation>
+        <translation>Lineale anzeigen</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
@@ -3584,7 +3584,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Middle Dot</source>
-        <translation></translation>
+        <translation>Mittepunkt</translation>
     </message>
     <message>
         <source>En Space</source>
@@ -3596,19 +3596,19 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Thin Space</source>
-        <translation></translation>
+        <translation>Sehr enge Grundschriftweite</translation>
     </message>
     <message>
         <source>Thick Space</source>
-        <translation></translation>
+        <translation>Weite Grundschriftweite</translation>
     </message>
     <message>
         <source>Mid Space</source>
-        <translation></translation>
+        <translation>Weite Grundschriftweite</translation>
     </message>
     <message>
         <source>Hair Space</source>
-        <translation></translation>
+        <translation>Extrem enge Grundschriftweite</translation>
     </message>
     <message>
         <source>Insert Smart Hyphen</source>
@@ -3854,7 +3854,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
-        <translation>Ausrichten und Verteilen</translation>
+        <translation>Ausrichten und verteilen</translation>
     </message>
     <message>
         <source>Align</source>
@@ -4324,15 +4324,15 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Percent Format</source>
-        <translation>Prozent-Format</translation>
+        <translation>Prozentformat</translation>
     </message>
     <message>
         <source>Date Format</source>
-        <translation>Datums-Format</translation>
+        <translation>Datumsformat</translation>
     </message>
     <message>
         <source>Time Format</source>
-        <translation>Zeit-Format</translation>
+        <translation>Zeitformat</translation>
     </message>
     <message>
         <source>Custom Scripts</source>
@@ -4408,7 +4408,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Custom calculation script:</source>
-        <translation>Eigenes Berechnungs-Script:</translation>
+        <translation>Eigenes Berechnungsscript:</translation>
     </message>
     <message>
         <source>Calculate</source>
@@ -4758,7 +4758,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     <name>Barcode</name>
     <message>
         <source>&amp;Barcode Generator...</source>
-        <translation>&amp;Barcode-Generator...</translation>
+        <translation>&amp;Strichcodegenerator...</translation>
     </message>
     <message>
         <source>Scribus frontend for Pure Postscript Barcode Writer</source>
@@ -4821,11 +4821,11 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Barcode incomplete</source>
-        <translation>Barcode ist unvollständig</translation>
+        <translation>Strichcode ist unvollständig</translation>
     </message>
     <message>
         <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
-        <translation>Kombination aus ASCII Zeichen und Sonderzeichen, beginnend mit dem passenden Startzeichen für den Zeichensatz. Bei USS/EAN-128s muss am Anfang ein FNC1 Symbol direkt nach dem Startzeichen stehen.</translation>
+        <translation>Kombination aus ASCII Zeichen und Sonderzeichen, beginnend mit dem passenden Startzeichen für den Zeichensatz. Bei USS/EAN-128 muss am Anfang ein FNC1-Symbol direkt nach dem Startzeichen stehen.</translation>
     </message>
     <message>
         <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
@@ -4833,18 +4833,18 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
-        <translation>Kombination aus Ziffern. Ein ITF-14 Code besteht aus 14 Zeichen und besitzt keine Sicherheitszeichen</translation>
+        <translation>Kombination aus Ziffern. Ein ITF-14 Code besteht aus 14 Zeichen und besitzt keine Prüfnummer</translation>
     </message>
 </context>
 <context>
     <name>BarcodeGeneratorBase</name>
     <message>
         <source>Barcode Creator</source>
-        <translation>Barcode-Generator</translation>
+        <translation>Strichcodegenerator</translation>
     </message>
     <message>
         <source>Barcode</source>
-        <translation>Barcode</translation>
+        <translation>Strichcode</translation>
     </message>
     <message>
         <source>&amp;Type:</source>
@@ -4860,7 +4860,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>The numeric representation of the code itself. See the help message below</source>
-        <translation>Die Zahlen, die in dem Barcode vorkommen. Siehe Hilfe unten</translation>
+        <translation>Die Zahlen, die in dem Strichcode vorkommen. Siehe Hilfe unten</translation>
     </message>
     <message>
         <source>Reset the barcode samples</source>
@@ -4868,7 +4868,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>&amp;Include text in barcode</source>
-        <translation>&amp;Text in Barcoden einfügen</translation>
+        <translation>&amp;Text in Strichcode einfügen</translation>
     </message>
     <message>
         <source>Alt+I</source>
@@ -4876,7 +4876,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>If checked, there will be numbers in the barcode too</source>
-        <translation>Zahlen im Barcode darstellen, wenn aktiviert</translation>
+        <translation>Zahlen im Strichcode darstellen, wenn aktiviert</translation>
     </message>
     <message>
         <source>&amp;Guard whitespace</source>
@@ -4888,7 +4888,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Draw arrows to be sure of space next the code</source>
-        <translation>Einen Pfeil als Sicherheitsabstand um den Barcode zeichnen</translation>
+        <translation>Einen Pfeil als Sicherheitsabstand um den Strichcode zeichnen</translation>
     </message>
     <message>
         <source>Colors</source>
@@ -4904,7 +4904,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Background color - under the code lines</source>
-        <translation>Farbe hinter dem Barcode</translation>
+        <translation>Farbe hinter dem Strichcode</translation>
     </message>
     <message>
         <source>&amp;Lines</source>
@@ -4916,7 +4916,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Color of the lines in barcode</source>
-        <translation>Farbe der Barcodelinien</translation>
+        <translation>Farbe der Strichcodelinien</translation>
     </message>
     <message>
         <source>&amp;Text</source>
@@ -4924,7 +4924,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Alt+T</source>
-        <translation></translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>Color of the text and numbers</source>
@@ -4948,7 +4948,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>I&amp;nclude checksum</source>
-        <translation>Checksumme &amp;integrieren</translation>
+        <translation>Prüfsumme &amp;integrieren</translation>
     </message>
     <message>
         <source>Alt+N</source>
@@ -4956,11 +4956,11 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Generate and include a checksum in barcode</source>
-        <translation>Checksumme erzeugen und mit in den Barcode einfügen</translation>
+        <translation>Prüfsumme erzeugen und mit in den Strichcode einfügen</translation>
     </message>
     <message>
         <source>Incl&amp;ude checksum digit</source>
-        <translation>Checksummen&amp;zeichen integrieren</translation>
+        <translation>Prüfsummen&amp;zeichen integrieren</translation>
     </message>
     <message>
         <source>Alt+U</source>
@@ -4968,7 +4968,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Include the checksum digit in the barcode text</source>
-        <translation>Checksummenziffer in den Barcode integrieren</translation>
+        <translation>Prüfsummenziffer in den Barcode integrieren</translation>
     </message>
 </context>
 <context>
@@ -6039,7 +6039,7 @@ zusammengestellt werden</translation>
     </message>
     <message>
         <source>Now opening the color manager.</source>
-        <translation>Farben-Dialog wird geöffnet.</translation>
+        <translation>Farbendialog wird geöffnet.</translation>
     </message>
     <message>
         <source>Color Merging</source>
@@ -6521,7 +6521,7 @@ Diese Option können Sie in den Einstellungen ändern.</translation>
     </message>
     <message>
         <source>&amp;Include Fonts</source>
-        <translation>Schriftarten ein&amp;betten</translation>
+        <translation>Schriften ein&amp;betten</translation>
     </message>
 </context>
 <context>
@@ -6868,7 +6868,7 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
     </message>
     <message>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
-        <translation>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</translation>
+        <translation>&lt;b&gt;Name:&lt;/b&gt; Optionale Bezeichnung für den Abschnitt, z. B. Index.&lt;br/&gt;&lt;b&gt;Sichtbar:&lt;/b&gt; Entscheiden Sie, ob die Seitennummern angezeigt werden sollen.&lt;br/&gt;&lt;b&gt;Von:&lt;/b&gt; Der Seitenindex für diesen Abschnitt, mit dem die Zähling beginnen soll.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt;Der Seitenindex für diesen Abschnitt, mit dem die Zähling enden soll.&lt;br/&gt;&lt;b&gt;Sil:&lt;/b&gt; Wählen Sie den Nummerierungsstil aus.&lt;br/&gt;&lt;b&gt;Beginn:&lt;/b&gt; Die Seitennummer, mit der die Zählung beginnen soll. Wenn Sie beispielsweise hier 2 eintragen und als Stil a, b, c wählen, wird mit b angefangen.</translation>
     </message>
     <message>
         <source>Page Number Out Of Bounds</source>
@@ -7357,7 +7357,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Konvertiert Schmuckfarben in normale Farben. Sie sollten diese Option nur deaktivieren, wenn Sie Schmuckfarben wirklich benötigen.</translation>
+        <translation>Konvertiert Schmuckfarben in Prozessfarben. Sie sollten diese Option nur deaktivieren, wenn Sie Schmuckfarben wirklich benötigen.</translation>
     </message>
     <message>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
@@ -7381,7 +7381,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page</source>
-        <translation>Objekte außerhalb des Seitenrandes nicht drucken</translation>
+        <translation>Objekte außerhalb des Satzspiegels nicht drucken</translation>
     </message>
 </context>
 <context>
@@ -7458,7 +7458,7 @@ failed!</source>
     </message>
     <message>
         <source>Name of your paragraph style</source>
-        <translation>Name des Absatz-Stils</translation>
+        <translation>Name des Absatzstils</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -8163,7 +8163,7 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     <name>FileLoader</name>
     <message>
         <source>Some fonts used by this document have been substituted:</source>
-        <translation>Einige Schriftarten in diesem Dokument wurden ersetzt:</translation>
+        <translation>Einige Schriften in diesem Dokument wurden ersetzt:</translation>
     </message>
     <message>
         <source> was replaced by: </source>
@@ -8209,11 +8209,11 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
-        <translation>Verfügbare &amp;Schriftarten</translation>
+        <translation>Verfügbare &amp;Schriften</translation>
     </message>
     <message>
         <source>Font &amp;Substitutions</source>
-        <translation>Schriftarten&amp;ersetzung</translation>
+        <translation>Schrift&amp;ersetzung</translation>
     </message>
     <message>
         <source>Additional &amp;Paths</source>
@@ -8384,14 +8384,14 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
-        <translation>Wenn Sie hier Text eingeben, starten Sie eine schnelle Suche. Groß- und Kleinschreibung wird ignoriert. Sie können auch Wildcards (*, ?, [...]) verwenden. Beispiele: t* listet alle Schriftarten auf, die mit t oder T beginnen. *bold* listet alle Schriftenarten mit fetten Schnitten auf.</translation>
+        <translation>Wenn Sie hier Text eingeben, starten Sie eine schnelle Suche. Groß- und Kleinschreibung wird ignoriert. Sie können auch Wildcards (*, ?, [...]) verwenden. Beispiele: t* listet alle Schriften auf, die mit t oder T beginnen. *bold* listet alle Schriften mit fetten Schnitten auf.</translation>
     </message>
 </context>
 <context>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>Schriftartenvorschau</translation>
+        <translation>Schriftvorschau</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -8470,22 +8470,22 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     <name>FontPreviewPlugin</name>
     <message>
         <source>&amp;Font Preview...</source>
-        <translation>&amp;Schriftartenvorschau...</translation>
+        <translation>&amp;Schriftvorschau...</translation>
     </message>
     <message>
         <source>Font Preview dialog</source>
-        <translation>Schriftartenvorschau-Dialog</translation>
+        <translation>Schriftvorschau-Dialog</translation>
     </message>
     <message>
         <source>Sorting, searching and browsing available fonts.</source>
-        <translation>Verfügbare Schriftarten sortieren und durchsuchen.</translation>
+        <translation>Verfügbare Schriften sortieren und durchsuchen.</translation>
     </message>
 </context>
 <context>
     <name>FontReplaceDialog</name>
     <message>
         <source>Font Substitution</source>
-        <translation>Ersetzung von Schriftarten</translation>
+        <translation>Ersetzung von Schriften</translation>
     </message>
     <message>
         <source>This document contains some fonts that are not installed on your system,
@@ -8495,15 +8495,15 @@ bitte wählen Sie dafür geeignete Ersatz-Schriften.</translation>
     </message>
     <message>
         <source>Original Font</source>
-        <translation>Originalschriftart</translation>
+        <translation>Originalschrift</translation>
     </message>
     <message>
         <source>Substitution Font</source>
-        <translation>Ersatzschriftart</translation>
+        <translation>Ersatzschrift</translation>
     </message>
     <message>
         <source>Make these substitutions permanent</source>
-        <translation>Schriftart dauerhaft ersetzen</translation>
+        <translation>Schrift dauerhaft ersetzen</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -8511,22 +8511,22 @@ bitte wählen Sie dafür geeignete Ersatz-Schriften.</translation>
     </message>
     <message>
         <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
-        <translation>Dieses Dokument enthält einige Schriftarten, welche auf Ihrem System nicht installiert sind. 
+        <translation>Dieses Dokument enthält einige Schriften, welche auf Ihrem System nicht installiert sind. 
 Bitte entscheiden Sie sich für einen passenden Ersatz. &quot;Abbrechen&quot; wird das Laden des Dokuments
 beenden.</translation>
     </message>
     <message>
         <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation>Bricht die Schriftartenersetzung ab und beendet das Laden des
+        <translation>Bricht die Schriftenersetzung ab und beendet das Laden des
 Dokumentes.</translation>
     </message>
     <message>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
-        <translation>Falls Sie diese Funktion wählen, wird Scribus diese Ersetzungen dauerhaft verwenden. Ihre Entscheidnung können Sie jedoch jederzeit im Menü Bearbeiten &gt; Einstellungen &gt; Schriftarten rückgängig machen.</translation>
+        <translation>Falls Sie diese Funktion wählen, wird Scribus diese Ersetzungen dauerhaft verwenden. Ihre Entscheidung können Sie jedoch jederzeit im Menü Datei &gt; Scribus-Einstellungen &gt; Schriften rückgängig machen.</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation>Wenn Sie &quot;OK&quot; klicken und speichern, werden diese Schriftartenerstzungen dauerhaft
+        <translation>Wenn Sie &quot;OK&quot; klicken und speichern, werden diese Schriftersetzungen dauerhaft
 im Dokument gespeichert.</translation>
     </message>
 </context>
@@ -8785,7 +8785,7 @@ and www.scribus.net for downloads.</source>
     <name>HyAsk</name>
     <message>
         <source>Possible Hyphenation</source>
-        <translation>Trennungsvorschlag</translation>
+        <translation>Trennvorschlag</translation>
     </message>
     <message>
         <source>Accept</source>
@@ -10499,7 +10499,7 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation>Laufweite anpassen</translation>
+        <translation>Zeichenabstand anpassen</translation>
     </message>
     <message>
         <source>Fixed Linespacing</source>
@@ -11432,11 +11432,11 @@ Benutzen Sie den Druckvorstufen-Check, um die Fehler zu beheben</translation>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
         <translation>Stellt den Text auf Kosten der Rendergeschwindigkeit glatter dar.
-Funktioniert nur mit Type-1-Schriftarten</translation>
+Funktioniert nur mit Type-1-Schriften</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Schriftarten (TrueType und OpenType), EPS, PDF und Vektorgrafiken werden schöner dargestellt.
+        <translation>Schriften (TrueType und OpenType), EPS, PDF und Vektorgrafiken werden schöner dargestellt.
 Dafür erhöht sich benötigte Renderzeit geringfügig</translation>
     </message>
     <message>
@@ -11763,7 +11763,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
         <source>Foolscap</source>
-        <translation>Foolscap</translation>
+        <translation>Kanzleipapier</translation>
     </message>
     <message>
         <source>Letter</source>
@@ -12229,7 +12229,7 @@ ein positiver Wert für eine konvexe Form</translation>
     </message>
     <message>
         <source>Typography</source>
-        <translation>Typografie</translation>
+        <translation>Typographie</translation>
     </message>
     <message>
         <source>Display</source>
@@ -12532,7 +12532,7 @@ weil Sie Bilder in bereits laufenden Instanzen von GIMP bearbeiten können.</tra
     </message>
     <message>
         <source>Fonts</source>
-        <translation>Schriftarten</translation>
+        <translation>Schriften</translation>
     </message>
     <message>
         <source>Color Management</source>
@@ -12590,7 +12590,7 @@ Indizes</translation>
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
-        <translation>Immer nachfragen, bevor Schriftarten ersetzt werden</translation>
+        <translation>Immer nachfragen, bevor Schriften ersetzt werden</translation>
     </message>
     <message>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
@@ -13346,7 +13346,7 @@ Eigene Farben &amp;definieren &gt;&gt;</translation>
     </message>
     <message>
         <source>the symlink</source>
-        <translation>der symbolischen Link</translation>
+        <translation>der symbolische Link</translation>
     </message>
     <message>
         <source>Delete %1</source>
@@ -14444,7 +14444,7 @@ Externe Links</translation>
     </message>
     <message>
         <source>Font %1 is broken (no Face), discarding it</source>
-        <translation>Font %1 is broken (no Face), discarding it</translation>
+        <translation>Schrift %1 ist fehlerhaft (kein Schnitt) und wird verworfen</translation>
     </message>
     <message>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
@@ -14492,7 +14492,7 @@ Externe Links</translation>
     </message>
     <message>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
-        <translation>extracting face %1 from font %2 (offset=%3, nTables=%4)</translation>
+        <translation>lese Schnitt %1 der Schrift %2 (offset=%3, nTables=%4)</translation>
     </message>
     <message>
         <source>memcpy header: %1 %2 %3</source>
@@ -14512,7 +14512,7 @@ Externe Links</translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
-        <translation>Scribus Entwicklungsversion</translation>
+        <translation>Scribus Entwickerversion</translation>
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
@@ -14973,7 +14973,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font Preview</source>
-        <translation>Schriftartenvorschau</translation>
+        <translation>Schriftenvorschau</translation>
     </message>
     <message>
         <source>My Plugin</source>
@@ -15041,11 +15041,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation>Suche nach Schriftarten läuft</translation>
+        <translation>Suche nach Schriften läuft</translation>
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
-        <translation>Sie arbeiten mit einer Entwicklungsversion von Scribus 1.3.x. Das Dokument, mit dem Sie arbeiten, wurde mit Scribus 1.2.3 oder niedriger erstellt. Wenn Sie jetzt speichern, können Sie die Datei nicht mehr in Scribus 1.2.3 verwenden, es sei denn, Sie verwenden die Funktion Datei &gt; Speichern unter. Wollen Sie fortfahren?</translation>
+        <translation>Sie arbeiten mit einer Entwicklerversion von Scribus 1.3.x. Das Dokument, mit dem Sie arbeiten, wurde mit Scribus 1.2.x oder niedriger erstellt. Wenn Sie jetzt speichern, können Sie die Datei nicht mehr in Scribus 1.2.x verwenden, es sei denn, Sie verwenden die Funktion Datei &gt; Speichern unter. Wollen Sie fortfahren?</translation>
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
@@ -15062,7 +15062,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>firstPageOrder is bigger than allowed.</source>
         <comment>python error</comment>
-        <translation>firstPageOrder is bigger than allowed.</translation>
+        <translation>firstPageOrder ist größer als erlaubt.</translation>
     </message>
     <message>
         <source>Old .sla format support</source>
@@ -15070,7 +15070,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>German (Trad.)</source>
-        <translation>Deutsch (traditionell)</translation>
+        <translation>Deutsch (herkömmlich)</translation>
     </message>
     <message>
         <source>Exporting PostScript File</source>
@@ -15098,11 +15098,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Barcode Generator</source>
-        <translation>Barcode-Generator</translation>
+        <translation>Strichcode-Generator</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
-        <translation>OpenOffice.org Zeichnung (*.sxd *.odg);;Alle Dateien (*)</translation>
+        <translation>OpenOffice.org-Zeichnung (*.sxd *.odg);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Word Documents</source>
@@ -15418,7 +15418,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Typography</source>
-        <translation>Typografie</translation>
+        <translation>Typographie</translation>
     </message>
     <message>
         <source>Tools</source>
@@ -15430,7 +15430,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Fonts</source>
-        <translation>Schriftarten</translation>
+        <translation>Schriften</translation>
     </message>
     <message>
         <source>PDF Export</source>
@@ -15703,7 +15703,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation>Manueller Wortabstand</translation>
+        <translation>Manueller Zeichenabstand</translation>
     </message>
     <message>
         <source> %</source>
@@ -16738,7 +16738,7 @@ diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <source>There are no fonts found on your system.</source>
-        <translation>Auf Ihrem System sind keine Schriftarten vorhanden.</translation>
+        <translation>Auf Ihrem System sind keine Schriften vorhanden.</translation>
     </message>
     <message>
         <source>Exiting now.</source>
@@ -17188,7 +17188,7 @@ Vertikaler Versatz: %3</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation>Zeigt Informationen auf der Konsole, wenn Schriftarten geladen werden</translation>
+        <translation>Zeigt Informationen auf der Konsole, wenn Schriften geladen werden</translation>
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
@@ -17599,7 +17599,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Locate Startup Script</source>
-        <translation>Autostartscript auswählen</translation>
+        <translation>Autostart-Script auswählen</translation>
     </message>
 </context>
 <context>
@@ -18096,7 +18096,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview...</source>
-        <translation>Schriftarten&amp;vorschau...</translation>
+        <translation>Schrift&amp;vorschau...</translation>
     </message>
     <message>
         <source>&amp;Background...</source>
@@ -18784,11 +18784,11 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>Alle Schriftarten vollständig ein&amp;betten</translation>
+        <translation>Alle Schriften vollständig ein&amp;betten</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>Von allen Schriftarten nur &amp;benutzte Schriftzeichen einbetten</translation>
+        <translation>Von allen Schriften nur &amp;benutzte Schriftzeichen einbetten</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -18796,7 +18796,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Available Fonts:</source>
-        <translation>Verfügbare Schriftarten:</translation>
+        <translation>Verfügbare Schriften:</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
@@ -18808,7 +18808,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
-        <translation>Schriftarten vollständig einbetten:</translation>
+        <translation>Schriften vollständig einbetten:</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
