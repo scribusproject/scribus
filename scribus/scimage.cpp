@@ -1457,8 +1457,8 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 		s.device()->at( base2 );
 		return false;
 	}
-	tmpImg.setAlphaBuffer( true );
 	tmpImg.fill(qRgba(255, 255, 255, 0));
+	tmpImg.setAlphaBuffer( true );
 	channel_num = QMIN(channel_num, 39);
 	uint components[40];
 	for(uint channel = 0; channel < channel_num; channel++)
@@ -1510,8 +1510,8 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 //				if (!mask.create(layerInfo[layer].width, layerInfo[layer].height, 32 ))
 					break;
 //			}
-			mask.setAlphaBuffer( true );
 			mask.fill(qRgba(255, 255, 255, 0));
+			mask.setAlphaBuffer( true );
 			if (!loadChannel(s, header, layerInfo, layer, channel, components[channel], mask))
 				break;
 		}
@@ -1985,22 +1985,29 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 						layOpa = imgInfo.RequestProps[layer].opacity;
 					if (!mask.isNull())
 						layOpa = INT_MULT(mask_a, layOpa);
+					if (header.color_mode != CM_CMYK)
+						src_a = INT_MULT(src_a, layOpa);
 					if (d[3] > 0)
 					{
 						r = (d[0] * (255 - layOpa) + src_r * layOpa) / 255;
 						g = (d[1] * (255 - layOpa) + src_g * layOpa) / 255;
 						b = (d[2] * (255 - layOpa) + src_b * layOpa) / 255;
-//						if (header.color_mode == CM_CMYK)
+						if (header.color_mode == CM_CMYK)
 							a = (d[3] * (255 - layOpa) + src_a * layOpa) / 255;
-//						else
-//							a = (src_a * layOpa) / 255;
+						else
+						{
+							a = d[3] + INT_MULT(255 - d[3], src_a);
+							r = (d[0] * (255 - src_a) + src_r * src_a) / 255;
+							g = (d[1] * (255 - src_a) + src_g * src_a) / 255;
+							b = (d[2] * (255 - src_a) + src_b * src_a) / 255;
+						}
 					}
 					else
 					{
 						r = src_r;
 						g = src_g;
 						b = src_b;
-						a = (src_a * layOpa) / 255;
+						a = src_a;
 					}
 					if (header.color_mode == CM_CMYK)
 					{
@@ -2013,13 +2020,10 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 					{
 						if (src_a > 0)
 						{
-							//#3356 was crashing here
 							d[0] = r;
 							d[1] = g;
 							d[2] = b;
-//							if ((mask.isNull()) && (d[3] < a))
-							if (d[3] < a)
-								d[3] = a;
+							d[3] = a;
 						}
 					}
 					dst++;
