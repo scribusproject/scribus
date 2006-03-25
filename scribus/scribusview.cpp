@@ -3951,8 +3951,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					setGroupRect();
 					double gx, gy, gh, gw;
 					getGroupRect(&gx, &gy, &gw, &gh);
-					double gxs, gys, ghs, gws;
-					getGroupRectScreen(&gxs, &gys, &gws, &ghs);
+//					double gxs, gys, ghs, gws;
+//					getGroupRectScreen(&gxs, &gys, &gws, &ghs);
 					int dX=newX-Mxp, dY=newY-Myp;
 					erf = true;
 					if (m->state() & ControlButton)
@@ -3969,10 +3969,10 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					moveGroup(dX, dY, false);
 					if (Doc->SnapGuides)
 					{
-						double nx = gxs;
-						double ny = gys;
+						double nx = gx;
+						double ny = gy;
 						ApplyGuides(&nx, &ny);
-						moveGroup(nx-gxs, ny-gys, false);
+						moveGroup(nx-gx, ny-gy, false);
 						setGroupRect();
 						getGroupRect(&gx, &gy, &gw, &gh);
 						nx = gx+gw;

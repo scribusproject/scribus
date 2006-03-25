@@ -1483,7 +1483,15 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 							}
 							else
 							{
+							/* Don't use Grid or Guide Snapping when dragging Items or Groups with the keyboard */
+							/* as the user might be trying to fine tune a position */
+								bool sav1 = doc->SnapGuides;
+								bool sav2 = doc->useRaster;
+								doc->SnapGuides = false;
+								doc->useRaster = false;
 								view->moveGroup(-moveBy, 0);
+								doc->SnapGuides = sav1;
+								doc->useRaster = sav2;
 							}
 						}
 						else
@@ -1520,7 +1528,15 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 							}
 							else
 							{
+							/* Don't use Grid or Guide Snapping when dragging Items or Groups with the keyboard */
+							/* as the user might be trying to fine tune a position */
+								bool sav1 = doc->SnapGuides;
+								bool sav2 = doc->useRaster;
+								doc->SnapGuides = false;
+								doc->useRaster = false;
 								view->moveGroup(moveBy, 0);
+								doc->SnapGuides = sav1;
+								doc->useRaster = sav2;
 							}
 						}
 						else
@@ -1557,7 +1573,15 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 							}
 							else
 							{
+							/* Don't use Grid or Guide Snapping when dragging Items or Groups with the keyboard */
+							/* as the user might be trying to fine tune a position */
+								bool sav1 = doc->SnapGuides;
+								bool sav2 = doc->useRaster;
+								doc->SnapGuides = false;
+								doc->useRaster = false;
 								view->moveGroup(0, -moveBy);
+								doc->SnapGuides = sav1;
+								doc->useRaster = sav2;
 							}
 						}
 						else
@@ -1594,7 +1618,15 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 							}
 							else
 							{
+							/* Don't use Grid or Guide Snapping when dragging Items or Groups with the keyboard */
+							/* as the user might be trying to fine tune a position */
+								bool sav1 = doc->SnapGuides;
+								bool sav2 = doc->useRaster;
+								doc->SnapGuides = false;
+								doc->useRaster = false;
 								view->moveGroup(0, moveBy);
+								doc->SnapGuides = sav1;
+								doc->useRaster = sav2;
 							}
 						}
 						else
