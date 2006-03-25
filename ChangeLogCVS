@@ -1,5 +1,7 @@
 Scribus - 1.2.5cvs
 ==================
+- 0003486: [Usability] Splash Screen Displays in all Windows (cbradney)
+- 0003463: [Translation] Japanese Translation FIle for Scribus 1.2.3 (cbradney)
 - 0003181: [Import / Export] Exporting a PDF with a gradient in a text frame causes "Incorrect Shading Error" in Acrobat 5.x+ (fschmid)
 - 0002934: [Fonts] add fontconfig support for 1.2.X (ringerc)
 - 0001659: [Documentation] Editing overlapping frames is very challenging because when selected, a frame retains its stacking order (plinnell)
