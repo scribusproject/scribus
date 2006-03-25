@@ -1508,6 +1508,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 							}
 						}
+						view->updateContents();
 						slotDocCh();
 					}
 					break;
@@ -1553,6 +1554,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 							}
 						}
+						view->updateContents();
 						slotDocCh();
 					}
 					break;
@@ -1598,6 +1600,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
 							}
 						}
+						view->updateContents();
 						slotDocCh();
 					}
 					break;
@@ -1643,6 +1646,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
 							}
 						}
+						view->updateContents();
 						slotDocCh();
 					}
 					break;

@@ -2144,6 +2144,7 @@ void Mpalette::NewX()
 				ScMW->view->MoveItem(x - base, 0, CurItem, true);
 			}
 		}
+		ScMW->view->updateContents();
 		emit DocChanged();
 	}
 }
@@ -2211,6 +2212,7 @@ void Mpalette::NewY()
 				ScMW->view->MoveItem(0, y - base, CurItem, true);
 			}
 		}
+		ScMW->view->updateContents();
 		emit DocChanged();
 	}
 }
@@ -2314,8 +2316,9 @@ void Mpalette::NewW()
 						ScMW->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
 				}
 			}
-			emit DocChanged();
 		}
+		emit DocChanged();
+		ScMW->view->updateContents();
 	}
 }
 
@@ -2420,6 +2423,7 @@ void Mpalette::NewH()
 			}
 		}
 		emit DocChanged();
+		ScMW->view->updateContents();
 	}
 }
 
@@ -2444,6 +2448,7 @@ void Mpalette::NewR()
 		else
 			ScMW->view->RotateItem(Rot->value()*(-1), CurItem->ItemNr);
 		emit DocChanged();
+		ScMW->view->updateContents();
 		RoVal = Rot->value();
 	}
 }
