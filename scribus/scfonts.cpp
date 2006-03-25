@@ -71,7 +71,7 @@ Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path, in
 }
 
 
-FT_Face * ftFace() {
+FT_Face ftFace() {
 	// dummy for now
 	return NULL;
 }
@@ -544,8 +544,6 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 			if ((ext == "ttc") || (ext == "dfont") || (ext == "pfa") || (ext == "pfb") || (ext == "ttf") || (ext == "otf"))
 			{
 				error = AddScalableFont(pathfile, library, DocName);
-				if (error)
-					sDebug(QObject::tr("Font %1 is broken, discarding it").arg(pathfile));
 			}
 #ifdef FT_MACINTOSH
 			else if (ext.isEmpty() && DocName.isEmpty())
@@ -553,8 +551,6 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 				error = AddScalableFont(pathfile, library, DocName);
 				if (error)
 					error = AddScalableFont(pathfile + "/rsrc",library, DocName);
-				if (error)
-					sDebug(QObject::tr("Font %1 is broken, discarding it").arg(pathfile));
 			}
 #endif				
 		}
@@ -678,6 +674,8 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		if (face != NULL)
 			FT_Done_Face( face );
 		checkedFonts.insert(filename, foCache);
+		if (showFontInformation)
+			sDebug(QObject::tr("Font %1 is broken, discarding it").arg(filename));
 		return true;
 	}
 	getFontFormat(face, format, type);
@@ -902,18 +900,20 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			os.writeRawBytes(bb.data(), bb.size());
 			dump.close();
 */
-			FT_Done_Face(face);
-			face=NULL;
-			++faceindex;
-			error = FT_New_Face( library, filename, faceindex, &face );
 		}
 		else 
 		{
 			if (showFontInformation)
 				sDebug(QObject::tr("Font %1(%2) is duplicate of %3").arg(filename).arg(faceindex+1).arg(t->fontPath()));
 			// this is needed since eg. AppleSymbols will happily return a face for *any* face_index
-			error = true;
+			if (faceindex > 0) {
+				break;
+			}
 		}
+		FT_Done_Face(face);
+		face=NULL;
+		++faceindex;
+		error = FT_New_Face( library, filename, faceindex, &face );
 	} //while
 	
 	if (face != 0)
@@ -962,8 +962,6 @@ void SCFonts::AddFontconfigFonts()
 			if (showFontInformation)
 				sDebug(QObject::tr("Loading font %1 (found using fontconfig)").arg(QString((char*)file)));
 			error = AddScalableFont(QString((char*)file), library, "");
-			if (showFontInformation && error)
-				sDebug(QObject::tr("Font %1 (found using fontconfig) is broken, discarding it").arg(QString((char*)file)));
 		}
 		else
 			if (showFontInformation)

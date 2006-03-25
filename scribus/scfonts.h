@@ -73,7 +73,7 @@ private:
 		QString Effect;
 		QString Alternative;
 public:
-		FT_Face * ftFace();
+		FT_Face ftFace();
 		QString scName()   const { return SCName; } ;
 		QString fontPath() const { return faceIndex_ >= 0 ? QString("%1(%2)").arg(fontFile).arg(faceIndex_+1) : fontFile; };
 		QString fontFilePath() const { return fontFile; };
