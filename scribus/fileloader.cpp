@@ -1930,7 +1930,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	QString Pcolor = obj->attribute("PCOLOR");
 	QString Pcolor2 = obj->attribute("PCOLOR2");
 	QColor tmpc;
-	PageItem *currItem;
+	PageItem *currItem=NULL;
 	QString tmp;
 	int xi;
 	double xf, yf, xf2;
