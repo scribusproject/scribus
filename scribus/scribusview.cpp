@@ -1297,6 +1297,8 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 				else if (currItem->imageShown())
 					emit Amode(modeEdit);
  			}
+ 			else
+ 				emit Amode(modeEdit);
 		}
 		else
 			if (currItem->itemType() == PageItem::TextFrame)
