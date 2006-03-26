@@ -5313,6 +5313,7 @@ void ScribusMainWindow::NoFrameEdit()
 	scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
 	scrActions["itemDelete"]->setEnabled(true);
 	scrActions["itemShapeEdit"]->setOn(false);
+	bool tmpClip = doc->EditClip; // for enabling undo if exiting shape edit mode
 	if (HaveDoc)
 	{
 		doc->EditClip = false;
@@ -5326,8 +5327,8 @@ void ScribusMainWindow::NoFrameEdit()
 			HaveNewSel(-1);
 	}
 	actionManager->connectModeActions();
-	//CB Enable/Disable undo in frame edit mode. This also reenables the actions as required
-	undoManager->setUndoEnabled(true);
+	if (tmpClip)
+		undoManager->setUndoEnabled(true);
 }
 
 void ScribusMainWindow::slotSelect()
