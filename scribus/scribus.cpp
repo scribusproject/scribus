@@ -3658,8 +3658,8 @@ void ScribusMainWindow::slotGetContent()
 				}
 			}
 #ifdef HAVE_TIFF
-			formats += "TIFF (*.tif *.tiff *.TIF *TIFF);;";
-			formatD += "*.tif *.tiff *.TIF *TIFF";
+			formats += "TIFF (*.tif *.tiff *.TIF *.TIFF);;";
+			formatD += "*.tif *.tiff *.TIF *.TIFF";
 #endif
 			formats += "PSD (*.psd *.PSD);;";
 			formatD += " *.psd *.PSD";
