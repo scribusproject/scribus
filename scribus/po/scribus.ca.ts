@@ -3501,7 +3501,7 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation>Neteja C&amp;ontingut</translation>
+        <translation type="obsolete">Neteja C&amp;ontingut</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -4213,11 +4213,11 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>Copy Contents</source>
-        <translation>Copia contingut</translation>
+        <translation type="obsolete">Copia contingut</translation>
     </message>
     <message>
         <source>Paste Contents</source>
-        <translation>Enganxa contingut</translation>
+        <translation type="obsolete">Enganxa contingut</translation>
     </message>
     <message>
         <source>&amp;Printing Enabled</source>
@@ -4318,7 +4318,7 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>Paste Contents (Absolute)</source>
-        <translation>Enganxa Contingut (Absolut)</translation>
+        <translation type="obsolete">Enganxa Contingut (Absolut)</translation>
     </message>
     <message>
         <source>S&amp;tyles...</source>
@@ -4333,6 +4333,14 @@ Les llibreries que manquen es mostren amb un *</translation>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation>&amp;Esquemes</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation>Enganxa (&amp;Absolut)</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>B&amp;uida</translation>
     </message>
 </context>
 <context>
@@ -5624,7 +5632,7 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
         <source>Make check digit visible in text</source>
-        <translation>Fes que el dígit de comprovació sigui visible</translation>
+        <translation type="obsolete">Fes que el dígit de comprovació sigui visible</translation>
     </message>
     <message>
         <source>Co&amp;de:</source>
@@ -8134,13 +8142,29 @@ ha fallat!</translation>
         <source>Converting Image:
 %1
 failed!</source>
-        <translation>Ha fallat la conversió de la imatge:
+        <translation type="obsolete">Ha fallat la conversió de la imatge:
 %1
 fallat!</translation>
     </message>
     <message>
         <source>Error</source>
         <translation>Error</translation>
+    </message>
+    <message>
+        <source>Importing PostScript</source>
+        <translation>Important PostScript</translation>
+    </message>
+    <message>
+        <source>Analyzing PostScript:</source>
+        <translation>Analitzant PostScript:</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation>Generant Ítems</translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation>La conversió de %1 imatges ha fallat!</translation>
     </message>
 </context>
 <context>
@@ -8486,6 +8510,18 @@ es pot desar amb aquest formulari. L&apos;error és:
     <message>
         <source>Select for easier reading of light coloured text styles</source>
         <translation>Triat per llegir millor els estils de color clar</translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation>Espai entre caràcters manual</translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation>Desplaçament dels caràcters de la línea base</translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation>Clica per seleccionar el mode d&apos;espaiat de línia</translation>
     </message>
 </context>
 <context>
@@ -9492,7 +9528,11 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Aquí es pot afegir, canviar o esborrar Color-Stops.</translation>
+        <translation type="obsolete">Aquí es pot afegir, canviar o esborrar Color-Stops.</translation>
+    </message>
+    <message>
+        <source>Add, change or remove color stops here</source>
+        <translation>Afegir, canviar o esborrar colors acaba aquí</translation>
     </message>
 </context>
 <context>
@@ -12008,6 +12048,10 @@ Si us plau tria&apos;n un altre.</translation>
     <message>
         <source>Non Zero</source>
         <translation>No és zero</translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation>Clica per seleccionar el mode d&apos;espaiat</translation>
     </message>
 </context>
 <context>
@@ -15615,7 +15659,7 @@ i un valor positiu el farà convex</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Localització de l&apos;interpret de Ghostcript</translation>
+        <translation type="obsolete">Localització de l&apos;interpret de Ghostcript</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -15968,6 +16012,10 @@ s&apos;estigui executant.</translation>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="obsolete">Una forma d&apos;apagar algunes de les intensitats de gris que estan composades per cian, groc i magenta fent servir negre. El UCD afecta parts de les imatges que són neutrals i/o tons foscos que són propers a gris. Fer servir això pot millorar la impressió d&apos;algunes imatges pero cal una mica d&apos;experimentació i proves per obtenir resultats bons. El UCR redueix la possibilitat de sobresaturació de tintes CMY.</translation>
+    </message>
+    <message>
+        <source>Filesystem location for the Ghostscript interpreter.</source>
+        <translation>Localització de l&apos;intèrpret de Ghostscript.</translation>
     </message>
 </context>
 <context>
@@ -18640,6 +18688,10 @@ detallades exhaustivament per les funcions cridades.</translation>
     <message>
         <source>Luxembourgish</source>
         <translation>Luxemburgès</translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation>Japonès</translation>
     </message>
 </context>
 <context>
@@ -21471,6 +21523,10 @@ Desplaçament vertical: %3</translation>
         <source>Do you really want to replace your existing image?</source>
         <translation>Realment vols remplaçar la imatge?</translation>
     </message>
+    <message>
+        <source>Contents</source>
+        <translation>Contingut</translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -21748,6 +21804,10 @@ Desplaçament vertical: %3</translation>
     <message>
         <source>Grayscale</source>
         <translation>Escala de grisos</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation>Contingut</translation>
     </message>
 </context>
 <context>
@@ -23759,7 +23819,7 @@ preservarà la distribució i l&apos;apariència del teu document .</translation
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation>Temps en que la pàgina es mostrarà abans de que la presentació comenci en la pàgina actual.</translation>
+        <translation type="obsolete">Temps en que la pàgina es mostrarà abans de que la presentació comenci en la pàgina actual.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
@@ -24201,6 +24261,10 @@ quan el PDF s&apos;obri:</translation>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
         <translation>No mostrar els objectes fora dels marges en la exportació</translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
+        <translation>Temps en que la pàgina actual es veurà abans que comenci la presentació. Posar un 0 desactivarà en canvi automàtic de pàgines.</translation>
     </message>
 </context>
 <context>
