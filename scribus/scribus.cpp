@@ -5682,6 +5682,11 @@ void ScribusMainWindow::DeletePage2(int pg)
 	}
 	if (doc->m_Selection->count() != 0)
 		doc->itemSelection_DeleteItem();
+	Page *page = doc->Pages->at(pg); // need to remove guides too to get their undo/redo actions working
+	for (uint i = 0; i < page->YGuides.count(); ++i)
+		page->removeYGuide(static_cast<int>(i));
+	for (uint i = 0; i < page->XGuides.count(); ++i)
+		page->removeXGuide(static_cast<int>(i));
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::DeletePage, "", Um::ICreate);
@@ -5750,6 +5755,11 @@ void ScribusMainWindow::DeletePage(int from, int to)
 				doc->m_Selection->addItem(ite);
 			}
 		}
+		Page *page = doc->Pages->at(a); // need to remove guides too to get their undo/redo actions working
+		for (uint i = 0; i < page->YGuides.count(); ++i)
+			page->removeYGuide(static_cast<int>(i));
+		for (uint i = 0; i < page->XGuides.count(); ++i)
+			page->removeXGuide(static_cast<int>(i));
 	}
 	if (doc->m_Selection->count() != 0)
 		doc->itemSelection_DeleteItem();
