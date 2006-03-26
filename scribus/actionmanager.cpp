@@ -751,7 +751,7 @@ void ActionManager::disconnectNewSelectionActions()
 	disconnect( (*scrActions)["editClearContents"], 0, 0, 0);
 }
 
-void ActionManager::connectNewSelectionActions(ScribusView *currView, ScribusDoc* currDoc)
+void ActionManager::connectNewSelectionActions(ScribusView */*currView*/, ScribusDoc* currDoc)
 {
 	connect( (*scrActions)["itemImageIsVisible"], SIGNAL(toggled(bool)), currDoc, SLOT(itemSelection_ToggleImageShown()) );
 	connect( (*scrActions)["itemPreviewLow"], SIGNAL(activatedData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
