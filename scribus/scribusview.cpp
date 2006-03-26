@@ -6650,7 +6650,7 @@ void ScribusView::RotateItem(double win, PageItem *currItem)
 		ma.rotate(currItem->rotation());
 		double ro = win-currItem->rotation();
 		currItem->setRotation(win);
-		FPoint n;
+		FPoint n(0,0);
 		switch (Doc->RotMode)
 		{
 		case 2:
