@@ -4948,7 +4948,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			if (currItem==NULL)
 				break;
 			SeleItem(m);
-			if (GetItem(&bb))
+			if (GetItem(&bb) && (bb->asTextFrame()))
 			{
 				if ((bb->itemText.count() == 0) && (bb->NextBox == 0) && (bb->BackBox == 0) && (currItem != bb))
 				{
@@ -4980,7 +4980,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			break;
 		case modeUnlinkFrames:
 			SeleItem(m);
-			if (GetItem(&currItem))
+			if (GetItem(&currItem) && (currItem->asTextFrame()))
 			{
 				if (currItem->BackBox != 0)
 				{
