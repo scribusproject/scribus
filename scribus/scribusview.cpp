@@ -8538,7 +8538,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 		double sca = Scale;
 		bool frs = Doc->guidesSettings.framesShown;
 		Doc->guidesSettings.framesShown = false;
-		setScale(sc);
+		Scale = sc;
 		previewMode = true;
 		Page* act = Doc->currentPage;
 		Doc->currentPage = Doc->Pages->at(Nr);
@@ -8554,7 +8554,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 		painter->end();
 		Doc->guidesSettings.framesShown = frs;
-		setScale(sca);
+		Scale = sca;
 		Doc->currentPage = act;
 /*		double sx = pm.width() / static_cast<double>(maxGr);
 		double sy = pm.height() / static_cast<double>(maxGr);
