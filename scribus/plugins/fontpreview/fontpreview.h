@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
 
 class PrefsContext;
 class SampleItem;
-class QTimer;
 
 
 /*! \brief Main window for "Font Preview" plugin. It's only gui.
@@ -98,7 +97,6 @@ protected slots:
 	void sizeSpin_valueChanged( int );
 	void cancelButton_clicked();
 	void okButton_clicked();
-	void timeout();
 };
 
 #endif // FONTPREVIEW_H
