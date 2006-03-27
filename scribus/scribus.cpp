@@ -5702,6 +5702,7 @@ void ScribusMainWindow::DeletePage2(int pg)
 		ss->set("DUMMY_ID", id);
 		undoManager->action(this, ss);
 	}
+	undoManager->setUndoEnabled(false);
 	if (doc->masterPageMode())
 		doc->deleteMasterPage(pg);
 	else
@@ -5719,6 +5720,7 @@ void ScribusMainWindow::DeletePage2(int pg)
 	scrActions["pageMove"]->setEnabled(setter);
 	slotDocCh();
 	pagePalette->RebuildPage();
+	undoManager->setUndoEnabled(true);
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
 }
@@ -5780,6 +5782,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 			ss->set("DUMMY_ID", id);
 			undoManager->action(this, ss);
 		}
+		undoManager->setUndoEnabled(false);
 		if (doc->masterPageMode())
 			doc->deleteMasterPage(a);
 		else
@@ -5789,7 +5792,9 @@ void ScribusMainWindow::DeletePage(int from, int to)
 		view->pageSelector->GotoPg(0);
 		connect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
 		doc->removePageFromSection(a);
+		undoManager->setUndoEnabled(true);
 	}
+	undoManager->setUndoEnabled(false);
 	view->reformPages();
 	view->DrawNew();
 //	doc->OpenNodes.clear();
@@ -5799,6 +5804,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 	scrActions["pageMove"]->setEnabled(setter);
 	slotDocCh();
 	pagePalette->RebuildPage();
+	undoManager->setUndoEnabled(true);
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
 }
