@@ -170,6 +170,9 @@ bool ScriptPlugin::initPlugin()
 
 	scripterCore = new ScripterCore(ScMW);
 	Q_CHECK_PTR(scripterCore);
+	// PV - FIXME: possible fix for crashing
+	RetString = " ";
+	Q_ASSERT(RetString);
 	initscribus(ScMW);
 #ifdef HAVE_SCRIPTER2
 	scripter2_init();
