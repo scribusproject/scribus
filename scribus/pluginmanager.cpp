@@ -144,8 +144,12 @@ void PluginManager::initPlugs()
 	Q_ASSERT(!pluginMap.count());
 	QString libPattern = QString("*.%1*").arg(platformDllExtension());
 
+	/*! \note QDir::Reversed is there due the Mac plugin dependency.
+	barcode depends on psimport. and load on that platform expect the
+	psimp before barcode. TODO: this has to be rewritten into common
+	and elegant dependency tree. PV */
 	QDir dirList(ScPaths::instance().pluginDir(),
-				 libPattern, QDir::Name,
+				 libPattern, QDir::Name | QDir::Reversed,
 				 QDir::Files | QDir::Executable | QDir::NoSymLinks);
 
 	if ((dirList.exists()) && (dirList.count() != 0))
