@@ -5702,7 +5702,6 @@ void ScribusMainWindow::DeletePage2(int pg)
 		ss->set("DUMMY_ID", id);
 		undoManager->action(this, ss);
 	}
-	undoManager->setUndoEnabled(false);
 	if (doc->masterPageMode())
 		doc->deleteMasterPage(pg);
 	else
@@ -5711,7 +5710,9 @@ void ScribusMainWindow::DeletePage2(int pg)
 	view->pageSelector->setMaxValue(doc->Pages->count());
 	view->pageSelector->GotoPg(0);
 	connect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
+	undoManager->setUndoEnabled(false); // ugly hack to prevent object moving when undoing page deletion
 	view->reformPages();
+	undoManager->setUndoEnabled(true); // ugly hack continues
 	view->DrawNew();
 	doc->OpenNodes.clear();
 	outlinePalette->BuildTree();
@@ -5720,7 +5721,6 @@ void ScribusMainWindow::DeletePage2(int pg)
 	scrActions["pageMove"]->setEnabled(setter);
 	slotDocCh();
 	pagePalette->RebuildPage();
-	undoManager->setUndoEnabled(true);
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
 }
@@ -5794,6 +5794,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 	}
 	undoManager->setUndoEnabled(false); // ugly hack to disable object moving when undoing page deletion
 	view->reformPages();
+	undoManager->setUndoEnabled(true); // ugly hack continues
 	view->DrawNew();
 //	doc->OpenNodes.clear();
 	outlinePalette->BuildTree();
@@ -5802,7 +5803,6 @@ void ScribusMainWindow::DeletePage(int from, int to)
 	scrActions["pageMove"]->setEnabled(setter);
 	slotDocCh();
 	pagePalette->RebuildPage();
-	undoManager->setUndoEnabled(true); // ugly hack to disable object moving when undoing page deletion
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
 }
