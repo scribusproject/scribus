@@ -53,8 +53,8 @@ PythonConsole::PythonConsole( QWidget* parent)
 	fileMenu->insertItem(loadIcon("exit.png"), tr("&Exit"), this, SLOT(slot_quit()));
 	menuBar->insertItem(tr("&File"), fileMenu);
 	QPopupMenu *scriptMenu = new QPopupMenu(this);
-	scriptMenu->insertItem(loadIcon("ok.png"), tr("&Run"), this, SLOT(slot_runScript()), Key_F9);
-	scriptMenu->insertItem(tr("Run As &Console"), this, SLOT(slot_runScriptAsConsole()), Key_F2);
+	scriptMenu->insertItem(loadIcon("ok.png"), tr("&Run"), this, SLOT(slot_runScript()));
+	scriptMenu->insertItem(tr("Run As &Console"), this, SLOT(slot_runScriptAsConsole()));
 	scriptMenu->insertItem(tr("&Save Output..."), this, SLOT(slot_saveOutput()));
 	menuBar->insertItem(tr("&Script"), scriptMenu);
 
