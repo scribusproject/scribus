@@ -85,6 +85,11 @@ PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
+	if (!ScMW->doc->MasterNames.contains(name))
+	{
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Given master page name does not match any existing.","python error"));
+		return NULL;
+	}
 	if (e < 0)
 		ScMW->slotNewPageP(ScMW->doc->Pages->count(), QString::fromUtf8(name));
 	else
