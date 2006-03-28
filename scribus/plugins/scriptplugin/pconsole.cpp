@@ -144,22 +144,22 @@ void PythonConsole::slot_runScriptAsConsole()
 	commandEdit->clear();
 	// content is destroyed. This is to prevent overwritting
 	filename = QString::null;
-	outputEdit->append("\n>>> " + command);
+	outputEdit->append("\n>>> " + m_command);
 	emit runCommand();
 }
 
 void PythonConsole::parsePythonString()
 {
 	if (commandEdit->hasSelectedText())
-		command = commandEdit->selectedText();
+		m_command = commandEdit->selectedText();
 	else
 	{
 		commandEdit->selectAll(true);
-		command = commandEdit->selectedText();
+		m_command = commandEdit->selectedText();
 		commandEdit->selectAll(false);
 	}
 	// prevent user's wrong selection
-	command += '\n';
+	m_command += '\n';
 }
 
 /*

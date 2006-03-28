@@ -38,13 +38,6 @@ extern ScripterCore* scripterCore;
 /** @brief Initialize the 'scribus' Python module in the currently active interpreter */
 extern "C" void initscribus(ScribusMainWindow *pl);
 
-/** @brief String representation of result returned by last python console command */
-extern QString RetString;
-/** @brief String representation of line of code to be passed to the Python interactive interpreter */
-extern QString InValue;
-/** @brief Wish I knew, too... */
-extern int RetVal;
-
 /* Exceptions */
 /*! Common scribus Exception */
 extern PyObject* ScribusException;

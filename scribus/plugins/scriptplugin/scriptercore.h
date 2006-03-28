@@ -24,12 +24,17 @@ public:
 	ScripterCore(QWidget* parent);
 	~ScripterCore();
 
+	/** @brief String representation of result returned by last python console command */
+	QString returnString;
+	/** @brief String representation of line of code to be passed to the Python interactive interpreter */
+	QString inValue;
+
 public slots:
 	void runScriptDialog();
 	void StdScript(QString filebasename);
 	void RecentScript(QString fn);
 	void slotRunScriptFile(QString fileName, bool inMainInterpreter = false);
-	QString slotRunScript(QString Script);
+	void slotRunScript(const QString Script);
 	void slotInteractiveScript(bool);
 	void slotExecute();
 	/*! \brief Show docstring of the script to the user.
@@ -63,8 +68,6 @@ protected:
 	//Internal members
 	//! \brief Reference to the "IDE" widget
 	PythonConsole *pcon;
-	int cons;
-	int about;
 	QStringList SavedRecentScripts;
 	QStringList RecentScripts;
 	MenuManager *menuMgr;

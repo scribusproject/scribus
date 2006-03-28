@@ -41,6 +41,7 @@ ScripterCore::ScripterCore(QWidget* parent)
 	menuMgr = ScMW->scrMenuMgr;
 	scrScripterActions.clear();
 	scrRecentScriptActions.clear();
+	returnString = "init";
 
 	scrScripterActions.insert("scripterExecuteScript", new ScrAction(QObject::tr("&Execute Script..."), QKeySequence(), this, "scripterExecuteScript"));
 	scrScripterActions.insert("scripterShowConsole", new ScrAction(QObject::tr("Show &Console"), QKeySequence(), this, "scripterShowConsole"));
@@ -367,49 +368,44 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 	ScMW->ScriptRunning = false;
 }
 
-QString ScripterCore::slotRunScript(QString Script)
+void ScripterCore::slotRunScript(const QString Script)
 {
 	ScMW->ScriptRunning = true;
-	qApp->setOverrideCursor(QCursor(waitCursor), false);
-	InValue = Script;
-	QString CurDir = QDir::currentDirPath();
-	QString cm(
-			"# -*- coding: utf8 -*- \n"
-//			"try:\n"
-			);
-	if(PyThreadState_Get() != NULL)
+	inValue = Script;
+	QString cm;
+	cm = "# -*- coding: utf8 -*- \n";
+	if (PyThreadState_Get() != NULL)
 	{
 		initscribus(ScMW);
-		if (RetVal == 0)
-			cm += (
-				"scribus._bu = cStringIO.StringIO()\n"
-				"sys.stdout = scribus._bu\n"
-				"sys.stderr = scribus._bu\n"
-				);
 		/* HACK: following loop handles all input line by line.
 		It *should* use I.C. because of docstrings etc. I.I. cannot
 		handle docstrings right.
 		Calling all code in one command:
 		ia = code.InteractiveInterpreter() ia.runsource(getval())
-		works fine in plain Python. Not here. WTF?
-		*/
-		cm += (
+		works fine in plain Python. Not here. WTF? */
+		cm += ("import cStringIO\n"
+				"scribus._bu = cStringIO.StringIO()\n"
+				"sys.stdout = scribus._bu\n"
+				"sys.stderr = scribus._bu\n"
+				"sys.argv = ['scribus', 'ext']\n" // this is the PySys_SetArgv replacement
 				"for i in scribus.getval().splitlines():\n"
 				"    scribus._ia.push(i)\n"
-				"scribus.retval(scribus._bu.getvalue(), 0)\n"
-//				"finally:\n"
+				"scribus.retval(scribus._bu.getvalue())\n"
 				"sys.stdout = sys.__stdout__\n"
-				"sys.stderr = sys.__stderr__\n"
-			  );
+				"sys.stderr = sys.__stderr__\n");
 	}
-	QCString cmd = cm.utf8();
 	// Set up sys.argv
+	/* PV - WARNING: THIS IS EVIL! This code summons a crash - see
+	bug #3510. I don't know why as the Python C API is a little
+	bit magic for me. It looks like it replaces the cm QString or what...
+	"In file tools/qgarray.cpp, line 147: Out of memory"
+	Anyway - sys.argv is set above
 	char* comm[1];
 	comm[0] = const_cast<char*>("scribus");
 	// the scripter console runs everything in the main interpreter
 	// tell the code it's running there.
 	comm[1] = const_cast<char*>("ext");
-	PySys_SetArgv(2, comm);
+	PySys_SetArgv(2, comm); */
 	// then run the code
 	PyObject* m = PyImport_AddModule((char*)"__main__");
 	if (m == NULL)
@@ -417,7 +413,7 @@ QString ScripterCore::slotRunScript(QString Script)
 	else
 	{
 		PyObject* globals = PyModule_GetDict(m);
-		PyObject* result = PyRun_String(cmd.data(), Py_file_input, globals, globals);
+		PyObject* result = PyRun_String(cm.utf8().data(), Py_file_input, globals, globals);
 		if (result == NULL)
 		{
 			PyErr_Print();
@@ -428,8 +424,6 @@ QString ScripterCore::slotRunScript(QString Script)
 		}
 	}
 	ScMW->ScriptRunning = false;
-	qApp->restoreOverrideCursor();
-	return RetString;
 }
 
 void ScripterCore::slotInteractiveScript(bool visible)
@@ -444,7 +438,8 @@ void ScripterCore::slotInteractiveScript(bool visible)
 
 void ScripterCore::slotExecute()
 {
-	pcon->outputEdit->append(slotRunScript(pcon->command));
+	slotRunScript(pcon->command());
+	pcon->outputEdit->append(returnString);
 	pcon->commandEdit->ensureCursorVisible();
 	FinishScriptRun();
 }

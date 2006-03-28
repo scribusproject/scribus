@@ -42,8 +42,9 @@ class PythonConsole : public QWidget
 		PythonConsole( QWidget* parent = 0);
 		~PythonConsole();
 
-		//! String with the script to run (part of the all text)
-		QString command;
+		/*! \brief The command string
+		\retval QString with prepared Python commands */
+		QString command() { return m_command; };
 		//! File name for saving the contents
 		QString filename;
 
@@ -77,6 +78,8 @@ class PythonConsole : public QWidget
 		QGridLayout* gridLayout;
 		QVBoxLayout* editorsLayout;
 		QMenuBar* menuBar;
+		//! String with the script to run (part of the all text)
+		QString m_command;
 
 	protected slots:
 		virtual void languageChange();

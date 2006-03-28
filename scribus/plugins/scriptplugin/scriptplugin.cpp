@@ -89,11 +89,6 @@ PyObject* wrappedMainWindow;
 PyObject* wrappedQApp;
 ScripterCore* scripterCore;
 
-// Variables used to pass data between the interpreter and
-// Scribus by the console.
-QString RetString;
-QString InValue;
-int RetVal;
 
 int scriptplugin_getPluginAPIVersion()
 {
@@ -166,13 +161,9 @@ bool ScriptPlugin::initPlugin()
 		qDebug("Failed to set default encoding to utf-8.\n");
 		PyErr_Clear();
 	}
-	RetVal = 0;
 
 	scripterCore = new ScripterCore(ScMW);
 	Q_CHECK_PTR(scripterCore);
-	// PV - FIXME: possible fix for crashing
-	RetString = " ";
-	Q_ASSERT(RetString);
 	initscribus(ScMW);
 #ifdef HAVE_SCRIPTER2
 	scripter2_init();
@@ -224,24 +215,23 @@ void run()
 static PyObject *scribus_retval(PyObject* /*self*/, PyObject* args)
 {
 	char *Name = NULL;
-	int retV = 0;
-	if (!PyArg_ParseTuple(args, (char*)"si", &Name, &retV))
+	if (!PyArg_ParseTuple(args, (char*)"s", &Name))
 		return NULL;
 	// Because sysdefaultencoding is not utf-8, Python is returning utf-8 encoded
 	// 8-bit char* strings. Make sure Qt understands that the input is utf-8 not
 	// the default local encoding (usually latin-1) by using QString::fromUtf8()
-	RetString = QString::fromUtf8(Name);
-	RetVal = retV;
+	/*RetString = QString::fromUtf8(Name);
+	RetVal = retV;*/
+	scripterCore->returnString = QString::fromUtf8(Name);
 	return PyInt_FromLong(0L);
 }
 
 static PyObject *scribus_getval(PyObject* /*self*/)
 {
-	return PyString_FromString(InValue.utf8().data());
+	return PyString_FromString(scripterCore->inValue.utf8().data());
 }
 
-/*!
- * Translate a docstring. Small helper function for use with the
+/*! \brief Translate a docstring. Small helper function for use with the
  * PyMethodDef struct.
  */
 char* tr(const char* docstringConstant)
@@ -448,7 +438,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getChildren"), (PyCFunction)scribus_getchildren, METH_KEYWORDS, tr(scribus_getchildren__doc__)},
 	{const_cast<char*>("getChild"), (PyCFunction)scribus_getchild, METH_KEYWORDS, tr(scribus_getchild__doc__)},
 	// Internal methods - Not for public use
-	{const_cast<char*>("retval"), scribus_retval, METH_VARARGS, const_cast<char*>("Scribus internal.")},
+	{const_cast<char*>("retval"), (PyCFunction)scribus_retval, METH_VARARGS, const_cast<char*>("Scribus internal.")},
 	{const_cast<char*>("getval"), (PyCFunction)scribus_getval, METH_NOARGS, const_cast<char*>("Scribus internal.")},
 	{NULL, (PyCFunction)(0), 0, NULL} /* sentinel */
 };
