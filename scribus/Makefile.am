@@ -226,7 +226,7 @@ DISTCLEANFILES = $(scribus_METASOURCES)
 KDE_OPTIONS = qtonly
 
 AM_CPPFLAGS = \
-    -DDOCDIR=\"$(datadir)/scribus/doc/\" \
+    -DDOCDIR=\"$(datadir)/doc/scribus-$(VERSION)/\" \
     -DICONDIR=\"$(datadir)/scribus/icons/\" \
     -DSAMPLESDIR=\"$(datadir)/scribus/samples/\" \
     -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \

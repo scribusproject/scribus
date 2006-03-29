@@ -22,7 +22,7 @@ AM_LDFLAGS =  $(linkflag) -Xlinker $(PYTHONLIB) $(LIBPYTHON)
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus $(PYTHONINC) \
-    -DDOCDIR=\"$(datadir)/scribus/doc/\" \
+    -DDOCDIR=\"$(datadir)/doc/scribus-$(VERSION)/\" \
     -DICONDIR=\"$(datadir)/scribus/icons/\" \
     -DSAMPLESDIR=\"$(datadir)/scribus/samples/\" \
     -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \

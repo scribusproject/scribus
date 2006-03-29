@@ -20,7 +20,7 @@ AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS)
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus \
-    -DDOCDIR=\"$(datadir)/scribus/doc/\" \
+    -DDOCDIR=\"$(datadir)/doc/scribus-$(VERSION)/\" \
     -DICONDIR=\"$(datadir)/scribus/icons/\" \
     -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
     -DLIBDIR=\"$(libdir)/scribus/\" \
