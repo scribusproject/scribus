@@ -159,9 +159,10 @@ void BibView::ReadOldContents(QString name, QString newName)
 	if (!loadText(name, &f))
 		return;
 	QString ff = "";
-	if (f.startsWith("<SCRIBUSSCRAPUTF8"))
-		ff = QString::fromUtf8(f);
-	else
+	// these were corrupting the scrapbook entries, removed and works ok now, Riku
+// 	if (f.startsWith("<SCRIBUSSCRAPUTF8"))
+// 		ff = QString::fromUtf8(f);
+// 	else
 		ff = f;
 	if(!docu.setContent(ff))
 		return;
@@ -606,14 +607,17 @@ void Biblio::ObjFromMenu(QString text)
 	delete dia;
 	tmp = text;
 	QString ff = "";
-	if (tmp.startsWith("<SCRIBUSELEMUTF8"))
-		ff = QString::fromUtf8(tmp);
-	else
+	// these were corrupting the encoding, by removing it should be now ok, we'll see, Riku
+// 	if (tmp.startsWith("<SCRIBUSELEMUTF8"))
+// 		ff = QString::fromUtf8(tmp);
+// 	else
 		ff = tmp;
 	QFile f(QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam + ".sce")));
 	if(!f.open(IO_WriteOnly))
 		return ;
-	QTextStream s(&f);
+	QTextStream s;
+	s.setEncoding(QTextStream::UnicodeUTF8);
+	s.setDevice(&f);
 	s.writeRawBytes(ff, ff.length());
 	f.close();
 	ScPreview *pre = new ScPreview();
