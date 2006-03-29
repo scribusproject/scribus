@@ -62,7 +62,7 @@ dist-hook:
 	cd $(top_distdir) && $(MAKE) -f admin/Makefile.common subdirs
 
 AM_CPPFLAGS = \
-    -DDOCDIR=\"$(datadir)/scribus/doc/\" \
+    -DDOCDIR=\"$(datadir)/doc/scribus-$(VERSION)/\" \
     -DICONDIR=\"$(datadir)/scribus/icons/\" \
     -DSAMPLESDIR=\"$(datadir)/scribus/samples/\" \
     -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \
@@ -78,15 +78,15 @@ AM_CPPFLAGS = \
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share
 	$(mkinstalldirs) $(prefix)/share/scribus
-	$(mkinstalldirs) $(prefix)/share/scribus/doc
-	$(INSTALL_DATA) $(top_srcdir)/AUTHORS $(prefix)/share/scribus/doc/AUTHORS
-	$(INSTALL_DATA) $(top_srcdir)/BUILDING $(prefix)/share/scribus/doc/BUILDING
-	$(INSTALL_DATA) $(top_srcdir)/ChangeLogCVS $(prefix)/share/scribus/doc/ChangeLogCVS
-	$(INSTALL_DATA) $(top_srcdir)/ChangeLog $(prefix)/share/scribus/doc/ChangeLog
-	$(INSTALL_DATA) $(top_srcdir)/COPYING $(prefix)/share/scribus/doc/COPYING
-	$(INSTALL_DATA) $(top_srcdir)/INSTALL $(prefix)/share/scribus/doc/INSTALL
-	$(INSTALL_DATA) $(top_srcdir)/NEWS $(prefix)/share/scribus/doc/NEWS
-	$(INSTALL_DATA) $(top_srcdir)/PACKAGING $(prefix)/share/scribus/doc/PACKAGING
-	$(INSTALL_DATA) $(top_srcdir)/README.MacOSX $(prefix)/share/scribus/doc/README.MacOSX
-	$(INSTALL_DATA) $(top_srcdir)/README $(prefix)/share/scribus/doc/README
-	$(INSTALL_DATA) $(top_srcdir)/TODO $(prefix)/share/scribus/doc/TODO
+	$(mkinstalldirs) $(prefix)/share/doc/scribus-$(VERSION)
+	$(INSTALL_DATA) $(top_srcdir)/AUTHORS $(prefix)/share/doc/scribus-$(VERSION)/AUTHORS
+	$(INSTALL_DATA) $(top_srcdir)/BUILDING $(prefix)/share/doc/scribus-$(VERSION)/BUILDING
+	$(INSTALL_DATA) $(top_srcdir)/ChangeLogCVS $(prefix)/share/doc/scribus-$(VERSION)/ChangeLogCVS
+	$(INSTALL_DATA) $(top_srcdir)/ChangeLog $(prefix)/share/doc/scribus-$(VERSION)/ChangeLog
+	$(INSTALL_DATA) $(top_srcdir)/COPYING $(prefix)/share/doc/scribus-$(VERSION)/COPYING
+	$(INSTALL_DATA) $(top_srcdir)/INSTALL $(prefix)/share/doc/scribus-$(VERSION)/INSTALL
+	$(INSTALL_DATA) $(top_srcdir)/NEWS $(prefix)/share/doc/scribus-$(VERSION)/NEWS
+	$(INSTALL_DATA) $(top_srcdir)/PACKAGING $(prefix)/share/doc/scribus-$(VERSION)/PACKAGING
+	$(INSTALL_DATA) $(top_srcdir)/README.MacOSX $(prefix)/share/doc/scribus-$(VERSION)/README.MacOSX
+	$(INSTALL_DATA) $(top_srcdir)/README $(prefix)/share/doc/scribus-$(VERSION)/README
+	$(INSTALL_DATA) $(top_srcdir)/TODO $(prefix)/share/doc/scribus-$(VERSION)/TODO

@@ -8,7 +8,7 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/keysets/scribus13.ksxml
 
 AM_CPPFLAGS = \
-    -DDOCDIR=\"$(datadir)/scribus/doc/\" \
+    -DDOCDIR=\"$(datadir)/doc/scribus-$(VERSION)/\" \
     -DICONDIR=\"$(datadir)/scribus/icons/\" \
     -DSAMPLESDIR=\"$(datadir)/scribus/samples/\" \
     -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \

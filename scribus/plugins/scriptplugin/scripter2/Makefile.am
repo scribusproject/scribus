@@ -50,7 +50,7 @@ AM_LDFLAGS = $(PYTHONLIB) $(LIBPYTHON) $(MODULE_LINK_FLAGS) $(BOOST_PYTHON_LDFLA
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus $(PYTHONINC) \
     -I$(top_builddir)/scribus/plugins/scriptplugin \
-    -DDOCDIR=\"$(datadir)/scribus/doc/\" \
+    -DDOCDIR=\"$(datadir)/doc/scribus-$(VERSION)/\" \
     -DICONDIR=\"$(datadir)/scribus/icons/\" \
     -DSAMPLESDIR=\"$(datadir)/scribus/samples/\" \
     -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \

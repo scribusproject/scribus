@@ -10,7 +10,7 @@ EXTRA_DIST = svgexplugin.cpp svgexplugin.h
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus \
-    -DDOCDIR=\"$(datadir)/scribus/doc/\" \
+    -DDOCDIR=\"$(datadir)/doc/scribus-$(VERSION)/\" \
     -DICONDIR=\"$(datadir)/scribus/icons/\" \
     -DSAMPLESDIR=\"$(datadir)/scribus/samples/\" \
     -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \
