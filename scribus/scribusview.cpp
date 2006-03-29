@@ -896,10 +896,12 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 	if (QTextDrag::decode(e, text))
 	{
 		double gx, gy, gw, gh;
+		/*<< #3524
 		setActiveWindow();
 		raise();
 		ScMW->newActWin(Doc->WinHan);
 		updateContents();
+		>>*/
 //		SeleItemPos(e->pos());
 		QUrl ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
@@ -1009,6 +1011,12 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	int ey = qRound(e->pos().y()/Scale + Doc->minCanvasCoordinate.y());
 	if (QTextDrag::decode(e, text))
 	{
+		//<<#3524
+		setActiveWindow();
+		raise();
+		ScMW->newActWin(Doc->WinHan);
+		updateContents();
+		//>>
 		QUrl ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
 		QString ext = fi.extension(false).upper();
