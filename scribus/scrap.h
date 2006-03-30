@@ -82,6 +82,7 @@ private slots:
 	void SaveAs();
 	void closeLib();
 	void libChanged(QWidget *lib);
+	void Import();
 
 protected:
 //	QMap<QString, QGuardedPtr<ScrAction> > scrapbookActions;
@@ -99,6 +100,7 @@ protected:
 	int fSave;
 	int fSaveAs;
 	int fClose;
+	int fImport;
 };
 
 #endif // BIBLIO_H

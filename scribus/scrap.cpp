@@ -266,6 +266,9 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	fNew = fmenu->insertItem(loadIcon("DateiNeu16.png"), "", this, SLOT(NewLib()), CTRL+Key_N);
 	fLoad = fmenu->insertItem(loadIcon("DateiOpen16.png"), "", this, SLOT(Load()), CTRL+Key_O);
 	fSaveAs = fmenu->insertItem( loadIcon("DateiSave16.png"), "", this, SLOT(SaveAs()));
+	fmenu->insertSeparator();
+	fImport = fmenu->insertItem("", this, SLOT(Import()));
+	fmenu->insertSeparator();
 	fClose = fmenu->insertItem(loadIcon("DateiClos16.png"), "", this, SLOT(closeLib()));
 	menuBar = new QMenuBar(this);
 	mFile=menuBar->insertItem( "", fmenu);
@@ -415,6 +418,29 @@ void Biblio::Load()
 		connect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
 		connect(activeBView, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
 		connect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
+	}
+}
+
+void Biblio::Import()
+{
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	QString s = QFileDialog::getOpenFileName(dirs->get("old_scrap_load", "."),
+	                                         tr("Scrapbook (*.scs)"),
+	                                         this,
+	                                         "open file dialog",
+	                                         tr("Choose a scrapbook file to import"));
+	
+	if (!s.isEmpty())
+	{
+		dirs->set("old_scrap_load", s.left(s.findRev(QDir::convertSeparators("/"))));
+		
+		QString scrapbookFileO = s;
+		QFileInfo scrapbookFileInfoO = QFileInfo(scrapbookFileO);
+		if (scrapbookFileInfoO.exists())
+		{
+			readOldContents(scrapbookFileO, activeBView->ScFilename);
+			readContents(activeBView->ScFilename);
+		}
 	}
 }
 
@@ -638,4 +664,5 @@ void Biblio::languageChange()
 	fmenu->changeItem(fLoad, tr("&Load..."));
 	fmenu->changeItem(fSaveAs, tr("Save &As..."));
 	fmenu->changeItem(fClose, tr("&Close"));
+	fmenu->changeItem(fImport, tr("&Import Scrapbook File..."));
 }
