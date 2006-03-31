@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include <prefsfile.h>
 #include <prefscontext.h>
+#include "mspinbox.h"
 
 #include "commonstrings.h"
 
@@ -80,7 +81,7 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	DPIBox->setMinValue( 72 );
 	DPIBox->setValue(size);
 	groupBox1Layout->addWidget( DPIBox, 2, 1 );
-	EnlargementBox = new QSpinBox( groupBox1, "EnlargementBox" );
+	EnlargementBox = new MSpinBox( groupBox1, 1 );
 	EnlargementBox->setMaxValue( 2400 );
 	EnlargementBox->setMinValue( 1 );
 	EnlargementBox->setValue(size);

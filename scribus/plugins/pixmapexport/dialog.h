@@ -22,6 +22,7 @@ class QLineEdit;
 class QPushButton;
 class QSpinBox;
 class PrefsContext;
+class MSpinBox;
 
 class ExportForm : public QDialog
 {
@@ -44,7 +45,7 @@ public:
     QComboBox* BitmapType;
     QSpinBox* QualityBox;
     QSpinBox* DPIBox;
-	QSpinBox* EnlargementBox;
+	MSpinBox* EnlargementBox;
     QButtonGroup* ButtonGroup1;
     QRadioButton* OnePageRadio;
     QRadioButton* AllPagesRadio;
