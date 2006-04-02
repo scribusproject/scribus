@@ -1,5 +1,7 @@
 Scribus - 1.2.5cvs
 ==================
+- 0003537: [General] seemingly corrupt .sla file does not open in 1.2.4.1 stable (fschmid)
+- 0003509: [Build System] Move the docs to FHS compliant location (cbradney)
 - 0003486: [Usability] Splash Screen Displays in all Windows (cbradney)
 - 0003463: [Translation] Japanese Translation FIle for Scribus 1.2.3 (cbradney)
 - 0003181: [Import / Export] Exporting a PDF with a gradient in a text frame causes "Incorrect Shading Error" in Acrobat 5.x+ (fschmid)
