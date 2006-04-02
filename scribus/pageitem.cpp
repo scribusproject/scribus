@@ -1277,7 +1277,57 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						{
 						RTab = false;
 						TabCode = 0;
-						if (outs)
+						if ((hl->ch == QChar(13)) || (hl->ch == QChar(28)))
+							{
+							if (Doc->Vorlagen[absa].Ausri != 0)
+								{
+								EndX = CurX;
+								do
+									{
+									pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
+									pt2 = QPoint(qRound(EndX+RExtra), static_cast<int>(ceil(CurY-asce)));
+									EndX++;
+									}
+								while ((cl.contains(pf2.xForm(pt1))) && (cl.contains(pf2.xForm(pt2))) && (EndX+RExtra+lineCorr < ColBound.y()));
+								if (Doc->Vorlagen[absa].Ausri == 2)
+									OFs = EndX - CurX;
+								if (Doc->Vorlagen[absa].Ausri == 1)
+									OFs = (EndX - CurX) / 2;
+								if (Doc->Vorlagen[absa].Ausri == 3)
+									OFs = 0;
+								if (Doc->Vorlagen[absa].Ausri == 4)
+									{
+									aSpa = 0;
+									for (uint sof = 0; sof<LiList.count(); ++sof)
+										{
+										if ((LiList.at(sof)->Zeich == QChar(32)) || (LiList.at(sof)->Zeich == QChar(29)))
+											aSpa++;
+										}
+									if (aSpa != 0)
+										{
+										OFs2 = (EndX - CurX) / aSpa;
+										}
+									else
+										OFs2 = 0;
+									OFs = 0;
+									for (uint yof = 0; yof < LiList.count(); ++yof)
+										{
+										LiList.at(yof)->xco += OFs;
+										if ((LiList.at(yof)->Zeich == QChar(32)) || (LiList.at(yof)->Zeich == QChar(29)))
+											OFs += OFs2;
+										}
+									}
+								else
+									{
+									for (uint xof = 0; xof<LiList.count(); ++xof)
+										{
+										LiList.at(xof)->xco += OFs;
+										}
+									}
+									CurX = EndX;
+								}
+							}
+							else
 							{
 							if (LastSP != 0)  // Hier koenen auch andere Trennungen eingebaut werden
 								{
@@ -1364,56 +1414,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								{
 								a--;
 								BuPos--;
-								}
-							}
-						else
-							{
-							if (Doc->Vorlagen[absa].Ausri != 0)
-								{
-								EndX = CurX;
-								do
-									{
-									pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
-									pt2 = QPoint(qRound(EndX+RExtra), static_cast<int>(ceil(CurY-asce)));
-									EndX++;
-									}
-								while ((cl.contains(pf2.xForm(pt1))) && (cl.contains(pf2.xForm(pt2))) && (EndX+RExtra+lineCorr < ColBound.y()));
-								if (Doc->Vorlagen[absa].Ausri == 2)
-									OFs = EndX - CurX;
-								if (Doc->Vorlagen[absa].Ausri == 1)
-									OFs = (EndX - CurX) / 2;
-								if (Doc->Vorlagen[absa].Ausri == 3)
-									OFs = 0;
-								if (Doc->Vorlagen[absa].Ausri == 4)
-									{
-									aSpa = 0;
-									for (uint sof = 0; sof<LiList.count(); ++sof)
-										{
-										if ((LiList.at(sof)->Zeich == QChar(32)) || (LiList.at(sof)->Zeich == QChar(29)))
-											aSpa++;
-										}
-									if (aSpa != 0)
-										{
-										OFs2 = (EndX - CurX) / aSpa;
-										}
-									else
-										OFs2 = 0;
-									OFs = 0;
-									for (uint yof = 0; yof < LiList.count(); ++yof)
-										{
-										LiList.at(yof)->xco += OFs;
-										if ((LiList.at(yof)->Zeich == QChar(32)) || (LiList.at(yof)->Zeich == QChar(29)))
-											OFs += OFs2;
-										}
-									}
-								else
-									{
-									for (uint xof = 0; xof<LiList.count(); ++xof)
-										{
-										LiList.at(xof)->xco += OFs;
-										}
-									}
-									CurX = EndX;
 								}
 							}
 						uint BuPos3 = BuPos;
