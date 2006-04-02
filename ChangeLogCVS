@@ -1,0 +1,8 @@
+Scribus - 1.3.3.1cvs
+====================
+- 0003420: [Win32] Scribus is unable to load GhostScript (plinnell)
+- 0003546: [Story Editor / Text Frames] Sig11 when attempting to insert a smart hyphen into an empty text frame (cbradney)
+- 0003524: [Win32] scribus steals the focus when dragging files over scribus window (jghali)
+- 0003510: [Scripter] Crash in Scripter Console when using F2 to run in console in Russian (subik)
+- 0003130: [Scripter] newPage does load template, no error though (subik)
+- 0003523: [Shape Drawing] group command is disabled after multiple duplicae (cbradney)
