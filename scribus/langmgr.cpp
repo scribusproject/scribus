@@ -139,10 +139,13 @@ const QString LanguageManager::getAbbrevFromLang(QString lang, bool getTranslate
 	QMap<QString, langPair>::Iterator it;
 	for (it=langList.begin();it!=langList.end();++it)
 	{
-		if (getTranslated && it.data().second==lang)
-			return it.key();
-		if (!getTranslated && it.data().first==lang)
-			return it.key();
+		if (installedLangList.find(it.key()) != installedLangList.end())
+		{
+			if (getTranslated && it.data().second==lang)
+				return it.key();
+			if (!getTranslated && it.data().first==lang)
+				return it.key();
+		}
 	}
 	return "";	
 }
