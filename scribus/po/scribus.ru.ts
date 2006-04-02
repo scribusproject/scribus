@@ -11619,7 +11619,7 @@ External Links
     </message>
     <message>
         <source>Points (pt)</source>
-        <translation>Точки (pt)</translation>
+        <translation>Пункты (pt)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
