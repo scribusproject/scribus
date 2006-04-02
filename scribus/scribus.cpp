@@ -1166,9 +1166,12 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 					}
 					else if (actionName=="unicodeSmartHyphen") //ignore the char as we use an attribute if the text item, for now.
 					{
-						currItem->itemText.at(QMAX(currItem->CPos-1,0))->cstyle ^= 128;
-						currItem->Tinput = true;
-						view->RefreshItem(currItem);
+						if (currItem->CPos-1>0)
+						{
+							currItem->itemText.at(currItem->CPos-1)->cstyle ^= 128;
+							currItem->Tinput = true;
+							view->RefreshItem(currItem);
+						}
 					}
 				}
 			}
