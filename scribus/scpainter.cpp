@@ -60,7 +60,7 @@ for which a new license (GPL+exception) is in place.
 
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 #include <X11/Xlib.h>
-#include <pixbuf/gdk-pixbuf-xlibrgb.h>
+#include "pixbuf/gdk-pixbuf-xlibrgb.h"
 #endif
 
 #if defined(_WIN32) && defined(SC_USE_GDI)

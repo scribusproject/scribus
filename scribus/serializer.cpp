@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qtextcodec.h>
-#include <util.h>
+#include "util.h"
 
 Serializer::Serializer(QString name)
 {
