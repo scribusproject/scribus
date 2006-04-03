@@ -43,8 +43,7 @@ ScColorShade::ScColorShade( const ScColor& c, int level )
 
 ScColor ScColorShade::getShadedColor(void)
 {
- ScColor value;
-
+	ScColor value;
 	if( color.getColorModel() == colorModelRGB )
 	{
 		int r, g, b;
@@ -57,6 +56,5 @@ ScColor ScColorShade::getShadedColor(void)
 		color.getShadeColorCMYK( &c, &m, &y, &k, shade );
 		value.setColor( c, m, y, k );
 	}
-
 	return value;
 }
