@@ -40,8 +40,8 @@ class QTabWidget;
 class StyleItem : public QObject {
 	Q_OBJECT
 public:
-	StyleItem() : QObject() {};
-	virtual ~StyleItem() {};
+	StyleItem();
+	virtual ~StyleItem();
 
 	/** 
 	 * @brief return the QWidget for editing style's properties
@@ -97,8 +97,8 @@ public:
 
 private:
 	/* hide these two, StyleItem is not ment to be copied */
-	StyleItem(const StyleItem&) : QObject() {};
-	void operator=(const StyleItem&) {};
+	StyleItem(const StyleItem&);
+	void operator=(const StyleItem&);
 
 };
 

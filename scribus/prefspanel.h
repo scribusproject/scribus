@@ -23,9 +23,8 @@ class SCRIBUS_API PrefsPanel : public QWidget
 	Q_OBJECT
 
 	public:
-		PrefsPanel(QWidget* parent, const char* name)
-			: QWidget(parent, name, 0) {};
-		virtual ~PrefsPanel() {};
+		PrefsPanel(QWidget* parent, const char* name);
+		virtual ~PrefsPanel();
 
 	public slots:
 		/**

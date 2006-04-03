@@ -160,6 +160,7 @@ scribus_SOURCES = \
 	prefsdialogbase.cpp	\
 	prefsfile.cpp	\
 	prefsmanager.cpp	\
+	prefspanel.cpp	\
 	prefsreader.cpp	\
 	prefstable.cpp	\
 	preview.cpp	\
@@ -202,6 +203,7 @@ scribus_SOURCES = \
 	splash.cpp	\
 	stencilreader.cpp	\
 	story.cpp	\
+	styleitem.cpp \
 	stylemanager.cpp \
 	stylemanagerbase.ui \
 	styleselect.cpp	\
