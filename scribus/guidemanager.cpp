@@ -468,19 +468,26 @@ QValueList<double> GuideManager::getAutoRows()
 		offset = gy;
 		newPageHeight = gh;
 	}
-
-	double spacing = newPageHeight / n;
 	QValueList<double> values;
-	for (int i = 1; i < n; ++i)
+	double gapValue;
+	double rowSize;
+	if (useRowGap->isChecked())
+	{
+		gapValue = value2pts(rowGap->value(), ScMW->doc->unitIndex());
+		rowSize = (newPageHeight - (n - 1) * gapValue) / n;
+	}
+	else
+		rowSize = newPageHeight / n;
+	for (int i = 1, gapCount = 0; i < n; ++i)
 	{
 		if (useRowGap->isChecked())
 		{
-			double gapValue = value2pts(rowGap->value(), ScMW->doc->unitIndex());
-			values.append(offset + (spacing * i) + (gapValue / 2.0));
-			values.append(offset + (spacing * i) - (gapValue / 2.0));
+			values.append(offset + i * rowSize + gapCount * gapValue);
+			++gapCount;
+			values.append(offset + i * rowSize + gapCount * gapValue);
 		}
 		else
-			values.append(offset + (spacing * i));
+			values.append(offset + rowSize * i);
 	}
 	return values;
 }
@@ -510,18 +517,26 @@ QValueList<double> GuideManager::getAutoCols()
 		newPageWidth = gw;
 	}
 
-	double spacing = newPageWidth / n;
 	QValueList<double> values;
-	for (int i = 1; i < n; ++i)
+	double gapValue;
+	double columnSize;
+	if (useColGap->isChecked())
+	{
+		gapValue = value2pts(colGap->value(), ScMW->doc->unitIndex());
+		columnSize = (newPageWidth - (n - 1) * gapValue) / n;
+	}
+	else
+		columnSize = newPageWidth / n;
+	for (int i = 1, gapCount = 0; i < n; ++i)
 	{
 		if (useColGap->isChecked())
 		{
-			double gapValue = value2pts(colGap->value(), ScMW->doc->unitIndex());
-			values.append(offset + spacing * i + (gapValue / 2.0));
-			values.append(offset + spacing * i - (gapValue / 2.0));
+			values.append(offset + i * columnSize + gapCount * gapValue);
+			++gapCount;
+			values.append(offset + i * columnSize + gapCount * gapValue);
 		}
 		else
-			values.append(offset + spacing * i);
+			values.append(offset + columnSize * i);
 	}
 	return values;
 }
