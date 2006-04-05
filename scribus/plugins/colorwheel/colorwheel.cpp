@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 /* $Id$ */
 #include "colorwheel.h"
+#include "colorwheel.moc"
 #include "cwdialog.h"
 #include <qcursor.h>
 #include <qlistview.h>
