@@ -917,7 +917,7 @@ Returns a larger font info. It&apos;s a list of the tuples with:
 </source>
         <translation>getXFontNames() -&gt; list
 
-GIbt genaue Informationen zu einer Schriftart zurück mit den Werten:
+Gibt genaue Informationen zu einer Schrift zurück mit den Werten:
 [ (Name in Scribus, Familie, wirklicher Name, Subset (1|0), embed PS (1|0), Fontdatei), (...), ... ]</translation>
     </message>
     <message>
@@ -1602,8 +1602,8 @@ selected item is used.
 </source>
         <translation>getFont([&quot;name&quot;]) -&gt; string
 
-Gibt den Namen der Schriftart für den Textrahmen &quot;name&quot; zurück. Ist in
-dem Textfeld Text ausgewählt, wird die Schriftart des ersten gewählten
+Gibt den Namen der Schrift für den Textrahmen &quot;name&quot; zurück. Ist in
+dem Textfeld Text ausgewählt, wird die Schrift des ersten gewählten
 Zeichens angegeben. Ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt
 verwendet.</translation>
     </message>
@@ -1707,11 +1707,11 @@ May throw ValueError if the font cannot be found.
 </source>
         <translation>setFont(&quot;font&quot;, [&quot;name&quot;])
 
-Setzt die Schriftart für den Rahmen &quot;name&quot; auf &quot;font&quot;. Ist Text ausgewählt,
+Setzt die Schrift für den Rahmen &quot;name&quot; auf &quot;font&quot;. Ist Text ausgewählt,
 wird nur die Markierung verändert. Ist &quot;name&quot; nicht angegeben, wird der
 aktuelle Textrahmen verwendet.
 
-Ist die Schriftart ungültig, wird der Fehler ValueError ausgegeben.</translation>
+Ist die Schrift ungültig, wird der Fehler ValueError ausgegeben.</translation>
     </message>
     <message>
         <source>setFontSize(size, [&quot;name&quot;])
@@ -2025,13 +2025,13 @@ May raise ValueError if an empty sample or filename is passed.
 </source>
         <translation>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
 
-Erzeugt ein Bild mit dem Text &quot;sample&quot; in der Schriftart &quot;font&quot; und der Größe &quot;size&quot;.
+Erzeugt ein Bild mit dem Text &quot;sample&quot; in der Schrift &quot;font&quot; und der Größe &quot;size&quot;.
 Ist &quot;filename&quot; angegeben, wird das Bild unter &quot;filename&quot; abgespeichert. Ansonsten
 werden die Bilddaten als String zurückgegeben. Das optionale Argument &quot;format&quot; gibt 
 an, welches Bildformat generiert werden soll. Unterstützt werden die Formate, die auch 
 QPixmap.save() kennt, zum Beispiel PPM, JPEG, PNG und XPM.
 
-Der Fehler NotFoundError tritt auf, wenn die Schriftart nicht gefunden wird.
+Der Fehler NotFoundError tritt auf, wenn die Schrift nicht gefunden wird.
 Der Fehler ValueError tritt auf, wenn &quot;sample&quot; leer ist oder der Dateiname ungültig ist.</translation>
     </message>
     <message>
@@ -2630,7 +2630,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation>Dieser Dialog zeigt die Version, das Datum der Kompilierung und die vorhandenen Bibliotheken in Scribus. C-C-T-F steht für C=CUPS-Support, T=TIFF-Support, F=Fontconfig-Support. Der letzte Buchstabe steht für die Rendering Engine, C=Cairo oder A=libart. Fehlende Bibliotheken sind mit * markiert. Auch die Ghostscript-Version wird angezeigt.</translation>
+        <translation>Dieser Dialog zeigt die Version, das Datum der Kompilierung und die auf Ihrem System vorhandenen Bibliotheken in Scribus an. C-C-T-F steht für C=CUPS, T=TIFF, F=Fontconfig. Der letzte Buchstabe steht für die Rendering-Engine, nämlich C=Cairo oder A=libart. Fehlende Bibliotheken sind mit * markiert. Auch die Ghostscript-Version wird angezeigt.</translation>
     </message>
     <message>
         <source>December</source>
@@ -2654,7 +2654,11 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>March</source>
-        <translation>März</translation>
+        <translation type="obsolete">März</translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation>April</translation>
     </message>
 </context>
 <context>
@@ -2879,7 +2883,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>P&amp;references...</source>
-        <translation>&amp;Einstellungen...</translation>
+        <translation>Allgemeine &amp;Einstellungen...</translation>
     </message>
     <message>
         <source>%1 pt</source>
@@ -2955,7 +2959,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Image Effects</source>
-        <translation>&amp;Bild-Effekte</translation>
+        <translation>&amp;Bildeffekte</translation>
     </message>
     <message>
         <source>&amp;Tabulators...</source>
@@ -4560,7 +4564,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Font for use with PDF 1.3:</source>
-        <translation>Schriftart für PDF 1.3:</translation>
+        <translation>Schrift für PDF 1.3:</translation>
     </message>
     <message>
         <source>Flag is ignored for PDF 1.3</source>
@@ -4609,7 +4613,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>External Web-Link</source>
-        <translation>Externe Web-Verknüpfung</translation>
+        <translation>Externe Webverknüpfung</translation>
     </message>
     <message>
         <source>Destination</source>
@@ -4825,7 +4829,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
-        <translation>Kombination aus ASCII Zeichen und Sonderzeichen, beginnend mit dem passenden Startzeichen für den Zeichensatz. Bei USS/EAN-128 muss am Anfang ein FNC1-Symbol direkt nach dem Startzeichen stehen.</translation>
+        <translation>Kombination aus ASCII-Zeichen und Sonderzeichen, beginnend mit dem passenden Startzeichen für den Zeichensatz. Bei USS/EAN-128 muss am Anfang ein FNC1-Symbol direkt nach dem Startzeichen stehen.</translation>
     </message>
     <message>
         <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
@@ -4833,7 +4837,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
-        <translation>Kombination aus Ziffern. Ein ITF-14 Code besteht aus 14 Zeichen und besitzt keine Prüfnummer</translation>
+        <translation>Kombination aus Ziffern. Ein ITF-14-Code besteht aus 14 Zeichen und besitzt keine Prüfnummer</translation>
     </message>
 </context>
 <context>
@@ -5068,6 +5072,18 @@ Bitte wählen Sie eine andere.</translation>
     <message>
         <source>Choose a Directory</source>
         <translation>Wählen Sie ein Verzeichnis</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation>Bibliothek (*.scs)</translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation>Wählen Sie eine Bibliothek, die Sie importieren möchten</translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation>Bibliothek &amp;importieren...</translation>
     </message>
 </context>
 <context>
@@ -5944,7 +5960,7 @@ zusammengestellt werden</translation>
     </message>
     <message>
         <source>3rd. Tetradic (angle opposite)</source>
-        <translation>3. Tetrade (gegensätzliche Richtung)</translation>
+        <translation>3. Tetrade (gegenüberliegender Winkel)</translation>
     </message>
 </context>
 <context>
@@ -6115,7 +6131,7 @@ zusammengestellt werden</translation>
     </message>
     <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation>Difference between the selected value and the counted ones. Refer to documentation for more information.</translation>
+        <translation>Der Unterschied zwischen dem ausgewählten und den gezählten Werten. Weitere Informationen finden Sie in der Hilfe.</translation>
     </message>
     <message>
         <source>Saturation component in HSV mode</source>
@@ -6513,7 +6529,7 @@ Fehlende Bibliotheken werden durch ein Sternchen angezeigt</translation>
         <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
         <translation>Führt zum Dokumentenverzeichnis.
-Diese Option können Sie in den Einstellungen ändern.</translation>
+Dieses können Sie in unter Allgemeine Einstellungen festlegen.</translation>
     </message>
     <message>
         <source>&amp;Compress File</source>
@@ -6626,7 +6642,7 @@ Diese Option können Sie in den Einstellungen ändern.</translation>
     </message>
     <message>
         <source>Replace With:</source>
-        <translation>Ersetzen mit:</translation>
+        <translation>Ersetzen durch:</translation>
     </message>
 </context>
 <context>
@@ -6664,7 +6680,7 @@ Diese Option können Sie in den Einstellungen ändern.</translation>
     </message>
     <message>
         <source>Replace With:</source>
-        <translation>Ersetzen mit:</translation>
+        <translation>Ersetzen durch:</translation>
     </message>
     <message>
         <source>No Style</source>
@@ -6680,7 +6696,7 @@ Diese Option können Sie in den Einstellungen ändern.</translation>
     <message>
         <source>Importing Word document failed 
 %1</source>
-        <translation>Fehler beim Import des Worddokuments
+        <translation>Fehler beim Import des Word-Dokuments
 %1</translation>
     </message>
 </context>
@@ -6765,7 +6781,7 @@ Diese Option können Sie in den Einstellungen ändern.</translation>
     <message>
         <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
         <translation>Ein Datum, das mit der Entstehung des Dokuments verbunden ist,
-nach ISO 8601 im Format YYYY-MM-DD </translation>
+nach ISO 8601 im Format JJJJ-MM-DD </translation>
     </message>
     <message>
         <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
@@ -6811,7 +6827,7 @@ in die Meta-Daten einer PDF-Datei eingebettet werden</translation>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
         <translation>Ein Abriss des Inhalts.
 Hier kann eine kurze Beschreibung oder Zusammenfassung stehen. 
-Sie wird in die PDF-Datei exportiert</translation>
+Sie wird beim Export in die PDF-Datei eingebettet</translation>
     </message>
     <message>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
@@ -6868,7 +6884,7 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
     </message>
     <message>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
-        <translation>&lt;b&gt;Name:&lt;/b&gt; Optionale Bezeichnung für den Abschnitt, z. B. Index.&lt;br/&gt;&lt;b&gt;Sichtbar:&lt;/b&gt; Entscheiden Sie, ob die Seitennummern angezeigt werden sollen.&lt;br/&gt;&lt;b&gt;Von:&lt;/b&gt; Der Seitenindex für diesen Abschnitt, mit dem die Zähling beginnen soll.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt;Der Seitenindex für diesen Abschnitt, mit dem die Zähling enden soll.&lt;br/&gt;&lt;b&gt;Sil:&lt;/b&gt; Wählen Sie den Nummerierungsstil aus.&lt;br/&gt;&lt;b&gt;Beginn:&lt;/b&gt; Die Seitennummer, mit der die Zählung beginnen soll. Wenn Sie beispielsweise hier 2 eintragen und als Stil a, b, c wählen, wird mit b angefangen.</translation>
+        <translation>&lt;b&gt;Name:&lt;/b&gt; Optionale Bezeichnung für den Abschnitt, z. B. Index.&lt;br/&gt;&lt;b&gt;Sichtbar:&lt;/b&gt; Entscheiden Sie, ob die Seitennummern angezeigt werden sollen.&lt;br/&gt;&lt;b&gt;Von:&lt;/b&gt; Der Seitenindex für diesen Abschnitt, mit dem die Zählung beginnen soll.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt;Der Seitenindex für diesen Abschnitt, mit dem die Zählung enden soll.&lt;br/&gt;&lt;b&gt;Sil:&lt;/b&gt; Wählen Sie den Nummerierungsstil aus.&lt;br/&gt;&lt;b&gt;Beginn:&lt;/b&gt; Die Seitennummer, ab der die Zählung beginnen soll. Wenn Sie beispielsweise hier 2 eintragen und als Stil a, b, c wählen, wird mit b angefangen.</translation>
     </message>
     <message>
         <source>Page Number Out Of Bounds</source>
@@ -7462,7 +7478,7 @@ failed!</source>
     </message>
     <message>
         <source>Font of selected text or object</source>
-        <translation>Schriftart des gewählten Textes oder des Objekts</translation>
+        <translation>Schrift des gewählten Textes oder des Objekts</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -7562,7 +7578,7 @@ failed!</source>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation>Manueller Zeichenabstand</translation>
+        <translation>Zeichenabstand anpassen</translation>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
@@ -8238,7 +8254,7 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     <message>
         <source>Font Name</source>
         <comment>font preview</comment>
-        <translation>Name der Schriftart</translation>
+        <translation>Name der Schrift</translation>
     </message>
     <message>
         <source>Use Font</source>
@@ -8270,7 +8286,7 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation>Der Pfad, in dem nach Fonts gesucht wird, kann nur in den Grundeinstellungen geändert werden, wenn gerade kein Dokument geöffnet ist. Schließen Sie alle Dokumenten und ändern Sie den Pfad in Bearbeiten &gt; Einstellungen.</translation>
+        <translation>Der Pfad, in dem nach Schriften gesucht wird, kann nur in den Grundeinstellungen geändert werden, wenn gerade kein Dokument geöffnet ist. Schließen Sie alle Dokumente und ändern Sie den Pfad unter Datei &gt; Allgemeine Einstellungen.</translation>
     </message>
 </context>
 <context>
@@ -8340,7 +8356,7 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     <message>
         <source>Append selected font into Style, Font menu</source>
         <comment>font preview</comment>
-        <translation>Gewählte Schriftart dem Stil zuweisen</translation>
+        <translation>Gewählte Schrift dem Stil zuweisen</translation>
     </message>
     <message>
         <source>Leave preview</source>
@@ -8357,7 +8373,7 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     </message>
     <message>
         <source>Size of the selected font</source>
-        <translation>Größe der Schriftart</translation>
+        <translation>Größe der Schrift</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
@@ -8407,7 +8423,7 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     </message>
     <message>
         <source>Font Name</source>
-        <translation>Name der Schriftart</translation>
+        <translation>Name der Schrift</translation>
     </message>
     <message>
         <source>Doc</source>
@@ -8522,7 +8538,7 @@ Dokumentes.</translation>
     </message>
     <message>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
-        <translation>Falls Sie diese Funktion wählen, wird Scribus diese Ersetzungen dauerhaft verwenden. Ihre Entscheidung können Sie jedoch jederzeit im Menü Datei &gt; Scribus-Einstellungen &gt; Schriften rückgängig machen.</translation>
+        <translation>Falls Sie diese Funktion wählen, wird Scribus diese Ersetzungen dauerhaft verwenden. Ihre Entscheidung können Sie jedoch jederzeit im Menü Datei &gt; Dokument einrichten &gt; Schriften rückgängig machen.</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
@@ -9182,7 +9198,7 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     </message>
     <message>
         <source>Loadable Shortcut Sets</source>
-        <translation>Benutzerdefiniertes Set laden</translation>
+        <translation>Benutzerdefinierten Satz laden</translation>
     </message>
     <message>
         <source>&amp;Load</source>
@@ -9202,19 +9218,19 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     </message>
     <message>
         <source>Keyboard shortcut sets available to load</source>
-        <translation>Verfügbare Tastenkürzel-Sets</translation>
+        <translation>Verfügbare Tastenkürzel-Sätze</translation>
     </message>
     <message>
         <source>Load the selected shortcut set</source>
-        <translation>Gewähltes Set laden</translation>
+        <translation>Gewählten Satz laden</translation>
     </message>
     <message>
         <source>Import a shortcut set into the current configuration</source>
-        <translation>Tastenkürzel-Set in die aktuelle Konfiguration importieren</translation>
+        <translation>Tastenkürzel-Satz in die aktuelle Konfiguration importieren</translation>
     </message>
     <message>
         <source>Export the current shortcuts into an importable file</source>
-        <translation>Tastenkürzel-Set exportieren</translation>
+        <translation>Tastenkürzel-Satz exportieren</translation>
     </message>
     <message>
         <source>Reload the default Scribus shortcuts</source>
@@ -9703,7 +9719,7 @@ Abstand eingestellt werden</translation>
     </message>
     <message>
         <source>Import master pages from another document</source>
-        <translation>Musterseite von einem anderen Dokument importieren</translation>
+        <translation>Musterseite aus einem anderen Dokument importieren</translation>
     </message>
     <message>
         <source>New Master Page %1</source>
@@ -9861,7 +9877,7 @@ Seiten importiert werden sollen, zum Beispiel
     <name>MissingFont</name>
     <message>
         <source>Missing Font</source>
-        <translation>Fehlende Schriftart</translation>
+        <translation>Fehlende Schrift</translation>
     </message>
     <message>
         <source>The Font %1 is not installed.</source>
@@ -10149,7 +10165,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
-        <translation>Schriftart des Objekts</translation>
+        <translation>Schrift des Objekts</translation>
     </message>
     <message>
         <source>Scaling width of characters</source>
@@ -10495,7 +10511,7 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
-        <translation>Rechts-nach-Links-Text</translation>
+        <translation>Rechtsläufiger Text</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
@@ -10899,7 +10915,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Start a document from a template made by other users or yourself (f.e. for documents you have a constant style).</source>
-        <translation>Beginnt ein neues Dokument aus einer Vorlage, die Sie oder andere erstellt haben (z.B. für Dokumente mit gleichbleibendem Stil).</translation>
+        <translation>Beginnt ein neues Dokument aus einer Vorlage, die Sie oder andere erstellt haben (z. B. für Dokumente mit gleichbleibendem Stil).</translation>
     </message>
 </context>
 <context>
@@ -11080,7 +11096,7 @@ Bitte wählen Sie einen anderen.</translation>
     <name>OODPlug</name>
     <message>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
-        <translation>Diese Datei scheint keine OpenOffice Zeichnung zu sein.</translation>
+        <translation>Diese Datei scheint keine OpenOffice.org-Zeichnung zu sein.</translation>
     </message>
 </context>
 <context>
@@ -11099,11 +11115,11 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Imports OpenOffice.org Draw Files</source>
-        <translation>Importiert OpenOffice.org-Draw-Dateien</translation>
+        <translation>Importiert OpenOffice.org Draw-Dateien</translation>
     </message>
     <message>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
-        <translation>Importiert die meisten OpenOffice.org-Draw-Dateien in das aktuelle Dokument und wandelt deren Vektordaten in Scribus-Objekte um.</translation>
+        <translation>Importiert die meisten OpenOffice.org Draw-Dateien in das aktuelle Dokument und wandelt deren Vektordaten in Scribus-Objekte um.</translation>
     </message>
     <message>
         <source>OpenDocument 1.0 Draw</source>
@@ -11120,7 +11136,7 @@ Bitte wählen Sie einen anderen.</translation>
     <name>OdtDialog</name>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation>Name der Datei vor jeden Absatzstil anfügen</translation>
+        <translation>Namen der Datei vor jeden Absatzstil anfügen</translation>
     </message>
     <message>
         <source>Do not ask again</source>
@@ -11152,7 +11168,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation>Diese Einstellungen zum Standard machen und beim Import von OASIS-Dateien nicht nochmals nachfragen.</translation>
+        <translation>Diese Einstellungen zum Standard machen und beim Import von OpenDocument-Dateien nicht nochmals nachfragen.</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
@@ -11226,7 +11242,7 @@ Dies ist außerordentlich nützlich für das Ausschießen von PDF-Dateien im pro
     </message>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>Sie können die PDF-Datei erst speichern, wenn Sie einen Infostring im PDF/X-3 Register angegeben haben.</translation>
+        <translation>Sie können die PDF-Datei erst speichern, wenn Sie einen Infotext im PDF/X-3-Register angegeben haben.</translation>
     </message>
 </context>
 <context>
@@ -11310,7 +11326,7 @@ Funktioniert nur mit Type-1-Schriftarten</translation>
     </message>
     <message>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation>Benutzt zur Vorschau CMYK an Stelle der RGB-Farben</translation>
+        <translation>Benutzt zur Vorschau CMYK anstelle der RGB-Farben</translation>
     </message>
     <message>
         <source>Enable/disable the C (Cyan) ink plate</source>
@@ -12185,7 +12201,7 @@ ein positiver Wert für eine konvexe Form</translation>
     </message>
     <message>
         <source>Autosave</source>
-        <translation>Automatisch Speichern</translation>
+        <translation>Automatisch speichern</translation>
     </message>
     <message>
         <source>min</source>
@@ -12767,11 +12783,11 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>Enable or disable  the display of linked frames.</source>
-        <translation>Aktiviert oder deaktiviert die Anzeige von Rahmenverbindungen.</translation>
+        <translation>Aktiviert oder deaktiviert die Anzeige von Rahmenverkettungen.</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation>Wählen Sie die Standardsprache für Scribus aus. Tragen Sie hier nichts ein, wenn Sie die Umgebungsvariable Ihres Systems verwenden möchten. Sie können diese jederzeit umgehen, wenn Sie Scribus mit dem entsprechenden Parameter starten</translation>
+        <translation>Wählen Sie die Standardsprache für Scribus aus. Tragen Sie hier nichts ein, wenn Sie die Umgebungsvariable Ihres Systems verwenden möchten. Sie können diese auch jederzeit umgehen, wenn Sie Scribus mit dem entsprechenden Parameter starten</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes</source>
@@ -12783,7 +12799,7 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
-        <translation>Ist diese Option aktiviert, speichert Scribus eine Sicherungskopie ihres Dokuments mit der Erweiterung .bak jedes Mal, wenn die Zeit um ist</translation>
+        <translation>Ist diese Option aktiviert, speichert Scribus eine Sicherungskopie ihres Dokuments mit der Erweiterung .bak im angegebenen Zeitintervall</translation>
     </message>
     <message>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
@@ -12791,7 +12807,7 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
-        <translation>Pfad und Dateiname Ihrer Bildbearbeitung. Wenn Sie gimp verwenden und Ihre Distribution es unterstützt, sollten Sie &apos;gimp-remote&apos; verwenden, weil Sie Bilder dann in einer vorhandenen Instanz von gimp bearbeiten können.</translation>
+        <translation>Pfad und Dateiname Ihrer Bildbearbeitung. Wenn Sie GIMP verwenden und Ihre Distribution es unterstützt, sollten Sie &apos;gimp-remote&apos; bzw. &apos;gimp-win-remote&apos; (Windows) verwenden, weil Sie Bilder dann in einer vorhandenen Instanz von GIMP bearbeiten können.</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -12819,7 +12835,11 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter.</source>
-        <translation>Pfad zum Ghostscript-Interpreter.</translation>
+        <translation type="obsolete">Pfad zum Ghostscript-Interpreter.</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation>Fügen Sie hier den Pfad zu Ghostscript ein. Achten Sie unter Windows darauf, dass Sie das Programm gswin32c.exe benötigen, NICHT gswin32.exe. Ansonsten könnte es Probleme beim Programmstart geben.</translation>
     </message>
 </context>
 <context>
@@ -12865,7 +12885,7 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
-        <translation>Soll die Konfiguration von Scribus 1.2 übernommen werden?</translation>
+        <translation>Sollen die Einstellungen aus Scribus 1.2 übernommen werden?</translation>
     </message>
     <message>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
@@ -13783,7 +13803,7 @@ Externe Links</translation>
     </message>
     <message>
         <source>Font %1 is broken, discarding it</source>
-        <translation>Die Schriftart %1 ist fehlerhaft und wird ab sofort ignoriert</translation>
+        <translation>Die Schrift %1 ist fehlerhaft und wird ab sofort ignoriert</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -13981,7 +14001,7 @@ Externe Links</translation>
     <message>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kann Schriftart nur von Textrahmen bestimmen.</translation>
+        <translation>Kann Schrift nur von Textrahmen bestimmen.</translation>
     </message>
     <message>
         <source>Cannot get text size of non-text frame.</source>
@@ -14149,7 +14169,7 @@ Externe Links</translation>
     <message>
         <source>Font not found.</source>
         <comment>python error</comment>
-        <translation>Schriftart nicht gefunden.</translation>
+        <translation>Schrift nicht gefunden.</translation>
     </message>
     <message>
         <source>Cannot render an empty sample.</source>
@@ -14199,7 +14219,7 @@ Externe Links</translation>
     <message>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Schriftart kann nur für Textrahmen geändert werden.</translation>
+        <translation>Schrift kann nur für Textrahmen geändert werden.</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
@@ -14432,15 +14452,15 @@ Externe Links</translation>
     </message>
     <message>
         <source>Font %1 is broken, no embedding</source>
-        <translation>Die Schriftart %1 ist fehlerhaft und kann nicht eingebettet werden</translation>
+        <translation>Die Schrift %1 ist fehlerhaft und kann nicht eingebettet werden</translation>
     </message>
     <message>
         <source>Font %1 is broken (read stream), no embedding</source>
-        <translation>Die Schriftart %1 ist fehlerhaft und kann nicht eingebettet werden</translation>
+        <translation>Die Schrift %1 ist fehlerhaft und kann nicht eingebettet werden</translation>
     </message>
     <message>
         <source>Font %1 is broken (FreeType2), discarding it</source>
-        <translation>Die Schriftart %1 ist fehlerhaft (FreeType2) und wird ignoriert</translation>
+        <translation>Die Schrift %1 ist fehlerhaft (FreeType2) und wird ignoriert</translation>
     </message>
     <message>
         <source>Font %1 is broken (no Face), discarding it</source>
@@ -14448,47 +14468,47 @@ Externe Links</translation>
     </message>
     <message>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
-        <translation>Die Schriftart %1 enthält das fehlerhafte Zeichen %2 (Code %3)</translation>
+        <translation>Die Schrift %1 enthält das fehlerhafte Zeichen %2 (Code %3)</translation>
     </message>
     <message>
         <source>Font %1 is broken and will be discarded</source>
-        <translation>Die Schriftart %1 ist fehlerhaft und wird ignoriert</translation>
+        <translation>Die Schrift %1 ist fehlerhaft und wird ignoriert</translation>
     </message>
     <message>
         <source>Font %1 cannot be read, no embedding</source>
-        <translation>Die Schriftart %1 kann nicht gelesen werden und wird nicht eingebettet</translation>
+        <translation>Die Schrift %1 kann nicht gelesen werden und wird nicht eingebettet</translation>
     </message>
     <message>
         <source>Failed to load font %1 - font type unknown</source>
-        <translation>Fehler beim Laden der Schriftart %1 - Typ unbekannt</translation>
+        <translation>Fehler beim Laden der Schrift %1 - Typ unbekannt</translation>
     </message>
     <message>
         <source>Font %1 loaded from %2(%3)</source>
-        <translation>Schriftart %1 geladen von %2(%3)</translation>
+        <translation>Schrift %1 geladen von %2(%3)</translation>
     </message>
     <message>
         <source>Font %1(%2) is duplicate of %3</source>
-        <translation>Die Schriftart %1(%2) ist ein Duplikat von %3</translation>
+        <translation>Die Schrift %1(%2) ist ein Duplikat von %3</translation>
     </message>
     <message>
         <source>Loading font %1 (found using fontconfig)</source>
-        <translation>Schriftart %1 wird geladen (erkannt von fontconfig)</translation>
+        <translation>Schrift %1 wird geladen (erkannt von fontconfig)</translation>
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>Die Schriftart %1 (erkannt von fontconfig) ist fehlerhaft und wird ignoriert</translation>
+        <translation type="obsolete">Die Schriftart %1 (erkannt von fontconfig) ist fehlerhaft und wird ignoriert</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
-        <translation>Fehler beim Laden einer Schriftart - FreeType2 konnte die Datei nicht finden</translation>
+        <translation>Fehler beim Laden einer Schrift - FreeType2 konnte die Datei nicht finden</translation>
     </message>
     <message>
         <source>Font %1 is broken (FreeType), discarding it</source>
-        <translation>Die Schriftart %1 ist fehlerhaft (FreeType) und wird ignoriert</translation>
+        <translation>Die Schrift %1 ist fehlerhaft (FreeType) und wird ignoriert</translation>
     </message>
     <message>
         <source>Font %1  has invalid glyph %2 (charcode %3), discarding it</source>
-        <translation>Die Schriftart %1 enthält das ungültige Zeichen %2 (Code %3) und wird ignoriert</translation>
+        <translation>Die Schrift %1 enthält das ungültige Zeichen %2 (Code %3) und wird ignoriert</translation>
     </message>
     <message>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
@@ -15025,11 +15045,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>New Font found, checking...</source>
-        <translation>Neuen Font gefunden, Überprüfung läuft...</translation>
+        <translation>Neue Schrift gefunden, Überprüfung läuft...</translation>
     </message>
     <message>
         <source>Modified Font found, checking...</source>
-        <translation>Veränderten Font gefunden, Überprüfung läuft...</translation>
+        <translation>Veränderte Schrift gefunden, Überprüfung läuft...</translation>
     </message>
     <message>
         <source>Reading Font Cache</source>
@@ -15049,7 +15069,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
-        <translation>Die Änderungen am Dokument wurden nicht gesichert und Sie möchte zur gespeicherten Version zurückkehren. Wollen Sie das wirklich?</translation>
+        <translation>Die Änderungen am Dokument wurden nicht gesichert und Sie möchten zur gespeicherten Version zurückkehren. Wollen Sie das wirklich?</translation>
     </message>
     <message>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
@@ -15140,6 +15160,11 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Japanese</source>
         <translation>Japanisch</translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation>Der Name der Musterseite entspricht keinem bereits existierenden.</translation>
     </message>
 </context>
 <context>
@@ -15676,7 +15701,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font of selected text</source>
-        <translation>Schriftart des Objekts</translation>
+        <translation>Schrift des Objekts</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -15688,7 +15713,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font Settings</source>
-        <translation>Schriftart verändern</translation>
+        <translation>Schrift verändern</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
@@ -15703,7 +15728,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation>Manueller Zeichenabstand</translation>
+        <translation>Zeichenabstand anpassen</translation>
     </message>
     <message>
         <source> %</source>
@@ -15756,7 +15781,7 @@ und wandelt deren Vektordaten in Scribus-Objekte um.
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation>Abkürzungsassistent</translation>
+        <translation>Umbruchkontrolle</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
@@ -15798,11 +15823,11 @@ und wandelt deren Vektordaten in Scribus-Objekte um.
     <name>SWPrefsGui</name>
     <message>
         <source>User settings</source>
-        <translation>Benutzerabhängige Einstellungen</translation>
+        <translation>Benutzerdefinierte Einstellungen</translation>
     </message>
     <message>
         <source>System wide configuration</source>
-        <translation>Globale Konfiguration</translation>
+        <translation>Systemweite Einstellungen</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -15814,15 +15839,15 @@ und wandelt deren Vektordaten in Scribus-Objekte um.
     </message>
     <message>
         <source>Save user configuration</source>
-        <translation>Benutzerabhängige Konfiguration speichern</translation>
+        <translation>Benutzerdefinierte Konfiguration speichern</translation>
     </message>
     <message>
         <source>Reload system wide configuration and remove user defined one</source>
-        <translation>Globale Konfiguration laden und benutzerabhängige Einstellungen löschen</translation>
+        <translation>Systemweite Konfiguration laden und benutzerdefinierte Einstellungen löschen</translation>
     </message>
     <message>
         <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation>Benutzerkonfiguration bearbeiten. Wenn Sie speichern, wird sie anstelle der globalen Konfiguration benutzt</translation>
+        <translation>Benutzerkonfiguration bearbeiten. Wenn Sie speichern, wird diese anstelle der globalen Konfiguration benutzt</translation>
     </message>
     <message>
         <source>Short Words</source>
@@ -15838,7 +15863,7 @@ und wandelt deren Vektordaten in Scribus-Objekte um.
     </message>
     <message>
         <source>User settings saved</source>
-        <translation>Benutzerabhängige Einstellungen gespeichert</translation>
+        <translation>Benutzerdefinierte Einstellungen gespeichert</translation>
     </message>
     <message>
         <source>System wide configuration reloaded</source>
@@ -16679,7 +16704,7 @@ diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
-        <translation>Gerade verwendete Objekte können nicht gelöscht werden</translation>
+        <translation>Momentan verwendete Objekte können nicht gelöscht werden</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
@@ -16750,7 +16775,7 @@ diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation>Fontsystem initialisiert</translation>
+        <translation>Schriftsystem initialisiert</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -16882,7 +16907,7 @@ diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <source>Import done</source>
-        <translation>Importvorgang erfolgreich abgeschlossen</translation>
+        <translation>Import erfolgreich abgeschlossen</translation>
     </message>
     <message>
         <source>Found nothing to import</source>
@@ -17145,7 +17170,7 @@ Vertikaler Versatz: %3</translation>
     </message>
     <message>
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
-        <translation>Ghostscript fehlt: Die Postscript Druckvorschau wird nicht verfügbar sein</translation>
+        <translation>Ghostscript fehlt: Die Postscript Druckvorschau ist nicht verfügbar</translation>
     </message>
     <message>
         <source>Do you really want to replace your existing image?</source>
@@ -17200,7 +17225,7 @@ Vertikaler Versatz: %3</translation>
     </message>
     <message>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation>Rechts-nach-links Anordnung der Buttons verwenden (z.B. Abbrechen/Nein/Ja statt Ja/Nein/Abbrechen)</translation>
+        <translation>Rechtsläufige Anordnung der Buttons (z.B. Abbrechen/Nein/Ja statt Ja/Nein/Abbrechen)</translation>
     </message>
     <message>
         <source>filename</source>
@@ -17228,7 +17253,7 @@ Vertikaler Versatz: %3</translation>
     </message>
     <message>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation>Scribus, Open Source Desktop-Publishing</translation>
+        <translation>Scribus, Open Source Desktop Publishing</translation>
     </message>
     <message>
         <source>Homepage</source>
@@ -17387,7 +17412,7 @@ Vertikaler Versatz: %3</translation>
     </message>
     <message>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
-        <translation>Sie versuchen einen Rahmen mit sich selbst zu verketten.</translation>
+        <translation>Sie versuchen, einen Rahmen mit sich selbst zu verketten.</translation>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
@@ -17636,7 +17661,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Font</source>
-        <translation>Schriftart</translation>
+        <translation>Schrift</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -18104,7 +18129,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>&amp;Display Font...</source>
-        <translation>&amp;Schriftart...</translation>
+        <translation>&amp;Schrift...</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
@@ -18237,7 +18262,7 @@ umgewandelt werden</translation>
     <name>SxwDialog</name>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation>Name der Datei vor jeden Absatzstil anfügen</translation>
+        <translation>Name der Datei vor jedem Absatzstil anfügen</translation>
     </message>
     <message>
         <source>Do not ask again</source>
@@ -18269,7 +18294,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation>Diese Einstellungen zum Standard machen und beim Import von Dateien, die mit OpenOffice 1.x erstellt wurden nicht erneut nachfragen.</translation>
+        <translation>Diese Einstellungen als Standard festlegen und beim Import von Dateien, die mit OpenOffice 1.x erstellt wurden, nicht erneut nachfragen.</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
@@ -18634,7 +18659,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Guides are visible above all objects on the page</source>
-        <translation>Die Hilfslinien über allen Objekten der Seite sichtbar</translation>
+        <translation>Die Hilfslinien sind über allen Objekten der Seite sichtbar</translation>
     </message>
     <message>
         <source>Distance between the lines of the baseline grid</source>
@@ -19378,7 +19403,7 @@ Sie reduziert die Dateigröße.</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation>Fonts in PDF einbetten. Dadurch bleibt das Layout und das Aussehen des Dokuments erhalten.</translation>
+        <translation>Schriften in PDF einbetten. Dadurch bleiben das Layout und das Aussehen des Dokuments erhalten.</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -19458,7 +19483,7 @@ Sie reduziert die Dateigröße.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Ermöglicht die Umwandlung von Schmuck- in Prozessfarben. Solange Sie Schmuckfarben nicht wirklich benötigen, sollten dies am besten aktiviert lassen.</translation>
+        <translation>Ermöglicht die Umwandlung von Schmuck- in Prozessfarben. Solange Sie Schmuckfarben nicht wirklich benötigen, sollten Sie dies am besten aktiviert lassen.</translation>
     </message>
     <message>
         <source>Include La&amp;yers</source>
@@ -19615,7 +19640,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     <name>TabTools</name>
     <message>
         <source>Font:</source>
-        <translation>Schriftart:</translation>
+        <translation>Schrift:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -19771,7 +19796,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     </message>
     <message>
         <source>Magnification Level Defaults</source>
-        <translation>Einstellungen für Vergößerungsstufen</translation>
+        <translation>Einstellungen für Vergrößerungsstufen</translation>
     </message>
     <message>
         <source>Line Drawing Properties</source>
@@ -19783,7 +19808,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     </message>
     <message>
         <source>Font for new text frames</source>
-        <translation>Schriftart für neue Textrahmen</translation>
+        <translation>Schrift für neue Textrahmen</translation>
     </message>
     <message>
         <source>Size of font for new text frames</source>
@@ -19803,7 +19828,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     </message>
     <message>
         <source>Sample of your font</source>
-        <translation>Vorschau der gewählten Schriftart</translation>
+        <translation>Vorschau der gewählten Schrift</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
@@ -19827,7 +19852,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Bilder behalten ihre originalen Seitenverhältnisse</translation>
+        <translation>Bilder behalten ihre ursprünglichen Seitenverhältnisse</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
@@ -20014,7 +20039,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     </message>
     <message>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation>Versatz unterhalb der Grundlinie der normalen Schrift als Prozentwert des Unterbandes</translation>
+        <translation>Versatz unterhalb der Grundlinie der normalen Schrift als Prozentwert der Größe des Unterbandes</translation>
     </message>
     <message>
         <source>Line width expressed as a percentage of the font size</source>
@@ -20022,7 +20047,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     </message>
     <message>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation>Versatz über der Grundlinie der Schriftart ausgedrückt in Prozent bezogen auf die Größe des Oberbandes</translation>
+        <translation>Versatz über der Grundlinie der Schrift als Prozentwert der Größe des Oberbandes</translation>
     </message>
 </context>
 <context>
@@ -20363,7 +20388,7 @@ bis %2</translation>
     </message>
     <message>
         <source>Set font</source>
-        <translation>Schriftart festlegen</translation>
+        <translation>Schrift festlegen</translation>
     </message>
     <message>
         <source>Set font size</source>
@@ -21044,7 +21069,7 @@ eigenen Einstellungen ersetzen.</translation>
     </message>
     <message>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Sie müssen sicherstellen, dass Bilder und Schriften frei benutzt werden können. Wenn Sie Fonts nicht verbreiten dürfen, dann binden Sie diese beim Export als Vorlage nicht ein.</translation>
+        <translation>Sie müssen sicherstellen, dass Bilder und Schriften frei benutzt werden können. Wenn Sie Schriften nicht verbreiten dürfen, dann binden Sie diese beim Export als Vorlage nicht ein.</translation>
     </message>
     <message>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
