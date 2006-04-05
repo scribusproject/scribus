@@ -445,14 +445,14 @@ void AlignDistributePalette::alignLeftOut()
 				loopEnd=alignObjectsCount-2;
 				break;
 			case Page:
-				newX = currDoc->currentPage->xOffset();
+				newX = currDoc->currentPage()->xOffset();
 				break;
 			case Margins:
-				newX = currDoc->currentPage->xOffset();
-				newX += currDoc->currentPage->Margins.Left;
+				newX = currDoc->currentPage()->xOffset();
+				newX += currDoc->currentPage()->Margins.Left;
 				break;
 			case Guide:
-				newX=currDoc->currentPage->xOffset() + guidePosition;
+				newX=currDoc->currentPage()->xOffset() + guidePosition;
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
@@ -488,14 +488,14 @@ void AlignDistributePalette::alignLeftIn()
 				loopEnd=alignObjectsCount-2;
 				break;
 			case Page:
-				newX = currDoc->currentPage->xOffset();
+				newX = currDoc->currentPage()->xOffset();
 				break;
 			case Margins:
-				newX = currDoc->currentPage->xOffset();
-				newX += currDoc->currentPage->Margins.Left;
+				newX = currDoc->currentPage()->xOffset();
+				newX += currDoc->currentPage()->Margins.Left;
 				break;
 			case Guide:
-				newX=currDoc->currentPage->xOffset() + guidePosition;
+				newX=currDoc->currentPage()->xOffset() + guidePosition;
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
@@ -534,16 +534,16 @@ void AlignDistributePalette::alignCenterHor()
 				}
 				break;
 			case Page:
-				newX = currDoc->currentPage->xOffset();
-				newX += currDoc->currentPage->width()/2;
+				newX = currDoc->currentPage()->xOffset();
+				newX += currDoc->currentPage()->width()/2;
 				break;
 			case Margins:
-				newX = currDoc->currentPage->xOffset();
-				newX += currDoc->currentPage->Margins.Left;
-				newX += (currDoc->currentPage->width() - currDoc->currentPage->Margins.Right - currDoc->currentPage->Margins.Left)/2;
+				newX = currDoc->currentPage()->xOffset();
+				newX += currDoc->currentPage()->Margins.Left;
+				newX += (currDoc->currentPage()->width() - currDoc->currentPage()->Margins.Right - currDoc->currentPage()->Margins.Left)/2;
 				break;
 			case Guide:
-				newX=currDoc->currentPage->xOffset() + guidePosition;
+				newX=currDoc->currentPage()->xOffset() + guidePosition;
 				break;
 			case Selection:
 				double minX=99999.9, maxX=-99999.9;
@@ -584,16 +584,16 @@ void AlignDistributePalette::alignRightIn()
 				loopEnd=alignObjectsCount-2;
 				break;
 			case Page:
-				newX = currDoc->currentPage->xOffset();
-				newX += currDoc->currentPage->width();;
+				newX = currDoc->currentPage()->xOffset();
+				newX += currDoc->currentPage()->width();;
 				break;
 			case Margins:
-				newX = currDoc->currentPage->xOffset();
-				newX += currDoc->currentPage->width();;
-				newX -= currDoc->currentPage->Margins.Right;
+				newX = currDoc->currentPage()->xOffset();
+				newX += currDoc->currentPage()->width();;
+				newX -= currDoc->currentPage()->Margins.Right;
 				break;
 			case Guide:
-				newX=currDoc->currentPage->xOffset() + guidePosition;
+				newX=currDoc->currentPage()->xOffset() + guidePosition;
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
@@ -629,16 +629,16 @@ void AlignDistributePalette::alignRightOut()
 				loopEnd=alignObjectsCount-2;
 				break;
 			case Page:
-				newX = currDoc->currentPage->xOffset();
-				newX += currDoc->currentPage->width();
+				newX = currDoc->currentPage()->xOffset();
+				newX += currDoc->currentPage()->width();
 				break;
 			case Margins:
-				newX = currDoc->currentPage->xOffset();
-				newX += currDoc->currentPage->width();
-				newX -= currDoc->currentPage->Margins.Right;
+				newX = currDoc->currentPage()->xOffset();
+				newX += currDoc->currentPage()->width();
+				newX -= currDoc->currentPage()->Margins.Right;
 				break;
 			case Guide:
-				newX=currDoc->currentPage->xOffset() + guidePosition;
+				newX=currDoc->currentPage()->xOffset() + guidePosition;
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
@@ -674,14 +674,14 @@ void AlignDistributePalette::alignTopOut()
 				loopEnd=alignObjectsCount-2;
 				break;
 			case Page:
-				newY = currDoc->currentPage->yOffset();
+				newY = currDoc->currentPage()->yOffset();
 				break;
 			case Margins:
-				newY = currDoc->currentPage->yOffset();
-				newY += currDoc->currentPage->Margins.Top;
+				newY = currDoc->currentPage()->yOffset();
+				newY += currDoc->currentPage()->Margins.Top;
 				break;
 			case Guide:
-				newY=currDoc->currentPage->yOffset() + guidePosition;
+				newY=currDoc->currentPage()->yOffset() + guidePosition;
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
@@ -717,14 +717,14 @@ void AlignDistributePalette::alignTopIn()
 				loopEnd=alignObjectsCount-2;
 				break;
 			case Page:
-				newY = currDoc->currentPage->yOffset();
+				newY = currDoc->currentPage()->yOffset();
 				break;
 			case Margins:
-				newY = currDoc->currentPage->yOffset();
-				newY += currDoc->currentPage->Margins.Top;
+				newY = currDoc->currentPage()->yOffset();
+				newY += currDoc->currentPage()->Margins.Top;
 				break;
 			case Guide:
-				newY=currDoc->currentPage->yOffset() + guidePosition;
+				newY=currDoc->currentPage()->yOffset() + guidePosition;
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
@@ -764,16 +764,16 @@ void AlignDistributePalette::alignCenterVer()
 				}
 				break;
 			case Page:
-				newY = currDoc->currentPage->yOffset();
-				newY += currDoc->currentPage->height()/2;
+				newY = currDoc->currentPage()->yOffset();
+				newY += currDoc->currentPage()->height()/2;
 				break;
 			case Margins:
-				newY = currDoc->currentPage->yOffset();
-				newY += currDoc->currentPage->Margins.Top;
-				newY += (currDoc->currentPage->height() - currDoc->currentPage->Margins.Bottom - currDoc->currentPage->Margins.Top)/2;
+				newY = currDoc->currentPage()->yOffset();
+				newY += currDoc->currentPage()->Margins.Top;
+				newY += (currDoc->currentPage()->height() - currDoc->currentPage()->Margins.Bottom - currDoc->currentPage()->Margins.Top)/2;
 				break;
 			case Guide:
-				newY=currDoc->currentPage->yOffset() + guidePosition;
+				newY=currDoc->currentPage()->yOffset() + guidePosition;
 				break;
 			case Selection:
 				double minY=99999.9, maxY=-99999.9;
@@ -815,16 +815,16 @@ void AlignDistributePalette::alignBottomIn()
 				loopEnd=alignObjectsCount-2;
 				break;
 			case Page:
-				newY = currDoc->currentPage->yOffset();
-				newY += currDoc->currentPage->height();
+				newY = currDoc->currentPage()->yOffset();
+				newY += currDoc->currentPage()->height();
 				break;
 			case Margins:
-				newY = currDoc->currentPage->yOffset();
-				newY += currDoc->currentPage->height();
-				newY -= currDoc->currentPage->Margins.Bottom;
+				newY = currDoc->currentPage()->yOffset();
+				newY += currDoc->currentPage()->height();
+				newY -= currDoc->currentPage()->Margins.Bottom;
 				break;
 			case Guide:
-				newY=currDoc->currentPage->yOffset() + guidePosition;
+				newY=currDoc->currentPage()->yOffset() + guidePosition;
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
@@ -860,16 +860,16 @@ void AlignDistributePalette::alignBottomOut()
 				loopEnd=alignObjectsCount-2;
 				break;
 			case Page:
-				newY = currDoc->currentPage->yOffset();
-				newY += currDoc->currentPage->height();
+				newY = currDoc->currentPage()->yOffset();
+				newY += currDoc->currentPage()->height();
 				break;
 			case Margins:
-				newY = currDoc->currentPage->yOffset();
-				newY += currDoc->currentPage->height();
-				newY -= currDoc->currentPage->Margins.Bottom;
+				newY = currDoc->currentPage()->yOffset();
+				newY += currDoc->currentPage()->height();
+				newY -= currDoc->currentPage()->Margins.Bottom;
 				break;
 			case Guide:
-				newY=currDoc->currentPage->yOffset() + guidePosition;
+				newY=currDoc->currentPage()->yOffset() + guidePosition;
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)

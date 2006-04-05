@@ -154,7 +154,7 @@ struct CopyContentsBuffer
 	int renderingIntent;
 };
 
-/** Pagemargins */
+/** \brief Pagemargins */
 struct MarginStruct
 {
 	MarginStruct() : Top(0), Left(0), Bottom(0), Right(0) {}
@@ -368,12 +368,15 @@ struct AlignObjs
 	QPtrList<PageItem> Objects;
 };
 
-/*! Human readable orientations */
+/*! \brief Human readable orientations */
 enum PageOrientation
 {
 	portraitPage = 0,
 	landscapePage = 1,
 	customPage = 30
 };
+
+//! \brief Common type for guides list
+typedef QValueList<double> Guides;
 
 #endif

@@ -13,18 +13,18 @@ for which a new license (GPL+exception) is in place.
 double PointToValue(double Val);
 double ValueToPoint(double Val);
 
-/// Convert an X co-ordinate part in page units to a document co-ordinate
-/// in system units.
+/*! \brief Convert an X co-ordinate part in page units to a document co-ordinate in system units.
+*/
 double pageUnitXToDocX(double pageUnitX);
-/// Doc units -> page-relative units
+/// \brief Doc units -> page-relative units
 double docUnitXToPageX(double pageUnitX);
 
-/// Convert a Y co-ordinate part in page units to a document co-ordinate
-/// in system units. The document co-ordinates have their origin somewere
-/// up and left of the first page, where page co-ordinates have their
-/// origin on the top left of the current page.
+/*! \brief Convert a Y co-ordinate part in page units to a document co-ordinate
+in system units. The document co-ordinates have their origin somewere
+up and left of the first page, where page co-ordinates have their
+origin on the top left of the current page. */
 double pageUnitYToDocY(double pageUnitY);
-/// Doc units -> page-relative units
+/// \brief Doc units -> page-relative units
 double docUnitYToPageY(double pageUnitY);
 
 int GetItem(QString Name);

@@ -161,7 +161,7 @@ void ApplyMasterPageDialog::setup(ScribusDoc *view, QString Nam)
 	if (docPagesCount < 2)
 		evenPagesRadioButton->setEnabled(false);
 	fromPageSpinBox->setMaxValue(docPagesCount);
-	fromPageSpinBox->setValue(view->currentPage->pageNr()+1);
+	fromPageSpinBox->setValue(view->currentPage()->pageNr()+1);
 	toPageSpinBox->setMaxValue(docPagesCount);
 	toPageSpinBox->setValue(docPagesCount);
 }

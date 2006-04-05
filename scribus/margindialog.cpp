@@ -43,7 +43,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	dsGroupBox7Layout->setMargin( 10 );
 	TextLabel1 = new QLabel( tr( "&Size:" ), dsGroupBox7, "TextLabel1" );
 	dsGroupBox7Layout->addMultiCellWidget( TextLabel1, 0, 0, 0, 1 );
-	PageSize *ps=new PageSize(doc->currentPage->PageSize);
+	PageSize *ps=new PageSize(doc->currentPage()->PageSize);
 	sizeQComboBox = new QComboBox( true, dsGroupBox7, "ComboBox1" );
 	sizeQComboBox->setEditable(false);
 	QStringList pageSizes=ps->getPageSizeList();
@@ -63,20 +63,20 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	orientationQComboBox->insertItem( tr( "Portrait" ) );
 	orientationQComboBox->insertItem( tr( "Landscape" ) );
 	orientationQComboBox->setEditable(false);
-	orientationQComboBox->setCurrentItem(doc->currentPage->PageOri );
-	oldOri = doc->currentPage->PageOri;
+	orientationQComboBox->setCurrentItem(doc->currentPage()->PageOri );
+	oldOri = doc->currentPage()->PageOri;
 	TextLabel2->setBuddy(orientationQComboBox);
 	dsGroupBox7Layout->addMultiCellWidget( orientationQComboBox, 1, 1, 2, 3 );
 	widthMSpinBox = new MSpinBox( 1, 100000, dsGroupBox7, unitGetDecimalsFromIndex(doc->unitIndex()) );
 	widthQLabel = new QLabel( tr( "&Width:" ), dsGroupBox7, "widthLabel" );
 	widthMSpinBox->setSuffix(unitGetSuffixFromIndex(doc->unitIndex()));
-	widthMSpinBox->setValue(doc->currentPage->width() * doc->unitRatio());
+	widthMSpinBox->setValue(doc->currentPage()->width() * doc->unitRatio());
 	widthQLabel->setBuddy(widthMSpinBox);
 	dsGroupBox7Layout->addWidget( widthQLabel, 2, 0 );
 	dsGroupBox7Layout->addWidget( widthMSpinBox, 2, 1 );
 	heightMSpinBox = new MSpinBox( 1, 100000, dsGroupBox7, unitGetDecimalsFromIndex(doc->unitIndex()) );
 	heightMSpinBox->setSuffix(unitGetSuffixFromIndex(doc->unitIndex()));
-	heightMSpinBox->setValue(doc->currentPage->height() * doc->unitRatio());
+	heightMSpinBox->setValue(doc->currentPage()->height() * doc->unitRatio());
 	heightQLabel = new QLabel(heightMSpinBox,  tr( "&Height:" ), dsGroupBox7, "heightLabel" );
 	dsGroupBox7Layout->addWidget( heightQLabel, 2, 2 );
 	dsGroupBox7Layout->addWidget( heightMSpinBox, 2, 3 );
@@ -98,18 +98,18 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 		}
 		Links->setEditable(false);
 		dsGroupBox7Layout->addMultiCellWidget( Links, 4, 4, 2, 3 );
-		if (doc->currentPage->LeftPg == 0)
+		if (doc->currentPage()->LeftPg == 0)
 			Links->setCurrentItem(Links->count()-1);
-		else if (doc->currentPage->LeftPg == 1)
+		else if (doc->currentPage()->LeftPg == 1)
 			Links->setCurrentItem(0);
 		else
-			Links->setCurrentItem(doc->currentPage->LeftPg-1);
+			Links->setCurrentItem(doc->currentPage()->LeftPg-1);
 	}
 	dialogLayout->addWidget( dsGroupBox7 );
 	
 	//GroupRand = new MarginWidget(this,  tr( "Margin Guides" ), &doc->currentPage->initialMargins, doc->unitIndex());
-	GroupRand = new MarginWidget(this,  tr( "Margin Guides" ), &doc->currentPage->Margins, doc->unitIndex());
-	GroupRand->setPageWidthHeight(doc->currentPage->width(), doc->currentPage->height());
+	GroupRand = new MarginWidget(this,  tr( "Margin Guides" ), &doc->currentPage()->Margins, doc->unitIndex());
+	GroupRand->setPageWidthHeight(doc->currentPage()->width(), doc->currentPage()->height());
 	GroupRand->setFacingPages(!(doc->currentPageLayout == singlePage));
 	dialogLayout->addWidget( GroupRand );
 

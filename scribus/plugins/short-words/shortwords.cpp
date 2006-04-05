@@ -111,7 +111,7 @@ bool ShortWordsPlugin::run(QString target)
 {
 	Q_ASSERT(target.isEmpty());
 
-	uint originalPage = ScMW->doc->currentPage->pageNr();
+	uint originalPage = ScMW->doc->currentPage()->pageNr();
 	SWDialog *dlg = new SWDialog(ScMW, "dlg", true, 0);
 	if (dlg->exec() == QDialog::Accepted) {
 		SWParse *parse = new SWParse();
@@ -122,7 +122,7 @@ bool ShortWordsPlugin::run(QString target)
 				parse->parseSelection();
 				break;
 			case 1:
-				parse->parsePage(ScMW->doc->currentPage->pageNr());
+				parse->parsePage(ScMW->doc->currentPage()->pageNr());
 				break;
 			case 2:
 				parse->parseAll();

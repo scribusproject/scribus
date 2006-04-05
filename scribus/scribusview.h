@@ -409,7 +409,7 @@ signals:
 	void EndNodeEdit();
 	void Hrule(int);
 	void Vrule(int);
-	void EditGuides();
+	//void EditGuides();
 	void MousePos(double, double);
 	void callGimp();
 	void AddObj(PageItem *);

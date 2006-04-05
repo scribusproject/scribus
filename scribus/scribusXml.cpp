@@ -962,7 +962,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 			}
 			if ((pg.tagName()=="PAGE") && (pg.attribute("NUM").toInt() == PageToLoad))
 			{
-				a = doc->currentPage->pageNr();
+				a = doc->currentPage()->pageNr();
 				if ((pg.attribute("NAM", "").isEmpty()) && (Mpage))
 				{
 					PAGE=PAGE.nextSibling();
@@ -982,32 +982,32 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				{
 					tmp = pg.attribute("VerticalGuides");
 					QTextStream fgv(&tmp, IO_ReadOnly);
-					doc->Pages->at(a)->YGuides.clear();
+					doc->Pages->at(a)->guides.clearVerticals(GuideManagerCore::Standard);
 					for (int cxv = 0; cxv < pg.attribute("NumVGuides", "0").toInt(); ++cxv)
 					{
 						fgv >> xf;
-						doc->Pages->at(a)->YGuides.append(xf);
+						doc->Pages->at(a)->guides.addVertical(xf, GuideManagerCore::Standard);
 					}
-					qHeapSort(doc->Pages->at(a)->YGuides);
+					//qHeapSort(doc->Pages->at(a)->YGuides);
 					tmp = "";
 				}
 				else
-					doc->Pages->at(a)->YGuides.clear();
+					doc->Pages->at(a)->guides.clearVerticals(GuideManagerCore::Standard);
 				if ((pg.hasAttribute("NumHGuides")) && (pg.attribute("NumHGuides", "0").toInt() != 0))
 				{
 					tmp = pg.attribute("HorizontalGuides");
 					QTextStream fgh(&tmp, IO_ReadOnly);
-					doc->Pages->at(a)->XGuides.clear();
+					doc->Pages->at(a)->guides.clearHorizontals(GuideManagerCore::Standard);
 					for (int cxh = 0; cxh < pg.attribute("NumHGuides", "0").toInt(); ++cxh)
 					{
 						fgh >> xf;
-						doc->Pages->at(a)->XGuides.append(xf);
+						doc->Pages->at(a)->guides.addHorizontal(xf, GuideManagerCore::Standard);
 					}
-					qHeapSort(doc->Pages->at(a)->XGuides);
+					//qHeapSort(doc->Pages->at(a)->XGuides);
 					tmp = "";
 				}
 				else
-					doc->Pages->at(a)->XGuides.clear();
+					doc->Pages->at(a)->guides.clearHorizontals(GuideManagerCore::Standard);
 				QDomNode OBJ=PAGE.firstChild();
 				counter = doc->Items->count();
 				baseobj = counter;
@@ -1470,13 +1470,13 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					//We store the pages master page but do not apply it now
 					//as it may not exist yet. They are applied in scribus.cpp for now.
 					doc->setMasterPageMode(false);
-					doc->currentPage=doc->addPage(a);
-					doc->currentPage->MPageNam=Mus;
+					doc->setCurrentPage(doc->addPage(a));
+					doc->currentPage()->MPageNam=Mus;
 				}
 				else
 				{
 					doc->setMasterPageMode(true);
-					doc->currentPage=doc->addMasterPage(a, PgNam);
+					doc->setCurrentPage(doc->addMasterPage(a, PgNam));
 				}
 				//CB: Remove this unnecessarily "slow" slot call when we have no gui for the doc yet!
 				//Items dont appear in the right place if we just doc->addPage(a); for <=1.2.x docs
@@ -1491,32 +1491,32 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				{
 					tmp = pg.attribute("VerticalGuides");
 					QTextStream fgv(&tmp, IO_ReadOnly);
-					doc->Pages->at(a)->YGuides.clear();
+					doc->Pages->at(a)->guides.clearVerticals(GuideManagerCore::Standard);
 					for (int cxv = 0; cxv < pg.attribute("NumVGuides", "0").toInt(); ++cxv)
 					{
 						fgv >> xf;
-						doc->Pages->at(a)->YGuides.append(xf);
+						doc->Pages->at(a)->guides.addVertical(xf, GuideManagerCore::Standard);
 					}
-					qHeapSort(doc->Pages->at(a)->YGuides);
+					//qHeapSort(doc->Pages->at(a)->YGuides);
 					tmp = "";
 				}
 				else
-					doc->Pages->at(a)->YGuides.clear();
+					doc->Pages->at(a)->guides.clearVerticals(GuideManagerCore::Standard);
 				if ((pg.hasAttribute("NumHGuides")) && (pg.attribute("NumHGuides", "0").toInt() != 0))
 				{
 					tmp = pg.attribute("HorizontalGuides");
 					QTextStream fgh(&tmp, IO_ReadOnly);
-					doc->Pages->at(a)->XGuides.clear();
+					doc->Pages->at(a)->guides.clearHorizontals(GuideManagerCore::Standard);
 					for (int cxh = 0; cxh < pg.attribute("NumHGuides", "0").toInt(); ++cxh)
 					{
 						fgh >> xf;
-						doc->Pages->at(a)->XGuides.append(xf);
+						doc->Pages->at(a)->guides.addHorizontal(xf, GuideManagerCore::Standard);
 					}
-					qHeapSort(doc->Pages->at(a)->XGuides);
+					//qHeapSort(doc->Pages->at(a)->XGuides);
 					tmp = "";
 				}
 				else
-					doc->Pages->at(a)->XGuides.clear();
+					doc->Pages->at(a)->guides.clearHorizontals(GuideManagerCore::Standard);
 				QDomNode OBJ=PAGE.firstChild();
 				while(!OBJ.isNull())
 				{
@@ -2177,15 +2177,15 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	qHeapSort(ELL);
 	if (selection->isMultipleSelection())
 	{
-		xp = view->GroupX - doc->currentPage->xOffset();
-		yp = view->GroupY - doc->currentPage->yOffset();
+		xp = view->GroupX - doc->currentPage()->xOffset();
+		yp = view->GroupY - doc->currentPage()->yOffset();
 		elem.setAttribute("W", view->GroupW);
 		elem.setAttribute("H", view->GroupH);
 	}
 	else
 	{
-		xp = item->xPos() - doc->currentPage->xOffset();
-		yp = item->yPos() - doc->currentPage->yOffset();
+		xp = item->xPos() - doc->currentPage()->xOffset();
+		yp = item->yPos() - doc->currentPage()->yOffset();
 		elem.setAttribute("W", item->width());
 		elem.setAttribute("H", item->height());
 	}
@@ -2438,8 +2438,8 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		else
 			ob.setAttribute("ALIGN",item->textAlignment);
  		SetItemProps(&ob, item, false);
-		ob.setAttribute("XPOS",item->xPos() - doc->currentPage->xOffset());
-		ob.setAttribute("YPOS",item->yPos() - doc->currentPage->yOffset());
+		ob.setAttribute("XPOS",item->xPos() - doc->currentPage()->xOffset());
+		ob.setAttribute("YPOS",item->yPos() - doc->currentPage()->yOffset());
 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
 		ob.setAttribute("fillRule", static_cast<int>(item->fillRule));
 		if (item->effectsInUse.count() != 0)
@@ -2708,15 +2708,18 @@ void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc
 		pg.setAttribute("Size", page->PageSize);
 		pg.setAttribute("Orientation", page->PageOri);
 		pg.setAttribute("LEFT", page->LeftPg);
-		pg.setAttribute("NumVGuides", static_cast<int>(page->YGuides.count()));
+		pg.setAttribute("NumVGuides", static_cast<int>(page->guides.verticals(GuideManagerCore::Standard).count()));
 		QString Vgui = "";
-		for (uint vgu = 0; vgu < page->YGuides.count(); ++vgu)
-			Vgui += tmp.setNum(page->YGuides[vgu]) + " ";
+		Guides::iterator it;
+		Guides tmpGuides = page->guides.verticals(GuideManagerCore::Standard);
+		for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
+			Vgui += tmp.setNum((*it)) + " ";
 		pg.setAttribute("VerticalGuides", Vgui);
-		pg.setAttribute("NumHGuides", static_cast<int>(page->XGuides.count()));
+		pg.setAttribute("NumHGuides", static_cast<int>(page->guides.horizontals(GuideManagerCore::Standard).count()));
 		QString Hgui = "";
-		for (uint hgu = 0; hgu < page->XGuides.count(); ++hgu)
-			Hgui += tmp.setNum(page->XGuides[hgu]) + " ";
+		tmpGuides = page->guides.horizontals(GuideManagerCore::Standard);
+		for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
+			Hgui += tmp.setNum((*it)) + " ";
 		pg.setAttribute("HorizontalGuides", Hgui);
 		dc->appendChild(pg);
 	}

@@ -150,7 +150,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		//atf = currentDoc->usesAutomaticTextFrames();
 		//currentDoc->setUsesAutomaticTextFrames(false);
 		//emit createNew(nr);
-		currentDoc->currentPage=currentDoc->addMasterPage(nr, MasterPageName);
+		currentDoc->setCurrentPage(currentDoc->addMasterPage(nr, MasterPageName));
 		currentDoc->setLoading(true);
 		if (currentDoc->currentPageLayout != singlePage)
 		{
@@ -168,6 +168,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		QPtrList<PageItem> TableItems;
 		TableID.clear();
 		TableItems.clear();
+		/* PV guides refactoring
 		if (currentDoc->Pages->at(inde)->YGuides.count() != 0)
 		{
 			currentDoc->currentPage->YGuides.clear();
@@ -186,6 +187,8 @@ void MasterPagesPalette::duplicateMasterPage()
 			}
 			qHeapSort(currentDoc->currentPage->XGuides);
 		}
+		*/
+		currentDoc->Pages->at(inde)->guides.copy(&currentDoc->currentPage()->guides);
 		uint end = currentDoc->Items->count();
 		int GrMax = currentDoc->GroupCounter;
 		for (uint a = 0; a < end; ++a)
@@ -274,7 +277,7 @@ void MasterPagesPalette::newMasterPage()
 			}
 			MasterPageName = dia->Answer->text();
 		}
-		currentDoc->currentPage=currentDoc->addMasterPage(nr, MasterPageName);
+		currentDoc->setCurrentPage(currentDoc->addMasterPage(nr, MasterPageName));
 		
 		//currentDoc->MasterNames.insert(MasterPageName, nr);
 		//currentDoc->pageCount = 0;
@@ -324,7 +327,7 @@ void MasterPagesPalette::appendPage()
 			MasterPageName2 = tr("Copy #%1 of ").arg(copyC)+MasterPageName;
 			copyC++;
 		}
-		currentDoc->currentPage=currentDoc->addMasterPage(nr, MasterPageName2);
+		currentDoc->setCurrentPage(currentDoc->addMasterPage(nr, MasterPageName2));
 		qApp->processEvents();
 		//CB TODO: If we are loading to a new name, we rely on doc->onpage in 
 		//FileLoader::PasteItem as this call doesnt pass in the new destination page

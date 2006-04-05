@@ -52,6 +52,13 @@ public:
 	\param s Number of Decimals
 	*/
 	MSpinBox(double minValue, double maxValue, QWidget *pa, int s);
+	/*! \brief A dummy constructor for use in Designer's custom widgets
+	\warning You have to setup properties later!
+	\author Petr Vanek
+	\param parent a parent QWidget
+	\param name optional name of the object */
+	MSpinBox(QWidget *parent, const char * name = 0);
+
 	~MSpinBox() {};
 	/*!
 	\author Franz Schmid

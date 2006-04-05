@@ -587,6 +587,12 @@ public:
 	void connectDocSignals();
 	void removeLayer(int l, bool dl = false); //FIXME: Make protected once scripter function no longer uses this directly
 	void changed();
+	/*! \brief Get pointer to the current page
+	\retval Page* current page object */
+	Page* currentPage();
+	/*! \brief Set new current page
+	\param newPage New current page */
+	void setCurrentPage(Page *newPage);
 	
 protected:
 	void addSymbols();
@@ -610,56 +616,55 @@ public: // Public attributes
 	int viewID;
 	bool SnapGuides;
 	bool GuideLock;
-	/** Scratch space around Pages */
+	/** \brief Scratch space around Pages */
 	double ScratchLeft;
 	double ScratchRight;
 	double ScratchTop;
 	double ScratchBottom;
-/** Minimum and Maximum Points of Document */
+	/** \brief Minimum and Maximum Points of Document */
 	FPoint minCanvasCoordinate;
 	FPoint maxCanvasCoordinate;
 	double rulerXoffset;
 	double rulerYoffset;
-  /** List of Pages */
+	/** \brief List of Pages */
 	QPtrList<Page>* Pages;
-  /** List of Master Pages */
+	/** \brief List of Master Pages */
 	QPtrList<Page> MasterPages;
-  /** List of Document Pages */
+	/** \brief List of Document Pages */
 	QPtrList<Page> DocPages;
-  /** Mapping Master Page Name to Master Page numbers */
+	/** \brief Mapping Master Page Name to Master Page numbers */
 	QMap<QString,int> MasterNames;
-  /** List of Objects */
+	/** \brief List of Objects */
 	QPtrList<PageItem>* Items;
 	QPtrList<PageItem> MasterItems;
 	QPtrList<PageItem> DocItems;
 	QPtrList<PageItem> FrameItems;
 	Selection* const m_Selection;
-  /** Pagewidth  */
+	/** \brief Pagewidth  */
 	double pageWidth;
-  /** Pageheight */
+	/** \brief Pageheight */
 	double pageHeight;
-  /** Number of Pages */
+	/* Number of Pages */
 	// int pageCount; Disabled CR no longer required
-  /** Margins */
+	/** \brief Margins */
 	MarginStruct pageMargins;
 	QValueList<PageSet> pageSets;
-  /** Number of Columns */
+	/** \brief Number of Columns */
 	double PageSp;
-  /** Distance of Columns */
+	/** \brief Distance of Columns */
 	double PageSpa;
- /** current Pagelayout */
+	/** \brief current Pagelayout */
 	int currentPageLayout;
-	/** Flag fuer Hoch- oder Querformat 0 = Hochformat */
+	/** \brief Flag fuer Hoch- oder Querformat 0 = Hochformat */
 	int PageOri;
 	QString PageSize;
-	/** Erste Seitennummer im Dokument */
+	/** \brief Erste Seitennummer im Dokument */
 	int FirstPnum;
-  /** Flag fuer Rasterbenutzung */
+	/** \brief Flag fuer Rasterbenutzung */
 	bool useRaster;
-  /** Im Dokument benutzte Farben */
+	/** \brief Im Dokument benutzte Farben */
 	ColorList PageColors;
-	Page* currentPage;
-  /** InfoStrings fuer das aktuelle Dokument */
+	/** \brief InfoStrings fuer das aktuelle Dokument */
 	DocumentInformation documentInfo;
 	int appMode;
 	int SubMode;
@@ -696,9 +701,9 @@ public: // Public attributes
 	toolPrefs toolSettings;
 	QMap<QString, checkerPrefs> checkerProfiles;
 	QString curCheckProfile;
-  /** Letztes Element fuer AutoTextrahmen */
+	/** \brief Letztes Element fuer AutoTextrahmen */
 	PageItem *LastAuto;
-  /** Erstes Element fuer AutoTextrahmen */
+	/** \brief Erstes Element fuer AutoTextrahmen */
 	PageItem *FirstAuto;
 	bool DragP;
 	bool leaveDrag;
@@ -782,6 +787,7 @@ public: // Public attributes
 	Hyphenator * const docHyphenator;
 private:
 	bool _itemCreationTransactionStarted;
+	Page* _currentPage;
 	
 signals:
 	//Lets make our doc talk to our GUI rather than confusing all our normal stuff

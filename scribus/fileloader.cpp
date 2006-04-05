@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "units.h"
 #include "loadsaveplugin.h"
+#include "guidemanager.h"
 
 // We need to include the headers for the plugins we support until we start
 // using LoadSavePlugin to pick them for us. We only use these headers to
@@ -552,7 +553,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 			}
 			if (((pg.tagName()=="PAGE") || (pg.tagName()=="MASTERPAGE")) && (pg.attribute("NUM").toInt() == PageToLoad))
 			{
-				a = doc->currentPage->pageNr();
+				a = doc->currentPage()->pageNr();
 				Apage = doc->Pages->at(a);
 				if ((pg.tagName()!="MASTERPAGE") && (Mpage))
 				{
@@ -591,26 +592,26 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 				{
 					tmp = pg.attribute("VerticalGuides");
 					QTextStream fgv(&tmp, IO_ReadOnly);
-					Apage->YGuides.clear();
+					Apage->guides.clearVerticals(GuideManagerCore::Standard);//YGuides.clear();
 					for (int cxv = 0; cxv < pg.attribute("NumVGuides", "0").toInt(); ++cxv)
 					{
 						fgv >> xf;
-						Apage->YGuides.append(xf);
+						Apage->guides.addVertical(xf, GuideManagerCore::Standard);//YGuides.append(xf);
 					}
-					qHeapSort(Apage->YGuides);
+					//qHeapSort(Apage->YGuides);
 					tmp = "";
 				}
 				if ((pg.hasAttribute("NumHGuides")) && (pg.attribute("NumHGuides", "0").toInt() != 0))
 				{
 					tmp = pg.attribute("HorizontalGuides");
 					QTextStream fgh(&tmp, IO_ReadOnly);
-					Apage->XGuides.clear();
+					Apage->guides.clearHorizontals(GuideManagerCore::Standard);//XGuides.clear();
 					for (int cxh = 0; cxh < pg.attribute("NumHGuides", "0").toInt(); ++cxh)
 					{
 						fgh >> xf;
-						Apage->XGuides.append(xf);
+						Apage->guides.addHorizontal(xf, GuideManagerCore::Standard);
 					}
-					qHeapSort(Apage->XGuides);
+					//qHeapSort(Apage->XGuides);
 					tmp = "";
 				}
 			}
@@ -1532,32 +1533,37 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				{
 					tmp = pg.attribute("VerticalGuides");
 					QTextStream fgv(&tmp, IO_ReadOnly);
-					Apage->YGuides.clear();
+					//Apage->YGuides.clear();
+					Apage->guides.clearVerticals(GuideManagerCore::Standard);
 					for (int cxv = 0; cxv < pg.attribute("NumVGuides", "0").toInt(); ++cxv)
 					{
 						fgv >> xf;
-						Apage->YGuides.append(xf);
+						//Apage->YGuides.append(xf);
+						Apage->guides.addVertical(xf, GuideManagerCore::Standard);
 					}
-					qHeapSort(Apage->YGuides);
+					//qHeapSort(Apage->YGuides);
 					tmp = "";
 				}
 				else
-					Apage->YGuides.clear();
+					//Apage->YGuides.clear();
+					Apage->guides.clearVerticals(GuideManagerCore::Standard);
 				if ((pg.hasAttribute("NumHGuides")) && (pg.attribute("NumHGuides", "0").toInt() != 0))
 				{
 					tmp = pg.attribute("HorizontalGuides");
 					QTextStream fgh(&tmp, IO_ReadOnly);
-					Apage->XGuides.clear();
+					//Apage->XGuides.clear();
+					Apage->guides.clearHorizontals(GuideManagerCore::Standard);
 					for (int cxh = 0; cxh < pg.attribute("NumHGuides", "0").toInt(); ++cxh)
 					{
 						fgh >> xf;
-						Apage->XGuides.append(xf);
+						//Apage->XGuides.append(xf);
+						Apage->guides.addHorizontal(xf, GuideManagerCore::Standard);
 					}
-					qHeapSort(Apage->XGuides);
+					//qHeapSort(Apage->XGuides);
 					tmp = "";
 				}
 				else
-					Apage->XGuides.clear();
+					Apage->guides.clearHorizontals(GuideManagerCore::Standard);
 			}
 			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 			{
@@ -1574,7 +1580,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 						doc->setMasterPageMode(true);
 					}
 					if ((!pg.attribute("OnMasterPage").isEmpty()) && (pg.tagName()=="MASTEROBJECT"))
-						doc->currentPage = doc->MasterPages.at(doc->MasterNames[pg.attribute("OnMasterPage")]);
+						doc->setCurrentPage(doc->MasterPages.at(doc->MasterNames[pg.attribute("OnMasterPage")]));
 					if ((pg.attribute("NEXTITEM").toInt() != -1) || (static_cast<bool>(pg.attribute("AUTOTEXT").toInt())))
 					{
 						if (pg.attribute("BACKITEM").toInt() == -1)

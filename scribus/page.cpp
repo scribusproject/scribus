@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "undomanager.h"
 #include "undostate.h"
+#include "guidemanagercore.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -37,8 +38,8 @@ Page::Page(const double x, const double y, const double b, const double h) :
 	LeftPg(0),
 	MPageNam(""),
 	PageNam(""),
-	XGuides(),
-	YGuides(),
+	//XGuides(),
+	//YGuides(),
 	FromMaster(),
 	undoManager(UndoManager::instance()),
 	m_xOffset(x),
@@ -47,7 +48,8 @@ Page::Page(const double x, const double y, const double b, const double h) :
 	m_height(h),
 	m_initialWidth(b),
 	m_initialHeight(h),
-	m_Doc(NULL)
+	m_Doc(NULL),
+	guides(this)
 {
 }
 
@@ -79,6 +81,7 @@ void Page::setPageNr(int pageNr)
 		setUName(PageNam);
 }
 
+/* PV
 void Page::addXGuide(double position)
 {
 	XGuides.append(position);
@@ -198,6 +201,7 @@ void Page::moveYGuide(int fromIndex, double to)
 		undoManager->action(this, ss);
 	}
 }
+*/
 
 void Page::setPageName(const QString& newName)
 {
@@ -215,48 +219,33 @@ void Page::restore(UndoState* state, bool isUndo)
 		{
 			double position = ss->getDouble("ADD_V");
 			if (isUndo)
-				removeXGuide(position);
+				guides.deleteVertical(position, GuideManagerCore::Standard);//removeXGuide(position);
 			else
-				addXGuide(position);
+				guides.addVertical(position, GuideManagerCore::Standard);//addXGuide(position);
 		}
 		else if (ss->contains("ADD_H"))
 		{
 			double position = ss->getDouble("ADD_H");
 			if (isUndo)
-				removeYGuide(position);
+				guides.deleteHorizontal(position, GuideManagerCore::Standard);//removeYGuide(position);
 			else
-				addYGuide(position);
+				guides.addHorizontal(position, GuideManagerCore::Standard);//addYGuide(position);
 		}
 		else if (ss->contains("REMOVE_V"))
 		{
 			double position = ss->getDouble("REMOVE_V");
 			if (isUndo)
-				addXGuide(position);
+				guides.addVertical(position, GuideManagerCore::Standard);//addXGuide(position);
 			else
-				removeXGuide(position);
+				guides.deleteVertical(position, GuideManagerCore::Standard);//removeXGuide(position);
 		}
 		else if (ss->contains("REMOVE_H"))
 		{
 			double position = ss->getDouble("REMOVE_H");
 			if (isUndo)
-				addYGuide(position);
+				guides.addHorizontal(position, GuideManagerCore::Standard);//addYGuide(position);
 			else
-				removeYGuide(position);
-		}
-		else if (ss->contains("MOVE_V_FROM"))
-		{
-			double from = ss->getDouble("MOVE_V_FROM");
-			double to   = ss->getDouble("MOVE_V_TO");
-			if (isUndo)
-			{
-				removeXGuide(to);
-				addXGuide(from);
-			}
-			else
-			{
-				removeXGuide(from);
-				addXGuide(to);
-			}
+				guides.deleteHorizontal(position, GuideManagerCore::Standard);//removeYGuide(position);
 		}
 		else if (ss->contains("MOVE_H_FROM"))
 		{
@@ -264,13 +253,28 @@ void Page::restore(UndoState* state, bool isUndo)
 			double to   = ss->getDouble("MOVE_H_TO");
 			if (isUndo)
 			{
-				removeYGuide(to);
-				addYGuide(from);
+				guides.deleteHorizontal(to, GuideManagerCore::Standard);//removeYGuide(position);
+				guides.addHorizontal(from, GuideManagerCore::Standard);//addYGuide(position);
 			}
 			else
 			{
-				removeYGuide(from);
-				addYGuide(to);
+				guides.deleteHorizontal(from, GuideManagerCore::Standard);//removeYGuide(position);
+				guides.addHorizontal(to, GuideManagerCore::Standard);//addYGuide(position);
+			}
+		}
+		else if (ss->contains("MOVE_V_FROM"))
+		{
+			double from = ss->getDouble("MOVE_V_FROM");
+			double to   = ss->getDouble("MOVE_V_TO");
+			if (isUndo)
+			{
+				guides.deleteVertical(to, GuideManagerCore::Standard);//removeXGuide(position);
+				guides.addVertical(from, GuideManagerCore::Standard);//removeXGuide(position);
+			}
+			else
+			{
+				guides.deleteVertical(from, GuideManagerCore::Standard);//removeXGuide(position);
+				guides.addVertical(to, GuideManagerCore::Standard);//removeXGuide(position);
 			}
 		}
 		else if (ss->contains("CREATE_ITEM"))

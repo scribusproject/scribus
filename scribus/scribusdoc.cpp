@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "scribuswin.h"
 #include "scribusXml.h"
+#include "guidemanager.h"
 
 #include <utility>
 #include <qfile.h>
@@ -120,7 +121,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	PageOri(0), PageSize(0),
 	FirstPnum(1),
 	useRaster(false),
-	currentPage(0),
+	_currentPage(0),
 	// documentInfo
 	appMode(modeNormal),
 	SubMode(-1),
@@ -910,7 +911,7 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	addedPage->PageOri = PageOri;
 	bool insertsuccess=DocPages.insert(pageIndex, addedPage);
 	Q_ASSERT(insertsuccess==true && DocPages.at(pageIndex)!=NULL);
-	currentPage = addedPage;
+	setCurrentPage(addedPage);
 	//if (!masterPageMode())
 	if (!masterPageName.isEmpty())
 		applyMasterPage(masterPageName, pageIndex);
@@ -967,7 +968,7 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 	}
 	*/
 	//QPtrList docs: The item after the removed item becomes the new current list item if the removed item is not the last item in the list. If the last item is removed, the new last item becomes the current item.
-	currentPage = Pages->at(0);
+	setCurrentPage(Pages->at(0));
 }
 
 void ScribusDoc::deletePage(const int pageNumber)
@@ -976,7 +977,7 @@ void ScribusDoc::deletePage(const int pageNumber)
 	Page* page = Pages->at(pageNumber);
 	Pages->remove(pageNumber);
 	delete page;
-	currentPage = Pages->at(0);
+	setCurrentPage(Pages->at(0));
 }
 
 void ScribusDoc::movePage(const int from, const int to, const int ziel, const int art)
@@ -1931,6 +1932,7 @@ bool ScribusDoc::applyMasterPage(const QString& in, const int pageNumber)
 		if (currItem->OwnPage == MpNr)
 			Ap->FromMaster.append(currItem);
 	}
+	/* PV - guides refactoring
 	if (Mp->YGuides.count() != 0)
 	{
 		for (uint y = 0; y < Mp->YGuides.count(); ++y)
@@ -1949,6 +1951,8 @@ bool ScribusDoc::applyMasterPage(const QString& in, const int pageNumber)
 		}
 		qHeapSort(Ap->XGuides);
 	}
+	*/
+	Mp->guides.copy(&Ap->guides);
 	Ap->initialMargins.Top = Mp->Margins.Top;
 	Ap->initialMargins.Bottom = Mp->Margins.Bottom;
 	Ap->initialMargins.Left = Mp->Margins.Left;
@@ -2001,22 +2005,22 @@ bool ScribusDoc::changePageMargins(const double initialTop, const double initial
 	}
 	else
 	{
-		if (currentPage==NULL)
+		if (currentPage()==NULL)
 			retVal=false;
 		else
 		{
 			//set the current page's values
-			currentPage->initialMargins.Top = initialTop;
-			currentPage->initialMargins.Bottom = initialBottom;
-			currentPage->initialMargins.Left = initialLeft;
-			currentPage->initialMargins.Right = initialRight;
-			currentPage->setInitialHeight(initialHeight);
-			currentPage->setInitialWidth(initialWidth);
-			currentPage->setHeight(height);
-			currentPage->setWidth(width);
-			currentPage->PageOri = orientation;
-			currentPage->PageSize = pageSize;
-			currentPage->LeftPg = pageType;
+			currentPage()->initialMargins.Top = initialTop;
+			currentPage()->initialMargins.Bottom = initialBottom;
+			currentPage()->initialMargins.Left = initialLeft;
+			currentPage()->initialMargins.Right = initialRight;
+			currentPage()->setInitialHeight(initialHeight);
+			currentPage()->setInitialWidth(initialWidth);
+			currentPage()->setHeight(height);
+			currentPage()->setWidth(width);
+			currentPage()->PageOri = orientation;
+			currentPage()->PageSize = pageSize;
+			currentPage()->LeftPg = pageType;
 			changed();
 		}
 	}
@@ -2111,9 +2115,9 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	Page* targetPage=addMasterPage(nr, masterPageName);
 	Q_ASSERT(targetPage!=NULL);
 	//Backup currentpage, and dont use sourcepage here as we might convert a non current page
-	Page* oldCurrentPage = currentPage;
+	Page* oldCurrentPage = currentPage();
 	//Must set current page for pasteitem to work properly
-	currentPage=targetPage;
+	setCurrentPage(targetPage);
 	setLoading(true);
 	targetPage->copySizingProperties(sourcePage, sourcePage->Margins);
 	//Grab the left page setting for the current document layout from the dialog, and increment, singlePage==1 remember.
@@ -2130,6 +2134,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	}
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
+	/* PV - guides refactoring
 	if (sourcePage->YGuides.count() != 0)
 	{
 		targetPage->YGuides.clear();
@@ -2144,6 +2149,8 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 			targetPage->XGuides.append(sourcePage->XGuides[x]);
 		qHeapSort(targetPage->XGuides);
 	}
+	*/
+	sourcePage->guides.copy(&targetPage->guides);
 	struct CopyPasteBuffer BufferT;
 	uint end = DocItems.count();
 	//CB Need to set this so the paste works correctly. Should not need it really, but its a quick op.
@@ -2216,7 +2223,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	GroupCounter = GrMax + 1;
 	//Reset the current page..
 	setMasterPageMode(false);
-	currentPage=oldCurrentPage;
+	setCurrentPage(oldCurrentPage);
 	return true;
 }
 
@@ -2479,12 +2486,12 @@ int ScribusDoc::OnPage(double x2, double  y2)
 	int retw = -1;
 	if (masterPageMode())
 	{
-		int x = static_cast<int>(currentPage->xOffset());
-		int y = static_cast<int>(currentPage->yOffset());
-		int w = static_cast<int>(currentPage->width());
-		int h = static_cast<int>(currentPage->height());
+		int x = static_cast<int>(currentPage()->xOffset());
+		int y = static_cast<int>(currentPage()->yOffset());
+		int w = static_cast<int>(currentPage()->width());
+		int h = static_cast<int>(currentPage()->height());
 		if (QRect(x, y, w, h).contains(QPoint(qRound(x2), qRound(y2))))
-			retw = currentPage->pageNr();
+			retw = currentPage()->pageNr();
 	}
 	else
 	{
@@ -2510,16 +2517,16 @@ int ScribusDoc::OnPage(PageItem *currItem)
 	int retw = -1;
 	if (masterPageMode())
 	{
-		int x = static_cast<int>(currentPage->xOffset());
-		int y = static_cast<int>(currentPage->yOffset());
-		int w = static_cast<int>(currentPage->width());
-		int h = static_cast<int>(currentPage->height());
+		int x = static_cast<int>(currentPage()->xOffset());
+		int y = static_cast<int>(currentPage()->yOffset());
+		int w = static_cast<int>(currentPage()->width());
+		int h = static_cast<int>(currentPage()->height());
 		int x2 = static_cast<int>(currItem->xPos());
 		int y2 = static_cast<int>(currItem->yPos());
 		int w2 = QMAX(static_cast<int>(currItem->width()), 1);
 		int h2 = QMAX(static_cast<int>(currItem->height()), 1);
 		if (QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
-			retw = currentPage->pageNr();
+			retw = currentPage()->pageNr();
 	}
 	else
 	{
@@ -2759,7 +2766,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			newItem = new PageItem_TextFrame(*oldItem);
 			if (UndoManager::undoEnabled() && oldItem->itemType()==PageItem::PathText)
 			{
-				undoManager->beginTransaction(currentPage->getUName(), 0, Um::TextFrame, "", Um::ITextFrame);
+				undoManager->beginTransaction(currentPage()->getUName(), 0, Um::TextFrame, "", Um::ITextFrame);
 				transactionConversion=true;
 			}
 			break;
@@ -2778,7 +2785,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 				return false;
 			if (UndoManager::undoEnabled())
 			{
-				undoManager->beginTransaction(currentPage->getUName(), 0, Um::PathText, "", Um::ITextFrame);
+				undoManager->beginTransaction(currentPage()->getUName(), 0, Um::PathText, "", Um::ITextFrame);
 				transactionConversion=true;
 			}
 			newItem = new PageItem_PathText(*oldItem);
@@ -2916,7 +2923,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 
 const int ScribusDoc::currentPageNumber()
 {
-	return currentPage->pageNr();
+	return currentPage()->pageNr();
 }
 
 bool ScribusDoc::itemNameExists(const QString checkItemName)
@@ -3149,8 +3156,8 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		else if (whereToInsert==2)
 			destLocation=DocPages.count();
 		//ScMW->slotNewPage(destLocation);
-		currentPage=addPage(destLocation, from->MPageNam);
-		Page* destination = currentPage; //slotNewPage sets currentPage
+		setCurrentPage(addPage(destLocation, from->MPageNam));
+		Page* destination = currentPage(); //slotNewPage sets currentPage
 		destination->setInitialHeight(from->height());
 		destination->setInitialWidth(from->width());
 		destination->PageOri = from->PageOri;
@@ -3232,6 +3239,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 			}
 		}
 		//ScMW->Apply_MasterPage(from->MPageNam, destination->pageNr(), false);
+		/* PV - guides refactoring
 		if (from->YGuides.count() != 0)
 		{
 			for (uint y = 0; y < from->YGuides.count(); ++y)
@@ -3250,6 +3258,8 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 			}
 			qHeapSort(destination->XGuides);
 		}
+		*/
+		from->guides.copy(&destination->guides);
 		GroupCounter = GrMax + 1;
 	}
 	setUsesAutomaticTextFrames(autoText);
@@ -5607,3 +5617,13 @@ void ScribusDoc::changed()
 	emit docChanged();
 }
 
+Page* ScribusDoc::currentPage()
+{
+	return _currentPage;
+}
+
+void ScribusDoc::setCurrentPage(Page *newPage)
+{
+	_currentPage = newPage;
+	ScMW->guidePalette->setupPage();
+}

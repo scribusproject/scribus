@@ -93,7 +93,7 @@ private:
 	int cor;
 	PrefsManager *prefsManager;
 
-	void drawGuides();
+	//void drawGuides();
 };
 
 #endif

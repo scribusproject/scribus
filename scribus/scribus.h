@@ -70,6 +70,7 @@ class BookPalette;
 class CheckDocument;
 class FileWatcher;
 class FontCombo;
+class GuideManager;
 class ColorCombo;
 class LayerPalette;
 class LineFormate;
@@ -214,6 +215,7 @@ public:
 	QLabel* mainWindowXPosDataLabel;
 	QLabel* mainWindowYPosLabel;
 	QLabel* mainWindowYPosDataLabel;
+	GuideManager *guidePalette;
 	Mpalette *propertiesPalette;
 	NodePalette *nodePalette;
 	Tree *outlinePalette;
@@ -269,7 +271,7 @@ public slots:
 	void DelBookMark(PageItem *ite);
 	void BookMarkTxT(PageItem *ite);
 	void StoreBookmarks();
-	void ManageGuides();
+	//void ManageGuides();
 	//void setItemFillTransparency(double t);
 	//void setItemLineTransparency(double t);
 	void setMousePositionOnStatusBar(double xp, double yp);

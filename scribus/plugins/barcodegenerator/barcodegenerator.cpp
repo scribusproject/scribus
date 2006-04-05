@@ -228,7 +228,10 @@ void BarcodeGenerator::okButton_pressed()
 	// it's created by previous run...
 	if (UndoManager::undoEnabled() && ScMW->HaveDoc)
 	{
-		UndoManager::instance()->beginTransaction(ScMW->doc->currentPage->getUName(),Um::IImageFrame,Um::ImportEPS, psFile, Um::IEPS);
+		UndoManager::instance()->beginTransaction(ScMW->doc->currentPage()->getUName(),
+												Um::IImageFrame,
+												Um::ImportEPS,
+												psFile, Um::IEPS);
 	}
 	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
 		UndoManager::instance()->setUndoEnabled(false);

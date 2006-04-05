@@ -57,6 +57,16 @@ MSpinBox::MSpinBox(double minValue, double maxValue, QWidget *pa, int s):QSpinBo
     connect( ed, SIGNAL(textChanged(const QString&)), SLOT(textChanged()) );
 }
 
+MSpinBox::MSpinBox(QWidget *parent, const char * name): QSpinBox(parent, name)
+{
+	setValidator(0);
+	ed = editor();
+	oldLineStep=0;
+	readOnly=false;
+	edited = false;
+	connect( ed, SIGNAL(textChanged(const QString&)), SLOT(textChanged()) );
+}
+
 void MSpinBox::setParameters( int s )
 {
 	if (s>=0 && s <=unitGetMaxIndex())

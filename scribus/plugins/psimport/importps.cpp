@@ -453,7 +453,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 							z = ScMW->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, CommonStrings::None, true);
 						ite = ScMW->doc->Items->at(z);
 						ite->PoLine = Coords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
-						ite->PoLine.translate(ScMW->doc->currentPage->xOffset(), ScMW->doc->currentPage->yOffset());
+						ite->PoLine.translate(ScMW->doc->currentPage()->xOffset(), ScMW->doc->currentPage()->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
 						ite->fillRule = (fillRuleEvenOdd);
@@ -493,7 +493,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 							z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CommonStrings::None, CurrColor, true);
 						ite = Doku->Items->at(z);
 						ite->PoLine = Coords.copy(); //FIXME: try to avoid copy when FPointArray is properly shared
-						ite->PoLine.translate(Doku->currentPage->xOffset(), Doku->currentPage->yOffset());
+						ite->PoLine.translate(Doku->currentPage()->xOffset(), Doku->currentPage()->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
 						ite->PLineEnd = CapStyle;
@@ -679,7 +679,7 @@ bool EPSPlug::Image(QString vals)
 	QFile::remove(rawfile);
 	int z = ScMW->doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, w, h, LineW, CommonStrings::None, CurrColor, true);
 	PageItem * ite = ScMW->doc->Items->at(z);
-	ite->setXYPos(ScMW->doc->currentPage->xOffset() + x, ScMW->doc->currentPage->yOffset() + y);
+	ite->setXYPos(ScMW->doc->currentPage()->xOffset() + x, ScMW->doc->currentPage()->yOffset() + y);
 	ite->setWidthHeight(w, h);
 	ite->clearContents();
 /*	FPoint a(x, y);

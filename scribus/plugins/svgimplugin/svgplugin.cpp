@@ -160,7 +160,7 @@ bool SVGImportPlugin::import(QString filename)
 	}
 	if (UndoManager::undoEnabled() && ScMW->HaveDoc)
 	{
-		UndoManager::instance()->beginTransaction(ScMW->doc->currentPage->getUName(),Um::IImageFrame,Um::ImportSVG, filename, Um::ISVG);
+		UndoManager::instance()->beginTransaction(ScMW->doc->currentPage()->getUName(),Um::IImageFrame,Um::ImportSVG, filename, Um::ISVG);
 	}
 	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
 		UndoManager::instance()->setUndoEnabled(false);
@@ -356,8 +356,8 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 	QPtrList<PageItem> GElements;
 	FPointArray ImgClip;
 	ImgClip.resize(0);
-	double BaseX = currDoc->currentPage->xOffset();
-	double BaseY = currDoc->currentPage->yOffset();
+	double BaseX = currDoc->currentPage()->xOffset();
+	double BaseY = currDoc->currentPage()->yOffset();
 	for( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		int z = -1;

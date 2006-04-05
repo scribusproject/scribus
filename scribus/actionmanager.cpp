@@ -354,6 +354,7 @@ void ActionManager::initPageMenuActions()
 	scrActions->insert("pageApplyMasterPage", new ScrAction(ScMW, "pageApplyMasterPage"));
 	scrActions->insert("pageCopyToMasterPage", new ScrAction(ScMW, "pageCopyToMasterPage"));
 	scrActions->insert("pageManageGuides", new ScrAction(ScMW, "pageManageGuides"));
+	(*scrActions)["pageManageGuides"]->setToggleAction(true);
 	scrActions->insert("pageManageMargins", new ScrAction(ScMW, "pageManageMargins"));
 
 	connect( (*scrActions)["pageInsert"], SIGNAL(activated()), ScMW, SLOT(slotNewPageM()) );
@@ -363,7 +364,6 @@ void ActionManager::initPageMenuActions()
 	connect( (*scrActions)["pageMove"], SIGNAL(activated()), ScMW, SLOT(MovePage()) );
 	connect( (*scrActions)["pageApplyMasterPage"], SIGNAL(activated()), ScMW, SLOT(ApplyMasterPage()) );
 	connect( (*scrActions)["pageCopyToMasterPage"], SIGNAL(activated()), ScMW, SLOT(duplicateToMasterPage()) );
-	connect( (*scrActions)["pageManageGuides"], SIGNAL(activated()), ScMW, SLOT(ManageGuides()) );
 	connect( (*scrActions)["pageManageMargins"], SIGNAL(activated()), ScMW, SLOT(changePageMargins()) );
 }
 

@@ -323,9 +323,9 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 				p.begin(currView->viewport());
 				p.setRasterOp(XorROP);
 				p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-				QPoint out = currView->contentsToViewport(QPoint(0, qRound(currDoc->currentPage->yOffset() * Scaling)));
-				p.drawLine(Markp, out.y(), Markp, out.y()+qRound(currDoc->currentPage->height() * Scaling));
-				p.drawLine(py.x(), out.y(), py.x(), out.y()+qRound(currDoc->currentPage->height() * Scaling));
+				QPoint out = currView->contentsToViewport(QPoint(0, qRound(currDoc->currentPage()->yOffset() * Scaling)));
+				p.drawLine(Markp, out.y(), Markp, out.y()+qRound(currDoc->currentPage()->height() * Scaling));
+				p.drawLine(py.x(), out.y(), py.x(), out.y()+qRound(currDoc->currentPage()->height() * Scaling));
 				p.end();
 				Markp = py.x();
 			}
@@ -757,8 +757,8 @@ void Hruler::setItemPosition(double pos, double width)
 	ItemEndPos = pos+width;
 	if (currDoc->guidesSettings.rulerMode)
 	{
-		ItemPos -= currDoc->currentPage->xOffset();
-		ItemEndPos -= currDoc->currentPage->xOffset();
+		ItemPos -= currDoc->currentPage()->xOffset();
+		ItemEndPos -= currDoc->currentPage()->xOffset();
 	}
 }
 
@@ -879,6 +879,7 @@ void Hruler::unitChange()
 	}
 }
 
+/* PV guides refactoring
 void Hruler::drawGuides()
 {
 	if (!currDoc->guidesSettings.guidesShown
@@ -892,4 +893,4 @@ void Hruler::drawGuides()
 		if ((page->XGuides[xg] >= 0) && (page->XGuides[xg] <= page->width()))
 			p.drawLine((int)page->XGuides[xg], 0, (int)page->XGuides[xg], 20);
 	p.end();
-}
+} */

@@ -52,6 +52,7 @@ for which a new license (GPL+exception) is in place.
 #include "cpalette.h"
 #include "commonstrings.h"
 #include "scconfig.h"
+#include "guidemanager.h"
 
 #include <ft2build.h>
 #include FT_GLYPH_H
@@ -358,7 +359,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	Segments.clear();
 	PoShow = false;
 	BaseOffs = 0;
-	OwnPage = m_Doc->currentPage->pageNr();
+	OwnPage = m_Doc->currentPage()->pageNr();
 	oldOwnPage = OwnPage;
 	savedOwnPage = OwnPage;
 	PicArt = true;
@@ -451,7 +452,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	Dirty = false;
 	ChangedMasterItem = false;
 	isEmbedded = false;
-	OnMasterPage = m_Doc->currentPage->PageNam;
+	OnMasterPage = m_Doc->currentPage()->PageNam;
 	m_startArrowIndex = m_Doc->toolSettings.dStartArrow;
 	m_endArrowIndex = m_Doc->toolSettings.dEndArrow;
 	effectsInUse.clear();
@@ -2322,8 +2323,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 	Page *oldCurrentPage;
 	if (!OnMasterPage.isEmpty())
 	{
-		oldCurrentPage = m_Doc->currentPage;
-		m_Doc->currentPage = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
+		oldCurrentPage = m_Doc->currentPage();
+		m_Doc->setCurrentPage(m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]));
 	}
 
 	if (ss)
@@ -2451,7 +2452,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreGetImage(ss, isUndo);
 	}
 	if (!OnMasterPage.isEmpty())
-		m_Doc->currentPage = oldCurrentPage;
+		m_Doc->setCurrentPage(oldCurrentPage);
 	m_Doc->setMasterPageMode(oldMPMode);
 }
 

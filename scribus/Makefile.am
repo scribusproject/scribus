@@ -93,7 +93,9 @@ scribus_SOURCES = \
 	gtparagraphstyle.cpp	\
 	gtstyle.cpp	\
 	gtwriter.cpp	\
+	guidemanagerbase.ui \
 	guidemanager.cpp	\
+	guidemanagercore.cpp \
 	helpbrowser.cpp	\
 	hnjalloc.c	\
 	hruler.cpp	\
@@ -319,6 +321,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/gtstyle.h                     $(prefix)/include/scribus/gtstyle.h
 	$(INSTALL_DATA) $(srcdir)/gtwriter.h                    $(prefix)/include/scribus/gtwriter.h
 	$(INSTALL_DATA) $(srcdir)/guidemanager.h                $(prefix)/include/scribus/guidemanager.h
+	$(INSTALL_DATA) $(srcdir)/guidemanagercore.h            $(prefix)/include/scribus/guidemanagercore.h
 	$(INSTALL_DATA) $(srcdir)/helpbrowser.h                 $(prefix)/include/scribus/helpbrowser.h
 	$(INSTALL_DATA) $(srcdir)/hnjalloc.h                    $(prefix)/include/scribus/hnjalloc.h
 	$(INSTALL_DATA) $(srcdir)/hruler.h                      $(prefix)/include/scribus/hruler.h
@@ -506,6 +509,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/gtstyle.h
 	-rm -f $(prefix)/include/scribus/gtwriter.h
 	-rm -f $(prefix)/include/scribus/guidemanager.h
+	-rm -f $(prefix)/include/scribus/guidemanagercore.h
 	-rm -f $(prefix)/include/scribus/helpbrowser.h
 	-rm -f $(prefix)/include/scribus/hnjalloc.h
 	-rm -f $(prefix)/include/scribus/hruler.h

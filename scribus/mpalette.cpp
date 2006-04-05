@@ -1686,8 +1686,8 @@ void Mpalette::setXY(double x, double y)
 		inY -= doc->rulerYoffset;
 		if (doc->guidesSettings.rulerMode)
 		{
-			inX -= doc->currentPage->xOffset();
-			inY -= doc->currentPage->yOffset();
+			inX -= doc->currentPage()->xOffset();
+			inY -= doc->currentPage()->yOffset();
 		}
 	}
 	Xpos->setValue(inX*Umrech);
@@ -2098,8 +2098,8 @@ void Mpalette::NewX()
 		y += doc->rulerYoffset;
 		if (doc->guidesSettings.rulerMode)
 		{
-			x += doc->currentPage->xOffset();
-			y += doc->currentPage->yOffset();
+			x += doc->currentPage()->xOffset();
+			y += doc->currentPage()->yOffset();
 		}
 		if (doc->m_Selection->isMultipleSelection())
 		{
@@ -2166,8 +2166,8 @@ void Mpalette::NewY()
 		y += doc->rulerYoffset;
 		if (doc->guidesSettings.rulerMode)
 		{
-			x += doc->currentPage->xOffset();
-			y += doc->currentPage->yOffset();
+			x += doc->currentPage()->xOffset();
+			y += doc->currentPage()->yOffset();
 		}
 		if (doc->m_Selection->isMultipleSelection())
 		{

@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "scmessagebox.h"
 #include "util.h"
 #include "customfdialog.h"
+#include "guidemanager.h"
 
 
 int svgexplugin_getPluginAPIVersion()
@@ -119,7 +120,7 @@ bool SVGExportPlugin::run(QString filename)
 #else
 		CustomFDialog *openDia = new CustomFDialog(ScMW, wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"), false, false, false, false, false);
 #endif
-		openDia->setSelection(getFileNameByPage(ScMW->doc->currentPage->pageNr(), "svg"));
+		openDia->setSelection(getFileNameByPage(ScMW->doc->currentPage()->pageNr(), "svg"));
 		openDia->setExtension("svg");
 		openDia->setZipExtension("svgz");
 		if (openDia->exec())
@@ -163,9 +164,9 @@ SVGExPlug::SVGExPlug( QString fName )
 	Page *Seite;
 	GradCount = 0;
 	ClipCount = 0;
-	Seite = ScMW->doc->MasterPages.at(ScMW->doc->MasterNames[ScMW->doc->currentPage->MPageNam]);
+	Seite = ScMW->doc->MasterPages.at(ScMW->doc->MasterNames[ScMW->doc->currentPage()->MPageNam]);
 	ProcessPage(Seite, &docu, &elem);
-	Seite = ScMW->doc->currentPage;
+	Seite = ScMW->doc->currentPage();
 	ProcessPage(Seite, &docu, &elem);
 #ifdef HAVE_LIBZ
 	if(fName.right(2) == "gz")
@@ -216,8 +217,8 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 	gradi = "Grad";
 	Clipi = "Clip";
 	QPtrList<PageItem> Items;
-	Page* SavedAct = ScMW->doc->currentPage;
-	ScMW->doc->currentPage = Seite;
+	Page* SavedAct = ScMW->doc->currentPage();
+	ScMW->doc->setCurrentPage(Seite);
 	if (Seite->PageNam.isEmpty())
 		Items = ScMW->doc->DocItems;
 	else
@@ -614,7 +615,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 		}
 		Lnr++;
 	}
-	ScMW->doc->currentPage = SavedAct;
+	ScMW->doc->setCurrentPage(SavedAct);
 }
 
 QString SVGExPlug::SetClipPath(PageItem *ite)

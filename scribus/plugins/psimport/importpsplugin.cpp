@@ -144,7 +144,10 @@ bool ImportPSPlugin::import(QString fileName)
 	}
 	if (UndoManager::undoEnabled() && ScMW->HaveDoc)
 	{
-		UndoManager::instance()->beginTransaction(ScMW->doc->currentPage->getUName(),Um::IImageFrame,Um::ImportEPS, fileName, Um::IEPS);
+		UndoManager::instance()->beginTransaction(ScMW->doc->currentPage()->getUName(),
+												Um::IImageFrame,
+												Um::ImportEPS,
+												fileName, Um::IEPS);
 	}
 	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
 		UndoManager::instance()->setUndoEnabled(false);

@@ -162,7 +162,8 @@ PyObject *scribus_getHguides(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	int n = ScMW->doc->currentPage->YGuides.count();
+	Guides g = ScMW->doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
+	int n = g.count();//ScMW->doc->currentPage->YGuides.count();
 	if (n == 0)
 		return Py_BuildValue((char*)"[]");
 	int i;
@@ -171,7 +172,7 @@ PyObject *scribus_getHguides(PyObject* /* self */)
 	l = PyList_New(0);
 	for (i=0; i<n; i++)
 	{
-		tmp = ScMW->doc->currentPage->YGuides[i];
+		tmp = g[i];
 		guide = Py_BuildValue("d", PointToValue(tmp));
 		PyList_Append(l, guide);
 	}
@@ -193,7 +194,7 @@ PyObject *scribus_setHguides(PyObject* /* self */, PyObject* args)
 	int i, n;
 	n = PyList_Size(l);
 	double guide;
-	ScMW->doc->currentPage->YGuides.clear();
+	ScMW->doc->currentPage()->guides.clearHorizontals(GuideManagerCore::Standard);
 	for (i=0; i<n; i++)
 	{
 		if (!PyArg_Parse(PyList_GetItem(l, i), "d", &guide))
@@ -201,7 +202,7 @@ PyObject *scribus_setHguides(PyObject* /* self */, PyObject* args)
 			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains non-numeric values: must be list of float values.","python error"));
 			return NULL;
 		}
-		ScMW->doc->currentPage->YGuides += ValueToPoint(guide);
+		ScMW->doc->currentPage()->guides.addHorizontal(ValueToPoint(guide), GuideManagerCore::Standard);
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -211,7 +212,8 @@ PyObject *scribus_getVguides(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	int n = ScMW->doc->currentPage->XGuides.count();
+	Guides g = ScMW->doc->currentPage()->guides.verticals(GuideManagerCore::Standard);
+	int n = g.count();//ScMW->doc->currentPage->XGuides.count();
 	if (n == 0)
 		return Py_BuildValue((char*)"[]");
 	int i;
@@ -220,7 +222,7 @@ PyObject *scribus_getVguides(PyObject* /* self */)
 	l = PyList_New(0);
 	for (i=0; i<n; i++)
 	{
-		tmp = ScMW->doc->currentPage->XGuides[i];
+		tmp = g[i];
 		guide = Py_BuildValue("d", PointToValue(tmp));
 		PyList_Append(l, guide);
 	}
@@ -242,7 +244,7 @@ PyObject *scribus_setVguides(PyObject* /* self */, PyObject* args)
 	int i, n;
 	n = PyList_Size(l);
 	double guide;
-	ScMW->doc->currentPage->XGuides.clear();
+	ScMW->doc->currentPage()->guides.clearVerticals(GuideManagerCore::Standard);
 	for (i=0; i<n; i++)
 	{
 		if (!PyArg_Parse(PyList_GetItem(l, i), "d", &guide))
@@ -250,7 +252,7 @@ PyObject *scribus_setVguides(PyObject* /* self */, PyObject* args)
 			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains no-numeric values: must be list of float values.","python error"));
 			return NULL;
 		}
-		ScMW->doc->currentPage->XGuides += ValueToPoint(guide);
+		ScMW->doc->currentPage()->guides.addVertical(ValueToPoint(guide), GuideManagerCore::Standard);
 	}
 	Py_INCREF(Py_None);
 	return Py_None;

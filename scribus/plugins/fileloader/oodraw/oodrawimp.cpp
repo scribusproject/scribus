@@ -173,7 +173,10 @@ bool OODrawImportPlugin::import(QString fileName)
 	}
 	if (UndoManager::undoEnabled() && ScMW->HaveDoc)
 	{
-		UndoManager::instance()->beginTransaction(ScMW->doc->currentPage->getUName(),Um::IImageFrame,Um::ImportOOoDraw, fileName, Um::IImportOOoDraw);
+		UndoManager::instance()->beginTransaction(ScMW->doc->currentPage()->getUName(),
+													Um::IImageFrame,
+													Um::ImportOOoDraw,
+													fileName, Um::IImportOOoDraw);
 	}
 	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
 		UndoManager::instance()->setUndoEnabled(false);
@@ -436,8 +439,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 	double yGoff= 0;
 	bool HaveGradient = false;
 	int GradientType = 0;
-	double BaseX = Doku->currentPage->xOffset();
-	double BaseY = Doku->currentPage->yOffset();
+	double BaseX = Doku->currentPage()->xOffset();
+	double BaseY = Doku->currentPage()->yOffset();
 	double lwidth = 0;
 	double x, y, w, h;
 	double FillTrans = 0;

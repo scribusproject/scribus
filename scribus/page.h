@@ -26,7 +26,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <utility>
 
-class QString;
 #include "qvaluelist.h"
 #include "qptrlist.h"
 
@@ -34,10 +33,13 @@ class QString;
 #include "undoobject.h"
 #include "scribusstructs.h"
 #include "pageitem.h"
+#include "guidemanagercore.h"
 
+class QString;
 class UndoManager;
 class UndoState;
 class ScribusDoc;
+
 
 /**
   *@author Franz Schmid
@@ -62,20 +64,24 @@ public:
 	void copySizingProperties(Page *sourcePage, const MarginStruct& pageMargins);
 	MarginStruct Margins;
 	MarginStruct initialMargins;
+	//! \brief Guides lists and basic operations
+	GuideManagerCore guides;
   /** Nummer der Seite */
 	int LeftPg;
 	QString MPageNam;
 	QString PageNam;
 	QString PageSize;
 	int PageOri;
-	QValueList<double> XGuides;
-	QValueList<double> YGuides;
+	// PV - guides refactoring
+	//QValueList<double> XGuides;
+	//QValueList<double> YGuides;
 	ScribusDoc* document() const { return m_Doc; }
 	void setDocument(ScribusDoc* doc);
 	uint pageNr() const { return m_pageNr; }
 	void setPageNr(int pageNr);
 	const QString& pageSectionNumber() const { return m_pageSectionNumber; }
 	void setPageSectionNumber(const QString&);
+	/* PV - guides refactoring
 	void addXGuide(double position);
 	void addYGuide(double position);
 	void addXGuides(QValueList<double>& guides);
@@ -85,15 +91,15 @@ public:
 	void removeYGuide(double position);
 	void removeYGuide(int index);
 	void moveXGuide(int fromIndex, double to);
-	void moveYGuide(int fromIndex, double to);
+	void moveYGuide(int fromIndex, double to);*/
 	void setPageName(const QString& newName);
 	void restore(UndoState* state, bool isUndo);
 
-	// As a bit of a dirty hack, we declare this mutable so it can be altered
-	// even while the object is `const'. That's normally only for internal
-	// implementation, but in this case it at least lets us guarantee the rest
-	// of the object is unchanged in (eg) pdflib. This should be replaced with
-	// proper access methods later.
+	/*! \brief As a bit of a dirty hack, we declare this mutable so it can be altered
+	even while the object is `const'. That's normally only for internal
+	implementation, but in this case it at least lets us guarantee the rest
+	of the object is unchanged in (eg) pdflib. This should be replaced with
+	proper access methods later. */
 	mutable QPtrList<PageItem> FromMaster;
 
 protected:

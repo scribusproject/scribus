@@ -186,7 +186,7 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	uint ap = ScMW->doc->currentPage->pageNr();
+	uint ap = ScMW->doc->currentPage()->pageNr();
 	// If we were passed a list of items to group...
 	if (il != 0)
 	{
