@@ -1751,7 +1751,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>March</source>
-        <translation>Марта</translation>
+        <translation type="obsolete">Марта</translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation>Апрель</translation>
     </message>
 </context>
 <context>
@@ -3848,6 +3852,18 @@ Please choose another.</source>
     <message>
         <source>Choose a Directory</source>
         <translation>Выберите каталог</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation>Запасник (*.scs)</translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation>Выберите импортируемый файл запасника</translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation>&amp;Импортировать файл запасника...</translation>
     </message>
 </context>
 <context>
@@ -10255,7 +10271,11 @@ Corners:</source>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter.</source>
-        <translation>Путь к интерпретатору GhostScript в системе.</translation>
+        <translation type="obsolete">Путь к интерпретатору GhostScript в системе.</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation>Добавьте путь к интерпретатору GhostScript в системе. Пользователям версии для Windows стоит помнить, что использоваться должен файл gswin32c.exe,а никак не gswin32.exe. В противном случае Scribus «повиснет» при запуске.</translation>
     </message>
 </context>
 <context>
@@ -11042,7 +11062,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation>&amp;Выполнить сненарий...</translation>
+        <translation>&amp;Выполнить сценарий...</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
@@ -11579,7 +11599,7 @@ External Links
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>Шрифт %1 (найден при помощи fontconfig) поломан и не будет использован</translation>
+        <translation type="obsolete">Шрифт %1 (найден при помощи fontconfig) поломан и не будет использован</translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
@@ -12295,6 +12315,11 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Japanese</source>
         <translation>Японский</translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
