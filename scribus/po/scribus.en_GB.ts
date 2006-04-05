@@ -2720,8 +2720,8 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Windows&amp;#174; Port:</translation>
     </message>
     <message>
-        <source>March</source>
-        <translation>March</translation>
+        <source>April</source>
+        <translation>April</translation>
     </message>
 </context>
 <context>
@@ -4816,6 +4816,18 @@ Please choose another.</translation>
     <message>
         <source>Choose a Directory</source>
         <translation>Choose a Directory</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation>Scrapbook (*.scs)</translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation>Choose a scrapbook file to import</translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation>&amp;Import Scrapbook File...</translation>
     </message>
 </context>
 <context>
@@ -11179,8 +11191,8 @@ Corners:</translation>
         <translation>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter.</source>
-        <translation>Filesystem location for the Ghostscript interpreter.</translation>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</translation>
     </message>
 </context>
 <context>
@@ -12599,10 +12611,6 @@ External Links</translation>
         <translation>element &lt;lpiSettingsEntry&gt; lacks `name&apos; attribute</translation>
     </message>
     <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>Font %1 (found using fontconfig) is broken, discarding it</translation>
-    </message>
-    <message>
         <source>Scribus Development Version</source>
         <translation>Scribus Development Version</translation>
     </message>
@@ -13248,6 +13256,11 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Japanese</source>
         <translation>Japanese</translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation>Given master page name does not match any existing.</translation>
     </message>
 </context>
 <context>
