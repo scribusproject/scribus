@@ -186,7 +186,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	Compression = new QCheckBox( tr( "Compress Text and &Vector Graphics" ), tabGeneral, "Compression" );
 	Compression->setChecked( Optionen->Compress );
 	tabLayout->addWidget( Compression );
-	CBox = new QGroupBox( tr( "Image Settings" ), tabGeneral, "CBox" );
+	CBox = new QGroupBox( tr( "Image Compression Methods" ), tabGeneral, "CBox" );
 	CBox->setColumnLayout(0, Qt::Vertical );
 	CBox->layout()->setSpacing( 5 );
 	CBox->layout()->setMargin( 11 );
@@ -864,20 +864,17 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	//tooltips
 	QToolTip::add( AllPages, tr( "Export all pages to PDF" ) );
 	QToolTip::add( OnlySome, tr( "Export a range of pages to PDF" ) );
-	QToolTip::add( PageNr, tr( "Insert a comma separated list of tokens where\n"
-			              "a token can be * for all the pages, 1-5 for\n"
-			              "a range of pages or a single page number.") );
-
+	QToolTip::add( PageNr, "<qt>" + tr( "Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.") + "</qt>" );
 	QToolTip::add( ComboBox1, "<qt>" + tr( "Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for " "commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.") + "</qt>" );
-	QToolTip::add( ComboBind, tr( "Determines the binding of pages in the PDF. Unless you know\nyou need to change it leave the default choice - Left." ) );
-	QToolTip::add( CheckBox1, tr( "Generates thumbnails of each page in the PDF.\nSome viewers can use the thumbnails for navigation." ) );
+	QToolTip::add( ComboBind, "<qt>" + tr( "Determines the binding of pages in the PDF. Unless you know\nyou need to change it leave the default choice - Left." ) );
+	QToolTip::add( CheckBox1, tr( "Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation." ) + "</qt>" );
 	QToolTip::add( Article, tr( "Generate PDF Articles, which is useful for navigating linked articles in a PDF." ) );
 	QToolTip::add( CheckBM, tr( "Embed the bookmarks you created in your document.\nThese are useful for navigating long PDF documents." ) );
 	QToolTip::add( Resolution, tr( "Export resolution of text and vector graphics.\nThis does not affect the resolution of bitmap images like photos." ) );
 	QToolTip::add( Compression, tr( " Lossless compression of text and graphics.\nUnless you have a reason, leave this checked. This reduces PDF size." ) );
 	QToolTip::add( CMethod, "<qt>" + tr( "Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images" ) + "</qt>");
 	QToolTip::add( CQuality, "<qt>" + tr( "Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images." ) + "</qt>");
-	QToolTip::add( DSColor, tr( "Re-sample your bitmap images to the selected DPI.\nLeaving this unchecked will render them at their native resolution.\nThis can increase memory usage and slow down export." ) );
+	QToolTip::add( DSColor, "<qt>" + tr( "Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export." ) + "</qt>");
 	QToolTip::add( ValC, tr( "DPI (Dots Per Inch) for image export.") );
 	QToolTip::add( EmbedFonts, tr( "Embed fonts into the PDF. Embedding the fonts\nwill preserve the layout and appearance of your document." ) );
 	QToolTip::add( CheckBox10, tr( "Enables presentation effects when using Acrobat Reader in full screen mode." ) );
