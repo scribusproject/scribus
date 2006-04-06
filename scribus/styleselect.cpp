@@ -304,15 +304,16 @@ void StyleSelect::languageChange()
 	QToolTip::remove(outlineButton);
 	QToolTip::remove(shadowButton);
 
-	QToolTip::add(underlineButton, tr("Underline"));
-	QToolTip::add(underlineWordButton, tr("Underline Words Only"));
+	QToolTip::add(underlineButton,  "<qt>" + tr("Underline Text. Hold down the button momentarily to set line width and displacement options."));
+	QToolTip::add(underlineWordButton,  "<qt>" + tr("Underline Words Only. Hold down the button momentarily to set line width and displacement options.") + "</qt>" );
 	QToolTip::add(allcapsButton, tr("All Caps"));
 	QToolTip::add(smallcapsButton, tr("Small Caps"));
 	QToolTip::add(subscriptButton, tr("Subscript"));
 	QToolTip::add(superscriptButton, tr("Superscript"));
-	QToolTip::add(strikeoutButton, tr("Strike Out"));
-	QToolTip::add(outlineButton, tr("Outline", "Text Style Selector"));
-	QToolTip::add(shadowButton, tr("Shadow"));
+	QToolTip::add(strikeoutButton, "<qt>" + tr("Strike Out. Hold down the button momentarily to set line width and displacement options.") + "</qt>" );
+	QToolTip::add(outlineButton, "<qt>" + tr("Outline. Hold down the button momentarily to change the outline stroke width.su
+su", "Text Style Selector") + "</qt>" );
+	QToolTip::add(shadowButton,  "<qt>" + tr("Shadowed Text. Hold down the button momentarily to enable the offset spacing.") + "</qt>" );
 }
 
 void StyleSelect::setStyle(int s)
