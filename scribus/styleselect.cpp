@@ -304,7 +304,7 @@ void StyleSelect::languageChange()
 	QToolTip::remove(outlineButton);
 	QToolTip::remove(shadowButton);
 
-	QToolTip::add(underlineButton,  "<qt>" + tr("Underline Text. Hold down the button momentarily to set line width and displacement options."));
+	QToolTip::add(underlineButton,  "<qt>" + tr("Underline Text. Hold down the button momentarily to set line width and displacement options.") + "</qt>" );
 	QToolTip::add(underlineWordButton,  "<qt>" + tr("Underline Words Only. Hold down the button momentarily to set line width and displacement options.") + "</qt>" );
 	QToolTip::add(allcapsButton, tr("All Caps"));
 	QToolTip::add(smallcapsButton, tr("Small Caps"));
