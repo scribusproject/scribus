@@ -17,6 +17,11 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 
 
+GuideManagerCore::GuideManagerCore():
+	undoManager(UndoManager::instance())
+{
+}
+
 GuideManagerCore::GuideManagerCore(Page *parentPage):
 	undoManager(UndoManager::instance())
 {
@@ -25,6 +30,11 @@ GuideManagerCore::GuideManagerCore(Page *parentPage):
 
 GuideManagerCore::~GuideManagerCore()
 {
+}
+
+void GuideManagerCore::setPage(Page *p)
+{
+	page = p;
 }
 
 void GuideManagerCore::addHorizontal(double value, GuideType type)

@@ -35,6 +35,7 @@ design bit it's too slow */
 class SCRIBUS_API GuideManagerCore
 {
 	public:
+		GuideManagerCore();
 		GuideManagerCore(Page* parentPage);
 		~GuideManagerCore();
 
@@ -64,6 +65,8 @@ class SCRIBUS_API GuideManagerCore
 
 		bool isMouseOnHorizontal(double low, double high, GuideType type);
 		bool isMouseOnVertical(double low, double high, GuideType type);
+
+		void setPage(Page *p);
 
 	private:
 		UndoManager * const undoManager;

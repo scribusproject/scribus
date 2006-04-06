@@ -48,9 +48,9 @@ Page::Page(const double x, const double y, const double b, const double h) :
 	m_height(h),
 	m_initialWidth(b),
 	m_initialHeight(h),
-	m_Doc(NULL),
-	guides(this)
+	m_Doc(NULL)
 {
+	guides.setPage(this);
 }
 
 Page::~Page()
@@ -425,7 +425,7 @@ void Page::copySizingProperties(Page* sourcePage, const MarginStruct& pageMargin
 	m_height=sourcePage->m_height;
 	m_initialWidth = sourcePage->m_initialWidth;
 	m_initialHeight = sourcePage->m_initialHeight;
-	
+
 	Margins.Top = pageMargins.Top;
 	Margins.Bottom = pageMargins.Bottom;
 	Margins.Left = pageMargins.Left;//todo fix for layouts

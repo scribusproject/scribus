@@ -121,7 +121,6 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	PageOri(0), PageSize(0),
 	FirstPnum(1),
 	useRaster(false),
-	_currentPage(0),
 	// documentInfo
 	appMode(modeNormal),
 	SubMode(-1),
@@ -5361,7 +5360,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	//CB FIXME remove this and tree.h too
 	ScMW->outlinePalette->BuildTree();
-	
+
 	if (itemSelection->isGUISelection())
 	{
 		if (itemSelection->count() == 0)
