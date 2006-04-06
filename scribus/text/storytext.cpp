@@ -1,6 +1,6 @@
 //FIXME: this include must go to sctextstruct.h !
 #include <qvaluelist.h>
-
+#include <cassert>  //added to make Fedora-5 happy
 #include "fpoint.h"
 #include "sctextstruct.h"
 #include "storytext.h"
