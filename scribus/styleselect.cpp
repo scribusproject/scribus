@@ -311,8 +311,7 @@ void StyleSelect::languageChange()
 	QToolTip::add(subscriptButton, tr("Subscript"));
 	QToolTip::add(superscriptButton, tr("Superscript"));
 	QToolTip::add(strikeoutButton, "<qt>" + tr("Strike Out. Hold down the button momentarily to set line width and displacement options.") + "</qt>" );
-	QToolTip::add(outlineButton, "<qt>" + tr("Outline. Hold down the button momentarily to change the outline stroke width.su
-su", "Text Style Selector") + "</qt>" );
+	QToolTip::add(outlineButton, "<qt>" + tr("Outline. Hold down the button momentarily to change the outline stroke width.", "Text Style Selector") + "</qt>" );
 	QToolTip::add(shadowButton,  "<qt>" + tr("Shadowed Text. Hold down the button momentarily to enable the offset spacing.") + "</qt>" );
 }
 
