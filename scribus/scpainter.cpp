@@ -499,7 +499,10 @@ void ScPainter::drawVPath( ArtVpath *vec, int mode )
 			joinStyle = ART_PATH_STROKE_JOIN_ROUND;
 		else if( PLineJoin == Qt::BevelJoin )
 			joinStyle = ART_PATH_STROKE_JOIN_BEVEL;
-		strokeSvp = art_svp_vpath_stroke( vec, joinStyle, capStyle, ratio * LineWidth, 10, 0.25 );
+		//strokeSvp = art_svp_vpath_stroke( vec, joinStyle, capStyle, ratio * LineWidth, 10, 0.25 );
+		ArtVpath* strokeVpath = art_svp_vpath_stroke_raw( vec, joinStyle, capStyle, ratio * LineWidth, 10, 0.25 );
+		strokeSvp = art_svp_from_vpath( strokeVpath );
+		art_free(strokeVpath);
 		}
 	int x0, y0, x1, y1;
 	if(( fillSvp ) && (mode == 0))
