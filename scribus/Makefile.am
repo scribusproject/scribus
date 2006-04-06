@@ -494,8 +494,10 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/fontprefs.h
 	-rm -f $(prefix)/include/scribus/fontreplacedialog.h
 	-rm -f $(prefix)/include/scribus/fparser.h
+	-rm -f $(prefix)/include/scribus/fpconfig.h
 	-rm -f $(prefix)/include/scribus/fpoint.h
 	-rm -f $(prefix)/include/scribus/fpointarray.h
+	-rm -f $(prefix)/include/scribus/fptypes.h
 	-rm -f $(prefix)/include/scribus/frameedit.h
 	-rm -f $(prefix)/include/scribus/gradienteditor.h
 	-rm -f $(prefix)/include/scribus/gradienteditor.h
@@ -530,6 +532,8 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/lineformats.h
 	-rm -f $(prefix)/include/scribus/linkbutton.h
 	-rm -f $(prefix)/include/scribus/loremipsum.h
+	-rm -f $(prefix)/include/scribus/margindialog.h
+	-rm -f $(prefix)/include/scribus/marginWidget.h
 	-rm -f $(prefix)/include/scribus/md5.h
 	-rm -f $(prefix)/include/scribus/mdup.h
 	-rm -f $(prefix)/include/scribus/measurements.h
@@ -540,6 +544,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/mpalette.h
 	-rm -f $(prefix)/include/scribus/mspinbox.h
 	-rm -f $(prefix)/include/scribus/multiline.h
+	-rm -f $(prefix)/include/scribus/multiprogressdialog.h
 	-rm -f $(prefix)/include/scribus/muster.h
 	-rm -f $(prefix)/include/scribus/navigator.h
 	-rm -f $(prefix)/include/scribus/newfile.h
@@ -562,6 +567,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/prefsdialogbase.h
 	-rm -f $(prefix)/include/scribus/prefsfile.h
 	-rm -f $(prefix)/include/scribus/prefsmanager.h
+	-rm -f $(prefix)/include/scribus/prefspanel.h
 	-rm -f $(prefix)/include/scribus/prefsreader.h
 	-rm -f $(prefix)/include/scribus/prefstable.h
 	-rm -f $(prefix)/include/scribus/preview.h
@@ -571,6 +577,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/reformdoc.h
 	-rm -f $(prefix)/include/scribus/sampleitem.h
 	-rm -f $(prefix)/include/scribus/sccolor.h
+	-rm -f $(prefix)/include/scribus/scfontmetrics.h
 	-rm -f $(prefix)/include/scribus/scfonts.h
 	-rm -f $(prefix)/include/scribus/scfonts_ttf.h
 	-rm -f $(prefix)/include/scribus/scmenu.h
@@ -589,6 +596,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/scribusXml.h
 	-rm -f $(prefix)/include/scribus/scrpalettebase.h
 	-rm -f $(prefix)/include/scribus/scpixmapcache.h
+	-rm -f $(prefix)/include/scribus/scplugin.h
 	-rm -f $(prefix)/include/scribus/search.h
 	-rm -f $(prefix)/include/scribus/seiten.h
 	-rm -f $(prefix)/include/scribus/selection.h
