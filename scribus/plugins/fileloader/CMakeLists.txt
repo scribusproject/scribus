@@ -1,0 +1,3 @@
+#Subdirectories
+ADD_SUBDIRECTORY(oldscribusformat)
+ADD_SUBDIRECTORY(oodraw)
