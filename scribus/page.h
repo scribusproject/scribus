@@ -64,8 +64,6 @@ public:
 	void copySizingProperties(Page *sourcePage, const MarginStruct& pageMargins);
 	MarginStruct Margins;
 	MarginStruct initialMargins;
-	//! \brief Guides lists and basic operations
-	GuideManagerCore guides;
   /** Nummer der Seite */
 	int LeftPg;
 	QString MPageNam;
@@ -101,6 +99,8 @@ public:
 	of the object is unchanged in (eg) pdflib. This should be replaced with
 	proper access methods later. */
 	mutable QPtrList<PageItem> FromMaster;
+	//! \brief Guides lists and basic operations
+	GuideManagerCore guides;
 
 protected:
 	UndoManager * const undoManager;
