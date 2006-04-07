@@ -128,9 +128,9 @@ void NewDoc::createNewDocPage()
 	Layout6 = new QGridLayout(0, 1, 1, 0, 6, "Layout6");
 	TextLabel1 = new QLabel( tr( "&Size:" ), ButtonGroup1_2, "TextLabel1" );
 	Layout6->addWidget( TextLabel1, 0, 0 );
-	PageSize *ps=new PageSize(prefsManager->appPrefs.pageSize);
+	PageSize ps(prefsManager->appPrefs.pageSize);
 	pageSizeComboBox = new QComboBox( true, ButtonGroup1_2, "pageSizeComboBox" );
-	pageSizeComboBox->insertStringList(ps->getTrPageSizeList());
+	pageSizeComboBox->insertStringList(ps.getTrPageSizeList());
 	pageSizeComboBox->insertItem( customTextTR );
 	pageSizeComboBox->setEditable(false);
 	TextLabel1->setBuddy(pageSizeComboBox);
@@ -177,8 +177,8 @@ void NewDoc::createNewDocPage()
 	NewDocLayout->addLayout( Layout9 );
 	widthMSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
 	heightMSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
-	QStringList pageSizes=ps->getPageSizeList();
-	int sizeIndex=pageSizes.findIndex(ps->getPageText());
+	QStringList pageSizes=ps.getPageSizeList();
+	int sizeIndex=pageSizes.findIndex(ps.getPageText());
 	if (sizeIndex!=-1)
 		pageSizeComboBox->setCurrentItem(sizeIndex);
 	else
@@ -261,7 +261,6 @@ void NewDoc::createNewDocPage()
 	GroupBox4Layout->addLayout( Layout2 );
 	Layout10->addWidget( AutoFrame );
 	NewDocLayout->addLayout( Layout10 );
-	delete ps;
 }
 
 void NewDoc::createOpenDocPage()
