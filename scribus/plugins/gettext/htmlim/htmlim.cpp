@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "htmlim.h"
-#include "htmlim.moc"
+//#include "htmlim.moc"
 #include <qobject.h>
 #include <qstring.h>
 #include <qstringlist.h>
