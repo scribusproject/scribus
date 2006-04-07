@@ -25,7 +25,7 @@
 #include <libart_lgpl/art_misc.h>
 #include <libart_lgpl/art_point.h>
 #include <libart_lgpl/art_affine.h>
-#include <art_rgb_affine_private.h>
+#include "art_rgb_affine_private.h"
 
 /* This module handles compositing of affine-transformed rgb images
    over rgb pixel buffers. */
