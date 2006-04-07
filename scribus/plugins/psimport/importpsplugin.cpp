@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "importpsplugin.h"
+#include "importpsplugin.moc"
 #include "importps.h"
 #include "scribus.h"
 #include "page.h"
@@ -160,5 +161,3 @@ bool ImportPSPlugin::import(QString fileName)
 	delete dia;
 	return true;
 }
-
-#include "importpsplugin.moc"
