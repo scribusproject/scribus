@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdmisc.h"
 #include "cmdgetsetprop.h"
 #include "scriptplugin.h"
-//#include "scriptplugin.moc"
+#include "scriptplugin.moc"
 #include "cmdutil.h"
 #include "objprinter.h"
 #include "objpdffile.h"
