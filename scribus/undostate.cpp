@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
  *   Copyright (C) 2005 by Riku Leino                                      *
- *   tsoots@gmail.com                                                      *
+ *   riku@scribus.info                                                     *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -25,42 +25,67 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "undostate.h"
+#include "undoobject.h"
 
-UndoState::UndoState(const QString& name, const QString& description, QPixmap* pixmap)
+UndoState::UndoState(const QString& name, const QString& description, QPixmap* pixmap) :
+actionName_(name),
+actionDescription_(description),
+actionPixmap_(pixmap),
+undoObject_(0)
 {
-	actionName        = name;
-	actionDescription = description;
-	actionPixmap      = pixmap;
+
 }
 
 QString UndoState::getName()
 {
-	return actionName;
+	return actionName_;
 }
 
 void UndoState::setName(const QString &newName)
 {
-	actionName = newName;
+	actionName_ = newName;
 }
 
 QString UndoState::getDescription()
 {
-	return actionDescription;
+	return actionDescription_;
 }
 
 void UndoState::setDescription(const QString &newDescription)
 {
-	actionDescription = newDescription;
+	actionDescription_ = newDescription;
 }
 
 QPixmap* UndoState::getPixmap()
 {
-	return actionPixmap;
+	return actionPixmap_;
 }
 
 void UndoState::setPixmap(QPixmap *pixmap)
 {
-	actionPixmap = pixmap;
+	actionPixmap_ = pixmap;
+}
+
+void UndoState::undo()
+{
+	if (undoObject_) // if !undoObject_ there's an error, hmmm
+		undoObject_->restore(this, true);
+}
+
+void UndoState::redo()
+{
+	if (undoObject_)
+		undoObject_->restore(this, false);
+}
+
+void UndoState::setUndoObject(UndoObject *object)
+{
+	undoObject_ = object;
+}
+
+UndoObject* UndoState::undoObject()
+{
+	return undoObject_;
 }
 
 UndoState::~UndoState()
@@ -78,16 +103,16 @@ SimpleState::SimpleState(const QString& name, const QString& description, QPixma
 
 bool SimpleState::contains(const QString& key)
 {
-	return values.contains(key);
+	return values_.contains(key);
 }
 
 QString SimpleState::get(const QString& key, const QString& def)
 {
-	if (values.contains(key))
-		return values[key];
+	if (values_.contains(key))
+		return values_[key];
 
-	values[key] = def;
-	return values[key];
+	values_[key] = def;
+	return values_[key];
 }
 
 int SimpleState::getInt(const QString& key, int def)
@@ -132,27 +157,27 @@ bool SimpleState::getBool(const QString& key, bool def)
 
 void SimpleState::set(const QString& key, const QString& value)
 {
-	values[key] = value;
+	values_[key] = value;
 }
 
 void SimpleState::set(const QString& key, int value)
 {
-	values[key] = QString("%1").arg(value);
+	values_[key] = QString("%1").arg(value);
 }
 
 void SimpleState::set(const QString& key, uint value)
 {
-	values[key] = QString("%1").arg(value);
+	values_[key] = QString("%1").arg(value);
 }
 
 void SimpleState::set(const QString& key, double value)
 {
-	values[key] = QString("%1").arg(value, 0, 'f', 20);
+	values_[key] = QString("%1").arg(value, 0, 'f', 20);
 }
 
 void SimpleState::set(const QString& key, bool value)
 {
-	values[key] = QString("%1").arg(value);
+	values_[key] = QString("%1").arg(value);
 }
 
 

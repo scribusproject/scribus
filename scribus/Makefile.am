@@ -223,6 +223,7 @@ scribus_SOURCES = \
 	undogui.cpp	\
 	undomanager.cpp	\
 	undoobject.cpp	\
+	undostack.cpp \
 	undostate.cpp	\
 	units.cpp	\
 	unzip.c	\

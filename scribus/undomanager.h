@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
  *   Copyright (C) 2005 by Riku Leino                                      *
- *   tsoots@gmail.com                                                      *
+ *   riku@scribus.info                                                     *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -30,20 +30,89 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 #include <utility>
 #include <qobject.h>
-#include <qpixmap.h>
-#include <qstring.h>
 
 #include "scribusapi.h"
 #include "undostate.h"
 #include "undoobject.h"
 
+class QString;
+class QPixmap;
+class UndoStack;
 class UndoGui;
 class PrefsContext;
 
-typedef std::pair<UndoObject*, UndoState*> ActionPair;
-typedef std::vector<ActionPair> ActionList;
-typedef std::pair<ActionList::iterator, ActionList> StackPair;
-typedef QMap<QString, StackPair> StackMap;
+/** @brief Key is the doc name, value is it's undo stack */
+typedef QMap<QString, UndoStack> StackMap;
+
+/**
+ * @brief TransactionState provides a container where multiple UndoStates can be stored
+ * @brief as a single action which then appears in the attached <code>UndoGui</code>s.
+ * @author Riku Leino riku@scribus.info
+ * @date January 2005
+ */
+class TransactionState : public UndoState
+{
+public:
+	/** @brief Creates a new TransactionState instance */
+	TransactionState();
+	/** @brief Destroys the TransactionState instance */
+	~TransactionState();
+	/**
+	 * @brief Add a new <code>UndoState</code> object to the transaction.
+	 * @param state state to be added to the transaction
+	 */
+	void pushBack(UndoObject *target, UndoState *state);
+	/**
+	 * @brief Returns the count of the <code>UndoState</code> objects in this transaction.
+	 * @return count of the <code>UndoState</code> objects in this transaction
+	 */
+	uint sizet();
+	/** @brief Use the name from last action added to this <code>TransactionState</code> */
+	void useActionName();
+	/**
+	 * @brief Returns an <code>UndoState</code> object at <code>index</code>.
+	 * @param index index from where an <code>UndoState</code> object is returned.
+	 * If <code>index</code> is out of scope <code>NULL</code> will be rerturned.
+	 * @return <code>UndoState</code> object from <code>index</code> or <code>NULL</code>
+	 * if <code>index</code> is out of scope.
+	 */
+	UndoState* at(int index);
+	/**
+	 * @brief Returns true if this transaction contains UndoObject with the id <code>uid</code>
+	 * @brief otherwise returns false.
+	 * @return true if this transaction contains UndoObject with the ide <code>uid</code>
+	 * @return otherwise returns false.
+	 */
+	bool contains(int uid) const;
+	
+	/**
+	 * @brief Tells if this transaction contains only UndoObject with ID uid
+	 * 
+	 * If a transaction contains only single UndoObject it will be safe to include
+	 * it in the object specific undo.
+	 * @param uid UndoObject's id to look for
+	 * @return true if this transaction only contains actions of the UndoObject whose
+	 *         id is uid
+	 */
+	bool containsOnly(int uid) const;
+	/**
+	 * @brief Replace object with id uid with new UndoObject newUndoObject.
+	 * @param uid id of the object that is wanted to be replaced
+	 * @param newUndoObject object that is used for replacing
+	 * @return UndoObject which was replaced
+	 */
+	UndoObject* replace(ulong uid, UndoObject *newUndoObject);
+
+	/** @brief undo all UndoStates in this transaction */
+	void undo();
+	/** @brief redo all UndoStates in this transaction */
+	void redo();
+private:
+	/** @brief Number of undo states stored in this transaction */
+	uint size_;
+	/** @brief vector to keep the states in */
+	std::vector<UndoState*> states_;
+};
 
 /**
  * @brief UndoManager handles the undo stack.
@@ -65,64 +134,178 @@ typedef QMap<QString, StackPair> StackMap;
 class SCRIBUS_API UndoManager : public QObject
 {
 	Q_OBJECT
+public:
+	/** @brief Marks for a global undo mode where ever UndoOjbect id is requested. */
+	static const int GLOBAL_UNDO_MODE = -1;
+	
+	/**
+	 * @brief When object specific mode is requested but no suitable object is selected
+	 * @brief this can be passed to showObject() to clear the undo stack representations.
+	 */
+	static const int NO_UNDO_STACK = -2;
+	
+	/**
+	 * @brief Returns a pointer to the UndoManager instance
+	 * @return A pointer to the UndoManager instance
+	 */
+	static UndoManager* instance();
+	
+	/**
+	 * @brief Deletes the UndoManager Instance
+	 *
+	 * Must be called when UndoManager is no more needed.
+	 */
+	static void deleteInstance();
+	
+	/**
+	 * @brief Sets the undo action tracking enabled or disabled.
+	 * @param isEnabled If true undo stack is updated with the states sent
+	 * to the UndoManager else undo stack is not updated and attached UndoGuis
+	 * are not informed of the actions.
+	 */
+	void setUndoEnabled(bool isEnabled);
+	
+	/**
+	 * @brief Returns true if undo actions are stored, if not will return false.
+	 * @return true if undo actions are stored, if not will return false
+	 */
+	static bool undoEnabled();
+	
+	/**
+	 * @brief Start a transaction.
+	 *
+	 * After this method has been invoked <code>UndoManager</code> will switch to the
+     * transaction (silent) mode where it does not report actions to the attached
+	 * <code>UndoGui</code> widgets but stores all incoming <code>UndoState</code> objects into
+	 * the transaction container which after call to the method commit() will be sent
+	 * to the guis as a single undo action. Transaction can be named when starting it or
+	 * naming can be done when commiting it.
+	 * @param targetName name for the target of this transaction (f.e. "Selection")
+	 * @param targetPixmap Icon for the target on which this transaction works.
+	 * this icon will be drawn first when the action is presented in Action History
+	 * window and icon for the action will be drawn over this one.
+	 * @param name name for the transaction (f.e. "Move" would make with the above
+	 * "Move Selection")
+	 * @param description description for the transaction
+	 * @param actionPixmap icon for the action performed by the transaction
+	 * @sa commit()
+	 */
+	void beginTransaction(const QString &targetName = "",
+	                      QPixmap *targetPixmap = 0,
+	                      const QString &actionName = "",
+	                      const QString &description = "",
+	                      QPixmap *actionPixmap = 0);
+	
+	/**
+	 * @brief Cancels the current transaction and deletes groupped <code>UndoState</code>s.
+	 * @brief Nothing from canceled transaction will be sent to the undo gui widgets.
+	 */
+	void cancelTransaction();
+	
+	/**
+	 * @brief Commit the current transaction.
+	 *
+	 * Current transaction will be commited and <code>UndoManager</code> will be switched
+	 * to the normal mode. Commited transaction will be sent to the attached undo gui
+	 * widgets and it will show up there as a single undo action. Details used as a parameter
+	 * will be details shown in the gui widgets.
+	 * @param targetName name for the target of this transaction (f.e. "Selection")
+	 * @param targetPixmap Icon for the target on which this transaction works.
+	 * this icon will be drawn first when the action is presented in Action History
+	 * window and icon for the action will be drawn over this one.
+	 * @param name name for the action
+	 * @param description description for the action
+	 * @param actionPixmap icon for the action performed by the transaction
+	 * @sa beginTransaction()
+	 */
+	void commit(const QString &targetName = "",
+	            QPixmap *targetPixmap = 0,
+	            const QString &name = "",
+	            const QString &description = "",
+	            QPixmap *actionPixmap = 0);
+	
+	/**
+	 * @brief Returns true if in transaction mode if not will return false.
+	 * @return true if in transaction mode if not will return false
+	 */
+	bool isTransactionMode();
+	
+	/**
+	 * @brief Register an UndoGui to the UndoManager.
+	 *
+	 * After registering a gui to the manager the gui will be updated with the
+	 * undo action information received by the UndoManager. Actions done with the
+	 * UndoGui to be registered are also handled after registering.
+	 * @param gui A pointer to the UndoGui that is wanted to be registered.
+	 */
+	void registerGui(UndoGui* gui);
+	
+	/**
+	 * @brief Removes an UndoGui from UndoManager.
+	 * @param gui UndoGui to be removed from the UndoManager.
+	 */
+	void removeGui(UndoGui* gui);
+	
+	/**
+	 * @brief Changes the active undo stack.
+	 *
+	 * Sets the stack connected to the name <code>stackName</code> active. Calling
+	 * this method will send clear() signal to the attached <code>UndoGui</code>s and
+	 * will update their undo stack representations.
+	 * @param stackName Name of the stack to be used
+	 */
+	void switchStack(const QString& stackName);
+	
+	/**
+	 * @brief Rename the current stack
+	 * @param newName New name for the current stack.
+	 */
+	void renameStack(const QString& newName);
+	
+	/**
+	 * @brief Remove the stack with the name <code>stackName</code>
+	 * @param stackName Name of the stack that is wanted to be removed
+	 */
+	void removeStack(const QString& stackName);
+	
+	/**
+	 * @brief Returns true if there are actions that can be undone otherwise returns false.
+	 *
+	 * This is useful when undo/redo actions are handled with a gui that is not attached to
+	 * the UndoManager (f.e. menu items) and when those gui items are wanted to set enabled
+	 * or disabled depending on the status of the undo stack.
+	 * @return true if there are actions that can be undone otherwise returns false
+	 */
+	bool hasUndoActions(int uid = -1);
+	
+	/**
+	 * @brief Returns true if there are actions that can be redone otherwise returns false.
+	 * @return true if there are actions that can be redone otherwise returns false
+	 * @sa UndoManager::hasUndoActions()
+	 */
+	bool hasRedoActions(int uid = -1);
+	
+	/**
+	 * @brief Replace an UndoObject with the id uid with a new UndoObject new.
+	 * @param uid Id for the UndoObject that is wanted to be replaced.
+	 * @param newUndoObject UndoObject which will replace an old UndoObject in the stack.
+	 * @return UndoObject which was replaced
+	 */
+	UndoObject* replaceObject(ulong uid, UndoObject *newUndoObject);
+	
+	/**
+	 * @brief Returns the maximum length of the undostack.
+	 * @return the maximum length of the undostack
+	 */
+	int getHistoryLength();
+	
+	/**
+	 * @brief Returns true if in global mode and false if in object specific mode.
+	 * @return true if in global mode and false if in object specific mode
+	 */
+	bool isGlobalMode();
 
 private:
-
-/*** UndoManager::TransactionState ***************************************************/
-
-	/**
-	 * @brief TransactionState provides a container where multiple actions can be stored
-	 * @brief as a single action which then appears in the attached <code>UndoGui</code>s.
-	 * @author Riku Leino tsoots@gmail.com
-	 * @date January 2005
-	 */
-	class TransactionState : public UndoState
-	{
-	private:
-		/** @brief Number of undo states stored in this transaction */
-		uint _size;
-		/** @brief vector to keep the states in */
-		std::vector<ActionPair*> states;
-	public:
-		/** @brief Creates a new TransactionState instance */
-		TransactionState();
-		/** @brief Destroys the TransactionState instance */
-		~TransactionState();
-		/**
-		 * @brief Add a new <code>UndoState</code> object to the transaction.
-		 * @param state state to be added to the transaction
-		 */
-		void pushBack(UndoObject *target, UndoState *state);
-		/**
-		 * @brief Returns the count of the <code>UndoState</code> objects in this transaction.
-		 * @return count of the <code>UndoState</code> objects in this transaction
-		 */
-		uint sizet();
-		/** @brief Use the name from last action added to this <code>TransactionState</code> */
-		void useActionName();
-		/**
-		 * @brief Returns an <code>UndoState</code> object at <code>index</code>.
-		 * @param index index from where an <code>UndoState</code> object is returned.
-		 * If <code>index</code> is out of scope <code>NULL</code> will be rerturned.
-		 * @return <code>UndoState</code> object from <code>index</code> or <code>NULL</code>
-		 * if <code>index</code> is out of scope.
-		 */
-		ActionPair* at(int index);
-		/**
-		 * @brief Returns true if this transaction contains UndoObject with the id <code>uid</code>
-		 * @brief otherwise returns false.
-		 * @return true if this transaction contains UndoObject with the ide <code>uid</code>
-		 * @return otherwise returns false.
-		 */
-		bool contains(int uid);
-		/**
-		 * @brief Replace object with id uid with new UndoObject newUndoObject.
-		 * @param uid id of the object that is wanted to be replaced
-		 * @param newUndoObject object that is used for replacing
-		 * @return UndoObject which was replaced
-		 */
-		UndoObject* replace(ulong uid, UndoObject *newUndoObject);
-	};
 
 /*** UndoManager::TransactionObject ***************************************************/
 
@@ -148,10 +331,10 @@ private:
 	 * UndoManager is singleton and the instance can be queried with the method
 	 * instance().
 	 */
-	static UndoManager* _instance;
+	static UndoManager* instance_;
 
 	/** @brief Should undo states be stored or ignored */
-	static bool _undoEnabled;
+	static bool undoEnabled_;
 
 	/**
 	 * @brief Tracks the state of _undoEnabled.
@@ -162,24 +345,24 @@ private:
 	 * calls this way guarantees that undo is not enabled accidentally calling
 	 * setUndoEnabled(true) even it has been set false before this false-true pair touched it.
 	 */
-	static int undoEnabledCounter;
+	static int undoEnabledCounter_;
 
-	PrefsContext *prefs;
+	PrefsContext *prefs_;
 
 	/** @brief Doc to which the currently active stack belongs */
-	QString currentDoc;
+	QString currentDoc_;
 
 	/**
 	 * @brief Id number of the object for what the object specific undo is shown
 	 * @brief or -1 if global undo is used.
 	 */
-	int currentUndoObjectId;
+	int currentUndoObjectId_;
 
 	/**
 	 * @brief Stores the transactions which are currently started but not
 	 * @brief canceled or commited.
 	 */
-	std::vector<std::pair<TransactionObject*, TransactionState*> > transactions;
+	std::vector<std::pair<TransactionObject*, TransactionState*> > transactions_;
 
 	/**
 	 * @brief If in transaction mode this is the container for incoming <code>UndoState</code>
@@ -188,10 +371,10 @@ private:
 	 * It is also used to detect if we are in the transaction mode. When it is <code>NULL</code>
 	 * normal mode is on.
 	 */
-	TransactionState *transaction;
+	TransactionState *transaction_;
 
 	/** @brief Dummy object for storing transaction target's name */
-	TransactionObject *transactionTarget;
+	TransactionObject *transactionTarget_;
 
 	/**
 	 * @brief UndoGuis attached to this UndoManager
@@ -199,13 +382,14 @@ private:
 	 * @sa UndoWidget
 	 * @sa UndoPalette
 	 */
-	std::vector<UndoGui*> undoGuis;
+	std::vector<UndoGui*> undoGuis_;
 
-	/** @brief Undo stacks for all open documents */
-	StackMap stacks;
-
-	/** @brief Maximum length of the undo stack. 0 marks for infinite length. */
-	int historyLength;
+	/**
+	 * @brief Undo stacks for all open document
+	 *
+	 * Whenever current stack is used it's referred with <code>stacks_[currentDoc_]</code>
+	 */
+	StackMap stacks_;
 
 	/**
 	 * @brief Initializes the UndoGui.
@@ -229,223 +413,10 @@ private:
 	 * @brief Load icons needed for Action History window.
 	 */
 	void initIcons();
-	/**
-	 * @brief Checks the stack length against historyLength variable and removes
-	 * @brief actions until it is of right length.
-	 *
-	 * This method is used when a user alters the history length option in preferences
-	 * and whenever a new action is added to the stack.
-	 */
-	void checkStackLength();
-	/**
-	 * @brief Extracts actions from TransactionState object and undos them.
-	 * @param tstate TransactionState object from where the actions are going to be extracted.
-	 */
-	void doTransactionUndo(TransactionState *tstate);
-	/**
-	 * @brief Extracts actions from TransactionState object and redos them.
-	 * @param tstate TransactionState object from where the actions are going to be extracted.
-	 */
-	void doTransactionRedo(TransactionState *tstate);
 
-
-	/** @brief Stores the current position in the undo stack while undoing/redoing */
-	ActionList::iterator currentAction;
-
-	/**
-	 * @brief Returns the next <code>ActionPair</code> to undo.
-	 * @return next action to undo
-	 */
-	ActionPair& getNextUndoPair();
-
-	/**
-	 * @brief Returns the next <code>ActionPair</code> to redo.
-	 * @return next <code>ActionPair</code> to redo
-	 */
-	ActionPair& getNextRedoPair();
-
-	/**
-	 * @brief Sorts the stack after undo.
-	 * @param steps how many undo steps was taken
-	 */
-	void reorderUndoStack(int steps);
-
-	/**
-	 * @brief Sorts the stack after redo.
-	 * @param steps how many redo steps was taken
-	 */
-	void reorderRedoStack(int steps);
+	void setMenuTexts();
 
 public:
-	/** @brief Marks for a global undo mode where ever UndoOjbect id is requested. */
-	static const int GLOBAL_UNDO_MODE = -1;
-
-	/**
-	 * @brief When object specific mode is requested but no suitable object is selected
-	 * @brief this can be passed to showObject() to clear the undo stack representations.
-	 */
-	static const int NO_UNDO_STACK = -2;
-
-	/**
-	 * @brief Returns a pointer to the UndoManager instance
-	 * @return A pointer to the UndoManager instance
-	 */
-	static UndoManager* instance();
-
-	/**
-	 * @brief Deletes the UndoManager Instance
-	 *
-	 * Must be called when UndoManager is no more needed.
-	 */
-	static void deleteInstance();
-
-	/**
-	 * @brief Sets the undo action tracking enabled or disabled.
-	 * @param isEnabled If true undo stack is updated with the states sent
-	 * to the UndoManager else undo stack is not updated and attached UndoGuis
-	 * are not informed of the actions.
-	 */
-	void setUndoEnabled(bool isEnabled);
-
-	/**
-	 * @brief Returns true if undo actions are stored, if not will return false.
-	 * @return true if undo actions are stored, if not will return false
-	 */
-	static bool undoEnabled();
-
-	/**
-	 * @brief Start a transaction.
-	 *
-	 * After this method has been invoked <code>UndoManager</code> will switch to the
-     * transaction (silent) mode where it does not report actions to the attached
-	 * <code>UndoGui</code> widgets but stores all incoming <code>UndoState</code> objects into
-	 * the transaction container which after call to the method commit() will be sent
-	 * to the guis as a single undo action. Transaction can be named when starting it or
-	 * naming can be done when commiting it.
-	 * @param targetName name for the target of this transaction (f.e. "Selection")
-	 * @param targetPixmap Icon for the target on which this transaction works.
-	 * this icon will be drawn first when the action is presented in Action History
-	 * window and icon for the action will be drawn over this one.
-	 * @param name name for the transaction (f.e. "Move" would make with the above
-	 * "Move Selection")
-	 * @param description description for the transaction
-	 * @param actionPixmap icon for the action performed by the transaction
-	 * @sa commit()
-	 */
-	void beginTransaction(const QString &targetName = "",
-                          QPixmap *targetPixmap = 0,
-                          const QString &actionName = "",
-                          const QString &description = "",
-                          QPixmap *actionPixmap = 0);
-
-	/**
-	 * @brief Cancels the current transaction and deletes groupped <code>UndoState</code>s.
-	 * @brief Nothing from canceled transaction will be sent to the undo gui widgets.
-	 */
-	void cancelTransaction();
-
-	/**
-	 * @brief Commit the current transaction.
-	 *
-	 * Current transaction will be commited and <code>UndoManager</code> will be switched
-	 * to the normal mode. Commited transaction will be sent to the attached undo gui
-	 * widgets and it will show up there as a single undo action. Details used as a parameter
-	 * will be details shown in the gui widgets.
-	 * @param targetName name for the target of this transaction (f.e. "Selection")
-	 * @param targetPixmap Icon for the target on which this transaction works.
-	 * this icon will be drawn first when the action is presented in Action History
-	 * window and icon for the action will be drawn over this one.
-	 * @param name name for the action
-	 * @param description description for the action
-	 * @param actionPixmap icon for the action performed by the transaction
-	 * @sa beginTransaction()
-	 */
-	void commit(const QString &targetName = "",
-                QPixmap *targetPixmap = 0,
-                const QString &name = "",
-                const QString &description = "",
-                QPixmap *actionPixmap = 0);
-
-	/**
-	 * @brief Returns true if in transaction mode if not will return false.
-	 * @return true if in transaction mode if not will return false
-	 */
-	bool isTransactionMode();
-
-	/**
-	 * @brief Register an UndoGui to the UndoManager.
-	 *
-	 * After registering a gui to the manager the gui will be updated with the
-	 * undo action information received by the UndoManager. Actions done with the
-	 * UndoGui to be registered are also handled after registering.
-	 * @param gui A pointer to the UndoGui that is wanted to be registered.
-	 */
-	void registerGui(UndoGui* gui);
-
-	/**
-	 * @brief Removes an UndoGui from UndoManager.
-	 * @param gui UndoGui to be removed from the UndoManager.
-	 */
-	void removeGui(UndoGui* gui);
-
-	/**
-	 * @brief Changes the active undo stack.
-	 *
-	 * Sets the stack connected to the name <code>stackName</code> active. Calling
-	 * this method will send clear() signal to the attached <code>UndoGui</code>s and
-	 * will update their undo stack representations.
-	 * @param stackName Name of the stack to be used
-	 */
-	void switchStack(const QString& stackName);
-
-	/**
-	 * @brief Rename the current stack
-	 * @param newName New name for the current stack.
-	 */
-	void renameStack(const QString& newName);
-
-	/**
-	 * @brief Remove the stack with the name <code>stackName</code>
-	 * @param stackName Name of the stack that is wanted to be removed
-	 */
-	void removeStack(const QString& stackName);
-
-	/**
-	 * @brief Returns true if there are actions that can be undone otherwise returns false.
-	 *
-	 * This is useful when undo/redo actions are handled with a gui that is not attached to
-	 * the UndoManager (f.e. menu items) and when those gui items are wanted to set enabled
-	 * or disabled depending on the status of the undo stack.
-	 * @return true if there are actions that can be undone otherwise returns false
-	 */
-	bool hasUndoActions(int uid = -1);
-
-	/**
-	 * @brief Returns true if there are actions that can be redone otherwise returns false.
-	 * @return true if there are actions that can be redone otherwise returns false
-	 * @sa UndoManager::hasUndoActions()
-	 */
-	bool hasRedoActions(int uid = -1);
-
-	/**
-	 * @brief Replace an UndoObject with the id uid with a new UndoObject new.
-	 * @param uid Id for the UndoObject that is wanted to be replaced.
-	 * @param newUndoObject UndoObject which will replace an old UndoObject in the stack.
-	 * @return UndoObject which was replaced
-	 */
-	UndoObject* replaceObject(ulong uid, UndoObject *newUndoObject);
-
-	/**
-	 * @brief Returns the maximum length of the undostack.
-	 * @return the maximum length of the undostack
-	 */
-	int getHistoryLength();
-
-	/**
-	 * @brief Returns true if in global mode and false if in object specific mode.
-	 * @return true if in global mode and false if in object specific mode
-	 */
-	bool isGlobalMode();
 
 	/**
 	* @name Action strings
@@ -565,6 +536,10 @@ public:
 	static QString SetLayerName;
 	static QString GetImage;
 	static QString MultipleDuplicate;
+	static QString MenuUndo;
+	static QString MenuUndoEmpty;
+	static QString MenuRedo;
+	static QString MenuRedoEmpty;
 	/*@}*/
 
 	/**
@@ -625,24 +600,6 @@ protected:
 
 	/** @brief Destroys the UndoManager instance */
 	~UndoManager();
-
-private slots:
-	/**
-	 * @brief Take undo steps the given amount
-	 *
-	 * When an UndoGui is registered to the UndoManager gui's undo() signal
-	 * is connected to this slot. Emitting an undo() signal will make the
-	 * UndoManager perform undo actions the given number of steps.
-	 * @param steps Number of undo actions to make
-	 */
-	void doUndo(int steps);
-
-	/**
-	 * @brief Take redo steps the given amount
-	 * @param steps Number of redo actions to make
-	 * @sa UndoManager::doUndo(int steps)
-	 */
-	void doRedo(int steps);
 
 public slots:
 	/**

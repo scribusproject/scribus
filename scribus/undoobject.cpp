@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
  *   Copyright (C) 2005 by Riku Leino                                      *
- *   tsoots@gmail.com                                                      *
+ *   riku@scribus.info                                                     *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -26,46 +26,46 @@ for which a new license (GPL+exception) is in place.
 
 #include "undoobject.h"
 
-ulong UndoObject::nextId = 1;
+ulong UndoObject::nextId_ = 1;
 
 
 UndoObject::UndoObject()
 {
-	_id = nextId;
-	++nextId;
-	uname = "";
-	upixmap = NULL;
+	id_ = nextId_;
+	++nextId_;
+	uname_ = "";
+	upixmap_ = NULL;
 }
 
 UndoObject::UndoObject(const QString &objectName, QPixmap *objectIcon)
 {
-	_id = nextId;
-	++nextId;
-	uname = objectName;
-	upixmap = objectIcon;
+	id_ = nextId_;
+	++nextId_;
+	uname_ = objectName;
+	upixmap_ = objectIcon;
 }
 
 ulong UndoObject::getUId()
 {
-	return _id;
+	return id_;
 }
 
 QString UndoObject::getUName()
 {
-	return uname;	
+	return uname_;	
 }
 
 void UndoObject::setUName(QString newUName)
 {
-	uname = newUName;
+	uname_ = newUName;
 }
 
 QPixmap* UndoObject::getUPixmap()
 {
-	return upixmap;
+	return upixmap_;
 }
 
 void UndoObject::setUPixmap(QPixmap *newUPixmap)
 {
-	upixmap = newUPixmap;
+	upixmap_ = newUPixmap;
 }

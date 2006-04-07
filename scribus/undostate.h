@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
  *   Copyright (C) 2005 by Riku Leino                                      *
- *   tsoots@gmail.com                                                      *
+ *   riku@scribus.info                                                     *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -28,11 +28,12 @@ for which a new license (GPL+exception) is in place.
 #define UNDOSTATE_H
 
 #include <qmap.h>
-#include <qpixmap.h>
-#include <qstring.h>
-
 #include "scribusapi.h"
+
+class QPixmap;
+class QString;
 class PageItem;
+class UndoObject;
 
 /**
  * @brief UndoState describes an undoable state (action).
@@ -46,18 +47,11 @@ class PageItem;
  * UndoManager will handle the deletion of UndoState objects.
  *
  * @sa SimpleState
- * @author Riku Leino tsoots@gmail.com
+ * @author Riku Leino riku@scribus.info
  * @date December 2004
  */
 class SCRIBUS_API UndoState
 {
-private:
-	/** @brief Name of the state (action) (f.e. Move object) */
-	QString actionName;
-	/** @brief Detailed description of the state (action). */
-	QString actionDescription;
-	/** @brief Icon related to the state (action) */
-	QPixmap *actionPixmap;
 public:
 	/**
 	 * @brief Creates a new UndoState instance.
@@ -105,6 +99,28 @@ public:
 	 * @param newPixmap icon for this UndoState
 	 */
 	virtual void setPixmap(QPixmap *newPixmap);
+
+	/** @brief undo the state described by this UndoState,
+	 *  @brief requires related UndoObject */
+	virtual void undo();
+	/** @brief redo the state described by this UndoState,
+	 *  @brief requires the related UndoObject */
+	virtual void redo();
+
+	/** @brief Set the UndoObject this state belongs to */
+	virtual void setUndoObject(UndoObject *object);
+	/** @brief return the UndoObject this state belongs to */
+	virtual UndoObject* undoObject();
+
+private:
+	/** @brief Name of the state (operation) (f.e. Move object) */
+	QString actionName_;
+	/** @brief Detailed description of the state (operation). */
+	QString actionDescription_;
+	/** @brief Icon related to the state (operation) */
+	QPixmap *actionPixmap_;
+	/** @brief UndoObject this state belongs to */
+	UndoObject *undoObject_;
 };
 
 /*** SimpleState **************************************************************************/
@@ -120,9 +136,6 @@ public:
  */
 class SCRIBUS_API SimpleState : public UndoState
 {
-private:
-	/** @brief QMap to store key-value pairs */
-	QMap<QString, QString> values;
 public:
 	/**
 	 * @brief Creates a new SimpleState instance.
@@ -256,6 +269,10 @@ public:
 	 * @param value Value attached to the key.
 	 */
 	void set(const QString& key, bool value);
+
+private:
+	/** @brief QMap to store key-value pairs */
+	QMap<QString, QString> values_;
 };
 
 /*** ItemState ***************************************************************************/
@@ -263,14 +280,14 @@ public:
 template<class C>
 class ItemState : public SimpleState
 {
-private:
-	C item;
 public:
 	ItemState(const QString& name, const QString& description = 0, QPixmap* pixmap = 0)
 	: SimpleState(name, description, pixmap) {}
 	~ItemState() {}
-	void setItem(const C &c) { item = c; }
-	C getItem() const { return item; }
+	void setItem(const C &c) { item_ = c; }
+	C getItem() const { return item_; }
+private:
+	C item_;
 };
 
 #endif

@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
  *   Copyright (C) 2005 by Riku Leino                                      *
- *   tsoots@gmail.com                                                      *
+ *   riku@scribus.info                                                     *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -51,32 +51,11 @@ for which a new license (GPL+exception) is in place.
         object back to the UndoObject which then uses it to restore the state.</li>
  </ol>
  *
- * @author Riku Leino tsoots@gmail.com
+ * @author Riku Leino riku@scribus.info
  * @date December 2004
  */
 class SCRIBUS_API UndoObject
 {
-private:
-	/** @brief id number to be used with the next UndoObject */
-	static ulong nextId;
-
-	/** @brief unique id number */
-	ulong _id;
-
-	/**
-	 * @brief Name of the UndoObject
-	 *
-	 * This name will be used in UndoGui implementations
-	 */
-	QString uname;
-
-	/**
-	 * @brief Icon presenting the object.
-	 *
-	 * When used together with an UndoAction that has an image is this image
-	 * drawn first then the action image is drawn on top of this.
-	 */
-	QPixmap *upixmap;
 public:
 	/** @brief Creates a new anonymous UndoObject instance  */
 	UndoObject();
@@ -130,6 +109,27 @@ public:
 	 * @param isUndo If true undo is wanted else if false redo.
 	 */
 	virtual void restore(UndoState* state, bool isUndo) = 0;
+private:
+	/** @brief id number to be used with the next UndoObject */
+	static ulong nextId_;
+	
+	/** @brief unique id number */
+	ulong id_;
+	
+	/**
+	 * @brief Name of the UndoObject
+	 *
+	 * This name will be used in UndoGui implementations
+	 */
+	QString uname_;
+	
+	/**
+	 * @brief Icon presenting the object.
+	 *
+	 * When used together with an UndoAction that has an image is this image
+	 * drawn first then the action image is drawn on top of this.
+	 */
+	QPixmap *upixmap_;
 };
 
 class SCRIBUS_API DummyUndoObject : public UndoObject
