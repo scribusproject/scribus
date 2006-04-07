@@ -64,7 +64,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	QString built = tr("%1 %2 %3").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR);
 
 // This is my way, only activated when envvar BUILD_NAME is set :-)  AV
-#include "about_builddate.inc"
+//#include "about_builddate.inc"
 	QString version = VERSION;
 	if (BUILD_NAME != "")
 		version += " \"" + BUILD_NAME + "\"";
