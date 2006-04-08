@@ -29,7 +29,7 @@ class ExportForm : public QDialog
 	Q_OBJECT
 
 public:
-	ExportForm( QWidget* parent, int size, int quality, QString type);
+	ExportForm( QWidget* parent, int size, int quality, QString type, double cPageW, double cPageH);
 	~ExportForm();
 
 	QString bitmapType;
@@ -42,6 +42,8 @@ public:
     QLabel* textLabel1;
     QLabel* textLabel3;
 	QLabel* textLabel4;
+	QLabel* textLabel5;
+	QLabel* textLabel6;
     QComboBox* BitmapType;
     QSpinBox* QualityBox;
     QSpinBox* DPIBox;
@@ -53,6 +55,8 @@ public:
     QLineEdit* RangeVal;
     QPushButton* OkButton;
     QPushButton* CancelButton;
+    double pw;
+    double ph;
 
 public slots:
 	virtual void OutputDirectoryButton_pressed();
@@ -60,6 +64,7 @@ public slots:
 	virtual void IntervalPagesRadio_stateChanged( int );
 	virtual void AllPagesRadio_stateChanged( int );
 	virtual void OnePageRadio_stateChanged( int );
+	virtual void computeSize();
 
 protected:
     QVBoxLayout* ExportFormLayout;

@@ -94,7 +94,7 @@ bool PixmapExportPlugin::run(QString target)
 	Q_ASSERT(!ScMW->doc->masterPageMode());
 	bool res;
 	ExportBitmap *ex = new ExportBitmap();
-	ExportForm *dia = new ExportForm(ScMW, ex->pageDPI, ex->quality, ex->bitmapType);
+	ExportForm *dia = new ExportForm(ScMW, ex->pageDPI, ex->quality, ex->bitmapType, ScMW->doc->pageWidth, ScMW->doc->pageHeight);
 
 	// interval widgets handling
 	QString tmp;
@@ -143,7 +143,7 @@ ExportBitmap::ExportBitmap()
 {
 	pageDPI = 72;
 	quality = 100;
-	enlargement = 100;
+	enlargement = 100.0;
 	exportDir = QDir::currentDirPath();
 	bitmapType = QString("PNG");
 	overwrite = false;

@@ -34,9 +34,11 @@ for which a new license (GPL+exception) is in place.
  *  The dialog will by default be modeless, unless you set 'modal' to
  *  true to construct a modal dialog.
  */
-ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
+ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type, double cPageW, double cPageH)
 	: QDialog(parent, "ExportForm", true, 0)
 {
+	pw = cPageW;
+	ph = cPageH;
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("pixmapexport");
 	ExportFormLayout = new QVBoxLayout( this, 10, 5, "ExportFormLayout");
 	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
@@ -86,6 +88,10 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	EnlargementBox->setMinValue( 1 );
 	EnlargementBox->setValue(size);
 	groupBox1Layout->addWidget( EnlargementBox, 3, 1 );
+	textLabel5 = new QLabel( groupBox1, "textLabel5" );
+	groupBox1Layout->addMultiCellWidget( textLabel5, 4, 4, 0, 2 );
+	textLabel6 = new QLabel( groupBox1, "textLabel6" );
+	groupBox1Layout->addMultiCellWidget( textLabel6, 5, 5, 0, 2 );
 	layout3->addWidget( groupBox1 );
 
 	ButtonGroup1 = new QButtonGroup( this, "ButtonGroup1" );
@@ -119,6 +125,7 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	ExportFormLayout->addLayout( layout4 );
 	languageChange();
 	readConfig();
+	computeSize();
 	resize( QSize(447, 206).expandedTo(minimumSizeHint()) );
 
     // buddies
@@ -133,6 +140,17 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	connect(IntervalPagesRadio, SIGNAL(stateChanged(int)), this, SLOT(IntervalPagesRadio_stateChanged(int)));
 	connect(AllPagesRadio, SIGNAL(stateChanged(int)), this, SLOT(AllPagesRadio_stateChanged(int)));
 	connect(OnePageRadio, SIGNAL(stateChanged(int)), this, SLOT(OnePageRadio_stateChanged(int)));
+	connect(EnlargementBox, SIGNAL(valueChanged(int)), this, SLOT(computeSize()));
+	connect(DPIBox, SIGNAL(valueChanged(int)), this, SLOT(computeSize()));
+}
+
+void ExportForm::computeSize()
+{
+	double pixmapSize;
+	(ph > pw) ? pixmapSize = ph : pixmapSize = pw;
+	int maxGr = qRound(pixmapSize * EnlargementBox->value() * (DPIBox->value() / 72.0) / 100.0);
+	double sc = QMIN(maxGr / pw, maxGr / ph);
+	textLabel6->setText(QString("%1 x %2 px").arg(qRound(pw * sc)).arg(qRound(ph * sc)));
 }
 
 void ExportForm::OutputDirectoryButton_pressed()
@@ -200,6 +218,7 @@ void ExportForm::languageChange()
 	OkButton->setText( CommonStrings::tr_OK );
 	CancelButton->setText( CommonStrings::tr_Cancel );
 	CancelButton->setAccel( QKeySequence( tr( "C" ) ) );
+	textLabel5->setText( tr("Image size in Pixels"));
 	QToolTip::add( IntervalPagesRadio, tr( "Export a range of pages" ) );
 	QToolTip::add( RangeVal, tr( "Insert a comma separated list of tokens where\na token can be * for all the pages, 1-5 for\na range of pages or a single page number." ) );
 	QToolTip::add( AllPagesRadio, tr( "Export all pages" ) );
@@ -216,7 +235,7 @@ void ExportForm::languageChange()
 void ExportForm::readConfig()
 {
 	DPIBox->setValue(prefs->getUInt("DPIBox", 72));
-	EnlargementBox->setValue(prefs->getUInt("EnlargementBox", 100));
+	EnlargementBox->setValue(prefs->getDouble("EnlargementBox", 100));
 	QualityBox->setValue(prefs->getUInt("QualityBox", 100));
 	ButtonGroup1->setButton(prefs->getUInt("ButtonGroup1", 0));
 	if (prefs->getInt("ButtonGroup1")==2)
