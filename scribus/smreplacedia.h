@@ -18,68 +18,19 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef SMLINESTYLE_H
-#define SMLINESTYLE_H
+#ifndef SMREPLACEDIA_H
+#define SMREPLACEDIA_H
 
-#include "scribusstructs.h"
+#include "smreplacediabase.h"
 #include "styleitem.h"
-#include "smlinestylewbase.h"
 
-#include <qobject.h>
-#include <qcolor.h>
-
-class ScribusDoc;
-class LineCombo;
-class MSpinBox;
-
-class LineStyleWidget : public LineStyleWBase // .ui implementation
-{
+class SMReplaceDia : public SMReplaceDiaBase {
 	Q_OBJECT
 public:
-	LineStyleWidget();
-	~LineStyleWidget();
-	void showStyle(const multiLine &lineStyle, ColorList &colorList);
+	SMReplaceDia(const QStringList &toBeDeleted, const QStringList &replaceOptions);
+	~SMReplaceDia();
 
-private:
-	LineCombo *dashCombo;
-	MSpinBox  *lineWidth;
-	multiLine  currentStyle;
-	ColorList  colors;
-
-	void updateLineList();
-	QColor getColor(const QString &name, int shade);
-
-protected slots:
-	void slotEditNewLine(int i);
-};
-
-class SMLineStyle : public StyleItem
-{
-	Q_OBJECT
-public:
-	SMLineStyle();
-	~SMLineStyle();
-	QTabWidget* widget();
-	QString typeName();
-	void currentDoc(ScribusDoc *doc);
-	QStringList styles();
-	void selected(const QStringList &styleNames);
-	void apply();
-	void deleteStyles(const QValueList<RemoveItem> &removeList);
-	void nameChanged(const QString &newName);
-
-signals:
-	void deleteDone();
-
-private:
-	ScribusDoc              *doc_;
-	LineStyleWidget         *widget_;
-	QTabWidget              *twidget_;
-	QMap<QString, multiLine> tmpLines;
-
-	void reset();
-	void setSelection(const QString& styleName);
-	void setMultiSelection(const QStringList& styles);
+	QValueList<RemoveItem> items();
 };
 
 #endif

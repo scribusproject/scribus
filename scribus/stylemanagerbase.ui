@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>737</width>
+            <width>539</width>
             <height>414</height>
         </rect>
     </property>
@@ -96,7 +96,7 @@
                         <property name="minimumSize">
                             <size>
                                 <width>166</width>
-                                <height>146</height>
+                                <height>130</height>
                             </size>
                         </property>
                         <property name="orientation">
@@ -435,10 +435,10 @@
                         </size>
                     </property>
                     <property name="text">
-                        <string>A&amp;pply</string>
+                        <string>&amp;Apply</string>
                     </property>
                     <property name="accel">
-                        <string>Alt+P</string>
+                        <string>Alt+A</string>
                     </property>
                 </widget>
                 <widget class="QPushButton">

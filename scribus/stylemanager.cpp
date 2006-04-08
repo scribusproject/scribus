@@ -22,6 +22,8 @@
 #include "stylemanager.moc"
 #include "styleitem.h"
 #include "scribusdoc.h"
+#include "smreplacedia.h"
+#include "styleitem.h"
 #include <qheader.h>
 #include <qlabel.h>
 #include <qlistview.h>
@@ -64,7 +66,20 @@ void StyleManager::slotApply()
 
 void StyleManager::slotDelete()
 {
-	
+	QStringList selected;
+	QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
+	while (it.current()) {
+		selected << it.current()->text(0);
+		++it;
+	}
+	SMReplaceDia *dia = new SMReplaceDia(selected, item_->styles());
+	if (dia->exec())
+	{
+		if (item_)
+			item_->deleteStyles(dia->items());
+	}
+	delete dia;
+	slotStyleChanged(); // force an update of style list
 }
 
 

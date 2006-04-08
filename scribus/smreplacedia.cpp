@@ -18,68 +18,49 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef SMLINESTYLE_H
-#define SMLINESTYLE_H
+#include "smreplacedia.h"
+#include "smreplacedia.moc"
 
-#include "scribusstructs.h"
-#include "styleitem.h"
-#include "smlinestylewbase.h"
+#include <qtable.h>
+#include <qheader.h>
 
-#include <qobject.h>
-#include <qcolor.h>
-
-class ScribusDoc;
-class LineCombo;
-class MSpinBox;
-
-class LineStyleWidget : public LineStyleWBase // .ui implementation
+SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &replaceOptions) : SMReplaceDiaBase()
 {
-	Q_OBJECT
-public:
-	LineStyleWidget();
-	~LineStyleWidget();
-	void showStyle(const multiLine &lineStyle, ColorList &colorList);
+	table->verticalHeader()->hide();
+	table->setLeftMargin(0);
+	table->setColumnReadOnly(0, true);
+	table->setNumRows(toBeDeleted.count());
 
-private:
-	LineCombo *dashCombo;
-	MSpinBox  *lineWidth;
-	multiLine  currentStyle;
-	ColorList  colors;
+	QStringList options;
+	for (uint i = 0; i < replaceOptions.count(); ++i)
+	{
+		if (!toBeDeleted.contains(replaceOptions[i]))
+			options << replaceOptions[i];
+	}
+	
+	for (uint i = 0; i < toBeDeleted.count(); ++i)
+	{
+		table->setText(i, 0, toBeDeleted[i]);
+		table->setItem(i, 1, new QComboTableItem(table, options));
+	}
+}
 
-	void updateLineList();
-	QColor getColor(const QString &name, int shade);
-
-protected slots:
-	void slotEditNewLine(int i);
-};
-
-class SMLineStyle : public StyleItem
+QValueList<RemoveItem> SMReplaceDia::items()
 {
-	Q_OBJECT
-public:
-	SMLineStyle();
-	~SMLineStyle();
-	QTabWidget* widget();
-	QString typeName();
-	void currentDoc(ScribusDoc *doc);
-	QStringList styles();
-	void selected(const QStringList &styleNames);
-	void apply();
-	void deleteStyles(const QValueList<RemoveItem> &removeList);
-	void nameChanged(const QString &newName);
+	QValueList<RemoveItem> tmp;
+	for (int i = 0; i < table->numRows(); ++i)
+	{
+		QString s1 = table->text(i, 1);
+		QComboTableItem *qcti = dynamic_cast<QComboTableItem*>(table->item(i,1));
+		QString s2 = qcti->text(qcti->currentItem());
+		tmp.append(RemoveItem(s1, s2));
+		
+	}
+	return tmp;
+}
 
-signals:
-	void deleteDone();
-
-private:
-	ScribusDoc              *doc_;
-	LineStyleWidget         *widget_;
-	QTabWidget              *twidget_;
-	QMap<QString, multiLine> tmpLines;
-
-	void reset();
-	void setSelection(const QString& styleName);
-	void setMultiSelection(const QStringList& styles);
-};
-
-#endif
+SMReplaceDia::~SMReplaceDia()
+{
+	for (int i = 0; i < table->numRows(); ++i)
+		delete table->item(i, 1);
+}

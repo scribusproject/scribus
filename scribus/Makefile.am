@@ -201,6 +201,8 @@ scribus_SOURCES = \
 	shadebutton.cpp	\
 	smlinestyle.cpp \
 	smlinestylewbase.ui \
+	smreplacediabase.ui \
+	smreplacedia.cpp \
 	spalette.cpp	\
 	splash.cpp	\
 	stencilreader.cpp	\

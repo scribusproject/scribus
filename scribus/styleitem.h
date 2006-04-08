@@ -28,6 +28,10 @@ class QStringList;
 class ScribusDoc;
 class QTabWidget;
 
+/** RemoveItem.first will be the style to remove and RemoveItem.second
+ *  will be the one used in place of the deleted style */
+typedef QPair<QString, QString> RemoveItem;
+
 /**
  * @brief Represents a style type that can be added to the Style Manager
  * @brief palette.
@@ -84,13 +88,14 @@ public:
 	 * the StyleItem but if a user chooses to press button apply StyleItem's
 	 * function apply() is called and StyleItem must upgrade the style
 	 * and apply it where ever that style is used in the document.
+	 * (cancel will be disabled after this)
 	 */
 	virtual void apply() = 0;
 
 	/**
 	 * @brief User has requested to delete all the selected styles
 	 */
-	virtual void deleteSelected() = 0;
+	virtual void deleteStyles(const QValueList<RemoveItem> &removeList) = 0;
 
 	/** @brief Called when the currently selected style's name has changed */
 	virtual void nameChanged(const QString &newName) = 0;

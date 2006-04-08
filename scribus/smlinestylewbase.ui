@@ -310,8 +310,16 @@
         </widget>
     </vbox>
 </widget>
+<connections>
+    <connection>
+        <sender>lineStyles</sender>
+        <signal>highlighted(int)</signal>
+        <receiver>LineStyleWBase</receiver>
+        <slot>slotEditNewLine(int)</slot>
+    </connection>
+</connections>
 <slots>
-    <slot>slotEditNewLine(int)</slot>
+    <slot access="protected">slotEditNewLine(int i)</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

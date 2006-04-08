@@ -71,6 +71,7 @@ void LineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorList
 	}
 	colors = colorList;
 	updateLineList();
+	slotEditNewLine(0);
 }
 
 void LineStyleWidget::slotEditNewLine(int i)
@@ -80,6 +81,7 @@ void LineStyleWidget::slotEditNewLine(int i)
 	lineWidth->setValue(currentStyle[i].Width);
 	colorCombo->setCurrentText(currentStyle[i].Color);
 	shadeBox->setValue(currentStyle[i].Shade);
+	
 	switch (static_cast<PenStyle>(currentStyle[i].Dash))
 	{
 	case SolidLine:
@@ -101,6 +103,7 @@ void LineStyleWidget::slotEditNewLine(int i)
 		dashCombo->setCurrentItem(0);
 		break;
 	}
+
 	switch (static_cast<PenCapStyle>(currentStyle[i].LineEnd))
 	{
 	case FlatCap:
@@ -259,7 +262,7 @@ void SMLineStyle::setSelection(const QString& styleName)
 
 void SMLineStyle::setMultiSelection(const QStringList& styles)
 {
-
+	
 }
 
 void SMLineStyle::apply()
@@ -267,7 +270,7 @@ void SMLineStyle::apply()
 	
 }
 
-void SMLineStyle::deleteSelected()
+void SMLineStyle::deleteStyles(const QValueList<RemoveItem> &removeList)
 {
 	
 }
