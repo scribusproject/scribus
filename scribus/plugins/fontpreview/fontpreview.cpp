@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <qregexp.h>
 
 #include "fontpreview.h"
+#include "fontpreview.moc"
 #include "scribus.h"
 #include "prefsfile.h"
 #include "commonstrings.h"
@@ -248,5 +249,3 @@ void FontPreview::sizeSpin_valueChanged( int )
 	if (allowSample())
 		paintSample(fontList->currentItem());
 }
-
-#include "fontpreview.moc"

@@ -8,7 +8,7 @@ fontpreviewbase.ui
 )
 
 SET(FONTPREVIEW_PLUGIN_MOC_CLASSES
-
+fontpreview.h
 fontpreviewplugin.h
 )
 
