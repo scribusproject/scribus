@@ -4487,6 +4487,12 @@ void ScribusMainWindow::slotEditPaste()
 						hg->ch = QChar(13);
 					if (hg->ch == QChar(4))
 						hg->ch = QChar(9);
+/* 	Don't copy inline frames for now, as this is a very complicated thing.
+		We need to figure out a good way to copy inline frames, this must
+		be able to preserve them across documents. No idea how to solve
+		that yet. */
+					if (hg->ch == QChar(25))
+						hg->ch = QChar(32);
 					it++;
 					hg->cfont = (*doc->AllFonts)[*it];
 					it++;
