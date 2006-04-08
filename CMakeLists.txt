@@ -206,9 +206,19 @@ CHECK_INCLUDE_FILE("sys/stat.h" HAVE_SYS_STAT_H)
 # ENDIF(HAVE_SYS_STAT_H)
 
 
+#Create configure files.. config.h and uninstall
+#config.h
 INCLUDE (ConfigureChecks.cmake)
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 ADD_DEFINITIONS("-DHAVE_CONFIG_H")
+#uninstall
+CONFIGURE_FILE(
+  "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+  IMMEDIATE @ONLY)
+
+ADD_CUSTOM_TARGET(uninstall
+  "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
 
 SET(SCRIBUSQT_DIR ${CMAKE_MODULE_PATH})
 FIND_PACKAGE(SCRIBUSQT)
