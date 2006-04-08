@@ -18,7 +18,7 @@ PKGCONFIG(fontconfig _fontconfigIncDir _fontconfigLinkDir _fontconfigLinkFlags _
 
 SET(FONTCONFIG_LIBS ${_fontconfigCflags})
 
-FIND_PATH(FONTCONFIG_INCLUDE_DIR fontconfig.h
+FIND_PATH(FONTCONFIG_INCLUDE_DIR fontconfig/fontconfig.h
 ${_fontconfigIncDir}
 /usr/include
 /usr/local/include
