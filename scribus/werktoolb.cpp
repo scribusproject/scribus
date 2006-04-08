@@ -27,7 +27,7 @@ extern bool PolyS;
 extern double PolyR;
 extern QPixmap loadIcon(QString nam);
 
-WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
+WerkToolB::WerkToolB(QMainWindow* parent) : ScToolBar(tr("Tools"), "Tools", parent, QDockWindow::Vertical)
 {
 	SubMode = 0;
 	ValCount = 32;
@@ -89,24 +89,11 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	KetteAus->setEnabled(false);
 	Measure = new QToolButton(loadIcon("dist.png"), tr("Do measurements"), QString::null, this, SLOT(ModeFromTB()), this);
 	Measure->setToggleButton( true );
-	setCloseMode(QDockWindow::Undocked);
-	connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));
-	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(Verbergen(bool)));
+	
 	connect(Rechteck, SIGNAL(FormSel(int, int, double *)), this, SLOT(SelShape(int, int, double *)));
 	connect(Rechteck, SIGNAL(clicked()), this, SLOT(SelShape2()));
 	connect(LinM, SIGNAL(activated(int)), this, SLOT(setLinMode(int)));
 	QToolTip::add( Rechteck, tr( "Draw various Shapes" ) );
-}
-
-void WerkToolB::Docken(QDockWindow::Place p)
-{
-	setOrientation(p == InDock ? Horizontal : Vertical);
-}
-
-void WerkToolB::Verbergen(bool vis)
-{
-	if (!vis)
-		emit Schliessen();
 }
 
 void WerkToolB::GetPolyProps()
@@ -272,7 +259,7 @@ void WerkToolB::setLinMode(int id)
 	Linien->setOn(true);
 }
 
-WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF Tools"), parent)
+WerkToolBP::WerkToolBP(QMainWindow* parent) : ScToolBar(tr("PDF Tools"), "PDF_Tools", parent)
 {
 	PDFM = new QPopupMenu();
 	QString tmp_icn[] = {"pushbutton.png", "textview.png", "checkbox.png", "combobox.png", "listbox.png"};
@@ -295,9 +282,6 @@ WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF Tools"), parent)
 	PDFaTool->setPopup(PDFA);
 	PDFaTool->setPopupDelay(0);
 	PDFnotiz = 0;
-	setCloseMode(QDockWindow::Undocked);
-	connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));
-	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(Verbergen(bool)));
 	connect(PDFM, SIGNAL(activated(int)), this, SLOT(setPDFtool(int)));
 	connect(PDFA, SIGNAL(activated(int)), this, SLOT(setPDFnotiz(int)));
 }
@@ -329,17 +313,6 @@ void WerkToolBP::setPDFtool(int id)
 	PDFTool->setOn(true);
 	PDFaTool->setOn(false);
 	emit NewMode(14+PDFwerkz);
-}
-
-void WerkToolBP::Docken(QDockWindow::Place p)
-{
-	setOrientation(Horizontal);
-}
-
-void WerkToolBP::Verbergen(bool vis)
-{
-	if (!vis)
-		emit Schliessen();
 }
 
 void WerkToolBP::ModeFromTB()

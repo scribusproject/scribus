@@ -69,6 +69,7 @@
 #include "mpalette.h"
 #include "measurements.h"
 #include "gtgettext.h"
+#include "sctoolbar.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -155,28 +156,6 @@ void ScribusApp::initScribus()
 	initMenuBar();
 	initStatusBar();
 	qApp->processEvents();
-	WerkTools2 = new QToolBar( tr("File"), this);
-	DatNeu = new QToolButton(loadIcon("DateiNeu.xpm"), tr("Create a new Document"), QString::null, this, SLOT(slotFileNew()), WerkTools2);
-	DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Open a Document"), QString::null, this, SLOT(slotDocOpen()), WerkTools2);
-	DatSav = new QToolButton(loadIcon("DateiSave2.png"), tr("Save the current Document"), QString::null, this, SLOT(slotFileSave()), WerkTools2);
-	DatClo = new QToolButton(loadIcon("DateiClose.png"), tr("Close the current Document"), QString::null, this, SLOT(slotFileClose()), WerkTools2);
-	DatPri = new QToolButton(loadIcon("DateiPrint.xpm"), tr("Print the current Document"), QString::null, this, SLOT(slotFilePrint()), WerkTools2);
-	DatPDF = new QToolButton(loadIcon("acrobat.png"), tr("Save the current Document as PDF"), QString::null, this, SLOT(SaveAsPDF()), WerkTools2);
-	DatSav->setEnabled(false);
-	DatClo->setEnabled(false);
-	DatPri->setEnabled(false);
-	DatPDF->setEnabled(false);
-	DatOpe->setPopup(recentMenu);
-	WerkTools = new WerkToolB(this);
-	setDockEnabled(WerkTools, DockLeft, false);
-	setDockEnabled(WerkTools, DockRight, false);
-	WerkTools->Sichtbar = true;
-	WerkTools->setEnabled(false);
-	WerkToolsP = new WerkToolBP(this);
-	setDockEnabled(WerkToolsP, DockLeft, false);
-	setDockEnabled(WerkToolsP, DockRight, false);
-	WerkToolsP->setEnabled(false);
-	WerkToolsP->Sichtbar = true;
 	QString Pff = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
 	QFileInfo Pffi = QFileInfo(Pff);
 	if (Pffi.exists())
@@ -206,6 +185,22 @@ void ScribusApp::initScribus()
 	}
 	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs.xml"));
 	dirs = prefsFile->getContext("dirs");
+	WerkTools2 = new ScToolBar(tr("File"), "File", this);
+	DatNeu = new QToolButton(loadIcon("DateiNeu.xpm"), tr("Create a new Document"), QString::null, this, SLOT(slotFileNew()), WerkTools2);
+	DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Open a Document"), QString::null, this, SLOT(slotDocOpen()), WerkTools2);
+	DatSav = new QToolButton(loadIcon("DateiSave2.png"), tr("Save the current Document"), QString::null, this, SLOT(slotFileSave()), WerkTools2);
+	DatClo = new QToolButton(loadIcon("DateiClose.png"), tr("Close the current Document"), QString::null, this, SLOT(slotFileClose()), WerkTools2);
+	DatPri = new QToolButton(loadIcon("DateiPrint.xpm"), tr("Print the current Document"), QString::null, this, SLOT(slotFilePrint()), WerkTools2);
+	DatPDF = new QToolButton(loadIcon("acrobat.png"), tr("Save the current Document as PDF"), QString::null, this, SLOT(SaveAsPDF()), WerkTools2);
+	DatSav->setEnabled(false);
+	DatClo->setEnabled(false);
+	DatPri->setEnabled(false);
+	DatPDF->setEnabled(false);
+	DatOpe->setPopup(recentMenu);
+	WerkTools = new WerkToolB(this);
+	WerkTools->setEnabled(false);
+	WerkToolsP = new WerkToolBP(this);
+	WerkToolsP->setEnabled(false);
 	/** Erstelle Fontliste */
 	NoFonts = false;
 	BuFromApp = false;
@@ -631,6 +626,11 @@ void ScribusApp::initScribus()
 		sigaddset(&mask, SIGABRT);
 #endif
 		sigprocmask(SIG_UNBLOCK, &mask, 0);
+
+		// init the ScToolBars
+		WerkTools->initVisibility();
+		WerkTools2->initVisibility();
+		WerkToolsP->initVisibility();
 	}
 }
 
@@ -5063,19 +5063,17 @@ void ScribusApp::setTools(bool visible)
 	if (visible)
 	{
 		WerkTools->show();
-		WerkTools->Sichtbar = true;
 	}
 	else
 	{
 		WerkTools->hide();
-		WerkTools->Sichtbar = false;
 	}
 	settingsMenu->setItemChecked(toolbarMenuTools, visible);
 }
 
 void ScribusApp::ToggleTools()
 {
-	setTools(!WerkTools->Sichtbar);
+	setTools(!WerkTools->isVisible());
 }
 
 void ScribusApp::setPDFTools(bool visible)
@@ -5083,19 +5081,17 @@ void ScribusApp::setPDFTools(bool visible)
 	if (visible)
 	{
 		WerkToolsP->show();
-		WerkToolsP->Sichtbar = true;
 	}
 	else
 	{
 		WerkToolsP->hide();
-		WerkToolsP->Sichtbar = false;
 	}
 	settingsMenu->setItemChecked(toolbarMenuPDFTools, visible);
 }
 
 void ScribusApp::TogglePDFTools()
 {
-	setPDFTools(!WerkToolsP->Sichtbar);
+	setPDFTools(!WerkToolsP->isVisible());
 }
 
 void ScribusApp::TogglePics()

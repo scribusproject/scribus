@@ -29,7 +29,6 @@
 #include <qaction.h>
 #include <qmenubar.h>
 #include <qpopupmenu.h>
-#include <qtoolbar.h>
 #include <qtoolbutton.h>
 #include <qstatusbar.h>
 #include <qtooltip.h>
@@ -68,6 +67,7 @@ class LineFormate;
 class Mpalette;
 class Measurements;
 class StoryEditor;
+class ScToolBar;
 
 struct PrintOptions {
 	QString printer;
@@ -503,7 +503,7 @@ private:
 	QPopupMenu *TypeStyleMenu;
 	QPopupMenu *AliMenu;
 	QPopupMenu *recentMenu;
-	QToolBar *WerkTools2;
+	ScToolBar *WerkTools2;
 	WerkToolBP* WerkToolsP;
 	QToolButton* DatOpe;
 	QToolButton* DatSav;

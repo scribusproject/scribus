@@ -18,7 +18,7 @@
 #ifndef WERKTOOLB_H
 #define WERKTOOLB_H
 
-#include <qtoolbar.h>
+#include "sctoolbar.h"
 #include <qmainwindow.h>
 #include <qtoolbutton.h>
 #include <qtooltip.h>
@@ -29,7 +29,7 @@ class Autoforms;
   *@author Franz Schmid
   */
 
-class WerkToolB : public QToolBar  
+class WerkToolB : public ScToolBar
 {
 	Q_OBJECT
 
@@ -60,8 +60,6 @@ public:
 	double *ShapeVals;
 
 public slots:
-	void Docken(QDockWindow::Place p);
-	void Verbergen(bool vis);
 	void GetPolyProps();
 	void SelShape(int s, int c, double *vals);
 	void SelShape2();
@@ -73,7 +71,7 @@ signals:
 	void NewMode(int);
 };
 
-class WerkToolBP : public QToolBar  
+class WerkToolBP : public ScToolBar
 {
 	Q_OBJECT
 
@@ -91,8 +89,6 @@ public:
 public slots:
 	void setPDFnotiz(int id);
 	void setPDFtool(int id);
-	void Docken(QDockWindow::Place p);
-	void Verbergen(bool vis);
 	void ModeFromTB();
 
 signals:
