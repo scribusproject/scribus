@@ -24,6 +24,7 @@ guidemanagerbase.ui
 multiprogressdialogbase.ui
 pageitemattributesbase.ui
 smlinestylewbase.ui
+smreplacediabase.ui
 stylemanagerbase.ui
 tocindexprefsbase.ui
 useprintermarginsdialogbase.ui
@@ -159,6 +160,7 @@ selection.h
 selfield.h
 shadebutton.h
 smlinestyle.h
+smreplacedia.h
 spalette.h
 story.h
 styleitem.h
@@ -360,6 +362,7 @@ selfield.cpp
 serializer.cpp
 shadebutton.cpp
 smlinestyle.cpp
+smreplacedia.cpp
 spalette.cpp
 splash.cpp
 stencilreader.cpp
