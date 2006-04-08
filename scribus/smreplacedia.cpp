@@ -26,10 +26,10 @@
 
 SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &replaceOptions) : SMReplaceDiaBase()
 {
-	table->verticalHeader()->hide();
-	table->setLeftMargin(0);
-	table->setColumnReadOnly(0, true);
-	table->setNumRows(toBeDeleted.count());
+// 	table->verticalHeader()->hide();
+// 	table->setLeftMargin(0);
+// 	table->setColumnReadOnly(0, true);
+// 	table->setNumRows(toBeDeleted.count());
 
 	QStringList options;
 	for (uint i = 0; i < replaceOptions.count(); ++i)
@@ -38,29 +38,29 @@ SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &re
 			options << replaceOptions[i];
 	}
 	
-	for (uint i = 0; i < toBeDeleted.count(); ++i)
-	{
-		table->setText(i, 0, toBeDeleted[i]);
-		table->setItem(i, 1, new QComboTableItem(table, options));
-	}
+// 	for (uint i = 0; i < toBeDeleted.count(); ++i)
+// 	{
+// 		table->setText(i, 0, toBeDeleted[i]);
+// 		table->setItem(i, 1, new QComboTableItem(table, options));
+// 	}
 }
 
 QValueList<RemoveItem> SMReplaceDia::items()
 {
 	QValueList<RemoveItem> tmp;
-	for (int i = 0; i < table->numRows(); ++i)
-	{
-		QString s1 = table->text(i, 1);
-		QComboTableItem *qcti = dynamic_cast<QComboTableItem*>(table->item(i,1));
-		QString s2 = qcti->text(qcti->currentItem());
-		tmp.append(RemoveItem(s1, s2));
-		
-	}
+// 	for (int i = 0; i < table->numRows(); ++i)
+// 	{
+// 		QString s1 = table->text(i, 1);
+// 		QComboTableItem *qcti = dynamic_cast<QComboTableItem*>(table->item(i,1));
+// 		QString s2 = qcti->text(qcti->currentItem());
+// 		tmp.append(RemoveItem(s1, s2));
+// 		
+// 	}
 	return tmp;
 }
 
 SMReplaceDia::~SMReplaceDia()
 {
-	for (int i = 0; i < table->numRows(); ++i)
-		delete table->item(i, 1);
+// 	for (int i = 0; i < table->numRows(); ++i)
+// 		delete table->item(i, 1);
 }
