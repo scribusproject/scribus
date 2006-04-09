@@ -760,7 +760,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 	painter->setZoomFactor(z);
 }
 
-void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
+void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 {
 	double z = p->zoomFactor();
 	p->save();
@@ -802,6 +802,10 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 		double endx = pageWidth;
 		double sty = 0;
 		double endy = pageHeight;
+		double lowerBx = clip.x() / Scale + Doc->minCanvasCoordinate.x() - page->xOffset();
+		double lowerBy = clip.y() / Scale + Doc->minCanvasCoordinate.y() - page->yOffset();
+		double highBx = lowerBx + clip.width() / Scale;
+		double highBy = lowerBy + clip.height() / Scale;
 /*		double stx = QMAX((clip.x() - page->Xoffset) / Scale, 0);
 		double endx = QMIN(stx + clip.width() / Scale, page->width());
 		double sty = QMAX((clip.y() - page->Yoffset) / Scale, 0);
@@ -813,22 +817,34 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 			p->setPen(Doc->guidesSettings.majorColor, lineWidth, SolidLine, FlatCap, MiterJoin);
 			start=floor(sty/i);
 			start*=i;
-			for (double b = start; b < endy; b+=i)
-				p->drawLine(FPoint(0, b), FPoint(pageWidth, b));
+			for (double b = start; b <= endy; b+=i)
+			{
+				if ((b >= lowerBy) && (b <= highBy))
+					p->drawLine(FPoint(QMAX(lowerBx, 0), b), FPoint(QMIN(pageWidth, highBx), b));
+			}
 			start=floor(stx/i);
 			start*=i;
 			for (double b = start; b <= endx; b+=i)
-				p->drawLine(FPoint(b, 0), FPoint(b, pageHeight));
+			{
+				if ((b >= lowerBx) && (b <= highBx))
+					p->drawLine(FPoint(b, QMAX(lowerBy, 0)), FPoint(b, QMIN(pageHeight, highBy)));
+			}
 			i = Doc->guidesSettings.minorGrid;
 			p->setPen(Doc->guidesSettings.minorColor, lineWidth, DotLine, FlatCap, MiterJoin);
 			start=floor(sty/i);
 			start*=i;
-			for (double b = start; b < endy; b+=i)
-				p->drawLine(FPoint(0, b), FPoint(pageWidth, b));
+			for (double b = start; b <= endy; b+=i)
+			{
+				if ((b >= lowerBy) && (b <= highBy))
+					p->drawLine(FPoint(QMAX(lowerBx, 0), b), FPoint(QMIN(pageWidth, highBx), b));
+			}
 			start=floor(stx/i);
 			start*=i;
 			for (double b = start; b <= endx; b+=i)
-				p->drawLine(FPoint(b, 0), FPoint(b, pageHeight));
+			{
+				if ((b >= lowerBx) && (b <= highBx))
+					p->drawLine(FPoint(b, QMAX(lowerBy, 0)), FPoint(b, QMIN(pageHeight, highBy)));
+			}
 		}
 	}
 	//Draw the guides
