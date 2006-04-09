@@ -283,7 +283,7 @@ public:
 	bool deleteTaggedItems();
 
 	bool AddFont(QString name, int fsize = 10);
-	void OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
+	bool OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
 	void CloseCMSProfiles();
 	void loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles = NULL);
 	/**
