@@ -98,6 +98,14 @@ DrawImageFrame.xpm
 DrawPolylineFrame.xpm
 DrawTable.xpm
 DrawTextFrame.xpm
+16/edit-copy.png
+22/edit-copy.png
+16/edit-cut.png
+22/edit-cut.png
+16/edit-find-replace.png
+22/edit-find-replace.png
+16/edit-paste.png
+22/edit-paste.png
 16/edit-redo.png
 22/edit-redo.png
 16/edit-undo.png
@@ -218,6 +226,8 @@ plugins.png
 22/pointer.png
 PolyCut.png
 postscript.png
+16/preflight-verifier.png
+22/preflight-verifier.png
 pushbutton.png
 python.png
 Raiselayer.png
@@ -269,6 +279,7 @@ Stiftalt.xpm
 Stift.xpm
 stoplaunch16.png
 stoplaunch.png
+16/story-editor.png
 22/story-editor.png
 Strike.xpm
 tab.png
