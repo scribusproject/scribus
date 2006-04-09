@@ -282,8 +282,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Locked = new QToolButton( page, "Lock" );
 	Locked->setToggleButton( true );
 	QIconSet a = QIconSet();
-	a.setPixmap(loadIcon("locked.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
-	a.setPixmap(loadIcon("unlock.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
+	a.setPixmap(loadIcon("16/lock.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
+	a.setPixmap(loadIcon("16/lock-unlocked.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
 	Locked->setIconSet(a);
 	Layout44->addWidget( Locked, 0, 1 );
 	NoPrint = new QToolButton( page, "NoPrint" );

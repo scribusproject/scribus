@@ -69,11 +69,11 @@ void ActionManager::createActions()
 void ActionManager::initFileMenuActions()
 {
 	//File Menu
-	scrActions->insert("fileNew", new ScrAction(QIconSet(loadIcon("DateiNeu16.png"), loadIcon("DateiNeu.xpm")), "", CTRL+Key_N, ScMW, "fileNew"));
-	scrActions->insert("fileOpen", new ScrAction(QIconSet(loadIcon("DateiOpen16.png"), loadIcon("DateiOpen.xpm")), "", CTRL+Key_O, ScMW, "fileOpen"));
-	scrActions->insert("fileClose", new ScrAction(QIconSet(loadIcon("DateiClos16.png"), loadIcon("DateiClose.png")), "", CTRL+Key_W, ScMW, "fileClose"));
-	scrActions->insert("fileSave", new ScrAction(QIconSet(loadIcon("DateiSave16.png"), loadIcon("DateiSave2.png")), "", CTRL+Key_S, ScMW, "fileSave"));
-	scrActions->insert("fileSaveAs", new ScrAction(loadIcon("filesaveas.png"), "", CTRL+SHIFT+Key_S, ScMW, "fileSaveAs"));
+	scrActions->insert("fileNew", new ScrAction(QIconSet(loadIcon("16/document-new.png"), loadIcon("22/document-new.png")), "", CTRL+Key_N, ScMW, "fileNew"));
+	scrActions->insert("fileOpen", new ScrAction(QIconSet(loadIcon("16/document-open.png"), loadIcon("22/document-open.png")), "", CTRL+Key_O, ScMW, "fileOpen"));
+	scrActions->insert("fileClose", new ScrAction(QIconSet(loadIcon("16/close.png"), loadIcon("22/close.png")), "", CTRL+Key_W, ScMW, "fileClose"));
+	scrActions->insert("fileSave", new ScrAction(QIconSet(loadIcon("16/document-save.png"), loadIcon("22/document-save.png")), "", CTRL+Key_S, ScMW, "fileSave"));
+	scrActions->insert("fileSaveAs", new ScrAction(QIconSet(loadIcon("16/document-save-as.png"), loadIcon("22/document-save-as.png")), "", CTRL+SHIFT+Key_S, ScMW, "fileSaveAs"));
 	scrActions->insert("fileRevert", new ScrAction(loadIcon("revert.png"), "", QKeySequence(), ScMW, "fileRevert"));
 	scrActions->insert("fileCollect", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "fileCollect"));
 	//File Import Menu
@@ -86,8 +86,8 @@ void ActionManager::initFileMenuActions()
 	scrActions->insert("fileExportAsEPS", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "fileExportAsEPS"));
 	scrActions->insert("fileExportAsPDF", new ScrAction(loadIcon("acrobat.png"), "", QKeySequence(), ScMW, "fileExportAsPDF"));
 	//Rest of File Menu
-	scrActions->insert("fileDocSetup", new ScrAction(QPixmap(loadIcon("scribusdoc16.png")), "", 0, ScMW, "fileDocSetup"));
-	scrActions->insert("filePrint", new ScrAction(QIconSet(loadIcon("DateiPrint16.png"), loadIcon("DateiPrint.xpm")), "", CTRL+Key_P, ScMW, "filePrint"));
+	scrActions->insert("fileDocSetup", new ScrAction(QIconSet(loadIcon("16/document-properties.png"), loadIcon("22/document-properties.png")), "", 0, ScMW, "fileDocSetup"));
+	scrActions->insert("filePrint", new ScrAction(QIconSet(loadIcon("16/document-print.png"), loadIcon("22/document-print.png")), "", CTRL+Key_P, ScMW, "filePrint"));
 	scrActions->insert("PrintPreview", new ScrAction(QIconSet(noIcon), "", CTRL+ALT+Key_P, ScMW, "PrintPreview"));
 	scrActions->insert("fileQuit", new ScrAction(QPixmap(loadIcon("exit.png")), "", CTRL+Key_Q, ScMW, "fileQuit"));
 
@@ -118,16 +118,16 @@ void ActionManager::initFileMenuActions()
 void ActionManager::initEditMenuActions()
 {
 	//Edit Menu
-	scrActions->insert("editUndoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("u_undo16.png"), loadIcon("u_undo.png")), "", CTRL+Key_Z, ScMW, "editUndoAction",1));
-	scrActions->insert("editRedoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("u_redo16.png"), loadIcon("u_redo.png")), "", CTRL+SHIFT+Key_Z, ScMW, "editRedoAction", 1));
+	scrActions->insert("editUndoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("16/edit-undo.png"), loadIcon("22/edit-undo.png")), "", CTRL+Key_Z, ScMW, "editUndoAction",1));
+	scrActions->insert("editRedoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("16/edit-redo.png"), loadIcon("22/edit-redo.png")), "", CTRL+SHIFT+Key_Z, ScMW, "editRedoAction", 1));
 	scrActions->insert("editActionMode", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "editActionMode"));
 	(*scrActions)["editActionMode"]->setToggleAction(true);
 	
-	scrActions->insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png"), loadIcon("editcut22.png")), "", CTRL+Key_X, ScMW, "editCut"));
-	scrActions->insert("editCopy", new ScrAction(QIconSet(loadIcon("editcopy.png"), loadIcon("editcopy.png")), "", CTRL+Key_C, ScMW, "editCopy"));
-	scrActions->insert("editPaste", new ScrAction(QIconSet(loadIcon("editpaste.png"), loadIcon("editpaste.png")), "", CTRL+Key_V, ScMW, "editPaste"));
-	scrActions->insert("editCopyContents", new ScrAction(QIconSet(loadIcon("editcopy.png"), loadIcon("editcopy.png")), "", CTRL+SHIFT+Key_C, ScMW, "editCopyContents"));
-	scrActions->insert("editPasteContents", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("editpaste.png")), "", CTRL+SHIFT+Key_V, ScMW, "editPasteContents",0));
+	scrActions->insert("editCut", new ScrAction(QIconSet(loadIcon("16/edit-cut.png"), loadIcon("22/edit-cut.png")), "", CTRL+Key_X, ScMW, "editCut"));
+	scrActions->insert("editCopy", new ScrAction(QIconSet(loadIcon("16/edit-copy.png"), loadIcon("22/edit-copy.png")), "", CTRL+Key_C, ScMW, "editCopy"));
+	scrActions->insert("editPaste", new ScrAction(QIconSet(loadIcon("16/edit-paste.png"), loadIcon("22/edit-paste.png")), "", CTRL+Key_V, ScMW, "editPaste"));
+	scrActions->insert("editCopyContents", new ScrAction(QIconSet(loadIcon("16/edit-copy.png"), loadIcon("22/edit-copy.png")), "", CTRL+SHIFT+Key_C, ScMW, "editCopyContents"));
+	scrActions->insert("editPasteContents", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("16/edit-paste.png")), "", CTRL+SHIFT+Key_V, ScMW, "editPasteContents",0));
 	scrActions->insert("editPasteContentsAbs", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("editpaste.png")), "", CTRL+SHIFT+ALT+Key_V, ScMW, "editPasteContentsAbs",1));
 	scrActions->insert("editClearContents", new ScrAction(QIconSet(loadIcon("editdelete.png"), loadIcon("editdelete22.png")), "", QKeySequence(), ScMW, "editClearContents"));
 	
@@ -440,7 +440,7 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert("toolsLayers", new ScrAction(QIconSet(noIcon),"", QKeySequence(Key_F6), ScMW, "toolsLayers"));
 	scrActions->insert("toolsPages", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "toolsPages"));
 	scrActions->insert("toolsBookmarks", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "toolsBookmarks"));
-	scrActions->insert("toolsMeasurements", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("dist.png"), loadIcon("dist22.png")), "", QKeySequence(), ScMW, "toolsMeasurements", modeMeasurementTool));
+	scrActions->insert("toolsMeasurements", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/measure.png"), loadIcon("22/measure.png")), "", QKeySequence(), ScMW, "toolsMeasurements", modeMeasurementTool));
 	scrActions->insert("toolsActionHistory", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "toolsActionHistory"));
 	scrActions->insert("toolsPreflightVerifier", new ScrAction(QIconSet(loadIcon("launch16.png"), loadIcon("launch.png")),"", QKeySequence(), ScMW, "toolsPreflightVerifier"));
 	scrActions->insert("toolsAlignDistribute", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "toolsAlignDistribute"));
@@ -448,25 +448,25 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert("toolsToolbarPDF", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "toolsToolbarPDF"));
 
 	//toolbar only items
-	scrActions->insert("toolsSelect", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Kreuz.xpm"), loadIcon("Kreuz.xpm")), "", QKeySequence(Key_C), ScMW, "toolsSelect", modeNormal));
-	scrActions->insert("toolsInsertTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Text16.xpm"), loadIcon("Text.xpm")), "", QKeySequence(Key_T), ScMW, "toolsInsertTextFrame", modeDrawText));
-	scrActions->insert("toolsInsertImageFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Bild16.xpm"), loadIcon("Bild.xpm")), "", QKeySequence(Key_I), ScMW, "toolsInsertImageFrame", modeDrawPicture));
-	scrActions->insert("toolsInsertTableFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("frame_table16.png"), loadIcon("frame_table.png")), "", QKeySequence(Key_A), ScMW, "toolsInsertTableFrame", modeDrawTable));
+	scrActions->insert("toolsSelect", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/pointer.png"), loadIcon("22/pointer.png")), "", QKeySequence(Key_C), ScMW, "toolsSelect", modeNormal));
+	scrActions->insert("toolsInsertTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/insert-text-frame.png"), loadIcon("22/insert-text-frame.png")), "", QKeySequence(Key_T), ScMW, "toolsInsertTextFrame", modeDrawText));
+	scrActions->insert("toolsInsertImageFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/insert-image.png"), loadIcon("22/insert-image.png")), "", QKeySequence(Key_I), ScMW, "toolsInsertImageFrame", modeDrawPicture));
+	scrActions->insert("toolsInsertTableFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/insert-table.png"), loadIcon("22/insert-table.png")), "", QKeySequence(Key_A), ScMW, "toolsInsertTableFrame", modeDrawTable));
 	scrActions->insert("toolsInsertShape", new ScrAction(ScrAction::DataInt,QIconSet(), "", QKeySequence(Key_S), ScMW, "toolsInsertShape", modeDrawShapes));
 	scrActions->insert("toolsInsertPolygon", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("spline16.png"), loadIcon("spline.png")), "", QKeySequence(Key_P), ScMW, "toolsInsertPolygon", modeDrawRegularPolygon));
 	scrActions->insert("toolsInsertLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stift16.xpm"), loadIcon("Stift.xpm")), "", QKeySequence(Key_L), ScMW, "toolsInsertLine", modeDrawLine));
 	scrActions->insert("toolsInsertBezier", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("beziertool16.png"), loadIcon("beziertool.png")), "", QKeySequence(Key_B), ScMW, "toolsInsertBezier", modeDrawBezierLine));
-	scrActions->insert("toolsInsertFreehandLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stiftalt16.xpm"), loadIcon("Stiftalt.xpm")), "", QKeySequence(Key_F), ScMW, "toolsInsertFreehandLine", modeDrawFreehandLine));
+	scrActions->insert("toolsInsertFreehandLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/draw-freehand.png"), loadIcon("22/draw-freehand.png")), "", QKeySequence(Key_F), ScMW, "toolsInsertFreehandLine", modeDrawFreehandLine));
 
 	scrActions->insert("toolsRotate", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Rotieren.xpm"), loadIcon("Rotieren.xpm")), "", QKeySequence(Key_R), ScMW, "toolsRotate", modeRotation));
 	scrActions->insert("toolsZoom", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lupe.xpm"), loadIcon("Lupe.xpm")), "", QKeySequence(Key_Z), ScMW, "toolsZoom", modeMagnifier));
 	scrActions->insert("toolsZoomIn", new ScrAction(QIconSet(loadIcon("viewmagin.png"), loadIcon("viewmagin.png")), "", QKeySequence(CTRL+Key_Plus), ScMW, "toolsZoomIn"));
 	scrActions->insert("toolsZoomOut", new ScrAction(QIconSet(loadIcon("viewmagout.png"), loadIcon("viewmagout.png")), "", QKeySequence(CTRL+Key_Minus), ScMW, "toolsZoomOut"));
 	scrActions->insert("toolsEditContents", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), "", QKeySequence(Key_E), ScMW, "toolsEditContents", modeEdit));
-	scrActions->insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("signature2.png"), loadIcon("signature.png")), "", QKeySequence(CTRL+Key_Y), ScMW, "toolsEditWithStoryEditor", modeStoryEditor));
-	scrActions->insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lock.xpm"), loadIcon("Lock.xpm")), "", QKeySequence(Key_N), ScMW, "toolsLinkTextFrame", modeLinkFrames));
-	scrActions->insert("toolsUnlinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Unlock.xpm"), loadIcon("Unlock.xpm")), "", QKeySequence(Key_U), ScMW, "toolsUnlinkTextFrame", modeUnlinkFrames));
-	scrActions->insert("toolsEyeDropper", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("colorpicker.png"), loadIcon("colorpicker.png")), "", QKeySequence(Key_Y), ScMW, "toolsEyeDropper", modeEyeDropper));
+	scrActions->insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/story-editor.png"), loadIcon("22/story-editor.png")), "", QKeySequence(CTRL+Key_Y), ScMW, "toolsEditWithStoryEditor", modeStoryEditor));
+	scrActions->insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/text-frame-link.png"), loadIcon("22/text-frame-link.png")), "", QKeySequence(Key_N), ScMW, "toolsLinkTextFrame", modeLinkFrames));
+	scrActions->insert("toolsUnlinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/text-frame-unlink.png"), loadIcon("22/text-frame-unlink.png")), "", QKeySequence(Key_U), ScMW, "toolsUnlinkTextFrame", modeUnlinkFrames));
+	scrActions->insert("toolsEyeDropper", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/color-picker.png"), loadIcon("22/color-picker.png")), "", QKeySequence(Key_Y), ScMW, "toolsEyeDropper", modeEyeDropper));
 	scrActions->insert("toolsCopyProperties", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("wizard.png"), loadIcon("wizard.png")), "", QKeySequence(), ScMW, "toolsCopyProperties", modeCopyProperties));
 
 	(*scrActions)["toolsProperties"]->setToggleAction(true);
