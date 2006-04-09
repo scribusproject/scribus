@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 extern QPixmap loadIcon(QString nam);
 
-RulerT::RulerT(QWidget *pa, int ein, QValueList<PageItem::TabRecord> Tabs, bool ind, double wid) : QWidget(pa)
+RulerT::RulerT(QWidget *pa, int ein, QValueList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid) : QWidget(pa)
 {
 	setEraseColor(QColor(255,255,255));
 	unitIndex = ein;
@@ -191,7 +191,7 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 	}
 	if ((rulerCode == 0) && (m->button() == LeftButton))
 	{
-		struct PageItem::TabRecord tb;
+		ParagraphStyle::TabRecord tb;
 		tb.tabPosition = static_cast<double>(m->x() + offset);
 		tb.tabType = 0;
 		tb.tabFillChar = QChar();
@@ -230,7 +230,7 @@ void RulerT::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if (rulerCode == 3)
 		{
-			QValueList<PageItem::TabRecord>::Iterator it;
+			QValueList<ParagraphStyle::TabRecord>::Iterator it;
 			it = tabValues.at(actTab);
 			tabValues.remove(it);
 			actTab = 0;
@@ -342,11 +342,11 @@ void RulerT::leaveEvent(QEvent*)
 
 void RulerT::updateTabList()
 {
-	struct PageItem::TabRecord tb;
+	ParagraphStyle::TabRecord tb;
 	tb.tabPosition = tabValues[actTab].tabPosition;
 	tb.tabType = tabValues[actTab].tabType;
 	tb.tabFillChar =  tabValues[actTab].tabFillChar;
-	QValueList<PageItem::TabRecord>::Iterator it;
+	QValueList<ParagraphStyle::TabRecord>::Iterator it;
 	int gg = static_cast<int>(tabValues.count()-1);
 	int g = gg;
 	it = tabValues.at(actTab);
@@ -445,7 +445,7 @@ void RulerT::moveLeftIndent(double t)
 	repaint();
 }
 
-Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<PageItem::TabRecord> Tabs, double wid ) : QWidget( parent )
+Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<ParagraphStyle::TabRecord> Tabs, double wid ) : QWidget( parent )
 {
 	docUnitRatio=unitGetRatioFromIndex(dEin);
 	double ww;
@@ -739,7 +739,7 @@ void Tabruler::setLeftIndent()
 	emit tabrulerChanged();
 }
 
-QValueList<PageItem::TabRecord> Tabruler::getTabVals()
+QValueList<ParagraphStyle::TabRecord> Tabruler::getTabVals()
 {
 	return ruler->tabValues;
 }

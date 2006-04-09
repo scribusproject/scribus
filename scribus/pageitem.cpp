@@ -60,6 +60,8 @@ for which a new license (GPL+exception) is in place.
 #include "scfontmetrics.h"
 #include "util.h"
 
+#include "text/nlsconfig.h"
+
 using namespace std;
 
 PageItem::PageItem(const PageItem & other)
@@ -140,7 +142,9 @@ PageItem::PageItem(const PageItem & other)
 	Tinput(other.Tinput),
 	isAutoText(other.isAutoText),
 	textAlignment(other.textAlignment),
+#ifndef NLS_PROTO
 	MaxChars(other.MaxChars),
+#endif
 	Redrawn(other.Redrawn),
 	ExtraV(other.ExtraV),
 	isRaster(other.isRaster),
@@ -312,7 +316,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	setFontSize(m_Doc->toolSettings.defSize);
 	LineSpMode = 0;
 	LineSp = ((m_Doc->toolSettings.defSize / 10.0) * static_cast<double>(m_Doc->typographicSettings.autoLineSpacing) / 100) + (m_Doc->toolSettings.defSize / 10.0);
-	m_Doc->docParagraphStyles[0].LineSpa = LineSp;
+	m_Doc->docParagraphStyles[0].setLineSpacing(LineSp);
 	CurX = 0;
 	CurY = 0;
 	CPos = 0;
@@ -322,8 +326,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	RExtra = 1;
 	ExtraV = 0;
 	itemText.clear();
+#ifndef NLS_PROTO
 	itemText.setAutoDelete(true);
 	MaxChars = 0;
+#endif
 	Pfile = "";
 	pixm = ScImage();
 	pixm.imgInfo.lowResType = m_Doc->toolSettings.lowResType;
@@ -896,14 +902,14 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 			QValueList<ParagraphStyle> savedParagraphStyles;
 			for (int xxx=0; xxx<5; ++xxx)
 			{
-				vg.LineSpaMode = m_Doc->docParagraphStyles[xxx].LineSpaMode;
-				vg.BaseAdj = m_Doc->docParagraphStyles[xxx].BaseAdj;
-				vg.LineSpa = m_Doc->docParagraphStyles[xxx].LineSpa;
-				vg.FontSize = m_Doc->docParagraphStyles[xxx].FontSize;
-				vg.Indent = m_Doc->docParagraphStyles[xxx].Indent;
-				vg.First = m_Doc->docParagraphStyles[xxx].First;
-				vg.gapBefore = m_Doc->docParagraphStyles[xxx].gapBefore;
-				vg.gapAfter = m_Doc->docParagraphStyles[xxx].gapAfter;
+				vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(m_Doc->docParagraphStyles[xxx].lineSpacingMode()));
+				vg.setUseBaselineGrid(m_Doc->docParagraphStyles[xxx].useBaselineGrid());
+				vg.setLineSpacing(m_Doc->docParagraphStyles[xxx].lineSpacing());
+				vg.charStyle().csize = m_Doc->docParagraphStyles[xxx].charStyle().fontSize();
+				vg.setLeftMargin(m_Doc->docParagraphStyles[xxx].leftMargin());
+				vg.setFirstIndent(m_Doc->docParagraphStyles[xxx].firstIndent());
+				vg.setGapBefore(m_Doc->docParagraphStyles[xxx].gapBefore());
+				vg.setGapAfter(m_Doc->docParagraphStyles[xxx].gapAfter());
 				savedParagraphStyles.append(vg);
 			}
 			p->save();
@@ -951,14 +957,14 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 			embedded->m_lineWidth = pws;
 			for (int xxx=0; xxx<5; ++xxx)
 			{
-				m_Doc->docParagraphStyles[xxx].LineSpaMode = savedParagraphStyles[xxx].LineSpaMode;
-				m_Doc->docParagraphStyles[xxx].BaseAdj = savedParagraphStyles[xxx].BaseAdj;
-				m_Doc->docParagraphStyles[xxx].LineSpa = savedParagraphStyles[xxx].LineSpa;
-				m_Doc->docParagraphStyles[xxx].FontSize = savedParagraphStyles[xxx].FontSize;
-				m_Doc->docParagraphStyles[xxx].Indent = savedParagraphStyles[xxx].Indent;
-				m_Doc->docParagraphStyles[xxx].First = savedParagraphStyles[xxx].First;
-				m_Doc->docParagraphStyles[xxx].gapBefore = savedParagraphStyles[xxx].gapBefore;
-				m_Doc->docParagraphStyles[xxx].gapAfter = savedParagraphStyles[xxx].gapAfter;
+				m_Doc->docParagraphStyles[xxx].setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(savedParagraphStyles[xxx].lineSpacingMode()));
+				m_Doc->docParagraphStyles[xxx].setUseBaselineGrid(savedParagraphStyles[xxx].useBaselineGrid());
+				m_Doc->docParagraphStyles[xxx].setLineSpacing(savedParagraphStyles[xxx].lineSpacing());
+				m_Doc->docParagraphStyles[xxx].charStyle().csize = savedParagraphStyles[xxx].charStyle().fontSize();
+				m_Doc->docParagraphStyles[xxx].setLeftMargin(savedParagraphStyles[xxx].leftMargin());
+				m_Doc->docParagraphStyles[xxx].setFirstIndent(savedParagraphStyles[xxx].firstIndent());
+				m_Doc->docParagraphStyles[xxx].setGapBefore(savedParagraphStyles[xxx].gapBefore());
+				m_Doc->docParagraphStyles[xxx].setGapAfter(savedParagraphStyles[xxx].gapAfter());
 			}
 			savedParagraphStyles.clear();
 		}
@@ -1134,13 +1140,13 @@ QString PageItem::ExpandToken(uint base)
 				break;
 			za2--;
 		}
-		while (itemText.at(za2)->ch == QChar(30));
-		if (itemText.at(za2)->ch != QChar(30))
+		while (itemText.text(za2) == QChar(30));
+		if (itemText.text(za2) != QChar(30))
 			za2++;
-		while (itemText.at(za2+zae)->ch == QChar(30))
+		while (itemText.text(za2+zae) == QChar(30))
 		{
 			zae++;
-			if (za2+zae == itemText.count())
+			if (za2+zae == itemText.length())
 				break;
 		}
 		QString out("%1");
@@ -3106,36 +3112,36 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->Pfile2 = Pfile2;
 	Buffer->Pfile3 = Pfile3;
 	QString Text = "";
-	uint itemTextCount=itemText.count();
+	uint itemTextCount=itemText.length();
 	if (itemTextCount != 0)
 	{
 		for (uint a=0; a<itemTextCount; ++a)
 		{
-			if( (itemText.at(a)->ch == "\n") || (itemText.at(a)->ch == "\r"))
+			if( (itemText.text(a) == '\n') || (itemText.text(a) == '\r'))
 				Text += QString(QChar(5))+"\t";
-			else if(itemText.at(a)->ch == "\t")
+			else if(itemText.text(a) == '\t')
 				Text += QString(QChar(4))+"\t";
 			else
-				Text += itemText.at(a)->ch+"\t";
-			Text += itemText.at(a)->cfont->scName()+"\t";
-			Text += QString::number(itemText.at(a)->csize / 10.0)+"\t";
-			Text += itemText.at(a)->ccolor+"\t";
-			Text += QString::number(itemText.at(a)->cextra)+"\t";
-			Text += QString::number(itemText.at(a)->cshade)+'\t';
-			Text += QString::number(itemText.at(a)->cstyle)+'\t';
-			Text += QString::number(itemText.at(a)->cab)+'\t';
-			Text += itemText.at(a)->cstroke+"\t";
-			Text += QString::number(itemText.at(a)->cshade2)+'\t';
-			Text += QString::number(itemText.at(a)->cscale)+'\t';
-			Text += QString::number(itemText.at(a)->cscalev)+'\t';
-			Text += QString::number(itemText.at(a)->cbase)+'\t';
-			Text += QString::number(itemText.at(a)->cshadowx)+'\t';
-			Text += QString::number(itemText.at(a)->cshadowy)+'\t';
-			Text += QString::number(itemText.at(a)->coutline)+'\t';
-			Text += QString::number(itemText.at(a)->cunderpos)+'\t';
-			Text += QString::number(itemText.at(a)->cunderwidth)+'\t';
-			Text += QString::number(itemText.at(a)->cstrikepos)+'\t';
-			Text += QString::number(itemText.at(a)->cstrikewidth)+'\n';
+				Text += itemText.text(a,1)+"\t";
+			Text += itemText.charStyle(a).cfont->scName()+"\t";
+			Text += QString::number(itemText.charStyle(a).csize / 10.0)+"\t";
+			Text += itemText.charStyle(a).ccolor+"\t";
+			Text += QString::number(itemText.charStyle(a).cextra)+"\t";
+			Text += QString::number(itemText.charStyle(a).cshade)+'\t';
+			Text += QString::number(itemText.charStyle(a).cstyle)+'\t';
+			Text += QString::number(findParagraphStyle(m_Doc, itemText.paragraphStyle(a)))+'\t';
+			Text += itemText.charStyle(a).cstroke+"\t";
+			Text += QString::number(itemText.charStyle(a).cshade2)+'\t';
+			Text += QString::number(itemText.charStyle(a).cscale)+'\t';
+			Text += QString::number(itemText.charStyle(a).cscalev)+'\t';
+			Text += QString::number(itemText.charStyle(a).cbase)+'\t';
+			Text += QString::number(itemText.charStyle(a).cshadowx)+'\t';
+			Text += QString::number(itemText.charStyle(a).cshadowy)+'\t';
+			Text += QString::number(itemText.charStyle(a).coutline)+'\t';
+			Text += QString::number(itemText.charStyle(a).cunderpos)+'\t';
+			Text += QString::number(itemText.charStyle(a).cunderwidth)+'\t';
+			Text += QString::number(itemText.charStyle(a).cstrikepos)+'\t';
+			Text += QString::number(itemText.charStyle(a).cstrikewidth)+'\n';
 		}
 	}
 	Buffer->itemText = Text;
@@ -3639,15 +3645,14 @@ void PageItem::setPolyClip(int up)
 
 void PageItem::updatePolyClip()
 {
-	ScText *hl;
 	int asce = 1;
 	int desc = 1;
-	uint itemTextCount=itemText.count();
+	uint itemTextCount=itemText.length();
 	for (uint a = 0; a < itemTextCount; ++a)
 	{
-		hl = itemText.at(a);
-		int des = static_cast<int>(hl->cfont->numDescender * (-hl->csize / 10.0));
-		int asc = static_cast<int>(hl->cfont->numAscent * (hl->csize / 10.0));
+		const CharStyle& hl (itemText.charStyle(a));
+		int des = static_cast<int>(hl.cfont->numDescender * (-hl.csize / 10.0));
+		int asc = static_cast<int>(hl.cfont->numAscent * (hl.csize / 10.0));
 		if (asc > asce)
 			asce = asc;
 		if (des > desc)

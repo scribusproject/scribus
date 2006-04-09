@@ -122,7 +122,7 @@ struct CopyPasteBuffer
 	QString guiLanguage;
 	int Cols;
 	double ColGap;
-	QValueList<PageItem::TabRecord> TabValues;
+	QValueList<ParagraphStyle::TabRecord> TabValues;
 	QValueList<double> DashValues;
 	double DashOffset;
 	bool isTableItem;
@@ -176,41 +176,6 @@ struct PageSet
 	double GapVertical;
 	double GapBelow;
 	QStringList pageNames;
-};
-
-struct ParagraphStyle
-{
-	QString Vname;
-	int LineSpaMode;      // 0 = fixed; 1 = Automatic; 2 = Adjust to Baseline Grid
-	double LineSpa;
-	int textAlignment;
-	double Indent;
-	double First;
-	double gapBefore;
-	double gapAfter;
-	QString Font;
-	int FontSize;
-	QValueList<PageItem::TabRecord> TabValues;
-	bool Drop;
-	int DropLin;
-	double DropDist;
-	int FontEffect;
-	QString FColor;
-	int FShade;
-	QString SColor;
-	int SShade;
-	bool BaseAdj;
-	int txtShadowX;
-	int txtShadowY;
-	int txtOutline;
-	int txtUnderPos;
-	int txtUnderWidth;
-	int txtStrikePos;
-	int txtStrikeWidth;
-	int scaleH;
-	int scaleV;
-	int baseOff;
-	int kernVal;
 };
 
 struct CMSData

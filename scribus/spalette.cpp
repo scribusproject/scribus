@@ -50,7 +50,7 @@ void Spalette::setFormat(int e)
 	if (e < 5)
 		setCurrentItem(0);
 	else
-		setCurrentText(currentDoc->docParagraphStyles[e].Vname);
+		setCurrentText(currentDoc->docParagraphStyles[e].name());
 }
 
 void Spalette::updateFormatList()
@@ -63,7 +63,7 @@ void Spalette::updateFormatList()
 		st.clear();
 		insertItem( tr("No Style"));
 		for (uint x = 5; x < currentDoc->docParagraphStyles.count(); ++x)
-			st.append(currentDoc->docParagraphStyles[x].Vname);
+			st.append(currentDoc->docParagraphStyles[x].name());
 		st.sort();
 		insertStringList(st);
 	}
@@ -80,7 +80,7 @@ void Spalette::selFormat(int e)
 	}
 	for (uint x = 5; x < currentDoc->docParagraphStyles.count(); ++x)
 	{
-		if (currentDoc->docParagraphStyles[x].Vname == currentText())
+		if (currentDoc->docParagraphStyles[x].name() == currentText())
 		{
 			emit newStyle(x);
 			break;

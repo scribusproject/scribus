@@ -118,6 +118,9 @@ private slots:
 
 	/*! \brief Sets the preview bg with user chosen color. */
 	void setPreviewBackground();
+	
+	/*! \brief Copies the chosen settings into a ParagraphStyle object */
+	void copyStyleSettings(ParagraphStyle& parstyle);
 
 protected:
 	/*! \brief sample pixmap generator */

@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "undomanager.h"
 #include "util.h"
+#include "text/nlsconfig.h"
 
 using namespace std;
 
@@ -2550,9 +2551,11 @@ void Mpalette::NewExtra()
 		}
 		else
 		{
-			if (uint(CurItem->CPos) != CurItem->itemText.count())
+			if (uint(CurItem->CPos) != CurItem->itemText.length())
 			{
+#ifndef NLS_PROTO
 				CurItem->itemText.at(CurItem->CPos)->cextra = qRound(Extra->value() * 10.0);
+#endif
 				ScMW->view->RefreshItem(CurItem);
 				emit DocChanged();
 			}

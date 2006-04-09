@@ -11,8 +11,10 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "undomanager.h"
 #include "commonstrings.h"
+#include "prefsmanager.h"
 #include <qcolor.h>
 #include <qstring.h>
+#include "text/nlsconfig.h"
 
 extern ScribusMainWindow* ScMW;
 
@@ -42,37 +44,39 @@ SampleItem::SampleItem() : QObject()
 	ScMW->doc->PageColors.insert("__whiteforpreview__", ScColor(0, 0, 0, 0));
 	ScMW->doc->PageColors.insert("__whiteforpreviewbg__", ScColor(0, 0, 0, 0));
 	bgShade = 100;
-	tmpStyle.Vname = "(preview temporary)";
-	tmpStyle.LineSpaMode = 0;
-	tmpStyle.LineSpa = ((doc->toolSettings.defSize / 10.0) * static_cast<double>(doc->typographicSettings.autoLineSpacing) / 100) + (doc->toolSettings.defSize / 10.0);
-	tmpStyle.textAlignment = 0;
-	tmpStyle.Indent = 0;
-	tmpStyle.First = 0;
-	tmpStyle.gapBefore = 0;
-	tmpStyle.gapAfter = 0;
-	tmpStyle.Font = doc->toolSettings.defFont;
-	tmpStyle.FontSize = doc->toolSettings.defSize;
-	tmpStyle.TabValues.clear();
-	tmpStyle.Drop = false;
-	tmpStyle.DropLin = 0;//2;
-	tmpStyle.DropDist = 0;
-	tmpStyle.FontEffect = 0;
-	tmpStyle.FColor = "__blackforpreview__";
-	tmpStyle.FShade = 100; //doc->toolSettings.dShade;
-	tmpStyle.SColor = "__whiteforpreview__";
-	tmpStyle.SShade = 100; //doc->toolSettings.dShade2;
-	tmpStyle.BaseAdj = false;
-	tmpStyle.txtShadowX = 50;
-	tmpStyle.txtShadowY = -50;
-	tmpStyle.txtOutline = 10;
-	tmpStyle.txtUnderPos = 0; //doc->typographicSettings.valueUnderlinePos;
-	tmpStyle.txtUnderWidth = 0; //doc->typographicSettings.valueUnderlineWidth;
-	tmpStyle.txtStrikePos = 0; //doc->typographicSettings.valueStrikeThruPos;
-	tmpStyle.txtStrikeWidth = 0; //doc->typographicSettings.valueStrikeThruPos;
-	tmpStyle.scaleH = 1000;
-	tmpStyle.scaleV = 1000;
-	tmpStyle.baseOff = 0;
-	tmpStyle.kernVal = 0;
+	tmpStyle.setName("(preview temporary)");
+	tmpStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
+	tmpStyle.setLineSpacing((doc->toolSettings.defSize / 10.0) 
+		* static_cast<double>(doc->typographicSettings.autoLineSpacing) / 100
+		+ (doc->toolSettings.defSize / 10.0));
+	tmpStyle.setAlignment(0);
+	tmpStyle.setLeftMargin(0);
+	tmpStyle.setFirstIndent(0);
+	tmpStyle.setGapBefore(0);
+	tmpStyle.setGapAfter(0);
+	tmpStyle.charStyle().cfont = PrefsManager::instance()->appPrefs.AvailFonts[doc->toolSettings.defFont];
+	tmpStyle.charStyle().csize = doc->toolSettings.defSize;
+	tmpStyle.tabValues().clear();
+	tmpStyle.setHasDropCap(false);
+	tmpStyle.setDropCapLines(0);//2;
+	tmpStyle.setDropCapOffset(0);
+	tmpStyle.charStyle().cstyle = ScStyle_Default;
+	tmpStyle.charStyle().ccolor = "__blackforpreview__";
+	tmpStyle.charStyle().cshade = 100; //doc->toolSettings.dShade;
+	tmpStyle.charStyle().cstroke = "__whiteforpreview__";
+	tmpStyle.charStyle().cshade2 = 100; //doc->toolSettings.dShade2;
+	tmpStyle.setUseBaselineGrid(false);
+	tmpStyle.charStyle().cshadowx = 50;
+	tmpStyle.charStyle().cshadowy = -50;
+	tmpStyle.charStyle().coutline = 10;
+	tmpStyle.charStyle().cunderpos = 0; //doc->typographicSettings.valueUnderlinePos;
+	tmpStyle.charStyle().cunderwidth = 0; //doc->typographicSettings.valueUnderlineWidth;
+	tmpStyle.charStyle().cstrikepos = 0; //doc->typographicSettings.valueStrikeThruPos;
+	tmpStyle.charStyle().cstrikewidth = 0; //doc->typographicSettings.valueStrikeThruPos;
+	tmpStyle.charStyle().cscale = 1000;
+	tmpStyle.charStyle().cscalev = 1000;
+	tmpStyle.charStyle().cbase = 0;
+	tmpStyle.charStyle().cextra = 0;
 }
 
 SampleItem::~SampleItem()
@@ -121,54 +125,54 @@ void SampleItem::setTxColor(QColor c)
 
 void SampleItem::setTxShade(int c)
 {
-	tmpStyle.FShade = c;
+	tmpStyle.charStyle().cshade = c;
 }
 
 void SampleItem::setLineSpaMode(int lineSpaMode)
 {
-	tmpStyle.LineSpaMode = lineSpaMode;
+	tmpStyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(lineSpaMode));
 }
 
 void SampleItem::setLineSpa(double lineSpa)
 {
-	tmpStyle.LineSpa = lineSpa;
+	tmpStyle.setLineSpacing(lineSpa);
 }
 
 void SampleItem::setTextAlignment(int textAlignment)
 {
-	tmpStyle.textAlignment = textAlignment;
+	tmpStyle.setAlignment(textAlignment);
 }
 
 void SampleItem::setIndent(double indent)
 {
-	tmpStyle.Indent = indent;
+	tmpStyle.setLeftMargin(indent);
 }
 
 void SampleItem::setFirst(double first)
 {
-	tmpStyle.First = first;
+	tmpStyle.setFirstIndent(first);
 }
 
 void SampleItem::setGapBefore(double gapBefore)
 {
-	tmpStyle.gapBefore = gapBefore;
+	tmpStyle.setGapBefore(gapBefore);
 }
 
 void SampleItem::setGapAfter(double gapAfter)
 {
-	tmpStyle.gapAfter = gapAfter;
+	tmpStyle.setGapAfter(gapAfter);
 }
 
 void SampleItem::setFont(QString font)
 {
-	tmpStyle.Font = font;
+	tmpStyle.charStyle().cfont = PrefsManager::instance()->appPrefs.AvailFonts[font];
 }
 
 void SampleItem::setFontSize(int fontSize, bool autoLineSpa)
 {
-	tmpStyle.FontSize = fontSize;
+	tmpStyle.charStyle().csize = fontSize;
 	if (autoLineSpa)
-		tmpStyle.LineSpa = ((fontSize / 10)  * (doc->typographicSettings.autoLineSpacing / 100) + (fontSize / 10));
+		tmpStyle.setLineSpacing(((fontSize / 10)  * (doc->typographicSettings.autoLineSpacing / 100) + (fontSize / 10)));
 }
 
 /*void SampleItem::setTabValues(QValueList<PageItem::TabRecord> tabValues)
@@ -178,102 +182,102 @@ void SampleItem::setFontSize(int fontSize, bool autoLineSpa)
 
 void SampleItem::setDrop(bool drop)
 {
-	tmpStyle.Drop = drop;
+	tmpStyle.setHasDropCap(drop);
 }
 
 void SampleItem::setDropLin(int dropLin)
 {
-	tmpStyle.DropLin = dropLin;
+	tmpStyle.setDropCapLines(dropLin);
 }
 
 void SampleItem::setDropDist(double dropDist)
 {
-	tmpStyle.DropDist = dropDist;
+	tmpStyle.setDropCapOffset(dropDist);
 }
 
 void SampleItem::setFontEffect(int fontEffect)
 {
-	tmpStyle.FontEffect = fontEffect;
+	tmpStyle.charStyle().cstyle = static_cast<StyleFlag>(fontEffect);
 }
 
 void SampleItem::setFColor(QString fColor)
 {
-	tmpStyle.FColor = fColor;
+	tmpStyle.charStyle().ccolor = fColor;
 }
 
 void SampleItem::setFShade(int fShade)
 {
-	tmpStyle.FShade = fShade;
+	tmpStyle.charStyle().cshade = fShade;
 }
 
 void SampleItem::setSColor(QString sColor)
 {
-	tmpStyle.SColor = sColor;
+	tmpStyle.charStyle().ccolor = sColor;
 }
 
 void SampleItem::setSShade(int sShade)
 {
-	tmpStyle.SShade = sShade;
+	tmpStyle.charStyle().cstroke = sShade;
 }
 
 void SampleItem::setBaseAdj(bool baseAdj)
 {
-	tmpStyle.BaseAdj = baseAdj;
+	tmpStyle.setUseBaselineGrid(baseAdj);
 }
 
 void SampleItem::setTxtShadowX(int txtShadowX)
 {
-	tmpStyle.txtShadowX = txtShadowX;
+	tmpStyle.charStyle().cshadowx = txtShadowX;
 }
 
 void SampleItem::setTxtShadowY(int txtShadowY)
 {
-	tmpStyle.txtShadowY = txtShadowY;
+	tmpStyle.charStyle().cshadowy = txtShadowY;
 }
 
 void SampleItem::setTxtOutline(int txtOutline)
 {
-	tmpStyle.txtOutline = txtOutline;
+	tmpStyle.charStyle().coutline = txtOutline;
 }
 
 void SampleItem::setTxtUnderPos(int txtUnderPos)
 {
-	tmpStyle.txtUnderPos = txtUnderPos;
+	tmpStyle.charStyle().cunderpos = txtUnderPos;
 }
 
 void SampleItem::setTxtUnderWidth(int txtUnderWidth)
 {
-	tmpStyle.txtUnderWidth = txtUnderWidth;
+	tmpStyle.charStyle().cunderwidth = txtUnderWidth;
 }
 
 void SampleItem::setTxtStrikePos(int txtStrikePos)
 {
-	tmpStyle.txtStrikePos = txtStrikePos;
+	tmpStyle.charStyle().cstrikepos = txtStrikePos;
 }
 
 void SampleItem::setTxtStrikeWidth(int txtStrikeWidth)
 {
-	tmpStyle.txtStrikeWidth = txtStrikeWidth;
+	tmpStyle.charStyle().cstrikewidth = txtStrikeWidth;
 }
 
 void SampleItem::setScaleH(int scaleH)
 {
-	tmpStyle.scaleH = scaleH;
+	tmpStyle.charStyle().cscale = scaleH;
 }
 
 void SampleItem::setScaleV(int scaleV)
 {
-	tmpStyle.scaleV = scaleV;
+	tmpStyle.charStyle().cscalev = scaleV;
 }
 
 void SampleItem::setBaseOff(int baseOff)
 {
-	tmpStyle.baseOff = baseOff;
+	tmpStyle.charStyle().cbase = baseOff;
 }
 
 void SampleItem::setKernVal(int kernVal)
 {
-	tmpStyle.kernVal = kernVal;
+	tmpStyle.charStyle().cextra = kernVal;
 }
 
 QPixmap SampleItem::getSample(int width, int height)
@@ -293,16 +297,17 @@ QPixmap SampleItem::getSample(int width, int height)
 		ScMW->view->setScale(1.0);
 	}
 
-	QFont fo = QFont(tmpStyle.Font);
+	QFont fo = QFont(tmpStyle.charStyle().cfont->scName());
 	fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-	doc->AddFont(tmpStyle.Font, qRound(doc->toolSettings.defSize / 10.0));
+	doc->AddFont(tmpStyle.charStyle().cfont->scName(), qRound(doc->toolSettings.defSize / 10.0));
 	doc->docParagraphStyles.append(tmpStyle);
 	int tmpIndex = doc->docParagraphStyles.count() - 1;
 
 	previewItem->FrameType = PageItem::TextFrame;
 	previewItem->itemText.clear();
-	previewItem->setFont(tmpStyle.Font);
+	previewItem->setFont(tmpStyle.charStyle().cfont->scName());
 	previewItem->Cols = 1;
+#ifndef NLS_PROTO
 	for (uint i = 0; i < text.length(); ++i)
 	{
 		ScText *hg = new ScText;
@@ -311,7 +316,7 @@ QPixmap SampleItem::getSample(int width, int height)
 			hg->ch = QChar(13);
 		previewItem->itemText.append(hg);
 	}
-
+#endif
 	doc->chAbStyle(previewItem, tmpIndex);
 	previewItem->setFillColor("__whiteforpreviewbg__");
 	previewItem->setFillShade(bgShade);

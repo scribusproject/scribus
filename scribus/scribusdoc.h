@@ -554,7 +554,10 @@ public:
 	
 	bool sendItemSelectionToBack();
 	bool bringItemSelectionToFront();
-	
+
+	/** Workhorse for the following methods */
+	void itemSelection_ApplyTextStyle(const CharStyle & newstyle);
+
 	void ChLineWidth(double w);
 	void ChLineArt(PenStyle w);
 	void ChLineJoin(PenJoinStyle w);

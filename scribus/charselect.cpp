@@ -788,45 +788,12 @@ void CharSelect::insChar()
 	ScText *hg;
 	for (uint a=0; a<chToIns.length(); ++a)
 	{
-		hg = new ScText;
-		hg->ch = chToIns.at(a);
-		if (hg->ch == QChar(10))
-			hg->ch = QChar(13);
-		if (hg->ch == QChar(9))
-			hg->ch = " ";
-		hg->cfont = (*ap->doc->AllFonts)[fontInUse];
-		hg->csize = ap->doc->CurrFontSize;
-		hg->ccolor = ap->doc->CurrTextFill;
-		hg->cshade = ap->doc->CurrTextFillSh;
-		hg->cstroke = ap->doc->CurrTextStroke;
-		hg->cshade2 = ap->doc->CurrTextStrokeSh;
-		hg->cscale = ap->doc->CurrTextScale;
-		hg->cscalev = ap->doc->CurrTextScaleV;
-		hg->cbase = ap->doc->CurrTextBase;
-		hg->cshadowx = ap->doc->CurrTextShadowX;
-		hg->cshadowy = ap->doc->CurrTextShadowY;
-		hg->coutline = ap->doc->CurrTextOutline;
-		hg->cunderpos = ap->doc->CurrTextUnderPos;
-		hg->cunderwidth = ap->doc->CurrTextUnderWidth;
-		hg->cstrikepos = ap->doc->CurrTextStrikePos;
-		hg->cstrikewidth = ap->doc->CurrTextStrikeWidth;
-		hg->cselect = false;
-		hg->cstyle = ap->doc->CurrentStyle;
-		hg->cab = ap->doc->currentParaStyle;
-		if (!ap->doc->docParagraphStyles[ap->doc->currentParaStyle].Font.isEmpty())
-		{
-			hg->cfont = (*ap->doc->AllFonts)[ap->doc->docParagraphStyles[ap->doc->currentParaStyle].Font];
-			hg->csize = ap->doc->docParagraphStyles[ap->doc->currentParaStyle].FontSize;
-		}
-		hg->cextra = 0;
-		hg->cselect = false;
-		hg->xp = 0;
-		hg->yp = 0;
-		hg->PRot = 0;
-		hg->PtransX = 0;
-		hg->PtransY = 0;
-		hg->cembedded = 0;
-		ite->itemText.insert(ite->CPos, hg);
+		QChar ch = chToIns.at(a);
+		if (ch == QChar(10))
+			ch = QChar(13);
+		if (ch == QChar(9))
+			ch = QChar(32);
+		ite->itemText.insertChars(ite->CPos, ch);
 		ite->CPos += 1;
 	}
 	ap->view->DrawNew();

@@ -277,7 +277,7 @@ void TOCIndexPrefs::updateParagraphStyleComboBox()
 	if(currDoc!=NULL && currDoc->docParagraphStyles.count()>5)
 	{
 		for (uint i = 5; i < currDoc->docParagraphStyles.count(); ++i)
-			paragraphStyleList.append(currDoc->docParagraphStyles[i].Vname);
+			paragraphStyleList.append(currDoc->docParagraphStyles[i].name());
 	}
 	itemParagraphStyleComboBox->clear();
 	itemParagraphStyleComboBox->insertStringList(paragraphStyleList);

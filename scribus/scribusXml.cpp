@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scribusview.h"
 #include "commonstrings.h"
+#include "text/nlsconfig.h"
 
 // We use some common routines defined in fileloader.h
 #include "fileloader.h"
@@ -113,7 +114,7 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 	else
 		extra = it->attribute("CKERN").toInt();
 	int shade = it->attribute("CSHADE").toInt();
-	int style = it->attribute("CSTYLE").toInt() & 255;
+	int cstyle = it->attribute("CSTYLE").toInt() & 255;
 	int ab = it->attribute("CAB", "0").toInt();
 	QString stroke = it->attribute("CSTROKE",CommonStrings::None);
 	int shade2 = it->attribute("CSHADE2", "100").toInt();
@@ -127,6 +128,7 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 	int ulw = qRound(it->attribute("CULW", "-0.1").toDouble() * 10);
 	int stp = qRound(it->attribute("CSTP", "-0.1").toDouble() * 10);
 	int stw = qRound(it->attribute("CSTW", "-0.1").toDouble() * 10);
+#ifndef NLS_PROTO
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		hg = new ScText;
@@ -144,7 +146,7 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 		hg->cextra = extra;
 		hg->cshade = shade;
 		hg->cselect = false;
-		hg->cstyle = style;
+		hg->cstyle = static_cast<StyleFlag>(cstyle);
 		if (impo)
 		{
 			if (VorLFound)
@@ -179,6 +181,57 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 		hg->cembedded = 0;
 		obj->itemText.append(hg);
 	}
+#else
+	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
+	{
+		CharStyle style;
+		QChar ch = tmp2.at(cxx);
+		if (ch == QChar(5))
+			ch = QChar(13);
+		if (ch == QChar(4))
+			ch = QChar(9);
+		if (unknown)
+			style.cfont = dummy;
+		else
+			style.cfont = (*doc->AllFonts)[tmpf];
+		style.csize = size;
+		style.ccolor = fcolor;
+		style.cextra = extra;
+		style.cshade = shade;
+		style.cstyle = cstyle;
+		/*FIXME:NLS
+			if (impo)
+		{
+				if (VorLFound)
+					hg->cab = DoVorl[ab].toUInt();
+				else
+				{
+					if (ab < 5)
+						hg->cab = ab;
+					else
+						hg->cab = 0;
+				}
+		}
+		else
+			hg->cab = ab;
+		*/
+		style.cstroke = stroke;
+		style.cshade2 = shade2;
+		style.cscale = QMIN(QMAX(scale, 100), 4000);
+		style.cscalev = QMIN(QMAX(scalev, 100), 4000);
+		style.cbase = base;
+		style.cshadowx = shX;
+		style.cshadowy = shY;
+		style.coutline = outL;
+		style.cunderpos = ulp;
+		style.cunderwidth = ulw;
+		style.cstrikepos = stp;
+		style.cstrikewidth = stw;
+		int pos = obj->itemText.length();
+		obj->itemText.insertChars(pos, QString(ch));
+		obj->itemText.applyStyle(pos, 1, style);
+	}
+#endif	
 	return;
 }
 
@@ -463,15 +516,14 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	QString tmpf, tmf, tmV;
 	double xf, xf2;
 	fou = false;
-	bool tabEQ = false;
-	vg->Vname = pg->attribute("NAME");
-	vg->LineSpaMode = pg->attribute("LINESPMode", "0").toInt();
-	vg->LineSpa = pg->attribute("LINESP").toDouble();
-	vg->Indent = pg->attribute("INDENT", "0").toDouble();
-	vg->First = pg->attribute("FIRST", "0").toDouble();
-	vg->textAlignment = pg->attribute("ALIGN").toInt();
-	vg->gapBefore = pg->attribute("VOR", "0").toDouble();
-	vg->gapAfter = pg->attribute("NACH", "0").toDouble();
+	vg->setName(pg->attribute("NAME"));
+	vg->setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg->attribute("LINESPMode", "0").toInt()));
+	vg->setLineSpacing(pg->attribute("LINESP").toDouble());
+	vg->setLeftMargin(pg->attribute("INDENT", "0").toDouble());
+	vg->setFirstIndent(pg->attribute("FIRST", "0").toDouble());
+	vg->setAlignment(pg->attribute("ALIGN").toInt());
+	vg->setGapBefore(pg->attribute("VOR", "0").toDouble());
+	vg->setGapAfter(pg->attribute("NACH", "0").toDouble());
 	tmpf = pg->attribute("FONT", doc->toolSettings.defFont);
 	if (tmpf.isEmpty())
 		tmpf = doc->toolSettings.defFont;
@@ -480,35 +532,35 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 		tmpf = AskForFont(prefsManager->appPrefs.AvailFonts, tmpf, doc);
 	else
 		tmpf = DoFonts[tmf];
-	vg->Font = tmpf;
-	vg->FontSize = qRound(pg->attribute("FONTSIZE", "12").toDouble() * 10.0);
-	vg->Drop = static_cast<bool>(pg->attribute("DROP", "0").toInt());
-	vg->DropLin = pg->attribute("DROPLIN", "2").toInt();
-	vg->DropDist = pg->attribute("DROPDIST", "0").toDouble();
-	vg->FontEffect = pg->attribute("EFFECT", "0").toInt();
-	vg->FColor = pg->attribute("FCOLOR", doc->toolSettings.dBrush);
-	vg->FShade = pg->attribute("FSHADE", "100").toInt();
-	vg->SColor = pg->attribute("SCOLOR", doc->toolSettings.dPen);
-	vg->SShade = pg->attribute("SSHADE", "100").toInt();
-	vg->BaseAdj = static_cast<bool>(pg->attribute("BASE", "0").toInt());
-	vg->txtShadowX = qRound(pg->attribute("TXTSHX", "5").toDouble() * 10);
-	vg->txtShadowY = qRound(pg->attribute("TXTSHY", "-5").toDouble() * 10);
-	vg->txtOutline = qRound(pg->attribute("TXTOUT", "1").toDouble() * 10);
-	vg->txtUnderPos = qRound(pg->attribute("TXTULP", "-0.1").toDouble() * 10);
-	vg->txtUnderWidth = qRound(pg->attribute("TXTULW", "-0.1").toDouble() * 10);
-	vg->txtStrikePos = qRound(pg->attribute("TXTSTP", "-0.1").toDouble() * 10);
-	vg->txtStrikeWidth = qRound(pg->attribute("TXTSTW", "-0.1").toDouble() * 10);
-	vg->scaleH = qRound(pg->attribute("SCALEH", "100").toDouble() * 10);
-	vg->scaleV = qRound(pg->attribute("SCALEV", "100").toDouble() * 10);
-	vg->baseOff = qRound(pg->attribute("BASEO", "0").toDouble() * 10);
-	vg->kernVal = qRound(pg->attribute("KERN", "0").toDouble() * 10);
-	vg->TabValues.clear();
+	vg->charStyle().cfont = prefsManager->appPrefs.AvailFonts[tmpf];
+	vg->charStyle().csize = qRound(pg->attribute("FONTSIZE", "12").toDouble() * 10.0);
+	vg->setHasDropCap(static_cast<bool>(pg->attribute("DROP", "0").toInt()));
+	vg->setDropCapLines(pg->attribute("DROPLIN", "2").toInt());
+	vg->setDropCapOffset(pg->attribute("DROPDIST", "0").toDouble());
+	vg->charStyle().cstyle = static_cast<StyleFlag>(pg->attribute("EFFECT", "0").toInt());
+	vg->charStyle().ccolor = pg->attribute("FCOLOR", doc->toolSettings.dBrush);
+	vg->charStyle().cshade = pg->attribute("FSHADE", "100").toInt();
+	vg->charStyle().cstroke = pg->attribute("SCOLOR", doc->toolSettings.dPen);
+	vg->charStyle().cshade2 = pg->attribute("SSHADE", "100").toInt();
+	vg->setUseBaselineGrid(static_cast<bool>(pg->attribute("BASE", "0").toInt()));
+	vg->charStyle().cshadowx = qRound(pg->attribute("TXTSHX", "5").toDouble() * 10);
+	vg->charStyle().cshadowy = qRound(pg->attribute("TXTSHY", "-5").toDouble() * 10);
+	vg->charStyle().coutline = qRound(pg->attribute("TXTOUT", "1").toDouble() * 10);
+	vg->charStyle().cunderpos = qRound(pg->attribute("TXTULP", "-0.1").toDouble() * 10);
+	vg->charStyle().cunderwidth = qRound(pg->attribute("TXTULW", "-0.1").toDouble() * 10);
+	vg->charStyle().cstrikepos = qRound(pg->attribute("TXTSTP", "-0.1").toDouble() * 10);
+	vg->charStyle().cstrikewidth = qRound(pg->attribute("TXTSTW", "-0.1").toDouble() * 10);
+	vg->charStyle().cscale = qRound(pg->attribute("SCALEH", "100").toDouble() * 10);
+	vg->charStyle().cscalev = qRound(pg->attribute("SCALEV", "100").toDouble() * 10);
+	vg->charStyle().cbase = qRound(pg->attribute("BASEO", "0").toDouble() * 10);
+	vg->charStyle().cextra = qRound(pg->attribute("KERN", "0").toDouble() * 10);
+	vg->tabValues().clear();
 	if ((pg->hasAttribute("NUMTAB")) && (pg->attribute("NUMTAB", "0").toInt() != 0))
 	{
-		struct PageItem::TabRecord tb;
+		ParagraphStyle::TabRecord tb;
 		QString tmp = pg->attribute("TABS");
 		QTextStream tgv(&tmp, IO_ReadOnly);
-		vg->TabValues.clear();
+		vg->tabValues().clear();
 		for (int cxv = 0; cxv < pg->attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
 			tgv >> xf;
@@ -516,7 +568,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 			tb.tabPosition = xf2;
 			tb.tabType = static_cast<int>(xf);
 			tb.tabFillChar = QChar();
-			vg->TabValues.append(tb);
+			vg->tabValues().append(tb);
 		}
 		tmp = "";
 	}
@@ -528,7 +580,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 			QDomElement it = IT.toElement();
 			if (it.tagName()=="Tabs")
 			{
-				struct PageItem::TabRecord tb;
+				ParagraphStyle::TabRecord tb;
 				tb.tabPosition = it.attribute("Pos").toDouble();
 				tb.tabType = it.attribute("Type").toInt();
 				QString tbCh = "";
@@ -537,72 +589,17 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 					tb.tabFillChar = QChar();
 				else
 					tb.tabFillChar = tbCh[0];
-				vg->TabValues.append(tb);
+				vg->tabValues().append(tb);
 			}
 			IT=IT.nextSibling();
 		}
 	}
 	for (uint xx=0; xx<docParagraphStyles.count(); ++xx)
 	{
-		if (vg->Vname == docParagraphStyles[xx].Vname)
+		if (vg->name() == docParagraphStyles[xx].name())
 		{
-			struct PageItem::TabRecord tb;
-			tabEQ = false;
-			if ((docParagraphStyles[xx].TabValues.count() == 0) && (vg->TabValues.count() == 0))
-				tabEQ = true;
-			else
-			{
-				for (uint t1 = 0; t1 < docParagraphStyles[xx].TabValues.count(); t1++)
-				{
-					tb.tabPosition = docParagraphStyles[xx].TabValues[t1].tabPosition;
-					tb.tabType = docParagraphStyles[xx].TabValues[t1].tabType;
-					tb.tabFillChar = docParagraphStyles[xx].TabValues[t1].tabFillChar;
-					for (uint t2 = 0; t2 < vg->TabValues.count(); t2++)
-					{
-						struct PageItem::TabRecord tb2;
-						tb2.tabPosition = vg->TabValues[t2].tabPosition;
-						tb2.tabType = vg->TabValues[t2].tabType;
-						tb2.tabFillChar = vg->TabValues[t2].tabFillChar;
-						if ((tb2.tabFillChar == tb.tabFillChar) && (tb2.tabPosition == tb.tabPosition) && (tb2.tabType == tb.tabType))
-						{
-							tabEQ = true;
-							break;
-						}
-					}
-					if (tabEQ)
-						break;
-				}
-			}
 			//Compare the attributes of the pasted styles vs existing ones
-			if ((vg->LineSpa == docParagraphStyles[xx].LineSpa) &&
-					(vg->LineSpaMode == docParagraphStyles[xx].LineSpaMode) &&
-					(vg->Indent == docParagraphStyles[xx].Indent) &&
-					(vg->First == docParagraphStyles[xx].First) &&
-					(vg->textAlignment == docParagraphStyles[xx].textAlignment) &&
-					(vg->gapBefore == docParagraphStyles[xx].gapBefore) &&
-					(vg->gapAfter == docParagraphStyles[xx].gapAfter) &&
-					(vg->Font == docParagraphStyles[xx].Font) && (tabEQ) &&
-					(vg->Drop == docParagraphStyles[xx].Drop) &&
-					(vg->DropLin == docParagraphStyles[xx].DropLin) &&
-					(vg->DropDist == docParagraphStyles[xx].DropDist) &&
-					(vg->FontEffect == docParagraphStyles[xx].FontEffect) &&
-					(vg->FColor == docParagraphStyles[xx].FColor) &&
-					(vg->FShade == docParagraphStyles[xx].FShade) &&
-					(vg->SColor == docParagraphStyles[xx].SColor) &&
-					(vg->SShade == docParagraphStyles[xx].SShade) &&
-					(vg->BaseAdj == docParagraphStyles[xx].BaseAdj) &&
-					(vg->txtShadowX == docParagraphStyles[xx].txtShadowX) &&
-					(vg->txtShadowY == docParagraphStyles[xx].txtShadowY) &&
-					(vg->txtOutline == docParagraphStyles[xx].txtOutline) &&
-					(vg->txtUnderPos == docParagraphStyles[xx].txtUnderPos) &&
-					(vg->txtUnderWidth == docParagraphStyles[xx].txtUnderWidth) &&
-					(vg->txtStrikePos == docParagraphStyles[xx].txtStrikePos) &&
-					(vg->txtStrikeWidth == docParagraphStyles[xx].txtStrikeWidth) &&
-					(vg->scaleH == docParagraphStyles[xx].scaleH) &&
-					(vg->scaleV == docParagraphStyles[xx].scaleV) &&
-					(vg->baseOff == docParagraphStyles[xx].baseOff) &&
-					(vg->kernVal == docParagraphStyles[xx].kernVal) &&
-					(vg->FontSize == docParagraphStyles[xx].FontSize))
+			if (vg->equiv(docParagraphStyles[xx]))
 			{
 				if (fl)
 				{
@@ -613,7 +610,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 			}
 			else
 			{
-				vg->Vname = "Copy of "+docParagraphStyles[xx].Vname;
+				vg->setName("Copy of "+docParagraphStyles[xx].name());
 				fou = false;
 			}
 			break;
@@ -623,59 +620,9 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	{
 		for (uint xx=0; xx< docParagraphStyles.count(); ++xx)
 		{
-			struct PageItem::TabRecord tb;
-			tabEQ = false;
-			for (uint t1 = 0; t1 < docParagraphStyles[xx].TabValues.count(); t1++)
+			if (vg->equiv(docParagraphStyles[xx]))
 			{
-				tb.tabPosition = docParagraphStyles[xx].TabValues[t1].tabPosition;
-				tb.tabType = docParagraphStyles[xx].TabValues[t1].tabType;
-				tb.tabFillChar = docParagraphStyles[xx].TabValues[t1].tabFillChar;
-				for (uint t2 = 0; t2 < vg->TabValues.count(); t2++)
-				{
-					struct PageItem::TabRecord tb2;
-					tb2.tabPosition = vg->TabValues[t2].tabPosition;
-					tb2.tabType = vg->TabValues[t2].tabType;
-					tb2.tabFillChar = vg->TabValues[t2].tabFillChar;
-					if ((tb2.tabFillChar == tb.tabFillChar) && (tb2.tabPosition == tb.tabPosition) && (tb2.tabType == tb.tabType))
-					{
-						tabEQ = true;
-						break;
-					}
-				}
-				if (tabEQ)
-					break;
-			}
-			if ((vg->LineSpa == docParagraphStyles[xx].LineSpa) &&
-				(vg->LineSpaMode == docParagraphStyles[xx].LineSpaMode) &&
-				(vg->Indent == docParagraphStyles[xx].Indent) &&
-				(vg->First == docParagraphStyles[xx].First) &&
-				(vg->textAlignment == docParagraphStyles[xx].textAlignment) &&
-				(vg->gapBefore == docParagraphStyles[xx].gapBefore) &&
-				(vg->gapAfter == docParagraphStyles[xx].gapAfter) &&
-				(vg->Font == docParagraphStyles[xx].Font) && (tabEQ) &&
-				(vg->Drop == docParagraphStyles[xx].Drop) &&
-				(vg->DropLin == docParagraphStyles[xx].DropLin) &&
-				(vg->DropDist == docParagraphStyles[xx].DropDist) &&
-				(vg->FontEffect == docParagraphStyles[xx].FontEffect) &&
-				(vg->FColor == docParagraphStyles[xx].FColor) &&
-				(vg->FShade == docParagraphStyles[xx].FShade) &&
-				(vg->SColor == docParagraphStyles[xx].SColor) &&
-				(vg->SShade == docParagraphStyles[xx].SShade) &&
-				(vg->BaseAdj == docParagraphStyles[xx].BaseAdj) &&
-				(vg->txtShadowX == docParagraphStyles[xx].txtShadowX) &&
-				(vg->txtShadowY == docParagraphStyles[xx].txtShadowY) &&
-				(vg->txtOutline == docParagraphStyles[xx].txtOutline) &&
-				(vg->txtUnderPos == docParagraphStyles[xx].txtUnderPos) &&
-				(vg->txtUnderWidth == docParagraphStyles[xx].txtUnderWidth) &&
-				(vg->txtStrikePos == docParagraphStyles[xx].txtStrikePos) &&
-				(vg->txtStrikeWidth == docParagraphStyles[xx].txtStrikeWidth) &&
-				(vg->scaleH == docParagraphStyles[xx].scaleH) &&
-				(vg->scaleV == docParagraphStyles[xx].scaleV) &&
-				(vg->baseOff == docParagraphStyles[xx].baseOff) &&
-				(vg->kernVal == docParagraphStyles[xx].kernVal) &&
-				(vg->FontSize == docParagraphStyles[xx].FontSize))
-			{
-				vg->Vname = docParagraphStyles[xx].Vname;
+				vg->setName(docParagraphStyles[xx].name());
 				fou = true;
 				if (fl)
 				{
@@ -699,7 +646,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 
 bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc)
 {
-	struct ParagraphStyle vg;
+	ParagraphStyle vg;
 	QDomDocument docu("scridoc");
 	QString tmpf, tmf;
 	DoFonts.clear();
@@ -1188,7 +1135,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 {
 	//Scribus 1.2 docs, see fileloader.cpp for 1.3 docs
 	struct CopyPasteBuffer OB;
-	struct ParagraphStyle vg;
+	ParagraphStyle vg;
 	struct Layer la;
 	struct ScribusDoc::BookMa bok;
 	int counter;
@@ -1351,14 +1298,14 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			}
 			if(pg.tagName()=="STYLE")
 			{
-				vg.Vname = pg.attribute("NAME");
-				vg.LineSpaMode = pg.attribute("LINESPMode", "0").toInt();
-				vg.LineSpa = pg.attribute("LINESP").toDouble();
-				vg.Indent = pg.attribute("INDENT", "0").toDouble();
-				vg.First = pg.attribute("FIRST", "0").toDouble();
-				vg.textAlignment = pg.attribute("ALIGN").toInt();
-				vg.gapBefore = pg.attribute("VOR", "0").toDouble();
-				vg.gapAfter = pg.attribute("NACH", "0").toDouble();
+				vg.setName(pg.attribute("NAME"));
+				vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg.attribute("LINESPMode", "0").toInt()));
+				vg.setLineSpacing(pg.attribute("LINESP").toDouble());
+				vg.setLeftMargin(pg.attribute("INDENT", "0").toDouble());
+				vg.setFirstIndent(pg.attribute("FIRST", "0").toDouble());
+				vg.setAlignment(pg.attribute("ALIGN").toInt());
+				vg.setGapBefore(pg.attribute("VOR", "0").toDouble());
+				vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
 				tmpf = pg.attribute("FONT", doc->toolSettings.defFont);
 				if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
 				{
@@ -1379,34 +1326,34 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 						doc->AddFont(tmpf);
 					}
 				}
-				vg.Font = tmpf;
-				vg.FontSize = qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0);
-				vg.Drop = static_cast<bool>(pg.attribute("DROP", "0").toInt());
-				vg.DropLin = pg.attribute("DROPLIN", "2").toInt();
-				vg.DropDist = pg.attribute("DROPDIST", "0").toDouble();
-				vg.FontEffect = pg.attribute("EFFECT", "0").toInt();
-				vg.FColor = pg.attribute("FCOLOR", doc->toolSettings.dBrush);
-				vg.FShade = pg.attribute("FSHADE", "100").toInt();
-				vg.SColor = pg.attribute("SCOLOR", doc->toolSettings.dPen);
-				vg.SShade = pg.attribute("SSHADE", "100").toInt();
-				vg.BaseAdj = static_cast<bool>(pg.attribute("BASE", "0").toInt());
-				vg.txtShadowX = 50;
-				vg.txtShadowY = -50;
-				vg.txtOutline = 10;
-				vg.txtUnderPos = doc->typographicSettings.valueUnderlinePos;
-				vg.txtUnderWidth = doc->typographicSettings.valueUnderlineWidth;
-				vg.txtStrikePos = doc->typographicSettings.valueStrikeThruPos;
-				vg.txtStrikeWidth = doc->typographicSettings.valueStrikeThruPos;
-				vg.scaleH = 1000;
-				vg.scaleV = 1000;
-				vg.baseOff = 0;
-				vg.kernVal = 0;
+				vg.charStyle().cfont = avail[tmpf];
+				vg.charStyle().csize = qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0);
+				vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
+				vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
+				vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
+				vg.charStyle().cstyle = static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt());
+				vg.charStyle().ccolor = pg.attribute("FCOLOR", doc->toolSettings.dBrush);
+				vg.charStyle().cshade = pg.attribute("FSHADE", "100").toInt();
+				vg.charStyle().cstroke = pg.attribute("SCOLOR", doc->toolSettings.dPen);
+				vg.charStyle().cshade2 = pg.attribute("SSHADE", "100").toInt();
+				vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
+				vg.charStyle().cshadowx = 50;
+				vg.charStyle().cshadowy = -50;
+				vg.charStyle().coutline = 10;
+				vg.charStyle().cunderpos = doc->typographicSettings.valueUnderlinePos;
+				vg.charStyle().cunderwidth = doc->typographicSettings.valueUnderlineWidth;
+				vg.charStyle().cstrikepos = doc->typographicSettings.valueStrikeThruPos;
+				vg.charStyle().cstrikewidth = doc->typographicSettings.valueStrikeThruPos;
+				vg.charStyle().cscale = 1000;
+				vg.charStyle().cscalev = 1000;
+				vg.charStyle().cbase = 0;
+				vg.charStyle().cextra = 0;
 				if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
 				{
 					tmp = pg.attribute("TABS");
 					QTextStream tgv(&tmp, IO_ReadOnly);
-					vg.TabValues.clear();
-					struct PageItem::TabRecord tb;
+					vg.tabValues().clear();
+					ParagraphStyle::TabRecord tb;
 					for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
 					{
 						tgv >> xf;
@@ -1414,12 +1361,12 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 						tb.tabPosition = xf2;
 						tb.tabType = static_cast<int>(xf);
 						tb.tabFillChar = QChar();
-						vg.TabValues.append(tb);
+						vg.tabValues().append(tb);
 					}
 					tmp = "";
 				}
 				else
-					vg.TabValues.clear();
+					vg.tabValues().clear();
 				doc->docParagraphStyles.append(vg);
 			}
 			if(pg.tagName()=="JAVA")
@@ -1858,7 +1805,7 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view)
 {
 	struct CopyPasteBuffer OB;
-	struct ParagraphStyle vg;
+	ParagraphStyle vg;
 	QString tmp, tmpf, tmp2, tmp3, tmp4, f, tmV, tmf;
 	QMap<QString,QString> DoMul;
 	QMap<int,int> TableID;
@@ -2074,7 +2021,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				}
 				if (it.tagName()=="Tabs")
 				{
-					struct PageItem::TabRecord tb;
+					ParagraphStyle::TabRecord tb;
 					tb.tabPosition = it.attribute("Pos").toDouble();
 					tb.tabType = it.attribute("Type").toInt();
 					QString tbCh = "";
@@ -2219,7 +2166,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	int NewStylesNum = 5;
 	UsedStyles.clear();
 	UsedMapped2Saved.clear();
-	struct ParagraphStyle vg;
+	ParagraphStyle vg;
 	if (doc->docParagraphStyles.count() > 5)
 	{
 		//for (uint co=0; co<Selitems->count(); ++co)
@@ -2228,79 +2175,47 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			item = doc->Items->at(ELL[co]);
 			if (item->textAlignment > 4)
 			{
-				vg.Vname = doc->docParagraphStyles[item->textAlignment].Vname;
-				vg.LineSpaMode = doc->docParagraphStyles[item->textAlignment].LineSpaMode;
-				vg.LineSpa = doc->docParagraphStyles[item->textAlignment].LineSpa;
-				vg.textAlignment = doc->docParagraphStyles[item->textAlignment].textAlignment;
-				vg.Indent = doc->docParagraphStyles[item->textAlignment].Indent;
-				vg.First = doc->docParagraphStyles[item->textAlignment].First;
-				vg.gapBefore = doc->docParagraphStyles[item->textAlignment].gapBefore;
-				vg.gapAfter = doc->docParagraphStyles[item->textAlignment].gapAfter;
-				vg.Font = doc->docParagraphStyles[item->textAlignment].Font;
-				vg.FontSize = doc->docParagraphStyles[item->textAlignment].FontSize;
-				vg.TabValues = doc->docParagraphStyles[item->textAlignment].TabValues;
-				vg.Drop = doc->docParagraphStyles[item->textAlignment].Drop;
-				vg.DropLin = doc->docParagraphStyles[item->textAlignment].DropLin;
-				vg.DropDist = doc->docParagraphStyles[item->textAlignment].DropDist;
-				vg.FontEffect = doc->docParagraphStyles[item->textAlignment].FontEffect;
-				vg.FColor = doc->docParagraphStyles[item->textAlignment].FColor;
-				vg.FShade = doc->docParagraphStyles[item->textAlignment].FShade;
-				vg.SColor = doc->docParagraphStyles[item->textAlignment].SColor;
-				vg.SShade = doc->docParagraphStyles[item->textAlignment].SShade;
-				vg.BaseAdj = doc->docParagraphStyles[item->textAlignment].BaseAdj;
-				vg.txtShadowX = doc->docParagraphStyles[item->textAlignment].txtShadowX;
-				vg.txtShadowY = doc->docParagraphStyles[item->textAlignment].txtShadowY;
-				vg.txtOutline = doc->docParagraphStyles[item->textAlignment].txtOutline;
-				vg.txtUnderPos = doc->docParagraphStyles[item->textAlignment].txtUnderPos;
-				vg.txtUnderWidth = doc->docParagraphStyles[item->textAlignment].txtUnderWidth;
-				vg.txtStrikePos = doc->docParagraphStyles[item->textAlignment].txtStrikePos;
-				vg.txtStrikeWidth = doc->docParagraphStyles[item->textAlignment].txtStrikeWidth;
-				vg.scaleH = doc->docParagraphStyles[item->textAlignment].scaleH;
-				vg.scaleV = doc->docParagraphStyles[item->textAlignment].scaleV;
-				vg.baseOff = doc->docParagraphStyles[item->textAlignment].baseOff;
-				vg.kernVal = doc->docParagraphStyles[item->textAlignment].kernVal;
+				vg.setName(doc->docParagraphStyles[item->textAlignment].name());
+				vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(doc->docParagraphStyles[item->textAlignment].lineSpacingMode()));
+				vg.setLineSpacing(doc->docParagraphStyles[item->textAlignment].lineSpacing());
+				vg.setAlignment(doc->docParagraphStyles[item->textAlignment].alignment());
+				vg.setLeftMargin(doc->docParagraphStyles[item->textAlignment].leftMargin());
+				vg.setFirstIndent(doc->docParagraphStyles[item->textAlignment].firstIndent());
+				vg.setGapBefore(doc->docParagraphStyles[item->textAlignment].gapBefore());
+				vg.setGapAfter(doc->docParagraphStyles[item->textAlignment].gapAfter());
+				vg.tabValues() = doc->docParagraphStyles[item->textAlignment].tabValues();
+				vg.setHasDropCap(doc->docParagraphStyles[item->textAlignment].hasDropCap());
+				vg.setDropCapLines(doc->docParagraphStyles[item->textAlignment].dropCapLines());
+				vg.setDropCapOffset(doc->docParagraphStyles[item->textAlignment].dropCapOffset());
+				vg.setUseBaselineGrid(doc->docParagraphStyles[item->textAlignment].useBaselineGrid());
+				vg.charStyle() = doc->docParagraphStyles[item->textAlignment].charStyle();
 				UsedStyles[item->textAlignment] = vg;
 			}
-			if (((item->asTextFrame()) || (item->asPathText())) && (item->itemText.count() != 0))
+			if (((item->asTextFrame()) || (item->asPathText())) && (item->itemText.length() != 0))
 			{
+#ifndef NLS_PROTO
 				for (uint tx = 0; tx < item->itemText.count(); ++tx)
 				{
 					if (item->itemText.at(tx)->cab > 4)
 					{
-						vg.Vname = doc->docParagraphStyles[item->itemText.at(tx)->cab].Vname;
-						vg.LineSpaMode = doc->docParagraphStyles[item->itemText.at(tx)->cab].LineSpaMode;
-						vg.LineSpa = doc->docParagraphStyles[item->itemText.at(tx)->cab].LineSpa;
-						vg.textAlignment = doc->docParagraphStyles[item->itemText.at(tx)->cab].textAlignment;
-						vg.Indent = doc->docParagraphStyles[item->itemText.at(tx)->cab].Indent;
-						vg.First = doc->docParagraphStyles[item->itemText.at(tx)->cab].First;
-						vg.gapBefore = doc->docParagraphStyles[item->itemText.at(tx)->cab].gapBefore;
-						vg.gapAfter = doc->docParagraphStyles[item->itemText.at(tx)->cab].gapAfter;
-						vg.Font = doc->docParagraphStyles[item->itemText.at(tx)->cab].Font;
-						vg.FontSize = doc->docParagraphStyles[item->itemText.at(tx)->cab].FontSize;
-						vg.TabValues = doc->docParagraphStyles[item->itemText.at(tx)->cab].TabValues;
-						vg.Drop = doc->docParagraphStyles[item->itemText.at(tx)->cab].Drop;
-						vg.DropLin = doc->docParagraphStyles[item->itemText.at(tx)->cab].DropLin;
-						vg.DropDist = doc->docParagraphStyles[item->itemText.at(tx)->cab].DropDist;
-						vg.FontEffect = doc->docParagraphStyles[item->itemText.at(tx)->cab].FontEffect;
-						vg.FColor = doc->docParagraphStyles[item->itemText.at(tx)->cab].FColor;
-						vg.FShade = doc->docParagraphStyles[item->itemText.at(tx)->cab].FShade;
-						vg.SColor = doc->docParagraphStyles[item->itemText.at(tx)->cab].SColor;
-						vg.SShade = doc->docParagraphStyles[item->itemText.at(tx)->cab].SShade;
-						vg.BaseAdj = doc->docParagraphStyles[item->itemText.at(tx)->cab].BaseAdj;
-						vg.txtShadowX = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtShadowX;
-						vg.txtShadowY = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtShadowY;
-						vg.txtOutline = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtOutline;
-						vg.txtUnderPos = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtUnderPos;
-						vg.txtUnderWidth = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtUnderWidth;
-						vg.txtStrikePos = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtStrikePos;
-						vg.txtStrikeWidth = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtStrikeWidth;
-						vg.scaleH = doc->docParagraphStyles[item->itemText.at(tx)->cab].scaleH;
-						vg.scaleV = doc->docParagraphStyles[item->itemText.at(tx)->cab].scaleV;
-						vg.baseOff = doc->docParagraphStyles[item->itemText.at(tx)->cab].baseOff;
-						vg.kernVal = doc->docParagraphStyles[item->itemText.at(tx)->cab].kernVal;
+						vg.setName(doc->docParagraphStyles[item->itemText.at(tx)->cab].name());
+						vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(doc->docParagraphStyles[item->itemText.at(tx)->cab].lineSpacingMode()));
+						vg.setLineSpacing(doc->docParagraphStyles[item->itemText.at(tx)->cab].lineSpacing());
+						vg.setAlignment(doc->docParagraphStyles[item->itemText.at(tx)->cab].alignment());
+						vg.setLeftMargin(doc->docParagraphStyles[item->itemText.at(tx)->cab].leftMargin());
+						vg.setFirstIndent(doc->docParagraphStyles[item->itemText.at(tx)->cab].firstIndent());
+						vg.setGapBefore(doc->docParagraphStyles[item->itemText.at(tx)->cab].gapBefore());
+						vg.setGapAfter(doc->docParagraphStyles[item->itemText.at(tx)->cab].gapAfter());
+						vg.tabValues() = doc->docParagraphStyles[item->itemText.at(tx)->cab].tabValues();
+						vg.setHasDropCap(doc->docParagraphStyles[item->itemText.at(tx)->cab].hasDropCap());
+						vg.setDropCapLines(doc->docParagraphStyles[item->itemText.at(tx)->cab].dropCapLines());
+						vg.setDropCapOffset(doc->docParagraphStyles[item->itemText.at(tx)->cab].dropCapOffset());
+						vg.charStyle() = doc->docParagraphStyles[item->itemText.at(tx)->cab].charStyle();
+						vg.setUseBaselineGrid(doc->docParagraphStyles[item->itemText.at(tx)->cab].useBaselineGrid());
 						UsedStyles[item->itemText.at(tx)->cab] = vg;
 					}
 				}
+#endif
 			}
 		}
 		QValueList<int> StyleNumb = UsedStyles.keys();
@@ -2311,54 +2226,54 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			UsedMapped2Saved.insert(actSt, NewStylesNum);
 			NewStylesNum++;
 			QDomElement fo=docu.createElement("STYLE");
-			fo.setAttribute("NAME",UsedStyles[actSt].Vname);
-			fo.setAttribute("ALIGN",UsedStyles[actSt].textAlignment);
-			fo.setAttribute("LINESPMode",UsedStyles[actSt].LineSpaMode);
+			fo.setAttribute("NAME",UsedStyles[actSt].name());
+			fo.setAttribute("ALIGN",UsedStyles[actSt].alignment());
+			fo.setAttribute("LINESPMode",UsedStyles[actSt].lineSpacingMode());
 			//CB #2738:
 			//UsedStyles[actSt].LineSpa is something like this is using automatic from the font:
 			//10.34912109375000000000. Default attribute value is then 10.3491 which then becomes //10.34909999999999996589 and then does not compare. This fixes, should we change our
 			//default precision?
-			fo.setAttribute("LINESP",QString::number(UsedStyles[actSt].LineSpa,'f',13));
-			fo.setAttribute("INDENT",UsedStyles[actSt].Indent);
-			fo.setAttribute("FIRST",UsedStyles[actSt].First);
-			fo.setAttribute("VOR",UsedStyles[actSt].gapBefore);
-			fo.setAttribute("NACH",UsedStyles[actSt].gapAfter);
-			fo.setAttribute("FONT",UsedStyles[actSt].Font);
-			fo.setAttribute("FONTSIZE",UsedStyles[actSt].FontSize / 10.0);
-			fo.setAttribute("DROP", static_cast<int>(UsedStyles[actSt].Drop));
-			fo.setAttribute("DROPLIN", UsedStyles[actSt].DropLin);
-			fo.setAttribute("DROPDIST", UsedStyles[actSt].DropDist);
-			fo.setAttribute("EFFECT", UsedStyles[actSt].FontEffect);
-			if (UsedStyles[actSt].TabValues.count() != 0)
+			fo.setAttribute("LINESP",QString::number(UsedStyles[actSt].lineSpacing(),'f',13));
+			fo.setAttribute("INDENT",UsedStyles[actSt].leftMargin());
+			fo.setAttribute("FIRST",UsedStyles[actSt].firstIndent());
+			fo.setAttribute("VOR",UsedStyles[actSt].gapBefore());
+			fo.setAttribute("NACH",UsedStyles[actSt].gapAfter());
+			fo.setAttribute("FONT",UsedStyles[actSt].charStyle().font()->scName());
+			fo.setAttribute("FONTSIZE",UsedStyles[actSt].charStyle().fontSize() / 10.0);
+			fo.setAttribute("DROP", static_cast<int>(UsedStyles[actSt].hasDropCap()));
+			fo.setAttribute("DROPLIN", UsedStyles[actSt].dropCapLines());
+			fo.setAttribute("DROPDIST", UsedStyles[actSt].dropCapOffset());
+			fo.setAttribute("EFFECT", UsedStyles[actSt].charStyle().effects());
+			if (UsedStyles[actSt].tabValues().count() != 0)
 			{
-				for (uint a = 0; a < UsedStyles[actSt].TabValues.count(); ++a)
+				for (uint a = 0; a < UsedStyles[actSt].tabValues().count(); ++a)
 				{
 					QDomElement tabs = docu.createElement("Tabs");
-					tabs.setAttribute("Type", (*UsedStyles[actSt].TabValues.at(a)).tabType);
-					tabs.setAttribute("Pos", (*UsedStyles[actSt].TabValues.at(a)).tabPosition);
+					tabs.setAttribute("Type", (*UsedStyles[actSt].tabValues().at(a)).tabType);
+					tabs.setAttribute("Pos", (*UsedStyles[actSt].tabValues().at(a)).tabPosition);
 					QString tabCh = "";
-					if (!(*UsedStyles[actSt].TabValues.at(a)).tabFillChar.isNull())
-						tabCh = QString((*UsedStyles[actSt].TabValues.at(a)).tabFillChar);
+					if (!(*UsedStyles[actSt].tabValues().at(a)).tabFillChar.isNull())
+						tabCh = QString((*UsedStyles[actSt].tabValues().at(a)).tabFillChar);
 					tabs.setAttribute("Fill", tabCh);
 					fo.appendChild(tabs);
 				}
 			}
-			fo.setAttribute("FCOLOR",UsedStyles[actSt].FColor);
-			fo.setAttribute("FSHADE",UsedStyles[actSt].FShade);
-			fo.setAttribute("SCOLOR",UsedStyles[actSt].SColor);
-			fo.setAttribute("SSHADE",UsedStyles[actSt].SShade);
-			fo.setAttribute("BASE", static_cast<int>(UsedStyles[actSt].BaseAdj));
-			fo.setAttribute("TXTSHX",UsedStyles[actSt].txtShadowX / 10.0);
-			fo.setAttribute("TXTSHY",UsedStyles[actSt].txtShadowY / 10.0);
-			fo.setAttribute("TXTOUT",UsedStyles[actSt].txtOutline / 10.0);
-			fo.setAttribute("TXTULP",UsedStyles[actSt].txtUnderPos / 10.0);
-			fo.setAttribute("TXTULW",UsedStyles[actSt].txtUnderWidth / 10.0);
-			fo.setAttribute("TXTSTP",UsedStyles[actSt].txtStrikePos / 10.0);
-			fo.setAttribute("TXTSTW",UsedStyles[actSt].txtStrikeWidth / 10.0);
-			fo.setAttribute("SCALEH",UsedStyles[actSt].scaleH / 10.0);
-			fo.setAttribute("SCALEV",UsedStyles[actSt].scaleV / 10.0);
-			fo.setAttribute("BASEO",UsedStyles[actSt].baseOff / 10.0);
-			fo.setAttribute("KERN",UsedStyles[actSt].kernVal / 10.0);
+			fo.setAttribute("FCOLOR",UsedStyles[actSt].charStyle().ccolor);
+			fo.setAttribute("FSHADE",UsedStyles[actSt].charStyle().cshade);
+			fo.setAttribute("SCOLOR",UsedStyles[actSt].charStyle().cstroke);
+			fo.setAttribute("SSHADE",UsedStyles[actSt].charStyle().cshade2);
+			fo.setAttribute("BASE", static_cast<int>(UsedStyles[actSt].useBaselineGrid()));
+			fo.setAttribute("TXTSHX",UsedStyles[actSt].charStyle().cshadowx / 10.0);
+			fo.setAttribute("TXTSHY",UsedStyles[actSt].charStyle().cshadowy / 10.0);
+			fo.setAttribute("TXTOUT",UsedStyles[actSt].charStyle().coutline / 10.0);
+			fo.setAttribute("TXTULP",UsedStyles[actSt].charStyle().cunderpos / 10.0);
+			fo.setAttribute("TXTULW",UsedStyles[actSt].charStyle().cunderwidth / 10.0);
+			fo.setAttribute("TXTSTP",UsedStyles[actSt].charStyle().cstrikepos / 10.0);
+			fo.setAttribute("TXTSTW",UsedStyles[actSt].charStyle().cstrikewidth / 10.0);
+			fo.setAttribute("SCALEH",UsedStyles[actSt].charStyle().cscale / 10.0);
+			fo.setAttribute("SCALEV",UsedStyles[actSt].charStyle().cscalev / 10.0);
+			fo.setAttribute("BASEO",UsedStyles[actSt].charStyle().cbase / 10.0);
+			fo.setAttribute("KERN",UsedStyles[actSt].charStyle().cextra / 10.0);
 			elem.appendChild(fo);
 		}
 	}
@@ -2497,40 +2412,45 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			ob.setAttribute("GRENDY", item->GrEndY);
 		}
 		QDir::setCurrent(CurDirP);
-		for(uint k=0;k<item->itemText.count();++k)
+		for(uint k=0;k<item->itemText.length();++k)
 		{
-			ScText * itemTextAtK = item->itemText.at(k);
+			const CharStyle& style4(item->itemText.charStyle(k));
+			QChar ch = item->itemText.text(k);
 			QDomElement it=docu.createElement("ITEXT");
-			ts = itemTextAtK->csize / 10.0;
-			tf = itemTextAtK->cfont->scName();
-			tc = itemTextAtK->ccolor;
-			te = itemTextAtK->cextra;
-			tsh = itemTextAtK->cshade;
-			tst = itemTextAtK->cstyle & 2047;
-			if (itemTextAtK->cab > 4)
-				tsb = UsedMapped2Saved[itemTextAtK->cab];
+			ts = style4.csize / 10.0;
+			tf = style4.cfont->scName();
+			tc = style4.ccolor;
+			te = style4.cextra;
+			tsh = style4.cshade;
+			tst = style4.cstyle & 2047;
+#ifndef NLS_PROTO
+			if (item->itemText.at(k)->cab > 4)
+				tsb = UsedMapped2Saved[item->itemText.at(k)->cab];
 			else
-				tsb = itemTextAtK->cab;
-			tcs = itemTextAtK->cstroke;
-			tshs = itemTextAtK->cshade2;
-			tsc = itemTextAtK->cscale / 10.0;
-			tscv = itemTextAtK->cscalev / 10.0;
-			tb = itemTextAtK->cbase / 10.0;
-			tsx = itemTextAtK->cshadowx / 10.0;
-			tsy = itemTextAtK->cshadowy / 10.0;
-			tout = itemTextAtK->coutline / 10.0;
-			tulp = itemTextAtK->cunderpos / 10.0;
-			tulw = itemTextAtK->cunderwidth / 10.0;
-			tstp = itemTextAtK->cstrikepos / 10.0;
-			tstw = itemTextAtK->cstrikewidth / 10.0;
-			if (itemTextAtK->ch == QChar(13))
+				tsb = item->itemText.at(k)->cab;
+#else
+			tsb = 0;
+#endif
+			tcs = style4.cstroke;
+			tshs = style4.cshade2;
+			tsc = style4.cscale / 10.0;
+			tscv = style4.cscalev / 10.0;
+			tb = style4.cbase / 10.0;
+			tsx = style4.cshadowx / 10.0;
+			tsy = style4.cshadowy / 10.0;
+			tout = style4.coutline / 10.0;
+			tulp = style4.cunderpos / 10.0;
+			tulw = style4.cunderwidth / 10.0;
+			tstp = style4.cstrikepos / 10.0;
+			tstw = style4.cstrikewidth / 10.0;
+			if (ch == QChar(13))
 				text = QChar(5);
-			else if (itemTextAtK->ch == QChar(9))
+			else if (ch == QChar(9))
 				text = QChar(4);
 			else
-				text = itemTextAtK->ch;
+				text = ch;
 			++k;
-			if (k == item->itemText.count())
+			if (k == item->itemText.length())
 			{
 				it.setAttribute("CH",text);
 				it.setAttribute("CSIZE",ts);
@@ -2555,29 +2475,34 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 				ob.appendChild(it);
 				break;
 			}
-			itemTextAtK = item->itemText.at(k);
-			ts2 = itemTextAtK->csize / 10.0;
-			tf2 = itemTextAtK->cfont->scName();
-			tc2 = itemTextAtK->ccolor;
-			te2 = itemTextAtK->cextra;
-			tsh2 = itemTextAtK->cshade;
-			tst2 = itemTextAtK->cstyle & 2047;
-			if (itemTextAtK->cab > 4)
-				tsb2 = UsedMapped2Saved[itemTextAtK->cab];
+			const CharStyle& style5(item->itemText.charStyle(k));
+			ch = item->itemText.text(k);
+			ts2 = style5.csize / 10.0;
+			tf2 = style5.cfont->scName();
+			tc2 = style5.ccolor;
+			te2 = style5.cextra;
+			tsh2 = style5.cshade;
+			tst2 = style5.cstyle & 2047;
+#ifndef NLS_PROTO
+			if (item->itemText.at(k)->cab > 4)
+				tsb2 = UsedMapped2Saved[item->itemText.at(k)->cab];
 			else
-				tsb2 = itemTextAtK->cab;
-			tcs2 = itemTextAtK->cstroke;
-			tshs2 = itemTextAtK->cshade2;
-			tsc2 = itemTextAtK->cscale / 10.0;
-			tscv2 = itemTextAtK->cscalev / 10.0;
-			tb2 = itemTextAtK->cbase / 10.0;
-			tsx2 = itemTextAtK->cshadowx / 10.0;
-			tsy2 = itemTextAtK->cshadowy / 10.0;
-			tout2 = itemTextAtK->coutline / 10.0;
-			tulp2 = itemTextAtK->cunderpos / 10.0;
-			tulw2 = itemTextAtK->cunderwidth / 10.0;
-			tstp2 = itemTextAtK->cstrikepos / 10.0;
-			tstw2 = itemTextAtK->cstrikewidth / 10.0;
+				tsb2 = item->itemText.at(k)->cab;
+#else
+			tsb2 = 0;
+#endif
+			tcs2 = style5.cstroke;
+			tshs2 = style5.cshade2;
+			tsc2 = style5.cscale / 10.0;
+			tscv2 = style5.cscalev / 10.0;
+			tb2 = style5.cbase / 10.0;
+			tsx2 = style5.cshadowx / 10.0;
+			tsy2 = style5.cshadowy / 10.0;
+			tout2 = style5.coutline / 10.0;
+			tulp2 = style5.cunderpos / 10.0;
+			tulw2 = style5.cunderwidth / 10.0;
+			tstp2 = style5.cstrikepos / 10.0;
+			tstw2 = style5.cstrikewidth / 10.0;
 			while ((ts2 == ts)
 							&& (tsb2 == tsb)
 							&& (tf2 == tf)
@@ -2598,38 +2523,43 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 							&& (tstw2 == tstw)
 							&& (tst2 == tst))
 			{
-				if (itemTextAtK->ch == QChar(13))
+				if (ch == QChar(13))
 					text += QChar(5);
-				else if (itemTextAtK->ch == QChar(9))
+				else if (ch == QChar(9))
 					text += QChar(4);
 				else
-					text += itemTextAtK->ch;
+					text += ch;
 				++k;
-				if (k == item->itemText.count())
+				if (k == item->itemText.length())
 					break;
-				itemTextAtK = item->itemText.at(k);
-				ts2 = itemTextAtK->csize / 10.0;
-				tf2 = itemTextAtK->cfont->scName();
-				tc2 = itemTextAtK->ccolor;
-				te2 = itemTextAtK->cextra;
-				tsh2 = itemTextAtK->cshade;
-				tst2 = itemTextAtK->cstyle & 2047;
-				if (itemTextAtK->cab > 4)
-					tsb2 = UsedMapped2Saved[itemTextAtK->cab];
+				const CharStyle& style6(item->itemText.charStyle(k));
+				ch = item->itemText.text(k);
+				ts2 = style6.csize / 10.0;
+				tf2 = style6.cfont->scName();
+				tc2 = style6.ccolor;
+				te2 = style6.cextra;
+				tsh2 = style6.cshade;
+				tst2 = style6.cstyle & 2047;
+#ifndef NLS_PROTO
+				if (item->itemText.at(k)->cab > 4)
+					tsb2 = UsedMapped2Saved[item->itemText.at(k)->cab];
 				else
-					tsb2 = itemTextAtK->cab;
-				tcs2 = itemTextAtK->cstroke;
-				tshs2 = itemTextAtK->cshade2;
-				tsc2 = itemTextAtK->cscale / 10.0;
-				tscv2 = itemTextAtK->cscalev / 10.0;
-				tb2 = itemTextAtK->cbase / 10.0;
-				tsx2 = itemTextAtK->cshadowx / 10.0;
-				tsy2 = itemTextAtK->cshadowy / 10.0;
-				tout2 = itemTextAtK->coutline / 10.0;
-				tulp2 = itemTextAtK->cunderpos / 10.0;
-				tulw2 = itemTextAtK->cunderwidth / 10.0;
-				tstp2 = itemTextAtK->cstrikepos / 10.0;
-				tstw2 = itemTextAtK->cstrikewidth / 10.0;
+					tsb2 = item->itemText.at(k)->cab;
+#else
+				tsb2 = 0;
+#endif
+				tcs2 = style6.cstroke;
+				tshs2 = style6.cshade2;
+				tsc2 = style6.cscale / 10.0;
+				tscv2 = style6.cscalev / 10.0;
+				tb2 = style6.cbase / 10.0;
+				tsx2 = style6.cshadowx / 10.0;
+				tsy2 = style6.cshadowy / 10.0;
+				tout2 = style6.coutline / 10.0;
+				tulp2 = style6.cunderpos / 10.0;
+				tulw2 = style6.cunderwidth / 10.0;
+				tstp2 = style6.cstrikepos / 10.0;
+				tstw2 = style6.cstrikewidth / 10.0;
 			}
 			it.setAttribute("CH",text);
 			it.setAttribute("CSIZE",ts);
@@ -2654,10 +2584,14 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			k--;
 			ob.appendChild(it);
 		}
-		ob.setAttribute("NUMTEXT",item->itemText.count());
+		ob.setAttribute("NUMTEXT",item->itemText.length());
 		QString txnu = "";
-		for(uint kt=0;kt<item->itemText.count();++kt)
+		for(uint kt=0;kt<item->itemText.length();++kt)
+#ifndef NLS_PROTO
 			txnu += tmp.setNum(item->itemText.at(kt)->xp) + " " + tmpy.setNum(item->itemText.at(kt)->yp) + " ";
+#else
+			txnu += "0 0 ";
+#endif
 		ob.setAttribute("TEXTCOOR", txnu);
 		ob.setAttribute("BACKITEM", -1);
 		ob.setAttribute("BACKPAGE", -1);
@@ -2832,41 +2766,48 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 		}
 		ob.setAttribute("ALIGN",item->textAlignment);
 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
-		for(uint k=0;k<item->itemText.count();++k)
+		for(uint k=0;k<item->itemText.length();++k)
 		{
-			ScText *itemTextAtK = item->itemText.at(k);
+			const CharStyle& style1(item->itemText.charStyle(k));
+			QChar ch = item->itemText.text(k);
 			QDomElement it=docu->createElement("ITEXT");
-			ts = itemTextAtK->csize / 10.0;
-			tf = itemTextAtK->cfont->scName();
-			tc = itemTextAtK->ccolor;
-			te = itemTextAtK->cextra;
-			tsh = itemTextAtK->cshade;
-			tst = itemTextAtK->cstyle & 2047;
-			tsb = itemTextAtK->cab;
-			tcs = itemTextAtK->cstroke;
-			tshs = itemTextAtK->cshade2;
-			tsc = itemTextAtK->cscale / 10.0;
-			tscv = itemTextAtK->cscalev / 10.0;
-			tb = itemTextAtK->cbase / 10.0;
-			tsx = itemTextAtK->cshadowx / 10.0;
-			tsy = itemTextAtK->cshadowy / 10.0;
-			tout = itemTextAtK->coutline / 10.0;
-			tulp = itemTextAtK->cunderpos / 10.0;
-			tulw = itemTextAtK->cunderwidth / 10.0;
-			tstp = itemTextAtK->cstrikepos / 10.0;
-			tstw = itemTextAtK->cstrikewidth / 10.0;
-			if ((itemTextAtK->ch == QChar(25)) && (itemTextAtK->cembedded != 0))
-				tobj = itemTextAtK->cembedded->ItemNr;
+			ts = style1.csize / 10.0;
+			tf = style1.cfont->scName();
+			tc = style1.ccolor;
+			te = style1.cextra;
+			tsh = style1.cshade;
+			tst = style1.cstyle & 2047;
+#ifndef NLS_PROTO
+			tsb = item->itemText.at(k)->cab;
+#else
+			tsb = 0;
+#endif
+			tcs = style1.cstroke;
+			tshs = style1.cshade2;
+			tsc = style1.cscale / 10.0;
+			tscv = style1.cscalev / 10.0;
+			tb = style1.cbase / 10.0;
+			tsx = style1.cshadowx / 10.0;
+			tsy = style1.cshadowy / 10.0;
+			tout = style1.coutline / 10.0;
+			tulp = style1.cunderpos / 10.0;
+			tulw = style1.cunderwidth / 10.0;
+			tstp = style1.cstrikepos / 10.0;
+			tstw = style1.cstrikewidth / 10.0;
+#ifndef NLS_PROTO
+			if ((ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
+				tobj = item->itemText.at(k)->cembedded->ItemNr;
 			else
+#endif
 				tobj = -1;
-			if (itemTextAtK->ch == QChar(13))
+			if (ch == QChar(13))
 				text = QChar(5);
-			else if (itemTextAtK->ch == QChar(9))
+			else if (ch == QChar(9))
 				text = QChar(4);
 			else
-				text = itemTextAtK->ch;
+				text = ch;
 			++k;
-			if (k == item->itemText.count())
+			if (k == item->itemText.length())
 			{
 				it.setAttribute("CH",text);
 				it.setAttribute("CSIZE",ts);
@@ -2893,29 +2834,36 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				ob.appendChild(it);
 				break;
 			}
-			itemTextAtK = item->itemText.at(k);
-			ts2 = itemTextAtK->csize / 10.0;
-			tf2 = itemTextAtK->cfont->scName();
-			tc2 = itemTextAtK->ccolor;
-			te2 = itemTextAtK->cextra;
-			tsh2 = itemTextAtK->cshade;
-			tst2 = itemTextAtK->cstyle & 2047;
-			tsb2 = itemTextAtK->cab;
-			tcs2 = itemTextAtK->cstroke;
-			tshs2 = itemTextAtK->cshade2;
-			tsc2 = itemTextAtK->cscale / 10.0;
-			tscv2 = itemTextAtK->cscalev / 10.0;
-			tb2 = itemTextAtK->cbase / 10.0;
-			tsx2 = itemTextAtK->cshadowx / 10.0;
-			tsy2 = itemTextAtK->cshadowy / 10.0;
-			tout2 = itemTextAtK->coutline / 10.0;
-			tulp2 = itemTextAtK->cunderpos / 10.0;
-			tulw2 = itemTextAtK->cunderwidth / 10.0;
-			tstp2 = itemTextAtK->cstrikepos / 10.0;
-			tstw2 = itemTextAtK->cstrikewidth / 10.0;
-			if ((itemTextAtK->ch == QChar(25)) && (itemTextAtK->cembedded != 0))
-				tobj2 = itemTextAtK->cembedded->ItemNr;
+			const CharStyle& style2(item->itemText.charStyle(k));
+			ch = item->itemText.text(k);
+			ts2 = style2.csize / 10.0;
+			tf2 = style2.cfont->scName();
+			tc2 = style2.ccolor;
+			te2 = style2.cextra;
+			tsh2 = style2.cshade;
+			tst2 = style2.cstyle & 2047;
+#ifndef NLS_PROTO
+			tsb2 = item->itemText.at(k)->cab;
+#else
+			tsb2 = 0;
+#endif
+			tcs2 = style2.cstroke;
+			tshs2 = style2.cshade2;
+			tsc2 = style2.cscale / 10.0;
+			tscv2 = style2.cscalev / 10.0;
+			tb2 = style2.cbase / 10.0;
+			tsx2 = style2.cshadowx / 10.0;
+			tsy2 = style2.cshadowy / 10.0;
+			tout2 = style2.coutline / 10.0;
+			tulp2 = style2.cunderpos / 10.0;
+			tulw2 = style2.cunderwidth / 10.0;
+			tstp2 = style2.cstrikepos / 10.0;
+			tstw2 = style2.cstrikewidth / 10.0;
+#ifndef NLS_PROTO
+			if ((ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
+				tobj2 = item->itemText.at(k)->cembedded->ItemNr;
 			else
+#endif
 				tobj2 = -1;
 			while ((ts2 == ts)
 						&& (tsb2 == tsb)
@@ -2938,38 +2886,45 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 						&& (tobj2 == tobj)
 						&& (tst2 == tst))
 			{
-				if (itemTextAtK->ch == QChar(13))
+				if (ch == QChar(13))
 					text += QChar(5);
-				else if (itemTextAtK->ch == QChar(9))
+				else if (ch == QChar(9))
 					text += QChar(4);
 				else
-					text += itemTextAtK->ch;
+					text += ch;
 				++k;
-				if (k == item->itemText.count())
+				if (k == item->itemText.length())
 					break;
-				itemTextAtK = item->itemText.at(k);
-				ts2 = itemTextAtK->csize / 10.0;
-				tf2 = itemTextAtK->cfont->scName();
-				tc2 = itemTextAtK->ccolor;
-				te2 = itemTextAtK->cextra;
-				tsh2 = itemTextAtK->cshade;
-				tst2 = itemTextAtK->cstyle & 2047;
-				tsb2 = itemTextAtK->cab;
-				tcs2 = itemTextAtK->cstroke;
-				tshs2 = itemTextAtK->cshade2;
-				tsc2 = itemTextAtK->cscale / 10.0;
-				tscv2 = itemTextAtK->cscalev / 10.0;
-				tb2 = itemTextAtK->cbase / 10.0;
-				tsx2 = itemTextAtK->cshadowx / 10.0;
-				tsy2 = itemTextAtK->cshadowy / 10.0;
-				tout2 = itemTextAtK->coutline / 10.0;
-				tulp2 = itemTextAtK->cunderpos / 10.0;
-				tulw2 = itemTextAtK->cunderwidth / 10.0;
-				tstp2 = itemTextAtK->cstrikepos / 10.0;
-				tstw2 = itemTextAtK->cstrikewidth / 10.0;
-				if ((itemTextAtK->ch == QChar(25)) && (itemTextAtK->cembedded != 0))
-					tobj2 = itemTextAtK->cembedded->ItemNr;
+				const CharStyle& style3(item->itemText.charStyle(k));
+				ch = item->itemText.text(k);
+				ts2 = style3.csize / 10.0;
+				tf2 = style3.cfont->scName();
+				tc2 = style3.ccolor;
+				te2 = style3.cextra;
+				tsh2 = style3.cshade;
+				tst2 = style3.cstyle & 2047;
+#ifndef NLS_PROTO
+				tsb2 = item->itemText.at(k)->cab;
+#else
+				tsb2 = 0;
+#endif
+				tcs2 = style3.cstroke;
+				tshs2 = style3.cshade2;
+				tsc2 = style3.cscale / 10.0;
+				tscv2 = style3.cscalev / 10.0;
+				tb2 = style3.cbase / 10.0;
+				tsx2 = style3.cshadowx / 10.0;
+				tsy2 = style3.cshadowy / 10.0;
+				tout2 = style3.coutline / 10.0;
+				tulp2 = style3.cunderpos / 10.0;
+				tulw2 = style3.cunderwidth / 10.0;
+				tstp2 = style3.cstrikepos / 10.0;
+				tstw2 = style3.cstrikewidth / 10.0;
+#ifndef NLS_PROTO
+				if ((ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
+					tobj2 = item->itemText.at(k)->cembedded->ItemNr;
 				else
+#endif
 					tobj2 = -1;
 			}
 			it.setAttribute("CH",text);
@@ -3278,50 +3233,50 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		for (uint ff = 5; ff < doc->docParagraphStyles.count(); ++ff)
 		{
 			QDomElement fo=docu.createElement("STYLE");
-			fo.setAttribute("NAME",doc->docParagraphStyles[ff].Vname);
-			fo.setAttribute("ALIGN",doc->docParagraphStyles[ff].textAlignment);
-			fo.setAttribute("LINESPMode",doc->docParagraphStyles[ff].LineSpaMode);
-			fo.setAttribute("LINESP",doc->docParagraphStyles[ff].LineSpa);
-			fo.setAttribute("INDENT",doc->docParagraphStyles[ff].Indent);
-			fo.setAttribute("FIRST",doc->docParagraphStyles[ff].First);
-			fo.setAttribute("VOR",doc->docParagraphStyles[ff].gapBefore);
-			fo.setAttribute("NACH",doc->docParagraphStyles[ff].gapAfter);
-			fo.setAttribute("FONT",doc->docParagraphStyles[ff].Font);
-			fo.setAttribute("FONTSIZE",doc->docParagraphStyles[ff].FontSize / 10.0);
-			fo.setAttribute("DROP", static_cast<int>(doc->docParagraphStyles[ff].Drop));
-			fo.setAttribute("DROPLIN", doc->docParagraphStyles[ff].DropLin);
-			fo.setAttribute("DROPDIST", doc->docParagraphStyles[ff].DropDist);
-			fo.setAttribute("EFFECT", doc->docParagraphStyles[ff].FontEffect);
-			if (doc->docParagraphStyles[ff].TabValues.count() != 0)
+			fo.setAttribute("NAME",doc->docParagraphStyles[ff].name());
+			fo.setAttribute("ALIGN",doc->docParagraphStyles[ff].alignment());
+			fo.setAttribute("LINESPMode",doc->docParagraphStyles[ff].lineSpacingMode());
+			fo.setAttribute("LINESP",doc->docParagraphStyles[ff].lineSpacing());
+			fo.setAttribute("INDENT",doc->docParagraphStyles[ff].leftMargin());
+			fo.setAttribute("FIRST",doc->docParagraphStyles[ff].firstIndent());
+			fo.setAttribute("VOR",doc->docParagraphStyles[ff].gapBefore());
+			fo.setAttribute("NACH",doc->docParagraphStyles[ff].gapAfter());
+			fo.setAttribute("FONT",doc->docParagraphStyles[ff].charStyle().cfont->scName());
+			fo.setAttribute("FONTSIZE",doc->docParagraphStyles[ff].charStyle().csize / 10.0);
+			fo.setAttribute("DROP", static_cast<int>(doc->docParagraphStyles[ff].hasDropCap()));
+			fo.setAttribute("DROPLIN", doc->docParagraphStyles[ff].dropCapLines());
+			fo.setAttribute("DROPDIST", doc->docParagraphStyles[ff].dropCapOffset());
+			fo.setAttribute("EFFECT", doc->docParagraphStyles[ff].charStyle().effects());
+			if (doc->docParagraphStyles[ff].tabValues().count() != 0)
 			{
-				for (uint a = 0; a < doc->docParagraphStyles[ff].TabValues.count(); ++a)
+				for (uint a = 0; a < doc->docParagraphStyles[ff].tabValues().count(); ++a)
 				{
 					QDomElement tabs = docu.createElement("Tabs");
-					tabs.setAttribute("Type", (*doc->docParagraphStyles[ff].TabValues.at(a)).tabType);
-					tabs.setAttribute("Pos", (*doc->docParagraphStyles[ff].TabValues.at(a)).tabPosition);
+					tabs.setAttribute("Type", (*doc->docParagraphStyles[ff].tabValues().at(a)).tabType);
+					tabs.setAttribute("Pos", (*doc->docParagraphStyles[ff].tabValues().at(a)).tabPosition);
 					QString tabCh = "";
-					if (!(*doc->docParagraphStyles[ff].TabValues.at(a)).tabFillChar.isNull())
-						tabCh = QString((*doc->docParagraphStyles[ff].TabValues.at(a)).tabFillChar);
+					if (!(*doc->docParagraphStyles[ff].tabValues().at(a)).tabFillChar.isNull())
+						tabCh = QString((*doc->docParagraphStyles[ff].tabValues().at(a)).tabFillChar);
 					tabs.setAttribute("Fill", tabCh);
 					fo.appendChild(tabs);
 				}
 			}
-			fo.setAttribute("FCOLOR",doc->docParagraphStyles[ff].FColor);
-			fo.setAttribute("FSHADE",doc->docParagraphStyles[ff].FShade);
-			fo.setAttribute("SCOLOR",doc->docParagraphStyles[ff].SColor);
-			fo.setAttribute("SSHADE",doc->docParagraphStyles[ff].SShade);
-			fo.setAttribute("BASE", static_cast<int>(doc->docParagraphStyles[ff].BaseAdj));
-			fo.setAttribute("TXTSHX",doc->docParagraphStyles[ff].txtShadowX / 10.0);
-			fo.setAttribute("TXTSHY",doc->docParagraphStyles[ff].txtShadowY / 10.0);
-			fo.setAttribute("TXTOUT",doc->docParagraphStyles[ff].txtOutline / 10.0);
-			fo.setAttribute("TXTULP",doc->docParagraphStyles[ff].txtUnderPos / 10.0);
-			fo.setAttribute("TXTULW",doc->docParagraphStyles[ff].txtUnderWidth / 10.0);
-			fo.setAttribute("TXTSTP",doc->docParagraphStyles[ff].txtStrikePos / 10.0);
-			fo.setAttribute("TXTSTW",doc->docParagraphStyles[ff].txtStrikeWidth / 10.0);
-			fo.setAttribute("SCALEH",doc->docParagraphStyles[ff].scaleH / 10.0);
-			fo.setAttribute("SCALEV",doc->docParagraphStyles[ff].scaleV / 10.0);
-			fo.setAttribute("BASEO",doc->docParagraphStyles[ff].baseOff / 10.0);
-			fo.setAttribute("KERN",doc->docParagraphStyles[ff].kernVal / 10.0);
+			fo.setAttribute("FCOLOR",doc->docParagraphStyles[ff].charStyle().ccolor);
+			fo.setAttribute("FSHADE",doc->docParagraphStyles[ff].charStyle().cshade);
+			fo.setAttribute("SCOLOR",doc->docParagraphStyles[ff].charStyle().cstroke);
+			fo.setAttribute("SSHADE",doc->docParagraphStyles[ff].charStyle().cshade2);
+			fo.setAttribute("BASE", static_cast<int>(doc->docParagraphStyles[ff].useBaselineGrid()));
+			fo.setAttribute("TXTSHX",doc->docParagraphStyles[ff].charStyle().cshadowx / 10.0);
+			fo.setAttribute("TXTSHY",doc->docParagraphStyles[ff].charStyle().cshadowy / 10.0);
+			fo.setAttribute("TXTOUT",doc->docParagraphStyles[ff].charStyle().coutline / 10.0);
+			fo.setAttribute("TXTULP",doc->docParagraphStyles[ff].charStyle().cunderpos / 10.0);
+			fo.setAttribute("TXTULW",doc->docParagraphStyles[ff].charStyle().cunderwidth / 10.0);
+			fo.setAttribute("TXTSTP",doc->docParagraphStyles[ff].charStyle().cstrikepos / 10.0);
+			fo.setAttribute("TXTSTW",doc->docParagraphStyles[ff].charStyle().cstrikewidth / 10.0);
+			fo.setAttribute("SCALEH",doc->docParagraphStyles[ff].charStyle().cscale / 10.0);
+			fo.setAttribute("SCALEV",doc->docParagraphStyles[ff].charStyle().cscalev / 10.0);
+			fo.setAttribute("BASEO",doc->docParagraphStyles[ff].charStyle().cbase / 10.0);
+			fo.setAttribute("KERN",doc->docParagraphStyles[ff].charStyle().cextra / 10.0);
 			dc.appendChild(fo);
 		}
 	}

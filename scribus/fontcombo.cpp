@@ -198,7 +198,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc)
 			ilist.clear();
 			for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
 			{
-				if ((currentDoc->DocName == prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3]->PrivateFont) || (prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3]->PrivateFont.isEmpty()))
+				if ((prefsManager->appPrefs.AvailFonts.find(*it2 + " " + *it3) && currentDoc->DocName == prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3]->PrivateFont) || (prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3]->PrivateFont.isEmpty()))
 					ilist.append(*it3);
 			}
 			if (!ilist.isEmpty())
@@ -226,7 +226,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc)
 	{
 		for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
 		{
-			if ((currentDoc->DocName == prefsManager->appPrefs.AvailFonts[family + " " + *it3]->PrivateFont) || (prefsManager->appPrefs.AvailFonts[family + " " + *it3]->PrivateFont.isEmpty()))
+			if ((prefsManager->appPrefs.AvailFonts.find(family + " " + *it3) && currentDoc->DocName == prefsManager->appPrefs.AvailFonts[family + " " + *it3]->PrivateFont) || (prefsManager->appPrefs.AvailFonts[family + " " + *it3]->PrivateFont.isEmpty()))
 				ilist.append(*it3);
 		}
 		fontStyle->insertStringList(ilist);

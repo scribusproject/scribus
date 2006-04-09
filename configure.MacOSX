@@ -8,6 +8,7 @@ BUNDLE_LOCATION=/Applications/
 PKG_CONFIG_PATH=/sw/lib/pkgconfig
 export PKG_CONFIG_PATH
 QTDIR=/Developer/qt
+#QTDIR=/use/local/Trolltech/Qt-4.0.1
 export QTDIR
 
 MACOSX_DEPLOYMENT_TARGET=10.3 
@@ -19,8 +20,7 @@ CPPFLAGS=-I/sw/include
 LDFLAGS=-L/sw/lib
 export CPATH LDFLAGS CPPFLAGS MACOSX_DEPLOYMENT_TARGET LD_PREBIND LD_PREBIND_ALLOW_OVERLAP DYLD_LIBRARY_PATH
 
-./configure --enable-debug --enable-mac --enable-bundle --prefix=$BUNDLE_LOCATION/Scribus.app/Contents/ --with-extra-includes=/sw/include/ $EXTRACONF
-#--with-extra-libs=/sw/lib/
+./configure --enable-debug --enable-mac --enable-bundle --prefix=$BUNDLE_LOCATION/Scribus.app/Contents/ --with-extra-includes=/sw/include/ $EXTRACONF --with-qt-dir=$QTDIR --with-extra-libs=/sw/lib/
 
 cat > install_MacOSX.sh <<-EOF
 	#!/bin/sh

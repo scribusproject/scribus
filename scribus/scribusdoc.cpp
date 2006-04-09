@@ -60,6 +60,8 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "commonstrings.h"
 
+#include "text/nlsconfig.h"
+
 
 extern ScribusQApp* ScQApp;
 
@@ -220,49 +222,49 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	if (prefsData.toolSettings.dTextLineColor != CommonStrings::None)
 		PageColors.insert(prefsData.toolSettings.dTextLineColor, prefsData.DColors[prefsData.toolSettings.dTextLineColor]);
 	struct ParagraphStyle vg;
-	vg.Vname = "Normal Internal";
-	vg.LineSpaMode = 0;
-	vg.LineSpa = 15;
-	vg.textAlignment = 0;
-	vg.Indent = 0;
-	vg.First = 0;
-	vg.gapBefore = 0;
-	vg.gapAfter = 0;
-	vg.Font = "";
-	vg.FontSize = toolSettings.defSize;
-	vg.TabValues.clear();
-	vg.Drop = false;
-	vg.DropLin = 2;
-	vg.DropDist = 0;
-	vg.FontEffect = 0;
-	vg.FColor = toolSettings.dBrush;
-	vg.FShade = toolSettings.dShade;
-	vg.SColor = toolSettings.dPen;
-	vg.SShade = toolSettings.dShade2;
-	vg.BaseAdj = false;
-	vg.txtShadowX = 50;
-	vg.txtShadowY = -50;
-	vg.txtOutline = 10;
-	vg.txtUnderPos = typographicSettings.valueUnderlinePos;
-	vg.txtUnderWidth = typographicSettings.valueUnderlineWidth;
-	vg.txtStrikePos = typographicSettings.valueStrikeThruPos;
-	vg.txtStrikeWidth = typographicSettings.valueStrikeThruPos;
-	vg.scaleH = 1000;
-	vg.scaleV = 1000;
-	vg.baseOff = 0;
-	vg.kernVal = 0;
+	vg.setName("Normal Internal");
+	vg.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
+	vg.setLineSpacing(15);
+	vg.setAlignment(0);
+	vg.setLeftMargin(0);
+	vg.setFirstIndent(0);
+	vg.setGapBefore(0);
+	vg.setGapAfter(0);
+	vg.charStyle().cfont = NULL;
+	vg.charStyle().csize = toolSettings.defSize;
+	vg.tabValues().clear();
+	vg.setHasDropCap(false);
+	vg.setDropCapLines(2);
+	vg.setDropCapOffset(0);
+	vg.charStyle().cstyle = ScStyle_Default;
+	vg.charStyle().ccolor = toolSettings.dBrush;
+	vg.charStyle().cshade = toolSettings.dShade;
+	vg.charStyle().cstroke = toolSettings.dPen;
+	vg.charStyle().cshade2 = toolSettings.dShade2;
+	vg.charStyle().cbase = false;
+	vg.charStyle().cshadowx = 50;
+	vg.charStyle().cshadowy = -50;
+	vg.charStyle().coutline = 10;
+	vg.charStyle().cunderpos = typographicSettings.valueUnderlinePos;
+	vg.charStyle().cunderwidth = typographicSettings.valueUnderlineWidth;
+	vg.charStyle().cstrikepos = typographicSettings.valueStrikeThruPos;
+	vg.charStyle().cstrikewidth = typographicSettings.valueStrikeThruPos;
+	vg.charStyle().cscale = 1000;
+	vg.charStyle().cscalev = 1000;
+	vg.charStyle().cbase = 0;
+	vg.charStyle().cextra = 0;
 	docParagraphStyles.append(vg);
-	vg.Vname = "Center Internal";
-	vg.textAlignment = 1;
+	vg.setName("Center Internal");
+	vg.setAlignment(1);
 	docParagraphStyles.append(vg);
-	vg.Vname = "Rechts Internal";
-	vg.textAlignment = 2;
+	vg.setName("Rechts Internal");
+	vg.setAlignment(2);
 	docParagraphStyles.append(vg);
-	vg.Vname = "Block Internal";
-	vg.textAlignment = 3;
+	vg.setName("Block Internal");
+	vg.setAlignment(3);
 	docParagraphStyles.append(vg);
-	vg.Vname = "EBlock Internal";
-	vg.textAlignment = 4;
+	vg.setName("EBlock Internal");
+	vg.setAlignment(4);
 	docParagraphStyles.append(vg);
 	struct Layer ll;
 	ll.LNr = 0;
@@ -604,38 +606,38 @@ void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle>
 			{
 				for (uint xx=old; xx<ss->docParagraphStyles.count(); ++xx)
 				{
-					struct ParagraphStyle sty;
-					sty.Vname = ss->docParagraphStyles[xx].Vname;
-					sty.LineSpaMode = ss->docParagraphStyles[xx].LineSpaMode;
-					sty.LineSpa = ss->docParagraphStyles[xx].LineSpa;
-					sty.textAlignment = ss->docParagraphStyles[xx].textAlignment;
-					sty.Indent = ss->docParagraphStyles[xx].Indent;
-					sty.First = ss->docParagraphStyles[xx].First;
-					sty.gapBefore = ss->docParagraphStyles[xx].gapBefore;
-					sty.gapAfter = ss->docParagraphStyles[xx].gapAfter;
-					sty.Font = ss->docParagraphStyles[xx].Font;
-					sty.FontSize = ss->docParagraphStyles[xx].FontSize;
-					sty.TabValues = ss->docParagraphStyles[xx].TabValues;
-					sty.Drop = ss->docParagraphStyles[xx].Drop;
-					sty.DropLin = ss->docParagraphStyles[xx].DropLin;
-					sty.DropDist = ss->docParagraphStyles[xx].DropDist;
-					sty.FontEffect = ss->docParagraphStyles[xx].FontEffect;
-					sty.FColor = ss->docParagraphStyles[xx].FColor;
-					sty.FShade = ss->docParagraphStyles[xx].FShade;
-					sty.SColor = ss->docParagraphStyles[xx].SColor;
-					sty.SShade = ss->docParagraphStyles[xx].SShade;
-					sty.BaseAdj = ss->docParagraphStyles[xx].BaseAdj;
-					sty.txtShadowX = ss->docParagraphStyles[xx].txtShadowX;
-					sty.txtShadowY = ss->docParagraphStyles[xx].txtShadowY;
-					sty.txtOutline = ss->docParagraphStyles[xx].txtOutline;
-					sty.txtUnderPos = ss->docParagraphStyles[xx].txtUnderPos;
-					sty.txtUnderWidth = ss->docParagraphStyles[xx].txtUnderWidth;
-					sty.txtStrikePos = ss->docParagraphStyles[xx].txtStrikePos;
-					sty.txtStrikeWidth = ss->docParagraphStyles[xx].txtStrikeWidth;
-					sty.scaleH = ss->docParagraphStyles[xx].scaleH;
-					sty.scaleV = ss->docParagraphStyles[xx].scaleV;
-					sty.baseOff = ss->docParagraphStyles[xx].baseOff;
-					sty.kernVal = ss->docParagraphStyles[xx].kernVal;
+					ParagraphStyle sty;
+					sty.setName(ss->docParagraphStyles[xx].name());
+					sty.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(ss->docParagraphStyles[xx].lineSpacingMode()));
+					sty.setLineSpacing(ss->docParagraphStyles[xx].lineSpacing());
+					sty.setAlignment(ss->docParagraphStyles[xx].alignment());
+					sty.setLeftMargin(ss->docParagraphStyles[xx].leftMargin());
+					sty.setFirstIndent(ss->docParagraphStyles[xx].firstIndent());
+					sty.setGapBefore(ss->docParagraphStyles[xx].gapBefore());
+					sty.setGapAfter(ss->docParagraphStyles[xx].gapAfter());
+					sty.charStyle().cfont = ss->docParagraphStyles[xx].charStyle().font();
+					sty.charStyle().csize = ss->docParagraphStyles[xx].charStyle().fontSize();
+					sty.tabValues() = ss->docParagraphStyles[xx].tabValues();
+					sty.setHasDropCap(ss->docParagraphStyles[xx].hasDropCap());
+					sty.setDropCapLines(ss->docParagraphStyles[xx].dropCapLines());
+					sty.setDropCapOffset(ss->docParagraphStyles[xx].dropCapOffset());
+					sty.charStyle().cstyle = ss->docParagraphStyles[xx].charStyle().cstyle;
+					sty.charStyle().ccolor = ss->docParagraphStyles[xx].charStyle().ccolor;
+					sty.charStyle().cshade = ss->docParagraphStyles[xx].charStyle().cshade;
+					sty.charStyle().cstroke = ss->docParagraphStyles[xx].charStyle().cstroke;
+					sty.charStyle().cshade2 = ss->docParagraphStyles[xx].charStyle().cshade;
+					sty.setUseBaselineGrid(ss->docParagraphStyles[xx].useBaselineGrid());
+					sty.charStyle().cshadowx = ss->docParagraphStyles[xx].charStyle().cshadowx;
+					sty.charStyle().cshadowy = ss->docParagraphStyles[xx].charStyle().cshadowy;
+					sty.charStyle().coutline = ss->docParagraphStyles[xx].charStyle().coutline;
+					sty.charStyle().cunderpos = ss->docParagraphStyles[xx].charStyle().cunderpos;
+					sty.charStyle().cunderwidth = ss->docParagraphStyles[xx].charStyle().cunderwidth;
+					sty.charStyle().cstrikepos = ss->docParagraphStyles[xx].charStyle().cstrikepos;
+					sty.charStyle().cstrikewidth = ss->docParagraphStyles[xx].charStyle().cstrikewidth;
+					sty.charStyle().cscale = ss->docParagraphStyles[xx].charStyle().cscale;
+					sty.charStyle().cscalev = ss->docParagraphStyles[xx].charStyle().cscalev;
+					sty.charStyle().cbase = ss->docParagraphStyles[xx].charStyle().cbase;
+					sty.charStyle().cextra = ss->docParagraphStyles[xx].charStyle().cextra;
 					wrkStyles->append(sty);
 				}
 			}
@@ -1777,16 +1779,17 @@ void ScribusDoc::getUsedFonts(QMap<QString,int> *Really)
 					uint chr = it->itemText.text(e).unicode();
 					if ((chr == 13) || (chr == 32) || (chr == 29))
 						continue;
+#ifndef NLS_PROTO
 					if (chr == 9)
 					{
-						for (uint t1 = 0; t1 < docParagraphStyles[it->itemText.at(e)->cab].TabValues.count(); t1++)
+						for (uint t1 = 0; t1 < docParagraphStyles[it->itemText.at(e)->cab].tabValues().count(); t1++)
 						{
-							if (docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
+							if (docParagraphStyles[it->itemText.at(e)->cab].tabValues()[t1].tabFillChar.isNull())
 								continue;
-							chx = QString(docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar);
+							chx = QString(docParagraphStyles[it->itemText.at(e)->cab].tabValues()[t1].tabFillChar);
 							if ((it->itemText.charStyle(e).cstyle & ScStyle_SmallCaps) || (it->itemText.charStyle(e).cstyle & ScStyle_AllCaps))
 							{
-								if (chx.upper() != QString(docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar))
+								if (chx.upper() != QString(docParagraphStyles[it->itemText.at(e)->cab].tabValues()[t1].tabFillChar))
 									chx = chx.upper();
 							}
 							chr = chx[0].unicode();
@@ -1809,6 +1812,7 @@ void ScribusDoc::getUsedFonts(QMap<QString,int> *Really)
 						}
 						continue;
 					}
+#endif
 					if (chr == 30)
 					{
 						/* CB Removed forced loading of 0-9 for section based numbering
@@ -2153,12 +2157,12 @@ void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
 	sctextdata->cunderwidth = CurrTextUnderWidth;
 	sctextdata->cstrikepos = CurrTextStrikePos;
 	sctextdata->cstrikewidth = CurrTextStrikeWidth;
-	sctextdata->cstyle = CurrentStyle;
+	sctextdata->cstyle = static_cast<StyleFlag>(CurrentStyle);
 	sctextdata->cab = currentParaStyle;
-	if (!docParagraphStyles[currentParaStyle].Font.isEmpty())
+	if (!docParagraphStyles[currentParaStyle].charStyle().cfont == NULL)
 	{
-		sctextdata->cfont = (*AllFonts)[docParagraphStyles[currentParaStyle].Font];
-		sctextdata->csize = docParagraphStyles[currentParaStyle].FontSize;
+		sctextdata->cfont = docParagraphStyles[currentParaStyle].charStyle().font();
+		sctextdata->csize = docParagraphStyles[currentParaStyle].charStyle().fontSize();
 	}
 }
 
@@ -3718,7 +3722,7 @@ void ScribusDoc::ChLineSpa(double w)
 			m_Selection->itemAt(a)->setLineSpacing(w);
 			emit refreshItem(m_Selection->itemAt(a));
 		}
-		docParagraphStyles[0].LineSpa = w;
+		docParagraphStyles[0].setLineSpacing(w);
 		if (selectedItemCount > 1)
 			undoManager->commit();
 	}
@@ -3739,8 +3743,14 @@ void ScribusDoc::ItemFont(QString fon)
 				currItem->setFont(fon);
 				if (currItem->itemText.length() != 0)
 				{
+#ifndef NLS_PROTO
 					for (int a = 0; a < currItem->itemText.length(); ++a)
 						currItem->itemText.at(a)->cfont = (*AllFonts)[fon];
+#else
+					CharStyle newstyle;
+					newstyle.cfont = (*AllFonts)[fon];
+					currItem->itemText.applyStyle(0, currItem->itemText.length(), newstyle);
+#endif
 					if (currItem->asPathText())
 					{
 						currItem->updatePolyClip();
@@ -3755,11 +3765,17 @@ void ScribusDoc::ItemFont(QString fon)
 			{
 				if (currItem->itemText.length() != 0)
 				{
+#ifndef NLS_PROTO
 					for (int a = 0; a < currItem->itemText.length(); ++a)
-					{
 						if (currItem->itemText.selected(a))
 							currItem->itemText.at(a)->cfont = (*AllFonts)[fon];
-					}
+#else
+					CharStyle newstyle;
+					newstyle.cfont = (*AllFonts)[fon];
+					currItem->itemText.applyStyle(currItem->itemText.startOfSelection(),
+												  currItem->itemText.lengthOfSelection(), 
+												  newstyle);
+#endif
 					emit refreshItem(currItem);
 				}
 			}
@@ -3811,6 +3827,7 @@ void ScribusDoc::ItemTextBrush(QString farbe)
 			currItem = m_Selection->itemAt(a);
 			if ((currItem->asTextFrame()) || (currItem->asPathText()))
 			{
+#ifndef NLS_PROTO
 				if (appMode != modeEdit)
 					currItem->setFontFillColor(farbe);
 				for (uint i=0; i<currItem->itemText.count(); ++i)
@@ -3823,6 +3840,7 @@ void ScribusDoc::ItemTextBrush(QString farbe)
 					else
 						currItem->itemText.at(i)->ccolor = farbe;
 				}
+#endif
 			}
 			emit refreshItem(currItem);
 		}
@@ -3845,6 +3863,7 @@ void ScribusDoc::ItemTextBrushS(int sha)
 			currItem = m_Selection->itemAt(a);
 			if (currItem->asTextFrame())
 			{
+#ifndef NLS_PROTO
 				if (appMode != modeEdit)
 					currItem->setFontFillShade(sha);
 				for (uint i=0; i<currItem->itemText.count(); ++i)
@@ -3857,6 +3876,7 @@ void ScribusDoc::ItemTextBrushS(int sha)
 					else
 						currItem->itemText.at(i)->cshade = sha;
 				}
+#endif
 			}
 			emit refreshItem(currItem);
 		}
@@ -3881,6 +3901,7 @@ void ScribusDoc::ItemTextPen(QString farbe)
 			currItem = m_Selection->itemAt(a);
 			if ((currItem->asTextFrame()) || (currItem->asPathText()))
 			{
+#ifndef NLS_PROTO
 				if (appMode != modeEdit)
 					currItem->setFontStrokeColor(farbe);
 				for (uint i=0; i<currItem->itemText.count(); ++i)
@@ -3893,6 +3914,7 @@ void ScribusDoc::ItemTextPen(QString farbe)
 					else
 						currItem->itemText.at(i)->cstroke = farbe;
 				}
+#endif
 			}
 			emit refreshItem(currItem);
 		}
@@ -3915,6 +3937,7 @@ void ScribusDoc::ItemTextPenS(int sha)
 			currItem = m_Selection->itemAt(a);
 			if (currItem->asTextFrame())
 			{
+#ifndef NLS_PROTO
 				if (appMode != modeEdit)
 					currItem->setFontStrokeShade(sha);
 				for (uint i=0; i<currItem->itemText.count(); ++i)
@@ -3927,6 +3950,7 @@ void ScribusDoc::ItemTextPenS(int sha)
 					else
 						currItem->itemText.at(i)->cshade2 = sha;
 				}
+#endif
 			}
 			emit refreshItem(currItem);
 		}
@@ -3948,6 +3972,7 @@ void ScribusDoc::ItemTextScaleV(int sha)
 			currItem = m_Selection->itemAt(a);
 			if ((currItem->asTextFrame()) || (currItem->asPathText()))
 			{
+#ifndef NLS_PROTO
 				if (appMode != modeEdit)
 					currItem->setFontHeight(sha);
 				for (uint i=0; i<currItem->itemText.count(); ++i)
@@ -3960,6 +3985,7 @@ void ScribusDoc::ItemTextScaleV(int sha)
 					else
 						currItem->itemText.at(i)->cscalev = sha;
 				}
+#endif
 			}
 			emit refreshItem(currItem);
 		}
@@ -3982,6 +4008,7 @@ void ScribusDoc::ItemTextScale(int sha)
 			currItem = m_Selection->itemAt(a);
 			if ((currItem->asTextFrame()) || (currItem->asPathText()))
 			{
+#ifndef NLS_PROTO
 				if (appMode != modeEdit)
 					currItem->setFontWidth(sha);
 				for (uint i=0; i<currItem->itemText.count(); ++i)
@@ -3994,6 +4021,7 @@ void ScribusDoc::ItemTextScale(int sha)
 					else
 						currItem->itemText.at(i)->cscale = sha;
 				}
+#endif
 			}
 			emit refreshItem(currItem);
 		}
@@ -4013,6 +4041,7 @@ void ScribusDoc::setItemTextShadow(int shx, int shy)
 			currItem = m_Selection->itemAt(a);
 			if ((currItem->asTextFrame()) || (currItem->asPathText()))
 			{
+#ifndef NLS_PROTO
 				if (appMode != modeEdit)
 				{
 					currItem->TxtShadowX = shx;
@@ -4034,6 +4063,7 @@ void ScribusDoc::setItemTextShadow(int shx, int shy)
 						currItem->itemText.at(i)->cshadowy = shy;
 					}
 				}
+#endif
 			}
 			emit refreshItem(currItem);
 		}
@@ -4051,6 +4081,7 @@ void ScribusDoc::setItemTextUnderline(int pos, int wid)
 			currItem = m_Selection->itemAt(a);
 			if ((currItem->asTextFrame()) || (currItem->asPathText()))
 			{
+#ifndef NLS_PROTO
 				if (appMode != modeEdit)
 				{
 					currItem->TxtUnderPos = pos;
@@ -4072,6 +4103,7 @@ void ScribusDoc::setItemTextUnderline(int pos, int wid)
 						currItem->itemText.at(i)->cunderwidth = wid;
 					}
 				}
+#endif
 			}
 			emit refreshItem(currItem);
 		}
@@ -4089,6 +4121,7 @@ void ScribusDoc::setItemTextStrike(int pos, int wid)
 			currItem = m_Selection->itemAt(a);
 			if ((currItem->asTextFrame()) || (currItem->asPathText()))
 			{
+#ifndef NLS_PROTO
 				if (appMode != modeEdit)
 				{
 					currItem->TxtStrikePos = pos;
@@ -4110,6 +4143,7 @@ void ScribusDoc::setItemTextStrike(int pos, int wid)
 						currItem->itemText.at(i)->cstrikewidth = wid;
 					}
 				}
+#endif
 			}
 			emit refreshItem(currItem);
 		}
@@ -4127,6 +4161,7 @@ void ScribusDoc::setItemTextBase(int sha)
 			currItem = m_Selection->itemAt(a);
 			if ((currItem->asTextFrame()) || (currItem->asPathText()))
 			{
+#ifndef NLS_PROTO
 				if (appMode != modeEdit)
 					currItem->TxtBase = sha;
 				for (uint i=0; i<currItem->itemText.count(); ++i)
@@ -4139,6 +4174,7 @@ void ScribusDoc::setItemTextBase(int sha)
 					else
 						currItem->itemText.at(i)->cbase = sha;
 				}
+#endif
 			}
 			emit refreshItem(currItem);
 		}
@@ -4156,6 +4192,7 @@ void ScribusDoc::setItemTextOutline(int sha)
 			currItem = m_Selection->itemAt(a);
 			if ((currItem->asTextFrame()) || (currItem->asPathText()))
 			{
+#ifndef NLS_PROTO
 				if (appMode != modeEdit)
 					currItem->TxtOutline = sha;
 				for (uint i=0; i<currItem->itemText.count(); ++i)
@@ -4168,6 +4205,7 @@ void ScribusDoc::setItemTextOutline(int sha)
 					else
 						currItem->itemText.at(i)->coutline = sha;
 				}
+#endif
 			}
 			emit refreshItem(currItem);
 		}
@@ -4269,8 +4307,9 @@ void ScribusDoc::chTyStyle(int s)
 			PageItem *currItem = m_Selection->itemAt(aa);
 			if (appMode != modeEdit)
 				currItem->setFontEffects(s);
-			if (currItem->itemText.count() != 0)
+			if (currItem->itemText.length() != 0)
 			{
+#ifndef NLS_PROTO
 				if (appMode == modeEdit)
 				{
 					for (uint a = 0; a < currItem->itemText.count(); ++a)
@@ -4290,6 +4329,7 @@ void ScribusDoc::chTyStyle(int s)
 						currItem->itemText.at(a)->cstyle |= s;
 					}
 				}
+#endif
 				emit refreshItem(currItem);
 			}
 		}
@@ -4300,6 +4340,7 @@ void ScribusDoc::chTyStyle(int s)
 
 void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 {
+#ifndef NLS_PROTO
 	int a, ax;
 	PageItem *nextItem;
 	bool cr = true;
@@ -4331,28 +4372,28 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 				}
 				if (s > 4)
 				{
-					if (!docParagraphStyles[s].Font.isEmpty()
+					if (docParagraphStyles[s].charStyle().cfont != NULL
 						&& (!nextItem->HasSel || nextItem->itemText.at(a)->cselect))
 					{
-						nextItem->itemText.at(a)->cfont = (*AllFonts)[docParagraphStyles[s].Font];
-						nextItem->itemText.at(a)->csize = docParagraphStyles[s].FontSize;
+						nextItem->itemText.at(a)->cfont = docParagraphStyles[s].charStyle().cfont;
+						nextItem->itemText.at(a)->csize = docParagraphStyles[s].charStyle().fontSize();
 						nextItem->itemText.at(a)->cstyle &= ~1919;
-						nextItem->itemText.at(a)->cstyle |= docParagraphStyles[s].FontEffect;
-						nextItem->itemText.at(a)->ccolor = docParagraphStyles[s].FColor;
-						nextItem->itemText.at(a)->cshade = docParagraphStyles[s].FShade;
-						nextItem->itemText.at(a)->cstroke = docParagraphStyles[s].SColor;
-						nextItem->itemText.at(a)->cshade2 = docParagraphStyles[s].SShade;
-						nextItem->itemText.at(a)->cshadowx = docParagraphStyles[s].txtShadowX;
-						nextItem->itemText.at(a)->cshadowy = docParagraphStyles[s].txtShadowY;
-						nextItem->itemText.at(a)->coutline = docParagraphStyles[s].txtOutline;
-						nextItem->itemText.at(a)->cunderpos = docParagraphStyles[s].txtUnderPos;
-						nextItem->itemText.at(a)->cunderwidth = docParagraphStyles[s].txtUnderWidth;
-						nextItem->itemText.at(a)->cstrikepos = docParagraphStyles[s].txtStrikePos;
-						nextItem->itemText.at(a)->cstrikewidth = docParagraphStyles[s].txtStrikeWidth;
-						nextItem->itemText.at(a)->cscale = docParagraphStyles[s].scaleH;
-						nextItem->itemText.at(a)->cscalev = docParagraphStyles[s].scaleV;
-						nextItem->itemText.at(a)->cbase = docParagraphStyles[s].baseOff;
-						nextItem->itemText.at(a)->cextra = docParagraphStyles[s].kernVal;
+						nextItem->itemText.at(a)->cstyle |= docParagraphStyles[s].charStyle().cstyle;
+						nextItem->itemText.at(a)->ccolor = docParagraphStyles[s].charStyle().ccolor;
+						nextItem->itemText.at(a)->cshade = docParagraphStyles[s].charStyle().cshade;
+						nextItem->itemText.at(a)->cstroke = docParagraphStyles[s].charStyle().cstroke;
+						nextItem->itemText.at(a)->cshade2 = docParagraphStyles[s].charStyle().cshade2;
+						nextItem->itemText.at(a)->cshadowx = docParagraphStyles[s].charStyle().cshadowx;
+						nextItem->itemText.at(a)->cshadowy = docParagraphStyles[s].charStyle().cshadowy;
+						nextItem->itemText.at(a)->coutline = docParagraphStyles[s].charStyle().coutline;
+						nextItem->itemText.at(a)->cunderpos = docParagraphStyles[s].charStyle().cunderpos;
+						nextItem->itemText.at(a)->cunderwidth = docParagraphStyles[s].charStyle().cunderwidth;
+						nextItem->itemText.at(a)->cstrikepos = docParagraphStyles[s].charStyle().cstrikepos;
+						nextItem->itemText.at(a)->cstrikewidth = docParagraphStyles[s].charStyle().cstrikewidth;
+						nextItem->itemText.at(a)->cscale = docParagraphStyles[s].charStyle().cscale;
+						nextItem->itemText.at(a)->cscalev = docParagraphStyles[s].charStyle().cscalev;
+						nextItem->itemText.at(a)->cbase = docParagraphStyles[s].charStyle().cbase;
+						nextItem->itemText.at(a)->cextra = docParagraphStyles[s].charStyle().cextra;
 					}
 				}
 				if ((s < 5) && (nextItem->itemText.at(a)->cab > 4))
@@ -4398,28 +4439,28 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 			{
 				if (s > 4)
 				{
-					if (!docParagraphStyles[s].Font.isEmpty()
+					if (docParagraphStyles[s].charStyle().cfont != NULL
 						&& (!nextItem->HasSel || nextItem->itemText.at(a)->cselect))
 					{
-						nextItem->itemText.at(a)->cfont = (*AllFonts)[docParagraphStyles[s].Font];
-						nextItem->itemText.at(a)->csize = docParagraphStyles[s].FontSize;
+						nextItem->itemText.at(a)->cfont = docParagraphStyles[s].charStyle().cfont;
+						nextItem->itemText.at(a)->csize = docParagraphStyles[s].charStyle().fontSize();
 						nextItem->itemText.at(a)->cstyle &= ~1919;
-						nextItem->itemText.at(a)->cstyle |= docParagraphStyles[s].FontEffect;
-						nextItem->itemText.at(a)->ccolor = docParagraphStyles[s].FColor;
-						nextItem->itemText.at(a)->cshade = docParagraphStyles[s].FShade;
-						nextItem->itemText.at(a)->cstroke = docParagraphStyles[s].SColor;
-						nextItem->itemText.at(a)->cshade2 = docParagraphStyles[s].SShade;
-						nextItem->itemText.at(a)->cshadowx = docParagraphStyles[s].txtShadowX;
-						nextItem->itemText.at(a)->cshadowy = docParagraphStyles[s].txtShadowY;
-						nextItem->itemText.at(a)->coutline = docParagraphStyles[s].txtOutline;
-						nextItem->itemText.at(a)->cunderpos = docParagraphStyles[s].txtUnderPos;
-						nextItem->itemText.at(a)->cunderwidth = docParagraphStyles[s].txtUnderWidth;
-						nextItem->itemText.at(a)->cstrikepos = docParagraphStyles[s].txtStrikePos;
-						nextItem->itemText.at(a)->cstrikewidth = docParagraphStyles[s].txtStrikeWidth;
-						nextItem->itemText.at(a)->cscale = docParagraphStyles[s].scaleH;
-						nextItem->itemText.at(a)->cscalev = docParagraphStyles[s].scaleV;
-						nextItem->itemText.at(a)->cbase = docParagraphStyles[s].baseOff;
-						nextItem->itemText.at(a)->cextra = docParagraphStyles[s].kernVal;
+						nextItem->itemText.at(a)->cstyle |= docParagraphStyles[s].charStyle().cstyle;
+						nextItem->itemText.at(a)->ccolor = docParagraphStyles[s].charStyle().ccolor;
+						nextItem->itemText.at(a)->cshade = docParagraphStyles[s].charStyle().cshade;
+						nextItem->itemText.at(a)->cstroke = docParagraphStyles[s].charStyle().cstroke;
+						nextItem->itemText.at(a)->cshade2 = docParagraphStyles[s].charStyle().cshade2;
+						nextItem->itemText.at(a)->cshadowx = docParagraphStyles[s].charStyle().cshadowx;
+						nextItem->itemText.at(a)->cshadowy = docParagraphStyles[s].charStyle().cshadowy;
+						nextItem->itemText.at(a)->coutline = docParagraphStyles[s].charStyle().coutline;
+						nextItem->itemText.at(a)->cunderpos = docParagraphStyles[s].charStyle().cunderpos;
+						nextItem->itemText.at(a)->cunderwidth = docParagraphStyles[s].charStyle().cunderwidth;
+						nextItem->itemText.at(a)->cstrikepos = docParagraphStyles[s].charStyle().cstrikepos;
+						nextItem->itemText.at(a)->cstrikewidth = docParagraphStyles[s].charStyle().cstrikewidth;
+						nextItem->itemText.at(a)->cscale = docParagraphStyles[s].charStyle().cscale;
+						nextItem->itemText.at(a)->cscalev = docParagraphStyles[s].charStyle().cscalev;
+						nextItem->itemText.at(a)->cbase = docParagraphStyles[s].charStyle().cbase;
+						nextItem->itemText.at(a)->cextra = docParagraphStyles[s].charStyle().cextra;
 					}
 				}
 				if ((s < 5) && (nextItem->itemText.at(a)->cab > 4))
@@ -4476,27 +4517,27 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 			{
 				if (s > 4)
 				{
-					if (!docParagraphStyles[s].Font.isEmpty())
+					if (docParagraphStyles[s].charStyle().cfont != NULL)
 					{
-						currItem->itemText.at(a)->cfont = (*AllFonts)[docParagraphStyles[s].Font];
-						currItem->itemText.at(a)->csize = docParagraphStyles[s].FontSize;
+						currItem->itemText.at(a)->cfont = docParagraphStyles[s].charStyle().font();
+						currItem->itemText.at(a)->csize = docParagraphStyles[s].charStyle().fontSize();
 						currItem->itemText.at(a)->cstyle &= ~1919;
-						currItem->itemText.at(a)->cstyle |= docParagraphStyles[s].FontEffect;
-						currItem->itemText.at(a)->ccolor = docParagraphStyles[s].FColor;
-						currItem->itemText.at(a)->cshade = docParagraphStyles[s].FShade;
-						currItem->itemText.at(a)->cstroke = docParagraphStyles[s].SColor;
-						currItem->itemText.at(a)->cshade2 = docParagraphStyles[s].SShade;
-						currItem->itemText.at(a)->cshadowx = docParagraphStyles[s].txtShadowX;
-						currItem->itemText.at(a)->cshadowy = docParagraphStyles[s].txtShadowY;
-						currItem->itemText.at(a)->coutline = docParagraphStyles[s].txtOutline;
-						currItem->itemText.at(a)->cunderpos = docParagraphStyles[s].txtUnderPos;
-						currItem->itemText.at(a)->cunderwidth = docParagraphStyles[s].txtUnderWidth;
-						currItem->itemText.at(a)->cstrikepos = docParagraphStyles[s].txtStrikePos;
-						currItem->itemText.at(a)->cstrikewidth = docParagraphStyles[s].txtStrikeWidth;
-						currItem->itemText.at(a)->cscale = docParagraphStyles[s].scaleH;
-						currItem->itemText.at(a)->cscalev = docParagraphStyles[s].scaleV;
-						currItem->itemText.at(a)->cbase = docParagraphStyles[s].baseOff;
-						currItem->itemText.at(a)->cextra = docParagraphStyles[s].kernVal;
+						currItem->itemText.at(a)->cstyle |= docParagraphStyles[s].charStyle().cstyle;
+						currItem->itemText.at(a)->ccolor = docParagraphStyles[s].charStyle().ccolor;
+						currItem->itemText.at(a)->cshade = docParagraphStyles[s].charStyle().cshade;
+						currItem->itemText.at(a)->cstroke = docParagraphStyles[s].charStyle().cstroke;
+						currItem->itemText.at(a)->cshade2 = docParagraphStyles[s].charStyle().cshade2;
+						currItem->itemText.at(a)->cshadowx = docParagraphStyles[s].charStyle().cshadowx;
+						currItem->itemText.at(a)->cshadowy = docParagraphStyles[s].charStyle().cshadowy;
+						currItem->itemText.at(a)->coutline = docParagraphStyles[s].charStyle().coutline;
+						currItem->itemText.at(a)->cunderpos = docParagraphStyles[s].charStyle().cunderpos;
+						currItem->itemText.at(a)->cunderwidth = docParagraphStyles[s].charStyle().cunderwidth;
+						currItem->itemText.at(a)->cstrikepos = docParagraphStyles[s].charStyle().cstrikepos;
+						currItem->itemText.at(a)->cstrikewidth = docParagraphStyles[s].charStyle().cstrikewidth;
+						currItem->itemText.at(a)->cscale = docParagraphStyles[s].charStyle().cscale;
+						currItem->itemText.at(a)->cscalev = docParagraphStyles[s].charStyle().cscalev;
+						currItem->itemText.at(a)->cbase = docParagraphStyles[s].charStyle().cbase;
+						currItem->itemText.at(a)->cextra = docParagraphStyles[s].charStyle().cextra;
 					}
 				}
 				if ((s < 5) && (currItem->itemText.at(a)->cab > 4))
@@ -4538,16 +4579,17 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 		ScMW->view->horizRuler->Cols = currItem->Cols;
 		ScMW->view->horizRuler->Extra = currItem->textToFrameDistLeft();
 		ScMW->view->horizRuler->RExtra = currItem->textToFrameDistRight();
-		ScMW->view->horizRuler->First = docParagraphStyles[s].First;
-		ScMW->view->horizRuler->Indent = docParagraphStyles[s].Indent;
+		ScMW->view->horizRuler->First = docParagraphStyles[s].firstIndent();
+		ScMW->view->horizRuler->Indent = docParagraphStyles[s].leftMargin();
 		ScMW->view->horizRuler->Revers = (currItem->imageFlippedH() || (currItem->reversed()));
 		ScMW->view->horizRuler->ItemPosValid = true;
 		if (s < 5)
 			ScMW->view->horizRuler->TabValues = currItem->TabValues;
 		else
-			ScMW->view->horizRuler->TabValues = docParagraphStyles[s].TabValues;
+			ScMW->view->horizRuler->TabValues = docParagraphStyles[s].tabValues();
 		ScMW->view->horizRuler->repaint();
 	}
+#endif
 }
 
 void ScribusDoc::chKerning(int us)
@@ -4563,6 +4605,7 @@ void ScribusDoc::chKerning(int us)
 			PageItem *currItem = m_Selection->itemAt(aa);
 			if ((currItem->HasSel) && (appMode == modeEdit))
 			{
+#ifndef NLS_PROTO
 				if (currItem->itemText.count() != 0)
 				{
 					for (uint a = 0; a < currItem->itemText.count(); ++a)
@@ -4572,11 +4615,13 @@ void ScribusDoc::chKerning(int us)
 					}
 					emit refreshItem(currItem);
 				}
+#endif
 			}
 			else
 			{
 				if (appMode != modeEdit)
 					currItem->setKerning(us);
+#ifndef NLS_PROTO
 				if (currItem->itemText.count() != 0)
 				{
 					for (uint a = 0; a < currItem->itemText.count(); ++a)
@@ -4585,6 +4630,7 @@ void ScribusDoc::chKerning(int us)
 					}
 					emit refreshItem(currItem);
 				}
+#endif
 			}
 		}
 		if (docSelectionCount > 1)
@@ -4605,22 +4651,22 @@ void ScribusDoc::ChLineSpaMode(int w)
 				if (w == 0)
 				{
 					currItem->setLineSpacing(((currItem->fontSize() / 10.0) * static_cast<double>(typographicSettings.autoLineSpacing) / 100) + (currItem->fontSize() / 10.0));
-					docParagraphStyles[0].BaseAdj = false;
+					docParagraphStyles[0].setUseBaselineGrid(false);
 				}
 				else if (w == 1)
 				{
-					docParagraphStyles[0].BaseAdj = false;
+					docParagraphStyles[0].setUseBaselineGrid(false);
 					currItem->setLineSpacing(RealFHeight(this, (*AllFonts)[currItem->font()], currItem->fontSize()));
 				}
 				else
 				{
-					docParagraphStyles[0].BaseAdj = true;
+					docParagraphStyles[0].setUseBaselineGrid(true);
 					currItem->setLineSpacing(typographicSettings.valueBaseGrid-1);
 				}
-				docParagraphStyles[0].LineSpa = currItem->lineSpacing();
+				docParagraphStyles[0].setLineSpacing(currItem->lineSpacing());
 				emit refreshItem(currItem);
 			}
-			docParagraphStyles[0].LineSpaMode = w;
+			docParagraphStyles[0].setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(w));
 		}
 	}
 }
@@ -4642,12 +4688,12 @@ void ScribusDoc::chFSize(int size)
 				if (currItem->lineSpacingMode() == 0)
 				{
 					currItem->setLineSpacing(((size / 10.0) * static_cast<double>(typographicSettings.autoLineSpacing) / 100) + (size / 10.0));
-					docParagraphStyles[0].LineSpa = currItem->lineSpacing();
+					docParagraphStyles[0].setLineSpacing(currItem->lineSpacing());
 				}
 				else if (currItem->lineSpacingMode() == 1)
 				{
 					currItem->setLineSpacing(RealFHeight(this, (*AllFonts)[currItem->font()], currItem->fontSize()));
-					docParagraphStyles[0].LineSpa = currItem->lineSpacing();
+					docParagraphStyles[0].setLineSpacing(currItem->lineSpacing());
 				}
 				else
 				{
@@ -4657,6 +4703,7 @@ void ScribusDoc::chFSize(int size)
 				//CB move from view to doc.. why are we emitting column data here?
 				//emit ItemTextCols(currItem->Cols, currItem->ColGap);
 			}
+#ifndef NLS_PROTO
 			uint currItemTextCount=currItem->itemText.count();
 			if (currItemTextCount != 0)
 			{
@@ -4683,11 +4730,52 @@ void ScribusDoc::chFSize(int size)
 				}
 				emit refreshItem(currItem);
 			}
+#endif
 		}
 		if (docSelectionCount > 1)
 			undoManager->commit();
 	}
 }
+
+void ScribusDoc::itemSelection_ApplyTextStyle(const CharStyle & newstyle)
+{
+	uint docSelectionCount=m_Selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle,
+										  newstyle.asString(), Um::IFont);
+		for (uint aa = 0; aa < docSelectionCount; ++aa)
+		{
+			PageItem *currItem = m_Selection->itemAt(aa);
+			uint currItemTextCount=currItem->itemText.length();
+			if (currItemTextCount != 0)
+			{
+				if (appMode == modeEdit)
+				{
+					int start = currItem->itemText.startOfSelection();
+					int length = currItem->itemText.endOfSelection();
+					if (length > 0)
+						currItem->itemText.applyStyle(start, length, newstyle);
+				}
+				else
+				{
+					currItem->itemText.applyStyle(0, currItemTextCount, newstyle);
+				}
+				if (currItem->asPathText())
+				{
+					currItem->updatePolyClip();
+					ScMW->view->AdjustItemSize(currItem);
+				}
+//				emit refreshItem(currItem);
+			}
+		}
+		if (docSelectionCount > 1)
+			undoManager->commit();
+		emit updateContents();
+	}
+}
+
 /* CB Dont delete, backups
 void ScribusDoc::FlipImageH()
 {
@@ -5301,7 +5389,7 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 			else
 			if (currItem->asTextFrame() && ScQApp->usingGUI())
 			{
-				if (currItem->itemText.count() != 0 && (currItem->NextBox == 0 || currItem->BackBox == 0))
+				if (currItem->itemText.length() != 0 && (currItem->NextBox == 0 || currItem->BackBox == 0))
 				{
 					int t = ScMessageBox::warning(ScMW, CommonStrings::trWarning,
 										tr("Do you really want to clear all your text?"),
@@ -5364,6 +5452,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
 			ScMW->fileWatcher->removeFile(currItem->Pfile);
 		if (currItem->asTextFrame())
 		{
+#ifndef NLS_PROTO
 			if ((currItem->NextBox != 0) || (currItem->BackBox != 0))
 			{
 				if (currItem->BackBox == 0)
@@ -5392,13 +5481,13 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
 			}
 			else
 			{
-				//CB #3372 currItem->itemText.clear();
 				if (currItem->isAutoText)
 				{
 					LastAuto = 0;
 					FirstAuto = 0;
 				}
 			}
+#endif
 		}
 		if (currItem->isBookmark)
 			//CB From view   emit DelBM(currItem);

@@ -192,6 +192,7 @@ scribus_SOURCES = \
 	scribuswin.cpp	\
 	scribusXml.cpp	\
 	scrpalettebase.cpp	\
+	sctextstruct.cpp \
 	sctoolbar.cpp \
 	search.cpp	\
 	seiten.cpp	\
@@ -253,10 +254,15 @@ SUBDIRS = $(renderer_subdirs) dicts doc icons keysets manpages po profiles qm sw
 # EXTRA_DIST =
 
 
+
 about.o: about_builddate.inc
 
 about_builddate.inc:
-	python -c 'f = open("about_builddate.inc", "w") ; import sys; args = sys.argv + [""]; import time; f.write(time.strftime("BUILD_YEAR = \"%Y\";\nBUILD_DAY = \"%d\";\nBUILD_MONTH = \"%B\";\nBUILD_TIME=\"%H:%M\";\nBUILD_TZ = \"%Z\";\n")); f.write("BUILD_NAME = \"%s\";\n" % args[1]); f.close()' ${BUILD_NAME}
+	if -n BUILD_NAME ; then
+	   python -c 'f = open("about_builddate.inc", "w") ; import sys; args = sys.argv + [""]; import time; f.write(time.strftime("BUILD_YEAR = \"%Y\";\nBUILD_DAY = \"%d\";\nBUILD_MONTH = \"%B\";\nBUILD_TIME=\"%H:%M\";\nBUILD_TZ = \"%Z\";\n")); f.write("BUILD_NAME = \"%s\";\n" % args[1]); f.close()' ${BUILD_NAME}
+	else
+	   touch about_builddate.inc
+	endif
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/

@@ -46,8 +46,8 @@ DelStyle::DelStyle(QWidget* parent, QValueList<ParagraphStyle> sty, QString styl
 	QStringList existingStyles;
 	for (uint x = 5; x < sty.count(); ++x)
 	{
-		if (sty[x].Vname != styleName)
-			existingStyles.append(sty[x].Vname);
+		if (sty[x].name() != styleName)
+			existingStyles.append(sty[x].name());
 	}
 	existingStyles = sortQStringList(existingStyles);
 	replacementStyleData->insertStringList(existingStyles);
@@ -99,58 +99,22 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 	bool tabEQ = false;
 	for (uint x = 5; x < styleList->count(); ++x)
 	{
-		struct ParagraphStyle vg;
-		struct ParagraphStyle vg2;
+		ParagraphStyle vg;
+		ParagraphStyle vg2;
 		vg = (*styleList)[x];
 		bool found = false;
 		for (uint xx=0; xx<styleOld->count(); ++xx)
 		{
 			vg2 = (*styleOld)[xx];
-			if (vg.Vname == vg2.Vname)
+			if (vg.name() == vg2.name())
 			{
-				struct PageItem::TabRecord tb;
-				tabEQ = false;
-				if ((vg2.TabValues.count() == 0) && (vg.TabValues.count() == 0))
-					tabEQ = true;
-				else
-				{
-					for (uint t1 = 0; t1 < vg2.TabValues.count(); t1++)
-					{
-						tb.tabPosition = vg2.TabValues[t1].tabPosition;
-						tb.tabType = vg2.TabValues[t1].tabType;
-						tb.tabFillChar = vg2.TabValues[t1].tabFillChar;
-						for (uint t2 = 0; t2 < vg.TabValues.count(); t2++)
-						{
-							struct PageItem::TabRecord tb2;
-							tb2.tabPosition = vg.TabValues[t2].tabPosition;
-							tb2.tabType = vg.TabValues[t2].tabType;
-							tb2.tabFillChar = vg.TabValues[t2].tabFillChar;
-							if ((tb2.tabFillChar == tb.tabFillChar) && (tb2.tabPosition == tb.tabPosition) && (tb2.tabType == tb.tabType))
-							{
-								tabEQ = true;
-								break;
-							}
-						}
-						if (tabEQ)
-							break;
-					}
-				}
-				if ((vg.LineSpa == vg2.LineSpa) && (vg.Indent == vg2.Indent) && (vg.First == vg2.First) &&
-				        (vg.textAlignment == vg2.textAlignment) && (vg.gapBefore == vg2.gapBefore) &&
-				        (vg.LineSpaMode == vg2.LineSpaMode) && (vg.gapAfter == vg2.gapAfter) && (vg.Font == vg2.Font) && (tabEQ)
-				        && (vg.Drop == vg2.Drop) && (vg.DropDist == vg2.DropDist) && (vg.DropLin == vg2.DropLin) && (vg.FontEffect == vg2.FontEffect) &&
-				        (vg.FColor == vg2.FColor) && (vg.FShade == vg2.FShade) && (vg.SColor == vg2.SColor) &&
-				        (vg.txtShadowX == vg2.txtShadowX) && (vg.txtShadowY == vg2.txtShadowY) &&
-				        (vg.txtOutline == vg2.txtOutline) && (vg.txtUnderPos == vg2.txtUnderPos) && (vg.txtUnderWidth == vg2.txtUnderWidth) &&
-				        (vg.scaleH == vg2.scaleH) && (vg.scaleV == vg2.scaleV) && (vg.baseOff == vg2.baseOff) && (vg.kernVal == vg2.kernVal) &&
-				        (vg.txtStrikePos == vg2.txtStrikePos) && (vg.txtStrikeWidth == vg2.txtStrikeWidth) &&
-				        (vg.SShade == vg2.SShade) && (vg.BaseAdj == vg2.BaseAdj) && (vg.FontSize == vg2.FontSize))
+				if (vg.equiv(vg2))
 				{
 					found = true;
 				}
 				else
 				{
-					vg.Vname = "Copy of "+vg2.Vname;
+					vg.setName("Copy of "+vg2.name());
 					found = false;
 				}
 				break;
@@ -158,7 +122,7 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 		}
 		if (!found)
 		{
-			QCheckListItem *item = new QCheckListItem (StyleView, vg.Vname, QCheckListItem::CheckBox);
+			QCheckListItem *item = new QCheckListItem (StyleView, vg.name(), QCheckListItem::CheckBox);
 			item->setOn(true);
 			storedStyles.insert(item, counter);
 		}
@@ -254,7 +218,7 @@ void StilFormate::selFormat(QListBoxItem *c)
 {
 	for (uint x = 5; x < TempVorl.count(); ++x)
 	{
-		if (TempVorl[x].Vname == c->text())
+		if (TempVorl[x].name() == c->text())
 		{
 			sFnumber = x;
 			break;
@@ -269,7 +233,7 @@ void StilFormate::selEditFormat(QListBoxItem *c)
 {
 	for (uint x = 5; x < TempVorl.count(); ++x)
 	{
-		if (TempVorl[x].Vname == c->text())
+		if (TempVorl[x].name() == c->text())
 		{
 			sFnumber = x;
 			break;
@@ -283,38 +247,22 @@ void StilFormate::selEditFormat(QListBoxItem *c)
 
 void StilFormate::dupFormat()
 {
-	struct ParagraphStyle sty;
-	sty.Vname = tr("Copy of %1").arg(TempVorl[sFnumber].Vname);
-	sty.LineSpaMode = TempVorl[sFnumber].LineSpaMode;
-	sty.LineSpa = TempVorl[sFnumber].LineSpa;
-	sty.textAlignment = TempVorl[sFnumber].textAlignment;
-	sty.Indent = TempVorl[sFnumber].Indent;
-	sty.First = TempVorl[sFnumber].First;
-	sty.gapBefore = TempVorl[sFnumber].gapBefore;
-	sty.gapAfter = TempVorl[sFnumber].gapAfter;
-	sty.Font = TempVorl[sFnumber].Font;
-	sty.FontSize = TempVorl[sFnumber].FontSize;
-	sty.TabValues = TempVorl[sFnumber].TabValues;
-	sty.Drop = TempVorl[sFnumber].Drop;
-	sty.DropLin = TempVorl[sFnumber].DropLin;
-	sty.DropDist = TempVorl[sFnumber].DropDist;
-	sty.FontEffect = TempVorl[sFnumber].FontEffect;
-	sty.FColor = TempVorl[sFnumber].FColor;
-	sty.FShade = TempVorl[sFnumber].FShade;
-	sty.SColor = TempVorl[sFnumber].SColor;
-	sty.SShade = TempVorl[sFnumber].SShade;
-	sty.BaseAdj = TempVorl[sFnumber].BaseAdj;
-	sty.txtShadowX = TempVorl[sFnumber].txtShadowX;
-	sty.txtShadowY = TempVorl[sFnumber].txtShadowY;
-	sty.txtOutline = TempVorl[sFnumber].txtOutline;
-	sty.txtUnderPos = TempVorl[sFnumber].txtUnderPos;
-	sty.txtUnderWidth = TempVorl[sFnumber].txtUnderWidth;
-	sty.txtStrikePos = TempVorl[sFnumber].txtStrikePos;
-	sty.txtStrikeWidth = TempVorl[sFnumber].txtStrikeWidth;
-	sty.scaleH = TempVorl[sFnumber].scaleH;
-	sty.scaleV = TempVorl[sFnumber].scaleV;
-	sty.baseOff = TempVorl[sFnumber].baseOff;
-	sty.kernVal = TempVorl[sFnumber].kernVal;
+	ParagraphStyle sty; // = TempVorl[sFnumber];
+	sty.setName(tr("Copy of %1").arg(TempVorl[sFnumber].name()));
+	sty.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(TempVorl[sFnumber].lineSpacingMode()));
+	sty.setLineSpacing(TempVorl[sFnumber].lineSpacing());
+	sty.setAlignment(TempVorl[sFnumber].alignment());
+	sty.setLeftMargin(TempVorl[sFnumber].leftMargin());
+	sty.setRightMargin(TempVorl[sFnumber].rightMargin());
+	sty.setFirstIndent(TempVorl[sFnumber].firstIndent());
+	sty.setGapBefore(TempVorl[sFnumber].gapBefore());
+	sty.setGapAfter(TempVorl[sFnumber].gapAfter());
+	sty.setHasDropCap(TempVorl[sFnumber].hasDropCap());
+	sty.setDropCapLines(TempVorl[sFnumber].dropCapLines());
+	sty.setDropCapOffset(TempVorl[sFnumber].dropCapOffset());
+	sty.setUseBaselineGrid(TempVorl[sFnumber].useBaselineGrid());
+	sty.tabValues() = TempVorl[sFnumber].tabValues();
+	sty.charStyle() = TempVorl[sFnumber].charStyle();
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true,
@@ -330,37 +278,39 @@ void StilFormate::neuesFormat()
 	int selectedIndex=ListBox1->currentItem();
 	int topIndex=ListBox1->topItem();
 	struct ParagraphStyle sty;
-	sty.Vname = tr("New Style");
-	sty.LineSpaMode = 0;
-	sty.LineSpa = ((Docu->toolSettings.defSize / 10.0) * static_cast<double>(Docu->typographicSettings.autoLineSpacing) / 100) + (Docu->toolSettings.defSize / 10.0);
-	sty.textAlignment = 0;
-	sty.Indent = 0;
-	sty.First = 0;
-	sty.gapBefore = 0;
-	sty.gapAfter = 0;
-	sty.Font = Docu->toolSettings.defFont;
-	sty.FontSize = Docu->toolSettings.defSize;
-	sty.TabValues.clear();
-	sty.Drop = false;
-	sty.DropLin = 2;
-	sty.DropDist = 0;
-	sty.FontEffect = 0;
-	sty.FColor = Docu->toolSettings.dBrush;
-	sty.FShade = Docu->toolSettings.dShade;
-	sty.SColor = Docu->toolSettings.dPen;
-	sty.SShade = Docu->toolSettings.dShade2;
-	sty.BaseAdj = false;
-	sty.txtShadowX = 50;
-	sty.txtShadowY = -50;
-	sty.txtOutline = 10;
-	sty.txtUnderPos = Docu->typographicSettings.valueUnderlinePos;
-	sty.txtUnderWidth = Docu->typographicSettings.valueUnderlineWidth;
-	sty.txtStrikePos = Docu->typographicSettings.valueStrikeThruPos;
-	sty.txtStrikeWidth = Docu->typographicSettings.valueStrikeThruPos;
-	sty.scaleH = 1000;
-	sty.scaleV = 1000;
-	sty.baseOff = 0;
-	sty.kernVal = 0;
+	sty.setName(tr("New Style"));
+	sty.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(0));
+	sty.setLineSpacing(((Docu->toolSettings.defSize / 10.0) * 
+			static_cast<double>(Docu->typographicSettings.autoLineSpacing) / 100) 
+			  + (Docu->toolSettings.defSize / 10.0));
+	sty.setAlignment(0);
+	sty.setLeftMargin(0);
+	sty.setRightMargin(0);
+	sty.setFirstIndent(0);
+	sty.setGapBefore(0);
+	sty.setGapAfter(0);
+	sty.charStyle() = CharStyle(PrefsManager::instance()->appPrefs.AvailFonts[Docu->toolSettings.defFont],
+								Docu->toolSettings.defSize);
+	sty.tabValues().clear();
+	sty.setHasDropCap(false);
+	sty.setDropCapLines(2);
+	sty.setDropCapOffset(0);
+	sty.charStyle().ccolor = Docu->toolSettings.dBrush;
+	sty.charStyle().cshade = Docu->toolSettings.dShade;
+	sty.charStyle().cstroke = Docu->toolSettings.dPen;
+	sty.charStyle().cshade2 = Docu->toolSettings.dShade2;
+	sty.setUseBaselineGrid(false);
+	sty.charStyle().cshadowx = 50;
+	sty.charStyle().cshadowy = -50;
+	sty.charStyle().coutline = 10;
+	sty.charStyle().cunderpos = Docu->typographicSettings.valueUnderlinePos;
+	sty.charStyle().cunderwidth = Docu->typographicSettings.valueUnderlineWidth;
+	sty.charStyle().cstrikepos = Docu->typographicSettings.valueStrikeThruPos;
+	sty.charStyle().cstrikewidth = Docu->typographicSettings.valueStrikeThruPos;
+	sty.charStyle().cscale = 1000;
+	sty.charStyle().cscalev = 1000;
+	sty.charStyle().cbase = 0;
+	sty.charStyle().cextra = 0;
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true,  static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->unitIndex(), Docu);
@@ -398,19 +348,19 @@ void StilFormate::deleteFormat()
 //	if (exit == 1)
 	int selectedIndex=ListBox1->currentItem();
 	int topIndex=ListBox1->topItem();
-	DelStyle *dia = new DelStyle(this, TempVorl, TempVorl[sFnumber].Vname);
+	DelStyle *dia = new DelStyle(this, TempVorl, TempVorl[sFnumber].name());
 	if (dia->exec())
 	{
-		if (ReplaceList.values().contains(TempVorl[sFnumber].Vname))
+		if (ReplaceList.values().contains(TempVorl[sFnumber].name()))
 		{
 			QMap<QString,QString>::Iterator it;
 			for (it = ReplaceList.begin(); it != ReplaceList.end(); ++it)
 			{
-				if (it.data() == TempVorl[sFnumber].Vname)
+				if (it.data() == TempVorl[sFnumber].name())
 					it.data() = dia->getReplacementStyle();
 			}
 		}
-		ReplaceList.insert(TempVorl[sFnumber].Vname, dia->getReplacementStyle());
+		ReplaceList.insert(TempVorl[sFnumber].name(), dia->getReplacementStyle());
 		ListBox1->removeItem(sFnumber);
 		TempVorl.remove(TempVorl.at(sFnumber));
 		UpdateFList();
@@ -450,15 +400,15 @@ void StilFormate::loadStyles()
 			QMap<QCheckListItem*, int>::Iterator it;
 			for (it = dia2->storedStyles.begin(); it != dia2->storedStyles.end(); ++it)
 			{
-				struct ParagraphStyle sty;
+				ParagraphStyle sty;
 				if (it.key()->isOn())
 				{
 					sty = TempVorl2[it.data()];
 					TempVorl.append(sty);
-					if ((!Docu->PageColors.contains(sty.SColor)) && (!neededColors.contains(sty.SColor)))
-						neededColors.append(sty.SColor);
-					if ((!Docu->PageColors.contains(sty.FColor)) && (!neededColors.contains(sty.FColor)))
-						neededColors.append(sty.FColor);
+					if ((!Docu->PageColors.contains(sty.charStyle().cstroke)) && (!neededColors.contains(sty.charStyle().cstroke)))
+						neededColors.append(sty.charStyle().cstroke);
+					if ((!Docu->PageColors.contains(sty.charStyle().ccolor)) && (!neededColors.contains(sty.charStyle().ccolor)))
+						neededColors.append(sty.charStyle().ccolor);
 				}
 			}
 			if (!neededColors.isEmpty())
@@ -489,7 +439,7 @@ void StilFormate::UpdateFList()
 	if (TempVorl.count() < 6)
 		return;
 	for (uint x = 5; x < TempVorl.count(); ++x)
-		ListBox1->insertItem(TempVorl[x].Vname);
+		ListBox1->insertItem(TempVorl[x].name());
 	if (ListBox1->currentItem() == -1)
 	{
 		DublicateB->setEnabled(false);

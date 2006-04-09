@@ -213,12 +213,12 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 			continue;
 		if (!currItem->asTextFrame())
 			continue;
-		if (currItem->itemText.count() != 0)
+		if (currItem->itemText.length() != 0)
 		{
 			ScMW->doc->itemSelection_ClearItem();
 			/* ClearItem() doesn't return true or false so
 			the following test has to be done */
-			if (currItem->itemText.count() != 0)
+			if (currItem->itemText.length() != 0)
 				continue;
 		}
 
@@ -235,7 +235,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 			ss->Objekt = lp->createLorem(paraCount);
 			int st = currItem->document()->currentParaStyle;
 			if (st > 5)
-				ss->GetText(currItem, st, currItem->document()->docParagraphStyles[st].Font, currItem->document()->docParagraphStyles[st].FontSize, true);
+				ss->GetText(currItem, st, currItem->document()->docParagraphStyles[st].charStyle().font()->scName(), currItem->document()->docParagraphStyles[st].charStyle().fontSize(), true);
 			else
 				ss->GetText(currItem, st, currItem->font(), currItem->fontSize(), true);
 			delete ss;

@@ -133,7 +133,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 		{
 			double Pos = (ItemPos-offs+Extra+lineCorr)*Scaling;
 			int newY = m->x() - static_cast<int>(Pos);
-			struct PageItem::TabRecord tb;
+			ParagraphStyle::TabRecord tb;
 			tb.tabPosition = newY / Scaling;
 			tb.tabType = 0;
 			tb.tabFillChar = currDoc->toolSettings.tabFillChar[0];
@@ -179,12 +179,12 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 					emit DocChanged(false);
 					break;
 				case 3:
-					currDoc->docParagraphStyles[currDoc->currentParaStyle].First = First;
+					currDoc->docParagraphStyles[currDoc->currentParaStyle].setFirstIndent(First);
 					emit DocChanged(false);
 					break;
 				case 4:
-					currDoc->docParagraphStyles[currDoc->currentParaStyle].Indent = Indent;
-					currDoc->docParagraphStyles[currDoc->currentParaStyle].First = First;
+					currDoc->docParagraphStyles[currDoc->currentParaStyle].setLeftMargin(Indent);
+					currDoc->docParagraphStyles[currDoc->currentParaStyle].setFirstIndent(First);
 					emit DocChanged(false);
 					break;
 				case 5:
@@ -195,7 +195,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 							TabValues[ActTab].tabType = 0;
 					}
 					if (currDoc->currentParaStyle > 4)
-						currDoc->docParagraphStyles[currDoc->currentParaStyle].TabValues = TabValues;
+						currDoc->docParagraphStyles[currDoc->currentParaStyle].tabValues() = TabValues;
 					else
 						currDoc->m_Selection->itemAt(0)->TabValues = TabValues;
 					emit DocChanged(false);
@@ -208,12 +208,12 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 		{
 			if (RulerCode == 5)
 			{
-				QValueList<PageItem::TabRecord>::Iterator it;
+				QValueList<ParagraphStyle::TabRecord>::Iterator it;
 				it = TabValues.at(ActTab);
 				TabValues.remove(it);
 				ActTab = 0;
 				if (currDoc->currentParaStyle > 4)
-					currDoc->docParagraphStyles[currDoc->currentParaStyle].TabValues = TabValues;
+					currDoc->docParagraphStyles[currDoc->currentParaStyle].tabValues() = TabValues;
 				else
 					currDoc->m_Selection->itemAt(0)->TabValues = TabValues;
 				emit DocChanged(false);
@@ -764,11 +764,11 @@ void Hruler::setItemPosition(double pos, double width)
 
 void Hruler::UpdateTabList()
 {
-	struct PageItem::TabRecord tb;
+	ParagraphStyle::TabRecord tb;
 	tb.tabPosition = TabValues[ActTab].tabPosition;
 	tb.tabType = TabValues[ActTab].tabType;
 	tb.tabFillChar =  TabValues[ActTab].tabFillChar;
-	QValueList<PageItem::TabRecord>::Iterator it;
+	QValueList<ParagraphStyle::TabRecord>::Iterator it;
 	int gg = static_cast<int>(TabValues.count());
 	int g = gg;
 	it = TabValues.at(ActTab);

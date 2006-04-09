@@ -148,14 +148,14 @@ void gtParagraphStyle::setSpaceBelow(double newSpaceBelow)
 	spaceBelow = newSpaceBelow;
 }
 
-QValueList<PageItem::TabRecord>* gtParagraphStyle::getTabValues()
+QValueList<ParagraphStyle::TabRecord>* gtParagraphStyle::getTabValues()
 {
 	return &tabValues;
 }
 
 void gtParagraphStyle::setTabValue(double newTabValue, TabType ttype)
 {
-	struct PageItem::TabRecord tb;
+	ParagraphStyle::TabRecord tb;
 	tb.tabPosition = newTabValue;
 	tb.tabType = ttype;
 	tb.tabFillChar =  QChar();

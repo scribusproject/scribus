@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtextstream.h>
 #include <qtextcodec.h>
 #include "util.h"
+#include "text/nlsconfig.h"
 
 Serializer::Serializer(QString name)
 {
@@ -44,10 +45,9 @@ void Serializer::PutText(PageItem *Item)
 {
 	uint a;
 	QString Dat = "";
-	QPtrList<ScText> y = Item->itemText;
-	for (a=0; a<y.count(); ++a)
+	for (a=0; a < Item->itemText.length(); ++a)
 	{
-		QString b = y.at(a)->ch;
+		QString b = Item->itemText.text(a, 1);
 		if (b == QChar(13))
 			b = "\n";
 		Dat += b;
@@ -64,6 +64,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 	uint a;
 	if (!Append)
 	{
+#ifndef NLS_PROTO
 		nextItem = Item;
 		while (nextItem != 0)
 		{
@@ -87,72 +88,74 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 			nextItem->CPos = 0;
 			nextItem = nextItem->NextBox;
 		}
+#else
+		it->itemText.clear();
+		it->CPos = 0;
+#endif
 		doku->updateFrameItems();
 	}
-	for (a=0; a<Objekt.length(); ++a)
+	QString txt = Objekt.remove(QChar(0)).remove(QChar(13));
+	txt = txt.replace(QChar(10), QChar(13)).replace(QChar(5), QChar(13));
+	CharStyle newstyle;
+	if (!doku->docParagraphStyles[Absatz].charStyle().font() == NULL)
 	{
-		if ((Objekt.at(a) == QChar(0)) || (Objekt.at(a) == QChar(13)))
-			continue;
-		hg = new ScText;
-		hg->ch = Objekt.at(a);
-		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
-			hg->ch = QChar(13);
-		if (!doku->docParagraphStyles[Absatz].Font.isEmpty())
-		{
-			hg->cfont = (*doku->AllFonts)[doku->docParagraphStyles[Absatz].Font];
-			hg->csize = doku->docParagraphStyles[Absatz].FontSize;
-			hg->cstyle = doku->docParagraphStyles[Absatz].FontEffect;
-			hg->ccolor = doku->docParagraphStyles[Absatz].FColor;
-			hg->cshade = doku->docParagraphStyles[Absatz].FShade;
-			hg->cstroke = doku->docParagraphStyles[Absatz].SColor;
-			hg->cshade2 = doku->docParagraphStyles[Absatz].SShade;
-			hg->cshadowx = doku->docParagraphStyles[Absatz].txtShadowX;
-			hg->cshadowy = doku->docParagraphStyles[Absatz].txtShadowY;
-			hg->coutline = doku->docParagraphStyles[Absatz].txtOutline;
-			hg->cunderpos = doku->docParagraphStyles[Absatz].txtUnderPos;
-			hg->cunderwidth = doku->docParagraphStyles[Absatz].txtUnderWidth;
-			hg->cstrikepos = doku->docParagraphStyles[Absatz].txtStrikePos;
-			hg->cstrikewidth = doku->docParagraphStyles[Absatz].txtStrikeWidth;
-			hg->cscale = doku->docParagraphStyles[Absatz].scaleH;
-			hg->cscalev = doku->docParagraphStyles[Absatz].scaleV;
-			hg->cbase = doku->docParagraphStyles[Absatz].baseOff;
-			hg->cextra = doku->docParagraphStyles[Absatz].kernVal;
-		}
-		else
-		{
-			hg->cfont = (*doku->AllFonts)[font];
-			hg->ccolor = it->TxtFill;
-			hg->cshade = it->ShTxtFill;
-			hg->cstroke = it->TxtStroke;
-			hg->cshade2 = it->ShTxtStroke;
-			hg->csize = size;
-			hg->cstyle = it->TxTStyle;
-			hg->cshadowx = it->TxtShadowX;
-			hg->cshadowy = it->TxtShadowY;
-			hg->coutline = it->TxtOutline;
-			hg->cunderpos = it->TxtUnderPos;
-			hg->cunderwidth = it->TxtUnderWidth;
-			hg->cstrikepos = it->TxtStrikePos;
-			hg->cstrikewidth = it->TxtStrikeWidth;
-			hg->cscale = it->TxtScale;
-			hg->cscalev = it->TxtScaleV;
-			hg->cbase = it->TxtBase;
-			hg->cextra = 0;
-		}
-		hg->cselect = false;
-		hg->cab = Absatz;
-		hg->xp = 0;
-		hg->yp = 0;
-		hg->PRot = 0;
-		hg->PtransX = 0;
-		hg->PtransY = 0;
-		hg->cembedded = 0;
-		if (Append)
-			it->itemText.insert(it->CPos, hg);
-		else
-			it->itemText.append(hg);
-		it->CPos += 1;
+		newstyle.cfont = doku->docParagraphStyles[Absatz].charStyle().font();
+		newstyle.csize = doku->docParagraphStyles[Absatz].charStyle().fontSize();
+		newstyle.cstyle = static_cast<StyleFlag>(doku->docParagraphStyles[Absatz].charStyle().effects());
+		newstyle.ccolor = doku->docParagraphStyles[Absatz].charStyle().ccolor;
+		newstyle.cshade = doku->docParagraphStyles[Absatz].charStyle().cshade;
+		newstyle.cstroke = doku->docParagraphStyles[Absatz].charStyle().cstroke;
+		newstyle.cshade2 = doku->docParagraphStyles[Absatz].charStyle().cshade2;
+		newstyle.cshadowx = doku->docParagraphStyles[Absatz].charStyle().cshadowx;
+		newstyle.cshadowy = doku->docParagraphStyles[Absatz].charStyle().cshadowy;
+		newstyle.coutline = doku->docParagraphStyles[Absatz].charStyle().coutline;
+		newstyle.cunderpos = doku->docParagraphStyles[Absatz].charStyle().cunderpos;
+		newstyle.cunderwidth = doku->docParagraphStyles[Absatz].charStyle().cunderwidth;
+		newstyle.cstrikepos = doku->docParagraphStyles[Absatz].charStyle().cstrikepos;
+		newstyle.cstrikewidth = doku->docParagraphStyles[Absatz].charStyle().cstrikewidth;
+		newstyle.cscale = doku->docParagraphStyles[Absatz].charStyle().cscale;
+		newstyle.cscalev = doku->docParagraphStyles[Absatz].charStyle().cscalev;
+		newstyle.cbase = doku->docParagraphStyles[Absatz].charStyle().cbase;
+		newstyle.cextra = doku->docParagraphStyles[Absatz].charStyle().cextra;
 	}
+	else
+	{
+		newstyle.cfont = (*doku->AllFonts)[font];
+		newstyle.ccolor = it->TxtFill;
+		newstyle.cshade = it->ShTxtFill;
+		newstyle.cstroke = it->TxtStroke;
+		newstyle.cshade2 = it->ShTxtStroke;
+		newstyle.csize = size;
+		newstyle.cstyle = static_cast<StyleFlag>(it->TxTStyle);
+		newstyle.cshadowx = it->TxtShadowX;
+		newstyle.cshadowy = it->TxtShadowY;
+		newstyle.coutline = it->TxtOutline;
+		newstyle.cunderpos = it->TxtUnderPos;
+		newstyle.cunderwidth = it->TxtUnderWidth;
+		newstyle.cstrikepos = it->TxtStrikePos;
+		newstyle.cstrikewidth = it->TxtStrikeWidth;
+		newstyle.cscale = it->TxtScale;
+		newstyle.cscalev = it->TxtScaleV;
+		newstyle.cbase = it->TxtBase;
+		newstyle.cextra = 0;
+	}
+	int insPos = Append? it->CPos : it->itemText.length();
+	it->itemText.insertChars(insPos, txt);
+	it->itemText.applyStyle(insPos, txt.length(), newstyle);
+#ifndef NLS_PROTO
+	for (int i=insPos; i < insPos + txt.length(); ++i) {
+		it->itemText.at(i)->cab = Absatz;
+	}
+#else
+	for (int i=0; i < it->itemText.nrOfParagraphs(); ++i) {
+		int pos = it->itemText.startOfParagraph(i);
+		if (pos >= insPos + txt.length())
+			break;
+		if (pos >= insPos)
+			it->itemText.applyStyle(insPos, doku->docParagraphStyles[Absatz]);
+	}
+#endif	
+	it->CPos = insPos + txt.length();
 }
 
 bool Serializer::Write(QString Cod)

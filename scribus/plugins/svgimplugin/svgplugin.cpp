@@ -322,7 +322,7 @@ void SVGPlug::convert()
 		currDoc->maxCanvasCoordinate = maxSize;
 		dr->setPixmap(loadIcon("DragPix.xpm"));
 		if (!dr->drag())
-			qDebug("svgimport: could start drag operation!");
+			qDebug("svgimport: could not start drag operation!");
 		delete ss;
 		currDoc->DragP = false;
 		currDoc->DraggedElem = 0;

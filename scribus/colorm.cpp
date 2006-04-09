@@ -587,11 +587,11 @@ void ColorManager::delUnused()
 			}
 			if ((ite->asTextFrame()) || (ite->asPathText()))
 			{
-				for (uint d=0; d<ite->itemText.count(); ++d)
+				for (uint d=0; d<ite->itemText.length(); ++d)
 				{
-					if (it.key() == ite->itemText.at(d)->ccolor)
+					if (it.key() == ite->itemText.charStyle(d).ccolor)
 						found = true;
-					if (it.key() == ite->itemText.at(d)->cstroke)
+					if (it.key() == ite->itemText.charStyle(d).cstroke)
 						found = true;
 					if (found)
 						break;
@@ -621,11 +621,11 @@ void ColorManager::delUnused()
 			}
 			if ((ite->asTextFrame()) || (ite->asPathText()))
 			{
-				for (uint d=0; d<ite->itemText.count(); ++d)
+				for (uint d=0; d<ite->itemText.length(); ++d)
 				{
-					if (it.key() == ite->itemText.at(d)->ccolor)
+					if (it.key() == ite->itemText.charStyle(d).ccolor)
 						found = true;
-					if (it.key() == ite->itemText.at(d)->cstroke)
+					if (it.key() == ite->itemText.charStyle(d).cstroke)
 						found = true;
 					if (found)
 						break;
@@ -655,11 +655,11 @@ void ColorManager::delUnused()
 			}
 			if ((ite->asTextFrame()) || (ite->asPathText()))
 			{
-				for (uint d=0; d<ite->itemText.count(); ++d)
+				for (uint d=0; d<ite->itemText.length(); ++d)
 				{
 					/* PFJ - 29.02.04 - Merged if's */
-					if ((it.key() == ite->itemText.at(d)->ccolor) ||
-							(it.key() == ite->itemText.at(d)->cstroke))
+					if ((it.key() == ite->itemText.charStyle(d).ccolor) ||
+							(it.key() == ite->itemText.charStyle(d).cstroke))
 						found = true;
 					if (found)
 						break;

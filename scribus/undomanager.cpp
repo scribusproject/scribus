@@ -760,9 +760,10 @@ void UndoManager::languageChange()
 	UndoManager::SetLayerName       = tr("Change name of the layer");
 	UndoManager::GetImage           = tr("Get image");
 	UndoManager::MultipleDuplicate  = tr("Multiple duplicate");
-UndoManager::MenuUndo           = tr("&Undo: %1", "f.e. Undo: Move");
+	UndoManager::ApplyTextStyle     = tr("Apply text style");
+	UndoManager::MenuUndo           = tr("&Undo: %1", "f.e. Undo: Move");
 	UndoManager::MenuUndoEmpty      = tr("&Undo");
-UndoManager::MenuRedo           = tr("&Redo: %1", "f.e. Redo: Move");
+	UndoManager::MenuRedo           = tr("&Redo: %1", "f.e. Redo: Move");
 	UndoManager::MenuRedoEmpty      = tr("&Redo");
 }
 
@@ -928,6 +929,7 @@ QString UndoManager::DoNotPrintLayer    = "";
 QString UndoManager::SetLayerName       = "";
 QString UndoManager::GetImage           = "";
 QString UndoManager::MultipleDuplicate  = "";
+QString UndoManager::ApplyTextStyle     = "";
 QString UndoManager::MenuUndo           = "";
 QString UndoManager::MenuUndoEmpty      = "";
 QString UndoManager::MenuRedo           = "";

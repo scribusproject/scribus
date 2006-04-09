@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "story.h"
 #include "styleselect.h"
 #include "util.h"
+#include "text/nlsconfig.h"
 
 
 extern QPixmap loadIcon(QString nam);
@@ -97,7 +98,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	if (doc->docParagraphStyles.count() > 5)
 	{
 		for (uint x = 5; x < doc->docParagraphStyles.count(); ++x)
-			SStyleVal->insertItem(doc->docParagraphStyles[x].Vname);
+			SStyleVal->insertItem(doc->docParagraphStyles[x].name());
 	}
 	SStyleVal->listBox()->setMinimumWidth(SStyleVal->listBox()->maxItemWidth()+24);
 	SStyleVal->setCurrentItem(doc->currentParaStyle);
@@ -193,7 +194,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	if (doc->docParagraphStyles.count() > 5)
 	{
 		for (uint x = 5; x < doc->docParagraphStyles.count(); ++x)
-			RStyleVal->insertItem(doc->docParagraphStyles[x].Vname);
+			RStyleVal->insertItem(doc->docParagraphStyles[x].name());
 	}
 	RStyleVal->listBox()->setMinimumWidth(RStyleVal->listBox()->maxItemWidth()+24);
 	RStyleVal->setCurrentItem(doc->currentParaStyle);
@@ -353,12 +354,16 @@ void SearchReplace::slotSearch()
 
 void SearchReplace::slotDoSearch()
 {
+#ifndef NLS_PROTO
+	int maxChars = Item->MaxChars;
+#else
+	int maxChars = Item->itemText.length();
+#endif
 	DoReplace->setEnabled(false);
 	AllReplace->setEnabled(false);
 	if (SMode)
 	{
-		for (uint a = 0; a < Item->itemText.count(); ++a)
-			Item->itemText.at(a)->cselect = false;
+		Item->itemText.deselectAll();
 		Item->HasSel = false;
 	}
 	QString fCol = "";
@@ -405,11 +410,11 @@ void SearchReplace::slotDoSearch()
 	uint a;
 	if (SMode)
 	{
-		for (a = as; a < Item->itemText.count(); ++a)
+		for (a = as; a < Item->itemText.length(); ++a)
 		{
 			if (SText->isChecked())
 			{
-				QString chx = Item->itemText.at(a)->ch;
+				QString chx = Item->itemText.text(a,1);
 				if (CaseIgnore->isChecked())
 					chx = chx.lower();
 				found = chx == sText.mid(inde, 1) ? true : false;
@@ -420,47 +425,49 @@ void SearchReplace::slotDoSearch()
 				found = true;
 			if (SSize->isChecked())
 			{
-				if (Item->itemText.at(a)->csize != sSize)
+				if (Item->itemText.charStyle(a).csize != sSize)
 					found = false;
 			}
 			if (SFont->isChecked())
 			{
-				if (Item->itemText.at(a)->cfont->scName() != sFont)
+				if (Item->itemText.charStyle(a).cfont->scName() != sFont)
 					found = false;
 			}
+#ifndef NLS_PROTO
 			if (SStyle->isChecked())
 			{
 				if (Item->itemText.at(a)->cab != sStyle)
 					found = false;
 			}
+#endif
 			if (SStroke->isChecked())
 			{
-				if (Item->itemText.at(a)->cstroke != sCol)
+				if (Item->itemText.charStyle(a).cstroke != sCol)
 					found = false;
 			}
 			if (SStrokeS->isChecked())
 			{
-				if (Item->itemText.at(a)->cshade2 != sStrokeSh)
+				if (Item->itemText.charStyle(a).cshade2 != sStrokeSh)
 					found = false;
 			}
 			if (SFillS->isChecked())
 			{
-				if (Item->itemText.at(a)->cshade != sFillSh)
+				if (Item->itemText.charStyle(a).cshade != sFillSh)
 					found = false;
 			}
 			if (SEffect->isChecked())
 				{
-				if ((Item->itemText.at(a)->cstyle & 1919) != sEff)
+				if ((Item->itemText.charStyle(a).cstyle & 1919) != sEff)
 					found = false;
 				}
 			if (SFill->isChecked())
 			{
-				if (Item->itemText.at(a)->ccolor != fCol)
+				if (Item->itemText.charStyle(a).ccolor != fCol)
 					found = false;
 			}
 			if (found)
 			{
-				Item->itemText.at(a)->cselect = true;
+				Item->itemText.select(a,1);
 				Item->HasSel = true;
 				if (rep)
 				{
@@ -473,16 +480,16 @@ void SearchReplace::slotDoSearch()
 					if (inde == 0)
 						ReplStart = a;
 					inde++;
-					if ((Word->isChecked()) && (inde == 1) && (Item->itemText.at(a)->ch[0].isSpace()))
+					if ((Word->isChecked()) && (inde == 1) && (Item->itemText.text(a).isSpace()))
 					{
 						inde--;
-						Item->itemText.at(a)->cselect = false;
+						Item->itemText.select(a, 1, false);
 					}
 					if ((Word->isChecked()) && (inde == sText.length()) &&
-						(!Item->itemText.at(QMIN(Item->MaxChars-1,a+1))->ch[0].isSpace()))
+						(!Item->itemText.text(QMIN(maxChars-1,a+1)).isSpace()))
 					{
 						for (uint xx = ReplStart; xx < a+1; ++xx)
-							Item->itemText.at(QMIN(xx,Item->MaxChars-1))->cselect = false;
+							Item->itemText.select(QMIN(xx,maxChars-1), 1, false);
 						Item->HasSel = false;
 						inde = 0;
 						found = false;
@@ -501,13 +508,13 @@ void SearchReplace::slotDoSearch()
 				if (SText->isChecked())
 				{
 					for (uint xx = ReplStart; xx < a+1; ++xx)
-						Item->itemText.at(QMIN(xx,Item->MaxChars-1))->cselect = false;
+						Item->itemText.select(QMIN(xx,maxChars-1), 1, false);
 					Item->HasSel = false;
 				}
 				inde = 0;
 			}
 		}
-		if ((!found) || (a == Item->itemText.count()))
+		if ((!found) || (a == Item->itemText.length()))
 		{
 			Doc->DoDrawing = true;
 			ScMW->view->RefreshItem(Item);
@@ -680,16 +687,17 @@ void SearchReplace::slotDoReplace()
 			if (sear.length() == repl.length())
 			{
 				for (cs = 0; cs < sear.length(); ++cs)
-					Item->itemText.at(ReplStart+cs)->ch = repl[cs];
+					Item->itemText.replaceChar(ReplStart+cs, repl[cs]);
 			}
 			else
 			{
 				if (sear.length() < repl.length())
 				{
 					for (cs = 0; cs < sear.length(); ++cs)
-						Item->itemText.at(ReplStart+cs)->ch = repl[cs];
+						Item->itemText.replaceChar(ReplStart+cs, repl[cs]);
 					for (cx = cs; cx < repl.length(); ++cx)
 					{
+#ifndef NLS_PROTO
 						hg = new ScText;
 						hg->ch = repl[cx];
 						if (RSize->isChecked())
@@ -717,16 +725,16 @@ void SearchReplace::slotDoReplace()
 						hg->cstrikewidth = Doc->CurrTextStrikeWidth;
 						hg->cembedded = 0;
 						hg->cselect = true;
-						hg->cstyle = Doc->CurrentStyle;
+						hg->cstyle = static_cast<StyleFlag>(Doc->CurrentStyle);
 						if (RStyle->isChecked())
 							hg->cab = RStyleVal->currentItem();
 						else
 							hg->cab = Doc->currentParaStyle;
-						if (!Doc->docParagraphStyles[hg->cab].Font.isEmpty())
+						if (Doc->docParagraphStyles[hg->cab].charStyle().cfont != NULL)
 						{
-							hg->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[hg->cab].Font];
-							hg->csize = Doc->docParagraphStyles[hg->cab].FontSize;
-							hg->cstyle = Doc->docParagraphStyles[hg->cab].FontEffect;
+							hg->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[hg->cab].charStyle().font()->scName()];
+							hg->csize = Doc->docParagraphStyles[hg->cab].charStyle().fontSize();
+							hg->cstyle = Doc->docParagraphStyles[hg->cab].charStyle().effects();
 						}
 						if (RFont->isChecked())
 							hg->cfont = (*Doc->AllFonts)[RFontVal->currentText()];
@@ -739,15 +747,17 @@ void SearchReplace::slotDoReplace()
 						hg->PtransX = 0;
 						hg->PtransY = 0;
 						Item->itemText.insert(ReplStart+cx, hg);
+#else
+						Item->itemText.insertChars(ReplStart+cx, repl.mid(cx,1)); 
+#endif
 					}
 					Item->CPos = ReplStart+cx;
 				}
 				else
 				{
 					for (cs = 0; cs < repl.length(); ++cs)
-						Item->itemText.at(ReplStart+cs)->ch = repl[cs];
-					for (uint cxx = cs; cxx < sear.length(); ++cxx)
-						Item->itemText.remove(ReplStart+cs);
+						Item->itemText.replaceChar(ReplStart+cs, repl[cs]);
+					Item->itemText.removeChars(ReplStart+cs, sear.length() - cs);
 					Item->CPos = ReplStart+cs;
 				}
 			}
@@ -767,23 +777,21 @@ void SearchReplace::slotDoReplace()
 		if (RSize->isChecked())
 			Doc->chFSize(qRound(RSizeVal->value() * 10.0));
 		if (REffect->isChecked())
-			{
+		{
 			int s = REffVal->getStyle();
 			Doc->CurrentStyle = s;
-			if (Item->itemText.count() != 0)
+#ifndef NLS_PROTO
+			for (uint a = 0; a < Item->itemText.length(); ++a)
+			{
+				if (Item->itemText.selected(a))
 				{
-				for (uint a = 0; a < Item->itemText.count(); ++a)
-					{
-					if (Item->itemText.at(a)->cselect)
-						{
-						Item->itemText.at(a)->cstyle &= ~1919;
-						Item->itemText.at(a)->cstyle |= s;
-						}
-					}
+					Item->itemText.at(a)->cstyle &= ~1919;
+					Item->itemText.at(a)->cstyle |= s;
 				}
 			}
-		for (uint a = 0; a < Item->itemText.count(); ++a)
-			Item->itemText.at(a)->cselect = false;
+#endif
+		}
+		Item->itemText.deselectAll();
 	}
 	else
 	{

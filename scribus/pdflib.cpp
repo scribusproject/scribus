@@ -58,6 +58,8 @@ for which a new license (GPL+exception) is in place.
 #include "pdfoptions.h"
 #include "sccolor.h"
 
+#include "text/nlsconfig.h"
+
 using namespace std;
 
 #ifdef HAVE_CMS
@@ -590,9 +592,9 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 		{
 			if (pgit->isAnnotation())
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
-			for (uint e = 0; e < pgit->itemText.count(); ++e)
+			for (uint e = 0; e < pgit->itemText.length(); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
+				ReallyUsed.insert(pgit->itemText.charStyle(e).cfont->scName(), DocFonts[pgit->itemText.charStyle(e).cfont->scName()]);
 			}
 		}
 	}
@@ -603,9 +605,9 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 		{
 			if (pgit->isAnnotation())
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
-			for (uint e = 0; e < pgit->itemText.count(); ++e)
+			for (uint e = 0; e < pgit->itemText.length(); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
+				ReallyUsed.insert(pgit->itemText.charStyle(e).cfont->scName(), DocFonts[pgit->itemText.charStyle(e).cfont->scName()]);
 			}
 		}
 	}
@@ -616,9 +618,9 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 		{
 			if (pgit->isAnnotation())
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
-			for (uint e = 0; e < pgit->itemText.count(); ++e)
+			for (uint e = 0; e < pgit->itemText.length(); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
+				ReallyUsed.insert(pgit->itemText.charStyle(e).cfont->scName(), DocFonts[pgit->itemText.charStyle(e).cfont->scName()]);
 			}
 		}
 	}
@@ -2877,12 +2879,13 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 	QString tmp("");
 	QString tmp2("");
 	uint tabCc = 0;
-	QValueList<PageItem::TabRecord> tTabValues;
+	QValueList<ParagraphStyle::TabRecord> tTabValues;
 	double tabDist=ite->textToFrameDistLeft();
 	if (ite->lineColor() != CommonStrings::None)
 		tabDist += ite->lineWidth() / 2.0;
 	if (ite->itemType() == PageItem::TextFrame)
 		tmp += "BT\n";
+#ifndef NLS_PROTO
 	// Loop over each character (!) in the pageItem...
 	for (uint d = 0; d < ite->MaxChars; ++d)
 	{
@@ -2896,7 +2899,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 		if (hl->cab < 5)
 			tTabValues = ite->TabValues;
 		else
-			tTabValues = doc.docParagraphStyles[hl->cab].TabValues;
+			tTabValues = doc.docParagraphStyles[hl->cab].tabValues();
 		if (hl->cstyle & 16384)
 			tabCc = 0;
 		if ((hl->ch == QChar(9)) && (tTabValues.count() != 0))
@@ -2997,6 +3000,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 		setTextCh(ite, PNr, d, tmp, tmp2, hl, pag);
 		tabDist = hl->xp + Cwidth(&doc, hl->cfont, hl->ch, hl->csize) * (hl->cscale / 1000.0);
 	}
+#endif
 	if (ite->itemType() == PageItem::TextFrame)
 		tmp += "ET\n"+tmp2;
 	return tmp;
@@ -3004,6 +3008,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 
 void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &tmp2, const ScText *hl, const Page* pag)
 {
+#ifndef NLS_PROTO
 	QString FillColor = "";
 	QString StrokeColor = "";
 	if (ite->asPathText())
@@ -3020,16 +3025,16 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	QString chx = hl->ch;
 	if (hl->cstyle & 2048)
 	{
-		if (doc.docParagraphStyles[hl->cab].BaseAdj)
-			tsz = qRound(10 * ((doc.typographicSettings.valueBaseGrid * (doc.docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (doc.docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(&doc, hl->cfont, chx, 10))));
+		if (doc.docParagraphStyles[hl->cab].useBaselineGrid())
+			tsz = qRound(10 * ((doc.typographicSettings.valueBaseGrid * (doc.docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->numAscent * (doc.docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(&doc, hl->cfont, chx, 10))));
 		else
 		{
-			if (doc.docParagraphStyles[hl->cab].LineSpaMode == 0)
-				tsz = qRound(10 * ((doc.docParagraphStyles[hl->cab].LineSpa *  (doc.docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (doc.docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(&doc, hl->cfont, chx, 10))));
+			if (doc.docParagraphStyles[hl->cab].lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+				tsz = qRound(10 * ((doc.docParagraphStyles[hl->cab].lineSpacing() *  (doc.docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->numAscent * (doc.docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(&doc, hl->cfont, chx, 10))));
 			else
 			{
-				double currasce = RealFHeight(&doc, hl->cfont, doc.docParagraphStyles[hl->cab].FontSize);
-				tsz = qRound(10 * ((currasce * (doc.docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (doc.docParagraphStyles[hl->cab].FontSize / 10.0))) / RealCHeight(&doc, hl->cfont, chx, 10)));
+				double currasce = RealFHeight(&doc, hl->cfont, doc.docParagraphStyles[hl->cab].charStyle().fontSize());
+				tsz = qRound(10 * ((currasce * (doc.docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->numAscent * (doc.docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCHeight(&doc, hl->cfont, chx, 10)));
 			}
 		}
 	}
@@ -3082,10 +3087,10 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 				break;
 			za2--;
 		}
-		while (ite->itemText.at(za2)->ch == QChar(30));
-		if (ite->itemText.at(za2)->ch != QChar(30))
+		while (ite->itemText.text(za2) == QChar(30));
+		if (ite->itemText.text(za2) != QChar(30))
 			za2++;
-		while (ite->itemText.at(za2+zae)->ch == QChar(30))
+		while (ite->itemText.text(za2+zae) == QChar(30))
 		{
 			zae++;
 			if (za2+zae == ite->MaxChars)
@@ -3392,6 +3397,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		tmp += "ET\nQ\n"+tmp2;
 		tmp2 = "";
 	}
+#endif
 }
 
 QString PDFlib::SetFarbe(const QString& farbe, int Shade)
@@ -3951,9 +3957,9 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	double y2 = y-ite->height();
 	QString bm("");
 	QString cc;
-	for (uint d = 0; d < ite->itemText.count(); ++d)
+	for (uint d = 0; d < ite->itemText.length(); ++d)
 	{
-		cc = ite->itemText.at(d)->ch;
+		cc = ite->itemText.text(d, 1);
 		if ((cc == "(") || (cc == ")") || (cc == "\\"))
 			bm += "\\";
 		if (cc == QChar(13))

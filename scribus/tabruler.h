@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <qwidget.h>
 
 #include "scribusapi.h"
-#include "pageitem.h"
+#include "sctextstruct.h"
 
 class QVBoxLayout;
 class QHBoxLayout;
@@ -27,11 +27,11 @@ class SCRIBUS_API RulerT : public QWidget
 	Q_OBJECT
 
 public:
-	RulerT(QWidget* parent, int ein, QValueList<PageItem::TabRecord> Tabs, bool ind, double wid);
+	RulerT(QWidget* parent, int ein, QValueList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid);
 	~RulerT() {};
 	void updateTabList();
 	bool mousePressed;
-	QValueList<PageItem::TabRecord> tabValues;
+	QValueList<ParagraphStyle::TabRecord> tabValues;
 	bool haveInd;
 	int unitIndex;
 	int offset;
@@ -80,9 +80,9 @@ class SCRIBUS_API Tabruler : public QWidget
 	Q_OBJECT
 
 public:
-	Tabruler( QWidget* parent, bool haveFirst, int ein, QValueList<PageItem::TabRecord> Tabs, double wid );
+	Tabruler( QWidget* parent, bool haveFirst, int ein, QValueList<ParagraphStyle::TabRecord> Tabs, double wid );
 	~Tabruler() {};
-	QValueList<PageItem::TabRecord> getTabVals();
+	QValueList<ParagraphStyle::TabRecord> getTabVals();
 	bool haveF;
 	double getFirstLine();
 	double getLeftIndent();

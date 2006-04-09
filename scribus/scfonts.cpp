@@ -71,7 +71,7 @@ Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path, in
 }
 
 
-FT_Face ftFace() {
+FT_Face Foi::ftFace() {
 	// dummy for now
 	return NULL;
 }

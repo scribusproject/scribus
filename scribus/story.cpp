@@ -58,6 +58,7 @@ for which a new license (GPL+exception) is in place.
 #include "spalette.h"
 #include "styleselect.h"
 #include "util.h"
+#include "text/nlsconfig.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -135,7 +136,7 @@ void SideBar::paintEvent(QPaintEvent *e)
 					if (st < 5)
 						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
 					else
-						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->docParagraphStyles[st].Vname);
+						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->docParagraphStyles[st].name());
 				}
 				else
 				{
@@ -143,7 +144,7 @@ void SideBar::paintEvent(QPaintEvent *e)
 					if (st < 5)
 						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
 					else
-						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->docParagraphStyles[st].Vname);
+						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->docParagraphStyles[st].name());
 				}
 			}
 		}
@@ -719,116 +720,110 @@ void SEditor::saveItemText(PageItem *currItem)
 	currItem->CPos = 0;
 	currItem->itemText.clear();
 	uint c = 0;
+	CharStyle curStyle;
+	int startOfCurStyle = 0;
+	
 	for (uint p = 0; p < StyledText.count(); ++p)
 	{
 		if (p != 0)
 		{
 			c = StyledText.at(p-1)->count()-1;
-			ScText *hg;
-			hg = new ScText;
-			hg->ch = QChar(13);
+			CharStyle newStyle;
+			QChar ch = QChar(13);
 			chars = StyledText.at(p-1);
 			if (chars->count() != 0)
 			{
-				hg->cfont = (*doc->AllFonts)[chars->at(c)->cfont];
-				hg->csize = chars->at(c)->csize;
-				hg->ccolor = chars->at(c)->ccolor;
-				hg->cshade = chars->at(c)->cshade;
-				hg->cstroke = chars->at(c)->cstroke;
-				hg->cshade2 = chars->at(c)->cshade2;
-				hg->cscale = chars->at(c)->cscale;
-				hg->cscalev = chars->at(c)->cscalev;
-				hg->cstyle = chars->at(c)->cstyle;
-				hg->cextra = chars->at(c)->cextra;
-				hg->cbase = chars->at(c)->cbase;
-				hg->cshadowx = chars->at(c)->cshadowx;
-				hg->cshadowy = chars->at(c)->cshadowy;
-				hg->coutline = chars->at(c)->coutline;
-				hg->cunderpos = chars->at(c)->cunderpos;
-				hg->cunderwidth = chars->at(c)->cunderwidth;
-				hg->cstrikepos = chars->at(c)->cstrikepos;
-				hg->cstrikewidth = chars->at(c)->cstrikewidth;
+				newStyle.cfont = (*doc->AllFonts)[chars->at(c)->cfont];
+				newStyle.csize = chars->at(c)->csize;
+				newStyle.ccolor = chars->at(c)->ccolor;
+				newStyle.cshade = chars->at(c)->cshade;
+				newStyle.cstroke = chars->at(c)->cstroke;
+				newStyle.cshade2 = chars->at(c)->cshade2;
+				newStyle.cscale = chars->at(c)->cscale;
+				newStyle.cscalev = chars->at(c)->cscalev;
+				newStyle.cstyle = static_cast<StyleFlag>(chars->at(c)->cstyle);
+				newStyle.cextra = chars->at(c)->cextra;
+				newStyle.cbase = chars->at(c)->cbase;
+				newStyle.cshadowx = chars->at(c)->cshadowx;
+				newStyle.cshadowy = chars->at(c)->cshadowy;
+				newStyle.coutline = chars->at(c)->coutline;
+				newStyle.cunderpos = chars->at(c)->cunderpos;
+				newStyle.cunderwidth = chars->at(c)->cunderwidth;
+				newStyle.cstrikepos = chars->at(c)->cstrikepos;
+				newStyle.cstrikewidth = chars->at(c)->cstrikewidth;
 			}
 			else
 			{
-				hg->ccolor = CurrTextFill;
-				hg->cshade = CurrTextFillSh;
-				hg->cstroke = CurrTextStroke;
-				hg->cshade2 = CurrTextStrokeSh;
-				hg->cfont = (*doc->AllFonts)[CurrFont];
-				hg->csize = CurrFontSize;
-				hg->cstyle = CurrentStyle;
-				hg->cextra = CurrTextKern;
-				hg->cscale = CurrTextScale;
-				hg->cscalev = CurrTextScaleV;
-				hg->cbase = CurrTextBase;
-				hg->cshadowx = CurrTextShadowX;
-				hg->cshadowy = CurrTextShadowY;
-				hg->coutline = CurrTextOutline;
-				hg->cunderpos = CurrTextUnderPos;
-				hg->cunderwidth = CurrTextUnderWidth;
-				hg->cstrikepos = CurrTextStrikePos;
-				hg->cstrikewidth = CurrTextStrikeWidth;
-				if (!doc->docParagraphStyles[ParagStyles[p-1]].Font.isEmpty())
+				newStyle.ccolor = CurrTextFill;
+				newStyle.cshade = CurrTextFillSh;
+				newStyle.cstroke = CurrTextStroke;
+				newStyle.cshade2 = CurrTextStrokeSh;
+				newStyle.cfont = (*doc->AllFonts)[CurrFont];
+				newStyle.csize = CurrFontSize;
+				newStyle.cstyle = static_cast<StyleFlag>(CurrentStyle);
+				newStyle.cextra = CurrTextKern;
+				newStyle.cscale = CurrTextScale;
+				newStyle.cscalev = CurrTextScaleV;
+				newStyle.cbase = CurrTextBase;
+				newStyle.cshadowx = CurrTextShadowX;
+				newStyle.cshadowy = CurrTextShadowY;
+				newStyle.coutline = CurrTextOutline;
+				newStyle.cunderpos = CurrTextUnderPos;
+				newStyle.cunderwidth = CurrTextUnderWidth;
+				newStyle.cstrikepos = CurrTextStrikePos;
+				newStyle.cstrikewidth = CurrTextStrikeWidth;
+				if (doc->docParagraphStyles[ParagStyles[p-1]].charStyle().font() != NULL)
 				{
-					hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[ParagStyles[p-1]].Font];
-					hg->csize = doc->docParagraphStyles[ParagStyles[p-1]].FontSize;
+					newStyle.cfont = doc->docParagraphStyles[ParagStyles[p-1]].charStyle().font();
+					newStyle.csize = doc->docParagraphStyles[ParagStyles[p-1]].charStyle().fontSize();
 				}
 			}
-			hg->cab = ParagStyles[p-1];
-			hg->cselect = false;
-			hg->xp = 0;
-			hg->yp = 0;
-			hg->PRot = 0;
-			hg->PtransX = 0;
-			hg->PtransY = 0;
-			hg->cembedded = 0;
-			currItem->itemText.append(hg);
+			int pos = currItem->itemText.length();
+			if (newStyle != curStyle) {
+				currItem->itemText.applyStyle(startOfCurStyle, pos - startOfCurStyle, curStyle);
+				curStyle = newStyle;
+				startOfCurStyle = pos;       
+			}
+			currItem->itemText.insertChars(pos, ch);
+			currItem->itemText.applyStyle(pos, (doc->docParagraphStyles[ParagStyles[p-1]]));
 		}
 		chars = StyledText.at(p);
 		for (uint c = 0; c < chars->count(); ++c)
 		{
-			ScText *hg;
-			hg = new ScText;
-			hg->ch = chars->at(c)->ch;
-			hg->cfont = (*doc->AllFonts)[chars->at(c)->cfont];
-			hg->csize = chars->at(c)->csize;
-			hg->ccolor = chars->at(c)->ccolor;
-			hg->cshade = chars->at(c)->cshade;
-			hg->cstroke = chars->at(c)->cstroke;
-			hg->cshade2 = chars->at(c)->cshade2;
-			hg->cscale = chars->at(c)->cscale;
-			hg->cscalev = chars->at(c)->cscalev;
-			hg->cstyle = chars->at(c)->cstyle;
-			hg->cab = chars->at(c)->cab;
-			hg->cextra = chars->at(c)->cextra;
-			hg->cbase = chars->at(c)->cbase;
-			hg->cshadowx = chars->at(c)->cshadowx;
-			hg->cshadowy = chars->at(c)->cshadowy;
-			hg->coutline = chars->at(c)->coutline;
-			hg->cunderpos = chars->at(c)->cunderpos;
-			hg->cunderwidth = chars->at(c)->cunderwidth;
-			hg->cstrikepos = chars->at(c)->cstrikepos;
-			hg->cstrikewidth = chars->at(c)->cstrikewidth;
-			hg->cselect = false;
-			hg->xp = 0;
-			hg->yp = 0;
-			hg->PRot = 0;
-			hg->PtransX = 0;
-			hg->PtransY = 0;
-			if (hg->ch == QChar(25))
+			CharStyle newStyle;
+			QChar ch = chars->at(c)->ch[0];
+			newStyle.cfont = (*doc->AllFonts)[chars->at(c)->cfont];
+			newStyle.csize = chars->at(c)->csize;
+			newStyle.ccolor = chars->at(c)->ccolor;
+			newStyle.cshade = chars->at(c)->cshade;
+			newStyle.cstroke = chars->at(c)->cstroke;
+			newStyle.cshade2 = chars->at(c)->cshade2;
+			newStyle.cscale = chars->at(c)->cscale;
+			newStyle.cscalev = chars->at(c)->cscalev;
+			newStyle.cstyle = static_cast<StyleFlag>(chars->at(c)->cstyle);
+			newStyle.cextra = chars->at(c)->cextra;
+			newStyle.cbase = chars->at(c)->cbase;
+			newStyle.cshadowx = chars->at(c)->cshadowx;
+			newStyle.cshadowy = chars->at(c)->cshadowy;
+			newStyle.coutline = chars->at(c)->coutline;
+			newStyle.cunderpos = chars->at(c)->cunderpos;
+			newStyle.cunderwidth = chars->at(c)->cunderwidth;
+			newStyle.cstrikepos = chars->at(c)->cstrikepos;
+			newStyle.cstrikewidth = chars->at(c)->cstrikewidth;
+			int pos = currItem->itemText.length();
+			if (ch == SpecialChars::OBJECT)
 			{
-				hg->cembedded = chars->at(c)->cembedded;
-				currItem->document()->FrameItems.append(hg->cembedded);
-				if (hg->cembedded->Groups.count() != 0)
+				PageItem* embedded = chars->at(c)->cembedded;
+				currItem->document()->FrameItems.append(embedded);
+				if (embedded->Groups.count() != 0)
 				{
 					for (uint ga=0; ga<FrameItems.count(); ++ga)
 					{
 						if (FrameItems.at(ga)->Groups.count() != 0)
 						{
-							if (FrameItems.at(ga)->Groups.top() == hg->cembedded->Groups.top())
+							if (FrameItems.at(ga)->Groups.top() == embedded->Groups.top())
 							{
-								if (FrameItems.at(ga)->ItemNr != hg->cembedded->ItemNr)
+								if (FrameItems.at(ga)->ItemNr != embedded->ItemNr)
 								{
 									if (currItem->document()->FrameItems.find(FrameItems.at(ga)) == -1)
 										currItem->document()->FrameItems.append(FrameItems.at(ga));
@@ -837,19 +832,30 @@ void SEditor::saveItemText(PageItem *currItem)
 						}
 					}
 				}
+				currItem->itemText.insertObject(pos, embedded);
 			}
-			else
-				hg->cembedded = 0;
-			currItem->itemText.append(hg);
+			else {
+				currItem->itemText.insertChars(pos, ch);
+			}
+			if (newStyle != curStyle) {
+				currItem->itemText.applyStyle(startOfCurStyle, pos - startOfCurStyle, curStyle);
+				curStyle = newStyle;                                
+				startOfCurStyle = pos;
+			}
+			if (ch == SpecialChars::PARSEP) {
+				currItem->itemText.applyStyle(pos, (doc->docParagraphStyles[ParagStyles[p-1]]));
+			}
 		}
 	}
+	currItem->itemText.applyStyle(startOfCurStyle, currItem->itemText.length() - startOfCurStyle, curStyle);
+	currItem->itemText.applyStyle(currItem->itemText.length() - 1, (doc->docParagraphStyles[ParagStyles[StyledText.count()-2]])); // -1 -1 == -2
 }
 
 void SEditor::setAlign(int style)
 {
 	int align = 0;
 	if (style > 4)
-		align = doc->docParagraphStyles[style].textAlignment;
+		align = doc->docParagraphStyles[style].alignment();
 	else
 		align = style;
 	switch (align)
@@ -872,6 +878,7 @@ void SEditor::setAlign(int style)
 	}
 }
 
+
 void SEditor::loadItemText(PageItem *currItem)
 {
 	setUpdatesEnabled(false);
@@ -888,6 +895,7 @@ void SEditor::loadItemText(PageItem *currItem)
 	chars = new ChList;
 	chars->setAutoDelete(true);
 	chars->clear();
+#ifndef NLS_PROTO
 	while (nextItem != 0)
 	{
 		if (nextItem->BackBox != 0)
@@ -895,12 +903,13 @@ void SEditor::loadItemText(PageItem *currItem)
 		else
 			break;
 	}
+#endif
 	if (nextItem != 0)
 	{
-		if (nextItem->itemText.count() != 0)
+		if (nextItem->itemText.length() != 0)
 		{
-			Csty = nextItem->itemText.at(0)->cstyle;
-			Ali = nextItem->itemText.at(0)->cab;
+			Csty = nextItem->itemText.charStyle(0).cstyle;
+			Ali = findParagraphStyle(doc, nextItem->itemText.paragraphStyle(0));
 		}
 		else
 		{
@@ -912,13 +921,13 @@ void SEditor::loadItemText(PageItem *currItem)
 	}
 	while (nextItem != 0)
 	{
-		for (uint a = 0; a < nextItem->itemText.count(); ++a)
+		for (uint a = 0; a < nextItem->itemText.length(); ++a)
 		{
-			if (nextItem->itemText.at(a)->ch == QChar(13))
+			if (nextItem->itemText.text(a) == SpecialChars::PARSEP)
 			{
 				StyledText.append(chars);
-				ParagStyles.append(nextItem->itemText.at(a)->cab);
-				Ali = nextItem->itemText.at(a)->cab;
+				Ali =  findParagraphStyle(doc, nextItem->itemText.paragraphStyle(a));
+				ParagStyles.append(Ali);
 				chars = new ChList;
 				chars->setAutoDelete(true);
 				chars->clear();
@@ -926,27 +935,30 @@ void SEditor::loadItemText(PageItem *currItem)
 			}
 			else
 			{
+				const CharStyle& style(nextItem->itemText.charStyle(a));
+
 				hg = new PtiSmall;
-				hg->ch = nextItem->itemText.at(a)->ch;
-				hg->cfont = nextItem->itemText.at(a)->cfont->scName();
-				hg->csize = nextItem->itemText.at(a)->csize;
-				hg->ccolor = nextItem->itemText.at(a)->ccolor;
-				hg->cshade = nextItem->itemText.at(a)->cshade;
-				hg->cstroke = nextItem->itemText.at(a)->cstroke;
-				hg->cshade2 = nextItem->itemText.at(a)->cshade2;
-				hg->cscale = nextItem->itemText.at(a)->cscale;
-				hg->cscalev = nextItem->itemText.at(a)->cscalev;
-				hg->cstyle = nextItem->itemText.at(a)->cstyle;
-				hg->cab = nextItem->itemText.at(a)->cab;
-				hg->cextra = nextItem->itemText.at(a)->cextra;
-				hg->cbase = nextItem->itemText.at(a)->cbase;
-				hg->cshadowx = nextItem->itemText.at(a)->cshadowx;
-				hg->cshadowy = nextItem->itemText.at(a)->cshadowy;
-				hg->coutline = nextItem->itemText.at(a)->coutline;
-				hg->cunderpos = nextItem->itemText.at(a)->cunderpos;
-				hg->cunderwidth = nextItem->itemText.at(a)->cunderwidth;
-				hg->cstrikepos = nextItem->itemText.at(a)->cstrikepos;
-				hg->cstrikewidth = nextItem->itemText.at(a)->cstrikewidth;
+				hg->ch = nextItem->itemText.text(a);
+				hg->cfont = style.cfont->scName();
+				hg->csize = style.csize;
+				hg->ccolor = style.ccolor;
+				hg->cshade = style.cshade;
+				hg->cstroke = style.cstroke;
+				hg->cshade2 = style.cshade2;
+				hg->cscale = style.cscale;
+				hg->cscalev = style.cscalev;
+				hg->cstyle = style.cstyle;
+				hg->cab = QMAX(0, findParagraphStyle(doc, nextItem->itemText.paragraphStyle(a)));
+				hg->cextra = style.cextra;
+				hg->cbase = style.cbase;
+				hg->cshadowx = style.cshadowx;
+				hg->cshadowy = style.cshadowy;
+				hg->coutline = style.coutline;
+				hg->cunderpos = style.cunderpos;
+				hg->cunderwidth = style.cunderwidth;
+				hg->cstrikepos = style.cstrikepos;
+				hg->cstrikewidth = style.cstrikewidth;
+#ifndef NLS_PROTO
 				if (hg->ch == QChar(25))
 				{
 					hg->cembedded = nextItem->itemText.at(a)->cembedded;
@@ -978,6 +990,7 @@ void SEditor::loadItemText(PageItem *currItem)
 					chars->append(hg);
 					continue;
 				}
+#endif
 				if ((Ali == hg->cab) && (Csty == hg->cstyle))
 				{
 					if (hg->ch == QChar(parentStoryEditor->seActions["unicodePageNumber"]->actionInt()))
@@ -2848,20 +2861,20 @@ void StoryEditor::updateProps(int p, int ch)
 		if (Editor->currentParaStyle > 4)
 		{
 			Editor->prevFont = Editor->CurrFont;
-			Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
-			Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;
-			Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
-			Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].FColor;
-			Editor->CurrTextFillSh = currDoc->docParagraphStyles[Editor->currentParaStyle].FShade;
-			Editor->CurrTextStroke = currDoc->docParagraphStyles[Editor->currentParaStyle].SColor;
-			Editor->CurrTextStrokeSh = currDoc->docParagraphStyles[Editor->currentParaStyle].SShade;
-			Editor->CurrTextShadowX = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
-			Editor->CurrTextShadowY = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
-			Editor->CurrTextOutline = currDoc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
-			Editor->CurrTextUnderPos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
-			Editor->CurrTextUnderWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
-			Editor->CurrTextStrikePos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
-			Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
+			Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font()->scName();
+			Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fontSize();
+			Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().effects();
+			Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().ccolor;
+			Editor->CurrTextFillSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshade;
+			Editor->CurrTextStroke = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cstroke;
+			Editor->CurrTextStrokeSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshade2;
+			Editor->CurrTextShadowX = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshadowx;
+			Editor->CurrTextShadowY = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshadowy;
+			Editor->CurrTextOutline = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().coutline;
+			Editor->CurrTextUnderPos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cunderpos;
+			Editor->CurrTextUnderWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cunderwidth;
+			Editor->CurrTextStrikePos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cstrikepos;
+			Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cstrikewidth;
 		}
 		Editor->setAlign(Editor->currentParaStyle);
 		Editor->setStyle(Editor->CurrentStyle);
@@ -3179,6 +3192,7 @@ void StoryEditor::updateTextFrame()
 	PageItem* nb2 = nextItem;
 	while (nb2 != 0)
 	{
+#ifndef NLS_PROTO
 		for (ScText *it = nb2->itemText.first(); it != 0; it = nb2->itemText.next())
 		{
 			if ((it->ch == QChar(25)) && (it->cembedded != 0))
@@ -3209,6 +3223,7 @@ void StoryEditor::updateTextFrame()
 				}
 			}
 		}
+#endif
 		nb2->itemText.clear();
 		nb2->CPos = 0;
 		nb2->Dirty = false;
@@ -3318,23 +3333,23 @@ void StoryEditor::changeAlignSB(int pa, int align)
 			{
 				if (Editor->currentParaStyle > 4)
 				{
-					if (!currDoc->docParagraphStyles[Editor->currentParaStyle].Font.isEmpty())
+					if (currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font() != NULL)
 					{
-						chars->at(s)->cfont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
-						chars->at(s)->csize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;
+						chars->at(s)->cfont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font()->scName();
+						chars->at(s)->csize = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fontSize();
 						chars->at(s)->cstyle &= ~1919;
-						chars->at(s)->cstyle |= currDoc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
-						chars->at(s)->ccolor = currDoc->docParagraphStyles[Editor->currentParaStyle].FColor;
-						chars->at(s)->cshade = currDoc->docParagraphStyles[Editor->currentParaStyle].FShade;
-						chars->at(s)->cstroke = currDoc->docParagraphStyles[Editor->currentParaStyle].SColor;
-						chars->at(s)->cshade2 = currDoc->docParagraphStyles[Editor->currentParaStyle].SShade;
-						chars->at(s)->cshadowx = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
-						chars->at(s)->cshadowy = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
-						chars->at(s)->coutline = currDoc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
-						chars->at(s)->cunderpos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
-						chars->at(s)->cunderwidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
-						chars->at(s)->cstrikepos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
-						chars->at(s)->cstrikewidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
+						chars->at(s)->cstyle |= currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().effects();
+						chars->at(s)->ccolor = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().ccolor;
+						chars->at(s)->cshade = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshade;
+						chars->at(s)->cstroke = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cstroke;
+						chars->at(s)->cshade2 = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshade2;
+						chars->at(s)->cshadowx = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshadowx;
+						chars->at(s)->cshadowy = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshadowy;
+						chars->at(s)->coutline = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().coutline;
+						chars->at(s)->cunderpos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cunderpos;
+						chars->at(s)->cunderwidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cunderwidth;
+						chars->at(s)->cstrikepos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cstrikepos;
+						chars->at(s)->cstrikewidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cstrikewidth;
 					}
 				}
 				if ((Editor->currentParaStyle < 5) && (chars->at(s)->cab > 4))
@@ -3368,23 +3383,23 @@ void StoryEditor::changeAlignSB(int pa, int align)
 	{
 		if (Editor->currentParaStyle > 4)
 		{
-			if (!currDoc->docParagraphStyles[Editor->currentParaStyle].Font.isEmpty())
+			if (currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font() != NULL)
 			{
 				Editor->prevFont = Editor->CurrFont;
-				Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
-				Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;
-				Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
-				Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].FColor;
-				Editor->CurrTextFillSh = currDoc->docParagraphStyles[Editor->currentParaStyle].FShade;
-				Editor->CurrTextStroke = currDoc->docParagraphStyles[Editor->currentParaStyle].SColor;
-				Editor->CurrTextStrokeSh = currDoc->docParagraphStyles[Editor->currentParaStyle].SShade;
-				Editor->CurrTextShadowX = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
-				Editor->CurrTextShadowY = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
-				Editor->CurrTextOutline = currDoc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
-				Editor->CurrTextUnderPos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
-				Editor->CurrTextUnderWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
-				Editor->CurrTextStrikePos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
-				Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
+				Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font()->scName();
+				Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fontSize();
+				Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().effects();
+				Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().ccolor;
+				Editor->CurrTextFillSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshade;
+				Editor->CurrTextStroke = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cstroke;
+				Editor->CurrTextStrokeSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshade2;
+				Editor->CurrTextShadowX = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshadowx;
+				Editor->CurrTextShadowY = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshadowy;
+				Editor->CurrTextOutline = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().coutline;
+				Editor->CurrTextUnderPos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cunderpos;
+				Editor->CurrTextUnderWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cunderwidth;
+				Editor->CurrTextStrikePos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cstrikepos;
+				Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cstrikewidth;
 			}
 		}
 		else
@@ -3463,23 +3478,23 @@ void StoryEditor::changeAlign(int )
 				{
 					if (Editor->currentParaStyle > 4)
 					{
-						if (!currDoc->docParagraphStyles[Editor->currentParaStyle].Font.isEmpty())
+						if (currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font() != NULL)
 						{
-							chars->at(s)->cfont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
-							chars->at(s)->csize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;
+							chars->at(s)->cfont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font()->scName();
+							chars->at(s)->csize = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fontSize();
 							chars->at(s)->cstyle &= ~1919;
-							chars->at(s)->cstyle |= currDoc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
-							chars->at(s)->ccolor = currDoc->docParagraphStyles[Editor->currentParaStyle].FColor;
-							chars->at(s)->cshade = currDoc->docParagraphStyles[Editor->currentParaStyle].FShade;
-							chars->at(s)->cstroke = currDoc->docParagraphStyles[Editor->currentParaStyle].SColor;
-							chars->at(s)->cshade2 = currDoc->docParagraphStyles[Editor->currentParaStyle].SShade;
-							chars->at(s)->cshadowx = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
-							chars->at(s)->cshadowy = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
-							chars->at(s)->coutline = currDoc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
-							chars->at(s)->cunderpos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
-							chars->at(s)->cunderwidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
-							chars->at(s)->cstrikepos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
-							chars->at(s)->cstrikewidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
+							chars->at(s)->cstyle |= currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().effects();
+							chars->at(s)->ccolor = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().ccolor;
+							chars->at(s)->cshade = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshade;
+							chars->at(s)->cstroke = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cstroke;
+							chars->at(s)->cshade2 = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshade2;
+							chars->at(s)->cshadowx = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshadowx;
+							chars->at(s)->cshadowy = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshadowy;
+							chars->at(s)->coutline = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().coutline;
+							chars->at(s)->cunderpos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cunderpos;
+							chars->at(s)->cunderwidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cunderwidth;
+							chars->at(s)->cstrikepos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cstrikepos;
+							chars->at(s)->cstrikewidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cstrikewidth;
 						}
 					}
 					if ((Editor->currentParaStyle < 5) && (chars->at(s)->cab > 4))
@@ -3516,23 +3531,23 @@ void StoryEditor::changeAlign(int )
 	{
 		if (Editor->currentParaStyle > 4)
 		{
-			if (!currDoc->docParagraphStyles[Editor->currentParaStyle].Font.isEmpty())
+			if (currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font() != NULL)
 			{
 				Editor->prevFont = Editor->CurrFont;
-				Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
-				Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;
-				Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
-				Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].FColor;
-				Editor->CurrTextFillSh = currDoc->docParagraphStyles[Editor->currentParaStyle].FShade;
-				Editor->CurrTextStroke = currDoc->docParagraphStyles[Editor->currentParaStyle].SColor;
-				Editor->CurrTextStrokeSh = currDoc->docParagraphStyles[Editor->currentParaStyle].SShade;
-				Editor->CurrTextShadowX = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
-				Editor->CurrTextShadowY = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
-				Editor->CurrTextOutline = currDoc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
-				Editor->CurrTextUnderPos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
-				Editor->CurrTextUnderWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
-				Editor->CurrTextStrikePos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
-				Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
+				Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font()->scName();
+				Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fontSize();
+				Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().effects();
+				Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().ccolor;
+				Editor->CurrTextFillSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshade;
+				Editor->CurrTextStroke = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cstroke;
+				Editor->CurrTextStrokeSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshade2;
+				Editor->CurrTextShadowX = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshadowx;
+				Editor->CurrTextShadowY = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cshadowy;
+				Editor->CurrTextOutline = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().coutline;
+				Editor->CurrTextUnderPos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cunderpos;
+				Editor->CurrTextUnderWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cunderwidth;
+				Editor->CurrTextStrikePos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cstrikepos;
+				Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().cstrikewidth;
 			}
 		}
 		else

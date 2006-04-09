@@ -97,6 +97,7 @@ for which a new license (GPL+exception) is in place.
 #include "hyphenator.h"
 #include "commonstrings.h"
 #include "guidemanager.h"
+#include "text/nlsconfig.h"
 
 using namespace std;
 
@@ -702,8 +703,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 								horizRuler->Cols = currItem->Cols;
 								horizRuler->Extra = currItem->textToFrameDistLeft();
 								horizRuler->RExtra = currItem->textToFrameDistRight();
-								horizRuler->First = Doc->docParagraphStyles[Doc->currentParaStyle].First;
-								horizRuler->Indent = Doc->docParagraphStyles[Doc->currentParaStyle].Indent;
+								horizRuler->First = Doc->docParagraphStyles[Doc->currentParaStyle].firstIndent();
+								horizRuler->Indent = Doc->docParagraphStyles[Doc->currentParaStyle].leftMargin();
 								if (currItem->imageFlippedH() || (currItem->reversed()))
 									horizRuler->Revers = true;
 								else
@@ -712,7 +713,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 								if (Doc->currentParaStyle < 5)
 									horizRuler->TabValues = currItem->TabValues;
 								else
-									horizRuler->TabValues = Doc->docParagraphStyles[Doc->currentParaStyle].TabValues;
+									horizRuler->TabValues = Doc->docParagraphStyles[Doc->currentParaStyle].tabValues();
 								horizRuler->repaint();
 							}
 						}
@@ -1364,15 +1365,15 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 					int a=cItem->CPos;
 					while(a>0)
 					{
-						if (cItem->itemText.at(a-1)->ch.at(0).isLetterOrNumber())
+						if (cItem->itemText.text(a-1).isLetterOrNumber())
 							--a;
 						else
 							break;
 					}
 					uint b=cItem->CPos;
-					while(b<cItem->itemText.count())
+					while(b<cItem->itemText.length())
 					{
-						if (cItem->itemText.at(b)->ch.at(0).isLetterOrNumber())
+						if (cItem->itemText.text(b).isLetterOrNumber())
 							++b;
 						else
 							break;
@@ -1776,15 +1777,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			QPopupMenu *pmenLevel = new QPopupMenu();
 			QPopupMenu *pmenPDF = new QPopupMenu();
 			pmenResolution = new QPopupMenu();
-			
-			Q_CHECK_PTR(pmen);
-			Q_CHECK_PTR(pmen2);
-			Q_CHECK_PTR(pmen3);
-			Q_CHECK_PTR(pmen4);
-			Q_CHECK_PTR(pmenEditContents);
-			Q_CHECK_PTR(pmenLevel);
-			Q_CHECK_PTR(pmenPDF);
-			
 			setObjectUndoMode();
 			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
 			{
@@ -2030,45 +2022,40 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			if (Doc->appMode != modeEdit) //Create convertTo Menu
 			{
-				ScMW->scrActions["itemConvertToBezierCurve"]->addTo(pmen2);
-				ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
-				ScMW->scrActions["itemConvertToOutlines"]->addTo(pmen2);
-				ScMW->scrActions["itemConvertToPolygon"]->addTo(pmen2);
-				ScMW->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
-				ScMW->scrActions["itemConvertToBezierCurve"]->setEnabled(false);
-				ScMW->scrActions["itemConvertToImageFrame"]->setEnabled(false);
-				ScMW->scrActions["itemConvertToOutlines"]->setEnabled(false);
-				ScMW->scrActions["itemConvertToPolygon"]->setEnabled(false);
-				ScMW->scrActions["itemConvertToTextFrame"]->setEnabled(false);
+				bool insertConvertToMenu=false;
 				if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
 				{
+					insertConvertToMenu=true;
 					if (currItem->itemType() == PageItem::PathText)
-						ScMW->scrActions["itemConvertToOutlines"]->setEnabled(true);
+						ScMW->scrActions["itemConvertToOutlines"]->addTo(pmen2);
 					else
 					{
 						if (currItem->isTableItem)
-							ScMW->scrActions["itemConvertToImageFrame"]->setEnabled(true);
+							ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
 						if ((!currItem->isTableItem) && (currItem->BackBox == 0) && (currItem->NextBox == 0))
 						{
-							ScMW->scrActions["itemConvertToImageFrame"]->setEnabled(true);
-							ScMW->scrActions["itemConvertToOutlines"]->setEnabled(true);
-							ScMW->scrActions["itemConvertToPolygon"]->setEnabled(true);
+							ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+							ScMW->scrActions["itemConvertToOutlines"]->addTo(pmen2);
+							ScMW->scrActions["itemConvertToPolygon"]->addTo(pmen2);
 						}
 					}
 				}
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
-					ScMW->scrActions["itemConvertToTextFrame"]->setEnabled(true);
+					insertConvertToMenu=true;
+					ScMW->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
 					if (!currItem->isTableItem)
-						ScMW->scrActions["itemConvertToPolygon"]->setEnabled(true);
+						ScMW->scrActions["itemConvertToPolygon"]->addTo(pmen2);
 				}
 				if (currItem->itemType() == PageItem::Polygon)
 				{
-					ScMW->scrActions["itemConvertToBezierCurve"]->setEnabled(true);
-					ScMW->scrActions["itemConvertToImageFrame"]->setEnabled(true);
-					ScMW->scrActions["itemConvertToTextFrame"]->setEnabled(true);
+					insertConvertToMenu=true;
+					ScMW->scrActions["itemConvertToBezierCurve"]->addTo(pmen2);
+					ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+					ScMW->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
 				}
-				pmen->insertItem( tr("Conve&rt to"), pmen2);
+				if (insertConvertToMenu)
+					pmen->insertItem( tr("Conve&rt to"), pmen2);
 			}
 			pmen->insertSeparator();
 			if (!currItem->locked() && !(currItem->isTableItem && currItem->isSingleSel))
@@ -2107,6 +2094,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			pmen2=NULL;
 			pmen3=NULL;
 			pmen4=NULL;
+			pmenEditContents=NULL;
 			pmenLevel=NULL;
 			pmenPDF=NULL;
 			pmenResolution=NULL;
@@ -2874,7 +2862,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						double scx = currItem->width() / currItem->OldB2;
 						double scy = currItem->height() / currItem->OldH2;
 						scx = scx != scy ? scx / scy : 1.0;
-						if (currItem->itemText.count() != 0)
+						if (currItem->itemText.length() != 0)
 						{
 							currItem->setFontSize(QMAX(qRound(currItem->fontSize() * scy), 1));
 							currItem->setLineSpacing(((currItem->fontSize() / 10.0)* static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (currItem->fontSize() / 10.0));
@@ -2899,11 +2887,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							emit ItemTextSca(currItem->TxtScale);
 							emit ItemTextScaV(currItem->TxtScaleV);
 							emit ItemTextBase(currItem->TxtBase);
+#ifndef NLS_PROTO
 							for (uint aa = 0; aa < currItem->itemText.count(); ++aa)
 							{
 								currItem->itemText.at(aa)->csize = QMAX(qRound(currItem->itemText.at(aa)->csize*scy), 1);
 								currItem->itemText.at(aa)->cscale = QMAX(QMIN(qRound(currItem->itemText.at(aa)->cscale*scx), 4000), 100);
 							}
+#endif
 						}
 					}
 					if (currItem->itemType() == PageItem::ImageFrame)
@@ -3093,8 +3083,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		{
 			if (oldCp == currItem->CPos)
 			{
-				for (a = 0; a < currItem->itemText.count(); ++a)
-					currItem->itemText.at(a)->cselect = false;
+				currItem->itemText.deselectAll();
 				currItem->HasSel = false;
 				emit HasNoTextSel();
 				RefreshItem(currItem);
@@ -3584,28 +3573,21 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			}
 			if (currItem->asTextFrame())
 			{
-				for (a = 0; a < currItem->itemText.count(); ++a)
-					currItem->itemText.at(a)->cselect = false;
+				currItem->itemText.deselectAll();
 				currItem->HasSel = false;
 				slotSetCurs(m->x(), m->y());
 				//Make sure we dont go here if the old cursor position was not set
-				if (oldCp!=-1 && currItem->itemText.count() > 0)
+				if (oldCp!=-1 && currItem->itemText.length() > 0)
 				{
 					if (currItem->CPos < oldCp)
 					{
-						for (c = currItem->CPos; c < oldCp; ++c)
-						{
-							currItem->itemText.at(c)->cselect = true;
-							currItem->HasSel = true;
-						}
+						currItem->itemText.select(currItem->CPos, oldCp - currItem->CPos);
+						currItem->HasSel = true;
 					}
 					if (currItem->CPos > oldCp)
 					{
-						for (c = oldCp; c < currItem->CPos; ++c)
-						{
-							currItem->itemText.at(c)->cselect = true;
-							currItem->HasSel = true;
-						}
+						currItem->itemText.select(oldCp, currItem->CPos - oldCp);
+						currItem->HasSel = true;
 					}
 				}
 				RefreshItem(currItem);
@@ -4978,7 +4960,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							ss->Objekt = cc;
 							int st = Doc->currentParaStyle;
 							if (st > 5)
-								ss->GetText(currItem, st, Doc->docParagraphStyles[st].Font, Doc->docParagraphStyles[st].FontSize, true);
+								ss->GetText(currItem, st, Doc->docParagraphStyles[st].charStyle().font()->scName(), Doc->docParagraphStyles[st].charStyle().fontSize(), true);
 							else
 								ss->GetText(currItem, st, currItem->font(), currItem->fontSize(), true);
 							delete ss;
@@ -5076,7 +5058,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			SeleItem(m);
 			if (GetItem(&bb) && (bb->asTextFrame()))
 			{
-				if ((bb->itemText.count() == 0) && (bb->NextBox == 0) && (bb->BackBox == 0) && (currItem != bb))
+#ifndef NLS_PROTO
+				if ((bb->itemText.length() == 0) && (bb->NextBox == 0) && (bb->BackBox == 0) && (currItem != bb))
 				{
 					currItem->NextBox = bb;
 					bb->BackBox = currItem;
@@ -5100,6 +5083,36 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					QMessageBox::warning(this, tr("Linking Text Frames"),
 											 "<qt>" + tr("You are trying to link to a filled frame, or a frame to itself.") + "</qt>");
 				}
+#else
+				//FIXME: why bb->NextBox == 0 ?? AV
+				if ((bb->itemText.length() == 0) && (bb->NextBox
+													 == 0) && (bb->BackBox == 0) && (currItem != bb))
+				{
+					currItem->NextBox = bb;
+					bb->BackBox = currItem;
+					// all following frames share this itemText
+						for (PageItem * frame = bb; frame; frame
+							 = frame->NextBox)
+							frame->itemText = currItem->itemText;
+					
+					if (bb->ItemNr < currItem->ItemNr)
+					{
+						Doc->Items->insert(currItem->ItemNr+1, bb);
+						bb = Doc->Items->take(bb->ItemNr);
+						for (uint a = 0; a < Doc->Items->count(); ++a)
+						{
+							Doc->Items->at(a)->ItemNr = a;
+						}
+					}
+					updateContents();
+					emit DocChanged();
+					Doc->ElemToLink = bb;
+				}
+				else
+					QMessageBox::warning(this, tr("Linking Text Frames"),
+										 "<qt>" + tr("You are trying to link to a filled frame, or a frame to itself.") + "</qt>");
+				
+#endif
 			}
 			else
 				Doc->ElemToLink = NULL;
@@ -5110,6 +5123,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			{
 				if (currItem->BackBox != 0)
 				{
+#ifndef NLS_PROTO
 					if (currItem->NextBox != 0)
 					{
 						PageItem *nextItem = currItem->NextBox;
@@ -5126,6 +5140,21 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						currItem->BackBox->itemText.append(currItem->itemText.take(0));
 					currItem->BackBox->NextBox = 0;
 					currItem->BackBox = 0;
+#else
+					if (currItem->NextBox != 0)
+					{
+						PageItem *nextItem = currItem->NextBox;
+						while (nextItem != 0)
+						{
+							nextItem->itemText = StoryText(Doc);
+							nextItem = nextItem->NextBox;
+						}
+					}
+					currItem->itemText = StoryText(Doc);
+					currItem->BackBox->NextBox = 0;
+					currItem->BackBox = 0;
+					
+#endif
 				}
 				emit DocChanged();
 				updateContents();
@@ -6455,7 +6484,7 @@ void ScribusView::MoveRotated(PageItem *currItem, FPoint npv, bool fromMP)
 }
 
 //CB-->Doc
-bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bool /*constrainRotation*/)
+bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bool constrainRotation)
 {
 	PageItem *currItem = Doc->Items->at(ite);
 	QRect oldR(currItem->getRedrawBounding(Scale));
@@ -6783,8 +6812,9 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 		}
 		if (scaleText)
 		{
+#ifndef NLS_PROTO
 			bb->setFontSize(QMAX(qRound(bb->fontSize()*((scx+scy)/2)), 1));
-			if ((bb->itemText.count() != 0) && (!bb->isTableItem))
+			if ((bb->itemText.length() != 0) && (!bb->isTableItem))
 			{
 				bb->setLineSpacing(((bb->fontSize() / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (bb->fontSize() / 10.0));
 				for (aa = 0; aa < bb->itemText.count(); ++aa)
@@ -6792,6 +6822,7 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 				if (bb->asPathText())
 					bb->updatePolyClip();
 			}
+#endif
 		}
 		bb->setImageXYOffset(oldLocalX, oldLocalY);
 		double dX = bb->width() - bb->OldB2;
@@ -6998,7 +7029,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 			return false;
 		int xP = qRound(x/Scale + Doc->minCanvasCoordinate.x());
 		int yP = qRound(y/Scale + Doc->minCanvasCoordinate.y());
-		QPainter p;
+ 		QPainter p;
 		p.begin(this);
 		Transform(currItemGeneric, &p);
 		p.translate(qRound(-Doc->minCanvasCoordinate.x()), qRound(-Doc->minCanvasCoordinate.y()));
@@ -7012,6 +7043,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 		        (QRegion(p.xForm(currItem->Clip)).contains(mpo)))
 		{
 			m_cursorVisible = true;
+#ifndef NLS_PROTO
 			//Work out which column we are in
 			double colWidth=currItem->columnWidth();
 			double colGap=currItem->ColGap;
@@ -7034,7 +7066,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 				if (xp+currItem->xPos()<cp-colWidth-colGap)
 					continue;
 				yp = static_cast<int>(currItem->itemText.at(a)->yp);
-				h = static_cast<int>(Doc->docParagraphStyles[currItem->itemText.at(a)->cab].LineSpa);
+				h = static_cast<int>(Doc->docParagraphStyles[currItem->itemText.at(a)->cab].lineSpacing());
 
 				if (a<currItemTextCount-1)
 				{
@@ -7287,6 +7319,81 @@ bool ScribusView::slotSetCurs(int x, int y)
 				emit ItemTextBase(currItem->TxtBase);
 				return true;
 			}
+#else
+			FPoint point((x + Doc->minCanvasCoordinate.x()) / Scale - currItem->xPos(), 
+						 (y + Doc->minCanvasCoordinate.x()) / Scale - currItem->yPos());
+			currItem->CPos = currItem->itemText.length() == 0 ? 0 :
+				currItem->itemText.screenToPosition(point);
+			
+			if (currItem->CPos < currItem->itemText.length())
+			{
+				const CharStyle& style = currItem->itemText.charStyle(currItem->CPos); 
+				Doc->CurrFont = style.cfont->scName();
+				Doc->CurrFontSize = style.csize;
+				Doc->CurrTextFill = style.ccolor;
+				Doc->CurrTextFillSh = style.cshade;
+				Doc->CurrTextStroke = style.cstroke;
+				Doc->CurrTextStrokeSh = style.cshade2;
+				Doc->CurrTextScale = style.cscale;
+				Doc->CurrTextScaleV = style.cscalev;
+				Doc->CurrTextBase = style.cbase;
+				Doc->CurrTextShadowX = style.cshadowx;
+				Doc->CurrTextShadowY = style.cshadowy;
+				Doc->CurrTextOutline = style.coutline;
+				Doc->CurrTextUnderPos = style.cunderpos;
+				Doc->CurrTextUnderWidth = style.cunderwidth;
+				Doc->CurrTextStrikePos = style.cstrikepos;
+				Doc->CurrTextStrikeWidth = style.cstrikewidth;
+				emit ItemTextStrike(style.cstrikepos, style.cstrikewidth);
+				emit ItemTextUnderline(style.cunderpos, style.cunderwidth);
+				emit ItemTextOutline(style.coutline);
+				emit ItemTextShadow(style.cshadowx, style.cshadowy);
+				emit ItemTextBase(style.cbase);
+				emit ItemTextSca(style.cscale);
+				emit ItemTextScaV(style.cscalev);
+				emit ItemTextFont(style.cfont->scName());
+				emit ItemTextSize(style.csize);
+				emit ItemTextUSval(style.cextra);
+				emit ItemTextStil(style.cstyle);
+				//                              emit ItemTextAbs(style.cab); FIXME:NLS
+				emit ItemTextFarben(style.cstroke, style.ccolor, style.cshade2, style.cshade);
+				p.end();
+				return true;
+			}
+			else
+			{
+				Doc->CurrFontSize = currItem->fontSize();
+				Doc->CurrTextFill = currItem->TxtFill;
+				Doc->CurrTextFillSh = currItem->ShTxtFill;
+				Doc->CurrTextStroke = currItem->TxtStroke;
+				Doc->CurrTextStrokeSh = currItem->ShTxtStroke;
+				Doc->CurrTextScale = currItem->TxtScale;
+				Doc->CurrTextScaleV = currItem->TxtScaleV;
+				Doc->CurrTextBase = currItem->TxtBase;
+				Doc->CurrTextShadowX = currItem->TxtShadowX;
+				Doc->CurrTextShadowY = currItem->TxtShadowY;
+				Doc->CurrTextOutline = currItem->TxtOutline;
+				Doc->CurrTextUnderPos = currItem->TxtUnderPos;
+				Doc->CurrTextUnderWidth = currItem->TxtUnderWidth;
+				Doc->CurrTextStrikePos = currItem->TxtStrikePos;
+				Doc->CurrTextStrikeWidth = currItem->TxtStrikeWidth;
+				emit ItemTextStrike(currItem->TxtStrikePos, currItem->TxtStrikeWidth);
+				emit ItemTextUnderline(currItem->TxtUnderPos, currItem->TxtUnderWidth);
+				emit ItemTextOutline(currItem->TxtOutline);
+				emit ItemTextShadow(currItem->TxtShadowX, currItem->TxtShadowY);
+				emit ItemTextSca(currItem->TxtScale);
+				emit ItemTextScaV(currItem->TxtScaleV);
+				emit ItemTextFarben(currItem->TxtStroke, currItem->TxtFill, currItem->ShTxtStroke, currItem->ShTxtFill);
+				emit ItemTextFont(currItem->font());
+				emit ItemTextSize(currItem->fontSize());
+				emit ItemTextUSval(currItem->ExtraV);
+				emit ItemTextStil(currItem->TxTStyle);
+				emit ItemTextAbs(currItem->textAlignment);
+				emit ItemTextBase(currItem->TxtBase);
+				p.end();
+				return true;
+			}			
+#endif
 		}
 	}
 	return false;
@@ -7297,6 +7404,7 @@ void ScribusView::slotDoCurs(bool draw)
 	PageItem *currItem;
 	if (GetItem(&currItem))
 	{
+#ifndef NLS_PROTO
 		if (!currItem->asTextFrame())
 			return;
 		QPainter p;
@@ -7328,7 +7436,7 @@ void ScribusView::slotDoCurs(bool draw)
 				chx = " ";
 			int chs = currItem->itemText.at(offs)->csize;
 			currItem->SetZeichAttr(currItem->itemText.at(offs), &chs, &chx);
-			if (currItem->CPos < static_cast<int>(currItem->itemText.count()))
+			if (currItem->CPos != static_cast<int>(currItem->itemText.count()))
 			{
 				if (currItem->itemText.at(currItem->CPos)->ch == QChar(9))
 				{
@@ -7434,6 +7542,71 @@ void ScribusView::slotDoCurs(bool draw)
 			}
 		}
 		p.end();
+#else
+		PageItem_TextFrame * textframe = currItem->asTextFrame();
+		if ( !textframe )
+			return;
+		
+		//              textframe->lastTextItem = QMIN(textframe->lastTextItem, 
+		//                                             signed(textframe->itemText.nrOfItems()) - 1);
+
+		if (textframe->firstTextItem() >= 0 
+			&& textframe->lastTextItem() >= textframe->firstTextItem() 
+			&& textframe->CPos > 0 
+			&& textframe->CPos <= textframe->itemText.endOfItem(textframe->lastTextItem()))
+		{
+			QPainter p;
+			p.begin(viewport());
+			ToView(&p);
+			Transform(textframe, &p);
+			TransformM(textframe, &p);
+			
+			if (Doc->CurTimer != 0)
+				Doc->CurTimer->stop();
+			
+			int x, y, y1;
+			if (textframe->CPos == textframe->itemText.endOfItem(textframe->lastTextItem()))
+			{
+				ScScriptItem * last = textframe->itemText.item(textframe->lastTextItem());
+				x = static_cast<int>(last->x + last->naturalWidth);
+				y = static_cast<int>(last->y);
+				y1 = static_cast<int>(last->y - 12);
+				qDebug(QString("cursor at end (%1,%2)").arg(x).arg(y));
+			}
+			else
+			{
+				glyph_metrics_t bbox = textframe->itemText.boundingBox(textframe->CPos);
+				x = static_cast<int>(bbox.x);
+				y = static_cast<int>(bbox.y);
+				y1 = static_cast<int>(bbox.y - bbox.height);
+				qDebug(QString("cursor at (%1,%2) + %3").arg(bbox.x).arg(bbox.y).arg(bbox.height));
+			}
+			
+			p.setPen(QPen(white, 2, SolidLine, FlatCap, MiterJoin));
+			p.setRasterOp(XorROP);
+			if (draw)
+			{
+				p.drawLine(x, QMIN(QMAX(y,0),static_cast<int>(currItem->height())), 
+						   x, QMIN(QMAX(y1,0),static_cast<int>(currItem->height())));
+				m_cursorVisible = !m_cursorVisible;
+				if (Doc->CurTimer != 0)
+				{
+					if (!Doc->CurTimer->isActive())
+						Doc->CurTimer->start(500);
+				}
+			}
+			else
+			{
+				if (Doc->CurTimer != 0)
+					Doc->CurTimer->stop();
+				if (m_cursorVisible)
+					p.drawLine(x, QMIN(QMAX(y,0),static_cast<int>(currItem->height())), 
+							   x, QMIN(QMAX(y1,0),static_cast<int>(currItem->height())));
+				m_cursorVisible = false;
+			}
+			p.end();
+		}
+#endif
 	}
 }
 
@@ -8484,6 +8657,7 @@ void ScribusView::setRulerPos(int x, int y)
 	ScMW->mainWindowStatusLabel->setText(newStatusBarText);
 }
 
+
 //CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
 //does NOT create a page anymore.
 Page* ScribusView::addPage(int nr, bool mov)
@@ -9184,6 +9358,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	//
 	case PageItem::PathText:
 	case PageItem::TextFrame:
+#ifndef NLS_PROTO
 		if (Buffer->PType == PageItem::PathText)
 			z = Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Buffer->Pcolor, !m_MouseButtonPressed);
 		else
@@ -9234,7 +9409,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 				hg->cshade = (*it).toInt();
 				hg->cselect = false;
 				it++;
-				hg->cstyle = it == NULL ? 0 : (*it).toInt();
+				hg->cstyle = static_cast<StyleFlag>(it == NULL ? 0 : (*it).toInt());
 				it++;
 				hg->cab = it == NULL ? 0 : (*it).toInt();
 				it++;
@@ -9277,6 +9452,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		}
 		Doc->Items->at(z)->setLineSpacing(Buffer->LineSp);
 //		Doc->Items->at(z)->convertTo(Buffer->PType);
+#endif
 		break;
 	case PageItem::Line:
 		z = Doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w ,0, pw, CommonStrings::None, Buffer->Pcolor2, !m_MouseButtonPressed);
@@ -9292,7 +9468,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->setLineSpacingMode(Buffer->LineSpMode);
 	if (currItem->lineSpacingMode() == 3)
 	{
-		Doc->docParagraphStyles[0].BaseAdj = true;
+		Doc->docParagraphStyles[0].setUseBaselineGrid(true);
 		currItem->setLineSpacing(Doc->typographicSettings.valueBaseGrid-1);
 	}
 	currItem->setImageFlippedH(Buffer->flippedH);
@@ -9311,7 +9487,6 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->TxtScale = Buffer->TxtScale;
 	currItem->TxtScaleV = Buffer->TxtScaleV;
 	currItem->TxTStyle = Buffer->TxTStyle;
-	currItem->TxtBase = Buffer->TxTBase;
 	currItem->TxtShadowX = Buffer->TxtShadowX;
 	currItem->TxtShadowY = Buffer->TxtShadowY;
 	currItem->TxtOutline = Buffer->TxtOutline;
@@ -9329,8 +9504,6 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 //	currItem->BMnr = Buffer->BMnr;
 	currItem->setIsAnnotation(Buffer->m_isAnnotation);
 	currItem->setAnnotation(Buffer->m_annotation);
-	currItem->setEndArrowIndex(Buffer->endArrowIndex);
-	currItem->setStartArrowIndex(Buffer->startArrowIndex);
 	if (!Buffer->AnName.isEmpty())
 	{
 		if (!drag)
@@ -9591,6 +9764,7 @@ void ScribusView::FromPathText()
 
 void ScribusView::TextToPath()
 {
+#ifndef NLS_PROTO
 	ScMW->NoFrameEdit();
 	uint selectedItemCount=Doc->m_Selection->count();
 	if (selectedItemCount != 0)
@@ -9619,14 +9793,13 @@ void ScribusView::TextToPath()
 			double x, y, wide;
 			QString chx, ccounter;
 			PageItem* bb;
-			ScText *hl;
 			for (uint a = 0; a < currItem->MaxChars; ++a)
 			{
 				pts.resize(0);
 				x = 0.0;
 				y = 0.0;
-				hl = currItem->itemText.at(a);
-				chx = hl->ch;
+				ScText * hl = currItem->itemText.at(a);
+				chx = currItem->itemText.text(a,1);
 				if ((chx == QChar(13)) || (chx == QChar(32)) || (chx == QChar(29)))
 					continue;
 				if (chx == QChar(30))
@@ -9790,6 +9963,7 @@ void ScribusView::TextToPath()
 			Doc->itemSelection_DeleteItem();
 		}
 	}
+#endif
 }
 
 void ScribusView::UniteObj()

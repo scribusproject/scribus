@@ -55,6 +55,8 @@ public:
 	static const QString getLoadFilterString();
 	static QString readSLA(const QString & fileName);
 private:
+		
+	void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc);
 
 	PrefsManager* prefsManager;
 	double maximumX;

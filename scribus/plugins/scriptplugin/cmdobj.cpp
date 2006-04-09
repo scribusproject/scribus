@@ -526,7 +526,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		uint docParagraphStylesCount=ScMW->doc->docParagraphStyles.count();
 		for (uint i=0; i < docParagraphStylesCount; ++i)
 		{
-			if (ScMW->doc->docParagraphStyles[i].Vname == QString::fromUtf8(style)) {
+			if (ScMW->doc->docParagraphStyles[i].name() == QString::fromUtf8(style)) {
 				found = true;
 				styleid = i;
 				break;
@@ -585,7 +585,7 @@ PyObject *scribus_getstylenames(PyObject* /* self */)
 	*/
 	for (uint i=0; i < ScMW->doc->docParagraphStyles.count(); ++i)
 	{
-		if (PyList_Append(styleList, PyString_FromString(ScMW->doc->docParagraphStyles[i].Vname.utf8())))
+		if (PyList_Append(styleList, PyString_FromString(ScMW->doc->docParagraphStyles[i].name().utf8())))
 		{
 			// An exception will have already been set by PyList_Append apparently.
 			return NULL;

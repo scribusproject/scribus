@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "scribusdoc.h"
 #include "page.h"
+#include "text/nlsconfig.h"
 
 void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 {
@@ -87,30 +88,31 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		}
 		if ((currItem->asTextFrame()) || (currItem->asPathText()))
 		{
+#ifndef NLS_PROTO
 			if ((currItem->itemText.count() > currItem->MaxChars) && (checkerSettings.checkOverflow))
 				itemError.insert(TextOverflow, 0);
-			for (uint e = 0; e < currItem->itemText.count(); ++e)
+			for (uint e = 0; e < currItem->itemText.length(); ++e)
 			{
-				uint chr = currItem->itemText.at(e)->ch[0].unicode();
+				uint chr = currItem->itemText.text(e).unicode();
 				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 28) || (chr == 27) || (chr == 26) || (chr == 25))
 					continue;
-				if ((currItem->itemText.at(e)->cstyle & 64) || (currItem->itemText.at(e)->cstyle & 32))
+				if ((currItem->itemText.charStyle(e).cstyle & 64) || (currItem->itemText.charStyle(e).cstyle & 32))
 				{
-					chx = currItem->itemText.at(e)->ch;
-					if (chx.upper() != currItem->itemText.at(e)->ch)
+					chx = currItem->itemText.text(e);
+					if (chx.upper() != currItem->itemText.text(e))
 						chx = chx.upper();
 					chr = chx[0].unicode();
 				}
 				if (chr == 9)
 				{
-					for (uint t1 = 0; t1 < currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues.count(); t1++)
+					for (uint t1 = 0; t1 < currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].tabValues().count(); t1++)
 					{
-						if (currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
+						if (currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].tabValues()[t1].tabFillChar.isNull())
 							continue;
-						chx = QString(currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues[t1].tabFillChar);
-						if ((currItem->itemText.at(e)->cstyle & 64) || (currItem->itemText.at(e)->cstyle & 32))
+						chx = QString(currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].tabValues()[t1].tabFillChar);
+						if ((currItem->itemText.charStyle(e).cstyle & 64) || (currItem->itemText.charStyle(e).cstyle & 32))
 						{
-							if (chx.upper() != QString(currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues[t1].tabFillChar))
+							if (chx.upper() != QString(currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].tabValues()[t1].tabFillChar))
 								chx = chx.upper();
 						}
 						chr = chx[0].unicode();
@@ -122,7 +124,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						if (currItem->TabValues[t1].tabFillChar.isNull())
 							continue;
 						chx = QString(currItem->TabValues[t1].tabFillChar);
-						if ((currItem->itemText.at(e)->cstyle & 64) || (currItem->itemText.at(e)->cstyle & 32))
+						if ((currItem->itemText.charStyle(e).cstyle & 64) || (currItem->itemText.charStyle(e).cstyle & 32))
 						{
 							if (chx.upper() != QString(currItem->TabValues[t1].tabFillChar))
 								chx = chx.upper();
@@ -145,6 +147,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
 					itemError.insert(MissingGlyph, 0);
 			}
+#endif
 		}
 		if (itemError.count() != 0)
 			currDoc->masterItemErrors.insert(currItem->ItemNr, itemError);
@@ -190,30 +193,31 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		}
 		if ((currItem->asTextFrame()) || (currItem->asPathText()))
 		{
+#ifndef NLS_PROTO
 			if ((currItem->itemText.count() > currItem->MaxChars) && (checkerSettings.checkOverflow))
 				itemError.insert(TextOverflow, 0);
 			for (uint e = 0; e < currItem->itemText.count(); ++e)
 			{
-				uint chr = currItem->itemText.at(e)->ch[0].unicode();
+				uint chr = currItem->itemText.text(e).unicode();
 				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 28) || (chr == 27) || (chr == 26) || (chr == 25))
 					continue;
-				if ((currItem->itemText.at(e)->cstyle & 64) || (currItem->itemText.at(e)->cstyle & 32))
+				if ((currItem->itemText.charStyle(e).cstyle & 64) || (currItem->itemText.charStyle(e).cstyle & 32))
 				{
-					chx = currItem->itemText.at(e)->ch;
+					chx = currItem->itemText.text(e,1);
 					if (chx.upper() != currItem->itemText.at(e)->ch)
 						chx = chx.upper();
 					chr = chx[0].unicode();
 				}
 				if (chr == 9)
 				{
-					for (uint t1 = 0; t1 < currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues.count(); t1++)
+					for (uint t1 = 0; t1 < currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].tabValues().count(); t1++)
 					{
-						if (currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
+						if (currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].tabValues()[t1].tabFillChar.isNull())
 							continue;
-						chx = QString(currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues[t1].tabFillChar);
-						if ((currItem->itemText.at(e)->cstyle & 64) || (currItem->itemText.at(e)->cstyle & 32))
+						chx = QString(currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].tabValues()[t1].tabFillChar);
+						if ((currItem->itemText.charStyle(e).cstyle & 64) || (currItem->itemText.charStyle(e).cstyle & 32))
 						{
-							if (chx.upper() != QString(currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues[t1].tabFillChar))
+							if (chx.upper() != QString(currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].tabValues()[t1].tabFillChar))
 								chx = chx.upper();
 						}
 						chr = chx[0].unicode();
@@ -225,7 +229,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						if (currItem->TabValues[t1].tabFillChar.isNull())
 							continue;
 						chx = QString(currItem->TabValues[t1].tabFillChar);
-						if ((currItem->itemText.at(e)->cstyle & 64) || (currItem->itemText.at(e)->cstyle & 32))
+						if ((currItem->itemText.charStyle(e).cstyle & 64) || (currItem->itemText.charStyle(e).cstyle & 32))
 						{
 							if (chx.upper() != QString(currItem->TabValues[t1].tabFillChar))
 								chx = chx.upper();
@@ -248,6 +252,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
 					itemError.insert(MissingGlyph, 0);
 			}
+#endif
 		}
 		if (itemError.count() != 0)
 			currDoc->docItemErrors.insert(currItem->ItemNr, itemError);

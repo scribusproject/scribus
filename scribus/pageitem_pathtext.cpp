@@ -55,6 +55,8 @@ for which a new license (GPL+exception) is in place.
 #include "scfontmetrics.h"
 #include "util.h"
 
+#include "text/nlsconfig.h"
+
 using namespace std;
 
 PageItem_PathText::PageItem_PathText(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
@@ -90,10 +92,11 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, double sc)
 		p->setupPolygon(&PoLine, false);
 		p->strokePath();
 	}
-	if (itemText.count() != 0)
-		CurX += itemText.at(0)->csize * itemText.at(0)->cextra / 10000.0;
+	if (itemText.length() != 0)
+		CurX += itemText.charStyle(0).csize * itemText.charStyle(0).cextra / 10000.0;
 	segLen = PoLine.lenPathSeg(seg);
-	for (a = 0; a < itemText.count(); ++a)
+#ifndef NLS_PROTO
+	for (a = 0; a < itemText.length(); ++a)
 	{
 		CurY = 0;
 		hl = itemText.at(a);
@@ -237,4 +240,5 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, double sc)
 		CurX += wide+hl->csize * hl->cextra / 10000.0;
 		first = false;
 	}
+#endif
 }

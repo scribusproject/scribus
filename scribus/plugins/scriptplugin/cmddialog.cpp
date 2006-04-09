@@ -120,5 +120,5 @@ PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
 		Py_INCREF(Py_None);
 		return Py_None;
 	}
-	return PyString_FromString(ScMW->doc->docParagraphStyles[ScMW->doc->docParagraphStyles.count() - 1].Vname.utf8());
+	return PyString_FromString(ScMW->doc->docParagraphStyles[ScMW->doc->docParagraphStyles.count() - 1].name().utf8());
 }

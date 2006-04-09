@@ -56,7 +56,7 @@ public:
 	int Markp;
 	int oldMark;
 	bool Mpressed;
-	QValueList<PageItem::TabRecord> TabValues;
+	QValueList<ParagraphStyle::TabRecord> TabValues;
 	double ItemPos;
 	double ItemEndPos;
 	int Cols;

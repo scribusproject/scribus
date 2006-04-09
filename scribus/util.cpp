@@ -60,6 +60,7 @@ for which a new license (GPL+exception) is in place.
 #include "qprocess.h"
 #include "scmessagebox.h"
 #include "scpaths.h"
+#include "text/nlsconfig.h"
 
 extern "C"
 {
@@ -155,9 +156,9 @@ int System(const QStringList & args, const QString fileStdErr, const QString fil
 		// Otherwise Scribus will sleep a *lot* when proc has huge std output
 		if ( !proc.canReadLineStdout() && !proc.canReadLineStderr()) {
 #ifndef _WIN32
-		usleep(5000);
+			usleep(5000);
 #else
-		Sleep(5);
+			Sleep(5);
 #endif
 		}
 		// Some configurations needs stdout and stderr to be read
@@ -644,6 +645,7 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 	int wwN = 0;
 	int ccN = 0;
 	bool first = true;
+#ifndef NLS_PROTO
 	PageItem *nextItem = currItem;
 	PageItem *nbl = currItem;
 	while (nextItem != 0)
@@ -655,9 +657,9 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 	}
 	while (nextItem != 0)
 	{
-		for (uint a = 0; a < nextItem->itemText.count(); ++a)
+		for (uint a = 0; a < nextItem->itemText.length(); ++a)
 		{
-			QChar b = nextItem->itemText.at(a)->ch[0];
+			QChar b = nextItem->itemText.text(a);
 			if (b == QChar(13))
 			{
 				if (a >= nextItem->MaxChars)
@@ -699,6 +701,7 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 	*wN = wwN;
 	*pN = paraN;
 	*cN = ccN;
+#endif
 }
 
 void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
@@ -956,7 +959,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	tmp = "";
 	if ((obj->hasAttribute("NUMTAB")) && (obj->attribute("NUMTAB", "0").toInt() != 0))
 	{
-		struct PageItem::TabRecord tb;
+		ParagraphStyle::TabRecord tb;
 		tmp = obj->attribute("TABS");
 		QTextStream tgv(&tmp, IO_ReadOnly);
 		OB->TabValues.clear();
@@ -1423,4 +1426,25 @@ void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCou
 				pageNs->push_back(pageNr);
 		}
 	} while (!tmp.isEmpty());
+}
+
+
+int findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle)
+{
+	bool named = !parStyle.name().isEmpty();
+//qDebug(QString("looking up %1/ %2").arg(parStyle.name()).arg(parStyle.alignment())); 
+	if (named) {
+		for (uint i=0; i < doc->docParagraphStyles.size(); ++i)
+		{
+//qDebug(QString("%1 %2").arg(i).arg(doc->docParagraphStyles[i].name()));
+			if (parStyle.name() == doc->docParagraphStyles[i].name()) {
+				return i;
+			}
+		}
+		assert(false);
+		return -1;
+	}
+	else {
+		return parStyle.alignment();
+	}
 }

@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-
+#include "text/nlsconfig.h"
 
 Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
 	: QObject( parent, "bu"),
@@ -136,7 +136,7 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 	const int BORDER = 2;
 	QCString te;
 
-	uint maxC = it->itemText.count() - 1;
+	uint maxC = it->itemText.length() - 1;
 	QString found = text;
 	if (static_cast<int>(found.length()) > MinWordLen-1)
 	{
@@ -149,6 +149,7 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 		{
 			uint i = 0;
 		  	buffer[strlen(word)] = '\0';
+#ifndef NLS_PROTO
 			for (i = 1; i < found.length()-1; ++i)
 				it->itemText.at(QMIN(maxC, i+firstC))->cstyle &= 1919;		// Delete any old Hyphens
 			for (i = 1; i < found.length()-1; ++i)
@@ -156,6 +157,7 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 				if(buffer[i] & 1)
 					it->itemText.at(QMIN(maxC, i+firstC))->cstyle |= 128;	// Set new Hyphens according Buffer
 			}
+#endif
 		}
 		free(buffer);
 	}
@@ -173,6 +175,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 			break;
 	}
 	nb1 = nextItem;
+#ifndef NLS_PROTO
 	while (nextItem != 0)
 	{
 		uint a = nextItem->itemText.count();
@@ -182,6 +185,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 		nextItem->CPos = 0;
 		nextItem = nextItem->NextBox;
 	}
+#endif
 	if ((!useAble) || !(nb1->asTextFrame()) || (nb1 ->itemText.count() == 0))
 		return;
 	doc->DoDrawing = false;
@@ -191,22 +195,22 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	QString text = "";
 	QString buf;
 	QCString te;
-	for (uint a = 0; a < nb1->itemText.count(); ++a)
+	for (uint a = 0; a < nb1->itemText.length(); ++a)
 	{
 		if (nb1->HasSel)
 		{
-			if (nb1->itemText.at(a)->cselect)
-				text += nb1->itemText.at(a)->ch;
+			if (nb1->itemText.selected(a))
+				text += nb1->itemText.text(a,1);
 		}
 		else
-			text += nb1->itemText.at(a)->ch;
+			text += nb1->itemText.text(a,1);
 	}
 	int firstC = 0;
 	if (nb1->HasSel)
 	{
-		for (uint a = 0; a < nb1->itemText.count(); ++a)
+		for (uint a = 0; a < nb1->itemText.length(); ++a)
 		{
-			if (nb1->itemText.at(a)->cselect)
+			if (nb1->itemText.selected(a))
 			{
 				firstC = static_cast<int>(a);
 				break;
@@ -217,7 +221,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	int Ccount = 0;
 	QString found = "";
 	QString found2 = "";
-	uint maxC = nb1->itemText.count() - 1;
+	uint maxC = nb1->itemText.length() - 1;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	while ((firstC+Ccount < static_cast<int>(text.length())) && (firstC != -1) && 
 			(lastC < static_cast<int>(text.length())))
@@ -242,8 +246,10 @@ void Hyphenator::slotHyphenate(PageItem* it)
 			{
 	  			uint i = 0;
   				buffer[strlen(word)] = '\0';
+#ifndef NLS_PROTO
 				for (i = 1; i < found.length()-1; ++i)
 					nb1->itemText.at(QMIN(maxC, i+firstC))->cstyle &= 1919;		// Delete any old Hyphens
+#endif
 				bool hasHyphen = false;
 				for (i = 1; i < found.length()-1; ++i)
 				{
@@ -281,9 +287,11 @@ void Hyphenator::slotHyphenate(PageItem* it)
 							for (i = 1; i < outs.length()-1; ++i)
 							{
 								QChar cht = outs[i];
+#ifndef NLS_PROTO
 								if (cht == "-")
 									nb1->itemText.at(QMIN(maxC, ii+firstC))->cstyle |= 128;
 								else
+#endif
 									ii++;
 							}
 						}
@@ -302,11 +310,13 @@ void Hyphenator::slotHyphenate(PageItem* it)
 					}
 					else
 					{
+#ifndef NLS_PROTO
 						for (i = 1; i < found.length()-1; ++i)
 						{
 							if(buffer[i] & 1)
 								nb1->itemText.at(QMIN(maxC, i+firstC))->cstyle |= 128;
 						}
+#endif
 	  				}
 				}
 			}
@@ -322,6 +332,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 
 void Hyphenator::slotDeHyphenate(PageItem* it)
 {
+#ifndef NLS_PROTO
 	PageItem *nextItem = it;
 	PageItem *nb1;
 	if (!(it->asTextFrame()) || (it ->itemText.count() == 0))
@@ -356,4 +367,5 @@ void Hyphenator::slotDeHyphenate(PageItem* it)
 	}
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	doc->DoDrawing = true;
+#endif
 }

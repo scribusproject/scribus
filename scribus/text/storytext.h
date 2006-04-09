@@ -85,6 +85,25 @@ class ScribusDoc;
  	int startOfRun(uint index) const;
  	int endOfRun(uint index) const;
 
+// positioning
+	int nextChar(int pos);
+	int prevChar(int pos);
+	int nextWord(int pos);
+	int prevWord(int pos);
+	int nextSentence(int pos);
+	int prevSentence(int pos);
+	int nextParagraph(int pos);
+	int prevParagraph(int pos);
+
+// these need valid layout:
+
+	int startOfLine(int pos);
+	int endOfLine(int pos);
+	int lineUp(int pos, int oldX);
+	int lineDown(int pos, int oldX);
+	int startOfFrame(int pos);
+	int endOfFrame(int pos);
+
 // selection
 
  	void selectAll();
@@ -111,6 +130,7 @@ class ScribusDoc;
 
 // physical view
 
+	bool overflows() const;
 	/// layouts the text -- FIXME: better interface for this
  	int layout(int startItem);
  	uint nrOfItems() const;

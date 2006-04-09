@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "sctextstruct.h"
 #include "undoobject.h"
 #include "vgradient.h"
+#include "text/nlsconfig.h"
 #include "text/storytext.h"
 
 class ScPainter;
@@ -171,12 +172,6 @@ public:
 		Other		= 3
 	};
 
-struct TabRecord
-{
-	double tabPosition;
-	int tabType;
-	QChar tabFillChar;
-};
 
 protected:
 	PageItem(const PageItem & other);
@@ -397,7 +392,9 @@ public:
 	bool Tinput;
 	bool isAutoText;
 	int textAlignment;
+#ifndef NLS_PROTO
 	uint MaxChars;
+#endif
 	bool Redrawn;
 	int ExtraV;
 	bool isRaster;
@@ -412,7 +409,7 @@ public:
 	bool AspectRatio;
 	QValueStack<int> Groups;
 	QValueList<double> DashValues;
-	QValueList<TabRecord> TabValues;
+	QValueList<ParagraphStyle::TabRecord> TabValues;
 	double DashOffset;
 	VGradient fill_gradient;
 	bool fillRule;

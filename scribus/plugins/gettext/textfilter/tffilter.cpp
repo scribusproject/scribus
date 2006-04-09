@@ -478,7 +478,7 @@ void tfFilter::getParagraphStyles()
 	thirdCombo->insertItem("");
 	for (uint i = 5; i < ScMW->doc->docParagraphStyles.size(); ++i)
 	{
-		thirdCombo->insertItem(ScMW->doc->docParagraphStyles[i].Vname);
+		thirdCombo->insertItem(ScMW->doc->docParagraphStyles[i].name());
 	}
 }
 

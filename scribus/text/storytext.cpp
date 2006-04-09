@@ -6,7 +6,7 @@
 #include "storytext.h"
 #include "scribus.h"
 #include "scfonts.h"
-
+#include "util.h"
 
 //FIXME: move to proper place
 const QString CharStyle::NOCOLOR; // cf. sctextstruct.h
@@ -72,6 +72,7 @@ void StoryText::clear()
 	{
 		if ((it->ch == SpecialChars::OBJECT) && (it->cembedded != 0)) {
 			doc->FrameItems.remove(it->cembedded);
+			delete it->cembedded;
 			it->cembedded = 0;
 		}
 	}
@@ -111,12 +112,21 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 	assert(pos >= 0);
 	assert(pos <= length());
 	
-	const CharStyle style = charStyle(pos);
+	const CharStyle style = pos == length() ? doc->docParagraphStyles[0].charStyle() : charStyle(pos);
+	const int paraStyle = pos == length() ? 0 : at(pos)->cab;
 	
 	for (uint i = 0; i < txt.length(); ++i) {
 		ScText * item = new ScText();
 		item->ch= txt.mid(i, 1);
 		*static_cast<CharStyle *>(item) = style;
+		item->cab = paraStyle;
+		item->cselect = false;
+		item->xp = 0;
+		item->yp = 0;
+		item->PtransX = 0;
+		item->PtransY = 0;
+		item->PRot = 0;
+		item->cembedded = NULL;
 		insert(pos + i, item);
 	}
 
@@ -214,9 +224,9 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 	assert(pos >= 0);
 	assert(pos < length());
 
-	//FIXME:NLS
-	static ParagraphStyle dummy = ParagraphStyle();
-	return dummy;
+	assert( at(pos)->cab >= 0 );
+	assert( at(pos)->cab < doc->docParagraphStyles.count() );
+	return doc->docParagraphStyles[at(pos)->cab];
 }
 
 void StoryText::applyStyle(int pos, uint len, const CharStyle& style )
@@ -244,7 +254,17 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 	assert(pos >= 0);
 	assert(pos < length());
 
-	//FIXME:NLS
+	int paraStyle = QMAX(0, findParagraphStyle(doc, style)); //FIXME:NLS
+	int i = pos - 1;
+	// find start of para
+	while (i >= 0 && text(i) != SpecialChars::PARSEP)
+		--i;
+	// set 'cab' field
+	do {
+		++i;
+		at(i)->cab = paraStyle;
+	}
+	while (i+1 < length() && text(i) != SpecialChars::PARSEP);		
 }
 
 uint StoryText::nrOfParagraphs() const
@@ -252,7 +272,7 @@ uint StoryText::nrOfParagraphs() const
 	uint result = 0;
         StoryText* that = const_cast<StoryText *>(this);
 	for (int i=0; i < length(); ++i)
-		if (that->at(i)->ch == SpecialChars::PARSEP)
+		if (that->text(i) == SpecialChars::PARSEP)
 			++result;
 	return result;
 }
@@ -262,9 +282,9 @@ int StoryText::startOfParagraph(uint index) const
 	if (index == 0)
 		return 0;
 
-        StoryText* that = const_cast<StoryText *>(this);
+	StoryText* that = const_cast<StoryText *>(this);
 	for (int i=0; i < length(); ++i)
-		if (that->at(i)->ch == SpecialChars::PARSEP && ! --index)
+		if (that->text(i) == SpecialChars::PARSEP && ! --index)
 			return i + 1;
 	return -1;
 }
@@ -272,9 +292,9 @@ int StoryText::startOfParagraph(uint index) const
 int StoryText::endOfParagraph(uint index) const
 {
 	++index;
-        StoryText* that = const_cast<StoryText *>(this);
+	StoryText* that = const_cast<StoryText *>(this);
 	for (int i=0; i < length(); ++i)
-		if (that->at(i)->ch == SpecialChars::PARSEP && ! --index)
+		if (that->text(i) == SpecialChars::PARSEP && ! --index)
 			return i + 1;
 	return length();
 }
@@ -408,7 +428,6 @@ void StoryText::invalidate(int firstitem, int lastitem)
 
 
 // physical view
-
 
 /*
 void StoryText::validate()

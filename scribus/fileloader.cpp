@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "loadsaveplugin.h"
 #include "guidemanager.h"
+#include "text/nlsconfig.h"
 
 // We need to include the headers for the plugins we support until we start
 // using LoadSavePlugin to pick them for us. We only use these headers to
@@ -272,6 +273,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 				return false;
 			}
 		}
+#ifndef NLS_PROTO
 		for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->MasterItems.at(d);
@@ -284,6 +286,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 				if (!ScMW->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
 					it->itemText.at(e)->cfont = (*ScMW->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
 				}
+
 			}
 		}
 		for (uint d = 0; d < ScMW->doc->DocItems.count(); ++d)
@@ -314,10 +317,12 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 				}
 			}
 		}
+#endif
 		for (uint a = 0; a < ScMW->doc->docParagraphStyles.count(); ++a)
 		{
-			if ((!ScMW->doc->UsedFonts.contains(ScMW->doc->docParagraphStyles[a].Font)) && (!ScMW->doc->docParagraphStyles[a].Font.isEmpty()))
-				ScMW->doc->docParagraphStyles[a].Font = ReplacedFonts[ScMW->doc->docParagraphStyles[a].Font];
+			if ( ScMW->doc->docParagraphStyles[a].charStyle().cfont != NULL && !ScMW->doc->UsedFonts.contains(ScMW->doc->docParagraphStyles[a].charStyle().cfont->scName()))
+				ScMW->doc->docParagraphStyles[a].charStyle().cfont =
+					(*ScMW->doc->AllFonts)[ReplacedFonts[ScMW->doc->docParagraphStyles[a].charStyle().cfont->scName()]];
 		}
 		QMap<QString,QString>::Iterator itfsu;
 		for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
@@ -401,6 +406,108 @@ bool FileLoader::LoadFile()
 	}
 	return ret;
 }
+
+
+void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc)
+{
+	vg.setName(pg.attribute("NAME"));
+	vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg.attribute("LINESPMode", "0").toInt()));
+	vg.setLineSpacing(pg.attribute("LINESP").toDouble());
+	vg.setLeftMargin(pg.attribute("INDENT", "0").toDouble());
+	if (pg.hasAttribute("RMARGIN"))
+		vg.setRightMargin(pg.attribute("RMARGIN", "0").toDouble());
+	else
+		vg.setRightMargin(0);
+	vg.setFirstIndent(pg.attribute("FIRST", "0").toDouble());
+	vg.setAlignment(pg.attribute("ALIGN").toInt());
+	vg.setGapBefore(pg.attribute("VOR", "0").toDouble());
+	vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
+	PrefsManager * prefsManager = PrefsManager::instance();
+	QString tmpf = pg.attribute("FONT", doc->toolSettings.defFont);
+	if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+	{
+		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
+		{
+			newReplacement = true;
+			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
+		}
+		else
+			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
+		}
+		else
+		{
+			if (!doc->UsedFonts.contains(tmpf))
+			{
+				//						QFont fo = avail[tmpf]->Font;
+				//						fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+				doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
+			}
+		}
+		vg.charStyle().cfont = (*ScMW->doc->AllFonts)[tmpf];
+		vg.charStyle().csize = qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0);
+		vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
+		vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
+		vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
+		vg.charStyle().cstyle = static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt());
+		vg.charStyle().ccolor = pg.attribute("FCOLOR", doc->toolSettings.dBrush);
+		vg.charStyle().cshade = pg.attribute("FSHADE", "100").toInt();
+		vg.charStyle().cstroke = pg.attribute("SCOLOR", doc->toolSettings.dPen);
+		vg.charStyle().cshade2 = pg.attribute("SSHADE", "100").toInt();
+		vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
+		vg.charStyle().cshadowx = qRound(pg.attribute("TXTSHX", "5").toDouble() * 10);
+		vg.charStyle().cshadowy = qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10);
+		vg.charStyle().coutline = qRound(pg.attribute("TXTOUT", "1").toDouble() * 10);
+		vg.charStyle().cunderpos = qRound(pg.attribute("TXTULP", "-0.1").toDouble() * 10);
+		vg.charStyle().cunderwidth = qRound(pg.attribute("TXTULW", "-0.1").toDouble() * 10);
+		vg.charStyle().cstrikepos = qRound(pg.attribute("TXTSTP", "-0.1").toDouble() * 10);
+		vg.charStyle().cstrikewidth = qRound(pg.attribute("TXTSTW", "-0.1").toDouble() * 10);
+		vg.charStyle().cscale = qRound(pg.attribute("SCALEH", "100").toDouble() * 10);
+		vg.charStyle().cscalev = qRound(pg.attribute("SCALEV", "100").toDouble() * 10);
+		vg.charStyle().cbase = qRound(pg.attribute("BASEO", "0").toDouble() * 10);
+		vg.charStyle().cextra = qRound(pg.attribute("KERN", "0").toDouble() * 10);
+		vg.tabValues().clear();
+		if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
+		{
+			ParagraphStyle::TabRecord tb;
+			QString tmp = pg.attribute("TABS");
+			QTextStream tgv(&tmp, IO_ReadOnly);
+			double xf, xf2;
+			for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
+			{
+				tgv >> xf;
+				tgv >> xf2;
+				tb.tabPosition = xf2;
+				tb.tabType = static_cast<int>(xf);
+				tb.tabFillChar =  QChar();
+				vg.tabValues().append(tb);
+			}
+			tmp = "";
+		}
+		else
+		{
+			QDomNode IT = pg.firstChild();
+			while(!IT.isNull())
+			{
+				QDomElement it = IT.toElement();
+				if (it.tagName()=="Tabs")
+				{
+					ParagraphStyle::TabRecord tb;
+					tb.tabPosition = it.attribute("Pos").toDouble();
+					tb.tabType = it.attribute("Type").toInt();
+					QString tbCh = "";
+					tbCh = it.attribute("Fill","");
+					if (tbCh.isEmpty())
+						tb.tabFillChar = QChar();
+					else
+						tb.tabFillChar = tbCh[0];
+					vg.tabValues().append(tb);
+				}
+				IT=IT.nextSibling();
+			}
+		}
+}
+
+
 
 bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *doc, int PageToLoad, bool Mpage, QString renamedPageName)
 {
@@ -720,7 +827,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
 					if (Neu->lineSpacingMode() == 3)
 					{
-						doc->docParagraphStyles[0].BaseAdj = true;
+						doc->docParagraphStyles[0].setUseBaselineGrid(true);
 						Neu->setLineSpacing(doc->typographicSettings.valueBaseGrid-1);
 					}
 					if (Neu->isAutoText)
@@ -828,7 +935,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
 	int a;
-	double xf, xf2;
+	double xf;
 	PageItem *Neu;
 	Page* Apage;
 	LFrames.clear();
@@ -1128,95 +1235,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 			}
 			if(pg.tagName()=="STYLE")
 			{
-				vg.Vname = pg.attribute("NAME");
-				vg.LineSpaMode = pg.attribute("LINESPMode", "0").toInt();
-				vg.LineSpa = pg.attribute("LINESP").toDouble();
-				vg.Indent = pg.attribute("INDENT", "0").toDouble();
-				vg.First = pg.attribute("FIRST", "0").toDouble();
-				vg.textAlignment = pg.attribute("ALIGN").toInt();
-				vg.gapBefore = pg.attribute("VOR", "0").toDouble();
-				vg.gapAfter = pg.attribute("NACH", "0").toDouble();
-				tmpf = pg.attribute("FONT", doc->toolSettings.defFont);
-				if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
-				{
-					if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
-					{
-						newReplacement = true;
-						ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
-					}
-					else
-						ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
-				}
-				else
-				{
-					if (!doc->UsedFonts.contains(tmpf))
-					{
-//						QFont fo = avail[tmpf]->Font;
-//						fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-						doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
-					}
-				}
-				vg.Font = tmpf;
-				vg.FontSize = qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0);
-				vg.Drop = static_cast<bool>(pg.attribute("DROP", "0").toInt());
-				vg.DropLin = pg.attribute("DROPLIN", "2").toInt();
-				vg.DropDist = pg.attribute("DROPDIST", "0").toDouble();
-				vg.FontEffect = pg.attribute("EFFECT", "0").toInt();
-				vg.FColor = pg.attribute("FCOLOR", doc->toolSettings.dBrush);
-				vg.FShade = pg.attribute("FSHADE", "100").toInt();
-				vg.SColor = pg.attribute("SCOLOR", doc->toolSettings.dPen);
-				vg.SShade = pg.attribute("SSHADE", "100").toInt();
-				vg.BaseAdj = static_cast<bool>(pg.attribute("BASE", "0").toInt());
-				vg.txtShadowX=qRound(pg.attribute("TXTSHX", "5").toDouble() * 10);
-				vg.txtShadowY=qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10);
-				vg.txtOutline=qRound(pg.attribute("TXTOUT", "1").toDouble() * 10);
-				vg.txtUnderPos=qRound(pg.attribute("TXTULP", "-0.1").toDouble() * 10);
-				vg.txtUnderWidth=qRound(pg.attribute("TXTULW", "-0.1").toDouble() * 10);
-				vg.txtStrikePos=qRound(pg.attribute("TXTSTP", "-0.1").toDouble() * 10);
-				vg.txtStrikeWidth=qRound(pg.attribute("TXTSTW", "-0.1").toDouble() * 10);
-				vg.scaleH = qRound(pg.attribute("SCALEH", "100").toDouble() * 10);
-				vg.scaleV = qRound(pg.attribute("SCALEV", "100").toDouble() * 10);
-				vg.baseOff = qRound(pg.attribute("BASEO", "0").toDouble() * 10);
-				vg.kernVal = qRound(pg.attribute("KERN", "0").toDouble() * 10);
-				vg.TabValues.clear();
-				if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
-				{
-					struct PageItem::TabRecord tb;
-					tmp = pg.attribute("TABS");
-					QTextStream tgv(&tmp, IO_ReadOnly);
-					for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
-					{
-						tgv >> xf;
-						tgv >> xf2;
-						tb.tabPosition = xf2;
-						tb.tabType = static_cast<int>(xf);
-						tb.tabFillChar =  QChar();
-						vg.TabValues.append(tb);
-					}
-					tmp = "";
-				}
-				else
-				{
-					QDomNode IT = pg.firstChild();
-					while(!IT.isNull())
-					{
-						QDomElement it = IT.toElement();
-						if (it.tagName()=="Tabs")
-						{
-							struct PageItem::TabRecord tb;
-							tb.tabPosition = it.attribute("Pos").toDouble();
-							tb.tabType = it.attribute("Type").toInt();
-							QString tbCh = "";
-							tbCh = it.attribute("Fill","");
-							if (tbCh.isEmpty())
-								tb.tabFillChar = QChar();
-							else
-								tb.tabFillChar = tbCh[0];
-							vg.TabValues.append(tb);
-						}
-						IT=IT.nextSibling();
-					}
-				}
+				readParagraphStyle(vg, pg, avail, doc);
 				doc->docParagraphStyles.append(vg);
 			}
 			if(pg.tagName()=="JAVA")
@@ -1676,7 +1695,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
 					if (Neu->lineSpacingMode() == 3)
 					{
-						doc->docParagraphStyles[0].BaseAdj = true;
+						doc->docParagraphStyles[0].setUseBaselineGrid(true);
 						Neu->setLineSpacing(doc->typographicSettings.valueBaseGrid-1);
 					}
 					if (Neu->isAutoText)
@@ -1796,6 +1815,8 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 	return true;
 }
 
+void breakPoint() {}
+
 void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bool impo, bool VorLFound)
 {
 	ScText *hg;
@@ -1863,61 +1884,73 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 	int stp = qRound(it->attribute("CSTP", "-0.1").toDouble() * 10);
 	int stw = qRound(it->attribute("CSTW", "-0.1").toDouble() * 10);
 	int iobj = it->attribute("COBJ", "-1").toInt();
+	CharStyle lastStyle;
+	int lastStyleStart = 0;
+	int lastParaStyle = -1;
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 	{
-		hg = new ScText;
-		hg->ch = tmp2.at(cxx);
-		if (hg->ch == QChar(5))
-			hg->ch = QChar(13);
-		if (hg->ch == QChar(4))
-			hg->ch = QChar(9);
+		CharStyle newStyle;
+		QChar ch = tmp2.at(cxx);
+		if (ch == QChar(5))
+			ch = QChar(13);
+		if (ch == QChar(4))
+			ch = QChar(9);
 		if (unknown)
-			hg->cfont = dummy;
+			newStyle.cfont = dummy;
 		else
-			hg->cfont = (*doc->AllFonts)[tmpf];
-		hg->csize = size;
-		hg->ccolor = fcolor;
-		hg->cextra = extra;
-		hg->cshade = shade;
-		hg->cselect = false;
-		hg->cstyle = style;
+			newStyle.cfont = (*doc->AllFonts)[tmpf];
+		newStyle.csize = size;
+		newStyle.ccolor = fcolor;
+		newStyle.cextra = extra;
+		newStyle.cshade = shade;
+		newStyle.cstyle = static_cast<StyleFlag>(style);
+		if (ab >= 5) breakPoint();
 		if (impo)
 		{
 			if (VorLFound)
-				hg->cab = DoVorl[ab].toUInt();
+				lastParaStyle = DoVorl[ab].toUInt();
 			else
 			{
 				if (ab < 5)
-					hg->cab = ab;
+					lastParaStyle = ab;
 				else
-					hg->cab = 0;
+					lastParaStyle = 0;
 			}
 		}
 		else
-			hg->cab = ab;
-		hg->cstroke = stroke;
-		hg->cshade2 = shade2;
-		hg->cscale = QMIN(QMAX(scale, 100), 4000);
-		hg->cscalev = QMIN(QMAX(scalev, 100), 4000);
-		hg->cbase = base;
-		hg->cshadowx = shX;
-		hg->cshadowy = shY;
-		hg->coutline = outL;
-		hg->cunderpos = ulp;
-		hg->cunderwidth = ulw;
-		hg->cstrikepos = stp;
-		hg->cstrikewidth = stw;
-		hg->xp = 0;
-		hg->yp = 0;
-		hg->PRot = 0;
-		hg->PtransX = 0;
-		hg->PtransY = 0;
-		if ((hg->ch == QChar(25)) && (iobj != -1))
-			hg->cembedded = doc->FrameItems.at(iobj);
-		else
-			hg->cembedded = 0;
-		obj->itemText.append(hg);
+			lastParaStyle = ab;
+		newStyle.cstroke = stroke;
+		newStyle.cshade2 = shade2;
+		newStyle.cscale = QMIN(QMAX(scale, 100), 4000);
+		newStyle.cscalev = QMIN(QMAX(scalev, 100), 4000);
+		newStyle.cbase = base;
+		newStyle.cshadowx = shX;
+		newStyle.cshadowy = shY;
+		newStyle.coutline = outL;
+		newStyle.cunderpos = ulp;
+		newStyle.cunderwidth = ulw;
+		newStyle.cstrikepos = stp;
+		newStyle.cstrikewidth = stw;
+		int pos = obj->itemText.length();
+		if (ch == SpecialChars::OBJECT) {
+			if (iobj != -1) {
+				obj->itemText.insertObject(pos, doc->FrameItems.at(iobj));
+			}
+		}
+		else {
+			obj->itemText.insertChars(pos, QString(ch));
+		}
+		if (newStyle != lastStyle) {
+			obj->itemText.applyStyle(lastStyleStart, pos-lastStyleStart, lastStyle);
+			lastStyle = newStyle;
+			lastStyleStart = pos;
+		}
+		if (ch == SpecialChars::PARSEP) {
+			obj->itemText.applyStyle(pos, doc->docParagraphStyles[QMAX(0,lastParaStyle)]);
+		}
 	}
+	obj->itemText.applyStyle(lastStyleStart, obj->itemText.length()-lastStyleStart, lastStyle);
+	obj->itemText.applyStyle(obj->itemText.length()-1, doc->docParagraphStyles[QMAX(0,lastParaStyle)]);
 	return;
 }
 
@@ -2237,7 +2270,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->TabValues.clear();
 	if ((obj->hasAttribute("NUMTAB")) && (obj->attribute("NUMTAB", "0").toInt() != 0))
 	{
-		struct PageItem::TabRecord tb;
+		ParagraphStyle::TabRecord tb;
 		tmp = obj->attribute("TABS");
 		QTextStream tgv(&tmp, IO_ReadOnly);
 		for (int cxv = 0; cxv < obj->attribute("NUMTAB", "0").toInt(); cxv += 2)
@@ -2259,7 +2292,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			QDomElement it = IT.toElement();
 			if (it.tagName()=="Tabs")
 			{
-				struct PageItem::TabRecord tb;
+				ParagraphStyle::TabRecord tb;
 				tb.tabPosition = it.attribute("Pos").toDouble();
 				tb.tabType = it.attribute("Type").toInt();
 				QString tbCh = "";
@@ -2392,157 +2425,13 @@ void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 {
 	bool fou;
 	QString tmpf, tmf, tmV;
-	double xf, xf2;
 	fou = false;
-	bool tabEQ = false;
-	vg->Vname = pg->attribute("NAME");
-	vg->LineSpaMode = pg->attribute("LINESPMode", "0").toInt();
-	vg->LineSpa = pg->attribute("LINESP").toDouble();
-	vg->Indent = pg->attribute("INDENT", "0").toDouble();
-	vg->First = pg->attribute("FIRST", "0").toDouble();
-	vg->textAlignment = pg->attribute("ALIGN").toInt();
-	vg->gapBefore = pg->attribute("VOR", "0").toDouble();
-	vg->gapAfter = pg->attribute("NACH", "0").toDouble();
-	tmpf = pg->attribute("FONT", doc->toolSettings.defFont);
-	if ((!prefsManager->appPrefs.AvailFonts.find(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf]->UseFont))
-	{
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
-		{
-			newReplacement = true;
-			ReplacedFonts.insert(tmpf, doc->toolSettings.defFont);
-		}
-		else
-			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
-	}
-	else
-	{
-		if (!doc->UsedFonts.contains(tmpf))
-		{
-			doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
-		}
-	}
-	vg->Font = tmpf;
-	vg->FontSize = qRound(pg->attribute("FONTSIZE", "12").toDouble() * 10.0);
-	vg->Drop = static_cast<bool>(pg->attribute("DROP", "0").toInt());
-	vg->DropLin = pg->attribute("DROPLIN", "2").toInt();
-	vg->DropDist = pg->attribute("DROPDIST", "0").toDouble();
-	vg->FontEffect = pg->attribute("EFFECT", "0").toInt();
-	vg->FColor = pg->attribute("FCOLOR", doc->toolSettings.dBrush);
-	vg->FShade = pg->attribute("FSHADE", "100").toInt();
-	vg->SColor = pg->attribute("SCOLOR", doc->toolSettings.dPen);
-	vg->SShade = pg->attribute("SSHADE", "100").toInt();
-	vg->BaseAdj = static_cast<bool>(pg->attribute("BASE", "0").toInt());
-	vg->txtShadowX = qRound(pg->attribute("TXTSHX", "5").toDouble() * 10);
-	vg->txtShadowY = qRound(pg->attribute("TXTSHY", "-5").toDouble() * 10);
-	vg->txtOutline = qRound(pg->attribute("TXTOUT", "1").toDouble() * 10);
-	vg->txtUnderPos = qRound(pg->attribute("TXTULP", "-0.1").toDouble() * 10);
-	vg->txtUnderWidth = qRound(pg->attribute("TXTULW", "-0.1").toDouble() * 10);
-	vg->txtStrikePos = qRound(pg->attribute("TXTSTP", "-0.1").toDouble() * 10);
-	vg->txtStrikeWidth = qRound(pg->attribute("TXTSTW", "-0.1").toDouble() * 10);
-	vg->scaleH = qRound(pg->attribute("SCALEH", "100").toDouble() * 10);
-	vg->scaleV = qRound(pg->attribute("SCALEV", "100").toDouble() * 10);
-	vg->baseOff = qRound(pg->attribute("BASEO", "0").toDouble() * 10);
-	vg->kernVal = qRound(pg->attribute("KERN", "0").toDouble() * 10);
-	vg->TabValues.clear();
-	if ((pg->hasAttribute("NUMTAB")) && (pg->attribute("NUMTAB", "0").toInt() != 0))
-	{
-		struct PageItem::TabRecord tb;
-		QString tmp = pg->attribute("TABS");
-		QTextStream tgv(&tmp, IO_ReadOnly);
-		vg->TabValues.clear();
-		for (int cxv = 0; cxv < pg->attribute("NUMTAB", "0").toInt(); cxv += 2)
-		{
-			tgv >> xf;
-			tgv >> xf2;
-			tb.tabPosition = xf2;
-			tb.tabType = static_cast<int>(xf);
-			tb.tabFillChar = QChar();
-			vg->TabValues.append(tb);
-		}
-		tmp = "";
-	}
-	else
-	{
-		QDomNode IT = pg->firstChild();
-		while(!IT.isNull())
-		{
-			QDomElement it = IT.toElement();
-			if (it.tagName()=="Tabs")
-			{
-				struct PageItem::TabRecord tb;
-				tb.tabPosition = it.attribute("Pos").toDouble();
-				tb.tabType = it.attribute("Type").toInt();
-				QString tbCh = "";
-				tbCh = it.attribute("Fill","");
-				if (tbCh.isEmpty())
-					tb.tabFillChar = QChar();
-				else
-					tb.tabFillChar = tbCh[0];
-				vg->TabValues.append(tb);
-			}
-			IT=IT.nextSibling();
-		}
-	}
+	readParagraphStyle(*vg, *pg, prefsManager->appPrefs.AvailFonts, doc);
 	for (uint xx=0; xx<docParagraphStyles.count(); ++xx)
 	{
-		if (vg->Vname == docParagraphStyles[xx].Vname)
+		if (vg->name() == docParagraphStyles[xx].name())
 		{
-			struct PageItem::TabRecord tb;
-			tabEQ = false;
-			if ((docParagraphStyles[xx].TabValues.count() == 0) && (vg->TabValues.count() == 0))
-				tabEQ = true;
-			else
-			{
-				for (uint t1 = 0; t1 < docParagraphStyles[xx].TabValues.count(); t1++)
-				{
-					tb.tabPosition = docParagraphStyles[xx].TabValues[t1].tabPosition;
-					tb.tabType = docParagraphStyles[xx].TabValues[t1].tabType;
-					tb.tabFillChar = docParagraphStyles[xx].TabValues[t1].tabFillChar;
-					for (uint t2 = 0; t2 < vg->TabValues.count(); t2++)
-					{
-						struct PageItem::TabRecord tb2;
-						tb2.tabPosition = vg->TabValues[t2].tabPosition;
-						tb2.tabType = vg->TabValues[t2].tabType;
-						tb2.tabFillChar = vg->TabValues[t2].tabFillChar;
-						if ((tb2.tabFillChar == tb.tabFillChar) && (tb2.tabPosition == tb.tabPosition) && (tb2.tabType == tb.tabType))
-						{
-							tabEQ = true;
-							break;
-						}
-					}
-					if (tabEQ)
-						break;
-				}
-			}
-			if ((vg->LineSpa == docParagraphStyles[xx].LineSpa) &&
-					(vg->LineSpaMode == docParagraphStyles[xx].LineSpaMode) &&
-					(vg->Indent == docParagraphStyles[xx].Indent) &&
-					(vg->First == docParagraphStyles[xx].First) &&
-					(vg->textAlignment == docParagraphStyles[xx].textAlignment) &&
-					(vg->gapBefore == docParagraphStyles[xx].gapBefore) &&
-					(vg->gapAfter == docParagraphStyles[xx].gapAfter) &&
-					(vg->Font == docParagraphStyles[xx].Font) && (tabEQ) &&
-					(vg->Drop == docParagraphStyles[xx].Drop) &&
-					(vg->DropLin == docParagraphStyles[xx].DropLin) &&
-					(vg->DropDist == docParagraphStyles[xx].DropDist) &&
-					(vg->FontEffect == docParagraphStyles[xx].FontEffect) &&
-					(vg->FColor == docParagraphStyles[xx].FColor) &&
-					(vg->FShade == docParagraphStyles[xx].FShade) &&
-					(vg->SColor == docParagraphStyles[xx].SColor) &&
-					(vg->SShade == docParagraphStyles[xx].SShade) &&
-					(vg->BaseAdj == docParagraphStyles[xx].BaseAdj) &&
-					(vg->txtShadowX == docParagraphStyles[xx].txtShadowX) &&
-					(vg->txtShadowY == docParagraphStyles[xx].txtShadowY) &&
-					(vg->txtOutline == docParagraphStyles[xx].txtOutline) &&
-					(vg->txtUnderPos == docParagraphStyles[xx].txtUnderPos) &&
-					(vg->txtUnderWidth == docParagraphStyles[xx].txtUnderWidth) &&
-					(vg->txtStrikePos == docParagraphStyles[xx].txtStrikePos) &&
-					(vg->txtStrikeWidth == docParagraphStyles[xx].txtStrikeWidth) &&
-					(vg->scaleH == docParagraphStyles[xx].scaleH) &&
-					(vg->scaleV == docParagraphStyles[xx].scaleV) &&
-					(vg->baseOff == docParagraphStyles[xx].baseOff) &&
-					(vg->kernVal == docParagraphStyles[xx].kernVal) &&
-					(vg->FontSize == docParagraphStyles[xx].FontSize))
+			if (vg->equiv(docParagraphStyles[xx]))
 			{
 				if (fl)
 				{
@@ -2553,7 +2442,7 @@ void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 			}
 			else
 			{
-				vg->Vname = "Copy of "+docParagraphStyles[xx].Vname;
+				vg->setName("Copy of "+docParagraphStyles[xx].name());
 				fou = false;
 			}
 			break;
@@ -2563,59 +2452,9 @@ void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	{
 		for (uint xx=0; xx< docParagraphStyles.count(); ++xx)
 		{
-			struct PageItem::TabRecord tb;
-			tabEQ = false;
-			for (uint t1 = 0; t1 < docParagraphStyles[xx].TabValues.count(); t1++)
+			if (vg->equiv(docParagraphStyles[xx]))
 			{
-				tb.tabPosition = docParagraphStyles[xx].TabValues[t1].tabPosition;
-				tb.tabType = docParagraphStyles[xx].TabValues[t1].tabType;
-				tb.tabFillChar = docParagraphStyles[xx].TabValues[t1].tabFillChar;
-				for (uint t2 = 0; t2 < vg->TabValues.count(); t2++)
-				{
-					struct PageItem::TabRecord tb2;
-					tb2.tabPosition = vg->TabValues[t2].tabPosition;
-					tb2.tabType = vg->TabValues[t2].tabType;
-					tb2.tabFillChar = vg->TabValues[t2].tabFillChar;
-					if ((tb2.tabFillChar == tb.tabFillChar) && (tb2.tabPosition == tb.tabPosition) && (tb2.tabType == tb.tabType))
-					{
-						tabEQ = true;
-						break;
-					}
-				}
-				if (tabEQ)
-					break;
-			}
-			if ((vg->LineSpa == docParagraphStyles[xx].LineSpa) &&
-				(vg->LineSpaMode == docParagraphStyles[xx].LineSpaMode) &&
-				(vg->Indent == docParagraphStyles[xx].Indent) &&
-				(vg->First == docParagraphStyles[xx].First) &&
-				(vg->textAlignment == docParagraphStyles[xx].textAlignment) &&
-				(vg->gapBefore == docParagraphStyles[xx].gapBefore) &&
-				(vg->gapAfter == docParagraphStyles[xx].gapAfter) &&
-				(vg->Font == docParagraphStyles[xx].Font) && (tabEQ) &&
-				(vg->Drop == docParagraphStyles[xx].Drop) &&
-				(vg->DropLin == docParagraphStyles[xx].DropLin) &&
-				(vg->DropDist == docParagraphStyles[xx].DropDist) &&
-				(vg->FontEffect == docParagraphStyles[xx].FontEffect) &&
-				(vg->FColor == docParagraphStyles[xx].FColor) &&
-				(vg->FShade == docParagraphStyles[xx].FShade) &&
-				(vg->SColor == docParagraphStyles[xx].SColor) &&
-				(vg->SShade == docParagraphStyles[xx].SShade) &&
-				(vg->BaseAdj == docParagraphStyles[xx].BaseAdj) &&
-				(vg->txtShadowX == docParagraphStyles[xx].txtShadowX) &&
-				(vg->txtShadowY == docParagraphStyles[xx].txtShadowY) &&
-				(vg->txtOutline == docParagraphStyles[xx].txtOutline) &&
-				(vg->txtUnderPos == docParagraphStyles[xx].txtUnderPos) &&
-				(vg->txtUnderWidth == docParagraphStyles[xx].txtUnderWidth) &&
-				(vg->txtStrikePos == docParagraphStyles[xx].txtStrikePos) &&
-				(vg->txtStrikeWidth == docParagraphStyles[xx].txtStrikeWidth) &&
-				(vg->scaleH == docParagraphStyles[xx].scaleH) &&
-				(vg->scaleV == docParagraphStyles[xx].scaleV) &&
-				(vg->baseOff == docParagraphStyles[xx].baseOff) &&
-				(vg->kernVal == docParagraphStyles[xx].kernVal) &&
-				(vg->FontSize == docParagraphStyles[xx].FontSize))
-			{
-				vg->Vname = docParagraphStyles[xx].Vname;
+				vg->setName(docParagraphStyles[xx].name());
 				fou = true;
 				if (fl)
 				{
@@ -2696,11 +2535,13 @@ bool FileLoader::postLoad()
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
+#ifndef NLS_PROTO
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
 				if (!ScMW->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
 					it->itemText.at(e)->cfont = (*ScMW->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
 				}
+#endif
 			}
 		}
 		for (uint d = 0; d < ScMW->doc->DocItems.count(); ++d)
@@ -2710,11 +2551,13 @@ bool FileLoader::postLoad()
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
+#ifndef NLS_PROTO
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
 				if (!ScMW->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
 					it->itemText.at(e)->cfont = (*ScMW->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
 				}
+#endif
 			}
 		}
 		for (uint d = 0; d < ScMW->doc->FrameItems.count(); ++d)
@@ -2724,17 +2567,20 @@ bool FileLoader::postLoad()
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
+#ifndef NLS_PROTO
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
 				if (!ScMW->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
 					it->itemText.at(e)->cfont = (*ScMW->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
 				}
+#endif
 			}
 		}
 		for (uint a = 0; a < ScMW->doc->docParagraphStyles.count(); ++a)
 		{
-			if ((!ScMW->doc->UsedFonts.contains(ScMW->doc->docParagraphStyles[a].Font)) && (!ScMW->doc->docParagraphStyles[a].Font.isEmpty()))
-				ScMW->doc->docParagraphStyles[a].Font = ReplacedFonts[ScMW->doc->docParagraphStyles[a].Font];
+			if ( ScMW->doc->docParagraphStyles[a].charStyle().cfont != NULL && !ScMW->doc->UsedFonts.contains(ScMW->doc->docParagraphStyles[a].charStyle().cfont->scName()))
+				ScMW->doc->docParagraphStyles[a].charStyle().cfont =
+					(*ScMW->doc->AllFonts)[ReplacedFonts[ScMW->doc->docParagraphStyles[a].charStyle().cfont->scName()]];
 		}
 		QValueList<QString> tmpList;
 		tmpList.clear();

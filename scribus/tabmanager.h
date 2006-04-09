@@ -24,12 +24,12 @@ class SCRIBUS_API TabManager : public QDialog
 	Q_OBJECT
 
 public:
-	TabManager( QWidget* parent, int dEin, QValueList<PageItem::TabRecord> inTab, double wid);
+	TabManager( QWidget* parent, int dEin, QValueList<ParagraphStyle::TabRecord> inTab, double wid);
 	~TabManager() {};
 	Tabruler* TabList;
 	QPushButton* OKButton;
 	QPushButton* CancelButton;
-	QValueList<PageItem::TabRecord> tmpTab;
+	QValueList<ParagraphStyle::TabRecord> tmpTab;
 
 public slots:
 	void exitOK();

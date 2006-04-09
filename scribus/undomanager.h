@@ -536,6 +536,7 @@ public:
 	static QString SetLayerName;
 	static QString GetImage;
 	static QString MultipleDuplicate;
+	static QString ApplyTextStyle;
 	static QString MenuUndo;
 	static QString MenuUndoEmpty;
 	static QString MenuRedo;

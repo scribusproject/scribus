@@ -67,6 +67,10 @@ currentdict /endpage {
 	(sp\n) print
 	//endpage exec
 } .forceput
+currentdict /doimage {
+	currentdict i_image
+	//doimage exec
+} .forceput
 end
 setglobal
 .bindnow

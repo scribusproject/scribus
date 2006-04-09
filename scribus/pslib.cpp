@@ -47,6 +47,8 @@ for which a new license (GPL+exception) is in place.
 #include "multiprogressdialog.h"
 #include "scribusapp.h"
 
+#include "text/nlsconfig.h"
+
 PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorList DocColors, bool pdf, bool spot)
 {
 	usingGUI=ScQApp->usingGUI();
@@ -1518,11 +1520,11 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				QString bm = "";
 				QString cc;
-				for (d = 0; d < c->itemText.count(); ++d)
+				for (d = 0; d < c->itemText.length(); ++d)
 				{
-					if ((c->itemText.at(d)->ch == QChar(13)) || (c->itemText.at(d)->ch == QChar(10)) || (c->itemText.at(d)->ch == QChar(28)))
+					if ((c->itemText.text(d) == QChar(13)) || (c->itemText.text(d) == QChar(10)) || (c->itemText.text(d) == QChar(28)))
 						break;
-					bm += "\\"+cc.setNum(QMAX(c->itemText.at(d)->ch.at(0).unicode(), 32), 8);
+					bm += "\\"+cc.setNum(QMAX(c->itemText.text(d).unicode(), 32), 8);
 				}
 				PDF_Bookmark(bm, a->pageNr()+1);
 			}
@@ -1530,9 +1532,9 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				QString bm = "";
 				QString cc;
-				for (d = 0; d < c->itemText.count(); ++d)
+				for (d = 0; d < c->itemText.length(); ++d)
 				{
-					bm += "\\"+cc.setNum(QMAX(c->itemText.at(d)->ch.at(0).unicode(), 32), 8);
+					bm += "\\"+cc.setNum(QMAX(c->itemText.text(d).unicode(), 32), 8);
 				}
 				PDF_Annotation(bm, 0, 0, c->width(), -c->height());
 				break;
@@ -1793,6 +1795,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PS_restore();
 				}
 			}
+#ifndef NLS_PROTO
 			for (d = 0; d < c->MaxChars; ++d)
 			{
 				hl = c->itemText.at(d);
@@ -1904,6 +1907,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PS_restore();
 				}
 			}
+#endif
 			break;
 		}
 		PS_restore();
@@ -2143,9 +2147,10 @@ void PSLib::SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k, bo
 
 void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg, bool sep, bool farb, bool ic, bool master)
 {
+#ifndef NLS_PROTO
 	ScText *hl;
 	uint tabCc = 0;
-	QValueList<PageItem::TabRecord> tTabValues;
+	QValueList<ParagraphStyle::TabRecord> tTabValues;
 	double tabDist = ite->textToFrameDistLeft();
 	if (ite->lineColor() != CommonStrings::None)
 		tabDist += ite->lineWidth() / 2.0;
@@ -2162,7 +2167,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 		if (hl->cab < 5)
 			tTabValues = ite->TabValues;
 		else
-			tTabValues = Doc->docParagraphStyles[hl->cab].TabValues;
+			tTabValues = Doc->docParagraphStyles[hl->cab].tabValues();
 		if (hl->cstyle & 16384)
 			tabCc = 0;
 		if ((hl->ch == QChar(9)) && (tTabValues.count() != 0))
@@ -2262,10 +2267,12 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 		setTextCh(Doc, ite, gcr, a, d, hl, pg, sep, farb, ic, master);
 		tabDist = hl->xp + Cwidth(Doc, hl->cfont, hl->ch, hl->csize) * (hl->cscale / 1000.0);
 	}
+#endif
 }
 
 void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, ScText *hl, Page* pg, bool sep, bool farb, bool ic, bool master)
 {
+#ifndef NLS_PROTO
 	QString chx;
 	int h, s, v, k, tsz;
 	double wideR;
@@ -2275,16 +2282,16 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	tsz = hl->csize;
 	if (hl->cstyle & 2048)
 	{
-		if (Doc->docParagraphStyles[hl->cab].BaseAdj)
-			tsz = qRound(10 * ((Doc->typographicSettings.valueBaseGrid *  (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+		if (Doc->docParagraphStyles[hl->cab].useBaselineGrid())
+			tsz = qRound(10 * ((Doc->typographicSettings.valueBaseGrid *  (Doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
 		else
 		{
-			if (Doc->docParagraphStyles[hl->cab].LineSpaMode == 0)
-				tsz = qRound(10 * ((Doc->docParagraphStyles[hl->cab].LineSpa *  (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+			if (Doc->docParagraphStyles[hl->cab].lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+				tsz = qRound(10 * ((Doc->docParagraphStyles[hl->cab].lineSpacing() *  (Doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
 			else
 			{
-				double currasce = RealFHeight(Doc, hl->cfont, Doc->docParagraphStyles[hl->cab].FontSize);
-				tsz = qRound(10 * ((currasce * (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / RealCHeight(Doc, hl->cfont, chx, 10)));
+				double currasce = RealFHeight(Doc, hl->cfont, Doc->docParagraphStyles[hl->cab].charStyle().fontSize());
+				tsz = qRound(10 * ((currasce * (Doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCHeight(Doc, hl->cfont, chx, 10)));
 			}
 		}
 	}
@@ -2619,6 +2626,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			}
 		}
 	}
+#endif
 }
 
 void PSLib::putColor(QString color, int shade, bool fill)
