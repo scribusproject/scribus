@@ -276,10 +276,10 @@ void ActionManager::initItemMenuActions()
 	(*scrActions)["itemPrintingEnabled"]->setToggleAction(true, true);
 	(*scrActions)["itemFlipH"]->setToggleAction(true, true);
 	(*scrActions)["itemFlipV"]->setToggleAction(true, true);
-	scrActions->insert("itemLowerToBottom", new ScrAction(QIconSet(loadIcon("lower-to-bottom.png"), loadIcon("lower-to-bottom.png")), "", QKeySequence(Key_End), ScMW, "itemLowerToBottom"));
-	scrActions->insert("itemRaiseToTop", new ScrAction(QIconSet(loadIcon("raise-to-top.png"), loadIcon("raise-to-top.png")), "", QKeySequence(Key_Home), ScMW, "itemRaiseToTop"));
-	scrActions->insert("itemLower", new ScrAction(QIconSet(loadIcon("lower.png"), loadIcon("lower.png")), "", QKeySequence(CTRL+Key_End), ScMW, "itemLower"));
-	scrActions->insert("itemRaise", new ScrAction(QIconSet(loadIcon("raise.png"), loadIcon("raise.png")), "", QKeySequence(CTRL+Key_Home), ScMW, "itemRaise"));
+	scrActions->insert("itemLowerToBottom", new ScrAction(QIconSet(loadIcon("16/go-bottom.png"), loadIcon("22/go-bottom.png")), "", QKeySequence(Key_End), ScMW, "itemLowerToBottom"));
+	scrActions->insert("itemRaiseToTop", new ScrAction(QIconSet(loadIcon("16/go-top.png"), loadIcon("22/go-top.png")), "", QKeySequence(Key_Home), ScMW, "itemRaiseToTop"));
+	scrActions->insert("itemLower", new ScrAction(QIconSet(loadIcon("16/go-down.png"), loadIcon("22/go-down.png")), "", QKeySequence(CTRL+Key_End), ScMW, "itemLower"));
+	scrActions->insert("itemRaise", new ScrAction(QIconSet(loadIcon("16/go-up.png"), loadIcon("22/go-up.png")), "", QKeySequence(CTRL+Key_Home), ScMW, "itemRaise"));
 	
 	scrActions->insert("itemSendToScrapbook", new ScrAction(ScMW, "itemSendToScrapbook"));
 

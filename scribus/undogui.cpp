@@ -257,9 +257,9 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	layout->addWidget(undoList);
 	
 	QHBoxLayout* buttonLayout = new QHBoxLayout(0, 0, 5, "buttonLayout"); 
-	undoButton = new QPushButton(loadIcon("u_undo.png"), "", this, "undoButton");
+	undoButton = new QPushButton(loadIcon("16/edit-undo.png"), "", this, "undoButton");
 	buttonLayout->addWidget(undoButton);
-	redoButton = new QPushButton(loadIcon("u_redo.png"), "", this, "redoButton");
+	redoButton = new QPushButton(loadIcon("16/edit-redo.png"), "", this, "redoButton");
 	buttonLayout->addWidget(redoButton);
 	//Save the translated key sequence - hopefully we get the translated one here!
 	initialUndoKS = undoButton->accel();

@@ -28,6 +28,14 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/edit-redo.png \
 16/edit-undo.png \
 22/edit-undo.png \
+16/go-bottom.png \
+22/go-bottom.png \
+16/go-down.png \
+22/go-down.png \
+16/go-top.png \
+22/go-top.png \
+16/go-up.png \
+22/go-up.png \
 16/insert-image.png \
 22/insert-image.png \
 16/insert-text-frame.png \
@@ -207,6 +215,14 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/frameresize.png $(prefix)/share/scribus/icons/frameresize.png
 	$(INSTALL_DATA) $(srcdir)/frame_table.png $(prefix)/share/scribus/icons/frame_table.png
 	$(INSTALL_DATA) $(srcdir)/frame_table16.png $(prefix)/share/scribus/icons/frame_table16.png
+	$(INSTALL_DATA) $(srcdir)/16/go-bottom.png $(prefix)/share/scribus/icons/16/go-bottom.png
+	$(INSTALL_DATA) $(srcdir)/22/go-bottom.png $(prefix)/share/scribus/icons/22/go-bottom.png
+	$(INSTALL_DATA) $(srcdir)/16/go-down.png $(prefix)/share/scribus/icons/16/go-down.png
+	$(INSTALL_DATA) $(srcdir)/22/go-down.png $(prefix)/share/scribus/icons/22/go-down.png
+	$(INSTALL_DATA) $(srcdir)/16/go-top.png $(prefix)/share/scribus/icons/16/go-top.png
+	$(INSTALL_DATA) $(srcdir)/22/go-top.png $(prefix)/share/scribus/icons/22/go-top.png
+	$(INSTALL_DATA) $(srcdir)/16/go-up.png $(prefix)/share/scribus/icons/16/go-up.png
+	$(INSTALL_DATA) $(srcdir)/22/go-up.png $(prefix)/share/scribus/icons/22/go-up.png
 	$(INSTALL_DATA) $(srcdir)/gohome.png $(prefix)/share/scribus/icons/gohome.png
 	$(INSTALL_DATA) $(srcdir)/goto.png $(prefix)/share/scribus/icons/goto.png
 	$(INSTALL_DATA) $(srcdir)/guides.png $(prefix)/share/scribus/icons/guides.png
@@ -525,6 +541,14 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/frameresize.png
 	-rm -f $(prefix)/share/scribus/icons/frame_table.png
 	-rm -f $(prefix)/share/scribus/icons/frame_table16.png
+	-rm -f $(prefix)/share/scribus/icons/16/go-bottom.png
+	-rm -f $(prefix)/share/scribus/icons/22/go-bottom.png
+	-rm -f $(prefix)/share/scribus/icons/16/go-down.png
+	-rm -f $(prefix)/share/scribus/icons/22/go-down.png
+	-rm -f $(prefix)/share/scribus/icons/16/go-top.png
+	-rm -f $(prefix)/share/scribus/icons/22/go-top.png
+	-rm -f $(prefix)/share/scribus/icons/16/go-up.png
+	-rm -f $(prefix)/share/scribus/icons/22/go-up.png
 	-rm -f $(prefix)/share/scribus/icons/gohome.png
 	-rm -f $(prefix)/share/scribus/icons/goto.png
 	-rm -f $(prefix)/share/scribus/icons/guides.png
