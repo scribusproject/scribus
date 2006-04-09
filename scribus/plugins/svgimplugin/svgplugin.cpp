@@ -1839,9 +1839,9 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 				hg->cstrikewidth = -1;
 				hg->cselect = false;
 				if( !tspan.attribute( "stroke" ).isEmpty() )
-					hg->cstyle = 4;
+					hg->cstyle = ScStyle_Outline;
 				else
-					hg->cstyle = 0;
+					hg->cstyle = ScStyle_Default;
 				hg->cab = 0;
 				hg->xp = 0;
 				hg->yp = 0;
@@ -1937,9 +1937,9 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			hg->cstrikewidth = -1;
 			hg->cselect = false;
 			if( !e.attribute( "stroke" ).isEmpty() )
-				hg->cstyle = 4;
+				hg->cstyle = ScStyle_Outline;
 			else
-				hg->cstyle = 0;
+				hg->cstyle = ScStyle_Default;
 			hg->cab = 0;
 			hg->xp = 0;
 			hg->yp = 0;

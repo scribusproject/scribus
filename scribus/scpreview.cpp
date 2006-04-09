@@ -371,7 +371,7 @@ QPixmap ScPreview::createPreview(QString data)
 					hg->cselect = false;
 					it++;
 					if (it == NULL)
-						hg->cstyle = ScStyle_None;
+						hg->cstyle = ScStyle_Default;
 					else
 						hg->cstyle = static_cast<StyleFlag>((*it).toInt());
 					it++;
