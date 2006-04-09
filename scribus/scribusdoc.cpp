@@ -64,6 +64,7 @@ for which a new license (GPL+exception) is in place.
 extern ScribusQApp* ScQApp;
 
 #ifdef HAVE_CMS
+#include "cmserrorhandling.h"
 extern cmsHPROFILE CMSoutputProf;
 extern cmsHPROFILE CMSprinterProf;
 extern cmsHTRANSFORM stdTransG;
@@ -280,6 +281,21 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	m_masterPageMode=true; // quick hack to force the change of pointers in setMasterPageMode();
 	setMasterPageMode(false);
 	addSymbols();
+
+#ifdef HAVE_CMS
+	DocInputProf = NULL;
+	DocOutputProf = NULL;
+	DocPrinterProf = NULL;
+	stdTrans = NULL;
+	stdProof = NULL;
+	stdTransImg = NULL;
+	stdProofImg = NULL;
+	stdTransCMYK = NULL;
+	stdProofCMYK = NULL;
+	stdTransRGB = NULL;
+	stdProofGC = NULL;
+	stdProofCMYKGC = NULL;
+#endif
 }
 
 ScribusDoc::~ScribusDoc()
@@ -350,31 +366,35 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	if ((CMSavail) && (CMSSettings.CMSinUse))
 	{
 #ifdef HAVE_CMS
-		OpenCMSProfiles(ScMW->InputProfiles, ScMW->MonitorProfiles, ScMW->PrinterProfiles);
-		stdProofG = stdProof;
-		stdTransG = stdTrans;
-		stdProofImgG = stdProofImg;
-		stdTransImgG = stdTransImg;
-		stdProofCMYKG = stdProofCMYK;
-		stdTransCMYKG = stdTransCMYK;
-		stdTransRGBG = stdTransRGB;
-		stdProofGCG = stdProofGC;
-		stdProofCMYKGCG = stdProofCMYKGC;
-		CMSoutputProf = DocOutputProf;
-		CMSprinterProf = DocPrinterProf;
-		if (static_cast<int>(cmsGetColorSpace(DocInputProf)) == icSigRgbData)
-			CMSSettings.ComponentsInput2 = 3;
-		if (static_cast<int>(cmsGetColorSpace(DocInputProf)) == icSigCmykData)
-			CMSSettings.ComponentsInput2 = 4;
-		if (static_cast<int>(cmsGetColorSpace(DocInputProf)) == icSigCmyData)
-			CMSSettings.ComponentsInput2 = 3;
-		if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigRgbData)
-			CMSSettings.ComponentsPrinter = 3;
-		if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigCmykData)
-			CMSSettings.ComponentsPrinter = 4;
-		if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigCmyData)
-			CMSSettings.ComponentsPrinter = 3;
-		PDF_Options.SComp = CMSSettings.ComponentsInput2;
+		if (OpenCMSProfiles(ScMW->InputProfiles, ScMW->MonitorProfiles, ScMW->PrinterProfiles))
+		{
+			stdProofG = stdProof;
+			stdTransG = stdTrans;
+			stdProofImgG = stdProofImg;
+			stdTransImgG = stdTransImg;
+			stdProofCMYKG = stdProofCMYK;
+			stdTransCMYKG = stdTransCMYK;
+			stdTransRGBG = stdTransRGB;
+			stdProofGCG = stdProofGC;
+			stdProofCMYKGCG = stdProofCMYKGC;
+			CMSoutputProf = DocOutputProf;
+			CMSprinterProf = DocPrinterProf;
+			if (static_cast<int>(cmsGetColorSpace(DocInputProf)) == icSigRgbData)
+				CMSSettings.ComponentsInput2 = 3;
+			if (static_cast<int>(cmsGetColorSpace(DocInputProf)) == icSigCmykData)
+				CMSSettings.ComponentsInput2 = 4;
+			if (static_cast<int>(cmsGetColorSpace(DocInputProf)) == icSigCmyData)
+				CMSSettings.ComponentsInput2 = 3;
+			if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigRgbData)
+				CMSSettings.ComponentsPrinter = 3;
+			if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigCmykData)
+				CMSSettings.ComponentsPrinter = 4;
+			if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigCmyData)
+				CMSSettings.ComponentsPrinter = 3;
+			PDF_Options.SComp = CMSSettings.ComponentsInput2;
+		}
+		else
+			CMSSettings.CMSinUse = false;
 #endif
 	}
 }
@@ -397,27 +417,67 @@ ScribusView* ScribusDoc::view() const
 void ScribusDoc::CloseCMSProfiles()
 {
 #ifdef HAVE_CMS
-	if ((CMSavail) && (CMSSettings.CMSinUse))
+	if ((CMSavail) /*&& (CMSSettings.CMSinUse)*/)
 	{
-		cmsCloseProfile(DocInputProf);
-		cmsCloseProfile(DocOutputProf);
-		cmsCloseProfile(DocPrinterProf);
-		cmsDeleteTransform(stdTrans);
-		cmsDeleteTransform(stdProof);
-		cmsDeleteTransform(stdTransImg);
-		cmsDeleteTransform(stdProofImg);
-		cmsDeleteTransform(stdTransCMYK);
-		cmsDeleteTransform(stdProofCMYK);
-		cmsDeleteTransform(stdTransRGB);
-		cmsDeleteTransform(stdProofCMYKGC);
-		cmsDeleteTransform(stdProofGC);
+		if (DocInputProf)
+			cmsCloseProfile(DocInputProf);	
+		if (DocOutputProf)
+			cmsCloseProfile(DocOutputProf);
+		if (DocPrinterProf)
+			cmsCloseProfile(DocPrinterProf);
+		if (stdTrans)
+			cmsDeleteTransform(stdTrans);
+		if (stdProof)
+			cmsDeleteTransform(stdProof);
+		if (stdTransImg)
+			cmsDeleteTransform(stdTransImg);
+		if (stdProofImg)
+			cmsDeleteTransform(stdProofImg);
+		if (stdTransCMYK)
+			cmsDeleteTransform(stdTransCMYK);
+		if (stdProofCMYK)
+			cmsDeleteTransform(stdProofCMYK);
+		if (stdTransRGB)
+			cmsDeleteTransform(stdTransRGB);
+		if (stdProofCMYKGC)
+			cmsDeleteTransform(stdProofCMYKGC);
+		if (stdProofGC)
+			cmsDeleteTransform(stdProofGC);
+		DocInputProf = NULL;
+		DocOutputProf = NULL;
+		DocPrinterProf = NULL;
+		stdTrans = NULL;
+		stdProof = NULL;
+		stdTransImg = NULL;
+		stdProofImg = NULL;
+		stdTransCMYK = NULL;
+		stdProofCMYK = NULL;
+		stdTransRGB = NULL;
+		stdProofCMYKGC = NULL;
+		stdProofGC = NULL;
 	}
 #endif
 }
 
-void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
+bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 {
 #ifdef HAVE_CMS
+	cmsErrorAction(LCMS_ERROR_ABORT);
+	if (setjmp(cmsJumpBuffer))
+	{
+		// Reset to the default handler otherwise may enter a loop
+		// if an error occur afterwards
+		cmsSetErrorHandler(NULL);
+		CloseCMSProfiles();
+		CMSSettings.CMSinUse = CMSuse = false;
+		QString message = tr("An error occurred while opening icc profiles, color management is not enabled." );
+		if (ScQApp->usingGUI())
+			QMessageBox::warning(ScMW, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
+		else
+			qWarning( message.local8Bit().data() );
+		return false;
+	}
+	cmsSetErrorHandler(&cmsErrorHandler);
 	const QCString inputProfilePath(InPo[CMSSettings.DefaultSolidColorProfile].local8Bit());
 	DocInputProf = cmsOpenProfileFromFile(inputProfilePath.data(), "r");
 	const QCString monitorProfilePath(MoPo[CMSSettings.DefaultMonitorProfile].local8Bit());
@@ -427,7 +487,7 @@ void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	if ((DocInputProf == NULL) || (DocOutputProf == NULL) || (DocPrinterProf == NULL))
 	{
 		CMSSettings.CMSinUse = false;
-		return;
+		return false;
 	}
 	int dcmsFlags = 0;
 	int dcmsFlags2 = 0;
@@ -443,7 +503,6 @@ void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	}
 	// set Gamut alarm color to #00ff00
 	cmsSetAlarmCodes(0, 255, 0);
-	cmsErrorAction(LCMS_ERROR_SHOW);
 	stdProof = cmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,
 	                                      DocOutputProf, TYPE_RGB_16,
 	                                      DocPrinterProf,
@@ -509,6 +568,7 @@ void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 						IntentMonitor,
 						dcmsFlags2);
 	}
+	return true;
 #endif
 }
 
