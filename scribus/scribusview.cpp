@@ -8732,11 +8732,15 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 	{
 		double sca = Scale;
 		bool frs = Doc->guidesSettings.framesShown;
+		double cx = Doc->minCanvasCoordinate.x();
+		double cy = Doc->minCanvasCoordinate.y();
+		Doc->minCanvasCoordinate = FPoint(0, 0);
 		Page* act = Doc->currentPage();
 		Doc->setCurrentPage(Doc->MasterPages.at(Nr));
 		Doc->guidesSettings.framesShown = false;
 		setScale(1.0);
 		previewMode = true;
+		forceRedraw = true;
 		pm = QImage(clipw, cliph, 32, QImage::BigEndian);
 		ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height());
 		painter->clear(white);
@@ -8759,6 +8763,8 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 		delete painter;
 		painter=NULL;
 		previewMode = false;
+		forceRedraw = false;
+		Doc->minCanvasCoordinate = FPoint(cx, cy);
 	}
 	return im;
 }
@@ -8777,10 +8783,14 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 	if ((clipw > 0) && (cliph > 0))
 	{
 		double sca = Scale;
+		double cx = Doc->minCanvasCoordinate.x();
+		double cy = Doc->minCanvasCoordinate.y();
+		Doc->minCanvasCoordinate = FPoint(0, 0);
 		bool frs = Doc->guidesSettings.framesShown;
 		Doc->guidesSettings.framesShown = false;
 		Scale = sc;
 		previewMode = true;
+		forceRedraw = true;
 		Page* act = Doc->currentPage();
 		Doc->setCurrentPage(Doc->Pages->at(Nr));
 		im = QImage(clipw, cliph, 32, QImage::BigEndian);
@@ -8806,6 +8816,8 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 		delete painter;
 		painter=NULL;
 		previewMode = false;
+		forceRedraw = false;
+		Doc->minCanvasCoordinate = FPoint(cx, cy);
 	}
 	return im;
 }
