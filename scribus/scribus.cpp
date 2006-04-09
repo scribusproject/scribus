@@ -173,6 +173,7 @@ for which a new license (GPL+exception) is in place.
 
 #if defined(_WIN32)
 #include "scwinprint.h"
+#include "scdocoutput_ps2.h"
 #endif
 
 using namespace std;
@@ -3394,32 +3395,36 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			Gamut = doc->CMSSettings.GamutCheck;
 			IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
 			IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
-			doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
-			CMSuse = doc->CMSSettings.CMSinUse;
-			stdProofG = doc->stdProof;
-			stdTransG = doc->stdTrans;
-			stdProofImgG = doc->stdProofImg;
-			stdTransImgG = doc->stdTransImg;
-			stdProofCMYKG = doc->stdProofCMYK;
-			stdTransCMYKG = doc->stdTransCMYK;
-			stdTransRGBG = doc->stdTransRGB;
-			stdProofGCG = doc->stdProofGC;
-			stdProofCMYKGCG = doc->stdProofCMYKGC;
-			CMSoutputProf = doc->DocOutputProf;
-			CMSprinterProf = doc->DocPrinterProf;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
-				doc->CMSSettings.ComponentsInput2 = 3;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmykData)
-				doc->CMSSettings.ComponentsInput2 = 4;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmyData)
-				doc->CMSSettings.ComponentsInput2 = 3;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigRgbData)
-				doc->CMSSettings.ComponentsPrinter = 3;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmykData)
-				doc->CMSSettings.ComponentsPrinter = 4;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmyData)
-				doc->CMSSettings.ComponentsPrinter = 3;
-			doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
+			if (doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles))
+			{
+				CMSuse = doc->CMSSettings.CMSinUse;
+				stdProofG = doc->stdProof;
+				stdTransG = doc->stdTrans;
+				stdProofImgG = doc->stdProofImg;
+				stdTransImgG = doc->stdTransImg;
+				stdProofCMYKG = doc->stdProofCMYK;
+				stdTransCMYKG = doc->stdTransCMYK;
+				stdTransRGBG = doc->stdTransRGB;
+				stdProofGCG = doc->stdProofGC;
+				stdProofCMYKGCG = doc->stdProofCMYKGC;
+				CMSoutputProf = doc->DocOutputProf;
+				CMSprinterProf = doc->DocPrinterProf;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
+					doc->CMSSettings.ComponentsInput2 = 3;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmykData)
+					doc->CMSSettings.ComponentsInput2 = 4;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmyData)
+					doc->CMSSettings.ComponentsInput2 = 3;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigRgbData)
+					doc->CMSSettings.ComponentsPrinter = 3;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmykData)
+					doc->CMSSettings.ComponentsPrinter = 4;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmyData)
+					doc->CMSSettings.ComponentsPrinter = 3;
+				doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
+			}
+			else
+				CMSuse = false;
 #endif
 			if (doc->CMSSettings.CMSinUse)
 			{
@@ -4479,6 +4484,12 @@ void ScribusMainWindow::slotEditPaste()
 						hg->ch = QChar(13);
 					if (hg->ch == QChar(4))
 						hg->ch = QChar(9);
+/* 	Don't copy inline frames for now, as this is a very complicated thing.
+		We need to figure out a good way to copy inline frames, this must
+		be able to preserve them across documents. No idea how to solve
+		that yet. */
+					if (hg->ch == QChar(25))
+						hg->ch = QChar(32);
 					it++;
 					hg->cfont = (*doc->AllFonts)[*it];
 					it++;
