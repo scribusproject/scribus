@@ -356,6 +356,7 @@ scribuswin.cpp
 scrpalettebase.cpp
 scmenu.cpp
 scmessagebox.cpp
+sctextstruct.cpp
 sctoolbar.cpp
 search.cpp
 seiten.cpp
