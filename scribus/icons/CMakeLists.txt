@@ -137,6 +137,14 @@ framenoresize.png
 frameresize.png
 frame_table16.png
 frame_table.png
+16/go-bottom.png
+22/go-bottom.png
+16/go-down.png
+22/go-down.png
+16/go-top.png
+22/go-top.png
+16/go-up.png
+22/go-up.png
 gohome.png
 goto.png
 guides.png
