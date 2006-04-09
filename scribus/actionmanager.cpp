@@ -133,7 +133,7 @@ void ActionManager::initEditMenuActions()
 	
 	scrActions->insert("editSelectAll", new ScrAction(QIconSet(noIcon), "", CTRL+Key_A, ScMW, "editSelectAll"));
 	scrActions->insert("editDeselectAll", new ScrAction(QIconSet(noIcon), "", CTRL+SHIFT+Key_A, ScMW, "editDeselectAll"));
-	scrActions->insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png"), loadIcon("find16.png")), "", QKeySequence(CTRL+Key_F), ScMW, "editSearchReplace"));
+	scrActions->insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("16/edit-find-replace.png"), loadIcon("22/edit-find-replace.png")), "", QKeySequence(CTRL+Key_F), ScMW, "editSearchReplace"));
 
 	scrActions->insert("editEditWithImageEditor", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "editEditWithImageEditor"));
 
@@ -442,7 +442,7 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert("toolsBookmarks", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "toolsBookmarks"));
 	scrActions->insert("toolsMeasurements", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/measure.png"), loadIcon("22/measure.png")), "", QKeySequence(), ScMW, "toolsMeasurements", modeMeasurementTool));
 	scrActions->insert("toolsActionHistory", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "toolsActionHistory"));
-	scrActions->insert("toolsPreflightVerifier", new ScrAction(QIconSet(loadIcon("launch16.png"), loadIcon("launch.png")),"", QKeySequence(), ScMW, "toolsPreflightVerifier"));
+	scrActions->insert("toolsPreflightVerifier", new ScrAction(QIconSet(loadIcon("16/preflight-verifier.png"), loadIcon("22/preflight-verifier.png")),"", QKeySequence(), ScMW, "toolsPreflightVerifier"));
 	scrActions->insert("toolsAlignDistribute", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "toolsAlignDistribute"));
 	scrActions->insert("toolsToolbarTools", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "toolsToolbarTools"));
 	scrActions->insert("toolsToolbarPDF", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScMW, "toolsToolbarPDF"));
@@ -463,7 +463,7 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert("toolsZoomIn", new ScrAction(QIconSet(loadIcon("viewmagin.png"), loadIcon("viewmagin.png")), "", QKeySequence(CTRL+Key_Plus), ScMW, "toolsZoomIn"));
 	scrActions->insert("toolsZoomOut", new ScrAction(QIconSet(loadIcon("viewmagout.png"), loadIcon("viewmagout.png")), "", QKeySequence(CTRL+Key_Minus), ScMW, "toolsZoomOut"));
 	scrActions->insert("toolsEditContents", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), "", QKeySequence(Key_E), ScMW, "toolsEditContents", modeEdit));
-	scrActions->insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/story-editor.png"), loadIcon("22/story-editor.png")), "", QKeySequence(CTRL+Key_Y), ScMW, "toolsEditWithStoryEditor", modeStoryEditor));
+	scrActions->insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/story-editor.png"), loadIcon("22/story-editor.png")), "", QKeySequence(CTRL+Key_Y), ScMW, "toolsEditWithStoryEditor", modeStoryEditor));
 	scrActions->insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/text-frame-link.png"), loadIcon("22/text-frame-link.png")), "", QKeySequence(Key_N), ScMW, "toolsLinkTextFrame", modeLinkFrames));
 	scrActions->insert("toolsUnlinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/text-frame-unlink.png"), loadIcon("22/text-frame-unlink.png")), "", QKeySequence(Key_U), ScMW, "toolsUnlinkTextFrame", modeUnlinkFrames));
 	scrActions->insert("toolsEyeDropper", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/color-picker.png"), loadIcon("22/color-picker.png")), "", QKeySequence(Key_Y), ScMW, "toolsEyeDropper", modeEyeDropper));

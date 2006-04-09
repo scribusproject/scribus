@@ -22,6 +22,8 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/edit-copy.png \
 16/edit-cut.png \
 22/edit-cut.png \
+16/edit-find-replace.png \
+22/edit-find-replace.png \
 16/edit-paste.png \
 22/edit-paste.png \
 16/edit-redo.png \
@@ -46,6 +48,9 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/lock.png \
 16/lock-unlocked.png \
 22/lock-unlocked.png \
+16/preflight-verifier.png \
+22/preflight-verifier.png \
+16/story-editor.png \
 22/story-editor.png \
 22/text-frame-link.png \
 22/text-frame-unlink.png \
@@ -175,6 +180,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/edit-copy.png $(prefix)/share/scribus/icons/22/edit-copy.png
 	$(INSTALL_DATA) $(srcdir)/16/edit-cut.png $(prefix)/share/scribus/icons/16/edit-cut.png
 	$(INSTALL_DATA) $(srcdir)/22/edit-cut.png $(prefix)/share/scribus/icons/22/edit-cut.png
+	$(INSTALL_DATA) $(srcdir)/16/edit-find-replace.png $(prefix)/share/scribus/icons/16/edit-find-replace.png
+	$(INSTALL_DATA) $(srcdir)/22/edit-find-replace.png $(prefix)/share/scribus/icons/22/edit-find-replace.png
 	$(INSTALL_DATA) $(srcdir)/16/edit-paste.png $(prefix)/share/scribus/icons/16/edit-paste.png
 	$(INSTALL_DATA) $(srcdir)/22/edit-paste.png $(prefix)/share/scribus/icons/22/edit-paste.png
 	$(INSTALL_DATA) $(srcdir)/16/edit-redo.png $(prefix)/share/scribus/icons/16/edit-redo.png
@@ -284,6 +291,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/plugins.png $(prefix)/share/scribus/icons/plugins.png
 	$(INSTALL_DATA) $(srcdir)/22/pointer.png $(prefix)/share/scribus/icons/22/pointer.png
 	$(INSTALL_DATA) $(srcdir)/PolyCut.png $(prefix)/share/scribus/icons/PolyCut.png
+	$(INSTALL_DATA) $(srcdir)/16/preflight-verifier.png $(prefix)/share/scribus/icons/16/preflight-verifier.png
+	$(INSTALL_DATA) $(srcdir)/22/preflight-verifier.png $(prefix)/share/scribus/icons/22/preflight-verifier.png
 	$(INSTALL_DATA) $(srcdir)/postscript.png $(prefix)/share/scribus/icons/postscript.png
 	$(INSTALL_DATA) $(srcdir)/pushbutton.png $(prefix)/share/scribus/icons/pushbutton.png
 	$(INSTALL_DATA) $(srcdir)/python.png $(prefix)/share/scribus/icons/python.png
@@ -330,6 +339,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/Stift16.xpm $(prefix)/share/scribus/icons/Stift16.xpm
 	$(INSTALL_DATA) $(srcdir)/Stiftalt.xpm $(prefix)/share/scribus/icons/Stiftalt.xpm
 	$(INSTALL_DATA) $(srcdir)/Stiftalt16.xpm $(prefix)/share/scribus/icons/Stiftalt16.xpm
+	$(INSTALL_DATA) $(srcdir)/16/story-editor.png $(prefix)/share/scribus/icons/16/story-editor.png
 	$(INSTALL_DATA) $(srcdir)/22/story-editor.png $(prefix)/share/scribus/icons/22/story-editor.png
 	$(INSTALL_DATA) $(srcdir)/Strike.xpm $(prefix)/share/scribus/icons/Strike.xpm
 	$(INSTALL_DATA) $(srcdir)/tab.png $(prefix)/share/scribus/icons/tab.png
@@ -501,7 +511,9 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/edit-copy.png
 	-rm -f $(prefix)/share/scribus/icons/16/edit-cut.png
 	-rm -f $(prefix)/share/scribus/icons/22/edit-cut.png
-	-rm -f $(prefix)/share/scribus/icons/16/edit-paste.png
+	-rm -f $(prefix)/share/scribus/icons/16/edit-find-replace.png
+	-rm -f $(prefix)/share/scribus/icons/16/edit-find-replace.png
+	-rm -f $(prefix)/share/scribus/icons/22/edit-paste.png
 	-rm -f $(prefix)/share/scribus/icons/22/edit-paste.png
 	-rm -f $(prefix)/share/scribus/icons/16/edit-redo.png
 	-rm -f $(prefix)/share/scribus/icons/22/edit-redo.png
@@ -610,6 +622,8 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/plugins.png
 	-rm -f $(prefix)/share/scribus/icons/22/pointer.png
 	-rm -f $(prefix)/share/scribus/icons/PolyCut.png
+	-rm -f $(prefix)/share/scribus/icons/16/preflight-verifier.png
+	-rm -f $(prefix)/share/scribus/icons/22/preflight-verifier.png
 	-rm -f $(prefix)/share/scribus/icons/postscript.png
 	-rm -f $(prefix)/share/scribus/icons/pushbutton.png
 	-rm -f $(prefix)/share/scribus/icons/raise-to-top.png
@@ -653,6 +667,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/Stift.xpm
 	-rm -f $(prefix)/share/scribus/icons/Stiftalt.xpm
 	-rm -f $(prefix)/share/scribus/icons/Stiftalt16.xpm
+	-rm -f $(prefix)/share/scribus/icons/16/story-editor.png
 	-rm -f $(prefix)/share/scribus/icons/22/story-editor.png
 	-rm -f $(prefix)/share/scribus/icons/Strike.xpm
 	-rm -f $(prefix)/share/scribus/icons/tab.png
