@@ -1165,7 +1165,7 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 						if (currItem->CPos-1>0)
 						{
 #ifndef NLS_PROTO
-							currItem->itemText.at(QMAX(currItem->CPos-1,0))->cstyle ^= 128;
+							currItem->itemText.at(QMAX(currItem->CPos-1,0))->cstyle |= ScStyle_HyphenationPossible;
 #else
 							currItem->itemText.insertChars(currItem->CPos, QString(SpecialChars::SHYPHEN));
 							currItem->CPos += 1;
@@ -4507,7 +4507,7 @@ void ScribusMainWindow::slotEditPaste()
 					hg->cshade = (*it).toInt();
 					hg->cselect = false;
 					it++;
-					hg->cstyle = (*it).toInt();
+					hg->cstyle = static_cast<StyleFlag>((*it).toInt());
 					it++;
 					hg->cab = (*it).toInt();
 					it++;
@@ -6319,8 +6319,8 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 							newStyle.cstroke = ite->TxtStroke;
 							newStyle.cshade2 = ite->ShTxtStroke;
 							newStyle.csize = ite->fontSize();
-							newStyle.cstyle = ite->itemText.charStyle(e).cstyle & ~1919;
-							newStyle.cstyle |= ite->TxTStyle;
+							newStyle.cstyle = ite->itemText.charStyle(e).cstyle & static_cast<StyleFlag>(~1919);
+							newStyle.cstyle |= static_cast<StyleFlag>(ite->TxTStyle);
 							newStyle.cshadowx = ite->TxtShadowX;
 							newStyle.cshadowy = ite->TxtShadowY;
 							newStyle.coutline = ite->TxtOutline;

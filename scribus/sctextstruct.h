@@ -58,43 +58,20 @@ enum StyleFlag {
 	ScStyle_None          = 65535
 };
 
-StyleFlag& operator&= (StyleFlag& left, StyleFlag right)
-{
-	int result = static_cast<int>(left) & static_cast<int>(right);
-	left = static_cast<StyleFlag>(result);
-	return left;
-}
+StyleFlag& operator&= (StyleFlag& left, StyleFlag right);
 
-StyleFlag& operator|= (StyleFlag& left, StyleFlag right)
-{
-	int result = static_cast<int>(left) | static_cast<int>(right);
-	left = static_cast<StyleFlag>(result);
-	return left;
-}
+StyleFlag& operator|= (StyleFlag& left, StyleFlag right);
 
-StyleFlag operator& (StyleFlag left, StyleFlag right)
-{
-	int result = static_cast<int>(left) & static_cast<int>(right);
-	return static_cast<StyleFlag>(result);
-}
+StyleFlag operator& (StyleFlag left, StyleFlag right);
 
-StyleFlag operator| (StyleFlag left, StyleFlag right)
-{
-	int result = static_cast<int>(left) | static_cast<int>(right);
-	return static_cast<StyleFlag>(result);
-}
+StyleFlag operator| (StyleFlag left, StyleFlag right);
 
-StyleFlag operator^ (StyleFlag left, StyleFlag right)
-{
-	int result = static_cast<int>(left) ^ static_cast<int>(right);
-	return static_cast<StyleFlag>(result);
-}
+StyleFlag operator^ (StyleFlag left, StyleFlag right);
 
-StyleFlag operator~ (StyleFlag arg)
-{
-	int result = ~ static_cast<int>(arg);
-	return static_cast<StyleFlag>(result);
-}
+StyleFlag operator~ (StyleFlag arg);
+
+
+
 
 class SCRIBUS_API CharStyle {
 public:

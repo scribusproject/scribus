@@ -684,15 +684,15 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							CurY += m_Doc->docParagraphStyles[absa].gapBefore();
 						}
 					}
-					hl->cstyle &= 0xF7FF; // 2047;
-					hl->cstyle &= 8191;
+					hl->cstyle &= static_cast<StyleFlag>(0xF7FF); // 2047;
+					hl->cstyle &= static_cast<StyleFlag>(8191);
 					if (((m_Doc->docParagraphStyles[absa].alignment() == 3) || (m_Doc->docParagraphStyles[absa].alignment() == 4)) && (LiList.count() == 0) && (hl->ch == " "))
 					{
-						hl->cstyle |= 4096;
+						hl->cstyle |= ScStyle_SuppressSpace;
 						continue;
 					}
 					else
-						hl->cstyle &= 0xEFFF; // 4095;
+						hl->cstyle &= static_cast<StyleFlag>(0xEFFF); // 4095;
 					if (LiList.count() == 0)
 					{
 						if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)) && (!StartOfCol))
@@ -738,7 +738,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								chs = qRound(10 * ((currasce * (DropLines-1)+(hl->cfont->numAscent * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCAscent(m_Doc, hl->cfont, chx, 10)));
 							}
 						}
-						hl->cstyle |= 2048;
+						hl->cstyle |= ScStyle_DropCap;
 					}
 					else
 					{
@@ -1052,13 +1052,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						hl->yp -= RealCHeight(m_Doc, hl->cfont, chx2, chsd) - RealCAscent(m_Doc, hl->cfont, chx2, chsd);
 					if (LiList.count() == 0)
 					{
-						itemText.at(a)->cstyle |= 16384;
+						itemText.at(a)->cstyle |= ScStyle_StartOfLine;
 						kernVal = 0;
 					}
 					else
 					{
 						kernVal = chs * hl->cextra / 10000.0;
-						itemText.at(a)->cstyle &= 16383;
+						itemText.at(a)->cstyle &= ScStyle_StartOfLine;
 					}
 					if (!RTab)
 					{
@@ -1286,7 +1286,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								if (itemText.at(a)->cstyle & 128)
 								{
 									HyphenCount++;
-									itemText.at(a)->cstyle |= 8192;
+									itemText.at(a)->cstyle |= ScStyle_SmartHyphenVisible;
 									Zli = new ZZ;
 									Zli->Zeich = "-";
 									Zli->Farb = itemText.at(a)->ccolor;
@@ -1319,7 +1319,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								else
 								{
 									HyphenCount = 0;
-									hl->cstyle &= 8191;
+									hl->cstyle &= static_cast<StyleFlag>(8191);
 								}
 								BuPos = LastSP+1;
 								if (m_Doc->docParagraphStyles[absa].alignment() != 0)

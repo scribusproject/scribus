@@ -785,8 +785,8 @@ void SearchReplace::slotDoReplace()
 			{
 				if (Item->itemText.selected(a))
 				{
-					Item->itemText.at(a)->cstyle &= ~1919;
-					Item->itemText.at(a)->cstyle |= s;
+					Item->itemText.at(a)->cstyle &= static_cast<StyleFlag>(~1919);
+					Item->itemText.at(a)->cstyle |= static_cast<StyleFlag>(s);
 				}
 			}
 #endif

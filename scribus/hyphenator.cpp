@@ -151,11 +151,11 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 		  	buffer[strlen(word)] = '\0';
 #ifndef NLS_PROTO
 			for (i = 1; i < found.length()-1; ++i)
-				it->itemText.at(QMIN(maxC, i+firstC))->cstyle &= 1919;		// Delete any old Hyphens
+				it->itemText.at(QMIN(maxC, i+firstC))->cstyle &= static_cast<StyleFlag>(1919);		// Delete any old Hyphens
 			for (i = 1; i < found.length()-1; ++i)
 			{
 				if(buffer[i] & 1)
-					it->itemText.at(QMIN(maxC, i+firstC))->cstyle |= 128;	// Set new Hyphens according Buffer
+					it->itemText.at(QMIN(maxC, i+firstC))->cstyle |= static_cast<StyleFlag>(128);	// Set new Hyphens according Buffer
 			}
 #endif
 		}
@@ -195,7 +195,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	QString text = "";
 	QString buf;
 	QCString te;
-	for (uint a = 0; a < nb1->itemText.length(); ++a)
+	for (int a = 0; a < nb1->itemText.length(); ++a)
 	{
 		if (nb1->HasSel)
 		{
@@ -208,7 +208,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	int firstC = 0;
 	if (nb1->HasSel)
 	{
-		for (uint a = 0; a < nb1->itemText.length(); ++a)
+		for (int a = 0; a < nb1->itemText.length(); ++a)
 		{
 			if (nb1->itemText.selected(a))
 			{
@@ -248,7 +248,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
   				buffer[strlen(word)] = '\0';
 #ifndef NLS_PROTO
 				for (i = 1; i < found.length()-1; ++i)
-					nb1->itemText.at(QMIN(maxC, i+firstC))->cstyle &= 1919;		// Delete any old Hyphens
+					nb1->itemText.at(QMIN(maxC, i+firstC))->cstyle &= static_cast<StyleFlag>(1919);		// Delete any old Hyphens
 #endif
 				bool hasHyphen = false;
 				for (i = 1; i < found.length()-1; ++i)
@@ -289,7 +289,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 								QChar cht = outs[i];
 #ifndef NLS_PROTO
 								if (cht == "-")
-									nb1->itemText.at(QMIN(maxC, ii+firstC))->cstyle |= 128;
+									nb1->itemText.at(QMIN(maxC, ii+firstC))->cstyle |= static_cast<StyleFlag>(128);
 								else
 #endif
 									ii++;
@@ -314,7 +314,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						for (i = 1; i < found.length()-1; ++i)
 						{
 							if(buffer[i] & 1)
-								nb1->itemText.at(QMIN(maxC, i+firstC))->cstyle |= 128;
+								nb1->itemText.at(QMIN(maxC, i+firstC))->cstyle |= static_cast<StyleFlag>(128);
 						}
 #endif
 	  				}
@@ -360,10 +360,10 @@ void Hyphenator::slotDeHyphenate(PageItem* it)
 		if (nb1->HasSel)
 		{
 			if (nb1->itemText.at(a)->cselect)
-				nb1->itemText.at(a)->cstyle &= 1919;
+				nb1->itemText.at(a)->cstyle &= static_cast<StyleFlag>(1919);
 		}
 		else
-			nb1->itemText.at(a)->cstyle &= 1919;
+			nb1->itemText.at(a)->cstyle &= static_cast<StyleFlag>(1919);
 	}
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	doc->DoDrawing = true;

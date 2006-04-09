@@ -224,9 +224,10 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 	assert(pos >= 0);
 	assert(pos < length());
 
-	assert( at(pos)->cab >= 0 );
-	assert( at(pos)->cab < doc->docParagraphStyles.count() );
-	return doc->docParagraphStyles[at(pos)->cab];
+	StoryText * that = const_cast<StoryText *> (this);
+	assert( that->at(pos)->cab >= 0 );
+	assert( that->at(pos)->cab < doc->docParagraphStyles.count() );
+	return doc->docParagraphStyles[that->at(pos)->cab];
 }
 
 void StoryText::applyStyle(int pos, uint len, const CharStyle& style )
