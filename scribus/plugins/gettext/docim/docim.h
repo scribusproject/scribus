@@ -40,10 +40,6 @@ private:
 	bool failed;
 	bool textOnly;
 	void toUnicode();
-
-private slots:
-	void slotReadOutput();
-	void slotReadErr();
 };
 
 #endif // DOCIM_H
