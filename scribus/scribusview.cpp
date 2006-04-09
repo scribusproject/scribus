@@ -627,7 +627,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 	}
 	painter->setZoomFactor(z);
 }
-
+/*backport the #3586 fix from 1.3.4cvs */
 void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 {
 	linkedFramesToShow.clear();
@@ -759,7 +759,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 	painter->setZoomFactor(z);
 }
 
-void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
+void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 {
 	double z = p->zoomFactor();
 	p->save();
@@ -801,6 +801,10 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 		double endx = pageWidth;
 		double sty = 0;
 		double endy = pageHeight;
+		double lowerBx = clip.x() / Scale + Doc->minCanvasCoordinate.x() - page->xOffset();
+		double lowerBy = clip.y() / Scale + Doc->minCanvasCoordinate.y() - page->yOffset();
+		double highBx = lowerBx + clip.width() / Scale;
+		double highBy = lowerBy + clip.height() / Scale;
 /*		double stx = QMAX((clip.x() - page->Xoffset) / Scale, 0);
 		double endx = QMIN(stx + clip.width() / Scale, page->width());
 		double sty = QMAX((clip.y() - page->Yoffset) / Scale, 0);
@@ -812,22 +816,34 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 			p->setPen(Doc->guidesSettings.majorColor, lineWidth, SolidLine, FlatCap, MiterJoin);
 			start=floor(sty/i);
 			start*=i;
-			for (double b = start; b < endy; b+=i)
-				p->drawLine(FPoint(0, b), FPoint(pageWidth, b));
+			for (double b = start; b <= endy; b+=i)
+			{
+				if ((b >= lowerBy) && (b <= highBy))
+					p->drawLine(FPoint(QMAX(lowerBx, 0), b), FPoint(QMIN(pageWidth, highBx), b));
+			}
 			start=floor(stx/i);
 			start*=i;
 			for (double b = start; b <= endx; b+=i)
-				p->drawLine(FPoint(b, 0), FPoint(b, pageHeight));
+			{
+				if ((b >= lowerBx) && (b <= highBx))
+					p->drawLine(FPoint(b, QMAX(lowerBy, 0)), FPoint(b, QMIN(pageHeight, highBy)));
+			}
 			i = Doc->guidesSettings.minorGrid;
 			p->setPen(Doc->guidesSettings.minorColor, lineWidth, DotLine, FlatCap, MiterJoin);
 			start=floor(sty/i);
 			start*=i;
-			for (double b = start; b < endy; b+=i)
-				p->drawLine(FPoint(0, b), FPoint(pageWidth, b));
+			for (double b = start; b <= endy; b+=i)
+			{
+				if ((b >= lowerBy) && (b <= highBy))
+					p->drawLine(FPoint(QMAX(lowerBx, 0), b), FPoint(QMIN(pageWidth, highBx), b));
+			}
 			start=floor(stx/i);
 			start*=i;
 			for (double b = start; b <= endx; b+=i)
-				p->drawLine(FPoint(b, 0), FPoint(b, pageHeight));
+			{
+				if ((b >= lowerBx) && (b <= highBx))
+					p->drawLine(FPoint(b, QMAX(lowerBy, 0)), FPoint(b, QMIN(pageHeight, highBy)));
+			}
 		}
 	}
 	//Draw the guides
@@ -8499,12 +8515,16 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 	if ((clipw > 0) && (cliph > 0))
 	{
 		double sca = Scale;
+		double cx = Doc->minCanvasCoordinate.x();
+		double cy = Doc->minCanvasCoordinate.y();
+		Doc->minCanvasCoordinate = FPoint(0, 0);
 		bool frs = Doc->guidesSettings.framesShown;
 		Page* act = Doc->currentPage;
 		Doc->currentPage = Doc->MasterPages.at(Nr);
 		Doc->guidesSettings.framesShown = false;
 		setScale(1.0);
 		previewMode = true;
+		forceRedraw = true;
 		pm = QImage(clipw, cliph, 32, QImage::BigEndian);
 		ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height());
 		painter->clear(white);
@@ -8527,6 +8547,8 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 		delete painter;
 		painter=NULL;
 		previewMode = false;
+		forceRedraw = false;
+		Doc->minCanvasCoordinate = FPoint(cx, cy);
 	}
 	return im;
 }
@@ -8546,9 +8568,13 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 	{
 		double sca = Scale;
 		bool frs = Doc->guidesSettings.framesShown;
+		double cx = Doc->minCanvasCoordinate.x();
+		double cy = Doc->minCanvasCoordinate.y();
+		Doc->minCanvasCoordinate = FPoint(0, 0);
 		Doc->guidesSettings.framesShown = false;
 		Scale = sc;
 		previewMode = true;
+		forceRedraw = true;
 		Page* act = Doc->currentPage;
 		Doc->currentPage = Doc->Pages->at(Nr);
 		im = QImage(clipw, cliph, 32, QImage::BigEndian);
@@ -8574,6 +8600,8 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 		delete painter;
 		painter=NULL;
 		previewMode = false;
+		forceRedraw = false;
+		Doc->minCanvasCoordinate = FPoint(cx, cy);
 	}
 	return im;
 }
