@@ -315,7 +315,7 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 		hg->cstrikewidth = currItem->TxtStrikeWidth;
 		hg->cextra = 0;
 		hg->cselect = false;
-		hg->cstyle = 0;
+		hg->cstyle = ScStyle_Default;
 		hg->cab = ScMW->doc->currentParaStyle;
 		hg->xp = 0;
 		hg->yp = 0;
@@ -380,7 +380,7 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 		hg->cstrikewidth = it->TxtStrikeWidth;
 		hg->cextra = 0;
 		hg->cselect = false;
-		hg->cstyle = 0;
+		hg->cstyle = ScStyle_Default;
 		hg->cab = ScMW->doc->currentParaStyle;
 		hg->xp = 0;
 		hg->yp = 0;
