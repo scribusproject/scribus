@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef GUIDEMANAGERCORE_H
 #define GUIDEMANAGERCORE_H
 
+#include <qpair.h>
 #include <qvaluelist.h>
 
 #include "scribusstructs.h"
@@ -34,47 +35,57 @@ Implementing of class Guide() as standalone entity looks great in object
 design bit it's too slow */
 class SCRIBUS_API GuideManagerCore
 {
-	public:
-		GuideManagerCore();
-		GuideManagerCore(Page* parentPage);
-		~GuideManagerCore();
+public:
+	GuideManagerCore();
+	GuideManagerCore(Page* parentPage);
+	~GuideManagerCore();
 
-		typedef enum {Standard, Auto} GuideType;
+	typedef enum {Standard, Auto} GuideType;
 
-		void addHorizontal(double value, GuideType type);
-		void addHorizontals(Guides values, GuideType type);
-		void addVertical(double value, GuideType type);
-		void addVerticals(Guides values, GuideType type);
-		void deleteHorizontal(double value, GuideType type);
-		void deleteVertical(double value, GuideType type);
-		void moveHorizontal(double from, double to, GuideType type);
-		void moveVertical(double from, double to, GuideType type);
+	void addHorizontal(double value, GuideType type);
+	void addHorizontals(Guides values, GuideType type);
+	void addVertical(double value, GuideType type);
+	void addVerticals(Guides values, GuideType type);
+	void deleteHorizontal(double value, GuideType type);
+	void deleteVertical(double value, GuideType type);
+	void moveHorizontal(double from, double to, GuideType type);
+	void moveVertical(double from, double to, GuideType type);
 
-		Guides horizontals(GuideType type);
-		Guides verticals(GuideType type);
-		double horizontal(uint ix, GuideType type);
-		double vertical(uint ix, GuideType type);
+	Guides horizontals(GuideType type);
+	Guides verticals(GuideType type);
+	double horizontal(uint ix, GuideType type);
+	double vertical(uint ix, GuideType type);
 
-		void clearHorizontals(GuideType type);
-		void clearVerticals(GuideType type);
+	void clearHorizontals(GuideType type);
+	void clearVerticals(GuideType type);
 
-		void copy(GuideManagerCore *target);
-		void copy(GuideManagerCore *target, GuideType type);
+	void copy(GuideManagerCore *target);
+	void copy(GuideManagerCore *target, GuideType type);
 
-		void drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth);
+	void drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth);
 
-		bool isMouseOnHorizontal(double low, double high, GuideType type);
-		bool isMouseOnVertical(double low, double high, GuideType type);
+	bool isMouseOnHorizontal(double low, double high, GuideType type);
+	bool isMouseOnVertical(double low, double high, GuideType type);
 
-		void setPage(Page *p);
+	void setPage(Page *p);
 
-	private:
-		UndoManager * const undoManager;
-		Page* page;
-		Guides horizontalStdG;
-		Guides verticalStdG;
-		Guides horizontalAutoG;
-		Guides verticalAutoG;
+	QPair<double, double> topLeft(double x, double y) const;
+	QPair<double, double> topRight(double x, double y) const;
+	QPair<double, double> bottomLeft(double x, double y) const;
+	QPair<double, double> bottomRight(double x, double y) const;
+
+private:
+	UndoManager * const undoManager;
+	Page* page;
+	Guides horizontalStdG;
+	Guides verticalStdG;
+	Guides horizontalAutoG;
+	Guides verticalAutoG;
+
+	double closestHorAbove(double y) const;
+	double closestHorBelow(double y) const;
+	double closestVertLeft(double x) const;
+	double closestVertRight(double x) const;
 };
 
 #endif

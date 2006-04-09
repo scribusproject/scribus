@@ -2298,6 +2298,16 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 	return newItem->ItemNr;
 }
 
+int ScribusDoc::itemAddArea(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double w, const QString& fill, const QString& outline, const bool itemFinalised)
+{
+	double xo = _currentPage->xOffset();
+	double yo = _currentPage->yOffset();
+	QPair<double, double> tl = _currentPage->guides.topLeft(x - xo, y - yo);
+	QPair<double, double> tr = _currentPage->guides.topRight(x - xo, y - yo);
+	QPair<double, double> bl = _currentPage->guides.bottomLeft(x - xo, y - yo);
+	return itemAdd(itemType, frameType, tl.first + xo, tl.second + yo, tr.first - tl.first, bl.second - tl.second, w, fill, outline, itemFinalised);
+}
+
 void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const int itemNumber)
 {
 	PageItem* newItem=Items->at(itemNumber);

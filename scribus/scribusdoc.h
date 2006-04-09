@@ -384,7 +384,10 @@ public:
 	\param outline outline color name
 	*/
 	int itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline, const bool itemFinalised);
-	
+
+	/** Add an item to the page based on the x/y position. Item will be fitted to the closest guides/margins */
+	int itemAddArea(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double w, const QString& fill, const QString& outline, const bool itemFinalised);
+
 	/**
 	 * @brief Commit item creation when a user has click-drag created an item
 	 * Only called from ScribusView. Note the undo target is the page, so the undo code remains their for now.

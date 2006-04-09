@@ -4784,33 +4784,78 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			switch (Doc->SubMode)
 			{
 			case 0:
-				z = Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
-				Doc->Items->at(z)->FrameType = 0;
-				SetupDraw(z);
+				if (m->state() == ShiftButton)
+				{
+					z = Doc->itemAddArea(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
+					Doc->Items->at(z)->FrameType = 0;
+					SetupDrawNoResize(z);
+				}
+				else
+				{
+					z = Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
+					Doc->Items->at(z)->FrameType = 0;
+					SetupDraw(z);
+				}
 				break;
 			case 1:
-				z = Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
-				Doc->Items->at(z)->FrameType = 1;
-				SetupDraw(z);
+				if (m->state() == ShiftButton)
+				{
+					z = Doc->itemAddArea(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
+					Doc->Items->at(z)->FrameType = 1;
+					SetupDrawNoResize(z);
+				}
+				else
+				{
+					z = Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
+					Doc->Items->at(z)->FrameType = 1;
+					SetupDraw(z);
+				}
 				break;
 			default:
-				z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
-				Doc->Items->at(z)->SetFrameShape(Doc->ValCount, Doc->ShapeValues);
-				Doc->setRedrawBounding(Doc->Items->at(z));
-				Doc->Items->at(z)->FrameType = Doc->SubMode+2;
-				SetupDraw(z);
+				if (m->state() == ShiftButton)
+				{
+					z = Doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
+					Doc->Items->at(z)->SetFrameShape(Doc->ValCount, Doc->ShapeValues);
+					Doc->setRedrawBounding(Doc->Items->at(z));
+					Doc->Items->at(z)->FrameType = Doc->SubMode+2;
+					SetupDrawNoResize(z);
+				}
+				else
+				{
+					z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
+					Doc->Items->at(z)->SetFrameShape(Doc->ValCount, Doc->ShapeValues);
+					Doc->setRedrawBounding(Doc->Items->at(z));
+					Doc->Items->at(z)->FrameType = Doc->SubMode+2;
+					SetupDraw(z);
+				}
 				break;
 			}
 			break;
 		case modeDrawPicture:
 			selectPage(m);
-			z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, !m_MouseButtonPressed);
-			SetupDraw(z);
+			if (m->state() == ShiftButton)
+			{
+				z = Doc->itemAddArea(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, !m_MouseButtonPressed);
+				SetupDrawNoResize(z);
+			}
+			else
+			{
+				z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, !m_MouseButtonPressed);
+				SetupDraw(z);
+			}
 			break;
 		case modeDrawText:
 			selectPage(m);
-			z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, CommonStrings::None, Doc->toolSettings.dPenText, !m_MouseButtonPressed);
-			SetupDraw(z);
+			if (m->state() == ShiftButton)
+			{
+				z = Doc->itemAddArea(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, Doc->toolSettings.dWidth, CommonStrings::None, Doc->toolSettings.dPenText, !m_MouseButtonPressed);
+				SetupDrawNoResize(z);
+			}	
+			else
+			{
+				z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, CommonStrings::None, Doc->toolSettings.dPenText, !m_MouseButtonPressed);
+				SetupDraw(z);
+			}
 			break;
 		case modeMagnifier:
 			m_MouseButtonPressed = true;
@@ -8074,6 +8119,20 @@ void ScribusView::SetupDraw(int nr)
 	Doc->m_Selection->addItem(currItem);
 	currItem->paintObj();
 	operItemMoving = true;
+	Doc->appMode = modeNormal;
+	emit DocChanged();
+	currItem->Sizing =  currItem->asLine() ? false : true;
+	moveTimer = moveTimer.addSecs(1500);
+}
+
+void ScribusView::SetupDrawNoResize(int nr)
+{
+	PageItem* currItem = Doc->Items->at(nr);
+	currItem->setFont(Doc->toolSettings.defFont);
+	currItem->setFontSize(Doc->toolSettings.defSize);
+	Doc->m_Selection->clear();
+	Doc->m_Selection->addItem(currItem);
+	currItem->paintObj();
 	Doc->appMode = modeNormal;
 	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;

@@ -223,6 +223,7 @@ public:
 	void selectPage(QMouseEvent *m);
 	bool SeleItem(QMouseEvent *m);
 	void SetupDraw(int Nr);
+	void SetupDrawNoResize(int nr);
 	//void updateGradientVectors(PageItem *currItem);
 	//void EmitValues(PageItem *currItem);
 	void Transform(PageItem *currItem, QPainter *p);

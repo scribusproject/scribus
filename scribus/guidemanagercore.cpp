@@ -379,3 +379,91 @@ bool GuideManagerCore::isMouseOnVertical(double low, double high, GuideType type
 	}
 	return false;
 }
+
+QPair<double, double> GuideManagerCore::topLeft(double x, double y) const
+{
+	return QPair<double, double>(closestVertLeft(x), closestHorAbove(y));
+}
+
+QPair<double, double> GuideManagerCore::topRight(double x, double y) const
+{
+	return QPair<double, double>(closestVertRight(x), closestHorAbove(y));
+}
+
+QPair<double, double> GuideManagerCore::bottomLeft(double x, double y) const
+{
+	return QPair<double, double>(closestVertLeft(x), closestHorBelow(y));
+}
+
+QPair<double, double> GuideManagerCore::bottomRight(double x, double y) const
+{
+	return QPair<double, double>(closestVertRight(x), closestHorBelow(y));
+}
+
+double GuideManagerCore::closestHorAbove(double y) const
+{
+	double closest = 0.0;
+	for (uint i = 0; i < horizontalStdG.size(); ++i)
+	{
+		if (horizontalStdG[i] < y && horizontalStdG[i] > closest)
+			closest = horizontalStdG[i];
+	}
+
+	if (page->Margins.Top < y && page->Margins.Top > closest)
+		closest = page->Margins.Top;
+	if (page->height() - page->Margins.Bottom < y && page->height() - page->Margins.Bottom > closest)
+		closest = page->height() - page->Margins.Bottom;
+
+	return closest;
+}
+
+double GuideManagerCore::closestHorBelow(double y) const
+{
+	double closest = page->height();
+	for (uint i = 0; i < horizontalStdG.size(); ++i)
+	{
+		if (horizontalStdG[i] > y && horizontalStdG[i] < closest)
+			closest = horizontalStdG[i];
+	}
+
+	if (page->Margins.Top > y && page->Margins.Top < closest)
+		closest = page->Margins.Top;
+	if (page->height() - page->Margins.Bottom > y && page->height() - page->Margins.Bottom < closest)
+		closest = page->height() - page->Margins.Bottom;
+
+	return closest;
+}
+
+double GuideManagerCore::closestVertLeft(double x) const
+{
+	double closest = 0.0;
+	for (uint i = 0; i < verticalStdG.size(); ++i)
+	{
+		if (verticalStdG[i] < x && verticalStdG[i] > closest)
+			closest = verticalStdG[i];
+	}
+
+	if (page->Margins.Left < x && page->Margins.Left > closest)
+		closest = page->Margins.Left;
+	if (page->width() - page->Margins.Right < x && page->width() - page->Margins.Right > closest)
+		closest = page->width() - page->Margins.Right;
+
+	return closest;
+}
+
+double GuideManagerCore::closestVertRight(double x) const
+{
+	double closest = page->width();
+	for (uint i = 0; i < verticalStdG.size(); ++i)
+	{
+		if (verticalStdG[i] > x && verticalStdG[i] < closest)
+			closest = verticalStdG[i];
+	}
+
+	if (page->Margins.Left > x  && page->Margins.Left < closest)
+		closest = page->Margins.Left;
+	if (page->width() - page->Margins.Right > x && page->width() - page->Margins.Right < closest)
+		closest = page->width() - page->Margins.Right;
+
+	return closest;
+}
