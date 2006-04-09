@@ -409,6 +409,12 @@ double GuideManagerCore::closestHorAbove(double y) const
 			closest = horizontalStdG[i];
 	}
 
+	for (uint i = 0; i < horizontalAutoG.size(); ++i)
+	{
+		if (horizontalAutoG[i] < y && horizontalAutoG[i] > closest)
+			closest = horizontalAutoG[i];
+	}
+
 	if (page->Margins.Top < y && page->Margins.Top > closest)
 		closest = page->Margins.Top;
 	if (page->height() - page->Margins.Bottom < y && page->height() - page->Margins.Bottom > closest)
@@ -424,6 +430,12 @@ double GuideManagerCore::closestHorBelow(double y) const
 	{
 		if (horizontalStdG[i] > y && horizontalStdG[i] < closest)
 			closest = horizontalStdG[i];
+	}
+
+	for (uint i = 0; i < horizontalAutoG.size(); ++i)
+	{
+		if (horizontalAutoG[i] > y && horizontalAutoG[i] < closest)
+			closest = horizontalAutoG[i];
 	}
 
 	if (page->Margins.Top > y && page->Margins.Top < closest)
@@ -443,6 +455,12 @@ double GuideManagerCore::closestVertLeft(double x) const
 			closest = verticalStdG[i];
 	}
 
+	for (uint i = 0; i < verticalAutoG.size(); ++i)
+	{
+		if (verticalAutoG[i] < x && verticalAutoG[i] > closest)
+			closest = verticalAutoG[i];
+	}
+
 	if (page->Margins.Left < x && page->Margins.Left > closest)
 		closest = page->Margins.Left;
 	if (page->width() - page->Margins.Right < x && page->width() - page->Margins.Right > closest)
@@ -458,6 +476,12 @@ double GuideManagerCore::closestVertRight(double x) const
 	{
 		if (verticalStdG[i] > x && verticalStdG[i] < closest)
 			closest = verticalStdG[i];
+	}
+
+	for (uint i = 0; i < verticalAutoG.size(); ++i)
+	{
+		if (verticalAutoG[i] > x && verticalAutoG[i] < closest)
+			closest = verticalAutoG[i];
 	}
 
 	if (page->Margins.Left > x  && page->Margins.Left < closest)
