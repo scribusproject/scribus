@@ -5134,7 +5134,10 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 		case modeDrawRegularPolygon:
 			{
 				selectPage(m);
-				z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
+				if (m->state() == ShiftButton)
+					z = Doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
+				else
+					z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
 				currItem = Doc->Items->at(z);
 				FPointArray cli = RegularPolygonF(currItem->width(), currItem->height(), Doc->toolSettings.polyC, Doc->toolSettings.polyS, Doc->toolSettings.polyF, Doc->toolSettings.polyR);
 				FPoint np(cli.point(0));
@@ -5153,7 +5156,15 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				Doc->m_Selection->clear();
 				Doc->m_Selection->addItem(currItem);
 				currItem->paintObj();
-				operItemMoving = true;
+				if (m->state() == ShiftButton)
+				{
+					Doc->appMode = modeNormal;
+					emit DocChanged();
+					currItem->Sizing =  currItem->asLine() ? false : true;
+					moveTimer = moveTimer.addSecs(1500);
+				}
+				else
+					operItemMoving = true;
 				break;
 			}
 		case modeDrawBezierLine:
