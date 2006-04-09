@@ -22,7 +22,6 @@ SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 # SET with cmake -DWANT_CAIRO=1, etc
 # MESSAGE(STATUS ${WANT_CAIRO})
 # MESSAGE(STATUS ${WANT_LIBART})
-# MESSAGE(STATUS ${WANT_LCMS})
 # MESSAGE(STATUS ${WANT_DEBUG})
 
 # SET(WANT_CAIRO 0)
@@ -116,12 +115,9 @@ SET(FREETYPE_DIR ${CMAKE_MODULE_PATH})
 FIND_PACKAGE(FREETYPE REQUIRED)
 IF (FREETYPE_FOUND)
   MESSAGE("FreeType2 Library Found OK")
+  CHECK_LIBRARY_EXISTS(libfreetype.so FT_Get_First_Char "" HAVE_FREETYPE_FIRST)
+  CHECK_LIBRARY_EXISTS(libfreetype.so FT_Get_Next_Char "" HAVE_FREETYPE_NEXT)
 ENDIF(FREETYPE_FOUND)
-FIND_PROGRAM(FREETYPE_CONFIG NAMES freetype-config PATHS ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin)
-EXEC_PROGRAM(${FREETYPE_CONFIG} ARGS --libs OUTPUT_VARIABLE LIBFREETYPE_LIBS)
-EXEC_PROGRAM(${FREETYPE_CONFIG} ARGS --cflags OUTPUT_VARIABLE LIBFREETYPE_CFLAGS)
-CHECK_LIBRARY_EXISTS(libfreetype.so FT_Get_First_Char "" HAVE_FREETYPE_FIRST)
-CHECK_LIBRARY_EXISTS(libfreetype.so FT_Get_Next_Char "" HAVE_FREETYPE_NEXT)
 #FIXME: if cflags empty add, otherwise replace as now
 SET(CFLAGS "${LIBFREETYPE_CFLAGS}")
 # END FREETYPE
@@ -152,7 +148,7 @@ ENDIF (WANT_LIBART OR NOT WANT_CAIRO)
 # END LIBART_LGPL
 
 IF(NOT RENDER_LIB)
-  MESSAGE(FATAL_ERROR "ERROR: Neither LibArt_LGPL or cairo have been selected or found, please correct and restart cmake")
+  MESSAGE(FATAL_ERROR "ERROR: Neither LibArt_LGPL nor cairo have been selected or found, please correct and restart cmake")
 ENDIF(NOT RENDER_LIB)
 
 
