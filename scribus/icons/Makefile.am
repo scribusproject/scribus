@@ -30,6 +30,8 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/edit-redo.png \
 16/edit-undo.png \
 22/edit-undo.png \
+16/flip-object-horizontal.png \
+16/flip-object-vertical.png \
 16/go-bottom.png \
 22/go-bottom.png \
 16/go-down.png \
@@ -56,7 +58,14 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/text-frame-unlink.png \
 16/measure.png \
 22/measure.png \
-22/pointer.png
+22/pointer.png \
+16/stroke-cap-butt.png \
+16/stroke-cap-round.png \
+16/stroke-cap-square.png \
+16/stroke-join-bevel.png \
+16/stroke-join-miter.png \
+16/stroke-join-round.png
+
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/icons/
@@ -208,6 +217,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/find.png $(prefix)/share/scribus/icons/find.png
 	$(INSTALL_DATA) $(srcdir)/find16.png $(prefix)/share/scribus/icons/find16.png
 	$(INSTALL_DATA) $(srcdir)/finish.png $(prefix)/share/scribus/icons/finish.png
+	$(INSTALL_DATA) $(srcdir)/16/flip-object-horizontal.png $(prefix)/share/scribus/icons/16/flip-object-horizontal.png
+	$(INSTALL_DATA) $(srcdir)/16/flip-object-vertical.png $(prefix)/share/scribus/icons/16/flip-object-vertical.png
 	$(INSTALL_DATA) $(srcdir)/FlipH.xpm $(prefix)/share/scribus/icons/FlipH.xpm
 	$(INSTALL_DATA) $(srcdir)/FlipV.xpm $(prefix)/share/scribus/icons/FlipV.xpm
 	$(INSTALL_DATA) $(srcdir)/font.png $(prefix)/share/scribus/icons/font.png
@@ -342,6 +353,12 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/16/story-editor.png $(prefix)/share/scribus/icons/16/story-editor.png
 	$(INSTALL_DATA) $(srcdir)/22/story-editor.png $(prefix)/share/scribus/icons/22/story-editor.png
 	$(INSTALL_DATA) $(srcdir)/Strike.xpm $(prefix)/share/scribus/icons/Strike.xpm
+	$(INSTALL_DATA) $(srcdir)/16/stroke-cap-butt.png $(prefix)/share/scribus/icons/16/stroke-cap-butt.png
+	$(INSTALL_DATA) $(srcdir)/16/stroke-cap-round.png $(prefix)/share/scribus/icons/16/stroke-cap-round.png
+	$(INSTALL_DATA) $(srcdir)/16/stroke-cap-square.png $(prefix)/share/scribus/icons/16/stroke-cap-square.png
+	$(INSTALL_DATA) $(srcdir)/16/stroke-join-bevel.png $(prefix)/share/scribus/icons/16/stroke-join-bevel.png
+	$(INSTALL_DATA) $(srcdir)/16/stroke-join-miter.png $(prefix)/share/scribus/icons/16/stroke-join-miter.png
+	$(INSTALL_DATA) $(srcdir)/16/stroke-join-round.png $(prefix)/share/scribus/icons/16/stroke-join-round.png
 	$(INSTALL_DATA) $(srcdir)/tab.png $(prefix)/share/scribus/icons/tab.png
 	$(INSTALL_DATA) $(srcdir)/tabtocindex.png $(prefix)/share/scribus/icons/tabtocindex.png
 	$(INSTALL_DATA) $(srcdir)/testfill.png $(prefix)/share/scribus/icons/testfill.png
@@ -539,6 +556,8 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/find.png
 	-rm -f $(prefix)/share/scribus/icons/find16.png
 	-rm -f $(prefix)/share/scribus/icons/finish.png
+	-rm -f $(prefix)/share/scribus/icons/16/flip-object-horizontal.png
+	-rm -f $(prefix)/share/scribus/icons/16/flip-object-vertical.png
 	-rm -f $(prefix)/share/scribus/icons/FlipH.xpm
 	-rm -f $(prefix)/share/scribus/icons/FlipV.xpm
 	-rm -f $(prefix)/share/scribus/icons/font.png
@@ -670,6 +689,12 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/16/story-editor.png
 	-rm -f $(prefix)/share/scribus/icons/22/story-editor.png
 	-rm -f $(prefix)/share/scribus/icons/Strike.xpm
+	-rm -f $(prefix)/share/scribus/icons/16/stroke-cap-butt.png
+	-rm -f $(prefix)/share/scribus/icons/16/stroke-cap-round.png
+	-rm -f $(prefix)/share/scribus/icons/16/stroke-cap-square.png
+	-rm -f $(prefix)/share/scribus/icons/16/stroke-join-bevel.png
+	-rm -f $(prefix)/share/scribus/icons/16/stroke-join-miter.png
+	-rm -f $(prefix)/share/scribus/icons/16/stroke-join-round.png
 	-rm -f $(prefix)/share/scribus/icons/tab.png
 	-rm -f $(prefix)/share/scribus/icons/tabtocindex.png
 	-rm -f $(prefix)/share/scribus/icons/testfill.png
