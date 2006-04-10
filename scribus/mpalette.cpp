@@ -273,11 +273,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 
 	Layout44 = new QGridLayout( 0, 1, 1, 8, 4, "Layout44");
 	FlipH = new QToolButton( page, "MirrorH" );
-	FlipH->setPixmap(loadIcon("FlipH.xpm"));
+	FlipH->setPixmap(loadIcon("16/flip-object-horizontal.png"));
 	FlipH->setToggleButton( true );
 	Layout44->addWidget( FlipH, 0, 0 );
 	FlipV = new QToolButton( page, "MirrorV" );
-	FlipV->setPixmap(loadIcon("FlipV.xpm"));
+	FlipV->setPixmap(loadIcon("16/flip-object-vertical.png"));
 	FlipV->setToggleButton( true );
 	Layout44->addWidget( FlipV, 1, 0 );
 	Locked = new QToolButton( page, "Lock" );
@@ -3824,16 +3824,16 @@ void Mpalette::languageChange()
 	edgesLabel->setText( tr("Ed&ges:"));
 	int oldLJoinStyle=LJoinStyle->currentItem();
 	LJoinStyle->clear();
-	LJoinStyle->insertItem(loadIcon("MiterJoin.png"), tr("Miter Join"));
-	LJoinStyle->insertItem(loadIcon("BevelJoin.png"), tr("Bevel Join"));
-	LJoinStyle->insertItem(loadIcon("RoundJoin.png"), tr("Round Join"));
+	LJoinStyle->insertItem(loadIcon("16/stroke-join-miter.png"), tr("Miter Join"));
+	LJoinStyle->insertItem(loadIcon("16/stroke-join-bevel.png"), tr("Bevel Join"));
+	LJoinStyle->insertItem(loadIcon("16/stroke-join-round.png"), tr("Round Join"));
 	LJoinStyle->setCurrentItem(oldLJoinStyle);
 
 	int oldLEndStyle=LEndStyle->currentItem();
 	LEndStyle->clear();
-	LEndStyle->insertItem(loadIcon("ButtCap.png"), tr("Flat Cap"));
-	LEndStyle->insertItem(loadIcon("SquareCap.png"), tr("Square Cap"));
-	LEndStyle->insertItem(loadIcon("RoundCap.png"), tr("Round Cap"));
+	LEndStyle->insertItem(loadIcon("16/stroke-cap-butt.png"), tr("Flat Cap"));
+	LEndStyle->insertItem(loadIcon("16/stroke-cap-square.png"), tr("Square Cap"));
+	LEndStyle->insertItem(loadIcon("16/stroke-cap-round.png"), tr("Round Cap"));
 	LEndStyle->setCurrentItem(oldLEndStyle);
 	endingsLabel->setText( tr("&Endings:"));
 
