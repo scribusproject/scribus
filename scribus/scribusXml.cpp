@@ -928,10 +928,12 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				tmp = "";
 				GuideManagerCore::readVerticalGuides(pg.attribute("VerticalGuides"),
 						doc->Pages->at(a),
-						GuideManagerCore::Standard);
+						GuideManagerCore::Standard,
+						pg.hasAttribute("NumVGuides"));
 				GuideManagerCore::readHorizontalGuides(pg.attribute("HorizontalGuides"),
 						doc->Pages->at(a),
-						GuideManagerCore::Standard);
+						GuideManagerCore::Standard,
+						pg.hasAttribute("NumHGuides"));
 
 				QDomNode OBJ=PAGE.firstChild();
 				counter = doc->Items->count();
@@ -1414,12 +1416,14 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 
 				// guides reading
 				tmp = "";
-				doc->Pages->at(a)->guides.readVerticalGuides(pg.attribute("VerticalGuides"),
+				GuideManagerCore::readVerticalGuides(pg.attribute("VerticalGuides"),
 							doc->Pages->at(a),
-							GuideManagerCore::Standard);
-				doc->Pages->at(a)->guides.readHorizontalGuides(pg.attribute("HorizontalGuides"),
+							GuideManagerCore::Standard,
+							pg.hasAttribute("NumVGuides"));
+				GuideManagerCore::readHorizontalGuides(pg.attribute("HorizontalGuides"),
 							doc->Pages->at(a),
-							GuideManagerCore::Standard);
+							GuideManagerCore::Standard,
+							pg.hasAttribute("NumHGuides"));
 
 				QDomNode OBJ=PAGE.firstChild();
 				while(!OBJ.isNull())

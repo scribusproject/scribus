@@ -699,10 +699,12 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 				tmp = "";
 				GuideManagerCore::readVerticalGuides(pg.attribute("VerticalGuides"),
 												Apage,
-												GuideManagerCore::Standard);
+												GuideManagerCore::Standard,
+												pg.hasAttribute("NumVGuides"));
 				GuideManagerCore::readHorizontalGuides(pg.attribute("HorizontalGuides"),
 												Apage,
-												GuideManagerCore::Standard);
+												GuideManagerCore::Standard,
+												pg.hasAttribute("NumHGuides"));
 			}
 			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 			{
@@ -1532,12 +1534,14 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				//doc->Pages=&doc->DocPages;
 				// guides reading
 				tmp = "";
-				Apage->guides.readVerticalGuides(pg.attribute("VerticalGuides"),
+				GuideManagerCore::readVerticalGuides(pg.attribute("VerticalGuides"),
 						Apage,
-						GuideManagerCore::Standard);
-				Apage->guides.readHorizontalGuides(pg.attribute("HorizontalGuides"),
+						GuideManagerCore::Standard,
+						pg.hasAttribute("NumVGuides"));
+				GuideManagerCore::readHorizontalGuides(pg.attribute("HorizontalGuides"),
 						Apage,
-						GuideManagerCore::Standard);
+						GuideManagerCore::Standard,
+						pg.hasAttribute("NumHGuides"));
 			}
 			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 			{

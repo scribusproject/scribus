@@ -492,20 +492,24 @@ double GuideManagerCore::closestVertRight(double x) const
 	return closest;
 }
 
-void GuideManagerCore::readVerticalGuides(const QString guideString, Page *page, GuideType type)
+void GuideManagerCore::readVerticalGuides(const QString guideString, Page *page, GuideType type, bool useOldGuides)
 {
 	QStringList gVal(QStringList::split(' ', guideString));
 	page->guides.clearVerticals(type);
 	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
-		page->guides.addVertical((*it).toDouble(), type);
+		useOldGuides ?
+			page->guides.addHorizontal((*it).toDouble(), type) :
+			page->guides.addVertical((*it).toDouble(), type);
 }
 
-void GuideManagerCore::readHorizontalGuides(const QString guideString, Page *page, GuideType type)
+void GuideManagerCore::readHorizontalGuides(const QString guideString, Page *page, GuideType type, bool useOldGuides)
 {
 	QStringList gVal(QStringList::split(' ', guideString));
 	page->guides.clearHorizontals(type);
 	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
-		page->guides.addHorizontal((*it).toDouble(), type);
+		useOldGuides ?
+			page->guides.addVertical((*it).toDouble(), type):
+			page->guides.addHorizontal((*it).toDouble(), type);
 }
 
 QString GuideManagerCore::writeHorizontalGuides(Page *page, GuideType type)
