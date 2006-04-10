@@ -33,7 +33,7 @@ class PrefsFile;
   * @brief Manage Scribus preferences here, and here alone
   * Start to move the preferences out of scribus.cpp and provide some
   * more features and hide some of the data within this class
-  * TODO Move prefsFile in here from scribus.cpp and stop passing it in for convert12Preferences
+  * TODO Move prefsFile in here from scribus.cpp and stop passing it in for convertOldPreferences
   * TODO Lots more :)
   */
 class SCRIBUS_API PrefsManager : public QObject
@@ -76,7 +76,7 @@ public:
 	\brief Copy 1.2 prefs XML before loading, and copy rc files we don't yet convert
 	\retval bool true if prefs were imported
 	*/
-	bool copy12Preferences();
+	bool copyOldPreferences();
 	/*!
 	\author Craig Ringer
 	\date Sun 26 June 2005
