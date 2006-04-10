@@ -2159,7 +2159,7 @@ void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
 	sctextdata->cstrikewidth = CurrTextStrikeWidth;
 	sctextdata->cstyle = static_cast<StyleFlag>(CurrentStyle);
 	sctextdata->cab = currentParaStyle;
-	if (!docParagraphStyles[currentParaStyle].charStyle().cfont == NULL)
+	if (docParagraphStyles[currentParaStyle].charStyle().font() != NULL)
 	{
 		sctextdata->cfont = docParagraphStyles[currentParaStyle].charStyle().font();
 		sctextdata->csize = docParagraphStyles[currentParaStyle].charStyle().fontSize();
