@@ -570,6 +570,7 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 						IntentMonitor,
 						dcmsFlags2);
 	}
+	cmsSetErrorHandler(NULL);
 	return true;
 #endif
 }
