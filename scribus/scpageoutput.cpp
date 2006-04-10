@@ -558,18 +558,18 @@ void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect 
 		for (uint em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);
-			struct ParagraphStyle vg;
+			ParagraphStyle vg;
 			QValueList<ParagraphStyle> savedParagraphStyles;
 			for (int xxx=0; xxx<5; ++xxx)
 			{
-				vg.LineSpaMode = m_doc->docParagraphStyles[xxx].LineSpaMode;
-				vg.BaseAdj = m_doc->docParagraphStyles[xxx].BaseAdj;
-				vg.LineSpa = m_doc->docParagraphStyles[xxx].LineSpa;
-				vg.FontSize = m_doc->docParagraphStyles[xxx].FontSize;
-				vg.Indent = m_doc->docParagraphStyles[xxx].Indent;
-				vg.First = m_doc->docParagraphStyles[xxx].First;
-				vg.gapBefore = m_doc->docParagraphStyles[xxx].gapBefore;
-				vg.gapAfter = m_doc->docParagraphStyles[xxx].gapAfter;
+				vg.setLineSpacingMode( (ParagraphStyle::LineSpacingMode) m_doc->docParagraphStyles[xxx].lineSpacingMode() );
+				vg.setUseBaselineGrid( m_doc->docParagraphStyles[xxx].useBaselineGrid() );
+				vg.setLineSpacing( m_doc->docParagraphStyles[xxx].lineSpacing() );
+				vg.charStyle().csize = m_doc->docParagraphStyles[xxx].charStyle().csize;
+				vg.setLeftMargin( m_doc->docParagraphStyles[xxx].leftMargin() );
+				vg.setFirstIndent( m_doc->docParagraphStyles[xxx].firstIndent());
+				vg.setGapBefore( m_doc->docParagraphStyles[xxx].gapBefore() );
+				vg.setGapAfter( m_doc->docParagraphStyles[xxx].gapAfter() );
 				savedParagraphStyles.append(vg);
 			}
 			p->save();
@@ -617,14 +617,14 @@ void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect 
 			embedded->setLineWidth(pws);
 			for (int xxx=0; xxx<5; ++xxx)
 			{
-				m_doc->docParagraphStyles[xxx].LineSpaMode = savedParagraphStyles[xxx].LineSpaMode;
-				m_doc->docParagraphStyles[xxx].BaseAdj = savedParagraphStyles[xxx].BaseAdj;
-				m_doc->docParagraphStyles[xxx].LineSpa = savedParagraphStyles[xxx].LineSpa;
-				m_doc->docParagraphStyles[xxx].FontSize = savedParagraphStyles[xxx].FontSize;
-				m_doc->docParagraphStyles[xxx].Indent = savedParagraphStyles[xxx].Indent;
-				m_doc->docParagraphStyles[xxx].First = savedParagraphStyles[xxx].First;
-				m_doc->docParagraphStyles[xxx].gapBefore = savedParagraphStyles[xxx].gapBefore;
-				m_doc->docParagraphStyles[xxx].gapAfter = savedParagraphStyles[xxx].gapAfter;
+				m_doc->docParagraphStyles[xxx].setLineSpacingMode( (ParagraphStyle::LineSpacingMode) savedParagraphStyles[xxx].lineSpacingMode() );
+				m_doc->docParagraphStyles[xxx].setUseBaselineGrid( savedParagraphStyles[xxx].useBaselineGrid() );
+				m_doc->docParagraphStyles[xxx].setLineSpacing( savedParagraphStyles[xxx].lineSpacing() );
+				m_doc->docParagraphStyles[xxx].charStyle().csize = savedParagraphStyles[xxx].charStyle().csize;
+				m_doc->docParagraphStyles[xxx].setLeftMargin( savedParagraphStyles[xxx].leftMargin() );
+				m_doc->docParagraphStyles[xxx].setFirstIndent( savedParagraphStyles[xxx].firstIndent() );
+				m_doc->docParagraphStyles[xxx].setGapBefore( savedParagraphStyles[xxx].gapBefore() );
+				m_doc->docParagraphStyles[xxx].setGapAfter( savedParagraphStyles[xxx].gapAfter() );
 			}
 			savedParagraphStyles.clear();
 		}
@@ -1084,49 +1084,43 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 		case PageItem::TextFrame:
 		{
 			QPainter pp, pf2;
-			PageItem *nextItem;
 			QPoint pt1, pt2;
 			FPoint ColBound;
 			QRegion cm;
-			uint a, nrc, nrc2, startLin;
-			int absa, aSpa, chs, chsd, CurrCol;
-			uint BuPos, LastSP, MaxText;
-			double oldCurY, LastXp, EndX, OFs, OFs2, wide, lineCorr, ColWidth, kernVal, RTabX;
+			uint a;
+			int chs, CurrCol;
+			double oldCurY, wide, lineCorr, ColWidth;
 			QString chx, chx2, chx3;
 			ScText *hl;
-			struct PageItem::ZZ *Zli;
-			struct PageItem::ZZ *Zli2;
 
 			bool outs = false;
 			bool fBorder = false;
 			bool RTab = false;
 			bool goNoRoom = false;
 			bool goNextColumn = false;
-			uint StartRT, StartRT2;
 			int TabCode = 0;
 			int HyphenCount = 0;
-			QValueList<PageItem::TabRecord> tTabValues;
+			QValueList<ParagraphStyle::TabRecord> tTabValues;
 			bool DropCmode = false;
 			bool AbsHasDrop = false;
-			double desc, asce, maxDY, firstDes, desc2, maxDX, tabDist;
-			int DropLines;
+			double desc, asce, tabDist;
 			bool StartOfCol = true;
 			tTabValues.clear();
 
 			for (int xxx=0; xxx<5; ++xxx)
 			{
-				m_doc->docParagraphStyles[xxx].LineSpaMode = item->lineSpacingMode();
+				m_doc->docParagraphStyles[xxx].setLineSpacingMode( (ParagraphStyle::LineSpacingMode) item->lineSpacingMode() );
 				if (item->lineSpacingMode() == 2)
-					m_doc->docParagraphStyles[xxx].BaseAdj = true;
+					m_doc->docParagraphStyles[xxx].setUseBaselineGrid( true );
 				else
-					m_doc->docParagraphStyles[xxx].BaseAdj = false;
-				m_doc->docParagraphStyles[xxx].LineSpa = item->lineSpacing();
-				m_doc->docParagraphStyles[xxx].FontSize = item->fontSize();
-				m_doc->docParagraphStyles[xxx].Indent = 0;
-				m_doc->docParagraphStyles[xxx].First = 0;
-				m_doc->docParagraphStyles[xxx].gapBefore = 0;
-				m_doc->docParagraphStyles[xxx].gapAfter = 0;
-				m_doc->docParagraphStyles[xxx].textAlignment = xxx;
+					m_doc->docParagraphStyles[xxx].setUseBaselineGrid( false );
+				m_doc->docParagraphStyles[xxx].setLineSpacing( item->lineSpacing() );
+				m_doc->docParagraphStyles[xxx].charStyle().csize = item->fontSize();
+				m_doc->docParagraphStyles[xxx].setLeftMargin( 0 );
+				m_doc->docParagraphStyles[xxx].setFirstIndent( 0 );
+				m_doc->docParagraphStyles[xxx].setGapBefore( 0 );
+				m_doc->docParagraphStyles[xxx].setGapAfter( 0 );
+				m_doc->docParagraphStyles[xxx].setAlignment( xxx );
 			}
 
 			QPtrList<PageItem::ZZ> LiList;
@@ -1185,7 +1179,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 					if (hl->cab < 5)
 						tTabValues = item->TabValues;
 					else
-						tTabValues = m_doc->docParagraphStyles[hl->cab].TabValues;
+						tTabValues = m_doc->docParagraphStyles[hl->cab].tabValues();
 					if (hl->cstyle & 16384)
 						tabCc = 0;
 					chx = hl->ch;
@@ -1206,16 +1200,16 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 					chs = hl->csize;
 					if (hl->cstyle & 2048)
 					{
-						if (m_doc->docParagraphStyles[hl->cab].BaseAdj)
-							chs = qRound(10 * ((m_doc->typographicSettings.valueBaseGrid * (m_doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (m_doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(m_doc, hl->cfont, chx, 10))));
+						if (m_doc->docParagraphStyles[hl->cab].useBaselineGrid())
+							chs = qRound(10 * ((m_doc->typographicSettings.valueBaseGrid * (m_doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->numAscent * (m_doc->docParagraphStyles[hl->cab].charStyle().csize / 10.0))) / (RealCHeight(m_doc, hl->cfont, chx, 10))));
 						else
 						{
-							if (m_doc->docParagraphStyles[hl->cab].LineSpaMode == 0)
-								chs = qRound(10 * ((m_doc->docParagraphStyles[hl->cab].LineSpa * (m_doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (m_doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(m_doc, hl->cfont, chx, 10))));
+							if (m_doc->docParagraphStyles[hl->cab].lineSpacingMode() == 0)
+								chs = qRound(10 * ((m_doc->docParagraphStyles[hl->cab].lineSpacing() * (m_doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->numAscent * (m_doc->docParagraphStyles[hl->cab].charStyle().csize / 10.0))) / (RealCHeight(m_doc, hl->cfont, chx, 10))));
 							else
 							{
-								double currasce = RealFHeight(m_doc, hl->cfont, m_doc->docParagraphStyles[hl->cab].FontSize);
-								chs = qRound(10 * ((currasce * (m_doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (m_doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / RealCHeight(m_doc, hl->cfont, chx, 10)));
+								double currasce = RealFHeight(m_doc, hl->cfont, m_doc->docParagraphStyles[hl->cab].charStyle().csize);
+								chs = qRound(10 * ((currasce * (m_doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->numAscent * (m_doc->docParagraphStyles[hl->cab].charStyle().csize / 10.0))) / RealCHeight(m_doc, hl->cfont, chx, 10)));
 							}
 						}
 					}
@@ -1331,7 +1325,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 									if (a > 0)
 										ytrans = item->itemText.at(a-1)->yp-((Zli3.Siz / 10.0) * 0.8);
 									else
-										ytrans = Zli3.yco-m_doc->docParagraphStyles[hl->cab].LineSpa-((Zli3.Siz / 10.0) * 0.8);
+										ytrans = Zli3.yco-m_doc->docParagraphStyles[hl->cab].lineSpacing()-((Zli3.Siz / 10.0) * 0.8);
 								}
 								else
 								{
@@ -1339,7 +1333,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 									if (a > 0)
 										ytrans = item->itemText.at(a-1)->yp-((Zli3.Siz / 10.0) * 0.4);
 									else
-										ytrans = Zli3.yco-m_doc->docParagraphStyles[hl->cab].LineSpa-((Zli3.Siz / 10.0) * 0.4);
+										ytrans = Zli3.yco-m_doc->docParagraphStyles[hl->cab].lineSpacing()-((Zli3.Siz / 10.0) * 0.4);
 								}
 								if (hl->cstyle & 16384)
 									xtrans = Zli3.xco;
