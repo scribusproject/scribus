@@ -315,6 +315,8 @@ INSTALL(FILES
 16/edit-paste.png
 16/edit-redo.png
 16/edit-undo.png
+16/flip-object-horizontal.png
+16/flip-object-vertical.png
 16/go-bottom.png
 16/go-down.png
 16/go-top.png
@@ -327,6 +329,12 @@ INSTALL(FILES
 16/measure.png
 16/preflight-verifier.png
 16/story-editor.png
+16/stroke-cap-butt.png
+16/stroke-cap-round.png
+16/stroke-cap-square.png
+16/stroke-join-bevel.png
+16/stroke-join-miter.png
+16/stroke-join-round.png
   DESTINATION ${ICONDIR}16
 )
 
