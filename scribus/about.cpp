@@ -192,7 +192,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Thomas Zastrow</td><td>webmaster@thomas-zastrow.de</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + tr("Tango Project Icons:").utf8()  + "</b></td><td></td></tr>" +
-											"<tr><td>Andreas Nilsson</td><td>nisses.mail@home.se</td></tr></table>"));
+											"<tr><td>Andreas Nilsson</td><td>nisses.mail@home.se</td></tr>" +
+											"<tr><td>Jacob Stiener</td><td>jimmac@ximian.com</td></tr>"  + 
+											"<tr><td> </td><td> </td></tr>" + "</table>"));
 	textView1->setTextFormat( QTextView::RichText );
 	tabLayout->addWidget( textView1 );
 	tabWidget2->insertTab( tab_2, tr( "A&uthors" ) );
