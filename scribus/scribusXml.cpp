@@ -922,39 +922,17 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				}
 				TableItems.clear();
 				TableID.clear();
-			/*
-			* Attribute von PAGE auslesen
-			*/
-				if ((pg.hasAttribute("NumVGuides")) && (pg.attribute("NumVGuides", "0").toInt() != 0))
-				{
-					tmp = pg.attribute("VerticalGuides");
-					QTextStream fgv(&tmp, IO_ReadOnly);
-					doc->Pages->at(a)->guides.clearVerticals(GuideManagerCore::Standard);
-					for (int cxv = 0; cxv < pg.attribute("NumVGuides", "0").toInt(); ++cxv)
-					{
-						fgv >> xf;
-						doc->Pages->at(a)->guides.addVertical(xf, GuideManagerCore::Standard);
-					}
-					//qHeapSort(doc->Pages->at(a)->YGuides);
-					tmp = "";
-				}
-				else
-					doc->Pages->at(a)->guides.clearVerticals(GuideManagerCore::Standard);
-				if ((pg.hasAttribute("NumHGuides")) && (pg.attribute("NumHGuides", "0").toInt() != 0))
-				{
-					tmp = pg.attribute("HorizontalGuides");
-					QTextStream fgh(&tmp, IO_ReadOnly);
-					doc->Pages->at(a)->guides.clearHorizontals(GuideManagerCore::Standard);
-					for (int cxh = 0; cxh < pg.attribute("NumHGuides", "0").toInt(); ++cxh)
-					{
-						fgh >> xf;
-						doc->Pages->at(a)->guides.addHorizontal(xf, GuideManagerCore::Standard);
-					}
-					//qHeapSort(doc->Pages->at(a)->XGuides);
-					tmp = "";
-				}
-				else
-					doc->Pages->at(a)->guides.clearHorizontals(GuideManagerCore::Standard);
+				/*
+				* Attribute von PAGE auslesen
+				*/
+				tmp = "";
+				GuideManagerCore::readVerticalGuides(pg.attribute("VerticalGuides"),
+						doc->Pages->at(a),
+						GuideManagerCore::Standard);
+				GuideManagerCore::readHorizontalGuides(pg.attribute("HorizontalGuides"),
+						doc->Pages->at(a),
+						GuideManagerCore::Standard);
+
 				QDomNode OBJ=PAGE.firstChild();
 				counter = doc->Items->count();
 				baseobj = counter;
@@ -1434,36 +1412,15 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				//emit NewPage(a);
 				doc->Pages->at(a)->LeftPg=pg.attribute("LEFT", "0").toInt();
 
-				if ((pg.hasAttribute("NumVGuides")) && (pg.attribute("NumVGuides", "0").toInt() != 0))
-				{
-					tmp = pg.attribute("VerticalGuides");
-					QTextStream fgv(&tmp, IO_ReadOnly);
-					doc->Pages->at(a)->guides.clearVerticals(GuideManagerCore::Standard);
-					for (int cxv = 0; cxv < pg.attribute("NumVGuides", "0").toInt(); ++cxv)
-					{
-						fgv >> xf;
-						doc->Pages->at(a)->guides.addVertical(xf, GuideManagerCore::Standard);
-					}
-					//qHeapSort(doc->Pages->at(a)->YGuides);
-					tmp = "";
-				}
-				else
-					doc->Pages->at(a)->guides.clearVerticals(GuideManagerCore::Standard);
-				if ((pg.hasAttribute("NumHGuides")) && (pg.attribute("NumHGuides", "0").toInt() != 0))
-				{
-					tmp = pg.attribute("HorizontalGuides");
-					QTextStream fgh(&tmp, IO_ReadOnly);
-					doc->Pages->at(a)->guides.clearHorizontals(GuideManagerCore::Standard);
-					for (int cxh = 0; cxh < pg.attribute("NumHGuides", "0").toInt(); ++cxh)
-					{
-						fgh >> xf;
-						doc->Pages->at(a)->guides.addHorizontal(xf, GuideManagerCore::Standard);
-					}
-					//qHeapSort(doc->Pages->at(a)->XGuides);
-					tmp = "";
-				}
-				else
-					doc->Pages->at(a)->guides.clearHorizontals(GuideManagerCore::Standard);
+				// guides reading
+				tmp = "";
+				doc->Pages->at(a)->guides.readVerticalGuides(pg.attribute("VerticalGuides"),
+							doc->Pages->at(a),
+							GuideManagerCore::Standard);
+				doc->Pages->at(a)->guides.readHorizontalGuides(pg.attribute("HorizontalGuides"),
+							doc->Pages->at(a),
+							GuideManagerCore::Standard);
+
 				QDomNode OBJ=PAGE.firstChild();
 				while(!OBJ.isNull())
 				{
@@ -2642,19 +2599,10 @@ void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc
 		pg.setAttribute("Size", page->PageSize);
 		pg.setAttribute("Orientation", page->PageOri);
 		pg.setAttribute("LEFT", page->LeftPg);
-		pg.setAttribute("NumVGuides", static_cast<int>(page->guides.verticals(GuideManagerCore::Standard).count()));
-		QString Vgui = "";
-		Guides::iterator it;
-		Guides tmpGuides = page->guides.verticals(GuideManagerCore::Standard);
-		for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
-			Vgui += tmp.setNum((*it)) + " ";
-		pg.setAttribute("VerticalGuides", Vgui);
-		pg.setAttribute("NumHGuides", static_cast<int>(page->guides.horizontals(GuideManagerCore::Standard).count()));
-		QString Hgui = "";
-		tmpGuides = page->guides.horizontals(GuideManagerCore::Standard);
-		for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
-			Hgui += tmp.setNum((*it)) + " ";
-		pg.setAttribute("HorizontalGuides", Hgui);
+		pg.setAttribute("VerticalGuides", GuideManagerCore::writeVerticalGuides(
+													page, GuideManagerCore::Standard));
+		pg.setAttribute("HorizontalGuides", GuideManagerCore::writeHorizontalGuides(
+													page, GuideManagerCore::Standard));
 		dc->appendChild(pg);
 	}
 }

@@ -695,32 +695,14 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
 				pageX = pg.attribute("PAGEXPOS").toDouble();
 				pageY = pg.attribute("PAGEYPOS").toDouble();
-				if ((pg.hasAttribute("NumVGuides")) && (pg.attribute("NumVGuides", "0").toInt() != 0))
-				{
-					tmp = pg.attribute("VerticalGuides");
-					QTextStream fgv(&tmp, IO_ReadOnly);
-					Apage->guides.clearVerticals(GuideManagerCore::Standard);//YGuides.clear();
-					for (int cxv = 0; cxv < pg.attribute("NumVGuides", "0").toInt(); ++cxv)
-					{
-						fgv >> xf;
-						Apage->guides.addVertical(xf, GuideManagerCore::Standard);//YGuides.append(xf);
-					}
-					//qHeapSort(Apage->YGuides);
-					tmp = "";
-				}
-				if ((pg.hasAttribute("NumHGuides")) && (pg.attribute("NumHGuides", "0").toInt() != 0))
-				{
-					tmp = pg.attribute("HorizontalGuides");
-					QTextStream fgh(&tmp, IO_ReadOnly);
-					Apage->guides.clearHorizontals(GuideManagerCore::Standard);//XGuides.clear();
-					for (int cxh = 0; cxh < pg.attribute("NumHGuides", "0").toInt(); ++cxh)
-					{
-						fgh >> xf;
-						Apage->guides.addHorizontal(xf, GuideManagerCore::Standard);
-					}
-					//qHeapSort(Apage->XGuides);
-					tmp = "";
-				}
+				// guides reading
+				tmp = "";
+				GuideManagerCore::readVerticalGuides(pg.attribute("VerticalGuides"),
+												Apage,
+												GuideManagerCore::Standard);
+				GuideManagerCore::readHorizontalGuides(pg.attribute("HorizontalGuides"),
+												Apage,
+												GuideManagerCore::Standard);
 			}
 			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 			{
@@ -1548,41 +1530,14 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
 				doc->setMasterPageMode(false);
 				//doc->Pages=&doc->DocPages;
-				if ((pg.hasAttribute("NumVGuides")) && (pg.attribute("NumVGuides", "0").toInt() != 0))
-				{
-					tmp = pg.attribute("VerticalGuides");
-					QTextStream fgv(&tmp, IO_ReadOnly);
-					//Apage->YGuides.clear();
-					Apage->guides.clearVerticals(GuideManagerCore::Standard);
-					for (int cxv = 0; cxv < pg.attribute("NumVGuides", "0").toInt(); ++cxv)
-					{
-						fgv >> xf;
-						//Apage->YGuides.append(xf);
-						Apage->guides.addVertical(xf, GuideManagerCore::Standard);
-					}
-					//qHeapSort(Apage->YGuides);
-					tmp = "";
-				}
-				else
-					//Apage->YGuides.clear();
-					Apage->guides.clearVerticals(GuideManagerCore::Standard);
-				if ((pg.hasAttribute("NumHGuides")) && (pg.attribute("NumHGuides", "0").toInt() != 0))
-				{
-					tmp = pg.attribute("HorizontalGuides");
-					QTextStream fgh(&tmp, IO_ReadOnly);
-					//Apage->XGuides.clear();
-					Apage->guides.clearHorizontals(GuideManagerCore::Standard);
-					for (int cxh = 0; cxh < pg.attribute("NumHGuides", "0").toInt(); ++cxh)
-					{
-						fgh >> xf;
-						//Apage->XGuides.append(xf);
-						Apage->guides.addHorizontal(xf, GuideManagerCore::Standard);
-					}
-					//qHeapSort(Apage->XGuides);
-					tmp = "";
-				}
-				else
-					Apage->guides.clearHorizontals(GuideManagerCore::Standard);
+				// guides reading
+				tmp = "";
+				Apage->guides.readVerticalGuides(pg.attribute("VerticalGuides"),
+						Apage,
+						GuideManagerCore::Standard);
+				Apage->guides.readHorizontalGuides(pg.attribute("HorizontalGuides"),
+						Apage,
+						GuideManagerCore::Standard);
 			}
 			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 			{

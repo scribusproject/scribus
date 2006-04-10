@@ -25,7 +25,7 @@ GuideManagerCore::GuideManagerCore():
 GuideManagerCore::GuideManagerCore(Page *parentPage):
 	undoManager(UndoManager::instance())
 {
-	page = parentPage;
+	m_page = parentPage;
 }
 
 GuideManagerCore::~GuideManagerCore()
@@ -34,7 +34,7 @@ GuideManagerCore::~GuideManagerCore()
 
 void GuideManagerCore::setPage(Page *p)
 {
-	page = p;
+	m_page = p;
 }
 
 void GuideManagerCore::addHorizontal(double value, GuideType type)
@@ -47,7 +47,7 @@ void GuideManagerCore::addHorizontal(double value, GuideType type)
 			{
 				SimpleState* ss = new SimpleState(Um::AddVGuide, 0, Um::IGuides);
 				ss->set("ADD_H", value);
-				undoManager->action(page, ss);
+				undoManager->action(m_page, ss);
 			}
 			// will be sorted in GUI? qHeapSort(horizontalStdG);
 			break;
@@ -81,7 +81,7 @@ void GuideManagerCore::addVertical(double value, GuideType type)
 			{
 				SimpleState* ss = new SimpleState(Um::AddVGuide, 0, Um::IGuides);
 				ss->set("ADD_V", value);
-				undoManager->action(page, ss);
+				undoManager->action(m_page, ss);
 			}
 			break;
 		case Auto:
@@ -113,7 +113,7 @@ void GuideManagerCore::deleteHorizontal(double value, GuideType type)
 			{
 				SimpleState* ss = new SimpleState(Um::DelVGuide, 0, Um::IGuides);
 				ss->set("REMOVE_H", value);
-				undoManager->action(page, ss);
+				undoManager->action(m_page, ss);
 			}
 			break;
 		case Auto:
@@ -132,7 +132,7 @@ void GuideManagerCore::deleteVertical(double value, GuideType type)
 			{
 				SimpleState* ss = new SimpleState(Um::DelVGuide, 0, Um::IGuides);
 				ss->set("REMOVE_V", value);
-				undoManager->action(page, ss);
+				undoManager->action(m_page, ss);
 			}
 			break;
 		case Auto:
@@ -236,7 +236,7 @@ void GuideManagerCore::moveHorizontal(double from, double to, GuideType type)
 				SimpleState* ss = new SimpleState(Um::MoveVGuide, 0, Um::IGuides);
 				ss->set("MOVE_H_FROM", from);
 				ss->set("MOVE_H_TO", to);
-				undoManager->action(page, ss);
+				undoManager->action(m_page, ss);
 			}
 			break;
 		case Auto:
@@ -258,7 +258,7 @@ void GuideManagerCore::moveVertical(double from, double to, GuideType type)
 				SimpleState* ss = new SimpleState(Um::MoveVGuide, 0, Um::IGuides);
 				ss->set("MOVE_V_FROM", from);
 				ss->set("MOVE_V_TO", to);
-				undoManager->action(page, ss);
+				undoManager->action(m_page, ss);
 			}
 			break;
 		case Auto:
@@ -300,24 +300,24 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 	// all standard
 	p->setPen(color, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
 	for (it = verticalStdG.begin(); it != verticalStdG.end(); ++it)
-		if ((*it) >= 0 && (*it) <= page->width())
-			p->drawLine(FPoint((*it), 0), FPoint((*it), page->height()));
+		if ((*it) >= 0 && (*it) <= m_page->width())
+			p->drawLine(FPoint((*it), 0), FPoint((*it), m_page->height()));
 	for (it = horizontalStdG.begin(); it != horizontalStdG.end(); ++it)
-		if ((*it) >= 0 && (*it) <= page->height())
-			p->drawLine(FPoint(0, (*it)), FPoint(page->width(), (*it)));
+		if ((*it) >= 0 && (*it) <= m_page->height())
+			p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
 	// highlight selected standards
 	if (ScMW->guidePalette->tabWidget->currentPageIndex() == 0
-		   && page->pageNr() == ScMW->guidePalette->pageNr())
+		   && m_page->pageNr() == ScMW->guidePalette->pageNr())
 	{
 		p->setPen(Qt::red, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
 		Guides highlight = ScMW->guidePalette->selectedVerticals();
 		for (it = highlight.begin(); it != highlight.end(); ++it)
-			if ((*it) >= 0 && (*it) <= page->width())
-				p->drawLine(FPoint((*it), 0), FPoint((*it), page->height()));
+			if ((*it) >= 0 && (*it) <= m_page->width())
+				p->drawLine(FPoint((*it), 0), FPoint((*it), m_page->height()));
 		highlight = ScMW->guidePalette->selectedHorizontals();
 		for (it = highlight.begin(); it != highlight.end(); ++it)
-			if ((*it) >= 0 && (*it) <= page->height())
-				p->drawLine(FPoint(0, (*it)), FPoint(page->width(), (*it)));
+			if ((*it) >= 0 && (*it) <= m_page->height())
+				p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
 	}
 	// all auto
 	if (ScMW->guidePalette->tabWidget->currentPageIndex() == 1)
@@ -326,11 +326,11 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 		color = doc->guidesSettings.guideColor;
 	p->setPen(color, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
 	for (it = verticalAutoG.begin(); it != verticalAutoG.end(); ++it)
-		if ((*it) >= 0 && (*it) <= page->width())
-			p->drawLine(FPoint((*it), 0), FPoint((*it), page->height()));
+		if ((*it) >= 0 && (*it) <= m_page->width())
+			p->drawLine(FPoint((*it), 0), FPoint((*it), m_page->height()));
 	for (it = horizontalAutoG.begin(); it != horizontalAutoG.end(); ++it)
-		if ((*it) >= 0 && (*it) <= page->height())
-			p->drawLine(FPoint(0, (*it)), FPoint(page->width(), (*it)));
+		if ((*it) >= 0 && (*it) <= m_page->height())
+			p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
 	ScMW->guidePalette->setupWidgets();
 }
 
@@ -350,7 +350,7 @@ bool GuideManagerCore::isMouseOnHorizontal(double low, double high, GuideType ty
 	}
 	for (it = tmp.begin(); it != tmp.end(); ++it)
 	{
-		double guideOffset = (*it) + page->yOffset();
+		double guideOffset = (*it) + m_page->yOffset();
 		if (guideOffset < low && guideOffset > high)
 			return true;
 	}
@@ -373,7 +373,7 @@ bool GuideManagerCore::isMouseOnVertical(double low, double high, GuideType type
 	}
 	for (it = tmp.begin(); it != tmp.end(); ++it)
 	{
-		double guideOffset = (*it) + page->xOffset();
+		double guideOffset = (*it) + m_page->xOffset();
 		if (guideOffset < low && guideOffset > high)
 			return true;
 	}
@@ -415,17 +415,17 @@ double GuideManagerCore::closestHorAbove(double y) const
 			closest = horizontalAutoG[i];
 	}
 
-	if (page->Margins.Top < y && page->Margins.Top > closest)
-		closest = page->Margins.Top;
-	if (page->height() - page->Margins.Bottom < y && page->height() - page->Margins.Bottom > closest)
-		closest = page->height() - page->Margins.Bottom;
+	if (m_page->Margins.Top < y && m_page->Margins.Top > closest)
+		closest = m_page->Margins.Top;
+	if (m_page->height() - m_page->Margins.Bottom < y && m_page->height() - m_page->Margins.Bottom > closest)
+		closest = m_page->height() - m_page->Margins.Bottom;
 
 	return closest;
 }
 
 double GuideManagerCore::closestHorBelow(double y) const
 {
-	double closest = page->height();
+	double closest = m_page->height();
 	for (uint i = 0; i < horizontalStdG.size(); ++i)
 	{
 		if (horizontalStdG[i] > y && horizontalStdG[i] < closest)
@@ -438,10 +438,10 @@ double GuideManagerCore::closestHorBelow(double y) const
 			closest = horizontalAutoG[i];
 	}
 
-	if (page->Margins.Top > y && page->Margins.Top < closest)
-		closest = page->Margins.Top;
-	if (page->height() - page->Margins.Bottom > y && page->height() - page->Margins.Bottom < closest)
-		closest = page->height() - page->Margins.Bottom;
+	if (m_page->Margins.Top > y && m_page->Margins.Top < closest)
+		closest = m_page->Margins.Top;
+	if (m_page->height() - m_page->Margins.Bottom > y && m_page->height() - m_page->Margins.Bottom < closest)
+		closest = m_page->height() - m_page->Margins.Bottom;
 
 	return closest;
 }
@@ -461,17 +461,17 @@ double GuideManagerCore::closestVertLeft(double x) const
 			closest = verticalAutoG[i];
 	}
 
-	if (page->Margins.Left < x && page->Margins.Left > closest)
-		closest = page->Margins.Left;
-	if (page->width() - page->Margins.Right < x && page->width() - page->Margins.Right > closest)
-		closest = page->width() - page->Margins.Right;
+	if (m_page->Margins.Left < x && m_page->Margins.Left > closest)
+		closest = m_page->Margins.Left;
+	if (m_page->width() - m_page->Margins.Right < x && m_page->width() - m_page->Margins.Right > closest)
+		closest = m_page->width() - m_page->Margins.Right;
 
 	return closest;
 }
 
 double GuideManagerCore::closestVertRight(double x) const
 {
-	double closest = page->width();
+	double closest = m_page->width();
 	for (uint i = 0; i < verticalStdG.size(); ++i)
 	{
 		if (verticalStdG[i] > x && verticalStdG[i] < closest)
@@ -484,10 +484,54 @@ double GuideManagerCore::closestVertRight(double x) const
 			closest = verticalAutoG[i];
 	}
 
-	if (page->Margins.Left > x  && page->Margins.Left < closest)
-		closest = page->Margins.Left;
-	if (page->width() - page->Margins.Right > x && page->width() - page->Margins.Right < closest)
-		closest = page->width() - page->Margins.Right;
+	if (m_page->Margins.Left > x  && m_page->Margins.Left < closest)
+		closest = m_page->Margins.Left;
+	if (m_page->width() - m_page->Margins.Right > x && m_page->width() - m_page->Margins.Right < closest)
+		closest = m_page->width() - m_page->Margins.Right;
 
 	return closest;
+}
+
+void GuideManagerCore::readVerticalGuides(const QString guideString, Page *page, GuideType type)
+{
+	QStringList gVal(QStringList::split(' ', guideString));
+	page->guides.clearVerticals(type);
+	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
+		page->guides.addVertical((*it).toDouble(), type);
+}
+
+void GuideManagerCore::readHorizontalGuides(const QString guideString, Page *page, GuideType type)
+{
+	QStringList gVal(QStringList::split(' ', guideString));
+	page->guides.clearHorizontals(type);
+	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
+		page->guides.addHorizontal((*it).toDouble(), type);
+}
+
+QString GuideManagerCore::writeHorizontalGuides(Page *page, GuideType type)
+{
+	Guides::iterator it;
+	QString retval;
+	QString tmp;
+	Guides tmpGuides = page->guides.horizontals(type);
+	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
+	{
+		tmp = tmp.setNum((*it));
+		retval += tmp + " ";
+	}
+	return retval;
+}
+
+QString GuideManagerCore::writeVerticalGuides(Page *page, GuideType type)
+{
+	Guides::iterator it;
+	QString retval;
+	QString tmp;
+	Guides tmpGuides = page->guides.verticals(type);
+	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
+	{
+		tmp = tmp.setNum((*it));
+		retval += tmp + " ";
+	}
+	return retval;
 }

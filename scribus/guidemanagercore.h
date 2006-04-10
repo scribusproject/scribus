@@ -74,9 +74,13 @@ public:
 	QPair<double, double> bottomLeft(double x, double y) const;
 	QPair<double, double> bottomRight(double x, double y) const;
 
+	static void readHorizontalGuides(const QString guideString, Page *page, GuideType type);
+	static void readVerticalGuides(const QString guideString, Page *page, GuideType type);
+	static QString writeHorizontalGuides(Page *page, GuideType type);
+	static QString writeVerticalGuides(Page *page, GuideType type);
 private:
 	UndoManager * const undoManager;
-	Page* page;
+	Page* m_page;
 	Guides horizontalStdG;
 	Guides verticalStdG;
 	Guides horizontalAutoG;
