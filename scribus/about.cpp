@@ -193,7 +193,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + tr("Tango Project Icons:").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Andreas Nilsson</td><td>nisses.mail@home.se</td></tr>" +
-											"<tr><td>Jakub Stiener</td><td>jimmac@ximian.com</td></tr>"  + 
+											"<tr><td>Jakub Steiner</td><td>jimmac@ximian.com</td></tr>"  + 
 											"<tr><td> </td><td> </td></tr>" + "</table>"));
 	textView1->setTextFormat( QTextView::RichText );
 	tabLayout->addWidget( textView1 );
@@ -373,7 +373,3 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 
 
 //tooltips
-	QToolTip::add( buildID, "<qt>" + tr( "This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected." ) + "</qt>" );
-	// signals and slots connections
-	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-}
