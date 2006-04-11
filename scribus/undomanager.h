@@ -34,10 +34,10 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "undostate.h"
 #include "undoobject.h"
+#include "undostack.h"
 
 class QString;
 class QPixmap;
-class UndoStack;
 class UndoGui;
 class PrefsContext;
 

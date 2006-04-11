@@ -300,7 +300,7 @@ inline void CharStyle::eraseStyle(const CharStyle & other)
 		cshade = NOVALUE;
 	if (other.cshade2 == cshade2)
 		cshade2 = NOVALUE;
-	if (other.cstyle  & ScStyle_UserStyles == cstyle & ScStyle_UserStyles)
+	if ((other.cstyle  & ScStyle_UserStyles) == (cstyle & ScStyle_UserStyles))
 		cstyle = ScStyle_None;
 	if (other.cscale == cscale)
 		cscale = NOVALUE;

@@ -39,7 +39,7 @@ class SCRIBUS_API EditStyle : public QDialog
 	Q_OBJECT
 
 public:
-	EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu,
+	EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu,
 	           double au, int dEin, ScribusDoc *doc);
 	~EditStyle();
 
@@ -85,7 +85,7 @@ public:
 	MSpinBox* DropDist;
 	QPushButton* Cancel;
 	QPushButton* OkButton;
-	struct ParagraphStyle *werte;
+	ParagraphStyle *werte;
 	QValueList<ParagraphStyle> allV;
 	QString OldName;
 	bool IsNew;

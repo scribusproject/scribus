@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "sampleitem.h"
 
 
-EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu, double au, int dEin, ScribusDoc *doc)
+EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu, double au, int dEin, ScribusDoc *doc)
 		: QDialog( parent, "EditST", true, 0)
 {
 	qApp->setOverrideCursor(QCursor(waitCursor));

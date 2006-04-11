@@ -510,7 +510,7 @@ bool ScriXmlDoc::ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty)
 	return true;
 }
 
-void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
+void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
 {
 	bool fou;
 	QString tmpf, tmf, tmV;
@@ -779,7 +779,7 @@ bool ScriXmlDoc::ReadPageCount(QString fileName, int *num1, int *num2)
 bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, bool Mpage)
 {
 	struct CopyPasteBuffer OB;
-	struct ParagraphStyle vg;
+	ParagraphStyle vg;
 	struct Layer la;
 	struct ScribusDoc::BookMa bok;
 	struct Linked Link;

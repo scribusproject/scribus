@@ -277,7 +277,7 @@ void StilFormate::neuesFormat()
 {
 	int selectedIndex=ListBox1->currentItem();
 	int topIndex=ListBox1->topItem();
-	struct ParagraphStyle sty;
+	ParagraphStyle sty;
 	sty.setName(tr("New Style"));
 	sty.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(0));
 	sty.setLineSpacing(((Docu->toolSettings.defSize / 10.0) * 

@@ -221,7 +221,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	toolSettings.dTextBackGround = prefsData.toolSettings.dTextBackGround;
 	if (prefsData.toolSettings.dTextLineColor != CommonStrings::None)
 		PageColors.insert(prefsData.toolSettings.dTextLineColor, prefsData.DColors[prefsData.toolSettings.dTextLineColor]);
-	struct ParagraphStyle vg;
+	ParagraphStyle vg;
 	vg.setName("Normal Internal");
 	vg.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
 	vg.setLineSpacing(15);

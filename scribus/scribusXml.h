@@ -49,7 +49,7 @@ public:
 	void GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj = 0);
 	void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
 	bool ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty);
-	void GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
+	void GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
 	bool ReadStyles(QString fileName, ScribusDoc* doc);
 	bool ReadColors(QString fileName);
 	bool ReadPageCount(QString fileName, int *num1, int *num2);

@@ -511,7 +511,7 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 
 bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *doc, int PageToLoad, bool Mpage, QString renamedPageName)
 {
-	struct ParagraphStyle vg;
+	ParagraphStyle vg;
 	struct Layer la;
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
@@ -908,7 +908,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 
 bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *doc, QProgressBar *dia2)
 {
-	struct ParagraphStyle vg;
+	ParagraphStyle vg;
 	struct Layer la;
 	struct ScribusDoc::BookMa bok;
 	int counter;//, Pgc;
@@ -2380,7 +2380,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	return currItem;
 }
 
-void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
+void FileLoader::GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
 {
 	bool fou;
 	QString tmpf, tmf, tmV;
