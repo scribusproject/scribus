@@ -66,7 +66,6 @@ public slots:
 	/*! \brief  cancel and quit */
 	virtual void cancelButton_pressed();
 
-
 protected:
 	QGridLayout* SWDialogLayout;
 	QVBoxLayout* layout4;
@@ -76,6 +75,10 @@ protected:
 
 protected slots:
 	virtual void languageChange();
+	/*! \brief Move keyboard focus after mouse click
+	\param key id of the button */
+	virtual void buttonGroup_clicked(int key);
+
 };
 
 #endif // SWDialog_H

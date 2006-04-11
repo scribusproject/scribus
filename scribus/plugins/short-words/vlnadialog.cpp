@@ -58,7 +58,6 @@ SWDialog::SWDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
 	layout3 = new QHBoxLayout(0, 0, 6, "layout3");
 
 	buttonGroup = new QButtonGroup(this, "buttonGroup");
-	//buttonGroup->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)3, 0, 0, buttonGroup->sizePolicy().hasHeightForWidth()));
 
 	QGridLayout *gridLayout = new QGridLayout(buttonGroup);
 	gridLayout->setSpacing(6);
@@ -101,25 +100,18 @@ SWDialog::SWDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
 	layout3->addLayout(layout2);
 	layout4->addLayout(layout3);
 
-	/*userCheckBox = new QCheckBox(this, "userCheckBox");
-	layout4->addWidget(userCheckBox); */
-
 	SWDialogLayout->addLayout(layout4, 0, 0);
-
-	//QFile::exists(RC_PATH_USR) ? userCheckBox->setEnabled(true) : userCheckBox->setEnabled(false);
 
 	languageChange();
 	resize(QSize(306, 193).expandedTo(minimumSizeHint()));
 	clearWState(WState_Polished);
 
-	// cfg
-	//cfg->userConfig ? userCheckBox->setChecked(true) : userCheckBox->setChecked(false);
 	selectAction(cfg->action);
 
 	// signals and slots connections
 	connect(okButton, SIGNAL(clicked()), this, SLOT(okButton_pressed()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_pressed()));
-	//connect(infoButton, SIGNAL(pressed()), this, SLOT(infoButton_pressed()));
+	connect(buttonGroup, SIGNAL(clicked(int)), this, SLOT(buttonGroup_clicked(int)));
 }
 
 /*
@@ -127,7 +119,6 @@ SWDialog::SWDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
  */
 SWDialog::~SWDialog()
 {
-	//userCheckBox->isChecked() ? cfg->userConfig = 1 : cfg->userConfig = 0;
 	cfg->action = actionSelected;
 	cfg->saveConfig();
 }
@@ -145,11 +136,6 @@ void SWDialog::languageChange()
 	allRadio->setText(tr("&All items", "short words plugin"));
 	okButton->setText(CommonStrings::tr_OK);
 	cancelButton->setText(CommonStrings::tr_Cancel);
-	//infoButton->setText(tr("&Info and\nLanguages", "short words plugin"));
-	//statusLabel->setText(tr("Select action..."));
-	//userCheckBox->setText(tr("Replace defaults by user config", "short words plugin"));
-	// hints
-	//QToolTip::add(userCheckBox, tr("When the user config file exists \n(%1)\nyou can choose if you want to append your config\nto the global configuration by unchecked button.\n\nYou can replace predefined values by yours\nwith checked button too.", "short words plugin").arg(RC_PATH_USR));
 	QToolTip::add(frameRadio, tr("Only selected frames processed.", "short words plugin"));
 	QToolTip::add(pageRadio, tr("Only actual page processed.", "short words plugin"));
 	QToolTip::add(allRadio, tr("All items in document processed.", "short words plugin"));
@@ -172,4 +158,9 @@ void SWDialog::selectAction(int aAction)
 			aAction = 0;
 	}
 	buttonGroup->setButton(aAction);
+}
+
+void SWDialog::buttonGroup_clicked(int key)
+{
+	buttonGroup->find(key)->setFocus();
 }
