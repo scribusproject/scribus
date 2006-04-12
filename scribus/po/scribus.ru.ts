@@ -1765,6 +1765,10 @@ C=CUPS, T=TIFF.
         <source>Portuguese (Brazilian):</source>
         <translation>Португальский (Бразилия):</translation>
     </message>
+    <message>
+        <source>Japanese:</source>
+        <translation>Японский:</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -1849,7 +1853,10 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
 the media size of the PostScript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Напрямую указать размер носителя 
+в PostScript-файле. Не рекомендуется 
+использовать эту функцию, пока этого 
+не потребует принтер.</translation>
     </message>
 </context>
 <context>
@@ -2840,23 +2847,23 @@ Please choose another.</source>
     </message>
     <message>
         <source>Rendering Intents</source>
-        <translation>Типы вывода</translation>
+        <translation>Цель цветопередачи</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Перцепционный</translation>
+        <translation>Воспринимаемая</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Относительно колориметрический</translation>
+        <translation>Относительная колориметрическая</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation>Насыщенность</translation>
+        <translation>Насыщенная</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Абсолютно колориметрический</translation>
+        <translation>Абсолютная колориметрическая</translation>
     </message>
     <message>
         <source>Default color profile for imported images</source>
@@ -2894,16 +2901,16 @@ It is recommended that you enable this if you have photos in your document.</sou
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Стандартный тип рендеринга для вашего монитора. 
+        <translation>Стандартная цель цветопередачи для вашего монитора. 
 Если вы не знаете, что это такое, выберите 
-относительно колориметрический или перцептуальный.</translation>
+относительную колориметрическую или воспринимаемую.</translation>
     </message>
     <message>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Стандартный тип рендеринга для вашего принтера. 
+        <translation>Стандартная цель цветопередачи для вашего принтера. 
 Если вы не знаете, что это такое, выберите 
-относительно колориметрический или перцептуальный.</translation>
+относительную колориметрическую или воспринимаемую.</translation>
     </message>
     <message>
         <source>Enable &apos;soft proofing&apos; of how your document colors will print,
@@ -5673,23 +5680,23 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>Тип рендеринга:</translation>
+        <translation>Цель цветопередачи:</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Перцепционный</translation>
+        <translation>Воспринимаемая</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Относительно колориметрический</translation>
+        <translation>Относительная колориметрическая</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation>Насыщенность</translation>
+        <translation>Насыщенная</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Абсолютно колориметрический</translation>
+        <translation>Абсолютная колориметрическая</translation>
     </message>
     <message>
         <source>Left Point</source>
@@ -5725,7 +5732,7 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>No Style</source>
-        <translation>Стилей нет</translation>
+        <translation>Без стиля</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -5923,11 +5930,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>Choose the shape of frame...</source>
-        <translation>Выбрать очертание рамки...</translation>
+        <translation>Выбрать очертание блока...</translation>
     </message>
     <message>
         <source>Edit shape of the frame...</source>
-        <translation>Изменить очертание рамки...</translation>
+        <translation>Изменить очертание блока...</translation>
     </message>
     <message>
         <source>Set radius of corner rounding</source>
@@ -5935,7 +5942,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Number of columns in text frame</source>
-        <translation>Количество столбцов в текстовой рамке</translation>
+        <translation>Количество столбцов в текстовом блоке</translation>
     </message>
     <message>
         <source>Distance between columns</source>
@@ -5943,35 +5950,35 @@ Please choose another.</source>
     </message>
     <message>
         <source>Distance of text from top of frame</source>
-        <translation>Расстояние между текстом и верхом рамки</translation>
+        <translation>Расстояние между текстом и верхом блока</translation>
     </message>
     <message>
         <source>Distance of text from bottom of frame</source>
-        <translation>Расстояние между текстом и низом рамки</translation>
+        <translation>Расстояние между текстом и низом блока</translation>
     </message>
     <message>
         <source>Distance of text from left of frame</source>
-        <translation>Расстояние между текстом и левой стороной рамки</translation>
+        <translation>Расстояние между текстом и левой стороной блока</translation>
     </message>
     <message>
         <source>Distance of text from right of frame</source>
-        <translation>Расстояние между текстом и правой стороной рамки</translation>
+        <translation>Расстояние между текстом и правой стороной блока</translation>
     </message>
     <message>
         <source>Edit tab settings of text frame...</source>
-        <translation>Изменить табуляторы текстовой рамки...</translation>
+        <translation>Изменить табуляторы текстового блока...</translation>
     </message>
     <message>
         <source>Allow the image to be a different size to the frame</source>
-        <translation>Разрешить изображению иметь отличный от рамки размер</translation>
+        <translation>Разрешить изображению иметь отличный от блока размер</translation>
     </message>
     <message>
         <source>Horizontal offset of image within frame</source>
-        <translation>Горизонтальное смещение изображения относительно рамки</translation>
+        <translation>Горизонтальное смещение изображения относительно блока</translation>
     </message>
     <message>
         <source>Vertical offset of image within frame</source>
-        <translation>Вертикальное смещение изображения относительно рамки</translation>
+        <translation>Вертикальное смещение изображения относительно блока</translation>
     </message>
     <message>
         <source>Resize the image horizontally</source>
@@ -5987,11 +5994,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>Make the image fit within the size of the frame</source>
-        <translation>Уместить изображение в рамке</translation>
+        <translation>Уместить изображение в блоке</translation>
     </message>
     <message>
         <source>Use image proportions rather than those of the frame</source>
-        <translation>Использовать пропорции изображения вместо пропорций рамки</translation>
+        <translation>Использовать пропорции изображения вместо пропорций блока</translation>
     </message>
     <message>
         <source> mm</source>
@@ -6123,7 +6130,7 @@ Corners:</source>
     </message>
     <message>
         <source>Text &amp;Flows Around Frame</source>
-        <translation>Текст о&amp;бтекает рамку</translation>
+        <translation>Текст о&amp;бтекает блок</translation>
     </message>
     <message>
         <source>Use &amp;Bounding Box</source>
@@ -6163,7 +6170,7 @@ Corners:</source>
     </message>
     <message>
         <source>Scale &amp;To Frame Size</source>
-        <translation>&amp;Масштабировать до размера рамки</translation>
+        <translation>&amp;Масштабировать до размера блока</translation>
     </message>
     <message>
         <source>P&amp;roportional</source>
@@ -6171,7 +6178,7 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;Basepoint:</source>
-        <translation>&amp;Базовая точка:</translation>
+        <translation>&amp;Опорная точка:</translation>
     </message>
     <message>
         <source>T&amp;ype of Line:</source>
@@ -6192,17 +6199,17 @@ Corners:</source>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
         <translation>Использовать для расчёта обтекания 
-текста площадку вместо контура рамки</translation>
+текста площадку вместо контура блока</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
         <translation>Использовать для расчёта обтекания текста вторую 
-линию, исходно основанную на контуре рамки</translation>
+линию, исходно основанную на контуре блока</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
         <translation>Язык для расстановки 
-переносов в рамке</translation>
+переносов в блоке</translation>
     </message>
     <message>
         <source>&amp;X1:</source>
@@ -6388,6 +6395,10 @@ Please choose another.</source>
         <source>Do you really want to delete this Template?</source>
         <translation>Вы действительно хотите удалить этот шаблон?</translation>
     </message>
+    <message>
+        <source>New Template %1</source>
+        <translation>Новый шаблон %1</translation>
+    </message>
 </context>
 <context>
     <name>NewDoc</name>
@@ -6513,13 +6524,13 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Create text frames automatically when new pages are added</source>
-        <translation>Автоматически создавать текстовые рамки 
+        <translation>Автоматически создавать текстовые блоки 
 при добавлении новых страниц</translation>
     </message>
     <message>
         <source>Number of columns to create in automatically created text frames</source>
         <translation>Количество столбцов в автоматически 
-создаваемых текстовых рамках</translation>
+создаваемых текстовых блоках</translation>
     </message>
     <message>
         <source>Distance between automatically created columns</source>
@@ -6584,7 +6595,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Default Unit:</source>
-        <translation>Стандартная &amp;единица:</translation>
+        <translation>&amp;Единица измерения:</translation>
     </message>
     <message>
         <source>&amp;Automatic Text Frames</source>
@@ -6907,7 +6918,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Dissolve</source>
-        <translation>Dissolve</translation>
+        <translation>Растворение</translation>
     </message>
     <message>
         <source>Glitter</source>
@@ -6919,7 +6930,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Wipe</source>
-        <translation>Wipe</translation>
+        <translation>Расчистка</translation>
     </message>
     <message>
         <source>Horizontal</source>
@@ -6963,7 +6974,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Printer</source>
-        <translation>Вывод на печать</translation>
+        <translation>Вывод на печать (CMYK)</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
@@ -6975,23 +6986,23 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Rendering-Intent:</source>
-        <translation>Тип рендеринга:</translation>
+        <translation>Цель цветопередачи:</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Перцепционный</translation>
+        <translation>Воспринимаемая</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Относительно колориметрический</translation>
+        <translation>Относительная колориметрическая</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation>Насыщенность</translation>
+        <translation>Насыщенная</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Абсолютно колориметрический</translation>
+        <translation>Абсолютная колориметрическая</translation>
     </message>
     <message>
         <source>Images:</source>
@@ -7031,23 +7042,11 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Screen / Web</source>
-        <translation>Просмотра с монитора / Web</translation>
-    </message>
-    <message>
-        <source>Image Settings</source>
-        <translation>Характеристики изображения</translation>
+        <translation>Просмотр с монитора / Веб (RGB)</translation>
     </message>
     <message>
         <source>Automatic</source>
         <translation>Автоматически</translation>
-    </message>
-    <message>
-        <source>JPEG</source>
-        <translation>JPEG</translation>
-    </message>
-    <message>
-        <source>Zip</source>
-        <translation>Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -7149,13 +7148,6 @@ you need to change it leave the default choice - Left.</source>
 что это такое, то лучше оставить стандартную настройку: &quot;Слева&quot;.</translation>
     </message>
     <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation>Если параметр включён, Scribus создаст миниатюры для 
-каждой страницы в PDF, которые могут использоваться 
-для навигации по документу в некоторых программах.</translation>
-    </message>
-    <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
         <translation>Если параметр включён, Scribus создаст PDF-Articles, 
 что полезно для навигации по связанным статьям в PDF.</translation>
@@ -7238,7 +7230,7 @@ Choose Printer when printing to a true 4 color CMYK printer.</source>
     </message>
     <message>
         <source>Rendering intent for solid colors</source>
-        <translation>Тип рендеринга сплошных тонов</translation>
+        <translation>Цель цветопередачи сплошных тонов</translation>
     </message>
     <message>
         <source>Color profile for images</source>
@@ -7246,7 +7238,7 @@ Choose Printer when printing to a true 4 color CMYK printer.</source>
     </message>
     <message>
         <source>Rendering intent for images</source>
-        <translation>Тип рендеринга изображений</translation>
+        <translation>Цель цветопередачи изображений</translation>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
@@ -7260,11 +7252,6 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation>Обязательная строка для PDF/X-3 или PDF не пройдёт 
 тест на соответствие требованиям PDF/X-3. 
 Рекомендуется использовать название документа.</translation>
-    </message>
-    <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Уровни сжатия: Минимальный (25%), Низкий (50%), 
-Средний (75%), Высокий (85%), Максимальный (95%)</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
@@ -7288,15 +7275,6 @@ If un-checked, text and graphics cannot be copied.</source>
         <translation>Разрешить копирование текста и графики из PDF.
 При невыставленном флажке копировать  
 текст и графику в PDF будет невозможно.</translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Вставить сюда разделённый запятыми список 
-маркёров, где каждый маркёр может быть * для 
-всех страниц, 1-5 для диапазона страниц или 
-номером одиночной страницы.</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
@@ -7328,7 +7306,7 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Save &amp;Linked Text Frames as PDF Articles</source>
-        <translation>Сохранить св&amp;язанные текст. рамки как PDF-Articles</translation>
+        <translation>Сохранить св&amp;язанные текст. блоки как PDF-Articles</translation>
     </message>
     <message>
         <source>&amp;Include Bookmarks</source>
@@ -7588,22 +7566,41 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
 не стоит отключать её без особых причин.</translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation>Способ сжатия изображений. Автоматический - Scribus сам выбирает подходящий способ. ZIP - подходит для изображений со сплошными тонами. JPEG - больше подходит для создания PDF-файлов меньшего размера с большим количеством фотографий (и по возможности небольшой потерей в качестве). Для типичных задач рекомендуется оставить автоматический выбор типа сжатия.</translation>
-    </message>
-    <message>
-        <source>Re-sample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.
-This can increase memory usage and slow down export.</source>
-        <translation>Изменить разрешение растровых изображений до указанного.
-Если флажок не выставлен, будут использованы исходные 
-значения количества точек на дюйм, из-за чего может вырасти 
-потребление памяти и замедлиться скорость экспорта.</translation>
-    </message>
-    <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation>Здесь определяется совместимость с PDF разных версий. Выберите Acrobat 4.0, если вам нужна максимальная совместимость. Выберите Acrobat 5.0, если в документе используются особенности PDF 1.4 (например, полупрозрачность) или 128-битное шифрование. Выберите PDF/X-3 для серьёзных коммерческих заказов, требующих управления цветом (этот вариант доступен при включённой 
 системе управления цветом).</translation>
+    </message>
+    <message>
+        <source>Image Compression Methods</source>
+        <translation>Способ сжатия изображений</translation>
+    </message>
+    <message>
+        <source>JPEG - Lossy</source>
+        <translation>С потерями в качестве - JPEG</translation>
+    </message>
+    <message>
+        <source>Zip - Lossless</source>
+        <translation>Без потерь в качестве - ZIP</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation>Вставить сюда разделённый запятыми список маркёров, где каждый маркёр может быть * для всех страниц, 1-5 для диапазона страниц или номером одиночной страницы.</translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation>Создать миниатюрные изображения каждой страницы в файле PDF. В некоторых просмотрщиках это облегчает навигацию по документу.</translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
+        <translation>Способ сжатия изображений. По умолчанию Scribus сам выбирает подходящий. ZIP сжимает без потерь в качестве изображения. JPEG больше подходит для создания небольших файлов PDF с большим количеством изображений внутри, но удаляет полезную информацию. В типовых ситуациях предоставьте Scribus самостоятельно выбрать подходящий способ. Всё это относится только к JPEG</translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
+        <translation>Качество после сжатия: Наихудшее (25%), Низкое (50%), Среднее (75%), Высокое (85%), Максимальное (95%). Помните, что степень сжатия не напрямую определяет размер конечного файла - размер и качество всегда в первую очередь зависят от характеристик исходных изображений. Этот параметр относится только к JPEG.</translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
+        <translation>Пересэмплировать все растровые изображения до указанного значения DPI. Отключите, если хотите, чтобы изображения сохранили исходное разрешение. При пересэмплировании может увеличиться потребление памяти и замедлиться экспорт.</translation>
     </message>
 </context>
 <context>
@@ -7726,7 +7723,7 @@ EPS, PDF и векторной графики при просмотре цено
     </message>
     <message>
         <source>Text Frame</source>
-        <translation>Текстовая рамка</translation>
+        <translation>Текстовый блок</translation>
     </message>
     <message>
         <source>None</source>
@@ -7790,7 +7787,7 @@ EPS, PDF и векторной графики при просмотре цено
     </message>
     <message>
         <source>Show &amp;Margins</source>
-        <translation>Показать &amp;поля</translation>
+        <translation>Показывать &amp;поля</translation>
     </message>
     <message>
         <source>Show &amp;Frames</source>
@@ -7802,23 +7799,23 @@ EPS, PDF и векторной графики при просмотре цено
     </message>
     <message>
         <source>Show &amp;Grid</source>
-        <translation>Показать &amp;сетку</translation>
+        <translation>Показывать &amp;сетку</translation>
     </message>
     <message>
         <source>Show G&amp;uides</source>
-        <translation>Показать &amp;направляющие</translation>
+        <translation>Показывать &amp;направляющие</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation>Показать опорную &amp;сетку</translation>
+        <translation>Показывать опорную &amp;сетку</translation>
     </message>
     <message>
         <source>Sn&amp;ap to Grid</source>
-        <translation>Привязать к &amp;сетке</translation>
+        <translation>Прилипание к &amp;сетке</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
-        <translation>Привязать к н&amp;аправляющим</translation>
+        <translation>Прилипание к н&amp;аправляющим</translation>
     </message>
     <message>
         <source>Original PPI: </source>
@@ -7850,7 +7847,7 @@ EPS, PDF и векторной графики при просмотре цено
     </message>
     <message>
         <source>&amp;Adjust Frame to Picture</source>
-        <translation>&amp;Подстроить рамку до изображения</translation>
+        <translation>&amp;Блок до размеров изображения</translation>
     </message>
     <message>
         <source>&amp;Get Text...</source>
@@ -7942,7 +7939,7 @@ EPS, PDF и векторной графики при просмотре цено
     </message>
     <message>
         <source>&amp;Picture Frame</source>
-        <translation>Рамку изобра&amp;жения</translation>
+        <translation>Блок изобра&amp;жения</translation>
     </message>
     <message>
         <source>Pol&amp;ygon</source>
@@ -7954,7 +7951,7 @@ EPS, PDF и векторной графики при просмотре цено
     </message>
     <message>
         <source>&amp;Text Frame</source>
-        <translation>&amp;Текстовую рамку</translation>
+        <translation>&amp;Текстовый  блок</translation>
     </message>
     <message>
         <source>&amp;Bezier Curve</source>
@@ -8207,7 +8204,7 @@ EPS, PDF и векторной графики при просмотре цено
     </message>
     <message>
         <source>Points (pt)</source>
-        <translation>Точки (pt)</translation>
+        <translation>Пункты (pt)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
@@ -8496,11 +8493,11 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Text Frame Properties</source>
-        <translation>Свойства текстовой рамки</translation>
+        <translation>Свойства текстового блока</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Свойства рамки изображения</translation>
+        <translation>Свойства блока изображения</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -8532,11 +8529,11 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Number of columns in a text frame</source>
-        <translation>Количество столбцов в текстовой рамке</translation>
+        <translation>Количество столбцов в текстовом блоке</translation>
     </message>
     <message>
         <source>Gap between text frame columns</source>
-        <translation>Расстояние между столбцами в текстовой рамке</translation>
+        <translation>Расстояние между столбцами в текстовом блоке</translation>
     </message>
     <message>
         <source>Sample of your font</source>
@@ -8544,7 +8541,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Рамки позволяют произвольно масштабировать изображения</translation>
+        <translation>Блоки позволяют произвольно масштабировать изображения</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -8560,7 +8557,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Изображения в рамке масштабируются под её размер</translation>
+        <translation>Изображения в блоке масштабируются под его размер</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
@@ -8702,7 +8699,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Font Size:</source>
-        <translation>Размер &amp;шрифта:</translation>
+        <translation>Кегль &amp;шрифта:</translation>
     </message>
     <message>
         <source>Mouse Settings</source>
@@ -8944,7 +8941,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>Масштабировать &amp;изображение до рамки</translation>
+        <translation>Масштабировать &amp;изображение до блока</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -9557,7 +9554,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Customize...</source>
-        <translation type="unfinished">&amp;Настройки</translation>
+        <translation>Настроить...</translation>
     </message>
 </context>
 <context>
@@ -10027,7 +10024,7 @@ External Links
     <message>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
-        <translation>Цель не является рамкой изображения.</translation>
+        <translation>Цель не является блоком изображения.</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
@@ -10072,7 +10069,7 @@ External Links
     <message>
         <source>Can&apos;t set style on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Невозможно назначить стиль нетекстовой рамке</translation>
+        <translation>Невозможно назначить стиль нетекстовому блоку</translation>
     </message>
     <message>
         <source>Failed to save EPS</source>
@@ -10122,17 +10119,17 @@ External Links
     <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Невозможно получить кегль шрифта из нетекстовой рамки.</translation>
+        <translation>Невозможно получить кегль шрифта из нетекстового блока.</translation>
     </message>
     <message>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Невозможно шрифт из нетекстовой рамки.</translation>
+        <translation>Невозможно получить шрифт из нетекстового блока.</translation>
     </message>
     <message>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Невозможно получить текстовый кегль из нетекстовой рамки.</translation>
+        <translation>Невозможно получить текстовый кегль из нетекстового блока.</translation>
     </message>
     <message>
         <source>Cannot get column count of non-text frame.</source>
@@ -10152,7 +10149,7 @@ External Links
     <message>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Невозможно получить текст из нетекстовой рамки.</translation>
+        <translation>Невозможно получить текст из нетекстового блока.</translation>
     </message>
     <message>
         <source>Cannot set text of non-text frame.</source>
@@ -10162,7 +10159,7 @@ External Links
     <message>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
-        <translation>Невозможно вставить текст в нетекстовую рамку.</translation>
+        <translation>Невозможно вставить текст в нетекстовый блок.</translation>
     </message>
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
@@ -10519,6 +10516,14 @@ function&apos;s documentation.</source>
     <message>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10879,6 +10884,41 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
 </context>
 <context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation>Сверху</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Справа</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation>Снизу</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Слева</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation>Разрешить парковку...</translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation>Горизонтальная</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation>Вертикальная</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
+        <translation>Плавающая панель...</translation>
+    </message>
+</context>
+<context>
     <name>ScriXmlDoc</name>
     <message>
         <source>Background</source>
@@ -11153,7 +11193,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Snap to Grid</source>
-        <translation>Привязать к сетке</translation>
+        <translation>Прилипание к сетке</translation>
     </message>
     <message>
         <source>Manage Pictures</source>
@@ -11479,7 +11519,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Page</source>
-        <translation>С&amp;траница</translation>
+        <translation>Стра&amp;ница</translation>
     </message>
     <message>
         <source>&amp;View</source>
@@ -11683,7 +11723,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Paragraph Styles...</source>
-        <translation>Стили &amp;абзаца...</translation>
+        <translation>&amp;Абзацные стили...</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
@@ -12633,7 +12673,7 @@ drag a Template to the Pageview below.</source>
     <name>Spalette</name>
     <message>
         <source>No Style</source>
-        <translation>Стилей нет</translation>
+        <translation>Без стиля</translation>
     </message>
 </context>
 <context>
@@ -12680,11 +12720,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Новый</translation>
+        <translation>&amp;Создать</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;Правка</translation>
+        <translation>&amp;Изменить</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
@@ -12696,7 +12736,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Сохранить</translation>
+        <translation>Сохр&amp;анить</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -12755,7 +12795,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Update Text Frame</source>
-        <translation>Обновить текстовую рамку</translation>
+        <translation>Обновить текстовый блок</translation>
     </message>
     <message>
         <source>Open</source>
@@ -12775,11 +12815,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation>Обновить текстовую рамку и выйти</translation>
+        <translation>Обновить текстовый блок и выйти</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation>Выйти без обновления текстовой рамки</translation>
+        <translation>Выйти без обновления текстового блока</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -12787,7 +12827,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;Reload Text from Frame</source>
-        <translation>&amp;Восстановить текст из рамки</translation>
+        <translation>&amp;Восстановить текст из блока</translation>
     </message>
     <message>
         <source>&amp;Save to File...</source>
@@ -12803,11 +12843,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;Update Text Frame and Exit</source>
-        <translation>&amp;Обновить текст в рамке и выйти</translation>
+        <translation>&amp;Обновить текст в блоке и выйти</translation>
     </message>
     <message>
         <source>&amp;Exit Without Updating Text Frame</source>
-        <translation>Выйти &amp;без обновления текста в рамке</translation>
+        <translation>Выйти &amp;без обновления текста в блоке</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -12847,7 +12887,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;Update Text Frame</source>
-        <translation>&amp;Обновить текстовую рамку</translation>
+        <translation>&amp;Обновить текстовый блок</translation>
     </message>
     <message>
         <source>&amp;Background...</source>
@@ -12867,7 +12907,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished">&amp;Настройки</translation>
+        <translation>&amp;Настройки</translation>
     </message>
     <message>
         <source>Clear all Text</source>
@@ -12883,7 +12923,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Reload Text from Frame</source>
-        <translation>Восстановить текст из рамки</translation>
+        <translation>Восстановить текст из блока</translation>
     </message>
     <message>
         <source>Search/Replace</source>
@@ -13169,7 +13209,7 @@ Please choose another.</source>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation>В &amp;выбранные рамки</translation>
+        <translation>В &amp;выбранные блоки</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
@@ -13222,7 +13262,7 @@ with checked button too.</source>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation>Обработаны только выбранные рамки.</translation>
+        <translation>Обработаны только выбранные блоки.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
@@ -13266,11 +13306,11 @@ with checked button too.</source>
     </message>
     <message>
         <source>Edit Contents of Frame</source>
-        <translation>Изменить содержимое рамки</translation>
+        <translation>Изменить содержимое блока</translation>
     </message>
     <message>
         <source>Insert Text Frame</source>
-        <translation>Вставить тестовую рамку</translation>
+        <translation>Вставить тестовый блок</translation>
     </message>
     <message>
         <source>Insert Picture</source>
@@ -13298,11 +13338,11 @@ with checked button too.</source>
     </message>
     <message>
         <source>Link Text Frames</source>
-        <translation>Связать текстовые рамки</translation>
+        <translation>Связать текстовые блоки</translation>
     </message>
     <message>
         <source>Unlink Text Frames</source>
-        <translation>Разъединить тестовые рамки</translation>
+        <translation>Разъединить тестовые блоки</translation>
     </message>
     <message>
         <source>Insert Table</source>
