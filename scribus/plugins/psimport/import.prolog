@@ -67,6 +67,9 @@ currentdict /endpage {
 	(sp\n) print
 	//endpage exec
 } .forceput
+currentdict /doimage known not {
+	currentdict /doimage { } .forceput
+} if
 currentdict /doimage {
 	currentdict i_image
 	//doimage exec
