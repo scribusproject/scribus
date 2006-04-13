@@ -3065,6 +3065,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			else
 				currItem->emitAllToGUI();
+				
 			/*else
 			{
 				//CB Dont think we need this here with the new selection code
@@ -8441,13 +8442,6 @@ void ScribusView::LowerItem()
 	uint docSelectionCount=Doc->m_Selection->count();
 	if ((Doc->Items->count() > 1) && (docSelectionCount != 0))
 	{
-		bool wasGUISelection=Doc->m_Selection->isGUISelection();
-		if (wasGUISelection)
-		{
-			Doc->m_Selection->setIsGUISelection(false);
-			Doc->m_Selection->disconnectAllItemsFromGUI();
-		}
-		Selection tempSelection(*Doc->m_Selection);
 		for (uint c = 0; c < docSelectionCount; ++c)
 		{
 			currItem = Doc->m_Selection->itemAt(c);
@@ -8458,6 +8452,13 @@ void ScribusView::LowerItem()
 		}
 		if (low == 0)
 			return;
+		bool wasGUISelection=Doc->m_Selection->isGUISelection();
+		if (wasGUISelection)
+		{
+			Doc->m_Selection->setIsGUISelection(false);
+			Doc->m_Selection->disconnectAllItemsFromGUI();
+		}
+		Selection tempSelection(*Doc->m_Selection);
 		b2 = Doc->Items->at(high);
 		Doc->m_Selection->clear();
 		SelectItemNr(low-1, false);
@@ -8501,13 +8502,6 @@ void ScribusView::RaiseItem()
 	uint docSelectionCount=Doc->m_Selection->count();
 	if ((Doc->Items->count() > 1) && (docSelectionCount != 0))
 	{
-		bool wasGUISelection=Doc->m_Selection->isGUISelection();
-		if (wasGUISelection)
-		{
-			Doc->m_Selection->setIsGUISelection(false);
-			Doc->m_Selection->disconnectAllItemsFromGUI();
-		}
-		Selection tempSelection(*Doc->m_Selection);
 		for (uint c = 0; c < docSelectionCount; ++c)
 		{
 			currItem = Doc->m_Selection->itemAt(c);
@@ -8518,6 +8512,13 @@ void ScribusView::RaiseItem()
 		}
 		if (high == Doc->Items->count()-1)
 			return;
+		bool wasGUISelection=Doc->m_Selection->isGUISelection();
+		if (wasGUISelection)
+		{
+			Doc->m_Selection->setIsGUISelection(false);
+			Doc->m_Selection->disconnectAllItemsFromGUI();
+		}
+		Selection tempSelection(*Doc->m_Selection);
 		b2 = Doc->Items->at(low);
 		Doc->m_Selection->clear();
 		SelectItemNr(high+1, false);
