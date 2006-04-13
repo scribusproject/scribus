@@ -160,3 +160,38 @@ void PageItem_ImageFrame::clearContents()
 	//				emit UpdtObj(Doc->currentPage->pageNr(), ItemNr);
 }
 
+void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
+{
+	double moveBy=1.0;
+	ButtonState buttonState = k->state();
+	if ((buttonState & ShiftButton) && !(buttonState & ControlButton))
+		moveBy=10.0;
+	else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
+		moveBy=0.1;
+	else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && (buttonState & AltButton))
+		moveBy=0.01;
+	moveBy/=m_Doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
+	double dX=0.0,dY=0.0;
+	int kk = k->key();
+	switch (kk)
+	{
+		case Key_Left:
+			dX=-moveBy;
+			break;
+		case Key_Right:
+			dX=moveBy;
+			break;
+		case Key_Up:
+			dY=-moveBy;
+			break;
+		case Key_Down:
+			dY=moveBy;
+			break;
+	}
+	if (dX!=0.0 || dY!=0.0)
+	{
+		moveImageInFrame(dX, dY);
+		ScribusView* view = m_Doc->view();
+		view->updateContents(getRedrawBounding(view->scale()));
+	}
+}

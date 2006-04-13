@@ -1050,8 +1050,9 @@ void Mpalette::setCurrentItem(PageItem *i)
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	setPrintingEnabled(i->printEnabled());
-	setLocked(i->locked());
-	setSizeLocked(i->sizeLocked());
+	//CB not needed, done from pageitem->emitalltogui or individual emit.
+	//setLocked(i->locked());
+	//setSizeLocked(i->sizeLocked());
 	if ((i->isTableItem) && (i->isSingleSel))
 	{
 		setter = true;
@@ -1352,7 +1353,7 @@ void Mpalette::NewSel(int nr)
 	if (ScMW->ScriptRunning)
 		return;
 	int visID;
-	PageItem *i;
+	PageItem *i=0;
 	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 	if (doc->m_Selection->count()>1)
 	{
@@ -1391,14 +1392,29 @@ void Mpalette::NewSel(int nr)
 		TabStack->setItemEnabled(0, true);
 		NameEdit->setEnabled(false);
 		TabStack->setItemEnabled(5, true);
+		FlipH->setToggleButton( true );
+		FlipV->setToggleButton( true );
+		FlipH->setOn(false);
+		FlipV->setOn(false);
 	}
 	else
 	{
+		if (nr!=-1)
+		{
+			i=doc->m_Selection->itemAt(0);
+			HaveItem=true;
+			EditShape->setEnabled(!i->locked());
+			ShapeGroup->setEnabled(nr!=5 && nr!=7 && nr!=8 && !i->locked());
+		}
+		else
+		{
+			EditShape->setEnabled(false);
+			ShapeGroup->setEnabled(false);
+		}
 		NameEdit->setEnabled(true);
-		ShapeGroup->setEnabled(false);
-		RoundRect->setEnabled(false);
+// 		ShapeGroup->setEnabled(false);
+// 		RoundRect->setEnabled(false);
 		Distance->setEnabled(false);
-		EditShape->setEnabled(false);
 		LineMode->setEnabled(false);
 		TopLeft->setEnabled(true);
 		TopRight->setEnabled(true);
@@ -1417,9 +1433,21 @@ void Mpalette::NewSel(int nr)
 		connect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 		connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 		*/
-		//CB Why not for lines?
-		FlipH->setEnabled(nr!=-1 && nr!=5);
-		FlipV->setEnabled(nr!=-1 && nr!=5);
+		
+		//CB If Toggle is not possible, then we need to enable it so we can turn it off
+		//It then gets reset below for items where its valid
+		if ((nr>4) && (nr<9))
+		{
+			FlipH->setToggleButton(true);
+			FlipV->setToggleButton(true);
+			FlipH->setOn(false);
+			FlipV->setOn(false);
+		}
+		FlipH->setToggleButton((nr>=0) && (nr<5));
+		FlipV->setToggleButton((nr>=0) && (nr<5));
+		//CB Why cant we do this for lines?
+		FlipH->setEnabled((nr!=-1) && (nr!=5));
+		FlipV->setEnabled((nr!=-1) && (nr!=5));
 		switch (nr)
 		{
 		case -1:
@@ -1429,6 +1457,7 @@ void Mpalette::NewSel(int nr)
 			heightLabel->setText( tr( "&Height:" ) );
 			//Rot->setEnabled(true);
 			//Height->setEnabled(true);
+			RoundRect->setEnabled(false);
 			HaveItem = false;
 			Xpos->setValue(0);
 			Ypos->setValue(0);
@@ -1448,41 +1477,34 @@ void Mpalette::NewSel(int nr)
 			TabStack->setItemEnabled(2, false);
 			TabStack->setItemEnabled(3, true);
 			TabStack->setItemEnabled(4, true);
-			ShapeGroup->setEnabled(true);
-			i = doc->m_Selection->itemAt(0);
 			if ((!i->ClipEdited) && ((i->FrameType == 0) || (i->FrameType == 2)))
-				RoundRect->setEnabled(true);
+				RoundRect->setEnabled(!i->locked());
 			else
 				RoundRect->setEnabled(false);
 			if ((doc->m_Selection->itemAt(0)->FrameType == 0) || (doc->m_Selection->itemAt(0)->FrameType == 2))
-				RoundRect->setEnabled(true);
-			EditShape->setEnabled(true);
+				RoundRect->setEnabled(!i->locked());
 			if (visID == 2)
 				TabStack->setCurrentIndex(0);
-			HaveItem = true;
 			break;
 		case 4:
 			TabStack->setItemEnabled(1, true);
 			TabStack->setItemEnabled(2, true);
 			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
-			ShapeGroup->setEnabled(true);
-			i = doc->m_Selection->itemAt(0);
 			if ((!i->ClipEdited) && ((i->FrameType == 0) || (i->FrameType == 2)))
-				RoundRect->setEnabled(true);
+				RoundRect->setEnabled(!i->locked());
 			else
 				RoundRect->setEnabled(false);
 			Distance->setEnabled(true);
-			EditShape->setEnabled(true);
 			if (visID == 3)
 				TabStack->setCurrentIndex(0);
-			HaveItem = true;
 			break;
 		case 5:
 			TabStack->setItemEnabled(1, false);
 			TabStack->setItemEnabled(2, false);
 			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
+			RoundRect->setEnabled(false);
 			LineMode->setEnabled(true);
 			TopLeft->setEnabled(false);
 			TopRight->setEnabled(false);
@@ -1491,7 +1513,6 @@ void Mpalette::NewSel(int nr)
 			Center->setEnabled(false);
 			if ((visID == 1) || (visID == 2) || (visID == 3))
 				TabStack->setCurrentIndex(0);
-			HaveItem = true;
 			break;
 		case 1:
 		case 3:
@@ -1500,36 +1521,30 @@ void Mpalette::NewSel(int nr)
 			TabStack->setItemEnabled(2, false);
 			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
-			ShapeGroup->setEnabled(true);
-			EditShape->setEnabled(true);
-			i = doc->m_Selection->itemAt(0);
 			if ((!i->ClipEdited) && ((i->FrameType == 0) || (i->FrameType == 2)))
-				RoundRect->setEnabled(true);
+				RoundRect->setEnabled(!i->locked());
 			else
 				RoundRect->setEnabled(false);
 			if ((visID == 2) || (visID == 3))
 				TabStack->setCurrentIndex(0);
-			HaveItem = true;
 			break;
 		case 7:
 			TabStack->setItemEnabled(1, true);
 			TabStack->setItemEnabled(2, false);
 			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
-			EditShape->setEnabled(true);
+			RoundRect->setEnabled(false);
 			if ((visID == 2) || (visID == 3))
 				TabStack->setCurrentIndex(0);
-			HaveItem = true;
 			break;
 		case 8:
 			TabStack->setItemEnabled(1, true);
 			TabStack->setItemEnabled(2, true);
 			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
-			EditShape->setEnabled(true);
+			RoundRect->setEnabled(false);
 			if (visID == 3)
 				TabStack->setCurrentIndex(0);
-			HaveItem = true;
 			break;
 		}
 	}
@@ -2957,7 +2972,6 @@ void Mpalette::DoLower()
 	if ((HaveDoc) && (HaveItem))
 	{
 		ScMW->view->LowerItem();
-		emit DocChanged();
 	}
 }
 
@@ -2968,7 +2982,6 @@ void Mpalette::DoRaise()
 	if ((HaveDoc) && (HaveItem))
 	{
 		ScMW->view->RaiseItem();
-		emit DocChanged();
 	}
 }
 
@@ -2979,7 +2992,6 @@ void Mpalette::DoFront()
 	if ((HaveDoc) && (HaveItem))
 	{
 		ScMW->view->ToFront();
-		emit DocChanged();
 	}
 }
 
@@ -2990,7 +3002,6 @@ void Mpalette::DoBack()
 	if ((HaveDoc) && (HaveItem))
 	{
 		ScMW->view->ToBack();
-		emit DocChanged();
 	}
 }
 
@@ -4097,11 +4108,11 @@ void Mpalette::setLocked(bool isLocked)
 	Height->setReadOnly(isLocked);
 	Rot->setReadOnly(isLocked);
 	EditShape->setEnabled(!isLocked);
-	ShapeGroup->setEnabled(!isLocked);
 	LayerGroup->setEnabled(!isLocked);
 	Locked->setOn(isLocked);
 	if ((HaveDoc) && (HaveItem))
 	{
+		ShapeGroup->setEnabled(!CurItem->asLine() && !CurItem->asPolyLine() && !CurItem->asPathText() && !isLocked);
 		if (((CurItem->asTextFrame()) || (CurItem->asImageFrame()) || (CurItem->asPolygon())) &&  (!CurItem->ClipEdited) && ((CurItem->FrameType == 0) || (CurItem->FrameType == 2)))
 			RoundRect->setEnabled(!isLocked);
 		else

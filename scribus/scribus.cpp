@@ -679,7 +679,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editEditWithImageEditor"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
-// 	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
+ 	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editParaStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editLineStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit");
@@ -1460,14 +1460,12 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					if (!currItem->locked())
 					{
 						view->RaiseItem();
-						slotDocCh();
 					}
 					break;
 				case Key_Next:
 					if (!currItem->locked())
 					{
 						view->LowerItem();
-						slotDocCh();
 					}
 					break;
 				case Key_Left:
@@ -1661,6 +1659,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			case modeEdit:
 				if (currItem->asImageFrame() && !currItem->locked())
 				{
+					currItem->handleModeEditKey(k, keyrep);
+					/*
 					double dX=0.0,dY=0.0;
 					switch (kk)
 					{
@@ -1681,7 +1681,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					{
 						currItem->moveImageInFrame(dX, dY);
 						view->updateContents(currItem->getRedrawBounding(view->scale()));
-					}
+					}*/
 				}
 				view->oldCp = currItem->CPos;
 				if (currItem->itemType() == PageItem::TextFrame)
@@ -1708,13 +1708,10 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 
 void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 {
-	if (k->state() & ControlButton)
+	if (HaveDoc && (k->state() & ControlButton))
 	{
-		if (HaveDoc)
-		{
-			if ((doc->appMode == modePanning) && (k->state() & Qt::RightButton))
-				setAppMode(modeNormal);
-		}
+		if ((doc->appMode == modePanning) && (k->state() & Qt::RightButton))
+			setAppMode(modeNormal);
 	}
 	if (k->isAutoRepeat() || !_arrowKeyDown)
 		return;
@@ -1816,11 +1813,10 @@ void ScribusMainWindow::startUpDialog()
 			bool autoframes = dia->AutoFrame->isChecked();
 			int orientation = dia->Orient;
 			int pageCount=dia->PgNum->value();
-			PageSize *ps2 = new PageSize(dia->pageSizeComboBox->currentText());
-			QString pagesize = ps2->getPageName();
+			PageSize ps2(dia->pageSizeComboBox->currentText());
+			QString pagesize = ps2.getPageName();
 			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(), firstPage, orientation, 1, pagesize, pageCount);
 			doc->pageSets[facingPages].FirstPage = firstPage;
-			delete ps2;
 			HaveNewDoc();
 		}
 		else
@@ -1866,12 +1862,11 @@ bool ScribusMainWindow::slotFileNew()
 		bool autoframes = dia->AutoFrame->isChecked();
 		int orientation = dia->Orient;
 		int pageCount=dia->PgNum->value();
-		PageSize *ps2 = new PageSize(dia->pageSizeComboBox->currentText());
-		QString pagesize = ps2->getPageName();
+		PageSize ps2(dia->pageSizeComboBox->currentText());
+		QString pagesize = ps2.getPageName();
 		retVal = doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(), firstPage, orientation, 1, pagesize, pageCount);
 		doc->pageSets[facingPages].FirstPage = firstPage;
 		mainWindowStatusLabel->setText( tr("Ready"));
-		delete ps2;
 		HaveNewDoc();
 	}
 	else
@@ -2814,7 +2809,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		if (currItem->FrameType > 3)
 			SCustom->setPixmap(SCustom->getIconPixmap(currItem->FrameType-2));
 		actionManager->connectNewSelectionActions(view, doc);
-		propertiesPalette->NewSel(Nr);
+// 		propertiesPalette->NewSel(Nr);
 	}
 	else
 		propertiesPalette->NewSel(Nr);
@@ -3733,10 +3728,12 @@ void ScribusMainWindow::slotFileAppend()
 		gtGetText* gt = new gtGetText();
 		gt->run(true);
 		delete gt;
+		//CB Hyphenating now emits doc changed, plus we change lang as appropriate
 		if (doc->docHyphenator->AutoCheck)
-			doc->docHyphenator->slotHyphenate(doc->m_Selection->itemAt(0));
+			doc->itemSelection_DoHyphenate();
+			//doc->docHyphenator->slotHyphenate(doc->m_Selection->itemAt(0));
 		view->DrawNew();
-		slotDocCh();
+		//slotDocCh();
 	}
 }
 
@@ -5664,8 +5661,6 @@ void ScribusMainWindow::setStilvalue(int s)
 	emit TextStil(s);
 }
 
-
-//CB-->Doc ????
 void ScribusMainWindow::setItemHoch(int h)
 {
 	if (doc->m_Selection->count() != 0)
@@ -5673,7 +5668,6 @@ void ScribusMainWindow::setItemHoch(int h)
 		doc->CurrentStyle = h;
 		setStilvalue(doc->CurrentStyle);
 		doc->chTyStyle(h);
-		slotDocCh();
 	}
 }
 
@@ -5851,16 +5845,15 @@ void ScribusMainWindow::MovePage()
 		int to = dia->getToPage();
 		int wie = dia->getWhere();
 		int wo = dia->getWherePage();
-		if ((from != wo) || (wie == 2))
+		if ((from != wo) || (wie == 2 && (to!=doc->Pages->count())))
 		{
 			doc->movePage(from-1, to, wo-1, wie);
 			view->reformPages();
+			view->DrawNew();
+			pagePalette->RebuildPage();
+			outlinePalette->BuildTree();
+			outlinePalette->reopenTree(doc->OpenNodes);
 		}
-		slotDocCh();
-		view->DrawNew();
-		pagePalette->RebuildPage();
-		outlinePalette->BuildTree();
-		outlinePalette->reopenTree(doc->OpenNodes);
 	}
 	delete dia;
 }
@@ -5878,7 +5871,6 @@ void ScribusMainWindow::CopyPage()
 		doc->copyPage(pageNumberToCopy, wo, whereToInsert, copyCount);
 		view->Deselect(true);
 		view->DrawNew();
-		slotDocCh(); //FIXME emit from doc
 		pagePalette->RebuildPage();
 		outlinePalette->BuildTree();
 	}
@@ -5912,7 +5904,6 @@ void ScribusMainWindow::changePageMargins()
 								   sizeName, doc->currentPage()->pageNr());
 		view->reformPages(dia->getMoveObjects());
 		view->DrawNew();
-		slotDocCh();
 	}
 	delete dia;
 }
@@ -7611,7 +7602,6 @@ void ScribusMainWindow::Apply_MasterPage(QString in, int Snr, bool reb)
 	if (reb)
 	{
 		view->DrawNew();
-		slotDocCh();
 		pagePalette->Rebuild();
 	}
 }

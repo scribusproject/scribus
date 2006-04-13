@@ -1070,6 +1070,7 @@ void ScribusDoc::movePage(const int from, const int to, const int ziel, const in
 				Pages->append(Buf.at(b));
 			break;
 	}
+	changed();
 }
 
 int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
@@ -2022,6 +2023,7 @@ bool ScribusDoc::applyMasterPage(const QString& in, const int pageNumber)
 	Ap->initialMargins.Left = Mp->Margins.Left;
 	Ap->initialMargins.Right = Mp->Margins.Right;
 	//TODO make a return false if not possible to apply the master page
+	changed();
 	return true;
 }
 
@@ -3337,6 +3339,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		GroupCounter = GrMax + 1;
 	}
 	setUsesAutomaticTextFrames(autoText);
+	changed();
 }
 
 void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
@@ -4336,6 +4339,7 @@ void ScribusDoc::chTyStyle(int s)
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
+		changed();
 	}
 }
 
@@ -5214,7 +5218,7 @@ void ScribusDoc::itemSelection_ToggleLock( )
 		if (docSelectionCount > 1)
 			undoManager->commit();
 		changed();
-		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
+ 		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 	}
 }
 
@@ -5238,7 +5242,7 @@ void ScribusDoc::itemSelection_ToggleSizeLock( )
 		if (selectedItemCount > 1)
 			undoManager->commit();
 		changed();
-		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
+ 		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 	}
 }
 
