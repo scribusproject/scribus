@@ -15,6 +15,11 @@
 <p>Add the following lines to your <code>/etc/apt/sources.list :</code></p>
 <p> Debian stable</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<!--<pre>
+deb         http://debian.scribus.net/debian/ unstable/
+deb-src     http://debian.scribus.net/debian/ unstable/
+</pre>-->
+
 <pre>#Debian stable
 # debian.scribus.net - Primary repository
 deb         http://debian.scribus.net/debian/ stable main non-free contrib
@@ -80,15 +85,15 @@ deb-src     http://debian.tagancha.org/debian/ breezy main restricted</pre>
 </td></tr></table></blockquote>
 <p>Install the appropriate scribus package or both packages:</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<pre> aptitude install scribus scribus-cvs </pre>
+<pre> aptitude install scribus scribus-ng </pre>
 </td></tr></table></blockquote>
 <p>or</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<pre> apt-get install scribus scribus-cvs </pre>
+<pre> apt-get install scribus scribus-ng </pre>
 </td></tr></table></blockquote>
 <p>or use your favorite graphical apt-get front-end such as synaptic (Don't forget to "Reload Package List" in the synaptic. It's the equivalent of apt-get update and has to be done before new packages from these repositories will become available to your package management tools).</p>
 
-<p>"scribus" package is for 1.2.xcvs stable series whereas "scribus-cvs" package will let you try the new 1.3cvs series, which is pretty stable and much more featureful than 1.2. "scribus-cvs" package installs into /usr/local hierarchy and can be installed in parallel with the scribus package, so you can have both and even run them at the same time. However, please DO NOT file bug reports about the 1.3 scribus-cvs package or any packages in these upstream repositories into the Debian or Ubuntu BTS. Only use the distribution BTS for the package versions that are in that distribution. If you have a Scribus issue, which is not related to Debian packaging then it is much more preferable if you use scribus BTS for reporting bugs. Go to <a href="http://bugs.scribus.net/" name="http://bugs.scribus.net/">http://bugs.scribus.net/</a> and have fun.</p>
+<p>"scribus" package is for 1.2.xcvs stable series whereas "scribus-ng" package will let you try the new 1.3cvs series, which is pretty stable and much more featureful than 1.2. "scribus-ng" package can be installed in parallel with the scribus package, so you can have both and even run them at the same time.The binary to run for 1.3.x version is "scribus-ng", of course. However, please DO NOT file bug reports about the 1.3 scribus-ng package or any packages in these upstream repositories into the Debian or Ubuntu BTS. Only use the distribution BTS for the package versions that are in that distribution. If you have a Scribus issue, which is not related to Debian packaging then it is much more preferable if you use scribus BTS for reporting bugs. Go to <a href="http://bugs.scribus.net/" name="http://bugs.scribus.net/">http://bugs.scribus.net/</a> and have fun.</p>
 
 
 <h3> Other branches</h3>
@@ -102,7 +107,7 @@ deb-src     http://debian.tagancha.org/debian/ breezy main restricted</pre>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>apt-get install apt-build</pre>
 <pre>apt-build update</pre>
-<pre>apt-build install scribus (or scribus-cvs)</pre>
+<pre>apt-build install scribus (or scribus-ng)</pre>
 </td></tr></table></blockquote>
 <p>Answer questions about your CPU and stuff - see an excellent document at: <a href="http://julien.danjou.info/article-apt-build.html">http://julien.danjou.info/article-apt-build.html</a></p>
 
