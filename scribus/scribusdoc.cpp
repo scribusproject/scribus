@@ -5307,6 +5307,14 @@ void ScribusDoc::itemSelection_FlipH()
 				PageItem* currItem=m_Selection->itemAt(a);
 				currItem->getBoundingRect(&ix, &iy, &iw, &ih);
 				double dx =  ((gw / 2.0) -  ((ix - gx) + (iw - ix) / 2.0)) * 2.0;
+				if (currItem->rotation() != 0.0)
+				{
+					double ix2, iy2, iw2, ih2;
+					currItem->rotateBy(currItem->rotation() * -2.0);
+					currItem->setRedrawBounding();
+					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
+					currItem->moveBy(ix-ix2, iy-iy2, true);
+				}
 				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 					currItem->flipImageH();
 				else
@@ -5351,6 +5359,14 @@ void ScribusDoc::itemSelection_FlipV()
 				PageItem* currItem=m_Selection->itemAt(a);
 				currItem->getBoundingRect(&ix, &iy, &iw, &ih);
 				double dx =  ((gh / 2.0) -  ((iy - gy) + (ih - iy) / 2.0)) * 2.0;
+				if (currItem->rotation() != 0.0)
+				{
+					double ix2, iy2, iw2, ih2;
+					currItem->rotateBy(currItem->rotation() * -2.0);
+					currItem->setRedrawBounding();
+					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
+					currItem->moveBy(ix-ix2, iy-iy2, true);
+				}
 				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 					currItem->flipImageV();
 				else
