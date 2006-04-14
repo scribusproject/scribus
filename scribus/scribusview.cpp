@@ -271,6 +271,31 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 		if (!Doc->masterPageMode())
 		{
 			uint docPagesCount=Doc->Pages->count();
+/* following Code is experimental for a Preview Mode as suggested on the Bugtracker, needs Cairo for working */
+/*
+#ifdef HAVE_CAIRO
+			painter->newPath();
+			for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
+			{
+				double x = Doc->Pages->at(a)->xOffset() * Scale;
+				double y = Doc->Pages->at(a)->yOffset() * Scale;
+				double w = Doc->Pages->at(a)->width() * Scale;
+				double h = Doc->Pages->at(a)->height() * Scale;
+				QRect drawRect = QRect(qRound(x), qRound(y), qRound(w)+5,qRound(h)+5);
+				drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
+				if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
+				{
+					painter->moveTo( x, y );
+					painter->lineTo( x+w, y );
+					painter->lineTo( x+w, y+h );
+					painter->lineTo( x, y+h );
+					painter->lineTo( x, y );
+					painter->closePath();
+				}
+			}
+			painter->setClipPath();
+#endif
+*/
 			for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
 			{
 				int x = qRound(Doc->Pages->at(a)->xOffset() * Scale);
@@ -799,52 +824,40 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	//Draw the grid lines
 	if (Doc->guidesSettings.gridShown)
 	{
-		double stx = 0;
-		double endx = pageWidth;
-		double sty = 0;
-		double endy = pageHeight;
-		double lowerBx = clip.x() / Scale + Doc->minCanvasCoordinate.x() - page->xOffset();
-		double lowerBy = clip.y() / Scale + Doc->minCanvasCoordinate.y() - page->yOffset();
-		double highBx = lowerBx + clip.width() / Scale;
-		double highBy = lowerBy + clip.height() / Scale;
-/*		double stx = QMAX((clip.x() - page->Xoffset) / Scale, 0);
-		double endx = QMIN(stx + clip.width() / Scale, page->width());
-		double sty = QMAX((clip.y() - page->Yoffset) / Scale, 0);
-		double endy = QMIN(sty + clip.height() / Scale, page->height()); */
+		double lowerBx = QMAX(clip.x() / Scale + Doc->minCanvasCoordinate.x() - page->xOffset(), 0);
+		double lowerBy = QMAX(clip.y() / Scale + Doc->minCanvasCoordinate.y() - page->yOffset(), 0);
+		double highBx = QMIN(lowerBx + clip.width() / Scale, pageWidth);
+		double highBy = QMIN(lowerBy + clip.height() / Scale, pageHeight);
 		if (Scale > 0.49)
 		{
 			double i,start;
 			i = Doc->guidesSettings.majorGrid;
 			p->setPen(Doc->guidesSettings.majorColor, lineWidth, SolidLine, FlatCap, MiterJoin);
-			start=floor(sty/i);
+			start=floor(lowerBy/i);
 			start*=i;
-			for (double b = start; b <= endy; b+=i)
+			for (double b = start; b <= highBy; b+=i)
 			{
-				if ((b >= lowerBy) && (b <= highBy))
-					p->drawLine(FPoint(QMAX(lowerBx, 0), b), FPoint(QMIN(pageWidth, highBx), b));
+				p->drawLine(FPoint(QMAX(lowerBx, 0), b), FPoint(QMIN(pageWidth, highBx), b));
 			}
-			start=floor(stx/i);
+			start=floor(lowerBx/i);
 			start*=i;
-			for (double b = start; b <= endx; b+=i)
+			for (double b = start; b <= highBx; b+=i)
 			{
-				if ((b >= lowerBx) && (b <= highBx))
-					p->drawLine(FPoint(b, QMAX(lowerBy, 0)), FPoint(b, QMIN(pageHeight, highBy)));
+				p->drawLine(FPoint(b, QMAX(lowerBy, 0)), FPoint(b, QMIN(pageHeight, highBy)));
 			}
 			i = Doc->guidesSettings.minorGrid;
 			p->setPen(Doc->guidesSettings.minorColor, lineWidth, DotLine, FlatCap, MiterJoin);
-			start=floor(sty/i);
+			start=floor(lowerBy/i);
 			start*=i;
-			for (double b = start; b <= endy; b+=i)
+			for (double b = start; b <= highBy; b+=i)
 			{
-				if ((b >= lowerBy) && (b <= highBy))
-					p->drawLine(FPoint(QMAX(lowerBx, 0), b), FPoint(QMIN(pageWidth, highBx), b));
+				p->drawLine(FPoint(QMAX(lowerBx, 0), b), FPoint(QMIN(pageWidth, highBx), b));
 			}
-			start=floor(stx/i);
+			start=floor(lowerBx/i);
 			start*=i;
-			for (double b = start; b <= endx; b+=i)
+			for (double b = start; b <= highBx; b+=i)
 			{
-				if ((b >= lowerBx) && (b <= highBx))
-					p->drawLine(FPoint(b, QMAX(lowerBy, 0)), FPoint(b, QMIN(pageHeight, highBy)));
+				p->drawLine(FPoint(b, QMAX(lowerBy, 0)), FPoint(b, QMIN(pageHeight, highBy)));
 			}
 		}
 	}

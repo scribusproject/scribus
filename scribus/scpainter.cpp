@@ -446,6 +446,17 @@ void ScPainter::newPath()
 #endif
 }
 
+void ScPainter::closePath()
+{
+#ifdef HAVE_CAIRO
+	cairo_close_path( m_cr );
+#else
+	ensureSpace( m_index + 1 );
+	m_path[ m_index ].code = ART_END;
+	m_index++;
+#endif
+}
+
 void ScPainter::setFillRule( bool fillRule )
 {
 	m_fillRule = fillRule;
