@@ -197,6 +197,8 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 				int LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
 				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
 				{
+					 if (docItem->textFlowsAroundFrame())
+						result = result.subtract(itemShape(docItem, m_Doc->view(), 0, 0));
 					/*
 					 if (docItem->textFlowsAroundFrame())
 					 {
@@ -225,7 +227,6 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 						 }
 						 pp.end();
 						 */
-					result = result.subtract(itemShape(docItem, m_Doc->view(), 0, 0));
 					 }
 				} // for all docItems
 			} // if(OnMasterPage.isEmpty()		
