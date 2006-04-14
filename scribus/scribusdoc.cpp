@@ -5298,20 +5298,39 @@ void ScribusDoc::itemSelection_FlipH()
 	if (docSelectionCount != 0)
 	{
 		if (docSelectionCount > 1)
-			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
-										  Um::FlipH, 0, Um::IFlipH);
-		for (uint a = 0; a < docSelectionCount; ++a)
 		{
-			PageItem* currItem=m_Selection->itemAt(a);
-			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
-				currItem->flipImageH();
-			else
-				if (currItem->itemType() != PageItem::Line)
-					MirrorPolyH(currItem);
-			emit refreshItem(m_Selection->itemAt(a));
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::FlipH, 0, Um::IFlipH);
+			double gx, gy, gh, gw, ix, iy, iw, ih;
+			view()->getGroupRect(&gx, &gy, &gw, &gh);
+			for (uint a = 0; a < docSelectionCount; ++a)
+			{
+				PageItem* currItem=m_Selection->itemAt(a);
+				currItem->getBoundingRect(&ix, &iy, &iw, &ih);
+				double dx =  ((gw / 2.0) -  ((ix - gx) + (iw - ix) / 2.0)) * 2.0;
+				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+					currItem->flipImageH();
+				else
+					if (currItem->itemType() != PageItem::Line)
+						MirrorPolyH(currItem);
+				currItem->moveBy(dx, 0, true);
+				currItem->setRedrawBounding();
+				emit refreshItem(m_Selection->itemAt(a));
+				undoManager->commit();
+			}
 		}
-		if (docSelectionCount > 1)
-			undoManager->commit();
+		else
+		{
+			for (uint a = 0; a < docSelectionCount; ++a)
+			{
+				PageItem* currItem=m_Selection->itemAt(a);
+				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+					currItem->flipImageH();
+				else
+					if (currItem->itemType() != PageItem::Line)
+						MirrorPolyH(currItem);
+				emit refreshItem(m_Selection->itemAt(a));
+			}
+		}
 		changed();
 		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 	}
@@ -5323,20 +5342,39 @@ void ScribusDoc::itemSelection_FlipV()
 	if (docSelectionCount != 0)
 	{
 		if (docSelectionCount > 1)
-			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
-										  Um::FlipV, 0, Um::IFlipV);
-		for (uint a = 0; a < docSelectionCount; ++a)
 		{
-			PageItem* currItem=m_Selection->itemAt(a);
-			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
-				currItem->flipImageV();
-			else
-				if (currItem->itemType() != PageItem::Line)
-					MirrorPolyV(currItem);
-			emit refreshItem(m_Selection->itemAt(a));
-		}
-		if (docSelectionCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::FlipV, 0, Um::IFlipV);
+			double gx, gy, gh, gw, ix, iy, iw, ih;
+			view()->getGroupRect(&gx, &gy, &gw, &gh);
+			for (uint a = 0; a < docSelectionCount; ++a)
+			{
+				PageItem* currItem=m_Selection->itemAt(a);
+				currItem->getBoundingRect(&ix, &iy, &iw, &ih);
+				double dx =  ((gh / 2.0) -  ((iy - gy) + (ih - iy) / 2.0)) * 2.0;
+				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+					currItem->flipImageV();
+				else
+					if (currItem->itemType() != PageItem::Line)
+						MirrorPolyV(currItem);
+				currItem->moveBy(0, dx, true);
+				currItem->setRedrawBounding();
+				emit refreshItem(m_Selection->itemAt(a));
+			}
 			undoManager->commit();
+		}
+		else
+		{
+			for (uint a = 0; a < docSelectionCount; ++a)
+			{
+				PageItem* currItem=m_Selection->itemAt(a);
+				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+					currItem->flipImageV();
+				else
+					if (currItem->itemType() != PageItem::Line)
+						MirrorPolyV(currItem);
+				emit refreshItem(m_Selection->itemAt(a));
+			}
+		}
 		changed();
 		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 	}
