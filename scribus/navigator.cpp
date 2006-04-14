@@ -82,6 +82,7 @@ void Navigator::drawMark(int x, int y)
 {
 	QPainter p;
 	p.begin(this);
+	p.setBackgroundColor(QColor(255, 255, 255));
 	p.eraseRect(pmx.rect());
 	p.setClipRect(pmx.rect());
 	p.drawPixmap(0, 0, pmx);

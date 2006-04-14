@@ -136,6 +136,7 @@ int callGS(const QStringList& args_in, const QString device)
 	args += args_in;
 	args.append("-c");
 	args.append("showpage");
+//	qDebug(args.join(" "));
 	return System( args );
 }
 
@@ -337,10 +338,12 @@ QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h)
 	tmp.setNum(Page);
 	QStringList args;
 	args.append("-r72");
-	args.append("-sOutputFile=\""+tmpFile+"\"");
+//	args.append("-sOutputFile=\""+tmpFile+"\"");
+	args.append("-sOutputFile="+tmpFile);
 	args.append("-dFirstPage="+tmp);
 	args.append("-dLastPage="+tmp);
-	args.append("\""+pdfFile+"\"");
+//	args.append("\""+pdfFile+"\"");
+	args.append(pdfFile);
 	ret = callGS(args);
 	if (ret == 0)
 	{
