@@ -76,6 +76,7 @@ private:
 	void closeAndCleanup();
 
 	QString EncStream(const QString & in, int ObjNum);
+	QByteArray EncStreamArray(const QByteArray & in, int ObjNum);
 	QString EncString(const QString & in, int ObjNum);
 	void CalcOwnerKey(const QString & Owner, const QString & User);
 	void CalcUserKey(const QString & User, int Permission);

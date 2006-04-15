@@ -103,7 +103,11 @@ class SCRIBUS_API PSLib : public QObject
 		bool Art;
 	private:
 		void PutSeite(QString c);
+		void PutSeite(QByteArray& array, bool hexEnc);
+		void PutSeite(const char* array, int length, bool hexEnc);
 		void PutDoc(QString c);
+		void PutDoc(QByteArray& array, bool hexEnc);
+		void PutDoc(const char* in, int length, bool hexEnc);
 		QString ToStr(double c);
 		QString IToStr(int c);
 		QString PSEncode(QString in);

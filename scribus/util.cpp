@@ -348,12 +348,32 @@ bool loadRawText(const QString & filename, QCString & buf)
 	QFileInfo fi(f);
 	if (fi.exists())
 	{
-		bool ret;
 		QCString tempBuf(f.size() + 1);
 		if (f.open(IO_ReadOnly))
 		{
 			unsigned int bytesRead = f.readBlock(tempBuf.data(), f.size());
 			tempBuf[bytesRead] = '\0';
+			ret = bytesRead == f.size();
+			if (ret)
+				buf = tempBuf; // sharing makes this efficient
+		}
+	}
+	if (f.isOpen())
+		f.close();
+	return ret;
+}
+
+bool loadRawBytes(const QString & filename, QByteArray & buf)
+{
+	bool ret = false;
+	QFile f(filename);
+	QFileInfo fi(f);
+	if (fi.exists())
+	{
+		QByteArray tempBuf(f.size());
+		if (f.open(IO_ReadOnly))
+		{
+			unsigned int bytesRead = f.readBlock(tempBuf.data(), f.size());
 			ret = bytesRead == f.size();
 			if (ret)
 				buf = tempBuf; // sharing makes this efficient
@@ -435,7 +455,7 @@ QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs)
 	{
 		for (uint poi=0; poi<ina.size()-3; poi += 4)
 		{
-			if (ina.point(poi).x() > 900000)
+			if (ina.point(poi).x() > 900000 && cli.size() > 0)
 			{
 				outa.resize(outa.size()+1);
 				outa.setPoint(outa.size()-1, cli.point(cli.size()-1));
@@ -513,6 +533,28 @@ QString CompressStr(QString *in)
 	else {
 		for (uint cl = 0; cl < exlen; ++cl)
 			out += QChar(bc[cl]);
+	}
+#else
+	out = *in;
+#endif
+	return out;
+}
+
+QByteArray CompressArray(QByteArray *in)
+{
+	QByteArray out;
+#ifdef HAVE_LIBZ
+	uLong exlen = uint(in->size() * 0.001 + 16) + in->size();
+	QByteArray temp(exlen);
+	int errcode = compress2((Byte *)temp.data(), &exlen, (Byte *)in->data(), uLong(in->size()), 9);
+	if (errcode != Z_OK)
+	{
+		qDebug("compress2 failed with code %i", errcode);
+		out = *in;
+	}
+	else {
+		temp.resize(exlen);
+		out = temp;
 	}
 #else
 	out = *in;

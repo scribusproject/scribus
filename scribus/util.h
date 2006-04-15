@@ -54,6 +54,7 @@ QByteArray SCRIBUS_API ComputeMD5Sum(QByteArray *in);
 char SCRIBUS_API *toHex( uchar u );
 QString SCRIBUS_API String2Hex(QString *in, bool lang = true);
 QString SCRIBUS_API CompressStr(QString *in);
+QByteArray SCRIBUS_API CompressArray(QByteArray *in);
 void SCRIBUS_API Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level);
 //int Layer2Level(ScribusDoc *currentDoc, int LayerNr);
 void SCRIBUS_API BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
@@ -89,6 +90,7 @@ byte string is of unknown encoding; the caller must handle encoding issues.
 There is no need to preallocate the buffer, and the new data replaces any
 old contents. */
 bool SCRIBUS_API loadRawText(const QString & filename, QCString & buf);
+bool SCRIBUS_API loadRawBytes(const QString & filename, QByteArray & buf);
 QString SCRIBUS_API GetAttr(QDomElement *el, QString at, QString def="0");
 QImage SCRIBUS_API ProofImage(QImage *Im);
 /**

@@ -271,6 +271,35 @@ QString PDFlib::EncStream(const QString & in, int ObjNum)
 	return uk;
 }
 
+QByteArray PDFlib::EncStreamArray(const QByteArray & in, int ObjNum)
+{
+	if (in.size() < 1)
+		return QByteArray();
+	else if (!Options.Encrypt)
+		return in;
+	rc4_context_t rc4;
+	int dlen = 0;
+	QByteArray out(in.size());
+	QByteArray data(10);
+	if (KeyLen > 5)
+		data.resize(21);
+	for (int cd = 0; cd < KeyLen; ++cd)
+	{
+		data[cd] = EncryKey[cd];
+		dlen++;
+	}
+	data[dlen++] = ObjNum;
+	data[dlen++] = ObjNum >> 8;
+	data[dlen++] = ObjNum >> 16;
+	data[dlen++] = 0;
+	data[dlen++] = 0;
+	QByteArray step1(16);
+	step1 = ComputeMD5Sum(&data);
+	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), QMIN(KeyLen+5, 16));
+	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(in.data()), reinterpret_cast<uchar*>(out.data()), in.size());
+	return out;
+}
+
 QString PDFlib::EncString(const QString & in, int ObjNum)
 {
 	if (!Options.Encrypt)
@@ -1573,17 +1602,20 @@ void PDFlib::PDF_Begin_Page(const Page* pag, QPixmap pm)
 	if (Options.Thumbnails)
 	{
 		ScImage img = pm.convertToImage();
-		QString im = img.ImageToTxt();
+		QByteArray array = img.ImageToArray();
 		if ((Options.Compress) && (CompAvail))
-			im = CompressStr(&im);
+			array = CompressArray(&array);
 		StartObj(ObjCounter);
 		PutDoc("<<\n/Width "+QString::number(img.width())+"\n");
 		PutDoc("/Height "+QString::number(img.height())+"\n");
 		PutDoc("/ColorSpace /DeviceRGB\n/BitsPerComponent 8\n");
-		PutDoc("/Length "+QString::number(im.length()+1)+"\n");
+		
+		PutDoc("/Length "+QString::number(array.size()+1)+"\n");
 		if ((Options.Compress) && (CompAvail))
 			PutDoc("/Filter /FlateDecode\n");
-		PutDoc(">>\nstream\n"+EncStream(im, ObjCounter)+"\nendstream\nendobj\n");
+		PutDoc(">>\nstream\n");
+		PutDoc(EncStreamArray(array, ObjCounter));
+		PutDoc("\nendstream\nendobj\n");
 		Seite.Thumb = ObjCounter;
 		ObjCounter++;
 	}
@@ -4108,19 +4140,19 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 						if (!ite->Pfile2.isEmpty())
 						{
 							img.LoadPicture(ite->Pfile2, "", 0, false, false, 1, 72);
-							QString im = "";
+							QByteArray im;
 							im = img3.getAlpha(ite->Pfile2, true, false);
 							IconOb += !im.isEmpty() ? 3 : 2;
-							im = "";
+							im.resize(0);
 							PutDoc("/IX "+QString::number(ObjCounter+IconOb-1)+" 0 R ");
 						}
 						if (!ite->Pfile3.isEmpty())
 						{
 							img2.LoadPicture(ite->Pfile3, "", 0, false, false, 1, 72);
-							QString im = "";
+							QByteArray im;
 							im = img3.getAlpha(ite->Pfile3, true, false);
 							IconOb += !im.isEmpty() ? 3 : 2;
-							im = "";
+							im.resize(0);
 							PutDoc("/RI "+QString::number(ObjCounter+IconOb-1)+" 0 R ");
 						}
 						PutDoc("/TP "+QString::number(ite->annotation().IPlace())+" ");
@@ -4505,12 +4537,13 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
 	ScImage img;
-	QString im, tmp, tmpy, dummy, cmd1, cmd2, BBox;
+	QByteArray im;
+	QString tmp, tmpy, dummy, cmd1, cmd2, BBox;
 	QChar tc;
 	bool found = false;
 	bool alphaM = false;
 	bool realCMYK = false;
-	int afl;
+	int afl = 72;
 	double x2, ax, ay, a2, a1;
 	double sxn = 0;
 	double syn = 0;
@@ -4701,7 +4734,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				int components = 0;
 				StartObj(ObjCounter);
 				ObjCounter++;
-				QString dataP = "";
+				QByteArray dataP;
 				struct ICCD dataD;
 				if ((Embedded) && (!Options.EmbeddedI))
 				{
@@ -4710,12 +4743,12 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 					{
 						if (img.imgInfo.colorspace == 1)
 						{
-							loadText((Embedded ? ScMW->InputProfilesCMYK[Options.ImageProf] : ScMW->InputProfilesCMYK[Profil]), &dataP);
+							loadRawBytes((Embedded ? ScMW->InputProfilesCMYK[Options.ImageProf] : ScMW->InputProfilesCMYK[Profil]), dataP);
 							components = 4;
 						}
 						else
 						{
-							loadText((Embedded ? ScMW->InputProfiles[Options.ImageProf] : ScMW->InputProfiles[Profil]), &dataP);
+							loadRawBytes((Embedded ? ScMW->InputProfiles[Options.ImageProf] : ScMW->InputProfiles[Profil]), dataP);
 							components = 3;
 						}
 					}
@@ -4724,12 +4757,12 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				{
 					if (img.imgInfo.colorspace == 1)
 					{
-						loadText((Embedded ? ScMW->InputProfilesCMYK[Options.ImageProf] : ScMW->InputProfilesCMYK[Profil]), &dataP);
+						loadRawBytes((Embedded ? ScMW->InputProfilesCMYK[Options.ImageProf] : ScMW->InputProfilesCMYK[Profil]), dataP);
 						components = 4;
 					}
 					else
 					{
-						loadText((Embedded ? ScMW->InputProfiles[Options.ImageProf] : ScMW->InputProfiles[Profil]), &dataP);
+						loadRawBytes((Embedded ? ScMW->InputProfiles[Options.ImageProf] : ScMW->InputProfiles[Profil]), dataP);
 						components = 3;
 					}
 				}
@@ -4737,11 +4770,13 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				if ((Options.CompressMethod != 3) && (CompAvail))
 				{
 					PutDoc("/Filter /FlateDecode\n");
-					dataP = CompressStr(&dataP);
+					dataP = CompressArray(&dataP);
 				}
-				PutDoc("/Length "+QString::number(dataP.length()+1)+"\n");
+				PutDoc("/Length "+QString::number(dataP.size()+1)+"\n");
 				PutDoc("/N "+QString::number(components)+"\n");
-				PutDoc(">>\nstream\n"+EncStream(dataP, ObjCounter-1)+"\nendstream\nendobj\n");
+				PutDoc(">>\nstream\n");
+				PutDoc(EncStreamArray(dataP, ObjCounter-1));
+				PutDoc("\nendstream\nendobj\n");
 				StartObj(ObjCounter);
 				dataD.ResName = ResNam+QString::number(ResCount);
 				dataD.ICCArray = "[ /ICCBased "+QString::number(ObjCounter-1)+" 0 R ]";
@@ -4754,7 +4789,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			}
 		}
 #endif
-		QString im2 = "";
+		QByteArray im2;
 		ScImage img2;
 		if (Options.Version >= 14)
 			im2 = img2.getAlpha(fn, true, true, afl);
@@ -4788,30 +4823,32 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			if (Options.Version >= 14)
 			{
 				if ((Options.CompressMethod != 3) && (CompAvail))
-					im2 = CompressStr(&im2);
+					im2 = CompressArray(&im2);
 				PutDoc("/Width "+QString::number(origWidth)+"\n");
 				PutDoc("/Height "+QString::number(origHeight)+"\n");
 				PutDoc("/ColorSpace /DeviceGray\n");
 				PutDoc("/BitsPerComponent 8\n");
-				PutDoc("/Length "+QString::number(im2.length())+"\n");
+				PutDoc("/Length "+QString::number(im2.size())+"\n");
 			}
 			else
 			{
 				if ((Options.CompressMethod != 3) && (CompAvail))
-					im2 = CompressStr(&im2);
+					im2 = CompressArray(&im2);
 				PutDoc("/Width "+QString::number(origWidth)+"\n");
 				PutDoc("/Height "+QString::number(origHeight)+"\n");
 				PutDoc("/ImageMask true\n/BitsPerComponent 1\n");
-				PutDoc("/Length "+QString::number(im2.length())+"\n");
+				PutDoc("/Length "+QString::number(im2.size())+"\n");
 			}
 			if ((Options.CompressMethod != 3) && (CompAvail))
 				PutDoc("/Filter /FlateDecode\n");
-			PutDoc(">>\nstream\n"+EncStream(im2, ObjCounter-1)+"\nendstream\nendobj\n");
+			PutDoc(">>\nstream\n");
+			PutDoc(EncStreamArray(im2, ObjCounter-1));
+			PutDoc("\nendstream\nendobj\n");
 			Seite.ImgObjects[ResNam+QString::number(ResCount)] = ObjCounter-1;
 			ResCount++;
 		}
 		if (Options.UseRGB)
-			im = img.ImageToTxt();
+			im = img.ImageToArray();
 		else
 		{
 			if (Options.isGrayscale)
@@ -4820,7 +4857,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			{
 #ifdef HAVE_CMS
 				if ((CMSuse) && (Options.UseProfiles2) && (!realCMYK))
-					im = img.ImageToTxt();
+					im = img.ImageToArray();
 				else
 #endif
 				im = img.ImageToCMYK_PDF(true);
@@ -4829,7 +4866,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		StartObj(ObjCounter);
 		ObjCounter++;
 		if (((Options.CompressMethod == 2) || (Options.CompressMethod == 0)) && (CompAvail))
-			im = CompressStr(&im);
+			im = CompressArray(&im);
 		PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
 		PutDoc("/Width "+QString::number(img.width())+"\n");
 		PutDoc("/Height "+QString::number(img.height())+"\n");
@@ -4865,14 +4902,14 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		{
 			if (((Options.UseRGB || Options.UseProfiles2) && (cm == 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == 0)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (QMAX(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
 			{
-				im = "";
-				loadText(fn, &im);
+				im.resize(0);
+				loadRawBytes(fn, im);
 				cm = 1;
 			}
 			else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm== 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == 1) && (!((Options.RecalcPic) && (Options.PicRes < (QMAX(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))) && (!img.imgInfo.progressive))
 			{
-				im = "";
-				loadText(fn, &im);
+				im.resize(0);
+				loadRawBytes(fn, im);
 				cm = 1;
 				specialCMYK = true;
 			}
@@ -4893,8 +4930,8 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 							specialCMYK = true;
 						}
 					}
-					im = "";
-					loadText(tmpFile, &im);
+					im.resize(0);
+					loadRawBytes(tmpFile, im);
 					cm = 1;
 					QFile::remove(tmpFile);
 				}
@@ -4922,10 +4959,10 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				if (Options.CompressMethod == 0)
 				{
 					QFileInfo fi(tmpFile);
-					if (fi.size() < im.length())
+					if (fi.size() < im.size())
 					{
-						im = "";
-						loadText(tmpFile, &im);
+						im.resize(0);
+						loadRawBytes(tmpFile, im);
 						cm = 1;
 					}
 					else
@@ -4933,15 +4970,15 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				}
 				else
 				{
-					im = "";
-					loadText(tmpFile, &im);
+					im.resize(0);
+					loadRawBytes(tmpFile, im);
 					cm = 1;
 				}
 				QFile::remove(tmpFile);
 			}
 		}
 		PutDoc("/BitsPerComponent 8\n");
-		PutDoc("/Length "+QString::number(im.length())+"\n");
+		PutDoc("/Length "+QString::number(im.size())+"\n");
 		if (CompAvail)
 		{
 			if (cm == 1)
@@ -4958,7 +4995,9 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			else
 				PutDoc("/Mask "+QString::number(ObjCounter-2)+" 0 R\n");
 		}
-		PutDoc(">>\nstream\n"+EncStream(im, ObjCounter-1)+"\nendstream\nendobj\n");
+		PutDoc(">>\nstream\n");
+		PutDoc(EncStreamArray(im, ObjCounter-1));
+		PutDoc("\nendstream\nendobj\n");
 //		}
 		Seite.ImgObjects[ResNam+QString::number(ResCount)] = ObjCounter-1;
 		ImRes = ResCount;

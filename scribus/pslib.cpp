@@ -242,10 +242,94 @@ void PSLib::PutSeite(QString c)
 	t.writeRawBytes(c, c.length());
 }
 
+void PSLib::PutSeite(QByteArray& array, bool hexEnc)
+{
+	QTextStream t(&Spool);
+	if(hexEnc)
+	{
+		int length = 0;
+		for (int i = 0; i < array.size(); i++)
+		{
+			length++;
+			t << toHex(array[i]);
+			if ( length > 40 )
+			{
+				t << "\n";
+				length = 0;
+			}
+		}
+	}
+	else
+		t.writeRawBytes(array, array.size());
+}
+
+void PSLib::PutSeite(const char* array, int length, bool hexEnc)
+{
+	QTextStream t(&Spool);
+	if(hexEnc)
+	{
+		int len = 0;
+		for (int i = 0; i < length; i++)
+		{
+			len++;
+			t << toHex(array[i]);
+			if ( len > 40 )
+			{
+				t << "\n";
+				len = 0;
+			}
+		}
+	}
+	else
+		t.writeRawBytes(array, length);
+}
+
 void PSLib::PutDoc(QString c)
 {
 	QTextStream t(&Spool);
 	t.writeRawBytes(c, c.length());
+}
+
+void PSLib::PutDoc(QByteArray& array, bool hexEnc)
+{
+	QTextStream t(&Spool);
+	if(hexEnc)
+	{
+		int length = 0;
+		for (int i = 0; i < array.size(); i++)
+		{
+			length++;
+			t << toHex(array[i]);
+			if ( length > 40 )
+			{
+				t << "\n";
+				length = 0;
+			}
+		}
+	}
+	else
+		t.writeRawBytes(array, array.size());
+}
+
+void PSLib::PutDoc(const char* array, int length, bool hexEnc)
+{
+	QTextStream t(&Spool);
+	if(hexEnc)
+	{
+		int len = 0;
+		for (int i = 0; i < length; i++)
+		{
+			len++;
+			t << toHex(array[i]);
+			if ( len > 40 )
+			{
+				t << "\n";
+				len = 0;
+			}
+		}
+	}
+	else
+		t.writeRawBytes(array, length);
 }
 
 QString PSLib::ToStr(double c)
@@ -677,31 +761,32 @@ void PSLib::PS_showSub(uint chr, QString font, double size, bool stroke)
 void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf)
 {
 	bool dummy;
-	QString tmp;
+	QCString tmp;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
 	if (ext == "eps")
 	{
-		if (loadText(fn, &tmp))
+		if (loadRawText(fn, tmp))
 		{
 			PutSeite("currentfile 1 (%ENDEPSDATA) /SubFileDecode filter /ReusableStreamDecode filter\n");
 			PutSeite("%%BeginDocument: " + fi.fileName() + "\n");
-			if (getDouble(tmp.mid(0, 4), true) == 0xC5D0D3C6)
+			if (getDouble(QString(tmp.mid(0, 4)), true) == 0xC5D0D3C6)
 			{
-				uint startPos = getDouble(tmp.mid(4, 4), false);
-				uint length = getDouble(tmp.mid(8, 4), false);
-				PutSeite(tmp.mid(startPos, length)+"\n");
+				char* data = tmp.data();
+				uint startPos = getDouble(QString(tmp.mid(4, 4)), false);
+				uint length = getDouble(QString(tmp.mid(8, 4)), false);
+				PutSeite(data+startPos, length, false);
 			}
 			else
-				PutSeite(tmp+"\n");
-			PutSeite("%ENDEPSDATA\n");
+				PutSeite(tmp, false);
+			PutSeite("\n%ENDEPSDATA\n");
 			PutSeite("%%EndDocument\n");
 			PutSeite("/"+PSEncode(Name)+"Bild exch def\n");
 		}
 		return;
 	}
-  	QString ImgStr = "";
 	ScImage image;
+	QByteArray imgArray;
 	image.imgInfo.valid = false;
 	image.imgInfo.clipPath = "";
 	image.imgInfo.PDSpathData.clear();
@@ -710,32 +795,30 @@ void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 	image.LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, 0, 300, &dummy);
 	image.applyEffect(c->effectsInUse, colorsToUse, true);
-	ImgStr = image.ImageToCMYK_PS(-1, true);
+	imgArray = image.ImageToCMYK_PS(-1, true);
 	if (CompAvail)
 	{
 		PutSeite("currentfile /ASCIIHexDecode filter /FlateDecode filter /ReusableStreamDecode filter\n");
-		ImgStr = CompressStr(&ImgStr);
+		imgArray = CompressArray(&imgArray);
 	}
 	else
 		PutSeite("currentfile /ASCIIHexDecode filter /ReusableStreamDecode filter\n");
-	ImgStr = String2Hex(&ImgStr);
-	PutSeite(ImgStr);
+	PutSeite(imgArray, true);
 	PutSeite("\n>\n");
 	PutSeite("/"+PSEncode(Name)+"Bild exch def\n");
-	ImgStr = "";
-	QString iMask = "";
-	iMask = image.getAlpha(fn, false, false);
-	if (!iMask.isEmpty())
+	imgArray.resize(0);
+	QByteArray maskArray;
+	maskArray = image.getAlpha(fn, false, false);
+	if (maskArray.size() > 0)
 	{
 		if (CompAvail)
 		{
 			PutSeite("currentfile /ASCIIHexDecode filter /FlateDecode filter /ReusableStreamDecode filter\n");
-			iMask = CompressStr(&iMask);
+			maskArray = CompressArray(&maskArray);
 		}
 		else
 			PutSeite("currentfile /ASCIIHexDecode filter /ReusableStreamDecode filter\n");
-		iMask = String2Hex(&iMask);
-		PutSeite(iMask);
+		PutSeite(maskArray, true);
 		PutSeite("\n>\n");
 		PutSeite("/"+PSEncode(Name)+"Mask exch def\n");
 	}
@@ -744,12 +827,12 @@ void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name)
 {
 	bool dummy;
-	QString tmp;
+	QCString tmp;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
 	if (ext == "eps")
 	{
-		if (loadText(fn, &tmp))
+		if (loadRawText(fn, tmp))
 		{
 			PutSeite("bEPS\n");
 			PutSeite(ToStr(PrefsManager::instance()->appPrefs.gs_Resolution / 72.0 * scalex) + " " + ToStr(PrefsManager::instance()->appPrefs.gs_Resolution / 72.0 * scaley) + " sc\n");
@@ -762,23 +845,24 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			else
 			{
       				PutSeite("%%BeginDocument: " + fi.fileName() + "\n");
-					if (getDouble(tmp.mid(0, 4), true) == 0xC5D0D3C6)
+					if (getDouble(QString(tmp.mid(0, 4)), true) == 0xC5D0D3C6)
 					{
+						char* data = tmp.data();
 						uint startPos = getDouble(tmp.mid(4, 4), false);
 						uint length = getDouble(tmp.mid(8, 4), false);
-						PutSeite(tmp.mid(startPos, length)+"\n");
+						PutSeite(data+startPos, length, false);
 					}
 					else
-						PutSeite(tmp+"\n");
-					PutSeite("%%EndDocument\n");
+						PutSeite(tmp);
+					PutSeite("\n%%EndDocument\n");
 			}
 			PutSeite("eEPS\n");
 		}
 	}
 	else
 	{
-		QString ImgStr = "";
 		ScImage image;
+		QByteArray imgArray;
 		image.imgInfo.valid = false;
 		image.imgInfo.clipPath = "";
 		image.imgInfo.PDSpathData.clear();
@@ -797,38 +881,36 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
  		PutSeite(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
  		PutSeite(ToStr(scalex*w) + " " + ToStr(scaley*h) + " sc\n");
  		PutSeite(((!DoSep) && (!GraySc)) ? "/DeviceCMYK setcolorspace\n" : "/DeviceGray setcolorspace\n");
-		QString iMask = "";
+		QByteArray maskArray;
 		ScImage img2;
-		iMask = img2.getAlpha(fn, false, false);
- 		if (!iMask.isEmpty())
+		maskArray = img2.getAlpha(fn, false, false);
+ 		if (maskArray.size() > 0)
  		{
 			if (DoSep)
-				ImgStr = image.ImageToCMYK_PS(Plate, true);
+				imgArray = image.ImageToCMYK_PS(Plate, true);
 			else
-				ImgStr = GraySc ? image.ImageToCMYK_PS( -2, true) : image.ImageToCMYK_PS(-1, true);
+				imgArray = GraySc ? image.ImageToCMYK_PS( -2, true) : image.ImageToCMYK_PS(-1, true);
 			if (Name.isEmpty())
 			{
 				if (CompAvail)
 				{
 					PutSeite("currentfile /ASCIIHexDecode filter /FlateDecode filter /ReusableStreamDecode filter\n");
-					ImgStr = CompressStr(&ImgStr);
+					imgArray = CompressArray(&imgArray);
 				}
 				else
 					PutSeite("currentfile /ASCIIHexDecode filter /ReusableStreamDecode filter\n");
-				ImgStr = String2Hex(&ImgStr);
-				PutSeite(ImgStr);
-				ImgStr = "";
+				PutSeite(imgArray, true);
+				imgArray.resize(0);
 				PutSeite("\n>\n");
 				PutSeite("/Bild exch def\n");
 				if (CompAvail)
 				{
 					PutSeite("currentfile /ASCIIHexDecode filter /FlateDecode filter /ReusableStreamDecode filter\n");
-					iMask = CompressStr(&iMask);
+					maskArray = CompressArray(&maskArray);
 				}
 				else
 					PutSeite("currentfile /ASCIIHexDecode filter /ReusableStreamDecode filter\n");
-				iMask = String2Hex(&iMask);
-				PutSeite(iMask);
+				PutSeite(maskArray, true);
 				PutSeite("\n>\n");
 				PutSeite("/Mask exch def\n");
 			}
@@ -897,13 +979,12 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 							"   /DataSource currentfile /ASCIIHexDecode filter >>\n");
 				PutSeite("image\n");
 				if (DoSep)
-					ImgStr = image.ImageToCMYK_PS(Plate, true);
+					imgArray = image.ImageToCMYK_PS(Plate, true);
 				else
-					ImgStr = GraySc ? image.ImageToCMYK_PS(-2, true) : image.ImageToCMYK_PS(-1, true);
+					imgArray = GraySc ? image.ImageToCMYK_PS(-2, true) : image.ImageToCMYK_PS(-1, true);
 				if (CompAvail)
-					ImgStr = CompressStr(&ImgStr);
-				ImgStr = String2Hex(&ImgStr);
-				PutSeite(ImgStr);
+					imgArray = CompressArray(&imgArray);
+				PutSeite(imgArray, true);
 				PutSeite("\n>\n");
 			}
 		}

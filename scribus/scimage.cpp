@@ -851,14 +851,13 @@ void ScImage::Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
 	delete [] row_pointer[0];
 }
 
-QString ScImage::ImageToTxt()
+QByteArray ScImage::ImageToArray()
 {
 	int i = 0;
 	int h = height();
 	int w = width();
 	unsigned char u;
-	QString ImgStr = "";
-	ImgStr.reserve(3 * h * w);
+	QByteArray imgArray(3 * h * w);
 	for( int yi=0; yi < h; ++yi )
 	{
 		QRgb * s = (QRgb*)(scanLine( yi ));
@@ -866,23 +865,22 @@ QString ScImage::ImageToTxt()
 		{
 			QRgb r=*s++;
 			u=qRed(r);
-			ImgStr[i++] = u;
+			imgArray[i++] = u;
 			u=qGreen(r);
-			ImgStr[i++] = u;
+			imgArray[i++] = u;
 			u=qBlue(r);
-			ImgStr[i++] = u;
+			imgArray[i++] = u;
 		}
 	}
-	return ImgStr;
+	return imgArray;
 }
 
-QString ScImage::ImageToGray()
+QByteArray ScImage::ImageToGray()
 {
 	int i = 0;
 	int h = height();
 	int w = width();
-	QString ImgStr = "";
-	ImgStr.reserve( h * w);
+	QByteArray imgArray(h * w);
 	for( int yi=0; yi < h; ++yi )
 	{
 		QRgb * s = (QRgb*)(scanLine( yi ));
@@ -891,20 +889,19 @@ QString ScImage::ImageToGray()
 			QRgb r=*s;
 			int k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
 			*s = qRgba(k, 0, 0, 0);
-			ImgStr[i++] = k;
+			imgArray[i++] = k;
 			s++;
 		}
 	}
-	return ImgStr;
+	return imgArray;
 }
 
-QString ScImage::ImageToCMYK_PDF(bool pre)
+QByteArray ScImage::ImageToCMYK_PDF(bool pre)
 {
 	int i = 0;
 	int h = height();
 	int w = width();
-	QString ImgStr = "";
-	ImgStr.reserve( 4 * h * w );
+	QByteArray imgArray( 4 * h * w );
 	if (pre)
 	{
 		for( int yi=0; yi < h; ++yi )
@@ -917,11 +914,10 @@ QString ScImage::ImageToCMYK_PDF(bool pre)
 				int m = qGreen(r);
 				int y = qBlue(r);
 				int k = qAlpha(r);
-				/*				*s = qRgba(m, y, k, c); */
-				ImgStr[i++] = static_cast<unsigned char> (c);
-				ImgStr[i++] = static_cast<unsigned char> (m);
-				ImgStr[i++] = static_cast<unsigned char> (y);
-				ImgStr[i++] = static_cast<unsigned char> (k);
+				imgArray[i++] = static_cast<unsigned char> (c);
+				imgArray[i++] = static_cast<unsigned char> (m);
+				imgArray[i++] = static_cast<unsigned char> (y);
+				imgArray[i++] = static_cast<unsigned char> (k);
 				s++;
 			}
 		}
@@ -938,29 +934,27 @@ QString ScImage::ImageToCMYK_PDF(bool pre)
 				int m = 255 - qGreen(r);
 				int y = 255 - qBlue(r);
 				int k = QMIN(QMIN(c, m), y);
-				//				*s = qRgba(m, y, k, c);
-//				*s = qRgba(c, m, y, k);
-				ImgStr[i++] = static_cast<unsigned char> (c - k);
-				ImgStr[i++] = static_cast<unsigned char> (m - k);
-				ImgStr[i++] = static_cast<unsigned char> (y - k);
-				ImgStr[i++] = static_cast<unsigned char> (k);
+				imgArray[i++] = static_cast<unsigned char> (c - k);
+				imgArray[i++] = static_cast<unsigned char> (m - k);
+				imgArray[i++] = static_cast<unsigned char> (y - k);
+				imgArray[i++] = static_cast<unsigned char> (k);
 				s++;
 			}
 		}
 	}
-	return ImgStr;
+	return imgArray;
 }
 
-QString ScImage::ImageToCMYK_PS(int pl, bool pre)
+QByteArray ScImage::ImageToCMYK_PS(int pl, bool pre)
 {
 	int i = 0;
 	int h = height();
 	int w = width();
-	QString ImgStr = "";
+	QByteArray imgArray;
 	if(pl == -1)
-		ImgStr.reserve(4 * h * w);
+		imgArray.resize(4 * h * w);
 	else
-		ImgStr.reserve(h * w);
+		imgArray.resize(h * w);
 	if (pre)
 	{
 		for( int yi=0; yi < h; ++yi )
@@ -975,23 +969,23 @@ QString ScImage::ImageToCMYK_PS(int pl, bool pre)
 				int k = qAlpha(r);
 				if (pl == -1)
 				{
-					ImgStr[i++] = static_cast<unsigned char> (c);
-					ImgStr[i++] = static_cast<unsigned char> (m);
-					ImgStr[i++] = static_cast<unsigned char> (y);
-					ImgStr[i++] = static_cast<unsigned char> (k);
+					imgArray[i++] = static_cast<unsigned char> (c);
+					imgArray[i++] = static_cast<unsigned char> (m);
+					imgArray[i++] = static_cast<unsigned char> (y);
+					imgArray[i++] = static_cast<unsigned char> (k);
 				}
 				else
 				{
 					if (pl == -2)
-						ImgStr[i++] = static_cast<unsigned char> (QMIN(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
+						imgArray[i++] = static_cast<unsigned char> (QMIN(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
 					if (pl == 1)
-						ImgStr[i++] = static_cast<unsigned char> (c);
+						imgArray[i++] = static_cast<unsigned char> (c);
 					if (pl == 2)
-						ImgStr[i++] = static_cast<unsigned char> (m);
+						imgArray[i++] = static_cast<unsigned char> (m);
 					if (pl == 3)
-						ImgStr[i++] = static_cast<unsigned char> (y);
+						imgArray[i++] = static_cast<unsigned char> (y);
 					if (pl == 0)
-						ImgStr[i++] = static_cast<unsigned char> (k);
+						imgArray[i++] = static_cast<unsigned char> (k);
 				}
 			}
 		}
@@ -1010,28 +1004,28 @@ QString ScImage::ImageToCMYK_PS(int pl, bool pre)
 				int k = QMIN(QMIN(c, m), y);
 				if (pl == -1)
 				{
-					ImgStr[i++] = static_cast<unsigned char> (c - k);
-					ImgStr[i++] = static_cast<unsigned char> (m - k);
-					ImgStr[i++] = static_cast<unsigned char> (y - k);
-					ImgStr[i++] = static_cast<unsigned char> (k);
+					imgArray[i++] = static_cast<unsigned char> (c - k);
+					imgArray[i++] = static_cast<unsigned char> (m - k);
+					imgArray[i++] = static_cast<unsigned char> (y - k);
+					imgArray[i++] = static_cast<unsigned char> (k);
 				}
 				else
 				{
 					if (pl == -2)
-						ImgStr[i++] = static_cast<unsigned char> (QMIN(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
+						imgArray[i++] = static_cast<unsigned char> (QMIN(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
 					if (pl == 1)
-						ImgStr[i++] = static_cast<unsigned char> (c - k);
+						imgArray[i++] = static_cast<unsigned char> (c - k);
 					if (pl == 2)
-						ImgStr[i++] = static_cast<unsigned char> (m - k);
+						imgArray[i++] = static_cast<unsigned char> (m - k);
 					if (pl == 3)
-						ImgStr[i++] = static_cast<unsigned char> (y - k);
+						imgArray[i++] = static_cast<unsigned char> (y - k);
 					if (pl == 0)
-						ImgStr[i++] = static_cast<unsigned char> (k);
+						imgArray[i++] = static_cast<unsigned char> (k);
 				}
 			}
 		}
 	}
-	return ImgStr;
+	return imgArray;
 }
 
 // Check that the header is a valid PSD.
@@ -2841,9 +2835,9 @@ void ScImage::scaleImage(int nwidth, int nheight)
 	return;
 }
 
-QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
+QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 {
-	QString retS = "";
+	QByteArray retArray;
 	float xres, yres;
 	short resolutionunit = 0;
 	imgInfo.valid = false;
@@ -2852,13 +2846,13 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 	imgInfo.layerInfo.clear();
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
-		return retS;
+		return retArray;
 	QString tmp, BBox, tmp2;
 	QString ext = fi.extension(false).lower();
 	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
 	QString picFile = QDir::convertSeparators(fn);
 	if ((ext == "jpg") || (ext == "jpeg"))
-		return retS;
+		return retArray;
 	double x, y, b, h;
 	bool found = false;
 	int retg = -1;
@@ -2992,7 +2986,7 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 			if (photometric == PHOTOMETRIC_SEPARATED)
 			{
 				TIFFClose(tif);
-				return retS;
+				return retArray;
 			}
 			else
 			{
@@ -3029,18 +3023,18 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 			s >> header;
 			// Check image file format.
 			if( s.atEnd() || !IsValid( header ) )
-				return retS;
+				return retArray;
 			// Check if it's a supported format.
 			if( !IsSupported( header ) )
-				return retS;
+				return retArray;
 			if (header.color_mode == CM_CMYK)
-				return retS;
+				return retArray;
 			if( !LoadPSD(s, header) )
-				return retS;
+				return retArray;
 			f.close();
 		}
 		else
-			return retS;
+			return retArray;
 	}
 	else
 	{
@@ -3050,13 +3044,13 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
  			 if (hasAlphaBuffer())
 				setAlphaBuffer(true);
 			else
-				return retS;
+				return retArray;
 		}
 		else
-			return retS;
+			return retArray;
 	}
 	if (isNull())
-		return retS;
+		return retArray;
 	int i = 0;
 	unsigned char u;
 	int hm = height();
@@ -3064,7 +3058,7 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 	int w2;
 	if (pdf14)
 	{
-		retS.reserve(hm * wm);
+		retArray.resize(hm * wm);
 		for( int yi=0; yi < hm; ++yi )
 		{
 			QRgb * s = (QRgb*)(scanLine( yi ));
@@ -3072,7 +3066,7 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 			{
 				QRgb r=*s++;
 				u=qAlpha(r);
-				retS[i++] = u;
+				retArray[i++] = u;
 			}
 		}
 	}
@@ -3084,7 +3078,7 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 		w2 = wm / 8;
 		if ((wm % 8) != 0)
 			w2++;
-		retS.reserve(hm * w2);
+		retArray.resize(hm * w2);
 		for( int yi=0; yi < hm; ++yi )
 		{
 			uchar * s = iMask.scanLine( yi );
@@ -3092,11 +3086,11 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 			{
 				u = *(s+xi);
 				if(PDF) u = ~u;
-				retS[i++] = u;
+				retArray[i++] = u;
 			}
 		}
 	}
-	return retS;
+	return retArray;
 }
 
 #define ICC_MARKER  (JPEG_APP0 + 2)	/* JPEG marker code for ICC */
@@ -3360,6 +3354,134 @@ void ScImage::getEmbeddedProfile(const QString & fn, QString *profile, int *comp
 					*components = 4;
 				for (uint el = 0; el < EmbedLen; ++el)
 					*profile += EmbedBuffer[el];
+			}
+			cmsCloseProfile(tiffProf);
+			free(EmbedBuffer);
+		}
+		(void) jpeg_finish_decompress(&cinfo);
+		fclose (infile);
+		jpeg_destroy_decompress (&cinfo);
+	}
+	else
+		return;
+#endif // HAVE_CMS
+}
+
+void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *components)
+{
+	Q_ASSERT(profile);
+	Q_ASSERT(components);
+#ifdef HAVE_CMS
+	cmsHPROFILE tiffProf = 0;
+	QFileInfo fi = QFileInfo(fn);
+	if (!fi.exists())
+		return;
+	QString ext = fi.extension(false).lower();
+	iccbuf = 0;
+	icclen = 0;
+	if (ext == "psd")
+	{
+		QFile f(fn);
+		if (f.open(IO_ReadOnly))
+		{
+			imgInfo.xres = 72;
+			imgInfo.yres = 72;
+			QDataStream s( &f );
+			s.setByteOrder( QDataStream::BigEndian );
+			PSDHeader header;
+			s >> header;
+			// Check image file format.
+			if( s.atEnd() || !IsValid( header ) )
+				return;
+			// Check if it's a supported format.
+			if( !IsSupported( header ) )
+				return;
+			if( !LoadPSD(s, header) )
+				return;
+			if (icclen > 0)
+			{
+				tiffProf = cmsOpenProfileFromMem(iccbuf, icclen);
+				if (tiffProf)
+				{
+					if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigRgbData)
+						*components = 3;
+					if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigCmykData)
+						*components = 4;
+					profile->resize(icclen);
+					for (uint el = 0; el < icclen; ++el)
+						(*profile)[el] = iccbuf[el];
+				}
+				cmsCloseProfile(tiffProf);
+				free(iccbuf);
+			}
+			f.close();
+		}
+		else
+			return;
+	}
+#ifdef HAVE_TIFF
+	else if ((ext == "tif") || (ext == "tiff"))
+	{
+		TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
+		if(tif)
+		{
+			DWORD EmbedLen = 0;
+			LPBYTE EmbedBuffer;
+			if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
+			{
+				tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
+				if (tiffProf)
+				{
+					if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigRgbData)
+						*components = 3;
+					if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigCmykData)
+						*components = 4;
+					profile->resize(EmbedLen);
+					for (uint el = 0; el < EmbedLen; ++el)
+						(*profile)[el] = EmbedBuffer[el];
+				}
+				cmsCloseProfile(tiffProf);
+			}
+			TIFFClose(tif);
+		}
+	}
+#endif // HAVE_TIFF
+	else if ((ext == "jpg") || (ext == "jpeg"))
+	{
+		struct jpeg_decompress_struct cinfo;
+		struct my_error_mgr         jerr;
+		FILE     *infile;
+		cinfo.err = jpeg_std_error (&jerr.pub);
+		jerr.pub.error_exit = my_error_exit;
+		infile = NULL;
+		if (setjmp (jerr.setjmp_buffer))
+		{
+			jpeg_destroy_decompress (&cinfo);
+			if (infile)
+				fclose (infile);
+			return;
+		}
+		jpeg_create_decompress (&cinfo);
+		if ((infile = fopen (fn.local8Bit(), "rb")) == NULL)
+			return;
+		jpeg_stdio_src(&cinfo, infile);
+		jpeg_save_markers(&cinfo, ICC_MARKER, 0xFFFF);
+		jpeg_read_header(&cinfo, true);
+		jpeg_start_decompress(&cinfo);
+		unsigned int EmbedLen = 0;
+		unsigned char* EmbedBuffer;
+		if (read_jpeg_marker(ICC_MARKER,&cinfo, &EmbedBuffer, &EmbedLen))
+		{
+			tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
+			if (tiffProf)
+			{
+				if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigRgbData)
+					*components = 3;
+				if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigCmykData)
+					*components = 4;
+				profile->resize(EmbedLen);
+				for (uint el = 0; el < EmbedLen; ++el)
+					(*profile)[el] = EmbedBuffer[el];
 			}
 			cmsCloseProfile(tiffProf);
 			free(EmbedBuffer);

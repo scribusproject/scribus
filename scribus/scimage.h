@@ -85,11 +85,11 @@ public:
 	void initialize();
 
 	// Routines for PDF/PS output of images
-	QString ImageToTxt();
-	QString ImageToGray();
-	QString ImageToCMYK_PS(int pl, bool pre);
-	QString ImageToCMYK_PDF(bool pre);
-	QString getAlpha(QString fn, bool PDF, bool pdf14, int gsRes = 72);
+	QByteArray ImageToArray();
+	QByteArray ImageToGray();
+	QByteArray ImageToCMYK_PS(int pl, bool pre);
+	QByteArray ImageToCMYK_PDF(bool pre);
+	QByteArray getAlpha(QString fn, bool PDF, bool pdf14, int gsRes = 72);
 	void Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 
 	// Image effects
@@ -104,6 +104,10 @@ public:
 	// Retrieve an embedded ICC profile from the file path `fn', storing it in `profile'.
 	// TODO: Bad API. Should probably be static member returning an ICCProfile (custom class) or something like that.
 	void getEmbeddedProfile(const QString & fn, QString *profile, int *components);
+
+	// Retrieve an embedded ICC profile from the file path `fn', storing it in `profile'.
+	// TODO: Bad API. Should probably be static member returning an ICCProfile (custom class) or something like that.
+	void getEmbeddedProfile(const QString & fn, QByteArray *profile, int *components);
 
 	// Load an image into this ScImage instance
 	// TODO: document params, split into smaller functions
