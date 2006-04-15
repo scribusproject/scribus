@@ -146,6 +146,8 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	reportDisplay->setSorting(-1);
 	checkDocumentLayout->addWidget( reportDisplay );
 	layout2 = new QHBoxLayout( 0, 0, 5, "layou2");
+	reScan = new QPushButton(this, "reScan" );
+	layout2->addWidget( reScan );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout2->addItem( spacer );
 	ignoreErrors = new QPushButton(this, "ignoreErrors" );
@@ -158,10 +160,11 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	pageMap.clear();
 	masterPageMap.clear();
 	masterPageItemMap.clear();
-	resize( QSize(306, 259).expandedTo(minimumSizeHint()) );
+	resize( QSize(320, 260).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
 	connect(ignoreErrors, SIGNAL(clicked()), this, SIGNAL(ignoreAllErrors()));
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
+	connect(reScan, SIGNAL(clicked()), this, SLOT(doReScan()));
 }
 /*
 void CheckDocument::closeEvent(QCloseEvent *ce)
@@ -201,6 +204,14 @@ void CheckDocument::slotSelect(QListViewItem* ite)
 		emit selectElement(-1, masterPageItemMap[ite]);
 		return;
 	}
+}
+
+void CheckDocument::doReScan()
+{
+	clearErrorList();
+	document->curCheckProfile = curCheckProfile->currentText();;
+	DocumentChecker::checkDocument(document);
+	buildErrorList(document);
 }
 
 void CheckDocument::newScan(const QString& name)
@@ -243,11 +254,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	QString textOverflow = tr("Text overflow");
 	QString notOnPage = tr("Object is not on a Page");
 	QString missingImg = tr("Missing Image");
-	QString lowDPI = tr("Image has a DPI-Value less than %1 DPI").arg(qRound(doc->checkerProfiles[doc->curCheckProfile].minResolution));
+	QString lowDPI = tr("Image resolution below %1 DPI, currently %2 x %3 DPI");
 	QString transpar = tr("Object has transparency");
 	QString annot = tr("Object is a PDF Annotation or Field");
 	QString rasterPDF = tr("Object is a placed PDF");
-
+	int minRes = qRound(doc->checkerProfiles[doc->curCheckProfile].minResolution);
+	int xres, yres;
 	QListViewItem * item = new QListViewItem( reportDisplay, 0 );
 	item->setText( 0, tr( "Document" ) );
 	if ((doc->docItemErrors.count() == 0) && (doc->masterItemErrors.count() == 0))
@@ -304,7 +316,9 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							itemError = true;
 							break;
 						case ImageDPITooLow:
-							object->setText(1, lowDPI);
+							xres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageXScale());
+							yres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageYScale());
+							object->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
 							break;
 						case Transparency:
 							object->setText(1, transpar);
@@ -350,7 +364,9 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								itemError = true;
 								break;
 							case ImageDPITooLow:
-								errorText->setText(1, lowDPI);
+								xres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageXScale());
+								yres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageYScale());
+								errorText->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
 								errorText->setPixmap( 0, onlyWarning );
 								break;
 							case Transparency:
@@ -433,7 +449,9 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							itemError = true;
 							break;
 						case ImageDPITooLow:
-							object->setText(1, lowDPI);
+							xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
+							yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
+							object->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
 							break;
 						case Transparency:
 							object->setText(1, transpar);
@@ -479,7 +497,9 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								itemError = true;
 								break;
 							case 5:
-								errorText->setText(1, lowDPI);
+								xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
+								yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
+								errorText->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
 								errorText->setPixmap( 0, onlyWarning );
 								break;
 							case 6:
@@ -566,7 +586,9 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							pageGraveError = true;
 							break;
 						case 5:
-							object->setText(1, lowDPI);
+							xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
+							yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
+							object->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
 							break;
 						case 6:
 							object->setText(1, transpar);
@@ -609,7 +631,9 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								pageGraveError = true;
 								break;
 							case 5:
-								errorText->setText(1, lowDPI);
+								xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
+								yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
+								errorText->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
 								errorText->setPixmap( 0, onlyWarning );
 								break;
 							case 6:
@@ -670,7 +694,8 @@ void CheckDocument::languageChange()
 	reportDisplay->header()->setLabel( 1, tr( "Problems" ) );
 
 	textLabel1->setText( tr("Current Profile:"));
-	ignoreErrors->setText(tr("&Ignore Errors"));
+	ignoreErrors->setText( tr("&Ignore Errors"));
+	reScan->setText( tr("Check again"));
 }
 
 void CheckDocument::setIgnoreEnabled(bool state)

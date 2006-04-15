@@ -220,6 +220,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) :
 	Doc->DragP = false;
 	Doc->leaveDrag = false;
 	Doc->SubMode = -1;
+	storedFramesShown = Doc->guidesSettings.framesShown;
 	viewAsPreview = false;
 	previewButton->setOn(viewAsPreview);
 	previewButton->setPixmap(loadIcon("vpl.png"));
@@ -254,6 +255,13 @@ void ScribusView::togglePreview()
 {
 	viewAsPreview = !viewAsPreview;
 	previewButton->setOn(viewAsPreview);
+	if (viewAsPreview)
+	{
+		storedFramesShown = Doc->guidesSettings.framesShown;
+		Doc->guidesSettings.framesShown = false;
+	}
+	else
+		Doc->guidesSettings.framesShown = storedFramesShown;
 	updateContents();
 }
 

@@ -142,6 +142,7 @@ public:
 	bool MoveSym;
 	bool previewMode;
 	bool viewAsPreview;
+	bool storedFramesShown;
 	FPoint RCenter;
 	FPointArray RecordP;
 	void DrawMasterItems(ScPainter *painter, Page *page, QRect clip);

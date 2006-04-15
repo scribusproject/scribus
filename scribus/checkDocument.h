@@ -61,6 +61,8 @@ public slots:
 	/*! \brief Called when is selected a new item in error list.
 	\param ite and item */
 	void slotSelect(QListViewItem* ite);
+	/*!\brief Do a manual rechecking. */
+	void doReScan();
 	/*! \brief Process error checking itself.
 	\param name a QString with P.V. profile name */
 	void newScan(const QString& name);
@@ -112,6 +114,7 @@ private:
 	QLabel* textLabel1;
 	QListView* reportDisplay;
 	QPushButton* ignoreErrors;
+	QPushButton* reScan;
 };
 
 #endif // CHECKDOCUMENT_H
