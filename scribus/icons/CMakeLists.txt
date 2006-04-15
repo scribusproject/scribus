@@ -298,6 +298,7 @@ Winkel.xpm
 wizard.png
 wordsOnly.png
 Zeichen.xpm
+vpl.png
   DESTINATION ${ICONDIR}
 )
 

@@ -79,10 +79,12 @@ public:
 	QToolButton *zoomDefaultToolbarButton;
 	QToolButton *zoomOutToolbarButton;
 	QToolButton *zoomInToolbarButton;
+	QToolButton *previewButton;
 #else
 	QPushButton *zoomDefaultToolbarButton;
 	QPushButton *zoomOutToolbarButton;
 	QPushButton *zoomInToolbarButton;
+	QPushButton *previewButton;
 #endif
 	QComboBox *layerMenu; //Menu for layers at bottom of view
 	QComboBox *unitSwitcher; //Menu for units at bottom of view
@@ -139,6 +141,7 @@ public:
 	bool Magnify;
 	bool MoveSym;
 	bool previewMode;
+	bool viewAsPreview;
 	FPoint RCenter;
 	FPointArray RecordP;
 	void DrawMasterItems(ScPainter *painter, Page *page, QRect clip);
@@ -247,6 +250,7 @@ public:
 
 public slots: // Public slots
 	void languageChange();
+	void togglePreview();
 	void unitChange();
 	void setRulersShown(bool isShown);
 	void slotUpdateContents();
