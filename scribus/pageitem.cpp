@@ -1787,7 +1787,7 @@ void PageItem::toggleSizeLock()
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss;
-		if (m_Locked)
+		if (m_SizeLocked)
 			ss = new SimpleState(Um::SizeUnLock, 0, Um::IUnLock);
 		else
 			ss = new SimpleState(Um::SizeLock, 0, Um::ILock);

@@ -2685,10 +2685,10 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
-		if (Nr != 5)
+//		if (Nr != 5)
 			scrActions["toolsRotate"]->setEnabled(true);
-		else
-			scrActions["toolsRotate"]->setEnabled(false);
+//		else
+//			scrActions["toolsRotate"]->setEnabled(false);
 		scrActions["toolsCopyProperties"]->setEnabled(true);
 		break;
 	}

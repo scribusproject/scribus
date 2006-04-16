@@ -5089,30 +5089,33 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					Transform(currItem, &p);
 					Doc->RotMode = 2;
 					RCenter = FPoint(currItem->xPos()+currItem->width()/2, currItem->yPos()+currItem->height()/2, 0, 0, currItem->rotation(), 1, 1, true);
-					if (QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo))
-					{
-						if (p.xForm(QRect(static_cast<int>(currItem->width())-6, static_cast<int>(currItem->height())-6, 6, 6)).intersects(mpo))
+//					if (!currItem->asLine())
+//					{
+						if (QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo))
 						{
-							RCenter = FPoint(currItem->xPos(), currItem->yPos());
-							Doc->RotMode = 0;
+							if (p.xForm(QRect(0, 0, 6, 6)).intersects(mpo))
+							{
+								RCenter = FPoint(currItem->xPos()+currItem->width(), currItem->yPos()+currItem->height(), 0, 0, currItem->rotation(), 1, 1, true);
+								Doc->RotMode = 4;
+							}
+							else if (p.xForm(QRect(static_cast<int>(currItem->width())-6, 0, 6, 6)).intersects(mpo))
+							{
+								RCenter = FPoint(currItem->xPos(), currItem->yPos()+currItem->height(), 0, 0, currItem->rotation(), 1, 1, true);
+								Doc->RotMode = 3;
+							}
+							else if (p.xForm(QRect(static_cast<int>(currItem->width())-6, static_cast<int>(currItem->height())-6, 6, 6)).intersects(mpo))
+							{
+								RCenter = FPoint(currItem->xPos(), currItem->yPos());
+								Doc->RotMode = 0;
+							}
+							else if (p.xForm(QRect(0, static_cast<int>(currItem->height())-6, 6, 6)).intersects(mpo))
+							{
+								RCenter = FPoint(currItem->xPos()+currItem->width(), currItem->yPos(), 0, 0, currItem->rotation(), 1, 1, true);
+								Doc->RotMode = 1;
+							}
 						}
-						if (p.xForm(QRect(0, 0, 6, 6)).intersects(mpo))
-						{
-							RCenter = FPoint(currItem->xPos()+currItem->width(), currItem->yPos()+currItem->height(), 0, 0, currItem->rotation(), 1, 1, true);
-							Doc->RotMode = 4;
-						}
-						if (p.xForm(QRect(0, static_cast<int>(currItem->height())-6, 6, 6)).intersects(mpo))
-						{
-							RCenter = FPoint(currItem->xPos()+currItem->width(), currItem->yPos(), 0, 0, currItem->rotation(), 1, 1, true);
-							Doc->RotMode = 1;
-						}
-						if (p.xForm(QRect(static_cast<int>(currItem->width())-6, 0, 6, 6)).intersects(mpo))
-						{
-							RCenter = FPoint(currItem->xPos(), currItem->yPos()+currItem->height(), 0, 0, currItem->rotation(), 1, 1, true);
-							Doc->RotMode = 3;
-						}
-						oldW = xy2Deg(m->x()/Scale - RCenter.x(), m->y()/Scale - RCenter.y());
-					}
+//					}
+					oldW = xy2Deg(m->x()/Scale - RCenter.x(), m->y()/Scale - RCenter.y());
 					p.end();
 				}
 			}
@@ -6965,7 +6968,7 @@ void ScribusView::RotateItem(double win, PageItem *currItem)
 	if (currItem->locked())
 		return;
 	QRect oldR(currItem->getRedrawBounding(Scale));
-	if ((Doc->RotMode != 0) && !(currItem->asLine()))
+	if ((Doc->RotMode != 0) && (m_MouseButtonPressed))
 	{
 		QWMatrix ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
