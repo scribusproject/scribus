@@ -1446,8 +1446,10 @@ void Mpalette::NewSel(int nr)
 		FlipH->setToggleButton((nr>=0) && (nr<5));
 		FlipV->setToggleButton((nr>=0) && (nr<5));
 		//CB Why cant we do this for lines?
-		FlipH->setEnabled((nr!=-1) && (nr!=5));
-		FlipV->setEnabled((nr!=-1) && (nr!=5));
+//		FlipH->setEnabled((nr!=-1) && (nr!=5));
+//		FlipV->setEnabled((nr!=-1) && (nr!=5));
+		FlipH->setEnabled(nr!=-1);
+		FlipV->setEnabled(nr!=-1);
 		switch (nr)
 		{
 		case -1:

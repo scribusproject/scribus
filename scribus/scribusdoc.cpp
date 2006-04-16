@@ -5314,15 +5314,14 @@ void ScribusDoc::itemSelection_FlipH()
 					currItem->setRedrawBounding();
 					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
 					currItem->moveBy(ix-ix2, iy-iy2, true);
+					currItem->setRedrawBounding();
 				}
 				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 					currItem->flipImageH();
-				else
-					if (currItem->itemType() != PageItem::Line)
-						MirrorPolyH(currItem);
+				if (currItem->itemType() != PageItem::Line)
+					MirrorPolyH(currItem);
 				currItem->moveBy(dx, 0, true);
 				currItem->setRedrawBounding();
-				emit refreshItem(m_Selection->itemAt(a));
 				undoManager->commit();
 			}
 		}
@@ -5333,12 +5332,21 @@ void ScribusDoc::itemSelection_FlipH()
 				PageItem* currItem=m_Selection->itemAt(a);
 				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 					currItem->flipImageH();
+				if (currItem->itemType() != PageItem::Line)
+					MirrorPolyH(currItem);
 				else
-					if (currItem->itemType() != PageItem::Line)
-						MirrorPolyH(currItem);
-				emit refreshItem(m_Selection->itemAt(a));
+				{
+					double ix2, iy2, iw2, ih2, ix, iy, iw, ih;
+					currItem->getBoundingRect(&ix, &iy, &iw, &ih);
+					currItem->rotateBy(currItem->rotation() * -2.0);
+					currItem->setRedrawBounding();
+					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
+					currItem->moveBy(ix-ix2, iy-iy2, true);
+					currItem->setRedrawBounding();
+				}
 			}
 		}
+		emit updateContents();
 		changed();
 		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 	}
@@ -5366,16 +5374,16 @@ void ScribusDoc::itemSelection_FlipV()
 					currItem->setRedrawBounding();
 					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
 					currItem->moveBy(ix-ix2, iy-iy2, true);
+					currItem->setRedrawBounding();
 				}
 				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 					currItem->flipImageV();
-				else
-					if (currItem->itemType() != PageItem::Line)
-						MirrorPolyV(currItem);
+				if (currItem->itemType() != PageItem::Line)
+					MirrorPolyV(currItem);
 				currItem->moveBy(0, dx, true);
 				currItem->setRedrawBounding();
-				emit refreshItem(m_Selection->itemAt(a));
 			}
+			emit updateContents();
 			undoManager->commit();
 		}
 		else
@@ -5385,11 +5393,20 @@ void ScribusDoc::itemSelection_FlipV()
 				PageItem* currItem=m_Selection->itemAt(a);
 				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 					currItem->flipImageV();
+				if (currItem->itemType() != PageItem::Line)
+					MirrorPolyV(currItem);
 				else
-					if (currItem->itemType() != PageItem::Line)
-						MirrorPolyV(currItem);
-				emit refreshItem(m_Selection->itemAt(a));
+				{
+					double ix2, iy2, iw2, ih2, ix, iy, iw, ih;
+					currItem->getBoundingRect(&ix, &iy, &iw, &ih);
+					currItem->rotateBy(currItem->rotation() * -2.0);
+					currItem->setRedrawBounding();
+					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
+					currItem->moveBy(ix-ix2, iy-iy2, true);
+					currItem->setRedrawBounding();
+				}
 			}
+			emit updateContents();
 		}
 		changed();
 		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
