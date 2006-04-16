@@ -693,7 +693,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout12_2->addWidget( startArrowText, 1, 0 );
 	endArrowText = new QLabel( endArrow, "End Arrow:", page_5, "endArrowText" );
 	Layout12_2->addWidget( endArrowText, 1, 1 );
-	LSize = new MSpinBox( page_5, 1 );
+	LSize = new MSpinBox( page_5, 3 );
 	linewidthLabel = new QLabel(LSize, "Line &Width:", page_5, "linewidthLabel" );
 	Layout12_2->addWidget( linewidthLabel, 3, 0 );
 	Layout12_2->addWidget( LSize, 3, 1 );
