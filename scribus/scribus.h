@@ -124,7 +124,6 @@ public:
 	* \retval 0 - ok, 1 - no fonts, ...
 	*/
 	int initScMW(bool primaryMainwWindow);
-	const QString getGuiLanguage();
 	bool warningVersion(QWidget *parent);
 	void SetShortCut();
 	void startUpDialog();

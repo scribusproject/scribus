@@ -39,6 +39,7 @@ using namespace std;
 #define BASE_QM "scribus"
 
 #include "scribusapp.h"
+#include "scribuscore.h"
 #include "scribus.h"
 
 #include "scconfig.h"
@@ -50,6 +51,7 @@ static LONG exceptionFilter(DWORD exceptionCode);
 static QString exceptionDescription(DWORD exceptionCode);
 static void defaultCrashHandler(DWORD exceptionCode);
 
+ScribusCore SCRIBUS_API *ScCore;
 ScribusMainWindow SCRIBUS_API *ScMW;
 ScribusQApp SCRIBUS_API *ScQApp;
 bool emergencyActivated;
@@ -205,7 +207,7 @@ void defaultCrashHandler(DWORD exceptionCode)
 		std::cout << (const char*) expMsg << std::endl;
 		if (ScribusQApp::useGUI)
 		{
-			ScMW->closeSplash();
+			ScCore->closeSplash();
 			QMessageBox::critical(ScMW, expHdr, expMsg, QObject::tr("&OK"));
 			ScMW->emergencySave();
 			ScMW->close();

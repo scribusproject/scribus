@@ -29,6 +29,7 @@ using namespace Gdiplus;
 #include "scpageoutput.h"
 #include "scribusview.h"
 #include "scribusapp.h"
+#include "scribuscore.h"
 #include "scribus.h"
 #include "page.h"
 
@@ -309,7 +310,7 @@ bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printer
 		return false;
 	}
 
-	bool usingGui = ScQApp->usingGUI();
+	bool usingGui = ScCore->usingGUI();
 	if ( usingGui )
 	{
 		progress.reset( new MultiProgressDialog(tr("Printing..."), CommonStrings::tr_Cancel, ScMW, "printprogress") );
@@ -368,10 +369,10 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 		success = false;
 		QString mProf = doc->CMSSettings.DefaultMonitorProfile;
 		QString pProf = doc->CMSSettings.DefaultPrinterProfile;
-		if ( ScMW->MonitorProfiles.contains(mProf) && ScMW->PrinterProfiles.contains(pProf) )
+		if ( ScCore->MonitorProfiles.contains(mProf) && ScCore->PrinterProfiles.contains(pProf) )
 		{
-			monitorProfile = QDir::convertSeparators(ScMW->MonitorProfiles[mProf]).local8Bit();
-			printerProfile = QDir::convertSeparators(ScMW->PrinterProfiles[pProf]).local8Bit();
+			monitorProfile = QDir::convertSeparators(ScCore->MonitorProfiles[mProf]).local8Bit();
+			printerProfile = QDir::convertSeparators(ScCore->PrinterProfiles[pProf]).local8Bit();
 			// Avoid color transform if input and output profile are the same
 			if ( monitorProfile != printerProfile )
 			{
