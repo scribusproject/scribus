@@ -42,6 +42,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	checkerSettings.checkResolution = currDoc->checkerProfiles[currDoc->curCheckProfile].checkResolution;
 	checkerSettings.checkTransparency = currDoc->checkerProfiles[currDoc->curCheckProfile].checkTransparency;
 	checkerSettings.minResolution = currDoc->checkerProfiles[currDoc->curCheckProfile].minResolution;
+	checkerSettings.maxResolution = currDoc->checkerProfiles[currDoc->curCheckProfile].maxResolution;
 	checkerSettings.checkAnnotations = currDoc->checkerProfiles[currDoc->curCheckProfile].checkAnnotations;
 	checkerSettings.checkRasterPDF = currDoc->checkerProfiles[currDoc->curCheckProfile].checkRasterPDF;
 	currDoc->docItemErrors.clear();
@@ -80,6 +81,9 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				if  (((qRound(72.0 / currItem->imageXScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
 				          && (currItem->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(ImageDPITooLow, 0);
+				if  (((qRound(72.0 / currItem->imageXScale()) > checkerSettings.maxResolution) || (qRound(72.0 / currItem->imageYScale()) > checkerSettings.maxResolution))
+				          && (currItem->isRaster) && (checkerSettings.checkResolution))
+					itemError.insert(ImageDPITooHigh, 0);
 				QFileInfo fi = QFileInfo(currItem->Pfile);
 				QString ext = fi.extension(false).lower();
 				if ((ext == "pdf") && (checkerSettings.checkRasterPDF))
@@ -185,6 +189,9 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				if  (((qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
 				           && (currItem->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(ImageDPITooLow, 0);
+				if  (((qRound(72.0 / currItem->imageXScale()) > checkerSettings.maxResolution) || (qRound(72.0 / currItem->imageYScale()) > checkerSettings.maxResolution))
+				          && (currItem->isRaster) && (checkerSettings.checkResolution))
+					itemError.insert(ImageDPITooHigh, 0);
 				QFileInfo fi = QFileInfo(currItem->Pfile);
 				QString ext = fi.extension(false).lower();
 				if ((ext == "pdf") && (checkerSettings.checkRasterPDF))

@@ -1060,6 +1060,7 @@ bool PrefsManager::WritePref(QString ho)
 		dc79a.setAttribute("checkAnnotations", static_cast<int>(itcp.data().checkAnnotations));
 		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.data().checkRasterPDF));
 		dc79a.setAttribute("minResolution",itcp.data().minResolution);
+		dc79a.setAttribute("maxResolution",itcp.data().maxResolution);
 		elem.appendChild(dc79a);
 	}
 	QDomElement dc81=docu.createElement("CMS");
@@ -1596,6 +1597,7 @@ bool PrefsManager::ReadPref(QString ho)
 			checkerSettings.checkResolution = static_cast<bool>(dc.attribute("checkResolution", "1").toInt());
 			checkerSettings.checkTransparency = static_cast<bool>(dc.attribute("checkTransparency", "1").toInt());
 			checkerSettings.minResolution = dc.attribute("minResolution", "72").toDouble();
+			checkerSettings.maxResolution = dc.attribute("maxResolution", "4800").toDouble();
 			checkerSettings.checkAnnotations = static_cast<bool>(dc.attribute("checkAnnotations", "0").toInt());
 			checkerSettings.checkRasterPDF = static_cast<bool>(dc.attribute("checkRasterPDF", "1").toInt());
 			appPrefs.checkerProfiles[name] = checkerSettings;
@@ -1832,6 +1834,7 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.checkAnnotations = false;
 		checkerSettings.checkRasterPDF = true;
 		checkerSettings.minResolution = 72.0;
+		checkerSettings.maxResolution = 4800.0;
 		//TODO Stop translating these into settings!!!!!!!!!
 		cp->insert( QT_TR_NOOP("PostScript"), checkerSettings);
 		cp->insert( QT_TR_NOOP("PDF 1.3"), checkerSettings);

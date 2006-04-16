@@ -3099,6 +3099,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		dc79a.setAttribute("checkResolution", static_cast<int>(itcp.data().checkResolution));
 		dc79a.setAttribute("checkTransparency", static_cast<int>(itcp.data().checkTransparency));
 		dc79a.setAttribute("minResolution",itcp.data().minResolution);
+		dc79a.setAttribute("maxResolution",itcp.data().maxResolution);
 		dc79a.setAttribute("checkAnnotations", static_cast<int>(itcp.data().checkAnnotations));
 		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.data().checkRasterPDF));
 		dc.appendChild(dc79a);

@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsstructs.h"
 class QVBoxLayout;
 class QHBoxLayout;
+class QGridLayout;
 class QComboBox;
 class QCheckBox;
 class QGroupBox;
@@ -43,6 +44,8 @@ public:
 	QGroupBox* pictResolution;
 	QLabel* textLabel1;
 	QSpinBox* resolutionValue;
+	QLabel* textLabel1m;
+	QSpinBox* resolutionValueM;
 	QPushButton* addProfile;
 	QPushButton* removeProfile;
 	CheckerPrefsList checkerProfile;
@@ -57,7 +60,7 @@ public slots:
 
 protected:
 	QVBoxLayout* TabCheckDocLayout;
-	QHBoxLayout* pictResolutionLayout;
+	QGridLayout* pictResolutionLayout;
 	QHBoxLayout* layout1;
 	QString tempNewProfileName;
 };

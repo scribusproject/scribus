@@ -27,6 +27,7 @@ struct checkerPrefs
 	bool checkPictures;
 	bool checkResolution;
 	double minResolution;
+	double maxResolution;
 	bool checkTransparency;
 	bool checkAnnotations;
 	bool checkRasterPDF;

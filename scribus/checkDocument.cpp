@@ -255,10 +255,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	QString notOnPage = tr("Object is not on a Page");
 	QString missingImg = tr("Missing Image");
 	QString lowDPI = tr("Image resolution below %1 DPI, currently %2 x %3 DPI");
+	QString highDPI = tr("Image resolution above %1 DPI, currently %2 x %3 DPI");
 	QString transpar = tr("Object has transparency");
 	QString annot = tr("Object is a PDF Annotation or Field");
 	QString rasterPDF = tr("Object is a placed PDF");
 	int minRes = qRound(doc->checkerProfiles[doc->curCheckProfile].minResolution);
+	int maxRes = qRound(doc->checkerProfiles[doc->curCheckProfile].maxResolution);
 	int xres, yres;
 	QListViewItem * item = new QListViewItem( reportDisplay, 0 );
 	item->setText( 0, tr( "Document" ) );
@@ -320,6 +322,11 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							yres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageYScale());
 							object->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
 							break;
+						case ImageDPITooHigh:
+							xres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageXScale());
+							yres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageYScale());
+							object->setText(1, highDPI.arg(maxRes).arg(xres).arg(yres));
+							break;
 						case Transparency:
 							object->setText(1, transpar);
 							hasGraveError = true;
@@ -367,6 +374,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								xres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageXScale());
 								yres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageYScale());
 								errorText->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
+								errorText->setPixmap( 0, onlyWarning );
+								break;
+							case ImageDPITooHigh:
+								xres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageXScale());
+								yres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageYScale());
+								errorText->setText(1, highDPI.arg(maxRes).arg(xres).arg(yres));
 								errorText->setPixmap( 0, onlyWarning );
 								break;
 							case Transparency:
@@ -453,6 +466,11 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
 							object->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
 							break;
+						case ImageDPITooHigh:
+							xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
+							yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
+							object->setText(1, highDPI.arg(maxRes).arg(xres).arg(yres));
+							break;
 						case Transparency:
 							object->setText(1, transpar);
 							hasGraveError = true;
@@ -474,46 +492,52 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							QListViewItem * errorText = new QListViewItem( object, 0 );
 							switch (it3.key())
 							{
-							case 1:
+							case MissingGlyph:
 								errorText->setText(1, missingGlyph);
 								errorText->setPixmap( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								itemError = true;
 								break;
-							case 2:
+							case TextOverflow:
 								errorText->setText(1, textOverflow);
 								errorText->setPixmap( 0, onlyWarning );
 								break;
-							case 3:
+							case ObjectNotOnPage:
 								errorText->setText(1, notOnPage);
 								errorText->setPixmap( 0, onlyWarning );
 								break;
-							case 4:
+							case MissingImage:
 								errorText->setText(1, missingImg);
 								errorText->setPixmap( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								itemError = true;
 								break;
-							case 5:
+							case ImageDPITooLow:
 								xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
 								yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
 								errorText->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
 								errorText->setPixmap( 0, onlyWarning );
 								break;
-							case 6:
+							case ImageDPITooHigh:
+								xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
+								yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
+								errorText->setText(1, highDPI.arg(maxRes).arg(xres).arg(yres));
+								errorText->setPixmap( 0, onlyWarning );
+								break;
+							case Transparency:
 								errorText->setText(1, transpar);
 								errorText->setPixmap( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								itemError = true;
 								break;
-							case 7:
+							case PDFAnnotField:
 								errorText->setText(1, annot);
 								errorText->setPixmap( 0, onlyWarning );
 								break;
-							case 8:
+							case PlacedPDF:
 								errorText->setText(1, rasterPDF);
 								errorText->setPixmap( 0, onlyWarning );
 								break;
@@ -569,36 +593,41 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						it3 = it2.data().begin();
 						switch (it3.key())
 						{
-						case 1:
+						case MissingGlyph:
 							object->setText(1, missingGlyph);
 							hasGraveError = true;
 							pageGraveError = true;
 							break;
-						case 2:
+						case TextOverflow:
 							object->setText(1, textOverflow);
 							break;
-						case 3:
+						case ObjectNotOnPage:
 							object->setText(1, notOnPage);
 							break;
-						case 4:
+						case MissingImage:
 							object->setText(1, missingImg);
 							hasGraveError = true;
 							pageGraveError = true;
 							break;
-						case 5:
+						case ImageDPITooLow:
 							xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
 							yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
 							object->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
 							break;
-						case 6:
+						case ImageDPITooHigh:
+							xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
+							yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
+							object->setText(1, highDPI.arg(maxRes).arg(xres).arg(yres));
+							break;
+						case Transparency:
 							object->setText(1, transpar);
 							hasGraveError = true;
 							pageGraveError = true;
 							break;
-						case 7:
+						case PDFAnnotField:
 							object->setText(1, annot);
 							break;
-						case 8:
+						case PlacedPDF:
 							object->setText(1, rasterPDF);
 							break;
 						}
@@ -610,43 +639,49 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							QListViewItem * errorText = new QListViewItem( object, 0 );
 							switch (it3.key())
 							{
-							case 1:
+							case MissingGlyph:
 								errorText->setText(1, missingGlyph);
 								errorText->setPixmap( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								break;
-							case 2:
+							case TextOverflow:
 								errorText->setText(1, textOverflow);
 								errorText->setPixmap( 0, onlyWarning );
 								break;
-							case 3:
+							case ObjectNotOnPage:
 								errorText->setText(1, notOnPage);
 								errorText->setPixmap( 0, onlyWarning );
 								break;
-							case 4:
+							case MissingImage:
 								errorText->setText(1, missingImg);
 								errorText->setPixmap( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								break;
-							case 5:
+							case ImageDPITooLow:
 								xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
 								yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
 								errorText->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
 								errorText->setPixmap( 0, onlyWarning );
 								break;
-							case 6:
+							case ImageDPITooHigh:
+								xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
+								yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
+								errorText->setText(1, highDPI.arg(maxRes).arg(xres).arg(yres));
+								errorText->setPixmap( 0, onlyWarning );
+								break;
+							case Transparency:
 								errorText->setText(1, transpar);
 								errorText->setPixmap( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								break;
-							case 7:
+							case PDFAnnotField:
 								errorText->setText(1, annot);
 								errorText->setPixmap( 0, onlyWarning );
 								break;
-							case 8:
+							case PlacedPDF:
 								errorText->setText(1, rasterPDF);
 								errorText->setPixmap( 0, onlyWarning );
 								break;

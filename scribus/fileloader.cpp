@@ -1196,6 +1196,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				checkerSettings.checkResolution = static_cast<bool>(pg.attribute("checkResolution", "1").toInt());
 				checkerSettings.checkTransparency = static_cast<bool>(pg.attribute("checkTransparency", "1").toInt());
 				checkerSettings.minResolution = pg.attribute("minResolution", "72").toDouble();
+				checkerSettings.maxResolution = pg.attribute("maxResolution", "4800").toDouble();
 				checkerSettings.checkAnnotations = static_cast<bool>(pg.attribute("checkAnnotations", "0").toInt());
 				checkerSettings.checkRasterPDF = static_cast<bool>(pg.attribute("checkRasterPDF", "1").toInt());
 				doc->checkerProfiles[pg.attribute("Name")] = checkerSettings;

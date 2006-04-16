@@ -61,16 +61,24 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	pictResolution->setColumnLayout(0, Qt::Vertical );
 	pictResolution->layout()->setSpacing( 5 );
 	pictResolution->layout()->setMargin( 10 );
-	pictResolutionLayout = new QHBoxLayout( pictResolution->layout() );
+	pictResolutionLayout = new QGridLayout( pictResolution->layout() );
 	pictResolutionLayout->setAlignment( Qt::AlignTop );
 	textLabel1 = new QLabel( pictResolution, "textLabel1" );
 	textLabel1->setText( tr( "Lowest allowed resolution" ) );
-	pictResolutionLayout->addWidget( textLabel1 );
+	pictResolutionLayout->addWidget( textLabel1, 0, 0 );
 	resolutionValue = new QSpinBox( pictResolution, "resolutionValue" );
-	resolutionValue->setMaxValue( 3600 );
+	resolutionValue->setMaxValue( 4800 );
 	resolutionValue->setMinValue( 10 );
 	resolutionValue->setSuffix( tr( " dpi" ) );
-	pictResolutionLayout->addWidget( resolutionValue );
+	pictResolutionLayout->addWidget( resolutionValue, 1, 0 );
+	textLabel1m = new QLabel( pictResolution, "textLabel1m" );
+	textLabel1m->setText( tr( "Highest allowed resolution" ) );
+	pictResolutionLayout->addWidget( textLabel1m, 0, 1 );
+	resolutionValueM = new QSpinBox( pictResolution, "resolutionValue" );
+	resolutionValueM->setMaxValue( 4800 );
+	resolutionValueM->setMinValue( 10 );
+	resolutionValueM->setSuffix( tr( " dpi" ) );
+	pictResolutionLayout->addWidget( resolutionValueM, 1, 1 );
 	TabCheckDocLayout->addWidget( pictResolution );
 	rasterPDF = new QCheckBox( this, "rasterPDF" );
 	rasterPDF->setText( tr( "Check for placed PDF Files" ) );
@@ -99,6 +107,7 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	useAnnotations->setChecked(checkerProfile[prefProfile].checkAnnotations);
 	rasterPDF->setChecked(checkerProfile[prefProfile].checkRasterPDF);
 	resolutionValue->setValue( qRound(checkerProfile[prefProfile].minResolution) );
+	resolutionValueM->setValue( qRound(checkerProfile[prefProfile].maxResolution) );
 	currentProfile = prefProfile;
 	if (checkerProfile.count() == 1)
 		removeProfile->setEnabled(false);
@@ -118,6 +127,7 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	connect(useAnnotations, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(rasterPDF, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(resolutionValue, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
+	connect(resolutionValueM, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
 	
 	connect(removeProfile, SIGNAL(clicked()), this, SLOT(delProf()));
 	connect(addProfile, SIGNAL(clicked()), this, SLOT(addProf()));
@@ -141,6 +151,7 @@ void TabCheckDoc::putProfile()
 		checkerProfile[currentProfile].checkResolution = pictResolution->isChecked();
 		checkerProfile[currentProfile].checkTransparency = tranparentObjects->isChecked();
 		checkerProfile[currentProfile].minResolution = resolutionValue->value();
+		checkerProfile[currentProfile].maxResolution = resolutionValueM->value();
 		checkerProfile[currentProfile].checkAnnotations = useAnnotations->isChecked();
 		checkerProfile[currentProfile].checkRasterPDF = rasterPDF->isChecked();
 	}
@@ -172,6 +183,7 @@ void TabCheckDoc::updateProfile(const QString& name)
 	disconnect(pictResolution, SIGNAL(toggled(bool)), this, SLOT(putProfile()));
 	disconnect(tranparentObjects, SIGNAL(clicked()), this, SLOT(putProfile()));
 	disconnect(resolutionValue, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
+	disconnect(resolutionValueM, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
 	disconnect(rasterPDF, SIGNAL(clicked()), this, SLOT(putProfile()));
 	disconnect(useAnnotations, SIGNAL(clicked()), this, SLOT(putProfile()));
 	ignoreErrors->setChecked(checkerProfile[name].ignoreErrors);
@@ -183,6 +195,7 @@ void TabCheckDoc::updateProfile(const QString& name)
 	missingPictures->setChecked(checkerProfile[name].checkPictures);
 	pictResolution->setChecked(checkerProfile[name].checkResolution);
 	resolutionValue->setValue( qRound(checkerProfile[name].minResolution) );
+	resolutionValueM->setValue( qRound(checkerProfile[name].maxResolution) );
 	useAnnotations->setChecked(checkerProfile[name].checkAnnotations);
 	rasterPDF->setChecked(checkerProfile[name].checkRasterPDF);
 	currentProfile = name;
@@ -194,6 +207,7 @@ void TabCheckDoc::updateProfile(const QString& name)
 	connect(pictResolution, SIGNAL(toggled(bool)), this, SLOT(putProfile()));
 	connect(tranparentObjects, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(resolutionValue, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
+	connect(resolutionValueM, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
 	connect(rasterPDF, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(useAnnotations, SIGNAL(clicked()), this, SLOT(putProfile()));
 }
@@ -210,6 +224,7 @@ void TabCheckDoc::addProf()
 	checkerSettings.checkResolution = pictResolution->isChecked();
 	checkerSettings.checkTransparency =  tranparentObjects->isChecked();
 	checkerSettings.minResolution = resolutionValue->value();
+	checkerSettings.maxResolution = resolutionValueM->value();
 	checkerSettings.checkAnnotations = useAnnotations->isChecked();
 	checkerSettings.checkRasterPDF = rasterPDF->isChecked();
 	checkerProfile.insert(tempNewProfileName, checkerSettings);
