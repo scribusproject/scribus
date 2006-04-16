@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
+class ScribusMainWindow;
 class ScPlugin;
 class ScActionPlugin;
 class ScPersistentPlugin;
@@ -45,7 +46,7 @@ public:
 	static void* resolveSym( void* plugin, const char* sym );
 	static void  unloadDLL( void* plugin );
 
-	/*! \brief Ininitalization of all plugins. It's called at scribus start.
+	/*! \brief Initalization of all plugins. It's called at scribus start.
 	 *
 	 * This method loadDLL(...)'s each plug-in, creates a Plugin instance for
 	 * them, stores a PluginData for the plugin, sets up the plug-in's
@@ -53,6 +54,12 @@ public:
 	 * It doesn't ask plug-ins to do any time-consuming setup.
 	 */
 	void initPlugs();
+	
+	/*! \brief Called at after initPlugs to hook the loaded plugin into the GUI. 
+	 * Run in main window startup
+	 */
+	bool setupPluginActions(ScribusMainWindow*);
+	
 
 	/*! \brief Checks if is the plugin is in the plugin map, is loaded, and is enabled.
 	 *
@@ -171,9 +178,6 @@ protected:
 	 the plug-in from the GUI, calls its cleanup routine, etc.
 	 DOES NOT destroy the ScPlugin instance or unload the plugin. */
 	void disablePlugin(PluginData & pda);
-
-	/*! \brief Called by enablePlugin to hook the loaded plugin into the GUI. */
-	bool setupPluginActions(ScActionPlugin*);
 
 	/*! \brief Runs plugin's languageChange() method, and returns main menu item text if one exists */
 	QString callDLLForNewLanguage(const PluginData & pluginData);

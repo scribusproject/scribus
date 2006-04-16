@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "qguardedptr.h"
 
 class ScrAction;
+class ScribusMainWindow;
 class MenuManager;
 class PythonConsole;
 
@@ -23,6 +24,7 @@ class ScripterCore : public QObject
 public:
 	ScripterCore(QWidget* parent);
 	~ScripterCore();
+	void addToMainWindowMenu(ScribusMainWindow *);
 
 	/** @brief String representation of result returned by last python console command */
 	QString returnString;

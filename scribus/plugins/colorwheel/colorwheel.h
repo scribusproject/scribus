@@ -32,6 +32,7 @@ class PLUGIN_API ColorWheelPlugin : public ScActionPlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
+		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
 		// Special features (none)
 };

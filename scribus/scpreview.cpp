@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "missing.h"
 #include "sccolor.h"
 #include "scribus.h"
+#include "scribuscore.h"
 #include "splash.h"
 #include "util.h"
 #include "prefsmanager.h"
@@ -115,14 +116,12 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 				if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
 				{
-					if (ScMW->splashScreen != NULL)
-						ScMW->splashScreen->hide();
+					ScCore->showSplash(false);
 					MissingFont *dia = new MissingFont(0, tmpf, 0);
 					dia->exec();
 					tmpf = dia->getReplacementFont();
 					delete dia;
-					if (ScMW->splashScreen != NULL)
-						ScMW->splashScreen->show();
+					ScCore->showSplash(true);
 					prefsManager->appPrefs.GFontSub[pg.attribute("NAME")] = tmpf;
 				}
 				else

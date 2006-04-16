@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #define BASE_QM "scribus"
 
 #include "scribusapp.h"
+#include "scribuscore.h"
 #include "scribus.h"
 
 #include "scconfig.h"
@@ -41,6 +42,7 @@ int mainApp(int argc, char **argv);
 void initCrashHandler();
 static void defaultCrashHandler(int sig);
 
+ScribusCore SCRIBUS_API *ScCore;
 ScribusMainWindow SCRIBUS_API *ScMW;
 ScribusQApp SCRIBUS_API *ScQApp;
 bool emergencyActivated;
@@ -66,7 +68,7 @@ int mainApp(int argc, char **argv)
 	ScribusQApp app(argc, argv);
 	initCrashHandler();
 	app.parseCommandLine();
-	if (app.usingGUI())
+	if (app.useGUI)
 	{
 		int appRetVal=app.init();
 		if (appRetVal==EXIT_FAILURE)
@@ -121,7 +123,7 @@ void defaultCrashHandler(int sig)
 		std::cout << sigMsg << std::endl;
 		if (ScribusQApp::useGUI)
 		{
-			ScMW->closeSplash();
+			ScCore->closeSplash();
 			QMessageBox::critical(ScMW, sigHdr, sigMsg, QObject::tr("&OK"));
 			ScMW->emergencySave();
 			ScMW->close();

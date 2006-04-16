@@ -9746,7 +9746,7 @@ void ScribusView::ToPicFrame()
 
 void ScribusView::ToPolyFrame()
 {
-	PageItem *currItem = new PageItem_Polygon(*Doc->m_Selection->itemAt(0));
+	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	Deselect(true);
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::Polygon);
 	RefreshItem(newItem);

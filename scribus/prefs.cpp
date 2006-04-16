@@ -51,6 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "colorcombo.h"
 #include "commonstrings.h"
+#include "scribuscore.h"
 
 using namespace std;
 
@@ -353,7 +354,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	if (CMSavail)
 	{
-		tabColorManagement = new CMSPrefs(prefsWidgets, &prefsData->DCMSset, &ap->InputProfiles, &ap->InputProfilesCMYK, &ap->PrinterProfiles, &ap->MonitorProfiles);
+		tabColorManagement = new CMSPrefs(prefsWidgets, &prefsData->DCMSset, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 		addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
 	QMap<QString,int> DocFonts;
@@ -361,7 +362,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabPDF = new TabPDFOptions( prefsWidgets,
 								prefsData->PDF_Options,
 								prefsData->AvailFonts,
-								ap->PDFXProfiles,
+								ScCore->PDFXProfiles,
 								DocFonts,
 								prefsData->PDF_Options.PresentVals,
 								docUnitIndex,

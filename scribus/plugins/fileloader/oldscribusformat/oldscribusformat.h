@@ -26,6 +26,7 @@ class PLUGIN_API OldScribusFormat : public LoadSavePlugin
 
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt);
 		virtual bool saveFile(const QString & fileName, const FileFormat & fmt);
+		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
 		// Special features - .sla page extraction support
 		bool loadPage(int pageNumber, bool Mpage);

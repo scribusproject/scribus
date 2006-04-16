@@ -9,12 +9,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 #include "scribus.h"
-#include "scribusapp.h"
+#include "scribuscore.h"
 #include "commonstrings.h"
 #include "customfdialog.h"
 #include "mpalette.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
+#include "prefsmanager.h"
 #include "prefstable.h"
 #include "scribusXml.h"
 #include <qfile.h>
@@ -45,7 +46,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive, bool showProgress)
 	CustColors.clear();
 	QFileInfo fi = QFileInfo(fName);
 	QString ext = fi.extension(false).lower();
-	if ( !ScQApp->usingGUI() ) {
+	if ( !ScCore->usingGUI() ) {
 		interactive = false;
 		showProgress = false;
 	}
@@ -60,7 +61,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive, bool showProgress)
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
 		connect(progressDialog->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
-		ScQApp->processEvents();
+		qApp->processEvents();
 	}
 	else {
 		progressDialog = NULL;
@@ -269,8 +270,8 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString cmd, cmd1, cmd2, cmd3, tmp, tmp2, tmp3, tmp4;
 	// import.prolog do not cope with filenames containing blank spaces
 	// so take care that output filename does not (win32 compatibility)
-	QString tmpFile = getShortPathName(ScMW->PrefsPfad)+ "/ps.out";
-	QString errFile = getShortPathName(ScMW->PrefsPfad)+ "/ps.err";
+	QString tmpFile = getShortPathName(PrefsManager::instance()->preferencesLocation())+ "/ps.out";
+	QString errFile = getShortPathName(PrefsManager::instance()->preferencesLocation())+ "/ps.err";
 	QString pfad = ScPaths::instance().libDir();
 	QString pfad2 = QDir::convertSeparators(pfad + "import.prolog");
 	QFileInfo fi = QFileInfo(fn);
@@ -278,7 +279,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	
 	if (progressDialog) {
 		progressDialog->setOverallProgress(1);
-		ScQApp->processEvents();
+		qApp->processEvents();
 	}
 	args.append( getShortPathName(PrefsManager::instance()->ghostscriptExecutable()) );
 	args.append( "-q" );
@@ -353,7 +354,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	if(progressDialog) {
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
-		ScQApp->processEvents();
+		qApp->processEvents();
 	}
 	if (!cancel) {
 		parseOutput(tmpFile, ext == "eps");
@@ -379,7 +380,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	{
 		if (progressDialog) {
 			progressDialog->setTotalSteps("GI", (int) f.size());
-			ScQApp->processEvents();
+			qApp->processEvents();
 		}
 		lastPath = "";
 		currPath = "";
@@ -397,7 +398,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			tmp = ts.readLine();
 			if (progressDialog && (++line_cnt % 100 == 0)) {
 				progressDialog->setProgress("GI", (int) f.at());
-				ScQApp->processEvents();
+				qApp->processEvents();
 			}
 			token = tmp.section(' ', 0, 0);
 			params = tmp.section(' ', 1, -1, QString::SectionIncludeTrailingSep);

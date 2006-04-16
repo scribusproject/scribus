@@ -47,6 +47,8 @@ class SCRIBUS_API ActionManager : public QObject
 		ActionManager ( QObject * parent, const char * name );	
 		~ActionManager() {};
 		
+		static void createDefaultShortcuts();
+		static const QMap<QString, QKeySequence>* defaultShortcuts() {return &defKeys;};
 		void createActions();
 		void disconnectModeActions();
 		void connectModeActions();
@@ -83,7 +85,7 @@ class SCRIBUS_API ActionManager : public QObject
 		static void languageChangeUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *actionMap);
 	
 		QPixmap noIcon;
-		ScribusMainWindow *ScMW;
+		ScribusMainWindow *mainWindow;
 		ScribusQApp *ScQApp;
 		UndoManager *undoManager;
 		QMap<QString, QGuardedPtr<ScrAction> > *scrActions;
@@ -91,6 +93,7 @@ class SCRIBUS_API ActionManager : public QObject
 		QStringList *modeActionNames;
 		QStringList *nonEditActionNames;
 		QStringList *unicodeCharActionNames;
+		static QMap<QString, QKeySequence> defKeys;
 		
 };
 

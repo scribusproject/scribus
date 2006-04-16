@@ -82,7 +82,7 @@ int mainApp(ScribusQApp& app)
 	{
 #endif
 		app.parseCommandLine();
-		if (app.usingGUI())
+		if (app.useGUI)
 		{
 			appRetVal = app.init();
 			if (appRetVal != EXIT_FAILURE)

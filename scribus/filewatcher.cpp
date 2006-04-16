@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <windows.h>
 #endif
 
-FileWatcher::FileWatcher( QWidget* parent) : QObject(parent)
+FileWatcher::FileWatcher( QObject* parent) : QObject(parent)
 {
 	m_timeOut=10000;
 	watchedFiles.clear();

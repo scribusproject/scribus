@@ -28,6 +28,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefsmanager.h"
 #include "prefsmanager.moc"
+
+#include "actionmanager.h"
 #include "colorsetmanager.h"
 #include "commonstrings.h"
 #include "filewatcher.h"
@@ -42,13 +44,12 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribus.h"
 #include "scribusstructs.h"
-#include "scribusapp.h"
+#include "scribuscore.h"
 #include "gsutil.h"
 #include "util.h"
 #include "werktoolb.h"
 
 
-extern ScribusQApp* ScQApp;
 extern bool emergencyActivated;
 
 PrefsManager* PrefsManager::_instance = 0;
@@ -424,6 +425,19 @@ void PrefsManager::initDefaults()
 	//Attribute setup
 	appPrefs.defaultItemAttributes.clear();
 	appPrefs.defaultToCSetups.clear();
+	
+	initDefaultActionKeys();
+}
+
+void PrefsManager::initDefaultActionKeys()
+{
+	ActionManager::createDefaultShortcuts();
+	const QMap<QString, QKeySequence > *map=ActionManager::defaultShortcuts();
+	for( QMap<QString, QKeySequence >::ConstIterator it = map->begin(); it!=map->end(); ++it )
+	{
+		appPrefs.KeyActions[it.key()].actionName = it.key();
+		appPrefs.KeyActions[it.key()].keySequence = it.data();
+	}
 }
 
 void PrefsManager::initDefaultGUIFont(const QFont& guiFont)
@@ -594,9 +608,9 @@ bool PrefsManager::copyOldPreferences()
 	if( (existsPrefs12[0] && !existsPrefs130[0]) || (existsPrefs12[2] && !existsPrefs130[2]) )
 	{
 		retVal=true; // converting from 1.2 prefs
-		if (ScQApp->usingGUI())
+		if (ScCore->usingGUI())
 		{
-			ScMW->showSplash(false);
+			ScCore->showSplash(false);
 			if ( (ScMessageBox::question( ScMW, tr("Migrate Old Scribus Settings?"),
 				tr("Scribus has detected existing Scribus 1.2 preferences files.\n"
 						"Do you want to migrate them to the new Scribus version?"),
@@ -608,7 +622,7 @@ bool PrefsManager::copyOldPreferences()
 						copyFile(prefs12[i], prefs134[i]);
 				}
 			}
-			ScMW->showSplash(true);
+			ScCore->showSplash(true);
 		}
 	}
 	else
@@ -656,8 +670,11 @@ void PrefsManager::ReadPrefs(const QString & fname)
 			return;
 		}
 	}
+}
 
-	ScMW->setDefaultPrinter(appPrefs.PrinterName, appPrefs.PrinterFile, appPrefs.PrinterCommand);
+void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
+{
+	mw->setDefaultPrinter(appPrefs.PrinterName, appPrefs.PrinterFile, appPrefs.PrinterCommand);
 
 	uint max = QMIN(appPrefs.RecentDCount, appPrefs.RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
@@ -665,15 +682,15 @@ void PrefsManager::ReadPrefs(const QString & fname)
 		QFileInfo fd(appPrefs.RecentDocs[m]);
 		if (fd.exists())
 		{
-			ScMW->RecentDocs.append(appPrefs.RecentDocs[m]);
-			ScMW->fileWatcher->addFile(appPrefs.RecentDocs[m]);
+			mw->RecentDocs.append(appPrefs.RecentDocs[m]);
+			ScCore->fileWatcher->addFile(appPrefs.RecentDocs[m]);
 		}
 	}
-	ScMW->rebuildRecentFileMenu();
-	ScMW->move(appPrefs.mainWinSettings.xPosition, appPrefs.mainWinSettings.yPosition);
-	ScMW->resize(appPrefs.mainWinSettings.width, appPrefs.mainWinSettings.height);
+	mw->rebuildRecentFileMenu();
+	mw->move(appPrefs.mainWinSettings.xPosition, appPrefs.mainWinSettings.yPosition);
+	mw->resize(appPrefs.mainWinSettings.width, appPrefs.mainWinSettings.height);
 	if (appPrefs.mainWinSettings.maximized)
-		ScMW->setWindowState(ScMW->windowState() & ~Qt::WindowMinimized | Qt::WindowMaximized);
+		mw->setWindowState(ScMW->windowState() & ~Qt::WindowMinimized | Qt::WindowMaximized);
 	ReadPrefsXML();
 	if (appPrefs.checkerProfiles.count() == 0)
 	{
@@ -1645,7 +1662,7 @@ bool PrefsManager::ReadPref(QString ho)
 			QString newFont = "";
 			if (!appPrefs.AvailFonts.find(tmpf))
 			{
-				ScMW->showSplash(false);
+				ScCore->showSplash(false);
 				MissingFont *dia = new MissingFont(0, tmpf, 0);
 				dia->exec();
 				newFont = dia->getReplacementFont();
@@ -1872,9 +1889,9 @@ void PrefsManager::alertSavePrefsFailed() const
 // triggered by a signal sent from here and displayed by ScribusMainWindow.
 void PrefsManager::alertLoadPrefsFailed() const
 {
-	bool splashShowing = ScMW->splashShowing();
+	bool splashShowing = ScCore->splashShowing();
 	if (splashShowing)
-		ScMW->showSplash(false);
+		ScCore->showSplash(false);
 	QMessageBox::critical(ScMW, tr("Error Loading Preferences"),
 			"<qt>" +
 			tr("Scribus was not able to load its preferences:<br>"
@@ -1884,7 +1901,7 @@ void PrefsManager::alertLoadPrefsFailed() const
 			+ "</qt>",
 			QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
 			QMessageBox::NoButton);
-	ScMW->showSplash(splashShowing);
+	ScCore->showSplash(splashShowing);
 }
 
 const int PrefsManager::gsResolution()

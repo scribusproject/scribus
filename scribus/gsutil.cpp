@@ -30,27 +30,15 @@ for which a new license (GPL+exception) is in place.
 #include <qpainter.h>
 #include <qprocess.h>
 
-/* CB old includes from util.cpp.
-#include <algorithm>
-#include <cstdlib>
-#include <cmath>
-*/
 #include "scconfig.h"
 
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-/*
-#include <setjmp.h>
-#include "pagestructs.h"
-*/
 #include "prefsfile.h"
-/*
-#include "prefscontext.h"
-#include "prefstable.h"
-*/
 #include "prefsmanager.h"
 #include "scpaths.h"
+#include "scribuscore.h"
 
 /*
 extern "C"
@@ -112,7 +100,7 @@ int callGS(const QStringList& args_in, const QString device)
 	// Choose rendering device
 	if (!device.isEmpty())
 		args.append( QString("-sDEVICE=%1").arg(device) ); // user specified device
-	else if (ScMW->HavePngAlpha != 0)
+	else if (ScCore->havePNGAlpha() != 0)
 		args.append( "-sDEVICE=png16m" );
 	else
 		args.append( "-sDEVICE=pngalpha" );
@@ -149,7 +137,7 @@ int callGS(const QString& args_in, const QString device)
 	if (!device.isEmpty())
 		// user specified device
 		cmd1 += " -sDEVICE="+device;
-	else if (ScMW->HavePngAlpha != 0)
+	else if (ScCore->havePNGAlpha() != 0)
 		cmd1 += " -sDEVICE=png16m";
 	else
 		cmd1 += " -sDEVICE=pngalpha";

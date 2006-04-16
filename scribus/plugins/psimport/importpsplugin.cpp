@@ -42,7 +42,10 @@ ImportPSPlugin::ImportPSPlugin() : LoadSavePlugin(),
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
 	languageChange();
+}
 
+void ImportPSPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
+{
 	importAction->setEnabled(true);
 	connect( importAction, SIGNAL(activated()), SLOT(import()) );
 	ScMW->scrMenuMgr->addMenuItem(importAction, "FileImport");

@@ -211,7 +211,9 @@ class SCRIBUS_API ScPlugin : public QObject
 
 		//! \brief Returns human readable plugin type from plug-in's pluginType
 		const QString pluginTypeName() const;
-
+		
+		//! \brief Allow plugins to add to a main menu 
+		virtual void addToMainWindowMenu(ScribusMainWindow *) = 0;
 	protected:
 		//! \brief Human readable, translated version of last error to occur.
 		QString m_lastError;

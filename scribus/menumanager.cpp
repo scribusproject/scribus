@@ -50,9 +50,6 @@ bool MenuManager::createMenu(const QString &menuName, const QString &menuText, c
 		if (!parent.isNull() && menuList[parent])
 			retVal=menuList[parent]->insertSubMenu(newMenu);
 	}
-	else
-		retVal=false;	
-	
 	return retVal;
 }
 
@@ -60,7 +57,6 @@ bool MenuManager::createMenu(const QString &menuName, const QString &menuText, c
 bool MenuManager::createMenu(const QString &menuName, const QIconSet menuIcon, const QString &menuText, const QString parent, bool checkable)
 {
 	bool retVal=false;
-	
 	ScrPopupMenu *newMenu = new ScrPopupMenu(NULL, NULL, menuName, menuIcon, menuText, parent, checkable);
 	if (newMenu)
 	{
@@ -68,10 +64,6 @@ bool MenuManager::createMenu(const QString &menuName, const QIconSet menuIcon, c
 		if (!parent.isNull() && menuList[parent])
 			retVal=menuList[parent]->insertSubMenu(newMenu);
 	}
-	else
-		retVal=false;	
-	//qDebug(QString("createMenu: parent=%1 (%2) newMenu=%3 (%4) checkable=%5 -> %6").arg(parent).arg(!parent.isNull()).arg(menuName).arg(!newMenu).arg(checkable).arg(retVal));
-	
 	return retVal;
 }
 
@@ -89,22 +81,18 @@ bool MenuManager::addMenuToMenu(const QString &child, const QString &parent)
 		menuList.insert(child, menuList[child]);
 		retVal=menuList[parent]->insertSubMenu(menuList[child]);
 	}
-	else
-		retVal=false;	
 	
 	return retVal;
 }
 
 bool MenuManager::clearMenu(const QString &menuName)
 {
-	bool retVal;
+	bool retVal=false;
 	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
 	{
 		menuList[menuName]->clear();
 		retVal=true;
 	}
-	else
-		retVal=false;
 	return retVal;
 }
 
@@ -173,15 +161,13 @@ void MenuManager::setMenuEnabled(const QString &menuName, const bool enabled)
 
 bool MenuManager::addMenuToMenuBar(const QString &menuName)
 {
-	bool retVal;
+	bool retVal=false;
 	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
 	{
 		int id=scribusMenuBar->insertItem( menuList[menuName]->getMenuIcon(), menuList[menuName]->getMenuText(), menuList[menuName]->getLocalPopupMenu());
 		menuList[menuName]->setMenuBarID(id);
 		retVal=true;
 	}
-	else
-		retVal=false;
 	return retVal;
 }
 
@@ -206,7 +192,7 @@ bool MenuManager::addMenuToMenuBarAfter(const QString &menuName, const QString &
 
 bool MenuManager::removeMenuFromMenuBar(const QString &menuName)
 {
-	bool retVal;
+	bool retVal=false;
 	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
 	{
 		int id=menuList[menuName]->getMenuBarID();
@@ -214,8 +200,6 @@ bool MenuManager::removeMenuFromMenuBar(const QString &menuName)
 			scribusMenuBar->removeItem( id );
 		retVal=true;
 	}
-	else
-		retVal=false;
 	return retVal;
 }
 
@@ -244,37 +228,30 @@ bool MenuManager::addMenuToWidgetOfAction(const QString &menuName, ScrAction *ac
 
 bool MenuManager::addMenuItem(ScrAction *menuAction, const QString &parent)
 {
-	bool retVal;
+	bool retVal=false;
 	if (menuList.contains(parent) && menuList[parent]!=NULL)
 		retVal=menuList[parent]->insertMenuItem(menuAction);
-	else
-		retVal=false;
 	return retVal;
 }
 
 bool MenuManager::addMenuItem(QWidget *widget, const QString &parent)
 {
-	bool retVal;
+	bool retVal=false;
 	if (menuList.contains(parent) && menuList[parent]!=NULL)
 		retVal=menuList[parent]->insertMenuItem(widget);
-	else
-		retVal=false;
 	return retVal;
 }
 
 bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString &parent, ScrAction *afterMenuAction)
 {
-	bool retVal;
+	bool retVal=false;
 	if (menuList.contains(parent) && menuList[parent]!=NULL)
 		retVal=menuList[parent]->insertMenuItemAfter(menuAction, afterMenuAction);
-	else
-		retVal=false;
 	return retVal;
 }
 
 bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString &parent, const QString &afterMenuName)
 {
-	bool retVal;
 	ScrAction *actionFromName=NULL;
 	//quick hack to make this work for existing plugins for now
 	if (parent=="File" && afterMenuName=="New")
@@ -285,33 +262,27 @@ bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString &parent,
 		actionFromName=ScMW->scrActions["fileSaveAs"];
 	if (parent=="Help" && afterMenuName=="Manual")
 		actionFromName=ScMW->scrActions["helpManual"];
-		
+	bool retVal=false;
 	if (menuList.contains(parent) && menuList[parent]!=NULL)
 		retVal=menuList[parent]->insertMenuItemAfter(menuAction, actionFromName);
-	else
-		retVal=false;
 	return retVal;
 }
 
 
 bool MenuManager::addMenuSeparator(const QString &parent)
 {
-	bool retVal;
+	bool retVal=false;
 	if (menuList.contains(parent) && menuList[parent]!=NULL)
 		retVal=menuList[parent]->insertMenuSeparator();
-	else
-		retVal=false;
 	return retVal;
 	
 }
 
 bool MenuManager::removeMenuItem(ScrAction *menuAction, const QString &parent)
 {
-	bool retVal;
+	bool retVal=false;
 	if (menuList.contains(parent) && menuList[parent]!=NULL)
 		retVal=menuList[parent]->removeMenuItem(menuAction);
-	else
-		retVal=false;
 	return retVal;
 }
 

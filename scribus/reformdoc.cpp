@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "mspinbox.h"
 #include "scribus.h"
+#include "scribuscore.h"
 #include "tabpdfoptions.h"
 #include "fontprefs.h"
 #include "units.h"
@@ -392,7 +393,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), tabDocChecker);
 
 	tabPDF = new TabPDFOptions( prefsWidgets, doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
-								ScMW->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
+								ScCore->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
 								einheit, doc->pageHeight, doc->pageWidth, 0 );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 
@@ -414,7 +415,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	int cmsTab = 0;
 	if (CMSavail)
 	{
-		tabColorManagement = new CMSPrefs(prefsWidgets, &doc->CMSSettings, &ScMW->InputProfiles, &ScMW->InputProfilesCMYK, &ScMW->PrinterProfiles, &ScMW->MonitorProfiles);
+		tabColorManagement = new CMSPrefs(prefsWidgets, &doc->CMSSettings, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 		cmsTab = addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
 
@@ -983,7 +984,7 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->CMSSettings.CMSinUse = oldCM;
 			currDoc->CloseCMSProfiles();
 			currDoc->CMSSettings.CMSinUse = newCM;
-			if ( currDoc->OpenCMSProfiles(ScMW->InputProfiles, ScMW->MonitorProfiles, ScMW->PrinterProfiles) )
+			if ( currDoc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->MonitorProfiles, ScCore->PrinterProfiles) )
 			{
 				stdProofG = currDoc->stdProof;
 				stdTransG = currDoc->stdTrans;
@@ -1014,7 +1015,7 @@ void ReformDoc::updateDocumentSettings()
 				currDoc->PDF_Options.PrintProf = currDoc->CMSSettings.DefaultPrinterProfile;
 				currDoc->PDF_Options.Intent = currDoc->CMSSettings.DefaultIntentMonitor;
 				ScMW->recalcColors(ScMW->mainWindowProgressBar);
-				currDoc->RecalcPictures(&ScMW->InputProfiles, &ScMW->InputProfilesCMYK, ScMW->mainWindowProgressBar);
+				currDoc->RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, ScMW->mainWindowProgressBar);
 			}
 			else
 			{

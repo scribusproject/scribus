@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scimage.h"
 #include "scribus.h"
+#include "scribuscore.h"
 #include <qtextstream.h>
 #include <cassert>
 #ifdef HAVE_CMS
@@ -2873,7 +2874,7 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 			load(tmpFile);
 			unlink(tmpFile);
 			setAlphaBuffer(true);
-			if (ScMW->HavePngAlpha != 0)
+			if (ScCore->havePNGAlpha() != 0)
 			{
 				for( int yi=0; yi < height(); ++yi )
 				{
@@ -2941,7 +2942,7 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 				QImage image;
 				image.load(tmpFile);
 				image.setAlphaBuffer(true);
-				if (ScMW->HavePngAlpha != 0)
+				if (ScCore->havePNGAlpha() != 0)
 				{
 					int wi = image.width();
 					int hi = image.height();
@@ -3547,7 +3548,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			load(tmpFile);
 			unlink(tmpFile);
 			setAlphaBuffer(true);
-			if (ScMW->HavePngAlpha != 0)
+			if (ScCore->havePNGAlpha() != 0)
 			{
 				for( int yi=0; yi < height(); ++yi )
 				{
@@ -3630,7 +3631,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				QImage image;
 				image.load(tmpFile);
 				image.setAlphaBuffer(true);
-				if (ScMW->HavePngAlpha != 0)
+				if (ScCore->havePNGAlpha() != 0)
 				{
 					int wi = image.width();
 					int hi = image.height();
@@ -4233,19 +4234,19 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			QCString profilePath;
 			if (isCMYK)
 			{
-				if (ScMW->InputProfilesCMYK.contains(Prof))
+				if (ScCore->InputProfilesCMYK.contains(Prof))
 					imgInfo.profileName = Prof;
 				else
 					imgInfo.profileName = ScMW->doc->CMSSettings.DefaultImageCMYKProfile;
-				profilePath = ScMW->InputProfilesCMYK[imgInfo.profileName].local8Bit();
+				profilePath = ScCore->InputProfilesCMYK[imgInfo.profileName].local8Bit();
 			}
 			else
 			{
-				if (ScMW->InputProfiles.contains(Prof))
+				if (ScCore->InputProfiles.contains(Prof))
 					imgInfo.profileName = Prof;
 				else
 					imgInfo.profileName = ScMW->doc->CMSSettings.DefaultImageRGBProfile;
-				profilePath = ScMW->InputProfiles[imgInfo.profileName].local8Bit();
+				profilePath = ScCore->InputProfiles[imgInfo.profileName].local8Bit();
 			}
 			inputProf = cmsOpenProfileFromFile(profilePath.data(), "r");
 		}

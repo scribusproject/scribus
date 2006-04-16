@@ -23,6 +23,7 @@ class PLUGIN_API FontPreviewPlugin : public ScActionPlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
+		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
 		// Special features (none)
 };

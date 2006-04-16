@@ -35,6 +35,7 @@ class PLUGIN_API ImportPSPlugin : public LoadSavePlugin
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file) const;
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt);
+		virtual void addToMainWindowMenu(ScribusMainWindow *);
 
 	public slots:
 		/*!

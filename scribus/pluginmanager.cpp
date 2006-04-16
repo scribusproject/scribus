@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 #include "scribus.h"
-#include "scribusapp.h"
+#include "scribuscore.h"
 #include "menumanager.h"
 #include "scraction.h"
 #include "splash.h"
@@ -154,7 +154,6 @@ void PluginManager::initPlugs()
 
 	if ((dirList.exists()) && (dirList.count() != 0))
 	{
-		ScMW->scrMenuMgr->addMenuSeparator("Extras");
 		for (uint dc = 0; dc < dirList.count(); ++dc)
 		{
 			PluginData pda;
@@ -168,7 +167,7 @@ void PluginManager::initPlugs()
 			pda.pluginDLL = 0;
 			pda.enabled = false;
 			pda.enableOnStartup = prefs->getBool(pda.pluginName, true);
-			ScMW->setSplashStatus(tr("Plugin: loading %1", "plugin manager").arg(pda.pluginName));
+			ScCore->setSplashStatus(tr("Plugin: loading %1", "plugin manager").arg(pda.pluginName));
 			if (loadPlugin(pda))
 			{
 				if (pda.enableOnStartup)
@@ -185,13 +184,17 @@ void PluginManager::enablePlugin(PluginData & pda)
 {
 	Q_ASSERT(pda.enabled == false);
 	QString failReason;
+	bool isActionPlugin=false;
 	if (pda.plugin->inherits("ScActionPlugin"))
 	{
 		ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(pda.plugin);
 		Q_ASSERT(plugin);
+		isActionPlugin=true;
+		/*
 		pda.enabled = setupPluginActions(plugin);
 		if (!pda.enabled)
 			failReason = tr("init failed", "plugin load error");
+		*/
 	}
 	else if (pda.plugin->inherits("ScPersistentPlugin"))
 	{
@@ -206,43 +209,59 @@ void PluginManager::enablePlugin(PluginData & pda)
 		pda.enabled = true;
 	else
 		failReason = tr("unknown plugin type", "plugin load error");
-	if (ScMW->splashScreen != NULL)
-	{
-		if (pda.enabled)
-			ScMW->splashScreen->setStatus(
-					tr("Plugin: %1 loaded", "plugin manager")
-					.arg(pda.plugin->fullTrName()));
-		else
-			ScMW->splashScreen->setStatus(
-					tr("Plugin: %1 failed to load: %2", "plugin manager")
-					.arg(pda.plugin->fullTrName()).arg(failReason));
-	}
+	if (pda.enabled || isActionPlugin)
+		ScCore->setSplashStatus(
+				tr("Plugin: %1 loaded", "plugin manager")
+				.arg(pda.plugin->fullTrName()));
+	else
+		ScCore->setSplashStatus(
+				tr("Plugin: %1 failed to load: %2", "plugin manager")
+				.arg(pda.plugin->fullTrName()).arg(failReason));
 }
 
-bool PluginManager::setupPluginActions(ScActionPlugin* plugin)
+bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 {
-	bool result = true;
-	//Add in ScrAction based plugin linkage
-	//Insert DLL Action into Dictionary with values from plugin interface
-	ScActionPlugin::ActionInfo ai(plugin->actionInfo());
-	ScrAction* action = new ScrAction(
-			ScrAction::DLL, ai.iconSet, ai.text, ai.keySequence,
-			ScMW, ai.name);
-	Q_CHECK_PTR(action);
-	ScMW->scrActions.insert(ai.name, action);
-
-	// then enable and connect up the action
-	ScMW->scrActions[ai.name]->setEnabled(ai.enabledOnStartup);
-	// Connect action's activated signal with the plugin's run method
-	result = connect( ScMW->scrActions[ai.name], SIGNAL(activated()),
-					  plugin, SLOT(run()) );
-	//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
-	if ( ai.menuAfterName.isEmpty() )
-		ScMW->scrMenuMgr->addMenuItem(ScMW->scrActions[ai.name], ai.menu);
-	else
-		ScMW->scrMenuMgr->addMenuItemAfter(ScMW->scrActions[ai.name], ai.menu, ai.menuAfterName);
-
-	return result;
+	Q_CHECK_PTR(mw);
+	mw->scrMenuMgr->addMenuSeparator("Extras");
+	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
+	{
+		if (it.data().plugin->inherits("ScActionPlugin"))
+		{
+			//Add in ScrAction based plugin linkage
+			//Insert DLL Action into Dictionary with values from plugin interface
+			ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(it.data().plugin);
+			Q_ASSERT(plugin);
+			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
+			ScrAction* action = new ScrAction(
+					ScrAction::DLL, ai.iconSet, ai.text, ai.keySequence,
+					mw, ai.name);
+			Q_CHECK_PTR(action);
+			mw->scrActions.insert(ai.name, action);
+		
+			// then enable and connect up the action
+			mw->scrActions[ai.name]->setEnabled(ai.enabledOnStartup);
+			// Connect action's activated signal with the plugin's run method
+			it.data().enabled = connect( mw->scrActions[ai.name], SIGNAL(activated()),
+							plugin, SLOT(run()) );
+			//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
+			if ( ai.menuAfterName.isEmpty() )
+				mw->scrMenuMgr->addMenuItem(mw->scrActions[ai.name], ai.menu);
+			else
+				mw->scrMenuMgr->addMenuItemAfter(mw->scrActions[ai.name], ai.menu, ai.menuAfterName);
+			if (it.data().enabled)
+				ScCore->setSplashStatus(tr("Plugin: %1 initialized ok ", "plugin manager")
+						.arg(plugin->fullTrName()));
+			else
+				ScCore->setSplashStatus(tr("Plugin: %1 failed post initialization", "plugin manager")
+						.arg(plugin->fullTrName()));
+		}
+		else
+		{
+			it.data().plugin->addToMainWindowMenu(mw);
+		}
+		
+	}
+	return true;
 }
 
 bool PluginManager::DLLexists(QCString name, bool includeDisabled) const
@@ -437,7 +456,7 @@ bool PluginManager::callSpecialActionPlugin(const QCString pluginName, const QSt
 
 PluginManager & PluginManager::instance()
 {
-	return (*ScMW->pluginManager);
+	return (*ScCore->pluginManager);
 }
 
 const QString & PluginManager::getPluginPath(const QCString pluginName) const

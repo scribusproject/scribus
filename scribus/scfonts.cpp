@@ -38,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "prefstable.h"
 #include "scribus.h"
+#include "scribuscore.h"
 #ifdef Q_WS_X11
 #include <X11/X.h>
 #include <X11/Xlib.h>
@@ -666,7 +667,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 	if (checkedFonts.count() == 0)
 	{
 		firstRun = true;
-		ScMW->setSplashStatus( QObject::tr("Creating Font Cache") );
+		ScCore->setSplashStatus( QObject::tr("Creating Font Cache") );
 	}
 	bool error = FT_New_Face( library, filename, 0, &face );
 	if (error) 
@@ -692,7 +693,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		if (!checkedFonts.contains(filename))
 		{
 			if (!firstRun)
-				ScMW->setSplashStatus( QObject::tr("New Font found, checking...") );
+				ScCore->setSplashStatus( QObject::tr("New Font found, checking...") );
 			FT_UInt gindex = 0;
 			FT_ULong charcode = FT_Get_First_Char( face, &gindex );
 			while ( gindex != 0 )
@@ -729,7 +730,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			}
 			if (checkedFonts[filename].lastMod != fic.lastModified())
 			{
-				ScMW->setSplashStatus( QObject::tr("Modified Font found, checking...") );
+				ScCore->setSplashStatus( QObject::tr("Modified Font found, checking...") );
 				FT_UInt gindex = 0;
 				FT_ULong charcode = FT_Get_First_Char( face, &gindex );
 				while ( gindex != 0 )
@@ -1063,7 +1064,7 @@ void SCFonts::ReadCacheList(QString pf)
 	QFile f(pf + "/checkfonts.xml");
 	if(!f.open(IO_ReadOnly))
 		return;
-	ScMW->setSplashStatus( QObject::tr("Reading Font Cache") );
+	ScCore->setSplashStatus( QObject::tr("Reading Font Cache") );
 	QTextStream ts(&f);
 	ts.setEncoding(QTextStream::UnicodeUTF8);
 	QString errorMsg;
@@ -1110,7 +1111,7 @@ void SCFonts::WriteCacheList(QString pf)
 			elem.appendChild(fosu);
 		}
 	}
-	ScMW->setSplashStatus( QObject::tr("Writing updated Font Cache") );
+	ScCore->setSplashStatus( QObject::tr("Writing updated Font Cache") );
 	QFile f(pf + "/checkfonts.xml");
 	if(f.open(IO_WriteOnly))
 	{
@@ -1127,7 +1128,7 @@ void SCFonts::GetFonts(QString pf, bool showFontInfo)
 	showFontInformation=showFontInfo;
 	FontPath.clear();
 	ReadCacheList(pf);
-	ScMW->setSplashStatus( QObject::tr("Searching for Fonts") );
+	ScCore->setSplashStatus( QObject::tr("Searching for Fonts") );
 	AddUserPath(pf);
 	// Search the system paths
 	QStringList ftDirs = ScPaths::getSystemFontDirs();

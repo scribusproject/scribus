@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #include "scribusdoc.moc"
 #include "scribus.h"
-#include "scribusapp.h"
+#include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "scribuswin.h"
@@ -61,9 +61,6 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 
 #include "text/nlsconfig.h"
-
-
-extern ScribusQApp* ScQApp;
 
 #ifdef HAVE_CMS
 #include "cmserrorhandling.h"
@@ -277,7 +274,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	// Fixme: Check PDF version input
 	PDF_Options.Version = (PDFOptions::PDFVersion)prefsData.PDF_Options.Version;
 
-	if (AutoSave && ScQApp->usingGUI())
+	if (AutoSave && ScCore->usingGUI())
 		autoSaveTimer->start(AutoSaveTime);
 	//Do this after all the collections have been created and cleared!
 	m_masterPageMode=true; // quick hack to force the change of pointers in setMasterPageMode();
@@ -368,7 +365,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	if ((CMSavail) && (CMSSettings.CMSinUse))
 	{
 #ifdef HAVE_CMS
-		if (OpenCMSProfiles(ScMW->InputProfiles, ScMW->MonitorProfiles, ScMW->PrinterProfiles))
+		if (OpenCMSProfiles(ScCore->InputProfiles, ScCore->MonitorProfiles, ScCore->PrinterProfiles))
 		{
 			stdProofG = stdProof;
 			stdTransG = stdTrans;
@@ -473,7 +470,7 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 		CloseCMSProfiles();
 		CMSSettings.CMSinUse = CMSuse = false;
 		QString message = tr("An error occurred while opening icc profiles, color management is not enabled." );
-		if (ScQApp->usingGUI())
+		if (ScCore->usingGUI())
 			QMessageBox::warning(ScMW, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
 		else
 			qWarning( message.local8Bit().data() );
@@ -744,7 +741,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 
 		if (layersUndo)
 		{
-			if (ScQApp->usingGUI())
+			if (ScCore->usingGUI())
 			{
 				ScMW->changeLayer(ss->getInt("ACTIVE"));
 				ScMW->layerPalette->rebuildList();
@@ -1153,7 +1150,7 @@ bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 	if (UndoManager::undoEnabled())
 		undoManager->beginTransaction("Layer", Um::IDocument, Um::DeleteLayer, "", Um::IDelete);
 
-	if (ScQApp->usingGUI())
+	if (ScCore->usingGUI())
 		removeLayer(layerNumber, deleteItems);
 	/*
 	//Layer found, do we want to delete its items too?
@@ -2044,7 +2041,7 @@ bool ScribusDoc::save(const QString& fileName)
 	QFileInfo fi(fileName);
 	QDir::setCurrent(fi.dirPath(true));
 	QProgressBar* mainWindowProgressBar=NULL;
-	if (ScQApp->usingGUI())
+	if (ScCore->usingGUI())
 	{
 		mainWindowProgressBar=ScMW->mainWindowProgressBar;
 		mainWindowProgressBar->reset();
@@ -2421,7 +2418,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 	if (frameType==PageItem::Rectangle || itemType==PageItem::TextFrame || itemType==PageItem::ImageFrame)
 	{
 		newItem->SetRectFrame();
-		//TODO one day hopefully, if(ScQApp->usingGUI())
+		//TODO one day hopefully, if(ScCore->usingGUI())
 		newItem->setRedrawBounding();
 		//ScMW->view->setRedrawBounding(newItem);
 		newItem->ContourLine = newItem->PoLine.copy();
@@ -2430,7 +2427,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 	if (frameType==PageItem::Ellipse)
 	{
 		newItem->SetOvalFrame();
-		//TODO one day hopefully, if(ScQApp->usingGUI())
+		//TODO one day hopefully, if(ScCore->usingGUI())
 		newItem->setRedrawBounding();
 		//ScMW->view->setRedrawBounding(newItem);
 		newItem->ContourLine = newItem->PoLine.copy();
@@ -2494,13 +2491,13 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload)
 {
 	if (!reload)
 	{
-		if ((ScMW->fileWatcher->files().contains(pageItem->Pfile) != 0) && (pageItem->PicAvail))
-			ScMW->fileWatcher->removeFile(pageItem->Pfile);
+		if ((ScCore->fileWatcher->files().contains(pageItem->Pfile) != 0) && (pageItem->PicAvail))
+			ScCore->fileWatcher->removeFile(pageItem->Pfile);
 	}
 	if(!pageItem->loadImage(fn, reload))
 		return false;
 	if (!reload)
-		ScMW->fileWatcher->addFile(pageItem->Pfile);
+		ScCore->fileWatcher->addFile(pageItem->Pfile);
 	if (!isLoading())
 	{
 		//TODO: Make this a signal again one day
@@ -3472,7 +3469,7 @@ void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *
 	if ( docItemCount!= 0)
 	{
 		int counter;
-		bool usingGUI=ScQApp->usingGUI();
+		bool usingGUI=ScCore->usingGUI();
 		if (usingGUI)
 		{
 			if (dia != NULL)
@@ -4978,7 +4975,7 @@ void ScribusDoc::adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute)
 	|| (newMinX != minCanvasCoordinate.x()) || (newMinY != minCanvasCoordinate.y()))
 	{
 		//CB TODO Make a list of views we belong to and make this the doc's active view via an internal*
-		if (ScQApp->usingGUI() && !ScMW->view->operItemMoving)
+		if (ScCore->usingGUI() && !ScMW->view->operItemMoving)
 		{
 			//Save the old values for the emit, but update now to ensure we are all ready
 			double oldMinX=minCanvasCoordinate.x();
@@ -4992,7 +4989,7 @@ void ScribusDoc::adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute)
 
 void ScribusDoc::connectDocSignals()
 {
-	if (ScQApp->usingGUI())
+	if (ScCore->usingGUI())
 	{
 		connect(this, SIGNAL(setApplicationMode(int)), ScMW, SLOT(setAppMode(int)));
 		connect(this, SIGNAL(docChanged()), ScMW, SLOT(slotDocCh()));
@@ -5459,11 +5456,11 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 			currItem = itemSelection->itemAt(i);
 			if (currItem->asImageFrame())
 			{
-				if ((ScMW->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail))
-					ScMW->fileWatcher->removeFile(currItem->Pfile);
+				if ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail))
+					ScCore->fileWatcher->removeFile(currItem->Pfile);
 			}
 			else
-			if (currItem->asTextFrame() && ScQApp->usingGUI())
+			if (currItem->asTextFrame() && ScCore->usingGUI())
 			{
 				if (currItem->itemText.length() != 0 && (currItem->NextBox == 0 || currItem->BackBox == 0))
 				{
@@ -5524,8 +5521,8 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
 	for (uint de = 0; de < selectedItemCount; ++de)
 	{
 		currItem = delItems.last();
-		if ((currItem->asImageFrame()) && ((ScMW->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail)))
-			ScMW->fileWatcher->removeFile(currItem->Pfile);
+		if ((currItem->asImageFrame()) && ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail)))
+			ScCore->fileWatcher->removeFile(currItem->Pfile);
 		if (currItem->asTextFrame())
 		{
 #ifndef NLS_PROTO

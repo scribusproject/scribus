@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "bookpalette.h"
 #include "prefsmanager.h"
 #include "scribusdoc.h"
+#include "scribuscore.h"
 
 #include <structmember.h>
 #include <qfileinfo.h>
@@ -459,7 +460,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	self->intents = ScMW->doc->PDF_Options.Intent; // int - 0 - 3
 	self->intenti = ScMW->doc->PDF_Options.Intent2; // int - 0 - 3
 	QString tp = ScMW->doc->PDF_Options.SolidProf;
-	if (!ScMW->InputProfiles.contains(tp))
+	if (!ScCore->InputProfiles.contains(tp))
 		tp = ScMW->view->Doc->CMSSettings.DefaultSolidColorProfile;
 	PyObject *solidpr = NULL;
 	solidpr = PyString_FromString(tp.ascii());
@@ -471,7 +472,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		return -1;
 	}
 	QString tp2 = ScMW->doc->PDF_Options.ImageProf;
-	if (!ScMW->InputProfiles.contains(tp2))
+	if (!ScCore->InputProfiles.contains(tp2))
 		tp2 = ScMW->view->Doc->CMSSettings.DefaultSolidColorProfile;
 	PyObject *imagepr = NULL;
 	imagepr = PyString_FromString(tp2.ascii());
@@ -483,7 +484,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		return -1;
 	}
 	QString tp3 = ScMW->doc->PDF_Options.PrintProf;
-	if (!ScMW->PDFXProfiles.contains(tp3))
+	if (!ScCore->PDFXProfiles.contains(tp3))
 		tp3 = ScMW->view->Doc->CMSSettings.DefaultPrinterProfile;
 	PyObject *printprofc = NULL;
 	printprofc = PyString_FromString(tp3.ascii());
@@ -1111,7 +1112,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 // Where does compiler find cms function when I have not included header for it
 				const char *Descriptor;
 				cmsHPROFILE hIn;
-				hIn = cmsOpenProfileFromFile(ScMW->PrinterProfiles[ScMW->doc->PDF_Options.PrintProf], "r");
+				hIn = cmsOpenProfileFromFile(ScCore->PrinterProfiles[ScMW->doc->PDF_Options.PrintProf], "r");
 				Descriptor = cmsTakeProductDesc(hIn);
 				nam = QString(Descriptor);
 				if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)

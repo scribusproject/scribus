@@ -47,7 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "bookmwin.h"
 #include "scribus.h"
-#include "scribusapp.h"
+#include "scribuscore.h"
 #include "scribusdoc.h"
 #include "multiprogressdialog.h"
 #include "bookpalette.h"
@@ -92,7 +92,7 @@ PDFlib::PDFlib(ScribusDoc & docu)
 	spotCount(0),
 	progressDialog(0),
 	abortExport(false),
-	usingGUI(ScQApp->usingGUI())
+	usingGUI(ScCore->usingGUI())
 {
 	Catalog.Outlines = 2;
 	Catalog.PageTree = 3;
@@ -166,7 +166,7 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components,
 			{
 				if (pageNsMpa.contains(ap))
 				{
-					ScQApp->processEvents();
+					qApp->processEvents();
 					PDF_TemplatePage(doc.MasterPages.at(ap));
 					++pc_exportmasterpages;
 				}
@@ -182,13 +182,13 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components,
 		{
 			if (doc.PDF_Options.Thumbnails)
 				pm = thumbs[pageNs[a]];
-			ScQApp->processEvents();
+			qApp->processEvents();
 			if (abortExport) break;
 			PDF_Begin_Page(doc.Pages->at(pageNs[a]-1), pm);
-			ScQApp->processEvents();
+			qApp->processEvents();
 			if (abortExport) break;
 			PDF_ProcessPage(doc.Pages->at(pageNs[a]-1), pageNs[a]-1, doc.PDF_Options.doClip);
-			ScQApp->processEvents();
+			qApp->processEvents();
 			if (abortExport) break;
 			PDF_End_Page();
 			pc_exportpages++;
@@ -202,7 +202,7 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components,
 		if (!abortExport)
 		{
 			if (doc.PDF_Options.Version == PDFOptions::PDFVersion_X3)
-				PDF_End_Doc(ScMW->PrinterProfiles[doc.PDF_Options.PrintProf], nam, Components);
+				PDF_End_Doc(ScCore->PrinterProfiles[doc.PDF_Options.PrintProf], nam, Components);
 			else
 				PDF_End_Doc();
 		}
@@ -1011,7 +1011,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 		ObjCounter++;
 		QString dataP;
 		struct ICCD dataD;
-		loadText(ScMW->InputProfiles[Options.SolidProf], &dataP);
+		loadText(ScCore->InputProfiles[Options.SolidProf], &dataP);
 		PutDoc("<<\n");
 		if ((Options.Compress) && (CompAvail))
 		{
@@ -2024,7 +2024,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				if (usingGUI)
 				{
 					progressDialog->setProgress("ECPI", ++pc_exportpagesitems);
-					ScQApp->processEvents();
+					qApp->processEvents();
 				}
 				ite = PItems.at(a);
 				if (ite->LayerNr != ll.LNr)
@@ -2036,7 +2036,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					if (usingGUI)
 					{
 						progressDialog->setProgress("ECPI", ++pc_exportpagesitems);
-						ScQApp->processEvents();
+						qApp->processEvents();
 					}
 					ite = PItems.at(a);
 					if (ite->LayerNr != ll.LNr)
@@ -4743,12 +4743,12 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 					{
 						if (img.imgInfo.colorspace == 1)
 						{
-							loadRawBytes((Embedded ? ScMW->InputProfilesCMYK[Options.ImageProf] : ScMW->InputProfilesCMYK[Profil]), dataP);
+							loadRawBytes((Embedded ? ScCore->InputProfilesCMYK[Options.ImageProf] : ScCore->InputProfilesCMYK[Profil]), dataP);
 							components = 4;
 						}
 						else
 						{
-							loadRawBytes((Embedded ? ScMW->InputProfiles[Options.ImageProf] : ScMW->InputProfiles[Profil]), dataP);
+							loadRawBytes((Embedded ? ScCore->InputProfiles[Options.ImageProf] : ScCore->InputProfiles[Profil]), dataP);
 							components = 3;
 						}
 					}
@@ -4757,12 +4757,12 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				{
 					if (img.imgInfo.colorspace == 1)
 					{
-						loadRawBytes((Embedded ? ScMW->InputProfilesCMYK[Options.ImageProf] : ScMW->InputProfilesCMYK[Profil]), dataP);
+						loadRawBytes((Embedded ? ScCore->InputProfilesCMYK[Options.ImageProf] : ScCore->InputProfilesCMYK[Profil]), dataP);
 						components = 4;
 					}
 					else
 					{
-						loadRawBytes((Embedded ? ScMW->InputProfiles[Options.ImageProf] : ScMW->InputProfiles[Profil]), dataP);
+						loadRawBytes((Embedded ? ScCore->InputProfiles[Options.ImageProf] : ScCore->InputProfiles[Profil]), dataP);
 						components = 3;
 					}
 				}

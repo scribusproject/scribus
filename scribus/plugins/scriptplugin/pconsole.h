@@ -41,6 +41,8 @@ class PythonConsole : public QWidget
 	public:
 		PythonConsole( QWidget* parent = 0);
 		~PythonConsole();
+		
+		void setFonts();
 
 		/*! \brief The command string
 		\retval QString with prepared Python commands */

@@ -29,6 +29,7 @@ class PLUGIN_API Barcode : public ScActionPlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
+		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 };
 
 extern "C" PLUGIN_API int barcodegenerator_getPluginAPIVersion();

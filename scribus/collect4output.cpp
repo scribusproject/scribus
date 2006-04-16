@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "collect4output.moc"
 
 #include "scribus.h"
-#include "scribusapp.h"
+#include "scribuscore.h"
 #include "util.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -25,11 +25,8 @@ for which a new license (GPL+exception) is in place.
 #include <qmap.h>
 #include <qdir.h>
 
-extern ScribusQApp* ScQApp;
-
-
 CollectForOutput::CollectForOutput(bool withFonts, bool compressDoc)
-	: QObject(ScQApp, 0)
+	: QObject(ScCore, 0)
 {
 	outputDirectory = QString();
 	compressDoc = compressDoc;
@@ -41,7 +38,7 @@ CollectForOutput::CollectForOutput(bool withFonts, bool compressDoc)
 bool CollectForOutput::newDirDialog()
 {
 	QString curDir = QDir::currentDirPath();
-	if (ScQApp->usingGUI())
+	if (ScCore->usingGUI())
 	{
 		QString wdir = ".";
 		QString prefsDocDir = PrefsManager::instance()->documentDir();
@@ -62,8 +59,8 @@ QString CollectForOutput::collect()
 {
 	if (!newDirDialog())
 		return "";
-	ScMW->fileWatcher->forceScan();
-	ScMW->fileWatcher->stop();
+	ScCore->fileWatcher->forceScan();
+	ScCore->fileWatcher->stop();
 	if(outputDirectory.right(1) != "/")
 		outputDirectory += "/";
 	dirs->set("collect", outputDirectory.left(outputDirectory.findRev("/",-2)));
@@ -92,7 +89,7 @@ QString CollectForOutput::collect()
 	ScMW->updateRecent(newName);
 	ScMW->mainWindowStatusLabel->setText("");
 	ScMW->mainWindowProgressBar->reset();
-	ScMW->fileWatcher->start();
+	ScCore->fileWatcher->start();
 	collectedFiles.clear();
 	return newName;
 }
@@ -182,8 +179,8 @@ bool CollectForOutput::collectItems()
 					ite->Pfile = collectFile(oldFile, itf.fileName());
 					if (ScMW->fileWatcherActive())
 					{
-						ScMW->fileWatcher->removeFile(oldFile);
-						ScMW->fileWatcher->addFile(ite->Pfile);
+						ScCore->fileWatcher->removeFile(oldFile);
+						ScCore->fileWatcher->addFile(ite->Pfile);
 					}
 				}
 			}
@@ -201,8 +198,8 @@ bool CollectForOutput::collectItems()
 							ite->Pfile = collectFile(oldFile, itf.fileName());
 							if (ScMW->fileWatcherActive())
 							{
-								ScMW->fileWatcher->removeFile(oldFile);
-								ScMW->fileWatcher->addFile(ite->Pfile);
+								ScCore->fileWatcher->removeFile(oldFile);
+								ScCore->fileWatcher->addFile(ite->Pfile);
 							}
 						}
 					}

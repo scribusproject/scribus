@@ -21,7 +21,7 @@ class SCRIBUS_API FileWatcher : public QObject
 	Q_OBJECT
 
 public:
-	FileWatcher(QWidget* parent);
+	FileWatcher(QObject* parent);
 	~FileWatcher();
 	bool isActive();
 	// Set the timer length in milliseconds

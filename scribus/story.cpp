@@ -3022,9 +3022,9 @@ void StoryEditor::Do_fontPrev()
 {
 	blockUpdate = true;
 	QString retval;
-	if (ScMW->pluginManager->DLLexists("fontpreview"))
+	if (PluginManager::instance().DLLexists("fontpreview"))
 	{
-		bool result = ScMW->pluginManager->callSpecialActionPlugin("fontpreview", Editor->CurrFont, retval);
+		bool result = PluginManager::instance().callSpecialActionPlugin("fontpreview", Editor->CurrFont, retval);
 		if (result && !retval.isEmpty())
 		{
 			sDebug("Got retval");

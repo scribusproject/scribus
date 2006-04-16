@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapp.h"
 #include "scribusapp.moc"
-#include "scribus.h"
+#include "scribuscore.h"
 #include "scpaths.h"
 #include "prefsfile.h"
 #include "langmgr.h"
@@ -68,12 +68,14 @@ for which a new license (GPL+exception) is in place.
 #define ARG_DISPLAY_QT "-display"
 
 extern ScribusQApp* ScQApp;
+extern ScribusCore* ScCore;
 
 bool ScribusQApp::useGUI=false;
 
 ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv)
 {
 	ScQApp=this;
+	ScCore=NULL;
 	ScMW=NULL;
 	lang="";
 }
@@ -192,39 +194,17 @@ void ScribusQApp::parseCommandLine()
 
 int ScribusQApp::init()
 {
+	m_ScCore=new ScribusCore();
+	Q_CHECK_PTR(m_ScCore);
+	if (!m_ScCore)
+		return EXIT_FAILURE;
+	ScCore=m_ScCore;
 	processEvents();
+	ScCore->init(useGUI, swapDialogButtonOrder, file);
+	int retVal=EXIT_SUCCESS;
 	if (useGUI)
-	{
-		scribus = new ScribusMainWindow();
-		ScMW=scribus;
-		if (!scribus)
-			exit(EXIT_FAILURE);
-		int scribusRetVal = scribus->initScribus(showSplash, showFontInfo, lang, prefsUserFile);
-		if (scribusRetVal == 1)
-			return(EXIT_FAILURE);
-
-		setMainWidget(scribus);
-		connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
-
-		scribus->show();
-		scribus->ShowSubs();
-
-		if (!file.isEmpty())
-			scribus->loadDoc(file);
-		else
-		{
-			if (PrefsManager::instance()->appPrefs.showStartupDialog)
-				scribus->startUpDialog();
-			else
-				scribus->setFocus();
-		}
-
-		// A hook for plug-ins and scripts to trigger on. Some plugins and scripts
-		// require the app to be fully set up (in particular, the main window to be
-		// built and shown) before running their setup.
-		emit appStarted();
-	}
-	return EXIT_SUCCESS;
+		retVal=ScCore->startGUI(showSplash, showFontInfo, lang, prefsUserFile);
+	return retVal;
 }
 
 QStringList ScribusQApp::getLang(QString lang)
@@ -418,54 +398,3 @@ void ScribusQApp::showHeader()
 	ts << QString("%1 %2").arg(tr("Issues")+":",        descwidth).arg("http://bugs.scribus.net"); endl(ts);
 	endl(ts);
 }
-
-bool ScribusQApp::usingGUI() const
-{
-	return useGUI;
-}
-
-bool ScribusQApp::isMacGUI() const
-{
-	// Do it statically for now
-#if defined(Q_WS_MAC)
-	return true;
-#else
-	return false;
-#endif
-}
-
-bool ScribusQApp::isWinGUI() const
-{
-	// Do it statically for now
-#if defined(_WIN32)
-	return true;
-#else
-	return false;
-#endif
-}
-
-bool ScribusQApp::reverseDialogButtons() const
-{
-	if (swapDialogButtonOrder)
-		return true;
-	//Win32 - dont switch
-	#if defined(_WIN32)
-		return false;
-	//Mac Aqua - switch
-	#elif defined(Q_WS_MAC)
-		return true;
-	#else
-	//Gnome - switch
-	QString gnomesession= ::getenv("GNOME_DESKTOP_SESSION_ID");
-	if (!gnomesession.isEmpty())
-		return true;
-
-	//KDE/KDE Aqua - dont switch
-	//Best guess for now if we are running under KDE
-	QString kdesession= ::getenv("KDE_FULL_SESSION");
-	if (!kdesession.isEmpty())
-		return false;
-	#endif
-	return false;
-}
-

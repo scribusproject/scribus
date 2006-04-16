@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "scpainter.h"
 #include "scribus.h"
+#include "scribuscore.h"
 #include "scribusapp.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
@@ -3667,7 +3668,7 @@ void PageItem::handleModeEditKey(QKeyEvent * /* k */, bool & /* keyRepeat */)
 
 bool PageItem::connectToGUI()
 {
-	if (!ScQApp->usingGUI())
+	if (!ScCore->usingGUI())
 		return false;
 	if (!m_Doc->m_Selection->primarySelectionIs(this))
 		return false;
@@ -3723,7 +3724,7 @@ bool PageItem::connectToGUI()
 
 bool PageItem::disconnectFromGUI()
 {
-	if (!ScQApp->usingGUI())
+	if (!ScCore->usingGUI())
 		return false;
 	disconnect(this, 0, 0, 0);
 	return true;

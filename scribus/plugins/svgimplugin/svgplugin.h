@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "vgradient.h"
 
 class ScrAction;
+class ScribusMainWindow;
 
 /**
  * \brief The ID for the SVG Import format. This must be a macro not a static const member
@@ -39,6 +40,7 @@ class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file) const;
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt);
+		virtual void addToMainWindowMenu(ScribusMainWindow *);
 
 	public slots:
 		/*!

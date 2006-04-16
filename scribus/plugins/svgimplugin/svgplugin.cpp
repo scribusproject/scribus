@@ -64,10 +64,13 @@ SVGImportPlugin::SVGImportPlugin() : LoadSavePlugin(),
 	// it in one place. This includes registering file format
 	// support.
 	languageChange();
+}
 
+void SVGImportPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
+{
 	importAction->setEnabled(true);
 	connect( importAction, SIGNAL(activated()), SLOT(import()) );
-	ScMW->scrMenuMgr->addMenuItem(importAction, "FileImport");
+	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
 }
 
 SVGImportPlugin::~SVGImportPlugin()
@@ -1295,7 +1298,7 @@ QColor SVGPlug::parseColorN( const QString &rgbColor )
 QString SVGPlug::parseColor( const QString &s )
 {
 	QColor c;
-	QString ret = CommonStrings::None;
+	QString ret = CommonStrings::NoneColor;
 	if( s.startsWith( "rgb(" ) )
 	{
 		QString parse = s.stripWhiteSpace();
@@ -1370,7 +1373,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			obj->FillCol = obj->CurCol;
 		else if (params == "none")
 		{
-			obj->FillCol = CommonStrings::None;
+			obj->FillCol = CommonStrings::NoneColor;
 		}
 		else if( params.startsWith( "url(" ) )
 		{
@@ -1415,7 +1418,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 				obj->GY2 = m_gradients[key].Y2;
 			if (m_gradients[key].matrixValid)
 				obj->matrixg = m_gradients[key].matrix;
-			obj->FillCol = CommonStrings::None;
+			obj->FillCol = CommonStrings::NoneColor;
 		}
 		else
 			obj->FillCol = parseColor(params);
@@ -1427,10 +1430,10 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 	else if( command == "color" )
 	{
 		if (params == "none")
-			obj->CurCol = CommonStrings::None;
+			obj->CurCol = CommonStrings::NoneColor;
 		else if( params.startsWith( "url(" ) )
 		{
-			obj->CurCol = CommonStrings::None;
+			obj->CurCol = CommonStrings::NoneColor;
 		}
 		else
 		{
@@ -1443,11 +1446,11 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			obj->StrokeCol = obj->CurCol;
 		else if (params == "none")
 		{
-			obj->StrokeCol = CommonStrings::None;
+			obj->StrokeCol = CommonStrings::NoneColor;
 		}
 		else if( params.startsWith( "url(" ) )
 		{
-			obj->StrokeCol = CommonStrings::None;
+			obj->StrokeCol = CommonStrings::NoneColor;
 		}
 		else
 			obj->StrokeCol = parseColor(params);

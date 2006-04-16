@@ -124,6 +124,12 @@ void ScriptPlugin::languageChange()
 		scripterCore->languageChange();
 }
 
+void ScriptPlugin::addToMainWindowMenu(ScribusMainWindow* mw)
+{
+	if (scripterCore)
+		scripterCore->addToMainWindowMenu(mw);
+}
+
 const QString ScriptPlugin::fullTrName() const
 {
 	return QObject::tr("Scripter");

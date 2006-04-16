@@ -72,7 +72,10 @@ OODrawImportPlugin::OODrawImportPlugin() :
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file formats.
 	languageChange();
+}
 
+void OODrawImportPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
+{
 	// Then hook up the action
 	importAction->setEnabled(true);
 	connect( importAction, SIGNAL(activated()), SLOT(import()) );

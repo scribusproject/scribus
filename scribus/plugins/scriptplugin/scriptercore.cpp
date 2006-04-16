@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "menumanager.h"
 #include "pconsole.h"
 #include "scraction.h"
+#include "scribuscore.h"
 #include "scpaths.h"
 #include "selection.h"
 #include "prefsfile.h"
@@ -38,7 +39,6 @@ for which a new license (GPL+exception) is in place.
 ScripterCore::ScripterCore(QWidget* parent)
 {
 	pcon = new PythonConsole(parent);
-	menuMgr = ScMW->scrMenuMgr;
 	scrScripterActions.clear();
 	scrRecentScriptActions.clear();
 	returnString = "init";
@@ -53,19 +53,8 @@ ScripterCore::ScripterCore(QWidget* parent)
 	QObject::connect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
 	QObject::connect( scrScripterActions["scripterAboutScript"], SIGNAL(activated()) , this, SLOT(aboutScript()) );
 
-	menuMgr->createMenu("Scripter", QObject::tr("&Script"));
-	menuMgr->addMenuToMenuBarAfter("Scripter","Extras");
-	menuMgr->createMenu("ScribusScripts", QObject::tr("&Scribus Scripts"), "Scripter");
-	menuMgr->addMenuItem(scrScripterActions["scripterExecuteScript"], "Scripter");
-	menuMgr->createMenu("RecentScripts", QObject::tr("&Recent Scripts"), "Scripter");
-	menuMgr->addMenuSeparator("Scripter");
-	menuMgr->addMenuItem(scrScripterActions["scripterShowConsole"], "Scripter");
-	menuMgr->addMenuItem(scrScripterActions["scripterAboutScript"], "Scripter");
-
 	SavedRecentScripts.clear();
 	ReadPlugPrefs();
-	buildScribusScriptsMenu();
-	buildRecentScriptsMenu();
 
 	QObject::connect(pcon, SIGNAL(runCommand()), this, SLOT(slotExecute()));
 	QObject::connect(pcon, SIGNAL(paletteShown(bool)), this, SLOT(slotInteractiveScript(bool)));
@@ -74,6 +63,21 @@ ScripterCore::ScripterCore(QWidget* parent)
 ScripterCore::~ScripterCore()
 {
 	SavePlugPrefs();
+}
+
+void ScripterCore::addToMainWindowMenu(ScribusMainWindow *mw)
+{
+	menuMgr = mw->scrMenuMgr;
+	menuMgr->createMenu("Scripter", QObject::tr("&Script"));
+	menuMgr->addMenuToMenuBarAfter("Scripter","Extras");
+	menuMgr->createMenu("ScribusScripts", QObject::tr("&Scribus Scripts"), "Scripter");
+	menuMgr->addMenuItem(scrScripterActions["scripterExecuteScript"], "Scripter");
+	menuMgr->createMenu("RecentScripts", QObject::tr("&Recent Scripts"), "Scripter");
+	menuMgr->addMenuSeparator("Scripter");
+	menuMgr->addMenuItem(scrScripterActions["scripterShowConsole"], "Scripter");
+	menuMgr->addMenuItem(scrScripterActions["scripterAboutScript"], "Scripter");
+	buildScribusScriptsMenu();
+	buildRecentScriptsMenu();
 }
 
 
@@ -348,7 +352,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 				// Display a dialog to the user with the exception
 				QClipboard *cp = QApplication::clipboard();
 				cp->setText(errorMsg);
-				ScMW->closeSplash();
+				ScCore->closeSplash();
 				QMessageBox::warning(ScMW,
 									tr("Script error"),
 									tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
@@ -431,6 +435,7 @@ void ScripterCore::slotInteractiveScript(bool visible)
 	QObject::disconnect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
 
 	scrScripterActions["scripterShowConsole"]->setOn(visible);
+	pcon->setFonts();
 	pcon->setShown(visible);
 
 	QObject::connect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );

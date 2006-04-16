@@ -39,9 +39,6 @@ PythonConsole::PythonConsole( QWidget* parent)
 	: QWidget( parent, "PythonConsole", WType_TopLevel )
 {
 	setIcon(loadIcon("AppIcon.png"));
-	QFont font = QFont("Fixed");
-	font.setStyleHint(QFont::TypeWriter);
-	font.setPointSize(PrefsManager::instance()->appPrefs.AppFontSize);
 
 	// setup the menu
 	menuBar = new QMenuBar(this, "menuBar");
@@ -67,7 +64,6 @@ PythonConsole::PythonConsole( QWidget* parent)
 	editorsLayout->addWidget(splitter);
 
 	commandEdit = new QTextEdit(splitter, "commandEdit" );
-	commandEdit->setFont(font);
 	commandEdit->setTextFormat(Qt::PlainText);
 	commandEdit->setFocus();
 	commandEdit->setTabStopWidth(commandEdit->pointSize() * 4);
@@ -79,7 +75,6 @@ PythonConsole::PythonConsole( QWidget* parent)
 	SyntaxHighlighter *sxHigh = new SyntaxHighlighter(commandEdit);
 
 	outputEdit = new QTextEdit(splitter, "outputEdit" );
-	outputEdit->setFont(font);
 	outputEdit->setTextFormat(Qt::PlainText);
 	outputEdit->setReadOnly(true);
 	QSizePolicy outputEditSize( outputEdit->sizePolicy() );
@@ -112,6 +107,15 @@ PythonConsole::PythonConsole( QWidget* parent)
 PythonConsole::~PythonConsole()
 {
 	// no need to delete child widgets, Qt does it all for us
+}
+
+void PythonConsole::setFonts()
+{
+	QFont font = QFont("Fixed");
+	font.setStyleHint(QFont::TypeWriter);
+	font.setPointSize(PrefsManager::instance()->appPrefs.AppFontSize);
+	commandEdit->setFont(font);	
+	outputEdit->setFont(font);
 }
 
 void PythonConsole::closeEvent(QCloseEvent *)

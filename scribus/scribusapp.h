@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 
 #include "scribusapi.h"
+class ScribusCore;
 class ScribusMainWindow;
 
 class SCRIBUS_API ScribusQApp : public QApplication
@@ -37,6 +38,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		int init();
 		void initLang();
 		void parseCommandLine();
+		void changeGUILanguage(const QString & lang);
 		/*!
 		\author Franz Schmid
 		\author Alessandro Rimoldi
@@ -58,28 +60,12 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		\param langs QString a two letter string describing the lang environement
 		*/
 		void installTranslators(const QStringList & langs);
-		void changeGUILanguage(const QString & lang);
-		bool usingGUI() const;
-		/**
-		 * @brief Are we trying to adhere to Apple Mac HIG ?
-		 * @retval bool true if we are on Qt/Mac
-		 */
-		bool isMacGUI() const;
-		/**
-		 * @brief Are we executing Scribus on Windows ?
-		 * @retval bool true if we are on Qt/Win
-		 */
-		bool isWinGUI() const;
-		/**
-		 * @brief Are we swapping dialog button order?
-		 * @retval bool if we are swapping
-		 */
-		bool reverseDialogButtons() const;
 
+		const ScribusCore* core() {return m_ScCore;}
 		static bool useGUI;
 
 	private:
-		ScribusMainWindow *scribus;
+		ScribusCore* m_ScCore;
 		void showHeader();
 		void showVersion();
 		/*!
@@ -103,9 +89,6 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		//! \brief If is there user given prefs file...
 		QString prefsUserFile;
 		QString file;
-
-	signals:
-		void appStarted();
 };
 
 #endif

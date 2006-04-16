@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scmessagebox.h"
 #include "scmessagebox.moc"
-#include "scribusapp.h"
+#include "scribuscore.h"
 
 extern ScribusQApp* ScQApp;
 
@@ -29,7 +29,7 @@ extern ScribusQApp* ScQApp;
 int ScMessageBox::swapButtonValues(int &b0, int &b1, int &b2)
 {
 	int buttonsUsed=1;
-	if (ScQApp->reverseDialogButtons())
+	if (ScCore->reverseDialogButtons())
 	{
 		//Last button not used, and 2nd one used, swap 1st and 2nd.
 		if (b2==0 && b1!=0) //Could be: if ((b2==0 || b2==QMessageBox::NoButton) && b1!=0) but NoButton is 0x0000, for now.
@@ -43,7 +43,7 @@ int ScMessageBox::swapButtonValues(int &b0, int &b1, int &b2)
 		if (b2!=0 && b1!=0 && b0!=0)
 		{
 			int t;
-			if (ScQApp->isMacGUI())
+			if (ScCore->isMacGUI())
 			{
 				// Mac order is "No, Cancel, Yes"
 				t = b2;
@@ -67,7 +67,7 @@ int ScMessageBox::swapButtonValues(int &b0, int &b1, int &b2)
 int ScMessageBox::swapButtonValues(QString &b0Text, QString &b1Text, QString &b2Text, int &defaultButton, int &escapeButton)
 {
 	int buttonsUsed=1;
-	if (ScQApp->reverseDialogButtons())
+	if (ScCore->reverseDialogButtons())
 	{
 		//Last button not used, and 2nd one used, swap 1st and 2nd.
 		if (b2Text.isEmpty() && !b1Text.isEmpty())
@@ -91,7 +91,7 @@ int ScMessageBox::swapButtonValues(QString &b0Text, QString &b1Text, QString &b2
 		if (!b2Text.isEmpty() && !b1Text.isEmpty() && !b0Text.isEmpty())
 		{
 			QString tText;
-			if (ScQApp->isMacGUI())
+			if (ScCore->isMacGUI())
 			{
 				// Mac order is "No, Cancel, Yes"
 				tText = b2Text;
@@ -147,7 +147,7 @@ int ScMessageBox::swapButtonValues(QString &b0Text, QString &b1Text, QString &b2
 int ScMessageBox::swapReturnValues(const int b0Val, const int b1Val, const int b2Val, const int returnVal, const int buttonsUsed)
 {
 	int retVal=returnVal;
-	if (ScQApp->reverseDialogButtons())
+	if (ScCore->reverseDialogButtons())
 	{
 		//Last button not used, and 2nd one used, swap 1st and 2nd.
 		if (buttonsUsed==2)
@@ -162,7 +162,7 @@ int ScMessageBox::swapReturnValues(const int b0Val, const int b1Val, const int b
 		//All three buttons used, swap the outside ones only
 		if (buttonsUsed==3)
 		{
-			if (ScQApp->isMacGUI()) {
+			if (ScCore->isMacGUI()) {
 				if (returnVal == b0Val)
 					retVal = b1Val;
 				else if (returnVal == b1Val)

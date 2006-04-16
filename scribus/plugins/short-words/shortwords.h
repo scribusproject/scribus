@@ -31,6 +31,7 @@ class PLUGIN_API ShortWordsPlugin : public ScActionPlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
+		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 		/*! \brief Preference widget */
 		virtual bool newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
 										 QString& caption, QPixmap& icon);

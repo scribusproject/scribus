@@ -56,6 +56,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "sccombobox.h"
 #include "scribusapp.h"
+#include "scribuscore.h"
 #include "scribus.h"
 #include "scribus.moc"
 #include "newfile.h"
@@ -180,40 +181,40 @@ for which a new license (GPL+exception) is in place.
 using namespace std;
 
 #ifdef HAVE_CMS
-#include "cmserrorhandling.h"
-cmsHPROFILE CMSoutputProf;
-cmsHPROFILE CMSprinterProf;
-cmsHTRANSFORM stdTransG;
-cmsHTRANSFORM stdProofG;
-cmsHTRANSFORM stdTransImgG;
-cmsHTRANSFORM stdProofImgG;
-cmsHTRANSFORM stdTransCMYKG;
-cmsHTRANSFORM stdProofCMYKG;
-cmsHTRANSFORM stdTransRGBG;
-cmsHTRANSFORM stdProofGCG;
-cmsHTRANSFORM stdProofCMYKGCG;
-bool BlackPoint;
-bool SoftProofing;
-bool Gamut;
-bool SCRIBUS_API CMSuse;
-int IntentMonitor;
-int IntentPrinter;
+extern cmsHPROFILE CMSoutputProf;
+extern cmsHPROFILE CMSprinterProf;
+extern cmsHTRANSFORM stdTransG;
+extern cmsHTRANSFORM stdProofG;
+extern cmsHTRANSFORM stdTransImgG;
+extern cmsHTRANSFORM stdProofImgG;
+extern cmsHTRANSFORM stdTransCMYKG;
+extern cmsHTRANSFORM stdProofCMYKG;
+extern cmsHTRANSFORM stdTransRGBG;
+extern cmsHTRANSFORM stdProofGCG;
+extern cmsHTRANSFORM stdProofCMYKGCG;
+extern bool BlackPoint;
+extern bool SoftProofing;
+extern bool Gamut;
+extern bool SCRIBUS_API CMSuse;
+extern int IntentMonitor;
+extern int IntentPrinter;
 #endif
-bool CMSavail;
+extern bool CMSavail;
+
+
 bool previewDinUse;
 bool printDinUse;
 
 QString DocDir;
 
+extern ScribusCore* ScCore;
 extern ScribusQApp* ScQApp;
 extern bool emergencyActivated;
 
 ScribusMainWindow::ScribusMainWindow()
 {
-	scribusInitialized=false;
 	actionManager=NULL;
 	scrMenuMgr=NULL;
-	undoManager=NULL;
 	prefsManager=NULL;
 #ifdef Q_WS_MAC
 	noIcon = loadIcon("noicon.xpm");
@@ -223,15 +224,15 @@ ScribusMainWindow::ScribusMainWindow()
 /*
  * retval 0 - ok, 1 - no fonts, ...
  */
-int ScribusMainWindow::initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile)
+int ScribusMainWindow::initScMW(bool primaryMainWindow)
 {
-	CommonStrings::languageChange();
 	int retVal=0;
-	ExternalApp = 0;
+
+//	CommonStrings::languageChange();
 	previewDinUse = false;
 	printDinUse = false;
-	guiLanguage = newGuiLanguage;
-	initSplash(showSplash);
+//	guiLanguage = newGuiLanguage;
+//	initSplash(showSplash);
 	setUsesBigPixmaps(true);
 	CurrStED = NULL;
 	setCaption( tr("Scribus " VERSION));
@@ -244,107 +245,82 @@ int ScribusMainWindow::initScribus(bool showSplash, bool showFontInfo, const QSt
 	scrWindowsActions.clear();
 	scrLayersActions.clear();
 	scrMenuMgr = new MenuManager(this->menuBar());
-
 	prefsManager = PrefsManager::instance();
-	prefsManager->setup();
-	PrefsPfad = prefsManager->preferencesLocation();
-
-
-	undoManager = UndoManager::instance();
 	objectSpecificUndo = false;
-	pluginManager = new PluginManager();
+	
+	undoManager = UndoManager::instance();
 	tocGenerator = new TOCGenerator();
-	actionManager = new ActionManager(this, "actionManager");
+	
 
 	initDefaultValues();
-	initMenuBar();
+	
 	initStatusBar();
-	initToolBars();
+	
 	qApp->processEvents();
 
 	BuFromApp = false;
+	
+	actionManager = new ActionManager(this, "actionManager");
+	initMenuBar();
+	initToolBars();
+	buildFontMenu();
+ 	ScCore->pluginManager->setupPluginActions(this);
+ 	ScCore->pluginManager->languageChange();
+	//done in core: initKeyboardShortcuts();
+	if (primaryMainWindow)
+		ScCore->setSplashStatus( tr("Setting up Shortcuts") );
+	SetShortCut();
 
-#ifdef QT_MAC
-	bool haveFonts=initFonts(true);
-#else
-	bool haveFonts=initFonts(showFontInfo);
-#endif
-	if (!haveFonts)
-		retVal=1;
-	else
-	{
-		buildFontMenu();
-		prefsManager->initDefaults();
-		prefsManager->initDefaultGUIFont(qApp->font());
-		prefsManager->initArrowStyles();
-		resize(610, 600);
-		QVBox* vb = new QVBox( this );
-		vb->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
-		wsp = new QWorkspace( vb );
-		setCentralWidget( vb );
-		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
-		//Connect windows cascade and tile actions to the workspace after its created. Only depends on wsp created.
-		connect( scrActions["windowsCascade"], SIGNAL(activated()) , wsp, SLOT(cascade()) );
-		connect( scrActions["windowsTile"], SIGNAL(activated()) , wsp, SLOT(tile()) );
+	resize(610, 600);
+	QVBox* vb = new QVBox( this );
+	vb->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
+	wsp = new QWorkspace( vb );
+	setCentralWidget( vb );
+	connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
+	//Connect windows cascade and tile actions to the workspace after its created. Only depends on wsp created.
+	connect( scrActions["windowsCascade"], SIGNAL(activated()) , wsp, SLOT(cascade()) );
+	connect( scrActions["windowsTile"], SIGNAL(activated()) , wsp, SLOT(tile()) );
+	initPalettes();
+	
+	prefsManager->setupMainWindow(this);
 
-		initPalettes();
+	if (primaryMainWindow)
+		ScCore->setSplashStatus( tr("Initializing Story Editor") );
+	storyEditor = new StoryEditor(this);
 
-		fileWatcher = new FileWatcher(this);
+	DocDir = prefsManager->documentDir();
 
-		setSplashStatus( tr("Initializing Plugins") );
-		pluginManager->initPlugs();
-		setSplashStatus( tr("Initializing Keyboard Shortcuts") );
-		initKeyboardShortcuts();
-		setSplashStatus( tr("Reading Preferences") );
-		if (prefsUserFile.isNull())
-			prefsManager->ReadPrefs();
-		else
-			prefsManager->ReadPrefs(prefsUserFile);
-		setSplashStatus( tr("Initializing Story Editor") );
-		storyEditor = new StoryEditor(this);
 
-		HaveGS = testGSAvailability();
-		HavePngAlpha = testGSDeviceAvailability("pngalpha");
-		HaveTiffSep = testGSDeviceAvailability("tiffsep");
-		DocDir = prefsManager->documentDir();
+	if (primaryMainWindow)
+		ScCore->setSplashStatus( tr("Initializing Hyphenator") );
+	QString preLang = prefsManager->appPrefs.Language;
+	initHyphenator();
+	if (Sprachen.contains(preLang))
+		prefsManager->appPrefs.Language = preLang;
+	if (primaryMainWindow)
+		ScCore->setSplashStatus( tr("Reading Scrapbook") );
+	initScrapbook();
 
-		setSplashStatus( tr("Reading ICC Profiles") );
-		CMSavail = false;
-		GetCMSProfiles();
-		initCMS();
+	scrActions["helpTooltips"]->setOn(prefsManager->appPrefs.showToolTips);
+	ToggleTips();
+	emit prefsChanged();
 
-		setSplashStatus( tr("Initializing Hyphenator") );
-		QString preLang = prefsManager->appPrefs.Language;
-		initHyphenator();
-		if (Sprachen.contains(preLang))
-			prefsManager->appPrefs.Language = preLang;
-		setSplashStatus( tr("Reading Scrapbook") );
-		initScrapbook();
-		setSplashStatus( tr("Setting up Shortcuts") );
-		SetShortCut();
-		scrActions["helpTooltips"]->setOn(prefsManager->appPrefs.showToolTips);
-		ToggleTips();
-		emit prefsChanged();
+	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
+	connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
+	connect(this, SIGNAL(TextIFont(QString)), propertiesPalette, SLOT(setFontFace(QString)));
+	connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
+	connect(this, SIGNAL(TextISize(int)), propertiesPalette, SLOT(setSize(int)));
+	connect(this, SIGNAL(TextUSval(int)), propertiesPalette, SLOT(setExtra(int)));
+	connect(this, SIGNAL(TextStil(int)), propertiesPalette, SLOT(setStil(int)));
+	connect(this, SIGNAL(TextScale(int)), propertiesPalette, SLOT(setTScale(int)));
+	connect(this, SIGNAL(TextScaleV(int)), propertiesPalette, SLOT(setTScaleV(int)));
+	connect(this, SIGNAL(TextBase(int)), propertiesPalette, SLOT(setTBase(int)));
+	connect(this, SIGNAL(TextShadow(int, int )), propertiesPalette, SLOT(setShadowOffs(int, int )));
+	connect(this, SIGNAL(TextOutline(int)), propertiesPalette, SLOT(setOutlineW(int)));
+	connect(this, SIGNAL(TextUnderline(int, int)), propertiesPalette, SLOT(setUnderline(int, int)));
+	connect(this, SIGNAL(TextStrike(int, int)), propertiesPalette, SLOT(setStrike(int, int)));
+	connect(this, SIGNAL(TextFarben(QString, QString, int, int)), propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
 
-		connect(fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
-		connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
-		connect(this, SIGNAL(TextIFont(QString)), propertiesPalette, SLOT(setFontFace(QString)));
-		connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
-		connect(this, SIGNAL(TextISize(int)), propertiesPalette, SLOT(setSize(int)));
-		connect(this, SIGNAL(TextUSval(int)), propertiesPalette, SLOT(setExtra(int)));
-		connect(this, SIGNAL(TextStil(int)), propertiesPalette, SLOT(setStil(int)));
-		connect(this, SIGNAL(TextScale(int)), propertiesPalette, SLOT(setTScale(int)));
-		connect(this, SIGNAL(TextScaleV(int)), propertiesPalette, SLOT(setTScaleV(int)));
-		connect(this, SIGNAL(TextBase(int)), propertiesPalette, SLOT(setTBase(int)));
-		connect(this, SIGNAL(TextShadow(int, int )), propertiesPalette, SLOT(setShadowOffs(int, int )));
-		connect(this, SIGNAL(TextOutline(int)), propertiesPalette, SLOT(setOutlineW(int)));
-		connect(this, SIGNAL(TextUnderline(int, int)), propertiesPalette, SLOT(setUnderline(int, int)));
-		connect(this, SIGNAL(TextStrike(int, int)), propertiesPalette, SLOT(setStrike(int, int)));
-		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
-	}
-	closeSplash();
-	scribusInitialized=true;
-	//pluginManager->languageChange();
 	setAcceptDrops(true);
 	return retVal;
 }
@@ -353,47 +329,6 @@ ScribusMainWindow::~ScribusMainWindow()
 {
 }
 
-void ScribusMainWindow::initSplash(bool showSplash)
-{
-	if (showSplash)
-	{
-		splashScreen = new SplashScreen();
-		if (splashScreen != NULL && splashScreen->isShown())
-			setSplashStatus(QObject::tr("Initializing..."));
-	}
-	else
-		splashScreen = NULL;
-}
-
-void ScribusMainWindow::setSplashStatus(const QString& newText)
-{
-	if (splashScreen != NULL)
-		splashScreen->setStatus( newText );
-	qApp->processEvents();
-}
-
-void ScribusMainWindow::showSplash(bool shown)
-{
-	if (splashScreen!=NULL && shown!=splashScreen->isShown())
-		splashScreen->setShown(shown);
-}
-
-bool ScribusMainWindow::splashShowing() const
-{
-	if (splashScreen != NULL)
-		return splashScreen->isShown();
-	return false;
-}
-
-void ScribusMainWindow::closeSplash()
-{
-	if (splashScreen!=NULL)
-	{
-		splashScreen->close();
-		delete splashScreen;
-		splashScreen = NULL;
-	}
-}
 
 void ScribusMainWindow::initToolBars()
 {
@@ -424,29 +359,9 @@ void ScribusMainWindow::initToolBars()
 
 }
 
-//Returns false when there are no fonts
-const bool ScribusMainWindow::initFonts(bool showFontInfo)
-{
-	setSplashStatus( tr("Searching for Fonts") );
-	bool haveFonts=prefsManager->GetAllFonts(showFontInfo);
-	if (!haveFonts)
-	{
-		if (splashScreen!=NULL)
-			splashScreen->close(); // 10/10/2004 pv fix #1200
-		QString mess = tr("There are no fonts found on your system.");
-		mess += "\n" + tr("Exiting now.");
-		QMessageBox::critical(this, tr("Fatal Error"), mess, 1, 0, 0);
-	}
-	else
-		setSplashStatus( tr("Font System Initialized") );
-	return haveFonts;
-}
-
 void ScribusMainWindow::initDefaultValues()
 {
-	dirs = prefsManager->prefsFile->getContext("dirs");
 	HaveDoc = false;
-	singleClose = false;
 	ScriptRunning = false;
 	view = NULL;
 	doc = NULL;
@@ -574,25 +489,20 @@ void ScribusMainWindow::initPalettes()
 
 void ScribusMainWindow::initScrapbook()
 {
-	QString scrapbookFileO = QDir::convertSeparators(PrefsPfad+"/scrap13.scs");
+	QString scrapbookFileO = QDir::convertSeparators(prefsManager->preferencesLocation()+"/scrap13.scs");
 	QFileInfo scrapbookFileInfoO = QFileInfo(scrapbookFileO);
 	if (scrapbookFileInfoO.exists())
 	{
-		scrapbookPalette->readOldContents(scrapbookFileO, QDir::convertSeparators(PrefsPfad+"/scrapbook/main"));
+		scrapbookPalette->readOldContents(scrapbookFileO, QDir::convertSeparators(prefsManager->preferencesLocation()+"/scrapbook/main"));
 		QDir d = QDir();
-		d.rename(scrapbookFileO, QDir::convertSeparators(PrefsPfad+"/scrap13.backup"));
+		d.rename(scrapbookFileO, QDir::convertSeparators(prefsManager->preferencesLocation()+"/scrap13.backup"));
 	}
-	QString scrapbookFile = QDir::convertSeparators(PrefsPfad+"/scrapbook/main");
+	QString scrapbookFile = QDir::convertSeparators(prefsManager->preferencesLocation()+"/scrapbook/main");
 	QFileInfo scrapbookFileInfo = QFileInfo(scrapbookFile);
 	if (scrapbookFileInfo.exists())
 		scrapbookPalette->readContents(scrapbookFile);
 	scrapbookPalette->setScrapbookFileName(scrapbookFile);
 	scrapbookPalette->setOpenScrapbooks(prefsManager->appPrefs.RecentScrapbooks);
-}
-
-const QString ScribusMainWindow::getGuiLanguage()
-{
-	return guiLanguage;
 }
 
 bool ScribusMainWindow::warningVersion(QWidget *parent)
@@ -1743,7 +1653,6 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	disconnect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 	if (!windows.isEmpty())
 	{
-		singleClose = true;
 		uint windowCount=windows.count();
 		for ( uint i = 0; i < windowCount; ++i )
 		{
@@ -1753,7 +1662,6 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 			if (tw == ActWin)
 			{
 				ce->ignore();
-				singleClose = false;
 				connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 				return;
 			}
@@ -1772,7 +1680,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	guidePalette->hide();
 
 	// Clean up plugins, THEN save prefs to disk
-	pluginManager->cleanupPlugins();
+	ScCore->pluginManager->cleanupPlugins();
 	prefsManager->appPrefs.RecentScrapbooks.clear();
 	prefsManager->appPrefs.RecentScrapbooks = scrapbookPalette->getOpenScrapbooks();
 	if (!emergencyActivated)
@@ -1940,8 +1848,8 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 		view->show();
 	}
 	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
-	connect(fileWatcher, SIGNAL(fileChanged(QString)), doc, SLOT(updatePict(QString)));
-	connect(fileWatcher, SIGNAL(fileDeleted(QString)), doc, SLOT(removePict(QString)));
+	connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString)), doc, SLOT(updatePict(QString)));
+	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString)), doc, SLOT(removePict(QString)));
 	scrActions["fileSave"]->setEnabled(false);
 	undoManager->switchStack(doc->DocName);
 	styleManager->currentDoc(doc);
@@ -2022,7 +1930,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	{
 		actionManager->disconnectNewViewActions();
 		disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
-		if (ScQApp->usingGUI())
+		if (ScCore->usingGUI())
 		{
 			disconnect(doc->m_Selection, SIGNAL(selectionIsMultiple(bool)), 0, 0);
 			//disconnect(doc->m_Selection, SIGNAL(empty()), 0, 0);
@@ -2035,7 +1943,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	actionManager->connectNewDocActions(doc);
 	styleManager->currentDoc(doc);
 	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
-	if (ScQApp->usingGUI())
+	if (ScCore->usingGUI())
 	{
 		connect(doc->m_Selection, SIGNAL(selectionIsMultiple(bool)), propertiesPalette, SLOT( setMultipleSelection(bool)));
 		//connect(doc->m_Selection, SIGNAL(empty()), propertiesPalette, SLOT( unsetItem()));
@@ -2248,7 +2156,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["pageImport"]->setEnabled(true);
 	//scrActions["toolsPreflightVerifier"]->setEnabled(true);
 
-	if ( HaveGS==0 || ScQApp->isWinGUI() )
+	if ( ScCore->haveGS()==0 || ScCore->isWinGUI() )
 		scrActions["PrintPreview"]->setEnabled(true);
 
 	if (scrActions["SaveAsDocumentTemplate"])
@@ -2884,7 +2792,7 @@ void ScribusMainWindow::updateRecent(QString fn)
 	if (RecentDocs.findIndex(fn) == -1)
 	{
 		RecentDocs.prepend(fn);
-		fileWatcher->addFile(fn);
+		ScCore->fileWatcher->addFile(fn);
 	}
 	else
 	{
@@ -2899,8 +2807,8 @@ void ScribusMainWindow::removeRecent(QString fn)
 	if (RecentDocs.findIndex(fn) != -1)
 	{
 		RecentDocs.remove(fn);
-		if (!fileWatcher->isActive())
-			fileWatcher->removeFile(fn);
+		if (!ScCore->fileWatcher->isActive())
+			ScCore->fileWatcher->removeFile(fn);
 	}
 	rebuildRecentFileMenu();
 }
@@ -2911,7 +2819,7 @@ void ScribusMainWindow::loadRecent(QString fn)
 	if (!fd.exists())
 	{
 		RecentDocs.remove(fn);
-		fileWatcher->removeFile(fn);
+		ScCore->fileWatcher->removeFile(fn);
 		rebuildRecentFileMenu();
 		return;
 	}
@@ -3129,7 +3037,7 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 		if (CMSavail && doc->CMSSettings.CMSinUse)
 		{
 			recalcColors();
-			doc->RecalcPictures(&InputProfiles, &InputProfilesCMYK);
+			doc->RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK);
 		}
 		uint docItemsCount=doc->Items->count();
 		for (uint i = oldItemsCount; i < docItemsCount; ++i)
@@ -3252,7 +3160,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		bool loadSuccess=fileLoader->LoadFile();
 		//Do the font replacement check from here, when we have a GUI. TODO do this also somehow without the GUI
 		//This also gives the user the opportunity to cancel the load when finding theres a replacement required.
-		if (loadSuccess && ScQApp->usingGUI())
+		if (loadSuccess && ScCore->usingGUI())
 			loadSuccess=fileLoader->postLoad();
 		if(!loadSuccess)
 		{
@@ -3324,49 +3232,49 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			bool cmsWarning = false;
 			QStringList missing;
 			QStringList replacement;
-			if (!InputProfiles.contains(doc->CMSSettings.DefaultImageRGBProfile))
+			if (!ScCore->InputProfiles.contains(doc->CMSSettings.DefaultImageRGBProfile))
 			{
 				cmsWarning = true;
 				missing.append(doc->CMSSettings.DefaultImageRGBProfile);
 				replacement.append(prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile);
 				doc->CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
 			}
-			if (!InputProfiles.contains(doc->CMSSettings.DefaultSolidColorProfile))
+			if (!ScCore->InputProfiles.contains(doc->CMSSettings.DefaultSolidColorProfile))
 			{
 				cmsWarning = true;
 				missing.append(doc->CMSSettings.DefaultSolidColorProfile);
 				replacement.append(prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile);
 				doc->CMSSettings.DefaultSolidColorProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile;
 			}
-			if (!MonitorProfiles.contains(doc->CMSSettings.DefaultMonitorProfile))
+			if (!ScCore->MonitorProfiles.contains(doc->CMSSettings.DefaultMonitorProfile))
 			{
 				cmsWarning = true;
 				missing.append(doc->CMSSettings.DefaultMonitorProfile);
 				replacement.append(prefsManager->appPrefs.DCMSset.DefaultMonitorProfile);
 				doc->CMSSettings.DefaultMonitorProfile = prefsManager->appPrefs.DCMSset.DefaultMonitorProfile;
 			}
-			if (!PrinterProfiles.contains(doc->CMSSettings.DefaultPrinterProfile))
+			if (!ScCore->PrinterProfiles.contains(doc->CMSSettings.DefaultPrinterProfile))
 			{
 				cmsWarning = true;
 				missing.append(doc->CMSSettings.DefaultPrinterProfile);
 				replacement.append(prefsManager->appPrefs.DCMSset.DefaultPrinterProfile);
 				doc->CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.DCMSset.DefaultPrinterProfile;
 			}
-			if (!PrinterProfiles.contains(doc->PDF_Options.PrintProf))
+			if (!ScCore->PrinterProfiles.contains(doc->PDF_Options.PrintProf))
 			{
 				cmsWarning = true;
 				missing.append(doc->PDF_Options.PrintProf);
 				replacement.append(prefsManager->appPrefs.DCMSset.DefaultPrinterProfile);
 				doc->PDF_Options.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
 			}
-			if (!InputProfiles.contains(doc->PDF_Options.ImageProf))
+			if (!ScCore->InputProfiles.contains(doc->PDF_Options.ImageProf))
 			{
 				cmsWarning = true;
 				missing.append(doc->PDF_Options.ImageProf);
 				replacement.append(prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile);
 				doc->PDF_Options.ImageProf = doc->CMSSettings.DefaultImageRGBProfile;
 			}
-			if (!InputProfiles.contains(doc->PDF_Options.SolidProf))
+			if (!ScCore->InputProfiles.contains(doc->PDF_Options.SolidProf))
 			{
 				cmsWarning = true;
 				missing.append(doc->PDF_Options.SolidProf);
@@ -3393,7 +3301,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			Gamut = doc->CMSSettings.GamutCheck;
 			IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
 			IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
-			if (doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles))
+			if (doc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->MonitorProfiles, ScCore->PrinterProfiles))
 			{
 				CMSuse = doc->CMSSettings.CMSinUse;
 				stdProofG = doc->stdProof;
@@ -3427,7 +3335,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			if (doc->CMSSettings.CMSinUse)
 			{
 				recalcColors();
-				doc->RecalcPictures(&InputProfiles, &InputProfilesCMYK);
+				doc->RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK);
 			}
 		}
 		else
@@ -3595,8 +3503,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		view->GotoPage(0);
 		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
-		connect(fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
-		connect(fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
+		connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
+		connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
 		connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 		actionManager->disconnectNewDocActions();
 		actionManager->connectNewDocActions(doc);
@@ -3623,7 +3531,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 bool ScribusMainWindow::postLoadDoc()
 {
 	//FIXME Just return for now, if we arent using the GUI
-	if (!ScQApp->usingGUI())
+	if (!ScCore->usingGUI())
 		return false;
 	return true;
 }
@@ -3675,13 +3583,13 @@ void ScribusMainWindow::slotGetContent()
 			QString docDir = ".";
 			QString prefsDocDir=prefsManager->documentDir();
 			if (!prefsDocDir.isEmpty())
-				docDir = dirs->get("images", prefsDocDir);
+				docDir = prefsManager->prefsFile->getContext("dirs")->get("images", prefsDocDir);
 			else
-				docDir = dirs->get("images", ".");
+				docDir = prefsManager->prefsFile->getContext("dirs")->get("images", ".");
 			QString fileName = CFileDialog( docDir, tr("Open"), formatD, "", true);
 			if (!fileName.isEmpty())
 			{
-				dirs->set("images", fileName.left(fileName.findRev("/")));
+				prefsManager->prefsFile->getContext("dirs")->set("images", fileName.left(fileName.findRev("/")));
 				currItem->EmProfile = "";
 				currItem->pixm.imgInfo.isRequest = false;
 				currItem->UseEmbedded = true;
@@ -3849,8 +3757,8 @@ bool ScribusMainWindow::slotFileSaveAs()
 
 bool ScribusMainWindow::DoFileSave(QString fn)
 {
-	fileWatcher->forceScan();
-	fileWatcher->stop();
+	ScCore->fileWatcher->forceScan();
+	ScCore->fileWatcher->stop();
 	ReorgFonts();
 	mainWindowStatusLabel->setText( tr("Saving..."));
 	mainWindowProgressBar->reset();
@@ -3866,14 +3774,13 @@ bool ScribusMainWindow::DoFileSave(QString fn)
 	}
 	mainWindowStatusLabel->setText("");
 	mainWindowProgressBar->reset();
-	fileWatcher->start();
+	ScCore->fileWatcher->start();
 	return ret;
 }
 
 bool ScribusMainWindow::slotFileClose()
 {
 	ScribusWin* tw = ActWin;
-	singleClose = false;
 	ActWin->close();
 	if (tw == ActWin)
 		return false;
@@ -3894,8 +3801,8 @@ bool ScribusMainWindow::DoFileClose()
 		--doc->viewCount;
 		closeActiveWindowMasterPageEditor();
 		setAppMode(modeNormal);
-		disconnect(fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
-		disconnect(fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
+		disconnect(ScCore->fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
+		disconnect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
 		view->close();
 		delete view;
 		view = NULL;
@@ -3909,13 +3816,13 @@ bool ScribusMainWindow::DoFileClose()
 	doc->autoSaveTimer->stop();
 	disconnect(doc->autoSaveTimer, SIGNAL(timeout()), doc->WinHan, SLOT(slotAutoSave()));
 	disconnect(doc->WinHan, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
-	disconnect(fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
-	disconnect(fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
+	disconnect(ScCore->fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
+	disconnect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
 	for (uint a = 0; a < doc->Items->count(); ++a)
 	{
 		PageItem *currItem = doc->Items->at(a);
 		if (currItem->PicAvail)
-			fileWatcher->removeFile(currItem->Pfile);
+			ScCore->fileWatcher->removeFile(currItem->Pfile);
 	}
 	if (CMSavail)
 		doc->CloseCMSProfiles();
@@ -4007,7 +3914,7 @@ bool ScribusMainWindow::DoFileClose()
 	guidePalette->setEnabled(false);
 	layerPalette->ClearInhalt();
 	docCheckerPalette->buildErrorList(0);
-	fileWatcher->removeFile(fName);
+	ScCore->fileWatcher->removeFile(fName);
 	HaveDoc--;
 	view = NULL;
 	delete doc;
@@ -4182,20 +4089,20 @@ bool ScribusMainWindow::doPrint(PrintOptions *options)
 	doc->getUsedFonts(&ReallyUsed);
 	ColorList usedColors;
 	doc->getUsedColors(usedColors);
-	fileWatcher->forceScan();
-	fileWatcher->stop();
+	ScCore->fileWatcher->forceScan();
+	ScCore->fileWatcher->stop();
 	PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, usedColors, false, options->useSpotColors);
 	if (dd != NULL)
 	{
 		if (!options->toFile)
-			filename = PrefsPfad+"/tmp.ps";
+			filename = prefsManager->preferencesLocation()+"/tmp.ps";
 		else
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			if (!overwrite(this, filename))
 			{
 				delete dd;
-				fileWatcher->start();
+				ScCore->fileWatcher->start();
 				return true;
 			}
 			qApp->setOverrideCursor(QCursor(waitCursor), true);
@@ -4254,14 +4161,14 @@ bool ScribusMainWindow::doPrint(PrintOptions *options)
 			retw = false;
 		delete dd;
 	}
-	fileWatcher->start();
+	ScCore->fileWatcher->start();
 	return retw;
 }
 
 void ScribusMainWindow::slotFileQuit()
 {
 	propertiesPalette->unsetDoc();
-	pluginManager->savePreferences();
+	ScCore->pluginManager->savePreferences();
 	close();
 }
 
@@ -4788,7 +4695,7 @@ void ScribusMainWindow::slotHelpAboutQt()
 
 void ScribusMainWindow::slotOnlineHelp()
 {
-	HelpBrowser *dia = new HelpBrowser(0, tr("Scribus Manual"), ScMW->guiLanguage);
+	HelpBrowser *dia = new HelpBrowser(0, tr("Scribus Manual"), ScCore->getGuiLanguage());
 	dia->show();
 }
 
@@ -4804,13 +4711,13 @@ void ScribusMainWindow::SaveText()
 	QString wdir = ".";
 	QString prefsDocDir=prefsManager->documentDir();
 	if (!prefsDocDir.isEmpty())
-		wdir = dirs->get("save_text", prefsDocDir);
+		wdir = prefsManager->prefsFile->getContext("dirs")->get("save_text", prefsDocDir);
 	else
-		wdir = dirs->get("save_text", ".");
+		wdir = prefsManager->prefsFile->getContext("dirs")->get("save_text", ".");
 	QString fn = CFileDialog( wdir, tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), "", false, false, false, true);
 	if (!fn.isEmpty())
 	{
-		dirs->set("save_text", fn.left(fn.findRev("/")));
+		prefsManager->prefsFile->getContext("dirs")->set("save_text", fn.left(fn.findRev("/")));
 		Serializer *se = new Serializer(fn);
 		se->PutText(doc->m_Selection->itemAt(0));
 		se->Write(LoadEnc);
@@ -6930,7 +6837,7 @@ void ScribusMainWindow::slotPrefsOrg()
 		FontSub->RebuildList(0);
 		propertiesPalette->Fonts->RebuildList(0);
 
-		GetCMSProfiles();
+		ScCore->getCMSProfiles();
 		SetShortCut();
 		emit prefsChanged();
 	}
@@ -6940,7 +6847,7 @@ void ScribusMainWindow::slotPrefsOrg()
 void ScribusMainWindow::ShowSubs()
 {
 	QString mess;
-	if (HaveGS != 0)
+	if (ScCore->haveGS() != 0)
 	{
 		mess = tr("The following programs are missing:")+"\n\n";
 #ifndef _WIN32
@@ -6986,13 +6893,13 @@ void ScribusMainWindow::doPrintPreview()
 	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
 		QString currentPrinter = prefs->get("CurrentPrn");
-		if ( PPreview::usePostscriptPreview(currentPrinter) && ( HaveGS != 0 ) )
+		if ( PPreview::usePostscriptPreview(currentPrinter) && ( ScCore->haveGS() != 0 ) )
 		{
 			QString mess = tr("Ghostscript is missing : Postscript Print Preview is not available")+"\n\n";
 			QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
 			return;
 		}
-		PPreview *dia = new PPreview(this, view, doc, HavePngAlpha, HaveTiffSep, currentPrinter);
+		PPreview *dia = new PPreview(this, view, doc, ScCore->havePNGAlpha(), ScCore->haveTIFFSep(), currentPrinter);
 		previewDinUse = true;
 		connect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 		dia->exec();
@@ -7001,7 +6908,7 @@ void ScribusMainWindow::doPrintPreview()
 		prefsManager->appPrefs.PrPr_AlphaText = dia->AliasText->isChecked();
 		prefsManager->appPrefs.PrPr_AlphaGraphics = dia->AliasGr->isChecked();
 		prefsManager->appPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
-		if ( HaveTiffSep != 0 || !dia->postscriptPreview )
+		if ( ScCore->haveTIFFSep() != 0 || !dia->postscriptPreview )
 		{
 			prefsManager->appPrefs.PrPr_C = dia->EnableCMYK_C->isChecked();
 			prefsManager->appPrefs.PrPr_M = dia->EnableCMYK_M->isChecked();
@@ -7019,14 +6926,14 @@ void ScribusMainWindow::doPrintPreview()
 		disconnect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 		previewDinUse = false;
 		delete dia;
-		QFile::remove(PrefsPfad+"/tmp.ps");
-		QFile::remove(PrefsPfad+"/sc.png");
-		QDir d(PrefsPfad+"/", "sc.tif*", QDir::Name, QDir::Files | QDir::NoSymLinks);
+		QFile::remove(prefsManager->preferencesLocation()+"/tmp.ps");
+		QFile::remove(prefsManager->preferencesLocation()+"/sc.png");
+		QDir d(prefsManager->preferencesLocation()+"/", "sc.tif*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 		if ((d.exists()) && (d.count() != 0))
 		{
 			for (uint dc = 0; dc < d.count(); dc++)
 			{
-				QFile::remove(PrefsPfad +"/" + d[dc]);
+				QFile::remove(prefsManager->preferencesLocation() +"/" + d[dc]);
 			}
 		}
 	}
@@ -7075,8 +6982,8 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn)
 	doc->getUsedFonts(&ReallyUsed);
 	ColorList usedColors;
 	doc->getUsedColors(usedColors);
-	fileWatcher->forceScan();
-	fileWatcher->stop();
+	ScCore->fileWatcher->forceScan();
+	ScCore->fileWatcher->stop();
 	PSLib *dd = new PSLib(false, prefsManager->appPrefs.AvailFonts, ReallyUsed, usedColors, false, true);
 	if (dd != NULL)
 	{
@@ -7087,7 +6994,7 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn)
 		delete dd;
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
-	fileWatcher->start();
+	ScCore->fileWatcher->start();
 	return return_value;
 }
 
@@ -7146,13 +7053,13 @@ void ScribusMainWindow::reallySaveAsEps()
 	QString wdir = ".";
 	QString prefsDocDir=prefsManager->documentDir();
 	if (!prefsDocDir.isEmpty())
-		wdir = dirs->get("eps", prefsDocDir);
+		wdir = prefsManager->prefsFile->getContext("dirs")->get("eps", prefsDocDir);
 	else
-		wdir = dirs->get("eps", ".");
+		wdir = prefsManager->prefsFile->getContext("dirs")->get("eps", ".");
 	QString fn = CFileDialog( wdir, tr("Save as"), tr("EPS Files (*.eps);;All Files (*)"), fna, false, false);
 	if (!fn.isEmpty())
 	{
-		dirs->set("eps", fn.left(fn.findRev("/")));
+		prefsManager->prefsFile->getContext("dirs")->set("eps", fn.left(fn.findRev("/")));
 		if (overwrite(this, fn))
 		{
 			if (!DoSaveAsEps(fn))
@@ -7164,10 +7071,10 @@ void ScribusMainWindow::reallySaveAsEps()
 bool ScribusMainWindow::getPDFDriver(const QString & fn, const QString & nam, int Components,
 									 const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs)
 {
-	fileWatcher->forceScan();
-	fileWatcher->stop();
+	ScCore->fileWatcher->forceScan();
+	ScCore->fileWatcher->stop();
 	bool ret = PDFlib(*doc).doExport(fn, nam, Components, pageNs, thumbs);
-	fileWatcher->start();
+	ScCore->fileWatcher->start();
 	return ret;
 }
 
@@ -7238,7 +7145,7 @@ void ScribusMainWindow::doSaveAsPDF()
 		}
 		doc->PDF_Options.SubsetList = tmpEm;
 	}
-	PDFExportDialog dia(this, doc->DocName, ReallyUsed, view, doc->PDF_Options, doc->PDF_Options.PresentVals, PDFXProfiles, prefsManager->appPrefs.AvailFonts, doc->unitRatio(), ScMW->PrinterProfiles);
+	PDFExportDialog dia(this, doc->DocName, ReallyUsed, view, doc->PDF_Options, doc->PDF_Options.PresentVals, ScCore->PDFXProfiles, prefsManager->appPrefs.AvailFonts, doc->unitRatio(), ScCore->PrinterProfiles);
 	if (dia.exec())
 	{
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
@@ -7521,7 +7428,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	scrActions["fileRevert"]->setEnabled(true);
 	scrActions["fileDocSetup"]->setEnabled(true);
 	scrActions["filePrint"]->setEnabled(true);
-	if ( HaveGS==0 || ScQApp->isWinGUI() )
+	if ( ScCore->haveGS()==0 || ScCore->isWinGUI() )
 		scrActions["PrintPreview"]->setEnabled(true);
 	scrActions["pageInsert"]->setEnabled(true);
 	scrActions["pageCopy"]->setEnabled(true);
@@ -7892,163 +7799,7 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 	return retval;
 }
 
-void ScribusMainWindow::GetCMSProfiles()
-{
-	QString profDir;
-	QStringList profDirs;
-	MonitorProfiles.clear();
-	PrinterProfiles.clear();
-	InputProfiles.clear();
-	InputProfilesCMYK.clear();
-	QString pfad = ScPaths::instance().libDir();
-	pfad += "profiles/";
-	profDirs = ScPaths::getSystemProfilesDirs();
-	profDirs.prepend( prefsManager->appPrefs.ProfileDir );
-	profDirs.prepend( pfad );
-	for(unsigned int i = 0; i < profDirs.count(); i++)
-	{
-		profDir = profDirs[i];
-		if(!profDir.isEmpty())
-		{
-			if(profDir.right(1) != "/")
-				profDir += "/";
-			GetCMSProfilesDir(profDir);
-		}
-	}
-	if ((!PrinterProfiles.isEmpty()) && (!InputProfiles.isEmpty()) && (!MonitorProfiles.isEmpty()))
-		CMSavail = true;
-	else
-		CMSavail = false;
-}
 
-void ScribusMainWindow::GetCMSProfilesDir(QString pfad)
-{
-#ifdef HAVE_CMS
-	QDir d(pfad, "*", QDir::Name, QDir::Files | QDir::Readable | QDir::Dirs | QDir::NoSymLinks);
-	if ((d.exists()) && (d.count() != 0))
-	{
-		QString nam = "";
-		const char *Descriptor;
-		cmsHPROFILE hIn = NULL;
-
-		for (uint dc = 0; dc < d.count(); ++dc)
-		{
-			QFileInfo fi(pfad + "/" + d[dc]);
-			if (fi.isDir() && d[dc][0] != '.')
-			{
-				GetCMSProfilesDir(fi.filePath()+"/");
-				continue;
-			}
-
-#ifndef QT_MAC
-			QString ext = fi.extension(false).lower();
-			if ((ext != "icm") && (ext != "icc"))
-				continue;
-#endif
-
-			QFile f(fi.filePath());
-			QByteArray bb(40);
-			if (!f.open(IO_ReadOnly)) {
-				sDebug(QString("couldn't open %1 as ICC").arg(fi.filePath()));
-				continue;
-			}
-			int len = f.readBlock(bb.data(), 40);
-			f.close();
-			if (len == 40 && bb[36] == 'a' && bb[37] == 'c' && bb[38] == 's' && bb[39] == 'p')
-			{
-				const QCString profilePath( QString(pfad + d[dc]).local8Bit() );
-				if (setjmp(cmsJumpBuffer))
-				{
-					// Reset to the default handler otherwise may enter a loop
-					// if an error occur in cmsCloseProfile()
-					cmsSetErrorHandler(NULL);
-					if (hIn)
-					{
-						cmsCloseProfile(hIn);
-						hIn = NULL;
-					}
-					continue;
-				}
-				cmsSetErrorHandler(&cmsErrorHandler);
-				hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
-				if (hIn == NULL)
-					continue;
-				Descriptor = cmsTakeProductDesc(hIn);
-				nam = QString(Descriptor);
-				switch (static_cast<int>(cmsGetDeviceClass(hIn)))
-				{
-				case icSigInputClass:
-				case icSigColorSpaceClass:
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
-						InputProfiles[nam] = pfad + d[dc];
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
-						InputProfilesCMYK[nam] = pfad + d[dc];
-					break;
-				case icSigDisplayClass:
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
-					{
-						MonitorProfiles[nam] = pfad + d[dc];
-						InputProfiles[nam] = pfad + d[dc];
-					}
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
-						InputProfilesCMYK[nam] = pfad + d[dc];
-					break;
-				case icSigOutputClass:
-					PrinterProfiles[nam] = pfad + d[dc];
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
-					{
-						PDFXProfiles[nam] = pfad + d[dc];
-						InputProfilesCMYK[nam] = pfad + d[dc];
-					}
-					break;
-				}
-				cmsCloseProfile(hIn);
-				hIn = NULL;
-			}
-		}
-		cmsSetErrorHandler(NULL);
-	}
-#endif
-}
-
-void ScribusMainWindow::initCMS()
-{
-	if (CMSavail)
-	{
-		ProfilesL::Iterator ip;
-		if ((prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile)))
-		{
-			ip = InputProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile = ip.key();
-		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile.isEmpty()) || (!InputProfilesCMYK.contains(prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile)))
-		{
-			ip = InputProfilesCMYK.begin();
-			prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile = ip.key();
-		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile)))
-		{
-			ip = InputProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile = ip.key();
-		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultMonitorProfile.isEmpty()) || (!MonitorProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultMonitorProfile)))
-		{
-			ip = MonitorProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultMonitorProfile = ip.key();
-		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultPrinterProfile.isEmpty()) || (!PrinterProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultPrinterProfile)))
-		{
-			ip = PrinterProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultPrinterProfile = ip.key();
-		}
-#ifdef HAVE_CMS
-		SoftProofing = prefsManager->appPrefs.DCMSset.SoftProofOn;
-		CMSuse = false;
-		IntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
-		IntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
-#endif
-	}
-}
 
 void ScribusMainWindow::recalcColors(QProgressBar *dia)
 {
@@ -8657,14 +8408,14 @@ void ScribusMainWindow::insertSampleText()
 
 void ScribusMainWindow::languageChange()
 {
-	if (scribusInitialized)
+	if (ScCore->initialized())
 	{
 		CommonStrings::languageChange();
 		//Update actions
 		if (actionManager!=NULL)
 		{
 			actionManager->languageChange();
-			pluginManager->languageChange();
+			ScCore->pluginManager->languageChange();
 			initKeyboardShortcuts();
 		}
 		//Update menu texts
@@ -8730,8 +8481,8 @@ void ScribusMainWindow::getDefaultPrinter(QString *name, QString *file, QString 
 
 const bool ScribusMainWindow::fileWatcherActive()
 {
-	if (fileWatcher!=NULL)
-		return fileWatcher->isActive();
+	if (ScCore->fileWatcher!=NULL)
+		return ScCore->fileWatcher->isActive();
 	return false;
 }
 
@@ -8894,3 +8645,4 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 		}
 	}
 }
+

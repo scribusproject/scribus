@@ -238,6 +238,7 @@ scribus_SOURCES = \
 	werktoolb.cpp	\
 	scribus.cpp	\
 	scribusapp.cpp	\
+	scribuscore.cpp	\
 	main.cpp
 
 #	NOTE we have no conditional for this file yet, as Makefile.am is not used on win32 VCC.

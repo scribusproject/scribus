@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "scfonts.h"
 #include "scribus.h"
+#include "scribuscore.h"
 #include "scraction.h"
 #include "scribusview.h"
 #include "selection.h"
@@ -3355,14 +3356,14 @@ void Mpalette::updateCmsList()
 			if (CurItem->pixm.imgInfo.colorspace == 1)
 			{
 				ProfilesL::Iterator itP;
-				ProfilesL::Iterator itPend=ScMW->InputProfilesCMYK.end();
-				for (itP = ScMW->InputProfilesCMYK.begin(); itP != itPend; ++itP)
+				ProfilesL::Iterator itPend=ScCore->InputProfilesCMYK.end();
+				for (itP = ScCore->InputProfilesCMYK.begin(); itP != itPend; ++itP)
 				{
 					InputP->insertItem(itP.key());
 					if (itP.key() == CurItem->IProfile)
 						InputP->setCurrentItem(InputP->count()-1);
 				}
-				if (!ScMW->InputProfilesCMYK.contains(CurItem->IProfile))
+				if (!ScCore->InputProfilesCMYK.contains(CurItem->IProfile))
 				{
 					InputP->insertItem(CurItem->IProfile);
 					InputP->setCurrentItem(InputP->count()-1);
@@ -3376,14 +3377,14 @@ void Mpalette::updateCmsList()
 			else
 			{
 				ProfilesL::Iterator itP;
-				ProfilesL::Iterator itPend=ScMW->InputProfiles.end();
-				for (itP = ScMW->InputProfiles.begin(); itP != itPend; ++itP)
+				ProfilesL::Iterator itPend=ScCore->InputProfiles.end();
+				for (itP = ScCore->InputProfiles.begin(); itP != itPend; ++itP)
 				{
 					InputP->insertItem(itP.key());
 					if (itP.key() == CurItem->IProfile)
 						InputP->setCurrentItem(InputP->count()-1);
 				}
-				if (!ScMW->InputProfiles.contains(CurItem->IProfile))
+				if (!ScCore->InputProfiles.contains(CurItem->IProfile))
 				{
 					InputP->insertItem(CurItem->IProfile);
 					InputP->setCurrentItem(InputP->count()-1);

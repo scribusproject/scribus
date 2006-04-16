@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsstructs.h"
 
 class PrefsFile;
+class ScribusMainWindow;
 
 
 /**
@@ -62,6 +63,7 @@ public:
 	void initDefaults();
 	void initDefaultGUIFont(const QFont&);
 	void initDefaultCheckerPrefs(CheckerPrefsList* cp);
+	void initDefaultActionKeys();
 	void initArrowStyles();
 	/*!
 	\author Craig Bradney
@@ -113,7 +115,8 @@ public:
 	\param ho a file name to write
 	\retval bool true on success, false on write error */
 	bool ReadPref(QString ho);
-
+	//! \brief Set up the main window with prefs values, recent files list, main window size etc
+	void setupMainWindow(ScribusMainWindow* mw);
 	void setGhostscriptExecutable(const QString&);
 	void setImageEditorExecutable(const QString&);
 	const QString ghostscriptExecutable();

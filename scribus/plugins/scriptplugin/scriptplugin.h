@@ -32,6 +32,7 @@ class PLUGIN_API ScriptPlugin : public ScPersistentPlugin
 		virtual void languageChange();
 		virtual bool newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
 										 QString& caption, QPixmap& icon);
+		virtual void addToMainWindowMenu(ScribusMainWindow *);
 
 		// Special features (none)
 };

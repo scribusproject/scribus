@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 	extern cmsHTRANSFORM stdTransRGBG;
 	extern cmsHTRANSFORM stdProofGCG;
 	extern cmsHTRANSFORM stdProofCMYKGCG;
-	extern bool SoftProofing;
+ 	extern bool SoftProofing;
 	extern bool CMSuse;
 #endif
 extern bool CMSavail;

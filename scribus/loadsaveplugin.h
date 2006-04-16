@@ -62,7 +62,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// file type (eg "XML doc with root element SCRIBUSXML and version 1.3.1").
 		// All plugins must implement this method.
 		virtual bool fileSupported(QIODevice* file) const = 0;
-	
+		
 	protected:
 
 		/// Register the passed format so it can be used by the app

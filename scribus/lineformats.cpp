@@ -123,6 +123,7 @@ void LineFormate::dupFormat()
 		TempStyles.insert(dia->SName->text(), dia->TempVorl);
 		sFnumber = dia->SName->text();
 	}
+	delete dia;
 	UpdateFList();
 }
 

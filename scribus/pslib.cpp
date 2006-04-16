@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scribusdoc.h"
 #include "scribus.h"
+#include "scribuscore.h"
 #include "scfonts.h"
 #include "scfontmetrics.h"
 #include "selection.h"
@@ -51,7 +52,7 @@ for which a new license (GPL+exception) is in place.
 
 PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorList DocColors, bool pdf, bool spot)
 {
-	usingGUI=ScQApp->usingGUI();
+	usingGUI=ScCore->usingGUI();
 	abortExport=false;
 	QString tmp, tmp2, tmp3, tmp4, CHset;
 	QStringList wt;

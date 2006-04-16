@@ -68,7 +68,7 @@ class Autoforms;
 class Biblio;
 class BookPalette;
 class CheckDocument;
-class FileWatcher;
+
 class FontCombo;
 class GuideManager;
 class ColorCombo;
@@ -80,17 +80,16 @@ class MenuManager;
 class NodePalette;
 class PageItem;
 class PagePalette;
-class PluginManager;
 class PrefsManager;
 class PrefsContext;
 class PSLib;
 class ScrAction;
+class ScribusCore;
 class ScribusMainWindow;
 class ScribusQApp;
 class ScribusWin;
 class ScToolBar;
 class SimpleState;
-class SplashScreen;
 class StilFormate;
 class StoryEditor;
 class StyleManager;
@@ -102,6 +101,7 @@ class UndoState;
 class WerkToolB;
 class WerkToolBP;
 
+extern SCRIBUS_API ScribusCore* ScCore;
 extern SCRIBUS_API ScribusQApp* ScQApp;
 extern SCRIBUS_API ScribusMainWindow* ScMW;
 
@@ -123,11 +123,7 @@ public:
 	/*!
 	* \retval 0 - ok, 1 - no fonts, ...
 	*/
-	int initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile);
-	void showSplash(bool);
-	bool splashShowing() const;
-	void closeSplash();
-	void setSplashStatus(const QString&);
+	int initScMW(bool primaryMainwWindow);
 	const QString getGuiLanguage();
 	bool warningVersion(QWidget *parent);
 	void SetShortCut();
@@ -156,8 +152,6 @@ public:
 	QString CFileDialog(QString wDir = ".", QString caption = "", QString filter = "", QString defNa = "",
 						bool Pre = false, bool mod = true, bool comp = false, bool cod = false,
 						bool onlyDirs = false, bool *docom = 0, bool *doFont = 0);
-	void GetCMSProfiles();
-	void GetCMSProfilesDir(QString pfad);
 	/*! \brief Recalculate the colors after changing CMS settings.
 	Call the appropriate document function and then update the GUI elements.
 	\param dia optional progress widget */
@@ -188,11 +182,6 @@ public:
 	QString Buffer2;
 	QString Buffer3;
 	bool BuFromApp;
-	ProfilesL InputProfiles;
-	ProfilesL InputProfilesCMYK;
-	ProfilesL MonitorProfiles;
-	ProfilesL PrinterProfiles;
-	ProfilesL PDFXProfiles;
 	double DispX;
 	double DispY;
 	int HaveDoc;
@@ -208,7 +197,7 @@ public:
 	 */
 	ScribusDoc *doc;
     /** \brief the splash screen */
-	SplashScreen *splashScreen;
+
 	QLabel* mainWindowStatusLabel;
 	QProgressBar* mainWindowProgressBar;
 	QLabel* mainWindowXPosLabel;
@@ -235,18 +224,15 @@ public:
 	QString PrefsPfad;
 	QClipboard *ClipB;
 	QString LoadEnc;
-	bool singleClose;
 	bool ScriptRunning;
 	Autoforms* SCustom;
 	WerkToolB* mainToolBar;
-	int HavePngAlpha;
-	int HaveTiffSep;
 
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
-	FileWatcher* fileWatcher;
+	
 	QProcess *ExternalApp;
-
+	
 	QMap<QString, QGuardedPtr<ScrAction> > scrActions;
 	QMap<QString, QGuardedPtr<ScrAction> > scrRecentFileActions;
 	QMap<QString, QGuardedPtr<ScrAction> > scrWindowsActions;
@@ -254,7 +240,6 @@ public:
 	QDict<QActionGroup> scrActionGroups;
 	MenuManager* scrMenuMgr;
 	ActionManager* actionManager;
-	PluginManager* pluginManager;
 	QStringList RecentDocs;
 
 public slots:
@@ -555,20 +540,17 @@ private:
 	void initStatusBar(); // setup the statusbar
 	void initToolBars(); // setup the toolbars
 	//Returns false when there are no fonts
-	const bool initFonts(const bool showFontInfo);
 	void initHyphenator();
 	void initDefaultValues();
 	void initKeyboardShortcuts();
 	void initPalettes();
 	void initScrapbook();
-	void initCMS();
+	
 	void updateColorMenu(QProgressBar* progressBar=NULL);
 
-	QString guiLanguage;
 	QString recentFileMenuName;
 	QString layerMenuName;
 	QPixmap noIcon;
-	bool scribusInitialized;
 	ColorCombo *ColorMenC;
 	/** ShapeMenu enthaelt die Rahmenformen */
 	QPopupMenu *ShapeMenu;
@@ -607,11 +589,9 @@ private:
 
 	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn = 0);
 	QMap<int,QString> FontID;
-	int HaveGS;
+	
 	void *PSDriver;
 	int DocNr;
-	UndoManager *undoManager;
-	PrefsManager *prefsManager;
 	bool PrinterUsed;
 	struct PDe {
 					QString Pname;
@@ -625,6 +605,8 @@ private:
 	int storedViewYCoor;
 	double storedViewScale;
 	StyleManager *styleManager;
+	UndoManager *undoManager;
+	PrefsManager *prefsManager;	
 };
 
 #endif
