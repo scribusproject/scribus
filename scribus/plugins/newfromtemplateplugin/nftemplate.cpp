@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <qwidget.h>
 
 #include "scribus.h"
+#include "scribuscore.h"
 #include "nftemplate.h"
 #include "nftemplate.moc"
 #include "nftdialog.h"
@@ -103,7 +104,7 @@ bool NewFromTemplatePlugin::run(QString target)
 
 void MenuNFT::RunNFTPlug()
 {
-	nftdialog* nftdia = new nftdialog(ScMW, ScMW->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
+	nftdialog* nftdia = new nftdialog(ScMW, ScCore->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
 	if (nftdia->exec())
 	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);

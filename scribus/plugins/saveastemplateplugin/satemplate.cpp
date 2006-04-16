@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "satemplate.moc"
 #include "satdialog.h"
 #include "scribus.h"
+#include "scribuscore.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 
@@ -169,7 +170,7 @@ void MenuSAT::RunSATPlug()
 
 sat::sat(ScribusMainWindow* scribusApp, satdialog* satdia, QString fileName, QString tmplDir)
 {
-	lang = scribusApp->getGuiLanguage();
+	lang = ScCore->getGuiLanguage();
 	sapp = scribusApp;
 	dia = satdia;
 	dir = tmplDir;

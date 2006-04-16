@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "qbuffer.h"
 #include "qpixmap.h"
 
+#include "scribuscore.h"
 #include "scfontmetrics.h"
 #include "prefsmanager.h"
 
@@ -423,5 +424,5 @@ PyObject *scribus_createlayer(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_getlanguage(PyObject* /* self */)
 {
-	return PyString_FromString(ScMW->getGuiLanguage().utf8());
+	return PyString_FromString(ScCore->getGuiLanguage().utf8());
 }
