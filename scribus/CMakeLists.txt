@@ -150,6 +150,7 @@ scraction.h
 scrap.h
 scribus.h
 scribusapp.h
+scribuscore.h
 scribusdoc.h
 scribusview.h
 scribusXml.h
@@ -349,6 +350,7 @@ scraction.cpp
 scrap.cpp
 scribus.cpp
 scribusapp.cpp
+scribuscore.cpp
 scribusdoc.cpp
 scribusview.cpp
 scribusXml.cpp
