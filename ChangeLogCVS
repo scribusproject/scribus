@@ -1,0 +1,20 @@
+Changes since 1.2 (all Changes from 1.2 to 1.2.4cvs at the time of 1.3.3.1 release are included in the 1.3.3.1 Version too)
+
+Scribus - 1.3.4cvs
+==================
+- 0003641: [Usability] don't toggle flip icon in properties when flipping a shape (cbradney)
+- 0003648: [Story Editor / Text Frames] Drawing lines affects text layout (fschmid)
+- 0003652: [General] Text always flows around objects (fschmid)
+- 0003660: [User Interface] Preflight Checker: add a check for Images with a too high resolution. (fschmid)
+- 0003623: [Picture Frames] preflight should report the dpi value if it too low (fschmid)
+- 0003657: [Shape Drawing] Line width won't allow anything but tenth decimals (0.x) (fschmid)
+- 0000691: [Shape Drawing] inserting lines (fschmid)
+- 0003643: [Usability] allow flipping lines in properties (fschmid)
+- 0003379: [Usability] Preflight verifier: Refresh button needed (subik)
+- 0003644: [Usability] groups should flip as groups (fschmid)
+- 0003614: [User Interface] PDF Goto preview does not work right (fschmid)
+- 0003602: [Internal] Add copyright and Andreas to Help > About (plinnell)
+- 0003568: [Story Editor / Text Frames] Text flows very strangely (fschmid)
+- 0003617: [Internal] Make 1.3.4 use 1.3.4 versioned preferences files so users can have both installed safely. (cbradney)
+- 0002600: [Build System] Implement a new build system, such as Scons (cbradney)
+- 0003583: [Build System] Implement cmake build system (cbradney)
