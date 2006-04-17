@@ -521,8 +521,6 @@ signals:
 	void TextUnderline(int, int);
 	void TextStrike(int, int);
 
-	void prefsChanged();
-
 protected:
 	/*!
 	\brief Receive key events from palettes such as palette hiding events. Possibly easier way but this is cleaner than before. No need to modify all those palettes and each new one in future.

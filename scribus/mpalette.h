@@ -46,6 +46,7 @@ class StyleSelect;
 class Cpalette;
 class Autoforms;
 class ArrowChooser;
+class ScribusMainWindow;
 class UserActionSniffer;
 extern bool CMSavail;
 
@@ -125,6 +126,7 @@ public:
 	QButtonGroup* textFlowsAroundFrame;	
 	
 public slots:
+	void setMainWindow(ScribusMainWindow *mw);
 	void languageChange();
 	void setDoc(ScribusDoc *d);
 	void unsetDoc();
@@ -258,6 +260,8 @@ signals:
 	void UpdtGui(int);
 
 protected:
+	ScribusMainWindow *m_MainWindow;
+	
 	QVBoxLayout* MpalLayout;
 	QVBoxLayout* pageLayout;
 	QVBoxLayout* pageLayout_2;
@@ -475,23 +479,6 @@ protected:
 	QToolButton* Revert;
 	QToolButton* EditShape;
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	bool _userActionOn;
 	UserActionSniffer *userActionSniffer;

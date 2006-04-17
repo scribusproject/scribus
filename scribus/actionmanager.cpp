@@ -33,7 +33,12 @@ QMap<QString, QKeySequence> ActionManager::defKeys;
 
 ActionManager::ActionManager ( QObject * parent, const char * name ) : QObject ( parent, name )
 {
-	mainWindow=(ScribusMainWindow *)parent;
+	mainWindow=0;
+}
+
+void ActionManager::init(ScribusMainWindow *mw)
+{
+	mainWindow=mw;
 	scrActions=&(mainWindow->scrActions);
 	scrActionGroups=&(mainWindow->scrActionGroups);
 	modeActionNames=new QStringList();
@@ -592,39 +597,39 @@ void ActionManager::initToolsMenuActions()
 	name="toolsSelect";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/pointer.png"), loadIcon("22/pointer.png")), "", defKeys[name], mainWindow, "toolsSelect", modeNormal));
 	name="toolsInsertTextFrame";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/insert-text-frame.png"), loadIcon("22/insert-text-frame.png")), "", defKeys[name], mainWindow, "toolsInsertTextFrame", modeDrawText));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/insert-text-frame.png"), loadIcon("22/insert-text-frame.png")), "", defKeys[name], mainWindow, name, modeDrawText));
 	name="toolsInsertImageFrame";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/insert-image.png"), loadIcon("22/insert-image.png")), "", defKeys[name], mainWindow, "toolsInsertImageFrame", modeDrawPicture));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/insert-image.png"), loadIcon("22/insert-image.png")), "", defKeys[name], mainWindow, name, modeDrawPicture));
 	name="toolsInsertTableFrame";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/insert-table.png"), loadIcon("22/insert-table.png")), "", defKeys[name], mainWindow, "toolsInsertTableFrame", modeDrawTable));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/insert-table.png"), loadIcon("22/insert-table.png")), "", defKeys[name], mainWindow, name, modeDrawTable));
 	name="toolsInsertShape";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(), "", defKeys[name], mainWindow, "toolsInsertShape", modeDrawShapes));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(), "", defKeys[name], mainWindow, name, modeDrawShapes));
 	name="toolsInsertPolygon";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("spline16.png"), loadIcon("spline.png")), "", defKeys[name], mainWindow, "toolsInsertPolygon", modeDrawRegularPolygon));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("spline16.png"), loadIcon("spline.png")), "", defKeys[name], mainWindow, name, modeDrawRegularPolygon));
 	name="toolsInsertLine";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stift16.xpm"), loadIcon("Stift.xpm")), "", defKeys[name], mainWindow, "toolsInsertLine", modeDrawLine));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stift16.xpm"), loadIcon("Stift.xpm")), "", defKeys[name], mainWindow, name, modeDrawLine));
 	name="toolsInsertBezier";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("beziertool16.png"), loadIcon("beziertool.png")), "", defKeys[name], mainWindow, "toolsInsertBezier", modeDrawBezierLine));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("beziertool16.png"), loadIcon("beziertool.png")), "", defKeys[name], mainWindow, name, modeDrawBezierLine));
 	name="toolsInsertFreehandLine";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/draw-freehand.png"), loadIcon("22/draw-freehand.png")), "", defKeys[name], mainWindow, "toolsInsertFreehandLine", modeDrawFreehandLine));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/draw-freehand.png"), loadIcon("22/draw-freehand.png")), "", defKeys[name], mainWindow, name, modeDrawFreehandLine));
 	name="toolsRotate";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Rotieren.xpm"), loadIcon("Rotieren.xpm")), "", defKeys[name], mainWindow, "toolsRotate", modeRotation));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Rotieren.xpm"), loadIcon("Rotieren.xpm")), "", defKeys[name], mainWindow, name, modeRotation));
 	name="toolsZoom";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lupe.xpm"), loadIcon("Lupe.xpm")), "", defKeys[name], mainWindow, "toolsZoom", modeMagnifier));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lupe.xpm"), loadIcon("Lupe.xpm")), "", defKeys[name], mainWindow, name, modeMagnifier));
 	name="toolsZoomIn";
 	scrActions->insert(name, new ScrAction(QIconSet(loadIcon("viewmagin.png"), loadIcon("viewmagin.png")), "", defKeys[name], mainWindow, name));
 	name="toolsZoomOut";
 	scrActions->insert(name, new ScrAction(QIconSet(loadIcon("viewmagout.png"), loadIcon("viewmagout.png")), "", defKeys[name], mainWindow, name));
 	name="toolsEditContents";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), "", defKeys[name], mainWindow, "toolsEditContents", modeEdit));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), "", defKeys[name], mainWindow, name, modeEdit));
 	name="toolsEditWithStoryEditor";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/story-editor.png"), loadIcon("22/story-editor.png")), "", defKeys[name], mainWindow, "toolsEditWithStoryEditor", modeStoryEditor));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/story-editor.png"), loadIcon("22/story-editor.png")), "", defKeys[name], mainWindow, name, modeStoryEditor));
 	name="toolsLinkTextFrame";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/text-frame-link.png"), loadIcon("22/text-frame-link.png")), "", defKeys[name], mainWindow, "toolsLinkTextFrame", modeLinkFrames));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/text-frame-link.png"), loadIcon("22/text-frame-link.png")), "", defKeys[name], mainWindow, name, modeLinkFrames));
 	name="toolsUnlinkTextFrame";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/text-frame-unlink.png"), loadIcon("22/text-frame-unlink.png")), "", defKeys[name], mainWindow, "toolsUnlinkTextFrame", modeUnlinkFrames));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/text-frame-unlink.png"), loadIcon("22/text-frame-unlink.png")), "", defKeys[name], mainWindow, name, modeUnlinkFrames));
 	name="toolsEyeDropper";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/color-picker.png"), loadIcon("22/color-picker.png")), "", defKeys[name], mainWindow, "toolsEyeDropper", modeEyeDropper));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/color-picker.png"), loadIcon("22/color-picker.png")), "", defKeys[name], mainWindow, name, modeEyeDropper));
 	name="toolsCopyProperties";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("wizard.png"), loadIcon("wizard.png")), "", defKeys[name], mainWindow, name, modeCopyProperties));
 
@@ -850,7 +855,7 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	*actionNamesList << "unicodeQuoteApostrophe" << "unicodeQuoteStraight";
 	//Double quotes
 	*actionNamesList << "unicodeQuoteDoubleLeft" << "unicodeQuoteDoubleRight" << "unicodeQuoteSingleLeft" << "unicodeQuoteSingleRight";
-	//Alternative single quotes
+	//Qt::ALTernative single quotes
 	*actionNamesList << "unicodeQuoteSingleReversed" << "unicodeQuoteDoubleReversed";
 	//French quotes
 	*actionNamesList << "unicodeQuoteSingleLeftGuillemet" << "unicodeQuoteSingleRightGuillemet" << "unicodeQuoteDoubleLeftGuillemet" << "unicodeQuoteDoubleRightGuillemet";
@@ -869,13 +874,13 @@ void ActionManager::initSpecialActions()
 {
 	QString name;
 	//GUI
-	name="specialToggleAllPalettes";
+	name="speciQt::ALToggleAllPalettes";
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QIconSet(), "", defKeys[name], mainWindow, name, 0,0.0,name));
-	name="specialToggleAllGuides";
+	name="speciQt::ALToggleAllGuides";
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QIconSet(), "", defKeys[name], mainWindow, name, 0,0.0,name));
 
-	connect( (*scrActions)["specialToggleAllPalettes"], SIGNAL(activated()), mainWindow, SLOT(ToggleAllPalettes()) );
-	connect( (*scrActions)["specialToggleAllGuides"], SIGNAL(activated()), mainWindow, SLOT(ToggleAllGuides()) );
+	connect( (*scrActions)["speciQt::ALToggleAllPalettes"], SIGNAL(activated()), mainWindow, SLOT(ToggleAllPalettes()) );
+	connect( (*scrActions)["speciQt::ALToggleAllGuides"], SIGNAL(activated()), mainWindow, SLOT(ToggleAllGuides()) );
 }
 
 void ActionManager::disconnectModeActions()
@@ -1296,8 +1301,8 @@ void ActionManager::languageChange()
 	(*scrActions)["helpManual"]->setTexts( tr("Scribus &Manual..."));
 
 	//GUI
-	(*scrActions)["specialToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));
-	(*scrActions)["specialToggleAllGuides"]->setTexts( tr("Toggle Guides"));
+	(*scrActions)["speciQt::ALToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));
+	(*scrActions)["speciQt::ALToggleAllGuides"]->setTexts( tr("Toggle Guides"));
 	
 	languageChangeUnicodeActions(scrActions);
 }
@@ -1370,37 +1375,37 @@ void ActionManager::createDefaultShortcuts()
 {
 	defKeys.clear();
 	
-	defKeys.insert("fileNew", CTRL+Key_N);
-	defKeys.insert("fileOpen", CTRL+Key_O);
-	defKeys.insert("fileClose", CTRL+Key_W);
-	defKeys.insert("fileSave", CTRL+Key_S);
-	defKeys.insert("fileSaveAs", CTRL+SHIFT+Key_S);
+	defKeys.insert("fileNew", Qt::CTRL+Qt::Key_N);
+	defKeys.insert("fileOpen", Qt::CTRL+Qt::Key_O);
+	defKeys.insert("fileClose", Qt::CTRL+Qt::Key_W);
+	defKeys.insert("fileSave", Qt::CTRL+Qt::Key_S);
+	defKeys.insert("fileSaveAs", Qt::CTRL+Qt::SHIFT+Qt::Key_S);
 	defKeys.insert("fileRevert", QKeySequence());
 	defKeys.insert("fileCollect", QKeySequence());
-	defKeys.insert("fileImportText", CTRL+Key_D);
+	defKeys.insert("fileImportText", Qt::CTRL+Qt::Key_D);
 	defKeys.insert("fileImportAppendText", QKeySequence());
-	defKeys.insert("fileImportImage", CTRL+Key_D);
+	defKeys.insert("fileImportImage", Qt::CTRL+Qt::Key_D);
 	defKeys.insert("fileExportText", QKeySequence());
 	defKeys.insert("fileExportAsEPS", QKeySequence());
 	defKeys.insert("fileExportAsPDF", QKeySequence());
 	defKeys.insert("fileDocSetup", QKeySequence());
-	defKeys.insert("filePrint", CTRL+Key_P);
-	defKeys.insert("PrintPreview", CTRL+ALT+Key_P);
-	defKeys.insert("fileQuit", CTRL+Key_Q);
+	defKeys.insert("filePrint", Qt::CTRL+Qt::Key_P);
+	defKeys.insert("PrintPreview", Qt::CTRL+Qt::ALT+Qt::Key_P);
+	defKeys.insert("fileQuit", Qt::CTRL+Qt::Key_Q);
 	//Edit Menu
-	defKeys.insert("editUndoAction", CTRL+Key_Z);
-	defKeys.insert("editRedoAction", CTRL+SHIFT+Key_Z);
+	defKeys.insert("editUndoAction", Qt::CTRL+Qt::Key_Z);
+	defKeys.insert("editRedoAction", Qt::CTRL+Qt::SHIFT+Qt::Key_Z);
 	defKeys.insert("editActionMode", QKeySequence());
-	defKeys.insert("editCut", CTRL+Key_X);
-	defKeys.insert("editCopy", CTRL+Key_C);
-	defKeys.insert("editPaste", CTRL+Key_V);
-	defKeys.insert("editCopyContents", CTRL+SHIFT+Key_C);
-	defKeys.insert("editPasteContents", CTRL+SHIFT+Key_V);
-	defKeys.insert("editPasteContentsAbs", CTRL+ALT+SHIFT+Key_V);
+	defKeys.insert("editCut", Qt::CTRL+Qt::Key_X);
+	defKeys.insert("editCopy", Qt::CTRL+Qt::Key_C);
+	defKeys.insert("editPaste", Qt::CTRL+Qt::Key_V);
+	defKeys.insert("editCopyContents", Qt::CTRL+Qt::SHIFT+Qt::Key_C);
+	defKeys.insert("editPasteContents", Qt::CTRL+Qt::SHIFT+Qt::Key_V);
+	defKeys.insert("editPasteContentsAbs", Qt::CTRL+Qt::ALT+Qt::SHIFT+Qt::Key_V);
 	defKeys.insert("editClearContents", QKeySequence());
-	defKeys.insert("editSelectAll", CTRL+Key_A);
-	defKeys.insert("editDeselectAll", CTRL+SHIFT+Key_A);
-	defKeys.insert("editSearchReplace", CTRL+Key_F);
+	defKeys.insert("editSelectAll", Qt::CTRL+Qt::Key_A);
+	defKeys.insert("editDeselectAll", Qt::CTRL+Qt::SHIFT+Qt::Key_A);
+	defKeys.insert("editSearchReplace", Qt::CTRL+Qt::Key_F);
 	defKeys.insert("editEditWithImageEditor", QKeySequence());
 	defKeys.insert("editColors", QKeySequence());
 	defKeys.insert("editStyles", QKeySequence());
@@ -1442,24 +1447,24 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("typeEffectOutline", QKeySequence());
 	defKeys.insert("typeEffectShadow", QKeySequence());
 
-	defKeys.insert("styleImageEffects", CTRL+Key_E);
+	defKeys.insert("styleImageEffects", Qt::CTRL+Qt::Key_E);
 	defKeys.insert("styleTabulators", QKeySequence());
 
 	//Item Menu
-	defKeys.insert("itemDuplicate", CTRL+ALT+SHIFT+Key_D);
+	defKeys.insert("itemDuplicate", Qt::CTRL+Qt::ALT+Qt::SHIFT+Qt::Key_D);
 	defKeys.insert("itemMulDuplicate", QKeySequence());
-	defKeys.insert("itemDelete", CTRL+Key_K);
-	defKeys.insert("itemGroup", CTRL+Key_G);
-	defKeys.insert("itemUngroup", CTRL+SHIFT+Key_G);
-	defKeys.insert("itemLock", CTRL+Key_L);
-	defKeys.insert("itemLockSize", CTRL+SHIFT+Key_L);
+	defKeys.insert("itemDelete", Qt::CTRL+Qt::Key_K);
+	defKeys.insert("itemGroup", Qt::CTRL+Qt::Key_G);
+	defKeys.insert("itemUngroup", Qt::CTRL+Qt::SHIFT+Qt::Key_G);
+	defKeys.insert("itemLock", Qt::CTRL+Qt::Key_L);
+	defKeys.insert("itemLockSize", Qt::CTRL+Qt::SHIFT+Qt::Key_L);
 	defKeys.insert("itemPrintingEnabled", QKeySequence());
 	defKeys.insert("itemFlipH", QKeySequence());
 	defKeys.insert("itemFlipV", QKeySequence());
-	defKeys.insert("itemLowerToBottom", Key_End);
-	defKeys.insert("itemRaiseToTop", Key_Home);
-	defKeys.insert("itemLower", CTRL+Key_End);
-	defKeys.insert("itemRaise", CTRL+Key_Home);
+	defKeys.insert("itemLowerToBottom", Qt::Key_End);
+	defKeys.insert("itemRaiseToTop", Qt::Key_Home);
+	defKeys.insert("itemLower", Qt::CTRL+Qt::Key_End);
+	defKeys.insert("itemRaise", Qt::CTRL+Qt::Key_Home);
 	defKeys.insert("itemSendToScrapbook", QKeySequence());
 	defKeys.insert("itemAttributes", QKeySequence());
 	defKeys.insert("itemImageInfo", QKeySequence());
@@ -1501,10 +1506,10 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("pageManageMargins", QKeySequence());
 
 	//View Menu
-	defKeys.insert("viewFitInWindow", CTRL+Key_0);
+	defKeys.insert("viewFitInWindow", Qt::CTRL+Qt::Key_0);
 	defKeys.insert("viewFit50", QKeySequence());
 	defKeys.insert("viewFit75", QKeySequence());
-	defKeys.insert("viewFit100", CTRL+Key_1);
+	defKeys.insert("viewFit100", Qt::CTRL+Qt::Key_1);
 	defKeys.insert("viewFit200", QKeySequence());
 	defKeys.insert("viewFit20", QKeySequence());
 	defKeys.insert("viewShowMargins", QKeySequence());
@@ -1515,17 +1520,17 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("viewShowBaseline", QKeySequence());
 	defKeys.insert("viewShowTextChain", QKeySequence());
 	defKeys.insert("viewShowTextControls", QKeySequence());
-	defKeys.insert("viewShowRulers", CTRL+SHIFT+Key_R);
+	defKeys.insert("viewShowRulers", Qt::CTRL+Qt::SHIFT+Qt::Key_R);
 	defKeys.insert("viewRulerMode", QKeySequence());
 	defKeys.insert("viewSnapToGrid", QKeySequence());
 	defKeys.insert("viewSnapToGuides", QKeySequence());
 //	defKeys.insert("viewNewView", QKeySequence());
 
 	//Tool menu
-	defKeys.insert("toolsProperties", Key_F2);
+	defKeys.insert("toolsProperties", Qt::Key_F2);
 	defKeys.insert("toolsOutline", QKeySequence());
 	defKeys.insert("toolsScrapbook", QKeySequence());
-	defKeys.insert("toolsLayers", Key_F6);
+	defKeys.insert("toolsLayers", Qt::Key_F6);
 	defKeys.insert("toolsPages", QKeySequence());
 	defKeys.insert("toolsBookmarks", QKeySequence());
 	defKeys.insert("toolsMeasurements", QKeySequence());
@@ -1536,36 +1541,25 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("toolsToolbarPDF", QKeySequence());
 
 	//toolbar only items
-	defKeys.insert("toolsSelect", Key_C);
-	defKeys.insert("toolsInsertTextFrame", Key_T);
-	defKeys.insert("toolsInsertImageFrame", Key_I);
-	defKeys.insert("toolsInsertTableFrame", Key_A);
-	defKeys.insert("toolsInsertShape", Key_S);
-	defKeys.insert("toolsInsertPolygon", Key_P);
-	defKeys.insert("toolsInsertLine", Key_L);
-	defKeys.insert("toolsInsertBezier", Key_B);
-	defKeys.insert("toolsInsertFreehandLine", Key_F);
-	defKeys.insert("toolsRotate", Key_R);
-	defKeys.insert("toolsZoom", Key_Z);
-	defKeys.insert("toolsZoomIn", Key_Plus);
-	defKeys.insert("toolsZoomOut", Key_Minus);
-	defKeys.insert("toolsEditContents", Key_E);
-	defKeys.insert("toolsEditWithStoryEditor", CTRL+Key_Y);
-	defKeys.insert("toolsLinkTextFrame", Key_N);
-	defKeys.insert("toolsUnlinkTextFrame", Key_U);
-	defKeys.insert("toolsEyeDropper", Key_Y);
+	defKeys.insert("toolsSelect", Qt::Key_C);
+	defKeys.insert("toolsInsertTextFrame", QKeySequence(Qt::Key_T));
+	defKeys.insert("toolsInsertImageFrame", Qt::Key_I);
+	defKeys.insert("toolsInsertTableFrame", Qt::Key_A);
+	defKeys.insert("toolsInsertShape", Qt::Key_S);
+	defKeys.insert("toolsInsertPolygon", Qt::Key_P);
+	defKeys.insert("toolsInsertLine", Qt::Key_L);
+	defKeys.insert("toolsInsertBezier", Qt::Key_B);
+	defKeys.insert("toolsInsertFreehandLine", Qt::Key_F);
+	defKeys.insert("toolsRotate", Qt::Key_R);
+	defKeys.insert("toolsZoom", Qt::Key_Z);
+	defKeys.insert("toolsZoomIn", Qt::Key_Plus);
+	defKeys.insert("toolsZoomOut", Qt::Key_Minus);
+	defKeys.insert("toolsEditContents", Qt::Key_E);
+	defKeys.insert("toolsEditWithStoryEditor", Qt::CTRL+Qt::Key_Y);
+	defKeys.insert("toolsLinkTextFrame", Qt::Key_N);
+	defKeys.insert("toolsUnlinkTextFrame", Qt::Key_U);
+	defKeys.insert("toolsEyeDropper", Qt::Key_Y);
 	defKeys.insert("toolsCopyProperties", QKeySequence());
-
-	defKeys.insert("toolsEditWithStoryEditor", QKeySequence());
-
-	defKeys.insert("toolsInsertTextFrame", QKeySequence());
-	defKeys.insert("toolsInsertImageFrame", QKeySequence());
-	defKeys.insert("toolsInsertTableFrame", QKeySequence());
-	defKeys.insert("toolsInsertShape", QKeySequence());
-	defKeys.insert("toolsInsertPolygon", QKeySequence());
-	defKeys.insert("toolsInsertLine", QKeySequence());
-	defKeys.insert("toolsInsertBezier", QKeySequence());
-	defKeys.insert("toolsInsertFreehandLine", QKeySequence());
 
 	//Extras Menu
 	defKeys.insert("extrasManagePictures", QKeySequence());
@@ -1582,11 +1576,11 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("helpAboutPlugins", QKeySequence());
 	defKeys.insert("helpAboutQt", QKeySequence());
 	defKeys.insert("helpTooltips", QKeySequence());
-	defKeys.insert("helpManual", Key_F1);
+	defKeys.insert("helpManual", Qt::Key_F1);
 
 	//GUI
-	defKeys.insert("specialToggleAllPalettes", Key_F10);
-	defKeys.insert("specialToggleAllGuides", Key_F11);
+	defKeys.insert("speciQt::ALToggleAllPalettes", Qt::Key_F10);
+	defKeys.insert("speciQt::ALToggleAllGuides", Qt::Key_F11);
 	
 	//typography
 	defKeys.insert("unicodeSmartHyphen", QKeySequence());
@@ -1595,7 +1589,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("unicodePageNumber", QKeySequence());
 	defKeys.insert("unicodeNewLine", QKeySequence());
 	defKeys.insert("unicodeFrameBreak", QKeySequence());
-	defKeys.insert("unicodeColumnBreak", CTRL+Key_Return);
+	defKeys.insert("unicodeColumnBreak", Qt::CTRL+Qt::Key_Return);
 	defKeys.insert("unicodeCopyRight", QKeySequence());
 	defKeys.insert("unicodeRegdTM", QKeySequence());
 	defKeys.insert("unicodeTM", QKeySequence());
@@ -1633,11 +1627,11 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("unicodeSpaceMid", QKeySequence());
 	defKeys.insert("unicodeSpaceHair", QKeySequence());
 
-	defKeys.insert("unicodeSmartHyphen", CTRL+SHIFT+Key_Minus);
-	defKeys.insert("unicodeNonBreakingHyphen", CTRL+ALT+Key_Minus);
-	defKeys.insert("unicodeNonBreakingSpace", CTRL+Key_Space);
-	defKeys.insert("unicodePageNumber", CTRL+SHIFT+ALT+Key_P);
-	defKeys.insert("unicodeNewLine", SHIFT+Key_Return);
+	defKeys.insert("unicodeSmartHyphen", Qt::CTRL+Qt::SHIFT+Qt::Key_Minus);
+	defKeys.insert("unicodeNonBreakingHyphen", Qt::CTRL+Qt::ALT+Qt::Key_Minus);
+	defKeys.insert("unicodeNonBreakingSpace", Qt::CTRL+Qt::Key_Space);
+	defKeys.insert("unicodePageNumber", Qt::CTRL+Qt::SHIFT+Qt::ALT+Qt::Key_P);
+	defKeys.insert("unicodeNewLine", Qt::SHIFT+Qt::Key_Return);
 	defKeys.insert("unicodeFrameBreak", QKeySequence());
 	defKeys.insert("unicodeColumnBreak", QKeySequence());
 	
@@ -1650,7 +1644,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("unicodeLigature_st", QKeySequence());
 	
 	//Plugins
-	defKeys.insert("ExportAsImage", CTRL+SHIFT+Key_E);
-	defKeys.insert("NewFromDocumentTemplate", CTRL+ALT+Key_N);
-	defKeys.insert("SaveAsDocumentTemplate", CTRL+ALT+Key_S);
+	defKeys.insert("ExportAsImage", Qt::CTRL+Qt::SHIFT+Qt::Key_E);
+	defKeys.insert("NewFromDocumentTemplate", Qt::CTRL+Qt::ALT+Qt::Key_N);
+	defKeys.insert("SaveAsDocumentTemplate", Qt::CTRL+Qt::ALT+Qt::Key_S);
 }

@@ -21,7 +21,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef ACTIONMANAGER_H
 #define ACTIONMANAGER_H
 
-#include <qobject.h> 
+#include <qkeysequence.h>
+#include <qobject.h>
 #include <qstring.h>
 #include <qmap.h>
 #include <qguardedptr.h>
@@ -46,9 +47,9 @@ class SCRIBUS_API ActionManager : public QObject
 	public:
 		ActionManager ( QObject * parent, const char * name );	
 		~ActionManager() {};
-		
+		void init(ScribusMainWindow *);
 		static void createDefaultShortcuts();
-		static const QMap<QString, QKeySequence>* defaultShortcuts() {return &defKeys;};
+		static QMap<QString, QKeySequence>* defaultShortcuts() {return &defKeys;};
 		void createActions();
 		void disconnectModeActions();
 		void connectModeActions();
@@ -94,7 +95,6 @@ class SCRIBUS_API ActionManager : public QObject
 		QStringList *nonEditActionNames;
 		QStringList *unicodeCharActionNames;
 		static QMap<QString, QKeySequence> defKeys;
-		
 };
 
 #endif

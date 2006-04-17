@@ -432,7 +432,7 @@ void PrefsManager::initDefaults()
 void PrefsManager::initDefaultActionKeys()
 {
 	ActionManager::createDefaultShortcuts();
-	const QMap<QString, QKeySequence > *map=ActionManager::defaultShortcuts();
+	QMap<QString, QKeySequence > *map=ActionManager::defaultShortcuts();
 	for( QMap<QString, QKeySequence >::ConstIterator it = map->begin(); it!=map->end(); ++it )
 	{
 		appPrefs.KeyActions[it.key()].actionName = it.key();
@@ -741,6 +741,7 @@ void PrefsManager::SavePrefs(const QString & fname)
 		realFile = fname;
 	if (!WritePref(realFile))
 		alertSavePrefsFailed();
+	emit prefsChanged();
 }
 
 void PrefsManager::SavePrefsXML()
@@ -1587,7 +1588,6 @@ bool PrefsManager::ReadPref(QString ho)
 			{
 				appPrefs.KeyActions[dc.attribute("ACTION")].actionName = dc.attribute("ACTION");
 				QKeySequence newKeySequence = QKeySequence(dc.attribute("SEQUENCE"));
-//				qDebug(QString("reading shortcut for %2 %1").arg(QString(newKeySequence)).arg(dc.attribute("ACTION")));
 				appPrefs.KeyActions[dc.attribute("ACTION")].keySequence = newKeySequence;
 			}
 		}

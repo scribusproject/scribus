@@ -62,12 +62,15 @@ ScribusCore::ScribusCore() : QObject()
 	m_ScribusInitialized=false;
 	m_SplashScreen=0;
 	m_UseGUI=false;
+	m_PaletteParent=0;
 }
 
 
 
 ScribusCore::~ScribusCore()
-{}
+{
+	delete m_PaletteParent;
+}
 
 int ScribusCore::init(bool useGUI, bool swapDialogButtonOrder, const QString fileToUse)
 {
@@ -79,40 +82,42 @@ int ScribusCore::init(bool useGUI, bool swapDialogButtonOrder, const QString fil
 
 int ScribusCore::startGUI(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile)
 {
-		scribus = new ScribusMainWindow();
-		Q_CHECK_PTR(scribus);
-		if (!scribus)
-			return(EXIT_FAILURE);
-		ScMW=scribus;
-		int retVal=initScribusCore(showSplash, showFontInfo, newGuiLanguage, prefsUserFile);
-		if (retVal == 1)
-			return(EXIT_FAILURE);
-		retVal = scribus->initScMW(true);
-		if (retVal == 1)
-			return(EXIT_FAILURE);
-		closeSplash();
-		m_ScribusInitialized=true;
-		ScQApp->setMainWidget(scribus);
-		connect(ScQApp, SIGNAL(lastWindowClosed()), ScQApp, SLOT(quit()));
+	m_PaletteParent=new QWidget(0);
+	Q_CHECK_PTR(m_PaletteParent);
+	scribus = new ScribusMainWindow();
+	Q_CHECK_PTR(scribus);
+	if (!scribus)
+		return(EXIT_FAILURE);
+	ScMW=scribus;
+	int retVal=initScribusCore(showSplash, showFontInfo, newGuiLanguage, prefsUserFile);
+	if (retVal == 1)
+		return(EXIT_FAILURE);
+	retVal = scribus->initScMW(true);
+	if (retVal == 1)
+		return(EXIT_FAILURE);
+	closeSplash();
+	m_ScribusInitialized=true;
+	ScQApp->setMainWidget(scribus);
+	connect(ScQApp, SIGNAL(lastWindowClosed()), ScQApp, SLOT(quit()));
 
-		scribus->show();
-		scribus->ShowSubs();
+	scribus->show();
+	scribus->ShowSubs();
 
-		if (!m_File.isEmpty())
-			scribus->loadDoc(m_File);
+	if (!m_File.isEmpty())
+		scribus->loadDoc(m_File);
+	else
+	{
+		if (PrefsManager::instance()->appPrefs.showStartupDialog)
+			scribus->startUpDialog();
 		else
-		{
-			if (PrefsManager::instance()->appPrefs.showStartupDialog)
-				scribus->startUpDialog();
-			else
-				scribus->setFocus();
-		}
+			scribus->setFocus();
+	}
 
-		// A hook for plug-ins and scripts to trigger on. Some plugins and scripts
-		// require the app to be fully set up (in particular, the main window to be
-		// built and shown) before running their setup.
-		emit appStarted();
-		return EXIT_SUCCESS;
+	// A hook for plug-ins and scripts to trigger on. Some plugins and scripts
+	// require the app to be fully set up (in particular, the main window to be
+	// built and shown) before running their setup.
+	emit appStarted();
+	return EXIT_SUCCESS;
 }
 
 int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile)
@@ -157,66 +162,12 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, const QStri
 	getCMSProfiles();
 	initCMS();
 	/*
-	pluginManager = new PluginManager();
-	tocGenerator = new TOCGenerator();
-	actionManager = new ActionManager(this, "actionManager");
 
-	initDefaultValues();
-	initMenuBar();
-	initStatusBar();
-	initToolBars();
-	qApp->processEvents();
-
-	BuFromApp = false;
-
-#ifdef QT_MAC
-	bool haveFonts=initFonts(true);
-#else
-	bool haveFonts=initFonts(showFontInfo);
-#endif
-	if (!haveFonts)
-		retVal=1;
-	else
-	{
 		buildFontMenu();
-		prefsManager->initDefaults();
-		prefsManager->initDefaultGUIFont(qApp->font());
-		prefsManager->initArrowStyles();
-		resize(610, 600);
-		QVBox* vb = new QVBox( this );
-		vb->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
-		wsp = new QWorkspace( vb );
-		setCentralWidget( vb );
-		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
-		//Connect windows cascade and tile actions to the workspace after its created. Only depends on wsp created.
-		connect( scrActions["windowsCascade"], SIGNAL(activated()) , wsp, SLOT(cascade()) );
-		connect( scrActions["windowsTile"], SIGNAL(activated()) , wsp, SLOT(tile()) );
+
 
 		initPalettes();
 
-		fileWatcher = new FileWatcher(this);
-
-		setSplashStatus( tr("Initializing Plugins") );
-		pluginManager->initPlugs();
-		setSplashStatus( tr("Initializing Keyboard Shortcuts") );
-		initKeyboardShortcuts();
-		setSplashStatus( tr("Reading Preferences") );
-		if (prefsUserFile.isNull())
-			prefsManager->ReadPrefs();
-		else
-			prefsManager->ReadPrefs(prefsUserFile);
-		setSplashStatus( tr("Initializing Story Editor") );
-		storyEditor = new StoryEditor(this);
-
-		HaveGS = testGSAvailability();
-		HavePngAlpha = testGSDeviceAvailability("pngalpha");
-		HaveTiffSep = testGSDeviceAvailability("tiffsep");
-		DocDir = prefsManager->documentDir();
-
-		setSplashStatus( tr("Reading ICC Profiles") );
-		CMSavail = false;
-		GetCMSProfiles();
-		initCMS();
 
 		setSplashStatus( tr("Initializing Hyphenator") );
 		QString preLang = prefsManager->appPrefs.Language;
@@ -229,7 +180,6 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, const QStri
 		SetShortCut();
 		scrActions["helpTooltips"]->setOn(prefsManager->appPrefs.showToolTips);
 		ToggleTips();
-		emit prefsChanged();
 
 		connect(fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
 		connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
@@ -247,9 +197,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, const QStri
 		connect(this, SIGNAL(TextStrike(int, int)), propertiesPalette, SLOT(setStrike(int, int)));
 		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
 	}*/
-/*	closeSplash();
-	m_ScribusInitialized=true;*/
-	//pluginManager->languageChange();
+
 	return retVal;
 }
 

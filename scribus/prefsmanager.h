@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef PREFSMANAGER_H
 #define PREFSMANAGER_H
 
+#include <qkeysequence.h>
 #include <qobject.h>
 
 #include "scribusapi.h"
@@ -182,6 +183,8 @@ private:
 	Do not write "success" messages to this. */
 	QString m_lastError;
 
+signals:
+	void prefsChanged();
 };
 
 #endif

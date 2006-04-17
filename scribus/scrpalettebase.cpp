@@ -41,9 +41,7 @@ prefsContextName(QString::null),
 visibleOnStartup(false)
 {
 	setPrefsContext(name);
-	ScribusMainWindow *scapp = dynamic_cast<ScribusMainWindow*>(parent);
-	if (scapp)
-		connect(scapp, SIGNAL(prefsChanged()), this, SLOT(setFontSize()));
+	connect(PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(setFontSize()));
 }
 
 void ScrPaletteBase::setPrefsContext(QString context)
@@ -64,6 +62,7 @@ void ScrPaletteBase::setPrefsContext(QString context)
 
 void ScrPaletteBase::startup()
 {
+	setFontSize();
 	setShown(visibleOnStartup);
 	emit paletteShown(visibleOnStartup);
 }
@@ -74,7 +73,8 @@ void ScrPaletteBase::setPaletteShown(bool visible)
 	setShown(visible);
 }
 
-void ScrPaletteBase::setFontSize() {
+void ScrPaletteBase::setFontSize()
+{
 	QFont *newfont = new QFont(font());
 	newfont->setPointSize(PrefsManager::instance()->appPrefs.PaletteFontSize);
 	setFont(*newfont);

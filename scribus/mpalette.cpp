@@ -102,7 +102,8 @@ void NameWidget::focusOutEvent(QFocusEvent *e)
 
 Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalette", false, 0)
 {
-	doc=NULL;
+	m_MainWindow=0;
+	doc=0;
 	HaveDoc = false;
 	HaveItem = false;
 	RoVal = 0;
@@ -833,16 +834,6 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect( EvenOdd, SIGNAL( clicked() ), this, SLOT(handleFillRule() ) );
 	connect( NonZero, SIGNAL( clicked() ), this, SLOT( handleFillRule() ) );
 
-	connect(this, SIGNAL(DocChanged()), ScMW, SLOT(slotDocCh()));
-	connect(this, SIGNAL(NewAbStyle(int)), ScMW, SLOT(setNewAbStyle(int)));
-	connect(this, SIGNAL(Stellung(int)), ScMW, SLOT(setItemHoch(int)));
-	connect(this, SIGNAL(EditCL()), ScMW, SLOT(ToggleFrameEdit()));
-	connect(this, SIGNAL(NewTF(const QString&)), ScMW, SLOT(SetNewFont(const QString&)));
-	connect(this, SIGNAL(UpdtGui(int)), ScMW, SLOT(HaveNewSel(int)));
-	connect(this->Cpal, SIGNAL(QueryItem()), ScMW, SLOT(GetBrushPen()));
-	connect(this->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), ScMW, SLOT(updtGradFill()));
-	connect(this->Cpal, SIGNAL(gradientChanged()), ScMW, SLOT(updtGradFill()));
-
 	HaveItem = false;
 	Xpos->setValue(0);
 	Ypos->setValue(0);
@@ -862,9 +853,25 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	PM1->setEnabled(false);
 }
 
+void Mpalette::setMainWindow(ScribusMainWindow* mw)
+{
+	m_MainWindow=mw;
+	
+	connect(this, SIGNAL(DocChanged()), m_MainWindow, SLOT(slotDocCh()));
+	connect(this, SIGNAL(NewAbStyle(int)), m_MainWindow, SLOT(setNewAbStyle(int)));
+	connect(this, SIGNAL(Stellung(int)), m_MainWindow, SLOT(setItemHoch(int)));
+	connect(this, SIGNAL(EditCL()), m_MainWindow, SLOT(ToggleFrameEdit()));
+	connect(this, SIGNAL(NewTF(const QString&)), m_MainWindow, SLOT(SetNewFont(const QString&)));
+	connect(this, SIGNAL(UpdtGui(int)), m_MainWindow, SLOT(HaveNewSel(int)));
+	connect(this->Cpal, SIGNAL(QueryItem()), m_MainWindow, SLOT(GetBrushPen()));
+	connect(this->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), m_MainWindow, SLOT(updtGradFill()));
+	connect(this->Cpal, SIGNAL(gradientChanged()), m_MainWindow, SLOT(updtGradFill()));
+	
+}
+
 void Mpalette::SelTab(int t)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem) && (t == 5))
 	{
@@ -952,7 +959,7 @@ void Mpalette::unsetItem()
 
 void Mpalette::setCurrentItem(PageItem *i)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	//CB We shouldnt really need to process this if our item is the same one
 	//maybe we do if the item has been changed by scripter.. but that should probably
@@ -989,7 +996,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 	connect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 	*/
-	langCombo->setCurrentText(ScMW->LangTransl[i->Language]);
+	langCombo->setCurrentText(m_MainWindow->LangTransl[i->Language]);
 	if (TabStack->currentIndex() == 5)
 		Cpal->setActGradient(CurItem->GrType);
 	updateColorSpecialGradient();
@@ -1153,7 +1160,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 
 void Mpalette::SetCurItem(PageItem *i)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	//CB We shouldnt really need to process this if our item is the same one
 	//maybe we do if the item has been changed by scripter.. but that should probably
@@ -1230,7 +1237,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	connect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 	*/
-	langCombo->setCurrentText(ScMW->LangTransl[i->Language]);
+	langCombo->setCurrentText(m_MainWindow->LangTransl[i->Language]);
 	bool setter;
 	if (i->NamedLStyle.isEmpty())
 	{
@@ -1351,7 +1358,7 @@ void Mpalette::SetCurItem(PageItem *i)
 
 void Mpalette::NewSel(int nr)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	int visID;
 	PageItem *i=0;
@@ -1360,17 +1367,17 @@ void Mpalette::NewSel(int nr)
 	{
 		RoVal = 0;
 		double gx, gy, gh, gw;
-		ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+		m_MainWindow->view->getGroupRect(&gx, &gy, &gw, &gh);
 		if (TopLeft->isChecked())
-			ScMW->view->RCenter = FPoint(gx, gy);
+			m_MainWindow->view->RCenter = FPoint(gx, gy);
 		if (TopRight->isChecked())
-			ScMW->view->RCenter = FPoint(gx + gw, gy);
+			m_MainWindow->view->RCenter = FPoint(gx + gw, gy);
 		if (Center->isChecked())
-			ScMW->view->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
+			m_MainWindow->view->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
 		if (BottomLeft->isChecked())
-			ScMW->view->RCenter = FPoint(gx, gy + gh);
+			m_MainWindow->view->RCenter = FPoint(gx, gy + gh);
 		if (BottomRight->isChecked())
-			ScMW->view->RCenter = FPoint(gx + gw, gy + gh);
+			m_MainWindow->view->RCenter = FPoint(gx + gw, gy + gh);
 		xposLabel->setText( tr( "&X-Pos:" ) );
 		widthLabel->setText( tr( "&Width:" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
@@ -1659,7 +1666,7 @@ void Mpalette::setLevel(uint l)
 
 void Mpalette::setXY(double x, double y)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	disconnect(Xpos, SIGNAL(valueChanged(int)), this, SLOT(NewX()));
 	disconnect(Ypos, SIGNAL(valueChanged(int)), this, SLOT(NewY()));
@@ -1671,7 +1678,7 @@ void Mpalette::setXY(double x, double y)
 	{
 		if (doc->m_Selection->isMultipleSelection())
 		{
-			ScMW->view->getGroupRect(&dummy1, &dummy2, &b, &h);
+			m_MainWindow->view->getGroupRect(&dummy1, &dummy2, &b, &h);
 			r = 0.0;
 		}
 		else
@@ -1723,7 +1730,7 @@ void Mpalette::setXY(double x, double y)
 
 void Mpalette::setBH(double x, double y)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1749,7 +1756,7 @@ void Mpalette::setBH(double x, double y)
 
 void Mpalette::setR(double r)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	double rr = r;
@@ -1762,7 +1769,7 @@ void Mpalette::setR(double r)
 
 void Mpalette::setRR(double r)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1772,7 +1779,7 @@ void Mpalette::setRR(double r)
 
 void Mpalette::setCols(int r, double g)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1812,7 +1819,7 @@ void Mpalette::setLspMode(int id)
 
 void Mpalette::setLsp(double r)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1834,7 +1841,7 @@ void Mpalette::setLsp(double r)
 
 void Mpalette::setDvals(double left, double top, double bottom, double right)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1847,7 +1854,7 @@ void Mpalette::setDvals(double left, double top, double bottom, double right)
 
 void Mpalette::setFontFace(QString newFont)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1858,7 +1865,7 @@ void Mpalette::setFontFace(QString newFont)
 
 void Mpalette::setSize(int s)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1868,7 +1875,7 @@ void Mpalette::setSize(int s)
 
 void Mpalette::setExtra(int e)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1878,7 +1885,7 @@ void Mpalette::setExtra(int e)
 
 void Mpalette::ChangeScaling()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if (FreeScale == sender())
 	{
@@ -1915,7 +1922,7 @@ void Mpalette::ChangeScaling()
 
 void Mpalette::setLvalue(double scx, double scy, double x, double y)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1942,7 +1949,7 @@ void Mpalette::setLvalue(double scx, double scy, double x, double y)
 
 void Mpalette::setSvalue(double s)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1952,7 +1959,7 @@ void Mpalette::setSvalue(double s)
 
 void Mpalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -2012,7 +2019,7 @@ void Mpalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle p
 
 void Mpalette::setStil(int s)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	StrokeIcon->setEnabled(false);
 	TxStroke->setEnabled(false);
@@ -2028,7 +2035,7 @@ void Mpalette::setStil(int s)
 
 void Mpalette::setAli(int e)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -2045,7 +2052,7 @@ void Mpalette::setAli(int e)
 
 void Mpalette::setTScaleV(int e)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -2075,7 +2082,7 @@ void Mpalette::NewTBase()
 
 void Mpalette::setTScale(int e)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -2085,7 +2092,7 @@ void Mpalette::setTScale(int e)
 
 void Mpalette::setTBase(int e)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -2105,7 +2112,7 @@ void Mpalette::NewTScale()
 
 void Mpalette::NewX()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2125,18 +2132,18 @@ void Mpalette::NewX()
 		}
 		if (doc->m_Selection->isMultipleSelection())
 		{
-			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+			m_MainWindow->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if ((TopLeft->isChecked()) || (BottomLeft->isChecked()))
 				base = gx;
 			if (Center->isChecked())
 				base = gx + gw / 2.0;
 			if ((TopRight->isChecked()) || (BottomRight->isChecked()))
 				base = gx + gw;
-			ScMW->view->moveGroup(x - base, 0, true);
-			if (!_userActionOn && ScMW->view->groupTransactionStarted())
+			m_MainWindow->view->moveGroup(x - base, 0, true);
+			if (!_userActionOn && m_MainWindow->view->groupTransactionStarted())
 			{
 				UndoManager::instance()->commit();
-				ScMW->view->setGroupTransactionStarted(false);
+				m_MainWindow->view->setGroupTransactionStarted(false);
 			}
 		}
 		else
@@ -2145,9 +2152,9 @@ void Mpalette::NewX()
 			{
 				double r = atan2(h-y,w-x)*(180.0/M_PI);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
-				ScMW->view->MoveItem(x - CurItem->xPos(), 0, CurItem, true);
-				ScMW->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
-				ScMW->view->RotateItem(r, CurItem->ItemNr);
+				m_MainWindow->view->MoveItem(x - CurItem->xPos(), 0, CurItem, true);
+				m_MainWindow->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
+				m_MainWindow->view->RotateItem(r, CurItem->ItemNr);
 			}
 			else
 			{
@@ -2163,17 +2170,17 @@ void Mpalette::NewX()
 					base = ma.m11() * CurItem->width() + ma.m21() * CurItem->height() + ma.dx();
 				if (BottomLeft->isChecked())
 					base = ma.m11() * 0.0 + ma.m21() * CurItem->height() + ma.dx();
-				ScMW->view->MoveItem(x - base, 0, CurItem, true);
+				m_MainWindow->view->MoveItem(x - base, 0, CurItem, true);
 			}
 		}
-		ScMW->view->updateContents();
+		m_MainWindow->view->updateContents();
 		emit DocChanged();
 	}
 }
 
 void Mpalette::NewY()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2193,18 +2200,18 @@ void Mpalette::NewY()
 		}
 		if (doc->m_Selection->isMultipleSelection())
 		{
-			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+			m_MainWindow->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if ((TopLeft->isChecked()) || (TopRight->isChecked()))
 				base = gy;
 			if (Center->isChecked())
 				base = gy + gh / 2.0;
 			if ((BottomLeft->isChecked()) || (BottomRight->isChecked()))
 				base = gy + gh;
-			ScMW->view->moveGroup(0, y - base, true);
-			if (!_userActionOn && ScMW->view->groupTransactionStarted())
+			m_MainWindow->view->moveGroup(0, y - base, true);
+			if (!_userActionOn && m_MainWindow->view->groupTransactionStarted())
 			{
 				UndoManager::instance()->commit();
-				ScMW->view->setGroupTransactionStarted(false);
+				m_MainWindow->view->setGroupTransactionStarted(false);
 			}
 		}
 		else
@@ -2213,9 +2220,9 @@ void Mpalette::NewY()
 			{
 				double r = atan2(h-y,w-x)*(180.0/M_PI);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
-				ScMW->view->MoveItem(0, y - CurItem->yPos(), CurItem, true);
-				ScMW->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
-				ScMW->view->RotateItem(r, CurItem->ItemNr);
+				m_MainWindow->view->MoveItem(0, y - CurItem->yPos(), CurItem, true);
+				m_MainWindow->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
+				m_MainWindow->view->RotateItem(r, CurItem->ItemNr);
 			}
 			else
 			{
@@ -2231,17 +2238,17 @@ void Mpalette::NewY()
 					base = ma.m22() * CurItem->height() + ma.m12() * CurItem->width() + ma.dy();
 				if (BottomLeft->isChecked())
 					base = ma.m22() * CurItem->height() + ma.m12() * 0.0 + ma.dy();
-				ScMW->view->MoveItem(0, y - base, CurItem, true);
+				m_MainWindow->view->MoveItem(0, y - base, CurItem, true);
 			}
 		}
-		ScMW->view->updateContents();
+		m_MainWindow->view->updateContents();
 		emit DocChanged();
 	}
 }
 
 void Mpalette::NewW()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2252,24 +2259,24 @@ void Mpalette::NewW()
 		h = Height->value() / Umrech;
 		if (doc->m_Selection->isMultipleSelection())
 		{
-			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+			m_MainWindow->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if (keepFrameWHRatioButton->isOn())
 			{
-				ScMW->view->frameResizeHandle = 1;
-				ScMW->view->scaleGroup(w / gw, w / gw);
+				m_MainWindow->view->frameResizeHandle = 1;
+				m_MainWindow->view->scaleGroup(w / gw, w / gw);
 				setBH(w, (w / gw) * gh);
 			}
 			else
 			{
-				ScMW->view->frameResizeHandle = 6;
-				ScMW->view->scaleGroup(w / gw, 1.0);
-				ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+				m_MainWindow->view->frameResizeHandle = 6;
+				m_MainWindow->view->scaleGroup(w / gw, 1.0);
+				m_MainWindow->view->getGroupRect(&gx, &gy, &gw, &gh);
 				setBH(gw, gh);
 			}
-			if (!_userActionOn && ScMW->view->groupTransactionStarted())
+			if (!_userActionOn && m_MainWindow->view->groupTransactionStarted())
 			{
 				UndoManager::instance()->commit();
-				ScMW->view->setGroupTransactionStarted(false);
+				m_MainWindow->view->setGroupTransactionStarted(false);
 			}
 		}
 		else
@@ -2281,10 +2288,10 @@ void Mpalette::NewW()
 				if (LMode)
 				{
 					double r = atan2(h-y,w-x)*(180.0/M_PI);
-					ScMW->view->RotateItem(r, CurItem->ItemNr);
+					m_MainWindow->view->RotateItem(r, CurItem->ItemNr);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 				}
-				ScMW->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
+				m_MainWindow->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
 			}
 			else
 			{
@@ -2305,19 +2312,19 @@ void Mpalette::NewW()
 						bb2 = bb;
 						while (bb2->RightLink != 0)
 						{
-							ScMW->view->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
+							m_MainWindow->view->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
 							bb2 = bb2->RightLink;
 						}
-						ScMW->view->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
+						m_MainWindow->view->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
 						bb = bb->BottomLink;
 					}
 					bb2 = bb;
 					while (bb2->RightLink != 0)
 					{
-						ScMW->view->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
+						m_MainWindow->view->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
 						bb2 = bb2->RightLink;
 					}
-					ScMW->view->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
+					m_MainWindow->view->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
 					doc->RotMode = rmo;
 					if (keepFrameWHRatioButton->isOn())
 					{
@@ -2332,21 +2339,21 @@ void Mpalette::NewW()
 					if (keepFrameWHRatioButton->isOn())
 					{
 						setBH(w, (w / CurItem->width()) * CurItem->height());
-						ScMW->view->SizeItem(w, (w / CurItem->width()) * CurItem->height(), CurItem->ItemNr, true);
+						m_MainWindow->view->SizeItem(w, (w / CurItem->width()) * CurItem->height(), CurItem->ItemNr, true);
 					}
 					else
-						ScMW->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
+						m_MainWindow->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
 				}
 			}
 		}
 		emit DocChanged();
-		ScMW->view->updateContents();
+		m_MainWindow->view->updateContents();
 	}
 }
 
 void Mpalette::NewH()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2357,24 +2364,24 @@ void Mpalette::NewH()
 		h = Height->value() / Umrech;
 		if (doc->m_Selection->isMultipleSelection())
 		{
-			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+			m_MainWindow->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if (keepFrameWHRatioButton->isOn())
 			{
-				ScMW->view->frameResizeHandle = 1;
-				ScMW->view->scaleGroup(h / gh, h / gh);
+				m_MainWindow->view->frameResizeHandle = 1;
+				m_MainWindow->view->scaleGroup(h / gh, h / gh);
 				setBH((h / gh) * gw, h);
 			}
 			else
 			{
-				ScMW->view->frameResizeHandle = 5;
-				ScMW->view->scaleGroup(1.0, h / gh);
-				ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+				m_MainWindow->view->frameResizeHandle = 5;
+				m_MainWindow->view->scaleGroup(1.0, h / gh);
+				m_MainWindow->view->getGroupRect(&gx, &gy, &gw, &gh);
 				setBH(gw, gh);
 			}
-			if (!_userActionOn && ScMW->view->groupTransactionStarted())
+			if (!_userActionOn && m_MainWindow->view->groupTransactionStarted())
 			{
 				UndoManager::instance()->commit();
-				ScMW->view->setGroupTransactionStarted(false);
+				m_MainWindow->view->setGroupTransactionStarted(false);
 			}
 		}
 		else
@@ -2386,10 +2393,10 @@ void Mpalette::NewH()
 				if (LMode)
 				{
 					double r = atan2(h-y,w-x)*(180.0/M_PI);
-					ScMW->view->RotateItem(r, CurItem->ItemNr);
+					m_MainWindow->view->RotateItem(r, CurItem->ItemNr);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 				}
-				ScMW->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
+				m_MainWindow->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
 			}
 			else
 			{
@@ -2410,19 +2417,19 @@ void Mpalette::NewH()
 						bb2 = bb;
 						while (bb2->BottomLink != 0)
 						{
-							ScMW->view->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
+							m_MainWindow->view->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
 							bb2 = bb2->BottomLink;
 						}
-						ScMW->view->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
+						m_MainWindow->view->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
 						bb = bb->RightLink;
 					}
 					bb2 = bb;
 					while (bb2->BottomLink != 0)
 					{
-						ScMW->view->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
+						m_MainWindow->view->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
 						bb2 = bb2->BottomLink;
 					}
-					ScMW->view->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
+					m_MainWindow->view->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
 					doc->RotMode = rmo;
 					if (keepFrameWHRatioButton->isOn())
 					{
@@ -2437,59 +2444,59 @@ void Mpalette::NewH()
 					if (keepFrameWHRatioButton->isOn())
 					{
 						setBH((h / CurItem->height()) * CurItem->width(), h);
-						ScMW->view->SizeItem((h / CurItem->height()) * CurItem->width(), h, CurItem->ItemNr, true);
+						m_MainWindow->view->SizeItem((h / CurItem->height()) * CurItem->width(), h, CurItem->ItemNr, true);
 					}
 					else
-						ScMW->view->SizeItem(CurItem->width(), h, CurItem->ItemNr, true);
+						m_MainWindow->view->SizeItem(CurItem->width(), h, CurItem->ItemNr, true);
 				}
 			}
 		}
 		emit DocChanged();
-		ScMW->view->updateContents();
+		m_MainWindow->view->updateContents();
 	}
 }
 
 void Mpalette::NewR()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	double gx, gy, gh, gw;
 	if ((HaveDoc) && (HaveItem))
 	{
 		if (doc->m_Selection->isMultipleSelection())
 		{
-			ScMW->view->RotateGroup((Rot->value() - RoVal)*(-1));
-			if (!_userActionOn && ScMW->view->groupTransactionStarted())
+			m_MainWindow->view->RotateGroup((Rot->value() - RoVal)*(-1));
+			if (!_userActionOn && m_MainWindow->view->groupTransactionStarted())
 			{
 				UndoManager::instance()->commit();
-				ScMW->view->setGroupTransactionStarted(false);
+				m_MainWindow->view->setGroupTransactionStarted(false);
 			}
-			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+			m_MainWindow->view->getGroupRect(&gx, &gy, &gw, &gh);
 			setXY(gx, gy);
 		}
 		else
-			ScMW->view->RotateItem(Rot->value()*(-1), CurItem->ItemNr);
+			m_MainWindow->view->RotateItem(Rot->value()*(-1), CurItem->ItemNr);
 		emit DocChanged();
-		ScMW->view->updateContents();
+		m_MainWindow->view->updateContents();
 		RoVal = Rot->value();
 	}
 }
 
 void Mpalette::NewRR()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->setCornerRadius(RoundRect->value() / Umrech);
-		ScMW->view->SetFrameRounded();
+		m_MainWindow->view->SetFrameRounded();
 		emit DocChanged();
 	}
 }
 
 void Mpalette::NewLsp()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2513,20 +2520,20 @@ void Mpalette::HandleGapSwitch()
 
 void Mpalette::NewCols()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->Cols = DCol->value();
 		setCols(CurItem->Cols, CurItem->ColGap);
-		ScMW->view->RefreshItem(CurItem);
+		m_MainWindow->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
 
 void Mpalette::NewGap()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2543,14 +2550,14 @@ void Mpalette::NewGap()
 			double newGap = QMAX(((CurItem->width() - CurItem->textToFrameDistLeft() - CurItem->textToFrameDistRight() - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0);
 			CurItem->ColGap = newGap;
 		}
-		ScMW->view->RefreshItem(CurItem);
+		m_MainWindow->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
 
 void Mpalette::NewSize()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2561,7 +2568,7 @@ void Mpalette::NewSize()
 
 void Mpalette::NewExtra()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2577,7 +2584,7 @@ void Mpalette::NewExtra()
 #ifndef NLS_PROTO
 				CurItem->itemText.at(CurItem->CPos)->cextra = qRound(Extra->value() * 10.0);
 #endif
-				ScMW->view->RefreshItem(CurItem);
+				m_MainWindow->view->RefreshItem(CurItem);
 				emit DocChanged();
 			}
 		}
@@ -2586,7 +2593,7 @@ void Mpalette::NewExtra()
 
 void Mpalette::NewLocalXY()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2596,7 +2603,7 @@ void Mpalette::NewLocalXY()
 
 void Mpalette::NewLocalSC()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2616,7 +2623,7 @@ void Mpalette::NewLocalSC()
 
 void Mpalette::NewLocalDpi()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2637,7 +2644,7 @@ void Mpalette::NewLocalDpi()
 
 void Mpalette::NewLS()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2648,31 +2655,31 @@ void Mpalette::NewLS()
 
 void Mpalette::setStartArrow(int id)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->setStartArrowIndex(id);
-		ScMW->view->RefreshItem(CurItem);
+		m_MainWindow->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
 
 void Mpalette::setEndArrow(int id)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->setEndArrowIndex(id);
-		ScMW->view->RefreshItem(CurItem);
+		m_MainWindow->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
 
 void Mpalette::NewLSty()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	PenStyle c = SolidLine;
 	switch (LStyle->currentItem())
@@ -2702,7 +2709,7 @@ void Mpalette::NewLSty()
 
 void Mpalette::NewLMode()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if (LineMode->currentItem() == 0)
 	{
@@ -2732,7 +2739,7 @@ void Mpalette::NewLMode()
 
 void Mpalette::NewLJoin()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	PenJoinStyle c = MiterJoin;
 	switch (LJoinStyle->currentItem())
@@ -2756,7 +2763,7 @@ void Mpalette::NewLJoin()
 
 void Mpalette::NewLEnd()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	PenCapStyle c = FlatCap;
 	switch (LEndStyle->currentItem())
@@ -2780,7 +2787,7 @@ void Mpalette::NewLEnd()
 
 void Mpalette::ToggleKette()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
 	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
@@ -2820,7 +2827,7 @@ void Mpalette::VChange()
 
 void Mpalette::ToggleKetteD()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
 	disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
@@ -2860,7 +2867,7 @@ void Mpalette::VChangeD()
 
 void Mpalette::NewAli(int a)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2871,7 +2878,7 @@ void Mpalette::NewAli(int a)
 
 void Mpalette::setTypeStyle(int s)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	emit Stellung(s);
 }
@@ -2891,7 +2898,7 @@ void Mpalette::newShadowOffs()
 
 void Mpalette::setShadowOffs(int x, int y)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	disconnect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
 	disconnect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
@@ -2916,7 +2923,7 @@ void Mpalette::newUnderline()
 
 void Mpalette::setUnderline(int p, int w)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	disconnect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
 	disconnect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
@@ -2941,7 +2948,7 @@ void Mpalette::newStrike()
 
 void Mpalette::setStrike(int p, int w)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	disconnect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newStrike()));
 	disconnect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newStrike()));
@@ -2953,7 +2960,7 @@ void Mpalette::setStrike(int p, int w)
 
 void Mpalette::setOutlineW(int x)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	disconnect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineW()));
 	SeStyle->OutlineVal->LWidth->setValue(x / 10.0);
@@ -2973,47 +2980,47 @@ void Mpalette::newOutlineW()
 
 void Mpalette::DoLower()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->LowerItem();
+		m_MainWindow->view->LowerItem();
 	}
 }
 
 void Mpalette::DoRaise()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->RaiseItem();
+		m_MainWindow->view->RaiseItem();
 	}
 }
 
 void Mpalette::DoFront()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->ToFront();
+		m_MainWindow->view->ToFront();
 	}
 }
 
 void Mpalette::DoBack()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScMW->view->ToBack();
+		m_MainWindow->view->ToBack();
 	}
 }
 
 void Mpalette::NewRotMode(int m)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	double inX, inY, gx, gy, gh, gw;
 	inX = 0;
@@ -3023,35 +3030,35 @@ void Mpalette::NewRotMode(int m)
 		HaveItem = false;
 		if (doc->m_Selection->isMultipleSelection())
 		{
-			ScMW->view->setGroupRect();
-			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+			m_MainWindow->view->setGroupRect();
+			m_MainWindow->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if (m == 0)
 			{
-				ScMW->view->RCenter = FPoint(gx, gy);
+				m_MainWindow->view->RCenter = FPoint(gx, gy);
 				inX = gx;
 				inY = gy;
 			}
 			if (m == 1)
 			{
-				ScMW->view->RCenter = FPoint(gx+gw, gy);
+				m_MainWindow->view->RCenter = FPoint(gx+gw, gy);
 				inX = gx+gw;
 				inY = gy;
 			}
 			if (m == 2)
 			{
-				ScMW->view->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
+				m_MainWindow->view->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
 				inX = gx + gw / 2.0;
 				inY = gy + gh / 2.0;
 			}
 			if (m == 3)
 			{
-				ScMW->view->RCenter = FPoint(gx, gy+gh);
+				m_MainWindow->view->RCenter = FPoint(gx, gy+gh);
 				inX = gx;
 				inY = gy+gh;
 			}
 			if (m == 4)
 			{
-				ScMW->view->RCenter = FPoint(gx+gw, gy+gh);
+				m_MainWindow->view->RCenter = FPoint(gx+gw, gy+gh);
 				inX = gx+gw;
 				inY = gy+gh;
 			}
@@ -3090,7 +3097,7 @@ void Mpalette::NewRotMode(int m)
 
 void Mpalette::DoFlow(int id)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -3118,14 +3125,14 @@ void Mpalette::DoFlow(int id)
 				}
 				break;
 		}
-		ScMW->view->DrawNew();
+		m_MainWindow->view->DrawNew();
 		emit DocChanged();
 	}
 }
 
 void Mpalette::MakeIrre(int f, int c, double *vals)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -3147,8 +3154,8 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 			CurItem->FrameType = f+2;
 			break;
 		}
-		ScMW->SCustom->setPixmap(ScMW->SCustom->getIconPixmap(f));
-		ScMW->view->RefreshItem(CurItem);
+		m_MainWindow->SCustom->setPixmap(m_MainWindow->SCustom->getIconPixmap(f));
+		m_MainWindow->view->RefreshItem(CurItem);
 		emit DocChanged();
 		if ((CurItem->itemType() == PageItem::ImageFrame) || (CurItem->itemType() == PageItem::TextFrame))
 			return;
@@ -3160,7 +3167,7 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 
 void Mpalette::EditSh()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -3179,20 +3186,20 @@ void Mpalette::EditSh()
 
 void Mpalette::NewTDist()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->setTextToFrameDist(DLeft->value() / Umrech, DRight->value() / Umrech, DTop->value() / Umrech, DBottom->value() / Umrech);
 		setCols(CurItem->Cols, CurItem->ColGap);
-		ScMW->view->RefreshItem(CurItem);
+		m_MainWindow->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
 
 void Mpalette::NewSpGradient(double x1, double y1, double x2, double y2)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -3200,28 +3207,28 @@ void Mpalette::NewSpGradient(double x1, double y1, double x2, double y2)
 		CurItem->GrStartY = y1 / Umrech;
 		CurItem->GrEndX = x2 / Umrech;
 		CurItem->GrEndY = y2 / Umrech;
-		ScMW->view->RefreshItem(CurItem);
+		m_MainWindow->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
 
 void Mpalette::toggleGradientEdit()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
 		if (Cpal->gradEditButton->isOn())
-			ScMW->setAppMode(modeEditGradientVectors);
+			m_MainWindow->setAppMode(modeEditGradientVectors);
 		else
-			ScMW->setAppMode(modeNormal);
-		ScMW->view->RefreshItem(CurItem);
+			m_MainWindow->setAppMode(modeNormal);
+		m_MainWindow->view->RefreshItem(CurItem);
 	}
 }
 
 void Mpalette::NewTFont(QString c)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 		emit NewTF(c);
@@ -3229,21 +3236,21 @@ void Mpalette::NewTFont(QString c)
 
 void Mpalette::DoRevert()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
 		bool setter=Revert->isOn();
 		CurItem->setImageFlippedH(setter);
 		CurItem->setReversed(setter);
-		ScMW->view->RefreshItem(CurItem);
+		m_MainWindow->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
 
 void Mpalette::SetLineFormats(ScribusDoc *dd)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	disconnect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	StyledLine->clear();
@@ -3293,7 +3300,7 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 
 void Mpalette::SetSTline(QListBoxItem *c)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if (c == NULL)
 		return;
@@ -3306,7 +3313,7 @@ void Mpalette::SetSTline(QListBoxItem *c)
 	LSize->setEnabled(setter);
 	LJoinStyle->setEnabled(setter);
 	LEndStyle->setEnabled(setter);
-	ScMW->view->RefreshItem(CurItem);
+	m_MainWindow->view->RefreshItem(CurItem);
 	emit DocChanged();
 }
 
@@ -3319,7 +3326,7 @@ void Mpalette::updateColorList()
 
 void Mpalette::updateCList()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if (!HaveDoc)
 		return;
@@ -3340,7 +3347,7 @@ void Mpalette::updateCList()
 
 void Mpalette::updateCmsList()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if (HaveDoc)
 	{
@@ -3407,7 +3414,7 @@ void Mpalette::updateCmsList()
 
 void Mpalette::ChProf(const QString& prn)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	/* PFJ - 29.02.04 - Moved bool into if scope */
 	if ((HaveDoc) && (HaveItem))
@@ -3417,25 +3424,25 @@ void Mpalette::ChProf(const QString& prn)
 		bool EmbedP = prn.startsWith("Embedded") ? true : false;
 		CurItem->UseEmbedded = EmbedP;
 		doc->LoadPict(CurItem->Pfile, CurItem->ItemNr, true);
-		ScMW->view->RefreshItem(CurItem);
+		m_MainWindow->view->RefreshItem(CurItem);
 	}
 }
 
 void Mpalette::ChIntent()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->IRender = MonitorI->currentItem();
 		doc->LoadPict(CurItem->Pfile, CurItem->ItemNr, true);
-		ScMW->view->RefreshItem(CurItem);
+		m_MainWindow->view->RefreshItem(CurItem);
 	}
 }
 
 void Mpalette::ShowCMS()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if (HaveItem)
 		updateCmsList();
@@ -3470,7 +3477,7 @@ void Mpalette::newTxtStroke()
 
 void Mpalette::setActShade()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	int b;
 	if (PM1 == sender())
@@ -3490,7 +3497,7 @@ void Mpalette::setActShade()
 
 void Mpalette::setActFarben(QString p, QString b, int shp, int shb)
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	ColorList::Iterator it;
 	int c = 0;
@@ -3523,30 +3530,30 @@ void Mpalette::setActFarben(QString p, QString b, int shp, int shb)
 
 void Mpalette::handleLock()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	ScMW->scrActions["itemLock"]->toggle();
+	m_MainWindow->scrActions["itemLock"]->toggle();
 }
 
 void Mpalette::handleLockSize()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	ScMW->scrActions["itemLockSize"]->toggle();
+	m_MainWindow->scrActions["itemLockSize"]->toggle();
 }
 
 void Mpalette::handlePrint()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	ScMW->scrActions["itemPrintingEnabled"]->toggle();
+	m_MainWindow->scrActions["itemPrintingEnabled"]->toggle();
 }
 
 void Mpalette::handleFlipH()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	ScMW->scrActions["itemFlipH"]->toggle();
+	m_MainWindow->scrActions["itemFlipH"]->toggle();
 	/*
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -3561,9 +3568,9 @@ void Mpalette::handleFlipH()
 
 void Mpalette::handleFlipV()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	ScMW->scrActions["itemFlipV"]->toggle();
+	m_MainWindow->scrActions["itemFlipV"]->toggle();
 	/*
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -3579,40 +3586,40 @@ void Mpalette::handleFlipV()
 
 void Mpalette::handlePathLine()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->PoShow = showcurveCheckBox->isChecked();
-		ScMW->view->RefreshItem(CurItem);
+		m_MainWindow->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
 
 void Mpalette::handlePathDist()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->setTextToFrameDistLeft(Dist->value());
-		ScMW->view->AdjustItemSize(CurItem);
+		m_MainWindow->view->AdjustItemSize(CurItem);
 		CurItem->updatePolyClip();
-		ScMW->view->RefreshItem(CurItem);
+		m_MainWindow->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
 
 void Mpalette::handlePathOffs()
 {
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->BaseOffs = -LineW->value();
-		ScMW->view->AdjustItemSize(CurItem);
+		m_MainWindow->view->AdjustItemSize(CurItem);
 		CurItem->updatePolyClip();
-		ScMW->view->RefreshItem(CurItem);
+		m_MainWindow->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
@@ -3622,14 +3629,14 @@ void Mpalette::handleFillRule()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->fillRule = EvenOdd->isChecked();
-		ScMW->view->RefreshItem(CurItem);
+		m_MainWindow->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
 
 void Mpalette::NewName()
 {
-	if (ScMW->ScriptRunning || !HaveDoc || !HaveItem)
+	if (m_MainWindow->ScriptRunning || !HaveDoc || !HaveItem)
 		return;
 	QString NameOld = CurItem->itemName();
 	QString NameNew = NameEdit->text();
@@ -3668,7 +3675,7 @@ void Mpalette::fillLangCombo(QMap<QString,QString> langMap)
 {
 	QStringList sortList;
 	QMap<QString,QString>::Iterator it;
-	if (ScMW->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	langCombo->clear();
 	for (it = langMap.begin(); it != langMap.end(); ++it)
@@ -3681,7 +3688,7 @@ void Mpalette::NewLanguage()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->setLanguage(ScMW->GetLang(langCombo->currentText()));
+		CurItem->setLanguage(m_MainWindow->GetLang(langCombo->currentText()));
 		emit DocChanged();
 	}
 }
@@ -3697,7 +3704,7 @@ void Mpalette::ManageTabs()
 		if (dia->exec())
 		{
 			CurItem->TabValues = dia->tmpTab;
-			ScMW->view->RefreshItem(CurItem);
+			m_MainWindow->view->RefreshItem(CurItem);
 			emit DocChanged();
 		}
 		delete dia;
@@ -3712,7 +3719,7 @@ void Mpalette::HandleTLines()
 		CurItem->LeftLine = LeftLine->isChecked();
 		CurItem->RightLine = RightLine->isChecked();
 		CurItem->BottomLine = BottomLine->isChecked();
-		ScMW->view->RefreshItem(CurItem);
+		m_MainWindow->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
@@ -3748,10 +3755,10 @@ void Mpalette::mspinboxFinishUserAction()
 
 	for (uint i = 0; i < doc->m_Selection->count(); ++i)
 		doc->m_Selection->itemAt(i)->checkChanges(true);
-	if (ScMW->view->groupTransactionStarted())
+	if (m_MainWindow->view->groupTransactionStarted())
 	{
 		UndoManager::instance()->commit();
-		ScMW->view->setGroupTransactionStarted(false);
+		m_MainWindow->view->setGroupTransactionStarted(false);
 	}
 }
 
@@ -3894,8 +3901,8 @@ void Mpalette::languageChange()
 	GroupAlign->languageChange();
 
 	StyledLine->changeItem( tr("No Style"), 0);
-	updateCList();
-	updateCmsList();
+// 	updateCList();
+// 	updateCmsList();
 
 	QToolTip::remove(NameEdit);
 	QToolTip::remove(Xpos);

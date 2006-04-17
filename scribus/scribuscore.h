@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusapi.h"
 
+class QWidget;
 class FileWatcher;
 class PluginManager;
 class SplashScreen;
@@ -97,11 +98,14 @@ public:
 	ProfilesL MonitorProfiles;
 	ProfilesL PrinterProfiles;
 	ProfilesL PDFXProfiles;
-
+	//CB FIXME protect
+	QWidget *m_PaletteParent;
 	
 protected:
 	void initCMS();
 	void getCMSProfilesDir(QString pfad);
+	
+	
 	
 	ScribusMainWindow *scribus;
 	SplashScreen *m_SplashScreen;

@@ -261,6 +261,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	BuFromApp = false;
 	
 	actionManager = new ActionManager(this, "actionManager");
+	actionManager->init(this);
 	initMenuBar();
 	initToolBars();
 	buildFontMenu();
@@ -303,8 +304,8 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 
 	scrActions["helpTooltips"]->setOn(prefsManager->appPrefs.showToolTips);
 	ToggleTips();
-	emit prefsChanged();
-
+	propertiesPalette->setFontSize();
+	
 	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
 	connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
 	connect(this, SIGNAL(TextIFont(QString)), propertiesPalette, SLOT(setFontFace(QString)));
@@ -405,7 +406,8 @@ void ScribusMainWindow::initPalettes()
 	outlinePalette = new Tree(this, this);
 	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , outlinePalette, SLOT(setPaletteShown(bool)) );
 	connect( outlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsOutline"], SLOT(setOn(bool)));
-	propertiesPalette = new Mpalette(this);
+	propertiesPalette = new Mpalette(ScCore->m_PaletteParent);
+	propertiesPalette->setMainWindow(this);
 	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(setPaletteShown(bool)) );
 	connect( propertiesPalette, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setOn(bool)));
 
@@ -6839,7 +6841,6 @@ void ScribusMainWindow::slotPrefsOrg()
 
 		ScCore->getCMSProfiles();
 		SetShortCut();
-		emit prefsChanged();
 	}
 	delete dia;
 }
