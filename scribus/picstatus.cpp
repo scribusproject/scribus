@@ -40,13 +40,14 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap loadIcon(QString nam);
 
 
-const unsigned short PicStatus::COL_FILENAME = 0;
-const unsigned short PicStatus::COL_PATH = 1;
-const unsigned short PicStatus::COL_PAGE = 2;
-const unsigned short PicStatus::COL_GOTO = 3;
-const unsigned short PicStatus::COL_PRINT = 4;
-const unsigned short PicStatus::COL_STATUS = 5;
-const unsigned short PicStatus::COL_SEARCH = 6;
+const unsigned short PicStatus::COL_PREVIEW = 0;
+const unsigned short PicStatus::COL_FILENAME = 1;
+const unsigned short PicStatus::COL_PATH = 2;
+const unsigned short PicStatus::COL_PAGE = 3;
+const unsigned short PicStatus::COL_GOTO = 4;
+const unsigned short PicStatus::COL_PRINT = 5;
+const unsigned short PicStatus::COL_STATUS = 6;
+const unsigned short PicStatus::COL_SEARCH = 7;
 
 QString PicStatus::trOK = "";
 QString PicStatus::trMissing = "";
@@ -74,9 +75,9 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 	PicTable = new QTable( this, "PicTable" );
 	PicTable->setLeftMargin(0);
 	PicTable->verticalHeader()->hide();
-	PicTable->setNumCols( 7 );
+	PicTable->setNumCols( 8 );
 	Header = PicTable->horizontalHeader();
-	QString tmpc[] = { tr("Name"),  tr("Path"),  tr("Page"), " ",  tr("Print"),  tr("Status"), " "};
+	QString tmpc[] = { tr(""), tr("Name"),  tr("Path"),  tr("Page"), " ",  tr("Print"),  tr("Status"), " "};
 	size_t ar = sizeof(tmpc) / sizeof(*tmpc);
 	for (uint a = 0; a < ar; ++a)
 		Header->setLabel(a, tmpc[a]);
@@ -121,7 +122,12 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 			PicTable->setCellWidget(Zeilen2, COL_PRINT, cp2);
 			connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
 			if (doc->MasterItems.at(i)->PicAvail)
+			{
+				QPixmap pm;
+				pm.convertFromImage(doc->MasterItems.at(i)->pixm.smoothScale(64, 64, QImage::ScaleMin));
+				PicTable->setPixmap(Zeilen2, COL_PREVIEW, pm);
 				PicTable->setText(Zeilen2, COL_STATUS, trOK);
+			}
 			else
 				PicTable->setText(Zeilen2, COL_STATUS, trMissing);
 			QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
@@ -130,6 +136,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 			tb->setEraseColor(white);
 			PicTable->setCellWidget(Zeilen2, COL_SEARCH, tb);
 			connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
+			PicTable->adjustRow(Zeilen2);
 			Zeilen2++;
 		}
 	}
@@ -156,7 +163,12 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 			PicTable->setCellWidget(Zeilen2, COL_PRINT, cp2);
 			connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
 			if (doc->Items->at(i)->PicAvail)
+			{
+				QPixmap pm;
+				pm.convertFromImage(doc->Items->at(i)->pixm.smoothScale(64, 64, QImage::ScaleMin));
+				PicTable->setPixmap(Zeilen2, COL_PREVIEW, pm);
 				PicTable->setText(Zeilen2, COL_STATUS, trOK);
+			}
 			else
 				PicTable->setText(Zeilen2, COL_STATUS, trMissing);
 			QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
@@ -165,10 +177,12 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 			tb->setEraseColor(white);
 			PicTable->setCellWidget(Zeilen2, COL_SEARCH, tb);
 			connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
+			PicTable->adjustRow(Zeilen2);
 			Zeilen2++;
 		}
 	}
 
+	PicTable->adjustColumn(COL_PREVIEW);
 	PicTable->adjustColumn(COL_FILENAME);
 	PicTable->adjustColumn(COL_PATH);
 	PicTable->adjustColumn(COL_PAGE);
@@ -179,6 +193,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 	PicTable->setColumnMovingEnabled(false);
 	PicTable->setRowMovingEnabled(false);
 	Header->setMovingEnabled(false);
+	PicTable->setColumnReadOnly(COL_PREVIEW, true);
 	PicTable->setColumnReadOnly(COL_FILENAME, true);
 	PicTable->setColumnReadOnly(COL_PATH, true);
 	PicTable->setColumnReadOnly(COL_PAGE, true);
@@ -227,7 +242,7 @@ void PicStatus::SearchPic()
 	QString workDir;
 	QString searchBase;
 	unsigned int row = QString(sender()->name()).toUInt();
-	QString fileName = PicTable->text(row, 0);
+	QString fileName = PicTable->text(row, COL_FILENAME);
 #ifndef _WIN32
 	workDir = QDir::homeDirPath();
 #endif
@@ -309,6 +324,13 @@ bool PicStatus::loadPictByRow(const QString & newFilePath, unsigned int row)
 	// missing will generally mean "failed to load".
 	PicTable->setText(row, COL_STATUS, item->PicAvail ? trOK : trMissing);
 	PicTable->setText(row, COL_PATH, QFileInfo(newFilePath).dirPath(true));
+	if (item->PicAvail)
+	{
+		QPixmap pm;
+		pm.convertFromImage(item->pixm.smoothScale(64, 64, QImage::ScaleMin));
+		PicTable->setPixmap(row, COL_PREVIEW, pm);
+		PicTable->adjustRow(row);
+	}
 	return item->PicAvail;
 }
 
@@ -339,7 +361,7 @@ int PicStatus::getRowByFileName(const QString & fileName)
 	// This cast is OK since numRows must logically return >=0
 	for (row = 0; row < static_cast<unsigned int>(PicTable->numRows()); ++row)
 	{
-		if ( PicTable->text(row, 0) == fileName )
+		if ( PicTable->text(row, COL_FILENAME) == fileName )
 		{
 			found = true;
 			break;
@@ -354,7 +376,7 @@ void PicStatus::PrintPic()
 	uint ZNr = QString(sender()->name()).toUInt();
 	uint ItNr = ItemNrs[ZNr];
 //	uint PgNr = PicTable->text(ZNr, 2).toInt()-1;
-	if (PicTable->cellWidget(ZNr, 3)->isEnabled())
+	if (PicTable->cellWidget(ZNr, COL_PRINT)->isEnabled())
 		doc->DocItems.at(ItNr)->setPrintEnabled(FlagsPic.at(ZNr)->isChecked());
 	else
 		doc->MasterItems.at(ItNr)->setPrintEnabled(FlagsPic.at(ZNr)->isChecked());

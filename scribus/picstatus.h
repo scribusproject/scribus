@@ -86,6 +86,7 @@ protected:
 	bool loadPictByRow(const QString & newFilePath, unsigned int row);
 
 	// Column indexes
+	static const unsigned short COL_PREVIEW;
 	static const unsigned short COL_FILENAME;
 	static const unsigned short COL_PATH;
 	static const unsigned short COL_PAGE;
