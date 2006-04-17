@@ -2669,6 +2669,10 @@ Manglende biblioteksunderstøttelse er vist ved en *</translation>
         <source>Portuguese (Brazilian):</source>
         <translation>Portugisisk (Brasiliansk):</translation>
     </message>
+    <message>
+        <source>Japanese:</source>
+        <translation>Japansk:</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -4324,6 +4328,19 @@ Dette kan indstilles i Præferencer.</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation>Importering fejlede</translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation>Importering af Word dokument fejlede 
+%1</translation>
     </message>
 </context>
 <context>
@@ -7279,6 +7296,10 @@ Vælg venligst et andet.</translation>
         <source>Do you really want to delete this Template?</source>
         <translation>Ønsker du virkelig at slette denne skabelon?</translation>
     </message>
+    <message>
+        <source>New Template %1</source>
+        <translation>Ny skabelon %1</translation>
+    </message>
 </context>
 <context>
     <name>NewDoc</name>
@@ -7900,20 +7921,8 @@ ellers er coordinaterne vist i forhold til objektet</translation>
         <translation>Absolut kolorimetrisk</translation>
     </message>
     <message>
-        <source>Image Settings</source>
-        <translation>Billed-indstillinger</translation>
-    </message>
-    <message>
         <source>Automatic</source>
         <translation>Automatisk</translation>
-    </message>
-    <message>
-        <source>JPEG</source>
-        <translation>JPEG</translation>
-    </message>
-    <message>
-        <source>Zip</source>
-        <translation>Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -7952,12 +7961,6 @@ ellers er coordinaterne vist i forhold til objektet</translation>
 you need to change it leave the default choice - Left.</source>
         <translation>Bestemmer sidernes indbinding i PDF. Behold standardværdien - venstre, 
 medmindre du ved, at du bøhøver at ændre det.</translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation>Laver miniaturer af hver side i PDF-filen.
-Nogle PDF-læsere kan bruge disse til navigering.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
@@ -8127,10 +8130,6 @@ reglerne for PDF/X-3. Vi anbefaler at bruge titlen på dokumentet. </translation
         <translation> p</translation>
     </message>
     <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Komprimerings-niveauer: Minimum (25%), Lav (50%), Medium (75%), Høj (85%), Maksimum (95%)</translation>
-    </message>
-    <message>
         <source>Choose a password for users to be able to read your PDF.</source>
         <translation>Vælg en adgangskode for læsere af PDF-Filen.</translation>
     </message>
@@ -8147,14 +8146,6 @@ reglerne for PDF/X-3. Vi anbefaler at bruge titlen på dokumentet. </translation
 If un-checked, text and graphics cannot be copied.</source>
         <translation>Tillad kopiering af tekst eller grafik fra PDF-Filen.
 Tekst og grafik kan ikke kopieres uden afkryds.</translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Indsæt en liste af tegn adskilt med komma, hvor
-et tegn kan være * for alle siderne, 1-5 for
-en række sider eller et enkelt sidenummer.</translation>
     </message>
     <message>
         <source>Rendering Settings</source>
@@ -8441,20 +8432,40 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
 Medmindre du har grund til andet, så lad dette være aktiveret, Det reducerer størrelsen af PDF-filen.</translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation>Komprimerings-metode for billeder. Automatisk tillader Scribus at vælge den bedste metode. ZIP er god til billeder med masive farver. JPEG er bedre til at lave PDF-filerne mindre, når der er mange fotografier (med et lille tab af billedkvalitet). Lad indstillingen blive ved automatisk, medmindre du har brug for specielle komprimerings-indstillinger.</translation>
-    </message>
-    <message>
-        <source>Re-sample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.
-This can increase memory usage and slow down export.</source>
-        <translation>Ændrer bitmap-billederne til valgte DPI.
-Hvis dette ikke vælges, så bruges billedets oprindelige opløsning.
-Dette kan give øget brug af hukommelse og forlænge eksport-tiden.</translation>
-    </message>
-    <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation>Bestemmer PDF kompatibiliteten. Standarden er Acrobat 4.0, som giver den største kompatibilitet. Vælg Acrobat 5.0, hvis filen har PDF 1.4 egenskaber, som f.eks. transparens eller hvis du ønsker 128 bit kryptering. PDF/X-3 bruges til eksport til PDF, når du ønsker farvestyring af RGB for kommerciel udskrivning og kan vælges, når farvestyring er aktiveret. Note: PDF/X-3 vil konvertere alle CMYK billeder til ICC baserede RGB farver. Bruges kun når dit trykkeri ønsker det, eller i nogle tilfælde, når der udskrives til en 4 farve digital farve laserprinter.</translation>
+    </message>
+    <message>
+        <source>Image Compression Methods</source>
+        <translation>Billed komprimeringsmetode</translation>
+    </message>
+    <message>
+        <source>JPEG - Lossy</source>
+        <translation>JPEG - Lossy </translation>
+    </message>
+    <message>
+        <source>Zip - Lossless</source>
+        <translation>Zip - Tabsfri</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation>Indsæt en liste af tegn adskilt med komma, hvor et tegn kan være * for alle siderne, 1-5 for en række sider eller et enkelt sidenummer.</translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation>Laver miniaturer af hver side i PDF-filen. Nogle PDF-læsere kan bruge disse til navigering.</translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
+        <translation>Komprimerings-metode for billeder. Automatisk tillader Scribus at vælge den bedste metode. ZIP er god til billeder med massive farver. JPEG er bedre til at lave PDF-filerne mindre, når der er mange fotografier (med et lille tab af billedkvalitet). Lad indstillingen blive ved automatisk, medmindre du har brug for specielle komprimerings-indstillinger. Det gælder kun for JPEG billeder</translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
+        <translation>Komprimerings-niveauer: Minimum (25%), Lav (50%), Medium (75%), Høj (85%), Maksimum (95%) - Det påvirker kun JPEG billeder.</translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
+        <translation>Ændrer bitmap-billeder til valgte DPI. Hvis dette ikke vælges, så bruges billedets oprindelige opløsning. Dette kan give øget brug af hukommelse og forlænge eksport-tiden.</translation>
     </message>
 </context>
 <context>
@@ -11375,6 +11386,18 @@ funktionens dokumentation. </translation>
         <comment>python error</comment>
         <translation>Kun tekst-rammer kan testes for overløb</translation>
     </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation>Font %1 (fundet ved brug af fontconfig) indeholder fejl, kan ikke bruges</translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation>Kunne ikke indlæse en font - freetype kunne ikke finde font-filen</translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
+        <translation>Word dokumenter</translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -11728,6 +11751,41 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     <message>
         <source>Manual Tracking</source>
         <translation>Manuel spatiering</translation>
+    </message>
+</context>
+<context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation>Top</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Højre</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation>Bund</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Venstre</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation>Tillad placering mod...</translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation>Horisontalt</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation>Vertikalt</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
+        <translation>Bjælkens retning...</translation>
     </message>
 </context>
 <context>
