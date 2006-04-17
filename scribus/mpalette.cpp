@@ -1590,6 +1590,7 @@ void Mpalette::unitChange()
 	double newDR = DRight->value() * ratioDivisor;
 	double newRR = RoundRect->value() * ratioDivisor;
 	double newRM = RoundRect->maxValue() * ratioDivisor;
+	double newLZ = LSize->value() * ratioDivisor;
 
 	if (doc->unitIndex() > unitGetMaxIndex())
 		doc->setUnitIndex(0);
@@ -1607,6 +1608,8 @@ void Mpalette::unitChange()
 	DBottom->setSuffix( ein );
 	DRight->setSuffix( ein );
 	RoundRect->setSuffix( ein );
+	LSize->setSuffix( ein );
+	LSize->setValue(newLZ);
 
 	int decimals = unitGetDecimalsFromIndex(doc->unitIndex());
 
@@ -1943,7 +1946,7 @@ void Mpalette::setSvalue(double s)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	LSize->setValue(s);
+	LSize->setValue(s*Umrech);
 	HaveItem = tmp;
 }
 
@@ -2638,7 +2641,7 @@ void Mpalette::NewLS()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ChLineWidth(LSize->value());
+		doc->ChLineWidth(LSize->value() / Umrech);
 		emit DocChanged();
 	}
 }
@@ -3870,10 +3873,10 @@ void Mpalette::languageChange()
 	LineW->setSuffix(ptSuffix);
 	Size->setSuffix(ptSuffix);
 	LineSp->setSuffix(ptSuffix);
-	LSize->setSuffix(ptSuffix);
 
 	QString ein = (HaveDoc) ? unitGetSuffixFromIndex(doc->unitIndex()) : ptSuffix;
 
+	LSize->setSuffix(ein);
 	Xpos->setSuffix(ein);
 	Ypos->setSuffix(ein);
 	Width->setSuffix(ein);
