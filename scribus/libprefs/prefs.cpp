@@ -1636,12 +1636,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 						"instance of gimp." ) );
 
 	QToolTip::add( ClipMarg, tr( "Do not show objects outside the margins on the printed page or exported file" ) );
-	QToolTip::add( DoGCR, tr( "A way of switching off some of the gray shades which are composed\n"
-							"of cyan, yellow and magenta and using black instead.\n"
-							"UCR most affects parts of images which are neutral and/or dark tones\n"
-							"which are close to the gray. Use of this may improve printing some images\n"
-							"and some experimentation and testing is need on a case by case basis.\n"
-							"UCR reduces the possibility of over saturation with CMY inks." ) );
+	QToolTip::add( DoGCR, "<qt>" + tr(  "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>" );
 
 	// signals and slots connections
 	connect( minColor, SIGNAL( clicked() ), this, SLOT( changeMicolor() ) );
