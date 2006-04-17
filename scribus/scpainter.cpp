@@ -161,6 +161,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, unsigned i
 	m_zoomFactor = 1;
 	imageMode = true;
 	m_image = target;
+	m_matrix = QWMatrix();
 #ifdef HAVE_CAIRO
 	cairo_surface_t *img = cairo_image_surface_create_for_data(target->bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
 	m_cr = cairo_create(img);

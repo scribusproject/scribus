@@ -335,14 +335,28 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 					{
 						double pixmapSize;
 						(h > w) ? pixmapSize = h : pixmapSize = w;
-						QImage im = PageToPixmap(a, qRound(pixmapSize));
 						painter->save();
+						static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+						FPointArray Pclip;
+						Pclip.resize(0);
+						for (int ap = 0; ap < 29; ap += 4)
+						{
+							double xa = w * rect[ap];
+							double ya = h * rect[ap+1];
+							double xb = w * rect[ap+2];
+							double yb = h * rect[ap+3];
+							Pclip.addPoint(x+xa, y+ya);
+							Pclip.addPoint(x+xb, y+yb);
+						}
+						painter->setupPolygon(&Pclip, true);
+						painter->setClipPath();
 						painter->translate(x, y);
+						QImage im = PageToPixmap(a, qRound(pixmapSize)).copy();
 						painter->drawImage(&im);
 						painter->restore();
 					}
-					doDraw = false;
 				}
+				doDraw = false;
 #endif
 			}
 			if (doDraw)
