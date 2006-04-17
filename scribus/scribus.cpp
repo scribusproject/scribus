@@ -321,7 +321,8 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	connect(this, SIGNAL(TextUnderline(int, int)), propertiesPalette, SLOT(setUnderline(int, int)));
 	connect(this, SIGNAL(TextStrike(int, int)), propertiesPalette, SLOT(setStrike(int, int)));
 	connect(this, SIGNAL(TextFarben(QString, QString, int, int)), propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
-
+	connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
+	connect(ClipB, SIGNAL(selectionChanged()), this, SLOT(ClipChange()));
 	setAcceptDrops(true);
 	return retVal;
 }
@@ -379,9 +380,6 @@ void ScribusMainWindow::initDefaultValues()
 	ClipB = QApplication::clipboard();
 	palettesStatus[0] = false;
 	guidesStatus[0] = false;
-
-	connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
-	connect(ClipB, SIGNAL(selectionChanged()), this, SLOT(ClipChange()));
 }
 
 void ScribusMainWindow::initKeyboardShortcuts()
