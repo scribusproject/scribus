@@ -591,7 +591,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editEditWithImageEditor"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
- 	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
+// 	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editParaStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editLineStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit");
