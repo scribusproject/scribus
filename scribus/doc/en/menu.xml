@@ -33,6 +33,7 @@
     <submenuitem file="about2.html" text="Scribus Basics" >
       <submenuitem file="docinfo.html" text="Doc. Info" />
       <submenuitem file="pagetemplate1.html" text="Page Templates" />
+      <submenuitem file="pagenumber.html" text="Page Numbering" />
       <submenuitem file="short-words.html" text="Short Words Plug-in" />
     </submenuitem>
 <!-- <submenuitem text="Document Text" file="text.html" />-->
