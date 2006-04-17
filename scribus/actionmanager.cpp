@@ -855,7 +855,7 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	*actionNamesList << "unicodeQuoteApostrophe" << "unicodeQuoteStraight";
 	//Double quotes
 	*actionNamesList << "unicodeQuoteDoubleLeft" << "unicodeQuoteDoubleRight" << "unicodeQuoteSingleLeft" << "unicodeQuoteSingleRight";
-	//Qt::ALTernative single quotes
+	//Alternative single quotes
 	*actionNamesList << "unicodeQuoteSingleReversed" << "unicodeQuoteDoubleReversed";
 	//French quotes
 	*actionNamesList << "unicodeQuoteSingleLeftGuillemet" << "unicodeQuoteSingleRightGuillemet" << "unicodeQuoteDoubleLeftGuillemet" << "unicodeQuoteDoubleRightGuillemet";
@@ -874,13 +874,13 @@ void ActionManager::initSpecialActions()
 {
 	QString name;
 	//GUI
-	name="speciQt::ALToggleAllPalettes";
+	name="specialToggleAllPalettes";
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QIconSet(), "", defKeys[name], mainWindow, name, 0,0.0,name));
-	name="speciQt::ALToggleAllGuides";
+	name="specialToggleAllGuides";
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QIconSet(), "", defKeys[name], mainWindow, name, 0,0.0,name));
 
-	connect( (*scrActions)["speciQt::ALToggleAllPalettes"], SIGNAL(activated()), mainWindow, SLOT(ToggleAllPalettes()) );
-	connect( (*scrActions)["speciQt::ALToggleAllGuides"], SIGNAL(activated()), mainWindow, SLOT(ToggleAllGuides()) );
+	connect( (*scrActions)["specialToggleAllPalettes"], SIGNAL(activated()), mainWindow, SLOT(ToggleAllPalettes()) );
+	connect( (*scrActions)["specialToggleAllGuides"], SIGNAL(activated()), mainWindow, SLOT(ToggleAllGuides()) );
 }
 
 void ActionManager::disconnectModeActions()
@@ -1301,8 +1301,8 @@ void ActionManager::languageChange()
 	(*scrActions)["helpManual"]->setTexts( tr("Scribus &Manual..."));
 
 	//GUI
-	(*scrActions)["speciQt::ALToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));
-	(*scrActions)["speciQt::ALToggleAllGuides"]->setTexts( tr("Toggle Guides"));
+	(*scrActions)["specialToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));
+	(*scrActions)["specialToggleAllGuides"]->setTexts( tr("Toggle Guides"));
 	
 	languageChangeUnicodeActions(scrActions);
 }
@@ -1579,8 +1579,8 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("helpManual", Qt::Key_F1);
 
 	//GUI
-	defKeys.insert("speciQt::ALToggleAllPalettes", Qt::Key_F10);
-	defKeys.insert("speciQt::ALToggleAllGuides", Qt::Key_F11);
+	defKeys.insert("specialToggleAllPalettes", Qt::Key_F10);
+	defKeys.insert("specialToggleAllGuides", Qt::Key_F11);
 	
 	//typography
 	defKeys.insert("unicodeSmartHyphen", QKeySequence());
