@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "autoformbuttongroup.moc"
 #include "fpointarray.h"
 #include "scpainter.h"
+#include "util.h"
 
 AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : QButtonGroup( parent, "autoformbuttongroup" )
 {
@@ -268,6 +269,28 @@ void AutoformButtonGroup::selForm(int a)
 
 QPixmap AutoformButtonGroup::getIconPixmap(int nr)
 {
+	if (nr<8)
+	{
+		switch(nr)
+		{
+			case 0:
+				return loadIcon("22/draw-rectangle.png");
+			case 1:
+				return loadIcon("22/draw-ellipse.png");
+			case 2:
+				return loadIcon("22/draw-triangle.png");
+			case 3:
+				return loadIcon("22/draw-cross.png");
+			case 4:
+				return loadIcon("22/draw-arrow-back.png");
+			case 5:
+				return loadIcon("22/draw-arrow-forward.png");
+			case 6:
+				return loadIcon("22/draw-arrow-up.png");
+			case 7:
+				return loadIcon("22/draw-arrow-down.png");
+		}
+	}
 	int count = 0;
 	double* AutoShapes;
 	FPointArray Path;

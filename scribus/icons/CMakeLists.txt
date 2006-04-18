@@ -310,6 +310,7 @@ INSTALL(FILES
 16/document-properties.png
 16/document-save.png
 16/document-save-as.png
+22/draw-bezier-curves.png
 16/edit-copy.png
 16/edit-cut.png
 16/edit-find-replace.png
@@ -348,7 +349,19 @@ INSTALL(FILES
 22/document-properties.png
 22/document-save.png
 22/document-save-as.png
+22/draw-arrow-back.png
+22/draw-arrow-down.png
+22/draw-arrow-forward.png
+22/draw-arrow-up.png
+22/draw-bezier-curves.png
+22/draw-cross.png
+22/draw-ellipse.png
 22/draw-freehand.png
+22/draw-polygon.png
+22/draw-polyline.png
+22/draw-rectangle.png
+22/draw-star.png
+22/draw-triangle.png
 22/edit-copy.png
 22/edit-cut.png
 22/edit-find-replace.png

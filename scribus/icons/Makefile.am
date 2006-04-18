@@ -5,7 +5,6 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 16/close.png \
 22/close.png \
 22/color-picker.png \
-22/draw-freehand.png \
 16/document-new.png \
 22/document-new.png \
 16/document-open.png \
@@ -18,6 +17,25 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/document-save.png \
 16/document-save-as.png \
 22/document-save-as.png \
+22/draw-arrow-back.png \
+22/draw-arrow-down.png \
+22/draw-arrow-forward.png \
+22/draw-arrow-up.png \
+16/draw-bezier-curves.png \
+22/draw-bezier-curves.png \
+22/draw-cross.png \
+16/draw-ellipse.png \
+22/draw-ellipse.png \
+22/draw-freehand.png \
+16/draw-polygon.png \
+22/draw-polygon.png \
+16/draw-polyline.png \
+22/draw-polyline.png \
+16/draw-rectangle.png \
+22/draw-rectangle.png \
+16/draw-star.png \
+22/draw-star.png \
+22/draw-triangle.png \
 16/edit-copy.png \
 22/edit-copy.png \
 16/edit-cut.png \
@@ -178,7 +196,20 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/documentinfo.png $(prefix)/share/scribus/icons/documentinfo.png
 	$(INSTALL_DATA) $(srcdir)/documentinfo32.png $(prefix)/share/scribus/icons/documentinfo32.png
 	$(INSTALL_DATA) $(srcdir)/down.png $(prefix)/share/scribus/icons/down.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-back.png $(prefix)/share/scribus/icons/22/draw-arrow-back.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-down.png $(prefix)/share/scribus/icons/22/draw-arrow-down.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-forward.png $(prefix)/share/scribus/icons/22/draw-arrow-forward.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-up.png $(prefix)/share/scribus/icons/22/draw-arrow-up.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-bezier-curves.png $(prefix)/share/scribus/icons/16/draw-bezier-curves.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-bezier-curves.png $(prefix)/share/scribus/icons/22/draw-bezier-curves.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-cross.png $(prefix)/share/scribus/icons/22/draw-cross.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-ellipse.png $(prefix)/share/scribus/icons/22/draw-ellipse.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-freehand.png $(prefix)/share/scribus/icons/22/draw-freehand.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-polygon.png $(prefix)/share/scribus/icons/22/draw-polygon.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-polyline.png $(prefix)/share/scribus/icons/22/draw-polyline.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-rectangle.png $(prefix)/share/scribus/icons/22/draw-rectangle.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-star.png $(prefix)/share/scribus/icons/22/draw-star.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-triangle.png $(prefix)/share/scribus/icons/22/draw-triangle.png
 	$(INSTALL_DATA) $(srcdir)/DragPix.xpm $(prefix)/share/scribus/icons/DragPix.xpm
 	$(INSTALL_DATA) $(srcdir)/DrawFrame.xpm $(prefix)/share/scribus/icons/DrawFrame.xpm
 	$(INSTALL_DATA) $(srcdir)/DrawImageFrame.xpm $(prefix)/share/scribus/icons/DrawImageFrame.xpm
@@ -518,7 +549,20 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/documentinfo.png
 	-rm -f $(prefix)/share/scribus/icons/documentinfo32.png
 	-rm -f $(prefix)/share/scribus/icons/down.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-arrow-back.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-arrow-down.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-arrow-forward.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-arrow-up.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-bezier-curves.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-bezier-curves.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-cross.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-ellipse.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-freehand.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-polygon.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-polyline.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-rectangle.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-star.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-triangle.png
 	-rm -f $(prefix)/share/scribus/icons/DragPix.xpm
 	-rm -f $(prefix)/share/scribus/icons/DrawFrame.xpm
 	-rm -f $(prefix)/share/scribus/icons/DrawImageFrame.xpm

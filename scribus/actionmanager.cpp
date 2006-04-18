@@ -605,11 +605,11 @@ void ActionManager::initToolsMenuActions()
 	name="toolsInsertShape";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(), "", defKeys[name], mainWindow, name, modeDrawShapes));
 	name="toolsInsertPolygon";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("spline16.png"), loadIcon("spline.png")), "", defKeys[name], mainWindow, name, modeDrawRegularPolygon));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/draw-polygon.png"), loadIcon("22/draw-polygon.png")), "", defKeys[name], mainWindow, name, modeDrawRegularPolygon));
 	name="toolsInsertLine";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stift16.xpm"), loadIcon("Stift.xpm")), "", defKeys[name], mainWindow, name, modeDrawLine));
 	name="toolsInsertBezier";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("beziertool16.png"), loadIcon("beziertool.png")), "", defKeys[name], mainWindow, name, modeDrawBezierLine));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/draw-bezier-curve.png"), loadIcon("22/draw-bezier-curve.png")), "", defKeys[name], mainWindow, name, modeDrawBezierLine));
 	name="toolsInsertFreehandLine";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/draw-freehand.png"), loadIcon("22/draw-freehand.png")), "", defKeys[name], mainWindow, name, modeDrawFreehandLine));
 	name="toolsRotate";
