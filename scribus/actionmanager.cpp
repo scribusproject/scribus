@@ -609,7 +609,7 @@ void ActionManager::initToolsMenuActions()
 	name="toolsInsertLine";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stift16.xpm"), loadIcon("Stift.xpm")), "", defKeys[name], mainWindow, name, modeDrawLine));
 	name="toolsInsertBezier";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/draw-bezier-curve.png"), loadIcon("22/draw-bezier-curve.png")), "", defKeys[name], mainWindow, name, modeDrawBezierLine));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/draw-bezier-curves.png"), loadIcon("22/draw-bezier-curves.png")), "", defKeys[name], mainWindow, name, modeDrawBezierLine));
 	name="toolsInsertFreehandLine";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/draw-freehand.png"), loadIcon("22/draw-freehand.png")), "", defKeys[name], mainWindow, name, modeDrawFreehandLine));
 	name="toolsRotate";
