@@ -137,9 +137,9 @@ void gtAction::write(const QString& text, gtStyle *style)
 
 	gtFont* font = style->getFont();
 	QString fontName = validateFont(font)->scName();
-	gtFont* font2 = new gtFont(*font);
-	font2->setName(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().font()->scName());
-	QString fontName2 = validateFont(font2)->scName();
+	gtFont font2(*font);
+	font2.setName(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().font()->scName());
+	QString fontName2 = validateFont(&font2)->scName();
 	CharStyle lastStyle;
 	int lastStyleStart = 0;
 	for (uint a = 0; a < text.length(); ++a)
@@ -147,7 +147,6 @@ void gtAction::write(const QString& text, gtStyle *style)
 		CharStyle newStyle;
 		if ((text.at(a) == QChar(0)) || (text.at(a) == QChar(13)))
 			continue;
-		ScText *hg = new ScText;
 		QChar ch = text.at(a);
 		if ((ch == QChar(10)) || (ch == QChar(5)))
 			ch = QChar(13);
