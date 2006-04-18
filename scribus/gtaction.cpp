@@ -106,9 +106,9 @@ void gtAction::write(const QString& text, gtStyle *style)
 
 	gtFont* font = style->getFont();
 	QString fontName = validateFont(font);
-	gtFont* font2 = new gtFont(*font);
-	font2->setName(ScApp->doc->Vorlagen[paragraphStyle].Font);
-	QString fontName2 = validateFont(font2);
+	gtFont font2(*font);
+	font2.setName(ScApp->doc->Vorlagen[paragraphStyle].Font);
+	QString fontName2 = validateFont(&font2);
 	for (uint a = 0; a < text.length(); ++a)
 	{
 		if ((text.at(a) == QChar(0)) || (text.at(a) == QChar(13)))
