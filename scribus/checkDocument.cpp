@@ -130,6 +130,18 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	setIcon(loadIcon("AppIcon.png"));
 	checkDocumentLayout = new QVBoxLayout( this, 10, 5, "checkDocumentLayout");
 
+	missingGlyph = tr("Glyphs missing");
+	textOverflow = tr("Text overflow");
+	notOnPage = tr("Object is not on a Page");
+	missingImg = tr("Missing Image");
+	lowDPI = tr("Image resolution below %1 DPI, currently %2 x %3 DPI");
+	highDPI = tr("Image resolution above %1 DPI, currently %2 x %3 DPI");
+	transpar = tr("Object has transparency");
+	annot = tr("Object is a PDF Annotation or Field");
+	rasterPDF = tr("Object is a placed PDF");
+	isGIF = tr("Image is GIF");
+	//isGIFtoolTip = "<qt>" + tr("GIF images are not reccomended for print. See the online docs for more info") + "</qt>";
+
 	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
 	textLabel1 = new QLabel( this, "textLabel1" );
 	layout1->addWidget( textLabel1 );
@@ -178,6 +190,7 @@ void CheckDocument::keyPressEvent(QKeyEvent *ke)
 	QDialog::keyPressEvent(ke);
 }
 */
+
 void CheckDocument::slotSelect(QListViewItem* ite)
 {
 	if (itemMap.contains(ite))
@@ -250,18 +263,10 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		curCheckProfile->insertItem(it.key());
 	curCheckProfile->setCurrentText(doc->curCheckProfile);
 
-	QString missingGlyph = tr("Glyphs missing");
-	QString textOverflow = tr("Text overflow");
-	QString notOnPage = tr("Object is not on a Page");
-	QString missingImg = tr("Missing Image");
-	QString lowDPI = tr("Image resolution below %1 DPI, currently %2 x %3 DPI");
-	QString highDPI = tr("Image resolution above %1 DPI, currently %2 x %3 DPI");
-	QString transpar = tr("Object has transparency");
-	QString annot = tr("Object is a PDF Annotation or Field");
-	QString rasterPDF = tr("Object is a placed PDF");
 	int minRes = qRound(doc->checkerProfiles[doc->curCheckProfile].minResolution);
 	int maxRes = qRound(doc->checkerProfiles[doc->curCheckProfile].maxResolution);
 	int xres, yres;
+
 	QListViewItem * item = new QListViewItem( reportDisplay, 0 );
 	item->setText( 0, tr( "Document" ) );
 	if ((doc->docItemErrors.count() == 0) && (doc->masterItemErrors.count() == 0))
@@ -339,6 +344,10 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						case PlacedPDF:
 							object->setText(1, rasterPDF);
 							break;
+						case ImageIsGIF:
+							object->setText(1, isGIF);
+							//QToolTip::add(object, isGIFtoolTip);
+							break;
 						}
 					}
 					else
@@ -396,6 +405,11 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							case PlacedPDF:
 								errorText->setText(1, rasterPDF);
 								errorText->setPixmap( 0, onlyWarning );
+								break;
+							case ImageIsGIF:
+								errorText->setText(1, isGIF);
+								errorText->setPixmap(0, onlyWarning);
+								//QToolTip::add(errorText, isGIFtoolTip);
 								break;
 							}
 						}
@@ -483,6 +497,10 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						case PlacedPDF:
 							object->setText(1, rasterPDF);
 							break;
+						case ImageIsGIF:
+							object->setText(1, isGIF);
+							//QToolTip::add(object, isGIFtoolTip);
+							break;
 						}
 					}
 					else
@@ -540,6 +558,11 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							case PlacedPDF:
 								errorText->setText(1, rasterPDF);
 								errorText->setPixmap( 0, onlyWarning );
+								break;
+							case ImageIsGIF:
+								errorText->setText(1, isGIF);
+								errorText->setPixmap(0, onlyWarning);
+								//QToolTip::add(errorText, isGIFtoolTip);
 								break;
 							}
 						}
@@ -630,6 +653,10 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						case PlacedPDF:
 							object->setText(1, rasterPDF);
 							break;
+						case ImageIsGIF:
+							object->setText(1, isGIF);
+							//QToolTip::add(object, isGIFtoolTip);
+							break;
 						}
 					}
 					else
@@ -684,6 +711,11 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							case PlacedPDF:
 								errorText->setText(1, rasterPDF);
 								errorText->setPixmap( 0, onlyWarning );
+								break;
+							case ImageIsGIF:
+								errorText->setText(1, isGIF);
+								errorText->setPixmap(0, onlyWarning);
+								//QToolTip::add(errorText, isGIFtoolTip);
 								break;
 							}
 						}

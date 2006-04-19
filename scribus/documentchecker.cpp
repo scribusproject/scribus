@@ -45,6 +45,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	checkerSettings.maxResolution = currDoc->checkerProfiles[currDoc->curCheckProfile].maxResolution;
 	checkerSettings.checkAnnotations = currDoc->checkerProfiles[currDoc->curCheckProfile].checkAnnotations;
 	checkerSettings.checkRasterPDF = currDoc->checkerProfiles[currDoc->curCheckProfile].checkRasterPDF;
+	checkerSettings.checkForGIF = true; // TODO: into prefs PV currDoc->checkerProfiles[currDoc->curCheckProfile].checkForGIF;
 	currDoc->docItemErrors.clear();
 	currDoc->masterItemErrors.clear();
 	errorCodes itemError;
@@ -88,6 +89,8 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				QString ext = fi.extension(false).lower();
 				if ((ext == "pdf") && (checkerSettings.checkRasterPDF))
 					itemError.insert(PlacedPDF, 0);
+				if ((ext == "gif") && (checkerSettings.checkForGIF))
+					itemError.insert(ImageIsGIF, 0);
 			}
 		}
 		if ((currItem->asTextFrame()) || (currItem->asPathText()))
@@ -196,6 +199,8 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				QString ext = fi.extension(false).lower();
 				if ((ext == "pdf") && (checkerSettings.checkRasterPDF))
 					itemError.insert(PlacedPDF, 0);
+				if ((ext == "gif") && (checkerSettings.checkForGIF))
+					itemError.insert(ImageIsGIF, 0);
 			}
 		}
 		if ((currItem->asTextFrame()) || (currItem->asPathText()))

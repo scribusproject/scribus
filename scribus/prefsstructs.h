@@ -31,6 +31,7 @@ struct checkerPrefs
 	bool checkTransparency;
 	bool checkAnnotations;
 	bool checkRasterPDF;
+	bool checkForGIF;
 };
 
 typedef QMap<QString, checkerPrefs> CheckerPrefsList;

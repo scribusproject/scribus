@@ -108,6 +108,19 @@ private:
 	//! \brief Icon for OK
 	QPixmap noErrors;
 
+	//! \brief Strings for common texts in GUI dialog tree
+	QString missingGlyph;
+	QString textOverflow;
+	QString notOnPage;
+	QString missingImg;
+	QString lowDPI;
+	QString highDPI;
+	QString transpar;
+	QString annot;
+	QString rasterPDF;
+	QString isGIF;
+	QString isGIFtoolTip;
+
 	//! \brief Flag if is ignore button shown. true = hidden, false = shown.
 	bool noButton;
 	QComboBox* curCheckProfile;
