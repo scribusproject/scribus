@@ -20,8 +20,6 @@ for which a new license (GPL+exception) is in place.
 #include "scimage.h"
 #include "util.h"
 
-//extern SCRIBUS_API ScribusMainWindow* ScMW;
-
 ScPageOutput::ScPageOutput(ScribusDoc* doc, bool reloadImages, int resolution, bool useProfiles)
 {
 	m_doc = doc;
@@ -48,7 +46,6 @@ void ScPageOutput::DrawMasterItems(ScPainterExBase *painter, Page *page, QRect c
 		Page* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->MPageNam]);
 		if (page->FromMaster.count() != 0)
 		{
-			QPainter p;
 			int Lnr;
 			struct Layer ll;
 			PageItem *currItem;
@@ -167,7 +164,7 @@ void ScPageOutput::DrawPageItems(ScPainterExBase *painter, Page *page, QRect cli
 	double z = painter->zoomFactor();
 	if (m_doc->Items->count() != 0)
 	{
-		QPainter p;
+		//QPainter p;
 		int Lnr=0;
 		struct Layer ll;
 		PageItem *currItem;
@@ -1076,14 +1073,11 @@ void ScPageOutput::DrawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 
 void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, QRect e, double scale )
 {
- double CurX = 0; // item->CurX = item->textToFrameDistLeft()
- double CurY = 0;
-
 	switch (item->itemType())
 	{
 		case PageItem::TextFrame:
 		{
-			QPainter pp, pf2;
+			QWMatrix wm;
 			QPoint pt1, pt2;
 			FPoint ColBound;
 			QRegion cm;
@@ -1127,11 +1121,8 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 			LiList.setAutoDelete(true);
 			QRect e2 = QRect(qRound(e.x()  / scale + m_doc->minCanvasCoordinate.x()), qRound(e.y()  / scale + m_doc->minCanvasCoordinate.y()), qRound(e.width() / scale), qRound(e.height() / scale));
 			painter->save();
-			pf2.begin(ScMW->view->viewport());
-			pf2.translate(item->xPos(), item->yPos());
-			pf2.rotate(item->rotation());
-			//painter->translate(item->xPos(), item->yPos());
-			//painter->rotate(item->rotation());
+			wm.translate(item->xPos(), item->yPos());
+			wm.rotate(item->rotation());
 			if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
 			{
 				painter->setupPolygon(&item->PoLine);
@@ -1248,7 +1239,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						for (int cx = 0; cx < coun; ++cx)
 						{
 							Zli3.xco =  sPos + wt * cx;
-							if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
+							if (e2.intersects(wm.mapRect(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
 								DrawCharacters(item, painter, &Zli3);
 						}
 					}
@@ -1314,7 +1305,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						}
 						if (((chx == QChar(13)) || (chx == QChar(28))) && (m_doc->guidesSettings.showControls))
 						{
-							if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco+Zli3.wide),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
+							if (e2.intersects(wm.mapRect(QRect(qRound(Zli3.xco+Zli3.wide),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
 							{
 								FPointArray points;
 								QWMatrix chma, chma2, chma4, chma5;
@@ -1354,7 +1345,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 								painter->fillPath();
 							}
 						}
-						if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
+						if (e2.intersects(wm.mapRect(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
 						{
 							if (Zli3.Zeich == QChar(25))
 								DrawItem_Embedded(item, painter, e, &Zli3);
@@ -1365,19 +1356,15 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						{
 							Zli3.Zeich = "-";
 							Zli3.xco = Zli3.xco + Zli3.wide;
-							if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
+							if (e2.intersects(wm.mapRect(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
 								DrawCharacters(item, painter, &Zli3);
 						}
 					}
 					tabDist = Zli3.xco+Zli3.wide;
 				}
-				//Dirty = false;
-				//Redrawn = true;
-				pf2.end();
 				painter->restore();
 				break;
 			}
-			//Redrawn = true;
 			painter->restore();
 		}
 			break;
