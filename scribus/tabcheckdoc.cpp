@@ -83,6 +83,9 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	rasterPDF = new QCheckBox( this, "rasterPDF" );
 	rasterPDF->setText( tr( "Check for placed PDF Files" ) );
 	TabCheckDocLayout->addWidget( rasterPDF );
+	checkForGIF = new QCheckBox(this, "checkForGIF");
+	checkForGIF->setText(tr("Check for GIF images"));
+	TabCheckDocLayout->addWidget(checkForGIF);
 	useAnnotations = new QCheckBox( this, "useAnnotations" );
 	useAnnotations->setText( tr( "Check for PDF Annotations and Fields" ) );
 	TabCheckDocLayout->addWidget( useAnnotations );
@@ -106,6 +109,7 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	pictResolution->setChecked(checkerProfile[prefProfile].checkResolution);
 	useAnnotations->setChecked(checkerProfile[prefProfile].checkAnnotations);
 	rasterPDF->setChecked(checkerProfile[prefProfile].checkRasterPDF);
+	checkForGIF->setChecked(checkerProfile[prefProfile].checkForGIF);
 	resolutionValue->setValue( qRound(checkerProfile[prefProfile].minResolution) );
 	resolutionValueM->setValue( qRound(checkerProfile[prefProfile].maxResolution) );
 	currentProfile = prefProfile;
@@ -126,6 +130,7 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	connect(pictResolution, SIGNAL(toggled(bool)), this, SLOT(putProfile()));
 	connect(useAnnotations, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(rasterPDF, SIGNAL(clicked()), this, SLOT(putProfile()));
+	connect(checkForGIF, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(resolutionValue, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
 	connect(resolutionValueM, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
 	
@@ -154,6 +159,7 @@ void TabCheckDoc::putProfile()
 		checkerProfile[currentProfile].maxResolution = resolutionValueM->value();
 		checkerProfile[currentProfile].checkAnnotations = useAnnotations->isChecked();
 		checkerProfile[currentProfile].checkRasterPDF = rasterPDF->isChecked();
+		checkerProfile[currentProfile].checkForGIF = checkForGIF->isChecked();
 	}
 }
 
@@ -185,6 +191,7 @@ void TabCheckDoc::updateProfile(const QString& name)
 	disconnect(resolutionValue, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
 	disconnect(resolutionValueM, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
 	disconnect(rasterPDF, SIGNAL(clicked()), this, SLOT(putProfile()));
+	disconnect(checkForGIF, SIGNAL(clicked()), this, SLOT(putProfile()));
 	disconnect(useAnnotations, SIGNAL(clicked()), this, SLOT(putProfile()));
 	ignoreErrors->setChecked(checkerProfile[name].ignoreErrors);
 	automaticCheck->setChecked(checkerProfile[name].autoCheck);
@@ -198,6 +205,7 @@ void TabCheckDoc::updateProfile(const QString& name)
 	resolutionValueM->setValue( qRound(checkerProfile[name].maxResolution) );
 	useAnnotations->setChecked(checkerProfile[name].checkAnnotations);
 	rasterPDF->setChecked(checkerProfile[name].checkRasterPDF);
+	checkForGIF->setChecked(checkerProfile[name].checkForGIF);
 	currentProfile = name;
 	connect(ignoreErrors, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(automaticCheck, SIGNAL(clicked()), this, SLOT(putProfile()));
@@ -209,6 +217,7 @@ void TabCheckDoc::updateProfile(const QString& name)
 	connect(resolutionValue, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
 	connect(resolutionValueM, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
 	connect(rasterPDF, SIGNAL(clicked()), this, SLOT(putProfile()));
+	connect(checkForGIF, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(useAnnotations, SIGNAL(clicked()), this, SLOT(putProfile()));
 }
 
@@ -227,6 +236,7 @@ void TabCheckDoc::addProf()
 	checkerSettings.maxResolution = resolutionValueM->value();
 	checkerSettings.checkAnnotations = useAnnotations->isChecked();
 	checkerSettings.checkRasterPDF = rasterPDF->isChecked();
+	checkerSettings.checkForGIF = checkForGIF->isChecked();
 	checkerProfile.insert(tempNewProfileName, checkerSettings);
 	currentProfile = tempNewProfileName;
 	if (checkerProfile.count() > 1)

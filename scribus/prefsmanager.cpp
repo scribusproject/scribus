@@ -1077,6 +1077,7 @@ bool PrefsManager::WritePref(QString ho)
 		dc79a.setAttribute("checkTransparency", static_cast<int>(itcp.data().checkTransparency));
 		dc79a.setAttribute("checkAnnotations", static_cast<int>(itcp.data().checkAnnotations));
 		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.data().checkRasterPDF));
+		dc79a.setAttribute("checkForGIF", static_cast<int>(itcp.data().checkForGIF));
 		dc79a.setAttribute("minResolution",itcp.data().minResolution);
 		dc79a.setAttribute("maxResolution",itcp.data().maxResolution);
 		elem.appendChild(dc79a);
@@ -1617,6 +1618,7 @@ bool PrefsManager::ReadPref(QString ho)
 			checkerSettings.maxResolution = dc.attribute("maxResolution", "4800").toDouble();
 			checkerSettings.checkAnnotations = static_cast<bool>(dc.attribute("checkAnnotations", "0").toInt());
 			checkerSettings.checkRasterPDF = static_cast<bool>(dc.attribute("checkRasterPDF", "1").toInt());
+			checkerSettings.checkForGIF = static_cast<bool>(dc.attribute("checkForGIF", "1").toInt());
 			appPrefs.checkerProfiles[name] = checkerSettings;
 		}
 		if (dc.tagName()=="PRINTER")
@@ -1850,6 +1852,7 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.checkTransparency = true;
 		checkerSettings.checkAnnotations = false;
 		checkerSettings.checkRasterPDF = true;
+		checkerSettings.checkForGIF = true;
 		checkerSettings.minResolution = 72.0;
 		checkerSettings.maxResolution = 4800.0;
 		//TODO Stop translating these into settings!!!!!!!!!

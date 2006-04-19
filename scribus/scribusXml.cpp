@@ -3102,6 +3102,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		dc79a.setAttribute("maxResolution",itcp.data().maxResolution);
 		dc79a.setAttribute("checkAnnotations", static_cast<int>(itcp.data().checkAnnotations));
 		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.data().checkRasterPDF));
+		dc79a.setAttribute("checkForGIF", static_cast<int>(itcp.data().checkForGIF));
 		dc.appendChild(dc79a);
 	}
 	QMap<QString,multiLine>::Iterator itMU;

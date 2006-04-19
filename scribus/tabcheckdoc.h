@@ -22,6 +22,9 @@ class QLabel;
 class QSpinBox;
 class QPushButton;
 
+
+/*! \brief A setup widget for checking Profiles (for Preflight Verifier constraints)
+*/
 class SCRIBUS_API TabCheckDoc : public QWidget
 {
 	Q_OBJECT
@@ -41,6 +44,7 @@ public:
 	QCheckBox* missingPictures;
 	QCheckBox* useAnnotations;
 	QCheckBox* rasterPDF;
+	QCheckBox* checkForGIF;
 	QGroupBox* pictResolution;
 	QLabel* textLabel1;
 	QSpinBox* resolutionValue;

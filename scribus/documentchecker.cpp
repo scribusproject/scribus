@@ -45,7 +45,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	checkerSettings.maxResolution = currDoc->checkerProfiles[currDoc->curCheckProfile].maxResolution;
 	checkerSettings.checkAnnotations = currDoc->checkerProfiles[currDoc->curCheckProfile].checkAnnotations;
 	checkerSettings.checkRasterPDF = currDoc->checkerProfiles[currDoc->curCheckProfile].checkRasterPDF;
-	checkerSettings.checkForGIF = true; // TODO: into prefs PV currDoc->checkerProfiles[currDoc->curCheckProfile].checkForGIF;
+	checkerSettings.checkForGIF = currDoc->checkerProfiles[currDoc->curCheckProfile].checkForGIF;
 	currDoc->docItemErrors.clear();
 	currDoc->masterItemErrors.clear();
 	errorCodes itemError;

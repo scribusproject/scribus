@@ -1199,6 +1199,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				checkerSettings.maxResolution = pg.attribute("maxResolution", "4800").toDouble();
 				checkerSettings.checkAnnotations = static_cast<bool>(pg.attribute("checkAnnotations", "0").toInt());
 				checkerSettings.checkRasterPDF = static_cast<bool>(pg.attribute("checkRasterPDF", "1").toInt());
+				checkerSettings.checkForGIF = static_cast<bool>(pg.attribute("checkForGIF", "1").toInt());
 				doc->checkerProfiles[pg.attribute("Name")] = checkerSettings;
 			}
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
