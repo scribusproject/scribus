@@ -310,7 +310,8 @@ INSTALL(FILES
 16/document-properties.png
 16/document-save.png
 16/document-save-as.png
-22/draw-bezier-curves.png
+16/draw-bezier-curves.png
+16/draw-polygon.png
 16/edit-copy.png
 16/edit-cut.png
 16/edit-find-replace.png
