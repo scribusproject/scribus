@@ -1,5 +1,8 @@
 Scribus - 1.2.5cvs
 ==================
+- 0003665: [Translation] Updated Danish Translation (plinnell)
+- 0003628: [Translation] translation update for 1.2.5 (plinnell)
+- 0003620: [Documentation] Broken menu.xml for German docs (plinnel
 - 0003585: [User Interface] Backport the dockable tool bars from 1.3.3 to 1.2.x (Tsoots)
 - 0003551: [General] Scribus becoming painfully slow even without a single text frame in the doc (jghali)
 - 0003537: [General] seemingly corrupt .sla file does not open in 1.2.4.1 stable (fschmid)

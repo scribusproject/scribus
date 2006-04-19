@@ -7,13 +7,10 @@ should automatically be detected when re-starting Scribus. The recommended
 way of installing fonts is outlined in the fonts section of the docs. This 
 section has many helpful tips about fonts and Scribus.
 
-All rendering is done via libart and freetype2. 
-This requires that libart_lgpl and freetype2 are installed.
-
-Scribus now includes the Short Words plug-in, which was previously 
-installed as a separate plug-in. To prevent upgrade problems, you might want to 
-uninstall if it was installed via a package or RPM. This was also shipped as the 
-scribus-vlna package in both source and rpm format. See PACKAGING for more details.
+Also new in 1.2.5 is the ability to import text from MS Word documents. 
+You merely need to have the antiword package installed and that is in your 
+normal path when starting Scribus. No re-compilation or configuration is
+needed after installation.
 
 Scribus  also has a new OpenOffice.org Writer and Draw importer. This 
 requires libxml2, preferably version 2.6.x+. The OpenOffice.org Writer importer
