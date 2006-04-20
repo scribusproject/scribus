@@ -58,6 +58,7 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/go-top.png \
 16/go-up.png \
 22/go-up.png \
+22/insert-button.png \
 16/insert-image.png \
 22/insert-image.png \
 16/insert-text-frame.png \
@@ -280,6 +281,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/Hoch.xpm $(prefix)/share/scribus/icons/Hoch.xpm
 	$(INSTALL_DATA) $(srcdir)/hyphenate.png $(prefix)/share/scribus/icons/hyphenate.png
 	$(INSTALL_DATA) $(srcdir)/image.png $(prefix)/share/scribus/icons/image.png
+	$(INSTALL_DATA) $(srcdir)/22/insert-button.png $(prefix)/share/scribus/icons/22/insert-button.png
 	$(INSTALL_DATA) $(srcdir)/16/insert-image.png $(prefix)/share/scribus/icons/16/insert-image.png
 	$(INSTALL_DATA) $(srcdir)/22/insert-image.png $(prefix)/share/scribus/icons/22/insert-image.png
 	$(INSTALL_DATA) $(srcdir)/16/insert-text-frame.png $(prefix)/share/scribus/icons/16/insert-text-frame.png
@@ -633,6 +635,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/Hoch.xpm
 	-rm -f $(prefix)/share/scribus/icons/hyphenate.png
 	-rm -f $(prefix)/share/scribus/icons/image.png
+	-rm -f $(prefix)/share/scribus/icons/22/insert-button.png
 	-rm -f $(prefix)/share/scribus/icons/16/insert-image.png
 	-rm -f $(prefix)/share/scribus/icons/22/insert-image.png
 	-rm -f $(prefix)/share/scribus/icons/16/insert-text-frame.png

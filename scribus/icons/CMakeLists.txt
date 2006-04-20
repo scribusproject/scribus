@@ -373,6 +373,7 @@ INSTALL(FILES
 22/go-down.png
 22/go-top.png
 22/go-up.png
+22/insert-button.png
 22/insert-image.png
 22/insert-text-frame.png
 22/insert-table.png
