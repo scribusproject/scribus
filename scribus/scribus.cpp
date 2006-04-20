@@ -355,7 +355,6 @@ void ScribusMainWindow::initToolBars()
 
 	connect(mainToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setOn(bool)));
 	connect(scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)), pdfToolBar, SLOT(setShown(bool)));
-	connect(pdfToolBar, SIGNAL(NewMode(int)), this, SLOT(setAppMode(int)));
 	connect(pdfToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarPDF"], SLOT(setOn(bool)));
 	connect(scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)), mainToolBar, SLOT(setShown(bool)) );
 
@@ -5198,8 +5197,13 @@ void ScribusMainWindow::ToggleFrameEdit()
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		scrActions["toolsMeasurements"]->setEnabled(false);
-		pdfToolBar->PDFTool->setEnabled(false);
-		pdfToolBar->PDFaTool->setEnabled(false);
+		scrActions["toolsPDFPushButton"]->setEnabled(false);
+		scrActions["toolsPDFTextField"]->setEnabled(false);
+		scrActions["toolsPDFCheckBox"]->setEnabled(false);
+		scrActions["toolsPDFComboBox"]->setEnabled(false);
+		scrActions["toolsPDFListBox"]->setEnabled(false);
+		scrActions["toolsPDFAnnotText"]->setEnabled(false);
+		scrActions["toolsPDFAnnotLink"]->setEnabled(false);
 		scrActions["itemDelete"]->setEnabled(false);
 		if (doc->m_Selection->count() != 0)
 		{
@@ -5230,8 +5234,13 @@ void ScribusMainWindow::NoFrameEdit()
 	scrActions["toolsInsertBezier"]->setEnabled(true);
 	scrActions["toolsInsertFreehandLine"]->setEnabled(true);
 	scrActions["toolsInsertPolygon"]->setEnabled(true);
-	pdfToolBar->PDFTool->setEnabled(true);
-	pdfToolBar->PDFaTool->setEnabled(true);
+	scrActions["toolsPDFPushButton"]->setEnabled(true);
+	scrActions["toolsPDFTextField"]->setEnabled(true);
+	scrActions["toolsPDFCheckBox"]->setEnabled(true);
+	scrActions["toolsPDFComboBox"]->setEnabled(true);
+	scrActions["toolsPDFListBox"]->setEnabled(true);
+	scrActions["toolsPDFAnnotText"]->setEnabled(true);
+	scrActions["toolsPDFAnnotLink"]->setEnabled(true);
 	scrActions["toolsEditContents"]->setOn(false);
 	scrActions["toolsEditWithStoryEditor"]->setOn(false);
 	scrActions["toolsMeasurements"]->setEnabled(true);
@@ -5258,8 +5267,8 @@ void ScribusMainWindow::NoFrameEdit()
 
 void ScribusMainWindow::slotSelect()
 {
-	pdfToolBar->PDFTool->setOn(false);
-	pdfToolBar->PDFaTool->setOn(false);
+// 	pdfToolBar->PDFTool->setOn(false);
+// 	pdfToolBar->PDFaTool->setOn(false);
 	setAppMode(modeNormal);
 }
 
@@ -5460,8 +5469,8 @@ void ScribusMainWindow::setAppMode(int mode)
 			doc->SubMode = -1;
 		if (mode == modeNormal)
 		{
-			pdfToolBar->PDFTool->setOn(false);
-			pdfToolBar->PDFaTool->setOn(false);
+// 			pdfToolBar->PDFTool->setOn(false);
+// 			pdfToolBar->PDFaTool->setOn(false);
 			propertiesPalette->setGradientEditMode(false);
 		}
 		if (mode == modeLinkFrames)

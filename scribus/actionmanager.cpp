@@ -595,7 +595,7 @@ void ActionManager::initToolsMenuActions()
 
 	//toolbar only items
 	name="toolsSelect";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/pointer.png"), loadIcon("22/pointer.png")), "", defKeys[name], mainWindow, "toolsSelect", modeNormal));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/pointer.png"), loadIcon("22/pointer.png")), "", defKeys[name], mainWindow, name, modeNormal));
 	name="toolsInsertTextFrame";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/insert-text-frame.png"), loadIcon("22/insert-text-frame.png")), "", defKeys[name], mainWindow, name, modeDrawText));
 	name="toolsInsertImageFrame";
@@ -632,6 +632,22 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/color-picker.png"), loadIcon("22/color-picker.png")), "", defKeys[name], mainWindow, name, modeEyeDropper));
 	name="toolsCopyProperties";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("wizard.png"), loadIcon("wizard.png")), "", defKeys[name], mainWindow, name, modeCopyProperties));
+	
+	//PDF toolbar
+	name="toolsPDFPushButton";
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/insert-button.png")), "", defKeys[name], mainWindow, name, modeInsertPDFButton));
+	name="toolsPDFTextField";
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("textview.png")), "", defKeys[name], mainWindow, name, modeInsertPDFTextfield));
+	name="toolsPDFCheckBox";
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("checkbox.png")), "", defKeys[name], mainWindow, name, modeInsertPDFCheckbox));
+	name="toolsPDFComboBox";
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("combobox.png")), "", defKeys[name], mainWindow, name, modeInsertPDFCombobox));
+	name="toolsPDFListBox";
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("listbox.png")), "", defKeys[name], mainWindow, name, modeInsertPDFListbox));
+	name="toolsPDFAnnotText";
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("charset.png")), "", defKeys[name], mainWindow, name, modeInsertPDFTextAnnotation));
+	name="toolsPDFAnnotLink";
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("goto.png")), "", defKeys[name], mainWindow, name, modeInsertPDFLinkAnnotation));
 
 	(*scrActions)["toolsProperties"]->setToggleAction(true);
 	(*scrActions)["toolsOutline"]->setToggleAction(true);
@@ -663,12 +679,21 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsUnlinkTextFrame"]->setToggleAction(true);
 	(*scrActions)["toolsEyeDropper"]->setToggleAction(true);
 	(*scrActions)["toolsCopyProperties"]->setToggleAction(true);
+	
+	(*scrActions)["toolsPDFPushButton"]->setToggleAction(true);
+	(*scrActions)["toolsPDFTextField"]->setToggleAction(true);
+	(*scrActions)["toolsPDFCheckBox"]->setToggleAction(true);
+	(*scrActions)["toolsPDFComboBox"]->setToggleAction(true);
+	(*scrActions)["toolsPDFListBox"]->setToggleAction(true);
+	(*scrActions)["toolsPDFAnnotText"]->setToggleAction(true);
+	(*scrActions)["toolsPDFAnnotLink"]->setToggleAction(true);
 
 	*modeActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame";
 	*modeActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertLine" << "toolsInsertBezier";
 	*modeActionNames << "toolsInsertFreehandLine" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
 	*modeActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame";
 	*modeActionNames << "toolsEyeDropper" << "toolsCopyProperties";
+	*modeActionNames << "toolsPDFPushButton" << "toolsPDFTextField" << "toolsPDFCheckBox" << "toolsPDFComboBox" << "toolsPDFListBox" << "toolsPDFAnnotText" << "toolsPDFAnnotLink";
 
 	*nonEditActionNames << "itemLowerToBottom" << "itemRaiseToTop" << "itemRaise" << "itemLower";
 
@@ -1282,6 +1307,15 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsInsertLine"]->setText( tr("Insert Line"));
 	(*scrActions)["toolsInsertBezier"]->setText( tr("Insert Bezier Curve"));
 	(*scrActions)["toolsInsertFreehandLine"]->setText( tr("Insert Freehand Line"));
+	
+	(*scrActions)["toolsPDFPushButton"]->setTexts( tr("Insert PDF Push Button"));
+	(*scrActions)["toolsPDFTextField"]->setTexts( tr("Insert PDF Text Field"));
+	(*scrActions)["toolsPDFCheckBox"]->setTexts( tr("Insert PDF Check Box"));
+	(*scrActions)["toolsPDFComboBox"]->setTexts( tr("Insert PDF Combo Box"));
+	(*scrActions)["toolsPDFListBox"]->setTexts( tr("Insert PDF List Box"));
+	(*scrActions)["toolsPDFAnnotText"]->setTexts( tr("Insert Text Annotation"));
+	(*scrActions)["toolsPDFAnnotLink"]->setTexts( tr("Insert Link Annotation"));
+	
 
 	//Extras Menu
 	(*scrActions)["extrasManagePictures"]->setTexts( tr("&Manage Pictures"));
@@ -1560,6 +1594,15 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("toolsUnlinkTextFrame", Qt::Key_U);
 	defKeys.insert("toolsEyeDropper", Qt::Key_Y);
 	defKeys.insert("toolsCopyProperties", QKeySequence());
+	
+	//PDF items
+	defKeys.insert("toolsPDFPushButton", QKeySequence());
+	defKeys.insert("toolsPDFTextField", QKeySequence());
+	defKeys.insert("toolsPDFCheckBox", QKeySequence());
+	defKeys.insert("toolsPDFComboBox", QKeySequence());
+	defKeys.insert("toolsPDFListBox", QKeySequence());
+	defKeys.insert("toolsPDFAnnotText", QKeySequence());
+	defKeys.insert("toolsPDFAnnotLink", QKeySequence());
 
 	//Extras Menu
 	defKeys.insert("extrasManagePictures", QKeySequence());

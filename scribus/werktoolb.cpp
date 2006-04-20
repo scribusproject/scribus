@@ -123,83 +123,11 @@ void WerkToolB::languageChange()
 
 WerkToolBP::WerkToolBP(QMainWindow* parent) : ScToolBar( tr("PDF Tools"), "PDF_Tools", parent)
 {
-	PDFM = new QPopupMenu();
-	PDFTool = new QToolButton(loadIcon("pushbutton.png"), "Insert PDF Fields", QString::null, this, SLOT(ModeFromTB()), this);
-	PDFTool->setToggleButton(true);
-	PDFTool->setPopup(PDFM);
-	PDFTool->setPopupDelay(0);
-	PDFwerkz = 0;
-	PDFA = new QPopupMenu();
-	PDFaTool = new QToolButton(loadIcon("charset.png"), "Insert PDF Annotations", QString::null, this, SLOT(ModeFromTB()), this);
-	PDFaTool->setToggleButton(true);
-	PDFaTool->setPopup(PDFA);
-	PDFaTool->setPopupDelay(0);
-	PDFnotiz = 0;
-
-	languageChange();
-	connect(PDFM, SIGNAL(activated(int)), this, SLOT(setPDFtool(int)));
-	connect(PDFA, SIGNAL(activated(int)), this, SLOT(setPDFnotiz(int)));
-}
-
-void WerkToolBP::setPDFnotiz(int id)
-{
-	int c = PDFA->indexOf(id);
-	PDFnotiz = c;
-	switch (c)
-	{
-		case 0:
-			PDFaTool->setPixmap(loadIcon("charset.png"));
-			break;
-		case 1:
-			PDFaTool->setPixmap(loadIcon("goto.png"));
-			break;
-	}
-	PDFTool->setOn(false);
-	PDFaTool->setOn(true);
-	emit NewMode(modeInsertPDFTextAnnotation+PDFnotiz);
-}
-
-void WerkToolBP::setPDFtool(int id)
-{
-	int c = PDFM->indexOf(id);
-	PDFwerkz = c;
-	QString tmp[] = {"pushbutton.png", "textview.png", "checkbox.png", "combobox.png", "listbox.png"};
-	PDFTool->setPixmap(loadIcon(tmp[c]));
-	PDFTool->setOn(true);
-	PDFaTool->setOn(false);
-	emit NewMode(modeInsertPDFButton+PDFwerkz);
-}
-
-void WerkToolBP::ModeFromTB()
-{
-	PDFTool->setOn(false);
-	PDFaTool->setOn(false);
-	if (PDFTool == sender())
-	{
-		PDFTool->setOn(true);
-		emit NewMode(modeInsertPDFButton+PDFwerkz);
-	}
-	if (PDFaTool == sender())
-	{
-		PDFaTool->setOn(true);
-		emit NewMode(modeInsertPDFTextAnnotation+PDFnotiz);
-	}
-}
-
-void WerkToolBP::languageChange()
-{
-	PDFM->clear();
-	QString tmp_icn[] = {"pushbutton.png", "textview.png", "checkbox.png", "combobox.png", "listbox.png"};
-	QString tmp_txt[] = { tr("Button"), tr("Text Field"), tr("Check Box"), tr("Combo Box"), tr("List Box")};
-	size_t ar_tmp = sizeof(tmp_icn) / sizeof(*tmp_icn);
-	for (uint a = 0; a < ar_tmp; ++a)
-		PDFM->insertItem(loadIcon(tmp_icn[a]), tmp_txt[a]);
-		
-	PDFTool->setTextLabel( tr("Insert PDF Fields"));
-	PDFaTool->setTextLabel( tr("Insert PDF Annotations"));
-	PDFA->clear();
-	PDFA->insertItem(loadIcon("charset.png"), tr("Text"));
-	PDFA->insertItem(loadIcon("goto.png"), tr("Link"));
-
-	ScToolBar::languageChange();
+	ScMW->scrActions["toolsPDFPushButton"]->addTo(this);
+	ScMW->scrActions["toolsPDFTextField"]->addTo(this);
+	ScMW->scrActions["toolsPDFCheckBox"]->addTo(this);
+	ScMW->scrActions["toolsPDFComboBox"]->addTo(this);
+	ScMW->scrActions["toolsPDFListBox"]->addTo(this);
+	ScMW->scrActions["toolsPDFAnnotText"]->addTo(this);
+	ScMW->scrActions["toolsPDFAnnotLink"]->addTo(this);
 }

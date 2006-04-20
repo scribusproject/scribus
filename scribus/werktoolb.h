@@ -57,9 +57,6 @@ protected:
 	QPopupMenu* insertShapeButtonMenu;
 	QPopupMenu* insertPolygonButtonMenu;
 	int idInsertPolygonButtonMenu;
-	
-signals:
-	void Schliessen();
 };
 
 class SCRIBUS_API WerkToolBP : public ScToolBar
@@ -69,22 +66,13 @@ class SCRIBUS_API WerkToolBP : public ScToolBar
 public:
 	WerkToolBP(QMainWindow* parent);
 	~WerkToolBP() {};
-	QToolButton* PDFTool;
-	QPopupMenu* PDFM;
-	QToolButton* PDFaTool;
-	QPopupMenu* PDFA;
-	int PDFwerkz;
-	int PDFnotiz;
-
-public slots:
-	void setPDFnotiz(int id);
-	void setPDFtool(int id);
-	void ModeFromTB();
-	void languageChange();
-
-signals:
-	void Schliessen();
-	void NewMode(int);
+	QToolButton* pdfButton;
+	QToolButton* pdfTextField;
+	QToolButton* pdfCheckBox;
+	QToolButton* pdfComboBox;
+	QToolButton* pdfListBox;
+	QToolButton* pdfAnnotationText;
+	QToolButton* pdfAnnotationLink;
 };
 
 #endif
