@@ -1407,6 +1407,12 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
+							if(view->EditContour)
+							{
+								view->TransformPoly(10, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
+							}
+							else
+							{
 							if (resizingsmaller)
 							{
 								currItem->Sizing = false;
@@ -1417,6 +1423,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
 								currItem->Sizing = false;
 								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+							}
 							}
 						}
 						view->updateContents();
@@ -1453,6 +1460,12 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
+							if(view->EditContour)
+							{
+								view->TransformPoly(11, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
+							}
+							else
+							{
 							if (resizingsmaller)
 							{
 								ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
@@ -1463,6 +1476,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 							{
 								currItem->Sizing = false;
 								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+							}
 							}
 						}
 						view->updateContents();
@@ -5267,8 +5281,6 @@ void ScribusMainWindow::NoFrameEdit()
 
 void ScribusMainWindow::slotSelect()
 {
-// 	pdfToolBar->PDFTool->setOn(false);
-// 	pdfToolBar->PDFaTool->setOn(false);
 	setAppMode(modeNormal);
 }
 
@@ -5303,6 +5315,13 @@ void ScribusMainWindow::setAppMode(int mode)
 	scrActions["toolsUnlinkTextFrame"]->setOn(mode==modeUnlinkFrames);
 	scrActions["toolsEyeDropper"]->setOn(mode==modeEyeDropper);
 	scrActions["toolsCopyProperties"]->setOn(mode==modeCopyProperties);
+	scrActions["toolsPDFPushButton"]->setOn(mode==modeInsertPDFButton);
+	scrActions["toolsPDFTextField"]->setOn(mode==modeInsertPDFTextfield);
+	scrActions["toolsPDFCheckBox"]->setOn(mode==modeInsertPDFCheckbox);
+	scrActions["toolsPDFComboBox"]->setOn(mode==modeInsertPDFCombobox);
+	scrActions["toolsPDFListBox"]->setOn(mode==modeInsertPDFListbox);
+	scrActions["toolsPDFAnnotText"]->setOn(mode==modeInsertPDFTextAnnotation);
+	scrActions["toolsPDFAnnotLink"]->setOn(mode==modeInsertPDFLinkAnnotation);
 
 	if (HaveDoc)
 	{
@@ -5469,8 +5488,6 @@ void ScribusMainWindow::setAppMode(int mode)
 			doc->SubMode = -1;
 		if (mode == modeNormal)
 		{
-// 			pdfToolBar->PDFTool->setOn(false);
-// 			pdfToolBar->PDFaTool->setOn(false);
 			propertiesPalette->setGradientEditMode(false);
 		}
 		if (mode == modeLinkFrames)
