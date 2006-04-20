@@ -98,8 +98,8 @@ class Tree;
 class UndoManager;
 class UndoPalette;
 class UndoState;
-class WerkToolB;
-class WerkToolBP;
+class ModeToolBar;
+class PDFToolBar;
 
 extern SCRIBUS_API ScribusCore* ScCore;
 extern SCRIBUS_API ScribusQApp* ScQApp;
@@ -225,7 +225,7 @@ public:
 	QString LoadEnc;
 	bool ScriptRunning;
 	Autoforms* SCustom;
-	WerkToolB* mainToolBar;
+	ModeToolBar* mainToolBar;
 
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
@@ -556,7 +556,7 @@ private:
 	FontCombo* FontSub;
 	ScToolBar *fileToolBar;
 	ScToolBar *editToolBar;
-	WerkToolBP* pdfToolBar;
+	PDFToolBar* pdfToolBar;
 	QToolButton* DatOpe;
 	QToolButton* DatSav;
 	QToolButton* DatClo;

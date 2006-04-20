@@ -35,13 +35,13 @@ class AutoformButtonGroup;
   *@author Franz Schmid
   */
 
-class SCRIBUS_API WerkToolB : public ScToolBar
+class SCRIBUS_API ModeToolBar : public ScToolBar
 {
 	Q_OBJECT
 
 public: 
-	WerkToolB(QMainWindow* parent);
-	~WerkToolB() {};
+	ModeToolBar(QMainWindow* parent);
+	~ModeToolBar() {};
 
 	int SubMode;
 	int ValCount;
@@ -59,20 +59,13 @@ protected:
 	int idInsertPolygonButtonMenu;
 };
 
-class SCRIBUS_API WerkToolBP : public ScToolBar
+class SCRIBUS_API PDFToolBar : public ScToolBar
 {
 	Q_OBJECT
 
 public:
-	WerkToolBP(QMainWindow* parent);
-	~WerkToolBP() {};
-	QToolButton* pdfButton;
-	QToolButton* pdfTextField;
-	QToolButton* pdfCheckBox;
-	QToolButton* pdfComboBox;
-	QToolButton* pdfListBox;
-	QToolButton* pdfAnnotationText;
-	QToolButton* pdfAnnotationLink;
+	PDFToolBar(QMainWindow* parent);
+	~PDFToolBar() {};
 };
 
 #endif

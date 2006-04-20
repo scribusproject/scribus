@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap loadIcon(QString nam);
 
 
-WerkToolB::WerkToolB(QMainWindow* parent) : ScToolBar(tr("Tools"), "Tools", parent, QDockWindow::Vertical)
+ModeToolBar::ModeToolBar(QMainWindow* parent) : ScToolBar(tr("Tools"), "Tools", parent, QDockWindow::Vertical)
 {
 	SubMode = 0;
 	ValCount = 32;
@@ -93,7 +93,7 @@ WerkToolB::WerkToolB(QMainWindow* parent) : ScToolBar(tr("Tools"), "Tools", pare
 	connect(Rechteck, SIGNAL(FormSel(int, int, double *)), this, SLOT(SelShape(int, int, double *)));
 }
 
-void WerkToolB::GetPolyProps()
+void ModeToolBar::GetPolyProps()
 {
 	PolygonProps* dia = new PolygonProps(this, ScMW->doc->toolSettings.polyC, ScMW->doc->toolSettings.polyFd, ScMW->doc->toolSettings.polyF, ScMW->doc->toolSettings.polyS, ScMW->doc->toolSettings.polyR);
 	if (dia->exec())
@@ -101,7 +101,7 @@ void WerkToolB::GetPolyProps()
 	delete dia;
 }
 
-void WerkToolB::SelShape(int s, int c, double *vals)
+void ModeToolBar::SelShape(int s, int c, double *vals)
 {
 	const QPixmap* newIcon = Rechteck->find(s)->pixmap();
 	QImage newShapeIcon = Rechteck->find(s)->pixmap()->convertToImage();
@@ -114,14 +114,14 @@ void WerkToolB::SelShape(int s, int c, double *vals)
 	ScMW->scrActions["toolsInsertShape"]->setOn(true);
 }
 
-void WerkToolB::languageChange()
+void ModeToolBar::languageChange()
 {
 	insertPolygonButtonMenu->changeItem(idInsertPolygonButtonMenu, tr("Properties..."));
 	ScToolBar::languageChange();
 }
 
 
-WerkToolBP::WerkToolBP(QMainWindow* parent) : ScToolBar( tr("PDF Tools"), "PDF_Tools", parent)
+PDFToolBar::PDFToolBar(QMainWindow* parent) : ScToolBar( tr("PDF Tools"), "PDF_Tools", parent)
 {
 	ScMW->scrActions["toolsPDFPushButton"]->addTo(this);
 	ScMW->scrActions["toolsPDFTextField"]->addTo(this);

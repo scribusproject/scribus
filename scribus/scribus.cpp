@@ -348,9 +348,9 @@ void ScribusMainWindow::initToolBars()
 	UndoWidget* uWidget = new UndoWidget(editToolBar, "uWidget");
 	undoManager->registerGui(uWidget);
 
-	mainToolBar = new WerkToolB(this);
+	mainToolBar = new ModeToolBar(this);
 	mainToolBar->setEnabled(false);
-	pdfToolBar = new WerkToolBP(this);
+	pdfToolBar = new PDFToolBar(this);
 	pdfToolBar->setEnabled(false);
 
 	connect(mainToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setOn(bool)));
@@ -1407,12 +1407,6 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-							if(view->EditContour)
-							{
-								view->TransformPoly(10, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
-							}
-							else
-							{
 							if (resizingsmaller)
 							{
 								currItem->Sizing = false;
@@ -1423,7 +1417,6 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
 								currItem->Sizing = false;
 								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
-							}
 							}
 						}
 						view->updateContents();
@@ -1460,12 +1453,6 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-							if(view->EditContour)
-							{
-								view->TransformPoly(11, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
-							}
-							else
-							{
 							if (resizingsmaller)
 							{
 								ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
@@ -1476,7 +1463,6 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 							{
 								currItem->Sizing = false;
 								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
-							}
 							}
 						}
 						view->updateContents();
