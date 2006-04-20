@@ -119,6 +119,8 @@ void DocSections::updateTable()
 void DocSections::tableItemChanged( int row, int col )
 {
 	bool outOfRange=false;
+	uint newDocPageSpec;
+
 	switch (col)
 	{
 	case 0:
@@ -128,32 +130,27 @@ void DocSections::tableItemChanged( int row, int col )
 		localSections[row].active=static_cast<QCheckTableItem*>(sectionsTable->item(row, col))->isChecked();
 		break;
 	case 2:
-		localSections[row].fromindex=sectionsTable->text(row, col).toUInt()-1;
-		if (localSections[row].fromindex<1)
-		{
-			localSections[row].fromindex=1;
-			outOfRange=true;
-		}
-		else
-		if (localSections[row].fromindex>m_maxpageindex)
-		{
-			localSections[row].fromindex=m_maxpageindex;
-			outOfRange=true;
-		}
-		break;
 	case 3:
-		localSections[row].toindex=sectionsTable->text(row, col).toUInt()-1;
-		if (localSections[row].toindex<1)
+		// Validate to/from page specification before conversion to an index
+		//!!!	There is still a problem here if m_maxpageindex == MAX_UINT ;)
+		newDocPageSpec=sectionsTable->text(row, col).toUInt();
+		if (newDocPageSpec==0)
 		{
-			localSections[row].toindex=1;
+			newDocPageSpec=1;
 			outOfRange=true;
 		}
 		else
-		if (localSections[row].toindex>m_maxpageindex)
+		if (newDocPageSpec>m_maxpageindex+1)
 		{
-			localSections[row].toindex=m_maxpageindex;
+			newDocPageSpec=m_maxpageindex+1;
 			outOfRange=true;
 		}
+		// Now, since newDocPageSpec >= 1, convert to index
+		--newDocPageSpec;
+		if (col==2)
+			localSections[row].fromindex=newDocPageSpec;
+		else
+			localSections[row].toindex=newDocPageSpec;
 		break;
 	case 4:
 		{
