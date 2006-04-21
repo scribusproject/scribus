@@ -338,6 +338,10 @@ INSTALL(FILES
 16/stroke-join-bevel.png
 16/stroke-join-miter.png
 16/stroke-join-round.png
+16/zoom.png
+16/zoom-in.png
+16/zoom-original.png
+16/zoom-out.png
   DESTINATION ${ICONDIR}16
 )
 
@@ -358,6 +362,10 @@ INSTALL(FILES
 22/draw-cross.png
 22/draw-ellipse.png
 22/draw-freehand.png
+22/draw-halfcircle1.png
+22/draw-halfcircle2.png
+22/draw-halfcircle3.png
+22/draw-halfcircle4.png
 22/draw-polygon.png
 22/draw-polyline.png
 22/draw-rectangle.png
@@ -385,5 +393,9 @@ INSTALL(FILES
 22/story-editor.png
 22/text-frame-link.png
 22/text-frame-unlink.png
+22/zoom.png
+22/zoom-in.png
+22/zoom-original.png
+22/zoom-out.png
   DESTINATION ${ICONDIR}22
 )

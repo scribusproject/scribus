@@ -27,6 +27,10 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 16/draw-ellipse.png \
 22/draw-ellipse.png \
 22/draw-freehand.png \
+22/draw-halfcircle1.png \
+22/draw-halfcircle2.png \
+22/draw-halfcircle3.png \
+22/draw-halfcircle4.png \
 16/draw-polygon.png \
 22/draw-polygon.png \
 16/draw-polyline.png \
@@ -83,7 +87,15 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 16/stroke-cap-square.png \
 16/stroke-join-bevel.png \
 16/stroke-join-miter.png \
-16/stroke-join-round.png
+16/stroke-join-round.png \
+16/zoom.png \
+22/zoom.png \
+16/zoom-in.png \
+22/zoom-in.png \
+16/zoom-original.png \
+22/zoom-original.png \
+16/zoom-out.png \
+22/zoom-out.png
 
 
 install-data-local:
@@ -206,6 +218,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/draw-cross.png $(prefix)/share/scribus/icons/22/draw-cross.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-ellipse.png $(prefix)/share/scribus/icons/22/draw-ellipse.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-freehand.png $(prefix)/share/scribus/icons/22/draw-freehand.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle1.png $(prefix)/share/scribus/icons/22/draw-halfcircle1.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle2.png $(prefix)/share/scribus/icons/22/draw-halfcircle2.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle3.png $(prefix)/share/scribus/icons/22/draw-halfcircle3.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle4.png $(prefix)/share/scribus/icons/22/draw-halfcircle4.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-polygon.png $(prefix)/share/scribus/icons/22/draw-polygon.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-polyline.png $(prefix)/share/scribus/icons/22/draw-polyline.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-rectangle.png $(prefix)/share/scribus/icons/22/draw-rectangle.png
@@ -461,6 +477,14 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/wordsOnly.png $(prefix)/share/scribus/icons/wordsOnly.png
 	$(INSTALL_DATA) $(srcdir)/Zeichen.xpm $(prefix)/share/scribus/icons/Zeichen.xpm
 	$(INSTALL_DATA) $(srcdir)/vpl.png $(prefix)/share/scribus/icons/vpl.png
+	$(INSTALL_DATA) $(srcdir)/16/zoom.png $(prefix)/share/scribus/icons/16/zoom.png
+	$(INSTALL_DATA) $(srcdir)/22/zoom.png $(prefix)/share/scribus/icons/22/zoom.png
+	$(INSTALL_DATA) $(srcdir)/16/zoom-in.png $(prefix)/share/scribus/icons/16/zoom-in.png
+	$(INSTALL_DATA) $(srcdir)/22/zoom-in.png $(prefix)/share/scribus/icons/22/zoom-in.png
+	$(INSTALL_DATA) $(srcdir)/16/zoom-original.png $(prefix)/share/scribus/icons/16/zoom-original.png
+	$(INSTALL_DATA) $(srcdir)/22/zoom-original.png $(prefix)/share/scribus/icons/22/zoom-original.png
+	$(INSTALL_DATA) $(srcdir)/16/zoom-out.png $(prefix)/share/scribus/icons/16/zoom-out.png
+	$(INSTALL_DATA) $(srcdir)/22/zoom-out.png $(prefix)/share/scribus/icons/22/zoom-out.png
 
 
 
@@ -560,6 +584,10 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/draw-cross.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-ellipse.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-freehand.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-halfcircle1.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-halfcircle2.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-halfcircle3.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-halfcircle4.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-polygon.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-polyline.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-rectangle.png
@@ -837,3 +865,11 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/pagetriple16.png
 	-rm -f $(prefix)/share/scribus/icons/page16.png
 	-rm -f $(prefix)/share/scribus/icons/vpl.png
+	-rm -f $(prefix)/share/scribus/icons/16/zoom.png
+	-rm -f $(prefix)/share/scribus/icons/22/zoom.png
+	-rm -f $(prefix)/share/scribus/icons/16/zoom-in.png
+	-rm -f $(prefix)/share/scribus/icons/22/zoom-in.png
+	-rm -f $(prefix)/share/scribus/icons/16/zoom-original.png
+	-rm -f $(prefix)/share/scribus/icons/22/zoom-original.png
+	-rm -f $(prefix)/share/scribus/icons/16/zoom-out.png
+	-rm -f $(prefix)/share/scribus/icons/22/zoom-out.png
