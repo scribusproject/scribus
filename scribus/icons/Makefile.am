@@ -222,8 +222,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle2.png $(prefix)/share/scribus/icons/22/draw-halfcircle2.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle3.png $(prefix)/share/scribus/icons/22/draw-halfcircle3.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle4.png $(prefix)/share/scribus/icons/22/draw-halfcircle4.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-polygon.png $(prefix)/share/scribus/icons/16/draw-polygon.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-polygon.png $(prefix)/share/scribus/icons/22/draw-polygon.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-polyline.png $(prefix)/share/scribus/icons/22/draw-polyline.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-rectangle.png $(prefix)/share/scribus/icons/16/draw-rectangle.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-rectangle.png $(prefix)/share/scribus/icons/22/draw-rectangle.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-star.png $(prefix)/share/scribus/icons/22/draw-star.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-triangle.png $(prefix)/share/scribus/icons/22/draw-triangle.png
@@ -588,8 +590,10 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/draw-halfcircle2.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-halfcircle3.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-halfcircle4.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-polygon.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-polygon.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-polyline.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-rectangle.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-rectangle.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-star.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-triangle.png
