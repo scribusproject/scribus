@@ -28,11 +28,12 @@ class SCRIBUS_API Tree : public ScrPaletteBase
 	Q_OBJECT
 
 public:
-	Tree( QWidget* parent, ScribusMainWindow* scApp );
+	Tree( QWidget* parent );
 	//void keyPressEvent(QKeyEvent *k);
 	//void closeEvent(QCloseEvent *ce);
 	void resizeEvent(QResizeEvent *r);
 	
+	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *);
 	void unsetDoc();
 	
@@ -88,7 +89,7 @@ protected:
 	QMap<QString, QListViewItem*> masterPageMapRev;
 	QListViewItem* freeObjects;
 	QListViewItem* rootObject;
-	ScribusMainWindow* ScMW;
+	ScribusMainWindow* m_MainWindow;
 	QPixmap imageIcon;
 	QPixmap textIcon;
 	QPixmap lineIcon;

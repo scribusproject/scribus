@@ -491,7 +491,7 @@ void ActionManager::initViewMenuActions()
 	name="viewFit75";
 	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QIconSet(), "", defKeys[name], mainWindow, name, 0, 75.0));
 	name="viewFit100";
-	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QIconSet(), "", defKeys[name], mainWindow, name, 0, 100.0));
+	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QIconSet(loadIcon("16/zoom-original.png"),loadIcon("22/zoom-original.png")), "", defKeys[name], mainWindow, name, 0, 100.0));
 	name="viewFit200";
 	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QIconSet(), "", defKeys[name], mainWindow, name, 0, 200.0));
 	name="viewFit20";
@@ -615,11 +615,11 @@ void ActionManager::initToolsMenuActions()
 	name="toolsRotate";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Rotieren.xpm"), loadIcon("Rotieren.xpm")), "", defKeys[name], mainWindow, name, modeRotation));
 	name="toolsZoom";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lupe.xpm"), loadIcon("Lupe.xpm")), "", defKeys[name], mainWindow, name, modeMagnifier));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/zoom.png"), loadIcon("22/zoom.png")), "", defKeys[name], mainWindow, name, modeMagnifier));
 	name="toolsZoomIn";
-	scrActions->insert(name, new ScrAction(QIconSet(loadIcon("viewmagin.png"), loadIcon("viewmagin.png")), "", defKeys[name], mainWindow, name));
+	scrActions->insert(name, new ScrAction(QIconSet(loadIcon("16/zoom-in.png"), loadIcon("22/zoom-in.png")), "", defKeys[name], mainWindow, name));
 	name="toolsZoomOut";
-	scrActions->insert(name, new ScrAction(QIconSet(loadIcon("viewmagout.png"), loadIcon("viewmagout.png")), "", defKeys[name], mainWindow, name));
+	scrActions->insert(name, new ScrAction(QIconSet(loadIcon("16/zoom-out.png"), loadIcon("22/zoom-out.png")), "", defKeys[name], mainWindow, name));
 	name="toolsEditContents";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), "", defKeys[name], mainWindow, name, modeEdit));
 	name="toolsEditWithStoryEditor";

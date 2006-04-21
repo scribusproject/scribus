@@ -400,7 +400,8 @@ void ScribusMainWindow::initPalettes()
 {
 	//CB TODO hide the publicly available members of some palettes
 	// these must be filtered too as they take control of the palettes events
-	outlinePalette = new Tree(this, this);
+	outlinePalette = new Tree(this);
+	outlinePalette->setMainWindow(this);
 	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , outlinePalette, SLOT(setPaletteShown(bool)) );
 	connect( outlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsOutline"], SLOT(setOn(bool)));
 	propertiesPalette = new Mpalette(ScCore->m_PaletteParent);
@@ -1407,6 +1408,12 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
+/*							if(view->EditContour)
+							{
+								view->TransformPoly(10, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
+							}
+							else
+							{*/
 							if (resizingsmaller)
 							{
 								currItem->Sizing = false;
@@ -1418,6 +1425,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								currItem->Sizing = false;
 								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 							}
+// 							}
 						}
 						view->updateContents();
 						slotDocCh();
@@ -1453,6 +1461,12 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
+// 		CB test				if(view->EditContour)
+// 							{
+// 								view->TransformPoly(11, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
+// 							}
+// 							else
+// 							{
 							if (resizingsmaller)
 							{
 								ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
@@ -1464,6 +1478,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								currItem->Sizing = false;
 								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 							}
+// 							}
 						}
 						view->updateContents();
 						slotDocCh();

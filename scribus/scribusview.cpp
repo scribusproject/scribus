@@ -196,10 +196,10 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) :
 	previewButton->setAutoDefault( false );
 	previewButton->setToggleButton(true);
 #endif
-	zoomDefaultToolbarButton->setText("1:1");
-//	zoomDefaultToolbarButton->setPixmap(loadIcon("viewmag1.png"));
-	zoomOutToolbarButton->setPixmap(loadIcon("viewmagout.png"));
-	zoomInToolbarButton->setPixmap(loadIcon("viewmagin.png"));
+	//zoomDefaultToolbarButton->setText("1:1");
+	zoomDefaultToolbarButton->setPixmap(loadIcon("16/zoom-original.png"));
+	zoomOutToolbarButton->setPixmap(loadIcon("16/zoom-out.png"));
+	zoomInToolbarButton->setPixmap(loadIcon("16/zoom-in.png"));
 	pageSelector = new PageSelector(this, 1);
 	pageSelector->setFont(fo);
 	pageSelector->setFocusPolicy(QWidget::ClickFocus);
@@ -6041,6 +6041,16 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		case 9:
 			ma.scale(1.0 + (scaling / 100.0), 1.0 + (scaling / 100.0));
 			break;
+/*CB test		case 10:
+			double v1=1.0 - (scaling/(tp2.x() - tp.x()));
+			ma.scale(v1, 1);
+			ma.translate(-scaling/v1/2,0);
+			break;
+		case 11:
+			double v2=1.0 - (scaling/(tp2.x() - tp.x()));
+			ma.scale(v2, 1);
+			ma.translate(scaling/v2/2,0);
+			break;*/
 		}
 		currItem->ContourLine.map(ma);
 		currItem->ContourLine.translate(qRound((tp.x() + tp2.x()) / 2.0), qRound((tp.y() + tp2.y()) / 2.0));

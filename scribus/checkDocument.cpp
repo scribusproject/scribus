@@ -130,18 +130,6 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	setIcon(loadIcon("AppIcon.png"));
 	checkDocumentLayout = new QVBoxLayout( this, 10, 5, "checkDocumentLayout");
 
-	missingGlyph = tr("Glyphs missing");
-	textOverflow = tr("Text overflow");
-	notOnPage = tr("Object is not on a Page");
-	missingImg = tr("Missing Image");
-	lowDPI = tr("Image resolution below %1 DPI, currently %2 x %3 DPI");
-	highDPI = tr("Image resolution above %1 DPI, currently %2 x %3 DPI");
-	transpar = tr("Object has transparency");
-	annot = tr("Object is a PDF Annotation or Field");
-	rasterPDF = tr("Object is a placed PDF");
-	isGIF = tr("Image is GIF");
-	//isGIFtoolTip = "<qt>" + tr("GIF images are not reccomended for print. See the online docs for more info") + "</qt>";
-
 	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
 	textLabel1 = new QLabel( this, "textLabel1" );
 	layout1->addWidget( textLabel1 );
@@ -763,6 +751,18 @@ void CheckDocument::languageChange()
 	textLabel1->setText( tr("Current Profile:"));
 	ignoreErrors->setText( tr("&Ignore Errors"));
 	reScan->setText( tr("Check again"));
+	
+	missingGlyph = tr("Glyphs missing");
+	textOverflow = tr("Text overflow");
+	notOnPage = tr("Object is not on a Page");
+	missingImg = tr("Missing Image");
+	lowDPI = tr("Image resolution below %1 DPI, currently %2 x %3 DPI");
+	highDPI = tr("Image resolution above %1 DPI, currently %2 x %3 DPI");
+	transpar = tr("Object has transparency");
+	annot = tr("Object is a PDF Annotation or Field");
+	rasterPDF = tr("Object is a placed PDF");
+	isGIF = tr("Image is GIF");
+	//isGIFtoolTip = "<qt>" + tr("GIF images are not reccomended for print. See the online docs for more info") + "</qt>";
 }
 
 void CheckDocument::setIgnoreEnabled(bool state)
