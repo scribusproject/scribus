@@ -115,6 +115,14 @@ public:
 		Foi::FontType typeCode;
 		Foi::FontFormat formatCode;
 //		QPixmap Appearance;
+private:
+		FT_Face face;
+		static FT_Library library;
+public:
+		double ascent() { return numAscent; }
+		double descent() { return numDescender; }
+		double height() { return face->height; }
+		double max_advance_width() { return face->max_advance_width; }
 };
 
 

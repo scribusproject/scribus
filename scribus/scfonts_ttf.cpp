@@ -42,28 +42,18 @@ bool Foi_ttf::ReadMetrics()
 	GlyphArray.clear();
 	isStroked = false;
 	QString tmp, tmp2, tmp3, tmp4;
-	bool			error;
-	FT_Library library;
+	bool error;
 	FT_ULong  charcode;
 	FT_UInt   gindex;
-	FT_Face   face;
 	FPointArray outlines;
 	double x, y;
 	struct GlyphR GRec;
-	error = FT_Init_FreeType( &library );
-	if (error)
-	{
-		UseFont = false;
-		sDebug(QObject::tr("Font %1 is broken (FreeType), discarding it").arg(fontPath()));
+
+	FT_Face   face = ftFace();
+	if (!face) {
 		return false;
 	}
-	error = FT_New_Face( library, fontFilePath(), faceIndex(), &face );
-	if (error)
-	{
-		UseFont = false;
-		sDebug(QObject::tr("Font %1 is broken (no Face), discarding it").arg(fontPath()));
-		return false;
-	}
+	
 	uniEM = static_cast<double>(face->units_per_EM);
 	HasKern = FT_HAS_KERNING(face);
 	Ascent = tmp.setNum(face->ascender * 1000 / uniEM);
@@ -110,7 +100,6 @@ bool Foi_ttf::ReadMetrics()
 		charcode = FT_Get_Next_Char( face, charcode, &gindex );
 	}
 	UseFont = (invalidGlyphs == 0);
-	FT_Done_FreeType( library );
 	HasMetrics=UseFont;
 	metricsread=UseFont;
 	return(HasMetrics);
@@ -224,15 +213,14 @@ bool Foi_ttf::EmbedFont(QString &str)
 	QString tmp3 = "";
 	int counter = 0;
 	char *buf[50];
-	FT_Library library;
-	FT_Face face;
 	FT_ULong  charcode;
 	FT_UInt   gindex;
-	FT_Init_FreeType(&library);
-	FT_New_Face(library, fontFilePath(), faceIndex(), &face);
+	FT_Face face = ftFace();
+	if (!face) {
+		return false;
+	}
 	const FT_Stream fts = face->stream;
 	if (FT_Stream_Seek(fts, 0L)) {
-		FT_Done_FreeType( library );
 		return(false);
 	}
 	str+="%!PS-TrueTypeFont\n";
@@ -301,7 +289,6 @@ bool Foi_ttf::EmbedFont(QString &str)
 		 charcode = FT_Get_Next_Char(face, charcode, &gindex );
 		counter++;
 	}
-	FT_Done_FreeType( library );
 	tmp4.setNum(counter);
 	str += "/CharStrings " + tmp4 + " dict dup begin\n"+tmp2;
 	str += "end readonly def\n";

@@ -55,7 +55,12 @@ for which a new license (GPL+exception) is in place.
 #include FT_TRUETYPE_TAGS_H
 #include FT_TRUETYPE_TABLES_H
 
-Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path, int face, bool embedps)
+
+FT_Library Foi::library = NULL;
+
+
+Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path, 
+		 int face, bool embedps) : face(NULL)
 {
 	isOTF = false;
 	Subset = false;
@@ -69,12 +74,21 @@ Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path, in
 	faceIndex_ = face;
 	EmbedPS = embedps;
 	Alternative = "";
+	if (!library) {
+		if (FT_Init_FreeType( &library ))
+			qDebug(QObject::tr("Freetype2 library not available"));
+	}
 }
 
 
 FT_Face Foi::ftFace() {
-	// dummy for now
-	return NULL;
+	if (!face) {
+		if (FT_New_Face( library, fontFile, faceIndex_, &face )) {
+			UseFont = false;
+			qDebug(QObject::tr("Font %1(%2) is broken").arg(fontFile).arg(faceIndex_));
+		}
+	}
+	return face;
 }
 
 QString Foi::RealName()
@@ -103,39 +117,23 @@ bool Foi::GlNames(QMap<uint, QString> *GList)
 
 void Foi::RawData(QByteArray & bb)
 {
-	FT_Library library;
-	FT_Face    face;
-	bool       error;
-	
-	error = FT_Init_FreeType( &library );
-	if (error)
-		sDebug(QObject::tr("Freetype2 library not available"));
-	else
-		error = FT_New_Face( library, fontFile, faceIndex_, &face );
-	if (error)
-		sDebug(QObject::tr("Font %1 is broken, no embedding").arg(fontFile));
-	else 
+	FT_Stream fts = ftFace()->stream;
+	bb.resize(fts->size);
+	bool error = FT_Stream_Seek(fts, 0L);
+	if (!error)
+		error = FT_Stream_Read(fts, reinterpret_cast<FT_Byte *>(bb.data()), fts->size);
+	if (error) 
 	{
-		FT_Stream fts = face->stream;
-		bb.resize(fts->size);
-		error = FT_Stream_Seek(fts, 0L);
-		if (!error)
-			error = FT_Stream_Read(fts, reinterpret_cast<FT_Byte *>(bb.data()), fts->size);
-		if (error) 
-		{
-			sDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(fontFile));
-			bb.resize(0);
-		}
-		/*
-		if (showFontInformation)
-		{
-			QFile f(fontFile);
-			qDebug(QObject::tr("RawData for Font %1(%2): size=%3 filesize=%4").arg(fontFile).arg(faceIndex_).arg(bb.size()).arg(f.size()));
-		}
-		*/
+		sDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(fontFile));
+		bb.resize(0);
 	}
-	FT_Done_Face(face);
-	FT_Done_FreeType(library);
+	/*
+	 if (showFontInformation)
+	 {
+		 QFile f(fontFile);
+		 qDebug(QObject::tr("RawData for Font %1(%2): size=%3 filesize=%4").arg(fontFile).arg(faceIndex_).arg(bb.size()).arg(f.size()));
+	 }
+	 */
 }
 
 
@@ -233,27 +231,15 @@ class Foi_postscript : public Foi
 			double x, y;
 			FPointArray outlines;
 			struct GlyphR GRec;
-			bool			error;
-			FT_Library library;
+			bool error;
 			FT_ULong  charcode;
 			FT_UInt   gindex;
-			FT_Face   face;
 			isStroked = false;
-			error = FT_Init_FreeType( &library );
-			if (error)
-			{
-				UseFont = false;
-				sDebug(QObject::tr("Font %1 is broken (FreeType2), discarding it").arg(fontPath()));
+			
+			FT_Face face = ftFace();
+			if (!face)
 				return false;
-			}
-			error = FT_New_Face( library, fontFilePath(), faceIndex(), &face );
-			if (error)
-			{
-				UseFont = false;
-				sDebug(QObject::tr("Font %1 is broken (no Face), discarding it").arg(fontPath()));
-				FT_Done_FreeType( library );
-				return false;
-			}
+
 			uniEM = static_cast<double>(face->units_per_EM);
 			QString afnm = fontFilePath().left(fontFilePath().length()-3);
 			QFile afm(afnm+"afm");
@@ -309,8 +295,6 @@ class Foi_postscript : public Foi
 				}
 				charcode = FT_Get_Next_Char( face, charcode, &gindex );
 			}
-			FT_Done_Face( face );
-			FT_Done_FreeType( library );
 			if (invalidGlyph > 0) {
 				UseFont = false;
 				sDebug(QObject::tr("Font %1 is broken and will be discarded").arg(fontPath()));
