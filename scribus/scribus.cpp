@@ -1056,7 +1056,6 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 		{
 			if (doc->m_Selection->count() == 1)
 			{
-				ScText *hg = new ScText;
 				PageItem *currItem = doc->m_Selection->itemAt(0);
 				if (currItem!=NULL)
 				{
@@ -6275,8 +6274,10 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 						lastParaStyle = -1;
 					}
 				}
-				ite->itemText.applyStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
-				ite->itemText.applyStyle(ite->itemText.length()-1, doc->docParagraphStyles[lastParaStyle]);
+				if (ite->itemText.length() > 0) {
+					ite->itemText.applyStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
+					ite->itemText.applyStyle(ite->itemText.length()-1, doc->docParagraphStyles[lastParaStyle]);
+				}
 			}
 		}
 	}
