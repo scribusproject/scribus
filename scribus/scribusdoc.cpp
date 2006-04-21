@@ -227,7 +227,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	vg.setFirstIndent(0);
 	vg.setGapBefore(0);
 	vg.setGapAfter(0);
-	vg.charStyle().cfont = NULL;
+	vg.charStyle().cfont = prefsData.AvailFonts[toolSettings.defFont];
 	vg.charStyle().csize = toolSettings.defSize;
 	vg.tabValues().clear();
 	vg.setHasDropCap(false);
@@ -2141,6 +2141,7 @@ void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
 {
 	if (sctextdata==NULL)
 		return;
+#ifndef NLS_PROTO
 	sctextdata->cfont = (*AllFonts)[CurrFont];
 	sctextdata->csize = CurrFontSize;
 	sctextdata->ccolor = CurrTextFill;
@@ -2164,6 +2165,7 @@ void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
 		sctextdata->cfont = docParagraphStyles[currentParaStyle].charStyle().font();
 		sctextdata->csize = docParagraphStyles[currentParaStyle].charStyle().fontSize();
 	}
+#endif
 }
 
 const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, const int maxLeftPage,  const QString& masterPageName)
