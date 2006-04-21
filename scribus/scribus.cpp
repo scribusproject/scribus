@@ -730,7 +730,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertGlyph"], "Insert");
 
-	scrMenuMgr->createMenu("InsertChar", QPixmap(noIcon), tr("Character"), "Insert");
+	scrMenuMgr->createMenu("InsertChar", QPixmap(noIcon), tr("&Character"), "Insert");
 	//scrMenuMgr->addMenuToMenu("InsertChar", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["unicodePageNumber"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeSmartHyphen"], "InsertChar");
@@ -748,7 +748,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["unicodeDashFigure"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeDashQuotation"], "InsertChar");
 
-	scrMenuMgr->createMenu("InsertQuote", QPixmap(noIcon), tr("Quote"), "Insert");
+	scrMenuMgr->createMenu("InsertQuote", QPixmap(noIcon), tr("&Quote"), "Insert");
 	//scrMenuMgr->addMenuToMenu("InsertQuote", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteApostrophe"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteStraight"], "InsertQuote");
@@ -774,7 +774,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteCJKDoubleLeft"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteCJKDoubleRight"], "InsertQuote");
 
-	scrMenuMgr->createMenu("InsertSpace", QPixmap(noIcon), tr("Spaces && Breaks"), "Insert");
+	scrMenuMgr->createMenu("InsertSpace", QPixmap(noIcon), tr("S&paces && Breaks"), "Insert");
 	scrMenuMgr->addMenuItem(scrActions["unicodeNonBreakingSpace"], "InsertSpace");
 	scrMenuMgr->addMenuItem(scrActions["unicodeSpaceEN"], "InsertSpace");
 	scrMenuMgr->addMenuItem(scrActions["unicodeSpaceEM"], "InsertSpace");
@@ -787,7 +787,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["unicodeFrameBreak"], "InsertSpace");
 	scrMenuMgr->addMenuItem(scrActions["unicodeColumnBreak"], "InsertSpace");
 
-	scrMenuMgr->createMenu("InsertLigature", QPixmap(noIcon), tr("Ligature"), "Insert");
+	scrMenuMgr->createMenu("InsertLigature", QPixmap(noIcon), tr("Liga&ture"), "Insert");
 	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_ff"], "InsertLigature");
 	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_fi"], "InsertLigature");
 	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_fl"], "InsertLigature");
