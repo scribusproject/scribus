@@ -99,6 +99,7 @@ ScPlugin* scriptplugin_getPlugin()
 {
 	ScriptPlugin* plug = new ScriptPlugin();
 	Q_CHECK_PTR(plug);
+	scripterCore=0;
 	return plug;
 }
 
