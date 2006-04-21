@@ -186,7 +186,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 		nextItem = nextItem->NextBox;
 	}
 #endif
-	if ((!useAble) || !(nb1->asTextFrame()) || (nb1 ->itemText.count() == 0))
+	if ((!useAble) || !(nb1->asTextFrame()) || (nb1 ->itemText.length() == 0))
 		return;
 	doc->DoDrawing = false;
 	const char *word;

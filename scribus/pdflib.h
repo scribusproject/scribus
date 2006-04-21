@@ -40,6 +40,7 @@ class Page;
 class PDFOptions;
 class PrefsContext;
 class MultiProgressDialog;
+class ScText;
 
 #include "scribusstructs.h"
 

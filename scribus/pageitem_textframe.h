@@ -46,6 +46,16 @@ class UndoState;
 class Foi;
 struct CopyPasteBuffer;
 
+#include "text/nlsconfig.h"
+
+#ifdef NLS_PROTO
+#include "text/sctextengine.h"
+#include "text/scfont.h"
+#include "sctextstruct.h"
+class ScText;
+class ScStyleRun;
+#endif
+
 class SCRIBUS_API PageItem_TextFrame : public PageItem
 {
 	Q_OBJECT
@@ -70,13 +80,23 @@ public:
 	void ExpandSel(int dir, int oldPos);
 	void deselectAll();
 	
+	void layout();
 	double columnWidth();
+#ifdef NLS_PROTO
+	int firstTextItem() const { return itemText.firstFrameItem; }
+	int lastTextItem() const { return itemText.lastFrameItem; }
+#endif
 	
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);
 	virtual void DrawObj_Post(ScPainter *p);
 	void drawOverflowMarker(ScPainter *p);
 	QRegion availableRegion(QRegion clip);
+
+#ifdef NLS_PROTO
+	void DrawLineItem(ScPainter *p, double width,
+	                  ScScriptItem *item, uint itemIndex);
+#endif
 	
 	bool unicodeTextEditMode;
 	int unicodeInputCount;

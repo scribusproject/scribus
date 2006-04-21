@@ -7197,7 +7197,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 				if (chx == QChar(29))
 					chx = " ";
 				chs = currItem->itemText.at(a)->csize;
-				currItem->SetZeichAttr(currItem->itemText.at(a), &chs, &chx);
+				currItem->SetZeichAttr(currItem->itemText.charStyle(a), &chs, &chx);
 				if ((chx == QChar(13)) || (chx == QChar(9)) || (chx == QChar(27)))
 					w = 1;
 				else
@@ -7528,7 +7528,7 @@ void ScribusView::slotDoCurs(bool draw)
 			if (chx == QChar(29))
 				chx = " ";
 			int chs = currItem->itemText.at(offs)->csize;
-			currItem->SetZeichAttr(currItem->itemText.at(offs), &chs, &chx);
+			currItem->SetZeichAttr(currItem->itemText.charStyle(offs), &chs, &chx);
 			if (currItem->CPos != static_cast<int>(currItem->itemText.count()))
 			{
 				if (currItem->itemText.at(currItem->CPos)->ch == QChar(9))

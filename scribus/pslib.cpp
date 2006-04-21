@@ -2527,7 +2527,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		if (ite->reversed())
 		{
 			int chs = hl->csize;
-			ite->SetZeichAttr(hl, &chs, &chx);
+			ite->SetZeichAttr(*hl, &chs, &chx);
 			PS_scale(-1, 1);
 			if (d < ite->MaxChars-1)
 			{
@@ -2681,7 +2681,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	if (hl->cstyle & 8192)
 	{
 		int chs = hl->csize;
-		ite->SetZeichAttr(hl, &chs, &chx);
+		ite->SetZeichAttr(*hl, &chs, &chx);
 		double wide = Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 1000.0);
 		chx = "-";
 		uint chr = chx[0].unicode();

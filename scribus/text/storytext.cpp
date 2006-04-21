@@ -113,6 +113,8 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 	assert(pos <= length());
 	
 	const CharStyle style = pos == length() ? doc->docParagraphStyles[0].charStyle() : charStyle(pos);
+	assert(style.cfont != NULL);
+	
 	const int paraStyle = pos == length() ? 0 : at(pos)->cab;
 	
 	for (uint i = 0; i < txt.length(); ++i) {

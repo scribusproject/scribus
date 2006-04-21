@@ -344,6 +344,7 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 				QTextStream t(&OB.itemText, IO_ReadOnly);
 				QString cc;
+#ifndef NLS_PROTO
 				while (!t.atEnd())
 				{
 					cc = t.readLine();
@@ -400,13 +401,16 @@ QPixmap ScPreview::createPreview(QString data)
 					hg->PtransY = 0;
 					Ptexti.append(hg);
 				}
+#endif
 			}
 			tmpx = GetAttr(&pg, "TEXTCOOR","0 0");
 			QTextStream ft(&tmpx, IO_ReadOnly);
 			for (uint ct=0; ct<GetAttr(&pg, "NUMTEXT","0").toUInt(); ct++)
 			{
+#ifndef NLS_PROTO
 				ft >> Ptexti.at(ct)->xp;
 				ft >> Ptexti.at(ct)->yp;
+#endif
 			}
 			tmpx = "";
 			if ((OB.PType == 5) && (OB.Height != 0))
@@ -548,6 +552,7 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 				break;
 			case PageItem::TextFrame:
+#ifndef NLS_PROTO
 				if (Ptexti.count() != 0)
 				{
 					pS->save();
@@ -610,6 +615,7 @@ QPixmap ScPreview::createPreview(QString data)
 					pS->restore();
 				}
 				break;
+#endif
 			case PageItem::Line:
 				if (OB.NamedLStyle.isEmpty())
 					pS->drawLine(FPoint(0, 0), FPoint(OB.Width, 0));
@@ -772,6 +778,7 @@ QPixmap ScPreview::createPreview(QString data)
 				doStroke = false;
 				break;
 			case PageItem::PathText:
+#ifndef NLS_PROTO
 				if (!OB.PoShow)
 					doStroke = false;
 				cl = FlattenPath(OB.PoLine, Segments);
@@ -858,6 +865,7 @@ QPixmap ScPreview::createPreview(QString data)
 					pS->restore();
 					CurX += wide+chs * hl->cextra / 10000.0;
 				}
+#endif
 			PfadEnd:	break;
 			}
 			if (doStroke)

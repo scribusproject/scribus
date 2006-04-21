@@ -104,7 +104,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, double sc)
 		if ((chx == QChar(30)) || (chx == QChar(13)) || (chx == QChar(9)) || (chx == QChar(28)))
 			continue;
 		chs = hl->csize;
-		SetZeichAttr(hl, &chs, &chx);
+		SetZeichAttr(*hl, &chs, &chx);
 		if (chx == QChar(29))
 			chx2 = " ";
 		else if (chx == QChar(24))

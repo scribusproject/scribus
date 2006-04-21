@@ -34,6 +34,10 @@ class ScribusDoc;
 #include "page.h"
 #include "pageitem.h"
 
+#ifdef NLS_PROTO
+class ScText;
+#endif
+
 class MultiProgressDialog;
 
 /**

@@ -1166,22 +1166,22 @@ void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 	*tmp = m_Doc->PageColors[farbe].getShadeColorProof(shad);
 }
 
-double PageItem::SetZeichAttr(ScText *hl, int *chs, QString *chx)
+double PageItem::SetZeichAttr(const CharStyle& style, int *chs, QString *chx)
 {
 	double retval = 0.0;
-	double asce = hl->cfont->numAscent * (hl->csize / 10.0);
-	int chst = hl->cstyle & 1919;
+	double asce = style.cfont->numAscent * (style.csize / 10.0);
+	int chst = style.cstyle & 1919;
 	if (chst != 0)
 	{
 		if (chst & 1)
 		{
 			retval -= asce * m_Doc->typographicSettings.valueSuperScript / 100;
-			*chs = QMAX(static_cast<int>(hl->csize * m_Doc->typographicSettings.scalingSuperScript / 100), 1);
+			*chs = QMAX(static_cast<int>(style.csize * m_Doc->typographicSettings.scalingSuperScript / 100), 1);
 		}
 		if (chst & 2)
 		{
 			retval += asce * m_Doc->typographicSettings.valueSubScript / 100;
-			*chs = QMAX(static_cast<int>(hl->csize * m_Doc->typographicSettings.scalingSubScript / 100), 1);
+			*chs = QMAX(static_cast<int>(style.csize * m_Doc->typographicSettings.scalingSubScript / 100), 1);
 		}
 		if (chst & 32)
 		{
@@ -1192,7 +1192,7 @@ double PageItem::SetZeichAttr(ScText *hl, int *chs, QString *chx)
 		{
 			if (chx->upper() != *chx)
 			{
-				*chs = QMAX(static_cast<int>(hl->csize * m_Doc->typographicSettings.valueSmallCaps / 100), 1);
+				*chs = QMAX(static_cast<int>(style.csize * m_Doc->typographicSettings.valueSmallCaps / 100), 1);
 				*chx = chx->upper();
 			}
 		}

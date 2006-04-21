@@ -57,6 +57,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scfontmetrics.h"
 #include "util.h"
+#include "text/nlsconfig.h"
 
 using namespace std;
 
@@ -234,6 +235,15 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 	return result;
 }
 
+#ifdef NLS_PROTO
+#include "text/pageitem_textframe.cpp"
+#else
+
+void PageItem_TextFrame::layout() {
+	// dummy for now
+}
+
+
 void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 {
 	ScribusView* view = m_Doc->view();
@@ -379,7 +389,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							}
 						}
 					}
-					oldCurY = SetZeichAttr(hl, &chs, &chx);
+					oldCurY = SetZeichAttr(*hl, &chs, &chx);
 					if ((chx == QChar(9)) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
 					{
 						QString tabFillCharQStr(tTabValues[tabCc].tabFillChar);
@@ -748,7 +758,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						else
 							chs = hl->csize;
 					}
-					oldCurY = SetZeichAttr(hl, &chs, &chx);
+					oldCurY = SetZeichAttr(*hl, &chs, &chx);
 					if (chx == QChar(29))
 						chx2 = " ";
 					else if (chx == QChar(24))
@@ -2042,6 +2052,9 @@ NoRoom:     pf2.end();
 	Dirty = false;
 }
 
+#endif
+
+
 void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 {
 	ScribusView* view = m_Doc->view();
@@ -2121,12 +2134,14 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		}
 
 
+#ifndef NLS_PROTO
 		//Draw the overflow icon
 		if (itemText.count() > MaxChars)
 		{//CB && added here for jghali prior to commit access
 			if (!view->previewMode)
 				drawOverflowMarker(p);
 		}
+#endif
 		//if (m_Doc->selection->findItem(this)!=-1)
 		//	drawLockedMarker(p);
 	}
@@ -2134,6 +2149,8 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	FrameOnly = false;
 	p->restore();
 }
+
+#ifndef NLS_PROTO
 
 void PageItem_TextFrame::clearContents()
 {
@@ -2335,13 +2352,13 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			}
 			QString nextCh = itemText.at(CPos)->ch;
 			int nextChs = itemText.at(CPos)->csize;
-			alty =  itemText.at(CPos)->yp - SetZeichAttr(itemText.at(CPos), &nextChs, &nextCh);
+			alty =  itemText.at(CPos)->yp - SetZeichAttr(itemText.charStyle(CPos), &nextChs, &nextCh);
 			double nextY;
 			while (CPos < len-1)
 			{
 				nextCh = itemText.at(CPos+1)->ch;
 				nextChs = itemText.at(CPos+1)->csize;
-				nextY = itemText.at(CPos+1)->yp - SetZeichAttr(itemText.at(CPos+1), &nextChs, &nextCh);
+				nextY = itemText.at(CPos+1)->yp - SetZeichAttr(itemText.charStyle(CPos+1), &nextChs, &nextCh);
 				if (fabs(nextY - alty) > 1.0)
 					break;
 				CPos++;
@@ -3089,3 +3106,4 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 }
 
 
+#endif  //NLS_PROTO
