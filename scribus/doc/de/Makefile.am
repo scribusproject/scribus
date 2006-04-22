@@ -221,4 +221,3 @@ uninstall-local:
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/otherinfo.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/documentation.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/tutorials.html
-
