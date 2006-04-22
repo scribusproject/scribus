@@ -25,8 +25,9 @@ for which a new license (GPL+exception) is in place.
 #define SCRIBUSWIN_H
 
 #include <qmainwindow.h>
-class ScribusView;
 class ScribusDoc;
+class ScribusMainWindow;
+class ScribusView;
 #include "scribusapi.h"
 #include "muster.h"
 /**
@@ -42,6 +43,7 @@ public:
 	~ScribusWin() {};
 	void closeEvent(QCloseEvent *ce);
 	void setView(ScribusView* newView);
+	void setMainWindow(ScribusMainWindow *);
 	ScribusView* view() const { return m_View;}
 	ScribusDoc* document() const { return m_Doc;}
 	void setMasterPagesPalette(MasterPagesPalette* newMPP) { m_masterPagesPalette=newMPP; }
@@ -60,6 +62,7 @@ protected:
 	virtual void windowActivationChange ( bool oldActive );
 	QString currentDir;
 	QHBoxLayout* statusFrameLayout;
+	ScribusMainWindow* m_MainWindow;
 	ScribusView* m_View;
 	ScribusDoc* m_Doc;
 	MasterPagesPalette* m_masterPagesPalette;

@@ -1828,6 +1828,7 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 	actionManager->connectNewDocActions(doc);
 	//<<View and window code
 	ScribusWin* w = new ScribusWin(wsp, doc);
+	w->setMainWindow(this);
 	if (view!=NULL)
 	{
 		actionManager->disconnectNewViewActions();
@@ -1874,6 +1875,7 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 void ScribusMainWindow::newView()
 {
 	ScribusWin* w = new ScribusWin(wsp, doc);
+	w->setMainWindow(this);
 	view = new ScribusView(w, doc);
 	view->setScale(prefsManager->displayScale());
 	w->setView(view);
@@ -3154,6 +3156,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		mainWindowStatusLabel->setText( tr("Loading..."));
 		mainWindowProgressBar->reset();
 		ScribusWin* w = new ScribusWin(wsp, doc);
+		w->setMainWindow(this);
 		view = new ScribusView(w, doc);
 		view->setScale(prefsManager->displayScale());
 		w->setView(view);

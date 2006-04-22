@@ -42,6 +42,11 @@ ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : QMainWindow(parent, "
 	currentDir = QDir::currentDirPath();
 }
 
+void ScribusWin::setMainWindow(ScribusMainWindow *mw)
+{
+	m_MainWindow=mw;
+}
+
 void ScribusWin::setView(ScribusView* newView)
 {
 	m_View = newView;
@@ -95,23 +100,23 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 {
 	if (m_Doc->isModified() && (m_Doc->viewCount == 1))
 	{
-		int exit=ScMessageBox::information(ScMW, CommonStrings::trWarning,
+		int exit=ScMessageBox::information(m_MainWindow, CommonStrings::trWarning,
 		                                  tr("Document:")+" "+m_Doc->DocName+"\n"+ tr("has been changed since the last save."),
 		                                  CommonStrings::tr_Save, tr("&Discard"), CommonStrings::tr_Cancel, 2, 2);
 		if (exit==2)
 			return;
 		if (exit==0)
 		{
-			if (ScMW->slotFileSave())
+			if (m_MainWindow->slotFileSave())
 			{
-				if (m_Doc==ScMW->storyEditor->currentDocument())
-					ScMW->storyEditor->close();
+				if (m_Doc==m_MainWindow->storyEditor->currentDocument())
+					m_MainWindow->storyEditor->close();
 			}
 			else
 				return;
 		}
 	}
-	ScMW->DoFileClose();
+	m_MainWindow->DoFileClose();
 	ce->accept();
 }
 
