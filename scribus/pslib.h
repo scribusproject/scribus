@@ -53,7 +53,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual ~PSLib() {};
 		virtual bool PS_set_file(QString fn);
 		virtual void PS_set_Info(QString art, QString was);
-		virtual void PS_begin_doc(int Ori, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep);
+		virtual void PS_begin_doc(int Ori, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep, bool over = false);
 		virtual void PS_begin_page(double breite, double hoehe, struct MarginStruct* Ma, bool Clipping);
 		virtual void PS_end_page();
 		virtual void PS_curve(double x1, double y1, double x2, double y2, double x3, double y3);
@@ -95,7 +95,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_TemplateEnd();
 		virtual void PS_UseTemplate(QString Name);
 		virtual void PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
-		virtual int CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev, bool doClip);
+		virtual int CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev, bool doClip, bool over = false);
 		virtual void ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded = false);
 		virtual void ProcessPage(ScribusDoc* Doc, /*ScribusView* view,*/Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
 		virtual void putColor(QString color, int shade, bool fill);

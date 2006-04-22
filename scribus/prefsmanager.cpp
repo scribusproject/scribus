@@ -263,6 +263,7 @@ void PrefsManager::initDefaults()
 //	appPrefs.PSize = 40;
 	appPrefs.ClipMargin = false;
 	appPrefs.GCRMode = false;
+	appPrefs.doOverprint = false;
 	appPrefs.RecentDocs.clear();
 	appPrefs.RecentScrapbooks.clear();
 	appPrefs.RecentDCount = 5;
@@ -1106,6 +1107,7 @@ bool PrefsManager::WritePref(QString ho)
 	QDomElement dc8Pr=docu.createElement("PRINTPREVIEW");
 	dc8Pr.setAttribute("Mode", static_cast<int>(appPrefs.PrPr_Mode));
 	dc8Pr.setAttribute("GcrMode", static_cast<int>(appPrefs.Gcr_Mode));
+	dc8Pr.setAttribute("doOverprint", static_cast<int>(appPrefs.doOverprint));
 	dc8Pr.setAttribute("AlphaText", static_cast<int>(appPrefs.PrPr_AlphaText));
 	dc8Pr.setAttribute("AlphaGraphics", static_cast<int>(appPrefs.PrPr_AlphaGraphics));
 	dc8Pr.setAttribute("Transparency", static_cast<int>(appPrefs.PrPr_Transparency));
@@ -1633,6 +1635,7 @@ bool PrefsManager::ReadPref(QString ho)
 		{
 			appPrefs.PrPr_Mode = static_cast<bool>(dc.attribute("Mode", "0").toInt());
 			appPrefs.Gcr_Mode = static_cast<bool>(dc.attribute("GcrMode", "1").toInt());
+			appPrefs.doOverprint = static_cast<bool>(dc.attribute("doOverprint", "0").toInt());
 			appPrefs.PrPr_AlphaText = static_cast<bool>(dc.attribute("AlphaText", "0").toInt());
 			appPrefs.PrPr_AlphaGraphics = static_cast<bool>(dc.attribute("AlphaGraphics", "0").toInt());
 			appPrefs.PrPr_Transparency = static_cast<bool>(dc.attribute("Transparency", "0").toInt());

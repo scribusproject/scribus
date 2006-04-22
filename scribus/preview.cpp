@@ -75,6 +75,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	GrAl = false;
 	Trans = false;
 	GMode = true;
+	OMode = false;
 	scaleFactor = 1.0;
 	SMode = 1;
 
@@ -117,6 +118,16 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	EnableGCR->setEnabled( postscriptPreview );
 	Layout3->addWidget(EnableGCR);
 	Layout1->addLayout(Layout3);
+
+	Layout3a = new QVBoxLayout();
+	Layout3a->setSpacing(0);
+	Layout3a->setMargin(0);
+	EnableOverprint = new QCheckBox(this, "EnableOverprint");
+	EnableOverprint->setText( tr("Over Print Mode"));
+	EnableOverprint->setChecked( postscriptPreview ? prefsManager->appPrefs.doOverprint : false);
+	EnableOverprint->setEnabled( postscriptPreview );
+	Layout3a->addWidget(EnableOverprint);
+	Layout1->addLayout(Layout3a);
 
 	QSpacerItem* spacerC = new QSpacerItem( 5, 5, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacerC );
@@ -285,6 +296,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	connect(AliasTr, SIGNAL(clicked()), this, SLOT(ToggleTr()));
 	connect(EnableCMYK, SIGNAL(clicked()), this, SLOT(ToggleCMYK()));
 	connect(EnableGCR, SIGNAL(clicked()), this, SLOT(ToggleGCR()));
+	connect(EnableOverprint, SIGNAL(clicked()), this, SLOT(ToggleOv()));
 	if (HaveTiffSep != 0)
 	{
 		connect(EnableCMYK_C, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
@@ -321,6 +333,11 @@ void PPreview::ToggleGr()
 }
 
 void PPreview::ToggleTr()
+{
+	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
+}
+
+void PPreview::ToggleOv()
 {
 	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 }
@@ -398,6 +415,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 		options.useColor = true;
 		options.useICC = false;
 		options.useSpotColors = false;
+		options.doOverprint = false;
 		bool done = winPrint.gdiPrintPreview(doc, page, &image, options, Res / 72.0);
 		if ( done )
 			image.save( prefsManager->preferencesLocation()+"/sc.png", "PNG" );
@@ -405,7 +423,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	}
 #endif
 	// Recreate Postscript-File only when the actual Page has changed
-	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode))
+	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode)  || (EnableOverprint->isChecked() != OMode))
 	{
 		ReallyUsed.clear();
 		doc->getUsedFonts(&ReallyUsed);
@@ -416,7 +434,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 			std::vector<int> pageNs;
 			pageNs.push_back(Seite+1);
 			QStringList spots;
-			dd->CreatePS(doc, /*view, */pageNs, false, tr("All"), spots, true, false, false, false, EnableGCR->isChecked(), false, false);
+			dd->CreatePS(doc, /*view, */pageNs, false, tr("All"), spots, true, false, false, false, EnableGCR->isChecked(), false, false, EnableOverprint->isChecked());
 			delete dd;
 		}
 		else
@@ -484,7 +502,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	QStringList args, args1, args2, args3;
 	QMap<QString,int> ReallyUsed;
 	// Recreate Postscript-File only when the actual Page has changed
-	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode))
+	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode)  || (EnableOverprint->isChecked() != OMode))
 	{
 		ReallyUsed.clear();
 		doc->getUsedFonts(&ReallyUsed);
@@ -495,7 +513,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 			std::vector<int> pageNs;
 			pageNs.push_back(Seite+1);
 			QStringList spots;
-			dd->CreatePS(doc, /*view, */pageNs, false, tr("All"), spots, true, false, false, false, EnableGCR->isChecked(), false, false);
+			dd->CreatePS(doc, /*view, */pageNs, false, tr("All"), spots, true, false, false, false, EnableGCR->isChecked(), false, false, EnableOverprint->isChecked());
 			delete dd;
 		}
 		else
@@ -634,7 +652,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentItem())
 	        || (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl) || (EnableGCR->isChecked() != GMode)
-	        || ((AliasTr->isChecked() != Trans) && (!EnableCMYK->isChecked())))
+	        || (EnableOverprint->isChecked() != OMode) || ((AliasTr->isChecked() != Trans) && (!EnableCMYK->isChecked())))
 	{
 		if (!EnableCMYK->isChecked() || (HaveTiffSep != 0))
 		{
@@ -657,7 +675,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		{
 			if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentItem())
 	       	 || (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl) || (EnableGCR->isChecked() != GMode)
-	       	 || ((AliasTr->isChecked() != Trans) && (!EnableCMYK->isChecked())))
+	       	 || (EnableOverprint->isChecked() != OMode) || ((AliasTr->isChecked() != Trans) && (!EnableCMYK->isChecked())))
 			{
 				ret = RenderPreviewSep(Seite, Res);
 			}
@@ -807,6 +825,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	Trans = AliasTr->isChecked();
 	GMode = EnableGCR->isChecked();
 	SMode = scaleBox->currentItem();
+	OMode = EnableOverprint->isChecked();
 	return Bild;
 }
 

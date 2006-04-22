@@ -267,6 +267,7 @@ struct PrintOptions
 	bool doGCR;
 	bool doClip;
 	bool setDevParam;
+	bool doOverprint;
 	int copies;
 	std::vector<int> pageNumbers;
 	QString printerOptions;

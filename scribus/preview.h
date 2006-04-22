@@ -77,6 +77,7 @@ public:
 	QCheckBox* EnableCMYK_Y;
 	QCheckBox* EnableCMYK_K;
 	QCheckBox* EnableGCR;
+	QCheckBox* EnableOverprint;
 	QScrollView* Anzeige;
 	QLabel* Anz;
 	QPushButton *closeButton;
@@ -96,6 +97,7 @@ public:
 	bool GrAl;
 	bool Trans;
 	bool GMode;
+	bool OMode;
 	bool postscriptPreview;
 	QMap<QString, int> sepsToFileNum;
 	QMap<QString, QCheckBox*> flagsVisible;
@@ -123,6 +125,11 @@ public slots:
 	\brief Toggle transparency and create the new preview
 	*/
 	void ToggleTr();
+	/*!
+	\author Franz Schmid
+	\brief Toggle overprint mode and create the new preview
+	*/
+	void ToggleOv();
 	/*!
 	\author Craig Bradney
 	\brief When CMYK preview is toggled, (dis)enable the CMYK controls and create the new preview
@@ -152,6 +159,7 @@ protected:
 	QHBoxLayout* Layout1;
 	QVBoxLayout* Layout2;
 	QVBoxLayout* Layout3;
+	QVBoxLayout* Layout3a;
 	QVBoxLayout* Layout4;
 	QHBoxLayout* Layout5;
 	QHBoxLayout* Layout6;

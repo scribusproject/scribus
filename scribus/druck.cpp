@@ -225,6 +225,9 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, QByte
 	spotColors = new QCheckBox( colorOpts, "spotColors" );
 	spotColors->setText( tr( "Convert Spot Colors to Process Colors" ) );
 	colorOptsLayout->addWidget( spotColors );
+	overprintMode = new QCheckBox( colorOpts, "overprintMode" );
+	overprintMode->setText( tr( "Over Print Mode" ) );
+	colorOptsLayout->addWidget( overprintMode );
 #ifdef HAVE_CMS
 	if (CMSuse)
 	{
@@ -522,6 +525,7 @@ void Druck::okButtonClicked()
 	prefs->set("PSLevel", psLevel->currentItem() + 1);
 	prefs->set("doDev", devPar->isChecked());
 	prefs->set("doSpot", !spotColors->isChecked());
+	prefs->set("doOverprint", overprintMode->isChecked());
 #ifdef HAVE_CMS
 	if (CMSuse)
 		prefs->set("ICCinUse", UseICC->isChecked());
@@ -564,6 +568,7 @@ void Druck::setStoredValues(bool gcr)
 	GcR->setChecked(prefs->getBool("DoGCR", gcr));
 	ClipMarg->setChecked(prefs->getBool("Clip", false));
 	spotColors->setChecked(!prefs->getBool("doSpot", true));
+	overprintMode->setChecked(prefs->getBool("doOverprint", false));
 #ifdef HAVE_CMS
 	if (CMSuse)
 	{
@@ -656,6 +661,11 @@ bool Druck::doDev()
 bool Druck::doSpot()
 {
 	return !spotColors->isChecked();
+}
+
+bool Druck::doOverprint()
+{
+	return overprintMode->isChecked();
 }
 
 bool Druck::ICCinUse()

@@ -4047,6 +4047,7 @@ void ScribusMainWindow::slotReallyPrint()
 		options.doGCR = printer->doGCR();
 		options.PSLevel = printer->PSLevel();
 		options.setDevParam = printer->doDev();
+		options.doOverprint = printer->doOverprint();
 		PDef.Pname = options.printer;
 		PDef.Dname = options.filename;
 		PDef.DevMode = printer->DevMode;
@@ -4127,7 +4128,7 @@ bool ScribusMainWindow::doPrint(PrintOptions *options)
 			// Write the PS to a file
 			ScColor::UseProf = options->useICC;
 			int psCreationRetVal=dd->CreatePS(doc, options->pageNumbers, options->outputSeparations, options->separationName, options->allSeparations,
-			               options->useColor, options->mirrorH, options->mirrorV, options->useICC, options->doGCR, options->setDevParam, options->doClip);
+			               options->useColor, options->mirrorH, options->mirrorV, options->useICC, options->doGCR, options->setDevParam, options->doClip, options->doOverprint);
 			if (psCreationRetVal!=0)
 			{
 				unlink(filename);
@@ -6950,6 +6951,7 @@ void ScribusMainWindow::doPrintPreview()
 			prefsManager->appPrefs.PrPr_K = dia->flagsVisible["Black"]->isChecked();
 		}
 		prefsManager->appPrefs.Gcr_Mode = dia->EnableGCR->isChecked();
+		prefsManager->appPrefs.doOverprint = dia->EnableOverprint->isChecked();
 		disconnect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 		previewDinUse = false;
 		delete dia;

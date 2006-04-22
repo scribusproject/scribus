@@ -249,7 +249,7 @@ void PSLib::PutSeite(QByteArray& array, bool hexEnc)
 	if(hexEnc)
 	{
 		int length = 0;
-		for (int i = 0; i < array.size(); i++)
+		for (uint i = 0; i < array.size(); i++)
 		{
 			length++;
 			t << toHex(array[i]);
@@ -361,7 +361,7 @@ bool PSLib::PS_set_file(QString fn)
 	return Spool.open(IO_WriteOnly);
 }
 
-void PSLib::PS_begin_doc(int, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep)
+void PSLib::PS_begin_doc(int, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep, bool over)
 {
 	PutDoc(Header);
 	PutDoc("%%For: " + User + "\n");
@@ -395,6 +395,8 @@ void PSLib::PS_begin_doc(int, double x, double y, double breite, double hoehe, i
 		PutSeite("<< /PageSize [ "+ToStr(breite)+" "+ToStr(hoehe)+" ]\n");
 		PutSeite(">> setpagedevice\n");
 	}
+	if (over)
+		PutDoc("true setoverprint\n");
 	PutDoc("%%EndSetup\n");
 	Prolog = "";
 	FontDesc = "";
@@ -1064,7 +1066,7 @@ void PSLib::PS_insert(QString i)
 	PutDoc(i);
 }
 
-int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev, bool doClip)
+int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev, bool doClip, bool over)
 {
 	uint a;
 	int sepac;
@@ -1150,11 +1152,11 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 		int pgNum = pageNs[0]-1;
 		gx -= Doc->Pages->at(pgNum)->xOffset();
 		gy -= Doc->Pages->at(pgNum)->yOffset();
-		PS_begin_doc(Doc->PageOri, gx, Doc->pageHeight - (gy+gh), gx + gw, Doc->pageHeight - gy, 1*pagemult, false, sep);
+		PS_begin_doc(Doc->PageOri, gx, Doc->pageHeight - (gy+gh), gx + gw, Doc->pageHeight - gy, 1*pagemult, false, sep, over);
 	}
 	else
 	{
-		PS_begin_doc(Doc->PageOri, 0.0, 0.0, Doc->pageWidth, Doc->pageHeight, pageNs.size()*pagemult, doDev, sep);
+		PS_begin_doc(Doc->PageOri, 0.0, 0.0, Doc->pageWidth, Doc->pageHeight, pageNs.size()*pagemult, doDev, sep, over);
 	}
 	uint ap=0;
 	for (; ap < Doc->MasterPages.count() && !abortExport; ++ap)

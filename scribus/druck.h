@@ -56,6 +56,7 @@ public:
 	int PSLevel();
 	bool doDev();
 	bool doSpot();
+	bool doOverprint();
 	bool ICCinUse();
 	QByteArray DevMode;
 
@@ -112,6 +113,7 @@ private:
 	QCheckBox* ClipMarg;
 	QCheckBox* GcR;
 	QCheckBox* spotColors;
+	QCheckBox* overprintMode;
 	QCheckBox* UseICC;
 	QPushButton* OKButton_2;
 	QPushButton* OKButton;
