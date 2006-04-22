@@ -54,6 +54,7 @@ keys.html
 lipsum.html
 machints1.html
 machints2.html
+menu.xml
 moncal.html
 mouse.html
 otherinfo.html
