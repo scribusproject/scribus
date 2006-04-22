@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qt>
+
+<title>Configuration des Préférences</title>
+<h2>Configuration des Préférences</h2>
+
+<p>Les panneaux de configuration permettent de modifier le comportement par défaut de Scribus. Ces panneaux vous permettent de régler avec beaucoup de souplesse les valeurs par défaut de votre document ou du programme lui-même. Si vous débutez en PAO, la présente documentation vous aidera à faire vos choix, de même que les nombreuses infobulles.</p>
+
+<p>Les préférences de Scribus sont conservées dans un répertoire caché <code>.scribus</code>. Ce répertoire contient un fichier <code>.scribus.rc</code> et un fichier <code>scribusfont.rc</code> qui contient vos préférences de Polices. Ce fichier est au format XML ce qui vous permet d'en inspecter le contenu avec un éditeur de texte. Si vous avez installé le module d'extension du scripteur, vous verrez aussi le fichier <code>scripter.rc</code> qui contient les scripts récemment utilisés.</p>
+
+<p>Vous pourrez modifier à volonté plusieurs des valeurs par défaut de Scribus dans chacun des neuf panneaux de configuration. Ces valeurs seront modifiables en cours de travail dans un menu (ordinaire ou contextuel) ou dans la palette des mesures.</p>
+
+<h3>Panneau de configuration Général</h3>
+<p>Il est possible de modifier l'apparence de Scribus. Les thèmes comme Liquid ou les nouveaux thèmes basés sur les modules d'extension de KDE vous sont accessibles. Les thèmes et décorations de KDE feront partie de Scribus si vous travaillez dans l'environnement KDE. Si KDE n'est pas installé, vous pouvez ajuster l'apparence de vos programmes Qt séparément avec <strong><code>qtconfig</code></strong> au moyen des lignes de commande. Ouvrez simplement un terminal et saisissez <code>qtconfig</code>. Les panneaux de configuration de Qtconfig sont assez explicites. La taille de la police ne doit pas dépasser 12 points, car certains boutons des menus de Scribus risquent d'être éclipsés. Dans l'exemple, j'utilise une police TrueType de 10&nbsp;points avec le tout dernier thème Mostfet Liquid.</p>
+
+<div style="text-align: center"><img src="content/en/screenshots/prefspanel1.png" align="center" alt="Edit Style Dialog" title="General Preferences" /></div>
+
+<h3>Configuration de la souris</h3>
+<p>Si votre souris est munie d'une molette de défilement, vous pouvez définir le nombre de lignes qui défilent pour chaque cran de la molette. Le <strong>Rayon d'action</strong> définit la distance à partir de laquelle on peut saisir un objet. Plus le chiffre est petit, plus la précision est grande mais il sera alors parfois difficile de sélectionner les très petits objets.</p>
+
+<h3>Chemins d'accès</h3>
+<p>Vous pouvez définir les chemins d'accès à vos documents, à vos profils ICC et à vos scripts Python. Vous n'avez qu'à cliquer sur l'endroit de votre choix. Notez que les répertoires cachés ne sont pas visibles par défaut mais un clic droit dans la fenêtre de vos répertoires vous permet de sélectionner «&nbsp;Afficher les fichiers cachés&nbsp;».</p>
+
+<h3>Document</h3>
+<p>C'est ici que vous réglez les paramètres par défaut de format du document, des marges et de l'enregistrement automatique. Ce dernier réglage permet à Scribus de sauvegarder une copie de votre document avec l'extension <code>.sla.bak</code>.</p>
+
+<div style="text-align: center"><img src="content/en/screenshots/prefspanel2.png" align="center" alt="Default Document Settings" title="Default Document Settings" /></div>
+
+<h3>Guides</h3>
+<p>Le panneau de configuration Guide permet d'établir les valeurs par défaut de distance, de couleur et de magnétisme des grilles de Scribus. La Grille typographique est une suite de guides horizontaux sur lesquels on peut forcer un texte réparti sur plusieurs colonnes à s'aligner horizontalement tel que montré plus bas. On règle l'interlignage dans <!--<a href="/index.php&#063;lang=en&#038;sm=setup&#038;page=machints1">-->Styles de paragraphe<!--</a>-->, et dans le panneau suivant&nbsp;: <strong>Typographie</strong>.</p>
+
+<h3>Typographie</h3>
+<p>Ici, vous pouvez modifier les options typographiques&nbsp;: exposants, indices, petites capitales et interlignage automatique. Le <strong>Décalage</strong> est le déplacement vertical au-dessus ou au-dessous de la ligne de base du texte normal. La <strong>Grille typographique</strong> ne s'imprime pas et permet un alignement parfait du texte d'une colonne à l'autre sur une page. La <strong>Position de la première ligne de la grille typographique</strong> établit le point de départ de cette grille à partir du haut de la page.</p>
+
+<div style="text-align: center"><img src="content/en/screenshots/prefsblgrid1.png" alt="Baseline Grids"title="Baseline Grids" /></div>
+
+<div style="text-align: center"><img src="content/en/screenshots/prefspanel3.png" align="center" alt="Typography Tab Panel" /></div>
+
+<h3>Outils</h3>
+<p>Le panneau Outils permet de régler les valeurs par défaut de plusieurs tâches&nbsp;: police, corps et couleur, cadre de texte et d'image ainsi que le zoom. La majorité de ces réglages pourront être modifiés en cours de travail soit dans les menus contextuels, soit dans la palette des Propriétés.</p>
+
+<div style="text-align: center"><img src="content/en/screenshots/prefspanel4.png" alt="Tools Tab Panel" /></div>
+
+<h4>Polygones</h4>
+<p>Il est possible de dessiner des étoiles, des triangles et des polygones convexes sans nécessairement avoir à tracer ces formes avec une grande précision. Vous pouvez aussi appliquer des dégradés de couleur à toutes ces formes à partir de la palette des Propriétés. L'exemple montre ici comment faire d'une étoile la valeur par défaut.</p>
+
+<h3>Album</h3>
+<p>Vous pouvez glisser-déposer dans l'album, avec le <em>bouton droit,</em> les éléments que vous utilisez fréquemment. Images et textes peuvent être placés très rapidement dans l'album. L'album peut être enregistré à même votre document ou indépendamment de celui-ci. Son contenu sera alors à votre disposition pour plusieurs autres documents par simple chargement (Fichier > Charger). Les albums distincts portent l'extension .scs. L'exemple ci-dessous montre que la taille de l'album est réglée à petit et que toute modification de l'album sera enregistrée automatiquement.</p>
+
+<h3>Affichage</h3>
+<p>Ce panneau permet de régler les valeurs par défaut de la couleur des marges et du fond de page. Vous pouvez choisir d'afficher la zone non imprimable dans la couleur des marges. C'est ici que vous indiquez à Scribus d'afficher les pages en vis-à-vis.</p>
+
+<div style="text-align: center"><img src="content/en/screenshots/prefspanel5.png" alt="Setting the Display Preferences for Scribus" title="Setting the Display Preferences for Scribus" /></div>
+
+<p>Le panneau de configuration Affichage permet aussi d'activer l'option de transparence du format PDF 1.4 (Acrobat 5+). Par défaut, cette option est désactivée. Pour des renseignements additionnels sur les PDF, consultez les pages à <a href="/index.php&#063;lang=en&#038;sm=exportingtopdf&#038;page=pdfexport1">Options d'exportation en PDF</a> et <a href="/index.php&#063;lang=en&#038;sm=exportingtopdf&#038;page=pdfx3">PDF/X-3 et Scribus</a>. Le réglage de l'affichage vous permet d'ajuster la dimension de votre écran de façon à ce qu'un centimètre à l'écran égale vraiment un centimètre (ou toute autre unité de mesure de votre choix). Placez une règle sur votre écran et faites glisser le curseur jusqu'à ce que la mesure à l'écran soit égale à celle de la règle.</p>
+
+<div style="text-align: center"><img src="content/en/screenshots/gsadv2.png" alt="External Tools Settings" title="External Tools Settings" /></div>
+
+<h3>Outils externes</h3>
+<p>C'est ici que vous indiquerez à Scribus où trouver Ghostscript ainsi que votre outil de prédilection pour l'édition des images. Dans l'exemple ci-dessous, une compilation parallèle de Ghostscript&nbsp;8.14 a été installée dans <code>/usr/local/bin/</code> pour de meilleurs résultats lors de l'importation des fichiers EPS, PS et PDF, en plus d'accélérer les prévisualisation d'impression. Consultez <a href="/index.php&#063;lang=en&#038;sm=dtptoolbox&#038;page=toolbox7" title="Advanced Setup of Ghostscript">Ghostscript avancé.</a> Note très importante quand vous utilisez GIMP pour éditer vos images&nbsp;: <strong>vous devez quitter GIMP afin que Scribus reprenne le contrôle.</strong></p>
+</div>
+</qt>
