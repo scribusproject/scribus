@@ -97,9 +97,9 @@ int scriptplugin_getPluginAPIVersion()
 
 ScPlugin* scriptplugin_getPlugin()
 {
+	scripterCore=0;
 	ScriptPlugin* plug = new ScriptPlugin();
 	Q_CHECK_PTR(plug);
-	scripterCore=0;
 	return plug;
 }
 
