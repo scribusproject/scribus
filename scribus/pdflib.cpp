@@ -621,7 +621,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 		{
 			if (pgit->isAnnotation())
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
-			for (uint e = 0; e < pgit->itemText.length(); ++e)
+			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.charStyle(e).cfont->scName(), DocFonts[pgit->itemText.charStyle(e).cfont->scName()]);
 			}
@@ -634,7 +634,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 		{
 			if (pgit->isAnnotation())
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
-			for (uint e = 0; e < pgit->itemText.length(); ++e)
+			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.charStyle(e).cfont->scName(), DocFonts[pgit->itemText.charStyle(e).cfont->scName()]);
 			}
@@ -647,7 +647,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 		{
 			if (pgit->isAnnotation())
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
-			for (uint e = 0; e < pgit->itemText.length(); ++e)
+			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.charStyle(e).cfont->scName(), DocFonts[pgit->itemText.charStyle(e).cfont->scName()]);
 			}
@@ -3989,7 +3989,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	double y2 = y-ite->height();
 	QString bm("");
 	QString cc;
-	for (uint d = 0; d < ite->itemText.length(); ++d)
+	for (uint d = 0; d < static_cast<uint>(ite->itemText.length()); ++d)
 	{
 		cc = ite->itemText.text(d, 1);
 		if ((cc == "(") || (cc == ")") || (cc == "\\"))
@@ -4053,7 +4053,12 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			const QString x[] = {"S", "D", "U", "B", "I"};
 			PutDoc(x[ite->annotation().Bsty()]);
 			PutDoc(" >>\n");
-			QString cnx = "("+ind2PDFabr[ite->annotation().Font()]+" "+FToStr(ite->fontSize() / 10.0)+" Tf";
+			QString cnx = "(";
+			if (Options.Version < 14)
+				cnx += ind2PDFabr[ite->annotation().Font()];
+			else
+				cnx += UsedFontsP[ite->font()]+"S0";
+			cnx += " "+FToStr(ite->fontSize() / 10.0)+" Tf";
 			if (ite->TxtFill != CommonStrings::None)
 				cnx += " "+ putColor(ite->TxtFill, ite->ShTxtFill, true);
 			if (ite->fillColor() != CommonStrings::None)
@@ -4331,7 +4336,10 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += "/Tx BMC\nBT\n";
 		if (ite->TxtFill != CommonStrings::None)
 			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
-		cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
+		if (Options.Version < 14)
+			cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
+		else
+			cc += "/"+UsedFontsP[ite->font()]+"S0";
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		if (bmst.count() > 1)
 		{
@@ -4371,7 +4379,11 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += "0 0 "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nS\n";
 		cc += "/Tx BMC\nq\nBT\n";
 		cc += "0 g\n";
-		cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
+		if (Options.Version < 14)
+			cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
+		else
+			cc += "/"+UsedFontsP[ite->font()]+"S0";
+//		cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 //		cc += ind2PDFabr[ite->AnFont];
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
