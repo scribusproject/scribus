@@ -6267,7 +6267,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 							lastStyleStart = e;
 							lastParaStyle = cabneu;
 						}
-						if (ite->itemText.text(e) == SpecialChars::PARSEP) {
+						if (ite->itemText.text(e) == SpecialChars::PARSEP && cabneu >= 0) {
 							ite->itemText.applyStyle(e, doc->docParagraphStyles[cabneu]);
 						}
 					}
@@ -6280,7 +6280,8 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 				}
 				if (ite->itemText.length() > 0) {
 					ite->itemText.applyStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
-					ite->itemText.applyStyle(ite->itemText.length()-1, doc->docParagraphStyles[lastParaStyle]);
+					if (lastParaStyle >=0 )
+						ite->itemText.applyStyle(ite->itemText.length()-1, doc->docParagraphStyles[lastParaStyle]);
 				}
 			}
 		}
