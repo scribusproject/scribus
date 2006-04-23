@@ -848,7 +848,8 @@ void SEditor::saveItemText(PageItem *currItem)
 		}
 	}
 	currItem->itemText.applyStyle(startOfCurStyle, currItem->itemText.length() - startOfCurStyle, curStyle);
-	currItem->itemText.applyStyle(currItem->itemText.length() - 1, (doc->docParagraphStyles[ParagStyles[StyledText.count()-2]])); // -1 -1 == -2
+	if (StyledText.count() > 1)
+		currItem->itemText.applyStyle(currItem->itemText.length() - 1, (doc->docParagraphStyles[ParagStyles[StyledText.count()-2]])); // -1 -1 == -2
 }
 
 void SEditor::setAlign(int style)
