@@ -18,6 +18,9 @@ for which a new license (GPL+exception) is in place.
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
+
+FT_Error ftIOFunc( FT_Stream fts, unsigned long offset, unsigned char* buffer, unsigned long count);
+
 // #include <qpixmap.h>
 
 #include "scribusapi.h"
