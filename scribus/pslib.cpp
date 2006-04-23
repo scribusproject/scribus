@@ -396,7 +396,10 @@ void PSLib::PS_begin_doc(int, double x, double y, double breite, double hoehe, i
 		PutSeite(">> setpagedevice\n");
 	}
 	if (over)
+	{
 		PutDoc("true setoverprint\n");
+		PutDoc("true setoverprintmode\n");
+	}
 	PutDoc("%%EndSetup\n");
 	Prolog = "";
 	FontDesc = "";
