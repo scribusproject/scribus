@@ -1386,7 +1386,10 @@ currentpagedevice /HWResolution get aload pop
     /GlyphShowTempFont exch currentfont i_reencode
     setfont
     (\000) show 
+	currentpoint 3 -1 roll % curx cury -save-
 	restore
+	newpath
+	moveto
 } i_shortcutOverload
 
 /showpage
