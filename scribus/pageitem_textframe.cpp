@@ -354,7 +354,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						tTabValues = TabValues;
 					else
 						tTabValues = m_Doc->docParagraphStyles[hl->cab].tabValues();
-					if (hl->cstyle & 16384)
+					if (hl->cstyle & ScStyle_StartOfLine)
 						tabCc = 0;
 					chx = hl->ch;
 					if (hl->yp == 0)
@@ -374,7 +374,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 					}
 					chs = hl->csize;
-					if (hl->cstyle & 2048)
+					if (hl->cstyle & ScStyle_DropCap)
 					{
 						if (m_Doc->docParagraphStyles[hl->cab].useBaselineGrid())
 							chs = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (m_Doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->numAscent * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->cfont, chx, 10))));
@@ -446,7 +446,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						Zli3.wide = (hl->cembedded->gWidth + hl->cembedded->lineWidth()) * (hl->cscale / 1000.0);
 					else
 						Zli3.wide = Cwidth(m_Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
-					if (hl->cstyle & 16384)
+					if (hl->cstyle & ScStyle_StartOfLine)
 						Zli3.kern = 0;
 					else
 						Zli3.kern = chs * hl->cextra / 10000.0;
@@ -511,7 +511,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 									else
 										ytrans = Zli3.yco-m_Doc->docParagraphStyles[hl->cab].lineSpacing()-((Zli3.Siz / 10.0) * 0.4);
 								}
-								if (hl->cstyle & 16384)
+								if (hl->cstyle & ScStyle_StartOfLine)
 									xtrans = Zli3.xco;
 								else
 								{
@@ -538,7 +538,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							else
 								DrawZeichenS(p, &Zli3);
 						}
-						if (hl->cstyle & 8192)
+						if (hl->cstyle & ScStyle_SmartHyphenVisible)
 						{
 							Zli3.Zeich = "-";
 							Zli3.xco = Zli3.xco + Zli3.wide;
@@ -695,15 +695,15 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							CurY += m_Doc->docParagraphStyles[absa].gapBefore();
 						}
 					}
-					hl->cstyle &= static_cast<StyleFlag>(0xF7FF); // 2047;
-					hl->cstyle &= static_cast<StyleFlag>(8191);
+					hl->cstyle &= ~ScStyle_DropCap;
+					hl->cstyle &= ~ScStyle_SmartHyphenVisible;
 					if (((m_Doc->docParagraphStyles[absa].alignment() == 3) || (m_Doc->docParagraphStyles[absa].alignment() == 4)) && (LiList.count() == 0) && (hl->ch == " "))
 					{
 						hl->cstyle |= ScStyle_SuppressSpace;
 						continue;
 					}
 					else
-						hl->cstyle &= static_cast<StyleFlag>(0xEFFF); // 4095;
+						hl->cstyle &= ~ScStyle_SuppressSpace;
 					if (LiList.count() == 0)
 					{
 						if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)) && (!StartOfCol))
@@ -1069,7 +1069,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					else
 					{
 						kernVal = chs * hl->cextra / 10000.0;
-						itemText.at(a)->cstyle &= ScStyle_StartOfLine;
+						itemText.at(a)->cstyle &= ~ScStyle_StartOfLine;
 					}
 					if (!RTab)
 					{
@@ -1087,9 +1087,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						CurX += (wide+kernVal) / 2;
 						CurX = QMAX(CurX, ColBound.x());
 					}
-					if (((hl->cstyle & 128) || (hl->ch == "-")) && ((HyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0)))
+					if (((hl->cstyle & ScStyle_HyphenationPossible) || (hl->ch == "-")) && ((HyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0)))
 					{
-						if (hl->cstyle & 128)
+						if (hl->cstyle & ScStyle_HyphenationPossible)
 						{
 							pt1 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(m_Doc, hl->cfont, "-", hl->csize) * (hl->cscale / 1000.0))), qRound(CurY+desc));
 							pt2 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(m_Doc, hl->cfont, "-", hl->csize) * (hl->cscale / 1000.0))), qRound(ceil(CurY-asce)));
@@ -1163,7 +1163,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							LastSP = BuPos;
 						}
 					}
-					if (((hl->cstyle & 128) || (hl->ch == "-")) && (!outs))
+					if (((hl->cstyle & ScStyle_HyphenationPossible) || (hl->ch == "-")) && (!outs))
 					{
 						if ((HyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0))
 						{
@@ -1294,7 +1294,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							{
 								a -= BuPos - LastSP;
 								a++;
-								if (itemText.at(a)->cstyle & 128)
+								if (itemText.at(a)->cstyle & ScStyle_HyphenationPossible)
 								{
 									HyphenCount++;
 									itemText.at(a)->cstyle |= ScStyle_SmartHyphenVisible;
@@ -1330,7 +1330,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								else
 								{
 									HyphenCount = 0;
-									hl->cstyle &= static_cast<StyleFlag>(8191);
+									hl->cstyle &= ~ScStyle_SmartHyphenVisible;
 								}
 								BuPos = LastSP+1;
 								if (m_Doc->docParagraphStyles[absa].alignment() != 0)
@@ -2624,10 +2624,10 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		if ((CPos > 0) && (CPos == static_cast<int>(itemText.count())))
 		{
-			if (itemText.at(CPos-1)->cstyle & 4096)
+			if (itemText.at(CPos-1)->cstyle & ScStyle_SuppressSpace)
 			{
 				--CPos;
-				while ((CPos > 0) && (itemText.at(CPos)->cstyle & 4096))
+				while ((CPos > 0) && (itemText.at(CPos)->cstyle & ScStyle_SuppressSpace))
 				{
 					--CPos;
 					if (CPos == 0)
@@ -2637,7 +2637,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		else
 		{
-			while ((CPos > 0) && (itemText.at(CPos)->cstyle & 4096))
+			while ((CPos > 0) && (itemText.at(CPos)->cstyle & ScStyle_SuppressSpace))
 			{
 				--CPos;
 				if (CPos == 0)

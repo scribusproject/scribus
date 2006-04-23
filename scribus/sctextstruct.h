@@ -40,7 +40,7 @@ class PageItem;
 enum StyleFlag {
 	ScStyle_Default       = 0,
     ScStyle_Superscript   = 1,
-    ScStyle_Subcript      = 2,
+    ScStyle_Subscript     = 2,
     ScStyle_Outline       = 4,
     ScStyle_Underline     = 8,
     ScStyle_Strikethrough = 16,

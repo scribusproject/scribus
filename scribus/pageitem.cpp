@@ -1171,24 +1171,24 @@ double PageItem::SetZeichAttr(const CharStyle& style, int *chs, QString *chx)
 	double retval = 0.0;
 	double asce = style.cfont->numAscent * (style.csize / 10.0);
 	int chst = style.cstyle & 1919;
-	if (chst != 0)
+	if (chst != ScStyle_Default)
 	{
-		if (chst & 1)
+		if (chst & ScStyle_Superscript)
 		{
 			retval -= asce * m_Doc->typographicSettings.valueSuperScript / 100;
 			*chs = QMAX(static_cast<int>(style.csize * m_Doc->typographicSettings.scalingSuperScript / 100), 1);
 		}
-		if (chst & 2)
+		if (chst & ScStyle_Subscript)
 		{
 			retval += asce * m_Doc->typographicSettings.valueSubScript / 100;
 			*chs = QMAX(static_cast<int>(style.csize * m_Doc->typographicSettings.scalingSubScript / 100), 1);
 		}
-		if (chst & 32)
+		if (chst & ScStyle_AllCaps)
 		{
 			if (chx->upper() != *chx)
 				*chx = chx->upper();
 		}
-		if (chst & 64)
+		if (chst & ScStyle_SmallCaps)
 		{
 			if (chx->upper() != *chx)
 			{
@@ -1287,7 +1287,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			}
 			else
 			{
-				if ((hl->Style & 256) && (hl->Farb2 != CommonStrings::None))
+				if ((hl->Style & ScStyle_Shadowed) && (hl->Farb2 != CommonStrings::None))
 				{
 					p->save();
 					p->translate((hl->Siz * hl->shadowX / 10000.0) * p->zoomFactor(), -(hl->Siz * hl->shadowY / 10000.0) * p->zoomFactor());
@@ -1305,7 +1305,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 				}
 				if (hl->Farb != CommonStrings::None)
 					p->fillPath();
-				if ((hl->Style & 4) && (hl->Farb2 != CommonStrings::None) && ((hl->Siz * hl->outline / 10000.0) != 0))
+				if ((hl->Style & ScStyle_Outline) && (hl->Farb2 != CommonStrings::None) && ((hl->Siz * hl->outline / 10000.0) != 0))
 				{
 					p->setLineWidth(hl->Siz * hl->outline / 10000.0);
 					p->strokePath();
@@ -1313,7 +1313,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			}
 			p->setFillRule(fr);
 		}
-		if (hl->Style & 16)
+		if (hl->Style & ScStyle_Strikethrough)
 		{
 			double st, lw;
 			if ((hl->strikepos != -1) || (hl->strikewidth != -1))
@@ -1338,7 +1338,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			p->setLineWidth(lw);
 			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
 		}
-		if ((hl->Style & 8) || ((hl->Style & 512) && (!ccx[0].isSpace())))
+		if ((hl->Style & ScStyle_Underline) || ((hl->Style & ScStyle_UnderlineWords) && (!ccx[0].isSpace())))
 		{
 			double st, lw;
 			if ((hl->underpos != -1) || (hl->underwidth != -1))

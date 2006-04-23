@@ -282,6 +282,9 @@ void SampleItem::setKernVal(int kernVal)
 
 QPixmap SampleItem::getSample(int width, int height)
 {
+	if (tmpStyle.charStyle().font() == NULL)
+		return QPixmap();
+	
 	UndoManager::instance()->setUndoEnabled(false); // disable undo
 
 	PageItem_TextFrame *previewItem = new PageItem_TextFrame(doc, 0, 0, width, height, 0, "__whiteforpreviewbg__", "__whiteforpreview__");
@@ -297,8 +300,6 @@ QPixmap SampleItem::getSample(int width, int height)
 		ScMW->view->setScale(1.0);
 	}
 
-	QFont fo = QFont(tmpStyle.charStyle().cfont->scName());
-	fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
 	doc->AddFont(tmpStyle.charStyle().cfont->scName(), qRound(doc->toolSettings.defSize / 10.0));
 	doc->docParagraphStyles.append(tmpStyle);
 	int tmpIndex = doc->docParagraphStyles.count() - 1;
@@ -307,17 +308,10 @@ QPixmap SampleItem::getSample(int width, int height)
 	previewItem->itemText.clear();
 	previewItem->setFont(tmpStyle.charStyle().cfont->scName());
 	previewItem->Cols = 1;
-#ifndef NLS_PROTO
-	for (uint i = 0; i < text.length(); ++i)
-	{
-		ScText *hg = new ScText;
-		hg->ch = text.at(i);
-		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
-			hg->ch = QChar(13);
-		previewItem->itemText.append(hg);
-	}
-#endif
+	text.replace(QChar(10),QChar(13)).replace(QChar(5),QChar(13));
+	previewItem->itemText.insertChars(0, text);
 	doc->chAbStyle(previewItem, tmpIndex);
+	previewItem->itemText.applyStyle(0, text.length(), tmpStyle.charStyle());
 	previewItem->setFillColor("__whiteforpreviewbg__");
 	previewItem->setFillShade(bgShade);
 	previewItem->SetRectFrame();

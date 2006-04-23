@@ -4301,7 +4301,7 @@ void ScribusDoc::ItemGradFill(int typ)
 void ScribusDoc::chTyStyle(int s)
 {
 	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
+	if (selectedItemCount != 0 && s != ScStyle_None)
 	{
 		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontEffect, "", Um::IFont);
@@ -4320,7 +4320,7 @@ void ScribusDoc::chTyStyle(int s)
 						if (currItem->itemText.at(a)->cselect)
 						{
 							currItem->itemText.at(a)->cstyle &= static_cast<StyleFlag>(~1919); // 0x11101111111
-							currItem->itemText.at(a)->cstyle |= static_cast<StyleFlag>(s);
+							currItem->itemText.at(a)->cstyle |= static_cast<StyleFlag>(s & 1919);
 						}
 					}
 				}
@@ -4329,7 +4329,7 @@ void ScribusDoc::chTyStyle(int s)
 					for (uint a = 0; a < currItem->itemText.count(); ++a)
 					{
 						currItem->itemText.at(a)->cstyle &= static_cast<StyleFlag>(~1919); // 1024+512+256+64+32+16+8+4+2+1
-						currItem->itemText.at(a)->cstyle |= static_cast<StyleFlag>(s);
+						currItem->itemText.at(a)->cstyle |= static_cast<StyleFlag>(s & 1919);
 					}
 				}
 #endif
@@ -4381,8 +4381,10 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 					{
 						nextItem->itemText.at(a)->cfont = docParagraphStyles[s].charStyle().cfont;
 						nextItem->itemText.at(a)->csize = docParagraphStyles[s].charStyle().fontSize();
-						nextItem->itemText.at(a)->cstyle &= static_cast<StyleFlag>(~1919);
-						nextItem->itemText.at(a)->cstyle |= docParagraphStyles[s].charStyle().cstyle;
+						if (docParagraphStyles[s].charStyle().cstyle != ScStyle_None) {
+							nextItem->itemText.at(a)->cstyle &= static_cast<StyleFlag>(~1919);
+							nextItem->itemText.at(a)->cstyle |= static_cast<StyleFlag>(docParagraphStyles[s].charStyle().cstyle & 1919);
+						}
 						nextItem->itemText.at(a)->ccolor = docParagraphStyles[s].charStyle().ccolor;
 						nextItem->itemText.at(a)->cshade = docParagraphStyles[s].charStyle().cshade;
 						nextItem->itemText.at(a)->cstroke = docParagraphStyles[s].charStyle().cstroke;
@@ -4408,8 +4410,10 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 					nextItem->itemText.at(a)->cshade2 = nextItem->ShTxtStroke;
 					nextItem->itemText.at(a)->csize = nextItem->fontSize();
 					nextItem->itemText.at(a)->cfont = (*AllFonts)[nextItem->font()];
-					nextItem->itemText.at(a)->cstyle &= static_cast<StyleFlag>(~1919);
-					nextItem->itemText.at(a)->cstyle |= static_cast<StyleFlag>(nextItem->TxTStyle);
+					if (nextItem->TxTStyle != ScStyle_None) {
+						nextItem->itemText.at(a)->cstyle &= static_cast<StyleFlag>(~1919);
+						nextItem->itemText.at(a)->cstyle |= static_cast<StyleFlag>(nextItem->TxTStyle & 1919);
+					}
 					nextItem->itemText.at(a)->cshadowx = nextItem->TxtShadowX;
 					nextItem->itemText.at(a)->cshadowy = nextItem->TxtShadowY;
 					nextItem->itemText.at(a)->coutline = nextItem->TxtOutline;
@@ -4448,8 +4452,10 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 					{
 						nextItem->itemText.at(a)->cfont = docParagraphStyles[s].charStyle().cfont;
 						nextItem->itemText.at(a)->csize = docParagraphStyles[s].charStyle().fontSize();
-						nextItem->itemText.at(a)->cstyle &= static_cast<StyleFlag>(~1919);
-						nextItem->itemText.at(a)->cstyle |= docParagraphStyles[s].charStyle().cstyle;
+						if (docParagraphStyles[s].charStyle().cstyle != ScStyle_None) {
+							nextItem->itemText.at(a)->cstyle &= static_cast<StyleFlag>(~1919);
+							nextItem->itemText.at(a)->cstyle |= static_cast<StyleFlag>(docParagraphStyles[s].charStyle().cstyle & 1919);
+						}
 						nextItem->itemText.at(a)->ccolor = docParagraphStyles[s].charStyle().ccolor;
 						nextItem->itemText.at(a)->cshade = docParagraphStyles[s].charStyle().cshade;
 						nextItem->itemText.at(a)->cstroke = docParagraphStyles[s].charStyle().cstroke;
@@ -4475,8 +4481,10 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 					nextItem->itemText.at(a)->cshade2 = nextItem->ShTxtStroke;
 					nextItem->itemText.at(a)->csize = nextItem->fontSize();
 					nextItem->itemText.at(a)->cfont = (*AllFonts)[nextItem->font()];
-					nextItem->itemText.at(a)->cstyle &= static_cast<StyleFlag>(~1919);
-					nextItem->itemText.at(a)->cstyle |= static_cast<StyleFlag>(nextItem->TxTStyle);
+					if (nextItem->TxTStyle != ScStyle_None) {
+						nextItem->itemText.at(a)->cstyle &= static_cast<StyleFlag>(~1919);
+						nextItem->itemText.at(a)->cstyle |= static_cast<StyleFlag>(nextItem->TxTStyle & 1919);
+					}
 					nextItem->itemText.at(a)->cshadowx = nextItem->TxtShadowX;
 					nextItem->itemText.at(a)->cshadowy = nextItem->TxtShadowY;
 					nextItem->itemText.at(a)->coutline = nextItem->TxtOutline;
