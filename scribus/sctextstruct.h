@@ -261,7 +261,7 @@ inline void CharStyle::applyStyle(const CharStyle & other)
 	if (other.cshade2 != NOVALUE)
 		cshade2 = other.cshade2;
 	if (other.cstyle != ScStyle_None)
-		cstyle = static_cast<StyleFlag>((cstyle & ScStyle_UserStyles) | (other.cstyle & ScStyle_UserStyles));
+		cstyle = static_cast<StyleFlag>((cstyle & ~ScStyle_UserStyles) | (other.cstyle & ScStyle_UserStyles));
 	if (other.cscale != NOVALUE)
 		cscale = other.cscale;
 	if (other.cscalev != NOVALUE)
