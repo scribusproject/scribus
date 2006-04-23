@@ -145,6 +145,7 @@ class SCRIBUS_API PSLib : public QObject
 		bool DoSep;
 		bool useSpotColors;
 		bool fillRule;
+		bool doOverprint;
 		QString currentSpot;
 		ColorList colorsToUse;
 		QString colorDesc;

@@ -89,6 +89,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	useLayers2(0),
 	UseLPI(0),
 	useSpot(0),
+	overprintMode(0),
 	useThumbnails(0),
 	ValC(0),
 	// Protected members other than GUI member pointers
@@ -835,6 +836,10 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	useSpot->setChecked(!Opts.UseSpotColors);
 	tabColorLayout->addWidget( useSpot );
 
+	overprintMode = new QCheckBox( tr( "Force Overprint Mode" ), tabColor, "overprintMode" );
+	overprintMode->setChecked(Opts.doOverprint);
+	tabColorLayout->addWidget( overprintMode );
+
 	UseLPI = new QCheckBox( tr( "&Use Custom Rendering Settings" ), tabColor, "UseLPI" );
 	UseLPI->setChecked(Opts.UseLPI);
 	tabColorLayout->addWidget( UseLPI );
@@ -1209,6 +1214,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	QToolTip::add( BleedRight, "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
 	QToolTip::add( MirrorH, "<qt>" + tr( "Mirror Page(s) horizontally" ) + "</qt>" );
 	QToolTip::add( MirrorV, "<qt>" + tr( "Mirror Page(s) vertically" ) + "</qt>" );
+	QToolTip::add(overprintMode, "<qt>"+ tr("Enables global Overprint Mode for this document, overrides object settings") + "<qt>");
 	QToolTip::add( useSpot,"<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
 	QToolTip::add( ClipMarg, "<qt>" + tr( "Do not show objects outside the margins in the exported file" ) + "</qt>" );
 }
@@ -1423,12 +1429,14 @@ void TabPDFOptions::EnableLPI(int a)
 			ProfsGroup->show();
 			UseLPI->hide();
 			useSpot->hide();
+			overprintMode->hide();
 		}
 		else
 		{
 			GroupBox9->hide();
 			ProfsGroup->hide();
 			useSpot->show();
+			overprintMode->show();
 			UseLPI->show();
 			if (UseLPI->isChecked())
 				LPIgroup->show();
@@ -1439,6 +1447,7 @@ void TabPDFOptions::EnableLPI(int a)
 	else
 	{
 		useSpot->hide();
+		overprintMode->hide();
 		UseLPI->hide();
 		LPIgroup->hide();
 	}

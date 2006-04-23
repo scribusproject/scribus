@@ -412,6 +412,7 @@ void PrefsManager::initDefaults()
 	appPrefs.PDF_Options.UseLPI = false;
 	appPrefs.PDF_Options.LPISettings.clear();
 	appPrefs.PDF_Options.UseSpotColors = true;
+	appPrefs.PDF_Options.doOverprint = false;
 	appPrefs.PDF_Options.doMultiFile = false;
 	appPrefs.PDF_Options.displayBookmarks = false;
 	appPrefs.PDF_Options.displayFullscreen = false;
@@ -1221,6 +1222,7 @@ bool PrefsManager::WritePref(QString ho)
 	pdf.setAttribute("UseLayers", static_cast<int>(appPrefs.PDF_Options.useLayers));
 	pdf.setAttribute("UseLpi", static_cast<int>(appPrefs.PDF_Options.UseLPI));
 	pdf.setAttribute("UseSpotColors", static_cast<int>(appPrefs.PDF_Options.UseSpotColors));
+	pdf.setAttribute("doOverprint", static_cast<int>(appPrefs.PDF_Options.doOverprint));
 	pdf.setAttribute("doMultiFile", static_cast<int>(appPrefs.PDF_Options.doMultiFile));
 	pdf.setAttribute("displayBookmarks", static_cast<int>(appPrefs.PDF_Options.displayBookmarks));
 	pdf.setAttribute("displayFullscreen", static_cast<int>(appPrefs.PDF_Options.displayFullscreen));
@@ -1752,6 +1754,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.PDF_Options.useLayers = static_cast<bool>(dc.attribute("UseLayers", "0").toInt());
 			appPrefs.PDF_Options.UseLPI = static_cast<bool>(dc.attribute("UseLpi", "0").toInt());
 			appPrefs.PDF_Options.UseSpotColors = static_cast<bool>(dc.attribute("UseSpotColors", "1").toInt());
+			appPrefs.PDF_Options.doOverprint = static_cast<bool>(dc.attribute("doOverprint", "0").toInt());
 			appPrefs.PDF_Options.doMultiFile = static_cast<bool>(dc.attribute("doMultiFile", "0").toInt());
 			appPrefs.PDF_Options.displayBookmarks = static_cast<bool>(dc.attribute("displayBookmarks", "0").toInt());
 			appPrefs.PDF_Options.displayFullscreen = static_cast<bool>(dc.attribute("displayFullscreen", "0").toInt());

@@ -1140,6 +1140,20 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 				if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 					continue;
 				PutPage("q\n");
+				if ((ite->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
+				{
+					StartObj(ObjCounter);
+					QString ShName = ResNam+QString::number(ResCount);
+					Transpar[ShName] = ObjCounter;
+					ResCount++;
+					ObjCounter++;
+					PutDoc("<< /Type /ExtGState\n");
+					PutDoc("/OP true\n");
+					PutDoc("/op true\n");
+					PutDoc("/OPM 1\n");
+					PutDoc(">>\nendobj\n");
+					PutPage("/"+ShName+" gs\n");
+				}
 				if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
 					PutPage(PDF_Transparenz(ite));
 /* Bookmarks on Master Pages do not make any sense */
@@ -1775,6 +1789,20 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						else
 						{
 							PutPage("q\n");
+							if ((ite->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
+							{
+								StartObj(ObjCounter);
+								QString ShName = ResNam+QString::number(ResCount);
+								Transpar[ShName] = ObjCounter;
+								ResCount++;
+								ObjCounter++;
+								PutDoc("<< /Type /ExtGState\n");
+								PutDoc("/OP true\n");
+								PutDoc("/op true\n");
+								PutDoc("/OPM 1\n");
+								PutDoc(">>\nendobj\n");
+								PutPage("/"+ShName+" gs\n");
+							}
 							if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
 								PutPage(PDF_Transparenz(ite));
 							if (ite->fillColor() != CommonStrings::None)
@@ -1897,6 +1925,20 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						if (!ite->isTableItem)
 							continue;
 						PutPage("q\n");
+						if ((ite->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
+						{
+							StartObj(ObjCounter);
+							QString ShName = ResNam+QString::number(ResCount);
+							Transpar[ShName] = ObjCounter;
+							ResCount++;
+							ObjCounter++;
+							PutDoc("<< /Type /ExtGState\n");
+							PutDoc("/OP true\n");
+							PutDoc("/op true\n");
+							PutDoc("/OPM 1\n");
+							PutDoc(">>\nendobj\n");
+							PutPage("/"+ShName+" gs\n");
+						}
 						if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
 							PutPage(PDF_Transparenz(ite));
 						if (ite->fillColor() != CommonStrings::None)
@@ -2059,6 +2101,20 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 						continue;
 					PutPage("q\n");
+					if ((ite->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
+					{
+						StartObj(ObjCounter);
+						QString ShName = ResNam+QString::number(ResCount);
+						Transpar[ShName] = ObjCounter;
+						ResCount++;
+						ObjCounter++;
+						PutDoc("<< /Type /ExtGState\n");
+						PutDoc("/OP true\n");
+						PutDoc("/op true\n");
+						PutDoc("/OPM 1\n");
+						PutDoc(">>\nendobj\n");
+						PutPage("/"+ShName+" gs\n");
+					}
 					if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
 						PutPage(PDF_Transparenz(ite));
 					if (!ite->printEnabled())
@@ -2191,6 +2247,20 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 	if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 		return tmp;
 	tmp += "q\n";
+	if ((ite->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
+	{
+		StartObj(ObjCounter);
+		QString ShName = ResNam+QString::number(ResCount);
+		Transpar[ShName] = ObjCounter;
+		ResCount++;
+		ObjCounter++;
+		PutDoc("<< /Type /ExtGState\n");
+		PutDoc("/OP true\n");
+		PutDoc("/op true\n");
+		PutDoc("/OPM 1\n");
+		PutDoc(">>\nendobj\n");
+		tmp += "/"+ShName+" gs\n";
+	}
 	if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
 		tmp += PDF_Transparenz(ite);
 	if ((ite->isBookmark) && (Options.Bookmarks))

@@ -1074,6 +1074,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 	uint a;
 	int sepac;
 	int pagemult;
+	doOverprint = over;
 	if ((sep) && (SepNam == QObject::tr("All")))
 		pagemult = spots.count();
 	else
@@ -1281,6 +1282,14 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 							else if (ite->asImageFrame())
 							{
 								PS_save();
+								if (!doOverprint)
+								{
+									if (ite->doOverprint)
+									{
+										PutSeite("true setoverprint\n");
+										PutSeite("true setoverprintmode\n");
+									}
+								}
 								PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() -(ite->yPos()) - mPage->yOffset());
 								if (ite->rotation() != 0)
 									PS_rotate(-ite->rotation());
@@ -1354,6 +1363,14 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 							else if (ite->asTextFrame())
 							{
 								PS_save();
+								if (!doOverprint)
+								{
+									if (ite->doOverprint)
+									{
+										PutSeite("true setoverprint\n");
+										PutSeite("true setoverprintmode\n");
+									}
+								}
 								if (ite->fillColor() != CommonStrings::None)
 								{
 									SetFarbe(ite->fillColor(), ite->fillShade(), &h, &s, &v, &k, gcr);
@@ -1423,6 +1440,14 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 						if (ite->printEnabled())
 						{
 							PS_save();
+							if (!doOverprint)
+							{
+								if (ite->doOverprint)
+								{
+									PutSeite("true setoverprint\n");
+									PutSeite("true setoverprintmode\n");
+								}
+							}
 							if (ite->lineColor() != CommonStrings::None)
 							{
 								SetFarbe(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
@@ -1507,6 +1532,14 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 	{
 		fillRule = true;
 		PS_save();
+		if (!doOverprint)
+		{
+			if (c->doOverprint)
+			{
+				PutSeite("true setoverprint\n");
+				PutSeite("true setoverprintmode\n");
+			}
+		}
 		if (c->fillColor() != CommonStrings::None)
 		{
 			SetFarbe(c->fillColor(), c->fillShade(), &h, &s, &v, &k, gcr);
@@ -2081,6 +2114,14 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 			if (c->printEnabled())
 			{
 				PS_save();
+				if (!doOverprint)
+				{
+					if (c->doOverprint)
+					{
+						PutSeite("true setoverprint\n");
+						PutSeite("true setoverprintmode\n");
+					}
+				}
 				if (c->lineColor() != CommonStrings::None)
 				{
 					SetFarbe(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);

@@ -123,7 +123,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Layout3a->setSpacing(0);
 	Layout3a->setMargin(0);
 	EnableOverprint = new QCheckBox(this, "EnableOverprint");
-	EnableOverprint->setText( tr("Over Print Mode"));
+	EnableOverprint->setText( tr("Force Overprint Mode"));
 	EnableOverprint->setChecked( postscriptPreview ? prefsManager->appPrefs.doOverprint : false);
 	EnableOverprint->setEnabled( postscriptPreview );
 	Layout3a->addWidget(EnableOverprint);

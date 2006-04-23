@@ -234,6 +234,7 @@ private slots:
 	void handlePathDist();
 	void handlePathOffs();
 	void handleFillRule();
+	void handleOverprint();
 	void ChProf(const QString& prn);
 	void ChIntent();
 	void NewName();
@@ -273,6 +274,8 @@ protected:
 	QVBoxLayout* pageLayout_5;
 	QVBoxLayout* pageLayout_5a;
 	QVBoxLayout* pageLayout_5b;
+	QVBoxLayout* pageLayout_6;
+	QVBoxLayout* OverPLayout;
 	QVBoxLayout* TLineLayout;
 	QHBoxLayout* layout60;
 	QGridLayout* Layout44;
@@ -313,6 +316,7 @@ protected:
 	QWidget* page_5;
 	QWidget* page_5a;
 	QWidget* page_5b;
+	QWidget* page_6;
 	
 	QLabel* xposLabel;
 	QLabel* widthLabel;
@@ -380,6 +384,7 @@ protected:
 
 	QButtonGroup* ShapeGroup;
 	QButtonGroup* Distance3;
+	QButtonGroup* OverP;
 
 	QToolButton* TabsButton;
 
@@ -460,6 +465,8 @@ protected:
 	QRadioButton* FrameScale;
 	QRadioButton* EvenOdd;
 	QRadioButton* NonZero;
+	QRadioButton* KnockOut;
+	QRadioButton* Overprint;
 
 	QFrame* Line1;
 	QFrame* Line2;

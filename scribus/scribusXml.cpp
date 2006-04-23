@@ -1630,6 +1630,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				doc->PDF_Options.useLayers = static_cast<bool>(pg.attribute("UseLayers", "0").toInt());
 				doc->PDF_Options.UseLPI = static_cast<bool>(pg.attribute("UseLpi", "0").toInt());
 				doc->PDF_Options.UseSpotColors = true;
+				doc->PDF_Options.doOverprint = false;
 				doc->PDF_Options.doMultiFile = false;
 				QDomNode PFO = PAGE.firstChild();
 				while(!PFO.isNull())
@@ -2318,6 +2319,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		ob.setAttribute("YPOS",item->yPos() - doc->currentPage()->yOffset());
 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
 		ob.setAttribute("fillRule", static_cast<int>(item->fillRule));
+		ob.setAttribute("doOverprint", static_cast<int>(item->doOverprint));
 		if (item->effectsInUse.count() != 0)
 		{
 			for (uint a = 0; a < item->effectsInUse.count(); ++a)
@@ -2658,6 +2660,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 		ob.setAttribute("ImageRes", item->pixm.imgInfo.lowResType);
 		ob.setAttribute("isInline", static_cast<int>(item->isEmbedded));
 		ob.setAttribute("fillRule", static_cast<int>(item->fillRule));
+		ob.setAttribute("doOverprint", static_cast<int>(item->doOverprint));
 		ob.setAttribute("gXpos", item->gXpos);
 		ob.setAttribute("gYpos", item->gYpos);
 		ob.setAttribute("gWidth", item->gWidth);
@@ -3285,6 +3288,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	pdf.setAttribute("UseLayers", static_cast<int>(doc->PDF_Options.useLayers));
 	pdf.setAttribute("UseLpi", static_cast<int>(doc->PDF_Options.UseLPI));
 	pdf.setAttribute("UseSpotColors", static_cast<int>(doc->PDF_Options.UseSpotColors));
+	pdf.setAttribute("doOverprint", static_cast<int>(doc->PDF_Options.doOverprint));
 	pdf.setAttribute("doMultiFile", static_cast<int>(doc->PDF_Options.doMultiFile));
 	pdf.setAttribute("displayBookmarks", static_cast<int>(doc->PDF_Options.displayBookmarks));
 	pdf.setAttribute("displayFullscreen", static_cast<int>(doc->PDF_Options.displayFullscreen));

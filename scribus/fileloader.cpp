@@ -1340,6 +1340,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				doc->PDF_Options.useLayers = static_cast<bool>(pg.attribute("UseLayers", "0").toInt());
 				doc->PDF_Options.UseLPI = static_cast<bool>(pg.attribute("UseLpi", "0").toInt());
 				doc->PDF_Options.UseSpotColors = static_cast<bool>(pg.attribute("UseSpotColors", "1").toInt());
+				doc->PDF_Options.doOverprint = static_cast<bool>(pg.attribute("doOverprint", "0").toInt());
 				doc->PDF_Options.doMultiFile = static_cast<bool>(pg.attribute("doMultiFile", "0").toInt());
 				doc->PDF_Options.displayBookmarks = static_cast<bool>(pg.attribute("displayBookmarks", "0").toInt());
 				doc->PDF_Options.displayFullscreen = static_cast<bool>(pg.attribute("displayFullscreen", "0").toInt());
@@ -2201,6 +2202,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->setSizeLocked(static_cast<bool>(obj->attribute("LOCKR", "0").toInt()));
 	currItem->setFillTransparency(obj->attribute("TransValue", "0.0").toDouble());
 	currItem->fillRule = static_cast<bool>(obj->attribute("fillRule", "1").toInt());
+	currItem->doOverprint = static_cast<bool>(obj->attribute("doOverprint", "0").toInt());
 	if (obj->hasAttribute("TransValueS"))
 		currItem->setLineTransparency(obj->attribute("TransValueS", "0.0").toDouble());
 	else

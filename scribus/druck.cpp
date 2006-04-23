@@ -226,7 +226,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, QByte
 	spotColors->setText( tr( "Convert Spot Colors to Process Colors" ) );
 	colorOptsLayout->addWidget( spotColors );
 	overprintMode = new QCheckBox( colorOpts, "overprintMode" );
-	overprintMode->setText( tr( "Over Print Mode" ) );
+	overprintMode->setText( tr( "Force Overprint Mode" ) );
 	colorOptsLayout->addWidget( overprintMode );
 #ifdef HAVE_CMS
 	if (CMSuse)
@@ -279,6 +279,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, QByte
 	QToolTip::add( psLevel,"<qt>" +  tr( "Sets the PostScript Level.\n Setting to Level 1 or 2 can create huge files" ) + "</qt>" );
 	QToolTip::add( GcR, "<qt>" + tr( "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>");
 	QToolTip::add(spotColors,"<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
+	QToolTip::add(overprintMode, "<qt>"+ tr("Enables global Overprint Mode for this document, overrides object settings") + "<qt>");
 	#ifdef HAVE_CMS
 	if (CMSuse)
 		QToolTip::add(UseICC,"<qt>" + tr( "Allows you to embed ICC profiles in the print stream when color management is enabled" ) + "</qt>");

@@ -413,6 +413,7 @@ public:
 	double DashOffset;
 	VGradient fill_gradient;
 	bool fillRule;
+	bool doOverprint;
 	QString Language;
 /* Additions for Table Support */
 	PageItem* LeftLink;

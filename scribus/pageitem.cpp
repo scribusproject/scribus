@@ -164,6 +164,7 @@ PageItem::PageItem(const PageItem & other)
 	DashOffset(other.DashOffset),
 	fill_gradient(other.fill_gradient),
 	fillRule(other.fillRule),
+	doOverprint(other.doOverprint),
 	Language(other.Language),
 	LeftLink(other.LeftLink),
 	RightLink(other.RightLink),
@@ -429,6 +430,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	TabValues.clear();
 	DashOffset = 0;
 	fillRule = true;
+	doOverprint = false;
 	fill_gradient = VGradient(VGradient::linear);
 	fill_gradient.clearStops();
 	if (fillColor() == CommonStrings::None)

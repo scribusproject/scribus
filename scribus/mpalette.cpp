@@ -743,8 +743,27 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	TabStack3->addWidget( page_5b, 1 );
 	pageLayout_5->addWidget( TabStack3 );
 	idLineItem=TabStack->addItem( page_5, "&Line" );
-	Cpal = new Cpalette(this);
-	idColorsItem=TabStack->addItem(Cpal, "&Colors" );
+	
+	page_6 = new QWidget( TabStack, "page_6" );
+	pageLayout_6 = new QVBoxLayout( page_6, 0, 5, "pageLayout_6");
+
+	Cpal = new Cpalette(page_6);
+	pageLayout_6->addWidget( Cpal );
+
+	OverP = new QButtonGroup( "Overprinting", page_6, "Distance" );
+	OverP->setColumnLayout(0, Qt::Vertical );
+	OverP->layout()->setSpacing( 2 );
+	OverP->layout()->setMargin( 5 );
+	OverPLayout = new QVBoxLayout( OverP->layout() );
+	OverPLayout->setAlignment( Qt::AlignTop );
+	KnockOut = new QRadioButton( "Knockout", OverP, "KnockOut" );
+	OverPLayout->addWidget( KnockOut );
+	Overprint = new QRadioButton( "Overprint", OverP, "Overprint" );
+	OverPLayout->addWidget( Overprint );
+	KnockOut->setChecked( true );
+	pageLayout_6->addWidget(OverP);
+
+	idColorsItem=TabStack->addItem(page_6, "&Colors" );
 	MpalLayout->addWidget( TabStack );
 
 	languageChange();
@@ -833,6 +852,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(lineSpacingPop, SIGNAL(activated(int)), this, SLOT(setLspMode(int )));
 	connect( EvenOdd, SIGNAL( clicked() ), this, SLOT(handleFillRule() ) );
 	connect( NonZero, SIGNAL( clicked() ), this, SLOT( handleFillRule() ) );
+	connect( KnockOut, SIGNAL( clicked() ), this, SLOT( handleOverprint() ) );
+	connect( Overprint, SIGNAL( clicked() ), this, SLOT( handleOverprint() ) );
 
 	HaveItem = false;
 	Xpos->setValue(0);
@@ -1088,6 +1109,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 	else if (i->asPolygon())
 	{
 		TabStack2->raiseWidget(2);
+		NonZero->setChecked(!i->fillRule);
 		EvenOdd->setChecked(i->fillRule);
 	}
 	else
@@ -1103,6 +1125,8 @@ void Mpalette::setCurrentItem(PageItem *i)
 		else
 			RoundRect->setEnabled(false);
 	}
+	KnockOut->setChecked(!i->doOverprint);
+	Overprint->setChecked(i->doOverprint);
 
 	if ((i->itemType() == PageItem::Line) && LMode) {
 		xposLabel->setText( tr( "&X1:" ) );
@@ -1288,6 +1312,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	else if (i->asPolygon())
 	{
 		TabStack2->raiseWidget(2);
+		NonZero->setChecked(!i->fillRule);
 		EvenOdd->setChecked(i->fillRule);
 	}
 	else
@@ -1303,7 +1328,8 @@ void Mpalette::SetCurItem(PageItem *i)
 		else
 			RoundRect->setEnabled(false);
 	}
-
+	KnockOut->setChecked(!i->doOverprint);
+	Overprint->setChecked(i->doOverprint);
 	if ((i->itemType() == PageItem::Line) && LMode) {
 		xposLabel->setText( tr( "&X1:" ) );
 		widthLabel->setText( tr( "X&2:" ) );
@@ -3634,6 +3660,16 @@ void Mpalette::handleFillRule()
 	}
 }
 
+void Mpalette::handleOverprint()
+{
+	if ((HaveDoc) && (HaveItem))
+	{
+		CurItem->doOverprint = Overprint->isChecked();
+		m_MainWindow->view->RefreshItem(CurItem);
+		emit DocChanged();
+	}
+}
+
 void Mpalette::NewName()
 {
 	if (m_MainWindow->ScriptRunning || !HaveDoc || !HaveItem)
@@ -3866,6 +3902,10 @@ void Mpalette::languageChange()
 	LeftLine->setText( tr("Line at the Left"));
 	RightLine->setText( tr("Line at the Right "));
 	BottomLine->setText( tr("Line at Bottom"));
+	
+	OverP->setTitle( tr("Overprinting"));
+	KnockOut->setText( tr("Knockout"));
+	Overprint->setText( tr("Overprint"));
 
 	QString pctSuffix=tr(" %");
 	ChBase->setSuffix(pctSuffix);
