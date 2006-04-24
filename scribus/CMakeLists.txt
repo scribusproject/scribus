@@ -28,6 +28,7 @@ pageitemattributesbase.ui
 smlinestylewbase.ui
 smreplacediabase.ui
 stylemanagerbase.ui
+tabexternaltoolswidgetbase.ui
 tocindexprefsbase.ui
 useprintermarginsdialogbase.ui
 )
@@ -170,6 +171,7 @@ styleitem.h
 stylemanager.h
 styleselect.h
 tabcheckdoc.h
+tabexternaltoolswidget.h
 tabguides.h
 tabmanager.h
 tabpdfoptions.h
@@ -376,6 +378,7 @@ styleitem.cpp
 stylemanager.cpp
 styleselect.cpp
 tabcheckdoc.cpp
+tabexternaltoolswidget.cpp
 tabguides.cpp
 tabmanager.cpp
 tabpdfoptions.cpp
