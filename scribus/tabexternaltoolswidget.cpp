@@ -73,6 +73,10 @@ void TabExternalToolsWidget::changeImageTool()
 
 void TabExternalToolsWidget::rescanForTools()
 {
-	psToolLineEdit->setText(getGSDefaultExeName());
-	imageToolLineEdit->setText("gimp");
+	QFileInfo fi(psToolLineEdit->text());
+	if (!fi.exists())
+		psToolLineEdit->setText(getGSDefaultExeName());
+	QFileInfo fi2(imageToolLineEdit->text());
+	if (!fi2.exists())
+		imageToolLineEdit->setText("gimp");
 }

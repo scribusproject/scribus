@@ -250,6 +250,9 @@
                     <property name="accel">
                         <string>Alt+R</string>
                     </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Rescan for the external tools if they do not exist in the already specified location</string>
+                    </property>
                 </widget>
             </hbox>
         </widget>
