@@ -23,8 +23,6 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include "units.h"
 #include "langmgr.h"
-#include "tabtypography.h"
-#include "tabguides.h"
 #include "hysettings.h"
 #include "cmsprefs.h"
 #include "keymanager.h"
@@ -37,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagesize.h"
 #include "pagestructs.h"
 #include "docitemattrprefs.h"
-#include "tocindexprefs.h"
+
 #include "marginWidget.h"
 #include "prefsmanager.h"
 #include "polygonwidget.h"
@@ -52,6 +50,10 @@ for which a new license (GPL+exception) is in place.
 #include "colorcombo.h"
 #include "commonstrings.h"
 #include "scribuscore.h"
+#include "tabtypography.h"
+#include "tabguides.h"
+#include "tabexternaltoolswidget.h"
+#include "tocindexprefs.h"
 
 using namespace std;
 
@@ -575,7 +577,12 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	CaliGroupLayout->addLayout( layout15ca );
 	tabViewLayout->addWidget( CaliGroup );
 	addItem( tr("Display"), loadIcon("screen.png"), tabView);
-
+	
+	
+	tabExtTools = new TabExternalToolsWidget( prefsData, prefsWidgets );
+	addItem(  tr("External Tools"), loadIcon("externaltools.png"), tabExtTools);
+	
+/*	
 	ExtTool = new QWidget( prefsWidgets, "ExtTool" );
 	ExtToolLayout = new QVBoxLayout( ExtTool, 0, 5, "ExtToolLayout");
 	ExtToolLayout->setAlignment( Qt::AlignTop );
@@ -632,7 +639,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QSpacerItem* spacer_gs = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	ExtToolLayout->addItem( spacer_gs );
 	addItem(  tr("External Tools"), loadIcon("externaltools.png"), ExtTool);
-
+*/
 	Misc = new QWidget( prefsWidgets, "Misc" );
 	MiscLayout = new QVBoxLayout( Misc, 0, 5, "MiscLayout");
 	MiscLayout->setAlignment( Qt::AlignTop );
@@ -738,13 +745,13 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QToolTip::add( CaliText, "<qt>" + tr( "Set the default zoom level" )  + "</qt>");
 	QToolTip::add( CaliGroup, "<qt>" + tr( "Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size" ) + "</qt>" );
 
-	QToolTip::add( ghostscriptLineEdit, "<qt>" + tr( "Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus." ) + "</qt>" );
-	QToolTip::add( GSantiText, "<qt>" + tr( "Antialias text for EPS and PDF onscreen rendering" ) + "</qt>");
-	QToolTip::add( GSantiGraph, "<qt>" + tr( "Antialias graphics for EPS and PDF onscreen rendering" ) + "</qt>" );
-	QToolTip::add( imageEditorLineEdit, "<qt>" + tr( "File system location for graphics editor. If you use gimp "
-						"and your distro includes it, we recommend 'gimp-remote', "
-						"as it allows you to edit the image in an already running "
-								"instance of gimp." ) + "</qt>" );
+// 	QToolTip::add( ghostscriptLineEdit, "<qt>" + tr( "Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus." ) + "</qt>" );
+// 	QToolTip::add( GSantiText, "<qt>" + tr( "Antialias text for EPS and PDF onscreen rendering" ) + "</qt>");
+// 	QToolTip::add( GSantiGraph, "<qt>" + tr( "Antialias graphics for EPS and PDF onscreen rendering" ) + "</qt>" );
+// 	QToolTip::add( imageEditorLineEdit, "<qt>" + tr( "File system location for graphics editor. If you use gimp "
+// 						"and your distro includes it, we recommend 'gimp-remote', "
+// 						"as it allows you to edit the image in an already running "
+// 								"instance of gimp." ) + "</qt>" );
 /*	QToolTip::add( ClipMarg, "<qt>" + tr( "Do not show objects outside the margins on the printed page or exported file" ) + "</qt>" );
 	QToolTip::add( DoGCR, "<qt>" + tr( "A way of switching off some of the gray shades which are composed "
 		                          "of cyan, yellow and magenta and using black instead. "
@@ -772,8 +779,8 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	connect(FileC2, SIGNAL(clicked()), this, SLOT(changeProfs()));
 	connect(FileC3, SIGNAL(clicked()), this, SLOT(changeScripts()));
 	connect(FileC4, SIGNAL(clicked()), this, SLOT(changeDocumentTemplates()));
-	connect(ghostscriptChangeButton, SIGNAL(clicked()), this, SLOT(changeGhostscript()));
-	connect(imageEditorChangeButton, SIGNAL(clicked()), this, SLOT(changeImageEditor()));
+// 	connect(ghostscriptChangeButton, SIGNAL(clicked()), this, SLOT(changeGhostscript()));
+// 	connect(imageEditorChangeButton, SIGNAL(clicked()), this, SLOT(changeImageEditor()));
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 	connect(buttonOk, SIGNAL(clicked()), this, SLOT(setActionHistoryLength()));
 	if (CMSavail)
@@ -867,6 +874,7 @@ void Preferences::changeDocumentTemplates()
 		DocumentTemplateDir->setText(s);
 }
 
+/*
 void Preferences::changeGhostscript()
 {
 	QFileInfo fi(ghostscriptLineEdit->text());
@@ -882,6 +890,7 @@ void Preferences::changeImageEditor()
 	if (!s.isEmpty())
 		imageEditorLineEdit->setText(s);
 }
+*/
 
 void Preferences::setDS(int layout)
 {
@@ -1203,11 +1212,16 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.pageSets[choosenLayout].FirstPage = docLayout->firstPage->currentItem();
 	prefsManager->appPrefs.pageSets[choosenLayout].GapHorizontal = gapHorizontal->value() / prefsUnitRatio;
 	prefsManager->appPrefs.pageSets[choosenLayout].GapVertical = gapVertical->value() / prefsUnitRatio;
-	prefsManager->setImageEditorExecutable(imageEditorLineEdit->text());
+	prefsManager->setImageEditorExecutable(tabExtTools->newImageTool());
+	prefsManager->appPrefs.gs_AntiAliasGraphics = tabExtTools->newAntialiasGraphics();
+	prefsManager->appPrefs.gs_AntiAliasText = tabExtTools->newAntialiasText();
+	prefsManager->setGhostscriptExecutable(tabExtTools->newPSTool());
+	prefsManager->appPrefs.gs_Resolution = tabExtTools->newPSToolResolution();
+/*	prefsManager->setImageEditorExecutable(imageEditorLineEdit->text());
 	prefsManager->appPrefs.gs_AntiAliasGraphics = GSantiGraph->isChecked();
 	prefsManager->appPrefs.gs_AntiAliasText = GSantiText->isChecked();
 	prefsManager->setGhostscriptExecutable(ghostscriptLineEdit->text());
-	prefsManager->appPrefs.gs_Resolution = GSResolution->value();
+	prefsManager->appPrefs.gs_Resolution = GSResolution->value();*/
 //	prefsManager->appPrefs.ClipMargin = ClipMarg->isChecked();
 //	prefsManager->appPrefs.GCRMode = DoGCR->isChecked();
 	prefsManager->appPrefs.guidesSettings.before = tabGuides->inBackground->isChecked();

@@ -48,6 +48,7 @@ class TOCIndexPrefs;
 class MarginWidget;
 class PrefsManager;
 class PageLayouts;
+class TabExternalToolsWidget;
 
 #include "langmgr.h"
 
@@ -145,6 +146,7 @@ public:
 	TabPDFOptions* tabPDF;
 	DocumentItemAttributes* tabDefaultItemAttributes;
 	TOCIndexPrefs* tabDefaultTOCIndexPrefs;
+	TabExternalToolsWidget* tabExtTools;
 	KeyManager* tabKeys;
 
 /*	QLabel* textLabelP;
@@ -175,7 +177,7 @@ public:
 	QLabel* CaliRuler;
 	QSlider* CaliSlider;
 	QLabel* CaliAnz;
- 	QWidget* ExtTool;
+ 	/*QWidget* ExtTool;
 	QGroupBox* ghostscriptGroup;
 	QLabel* ghostscriptLabel;
 	QLineEdit* ghostscriptLineEdit;
@@ -187,7 +189,7 @@ public:
 	QGroupBox* groupImageEditor;
 	QLabel* imageEditorLabel;
 	QLineEdit* imageEditorLineEdit;
-	QToolButton* imageEditorChangeButton;
+	QToolButton* imageEditorChangeButton;*/
 	QWidget* Misc;
 //	QGroupBox* groupPrint;
 //	QCheckBox* ClipMarg;
@@ -239,16 +241,17 @@ public slots:
 	\brief Runs QFileDialog to get Preferences (General) Path to Document Templates directory
 	*/
 	void changeDocumentTemplates();
-	/*!
+	/*
 	\author Craig Bradney
 	\brief Runs QFileDialog to get Preferences Path to Ghostscript
-	*/
+	
 	void changeGhostscript();
-	/*!
+	
 	\author Craig Bradney
 	\brief Runs QFileDialog to get Preferences Path to Image Editor
-	*/
+	
 	void changeImageEditor();
+	*/
 	/*!
 	\author Franz Schmid
 	\brief Preferences ([dox?], [dox?]), Sets Paper color [dox?]

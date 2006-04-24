@@ -1,0 +1,276 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>TabExternalToolsWidgetBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>TabExternalToolsWidgetBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>499</width>
+            <height>218</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>External Tools</string>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <widget class="QGroupBox">
+            <property name="name">
+                <cstring>psToolGroupBox</cstring>
+            </property>
+            <property name="title">
+                <string>PostScript Interpreter</string>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout6</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>psToolLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>&amp;Name of Executable:</string>
+                            </property>
+                            <property name="buddy" stdset="0">
+                                <cstring>psToolLineEdit</cstring>
+                            </property>
+                        </widget>
+                        <widget class="QLineEdit">
+                            <property name="name">
+                                <cstring>psToolLineEdit</cstring>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</string>
+                            </property>
+                        </widget>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>psToolChangeButton</cstring>
+                            </property>
+                            <property name="text">
+                                <string>&amp;Change..</string>
+                            </property>
+                            <property name="accel">
+                                <string>Alt+C</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout9</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QCheckBox">
+                            <property name="name">
+                                <cstring>psAntialiasTextCheckBox</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Antialias &amp;Text</string>
+                            </property>
+                            <property name="accel">
+                                <string>Alt+T</string>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>Antialias text for EPS and PDF onscreen rendering</string>
+                            </property>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>spacer2</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>21</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QCheckBox">
+                            <property name="name">
+                                <cstring>psAntialiasGraphicsCheckBox</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Antialias &amp;Graphics</string>
+                            </property>
+                            <property name="accel">
+                                <string>Alt+G</string>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>Antialias graphics for EPS and PDF onscreen rendering</string>
+                            </property>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>spacer2_2</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>21</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>psResolutionLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Resolution:</string>
+                            </property>
+                            <property name="buddy" stdset="0">
+                                <cstring>psResolutionSpinBox</cstring>
+                            </property>
+                        </widget>
+                        <widget class="QSpinBox">
+                            <property name="name">
+                                <cstring>psResolutionSpinBox</cstring>
+                            </property>
+                            <property name="suffix">
+                                <string> dpi</string>
+                            </property>
+                            <property name="maxValue">
+                                <number>2400</number>
+                            </property>
+                            <property name="minValue">
+                                <number>10</number>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+            </vbox>
+        </widget>
+        <widget class="QGroupBox">
+            <property name="name">
+                <cstring>imageToolGroupBox</cstring>
+            </property>
+            <property name="title">
+                <string>Image Processing Tool</string>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>imageToolLabel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Name of &amp;Executable:</string>
+                    </property>
+                    <property name="buddy" stdset="0">
+                        <cstring>imageToolLineEdit</cstring>
+                    </property>
+                </widget>
+                <widget class="QLineEdit">
+                    <property name="name">
+                        <cstring>imageToolLineEdit</cstring>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>File system location for graphics editor. If you use gimp and your distribution includes it, we recommend 'gimp-remote', as it allows you to edit the image in an already running instance of gimp.</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>imageToolChangeButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Change...</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+C</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout10</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer4</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>161</width>
+                            <height>21</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>rescanButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Rescan</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+R</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <spacer>
+            <property name="name">
+                <cstring>spacer6</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>20</width>
+                    <height>55</height>
+                </size>
+            </property>
+        </spacer>
+    </vbox>
+</widget>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

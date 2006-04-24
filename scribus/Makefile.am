@@ -213,6 +213,8 @@ scribus_SOURCES = \
 	stylemanagerbase.ui \
 	styleselect.cpp	\
 	tabcheckdoc.cpp	\
+	tabexternaltoolswidgetbase.ui \
+	tabexternaltoolswidget.cpp \
 	tabguides.cpp	\
 	tabmanager.cpp	\
 	tabpdfoptions.cpp	\
