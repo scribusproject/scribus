@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.2.cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-10 00:36+0100\n"
+"POT-Creation-Date: 2006-04-24 23:55+0200\n"
 "PO-Revision-Date: 2004-09-29 23:27+0800\n"
 "Last-Translator: Kitae Kim <neeum@yahoo.com>\n"
 "Language-Team: Korean\n"
@@ -67,6 +67,20 @@ msgid "Type:"
 msgstr "타입:"
 
 msgid "Margin Guides"
+msgstr ""
+
+#, fuzzy
+msgid "Delete Styles"
+msgstr "전체 선택(&A)"
+
+msgid "&OK"
+msgstr "확인(&O)"
+
+#, fuzzy
+msgid "Ca&ncel"
+msgstr "취소(&C)"
+
+msgid "Alt+N"
 msgstr ""
 
 msgid "pt"
@@ -508,16 +522,10 @@ msgstr "개인 설정"
 msgid "Freetype2 library not available"
 msgstr ""
 
-msgid "Font %1 is broken, no embedding"
+msgid "Font %1(%2) is broken"
 msgstr ""
 
 msgid "Font %1 is broken (read stream), no embedding"
-msgstr ""
-
-msgid "Font %1 is broken (FreeType2), discarding it"
-msgstr ""
-
-msgid "Font %1 is broken (no Face), discarding it"
 msgstr ""
 
 msgid "Font %1 has broken glyph %2 (charcode %3)"
@@ -529,10 +537,10 @@ msgstr ""
 msgid "Font %1 cannot be read, no embedding"
 msgstr ""
 
-msgid "Font %1 is broken, discarding it"
+msgid "Creating Font Cache"
 msgstr ""
 
-msgid "Creating Font Cache"
+msgid "Font %1 is broken, discarding it"
 msgstr ""
 
 msgid "Failed to load font %1 - font type unknown"
@@ -551,9 +559,6 @@ msgid "Font %1(%2) is duplicate of %3"
 msgstr ""
 
 msgid "Loading font %1 (found using fontconfig)"
-msgstr ""
-
-msgid "Font %1 (found using fontconfig) is broken, discarding it"
 msgstr ""
 
 msgid "Failed to load a font - freetype2 couldn't find the font file"
@@ -638,6 +643,11 @@ msgid "Document"
 msgstr ""
 
 msgid "Background"
+msgstr ""
+
+msgid ""
+"An error occurred while opening icc profiles, color management is not "
+"enabled."
 msgstr ""
 
 msgid "New Layer"
@@ -1303,6 +1313,15 @@ msgstr ""
 msgid "Multiple duplicate"
 msgstr "여러개 사본 복사(&M)"
 
+msgid "Apply text style"
+msgstr ""
+
+msgid "&Undo: %1"
+msgstr ""
+
+msgid "&Redo: %1"
+msgstr ""
+
 msgid "Move Pages"
 msgstr ""
 
@@ -1433,6 +1452,9 @@ msgstr ""
 msgid "Conve&rt to"
 msgstr ""
 
+msgid "Contents"
+msgstr ""
+
 #, fuzzy
 msgid "Linking Text Frames"
 msgstr "전체 선택"
@@ -1482,7 +1504,13 @@ msgstr ""
 msgid " dpi"
 msgstr ""
 
+msgid "Highest allowed resolution"
+msgstr ""
+
 msgid "Check for placed PDF Files"
+msgstr ""
+
+msgid "Check for GIF images"
 msgstr ""
 
 msgid "Check for PDF Annotations and Fields"
@@ -1521,9 +1549,6 @@ msgstr ""
 
 msgid "&Left:"
 msgstr ""
-
-msgid "&OK"
-msgstr "확인(&O)"
 
 msgid "Alt+O"
 msgstr ""
@@ -1571,6 +1596,12 @@ msgstr ""
 msgid "Plugin: %1 failed to load: %2"
 msgstr ""
 
+msgid "Plugin: %1 initialized ok "
+msgstr ""
+
+msgid "Plugin: %1 failed post initialization"
+msgstr ""
+
 msgid "Flat Cap"
 msgstr ""
 
@@ -1615,6 +1646,68 @@ msgstr ""
 
 msgid "%1 of %2"
 msgstr ""
+
+msgid "font %1 "
+msgstr ""
+
+msgid "size %1 "
+msgstr ""
+
+#, fuzzy
+msgid "+style "
+msgstr "스타일:"
+
+#, fuzzy
+msgid "+color "
+msgstr "색깔"
+
+#, fuzzy
+msgid "+underline "
+msgstr "밑줄"
+
+#, fuzzy
+msgid "-underline "
+msgstr "밑줄"
+
+msgid "+strikeout "
+msgstr ""
+
+msgid "-strikeout "
+msgstr ""
+
+msgid "+shadow "
+msgstr ""
+
+msgid "-shadow "
+msgstr ""
+
+#, fuzzy
+msgid "+outline "
+msgstr "외각선화"
+
+#, fuzzy
+msgid "-outline "
+msgstr "외각선화"
+
+msgid "+tracking %1"
+msgstr ""
+
+#, fuzzy
+msgid "-tracking "
+msgstr "별"
+
+msgid "+baseline %1"
+msgstr ""
+
+msgid "+stretch "
+msgstr ""
+
+msgid "parent= %1"
+msgstr ""
+
+#, fuzzy
+msgid "unnamed"
+msgstr "이른 바꾸기"
 
 msgid "Icon Placement"
 msgstr ""
@@ -1782,82 +1875,16 @@ msgstr ""
 msgid "Copy of"
 msgstr ""
 
-msgid "Manage Guides"
-msgstr ""
-
-msgid "Horizontal Guides"
-msgstr ""
-
 #, fuzzy
-msgid "Guide"
+msgid "Edit Guide"
 msgstr "넓게"
 
-msgid "Unit"
-msgstr ""
-
-msgid "D&elete"
-msgstr ""
-
-msgid "Vertical Guides"
-msgstr ""
-
-msgid "A&dd"
-msgstr ""
-
-msgid "De&lete"
-msgstr ""
-
-msgid "Rows and Columns - Automatic Guides"
-msgstr ""
-
-msgid "&Rows:"
-msgstr ""
-
-msgid "C&olumns:"
-msgstr ""
-
-msgid "Row &Gap"
-msgstr ""
-
-msgid "Colum&n Gap"
-msgstr ""
-
-msgid "Refer to:"
-msgstr ""
-
-msgid "&Page"
+msgid "Enter a position:"
 msgstr ""
 
 #, fuzzy
-msgid "&Margins"
-msgstr "레이어 보이기"
-
-#, fuzzy
-msgid "&Selection"
-msgstr "새로운 글꼴 선택"
-
-msgid "&Lock Guides"
-msgstr ""
-
-msgid "&Apply to All Pages"
-msgstr ""
-
-msgid "&Close"
-msgstr ""
-
-msgid "&Update"
-msgstr ""
-
-msgid "Preview"
-msgstr ""
-
-msgid ""
-"Set the guides in document. Guide manager is still opened but the changes "
-"are persistant"
-msgstr ""
-
-msgid "There is empty (0.0) guide already"
-msgstr ""
+msgid "New Guide"
+msgstr "넓게"
 
 msgid "Other..."
 msgstr ""
@@ -2054,30 +2081,6 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-msgid "PostScript Interpreter"
-msgstr ""
-
-msgid "&Name of Executable:"
-msgstr ""
-
-msgid "Antialias &Text"
-msgstr ""
-
-msgid "Antialias &Graphics"
-msgstr ""
-
-msgid "dpi"
-msgstr ""
-
-msgid "Resolution:"
-msgstr ""
-
-msgid "Image Processing Tool"
-msgstr ""
-
-msgid "Name of &Executable:"
-msgstr ""
-
 msgid "External Tools"
 msgstr ""
 
@@ -2201,21 +2204,6 @@ msgid ""
 "so Scribus will display your pages and objects on them at the correct size"
 msgstr ""
 
-msgid "Filesystem location for the Ghostscript interpreter"
-msgstr ""
-
-msgid "Antialias text for EPS and PDF onscreen rendering"
-msgstr ""
-
-msgid "Antialias graphics for EPS and PDF onscreen rendering"
-msgstr ""
-
-msgid ""
-"File system location for graphics editor. If you use gimp and your distro "
-"includes it, we recommend 'gimp-remote', as it allows you to edit the image "
-"in an already running instance of gimp."
-msgstr ""
-
 msgid ""
 "Defines amount of space left of the document canvas available as a "
 "pasteboard for creating and modifying elements and dragging them onto the "
@@ -2236,12 +2224,6 @@ msgstr ""
 msgid ""
 "Defines amount of space below the document canvas available as a pasteboard "
 "for creating and modifying elements and dragging them onto the active page"
-msgstr ""
-
-msgid "Locate Ghostscript"
-msgstr ""
-
-msgid "Locate your image editor"
 msgstr ""
 
 msgid "Could not open output file %1"
@@ -2388,6 +2370,12 @@ msgstr ""
 msgid "Add a new layer"
 msgstr ""
 
+msgid "Locate Ghostscript"
+msgstr ""
+
+msgid "Locate your image editor"
+msgstr ""
+
 #, fuzzy
 msgid "Save as PDF"
 msgstr "PDF 로 저장..."
@@ -2483,30 +2471,6 @@ msgstr ""
 msgid "PDF Tools"
 msgstr ""
 
-msgid "Button"
-msgstr "단춘"
-
-msgid "Text Field"
-msgstr "본문 영역"
-
-msgid "Check Box"
-msgstr "체크 박스"
-
-msgid "Combo Box"
-msgstr "콤보 박스"
-
-msgid "List Box"
-msgstr "리스트 박스"
-
-msgid "Insert PDF Fields"
-msgstr ""
-
-msgid "Insert PDF Annotations"
-msgstr ""
-
-msgid "Link"
-msgstr ""
-
 msgid "Possible Hyphenation"
 msgstr ""
 
@@ -2536,9 +2500,6 @@ msgid "Progress"
 msgstr "눌려짐"
 
 msgid "Overall Progress:"
-msgstr ""
-
-msgid "Font %1 is broken (FreeType), discarding it"
 msgstr ""
 
 msgid "Font %1  has invalid glyph %2 (charcode %3), discarding it"
@@ -2572,6 +2533,9 @@ msgid "Display Trans&parency"
 msgstr ""
 
 msgid "&Under Color Removal"
+msgstr ""
+
+msgid "Force Overprint Mode"
 msgstr ""
 
 msgid "&Display CMYK"
@@ -2679,6 +2643,9 @@ msgstr "파일로:"
 msgid "Paragraphs:"
 msgstr "문단 스타일(&P)..."
 
+msgid "Resolution:"
+msgstr ""
+
 msgid "DPI"
 msgstr ""
 
@@ -2775,6 +2742,9 @@ msgstr ""
 msgid "Scribus: About Plug-ins"
 msgstr ""
 
+msgid "&Close"
+msgstr ""
+
 msgid "Align Text Left"
 msgstr ""
 
@@ -2849,6 +2819,10 @@ msgstr ""
 
 msgid "Last Selected"
 msgstr ""
+
+#, fuzzy
+msgid "Guide"
+msgstr "넓게"
 
 msgid "Align right sides of objects to left side of anchor"
 msgstr ""
@@ -3316,7 +3290,7 @@ msgstr ""
 
 msgid ""
 "Length of time the page is shown before the presentation starts on the "
-"selected page."
+"selected page. Setting 0 will disable automatic page transition."
 msgstr ""
 
 msgid ""
@@ -3517,6 +3491,10 @@ msgid "Mirror Page(s) vertically"
 msgstr ""
 
 msgid ""
+"Enables global Overprint Mode for this document, overrides object settings"
+msgstr ""
+
+msgid ""
 "Enables Spot Colors to be converted to composite colors. Unless you are "
 "planning to print spot colors at a commercial printer, this is probably best "
 "left enabled."
@@ -3623,6 +3601,59 @@ msgid "&Automatic Text Frames"
 msgstr ""
 
 msgid "Open"
+msgstr ""
+
+msgid "PostScript Interpreter"
+msgstr ""
+
+msgid "&Name of Executable:"
+msgstr ""
+
+msgid ""
+"Add the path for the Ghostscript interpreter. On Windows, please note it is "
+"important to note you need to use the program named gswin32c.exe - NOT "
+"gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus."
+msgstr ""
+
+#, fuzzy
+msgid "&Change.."
+msgstr "변환..."
+
+msgid "Antialias &Text"
+msgstr ""
+
+msgid "Alt+T"
+msgstr ""
+
+msgid "Antialias text for EPS and PDF onscreen rendering"
+msgstr ""
+
+msgid "Antialias &Graphics"
+msgstr ""
+
+msgid "Alt+G"
+msgstr ""
+
+msgid "Antialias graphics for EPS and PDF onscreen rendering"
+msgstr ""
+
+msgid "Image Processing Tool"
+msgstr ""
+
+msgid "Name of &Executable:"
+msgstr ""
+
+msgid ""
+"File system location for graphics editor. If you use gimp and your "
+"distribution includes it, we recommend 'gimp-remote', as it allows you to "
+"edit the image in an already running instance of gimp."
+msgstr ""
+
+#, fuzzy
+msgid "&Rescan"
+msgstr "틀 재설정"
+
+msgid "Alt+R"
 msgstr ""
 
 #, fuzzy
@@ -3737,8 +3768,103 @@ msgstr "페이지 삽입(&S)"
 msgid "Exporting Items on Current Page:"
 msgstr ""
 
+msgid "Unit"
+msgstr ""
+
+msgid "Manage Guides"
+msgstr ""
+
+#, fuzzy
+msgid "Horizontals"
+msgstr "수평의"
+
+msgid "D&elete"
+msgstr ""
+
+msgid "Alt+E"
+msgstr ""
+
+#, fuzzy
+msgid "Verticals"
+msgstr "수직으로"
+
+msgid "A&dd"
+msgstr ""
+
+msgid "De&lete"
+msgstr ""
+
+msgid "Alt+L"
+msgstr ""
+
+msgid "&Lock Guides"
+msgstr ""
+
+msgid "Appl&y to All Pages"
+msgstr ""
+
+msgid "Alt+Y"
+msgstr ""
+
+#, fuzzy
+msgid "&Standard"
+msgstr "별"
+
+#, fuzzy
+msgid "&Number:"
+msgstr "숫자"
+
+msgid "U&se Gap:"
+msgstr ""
+
+msgid "Alt+S"
+msgstr ""
+
+#, fuzzy
+msgid "Nu&mber:"
+msgstr "숫자"
+
+msgid "Use &Gap:"
+msgstr ""
+
+#, fuzzy
+msgid "Refer To"
+msgstr "템플릿"
+
+msgid "&Page"
+msgstr ""
+
+msgid "Alt+P"
+msgstr ""
+
+#, fuzzy
+msgid "M&argins"
+msgstr "레이어 보이기"
+
+#, fuzzy
+msgid "S&election"
+msgstr "새로운 글꼴 선택"
+
+msgid "A&utomatic"
+msgstr ""
+
 msgid "Field Properties"
 msgstr ""
+
+msgid "Button"
+msgstr "단춘"
+
+msgid "Text Field"
+msgstr "본문 영역"
+
+msgid "Check Box"
+msgstr "체크 박스"
+
+msgid "Combo Box"
+msgstr "콤보 박스"
+
+msgid "List Box"
+msgstr "리스트 박스"
 
 msgid "Tool-Tip:"
 msgstr ""
@@ -4080,6 +4206,9 @@ msgstr ""
 msgid "Search Results for: "
 msgstr ""
 
+msgid "Preview"
+msgstr ""
+
 msgid "Select"
 msgstr ""
 
@@ -4137,17 +4266,10 @@ msgstr ""
 msgid "&Copy"
 msgstr ""
 
-#, fuzzy
-msgid "Copy Contents"
-msgstr "색깔(&C)..."
-
-msgid "Paste Contents"
+msgid "Paste (&Absolute)"
 msgstr ""
 
-msgid "Paste Contents (Absolute)"
-msgstr ""
-
-msgid "C&lear Contents"
+msgid "C&lear"
 msgstr ""
 
 msgid "Select &All"
@@ -4567,6 +4689,32 @@ msgstr ""
 
 msgid "Insert Freehand Line"
 msgstr ""
+
+msgid "Insert PDF Push Button"
+msgstr ""
+
+#, fuzzy
+msgid "Insert PDF Text Field"
+msgstr "본문 영역"
+
+#, fuzzy
+msgid "Insert PDF Check Box"
+msgstr "체크 박스"
+
+#, fuzzy
+msgid "Insert PDF Combo Box"
+msgstr "콤보 박스"
+
+#, fuzzy
+msgid "Insert PDF List Box"
+msgstr "페이지 번호 삽입"
+
+msgid "Insert Text Annotation"
+msgstr ""
+
+#, fuzzy
+msgid "Insert Link Annotation"
+msgstr "페이지 번호 삽입"
 
 msgid "&Manage Pictures"
 msgstr ""
@@ -4990,9 +5138,6 @@ msgstr "페이지 번호 삽입"
 msgid "&Insert"
 msgstr ""
 
-msgid "C&lear"
-msgstr ""
-
 msgid "Insert the characters at the cursor in the text"
 msgstr ""
 
@@ -5213,30 +5358,21 @@ msgstr ""
 msgid "New Color"
 msgstr ""
 
-msgid "Position:"
+msgid "Add, change or remove color stops here"
 msgstr ""
 
-msgid "Here you can add, change or remove Color-Stops."
+msgid "Position:"
 msgstr ""
 
 msgid "Scribus "
 msgstr "스크리부스"
 
-msgid "Initializing Plugins"
-msgstr "플러그인 인식중"
-
-msgid "Initializing Keyboard Shortcuts"
-msgstr ""
-
-msgid "Reading Preferences"
+msgid "Setting up Shortcuts"
 msgstr ""
 
 #, fuzzy
 msgid "Initializing Story Editor"
 msgstr "플러그인 인식중"
-
-msgid "Reading ICC Profiles"
-msgstr ""
 
 #, fuzzy
 msgid "Initializing Hyphenator"
@@ -5245,29 +5381,9 @@ msgstr "플러그인 인식중"
 msgid "Reading Scrapbook"
 msgstr ""
 
-msgid "Setting up Shortcuts"
-msgstr ""
-
-msgid "Initializing..."
-msgstr ""
-
 #, fuzzy
 msgid "Edit"
 msgstr "수정..."
-
-#, fuzzy
-msgid "There are no fonts found on your system."
-msgstr "시스템에 포스트스크립용 글꼴이 없습니다"
-
-#, fuzzy
-msgid "Exiting now."
-msgstr "종료 중입니다"
-
-msgid "Fatal Error"
-msgstr "에라 발생"
-
-msgid "Font System Initialized"
-msgstr ""
 
 msgid "Scribus Development Version"
 msgstr ""
@@ -5320,17 +5436,18 @@ msgstr "거꾸로"
 msgid "I&nsert"
 msgstr "삽입"
 
-msgid "Character"
-msgstr ""
+#, fuzzy
+msgid "&Character"
+msgstr "문자들"
 
 #, fuzzy
-msgid "Quote"
+msgid "&Quote"
 msgstr "종료"
 
-msgid "Spaces && Breaks"
+msgid "S&paces && Breaks"
 msgstr ""
 
-msgid "Ligature"
+msgid "Liga&ture"
 msgstr ""
 
 msgid "&View"
@@ -5369,6 +5486,9 @@ msgstr ""
 
 msgid "Found nothing to import"
 msgstr ""
+
+msgid "Fatal Error"
+msgstr "에라 발생"
 
 msgid "File %1 is not in an acceptable format"
 msgstr ""
@@ -5518,6 +5638,13 @@ msgstr "뒤로 보내기"
 msgid "Previe&w Settings"
 msgstr ""
 
+msgid "Character"
+msgstr ""
+
+#, fuzzy
+msgid "Quote"
+msgstr "종료"
+
 #, fuzzy
 msgid "Space"
 msgstr "이른 바꾸기"
@@ -5539,17 +5666,30 @@ msgstr ""
 msgid "Y-Offset"
 msgstr ""
 
-#, fuzzy
-msgid "Underline Words Only"
-msgstr "밑줄"
+msgid ""
+"Underline Text. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
+
+msgid ""
+"Underline Words Only. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
 
 msgid "All Caps"
 msgstr ""
 
-msgid "Strike Out"
+msgid ""
+"Strike Out. Hold down the button momentarily to set line width and "
+"displacement options."
 msgstr ""
 
-msgid "Shadow"
+msgid ""
+"Outline. Hold down the button momentarily to change the outline stroke width."
+msgstr ""
+
+msgid ""
+"Shadowed Text. Hold down the button momentarily to enable the offset spacing."
 msgstr ""
 
 msgid "Setup Printer"
@@ -5968,7 +6108,7 @@ msgstr ""
 msgid "About Scribus %1"
 msgstr "스크리부스"
 
-msgid "March"
+msgid "April"
 msgstr ""
 
 msgid "%1 %2 %3"
@@ -6010,6 +6150,9 @@ msgstr ""
 #, fuzzy
 msgid "Other Documentation:"
 msgstr "기존문서 열기"
+
+msgid "Tango Project Icons:"
+msgstr ""
 
 msgid "A&uthors"
 msgstr ""
@@ -6300,6 +6443,15 @@ msgstr ""
 msgid "Line at Bottom"
 msgstr ""
 
+msgid "Overprinting"
+msgstr ""
+
+msgid "Knockout"
+msgstr ""
+
+msgid "Overprint"
+msgstr ""
+
 msgid "Name of selected object"
 msgstr ""
 
@@ -6391,10 +6543,15 @@ msgstr ""
 msgid "Scaling height of characters"
 msgstr ""
 
-msgid "Color of text stroke. Only available with \"outline\" text decoration."
+msgid ""
+"Color of text stroke and/or drop shadow, depending which is chosen.If both "
+"are chosen, then they share the same color."
 msgstr ""
 
-msgid "Color of text fill. Only available with \"outline\" text decoration."
+msgid ""
+"Color of selected text. If Outline text decoration is enabled, this color "
+"will be the fill color. If Drop Shadow Text is enabled, then this will be "
+"the top most color."
 msgstr ""
 
 msgid "Saturation of color of text stroke"
@@ -6410,6 +6567,9 @@ msgid "Manual Tracking"
 msgstr ""
 
 msgid "Line Spacing"
+msgstr ""
+
+msgid "Click to select the line spacing mode"
 msgstr ""
 
 msgid "Style of current paragraph"
@@ -6665,6 +6825,32 @@ msgstr "문단 스타일(&P)..."
 msgid "Name of the style is not unique"
 msgstr ""
 
+msgid "Initializing Plugins"
+msgstr "플러그인 인식중"
+
+msgid "Initializing Keyboard Shortcuts"
+msgstr ""
+
+msgid "Reading Preferences"
+msgstr ""
+
+msgid "Reading ICC Profiles"
+msgstr ""
+
+msgid "Initializing..."
+msgstr ""
+
+#, fuzzy
+msgid "There are no fonts found on your system."
+msgstr "시스템에 포스트스크립용 글꼴이 없습니다"
+
+#, fuzzy
+msgid "Exiting now."
+msgstr "종료 중입니다"
+
+msgid "Font System Initialized"
+msgstr ""
+
 msgid "Current Key"
 msgstr ""
 
@@ -6749,6 +6935,12 @@ msgstr ""
 msgid "Choose a Scrapbook Directory"
 msgstr ""
 
+msgid "Scrapbook (*.scs)"
+msgstr ""
+
+msgid "Choose a scrapbook file to import"
+msgstr ""
+
 msgid ""
 "Name \"%1\" is not unique.\n"
 "Please choose another."
@@ -6768,6 +6960,10 @@ msgstr ""
 
 msgid "&Load..."
 msgstr ""
+
+#, fuzzy
+msgid "&Import Scrapbook File..."
+msgstr "Datar 불러들이기:"
 
 msgid "Polygon Properties"
 msgstr ""
@@ -6878,6 +7074,9 @@ msgid "Document Sections"
 msgstr "문서 설정..."
 
 msgid "Annotation Properties"
+msgstr ""
+
+msgid "Link"
 msgstr ""
 
 msgid "External Link"
@@ -7009,6 +7208,12 @@ msgstr ""
 msgid "Font of selected text"
 msgstr ""
 
+msgid "Spaces && Breaks"
+msgstr ""
+
+msgid "Ligature"
+msgstr ""
+
 msgid "&Settings"
 msgstr ""
 
@@ -7072,33 +7277,6 @@ msgstr ""
 msgid "Do you really want to lose all your changes?"
 msgstr ""
 
-msgid "Glyphs missing"
-msgstr ""
-
-#, fuzzy
-msgid "Text overflow"
-msgstr "본문 영역"
-
-#, fuzzy
-msgid "Object is not on a Page"
-msgstr "값이 계산 불능"
-
-msgid "Missing Image"
-msgstr ""
-
-msgid "Image has a DPI-Value less than %1 DPI"
-msgstr ""
-
-msgid "Object has transparency"
-msgstr ""
-
-#, fuzzy
-msgid "Object is a PDF Annotation or Field"
-msgstr "값이 계산 불능"
-
-msgid "Object is a placed PDF"
-msgstr ""
-
 msgid "No Problems found"
 msgstr ""
 
@@ -7115,6 +7293,43 @@ msgid "Current Profile:"
 msgstr ""
 
 msgid "&Ignore Errors"
+msgstr ""
+
+#, fuzzy
+msgid "Check again"
+msgstr "검사"
+
+msgid "Glyphs missing"
+msgstr ""
+
+#, fuzzy
+msgid "Text overflow"
+msgstr "본문 영역"
+
+#, fuzzy
+msgid "Object is not on a Page"
+msgstr "값이 계산 불능"
+
+msgid "Missing Image"
+msgstr ""
+
+msgid "Image resolution below %1 DPI, currently %2 x %3 DPI"
+msgstr ""
+
+msgid "Image resolution above %1 DPI, currently %2 x %3 DPI"
+msgstr ""
+
+msgid "Object has transparency"
+msgstr ""
+
+#, fuzzy
+msgid "Object is a PDF Annotation or Field"
+msgstr "값이 계산 불능"
+
+msgid "Object is a placed PDF"
+msgstr ""
+
+msgid "Image is GIF"
 msgstr ""
 
 msgid "Editor"
@@ -7142,28 +7357,11 @@ msgstr ""
 msgid "C&lone"
 msgstr "닫기"
 
-msgid "Alt+L"
-msgstr ""
-
 #, fuzzy
 msgid "O&K"
 msgstr "확인(&O)"
 
 msgid "Alt+K"
-msgstr ""
-
-#, fuzzy
-msgid "A&pply"
-msgstr "적용(&A)"
-
-msgid "Alt+P"
-msgstr ""
-
-#, fuzzy
-msgid "Ca&ncel"
-msgstr "취소(&C)"
-
-msgid "Alt+N"
 msgstr ""
 
 msgid "Move Bookmark"
@@ -7312,9 +7510,6 @@ msgstr "퍼셋트"
 msgid "&Even pages"
 msgstr "페이지 삽입(&S)"
 
-msgid "Alt+E"
-msgstr ""
-
 msgid "O&dd pages"
 msgstr ""
 
@@ -7458,9 +7653,6 @@ msgstr ""
 #, fuzzy
 msgid "Processing Master Pages:"
 msgstr "페이지 삽입(&S)"
-
-msgid "Contents"
-msgstr ""
 
 msgid "&Contents"
 msgstr ""
@@ -7659,6 +7851,9 @@ msgid "Indonesian"
 msgstr ""
 
 msgid "Italian"
+msgstr ""
+
+msgid "Japanese"
 msgstr ""
 
 msgid "Korean"
@@ -8063,9 +8258,6 @@ msgstr ""
 msgid "&Quick Search:"
 msgstr ""
 
-msgid "Alt+S"
-msgstr ""
-
 msgid "&Font Size:"
 msgstr ""
 
@@ -8074,9 +8266,6 @@ msgid "Sample text to display"
 msgstr "텍스트 저장(&T)..."
 
 msgid "Se&t"
-msgstr ""
-
-msgid "Alt+T"
 msgstr ""
 
 msgid "Reset the text"
@@ -8505,6 +8694,9 @@ msgid "Failed to save EPS."
 msgstr ""
 
 msgid "Page number out of range."
+msgstr ""
+
+msgid "Given master page name does not match any existing."
 msgstr ""
 
 msgid "argument is not list: must be list of float values."
@@ -9123,6 +9315,9 @@ msgstr ""
 msgid "&Range"
 msgstr ""
 
+msgid "Image size in Pixels"
+msgstr ""
+
 msgid "Export a range of pages"
 msgstr ""
 
@@ -9187,9 +9382,6 @@ msgstr ""
 msgid "Barcode Creator"
 msgstr ""
 
-msgid "Make check digit visible in text"
-msgstr ""
-
 #, fuzzy
 msgid "Barcode"
 msgstr "테두리"
@@ -9217,9 +9409,6 @@ msgid "If checked, there will be numbers in the barcode too"
 msgstr ""
 
 msgid "&Guard whitespace"
-msgstr ""
-
-msgid "Alt+G"
 msgstr ""
 
 msgid "Draw arrows to be sure of space next the code"
@@ -9296,12 +9485,12 @@ msgstr ""
 msgid "Variable number of digits and any of the symbols -$:/.+ABCD."
 msgstr ""
 
+msgid "Variable number of digits"
+msgstr ""
+
 msgid ""
 "Variable number of digits. An ITF-14 is 14 characters and does not have a "
 "check digit"
-msgstr ""
-
-msgid "Variable number of digits"
 msgstr ""
 
 msgid "Variable number of digits and capital letters"
@@ -9364,16 +9553,24 @@ msgstr ""
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
 msgstr ""
 
+#, fuzzy
+msgid "Importing PostScript"
+msgstr "스크립트:"
+
+#, fuzzy
+msgid "Analyzing PostScript:"
+msgstr "사용자 설정 스크립트"
+
 msgid ""
 "Importing File:\n"
 "%1\n"
 "failed!"
 msgstr ""
 
-msgid ""
-"Converting Image:\n"
-"%1\n"
-"failed!"
+msgid "Generating Items"
+msgstr ""
+
+msgid "Converting of %1 images failed!"
 msgstr ""
 
 msgid "Scribus - My Plugin"
@@ -9389,6 +9586,22 @@ msgstr "단순"
 #, fuzzy
 msgid "My Plugin"
 msgstr "단순"
+
+#, fuzzy
+#~ msgid "&Selection"
+#~ msgstr "새로운 글꼴 선택"
+
+#, fuzzy
+#~ msgid "Copy Contents"
+#~ msgstr "색깔(&C)..."
+
+#, fuzzy
+#~ msgid "Underline Words Only"
+#~ msgstr "밑줄"
+
+#, fuzzy
+#~ msgid "A&pply"
+#~ msgstr "적용(&A)"
 
 #, fuzzy
 #~ msgid "December"
@@ -9429,10 +9642,6 @@ msgstr "단순"
 #, fuzzy
 #~ msgid "Saturation:"
 #~ msgstr "목적 대상"
-
-#, fuzzy
-#~ msgid "Standard"
-#~ msgstr "별"
 
 #, fuzzy
 #~ msgid "Left Ind&ent:"
@@ -9551,10 +9760,6 @@ msgstr "단순"
 #, fuzzy
 #~ msgid "Rena&me"
 #~ msgstr "이른 바꾸기"
-
-#, fuzzy
-#~ msgid "Import macros from a file."
-#~ msgstr "Datar 불러들이기:"
 
 #, fuzzy
 #~ msgid "&Options"

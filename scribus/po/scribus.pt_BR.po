@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-10 01:02+0100\n"
+"POT-Creation-Date: 2006-04-24 23:55+0200\n"
 "PO-Revision-Date: 2006-03-13 18:31-0300\n"
 "Last-Translator: Ludi Maciel <iludi@uol.com.br>\n"
 "Language-Team:  <pt@li.org>\n"
@@ -68,6 +68,19 @@ msgstr "Tipo:"
 
 msgid "Margin Guides"
 msgstr "Guias das margens"
+
+#, fuzzy
+msgid "Delete Styles"
+msgstr "Excluir estilo"
+
+msgid "&OK"
+msgstr "&Ok"
+
+msgid "Ca&ncel"
+msgstr "Ca&ncelar"
+
+msgid "Alt+N"
+msgstr "Alt+N"
 
 msgid "pt"
 msgstr "pt"
@@ -448,7 +461,8 @@ msgid "Pictures in picture frames are scaled to the size of the frame"
 msgstr "As imagens são dimensionadas no tamanho do quadro"
 
 msgid "Automatically scaled pictures keep their original proportions"
-msgstr "As imagens dimensionadas automaticamente mantém suas proporções originais"
+msgstr ""
+"As imagens dimensionadas automaticamente mantém suas proporções originais"
 
 msgid "Fill color of picture frames"
 msgstr "Cor de preenchimento dos quadros de imagem"
@@ -498,17 +512,12 @@ msgstr "Personalizado:"
 msgid "Freetype2 library not available"
 msgstr "A biblioteca Freetype2 não está disponível"
 
-msgid "Font %1 is broken, no embedding"
+#, fuzzy
+msgid "Font %1(%2) is broken"
 msgstr "A fonte %1 possui problemas, não será embarcada"
 
 msgid "Font %1 is broken (read stream), no embedding"
 msgstr "A fonte %1 possui problemas (stream de leitura), não será embarcada"
-
-msgid "Font %1 is broken (FreeType2), discarding it"
-msgstr "A fonte %1 possui problemas(FreeType2). Descartando-a"
-
-msgid "Font %1 is broken (no Face), discarding it"
-msgstr "A fonte %1 possui problemas(sem corpo). Descartando-a"
 
 msgid "Font %1 has broken glyph %2 (charcode %3)"
 msgstr "A fonte %1 possui caracteres %2 problemáticos (charcode%3)"
@@ -519,11 +528,11 @@ msgstr "A fonte %1 possui problemas e será descartada"
 msgid "Font %1 cannot be read, no embedding"
 msgstr "A fonte %1 possui problemas(FreeType2). Descartando-a"
 
-msgid "Font %1 is broken, discarding it"
-msgstr "A fonte %1 foi descartada por apresentar problemas"
-
 msgid "Creating Font Cache"
 msgstr "Criando cache de fontes"
+
+msgid "Font %1 is broken, discarding it"
+msgstr "A fonte %1 foi descartada por apresentar problemas"
 
 msgid "Failed to load font %1 - font type unknown"
 msgstr "Falhou ao carregar o arquivo %1 - tipo de fonte desconhecido"
@@ -542,11 +551,6 @@ msgstr "A fonte %1(%2) é um cópia da %3"
 
 msgid "Loading font %1 (found using fontconfig)"
 msgstr "Carregando fonte %1 (encontrada usando o fontconfig)"
-
-msgid "Font %1 (found using fontconfig) is broken, discarding it"
-msgstr ""
-"A fonte %1 (encontrada a partir do fontconfig) possui problemas. Descartando-"
-"a"
 
 msgid "Failed to load a font - freetype2 couldn't find the font file"
 msgstr ""
@@ -630,6 +634,11 @@ msgstr "Documento"
 
 msgid "Background"
 msgstr "Plano de Fundo"
+
+msgid ""
+"An error occurred while opening icc profiles, color management is not "
+"enabled."
+msgstr ""
 
 msgid "New Layer"
 msgstr "Nova camada"
@@ -740,7 +749,8 @@ msgstr "Aumenta o tamanho do caminho no valor definido"
 msgid "Angle of Rotation"
 msgstr "Ângulo de rotação"
 
-##, c-format
+# #, c-format
+#, fuzzy, c-format
 msgid "% to Enlarge or Shrink By"
 msgstr "% para redimensionar"
 
@@ -1283,6 +1293,18 @@ msgstr "Obter imagem"
 msgid "Multiple duplicate"
 msgstr "Duplicações múltiplas"
 
+#, fuzzy
+msgid "Apply text style"
+msgstr "Aplicar página mestre"
+
+#, fuzzy
+msgid "&Undo: %1"
+msgstr "&Desfazer"
+
+#, fuzzy
+msgid "&Redo: %1"
+msgstr "Ler: %1"
+
 msgid "Move Pages"
 msgstr "Mover páginas"
 
@@ -1414,11 +1436,15 @@ msgstr "Ní&vel"
 msgid "Conve&rt to"
 msgstr "Conve&rter em"
 
+msgid "Contents"
+msgstr "Conteúdo"
+
 msgid "Linking Text Frames"
 msgstr "Conecta quadros de texto"
 
 msgid "You are trying to link to a filled frame, or a frame to itself."
-msgstr "Você está tentando conectar à um quadro preenchido ou ao próprio quadro."
+msgstr ""
+"Você está tentando conectar à um quadro preenchido ou ao próprio quadro."
 
 msgid "Page %1 to %2"
 msgstr "Página %1 a %2"
@@ -1463,8 +1489,16 @@ msgstr "Menor resolução permitida"
 msgid " dpi"
 msgstr " dpi"
 
+#, fuzzy
+msgid "Highest allowed resolution"
+msgstr "Menor resolução permitida"
+
 msgid "Check for placed PDF Files"
 msgstr "Checar por arquivos PDF incorporados"
+
+#, fuzzy
+msgid "Check for GIF images"
+msgstr "Checar por imagens perdidas"
 
 msgid "Check for PDF Annotations and Fields"
 msgstr "Checar por anotações e campos de PDF"
@@ -1498,9 +1532,6 @@ msgstr "&Inferior:"
 
 msgid "&Left:"
 msgstr "&Esquerda:"
-
-msgid "&OK"
-msgstr "&Ok"
 
 msgid "Alt+O"
 msgstr "Alt+O"
@@ -1547,6 +1578,14 @@ msgstr "Plugin: %1 carregado"
 msgid "Plugin: %1 failed to load: %2"
 msgstr "Plugin: %1 falou ao carregar: %2"
 
+#, fuzzy
+msgid "Plugin: %1 initialized ok "
+msgstr "Plugin: %1 falou ao carregar: %2"
+
+#, fuzzy
+msgid "Plugin: %1 failed post initialization"
+msgstr "Plugin: %1 falou ao carregar: %2"
+
 msgid "Flat Cap"
 msgstr "Ponta achatada"
 
@@ -1591,6 +1630,73 @@ msgstr "%1 de %1"
 
 msgid "%1 of %2"
 msgstr "%1 de %2"
+
+#, fuzzy
+msgid "font %1 "
+msgstr " de %1"
+
+msgid "size %1 "
+msgstr ""
+
+#, fuzzy
+msgid "+style "
+msgstr "Estilo"
+
+#, fuzzy
+msgid "+color "
+msgstr "Cor"
+
+#, fuzzy
+msgid "+underline "
+msgstr "Sublinhado"
+
+#, fuzzy
+msgid "-underline "
+msgstr "Sublinhado"
+
+#, fuzzy
+msgid "+strikeout "
+msgstr "Tach&ado"
+
+#, fuzzy
+msgid "-strikeout "
+msgstr "Tach&ado"
+
+#, fuzzy
+msgid "+shadow "
+msgstr "Sombra"
+
+#, fuzzy
+msgid "-shadow "
+msgstr "Sombra"
+
+#, fuzzy
+msgid "+outline "
+msgstr "Delineado"
+
+#, fuzzy
+msgid "-outline "
+msgstr "Delineado"
+
+msgid "+tracking %1"
+msgstr ""
+
+#, fuzzy
+msgid "-tracking "
+msgstr "String"
+
+msgid "+baseline %1"
+msgstr ""
+
+msgid "+stretch "
+msgstr ""
+
+msgid "parent= %1"
+msgstr ""
+
+#, fuzzy
+msgid "unnamed"
+msgstr "Renomear"
 
 msgid "Icon Placement"
 msgstr "Posicionamento do ícone"
@@ -1678,7 +1784,8 @@ msgstr ""
 "seção.<br/>Para: O índice de página para terminar essa seção.<br/>Estilo: "
 "Selecione o estilo de número de página a ser usado.<br/>Início: O índice com "
 "o intervalo de estilos a iniciar. Ex. Se Início=2 e Estilo=a,b,c ..., os "
-"números começarão no b. Isto substitui o antigo  'Número da Primeira Página'.usado na primeira seção do documento, na janela de novo arquivo."
+"números começarão no b. Isto substitui o antigo  'Número da Primeira Página'."
+"usado na primeira seção do documento, na janela de novo arquivo."
 
 msgid "1, 2, 3, ..."
 msgstr "1, 2, 3, ..."
@@ -1770,81 +1877,17 @@ msgstr "Caminho de texto"
 msgid "Copy of"
 msgstr "Copiar de"
 
-msgid "Manage Guides"
-msgstr "Gerenciar guias"
-
-msgid "Horizontal Guides"
-msgstr "Guias horizontais"
-
-msgid "Guide"
+#, fuzzy
+msgid "Edit Guide"
 msgstr "Guias"
 
-msgid "Unit"
-msgstr "Unidades"
+#, fuzzy
+msgid "Enter a position:"
+msgstr "Opções da impressora"
 
-msgid "D&elete"
-msgstr "&Excluir"
-
-msgid "Vertical Guides"
-msgstr "Guias verticais"
-
-msgid "A&dd"
-msgstr "A&dicionar"
-
-msgid "De&lete"
-msgstr "Exc&luir"
-
-msgid "Rows and Columns - Automatic Guides"
-msgstr "Linhas e colunas - Guias automáticas"
-
-msgid "&Rows:"
-msgstr "Lin&has:"
-
-msgid "C&olumns:"
-msgstr "C&olunas:"
-
-msgid "Row &Gap"
-msgstr "Distância entre li&nhas"
-
-msgid "Colum&n Gap"
-msgstr "Distâ&ncia entre colunas"
-
-msgid "Refer to:"
-msgstr "Referenciar à:"
-
-msgid "&Page"
-msgstr "&Página"
-
-msgid "&Margins"
-msgstr "&Margens"
-
-msgid "&Selection"
-msgstr "&Seleção"
-
-msgid "&Lock Guides"
-msgstr "&Travar guias"
-
-msgid "&Apply to All Pages"
-msgstr "&Aplicar em todas as páginas"
-
-msgid "&Close"
-msgstr "&Fechar"
-
-msgid "&Update"
-msgstr "&Atualizar"
-
-msgid "Preview"
-msgstr "Visualizar"
-
-msgid ""
-"Set the guides in document. Guide manager is still opened but the changes "
-"are persistant"
-msgstr ""
-"Configura as guias do documento. O gerenciador de guias ainda está aberto "
-"mas as alterações são persistentes"
-
-msgid "There is empty (0.0) guide already"
-msgstr "Já há uma guia vazia (0.0)"
+#, fuzzy
+msgid "New Guide"
+msgstr "Guias"
 
 msgid "Other..."
 msgstr "Outro..."
@@ -2031,34 +2074,11 @@ msgid "&Adjust Display Size"
 msgstr "&Ajustar o tamanho da exibição"
 
 msgid "To adjust the display drag the ruler below with the slider."
-msgstr "Para ajustar a exibição, arraste a régua abaixo com o controle deslizante."
+msgstr ""
+"Para ajustar a exibição, arraste a régua abaixo com o controle deslizante."
 
 msgid "Display"
 msgstr "Exibir"
-
-msgid "PostScript Interpreter"
-msgstr "Interpretador PostScript"
-
-msgid "&Name of Executable:"
-msgstr "&Nome do executável:"
-
-msgid "Antialias &Text"
-msgstr "Suavizar o &texto"
-
-msgid "Antialias &Graphics"
-msgstr "Suavizar as &imagens"
-
-msgid "dpi"
-msgstr "dpi"
-
-msgid "Resolution:"
-msgstr "Resolução:"
-
-msgid "Image Processing Tool"
-msgstr "Ferramenta de processamento de imagem"
-
-msgid "Name of &Executable:"
-msgstr "Nome do &executável:"
 
 msgid "External Tools"
 msgstr "Ferramentas externas"
@@ -2090,7 +2110,8 @@ msgstr "Plugins"
 msgid "Enable or disable  the display of linked frames."
 msgstr "Habilitar/Desabilitar a visualização de quadros conectados."
 
-msgid "Display non-printing characters such as paragraph markers in text frames"
+msgid ""
+"Display non-printing characters such as paragraph markers in text frames"
 msgstr ""
 "Exibe caracteres não imprimíveis como marcadores de parágrafo nos quadros de "
 "texto"
@@ -2129,7 +2150,8 @@ msgid "Default unit of measurement for document editing"
 msgstr "Unidade de medida padrão para edição do documento"
 
 msgid "Number of lines Scribus will scroll for each move of the mouse wheel"
-msgstr "Número de linha roladas pelo programa a cada movimento da \"roda\" do mouse"
+msgstr ""
+"Número de linha roladas pelo programa a cada movimento da \"roda\" do mouse"
 
 msgid "Number of recently edited documents to show in the File menu"
 msgstr "Número de documentos recentes a serem mostrados no menu Arquivo"
@@ -2165,7 +2187,8 @@ msgstr ""
 "Largura das páginas do documento. Editável se você escolheu um tamanho "
 "personalizado"
 
-msgid "Height of document pages, editable if you have chosen a custom page size"
+msgid ""
+"Height of document pages, editable if you have chosen a custom page size"
 msgstr ""
 "Altura das páginas do documento. Editável se você escolheu um tamanho "
 "personalizado"
@@ -2204,24 +2227,6 @@ msgstr ""
 "configurar o nível de aproximação (zoom), assim o Scribus irá exibir suas "
 "páginas e objetos no tamanho correto"
 
-msgid "Filesystem location for the Ghostscript interpreter"
-msgstr "Localização do interpretador Ghostscript no sistema"
-
-msgid "Antialias text for EPS and PDF onscreen rendering"
-msgstr "Suaviza o texto para a renderização na tela de EPS e PDF"
-
-msgid "Antialias graphics for EPS and PDF onscreen rendering"
-msgstr "Suaviza as imagens para a renderização na tela de EPS e PDF"
-
-msgid ""
-"File system location for graphics editor. If you use gimp and your distro "
-"includes it, we recommend 'gimp-remote', as it allows you to edit the image "
-"in an already running instance of gimp."
-msgstr ""
-"Localização no sistema de arquivos do editor gráfico. Se você utiliza o Gimp "
-"e sua distribuição o inclui, recomendamos comando 'gimp-remote', já que ele "
-"permite que você edite a imagem em um instância já existente do Gimp."
-
 msgid ""
 "Defines amount of space left of the document canvas available as a "
 "pasteboard for creating and modifying elements and dragging them onto the "
@@ -2255,12 +2260,6 @@ msgstr ""
 "Define a quantidade de espaço -- abaixo da tela do documento -- "
 "disponívelcomo um área de colagem para criar e modificar elementos, "
 "arrastando-os para a página ativa"
-
-msgid "Locate Ghostscript"
-msgstr "Localização do Ghostscript"
-
-msgid "Locate your image editor"
-msgstr "Localização do editor de imagem"
 
 msgid "Could not open output file %1"
 msgstr "Não foi possível abrir o arquivo de saída: %1"
@@ -2397,6 +2396,12 @@ msgstr "Nome"
 msgid "Add a new layer"
 msgstr "Adicionar uma nova camada"
 
+msgid "Locate Ghostscript"
+msgstr "Localização do Ghostscript"
+
+msgid "Locate your image editor"
+msgstr "Localização do editor de imagem"
+
 msgid "Save as PDF"
 msgstr "Salvar como PDF"
 
@@ -2422,8 +2427,8 @@ msgid ""
 "The save button will be disabled if you are trying to export PDF/X-3 and the "
 "info string is missing from the PDF/X-3 tab."
 msgstr ""
-"O botão salvar será desabilitado se você estiver tentando exportar para PDF/X-3 "
-"e a string de informação não aparecerá na aba PDF/X-3."
+"O botão salvar será desabilitado se você estiver tentando exportar para PDF/"
+"X-3 e a string de informação não aparecerá na aba PDF/X-3."
 
 msgid "Save as"
 msgstr "Salvar como"
@@ -2494,30 +2499,6 @@ msgstr "Propriedades..."
 msgid "PDF Tools"
 msgstr "Ferramentas de PDF"
 
-msgid "Button"
-msgstr "Botão"
-
-msgid "Text Field"
-msgstr "Campo de texto"
-
-msgid "Check Box"
-msgstr "Caixa de checagem "
-
-msgid "Combo Box"
-msgstr "Caixa de seleção"
-
-msgid "List Box"
-msgstr "Caixa de listagem"
-
-msgid "Insert PDF Fields"
-msgstr "Insere campos de PDF"
-
-msgid "Insert PDF Annotations"
-msgstr "Insere anotações de PDF"
-
-msgid "Link"
-msgstr "Ligação"
-
 msgid "Possible Hyphenation"
 msgstr "Hifenização possível"
 
@@ -2547,9 +2528,6 @@ msgstr "Progesso"
 
 msgid "Overall Progress:"
 msgstr "Progresso geral:"
-
-msgid "Font %1 is broken (FreeType), discarding it"
-msgstr "A fonte %1 possui um problema (FreeType). Descartando-a"
 
 msgid "Font %1  has invalid glyph %2 (charcode %3), discarding it"
 msgstr "A fonte %1 possui caracteres %2 inválidos (charcode %3). Descartando-a"
@@ -2583,6 +2561,9 @@ msgstr "Mostrar trans&parência"
 
 msgid "&Under Color Removal"
 msgstr "&Remoção de Sub-Cores"
+
+msgid "Force Overprint Mode"
+msgstr ""
 
 msgid "&Display CMYK"
 msgstr "&Mostrar CMYK"
@@ -2700,6 +2681,9 @@ msgstr "Arquivos XML:"
 msgid "Paragraphs:"
 msgstr "Parágrafos:"
 
+msgid "Resolution:"
+msgstr "Resolução:"
+
 msgid "DPI"
 msgstr "DPI"
 
@@ -2794,6 +2778,9 @@ msgstr "Não usar nenhum caminho"
 msgid "Scribus: About Plug-ins"
 msgstr "Scribus - Sobre os Plug-ins"
 
+msgid "&Close"
+msgstr "&Fechar"
+
 msgid "Align Text Left"
 msgstr "Alinhar o texto à esquerda"
 
@@ -2866,6 +2853,9 @@ msgstr "Primeira seleção"
 msgid "Last Selected"
 msgstr "Última seleção"
 
+msgid "Guide"
+msgstr "Guias"
+
 msgid "Align right sides of objects to left side of anchor"
 msgstr "Alinha o lado direito dos objetos ao lado esquerdo da âncora"
 
@@ -2907,8 +2897,8 @@ msgstr "Distribui as lacunas horizontais entre os objetos uniformemente"
 
 msgid "Make horizontal gaps between objects equal to the value specified"
 msgstr ""
-"Distribui as lacunas horizontais entre os objetos uniformemente usando o valor "
-"especificado"
+"Distribui as lacunas horizontais entre os objetos uniformemente usando o "
+"valor especificado"
 
 msgid "Distribute right sides equidistantly"
 msgstr "Distribui o lado direito uniformemente"
@@ -3324,15 +3314,16 @@ msgid ""
 "Enables presentation effects when using Adobe&#174; Reader&#174; and other "
 "PDF viewers which support this in full screen mode."
 msgstr ""
-"Habilita os efeitos de apresentação quando usado o Adobe&#174; Reader&#174; ou  "
-"outro visualizador de PDF que suporte esse recurso em modo tela-cheia."
+"Habilita os efeitos de apresentação quando usado o Adobe&#174; Reader&#174; "
+"ou  outro visualizador de PDF que suporte esse recurso em modo tela-cheia."
 
 msgid "Show page previews of each page listed above."
 msgstr "Mostra a visualização de cada uma das páginas listadas acima."
 
+#, fuzzy
 msgid ""
 "Length of time the page is shown before the presentation starts on the "
-"selected page."
+"selected page. Setting 0 will disable automatic page transition."
 msgstr ""
 "Período de tempo em que a página é exibida antes que a apresentação comece "
 "na página selecionada."
@@ -3347,8 +3338,10 @@ msgstr ""
 msgid "Type of the display effect."
 msgstr "Tipo do efeito de exibição."
 
-msgid "Direction of the effect of moving lines for the split and blind effects."
-msgstr "Direção de movimentação das linhas para os efeitos Separação e Persiana."
+msgid ""
+"Direction of the effect of moving lines for the split and blind effects."
+msgstr ""
+"Direção de movimentação das linhas para os efeitos Separação e Persiana."
 
 msgid "Starting position for the box and split effects."
 msgstr "Posição inicial dos efeitos Caixa e Separação."
@@ -3386,14 +3379,12 @@ msgstr ""
 "Determina a compatibilidade do PDF. O padrão é o PDF 1.3, que oferece a "
 "compatibilidade mais ampla. Selecione PDF 1.4 se o seu arquivo possuir "
 "características de transparência, ou se você necessitar de criptografia de "
-"128 bit. PDF 1.5 é necessário quando você deseja preservar os objetos em camadas "
-"separadas dentro do PDF. O PDF/X-3 é usado quando você deseja "
-"gerenciar as cores RGB para impressoras "
-"comerciais e é selecionável "
-"quando o gerenciamento de cores está ativo. Use apenas quando requerido por "
-"sua impressora ou em alguns casos de impressão "
-"em impressoras digitais a "
-"laser de 4 cores."
+"128 bit. PDF 1.5 é necessário quando você deseja preservar os objetos em "
+"camadas separadas dentro do PDF. O PDF/X-3 é usado quando você deseja "
+"gerenciar as cores RGB para impressoras comerciais e é selecionável quando o "
+"gerenciamento de cores está ativo. Use apenas quando requerido por sua "
+"impressora ou em alguns casos de impressão em impressoras digitais a laser "
+"de 4 cores."
 
 msgid ""
 "Determines the binding of pages in the PDF. Unless you know you need to "
@@ -3420,8 +3411,8 @@ msgid ""
 "Layers in your document are exported to the PDF Only available if PDF 1.5 is "
 "chosen."
 msgstr ""
-"As camadas em seu documento são exportadas para o PDF ."
-"Disponível somente se o PDF 1.5 for selecionado."
+"As camadas em seu documento são exportadas para o PDF .Disponível somente se "
+"o PDF 1.5 for selecionado."
 
 msgid ""
 "Embed the bookmarks you created in your document. These are useful for "
@@ -3507,15 +3498,17 @@ msgstr "Escolha uma senha para habilitar os usuários a lerem o seu PDF."
 msgid "Allow printing of the PDF. If un-checked, printing is prevented. "
 msgstr "Permite a impressão do PDF. Se desmarcado, não se consegue imprimir. "
 
-msgid "Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
-msgstr "Permite a modificação do PDF. Se desmarcado, não se consegue modificá-lo."
+msgid ""
+"Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
+msgstr ""
+"Permite a modificação do PDF. Se desmarcado, não se consegue modificá-lo."
 
 msgid ""
 "Allow copying of text or graphics from the PDF. If unchecked, text and "
 "graphics cannot be copied."
 msgstr ""
-"Permite a cópia de texto ou imagens do PDF. Se desmarcado, não se pode copiar "
-"texto nem imagens."
+"Permite a cópia de texto ou imagens do PDF. Se desmarcado, não se pode "
+"copiar texto nem imagens."
 
 msgid ""
 "Allow adding annotations and fields to the PDF. If unchecked, editing "
@@ -3601,6 +3594,10 @@ msgid "Mirror Page(s) vertically"
 msgstr "Espelhar página(s) verticalmente"
 
 msgid ""
+"Enables global Overprint Mode for this document, overrides object settings"
+msgstr ""
+
+msgid ""
 "Enables Spot Colors to be converted to composite colors. Unless you are "
 "planning to print spot colors at a commercial printer, this is probably best "
 "left enabled."
@@ -3637,7 +3634,8 @@ msgid "Failed to open prefs file \"%1\": %2"
 msgstr "Não foi possível abrir o arquivo de preferências \"%1\" : %2"
 
 msgid "Failed to read prefs XML from \"%1\": %2 at line %3, col %4"
-msgstr "Falha ao ler as preferências no XML de \"%1\": %2 na linha %3, coluna %4"
+msgstr ""
+"Falha ao ler as preferências no XML de \"%1\": %2 na linha %3, coluna %4"
 
 msgid "Postscript"
 msgstr "Postscript"
@@ -3684,7 +3682,8 @@ msgstr "Tamanho da página, pode ser um tamanho padrão ou personalizado"
 msgid "Orientation of the document's pages"
 msgstr "Orientação das páginas do documento"
 
-msgid "Width of the document's pages, editable if you have chosen a custom page size"
+msgid ""
+"Width of the document's pages, editable if you have chosen a custom page size"
 msgstr ""
 "Largura das páginas do documento. Editável se você escolheu um tamanho de "
 "página personalizado"
@@ -3724,6 +3723,64 @@ msgstr "Quadros de texto &automáticos"
 
 msgid "Open"
 msgstr "Abrir"
+
+msgid "PostScript Interpreter"
+msgstr "Interpretador PostScript"
+
+msgid "&Name of Executable:"
+msgstr "&Nome do executável:"
+
+msgid ""
+"Add the path for the Ghostscript interpreter. On Windows, please note it is "
+"important to note you need to use the program named gswin32c.exe - NOT "
+"gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus."
+msgstr ""
+
+#, fuzzy
+msgid "&Change.."
+msgstr "&Alterar..."
+
+msgid "Antialias &Text"
+msgstr "Suavizar o &texto"
+
+msgid "Alt+T"
+msgstr "Alt+T"
+
+msgid "Antialias text for EPS and PDF onscreen rendering"
+msgstr "Suaviza o texto para a renderização na tela de EPS e PDF"
+
+msgid "Antialias &Graphics"
+msgstr "Suavizar as &imagens"
+
+msgid "Alt+G"
+msgstr "Alt+G"
+
+msgid "Antialias graphics for EPS and PDF onscreen rendering"
+msgstr "Suaviza as imagens para a renderização na tela de EPS e PDF"
+
+msgid "Image Processing Tool"
+msgstr "Ferramenta de processamento de imagem"
+
+msgid "Name of &Executable:"
+msgstr "Nome do &executável:"
+
+#, fuzzy
+msgid ""
+"File system location for graphics editor. If you use gimp and your "
+"distribution includes it, we recommend 'gimp-remote', as it allows you to "
+"edit the image in an already running instance of gimp."
+msgstr ""
+"Localização no sistema de arquivos do editor gráfico. Se você utiliza o Gimp "
+"e sua distribuição o inclui, recomendamos comando 'gimp-remote', já que ele "
+"permite que você edite a imagem em um instância já existente do Gimp."
+
+#, fuzzy
+msgid "&Rescan"
+msgstr "&Reconfigurar"
+
+#, fuzzy
+msgid "Alt+R"
+msgstr "Alt+"
 
 msgid "Filename:"
 msgstr "Nome do arquivo:"
@@ -3833,8 +3890,108 @@ msgstr "Exportando páginas:"
 msgid "Exporting Items on Current Page:"
 msgstr "Exportando ítens da página atual:"
 
+msgid "Unit"
+msgstr "Unidades"
+
+msgid "Manage Guides"
+msgstr "Gerenciar guias"
+
+#, fuzzy
+msgid "Horizontals"
+msgstr "Horizontal"
+
+msgid "D&elete"
+msgstr "&Excluir"
+
+msgid "Alt+E"
+msgstr "Alt+E"
+
+#, fuzzy
+msgid "Verticals"
+msgstr "Vertical"
+
+msgid "A&dd"
+msgstr "A&dicionar"
+
+msgid "De&lete"
+msgstr "Exc&luir"
+
+msgid "Alt+L"
+msgstr "Alt+L"
+
+msgid "&Lock Guides"
+msgstr "&Travar guias"
+
+#, fuzzy
+msgid "Appl&y to All Pages"
+msgstr "&Aplicar em todas as páginas"
+
+#, fuzzy
+msgid "Alt+Y"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "&Standard"
+msgstr "Estrela"
+
+#, fuzzy
+msgid "&Number:"
+msgstr "Números:"
+
+#, fuzzy
+msgid "U&se Gap:"
+msgstr "&Espaço:"
+
+msgid "Alt+S"
+msgstr "Alt+S"
+
+#, fuzzy
+msgid "Nu&mber:"
+msgstr "Números:"
+
+#, fuzzy
+msgid "Use &Gap:"
+msgstr "&Espaço:"
+
+#, fuzzy
+msgid "Refer To"
+msgstr "Referenciar à:"
+
+msgid "&Page"
+msgstr "&Página"
+
+msgid "Alt+P"
+msgstr "Alt+P"
+
+#, fuzzy
+msgid "M&argins"
+msgstr "Margens"
+
+#, fuzzy
+msgid "S&election"
+msgstr "Seleção"
+
+#, fuzzy
+msgid "A&utomatic"
+msgstr "Automático"
+
 msgid "Field Properties"
 msgstr "Propriedades do campo"
+
+msgid "Button"
+msgstr "Botão"
+
+msgid "Text Field"
+msgstr "Campo de texto"
+
+msgid "Check Box"
+msgstr "Caixa de checagem "
+
+msgid "Combo Box"
+msgstr "Caixa de seleção"
+
+msgid "List Box"
+msgstr "Caixa de listagem"
 
 msgid "Tool-Tip:"
 msgstr "Dica das ferramentas:"
@@ -4161,7 +4318,8 @@ msgid "You need at least the Icon for Normal to use Icons for Buttons"
 msgstr "É necessário ao menos o ícone para Normal para usar ícones para botões"
 
 msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
-msgstr "Imagens (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Todos os arquivos (*)"
+msgstr ""
+"Imagens (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Todos os arquivos (*)"
 
 msgid "Example:"
 msgstr "Exemplo:"
@@ -4174,6 +4332,9 @@ msgstr "Resultado"
 
 msgid "Search Results for: "
 msgstr "Pesquisar resultados para: "
+
+msgid "Preview"
+msgstr "Visualizar"
 
 msgid "Select"
 msgstr "Selecionar"
@@ -4232,17 +4393,12 @@ msgstr "Cor&tar"
 msgid "&Copy"
 msgstr "&Copiar"
 
-msgid "Copy Contents"
-msgstr "Copiar conteúdo"
-
-msgid "Paste Contents"
-msgstr "Colar conteúdo"
-
-msgid "Paste Contents (Absolute)"
+#, fuzzy
+msgid "Paste (&Absolute)"
 msgstr "Colar conteúdo (Absoluto)"
 
-msgid "C&lear Contents"
-msgstr "&Limpar conteúdo"
+msgid "C&lear"
+msgstr "&Limpar"
 
 msgid "Select &All"
 msgstr "Selecionar &tudo"
@@ -4634,6 +4790,34 @@ msgstr "Insere uma curva de Bezier"
 msgid "Insert Freehand Line"
 msgstr "Insere uma linha à mão-livre"
 
+#, fuzzy
+msgid "Insert PDF Push Button"
+msgstr "Insere anotações de PDF"
+
+#, fuzzy
+msgid "Insert PDF Text Field"
+msgstr "Insere campos de PDF"
+
+#, fuzzy
+msgid "Insert PDF Check Box"
+msgstr "Insere campos de PDF"
+
+#, fuzzy
+msgid "Insert PDF Combo Box"
+msgstr "Caixa de seleção"
+
+#, fuzzy
+msgid "Insert PDF List Box"
+msgstr "Insere campos de PDF"
+
+#, fuzzy
+msgid "Insert Text Annotation"
+msgstr "Insere anotações de PDF"
+
+#, fuzzy
+msgid "Insert Link Annotation"
+msgstr "Insere anotações de PDF"
+
 msgid "&Manage Pictures"
 msgstr "&Gerenciar imagens"
 
@@ -4911,7 +5095,8 @@ msgstr ""
 "arquivos PDF"
 
 msgid "A person or organisation responsible for making the document available"
-msgstr "Uma pessoa ou organização responsável por tornar o documento disponível"
+msgstr ""
+"Uma pessoa ou organização responsável por tornar o documento disponível"
 
 msgid ""
 "A person or organisation responsible for making contributions to the content "
@@ -4991,13 +5176,17 @@ msgid "Apply margin settings to all pages"
 msgstr "Aplicar as configurações de margem a todas as páginas"
 
 msgid "Apply the margin changes to all existing pages in the document"
-msgstr "Aplica as configurações de margem em todas as páginas existentes do documento"
+msgstr ""
+"Aplica as configurações de margem em todas as páginas existentes do documento"
 
 msgid "Printer Margins..."
 msgstr "Margens da impressora..."
 
-msgid "Import the margins for the selected page size from the available printers."
-msgstr "Importa as margens das impressoras disponíveis para o tamanho de página selecionado."
+msgid ""
+"Import the margins for the selected page size from the available printers."
+msgstr ""
+"Importa as margens das impressoras disponíveis para o tamanho de página "
+"selecionado."
 
 msgid "Distance between the top margin guide and the edge of the page"
 msgstr "Distância entre a guia da margem superior e a borda da página"
@@ -5050,9 +5239,9 @@ msgid ""
 "value. Leading is Left/Inside value."
 msgstr ""
 "Você pode selecionar aqui um layout de página predefinido.'Nenhum' deixa as "
-"margens como estão. 'Gutenberg' deixa as margens na forma clássica. 'Revista' "
-"deixa todas as margens com o mesmo valor. Leading é o valor Esquerda/"
-"Interior."
+"margens como estão. 'Gutenberg' deixa as margens na forma clássica. "
+"'Revista' deixa todas as margens com o mesmo valor. Leading é o valor "
+"Esquerda/Interior."
 
 msgid ""
 "You can see a thumbnail if you press and hold down the right mouse button. "
@@ -5074,9 +5263,6 @@ msgstr "&Inserir código:"
 
 msgid "&Insert"
 msgstr "&Inserir"
-
-msgid "C&lear"
-msgstr "&Limpar"
 
 msgid "Insert the characters at the cursor in the text"
 msgstr "Insere os caracteres no texto a partir do cursor"
@@ -5295,29 +5481,22 @@ msgstr "Documentos (*.sla *.scd);;Todos os arquivos (*)"
 msgid "New Color"
 msgstr "Nova cor"
 
+#, fuzzy
+msgid "Add, change or remove color stops here"
+msgstr ""
+"Aqui você pode adicionar, alterar ou remover os pontos de mudança de cor."
+
 msgid "Position:"
 msgstr "Posição:"
-
-msgid "Here you can add, change or remove Color-Stops."
-msgstr "Aqui você pode adicionar, alterar ou remover os pontos de mudança de cor."
 
 msgid "Scribus "
 msgstr "Scribus "
 
-msgid "Initializing Plugins"
-msgstr "Iniciando plugins"
-
-msgid "Initializing Keyboard Shortcuts"
-msgstr "Iniciando atalhos de teclado"
-
-msgid "Reading Preferences"
-msgstr "Lendo preferências"
+msgid "Setting up Shortcuts"
+msgstr "Configurando teclas de atalho"
 
 msgid "Initializing Story Editor"
 msgstr "Iniciando Editor de História"
-
-msgid "Reading ICC Profiles"
-msgstr "Lendo perfis ICC"
 
 msgid "Initializing Hyphenator"
 msgstr "Iniciando Hifenizador"
@@ -5325,26 +5504,8 @@ msgstr "Iniciando Hifenizador"
 msgid "Reading Scrapbook"
 msgstr "Lendo o Bloco de Rascunhos"
 
-msgid "Setting up Shortcuts"
-msgstr "Configurando teclas de atalho"
-
-msgid "Initializing..."
-msgstr "Iniciando..."
-
 msgid "Edit"
 msgstr "Editar"
-
-msgid "There are no fonts found on your system."
-msgstr "Não foram encontradas fontes no seu sistema."
-
-msgid "Exiting now."
-msgstr "Saindo agora."
-
-msgid "Fatal Error"
-msgstr "Erro fatal"
-
-msgid "Font System Initialized"
-msgstr "Sistema de fontes inicializado"
 
 msgid "Scribus Development Version"
 msgstr "Versão de desenvolvimento do Scribus"
@@ -5400,16 +5561,20 @@ msgstr "Conv&erter em"
 msgid "I&nsert"
 msgstr "&Inserir"
 
-msgid "Character"
+#, fuzzy
+msgid "&Character"
 msgstr "Caractere"
 
-msgid "Quote"
+#, fuzzy
+msgid "&Quote"
 msgstr "Citação"
 
-msgid "Spaces && Breaks"
+#, fuzzy
+msgid "S&paces && Breaks"
 msgstr "Espaços && Quebras"
 
-msgid "Ligature"
+#, fuzzy
+msgid "Liga&ture"
 msgstr "Ligadura"
 
 msgid "&View"
@@ -5452,6 +5617,9 @@ msgstr "Importação concluída"
 
 msgid "Found nothing to import"
 msgstr "Não foi encontrado nada para importar"
+
+msgid "Fatal Error"
+msgstr "Erro fatal"
 
 msgid "File %1 is not in an acceptable format"
 msgstr "O arquivo %1 não está em um formato aceitável"
@@ -5548,13 +5716,17 @@ msgid "The following programs are missing:"
 msgstr "Os seguintes programas estão faltando:"
 
 msgid "Ghostscript : You cannot use EPS images or Print Preview"
-msgstr "Ghostscript: Você não pode utilizar imagens EPS ou visualizar impressão"
+msgstr ""
+"Ghostscript: Você não pode utilizar imagens EPS ou visualizar impressão"
 
 msgid "Ghostscript : You cannot use EPS images or PostScript Print Preview"
-msgstr "Ghostscript : Você não pode utilizar imagens EPS ou visualizar impressão"
+msgstr ""
+"Ghostscript : Você não pode utilizar imagens EPS ou visualizar impressão"
 
 msgid "Ghostscript is missing : Postscript Print Preview is not available"
-msgstr "O Ghostscript não está instalado: A visualização de impressão de Postscript não está disponível"
+msgstr ""
+"O Ghostscript não está instalado: A visualização de impressão de Postscript "
+"não está disponível"
 
 msgid ""
 "Scribus detected some errors.\n"
@@ -5614,6 +5786,12 @@ msgstr "Enviar para a camada"
 msgid "Previe&w Settings"
 msgstr "Visualizar &configurações"
 
+msgid "Character"
+msgstr "Caractere"
+
+msgid "Quote"
+msgstr "Citação"
+
 msgid "Space"
 msgstr "Espaço"
 
@@ -5632,17 +5810,31 @@ msgstr "Deslocamento-X"
 msgid "Y-Offset"
 msgstr "Deslocamento-Y"
 
-msgid "Underline Words Only"
-msgstr "Apenas sublinhado"
+msgid ""
+"Underline Text. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
+
+msgid ""
+"Underline Words Only. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
 
 msgid "All Caps"
 msgstr "Caixa Alta"
 
-msgid "Strike Out"
-msgstr "Tachado"
+msgid ""
+"Strike Out. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
 
-msgid "Shadow"
-msgstr "Sombra"
+msgid ""
+"Outline. Hold down the button momentarily to change the outline stroke width."
+msgstr ""
+
+msgid ""
+"Shadowed Text. Hold down the button momentarily to enable the offset spacing."
+msgstr ""
 
 msgid "Setup Printer"
 msgstr "Configurar impressora"
@@ -6082,8 +6274,9 @@ msgstr "Selecionar fonte"
 msgid "About Scribus %1"
 msgstr "Sobre o Scribus %1"
 
-msgid "March"
-msgstr "Março"
+#, fuzzy
+msgid "April"
+msgstr "Aplicar"
 
 msgid "%1 %2 %3"
 msgstr "%1 %2 %3"
@@ -6123,6 +6316,9 @@ msgstr "Documentação oficial:"
 
 msgid "Other Documentation:"
 msgstr "Outras documentações:"
+
+msgid "Tango Project Icons:"
+msgstr ""
 
 msgid "A&uthors"
 msgstr "A&utores"
@@ -6411,6 +6607,16 @@ msgstr "Linha á direita"
 msgid "Line at Bottom"
 msgstr "Linha abaixo"
 
+#, fuzzy
+msgid "Overprinting"
+msgstr "Páginas por folha"
+
+msgid "Knockout"
+msgstr ""
+
+msgid "Overprint"
+msgstr ""
+
 msgid "Name of selected object"
 msgstr "Nome do objeto selecionado"
 
@@ -6465,8 +6671,10 @@ msgstr "Move para a frente"
 msgid "Move to back"
 msgstr "Move para trás"
 
-msgid "Indicates the level the object is on, 0 means the object is at the bottom"
-msgstr "Indica o nível onde está o objeto; 0 significa que o objeto está no fundo"
+msgid ""
+"Indicates the level the object is on, 0 means the object is at the bottom"
+msgstr ""
+"Indica o nível onde está o objeto; 0 significa que o objeto está no fundo"
 
 msgid "Lock or unlock the object"
 msgstr "Trava ou destrava o objeto"
@@ -6481,7 +6689,8 @@ msgid "Make text in lower frames flow around the object shape"
 msgstr "Faz o texto nos quadros inferiores fluir ao redor do objeto"
 
 msgid "Use a surrounding box instead of the frame's shape for text flow"
-msgstr "Usa uma caixa circundante ao invés do formato do quadro para o fluxo do texto"
+msgstr ""
+"Usa uma caixa circundante ao invés do formato do quadro para o fluxo do texto"
 
 msgid "Use a second line originally based on the frame's shape for text flow"
 msgstr ""
@@ -6503,13 +6712,16 @@ msgstr "Largura percentual dos caracteres"
 msgid "Scaling height of characters"
 msgstr "Escalona a altura dos caracteres"
 
-msgid "Color of text stroke. Only available with \"outline\" text decoration."
-msgstr "Cor de traço do texto. Apenas disponível com a decoração de texto \"delineado\"."
-
-msgid "Color of text fill. Only available with \"outline\" text decoration."
+msgid ""
+"Color of text stroke and/or drop shadow, depending which is chosen.If both "
+"are chosen, then they share the same color."
 msgstr ""
-"Cor de preenchimento do texto. Apenas disponível com a decoração de texto "
-"\"delineado\"."
+
+msgid ""
+"Color of selected text. If Outline text decoration is enabled, this color "
+"will be the fill color. If Drop Shadow Text is enabled, then this will be "
+"the top most color."
+msgstr ""
 
 msgid "Saturation of color of text stroke"
 msgstr "Saturação da cor da borda de texto"
@@ -6525,6 +6737,10 @@ msgstr "Espaçamento entre letras manual"
 
 msgid "Line Spacing"
 msgstr "Espaço entre as linhas"
+
+#, fuzzy
+msgid "Click to select the line spacing mode"
+msgstr "A Cor das linhas no código de barras"
 
 msgid "Style of current paragraph"
 msgstr "Estilo do parágrafo atual"
@@ -6747,7 +6963,9 @@ msgid "Preview of the Paragraph Style"
 msgstr "Visualizar o estilo de parágrafo"
 
 msgid "Select for easier reading of light coloured text styles"
-msgstr "Selecione para uma leitura mais fácil dos estilos de textos que usam cores suaves"
+msgstr ""
+"Selecione para uma leitura mais fácil dos estilos de textos que usam cores "
+"suaves"
 
 msgid "Name of your paragraph style"
 msgstr "Nome do seu estilo de parágrafo"
@@ -6775,6 +6993,30 @@ msgstr "Alterna o nome texto de amostra deste estilo de parágrafo"
 
 msgid "Name of the style is not unique"
 msgstr "Já existe um estilo com esse nome"
+
+msgid "Initializing Plugins"
+msgstr "Iniciando plugins"
+
+msgid "Initializing Keyboard Shortcuts"
+msgstr "Iniciando atalhos de teclado"
+
+msgid "Reading Preferences"
+msgstr "Lendo preferências"
+
+msgid "Reading ICC Profiles"
+msgstr "Lendo perfis ICC"
+
+msgid "Initializing..."
+msgstr "Iniciando..."
+
+msgid "There are no fonts found on your system."
+msgstr "Não foram encontradas fontes no seu sistema."
+
+msgid "Exiting now."
+msgstr "Saindo agora."
+
+msgid "Font System Initialized"
+msgstr "Sistema de fontes inicializado"
 
 msgid "Current Key"
 msgstr "Tecla atual"
@@ -6857,6 +7099,14 @@ msgstr "Arquivo XML de definições de teclas (*.ksxml)"
 msgid "Choose a Scrapbook Directory"
 msgstr "Selecione um diretório do Bloco de Rascunhos"
 
+#, fuzzy
+msgid "Scrapbook (*.scs)"
+msgstr "Bloco de Rascunhos"
+
+#, fuzzy
+msgid "Choose a scrapbook file to import"
+msgstr "Selecione um diretório do Bloco de Rascunhos"
+
 msgid ""
 "Name \"%1\" is not unique.\n"
 "Please choose another."
@@ -6878,6 +7128,10 @@ msgstr "&Visualizar"
 
 msgid "&Load..."
 msgstr "&Abrir..."
+
+#, fuzzy
+msgid "&Import Scrapbook File..."
+msgstr "Importa arquivos SVG"
 
 msgid "Polygon Properties"
 msgstr "Propriedades do polígono"
@@ -6982,6 +7236,9 @@ msgstr "Seções do documento"
 
 msgid "Annotation Properties"
 msgstr "Propriedades da anotação"
+
+msgid "Link"
+msgstr "Ligação"
 
 msgid "External Link"
 msgstr "Outro documento"
@@ -7114,6 +7371,12 @@ msgstr "Configurações da fonte"
 msgid "Font of selected text"
 msgstr "Fonte de texto selecionado"
 
+msgid "Spaces && Breaks"
+msgstr "Espaços && Quebras"
+
+msgid "Ligature"
+msgstr "Ligadura"
+
 msgid "&Settings"
 msgstr "&Configurações"
 
@@ -7177,30 +7440,6 @@ msgstr "Deseja salvar suas alterações?"
 msgid "Do you really want to lose all your changes?"
 msgstr "Você realmente deseja perder todas as suas alterações?"
 
-msgid "Glyphs missing"
-msgstr "Caracteres faltando"
-
-msgid "Text overflow"
-msgstr "Excesso de texto"
-
-msgid "Object is not on a Page"
-msgstr "o objeto não está sobre uma página"
-
-msgid "Missing Image"
-msgstr "imagem faltando"
-
-msgid "Image has a DPI-Value less than %1 DPI"
-msgstr "A imagem possui um valor DPI menor que %1 DPI"
-
-msgid "Object has transparency"
-msgstr "O objeto possui transparência"
-
-msgid "Object is a PDF Annotation or Field"
-msgstr "O objeto é uma anotação ou campo PDF"
-
-msgid "Object is a placed PDF"
-msgstr "O objeto é um PDF alocado"
-
 msgid "No Problems found"
 msgstr "Nenhum problema encontrado"
 
@@ -7218,6 +7457,41 @@ msgstr "Perfil atual:"
 
 msgid "&Ignore Errors"
 msgstr "&Ignorar erros"
+
+#, fuzzy
+msgid "Check again"
+msgstr "X"
+
+msgid "Glyphs missing"
+msgstr "Caracteres faltando"
+
+msgid "Text overflow"
+msgstr "Excesso de texto"
+
+msgid "Object is not on a Page"
+msgstr "o objeto não está sobre uma página"
+
+msgid "Missing Image"
+msgstr "imagem faltando"
+
+msgid "Image resolution below %1 DPI, currently %2 x %3 DPI"
+msgstr ""
+
+msgid "Image resolution above %1 DPI, currently %2 x %3 DPI"
+msgstr ""
+
+msgid "Object has transparency"
+msgstr "O objeto possui transparência"
+
+msgid "Object is a PDF Annotation or Field"
+msgstr "O objeto é uma anotação ou campo PDF"
+
+msgid "Object is a placed PDF"
+msgstr "O objeto é um PDF alocado"
+
+#, fuzzy
+msgid "Image is GIF"
+msgstr "Informações da imagem"
 
 msgid "Editor"
 msgstr "Editor"
@@ -7243,26 +7517,11 @@ msgstr "Gerenciador de estilo"
 msgid "C&lone"
 msgstr "C&lonar"
 
-msgid "Alt+L"
-msgstr "Alt+L"
-
 msgid "O&K"
 msgstr "O&K"
 
 msgid "Alt+K"
 msgstr "Alt+K"
-
-msgid "A&pply"
-msgstr "A&plicar"
-
-msgid "Alt+P"
-msgstr "Alt+P"
-
-msgid "Ca&ncel"
-msgstr "Ca&ncelar"
-
-msgid "Alt+N"
-msgstr "Alt+N"
 
 msgid "Move Bookmark"
 msgstr "Move o marcador"
@@ -7352,9 +7611,11 @@ msgid "Distance between the major grid lines"
 msgstr "Distância entre as linhas da grade maior"
 
 msgid "Distance within which an object will snap to your placed guides"
-msgstr "Distância dentro da qual um objeto será atraído para a guia mais próxima"
+msgstr ""
+"Distância dentro da qual um objeto será atraído para a guia mais próxima"
 
-msgid "Radius of the area where Scribus will allow you to grab an objects handles"
+msgid ""
+"Radius of the area where Scribus will allow you to grab an objects handles"
 msgstr "Raio da área onde um manuseador de objetos pode ser selecionado"
 
 msgid "Color of the minor grid lines"
@@ -7398,9 +7659,6 @@ msgstr "&Página atual"
 
 msgid "&Even pages"
 msgstr "Páginas par&es"
-
-msgid "Alt+E"
-msgstr "Alt+E"
 
 msgid "O&dd pages"
 msgstr "Páginas í&mpares"
@@ -7562,9 +7820,6 @@ msgstr "Imprimindo arquivo"
 
 msgid "Processing Master Pages:"
 msgstr "Processando Páginas Mestre:"
-
-msgid "Contents"
-msgstr "Conteúdo"
 
 msgid "&Contents"
 msgstr "&Conteúdo"
@@ -7766,6 +8021,9 @@ msgstr "Indonésio"
 
 msgid "Italian"
 msgstr "Italiano"
+
+msgid "Japanese"
+msgstr ""
 
 msgid "Korean"
 msgstr "Coreano"
@@ -8081,7 +8339,8 @@ msgstr ""
 "as configurações do sistema"
 
 msgid "User configuration exists elready. Do you really want to overwrite it?"
-msgstr "Já existe uma configuração do usuário. Você realmente deseja sobrescrevê-la?"
+msgstr ""
+"Já existe uma configuração do usuário. Você realmente deseja sobrescrevê-la?"
 
 msgid "Cannot write file %1."
 msgstr "Não é possível escrever o arquivo %1."
@@ -8190,9 +8449,6 @@ msgstr "Visualizar fontes"
 msgid "&Quick Search:"
 msgstr "Busca &rápida:"
 
-msgid "Alt+S"
-msgstr "Alt+S"
-
 msgid "&Font Size:"
 msgstr "Tamanho da &fonte:"
 
@@ -8201,9 +8457,6 @@ msgstr "Amostra de texto a exibir"
 
 msgid "Se&t"
 msgstr "Defin&ir"
-
-msgid "Alt+T"
-msgstr "Alt+T"
 
 msgid "Reset the text"
 msgstr "Reconfigurar o texto"
@@ -8236,8 +8489,8 @@ msgid ""
 "will list all fonts with word bold, bolder etc. in the name."
 msgstr ""
 "Digite um nome de uma fonte para encontra-lá rapidamente. A busca é "
-"insensitiva à maiúsculas e minúsculas. Você pode usar funções como "
-"(*, ?, [...]) nas sua composição. Exemplos: t* listará todas as fontes começando "
+"insensitiva à maiúsculas e minúsculas. Você pode usar funções como (*, ?, "
+"[...]) nas sua composição. Exemplos: t* listará todas as fontes começando "
 "com t ou T. 'Bold' listará todas as fonte que possuam Bold em seu nome."
 
 msgid "Start searching"
@@ -8364,8 +8617,10 @@ msgstr "Opções do importador do OpenOffice.org Writer"
 msgid "Overwrite Paragraph Styles"
 msgstr "Sobrescrever estilos de parágrafo"
 
-msgid "Enabling this will overwrite existing styles in the current Scribus document"
-msgstr "Habilitar isso irá sobrescrever os estilos existentes no documento atual"
+msgid ""
+"Enabling this will overwrite existing styles in the current Scribus document"
+msgstr ""
+"Habilitar isso irá sobrescrever os estilos existentes no documento atual"
 
 msgid "Merge Paragraph Styles"
 msgstr "Mesclar os estilos de parágrafo"
@@ -8413,9 +8668,8 @@ msgid ""
 "This file is not recognized as a PDB document propably. Please, report this "
 "as a bug if you are sure it is one."
 msgstr ""
-"Este arquivo não é reconhecido como um documento PDB. Por favor, informe isto "
-"como uma falha caso você tenha certeza "
-"que este é um arquivo válido."
+"Este arquivo não é reconhecido como um documento PDB. Por favor, informe "
+"isto como uma falha caso você tenha certeza que este é um arquivo válido."
 
 msgid "OpenOffice.org Writer Documents"
 msgstr "Documentos do OpenOffice.org Writer"
@@ -8501,7 +8755,8 @@ msgid "Locate Startup Script"
 msgstr "Localização do Script de inicialização"
 
 msgid "Argument must be page item name, or PyCObject instance"
-msgstr "O argumento deve ser um nome de um item da página ou uma instância PyCObject"
+msgstr ""
+"O argumento deve ser um nome de um item da página ou uma instância PyCObject"
 
 msgid "Property not found"
 msgstr "Propriedade não encontrada"
@@ -8612,9 +8867,9 @@ msgid ""
 "esp. in the case of whitespaces. Please consult Scribus manual for more "
 "informations."
 msgstr ""
-"Isto é uma derivação do console Python padrão, possuindo algumas "
-"limitações como no caso de espaços em branco. Por favor, consulte o manual "
-"do Scribus para maiores informações."
+"Isto é uma derivação do console Python padrão, possuindo algumas limitações "
+"como no caso de espaços em branco. Por favor, consulte o manual do Scribus "
+"para maiores informações."
 
 msgid "Script Console"
 msgstr "Console de scripts"
@@ -8645,6 +8900,9 @@ msgstr "Não foi possível salvar o EPS."
 
 msgid "Page number out of range."
 msgstr "Número da página fora do limite."
+
+msgid "Given master page name does not match any existing."
+msgstr ""
 
 msgid "argument is not list: must be list of float values."
 msgstr "o argumento não é lista: deve ser uma lista de valores flutuantes."
@@ -8716,7 +8974,8 @@ msgstr " não possui nenhuma docstring!"
 msgid "About Script"
 msgstr "Sobre o script"
 
-msgid "Setting up the Python plugin failed. Error details were printed to stderr. "
+msgid ""
+"Setting up the Python plugin failed. Error details were printed to stderr. "
 msgstr ""
 "A configuração do plugin em Python falhou. Detalhes do erro foram impressos "
 "no stderr. "
@@ -8746,7 +9005,8 @@ msgid "Style not found."
 msgstr "Estilo não encontrado."
 
 msgid "Cannot set style on a non-text frame."
-msgstr "Não é possível configurar um estilo em um quadro que não seja de texto."
+msgstr ""
+"Não é possível configurar um estilo em um quadro que não seja de texto."
 
 msgid "Line width out of bounds, must be 0 <= line_width <= 12."
 msgstr "A espessura da linha está fora do limite, deve ser >=0 e <=12."
@@ -8755,7 +9015,8 @@ msgid "Line shade out of bounds, must be 0 <= shade <= 100."
 msgstr "A intensidade da linha está fora do limite, deve ser >=0 e <=100."
 
 msgid "Fill shade out of bounds, must be 0 <= shade <= 100."
-msgstr "A intensidade do preenchimento está fora do limite, deve ser >=0 e <=100."
+msgstr ""
+"A intensidade do preenchimento está fora do limite, deve ser >=0 e <=100."
 
 msgid "Corner radius must be a positive number."
 msgstr "O raio do canto deve ser um número positivo."
@@ -8776,25 +9037,29 @@ msgid "Can't group less than two items"
 msgstr "Não é possível agrupar menos de dois ítens"
 
 msgid "Need selection or argument list of items to group"
-msgstr "Para agrupar é necessária um seleção ou uma lista de argumentos de ítens"
+msgstr ""
+"Para agrupar é necessária um seleção ou uma lista de argumentos de ítens"
 
 msgid "Cannot scale by 0%."
 msgstr "Não é possível escalar em 0%."
 
 msgid "Cannot get font size of non-text frame."
-msgstr "Não é possível obter o tamanho da fonte de um quadro que não seja de texto."
+msgstr ""
+"Não é possível obter o tamanho da fonte de um quadro que não seja de texto."
 
 msgid "Cannot get font of non-text frame."
 msgstr "Não é possível obter uma fonte de um quadro que não seja de texto."
 
 msgid "Cannot get text size of non-text frame."
-msgstr "Não é possível obter o tamanho do texto de um quadro que não seja de texto."
+msgstr ""
+"Não é possível obter o tamanho do texto de um quadro que não seja de texto."
 
 msgid "Cannot get column count of non-text frame."
 msgstr "Não é possível contar as colunas de um quadro que não seja de texto."
 
 msgid "Cannot get line space of non-text frame."
-msgstr "Não é possível obter a altura da linha em um quadro que não seja de texto."
+msgstr ""
+"Não é possível obter a altura da linha em um quadro que não seja de texto."
 
 msgid "Cannot get column gap of non-text frame."
 msgstr ""
@@ -8825,7 +9090,8 @@ msgid "Font size out of bounds - must be 1 <= size <= 512."
 msgstr "O tamanho da fonte está fora do limite, deve ser >=1 e <=512."
 
 msgid "Cannot set font size on a non-text frame."
-msgstr "Não é possível definir o tamanho da fonte em um quadro que não seja de texto."
+msgstr ""
+"Não é possível definir o tamanho da fonte em um quadro que não seja de texto."
 
 msgid "Cannot set font on a non-text frame."
 msgstr "Não é possível definir a fonte em um quadro que não seja de texto."
@@ -8872,7 +9138,8 @@ msgstr ""
 "texto."
 
 msgid "Cannot set text stroke on a non-text frame."
-msgstr "Não é possível definir a borda do texto em um quadro que não seja de texto."
+msgstr ""
+"Não é possível definir a borda do texto em um quadro que não seja de texto."
 
 msgid "Cannot set text shade on a non-text frame."
 msgstr ""
@@ -9268,6 +9535,9 @@ msgstr "&Página atual"
 msgid "&Range"
 msgstr "&Intervalo"
 
+msgid "Image size in Pixels"
+msgstr ""
+
 msgid "Export a range of pages"
 msgstr "Exportar um intervalo de páginas"
 
@@ -9280,13 +9550,17 @@ msgstr "Exportar somente a página atual"
 msgid ""
 "Resolution of the Images\n"
 "Use 72 dpi for Images intended for the Screen"
-msgstr "Resolução das imagens Use 72 dpi para imagens que serão exibidas na tela"
+msgstr ""
+"Resolução das imagens Use 72 dpi para imagens que serão exibidas na tela"
 
-##, c-format
+# #, c-format
+#, fuzzy, c-format
 msgid "Size of the images. 100% for no changes, 200% for two times larger etc."
-msgstr "O tamanho das imagens. 100% para tamanho normal, 200% para o dobro, etc."
+msgstr ""
+"O tamanho das imagens. 100% para tamanho normal, 200% para o dobro, etc."
 
-##, c-format
+# #, c-format
+#, fuzzy, c-format
 msgid "The quality of your images - 100% is the best, 1% the lowest quality"
 msgstr "A qualidade das suas imagens - 100% é a melhor, 1% a pior"
 
@@ -9334,9 +9608,6 @@ msgstr "Sim para todos"
 msgid "Barcode Creator"
 msgstr "Gerador de código de barra"
 
-msgid "Make check digit visible in text"
-msgstr "Torna o dígito de checagem visível no texto"
-
 msgid "Barcode"
 msgstr "Código de barras"
 
@@ -9346,8 +9617,10 @@ msgstr "Có&digo:"
 msgid "Select one of the available barcode type here"
 msgstr "Selecione aqui um dos estilos de código de barras disponíveis"
 
-msgid "The numeric representation of the code itself. See the help message below"
-msgstr "A representação númerica do código por sí só. Veja a mensagem de ajuda abaixo"
+msgid ""
+"The numeric representation of the code itself. See the help message below"
+msgstr ""
+"A representação númerica do código por sí só. Veja a mensagem de ajuda abaixo"
 
 msgid "Reset the barcode samples"
 msgstr "Reconfigurar amostras de código de barras"
@@ -9364,9 +9637,6 @@ msgstr "Se marcado, também haverá números no código de barras"
 msgid "&Guard whitespace"
 msgstr "&Manter espaço livre"
 
-msgid "Alt+G"
-msgstr "Alt+G"
-
 msgid "Draw arrows to be sure of space next the code"
 msgstr "Desenha setas para reafirmar o espaço próximo ao código"
 
@@ -9374,7 +9644,8 @@ msgid "I&nclude checksum"
 msgstr "I&ncluir checksum"
 
 msgid "Generate and include a checksum in barcode"
-msgstr "Gera e inclui um código de checagem da soma (checksum) no código de barras"
+msgstr ""
+"Gera e inclui um código de checagem da soma (checksum) no código de barras"
 
 msgid "Incl&ude checksum digit"
 msgstr "Incl&uir dígito de checksum"
@@ -9428,7 +9699,8 @@ msgid "9 or 10 digits separated appropriately with dashes"
 msgstr "9 ou 10 dígitos separados apropriadamente por traços"
 
 msgid "Variable number of characters, digits and any of the symbols -. *$/+%."
-msgstr "Número variável de caracteres, dígitos e qualquer outro símbolo -. *$/+%."
+msgstr ""
+"Número variável de caracteres, dígitos e qualquer outro símbolo -. *$/+%."
 
 msgid ""
 "Variable number of ASCII characters and special function symbols, starting "
@@ -9436,12 +9708,16 @@ msgid ""
 "128s must have a mandatory FNC 1 symbol immediately following the start "
 "character."
 msgstr ""
-"Número variável de caracteres ASCII e símbolos de funções especiais, começando "
-"com o caractere de início apropriado para o cojunto de caracteres inicial. UCC/EAN-"
-"128s devem possuir um símbolo mandatário FNC 1 logo após ao caractere inicial."
+"Número variável de caracteres ASCII e símbolos de funções especiais, "
+"começando com o caractere de início apropriado para o cojunto de caracteres "
+"inicial. UCC/EAN-128s devem possuir um símbolo mandatário FNC 1 logo após ao "
+"caractere inicial."
 
 msgid "Variable number of digits and any of the symbols -$:/.+ABCD."
 msgstr "Número de dígitos variáveis e qualquer um dos símbolos -$:/.+ABCD."
+
+msgid "Variable number of digits"
+msgstr "Número de dígitos variáveis"
 
 msgid ""
 "Variable number of digits. An ITF-14 is 14 characters and does not have a "
@@ -9449,9 +9725,6 @@ msgid ""
 msgstr ""
 "Número de dígitos variáveis. Um ITF-14 possui 14 caracteres e não tem um "
 "dígito de checagem"
-
-msgid "Variable number of digits"
-msgstr "Número de dígitos variáveis"
 
 msgid "Variable number of digits and capital letters"
 msgstr "Número de dígitos variáveis e letras maiúsculas"
@@ -9472,7 +9745,9 @@ msgid "Barcode Generator"
 msgstr "Gerador de código de barras"
 
 msgid "Scribus frontend for Pure Postscript Barcode Writer"
-msgstr "Interface do Scribus para o criador de códigos de barras totalmente em Postscript"
+msgstr ""
+"Interface do Scribus para o criador de códigos de barras totalmente em "
+"Postscript"
 
 msgid "Save Page as &SVG..."
 msgstr "Salvar a página como &SVG..."
@@ -9515,16 +9790,26 @@ msgstr "PDF"
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
 msgstr "Todos os formatos suportados (*.eps *.EPS *.ps *.PS);;"
 
+#, fuzzy
+msgid "Importing PostScript"
+msgstr "Exportando arquivo PostScript"
+
+#, fuzzy
+msgid "Analyzing PostScript:"
+msgstr "PostScript"
+
 msgid ""
 "Importing File:\n"
 "%1\n"
 "failed!"
 msgstr "Não foi possível importar o arquivo:%1!"
 
-msgid ""
-"Converting Image:\n"
-"%1\n"
-"failed!"
+#, fuzzy
+msgid "Generating Items"
+msgstr "Renderização pretendida"
+
+#, fuzzy
+msgid "Converting of %1 images failed!"
 msgstr ""
 "Convertendo a imagem:\n"
 "%1\n"
@@ -9542,3 +9827,100 @@ msgstr "Meu &Plugin"
 msgid "My Plugin"
 msgstr "Meu Plugin"
 
+#~ msgid "Font %1 is broken (FreeType2), discarding it"
+#~ msgstr "A fonte %1 possui problemas(FreeType2). Descartando-a"
+
+#~ msgid "Font %1 is broken (no Face), discarding it"
+#~ msgstr "A fonte %1 possui problemas(sem corpo). Descartando-a"
+
+#~ msgid "Font %1 (found using fontconfig) is broken, discarding it"
+#~ msgstr ""
+#~ "A fonte %1 (encontrada a partir do fontconfig) possui problemas. "
+#~ "Descartando-a"
+
+#~ msgid "Horizontal Guides"
+#~ msgstr "Guias horizontais"
+
+#~ msgid "Vertical Guides"
+#~ msgstr "Guias verticais"
+
+#~ msgid "Rows and Columns - Automatic Guides"
+#~ msgstr "Linhas e colunas - Guias automáticas"
+
+#~ msgid "&Rows:"
+#~ msgstr "Lin&has:"
+
+#~ msgid "C&olumns:"
+#~ msgstr "C&olunas:"
+
+#~ msgid "Row &Gap"
+#~ msgstr "Distância entre li&nhas"
+
+#~ msgid "Colum&n Gap"
+#~ msgstr "Distâ&ncia entre colunas"
+
+#~ msgid "&Margins"
+#~ msgstr "&Margens"
+
+#~ msgid "&Selection"
+#~ msgstr "&Seleção"
+
+#~ msgid "&Update"
+#~ msgstr "&Atualizar"
+
+#~ msgid ""
+#~ "Set the guides in document. Guide manager is still opened but the changes "
+#~ "are persistant"
+#~ msgstr ""
+#~ "Configura as guias do documento. O gerenciador de guias ainda está aberto "
+#~ "mas as alterações são persistentes"
+
+#~ msgid "There is empty (0.0) guide already"
+#~ msgstr "Já há uma guia vazia (0.0)"
+
+#~ msgid "dpi"
+#~ msgstr "dpi"
+
+#~ msgid "Filesystem location for the Ghostscript interpreter"
+#~ msgstr "Localização do interpretador Ghostscript no sistema"
+
+#~ msgid "Font %1 is broken (FreeType), discarding it"
+#~ msgstr "A fonte %1 possui um problema (FreeType). Descartando-a"
+
+#~ msgid "Copy Contents"
+#~ msgstr "Copiar conteúdo"
+
+#~ msgid "Paste Contents"
+#~ msgstr "Colar conteúdo"
+
+#~ msgid "C&lear Contents"
+#~ msgstr "&Limpar conteúdo"
+
+#~ msgid "Underline Words Only"
+#~ msgstr "Apenas sublinhado"
+
+#~ msgid "Strike Out"
+#~ msgstr "Tachado"
+
+#~ msgid "March"
+#~ msgstr "Março"
+
+#~ msgid ""
+#~ "Color of text stroke. Only available with \"outline\" text decoration."
+#~ msgstr ""
+#~ "Cor de traço do texto. Apenas disponível com a decoração de texto "
+#~ "\"delineado\"."
+
+#~ msgid "Color of text fill. Only available with \"outline\" text decoration."
+#~ msgstr ""
+#~ "Cor de preenchimento do texto. Apenas disponível com a decoração de texto "
+#~ "\"delineado\"."
+
+#~ msgid "Image has a DPI-Value less than %1 DPI"
+#~ msgstr "A imagem possui um valor DPI menor que %1 DPI"
+
+#~ msgid "A&pply"
+#~ msgstr "A&plicar"
+
+#~ msgid "Make check digit visible in text"
+#~ msgstr "Torna o dígito de checagem visível no texto"

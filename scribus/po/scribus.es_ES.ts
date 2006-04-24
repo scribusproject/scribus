@@ -3014,7 +3014,11 @@ Las bibliotecas que falten se indican con un *
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>March</source>
+        <source>April</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tango Project Icons:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3168,7 +3172,7 @@ Las bibliotecas que falten se indican con un *
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation type="unfinished">B&amp;orrar contenidos</translation>
+        <translation type="obsolete">B&amp;orrar contenidos</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -3875,14 +3879,6 @@ Las bibliotecas que falten se indican con un *
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Copy Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Paste Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Printing Enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3980,10 +3976,6 @@ Las bibliotecas que falten se indican con un *
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Paste Contents (Absolute)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>S&amp;tyles...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3996,6 +3988,42 @@ Las bibliotecas que falten se indican con un *
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation type="unfinished">&amp;Contorno</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">B&amp;orrar</translation>
+    </message>
+    <message>
+        <source>Insert PDF Push Button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Text Field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Check Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Combo Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF List Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Text Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Link Annotation</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5296,10 +5324,6 @@ lo pida tu impresora.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Make check digit visible in text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Co&amp;de:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5424,6 +5448,18 @@ Please choose another.</source>
     <message>
         <source>Choose a Directory</source>
         <translation type="unfinished">Elige un directorio</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5981,6 +6017,81 @@ It is a reserved name for transparent color</source>
     </message>
 </context>
 <context>
+    <name>CharStyle</name>
+    <message>
+        <source>font %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+tracking %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+baseline %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parent= %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unnamed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CheckDocument</name>
     <message>
         <source>Glyphs missing</source>
@@ -5996,10 +6107,6 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Missing Image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Image has a DPI-Value less than %1 DPI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6052,6 +6159,22 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>&amp;Ignore Errors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image resolution below %1 DPI, currently %2 x %3 DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image resolution above %1 DPI, currently %2 x %3 DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image is GIF</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7721,6 +7844,14 @@ UCR reduce la posibilidad de sobresaturación con tintas CMY (cian, magenta, ama
         <source>Do not show objects outside the margins on the printed page</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EPSPlug</name>
@@ -7736,14 +7867,24 @@ failed!</source>
         <translation>Error fatal</translation>
     </message>
     <message>
-        <source>Converting Image:
-%1
-failed!</source>
+        <source>Error</source>
+        <translation type="unfinished">Error</translation>
+    </message>
+    <message>
+        <source>Importing PostScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <source>Analyzing PostScript:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8108,6 +8249,18 @@ se pudo salvar en su forma actual. El error fue:
         <source>Select for easier reading of light coloured text styles</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished">Espacio entre caracteres manual</translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Editor</name>
@@ -8396,6 +8549,10 @@ El nombre del archivo será &apos;documento-página.tipo&apos;</translation>
     <message>
         <source>Change the output directory</source>
         <translation>Cambiar el directorio de salida</translation>
+    </message>
+    <message>
+        <source>Image size in Pixels</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9081,14 +9238,18 @@ El nombre del archivo será &apos;documento-página.tipo&apos;</translation>
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Aquí puedes añadir, cambiar o eliminar límites de colores.</translation>
+        <translation type="obsolete">Aquí puedes añadir, cambiar o eliminar límites de colores.</translation>
+    </message>
+    <message>
+        <source>Add, change or remove color stops here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>GuideManager</name>
     <message>
         <source>Manage Guides</source>
-        <translation>Administrar Guías</translation>
+        <translation type="obsolete">Administrar Guías</translation>
     </message>
     <message>
         <source> pt</source>
@@ -9108,39 +9269,39 @@ El nombre del archivo será &apos;documento-página.tipo&apos;</translation>
     </message>
     <message>
         <source>Horizontal Guides</source>
-        <translation>Guías horizontales</translation>
+        <translation type="obsolete">Guías horizontales</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation>Posicón &amp;Y:</translation>
+        <translation type="obsolete">Posicón &amp;Y:</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>A&amp;ñadir...</translation>
+        <translation type="obsolete">A&amp;ñadir...</translation>
     </message>
     <message>
         <source>D&amp;elete</source>
-        <translation>&amp;Borrar</translation>
+        <translation type="obsolete">&amp;Borrar</translation>
     </message>
     <message>
         <source>Vertical Guides</source>
-        <translation>Guías verticales</translation>
+        <translation type="obsolete">Guías verticales</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
-        <translation>Posición &amp;X:</translation>
+        <translation type="obsolete">Posición &amp;X:</translation>
     </message>
     <message>
         <source>A&amp;dd</source>
-        <translation>Aña&amp;dir...</translation>
+        <translation type="obsolete">Aña&amp;dir...</translation>
     </message>
     <message>
         <source>De&amp;lete</source>
-        <translation>B&amp;orrar</translation>
+        <translation type="obsolete">B&amp;orrar</translation>
     </message>
     <message>
         <source>&amp;Lock Guides</source>
-        <translation>B&amp;loquear las guías</translation>
+        <translation type="obsolete">B&amp;loquear las guías</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -9151,56 +9312,42 @@ El nombre del archivo será &apos;documento-página.tipo&apos;</translation>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <source>Rows and Columns - Automatic Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Rows:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>C&amp;olumns:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Row &amp;Gap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Colum&amp;n Gap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Refer to:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Page</source>
-        <translation type="unfinished">&amp;Página</translation>
-    </message>
-    <message>
-        <source>&amp;Margins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Página</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Cerrar</translation>
+        <translation type="obsolete">&amp;Cerrar</translation>
     </message>
     <message>
-        <source>&amp;Update</source>
+        <source>Preview</source>
+        <translation type="obsolete">Previsualizar</translation>
+    </message>
+    <message>
+        <source>Edit Guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Set the guides in document. Guide manager is still opened but the changes are persistant</source>
-        <comment>guide manager</comment>
+        <source>Enter a position:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Apply to All Pages</source>
+        <source>New Guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>GuideManagerBase</name>
+    <message>
+        <source>Manage Guides</source>
+        <translation type="unfinished">Administrar Guías</translation>
+    </message>
+    <message>
+        <source>&amp;Standard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9212,11 +9359,99 @@ El nombre del archivo será &apos;documento-página.tipo&apos;</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Preview</source>
-        <translation type="unfinished">Previsualizar</translation>
+        <source>&amp;Add</source>
+        <translation type="unfinished">A&amp;ñadir...</translation>
     </message>
     <message>
-        <source>There is empty (0.0) guide already</source>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+T</translation>
+    </message>
+    <message>
+        <source>D&amp;elete</source>
+        <translation type="unfinished">&amp;Borrar</translation>
+    </message>
+    <message>
+        <source>Alt+E</source>
+        <translation type="unfinished">Alt+E</translation>
+    </message>
+    <message>
+        <source>Verticals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;dd</source>
+        <translation type="unfinished">Aña&amp;dir...</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+B</translation>
+    </message>
+    <message>
+        <source>De&amp;lete</source>
+        <translation type="unfinished">B&amp;orrar</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>&amp;Lock Guides</source>
+        <translation type="unfinished">B&amp;loquear las guías</translation>
+    </message>
+    <message>
+        <source>Appl&amp;y to All Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+Y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;utomatic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Number:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>U&amp;se Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nu&amp;mber:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use &amp;Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refer To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation type="unfinished">&amp;Página</translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M&amp;argins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;election</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10890,6 +11125,17 @@ donde un elemento puede ser * para todas las páginas,
     </message>
 </context>
 <context>
+    <name>ModeToolBar</name>
+    <message>
+        <source>Tools</source>
+        <translation type="unfinished">Herramientas</translation>
+    </message>
+    <message>
+        <source>Properties...</source>
+        <translation type="unfinished">Propiedades...</translation>
+    </message>
+</context>
+<context>
     <name>MovePages</name>
     <message>
         <source>Move Pages</source>
@@ -11598,14 +11844,6 @@ Por favor elige otro.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Fill Rule</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11615,6 +11853,30 @@ Por favor elige otro.</translation>
     </message>
     <message>
         <source>Non Zero</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overprinting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Knockout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overprint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12420,6 +12682,13 @@ de otro modo las coordenadas son relativas al objeto.</translation>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PDFToolBar</name>
+    <message>
+        <source>PDF Tools</source>
+        <translation type="unfinished">Herramientas de PDF</translation>
     </message>
 </context>
 <context>
@@ -13335,6 +13604,10 @@ UCR reduce la posibilidad de sobresaturación con tintas CMY (cian, magenta, ama
         <source>File</source>
         <translation type="unfinished">Archivo</translation>
     </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PSLib</name>
@@ -14133,6 +14406,16 @@ UCR reduce la posibilidad de sobresaturación con tintas CMY (cian, magenta, ama
         <comment>plugin manager</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Plugin: %1 initialized ok </source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin: %1 failed post initialization</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PluginManagerPrefsGui</name>
@@ -14795,23 +15078,23 @@ con un valor positivo será convexo</translation>
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
-        <translation>&amp;Nombre del Ejecutable:</translation>
+        <translation type="obsolete">&amp;Nombre del Ejecutable:</translation>
     </message>
     <message>
         <source>Antialias &amp;Text</source>
-        <translation>Suavizar &amp;Texto</translation>
+        <translation type="obsolete">Suavizar &amp;Texto</translation>
     </message>
     <message>
         <source>Antialias &amp;Graphics</source>
-        <translation>Suavizar &amp;Gráficos</translation>
+        <translation type="obsolete">Suavizar &amp;Gráficos</translation>
     </message>
     <message>
         <source>Image Processing Tool</source>
-        <translation>Herramienta de Procesado de Imágenes</translation>
+        <translation type="obsolete">Herramienta de Procesado de Imágenes</translation>
     </message>
     <message>
         <source>Name of &amp;Executable:</source>
-        <translation>Nombre del &amp;Ejecutable:</translation>
+        <translation type="obsolete">Nombre del &amp;Ejecutable:</translation>
     </message>
     <message>
         <source>Printing</source>
@@ -15167,11 +15450,11 @@ con un valor positivo será convexo</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation>Suavizar (antialiasing) texto para la visualización en pantalla de EPS y PDF</translation>
+        <translation type="obsolete">Suavizar (antialiasing) texto para la visualización en pantalla de EPS y PDF</translation>
     </message>
     <message>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation>Suavizar (antialiasing) gráficos para la visualización en pantalla de EPS y PDF</translation>
+        <translation type="obsolete">Suavizar (antialiasing) gráficos para la visualización en pantalla de EPS y PDF</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
@@ -15352,14 +15635,6 @@ ejecutando.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>dpi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Resolution:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Always ask before fonts are replaced when loading a document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15428,10 +15703,6 @@ ejecutando.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15445,18 +15716,6 @@ ejecutando.</translation>
     </message>
     <message>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Locate Ghostscript</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Locate your image editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PostScript Interpreter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -15493,10 +15752,6 @@ ejecutando.</translation>
     </message>
     <message>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17200,19 +17455,7 @@ en la documentación de la función.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Font %1 is broken, no embedding</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Font %1 is broken (read stream), no embedding</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font %1 is broken (FreeType2), discarding it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font %1 is broken (no Face), discarding it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -17244,15 +17487,7 @@ en la documentación de la función.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font %1 is broken (FreeType), discarding it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -17796,6 +18031,19 @@ is not exhaustive due to exceptions from called functions.
         <source>Luxembourgish</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Japanese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1(%2) is broken</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -18301,20 +18549,16 @@ para lograr los márgenes correctos para la encuadernación.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>A&amp;pply</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+P</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ca&amp;ncel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Alt+N</source>
         <translation type="unfinished">Alt+N</translation>
+    </message>
+    <message>
+        <source>&amp;Apply</source>
+        <translation type="unfinished">A&amp;plicar</translation>
     </message>
 </context>
 <context>
@@ -18326,6 +18570,25 @@ para lograr los márgenes correctos para la encuadernación.</translation>
     <message>
         <source>Lines</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMReplaceDiaBase</name>
+    <message>
+        <source>Delete Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>Ca&amp;ncel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished">Alt+N</translation>
     </message>
 </context>
 <context>
@@ -19927,6 +20190,45 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>ScribusCore</name>
+    <message>
+        <source>Initializing Plugins</source>
+        <translation type="unfinished">Iniciando las extensiones</translation>
+    </message>
+    <message>
+        <source>Initializing Keyboard Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reading Preferences</source>
+        <translation type="unfinished">Leyendo las Preferencias</translation>
+    </message>
+    <message>
+        <source>Reading ICC Profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching for Fonts</source>
+        <translation type="unfinished">Buscando fuentes</translation>
+    </message>
+    <message>
+        <source>There are no fonts found on your system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exiting now.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fatal Error</source>
+        <translation type="unfinished">Error fatal</translation>
+    </message>
+    <message>
+        <source>Font System Initialized</source>
+        <translation type="unfinished">Sistema de Fuentes Iniciado</translation>
+    </message>
+</context>
+<context>
     <name>ScribusDoc</name>
     <message>
         <source>New Layer</source>
@@ -19956,6 +20258,10 @@ converting their vector data into Scribus objects.</source>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -19965,22 +20271,14 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Initializing Plugins</source>
-        <translation type="unfinished">Iniciando las extensiones</translation>
-    </message>
-    <message>
-        <source>Initializing Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Iniciando las extensiones</translation>
     </message>
     <message>
         <source>Reading Preferences</source>
-        <translation type="unfinished">Leyendo las Preferencias</translation>
+        <translation type="obsolete">Leyendo las Preferencias</translation>
     </message>
     <message>
         <source>Initializing Story Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reading ICC Profiles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -20005,15 +20303,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation type="unfinished">Buscando fuentes</translation>
-    </message>
-    <message>
-        <source>There are no fonts found on your system.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Exiting now.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Buscando fuentes</translation>
     </message>
     <message>
         <source>Fatal Error</source>
@@ -20021,7 +20311,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation type="unfinished">Sistema de Fuentes Iniciado</translation>
+        <translation type="obsolete">Sistema de Fuentes Iniciado</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -20383,14 +20673,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished">Posición Y:</translation>
     </message>
     <message>
-        <source>Spaces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ligature</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>New Master Page %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20410,6 +20692,26 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Do you really want to replace your existing image?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Contenidos</translation>
+    </message>
+    <message>
+        <source>&amp;Character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quote</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;paces &amp;&amp; Breaks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20681,6 +20983,10 @@ Vertical shift: %3</source>
     <message>
         <source>Grayscale</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Contenidos</translation>
     </message>
 </context>
 <context>
@@ -21664,7 +21970,7 @@ arrastra una plantilla en la vista de páginas de abajo.</translation>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Subrayado</translation>
+        <translation type="obsolete">Subrayado</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -21680,15 +21986,11 @@ arrastra una plantilla en la vista de páginas de abajo.</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Tachado</translation>
+        <translation type="obsolete">Tachado</translation>
     </message>
     <message>
         <source>Outline Text</source>
         <translation type="obsolete">Contorno</translation>
-    </message>
-    <message>
-        <source>Underline Words Only</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -21699,13 +22001,30 @@ arrastra una plantilla en la vista de páginas de abajo.</translation>
         <translation type="obsolete">Esquema</translation>
     </message>
     <message>
-        <source>Shadow</source>
+        <source>Outline</source>
+        <comment>Text Style Selector</comment>
+        <translation type="obsolete">Esquema</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Outline</source>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
         <comment>Text Style Selector</comment>
-        <translation type="unfinished">Esquema</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21973,6 +22292,108 @@ arrastra una plantilla en la vista de páginas de abajo.</translation>
     </message>
     <message>
         <source>Remove Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Highest allowed resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check for GIF images</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabExternalToolsWidget</name>
+    <message>
+        <source>Locate Ghostscript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locate your image editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabExternalToolsWidgetBase</name>
+    <message>
+        <source>External Tools</source>
+        <translation type="unfinished">Herramientas Externas</translation>
+    </message>
+    <message>
+        <source>PostScript Interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Name of Executable:</source>
+        <translation type="unfinished">&amp;Nombre del Ejecutable:</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Change..</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Text</source>
+        <translation type="unfinished">Suavizar &amp;Texto</translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias text for EPS and PDF onscreen rendering</source>
+        <translation type="unfinished">Suavizar (antialiasing) texto para la visualización en pantalla de EPS y PDF</translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Graphics</source>
+        <translation type="unfinished">Suavizar &amp;Gráficos</translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias graphics for EPS and PDF onscreen rendering</source>
+        <translation type="unfinished">Suavizar (antialiasing) gráficos para la visualización en pantalla de EPS y PDF</translation>
+    </message>
+    <message>
+        <source>Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> dpi</source>
+        <translation type="unfinished"> ppp</translation>
+    </message>
+    <message>
+        <source>Image Processing Tool</source>
+        <translation type="unfinished">Herramienta de Procesado de Imágenes</translation>
+    </message>
+    <message>
+        <source>Name of &amp;Executable:</source>
+        <translation type="unfinished">Nombre del &amp;Ejecutable:</translation>
+    </message>
+    <message>
+        <source>File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation type="unfinished">Ca&amp;mbiar...</translation>
+    </message>
+    <message>
+        <source>&amp;Rescan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22576,7 +22997,7 @@ el diseño y la apariencia del documento.</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="unfinished">Cuanto tiempo se muestra la página antes de que la presentación empiece en la página actual.</translation>
+        <translation type="obsolete">Cuanto tiempo se muestra la página antes de que la presentación empiece en la página actual.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
@@ -22961,6 +23382,18 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24041,6 +24474,28 @@ X2: %4, Y2: %5</source>
 X: %4, Y: %5</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Apply text style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo: %1</source>
+        <comment>f.e. Undo: Move</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation type="unfinished">&amp;Deshacer</translation>
+    </message>
+    <message>
+        <source>&amp;Redo: %1</source>
+        <comment>f.e. Redo: Move</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation type="unfinished">Re&amp;hacer</translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -24266,7 +24721,7 @@ por los propios con la opción activada.</translation>
     <name>WerkToolB</name>
     <message>
         <source>Tools</source>
-        <translation>Herramientas</translation>
+        <translation type="obsolete">Herramientas</translation>
     </message>
     <message>
         <source>Select Items</source>
@@ -24286,7 +24741,7 @@ por los propios con la opción activada.</translation>
     </message>
     <message>
         <source>Properties...</source>
-        <translation>Propiedades...</translation>
+        <translation type="obsolete">Propiedades...</translation>
     </message>
     <message>
         <source>Insert Polygons</source>
@@ -24341,43 +24796,43 @@ por los propios con la opción activada.</translation>
     <name>WerkToolBP</name>
     <message>
         <source>PDF Tools</source>
-        <translation>Herramientas de PDF</translation>
+        <translation type="obsolete">Herramientas de PDF</translation>
     </message>
     <message>
         <source>Button</source>
-        <translation>Botón</translation>
+        <translation type="obsolete">Botón</translation>
     </message>
     <message>
         <source>Text Field</source>
-        <translation>Campo de texto</translation>
+        <translation type="obsolete">Campo de texto</translation>
     </message>
     <message>
         <source>Check Box</source>
-        <translation>Casilla de selección</translation>
+        <translation type="obsolete">Casilla de selección</translation>
     </message>
     <message>
         <source>Combo Box</source>
-        <translation>Cuadro combinado</translation>
+        <translation type="obsolete">Cuadro combinado</translation>
     </message>
     <message>
         <source>List Box</source>
-        <translation>Lista</translation>
+        <translation type="obsolete">Lista</translation>
     </message>
     <message>
         <source>Insert PDF Fields</source>
-        <translation>Insertar campos de PDF</translation>
+        <translation type="obsolete">Insertar campos de PDF</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Texto</translation>
+        <translation type="obsolete">Texto</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation>Enlace</translation>
+        <translation type="obsolete">Enlace</translation>
     </message>
     <message>
         <source>Insert PDF Annotations</source>
-        <translation>Insertar anotaciones de PDF</translation>
+        <translation type="obsolete">Insertar anotaciones de PDF</translation>
     </message>
 </context>
 <context>

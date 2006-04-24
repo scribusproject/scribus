@@ -3677,6 +3677,34 @@ Sletter den navngivne masterside.
         <source>C&amp;lear</source>
         <translation>Nu&amp;lstil</translation>
     </message>
+    <message>
+        <source>Insert PDF Push Button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Text Field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Check Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Combo Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF List Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Text Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Link Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -5499,6 +5527,10 @@ Navnet er reserveret for gennemsigtig farve</translation>
         <source>Check again</source>
         <translation>Tjek igen</translation>
     </message>
+    <message>
+        <source>Image is GIF</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChooseStyles</name>
@@ -6897,6 +6929,14 @@ billeder og nogen eksperimenteren og testning er nødvendigt fra billede til bil
     <message>
         <source>Do not show objects outside the margins on the printed page</source>
         <translation>Vis ikke objekter udenfor margener på den udskrevne side</translation>
+    </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9107,6 +9147,17 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
 </context>
 <context>
+    <name>ModeToolBar</name>
+    <message>
+        <source>Tools</source>
+        <translation type="unfinished">Værktøjer</translation>
+    </message>
+    <message>
+        <source>Properties...</source>
+        <translation type="unfinished">Egenskaber...</translation>
+    </message>
+</context>
+<context>
     <name>MovePages</name>
     <message>
         <source>Move Page(s):</source>
@@ -9769,6 +9820,18 @@ hjørner:</translation>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation>Farve på markeret tekst. Hvis &quot;omrids&quot; tekst-udsmykning er aktiveret, vil denne farve være fyldfarven. Hvis tekst-skygge er aktiveret, så vil dette være den øverste farve.</translation>
     </message>
+    <message>
+        <source>Overprinting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Knockout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overprint</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -10308,6 +10371,13 @@ hjørner:</translation>
     </message>
 </context>
 <context>
+    <name>PDFToolBar</name>
+    <message>
+        <source>PDF Tools</source>
+        <translation type="unfinished">PDF Værktøjer</translation>
+    </message>
+</context>
+<context>
     <name>PDF_Opts</name>
     <message>
         <source></source>
@@ -10454,6 +10524,10 @@ hjørner:</translation>
     <message>
         <source>File</source>
         <translation>Fil</translation>
+    </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11076,7 +11150,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Image Processing Tool</source>
-        <translation>Program til Billedbehandling</translation>
+        <translation type="obsolete">Program til Billedbehandling</translation>
     </message>
     <message>
         <source>Default font size for the menus and windows</source>
@@ -11136,11 +11210,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation>Antialias tekst for EPS og PDF skærmvisning</translation>
+        <translation type="obsolete">Antialias tekst for EPS og PDF skærmvisning</translation>
     </message>
     <message>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation>Antialias grafik for EPS og PDF skærmvisning</translation>
+        <translation type="obsolete">Antialias grafik for EPS og PDF skærmvisning</translation>
     </message>
     <message>
         <source>&amp;Theme:</source>
@@ -11224,19 +11298,19 @@ hjørner:</translation>
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
-        <translation>&amp;Navn på program:</translation>
+        <translation type="obsolete">&amp;Navn på program:</translation>
     </message>
     <message>
         <source>Antialias &amp;Text</source>
-        <translation>Antialias &amp;Tekst</translation>
+        <translation type="obsolete">Antialias &amp;Tekst</translation>
     </message>
     <message>
         <source>Antialias &amp;Graphics</source>
-        <translation>Antialias &amp;Grafik</translation>
+        <translation type="obsolete">Antialias &amp;Grafik</translation>
     </message>
     <message>
         <source>Name of &amp;Executable:</source>
-        <translation>Navn på &amp;program:</translation>
+        <translation type="obsolete">Navn på &amp;program:</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
@@ -11384,11 +11458,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>dpi</source>
-        <translation>dpi</translation>
+        <translation type="obsolete">dpi</translation>
     </message>
     <message>
         <source>Resolution:</source>
-        <translation>Opløsning:</translation>
+        <translation type="obsolete">Opløsning:</translation>
     </message>
     <message>
         <source>Rulers relative to Page</source>
@@ -11424,11 +11498,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>Locate Ghostscript</source>
-        <translation>Find Ghostscript</translation>
+        <translation type="obsolete">Find Ghostscript</translation>
     </message>
     <message>
         <source>Locate your image editor</source>
-        <translation>Find dit billedprogram</translation>
+        <translation type="obsolete">Find dit billedprogram</translation>
     </message>
     <message>
         <source>Enable or disable  the display of linked frames.</source>
@@ -11440,7 +11514,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>PostScript Interpreter</source>
-        <translation>PostScript fortolker</translation>
+        <translation type="obsolete">PostScript fortolker</translation>
     </message>
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
@@ -11452,7 +11526,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
-        <translation>Placering af grafikprogram i filsystemet. Hvis du bruger gimp og din distribution inkluderer &apos;gimp-remote&apos;, så anbefaler vi, at du bruger 
+        <translation type="obsolete">Placering af grafikprogram i filsystemet. Hvis du bruger gimp og din distribution inkluderer &apos;gimp-remote&apos;, så anbefaler vi, at du bruger 
 denne, da det tillader dig at redigere billedet i en allerede kørende gimp.</translation>
     </message>
     <message>
@@ -11481,7 +11555,7 @@ denne, da det tillader dig at redigere billedet i en allerede kørende gimp.</tr
     </message>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
-        <translation>Tilføj stien til Ghostscript fortolkeren. Vær venligst opmærksom på, at du på Windows skal bruge navnet gswin32c.exe - IKKE gswin32.exe. Ellers kan det måske forårsage at Windows hænger, når Scribus startes.</translation>
+        <translation type="obsolete">Tilføj stien til Ghostscript fortolkeren. Vær venligst opmærksom på, at du på Windows skal bruge navnet gswin32c.exe - IKKE gswin32.exe. Ellers kan det måske forårsage at Windows hænger, når Scribus startes.</translation>
     </message>
 </context>
 <context>
@@ -12925,7 +12999,7 @@ Ekstern Lænker</translation>
     </message>
     <message>
         <source>Font %1 is broken, no embedding</source>
-        <translation>Font %1 indeholder fejl, ingen indlejring</translation>
+        <translation type="obsolete">Font %1 indeholder fejl, ingen indlejring</translation>
     </message>
     <message>
         <source>Font %1 is broken (read stream), no embedding</source>
@@ -12933,11 +13007,11 @@ Ekstern Lænker</translation>
     </message>
     <message>
         <source>Font %1 is broken (FreeType2), discarding it</source>
-        <translation>Font %1 indeholder fejl (FreeType2), kan ikke bruges</translation>
+        <translation type="obsolete">Font %1 indeholder fejl (FreeType2), kan ikke bruges</translation>
     </message>
     <message>
         <source>Font %1 is broken (no Face), discarding it</source>
-        <translation>Font %1 indeholder fejl (ingen fontnavn), kan ikke bruges</translation>
+        <translation type="obsolete">Font %1 indeholder fejl (ingen fontnavn), kan ikke bruges</translation>
     </message>
     <message>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
@@ -12977,7 +13051,7 @@ Ekstern Lænker</translation>
     </message>
     <message>
         <source>Font %1 is broken (FreeType), discarding it</source>
-        <translation>Font %1 indeholder fejl (FreeType), kan ikke bruges</translation>
+        <translation type="obsolete">Font %1 indeholder fejl (FreeType), kan ikke bruges</translation>
     </message>
     <message>
         <source>Font %1  has invalid glyph %2 (charcode %3), discarding it</source>
@@ -13553,6 +13627,10 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
         <source>Given master page name does not match any existing.</source>
         <comment>python error</comment>
         <translation>Den givne master side stemmer ikke overens med nogen eksisterende.</translation>
+    </message>
+    <message>
+        <source>Font %1(%2) is broken</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14836,7 +14914,7 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     </message>
     <message>
         <source>Ligature</source>
-        <translation>Ligatur</translation>
+        <translation type="obsolete">Ligatur</translation>
     </message>
     <message>
         <source>New Master Page %1</source>
@@ -14848,7 +14926,7 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     </message>
     <message>
         <source>Spaces &amp;&amp; Breaks</source>
-        <translation>Mellemrum &amp;&amp; Skift</translation>
+        <translation type="obsolete">Mellemrum &amp;&amp; Skift</translation>
     </message>
     <message>
         <source>Number of copies: %1
@@ -14861,6 +14939,22 @@ Vertikal forskydning: %3</translation>
     <message>
         <source>Contents</source>
         <translation>Indhold</translation>
+    </message>
+    <message>
+        <source>&amp;Character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quote</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;paces &amp;&amp; Breaks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16025,6 +16119,104 @@ Vertikal forskydning: %3</translation>
         <source>Highest allowed resolution</source>
         <translation>Højeste tilladte opløsning</translation>
     </message>
+    <message>
+        <source>Check for GIF images</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabExternalToolsWidget</name>
+    <message>
+        <source>Locate Ghostscript</source>
+        <translation type="unfinished">Find Ghostscript</translation>
+    </message>
+    <message>
+        <source>Locate your image editor</source>
+        <translation type="unfinished">Find dit billedprogram</translation>
+    </message>
+</context>
+<context>
+    <name>TabExternalToolsWidgetBase</name>
+    <message>
+        <source>External Tools</source>
+        <translation type="unfinished">Eksterne værktøjer</translation>
+    </message>
+    <message>
+        <source>PostScript Interpreter</source>
+        <translation type="unfinished">PostScript fortolker</translation>
+    </message>
+    <message>
+        <source>&amp;Name of Executable:</source>
+        <translation type="unfinished">&amp;Navn på program:</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished">Tilføj stien til Ghostscript fortolkeren. Vær venligst opmærksom på, at du på Windows skal bruge navnet gswin32c.exe - IKKE gswin32.exe. Ellers kan det måske forårsage at Windows hænger, når Scribus startes.</translation>
+    </message>
+    <message>
+        <source>&amp;Change..</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Text</source>
+        <translation type="unfinished">Antialias &amp;Tekst</translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation type="unfinished">Alt+T</translation>
+    </message>
+    <message>
+        <source>Antialias text for EPS and PDF onscreen rendering</source>
+        <translation type="unfinished">Antialias tekst for EPS og PDF skærmvisning</translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Graphics</source>
+        <translation type="unfinished">Antialias &amp;Grafik</translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias graphics for EPS and PDF onscreen rendering</source>
+        <translation type="unfinished">Antialias grafik for EPS og PDF skærmvisning</translation>
+    </message>
+    <message>
+        <source>Resolution:</source>
+        <translation type="unfinished">Opløsning:</translation>
+    </message>
+    <message>
+        <source> dpi</source>
+        <translation type="unfinished"> dpi</translation>
+    </message>
+    <message>
+        <source>Image Processing Tool</source>
+        <translation type="unfinished">Program til Billedbehandling</translation>
+    </message>
+    <message>
+        <source>Name of &amp;Executable:</source>
+        <translation type="unfinished">Navn på &amp;program:</translation>
+    </message>
+    <message>
+        <source>File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation type="unfinished">&amp;Vælg...</translation>
+    </message>
+    <message>
+        <source>&amp;Rescan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabGuides</name>
@@ -16904,6 +17096,14 @@ når PDF dokument åbnes:</translation>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation>Den tid siden er vist, før præsentationen starter på den valgte side. Værdien 0 deaktiverer automatisk sideskift.</translation>
+    </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18038,54 +18238,54 @@ X: %4, Y: %5</translation>
     <name>WerkToolB</name>
     <message>
         <source>Tools</source>
-        <translation>Værktøjer</translation>
+        <translation type="obsolete">Værktøjer</translation>
     </message>
     <message>
         <source>Properties...</source>
-        <translation>Egenskaber...</translation>
+        <translation type="obsolete">Egenskaber...</translation>
     </message>
 </context>
 <context>
     <name>WerkToolBP</name>
     <message>
         <source>Link</source>
-        <translation>Lænke</translation>
+        <translation type="obsolete">Lænke</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Tekst</translation>
+        <translation type="obsolete">Tekst</translation>
     </message>
     <message>
         <source>List Box</source>
-        <translation>Liste boks</translation>
+        <translation type="obsolete">Liste boks</translation>
     </message>
     <message>
         <source>Combo Box</source>
-        <translation>Kombo boks</translation>
+        <translation type="obsolete">Kombo boks</translation>
     </message>
     <message>
         <source>Button</source>
-        <translation>Knap</translation>
+        <translation type="obsolete">Knap</translation>
     </message>
     <message>
         <source>Text Field</source>
-        <translation>Tekstfelt</translation>
+        <translation type="obsolete">Tekstfelt</translation>
     </message>
     <message>
         <source>Check Box</source>
-        <translation>Afkrydsnings boks</translation>
+        <translation type="obsolete">Afkrydsnings boks</translation>
     </message>
     <message>
         <source>PDF Tools</source>
-        <translation>PDF Værktøjer</translation>
+        <translation type="obsolete">PDF Værktøjer</translation>
     </message>
     <message>
         <source>Insert PDF Fields</source>
-        <translation>Indsæt PDF Felter</translation>
+        <translation type="obsolete">Indsæt PDF Felter</translation>
     </message>
     <message>
         <source>Insert PDF Annotations</source>
-        <translation>Indsæt PDF Kommentar</translation>
+        <translation type="obsolete">Indsæt PDF Kommentar</translation>
     </message>
 </context>
 <context>

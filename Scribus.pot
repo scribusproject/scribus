@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-11 18:24+0100\n"
+"POT-Creation-Date: 2006-04-24 23:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -65,6 +65,18 @@ msgid "Type:"
 msgstr ""
 
 msgid "Margin Guides"
+msgstr ""
+
+msgid "Delete Styles"
+msgstr ""
+
+msgid "&OK"
+msgstr ""
+
+msgid "Ca&ncel"
+msgstr ""
+
+msgid "Alt+N"
 msgstr ""
 
 msgid "pt"
@@ -488,16 +500,10 @@ msgstr ""
 msgid "Freetype2 library not available"
 msgstr ""
 
-msgid "Font %1 is broken, no embedding"
+msgid "Font %1(%2) is broken"
 msgstr ""
 
 msgid "Font %1 is broken (read stream), no embedding"
-msgstr ""
-
-msgid "Font %1 is broken (FreeType2), discarding it"
-msgstr ""
-
-msgid "Font %1 is broken (no Face), discarding it"
 msgstr ""
 
 msgid "Font %1 has broken glyph %2 (charcode %3)"
@@ -509,10 +515,10 @@ msgstr ""
 msgid "Font %1 cannot be read, no embedding"
 msgstr ""
 
-msgid "Font %1 is broken, discarding it"
+msgid "Creating Font Cache"
 msgstr ""
 
-msgid "Creating Font Cache"
+msgid "Font %1 is broken, discarding it"
 msgstr ""
 
 msgid "Failed to load font %1 - font type unknown"
@@ -531,9 +537,6 @@ msgid "Font %1(%2) is duplicate of %3"
 msgstr ""
 
 msgid "Loading font %1 (found using fontconfig)"
-msgstr ""
-
-msgid "Font %1 (found using fontconfig) is broken, discarding it"
 msgstr ""
 
 msgid "Failed to load a font - freetype2 couldn't find the font file"
@@ -615,6 +618,11 @@ msgid "Document"
 msgstr ""
 
 msgid "Background"
+msgstr ""
+
+msgid ""
+"An error occurred while opening icc profiles, color management is not "
+"enabled."
 msgstr ""
 
 msgid "New Layer"
@@ -1243,6 +1251,15 @@ msgstr ""
 msgid "Multiple duplicate"
 msgstr ""
 
+msgid "Apply text style"
+msgstr ""
+
+msgid "&Undo: %1"
+msgstr ""
+
+msgid "&Redo: %1"
+msgstr ""
+
 msgid "Move Pages"
 msgstr ""
 
@@ -1370,6 +1387,9 @@ msgstr ""
 msgid "Conve&rt to"
 msgstr ""
 
+msgid "Contents"
+msgstr ""
+
 msgid "Linking Text Frames"
 msgstr ""
 
@@ -1417,7 +1437,13 @@ msgstr ""
 msgid " dpi"
 msgstr ""
 
+msgid "Highest allowed resolution"
+msgstr ""
+
 msgid "Check for placed PDF Files"
+msgstr ""
+
+msgid "Check for GIF images"
 msgstr ""
 
 msgid "Check for PDF Annotations and Fields"
@@ -1451,9 +1477,6 @@ msgid "&Bottom:"
 msgstr ""
 
 msgid "&Left:"
-msgstr ""
-
-msgid "&OK"
 msgstr ""
 
 msgid "Alt+O"
@@ -1501,6 +1524,12 @@ msgstr ""
 msgid "Plugin: %1 failed to load: %2"
 msgstr ""
 
+msgid "Plugin: %1 initialized ok "
+msgstr ""
+
+msgid "Plugin: %1 failed post initialization"
+msgstr ""
+
 msgid "Flat Cap"
 msgstr ""
 
@@ -1544,6 +1573,60 @@ msgid "%1 of %1"
 msgstr ""
 
 msgid "%1 of %2"
+msgstr ""
+
+msgid "font %1 "
+msgstr ""
+
+msgid "size %1 "
+msgstr ""
+
+msgid "+style "
+msgstr ""
+
+msgid "+color "
+msgstr ""
+
+msgid "+underline "
+msgstr ""
+
+msgid "-underline "
+msgstr ""
+
+msgid "+strikeout "
+msgstr ""
+
+msgid "-strikeout "
+msgstr ""
+
+msgid "+shadow "
+msgstr ""
+
+msgid "-shadow "
+msgstr ""
+
+msgid "+outline "
+msgstr ""
+
+msgid "-outline "
+msgstr ""
+
+msgid "+tracking %1"
+msgstr ""
+
+msgid "-tracking "
+msgstr ""
+
+msgid "+baseline %1"
+msgstr ""
+
+msgid "+stretch "
+msgstr ""
+
+msgid "parent= %1"
+msgstr ""
+
+msgid "unnamed"
 msgstr ""
 
 msgid "Icon Placement"
@@ -1710,78 +1793,13 @@ msgstr ""
 msgid "Copy of"
 msgstr ""
 
-msgid "Manage Guides"
+msgid "Edit Guide"
 msgstr ""
 
-msgid "Horizontal Guides"
+msgid "Enter a position:"
 msgstr ""
 
-msgid "Guide"
-msgstr ""
-
-msgid "Unit"
-msgstr ""
-
-msgid "D&elete"
-msgstr ""
-
-msgid "Vertical Guides"
-msgstr ""
-
-msgid "A&dd"
-msgstr ""
-
-msgid "De&lete"
-msgstr ""
-
-msgid "Rows and Columns - Automatic Guides"
-msgstr ""
-
-msgid "&Rows:"
-msgstr ""
-
-msgid "C&olumns:"
-msgstr ""
-
-msgid "Row &Gap"
-msgstr ""
-
-msgid "Colum&n Gap"
-msgstr ""
-
-msgid "Refer to:"
-msgstr ""
-
-msgid "&Page"
-msgstr ""
-
-msgid "&Margins"
-msgstr ""
-
-msgid "&Selection"
-msgstr ""
-
-msgid "&Lock Guides"
-msgstr ""
-
-msgid "&Apply to All Pages"
-msgstr ""
-
-msgid "&Close"
-msgstr ""
-
-msgid "&Update"
-msgstr ""
-
-msgid "Preview"
-msgstr ""
-
-msgid ""
-"Set the guides in document. Guide manager is still opened but the changes "
-"are persistant"
-msgstr ""
-
-msgid "There is empty (0.0) guide already"
+msgid "New Guide"
 msgstr ""
 
 msgid "Other..."
@@ -1972,30 +1990,6 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-msgid "PostScript Interpreter"
-msgstr ""
-
-msgid "&Name of Executable:"
-msgstr ""
-
-msgid "Antialias &Text"
-msgstr ""
-
-msgid "Antialias &Graphics"
-msgstr ""
-
-msgid "dpi"
-msgstr ""
-
-msgid "Resolution:"
-msgstr ""
-
-msgid "Image Processing Tool"
-msgstr ""
-
-msgid "Name of &Executable:"
-msgstr ""
-
 msgid "External Tools"
 msgstr ""
 
@@ -2118,21 +2112,6 @@ msgid ""
 "so Scribus will display your pages and objects on them at the correct size"
 msgstr ""
 
-msgid "Filesystem location for the Ghostscript interpreter"
-msgstr ""
-
-msgid "Antialias text for EPS and PDF onscreen rendering"
-msgstr ""
-
-msgid "Antialias graphics for EPS and PDF onscreen rendering"
-msgstr ""
-
-msgid ""
-"File system location for graphics editor. If you use gimp and your distro "
-"includes it, we recommend 'gimp-remote', as it allows you to edit the image "
-"in an already running instance of gimp."
-msgstr ""
-
 msgid ""
 "Defines amount of space left of the document canvas available as a "
 "pasteboard for creating and modifying elements and dragging them onto the "
@@ -2153,12 +2132,6 @@ msgstr ""
 msgid ""
 "Defines amount of space below the document canvas available as a pasteboard "
 "for creating and modifying elements and dragging them onto the active page"
-msgstr ""
-
-msgid "Locate Ghostscript"
-msgstr ""
-
-msgid "Locate your image editor"
 msgstr ""
 
 msgid "Could not open output file %1"
@@ -2296,6 +2269,12 @@ msgstr ""
 msgid "Add a new layer"
 msgstr ""
 
+msgid "Locate Ghostscript"
+msgstr ""
+
+msgid "Locate your image editor"
+msgstr ""
+
 msgid "Save as PDF"
 msgstr ""
 
@@ -2388,30 +2367,6 @@ msgstr ""
 msgid "PDF Tools"
 msgstr ""
 
-msgid "Button"
-msgstr ""
-
-msgid "Text Field"
-msgstr ""
-
-msgid "Check Box"
-msgstr ""
-
-msgid "Combo Box"
-msgstr ""
-
-msgid "List Box"
-msgstr ""
-
-msgid "Insert PDF Fields"
-msgstr ""
-
-msgid "Insert PDF Annotations"
-msgstr ""
-
-msgid "Link"
-msgstr ""
-
 msgid "Possible Hyphenation"
 msgstr ""
 
@@ -2440,9 +2395,6 @@ msgid "Progress"
 msgstr ""
 
 msgid "Overall Progress:"
-msgstr ""
-
-msgid "Font %1 is broken (FreeType), discarding it"
 msgstr ""
 
 msgid "Font %1  has invalid glyph %2 (charcode %3), discarding it"
@@ -2476,6 +2428,9 @@ msgid "Display Trans&parency"
 msgstr ""
 
 msgid "&Under Color Removal"
+msgstr ""
+
+msgid "Force Overprint Mode"
 msgstr ""
 
 msgid "&Display CMYK"
@@ -2580,6 +2535,9 @@ msgstr ""
 msgid "Paragraphs:"
 msgstr ""
 
+msgid "Resolution:"
+msgstr ""
+
 msgid "DPI"
 msgstr ""
 
@@ -2672,6 +2630,9 @@ msgstr ""
 msgid "Scribus: About Plug-ins"
 msgstr ""
 
+msgid "&Close"
+msgstr ""
+
 msgid "Align Text Left"
 msgstr ""
 
@@ -2742,6 +2703,9 @@ msgid "First Selected"
 msgstr ""
 
 msgid "Last Selected"
+msgstr ""
+
+msgid "Guide"
 msgstr ""
 
 msgid "Align right sides of objects to left side of anchor"
@@ -3198,7 +3162,7 @@ msgstr ""
 
 msgid ""
 "Length of time the page is shown before the presentation starts on the "
-"selected page."
+"selected page. Setting 0 will disable automatic page transition."
 msgstr ""
 
 msgid ""
@@ -3399,6 +3363,10 @@ msgid "Mirror Page(s) vertically"
 msgstr ""
 
 msgid ""
+"Enables global Overprint Mode for this document, overrides object settings"
+msgstr ""
+
+msgid ""
 "Enables Spot Colors to be converted to composite colors. Unless you are "
 "planning to print spot colors at a commercial printer, this is probably best "
 "left enabled."
@@ -3501,6 +3469,57 @@ msgid "&Automatic Text Frames"
 msgstr ""
 
 msgid "Open"
+msgstr ""
+
+msgid "PostScript Interpreter"
+msgstr ""
+
+msgid "&Name of Executable:"
+msgstr ""
+
+msgid ""
+"Add the path for the Ghostscript interpreter. On Windows, please note it is "
+"important to note you need to use the program named gswin32c.exe - NOT "
+"gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus."
+msgstr ""
+
+msgid "&Change.."
+msgstr ""
+
+msgid "Antialias &Text"
+msgstr ""
+
+msgid "Alt+T"
+msgstr ""
+
+msgid "Antialias text for EPS and PDF onscreen rendering"
+msgstr ""
+
+msgid "Antialias &Graphics"
+msgstr ""
+
+msgid "Alt+G"
+msgstr ""
+
+msgid "Antialias graphics for EPS and PDF onscreen rendering"
+msgstr ""
+
+msgid "Image Processing Tool"
+msgstr ""
+
+msgid "Name of &Executable:"
+msgstr ""
+
+msgid ""
+"File system location for graphics editor. If you use gimp and your "
+"distribution includes it, we recommend 'gimp-remote', as it allows you to "
+"edit the image in an already running instance of gimp."
+msgstr ""
+
+msgid "&Rescan"
+msgstr ""
+
+msgid "Alt+R"
 msgstr ""
 
 msgid "Filename:"
@@ -3607,7 +3626,94 @@ msgstr ""
 msgid "Exporting Items on Current Page:"
 msgstr ""
 
+msgid "Unit"
+msgstr ""
+
+msgid "Manage Guides"
+msgstr ""
+
+msgid "Horizontals"
+msgstr ""
+
+msgid "D&elete"
+msgstr ""
+
+msgid "Alt+E"
+msgstr ""
+
+msgid "Verticals"
+msgstr ""
+
+msgid "A&dd"
+msgstr ""
+
+msgid "De&lete"
+msgstr ""
+
+msgid "Alt+L"
+msgstr ""
+
+msgid "&Lock Guides"
+msgstr ""
+
+msgid "Appl&y to All Pages"
+msgstr ""
+
+msgid "Alt+Y"
+msgstr ""
+
+msgid "&Standard"
+msgstr ""
+
+msgid "&Number:"
+msgstr ""
+
+msgid "U&se Gap:"
+msgstr ""
+
+msgid "Alt+S"
+msgstr ""
+
+msgid "Nu&mber:"
+msgstr ""
+
+msgid "Use &Gap:"
+msgstr ""
+
+msgid "Refer To"
+msgstr ""
+
+msgid "&Page"
+msgstr ""
+
+msgid "Alt+P"
+msgstr ""
+
+msgid "M&argins"
+msgstr ""
+
+msgid "S&election"
+msgstr ""
+
+msgid "A&utomatic"
+msgstr ""
+
 msgid "Field Properties"
+msgstr ""
+
+msgid "Button"
+msgstr ""
+
+msgid "Text Field"
+msgstr ""
+
+msgid "Check Box"
+msgstr ""
+
+msgid "Combo Box"
+msgstr ""
+
+msgid "List Box"
 msgstr ""
 
 msgid "Tool-Tip:"
@@ -3949,6 +4055,9 @@ msgstr ""
 msgid "Search Results for: "
 msgstr ""
 
+msgid "Preview"
+msgstr ""
+
 msgid "Select"
 msgstr ""
 
@@ -4006,16 +4115,10 @@ msgstr ""
 msgid "&Copy"
 msgstr ""
 
-msgid "Copy Contents"
+msgid "Paste (&Absolute)"
 msgstr ""
 
-msgid "Paste Contents"
-msgstr ""
-
-msgid "Paste Contents (Absolute)"
-msgstr ""
-
-msgid "C&lear Contents"
+msgid "C&lear"
 msgstr ""
 
 msgid "Select &All"
@@ -4406,6 +4509,27 @@ msgid "Insert Bezier Curve"
 msgstr ""
 
 msgid "Insert Freehand Line"
+msgstr ""
+
+msgid "Insert PDF Push Button"
+msgstr ""
+
+msgid "Insert PDF Text Field"
+msgstr ""
+
+msgid "Insert PDF Check Box"
+msgstr ""
+
+msgid "Insert PDF Combo Box"
+msgstr ""
+
+msgid "Insert PDF List Box"
+msgstr ""
+
+msgid "Insert Text Annotation"
+msgstr ""
+
+msgid "Insert Link Annotation"
 msgstr ""
 
 msgid "&Manage Pictures"
@@ -4807,9 +4931,6 @@ msgstr ""
 msgid "&Insert"
 msgstr ""
 
-msgid "C&lear"
-msgstr ""
-
 msgid "Insert the characters at the cursor in the text"
 msgstr ""
 
@@ -5025,28 +5146,19 @@ msgstr ""
 msgid "New Color"
 msgstr ""
 
-msgid "Position:"
+msgid "Add, change or remove color stops here"
 msgstr ""
 
-msgid "Here you can add, change or remove Color-Stops."
+msgid "Position:"
 msgstr ""
 
 msgid "Scribus "
 msgstr ""
 
-msgid "Initializing Plugins"
-msgstr ""
-
-msgid "Initializing Keyboard Shortcuts"
-msgstr ""
-
-msgid "Reading Preferences"
+msgid "Setting up Shortcuts"
 msgstr ""
 
 msgid "Initializing Story Editor"
-msgstr ""
-
-msgid "Reading ICC Profiles"
 msgstr ""
 
 msgid "Initializing Hyphenator"
@@ -5055,25 +5167,7 @@ msgstr ""
 msgid "Reading Scrapbook"
 msgstr ""
 
-msgid "Setting up Shortcuts"
-msgstr ""
-
-msgid "Initializing..."
-msgstr ""
-
 msgid "Edit"
-msgstr ""
-
-msgid "There are no fonts found on your system."
-msgstr ""
-
-msgid "Exiting now."
-msgstr ""
-
-msgid "Fatal Error"
-msgstr ""
-
-msgid "Font System Initialized"
 msgstr ""
 
 msgid "Scribus Development Version"
@@ -5125,16 +5219,16 @@ msgstr ""
 msgid "I&nsert"
 msgstr ""
 
-msgid "Character"
+msgid "&Character"
 msgstr ""
 
-msgid "Quote"
+msgid "&Quote"
 msgstr ""
 
-msgid "Spaces && Breaks"
+msgid "S&paces && Breaks"
 msgstr ""
 
-msgid "Ligature"
+msgid "Liga&ture"
 msgstr ""
 
 msgid "&View"
@@ -5172,6 +5266,9 @@ msgid "Import done"
 msgstr ""
 
 msgid "Found nothing to import"
+msgstr ""
+
+msgid "Fatal Error"
 msgstr ""
 
 msgid "File %1 is not in an acceptable format"
@@ -5316,6 +5413,12 @@ msgstr ""
 msgid "Previe&w Settings"
 msgstr ""
 
+msgid "Character"
+msgstr ""
+
+msgid "Quote"
+msgstr ""
+
 msgid "Space"
 msgstr ""
 
@@ -5334,16 +5437,30 @@ msgstr ""
 msgid "Y-Offset"
 msgstr ""
 
-msgid "Underline Words Only"
+msgid ""
+"Underline Text. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
+
+msgid ""
+"Underline Words Only. Hold down the button momentarily to set line width and "
+"displacement options."
 msgstr ""
 
 msgid "All Caps"
 msgstr ""
 
-msgid "Strike Out"
+msgid ""
+"Strike Out. Hold down the button momentarily to set line width and "
+"displacement options."
 msgstr ""
 
-msgid "Shadow"
+msgid ""
+"Outline. Hold down the button momentarily to change the outline stroke width."
+msgstr ""
+
+msgid ""
+"Shadowed Text. Hold down the button momentarily to enable the offset spacing."
 msgstr ""
 
 msgid "Setup Printer"
@@ -5756,7 +5873,7 @@ msgstr ""
 msgid "About Scribus %1"
 msgstr ""
 
-msgid "March"
+msgid "April"
 msgstr ""
 
 msgid "%1 %2 %3"
@@ -5796,6 +5913,9 @@ msgid "Official Documentation:"
 msgstr ""
 
 msgid "Other Documentation:"
+msgstr ""
+
+msgid "Tango Project Icons:"
 msgstr ""
 
 msgid "A&uthors"
@@ -6078,6 +6198,15 @@ msgstr ""
 msgid "Line at Bottom"
 msgstr ""
 
+msgid "Overprinting"
+msgstr ""
+
+msgid "Knockout"
+msgstr ""
+
+msgid "Overprint"
+msgstr ""
+
 msgid "Name of selected object"
 msgstr ""
 
@@ -6169,10 +6298,15 @@ msgstr ""
 msgid "Scaling height of characters"
 msgstr ""
 
-msgid "Color of text stroke. Only available with \"outline\" text decoration."
+msgid ""
+"Color of text stroke and/or drop shadow, depending which is chosen.If both "
+"are chosen, then they share the same color."
 msgstr ""
 
-msgid "Color of text fill. Only available with \"outline\" text decoration."
+msgid ""
+"Color of selected text. If Outline text decoration is enabled, this color "
+"will be the fill color. If Drop Shadow Text is enabled, then this will be "
+"the top most color."
 msgstr ""
 
 msgid "Saturation of color of text stroke"
@@ -6188,6 +6322,9 @@ msgid "Manual Tracking"
 msgstr ""
 
 msgid "Line Spacing"
+msgstr ""
+
+msgid "Click to select the line spacing mode"
 msgstr ""
 
 msgid "Style of current paragraph"
@@ -6438,6 +6575,30 @@ msgstr ""
 msgid "Name of the style is not unique"
 msgstr ""
 
+msgid "Initializing Plugins"
+msgstr ""
+
+msgid "Initializing Keyboard Shortcuts"
+msgstr ""
+
+msgid "Reading Preferences"
+msgstr ""
+
+msgid "Reading ICC Profiles"
+msgstr ""
+
+msgid "Initializing..."
+msgstr ""
+
+msgid "There are no fonts found on your system."
+msgstr ""
+
+msgid "Exiting now."
+msgstr ""
+
+msgid "Font System Initialized"
+msgstr ""
+
 msgid "Current Key"
 msgstr ""
 
@@ -6519,6 +6680,12 @@ msgstr ""
 msgid "Choose a Scrapbook Directory"
 msgstr ""
 
+msgid "Scrapbook (*.scs)"
+msgstr ""
+
+msgid "Choose a scrapbook file to import"
+msgstr ""
+
 msgid ""
 "Name \"%1\" is not unique.\n"
 "Please choose another."
@@ -6537,6 +6704,9 @@ msgid "&Preview"
 msgstr ""
 
 msgid "&Load..."
+msgstr ""
+
+msgid "&Import Scrapbook File..."
 msgstr ""
 
 msgid "Polygon Properties"
@@ -6638,6 +6808,9 @@ msgid "Document Sections"
 msgstr ""
 
 msgid "Annotation Properties"
+msgstr ""
+
+msgid "Link"
 msgstr ""
 
 msgid "External Link"
@@ -6761,6 +6934,12 @@ msgstr ""
 msgid "Font of selected text"
 msgstr ""
 
+msgid "Spaces && Breaks"
+msgstr ""
+
+msgid "Ligature"
+msgstr ""
+
 msgid "&Settings"
 msgstr ""
 
@@ -6824,30 +7003,6 @@ msgstr ""
 msgid "Do you really want to lose all your changes?"
 msgstr ""
 
-msgid "Glyphs missing"
-msgstr ""
-
-msgid "Text overflow"
-msgstr ""
-
-msgid "Object is not on a Page"
-msgstr ""
-
-msgid "Missing Image"
-msgstr ""
-
-msgid "Image has a DPI-Value less than %1 DPI"
-msgstr ""
-
-msgid "Object has transparency"
-msgstr ""
-
-msgid "Object is a PDF Annotation or Field"
-msgstr ""
-
-msgid "Object is a placed PDF"
-msgstr ""
-
 msgid "No Problems found"
 msgstr ""
 
@@ -6864,6 +7019,39 @@ msgid "Current Profile:"
 msgstr ""
 
 msgid "&Ignore Errors"
+msgstr ""
+
+msgid "Check again"
+msgstr ""
+
+msgid "Glyphs missing"
+msgstr ""
+
+msgid "Text overflow"
+msgstr ""
+
+msgid "Object is not on a Page"
+msgstr ""
+
+msgid "Missing Image"
+msgstr ""
+
+msgid "Image resolution below %1 DPI, currently %2 x %3 DPI"
+msgstr ""
+
+msgid "Image resolution above %1 DPI, currently %2 x %3 DPI"
+msgstr ""
+
+msgid "Object has transparency"
+msgstr ""
+
+msgid "Object is a PDF Annotation or Field"
+msgstr ""
+
+msgid "Object is a placed PDF"
+msgstr ""
+
+msgid "Image is GIF"
 msgstr ""
 
 msgid "Editor"
@@ -6890,25 +7078,10 @@ msgstr ""
 msgid "C&lone"
 msgstr ""
 
-msgid "Alt+L"
-msgstr ""
-
 msgid "O&K"
 msgstr ""
 
 msgid "Alt+K"
-msgstr ""
-
-msgid "A&pply"
-msgstr ""
-
-msgid "Alt+P"
-msgstr ""
-
-msgid "Ca&ncel"
-msgstr ""
-
-msgid "Alt+N"
 msgstr ""
 
 msgid "Move Bookmark"
@@ -7045,9 +7218,6 @@ msgid "Current &page"
 msgstr ""
 
 msgid "&Even pages"
-msgstr ""
-
-msgid "Alt+E"
 msgstr ""
 
 msgid "O&dd pages"
@@ -7188,9 +7358,6 @@ msgid "Printing File"
 msgstr ""
 
 msgid "Processing Master Pages:"
-msgstr ""
-
-msgid "Contents"
 msgstr ""
 
 msgid "&Contents"
@@ -7381,6 +7548,9 @@ msgid "Indonesian"
 msgstr ""
 
 msgid "Italian"
+msgstr ""
+
+msgid "Japanese"
 msgstr ""
 
 msgid "Korean"
@@ -7774,9 +7944,6 @@ msgstr ""
 msgid "&Quick Search:"
 msgstr ""
 
-msgid "Alt+S"
-msgstr ""
-
 msgid "&Font Size:"
 msgstr ""
 
@@ -7784,9 +7951,6 @@ msgid "Sample text to display"
 msgstr ""
 
 msgid "Se&t"
-msgstr ""
-
-msgid "Alt+T"
 msgstr ""
 
 msgid "Reset the text"
@@ -8177,6 +8341,9 @@ msgid "Failed to save EPS."
 msgstr ""
 
 msgid "Page number out of range."
+msgstr ""
+
+msgid "Given master page name does not match any existing."
 msgstr ""
 
 msgid "argument is not list: must be list of float values."
@@ -8766,6 +8933,9 @@ msgstr ""
 msgid "&Range"
 msgstr ""
 
+msgid "Image size in Pixels"
+msgstr ""
+
 msgid "Export a range of pages"
 msgstr ""
 
@@ -8829,9 +8999,6 @@ msgstr ""
 msgid "Barcode Creator"
 msgstr ""
 
-msgid "Make check digit visible in text"
-msgstr ""
-
 msgid "Barcode"
 msgstr ""
 
@@ -8858,9 +9025,6 @@ msgid "If checked, there will be numbers in the barcode too"
 msgstr ""
 
 msgid "&Guard whitespace"
-msgstr ""
-
-msgid "Alt+G"
 msgstr ""
 
 msgid "Draw arrows to be sure of space next the code"
@@ -9002,16 +9166,22 @@ msgstr ""
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
 msgstr ""
 
+msgid "Importing PostScript"
+msgstr ""
+
+msgid "Analyzing PostScript:"
+msgstr ""
+
 msgid ""
 "Importing File:\n"
 "%1\n"
 "failed!"
 msgstr ""
 
-msgid ""
-"Converting Image:\n"
-"%1\n"
-"failed!"
+msgid "Generating Items"
+msgstr ""
+
+msgid "Converting of %1 images failed!"
 msgstr ""
 
 msgid "Scribus - My Plugin"

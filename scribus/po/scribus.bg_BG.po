@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-10 00:36+0100\n"
+"POT-Creation-Date: 2006-04-24 23:55+0200\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
 "Content-Type: text/plain; charset=cp1251\n"
@@ -67,6 +67,22 @@ msgstr ""
 
 msgid "Margin Guides"
 msgstr "Помощни полета"
+
+#, fuzzy
+msgid "Delete Styles"
+msgstr "Изтриване на страница"
+
+#, fuzzy
+msgid "&OK"
+msgstr "Да"
+
+#, fuzzy
+msgid "Ca&ncel"
+msgstr "Отказ"
+
+#, fuzzy
+msgid "Alt+N"
+msgstr "Всички"
 
 msgid "pt"
 msgstr ""
@@ -549,16 +565,10 @@ msgstr "до:"
 msgid "Freetype2 library not available"
 msgstr ""
 
-msgid "Font %1 is broken, no embedding"
+msgid "Font %1(%2) is broken"
 msgstr ""
 
 msgid "Font %1 is broken (read stream), no embedding"
-msgstr ""
-
-msgid "Font %1 is broken (FreeType2), discarding it"
-msgstr ""
-
-msgid "Font %1 is broken (no Face), discarding it"
 msgstr ""
 
 msgid "Font %1 has broken glyph %2 (charcode %3)"
@@ -570,10 +580,10 @@ msgstr ""
 msgid "Font %1 cannot be read, no embedding"
 msgstr ""
 
-msgid "Font %1 is broken, discarding it"
+msgid "Creating Font Cache"
 msgstr ""
 
-msgid "Creating Font Cache"
+msgid "Font %1 is broken, discarding it"
 msgstr ""
 
 msgid "Failed to load font %1 - font type unknown"
@@ -592,9 +602,6 @@ msgid "Font %1(%2) is duplicate of %3"
 msgstr ""
 
 msgid "Loading font %1 (found using fontconfig)"
-msgstr ""
-
-msgid "Font %1 (found using fontconfig) is broken, discarding it"
 msgstr ""
 
 msgid "Failed to load a font - freetype2 couldn't find the font file"
@@ -687,6 +694,11 @@ msgid "Document"
 msgstr "Документ "
 
 msgid "Background"
+msgstr ""
+
+msgid ""
+"An error occurred while opening icc profiles, color management is not "
+"enabled."
 msgstr ""
 
 msgid "New Layer"
@@ -1419,6 +1431,17 @@ msgstr "Вземи текст..."
 msgid "Multiple duplicate"
 msgstr "Многократно повторение"
 
+#, fuzzy
+msgid "Apply text style"
+msgstr "Отрази формата"
+
+msgid "&Undo: %1"
+msgstr ""
+
+#, fuzzy
+msgid "&Redo: %1"
+msgstr "Готово"
+
 msgid "Move Pages"
 msgstr "Мпреместване на страници"
 
@@ -1567,6 +1590,10 @@ msgid "Conve&rt to"
 msgstr ""
 
 #, fuzzy
+msgid "Contents"
+msgstr "Съдържание"
+
+#, fuzzy
 msgid "Linking Text Frames"
 msgstr "Скрий рамките"
 
@@ -1616,8 +1643,15 @@ msgstr ""
 msgid " dpi"
 msgstr ""
 
+msgid "Highest allowed resolution"
+msgstr ""
+
 #, fuzzy
 msgid "Check for placed PDF Files"
+msgstr "Създай PDF-файл"
+
+#, fuzzy
+msgid "Check for GIF images"
 msgstr "Създай PDF-файл"
 
 #, fuzzy
@@ -1661,10 +1695,6 @@ msgstr "Отдолу:"
 #, fuzzy
 msgid "&Left:"
 msgstr "Ляво:"
-
-#, fuzzy
-msgid "&OK"
-msgstr "Да"
 
 msgid "Alt+O"
 msgstr ""
@@ -1716,6 +1746,12 @@ msgstr ""
 msgid "Plugin: %1 failed to load: %2"
 msgstr ""
 
+msgid "Plugin: %1 initialized ok "
+msgstr ""
+
+msgid "Plugin: %1 failed post initialization"
+msgstr ""
+
 msgid "Flat Cap"
 msgstr ""
 
@@ -1764,6 +1800,71 @@ msgstr "Копие на "
 #, fuzzy
 msgid "%1 of %2"
 msgstr "Копие на "
+
+msgid "font %1 "
+msgstr ""
+
+msgid "size %1 "
+msgstr ""
+
+#, fuzzy
+msgid "+style "
+msgstr "Стил"
+
+#, fuzzy
+msgid "+color "
+msgstr "Цвят"
+
+#, fuzzy
+msgid "+underline "
+msgstr "Подчертаване"
+
+#, fuzzy
+msgid "-underline "
+msgstr "Подчертаване"
+
+#, fuzzy
+msgid "+strikeout "
+msgstr "Двоен удар"
+
+#, fuzzy
+msgid "-strikeout "
+msgstr "Двоен удар"
+
+#, fuzzy
+msgid "+shadow "
+msgstr "Сянка"
+
+#, fuzzy
+msgid "-shadow "
+msgstr "Сянка"
+
+#, fuzzy
+msgid "+outline "
+msgstr "Линии"
+
+#, fuzzy
+msgid "-outline "
+msgstr "Линии"
+
+msgid "+tracking %1"
+msgstr ""
+
+#, fuzzy
+msgid "-tracking "
+msgstr "Опции на мишката"
+
+msgid "+baseline %1"
+msgstr ""
+
+msgid "+stretch "
+msgstr ""
+
+msgid "parent= %1"
+msgstr ""
+
+msgid "unnamed"
+msgstr ""
 
 #, fuzzy
 msgid "Icon Placement"
@@ -1939,95 +2040,16 @@ msgid "Copy of"
 msgstr "Копие на "
 
 #, fuzzy
-msgid "Manage Guides"
-msgstr "Помощни полета"
+msgid "Edit Guide"
+msgstr "Скрий помощните линии"
 
 #, fuzzy
-msgid "Horizontal Guides"
-msgstr "Хоризонтално обърнато"
+msgid "Enter a position:"
+msgstr "Други опции"
 
 #, fuzzy
-msgid "Guide"
+msgid "New Guide"
 msgstr "Помощни"
-
-#, fuzzy
-msgid "Unit"
-msgstr "Единици"
-
-#, fuzzy
-msgid "D&elete"
-msgstr "Изтриване"
-
-#, fuzzy
-msgid "Vertical Guides"
-msgstr "Вертикални интервали"
-
-msgid "A&dd"
-msgstr ""
-
-#, fuzzy
-msgid "De&lete"
-msgstr "Изтриване"
-
-msgid "Rows and Columns - Automatic Guides"
-msgstr ""
-
-#, fuzzy
-msgid "&Rows:"
-msgstr "Позиция по X:"
-
-#, fuzzy
-msgid "C&olumns:"
-msgstr "Колони:"
-
-msgid "Row &Gap"
-msgstr ""
-
-#, fuzzy
-msgid "Colum&n Gap"
-msgstr "Колонни линии"
-
-msgid "Refer to:"
-msgstr ""
-
-#, fuzzy
-msgid "&Page"
-msgstr "Страница"
-
-#, fuzzy
-msgid "&Margins"
-msgstr "Полета:"
-
-#, fuzzy
-msgid "&Selection"
-msgstr "Избери шрифт"
-
-#, fuzzy
-msgid "&Lock Guides"
-msgstr "Покажи помощните линии"
-
-#, fuzzy
-msgid "&Apply to All Pages"
-msgstr "От страница:"
-
-#, fuzzy
-msgid "&Close"
-msgstr "Затвори"
-
-#, fuzzy
-msgid "&Update"
-msgstr "Управление на илюстрации"
-
-msgid "Preview"
-msgstr "Преглед"
-
-msgid ""
-"Set the guides in document. Guide manager is still opened but the changes "
-"are persistant"
-msgstr ""
-
-msgid "There is empty (0.0) guide already"
-msgstr ""
 
 msgid "Other..."
 msgstr "Други..."
@@ -2253,32 +2275,6 @@ msgstr ""
 msgid "Display"
 msgstr "Показване"
 
-#, fuzzy
-msgid "PostScript Interpreter"
-msgstr "Стандартно"
-
-msgid "&Name of Executable:"
-msgstr ""
-
-msgid "Antialias &Text"
-msgstr ""
-
-msgid "Antialias &Graphics"
-msgstr ""
-
-msgid "dpi"
-msgstr ""
-
-#, fuzzy
-msgid "Resolution:"
-msgstr "Разделителна способност:"
-
-msgid "Image Processing Tool"
-msgstr ""
-
-msgid "Name of &Executable:"
-msgstr ""
-
 msgid "External Tools"
 msgstr ""
 
@@ -2401,21 +2397,6 @@ msgid ""
 "so Scribus will display your pages and objects on them at the correct size"
 msgstr ""
 
-msgid "Filesystem location for the Ghostscript interpreter"
-msgstr ""
-
-msgid "Antialias text for EPS and PDF onscreen rendering"
-msgstr ""
-
-msgid "Antialias graphics for EPS and PDF onscreen rendering"
-msgstr ""
-
-msgid ""
-"File system location for graphics editor. If you use gimp and your distro "
-"includes it, we recommend 'gimp-remote', as it allows you to edit the image "
-"in an already running instance of gimp."
-msgstr ""
-
 msgid ""
 "Defines amount of space left of the document canvas available as a "
 "pasteboard for creating and modifying elements and dragging them onto the "
@@ -2436,13 +2417,6 @@ msgstr ""
 msgid ""
 "Defines amount of space below the document canvas available as a pasteboard "
 "for creating and modifying elements and dragging them onto the active page"
-msgstr ""
-
-#, fuzzy
-msgid "Locate Ghostscript"
-msgstr "Прав формат"
-
-msgid "Locate your image editor"
 msgstr ""
 
 msgid "Could not open output file %1"
@@ -2598,6 +2572,13 @@ msgid "Add a new layer"
 msgstr ""
 
 #, fuzzy
+msgid "Locate Ghostscript"
+msgstr "Прав формат"
+
+msgid "Locate your image editor"
+msgstr ""
+
+#, fuzzy
 msgid "Save as PDF"
 msgstr "Запиши като PDF..."
 
@@ -2699,32 +2680,6 @@ msgstr ""
 msgid "PDF Tools"
 msgstr "Инструменти"
 
-msgid "Button"
-msgstr ""
-
-msgid "Text Field"
-msgstr ""
-
-msgid "Check Box"
-msgstr ""
-
-msgid "Combo Box"
-msgstr ""
-
-msgid "List Box"
-msgstr ""
-
-#, fuzzy
-msgid "Insert PDF Fields"
-msgstr "Вмукване на линии"
-
-#, fuzzy
-msgid "Insert PDF Annotations"
-msgstr "PDF анотация"
-
-msgid "Link"
-msgstr ""
-
 msgid "Possible Hyphenation"
 msgstr ""
 
@@ -2754,9 +2709,6 @@ msgid "Progress"
 msgstr "Програмиране:"
 
 msgid "Overall Progress:"
-msgstr ""
-
-msgid "Font %1 is broken (FreeType), discarding it"
 msgstr ""
 
 msgid "Font %1  has invalid glyph %2 (charcode %3), discarding it"
@@ -2792,6 +2744,9 @@ msgid "Display Trans&parency"
 msgstr "Екранни рамки"
 
 msgid "&Under Color Removal"
+msgstr ""
+
+msgid "Force Overprint Mode"
 msgstr ""
 
 #, fuzzy
@@ -2906,6 +2861,10 @@ msgstr "Файл:"
 msgid "Paragraphs:"
 msgstr "Стилове..."
 
+#, fuzzy
+msgid "Resolution:"
+msgstr "Разделителна способност:"
+
 msgid "DPI"
 msgstr ""
 
@@ -3009,6 +2968,10 @@ msgstr ""
 msgid "Scribus: About Plug-ins"
 msgstr "Долен регистър"
 
+#, fuzzy
+msgid "&Close"
+msgstr "Затвори"
+
 msgid "Align Text Left"
 msgstr ""
 
@@ -3094,6 +3057,10 @@ msgstr ""
 
 msgid "Last Selected"
 msgstr ""
+
+#, fuzzy
+msgid "Guide"
+msgstr "Помощни"
 
 msgid "Align right sides of objects to left side of anchor"
 msgstr ""
@@ -3608,7 +3575,7 @@ msgstr ""
 
 msgid ""
 "Length of time the page is shown before the presentation starts on the "
-"selected page."
+"selected page. Setting 0 will disable automatic page transition."
 msgstr ""
 
 msgid ""
@@ -3809,6 +3776,10 @@ msgid "Mirror Page(s) vertically"
 msgstr ""
 
 msgid ""
+"Enables global Overprint Mode for this document, overrides object settings"
+msgstr ""
+
+msgid ""
 "Enables Spot Colors to be converted to composite colors. Unless you are "
 "planning to print spot colors at a commercial printer, this is probably best "
 "left enabled."
@@ -3922,6 +3893,63 @@ msgstr "Автоматична текстова кутия"
 
 msgid "Open"
 msgstr "Отвори"
+
+#, fuzzy
+msgid "PostScript Interpreter"
+msgstr "Стандартно"
+
+msgid "&Name of Executable:"
+msgstr ""
+
+msgid ""
+"Add the path for the Ghostscript interpreter. On Windows, please note it is "
+"important to note you need to use the program named gswin32c.exe - NOT "
+"gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus."
+msgstr ""
+
+#, fuzzy
+msgid "&Change.."
+msgstr "Промяна..."
+
+msgid "Antialias &Text"
+msgstr ""
+
+#, fuzzy
+msgid "Alt+T"
+msgstr "Всички"
+
+msgid "Antialias text for EPS and PDF onscreen rendering"
+msgstr ""
+
+msgid "Antialias &Graphics"
+msgstr ""
+
+#, fuzzy
+msgid "Alt+G"
+msgstr "Всички"
+
+msgid "Antialias graphics for EPS and PDF onscreen rendering"
+msgstr ""
+
+msgid "Image Processing Tool"
+msgstr ""
+
+msgid "Name of &Executable:"
+msgstr ""
+
+msgid ""
+"File system location for graphics editor. If you use gimp and your "
+"distribution includes it, we recommend 'gimp-remote', as it allows you to "
+"edit the image in an already running instance of gimp."
+msgstr ""
+
+#, fuzzy
+msgid "&Rescan"
+msgstr "Правоъгълник"
+
+#, fuzzy
+msgid "Alt+R"
+msgstr "Всички"
 
 #, fuzzy
 msgid "Filename:"
@@ -4047,7 +4075,114 @@ msgstr "Вмъкване на страница"
 msgid "Exporting Items on Current Page:"
 msgstr "Страници за отпечатване"
 
+#, fuzzy
+msgid "Unit"
+msgstr "Единици"
+
+#, fuzzy
+msgid "Manage Guides"
+msgstr "Помощни полета"
+
+#, fuzzy
+msgid "Horizontals"
+msgstr "Хоризонтално"
+
+#, fuzzy
+msgid "D&elete"
+msgstr "Изтриване"
+
+#, fuzzy
+msgid "Alt+E"
+msgstr "Всички"
+
+#, fuzzy
+msgid "Verticals"
+msgstr "Вертикално"
+
+msgid "A&dd"
+msgstr ""
+
+#, fuzzy
+msgid "De&lete"
+msgstr "Изтриване"
+
+#, fuzzy
+msgid "Alt+L"
+msgstr "Всички"
+
+#, fuzzy
+msgid "&Lock Guides"
+msgstr "Покажи помощните линии"
+
+#, fuzzy
+msgid "Appl&y to All Pages"
+msgstr "От страница:"
+
+#, fuzzy
+msgid "Alt+Y"
+msgstr "Всички"
+
+msgid "&Standard"
+msgstr ""
+
+#, fuzzy
+msgid "&Number:"
+msgstr "Брой на копията:"
+
+msgid "U&se Gap:"
+msgstr ""
+
+#, fuzzy
+msgid "Alt+S"
+msgstr "Всички"
+
+#, fuzzy
+msgid "Nu&mber:"
+msgstr "Брой на копията:"
+
+msgid "Use &Gap:"
+msgstr ""
+
+#, fuzzy
+msgid "Refer To"
+msgstr "Нова форма"
+
+#, fuzzy
+msgid "&Page"
+msgstr "Страница"
+
+#, fuzzy
+msgid "Alt+P"
+msgstr "Всички"
+
+#, fuzzy
+msgid "M&argins"
+msgstr "Полета:"
+
+#, fuzzy
+msgid "S&election"
+msgstr "Избери шрифт"
+
+#, fuzzy
+msgid "A&utomatic"
+msgstr "Автоматична текстова кутия"
+
 msgid "Field Properties"
+msgstr ""
+
+msgid "Button"
+msgstr ""
+
+msgid "Text Field"
+msgstr ""
+
+msgid "Check Box"
+msgstr ""
+
+msgid "Combo Box"
+msgstr ""
+
+msgid "List Box"
 msgstr ""
 
 msgid "Tool-Tip:"
@@ -4397,6 +4532,9 @@ msgstr ""
 msgid "Search Results for: "
 msgstr ""
 
+msgid "Preview"
+msgstr "Преглед"
+
 msgid "Select"
 msgstr ""
 
@@ -4470,20 +4608,12 @@ msgid "&Copy"
 msgstr "Копиране"
 
 #, fuzzy
-msgid "Copy Contents"
+msgid "Paste (&Absolute)"
 msgstr "Съдържание"
 
 #, fuzzy
-msgid "Paste Contents"
-msgstr "Съдържание"
-
-#, fuzzy
-msgid "Paste Contents (Absolute)"
-msgstr "Съдържание"
-
-#, fuzzy
-msgid "C&lear Contents"
-msgstr "Съдържание"
+msgid "C&lear"
+msgstr "Изчистване"
 
 #, fuzzy
 msgid "Select &All"
@@ -4979,6 +5109,34 @@ msgid "Insert Freehand Line"
 msgstr "Вмукване на линии"
 
 #, fuzzy
+msgid "Insert PDF Push Button"
+msgstr "PDF анотация"
+
+#, fuzzy
+msgid "Insert PDF Text Field"
+msgstr "Вмукване на линии"
+
+#, fuzzy
+msgid "Insert PDF Check Box"
+msgstr "Вмукване на линии"
+
+#, fuzzy
+msgid "Insert PDF Combo Box"
+msgstr "PDF анотация"
+
+#, fuzzy
+msgid "Insert PDF List Box"
+msgstr "Вмукване на линии"
+
+#, fuzzy
+msgid "Insert Text Annotation"
+msgstr "PDF анотация"
+
+#, fuzzy
+msgid "Insert Link Annotation"
+msgstr "PDF анотация"
+
+#, fuzzy
 msgid "&Manage Pictures"
 msgstr "Управление на илюстрации"
 
@@ -5427,10 +5585,6 @@ msgstr "Вмъкване..."
 msgid "&Insert"
 msgstr "Вмъкване..."
 
-#, fuzzy
-msgid "C&lear"
-msgstr "Изчистване"
-
 msgid "Insert the characters at the cursor in the text"
 msgstr ""
 
@@ -5665,34 +5819,23 @@ msgstr "Документи (*.scd);; Всички документи (*)"
 msgid "New Color"
 msgstr "Нов цвят"
 
+msgid "Add, change or remove color stops here"
+msgstr ""
+
 #, fuzzy
 msgid "Position:"
 msgstr "Описание:"
-
-msgid "Here you can add, change or remove Color-Stops."
-msgstr ""
 
 #, fuzzy
 msgid "Scribus "
 msgstr "Документация"
 
-msgid "Initializing Plugins"
+msgid "Setting up Shortcuts"
 msgstr ""
-
-msgid "Initializing Keyboard Shortcuts"
-msgstr ""
-
-#, fuzzy
-msgid "Reading Preferences"
-msgstr "Дадености"
 
 #, fuzzy
 msgid "Initializing Story Editor"
 msgstr "Печатане..."
-
-#, fuzzy
-msgid "Reading ICC Profiles"
-msgstr "Печат във файл:"
 
 #, fuzzy
 msgid "Initializing Hyphenator"
@@ -5702,29 +5845,8 @@ msgstr "Печатане..."
 msgid "Reading Scrapbook"
 msgstr "Скриване на библиотека"
 
-msgid "Setting up Shortcuts"
-msgstr ""
-
-#, fuzzy
-msgid "Initializing..."
-msgstr "Печатане..."
-
 msgid "Edit"
 msgstr "Редактиране"
-
-#, fuzzy
-msgid "There are no fonts found on your system."
-msgstr "Липсват Postscript шрифтове в системата"
-
-#, fuzzy
-msgid "Exiting now."
-msgstr "Излизане"
-
-msgid "Fatal Error"
-msgstr "Фатална грешка"
-
-msgid "Font System Initialized"
-msgstr ""
 
 #, fuzzy
 msgid "Scribus Development Version"
@@ -5785,18 +5907,19 @@ msgstr "Вмъкване..."
 msgid "I&nsert"
 msgstr "Вмъкване..."
 
-msgid "Character"
+#, fuzzy
+msgid "&Character"
 msgstr "Символ"
 
 #, fuzzy
-msgid "Quote"
+msgid "&Quote"
 msgstr "Изход"
 
-msgid "Spaces && Breaks"
+msgid "S&paces && Breaks"
 msgstr ""
 
 #, fuzzy
-msgid "Ligature"
+msgid "Liga&ture"
 msgstr "Илюстрации"
 
 #, fuzzy
@@ -5843,6 +5966,9 @@ msgstr "Вмъкване на страница"
 
 msgid "Found nothing to import"
 msgstr ""
+
+msgid "Fatal Error"
+msgstr "Фатална грешка"
 
 msgid "File %1 is not in an acceptable format"
 msgstr ""
@@ -6009,6 +6135,13 @@ msgstr "Изпрати назад"
 msgid "Previe&w Settings"
 msgstr "Опции на мишката"
 
+msgid "Character"
+msgstr "Символ"
+
+#, fuzzy
+msgid "Quote"
+msgstr "Изход"
+
 #, fuzzy
 msgid "Space"
 msgstr "Лице"
@@ -6031,21 +6164,32 @@ msgstr ""
 msgid "Y-Offset"
 msgstr ""
 
-#, fuzzy
-msgid "Underline Words Only"
-msgstr "Подчертаване"
+msgid ""
+"Underline Text. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
+
+msgid ""
+"Underline Words Only. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
 
 #, fuzzy
 msgid "All Caps"
 msgstr "малки букви"
 
-#, fuzzy
-msgid "Strike Out"
-msgstr "Удар извън"
+msgid ""
+"Strike Out. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
 
-#, fuzzy
-msgid "Shadow"
-msgstr "Сянка"
+msgid ""
+"Outline. Hold down the button momentarily to change the outline stroke width."
+msgstr ""
+
+msgid ""
+"Shadowed Text. Hold down the button momentarily to enable the offset spacing."
+msgstr ""
 
 msgid "Setup Printer"
 msgstr "Опции на принтера"
@@ -6517,8 +6661,8 @@ msgid "About Scribus %1"
 msgstr "За Scribus"
 
 #, fuzzy
-msgid "March"
-msgstr "Търси"
+msgid "April"
+msgstr "Отрази промените"
 
 #, fuzzy
 msgid "%1 %2 %3"
@@ -6563,6 +6707,9 @@ msgstr "Документация:"
 #, fuzzy
 msgid "Other Documentation:"
 msgstr "Документация:"
+
+msgid "Tango Project Icons:"
+msgstr ""
 
 #, fuzzy
 msgid "A&uthors"
@@ -6896,6 +7043,16 @@ msgstr ""
 msgid "Line at Bottom"
 msgstr ""
 
+#, fuzzy
+msgid "Overprinting"
+msgstr "Печатане..."
+
+msgid "Knockout"
+msgstr ""
+
+msgid "Overprint"
+msgstr ""
+
 msgid "Name of selected object"
 msgstr ""
 
@@ -6992,10 +7149,15 @@ msgstr ""
 msgid "Scaling height of characters"
 msgstr ""
 
-msgid "Color of text stroke. Only available with \"outline\" text decoration."
+msgid ""
+"Color of text stroke and/or drop shadow, depending which is chosen.If both "
+"are chosen, then they share the same color."
 msgstr ""
 
-msgid "Color of text fill. Only available with \"outline\" text decoration."
+msgid ""
+"Color of selected text. If Outline text decoration is enabled, this color "
+"will be the fill color. If Drop Shadow Text is enabled, then this will be "
+"the top most color."
 msgstr ""
 
 msgid "Saturation of color of text stroke"
@@ -7014,6 +7176,9 @@ msgstr "Ръчено междубуквие"
 #, fuzzy
 msgid "Line Spacing"
 msgstr "Линейно разтояние"
+
+msgid "Click to select the line spacing mode"
+msgstr ""
 
 msgid "Style of current paragraph"
 msgstr ""
@@ -7282,6 +7447,35 @@ msgstr "Стилове..."
 msgid "Name of the style is not unique"
 msgstr "Името на стила не е уникално"
 
+msgid "Initializing Plugins"
+msgstr ""
+
+msgid "Initializing Keyboard Shortcuts"
+msgstr ""
+
+#, fuzzy
+msgid "Reading Preferences"
+msgstr "Дадености"
+
+#, fuzzy
+msgid "Reading ICC Profiles"
+msgstr "Печат във файл:"
+
+#, fuzzy
+msgid "Initializing..."
+msgstr "Печатане..."
+
+#, fuzzy
+msgid "There are no fonts found on your system."
+msgstr "Липсват Postscript шрифтове в системата"
+
+#, fuzzy
+msgid "Exiting now."
+msgstr "Излизане"
+
+msgid "Font System Initialized"
+msgstr ""
+
 msgid "Current Key"
 msgstr ""
 
@@ -7368,6 +7562,13 @@ msgstr ""
 msgid "Choose a Scrapbook Directory"
 msgstr ""
 
+#, fuzzy
+msgid "Scrapbook (*.scs)"
+msgstr "Библиотека"
+
+msgid "Choose a scrapbook file to import"
+msgstr ""
+
 msgid ""
 "Name \"%1\" is not unique.\n"
 "Please choose another."
@@ -7389,6 +7590,10 @@ msgstr "Преглед"
 #, fuzzy
 msgid "&Load..."
 msgstr "Зареждане..."
+
+#, fuzzy
+msgid "&Import Scrapbook File..."
+msgstr "Вмъкване на страница"
 
 msgid "Polygon Properties"
 msgstr ""
@@ -7504,6 +7709,9 @@ msgid "Document Sections"
 msgstr "Настройки на документа"
 
 msgid "Annotation Properties"
+msgstr ""
+
+msgid "Link"
 msgstr ""
 
 msgid "External Link"
@@ -7645,6 +7853,13 @@ msgstr "Опции на мишката"
 msgid "Font of selected text"
 msgstr ""
 
+msgid "Spaces && Breaks"
+msgstr ""
+
+#, fuzzy
+msgid "Ligature"
+msgstr "Илюстрации"
+
 #, fuzzy
 msgid "&Settings"
 msgstr "Опции на мишката"
@@ -7724,34 +7939,6 @@ msgstr ""
 msgid "Do you really want to lose all your changes?"
 msgstr "Наистина ли искате да изтриете този стил?"
 
-#, fuzzy
-msgid "Glyphs missing"
-msgstr "Липси"
-
-#, fuzzy
-msgid "Text overflow"
-msgstr "Цвят на текст:"
-
-msgid "Object is not on a Page"
-msgstr ""
-
-#, fuzzy
-msgid "Missing Image"
-msgstr "Липси"
-
-msgid "Image has a DPI-Value less than %1 DPI"
-msgstr ""
-
-msgid "Object has transparency"
-msgstr ""
-
-#, fuzzy
-msgid "Object is a PDF Annotation or Field"
-msgstr "PDF анотация"
-
-msgid "Object is a placed PDF"
-msgstr ""
-
 msgid "No Problems found"
 msgstr ""
 
@@ -7772,6 +7959,44 @@ msgstr "Печат във файл:"
 
 msgid "&Ignore Errors"
 msgstr ""
+
+msgid "Check again"
+msgstr ""
+
+#, fuzzy
+msgid "Glyphs missing"
+msgstr "Липси"
+
+#, fuzzy
+msgid "Text overflow"
+msgstr "Цвят на текст:"
+
+msgid "Object is not on a Page"
+msgstr ""
+
+#, fuzzy
+msgid "Missing Image"
+msgstr "Липси"
+
+msgid "Image resolution below %1 DPI, currently %2 x %3 DPI"
+msgstr ""
+
+msgid "Image resolution above %1 DPI, currently %2 x %3 DPI"
+msgstr ""
+
+msgid "Object has transparency"
+msgstr ""
+
+#, fuzzy
+msgid "Object is a PDF Annotation or Field"
+msgstr "PDF анотация"
+
+msgid "Object is a placed PDF"
+msgstr ""
+
+#, fuzzy
+msgid "Image is GIF"
+msgstr "Илюстрация"
 
 #, fuzzy
 msgid "Editor"
@@ -7803,31 +8028,11 @@ msgid "C&lone"
 msgstr "Затвори"
 
 #, fuzzy
-msgid "Alt+L"
-msgstr "Всички"
-
-#, fuzzy
 msgid "O&K"
 msgstr "Да"
 
 #, fuzzy
 msgid "Alt+K"
-msgstr "Всички"
-
-#, fuzzy
-msgid "A&pply"
-msgstr "Отрази промените"
-
-#, fuzzy
-msgid "Alt+P"
-msgstr "Всички"
-
-#, fuzzy
-msgid "Ca&ncel"
-msgstr "Отказ"
-
-#, fuzzy
-msgid "Alt+N"
 msgstr "Всички"
 
 msgid "Move Bookmark"
@@ -7987,10 +8192,6 @@ msgid "&Even pages"
 msgstr "Мпреместване на страници"
 
 #, fuzzy
-msgid "Alt+E"
-msgstr "Всички"
-
-#, fuzzy
 msgid "O&dd pages"
 msgstr "Страница"
 
@@ -8147,10 +8348,6 @@ msgstr "Пекуснат печатт"
 #, fuzzy
 msgid "Processing Master Pages:"
 msgstr "След страницата"
-
-#, fuzzy
-msgid "Contents"
-msgstr "Съдържание"
 
 #, fuzzy
 msgid "&Contents"
@@ -8374,6 +8571,9 @@ msgstr ""
 #, fuzzy
 msgid "Italian"
 msgstr "Курсив"
+
+msgid "Japanese"
+msgstr ""
 
 msgid "Korean"
 msgstr ""
@@ -8823,10 +9023,6 @@ msgid "&Quick Search:"
 msgstr "Търси"
 
 #, fuzzy
-msgid "Alt+S"
-msgstr "Всички"
-
-#, fuzzy
 msgid "&Font Size:"
 msgstr "Размер на шрифт:"
 
@@ -8837,10 +9033,6 @@ msgstr "Запиши като PDF..."
 #, fuzzy
 msgid "Se&t"
 msgstr "Долен регистър"
-
-#, fuzzy
-msgid "Alt+T"
-msgstr "Всички"
 
 msgid "Reset the text"
 msgstr ""
@@ -9291,6 +9483,9 @@ msgid "Failed to save EPS."
 msgstr ""
 
 msgid "Page number out of range."
+msgstr ""
+
+msgid "Given master page name does not match any existing."
 msgstr ""
 
 msgid "argument is not list: must be list of float values."
@@ -9967,6 +10162,9 @@ msgstr "Страници за отпечатване"
 msgid "&Range"
 msgstr "От .. до .."
 
+msgid "Image size in Pixels"
+msgstr ""
+
 #, fuzzy
 msgid "Export a range of pages"
 msgstr "Хоризонтално мащабиране"
@@ -10035,9 +10233,6 @@ msgstr "Размаркиране на всичко"
 msgid "Barcode Creator"
 msgstr ""
 
-msgid "Make check digit visible in text"
-msgstr ""
-
 msgid "Barcode"
 msgstr ""
 
@@ -10067,10 +10262,6 @@ msgstr ""
 
 msgid "&Guard whitespace"
 msgstr ""
-
-#, fuzzy
-msgid "Alt+G"
-msgstr "Всички"
 
 msgid "Draw arrows to be sure of space next the code"
 msgstr ""
@@ -10150,12 +10341,12 @@ msgstr ""
 msgid "Variable number of digits and any of the symbols -$:/.+ABCD."
 msgstr ""
 
+msgid "Variable number of digits"
+msgstr ""
+
 msgid ""
 "Variable number of digits. An ITF-14 is 14 characters and does not have a "
 "check digit"
-msgstr ""
-
-msgid "Variable number of digits"
 msgstr ""
 
 msgid "Variable number of digits and capital letters"
@@ -10227,16 +10418,24 @@ msgstr ""
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
 msgstr ""
 
+#, fuzzy
+msgid "Importing PostScript"
+msgstr "Библиотека (*.scs);; Всички файлове (*)"
+
+#, fuzzy
+msgid "Analyzing PostScript:"
+msgstr "Прав формат"
+
 msgid ""
 "Importing File:\n"
 "%1\n"
 "failed!"
 msgstr ""
 
-msgid ""
-"Converting Image:\n"
-"%1\n"
-"failed!"
+msgid "Generating Items"
+msgstr ""
+
+msgid "Converting of %1 images failed!"
 msgstr ""
 
 #, fuzzy
@@ -10253,6 +10452,66 @@ msgstr "Поставяне:"
 #, fuzzy
 msgid "My Plugin"
 msgstr "Поставяне:"
+
+#, fuzzy
+#~ msgid "Horizontal Guides"
+#~ msgstr "Хоризонтално обърнато"
+
+#, fuzzy
+#~ msgid "Vertical Guides"
+#~ msgstr "Вертикални интервали"
+
+#, fuzzy
+#~ msgid "&Rows:"
+#~ msgstr "Позиция по X:"
+
+#, fuzzy
+#~ msgid "C&olumns:"
+#~ msgstr "Колони:"
+
+#, fuzzy
+#~ msgid "Colum&n Gap"
+#~ msgstr "Колонни линии"
+
+#, fuzzy
+#~ msgid "&Margins"
+#~ msgstr "Полета:"
+
+#, fuzzy
+#~ msgid "&Selection"
+#~ msgstr "Избери шрифт"
+
+#, fuzzy
+#~ msgid "&Update"
+#~ msgstr "Управление на илюстрации"
+
+#, fuzzy
+#~ msgid "Copy Contents"
+#~ msgstr "Съдържание"
+
+#, fuzzy
+#~ msgid "Paste Contents"
+#~ msgstr "Съдържание"
+
+#, fuzzy
+#~ msgid "C&lear Contents"
+#~ msgstr "Съдържание"
+
+#, fuzzy
+#~ msgid "Underline Words Only"
+#~ msgstr "Подчертаване"
+
+#, fuzzy
+#~ msgid "Strike Out"
+#~ msgstr "Удар извън"
+
+#, fuzzy
+#~ msgid "March"
+#~ msgstr "Търси"
+
+#, fuzzy
+#~ msgid "A&pply"
+#~ msgstr "Отрази промените"
 
 #, fuzzy
 #~ msgid "Image Settings"
@@ -10275,10 +10534,6 @@ msgstr "Поставяне:"
 #, fuzzy
 #~ msgid "Large"
 #~ msgstr "Страница"
-
-#, fuzzy
-#~ msgid "Printing"
-#~ msgstr "Печатане..."
 
 #, fuzzy
 #~ msgid "File Name:"
@@ -10457,10 +10712,6 @@ msgstr "Поставяне:"
 #, fuzzy
 #~ msgid "Apply to all &even Pages"
 #~ msgstr "От страница:"
-
-#, fuzzy
-#~ msgid "Apply template"
-#~ msgstr "Отрази формата"
 
 #, fuzzy
 #~ msgid "&Update Picture"
@@ -11091,9 +11342,6 @@ msgstr "Поставяне:"
 #~ msgid "Hide Grid"
 #~ msgstr "Скрий помощните линии"
 
-#~ msgid "Hide Guides"
-#~ msgstr "Скрий помощните линии"
-
 #~ msgid "Snap to Guides"
 #~ msgstr "Залепи за помощните линии"
 
@@ -11143,9 +11391,6 @@ msgstr "Поставяне:"
 
 #~ msgid "Hide Outline"
 #~ msgstr "Скрий линиите"
-
-#~ msgid "Rectangle"
-#~ msgstr "Правоъгълник"
 
 #~ msgid "Print to printer:"
 #~ msgstr "Отпечатай на Печатащо устройство:"

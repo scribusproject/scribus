@@ -1870,7 +1870,11 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>March</source>
+        <source>April</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tango Project Icons:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2024,7 +2028,7 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation type="unfinished">О&amp;чисти садржај</translation>
+        <translation type="obsolete">О&amp;чисти садржај</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -2731,14 +2735,6 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Copy Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Paste Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Printing Enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2836,10 +2832,6 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Paste Contents (Absolute)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>S&amp;tyles...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2852,6 +2844,42 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation type="unfinished">&amp;Оквирне линије</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">Оч&amp;исти</translation>
+    </message>
+    <message>
+        <source>Insert PDF Push Button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Text Field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Check Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Combo Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF List Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Text Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Link Annotation</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4138,10 +4166,6 @@ UCR смањује могућност презасићености CMY маст�
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Make check digit visible in text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Co&amp;de:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4266,6 +4290,18 @@ Please choose another.</source>
     <message>
         <source>Choose a Directory</source>
         <translation type="unfinished">Изаберите директоријум</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4823,6 +4859,81 @@ It is a reserved name for transparent color</source>
     </message>
 </context>
 <context>
+    <name>CharStyle</name>
+    <message>
+        <source>font %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+tracking %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+baseline %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parent= %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unnamed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CheckDocument</name>
     <message>
         <source>Current Profile:</source>
@@ -4850,10 +4961,6 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Missing Image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Image has a DPI-Value less than %1 DPI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4894,6 +5001,22 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>&amp;Ignore Errors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image resolution below %1 DPI, currently %2 x %3 DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image resolution above %1 DPI, currently %2 x %3 DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image is GIF</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6544,6 +6667,14 @@ a range of pages or a single page number.</source>
         <source>Do not show objects outside the margins on the printed page</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EPSPlug</name>
@@ -6560,14 +6691,24 @@ failed!</source>
         <translation>Фатална грешка</translation>
     </message>
     <message>
-        <source>Converting Image:
-%1
-failed!</source>
+        <source>Error</source>
+        <translation type="unfinished">Грешка</translation>
+    </message>
+    <message>
+        <source>Importing PostScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error</source>
-        <translation type="unfinished">Грешка</translation>
+        <source>Analyzing PostScript:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6789,6 +6930,18 @@ failed!</source>
     </message>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7078,6 +7231,10 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image size in Pixels</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7771,14 +7928,18 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Овде можете додавати, мењати или уклањати зауставне боје.</translation>
+        <translation type="obsolete">Овде можете додавати, мењати или уклањати зауставне боје.</translation>
+    </message>
+    <message>
+        <source>Add, change or remove color stops here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>GuideManager</name>
     <message>
         <source>Manage Guides</source>
-        <translation>Управљање водиљама</translation>
+        <translation type="obsolete">Управљање водиљама</translation>
     </message>
     <message>
         <source> pt</source>
@@ -7798,39 +7959,39 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Horizontal Guides</source>
-        <translation>Водоравне водиље</translation>
+        <translation type="obsolete">Водоравне водиље</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation>&amp;Y Поз:</translation>
+        <translation type="obsolete">&amp;Y Поз:</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;Додај</translation>
+        <translation type="obsolete">&amp;Додај</translation>
     </message>
     <message>
         <source>D&amp;elete</source>
-        <translation>&amp;Обриши</translation>
+        <translation type="obsolete">&amp;Обриши</translation>
     </message>
     <message>
         <source>Vertical Guides</source>
-        <translation>Усправне водиље</translation>
+        <translation type="obsolete">Усправне водиље</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
-        <translation>&amp;X Поз:</translation>
+        <translation type="obsolete">&amp;X Поз:</translation>
     </message>
     <message>
         <source>A&amp;dd</source>
-        <translation>&amp;Додај</translation>
+        <translation type="obsolete">&amp;Додај</translation>
     </message>
     <message>
         <source>De&amp;lete</source>
-        <translation>&amp;Обриши</translation>
+        <translation type="obsolete">&amp;Обриши</translation>
     </message>
     <message>
         <source>&amp;Lock Guides</source>
-        <translation>&amp;Закључај водиље</translation>
+        <translation type="obsolete">&amp;Закључај водиље</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -7841,56 +8002,42 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <translation type="obsolete">&amp;Откажи</translation>
     </message>
     <message>
-        <source>Rows and Columns - Automatic Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Rows:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>C&amp;olumns:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Row &amp;Gap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Colum&amp;n Gap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Refer to:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Page</source>
-        <translation type="unfinished">&amp;Страна</translation>
-    </message>
-    <message>
-        <source>&amp;Margins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Страна</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Затвори</translation>
+        <translation type="obsolete">&amp;Затвори</translation>
     </message>
     <message>
-        <source>&amp;Update</source>
+        <source>Preview</source>
+        <translation type="obsolete">Преглед</translation>
+    </message>
+    <message>
+        <source>Edit Guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Set the guides in document. Guide manager is still opened but the changes are persistant</source>
-        <comment>guide manager</comment>
+        <source>Enter a position:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Apply to All Pages</source>
+        <source>New Guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>GuideManagerBase</name>
+    <message>
+        <source>Manage Guides</source>
+        <translation type="unfinished">Управљање водиљама</translation>
+    </message>
+    <message>
+        <source>&amp;Standard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7902,11 +8049,99 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Preview</source>
-        <translation type="unfinished">Преглед</translation>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Додај</translation>
     </message>
     <message>
-        <source>There is empty (0.0) guide already</source>
+        <source>Alt+A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;elete</source>
+        <translation type="unfinished">&amp;Обриши</translation>
+    </message>
+    <message>
+        <source>Alt+E</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Verticals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;dd</source>
+        <translation type="unfinished">&amp;Додај</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>De&amp;lete</source>
+        <translation type="unfinished">&amp;Обриши</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lock Guides</source>
+        <translation type="unfinished">&amp;Закључај водиље</translation>
+    </message>
+    <message>
+        <source>Appl&amp;y to All Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+Y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;utomatic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Number:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>U&amp;se Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nu&amp;mber:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use &amp;Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refer To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation type="unfinished">&amp;Страна</translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M&amp;argins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;election</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9285,6 +9520,17 @@ a range of pages or a single page number.</source>
     </message>
 </context>
 <context>
+    <name>ModeToolBar</name>
+    <message>
+        <source>Tools</source>
+        <translation type="unfinished">Алати</translation>
+    </message>
+    <message>
+        <source>Properties...</source>
+        <translation type="unfinished">Својства...</translation>
+    </message>
+</context>
+<context>
     <name>MovePages</name>
     <message>
         <source>Move Pages</source>
@@ -9997,14 +10243,6 @@ Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Fill Rule</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10014,6 +10252,30 @@ Please choose another.</source>
     </message>
     <message>
         <source>Non Zero</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overprinting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Knockout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overprint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10848,6 +11110,13 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PDFToolBar</name>
+    <message>
+        <source>PDF Tools</source>
+        <translation type="unfinished">PDF алати</translation>
     </message>
 </context>
 <context>
@@ -11741,6 +12010,10 @@ UCR смањује могућност презасићења CMY мастили�
         <source>File</source>
         <translation type="unfinished">Фајл</translation>
     </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PSLib</name>
@@ -12531,6 +12804,16 @@ UCR смањује могућност презасићења CMY мастили�
         <comment>plugin manager</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Plugin: %1 initialized ok </source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin: %1 failed post initialization</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PluginManagerPrefsGui</name>
@@ -13175,23 +13458,23 @@ UCR смањује могућност презасићења CMY мастили�
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
-        <translation>&amp;Име извршног фајла:</translation>
+        <translation type="obsolete">&amp;Име извршног фајла:</translation>
     </message>
     <message>
         <source>Antialias &amp;Text</source>
-        <translation>Омекшај &amp;текст</translation>
+        <translation type="obsolete">Омекшај &amp;текст</translation>
     </message>
     <message>
         <source>Antialias &amp;Graphics</source>
-        <translation>Омекшај &amp;графику</translation>
+        <translation type="obsolete">Омекшај &amp;графику</translation>
     </message>
     <message>
         <source>Image Processing Tool</source>
-        <translation>Алат за обраду слика</translation>
+        <translation type="obsolete">Алат за обраду слика</translation>
     </message>
     <message>
         <source>Name of &amp;Executable:</source>
-        <translation>Имена &amp;извршних фајлова:</translation>
+        <translation type="obsolete">Имена &amp;извршних фајлова:</translation>
     </message>
     <message>
         <source>Printing</source>
@@ -13558,15 +13841,15 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Локација фајл система за Ghostscript интепретатор</translation>
+        <translation type="obsolete">Локација фајл система за Ghostscript интепретатор</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation>Омекшај текст за EPS и PDF рендеровање на екрану</translation>
+        <translation type="obsolete">Омекшај текст за EPS и PDF рендеровање на екрану</translation>
     </message>
     <message>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation>Омекшај графику за EPS и PDF рендеровање на екрану</translation>
+        <translation type="obsolete">Омекшај графику за EPS и PDF рендеровање на екрану</translation>
     </message>
     <message>
         <source>Filesystem location for graphics editor</source>
@@ -13743,14 +14026,6 @@ UCR смањује могућност презасићености CMY маст�
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>dpi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Resolution:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Always ask before fonts are replaced when loading a document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13823,18 +14098,6 @@ UCR смањује могућност презасићености CMY маст�
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Locate Ghostscript</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Locate your image editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PostScript Interpreter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enable or disable  the display of linked frames.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13868,10 +14131,6 @@ UCR смањује могућност презасићености CMY маст�
     </message>
     <message>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15314,10 +15573,6 @@ External Links
         <translation type="unfinished">Произвољно</translation>
     </message>
     <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Scribus Development Version</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15663,19 +15918,7 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Font %1 is broken, no embedding</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Font %1 is broken (read stream), no embedding</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font %1 is broken (FreeType2), discarding it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font %1 is broken (no Face), discarding it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -15708,10 +15951,6 @@ External Links
     </message>
     <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font %1 is broken (FreeType), discarding it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16046,6 +16285,19 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Luxembourgish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1(%2) is broken</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16563,20 +16815,16 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>A&amp;pply</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+P</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ca&amp;ncel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Alt+N</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Apply</source>
+        <translation type="unfinished">&amp;Примени</translation>
     </message>
 </context>
 <context>
@@ -16587,6 +16835,25 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMReplaceDiaBase</name>
+    <message>
+        <source>Delete Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;У реду</translation>
+    </message>
+    <message>
+        <source>Ca&amp;ncel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18207,6 +18474,45 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>ScribusCore</name>
+    <message>
+        <source>Initializing Plugins</source>
+        <translation type="unfinished">Покрећем прикључке</translation>
+    </message>
+    <message>
+        <source>Initializing Keyboard Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reading Preferences</source>
+        <translation type="unfinished">Читам подешавања</translation>
+    </message>
+    <message>
+        <source>Reading ICC Profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching for Fonts</source>
+        <translation type="unfinished">Тражим фонтове</translation>
+    </message>
+    <message>
+        <source>There are no fonts found on your system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exiting now.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fatal Error</source>
+        <translation type="unfinished">Фатална грешка</translation>
+    </message>
+    <message>
+        <source>Font System Initialized</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScribusDoc</name>
     <message>
         <source>New Layer</source>
@@ -18236,6 +18542,10 @@ converting their vector data into Scribus objects.</source>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -18245,22 +18555,14 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Initializing Plugins</source>
-        <translation type="unfinished">Покрећем прикључке</translation>
-    </message>
-    <message>
-        <source>Initializing Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Покрећем прикључке</translation>
     </message>
     <message>
         <source>Reading Preferences</source>
-        <translation type="unfinished">Читам подешавања</translation>
+        <translation type="obsolete">Читам подешавања</translation>
     </message>
     <message>
         <source>Initializing Story Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reading ICC Profiles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -18285,23 +18587,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation type="unfinished">Тражим фонтове</translation>
-    </message>
-    <message>
-        <source>There are no fonts found on your system.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Exiting now.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Тражим фонтове</translation>
     </message>
     <message>
         <source>Fatal Error</source>
         <translation type="unfinished">Фатална грешка</translation>
-    </message>
-    <message>
-        <source>Font System Initialized</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -18663,14 +18953,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished">Y Поз:</translation>
     </message>
     <message>
-        <source>Spaces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ligature</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>New Master Page %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18690,6 +18972,26 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Do you really want to replace your existing image?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quote</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;paces &amp;&amp; Breaks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19076,6 +19378,10 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Grayscale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contents</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19898,7 +20204,7 @@ drag a Template to the Pageview below.</source>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Подвучено</translation>
+        <translation type="obsolete">Подвучено</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -19914,7 +20220,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Прецртано</translation>
+        <translation type="obsolete">Прецртано</translation>
     </message>
     <message>
         <source>Outline Text</source>
@@ -19925,21 +20231,34 @@ drag a Template to the Pageview below.</source>
         <translation type="obsolete">Контура</translation>
     </message>
     <message>
-        <source>Underline Words Only</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>All Caps</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Shadow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation type="unfinished">Контура</translation>
+        <translation type="obsolete">Контура</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <comment>Text Style Selector</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20231,6 +20550,108 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Check for placed PDF Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Highest allowed resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check for GIF images</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabExternalToolsWidget</name>
+    <message>
+        <source>Locate Ghostscript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locate your image editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabExternalToolsWidgetBase</name>
+    <message>
+        <source>External Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript Interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Name of Executable:</source>
+        <translation type="unfinished">&amp;Име извршног фајла:</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Change..</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Text</source>
+        <translation type="unfinished">Омекшај &amp;текст</translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias text for EPS and PDF onscreen rendering</source>
+        <translation type="unfinished">Омекшај текст за EPS и PDF рендеровање на екрану</translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Graphics</source>
+        <translation type="unfinished">Омекшај &amp;графику</translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias graphics for EPS and PDF onscreen rendering</source>
+        <translation type="unfinished">Омекшај графику за EPS и PDF рендеровање на екрану</translation>
+    </message>
+    <message>
+        <source>Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> dpi</source>
+        <translation type="unfinished"> тпи</translation>
+    </message>
+    <message>
+        <source>Image Processing Tool</source>
+        <translation type="unfinished">Алат за обраду слика</translation>
+    </message>
+    <message>
+        <source>Name of &amp;Executable:</source>
+        <translation type="unfinished">Имена &amp;извршних фајлова:</translation>
+    </message>
+    <message>
+        <source>File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation type="unfinished">&amp;Измени...</translation>
+    </message>
+    <message>
+        <source>&amp;Rescan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20862,7 +21283,7 @@ will preserve the layout and appearance of your document.</source>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="unfinished">Временски интервал за који се приказује страница пре него што почне презентација на изабраној страници.</translation>
+        <translation type="obsolete">Временски интервал за који се приказује страница пре него што почне презентација на изабраној страници.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
@@ -21293,6 +21714,18 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22373,6 +22806,28 @@ X2: %4, Y2: %5</source>
 X: %4, Y: %5</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Apply text style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo: %1</source>
+        <comment>f.e. Undo: Move</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation type="unfinished">&amp;Опозови</translation>
+    </message>
+    <message>
+        <source>&amp;Redo: %1</source>
+        <comment>f.e. Redo: Move</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation type="unfinished">Поно&amp;ви</translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -22511,7 +22966,7 @@ X: %4, Y: %5</source>
     <name>WerkToolB</name>
     <message>
         <source>Tools</source>
-        <translation>Алати</translation>
+        <translation type="obsolete">Алати</translation>
     </message>
     <message>
         <source>Select Items</source>
@@ -22531,7 +22986,7 @@ X: %4, Y: %5</source>
     </message>
     <message>
         <source>Properties...</source>
-        <translation>Својства...</translation>
+        <translation type="obsolete">Својства...</translation>
     </message>
     <message>
         <source>Insert Polygons</source>
@@ -22586,43 +23041,43 @@ X: %4, Y: %5</source>
     <name>WerkToolBP</name>
     <message>
         <source>PDF Tools</source>
-        <translation>PDF алати</translation>
+        <translation type="obsolete">PDF алати</translation>
     </message>
     <message>
         <source>Button</source>
-        <translation>Дугме</translation>
+        <translation type="obsolete">Дугме</translation>
     </message>
     <message>
         <source>Text Field</source>
-        <translation>Поље за текст</translation>
+        <translation type="obsolete">Поље за текст</translation>
     </message>
     <message>
         <source>Check Box</source>
-        <translation>Кућица</translation>
+        <translation type="obsolete">Кућица</translation>
     </message>
     <message>
         <source>Combo Box</source>
-        <translation>Комбо кутија</translation>
+        <translation type="obsolete">Комбо кутија</translation>
     </message>
     <message>
         <source>List Box</source>
-        <translation>Кутија листе</translation>
+        <translation type="obsolete">Кутија листе</translation>
     </message>
     <message>
         <source>Insert PDF Fields</source>
-        <translation>Уметни PDF поља</translation>
+        <translation type="obsolete">Уметни PDF поља</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Текст</translation>
+        <translation type="obsolete">Текст</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation>Веза</translation>
+        <translation type="obsolete">Веза</translation>
     </message>
     <message>
         <source>Insert PDF Annotations</source>
-        <translation>Уметни PDF анотације</translation>
+        <translation type="obsolete">Уметни PDF анотације</translation>
     </message>
 </context>
 <context>

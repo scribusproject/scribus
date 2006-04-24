@@ -2637,7 +2637,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>March</source>
+        <source>April</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tango Project Icons:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2831,7 +2835,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation>&amp;L 清除内容</translation>
+        <translation type="obsolete">&amp;L 清除内容</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -3526,14 +3530,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>更多信息...</translation>
     </message>
     <message>
-        <source>Copy Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Paste Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Printing Enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3631,10 +3627,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Paste Contents (Absolute)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>S&amp;tyles...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3647,6 +3639,42 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation type="unfinished">&amp;O 轮廓</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">&amp;L 清除</translation>
+    </message>
+    <message>
+        <source>Insert PDF Push Button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Text Field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Check Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Combo Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF List Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Text Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Link Annotation</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4702,10 +4730,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation type="unfinished">预览效果。72dpi范例</translation>
     </message>
     <message>
-        <source>Make check digit visible in text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Co&amp;de:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4817,6 +4841,18 @@ Please choose another.</source>
     <message>
         <source>Choose a Directory</source>
         <translation type="unfinished">选择一个目录</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5329,6 +5365,81 @@ It is a reserved name for transparent color</source>
     </message>
 </context>
 <context>
+    <name>CharStyle</name>
+    <message>
+        <source>font %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+tracking %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+baseline %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parent= %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unnamed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CheckDocument</name>
     <message>
         <source>Glyphs missing</source>
@@ -5348,7 +5459,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Image has a DPI-Value less than %1 DPI</source>
-        <translation>图像的DPI-值低于 %1 DPI</translation>
+        <translation type="obsolete">图像的DPI-值低于 %1 DPI</translation>
     </message>
     <message>
         <source>Object has transparency</source>
@@ -5401,6 +5512,22 @@ It is a reserved name for transparent color</source>
     <message>
         <source>&amp;Ignore Errors</source>
         <translation>&amp;I 忽略错误</translation>
+    </message>
+    <message>
+        <source>Check again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image resolution below %1 DPI, currently %2 x %3 DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image resolution above %1 DPI, currently %2 x %3 DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image is GIF</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6821,6 +6948,14 @@ a range of pages or a single page number.</source>
         <source>Do not show objects outside the margins on the printed page</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EPSPlug</name>
@@ -6837,13 +6972,23 @@ failed!</source>
         <translation>致命错误</translation>
     </message>
     <message>
-        <source>Converting Image:
-%1
-failed!</source>
+        <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error</source>
+        <source>Importing PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Analyzing PostScript:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6963,6 +7108,18 @@ failed!</source>
     </message>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7240,6 +7397,10 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
         <translation>图像尺寸。100%为没有更改，200%是两倍大，以此类推</translation>
+    </message>
+    <message>
+        <source>Image size in Pixels</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7753,119 +7914,250 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>这里你可以增加，更改或者删除颜色节点</translation>
+        <translation type="obsolete">这里你可以增加，更改或者删除颜色节点</translation>
+    </message>
+    <message>
+        <source>Add, change or remove color stops here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>GuideManager</name>
     <message>
         <source>Manage Guides</source>
-        <translation>管理参考线</translation>
+        <translation type="obsolete">管理参考线</translation>
     </message>
     <message>
         <source>Horizontal Guides</source>
-        <translation>水平参考线</translation>
+        <translation type="obsolete">水平参考线</translation>
     </message>
     <message>
         <source>Vertical Guides</source>
-        <translation>垂直参考线</translation>
+        <translation type="obsolete">垂直参考线</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation>&amp;Y-坐标:</translation>
+        <translation type="obsolete">&amp;Y-坐标:</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;A 添加</translation>
+        <translation type="obsolete">&amp;A 添加</translation>
     </message>
     <message>
         <source>D&amp;elete</source>
-        <translation>&amp;E 删除</translation>
+        <translation type="obsolete">&amp;E 删除</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
-        <translation>&amp;X-坐标：</translation>
+        <translation type="obsolete">&amp;X-坐标：</translation>
     </message>
     <message>
         <source>A&amp;dd</source>
-        <translation>&amp;D 添加</translation>
+        <translation type="obsolete">&amp;D 添加</translation>
     </message>
     <message>
         <source>De&amp;lete</source>
-        <translation>&amp;L 删除</translation>
+        <translation type="obsolete">&amp;L 删除</translation>
     </message>
     <message>
         <source>&amp;Lock Guides</source>
-        <translation>&amp;L 锁定参考线</translation>
+        <translation type="obsolete">&amp;L 锁定参考线</translation>
     </message>
     <message>
         <source>&amp;Rows:</source>
-        <translation>&amp;R 行：</translation>
+        <translation type="obsolete">&amp;R 行：</translation>
     </message>
     <message>
         <source>C&amp;olumns:</source>
-        <translation>&amp;O 列：</translation>
+        <translation type="obsolete">&amp;O 列：</translation>
     </message>
     <message>
         <source>Refer to:</source>
-        <translation>参考：</translation>
+        <translation type="obsolete">参考：</translation>
     </message>
     <message>
         <source>&amp;Page</source>
-        <translation>&amp;P 页</translation>
+        <translation type="obsolete">&amp;P 页</translation>
     </message>
     <message>
         <source>&amp;Margins</source>
-        <translation>&amp;M 页边距</translation>
+        <translation type="obsolete">&amp;M 页边距</translation>
     </message>
     <message>
         <source>&amp;Selection</source>
-        <translation>&amp;S 选择</translation>
+        <translation type="obsolete">&amp;S 选择</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;C 关闭</translation>
+        <translation type="obsolete">&amp;C 关闭</translation>
     </message>
     <message>
         <source>Rows and Columns - Automatic Guides</source>
-        <translation>行和列－自动参考线</translation>
+        <translation type="obsolete">行和列－自动参考线</translation>
     </message>
     <message>
         <source>Row &amp;Gap</source>
-        <translation>&amp;G 行距</translation>
+        <translation type="obsolete">&amp;G 行距</translation>
     </message>
     <message>
         <source>Colum&amp;n Gap</source>
-        <translation>&amp;N 列距</translation>
+        <translation type="obsolete">&amp;N 列距</translation>
     </message>
     <message>
         <source>&amp;Update</source>
-        <translation>&amp;U 更新</translation>
+        <translation type="obsolete">&amp;U 更新</translation>
     </message>
     <message>
         <source>Set the guides in document. Guide manager is still opened but the changes are persistant</source>
         <comment>guide manager</comment>
-        <translation>在文档设置参考线。参考线管理器还是打开状态，但是更改是延续的</translation>
+        <translation type="obsolete">在文档设置参考线。参考线管理器还是打开状态，但是更改是延续的</translation>
     </message>
     <message>
         <source>&amp;Apply to All Pages</source>
-        <translation>&amp;A 应用到所有页面</translation>
+        <translation type="obsolete">&amp;A 应用到所有页面</translation>
     </message>
     <message>
         <source>Guide</source>
-        <translation>参考线</translation>
+        <translation type="obsolete">参考线</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="obsolete">预览</translation>
+    </message>
+    <message>
+        <source>There is empty (0.0) guide already</source>
+        <translation type="obsolete">已经有空白的(0.0)参考线</translation>
+    </message>
+    <message>
+        <source>Edit Guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a position:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>GuideManagerBase</name>
+    <message>
+        <source>Manage Guides</source>
+        <translation type="unfinished">管理参考线</translation>
+    </message>
+    <message>
+        <source>&amp;Standard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guide</source>
+        <translation type="unfinished">参考线</translation>
     </message>
     <message>
         <source>Unit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Preview</source>
-        <translation type="unfinished">预览</translation>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;A 添加</translation>
     </message>
     <message>
-        <source>There is empty (0.0) guide already</source>
-        <translation type="unfinished">已经有空白的(0.0)参考线</translation>
+        <source>Alt+A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;elete</source>
+        <translation type="unfinished">&amp;E 删除</translation>
+    </message>
+    <message>
+        <source>Alt+E</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Verticals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;dd</source>
+        <translation type="unfinished">&amp;D 添加</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>De&amp;lete</source>
+        <translation type="unfinished">&amp;L 删除</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lock Guides</source>
+        <translation type="unfinished">&amp;L 锁定参考线</translation>
+    </message>
+    <message>
+        <source>Appl&amp;y to All Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+Y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;utomatic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Number:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>U&amp;se Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nu&amp;mber:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use &amp;Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refer To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M&amp;argins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;election</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8937,6 +9229,17 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>ModeToolBar</name>
+    <message>
+        <source>Tools</source>
+        <translation type="unfinished">工具</translation>
+    </message>
+    <message>
+        <source>Properties...</source>
+        <translation type="unfinished">属性...</translation>
+    </message>
+</context>
+<context>
     <name>MovePages</name>
     <message>
         <source>Move Pages</source>
@@ -9569,11 +9872,11 @@ Corners:</source>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Colour of text stroke. Only available with &quot;outline&quot; text decoration.</translation>
+        <translation type="obsolete">Colour of text stroke. Only available with &quot;outline&quot; text decoration.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Colour of text fill. Only available with &quot;outline&quot; text decoration.</translation>
+        <translation type="obsolete">Colour of text fill. Only available with &quot;outline&quot; text decoration.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -9585,6 +9888,30 @@ Corners:</source>
     </message>
     <message>
         <source>Non Zero</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overprinting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Knockout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overprint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10138,6 +10465,13 @@ Corners:</source>
     </message>
 </context>
 <context>
+    <name>PDFToolBar</name>
+    <message>
+        <source>PDF Tools</source>
+        <translation type="unfinished">PDF 工具</translation>
+    </message>
+</context>
+<context>
     <name>PDFlib</name>
     <message>
         <source>Saving PDF</source>
@@ -10277,6 +10611,10 @@ Corners:</source>
     <message>
         <source>File</source>
         <translation>文件</translation>
+    </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10711,6 +11049,16 @@ Corners:</source>
         <comment>plugin manager</comment>
         <translation type="unfinished">插件： %1 不能加载： %2</translation>
     </message>
+    <message>
+        <source>Plugin: %1 initialized ok </source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin: %1 failed post initialization</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PluginManagerPrefsGui</name>
@@ -10905,7 +11253,7 @@ Corners:</source>
     </message>
     <message>
         <source>Image Processing Tool</source>
-        <translation type="unfinished">图像处理工具</translation>
+        <translation type="obsolete">图像处理工具</translation>
     </message>
     <message>
         <source>Printing</source>
@@ -10973,11 +11321,11 @@ Corners:</source>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation type="unfinished">Antialias text for EPS and PDF onscreen rendering</translation>
+        <translation type="obsolete">Antialias text for EPS and PDF onscreen rendering</translation>
     </message>
     <message>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation type="unfinished">Antialias graphics for EPS and PDF onscreen rendering</translation>
+        <translation type="obsolete">Antialias graphics for EPS and PDF onscreen rendering</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
@@ -11077,19 +11425,19 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
-        <translation type="unfinished">&amp;N 可执行文件的名称：</translation>
+        <translation type="obsolete">&amp;N 可执行文件的名称：</translation>
     </message>
     <message>
         <source>Antialias &amp;Text</source>
-        <translation type="unfinished">&amp;T 反锯齿文本</translation>
+        <translation type="obsolete">&amp;T 反锯齿文本</translation>
     </message>
     <message>
         <source>Antialias &amp;Graphics</source>
-        <translation type="unfinished">&amp;G 反锯齿图形</translation>
+        <translation type="obsolete">&amp;G 反锯齿图形</translation>
     </message>
     <message>
         <source>Name of &amp;Executable:</source>
-        <translation type="unfinished">&amp;E 可执行文件的名字：</translation>
+        <translation type="obsolete">&amp;E 可执行文件的名字：</translation>
     </message>
     <message>
         <source>Clip to Page &amp;Margins</source>
@@ -11201,7 +11549,7 @@ Corners:</source>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="unfinished">Ghostscript解析器在文件系统里的位置</translation>
+        <translation type="obsolete">Ghostscript解析器在文件系统里的位置</translation>
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
@@ -11249,11 +11597,11 @@ Corners:</source>
     </message>
     <message>
         <source>dpi</source>
-        <translation type="unfinished">dpi</translation>
+        <translation type="obsolete">dpi</translation>
     </message>
     <message>
         <source>Resolution:</source>
-        <translation type="unfinished">分辨率：</translation>
+        <translation type="obsolete">分辨率：</translation>
     </message>
     <message>
         <source>Lorem Ipsum</source>
@@ -11289,15 +11637,15 @@ Corners:</source>
     </message>
     <message>
         <source>Locate Ghostscript</source>
-        <translation type="unfinished">定位 Ghostscript</translation>
+        <translation type="obsolete">定位 Ghostscript</translation>
     </message>
     <message>
         <source>Locate your image editor</source>
-        <translation type="unfinished">定位图像编辑器</translation>
+        <translation type="obsolete">定位图像编辑器</translation>
     </message>
     <message>
         <source>PostScript Interpreter</source>
-        <translation type="unfinished">PostScript解析器</translation>
+        <translation type="obsolete">PostScript解析器</translation>
     </message>
     <message>
         <source>Enable or disable  the display of linked frames.</source>
@@ -11337,7 +11685,7 @@ Corners:</source>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
-        <translation type="unfinished">File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</translation>
+        <translation type="obsolete">File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -12805,7 +13153,7 @@ External Links
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished">Font %1 (found using fontconfig) is broken, discarding it</translation>
+        <translation type="obsolete">Font %1 (found using fontconfig) is broken, discarding it</translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
@@ -13141,7 +13489,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font %1 is broken, no embedding</source>
-        <translation>字体 %1 破损，将不嵌入</translation>
+        <translation type="obsolete">字体 %1 破损，将不嵌入</translation>
     </message>
     <message>
         <source>Font %1 is broken (read stream), no embedding</source>
@@ -13149,11 +13497,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font %1 is broken (FreeType2), discarding it</source>
-        <translation>字体 %1 破损 （FreeType2）,将放弃它</translation>
+        <translation type="obsolete">字体 %1 破损 （FreeType2）,将放弃它</translation>
     </message>
     <message>
         <source>Font %1 is broken (no Face), discarding it</source>
-        <translation>字体 %1 破损 (没字型），将放弃它</translation>
+        <translation type="obsolete">字体 %1 破损 (没字型），将放弃它</translation>
     </message>
     <message>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
@@ -13189,7 +13537,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font %1 is broken (FreeType), discarding it</source>
-        <translation type="unfinished">Font %1 is broken (FreeType), discarding it</translation>
+        <translation type="obsolete">Font %1 is broken (FreeType), discarding it</translation>
     </message>
     <message>
         <source>Font %1  has invalid glyph %2 (charcode %3), discarding it</source>
@@ -13453,6 +13801,19 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Luxembourgish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1(%2) is broken</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13851,20 +14212,16 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>A&amp;pply</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+P</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ca&amp;ncel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Alt+N</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Apply</source>
+        <translation type="unfinished">&amp;A 应用</translation>
     </message>
 </context>
 <context>
@@ -13875,6 +14232,25 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMReplaceDiaBase</name>
+    <message>
+        <source>Delete Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;O 确认</translation>
+    </message>
+    <message>
+        <source>Ca&amp;ncel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14207,6 +14583,45 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>ScribusCore</name>
+    <message>
+        <source>Initializing Plugins</source>
+        <translation type="unfinished">启动插件</translation>
+    </message>
+    <message>
+        <source>Initializing Keyboard Shortcuts</source>
+        <translation type="unfinished">启动键盘快捷键</translation>
+    </message>
+    <message>
+        <source>Reading Preferences</source>
+        <translation type="unfinished">读取首选项</translation>
+    </message>
+    <message>
+        <source>Reading ICC Profiles</source>
+        <translation type="unfinished">读取ICC配置文件</translation>
+    </message>
+    <message>
+        <source>Searching for Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are no fonts found on your system.</source>
+        <translation type="unfinished">系统中没有找到字体。</translation>
+    </message>
+    <message>
+        <source>Exiting now.</source>
+        <translation type="unfinished">现在退出中。</translation>
+    </message>
+    <message>
+        <source>Fatal Error</source>
+        <translation type="unfinished">致命错误</translation>
+    </message>
+    <message>
+        <source>Font System Initialized</source>
+        <translation type="unfinished">字体系统被启动</translation>
+    </message>
+</context>
+<context>
     <name>ScribusDoc</name>
     <message>
         <source>New Layer</source>
@@ -14236,6 +14651,10 @@ converting their vector data into Scribus objects.</source>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation type="unfinished">项目 %1 正被故事编辑器使用中。删除操作将被取消。</translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -14245,15 +14664,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Initializing Plugins</source>
-        <translation>启动插件</translation>
+        <translation type="obsolete">启动插件</translation>
     </message>
     <message>
         <source>Initializing Keyboard Shortcuts</source>
-        <translation>启动键盘快捷键</translation>
+        <translation type="obsolete">启动键盘快捷键</translation>
     </message>
     <message>
         <source>Reading Preferences</source>
-        <translation>读取首选项</translation>
+        <translation type="obsolete">读取首选项</translation>
     </message>
     <message>
         <source>Initializing Story Editor</source>
@@ -14261,7 +14680,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Reading ICC Profiles</source>
-        <translation>读取ICC配置文件</translation>
+        <translation type="obsolete">读取ICC配置文件</translation>
     </message>
     <message>
         <source>Initializing Hyphenator</source>
@@ -14285,15 +14704,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation>查找字体</translation>
+        <translation type="obsolete">查找字体</translation>
     </message>
     <message>
         <source>There are no fonts found on your system.</source>
-        <translation>系统中没有找到字体。</translation>
+        <translation type="obsolete">系统中没有找到字体。</translation>
     </message>
     <message>
         <source>Exiting now.</source>
-        <translation>现在退出中。</translation>
+        <translation type="obsolete">现在退出中。</translation>
     </message>
     <message>
         <source>Fatal Error</source>
@@ -14301,7 +14720,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation>字体系统被启动</translation>
+        <translation type="obsolete">字体系统被启动</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -14678,14 +15097,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished">Ghostscript丢失：Postscript打印预览不可用</translation>
     </message>
     <message>
-        <source>Spaces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ligature</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>New Master Page %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14697,6 +15108,26 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Do you really want to replace your existing image?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">内容</translation>
+    </message>
+    <message>
+        <source>&amp;Character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quote</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;paces &amp;&amp; Breaks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14948,6 +15379,10 @@ Vertical shift: %3</source>
     <message>
         <source>Grayscale</source>
         <translation>灰度</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">内容</translation>
     </message>
 </context>
 <context>
@@ -15578,7 +16013,7 @@ Vertical shift: %3</source>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>下划线</translation>
+        <translation type="obsolete">下划线</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -15594,7 +16029,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>中划线</translation>
+        <translation type="obsolete">中划线</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -15606,15 +16041,31 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>阴影</translation>
+        <translation type="obsolete">阴影</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>只文字下划线</translation>
+        <translation type="obsolete">只文字下划线</translation>
     </message>
     <message>
-        <source>Outline</source>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
         <comment>Text Style Selector</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15880,6 +16331,108 @@ Vertical shift: %3</source>
     <message>
         <source>Remove Profile</source>
         <translation type="unfinished">移除配置文件</translation>
+    </message>
+    <message>
+        <source>Highest allowed resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check for GIF images</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabExternalToolsWidget</name>
+    <message>
+        <source>Locate Ghostscript</source>
+        <translation type="unfinished">定位 Ghostscript</translation>
+    </message>
+    <message>
+        <source>Locate your image editor</source>
+        <translation type="unfinished">定位图像编辑器</translation>
+    </message>
+</context>
+<context>
+    <name>TabExternalToolsWidgetBase</name>
+    <message>
+        <source>External Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript Interpreter</source>
+        <translation type="unfinished">PostScript解析器</translation>
+    </message>
+    <message>
+        <source>&amp;Name of Executable:</source>
+        <translation type="unfinished">&amp;N 可执行文件的名称：</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Change..</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Text</source>
+        <translation type="unfinished">&amp;T 反锯齿文本</translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias text for EPS and PDF onscreen rendering</source>
+        <translation type="unfinished">Antialias text for EPS and PDF onscreen rendering</translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Graphics</source>
+        <translation type="unfinished">&amp;G 反锯齿图形</translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias graphics for EPS and PDF onscreen rendering</source>
+        <translation type="unfinished">Antialias graphics for EPS and PDF onscreen rendering</translation>
+    </message>
+    <message>
+        <source>Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> dpi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Processing Tool</source>
+        <translation type="unfinished">图像处理工具</translation>
+    </message>
+    <message>
+        <source>Name of &amp;Executable:</source>
+        <translation type="unfinished">&amp;E 可执行文件的名字：</translation>
+    </message>
+    <message>
+        <source>File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rescan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16460,7 +17013,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="unfinished">在选中的页里开始报告前页面显示时间长度。</translation>
+        <translation type="obsolete">在选中的页里开始报告前页面显示时间长度。</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
@@ -16798,6 +17351,18 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17796,6 +18361,28 @@ X2: %4, Y2: %5</source>
 X: %4, Y: %5</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Apply text style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo: %1</source>
+        <comment>f.e. Undo: Move</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Redo: %1</source>
+        <comment>f.e. Redo: Move</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -17909,54 +18496,54 @@ X: %4, Y: %5</source>
     <name>WerkToolB</name>
     <message>
         <source>Tools</source>
-        <translation>工具</translation>
+        <translation type="obsolete">工具</translation>
     </message>
     <message>
         <source>Properties...</source>
-        <translation>属性...</translation>
+        <translation type="obsolete">属性...</translation>
     </message>
 </context>
 <context>
     <name>WerkToolBP</name>
     <message>
         <source>Button</source>
-        <translation>按钮</translation>
+        <translation type="obsolete">按钮</translation>
     </message>
     <message>
         <source>Text Field</source>
-        <translation>文本域</translation>
+        <translation type="obsolete">文本域</translation>
     </message>
     <message>
         <source>Check Box</source>
-        <translation>勾选框</translation>
+        <translation type="obsolete">勾选框</translation>
     </message>
     <message>
         <source>Combo Box</source>
-        <translation>多选框</translation>
+        <translation type="obsolete">多选框</translation>
     </message>
     <message>
         <source>List Box</source>
-        <translation>列举框</translation>
+        <translation type="obsolete">列举框</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>文本</translation>
+        <translation type="obsolete">文本</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation>链接</translation>
+        <translation type="obsolete">链接</translation>
     </message>
     <message>
         <source>PDF Tools</source>
-        <translation>PDF 工具</translation>
+        <translation type="obsolete">PDF 工具</translation>
     </message>
     <message>
         <source>Insert PDF Fields</source>
-        <translation>插入PDF域</translation>
+        <translation type="obsolete">插入PDF域</translation>
     </message>
     <message>
         <source>Insert PDF Annotations</source>
-        <translation>插入PDF注释</translation>
+        <translation type="obsolete">插入PDF注释</translation>
     </message>
 </context>
 <context>
