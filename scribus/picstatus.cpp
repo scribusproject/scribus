@@ -77,7 +77,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 	PicTable->verticalHeader()->hide();
 	PicTable->setNumCols( 8 );
 	Header = PicTable->horizontalHeader();
-	QString tmpc[] = { tr(""), tr("Name"),  tr("Path"),  tr("Page"), " ",  tr("Print"),  tr("Status"), " "};
+	QString tmpc[] = { "", tr("Name"),  tr("Path"),  tr("Page"), " ",  tr("Print"),  tr("Status"), " "};
 	size_t ar = sizeof(tmpc) / sizeof(*tmpc);
 	for (uint a = 0; a < ar; ++a)
 		Header->setLabel(a, tmpc[a]);
