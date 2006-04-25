@@ -487,13 +487,25 @@ double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size, QString c
 	if (name->CharWidth.contains(c1))
 	{
 		width = name->CharWidth[c1]*size10;
-		if (name->HasKern)
+		face = name->ftFace();
+		/****
+			Ok, this looks like a regression between Freetype 2.1.9 -> 2.1.10.
+			Ignoring the value of FT_HAS_KERNING for now -- AV
+		 ****/
+		if (true || name->HasKern || FT_HAS_KERNING(face) )
 		{
-			face = currentDoc->FFonts[name->scName()];
 			uint cl = FT_Get_Char_Index(face, c1);
 			uint cr = FT_Get_Char_Index(face, c2);
-			FT_Get_Kerning(face, cl, cr, ft_kerning_unscaled, &delta);
-			width += delta.x / name->uniEM * size10;
+			FT_Error error = FT_Get_Kerning(face, cl, cr, FT_KERNING_UNSCALED, &delta);
+			if (error) {
+				qDebug(QString("Error %2 when accessing kerning pair for font %1").arg(name->scName()).arg(error));
+			}
+			else {
+				width += delta.x / name->uniEM * size10;
+			}
+		}
+		else {
+			qDebug(QString("Font %1 has no kerning pairs (according to Freetype)").arg(name->scName()));
 		}
 		return width;
 	}
