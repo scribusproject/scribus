@@ -118,7 +118,6 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 	return PyString_FromString(ScMW->doc->Items->at(i)->itemName().utf8());
 }
 
-
 PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 {
 	double x, y, w, h;
@@ -133,12 +132,23 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 	h = pageUnitYToDocY(h);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
-		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
+		PyErr_SetString(NameExistsError,
+						QObject::tr("An object with the requested name already exists.",
+									"python error"));
 		return NULL;
 	}
-	int i = ScMW->doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, 1, 1, ScMW->doc->toolSettings.dWidth, ScMW->doc->toolSettings.dBrush, ScMW->doc->toolSettings.dPen, true);
-
+	int i = ScMW->doc->itemAdd(PageItem::Line, PageItem::Unspecified,
+							   x, y, w, h,
+							   ScMW->doc->toolSettings.dWidth,
+							   ScMW->doc->toolSettings.dBrush,
+							   ScMW->doc->toolSettings.dPen, true);
 	PageItem *it = ScMW->doc->Items->at(i);
+	it->setRotation(xy2Deg(w-x, h-y));
+	it->setWidthHeight(sqrt(pow(x-w, 2.0) + pow(y-h, 2.0)), 1.0);
+	it->Sizing = false;
+	it->updateClip();
+	ScMW->doc->setRedrawBounding(it);
+/* WTF? maybe I'll examine who's author later. Or maybe I'll remove it later ;)
 	it->PoLine.resize(4);
 	it->PoLine.setPoint(0, 0, 0);
 	it->PoLine.setPoint(1, 0, 0);
@@ -155,8 +165,9 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 		it->PoLine.translate(0, -np2.y());
 		ScMW->view->MoveItem(0, np2.y(), it);
 	}
-	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), i, false, false);
-	ScMW->view->AdjustItemSize(it);
+	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(),
+						 it->PoLine.WidthHeight().y(), i, false, false, false);
+	ScMW->view->AdjustItemSize(it);*/
 	if (Name != "")
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());
@@ -228,7 +239,7 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 		it->PoLine.translate(0, -np2.y());
 		ScMW->view->MoveItem(0, np2.y(), it);
 	}
-	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
+	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
 	ScMW->view->AdjustItemSize(it);
 	if (Name != "")
 	{
@@ -308,7 +319,7 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 		it->PoLine.translate(0, -np2.y());
 		ScMW->view->MoveItem(0, np2.y(), it);
 	}
-	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
+	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
 	ScMW->view->AdjustItemSize(it);
 	if (Name != "")
 		it->setItemName(QString::fromUtf8(Name));
@@ -395,7 +406,7 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 		it->PoLine.translate(0, -np2.y());
 		ScMW->view->MoveItem(0, np2.y(), it);
 	}
-	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
+	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
 	ScMW->view->AdjustItemSize(it);
 	if (Name != "")
 		it->setItemName(QString::fromUtf8(Name));
