@@ -39,6 +39,10 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/draw-rectangle.png \
 16/draw-star.png \
 22/draw-star.png \
+22/draw-triangle1.png \
+22/draw-triangle2.png \
+22/draw-triangle3.png \
+22/draw-triangle4.png \
 22/draw-triangle.png \
 16/edit-copy.png \
 22/edit-copy.png \
@@ -82,12 +86,15 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 16/measure.png \
 22/measure.png \
 22/pointer.png \
+16/show-object.png \
 16/stroke-cap-butt.png \
 16/stroke-cap-round.png \
 16/stroke-cap-square.png \
 16/stroke-join-bevel.png \
 16/stroke-join-miter.png \
 16/stroke-join-round.png \
+16/transform-rotate.png \
+22/transform-rotate.png \
 16/zoom.png \
 22/zoom.png \
 16/zoom-in.png \
@@ -228,6 +235,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/16/draw-rectangle.png $(prefix)/share/scribus/icons/16/draw-rectangle.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-rectangle.png $(prefix)/share/scribus/icons/22/draw-rectangle.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-star.png $(prefix)/share/scribus/icons/22/draw-star.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-triangle1.png $(prefix)/share/scribus/icons/22/draw-triangle1.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-triangle2.png $(prefix)/share/scribus/icons/22/draw-triangle2.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-triangle3.png $(prefix)/share/scribus/icons/22/draw-triangle3.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-triangle4.png $(prefix)/share/scribus/icons/22/draw-triangle4.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-triangle.png $(prefix)/share/scribus/icons/22/draw-triangle.png
 	$(INSTALL_DATA) $(srcdir)/DragPix.xpm $(prefix)/share/scribus/icons/DragPix.xpm
 	$(INSTALL_DATA) $(srcdir)/DrawFrame.xpm $(prefix)/share/scribus/icons/DrawFrame.xpm
@@ -388,6 +399,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/shear_right.png $(prefix)/share/scribus/icons/shear_right.png
 	$(INSTALL_DATA) $(srcdir)/shear_up.png $(prefix)/share/scribus/icons/shear_up.png
 	$(INSTALL_DATA) $(srcdir)/shortwords.png $(prefix)/share/scribus/icons/shortwords.png
+	$(INSTALL_DATA) $(srcdir)/16/show-object.png $(prefix)/share/scribus/icons/16/show-object.png
 	$(INSTALL_DATA) $(srcdir)/signature.png $(prefix)/share/scribus/icons/signature.png
 	$(INSTALL_DATA) $(srcdir)/signature2.png $(prefix)/share/scribus/icons/signature2.png
 	$(INSTALL_DATA) $(srcdir)/Spacing.xpm $(prefix)/share/scribus/icons/Spacing.xpm
@@ -432,6 +444,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/Tief.xpm $(prefix)/share/scribus/icons/Tief.xpm
 	$(INSTALL_DATA) $(srcdir)/tools.png $(prefix)/share/scribus/icons/tools.png
 	$(INSTALL_DATA) $(srcdir)/top.png $(prefix)/share/scribus/icons/top.png
+	$(INSTALL_DATA) $(srcdir)/16/transform-rotate.png $(prefix)/share/scribus/icons/16/transform-rotate.png
+	$(INSTALL_DATA) $(srcdir)/22/transform-rotate.png $(prefix)/share/scribus/icons/22/transform-rotate.png
 	$(INSTALL_DATA) $(srcdir)/trashcan.png $(prefix)/share/scribus/icons/trashcan.png
 	$(INSTALL_DATA) $(srcdir)/trashcan2.png $(prefix)/share/scribus/icons/trashcan2.png
 	$(INSTALL_DATA) $(srcdir)/triangle.png $(prefix)/share/scribus/icons/triangle.png
@@ -596,6 +610,10 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/16/draw-rectangle.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-rectangle.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-star.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-triangle1.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-triangle2.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-triangle3.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-triangle4.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-triangle.png
 	-rm -f $(prefix)/share/scribus/icons/DragPix.xpm
 	-rm -f $(prefix)/share/scribus/icons/DrawFrame.xpm
@@ -754,6 +772,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/shear_right.png
 	-rm -f $(prefix)/share/scribus/icons/shear_up.png
 	-rm -f $(prefix)/share/scribus/icons/shortwords.png
+	-rm -f $(prefix)/share/scribus/icons/16/show-object.png
 	-rm -f $(prefix)/share/scribus/icons/signature.png
 	-rm -f $(prefix)/share/scribus/icons/signature2.png
 	-rm -f $(prefix)/share/scribus/icons/Spacing.xpm
@@ -796,6 +815,8 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/Tief.xpm
 	-rm -f $(prefix)/share/scribus/icons/tools.png
 	-rm -f $(prefix)/share/scribus/icons/top.png
+	-rm -f $(prefix)/share/scribus/icons/16/transform-rotate.png
+	-rm -f $(prefix)/share/scribus/icons/22/transform-rotate.png
 	-rm -f $(prefix)/share/scribus/icons/trashcan.png
 	-rm -f $(prefix)/share/scribus/icons/trashcan2.png
 	-rm -f $(prefix)/share/scribus/icons/triangle.png

@@ -332,6 +332,7 @@ INSTALL(FILES
 16/lock-unlocked.png
 16/measure.png
 16/preflight-verifier.png
+16/show-object.png
 16/story-editor.png
 16/stroke-cap-butt.png
 16/stroke-cap-round.png
@@ -339,6 +340,7 @@ INSTALL(FILES
 16/stroke-join-bevel.png
 16/stroke-join-miter.png
 16/stroke-join-round.png
+16/transform-rotate.png
 16/zoom.png
 16/zoom-in.png
 16/zoom-original.png
@@ -371,6 +373,10 @@ INSTALL(FILES
 22/draw-polyline.png
 22/draw-rectangle.png
 22/draw-star.png
+22/draw-triangle1.png
+22/draw-triangle2.png
+22/draw-triangle3.png
+22/draw-triangle4.png
 22/draw-triangle.png
 22/edit-copy.png
 22/edit-cut.png
@@ -394,6 +400,7 @@ INSTALL(FILES
 22/story-editor.png
 22/text-frame-link.png
 22/text-frame-unlink.png
+22/transform-rotate.png
 22/zoom.png
 22/zoom-in.png
 22/zoom-original.png
