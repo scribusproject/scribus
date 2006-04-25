@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 
 /***************************************************************************
 *                                                                         *
-*   ScMW program is free software; you can redistribute it and/or modify  *
+*   Scribus is free software; you can redistribute it and/or modify       *
 *   it under the terms of the GNU General Public License as published by  *
 *   the Free Software Foundation; either version 2 of the License, or     *
 *   (at your option) any later version.                                   *
@@ -51,12 +51,10 @@ class SCRIBUS_API AlignDistributePalette : public ScrPaletteBase
 	Q_OBJECT
 
 public:
-	typedef enum {First, Last, Page, Margins, Guide, Selection } AlignTo;
-
 	AlignDistributePalette( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
 	~AlignDistributePalette();
 
-	virtual void setView( ScribusView * newView );
+	virtual void setDoc( ScribusDoc* newDoc );
 	void unitChange();
 	
 public slots:
@@ -128,12 +126,12 @@ protected slots:
 	void alignCenterVer();
 	void alignTopOut();
 	void alignTopIn();
-	void distributeDistH();
+	void distributeDistH(bool usingDistance=false);
 	void distributeDistValH();
 	void distributeRight();
 	void distributeBottom();
 	void distributeCenterH();
-	void distributeDistV();
+	void distributeDistV(bool usingDistance=false);
 	void distributeDistValV();
 	void distributeLeft();
 	void distributeCenterV();
@@ -143,16 +141,11 @@ protected slots:
 
 private:
 	void init();
-	bool startAlign();
-	void endAlign();
 	UndoManager *undoManager;
-	ScribusMainWindow* ScMW;
-	AlignTo currAlignTo;
+	ScribusDoc::AlignTo currAlignTo;
 	QValueList<AlignObjs> *alignObjects;
-	uint alignObjectsCount;
 	ScribusDoc *currDoc;
 	double unitRatio;
-	bool usingDistance;
 	int guideDirection;
 	double guidePosition;
 	QString guideInfoText, guideInfoTextNone;

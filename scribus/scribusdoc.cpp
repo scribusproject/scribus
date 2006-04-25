@@ -3507,57 +3507,6 @@ void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *
 	}
 }
 
-void ScribusDoc::buildAlignItemList()
-{
-	PageItem *currItem;
-	int ObjGroup;
-	struct AlignObjs Object;
-	AObjects.clear();
-	for (uint a = 0; a < m_Selection->count(); ++a)
-	{
-		currItem = m_Selection->itemAt(a);
-		Object.Objects.clear();
-		currItem->getBoundingRect(&Object.x1, &Object.y1, &Object.x2, &Object.y2);
-		if (currItem->Groups.count() > 0)
-		{
-			ObjGroup = currItem->Groups.top();
-			bool found = false;
-			for (uint a2 = 0; a2 < AObjects.count(); ++a2)
-			{
-				if (AObjects[a2].Group == ObjGroup)
-				{
-					AObjects[a2].x1 = QMIN(AObjects[a2].x1, Object.x1);
-					AObjects[a2].y1 = QMIN(AObjects[a2].y1, Object.y1);
-					AObjects[a2].x2 = QMAX(AObjects[a2].x2, Object.x2);
-					AObjects[a2].y2 = QMAX(AObjects[a2].y2, Object.y2);
-					AObjects[a2].Objects.append(currItem);
-					found = true;
-					break;
-				}
-			}
-			if (!found)
-			{
-				Object.Group = ObjGroup;
-				Object.ObjNr = 0;
-				Object.Objects.append(currItem);
-				AObjects.append(Object);
-			}
-		}
-		else
-		{
-			Object.Group = 0;
-			Object.ObjNr = currItem->ItemNr;
-			Object.Objects.append(currItem);
-			AObjects.append(Object);
-		}
-	}
-	for (uint i = 0; i < AObjects.count(); ++i)
-	{
-		AObjects[i].width = AObjects[i].x2 - AObjects[i].x1;
-		AObjects[i].height = AObjects[i].y2 - AObjects[i].y1;
-	}
-}
-
 void ScribusDoc::insertColor(QString nam, double c, double m, double y, double k)
 {
 	if (!PageColors.contains(nam))
@@ -5851,6 +5800,873 @@ void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, doub
 		changed();
 	}
 }
+
+void ScribusDoc::buildAlignItemList(Selection* customSelection)
+{
+	//CB TODO Handling custom selections
+	//Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	Selection* itemSelection = m_Selection;
+	Q_ASSERT(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	PageItem *currItem;
+	int ObjGroup;
+	struct AlignObjs Object;
+	AObjects.clear();
+	for (uint a = 0; a < selectedItemCount; ++a)
+	{
+		currItem = itemSelection->itemAt(a);
+		Object.Objects.clear();
+		currItem->getBoundingRect(&Object.x1, &Object.y1, &Object.x2, &Object.y2);
+		if (currItem->Groups.count() > 0)
+		{
+			ObjGroup = currItem->Groups.top();
+			bool found = false;
+			for (uint a2 = 0; a2 < AObjects.count(); ++a2)
+			{
+				if (AObjects[a2].Group == ObjGroup)
+				{
+					AObjects[a2].x1 = QMIN(AObjects[a2].x1, Object.x1);
+					AObjects[a2].y1 = QMIN(AObjects[a2].y1, Object.y1);
+					AObjects[a2].x2 = QMAX(AObjects[a2].x2, Object.x2);
+					AObjects[a2].y2 = QMAX(AObjects[a2].y2, Object.y2);
+					AObjects[a2].Objects.append(currItem);
+					found = true;
+					break;
+				}
+			}
+			if (!found)
+			{
+				Object.Group = ObjGroup;
+				Object.ObjNr = 0;
+				Object.Objects.append(currItem);
+				AObjects.append(Object);
+			}
+		}
+		else
+		{
+			Object.Group = 0;
+			Object.ObjNr = currItem->ItemNr;
+			Object.Objects.append(currItem);
+			AObjects.append(Object);
+		}
+	}
+	for (uint i = 0; i < AObjects.count(); ++i)
+	{
+		AObjects[i].width = AObjects[i].x2 - AObjects[i].x1;
+		AObjects[i].height = AObjects[i].y2 - AObjects[i].y1;
+	}
+}
+
+bool ScribusDoc::startAlign()
+{
+	buildAlignItemList();
+	uint alignObjectsCount=AObjects.count();
+	if (alignObjectsCount==0)
+		return false;
+		
+	bool oneLocked=false;
+	for (uint i = 0; i < alignObjectsCount && !oneLocked; ++i)
+		for (uint j = 0; j < AObjects[i].Objects.count() && !oneLocked; ++j)
+			if (AObjects[i].Objects.at(j)->locked())
+				oneLocked=true;
+	if (oneLocked)
+	{
+		int t = ScMessageBox::warning(ScMW, CommonStrings::trWarning,
+											tr("Some objects are locked."),
+											tr("&Unlock All"), CommonStrings::tr_Cancel,
+											0, 0);
+		if (t == 1)
+			return false;
+		for (uint i = 0; i < alignObjectsCount; ++i)
+			for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+				if (AObjects[i].Objects.at(j)->locked())
+					AObjects[i].Objects.at(j)->setLocked(false);
+	}
+	
+	QString targetTooltip = Um::ItemsInvolved + "\n";
+	for (uint i = 0; i < m_Selection->count(); ++i)
+		targetTooltip += "\t" + m_Selection->itemAt(i)->getUName() + "\n";
+		// Make the align action a single action in Action History
+	undoManager->beginTransaction(Um::Selection, 0, Um::AlignDistribute, targetTooltip, Um::IAlignDistribute);
+	return true;
+}
+
+void ScribusDoc::endAlign()
+{
+	changed();
+	ScMW->HaveNewSel(m_Selection->itemAt(0)->itemType());
+	for (uint i = 0; i < m_Selection->count(); ++i)
+		setRedrawBounding(m_Selection->itemAt(i));
+	undoManager->commit(); // commit and send the action to the UndoManager
+	ScMW->view->updateContents();
+}
+
+
+void ScribusDoc::itemSelection_AlignLeftOut(AlignTo currAlignTo, double guidePosition)
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	uint loopStart=0, loopEnd=alignObjectsCount;
+	double newX = 99999.9;
+	switch ( currAlignTo )
+	{
+		case alignFirst:
+			newX = AObjects[0].x1;
+			loopStart=1;
+			break;
+		case alignLast:
+			newX = AObjects[alignObjectsCount-1].x1;
+			loopEnd=alignObjectsCount-2;
+			break;
+		case alignPage:
+			newX = currentPage()->xOffset();
+			break;
+		case alignMargins:
+			newX = currentPage()->xOffset();
+			newX += currentPage()->Margins.Left;
+			break;
+		case alignGuide:
+			newX=currentPage()->xOffset() + guidePosition;
+			break;
+		case alignSelection:
+			for (uint a = 0; a < alignObjectsCount; ++a)
+				newX = QMIN(AObjects[a].x1, newX);
+			break;
+	}
+	for (uint i = loopStart; i <= loopEnd; ++i)
+	{
+		double diff=newX-AObjects[i].x2;
+		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+			AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
+	}
+	endAlign();
+}
+
+void ScribusDoc::itemSelection_AlignLeftIn(AlignTo currAlignTo, double guidePosition)
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	uint loopStart=0, loopEnd=alignObjectsCount;
+	double newX = 99999.9;
+	switch ( currAlignTo ) 
+	{
+		case alignFirst:
+			newX = AObjects[0].x1;
+			loopStart=1;
+			break;
+		case alignLast:
+			newX = AObjects[alignObjectsCount-1].x1;
+			loopEnd=alignObjectsCount-2;
+			break;
+		case alignPage:
+			newX = currentPage()->xOffset();
+			break;
+		case alignMargins:
+			newX = currentPage()->xOffset();
+			newX += currentPage()->Margins.Left;
+			break;
+		case alignGuide:
+			newX=currentPage()->xOffset() + guidePosition;
+			break;
+		case alignSelection:
+			for (uint a = 0; a < alignObjectsCount; ++a)
+				newX = QMIN(AObjects[a].x1, newX);
+			break;
+	}
+	for (uint i = loopStart; i <= loopEnd; ++i)
+	{
+		double diff=newX-AObjects[i].x1;
+		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+			AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
+	}
+	endAlign();
+}
+
+void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, double guidePosition)
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	uint loopStart=0, loopEnd=alignObjectsCount;
+	double newX;
+	switch ( currAlignTo ) 
+	{
+		case alignFirst:
+			newX = AObjects[0].x1 + (AObjects[0].width)/2;
+			loopStart=1;
+			break;
+		case alignLast:
+			{
+				int objindex=alignObjectsCount-1;
+				newX = AObjects[objindex].x1 + (AObjects[objindex].width)/2;
+				loopEnd=alignObjectsCount-2;
+			}
+			break;
+		case alignPage:
+			newX = currentPage()->xOffset();
+			newX += currentPage()->width()/2;
+			break;
+		case alignMargins:
+			newX = currentPage()->xOffset();
+			newX += currentPage()->Margins.Left;
+			newX += (currentPage()->width() - currentPage()->Margins.Right - currentPage()->Margins.Left)/2;
+			break;
+		case alignGuide:
+			newX=currentPage()->xOffset() + guidePosition;
+			break;
+		case alignSelection:
+			double minX=99999.9, maxX=-99999.9;
+			for (uint a = 0; a < alignObjectsCount; ++a)
+			{
+				minX = QMIN(AObjects[a].x1, minX);
+				maxX = QMAX(AObjects[a].x2, maxX);
+			}
+			newX = minX + (maxX-minX)/2;
+			break;
+	}
+	for (uint i = loopStart; i <= loopEnd; ++i)
+	{
+		double diff=newX-AObjects[i].x1-(AObjects[i].width)/2;
+		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+			AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
+	}
+	endAlign();
+}
+
+void ScribusDoc::itemSelection_AlignRightIn(AlignTo currAlignTo, double guidePosition)
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	uint loopStart=0, loopEnd=alignObjectsCount;
+	double newX = -99999.9;
+	switch ( currAlignTo ) 
+	{
+		case alignFirst:
+			newX = AObjects[0].x2;
+			loopStart=1;
+			break;
+		case alignLast:
+			newX = AObjects[alignObjectsCount-1].x2;
+			loopEnd=alignObjectsCount-2;
+			break;
+		case alignPage:
+			newX = currentPage()->xOffset();
+			newX += currentPage()->width();;
+			break;
+		case alignMargins:
+			newX = currentPage()->xOffset();
+			newX += currentPage()->width();;
+			newX -= currentPage()->Margins.Right;
+			break;
+		case alignGuide:
+			newX=currentPage()->xOffset() + guidePosition;
+			break;
+		case alignSelection:
+			for (uint a = 0; a < alignObjectsCount; ++a)
+				newX = QMAX(AObjects[a].x2, newX);
+			break;
+	}
+	for (uint i = loopStart; i <= loopEnd; ++i)
+	{
+		double diff=newX-AObjects[i].x2;
+		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+			AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
+	}
+	endAlign();
+}
+
+void ScribusDoc::itemSelection_AlignRightOut(AlignTo currAlignTo, double guidePosition)
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	uint loopStart=0, loopEnd=alignObjectsCount;
+	double newX = -99999.9;
+	switch ( currAlignTo ) 
+	{
+		case alignFirst:
+			newX = AObjects[0].x2;
+			loopStart=1;
+			break;
+		case alignLast:
+			newX = AObjects[alignObjectsCount-1].x2;
+			loopEnd=alignObjectsCount-2;
+			break;
+		case alignPage:
+			newX = currentPage()->xOffset();
+			newX += currentPage()->width();
+			break;
+		case alignMargins:
+			newX = currentPage()->xOffset();
+			newX += currentPage()->width();
+			newX -= currentPage()->Margins.Right;
+			break;
+		case alignGuide:
+			newX=currentPage()->xOffset() + guidePosition;
+			break;
+		case alignSelection:
+			for (uint a = 0; a < alignObjectsCount; ++a)
+				newX = QMAX(AObjects[a].x2, newX);
+			break;
+	}
+	for (uint i = loopStart; i <= loopEnd; ++i)
+	{
+		double diff=newX-AObjects[i].x1;
+		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+			AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
+	}
+	endAlign();
+}
+
+void ScribusDoc::itemSelection_AlignTopOut(AlignTo currAlignTo, double guidePosition)
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	uint loopStart=0, loopEnd=alignObjectsCount;
+	double newY = 99999.9;
+	switch ( currAlignTo ) 
+	{
+		case alignFirst:
+			newY = AObjects[0].y1;
+			loopStart=1;
+			break;
+		case alignLast:
+			newY = AObjects[alignObjectsCount-1].y1;
+			loopEnd=alignObjectsCount-2;
+			break;
+		case alignPage:
+			newY = currentPage()->yOffset();
+			break;
+		case alignMargins:
+			newY = currentPage()->yOffset();
+			newY += currentPage()->Margins.Top;
+			break;
+		case alignGuide:
+			newY=currentPage()->yOffset() + guidePosition;
+			break;
+		case alignSelection:
+			for (uint a = 0; a < alignObjectsCount; ++a)
+				newY = QMIN(AObjects[a].y1, newY);
+			break;
+	}
+	for (uint i = loopStart; i <= loopEnd; ++i)
+	{
+		double diff=newY-AObjects[i].y2;
+		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+			AObjects[i].Objects.at(j)->moveBy(0.0, diff);
+	}
+	endAlign();
+}
+
+void ScribusDoc::itemSelection_AlignTopIn(AlignTo currAlignTo, double guidePosition)
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	uint loopStart=0, loopEnd=alignObjectsCount;
+	double newY = 99999.9;
+	switch ( currAlignTo ) 
+	{
+		case alignFirst:
+			newY = AObjects[0].y1;
+			loopStart=1;
+			break;
+		case alignLast:
+			newY = AObjects[alignObjectsCount-1].y1;
+			loopEnd=alignObjectsCount-2;
+			break;
+		case alignPage:
+			newY = currentPage()->yOffset();
+			break;
+		case alignMargins:
+			newY = currentPage()->yOffset();
+			newY += currentPage()->Margins.Top;
+			break;
+		case alignGuide:
+			newY=currentPage()->yOffset() + guidePosition;
+			break;
+		case alignSelection:
+			for (uint a = 0; a < alignObjectsCount; ++a)
+				newY = QMIN(AObjects[a].y1, newY);
+			break;
+	}
+	for (uint i = loopStart; i <= loopEnd; ++i)
+	{
+		double diff=newY-AObjects[i].y1;
+		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+			AObjects[i].Objects.at(j)->moveBy(0.0, diff);
+	}
+	endAlign();
+}
+
+
+void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, double guidePosition)
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	uint loopStart=0, loopEnd=alignObjectsCount;
+	double newY;
+	switch ( currAlignTo ) 
+	{
+		case alignFirst:
+			newY = AObjects[0].y1 + (AObjects[0].height)/2;
+			loopStart=1;
+			break;
+		case alignLast:
+			{
+				int objindex=alignObjectsCount-1;
+				newY = AObjects[objindex].y1 + (AObjects[objindex].height)/2;
+				loopEnd=alignObjectsCount-2;
+			}
+			break;
+		case alignPage:
+			newY = currentPage()->yOffset();
+			newY += currentPage()->height()/2;
+			break;
+		case alignMargins:
+			newY = currentPage()->yOffset();
+			newY += currentPage()->Margins.Top;
+			newY += (currentPage()->height() - currentPage()->Margins.Bottom - currentPage()->Margins.Top)/2;
+			break;
+		case alignGuide:
+			newY=currentPage()->yOffset() + guidePosition;
+			break;
+		case alignSelection:
+			double minY=99999.9, maxY=-99999.9;
+			for (uint a = 0; a < alignObjectsCount; ++a)
+			{
+				minY = QMIN(AObjects[a].y1, minY);
+				maxY = QMAX(AObjects[a].y2, maxY);
+			}
+			newY = minY + (maxY-minY)/2;
+			break;
+	}
+	for (uint i = loopStart; i <= loopEnd; ++i)
+	{
+		double diff=newY-AObjects[i].y1-(AObjects[i].height)/2;
+		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+			AObjects[i].Objects.at(j)->moveBy(0.0, diff);
+	}
+	endAlign();
+}
+
+
+void ScribusDoc::itemSelection_AlignBottomIn(AlignTo currAlignTo, double guidePosition)
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	uint loopStart=0, loopEnd=alignObjectsCount;
+	double newY = -99999.9;
+	switch ( currAlignTo ) 
+	{
+		case alignFirst:
+			newY = AObjects[0].y2;
+			loopStart=1;
+			break;
+		case alignLast:
+			newY = AObjects[alignObjectsCount-1].y2;
+			loopEnd=alignObjectsCount-2;
+			break;
+		case alignPage:
+			newY = currentPage()->yOffset();
+			newY += currentPage()->height();
+			break;
+		case alignMargins:
+			newY = currentPage()->yOffset();
+			newY += currentPage()->height();
+			newY -= currentPage()->Margins.Bottom;
+			break;
+		case alignGuide:
+			newY=currentPage()->yOffset() + guidePosition;
+			break;
+		case alignSelection:
+			for (uint a = 0; a < alignObjectsCount; ++a)
+				newY = QMAX(AObjects[a].y2, newY);
+			break;
+	}
+	for (uint i = loopStart; i <= loopEnd; ++i)
+	{
+		double diff=newY-AObjects[i].y2;
+		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+			AObjects[i].Objects.at(j)->moveBy(0.0, diff);
+	}
+	endAlign();
+}
+
+void ScribusDoc::itemSelection_AlignBottomOut(AlignTo currAlignTo, double guidePosition)
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	uint loopStart=0, loopEnd=alignObjectsCount;
+	double newY = -99999.9;
+	switch ( currAlignTo )
+	{
+		case alignFirst:
+			newY = AObjects[0].y2;
+			loopStart=1;
+			break;
+		case alignLast:
+			newY = AObjects[alignObjectsCount-1].y2;
+			loopEnd=alignObjectsCount-2;
+			break;
+		case alignPage:
+			newY = currentPage()->yOffset();
+			newY += currentPage()->height();
+			break;
+		case alignMargins:
+			newY = currentPage()->yOffset();
+			newY += currentPage()->height();
+			newY -= currentPage()->Margins.Bottom;
+			break;
+		case alignGuide:
+			newY=currentPage()->yOffset() + guidePosition;
+			break;
+		case alignSelection:
+			for (uint a = 0; a < alignObjectsCount; ++a)
+				newY = QMAX(AObjects[a].y2, newY);
+			break;
+	}
+	for (uint i = loopStart; i <= loopEnd; ++i)
+	{
+		double diff=newY-AObjects[i].y1;
+		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+			AObjects[i].Objects.at(j)->moveBy(0.0, diff);
+	}
+	endAlign();
+}
+
+
+void ScribusDoc::itemSelection_DistributeLeft()
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	if (alignObjectsCount<=1)
+		return;
+	QMap<double,uint> Xsorted;
+	for (uint a = 0; a < alignObjectsCount; ++a)
+		Xsorted.insert(AObjects[a].x1, a, false);
+		
+	QMap<double,uint>::Iterator it = Xsorted.begin();
+	QMap<double,uint>::Iterator itend = Xsorted.end();
+	double minX=it.key();
+	double maxX=it.key();
+	while ( it != itend)
+	{
+		if (minX>it.key())
+			minX=it.key();
+		if (maxX<it.key())
+			maxX=it.key();
+		++it;
+	}
+		
+	double separation=(maxX-minX)/static_cast<double>(alignObjectsCount-1);
+	int i=0;
+	for ( QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it )
+	{
+		double diff=minX + i*separation-AObjects[it.data()].x1;
+		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+			AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
+		i++;
+	}
+	endAlign();
+}
+
+void ScribusDoc::itemSelection_DistributeCenterH()
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	if (alignObjectsCount<=1)
+		return;
+	QMap<double,uint> Xsorted;
+	for (uint a = 0; a < alignObjectsCount; ++a)
+		Xsorted.insert(AObjects[a].x1+(AObjects[a].width)/2, a, false);
+		
+	QMap<double,uint>::Iterator it = Xsorted.begin();
+	QMap<double,uint>::Iterator itend = Xsorted.end();
+	double minX=it.key();
+	double maxX=it.key();
+	while ( it != itend)
+	{
+		if (minX>it.key())
+			minX=it.key();
+		if (maxX<it.key())
+			maxX=it.key();
+		++it;
+	}
+		
+	double separation=(maxX-minX)/static_cast<double>(alignObjectsCount-1);
+	int i=0;
+	for ( QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it )
+	{
+		double diff=minX + i*separation-AObjects[it.data()].x1-(AObjects[it.data()].width)/2;
+		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+			AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
+		i++;
+	}
+	endAlign();
+}
+
+void ScribusDoc::itemSelection_DistributeRight()
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	if (alignObjectsCount<=1)
+		return;
+	QMap<double,uint> Xsorted;
+	for (uint a = 0; a < alignObjectsCount; ++a)
+		Xsorted.insert(AObjects[a].x2, a, false);
+		
+	QMap<double,uint>::Iterator it = Xsorted.begin();
+	QMap<double,uint>::Iterator itend = Xsorted.end();
+	double minX=it.key();
+	double maxX=it.key();
+	while ( it != itend)
+	{
+		if (minX>it.key())
+			minX=it.key();
+		if (maxX<it.key())
+			maxX=it.key();
+		++it;
+	}
+	
+	double separation=(maxX-minX)/static_cast<double>(alignObjectsCount-1);
+	int i=0;
+	for ( QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it )
+	{
+		double diff=minX + i*separation-AObjects[it.data()].x2;
+		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+			AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
+		i++;
+	}
+	endAlign();
+}
+
+void ScribusDoc::itemSelection_DistributeDistH(bool usingDistance, double distance)
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	if (alignObjectsCount<=1)
+		return;
+	QMap<double,uint> X1sorted, X2sorted;
+	for (uint a = 0; a < alignObjectsCount; ++a)
+	{
+		X1sorted.insert(AObjects[a].x1, a, false);
+		X2sorted.insert(AObjects[a].x2, a, false);
+	}	
+	uint left=X1sorted.begin().data();
+	uint right=X2sorted[X2sorted.keys().back()];
+	double minX=AObjects[left].x2;
+	double separation;
+	if (!usingDistance)
+	{
+		double maxX=AObjects[right].x1;
+		double totalSpace=maxX-minX;
+		double totalWidth=0;
+		uint insideObjectCount=0;
+		for (uint a = 0; a < alignObjectsCount; ++a)
+		{
+			if (a==left)
+				continue;
+			if (a==right)
+				continue;
+			totalWidth += AObjects[a].width;
+			++insideObjectCount;
+		}
+		separation=(totalSpace-totalWidth)/(insideObjectCount+1);
+	}
+	else
+		separation=value2pts(distance, unitIndex());
+	double currX=minX;
+	for ( QMap<double,uint>::Iterator it = X1sorted.begin(); it != X1sorted.end(); ++it )
+	{
+		if (it.data()==left)
+			continue;
+		if (it.data()==right && !usingDistance)
+			continue;
+		currX+=separation;
+
+		double diff=currX-AObjects[it.data()].x1;
+		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+			AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
+		currX+=AObjects[it.data()].width;
+	}
+	endAlign();
+}
+
+void ScribusDoc::itemSelection_DistributeBottom()
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	if (alignObjectsCount<=1)
+		return;
+	QMap<double,uint> Ysorted;
+	for (uint a = 0; a < alignObjectsCount; ++a)
+		Ysorted.insert(AObjects[a].y2, a, false);
+		
+	QMap<double,uint>::Iterator it = Ysorted.begin();
+	QMap<double,uint>::Iterator itend = Ysorted.end();
+	double minY=it.key();
+	double maxY=it.key();
+	while ( it != itend)
+	{
+		if (minY>it.key())
+			minY=it.key();
+		if (maxY<it.key())
+			maxY=it.key();
+		++it;
+	}
+		
+	double separation=(maxY-minY)/static_cast<double>(alignObjectsCount-1);
+	int i=0;
+	for ( QMap<double,uint>::Iterator it = Ysorted.begin(); it != Ysorted.end(); ++it )
+	{
+		double diff=minY + i*separation-AObjects[it.data()].y2;
+		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+			AObjects[it.data()].Objects.at(j)->moveBy(0.0, diff);
+		i++;
+	}
+	endAlign();
+}
+
+void ScribusDoc::itemSelection_DistributeCenterV()
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	if (alignObjectsCount<=1)
+		return;
+	QMap<double,uint> Ysorted;
+	for (uint a = 0; a < alignObjectsCount; ++a)
+		Ysorted.insert(AObjects[a].y1+(AObjects[a].height)/2, a, false);
+		
+	QMap<double,uint>::Iterator it = Ysorted.begin();
+	QMap<double,uint>::Iterator itend = Ysorted.end();
+	double minY=it.key();
+	double maxY=it.key();
+	while ( it != itend)
+	{
+		if (minY>it.key())
+			minY=it.key();
+		if (maxY<it.key())
+			maxY=it.key();
+		++it;
+	}
+		
+	double separation=(maxY-minY)/static_cast<double>(alignObjectsCount-1);
+	int i=0;
+	for ( QMap<double,uint>::Iterator it = Ysorted.begin(); it != Ysorted.end(); ++it )
+	{
+		double diff=minY + i*separation-AObjects[it.data()].y1-(AObjects[it.data()].height)/2;
+		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+			AObjects[it.data()].Objects.at(j)->moveBy(0.0, diff);
+		i++;
+	}
+	endAlign();
+}
+
+void ScribusDoc::itemSelection_DistributeTop()
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	if (alignObjectsCount<=1)
+		return;
+	QMap<double,uint> Ysorted;
+	for (uint a = 0; a < alignObjectsCount; ++a)
+		Ysorted.insert(AObjects[a].y1, a, false);
+		
+	QMap<double,uint>::Iterator it = Ysorted.begin();
+	QMap<double,uint>::Iterator itend = Ysorted.end();
+	double minY=it.key();
+	double maxY=it.key();
+	while ( it != itend)
+	{
+		if (minY>it.key())
+			minY=it.key();
+		if (maxY<it.key())
+			maxY=it.key();
+		++it;
+	}
+		
+	double separation=(maxY-minY)/static_cast<double>(alignObjectsCount-1);
+	int i=0;
+	for ( QMap<double,uint>::Iterator it = Ysorted.begin(); it != Ysorted.end(); ++it )
+	{
+		double diff=minY + i*separation-AObjects[it.data()].y1;
+		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+			AObjects[it.data()].Objects.at(j)->moveBy(0.0,diff);
+		i++;
+	}
+	endAlign();
+}
+
+void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distance)
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	if (alignObjectsCount<=1)
+		return;
+	QMap<double,uint> Y1sorted, Y2sorted;
+	for (uint a = 0; a < alignObjectsCount; ++a)
+	{
+		Y1sorted.insert(AObjects[a].y1, a, false);
+		Y2sorted.insert(AObjects[a].y2, a, false);
+	}	
+	uint top=Y1sorted.begin().data();
+	uint bottom=Y2sorted[Y2sorted.keys().back()];
+	double minY=AObjects[top].y2;
+	double separation;
+	if (!usingDistance)
+	{
+		double maxY=AObjects[bottom].y1;
+		double totalSpace=maxY-minY;
+		double totalHeight=0;
+		uint insideObjectCount=0;
+		for (uint a = 0; a < alignObjectsCount; ++a)
+		{
+			if (a==top)
+				continue;
+			if (a==bottom)
+				continue;
+			totalHeight += AObjects[a].height;
+			++insideObjectCount;
+		}
+		separation=(totalSpace-totalHeight)/(insideObjectCount+1);
+	}
+	else
+		separation=value2pts(distance, unitIndex());
+	double currY=minY;
+	for ( QMap<double,uint>::Iterator it = Y1sorted.begin(); it != Y1sorted.end(); ++it )
+	{
+		if (it.data()==top)
+			continue;
+		if (it.data()==bottom && !usingDistance)
+			continue;
+		currY+=separation;
+
+		double diff=currY-AObjects[it.data()].y1;
+		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+			AObjects[it.data()].Objects.at(j)->moveBy(0.0,diff);
+		currY+=AObjects[it.data()].height;
+	}
+	endAlign();
+	usingDistance=false;
+}
+
+
 
 void ScribusDoc::changed()
 {

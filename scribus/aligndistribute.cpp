@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "aligndistribute.moc"
 #include "page.h"
 #include "scmessagebox.h"
-#include "scribus.h"
+//#include "scribus.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include "undomanager.h"
@@ -62,7 +62,6 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 {
 	if ( !name )
 		setName( "AlignDistributePalette" );
-	ScMW = (ScribusMainWindow *)parent;
 	currDoc=NULL;
 	AlignDistributePaletteLayout = new QVBoxLayout( this, 5, 6, "AlignDistributePaletteLayout"); 
 
@@ -210,7 +209,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	alignRelativeToLabel->setBuddy( alignRelativeToCombo );
 	distributeDistLabel->setBuddy( distributeDistMSpinBox );
 	init();
-	setView(NULL);
+	setDoc(NULL);
 }
 
 /*
@@ -343,7 +342,6 @@ void AlignDistributePalette::init()
 	connect(alignRelativeToCombo, SIGNAL(activated(int)), this, SLOT(alignToChanged(int)));
 	
 	unitRatio=1.0;
-	usingDistance=false;
 	guideDirection=-1;
 	
 	guideInfoText = guideInfoTextNone;
@@ -365,883 +363,141 @@ void AlignDistributePalette::unitChange()
 	}
 }
 
-void AlignDistributePalette::setView( ScribusView * newView )
+void AlignDistributePalette::setDoc( ScribusDoc* newDoc )
 {
-	currView=newView;
-	if (currView!=NULL)
-	{
-		currDoc=currView->Doc;
+	currDoc=newDoc;
+	if (currDoc!=NULL)
 		alignObjects=&(currDoc->AObjects);
-	}
 	else
-	{
-		currDoc=NULL;
 		alignObjects=NULL;
-	}
 	unitChange();
 }
 
-bool AlignDistributePalette::startAlign()
-{
-	currDoc->buildAlignItemList();
-	alignObjectsCount=alignObjects->count();
-	if (alignObjectsCount==0)
-		return false;
-		
-	bool oneLocked=false;
-	for (uint i = 0; i < alignObjectsCount; ++i)
-			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				if ((*alignObjects)[i].Objects.at(j)->locked())
-					oneLocked=true;
-	if (oneLocked)
-	{
-		int t = ScMessageBox::warning(ScMW, CommonStrings::trWarning,
-											tr("Some objects are locked."),
-											tr("&Unlock All"), CommonStrings::tr_Cancel,
-											0, 0);
-		if (t == 1)
-			return false;
-		for (uint i = 0; i < alignObjectsCount; ++i)
-			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				if ((*alignObjects)[i].Objects.at(j)->locked())
-					(*alignObjects)[i].Objects.at(j)->setLocked(false);
-	}
-	
-	QString targetTooltip = Um::ItemsInvolved + "\n";
-	for (uint i = 0; i < currDoc->m_Selection->count(); ++i)
-		targetTooltip += "\t" + currDoc->m_Selection->itemAt(i)->getUName() + "\n";
-		// Make the align action a single action in Action History
-	undoManager->beginTransaction(Um::Selection, 0, Um::AlignDistribute, targetTooltip, Um::IAlignDistribute);
-	return true;
-}
-
-void AlignDistributePalette::endAlign()
-{
-	emit documentChanged();
-	ScMW->HaveNewSel(currDoc->m_Selection->itemAt(0)->itemType());
-	for (uint i = 0; i < currDoc->m_Selection->count(); ++i)
-		currDoc->setRedrawBounding(currDoc->m_Selection->itemAt(i));
-	undoManager->commit(); // commit and send the action to the UndoManager
-	currView->updateContents();
-}
-
-
 void AlignDistributePalette::alignLeftOut()
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
-		double newX = 99999.9;
-		switch ( currAlignTo ) 
-		{
-			case First:
-				newX = (*alignObjects)[0].x1;
-				loopStart=1;
-				break;
-			case Last:
-				newX = (*alignObjects)[alignObjectsCount-1].x1;
-				loopEnd=alignObjectsCount-2;
-				break;
-			case Page:
-				newX = currDoc->currentPage()->xOffset();
-				break;
-			case Margins:
-				newX = currDoc->currentPage()->xOffset();
-				newX += currDoc->currentPage()->Margins.Left;
-				break;
-			case Guide:
-				newX=currDoc->currentPage()->xOffset() + guidePosition;
-				break;
-			case Selection:
-				for (uint a = 0; a < alignObjectsCount; ++a)
-					newX = QMIN((*alignObjects)[a].x1, newX);
-				break;
-		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
-		{
-			double diff=newX-(*alignObjects)[i].x2;
-			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->moveBy(diff, 0.0);
-		}
-		endAlign();
-	}
+	if (currDoc!=NULL)
+		currDoc->itemSelection_AlignLeftOut(currAlignTo, guidePosition);
 }
 
 void AlignDistributePalette::alignLeftIn()
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
-		double newX = 99999.9;
-		switch ( currAlignTo ) 
-		{
-			case First:
-				newX = (*alignObjects)[0].x1;
-				loopStart=1;
-				break;
-			case Last:
-				newX = (*alignObjects)[alignObjectsCount-1].x1;
-				loopEnd=alignObjectsCount-2;
-				break;
-			case Page:
-				newX = currDoc->currentPage()->xOffset();
-				break;
-			case Margins:
-				newX = currDoc->currentPage()->xOffset();
-				newX += currDoc->currentPage()->Margins.Left;
-				break;
-			case Guide:
-				newX=currDoc->currentPage()->xOffset() + guidePosition;
-				break;
-			case Selection:
-				for (uint a = 0; a < alignObjectsCount; ++a)
-					newX = QMIN((*alignObjects)[a].x1, newX);
-				break;
-		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
-		{
-			double diff=newX-(*alignObjects)[i].x1;
-			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->moveBy(diff, 0.0);
-		}
-		endAlign();
-	}
+	if (currDoc!=NULL)
+		currDoc->itemSelection_AlignLeftIn(currAlignTo, guidePosition);
 }
 
 void AlignDistributePalette::alignCenterHor()
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
-		double newX;
-		switch ( currAlignTo ) 
-		{
-			case First:
-				newX = (*alignObjects)[0].x1 + ((*alignObjects)[0].width)/2;
-				loopStart=1;
-				break;
-			case Last:
-				{
-					int objindex=alignObjectsCount-1;
-					newX = (*alignObjects)[objindex].x1 + ((*alignObjects)[objindex].width)/2;
-					loopEnd=alignObjectsCount-2;
-				}
-				break;
-			case Page:
-				newX = currDoc->currentPage()->xOffset();
-				newX += currDoc->currentPage()->width()/2;
-				break;
-			case Margins:
-				newX = currDoc->currentPage()->xOffset();
-				newX += currDoc->currentPage()->Margins.Left;
-				newX += (currDoc->currentPage()->width() - currDoc->currentPage()->Margins.Right - currDoc->currentPage()->Margins.Left)/2;
-				break;
-			case Guide:
-				newX=currDoc->currentPage()->xOffset() + guidePosition;
-				break;
-			case Selection:
-				double minX=99999.9, maxX=-99999.9;
-				for (uint a = 0; a < alignObjectsCount; ++a)
-				{
-					minX = QMIN((*alignObjects)[a].x1, minX);
-					maxX = QMAX((*alignObjects)[a].x2, maxX);
-				}
-				newX = minX + (maxX-minX)/2;
-				break;
-		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
-		{
-			double diff=newX-(*alignObjects)[i].x1-((*alignObjects)[i].width)/2;
-			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->moveBy(diff, 0.0);
-		}
-		endAlign();
-	}
+	if (currDoc!=NULL)
+		currDoc->itemSelection_AlignCenterHor(currAlignTo, guidePosition);
 }
 
 void AlignDistributePalette::alignRightIn()
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
-		double newX = -99999.9;
-		switch ( currAlignTo ) 
-		{
-			case First:
-				newX = (*alignObjects)[0].x2;
-				loopStart=1;
-				break;
-			case Last:
-				newX = (*alignObjects)[alignObjectsCount-1].x2;
-				loopEnd=alignObjectsCount-2;
-				break;
-			case Page:
-				newX = currDoc->currentPage()->xOffset();
-				newX += currDoc->currentPage()->width();;
-				break;
-			case Margins:
-				newX = currDoc->currentPage()->xOffset();
-				newX += currDoc->currentPage()->width();;
-				newX -= currDoc->currentPage()->Margins.Right;
-				break;
-			case Guide:
-				newX=currDoc->currentPage()->xOffset() + guidePosition;
-				break;
-			case Selection:
-				for (uint a = 0; a < alignObjectsCount; ++a)
-					newX = QMAX((*alignObjects)[a].x2, newX);
-				break;
-		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
-		{
-			double diff=newX-(*alignObjects)[i].x2;
-			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->moveBy(diff, 0.0);
-		}
-		endAlign();
-	}
+	if (currDoc!=NULL)
+		currDoc->itemSelection_AlignRightIn(currAlignTo, guidePosition);
 }
 
 void AlignDistributePalette::alignRightOut()
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
-		double newX = -99999.9;
-		switch ( currAlignTo ) 
-		{
-			case First:
-				newX = (*alignObjects)[0].x2;
-				loopStart=1;
-				break;
-			case Last:
-				newX = (*alignObjects)[alignObjectsCount-1].x2;
-				loopEnd=alignObjectsCount-2;
-				break;
-			case Page:
-				newX = currDoc->currentPage()->xOffset();
-				newX += currDoc->currentPage()->width();
-				break;
-			case Margins:
-				newX = currDoc->currentPage()->xOffset();
-				newX += currDoc->currentPage()->width();
-				newX -= currDoc->currentPage()->Margins.Right;
-				break;
-			case Guide:
-				newX=currDoc->currentPage()->xOffset() + guidePosition;
-				break;
-			case Selection:
-				for (uint a = 0; a < alignObjectsCount; ++a)
-					newX = QMAX((*alignObjects)[a].x2, newX);
-				break;
-		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
-		{
-			double diff=newX-(*alignObjects)[i].x1;
-			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->moveBy(diff, 0.0);
-		}
-		endAlign();
-	}
+	if (currDoc!=NULL)
+		currDoc->itemSelection_AlignRightOut(currAlignTo, guidePosition);
 }
 
 void AlignDistributePalette::alignTopOut()
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
-		double newY = 99999.9;
-		switch ( currAlignTo ) 
-		{
-			case First:
-				newY = (*alignObjects)[0].y1;
-				loopStart=1;
-				break;
-			case Last:
-				newY = (*alignObjects)[alignObjectsCount-1].y1;
-				loopEnd=alignObjectsCount-2;
-				break;
-			case Page:
-				newY = currDoc->currentPage()->yOffset();
-				break;
-			case Margins:
-				newY = currDoc->currentPage()->yOffset();
-				newY += currDoc->currentPage()->Margins.Top;
-				break;
-			case Guide:
-				newY=currDoc->currentPage()->yOffset() + guidePosition;
-				break;
-			case Selection:
-				for (uint a = 0; a < alignObjectsCount; ++a)
-					newY = QMIN((*alignObjects)[a].y1, newY);
-				break;
-		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
-		{
-			double diff=newY-(*alignObjects)[i].y2;
-			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->moveBy(0.0, diff);
-		}
-		endAlign();
-	}
+	if (currDoc!=NULL)
+		currDoc->itemSelection_AlignTopOut(currAlignTo, guidePosition);
 }
 
 void AlignDistributePalette::alignTopIn()
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
-		double newY = 99999.9;
-		switch ( currAlignTo ) 
-		{
-			case First:
-				newY = (*alignObjects)[0].y1;
-				loopStart=1;
-				break;
-			case Last:
-				newY = (*alignObjects)[alignObjectsCount-1].y1;
-				loopEnd=alignObjectsCount-2;
-				break;
-			case Page:
-				newY = currDoc->currentPage()->yOffset();
-				break;
-			case Margins:
-				newY = currDoc->currentPage()->yOffset();
-				newY += currDoc->currentPage()->Margins.Top;
-				break;
-			case Guide:
-				newY=currDoc->currentPage()->yOffset() + guidePosition;
-				break;
-			case Selection:
-				for (uint a = 0; a < alignObjectsCount; ++a)
-					newY = QMIN((*alignObjects)[a].y1, newY);
-				break;
-		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
-		{
-			double diff=newY-(*alignObjects)[i].y1;
-			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->moveBy(0.0, diff);
-		}
-		endAlign();
-	}
+	if (currDoc!=NULL)
+		currDoc->itemSelection_AlignTopIn(currAlignTo, guidePosition);
 }
 
 
 void AlignDistributePalette::alignCenterVer()
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
-		double newY;
-		switch ( currAlignTo ) 
-		{
-			case First:
-				newY = (*alignObjects)[0].y1 + ((*alignObjects)[0].height)/2;
-				loopStart=1;
-				break;
-			case Last:
-				{
-					int objindex=alignObjectsCount-1;
-					newY = (*alignObjects)[objindex].y1 + ((*alignObjects)[objindex].height)/2;
-					loopEnd=alignObjectsCount-2;
-				}
-				break;
-			case Page:
-				newY = currDoc->currentPage()->yOffset();
-				newY += currDoc->currentPage()->height()/2;
-				break;
-			case Margins:
-				newY = currDoc->currentPage()->yOffset();
-				newY += currDoc->currentPage()->Margins.Top;
-				newY += (currDoc->currentPage()->height() - currDoc->currentPage()->Margins.Bottom - currDoc->currentPage()->Margins.Top)/2;
-				break;
-			case Guide:
-				newY=currDoc->currentPage()->yOffset() + guidePosition;
-				break;
-			case Selection:
-				double minY=99999.9, maxY=-99999.9;
-				for (uint a = 0; a < alignObjectsCount; ++a)
-				{
-					minY = QMIN((*alignObjects)[a].y1, minY);
-					maxY = QMAX((*alignObjects)[a].y2, maxY);
-				}
-				newY = minY + (maxY-minY)/2;
-				break;
-		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
-		{
-			double diff=newY-(*alignObjects)[i].y1-((*alignObjects)[i].height)/2;
-			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->moveBy(0.0, diff);
-		}
-		endAlign();
-	}
+	if (currDoc!=NULL)
+		currDoc->itemSelection_AlignCenterVer(currAlignTo, guidePosition);
 }
 
 
 void AlignDistributePalette::alignBottomIn()
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
-		double newY = -99999.9;
-		switch ( currAlignTo ) 
-		{
-			case First:
-				newY = (*alignObjects)[0].y2;
-				loopStart=1;
-				break;
-			case Last:
-				newY = (*alignObjects)[alignObjectsCount-1].y2;
-				loopEnd=alignObjectsCount-2;
-				break;
-			case Page:
-				newY = currDoc->currentPage()->yOffset();
-				newY += currDoc->currentPage()->height();
-				break;
-			case Margins:
-				newY = currDoc->currentPage()->yOffset();
-				newY += currDoc->currentPage()->height();
-				newY -= currDoc->currentPage()->Margins.Bottom;
-				break;
-			case Guide:
-				newY=currDoc->currentPage()->yOffset() + guidePosition;
-				break;
-			case Selection:
-				for (uint a = 0; a < alignObjectsCount; ++a)
-					newY = QMAX((*alignObjects)[a].y2, newY);
-				break;
-		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
-		{
-			double diff=newY-(*alignObjects)[i].y2;
-			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->moveBy(0.0, diff);
-		}
-		endAlign();
-	}
+	if (currDoc!=NULL)
+		currDoc->itemSelection_AlignBottomIn(currAlignTo, guidePosition);
 }
 
 void AlignDistributePalette::alignBottomOut()
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
-		double newY = -99999.9;
-		switch ( currAlignTo ) 
-		{
-			case First:
-				newY = (*alignObjects)[0].y2;
-				loopStart=1;
-				break;
-			case Last:
-				newY = (*alignObjects)[alignObjectsCount-1].y2;
-				loopEnd=alignObjectsCount-2;
-				break;
-			case Page:
-				newY = currDoc->currentPage()->yOffset();
-				newY += currDoc->currentPage()->height();
-				break;
-			case Margins:
-				newY = currDoc->currentPage()->yOffset();
-				newY += currDoc->currentPage()->height();
-				newY -= currDoc->currentPage()->Margins.Bottom;
-				break;
-			case Guide:
-				newY=currDoc->currentPage()->yOffset() + guidePosition;
-				break;
-			case Selection:
-				for (uint a = 0; a < alignObjectsCount; ++a)
-					newY = QMAX((*alignObjects)[a].y2, newY);
-				break;
-		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
-		{
-			double diff=newY-(*alignObjects)[i].y1;
-			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->moveBy(0.0, diff);
-		}
-		endAlign();
-	}
+	if (currDoc!=NULL)
+		currDoc->itemSelection_AlignBottomOut(currAlignTo, guidePosition);
 }
-
 
 void AlignDistributePalette::distributeLeft()
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		if (alignObjectsCount<=1)
-			return;
-		QMap<double,uint> Xsorted;
-		for (uint a = 0; a < alignObjectsCount; ++a)
-			Xsorted.insert((*alignObjects)[a].x1, a, false);
-			
-		QMap<double,uint>::Iterator it = Xsorted.begin();
-		QMap<double,uint>::Iterator itend = Xsorted.end();
-		double minX=it.key();
-		double maxX=it.key();
-		while ( it != itend)
-		{
-			if (minX>it.key())
-				minX=it.key();
-			if (maxX<it.key())
-				maxX=it.key();
-			++it;
-		}
-			
-		double separation=(maxX-minX)/static_cast<double>(alignObjectsCount-1);
-		int i=0;
-		for ( QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it )
-		{
-			double diff=minX + i*separation-(*alignObjects)[it.data()].x1;
-			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
-				(*alignObjects)[it.data()].Objects.at(j)->moveBy(diff, 0.0);
-			i++;
-		}
-		endAlign();
-	}
+	if (currDoc!=NULL)
+		currDoc->itemSelection_DistributeLeft();
 }
 
 void AlignDistributePalette::distributeCenterH()
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		if (alignObjectsCount<=1)
-			return;
-		QMap<double,uint> Xsorted;
-		for (uint a = 0; a < alignObjectsCount; ++a)
-			Xsorted.insert((*alignObjects)[a].x1+((*alignObjects)[a].width)/2, a, false);
-			
-		QMap<double,uint>::Iterator it = Xsorted.begin();
-		QMap<double,uint>::Iterator itend = Xsorted.end();
-		double minX=it.key();
-		double maxX=it.key();
-		while ( it != itend)
-		{
-			if (minX>it.key())
-				minX=it.key();
-			if (maxX<it.key())
-				maxX=it.key();
-			++it;
-		}
-			
-		double separation=(maxX-minX)/static_cast<double>(alignObjectsCount-1);
-		int i=0;
-		for ( QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it )
-		{
-			double diff=minX + i*separation-(*alignObjects)[it.data()].x1-((*alignObjects)[it.data()].width)/2;
-			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
-				(*alignObjects)[it.data()].Objects.at(j)->moveBy(diff, 0.0);
-			i++;
-		}
-		endAlign();
-	}
+	if (currDoc!=NULL)
+		currDoc->itemSelection_DistributeCenterH();
 }
 
 void AlignDistributePalette::distributeRight()
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		if (alignObjectsCount<=1)
-			return;
-		QMap<double,uint> Xsorted;
-		for (uint a = 0; a < alignObjectsCount; ++a)
-			Xsorted.insert((*alignObjects)[a].x2, a, false);
-			
-		QMap<double,uint>::Iterator it = Xsorted.begin();
-		QMap<double,uint>::Iterator itend = Xsorted.end();
-		double minX=it.key();
-		double maxX=it.key();
-		while ( it != itend)
-		{
-			if (minX>it.key())
-				minX=it.key();
-			if (maxX<it.key())
-				maxX=it.key();
-			++it;
-		}
-		
-		double separation=(maxX-minX)/static_cast<double>(alignObjectsCount-1);
-		int i=0;
-		for ( QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it )
-		{
-			double diff=minX + i*separation-(*alignObjects)[it.data()].x2;
-			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
-				(*alignObjects)[it.data()].Objects.at(j)->moveBy(diff, 0.0);
-			i++;
-		}
-		endAlign();
-	}
+	if (currDoc!=NULL)
+		currDoc->itemSelection_DistributeRight();
 }
 
-void AlignDistributePalette::distributeDistH()
+void AlignDistributePalette::distributeDistH(bool usingDistance)
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		if (alignObjectsCount<=1)
-			return;
-		QMap<double,uint> X1sorted, X2sorted;
-		for (uint a = 0; a < alignObjectsCount; ++a)
-		{
-			X1sorted.insert((*alignObjects)[a].x1, a, false);
-			X2sorted.insert((*alignObjects)[a].x2, a, false);
-		}	
-		uint left=X1sorted.begin().data();
-		uint right=X2sorted[X2sorted.keys().back()];
-		double minX=(*alignObjects)[left].x2;
-		double separation;
-		if (!usingDistance)
-		{
-			double maxX=(*alignObjects)[right].x1;
-			double totalSpace=maxX-minX;
-			double totalWidth=0;
-			uint insideObjectCount=0;
-			for (uint a = 0; a < alignObjectsCount; ++a)
-			{
-				if (a==left)
-					continue;
-				if (a==right)
-					continue;
-				totalWidth += (*alignObjects)[a].width;
-				++insideObjectCount;
-			}
-			separation=(totalSpace-totalWidth)/(insideObjectCount+1);
-		}
-		else
-			separation=value2pts(distributeDistMSpinBox->value(), currDoc->unitIndex());
-		double currX=minX;
-		for ( QMap<double,uint>::Iterator it = X1sorted.begin(); it != X1sorted.end(); ++it )
-		{
-			if (it.data()==left)
-				continue;
-			if (it.data()==right && !usingDistance)
-				continue;
-			currX+=separation;
-
-			double diff=currX-(*alignObjects)[it.data()].x1;
-			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
-				(*alignObjects)[it.data()].Objects.at(j)->moveBy(diff, 0.0);
-			currX+=(*alignObjects)[it.data()].width;
-		}
-		endAlign();
-	}
-	usingDistance=false;
+	if (currDoc!=NULL)
+		currDoc->itemSelection_DistributeDistH(usingDistance, distributeDistMSpinBox->value());
 }
 
 void AlignDistributePalette::distributeDistValH()
 {
-	usingDistance=true;
-	distributeDistH();
+	if (currDoc!=NULL)
+		distributeDistH(true);
 }
 
 void AlignDistributePalette::distributeBottom()
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		if (alignObjectsCount<=1)
-			return;
-		QMap<double,uint> Ysorted;
-		for (uint a = 0; a < alignObjectsCount; ++a)
-			Ysorted.insert((*alignObjects)[a].y2, a, false);
-			
-		QMap<double,uint>::Iterator it = Ysorted.begin();
-		QMap<double,uint>::Iterator itend = Ysorted.end();
-		double minY=it.key();
-		double maxY=it.key();
-		while ( it != itend)
-		{
-			if (minY>it.key())
-				minY=it.key();
-			if (maxY<it.key())
-				maxY=it.key();
-			++it;
-		}
-			
-		double separation=(maxY-minY)/static_cast<double>(alignObjectsCount-1);
-		int i=0;
-		for ( QMap<double,uint>::Iterator it = Ysorted.begin(); it != Ysorted.end(); ++it )
-		{
-			double diff=minY + i*separation-(*alignObjects)[it.data()].y2;
-			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
-				(*alignObjects)[it.data()].Objects.at(j)->moveBy(0.0, diff);
-			i++;
-		}
-		endAlign();
-	}
+	if (currDoc!=NULL)
+		currDoc->itemSelection_DistributeBottom();
 }
 
 void AlignDistributePalette::distributeCenterV()
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		if (alignObjectsCount<=1)
-			return;
-		QMap<double,uint> Ysorted;
-		for (uint a = 0; a < alignObjectsCount; ++a)
-			Ysorted.insert((*alignObjects)[a].y1+((*alignObjects)[a].height)/2, a, false);
-			
-		QMap<double,uint>::Iterator it = Ysorted.begin();
-		QMap<double,uint>::Iterator itend = Ysorted.end();
-		double minY=it.key();
-		double maxY=it.key();
-		while ( it != itend)
-		{
-			if (minY>it.key())
-				minY=it.key();
-			if (maxY<it.key())
-				maxY=it.key();
-			++it;
-		}
-			
-		double separation=(maxY-minY)/static_cast<double>(alignObjectsCount-1);
-		int i=0;
-		for ( QMap<double,uint>::Iterator it = Ysorted.begin(); it != Ysorted.end(); ++it )
-		{
-			double diff=minY + i*separation-(*alignObjects)[it.data()].y1-((*alignObjects)[it.data()].height)/2;
-			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
-				(*alignObjects)[it.data()].Objects.at(j)->moveBy(0.0, diff);
-			i++;
-		}
-		endAlign();
-	}
+	if (currDoc!=NULL)
+		currDoc->itemSelection_DistributeCenterV();
 }
 
 void AlignDistributePalette::distributeTop()
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		if (alignObjectsCount<=1)
-			return;
-		QMap<double,uint> Ysorted;
-		for (uint a = 0; a < alignObjectsCount; ++a)
-			Ysorted.insert((*alignObjects)[a].y1, a, false);
-			
-		QMap<double,uint>::Iterator it = Ysorted.begin();
-		QMap<double,uint>::Iterator itend = Ysorted.end();
-		double minY=it.key();
-		double maxY=it.key();
-		while ( it != itend)
-		{
-			if (minY>it.key())
-				minY=it.key();
-			if (maxY<it.key())
-				maxY=it.key();
-			++it;
-		}
-			
-		double separation=(maxY-minY)/static_cast<double>(alignObjectsCount-1);
-		int i=0;
-		for ( QMap<double,uint>::Iterator it = Ysorted.begin(); it != Ysorted.end(); ++it )
-		{
-			double diff=minY + i*separation-(*alignObjects)[it.data()].y1;
-			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
-				(*alignObjects)[it.data()].Objects.at(j)->moveBy(0.0,diff);
-			i++;
-		}
-		endAlign();
-	}
+	if (currDoc!=NULL)
+		currDoc->itemSelection_DistributeTop();
 }
 
-void AlignDistributePalette::distributeDistV()
+void AlignDistributePalette::distributeDistV(bool usingDistance)
 {
-	if (currView!=NULL)
-	{
-		if (!startAlign())
-			return;
-		if (alignObjectsCount<=1)
-			return;
-		QMap<double,uint> Y1sorted, Y2sorted;
-		for (uint a = 0; a < alignObjectsCount; ++a)
-		{
-			Y1sorted.insert((*alignObjects)[a].y1, a, false);
-			Y2sorted.insert((*alignObjects)[a].y2, a, false);
-		}	
-		uint top=Y1sorted.begin().data();
-		uint bottom=Y2sorted[Y2sorted.keys().back()];
-		double minY=(*alignObjects)[top].y2;
-		double separation;
-		if (!usingDistance)
-		{
-			double maxY=(*alignObjects)[bottom].y1;
-			double totalSpace=maxY-minY;
-			double totalHeight=0;
-			uint insideObjectCount=0;
-			for (uint a = 0; a < alignObjectsCount; ++a)
-			{
-				if (a==top)
-					continue;
-				if (a==bottom)
-					continue;
-				totalHeight += (*alignObjects)[a].height;
-				++insideObjectCount;
-			}
-			separation=(totalSpace-totalHeight)/(insideObjectCount+1);
-		}
-		else
-			separation=value2pts(distributeDistMSpinBox->value(), currDoc->unitIndex());
-		double currY=minY;
-		for ( QMap<double,uint>::Iterator it = Y1sorted.begin(); it != Y1sorted.end(); ++it )
-		{
-			if (it.data()==top)
-				continue;
-			if (it.data()==bottom && !usingDistance)
-				continue;
-			currY+=separation;
-
-			double diff=currY-(*alignObjects)[it.data()].y1;
-			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
-				(*alignObjects)[it.data()].Objects.at(j)->moveBy(0.0,diff);
-			currY+=(*alignObjects)[it.data()].height;
-		}
-		endAlign();
-	}
-	usingDistance=false;
+	if (currDoc!=NULL)
+		currDoc->itemSelection_DistributeDistV(usingDistance, distributeDistMSpinBox->value());
 }
 
 void AlignDistributePalette::distributeDistValV()
 {
-	usingDistance=true;
-	distributeDistV();
+	if (currDoc!=NULL)
+		distributeDistV(true);
 }
 
 void AlignDistributePalette::alignToChanged(int newAlignTo)
 {
-	currAlignTo=(AlignTo)newAlignTo;
+	currAlignTo=(ScribusDoc::AlignTo)newAlignTo;
 	enableGuideButtons();
 }
 
@@ -1269,12 +525,12 @@ void AlignDistributePalette::enableGuideButtons()
 	{
 		case -1:
 			guideInfoText = guideInfoTextNone;
-			if (currAlignTo==Guide)
+			if (currAlignTo==ScribusDoc::alignGuide)
 				setterH=setterV=false;
 			break;
 		case 0:
 			guideInfoText = tr("Y: %1%2").arg(guidePosition * unitRatio, 0, 'f', precision).arg(suffix);
-			if (currAlignTo==Guide)
+			if (currAlignTo==ScribusDoc::alignGuide)
 			{
 				setterV=false;
 				setterH=true;
@@ -1282,7 +538,7 @@ void AlignDistributePalette::enableGuideButtons()
 			break;
 		case 1:
 			guideInfoText = tr("X: %1%2").arg(guidePosition * unitRatio, 0, 'f', precision).arg(suffix);
-			if (currAlignTo==Guide)
+			if (currAlignTo==ScribusDoc::alignGuide)
 			{
 				setterV=true;
 				setterH=false;
@@ -1290,7 +546,7 @@ void AlignDistributePalette::enableGuideButtons()
 			break;
 	}
 	bool setterO=true;
-	if (currAlignTo==Guide)
+	if (currAlignTo==ScribusDoc::alignGuide)
 		setterO=false;
 		
 	alignLeftInToolButton->setEnabled(setterV);

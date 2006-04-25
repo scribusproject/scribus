@@ -1837,7 +1837,7 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 	view = new ScribusView(w, doc);
 	view->setScale(prefsManager->displayScale());
 	actionManager->connectNewViewActions(view);
-	alignDistributePalette->setView(view);
+	alignDistributePalette->setDoc(doc);
 	docCheckerPalette->clearErrorList();
 	w->setView(view);
 	ActWin = w;
@@ -1881,7 +1881,7 @@ void ScribusMainWindow::newView()
 	w->setView(view);
 	ActWin = w;
 	w->setCentralWidget(view);
-	alignDistributePalette->setView(view);
+	alignDistributePalette->setDoc(doc);
 	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 }
@@ -1965,7 +1965,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	}
 
 	pagePalette->setView(view);
-	alignDistributePalette->setView(view);
+	alignDistributePalette->setDoc(doc);
 	if (!doc->isLoading())
 	{
 		scanDocument();
@@ -3160,7 +3160,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		view = new ScribusView(w, doc);
 		view->setScale(prefsManager->displayScale());
 		w->setView(view);
-		alignDistributePalette->setView(view);
+		alignDistributePalette->setDoc(doc);
 		ActWin = w;
 		doc->WinHan = w;
 		w->setCentralWidget(view);
@@ -3172,7 +3172,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		bool cmsu = CMSuse;
 		CMSuse = false;
 #endif
-		ScMW->ScriptRunning = true;
+		ScriptRunning = true;
 		bool loadSuccess=fileLoader->LoadFile();
 		//Do the font replacement check from here, when we have a GUI. TODO do this also somehow without the GUI
 		//This also gives the user the opportunity to cancel the load when finding theres a replacement required.
@@ -3856,7 +3856,7 @@ bool ScribusMainWindow::DoFileClose()
 	bookmarkPalette->BView->First = 1;
 	bookmarkPalette->BView->Last = 0;
 	outlinePalette->unsetDoc();
-	alignDistributePalette->setView(NULL);
+	alignDistributePalette->setDoc(NULL);
 	//>>
 	if ((wsp->windowList().isEmpty()) || (wsp->windowList().count() == 1))
 	{

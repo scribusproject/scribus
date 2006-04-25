@@ -529,10 +529,11 @@ public:
 	 * @brief Update the fill and line QColors for all items in the doc
 	 */
 	void updateAllItemQColors();
-	/**
-	 * 
-	 */
-	void buildAlignItemList();
+	//! @brief Some internal align tools
+	typedef enum {alignFirst, alignLast, alignPage, alignMargins, alignGuide, alignSelection } AlignTo;
+	void buildAlignItemList(Selection* customSelection=0);
+	bool startAlign();
+	void endAlign();	
 	/**
 	 * \brief Insert a color into the documents color list
 	 * @param nam Name of the colour
@@ -836,6 +837,24 @@ public slots:
 	void itemSelection_SetImageOffset(double x, double y, Selection* customSelection=0);
 	void itemSelection_SetImageScale(double x, double y, Selection* customSelection=0);
 	void itemSelection_SetImageScaleAndOffset(double ox, double oy, double sx, double sy, Selection* customSelection=0);
+	void itemSelection_AlignLeftOut(AlignTo currAlignTo, double guidePosition);
+	void itemSelection_AlignRightOut(AlignTo currAlignTo, double guidePosition);
+	void itemSelection_AlignBottomIn(AlignTo currAlignTo, double guidePosition);
+	void itemSelection_AlignRightIn(AlignTo currAlignTo, double guidePosition);
+	void itemSelection_AlignBottomOut(AlignTo currAlignTo, double guidePosition);
+	void itemSelection_AlignCenterHor(AlignTo currAlignTo, double guidePosition);
+	void itemSelection_AlignLeftIn(AlignTo currAlignTo, double guidePosition);
+	void itemSelection_AlignCenterVer(AlignTo currAlignTo, double guidePosition);
+	void itemSelection_AlignTopOut(AlignTo currAlignTo, double guidePosition);
+	void itemSelection_AlignTopIn(AlignTo currAlignTo, double guidePosition);
+	void itemSelection_DistributeDistH(bool usingDistance=false, double distance=0.0);
+	void itemSelection_DistributeRight();
+	void itemSelection_DistributeBottom();
+	void itemSelection_DistributeCenterH();
+	void itemSelection_DistributeDistV(bool usingDistance=false, double distance=0.0);
+	void itemSelection_DistributeLeft();
+	void itemSelection_DistributeCenterV();
+	void itemSelection_DistributeTop();
 	
 	void ItemPen(QString farbe);
 	void ItemPenShade(int sha);
