@@ -613,7 +613,7 @@ void ActionManager::initToolsMenuActions()
 	name="toolsInsertFreehandLine";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/draw-freehand.png"), loadIcon("22/draw-freehand.png")), "", defKeys[name], mainWindow, name, modeDrawFreehandLine));
 	name="toolsRotate";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Rotieren.xpm"), loadIcon("Rotieren.xpm")), "", defKeys[name], mainWindow, name, modeRotation));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/transform-rotate.png"), loadIcon("22/transform-rotate.png")), "", defKeys[name], mainWindow, name, modeRotation));
 	name="toolsZoom";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("16/zoom.png"), loadIcon("22/zoom.png")), "", defKeys[name], mainWindow, name, modeMagnifier));
 	name="toolsZoomIn";

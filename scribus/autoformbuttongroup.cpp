@@ -269,7 +269,7 @@ void AutoformButtonGroup::selForm(int a)
 
 QPixmap AutoformButtonGroup::getIconPixmap(int nr)
 {
-	if (nr<12)
+	if (nr<16)
 	{
 		switch(nr)
 		{
@@ -297,6 +297,14 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr)
 				return loadIcon("22/draw-halfcircle3.png");
 			case 11:
 				return loadIcon("22/draw-halfcircle4.png");
+			case 12:
+				return loadIcon("22/draw-triangle1.png");
+			case 13:
+				return loadIcon("22/draw-triangle2.png");
+			case 14:
+				return loadIcon("22/draw-triangle3.png");
+			case 15:
+				return loadIcon("22/draw-triangle4.png");
 		}
 	}
 	int count = 0;

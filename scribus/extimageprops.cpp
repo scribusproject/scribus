@@ -113,7 +113,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 	layerTable->setNumRows( 0 );
 	layerTable->setNumCols( 3 );
 	QHeader *header = layerTable->horizontalHeader();
-	header->setLabel(0, loadIcon("Layervisible.xpm"), "");
+	header->setLabel(0, loadIcon("16/show-object.png"), "");
 	header->setLabel(1, "");
 	header->setLabel(2, tr("Name"));
 	layerTable->setColumnReadOnly(0, true);

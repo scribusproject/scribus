@@ -189,7 +189,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 		Table = new QTable( this );
 		Table->setNumRows( spots.count()+4 );
 		Table->setNumCols( 2 );
-		Table->horizontalHeader()->setLabel(0, loadIcon("Layervisible.xpm"), "");
+		Table->horizontalHeader()->setLabel(0, loadIcon("16/show-object.png"), "");
 		Table->horizontalHeader()->setLabel(1, tr("Separation Name"));
 		Table->setColumnReadOnly(0, true);
 		Table->setColumnReadOnly(1, true);
