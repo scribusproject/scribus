@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "docitemattrprefs.h"
+#include "docitemattrprefs.moc"
 
 #include <qstring.h>
 #include <qtable.h>
@@ -221,5 +222,3 @@ QStringList DocumentItemAttributes::getDocAttributesNames()
 		nameList.append((*it).name);
 	return nameList;
 }
-
-#include "docitemattrprefs.moc"
