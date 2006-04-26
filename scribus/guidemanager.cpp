@@ -84,20 +84,11 @@ GuideManager::GuideManager(QWidget* parent) :
 void GuideManager::setupPage()
 {
 	setEnabled(true);
-	horizontalList->clear();
-	verticalList->clear();
-	setupWidgets();
-}
-
-void GuideManager::setupWidgets()
-{
 	currentPage = ScMW->doc->currentPage();
 	unitChange();
 	resetMarginsForPage();
-	setGuidesFromList(horizontalList,
-					  currentPage->guides.horizontals(GuideManagerCore::Standard));
-	setGuidesFromList(verticalList,
-					  currentPage->guides.verticals(GuideManagerCore::Standard));
+	clearRestoreHorizontalList();
+	clearRestoreVerticalList();
 }
 
 void GuideManager::unitChange()

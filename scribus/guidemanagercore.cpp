@@ -335,7 +335,9 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 	for (it = horizontalAutoG.begin(); it != horizontalAutoG.end(); ++it)
 		if ((*it) >= 0 && (*it) <= m_page->height())
 			p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
-	ScMW->guidePalette->setupWidgets();
+
+	ScMW->guidePalette->clearRestoreHorizontalList();
+	ScMW->guidePalette->clearRestoreVerticalList();
 }
 
 bool GuideManagerCore::isMouseOnHorizontal(double low, double high, GuideType type)

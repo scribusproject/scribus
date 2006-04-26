@@ -67,9 +67,6 @@ public:
 	/*! \brief Set the widgets on the page change.
 	It has to be called on every page to page transition */
 	void setupPage();
-	/*! \brief Set the widgets on the list change etc.
-	It has to be called on every painting transition */
-	void setupWidgets();
 
 	/*! \brief Clear and reset the GUI horizontal list widget. */
 	void clearRestoreHorizontalList();
