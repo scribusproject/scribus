@@ -120,7 +120,7 @@ void PicSearch::GenPreview()
 {
 	QPixmap pm;
 	ScImage im;
-	im.LoadPicture(Bild, "", 0, false, false, 1, 72);
+	im.LoadPicture(Bild, "", 0, false, false, ScImage::RGBData, 72);
 	if ((im.width() > 200) || (im.height() > 200))
 	{
 		QImage im2;

@@ -62,8 +62,8 @@ extern bool BlackPoint;
 extern bool SoftProofing;
 extern bool Gamut;
 extern bool CMSuse;
-extern int IntentMonitor;
-extern int IntentPrinter;
+extern int IntentColors;
+extern int IntentImages;
 #endif
 
 ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( parent )
@@ -971,20 +971,20 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->HasCMS = currDoc->CMSSettings.CMSinUse;
 			currDoc->SoftProofing = currDoc->CMSSettings.SoftProofOn;
 			currDoc->Gamut = currDoc->CMSSettings.GamutCheck;
-			currDoc->IntentPrinter = currDoc->CMSSettings.DefaultIntentPrinter;
-			currDoc->IntentMonitor = currDoc->CMSSettings.DefaultIntentMonitor;
+			currDoc->IntentColors = currDoc->CMSSettings.DefaultIntentColors;
+			currDoc->IntentImages = currDoc->CMSSettings.DefaultIntentImages;
 			CMSuse = currDoc->CMSSettings.CMSinUse;
 			SoftProofing = currDoc->CMSSettings.SoftProofOn;
 			Gamut = currDoc->CMSSettings.GamutCheck;
 			BlackPoint = currDoc->CMSSettings.BlackPoint;
-			IntentPrinter = currDoc->CMSSettings.DefaultIntentPrinter;
-			IntentMonitor = currDoc->CMSSettings.DefaultIntentMonitor;
+			IntentColors = currDoc->CMSSettings.DefaultIntentColors;
+			IntentImages = currDoc->CMSSettings.DefaultIntentImages;
 			qApp->setOverrideCursor(QCursor(waitCursor), true);
 			bool newCM = currDoc->CMSSettings.CMSinUse;
 			currDoc->CMSSettings.CMSinUse = oldCM;
 			currDoc->CloseCMSProfiles();
 			currDoc->CMSSettings.CMSinUse = newCM;
-			if ( currDoc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->MonitorProfiles, ScCore->PrinterProfiles) )
+			if ( currDoc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles) )
 			{
 				stdProofG = currDoc->stdProof;
 				stdTransG = currDoc->stdTrans;
@@ -997,12 +997,18 @@ void ReformDoc::updateDocumentSettings()
 				stdTransRGBG = currDoc->stdTransRGB;
 				CMSoutputProf = currDoc->DocOutputProf;
 				CMSprinterProf = currDoc->DocPrinterProf;
-				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputProf)) == icSigRgbData)
+				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputRGBProf)) == icSigRgbData)
 					currDoc->CMSSettings.ComponentsInput2 = 3;
-				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputProf)) == icSigCmykData)
+				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputRGBProf)) == icSigCmykData)
 					currDoc->CMSSettings.ComponentsInput2 = 4;
-				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputProf)) == icSigCmyData)
+				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputRGBProf)) == icSigCmyData)
 					currDoc->CMSSettings.ComponentsInput2 = 3;
+				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputCMYKProf)) == icSigRgbData)
+					currDoc->CMSSettings.ComponentsInput3 = 3;
+				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputCMYKProf)) == icSigCmykData)
+					currDoc->CMSSettings.ComponentsInput3 = 4;
+				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputCMYKProf)) == icSigCmyData)
+					currDoc->CMSSettings.ComponentsInput3 = 3;
 				if (static_cast<int>(cmsGetColorSpace(currDoc->DocPrinterProf)) == icSigRgbData)
 					currDoc->CMSSettings.ComponentsPrinter = 3;
 				if (static_cast<int>(cmsGetColorSpace(currDoc->DocPrinterProf)) == icSigCmykData)
@@ -1010,10 +1016,10 @@ void ReformDoc::updateDocumentSettings()
 				if (static_cast<int>(cmsGetColorSpace(currDoc->DocPrinterProf)) == icSigCmyData)
 					currDoc->CMSSettings.ComponentsPrinter = 3;
 				currDoc->PDF_Options.SComp = currDoc->CMSSettings.ComponentsInput2;
-				currDoc->PDF_Options.SolidProf = currDoc->CMSSettings.DefaultSolidColorProfile;
+				currDoc->PDF_Options.SolidProf = currDoc->CMSSettings.DefaultSolidColorRGBProfile;
 				currDoc->PDF_Options.ImageProf = currDoc->CMSSettings.DefaultImageRGBProfile;
 				currDoc->PDF_Options.PrintProf = currDoc->CMSSettings.DefaultPrinterProfile;
-				currDoc->PDF_Options.Intent = currDoc->CMSSettings.DefaultIntentMonitor;
+				currDoc->PDF_Options.Intent = currDoc->CMSSettings.DefaultIntentColors;
 				ScMW->recalcColors(ScMW->mainWindowProgressBar);
 				currDoc->RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, ScMW->mainWindowProgressBar);
 			}

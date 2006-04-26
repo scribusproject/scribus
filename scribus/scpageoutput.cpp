@@ -28,6 +28,20 @@ ScPageOutput::ScPageOutput(ScribusDoc* doc, bool reloadImages, int resolution, b
 	m_useProfiles = useProfiles;
 }
 
+ScImage::RequestType ScPageOutput::translateImageModeToRequest( ScPainterExBase::ImageMode mode )
+{
+	ScImage::RequestType value = ScImage::RGBData;
+	if ( mode == ScPainterExBase::cmykImages )
+		value = ScImage::CMYKData;
+	else if ( mode == ScPainterExBase::rgbImages )
+		value = ScImage::RGBData;
+	else if ( mode == ScPainterExBase::rgbProofImages )
+		value = ScImage::RGBProof;
+	else if ( mode == ScPainterExBase::rawImages )
+		value = ScImage::RawData;
+	return value;
+}
+
 void ScPageOutput::DrawPage( Page* page, ScPainterExBase* painter)
 {
 	int clipx = static_cast<int>(page->xOffset());
@@ -677,7 +691,7 @@ void ScPageOutput::DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 				scImg.imgInfo.layerInfo.clear();
 				scImg.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
 				scImg.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
-				scImg.LoadPicture(item->Pfile, item->IProfile, 0, item->UseEmbedded, m_useProfiles, (int) imageMode, m_imageRes, &dummy);
+				scImg.LoadPicture(item->Pfile, item->IProfile, 0, item->UseEmbedded, m_useProfiles, translateImageModeToRequest(imageMode), m_imageRes, &dummy);
 				if( ext == "eps" || ext == "pdf" || ext == "ps" )
 				{
 					imScaleX *= (72.0 / (double) m_imageRes);
@@ -813,7 +827,7 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		if ((chx == QChar(30)) || (chx == QChar(13)) || (chx == QChar(9)) || (chx == QChar(28)))
 			continue;
 		chs = hl->csize;
-		item->SetZeichAttr(hl, &chs, &chx);
+		item->SetZeichAttr(*hl, &chs, &chx);
 		if (chx == QChar(29))
 			chx2 = " ";
 		else if (chx == QChar(24))
@@ -1204,7 +1218,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 							}
 						}
 					}
-					oldCurY = item->SetZeichAttr(hl, &chs, &chx);
+					oldCurY = item->SetZeichAttr(*hl, &chs, &chx);
 					if ((chx == QChar(9)) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
 					{
 						QString tabFillCharQStr(tTabValues[tabCc].tabFillChar);

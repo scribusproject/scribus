@@ -283,7 +283,7 @@ public:
 	bool deleteTaggedItems();
 
 	bool AddFont(QString name, int fsize = 10);
-	bool OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
+	bool OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL MoPo, ProfilesL PrPo);
 	void CloseCMSProfiles();
 	void loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles = NULL);
 	/**
@@ -723,7 +723,8 @@ public: // Public attributes
 	int GroupCounter;
 	CMSData CMSSettings;
 #ifdef HAVE_CMS
-	cmsHPROFILE DocInputProf;
+	cmsHPROFILE DocInputRGBProf;
+	cmsHPROFILE DocInputCMYKProf;
 	cmsHPROFILE DocOutputProf;
 	cmsHPROFILE DocPrinterProf;
 	cmsHTRANSFORM stdTrans;
@@ -737,8 +738,8 @@ public: // Public attributes
 	cmsHTRANSFORM stdProofCMYKGC;
 	bool SoftProofing;
 	bool Gamut;
-	int IntentMonitor;
-	int IntentPrinter;
+	int IntentColors;
+	int IntentImages;
 #endif
 	bool HasCMS;
 	QMap<QString,QString> JavaScripts;

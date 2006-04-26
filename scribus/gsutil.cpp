@@ -40,46 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribuscore.h"
 
-/*
-extern "C"
-{
-#define XMD_H           // shut JPEGlib up
-#if defined(Q_OS_UNIXWARE)
-#  define HAVE_BOOLEAN  // libjpeg under Unixware seems to need this
-#endif
-#include <jpeglib.h>
-#include <jerror.h>
-#undef HAVE_STDLIB_H
-#ifdef const
-#  undef const          // remove crazy C hackery in jconfig.h
-#endif
-}
-*/
 #include "scribus.h"
-/*
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_OUTLINE_H
-#include FT_GLYPH_H
-#ifdef HAVE_TIFF
-	#include <tiffio.h>
-#endif
-#ifdef HAVE_CMS
-	#include CMS_INC
-extern cmsHPROFILE CMSoutputProf;
-extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransG;
-extern cmsHTRANSFORM stdProofG;
-extern cmsHTRANSFORM stdTransImgG;
-extern cmsHTRANSFORM stdProofImgG;
-extern bool BlackPoint;
-extern bool SoftProofing;
-extern bool Gamut;
-extern bool CMSuse;
-extern int IntentMonitor;
-extern int IntentPrinter;
-#endif
-*/
 
 #include "util.h"
 

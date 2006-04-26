@@ -78,14 +78,14 @@ public:
 	\retval The Value
 	*/
 	double maxValue();
-	QString mapValueToText(int value);
+	virtual QString mapValueToText(int value);
 	/*!
 	\author Franz Schmid
 	\brief Maps the Text of the Spinbox to the Value, does Unit Conversion and Calculations
 	\param ok not used
 	\retval int The Value
 	*/
-	int mapTextToValue(bool *ok);
+	virtual int mapTextToValue(bool *ok);
 	int Decimals;
 	int Width;
 	QLineEdit *ed;

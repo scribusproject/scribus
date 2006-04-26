@@ -51,8 +51,8 @@ bool BlackPoint;
 bool SoftProofing;
 bool Gamut;
 bool SCRIBUS_API CMSuse;
-int IntentMonitor;
-int IntentPrinter;
+int IntentColors;
+int IntentImages;
 #endif
 bool CMSavail;
 
@@ -448,10 +448,15 @@ void ScribusCore::initCMS()
 			ip = InputProfilesCMYK.begin();
 			prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile = ip.key();
 		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile)))
+		if ((prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile)))
 		{
 			ip = InputProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile = ip.key();
+			prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile = ip.key();
+		}
+		if ((prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile.isEmpty()) || (!InputProfilesCMYK.contains(prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile)))
+		{
+			ip = InputProfilesCMYK.begin();
+			prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile = ip.key();
 		}
 		if ((prefsManager->appPrefs.DCMSset.DefaultMonitorProfile.isEmpty()) || (!MonitorProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultMonitorProfile)))
 		{
@@ -466,8 +471,8 @@ void ScribusCore::initCMS()
 #ifdef HAVE_CMS
 		SoftProofing = prefsManager->appPrefs.DCMSset.SoftProofOn;
 		CMSuse = false;
-		IntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
-		IntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
+		IntentColors = prefsManager->appPrefs.DCMSset.DefaultIntentColors;
+		IntentImages = prefsManager->appPrefs.DCMSset.DefaultIntentImages;
 #endif
 	}
 }

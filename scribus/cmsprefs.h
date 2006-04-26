@@ -33,17 +33,20 @@ public:
 	QLabel* text1CMYK;
 	QLabel* text3;
 	QLabel* text4;
-	QComboBox* inputP;
+	QLabel* text5;
+	QComboBox* inputPRGBIm;
+	QComboBox* inputPCMYKIm;
+	QComboBox* inputPRGB;
 	QComboBox* inputPCMYK;
-	QComboBox* inputP2;
 	QComboBox* monitorP;
 	QComboBox* printerP;
 	QGroupBox* render;
 	QLabel* text22;
-	QComboBox* monitorI;
-	QComboBox* printerI;
+	QComboBox* imagesI;
+	QComboBox* colorsI;
 	QLabel* text21;
 	QCheckBox* simulate;
+	QCheckBox* convertAll;
 	QCheckBox* gamutC;
 	QCheckBox* blackP;
 	CMSData *prefs;
@@ -61,6 +64,8 @@ protected:
 	QVBoxLayout* cmsPrefsLayout;
 	QGridLayout* sysProfilesLayout;
 	QGridLayout* renderLayout;
+	QHBoxLayout* convertLayout;
+	QHBoxLayout* gamutLayout;
 };
 
 #endif // CMSPREFS_H

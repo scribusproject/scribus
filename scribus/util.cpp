@@ -99,8 +99,8 @@ extern bool BlackPoint;
 extern bool SoftProofing;
 extern bool Gamut;
 extern bool CMSuse;
-extern int IntentMonitor;
-extern int IntentPrinter;
+extern int IntentColors;
+extern int IntentImages;
 #endif
 
 

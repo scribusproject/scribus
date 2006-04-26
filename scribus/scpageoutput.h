@@ -49,6 +49,8 @@ protected:
 	virtual void DrawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* painter );
 	virtual void DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, QRect e, double scale );
 
+	ScImage::RequestType translateImageModeToRequest( ScPainterExBase::ImageMode mode);
+
 public:
 
 	ScPageOutput(ScribusDoc* doc, bool reloadImages = false, int resolution = 72, bool useProfiles = false);

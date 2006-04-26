@@ -1023,6 +1023,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		doc->GroupCounter=dc.attribute("GROUPC", "1").toInt();
 		doc->HasCMS = static_cast<bool>(dc.attribute("HCMS", "0").toInt());
 		doc->CMSSettings.SoftProofOn = static_cast<bool>(dc.attribute("DPSo", "0").toInt());
+		doc->CMSSettings.SoftProofFullOn = static_cast<bool>(dc.attribute("DPSFo", "0").toInt());
 		doc->CMSSettings.CMSinUse = static_cast<bool>(dc.attribute("DPuse", "0").toInt());
 		doc->CMSSettings.GamutCheck = static_cast<bool>(dc.attribute("DPgam", "0").toInt());
 		doc->CMSSettings.BlackPoint = static_cast<bool>(dc.attribute("DPbla", "1").toInt());
@@ -1030,10 +1031,15 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		doc->CMSSettings.DefaultPrinterProfile = dc.attribute("DPPr","");
 		doc->CMSSettings.DefaultImageRGBProfile = dc.attribute("DPIn","");
 		doc->CMSSettings.DefaultImageCMYKProfile = dc.attribute("DPInCMYK","");
-		doc->CMSSettings.DefaultSolidColorProfile = dc.attribute("DPIn2","");
-		doc->CMSSettings.DefaultIntentPrinter = dc.attribute("DIPr", "0").toInt();
-		doc->CMSSettings.DefaultIntentMonitor = dc.attribute("DIMo", "1").toInt();
-		doc->CMSSettings.DefaultIntentImages = dc.attribute("DIMo2", "1").toInt();
+		doc->CMSSettings.DefaultSolidColorRGBProfile = dc.attribute("DPIn2","");
+		if (dc.hasAttribute("DPIn3"))
+			doc->CMSSettings.DefaultSolidColorCMYKProfile = dc.attribute("DPIn3","");
+		else
+			doc->CMSSettings.DefaultSolidColorCMYKProfile = dc.attribute("DPPr","");
+		//doc->CMSSettings.DefaultIntentPrinter = dc.attribute("DIPr", "0").toInt();
+		//doc->CMSSettings.DefaultIntentMonitor = dc.attribute("DIMo", "1").toInt();
+		doc->CMSSettings.DefaultIntentColors = dc.attribute("DISc", "1").toInt();
+		doc->CMSSettings.DefaultIntentImages = dc.attribute("DIIm", "0").toInt();
 		layerToSetActive=dc.attribute("ALAYER", "0").toInt();
 		doc->Language = dc.attribute("LANGUAGE", "");
 		doc->MinWordLen = dc.attribute("MINWORDLEN", "3").toInt();

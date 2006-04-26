@@ -196,8 +196,8 @@ extern bool BlackPoint;
 extern bool SoftProofing;
 extern bool Gamut;
 extern bool SCRIBUS_API CMSuse;
-extern int IntentMonitor;
-extern int IntentPrinter;
+extern int IntentColors;
+extern int IntentImages;
 #endif
 extern bool CMSavail;
 
@@ -2071,8 +2071,8 @@ void ScribusMainWindow::SwitchWin()
 #ifdef HAVE_CMS
 	SoftProofing = doc->SoftProofing;
 	Gamut = doc->Gamut;
-	IntentPrinter = doc->IntentPrinter;
-	IntentMonitor = doc->IntentMonitor;
+	IntentColors = doc->IntentColors;
+	IntentImages = doc->IntentImages;
 	stdProofG = doc->stdProof;
 	stdTransG = doc->stdTrans;
 	stdProofImgG = doc->stdProofImg;
@@ -3232,13 +3232,16 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		{
 			doc->CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
 			doc->CMSSettings.DefaultImageCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile;
-			doc->CMSSettings.DefaultSolidColorProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile;
+			doc->CMSSettings.DefaultSolidColorRGBProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
+			doc->CMSSettings.DefaultSolidColorCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile;
 			doc->CMSSettings.DefaultMonitorProfile = prefsManager->appPrefs.DCMSset.DefaultMonitorProfile;
 			doc->CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.DCMSset.DefaultPrinterProfile;
-			doc->CMSSettings.DefaultIntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
-			doc->CMSSettings.DefaultIntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
+			//doc->CMSSettings.DefaultIntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
+			//doc->CMSSettings.DefaultIntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
+			doc->CMSSettings.DefaultIntentColors = prefsManager->appPrefs.DCMSset.DefaultIntentColors;
 			doc->CMSSettings.DefaultIntentImages = prefsManager->appPrefs.DCMSset.DefaultIntentImages;
 			doc->CMSSettings.SoftProofOn = prefsManager->appPrefs.DCMSset.SoftProofOn;
+			doc->CMSSettings.SoftProofFullOn = prefsManager->appPrefs.DCMSset.SoftProofFullOn;
 			doc->CMSSettings.GamutCheck = prefsManager->appPrefs.DCMSset.GamutCheck;
 			doc->CMSSettings.BlackPoint = prefsManager->appPrefs.DCMSset.BlackPoint;
 			doc->CMSSettings.CMSinUse = false;
@@ -3255,12 +3258,19 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				replacement.append(prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile);
 				doc->CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
 			}
-			if (!ScCore->InputProfiles.contains(doc->CMSSettings.DefaultSolidColorProfile))
+			if (!ScCore->InputProfiles.contains(doc->CMSSettings.DefaultSolidColorRGBProfile))
 			{
 				cmsWarning = true;
-				missing.append(doc->CMSSettings.DefaultSolidColorProfile);
-				replacement.append(prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile);
-				doc->CMSSettings.DefaultSolidColorProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile;
+				missing.append(doc->CMSSettings.DefaultSolidColorRGBProfile);
+				replacement.append(prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile);
+				doc->CMSSettings.DefaultSolidColorRGBProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
+			}
+			if (!ScCore->InputProfilesCMYK.contains(doc->CMSSettings.DefaultSolidColorCMYKProfile))
+			{
+				cmsWarning = true;
+				missing.append(doc->CMSSettings.DefaultSolidColorCMYKProfile);
+				replacement.append(prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile);
+				doc->CMSSettings.DefaultSolidColorCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile;
 			}
 			if (!ScCore->MonitorProfiles.contains(doc->CMSSettings.DefaultMonitorProfile))
 			{
@@ -3294,8 +3304,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			{
 				cmsWarning = true;
 				missing.append(doc->PDF_Options.SolidProf);
-				replacement.append(prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile);
-				doc->PDF_Options.SolidProf = doc->CMSSettings.DefaultSolidColorProfile;
+				replacement.append(prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile);
+				doc->PDF_Options.SolidProf = doc->CMSSettings.DefaultSolidColorRGBProfile;
 			}
 			if ((cmsWarning) && (doc->HasCMS))
 			{
@@ -3311,13 +3321,13 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			doc->SoftProofing = doc->CMSSettings.SoftProofOn;
 			doc->Gamut = doc->CMSSettings.GamutCheck;
 			CMSuse = doc->CMSSettings.CMSinUse;
-			doc->IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
-			doc->IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
+			doc->IntentColors = doc->CMSSettings.DefaultIntentColors;
+			doc->IntentImages = doc->CMSSettings.DefaultIntentImages;
 			SoftProofing = doc->CMSSettings.SoftProofOn;
 			Gamut = doc->CMSSettings.GamutCheck;
-			IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
-			IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
-			if (doc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->MonitorProfiles, ScCore->PrinterProfiles))
+			IntentColors = doc->CMSSettings.DefaultIntentColors;
+			IntentImages = doc->CMSSettings.DefaultIntentImages;
+			if (doc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles))
 			{
 				CMSuse = doc->CMSSettings.CMSinUse;
 				stdProofG = doc->stdProof;
@@ -3331,12 +3341,18 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				stdProofCMYKGCG = doc->stdProofCMYKGC;
 				CMSoutputProf = doc->DocOutputProf;
 				CMSprinterProf = doc->DocPrinterProf;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputRGBProf)) == icSigRgbData)
 					doc->CMSSettings.ComponentsInput2 = 3;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmykData)
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputRGBProf)) == icSigCmykData)
 					doc->CMSSettings.ComponentsInput2 = 4;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmyData)
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputRGBProf)) == icSigCmyData)
 					doc->CMSSettings.ComponentsInput2 = 3;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputCMYKProf)) == icSigRgbData)
+					doc->CMSSettings.ComponentsInput3 = 3;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputCMYKProf)) == icSigCmykData)
+					doc->CMSSettings.ComponentsInput3 = 4;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputCMYKProf)) == icSigCmyData)
+					doc->CMSSettings.ComponentsInput3 = 3;
 				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigRgbData)
 					doc->CMSSettings.ComponentsPrinter = 3;
 				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmykData)
@@ -3863,8 +3879,8 @@ bool ScribusMainWindow::DoFileClose()
 #ifdef HAVE_CMS
 		CMSuse = false;
 		SoftProofing = prefsManager->appPrefs.DCMSset.SoftProofOn;
-		IntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
-		IntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
+		IntentColors = prefsManager->appPrefs.DCMSset.DefaultIntentColors;
+		IntentImages = prefsManager->appPrefs.DCMSset.DefaultIntentImages;
 #endif
 		scrActions["fileDocSetup"]->setEnabled(false);
 		scrActions["filePrint"]->setEnabled(false);

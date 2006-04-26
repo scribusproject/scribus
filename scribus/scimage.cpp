@@ -21,8 +21,8 @@ extern bool BlackPoint;
 extern bool SoftProofing;
 extern bool Gamut;
 extern bool CMSuse;
-extern int IntentMonitor;
-extern int IntentPrinter;
+extern int IntentColors;
+extern int IntentImages;
 #endif
 #include "gsutil.h"
 #include "exif.h"
@@ -3498,7 +3498,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 
 bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 						  int rend, bool useEmbedded, bool useProf,
-						  int requestType, int gsRes, bool *realCMYK)
+						  RequestType requestType, int gsRes, bool *realCMYK)
 {
 	// requestType - 0: CMYK, 1: RGB, 2: RGB Proof 3 : RawData, 4: Thumbnail
 	// gsRes - is the resolution that ghostscript will render at
@@ -3509,7 +3509,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	bool bilevel = false;
 	float xres, yres;
 	short resolutionunit = 0;
-	int reqType = requestType;
+	RequestType reqType = requestType;
 #ifdef HAVE_CMS
 	cmsHTRANSFORM xform = 0;
 	cmsHPROFILE inputProf = 0;
@@ -3531,8 +3531,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	{
 		imgInfo.typ = 4;
 		imgInfo.exifDataValid = false;
-		if (reqType == 4)
-			reqType = 1;
+		if (reqType == Thumbnail)
+			reqType = RGBData;
 		QStringList args;
 		xres = gsRes;
 		yres = gsRes;
@@ -3574,8 +3574,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	{
 		imgInfo.typ = 3;
 		imgInfo.exifDataValid = false;
-		if (reqType == 4)
-			reqType = 1;
+		if (reqType == Thumbnail)
+			reqType = RGBData;
 		QFile f(fn);
 		if (f.open(IO_ReadOnly))
 		{
@@ -3673,8 +3673,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	else if ((ext == "tif") || (ext == "tiff"))
 	{
 		imgInfo.typ = 1;
-		if (reqType == 4)
-			reqType = 1;
+		if (reqType == Thumbnail)
+			reqType = RGBData;
 		QImage img2;
 		TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
 		if(tif)
@@ -3874,7 +3874,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				return ret;
 			iccbuf = 0;
 			icclen = 0;
-			if (reqType == 4)
+			if (reqType == Thumbnail)
 				header.reserved[0] = 't';
 			if( !LoadPSD(s, header) )
 				return ret;
@@ -3915,7 +3915,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			xres = imgInfo.xres;
 			yres = imgInfo.yres;
 			f.close();
-			if (reqType == 4)
+			if (reqType == Thumbnail)
 			{
 				if (!imgInfo.exifInfo.thumbnail.isNull())
 				{
@@ -3936,7 +3936,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 					return true;
 				}
 				else
-					reqType = 1;
+					reqType = RGBData;
 			}
 			imgInfo.exifInfo.width = header.width;
 			imgInfo.exifInfo.height = header.height;
@@ -3975,7 +3975,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		bool exi = ExifInf.scan(fn);
 		if ((exi) && (ExifInf.exifDataValid))
 		{
-			if ((!ExifInf.isNullThumbnail()) && (reqType == 4))
+			if ((!ExifInf.isNullThumbnail()) && (reqType == Thumbnail))
 				*this = ExifInf.getThumbnail();
 			imgInfo.exifInfo.cameraName = ExifInf.getCameraModel();
 			imgInfo.exifInfo.cameraVendor = ExifInf.getCameraMake();
@@ -4010,7 +4010,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			else if (cinfo.output_components == 1)
 				imgInfo.colorspace = 2;
 			imgInfo.progressive = jpeg_has_multiple_scans(&cinfo);
-			if ((!ExifInf.isNullThumbnail()) && (reqType == 4))
+			if ((!ExifInf.isNullThumbnail()) && (reqType == Thumbnail))
 			{
 				jpeg_destroy_decompress(&cinfo);
 				fclose(infile);
@@ -4018,14 +4018,14 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			}
 			else
 			{
-				if (reqType == 4)
-					reqType = 1;
+				if (reqType == Thumbnail)
+					reqType = RGBData;
 			}
 		}
 		else
 			imgInfo.exifDataValid = false;
-		if (reqType == 4)
-			reqType = 1;
+		if (reqType == Thumbnail)
+			reqType = RGBData;
 #ifdef HAVE_CMS
 		unsigned int EmbedLen = 0;
 		unsigned char* EmbedBuffer;
@@ -4273,15 +4273,15 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			cmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
 		switch (reqType)
 		{
-		case 0: // CMYK
+		case CMYKData: // CMYK
 			if (!isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, TYPE_CMYK_8, IntentPrinter, 0);
+				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, TYPE_CMYK_8, IntentImages, 0);
 			break;
-		case 1: // RGB
+		case RGBData: // RGB
 			if (isCMYK)
 				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSoutputProf, TYPE_RGBA_8, rend, 0);
 			break;
-		case 2: // RGB Proof
+		case RGBProof: // RGB Proof
 			{
 				if (inputProfFormat==TYPE_CMYK_8)
 					inputProfFormat=(COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
@@ -4290,13 +4290,13 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				if (SoftProofing)
 					xform = cmsCreateProofingTransform(inputProf, inputProfFormat,
 					                                   CMSoutputProf, TYPE_BGRA_8, CMSprinterProf,
-					                                   IntentPrinter, rend, cmsFlags);
+					                                   IntentImages, rend, cmsFlags);
 				else
 					xform = cmsCreateTransform(inputProf, inputProfFormat,
 					                           CMSoutputProf, TYPE_BGRA_8, rend, cmsFlags);
 			}
 			break;
-		case 3: // no Conversion just raw Data
+		case RawData: // no Conversion just raw Data
 			xform = 0;
 			break;
 		}
@@ -4308,7 +4308,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				cmsDoTransform(xform, ptr, ptr, width());
 				// if transforming from CMYK to RGB, flatten the alpha channel
 				// which will still contain the black channel
-				if (isCMYK && reqType != 0 && !bilevel)
+				if (isCMYK && reqType != CMYKData && !bilevel)
 				{
 					QRgb *p = (QRgb *) ptr;
 					QRgb alphaFF = qRgba(0,0,0,255);
@@ -4328,7 +4328,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	{
 		switch (reqType)
 		{
-		case 0:
+		case CMYKData:
 			if (!isCMYK)
 			{
 				for (int i = 0; i < height(); i++)
@@ -4346,8 +4346,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				}
 			}
 			break;
-		case 1:
-		case 2:
+		case RGBData:
+		case RGBProof:
 			if (isCMYK)
 			{
 				for (int i = 0; i < height(); i++)
@@ -4365,11 +4365,11 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				}
 			}
 			break;
-		case 3:
+		case RawData:
 			break;
 		}
 	}
-	if ((reqType == 0 || isCMYK) && !bilevel)
+	if ((reqType == CMYKData || isCMYK) && !bilevel)
 		setAlphaBuffer(false);
 /*	setDotsPerMeterX (QMAX(2834, (int) (xres / 0.0254)));
 	setDotsPerMeterY (QMAX(2834, (int) (yres / 0.0254)));
