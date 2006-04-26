@@ -85,9 +85,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing(5);
 	Layout1->setMargin(5);
-	PGSel = new PageSelector(this, doc->DocPages.count());
-	PGSel->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, PGSel->sizePolicy().hasHeightForWidth() ) );
-	Layout1->addWidget(PGSel);
+	Layout1->setAlignment(Qt::AlignTop);
 
 	Layout2 = new QVBoxLayout();
 	Layout2->setSpacing(0);
@@ -119,19 +117,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Layout3->addWidget(EnableGCR);
 	Layout1->addLayout(Layout3);
 
-	Layout3a = new QVBoxLayout();
-	Layout3a->setSpacing(0);
-	Layout3a->setMargin(0);
-	EnableOverprint = new QCheckBox(this, "EnableOverprint");
-	EnableOverprint->setText( tr("Force Overprint Mode"));
-	EnableOverprint->setChecked( postscriptPreview ? prefsManager->appPrefs.doOverprint : false);
-	EnableOverprint->setEnabled( postscriptPreview );
-	Layout3a->addWidget(EnableOverprint);
-	Layout1->addLayout(Layout3a);
-
-	QSpacerItem* spacerC = new QSpacerItem( 5, 5, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem( spacerC );
-
 	Layout4 = new QVBoxLayout();
 	Layout4->setSpacing(0);
 	Layout4->setMargin(0);
@@ -140,11 +125,23 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	EnableCMYK->setChecked( postscriptPreview ? prefsManager->appPrefs.PrPr_Mode : false);
 	EnableCMYK->setEnabled( postscriptPreview );
 	Layout4->addWidget(EnableCMYK);
+
+	EnableOverprint = new QCheckBox(this, "EnableOverprint");
+	EnableOverprint->setText( tr("Force Overprint Mode"));
+	EnableOverprint->setChecked( postscriptPreview ? prefsManager->appPrefs.doOverprint : false);
+	EnableOverprint->setEnabled( postscriptPreview );
+	Layout4->addWidget(EnableOverprint);
+	Layout1->addLayout(Layout4);
+
+	QSpacerItem* spacerC = new QSpacerItem( 5, 5, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout1->addItem( spacerC );
+
 	if (HaveTiffSep != 0)
 	{
 		Layout5 = new QHBoxLayout();
 		Layout5->setSpacing(0);
 		Layout5->setMargin(0);
+		Layout5->setAlignment(Qt::AlignTop);
 		EnableCMYK_C = new QCheckBox(this, "DisplayCMYK_C");
 		EnableCMYK_C->setText( tr("&C"));
 		EnableCMYK_C->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_C : true);
@@ -165,9 +162,9 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 		EnableCMYK_K->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_K : true);
 		EnableCMYK_K->setEnabled(postscriptPreview);
 		Layout5->addWidget(EnableCMYK_K);
-		Layout4->addLayout(Layout5);
+		Layout1->addLayout(Layout5);
 	}
-	Layout1->addLayout(Layout4);
+// 	Layout1->addLayout(Layout4);
 	PLayout->addLayout(Layout1);
 	int tbWidth = 0;
 	if (HaveTiffSep != 0)
@@ -258,6 +255,11 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Layout6->addWidget(scaleBox);
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout6->addItem( spacer );
+	PGSel = new PageSelector(this, doc->DocPages.count());
+	PGSel->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, PGSel->sizePolicy().hasHeightForWidth() ) );
+	Layout6->addWidget(PGSel);
+	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout6->addItem( spacer2 );
 	closeButton = new QPushButton( tr("Close"), this, "closeButton" );
 	closeButton->setAutoDefault(false);
 	Layout6->addWidget( closeButton );

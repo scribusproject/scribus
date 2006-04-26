@@ -159,7 +159,6 @@ protected:
 	QHBoxLayout* Layout1;
 	QVBoxLayout* Layout2;
 	QVBoxLayout* Layout3;
-	QVBoxLayout* Layout3a;
 	QVBoxLayout* Layout4;
 	QHBoxLayout* Layout5;
 	QHBoxLayout* Layout6;
