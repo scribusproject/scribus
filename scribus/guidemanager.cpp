@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 #include <qhbuttongroup.h>
 #include <qinputdialog.h>
+#include <qtabwidget.h>
 
 
 extern QPixmap loadIcon(QString nam);
@@ -456,6 +457,11 @@ void GuideManager::getAutoVerticals()
 void GuideManager::tabWidget_currentChanged( QWidget * )
 {
 	drawGuides();
+	if (tabWidget->currentPageIndex() == 1)
+	{
+		horizontalAutoGapSpin->setEnabled(horizontalAutoGapCheck->isChecked());
+		verticalAutoGapSpin->setEnabled(verticalAutoGapCheck->isChecked());
+	}
 }
 
 void GuideManager::horizontalList_doubleClicked( QListViewItem * item)
