@@ -231,6 +231,7 @@ void GuideManagerCore::moveHorizontal(double from, double to, GuideType type)
 		case Standard:
 			horizontalStdG.remove(horizontalStdG.find(from));
 			horizontalStdG.append(to);
+			ScMW->guidePalette->clearRestoreHorizontalList();
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState* ss = new SimpleState(Um::MoveVGuide, 0, Um::IGuides);
@@ -244,6 +245,8 @@ void GuideManagerCore::moveHorizontal(double from, double to, GuideType type)
 			horizontalAutoG.append(to);
 			break;
 	}
+	// TODO: optimize!
+	ScMW->guidePalette->setupPage();
 }
 
 void GuideManagerCore::moveVertical(double from, double to, GuideType type)
@@ -253,6 +256,7 @@ void GuideManagerCore::moveVertical(double from, double to, GuideType type)
 		case Standard:
 			verticalStdG.remove(verticalStdG.find(from));
 			verticalStdG.append(to);
+			ScMW->guidePalette->clearRestoreVerticalList();
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState* ss = new SimpleState(Um::MoveVGuide, 0, Um::IGuides);

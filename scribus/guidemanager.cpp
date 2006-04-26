@@ -518,3 +518,17 @@ void GuideManager::drawGuides()
 {
 	ScMW->view->DrawNew();
 }
+
+void GuideManager::clearRestoreHorizontalList()
+{
+	horizontalList->clear();
+	setGuidesFromList(horizontalList,
+					  currentPage->guides.horizontals(GuideManagerCore::Standard));
+}
+
+void GuideManager::clearRestoreVerticalList()
+{
+	verticalList->clear();
+	setGuidesFromList(verticalList,
+					  currentPage->guides.verticals(GuideManagerCore::Standard));
+}

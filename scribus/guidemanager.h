@@ -70,6 +70,12 @@ public:
 	/*! \brief Set the widgets on the list change etc.
 	It has to be called on every painting transition */
 	void setupWidgets();
+
+	/*! \brief Clear and reset the GUI horizontal list widget. */
+	void clearRestoreHorizontalList();
+	/*! \brief Clear and reset the GUI vertical list widget. */
+	void clearRestoreVerticalList();
+
 	/*! \brief Get selected standard guides from GUI list.
 	Used in highlight painting.
 	\retval Guides a list with double values */
@@ -78,6 +84,7 @@ public:
 	Used in highlight painting.
 	\retval Guides a list with double values */
 	Guides selectedVerticals();
+
 	/*! \brief check the current page number to prevent drawing
 	marks on the others pages.
 	\retval uint page no */
