@@ -47,6 +47,7 @@ for which a new license (GPL+exception) is in place.
 #define ARG_LANG "--lang"
 #define ARG_AVAILLANG "--langs-available"
 #define ARG_NOSPLASH "--no-splash"
+#define ARG_NEVERSPLASH "--never-splash"
 #define ARG_NOGUI "--no-gui"
 #define ARG_DISPLAY "--display"
 #define ARG_FONTINFO "--font-info"
@@ -58,6 +59,7 @@ for which a new license (GPL+exception) is in place.
 #define ARG_LANG_SHORT "-l"
 #define ARG_AVAILLANG_SHORT "-la"
 #define ARG_NOSPLASH_SHORT "-ns"
+#define ARG_NEVERSPLASH_SHORT "-nns"
 #define ARG_NOGUI_SHORT "-g"
 #define ARG_DISPLAY_SHORT "-d"
 #define ARG_FONTINFO_SHORT "-fi"
@@ -95,7 +97,7 @@ void ScribusQApp::initLang()
 
 void ScribusQApp::parseCommandLine()
 {
-	showSplash=true;
+	showSplash=neverSplashExists();
 	QString arg = "";
 	bool usage=false;
 	bool header=false;
@@ -147,6 +149,10 @@ void ScribusQApp::parseCommandLine()
 		}
 		else if (arg == ARG_NOSPLASH || arg == ARG_NOSPLASH_SHORT) {
 			showSplash = false;
+		}
+		else if (arg == ARG_NEVERSPLASH || arg == ARG_NEVERSPLASH_SHORT) {
+			showSplash = false;
+			neverSplash();
 		} else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT) {
 			useGUI=false;
 		} else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT) {
@@ -315,7 +321,7 @@ static void printArgLine(QTextStream & ts, const char * smallArg,
 						  const char* fullArg, const QString desc)
 {
 	const char* lineformat = "  %1, %2 %3";
-	const int saw = 3;   // Short argument width
+	const int saw = 4;   // Short argument width
 	const int aw = -18;   // Argument width (negative is left aligned)
 	QString line = QString(lineformat)
 		.arg(smallArg, saw)
@@ -342,6 +348,8 @@ void ScribusQApp::showUsage()
 		tr("Show information on the console when fonts are being loaded") );
 	printArgLine(ts, ARG_NOSPLASH_SHORT, ARG_NOSPLASH,
 		tr("Do not show the splashscreen on startup") );
+	printArgLine(ts, ARG_NEVERSPLASH_SHORT, ARG_NEVERSPLASH,
+		tr("Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.") );
 	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION,
 		tr("Output version information and exit") );
 	printArgLine(ts, ARG_SWAPDIABUTTONS_SHORT, ARG_SWAPDIABUTTONS,
@@ -397,4 +405,26 @@ void ScribusQApp::showHeader()
 	ts << QString("%1 %2").arg(tr("Wiki")+":",          descwidth).arg("http://wiki.scribus.net"); endl(ts);
 	ts << QString("%1 %2").arg(tr("Issues")+":",        descwidth).arg("http://bugs.scribus.net"); endl(ts);
 	endl(ts);
+}
+
+void ScribusQApp::neverSplash()
+{
+	if (QFileInfo(QDir::homeDirPath()).exists())
+	{
+		QString prefsDir = QDir::homeDirPath()+"/.scribus";
+		QDir prefsDirectory(prefsDir);
+		if (!QFileInfo(prefsDir).exists())
+			prefsDirectory.mkdir(prefsDir);
+		QFile ns(prefsDir+"/.neversplash");
+		if (!ns.exists() && ns.open( IO_WriteOnly ) ) {
+			//QTextStream stream( &ns );
+			//stream << *it << "\n";
+			ns.close();
+		}
+	}
+}
+
+bool ScribusQApp::neverSplashExists()
+{
+	return !QFileInfo(QDir::homeDirPath()+"/.scribus/.neversplash").exists();
 }
