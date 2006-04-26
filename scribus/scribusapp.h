@@ -63,6 +63,8 @@ class SCRIBUS_API ScribusQApp : public QApplication
 
 		const ScribusCore* core() {return m_ScCore;}
 		static bool useGUI;
+		void neverSplash(bool splashOff);
+		bool neverSplashExists();
 
 	private:
 		ScribusCore* m_ScCore;
@@ -81,8 +83,6 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		\brief Instantiates the Language Manager and prints installed languages with brief instructions around
 		*/
 		void showAvailLangs();
-		void neverSplash();
-		bool neverSplashExists();
 
 		QString lang;
 		bool showSplash;

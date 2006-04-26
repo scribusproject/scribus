@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "colorcombo.h"
 #include "commonstrings.h"
+#include "scribusapp.h"
 #include "scribuscore.h"
 #include "tabtypography.h"
 #include "tabguides.h"
@@ -60,6 +61,7 @@ using namespace std;
 extern QPixmap loadIcon(QString nam);
 extern bool CMSavail;
 extern bool CMSuse;
+extern ScribusQApp* ScQApp;
 
 
 Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
@@ -116,30 +118,37 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	ButtonGroup1Layout->addWidget( TextGstil, 1, 0 );
 	ButtonGroup1Layout->addWidget( GUICombo, 1, 1 );
 
+	showSplashCheckBox = new QCheckBox( ButtonGroup1, "showsplashcheckbox" );
+	showSplashCheckBox->setChecked( !ScQApp->neverSplashExists() );
+	showSplashLabel = new QLabel(showSplashCheckBox, tr("Show S&plashscreen On Startup:"), ButtonGroup1, "showSplashLabel");
+	ButtonGroup1Layout->addWidget( showSplashLabel, 2, 0 );
+	ButtonGroup1Layout->addWidget( showSplashCheckBox, 2, 1, Qt::AlignLeft );
+
+
 	GFsize = new QSpinBox(8, 22, 1, ButtonGroup1, "gfs" );
 	GFsize->setSuffix( tr( " pt" ) );
 	GFsize->setValue( prefsData->AppFontSize );
 	TextGstil2 = new QLabel(GFsize, tr("&Font Size (Menus):"), ButtonGroup1, "dd");
-	ButtonGroup1Layout->addWidget( TextGstil2, 2, 0 );
-	ButtonGroup1Layout->addWidget( GFsize, 2, 1, Qt::AlignLeft );
+	ButtonGroup1Layout->addWidget( TextGstil2, 3, 0 );
+	ButtonGroup1Layout->addWidget( GFsize, 3, 1, Qt::AlignLeft );
 
 	GTFsize = new QSpinBox(5, 22, 1, ButtonGroup1, "gtfs");
 	GTFsize->setSuffix(tr(" pt"));
 	GTFsize->setValue( prefsData->PaletteFontSize); // temp solution
 	TextGstil3 = new QLabel(GTFsize, tr("Font Size (&Palettes):"), ButtonGroup1, "dd");
-	ButtonGroup1Layout->addWidget(TextGstil3, 3, 0);
-	ButtonGroup1Layout->addWidget(GTFsize, 3, 1, Qt::AlignLeft);
+	ButtonGroup1Layout->addWidget(TextGstil3, 4, 0);
+	ButtonGroup1Layout->addWidget(GTFsize, 4, 1, Qt::AlignLeft);
 
 	SpinBox3 = new QSpinBox( 0, 1000, 10, ButtonGroup1, "SpinBox3" );
 	SpinBox3->setValue( prefsData->Wheelval );
 	TextLabel1_2 = new QLabel( SpinBox3, tr( "&Wheel Jump:" ), ButtonGroup1, "TextLabel1_2" );
-	ButtonGroup1Layout->addWidget( TextLabel1_2, 4, 0 );
-	ButtonGroup1Layout->addWidget( SpinBox3, 4, 1, Qt::AlignLeft );
+	ButtonGroup1Layout->addWidget( TextLabel1_2, 5, 0 );
+	ButtonGroup1Layout->addWidget( SpinBox3, 5, 1, Qt::AlignLeft );
 	Recen = new QSpinBox( 1, 30, 1, ButtonGroup1, "Recen" );
 	Recen->setValue( prefsData->RecentDCount );
 	TextLabel4c = new QLabel( Recen, tr( "&Recent Documents:" ), ButtonGroup1, "TextLabel4c" );
-	ButtonGroup1Layout->addWidget( TextLabel4c, 5, 0);
-	ButtonGroup1Layout->addWidget( Recen, 5, 1, Qt::AlignLeft );
+	ButtonGroup1Layout->addWidget( TextLabel4c, 6, 0);
+	ButtonGroup1Layout->addWidget( Recen, 6, 1, Qt::AlignLeft );
 	tabLayout->addWidget( ButtonGroup1, 0, 0 );
 
 	GroupBox200 = new QGroupBox( tr( "Paths" ), tab, "GroupBox200" );
@@ -1178,6 +1187,7 @@ void Preferences::updatePreferences()
 {
 	prefsManager->appPrefs.AppFontSize = GFsize->value();
 	prefsManager->appPrefs.PaletteFontSize = GTFsize->value();
+	ScQApp->neverSplash(!showSplashCheckBox->isChecked());
 	prefsManager->appPrefs.Wheelval = SpinBox3->value();
 	prefsManager->appPrefs.RecentDCount = Recen->value();
 	prefsManager->appPrefs.DocDir = Docs->text();

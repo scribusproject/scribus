@@ -97,7 +97,7 @@ void ScribusQApp::initLang()
 
 void ScribusQApp::parseCommandLine()
 {
-	showSplash=neverSplashExists();
+	showSplash=!neverSplashExists();
 	QString arg = "";
 	bool usage=false;
 	bool header=false;
@@ -152,7 +152,7 @@ void ScribusQApp::parseCommandLine()
 		}
 		else if (arg == ARG_NEVERSPLASH || arg == ARG_NEVERSPLASH_SHORT) {
 			showSplash = false;
-			neverSplash();
+			neverSplash(true);
 		} else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT) {
 			useGUI=false;
 		} else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT) {
@@ -407,24 +407,29 @@ void ScribusQApp::showHeader()
 	endl(ts);
 }
 
-void ScribusQApp::neverSplash()
+void ScribusQApp::neverSplash(bool splashOff)
 {
-	if (QFileInfo(QDir::homeDirPath()).exists())
+	QString prefsDir = QDir::homeDirPath()+"/.scribus";
+	QFile ns(prefsDir+"/.neversplash");
+	if (splashOff)
 	{
-		QString prefsDir = QDir::homeDirPath()+"/.scribus";
-		QDir prefsDirectory(prefsDir);
-		if (!QFileInfo(prefsDir).exists())
-			prefsDirectory.mkdir(prefsDir);
-		QFile ns(prefsDir+"/.neversplash");
-		if (!ns.exists() && ns.open( IO_WriteOnly ) ) {
-			//QTextStream stream( &ns );
-			//stream << *it << "\n";
-			ns.close();
+		if (QFileInfo(QDir::homeDirPath()).exists())
+		{
+			QDir prefsDirectory(prefsDir);
+			if (!QFileInfo(prefsDir).exists())
+				prefsDirectory.mkdir(prefsDir);
+			if (!ns.exists() && ns.open(IO_WriteOnly))
+				ns.close();
 		}
+	}
+	else
+	{
+		if (neverSplashExists())
+			ns.remove();
 	}
 }
 
 bool ScribusQApp::neverSplashExists()
 {
-	return !QFileInfo(QDir::homeDirPath()+"/.scribus/.neversplash").exists();
+	return QFileInfo(QDir::homeDirPath()+"/.scribus/.neversplash").exists();
 }

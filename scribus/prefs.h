@@ -91,6 +91,8 @@ public:
 	QComboBox* guiLangCombo;
 	QComboBox* GUICombo;
 	QComboBox* UnitCombo;
+	QCheckBox* showSplashCheckBox;
+	QLabel* showSplashLabel;
 	QLabel* unitComboText;
 	QGroupBox* GroupBox200;
 	QLabel* PfadText;
