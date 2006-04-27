@@ -695,19 +695,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 		return;
 	}
 	DrawObj_Pre(p, sc);
-	switch(itemType())
-	{
-		case TextFrame:
-			DrawObj_Item(p, e, sc);
-			break;
-		case ImageFrame:
-		case PathText:
-			DrawObj_Item(p, sc);
-			break;
-		default:
-			DrawObj_Item(p);
-			break;
-	}
+	DrawObj_Item(p, e, sc);
 	DrawObj_Post(p);
 }
 
@@ -932,24 +920,15 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 			switch(embedded->itemType())
 			{
 				case ImageFrame:
-					embedded->DrawObj_Item(p, sc);
-					break;
 				case TextFrame:
+				case Polygon:
+				case PathText:
 					embedded->DrawObj_Item(p, e, sc);
 					break;
 				case Line:
-					embedded->m_lineWidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
-					embedded->DrawObj_Item(p);
-					break;
-				case Polygon:
-					embedded->DrawObj_Item(p);
-					break;
 				case PolyLine:
 					embedded->m_lineWidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
-					embedded->DrawObj_Item(p);
-					break;
-				case PathText:
-					embedded->DrawObj_Item(p, sc);
+					embedded->DrawObj_Item(p, e, sc);
 					break;
 				default:
 					break;
@@ -3457,18 +3436,6 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	return true;
 }
 
-
-void PageItem::DrawObj_Item(ScPainter * /* p */)
-{
-}
-
-void PageItem::DrawObj_Item(ScPainter * /* p */, double /* sc */)
-{
-}
-
-void PageItem::DrawObj_Item(ScPainter * /* p */, QRect /* e */, double /* sc */)
-{
-}
 
 void PageItem::drawLockedMarker(ScPainter *p)
 {

@@ -62,7 +62,7 @@ PageItem_Line::PageItem_Line(ScribusDoc *pa, double x, double y, double w, doubl
 {
 }
 
-void PageItem_Line::DrawObj_Item(ScPainter *p)
+void PageItem_Line::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 {
 	if (!m_Doc->RePos)
 	{

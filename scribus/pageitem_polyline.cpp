@@ -62,7 +62,7 @@ PageItem_PolyLine::PageItem_PolyLine(ScribusDoc *pa, double x, double y, double 
 {
 }
 
-void PageItem_PolyLine::DrawObj_Item(ScPainter *p)
+void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 {
 	if (!m_Doc->RePos && PoLine.size()>=4)
 	{

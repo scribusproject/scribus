@@ -2052,8 +2052,6 @@ NoRoom:     pf2.end();
 	Dirty = false;
 }
 
-#endif
-
 
 void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 {
@@ -2133,15 +2131,12 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			p->strokePath();
 		}
 
-
-#ifndef NLS_PROTO
 		//Draw the overflow icon
 		if (itemText.count() > MaxChars)
 		{//CB && added here for jghali prior to commit access
 			if (!view->previewMode)
 				drawOverflowMarker(p);
 		}
-#endif
 		//if (m_Doc->selection->findItem(this)!=-1)
 		//	drawLockedMarker(p);
 	}
@@ -2150,7 +2145,6 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	p->restore();
 }
 
-#ifndef NLS_PROTO
 
 void PageItem_TextFrame::clearContents()
 {

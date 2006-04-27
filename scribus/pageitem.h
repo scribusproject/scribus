@@ -247,17 +247,16 @@ public:
 	void DrawObj(ScPainter *p, QRect e);
 	void DrawObj_Pre(ScPainter *p, double &sc);
 	virtual void DrawObj_Post(ScPainter *p);
-	virtual void DrawObj_Item(ScPainter *p);
-	virtual void DrawObj_Item(ScPainter *p, double sc);
-	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);
+	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc) = 0;
+protected:
 	void DrawObj_ImageFrame(ScPainter *p, double sc);
 	//void DrawObj_TextFrame(ScPainter *p, QRect e, double sc);
 	//void DrawObj_Line(ScPainter *p);
 	void DrawObj_Polygon(ScPainter *p);
 	void DrawObj_PolyLine(ScPainter *p);
 	void DrawObj_PathText(ScPainter *p, double sc);
+public:
 	void DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl);
-	
 	void SetFrameShape(int count, double *vals);
 	void SetRectFrame();
 	void SetOvalFrame();

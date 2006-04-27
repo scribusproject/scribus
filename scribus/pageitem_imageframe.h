@@ -59,7 +59,7 @@ public:
 	virtual void clearContents();
 	
 protected:
-	virtual void DrawObj_Item(ScPainter *p, double sc);
+	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);
 
 };
 

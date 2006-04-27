@@ -57,7 +57,7 @@ public:
 	virtual PageItem_Polygon * asPolygon() { return this; }
 	
 protected:
-	virtual void DrawObj_Item(ScPainter *p);
+	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);
 
 };
 

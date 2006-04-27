@@ -64,7 +64,7 @@ PageItem_PathText::PageItem_PathText(ScribusDoc *pa, double x, double y, double 
 {
 }
 
-void PageItem_PathText::DrawObj_Item(ScPainter *p, double sc)
+void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 {
 	uint a;
 	int chs;
