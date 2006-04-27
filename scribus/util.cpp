@@ -59,6 +59,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "qprocess.h"
 #include "scmessagebox.h"
+#include "scpixmapcache.h"
 #include "scpaths.h"
 #include "text/nlsconfig.h"
 
@@ -1047,7 +1048,7 @@ QColor SetColor(ScribusDoc *currentDoc, QString color, int shad)
  */
 QPixmap * getSmallPixmap(QColor rgb)
 {
-	static QMap<QRgb, QPixmap*> pxCache;
+	static ScPixmapCache<QRgb> pxCache;
 
 	QRgb index=rgb.rgb();
 	if (pxCache.contains(index))
@@ -1068,7 +1069,7 @@ QPixmap * getSmallPixmap(QColor rgb)
 
 QPixmap * getWidePixmap(QColor rgb)
 {
-	static QMap<QRgb, QPixmap*> pxCache;
+	static ScPixmapCache<QRgb> pxCache;
 
 	QRgb index=rgb.rgb();
 	if (pxCache.contains(index))
@@ -1107,7 +1108,7 @@ static Q_UINT64 code64(ScColor & col) {
 }
 
 QPixmap * getFancyPixmap(ScColor col) {
-	static QMap<Q_UINT64, QPixmap*> pxCache;
+	static ScPixmapCache<Q_UINT64> pxCache;
 
 	static QPixmap alertIcon;
 	static QPixmap cmykIcon;
