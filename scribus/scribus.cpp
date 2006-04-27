@@ -2057,6 +2057,7 @@ bool ScribusMainWindow::slotDocSetup()
 		view->DrawNew();
 		propertiesPalette->ShowCMS();
 		pagePalette->RebuildPage();
+		guidePalette->setupPage();
 		slotDocCh();
 		ret = true;
 	}
