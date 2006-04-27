@@ -2057,7 +2057,6 @@ bool ScribusMainWindow::slotDocSetup()
 		view->DrawNew();
 		propertiesPalette->ShowCMS();
 		pagePalette->RebuildPage();
-		guidePalette->setupPage();
 		slotDocCh();
 		ret = true;
 	}
@@ -7400,6 +7399,7 @@ void ScribusMainWindow::slotChangeUnit(int unitIndex, bool draw)
 	propertiesPalette->unitChange();
 	nodePalette->unitChange();
 	alignDistributePalette->unitChange();
+	guidePalette->setupPage();
 	if (draw)
 		view->DrawNew();
 }
