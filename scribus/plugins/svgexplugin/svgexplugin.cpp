@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "scmessagebox.h"
 #include "util.h"
 #include "customfdialog.h"
+#include "sctextstruct.h"
 #include "guidemanager.h"
 
 
@@ -206,7 +207,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 {
 	QString tmp, trans, fill, stroke, strokeW, strokeLC, strokeLJ, strokeDA, gradi, Clipi, chx;
 	uint d;
-	struct ScText *hl;
+	ScText *hl;
 	int Lnr = 0;
 	struct Layer ll;
 	ll.isPrintable = false;
@@ -462,7 +463,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							ob.appendChild(cl);
 							gr.appendChild(ob);
 							ScImage img;
-							img.LoadPicture(Item->Pfile, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, 72);
+							img.LoadPicture(Item->Pfile, Item->IProfile, Item->IRender, Item->UseEmbedded, true, ScImage::RGBProof, 72);
 							img.applyEffect(Item->effectsInUse, Item->document()->PageColors, true);
 							QFileInfo fi = QFileInfo(Item->Pfile);
 							img.save(fi.baseName()+".png", "PNG");
@@ -694,7 +695,7 @@ QString SVGExPlug::IToStr(int c)
 	return cc.setNum(c);
 }
 
-void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl)
+void SVGExPlug::SetTextProps(QDomElement *tp, ScText *hl)
 {
 	int chst = hl->cstyle & 127;
 	if (hl->ccolor != CommonStrings::None)

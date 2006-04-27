@@ -32,7 +32,7 @@ public:
 };
 
 class CharStyle;
-struct ParagraphStyle;
+class ParagraphStyle;
 class PageItem;
 //class ScTextEngine;
 //class ScScriptItem;
@@ -73,7 +73,7 @@ class ScribusDoc;
  	PageItem* object(int pos) const;
 
  	const CharStyle& charStyle(int pos) const;
- 	const struct ParagraphStyle& paragraphStyle(int pos) const;
+ 	const ParagraphStyle& paragraphStyle(int pos) const;
  	void applyStyle(int pos, uint len, const CharStyle& style);
  	void applyStyle(int pos, const ParagraphStyle& style);
 

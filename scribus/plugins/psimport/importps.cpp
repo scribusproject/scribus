@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util.h"
 
-extern ScribusQApp * ScQApp;
+extern SCRIBUS_API ScribusQApp * ScQApp;
 
 EPSPlug::EPSPlug(QString fName, bool isInteractive, bool showProgress)
 {

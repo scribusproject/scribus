@@ -6,9 +6,7 @@
 
 #include "scconfig.h"
 #include "art_kmisc.h"
-
-extern double ceil(double x);
-extern double floor(double x);
+#include <math.h>
 
 /**
  * art_vpath_render_bez: Render a bezier segment into the vpath.

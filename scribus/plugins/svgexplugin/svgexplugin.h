@@ -16,6 +16,7 @@ class QString;
 class ScribusMainWindow;
 class PageItem;
 class Page;
+class ScText;
 
 class PLUGIN_API SVGExportPlugin : public ScActionPlugin
 {
@@ -92,9 +93,9 @@ private:
 		\author Franz Schmid
 		\brief Set text properties
 		\param tp QDomElement *
-		\param hl struct ScText *
+		\param hl ScText *
 		*/
-		void SetTextProps(QDomElement *tp, struct ScText *hl);
+		void SetTextProps(QDomElement *tp, ScText *hl);
 		/*!
 		\author Franz Schmid
 		\param farbe QString color
