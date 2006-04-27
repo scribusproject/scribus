@@ -22,6 +22,18 @@ class SCFonts;
 class PrefsManager;
 class FileFormat;
 
+// this is a quick hack to combine runs until I've thought of something better -- AV
+class LastStyles {
+public:
+	CharStyle Style;
+	int StyleStart;
+	int ParaStyle;
+	LastStyles() {
+		StyleStart = 0;
+		ParaStyle = -1;
+	}
+};
+
 class SCRIBUS_API FileLoader : public QObject
 {
 	Q_OBJECT
@@ -34,7 +46,7 @@ public:
 	bool LoadFile();
 	bool ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *doc, int PageToLoad, bool Mpage, QString renamedPageName=QString::null);
 	bool ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *doc, QProgressBar *dia2);
-	void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bool impo=false, bool VorLFound=false);
+	void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo=false, bool VorLFound=false);
 	PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc);
 	void GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
 	bool postLoad();

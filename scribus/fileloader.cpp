@@ -755,6 +755,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					}
 					Neu->setFont(tmpf);
 					QDomNode IT=pg.firstChild();
+					LastStyles * last = new LastStyles();
 					while(!IT.isNull())
 					{
 						QDomElement it=IT.toElement();
@@ -767,7 +768,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 							Neu->fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
 						if (it.tagName()=="ITEXT")
-							GetItemText(&it, doc, Neu, true, VorLFound);
+							GetItemText(&it, doc, Neu, last, true, VorLFound);
 						if(it.tagName()=="PageItemAttributes")
 						{
 							QDomNode PIA = it.firstChild();
@@ -793,6 +794,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 						}
 						IT=IT.nextSibling();
 					}
+					delete last;
 					if (Neu->fill_gradient.Stops() == 0)
 					{
 						Neu->fill_gradient.addStop(doc->PageColors[doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, doc->toolSettings.dBrush, 100);
@@ -1606,6 +1608,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					}
 					Neu->setFont(tmpf);
 					QDomNode IT=pg.firstChild();
+					LastStyles * last = new LastStyles();
 					while(!IT.isNull())
 					{
 						QDomElement it=IT.toElement();
@@ -1618,7 +1621,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 							Neu->fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
 						if (it.tagName()=="ITEXT")
-							GetItemText(&it, doc, Neu);
+							GetItemText(&it, doc, Neu, last);
 
 						//CB PageItemAttributes
 						if(it.tagName()=="PageItemAttributes")
@@ -1646,6 +1649,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 						}
 						IT=IT.nextSibling();
 					}
+					delete last;
 					if (Neu->fill_gradient.Stops() == 0)
 					{
 						Neu->fill_gradient.addStop(doc->PageColors[doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, doc->toolSettings.dBrush, 100);
@@ -1785,9 +1789,8 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 
 void breakPoint() {}
 
-void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bool impo, bool VorLFound)
+void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo, bool VorLFound)
 {
-	ScText *hg;
 	Foi* dummy;
 	bool unknown = false;
 	QString tmp2, tmpf;
@@ -1852,9 +1855,6 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 	int stp = qRound(it->attribute("CSTP", "-0.1").toDouble() * 10);
 	int stw = qRound(it->attribute("CSTW", "-0.1").toDouble() * 10);
 	int iobj = it->attribute("COBJ", "-1").toInt();
-	CharStyle lastStyle;
-	int lastStyleStart = 0;
-	int lastParaStyle = -1;
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		CharStyle newStyle;
@@ -1876,17 +1876,17 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 		if (impo)
 		{
 			if (VorLFound)
-				lastParaStyle = DoVorl[ab].toUInt();
+				last->ParaStyle = DoVorl[ab].toUInt();
 			else
 			{
 				if (ab < 5)
-					lastParaStyle = ab;
+					last->ParaStyle = ab;
 				else
-					lastParaStyle = 0;
+					last->ParaStyle = 0;
 			}
 		}
 		else
-			lastParaStyle = ab;
+			last->ParaStyle = ab;
 		newStyle.cstroke = stroke;
 		newStyle.cshade2 = shade2;
 		newStyle.cscale = QMIN(QMAX(scale, 100), 4000);
@@ -1908,17 +1908,20 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 		else {
 			obj->itemText.insertChars(pos, QString(ch));
 		}
-		if (newStyle != lastStyle) {
-			obj->itemText.applyStyle(lastStyleStart, pos-lastStyleStart, lastStyle);
-			lastStyle = newStyle;
-			lastStyleStart = pos;
+		if (newStyle != last->Style) {
+#ifdef NLS_PROTO
+			qDebug(QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString()));
+#endif
+			obj->itemText.applyStyle(last->StyleStart, pos-last->StyleStart, last->Style);
+			last->Style = newStyle;
+			last->StyleStart = pos;
 		}
 		if (ch == SpecialChars::PARSEP) {
-			obj->itemText.applyStyle(pos, doc->docParagraphStyles[QMAX(0,lastParaStyle)]);
+			obj->itemText.applyStyle(pos, doc->docParagraphStyles[QMAX(0,last->ParaStyle)]);
 		}
 	}
-	obj->itemText.applyStyle(lastStyleStart, obj->itemText.length()-lastStyleStart, lastStyle);
-	obj->itemText.applyStyle(obj->itemText.length()-1, doc->docParagraphStyles[QMAX(0,lastParaStyle)]);
+	obj->itemText.applyStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
+	obj->itemText.applyStyle(obj->itemText.length()-1, doc->docParagraphStyles[QMAX(0,last->ParaStyle)]);
 	return;
 }
 
