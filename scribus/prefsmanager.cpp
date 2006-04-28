@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "filewatcher.h"
 #include "missing.h"
-#include "keymanager.h"
+#include "tabkeyboardshortcutswidget.h"
 #include "pagesize.h"
 #include "pagestructs.h"
 #include "pdfoptions.h"
@@ -1165,9 +1165,11 @@ bool PrefsManager::WritePref(QString ho)
 	}
 	for (QMap<QString,Keys>::Iterator ksc=appPrefs.KeyActions.begin(); ksc!=appPrefs.KeyActions.end(); ++ksc)
 	{
+		if (ksc.data().actionName.isEmpty())
+			continue;
 		QDomElement kscc=docu.createElement("SHORTCUT");
 		kscc.setAttribute("ACTION",ksc.data().actionName);
-		kscc.setAttribute("SEQUENCE",KeyManager::getKeyText(ksc.data().keySequence));
+		kscc.setAttribute("SEQUENCE",TabKeyboardShortcutsWidget::getKeyText(ksc.data().keySequence));
 		elem.appendChild(kscc);
 	}
 	QMap<QString,QString>::Iterator itfsu;
