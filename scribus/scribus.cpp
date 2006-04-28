@@ -349,15 +349,12 @@ void ScribusMainWindow::initToolBars()
 	undoManager->registerGui(uWidget);
 
 	mainToolBar = new ModeToolBar(this);
-	mainToolBar->setEnabled(false);
 	pdfToolBar = new PDFToolBar(this);
-	pdfToolBar->setEnabled(false);
-
+	
 	connect(mainToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setOn(bool)));
 	connect(scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)), pdfToolBar, SLOT(setShown(bool)));
 	connect(pdfToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarPDF"], SLOT(setOn(bool)));
 	connect(scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)), mainToolBar, SLOT(setShown(bool)) );
-
 }
 
 void ScribusMainWindow::initDefaultValues()
@@ -2200,8 +2197,25 @@ void ScribusMainWindow::HaveNewDoc()
 	scrMenuMgr->setMenuEnabled("Page", true);
 	scrMenuMgr->setMenuEnabled("Extras", true);
 
-	mainToolBar->setEnabled(true);
-	pdfToolBar->setEnabled(true);
+	scrActions["toolsSelect"]->setEnabled(true);
+	scrActions["toolsZoom"]->setEnabled(true);
+	scrActions["toolsInsertTextFrame"]->setEnabled(true);
+	scrActions["toolsInsertImageFrame"]->setEnabled(true);
+	scrActions["toolsInsertTableFrame"]->setEnabled(true);
+	scrActions["toolsInsertShape"]->setEnabled(true);
+	scrActions["toolsInsertLine"]->setEnabled(true);
+	scrActions["toolsInsertBezier"]->setEnabled(true);
+	scrActions["toolsInsertFreehandLine"]->setEnabled(true);
+	scrActions["toolsInsertPolygon"]->setEnabled(true);
+ 	scrActions["toolsMeasurements"]->setEnabled(true);
+	scrActions["toolsEyeDropper"]->setEnabled(true);
+	scrActions["toolsPDFPushButton"]->setEnabled(true);
+	scrActions["toolsPDFTextField"]->setEnabled(true);
+	scrActions["toolsPDFCheckBox"]->setEnabled(true);
+	scrActions["toolsPDFComboBox"]->setEnabled(true);
+	scrActions["toolsPDFListBox"]->setEnabled(true);
+	scrActions["toolsPDFAnnotText"]->setEnabled(true);
+	scrActions["toolsPDFAnnotLink"]->setEnabled(true);
 
 	bool setter = doc->Pages->count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
@@ -3930,8 +3944,32 @@ bool ScribusMainWindow::DoFileClose()
 		scrMenuMgr->setMenuEnabled("Extras", false);
 		scrMenuMgr->setMenuEnabled("Style", false);
 		scrMenuMgr->setMenuEnabled("Item", false);
-		mainToolBar->setEnabled(false);
-		pdfToolBar->setEnabled(false);
+		
+		scrActions["toolsSelect"]->setEnabled(false);
+		scrActions["toolsRotate"]->setEnabled(false);
+		scrActions["toolsEditContents"]->setEnabled(false);
+		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
+		scrActions["toolsZoom"]->setEnabled(false);
+		scrActions["toolsInsertTextFrame"]->setEnabled(false);
+		scrActions["toolsInsertImageFrame"]->setEnabled(false);
+		scrActions["toolsInsertTableFrame"]->setEnabled(false);
+		scrActions["toolsInsertShape"]->setEnabled(false);
+		scrActions["toolsInsertLine"]->setEnabled(false);
+		scrActions["toolsInsertBezier"]->setEnabled(false);
+		scrActions["toolsInsertFreehandLine"]->setEnabled(false);
+		scrActions["toolsInsertPolygon"]->setEnabled(false);
+		scrActions["toolsLinkTextFrame"]->setEnabled(false);
+		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
+		scrActions["toolsMeasurements"]->setEnabled(false);
+		scrActions["toolsCopyProperties"]->setEnabled(false);
+		scrActions["toolsEyeDropper"]->setEnabled(false);
+		scrActions["toolsPDFPushButton"]->setEnabled(false);
+		scrActions["toolsPDFTextField"]->setEnabled(false);
+		scrActions["toolsPDFCheckBox"]->setEnabled(false);
+		scrActions["toolsPDFComboBox"]->setEnabled(false);
+		scrActions["toolsPDFListBox"]->setEnabled(false);
+		scrActions["toolsPDFAnnotText"]->setEnabled(false);
+		scrActions["toolsPDFAnnotLink"]->setEnabled(false);
 		ColorMenC->clear();
 		//CB dont need this until we have a doc...
 		//propertiesPalette->Cpal->SetColors(prefsManager->colorSet());

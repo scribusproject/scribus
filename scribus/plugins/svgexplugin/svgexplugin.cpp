@@ -79,7 +79,7 @@ void SVGExportPlugin::languageChange()
 	// Action name
 	m_actionInfo.name = "ExportAsSVG";
 	// Action text for menu, including accel
-	m_actionInfo.text = tr("Save Page as &SVG...");
+	m_actionInfo.text = tr("Save as &SVG...");
 	// Menu
 	m_actionInfo.menu = "FileExport";
 	m_actionInfo.enabledOnStartup = true;

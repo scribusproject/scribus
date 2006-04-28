@@ -696,6 +696,10 @@ void ActionManager::initToolsMenuActions()
 	*modeActionNames << "toolsEyeDropper" << "toolsCopyProperties";
 	*modeActionNames << "toolsPDFPushButton" << "toolsPDFTextField" << "toolsPDFCheckBox" << "toolsPDFComboBox" << "toolsPDFListBox" << "toolsPDFAnnotText" << "toolsPDFAnnotLink";
 
+ 	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
+ 		(*scrActions)[*it]->setEnabled(false);
+
+
 	*nonEditActionNames << "itemLowerToBottom" << "itemRaiseToTop" << "itemRaise" << "itemLower";
 
 	connect( (*scrActions)["toolsActionHistory"], SIGNAL(toggled(bool)), mainWindow, SLOT(setUndoPalette(bool)) );
@@ -1123,7 +1127,7 @@ void ActionManager::languageChange()
 	(*scrActions)["fileImportAppendText"]->setTexts( tr("Append &Text..."));
 	(*scrActions)["fileImportImage"]->setTexts( tr("Get Image..."));
 	(*scrActions)["fileExportText"]->setTexts( tr("Save &Text..."));
-	(*scrActions)["fileExportAsEPS"]->setTexts( tr("Save Page as &EPS..."));
+	(*scrActions)["fileExportAsEPS"]->setTexts( tr("Save as &EPS..."));
 	(*scrActions)["fileExportAsPDF"]->setTexts( tr("Save as P&DF..."));
 	(*scrActions)["fileDocSetup"]->setTexts( tr("Document &Setup..."));
 	(*scrActions)["filePrint"]->setTexts( tr("&Print..."));

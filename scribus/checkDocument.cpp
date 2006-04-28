@@ -118,7 +118,8 @@ static const unsigned char image2_data[] =
         0x42, 0x60, 0x82
     };
 
-CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( parent, "checkDocument", modal, 0 )
+CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( parent, "checkDocument", modal, 0 ),
+document(0)
 {
 	QImage img;
 	img.loadFromData( image0_data, sizeof( image0_data ), "PNG" );
@@ -210,6 +211,8 @@ void CheckDocument::slotSelect(QListViewItem* ite)
 void CheckDocument::doReScan()
 {
 	clearErrorList();
+	if (document==0)
+		return;
 	document->curCheckProfile = curCheckProfile->currentText();;
 	DocumentChecker::checkDocument(document);
 	buildErrorList(document);
@@ -218,6 +221,8 @@ void CheckDocument::doReScan()
 void CheckDocument::newScan(const QString& name)
 {
 	clearErrorList();
+	if (document==0)
+		return;
 	document->curCheckProfile = name;
 	DocumentChecker::checkDocument(document);
 	buildErrorList(document);
