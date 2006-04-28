@@ -5887,25 +5887,27 @@ bool ScribusDoc::startAlign()
 		for (uint j = 0; j < AObjects[i].Objects.count() && !oneLocked; ++j)
 			if (AObjects[i].Objects.at(j)->locked())
 				oneLocked=true;
+	int t = 2;
 	if (oneLocked)
 	{
-		int t = ScMessageBox::warning(ScMW, CommonStrings::trWarning,
-											tr("Some objects are locked."),
-											tr("&Unlock All"), CommonStrings::tr_Cancel,
-											0, 0);
-		if (t == 1)
+		t = ScMessageBox::warning(ScMW, CommonStrings::trWarning, tr("Some objects are locked."),
+									tr("&Unlock All"), tr("&Skip locked objects"), CommonStrings::tr_Cancel, 0, 0);
+		if (t == 2)
 			return false;
-		for (uint i = 0; i < alignObjectsCount; ++i)
-			for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
-				if (AObjects[i].Objects.at(j)->locked())
-					AObjects[i].Objects.at(j)->setLocked(false);
 	}
 	
 	QString targetTooltip = Um::ItemsInvolved + "\n";
 	for (uint i = 0; i < m_Selection->count(); ++i)
 		targetTooltip += "\t" + m_Selection->itemAt(i)->getUName() + "\n";
-		// Make the align action a single action in Action History
+	// Make the align action a single action in Action History
 	undoManager->beginTransaction(Um::Selection, 0, Um::AlignDistribute, targetTooltip, Um::IAlignDistribute);
+	if (oneLocked && (t == 0))
+	{
+		for (uint i = 0; i < alignObjectsCount; ++i)
+			for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+				if (AObjects[i].Objects.at(j)->locked())
+					AObjects[i].Objects.at(j)->setLocked(false);
+	}
 	return true;
 }
 
@@ -5956,7 +5958,8 @@ void ScribusDoc::itemSelection_AlignLeftOut(AlignTo currAlignTo, double guidePos
 	{
 		double diff=newX-AObjects[i].x2;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
-			AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
+			if (!AObjects[i].Objects.at(j)->locked())
+				AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
 	}
 	endAlign();
 }
@@ -5997,7 +6000,8 @@ void ScribusDoc::itemSelection_AlignLeftIn(AlignTo currAlignTo, double guidePosi
 	{
 		double diff=newX-AObjects[i].x1;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
-			AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
+			if (!AObjects[i].Objects.at(j)->locked())
+				AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
 	}
 	endAlign();
 }
@@ -6048,7 +6052,8 @@ void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, double guideP
 	{
 		double diff=newX-AObjects[i].x1-(AObjects[i].width)/2;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
-			AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
+			if (!AObjects[i].Objects.at(j)->locked())
+				AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
 	}
 	endAlign();
 }
@@ -6091,7 +6096,8 @@ void ScribusDoc::itemSelection_AlignRightIn(AlignTo currAlignTo, double guidePos
 	{
 		double diff=newX-AObjects[i].x2;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
-			AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
+			if (!AObjects[i].Objects.at(j)->locked())
+				AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
 	}
 	endAlign();
 }
@@ -6134,7 +6140,8 @@ void ScribusDoc::itemSelection_AlignRightOut(AlignTo currAlignTo, double guidePo
 	{
 		double diff=newX-AObjects[i].x1;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
-			AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
+			if (!AObjects[i].Objects.at(j)->locked())
+				AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
 	}
 	endAlign();
 }
@@ -6175,7 +6182,8 @@ void ScribusDoc::itemSelection_AlignTopOut(AlignTo currAlignTo, double guidePosi
 	{
 		double diff=newY-AObjects[i].y2;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
-			AObjects[i].Objects.at(j)->moveBy(0.0, diff);
+			if (!AObjects[i].Objects.at(j)->locked())
+				AObjects[i].Objects.at(j)->moveBy(0.0, diff);
 	}
 	endAlign();
 }
@@ -6216,7 +6224,8 @@ void ScribusDoc::itemSelection_AlignTopIn(AlignTo currAlignTo, double guidePosit
 	{
 		double diff=newY-AObjects[i].y1;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
-			AObjects[i].Objects.at(j)->moveBy(0.0, diff);
+			if (!AObjects[i].Objects.at(j)->locked())
+				AObjects[i].Objects.at(j)->moveBy(0.0, diff);
 	}
 	endAlign();
 }
@@ -6268,7 +6277,8 @@ void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, double guideP
 	{
 		double diff=newY-AObjects[i].y1-(AObjects[i].height)/2;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
-			AObjects[i].Objects.at(j)->moveBy(0.0, diff);
+			if (!AObjects[i].Objects.at(j)->locked())
+				AObjects[i].Objects.at(j)->moveBy(0.0, diff);
 	}
 	endAlign();
 }
@@ -6312,7 +6322,8 @@ void ScribusDoc::itemSelection_AlignBottomIn(AlignTo currAlignTo, double guidePo
 	{
 		double diff=newY-AObjects[i].y2;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
-			AObjects[i].Objects.at(j)->moveBy(0.0, diff);
+			if (!AObjects[i].Objects.at(j)->locked())
+				AObjects[i].Objects.at(j)->moveBy(0.0, diff);
 	}
 	endAlign();
 }
@@ -6355,7 +6366,8 @@ void ScribusDoc::itemSelection_AlignBottomOut(AlignTo currAlignTo, double guideP
 	{
 		double diff=newY-AObjects[i].y1;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
-			AObjects[i].Objects.at(j)->moveBy(0.0, diff);
+			if (!AObjects[i].Objects.at(j)->locked())
+				AObjects[i].Objects.at(j)->moveBy(0.0, diff);
 	}
 	endAlign();
 }
@@ -6391,7 +6403,8 @@ void ScribusDoc::itemSelection_DistributeLeft()
 	{
 		double diff=minX + i*separation-AObjects[it.data()].x1;
 		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
-			AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
+			if (!AObjects[it.data()].Objects.at(j)->locked())
+				AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
 		i++;
 	}
 	endAlign();
@@ -6427,7 +6440,8 @@ void ScribusDoc::itemSelection_DistributeCenterH()
 	{
 		double diff=minX + i*separation-AObjects[it.data()].x1-(AObjects[it.data()].width)/2;
 		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
-			AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
+			if (!AObjects[it.data()].Objects.at(j)->locked())
+				AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
 		i++;
 	}
 	endAlign();
@@ -6463,7 +6477,8 @@ void ScribusDoc::itemSelection_DistributeRight()
 	{
 		double diff=minX + i*separation-AObjects[it.data()].x2;
 		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
-			AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
+			if (!AObjects[it.data()].Objects.at(j)->locked())
+				AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
 		i++;
 	}
 	endAlign();
@@ -6516,7 +6531,8 @@ void ScribusDoc::itemSelection_DistributeDistH(bool usingDistance, double distan
 
 		double diff=currX-AObjects[it.data()].x1;
 		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
-			AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
+			if (!AObjects[it.data()].Objects.at(j)->locked())
+				AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
 		currX+=AObjects[it.data()].width;
 	}
 	endAlign();
@@ -6552,7 +6568,8 @@ void ScribusDoc::itemSelection_DistributeBottom()
 	{
 		double diff=minY + i*separation-AObjects[it.data()].y2;
 		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
-			AObjects[it.data()].Objects.at(j)->moveBy(0.0, diff);
+			if (!AObjects[it.data()].Objects.at(j)->locked())
+				AObjects[it.data()].Objects.at(j)->moveBy(0.0, diff);
 		i++;
 	}
 	endAlign();
@@ -6588,7 +6605,8 @@ void ScribusDoc::itemSelection_DistributeCenterV()
 	{
 		double diff=minY + i*separation-AObjects[it.data()].y1-(AObjects[it.data()].height)/2;
 		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
-			AObjects[it.data()].Objects.at(j)->moveBy(0.0, diff);
+			if (!AObjects[it.data()].Objects.at(j)->locked())
+				AObjects[it.data()].Objects.at(j)->moveBy(0.0, diff);
 		i++;
 	}
 	endAlign();
@@ -6624,7 +6642,8 @@ void ScribusDoc::itemSelection_DistributeTop()
 	{
 		double diff=minY + i*separation-AObjects[it.data()].y1;
 		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
-			AObjects[it.data()].Objects.at(j)->moveBy(0.0,diff);
+			if (!AObjects[it.data()].Objects.at(j)->locked())
+				AObjects[it.data()].Objects.at(j)->moveBy(0.0,diff);
 		i++;
 	}
 	endAlign();
@@ -6677,7 +6696,8 @@ void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distan
 
 		double diff=currY-AObjects[it.data()].y1;
 		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
-			AObjects[it.data()].Objects.at(j)->moveBy(0.0,diff);
+			if (!AObjects[it.data()].Objects.at(j)->locked())
+				AObjects[it.data()].Objects.at(j)->moveBy(0.0,diff);
 		currY+=AObjects[it.data()].height;
 	}
 	endAlign();

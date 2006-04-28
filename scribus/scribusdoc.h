@@ -533,7 +533,7 @@ public:
 	typedef enum {alignFirst, alignLast, alignPage, alignMargins, alignGuide, alignSelection } AlignTo;
 	void buildAlignItemList(Selection* customSelection=0);
 	bool startAlign();
-	void endAlign();	
+	void endAlign();
 	/**
 	 * \brief Insert a color into the documents color list
 	 * @param nam Name of the colour
