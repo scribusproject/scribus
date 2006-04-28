@@ -394,7 +394,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	addItem( tr("Table of Contents and Indexes"), loadIcon("tabtocindex.png"), tabDefaultTOCIndexPrefs);
 
 	tabKeyboardShortcuts = new TabKeyboardShortcutsWidget(prefsData->KeyActions, prefsWidgets);
-	addItem( tr("Keyboard Shortcuts New"), loadIcon("key_bindings.png"), tabKeyboardShortcuts);
+	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), tabKeyboardShortcuts);
 // 	tabKeys = new KeyManager(prefsWidgets, prefsData->KeyActions);
 // 	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), tabKeys);
 /*
