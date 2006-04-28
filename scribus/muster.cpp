@@ -47,6 +47,8 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 	buttonLayout->addWidget( duplicateButton );
 	buttonLayout->addWidget( importButton );
 	buttonLayout->addWidget( deleteButton );
+	QSpacerItem* spacer = new QSpacerItem( 16, 16, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	buttonLayout->addItem( spacer );
 	masterPagesLayout->addLayout( buttonLayout );
 	masterPageData = new QListBox( this, "masterPageData" );
 	masterPageData->setMinimumSize( QSize( 100, 240 ) );

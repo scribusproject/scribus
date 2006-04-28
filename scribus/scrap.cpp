@@ -18,7 +18,9 @@ for which a new license (GPL+exception) is in place.
 #include <qtextstream.h>
 #include <qdom.h>
 #include <qfiledialog.h>
+#include <qlayout.h>
 #include <qmessagebox.h>
+#include <qtoolbutton.h>
 #include <qcursor.h>
 #include "query.h"
 #include "scpreview.h"
@@ -262,6 +264,36 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	BiblioLayout = new QVBoxLayout( this );
 	BiblioLayout->setSpacing( 0 );
 	BiblioLayout->setMargin( 0 );
+	
+	buttonLayout = new QHBoxLayout;
+	buttonLayout->setSpacing( 5 );
+	buttonLayout->setMargin( 0 );
+	newButton = new QToolButton(this, "newButton" );
+	newButton->setPixmap(loadIcon("DateiNeu16.png"));
+	loadButton = new QToolButton(this, "loadButton" );
+	loadButton->setPixmap(loadIcon("DateiOpen16.png"));
+	saveAsButton = new QToolButton(this, "saveAsButton" );
+	saveAsButton->setPixmap(loadIcon("DateiSave16.png"));
+	importButton = new QToolButton(this, "importButton" );
+	importButton->setPixmap(loadIcon("compfile16.png"));
+	closeButton = new QToolButton(this, "closeButton" );
+	closeButton->setPixmap(loadIcon("DateiClos16.png"));
+	buttonLayout->addWidget( newButton );
+	buttonLayout->addWidget( loadButton );
+	buttonLayout->addWidget( saveAsButton );
+	buttonLayout->addWidget( importButton );
+	buttonLayout->addWidget( closeButton );
+	QSpacerItem* spacer = new QSpacerItem( 16, 16, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	buttonLayout->addItem( spacer );
+	BiblioLayout->addLayout( buttonLayout );
+	
+	connect(newButton, SIGNAL(clicked()), this, SLOT(NewLib()));
+	connect(loadButton, SIGNAL(clicked()), this, SLOT(Load()));
+	connect(saveAsButton, SIGNAL(clicked()), this, SLOT(SaveAs()));
+	connect(importButton, SIGNAL(clicked()), this, SLOT(Import()));
+	connect(closeButton, SIGNAL(clicked()), this, SLOT(closeLib()));
+	
+	/*
 	fmenu = new QPopupMenu();
 	fNew = fmenu->insertItem(loadIcon("DateiNeu16.png"), "", this, SLOT(NewLib()), CTRL+Key_N);
 	fLoad = fmenu->insertItem(loadIcon("DateiOpen16.png"), "", this, SLOT(Load()), CTRL+Key_O);
@@ -273,7 +305,7 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	menuBar = new QMenuBar(this);
 	mFile=menuBar->insertItem( "", fmenu);
 	BiblioLayout->setMenuBar( menuBar );
-
+	*/
 	Frame3 = new QTabWidget( this, "Frame3" );
 
 	activeBView = new BibView(this);
@@ -657,12 +689,18 @@ void Biblio::ObjFromMenu(QString text)
 void Biblio::languageChange()
 {
 	setCaption( tr( "Scrapbook" ) );
-	menuBar->changeItem( mFile, tr("&File"));
-	menuBar->changeItem( mView, tr("&Preview"));
-
-	fmenu->changeItem(fNew, tr("&New"));
-	fmenu->changeItem(fLoad, tr("&Load..."));
-	fmenu->changeItem(fSaveAs, tr("Save &As..."));
-	fmenu->changeItem(fClose, tr("&Close"));
-	fmenu->changeItem(fImport, tr("&Import Scrapbook File..."));
+// 	menuBar->changeItem( mFile, tr("&File"));
+// 	menuBar->changeItem( mView, tr("&Preview"));
+// 
+// 	fmenu->changeItem(fNew, tr("&New"));
+// 	fmenu->changeItem(fLoad, tr("&Load..."));
+// 	fmenu->changeItem(fSaveAs, tr("Save &As..."));
+// 	fmenu->changeItem(fClose, tr("&Close"));
+// 	fmenu->changeItem(fImport, tr("&Import Scrapbook File..."));
+	
+ 	QToolTip::add( newButton, tr( "Create a new scrapbook page" ) );
+ 	QToolTip::add( loadButton, tr( "Load an existing scrapbook" ) );
+ 	QToolTip::add( saveAsButton, tr( "Save the selected scrapbook" ) );
+ 	QToolTip::add( importButton, tr( "Import an scrapbook file from Scribus <=1.3.2" ) );
+ 	QToolTip::add( closeButton, tr( "Close the selected scrapbook" ) );
 }

@@ -10,9 +10,9 @@ for which a new license (GPL+exception) is in place.
 #include <qiconview.h>
 #include <qframe.h>
 #include <qtabwidget.h>
-#include <qpopupmenu.h>
+// #include <qpopupmenu.h>
 #include <qmenubar.h>
-#include <qlayout.h>
+
 #include <qtooltip.h>
 #include <qpixmap.h>
 #include <qdragobject.h>
@@ -20,6 +20,10 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "scribusstructs.h"
+
+class QHBoxLayout;
+class QToolButton;
+class QVBoxLayout;
 
 class SCRIBUS_API BibView : public QIconView
 {
@@ -86,21 +90,27 @@ private slots:
 
 protected:
 //	QMap<QString, QGuardedPtr<ScrAction> > scrapbookActions;
-	QPopupMenu* pmenu;
-	QPopupMenu* fmenu;
-	QMenuBar* menuBar;
+// 	QPopupMenu* pmenu;
+// 	QPopupMenu* fmenu;
+// 	QMenuBar* menuBar;
 	QTabWidget* Frame3;
 	QVBoxLayout* BiblioLayout;
 	BibView* activeBView;
 	QString OldName;
-	int mFile;
-	int mView;
-	int fNew;
-	int fLoad;
-	int fSave;
-	int fSaveAs;
-	int fClose;
-	int fImport;
+// 	int mFile;
+// 	int mView;
+// 	int fNew;
+// 	int fLoad;
+// 	int fSave;
+// 	int fSaveAs;
+// 	int fClose;
+// 	int fImport;
+	QHBoxLayout* buttonLayout;
+	QToolButton* newButton;
+	QToolButton* loadButton;
+	QToolButton* saveAsButton;
+	QToolButton* importButton;
+	QToolButton* closeButton;
 };
 
 #endif // BIBLIO_H
