@@ -248,6 +248,8 @@ struct Keys
 	QString cleanMenuText;
 	QKeySequence keySequence;
 	int tableRow;
+	QString menuName;
+	int menuPos;
 };
 
 struct PrintOptions

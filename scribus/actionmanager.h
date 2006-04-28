@@ -24,7 +24,10 @@ for which a new license (GPL+exception) is in place.
 #include <qkeysequence.h>
 #include <qobject.h>
 #include <qstring.h>
+#include <qstringlist.h>
 #include <qmap.h>
+#include <qpair.h>
+#include <qvaluevector.h>
 #include <qguardedptr.h>
 #include <qdict.h>
 
@@ -50,6 +53,8 @@ class SCRIBUS_API ActionManager : public QObject
 		void init(ScribusMainWindow *);
 		static void createDefaultShortcuts();
 		static QMap<QString, QKeySequence>* defaultShortcuts() {return &defKeys;};
+		static void createDefaultMenus();
+		static QValueVector< QPair<QString, QStringList> >* defaultMenus() {return &defMenus;};
 		void createActions();
 		void disconnectModeActions();
 		void connectModeActions();
@@ -95,6 +100,7 @@ class SCRIBUS_API ActionManager : public QObject
 		QStringList *nonEditActionNames;
 		QStringList *unicodeCharActionNames;
 		static QMap<QString, QKeySequence> defKeys;
+		static QValueVector< QPair<QString, QStringList> > defMenus;
 };
 
 #endif

@@ -22,6 +22,7 @@
     <function shortcut="Ctrl+X" name="editCut" />
     <function shortcut="Ctrl+Shift+A" name="editDeselectAll" />
     <function shortcut="" name="editEditWithImageEditor" />
+    <function shortcut="" name="editExtendedImageProperties" />
     <function shortcut="" name="editJavascripts" />
     <function shortcut="" name="editLineStyles" />
     <function shortcut="" name="editMasterPages" />
@@ -157,6 +158,13 @@
     <function shortcut="N" name="toolsLinkTextFrame" />
     <function shortcut="" name="toolsMeasurements" />
     <function shortcut="" name="toolsOutline" />
+    <function shortcut="" name="toolsPDFAnnotLink" />
+    <function shortcut="" name="toolsPDFAnnotText" />
+    <function shortcut="" name="toolsPDFCheckBox" />
+    <function shortcut="" name="toolsPDFComboBox" />
+    <function shortcut="" name="toolsPDFListBox" />
+    <function shortcut="" name="toolsPDFPushButton" />
+    <function shortcut="" name="toolsPDFTextField" />
     <function shortcut="" name="toolsPages" />
     <function shortcut="" name="toolsPreflightVerifier" />
     <function shortcut="F2" name="toolsProperties" />

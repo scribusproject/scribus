@@ -37,7 +37,7 @@ class QListView;
 class TabTypograpy;
 class HySettings;
 class CMSPrefs;
-class KeyManager;
+//class KeyManager;
 class TabGuides;
 class TabTools;
 class TabCheckDoc;
@@ -49,6 +49,7 @@ class MarginWidget;
 class PrefsManager;
 class PageLayouts;
 class TabExternalToolsWidget;
+class TabKeyboardShortcutsWidget;
 
 #include "langmgr.h"
 
@@ -149,7 +150,8 @@ public:
 	DocumentItemAttributes* tabDefaultItemAttributes;
 	TOCIndexPrefs* tabDefaultTOCIndexPrefs;
 	TabExternalToolsWidget* tabExtTools;
-	KeyManager* tabKeys;
+	TabKeyboardShortcutsWidget* tabKeyboardShortcuts;
+// 	KeyManager* tabKeys;
 
 /*	QLabel* textLabelP;
 	QWidget* tab_5;

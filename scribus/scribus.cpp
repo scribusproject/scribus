@@ -267,7 +267,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	buildFontMenu();
  	ScCore->pluginManager->setupPluginActions(this);
  	ScCore->pluginManager->languageChange();
-	//done in core: initKeyboardShortcuts();
+	initKeyboardShortcuts();
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Setting up Shortcuts") );
 	SetShortCut();

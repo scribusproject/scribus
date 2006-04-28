@@ -29,6 +29,7 @@ smlinestylewbase.ui
 smreplacediabase.ui
 stylemanagerbase.ui
 tabexternaltoolswidgetbase.ui
+tabkeyboardshortcutswidgetbase.ui
 tocindexprefsbase.ui
 useprintermarginsdialogbase.ui
 )
@@ -93,7 +94,6 @@ imageinfodialog.h
 insertTable.h
 inspage.h
 javadocs.h
-keymanager.h
 layers.h
 lineformats.h
 loadsaveplugin.h
@@ -172,6 +172,7 @@ stylemanager.h
 styleselect.h
 tabcheckdoc.h
 tabexternaltoolswidget.h
+tabkeyboardshortcutswidget.h
 tabguides.h
 tabmanager.h
 tabpdfoptions.h
@@ -273,7 +274,6 @@ insertTable.cpp
 inspage.cpp
 ioapi.c
 javadocs.cpp
-keymanager.cpp
 langmgr.cpp
 layers.cpp
 linecombo.cpp
@@ -379,6 +379,7 @@ stylemanager.cpp
 styleselect.cpp
 tabcheckdoc.cpp
 tabexternaltoolswidget.cpp
+tabkeyboardshortcutswidget.cpp
 tabguides.cpp
 tabmanager.cpp
 tabpdfoptions.cpp

@@ -6,7 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 #include "prefs.h"
 #include "prefs.moc"
-#include "keymanager.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 #include <qfont.h>
@@ -25,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "hysettings.h"
 #include "cmsprefs.h"
-#include "keymanager.h"
+//#include "keymanager.h"
 #include "tabtools.h"
 #include "undomanager.h"
 #include "tabcheckdoc.h"
@@ -54,6 +53,7 @@ for which a new license (GPL+exception) is in place.
 #include "tabtypography.h"
 #include "tabguides.h"
 #include "tabexternaltoolswidget.h"
+#include "tabkeyboardshortcutswidget.h"
 #include "tocindexprefs.h"
 
 using namespace std;
@@ -393,9 +393,10 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	connect( prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(setTOCIndexData(QWidget *)));
 	addItem( tr("Table of Contents and Indexes"), loadIcon("tabtocindex.png"), tabDefaultTOCIndexPrefs);
 
-
-	tabKeys = new KeyManager(prefsWidgets, prefsData->KeyActions);
-	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), tabKeys);
+	tabKeyboardShortcuts = new TabKeyboardShortcutsWidget(prefsData->KeyActions, prefsWidgets);
+	addItem( tr("Keyboard Shortcuts New"), loadIcon("key_bindings.png"), tabKeyboardShortcuts);
+// 	tabKeys = new KeyManager(prefsWidgets, prefsData->KeyActions);
+// 	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), tabKeys);
 /*
 	tab_5 = new QWidget( prefsWidgets, "tab_5" );
 	tabLayout_5 = new QGridLayout( tab_5 );
@@ -1500,5 +1501,6 @@ void Preferences::updatePreferences()
 	}
 	prefsManager->appPrefs.defaultItemAttributes = *(tabDefaultItemAttributes->getNewAttributes());
 	prefsManager->appPrefs.defaultToCSetups = *(tabDefaultTOCIndexPrefs->getNewToCs());
-	prefsManager->appPrefs.KeyActions = tabKeys->getNewKeyMap();
+// 	prefsManager->appPrefs.KeyActions = tabKeys->getNewKeyMap();
+	prefsManager->appPrefs.KeyActions = tabKeyboardShortcuts->getNewKeyMap();
 }

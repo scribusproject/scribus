@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 QMap<QString, QKeySequence> ActionManager::defKeys;
+QValueVector< QPair<QString, QStringList> > ActionManager::defMenus;
 
 ActionManager::ActionManager ( QObject * parent, const char * name ) : QObject ( parent, name )
 {
@@ -864,6 +865,7 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, name, 0xFB06));
 	
 	//Spaces and special characters
+	
 	*actionNamesList << "unicodeSmartHyphen" << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodePageNumber";
 	*actionNamesList << "unicodeSpaceEN" << "unicodeSpaceEM" << "unicodeSpaceThin" << "unicodeSpaceThick" << "unicodeSpaceMid" << "unicodeSpaceHair";
 	//Breaks
@@ -890,7 +892,6 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	*actionNamesList << "unicodeQuoteCJKSingleLeft" << "unicodeQuoteCJKSingleRight" << "unicodeQuoteCJKDoubleLeft" << "unicodeQuoteCJKDoubleRight";
 	//Ligatures
 	*actionNamesList << "unicodeLigature_ff" << "unicodeLigature_fi" << "unicodeLigature_fl" << "unicodeLigature_ffi" << "unicodeLigature_ffl" << "unicodeLigature_ft" << "unicodeLigature_st";
-	
 	for ( QStringList::Iterator it = actionNamesList->begin(); it != actionNamesList->end(); ++it )
 		connect( (*actionMap)[*it], SIGNAL(activatedUnicodeShortcut(QString, int)), actionParent, SLOT(specialActionKeyEvent(QString, int)) );
 }
@@ -1586,8 +1587,8 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("toolsInsertFreehandLine", Qt::Key_F);
 	defKeys.insert("toolsRotate", Qt::Key_R);
 	defKeys.insert("toolsZoom", Qt::Key_Z);
-	defKeys.insert("toolsZoomIn", Qt::Key_Plus);
-	defKeys.insert("toolsZoomOut", Qt::Key_Minus);
+	defKeys.insert("toolsZoomIn", Qt::CTRL+Qt::Key_Plus);
+	defKeys.insert("toolsZoomOut", Qt::CTRL+Qt::Key_Minus);
 	defKeys.insert("toolsEditContents", Qt::Key_E);
 	defKeys.insert("toolsEditWithStoryEditor", Qt::CTRL+Qt::Key_Y);
 	defKeys.insert("toolsLinkTextFrame", Qt::Key_N);
@@ -1631,8 +1632,8 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("unicodeNonBreakingSpace", QKeySequence());
 	defKeys.insert("unicodePageNumber", QKeySequence());
 	defKeys.insert("unicodeNewLine", QKeySequence());
-	defKeys.insert("unicodeFrameBreak", QKeySequence());
-	defKeys.insert("unicodeColumnBreak", Qt::CTRL+Qt::Key_Return);
+	defKeys.insert("unicodeFrameBreak", Qt::CTRL+Qt::Key_Return);
+	defKeys.insert("unicodeColumnBreak", Qt::CTRL+Qt::SHIFT+Qt::Key_Return);
 	defKeys.insert("unicodeCopyRight", QKeySequence());
 	defKeys.insert("unicodeRegdTM", QKeySequence());
 	defKeys.insert("unicodeTM", QKeySequence());
@@ -1675,8 +1676,6 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("unicodeNonBreakingSpace", Qt::CTRL+Qt::Key_Space);
 	defKeys.insert("unicodePageNumber", Qt::CTRL+Qt::SHIFT+Qt::ALT+Qt::Key_P);
 	defKeys.insert("unicodeNewLine", Qt::SHIFT+Qt::Key_Return);
-	defKeys.insert("unicodeFrameBreak", QKeySequence());
-	defKeys.insert("unicodeColumnBreak", QKeySequence());
 	
 	defKeys.insert("unicodeLigature_ff", QKeySequence());
 	defKeys.insert("unicodeLigature_fi", QKeySequence());
@@ -1690,4 +1689,76 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("ExportAsImage", Qt::CTRL+Qt::SHIFT+Qt::Key_E);
 	defKeys.insert("NewFromDocumentTemplate", Qt::CTRL+Qt::ALT+Qt::Key_N);
 	defKeys.insert("SaveAsDocumentTemplate", Qt::CTRL+Qt::ALT+Qt::Key_S);
+}
+
+void ActionManager::createDefaultMenus()
+{   //CB TODO use this to also create the menus
+	defMenus.clear();
+	defMenus.append(QPair<QString, QStringList>("File", QStringList()));
+	defMenus.append(QPair<QString, QStringList>("Edit", QStringList()));
+	defMenus.append(QPair<QString, QStringList>("Style", QStringList()));
+	defMenus.append(QPair<QString, QStringList>("Item", QStringList()));
+	defMenus.append(QPair<QString, QStringList>("Insert", QStringList()));
+	defMenus.append(QPair<QString, QStringList>("Page", QStringList()));
+	defMenus.append(QPair<QString, QStringList>("View", QStringList()));
+	defMenus.append(QPair<QString, QStringList>("Extras", QStringList()));
+	defMenus.append(QPair<QString, QStringList>("Window", QStringList()));
+	defMenus.append(QPair<QString, QStringList>("Help", QStringList()));
+// 	defMenus.append(QPair<QString, QStringList>("Other", QStringList()));
+	
+	QValueVector< QPair<QString, QStringList> >::Iterator itmenu = defMenus.begin();
+	//File
+	itmenu->second << "fileNew" << "fileOpen" << "fileClose" << "fileSave" << "fileSaveAs" << "fileRevert" << "fileCollect";
+	itmenu->second << "fileImportText" << "fileImportAppendText" << "fileImportImage" << "fileExportText" << "fileExportAsEPS" << "fileExportAsPDF";
+	itmenu->second << "fileDocSetup" << "filePrint" << "PrintPreview" << "fileQuit";
+	++itmenu;
+	//Edit
+	itmenu->second << "editUndoAction" << "editRedoAction" << "editActionMode" << "editCut" << "editCopy" << "editPaste" << "editCopyContents" << "editPasteContents" << "editPasteContentsAbs" << "editClearContents" << "editSelectAll" << "editDeselectAll" << "editSearchReplace" << "toolsEditWithStoryEditor" << "editEditWithImageEditor" << "editExtendedImageProperties" << "editColors" << "editParaStyles" << "editLineStyles" << "editMasterPages" << "editJavascripts";
+	//Style
+	++itmenu;
+	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
+	size_t f_size = sizeof(font_sizes) / sizeof(*font_sizes);
+	for (uint s = 0; s < f_size; ++s)
+		itmenu->second << QString("fontSize%1").arg(font_sizes[s]);
+	itmenu->second << "fontSizeOther";
+	itmenu->second << "alignLeft" << "alignCenter" << "alignRight" << "alignBlock" << "alignForced";
+	for (uint i=0; i<=100 ; i+=10)
+		itmenu->second << QString("shade%1").arg(i);
+	itmenu->second << "shadeOther";
+	itmenu->second << "typeEffectNormal" << "typeEffectUnderline" << "typeEffectUnderlineWords" << "typeEffectStrikeThrough" << "typeEffectAllCaps" << "typeEffectSmallCaps" << "typeEffectSuperscript" << "typeEffectSubscript" << "typeEffectOutline" << "typeEffectShadow" << "styleImageEffects" << "styleTabulators";
+	//Item
+	++itmenu;
+	itmenu->second << "itemDuplicate" << "itemMulDuplicate" << "itemDelete" << "itemGroup" << "itemUngroup" << "itemLock" << "itemLockSize" << "itemImageIsVisible" << "itemUpdateImage" << "itemAdjustFrameToImage" << "itemExtendedImageProperties" << "itemPreviewLow" << "itemPreviewNormal" << "itemPreviewFull" << "itemRaise" << "itemLower" << "itemRaiseToTop" << "itemLowerToBottom" << "itemSendToScrapbook" << "itemAttributes" << "itemPDFIsAnnotation" << "itemPDFIsBookmark" << "itemPDFAnnotationProps" << "itemPDFFieldProps" << "itemShapeEdit" << "itemConvertToBezierCurve" << "itemConvertToImageFrame" << "itemConvertToOutlines" << "itemConvertToPolygon" << "itemConvertToTextFrame" << "itemAttachTextToPath" << "itemDetachTextFromPath" << "itemCombinePolygons" << "itemSplitPolygons";
+	//Insert
+	++itmenu;
+	itmenu->second << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame" << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertLine" << "toolsInsertBezier" << "toolsInsertFreehandLine" << "insertGlyph" << "insertSampleText";
+	
+	itmenu->second << "unicodeSmartHyphen"  << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodePageNumber" << "unicodeNewLine" << "unicodeFrameBreak" << "unicodeColumnBreak" << "unicodeCopyRight" << "unicodeRegdTM" << "unicodeTM" << "unicodeSolidus" << "unicodeBullet" << "unicodeMidpoint" << "unicodeDashEm" << "unicodeDashEn" << "unicodeDashFigure" << "unicodeDashQuotation";
+
+	 itmenu->second << "unicodeQuoteApostrophe" << "unicodeQuoteStraight" << "unicodeQuoteSingleLeft" << "unicodeQuoteSingleRight" << "unicodeQuoteDoubleLeft" << "unicodeQuoteDoubleRight" << "unicodeQuoteSingleReversed" << "unicodeQuoteDoubleReversed" << "unicodeQuoteSingleLeftGuillemet" << "unicodeQuoteSingleRightGuillemet" << "unicodeQuoteDoubleLeftGuillemet" << "unicodeQuoteDoubleRightGuillemet" << "unicodeQuoteLowSingleComma" << "unicodeQuoteLowDoubleComma" << "unicodeQuoteCJKSingleLeft" << "unicodeQuoteCJKSingleRight" << "unicodeQuoteCJKDoubleLeft" << "unicodeQuoteCJKDoubleRight";
+
+	 itmenu->second << "unicodeSpaceEN" << "unicodeSpaceEM" << "unicodeSpaceThin" << "unicodeSpaceThick" << "unicodeSpaceMid" << "unicodeSpaceHair";
+
+	 itmenu->second << "unicodeSmartHyphen" << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodePageNumber" << "unicodeNewLine" << "unicodeFrameBreak" << "unicodeColumnBreak";
+	 itmenu->second << "unicodeLigature_ff" << "unicodeLigature_fi" << "unicodeLigature_fl" << "unicodeLigature_ffi" << "unicodeLigature_ffl" << "unicodeLigature_ft" << "unicodeLigature_st";
+	
+	
+	//Page
+	++itmenu;
+	itmenu->second << "pageInsert" << "pageImport" << "pageDelete" << "pageCopy" << "pageMove" << "pageApplyMasterPage" << "pageCopyToMasterPage" << "pageManageGuides" << "pageManageMargins" << "viewSnapToGrid" << "viewSnapToGuides";
+	//View
+	++itmenu;
+	itmenu->second << "viewFitInWindow" << "viewFit50" << "viewFit75" << "viewFit100" << "viewFit200" << "viewFit20" << "viewShowMargins" << "viewShowFrames" << "viewShowImages" << "viewShowGrid" << "viewShowGuides" << "viewShowBaseline" << "viewShowTextChain" << "viewShowTextControls" << "viewShowRulers" << "viewRulerMode";
+	//Extras
+	++itmenu;
+	itmenu->second << "extrasManagePictures" << "extrasHyphenateText" << "extrasDeHyphenateText" << "extrasGenerateTableOfContents";
+	//Windows
+	++itmenu;
+	itmenu->second  << "windowsCascade" << "windowsTile" << "toolsProperties" << "toolsOutline" << "toolsScrapbook" << "toolsLayers" << "toolsPages" << "toolsBookmarks" << "toolsMeasurements" << "toolsActionHistory" << "toolsPreflightVerifier" << "toolsAlignDistribute" << "toolsToolbarTools" << "toolsToolbarPDF";
+	//Help
+	++itmenu;
+	itmenu->second << "helpAboutScribus" << "helpAboutPlugins" << "helpAboutQt" << "helpTooltips" << "helpManual";
+	//Other
+// 	++itmenu;
+// 	itmenu->second << "";
 }

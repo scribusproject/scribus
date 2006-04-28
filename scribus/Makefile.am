@@ -108,7 +108,6 @@ scribus_SOURCES = \
 	inspage.cpp	\
 	ioapi.c	\
 	javadocs.cpp	\
-	keymanager.cpp	\
 	langmgr.cpp	\
 	layers.cpp	\
 	linecombo.cpp	\
@@ -215,6 +214,8 @@ scribus_SOURCES = \
 	tabcheckdoc.cpp	\
 	tabexternaltoolswidgetbase.ui \
 	tabexternaltoolswidget.cpp \
+	tabkeyboardshortcutswidgetbase.ui \
+	tabkeyboardshortcutswidget.cpp \
 	tabguides.cpp	\
 	tabmanager.cpp	\
 	tabpdfoptions.cpp	\
@@ -347,7 +348,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/inspage.h                     $(prefix)/include/scribus/inspage.h
 	$(INSTALL_DATA) $(srcdir)/ioapi.h                       $(prefix)/include/scribus/ioapi.h
 	$(INSTALL_DATA) $(srcdir)/javadocs.h                    $(prefix)/include/scribus/javadocs.h
-	$(INSTALL_DATA) $(srcdir)/keymanager.h                  $(prefix)/include/scribus/keymanager.h
 	$(INSTALL_DATA) $(srcdir)/langmgr.h                     $(prefix)/include/scribus/langmgr.h
 	$(INSTALL_DATA) $(srcdir)/layers.h                      $(prefix)/include/scribus/layers.h
 	$(INSTALL_DATA) $(srcdir)/linecombo.h                   $(prefix)/include/scribus/linecombo.h
@@ -537,7 +537,6 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/inspage.h
 	-rm -f $(prefix)/include/scribus/ioapi.h
 	-rm -f $(prefix)/include/scribus/javadocs.h
-	-rm -f $(prefix)/include/scribus/keymanager.h
 	-rm -f $(prefix)/include/scribus/langmgr.h
 	-rm -f $(prefix)/include/scribus/layers.h
 	-rm -f $(prefix)/include/scribus/linecombo.h
