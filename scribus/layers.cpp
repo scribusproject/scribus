@@ -77,8 +77,8 @@ LayerPalette::LayerPalette(QWidget* parent)
 	Table->setNumCols( 5 );
 	QHeader *header = Table->horizontalHeader();
 	header->setLabel(0, loadIcon("16/show-object.png"), "");
-	header->setLabel(1, loadIcon("DateiPrint16.png"), "");
-	header->setLabel(2, loadIcon("locked.png"), "");
+	header->setLabel(1, loadIcon("16/document-print.png"), "");
+	header->setLabel(2, loadIcon("16/lock.png"), "");
 	header->setLabel(3, loadIcon("16/layer-flow-around.png"), "");
 	Table->setColumnReadOnly(0, true);
 	Table->setColumnReadOnly(1, true);
