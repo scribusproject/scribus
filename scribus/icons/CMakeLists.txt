@@ -345,6 +345,7 @@ INSTALL(FILES
 16/zoom-in.png
 16/zoom-original.png
 16/zoom-out.png
+16/layer-flow-around.png
   DESTINATION ${ICONDIR}16
 )
 

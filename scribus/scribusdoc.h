@@ -208,6 +208,19 @@ public:
 	 */
 	bool layerLocked(const int layerNumber);
 	/**
+	 * @brief Set the layer flow via the layer number
+	 * @param layerNumber Number of the layer
+	 * @param flow true = Text flows around objects on this layer
+	 * @return Success or failure
+	 */
+	bool setLayerFlow(const int layerNumber, const bool flow);
+	/**
+	 * @brief does text flow around objects on this layer
+	 * @param layerNumber Number of the layer
+	 * @return flow or not
+	 */
+	bool layerFlow(const int layerNumber);
+	/**
 	 * @brief Return the level of the requested layer
 	 * @param layerNumber Number of the layer
 	 * @return Level of the layer

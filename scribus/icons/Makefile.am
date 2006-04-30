@@ -95,6 +95,7 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 16/stroke-join-round.png \
 16/transform-rotate.png \
 22/transform-rotate.png \
+16/layer-flow-around.png \
 16/zoom.png \
 22/zoom.png \
 16/zoom-in.png \
@@ -501,6 +502,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/zoom-original.png $(prefix)/share/scribus/icons/22/zoom-original.png
 	$(INSTALL_DATA) $(srcdir)/16/zoom-out.png $(prefix)/share/scribus/icons/16/zoom-out.png
 	$(INSTALL_DATA) $(srcdir)/22/zoom-out.png $(prefix)/share/scribus/icons/22/zoom-out.png
+	$(INSTALL_DATA) $(srcdir)/16/layer-flow-around.png $(prefix)/share/scribus/icons/16/layer-flow-around.png
 
 
 
@@ -898,3 +900,4 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/zoom-original.png
 	-rm -f $(prefix)/share/scribus/icons/16/zoom-out.png
 	-rm -f $(prefix)/share/scribus/icons/22/zoom-out.png
+	-rm -f $(prefix)/share/scribus/icons/16/layer-flow-around.png

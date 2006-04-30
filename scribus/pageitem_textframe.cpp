@@ -116,7 +116,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 			{
 				PageItem* docItem = m_Doc->MasterItems.at(a);
 				int LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
-				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
+				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev) && (m_Doc->layerFlow(docItem->LayerNr)))
 				{
 //					pp.begin(view->viewport());
 					if (docItem->textFlowsAroundFrame())
@@ -196,7 +196,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 			{
 				PageItem* docItem = m_Doc->Items->at(a);
 				int LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
-				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
+				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev) && (m_Doc->layerFlow(docItem->LayerNr)))
 				{
 					 if (docItem->textFlowsAroundFrame())
 						result = result.subtract(itemShape(docItem, m_Doc->view(), 0, 0));

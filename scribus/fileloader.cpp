@@ -595,6 +595,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 				la.isViewable = pg.attribute("SICHTBAR").toInt();
 				la.isPrintable = pg.attribute("DRUCKEN").toInt();
 				la.isEditable = pg.attribute("EDIT", "1").toInt();
+				la.flowControl = pg.attribute("FLOW", "1").toInt();
 				bool laex = false;
 				uint layerCount=doc->layerCount();
 				for (uint la2 = 0; la2 < layerCount; ++la2)
@@ -1242,6 +1243,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				la.isViewable = pg.attribute("SICHTBAR").toInt();
 				la.isPrintable = pg.attribute("DRUCKEN").toInt();
 				la.isEditable = pg.attribute("EDIT", "1").toInt();
+				la.flowControl = pg.attribute("FLOW", "1").toInt();
 				doc->Layers.append(la);
 			}
 /*			if(pg.tagName()=="Bookmark")
@@ -1758,6 +1760,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		la.isViewable = true;
 		la.isPrintable = true;
 		la.isEditable = true;
+		la.flowControl = true;
 		doc->Layers.append(la);
 	}
 	if (LFrames.count() != 0)

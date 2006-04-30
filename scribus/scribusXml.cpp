@@ -860,6 +860,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				la.isViewable = pg.attribute("SICHTBAR").toInt();
 				la.isPrintable = pg.attribute("DRUCKEN").toInt();
 				la.isEditable = true;
+				la.flowControl = true;
 				bool laex = false;
 				uint layerCount=doc->layerCount();
 				for (uint la2 = 0; la2 < layerCount; ++la2)
@@ -1362,6 +1363,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				la.isViewable = pg.attribute("SICHTBAR").toInt();
 				la.isPrintable = pg.attribute("DRUCKEN").toInt();
 				la.isEditable = true;
+				la.flowControl = true;
 				doc->Layers.append(la);
 			}
 			if(pg.tagName()=="MultiLine")
@@ -3251,6 +3253,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		la.setAttribute("SICHTBAR", static_cast<int>(doc->Layers[lay].isViewable));
 		la.setAttribute("DRUCKEN", static_cast<int>(doc->Layers[lay].isPrintable));
 		la.setAttribute("EDIT", static_cast<int>(doc->Layers[lay].isEditable));
+		la.setAttribute("FLOW", static_cast<int>(doc->Layers[lay].flowControl));
 		dc.appendChild(la);
 	}
 	QDomElement pdf = docu.createElement("PDF");

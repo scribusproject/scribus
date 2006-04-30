@@ -223,6 +223,7 @@ struct Layer
 	bool isPrintable;
 	bool isViewable;
 	bool isEditable;
+	bool flowControl;
 };
 
 struct PDFPresentationData

@@ -270,6 +270,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	ll.isViewable = true;
 	ll.isPrintable = true;
 	ll.isEditable = true;
+	ll.flowControl = true;
 	Layers.append(ll);
 	// Fixme: Check PDF version input
 	PDF_Options.Version = (PDFOptions::PDFVersion)prefsData.PDF_Options.Version;
@@ -1130,6 +1131,7 @@ int ScribusDoc::addLayer(const QString& layerName, const bool activate)
 	ll.isViewable = true;
 	ll.isPrintable = true;
 	ll.isEditable = true;
+	ll.flowControl = true;
 	Layers.append(ll);
 	if (activate)
 		setActiveLayer(ll.LNr);
@@ -1392,6 +1394,35 @@ bool ScribusDoc::layerLocked(const int layerNumber)
 	{
 		if ((*it).LNr == layerNumber)
 			return !(*it).isEditable;
+	}
+	return false;
+}
+
+bool ScribusDoc::setLayerFlow(const int layerNumber, const bool flow)
+{
+	QValueList<Layer>::iterator itend=Layers.end();
+	QValueList<Layer>::iterator it;
+	bool found=false;
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if ((*it).LNr == layerNumber)
+		{
+			(*it).flowControl = flow;
+			found=true;
+			break;
+		}
+	}
+	return found;
+}
+
+bool ScribusDoc::layerFlow(const int layerNumber)
+{
+	QValueList<Layer>::iterator itend=Layers.end();
+	QValueList<Layer>::iterator it;
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if ((*it).LNr == layerNumber)
+			return (*it).flowControl;
 	}
 	return false;
 }
