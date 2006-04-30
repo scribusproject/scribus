@@ -132,7 +132,7 @@ void ScPainterEx_GDI::loadMsImg32( void )
 QColor ScPainterEx_GDI::transformColor( ScColorShade& colorShade, double trans )
 {
 	QColor c, color;
-	c = colorShade.color.getShadeColorProof( colorShade.shade );
+	c = colorShade.color.getShadeColor( colorShade.shade );
 	color = qRgba( qRed(c.rgb()), qGreen(c.rgb()), qBlue(c.rgb()), qAlpha(trans * 255));
 	if ( toGray )
 	{

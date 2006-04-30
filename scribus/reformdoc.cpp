@@ -49,7 +49,8 @@ extern bool CMSavail;
 #ifdef HAVE_CMS
 extern cmsHPROFILE CMSoutputProf;
 extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransG;
+extern cmsHTRANSFORM stdTransRGBMonG;
+extern cmsHTRANSFORM stdTransCMYKMonG;
 extern cmsHTRANSFORM stdProofG;
 extern cmsHTRANSFORM stdTransImgG;
 extern cmsHTRANSFORM stdProofImgG;
@@ -987,7 +988,8 @@ void ReformDoc::updateDocumentSettings()
 			if ( currDoc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles) )
 			{
 				stdProofG = currDoc->stdProof;
-				stdTransG = currDoc->stdTrans;
+				stdTransRGBMonG = currDoc->stdTransRGBMon;
+				stdTransCMYKMonG = currDoc->stdTransCMYKMon;
 				stdProofImgG = currDoc->stdProofImg;
 				stdTransImgG = currDoc->stdTransImg;
 				stdProofCMYKG = currDoc->stdProofCMYK;

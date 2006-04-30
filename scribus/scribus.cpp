@@ -183,7 +183,8 @@ using namespace std;
 #ifdef HAVE_CMS
 extern cmsHPROFILE CMSoutputProf;
 extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransG;
+extern cmsHTRANSFORM stdTransRGBMonG;
+extern cmsHTRANSFORM stdTransCMYKMonG;
 extern cmsHTRANSFORM stdProofG;
 extern cmsHTRANSFORM stdTransImgG;
 extern cmsHTRANSFORM stdProofImgG;
@@ -2071,7 +2072,8 @@ void ScribusMainWindow::SwitchWin()
 	IntentColors = doc->IntentColors;
 	IntentImages = doc->IntentImages;
 	stdProofG = doc->stdProof;
-	stdTransG = doc->stdTrans;
+	stdTransRGBMonG = doc->stdTransRGBMon;
+	stdTransCMYKMonG = doc->stdTransCMYKMon;
 	stdProofImgG = doc->stdProofImg;
 	stdTransImgG = doc->stdTransImg;
 	stdProofCMYKG = doc->stdProofCMYK;
@@ -3345,7 +3347,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			{
 				CMSuse = doc->CMSSettings.CMSinUse;
 				stdProofG = doc->stdProof;
-				stdTransG = doc->stdTrans;
+				stdTransRGBMonG = doc->stdTransRGBMon;
+				stdTransCMYKMonG = doc->stdTransCMYKMon;
 				stdProofImgG = doc->stdProofImg;
 				stdTransImgG = doc->stdTransImg;
 				stdProofCMYKG = doc->stdProofCMYK;

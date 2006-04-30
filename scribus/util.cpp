@@ -92,7 +92,8 @@ extern "C"
 	#include CMS_INC
 extern cmsHPROFILE CMSoutputProf;
 extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransG;
+extern cmsHTRANSFORM stdTransRGBMonG;
+extern cmsHTRANSFORM stdTransCMYKMonG;
 extern cmsHTRANSFORM stdProofG;
 extern cmsHTRANSFORM stdTransImgG;
 extern cmsHTRANSFORM stdProofImgG;

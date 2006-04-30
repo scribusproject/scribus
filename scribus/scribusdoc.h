@@ -740,7 +740,8 @@ public: // Public attributes
 	cmsHPROFILE DocInputCMYKProf;
 	cmsHPROFILE DocOutputProf;
 	cmsHPROFILE DocPrinterProf;
-	cmsHTRANSFORM stdTrans;
+	cmsHTRANSFORM stdTransRGBMon;
+	cmsHTRANSFORM stdTransCMYKMon;
 	cmsHTRANSFORM stdProof;
 	cmsHTRANSFORM stdTransImg;
 	cmsHTRANSFORM stdProofImg;

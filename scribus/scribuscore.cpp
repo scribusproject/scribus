@@ -38,7 +38,8 @@ extern ScribusQApp* ScQApp;
 #include "cmserrorhandling.h"
 cmsHPROFILE CMSoutputProf;
 cmsHPROFILE CMSprinterProf;
-cmsHTRANSFORM stdTransG;
+cmsHTRANSFORM stdTransRGBMonG;
+cmsHTRANSFORM stdTransCMYKMonG;
 cmsHTRANSFORM stdProofG;
 cmsHTRANSFORM stdTransImgG;
 cmsHTRANSFORM stdProofImgG;

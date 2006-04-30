@@ -54,7 +54,7 @@ void ColorSmallPixmapItem::paint( QPainter *p )
 	int itemHeight = height( listBox() );
     int yPos;
 
-	QColor rgb = color.getRawRGBColor();
+	QColor rgb = color.getDisplayColor();
 	smallPix.fill(rgb);
 	QPainter painter(&smallPix);
 	painter.setBrush(Qt::NoBrush);
@@ -96,7 +96,7 @@ void ColorWidePixmapItem::paint( QPainter *p )
 	int itemHeight = height( listBox() );
     int yPos;
 
-	QColor rgb = color.getRawRGBColor();
+	QColor rgb = color.getDisplayColor();
 	widePix.fill(rgb);
 
 	QRect rect;
@@ -149,7 +149,7 @@ void ColorFancyPixmapItem::paint( QPainter *p )
 	int itemHeight = height( listBox() );
     int yPos;
 
-	QColor rgb = color.getRawRGBColor();
+	QColor rgb = color.getDisplayColor();
 	smallPix.fill(rgb);
 	QPainter painter(&smallPix);
 	painter.setBrush(Qt::NoBrush);

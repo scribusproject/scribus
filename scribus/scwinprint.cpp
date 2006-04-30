@@ -356,7 +356,7 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 	bool success = true;
 	ScPainterEx_GDI *painter;
 	ScPageOutput *pageOutput;
-	QCString monitorProfile;
+	QCString inputProfile;
 	QCString printerProfile;
 	HCOLORSPACE hColorSpace = NULL;
 	double scalex = 1, scaley = 1;
@@ -367,14 +367,14 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 	if ( options.useICC && isPostscriptPrinter(printerDC) )
 	{
 		success = false;
-		QString mProf = doc->CMSSettings.DefaultMonitorProfile;
+		QString mProf = doc->CMSSettings.DefaultSolidColorRGBProfile;
 		QString pProf = doc->CMSSettings.DefaultPrinterProfile;
 		if ( ScCore->MonitorProfiles.contains(mProf) && ScCore->PrinterProfiles.contains(pProf) )
 		{
-			monitorProfile = QDir::convertSeparators(ScCore->MonitorProfiles[mProf]).local8Bit();
+			inputProfile  = QDir::convertSeparators(ScCore->InputProfiles[mProf]).local8Bit();
 			printerProfile = QDir::convertSeparators(ScCore->PrinterProfiles[pProf]).local8Bit();
 			// Avoid color transform if input and output profile are the same
-			if ( monitorProfile != printerProfile )
+			if ( inputProfile != printerProfile )
 			{
 				// Setup input color space
 				LOGCOLORSPACE logColorSpace;
@@ -383,7 +383,7 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 				logColorSpace.lcsSignature = LCS_SIGNATURE;
 				logColorSpace.lcsCSType = LCS_CALIBRATED_RGB;
 				logColorSpace.lcsIntent = LCS_GM_GRAPHICS;
-				strncpy(logColorSpace.lcsFilename, monitorProfile.data(), MAX_PATH);
+				strncpy(logColorSpace.lcsFilename, inputProfile.data(), MAX_PATH);
 				// MSDN recommend to setup reasonable values even if profile is specified
 				// so let's use sRGB colorspace values
 				logColorSpace.lcsEndpoints.ciexyzRed.ciexyzX = __FXPT2DOT30(0.64);

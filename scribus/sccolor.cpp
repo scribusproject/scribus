@@ -30,7 +30,8 @@ for which a new license (GPL+exception) is in place.
 
 #ifdef HAVE_CMS
 	#include CMS_INC
-	extern cmsHTRANSFORM stdTransG;
+	extern cmsHTRANSFORM stdTransRGBMonG;
+	extern cmsHTRANSFORM stdTransCMYKMonG;
 	extern cmsHTRANSFORM stdProofG;
 	extern cmsHTRANSFORM stdTransCMYKG;
 	extern cmsHTRANSFORM stdProofCMYKG;
@@ -38,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 	extern cmsHTRANSFORM stdProofGCG;
 	extern cmsHTRANSFORM stdProofCMYKGCG;
  	extern bool SoftProofing;
+	extern bool Gamut;
 	extern bool CMSuse;
 #endif
 extern bool CMSavail;
@@ -132,6 +134,13 @@ QColor ScColor::getRGBColor()
 {
 	return RGB;
 }
+
+QColor ScColor::getShadeColor(int level)
+{
+	int r, g, b;
+	getShadeColorRGB(&r, &g, &b, level);
+	return QColor(r, g, b);
+}
  
 void ScColor::getShadeColorCMYK(int *c, int *m, int *y, int *k, int level)
 {
@@ -183,24 +192,62 @@ void ScColor::getShadeColorRGB(int *r, int *g, int *b, int level)
 	}
 }
 
+QColor ScColor::getDisplayColor()
+{
+	QColor tmp;
+	if (Model == colorModelRGB)
+		tmp = getDisplayColor(R, G, B);
+	else
+		tmp = getDisplayColor(C, M, Y, K);
+	return tmp;
+}
+
+QColor ScColor::getDisplayColorGC()
+{
+	QColor tmp;
+	if( SoftProofing && Gamut )
+	{
+		checkGamut();
+		tmp = outOfGamutFlag ? QColor(0, 255, 0) : getDisplayColor();
+	}
+	else
+		tmp = getDisplayColor();
+	return tmp;
+}
+
+QColor ScColor::getColorProof(bool gamutCheck)
+{
+	QColor tmp;
+	if (Model == colorModelRGB)
+		tmp = getColorProof(R, G, B, gamutCheck & Gamut);
+	else
+		tmp = getColorProof(C, M, Y, K, gamutCheck & Gamut);
+	return tmp;
+}
+
 QColor ScColor::getShadeColorProof(int level)
 {
 	QColor tmp;
 	ScColor tmp2;
 	int r, g, b, c, m ,y, k;
+#if defined HAVE_CMS
+	bool doGC = Gamut;
+#else
+	bool doGC = false;
+#endif
 	
 	if (Model == colorModelRGB)
 	{
 		getShadeColorRGB(&r, &g, &b, level);
-		tmp2.setColorRGB(r, g, b);
+		tmp = getColorProof(r, g, b, doGC);
 	}
 	else
 	{
 		getShadeColorCMYK(&c, &m, &y, &k, level);
-		tmp2.setColor(c, m, y, k);
+		tmp = getColorProof(c, m, y, k, doGC);
 	}
 	
-	return tmp2.getRGBColor();
+	return tmp;
 }
 
 void ScColor::getRawRGBColor(int *r, int *g, int *b)
@@ -422,29 +469,12 @@ void ScColor::RecalcRGB()
 				inC[0] = R * 257;
 				inC[1] = G * 257;
 				inC[2] = B * 257;
-				if (SoftProofing)
-				{
-					if ((R == 0) && (B == 0) && (G == 255))
-						alert = false;
-					cmsDoTransform(stdProofG, inC, outC, 1);
-					R = outC[0] / 257;
-					G = outC[1] / 257;
-					B = outC[2] / 257;
-					if ((alert) && (R == 0) && (B == 0) && (G == 255))
-						outOfGamutFlag = true;
-					K = QMIN(QMIN(255 - R, 255 - G), 255 - B);
-					C = 255 - R - K;
-					M = 255 - G - K;
-					Y = 255 - B - K;
-				}
-				else
-				{
-					cmsDoTransform(stdTransCMYKG, inC, outC, 1);
-					C = outC[0] / 257;
-					M = outC[1] / 257;
-					Y = outC[2] / 257;
-					K = outC[3] / 257;
-				}
+				cmsDoTransform(stdTransCMYKG, inC, outC, 1);
+				C = outC[0] / 257;
+				M = outC[1] / 257;
+				Y = outC[2] / 257;
+				K = outC[3] / 257;
+				checkGamut();
 			}
 		}
 		else
@@ -453,23 +483,11 @@ void ScColor::RecalcRGB()
 			inC[1] = M * 257;
 			inC[2] = Y * 257;
 			inC[3] = K * 257;
-			if (SoftProofing)
-			{
-				if ((M == 0) && (K == 0) && (C == 255) && (Y == 255))
-					alert = false;
-				if ((M == 0) && (C == 0) && (Y == 0))
-					alert = false;
-				if ((M == C) && (C == Y) && (Y == K))
-					alert = false;
-				cmsDoTransform(stdProofCMYKG, inC, outC, 1);
-				if ((alert) && (R == 0) && (B == 0) && (G == 255))
-					outOfGamutFlag = true;
-			}
-			else
-				cmsDoTransform(stdTransRGBG, inC, outC, 1);
+			cmsDoTransform(stdTransRGBG, inC, outC, 1);
 			R = outC[0] / 257;
 			G = outC[1] / 257;
 			B = outC[2] / 257;
+			checkGamut();
 		}
 	}
 	else
@@ -492,6 +510,128 @@ void ScColor::RecalcRGB()
 	}
 #endif
 	RGB = QColor(R, G, B);
+}
+
+QColor ScColor::getColorProof(int r, int g, int b, bool gamutCkeck)
+{
+#ifdef HAVE_CMS
+	WORD inC[4];
+	WORD outC[4];
+	bool alert = true;
+	if ((CMSuse && CMSavail) && (!Spot))
+	{
+		inC[0] = r * 257;
+		inC[1] = g * 257;
+		inC[2] = b * 257;
+		if (SoftProofing)
+		{
+			cmsHTRANSFORM xform = gamutCkeck ? stdProofGCG : stdProofG;
+			cmsDoTransform(xform, inC, outC, 1);
+			r = outC[0] / 257;
+			g = outC[1] / 257;
+			b = outC[2] / 257;
+		}
+		else
+		{
+			cmsDoTransform(stdTransRGBMonG, inC, outC, 1);
+			r = outC[0] / 257;
+			g = outC[1] / 257;
+			b = outC[2] / 257;
+		}
+	}
+#endif
+	return QColor(r, g, b);
+}
+
+QColor ScColor::getColorProof(int c, int m, int y, int k, bool gamutCkeck)
+{
+	int  r = 0, g = 0, b = 0;
+#ifdef HAVE_CMS
+	WORD inC[4];
+	WORD outC[4];
+	bool alert = true;
+	if ((CMSuse && CMSavail) && (!Spot))
+	{
+		inC[0] = c * 257;
+		inC[1] = m * 257;
+		inC[2] = y * 257;
+		inC[3] = k * 257;
+		if (SoftProofing)
+		{
+			cmsHTRANSFORM xform = gamutCkeck ? stdProofCMYKGCG : stdProofCMYKG;
+			cmsDoTransform(xform, inC, outC, 1);
+			r = outC[0] / 257;
+			g = outC[1] / 257;
+			b = outC[2] / 257;
+		}
+		else
+		{
+			cmsDoTransform(stdTransCMYKMonG, inC, outC, 1);
+			r = outC[0] / 257;
+			g = outC[1] / 257;
+			b = outC[2] / 257;
+		}
+	}
+	else
+	{
+#endif
+		r = 255 - QMIN(255, c + k);
+		g = 255 - QMIN(255, m + k);
+		b = 255 - QMIN(255, y + k);
+#ifdef HAVE_CMS
+	}
+#endif
+	return QColor(r, g, b);
+}
+
+QColor ScColor::getDisplayColor(int r, int g, int b)
+{
+#ifdef HAVE_CMS
+	WORD inC[4];
+	WORD outC[4];
+	bool alert = true;
+	if ((CMSuse && CMSavail) && (!Spot))
+	{
+		inC[0] = r * 257;
+		inC[1] = g * 257;
+		inC[2] = b * 257;
+		cmsDoTransform(stdTransRGBMonG, inC, outC, 1);
+		r = outC[0] / 257;
+		g = outC[1] / 257;
+		b = outC[2] / 257;
+	}
+#endif
+	return QColor(r, g, b);
+}
+
+QColor ScColor::getDisplayColor(int c, int m, int y, int k)
+{
+	int  r = 0, g = 0, b = 0;
+#ifdef HAVE_CMS
+	WORD inC[4];
+	WORD outC[4];
+	bool alert = true;
+	if ((CMSuse && CMSavail) && (!Spot))
+	{
+		inC[0] = c * 257;
+		inC[1] = m * 257;
+		inC[2] = y * 257;
+		inC[3] = k * 257;
+		cmsDoTransform(stdTransCMYKMonG, inC, outC, 1);
+		r = outC[0] / 257;
+		g = outC[1] / 257;
+		b = outC[2] / 257;
+	}
+	else
+	{
+#endif
+		r = 255 - QMIN(255, c + k);
+		g = 255 - QMIN(255, m + k);
+		b = 255 - QMIN(255, y + k);
+#ifdef HAVE_CMS
+	}
+#endif
+	return QColor(r, g, b);
 }
 
 bool ScColor::isRegistrationColor()
