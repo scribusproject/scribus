@@ -146,6 +146,8 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	connect(sizeQComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
+	
+	setPageSize();
 	setMinimumSize(minimumSizeHint());
 	setMaximumSize(minimumSizeHint());
 	resize(minimumSizeHint());
@@ -192,6 +194,7 @@ void MarginDialog::setSize(const QString & gr)
 	heightMSpinBox->setValue(pageHeight * unitRatio);
 	GroupRand->setPageHeight(pageHeight);
 	GroupRand->setPageWidth(pageWidth);
+	GroupRand->setPageSize(gr);
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	delete ps2;
