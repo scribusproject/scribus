@@ -119,8 +119,10 @@ PDFlib::PDFlib(ScribusDoc & docu)
 		Q_CHECK_PTR(progressDialog);
 		QStringList barNames, barTexts;
 		barNames << "EMP" << "EP" << "ECPI";
-		barTexts << tr("Exporting Master Pages:") << tr("Exporting Pages:") << tr("Exporting Items on Current Page:");
-		progressDialog->addExtraProgressBars(barNames, barTexts);
+		barTexts << tr("Exporting Master Page:") << tr("Exporting Page:") << tr("Exporting Items on Current Page:");
+		QValueList<bool> barsNumeric;
+		barsNumeric << true << true << false;
+		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
 		connect(progressDialog->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
 	}
 }

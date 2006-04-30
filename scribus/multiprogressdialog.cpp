@@ -49,7 +49,7 @@ void MultiProgressDialog::removeExtraProgressBars()
 	progressLabels.clear();
 }
 
-bool MultiProgressDialog::addExtraProgressBars(const QStringList &barsList, const QStringList &barsTexts)
+bool MultiProgressDialog::addExtraProgressBars(const QStringList &barsList, const QStringList &barsTexts, const QValueList<bool>& barsNumerical)
 {
 	uint barCount=barsList.count();
 	if (barCount==0)
@@ -61,7 +61,7 @@ bool MultiProgressDialog::addExtraProgressBars(const QStringList &barsList, cons
 		if(progressBarTitles.contains(barName))
 			continue;
 		progressBarTitles.append(barName);
-		progressBars.insert(barName, new QProgressBar(this, barName));
+		progressBars.insert(barName, new ScProgressBar(barsNumerical[i], this, barName));
 		progressLabels.insert(barName, new QLabel(barsTexts[i], this, barName));
 		gridLayout->addWidget(progressLabels[barName], gridLayoutRow, 0);
 		gridLayout->addWidget(progressBars[barName], gridLayoutRow, 1);

@@ -55,7 +55,9 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive, bool showProgress)
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing PostScript:");
-		progressDialog->addExtraProgressBars(barNames, barTexts);
+		QValueList<bool> barsNumeric;
+		barsNumeric << false;
+		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
 		progressDialog->setOverallTotalSteps(3);
 		progressDialog->setOverallProgress(0);
 		progressDialog->setProgress("GI", 0);

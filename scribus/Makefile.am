@@ -184,6 +184,7 @@ scribus_SOURCES = \
 	scpaths.cpp	\
 	scplugin.cpp	\
 	scpreview.cpp	\
+	scprogressbar.cpp	\
 	scraction.cpp	\
 	scrap.cpp	\
 	scribusdoc.cpp	\

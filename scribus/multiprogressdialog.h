@@ -30,14 +30,17 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "multiprogressdialogbase.h"
 
-#include <qprogressbar.h>
-#include <qpushbutton.h>
+#include "scprogressbar.h"
+#include <qdialog.h>
+
 #include <qlabel.h>
 #include <qlayout.h>
+#include <qmap.h>
+#include <qpushbutton.h>
 #include <qstringlist.h>
 #include <qstring.h>
-#include <qdialog.h>
-#include <qmap.h>
+#include <qvaluelist.h>
+
 
 class SCRIBUS_API MultiProgressDialog : public MultiProgressDialogBase
 {
@@ -65,15 +68,16 @@ class SCRIBUS_API MultiProgressDialog : public MultiProgressDialogBase
 		void removeExtraProgressBars();
 		/**
 		 * Add a list of progress bars, where barsList contains a list of references and barTexts
-		 * contains the labels for the bars.
+		 * contains the labels for the bars. Set the bools in barsNumerical to true to get a "X of Y" indicator
 		 * Eg:
 		 * "MYBAR1" -> "My Bar 1:"
 		 * "MYBAR2" -> "My Bar 2:"
-		 * @param barsList 
-		 * @param barsTexts 
+		 * @param barsList
+		 * @param barsTexts
+		 * @param barsNumerical
 		 * @return Success
 		 */
-		bool addExtraProgressBars(const QStringList &barsList, const QStringList &barsTexts);
+		bool addExtraProgressBars(const QStringList &barsList, const QStringList &barsTexts, const QValueList<bool>& barsNumerical);
 		/**
 		 * Set a new label for a user defined progress bar
 		 * @param barName Progress bar name
@@ -136,7 +140,7 @@ class SCRIBUS_API MultiProgressDialog : public MultiProgressDialogBase
 		
 	protected:
 		QStringList progressBarTitles;
-		QMap<QString, QProgressBar*> progressBars;
+		QMap<QString, ScProgressBar*> progressBars;
 		QMap<QString, QLabel*> progressLabels;
 };
 

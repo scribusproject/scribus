@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef PDFLIB_H
 #define PDFLIB_H
 
-#include "qvaluelist.h"
+#include <qvaluelist.h>
 #include <qfile.h>
 #include <string>
 #include <vector>
