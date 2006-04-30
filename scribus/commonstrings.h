@@ -109,6 +109,10 @@ public:
 	static QString trPageLocMiddleLeft;
 	static QString trPageLocMiddleRight;
 	static QString trPageLocRight;
+	
+	//Days and Months
+	static QString monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+	static QString january, february, march, april, may, june, july, august, september, october, november, december;
 };
 
 #endif

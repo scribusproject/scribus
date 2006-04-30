@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtextstream.h>
 #include <qtooltip.h>
 
+#include "commonstrings.h"
 #include "scconfig.h"
 #include "gsutil.h"
 #include "util.h"
@@ -54,7 +55,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
 	QString BUILD_DAY = "27";
-	QString BUILD_MONTH = tr("April");
+	QString BUILD_MONTH = CommonStrings::april;
 	QString BUILD_YEAR = "2006";
 	QString BUILD_TIME = "";
 	QString BUILD_TZ = "";
