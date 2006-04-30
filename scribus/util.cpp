@@ -1150,11 +1150,11 @@ QPixmap * getFancyPixmap(ScColor col) {
 }
 
 
-void paintAlert(QPixmap &toPaint, QPixmap &target, int x, int y)
+void paintAlert(QPixmap &toPaint, QPixmap &target, int x, int y, bool useMask)
 {
 	// there is no alpha mask in the beginning
 	if (target.mask()==0)
-		target.setMask(QBitmap(target.width(), target.height(), true));
+		target.setMask(QBitmap(target.width(), target.height(), useMask));
 	QPainter p;
 	QPainter alpha; // transparency handling
 	p.begin(&target);

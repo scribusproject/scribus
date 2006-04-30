@@ -79,7 +79,7 @@ in alpha mask too.
 \param x coordinate
 \param y coordinate
 */
-void SCRIBUS_API paintAlert(QPixmap &toPaint, QPixmap &target, int x = 0, int y = 0);
+void SCRIBUS_API paintAlert(QPixmap &toPaint, QPixmap &target, int x = 0, int y = 0, bool useMask = true);
 QPixmap SCRIBUS_API loadIcon(QString nam);
 uint SCRIBUS_API getDouble(QString in, bool raw);
 //! \brief WARNING: loadText is INCORRECT - use loadRawText instead!

@@ -41,11 +41,11 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	imageA = QPixmap(50,50);
 	imageA.fill(orig.getRawRGBColor());
 	if (orig.isOutOfGamut())
-		paintAlert(alertIcon,imageA, 2, 2);
+		paintAlert(alertIcon,imageA, 2, 2, false);
 	imageN = QPixmap(50,50);
 	imageN.fill(orig.getRawRGBColor());
 	if (orig.isOutOfGamut())
-		paintAlert(alertIcon, imageN, 2, 2);
+		paintAlert(alertIcon, imageN, 2, 2, false);
 	Farbe = orig;
 	QPixmap image0 = SliderPix(180);
 	QPixmap image1 = SliderPix(300);
@@ -885,7 +885,7 @@ void CMYKChoose::setColor()
 	imageN.fill(tmp.getRawRGBColor());
 	tmp.checkGamut();
 	if (tmp.isOutOfGamut())
-		paintAlert(alertIcon, imageN, 2, 2);
+		paintAlert(alertIcon, imageN, 2, 2, false);
 	tmp.getRGBColor().hsv(&h, &s, &v);
 	NewC->setPixmap( imageN );
 	Farbe = tmp;
@@ -905,7 +905,7 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 	tmp.checkGamut();
 	imageN.fill(tmp.getRawRGBColor());
 	if (tmp.isOutOfGamut())
-		paintAlert(alertIcon, imageN, 2, 2);
+		paintAlert(alertIcon, imageN, 2, 2, false);
 	NewC->setPixmap( imageN );
 	Farbe = tmp;
 	if (ende)
@@ -920,7 +920,7 @@ void CMYKChoose::SelFromSwatch(int c)
 	tmp.checkGamut();
 	imageN.fill(tmp.getRawRGBColor());
 	if (tmp.isOutOfGamut())
-		paintAlert(alertIcon, imageN, 2, 2);
+		paintAlert(alertIcon, imageN, 2, 2, false);
 	NewC->setPixmap( imageN );
 	Farbe = tmp;
 	setValues();
