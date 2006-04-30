@@ -146,7 +146,7 @@ PageItem::PageItem(const PageItem & other)
 #ifndef NLS_PROTO
 	MaxChars(other.MaxChars),
 #endif
-	Redrawn(other.Redrawn),
+	inPdfArticle(other.inPdfArticle),
 	ExtraV(other.ExtraV),
 	isRaster(other.isRaster),
 	OldB(other.OldB),
@@ -414,7 +414,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	Tinput = false;
 	isAutoText = false;
 	textAlignment = 0;
-	Redrawn = false;
+	inPdfArticle = false;
 	isRaster = false;
 	Sizing = false;
 	toPixmap = false;
@@ -459,6 +459,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	isTableItem = false;
 	isSingleSel = false;
 	Dirty = false;
+	invalid = true;
 	ChangedMasterItem = false;
 	isEmbedded = false;
 	OnMasterPage = m_Doc->currentPage()->PageNam;
@@ -689,7 +690,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	double sc;
 	if (!m_Doc->DoDrawing)
 	{
-		Redrawn = true;
 		Tinput = false;
 		FrameOnly = false;
 		return;
@@ -863,7 +863,6 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 	{
 		if (!m_Doc->DoDrawing)
 		{
-			hl->embedded->Redrawn = true;
 			hl->embedded->Tinput = false;
 			hl->embedded->FrameOnly = false;
 			return;
@@ -914,6 +913,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 			}
 			p->scale(hl->scale / 1000.0, hl->scalev / 1000.0);
 			embedded->Dirty = Dirty;
+			embedded->invalid = invalid;
 			double sc;
 			double pws = embedded->m_lineWidth;
 			embedded->DrawObj_Pre(p, sc);
@@ -957,7 +957,6 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 {
 	if (!m_Doc->DoDrawing)
 	{
-		Redrawn = true;
 		Tinput = false;
 		FrameOnly = false;
 		return;

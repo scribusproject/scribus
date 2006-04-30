@@ -5357,7 +5357,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 		{
 			PageItem* tel = doc.Items->at(ele);
 			if ((tel->asTextFrame()) && (tel->BackBox == 0) && (tel->NextBox != 0) &&
-					(!tel->Redrawn))
+					(!tel->inPdfArticle))
 			{
 				StartObj(ObjCounter);
 				Threads.append(ObjCounter);
@@ -5384,7 +5384,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 									static_cast<int>(tel->height()));
 						Beads.append(bd);
 					}
-					tel->Redrawn = true;
+					tel->inPdfArticle = true;
 					tel = tel->NextBox;
 				}
 				bd.Next = ccb + 1;
@@ -5398,7 +5398,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 								static_cast<int>(tel->height()));
 					Beads.append(bd);
 				}
-				tel->Redrawn = true;
+				tel->inPdfArticle = true;
 				Beads[0].Prev = fir + Beads.count()-1;
 				Beads[Beads.count()-1].Next = fir;
 				for (uint beac = 0; beac < Beads.count(); ++beac)
@@ -5418,7 +5418,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 			}
 		}
 		for (uint ele = 0; ele < doc.Items->count(); ++ele)
-			doc.Items->at(ele)->Redrawn = false;
+			doc.Items->at(ele)->inPdfArticle = false;
 	}
 	XRef[7] = bytesWritten();
 	PutDoc("8 0 obj\n[");

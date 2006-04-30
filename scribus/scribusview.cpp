@@ -640,6 +640,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						}
 						if (evSpon)
 							currItem->Dirty = true;
+						else
+							currItem->invalid = true;
 						QRect oldR(currItem->getRedrawBounding(Scale));
 						if (clip.intersects(oldR))
 							currItem->DrawObj(painter, clip);
@@ -756,11 +758,11 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 					{
 						if (evSpon)
 							currItem->Dirty = true;
-						if (forceRedraw)
-							currItem->Dirty = false;
+						if (!evSpon || forceRedraw) 
+							currItem->invalid = true;
 //						if ((!m_MouseButtonPressed) || (Doc->EditClip))
 							currItem->DrawObj(painter, clip);
-						currItem->Redrawn = true;
+//						currItem->Redrawn = true;
 						if ((currItem->asTextFrame()) && ((currItem->NextBox != 0) || (currItem->BackBox != 0)))
 						{
 							PageItem *nextItem = currItem;

@@ -3465,7 +3465,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				ite->OwnPage = doc->OnPage(ite);
 			*/
 			//view->setRedrawBounding(ite);
-			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText) && (!ite->Redrawn))
+			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText)) // && (!ite->Redrawn))
 			{
 				if (ite->itemType() == PageItem::PathText)
 				{

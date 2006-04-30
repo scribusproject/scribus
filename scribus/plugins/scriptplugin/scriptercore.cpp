@@ -167,7 +167,7 @@ void ScripterCore::FinishScriptRun()
 			else
 				ite->OwnPage = ScMW->doc->OnPage(ite);
 			ite->setRedrawBounding();
-			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText) && (!ite->Redrawn))
+			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText)) // && (!ite->Redrawn))
 			{
 				if (ite->itemType() == PageItem::PathText)
 				{

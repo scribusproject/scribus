@@ -378,8 +378,10 @@ public:
 	StoryText itemText;
   /** Flag fuer PDF-Bookmark */
 	bool isBookmark;
-  /** Flag fuer neuzeichnen im EditMode */
+  /** Flag for redraw in EditMode */
 	bool Dirty;
+	/** Flag indicates that layout has changed (eg. for textlayout) */
+	bool invalid;
   /** Flag fuer Auswahl */
 	bool HasSel;
   /** Flag fuer Textfluss */
@@ -394,7 +396,7 @@ public:
 #ifndef NLS_PROTO
 	uint MaxChars;
 #endif
-	bool Redrawn;
+	bool inPdfArticle;
 	int ExtraV;
 	bool isRaster;
 	double OldB;

@@ -714,11 +714,11 @@ void Tree::BuildTree()
 	}
 	for (uint b = 0; b < currDoc->DocItems.count(); ++b)
 	{
-		currDoc->DocItems.at(b)->Dirty = false;
+		currDoc->DocItems.at(b)->invalid = true;
 	}
 	for (uint b = 0; b < currDoc->MasterItems.count(); ++b)
 	{
-		currDoc->MasterItems.at(b)->Dirty = false;
+		currDoc->MasterItems.at(b)->invalid = true;
 	}
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
