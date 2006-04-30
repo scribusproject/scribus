@@ -257,7 +257,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabTextLayout->addWidget( textLabelTSL, 5, 2 );
 
 	tabFillCombo = new ScComboBox( false, subTabText, "tabFillCombo" );
-	tabFillCombo->insertItem( tr("None"), "tab fill");
+	tabFillCombo->insertItem( tr("None", "tab fill" ));
 	tabFillCombo->insertItem( tr("Dot"));
 	tabFillCombo->insertItem( tr("Hyphen"));
 	tabFillCombo->insertItem( tr("Underscore"));
