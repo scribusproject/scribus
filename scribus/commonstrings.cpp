@@ -168,24 +168,24 @@ void CommonStrings::languageChange()
 	CommonStrings::trPageLocMiddleRight = tr( "Middle Right" );
 	CommonStrings::trPageLocRight       = tr( "Right Page" );
 	
-	CommonStrings::monday= tr( "Monday");
-	CommonStrings::tuesday = tr("Tuesday");
+	CommonStrings::monday    = tr("Monday");
+	CommonStrings::tuesday   = tr("Tuesday");
 	CommonStrings::wednesday = tr("Wednesday");
-	CommonStrings::thursday = tr("Thursday");
-	CommonStrings::friday = tr("Friday");
-	CommonStrings::saturday = tr("Saturday");
-	CommonStrings::sunday = tr("Sunday");
-	CommonStrings::january = tr("January");
-	CommonStrings::february = tr("February");
-	CommonStrings::march = tr("March");
-	CommonStrings::april = tr("April");
-	CommonStrings::may = tr("May");
-	CommonStrings::june = tr("June");
-	CommonStrings::july = tr("July");
-	CommonStrings::august = tr("August");
+	CommonStrings::thursday  = tr("Thursday");
+	CommonStrings::friday    = tr("Friday");
+	CommonStrings::saturday  = tr("Saturday");
+	CommonStrings::sunday    = tr("Sunday");
+	CommonStrings::january   = tr("January");
+	CommonStrings::february  = tr("February");
+	CommonStrings::march     = tr("March");
+	CommonStrings::april     = tr("April");
+	CommonStrings::may       = tr("May");
+	CommonStrings::june      = tr("June");
+	CommonStrings::july      = tr("July");
+	CommonStrings::august    = tr("August");
 	CommonStrings::september = tr("September");
-	CommonStrings::october = tr("October");
-	CommonStrings::november = tr("November");
-	CommonStrings::december = tr("December");
+	CommonStrings::october   = tr("October");
+	CommonStrings::november  = tr("November");
+	CommonStrings::december  = tr("December");
 }
 

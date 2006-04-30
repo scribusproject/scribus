@@ -54,10 +54,14 @@ for which a new license (GPL+exception) is in place.
 TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKeyMap, QWidget *parent, const char *name)
     :TabKeyboardShortcutsWidgetBase(parent, name)
 {
+	ActionManager::createDefaultMenus();
+	defMenus=ActionManager::defaultMenus();
+	Q_CHECK_PTR(defMenus);
 	lviToActionMap.clear();
 	keyTable->clear();
 	keyMap.clear();
 	keyMap = oldKeyMap;
+	searchString="";
 	Part0 = "";
 	Part1 = "";
 	Part2 = "";
@@ -71,6 +75,7 @@ TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKe
 	keyTable->setSorting(-1);
 	insertActions();
 	dispKey(0);
+	clearSearchButton->setPixmap(loadIcon("clear_right.png"));
 	// signals and slots connections
 	connect( keyTable, SIGNAL(clicked(QListViewItem*)), this, SLOT(dispKey(QListViewItem*)));
 	connect( noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
@@ -79,6 +84,8 @@ TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKe
 	connect( importSetButton, SIGNAL(clicked()), this, SLOT(importKeySetFile()));
 	connect( exportSetButton, SIGNAL(clicked()), this, SLOT(exportKeySetFile()));
 	connect( resetSetButton, SIGNAL(clicked()), this, SLOT(resetKeySet()));
+	connect( clearSearchButton, SIGNAL(clicked()), this, SLOT(clearSearchString()));
+	connect( searchTextLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(setSearchString(const QString&)));
 }
 
 
@@ -316,8 +323,6 @@ void TabKeyboardShortcutsWidget::setKeyText()
 
 void TabKeyboardShortcutsWidget::insertActions()
 {
-	ActionManager::createDefaultMenus();
-	QValueVector< QPair<QString, QStringList> >* defMenus=ActionManager::defaultMenus();
 	lviToActionMap.clear();
 	keyTable->clear();
 	bool first, firstMenu=true;
@@ -339,6 +344,7 @@ void TabKeyboardShortcutsWidget::insertActions()
 		first=true;
 		currLVI=0;
 		prevLVI=0;
+		bool setParentVisible=false;
 		for ( QStringList::Iterator it = itmenu->second.begin(); it != itmenu->second.end(); ++it )
 		{
 			if (first)
@@ -348,12 +354,17 @@ void TabKeyboardShortcutsWidget::insertActions()
 			}
 			else
 				currLVI=new QListViewItem(currMenuLVI, prevLVI);
+			Q_CHECK_PTR(currLVI);
 			currLVI->setText(0, keyMap[*it].cleanMenuText);
 			currLVI->setText(1, keyMap[*it].keySequence);
-			Q_CHECK_PTR(currLVI);
 			lviToActionMap.insert(currLVI, *it);
+			if (!searchString.isEmpty() && !keyMap[*it].cleanMenuText.contains(searchString, false))
+				currLVI->setVisible(false);
+			else
+				setParentVisible=true;
 			prevLVI=currLVI;
 		}
+		currMenuLVI->setVisible(setParentVisible);
 	}
 }
 
@@ -503,4 +514,15 @@ bool TabKeyboardShortcutsWidget::checkKey(int code)
 		}
 	}
 	return ret;
+}
+
+void TabKeyboardShortcutsWidget::setSearchString( const QString & newss )
+{
+	searchString=newss;
+	insertActions();
+}
+
+void TabKeyboardShortcutsWidget::clearSearchString( )
+{
+	searchTextLineEdit->clear();
 }

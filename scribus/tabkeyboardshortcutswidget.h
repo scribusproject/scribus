@@ -31,8 +31,11 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 
 #include <qmap.h>
+#include <qpair.h>
 #include <qstring.h>
 #include <qstringlist.h>
+#include <qvaluevector.h>
+
 class QListViewItem;
 
 class TabKeyboardShortcutsWidget: public TabKeyboardShortcutsWidgetBase 
@@ -51,6 +54,7 @@ class TabKeyboardShortcutsWidget: public TabKeyboardShortcutsWidgetBase
 		QMap<QString,Keys>::Iterator currentKeyMapRow;
 		QMap<QString, QString> keySetList;
 		QMap<QListViewItem*, QString> lviToActionMap;
+		QValueVector< QPair<QString, QStringList> >* defMenus;
 		QListViewItem* selectedLVI;
 		int keyCode;
 		QString Part0;
@@ -58,13 +62,14 @@ class TabKeyboardShortcutsWidget: public TabKeyboardShortcutsWidgetBase
 		QString Part2;
 		QString Part3;
 		QString Part4;
+		QString searchString;
 	
 		void insertActions();
 		void importKeySet(QString);
 		bool exportKeySet(QString);
 		QStringList scanForSets();
 		bool checkKey(int Code);
-		
+	
 	protected slots:
 		void setKeyText();
 		void dispKey(QListViewItem*);
@@ -73,6 +78,8 @@ class TabKeyboardShortcutsWidget: public TabKeyboardShortcutsWidgetBase
 		void importKeySetFile();
 		void exportKeySetFile();
 		void resetKeySet();
+		void clearSearchString();
+		void setSearchString(const QString& newss);
 };
 
 #endif

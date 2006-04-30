@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>534</width>
-            <height>359</height>
+            <height>377</height>
         </rect>
     </property>
     <property name="caption">
@@ -22,6 +22,37 @@
         <property name="margin">
             <number>0</number>
         </property>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout6</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>clearSearchButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string></string>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>textLabel2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Search:</string>
+                    </property>
+                </widget>
+                <widget class="QLineEdit">
+                    <property name="name">
+                        <cstring>searchTextLineEdit</cstring>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
         <widget class="QListView">
             <column>
                 <property name="text">
