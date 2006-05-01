@@ -543,7 +543,6 @@ void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect 
 	{
 		if (!m_doc->DoDrawing)
 		{
-			hl->embedded->Redrawn = true;
 			hl->embedded->Tinput = false;
 			hl->embedded->FrameOnly = false;
 			return;
