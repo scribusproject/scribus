@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcolor.h>
 #include <qfont.h>
 #include <qpixmap.h>
+#include <qimage.h>
 #include "scribusapi.h"
 #include "scconfig.h"
 #include "fpoint.h"
@@ -71,8 +72,15 @@ class SCRIBUS_API ScPainter
 public:
 	ScPainter( QPaintDevice *target, unsigned int w = 0, unsigned int h = 0, unsigned int x = 0, unsigned int y = 0 );
 	ScPainter( QImage *target, unsigned int w = 0, unsigned int h = 0, unsigned int x = 0, unsigned int y = 0 );
+#ifdef HAVE_CAIRO
+	ScPainter( QImage *target, unsigned int w, unsigned int h, double transparency, int blendmode );
+#endif
 	virtual ~ScPainter();
 	enum FillMode { None, Solid, Gradient };
+#ifdef HAVE_CAIRO
+	virtual void beginLayer(double transparency, int blendmode);
+	virtual void endLayer();
+#endif
 	virtual void begin();
 	virtual void end();
 	void clear();
@@ -161,6 +169,9 @@ private:
 	unsigned char *m_buffer;
 	QPaintDevice *m_target;
 	QImage *m_image;
+	QImage  tmp_image;
+	double  m_layerTransparency;
+	int  m_blendMode;
 	QPixmap pixm;
 	unsigned int m_width;
 	unsigned int m_height;
@@ -195,6 +206,7 @@ private:
 	/*! \brief Zoom Factor of the Painter */
 	double m_zoomFactor;
 	bool imageMode;
+	bool layeredMode;
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 #ifdef HAVE_CAIRO
 	cairo_t *m_cr;

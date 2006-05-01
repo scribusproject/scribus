@@ -221,6 +221,19 @@ public:
 	 */
 	bool layerFlow(const int layerNumber);
 	/**
+	 * @brief Set the layer transparency via the layer number
+	 * @param layerNumber Number of the layer
+	 * @param trans transparency value 0.0 - 1.0
+	 * @return Success or failure
+	 */
+	bool setLayerTransparency(const int layerNumber, double trans);
+	/**
+	 * @brief returns the layer transparency
+	 * @param layerNumber Number of the layer
+	 * @return transparency value 0.0 - 1.0
+	 */
+	double layerTransparency(const int layerNumber);
+	/**
 	 * @brief Return the level of the requested layer
 	 * @param layerNumber Number of the layer
 	 * @return Level of the layer

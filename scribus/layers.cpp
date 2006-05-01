@@ -21,6 +21,8 @@ for which a new license (GPL+exception) is in place.
 #include <qvaluelist.h>
 #include <qtooltip.h>
 #include <qcheckbox.h>
+#include <qspinbox.h>
+#include <qlabel.h>
 
 #include "scmessagebox.h"
 #include "scribus.h"
@@ -71,6 +73,23 @@ LayerPalette::LayerPalette(QWidget* parent)
 {
 	setIcon(loadIcon("AppIcon.png"));
 	LayerPaletteLayout = new QVBoxLayout( this, 10, 5, "LayerPaletteLayout");
+
+	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
+	textLabel2 = new QLabel( this, "textLabel2" );
+	textLabel2->setText( tr( "Opacity:" ) );
+	layout1->addWidget( textLabel2 );
+	opacitySpinBox = new QSpinBox( this, "opacitySpinBox" );
+	opacitySpinBox->setMinValue(0);
+	opacitySpinBox->setMaxValue(100);
+	opacitySpinBox->setLineStep(10);
+	opacitySpinBox->setSuffix( tr(" %"));
+	opacitySpinBox->setFocusPolicy(QWidget::ClickFocus);
+	layout1->addWidget( opacitySpinBox );
+	LayerPaletteLayout->addLayout( layout1 );
+#ifndef HAVE_CAIRO
+	textLabel2->hide();
+	opacitySpinBox->hide();
+#endif
 
 	Table = new LayerTable( this );
 	Table->setNumRows( 0 );
@@ -139,6 +158,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 	connect(lowerLayerButton, SIGNAL(clicked()), this, SLOT(downLayer()));
 //	connect(Table, SIGNAL(valueChanged(int, int)), this, SLOT(changeName(int, int)));
 	connect(Table, SIGNAL(updtName(int)), this, SLOT(updateName(int)));
+	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 
 }
 
@@ -150,6 +170,7 @@ void LayerPalette::updateName(int r)
 
 void LayerPalette::ClearInhalt()
 {
+	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	int b = Table->numRows();
 	for (int a = 0; a < b; ++a)
@@ -167,6 +188,7 @@ void LayerPalette::setLayers(QValueList<Layer> *layin, int act)
 {
 	layers = layin;
 	rebuildList();
+	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	markActiveLayer(act);
 	newLayerButton->setEnabled(true);
@@ -174,10 +196,12 @@ void LayerPalette::setLayers(QValueList<Layer> *layin, int act)
 	raiseLayerButton->setEnabled(true);
 	lowerLayerButton->setEnabled(true);
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
+	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 }
 
 void LayerPalette::rebuildList()
 {
+	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	flagsPrintable.clear();
 	flagsVisible.clear();
@@ -218,6 +242,7 @@ void LayerPalette::rebuildList()
 	Table->setColumnStretchable(4, true);
 	Table->adjustColumn(4);
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
+	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 }
 
 void LayerPalette::addLayer()
@@ -359,27 +384,44 @@ void LayerPalette::flowToggleLayer()
 	}
 }
 
+void LayerPalette::changeOpacity()
+{
+	ScMW->doc->setLayerTransparency(ScMW->doc->activeLayer(), opacitySpinBox->value() / 100.0);
+	emit LayerChanged();
+	ScMW->slotDocCh();
+}
+
 void LayerPalette::markActiveLayer(int layerNumber)
 {
+	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	int layerToMark=layerNumber;
 	if (layerNumber==-1)
 		layerToMark=ScMW->doc->activeLayer();
 	Table->setCurrentCell(ScMW->doc->layerCount()-1-ScMW->doc->layerLevelFromNumber(layerToMark), 4);
+	opacitySpinBox->setValue(qRound(ScMW->doc->layerTransparency(layerToMark) * 100));
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
+	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 }
 
 void LayerPalette::setActiveLayer(int row)
 {
+	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	int layerNumber=ScMW->doc->layerNumberFromLevel(ScMW->doc->layerCount()-1-row);
 	bool found=ScMW->doc->setActiveLayer(layerNumber);
 	if (found)
+	{
 		ScMW->changeLayer(ScMW->doc->activeLayer());
+		opacitySpinBox->setValue(qRound(ScMW->doc->layerTransparency(ScMW->doc->activeLayer()) * 100));
+	}
+	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 }
 
 void LayerPalette::languageChange()
 {
 	setCaption( tr( "Layers" ) );
+	textLabel2->setText( tr( "Opacity:" ) );
+	opacitySpinBox->setSuffix( tr(" %"));
 	Table->horizontalHeader()->setLabel(4, tr("Name"));
 	QToolTip::remove( newLayerButton );
 	QToolTip::remove( deleteLayerButton );

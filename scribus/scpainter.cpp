@@ -103,6 +103,7 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 	m_matrix = QWMatrix();
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 #ifdef HAVE_CAIRO
+	layeredMode = false;
 	pixm = QPixmap(w, h);
 	Display *dpy = pixm.x11AppDisplay();
 	Drawable drw = pixm.handle();
@@ -163,6 +164,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, unsigned i
 	m_image = target;
 	m_matrix = QWMatrix();
 #ifdef HAVE_CAIRO
+	layeredMode = false;
 	cairo_surface_t *img = cairo_image_surface_create_for_data(target->bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
 	m_cr = cairo_create(img);
 	clear();
@@ -178,6 +180,50 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, unsigned i
 	m_path = 0L;
 #endif
 }
+
+#ifdef HAVE_CAIRO
+ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double transparency, int blendmode )
+{
+	m_target = 0L;
+	m_width = w;
+	m_height= h;
+	m_buffer = 0L;
+	m_index = 0;
+	m_stroke = QColor(0,0,0);
+	m_fill = QColor(0,0,0);
+	fill_trans = 1.0;
+	stroke_trans = 1.0;
+	m_fillRule = true;
+	fillMode = 1;
+	LineWidth = 1.0;
+	m_offset = 0;
+	m_layerTransparency = transparency;
+	m_blendMode = blendmode;
+	m_array.clear();
+	mf_underline = false;
+	mf_strikeout = false;
+	mf_shadow = false;
+	mf_outlined = false;
+	PLineEnd = Qt::SquareCap;
+	PLineJoin = Qt::RoundJoin;
+	fill_gradient = VGradient(VGradient::linear);
+	stroke_gradient = VGradient(VGradient::linear);
+	m_zoomFactor = 1;
+	layeredMode = true;
+	imageMode = true;
+	m_image = target;
+	m_matrix = QWMatrix();
+	tmp_image = QImage(w, h, 32, QImage::BigEndian);
+	tmp_image.fill( qRgba(255, 255, 255, 0) );
+	cairo_surface_t *img = cairo_image_surface_create_for_data(tmp_image.bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
+	m_cr = cairo_create(img);
+	clear();
+	cairo_save( m_cr );
+	cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+	cairo_set_tolerance( m_cr, 0.5 );
+}
+#endif
 
 ScPainter::~ScPainter()
 {
@@ -207,12 +253,62 @@ ScPainter::~ScPainter()
 #endif
 }
 
+#ifdef HAVE_CAIRO
+void ScPainter::beginLayer(double transparency, int blendmode)
+{
+	m_layerTransparency = transparency;
+	m_blendMode = blendmode;
+	tmp_image.fill( qRgba(255, 255, 255, 0) );
+}
+
+static unsigned char INT_MULT ( unsigned char a, unsigned char b )
+{
+	int c = a * b + 0x80;
+	return (unsigned char)(( ( c >> 8 ) + c ) >> 8);
+}
+
+void ScPainter::endLayer()
+{
+	cairo_surface_flush(cairo_get_target(m_cr));
+	int words = m_image->numBytes() / 4;
+	QRgb *s = (QRgb*)(tmp_image.bits());
+	QRgb *d = (QRgb*)(m_image->bits());
+	for(int x = 0; x < words; ++x )
+	{
+		QRgb src = *s;
+		QRgb dst = *d;
+		uchar src_a = qRound(qAlpha(src) * m_layerTransparency);
+		if (src_a != 0)
+		{
+			uchar src_r = qRed(src);
+			uchar src_g = qGreen(src);
+			uchar src_b = qBlue(src);
+			uchar dst_a = qAlpha(dst);
+			uchar dst_r = qRed(dst);
+			uchar dst_g = qGreen(dst);
+			uchar dst_b = qBlue(dst);
+			(*d) = qRgba((dst_r * (255 - src_a) + src_r * src_a) / 255, (dst_g * (255 - src_a) + src_g * src_a) / 255, (dst_b * (255 - src_a) + src_b * src_a) / 255, dst_a + INT_MULT(255 - dst_a, src_a));
+		}
+		s++;
+		d++;
+	}
+}
+#endif
+
 void ScPainter::begin()
 {
 }
 
 void ScPainter::end()
 {
+#ifdef HAVE_CAIRO
+	if (layeredMode)
+	{
+		endLayer();
+		cairo_restore( m_cr );
+		return;
+	}
+#endif
 	if (imageMode)
 	{
 #ifdef HAVE_CAIRO

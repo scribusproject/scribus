@@ -20,6 +20,8 @@ class QLayout;
 class QToolTip;
 class QPixmap;
 class QHeader;
+class QSpinBox;
+class QLabel;
 
 
 class SCRIBUS_API LayerTable : public QTable
@@ -61,6 +63,7 @@ public slots:
 	void printLayer();
 	void lockLayer();
 	void flowToggleLayer();
+	void changeOpacity();
 	void setActiveLayer(int row);
 	void ClearInhalt();
 	void markActiveLayer(int layerNumber=-1);
@@ -73,6 +76,9 @@ signals:
 protected:
 	QVBoxLayout* LayerPaletteLayout;
 	QHBoxLayout* Layout1;
+	QHBoxLayout* layout1;
+	QLabel* textLabel2;
+	QSpinBox* opacitySpinBox;
 	QHeader* Header;
 	QPushButton* newLayerButton;
 	QPushButton* deleteLayerButton;

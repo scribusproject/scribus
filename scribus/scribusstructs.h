@@ -224,6 +224,7 @@ struct Layer
 	bool isViewable;
 	bool isEditable;
 	bool flowControl;
+	double transparency;
 };
 
 struct PDFPresentationData

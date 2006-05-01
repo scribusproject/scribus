@@ -272,6 +272,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	ll.isPrintable = true;
 	ll.isEditable = true;
 	ll.flowControl = true;
+	ll.transparency = 1.0;
 	Layers.append(ll);
 	// Fixme: Check PDF version input
 	PDF_Options.Version = (PDFOptions::PDFVersion)prefsData.PDF_Options.Version;
@@ -1142,6 +1143,7 @@ int ScribusDoc::addLayer(const QString& layerName, const bool activate)
 	ll.isPrintable = true;
 	ll.isEditable = true;
 	ll.flowControl = true;
+	ll.transparency = 1.0;
 	Layers.append(ll);
 	if (activate)
 		setActiveLayer(ll.LNr);
@@ -1435,6 +1437,35 @@ bool ScribusDoc::layerFlow(const int layerNumber)
 			return (*it).flowControl;
 	}
 	return false;
+}
+
+bool ScribusDoc::setLayerTransparency(const int layerNumber, double trans)
+{
+	QValueList<Layer>::iterator itend=Layers.end();
+	QValueList<Layer>::iterator it;
+	bool found=false;
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if ((*it).LNr == layerNumber)
+		{
+			(*it).transparency = trans;
+			found=true;
+			break;
+		}
+	}
+	return found;
+}
+
+double ScribusDoc::layerTransparency(const int layerNumber)
+{
+	QValueList<Layer>::iterator itend=Layers.end();
+	QValueList<Layer>::iterator it;
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if ((*it).LNr == layerNumber)
+			return (*it).transparency;
+	}
+	return 1.0;
 }
 
 int ScribusDoc::layerLevelFromNumber(const int layerNumber)

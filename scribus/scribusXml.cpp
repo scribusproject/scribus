@@ -861,6 +861,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				la.isPrintable = pg.attribute("DRUCKEN").toInt();
 				la.isEditable = true;
 				la.flowControl = true;
+				la.transparency = 1.0;
 				bool laex = false;
 				uint layerCount=doc->layerCount();
 				for (uint la2 = 0; la2 < layerCount; ++la2)
@@ -1364,6 +1365,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				la.isPrintable = pg.attribute("DRUCKEN").toInt();
 				la.isEditable = true;
 				la.flowControl = true;
+				la.transparency = 1.0;
 				doc->Layers.append(la);
 			}
 			if(pg.tagName()=="MultiLine")
@@ -3254,6 +3256,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		la.setAttribute("DRUCKEN", static_cast<int>(doc->Layers[lay].isPrintable));
 		la.setAttribute("EDIT", static_cast<int>(doc->Layers[lay].isEditable));
 		la.setAttribute("FLOW", static_cast<int>(doc->Layers[lay].flowControl));
+		la.setAttribute("TRANS", doc->Layers[lay].transparency);
 		dc.appendChild(la);
 	}
 	QDomElement pdf = docu.createElement("PDF");
