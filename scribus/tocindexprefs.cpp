@@ -102,13 +102,13 @@ void TOCIndexPrefs::languageChange()
 void TOCIndexPrefs::init()
 {
 	disconnect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
-	trStrNone=QT_TR_NOOP("None");
+	trStrNone=tr("None");
 	strNone=CommonStrings::None;
-	trStrPNBeginning=QT_TR_NOOP("At the beginning");
+	trStrPNBeginning=tr("At the beginning");
 	strPNBeginning="At the beginning";
-	trStrPNEnd=QT_TR_NOOP("At the end");
+	trStrPNEnd=tr("At the end");
 	strPNEnd="At the end";
-	trStrPNNotShown=QT_TR_NOOP("Not Shown");
+	trStrPNNotShown=tr("Not Shown");
 	strPNNotShown="Not Shown";
 
 	itemNumberPlacementComboBox->clear();
