@@ -58,10 +58,10 @@ TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKe
 	defMenus=ActionManager::defaultMenus();
 	Q_CHECK_PTR(defMenus);
 	lviToActionMap.clear();
+	lviToMenuMap.clear();
 	keyTable->clear();
 	keyMap.clear();
 	keyMap = oldKeyMap;
-	searchString="";
 	Part0 = "";
 	Part1 = "";
 	Part2 = "";
@@ -85,7 +85,7 @@ TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKe
 	connect( exportSetButton, SIGNAL(clicked()), this, SLOT(exportKeySetFile()));
 	connect( resetSetButton, SIGNAL(clicked()), this, SLOT(resetKeySet()));
 	connect( clearSearchButton, SIGNAL(clicked()), this, SLOT(clearSearchString()));
-	connect( searchTextLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(setSearchString(const QString&)));
+	connect( searchTextLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(applySearch(const QString&)));
 }
 
 
@@ -133,8 +133,8 @@ void TabKeyboardShortcutsWidget::exportKeySetFile()
 
 void TabKeyboardShortcutsWidget::importKeySet(QString filename)
 {
+	searchTextLineEdit->clear();
 	QFileInfo fi = QFileInfo(filename);
-
 	if (fi.exists())
 	{
 		//import the file into qdomdoc
@@ -324,6 +324,7 @@ void TabKeyboardShortcutsWidget::setKeyText()
 void TabKeyboardShortcutsWidget::insertActions()
 {
 	lviToActionMap.clear();
+	lviToMenuMap.clear();
 	keyTable->clear();
 	bool first, firstMenu=true;
 	QListViewItem *currLVI, *currMenuLVI;
@@ -338,13 +339,13 @@ void TabKeyboardShortcutsWidget::insertActions()
 		else
 			currMenuLVI=new QListViewItem(keyTable, prevMenuLVI);
 		Q_CHECK_PTR(currMenuLVI);
+		lviToMenuMap.append(currMenuLVI);
 		currMenuLVI->setText(0, itmenu->first);
 		currMenuLVI->setOpen(true);
 		prevMenuLVI=currMenuLVI;
 		first=true;
 		currLVI=0;
 		prevLVI=0;
-		bool setParentVisible=false;
 		for ( QStringList::Iterator it = itmenu->second.begin(); it != itmenu->second.end(); ++it )
 		{
 			if (first)
@@ -355,16 +356,56 @@ void TabKeyboardShortcutsWidget::insertActions()
 			else
 				currLVI=new QListViewItem(currMenuLVI, prevLVI);
 			Q_CHECK_PTR(currLVI);
+			lviToActionMap.insert(currLVI, *it);
 			currLVI->setText(0, keyMap[*it].cleanMenuText);
 			currLVI->setText(1, keyMap[*it].keySequence);
-			lviToActionMap.insert(currLVI, *it);
-			if (!searchString.isEmpty() && !keyMap[*it].cleanMenuText.contains(searchString, false))
-				currLVI->setVisible(false);
-			else
-				setParentVisible=true;
 			prevLVI=currLVI;
 		}
-		currMenuLVI->setVisible(setParentVisible);
+	}
+}
+
+void TabKeyboardShortcutsWidget::applySearch( const QString & newss )
+{
+	//Must run this as if newss is not empty and we go to the next for loop, the set visible doesnt work
+	for (QPtrList<QListViewItem>::iterator it=lviToMenuMap.begin(); it!=lviToMenuMap.end(); ++it)
+		(*it)->setVisible(true);
+	if (newss.isEmpty())
+	{			
+		for (QMap<QListViewItem*, QString>::iterator it=lviToActionMap.begin(); it!=lviToActionMap.end(); ++it)
+			it.key()->setVisible(true);
+		return;
+	}
+	//Seem to need to do this.. isOpen doesnt seem to do what it says
+	for (QMap<QListViewItem*, QString>::iterator it=lviToActionMap.begin(); it!=lviToActionMap.end(); ++it)
+	{
+		if (it.key()->text(0).contains(newss, false))
+			it.key()->setVisible(true);
+		else
+			it.key()->setVisible(false);
+	}
+	for (QPtrList<QListViewItem>::iterator it=lviToMenuMap.begin(); it!=lviToMenuMap.end(); ++it)
+	{
+		bool toBeVisible=false;
+		QListViewItem* fc=(*it)->firstChild();
+		if (fc!=0)
+		{
+			if (fc->isVisible())
+				toBeVisible=true;
+			else
+			{
+				QListViewItem* sibling=fc->nextSibling();
+				while (sibling!=0)
+				{
+					if (sibling->isVisible())
+					{
+						toBeVisible=true;
+						break;
+					}
+					sibling=sibling->nextSibling();
+				}
+			}
+		}
+		(*it)->setVisible(toBeVisible);
 	}
 }
 
@@ -514,12 +555,6 @@ bool TabKeyboardShortcutsWidget::checkKey(int code)
 		}
 	}
 	return ret;
-}
-
-void TabKeyboardShortcutsWidget::setSearchString( const QString & newss )
-{
-	searchString=newss;
-	insertActions();
 }
 
 void TabKeyboardShortcutsWidget::clearSearchString( )

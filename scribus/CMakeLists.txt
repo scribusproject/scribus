@@ -147,6 +147,7 @@ scmenu.h
 scmessagebox.h
 scplugin.h
 scpreview.h
+scprogressbar.h
 scraction.h
 scrap.h
 scribus.h
@@ -348,6 +349,7 @@ scpainter.cpp
 scpaths.cpp
 scplugin.cpp
 scpreview.cpp
+scprogressbar.cpp
 scraction.cpp
 scrap.cpp
 scribus.cpp
