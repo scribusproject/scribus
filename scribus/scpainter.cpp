@@ -287,6 +287,108 @@ void ScPainter::endLayer()
 			uchar dst_r = qRed(dst);
 			uchar dst_g = qGreen(dst);
 			uchar dst_b = qBlue(dst);
+			if (m_blendMode != 0)
+			{
+				if (m_blendMode == 1)
+				{
+					if (dst_a > 0)
+					{
+						src_r = dst_r  < src_r ? dst_r  : src_r;
+						src_g = dst_g < src_g ? dst_g : src_g;
+						src_b = dst_b < src_b ? dst_b : src_b;
+					}
+				}
+				else if (m_blendMode == 2)
+				{
+					if (dst_a > 0)
+					{
+						src_r = dst_r < src_r ? src_r : dst_r;
+						src_g = dst_g < src_g ? src_g : dst_g;
+						src_b = dst_b < src_b ? src_b : dst_b;
+					}
+				}
+				else if (m_blendMode == 3)
+				{
+					if (dst_a > 0)
+					{
+						src_r = INT_MULT(src_r, dst_r);
+						src_g = INT_MULT(src_g, dst_g);
+						src_b = INT_MULT(src_b, dst_b);
+					}
+				}
+				else if (m_blendMode == 4)
+				{
+					if (dst_a > 0)
+					{
+						src_r = 255 - INT_MULT(255 - dst_r, 255 - src_r);
+						src_g = 255 - INT_MULT(255 - dst_g, 255 - src_g);
+						src_b = 255 - INT_MULT(255 - dst_b, 255 - src_b);
+					}
+				}
+				else if (m_blendMode == 5)
+				{
+					if (dst_a > 0)
+					{
+						src_r = INT_MULT(dst_r, dst_r + INT_MULT(2 * src_r, 255 - dst_r));
+						src_g = INT_MULT(dst_g, dst_g + INT_MULT(2 * src_g, 255 - dst_g));
+						src_b = INT_MULT(dst_b, dst_b + INT_MULT(2 * src_b, 255 - dst_b));
+					}
+				}
+				else if (m_blendMode == 6)
+				{
+					if (dst_a > 0)
+					{
+						src_r = src_r < 128 ? src_r * dst_r / 128 : 255 - ((255-src_r) * (255-dst_r) / 128);
+						src_g = src_g < 128 ? src_g * dst_g / 128 : 255 - ((255-src_g) * (255-dst_g) / 128);
+						src_b = src_b < 128 ? src_b * dst_b / 128 : 255 - ((255-src_b) * (255-dst_b) / 128);
+					}
+				}
+				else if (m_blendMode == 7)
+				{
+					if (dst_a > 0)
+					{
+						src_r = src_r * dst_r / 256 + src_r * (255 - ((255-src_r)*(255-dst_r) / 256) - src_r * dst_r / 256) / 256;
+						src_g = src_g * dst_g / 256 + src_g * (255 - ((255-src_g)*(255-dst_g) / 256) - src_g * dst_g / 256) / 256;
+						src_b = src_b * dst_b / 256 + src_b * (255 - ((255-src_b)*(255-dst_b) / 256) - src_b * dst_b / 256) / 256;
+					}
+				}
+				else if (m_blendMode == 8)
+				{
+					if (dst_a > 0)
+					{
+						src_r = dst_r > src_r ? dst_r - src_r : src_r - dst_r;
+						src_g = dst_g > src_g ? dst_g - src_g : src_g - dst_g;
+						src_b = dst_b > src_b ? dst_b - src_b : src_b - dst_b;
+					}
+				}
+				else if (m_blendMode == 9)
+				{
+					if (dst_a > 0)
+					{
+						src_r = dst_r + src_r - src_r * dst_r / 128;
+						src_g = dst_g + src_g - src_g * dst_g / 128;
+						src_b = dst_b + src_b - src_b * dst_b / 128;
+					}
+				}
+				else if (m_blendMode == 10)
+				{
+					if (dst_a > 0)
+					{
+						src_r = src_r == 255 ? 255 : ((dst_r * 256) / (255-src_r)) > 255 ? 255 : (dst_r * 256) / (255-src_r);
+						src_g = src_g == 255 ? 255 : ((dst_g * 256) / (255-src_g)) > 255 ? 255 : (dst_g * 256) / (255-src_g);
+						src_b = src_b == 255 ? 255 : ((dst_b * 256) / (255-src_b)) > 255 ? 255 : (dst_b * 256) / (255-src_b);
+					}
+				}
+				else if (m_blendMode == 11)
+				{
+					if (dst_a > 0)
+					{
+						src_r = src_r == 0 ? 0 : (255 - (((255-dst_r) * 256) / src_r)) < 0 ? 0 : 255 - (((255-dst_r) * 256) / src_r);
+						src_g = src_g == 0 ? 0 : (255 - (((255-dst_g) * 256) / src_g)) < 0 ? 0 : 255 - (((255-dst_g) * 256) / src_g);
+						src_b = src_b == 0 ? 0 : (255 - (((255-dst_b) * 256) / src_b)) < 0 ? 0 : 255 - (((255-dst_b) * 256) / src_b);
+					}
+				}
+			}
 			(*d) = qRgba((dst_r * (255 - src_a) + src_r * src_a) / 255, (dst_g * (255 - src_a) + src_g * src_a) / 255, (dst_b * (255 - src_a) + src_b * src_a) / 255, dst_a + INT_MULT(255 - dst_a, src_a));
 		}
 		s++;

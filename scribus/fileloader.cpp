@@ -597,6 +597,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 				la.isEditable = pg.attribute("EDIT", "1").toInt();
 				la.flowControl = pg.attribute("FLOW", "1").toInt();
 				la.transparency = pg.attribute("TRANS", "1").toDouble();
+				la.blendMode = pg.attribute("BLEND", "0").toInt();
 				bool laex = false;
 				uint layerCount=doc->layerCount();
 				for (uint la2 = 0; la2 < layerCount; ++la2)
@@ -1246,6 +1247,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				la.isEditable = pg.attribute("EDIT", "1").toInt();
 				la.flowControl = pg.attribute("FLOW", "1").toInt();
 				la.transparency = pg.attribute("TRANS", "1").toDouble();
+				la.blendMode = pg.attribute("BLEND", "0").toInt();
 				doc->Layers.append(la);
 			}
 /*			if(pg.tagName()=="Bookmark")
@@ -1764,6 +1766,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		la.isEditable = true;
 		la.flowControl = true;
 		la.transparency = 1.0;
+		la.blendMode = 0;
 		doc->Layers.append(la);
 	}
 	if (LFrames.count() != 0)

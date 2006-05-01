@@ -110,6 +110,8 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 	{
 		if (!OnMasterPage.isEmpty())
 		{
+			if ((savedOwnPage == -1) || (savedOwnPage >= m_Doc->Pages->count()))
+				return result;
 			Page* Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
 			Page* Dp = m_Doc->Pages->at(savedOwnPage);
 			for (uint a = 0; a < m_Doc->MasterItems.count(); ++a)

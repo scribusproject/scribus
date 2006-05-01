@@ -501,6 +501,7 @@ void Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level)
 			ll->Name = currentDoc->Layers[la2].Name;
 			ll->flowControl = currentDoc->Layers[la2].flowControl;
 			ll->transparency = currentDoc->Layers[la2].transparency;
+			ll->blendMode = currentDoc->Layers[la2].blendMode;
 			break;
 		}
 	}

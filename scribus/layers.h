@@ -22,6 +22,7 @@ class QPixmap;
 class QHeader;
 class QSpinBox;
 class QLabel;
+class ScComboBox;
 
 
 class SCRIBUS_API LayerTable : public QTable
@@ -64,6 +65,7 @@ public slots:
 	void lockLayer();
 	void flowToggleLayer();
 	void changeOpacity();
+	void changeBlendMode(int blend);
 	void setActiveLayer(int row);
 	void ClearInhalt();
 	void markActiveLayer(int layerNumber=-1);
@@ -77,6 +79,8 @@ protected:
 	QVBoxLayout* LayerPaletteLayout;
 	QHBoxLayout* Layout1;
 	QHBoxLayout* layout1;
+	QLabel* textLabel1;
+	ScComboBox* blendMode;
 	QLabel* textLabel2;
 	QSpinBox* opacitySpinBox;
 	QHeader* Header;

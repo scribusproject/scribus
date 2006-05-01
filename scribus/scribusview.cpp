@@ -648,7 +648,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 				{
 #ifdef HAVE_CAIRO
 					if ((layerCount > 1) || (ll.transparency != 1.0))
-						painter->beginLayer(ll.transparency, 0);
+						painter->beginLayer(ll.transparency, ll.blendMode);
 #endif
 					uint pageFromMasterCount=page->FromMaster.count();
 					for (uint a = 0; a < pageFromMasterCount; ++a)
@@ -780,7 +780,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 			{
 #ifdef HAVE_CAIRO
 				if ((layerCount > 1) || (ll.transparency != 1.0))
-					painter->beginLayer(ll.transparency, 0);
+					painter->beginLayer(ll.transparency, ll.blendMode);
 #endif
 				QPtrListIterator<PageItem> docItem(*Doc->Items);
 				while ( (currItem = docItem.current()) != 0)

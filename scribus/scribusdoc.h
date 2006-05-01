@@ -234,6 +234,19 @@ public:
 	 */
 	double layerTransparency(const int layerNumber);
 	/**
+	 * @brief Set the layer layerBlendMode via the layer number
+	 * @param layerNumber Number of the layer
+	 * @param trans layerBlendMode
+	 * @return Success or failure
+	 */
+	bool setLayerBlendMode(const int layerNumber, int blend);
+	/**
+	 * @brief returns the layer BlendMode
+	 * @param layerNumber Number of the layer
+	 * @return layerBlendMode
+	 */
+	int layerBlendMode(const int layerNumber);
+	/**
 	 * @brief Return the level of the requested layer
 	 * @param layerNumber Number of the layer
 	 * @return Level of the layer

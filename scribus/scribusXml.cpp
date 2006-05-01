@@ -862,6 +862,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				la.isEditable = true;
 				la.flowControl = true;
 				la.transparency = 1.0;
+				la.blendMode = 0;
 				bool laex = false;
 				uint layerCount=doc->layerCount();
 				for (uint la2 = 0; la2 < layerCount; ++la2)
@@ -1365,6 +1366,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				la.isPrintable = pg.attribute("DRUCKEN").toInt();
 				la.isEditable = true;
 				la.flowControl = true;
+				la.blendMode = 0;
 				la.transparency = 1.0;
 				doc->Layers.append(la);
 			}
@@ -3257,6 +3259,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		la.setAttribute("EDIT", static_cast<int>(doc->Layers[lay].isEditable));
 		la.setAttribute("FLOW", static_cast<int>(doc->Layers[lay].flowControl));
 		la.setAttribute("TRANS", doc->Layers[lay].transparency);
+		la.setAttribute("BLEND", doc->Layers[lay].blendMode);
 		dc.appendChild(la);
 	}
 	QDomElement pdf = docu.createElement("PDF");

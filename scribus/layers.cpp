@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 
 #include "scmessagebox.h"
+#include "sccombobox.h"
 #include "scribus.h"
 
 #include "layers.h"
@@ -75,6 +76,10 @@ LayerPalette::LayerPalette(QWidget* parent)
 	LayerPaletteLayout = new QVBoxLayout( this, 10, 5, "LayerPaletteLayout");
 
 	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
+	textLabel1 = new QLabel( this, "textLabel1" );
+	layout1->addWidget( textLabel1 );
+	blendMode = new ScComboBox( false, this, "blendMode" );
+	layout1->addWidget( blendMode );
 	textLabel2 = new QLabel( this, "textLabel2" );
 	textLabel2->setText( tr( "Opacity:" ) );
 	layout1->addWidget( textLabel2 );
@@ -87,6 +92,8 @@ LayerPalette::LayerPalette(QWidget* parent)
 	layout1->addWidget( opacitySpinBox );
 	LayerPaletteLayout->addLayout( layout1 );
 #ifndef HAVE_CAIRO
+	blendMode->hide();
+	textLabel1->hide();
 	textLabel2->hide();
 	opacitySpinBox->hide();
 #endif
@@ -159,6 +166,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 //	connect(Table, SIGNAL(valueChanged(int, int)), this, SLOT(changeName(int, int)));
 	connect(Table, SIGNAL(updtName(int)), this, SLOT(updateName(int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
+	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 
 }
 
@@ -170,6 +178,7 @@ void LayerPalette::updateName(int r)
 
 void LayerPalette::ClearInhalt()
 {
+	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	int b = Table->numRows();
@@ -188,6 +197,7 @@ void LayerPalette::setLayers(QValueList<Layer> *layin, int act)
 {
 	layers = layin;
 	rebuildList();
+	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	markActiveLayer(act);
@@ -197,10 +207,12 @@ void LayerPalette::setLayers(QValueList<Layer> *layin, int act)
 	lowerLayerButton->setEnabled(true);
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
+	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 }
 
 void LayerPalette::rebuildList()
 {
+	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	flagsPrintable.clear();
@@ -243,6 +255,7 @@ void LayerPalette::rebuildList()
 	Table->adjustColumn(4);
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
+	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 }
 
 void LayerPalette::addLayer()
@@ -391,8 +404,16 @@ void LayerPalette::changeOpacity()
 	ScMW->slotDocCh();
 }
 
+void LayerPalette::changeBlendMode(int blend)
+{
+	ScMW->doc->setLayerBlendMode(ScMW->doc->activeLayer(), blend);
+	emit LayerChanged();
+	ScMW->slotDocCh();
+}
+
 void LayerPalette::markActiveLayer(int layerNumber)
 {
+	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	int layerToMark=layerNumber;
@@ -400,12 +421,15 @@ void LayerPalette::markActiveLayer(int layerNumber)
 		layerToMark=ScMW->doc->activeLayer();
 	Table->setCurrentCell(ScMW->doc->layerCount()-1-ScMW->doc->layerLevelFromNumber(layerToMark), 4);
 	opacitySpinBox->setValue(qRound(ScMW->doc->layerTransparency(layerToMark) * 100));
+	blendMode->setCurrentItem(ScMW->doc->layerBlendMode(layerToMark));
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
+	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 }
 
 void LayerPalette::setActiveLayer(int row)
 {
+	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	int layerNumber=ScMW->doc->layerNumberFromLevel(ScMW->doc->layerCount()-1-row);
 	bool found=ScMW->doc->setActiveLayer(layerNumber);
@@ -413,13 +437,29 @@ void LayerPalette::setActiveLayer(int row)
 	{
 		ScMW->changeLayer(ScMW->doc->activeLayer());
 		opacitySpinBox->setValue(qRound(ScMW->doc->layerTransparency(ScMW->doc->activeLayer()) * 100));
+		blendMode->setCurrentItem(ScMW->doc->layerBlendMode(ScMW->doc->activeLayer()));
 	}
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
+	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 }
 
 void LayerPalette::languageChange()
 {
 	setCaption( tr( "Layers" ) );
+	textLabel1->setText( tr( "Blend Mode:" ) );
+	blendMode->clear();
+	blendMode->insertItem( tr("Normal"));
+	blendMode->insertItem( tr("Darken"));
+	blendMode->insertItem( tr("Lighten"));
+	blendMode->insertItem( tr("Multiply"));
+	blendMode->insertItem( tr("Screen"));
+	blendMode->insertItem( tr("Overlay"));
+	blendMode->insertItem( tr("Hard Light"));
+	blendMode->insertItem( tr("Soft Light"));
+	blendMode->insertItem( tr("Difference"));
+	blendMode->insertItem( tr("Exlusion"));
+	blendMode->insertItem( tr("Color Dodge"));
+	blendMode->insertItem( tr("Color Burn"));
 	textLabel2->setText( tr( "Opacity:" ) );
 	opacitySpinBox->setSuffix( tr(" %"));
 	Table->horizontalHeader()->setLabel(4, tr("Name"));
