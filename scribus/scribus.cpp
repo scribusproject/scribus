@@ -3274,6 +3274,13 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				replacement.append(prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile);
 				doc->CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
 			}
+			if (!ScCore->InputProfilesCMYK.contains(doc->CMSSettings.DefaultImageCMYKProfile))
+			{
+				cmsWarning = true;
+				missing.append(doc->CMSSettings.DefaultImageCMYKProfile);
+				replacement.append(prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile);
+				doc->CMSSettings.DefaultImageCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile;
+			}
 			if (!ScCore->InputProfiles.contains(doc->CMSSettings.DefaultSolidColorRGBProfile))
 			{
 				cmsWarning = true;
