@@ -507,6 +507,8 @@ void ActionManager::initViewMenuActions()
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
 	name="viewShowGuides";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
+	name="viewShowColumnBorders";
+	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
 	name="viewShowBaseline";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
 	name="viewShowTextChain";
@@ -528,6 +530,7 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewShowImages"]->setToggleAction(true);
 	(*scrActions)["viewShowGrid"]->setToggleAction(true);
 	(*scrActions)["viewShowGuides"]->setToggleAction(true);
+	(*scrActions)["viewShowColumnBorders"]->setToggleAction(true);
 	(*scrActions)["viewShowBaseline"]->setToggleAction(true);
 	(*scrActions)["viewShowTextChain"]->setToggleAction(true);
 	(*scrActions)["viewShowTextControls"]->setToggleAction(true);
@@ -540,6 +543,7 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewShowFrames"]->setOn(true);
 	(*scrActions)["viewShowImages"]->setOn(true);
 	(*scrActions)["viewShowGuides"]->setOn(true);
+	(*scrActions)["viewShowColumnBorders"]->setOn(false);
 	(*scrActions)["viewShowRulers"]->setOn(true);
 	(*scrActions)["viewRulerMode"]->setOn(true);
 
@@ -554,6 +558,7 @@ void ActionManager::initViewMenuActions()
 	connect( (*scrActions)["viewShowImages"], SIGNAL(activated()), mainWindow, SLOT(TogglePics()) );
 	connect( (*scrActions)["viewShowGrid"], SIGNAL(activated()), mainWindow, SLOT(ToggleRaster()) );
 	connect( (*scrActions)["viewShowGuides"], SIGNAL(activated()), mainWindow, SLOT(ToggleGuides()) );
+	connect( (*scrActions)["viewShowColumnBorders"], SIGNAL(activated()), mainWindow, SLOT(ToggleColumnBorders()) );
 	connect( (*scrActions)["viewShowBaseline"], SIGNAL(activated()), mainWindow, SLOT(ToggleBase()) );
 	connect( (*scrActions)["viewShowTextChain"], SIGNAL(activated()), mainWindow, SLOT(ToggleTextLinks()) );
 	connect( (*scrActions)["viewShowTextControls"], SIGNAL(activated()), mainWindow, SLOT(ToggleTextControls()) );
@@ -1258,6 +1263,7 @@ void ActionManager::languageChange()
 	(*scrActions)["viewShowImages"]->setTexts( tr("Show &Images"));
 	(*scrActions)["viewShowGrid"]->setTexts( tr("Show &Grid"));
 	(*scrActions)["viewShowGuides"]->setTexts( tr("Show G&uides"));
+	(*scrActions)["viewShowColumnBorders"]->setTexts( tr("Show Text Frame Columns"));
 	(*scrActions)["viewShowBaseline"]->setTexts( tr("Show &Baseline Grid"));
 	(*scrActions)["viewShowTextChain"]->setTexts( tr("Show &Text Chain"));
 	(*scrActions)["viewShowTextControls"]->setTexts( tr("Show Control Characters"));
@@ -1556,6 +1562,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("viewShowImages", QKeySequence());
 	defKeys.insert("viewShowGrid", QKeySequence());
 	defKeys.insert("viewShowGuides", QKeySequence());
+	defKeys.insert("viewShowColumnBorders", QKeySequence());
 	defKeys.insert("viewShowBaseline", QKeySequence());
 	defKeys.insert("viewShowTextChain", QKeySequence());
 	defKeys.insert("viewShowTextControls", QKeySequence());
@@ -1752,7 +1759,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "pageInsert" << "pageImport" << "pageDelete" << "pageCopy" << "pageMove" << "pageApplyMasterPage" << "pageCopyToMasterPage" << "pageManageGuides" << "pageManageMargins" << "viewSnapToGrid" << "viewSnapToGuides";
 	//View
 	++itmenu;
-	itmenu->second << "viewFitInWindow" << "viewFit50" << "viewFit75" << "viewFit100" << "viewFit200" << "viewFit20" << "viewShowMargins" << "viewShowFrames" << "viewShowImages" << "viewShowGrid" << "viewShowGuides" << "viewShowBaseline" << "viewShowTextChain" << "viewShowTextControls" << "viewShowRulers" << "viewRulerMode";
+	itmenu->second << "viewFitInWindow" << "viewFit50" << "viewFit75" << "viewFit100" << "viewFit200" << "viewFit20" << "viewShowMargins" << "viewShowFrames" << "viewShowImages" << "viewShowGrid" << "viewShowGuides" << "viewShowColumnBorders" << "viewShowBaseline" << "viewShowTextChain" << "viewShowTextControls" << "viewShowRulers" << "viewRulerMode";
 	//Extras
 	++itmenu;
 	itmenu->second << "extrasManagePictures" << "extrasHyphenateText" << "extrasDeHyphenateText" << "extrasGenerateTableOfContents";

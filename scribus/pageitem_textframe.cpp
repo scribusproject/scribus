@@ -3423,6 +3423,8 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			if (!view->previewMode)
 				drawOverflowMarker(p);
 		}
+		if (m_Doc->guidesSettings.colBordersShown && !view->previewMode)
+			drawColumnBorders(p);
 		//if (m_Doc->selection->findItem(this)!=-1)
 		//	drawLockedMarker(p);
 	}
@@ -4385,5 +4387,38 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	p->drawLine(FPoint(lx1, ly2), FPoint(lx2, ly1));
 }
 
+void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
+{
+	ScribusView* view = m_Doc->view();
+	p->setPen(black, 0.5/ view->scale(), SolidLine, FlatCap, MiterJoin);
+	p->setPenOpacity(1.0);
+	p->setBrush(Qt::white);
+	p->setBrushOpacity(1.0);
+	p->setFillMode(ScPainter::Solid);
+	double startpos=Xpos;
+	double cols=0;
+	double colWidth = columnWidth();
+	double colLeft=0;
+	int currCol=0;
+	double lineCorr=0;
+	if (lineColor() != CommonStrings::None)
+		lineCorr = m_lineWidth / 2.0;
+	if (TExtra + lineCorr!=0.0)
+		p->drawLine(FPoint(0, TExtra + lineCorr), FPoint(Width, TExtra + lineCorr));
+	if (BExtra + lineCorr!=0.0)
+		p->drawLine(FPoint(0, Height - BExtra - lineCorr), FPoint(Width, Height - BExtra - lineCorr));
+	double oldColRightX=Extra+lineCorr;
+	while(currCol<Cols)
+	{
+		colLeft=(colWidth + ColGap) * currCol + Extra + lineCorr;
+		if (colLeft!=0.0)
+			p->drawLine(FPoint(colLeft, 0), FPoint(colLeft, 0+Height));
+		if (colLeft+colWidth!=Width)
+		p->drawLine(FPoint(colLeft+colWidth, 0), FPoint(colLeft+colWidth, 0+Height));
+		oldColRightX=colLeft+colWidth;
+		++currCol;
+	}
+	
+}
 
 #endif  //NLS_PROTO

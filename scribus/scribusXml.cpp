@@ -1185,6 +1185,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->setUnitIndex(dc.attribute("UNITS", "0").toInt());
 		doc->guidesSettings.gridShown = view->Prefs->guidesSettings.gridShown;
 		doc->guidesSettings.guidesShown = view->Prefs->guidesSettings.guidesShown;
+		doc->guidesSettings.colBordersShown = view->Prefs->guidesSettings.colBordersShown;
 		doc->guidesSettings.framesShown = view->Prefs->guidesSettings.framesShown;
 		doc->guidesSettings.marginsShown = view->Prefs->guidesSettings.marginsShown;
 		doc->guidesSettings.baseShown = view->Prefs->guidesSettings.baseShown;
@@ -3033,6 +3034,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("MAJGRID", doc->guidesSettings.majorGrid);
 	dc.setAttribute("SHOWGRID", static_cast<int>(doc->guidesSettings.gridShown));
 	dc.setAttribute("SHOWGUIDES", static_cast<int>(doc->guidesSettings.guidesShown));
+	dc.setAttribute("showcolborders", static_cast<int>(doc->guidesSettings.colBordersShown));
 	dc.setAttribute("SHOWFRAME", static_cast<int>(doc->guidesSettings.framesShown));
 	dc.setAttribute("SHOWMARGIN", static_cast<int>(doc->guidesSettings.marginsShown));
 	dc.setAttribute("SHOWBASE", static_cast<int>(doc->guidesSettings.baseShown));

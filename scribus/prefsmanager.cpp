@@ -189,6 +189,7 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesSettings.framesShown = true;
 	appPrefs.guidesSettings.gridShown = false;
 	appPrefs.guidesSettings.guidesShown = false;
+	appPrefs.guidesSettings.colBordersShown = false;
 	appPrefs.guidesSettings.baseShown = false;
 	appPrefs.guidesSettings.showPic = true;
 	appPrefs.guidesSettings.showControls = false;
@@ -898,6 +899,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("SCRIPTS", appPrefs.ScriptDir);
 	dc.setAttribute("TEMPLATES", appPrefs.documentTemplatesDir);
 	dc.setAttribute("SHOWGUIDES", static_cast<int>(appPrefs.guidesSettings.guidesShown));
+	dc.setAttribute("showcolborders", static_cast<int>(appPrefs.guidesSettings.colBordersShown));
 	dc.setAttribute("FRV", static_cast<int>(appPrefs.guidesSettings.framesShown));
 	dc.setAttribute("SHOWMARGIN", static_cast<int>(appPrefs.guidesSettings.marginsShown));
 	dc.setAttribute("SHOWBASE", static_cast<int>(appPrefs.guidesSettings.baseShown));
@@ -1351,6 +1353,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.ScriptDir = dc.attribute("SCRIPTS","");
 			appPrefs.documentTemplatesDir = dc.attribute("TEMPLATES","");
 			appPrefs.guidesSettings.guidesShown = static_cast<bool>(dc.attribute("SHOWGUIDES", "1").toInt());
+			appPrefs.guidesSettings.colBordersShown = static_cast<bool>(dc.attribute("showcolborders", "0").toInt());
 			appPrefs.guidesSettings.framesShown = static_cast<bool>(dc.attribute("FRV", "1").toInt());
 			appPrefs.guidesSettings.marginsShown = static_cast<bool>(dc.attribute("SHOWMARGIN", "1").toInt());
 			appPrefs.guidesSettings.baseShown = static_cast<bool>(dc.attribute("SHOWBASE", "1").toInt());

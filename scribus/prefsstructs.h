@@ -74,6 +74,7 @@ struct guidesPrefs
 	int grabRad;
 	bool framesShown;
 	bool guidesShown;
+	bool colBordersShown;
 	bool marginsShown;
 	bool baseShown;
 	bool linkShown;

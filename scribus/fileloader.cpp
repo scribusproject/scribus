@@ -356,6 +356,7 @@ bool FileLoader::LoadFile()
 	ScMW->doc->guidesSettings.framesShown = prefsManager->appPrefs.guidesSettings.framesShown;
 	ScMW->doc->guidesSettings.gridShown = prefsManager->appPrefs.guidesSettings.gridShown;
 	ScMW->doc->guidesSettings.guidesShown = prefsManager->appPrefs.guidesSettings.guidesShown;
+	ScMW->doc->guidesSettings.colBordersShown = prefsManager->appPrefs.guidesSettings.colBordersShown;
 	ScMW->doc->guidesSettings.baseShown = prefsManager->appPrefs.guidesSettings.baseShown;
 	ScMW->doc->guidesSettings.linkShown = prefsManager->appPrefs.guidesSettings.linkShown;
 	ScMW->doc->toolSettings.polyC = prefsManager->appPrefs.toolSettings.polyC;
@@ -1065,6 +1066,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		doc->guidesSettings.majorGrid = dc.attribute("MAJGRID", tmp.setNum(prefsManager->appPrefs.guidesSettings.majorGrid)).toDouble();
 		doc->guidesSettings.gridShown = static_cast<bool>(dc.attribute("SHOWGRID", "0").toInt());
 		doc->guidesSettings.guidesShown = static_cast<bool>(dc.attribute("SHOWGUIDES", "1").toInt());
+		doc->guidesSettings.colBordersShown = static_cast<bool>(dc.attribute("showcolborders", "0").toInt());
 		doc->guidesSettings.framesShown = static_cast<bool>(dc.attribute("SHOWFRAME", "1").toInt());
 		doc->guidesSettings.marginsShown = static_cast<bool>(dc.attribute("SHOWMARGIN", "1").toInt());
 		doc->guidesSettings.baseShown = static_cast<bool>(dc.attribute("SHOWBASE", "0").toInt());
