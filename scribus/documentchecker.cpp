@@ -123,7 +123,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 								chx = chx.upper();
 						}
 						chr = chx[0].unicode();
-						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
+						if ((!currItem->itemText.at(e)->cfont->canRender(chr)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
 					}
 					for (uint t1 = 0; t1 < currItem->TabValues.count(); t1++)
@@ -137,7 +137,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 								chx = chx.upper();
 						}
 						chr = chx[0].unicode();
-						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
+						if ((!currItem->itemText.at(e)->cfont->canRender(chr)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
 					}
 					continue;
@@ -146,12 +146,12 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				{
 					for (uint numco = 0x30; numco < 0x3A; ++numco)
 					{
-						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(numco)) && (checkerSettings.checkGlyphs))
+						if ((!currItem->itemText.at(e)->cfont->canRender(numco)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
 					}
 					continue;
 				}
-				if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
+				if ((!currItem->itemText.at(e)->cfont->canRender(chr)) && (checkerSettings.checkGlyphs))
 					itemError.insert(MissingGlyph, 0);
 			}
 #endif
@@ -233,7 +233,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 								chx = chx.upper();
 						}
 						chr = chx[0].unicode();
-						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
+						if ((!currItem->itemText.at(e)->cfont->canRender(chr)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
 					}
 					for (uint t1 = 0; t1 < currItem->TabValues.count(); t1++)
@@ -247,7 +247,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 								chx = chx.upper();
 						}
 						chr = chx[0].unicode();
-						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
+						if ((!currItem->itemText.at(e)->cfont->canRender(chr)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
 					}
 					continue;
@@ -256,12 +256,12 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				{
 					for (uint numco = 0x30; numco < 0x3A; ++numco)
 					{
-						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(numco)) && (checkerSettings.checkGlyphs))
+						if ((!currItem->itemText.at(e)->cfont->canRender(numco)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
 					}
 					continue;
 				}
-				if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
+				if ((!currItem->itemText.at(e)->cfont->canRender(chr)) && (checkerSettings.checkGlyphs))
 					itemError.insert(MissingGlyph, 0);
 			}
 #endif

@@ -425,9 +425,9 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 	vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
 	PrefsManager * prefsManager = PrefsManager::instance();
 	QString tmpf = pg.attribute("FONT", doc->toolSettings.defFont);
-	if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+	if ((!avail.find(tmpf)) || (!avail[tmpf]->usable()))
 	{
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
+		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->usable()))
 		{
 			newReplacement = true;
 			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
@@ -738,9 +738,9 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 						Neu->OnMasterPage = "";
 					doc->GroupCounter = docGc;
 					tmpf = pg.attribute("IFONT", doc->toolSettings.defFont);
-					if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+					if ((!avail.find(tmpf)) || (!avail[tmpf]->usable()))
 					{
-						if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
+						if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->usable()))
 						{
 							newReplacement = true;
 							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
@@ -985,7 +985,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		doc->setUnitIndex(dc.attribute("UNITS", "0").toInt());
 		doc->toolSettings.defSize=qRound(dc.attribute("DSIZE").toDouble() * 10);
 		Defont=dc.attribute("DFONT");
-		if ((!avail.find(Defont)) || (!avail[Defont]->UseFont))
+		if ((!avail.find(Defont)) || (!avail[Defont]->usable()))
 		{
 			ReplacedFonts.insert(Defont, prefsManager->appPrefs.toolSettings.defFont);
 			Defont = prefsManager->appPrefs.toolSettings.defFont;
@@ -1595,9 +1595,9 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 						Neu->OnMasterPage = "";
 					doc->GroupCounter = docGc;
 					tmpf = pg.attribute("IFONT", doc->toolSettings.defFont);
-					if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+					if ((!avail.find(tmpf)) || (!avail[tmpf]->usable()))
 					{
-						if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
+						if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->usable()))
 						{
 							newReplacement = true;
 							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
@@ -1810,7 +1810,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, La
 	tmp2.replace(QRegExp("\n"), QChar(13));
 	tmp2.replace(QRegExp("\t"), QChar(9));
 	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
-	if ((!prefsManager->appPrefs.AvailFonts.find(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf]->UseFont))
+	if ((!prefsManager->appPrefs.AvailFonts.find(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf]->usable()))
 	{
 		bool isThere = false;
 		for (uint dl = 0; dl < dummyFois.count(); ++dl)
@@ -1828,7 +1828,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, La
 			dummyFois.append(dummy);
 		}
 		unknown = true;
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
+		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]]->usable()))
 		{
 			newReplacement = true;
 			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);

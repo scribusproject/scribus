@@ -75,27 +75,56 @@ private:
 		QString Effect;
 		QString Alternative;
 public:
-		FT_Face ftFace();
-		QString scName()   const { return SCName; } ;
-		QString fontPath() const { return faceIndex_ >= 0 ? QString("%1(%2)").arg(fontFile).arg(faceIndex_+1) : fontFile; };
-		QString fontFilePath() const { return fontFile; };
-		int faceIndex() const { return faceIndex_; };
-		QString family()   const { return Family; } ;
-		QString style()    const { return Effect; } ;
-//		QFont Font;
+		FT_Face ftFace()   const;
+		QString scName()   const { return SCName; }
+		QString fontPath() const { return faceIndex_ >= 0 ? QString("%1(%2)").arg(fontFile).arg(faceIndex_+1) : fontFile; }
+		QString fontFilePath()      const { return fontFile; }
+		QString localForDocument()  const { return PrivateFont; }
+		FontType type()    const { return typeCode; }
+		FontFormat format()const { return formatCode; }
+		int faceIndex()    const { return faceIndex_; }
+		bool usable()      const { return UseFont; }
+		bool embedPs()     const { return EmbedPS; }
+		bool subset()      const { return Subset; }
+		void useFont(bool flag)  { UseFont = flag; }
+		void embedPs(bool flag)  { EmbedPS = flag; }
+		void subset(bool flag)   { Subset = flag; }
+		bool hasNames()    const { return HasNames; }
+		bool isOTF()       const { return isOTF_; }
+		bool isStroked()   const { return isStroked_; }
+		bool isFixedPitch()const { return IsFixedPitch; }
+		QString family()   const { return Family; }
+		QString style()    const { return Effect; }
+		double ascent()    const { return numAscent; }
+		double descent()   const { return numDescender; }
+		double capHeight() const { return numAscent; }
+		double height()    const { return ftFace()->height; }
+		QString stemV()    const { return StdVW; }
+		QString italicAngle()      const { return ItalicAngle; }
+		QString fontBBox()         const { return FontBBox; }
+		double strikeoutPos()      const { return strikeout_pos; }
+		double underlinePos()      const { return underline_pos; }
+		double strokeWidth()       const { return strokeWidth_; }
+		double max_advance_width() const { return face->max_advance_width; }
+		double charWidth(QChar ch) const;
+		bool canRender(QChar ch)   const;
+		FPointArray outline(QChar ch) const;
+		FPoint origin(QChar ch)    const;
+
 		struct GlyphR { FPointArray Outlines;
 					 					double x;
 					 					double y;
 				  				};
 // those should be private: -AV
+protected:
 		bool EmbedPS;
 		bool HasMetrics;
-		bool isOTF;
+		bool isOTF_;
 		bool Subset;
-		bool isStroked;
-		QMap<uint,double> CharWidth;
-		QMap<uint,GlyphR> GlyphArray;
-		QMap<uint,FPointArray> RealGlyphs;
+		bool isStroked_;
+		mutable QMap<uint,double> CharWidth;
+		mutable QMap<uint,GlyphR> GlyphArray;
+		mutable QMap<uint,FPointArray> RealGlyphs;
 		QString Ascent;
 		QString CapHeight;
 		QString Descender;
@@ -113,18 +142,16 @@ public:
 		double numDescender;
 		double underline_pos;
 		double strikeout_pos;
-		double strokeWidth;
+		double strokeWidth_;
 		Foi::FontType typeCode;
 		Foi::FontFormat formatCode;
 //		QPixmap Appearance;
 private:
-		FT_Face face;
+		mutable FT_Face face;
 		static FT_Library library;
-public:
-		double ascent() { return numAscent; }
-		double descent() { return numDescender; }
-		double height() { return face->height; }
-		double max_advance_width() { return face->max_advance_width; }
+		
+		friend class Foi_ttf;
+		friend class SCFonts;
 };
 
 

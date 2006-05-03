@@ -276,15 +276,14 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		return -1;
 	}
 	// get all used fonts
-	QMap<QString,int> ReallyUsed;
-	ReallyUsed.clear();
-	ScMW->doc->getUsedFonts(&ReallyUsed);
+	QMap<QString,int> ReallyUsed = ScMW->doc->UsedFonts;
 	// create list of all used fonts
 	QValueList<QString> tmpEm;
 	tmpEm = ReallyUsed.keys();
 	QValueList<QString>::Iterator itef;
 	for (itef = tmpEm.begin(); itef != tmpEm.end(); ++itef) {
-		if (PrefsManager::instance()->appPrefs.AvailFonts[(*itef).ascii()]->HasMetrics) {
+// AV: dunno what this is for, but it looks as if it's the only place where HasMetrics is used...
+//		if (PrefsManager::instance()->appPrefs.AvailFonts[(*itef).ascii()]->HasMetrics) {
 			PyObject *tmp= NULL;
 			tmp = PyString_FromString((*itef).ascii());
 			if (tmp) {
@@ -298,7 +297,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 				PyErr_SetString(PyExc_SystemError, "Can not initialize 'fonts' attribute");
 				return -1;
 			}
-		}
+//		}
 	}
 // set to print all pages
 	PyObject *pages = NULL;

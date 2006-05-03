@@ -368,7 +368,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 		tabColorManagement = new CMSPrefs(prefsWidgets, &prefsData->DCMSset, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 		addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
-	QMap<QString,int> DocFonts;
+	QMap<QString, int> DocFonts;
 	DocFonts.clear();
 	tabPDF = new TabPDFOptions( prefsWidgets,
 								prefsData->PDF_Options,
@@ -1407,9 +1407,9 @@ void Preferences::updatePreferences()
 	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
 	for ( ; it.current() ; ++it)
 	{
-		it.current()->EmbedPS = tabFonts->fontFlags[it.currentKey()].FlagPS;
-		it.current()->UseFont = tabFonts->fontFlags[it.currentKey()].FlagUse;
-		it.current()->Subset = tabFonts->fontFlags[it.currentKey()].FlagSub;
+		it.current()->embedPs(tabFonts->fontFlags[it.currentKey()].FlagPS);
+		it.current()->useFont(tabFonts->fontFlags[it.currentKey()].FlagUse);
+		it.current()->subset(tabFonts->fontFlags[it.currentKey()].FlagSub);
 	}
 	a = 0;
 	QMap<QString,QString>::Iterator itfsuend=tabFonts->RList.end();

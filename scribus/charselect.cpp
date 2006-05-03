@@ -83,7 +83,7 @@ ChTable::ChTable(CharSelect* parent, ScribusMainWindow *pl) : QTable(parent)
 
 QRect ChTable::cellGeometry ( int /*row*/, int /*col*/ ) const
 {
-	int widthHeight = QMAX(18 + qRound(-(*ap->doc->AllFonts)[par->fontInUse]->numDescender * 18) + 5, 18);
+	int widthHeight = QMAX(18 + qRound(-(*ap->doc->AllFonts)[par->fontInUse]->descent() * 18) + 5, 18);
 	return QRect(0, 0, widthHeight, widthHeight+20);
 
 }
@@ -110,13 +110,13 @@ void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool
 	fo.setPixelSize(9);
 	qp->setFont(fo);
 	static FPointArray gly;
-	int len = (*ap->doc->AllFonts)[par->fontInUse]->GlyphArray[par->characters[cc]].Outlines.size();
+	int len = (*ap->doc->AllFonts)[par->fontInUse]->outline(par->characters[cc]).size();
 	gly.resize(len);
-	gly.putPoints(0, len, (*ap->doc->AllFonts)[par->fontInUse]->GlyphArray[par->characters[cc]].Outlines );
+	gly.putPoints(0, len, (*ap->doc->AllFonts)[par->fontInUse]->outline(par->characters[cc]) );
 	if (gly.size() > 4)
 	{
 		gly.map(chma);
-		double ww = sz.width() - (*ap->doc->AllFonts)[par->fontInUse]->CharWidth[par->characters[cc]]*16;
+		double ww = sz.width() - (*ap->doc->AllFonts)[par->fontInUse]->charWidth(par->characters[cc])*16;
 		p->translate(ww / 2, 1);
 		p->setBrush(black);
 		p->setFillMode(1);
@@ -164,15 +164,15 @@ void ChTable::contentsMousePressEvent(QMouseEvent* e)
 	if ((e->button() == RightButton) && ((r*16+c) < maxCount))
 	{
 		watchTimer->stop();
-		int bh = 48 + qRound(-(*ap->doc->AllFonts)[font]->numDescender * 48) + 3;
+		int bh = 48 + qRound(-(*ap->doc->AllFonts)[font]->descent() * 48) + 3;
 		QPixmap pixm(bh,bh);
 		ScPainter *p = new ScPainter(&pixm, bh, bh);
 		p->clear();
 		pixm.fill(white);
 		QWMatrix chma;
 		chma.scale(4.8, 4.8);
-		FPointArray gly = (*ap->doc->AllFonts)[font]->GlyphArray[par->characters[r*16+c]].Outlines.copy();
-		double ww = bh - (*ap->doc->AllFonts)[font]->CharWidth[par->characters[r*16+c]]*48;
+		FPointArray gly = (*ap->doc->AllFonts)[font]->outline(par->characters[r*16+c]).copy();
+		double ww = bh - (*ap->doc->AllFonts)[font]->charWidth(par->characters[r*16+c])*48;
 		if (gly.size() > 4)
 		{
 			gly.map(chma);

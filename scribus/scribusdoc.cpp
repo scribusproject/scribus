@@ -318,7 +318,7 @@ ScribusDoc::~ScribusDoc()
 	QMap<QString,int>::Iterator it3;
 	for (it3 = UsedFonts.begin(); it3 != UsedFonts.end(); ++it3)
 	{
-		if (!(*AllFonts)[it3.key()]->PrivateFont.isEmpty())
+		if (!(*AllFonts)[it3.key()]->localForDocument().isEmpty())
 			(*AllFonts).removeFont(it3.key());
 	}
 	FT_Done_FreeType( library );
@@ -849,17 +849,30 @@ bool ScribusDoc::AddFont(QString name, int fsize)
 
 	if ((*AllFonts)[name]->ReadMetrics())
 	{
-		(*AllFonts)[name]->CharWidth[13] = 0;
-		(*AllFonts)[name]->CharWidth[28] = 0;
-		(*AllFonts)[name]->CharWidth[26] = 0;
-		(*AllFonts)[name]->CharWidth[9] = 1;
+//		(*AllFonts)[name]->CharWidth[13] = 0;
+//		(*AllFonts)[name]->CharWidth[28] = 0;
+//		(*AllFonts)[name]->CharWidth[26] = 0;
+//		(*AllFonts)[name]->CharWidth[9] = 1;
 		QString afnm = (*AllFonts)[name]->fontFilePath().left((*AllFonts)[name]->fontFilePath().length()-3);
 		QFile afm(afnm+"afm");
 		if(!(afm.exists()))
 		{
+			afm.setName(afnm+"pfm");
+		}
+		if(!(afm.exists())) {
+			afm.setName(afnm+"AFM");
+		}
+		if(!(afm.exists()))
+		{
+			afm.setName(afnm+"PFM");
+		}
+		if(!(afm.exists()))
+		{
 			afm.setName(afnm+"Afm");
-			if(!(afm.exists()))
-				afm.setName(afnm+"AFM");
+		}
+		if(!(afm.exists()))
+		{
+			afm.setName(afnm+"Pfm");
 		}
 		if (afm.exists())
 			FT_Attach_File(face, afm.name());
@@ -1496,7 +1509,7 @@ int ScribusDoc::layerBlendMode(const int layerNumber)
 		if ((*it).LNr == layerNumber)
 			return (*it).blendMode;
 	}
-	return 1.0;
+	return 1;
 }
 
 int ScribusDoc::layerLevelFromNumber(const int layerNumber)
@@ -1857,7 +1870,7 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 	}
 }
 
-void ScribusDoc::getUsedFonts(QMap<QString,int> *Really)
+void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 {
 	PageItem* it;
 	FPointArray gly;
@@ -1895,26 +1908,27 @@ void ScribusDoc::getUsedFonts(QMap<QString,int> *Really)
 			{
 				for (int e = 0; e < it->itemText.length(); ++e)
 				{
-					Really->insert(it->itemText.charStyle(e).cfont->scName(), UsedFonts[it->itemText.charStyle(e).cfont->scName()]);
+					if (! Really.contains(it->itemText.charStyle(e).cfont->scName()) ) {
+						Really.insert(it->itemText.charStyle(e).cfont->scName(), QMap<uint, FPointArray>());
+					}
 					uint chr = it->itemText.text(e).unicode();
 					if ((chr == 13) || (chr == 32) || (chr == 29))
 						continue;
-#ifndef NLS_PROTO
 					if (chr == 9)
 					{
-						for (uint t1 = 0; t1 < docParagraphStyles[it->itemText.at(e)->cab].tabValues().count(); t1++)
+						for (uint t1 = 0; t1 < it->itemText.paragraphStyle(e).tabValues().count(); t1++)
 						{
-							if (docParagraphStyles[it->itemText.at(e)->cab].tabValues()[t1].tabFillChar.isNull())
+							if (it->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar.isNull())
 								continue;
-							chx = QString(docParagraphStyles[it->itemText.at(e)->cab].tabValues()[t1].tabFillChar);
+							chx = QString(it->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar);
 							if ((it->itemText.charStyle(e).cstyle & ScStyle_SmallCaps) || (it->itemText.charStyle(e).cstyle & ScStyle_AllCaps))
 							{
-								if (chx.upper() != QString(docParagraphStyles[it->itemText.at(e)->cab].tabValues()[t1].tabFillChar))
+								if (chx.upper() != QString(it->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar))
 									chx = chx.upper();
 							}
 							chr = chx[0].unicode();
-							gly = it->itemText.charStyle(e).cfont->GlyphArray[chr].Outlines.copy();
-							it->itemText.charStyle(e).cfont->RealGlyphs.insert(chr, gly);
+							gly = it->itemText.charStyle(e).cfont->outline(chx[0]);
+							Really[it->itemText.charStyle(e).cfont->scName()].insert(chr, gly);
 						}
 						for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
 						{
@@ -1927,12 +1941,11 @@ void ScribusDoc::getUsedFonts(QMap<QString,int> *Really)
 									chx = chx.upper();
 							}
 							chr = chx[0].unicode();
-							gly = it->itemText.charStyle(e).cfont->GlyphArray[chr].Outlines.copy();
-							it->itemText.charStyle(e).cfont->RealGlyphs.insert(chr, gly);
+							gly = it->itemText.charStyle(e).cfont->outline(chx[0]);
+							Really[it->itemText.charStyle(e).cfont->scName()].insert(chr, gly);
 						}
 						continue;
 					}
-#endif
 					if (chr == 30)
 					{
 						/* CB Removed forced loading of 0-9 for section based numbering
@@ -1972,10 +1985,10 @@ void ScribusDoc::getUsedFonts(QMap<QString,int> *Really)
 						for (uint pnti=0;pnti<pageNumberText.length(); ++pnti)
 						{
 							uint chr = pageNumberText[pnti].unicode();
-							if (it->itemText.charStyle(e).cfont->CharWidth.contains(chr))
+							if (it->itemText.charStyle(e).cfont->canRender(chr))
 							{
-								FPointArray gly(it->itemText.charStyle(e).cfont->GlyphArray[chr].Outlines.copy());
-								it->itemText.charStyle(e).cfont->RealGlyphs.insert(chr, gly);
+								FPointArray gly(it->itemText.charStyle(e).cfont->outline(chr));
+								Really[it->itemText.charStyle(e).cfont->scName()].insert(chr, gly);
 							}
 						}
 						continue;
@@ -1987,10 +2000,10 @@ void ScribusDoc::getUsedFonts(QMap<QString,int> *Really)
 							chx = chx.upper();
 						chr = chx[0].unicode();
 					}
-					if (it->itemText.charStyle(e).cfont->CharWidth.contains(chr))
+					if (it->itemText.charStyle(e).cfont->canRender(chr))
 					{
-						gly = it->itemText.charStyle(e).cfont->GlyphArray[chr].Outlines.copy();
-						it->itemText.charStyle(e).cfont->RealGlyphs.insert(chr, gly);
+						gly = it->itemText.charStyle(e).cfont->outline(chr);
+						Really[it->itemText.charStyle(e).cfont->scName()].insert(chr, gly);
 					}
 				}
 			}

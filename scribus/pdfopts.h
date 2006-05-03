@@ -42,7 +42,7 @@ class SCRIBUS_API PDFExportDialog : public QDialog
 
 public:
 	PDFExportDialog( QWidget* parent, const QString & docFileName,
-					 const QMap<QString,int> & DocFonts,
+					 const QMap<QString, int > & DocFonts,
 					 ScribusView * currView, PDFOptions & pdfOptions,
 					 const QValueList<PDFPresentationData> & Eff,
 					 const ProfilesL & PDFXProfiles, const SCFonts & AllFonts,

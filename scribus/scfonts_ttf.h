@@ -22,7 +22,7 @@ class SCRIBUS_API Foi_ttf : public Foi
 		Foi_ttf(QString fam, QString sty, QString alt, QString psname, QString path, int face, bool embedps) :
 		Foi(fam,sty,alt,psname,path,face,embedps), metricsread(false)
 		{
-			HasMetrics=true;
+			HasMetrics = true;
 			formatCode = SFNT;
 		}
 		QString RealName();

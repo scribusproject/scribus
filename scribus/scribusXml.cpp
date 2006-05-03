@@ -71,7 +71,7 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 	bool unknown = false;
 	ScText *hg;
 	Foi* dummy;
-	if ((!prefsManager->appPrefs.AvailFonts.find(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf]->UseFont))
+	if ((!prefsManager->appPrefs.AvailFonts.find(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf]->usable()))
 	{
 		bool isThere = false;
 		for (uint dl = 0; dl < dummyFois.count(); ++dl)
@@ -89,7 +89,7 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 			dummyFois.append(dummy);
 		}
 		unknown = true;
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
+		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]]->usable()))
 		{
 			newReplacement = true;
 			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
@@ -239,9 +239,9 @@ QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc)
 {
 //	QFont fo;
 	QString tmpf = fStr;
-	if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+	if ((!avail.find(tmpf)) || (!avail[tmpf]->usable()))
 	{
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
+		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->usable()))
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			MissingFont *dia = new MissingFont(0, tmpf, doc);
@@ -1195,7 +1195,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		DoFonts.clear();
 		doc->toolSettings.defSize=qRound(dc.attribute("DSIZE").toDouble() * 10);
 		Defont=dc.attribute("DFONT");
-		if ((!avail.find(Defont)) || (!avail[Defont]->UseFont))
+		if ((!avail.find(Defont)) || (!avail[Defont]->usable()))
 		{
 			ReplacedFonts.insert(Defont, view->Prefs->toolSettings.defFont);
 			Defont = view->Prefs->toolSettings.defFont;
@@ -1294,9 +1294,9 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				vg.setGapBefore(pg.attribute("VOR", "0").toDouble());
 				vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
 				tmpf = pg.attribute("FONT", doc->toolSettings.defFont);
-				if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+				if ((!avail.find(tmpf)) || (!avail[tmpf]->usable()))
 				{
-					if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
+					if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->usable()))
 					{
 						newReplacement = true;
 						ReplacedFonts.insert(tmpf, view->Prefs->toolSettings.defFont);
@@ -1462,9 +1462,9 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					OB.startArrowIndex =  0;
 					OB.endArrowIndex =  0;
 					tmpf = obj.attribute("IFONT", doc->toolSettings.defFont);
-					if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+					if ((!avail.find(tmpf)) || (!avail[tmpf]->usable()))
 					{
-						if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
+						if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->usable()))
 						{
 							newReplacement = true;
 							ReplacedFonts.insert(tmpf, view->Prefs->toolSettings.defFont);
@@ -1871,9 +1871,9 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		if(pg.tagName()=="FONT")
 		{
 			tmpf = pg.attribute("NAME");
-			if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+			if ((!avail.find(tmpf)) || (!avail[tmpf]->usable()))
 			{
-				if (!FontSub.contains(tmpf) || (!avail[FontSub[tmpf]]->UseFont))
+				if (!FontSub.contains(tmpf) || (!avail[FontSub[tmpf]]->usable()))
 				{
 					MissingFont *dia = new MissingFont(0, tmpf, doc);
 					dia->exec();

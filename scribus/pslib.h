@@ -49,7 +49,7 @@ class SCRIBUS_API PSLib : public QObject
 {
 	Q_OBJECT
 	public:
-		PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorList DocColors, bool pdf = false, bool spot = true);
+		PSLib(bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, ColorList DocColors, bool pdf = false, bool spot = true);
 		virtual ~PSLib() {};
 		virtual bool PS_set_file(QString fn);
 		virtual void PS_set_Info(QString art, QString was);

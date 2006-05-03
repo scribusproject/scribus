@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 #include <qobject.h>
 
-#include <sys/types.h>
+#include <sys/types.h>_
 
 #include "scfonts_ttf.h"
 #include "scfontmetrics.h"
@@ -35,7 +35,7 @@ bool Foi_ttf::ReadMetrics()
 		return(true);
 	CharWidth.clear();
 	GlyphArray.clear();
-	isStroked = false;
+	isStroked_ = false;
 	QString tmp, tmp2, tmp3, tmp4;
 	bool error;
 	FT_ULong  charcode;
@@ -58,7 +58,7 @@ bool Foi_ttf::ReadMetrics()
 	numAscent = face->ascender / uniEM;
 	underline_pos = face->underline_position / uniEM;
 	strikeout_pos = numAscent / 3;
-	strokeWidth = face->underline_thickness / uniEM;
+	strokeWidth_ = face->underline_thickness / uniEM;
 	ItalicAngle = "0";
 	StdVW = "1";
 	FontBBox = tmp.setNum(face->bbox.xMin * 1000 / uniEM)+" "+tmp2.setNum(face->bbox.yMin * 1000 / uniEM)+" "+tmp3.setNum(face->bbox.xMax * 1000 / uniEM)+" "+tmp4.setNum(face->bbox.yMax * 1000 / uniEM);
@@ -81,7 +81,7 @@ bool Foi_ttf::ReadMetrics()
 		++goodGlyphs;
 		double ww = face->glyph->metrics.horiAdvance / uniEM;
 		if (face->glyph->format == FT_GLYPH_FORMAT_PLOTTER)
-			isStroked = true;
+			isStroked_ = true;
 		error = false;
 		outlines = traceChar(face, charcode, 10, &x, &y, &error);
 		if (!error)

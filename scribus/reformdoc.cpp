@@ -1041,9 +1041,9 @@ void ReformDoc::updateDocumentSettings()
 	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
 	for ( ; it.current() ; ++it)
 	{
-		it.current()->EmbedPS = tabFonts->fontFlags[it.currentKey()].FlagPS;
-		it.current()->UseFont = tabFonts->fontFlags[it.currentKey()].FlagUse;
-		it.current()->Subset = tabFonts->fontFlags[it.currentKey()].FlagSub;
+		it.current()->embedPs(tabFonts->fontFlags[it.currentKey()].FlagPS);
+		it.current()->useFont(tabFonts->fontFlags[it.currentKey()].FlagUse);
+		it.current()->subset(tabFonts->fontFlags[it.currentKey()].FlagSub);
 	}
 	uint a = 0;
 	prefsManager->appPrefs.GFontSub.clear();

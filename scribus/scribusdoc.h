@@ -351,9 +351,9 @@ public:
 	QStringList getItemAttributeNames();
 
 	/*!
-	 * @brief Returns a qmap of the fonts used within the document
+	 * @brief Returns a qmap of the fonts and  their glyphs used within the document
 	 */
-	void getUsedFonts(QMap<QString,int> *Really);
+	void getUsedFonts(QMap<QString,QMap<uint, FPointArray> > &Really);
 	/*!
 	* @brief Builds a qmap of the colours used within the document
 	*/

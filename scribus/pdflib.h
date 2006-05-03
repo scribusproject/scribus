@@ -68,7 +68,7 @@ public:
 private:
 	typedef QMap<uint, GlNamInd> GListeInd;
 
-	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,int> DocFonts, BookMView* vi);
+	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, BookMView* vi);
 	void PDF_Begin_Page(const Page* pag, QPixmap pm = 0);
 	void PDF_End_Page();
 	void PDF_TemplatePage(const Page* pag, bool clip = false);
@@ -215,7 +215,6 @@ private:
 	QString Datum;
 	int NDnum;
 	QMap<QString, QString> UsedFontsP;
-	QMap<QString, int> RealFonts;
 	bool CompAvail;
 	QByteArray KeyGen;
 	QByteArray OwnerKey;

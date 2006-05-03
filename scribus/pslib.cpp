@@ -50,7 +50,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "text/nlsconfig.h"
 
-PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorList DocColors, bool pdf, bool spot)
+PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, ColorList DocColors, bool pdf, bool spot)
 {
 	usingGUI=ScCore->usingGUI();
 	abortExport=false;
@@ -122,20 +122,21 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorLis
 			erst = false;
 		}
 	}
-	QMap<QString,int>::Iterator it;
+	QMap<QString, QMap<uint, FPointArray> >::Iterator it;
 	int a = 0;
 	for (it = DocFonts.begin(); it != DocFonts.end(); ++it)
 	{
 /* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-		Foi::FontType type = AllFonts[it.key()]->typeCode;
+		Foi::FontType type = AllFonts[it.key()]->type();
 
-		if ((type == Foi::TTF) || (AllFonts[it.key()]->isOTF) || (AllFonts[it.key()]->Subset))
+		if ((type == Foi::TTF) || (AllFonts[it.key()]->isOTF()) || (AllFonts[it.key()]->subset()))
 		{
+			QMap<uint, FPointArray>& RealGlyphs(it.data());
 			FontDesc += "/"+AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+
-					" "+IToStr(AllFonts[it.key()]->RealGlyphs.count()+1)+" dict def\n";
+					" "+IToStr(RealGlyphs.count()+1)+" dict def\n";
 			FontDesc += AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+" begin\n";
 			QMap<uint,FPointArray>::Iterator ig;
-			for (ig = AllFonts[it.key()]->RealGlyphs.begin(); ig != AllFonts[it.key()]->RealGlyphs.end(); ++ig)
+			for (RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
 			{
 				FontDesc += "/G"+IToStr(ig.key())+" { newpath\n";
 				FPoint np, np1, np2;
@@ -167,13 +168,12 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorLis
 				FontDesc += "cl\n} bind def\n";
 			}
 			FontDesc += "end\n";
-			AllFonts[it.key()]->RealGlyphs.clear();
 		}
 		else
 		{
 			UsedFonts.insert(it.key(), "/Fo"+IToStr(a));
 			Fonts += "/Fo"+IToStr(a)+" /"+AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+" findfont definefont pop\n";
-			if (AllFonts[it.key()]->EmbedPS)
+			if (AllFonts[it.key()]->embedPs())
 			{
 				QString tmp;
 				if(AllFonts[it.key()]->EmbedFont(tmp))
@@ -297,7 +297,7 @@ void PSLib::PutDoc(QByteArray& array, bool hexEnc)
 	if(hexEnc)
 	{
 		int length = 0;
-		for (int i = 0; i < array.size(); i++)
+		for (uint i = 0; i < array.size(); i++)
 		{
 			length++;
 			t << toHex(array[i]);
@@ -1642,7 +1642,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				QString bm = "";
 				QString cc;
-				for (d = 0; d < c->itemText.length(); ++d)
+				for (int d = 0; d < c->itemText.length(); ++d)
 				{
 					if ((c->itemText.text(d) == QChar(13)) || (c->itemText.text(d) == QChar(10)) || (c->itemText.text(d) == QChar(28)))
 						break;
@@ -1654,7 +1654,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				QString bm = "";
 				QString cc;
-				for (d = 0; d < c->itemText.length(); ++d)
+				for (int d = 0; d < c->itemText.length(); ++d)
 				{
 					bm += "\\"+cc.setNum(QMAX(c->itemText.text(d).unicode(), 32), 8);
 				}
@@ -1952,11 +1952,11 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				}
 				/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-				Foi::FontType type = hl->cfont->typeCode;
-				if ((type == Foi::TTF) ||  (hl->cfont->isOTF) || (hl->cfont->Subset))
+				Foi::FontType type = hl->cfont->type();
+				if ((type == Foi::TTF) ||  (hl->cfont->isOTF()) || (hl->cfont->subset()))
 				{
 					uint chr = chx[0].unicode();
-					if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
+					if ((hl->cfont->canRender(chx[0])) && (chr != 32))
 					{
 						PS_save();
 						if (hl->ccolor != CommonStrings::None)
@@ -2011,8 +2011,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						PS_show_xyG(hl->cfont->scName(), chx, 0, 0, false);
 					if ((hl->cstroke != CommonStrings::None) && ((tsz * hl->coutline / 10000.0) != 0))
 					{
-						uint chr = chx[0].unicode();
-						FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
+						FPointArray gly = hl->cfont->outline(chx[0]);
 						QWMatrix chma;
 						chma.scale(tsz / 100.0, tsz / 100.0);
 						gly.map(chma);
@@ -2413,15 +2412,15 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	if (hl->cstyle & 2048)
 	{
 		if (Doc->docParagraphStyles[hl->cab].useBaselineGrid())
-			tsz = qRound(10 * ((Doc->typographicSettings.valueBaseGrid *  (Doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+			tsz = qRound(10 * ((Doc->typographicSettings.valueBaseGrid *  (Doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
 		else
 		{
 			if (Doc->docParagraphStyles[hl->cab].lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-				tsz = qRound(10 * ((Doc->docParagraphStyles[hl->cab].lineSpacing() *  (Doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+				tsz = qRound(10 * ((Doc->docParagraphStyles[hl->cab].lineSpacing() *  (Doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
 			else
 			{
 				double currasce = RealFHeight(Doc, hl->cfont, Doc->docParagraphStyles[hl->cab].charStyle().fontSize());
-				tsz = qRound(10 * ((currasce * (Doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCHeight(Doc, hl->cfont, chx, 10)));
+				tsz = qRound(10 * ((currasce * (Doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCHeight(Doc, hl->cfont, chx, 10)));
 			}
 		}
 	}
@@ -2519,11 +2518,11 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	if (hl->cstyle & 2)
 		tsz = hl->csize * Doc->typographicSettings.scalingSuperScript / 100;
 	/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-	Foi::FontType ftype = hl->cfont->typeCode;
-	if ((ftype == Foi::TTF) || (hl->cfont->isOTF) || (hl->cfont->Subset))
+	Foi::FontType ftype = hl->cfont->type();
+	if ((ftype == Foi::TTF) || (hl->cfont->isOTF()) || (hl->cfont->subset()))
 	{
 		uint chr = chx[0].unicode();
-		if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
+		if ((hl->cfont->canRender(chx[0])) && (chr != 32))
 		{
 			PS_save();
 			if (ite->reversed())
@@ -2615,10 +2614,9 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	}
 	if ((hl->cstyle & 4) && (chx != QChar(13)))
 	{
-		uint chr = chx[0].unicode();
-		if (hl->cfont->CharWidth.contains(chr))
+		if (hl->cfont->canRender(chx[0]))
 		{
-			FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
+			FPointArray gly = hl->cfont->outline(chx[0]);
 			QWMatrix chma, chma2, chma3;
 			chma.scale(tsz / 100.0, tsz / 100.0);
 			chma2.scale(hl->cscale / 1000.0, hl->cscalev / 1000.0);
@@ -2661,18 +2659,18 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		if ((hl->cstrikepos != -1) || (hl->cstrikewidth != -1))
 		{
 			if (hl->cstrikepos != -1)
-				Upos = (hl->cstrikepos / 1000.0) * (hl->cfont->numAscent * (hl->csize / 10.0));
+				Upos = (hl->cstrikepos / 1000.0) * (hl->cfont->ascent() * (hl->csize / 10.0));
 			else
-				Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
+				Upos = hl->cfont->strikeoutPos() * (hl->csize / 10.0);
 			if (hl->cstrikewidth != -1)
 				lw = (hl->cstrikewidth / 1000.0) * (hl->csize / 10.0);
 			else
-				lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
+				lw = QMAX(hl->cfont->strokeWidth() * (hl->csize / 10.0), 1);
 		}
 		else
 		{
-			Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
-			lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
+			Upos = hl->cfont->strikeoutPos() * (hl->csize / 10.0);
+			lw = QMAX(hl->cfont->strokeWidth() * (hl->csize / 10.0), 1);
 		}
 		if (hl->cbase != 0)
 			Upos += (hl->csize / 10.0) * (hl->cbase / 1000.0);
@@ -2699,18 +2697,18 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		if ((hl->cunderpos != -1) || (hl->cunderwidth != -1))
 		{
 			if (hl->cunderpos != -1)
-				Upos = (hl->cunderpos / 1000.0) * (hl->cfont->numDescender * (hl->csize / 10.0));
+				Upos = (hl->cunderpos / 1000.0) * (hl->cfont->descent() * (hl->csize / 10.0));
 			else
-				Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
+				Upos = hl->cfont->underlinePos() * (hl->csize / 10.0);
 			if (hl->cunderwidth != -1)
 				lw = (hl->cunderwidth / 1000.0) * (hl->csize / 10.0);
 			else
-				lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
+				lw = QMAX(hl->cfont->strokeWidth() * (hl->csize / 10.0), 1);
 		}
 		else
 		{
-			Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
-			lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
+			Upos = hl->cfont->underlinePos() * (hl->csize / 10.0);
+			lw = QMAX(hl->cfont->strokeWidth() * (hl->csize / 10.0), 1);
 		}
 		if (hl->cbase != 0)
 			Upos += (hl->csize / 10.0) * (hl->cbase / 1000.0);
@@ -2732,10 +2730,9 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		ite->SetZeichAttr(*hl, &chs, &chx);
 		double wide = Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 1000.0);
 		chx = "-";
-		uint chr = chx[0].unicode();
-		if (hl->cfont->CharWidth.contains(chr))
+		if (hl->cfont->canRender(chx[0]))
 		{
-			FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
+			FPointArray gly = hl->cfont->outline(chx[0]);
 			QWMatrix chma;
 			chma.scale(tsz / 100.0, tsz / 100.0);
 			gly.map(chma);

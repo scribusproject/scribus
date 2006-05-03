@@ -200,7 +200,7 @@ void SEditor::setCurrentDocument(ScribusDoc *docc)
 void SEditor::imEndEvent(QIMEvent *e)
 {
 	QString uc = e->text();
-	if ((!uc.isEmpty()) && ((*doc->AllFonts)[CurrFont]->CharWidth.contains(uc[0].unicode())))
+	if ((!uc.isEmpty()) && ((*doc->AllFonts)[CurrFont]->canRender(uc[0])))
 	{
 		insChars(e->text());
 		QTextEdit::imEndEvent(e);
@@ -444,7 +444,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				case Key_End:
 					break;
 				default:
-					if ((!k->text().isEmpty()) && ((*doc->AllFonts)[CurrFont]->CharWidth.contains(uc[0].unicode())))
+					if ((!k->text().isEmpty()) && ((*doc->AllFonts)[CurrFont]->canRender(uc[0])))
 					{
 						insChars(k->text());
 						QTextEdit::keyPressEvent(k);

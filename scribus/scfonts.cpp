@@ -60,7 +60,7 @@ FT_Library Foi::library = NULL;
 Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path, 
 		 int face, bool embedps) : face(NULL)
 {
-	isOTF = false;
+	isOTF_ = false;
 	Subset = false;
 	typeCode = Foi::UNKNOWN_TYPE;
 	formatCode = Foi::UNKNOWN_FORMAT;
@@ -79,14 +79,35 @@ Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path,
 }
 
 
-FT_Face Foi::ftFace() {
+FT_Face Foi::ftFace() const {
 	if (!face) {
 		if (FT_New_Face( library, fontFile, faceIndex_, &face )) {
-			UseFont = false;
+			const_cast<Foi*>(this)->UseFont = false;
 			qDebug(QObject::tr("Font %1(%2) is broken").arg(fontFile).arg(faceIndex_));
 		}
 	}
 	return face;
+}
+
+double Foi::charWidth(QChar ch) const 
+{ 
+	return CharWidth[ch.unicode()]; 
+}
+
+bool Foi::canRender(QChar ch)   const 
+{
+	return CharWidth.contains(ch.unicode()); 
+}
+
+FPointArray Foi::outline(QChar ch) const 
+{ 
+	return GlyphArray[ch.unicode()].Outlines.copy(); 
+}
+
+FPoint Foi::origin(QChar ch) const 
+{ 
+	const struct GlyphR & res(GlyphArray[ch.unicode()]);
+	return FPoint(res.x, res.y); 
 }
 
 /// copied from Freetype's FT_Stream_ReadAt()
@@ -270,7 +291,7 @@ class Foi_postscript : public Foi
 			bool error;
 			FT_ULong  charcode;
 			FT_UInt   gindex;
-			isStroked = false;
+			isStroked_ = false;
 			
 			FT_Face face = ftFace();
 			if (!face)
@@ -294,7 +315,7 @@ class Foi_postscript : public Foi
 			numAscent = face->ascender / uniEM;
 			underline_pos = face->underline_position / uniEM;
 			strikeout_pos = numAscent / 3;
-			strokeWidth = face->underline_thickness / uniEM;
+			strokeWidth_ = face->underline_thickness / uniEM;
 			CapHeight = Ascent;
 			ItalicAngle = "0";
 			StdVW = "1";
@@ -318,7 +339,7 @@ class Foi_postscript : public Foi
 				++goodGlyph;
 				double ww = face->glyph->metrics.horiAdvance / uniEM;
 				if (face->glyph->format == FT_GLYPH_FORMAT_PLOTTER)
-					isStroked = true;
+					isStroked_ = true;
 				error = false;
 				outlines = traceChar(face, charcode, 10, &x, &y, &error);
 				if (!error)
@@ -479,7 +500,7 @@ void SCFonts::updateFontMap()
 	SCFontsIterator it( *this );
 	for ( ; it.current(); ++it)
 	{
-		if (it.current()->UseFont)
+		if (it.current()->usable())
 		{
 			if (fontMap.contains(it.current()->family()))
 			{
@@ -834,22 +855,22 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			{
 				case Foi::PFA:
 					t = new Foi_pfa(fam, sty, ts, qpsName, filename, faceindex, true);
-					t->Subset = Subset;
+					t->subset(Subset);
 					break;
 				case Foi::PFB:
 					t = new Foi_pfb(fam, sty, ts, qpsName, filename, faceindex, true);
-					t->Subset = Subset;
+					t->subset(Subset);
 					break;
 				case Foi::SFNT:
 					t = new Foi_ttf(fam, sty, ts, qpsName, filename, faceindex, true);
 					getSFontType(face, t->typeCode);
 					if (t->typeCode == Foi::OTF) 
 					{
-						t->isOTF = true;
-						t->Subset = true;
+						t->isOTF_ = true;
+						t->subset(true);
 					}
 					else
-						t->Subset = Subset;
+						t->subset(Subset);
 					break;
 				case Foi::TTCF:
 					t = new Foi_ttf(fam, sty, ts, qpsName, filename, faceindex, true);
@@ -858,22 +879,22 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					//getSFontType(face, t->typeCode);
 					if (t->typeCode == Foi::OTF) 
 					{
-						t->isOTF = true;
-						t->Subset = true;
+						t->isOTF_ = true;
+						t->subset(true);
 					}
 					else
-						t->Subset = Subset;
+						t->subset(Subset);
 					break;
 				case Foi::TYPE42:
 					t = new Foi_ttf(fam, sty, ts, qpsName, filename, faceindex, true);
 					getSFontType(face, t->typeCode);
 					if (t->typeCode == Foi::OTF) 
 					{
-						t->isOTF = true;
-						t->Subset = true;
+						t->isOTF_ = true;
+						t->subset(true);
 					}
 					else
-						t->Subset = Subset;
+						t->subset(Subset);
 					break;
 				default:
 				/* catching any types not handled above to silence compiler */
@@ -881,8 +902,8 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			}
 			insert(ts,t);
 			t->HasNames = HasNames;
-			t->EmbedPS = true;
-			t->UseFont = true;
+			t->embedPs(true);
+			t->useFont(true);
 			t->CharWidth[13] = 0;
 			t->CharWidth[28] = 0;
 			t->CharWidth[9] = 1;

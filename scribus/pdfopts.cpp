@@ -30,7 +30,7 @@ extern bool CMSuse;
 extern bool CMSavail;
 
 PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
-								  const QMap<QString,int> & DocFonts,
+								  const QMap<QString, int > & DocFonts,
 								  ScribusView *currView, PDFOptions & pdfOptions,
 								  const QValueList<PDFPresentationData> & Eff,
 								  const ProfilesL & PDFXProfiles, const SCFonts &AllFonts,

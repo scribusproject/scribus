@@ -705,7 +705,7 @@ void SVGExPlug::SetTextProps(QDomElement *tp, ScText *hl)
 	if ((hl->cstroke != CommonStrings::None) && (chst & 4))
 		{
 		tp->setAttribute("stroke", SetFarbe(hl->cstroke, hl->cshade2));
-		tp->setAttribute("stroke-width", FToStr((*ScMW->doc->AllFonts)[hl->cfont->scName()]->strokeWidth * (hl->csize / 10.0))+"pt");
+		tp->setAttribute("stroke-width", FToStr((*ScMW->doc->AllFonts)[hl->cfont->scName()]->strokeWidth() * (hl->csize / 10.0))+"pt");
 		}
 	else
 		tp->setAttribute("stroke", "none");

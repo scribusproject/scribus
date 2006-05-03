@@ -452,9 +452,9 @@ static PyObject *Printer_print(Printer *self)
 		psl = 3;
 	PSLevel = psl;
 	printcomm = QString(PyString_AsString(self->cmd));
-	QMap<QString,int> ReallyUsed;
+	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
 	ReallyUsed.clear();
-	ScMW->doc->getUsedFonts(&ReallyUsed);
+	ScMW->doc->getUsedFonts(ReallyUsed);
 	PrefsManager *prefsManager=PrefsManager::instance();
 	PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, ScMW->doc->PageColors, false, true);
 	if (dd != NULL)

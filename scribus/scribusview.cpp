@@ -674,9 +674,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
 							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 						}
-						if (evSpon)
-							currItem->Dirty = true;
-						else
+						if (!evSpon || forceRedraw)
 							currItem->invalid = true;
 						QRect oldR(currItem->getRedrawBounding(Scale));
 						if (clip.intersects(oldR))
@@ -800,8 +798,6 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 					QRect oldR(currItem->getRedrawBounding(Scale));
 					if (clip.intersects(oldR))
 					{
-						if (evSpon)
-							currItem->Dirty = true;
 						if (!evSpon || forceRedraw) 
 							currItem->invalid = true;
 //						if ((!m_MouseButtonPressed) || (Doc->EditClip))
@@ -3202,7 +3198,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	if ((Doc->appMode == modeEdit) && !operItemResizeInEditMode)
 	{
 		currItem = Doc->m_Selection->itemAt(0);
-		uint a;
 		if (currItem->asTextFrame())
 		{
 			if (oldCp == currItem->CPos)
@@ -3373,7 +3368,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 
 void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 {
-	int newX, newY, c;
+	int newX, newY;
 	double nx, ny, dx, dy;
 	uint a;
 	PageItem *currItem;
@@ -7193,7 +7188,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 				cp+=qRound(colWidth);
 			};
 			uint a;
-			int xp, yp, h;
+			int xp=0, yp=0, h;
 			bool breakAndReturn=false;
 			uint currItemTextCount=currItem->itemText.count();
 			for (a=0; a<currItemTextCount; ++a)
@@ -7544,6 +7539,9 @@ void ScribusView::slotDoCurs(bool draw)
 #ifndef NLS_PROTO
 		if (!currItem->asTextFrame())
 			return;
+		// don't mess around with itemText when layout() is about to happen
+		if (currItem->invalid)
+			return;
 		QPainter p;
 		int xp, yp, yp1, desc, asce;
 		p.begin(viewport());
@@ -7614,8 +7612,8 @@ void ScribusView::slotDoCurs(bool draw)
 				}
 			}
 			yp = static_cast<int>(currItem->itemText.at(offs)->yp);
-			desc = static_cast<int>(currItem->itemText.at(offs)->cfont->numDescender * (-currItem->itemText.at(offs)->csize / 10.0));
-			asce = static_cast<int>(currItem->itemText.at(offs)->cfont->numAscent * (currItem->itemText.at(offs)->csize / 10.0));
+			desc = static_cast<int>(currItem->itemText.at(offs)->cfont->descent() * (-currItem->itemText.at(offs)->csize / 10.0));
+			asce = static_cast<int>(currItem->itemText.at(offs)->cfont->ascent() * (currItem->itemText.at(offs)->csize / 10.0));
 		}
 		else
 		{
@@ -7628,8 +7626,8 @@ void ScribusView::slotDoCurs(bool draw)
 					lineCorr = 0;
 				xp = static_cast<int>(currItem->textToFrameDistLeft() + lineCorr);
 				yp = static_cast<int>(currItem->textToFrameDistTop() + lineCorr + currItem->lineSpacing());
-				desc = static_cast<int>((*Doc->AllFonts)[currItem->font()]->numDescender * (-currItem->fontSize() / 10.0));
-				asce = static_cast<int>((*Doc->AllFonts)[currItem->font()]->numAscent * (currItem->fontSize() / 10.0));
+				desc = static_cast<int>((*Doc->AllFonts)[currItem->font()]->descent() * (-currItem->fontSize() / 10.0));
+				asce = static_cast<int>((*Doc->AllFonts)[currItem->font()]->ascent() * (currItem->fontSize() / 10.0));
 			}
 			else
 			{
@@ -7642,15 +7640,15 @@ void ScribusView::slotDoCurs(bool draw)
 						lineCorr = 0;
 					xp = static_cast<int>(currItem->textToFrameDistLeft() + lineCorr);
 					yp = static_cast<int>(currItem->textToFrameDistTop() + lineCorr + currItem->lineSpacing());
-					desc = static_cast<int>((*Doc->AllFonts)[currItem->font()]->numDescender * (-currItem->fontSize() / 10.0));
-					asce = static_cast<int>((*Doc->AllFonts)[currItem->font()]->numAscent * (currItem->fontSize() / 10.0));
+					desc = static_cast<int>((*Doc->AllFonts)[currItem->font()]->descent() * (-currItem->fontSize() / 10.0));
+					asce = static_cast<int>((*Doc->AllFonts)[currItem->font()]->ascent() * (currItem->fontSize() / 10.0));
 				}
 				else
 				{
 					xp = static_cast<int>(currItem->itemText.at(currItem->CPos)->xp);
 					yp = static_cast<int>(currItem->itemText.at(currItem->CPos)->yp);
-					desc = static_cast<int>(currItem->itemText.at(currItem->CPos)->cfont->numDescender * (-currItem->itemText.at(currItem->CPos)->csize / 10.0));
-					asce = static_cast<int>(currItem->itemText.at(currItem->CPos)->cfont->numAscent * (currItem->itemText.at(currItem->CPos)->csize / 10.0));
+					desc = static_cast<int>(currItem->itemText.at(currItem->CPos)->cfont->descent() * (-currItem->itemText.at(currItem->CPos)->csize / 10.0));
+					asce = static_cast<int>(currItem->itemText.at(currItem->CPos)->cfont->ascent() * (currItem->itemText.at(currItem->CPos)->csize / 10.0));
 				}
 			}
 		}
@@ -9984,7 +9982,7 @@ void ScribusView::TextToPath()
 						chma4.translate(0, currItem->BaseOffs-((hl->csize / 10.0) * (hl->cscalev / 1000.0)));
 					if (hl->cbase != 0)
 						chma6.translate(0, -(hl->csize / 10.0) * (hl->cbase / 1000.0));
-					pts = currItem->itemText.at(a)->cfont->GlyphArray[chr].Outlines.copy();
+					pts = currItem->itemText.at(a)->cfont->outline(chr);
 					if (pts.size() < 4)
 						continue;
 					pts.map(chma * chma2 * chma3 * chma4 * chma6);
@@ -9999,11 +9997,12 @@ void ScribusView::TextToPath()
 				else
 				{
 					chma.scale(csi, csi);
-					pts = hl->cfont->GlyphArray[chr].Outlines.copy();
+					pts = hl->cfont->outline(chr);
 					if (pts.size() < 4)
 						continue;
-					x = hl->cfont->GlyphArray[chr].x * csi;
-					y = hl->cfont->GlyphArray[chr].y * csi;
+					FPoint origin = hl->cfont->origin(chr); 
+					x = origin.x() * csi;
+					y = origin.y() * csi;
 					pts.map(chma);
 					chma = QWMatrix();
 					chma.scale(hl->cscale / 1000.0, hl->cscalev / 1000.0);

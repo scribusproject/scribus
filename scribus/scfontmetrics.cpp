@@ -484,15 +484,15 @@ double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size, QString c
 	uint c1 = ch.at(0).unicode();
 	uint c2 = ch2.at(0).unicode();
 	double size10=Size/10.0;
-	if (name->CharWidth.contains(c1))
+	if (name->canRender(ch[0]))
 	{
-		width = name->CharWidth[c1]*size10;
+		width = name->charWidth(ch[0])*size10;
 		face = name->ftFace();
 		/****
 			Ok, this looks like a regression between Freetype 2.1.9 -> 2.1.10.
 			Ignoring the value of FT_HAS_KERNING for now -- AV
 		 ****/
-		if (true || name->HasKern || FT_HAS_KERNING(face) )
+		if (true || FT_HAS_KERNING(face) )
 		{
 			uint cl = FT_Get_Char_Index(face, c1);
 			uint cr = FT_Get_Char_Index(face, c2);
@@ -501,7 +501,8 @@ double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size, QString c
 				qDebug(QString("Error %2 when accessing kerning pair for font %1").arg(name->scName()).arg(error));
 			}
 			else {
-				width += delta.x / name->uniEM * size10;
+				double uniEM = static_cast<double>(face->units_per_EM);
+				width += delta.x / uniEM * size10;
 			}
 		}
 		else {
@@ -518,14 +519,15 @@ double RealCWidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
 	double w, ww;
 	uint c1 = ch.at(0).unicode();
 	FT_Face      face;
-	if (name->CharWidth.contains(c1))
+	if (name->canRender(ch.at(0)))
 	{
-		face = currentDoc->FFonts[name->scName()];
+		face = name->ftFace();
 		uint cl = FT_Get_Char_Index(face, c1);
 		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 		if (!error) {
-			w = (face->glyph->metrics.width + fabs((double)face->glyph->metrics.horiBearingX)) / name->uniEM * (Size / 10.0);
-			ww = face->glyph->metrics.horiAdvance / name->uniEM * (Size / 10.0);
+			double uniEM = static_cast<double>(face->units_per_EM);
+			w = (face->glyph->metrics.width + fabs((double)face->glyph->metrics.horiBearingX)) / uniEM * (Size / 10.0);
+			ww = face->glyph->metrics.horiAdvance / uniEM * (Size / 10.0);
 			return QMAX(ww, w);
 		}
 		else
@@ -540,13 +542,15 @@ double RealCHeight(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
 	double w;
 	uint c1 = ch.at(0).unicode();
 	FT_Face      face;
-	if (name->CharWidth.contains(c1))
+	if (name->canRender(ch.at(0)))
 	{
-		face = currentDoc->FFonts[name->scName()];
+		face = name->ftFace();
 		uint cl = FT_Get_Char_Index(face, c1);
 		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-		if (!error)
-			w = face->glyph->metrics.height / name->uniEM * (Size / 10.0);
+		if (!error) {
+			double uniEM = static_cast<double>(face->units_per_EM);
+			w = face->glyph->metrics.height / uniEM * (Size / 10.0);
+		}
 		else {
 			sDebug(QString("internal error: missing glyph: %1 (char %2) error=%3").arg(c1).arg(ch).arg(error));
 			w = Size / 10.0;
@@ -562,13 +566,15 @@ double RealCAscent(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
 	double w;
 	uint c1 = ch.at(0).unicode();
 	FT_Face      face;
-	if (name->CharWidth.contains(c1))
+	if (name->canRender(ch.at(0)))
 	{
-		face = currentDoc->FFonts[name->scName()];
+		face = name->ftFace();
 		uint cl = FT_Get_Char_Index(face, c1);
 		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-		if (! error)
-			w = face->glyph->metrics.horiBearingY / name->uniEM * (Size / 10.0);
+		if (! error) {
+			double uniEM = static_cast<double>(face->units_per_EM);
+			w = face->glyph->metrics.horiBearingY / uniEM * (Size / 10.0);
+		}
 		else {
 			sDebug(QString("internal error: missing glyph: %1 (char %2) error=%3").arg(c1).arg(ch).arg(error));
 			w = Size / 10.0;
@@ -581,6 +587,7 @@ double RealCAscent(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
 
 double RealFHeight(ScribusDoc *currentDoc, Foi* name, int Size)
 {
-	FT_Face face = currentDoc->FFonts[name->scName()];
-	return face->height / name->uniEM * (Size / 10.0);
+	FT_Face face = name->ftFace();
+	double uniEM = static_cast<double>(face->units_per_EM);
+	return face->height / uniEM * (Size / 10.0);
 }

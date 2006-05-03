@@ -42,7 +42,7 @@ public:
 	TabPDFOptions(  QWidget* parent, PDFOptions & Optionen,
 	                const SCFonts &AllFonts,
 	                const ProfilesL & PDFXProfiles,
-	                const QMap<QString,int> & DocFonts,
+	                const QMap<QString, int> & DocFonts,
 	                const QValueList<PDFPresentationData> & Eff,
 	                int unitIndex, double PageH, double PageB,
 	                ScribusView *vie = 0 );

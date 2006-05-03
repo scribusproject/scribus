@@ -32,7 +32,7 @@ PyObject *scribus_fontnames(PyObject* /* self */)
 	SCFontsIterator it2(PrefsManager::instance()->appPrefs.AvailFonts);
 	for ( ; it2.current() ; ++it2)
 	{
-		if (it2.current()->UseFont)
+		if (it2.current()->usable())
 			cc2++;
 	}
 	PyObject *l = PyList_New(cc2);
@@ -40,7 +40,7 @@ PyObject *scribus_fontnames(PyObject* /* self */)
 	int cc = 0;
 	for ( ; it.current() ; ++it)
 	{
-		if (it.current()->UseFont)
+		if (it.current()->usable())
 		{
 			PyList_SetItem(l, cc, PyString_FromString(it.currentKey().utf8()));
 			cc++;
@@ -61,8 +61,8 @@ PyObject *scribus_xfontnames(PyObject* /* self */)
 							it.currentKey().utf8().data(),
 							it.current()->family().utf8().data(),
 							it.current()->RealName().utf8().data(),
-							it.current()->Subset,
-							it.current()->EmbedPS,
+							it.current()->subset(),
+							it.current()->embedPs(),
 							it.current()->fontFilePath().utf8().data()
 						);
 		PyList_SetItem(l, cc, row);

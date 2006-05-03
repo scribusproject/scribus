@@ -346,7 +346,7 @@ void FontPrefs::rebuildDialog(bool firstTime)
 		fontSet foS;
 		QListViewItem *row = new QListViewItem(fontList);
 		row->setText(0, it.currentKey());
-		if (it.current()->UseFont)
+		if (it.current()->usable())
 		{
 			UsedFonts.append(it.currentKey());
 			foS.FlagUse = true;
@@ -358,7 +358,7 @@ void FontPrefs::rebuildDialog(bool firstTime)
 			row->setPixmap(1, checkOff);
 		}
 		row->setText(2, tr("PostScript"));
-		if (it.current()->EmbedPS)
+		if (it.current()->embedPs())
 		{
 			foS.FlagPS = true;
 			row->setPixmap(2, checkOn);
@@ -368,12 +368,12 @@ void FontPrefs::rebuildDialog(bool firstTime)
 			foS.FlagPS = false;
 			row->setPixmap(2, checkOff);
 		}
-		Foi::FontType type = it.current()->typeCode;
+		Foi::FontType type = it.current()->type();
 		if (type == Foi::OTF)
 			foS.FlagOTF = true;
 		else
 			foS.FlagOTF = false;
-		if (it.current()->Subset)
+		if (it.current()->subset())
 		{
 			foS.FlagSub = true;
 			row->setPixmap(3, checkOn);
@@ -392,7 +392,7 @@ void FontPrefs::rebuildDialog(bool firstTime)
 			if (type == Foi::OTF)
 				row->setPixmap(0, otfFont);
 		}
-		foS.FlagNames = it.current()->HasNames;
+		foS.FlagNames = it.current()->hasNames();
 		row->setText(4, it.current()->fontPath());
 		fontFlags.insert(it.currentKey(), foS);
 	}

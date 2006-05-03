@@ -45,8 +45,7 @@ FontPreview::FontPreview(QString fontName)
 	resetDisplayButton->setPixmap(loadIcon("u_undo16.png"));
 
 	/* go through available fonts and check their properties */
-	reallyUsedFonts.clear();
-	ScMW->doc->getUsedFonts(&reallyUsedFonts);
+	reallyUsedFonts = ScMW->doc->UsedFonts;
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
@@ -164,10 +163,10 @@ void FontPreview::updateFontList(QString searchStr)
 		if (searchStr.length()!=0 & !re.exactMatch(fontIter.current()->scName()))
 			continue;
 
-		if (fontIter.current()->UseFont)
+		if (fontIter.current()->usable())
 		{
 			QListViewItem *row = new QListViewItem(fontList);
-			Foi::FontType type = fontIter.current()->typeCode;
+			Foi::FontType type = fontIter.current()->type();
 
 			row->setText(0, fontIter.current()->scName());
 			// searching
@@ -180,7 +179,7 @@ void FontPreview::updateFontList(QString searchStr)
 				row->setText(2, "OpenType");
 			}
 			else
-				if (fontIter.current()->Subset)
+				if (fontIter.current()->subset())
 					row->setPixmap(3, okIcon);
 
 			if (type == Foi::TYPE1) // type1

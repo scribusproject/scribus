@@ -4167,10 +4167,10 @@ void ScribusMainWindow::slotReallyPrint()
 bool ScribusMainWindow::doPrint(PrintOptions *options)
 {
 	bool retw = false;
-	QMap<QString,int> ReallyUsed;
+	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
 	QString filename(options->filename);
 	ReallyUsed.clear();
-	doc->getUsedFonts(&ReallyUsed);
+	doc->getUsedFonts(ReallyUsed);
 	ColorList usedColors;
 	doc->getUsedColors(usedColors);
 	ScCore->fileWatcher->forceScan();
@@ -7089,9 +7089,9 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn)
 	pageNs.push_back(doc->currentPage()->pageNr()+1);
 	ReOrderText(doc, view);
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
-	QMap<QString,int> ReallyUsed;
+	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
 	ReallyUsed.clear();
-	doc->getUsedFonts(&ReallyUsed);
+	doc->getUsedFonts(ReallyUsed);
 	ColorList usedColors;
 	doc->getUsedColors(usedColors);
 	ScCore->fileWatcher->forceScan();
@@ -7232,9 +7232,7 @@ void ScribusMainWindow::doSaveAsPDF()
 	}
 /*	if (bookmarkPalette->BView->childCount() == 0)
 		doc->PDF_Options.Bookmarks = false; */
-	QMap<QString,int> ReallyUsed;
-	ReallyUsed.clear();
-	doc->getUsedFonts(&ReallyUsed);
+	QMap<QString, int> ReallyUsed = doc->UsedFonts;
 	if (doc->PDF_Options.EmbedList.count() != 0)
 	{
 		QValueList<QString> tmpEm;
@@ -7280,8 +7278,6 @@ void ScribusMainWindow::doSaveAsPDF()
 			uint aa = 0;
 			while (aa < pageNs.size())
 			{
-				ReallyUsed.clear();
-				doc->getUsedFonts(&ReallyUsed);
 				thumbs.clear();
 				std::vector<int> pageNs2;
 				pageNs2.clear();

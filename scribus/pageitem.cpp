@@ -1149,7 +1149,7 @@ void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 double PageItem::SetZeichAttr(const CharStyle& style, int *chs, QString *chx)
 {
 	double retval = 0.0;
-	double asce = style.cfont->numAscent * (style.csize / 10.0);
+	double asce = style.cfont->ascent() * (style.csize / 10.0);
 	int chst = style.cstyle & 1919;
 	if (chst != ScStyle_Default)
 	{
@@ -1233,13 +1233,12 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		ccx = " ";
 	if (ccx == QChar(24))
 		ccx = "-";
-	uint chr = ccx[0].unicode();
-	if (hl->ZFo->CharWidth.contains(chr))
+	if (hl->ZFo->canRender(ccx[0]))
 	{
 		QWMatrix chma, chma2, chma3, chma4, chma5, chma6;
 		chma.scale(csi, csi);
 		chma5.scale(p->zoomFactor(), p->zoomFactor());
-		FPointArray gly = hl->ZFo->GlyphArray[chr].Outlines.copy();
+		FPointArray gly = hl->ZFo->outline(ccx[0]).copy();
 		if (gly.size() > 3)
 		{
 			chma2.scale(hl->scale / 1000.0, hl->scalev / 1000.0);
@@ -1258,7 +1257,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			bool fr = p->fillRule();
 			p->setFillRule(false);
 			p->setupTextPolygon(&gly);
-			if ((hl->ZFo->isStroked) && ((hl->Siz * hl->outline / 10000.0) != 0))
+			if ((hl->ZFo->isStroked()) && ((hl->Siz * hl->outline / 10000.0) != 0))
 			{
 				QColor tmp = p->brush();
 				p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
@@ -1299,18 +1298,18 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			if ((hl->strikepos != -1) || (hl->strikewidth != -1))
 			{
 				if (hl->strikepos != -1)
-					st = (hl->strikepos / 1000.0) * (hl->ZFo->numAscent * (hl->realSiz / 10.0));
+					st = (hl->strikepos / 1000.0) * (hl->ZFo->ascent() * (hl->realSiz / 10.0));
 				else
-					st = hl->ZFo->strikeout_pos * (hl->realSiz / 10.0);
+					st = hl->ZFo->strikeoutPos() * (hl->realSiz / 10.0);
 				if (hl->strikewidth != -1)
 					lw = (hl->strikewidth / 1000.0) * (hl->realSiz / 10.0);
 				else
-					lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
+					lw = QMAX(hl->ZFo->strokeWidth() * (hl->realSiz / 10.0), 1);
 			}
 			else
 			{
-				st = hl->ZFo->strikeout_pos * (hl->realSiz / 10.0);
-				lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
+				st = hl->ZFo->strikeoutPos() * (hl->realSiz / 10.0);
+				lw = QMAX(hl->ZFo->strokeWidth() * (hl->realSiz / 10.0), 1);
 			}
 			if (hl->base != 0)
 				st += (hl->Siz / 10.0) * (hl->base / 1000.0);
@@ -1324,18 +1323,18 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			if ((hl->underpos != -1) || (hl->underwidth != -1))
 			{
 				if (hl->underpos != -1)
-					st = (hl->underpos / 1000.0) * (hl->ZFo->numDescender * (hl->realSiz / 10.0));
+					st = (hl->underpos / 1000.0) * (hl->ZFo->descent() * (hl->realSiz / 10.0));
 				else
-					st = hl->ZFo->underline_pos * (hl->realSiz / 10.0);
+					st = hl->ZFo->underlinePos() * (hl->realSiz / 10.0);
 				if (hl->underwidth != -1)
 					lw = (hl->underwidth / 1000.0) * (hl->realSiz / 10.0);
 				else
-					lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
+					lw = QMAX(hl->ZFo->strokeWidth() * (hl->realSiz / 10.0), 1);
 			}
 			else
 			{
-				st = hl->ZFo->underline_pos * (hl->realSiz / 10.0);
-				lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
+				st = hl->ZFo->underlinePos() * (hl->realSiz / 10.0);
+				lw = QMAX(hl->ZFo->strokeWidth() * (hl->realSiz / 10.0), 1);
 			}
 			if (hl->base != 0)
 				st += (hl->Siz / 10.0) * (hl->base / 1000.0);
@@ -3620,8 +3619,8 @@ void PageItem::updatePolyClip()
 	for (uint a = 0; a < itemTextCount; ++a)
 	{
 		const CharStyle& hl (itemText.charStyle(a));
-		int des = static_cast<int>(hl.cfont->numDescender * (-hl.csize / 10.0));
-		int asc = static_cast<int>(hl.cfont->numAscent * (hl.csize / 10.0));
+		int des = static_cast<int>(hl.cfont->descent() * (-hl.csize / 10.0));
+		int asc = static_cast<int>(hl.cfont->ascent() * (hl.csize / 10.0));
 		if (asc > asce)
 			asce = asc;
 		if (des > desc)

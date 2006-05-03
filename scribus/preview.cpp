@@ -397,7 +397,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 {
 	int ret = -1;
 	QString cmd1, cmd2, cmd3;
-	QMap<QString,int> ReallyUsed;
+	QMap<QString,QMap<uint, FPointArray> > ReallyUsed;
 #if defined _WIN32
 	if ( !postscriptPreview )
 	{
@@ -428,7 +428,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode)  || (EnableOverprint->isChecked() != OMode))
 	{
 		ReallyUsed.clear();
-		doc->getUsedFonts(&ReallyUsed);
+		doc->getUsedFonts(ReallyUsed);
 		PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, true);
 		if (dd != NULL)
 		{
@@ -502,12 +502,12 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	int ret = -1;
 	QString cmd;
 	QStringList args, args1, args2, args3;
-	QMap<QString,int> ReallyUsed;
+	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
 	// Recreate Postscript-File only when the actual Page has changed
 	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode)  || (EnableOverprint->isChecked() != OMode))
 	{
 		ReallyUsed.clear();
-		doc->getUsedFonts(&ReallyUsed);
+		doc->getUsedFonts(ReallyUsed);
 		PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, true);
 		if (dd != NULL)
 		{

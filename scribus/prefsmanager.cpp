@@ -1154,9 +1154,9 @@ bool PrefsManager::WritePref(QString ho)
 	{
 		QDomElement fn=docu.createElement("FONT");
 		fn.setAttribute("NAME",itf.currentKey());
-		fn.setAttribute("EMBED",static_cast<int>(itf.current()->EmbedPS));
-		fn.setAttribute("USE", static_cast<int>(itf.current()->UseFont));
-		fn.setAttribute("SUBSET", static_cast<int>(itf.current()->Subset));
+		fn.setAttribute("EMBED",static_cast<int>(itf.current()->embedPs()));
+		fn.setAttribute("USE", static_cast<int>(itf.current()->usable()));
+		fn.setAttribute("SUBSET", static_cast<int>(itf.current()->subset()));
 		elem.appendChild(fn);
 	}
 	for (uint rd=0; rd<appPrefs.RecentDocs.count(); ++rd)
@@ -1696,9 +1696,9 @@ bool PrefsManager::ReadPref(QString ho)
 		{
 			if (appPrefs.AvailFonts.find(dc.attribute("NAME")))
 			{
-				appPrefs.AvailFonts[dc.attribute("NAME")]->EmbedPS = static_cast<bool>(dc.attribute("EMBED").toInt());
-				appPrefs.AvailFonts[dc.attribute("NAME")]->UseFont &= static_cast<bool>(dc.attribute("USE", "1").toInt());
-				appPrefs.AvailFonts[dc.attribute("NAME")]->Subset = static_cast<bool>(dc.attribute("SUBSET", "0").toInt());
+				appPrefs.AvailFonts[dc.attribute("NAME")]->embedPs(static_cast<bool>(dc.attribute("EMBED").toInt()));
+				appPrefs.AvailFonts[dc.attribute("NAME")]->useFont(appPrefs.AvailFonts[dc.attribute("NAME")]->usable() && static_cast<bool>(dc.attribute("USE", "1").toInt()));
+				appPrefs.AvailFonts[dc.attribute("NAME")]->subset(static_cast<bool>(dc.attribute("SUBSET", "0").toInt()));
 			}
 		}
 		if (dc.tagName()=="COLOR")
