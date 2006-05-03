@@ -356,6 +356,11 @@ class Foi_postscript : public Foi
 				UseFont = false;
 				sDebug(QObject::tr("Font %1 is broken and will be discarded").arg(fontPath()));
 			}
+			
+			CharWidth[13] = 0;
+			CharWidth[28] = 0;
+			CharWidth[9] = 1;
+			
 			HasMetrics=UseFont;
 			metricsread=UseFont;
 			return(HasMetrics);

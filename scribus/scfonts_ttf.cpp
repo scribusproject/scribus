@@ -95,6 +95,11 @@ bool Foi_ttf::ReadMetrics()
 		charcode = FT_Get_Next_Char( face, charcode, &gindex );
 	}
 	UseFont = (invalidGlyphs == 0);
+	
+	CharWidth[13] = 0;
+	CharWidth[28] = 0;
+	CharWidth[9] = 1;
+
 	HasMetrics=UseFont;
 	metricsread=UseFont;
 	return(HasMetrics);
