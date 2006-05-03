@@ -161,6 +161,8 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 #include "text/pageitem_textframe.cpp"
 #else
 
+static const bool opticalMargins = true;
+
 void PageItem_TextFrame::layout() 
 {
 	if (!invalid) {
@@ -561,7 +563,7 @@ void PageItem_TextFrame::layout()
 				{
 					fBorder = true;
 					CurX++;
-					if (CurX+RExtra+lineCorr > ColBound.y())
+					if (CurX+RExtra+lineCorr > ColBound.y()-m_Doc->docParagraphStyles[hl->cab].rightMargin())
 					{
 						fBorder = false;
 						if (StartOfCol)
@@ -655,6 +657,19 @@ void PageItem_TextFrame::layout()
 				}
 				if (!AbsHasDrop)
 					CurX += m_Doc->docParagraphStyles[hl->cab].leftMargin();
+				if (opticalMargins) {
+					int chs = static_cast<int>(itemText.charStyle(a).csize * (itemText.charStyle(a).cscale / 1000.0));
+					double leftCorr = Cwidth(m_Doc, itemText.charStyle(a).cfont, itemText.text(a), chs);
+					if (QString("'´`").find(itemText.text(a)) >= 0) 
+						leftCorr *= 0.7;
+					else if (QString("\"").find(itemText.text(a)) >= 0) 
+						leftCorr *= 0.5;
+					else {
+						leftCorr = Cwidth(m_Doc, itemText.charStyle(a).cfont, QChar('o'), chs, itemText.text(a));
+						leftCorr -= Cwidth(m_Doc, itemText.charStyle(a).cfont, QChar('o'), chs);
+					}
+					CurX += leftCorr;
+				}
 				fBorder = false;
 			}
 			if (RTab)
@@ -767,7 +782,7 @@ void PageItem_TextFrame::layout()
 						pt2 = QPoint(qRound(ceil(CurX+RExtra)), qRound(ceil(CurY-asce)));
 			}
 			
-			if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))) || (CurX+RExtra+lineCorr > ColBound.y()))
+			if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))) || (CurX+RExtra+lineCorr > ColBound.y() - m_Doc->docParagraphStyles[hl->cab].rightMargin()))
 				outs = true;
 			if (CurY > (Height - BExtra - lineCorr))
 				outs = true;
@@ -924,7 +939,7 @@ void PageItem_TextFrame::layout()
 						}
 						while ((cl.contains(pf2.xForm(pt1))) 
 							   && (cl.contains(pf2.xForm(pt2))) 
-							   && (EndX+RExtra+lineCorr < ColBound.y()));
+							   && (EndX+RExtra+lineCorr < ColBound.y() - m_Doc->docParagraphStyles[hl->cab].rightMargin()));
 						// end do
 						
 						if (m_Doc->docParagraphStyles[absa].alignment() == 2)
@@ -1024,7 +1039,7 @@ void PageItem_TextFrame::layout()
 							}
 							while ((cl.contains(pf2.xForm(pt1))) 
 								   && (cl.contains(pf2.xForm(pt2))) 
-								   && (EndX+RExtra+lineCorr < ColBound.y()));
+								   && (EndX+RExtra+lineCorr < ColBound.y() - m_Doc->docParagraphStyles[hl->cab].rightMargin()));
 							
 							if (m_Doc->docParagraphStyles[absa].alignment() == 2)
 								OFs = EndX - LastXp;
@@ -1033,6 +1048,17 @@ void PageItem_TextFrame::layout()
 							if ((m_Doc->docParagraphStyles[absa].alignment() == 3) 
 								|| (m_Doc->docParagraphStyles[absa].alignment() == 4))
 							{
+								if (opticalMargins) {
+									int chs = static_cast<int>(LiList.at(BuPos-1)->Siz * (LiList.at(BuPos-1)->scale / 1000.0));
+									double rightCorr = Cwidth(m_Doc, LiList.at(BuPos-1)->ZFo, LiList.at(BuPos-1)->Zeich, chs);
+									if (QString("-,.´'").find(LiList.at(BuPos-1)->Zeich) >= 0)
+										rightCorr *= 0.7;
+									else if (QString(";:\"").find(LiList.at(BuPos-1)->Zeich) >= 0)
+										rightCorr *= 0.5;
+									else
+										rightCorr = Cwidth(m_Doc, LiList.at(BuPos-1)->ZFo, LiList.at(BuPos-1)->Zeich, chs, QChar('.')) - rightCorr;
+									EndX += rightCorr;
+								}
 								aSpa = 0;
 								for (uint sof = 0; sof<BuPos-1; ++sof)
 								{
@@ -1083,7 +1109,7 @@ void PageItem_TextFrame::layout()
 					|| (hl->ch == SpecialChars::FRAMEBREAK) 
 					|| ((hl->ch == SpecialChars::COLBREAK) && (Cols > 1)))
 				{
-					if ((outs) && (CurX+RExtra+lineCorr < ColBound.y()))
+					if ((outs) && (CurX+RExtra+lineCorr < ColBound.y() - m_Doc->docParagraphStyles[hl->cab].rightMargin()))
 					{
 						if (( hl->ch == SpecialChars::PARSEP || hl->ch == SpecialChars::LINEBREAK) 
 							&& AbsHasDrop)
@@ -1096,10 +1122,10 @@ void PageItem_TextFrame::layout()
 						double BotOffset = desc+BExtra+lineCorr;
 						pt1 = QPoint(qRound(CurX+RExtra), static_cast<int>(CurY+BotOffset));
 						pt2 = QPoint(qRound(CurX+RExtra), static_cast<int>(ceil(CurY-asce)));
-						while (CurX+RExtra+lineCorr < ColBound.y())
+						while (CurX+RExtra+lineCorr < ColBound.y() - m_Doc->docParagraphStyles[hl->cab].rightMargin())
 						{
 							CurX++;
-							if (CurX+RExtra+lineCorr > ColBound.y())
+							if (CurX+RExtra+lineCorr > ColBound.y() - m_Doc->docParagraphStyles[hl->cab].rightMargin())
 							{
 								fromOut = false;
 								if (m_Doc->docParagraphStyles[absa].useBaselineGrid())
@@ -1336,7 +1362,7 @@ void PageItem_TextFrame::layout()
 			}
 			while ((cl.contains(pf2.xForm(pt1))) 
 				   && (cl.contains(pf2.xForm(pt2))) 
-				   && (EndX+RExtra+lineCorr < ColBound.y()));
+				   && (EndX+RExtra+lineCorr < ColBound.y() - m_Doc->docParagraphStyles[hl->cab].rightMargin()));
 			
 			if (m_Doc->docParagraphStyles[absa].alignment() == 2)
 				OFs = EndX - CurX;

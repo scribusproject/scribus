@@ -136,7 +136,7 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray
 					" "+IToStr(RealGlyphs.count()+1)+" dict def\n";
 			FontDesc += AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+" begin\n";
 			QMap<uint,FPointArray>::Iterator ig;
-			for (RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
+			for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
 			{
 				FontDesc += "/G"+IToStr(ig.key())+" { newpath\n";
 				FPoint np, np1, np2;
