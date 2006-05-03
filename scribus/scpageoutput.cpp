@@ -419,12 +419,12 @@ void ScPageOutput::DrawCharacters( PageItem* item, ScPainterExBase *painter, str
 	if (ccx == QChar(24))
 		ccx = "-";
 	uint chr = ccx[0].unicode();
-	if (hl->ZFo->CharWidth.contains(chr))
+	if (hl->ZFo->canRender(ccx[0]))
 	{
 		QWMatrix chma, chma2, chma3, chma4, chma5, chma6;
 		chma.scale(csi, csi);
 		chma5.scale(painter->zoomFactor(), painter->zoomFactor());
-		FPointArray gly = hl->ZFo->GlyphArray[chr].Outlines.copy();
+		FPointArray gly = hl->ZFo->outline(ccx[0]).copy();
 		if (gly.size() > 3)
 		{
 			chma2.scale(hl->scale / 1000.0, hl->scalev / 1000.0);
@@ -443,7 +443,7 @@ void ScPageOutput::DrawCharacters( PageItem* item, ScPainterExBase *painter, str
 			bool fr = painter->fillRule();
 			painter->setFillRule(false);
 			painter->setupTextPolygon(&gly);
-			if ((hl->ZFo->isStroked) && ((hl->Siz * hl->outline / 10000.0) != 0))
+			if ((hl->ZFo->isStroked()) && ((hl->Siz * hl->outline / 10000.0) != 0))
 			{
 				painter->setPen(painter->brush(), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				painter->setLineWidth(hl->Siz * hl->outline / 10000.0);
@@ -479,18 +479,18 @@ void ScPageOutput::DrawCharacters( PageItem* item, ScPainterExBase *painter, str
 			if ((hl->strikepos != -1) || (hl->strikewidth != -1))
 			{
 				if (hl->strikepos != -1)
-					st = (hl->strikepos / 1000.0) * (hl->ZFo->numAscent * (hl->realSiz / 10.0));
+					st = (hl->strikepos / 1000.0) * (hl->ZFo->ascent() * (hl->realSiz / 10.0));
 				else
-					st = hl->ZFo->strikeout_pos * (hl->realSiz / 10.0);
+					st = hl->ZFo->strikeoutPos() * (hl->realSiz / 10.0);
 				if (hl->strikewidth != -1)
 					lw = (hl->strikewidth / 1000.0) * (hl->realSiz / 10.0);
 				else
-					lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
+					lw = QMAX(hl->ZFo->strokeWidth() * (hl->realSiz / 10.0), 1);
 			}
 			else
 			{
-				st = hl->ZFo->strikeout_pos * (hl->realSiz / 10.0);
-				lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
+				st = hl->ZFo->strikeoutPos() * (hl->realSiz / 10.0);
+				lw = QMAX(hl->ZFo->strokeWidth() * (hl->realSiz / 10.0), 1);
 			}
 			if (hl->base != 0)
 				st += (hl->Siz / 10.0) * (hl->base / 1000.0);
@@ -504,18 +504,18 @@ void ScPageOutput::DrawCharacters( PageItem* item, ScPainterExBase *painter, str
 			if ((hl->underpos != -1) || (hl->underwidth != -1))
 			{
 				if (hl->underpos != -1)
-					st = (hl->underpos / 1000.0) * (hl->ZFo->numDescender * (hl->realSiz / 10.0));
+					st = (hl->underpos / 1000.0) * (hl->ZFo->descent() * (hl->realSiz / 10.0));
 				else
-					st = hl->ZFo->underline_pos * (hl->realSiz / 10.0);
+					st = hl->ZFo->underlinePos() * (hl->realSiz / 10.0);
 				if (hl->underwidth != -1)
 					lw = (hl->underwidth / 1000.0) * (hl->realSiz / 10.0);
 				else
-					lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
+					lw = QMAX(hl->ZFo->strokeWidth() * (hl->realSiz / 10.0), 1);
 			}
 			else
 			{
-				st = hl->ZFo->underline_pos * (hl->realSiz / 10.0);
-				lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
+				st = hl->ZFo->underlinePos() * (hl->realSiz / 10.0);
+				lw = QMAX(hl->ZFo->strokeWidth() * (hl->realSiz / 10.0), 1);
 			}
 			if (hl->base != 0)
 				st += (hl->Siz / 10.0) * (hl->base / 1000.0);
@@ -1205,15 +1205,15 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 					if (hl->cstyle & 2048)
 					{
 						if (m_doc->docParagraphStyles[hl->cab].useBaselineGrid())
-							chs = qRound(10 * ((m_doc->typographicSettings.valueBaseGrid * (m_doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->numAscent * (m_doc->docParagraphStyles[hl->cab].charStyle().csize / 10.0))) / (RealCHeight(m_doc, hl->cfont, chx, 10))));
+							chs = qRound(10 * ((m_doc->typographicSettings.valueBaseGrid * (m_doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (m_doc->docParagraphStyles[hl->cab].charStyle().csize / 10.0))) / (RealCHeight(m_doc, hl->cfont, chx, 10))));
 						else
 						{
 							if (m_doc->docParagraphStyles[hl->cab].lineSpacingMode() == 0)
-								chs = qRound(10 * ((m_doc->docParagraphStyles[hl->cab].lineSpacing() * (m_doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->numAscent * (m_doc->docParagraphStyles[hl->cab].charStyle().csize / 10.0))) / (RealCHeight(m_doc, hl->cfont, chx, 10))));
+								chs = qRound(10 * ((m_doc->docParagraphStyles[hl->cab].lineSpacing() * (m_doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (m_doc->docParagraphStyles[hl->cab].charStyle().csize / 10.0))) / (RealCHeight(m_doc, hl->cfont, chx, 10))));
 							else
 							{
 								double currasce = RealFHeight(m_doc, hl->cfont, m_doc->docParagraphStyles[hl->cab].charStyle().csize);
-								chs = qRound(10 * ((currasce * (m_doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->numAscent * (m_doc->docParagraphStyles[hl->cab].charStyle().csize / 10.0))) / RealCHeight(m_doc, hl->cfont, chx, 10)));
+								chs = qRound(10 * ((currasce * (m_doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (m_doc->docParagraphStyles[hl->cab].charStyle().csize / 10.0))) / RealCHeight(m_doc, hl->cfont, chx, 10)));
 							}
 						}
 					}
@@ -1224,8 +1224,8 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						double wt = Cwidth(m_doc, hl->cfont, tabFillCharQStr, chs);
 						int coun = static_cast<int>((hl->xp - tabDist) / wt);
 						double sPos = hl->xp - (hl->xp - tabDist) + 1;
-						desc = hl->cfont->numDescender * (-chs / 10.0);
-						asce = hl->cfont->numAscent * (chs / 10.0);
+						desc = hl->cfont->descent() * (-chs / 10.0);
+						asce = hl->cfont->ascent() * (chs / 10.0);
 						Zli3.Zeich = tabFillCharQStr;
 						Zli3.Farb = hl->ccolor;
 						Zli3.Farb2 = hl->cstroke;
@@ -1292,8 +1292,8 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 					//if (!m_doc->RePos)
 					{
 						double xcoZli = Zli3.xco;
-						desc = Zli3.ZFo->numDescender * (-Zli3.Siz / 10.0);
-						asce = Zli3.ZFo->numAscent * (Zli3.Siz / 10.0);
+						desc = Zli3.ZFo->descent() * (-Zli3.Siz / 10.0);
+						asce = Zli3.ZFo->ascent() * (Zli3.Siz / 10.0);
 						if ((((Zli3.Sele) && (item->isSelected())) || (((item->NextBox != 0) || (item->BackBox != 0)) && (Zli3.Sele))) && (m_doc->appMode == modeEdit))
 						{
 							wide = Zli3.wide;

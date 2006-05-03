@@ -491,11 +491,11 @@ bool ScWinPrint::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& optio
 	bool succeed = false;
 	ColorList usedColors;
 	std::vector<int> pageNumber;
-	QMap<QString,int> usedFonts;
+	QMap<QString, QMap<uint, FPointArray> > usedFonts;
 	QString tempFilePath;
 	int ret = 0;
 
-	doc->getUsedFonts(&usedFonts);
+	doc->getUsedFonts(usedFonts);
 	doc->getUsedColors(usedColors);
 	pageNumber.push_back( page->pageNr() + 1 );
 
