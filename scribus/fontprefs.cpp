@@ -62,7 +62,7 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	checkOff = QPixmap::grabWidget(tmpItem);
 	delete tmpItem;
 
-	rebuildDialog();
+	rebuildDialog(true);
 
 	tab1Layout->addWidget( fontList );
 	insertTab( tab1, tr( "&Available Fonts" ) );
@@ -320,18 +320,21 @@ void FontPrefs::DelPath()
 	RemoveB->setEnabled(setter);
 }
 
-void FontPrefs::rebuildDialog()
+void FontPrefs::rebuildDialog(bool firstTime)
 {
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
-	availFonts->clear();
-	availFonts->GetFonts(HomeP);
-	if (DocAvail)
+	if (!firstTime)
 	{
-		for (uint a = 0; a < PathList->count(); ++a)
+		availFonts->clear();
+		availFonts->GetFonts(HomeP);
+		if (DocAvail)
 		{
-			availFonts->AddScalableFonts(PathList->text(a)+"/", docc->DocName);
-			availFonts->updateFontMap();
+			for (uint a = 0; a < PathList->count(); ++a)
+			{
+				availFonts->AddScalableFonts(PathList->text(a)+"/", docc->DocName);
+				availFonts->updateFontMap();
+			}
 		}
 	}
 	UsedFonts.clear();

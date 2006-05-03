@@ -86,7 +86,7 @@ public slots:
 protected:
 	void readPaths();
 	void writePaths();
-	void rebuildDialog();
+	void rebuildDialog(bool firstTime=false);
 
 	QVBoxLayout* tab1Layout;
 	QVBoxLayout* tabLayout;
