@@ -661,9 +661,9 @@ void PageItem_TextFrame::layout()
 					int chs = static_cast<int>(itemText.charStyle(a).csize * (itemText.charStyle(a).cscale / 1000.0));
 					double leftCorr = Cwidth(m_Doc, itemText.charStyle(a).cfont, itemText.text(a), chs);
 					if (QString("'´`").find(itemText.text(a)) >= 0) 
-						leftCorr *= 0.7;
+						leftCorr *= -0.7;
 					else if (QString("\"").find(itemText.text(a)) >= 0) 
-						leftCorr *= 0.5;
+						leftCorr *= -0.5;
 					else {
 						leftCorr = Cwidth(m_Doc, itemText.charStyle(a).cfont, QChar('o'), chs, itemText.text(a));
 						leftCorr -= Cwidth(m_Doc, itemText.charStyle(a).cfont, QChar('o'), chs);
