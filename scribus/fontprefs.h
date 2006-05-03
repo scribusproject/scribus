@@ -24,15 +24,29 @@ for which a new license (GPL+exception) is in place.
 
 class ScribusDoc;
 
+/*! \brief A configuration Widget for Font Preferences */
 class SCRIBUS_API FontPrefs : public QTabWidget
 {
 	Q_OBJECT
 
 public:
-	FontPrefs( QWidget* parent, SCFonts &flist, bool Hdoc, QString PPath, ScribusDoc* doc );
+	FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc );
 	~FontPrefs() {};
 	void restoreDefaults();
 
+	struct fontSet
+	{
+		bool FlagPS;
+		bool FlagUse;
+		bool FlagSub;
+		bool FlagOTF;
+		bool FlagNames;
+	};
+	QMap<QString, fontSet> fontFlags;
+	QMap<QString,QString> RList;
+	QPtrList<QComboBox> FlagsRepl;
+
+private:
 	QWidget* tab1;
 	QWidget* tab;
 	QWidget* tab3;
@@ -45,17 +59,7 @@ public:
 	QPushButton* ChangeB;
 	QPushButton* AddB;
 	QPushButton* RemoveB;
-	struct fontSet
-	{
-		bool FlagPS;
-		bool FlagUse;
-		bool FlagSub;
-		bool FlagOTF;
-		bool FlagNames;
-	};
-	QMap<QString, fontSet> fontFlags;
-	QPtrList<QComboBox> FlagsRepl;
-	QMap<QString,QString> RList;
+
 	QStringList UsedFonts;
 	QString HomeP;
 	QString CurrentPath;
@@ -64,8 +68,10 @@ public:
 	QPixmap ttfFont;
 	QPixmap otfFont;
 	QPixmap psFont;
-	QPixmap okIcon;
-	QPixmap empty;
+	//QPixmap okIcon;
+	//QPixmap empty;
+	QPixmap checkOn;
+	QPixmap checkOff;
 
 public slots:
 	void slotClick(QListViewItem* ite, const QPoint &, int col);
@@ -80,7 +86,7 @@ public slots:
 protected:
 	void readPaths();
 	void writePaths();
-	void RebuildDialog();
+	void rebuildDialog();
 
 	QVBoxLayout* tab1Layout;
 	QVBoxLayout* tabLayout;

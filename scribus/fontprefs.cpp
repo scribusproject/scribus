@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfileinfo.h>
 #include <qfiledialog.h>
 #include <qlabel.h>
+#include <qcursor.h>
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "sccombobox.h"
@@ -22,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap loadIcon(QString nam);
 
 
-FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath, ScribusDoc* doc ) : QTabWidget( parent, "fpre" )
+FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc ) : QTabWidget( parent, "fpre" )
 {
 	RList = PrefsManager::instance()->appPrefs.GFontSub;
 	HomeP = PPath;
@@ -34,80 +35,35 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath
 	tab1 = new QWidget( this, "tab1" );
 	tab1Layout = new QVBoxLayout( tab1, 0, 5, "tab1Layout");
 	fontList = new QListView(tab1, "fontList" );
-	fontList->setAllColumnsShowFocus(true);
+	//fontList->setAllColumnsShowFocus(true);
 	fontList->setShowSortIndicator(true);
 	fontList->addColumn( tr("Font Name", "font preview"));
 	fontList->addColumn( tr("Use Font", "font preview"));
+	fontList->setColumnAlignment(1, Qt::AlignCenter);
 	fontList->addColumn( tr("Embed in:", "font preview"));
 	fontList->addColumn( tr("Subset", "font preview"));
 	fontList->setColumnAlignment(3, Qt::AlignCenter);
 	fontList->addColumn( tr("Path to Font File", "font preview"));
-	SCFontsIterator it(flist);
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
-	okIcon = loadIcon("ok.png");
-	empty = QPixmap(16,16);
-	empty.fill(white);
-	for ( ; it.current(); ++it)
-	{
-		fontSet foS;
-		QListViewItem *row = new QListViewItem(fontList);
-		row->setText(0, it.currentKey());
-		if (it.current()->UseFont)
-		{
-			UsedFonts.append(it.currentKey());
-			foS.FlagUse = true;
-			row->setPixmap(1, okIcon);
-		}
-		else
-		{
-			foS.FlagUse = false;
-			row->setPixmap(1, empty);
-		}
-		row->setText(2, tr("PostScript"));
-		if (it.current()->EmbedPS)
-		{
-			foS.FlagPS = true;
-			row->setPixmap(2, okIcon);
-		}
-		else
-		{
-			foS.FlagPS = false;
-			row->setPixmap(2, empty);
-		}
-		Foi::FontType type = it.current()->typeCode;
-		if (type == Foi::OTF)
-			foS.FlagOTF = true;
-		else
-			foS.FlagOTF = false;
-		if (it.current()->Subset)
-		{
-			foS.FlagSub = true;
-			row->setPixmap(3, okIcon);
-		}
-		else
-		{
-			foS.FlagSub = false;
-			row->setPixmap(3, empty);
-		}
-		if (type == Foi::TYPE1)
-			row->setPixmap(0, psFont);
-		else
-		{
-			if (type == Foi::TTF)
-				row->setPixmap(0, ttfFont);
-			if (type == Foi::OTF)
-				row->setPixmap(0, otfFont);
-		}
-		foS.FlagNames = it.current()->HasNames;
-		row->setText(4, it.current()->fontPath());
-		fontFlags.insert(it.currentKey(), foS);
-	}
-	fontList->setSorting(0);
-	fontList->sort();
-	UsedFonts.sort();
-	//fontList->setSorting(-1);
+	/* HACK: painting the QCheckBox as pixmap. PV for bug #2057.
+	There is no allowed to have more than 1 checkbox in a common QListViewItem
+	(QCheckListItem or how is it named...). Using a QTable is 12-13x times slower
+	than using a QListView. So I choose painting 2 checkboxes as 2 QPixmaps
+	and using a setPixmap method for their changing. */
+	QCheckBox *tmpItem = new QCheckBox("", this, "tmpItem");
+	tmpItem->setMaximumSize(QSize(30, 30));
+	tmpItem->setMinimumSize(QSize(30, 30));
+	tmpItem->setPaletteBackgroundColor(fontList->paletteBackgroundColor());
+	tmpItem->setChecked(true);
+	checkOn = QPixmap::grabWidget(tmpItem);
+	tmpItem->setChecked(false);
+	checkOff = QPixmap::grabWidget(tmpItem);
+	delete tmpItem;
+
+	rebuildDialog();
+
 	tab1Layout->addWidget( fontList );
 	insertTab( tab1, tr( "&Available Fonts" ) );
 
@@ -196,7 +152,8 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath
 	// signals and slots connections
 	connect(Table3, SIGNAL(currentChanged(int, int)), this, SLOT(ReplaceSel(int, int)));
 	connect(DelB, SIGNAL(clicked()), this, SLOT(DelEntry()));
-	connect(fontList, SIGNAL(clicked(QListViewItem *, const QPoint &, int)), this, SLOT(slotClick(QListViewItem*, const QPoint &, int)));
+	connect(fontList, SIGNAL(clicked(QListViewItem *, const QPoint &, int)),
+			this, SLOT(slotClick(QListViewItem*, const QPoint &, int)));
 }
 
 void FontPrefs::restoreDefaults()
@@ -205,32 +162,32 @@ void FontPrefs::restoreDefaults()
 
 void FontPrefs::slotClick(QListViewItem* ite, const QPoint &, int col)
 {
-	if (ite == NULL)
+	if (ite == NULL || ite == 0)
 		return;
 	QString tmp = ite->text(0);
 	if ((col == 1) && (!DocAvail))
 	{
 		fontFlags[tmp].FlagUse = !fontFlags[tmp].FlagUse;
 		if (fontFlags[tmp].FlagUse)
-			ite->setPixmap(1, okIcon);
+			ite->setPixmap(1, checkOn);
 		else
-			ite->setPixmap(1, empty);
+			ite->setPixmap(1, checkOff);
 	}
 	if (col == 2)
 	{
 		fontFlags[tmp].FlagPS = !fontFlags[tmp].FlagPS;
 		if (fontFlags[tmp].FlagPS)
-			ite->setPixmap(2, okIcon);
+			ite->setPixmap(2, checkOn);
 		else
-			ite->setPixmap(2, empty);
+			ite->setPixmap(2, checkOff);
 	}
 	if ((col == 3) && (!fontFlags[tmp].FlagOTF) && (!fontFlags[tmp].FlagNames))
 	{
 		fontFlags[tmp].FlagSub = !fontFlags[tmp].FlagSub;
 		if (fontFlags[tmp].FlagSub)
-			ite->setPixmap(3, okIcon);
+			ite->setPixmap(3, checkOn);
 		else
-			ite->setPixmap(3, empty);
+			ite->setPixmap(3, checkOff);
 	}
 	UpdateFliste();
 }
@@ -320,7 +277,7 @@ void FontPrefs::AddPath()
 		ChangeB->setEnabled(true);
 		RemoveB->setEnabled(true);
 		CurrentPath = s;
-		RebuildDialog();
+		rebuildDialog();
 	}
 }
 
@@ -336,7 +293,7 @@ void FontPrefs::ChangePath()
 		PathList->changeItem(s, PathList->currentItem());
 		writePaths();
 		CurrentPath = s;
-		RebuildDialog();
+		rebuildDialog();
 		ChangeB->setEnabled(true);
 		RemoveB->setEnabled(true);
 	}
@@ -357,14 +314,15 @@ void FontPrefs::DelPath()
 	else
 		return;
 	CurrentPath = "";
-	RebuildDialog();
+	rebuildDialog();
 	bool setter = PathList->count() > 0 ? true : false;
 	ChangeB->setEnabled(setter);
 	RemoveB->setEnabled(setter);
 }
 
-void FontPrefs::RebuildDialog()
+void FontPrefs::rebuildDialog()
 {
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
 	availFonts->clear();
 	availFonts->GetFonts(HomeP);
@@ -389,23 +347,23 @@ void FontPrefs::RebuildDialog()
 		{
 			UsedFonts.append(it.currentKey());
 			foS.FlagUse = true;
-			row->setPixmap(1, okIcon);
+			row->setPixmap(1, checkOn);
 		}
 		else
 		{
 			foS.FlagUse = false;
-			row->setPixmap(1, empty);
+			row->setPixmap(1, checkOff);
 		}
 		row->setText(2, tr("PostScript"));
 		if (it.current()->EmbedPS)
 		{
 			foS.FlagPS = true;
-			row->setPixmap(2, okIcon);
+			row->setPixmap(2, checkOn);
 		}
 		else
 		{
 			foS.FlagPS = false;
-			row->setPixmap(2, empty);
+			row->setPixmap(2, checkOff);
 		}
 		Foi::FontType type = it.current()->typeCode;
 		if (type == Foi::OTF)
@@ -415,12 +373,12 @@ void FontPrefs::RebuildDialog()
 		if (it.current()->Subset)
 		{
 			foS.FlagSub = true;
-			row->setPixmap(3, okIcon);
+			row->setPixmap(3, checkOn);
 		}
 		else
 		{
 			foS.FlagSub = false;
-			row->setPixmap(3, empty);
+			row->setPixmap(3, checkOff);
 		}
 		if (type == Foi::TYPE1)
 			row->setPixmap(0, psFont);
@@ -438,4 +396,5 @@ void FontPrefs::RebuildDialog()
 	fontList->sort();
 	UsedFonts.sort();
 	UpdateFliste();
+	qApp->restoreOverrideCursor();
 }

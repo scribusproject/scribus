@@ -357,7 +357,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabHyphenator->maxCount->setValue(prefsData->HyCount);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
 
-	tabFonts = new FontPrefs(  prefsWidgets, prefsData->AvailFonts, false, ap->PrefsPfad, 0);
+	tabFonts = new FontPrefs(prefsWidgets, false, ap->PrefsPfad, 0);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, prefsData->checkerProfiles, prefsData->curCheckProfile);
