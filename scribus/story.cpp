@@ -272,6 +272,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		case Keypad:
 		case ShiftButton:
 		case ControlButton|AltButton:
+		case ControlButton|AltButton|ShiftButton: // Shift + AltGr on Windows for polish characters
 			if (unicodeTextEditMode)
 			{
 				int conv = 0;
