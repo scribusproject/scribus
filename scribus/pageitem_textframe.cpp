@@ -749,9 +749,10 @@ void PageItem_TextFrame::layout()
 			}
 			if (!RTab)
 			{
-				hl->xp = QMAX(CurX+kernVal, ColBound.x());
+//				hl->xp = QMAX(CurX+kernVal, ColBound.x());
+				hl->xp = CurX; // needed for left optical margin
 				CurX += wide+kernVal;
-				CurX = QMAX(CurX, ColBound.x());
+//				CurX = QMAX(CurX, ColBound.x());
 			}
 			else
 			{
