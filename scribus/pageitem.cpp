@@ -314,8 +314,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	FrameOnly = false;
 	ClipEdited = false;
 	FrameType = 0;
-	setFont(m_Doc->toolSettings.defFont);
-	setFontSize(m_Doc->toolSettings.defSize);
+	m_Font = m_Doc->toolSettings.defFont;
+	m_FontSize = m_Doc->toolSettings.defSize;
 	LineSpMode = 0;
 	LineSp = ((m_Doc->toolSettings.defSize / 10.0) * static_cast<double>(m_Doc->typographicSettings.autoLineSpacing) / 100) + (m_Doc->toolSettings.defSize / 10.0);
 	m_Doc->docParagraphStyles[0].setLineSpacing(LineSp);
