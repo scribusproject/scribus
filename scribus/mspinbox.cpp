@@ -157,7 +157,9 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 
 QString MSpinBox::mapValueToText(int value)
 {
-	return QString::number(static_cast<double>(value) / Decimals, 'f', Width);
+	QString s;
+	s.setNum(static_cast<double>(value) / Decimals, 'f', Width);
+	return s;
 }
 
 int MSpinBox::mapTextToValue(bool *)
