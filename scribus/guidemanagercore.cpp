@@ -245,8 +245,6 @@ void GuideManagerCore::moveHorizontal(double from, double to, GuideType type)
 			horizontalAutoG.append(to);
 			break;
 	}
-	// TODO: optimize!
-	ScMW->guidePalette->setupPage();
 }
 
 void GuideManagerCore::moveVertical(double from, double to, GuideType type)
