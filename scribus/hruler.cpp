@@ -59,6 +59,7 @@ Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	currView = pa;
 	offs = 0;
 	Markp = 0;
+	oldMark = 0;
 	Mpressed = false;
 	ItemPosValid = false;
 	RulerCode = 0;
