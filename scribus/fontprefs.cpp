@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfiledialog.h>
 #include <qlabel.h>
 #include <qcursor.h>
+#include <qbitmap.h>
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "sccombobox.h"
@@ -35,12 +36,13 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	tab1 = new QWidget( this, "tab1" );
 	tab1Layout = new QVBoxLayout( tab1, 0, 5, "tab1Layout");
 	fontList = new QListView(tab1, "fontList" );
-	//fontList->setAllColumnsShowFocus(true);
+	fontList->setAllColumnsShowFocus(true);
 	fontList->setShowSortIndicator(true);
 	fontList->addColumn( tr("Font Name", "font preview"));
 	fontList->addColumn( tr("Use Font", "font preview"));
 	fontList->setColumnAlignment(1, Qt::AlignCenter);
-	fontList->addColumn( tr("Embed in:", "font preview"));
+	fontList->addColumn( tr("Embed in PostScript", "font preview"));
+	fontList->setColumnAlignment(2, Qt::AlignCenter);
 	fontList->addColumn( tr("Subset", "font preview"));
 	fontList->setColumnAlignment(3, Qt::AlignCenter);
 	fontList->addColumn( tr("Path to Font File", "font preview"));
@@ -58,8 +60,10 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	tmpItem->setPaletteBackgroundColor(fontList->paletteBackgroundColor());
 	tmpItem->setChecked(true);
 	checkOn = QPixmap::grabWidget(tmpItem);
+	checkOn.setMask(checkOn.createHeuristicMask());
 	tmpItem->setChecked(false);
 	checkOff = QPixmap::grabWidget(tmpItem);
+	checkOff.setMask(checkOff.createHeuristicMask());
 	delete tmpItem;
 
 	rebuildDialog(true);
@@ -357,7 +361,6 @@ void FontPrefs::rebuildDialog(bool firstTime)
 			foS.FlagUse = false;
 			row->setPixmap(1, checkOff);
 		}
-		row->setText(2, tr("PostScript"));
 		if (it.current()->embedPs())
 		{
 			foS.FlagPS = true;
