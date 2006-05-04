@@ -9253,8 +9253,11 @@ void ScribusView::SetYGuide(QMouseEvent *m, int oldIndex)
 	if (pg != -1)
 	{
 		if (oldIndex < 0)
+		{
 			//Doc->Pages->at(pg)->addYGuide(newY-Doc->Pages->at(pg)->yOffset());
 			Doc->Pages->at(pg)->guides.addHorizontal(newY-Doc->Pages->at(pg)->yOffset(), GuideManagerCore::Standard);
+			ScMW->guidePalette->clearRestoreHorizontalList();
+		}
 		else
 		{
 			//Doc->Pages->at(pg)->moveYGuide(oldIndex, newY-Doc->Pages->at(pg)->yOffset());
@@ -9263,7 +9266,6 @@ void ScribusView::SetYGuide(QMouseEvent *m, int oldIndex)
 					newY-Doc->Pages->at(pg)->yOffset(),
 					GuideManagerCore::Standard);
 		}
-		emit DocChanged();
 		emit signalGuideInformation(0, qRound((newY-Doc->Pages->at(pg)->yOffset()) * 10000.0) / 10000.0);
 	}
 	else if (oldIndex >= 0)
@@ -9281,10 +9283,11 @@ void ScribusView::SetYGuide(QMouseEvent *m, int oldIndex)
 			Doc->currentPage()->guides.deleteHorizontal(
 					Doc->currentPage()->guides.horizontal(oldIndex, GuideManagerCore::Standard),
 					GuideManagerCore::Standard);//removeYGuide(oldIndex);
+			ScMW->guidePalette->clearRestoreHorizontalList();
 			emit signalGuideInformation(-1, 0.0);
 		}
-		emit DocChanged();
 	}
+	emit DocChanged();
 }
 
 void ScribusView::SetXGuide(QMouseEvent *m, int oldIndex)
@@ -9296,16 +9299,18 @@ void ScribusView::SetXGuide(QMouseEvent *m, int oldIndex)
 	if (pg != -1)
 	{
 		if (oldIndex < 0)
+		{
 			//Doc->Pages->at(pg)->addXGuide(newX-Doc->Pages->at(pg)->xOffset());
 			Doc->Pages->at(pg)->guides.addVertical(newX-Doc->Pages->at(pg)->xOffset(),
 					GuideManagerCore::Standard);
+			ScMW->guidePalette->clearRestoreVerticalList();
+		}
 		else
 			//Doc->Pages->at(pg)->moveXGuide(oldIndex, newX-Doc->Pages->at(pg)->xOffset());
 			Doc->Pages->at(pg)->guides.moveVertical(
 					Doc->Pages->at(pg)->guides.vertical(oldIndex, GuideManagerCore::Standard),
 					newX-Doc->Pages->at(pg)->xOffset(),
 					GuideManagerCore::Standard);
-		emit DocChanged();
 		emit signalGuideInformation(1, qRound((newX-Doc->Pages->at(pg)->xOffset()) * 10000.0) / 10000.0);
 	}
 	else if (oldIndex >= 0)
@@ -9325,10 +9330,11 @@ void ScribusView::SetXGuide(QMouseEvent *m, int oldIndex)
 			Doc->currentPage()->guides.deleteVertical(
 					Doc->currentPage()->guides.vertical(oldIndex, GuideManagerCore::Standard),
 					GuideManagerCore::Standard);
+			ScMW->guidePalette->clearRestoreVerticalList();
 			emit signalGuideInformation(-1, 0.0);
 		}
-		emit DocChanged();
 	}
+	emit DocChanged();
 }
 
 void ScribusView::Transform(PageItem *currItem, QPainter *p)

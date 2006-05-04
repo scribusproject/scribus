@@ -336,8 +336,9 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 		if ((*it) >= 0 && (*it) <= m_page->height())
 			p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
 
-	ScMW->guidePalette->clearRestoreHorizontalList();
-	ScMW->guidePalette->clearRestoreVerticalList();
+	// no redraw here. It "disables" lists for user
+	//ScMW->guidePalette->clearRestoreHorizontalList();
+	//ScMW->guidePalette->clearRestoreVerticalList();
 }
 
 bool GuideManagerCore::isMouseOnHorizontal(double low, double high, GuideType type)
