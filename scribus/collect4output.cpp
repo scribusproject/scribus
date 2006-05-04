@@ -61,16 +61,8 @@ QString CollectForOutput::collect()
 		return "";
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
-	if(outputDirectory.right(1) != "/")
-		outputDirectory += "/";
 	dirs->set("collect", outputDirectory.left(outputDirectory.findRev("/",-2)));
 	ScMW->mainWindowStatusLabel->setText(tr("Collecting..."));
-
-	if (!collectDocument())
-	{
-		QMessageBox::warning(ScMW, CommonStrings::trWarning, "<qt>" + tr("Cannot collect the file: \n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
-		return "";
-	}
 
 	if (!collectItems())
 	{
@@ -80,6 +72,14 @@ QString CollectForOutput::collect()
 
 	if (withFonts)
 		collectFonts();
+
+	/* collect document must go last because of image paths changes
+	in collectItems() */
+	if (!collectDocument())
+	{
+		QMessageBox::warning(ScMW, CommonStrings::trWarning, "<qt>" + tr("Cannot collect the file: \n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
+		return "";
+	}
 
 	QDir::setCurrent(outputDirectory);
 	ScMW->updateActiveWindowCaption(newName);
