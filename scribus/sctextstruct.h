@@ -349,7 +349,7 @@ public:
 	};
 	
 private:
-		QString Vname;
+	QString Vname;
 	ParagraphStyle * pparent_;
 	LineSpacingMode LineSpaMode;
 	double LineSpa;
@@ -359,31 +359,14 @@ private:
 	double First;
 	double gapBefore_;
 	double gapAfter_;
-	QString Font;
-	int FontSize;
 	QValueList<TabRecord> TabValues; 
 	bool Drop;
 	int DropLin;
 	double DropDist;
-	int FontEffect;
-	QString FColor;
-	int FShade;
-	QString SColor;
-	int SShade;
 	bool BaseAdj;
-	int txtShadowX;
-	int txtShadowY;
-	int txtOutline;
-	int txtUnderPos;
-	int txtUnderWidth;
-	int txtStrikePos;
-	int txtStrikeWidth;
-	int scaleH;
-	int scaleV;
-	int baseOff;
-	int kernVal;
 	
 public:
+	ParagraphStyle();
 	QString name() const { return Vname; }
 	const ParagraphStyle * parent() const { return pparent_; }
 	int lineSpacingMode() const { return LineSpaMode; }

@@ -1239,6 +1239,33 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		chma.scale(csi, csi);
 		chma5.scale(p->zoomFactor(), p->zoomFactor());
 		FPointArray gly = hl->ZFo->outline(ccx[0]).copy();
+		// Do underlining first so you can get typographically correct
+		// underlines when drawing a white outline
+		if ((hl->Style & ScStyle_Underline) || ((hl->Style & ScStyle_UnderlineWords) && (!ccx[0].isSpace())))
+		{
+			double st, lw;
+			if ((hl->underpos != -1) || (hl->underwidth != -1))
+			{
+				if (hl->underpos != -1)
+					st = (hl->underpos / 1000.0) * (hl->ZFo->descent() * (hl->realSiz / 10.0));
+				else
+					st = hl->ZFo->underlinePos() * (hl->realSiz / 10.0);
+				if (hl->underwidth != -1)
+					lw = (hl->underwidth / 1000.0) * (hl->realSiz / 10.0);
+				else
+					lw = QMAX(hl->ZFo->strokeWidth() * (hl->realSiz / 10.0), 1);
+			}
+			else
+			{
+				st = hl->ZFo->underlinePos() * (hl->realSiz / 10.0);
+				lw = QMAX(hl->ZFo->strokeWidth() * (hl->realSiz / 10.0), 1);
+			}
+			if (hl->base != 0)
+				st += (hl->Siz / 10.0) * (hl->base / 1000.0);
+			p->setPen(p->brush());
+			p->setLineWidth(lw);
+			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
+		}
 		if (gly.size() > 3)
 		{
 			chma2.scale(hl->scale / 1000.0, hl->scalev / 1000.0);
@@ -1309,31 +1336,6 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			else
 			{
 				st = hl->ZFo->strikeoutPos() * (hl->realSiz / 10.0);
-				lw = QMAX(hl->ZFo->strokeWidth() * (hl->realSiz / 10.0), 1);
-			}
-			if (hl->base != 0)
-				st += (hl->Siz / 10.0) * (hl->base / 1000.0);
-			p->setPen(p->brush());
-			p->setLineWidth(lw);
-			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
-		}
-		if ((hl->Style & ScStyle_Underline) || ((hl->Style & ScStyle_UnderlineWords) && (!ccx[0].isSpace())))
-		{
-			double st, lw;
-			if ((hl->underpos != -1) || (hl->underwidth != -1))
-			{
-				if (hl->underpos != -1)
-					st = (hl->underpos / 1000.0) * (hl->ZFo->descent() * (hl->realSiz / 10.0));
-				else
-					st = hl->ZFo->underlinePos() * (hl->realSiz / 10.0);
-				if (hl->underwidth != -1)
-					lw = (hl->underwidth / 1000.0) * (hl->realSiz / 10.0);
-				else
-					lw = QMAX(hl->ZFo->strokeWidth() * (hl->realSiz / 10.0), 1);
-			}
-			else
-			{
-				st = hl->ZFo->underlinePos() * (hl->realSiz / 10.0);
 				lw = QMAX(hl->ZFo->strokeWidth() * (hl->realSiz / 10.0), 1);
 			}
 			if (hl->base != 0)

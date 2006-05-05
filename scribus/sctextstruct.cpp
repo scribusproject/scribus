@@ -39,6 +39,23 @@ StyleFlag operator~ (StyleFlag arg)
         return static_cast<StyleFlag>(result);
 }
 
+ParagraphStyle::ParagraphStyle() : 
+	Vname(),
+	pparent_(NULL),
+	LineSpaMode(0),
+	LineSpa(0),
+	textAlignment(0),
+	Indent(0),
+	rightMargin_(0),
+	First(0),
+	gapBefore_(0),
+	gapAfter_(0),
+	TabValues(), 
+	Drop(false),
+	DropLin(2),
+	DropDist(0),
+	BaseAdj(false)
+{}
 
 bool ParagraphStyle::equiv(const ParagraphStyle& other) const
 {
