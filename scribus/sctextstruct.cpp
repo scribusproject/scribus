@@ -42,7 +42,7 @@ StyleFlag operator~ (StyleFlag arg)
 ParagraphStyle::ParagraphStyle() : 
 	Vname(),
 	pparent_(NULL),
-	LineSpaMode(0),
+	LineSpaMode(FixedLineSpacing),
 	LineSpa(0),
 	textAlignment(0),
 	Indent(0),
