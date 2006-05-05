@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <qvaluelist.h>
+#include <qobject.h>
 #include "sctextstruct.h"
 #include "scfonts.h"
 
@@ -102,34 +103,33 @@ bool ParagraphStyle::equiv(const ParagraphStyle& other) const
 		(charStyle() == other.charStyle());
 }	
 
-#define tr QString
 
 QString CharStyle::asString() const
 {
 	QString result;
 	if (cfont != NULL)
-		result += tr("font %1 ").arg(cfont->scName());
+		result += QObject::tr("font %1 ").arg(cfont->scName());
 	if (csize != NOVALUE)
-		result += tr("size %1 ").arg(csize);
+		result += QObject::tr("size %1 ").arg(csize);
 	if (cstyle != NOVALUE)
-		result += tr("+style ");
+		result += QObject::tr("+style ");
 	if (ccolor != NOCOLOR || cstroke != NOCOLOR || cshade != NOVALUE || cshade2 != NOVALUE)
-		result += tr("+color ");
+		result += QObject::tr("+color ");
 	if (cunderwidth != NOVALUE || cunderpos != NOVALUE)
-		result += cunderwidth > 0 ? tr("+underline ") : tr("-underline ");
+		result += cunderwidth > 0 ? QObject::tr("+underline ") : QObject::tr("-underline ");
 	if (cstrikewidth != NOVALUE || cstrikepos != NOVALUE)
-		result += cstrikewidth > 0 ? tr("+strikeout ") : tr("-strikeout ");
+		result += cstrikewidth > 0 ? QObject::tr("+strikeout ") : QObject::tr("-strikeout ");
 	if (cshadowx != NOVALUE || cshadowy != NOVALUE)
-		result += cshadowx != 0 && cshadowy != 0? tr("+shadow ") : tr("-shadow ");
+		result += cshadowx != 0 && cshadowy != 0? QObject::tr("+shadow ") : QObject::tr("-shadow ");
 	if (coutline != NOVALUE)
-		result += coutline > 0 ? tr("+outline ") : tr("-outline ");
+		result += coutline > 0 ? QObject::tr("+outline ") : QObject::tr("-outline ");
 	if (cextra != NOVALUE)
-		result += cextra > 0 ? tr("+tracking %1").arg(cextra) : tr("-tracking ");
+		result += cextra > 0 ? QObject::tr("+tracking %1").arg(cextra) : QObject::tr("-tracking ");
 	if (cbase != NOVALUE)
-		result += tr("+baseline %1").arg(cbase);
+		result += QObject::tr("+baseline %1").arg(cbase);
 	if (cscale != NOVALUE || cscalev != NOVALUE)
-		result += tr("+stretch ");
+		result += QObject::tr("+stretch ");
 	if (cparent_ != NULL)
-		result += tr("parent= %1").arg(cparent_->cname_=="" ? tr("unnamed") : cparent_->cname_);
+		result += QObject::tr("parent= %1").arg(cparent_->cname_=="" ? QObject::tr("unnamed") : cparent_->cname_);
 	return result.stripWhiteSpace();
 }
