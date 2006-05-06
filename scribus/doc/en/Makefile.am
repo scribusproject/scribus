@@ -52,7 +52,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/moncal.html $(prefix)/share/doc/scribus-$(VERSION)/en/moncal.html
 	$(INSTALL_DATA) $(srcdir)/mouse.html $(prefix)/share/doc/scribus-$(VERSION)/en/mouse.html
 	$(INSTALL_DATA) $(srcdir)/pagetemplate1.html $(prefix)/share/doc/scribus-$(VERSION)/en/pagetemplate1.html
-	$(INSTALL_DATA) $(srcdir)/pagetnumber.html $(prefix)/share/doc/scribus-$(VERSION)/en/pagenumber.html
+	$(INSTALL_DATA) $(srcdir)/pagenumber.html $(prefix)/share/doc/scribus-$(VERSION)/en/pagenumber.html
 	$(INSTALL_DATA) $(srcdir)/parallel-install.html $(prefix)/share/doc/scribus-$(VERSION)/en/parallel-install.html
 	$(INSTALL_DATA) $(srcdir)/pdflavor.html $(prefix)/share/doc/scribus-$(VERSION)/en/pdflavor.html
 	$(INSTALL_DATA) $(srcdir)/pdfexport1.html $(prefix)/share/doc/scribus-$(VERSION)/en/pdfexport1.html
