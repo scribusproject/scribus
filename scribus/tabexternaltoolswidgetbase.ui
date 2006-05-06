@@ -57,7 +57,7 @@
                                 <cstring>psToolLineEdit</cstring>
                             </property>
                             <property name="toolTip" stdset="0">
-                                <string>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</string>
+                                <string>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</string>
                             </property>
                         </widget>
                         <widget class="QPushButton">
@@ -199,7 +199,7 @@
                         <cstring>imageToolLineEdit</cstring>
                     </property>
                     <property name="toolTip" stdset="0">
-                        <string>File system location for graphics editor. If you use gimp and your distribution includes it, we recommend 'gimp-remote', as it allows you to edit the image in an already running instance of gimp.</string>
+                        <string>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend 'gimp-remote', as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</string>
                     </property>
                 </widget>
                 <widget class="QPushButton">
@@ -245,7 +245,7 @@
                         <cstring>extBrowserToolLineEdit</cstring>
                     </property>
                     <property name="toolTip" stdset="0">
-                        <string>File system location for graphics editor. If you use gimp and your distribution includes it, we recommend 'gimp-remote', as it allows you to edit the image in an already running instance of gimp.</string>
+                        <string>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</string>
                     </property>
                 </widget>
                 <widget class="QPushButton">
