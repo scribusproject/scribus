@@ -34,7 +34,8 @@
         </submenuitem>
             <submenuitem text="Scribus Basics" file="about2.html" >
             <submenuitem file="docinfo.html" text="Doc. Info" />
-            <submenuitem text="Page Templates" file="pagetemplate1.html" />
+            <submenuitem text="Master Pages" file="pagetemplate1.html" />
+	    <submenuitem text="Page Numbering" file="pagenumber.html" />
             <submenuitem text="Short Words Plug-in" file="short-words.html" />
         </submenuitem>
             <submenuitem text="Importing" file="importhints.html">

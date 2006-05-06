@@ -63,6 +63,7 @@ oochart.png
 ooeps1.png
 oogettext1.png
 pagetemplate1.png
+pagenumbering.png
 pdfeffect1.png
 pdfeffect2.png
 pdfx3-1.png

@@ -59,6 +59,7 @@ moncal.html
 mouse.html
 otherinfo.html
 pagetemplate1.html
+pagenumber.html
 parallel-install.html
 pdfexport1.html
 pdfexport2.html
