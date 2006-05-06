@@ -1179,7 +1179,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						{
 							if (m_Doc->docParagraphStyles[absa].textAlignment != 0)
 							{
-								EndX = CurX;
+								EndX = floor(hl->xp);
 								do
 								{
 									pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
@@ -1270,7 +1270,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								BuPos = LastSP+1;
 								if (m_Doc->docParagraphStyles[absa].textAlignment != 0)
 								{
-									EndX = LastXp;
+									EndX = floor(hl->xp);
 									do
 									{
 										pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
@@ -1676,7 +1676,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				}
 				if (m_Doc->docParagraphStyles[absa].textAlignment != 0)
 				{
-					EndX = CurX;
+					EndX = floor(CurX);
 					do
 					{
 						pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
