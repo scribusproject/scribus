@@ -4519,6 +4519,10 @@ void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);
 	p->setFillMode(ScPainter::Solid);
+#ifdef HAVE_CAIRO
+	p->setupPolygon(&PoLine);
+	p->setClipPath();
+#endif
 	double startpos=Xpos;
 	double cols=0;
 	double colWidth = columnWidth();

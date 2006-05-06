@@ -1157,18 +1157,24 @@ QPixmap * getFancyPixmap(ScColor col) {
 void paintAlert(QPixmap &toPaint, QPixmap &target, int x, int y, bool useMask)
 {
 	// there is no alpha mask in the beginning
-	if (target.mask()==0)
-		target.setMask(QBitmap(target.width(), target.height(), useMask));
+	if (useMask)
+	{
+		if (target.mask()==0)
+			target.setMask(QBitmap(target.width(), target.height(), useMask));
+	}
 	QPainter p;
-	QPainter alpha; // transparency handling
 	p.begin(&target);
-	alpha.begin(target.mask());
-	alpha.setBrush(Qt::color1);
-	alpha.setPen(Qt::color1);
 	p.drawPixmap(x, y, toPaint);
-	alpha.drawRect(x, y, 15, 15);
+	if (useMask)
+	{
+		QPainter alpha; // transparency handling
+		alpha.begin(target.mask());
+		alpha.setBrush(Qt::color1);
+		alpha.setPen(Qt::color1);
+		alpha.drawRect(x, y, 15, 15);
+		alpha.end();
+	}
 	p.end();
-	alpha.end();
 }
 
 FPoint getMaxClipF(FPointArray* Clip)
