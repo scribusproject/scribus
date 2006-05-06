@@ -364,8 +364,8 @@ void PageItem_TextFrame::layout()
 			hl->cstyle &= ~ScStyle_DropCap;
 			hl->cstyle &= ~ScStyle_SmartHyphenVisible;
 			// No space at begin of line
-			if (((m_Doc->docParagraphStyles[absa].alignment() == 3) || (m_Doc->docParagraphStyles[absa].alignment() == 4)) 
-				&& (LiList.count() == 0) && (hl->ch == " "))
+			if ( //((m_Doc->docParagraphStyles[absa].alignment() == 3) || (m_Doc->docParagraphStyles[absa].alignment() == 4)) && 
+				 (LiList.count() == 0) && (hl->ch == " "))
 			{
 				hl->cstyle |= ScStyle_SuppressSpace;
 				continue;
@@ -689,13 +689,28 @@ void PageItem_TextFrame::layout()
 				if (opticalMargins) {
 					int chs = static_cast<int>(itemText.charStyle(a).csize * (itemText.charStyle(a).cscale / 1000.0));
 					double leftCorr = RealCWidth(m_Doc, itemText.charStyle(a).cfont, itemText.text(a), chs);
-					if (QString("'´`").find(itemText.text(a)) >= 0) 
+					if (QString("'´`").find(itemText.text(a)) >= 0
+						|| itemText.text(a) == QChar(0x2018)
+						|| itemText.text(a) == QChar(0x2019)
+						|| itemText.text(a) == QChar(0x201a)
+						|| itemText.text(a) == QChar(0x201b)
+						|| itemText.text(a) == QChar(0x2039)
+						|| itemText.text(a) == QChar(0x203a)
+						)
 						leftCorr *= -0.7;
-					else if (QString("\"").find(itemText.text(a)) >= 0) 
+					else if (QString("\"").find(itemText.text(a)) >= 0
+							 || itemText.text(a) == QChar(0x00ab)
+							 || itemText.text(a) == QChar(0x00bb)
+							 || itemText.text(a) == QChar(0x201c)
+							 || itemText.text(a) == QChar(0x201d)
+							 || itemText.text(a) == QChar(0x201e)
+							 || itemText.text(a) == QChar(0x201f)
+							 ) 
 						leftCorr *= -0.5;
 					else {
-						leftCorr = Cwidth(m_Doc, itemText.charStyle(a).cfont, QChar('o'), chs, itemText.text(a));
-						leftCorr -= Cwidth(m_Doc, itemText.charStyle(a).cfont, QChar('o'), chs);
+						leftCorr = 0;
+//						leftCorr = Cwidth(m_Doc, itemText.charStyle(a).cfont, QChar('o'), chs, itemText.text(a));
+//						leftCorr -= Cwidth(m_Doc, itemText.charStyle(a).cfont, QChar('o'), chs);
 					}
 					CurX += leftCorr;
 				}
@@ -1106,9 +1121,26 @@ void PageItem_TextFrame::layout()
 									int chs = static_cast<int>(LiList.at(BuPos-1)->Siz * (LiList.at(BuPos-1)->scale / 1000.0));
 									QString chr = LiList.at(BuPos-1)->Zeich;
 									double rightCorr = RealCWidth(m_Doc, LiList.at(BuPos-1)->ZFo, chr, chs);
-									if (QString("-,.`´'").find(chr) >= 0)
+									if (QString("-,.`´'~").find(chr) >= 0
+										|| itemText.text(a) == QChar(0x2018)
+										|| itemText.text(a) == QChar(0x2019)
+										|| itemText.text(a) == QChar(0x201a)
+										|| itemText.text(a) == QChar(0x201b)
+										|| itemText.text(a) == QChar(0x2039)
+										|| itemText.text(a) == QChar(0x203a)
+										|| itemText.text(a) == QChar(0x2032)
+										)
 										rightCorr *= 0.7;
-									else if (QString(";:\"").find(chr) >= 0)
+									else if (QString(";:\"").find(chr) >= 0
+											 || itemText.text(a) == QChar(0x00ab)
+											 || itemText.text(a) == QChar(0x00bb)
+											 || itemText.text(a) == QChar(0x201c)
+											 || itemText.text(a) == QChar(0x201d)
+											 || itemText.text(a) == QChar(0x201e)
+											 || itemText.text(a) == QChar(0x201f)
+											 || itemText.text(a) == QChar(0x2013)
+											 || itemText.text(a) == QChar(0x2033)
+											 )
 										rightCorr *= 0.5;
 									else {
 										rightCorr = Cwidth(m_Doc, LiList.at(BuPos-1)->ZFo, chr, chs);
@@ -1433,13 +1465,30 @@ void PageItem_TextFrame::layout()
 					int chs = static_cast<int>(LiList.at(LiList.count()-1)->Siz * (LiList.at(LiList.count()-1)->scale / 1000.0));
 					QString chr = LiList.at(LiList.count()-1)->Zeich;
 					double rightCorr = RealCWidth(m_Doc, LiList.at(LiList.count()-1)->ZFo, chr, chs);
-					if (QString("-,.`´'").find(chr) >= 0)
+					if (QString("-,.`´'~").find(chr) >= 0
+						|| itemText.text(a) == QChar(0x2018)
+						|| itemText.text(a) == QChar(0x2019)
+						|| itemText.text(a) == QChar(0x201a)
+						|| itemText.text(a) == QChar(0x201b)
+						|| itemText.text(a) == QChar(0x2039)
+						|| itemText.text(a) == QChar(0x203a)
+						|| itemText.text(a) == QChar(0x2032)
+						)
 						rightCorr *= 0.7;
-					else if (QString(";:\"").find(chr) >= 0)
+					else if (QString(";:\"").find(chr) >= 0
+							 || itemText.text(a) == QChar(0x00ab)
+							 || itemText.text(a) == QChar(0x00bb)
+							 || itemText.text(a) == QChar(0x201c)
+							 || itemText.text(a) == QChar(0x201d)
+							 || itemText.text(a) == QChar(0x201e)
+							 || itemText.text(a) == QChar(0x201f)
+							 || itemText.text(a) == QChar(0x2013)
+							 || itemText.text(a) == QChar(0x2033)
+							 )
 						rightCorr *= 0.5;
 					else {
 						rightCorr = Cwidth(m_Doc, LiList.at(BuPos-1)->ZFo, chr, chs);
-						rightCorr -= Cwidth(m_Doc, LiList.at(LiList.count()-1)->ZFo, chr, chs, QChar('.'));
+						rightCorr -= Cwidth(m_Doc, LiList.at(BuPos-1)->ZFo, chr, chs, QChar('.'));
 					}
 					EndX += rightCorr;
 //					qDebug(QString("orm %1 @ %2: %3 par").arg(rightCorr).arg(a).arg(chr));
