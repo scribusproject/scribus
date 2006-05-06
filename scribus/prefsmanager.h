@@ -120,8 +120,10 @@ public:
 	void setupMainWindow(ScribusMainWindow* mw);
 	void setGhostscriptExecutable(const QString&);
 	void setImageEditorExecutable(const QString&);
-	const QString ghostscriptExecutable();
-	const QString imageEditorExecutable();
+	void setExtBrowserExecutable(const QString&);
+	QString ghostscriptExecutable() const {return appPrefs.gs_exe;};
+	QString imageEditorExecutable() const {return appPrefs.imageEditorExecutable;};
+	QString extBrowserExecutable() const {return appPrefs.extBrowserExecutable;};
 	//! \brief Get the users preferred preview resolution
 	const int gsResolution();
 	//! \brief Get the users preferred document directory

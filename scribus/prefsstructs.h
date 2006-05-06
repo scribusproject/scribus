@@ -214,6 +214,7 @@ struct ApplicationPrefs
 	bool gs_AntiAliasGraphics;
 	int gs_Resolution;
 	QString imageEditorExecutable;
+	QString extBrowserExecutable;
 	bool ClipMargin;
 	bool GCRMode;
 	QColor STEcolor;

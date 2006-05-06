@@ -36,9 +36,11 @@ TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsDat
 	psAntialiasGraphicsCheckBox->setChecked(prefsData->gs_AntiAliasGraphics);
 	psResolutionSpinBox->setValue(prefsData->gs_Resolution);
 	imageToolLineEdit->setText(prefsData->imageEditorExecutable);
+	extBrowserToolLineEdit->setText(prefsData->extBrowserExecutable);
 	
 	connect(psToolChangeButton, SIGNAL(clicked()), this, SLOT(changePostScriptTool()));
 	connect(imageToolChangeButton, SIGNAL(clicked()), this, SLOT(changeImageTool()));
+	connect(extBrowserToolChangeButton, SIGNAL(clicked()), this, SLOT(changeExtBrowserTool()));
 	connect(rescanButton, SIGNAL(clicked()), this, SLOT(rescanForTools()));
 }
 
@@ -53,6 +55,7 @@ void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 	psAntialiasGraphicsCheckBox->setChecked(prefsData->gs_AntiAliasGraphics);
 	psResolutionSpinBox->setValue(prefsData->gs_Resolution);
 	imageToolLineEdit->setText(prefsData->imageEditorExecutable);
+	extBrowserToolLineEdit->setText(prefsData->extBrowserExecutable);
 }
 
 void TabExternalToolsWidget::changePostScriptTool()
@@ -69,6 +72,14 @@ void TabExternalToolsWidget::changeImageTool()
 	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeImageEditor", tr("Locate your image editor"));
 	if (!s.isEmpty())
 		imageToolLineEdit->setText(s);
+}
+
+void TabExternalToolsWidget::changeExtBrowserTool()
+{
+	QFileInfo fi(extBrowserToolLineEdit->text());
+	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeextBrowser", tr("Locate your web browser"));
+	if (!s.isEmpty())
+		extBrowserToolLineEdit->setText(s);
 }
 
 void TabExternalToolsWidget::rescanForTools()

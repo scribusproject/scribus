@@ -94,7 +94,7 @@ public slots:
 	/*! \brief Sets the name of the displayed document to name.
 	On Windows, the default web browser is launched if a web link is clicked
 	*/
-	virtual void setSource(const QString &name);
+	virtual void setSource(const QString& name);
 };
 
 

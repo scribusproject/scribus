@@ -41,9 +41,8 @@ for which a new license (GPL+exception) is in place.
 #include <qtoolbutton.h>
 #include <qwhatsthis.h>
 #include <qimage.h>
-#include <qpixmap.h>
-#include <qpopupmenu.h>
 #include <qfileinfo.h>
+#include <qfiledialog.h>
 #include <qtextcodec.h>
 #include <qdom.h>
 #include <qdir.h>
@@ -51,9 +50,12 @@ for which a new license (GPL+exception) is in place.
 #include <qmime.h>
 #include <qlabel.h>
 #include <qlineedit.h>
+#include <qmessagebox.h>
 #include <qaccel.h>
 #include <qinputdialog.h>
 #include <qmenubar.h>
+#include <qpixmap.h>
+#include <qprocess.h>
 #include <qpopupmenu.h>
 #include <qprinter.h>
 #include <qpainter.h>
@@ -208,7 +210,33 @@ void TextBrowser::setSource(const QString &name)
 		return;
 	}
 #endif
+#if !defined(QT_MAC) && !defined(_WIN32)
+	if (name.left(7)=="http://")
+	{
+		QString extBrowser=PrefsManager::instance()->extBrowserExecutable();
+		QFileInfo fi(extBrowser);
+		if (extBrowser.isEmpty() || !fi.exists())
+		{
+			extBrowser = QFileDialog::getOpenFileName(QString::null, QString::null, this, "changeExtBrowser", tr("Locate your web browser"));
+			if (!QFileInfo(extBrowser).exists())
+				extBrowser="";
+			PrefsManager::instance()->setExtBrowserExecutable(extBrowser);
+		}		
+		if (!extBrowser.isEmpty())
+		{
+			QStringList args;
+			args.append(extBrowser);
+			args.append(name);
+			QProcess webProc(args);
+			if (!webProc.start())
+				QMessageBox::critical(this, tr("External Web Browser Failed to Start"), tr("Scribus was not able to start the external web browser application %1. Please check the setting in Preferences").arg(PrefsManager::instance()->extBrowserExecutable()), QMessageBox::Ok, QMessageBox::NoButton);
+		}
+	}
+	else
+		QTextBrowser::setSource(name);
+#else
 	QTextBrowser::setSource(name);
+#endif
 }
 
 HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLanguage, QString jumpToSection, QString jumpToFile)

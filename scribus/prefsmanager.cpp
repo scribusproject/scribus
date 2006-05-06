@@ -305,6 +305,7 @@ void PrefsManager::initDefaults()
 	appPrefs.PrPr_Y = true;
 	appPrefs.PrPr_K = true;
 	appPrefs.imageEditorExecutable = "gimp";
+	appPrefs.extBrowserExecutable = "";
 	appPrefs.gs_AntiAliasGraphics = true;
 	appPrefs.gs_AntiAliasText = true;
 	appPrefs.gs_exe = getGSDefaultExeName();
@@ -772,14 +773,9 @@ void PrefsManager::setImageEditorExecutable(const QString& executableName)
 	appPrefs.imageEditorExecutable=executableName;
 }
 
-const QString PrefsManager::ghostscriptExecutable()
+void PrefsManager::setExtBrowserExecutable(const QString& executableName)
 {
-	return appPrefs.gs_exe;
-}
-
-const QString PrefsManager::imageEditorExecutable()
-{
-	return appPrefs.imageEditorExecutable;
+	appPrefs.extBrowserExecutable=executableName;
 }
 
 const QString PrefsManager::documentDir()
@@ -1126,6 +1122,7 @@ bool PrefsManager::WritePref(QString ho)
 	QDomElement dc8Ex = docu.createElement("EXTERNAL");
 	dc8Ex.setAttribute("GIMP", imageEditorExecutable());
 	dc8Ex.setAttribute("GS", ghostscriptExecutable());
+	dc8Ex.setAttribute("WebBrowser", extBrowserExecutable());
 	dc8Ex.setAttribute("AlphaGraphics", static_cast<int>(appPrefs.gs_AntiAliasGraphics));
 	dc8Ex.setAttribute("AlphaText", static_cast<int>(appPrefs.gs_AntiAliasText));
 	dc8Ex.setAttribute("Resolution", appPrefs.gs_Resolution);
@@ -1663,6 +1660,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.gs_AntiAliasGraphics = static_cast<bool>(dc.attribute("AlphaGraphics", "0").toInt());
 			appPrefs.gs_Resolution = dc.attribute("Resolution", "72").toInt();
 			setImageEditorExecutable(dc.attribute("GIMP", "gimp"));
+			setExtBrowserExecutable(dc.attribute("WebBrowser", ""));
 		}
 		if (dc.tagName()=="HYPHEN")
 		{

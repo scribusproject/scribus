@@ -1224,6 +1224,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.pageSets[choosenLayout].GapHorizontal = gapHorizontal->value() / prefsUnitRatio;
 	prefsManager->appPrefs.pageSets[choosenLayout].GapVertical = gapVertical->value() / prefsUnitRatio;
 	prefsManager->setImageEditorExecutable(tabExtTools->newImageTool());
+	prefsManager->setExtBrowserExecutable(tabExtTools->newExtBrowserTool());
 	prefsManager->appPrefs.gs_AntiAliasGraphics = tabExtTools->newAntialiasGraphics();
 	prefsManager->appPrefs.gs_AntiAliasText = tabExtTools->newAntialiasText();
 	prefsManager->setGhostscriptExecutable(tabExtTools->newPSTool());

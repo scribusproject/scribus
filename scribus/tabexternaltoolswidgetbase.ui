@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>499</width>
-            <height>218</height>
+            <height>298</height>
         </rect>
     </property>
     <property name="caption">
@@ -215,6 +215,52 @@
                 </widget>
             </hbox>
         </widget>
+        <widget class="QGroupBox">
+            <property name="name">
+                <cstring>extBrowserToolGroupBox</cstring>
+            </property>
+            <property name="title">
+                <string>Web Browser</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Web Browser to launch with links from the Help system</string>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>extBrowserToolLabel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Name of &amp;Executable:</string>
+                    </property>
+                    <property name="buddy" stdset="0">
+                        <cstring>imageToolLineEdit</cstring>
+                    </property>
+                </widget>
+                <widget class="QLineEdit">
+                    <property name="name">
+                        <cstring>extBrowserToolLineEdit</cstring>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>File system location for graphics editor. If you use gimp and your distribution includes it, we recommend 'gimp-remote', as it allows you to edit the image in an already running instance of gimp.</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>extBrowserToolChangeButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Change...</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+C</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
         <widget class="QLayoutWidget">
             <property name="name">
                 <cstring>layout10</cstring>
@@ -269,7 +315,7 @@
             <property name="sizeHint">
                 <size>
                     <width>20</width>
-                    <height>55</height>
+                    <height>70</height>
                 </size>
             </property>
         </spacer>

@@ -8553,6 +8553,7 @@ void ScribusMainWindow::languageChange()
 			scrMenuMgr->setMenuText("InsertChar", tr("Character"));
 			scrMenuMgr->setMenuText("InsertQuote", tr("Quote"));
 			scrMenuMgr->setMenuText("InsertSpace", tr("Space"));
+			scrMenuMgr->setMenuText("InsertLigature", tr("Liga&ture"));
 			scrMenuMgr->setMenuText("Page", tr("&Page"));
 			scrMenuMgr->setMenuText("View", tr("&View"));
 			scrMenuMgr->setMenuText("Tools", tr("&Tools"));

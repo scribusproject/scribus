@@ -90,6 +90,9 @@ public:
 	int haveTIFFSep() const {return m_HaveTiffSep;};
 	void getCMSProfiles();
 	
+	//Main Window members
+	ScribusMainWindow* primaryMainWindow();
+	
 	PluginManager* pluginManager;	
 	FileWatcher* fileWatcher;
 	
@@ -105,9 +108,9 @@ protected:
 	void initCMS();
 	void getCMSProfilesDir(QString pfad);
 	
+	QPtrList<ScribusMainWindow> ScMWList;
+	uint m_currScMW;
 	
-	
-	ScribusMainWindow *scribus;
 	SplashScreen *m_SplashScreen;
 	UndoManager *undoManager;
 	PrefsManager *prefsManager;

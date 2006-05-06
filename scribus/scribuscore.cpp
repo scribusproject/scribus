@@ -64,6 +64,7 @@ ScribusCore::ScribusCore() : QObject()
 	m_SplashScreen=0;
 	m_UseGUI=false;
 	m_PaletteParent=0;
+	m_currScMW=0;
 }
 
 
@@ -85,10 +86,12 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, const QString newG
 {
 	m_PaletteParent=new QWidget(0);
 	Q_CHECK_PTR(m_PaletteParent);
-	scribus = new ScribusMainWindow();
+	ScribusMainWindow* scribus = new ScribusMainWindow();
 	Q_CHECK_PTR(scribus);
 	if (!scribus)
 		return(EXIT_FAILURE);
+	ScMWList.append(scribus);
+	m_currScMW=0;
 	ScMW=scribus;
 	int retVal=initScribusCore(showSplash, showFontInfo, newGuiLanguage, prefsUserFile);
 	if (retVal == 1)
@@ -476,4 +479,14 @@ void ScribusCore::initCMS()
 		IntentImages = prefsManager->appPrefs.DCMSset.DefaultIntentImages;
 #endif
 	}
+}
+
+ScribusMainWindow * ScribusCore::primaryMainWindow( )
+{
+	if (ScMWList.count()==0 || m_currScMW>ScMWList.count())
+		return 0;
+	ScribusMainWindow* mw=ScMWList.at(m_currScMW);
+	if (!mw)
+		return 0;
+	return mw;
 }

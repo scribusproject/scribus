@@ -49,6 +49,7 @@ class SCRIBUS_API TabExternalToolsWidget : public TabExternalToolsWidgetBase
 		
 		const QString newPSTool() const { return psToolLineEdit->text();};
 		const QString newImageTool() const { return imageToolLineEdit->text();};
+		const QString newExtBrowserTool() const { return extBrowserToolLineEdit->text();};
 		bool newAntialiasText() const { return psAntialiasTextCheckBox->isChecked();};
 		bool newAntialiasGraphics() const { return psAntialiasGraphicsCheckBox->isChecked();};
 		int newPSToolResolution() const { return psResolutionSpinBox->value();};
@@ -56,6 +57,7 @@ class SCRIBUS_API TabExternalToolsWidget : public TabExternalToolsWidgetBase
 	public slots:
 		void changePostScriptTool();
 		void changeImageTool();
+		void changeExtBrowserTool();
 		void rescanForTools();
 };
 
