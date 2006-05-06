@@ -38,6 +38,7 @@ ButtCap.png
 charset.png
 checkbox.png
 checkdoc.png
+clear_right.png
 cmyk.png
 colorpicker.png
 combobox.png
