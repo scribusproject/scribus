@@ -155,7 +155,6 @@ void TabKeyboardShortcutsWidget::importKeySet(QString filename)
 		}
 		file.close();
 		//load the file now
-		
 		QDomElement docElem = doc.documentElement();
 		if (docElem.tagName()=="shortcutset" && docElem.hasAttribute("name"))
 		{
@@ -163,10 +162,7 @@ void TabKeyboardShortcutsWidget::importKeySet(QString filename)
 
 			//clear current menu entries
 			for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
-			{
 				it.data().keySequence = QKeySequence();
-// // // // 				keyTable->setText(it.data().tableRow, 1, "");
-			}
 			
 			//load in new set
 			QDomNode n = docElem.firstChild();
@@ -180,19 +176,14 @@ void TabKeyboardShortcutsWidget::importKeySet(QString filename)
 						QDomAttr nameAttr = e.attributeNode( "name" );
 						QDomAttr shortcutAttr = e.attributeNode( "shortcut" );
 						if (keyMap.contains(nameAttr.value()))
-						{
 							keyMap[nameAttr.value()].keySequence=QKeySequence(shortcutAttr.value());
-// // // // 							keyTable->setText(keyMap[nameAttr.value()].tableRow,1,shortcutAttr.value());
-						}
 					}
 				}
 				n = n.nextSibling();
 			}
-// // // 			keyDisplay->setText(keyTable->text(keyTable->currentRow(), 1));
 		}
 	}
 	insertActions();
-	//keyTable->adjustColumn(1);
 }
 
 bool TabKeyboardShortcutsWidget::exportKeySet(QString filename)
@@ -475,7 +466,6 @@ void TabKeyboardShortcutsWidget::keyPressEvent(QKeyEvent *k)
 				break;
 			default:
 				keyCode |= k->key();
-//				qDebug(QString("got key %1 %2").arg(keyCode).arg(getKeyText(keyCode)));
 				keyDisplay->setText(getKeyText(keyCode));
 				if (checkKey(keyCode))
 				{
