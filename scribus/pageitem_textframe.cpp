@@ -1110,7 +1110,7 @@ void PageItem_TextFrame::layout()
 							// end do
 //							qDebug(QString("endx @ %1").arg(EndX));
 
-							if (opticalMargins) {
+							if (opticalMargins && BuPos > 0) {
 								int chs = static_cast<int>(LiList.at(BuPos-1)->Siz * (LiList.at(BuPos-1)->scale / 1000.0));
 								QString chr = LiList.at(BuPos-1)->Zeich;
 								double rightCorr = RealCWidth(m_Doc, LiList.at(BuPos-1)->ZFo, chr, chs);
@@ -1453,7 +1453,7 @@ void PageItem_TextFrame::layout()
 				   && (cl.contains(pf2.xForm(pt2))) 
 				   && (EndX+RExtra+lineCorr < ColBound.y() - m_Doc->docParagraphStyles[hl->cab].rightMargin()));
 			
-			if (opticalMargins) {
+			if (opticalMargins && LiList.count() > 0) {
 				int chs = static_cast<int>(LiList.at(LiList.count()-1)->Siz * (LiList.at(LiList.count()-1)->scale / 1000.0));
 				QString chr = LiList.at(LiList.count()-1)->Zeich;
 				double rightCorr = RealCWidth(m_Doc, LiList.at(LiList.count()-1)->ZFo, chr, chs);
