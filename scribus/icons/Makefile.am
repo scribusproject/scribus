@@ -17,17 +17,12 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/document-save.png \
 16/document-save-as.png \
 22/document-save-as.png \
-16/draw-arrow-back.png \
 22/draw-arrow-back.png \
-16/draw-arrow-down.png \
 22/draw-arrow-down.png \
-16/draw-arrow-forward.png \
 22/draw-arrow-forward.png \
-16/draw-arrow-up.png \
 22/draw-arrow-up.png \
 16/draw-bezier-curves.png \
 22/draw-bezier-curves.png \
-16/draw-cross.png \
 22/draw-cross.png \
 16/draw-ellipse.png \
 22/draw-ellipse.png \
@@ -232,17 +227,12 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/documentinfo.png $(prefix)/share/scribus/icons/documentinfo.png
 	$(INSTALL_DATA) $(srcdir)/documentinfo32.png $(prefix)/share/scribus/icons/documentinfo32.png
 	$(INSTALL_DATA) $(srcdir)/down.png $(prefix)/share/scribus/icons/down.png
-	$(INSTALL_DATA) $(srcdir)/16/draw-arrow-back.png $(prefix)/share/scribus/icons/16/draw-arrow-back.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-back.png $(prefix)/share/scribus/icons/22/draw-arrow-back.png
-	$(INSTALL_DATA) $(srcdir)/16/draw-arrow-down.png $(prefix)/share/scribus/icons/16/draw-arrow-down.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-down.png $(prefix)/share/scribus/icons/22/draw-arrow-down.png
-	$(INSTALL_DATA) $(srcdir)/16/draw-arrow-forward.png $(prefix)/share/scribus/icons/16/draw-arrow-forward.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-forward.png $(prefix)/share/scribus/icons/22/draw-arrow-forward.png
-	$(INSTALL_DATA) $(srcdir)/16/draw-arrow-up.png $(prefix)/share/scribus/icons/16/draw-arrow-up.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-up.png $(prefix)/share/scribus/icons/22/draw-arrow-up.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-bezier-curves.png $(prefix)/share/scribus/icons/16/draw-bezier-curves.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-bezier-curves.png $(prefix)/share/scribus/icons/22/draw-bezier-curves.png
-	$(INSTALL_DATA) $(srcdir)/16/draw-cross.png $(prefix)/share/scribus/icons/16/draw-cross.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-cross.png $(prefix)/share/scribus/icons/22/draw-cross.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-ellipse.png $(prefix)/share/scribus/icons/16/draw-ellipse.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-ellipse.png $(prefix)/share/scribus/icons/22/draw-ellipse.png
