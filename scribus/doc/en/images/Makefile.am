@@ -57,7 +57,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/oochart.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/oochart.png
 	$(INSTALL_DATA) $(srcdir)/oogettext1.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/oogettext1.png
 	$(INSTALL_DATA) $(srcdir)/pagetemplate1.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/pagetemplate1.png
-	$(INSTALL_DATA) $(srcdir)/pagenumbering.png$(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/pagenumbering.png
+	$(INSTALL_DATA) $(srcdir)/pagenumbering.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/pagenumbering.png
 	$(INSTALL_DATA) $(srcdir)/pdfeffect1.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/pdfeffect1.png
 	$(INSTALL_DATA) $(srcdir)/pdfeffect2.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/pdfeffect2.png
 	$(INSTALL_DATA) $(srcdir)/pdfxcolor.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/pdfxcolor.png
