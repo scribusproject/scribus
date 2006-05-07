@@ -28,13 +28,9 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/draw-ellipse.png \
 22/draw-freehand.png \
 22/draw-freehand.png \
-16/draw-halfcircle1.png \
 22/draw-halfcircle1.png \
-16/draw-halfcircle2.png \
 22/draw-halfcircle2.png \
-16/draw-halfcircle3.png \
 22/draw-halfcircle3.png \
-16/draw-halfcircle4.png \
 22/draw-halfcircle4.png \
 16/draw-polygon.png \
 22/draw-polygon.png \
@@ -237,13 +233,9 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/16/draw-ellipse.png $(prefix)/share/scribus/icons/16/draw-ellipse.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-ellipse.png $(prefix)/share/scribus/icons/22/draw-ellipse.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-freehand.png $(prefix)/share/scribus/icons/22/draw-freehand.png
-	$(INSTALL_DATA) $(srcdir)/16/draw-halfcircle1.png $(prefix)/share/scribus/icons/16/draw-halfcircle1.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle1.png $(prefix)/share/scribus/icons/22/draw-halfcircle1.png
-	$(INSTALL_DATA) $(srcdir)/16/draw-halfcircle2.png $(prefix)/share/scribus/icons/16/draw-halfcircle2.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle2.png $(prefix)/share/scribus/icons/22/draw-halfcircle2.png
-	$(INSTALL_DATA) $(srcdir)/16/draw-halfcircle3.png $(prefix)/share/scribus/icons/16/draw-halfcircle3.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle3.png $(prefix)/share/scribus/icons/22/draw-halfcircle3.png
-	$(INSTALL_DATA) $(srcdir)/16/draw-halfcircle4.png $(prefix)/share/scribus/icons/16/draw-halfcircle4.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle4.png $(prefix)/share/scribus/icons/22/draw-halfcircle4.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-polygon.png $(prefix)/share/scribus/icons/16/draw-polygon.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-polygon.png $(prefix)/share/scribus/icons/22/draw-polygon.png
