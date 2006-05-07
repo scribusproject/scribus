@@ -213,7 +213,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double tra
 	imageMode = true;
 	m_image = target;
 	m_matrix = QWMatrix();
-	tmp_image = QImage(w, h, 32, QImage::BigEndian);
+	tmp_image = QImage(w, h, 32);
 	tmp_image.fill( qRgba(255, 255, 255, 0) );
 	cairo_surface_t *img = cairo_image_surface_create_for_data(tmp_image.bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
 	m_cr = cairo_create(img);
@@ -275,9 +275,9 @@ void ScPainter::endLayer()
 	QRgb *d = (QRgb*)(m_image->bits());
 	for(int x = 0; x < words; ++x )
 	{
-		QRgb src = *s;
-		QRgb dst = *d;
-		uchar src_a = qRound(qAlpha(src) * m_layerTransparency);
+		QRgb src = (*s);
+		QRgb dst = (*d);
+		uchar src_a = qAlpha(src);
 		if (src_a != 0)
 		{
 			uchar src_r = qRed(src);
@@ -389,7 +389,12 @@ void ScPainter::endLayer()
 					}
 				}
 			}
-			(*d) = qRgba((dst_r * (255 - src_a) + src_r * src_a) / 255, (dst_g * (255 - src_a) + src_g * src_a) / 255, (dst_b * (255 - src_a) + src_b * src_a) / 255, dst_a + INT_MULT(255 - dst_a, src_a));
+			int layOpa = qRound(255 * m_layerTransparency);
+			src_a = INT_MULT(src_a, layOpa);
+			if (dst_a > 0)
+				(*d) = qRgba((dst_r * (255 - layOpa) + src_r * layOpa) / 255, (dst_g * (255 - layOpa) + src_g * layOpa) / 255, (dst_b * (255 - layOpa) + src_b * layOpa) / 255, dst_a + INT_MULT(255 - dst_a, src_a));
+			else
+				(*d) = qRgba(src_r, src_g, src_b, src_a);
 		}
 		s++;
 		d++;
@@ -407,6 +412,7 @@ void ScPainter::end()
 	if (layeredMode)
 	{
 		endLayer();
+		cairo_surface_flush(cairo_get_target(m_cr));
 		cairo_restore( m_cr );
 		return;
 	}

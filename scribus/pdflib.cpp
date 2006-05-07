@@ -1792,131 +1792,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						if (! ite->asTextFrame())
 							PutPage(name+" Do\n");
 						else
-						{
-							PutPage("q\n");
-							if ((ite->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
-							{
-								StartObj(ObjCounter);
-								QString ShName = ResNam+QString::number(ResCount);
-								Transpar[ShName] = ObjCounter;
-								ResCount++;
-								ObjCounter++;
-								PutDoc("<< /Type /ExtGState\n");
-								PutDoc("/OP true\n");
-								PutDoc("/op true\n");
-								PutDoc("/OPM 1\n");
-								PutDoc(">>\nendobj\n");
-								PutPage("/"+ShName+" gs\n");
-							}
-							if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
-								PutPage(PDF_Transparenz(ite));
-							if (ite->fillColor() != CommonStrings::None)
-								PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
-							if (ite->lineColor() != CommonStrings::None)
-								PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
-							Inhalt += FToStr(fabs(ite->lineWidth()))+" w\n";
-							if (ite->DashValues.count() != 0)
-							{
-								PutPage("[ ");
-								QValueList<double>::iterator it;
-								for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
-								{
-									int da = static_cast<int>(*it);
-									if (da != 0)
-										PutPage(QString::number(da)+" ");
-									PutPage(QString::number(static_cast<int>(*it))+" ");
-								}
-							}
-							else
-							{
-								QString Dt = FToStr(QMAX(2*fabs(ite->lineWidth()), 1));
-								QString Da = FToStr(QMAX(6*fabs(ite->lineWidth()), 1));
-								switch (ite->PLineArt)
-								{
-									case Qt::SolidLine:
-										PutPage("[] 0 d\n");
-										break;
-									case Qt::DashLine:
-										PutPage("["+Da+" "+Dt+"] 0 d\n");
-										break;
-									case Qt::DotLine:
-										PutPage("["+Dt+"] 0 d\n");
-										break;
-									case Qt::DashDotLine:
-										PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
-										break;
-									case Qt::DashDotDotLine:
-										PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
-										break;
-									default:
-										PutPage("[] 0 d\n");
-										break;
-								}
-							}
-							PutPage("2 J\n");
-							switch (ite->PLineJoin)
-							{
-								case Qt::MiterJoin:
-									PutPage("0 j\n");
-									break;
-								case Qt::BevelJoin:
-									PutPage("2 j\n");
-									break;
-								case Qt::RoundJoin:
-									PutPage("1 j\n");
-									break;
-								default:
-									PutPage("0 j\n");
-									break;
-							}
-							PutPage("1 0 0 1 "+FToStr(ite->xPos() - mPage->xOffset())+" "+FToStr(mPage->height() - (ite->yPos()  - mPage->yOffset()))+" cm\n");
-							if (ite->rotation() != 0)
-							{
-								double sr = sin(-ite->rotation()* M_PI / 180.0);
-								double cr = cos(-ite->rotation()* M_PI / 180.0);
-								if ((cr * cr) < 0.000001)
-									cr = 0;
-								if ((sr * sr) < 0.000001)
-									sr = 0;
-								PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n");
-							}
-							if ((ite->fillColor() != CommonStrings::None) || (ite->GrType != 0))
-							{
-								if (ite->GrType != 0)
-									PutPage(PDF_Gradient(ite));
-								else
-								{
-									PutPage(SetClipPath(ite));
-									PutPage("h\nf*\n");
-								}
-							}
-							PutPage("q\n");
-							if (ite->imageFlippedH())
-								PutPage("-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n");
-							if (ite->imageFlippedV())
-								PutPage("1 0 0 -1 0 "+FToStr(-ite->height())+" cm\n");
-							PutPage(setTextSt(ite, PNr, pag));
-							PutPage("Q\n");
-							if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
-							{
-								if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
-								{
-									PutPage(SetClipPath(ite));
-									PutPage("h\nS\n");
-								}
-								else
-								{
-									multiLine ml = doc.MLineStyles[ite->NamedLStyle];
-									for (int it = ml.size()-1; it > -1; it--)
-									{
-										PutPage(setStrokeMulti(&ml[it]));
-										PutPage(SetClipPath(ite));
-										PutPage("h\nS\n");
-									}
-								}
-							}
-							PutPage("Q\n");
-						}
+							PutPage(PDF_ProcessItem(ite, pag, pag->pageNr()));
 					}
 					for (uint am = 0; am < pag->FromMaster.count(); ++am)
 					{
@@ -1929,118 +1805,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 							continue;
 						if (!ite->isTableItem)
 							continue;
-						PutPage("q\n");
-						if ((ite->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
-						{
-							StartObj(ObjCounter);
-							QString ShName = ResNam+QString::number(ResCount);
-							Transpar[ShName] = ObjCounter;
-							ResCount++;
-							ObjCounter++;
-							PutDoc("<< /Type /ExtGState\n");
-							PutDoc("/OP true\n");
-							PutDoc("/op true\n");
-							PutDoc("/OPM 1\n");
-							PutDoc(">>\nendobj\n");
-							PutPage("/"+ShName+" gs\n");
-						}
-						if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
-							PutPage(PDF_Transparenz(ite));
-						if (ite->fillColor() != CommonStrings::None)
-							PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
-						if (ite->lineColor() != CommonStrings::None)
-							PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
-						Inhalt += FToStr(fabs(ite->lineWidth()))+" w\n";
-						if (ite->DashValues.count() != 0)
-						{
-							PutPage("[ ");
-							QValueList<double>::iterator it;
-							for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
-							{
-								int da = static_cast<int>(*it);
-								if (da != 0)
-									PutPage(QString::number(da)+" ");
-								PutPage(QString::number(static_cast<int>(*it))+" ");
-							}
-						}
-						else
-						{
-							QString Dt = FToStr(QMAX(2*fabs(ite->lineWidth()), 1));
-							QString Da = FToStr(QMAX(6*fabs(ite->lineWidth()), 1));
-							switch (ite->PLineArt)
-							{
-								case Qt::SolidLine:
-									PutPage("[] 0 d\n");
-									break;
-								case Qt::DashLine:
-									PutPage("["+Da+" "+Dt+"] 0 d\n");
-									break;
-								case Qt::DotLine:
-									PutPage("["+Dt+"] 0 d\n");
-									break;
-								case Qt::DashDotLine:
-									PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
-									break;
-								case Qt::DashDotDotLine:
-									PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
-									break;
-								default:
-									PutPage("[] 0 d\n");
-									break;
-							}
-						}
-						PutPage("2 J\n");
-						switch (ite->PLineJoin)
-						{
-							case Qt::MiterJoin:
-								PutPage("0 j\n");
-								break;
-							case Qt::BevelJoin:
-								PutPage("2 j\n");
-								break;
-							case Qt::RoundJoin:
-								PutPage("1 j\n");
-								break;
-							default:
-								PutPage("0 j\n");
-								break;
-						}
-						PutPage("1 0 0 1 "+FToStr(ite->xPos() - mPage->xOffset())+" "+FToStr(mPage->height() - (ite->yPos()  - mPage->yOffset()))+" cm\n");
-						if (ite->rotation() != 0)
-						{
-							double sr = sin(-ite->rotation()* M_PI / 180.0);
-							double cr = cos(-ite->rotation()* M_PI / 180.0);
-							if ((cr * cr) < 0.000001)
-								cr = 0;
-							if ((sr * sr) < 0.000001)
-								sr = 0;
-							PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+ " 0 0 cm\n");
-						}
-						if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
-						{
-							if (ite->TopLine)
-							{
-								PutPage("0 0 m\n");
-								PutPage(FToStr(ite->width())+" 0 l\n");
-							}
-							if (ite->RightLine)
-							{
-								PutPage(FToStr(ite->width())+" 0 m\n");
-								PutPage(FToStr(ite->width())+" "+FToStr(-ite->height())+" l\n");
-							}
-							if (ite->BottomLine)
-							{
-								PutPage("0 "+FToStr(-ite->height())+" m\n");
-								PutPage(FToStr(ite->width())+" "+FToStr(-ite->height())+" l\n");
-							}
-							if (ite->LeftLine)
-							{
-								PutPage("0 0 m\n");
-								PutPage("0 "+FToStr(-ite->height())+" l\n");
-							}
-							PutPage("S\n");
-						}
-						PutPage("Q\n");
+						PutPage(PDF_ProcessTableItem(ite, pag));
 					}
 					if ((Options.Version == 15) && (Options.useLayers))
 						PutPage("EMC\n");
@@ -2064,6 +1829,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 			PItems = doc.DocItems;
 		if (ll.isPrintable)
 		{
+			QString inh = "";
 			if ((Options.Version == 15) && (Options.useLayers))
 				PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
 			for (uint a = 0; a < PItems.count() && !abortExport; ++a)
@@ -2076,161 +1842,295 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				ite = PItems.at(a);
 				if (ite->LayerNr != ll.LNr)
 					continue;
-				PutPage(PDF_ProcessItem(ite, pag, PNr));
+				if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= 14))
+					inh += PDF_ProcessItem(ite, pag, PNr);
+				else
+					PutPage(PDF_ProcessItem(ite, pag, PNr));
 			}
-				for (uint a = 0; a < PItems.count() && !abortExport; ++a)
+			for (uint a = 0; a < PItems.count() && !abortExport; ++a)
+			{
+				if (usingGUI)
 				{
-					if (usingGUI)
-					{
-						progressDialog->setProgress("ECPI", ++pc_exportpagesitems);
-						qApp->processEvents();
-					}
-					ite = PItems.at(a);
-					if (ite->LayerNr != ll.LNr)
-						continue;
-					if (!ite->isTableItem)
-						continue;
-					double x = pag->xOffset();
-					double y = pag->yOffset();
-					double w = pag->width();
-					double h1 = pag->height();
-					double ilw=ite->lineWidth();
-					double x2 = ite->BoundingX - ilw / 2.0;
-					double y2 = ite->BoundingY - ilw / 2.0;
-					double w2 = ite->BoundingW + ilw;
-					double h2 = ite->BoundingH + ilw;
-					if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
-						continue;
-					if (ite->ChangedMasterItem)
-						continue;
-					if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
-						continue;
-					PutPage("q\n");
-					if ((ite->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
-					{
-						StartObj(ObjCounter);
-						QString ShName = ResNam+QString::number(ResCount);
-						Transpar[ShName] = ObjCounter;
-						ResCount++;
-						ObjCounter++;
-						PutDoc("<< /Type /ExtGState\n");
-						PutDoc("/OP true\n");
-						PutDoc("/op true\n");
-						PutDoc("/OPM 1\n");
-						PutDoc(">>\nendobj\n");
-						PutPage("/"+ShName+" gs\n");
-					}
-					if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
-						PutPage(PDF_Transparenz(ite));
-					if (!ite->printEnabled())
-					{
-						PutPage("Q\n");
-						continue;
-					}
-					if (ite->fillColor() != CommonStrings::None)
-						PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
-					if (ite->lineColor() != CommonStrings::None)
-						PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
-					Inhalt += FToStr(fabs(ite->lineWidth()))+" w\n";
-					if (ite->DashValues.count() != 0)
-					{
-						PutPage("[ ");
-						QValueList<double>::iterator it;
-						for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
-						{
-							int da = static_cast<int>(*it);
-							if (da != 0)
-								PutPage(QString::number(da)+" ");
-						}
-						PutPage("] "+QString::number(static_cast<int>(ite->DashOffset))+" d\n");
-					}
-					else
-					{
-						QString Dt = FToStr(QMAX(2*fabs(ite->lineWidth()), 1));
-						QString Da = FToStr(QMAX(6*fabs(ite->lineWidth()), 1));
-						switch (ite->PLineArt)
-						{
-							case Qt::SolidLine:
-								PutPage("[] 0 d\n");
-								break;
-							case Qt::DashLine:
-								PutPage("["+Da+" "+Dt+"] 0 d\n");
-								break;
-							case Qt::DotLine:
-								PutPage("["+Dt+"] 0 d\n");
-								break;
-							case Qt::DashDotLine:
-								PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
-								break;
-							case Qt::DashDotDotLine:
-								PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
-								break;
-							default:
-								PutPage("[] 0 d\n");
-								break;
-						}
-					}
-					PutPage("2 J\n");
-					switch (ite->PLineJoin)
-					{
-						case Qt::MiterJoin:
-							PutPage("0 j\n");
-							break;
-						case Qt::BevelJoin:
-							PutPage("2 j\n");
-							break;
-						case Qt::RoundJoin:
-							PutPage("1 j\n");
-							break;
-						default:
-							PutPage("0 j\n");
-							break;
-					}
-					PutPage("1 0 0 1 "+FToStr(ite->xPos() - pag->xOffset())+" "+FToStr(pag->height() - (ite->yPos()  - pag->yOffset()))+" cm\n");
-					if (ite->rotation() != 0)
-					{
-						double sr = sin(-ite->rotation()* M_PI / 180.0);
-						double cr = cos(-ite->rotation()* M_PI / 180.0);
-						if ((cr * cr) < 0.000001)
-							cr = 0;
-						if ((sr * sr) < 0.000001)
-							sr = 0;
-						PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+ " 0 0 cm\n");
-					}
-					if (ite->isTableItem)
-					{
-						if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
-						{
-							if (ite->TopLine)
-							{
-								PutPage("0 0 m\n");
-								PutPage(FToStr(ite->width())+" 0 l\n");
-							}
-							if (ite->RightLine)
-							{
-								PutPage(FToStr(ite->width())+" 0 m\n");
-								PutPage(FToStr(ite->width())+" "+FToStr(-ite->height())+" l\n");
-							}
-							if (ite->BottomLine)
-							{
-								PutPage("0 "+FToStr(-ite->height())+" m\n");
-								PutPage(FToStr(ite->width())+" "+FToStr(-ite->height())+" l\n");
-							}
-							if (ite->LeftLine)
-							{
-								PutPage("0 0 m\n");
-								PutPage("0 "+FToStr(-ite->height())+" l\n");
-							}
-							PutPage("S\n");
-						}
-					}
-					PutPage("Q\n");
+					progressDialog->setProgress("ECPI", ++pc_exportpagesitems);
+					qApp->processEvents();
 				}
-				if ((Options.Version == 15) && (Options.useLayers))
-					PutPage("EMC\n");
+				ite = PItems.at(a);
+				if (ite->LayerNr != ll.LNr)
+					continue;
+				if (!ite->isTableItem)
+					continue;
+				double x = pag->xOffset();
+				double y = pag->yOffset();
+				double w = pag->width();
+				double h1 = pag->height();
+				double ilw=ite->lineWidth();
+				double x2 = ite->BoundingX - ilw / 2.0;
+				double y2 = ite->BoundingY - ilw / 2.0;
+				double w2 = ite->BoundingW + ilw;
+				double h2 = ite->BoundingH + ilw;
+				if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
+					continue;
+				if (ite->ChangedMasterItem)
+					continue;
+				if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
+					continue;
+				if (!ite->printEnabled())
+					continue;
+				if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= 14))
+					inh += PDF_ProcessTableItem(ite, pag);
+				else
+					PutPage(PDF_ProcessTableItem(ite, pag));
+			}
+			if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= 14))
+			{
+				StartObj(ObjCounter);
+				int Gobj = ObjCounter;
+				ObjCounter++;
+				PutDoc("<< /Type /Group\n");
+				PutDoc("/S /Transparency\n");
+				PutDoc("/I false\n");
+				PutDoc("/K false\n");
+				PutDoc(">>\nendobj\n");
+				StartObj(ObjCounter);
+				QString ShName = ResNam+QString::number(ResCount);
+				Transpar[ShName] = ObjCounter;
+				ResCount++;
+				ObjCounter++;
+				PutDoc("<< /Type /ExtGState\n");
+				PutDoc("/CA "+FToStr(ll.transparency)+"\n");
+				PutDoc("/ca "+FToStr(ll.transparency)+"\n");
+				PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
+				PutDoc("/BM /");
+				switch (ll.blendMode)
+				{
+					case 0:
+						PutDoc("Normal");
+						break;
+					case 1:
+						PutDoc("Darken");
+						break;
+					case 2:
+						PutDoc("Lighten");
+						break;
+					case 3:
+						PutDoc("Multiply");
+						break;
+					case 4:
+						PutDoc("Screen");
+						break;
+					case 5:
+						PutDoc("Overlay");
+						break;
+					case 6:
+						PutDoc("HardLight");
+						break;
+					case 7:
+						PutDoc("SoftLight");
+						break;
+					case 8:
+						PutDoc("Difference");
+						break;
+					case 9:
+						PutDoc("Exlusion");
+						break;
+					case 10:
+						PutDoc("ColorDodge");
+						break;
+					case 11:
+						PutDoc("ColorBurn");
+						break;
+				}
+				PutDoc("\n>>\nendobj\n");
+				StartObj(ObjCounter);
+				ObjCounter++;
+				PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
+				PutDoc("/BBox [ 0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
+				PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
+				PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+				if (Seite.ImgObjects.count() != 0)
+				{
+					PutDoc("/XObject <<\n");
+					QMap<QString,int>::Iterator it;
+					for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
+						PutDoc("/"+it.key()+" "+QString::number(it.data())+" 0 R\n");
+					PutDoc(">>\n");
+				}
+				if (Seite.FObjects.count() != 0)
+				{
+					PutDoc("/Font << \n");
+					QMap<QString,int>::Iterator it2;
+					for (it2 = Seite.FObjects.begin(); it2 != Seite.FObjects.end(); ++it2)
+						PutDoc("/"+it2.key()+" "+QString::number(it2.data())+" 0 R\n");
+					PutDoc(">>\n");
+				}
+				if (Shadings.count() != 0)
+				{
+					PutDoc("/Shading << \n");
+					QMap<QString,int>::Iterator it3;
+					for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
+						PutDoc("/"+it3.key()+" "+QString::number(it3.data())+" 0 R\n");
+					PutDoc(">>\n");
+				}
+				if (Transpar.count() != 0)
+				{
+					PutDoc("/ExtGState << \n");
+					QMap<QString,int>::Iterator it3t;
+					for (it3t = Transpar.begin(); it3t != Transpar.end(); ++it3t)
+						PutDoc("/"+it3t.key()+" "+QString::number(it3t.data())+" 0 R\n");
+					PutDoc(">>\n");
+				}
+				if ((ICCProfiles.count() != 0) || (spotMap.count() != 0))
+				{
+					PutDoc("/ColorSpace << \n");
+					QMap<QString,ICCD>::Iterator it3c;
+					if (ICCProfiles.count() != 0)
+					{
+						for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
+							PutDoc("/"+it3c.data().ResName+" "+QString::number(it3c.data().ResNum)+" 0 R\n");
+					}
+					QMap<QString,SpotC>::Iterator it3sc;
+					if (spotMap.count() != 0)
+					{
+					for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
+						PutDoc("/"+it3sc.data().ResName+" "+QString::number(it3sc.data().ResNum)+" 0 R\n");
+					}
+					PutDoc(">>\n");
+				}
+				PutDoc(">>\n");
+				if ((Options.Compress) && (CompAvail))
+					inh = CompressStr(&inh);
+				PutDoc("/Length "+QString::number(inh.length()+1));
+				if ((Options.Compress) && (CompAvail))
+					PutDoc("\n/Filter /FlateDecode");
+				PutDoc(" >>\nstream\n"+EncStream(inh, ObjCounter-1)+"\nendstream\nendobj\n");
+				QString name = ll.Name.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + QString::number(ll.LNr);
+				Seite.XObjects[name] = ObjCounter-1;
+				PutPage("/"+ShName+" gs\n");
+				PutPage("/"+name+" Do\n");
+			}
+			if ((Options.Version == 15) && (Options.useLayers))
+				PutPage("EMC\n");
 			}
 		Lnr++;
 	}
+}
+
+QString PDFlib::PDF_ProcessTableItem(PageItem* ite, const Page* pag)
+{
+	QString tmp("");
+	tmp += "q\n";
+	if ((ite->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
+	{
+		StartObj(ObjCounter);
+		QString ShName = ResNam+QString::number(ResCount);
+		Transpar[ShName] = ObjCounter;
+		ResCount++;
+		ObjCounter++;
+		PutDoc("<< /Type /ExtGState\n");
+		PutDoc("/OP true\n");
+		PutDoc("/op true\n");
+		PutDoc("/OPM 1\n");
+		PutDoc(">>\nendobj\n");
+		tmp += "/"+ShName+" gs\n";
+	}
+	if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
+		tmp += PDF_Transparenz(ite);
+	if (ite->fillColor() != CommonStrings::None)
+		tmp += putColor(ite->fillColor(), ite->fillShade(), true);
+	if (ite->lineColor() != CommonStrings::None)
+		tmp += putColor(ite->lineColor(), ite->lineShade(), false);
+	tmp += FToStr(fabs(ite->lineWidth()))+" w\n";
+	if (ite->DashValues.count() != 0)
+	{
+		tmp += "[ ";
+		QValueList<double>::iterator it;
+		for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
+		{
+			int da = static_cast<int>(*it);
+			if (da != 0)
+				tmp += QString::number(da)+" ";
+		}
+		tmp += "] "+QString::number(static_cast<int>(ite->DashOffset))+" d\n";
+	}
+	else
+	{
+		QString Dt = FToStr(QMAX(2*fabs(ite->lineWidth()), 1));
+		QString Da = FToStr(QMAX(6*fabs(ite->lineWidth()), 1));
+		switch (ite->PLineArt)
+		{
+			case Qt::SolidLine:
+				tmp += "[] 0 d\n";
+				break;
+			case Qt::DashLine:
+				tmp += "["+Da+" "+Dt+"] 0 d\n";
+				break;
+			case Qt::DotLine:
+				tmp += "["+Dt+"] 0 d\n";
+				break;
+			case Qt::DashDotLine:
+				tmp += "["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n";
+				break;
+			case Qt::DashDotDotLine:
+				tmp += "["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n";
+				break;
+			default:
+				tmp += "[] 0 d\n";
+				break;
+		}
+	}
+	tmp += "2 J\n";
+	switch (ite->PLineJoin)
+	{
+		case Qt::MiterJoin:
+			tmp += "0 j\n";
+			break;
+		case Qt::BevelJoin:
+			tmp += "2 j\n";
+			break;
+		case Qt::RoundJoin:
+			tmp += "1 j\n";
+			break;
+		default:
+			tmp += "0 j\n";
+			break;
+	}
+	tmp += "1 0 0 1 "+FToStr(ite->xPos() - pag->xOffset())+" "+FToStr(pag->height() - (ite->yPos()  - pag->yOffset()))+" cm\n";
+	if (ite->rotation() != 0)
+	{
+		double sr = sin(-ite->rotation()* M_PI / 180.0);
+		double cr = cos(-ite->rotation()* M_PI / 180.0);
+		if ((cr * cr) < 0.000001)
+			cr = 0;
+		if ((sr * sr) < 0.000001)
+			sr = 0;
+		tmp += FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+ " 0 0 cm\n";
+	}
+	if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
+	{
+		if (ite->TopLine)
+		{
+			tmp += "0 0 m\n";
+			tmp += FToStr(ite->width())+" 0 l\n";
+		}
+		if (ite->RightLine)
+		{
+			tmp += FToStr(ite->width())+" 0 m\n";
+			tmp += FToStr(ite->width())+" "+FToStr(-ite->height())+" l\n";
+		}
+		if (ite->BottomLine)
+		{
+			tmp += "0 "+FToStr(-ite->height())+" m\n";
+			tmp += FToStr(ite->width())+" "+FToStr(-ite->height())+" l\n";
+		}
+		if (ite->LeftLine)
+		{
+			tmp += "0 0 m\n";
+			tmp += "0 "+FToStr(-ite->height())+" l\n";
+		}
+		tmp += "S\n";
+	}
+	tmp += "Q\n";
+	return tmp;
 }
 
 QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool embedded)

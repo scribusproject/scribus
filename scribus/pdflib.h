@@ -90,6 +90,7 @@ private:
 	QString SetFarbe(const QString& farbe, int Shade);
 	QString putColor(const QString& color, int Shade, bool fill);
 	QString putColorUncached(const QString& color, int Shade, bool fill);
+	QString PDF_ProcessTableItem(PageItem* ite, const Page* pag);
 	QString PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool embedded = false);
 	QString setTextSt(PageItem *ite, uint PNr, const Page* pag);
 	void setTextCh(PageItem *ite, uint PNr, uint d,  QString &tmp, QString &tmp2, const ScText * hl, const Page* pag);

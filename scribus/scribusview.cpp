@@ -292,7 +292,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		la.LNr = 0;
 		int Lnr = 0;
 		Level2Layer(Doc, &la, Lnr);
-		QImage img = QImage(clipw, cliph, 32, QImage::BigEndian);
+		QImage img = QImage(clipw, cliph, 32);
 		if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
 			painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
 		else
