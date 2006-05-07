@@ -139,6 +139,8 @@ void FontPreview::fontList_mouseButtonClicked( int, QListViewItem *item, const Q
 
 void FontPreview::paintSample(QListViewItem *item)
 {
+	if (!item)
+		return;
 	sampleItem->setFontSize(sizeSpin->value() * 10, true);
 	sampleItem->setFont(item->text(0));
 	QPixmap pixmap = sampleItem->getSample(fontPreview->maximumWidth(),
