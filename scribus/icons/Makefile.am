@@ -17,19 +17,29 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/document-save.png \
 16/document-save-as.png \
 22/document-save-as.png \
+16/draw-arrow-back.png \
 22/draw-arrow-back.png \
+16/draw-arrow-down.png \
 22/draw-arrow-down.png \
+16/draw-arrow-forward.png \
 22/draw-arrow-forward.png \
+16/draw-arrow-up.png \
 22/draw-arrow-up.png \
 16/draw-bezier-curves.png \
 22/draw-bezier-curves.png \
+16/draw-cross.png \
 22/draw-cross.png \
 16/draw-ellipse.png \
 22/draw-ellipse.png \
 22/draw-freehand.png \
+22/draw-freehand.png \
+16/draw-halfcircle1.png \
 22/draw-halfcircle1.png \
+16/draw-halfcircle2.png \
 22/draw-halfcircle2.png \
+16/draw-halfcircle3.png \
 22/draw-halfcircle3.png \
+16/draw-halfcircle4.png \
 22/draw-halfcircle4.png \
 16/draw-polygon.png \
 22/draw-polygon.png \
@@ -39,9 +49,13 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/draw-rectangle.png \
 16/draw-star.png \
 22/draw-star.png \
+17/draw-triangle1.png \
 22/draw-triangle1.png \
 22/draw-triangle2.png \
+22/draw-triangle2.png \
+16/draw-triangle3.png \
 22/draw-triangle3.png \
+16/draw-triangle4.png \
 22/draw-triangle4.png \
 22/draw-triangle.png \
 16/edit-copy.png \
@@ -218,28 +232,44 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/documentinfo.png $(prefix)/share/scribus/icons/documentinfo.png
 	$(INSTALL_DATA) $(srcdir)/documentinfo32.png $(prefix)/share/scribus/icons/documentinfo32.png
 	$(INSTALL_DATA) $(srcdir)/down.png $(prefix)/share/scribus/icons/down.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-arrow-back.png $(prefix)/share/scribus/icons/16/draw-arrow-back.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-back.png $(prefix)/share/scribus/icons/22/draw-arrow-back.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-arrow-down.png $(prefix)/share/scribus/icons/16/draw-arrow-down.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-down.png $(prefix)/share/scribus/icons/22/draw-arrow-down.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-arrow-forward.png $(prefix)/share/scribus/icons/16/draw-arrow-forward.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-forward.png $(prefix)/share/scribus/icons/22/draw-arrow-forward.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-arrow-up.png $(prefix)/share/scribus/icons/16/draw-arrow-up.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-up.png $(prefix)/share/scribus/icons/22/draw-arrow-up.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-bezier-curves.png $(prefix)/share/scribus/icons/16/draw-bezier-curves.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-bezier-curves.png $(prefix)/share/scribus/icons/22/draw-bezier-curves.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-cross.png $(prefix)/share/scribus/icons/16/draw-cross.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-cross.png $(prefix)/share/scribus/icons/22/draw-cross.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-ellipse.png $(prefix)/share/scribus/icons/16/draw-ellipse.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-ellipse.png $(prefix)/share/scribus/icons/22/draw-ellipse.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-freehand.png $(prefix)/share/scribus/icons/22/draw-freehand.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-halfcircle1.png $(prefix)/share/scribus/icons/16/draw-halfcircle1.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle1.png $(prefix)/share/scribus/icons/22/draw-halfcircle1.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-halfcircle2.png $(prefix)/share/scribus/icons/16/draw-halfcircle2.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle2.png $(prefix)/share/scribus/icons/22/draw-halfcircle2.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-halfcircle3.png $(prefix)/share/scribus/icons/16/draw-halfcircle3.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle3.png $(prefix)/share/scribus/icons/22/draw-halfcircle3.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-halfcircle4.png $(prefix)/share/scribus/icons/16/draw-halfcircle4.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle4.png $(prefix)/share/scribus/icons/22/draw-halfcircle4.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-polygon.png $(prefix)/share/scribus/icons/16/draw-polygon.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-polygon.png $(prefix)/share/scribus/icons/22/draw-polygon.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-polyline.png $(prefix)/share/scribus/icons/16/draw-polyline.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-polyline.png $(prefix)/share/scribus/icons/22/draw-polyline.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-rectangle.png $(prefix)/share/scribus/icons/16/draw-rectangle.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-rectangle.png $(prefix)/share/scribus/icons/22/draw-rectangle.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-star.png $(prefix)/share/scribus/icons/16/draw-star.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-star.png $(prefix)/share/scribus/icons/22/draw-star.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-triangle1.png $(prefix)/share/scribus/icons/16/draw-triangle1.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-triangle1.png $(prefix)/share/scribus/icons/22/draw-triangle1.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-triangle2.png $(prefix)/share/scribus/icons/16/draw-triangle2.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-triangle2.png $(prefix)/share/scribus/icons/22/draw-triangle2.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-triangle3.png $(prefix)/share/scribus/icons/16/draw-triangle3.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-triangle3.png $(prefix)/share/scribus/icons/22/draw-triangle3.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-triangle4.png $(prefix)/share/scribus/icons/16/draw-triangle4.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-triangle4.png $(prefix)/share/scribus/icons/22/draw-triangle4.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-triangle.png $(prefix)/share/scribus/icons/22/draw-triangle.png
 	$(INSTALL_DATA) $(srcdir)/DragPix.xpm $(prefix)/share/scribus/icons/DragPix.xpm
