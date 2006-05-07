@@ -1406,24 +1406,23 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-/*							if(view->EditContour)
-							{
+							//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
+							if(view->EditContour)
 								view->TransformPoly(10, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
-							}
-							else
-							{*/
-							if (resizingsmaller)
-							{
-								currItem->Sizing = false;
-								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
-							}
 							else
 							{
-								ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
-								currItem->Sizing = false;
-								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
-							}
-// 							}
+								if (resizingsmaller)
+								{
+									currItem->Sizing = false;
+									view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+								}
+								else
+								{
+									ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
+									currItem->Sizing = false;
+									view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+								}
+ 							}
 						}
 						view->updateContents();
 						slotDocCh();
@@ -1459,24 +1458,23 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-// 		CB test				if(view->EditContour)
-// 							{
-// 								view->TransformPoly(11, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
-// 							}
-// 							else
-// 							{
-							if (resizingsmaller)
-							{
-								ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
-								currItem->Sizing = false;
-								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
-							}
+							//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
+							if(view->EditContour)
+								view->TransformPoly(11, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
 							else
 							{
-								currItem->Sizing = false;
-								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+								if (resizingsmaller)
+								{
+									ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
+									currItem->Sizing = false;
+									view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+								}
+								else
+								{
+									currItem->Sizing = false;
+									view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+								}
 							}
-// 							}
 						}
 						view->updateContents();
 						slotDocCh();
@@ -1512,16 +1510,22 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-							if (resizingsmaller)
-							{
-								currItem->Sizing = false;
-								view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
-							}
+							//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
+							if(view->EditContour)
+								view->TransformPoly(12, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
 							else
 							{
-								ScMW->view->MoveItem(0, -resizeBy, currItem, false);
-								currItem->Sizing = false;
-								view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+								if (resizingsmaller)
+								{
+									currItem->Sizing = false;
+									view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+								}
+								else
+								{
+									ScMW->view->MoveItem(0, -resizeBy, currItem, false);
+									currItem->Sizing = false;
+									view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+								}
 							}
 						}
 						view->updateContents();
@@ -1558,16 +1562,22 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-							if (resizingsmaller)
-							{
-								ScMW->view->MoveItem(0, -resizeBy, currItem, false);
-								currItem->Sizing = false;
-								view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
-							}
+							//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
+							if(view->EditContour)
+								view->TransformPoly(13, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
 							else
 							{
-								currItem->Sizing = false;
-								view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+								if (resizingsmaller)
+								{
+									ScMW->view->MoveItem(0, -resizeBy, currItem, false);
+									currItem->Sizing = false;
+									view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+								}
+								else
+								{
+									currItem->Sizing = false;
+									view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+								}
 							}
 						}
 						view->updateContents();

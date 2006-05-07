@@ -6080,16 +6080,35 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		case 9:
 			ma.scale(1.0 + (scaling / 100.0), 1.0 + (scaling / 100.0));
 			break;
-/*CB test		case 10:
-			double v1=1.0 - (scaling/(tp2.x() - tp.x()));
-			ma.scale(v1, 1);
-			ma.translate(-scaling/v1/2,0);
+		//10-13 are for scaling the contour line in shape edit mode
+		case 10:
+			{
+				double s=1.0 - (scaling/(tp2.x() - tp.x()));
+				ma.scale(s, 1);
+				ma.translate(-scaling/s/2,0);
+			}
 			break;
 		case 11:
-			double v2=1.0 - (scaling/(tp2.x() - tp.x()));
-			ma.scale(v2, 1);
-			ma.translate(scaling/v2/2,0);
-			break;*/
+			{
+				double s=1.0 - (scaling/(tp2.x() - tp.x()));
+				ma.scale(s, 1);
+				ma.translate(scaling/s/2,0);
+			}
+			break;
+		case 12:
+			{
+				double s=1.0 - (scaling/(tp2.y() - tp.y()));
+				ma.scale(1, s);
+				ma.translate(0,-scaling/s/2);
+			}
+			break;
+		case 13:
+			{
+				double s=1.0 - (scaling/(tp2.y() - tp.y()));
+				ma.scale(1, s);
+				ma.translate(0,scaling/s/2);
+			}
+			break;
 		}
 		currItem->ContourLine.map(ma);
 		currItem->ContourLine.translate(qRound((tp.x() + tp2.x()) / 2.0), qRound((tp.y() + tp2.y()) / 2.0));
