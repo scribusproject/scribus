@@ -4220,6 +4220,7 @@ void ScribusApp::slotEditCut()
 			BufferI = ss->WriteElem(&doc->ActPage->SelItem, doc);
 			Buffer2 = BufferI;
 			doc->ActPage->DeleteItem();
+			delete ss;
 		}
 		slotDocCh();
 		BuFromApp = true;
