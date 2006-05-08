@@ -60,7 +60,7 @@ class SCRIBUS_API Foi
 		                  SFNT, TTCF, UNKNOWN_FORMAT };
 		
 		Foi(QString fam, QString style, QString alt, QString psname, QString path, int face, bool embedps);
-		virtual ~Foi() {};
+		virtual ~Foi();
 		virtual QString RealName();
 		virtual bool EmbedFont(QString &str);
 		virtual void RawData(QByteArray & bb);

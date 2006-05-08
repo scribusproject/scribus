@@ -78,6 +78,11 @@ Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path,
 	}
 }
 
+Foi::~Foi() {
+	if (face) {
+		FT_Done_Face( face );
+	}
+}
 
 FT_Face Foi::ftFace() const {
 	if (!face) {
