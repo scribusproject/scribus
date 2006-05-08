@@ -4362,6 +4362,7 @@ void ScribusMainWindow::slotEditCut()
 			BufferI = ss->WriteElem(doc, view, doc->m_Selection);
 			Buffer2 = BufferI;
 			doc->itemSelection_DeleteItem();
+			delete ss;
 		}
 		slotDocCh();
 		BuFromApp = true;
