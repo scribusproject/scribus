@@ -9924,7 +9924,7 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>En måde at fjerne nogle af gråtonerne, som er sammensat
+        <translation type="obsolete">En måde at fjerne nogle af gråtonerne, som er sammensat
 af cyan, gul og magenta, så der i stedet for disse farver bruges sort.
 UCR påvirker mest de dele af billedet, som er neutrale og/eller mørke i farven, det, 
 som er tættets på gråt. Brug af denne metode kan forbedre udskrivningen af nogle 
@@ -9985,6 +9985,12 @@ be changed with documents open.</source>
     <message>
         <source>File system location for the GhostScript interpreter</source>
         <translation>Placering af GhostScript fortolkeren i filsystemet</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation>En måde at fjerne nogle af gråtonerne, som er sammensat af cyan, gul og magenta, så der i stedet for disse farver bruges sort.
+UCR påvirker mest de dele af billedet, som er neutrale og/eller mørke i farven, det, som er tættets på gråt. Brug af denne metode kan forbedre udskrivningen af nogle billeder og nogen eksperimenteren og testning er nødvendigt fra tilfælde til tilfælde.
+UCR formindsker muligheden for overmætning af CMY farverne.</translation>
     </message>
 </context>
 <context>
