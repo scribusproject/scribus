@@ -232,19 +232,28 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/documentinfo.png $(prefix)/share/scribus/icons/documentinfo.png
 	$(INSTALL_DATA) $(srcdir)/documentinfo32.png $(prefix)/share/scribus/icons/documentinfo32.png
 	$(INSTALL_DATA) $(srcdir)/down.png $(prefix)/share/scribus/icons/down.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-arrow-back.png $(prefix)/share/scribus/icons/16/draw-arrow-back.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-back.png $(prefix)/share/scribus/icons/22/draw-arrow-back.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-arrow-down.png $(prefix)/share/scribus/icons/16/draw-arrow-down.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-down.png $(prefix)/share/scribus/icons/22/draw-arrow-down.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-arrow-forward.png $(prefix)/share/scribus/icons/16/draw-arrow-forward.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-forward.png $(prefix)/share/scribus/icons/22/draw-arrow-forward.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-arrow-up.png $(prefix)/share/scribus/icons/16/draw-arrow-up.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-up.png $(prefix)/share/scribus/icons/22/draw-arrow-up.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-bezier-curves.png $(prefix)/share/scribus/icons/16/draw-bezier-curves.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-bezier-curves.png $(prefix)/share/scribus/icons/22/draw-bezier-curves.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-cross.png $(prefix)/share/scribus/icons/16/draw-cross.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-cross.png $(prefix)/share/scribus/icons/22/draw-cross.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-ellipse.png $(prefix)/share/scribus/icons/16/draw-ellipse.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-ellipse.png $(prefix)/share/scribus/icons/22/draw-ellipse.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-freehand.png $(prefix)/share/scribus/icons/22/draw-freehand.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-halfcircle1.png $(prefix)/share/scribus/icons/16/draw-halfcircle1.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle1.png $(prefix)/share/scribus/icons/22/draw-halfcircle1.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-halfcircle2.png $(prefix)/share/scribus/icons/16/draw-halfcircle2.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle2.png $(prefix)/share/scribus/icons/22/draw-halfcircle2.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-halfcircle3.png $(prefix)/share/scribus/icons/16/draw-halfcircle3.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle3.png $(prefix)/share/scribus/icons/22/draw-halfcircle3.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-halfcircle4.png $(prefix)/share/scribus/icons/16/draw-halfcircle4.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle4.png $(prefix)/share/scribus/icons/22/draw-halfcircle4.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-polygon.png $(prefix)/share/scribus/icons/16/draw-polygon.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-polygon.png $(prefix)/share/scribus/icons/22/draw-polygon.png
