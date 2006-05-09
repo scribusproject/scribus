@@ -427,6 +427,7 @@ void StilFormate::loadStyles()
 				delete ss;
 			}
 		}
+		delete dia2;
 		UpdateFList();
 	}
 	else

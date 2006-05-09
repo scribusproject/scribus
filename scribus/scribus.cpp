@@ -6009,8 +6009,8 @@ void ScribusMainWindow::setItemFSize(int id)
 			c = qRound(dia->getEditText().toDouble(&ok));
 			if ((ok) && (c < 1025) && (c > 0))
 				doc->chFSize(c*10);
-			delete dia;
 		}
+		delete dia;
 	}
 	propertiesPalette->setSize(c*10);
 	slotDocCh();
@@ -6064,9 +6064,9 @@ void ScribusMainWindow::setItemShade(int id)
 						doc->ItemTextBrushS(c);
 					else
 						doc->ItemBrushShade(c);
-				}
-				delete dia;
+				}	
 			}
+			delete dia;
 		}
 	}
 	slotDocCh();

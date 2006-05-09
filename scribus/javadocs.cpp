@@ -93,8 +93,8 @@ void JavaDocs::slotAdd()
 			emit docChanged(false);
 		}
 		delete dia2;
-		delete dia;
 	}
+	delete dia;
 }
 
 void JavaDocs::slotEdit()

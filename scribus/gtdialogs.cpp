@@ -250,9 +250,10 @@ bool gtDialogs::runImporterDialog(const QStringList& importers)
 		{
 			res = idia->getImporter();
 			shouldRemember = idia->shouldRemember();
-			delete idia;
+			
 			ok = true;
 		}
+		delete idia;
 	}
 
 	if (ok)

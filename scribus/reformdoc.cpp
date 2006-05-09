@@ -119,6 +119,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	prefsPageSizeName=ps->getPageName();
 
 	int sizeIndex=pageSizes.findIndex(ps->getPageText());
+	delete ps;
 	//set Custom if we dont have one already as old docs wont have this attribute
 	if (sizeIndex!=-1)
 		pageSizeComboBox->setCurrentItem(sizeIndex);
