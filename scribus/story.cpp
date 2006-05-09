@@ -3616,8 +3616,8 @@ void StoryEditor::LoadTextFile()
 				seActions["editCopy"]->setEnabled(false);
 				seActions["editCut"]->setEnabled(false);
 				seActions["editClear"]->setEnabled(false);
-				delete ss;
 			}
+			delete ss;
 		}
 		EditorBar->setRepaint(true);
 		EditorBar->doRepaint();
