@@ -49,6 +49,7 @@ using namespace std;
 ScriXmlDoc::ScriXmlDoc()
 {
 	prefsManager=PrefsManager::instance();
+	dummyFois.setAutoDelete(true);
 }
 
 bool ScriXmlDoc::IsScribus(QString fileName)
