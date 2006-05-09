@@ -65,6 +65,7 @@ FileLoader::FileLoader(const QString & fileName) :
 	formatODG(LoadSavePlugin::getFormatById(FORMATID_ODGIMPORT)),
 	prefsManager(PrefsManager::instance())
 {
+	dummyFois.setAutoDelete(true);
 }
 
 // FIXME: This static method is here as a temporary transitional
@@ -244,6 +245,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 				ReplacedFonts = ss.ReplacedFonts;
 				newReplacement = ss.newReplacement;
 				dummyFois = ss.dummyFois;
+				ss.dummyFois.setAutoDelete(false);
 			}
 			break;
 		case 1:
@@ -384,6 +386,7 @@ bool FileLoader::LoadFile()
 				ReplacedFonts = ss.ReplacedFonts;
 				newReplacement = ss.newReplacement;
 				dummyFois = ss.dummyFois;
+				ss.dummyFois.setAutoDelete(false);
 			}
 			break;
 		case 1:
