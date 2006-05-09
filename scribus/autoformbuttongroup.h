@@ -24,7 +24,7 @@ public:
 	AutoformButtonGroup( QWidget* parent );
 	~AutoformButtonGroup() {};
 	double* getShapeData(int a, int *n);
-	QPixmap getIconPixmap(int nr);
+	QPixmap getIconPixmap(int nr, int pixmapSize=22);
 
 	QToolButton* toolButton1;
 	QToolButton* toolButton2;

@@ -27,79 +27,79 @@ AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : QButtonGroup( pare
 	buttonGroup1Layout->setAlignment( Qt::AlignTop );
 	toolButton1 = new QToolButton( this, "toolButton1" );
 	toolButton1->setToggleButton( true );
-	toolButton1->setPixmap(getIconPixmap(0));
+	toolButton1->setPixmap(getIconPixmap(0,16));
 	buttonGroup1Layout->addWidget( toolButton1, 0, 0 );
 	toolButton2 = new QToolButton( this, "toolButton2" );
 	toolButton2->setToggleButton( true );
-	toolButton2->setPixmap(getIconPixmap(1));
+	toolButton2->setPixmap(getIconPixmap(1,16));
 	buttonGroup1Layout->addWidget( toolButton2, 0, 1 );
 	toolButton3 = new QToolButton( this, "toolButton3" );
 	toolButton3->setToggleButton( true );
-	toolButton3->setPixmap(getIconPixmap(2));
+	toolButton3->setPixmap(getIconPixmap(2,16));
 	buttonGroup1Layout->addWidget( toolButton3, 0, 2 );
 	toolButton4 = new QToolButton( this, "toolButton4" );
 	toolButton4->setToggleButton( true );
-	toolButton4->setPixmap(getIconPixmap(3));
+	toolButton4->setPixmap(getIconPixmap(3,16));
 	buttonGroup1Layout->addWidget( toolButton4, 0, 3 );
 
 	toolButton5 = new QToolButton( this, "toolButton3" );
 	toolButton5->setToggleButton( true );
-	toolButton5->setPixmap(getIconPixmap(4));
+	toolButton5->setPixmap(getIconPixmap(4,16));
 	buttonGroup1Layout->addWidget( toolButton5, 1, 0 );
 	toolButton6 = new QToolButton( this, "toolButton4" );
 	toolButton6->setToggleButton( true );
-	toolButton6->setPixmap(getIconPixmap(5));
+	toolButton6->setPixmap(getIconPixmap(5,16));
 	buttonGroup1Layout->addWidget( toolButton6, 1, 1 );
 	toolButton7 = new QToolButton( this, "toolButton3" );
 	toolButton7->setToggleButton( true );
-	toolButton7->setPixmap(getIconPixmap(6));
+	toolButton7->setPixmap(getIconPixmap(6,16));
 	buttonGroup1Layout->addWidget( toolButton7, 1, 2 );
 	toolButton8 = new QToolButton( this, "toolButton4" );
 	toolButton8->setToggleButton( true );
-	toolButton8->setPixmap(getIconPixmap(7));
+	toolButton8->setPixmap(getIconPixmap(7,16));
 	buttonGroup1Layout->addWidget( toolButton8, 1, 3 );
 
 	toolButton9 = new QToolButton( this, "toolButton4" );
 	toolButton9->setToggleButton( true );
-	toolButton9->setPixmap(getIconPixmap(8));
+	toolButton9->setPixmap(getIconPixmap(8,16));
 	buttonGroup1Layout->addWidget( toolButton9, 2, 0 );
 	toolButton10 = new QToolButton( this, "toolButton4" );
 	toolButton10->setToggleButton( true );
-	toolButton10->setPixmap(getIconPixmap(9));
+	toolButton10->setPixmap(getIconPixmap(9,16));
 	buttonGroup1Layout->addWidget( toolButton10, 2, 1 );
 	toolButton11 = new QToolButton( this, "toolButton4" );
 	toolButton11->setToggleButton( true );
-	toolButton11->setPixmap(getIconPixmap(10));
+	toolButton11->setPixmap(getIconPixmap(10,16));
 	buttonGroup1Layout->addWidget( toolButton11, 2, 2 );
 	toolButton12 = new QToolButton( this, "toolButton4" );
 	toolButton12->setToggleButton( true );
-	toolButton12->setPixmap(getIconPixmap(11));
+	toolButton12->setPixmap(getIconPixmap(11,16));
 	buttonGroup1Layout->addWidget( toolButton12, 2, 3 );
 
 	toolButton13 = new QToolButton( this, "toolButton4" );
 	toolButton13->setToggleButton( true );
-	toolButton13->setPixmap(getIconPixmap(12));
+	toolButton13->setPixmap(getIconPixmap(12,16));
 	buttonGroup1Layout->addWidget( toolButton13, 3, 0 );
 	toolButton14 = new QToolButton( this, "toolButton4" );
 	toolButton14->setToggleButton( true );
-	toolButton14->setPixmap(getIconPixmap(13));
+	toolButton14->setPixmap(getIconPixmap(13,16));
 	buttonGroup1Layout->addWidget( toolButton14, 3, 1 );
 	toolButton15 = new QToolButton( this, "toolButton4" );
 	toolButton15->setToggleButton( true );
-	toolButton15->setPixmap(getIconPixmap(14));
+	toolButton15->setPixmap(getIconPixmap(14,16));
 	buttonGroup1Layout->addWidget( toolButton15, 3, 2 );
 	toolButton16 = new QToolButton( this, "toolButton4" );
 	toolButton16->setToggleButton( true );
-	toolButton16->setPixmap(getIconPixmap(15));
+	toolButton16->setPixmap(getIconPixmap(15,16));
 	buttonGroup1Layout->addWidget( toolButton16, 3, 3 );
 
 	toolButton17 = new QToolButton( this, "toolButton4" );
 	toolButton17->setToggleButton( true );
-	toolButton17->setPixmap(getIconPixmap(16));
+	toolButton17->setPixmap(getIconPixmap(16,16));
 	buttonGroup1Layout->addWidget( toolButton17, 4, 0 );
 	toolButton18 = new QToolButton( this, "toolButton4" );
 	toolButton18->setToggleButton( true );
-	toolButton18->setPixmap(getIconPixmap(17));
+	toolButton18->setPixmap(getIconPixmap(17,16));
 	buttonGroup1Layout->addWidget( toolButton18, 4, 1 );
 	
 	connect(this, SIGNAL(clicked(int)), this, SLOT(selForm(int)));
@@ -267,44 +267,48 @@ void AutoformButtonGroup::selForm(int a)
 	emit FormSel(a, n, AutoShapes);
 }
 
-QPixmap AutoformButtonGroup::getIconPixmap(int nr)
+QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 {
+	if (pixmapSize!=16 && pixmapSize!=22)
+		qDebug("%s", QString("Autoformbuttongroup: Only 16px or 22px sizes supported!").ascii());
+	else
 	if (nr<16)
 	{
+		QString strSize=QString("%1").arg(pixmapSize);
 		switch(nr)
 		{
 			case 0:
-				return loadIcon("22/draw-rectangle.png");
+				return loadIcon(strSize+"/draw-rectangle.png");
 			case 1:
-				return loadIcon("22/draw-ellipse.png");
+				return loadIcon(strSize+"/draw-ellipse.png");
 			case 2:
-				return loadIcon("22/draw-triangle.png");
+				return loadIcon(strSize+"/draw-triangle.png");
 			case 3:
-				return loadIcon("22/draw-cross.png");
+				return loadIcon(strSize+"/draw-cross.png");
 			case 4:
-				return loadIcon("22/draw-arrow-back.png");
+				return loadIcon(strSize+"/draw-arrow-back.png");
 			case 5:
-				return loadIcon("22/draw-arrow-forward.png");
+				return loadIcon(strSize+"/draw-arrow-forward.png");
 			case 6:
-				return loadIcon("22/draw-arrow-up.png");
+				return loadIcon(strSize+"/draw-arrow-up.png");
 			case 7:
-				return loadIcon("22/draw-arrow-down.png");
+				return loadIcon(strSize+"/draw-arrow-down.png");
 			case 8:
-				return loadIcon("22/draw-halfcircle1.png");
+				return loadIcon(strSize+"/draw-halfcircle1.png");
 			case 9:
-				return loadIcon("22/draw-halfcircle2.png");
+				return loadIcon(strSize+"/draw-halfcircle2.png");
 			case 10:
-				return loadIcon("22/draw-halfcircle3.png");
+				return loadIcon(strSize+"/draw-halfcircle3.png");
 			case 11:
-				return loadIcon("22/draw-halfcircle4.png");
+				return loadIcon(strSize+"/draw-halfcircle4.png");
 			case 12:
-				return loadIcon("22/draw-triangle1.png");
+				return loadIcon(strSize+"/draw-triangle1.png");
 			case 13:
-				return loadIcon("22/draw-triangle2.png");
+				return loadIcon(strSize+"/draw-triangle2.png");
 			case 14:
-				return loadIcon("22/draw-triangle3.png");
+				return loadIcon(strSize+"/draw-triangle3.png");
 			case 15:
-				return loadIcon("22/draw-triangle4.png");
+				return loadIcon(strSize+"/draw-triangle4.png");
 		}
 	}
 	int count = 0;

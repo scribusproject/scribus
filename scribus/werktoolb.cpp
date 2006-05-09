@@ -62,9 +62,9 @@ ModeToolBar::ModeToolBar(QMainWindow* parent) : ScToolBar(tr("Tools"), "Tools", 
 		insertShapeButton->setPopupDelay(0);
 	Rechteck = new AutoformButtonGroup( NULL );
 	insertShapeButtonMenu->insertItem( Rechteck );
-	QImage newShapeIcon = Rechteck->getIconPixmap(0).convertToImage();
-	newShapeIcon.smoothScale(16,16);
-	ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(newShapeIcon,Rechteck->getIconPixmap(0)));
+	//QImage newShapeIcon = Rechteck->getIconPixmap(0).convertToImage();
+	//newShapeIcon.smoothScale(16,16);
+	ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(Rechteck->getIconPixmap(0,16),Rechteck->getIconPixmap(0)));
 
 	ScMW->scrActions["toolsInsertPolygon"]->addTo(this);
 	ScMW->scrMenuMgr->createMenu("insertPolygonButtonMenu", "insertPolygonButtonMenu");
@@ -103,10 +103,11 @@ void ModeToolBar::GetPolyProps()
 
 void ModeToolBar::SelShape(int s, int c, double *vals)
 {
-	const QPixmap* newIcon = Rechteck->find(s)->pixmap();
-	QImage newShapeIcon = Rechteck->find(s)->pixmap()->convertToImage();
-	newShapeIcon.smoothScale(16,16);
-	ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(newShapeIcon, *newIcon));
+	//const QPixmap* newIcon = Rechteck->find(s)->pixmap();
+	//QImage newShapeIcon = Rechteck->find(s)->pixmap()->convertToImage();
+	//newShapeIcon.smoothScale(16,16);
+	//ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(newShapeIcon, *newIcon));
+	ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(Rechteck->getIconPixmap(s,16),Rechteck->getIconPixmap(s)));
 	insertShapeButtonMenu->hide();
 	SubMode = s;
 	ValCount = c;

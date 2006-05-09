@@ -57,6 +57,7 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/draw-triangle3.png \
 16/draw-triangle4.png \
 22/draw-triangle4.png \
+16/draw-triangle.png \
 22/draw-triangle.png \
 16/edit-copy.png \
 22/edit-copy.png \
@@ -242,7 +243,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-up.png $(prefix)/share/scribus/icons/22/draw-arrow-up.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-bezier-curves.png $(prefix)/share/scribus/icons/16/draw-bezier-curves.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-bezier-curves.png $(prefix)/share/scribus/icons/22/draw-bezier-curves.png
-	$(INSTALL_DATA) $(srcdir)/22/draw-cross.png $(prefix)/share/scribus/icons/16/draw-cross.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-cross.png $(prefix)/share/scribus/icons/16/draw-cross.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-cross.png $(prefix)/share/scribus/icons/22/draw-cross.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-ellipse.png $(prefix)/share/scribus/icons/16/draw-ellipse.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-ellipse.png $(prefix)/share/scribus/icons/22/draw-ellipse.png
@@ -271,6 +272,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/draw-triangle3.png $(prefix)/share/scribus/icons/22/draw-triangle3.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-triangle4.png $(prefix)/share/scribus/icons/16/draw-triangle4.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-triangle4.png $(prefix)/share/scribus/icons/22/draw-triangle4.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-triangle.png $(prefix)/share/scribus/icons/16/draw-triangle.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-triangle.png $(prefix)/share/scribus/icons/22/draw-triangle.png
 	$(INSTALL_DATA) $(srcdir)/DragPix.xpm $(prefix)/share/scribus/icons/DragPix.xpm
 	$(INSTALL_DATA) $(srcdir)/DrawFrame.xpm $(prefix)/share/scribus/icons/DrawFrame.xpm
@@ -651,11 +653,17 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/draw-polyline.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-rectangle.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-rectangle.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-star.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-star.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-triangle1.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-triangle1.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-triangle2.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-triangle2.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-triangle3.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-triangle3.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-triangle4.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-triangle4.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-triangle.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-triangle.png
 	-rm -f $(prefix)/share/scribus/icons/DragPix.xpm
 	-rm -f $(prefix)/share/scribus/icons/DrawFrame.xpm

@@ -323,6 +323,12 @@ INSTALL(FILES
 16/draw-halfcircle4.png
 16/draw-polygon.png
 16/draw-rectangle.png
+16/draw-star.png
+16/draw-triangle1.png
+16/draw-triangle2.png
+16/draw-triangle3.png
+16/draw-triangle4.png
+16/draw-triangle.png
 16/edit-copy.png
 16/edit-cut.png
 16/edit-find-replace.png
