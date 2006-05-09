@@ -17,20 +17,29 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/document-save.png \
 16/document-save-as.png \
 22/document-save-as.png \
+16/draw-arrow-back.png \
 22/draw-arrow-back.png \
+16/draw-arrow-down.png \
 22/draw-arrow-down.png \
+16/draw-arrow-forward.png \
 22/draw-arrow-forward.png \
+16/draw-arrow-up.png \
 22/draw-arrow-up.png \
 16/draw-bezier-curves.png \
 22/draw-bezier-curves.png \
+16/draw-cross.png \
 22/draw-cross.png \
 16/draw-ellipse.png \
 22/draw-ellipse.png \
 22/draw-freehand.png \
 22/draw-freehand.png \
+16/draw-halfcircle1.png \
 22/draw-halfcircle1.png \
+16/draw-halfcircle2.png \
 22/draw-halfcircle2.png \
+16/draw-halfcircle3.png \
 22/draw-halfcircle3.png \
+16/draw-halfcircle4.png \
 22/draw-halfcircle4.png \
 16/draw-polygon.png \
 22/draw-polygon.png \
@@ -607,18 +616,26 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/documentinfo.png
 	-rm -f $(prefix)/share/scribus/icons/documentinfo32.png
 	-rm -f $(prefix)/share/scribus/icons/down.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-arrow-back.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-arrow-back.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-arrow-down.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-arrow-down.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-arrow-forward.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-arrow-forward.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-arrow-up.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-arrow-up.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-bezier-curves.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-bezier-curves.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-cross.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-cross.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-ellipse.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-freehand.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-halfcircle1.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-halfcircle1.png
-	-rm -f $(prefix)/share/scribus/icons/22/draw-halfcircle2.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-halfcircle2.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-halfcircle3.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-halfcircle3.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-halfcircle4.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-halfcircle4.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-polygon.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-polygon.png
