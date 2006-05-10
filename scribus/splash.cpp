@@ -59,6 +59,7 @@ void SplashScreen::setStatus( const QString &message )
 	painter.setPen( white );
 	//painter.setRasterOp(NotROP);
 	painter.drawText( 10, textPix.height()-8, tmp );
+	painter.end();
 	setErasePixmap( textPix );
 	repaint();
 }
