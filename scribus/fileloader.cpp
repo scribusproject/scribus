@@ -226,6 +226,27 @@ QString FileLoader::readSLA(const QString & fileName)
 	return docText;
 }
 
+static void replaceFonts(PageItem *it, QMap<QString, int> UsedFonts, QMap<QString, QString> ReplacedFonts)
+{
+	if ( !UsedFonts.contains(it->font()) && !it->font().isEmpty())
+		it->setFont(ReplacedFonts[it->font()]);
+	
+	if ((it->asTextFrame()) || (it->asPathText()))
+	{
+		CharStyle newFontStyle;
+		for (uint e = 0; e < it->itemText.nrOfRuns(); ++e)
+		{
+			int start = it->itemText.startOfRun(e);
+			Foi* oldFont = it->itemText.charStyle(start).font();
+			if (!UsedFonts.contains(oldFont->scName())) {
+				newFontStyle.cfont = (*ScMW->doc->AllFonts)[ReplacedFonts[oldFont->scName()]];
+				it->itemText.applyStyle(start, it->itemText.endOfRun(e) - start, newFontStyle );
+			}
+		}
+	}
+}
+
+
 bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 {
 	bool ret = false;
@@ -275,51 +296,18 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 				return false;
 			}
 		}
-#ifndef NLS_PROTO
 		for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 		{
-			PageItem *it = ScMW->doc->MasterItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
-				it->setFont(ReplacedFonts[it->font()]);
-			if ((it->asTextFrame()) || (it->asPathText()))
-			{
-				for (uint e = 0; e < it->itemText.count(); ++e)
-				{
-				if (!ScMW->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
-					it->itemText.at(e)->cfont = (*ScMW->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
-				}
-
-			}
+			replaceFonts(ScMW->doc->MasterItems.at(d), ScMW->doc->UsedFonts, ReplacedFonts);
 		}
 		for (uint d = 0; d < ScMW->doc->DocItems.count(); ++d)
 		{
-			PageItem *it = ScMW->doc->DocItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
-				it->setFont(ReplacedFonts[it->font()]);
-			if ((it->asTextFrame()) || (it->asPathText()))
-			{
-				for (uint e = 0; e < it->itemText.count(); ++e)
-				{
-				if (!ScMW->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
-					it->itemText.at(e)->cfont = (*ScMW->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
-				}
-			}
+			replaceFonts(ScMW->doc->DocItems.at(d), ScMW->doc->UsedFonts, ReplacedFonts);
 		}
 		for (uint d = 0; d < ScMW->doc->FrameItems.count(); ++d)
 		{
-			PageItem *it = ScMW->doc->FrameItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
-				it->setFont(ReplacedFonts[it->font()]);
-			if ((it->asTextFrame()) || (it->asPathText()))
-			{
-				for (uint e = 0; e < it->itemText.count(); ++e)
-				{
-				if (!ScMW->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
-					it->itemText.at(e)->cfont = (*ScMW->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
-				}
-			}
+			replaceFonts(ScMW->doc->FrameItems.at(d), ScMW->doc->UsedFonts, ReplacedFonts);
 		}
-#endif
 		for (uint a = 0; a < ScMW->doc->docParagraphStyles.count(); ++a)
 		{
 			if ( ScMW->doc->docParagraphStyles[a].charStyle().cfont != NULL && !ScMW->doc->UsedFonts.contains(ScMW->doc->docParagraphStyles[a].charStyle().cfont->scName()))
@@ -2516,51 +2504,15 @@ bool FileLoader::postLoad()
 		}
 		for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 		{
-			PageItem *it = ScMW->doc->MasterItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
-				it->setFont(ReplacedFonts[it->font()]);
-			if ((it->asTextFrame()) || (it->asPathText()))
-			{
-#ifndef NLS_PROTO
-				for (uint e = 0; e < it->itemText.count(); ++e)
-				{
-				if (!ScMW->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
-					it->itemText.at(e)->cfont = (*ScMW->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
-				}
-#endif
-			}
+			replaceFonts(ScMW->doc->MasterItems.at(d), ScMW->doc->UsedFonts, ReplacedFonts);
 		}
 		for (uint d = 0; d < ScMW->doc->DocItems.count(); ++d)
 		{
-			PageItem *it = ScMW->doc->DocItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
-				it->setFont(ReplacedFonts[it->font()]);
-			if ((it->asTextFrame()) || (it->asPathText()))
-			{
-#ifndef NLS_PROTO
-				for (uint e = 0; e < it->itemText.count(); ++e)
-				{
-				if (!ScMW->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
-					it->itemText.at(e)->cfont = (*ScMW->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
-				}
-#endif
-			}
+			replaceFonts(ScMW->doc->DocItems.at(d), ScMW->doc->UsedFonts, ReplacedFonts);
 		}
 		for (uint d = 0; d < ScMW->doc->FrameItems.count(); ++d)
 		{
-			PageItem *it = ScMW->doc->FrameItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
-				it->setFont(ReplacedFonts[it->font()]);
-			if ((it->asTextFrame()) || (it->asPathText()))
-			{
-#ifndef NLS_PROTO
-				for (uint e = 0; e < it->itemText.count(); ++e)
-				{
-				if (!ScMW->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
-					it->itemText.at(e)->cfont = (*ScMW->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
-				}
-#endif
-			}
+			replaceFonts(ScMW->doc->FrameItems.at(d), ScMW->doc->UsedFonts, ReplacedFonts);
 		}
 		for (uint a = 0; a < ScMW->doc->docParagraphStyles.count(); ++a)
 		{
