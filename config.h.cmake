@@ -12,4 +12,4 @@
 #cmakedefine HAVE_SYS_STAT_H 1
 #cmakedefine FT_FREETYPE_H
 #cmakedefine COMPILE_PYTHON 1
-
+#cmakedefine WORDS_BIGENDIAN 1
