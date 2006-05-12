@@ -306,17 +306,17 @@ int StoryText::endOfParagraph(uint index) const
 
 uint StoryText::nrOfRuns() const
 {
-	return 1;
+	return length();
 }
 
 int StoryText::startOfRun(uint index) const
 {
-	return 0;
+	return index;
 }
 
 int StoryText::endOfRun(uint index) const
 {
-	return length();
+	return index + 1;
 }
 
 
