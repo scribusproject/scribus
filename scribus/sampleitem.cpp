@@ -46,7 +46,7 @@ SampleItem::SampleItem() : QObject()
 	bgShade = 100;
 	tmpStyle.setName("(preview temporary)");
 	tmpStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
-	tmpStyle.setLineSpacing((doc->toolSettings.defSize / 10.0) 
+	tmpStyle.setLineSpacing((doc->toolSettings.defSize / 10.0)
 		* static_cast<double>(doc->typographicSettings.autoLineSpacing) / 100
 		+ (doc->toolSettings.defSize / 10.0));
 	tmpStyle.setAlignment(0);
@@ -282,9 +282,13 @@ void SampleItem::setKernVal(int kernVal)
 
 QPixmap SampleItem::getSample(int width, int height)
 {
+	// if it's false => the used font will be removed from used fonts
+	// after sample creating
+	bool previouslyUsedFont = false;
+
 	if (tmpStyle.charStyle().font() == NULL)
 		return QPixmap();
-	
+
 	UndoManager::instance()->setUndoEnabled(false); // disable undo
 
 	PageItem_TextFrame *previewItem = new PageItem_TextFrame(doc, 0, 0, width, height, 0, "__whiteforpreviewbg__", "__whiteforpreview__");
@@ -299,6 +303,9 @@ QPixmap SampleItem::getSample(int width, int height)
 		sca = ScMW->view->scale();
 		ScMW->view->setScale(1.0);
 	}
+
+	if (doc->UsedFonts.contains(tmpStyle.charStyle().cfont->scName()))
+		previouslyUsedFont = true;
 
 	doc->AddFont(tmpStyle.charStyle().cfont->scName(), qRound(doc->toolSettings.defSize / 10.0));
 	doc->docParagraphStyles.append(tmpStyle);
@@ -321,6 +328,9 @@ QPixmap SampleItem::getSample(int width, int height)
 	delete(painter);
 	delete previewItem;
 
+	// cleanups and resets
+	if (!previouslyUsedFont)
+		doc->UsedFonts.remove(tmpStyle.charStyle().cfont->scName());
 	if (ScMW->view != NULL)
 		ScMW->view->setScale(sca);
 	doc->appMode = userAppMode;

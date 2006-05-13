@@ -44,14 +44,25 @@ FontPreview::FontPreview(QString fontName)
 	fontList->setColumnAlignment(3, Qt::AlignCenter);
 	resetDisplayButton->setPixmap(loadIcon("u_undo16.png"));
 
-	/* go through available fonts and check their properties */
-	reallyUsedFonts = ScMW->doc->UsedFonts;
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
 	okIcon = loadIcon("ok.png");
 
 	updateFontList("");
+
+	// scribus config
+	defaultStr = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
+	prefs = PrefsManager::instance()->prefsFile->getPluginContext("fontpreview");
+	sortColumn = prefs->getUInt("sortColumn", 0);
+	fontList->setSorting(sortColumn);
+	xsize = prefs->getUInt("xsize", 640);
+	ysize = prefs->getUInt("ysize", 480);
+	sizeSpin->setValue(prefs->getUInt("fontSize", 18));
+	QString ph = prefs->get("phrase", defaultStr);
+	displayEdit->setText(ph);
+	displayButton_clicked();
+	resize(QSize(xsize, ysize).expandedTo(minimumSizeHint()));
 
 	// set initial listitem
 	QListViewItem *item;
@@ -69,20 +80,8 @@ FontPreview::FontPreview(QString fontName)
 		fontList->setCurrentItem(item);
 		paintSample(item);
 		fontList->center(0, fontList->currentItem()->itemPos());
+		qDebug("1");
 	}
-
-	// scribus config
-	defaultStr = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("fontpreview");
-	sortColumn = prefs->getUInt("sortColumn", 0);
-	fontList->setSorting(sortColumn);
-	xsize = prefs->getUInt("xsize", 640);
-	ysize = prefs->getUInt("ysize", 480);
-	sizeSpin->setValue(prefs->getUInt("fontSize", 18));
-	QString ph = prefs->get("phrase", defaultStr);
-	displayEdit->setText(ph);
-	displayButton_clicked();
-	resize(QSize(xsize, ysize).expandedTo(minimumSizeHint()));
 }
 
 /**
@@ -172,7 +171,7 @@ void FontPreview::updateFontList(QString searchStr)
 
 			row->setText(0, fontIter.current()->scName());
 			// searching
-			if (reallyUsedFonts.contains(fontIter.current()->scName()))
+			if (ScMW->doc->UsedFonts.contains(fontIter.current()->scName()))
 				row->setPixmap(1, okIcon);
 
 			if (type == Foi::OTF)

@@ -37,8 +37,6 @@ public:
 	QString getCurrentFont();
 
 protected:
-	/** \brief Font iteration */
-	QMap<QString,int> reallyUsedFonts;
 	/** \brief Pixmaps for each font type */
 	QPixmap ttfFont;
 	QPixmap otfFont;
