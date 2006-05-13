@@ -1,5 +1,17 @@
+
+
+/*
+ * Prevent code from including config.h directly. You should include
+ * scconfig.h instead. This lets us handle win-config.h correctly, and
+ * may do more later.
+ */
+#ifndef _SCCONFIG_H
+#error "Include <scconfig.h> rather than using <config.h> directly"
+#endif
+
 #cmakedefine VERSION "1.3.4cvs"
 
+#cmakedefine BUILD_MAC_BUNDLE
 #cmakedefine HAVE_CMS 1
 #cmakedefine HAVE_XML 1
 #cmakedefine CMS_INC "lcms.h"
