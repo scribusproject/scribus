@@ -213,7 +213,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double tra
 	imageMode = true;
 	m_image = target;
 	m_matrix = QWMatrix();
-	tmp_image = QImage(w, h, 32);
+	tmp_image = QImage(w, h, 32, QImage::BigEndian);
 	tmp_image.fill( qRgba(255, 255, 255, 0) );
 	cairo_surface_t *img = cairo_image_surface_create_for_data(tmp_image.bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
 	m_cr = cairo_create(img);
@@ -278,7 +278,7 @@ void ScPainter::endLayer()
 		QRgb src = (*s);
 		QRgb dst = (*d);
 		uchar src_a = qAlpha(src);
-		if (src_a != 0)
+		if (src_a > 0)
 		{
 			uchar src_r = qRed(src);
 			uchar src_g = qGreen(src);
@@ -293,6 +293,18 @@ void ScPainter::endLayer()
 				{
 					if (dst_a > 0)
 					{
+/*						This code is a blendmode that simulates the effect of overprinting
+						Works by converting source and destination colour to CMYK and adding them together
+						Finally the result is converted back to RGB
+						int K1 = QMIN(QMIN(255 - src_r, 255 - src_g), 255 - src_b);
+						int K2 = QMIN(QMIN(255 - dst_r, 255 - dst_g), 255 - dst_b);
+						int C = QMIN(QMIN(255 - src_r - K1, 255) + QMIN(255 - dst_r - K2, 255), 255);
+						int M = QMIN(QMIN(255 - src_g - K1, 255) + QMIN(255 - dst_g - K2, 255), 255) ;
+						int Y = QMIN(QMIN(255 - src_b - K1, 255) + QMIN(255 - dst_b - K2, 255), 255) ;
+						int K = QMIN(K1 + K2, 255);
+						src_r = 255 - QMIN(255, C + K);
+						src_g = 255 - QMIN(255, M + K);
+						src_b = 255 - QMIN(255, Y+ K); */
 						src_r = dst_r  < src_r ? dst_r  : src_r;
 						src_g = dst_g < src_g ? dst_g : src_g;
 						src_b = dst_b < src_b ? dst_b : src_b;
@@ -391,9 +403,9 @@ void ScPainter::endLayer()
 			}
 			int layOpa = qRound(255 * m_layerTransparency);
 			src_a = INT_MULT(src_a, layOpa);
-			if (dst_a > 0)
+			if ((dst_a > 0) && (src_a > 0))
 				(*d) = qRgba((dst_r * (255 - layOpa) + src_r * layOpa) / 255, (dst_g * (255 - layOpa) + src_g * layOpa) / 255, (dst_b * (255 - layOpa) + src_b * layOpa) / 255, dst_a + INT_MULT(255 - dst_a, src_a));
-			else
+			else if (src_a > 0)
 				(*d) = qRgba(src_r, src_g, src_b, src_a);
 		}
 		s++;
