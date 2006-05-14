@@ -35,6 +35,9 @@ for which a new license (GPL+exception) is in place.
 #ifdef HAVE_CAIRO
 #include <cairo.h>
 #include <cairo-xlib.h>
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
+	#include <cairo-svg.h>
+#endif
 #else
 #include <libart_lgpl/art_vpath.h>
 #include <libart_lgpl/art_bpath.h>
@@ -104,6 +107,7 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 #ifdef HAVE_CAIRO
 	layeredMode = false;
+	svgMode = false;
 	pixm = QPixmap(w, h);
 	Display *dpy = pixm.x11AppDisplay();
 	Drawable drw = pixm.handle();
@@ -165,6 +169,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, unsigned i
 	m_matrix = QWMatrix();
 #ifdef HAVE_CAIRO
 	layeredMode = false;
+	svgMode = false;
 	cairo_surface_t *img = cairo_image_surface_create_for_data(target->bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
 	m_cr = cairo_create(img);
 	clear();
@@ -211,18 +216,67 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double tra
 	m_zoomFactor = 1;
 	layeredMode = true;
 	imageMode = true;
+	svgMode = false;
 	m_image = target;
 	m_matrix = QWMatrix();
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 6)
 	tmp_image = QImage(w, h, 32, QImage::BigEndian);
 	tmp_image.fill( qRgba(255, 255, 255, 0) );
 	cairo_surface_t *img = cairo_image_surface_create_for_data(tmp_image.bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
 	m_cr = cairo_create(img);
 	clear();
+#else
+	m_image->fill( qRgba(255, 255, 255, 0) );
+	cairo_surface_t *img = cairo_image_surface_create_for_data(m_image->bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
+	m_cr = cairo_create(img);
+#endif
 	cairo_save( m_cr );
 	cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_set_tolerance( m_cr, 0.5 );
 }
+
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
+ScPainter::ScPainter( QString target, unsigned int w, unsigned int h, double transparency, int blendmode )
+{
+	m_target = 0L;
+	m_width = w;
+	m_height= h;
+	m_buffer = 0L;
+	m_index = 0;
+	m_stroke = QColor(0,0,0);
+	m_fill = QColor(0,0,0);
+	fill_trans = 1.0;
+	stroke_trans = 1.0;
+	m_fillRule = true;
+	fillMode = 1;
+	LineWidth = 1.0;
+	m_offset = 0;
+	m_layerTransparency = transparency;
+	m_blendMode = blendmode;
+	m_array.clear();
+	mf_underline = false;
+	mf_strikeout = false;
+	mf_shadow = false;
+	mf_outlined = false;
+	PLineEnd = Qt::SquareCap;
+	PLineJoin = Qt::RoundJoin;
+	fill_gradient = VGradient(VGradient::linear);
+	stroke_gradient = VGradient(VGradient::linear);
+	m_zoomFactor = 1;
+	layeredMode = true;
+	imageMode = false;
+	svgMode = true;
+	m_matrix = QWMatrix();
+	cairo_surface_t *img = cairo_svg_surface_create(target, w, h);
+	m_cr = cairo_create(img);
+	cairo_save( m_cr );
+	cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+	cairo_set_tolerance( m_cr, 0.5 );
+}
+#endif
+
 #endif
 
 ScPainter::~ScPainter()
@@ -240,7 +294,7 @@ ScPainter::~ScPainter()
 	cairo_surface_destroy(cairo_get_target(m_cr));
 	cairo_destroy( m_cr );
 #else
-	if (imageMode)
+	if ((imageMode) || (svgMode))
 		return;
 	if( gc )
 		XFreeGC( m_target->x11Display(), gc );
@@ -258,7 +312,11 @@ void ScPainter::beginLayer(double transparency, int blendmode)
 {
 	m_layerTransparency = transparency;
 	m_blendMode = blendmode;
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
+	cairo_push_group(m_cr);
+#else
 	tmp_image.fill( qRgba(255, 255, 255, 0) );
+#endif
 }
 
 static unsigned char INT_MULT ( unsigned char a, unsigned char b )
@@ -269,6 +327,11 @@ static unsigned char INT_MULT ( unsigned char a, unsigned char b )
 
 void ScPainter::endLayer()
 {
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
+	cairo_pop_group_to_source (m_cr);
+	cairo_paint_with_alpha (m_cr, m_layerTransparency);
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+#else
 	cairo_surface_flush(cairo_get_target(m_cr));
 	int words = m_image->numBytes() / 4;
 	QRgb *s = (QRgb*)(tmp_image.bits());
@@ -411,6 +474,7 @@ void ScPainter::endLayer()
 		s++;
 		d++;
 	}
+#endif
 }
 #endif
 
@@ -421,9 +485,13 @@ void ScPainter::begin()
 void ScPainter::end()
 {
 #ifdef HAVE_CAIRO
+	if (svgMode)
+		cairo_show_page (m_cr);
 	if (layeredMode)
 	{
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 6)
 		endLayer();
+#endif
 		cairo_surface_flush(cairo_get_target(m_cr));
 		cairo_restore( m_cr );
 		return;

@@ -30,6 +30,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "layers.h"
 #include "layers.moc"
+#ifdef HAVE_CAIRO
+#include <cairo.h>
+#endif
 
 extern QPixmap loadIcon(QString nam);
 
@@ -96,6 +99,11 @@ LayerPalette::LayerPalette(QWidget* parent)
 	textLabel1->hide();
 	textLabel2->hide();
 	opacitySpinBox->hide();
+#else
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 2, 0)
+	blendMode->hide();
+	textLabel1->hide();
+#endif
 #endif
 
 	Table = new LayerTable( this );

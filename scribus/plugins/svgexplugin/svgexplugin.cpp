@@ -43,6 +43,18 @@ for which a new license (GPL+exception) is in place.
 #include "sctextstruct.h"
 #include "guidemanager.h"
 
+#ifdef HAVE_CAIRO
+	#include <cairo.h>
+	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
+		#define USECAIRO
+		#include "scpainter.h"
+	#else
+		#undef USECAIRO
+	#endif
+#else
+	#undef USECAIRO
+#endif
+
 
 int svgexplugin_getPluginAPIVersion()
 {
@@ -153,6 +165,34 @@ bool SVGExportPlugin::run(QString filename)
 
 SVGExPlug::SVGExPlug( QString fName )
 {
+#ifdef USECAIRO
+	Page *Seite;
+	Seite = ScMW->doc->currentPage();
+	int clipx = static_cast<int>(Seite->xOffset());
+	int clipy = static_cast<int>(Seite->yOffset());
+	int clipw = qRound(Seite->width());
+	int cliph = qRound(Seite->height());
+	double sca = ScMW->view->scale();
+	double cx = ScMW->doc->minCanvasCoordinate.x();
+	double cy = ScMW->doc->minCanvasCoordinate.y();
+	ScMW->doc->minCanvasCoordinate = FPoint(0, 0);
+	bool frs = ScMW->doc->guidesSettings.framesShown;
+	ScMW->doc->guidesSettings.framesShown = false;
+	ScMW->view->setScale(1.0);
+	ScMW->view->previewMode = true;
+	ScPainter *painter = new ScPainter(fName, clipw, cliph, 1.0, 0);
+	painter->clear(ScMW->doc->papColor);
+	painter->translate(-clipx, -clipy);
+	painter->setFillMode(ScPainter::Solid);
+	ScMW->view->DrawMasterItems(painter, Seite, QRect(clipx, clipy, clipw, cliph));
+	ScMW->view->DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
+	painter->end();
+	ScMW->doc->guidesSettings.framesShown = frs;
+	ScMW->view->setScale(sca);
+	delete painter;
+	ScMW->view->previewMode = false;
+	ScMW->doc->minCanvasCoordinate = FPoint(cx, cy);
+#else
 	QDomDocument docu("svgdoc");
 	QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	QString st = "<svg></svg>";
@@ -200,6 +240,7 @@ SVGExPlug::SVGExPlug( QString fName )
 	wr += docu.toString().utf8();
 	s.writeRawBytes(wr, wr.length());
 	f.close();
+#endif
 #endif
 }
 

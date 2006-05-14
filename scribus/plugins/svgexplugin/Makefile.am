@@ -1,7 +1,7 @@
 pluginsdir = $(libdir)/scribus/plugins
 plugins_LTLIBRARIES = libsvgexplugin.la
-INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
-AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 
+INCLUDES = $(LIBCAIRO_CFLAGS) $(LIBFREETYPE_CFLAGS) $(all_includes)
+AM_LDFLAGS = $(LIBCAIRO_LIBS) $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 
 libsvgexplugin_la_LDFLAGS = -version-info 0:0:0
 libsvgexplugin_la_METASOURCES = AUTO
 libsvgexplugin_la_SOURCES = svgexplugin.cpp 

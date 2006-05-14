@@ -74,6 +74,7 @@ public:
 	ScPainter( QImage *target, unsigned int w = 0, unsigned int h = 0, unsigned int x = 0, unsigned int y = 0 );
 #ifdef HAVE_CAIRO
 	ScPainter( QImage *target, unsigned int w, unsigned int h, double transparency, int blendmode );
+	ScPainter( QString target, unsigned int w, unsigned int h, double transparency, int blendmode );
 #endif
 	virtual ~ScPainter();
 	enum FillMode { None, Solid, Gradient };
@@ -207,6 +208,7 @@ private:
 	double m_zoomFactor;
 	bool imageMode;
 	bool layeredMode;
+	bool svgMode;
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 #ifdef HAVE_CAIRO
 	cairo_t *m_cr;
