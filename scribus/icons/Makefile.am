@@ -639,6 +639,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/draw-bezier-curves.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-cross.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-cross.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-ellipse.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-ellipse.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-freehand.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-halfcircle1.png

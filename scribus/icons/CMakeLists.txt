@@ -317,6 +317,7 @@ INSTALL(FILES
 16/draw-arrow-up.png
 16/draw-bezier-curves.png
 16/draw-cross.png
+16/draw-ellipse.png
 16/draw-halfcircle1.png
 16/draw-halfcircle2.png
 16/draw-halfcircle3.png
