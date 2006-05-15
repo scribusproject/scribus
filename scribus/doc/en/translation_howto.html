@@ -8,31 +8,31 @@
 
 <h3>Requirements</h3>
 <ul>
-	<li>The Scribus source from CVS. Please see the <a href="install.html">Installation</a> section for details on how to checkout CVS if you aren't up with that yet. Its not too hard so don't be dismayed. By working with the CVS source, you know you will be working with the latest Scribus source and therefore will get the most up-to-date set of files to translate.</li>
-	<li>KBabel or Qt Linguist. Both of these are available in their respective development packages. The choice of which one to use is more a user preference, the result is the same.</li>
-	<li>You will need to make sure you have the <code>lupdate</code> and <code>lrelease</code> programs which are a part of Qt, or perhaps a part of a Qt development package, depending on your distribution.</li>
+<li>The Scribus source from CVS. Please see the <a href="install.html">Installation</a> section for details on how to checkout CVS if you aren't up with that yet. Its not too hard so don't be dismayed. By working with the CVS source, you know you will be working with the latest Scribus source and therefore will get the most up-to-date set of files to translate.</li>
+<li>KBabel or Qt Linguist. Both of these are available in their respective development packages. The choice of which one to use is more a user preference, the result is the same.</li>
+<li>You will need to make sure you have the <strong><code>lupdate</code></strong> and <strong><code>lrelease</code></strong> programs which are a part of Qt, or perhaps a part of a Qt development package, depending on your distribution.</li>
+<li>If you use create .mo for .po files you need the <strong><code>msg2qm</code></strong> program to convert them to .qm files. Debian users will need to install: <a href="http://packages.debian.org/stable/devel/qt3-dev-tools-compat">http://packages.debian.org/stable/devel/qt3-dev-tools-compat</a> to obtain this tool.</li>
 </ul>
 
 <h3>Procedure for creating or updating a translation file</h3>
 <ol>
-	<li>Check out CVS as per instructions on this page.</li>
-	<li>Move into the <code>Scribus</code> directory.</li>
-	<li>Run <code>qmake -project</code>.</li>
-	<li>Edit the <code>Scribus.pro</code> file to have the language listed at the bottom that you wish to translate for. For example, 
-	<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-		<pre>TRANSLATIONS += scribus/po/scribus.en_GB.ts</pre>
-	</td></tr></table></blockquote>
-	Of course, replace the <code>en_GB</code> in this example with the language code you are working with.</li>
-	<li>Run <code>lupdate Scribus.pro</code>.</li>
-	<li>Start KBabel or QT Linguist and load the <code>scribus/po/scribus.en_GB.ts</code> file.</li>
-	<li>Perform the translations.</li>
-	<li>Save the <code>.ts</code> file.</li>
-	<li>Run <code>lrelease scribus/po/scribus.en_GB.ts -qm scribus/qm/scribus.en_GB.qm</code>. this can be simplified by just running <code>lrelease scribus/po/scribus.en_GB.ts</code> and the qm will be created for you in the <code>scribus/po</code> directory. The previous command allows a <code>make &#038;&#038; make install</code> with the translations in their correct places.</li>
-	<li>Copy the <code>.qm</code> file to the <code>/usr/local/lib/scribus</code> directory (or appropriate Scribus installation directory on your PC).</li>
-	<li>Run Scribus with the language code from the command line like: <code>scribus -lang en_GB</code>.</li>
-	<li>Once you are happy with this, please open your web browser to the <a href="http://bugs.scribus.net">Scribus Bugs Website</a> and submit a new bug with Title of &#034;British English Translation Update&#034; and Category of &#034;Translation&#034; and upload the new <code>.ts</code> AND <code>.qm</code> into the bug system. If you can, please make a <code>tar.bz2</code> file of the two to save some space on the bugs site.</li>
-	<li>That's it! When the next CVS release is made, your new translation will be added by the team.</li>
+<li>Check out CVS as per instructions on this page.</li>
+<li>Move into the <code>Scribus</code> directory.</li>
+<li>Run <code>qmake -project</code>.</li>
+<li>Edit the <code>Scribus.pro</code> file to have the language listed at the bottom that you wish to translate for. For example,
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+	<pre>TRANSLATIONS += scribus/po/scribus.en_GB.ts</pre>
+</td></tr></table></blockquote>
+Of course, replace the <code>en_GB</code> in this example with the language code you are working with.</li>
+<li>Run <code>lupdate Scribus.pro</code>.</li>
+<li>Start KBabel or QT Linguist and load the <code>scribus/po/scribus.en_GB.ts</code> file.</li>
+<li>Perform the translations.</li>
+<li>Save the <code>.ts</code> file.</li>
+<li>Run <code>lrelease scribus/po/scribus.en_GB.ts -qm scribus/qm/scribus.en_GB.qm</code>. this can be simplified by just running <code>lrelease scribus/po/scribus.en_GB.ts</code> and the qm will be created for you in the <code>scribus/po</code> directory. The previous command allows a <code>make &#038;&#038; make install</code> with the translations in their correct places.</li>
+<li>Copy the <code>.qm</code> file to the <code>/usr/local/lib/scribus</code> directory (or appropriate Scribus installation directory on your PC).</li>
+<li>Run Scribus with the language code from the command line like: <code>scribus -lang en_GB</code>.</li>
+<li>Once you are happy with this, please open your web browser to the <a href="http://bugs.scribus.net">Scribus Bugs Website</a> and submit a new bug with Title of &#034;British English Translation Update&#034; and Category of &#034;Translation&#034; and upload the new <code>.ts</code> AND <code>.qm</code> into the bug system. If you can, please make a <code>tar.bz2</code> file of the two to save some space on the bugs site.</li>
+<li>That's it! When the next CVS release is made, your new translation will be added by the team.</li>
 </ol>
-
 <p>So that's it really! Enjoy Scribus in your favourite language!</p>
 </qt>
