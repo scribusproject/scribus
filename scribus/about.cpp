@@ -54,7 +54,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "06";
+	QString BUILD_DAY = "15";
 	QString BUILD_MONTH = CommonStrings::may;
 	QString BUILD_YEAR = "2006";
 	QString BUILD_TIME = "";
@@ -230,7 +230,6 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("et").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Marek Laane</td><td>bald@starman.ee</td></tr>" +
-											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td>Hasso Tepper</td><td>hasso@estpak.ee</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("fi").utf8()  + "</b></td><td></td></tr>" +
