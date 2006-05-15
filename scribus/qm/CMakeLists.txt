@@ -15,6 +15,7 @@ scribus.en_GB.qm
 scribus.eo.qm
 scribus.es_LA.qm
 scribus.es.qm
+scribus.et.qm
 scribus.eu.qm
 scribus.fi.qm
 scribus.fr.qm

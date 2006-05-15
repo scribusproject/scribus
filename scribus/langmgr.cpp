@@ -54,6 +54,7 @@ void LanguageManager::generateLangList()
 	langList.insert("cs_CZ", langPair("Czech", QObject::tr( "Czech" )) );
 	langList.insert("da",    langPair("Danish", QObject::tr( "Danish" )) );
 	langList.insert("da_DK", langPair("Danish", QObject::tr( "Danish" )) );
+	langList.insert("dz",    langPair("Dzongkha", QObject::tr( "Dzongkha" )) );
 	langList.insert("nl",    langPair("Dutch", QObject::tr( "Dutch" )) );
 	langList.insert("en",    langPair("English", QObject::tr( "English" )) );
 	langList.insert("en_GB", langPair("English (British)", QObject::tr( "English (British)" )) );
