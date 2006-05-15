@@ -24,6 +24,7 @@ LangList::LangList()
     insert("cs_CZ", QObject::tr( "Czech" ));
     insert("da",    QObject::tr( "Danish" ));
     insert("da_DK", QObject::tr( "Danish" ));
+    insert("dz",    QObject::tr( "Dzongkha" ));
     insert("nl",    QObject::tr( "Dutch" ));
     insert("en",    QObject::tr( "English" ));
     insert("en_GB", QObject::tr( "English (British)" ));
