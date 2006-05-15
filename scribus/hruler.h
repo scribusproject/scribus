@@ -45,36 +45,41 @@ class SCRIBUS_API Hruler : public QWidget
 public:
 	Hruler(ScribusView *pa, ScribusDoc *doc);
 	~Hruler() {};
+
+	bool ItemPosValid;
+	double ColGap;
+	double lineCorr;
+	int Cols;
+	double RExtra;
+	double Extra;
+	double Indent;
+	double First;
+	bool Revers;
+	QValueList<ParagraphStyle::TabRecord> TabValues;
+	// following is used in view
+	double ItemPos;
+	double ItemEndPos;
+	double offs;
+	
+	void setItemPosition(double pos, double width);
+
+private:
 	void paintEvent(QPaintEvent *e);
 	void drawNumber(QString num, int startx, int starty, QPainter & p);
 	void mousePressEvent(QMouseEvent *m);
 	void mouseReleaseEvent(QMouseEvent *);
 	void mouseMoveEvent(QMouseEvent *m);
 	void UpdateTabList();
-	void setItemPosition(double pos, double width);
-	double offs;
+
 	int Markp;
 	int oldMark;
 	bool Mpressed;
-	QValueList<ParagraphStyle::TabRecord> TabValues;
-	double ItemPos;
-	double ItemEndPos;
-	int Cols;
 	int ActCol;
 	int ActTab;
-	double ColGap;
-	double RExtra;
-	double Extra;
-	double lineCorr;
-	double Indent;
-	double First;
 	double Scaling;
 	int RulerCode;
 	int MouseX;
-	bool Revers;
-	bool ItemPosValid;
 
-private: // Private attributes
 	ScribusDoc *currDoc;
 	ScribusView *currView;
 

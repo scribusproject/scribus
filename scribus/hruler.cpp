@@ -77,10 +77,12 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 		RulerCode = 0;
 		Markp = -1;
 		double Pos = (ItemPos-offs+Extra+lineCorr)*Scaling;
-		if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-currDoc->guidesSettings.grabRad)))
+		if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesSettings.grabRad))
+				   && (static_cast<int>(Pos) > (m->x()-currDoc->guidesSettings.grabRad)))
 			RulerCode = 1;
 		Pos = (ItemEndPos-offs-RExtra-lineCorr)*Scaling;
-		if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-currDoc->guidesSettings.grabRad)))
+		if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesSettings.grabRad))
+				   && (static_cast<int>(Pos) > (m->x()-currDoc->guidesSettings.grabRad)))
 			RulerCode = 2;
 		double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
 		QRect fpo;
@@ -879,19 +881,3 @@ void Hruler::unitChange()
 			break;
 	}
 }
-
-/* PV guides refactoring
-void Hruler::drawGuides()
-{
-	if (!currDoc->guidesSettings.guidesShown
-			|| currDoc->currentPage->XGuides.count() == 0)
-		return;
-	QPainter p;
-	Page *page = currDoc->currentPage;
-	p.begin(this);
-	p.setPen(currDoc->guidesSettings.guideColor);
-	for (uint xg = 0; xg < page->XGuides.count(); ++xg)
-		if ((page->XGuides[xg] >= 0) && (page->XGuides[xg] <= page->width()))
-			p.drawLine((int)page->XGuides[xg], 0, (int)page->XGuides[xg], 20);
-	p.end();
-} */
