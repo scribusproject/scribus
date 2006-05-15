@@ -2642,7 +2642,7 @@ Delete the named master page.
     </message>
     <message>
         <source>April</source>
-        <translation>huhtikuu</translation>
+        <translation type="obsolete">huhtikuu</translation>
     </message>
     <message>
         <source>Tango Project Icons:</source>
@@ -2755,7 +2755,7 @@ Delete the named master page.
     </message>
     <message>
         <source>Save Page as &amp;EPS...</source>
-        <translation>Tallenna sivu &amp;EPS:nä...</translation>
+        <translation type="obsolete">Tallenna sivu &amp;EPS:nä...</translation>
     </message>
     <message>
         <source>Save as P&amp;DF...</source>
@@ -3636,6 +3636,14 @@ Delete the named master page.
         <source>Insert Link Annotation</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Save as &amp;EPS...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -3765,11 +3773,11 @@ Delete the named master page.
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation>Jotkin kohteet ovat lukittuina.</translation>
+        <translation type="obsolete">Jotkin kohteet ovat lukittuina.</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation>&amp;Vapauta kaikki</translation>
+        <translation type="obsolete">&amp;Vapauta kaikki</translation>
     </message>
     <message>
         <source>Guide</source>
@@ -4730,27 +4738,27 @@ Delete the named master page.
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Uusi</translation>
+        <translation type="obsolete">&amp;Uusi</translation>
     </message>
     <message>
         <source>&amp;Load...</source>
-        <translation>&amp;Lataa...</translation>
+        <translation type="obsolete">&amp;Lataa...</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation>Tallenna &amp;nimellä...</translation>
+        <translation type="obsolete">Tallenna &amp;nimellä...</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;Sulje</translation>
+        <translation type="obsolete">&amp;Sulje</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>Tie&amp;dosto</translation>
+        <translation type="obsolete">Tie&amp;dosto</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation>&amp;Esikatselu</translation>
+        <translation type="obsolete">&amp;Esikatselu</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
@@ -4780,7 +4788,27 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>&amp;Import Scrapbook File...</source>
-        <translation>&amp;Tuo leikekirjatiedosto...</translation>
+        <translation type="obsolete">&amp;Tuo leikekirjatiedosto...</translation>
+    </message>
+    <message>
+        <source>Create a new scrapbook page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load an existing scrapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the selected scrapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close the selected scrapbook</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4924,7 +4952,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Default color profile for solid colors on the page</source>
-        <translation>Väriprofiili asiakirjan tasaisille väreille</translation>
+        <translation type="obsolete">Väriprofiili asiakirjan tasaisille väreille</translation>
     </message>
     <message>
         <source>Color profile that you have generated or received from the manufacturer.
@@ -4947,13 +4975,13 @@ On suositeltavaa että valitsen tämän, jos asiakirjasi sisältää kuvia.</tra
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Sovitustapa näytöllesi. Ellet tiedä mikä tapa valita, tulisi käyttää 
+        <translation type="obsolete">Sovitustapa näytöllesi. Ellet tiedä mikä tapa valita, tulisi käyttää 
 sovitustapoja Relative Colorimetric tai Perceptual.</translation>
     </message>
     <message>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Sovitustapa tulostimellesi. Ellet tiedä mikä tapa valita, tulisi käyttää 
+        <translation type="obsolete">Sovitustapa tulostimellesi. Ellet tiedä mikä tapa valita, tulisi käyttää 
 sovitustapoja Relative Colorimetric tai Perceptual.</translation>
     </message>
     <message>
@@ -4974,7 +5002,7 @@ Toiminnon käyttö vaatii tarkat profiilit ja se tulee huomioida ainoastaan varo
     </message>
     <message>
         <source>&amp;Solid Colors:</source>
-        <translation>&amp;Tasaiset värit:</translation>
+        <translation type="obsolete">&amp;Tasaiset värit:</translation>
     </message>
     <message>
         <source>&amp;Monitor:</source>
@@ -4986,11 +5014,11 @@ Toiminnon käyttö vaatii tarkat profiilit ja se tulee huomioida ainoastaan varo
     </message>
     <message>
         <source>M&amp;onitor:</source>
-        <translation>N&amp;äyttö:</translation>
+        <translation type="obsolete">N&amp;äyttö:</translation>
     </message>
     <message>
         <source>Pr&amp;inter:</source>
-        <translation>T&amp;ulostin:</translation>
+        <translation type="obsolete">T&amp;ulostin:</translation>
     </message>
     <message>
         <source>Sim&amp;ulate Printer on the Screen</source>
@@ -5019,6 +5047,49 @@ Toiminnon käyttö vaatii tarkat profiilit ja se tulee huomioida ainoastaan varo
     <message>
         <source>Default color profile for imported RGB images</source>
         <translation>Oletusväriprofiili tuoduille RGB-kuville</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Solid Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Solid Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pictures:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sol&amp;id Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert all colors to printer space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default color profile for solid RGB colors on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default color profile for solid CMYK colors on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default rendering intent for solid colors. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default rendering intent for images. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simulate a full color managed environment :
+all colors, rgb or cmyk, are converted to printer color space.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5286,78 +5357,6 @@ Sitä ei voi käyttää.</translation>
 </context>
 <context>
     <name>CharStyle</name>
-    <message>
-        <source>font %1 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>size %1 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+style </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+color </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+underline </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-underline </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+strikeout </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-strikeout </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+shadow </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-shadow </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+outline </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-outline </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+tracking %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-tracking </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+baseline %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+stretch </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>parent= %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>unnamed</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>CheckDocument</name>
@@ -5927,6 +5926,82 @@ Sitä ei voi käyttää.</translation>
         <source>None</source>
         <comment>color name</comment>
         <translation>Ei mitään</translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation type="unfinished">huhtikuu</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>July</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>August</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>September</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>October</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>December</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7531,7 +7606,7 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Font Name</source>
@@ -7546,7 +7621,7 @@ joita on tarkoitus katsella näytöltä</translation>
     <message>
         <source>Embed in:</source>
         <comment>font preview</comment>
-        <translation>Upota:</translation>
+        <translation type="obsolete">Upota:</translation>
     </message>
     <message>
         <source>Subset</source>
@@ -7561,6 +7636,11 @@ joita on tarkoitus katsella näytöltä</translation>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
         <translation>Kirjaintyyppien hakupolut voi asettaa ainoastaan asetuksissa, kun yhtään asiakirjaa ei ole avoinna. Sulje kaikki avoimet asiakirjat ja avaa Muokkaa&gt;Asetukset muuttaaksesi hakemistoja, joista kirjaintyyppejä etsitään.</translation>
+    </message>
+    <message>
+        <source>Embed in PostScript</source>
+        <comment>font preview</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8554,6 +8634,66 @@ vektoridatan Scribus-objekteiksi.</translation>
     <message>
         <source>Lower layer</source>
         <translation>Laske tasoa</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished">Läpinäkyvyys:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation type="unfinished">Sekoitustila:</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished">Tummenna</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished">Vaalenna</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished">Kerroin</translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished">Rasterointi</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished">Sulautus</translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished">Kova valo</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished">Pehmeä valo</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished">Erotus</translation>
+    </message>
+    <message>
+        <source>Exlusion</source>
+        <translation type="unfinished">Poisto</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished">Valotus</translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished">Varjostus</translation>
     </message>
 </context>
 <context>
@@ -10290,15 +10430,23 @@ Corners:</source>
     </message>
     <message>
         <source>Exporting Master Pages:</source>
-        <translation>Viedään mallisivuja:</translation>
+        <translation type="obsolete">Viedään mallisivuja:</translation>
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation>Viedään sivuja:</translation>
+        <translation type="obsolete">Viedään sivuja:</translation>
     </message>
     <message>
         <source>Exporting Items on Current Page:</source>
         <translation>Viedään kohteita sivulta:</translation>
+    </message>
+    <message>
+        <source>Exporting Master Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Page:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10437,11 +10585,19 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     <name>PSLib</name>
     <message>
         <source>Processing Master Pages:</source>
-        <translation>Työstetään mallisivuja:</translation>
+        <translation type="obsolete">Työstetään mallisivuja:</translation>
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation>Viedään sivuja:</translation>
+        <translation type="obsolete">Viedään sivuja:</translation>
+    </message>
+    <message>
+        <source>Processing Master Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Page:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11446,6 +11602,10 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation type="obsolete">Lisää Ghostscript-tulkin sijainti. Windowsissa käytä ohjelmaa nimeltä gswin32c.exe (ei gswin32.exe).</translation>
+    </message>
+    <message>
+        <source>Show S&amp;plashscreen On Startup:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13528,6 +13688,90 @@ is not exhaustive due to exceptions from called functions.
         <source>Font %1(%2) is broken</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Arabialaiset merkit</translation>
+    </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>font %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+tracking %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+baseline %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parent= %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unnamed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14065,7 +14309,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SVGExportPlugin</name>
     <message>
         <source>Save Page as &amp;SVG...</source>
-        <translation>Tallenna sivu &amp;SVG:na...</translation>
+        <translation type="obsolete">Tallenna sivu &amp;SVG:na...</translation>
     </message>
     <message>
         <source>Exports SVG Files</source>
@@ -14074,6 +14318,10 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Exports the current page into an SVG file.</source>
         <translation>Vie nykyinen sivu SVG-tiedostoon.</translation>
+    </message>
+    <message>
+        <source>Save as &amp;SVG...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14235,6 +14483,13 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>ScProgressBar</name>
+    <message>
+        <source>%1 of %2</source>
+        <translation type="unfinished">%1/%2</translation>
+    </message>
+</context>
+<context>
     <name>ScToolBar</name>
     <message>
         <source>Top</source>
@@ -14365,6 +14620,18 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some objects are locked.</source>
+        <translation type="unfinished">Jotkin kohteet ovat lukittuina.</translation>
+    </message>
+    <message>
+        <source>&amp;Unlock All</source>
+        <translation type="unfinished">&amp;Vapauta kaikki</translation>
+    </message>
+    <message>
+        <source>&amp;Skip locked objects</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14935,6 +15202,10 @@ pystysuora siirtyminen: %3</translation>
     <message>
         <source>Issues</source>
         <translation>Bugit ja kehitysideat</translation>
+    </message>
+    <message>
+        <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16023,6 +16294,10 @@ pystysuora siirtyminen: %3</translation>
         <source>Locate your image editor</source>
         <translation type="unfinished">Kuvanmuokkausohjelman sijainti</translation>
     </message>
+    <message>
+        <source>Locate your web browser</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabExternalToolsWidgetBase</name>
@@ -16040,7 +16315,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
-        <translation type="unfinished">Lisää Ghostscript-tulkin sijainti. Windowsissa käytä ohjelmaa nimeltä gswin32c.exe (ei gswin32.exe).</translation>
+        <translation type="obsolete">Lisää Ghostscript-tulkin sijainti. Windowsissa käytä ohjelmaa nimeltä gswin32c.exe (ei gswin32.exe).</translation>
     </message>
     <message>
         <source>&amp;Change..</source>
@@ -16091,10 +16366,6 @@ pystysuora siirtyminen: %3</translation>
         <translation type="unfinished">&amp;Ajettavan tiedoston nimi:</translation>
     </message>
     <message>
-        <source>File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Change...</source>
         <translation type="unfinished">&amp;Muuta...</translation>
     </message>
@@ -16104,6 +16375,30 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Web Browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Web Browser to launch with links from the Help system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rescan for the external tools if they do not exist in the already specified location</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16252,6 +16547,156 @@ pystysuora siirtyminen: %3</translation>
     <message>
         <source>Turns the margins on or off</source>
         <translation>Näyttää tai piilottaa reunukset</translation>
+    </message>
+</context>
+<context>
+    <name>TabKeyboardShortcutsWidget</name>
+    <message>
+        <source>Key Set XML Files (*.ksxml)</source>
+        <translation type="unfinished">Näppäinoikopolkutiedosto (*.ksxml)</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <translation type="unfinished">Alt</translation>
+    </message>
+    <message>
+        <source>Ctrl</source>
+        <translation type="unfinished">Ctrl</translation>
+    </message>
+    <message>
+        <source>Shift</source>
+        <translation type="unfinished">Shift</translation>
+    </message>
+    <message>
+        <source>Meta</source>
+        <translation type="unfinished">Meta</translation>
+    </message>
+    <message>
+        <source>Meta+</source>
+        <translation type="unfinished">Meta+</translation>
+    </message>
+    <message>
+        <source>Shift+</source>
+        <translation type="unfinished">Shift+</translation>
+    </message>
+    <message>
+        <source>Alt+</source>
+        <translation type="unfinished">Alt+</translation>
+    </message>
+    <message>
+        <source>Ctrl+</source>
+        <translation type="unfinished">Ctrl+</translation>
+    </message>
+    <message>
+        <source>This key sequence is already in use</source>
+        <translation type="unfinished">Näppäinyhdistelmä on jo käytössä</translation>
+    </message>
+</context>
+<context>
+    <name>TabKeyboardShortcutsWidgetBase</name>
+    <message>
+        <source>Keyboard Shortcuts</source>
+        <translation type="unfinished">Näppäinoikopolut</translation>
+    </message>
+    <message>
+        <source>Search:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation type="unfinished">Toiminta</translation>
+    </message>
+    <message>
+        <source>Shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shortcut for Selected Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;No Key</source>
+        <translation type="unfinished">&amp;Ei näppäintä</translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished">Alt+N</translation>
+    </message>
+    <message>
+        <source>&amp;User Defined Key</source>
+        <translation type="unfinished">O&amp;ma näppäin</translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished">Alt+U</translation>
+    </message>
+    <message>
+        <source>Set &amp;Key</source>
+        <translation type="unfinished">&amp;Aseta näppäin</translation>
+    </message>
+    <message>
+        <source>Alt+K</source>
+        <translation type="unfinished">Alt+K</translation>
+    </message>
+    <message>
+        <source>CTRL+ALT+SHIFT+W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loadable Shortcut Sets</source>
+        <translation type="unfinished">Ladattavat näppäinoikopolut</translation>
+    </message>
+    <message>
+        <source>Keyboard shortcut sets available to load</source>
+        <translation type="unfinished">Ladattavissa olevat näppäinoikopolut</translation>
+    </message>
+    <message>
+        <source>&amp;Load</source>
+        <translation type="unfinished">&amp;Lataa</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
+    </message>
+    <message>
+        <source>Load the selected shortcut set</source>
+        <translation type="unfinished">Lataa valittu näppäinoikopolku</translation>
+    </message>
+    <message>
+        <source>&amp;Import...</source>
+        <translation type="unfinished">&amp;Tuo...</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation type="unfinished">Alt+I</translation>
+    </message>
+    <message>
+        <source>Import a shortcut set into the current configuration</source>
+        <translation type="unfinished">Tuo näppäinoikopolku nykyisiin asetuksiin</translation>
+    </message>
+    <message>
+        <source>&amp;Export...</source>
+        <translation type="unfinished">&amp;Vie...</translation>
+    </message>
+    <message>
+        <source>Alt+E</source>
+        <translation type="unfinished">Alt+E</translation>
+    </message>
+    <message>
+        <source>Export the current shortcuts into an importable file</source>
+        <translation type="unfinished">Vie nykyiset näppäinoikopolut tiedostoon</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation type="unfinished">&amp;Palauta</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload the default Scribus shortcuts</source>
+        <translation type="unfinished">Lataa oletusnäppäinoikopolut</translation>
     </message>
 </context>
 <context>
@@ -17305,6 +17750,11 @@ yhteydessä suoritettava JavaScript:</translation>
         <source>Custom</source>
         <translation>Oma</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Ei mitään</translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -17455,7 +17905,7 @@ yhteydessä suoritettava JavaScript:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Ei mitään</translation>
+        <translation type="obsolete">Ei mitään</translation>
     </message>
     <message>
         <source>Fill Char:</source>
@@ -17484,6 +17934,26 @@ yhteydessä suoritettava JavaScript:</translation>
     <message>
         <source>Custom</source>
         <translation>Oma</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Ei mitään</translation>
+    </message>
+</context>
+<context>
+    <name>TextBrowser</name>
+    <message>
+        <source>Locate your web browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>External Web Browser Failed to Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

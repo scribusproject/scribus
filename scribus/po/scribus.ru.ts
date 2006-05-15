@@ -1755,7 +1755,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>April</source>
-        <translation>Апрель</translation>
+        <translation type="obsolete">Апрель</translation>
     </message>
     <message>
         <source>Tango Project Icons:</source>
@@ -1868,7 +1868,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Save Page as &amp;EPS...</source>
-        <translation>Сохран&amp;ить страницу как EPS...</translation>
+        <translation type="obsolete">Сохран&amp;ить страницу как EPS...</translation>
     </message>
     <message>
         <source>Save as P&amp;DF...</source>
@@ -2749,6 +2749,14 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>Insert Link Annotation</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Save as &amp;EPS...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -2878,11 +2886,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation>Некоторые выделенные объекты заблокированы.</translation>
+        <translation type="obsolete">Некоторые выделенные объекты заблокированы.</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation>&amp;Разблокировать все</translation>
+        <translation type="obsolete">&amp;Разблокировать все</translation>
     </message>
     <message>
         <source>Guide</source>
@@ -3845,27 +3853,27 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Новый</translation>
+        <translation type="obsolete">&amp;Новый</translation>
     </message>
     <message>
         <source>&amp;Load...</source>
-        <translation>&amp;Открыть...</translation>
+        <translation type="obsolete">&amp;Открыть...</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation>Сохранить &amp;как...</translation>
+        <translation type="obsolete">Сохранить &amp;как...</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;Закрыть</translation>
+        <translation type="obsolete">&amp;Закрыть</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Файл</translation>
+        <translation type="obsolete">&amp;Файл</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation>&amp;Предпросмотр</translation>
+        <translation type="obsolete">&amp;Предпросмотр</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
@@ -3895,7 +3903,27 @@ Please choose another.</source>
     </message>
     <message>
         <source>&amp;Import Scrapbook File...</source>
-        <translation>&amp;Импортировать файл запасника...</translation>
+        <translation type="obsolete">&amp;Импортировать файл запасника...</translation>
+    </message>
+    <message>
+        <source>Create a new scrapbook page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load an existing scrapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the selected scrapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close the selected scrapbook</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4039,7 +4067,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Default color profile for solid colors on the page</source>
-        <translation>Стандартный цветовой профиль 
+        <translation type="obsolete">Стандартный цветовой профиль 
 для сплошных тонов на странице</translation>
     </message>
     <message>
@@ -4068,14 +4096,14 @@ It is recommended that you enable this if you have photos in your document.</sou
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Стандартный тип цветопередачи вашего монитора. 
+        <translation type="obsolete">Стандартный тип цветопередачи вашего монитора. 
 Если вы не знаете, что это такое, выберите 
 относительную колориметрическую или воспринимаемую.</translation>
     </message>
     <message>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Стандартный тип цветопередачи для вашего принтера. 
+        <translation type="obsolete">Стандартный тип цветопередачи для вашего принтера. 
 Если вы не знаете, что это такое, выберите 
 относительную колориметрическую или воспринимаемую.</translation>
     </message>
@@ -4098,7 +4126,7 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>&amp;Solid Colors:</source>
-        <translation>&amp;Сплошные тона:</translation>
+        <translation type="obsolete">&amp;Сплошные тона:</translation>
     </message>
     <message>
         <source>&amp;Monitor:</source>
@@ -4110,11 +4138,11 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>M&amp;onitor:</source>
-        <translation>М&amp;онитор:</translation>
+        <translation type="obsolete">М&amp;онитор:</translation>
     </message>
     <message>
         <source>Pr&amp;inter:</source>
-        <translation>Пр&amp;интер:</translation>
+        <translation type="obsolete">Пр&amp;интер:</translation>
     </message>
     <message>
         <source>Sim&amp;ulate Printer on the Screen</source>
@@ -4143,6 +4171,49 @@ This requires very accurate profiles and serves only as a warning.</source>
     <message>
         <source>Default color profile for imported RGB images</source>
         <translation>Используемый по умолчанию профиль для RGB-изображений</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Solid Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Solid Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pictures:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sol&amp;id Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert all colors to printer space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default color profile for solid RGB colors on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default color profile for solid CMYK colors on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default rendering intent for solid colors. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default rendering intent for images. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simulate a full color managed environment :
+all colors, rgb or cmyk, are converted to printer color space.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4410,78 +4481,6 @@ It is a reserved name for transparent color</source>
 </context>
 <context>
     <name>CharStyle</name>
-    <message>
-        <source>font %1 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>size %1 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+style </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+color </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+underline </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-underline </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+strikeout </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-strikeout </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+shadow </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-shadow </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+outline </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-outline </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+tracking %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-tracking </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+baseline %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+stretch </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>parent= %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>unnamed</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>CheckDocument</name>
@@ -5052,6 +5051,82 @@ It is a reserved name for transparent color</source>
         <source>None</source>
         <comment>color name</comment>
         <translation>Никакого</translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation type="unfinished">Марта</translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation type="unfinished">Апрель</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>July</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>August</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>September</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>October</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>December</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6664,7 +6739,7 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Embed in:</source>
         <comment>font preview</comment>
-        <translation>Встраивать в:</translation>
+        <translation type="obsolete">Встраивать в:</translation>
     </message>
     <message>
         <source>Subset</source>
@@ -6678,11 +6753,16 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
         <translation>Пути к шрифтам могут быть установлены только через диалог настройки программы и только при отсутствии открытых документов. Закройте все документы, и в диалоге, открывающимся через меню Правка -&gt; Настроить..., укажите путь к шрифтам.</translation>
+    </message>
+    <message>
+        <source>Embed in PostScript</source>
+        <comment>font preview</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7678,6 +7758,66 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Lower layer</source>
         <translation>Опустить слой</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished">Непрозрачность:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation type="unfinished">Режим совмещения:</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished">Затемнение</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished">Осветление</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished">Умножение</translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished">Экран</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished">Перекрытие</translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished">Жёсткий свет</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished">Мягкий свет</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished">Разница</translation>
+    </message>
+    <message>
+        <source>Exlusion</source>
+        <translation type="unfinished">Исключение</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished">Затемнение штрихов</translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished">Осветление штрихов</translation>
     </message>
 </context>
 <context>
@@ -9434,15 +9574,23 @@ Corners:</source>
     </message>
     <message>
         <source>Exporting Master Pages:</source>
-        <translation>Экспорт мастер-страниц:</translation>
+        <translation type="obsolete">Экспорт мастер-страниц:</translation>
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation>Экспорт страниц:</translation>
+        <translation type="obsolete">Экспорт страниц:</translation>
     </message>
     <message>
         <source>Exporting Items on Current Page:</source>
         <translation>Экспорт объектов текущей страницы:</translation>
+    </message>
+    <message>
+        <source>Exporting Master Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Page:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9577,11 +9725,19 @@ Corners:</source>
     <name>PSLib</name>
     <message>
         <source>Processing Master Pages:</source>
-        <translation>Обработка мастер-страницы:</translation>
+        <translation type="obsolete">Обработка мастер-страницы:</translation>
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation>Экспорт страниц:</translation>
+        <translation type="obsolete">Экспорт страниц:</translation>
+    </message>
+    <message>
+        <source>Processing Master Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Page:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10594,6 +10750,10 @@ Corners:</source>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation type="obsolete">Добавьте путь к интерпретатору GhostScript в системе. Пользователям версии для Windows стоит помнить, что использоваться должен файл gswin32c.exe,а никак не gswin32.exe. В противном случае Scribus «повиснет» при запуске.</translation>
+    </message>
+    <message>
+        <source>Show S&amp;plashscreen On Startup:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12643,6 +12803,90 @@ is not exhaustive due to exceptions from called functions.
         <source>Font %1(%2) is broken</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Арабский</translation>
+    </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>font %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+tracking %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+baseline %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parent= %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unnamed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13180,7 +13424,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SVGExportPlugin</name>
     <message>
         <source>Save Page as &amp;SVG...</source>
-        <translation>Сохран&amp;ить страницу как SVG...</translation>
+        <translation type="obsolete">Сохран&amp;ить страницу как SVG...</translation>
     </message>
     <message>
         <source>Exports SVG Files</source>
@@ -13189,6 +13433,10 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Exports the current page into an SVG file.</source>
         <translation>Экспортирует текущую страницу в файл SVG.</translation>
+    </message>
+    <message>
+        <source>Save as &amp;SVG...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13351,6 +13599,13 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>ScProgressBar</name>
+    <message>
+        <source>%1 of %2</source>
+        <translation type="unfinished">%1 из %2</translation>
+    </message>
+</context>
+<context>
     <name>ScToolBar</name>
     <message>
         <source>Top</source>
@@ -13481,6 +13736,18 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some objects are locked.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Unlock All</source>
+        <translation type="unfinished">&amp;Разблокировать все</translation>
+    </message>
+    <message>
+        <source>&amp;Skip locked objects</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14050,6 +14317,10 @@ Vertical shift: %3</source>
     <message>
         <source>Issues</source>
         <translation>Проблемы</translation>
+    </message>
+    <message>
+        <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15140,6 +15411,10 @@ Vertical shift: %3</source>
         <source>Locate your image editor</source>
         <translation type="unfinished">Найти графический редактор</translation>
     </message>
+    <message>
+        <source>Locate your web browser</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabExternalToolsWidgetBase</name>
@@ -15157,7 +15432,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
-        <translation type="unfinished">Добавьте путь к интерпретатору GhostScript в системе. Пользователям версии для Windows стоит помнить, что использоваться должен файл gswin32c.exe,а никак не gswin32.exe. В противном случае Scribus «повиснет» при запуске.</translation>
+        <translation type="obsolete">Добавьте путь к интерпретатору GhostScript в системе. Пользователям версии для Windows стоит помнить, что использоваться должен файл gswin32c.exe,а никак не gswin32.exe. В противном случае Scribus «повиснет» при запуске.</translation>
     </message>
     <message>
         <source>&amp;Change..</source>
@@ -15208,10 +15483,6 @@ Vertical shift: %3</source>
         <translation type="unfinished">&amp;Имя исполняемого файла:</translation>
     </message>
     <message>
-        <source>File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Change...</source>
         <translation type="unfinished">&amp;Изменить...</translation>
     </message>
@@ -15221,6 +15492,30 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Web Browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Web Browser to launch with links from the Help system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rescan for the external tools if they do not exist in the already specified location</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15369,6 +15664,156 @@ Vertical shift: %3</source>
     <message>
         <source>Distance from the top of the page for the first baseline</source>
         <translation>Расстояние от верха страницы до первой базовой линии</translation>
+    </message>
+</context>
+<context>
+    <name>TabKeyboardShortcutsWidget</name>
+    <message>
+        <source>Key Set XML Files (*.ksxml)</source>
+        <translation type="unfinished">Файлы с настройками клавиатуры (*.ksxml)</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <translation type="unfinished">Alt</translation>
+    </message>
+    <message>
+        <source>Ctrl</source>
+        <translation type="unfinished">Ctrl</translation>
+    </message>
+    <message>
+        <source>Shift</source>
+        <translation type="unfinished">Shift</translation>
+    </message>
+    <message>
+        <source>Meta</source>
+        <translation type="unfinished">Meta</translation>
+    </message>
+    <message>
+        <source>Meta+</source>
+        <translation type="unfinished">Meta+</translation>
+    </message>
+    <message>
+        <source>Shift+</source>
+        <translation type="unfinished">Shift+</translation>
+    </message>
+    <message>
+        <source>Alt+</source>
+        <translation type="unfinished">Alt+</translation>
+    </message>
+    <message>
+        <source>Ctrl+</source>
+        <translation type="unfinished">Ctrl+</translation>
+    </message>
+    <message>
+        <source>This key sequence is already in use</source>
+        <translation type="unfinished">Эта комбинация уже использована</translation>
+    </message>
+</context>
+<context>
+    <name>TabKeyboardShortcutsWidgetBase</name>
+    <message>
+        <source>Keyboard Shortcuts</source>
+        <translation type="unfinished">Горячие клавиши</translation>
+    </message>
+    <message>
+        <source>Search:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation type="unfinished">Действие</translation>
+    </message>
+    <message>
+        <source>Shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shortcut for Selected Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;No Key</source>
+        <translation type="unfinished">&amp;Без горячих клавиш</translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Defined Key</source>
+        <translation type="unfinished">&amp;Собственная комбинация</translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set &amp;Key</source>
+        <translation type="unfinished">&amp;Установить</translation>
+    </message>
+    <message>
+        <source>Alt+K</source>
+        <translation type="unfinished">Alt+О</translation>
+    </message>
+    <message>
+        <source>CTRL+ALT+SHIFT+W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loadable Shortcut Sets</source>
+        <translation type="unfinished">Загружаемые схемы горячих клавиш</translation>
+    </message>
+    <message>
+        <source>Keyboard shortcut sets available to load</source>
+        <translation type="unfinished">Доступные схемы горячих клавиш</translation>
+    </message>
+    <message>
+        <source>&amp;Load</source>
+        <translation type="unfinished">&amp;Загрузить</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load the selected shortcut set</source>
+        <translation type="unfinished">Применить выбранную схему горячих клавиш</translation>
+    </message>
+    <message>
+        <source>&amp;Import...</source>
+        <translation type="unfinished">&amp;Импортировать...</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation type="unfinished">Alt+Д</translation>
+    </message>
+    <message>
+        <source>Import a shortcut set into the current configuration</source>
+        <translation type="unfinished">Импортировать схему горячих клавиш в текущую конфигурацию</translation>
+    </message>
+    <message>
+        <source>&amp;Export...</source>
+        <translation type="unfinished">&amp;Экспортировать...</translation>
+    </message>
+    <message>
+        <source>Alt+E</source>
+        <translation type="unfinished">Alt+ч</translation>
+    </message>
+    <message>
+        <source>Export the current shortcuts into an importable file</source>
+        <translation type="unfinished">Экспортировать текущую схему горячих клавиш в файл</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation type="unfinished">С&amp;бросить</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload the default Scribus shortcuts</source>
+        <translation type="unfinished">Загрузить схему по умолчанию</translation>
     </message>
 </context>
 <context>
@@ -16434,6 +16879,11 @@ when PDF document is opened:</source>
         <source>Custom</source>
         <translation>Свой</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -16582,7 +17032,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Ничего</translation>
+        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>Fill Char:</source>
@@ -16611,6 +17061,26 @@ when PDF document is opened:</source>
     <message>
         <source>Custom</source>
         <translation>Свой</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TextBrowser</name>
+    <message>
+        <source>Locate your web browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>External Web Browser Failed to Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

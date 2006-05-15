@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.1.3.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-24 23:55+0200\n"
+"POT-Creation-Date: 2006-05-15 14:44+0200\n"
 "PO-Revision-Date: 2006-03-14 00:29+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team:  <it@li.org>\n"
@@ -133,6 +133,89 @@ msgstr "Tutti i formati supportati"
 msgid "All Files (*)"
 msgstr "Tutti i file (*)"
 
+msgid "Action"
+msgstr "Azione"
+
+#, fuzzy
+msgid "Shortcut"
+msgstr "Ordina"
+
+msgid "Keyboard Shortcuts"
+msgstr "Tasti di scelta rapida"
+
+#, fuzzy
+msgid "Search:"
+msgstr "Cerca"
+
+#, fuzzy
+msgid "Shortcut for Selected Action"
+msgstr "Mostra solo l'oggetto selezionato"
+
+msgid "&No Key"
+msgstr "&Nessun tasto"
+
+msgid "&User Defined Key"
+msgstr "Tasto personali&zzato"
+
+msgid "Alt+U"
+msgstr "Alt+U"
+
+msgid "Set &Key"
+msgstr "Imposta &tasto"
+
+#, fuzzy
+msgid "Alt+K"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "CTRL+ALT+SHIFT+W"
+msgstr "ALT+MAIUSC+T"
+
+msgid "Loadable Shortcut Sets"
+msgstr "Raccolta di tasti di scelta rapida disponibile"
+
+msgid "Keyboard shortcut sets available to load"
+msgstr "Raccolte di tasti di scelta rapida disponibili"
+
+msgid "&Load"
+msgstr "&Carica"
+
+msgid "Alt+L"
+msgstr "Alt+L"
+
+msgid "Load the selected shortcut set"
+msgstr "Carica la raccolta di tasti di scelta rapida selezionata"
+
+msgid "&Import..."
+msgstr "&Importa..."
+
+msgid "Alt+I"
+msgstr "Alt+I"
+
+msgid "Import a shortcut set into the current configuration"
+msgstr ""
+"Importa una raccolta di tasti di scelta rapida nell'attuale configurazione"
+
+msgid "&Export..."
+msgstr "&Esporta..."
+
+msgid "Alt+E"
+msgstr "Alt+E"
+
+msgid "Export the current shortcuts into an importable file"
+msgstr ""
+"Esporta l'attuale raccolta di tasti di scelta rapida in un file importabile"
+
+msgid "&Reset"
+msgstr "Azze&ra"
+
+#, fuzzy
+msgid "Alt+R"
+msgstr "Alt+"
+
+msgid "Reload the default Scribus shortcuts"
+msgstr "Ripristina i tasti di scelta rapida predefiniti di Scribus"
+
 msgid "Available Fonts"
 msgstr "Caratteri disponibili"
 
@@ -148,17 +231,15 @@ msgstr "Nome font"
 msgid "Use Font"
 msgstr "Usa font"
 
-msgid "Embed in:"
-msgstr "Incorpora in:"
+#, fuzzy
+msgid "Embed in PostScript"
+msgstr "Esportazione file Postscript"
 
 msgid "Subset"
 msgstr "Sottoinsieme"
 
 msgid "Path to Font File"
 msgstr "Percorso del file dei font"
-
-msgid "PostScript"
-msgstr "Postscript"
 
 msgid "&Available Fonts"
 msgstr "Cara&tteri disponibili"
@@ -195,6 +276,36 @@ msgstr "&Percorsi aggiuntivi"
 
 msgid "Choose a Directory"
 msgstr "Scegli una directory"
+
+msgid "Key Set XML Files (*.ksxml)"
+msgstr "Raccolta File Tasti Scelta Rapida XML (*.ksxml)"
+
+msgid "Alt"
+msgstr "Alt"
+
+msgid "Ctrl"
+msgstr "Ctrl"
+
+msgid "Shift"
+msgstr "Maiusc"
+
+msgid "Meta"
+msgstr "Meta"
+
+msgid "Meta+"
+msgstr "Meta+"
+
+msgid "Shift+"
+msgstr "Maiusc+"
+
+msgid "Alt+"
+msgstr "Alt+"
+
+msgid "Ctrl+"
+msgstr "Ctrl+"
+
+msgid "This key sequence is already in use"
+msgstr "Questa sequenza di tasti è già in uso"
 
 msgid "Page Layout"
 msgstr "Formato pagina"
@@ -674,6 +785,16 @@ msgid ""
 msgstr ""
 "L'elemento %1 è in corso di modifica nell'Editor Interno. La cancellazione è "
 "annullata"
+
+msgid "Some objects are locked."
+msgstr "Alcuni oggetti sono bloccati."
+
+msgid "&Unlock All"
+msgstr "&Sblocca tutti"
+
+#, fuzzy
+msgid "&Skip locked objects"
+msgstr "Blocca o sblocca l'oggetto"
 
 msgid "Nodes"
 msgstr "Nodi"
@@ -1356,13 +1477,6 @@ msgstr "Sposta pagina/e:"
 msgid "Collecting..."
 msgstr "Raccolta..."
 
-msgid ""
-"Cannot collect the file: \n"
-"%1"
-msgstr ""
-"Impossibile aggiungere il file: \n"
-"%1"
-
 msgid "Warning"
 msgstr "Avviso"
 
@@ -1371,6 +1485,13 @@ msgid ""
 "%1"
 msgstr ""
 "Impossibile raccogliere tutti i file per l'output sul file:\n"
+"%1"
+
+msgid ""
+"Cannot collect the file: \n"
+"%1"
+msgstr ""
+"Impossibile aggiungere il file: \n"
 "%1"
 
 msgid "Manage Tabulators"
@@ -1964,6 +2085,10 @@ msgstr "&Lingua:"
 msgid "&Theme:"
 msgstr "Te&ma:"
 
+#, fuzzy
+msgid "Show S&plashscreen On Startup:"
+msgstr "Non mostrare la schermata d'avvio"
+
 msgid "&Font Size (Menus):"
 msgstr "Dim&ensione carattere (Menù):"
 
@@ -2048,9 +2173,6 @@ msgstr "Esporta PDF"
 msgid "Document Item Attributes"
 msgstr "Attributi elementi documento"
 
-msgid "Keyboard Shortcuts"
-msgstr "Tasti di scelta rapida"
-
 msgid "Page Display"
 msgstr "Visualizzazione"
 
@@ -2059,9 +2181,6 @@ msgstr "Colore:"
 
 msgid "Display &Unprintable Area in Margin Color"
 msgstr "Mostra area non stam&pabile con il colore del margine"
-
-msgid "Alt+U"
-msgstr "Alt+U"
 
 msgid "Show Pictures"
 msgstr "Mostra immagini"
@@ -2406,6 +2525,9 @@ msgstr "<<"
 msgid "Effects in use"
 msgstr "Effetti in uso"
 
+msgid "Opacity:"
+msgstr "Opacità:"
+
 msgid "Delete Layer"
 msgstr "Elimina livello"
 
@@ -2414,6 +2536,43 @@ msgstr "Vuoi eliminare anche tutti gli oggetti su questo livello?"
 
 msgid "Layers"
 msgstr "Livelli"
+
+msgid "Blend Mode:"
+msgstr "Modo fusione:"
+
+msgid "Darken"
+msgstr "Scuro"
+
+msgid "Lighten"
+msgstr "Chiaro"
+
+msgid "Multiply"
+msgstr "Moltiplica"
+
+msgid "Screen"
+msgstr "Schermo"
+
+msgid "Overlay"
+msgstr "Sovrapponi"
+
+msgid "Hard Light"
+msgstr "Luce forte"
+
+msgid "Soft Light"
+msgstr "Luce debole"
+
+msgid "Difference"
+msgstr "Differenza"
+
+msgid "Exlusion"
+msgstr "Esclusione"
+
+msgid "Color Dodge"
+msgstr "Fusione colori"
+
+#, fuzzy
+msgid "Color Burn"
+msgstr "Moltiplicazione Colore"
 
 msgid "Name"
 msgstr "Nome"
@@ -2425,6 +2584,10 @@ msgid "Locate Ghostscript"
 msgstr "Localizza Ghostscript"
 
 msgid "Locate your image editor"
+msgstr "Localizza l'editor immagini"
+
+#, fuzzy
+msgid "Locate your web browser"
 msgstr "Localizza l'editor immagini"
 
 msgid "Save as PDF"
@@ -2588,11 +2751,11 @@ msgstr "Visualizza tras&parenza"
 msgid "&Under Color Removal"
 msgstr "&Rimozione Colori Sottostanti (UCR)"
 
-msgid "Force Overprint Mode"
-msgstr ""
-
 msgid "&Display CMYK"
 msgstr "&Visualizza CMYK"
+
+msgid "Force Overprint Mode"
+msgstr ""
 
 msgid "&C"
 msgstr "&C"
@@ -2743,12 +2906,6 @@ msgstr ""
 msgid "Extended Image Properties"
 msgstr "Ulteriori proprietà immagini"
 
-msgid "Darken"
-msgstr "Scuro"
-
-msgid "Lighten"
-msgstr "Chiaro"
-
 msgid "Hue"
 msgstr "Tonalità"
 
@@ -2761,45 +2918,11 @@ msgstr "Colore"
 msgid "Luminosity"
 msgstr "Luminosità"
 
-msgid "Multiply"
-msgstr "Moltiplica"
-
-msgid "Screen"
-msgstr "Schermo"
-
 msgid "Dissolve"
 msgstr "Dissolvi"
 
-msgid "Overlay"
-msgstr "Sovrapponi"
-
-msgid "Hard Light"
-msgstr "Luce forte"
-
-msgid "Soft Light"
-msgstr "Luce debole"
-
-msgid "Difference"
-msgstr "Differenza"
-
 msgid "Exclusion"
 msgstr "Esclusione"
-
-msgid "Color Dodge"
-msgstr "Fusione colori"
-
-#, fuzzy
-msgid "Color Burn"
-msgstr "Moltiplicazione Colore"
-
-msgid "Exlusion"
-msgstr "Esclusione"
-
-msgid "Blend Mode:"
-msgstr "Modo fusione:"
-
-msgid "Opacity:"
-msgstr "Opacità:"
 
 msgid "Don't use any Path"
 msgstr "Non usare alcun percorso"
@@ -2959,12 +3082,6 @@ msgstr "Distribuisci gli elementi con la distanza specificata"
 
 msgid "None Selected"
 msgstr "Nessuna selezione"
-
-msgid "Some objects are locked."
-msgstr "Alcuni oggetti sono bloccati."
-
-msgid "&Unlock All"
-msgstr "&Sblocca tutti"
 
 #, c-format
 msgid "Y: %1%2"
@@ -3648,6 +3765,9 @@ msgstr ""
 "Non mostrare gli oggetti fuori dei margini nella pagina stampata o nel file "
 "esportato"
 
+msgid "PostScript"
+msgstr "Postscript"
+
 msgid "Migrate Old Scribus Settings?"
 msgstr "Migrare le configurazioni del vecchio Scribus?"
 
@@ -3766,9 +3886,9 @@ msgid "&Name of Executable:"
 msgstr "&Nome dell'eseguibile:"
 
 msgid ""
-"Add the path for the Ghostscript interpreter. On Windows, please note it is "
-"important to note you need to use the program named gswin32c.exe - NOT "
-"gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus."
+"<qt>Add the path for the Ghostscript interpreter. On Windows, please note it "
+"is important to note you need to use the program named gswin32c.exe - NOT "
+"gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</qt>"
 msgstr ""
 
 #, fuzzy
@@ -3801,21 +3921,33 @@ msgstr "Nome dell'&eseguibile:"
 
 #, fuzzy
 msgid ""
-"File system location for graphics editor. If you use gimp and your "
+"<qt>File system location for graphics editor. If you use gimp and your "
 "distribution includes it, we recommend 'gimp-remote', as it allows you to "
-"edit the image in an already running instance of gimp."
+"edit the image in an already running instance of gimp.</qt>"
 msgstr ""
 "Indirizzo nel file system per l'editor grafico. Se si usa gimp e la "
 "distribuzione lo include, si raccomanda 'gimp-remote', così da permettere di "
 "modificare l'immagine in una sessione già aperta di gimp."
 
+msgid "Web Browser"
+msgstr ""
+
+msgid "Web Browser to launch with links from the Help system"
+msgstr ""
+
+msgid ""
+"<qt>File system location for your web browser. This is used for external "
+"links from the Help system.</qt>"
+msgstr ""
+
 #, fuzzy
 msgid "&Rescan"
 msgstr "Azze&ra"
 
-#, fuzzy
-msgid "Alt+R"
-msgstr "Alt+"
+msgid ""
+"Rescan for the external tools if they do not exist in the already specified "
+"location"
+msgstr ""
 
 msgid "Filename:"
 msgstr "Nome file:"
@@ -3917,10 +4049,12 @@ msgstr "Regolazione colori"
 msgid "Saving PDF"
 msgstr "Salva come PDF"
 
-msgid "Exporting Master Pages:"
+#, fuzzy
+msgid "Exporting Master Page:"
 msgstr "Esporta pagine mastro:"
 
-msgid "Exporting Pages:"
+#, fuzzy
+msgid "Exporting Page:"
 msgstr "Esportazione pagine:"
 
 msgid "Exporting Items on Current Page:"
@@ -3939,9 +4073,6 @@ msgstr "Orizzontale"
 msgid "D&elete"
 msgstr "&Elimina"
 
-msgid "Alt+E"
-msgstr "Alt+E"
-
 #, fuzzy
 msgid "Verticals"
 msgstr "Verticale"
@@ -3951,9 +4082,6 @@ msgstr "A&ggiungi"
 
 msgid "De&lete"
 msgstr "E&limina"
-
-msgid "Alt+L"
-msgstr "Alt+L"
 
 msgid "&Lock Guides"
 msgstr "&Blocca guide"
@@ -4239,9 +4367,6 @@ msgstr "Pos. X:"
 msgid "Y-Pos:"
 msgstr "Pos. Y:"
 
-msgid "Action"
-msgstr "Azione"
-
 msgid "Field is formatted as:"
 msgstr "Campo formattato come:"
 
@@ -4402,7 +4527,8 @@ msgstr "Carica im&agine..."
 msgid "Save &Text..."
 msgstr "Salva &testo..."
 
-msgid "Save Page as &EPS..."
+#, fuzzy
+msgid "Save as &EPS..."
 msgstr "Salva pagina in &EPS..."
 
 msgid "Save as P&DF..."
@@ -4702,6 +4828,10 @@ msgstr "Mostra &griglia"
 
 msgid "Show G&uides"
 msgstr "Mostra g&uide"
+
+#, fuzzy
+msgid "Show Text Frame Columns"
+msgstr "Mostra testi collegati"
 
 msgid "Show &Baseline Grid"
 msgstr "Mostra griglia tipogra&fica"
@@ -6312,10 +6442,6 @@ msgstr "Seleziona font"
 msgid "About Scribus %1"
 msgstr "Informazioni su Scribus%1"
 
-#, fuzzy
-msgid "April"
-msgstr "Applica"
-
 msgid "%1 %2 %3"
 msgstr "%1 %2 %3 "
 
@@ -6482,6 +6608,70 @@ msgstr "Centro destra"
 
 msgid "Right Page"
 msgstr "Pagina destra"
+
+msgid "Monday"
+msgstr ""
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+#, fuzzy
+msgid "Friday"
+msgstr "Trova"
+
+#, fuzzy
+msgid "Saturday"
+msgstr "Saturazione"
+
+msgid "Sunday"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "February"
+msgstr "Febbraio"
+
+#, fuzzy
+msgid "March"
+msgstr "Cerca"
+
+#, fuzzy
+msgid "April"
+msgstr "Applica"
+
+msgid "May"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+#, fuzzy
+msgid "August"
+msgstr "Automatico"
+
+msgid "September"
+msgstr ""
+
+#, fuzzy
+msgid "October"
+msgstr "Altro"
+
+#, fuzzy
+msgid "November"
+msgstr "Numero"
+
+msgid "December"
+msgstr ""
 
 msgid "Fixed Linespacing"
 msgstr "Interlinea fissa"
@@ -6893,6 +7083,11 @@ msgstr "Visualizza le informazioni sulla console mentre carica i font"
 msgid "Do not show the splashscreen on startup"
 msgstr "Non mostrare la schermata d'avvio"
 
+msgid ""
+"Stop the showing of the splashscreen on startup. Writes an empty file "
+"called .neversplash in ~/.scribus."
+msgstr ""
+
 msgid "Output version information and exit"
 msgstr "Mostra le informazioni sulla versione ed esci"
 
@@ -7063,79 +7258,8 @@ msgstr "Tasto attivo"
 msgid "Select a Key for this Action"
 msgstr "Seleziona un tasto per questa azione"
 
-msgid "&No Key"
-msgstr "&Nessun tasto"
-
-msgid "&User Defined Key"
-msgstr "Tasto personali&zzato"
-
 msgid "ALT+SHIFT+T"
 msgstr "ALT+MAIUSC+T"
-
-msgid "Set &Key"
-msgstr "Imposta &tasto"
-
-msgid "Loadable Shortcut Sets"
-msgstr "Raccolta di tasti di scelta rapida disponibile"
-
-msgid "&Load"
-msgstr "&Carica"
-
-msgid "&Import..."
-msgstr "&Importa..."
-
-msgid "&Export..."
-msgstr "&Esporta..."
-
-msgid "&Reset"
-msgstr "Azze&ra"
-
-msgid "Keyboard shortcut sets available to load"
-msgstr "Raccolte di tasti di scelta rapida disponibili"
-
-msgid "Load the selected shortcut set"
-msgstr "Carica la raccolta di tasti di scelta rapida selezionata"
-
-msgid "Import a shortcut set into the current configuration"
-msgstr ""
-"Importa una raccolta di tasti di scelta rapida nell'attuale configurazione"
-
-msgid "Export the current shortcuts into an importable file"
-msgstr ""
-"Esporta l'attuale raccolta di tasti di scelta rapida in un file importabile"
-
-msgid "Reload the default Scribus shortcuts"
-msgstr "Ripristina i tasti di scelta rapida predefiniti di Scribus"
-
-msgid "Alt"
-msgstr "Alt"
-
-msgid "Ctrl"
-msgstr "Ctrl"
-
-msgid "Shift"
-msgstr "Maiusc"
-
-msgid "Meta"
-msgstr "Meta"
-
-msgid "Meta+"
-msgstr "Meta+"
-
-msgid "Shift+"
-msgstr "Maiusc+"
-
-msgid "Alt+"
-msgstr "Alt+"
-
-msgid "Ctrl+"
-msgstr "Ctrl+"
-
-msgid "This key sequence is already in use"
-msgstr "Questa sequenza di tasti è già in uso"
-
-msgid "Key Set XML Files (*.ksxml)"
-msgstr "Raccolta File Tasti Scelta Rapida XML (*.ksxml)"
 
 msgid "Choose a Scrapbook Directory"
 msgstr "Scegli una directory per la Biblioteca"
@@ -7164,15 +7288,24 @@ msgstr "Nuova voce"
 msgid "Scrapbook"
 msgstr "Biblioteca"
 
-msgid "&Preview"
-msgstr "Ante&prima"
-
-msgid "&Load..."
-msgstr "&Carica..."
+msgid "Create a new scrapbook page"
+msgstr ""
 
 #, fuzzy
-msgid "&Import Scrapbook File..."
+msgid "Load an existing scrapbook"
+msgstr "Lettura biblioteca"
+
+#, fuzzy
+msgid "Save the selected scrapbook"
+msgstr "Dimensioni del font selezionato"
+
+#, fuzzy
+msgid "Import an scrapbook file from Scribus <=1.3.2"
 msgstr "Importa file SVG"
+
+#, fuzzy
+msgid "Close the selected scrapbook"
+msgstr "Elimina la pagina mastro selezionata"
 
 msgid "Polygon Properties"
 msgstr "Proprietà poligono"
@@ -7253,6 +7386,17 @@ msgstr "Crea pagina/e"
 
 msgid " from %1"
 msgstr "da %1"
+
+msgid "At the beginning"
+msgstr ""
+
+#, fuzzy
+msgid "At the end"
+msgstr "In fondo"
+
+#, fuzzy
+msgid "Not Shown"
+msgstr "Mostrato"
 
 msgid "Bookmarks"
 msgstr "Segnalibri"
@@ -7566,10 +7710,6 @@ msgstr "Chiudi"
 msgid "O&K"
 msgstr "OK"
 
-#, fuzzy
-msgid "Alt+K"
-msgstr "Alt+"
-
 msgid "Move Bookmark"
 msgstr "Sposta segnalibro"
 
@@ -7767,7 +7907,12 @@ msgstr "I&mmagini RGB:"
 msgid "&CMYK Pictures:"
 msgstr "Immagini CM&YK:"
 
-msgid "&Solid Colors:"
+#, fuzzy
+msgid "&RGB Solid Colors:"
+msgstr "T&inte unite:"
+
+#, fuzzy
+msgid "&CMYK Solid Colors:"
 msgstr "T&inte unite:"
 
 msgid "&Monitor:"
@@ -7779,14 +7924,20 @@ msgstr "Stam&pante:"
 msgid "Rendering Intents"
 msgstr "Intenti rendering"
 
-msgid "M&onitor:"
-msgstr "S&chermo:"
+#, fuzzy
+msgid "Pictures:"
+msgstr "Immagine"
 
-msgid "Pr&inter:"
-msgstr "S&tampante:"
+#, fuzzy
+msgid "Sol&id Colors:"
+msgstr "Tinte unite:"
 
 msgid "Sim&ulate Printer on the Screen"
 msgstr "Sim&ulazione di stampa su schermo"
+
+#, fuzzy
+msgid "Convert all colors to printer space"
+msgstr "Imposta opacità colore di fondo"
 
 msgid "Mark Colors out of &Gamut"
 msgstr "Segna colori fuori &gamma"
@@ -7800,7 +7951,12 @@ msgstr "Profilo di colore predefinito per immagini CMYK importate"
 msgid "Default color profile for imported RGB images"
 msgstr "Profilo di colore predefinito per immagini RGB importate"
 
-msgid "Default color profile for solid colors on the page"
+#, fuzzy
+msgid "Default color profile for solid RGB colors on the page"
+msgstr "Profilo di colore predefinito per tinte unite nella pagina"
+
+#, fuzzy
+msgid "Default color profile for solid CMYK colors on the page"
 msgstr "Profilo di colore predefinito per tinte unite nella pagina"
 
 msgid ""
@@ -7822,8 +7978,9 @@ msgstr ""
 "Questo profilo dovrebbe essere specifico per la stampante in uso e non "
 "generico (es. 'sRGB')."
 
+#, fuzzy
 msgid ""
-"Default rendering intent for your monitor. Unless you know why to change "
+"Default rendering intent for solid colors. Unless you know why to change "
 "it,\n"
 "Relative Colorimetric or Perceptual should be chosen."
 msgstr ""
@@ -7831,9 +7988,9 @@ msgstr ""
 "sapere perché modificarlo.\n"
 "Dovrebbe essere scelto il colorimetrico relativo o percettivo."
 
+#, fuzzy
 msgid ""
-"Default rendering intent for your printer. Unless you know why to change "
-"it,\n"
+"Default rendering intent for images. Unless you know why to change it,\n"
 "Relative Colorimetric or Perceptual should be chosen."
 msgstr ""
 "Intento rendering predefinito per la stampante in uso. Altrimenti bisogna "
@@ -7846,6 +8003,11 @@ msgid ""
 msgstr ""
 "Abilita la prova colore di come i colori del documento verranno\n"
 "stampati, basato sul profilo di stampante scelto."
+
+msgid ""
+"Simulate a full color managed environment :\n"
+"all colors, rgb or cmyk, are converted to printer color space."
+msgstr ""
 
 msgid ""
 "Method of showing colors on the screen which may not print properly.\n"
@@ -7869,8 +8031,17 @@ msgstr "Esportazione file Postscript"
 msgid "Printing File"
 msgstr "Stampa file"
 
-msgid "Processing Master Pages:"
+#, fuzzy
+msgid "Processing Master Page:"
 msgstr "Elaborazione pagine mastro:"
+
+msgid "External Web Browser Failed to Start"
+msgstr ""
+
+msgid ""
+"Scribus was not able to start the external web browser application %1. "
+"Please check the setting in Preferences"
+msgstr ""
 
 msgid "&Contents"
 msgstr "&Contenuto"
@@ -8036,6 +8207,9 @@ msgstr "Ceco"
 msgid "Danish"
 msgstr "Danese"
 
+msgid "Dzongkha"
+msgstr ""
+
 msgid "Dutch"
 msgstr "Olandese"
 
@@ -8047,6 +8221,9 @@ msgstr "Inglese (Britannico)"
 
 msgid "Esperanto"
 msgstr "Esperanto"
+
+msgid "Estonian"
+msgstr ""
 
 msgid "German"
 msgstr "Tedesco"
@@ -9692,9 +9869,6 @@ msgstr "Impostazioni predefinite dei modelli di codici a barre"
 msgid "&Include text in barcode"
 msgstr "&Includi un testo nel codice a barre"
 
-msgid "Alt+I"
-msgstr "Alt+I"
-
 msgid "If checked, there will be numbers in the barcode too"
 msgstr "Se smarcato, il codice a barre conterrà anche dei numeri"
 
@@ -9806,7 +9980,8 @@ msgstr "Generatore di codice a barre"
 msgid "Scribus frontend for Pure Postscript Barcode Writer"
 msgstr "Interfaccia Scribus per elaborare codice a barre in pur Postscript"
 
-msgid "Save Page as &SVG..."
+#, fuzzy
+msgid "Save as &SVG..."
 msgstr "Salva pagina in &SVG..."
 
 msgid "SVG Export"
@@ -9887,6 +10062,21 @@ msgstr "La mia &Estensione"
 msgid "My Plugin"
 msgstr "La mia Estensione"
 
+#~ msgid "Embed in:"
+#~ msgstr "Incorpora in:"
+
+#~ msgid "&Preview"
+#~ msgstr "Ante&prima"
+
+#~ msgid "&Load..."
+#~ msgstr "&Carica..."
+
+#~ msgid "M&onitor:"
+#~ msgstr "S&chermo:"
+
+#~ msgid "Pr&inter:"
+#~ msgstr "S&tampante:"
+
 #~ msgid "Font %1 is broken (FreeType2), discarding it"
 #~ msgstr "Il font %1 è danneggiato (Free Type2), viene scartato"
 
@@ -9960,9 +10150,6 @@ msgstr "La mia Estensione"
 
 #~ msgid "Strike Out"
 #~ msgstr "Barrato"
-
-#~ msgid "February"
-#~ msgstr "Febbraio"
 
 #~ msgid ""
 #~ "Color of text stroke. Only available with \"outline\" text decoration."

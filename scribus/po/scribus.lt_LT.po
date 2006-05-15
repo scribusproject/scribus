@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-24 23:55+0200\n"
+"POT-Creation-Date: 2006-05-15 14:44+0200\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -122,6 +122,98 @@ msgstr ""
 msgid "All Files (*)"
 msgstr ""
 
+msgid "Action"
+msgstr "Veiksmas"
+
+#, fuzzy
+msgid "Shortcut"
+msgstr "Klaviðø deriniai..."
+
+#, fuzzy
+msgid "Keyboard Shortcuts"
+msgstr "Klaviðø deriniai..."
+
+#, fuzzy
+msgid "Search:"
+msgstr "Ieðkoti"
+
+#, fuzzy
+msgid "Shortcut for Selected Action"
+msgstr "Atðaukti objekto paðalinimà"
+
+#, fuzzy
+msgid "&No Key"
+msgstr "Jokiø deriniø"
+
+#, fuzzy
+msgid "&User Defined Key"
+msgstr "Tavo pasirinktas derinys"
+
+#, fuzzy
+msgid "Alt+U"
+msgstr "Viskà"
+
+#, fuzzy
+msgid "Set &Key"
+msgstr "Parinkti deriná"
+
+#, fuzzy
+msgid "Alt+K"
+msgstr "Viskà"
+
+msgid "CTRL+ALT+SHIFT+W"
+msgstr ""
+
+msgid "Loadable Shortcut Sets"
+msgstr ""
+
+msgid "Keyboard shortcut sets available to load"
+msgstr ""
+
+#, fuzzy
+msgid "&Load"
+msgstr "Atidaryti..."
+
+#, fuzzy
+msgid "Alt+L"
+msgstr "Viskà"
+
+msgid "Load the selected shortcut set"
+msgstr ""
+
+#, fuzzy
+msgid "&Import..."
+msgstr "Importuoti..."
+
+#, fuzzy
+msgid "Alt+I"
+msgstr "Viskà"
+
+msgid "Import a shortcut set into the current configuration"
+msgstr ""
+
+#, fuzzy
+msgid "&Export..."
+msgstr "Eksportuoti..."
+
+#, fuzzy
+msgid "Alt+E"
+msgstr "Viskà"
+
+msgid "Export the current shortcuts into an importable file"
+msgstr ""
+
+#, fuzzy
+msgid "&Reset"
+msgstr "Atitaisyti"
+
+#, fuzzy
+msgid "Alt+R"
+msgstr "Viskà"
+
+msgid "Reload the default Scribus shortcuts"
+msgstr ""
+
 #, fuzzy
 msgid "Available Fonts"
 msgstr "Galimi ðriftai:"
@@ -140,8 +232,9 @@ msgstr "Ðrifto dydis"
 msgid "Use Font"
 msgstr "Naudoti þenkliukà"
 
-msgid "Embed in:"
-msgstr "Áterpti á:"
+#, fuzzy
+msgid "Embed in PostScript"
+msgstr "JavaScript (*.js);; Visi failai (*)"
 
 #, fuzzy
 msgid "Subset"
@@ -150,10 +243,6 @@ msgstr "Poraðtis"
 #, fuzzy
 msgid "Path to Font File"
 msgstr "Ðriftu saugojimo vieta"
-
-#, fuzzy
-msgid "PostScript"
-msgstr "Portretui"
 
 #, fuzzy
 msgid "&Available Fonts"
@@ -193,6 +282,38 @@ msgstr ""
 
 msgid "Choose a Directory"
 msgstr ""
+
+msgid "Key Set XML Files (*.ksxml)"
+msgstr ""
+
+#, fuzzy
+msgid "Alt"
+msgstr "Viskà"
+
+msgid "Ctrl"
+msgstr ""
+
+msgid "Shift"
+msgstr ""
+
+msgid "Meta"
+msgstr ""
+
+msgid "Meta+"
+msgstr ""
+
+msgid "Shift+"
+msgstr ""
+
+msgid "Alt+"
+msgstr ""
+
+msgid "Ctrl+"
+msgstr ""
+
+#, fuzzy
+msgid "This key sequence is already in use"
+msgstr "Ðis klaviðø derinys jau naudojamas"
 
 #, fuzzy
 msgid "Page Layout"
@@ -729,6 +850,16 @@ msgstr ""
 msgid ""
 "The item %1 is currently being edited by Story Editor. The delete operation "
 "will be cancelled"
+msgstr ""
+
+msgid "Some objects are locked."
+msgstr ""
+
+#, fuzzy
+msgid "&Unlock All"
+msgstr "Riboti"
+
+msgid "&Skip locked objects"
 msgstr ""
 
 msgid "Nodes"
@@ -1515,6 +1646,14 @@ msgstr "Perkelti puslapá(ius):"
 msgid "Collecting..."
 msgstr "Ruoðiama..."
 
+msgid "Warning"
+msgstr "Dëmesio!"
+
+msgid ""
+"Cannot collect all files for output for file:\n"
+"%1"
+msgstr ""
+
 #, fuzzy
 msgid ""
 "Cannot collect the file: \n"
@@ -1523,14 +1662,6 @@ msgstr ""
 "Ar tikrai nori pakeisti esamo failo:\n"
 "%1\n"
 " turiná?"
-
-msgid "Warning"
-msgstr "Dëmesio!"
-
-msgid ""
-"Cannot collect all files for output for file:\n"
-"%1"
-msgstr ""
 
 #, fuzzy
 msgid "Manage Tabulators"
@@ -2164,6 +2295,9 @@ msgstr "Eilë:"
 msgid "&Theme:"
 msgstr "Naujas ðablonas"
 
+msgid "Show S&plashscreen On Startup:"
+msgstr ""
+
 #, fuzzy
 msgid "&Font Size (Menus):"
 msgstr "Ðrifto dydis:"
@@ -2270,10 +2404,6 @@ msgid "Document Item Attributes"
 msgstr "Dokumento nuostatos"
 
 #, fuzzy
-msgid "Keyboard Shortcuts"
-msgstr "Klaviðø deriniai..."
-
-#, fuzzy
 msgid "Page Display"
 msgstr "Rodyti"
 
@@ -2283,10 +2413,6 @@ msgstr "Spalva:"
 #, fuzzy
 msgid "Display &Unprintable Area in Margin Color"
 msgstr "Rodyti nespausdinamà srytá pasirinkta spalva"
-
-#, fuzzy
-msgid "Alt+U"
-msgstr "Viskà"
 
 #, fuzzy
 msgid "Show Pictures"
@@ -2616,6 +2742,9 @@ msgstr ""
 msgid "Effects in use"
 msgstr "Efektai"
 
+msgid "Opacity:"
+msgstr ""
+
 msgid "Delete Layer"
 msgstr "Paðalinti sluoksná"
 
@@ -2625,6 +2754,50 @@ msgstr "Ar tu tikrai labai nori paðalinti stiliø?"
 
 msgid "Layers"
 msgstr "Sluoksniai"
+
+msgid "Blend Mode:"
+msgstr ""
+
+#, fuzzy
+msgid "Darken"
+msgstr "Data"
+
+#, fuzzy
+msgid "Lighten"
+msgstr "Deðinën"
+
+msgid "Multiply"
+msgstr ""
+
+#, fuzzy
+msgid "Screen"
+msgstr "&Þalia:"
+
+msgid "Overlay"
+msgstr ""
+
+#, fuzzy
+msgid "Hard Light"
+msgstr "Aukðtis:"
+
+#, fuzzy
+msgid "Soft Light"
+msgstr "Ið kairës deðinën"
+
+#, fuzzy
+msgid "Difference"
+msgstr "Parinktys"
+
+msgid "Exlusion"
+msgstr ""
+
+#, fuzzy
+msgid "Color Dodge"
+msgstr "Spalvø modelis"
+
+#, fuzzy
+msgid "Color Burn"
+msgstr "Spalva"
 
 #, fuzzy
 msgid "Name"
@@ -2639,6 +2812,9 @@ msgid "Locate Ghostscript"
 msgstr "Portretui"
 
 msgid "Locate your image editor"
+msgstr ""
+
+msgid "Locate your web browser"
 msgstr ""
 
 #, fuzzy
@@ -2809,12 +2985,12 @@ msgstr "Rodyti rëmelius"
 msgid "&Under Color Removal"
 msgstr ""
 
-msgid "Force Overprint Mode"
-msgstr ""
-
 #, fuzzy
 msgid "&Display CMYK"
 msgstr "Rodyti"
+
+msgid "Force Overprint Mode"
+msgstr ""
 
 msgid "&C"
 msgstr ""
@@ -2962,14 +3138,6 @@ msgstr ""
 msgid "Extended Image Properties"
 msgstr "Laukeliø parinktys"
 
-#, fuzzy
-msgid "Darken"
-msgstr "Data"
-
-#, fuzzy
-msgid "Lighten"
-msgstr "Deðinën"
-
 msgid "Hue"
 msgstr ""
 
@@ -2982,49 +3150,10 @@ msgstr "Spalva"
 msgid "Luminosity"
 msgstr ""
 
-msgid "Multiply"
-msgstr ""
-
-#, fuzzy
-msgid "Screen"
-msgstr "&Þalia:"
-
 msgid "Dissolve"
 msgstr "Iðsisklaidymas"
 
-msgid "Overlay"
-msgstr ""
-
-#, fuzzy
-msgid "Hard Light"
-msgstr "Aukðtis:"
-
-#, fuzzy
-msgid "Soft Light"
-msgstr "Ið kairës deðinën"
-
-#, fuzzy
-msgid "Difference"
-msgstr "Parinktys"
-
 msgid "Exclusion"
-msgstr ""
-
-#, fuzzy
-msgid "Color Dodge"
-msgstr "Spalvø modelis"
-
-#, fuzzy
-msgid "Color Burn"
-msgstr "Spalva"
-
-msgid "Exlusion"
-msgstr ""
-
-msgid "Blend Mode:"
-msgstr ""
-
-msgid "Opacity:"
 msgstr ""
 
 msgid "Don't use any Path"
@@ -3218,13 +3347,6 @@ msgstr ""
 #, fuzzy
 msgid "None Selected"
 msgstr "Paþymëti"
-
-msgid "Some objects are locked."
-msgstr ""
-
-#, fuzzy
-msgid "&Unlock All"
-msgstr "Riboti"
 
 #, c-format
 msgid "Y: %1%2"
@@ -3884,6 +4006,10 @@ msgstr ""
 msgid "Do not show objects outside the margins in the exported file"
 msgstr ""
 
+#, fuzzy
+msgid "PostScript"
+msgstr "Portretui"
+
 msgid "Migrate Old Scribus Settings?"
 msgstr ""
 
@@ -4000,9 +4126,9 @@ msgid "&Name of Executable:"
 msgstr "Atðaukti objekto paðalinimà"
 
 msgid ""
-"Add the path for the Ghostscript interpreter. On Windows, please note it is "
-"important to note you need to use the program named gswin32c.exe - NOT "
-"gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus."
+"<qt>Add the path for the Ghostscript interpreter. On Windows, please note it "
+"is important to note you need to use the program named gswin32c.exe - NOT "
+"gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</qt>"
 msgstr ""
 
 #, fuzzy
@@ -4037,18 +4163,31 @@ msgid "Name of &Executable:"
 msgstr "Atðaukti objekto paðalinimà"
 
 msgid ""
-"File system location for graphics editor. If you use gimp and your "
+"<qt>File system location for graphics editor. If you use gimp and your "
 "distribution includes it, we recommend 'gimp-remote', as it allows you to "
-"edit the image in an already running instance of gimp."
+"edit the image in an already running instance of gimp.</qt>"
+msgstr ""
+
+#, fuzzy
+msgid "Web Browser"
+msgstr "Pasirink..."
+
+msgid "Web Browser to launch with links from the Help system"
+msgstr ""
+
+msgid ""
+"<qt>File system location for your web browser. This is used for external "
+"links from the Help system.</qt>"
 msgstr ""
 
 #, fuzzy
 msgid "&Rescan"
 msgstr "Staèiakampis"
 
-#, fuzzy
-msgid "Alt+R"
-msgstr "Viskà"
+msgid ""
+"Rescan for the external tools if they do not exist in the already specified "
+"location"
+msgstr ""
 
 #, fuzzy
 msgid "Filename:"
@@ -4166,11 +4305,11 @@ msgid "Saving PDF"
 msgstr "Iðsaugoti kaip PDF..."
 
 #, fuzzy
-msgid "Exporting Master Pages:"
+msgid "Exporting Master Page:"
 msgstr "Ákelti duomenis"
 
 #, fuzzy
-msgid "Exporting Pages:"
+msgid "Exporting Page:"
 msgstr "Ákelti duomenis"
 
 #, fuzzy
@@ -4194,10 +4333,6 @@ msgid "D&elete"
 msgstr "Iðtrinti"
 
 #, fuzzy
-msgid "Alt+E"
-msgstr "Viskà"
-
-#, fuzzy
 msgid "Verticals"
 msgstr "Vertikaliai"
 
@@ -4208,10 +4343,6 @@ msgstr "Pridëti..."
 #, fuzzy
 msgid "De&lete"
 msgstr "Iðtrinti"
-
-#, fuzzy
-msgid "Alt+L"
-msgstr "Viskà"
 
 #, fuzzy
 msgid "&Lock Guides"
@@ -4507,9 +4638,6 @@ msgstr "X vieta èia pat:"
 msgid "Y-Pos:"
 msgstr "Y vieta èia pat:"
 
-msgid "Action"
-msgstr "Veiksmas"
-
 msgid "Field is formatted as:"
 msgstr "Laukelis suformuotas kaip:"
 
@@ -4682,7 +4810,7 @@ msgid "Save &Text..."
 msgstr "Iðsaugoti kaip tekstà..."
 
 #, fuzzy
-msgid "Save Page as &EPS..."
+msgid "Save as &EPS..."
 msgstr "Iðsaugoti kaip EPS..."
 
 #, fuzzy
@@ -5066,6 +5194,10 @@ msgstr "Rodyti pagalbines linijas"
 #, fuzzy
 msgid "Show G&uides"
 msgstr "Rodyti pagalbines linijas"
+
+#, fuzzy
+msgid "Show Text Frame Columns"
+msgstr "Rodyti paraðtes"
 
 msgid "Show &Baseline Grid"
 msgstr ""
@@ -6805,10 +6937,6 @@ msgid "About Scribus %1"
 msgstr "Apie Scribus"
 
 #, fuzzy
-msgid "April"
-msgstr "Pritaikyti"
-
-#, fuzzy
 msgid "%1 %2 %3"
 msgstr "Kopijuoti "
 
@@ -6997,6 +7125,72 @@ msgstr "Vidurinis"
 
 msgid "Right Page"
 msgstr "Deðinysis puslapis"
+
+msgid "Monday"
+msgstr ""
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+#, fuzzy
+msgid "Friday"
+msgstr "Linija"
+
+#, fuzzy
+msgid "Saturday"
+msgstr "Sodrumas"
+
+msgid "Sunday"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+#, fuzzy
+msgid "March"
+msgstr "Ieðkoti"
+
+#, fuzzy
+msgid "April"
+msgstr "Pritaikyti"
+
+msgid "May"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+#, fuzzy
+msgid "August"
+msgstr "Autorius:"
+
+#, fuzzy
+msgid "September"
+msgstr "Skaièius"
+
+#, fuzzy
+msgid "October"
+msgstr "Kita"
+
+#, fuzzy
+msgid "November"
+msgstr "Skaièius"
+
+#, fuzzy
+msgid "December"
+msgstr "Skaièius"
 
 #, fuzzy
 msgid "Fixed Linespacing"
@@ -7452,6 +7646,11 @@ msgstr ""
 msgid "Do not show the splashscreen on startup"
 msgstr ""
 
+msgid ""
+"Stop the showing of the splashscreen on startup. Writes an empty file "
+"called .neversplash in ~/.scribus."
+msgstr ""
+
 msgid "Output version information and exit"
 msgstr ""
 
@@ -7642,85 +7841,7 @@ msgstr "Esamas derinys"
 msgid "Select a Key for this Action"
 msgstr "Pasirink deriná ðiam veiksmui"
 
-#, fuzzy
-msgid "&No Key"
-msgstr "Jokiø deriniø"
-
-#, fuzzy
-msgid "&User Defined Key"
-msgstr "Tavo pasirinktas derinys"
-
 msgid "ALT+SHIFT+T"
-msgstr ""
-
-#, fuzzy
-msgid "Set &Key"
-msgstr "Parinkti deriná"
-
-msgid "Loadable Shortcut Sets"
-msgstr ""
-
-#, fuzzy
-msgid "&Load"
-msgstr "Atidaryti..."
-
-#, fuzzy
-msgid "&Import..."
-msgstr "Importuoti..."
-
-#, fuzzy
-msgid "&Export..."
-msgstr "Eksportuoti..."
-
-#, fuzzy
-msgid "&Reset"
-msgstr "Atitaisyti"
-
-msgid "Keyboard shortcut sets available to load"
-msgstr ""
-
-msgid "Load the selected shortcut set"
-msgstr ""
-
-msgid "Import a shortcut set into the current configuration"
-msgstr ""
-
-msgid "Export the current shortcuts into an importable file"
-msgstr ""
-
-msgid "Reload the default Scribus shortcuts"
-msgstr ""
-
-#, fuzzy
-msgid "Alt"
-msgstr "Viskà"
-
-msgid "Ctrl"
-msgstr ""
-
-msgid "Shift"
-msgstr ""
-
-msgid "Meta"
-msgstr ""
-
-msgid "Meta+"
-msgstr ""
-
-msgid "Shift+"
-msgstr ""
-
-msgid "Alt+"
-msgstr ""
-
-msgid "Ctrl+"
-msgstr ""
-
-#, fuzzy
-msgid "This key sequence is already in use"
-msgstr "Ðis klaviðø derinys jau naudojamas"
-
-msgid "Key Set XML Files (*.ksxml)"
 msgstr ""
 
 msgid "Choose a Scrapbook Directory"
@@ -7748,16 +7869,24 @@ msgid "Scrapbook"
 msgstr "Kiðenë"
 
 #, fuzzy
-msgid "&Preview"
-msgstr "Pasiþiûrëti kaip atrodys"
+msgid "Create a new scrapbook page"
+msgstr "Sukurk naujà dokumentà"
 
 #, fuzzy
-msgid "&Load..."
-msgstr "Atidaryti..."
+msgid "Load an existing scrapbook"
+msgstr "Slëpti kiðenæ"
 
 #, fuzzy
-msgid "&Import Scrapbook File..."
+msgid "Save the selected scrapbook"
+msgstr "Atðaukti objekto paðalinimà"
+
+#, fuzzy
+msgid "Import an scrapbook file from Scribus <=1.3.2"
 msgstr "Ákelti duomenis ið:"
+
+#, fuzzy
+msgid "Close the selected scrapbook"
+msgstr "Atðaukti objekto paðalinimà"
 
 msgid "Polygon Properties"
 msgstr "Daugiakampio parinktys"
@@ -7846,6 +7975,17 @@ msgstr "Iðplëðti puslapius"
 
 msgid " from %1"
 msgstr ""
+
+msgid "At the beginning"
+msgstr ""
+
+#, fuzzy
+msgid "At the end"
+msgstr "Á pabaigà"
+
+#, fuzzy
+msgid "Not Shown"
+msgstr "Ðeðëlis"
 
 msgid "Bookmarks"
 msgstr "Nuorodos"
@@ -8208,10 +8348,6 @@ msgstr "Uþdaryti"
 msgid "O&K"
 msgstr "Tinka!"
 
-#, fuzzy
-msgid "Alt+K"
-msgstr "Viskà"
-
 msgid "Move Bookmark"
 msgstr "Perkelti nuorodà"
 
@@ -8440,7 +8576,11 @@ msgid "&CMYK Pictures:"
 msgstr "Paveiksliukai:"
 
 #, fuzzy
-msgid "&Solid Colors:"
+msgid "&RGB Solid Colors:"
+msgstr "Iðtisinës spalvos:"
+
+#, fuzzy
+msgid "&CMYK Solid Colors:"
 msgstr "Iðtisinës spalvos:"
 
 #, fuzzy
@@ -8455,16 +8595,20 @@ msgid "Rendering Intents"
 msgstr "Atvaizdavimo tikslumas"
 
 #, fuzzy
-msgid "M&onitor:"
-msgstr "Monitorius:"
+msgid "Pictures:"
+msgstr "Paveiksliukai"
 
 #, fuzzy
-msgid "Pr&inter:"
-msgstr "Spausdintuvas:"
+msgid "Sol&id Colors:"
+msgstr "Iðtisinës spalvos:"
 
 #, fuzzy
 msgid "Sim&ulate Printer on the Screen"
 msgstr "Imituoti spausdintuvà ekrane"
+
+#, fuzzy
+msgid "Convert all colors to printer space"
+msgstr "Ákelti duomenis"
 
 msgid "Mark Colors out of &Gamut"
 msgstr ""
@@ -8478,7 +8622,10 @@ msgstr ""
 msgid "Default color profile for imported RGB images"
 msgstr ""
 
-msgid "Default color profile for solid colors on the page"
+msgid "Default color profile for solid RGB colors on the page"
+msgstr ""
+
+msgid "Default color profile for solid CMYK colors on the page"
 msgstr ""
 
 msgid ""
@@ -8494,20 +8641,24 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Default rendering intent for your monitor. Unless you know why to change "
+"Default rendering intent for solid colors. Unless you know why to change "
 "it,\n"
 "Relative Colorimetric or Perceptual should be chosen."
 msgstr ""
 
 msgid ""
-"Default rendering intent for your printer. Unless you know why to change "
-"it,\n"
+"Default rendering intent for images. Unless you know why to change it,\n"
 "Relative Colorimetric or Perceptual should be chosen."
 msgstr ""
 
 msgid ""
 "Enable 'soft proofing' of how your document colors will print,\n"
 "based on the chosen printer profile."
+msgstr ""
+
+msgid ""
+"Simulate a full color managed environment :\n"
+"all colors, rgb or cmyk, are converted to printer color space."
 msgstr ""
 
 msgid ""
@@ -8529,8 +8680,16 @@ msgid "Printing File"
 msgstr "Spausdinimas nutrauktas"
 
 #, fuzzy
-msgid "Processing Master Pages:"
+msgid "Processing Master Page:"
 msgstr "po puslapio"
+
+msgid "External Web Browser Failed to Start"
+msgstr ""
+
+msgid ""
+"Scribus was not able to start the external web browser application %1. "
+"Please check the setting in Preferences"
+msgstr ""
 
 #, fuzzy
 msgid "&Contents"
@@ -8717,6 +8876,9 @@ msgstr ""
 msgid "Danish"
 msgstr "Punktyris"
 
+msgid "Dzongkha"
+msgstr ""
+
 msgid "Dutch"
 msgstr ""
 
@@ -8730,6 +8892,9 @@ msgstr "Pabaigos:"
 #, fuzzy
 msgid "Esperanto"
 msgstr "Ávykis:"
+
+msgid "Estonian"
+msgstr ""
 
 #, fuzzy
 msgid "German"
@@ -10468,10 +10633,6 @@ msgstr ""
 msgid "&Include text in barcode"
 msgstr ""
 
-#, fuzzy
-msgid "Alt+I"
-msgstr "Viskà"
-
 msgid "If checked, there will be numbers in the barcode too"
 msgstr ""
 
@@ -10593,7 +10754,7 @@ msgid "Scribus frontend for Pure Postscript Barcode Writer"
 msgstr ""
 
 #, fuzzy
-msgid "Save Page as &SVG..."
+msgid "Save as &SVG..."
 msgstr "Iðsaugoti kaip EPS..."
 
 #, fuzzy
@@ -10674,6 +10835,25 @@ msgstr "Paprastas"
 msgid "My Plugin"
 msgstr "Paprastas"
 
+#~ msgid "Embed in:"
+#~ msgstr "Áterpti á:"
+
+#, fuzzy
+#~ msgid "&Preview"
+#~ msgstr "Pasiþiûrëti kaip atrodys"
+
+#, fuzzy
+#~ msgid "&Load..."
+#~ msgstr "Atidaryti..."
+
+#, fuzzy
+#~ msgid "M&onitor:"
+#~ msgstr "Monitorius:"
+
+#, fuzzy
+#~ msgid "Pr&inter:"
+#~ msgstr "Spausdintuvas:"
+
 #, fuzzy
 #~ msgid "Horizontal Guides"
 #~ msgstr "Apverstas horizontaliai"
@@ -10725,10 +10905,6 @@ msgstr "Paprastas"
 #, fuzzy
 #~ msgid "Strike Out"
 #~ msgstr "Perbrauktas"
-
-#, fuzzy
-#~ msgid "March"
-#~ msgstr "Ieðkoti"
 
 #, fuzzy
 #~ msgid "A&pply"
@@ -10803,10 +10979,6 @@ msgstr "Paprastas"
 #, fuzzy
 #~ msgid "unknown"
 #~ msgstr "Neþinomas"
-
-#, fuzzy
-#~ msgid "December"
-#~ msgstr "Skaièius"
 
 #, fuzzy
 #~ msgid "Active"
@@ -11176,9 +11348,6 @@ msgstr "Paprastas"
 #~ msgid "&Below:"
 #~ msgstr "Po:"
 
-#~ msgid "Pictures"
-#~ msgstr "Paveiksliukai"
-
 #, fuzzy
 #~ msgid "Import Template"
 #~ msgstr "Ákelti duomenis"
@@ -11350,10 +11519,6 @@ msgstr "Paprastas"
 #, fuzzy
 #~ msgid "Portugese (Brazilian)"
 #~ msgstr "Ukrainos:"
-
-#, fuzzy
-#~ msgid "Create a new Document"
-#~ msgstr "Sukurk naujà dokumentà"
 
 #, fuzzy
 #~ msgid "Close the current Document"
@@ -11617,9 +11782,6 @@ msgstr "Paprastas"
 #, fuzzy
 #~ msgid "Scribus - Macro Manager"
 #~ msgstr "Scribus vadovas"
-
-#~ msgid "Browse..."
-#~ msgstr "Pasirink..."
 
 #, fuzzy
 #~ msgid "Script File:"
@@ -11916,9 +12078,6 @@ msgstr "Paprastas"
 
 #~ msgid "Align Text Block"
 #~ msgstr "Iðlyginti abu teksto pakraðèius"
-
-#~ msgid "To the End"
-#~ msgstr "Á pabaigà"
 
 #~ msgid "Y-Dir:"
 #~ msgstr "Y-kryptis:"

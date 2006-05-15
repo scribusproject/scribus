@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.2.cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-24 23:55+0200\n"
+"POT-Creation-Date: 2006-05-15 14:44+0200\n"
 "PO-Revision-Date: 2004-09-29 23:27+0800\n"
 "Last-Translator: Kitae Kim <neeum@yahoo.com>\n"
 "Language-Team: Korean\n"
@@ -119,6 +119,85 @@ msgstr ""
 msgid "All Files (*)"
 msgstr ""
 
+msgid "Action"
+msgstr "동작"
+
+msgid "Shortcut"
+msgstr ""
+
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#, fuzzy
+msgid "Search:"
+msgstr "별"
+
+msgid "Shortcut for Selected Action"
+msgstr ""
+
+msgid "&No Key"
+msgstr ""
+
+msgid "&User Defined Key"
+msgstr ""
+
+msgid "Alt+U"
+msgstr ""
+
+msgid "Set &Key"
+msgstr ""
+
+msgid "Alt+K"
+msgstr ""
+
+msgid "CTRL+ALT+SHIFT+W"
+msgstr ""
+
+msgid "Loadable Shortcut Sets"
+msgstr ""
+
+msgid "Keyboard shortcut sets available to load"
+msgstr ""
+
+msgid "&Load"
+msgstr ""
+
+msgid "Alt+L"
+msgstr ""
+
+msgid "Load the selected shortcut set"
+msgstr ""
+
+#, fuzzy
+msgid "&Import..."
+msgstr "삽일(&I)"
+
+msgid "Alt+I"
+msgstr ""
+
+msgid "Import a shortcut set into the current configuration"
+msgstr ""
+
+#, fuzzy
+msgid "&Export..."
+msgstr "변환출력(&E)"
+
+msgid "Alt+E"
+msgstr ""
+
+msgid "Export the current shortcuts into an importable file"
+msgstr ""
+
+#, fuzzy
+msgid "&Reset"
+msgstr "틀 재설정"
+
+msgid "Alt+R"
+msgstr ""
+
+msgid "Reload the default Scribus shortcuts"
+msgstr ""
+
 msgid "Available Fonts"
 msgstr ""
 
@@ -134,18 +213,15 @@ msgstr ""
 msgid "Use Font"
 msgstr ""
 
-msgid "Embed in:"
-msgstr ""
+#, fuzzy
+msgid "Embed in PostScript"
+msgstr "스크립트:"
 
 msgid "Subset"
 msgstr ""
 
 msgid "Path to Font File"
 msgstr ""
-
-#, fuzzy
-msgid "PostScript"
-msgstr "사용자 설정 스크립트"
 
 msgid "&Available Fonts"
 msgstr ""
@@ -178,6 +254,36 @@ msgid "Additional &Paths"
 msgstr ""
 
 msgid "Choose a Directory"
+msgstr ""
+
+msgid "Key Set XML Files (*.ksxml)"
+msgstr ""
+
+msgid "Alt"
+msgstr ""
+
+msgid "Ctrl"
+msgstr ""
+
+msgid "Shift"
+msgstr ""
+
+msgid "Meta"
+msgstr ""
+
+msgid "Meta+"
+msgstr ""
+
+msgid "Shift+"
+msgstr ""
+
+msgid "Alt+"
+msgstr ""
+
+msgid "Ctrl+"
+msgstr ""
+
+msgid "This key sequence is already in use"
 msgstr ""
 
 msgid "Page Layout"
@@ -665,6 +771,15 @@ msgstr ""
 msgid ""
 "The item %1 is currently being edited by Story Editor. The delete operation "
 "will be cancelled"
+msgstr ""
+
+msgid "Some objects are locked."
+msgstr ""
+
+msgid "&Unlock All"
+msgstr ""
+
+msgid "&Skip locked objects"
 msgstr ""
 
 msgid "Nodes"
@@ -1354,16 +1469,16 @@ msgstr ""
 msgid "Collecting..."
 msgstr ""
 
-msgid ""
-"Cannot collect the file: \n"
-"%1"
-msgstr ""
-
 msgid "Warning"
 msgstr ""
 
 msgid ""
 "Cannot collect all files for output for file:\n"
+"%1"
+msgstr ""
+
+msgid ""
+"Cannot collect the file: \n"
 "%1"
 msgstr ""
 
@@ -1936,6 +2051,9 @@ msgstr ""
 msgid "&Theme:"
 msgstr ""
 
+msgid "Show S&plashscreen On Startup:"
+msgstr ""
+
 msgid "&Font Size (Menus):"
 msgstr ""
 
@@ -2024,9 +2142,6 @@ msgstr "변환출력(&E)"
 msgid "Document Item Attributes"
 msgstr ""
 
-msgid "Keyboard Shortcuts"
-msgstr ""
-
 msgid "Page Display"
 msgstr ""
 
@@ -2034,9 +2149,6 @@ msgid "Color:"
 msgstr "색깔"
 
 msgid "Display &Unprintable Area in Margin Color"
-msgstr ""
-
-msgid "Alt+U"
 msgstr ""
 
 msgid "Show Pictures"
@@ -2355,6 +2467,9 @@ msgstr ""
 msgid "Effects in use"
 msgstr ""
 
+msgid "Opacity:"
+msgstr ""
+
 msgid "Delete Layer"
 msgstr ""
 
@@ -2363,6 +2478,44 @@ msgstr ""
 
 msgid "Layers"
 msgstr ""
+
+msgid "Blend Mode:"
+msgstr ""
+
+#, fuzzy
+msgid "Darken"
+msgstr "날짜"
+
+msgid "Lighten"
+msgstr ""
+
+msgid "Multiply"
+msgstr ""
+
+msgid "Screen"
+msgstr ""
+
+msgid "Overlay"
+msgstr ""
+
+msgid "Hard Light"
+msgstr ""
+
+msgid "Soft Light"
+msgstr ""
+
+msgid "Difference"
+msgstr ""
+
+msgid "Exlusion"
+msgstr ""
+
+msgid "Color Dodge"
+msgstr ""
+
+#, fuzzy
+msgid "Color Burn"
+msgstr "색깔"
 
 msgid "Name"
 msgstr ""
@@ -2374,6 +2527,9 @@ msgid "Locate Ghostscript"
 msgstr ""
 
 msgid "Locate your image editor"
+msgstr ""
+
+msgid "Locate your web browser"
 msgstr ""
 
 #, fuzzy
@@ -2535,10 +2691,10 @@ msgstr ""
 msgid "&Under Color Removal"
 msgstr ""
 
-msgid "Force Overprint Mode"
+msgid "&Display CMYK"
 msgstr ""
 
-msgid "&Display CMYK"
+msgid "Force Overprint Mode"
 msgstr ""
 
 msgid "&C"
@@ -2676,13 +2832,6 @@ msgstr ""
 msgid "Extended Image Properties"
 msgstr ""
 
-#, fuzzy
-msgid "Darken"
-msgstr "날짜"
-
-msgid "Lighten"
-msgstr ""
-
 msgid "Hue"
 msgstr ""
 
@@ -2696,44 +2845,10 @@ msgstr "색깔"
 msgid "Luminosity"
 msgstr ""
 
-msgid "Multiply"
-msgstr ""
-
-msgid "Screen"
-msgstr ""
-
 msgid "Dissolve"
 msgstr ""
 
-msgid "Overlay"
-msgstr ""
-
-msgid "Hard Light"
-msgstr ""
-
-msgid "Soft Light"
-msgstr ""
-
-msgid "Difference"
-msgstr ""
-
 msgid "Exclusion"
-msgstr ""
-
-msgid "Color Dodge"
-msgstr ""
-
-#, fuzzy
-msgid "Color Burn"
-msgstr "색깔"
-
-msgid "Exlusion"
-msgstr ""
-
-msgid "Blend Mode:"
-msgstr ""
-
-msgid "Opacity:"
 msgstr ""
 
 msgid "Don't use any Path"
@@ -2905,12 +3020,6 @@ msgid "Distribute the items with the distance specified"
 msgstr ""
 
 msgid "None Selected"
-msgstr ""
-
-msgid "Some objects are locked."
-msgstr ""
-
-msgid "&Unlock All"
 msgstr ""
 
 #, c-format
@@ -3503,6 +3612,10 @@ msgstr ""
 msgid "Do not show objects outside the margins in the exported file"
 msgstr ""
 
+#, fuzzy
+msgid "PostScript"
+msgstr "사용자 설정 스크립트"
+
 msgid "Migrate Old Scribus Settings?"
 msgstr ""
 
@@ -3610,9 +3723,9 @@ msgid "&Name of Executable:"
 msgstr ""
 
 msgid ""
-"Add the path for the Ghostscript interpreter. On Windows, please note it is "
-"important to note you need to use the program named gswin32c.exe - NOT "
-"gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus."
+"<qt>Add the path for the Ghostscript interpreter. On Windows, please note it "
+"is important to note you need to use the program named gswin32c.exe - NOT "
+"gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</qt>"
 msgstr ""
 
 #, fuzzy
@@ -3644,16 +3757,29 @@ msgid "Name of &Executable:"
 msgstr ""
 
 msgid ""
-"File system location for graphics editor. If you use gimp and your "
+"<qt>File system location for graphics editor. If you use gimp and your "
 "distribution includes it, we recommend 'gimp-remote', as it allows you to "
-"edit the image in an already running instance of gimp."
+"edit the image in an already running instance of gimp.</qt>"
+msgstr ""
+
+msgid "Web Browser"
+msgstr ""
+
+msgid "Web Browser to launch with links from the Help system"
+msgstr ""
+
+msgid ""
+"<qt>File system location for your web browser. This is used for external "
+"links from the Help system.</qt>"
 msgstr ""
 
 #, fuzzy
 msgid "&Rescan"
 msgstr "틀 재설정"
 
-msgid "Alt+R"
+msgid ""
+"Rescan for the external tools if they do not exist in the already specified "
+"location"
 msgstr ""
 
 #, fuzzy
@@ -3758,11 +3884,11 @@ msgid "Saving PDF"
 msgstr "PDF 로 저장..."
 
 #, fuzzy
-msgid "Exporting Master Pages:"
+msgid "Exporting Master Page:"
 msgstr "데이타 불러들이기"
 
 #, fuzzy
-msgid "Exporting Pages:"
+msgid "Exporting Page:"
 msgstr "페이지 삽입(&S)"
 
 msgid "Exporting Items on Current Page:"
@@ -3781,9 +3907,6 @@ msgstr "수평의"
 msgid "D&elete"
 msgstr ""
 
-msgid "Alt+E"
-msgstr ""
-
 #, fuzzy
 msgid "Verticals"
 msgstr "수직으로"
@@ -3792,9 +3915,6 @@ msgid "A&dd"
 msgstr ""
 
 msgid "De&lete"
-msgstr ""
-
-msgid "Alt+L"
 msgstr ""
 
 msgid "&Lock Guides"
@@ -4077,9 +4197,6 @@ msgstr "X-좌표:"
 msgid "Y-Pos:"
 msgstr "Y-좌표:"
 
-msgid "Action"
-msgstr "동작"
-
 msgid "Field is formatted as:"
 msgstr "영역을 다음 포멧으로:"
 
@@ -4239,7 +4356,8 @@ msgstr ""
 msgid "Save &Text..."
 msgstr "텍스트 저장(&T)..."
 
-msgid "Save Page as &EPS..."
+#, fuzzy
+msgid "Save as &EPS..."
 msgstr "페이지를 EPS 로 저장(&E)..."
 
 msgid "Save as P&DF..."
@@ -4556,6 +4674,10 @@ msgstr ""
 
 msgid "Show G&uides"
 msgstr ""
+
+#, fuzzy
+msgid "Show Text Frame Columns"
+msgstr "전체 선택"
 
 msgid "Show &Baseline Grid"
 msgstr ""
@@ -6108,9 +6230,6 @@ msgstr ""
 msgid "About Scribus %1"
 msgstr "스크리부스"
 
-msgid "April"
-msgstr ""
-
 msgid "%1 %2 %3"
 msgstr ""
 
@@ -6279,6 +6398,69 @@ msgstr "중앙"
 
 msgid "Right Page"
 msgstr ""
+
+msgid "Monday"
+msgstr ""
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+msgid "Friday"
+msgstr ""
+
+#, fuzzy
+msgid "Saturday"
+msgstr "목적 대상"
+
+msgid "Sunday"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+msgid "March"
+msgstr ""
+
+msgid "April"
+msgstr ""
+
+msgid "May"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+#, fuzzy
+msgid "August"
+msgstr "동작"
+
+#, fuzzy
+msgid "September"
+msgstr "숫자"
+
+#, fuzzy
+msgid "October"
+msgstr "다른것"
+
+#, fuzzy
+msgid "November"
+msgstr "숫자"
+
+#, fuzzy
+msgid "December"
+msgstr "숫자"
 
 msgid "Fixed Linespacing"
 msgstr ""
@@ -6683,6 +6865,11 @@ msgstr ""
 msgid "Do not show the splashscreen on startup"
 msgstr ""
 
+msgid ""
+"Stop the showing of the splashscreen on startup. Writes an empty file "
+"called .neversplash in ~/.scribus."
+msgstr ""
+
 msgid "Output version information and exit"
 msgstr ""
 
@@ -6857,79 +7044,7 @@ msgstr ""
 msgid "Select a Key for this Action"
 msgstr ""
 
-msgid "&No Key"
-msgstr ""
-
-msgid "&User Defined Key"
-msgstr ""
-
 msgid "ALT+SHIFT+T"
-msgstr ""
-
-msgid "Set &Key"
-msgstr ""
-
-msgid "Loadable Shortcut Sets"
-msgstr ""
-
-msgid "&Load"
-msgstr ""
-
-#, fuzzy
-msgid "&Import..."
-msgstr "삽일(&I)"
-
-#, fuzzy
-msgid "&Export..."
-msgstr "변환출력(&E)"
-
-#, fuzzy
-msgid "&Reset"
-msgstr "틀 재설정"
-
-msgid "Keyboard shortcut sets available to load"
-msgstr ""
-
-msgid "Load the selected shortcut set"
-msgstr ""
-
-msgid "Import a shortcut set into the current configuration"
-msgstr ""
-
-msgid "Export the current shortcuts into an importable file"
-msgstr ""
-
-msgid "Reload the default Scribus shortcuts"
-msgstr ""
-
-msgid "Alt"
-msgstr ""
-
-msgid "Ctrl"
-msgstr ""
-
-msgid "Shift"
-msgstr ""
-
-msgid "Meta"
-msgstr ""
-
-msgid "Meta+"
-msgstr ""
-
-msgid "Shift+"
-msgstr ""
-
-msgid "Alt+"
-msgstr ""
-
-msgid "Ctrl+"
-msgstr ""
-
-msgid "This key sequence is already in use"
-msgstr ""
-
-msgid "Key Set XML Files (*.ksxml)"
 msgstr ""
 
 msgid "Choose a Scrapbook Directory"
@@ -6955,15 +7070,22 @@ msgstr ""
 msgid "Scrapbook"
 msgstr ""
 
-msgid "&Preview"
+#, fuzzy
+msgid "Create a new scrapbook page"
+msgstr "새문서 만들기"
+
+msgid "Load an existing scrapbook"
 msgstr ""
 
-msgid "&Load..."
+msgid "Save the selected scrapbook"
 msgstr ""
 
 #, fuzzy
-msgid "&Import Scrapbook File..."
+msgid "Import an scrapbook file from Scribus <=1.3.2"
 msgstr "Datar 불러들이기:"
+
+msgid "Close the selected scrapbook"
+msgstr ""
 
 msgid "Polygon Properties"
 msgstr ""
@@ -7046,6 +7168,15 @@ msgid "Create Page(s)"
 msgstr ""
 
 msgid " from %1"
+msgstr ""
+
+msgid "At the beginning"
+msgstr ""
+
+msgid "At the end"
+msgstr ""
+
+msgid "Not Shown"
 msgstr ""
 
 msgid "Bookmarks"
@@ -7361,9 +7492,6 @@ msgstr "닫기"
 msgid "O&K"
 msgstr "확인(&O)"
 
-msgid "Alt+K"
-msgstr ""
-
 msgid "Move Bookmark"
 msgstr ""
 
@@ -7568,7 +7696,11 @@ msgstr ""
 msgid "&CMYK Pictures:"
 msgstr ""
 
-msgid "&Solid Colors:"
+#, fuzzy
+msgid "&RGB Solid Colors:"
+msgstr "전체 선택(&A)"
+
+msgid "&CMYK Solid Colors:"
 msgstr ""
 
 msgid "&Monitor:"
@@ -7580,14 +7712,19 @@ msgstr ""
 msgid "Rendering Intents"
 msgstr ""
 
-msgid "M&onitor:"
+msgid "Pictures:"
 msgstr ""
 
-msgid "Pr&inter:"
-msgstr ""
+#, fuzzy
+msgid "Sol&id Colors:"
+msgstr "색깔"
 
 msgid "Sim&ulate Printer on the Screen"
 msgstr ""
+
+#, fuzzy
+msgid "Convert all colors to printer space"
+msgstr "데이타 불러들이기"
 
 msgid "Mark Colors out of &Gamut"
 msgstr ""
@@ -7601,7 +7738,10 @@ msgstr ""
 msgid "Default color profile for imported RGB images"
 msgstr ""
 
-msgid "Default color profile for solid colors on the page"
+msgid "Default color profile for solid RGB colors on the page"
+msgstr ""
+
+msgid "Default color profile for solid CMYK colors on the page"
 msgstr ""
 
 msgid ""
@@ -7617,20 +7757,24 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Default rendering intent for your monitor. Unless you know why to change "
+"Default rendering intent for solid colors. Unless you know why to change "
 "it,\n"
 "Relative Colorimetric or Perceptual should be chosen."
 msgstr ""
 
 msgid ""
-"Default rendering intent for your printer. Unless you know why to change "
-"it,\n"
+"Default rendering intent for images. Unless you know why to change it,\n"
 "Relative Colorimetric or Perceptual should be chosen."
 msgstr ""
 
 msgid ""
 "Enable 'soft proofing' of how your document colors will print,\n"
 "based on the chosen printer profile."
+msgstr ""
+
+msgid ""
+"Simulate a full color managed environment :\n"
+"all colors, rgb or cmyk, are converted to printer color space."
 msgstr ""
 
 msgid ""
@@ -7651,8 +7795,16 @@ msgid "Printing File"
 msgstr ""
 
 #, fuzzy
-msgid "Processing Master Pages:"
+msgid "Processing Master Page:"
 msgstr "페이지 삽입(&S)"
+
+msgid "External Web Browser Failed to Start"
+msgstr ""
+
+msgid ""
+"Scribus was not able to start the external web browser application %1. "
+"Please check the setting in Preferences"
+msgstr ""
 
 msgid "&Contents"
 msgstr ""
@@ -7816,6 +7968,9 @@ msgstr ""
 msgid "Danish"
 msgstr ""
 
+msgid "Dzongkha"
+msgstr ""
+
 msgid "Dutch"
 msgstr ""
 
@@ -7828,6 +7983,9 @@ msgstr ""
 #, fuzzy
 msgid "Esperanto"
 msgstr "이벤트:"
+
+msgid "Estonian"
+msgstr ""
 
 msgid "German"
 msgstr ""
@@ -9402,9 +9560,6 @@ msgstr ""
 msgid "&Include text in barcode"
 msgstr ""
 
-msgid "Alt+I"
-msgstr ""
-
 msgid "If checked, there will be numbers in the barcode too"
 msgstr ""
 
@@ -9514,8 +9669,9 @@ msgstr ""
 msgid "Scribus frontend for Pure Postscript Barcode Writer"
 msgstr ""
 
-msgid "Save Page as &SVG..."
-msgstr ""
+#, fuzzy
+msgid "Save as &SVG..."
+msgstr "PDF 로 저장..."
 
 #, fuzzy
 msgid "SVG Export"
@@ -9604,10 +9760,6 @@ msgstr "단순"
 #~ msgstr "적용(&A)"
 
 #, fuzzy
-#~ msgid "December"
-#~ msgstr "숫자"
-
-#, fuzzy
 #~ msgid "Active"
 #~ msgstr "동작"
 
@@ -9638,10 +9790,6 @@ msgstr "단순"
 #, fuzzy
 #~ msgid "Short Words Manual"
 #~ msgstr "사용자 설정 스크립트"
-
-#, fuzzy
-#~ msgid "Saturation:"
-#~ msgstr "목적 대상"
 
 #, fuzzy
 #~ msgid "Left Ind&ent:"
@@ -9700,9 +9848,6 @@ msgstr "단순"
 #, fuzzy
 #~ msgid "Pack paragraph styles"
 #~ msgstr "문단 스타일(&P)..."
-
-#~ msgid "Create a new Document"
-#~ msgstr "새문서 만들기"
 
 #~ msgid "Close the current Document"
 #~ msgstr "현재 문서 닫기"

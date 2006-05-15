@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-24 23:55+0200\n"
+"POT-Creation-Date: 2006-05-15 14:44+0200\n"
 "PO-Revision-Date: 2005-01-08 17:40+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -125,6 +125,96 @@ msgstr "Ĉiuj subtenataj formatoj"
 msgid "All Files (*)"
 msgstr "Ĉiaj dosieroj (*)"
 
+msgid "Action"
+msgstr "Ago"
+
+#, fuzzy
+msgid "Shortcut"
+msgstr "Ordigu"
+
+#, fuzzy
+msgid "Keyboard Shortcuts"
+msgstr "&Klavokombinoj..."
+
+#, fuzzy
+msgid "Search:"
+msgstr "Serĉu"
+
+#, fuzzy
+msgid "Shortcut for Selected Action"
+msgstr "Nomo de la elektita objekto"
+
+msgid "&No Key"
+msgstr "&Neniu klavo"
+
+msgid "&User Defined Key"
+msgstr "&Uzul-difinita klavo"
+
+#, fuzzy
+msgid "Alt+U"
+msgstr "Alt+"
+
+msgid "Set &Key"
+msgstr "&Agordu klavon"
+
+#, fuzzy
+msgid "Alt+K"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "CTRL+ALT+SHIFT+W"
+msgstr "ALT+SUPRA+T"
+
+msgid "Loadable Shortcut Sets"
+msgstr ""
+
+msgid "Keyboard shortcut sets available to load"
+msgstr ""
+
+#, fuzzy
+msgid "&Load"
+msgstr "Ŝ&argu..."
+
+#, fuzzy
+msgid "Alt+L"
+msgstr "Alt+"
+
+msgid "Load the selected shortcut set"
+msgstr ""
+
+#, fuzzy
+msgid "&Import..."
+msgstr "&Importu"
+
+#, fuzzy
+msgid "Alt+I"
+msgstr "Alt+"
+
+msgid "Import a shortcut set into the current configuration"
+msgstr ""
+
+#, fuzzy
+msgid "&Export..."
+msgstr "Ekspor&tu"
+
+#, fuzzy
+msgid "Alt+E"
+msgstr "Alt+"
+
+msgid "Export the current shortcuts into an importable file"
+msgstr ""
+
+#, fuzzy
+msgid "&Reset"
+msgstr "Nuligu"
+
+#, fuzzy
+msgid "Alt+R"
+msgstr "Alt+"
+
+msgid "Reload the default Scribus shortcuts"
+msgstr ""
+
 msgid "Available Fonts"
 msgstr "Disponeblaj tiparoj"
 
@@ -140,18 +230,15 @@ msgstr "Tiparnomo"
 msgid "Use Font"
 msgstr "Uzu tiparon"
 
-msgid "Embed in:"
-msgstr "Inkludu en:"
+#, fuzzy
+msgid "Embed in PostScript"
+msgstr "Pitonskriptoj (*.py);; Ĉiaj dosieroj (*)"
 
 msgid "Subset"
 msgstr "Sub-aro"
 
 msgid "Path to Font File"
 msgstr "Tipara dosierindiko"
-
-#, fuzzy
-msgid "PostScript"
-msgstr "Postskripto"
 
 msgid "&Available Fonts"
 msgstr "&Disponeblaj tiparoj"
@@ -185,6 +272,39 @@ msgstr "Kromaj dosier&indikoj"
 
 msgid "Choose a Directory"
 msgstr "Elektu dosierujon"
+
+msgid "Key Set XML Files (*.ksxml)"
+msgstr ""
+
+msgid "Alt"
+msgstr "Alt"
+
+msgid "Ctrl"
+msgstr "Stir"
+
+msgid "Shift"
+msgstr "Supra"
+
+#, fuzzy
+msgid "Meta"
+msgstr "Karmezina"
+
+#, fuzzy
+msgid "Meta+"
+msgstr "Karmezina"
+
+msgid "Shift+"
+msgstr "Supra+"
+
+msgid "Alt+"
+msgstr "Alt+"
+
+msgid "Ctrl+"
+msgstr "Stir+"
+
+#, fuzzy
+msgid "This key sequence is already in use"
+msgstr "Ĉi tiu klavkombino jam estas uzata"
 
 #, fuzzy
 msgid "Page Layout"
@@ -693,6 +813,18 @@ msgid ""
 "The item %1 is currently being edited by Story Editor. The delete operation "
 "will be cancelled"
 msgstr ""
+
+#, fuzzy
+msgid "Some objects are locked."
+msgstr "Kelkaj objektoj estas ŝlositaj."
+
+#, fuzzy
+msgid "&Unlock All"
+msgstr "Malŝlosu ĉiujn"
+
+#, fuzzy
+msgid "&Skip locked objects"
+msgstr "Ŝlosu aŭ malŝlosu la objekton"
 
 msgid "Nodes"
 msgstr "Nodoj"
@@ -1469,14 +1601,6 @@ msgstr "Movu paĝo(j)n:"
 msgid "Collecting..."
 msgstr "Ŝargas..."
 
-#, fuzzy
-msgid ""
-"Cannot collect the file: \n"
-"%1"
-msgstr ""
-"Ne eblas skribi la dosieron: \n"
-"%1"
-
 msgid "Warning"
 msgstr "Averto"
 
@@ -1484,6 +1608,14 @@ msgid ""
 "Cannot collect all files for output for file:\n"
 "%1"
 msgstr ""
+
+#, fuzzy
+msgid ""
+"Cannot collect the file: \n"
+"%1"
+msgstr ""
+"Ne eblas skribi la dosieron: \n"
+"%1"
 
 msgid "Manage Tabulators"
 msgstr "Administru tabojn"
@@ -2085,6 +2217,9 @@ msgstr "&Lingvo:"
 msgid "&Theme:"
 msgstr "&Etoso:"
 
+msgid "Show S&plashscreen On Startup:"
+msgstr ""
+
 #, fuzzy
 msgid "&Font Size (Menus):"
 msgstr "Ti&pargrando:"
@@ -2180,10 +2315,6 @@ msgid "Document Item Attributes"
 msgstr "Dokument-agordoj"
 
 #, fuzzy
-msgid "Keyboard Shortcuts"
-msgstr "&Klavokombinoj..."
-
-#, fuzzy
 msgid "Page Display"
 msgstr "Montrado"
 
@@ -2192,10 +2323,6 @@ msgstr "Koloro:"
 
 msgid "Display &Unprintable Area in Margin Color"
 msgstr "Montru &neprinteblan areon per marĝenkoloro"
-
-#, fuzzy
-msgid "Alt+U"
-msgstr "Alt+"
 
 #, fuzzy
 msgid "Show Pictures"
@@ -2543,6 +2670,9 @@ msgstr "&<<"
 msgid "Effects in use"
 msgstr "Efektoj"
 
+msgid "Opacity:"
+msgstr "Opakeco:"
+
 msgid "Delete Layer"
 msgstr "Forigu nivelon"
 
@@ -2552,6 +2682,50 @@ msgstr "Ĉu vi vere intencas forigi ankaŭ ĉiujn objektojn sur ĉi tiu nivelo?"
 
 msgid "Layers"
 msgstr "Niveloj"
+
+msgid "Blend Mode:"
+msgstr ""
+
+#, fuzzy
+msgid "Darken"
+msgstr "Dato"
+
+#, fuzzy
+msgid "Lighten"
+msgstr "Dekstra"
+
+msgid "Multiply"
+msgstr ""
+
+#, fuzzy
+msgid "Screen"
+msgstr "Ekrano / TTT"
+
+msgid "Overlay"
+msgstr ""
+
+#, fuzzy
+msgid "Hard Light"
+msgstr "Alto"
+
+#, fuzzy
+msgid "Soft Light"
+msgstr "De maldekstre dekstren"
+
+#, fuzzy
+msgid "Difference"
+msgstr "Preferoj"
+
+msgid "Exlusion"
+msgstr ""
+
+#, fuzzy
+msgid "Color Dodge"
+msgstr "Ko&lorŝablono"
+
+#, fuzzy
+msgid "Color Burn"
+msgstr "Koloro"
 
 msgid "Name"
 msgstr "Nomo"
@@ -2565,6 +2739,9 @@ msgid "Locate Ghostscript"
 msgstr "Postskripto"
 
 msgid "Locate your image editor"
+msgstr ""
+
+msgid "Locate your web browser"
 msgstr ""
 
 #, fuzzy
@@ -2732,11 +2909,11 @@ msgstr "Montru travide&blecon"
 msgid "&Under Color Removal"
 msgstr "&Forigo de la subaj koloroj (UCR)"
 
-msgid "Force Overprint Mode"
-msgstr ""
-
 msgid "&Display CMYK"
 msgstr "&Montru CMYK"
+
+msgid "Force Overprint Mode"
+msgstr ""
 
 msgid "&C"
 msgstr "&C"
@@ -2900,14 +3077,6 @@ msgid "Extended Image Properties"
 msgstr "Tekstokadraj ecoj"
 
 #, fuzzy
-msgid "Darken"
-msgstr "Dato"
-
-#, fuzzy
-msgid "Lighten"
-msgstr "Dekstra"
-
-#, fuzzy
 msgid "Hue"
 msgstr "Ko&l:"
 
@@ -2920,50 +3089,11 @@ msgstr "Koloro"
 msgid "Luminosity"
 msgstr ""
 
-msgid "Multiply"
-msgstr ""
-
-#, fuzzy
-msgid "Screen"
-msgstr "Ekrano / TTT"
-
 msgid "Dissolve"
 msgstr "Dissolvo"
 
-msgid "Overlay"
-msgstr ""
-
-#, fuzzy
-msgid "Hard Light"
-msgstr "Alto"
-
-#, fuzzy
-msgid "Soft Light"
-msgstr "De maldekstre dekstren"
-
-#, fuzzy
-msgid "Difference"
-msgstr "Preferoj"
-
 msgid "Exclusion"
 msgstr ""
-
-#, fuzzy
-msgid "Color Dodge"
-msgstr "Ko&lorŝablono"
-
-#, fuzzy
-msgid "Color Burn"
-msgstr "Koloro"
-
-msgid "Exlusion"
-msgstr ""
-
-msgid "Blend Mode:"
-msgstr ""
-
-msgid "Opacity:"
-msgstr "Opakeco:"
 
 msgid "Don't use any Path"
 msgstr ""
@@ -3149,14 +3279,6 @@ msgstr ""
 #, fuzzy
 msgid "None Selected"
 msgstr "Elektu"
-
-#, fuzzy
-msgid "Some objects are locked."
-msgstr "Kelkaj objektoj estas ŝlositaj."
-
-#, fuzzy
-msgid "&Unlock All"
-msgstr "Malŝlosu ĉiujn"
 
 #, fuzzy, c-format
 msgid "Y: %1%2"
@@ -3856,6 +3978,10 @@ msgstr ""
 "Ne montru objektojn ekster la marĝenojn de la printita paĝo aŭ eksportita "
 "dosiero"
 
+#, fuzzy
+msgid "PostScript"
+msgstr "Postskripto"
+
 msgid "Migrate Old Scribus Settings?"
 msgstr ""
 
@@ -3969,9 +4095,9 @@ msgid "&Name of Executable:"
 msgstr "&Nomo de la programdosiero:"
 
 msgid ""
-"Add the path for the Ghostscript interpreter. On Windows, please note it is "
-"important to note you need to use the program named gswin32c.exe - NOT "
-"gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus."
+"<qt>Add the path for the Ghostscript interpreter. On Windows, please note it "
+"is important to note you need to use the program named gswin32c.exe - NOT "
+"gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</qt>"
 msgstr ""
 
 #, fuzzy
@@ -4005,18 +4131,31 @@ msgid "Name of &Executable:"
 msgstr "Nomo d&e la programdosiero:"
 
 msgid ""
-"File system location for graphics editor. If you use gimp and your "
+"<qt>File system location for graphics editor. If you use gimp and your "
 "distribution includes it, we recommend 'gimp-remote', as it allows you to "
-"edit the image in an already running instance of gimp."
+"edit the image in an already running instance of gimp.</qt>"
+msgstr ""
+
+#, fuzzy
+msgid "Web Browser"
+msgstr "Movu..."
+
+msgid "Web Browser to launch with links from the Help system"
+msgstr ""
+
+msgid ""
+"<qt>File system location for your web browser. This is used for external "
+"links from the Help system.</qt>"
 msgstr ""
 
 #, fuzzy
 msgid "&Rescan"
 msgstr "Nuligu"
 
-#, fuzzy
-msgid "Alt+R"
-msgstr "Alt+"
+msgid ""
+"Rescan for the external tools if they do not exist in the already specified "
+"location"
+msgstr ""
 
 #, fuzzy
 msgid "Filename:"
@@ -4130,11 +4269,11 @@ msgid "Saving PDF"
 msgstr "Konservu kiel P&DF..."
 
 #, fuzzy
-msgid "Exporting Master Pages:"
+msgid "Exporting Master Page:"
 msgstr "Importu datumojn"
 
 #, fuzzy
-msgid "Exporting Pages:"
+msgid "Exporting Page:"
 msgstr "Importas paĝojn..."
 
 #, fuzzy
@@ -4156,10 +4295,6 @@ msgid "D&elete"
 msgstr "F&origu"
 
 #, fuzzy
-msgid "Alt+E"
-msgstr "Alt+"
-
-#, fuzzy
 msgid "Verticals"
 msgstr "Vertikale"
 
@@ -4168,10 +4303,6 @@ msgstr "Al&donu"
 
 msgid "De&lete"
 msgstr "&Forigu"
-
-#, fuzzy
-msgid "Alt+L"
-msgstr "Alt+"
 
 msgid "&Lock Guides"
 msgstr "Ŝ&losu gvidilojn"
@@ -4460,9 +4591,6 @@ msgstr "X-Poz:"
 msgid "Y-Pos:"
 msgstr "Y-Poz:"
 
-msgid "Action"
-msgstr "Ago"
-
 msgid "Field is formatted as:"
 msgstr "Kampo formatita kiel:"
 
@@ -4625,7 +4753,8 @@ msgstr "Enmetu tekston..."
 msgid "Save &Text..."
 msgstr "Konservu &tekston..."
 
-msgid "Save Page as &EPS..."
+#, fuzzy
+msgid "Save as &EPS..."
 msgstr "Konservu paĝon kiel &EPS..."
 
 msgid "Save as P&DF..."
@@ -4967,6 +5096,10 @@ msgstr "Montru k&radon"
 
 msgid "Show G&uides"
 msgstr "Montru &gvidilojn"
+
+#, fuzzy
+msgid "Show Text Frame Columns"
+msgstr "Montru ŝablonnomojn"
 
 msgid "Show &Baseline Grid"
 msgstr "Montru ba&zlinian kradon"
@@ -6660,10 +6793,6 @@ msgid "About Scribus %1"
 msgstr "Pri Scribus%1"
 
 #, fuzzy
-msgid "April"
-msgstr "Apliku"
-
-#, fuzzy
 msgid "%1 %2 %3"
 msgstr "%1. %2 %3 "
 
@@ -6852,6 +6981,72 @@ msgstr "Centroj"
 
 msgid "Right Page"
 msgstr "Dekstra paĝo"
+
+msgid "Monday"
+msgstr ""
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+#, fuzzy
+msgid "Friday"
+msgstr "in"
+
+#, fuzzy
+msgid "Saturday"
+msgstr "Saturiteco"
+
+msgid "Sunday"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+#, fuzzy
+msgid "March"
+msgstr "Serĉu"
+
+#, fuzzy
+msgid "April"
+msgstr "Apliku"
+
+msgid "May"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+#, fuzzy
+msgid "August"
+msgstr "Aŭtoro"
+
+#, fuzzy
+msgid "September"
+msgstr "Numero"
+
+#, fuzzy
+msgid "October"
+msgstr "Aliaj"
+
+#, fuzzy
+msgid "November"
+msgstr "Numero"
+
+#, fuzzy
+msgid "December"
+msgstr "Numero"
 
 #, fuzzy
 msgid "Fixed Linespacing"
@@ -7268,6 +7463,11 @@ msgstr ""
 msgid "Do not show the splashscreen on startup"
 msgstr ""
 
+msgid ""
+"Stop the showing of the splashscreen on startup. Writes an empty file "
+"called .neversplash in ~/.scribus."
+msgstr ""
+
 msgid "Output version information and exit"
 msgstr ""
 
@@ -7450,84 +7650,8 @@ msgstr "Aktuala klavo"
 msgid "Select a Key for this Action"
 msgstr "Elektu klavon por ĉi tiu ago"
 
-msgid "&No Key"
-msgstr "&Neniu klavo"
-
-msgid "&User Defined Key"
-msgstr "&Uzul-difinita klavo"
-
 msgid "ALT+SHIFT+T"
 msgstr "ALT+SUPRA+T"
-
-msgid "Set &Key"
-msgstr "&Agordu klavon"
-
-msgid "Loadable Shortcut Sets"
-msgstr ""
-
-#, fuzzy
-msgid "&Load"
-msgstr "Ŝ&argu..."
-
-#, fuzzy
-msgid "&Import..."
-msgstr "&Importu"
-
-#, fuzzy
-msgid "&Export..."
-msgstr "Ekspor&tu"
-
-#, fuzzy
-msgid "&Reset"
-msgstr "Nuligu"
-
-msgid "Keyboard shortcut sets available to load"
-msgstr ""
-
-msgid "Load the selected shortcut set"
-msgstr ""
-
-msgid "Import a shortcut set into the current configuration"
-msgstr ""
-
-msgid "Export the current shortcuts into an importable file"
-msgstr ""
-
-msgid "Reload the default Scribus shortcuts"
-msgstr ""
-
-msgid "Alt"
-msgstr "Alt"
-
-msgid "Ctrl"
-msgstr "Stir"
-
-msgid "Shift"
-msgstr "Supra"
-
-#, fuzzy
-msgid "Meta"
-msgstr "Karmezina"
-
-#, fuzzy
-msgid "Meta+"
-msgstr "Karmezina"
-
-msgid "Shift+"
-msgstr "Supra+"
-
-msgid "Alt+"
-msgstr "Alt+"
-
-msgid "Ctrl+"
-msgstr "Stir+"
-
-#, fuzzy
-msgid "This key sequence is already in use"
-msgstr "Ĉi tiu klavkombino jam estas uzata"
-
-msgid "Key Set XML Files (*.ksxml)"
-msgstr ""
 
 #, fuzzy
 msgid "Choose a Scrapbook Directory"
@@ -7558,15 +7682,25 @@ msgstr "Nova termino"
 msgid "Scrapbook"
 msgstr "Albumo"
 
-msgid "&Preview"
-msgstr "&Antaŭrigardo"
-
-msgid "&Load..."
-msgstr "Ŝ&argu..."
+#, fuzzy
+msgid "Create a new scrapbook page"
+msgstr "Kreu novan dokumenton"
 
 #, fuzzy
-msgid "&Import Scrapbook File..."
+msgid "Load an existing scrapbook"
+msgstr "Legas albumon"
+
+#, fuzzy
+msgid "Save the selected scrapbook"
+msgstr "Nomo de la elektita objekto"
+
+#, fuzzy
+msgid "Import an scrapbook file from Scribus <=1.3.2"
 msgstr "Importu datumojn el:"
+
+#, fuzzy
+msgid "Close the selected scrapbook"
+msgstr "Nomo de la elektita objekto"
 
 msgid "Polygon Properties"
 msgstr "Poligonaj ecoj"
@@ -7657,6 +7791,17 @@ msgstr "Kreu paĝo(j)n"
 
 msgid " from %1"
 msgstr " de %1"
+
+msgid "At the beginning"
+msgstr ""
+
+#, fuzzy
+msgid "At the end"
+msgstr "ĉefine"
+
+#, fuzzy
+msgid "Not Shown"
+msgstr "Intenso"
 
 msgid "Bookmarks"
 msgstr "Legosignoj"
@@ -7995,10 +8140,6 @@ msgstr "Fermu"
 msgid "O&K"
 msgstr "Konfirmu"
 
-#, fuzzy
-msgid "Alt+K"
-msgstr "Alt+"
-
 msgid "Move Bookmark"
 msgstr "Movu legosignon"
 
@@ -8228,7 +8369,12 @@ msgstr "&Bildoj:"
 msgid "&CMYK Pictures:"
 msgstr "&Bildoj:"
 
-msgid "&Solid Colors:"
+#, fuzzy
+msgid "&RGB Solid Colors:"
+msgstr "&Homogenaj koloroj:"
+
+#, fuzzy
+msgid "&CMYK Solid Colors:"
 msgstr "&Homogenaj koloroj:"
 
 msgid "&Monitor:"
@@ -8241,14 +8387,20 @@ msgstr "P&rintilo:"
 msgid "Rendering Intents"
 msgstr "Bildigoceloj"
 
-msgid "M&onitor:"
-msgstr "E&krano:"
+#, fuzzy
+msgid "Pictures:"
+msgstr "Bildoj"
 
-msgid "Pr&inter:"
-msgstr "Pr&intilo:"
+#, fuzzy
+msgid "Sol&id Colors:"
+msgstr "Homogenaj koloroj:"
 
 msgid "Sim&ulate Printer on the Screen"
 msgstr "Sim&ulu printilon en la ekrano"
+
+#, fuzzy
+msgid "Convert all colors to printer space"
+msgstr "Importu datumojn"
 
 msgid "Mark Colors out of &Gamut"
 msgstr "Marku ekster&gamajn kolorojn"
@@ -8264,7 +8416,12 @@ msgstr "Apriora kolorprofilo por importitaj bildoj"
 msgid "Default color profile for imported RGB images"
 msgstr "Apriora kolorprofilo por importitaj bildoj"
 
-msgid "Default color profile for solid colors on the page"
+#, fuzzy
+msgid "Default color profile for solid RGB colors on the page"
+msgstr "Apriora kolorprofilo por homogenaj koloroj en la paĝo"
+
+#, fuzzy
+msgid "Default color profile for solid CMYK colors on the page"
 msgstr "Apriora kolorprofilo por homogenaj koloroj en la paĝo"
 
 #, fuzzy
@@ -8287,17 +8444,18 @@ msgstr ""
 "Ĉi tiu profilo devus esti specifa por via ekrano kaj ne komuna profilo (Ekz. "
 "sRGB)."
 
+#, fuzzy
 msgid ""
-"Default rendering intent for your monitor. Unless you know why to change "
+"Default rendering intent for solid colors. Unless you know why to change "
 "it,\n"
 "Relative Colorimetric or Perceptual should be chosen."
 msgstr ""
 "Apriora bildigocelo por via ekrano. Se vi ne scias ĉu ŝanĝi ĝin,\n"
 "devus esti elektita Relativan Kolorgamon aŭ Perceptan."
 
+#, fuzzy
 msgid ""
-"Default rendering intent for your printer. Unless you know why to change "
-"it,\n"
+"Default rendering intent for images. Unless you know why to change it,\n"
 "Relative Colorimetric or Perceptual should be chosen."
 msgstr ""
 "Apriora bildigocelo por via printilo. Se vi ne scias ĉu ŝanĝi ĝin,\n"
@@ -8309,6 +8467,11 @@ msgid ""
 msgstr ""
 "Ebligu la kolorprovon pri tio kiel la dokumentkoloroj printiĝos,\n"
 "laŭ la elektita printilprofilo."
+
+msgid ""
+"Simulate a full color managed environment :\n"
+"all colors, rgb or cmyk, are converted to printer color space."
+msgstr ""
 
 msgid ""
 "Method of showing colors on the screen which may not print properly.\n"
@@ -8334,8 +8497,16 @@ msgid "Printing File"
 msgstr "Ne eblas printi!"
 
 #, fuzzy
-msgid "Processing Master Pages:"
+msgid "Processing Master Page:"
 msgstr "post paĝo"
+
+msgid "External Web Browser Failed to Start"
+msgstr ""
+
+msgid ""
+"Scribus was not able to start the external web browser application %1. "
+"Please check the setting in Preferences"
+msgstr ""
 
 #, fuzzy
 msgid "&Contents"
@@ -8514,6 +8685,9 @@ msgstr "Ĉeĥa"
 msgid "Danish"
 msgstr "Dana"
 
+msgid "Dzongkha"
+msgstr ""
+
 msgid "Dutch"
 msgstr "Nederlanda"
 
@@ -8525,6 +8699,9 @@ msgstr "Angla (Brita)"
 
 msgid "Esperanto"
 msgstr "Esperanto"
+
+msgid "Estonian"
+msgstr ""
 
 msgid "German"
 msgstr "Germana"
@@ -10296,10 +10473,6 @@ msgstr ""
 msgid "&Include text in barcode"
 msgstr ""
 
-#, fuzzy
-msgid "Alt+I"
-msgstr "Alt+"
-
 msgid "If checked, there will be numbers in the barcode too"
 msgstr ""
 
@@ -10418,7 +10591,8 @@ msgstr ""
 msgid "Scribus frontend for Pure Postscript Barcode Writer"
 msgstr ""
 
-msgid "Save Page as &SVG..."
+#, fuzzy
+msgid "Save as &SVG..."
 msgstr "Konservu paĝon kiel &SVG..."
 
 #, fuzzy
@@ -10506,6 +10680,21 @@ msgstr "Normala"
 msgid "My Plugin"
 msgstr "Normala"
 
+#~ msgid "Embed in:"
+#~ msgstr "Inkludu en:"
+
+#~ msgid "&Preview"
+#~ msgstr "&Antaŭrigardo"
+
+#~ msgid "&Load..."
+#~ msgstr "Ŝ&argu..."
+
+#~ msgid "M&onitor:"
+#~ msgstr "E&krano:"
+
+#~ msgid "Pr&inter:"
+#~ msgstr "Pr&intilo:"
+
 #, fuzzy
 #~ msgid "Font %1 is broken (FreeType2), discarding it"
 #~ msgstr "La tiparo %1 estas damaĝita, ne estas utiligata"
@@ -10580,10 +10769,6 @@ msgstr "Normala"
 
 #~ msgid "Strike Out"
 #~ msgstr "Trastrekita"
-
-#, fuzzy
-#~ msgid "March"
-#~ msgstr "Serĉu"
 
 #, fuzzy
 #~ msgid "A&pply"
@@ -10663,10 +10848,6 @@ msgstr "Normala"
 #, fuzzy
 #~ msgid "unknown"
 #~ msgstr "Nekonata"
-
-#, fuzzy
-#~ msgid "December"
-#~ msgstr "Numero"
 
 #~ msgid ""
 #~ "A way of switching off some of the gray shades which are composed\n"
@@ -11062,9 +11243,6 @@ msgstr "Normala"
 #~ "for blue quartz"
 #~ msgstr "a b c ĉ d e f g ĝ h ĥ i j ĵ k l m n o p r s ŝ t u ŭ v z"
 
-#~ msgid "Pictures"
-#~ msgstr "Bildoj"
-
 #~ msgid "Import Template"
 #~ msgstr "Importu ŝablonon"
 
@@ -11273,9 +11451,6 @@ msgstr "Normala"
 #, fuzzy
 #~ msgid "Portugese (Brazilian)"
 #~ msgstr "Brazila"
-
-#~ msgid "Create a new Document"
-#~ msgstr "Kreu novan dokumenton"
 
 #~ msgid "Close the current Document"
 #~ msgstr "Fermu ĉi tiun dokumenton"
@@ -11552,10 +11727,6 @@ msgstr "Normala"
 #, fuzzy
 #~ msgid "Scribus - Macro Manager"
 #~ msgstr "Scribus-Manlibro"
-
-#, fuzzy
-#~ msgid "Browse..."
-#~ msgstr "Movu..."
 
 #, fuzzy
 #~ msgid "Script File:"

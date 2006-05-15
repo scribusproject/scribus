@@ -1734,10 +1734,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>April</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Tango Project Icons:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1880,7 +1876,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Save Page as &amp;EPS...</source>
-        <translation>EPS形式でページを保存(&amp;E)...</translation>
+        <translation type="obsolete">EPS形式でページを保存(&amp;E)...</translation>
     </message>
     <message>
         <source>Save as P&amp;DF...</source>
@@ -2778,6 +2774,14 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>st</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Save as &amp;EPS...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -2919,11 +2923,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation>オブジェクトがロックされています。</translation>
+        <translation type="obsolete">オブジェクトがロックされています。</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation>全てロック解除(&amp;U)</translation>
+        <translation type="obsolete">全てロック解除(&amp;U)</translation>
     </message>
     <message>
         <source>Y: %1%2</source>
@@ -3905,19 +3909,19 @@ Please choose another.</source>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>ファイル(&amp;F)</translation>
+        <translation type="obsolete">ファイル(&amp;F)</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation>プレビュー(&amp;P)</translation>
+        <translation type="obsolete">プレビュー(&amp;P)</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>新規(&amp;N)</translation>
+        <translation type="obsolete">新規(&amp;N)</translation>
     </message>
     <message>
         <source>&amp;Load...</source>
-        <translation>読み込み(&amp;L)...</translation>
+        <translation type="obsolete">読み込み(&amp;L)...</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -3925,11 +3929,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation>名前を付けて保存(&amp;A)...</translation>
+        <translation type="obsolete">名前を付けて保存(&amp;A)...</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>閉じる(&amp;C)</translation>
+        <translation type="obsolete">閉じる(&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Small</source>
@@ -3960,7 +3964,23 @@ Please choose another.</source>
         <translation type="unfinished">ディレクトリを選択</translation>
     </message>
     <message>
-        <source>&amp;Import Scrapbook File...</source>
+        <source>Create a new scrapbook page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load an existing scrapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the selected scrapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close the selected scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4102,7 +4122,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>&amp;Solid Colors:</source>
-        <translation>無色(&amp;S):</translation>
+        <translation type="obsolete">無色(&amp;S):</translation>
     </message>
     <message>
         <source>&amp;Monitor:</source>
@@ -4134,11 +4154,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>M&amp;onitor:</source>
-        <translation>モニタ(&amp;O):</translation>
+        <translation type="obsolete">モニタ(&amp;O):</translation>
     </message>
     <message>
         <source>Pr&amp;inter:</source>
-        <translation>プリンタ(&amp;I):</translation>
+        <translation type="obsolete">プリンタ(&amp;I):</translation>
     </message>
     <message>
         <source>Sim&amp;ulate Printer on the Screen</source>
@@ -4176,16 +4196,6 @@ This profile should be specific to your printer and not a generic profile (i.e. 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Default rendering intent for your monitor. Unless you know why to change it,
-Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Default rendering intent for your printer. Unless you know why to change it,
-Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enable &apos;soft proofing&apos; of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation type="unfinished"></translation>
@@ -4202,7 +4212,50 @@ It is recommended that you enable this if you have photos in your document.</sou
     </message>
     <message>
         <source>Default color profile for solid colors on the page</source>
-        <translation type="unfinished">ページ上の無色のデフォルトのカラープロファイル</translation>
+        <translation type="obsolete">ページ上の無色のデフォルトのカラープロファイル</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Solid Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Solid Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pictures:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sol&amp;id Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert all colors to printer space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default color profile for solid RGB colors on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default color profile for solid CMYK colors on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default rendering intent for solid colors. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default rendering intent for images. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simulate a full color managed environment :
+all colors, rgb or cmyk, are converted to printer color space.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4478,78 +4531,6 @@ It is a reserved name for transparent color</source>
 </context>
 <context>
     <name>CharStyle</name>
-    <message>
-        <source>font %1 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>size %1 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+style </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+color </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+underline </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-underline </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+strikeout </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-strikeout </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+shadow </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-shadow </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+outline </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-outline </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+tracking %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-tracking </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+baseline %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+stretch </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>parent= %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>unnamed</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>CheckDocument</name>
@@ -5128,6 +5109,82 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Right Page</source>
         <translation type="unfinished">右ページ</translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation type="unfinished">January</translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>July</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>August</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>September</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>October</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>December</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6733,7 +6790,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <source>Embed in:</source>
         <comment>font preview</comment>
-        <translation>埋め込み</translation>
+        <translation type="obsolete">埋め込み</translation>
     </message>
     <message>
         <source>Subset</source>
@@ -6747,7 +6804,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
@@ -6792,6 +6849,11 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <source>Choose a Directory</source>
         <translation>ディレクトリを選択</translation>
+    </message>
+    <message>
+        <source>Embed in PostScript</source>
+        <comment>font preview</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7841,6 +7903,66 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Lower layer</source>
         <translation>レイヤーを下に</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished">不透明度:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">標準</translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished">暗くする</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished">明るくする</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished">スクリーン</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished">オーバーレイ</translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exlusion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9588,15 +9710,23 @@ Corners:</source>
     </message>
     <message>
         <source>Exporting Master Pages:</source>
-        <translation>マスターページをエクスポート中:</translation>
+        <translation type="obsolete">マスターページをエクスポート中:</translation>
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation>ページをエクスポート中:</translation>
+        <translation type="obsolete">ページをエクスポート中:</translation>
     </message>
     <message>
         <source>Exporting Items on Current Page:</source>
         <translation>現在のページのアイテムをエクスポート中:</translation>
+    </message>
+    <message>
+        <source>Exporting Master Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Page:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9730,11 +9860,19 @@ Corners:</source>
     <name>PSLib</name>
     <message>
         <source>Processing Master Pages:</source>
-        <translation>マスターページを処理中:</translation>
+        <translation type="obsolete">マスターページを処理中:</translation>
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation>ページをエクスポート中:</translation>
+        <translation type="obsolete">ページをエクスポート中:</translation>
+    </message>
+    <message>
+        <source>Processing Master Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Page:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10797,6 +10935,10 @@ Corners:</source>
     <message>
         <source>Locate your image editor</source>
         <translation type="obsolete">画像エディタの位置</translation>
+    </message>
+    <message>
+        <source>Show S&amp;plashscreen On Startup:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12887,6 +13029,90 @@ External Links
         <comment>PDB Importer</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">アラビア</translation>
+    </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>font %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+tracking %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+baseline %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parent= %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unnamed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13424,7 +13650,7 @@ External Links
     <name>SVGExportPlugin</name>
     <message>
         <source>Save Page as &amp;SVG...</source>
-        <translation>SVGとしてページを保存(&amp;S)...</translation>
+        <translation type="obsolete">SVGとしてページを保存(&amp;S)...</translation>
     </message>
     <message>
         <source>Exports SVG Files</source>
@@ -13432,6 +13658,10 @@ External Links
     </message>
     <message>
         <source>Exports the current page into an SVG file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save as &amp;SVG...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13594,6 +13824,13 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>ScProgressBar</name>
+    <message>
+        <source>%1 of %2</source>
+        <translation type="unfinished">%1 of %2</translation>
+    </message>
+</context>
+<context>
     <name>ScToolBar</name>
     <message>
         <source>Top</source>
@@ -13724,6 +13961,18 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some objects are locked.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Unlock All</source>
+        <translation type="unfinished">全てロック解除(&amp;U)</translation>
+    </message>
+    <message>
+        <source>&amp;Skip locked objects</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14290,6 +14539,10 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Issues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15420,6 +15673,10 @@ Vertical shift: %3</source>
         <source>Locate your image editor</source>
         <translation type="unfinished">画像エディタの位置</translation>
     </message>
+    <message>
+        <source>Locate your web browser</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabExternalToolsWidgetBase</name>
@@ -15434,10 +15691,6 @@ Vertical shift: %3</source>
     <message>
         <source>&amp;Name of Executable:</source>
         <translation type="unfinished">実行ファイル名(&amp;N):</translation>
-    </message>
-    <message>
-        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Change..</source>
@@ -15488,10 +15741,6 @@ Vertical shift: %3</source>
         <translation type="unfinished">実行ファイル名(&amp;E):</translation>
     </message>
     <message>
-        <source>File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Change...</source>
         <translation type="unfinished">変更(&amp;C)...</translation>
     </message>
@@ -15501,6 +15750,30 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Web Browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Web Browser to launch with links from the Help system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rescan for the external tools if they do not exist in the already specified location</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15649,6 +15922,156 @@ Vertical shift: %3</source>
     <message>
         <source>Turns the margins on or off</source>
         <translation>マージンをON/OFFする</translation>
+    </message>
+</context>
+<context>
+    <name>TabKeyboardShortcutsWidget</name>
+    <message>
+        <source>Key Set XML Files (*.ksxml)</source>
+        <translation type="unfinished">キーセットXMLファイル (*.ksxml)</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <translation type="unfinished">Alt</translation>
+    </message>
+    <message>
+        <source>Ctrl</source>
+        <translation type="unfinished">Ctrl</translation>
+    </message>
+    <message>
+        <source>Shift</source>
+        <translation type="unfinished">Shift</translation>
+    </message>
+    <message>
+        <source>Meta</source>
+        <translation type="unfinished">Meta</translation>
+    </message>
+    <message>
+        <source>Meta+</source>
+        <translation type="unfinished">Meta+</translation>
+    </message>
+    <message>
+        <source>Shift+</source>
+        <translation type="unfinished">Shift+</translation>
+    </message>
+    <message>
+        <source>Alt+</source>
+        <translation type="unfinished">Alt+</translation>
+    </message>
+    <message>
+        <source>Ctrl+</source>
+        <translation type="unfinished">Ctrl+</translation>
+    </message>
+    <message>
+        <source>This key sequence is already in use</source>
+        <translation type="unfinished">このキーシーケンスはすでに使用されています</translation>
+    </message>
+</context>
+<context>
+    <name>TabKeyboardShortcutsWidgetBase</name>
+    <message>
+        <source>Keyboard Shortcuts</source>
+        <translation type="unfinished">キーボードショートカット</translation>
+    </message>
+    <message>
+        <source>Search:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation type="unfinished">アクション</translation>
+    </message>
+    <message>
+        <source>Shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shortcut for Selected Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;No Key</source>
+        <translation type="unfinished">キーなし(&amp;N)</translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Defined Key</source>
+        <translation type="unfinished">ユーザ定義キー(&amp;U)</translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished">Alt+U</translation>
+    </message>
+    <message>
+        <source>Set &amp;Key</source>
+        <translation type="unfinished">キーを設定(&amp;K)</translation>
+    </message>
+    <message>
+        <source>Alt+K</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL+ALT+SHIFT+W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loadable Shortcut Sets</source>
+        <translation type="unfinished">読み込み可能なショートカットのセット</translation>
+    </message>
+    <message>
+        <source>Keyboard shortcut sets available to load</source>
+        <translation type="unfinished">読み込み可能なキーボードショートカットのセットです</translation>
+    </message>
+    <message>
+        <source>&amp;Load</source>
+        <translation type="unfinished">読み込み(&amp;L)</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
+    </message>
+    <message>
+        <source>Load the selected shortcut set</source>
+        <translation type="unfinished">選択されたショートカットセットを読み込みます</translation>
+    </message>
+    <message>
+        <source>&amp;Import...</source>
+        <translation type="unfinished">インポート(&amp;I)...</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import a shortcut set into the current configuration</source>
+        <translation type="unfinished">ショートカットセットを現在の設定にインポートします</translation>
+    </message>
+    <message>
+        <source>&amp;Export...</source>
+        <translation type="unfinished">エクスポート(&amp;E)...</translation>
+    </message>
+    <message>
+        <source>Alt+E</source>
+        <translation type="unfinished">Alt+E</translation>
+    </message>
+    <message>
+        <source>Export the current shortcuts into an importable file</source>
+        <translation type="unfinished">現在のショートカットをインポート可能なファイルにエクスポートします</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation type="unfinished">リセット(&amp;R)</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload the default Scribus shortcuts</source>
+        <translation type="unfinished">デフォルトのScribusショートカットを再読み込みします</translation>
     </message>
 </context>
 <context>
@@ -16738,6 +17161,11 @@ when PDF document is opened:</source>
         <source>Custom: </source>
         <translation>カスタム: </translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">なし</translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -16870,7 +17298,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>None</source>
-        <translation>なし</translation>
+        <translation type="obsolete">なし</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -16915,6 +17343,26 @@ when PDF document is opened:</source>
     <message>
         <source>Custom: </source>
         <translation>カスタム: </translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">なし</translation>
+    </message>
+</context>
+<context>
+    <name>TextBrowser</name>
+    <message>
+        <source>Locate your web browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>External Web Browser Failed to Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

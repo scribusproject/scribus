@@ -12521,6 +12521,14 @@ Välised lingid
         <source>unnamed</source>
         <translation>nimetu</translation>
     </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>

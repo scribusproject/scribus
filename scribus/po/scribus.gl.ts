@@ -3247,10 +3247,6 @@ A ausencia de apoio a librarías indícase cun *</translation>
         <translation type="obsolete">Marzo</translation>
     </message>
     <message>
-        <source>April</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Tango Project Icons:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3393,7 +3389,7 @@ A ausencia de apoio a librarías indícase cun *</translation>
     </message>
     <message>
         <source>Save Page as &amp;EPS...</source>
-        <translation>Salvar Páxina como &amp;EPS...</translation>
+        <translation type="obsolete">Salvar Páxina como &amp;EPS...</translation>
     </message>
     <message>
         <source>Save as P&amp;DF...</source>
@@ -4308,6 +4304,14 @@ Convertir a siluetas</translation>
         <source>Insert Link Annotation</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Save as &amp;EPS...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -4647,11 +4651,11 @@ que llo pida o seu impresor.</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation>Algúns obxectos están bloqueadas.</translation>
+        <translation type="obsolete">Algúns obxectos están bloqueadas.</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation>&amp;Desbloquealo Todo</translation>
+        <translation type="obsolete">&amp;Desbloquealo Todo</translation>
     </message>
     <message>
         <source>Y: %1%2</source>
@@ -5717,11 +5721,11 @@ Escolla outro.</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Novo</translation>
+        <translation type="obsolete">&amp;Novo</translation>
     </message>
     <message>
         <source>&amp;Load...</source>
-        <translation>&amp;Carregar...</translation>
+        <translation type="obsolete">&amp;Carregar...</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -5729,11 +5733,11 @@ Escolla outro.</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation>Gardar &amp;Como...</translation>
+        <translation type="obsolete">Gardar &amp;Como...</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;Fechar</translation>
+        <translation type="obsolete">&amp;Fechar</translation>
     </message>
     <message>
         <source>&amp;Small</source>
@@ -5749,11 +5753,11 @@ Escolla outro.</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Ficheiro</translation>
+        <translation type="obsolete">&amp;Ficheiro</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation>&amp;Vista Previa</translation>
+        <translation type="obsolete">&amp;Vista Previa</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
@@ -5782,7 +5786,23 @@ Escolla outro.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Import Scrapbook File...</source>
+        <source>Create a new scrapbook page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load an existing scrapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the selected scrapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close the selected scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5935,7 +5955,7 @@ Escolla outro.</translation>
     </message>
     <message>
         <source>Default color profile for solid colors on the page</source>
-        <translation>Perfil de cores por omisión para as cores sólidas na páxina</translation>
+        <translation type="obsolete">Perfil de cores por omisión para as cores sólidas na páxina</translation>
     </message>
     <message>
         <source>Color profile that you have generated or received from the manufacturer.
@@ -5958,13 +5978,13 @@ Recoméndase que a permita se ten fotos no seu documento.</translation>
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Exhibición por omisión para o seu monitor. De non ter unha boa razón para mudala,
+        <translation type="obsolete">Exhibición por omisión para o seu monitor. De non ter unha boa razón para mudala,
 limítese a escoller Colorimétrica Relativa ou Perceptual.</translation>
     </message>
     <message>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Exhibición por omisión para a súa impresora. De non ter unha boa razón para mudala,
+        <translation type="obsolete">Exhibición por omisión para a súa impresora. De non ter unha boa razón para mudala,
 limítese a escoller Colorimétrica Relativa ou Perceptual.</translation>
     </message>
     <message>
@@ -5989,7 +6009,7 @@ Isto require perfís moi exactos e só serve como advertencia.</translation>
     </message>
     <message>
         <source>&amp;Solid Colors:</source>
-        <translation>Cores &amp;Sólidas:</translation>
+        <translation type="obsolete">Cores &amp;Sólidas:</translation>
     </message>
     <message>
         <source>&amp;Monitor:</source>
@@ -6001,11 +6021,11 @@ Isto require perfís moi exactos e só serve como advertencia.</translation>
     </message>
     <message>
         <source>M&amp;onitor:</source>
-        <translation>M&amp;onitor:</translation>
+        <translation type="obsolete">M&amp;onitor:</translation>
     </message>
     <message>
         <source>Pr&amp;inter:</source>
-        <translation>Impres&amp;ora:</translation>
+        <translation type="obsolete">Impres&amp;ora:</translation>
     </message>
     <message>
         <source>Sim&amp;ulate Printer on the Screen</source>
@@ -6042,6 +6062,49 @@ Isto require perfís moi exactos e só serve como advertencia.</translation>
     <message>
         <source>Default color profile for imported RGB images</source>
         <translation>Perfil de cor por omisión para as imaxes RGB importadas</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Solid Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Solid Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pictures:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sol&amp;id Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert all colors to printer space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default color profile for solid RGB colors on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default color profile for solid CMYK colors on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default rendering intent for solid colors. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default rendering intent for images. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simulate a full color managed environment :
+all colors, rgb or cmyk, are converted to printer color space.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6355,78 +6418,6 @@ e a tecla Eliminar elimina o último que se inseriu</translation>
 </context>
 <context>
     <name>CharStyle</name>
-    <message>
-        <source>font %1 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>size %1 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+style </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+color </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+underline </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-underline </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+strikeout </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-strikeout </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+shadow </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-shadow </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+outline </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-outline </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+tracking %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-tracking </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+baseline %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+stretch </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>parent= %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>unnamed</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>CheckDocument</name>
@@ -7040,6 +7031,82 @@ CommonStrings, tamaño personalizado da páxina</translation>
     <message>
         <source>Right Page</source>
         <translation>Páxina Dereita</translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation type="unfinished">Marzo</translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>July</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>August</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>September</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>October</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>December</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9372,7 +9439,7 @@ antevisión da fonte</translation>
     <message>
         <source>Embed in:</source>
         <comment>font preview</comment>
-        <translation>Embeber en:
+        <translation type="obsolete">Embeber en:
 
 antevisión da fonte:</translation>
     </message>
@@ -9392,7 +9459,7 @@ antevisión da fonte</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.&lt;/qt&gt;</source>
@@ -9401,6 +9468,11 @@ antevisión da fonte</translation>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
         <translation>As rotas de procura de fontes só se poden indicar nas Preferencias, e só cando non hai nengún documento aberto. Feche todos os documentos e vaia entón a Modificar -&gt; Preferencias para mudar a rota de procura de fontes.</translation>
+    </message>
+    <message>
+        <source>Embed in PostScript</source>
+        <comment>font preview</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10673,6 +10745,66 @@ convertindo os seus datos vectoriais en obxectos de Scribus.</translation>
     <message>
         <source>Lower layer</source>
         <translation>Baixar a capa</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished">Opacidade:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation type="unfinished">Modo de Mescla:</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished">Escurecer</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished">Aclarar</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished">Multiplicar</translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished">Pantalla</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished">Transparencia superposta</translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished">Luz dura</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished">Luz branda</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished">Diferenza</translation>
+    </message>
+    <message>
+        <source>Exlusion</source>
+        <translation type="unfinished">Exlusión</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished">Esborrar a cor</translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished">Quimar a cor</translation>
     </message>
 </context>
 <context>
@@ -14026,15 +14158,23 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
     </message>
     <message>
         <source>Exporting Master Pages:</source>
-        <translation>A exportar Páxinas Mestras:</translation>
+        <translation type="obsolete">A exportar Páxinas Mestras:</translation>
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation>A Exportar Páxinas:</translation>
+        <translation type="obsolete">A Exportar Páxinas:</translation>
     </message>
     <message>
         <source>Exporting Items on Current Page:</source>
         <translation>A exportar Elementos da Páxina Actual:</translation>
+    </message>
+    <message>
+        <source>Exporting Master Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Page:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14195,11 +14335,19 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <name>PSLib</name>
     <message>
         <source>Processing Master Pages:</source>
-        <translation>A procesar Páxinas Mestras:</translation>
+        <translation type="obsolete">A procesar Páxinas Mestras:</translation>
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation>A exportar Páxinas:</translation>
+        <translation type="obsolete">A exportar Páxinas:</translation>
+    </message>
+    <message>
+        <source>Processing Master Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Page:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16401,6 +16549,10 @@ Se se deixa en 0 armacenarase unha cantidade infinita de accións.</translation>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="obsolete">Un xeito de apagar algunhas das sombras en gris compostas de cian, amarelo e maxenta e usar negro no seu lugar.
 A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou escuros perto do gris. Cando se usa pode mellorar a impresión dalgunhas imaxes, ainda que é preciso experimentar segundo cada caso. A UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translation>
+    </message>
+    <message>
+        <source>Show S&amp;plashscreen On Startup:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19133,6 +19285,90 @@ Importador de PDB</translation>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Árabe</translation>
+    </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>font %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+tracking %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+baseline %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parent= %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unnamed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -19799,7 +20035,7 @@ executar diálogo de guión</translation>
     <name>SVGExportPlugin</name>
     <message>
         <source>Save Page as &amp;SVG...</source>
-        <translation>Salvar Páxina como &amp;SVG...</translation>
+        <translation type="obsolete">Salvar Páxina como &amp;SVG...</translation>
     </message>
     <message>
         <source>Exports SVG Files</source>
@@ -19808,6 +20044,10 @@ executar diálogo de guión</translation>
     <message>
         <source>Exports the current page into an SVG file.</source>
         <translation>Exporta a páxina actual a un ficheiro SVG.</translation>
+    </message>
+    <message>
+        <source>Save as &amp;SVG...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20018,6 +20258,13 @@ xestor de extensións tipo de extensións</translation>
     <message>
         <source>Unknown</source>
         <translation>Descoñecido</translation>
+    </message>
+</context>
+<context>
+    <name>ScProgressBar</name>
+    <message>
+        <source>%1 of %2</source>
+        <translation type="unfinished">%1 de %2</translation>
     </message>
 </context>
 <context>
@@ -21587,6 +21834,18 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
         <source>An error occurred while opening icc profiles, color management is not enabled.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Some objects are locked.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Unlock All</source>
+        <translation type="unfinished">&amp;Desbloquealo Todo</translation>
+    </message>
+    <message>
+        <source>&amp;Skip locked objects</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -22154,6 +22413,10 @@ Desprazamento vertical: %3</translation>
     <message>
         <source>Issues</source>
         <translation>Problemas</translation>
+    </message>
+    <message>
+        <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23751,6 +24014,10 @@ Selector de Estilo de Texto</translation>
         <source>Locate your image editor</source>
         <translation type="unfinished">Localizar o seu editor de imaxes</translation>
     </message>
+    <message>
+        <source>Locate your web browser</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabExternalToolsWidgetBase</name>
@@ -23765,10 +24032,6 @@ Selector de Estilo de Texto</translation>
     <message>
         <source>&amp;Name of Executable:</source>
         <translation type="unfinished">&amp;Nome do Executábel:</translation>
-    </message>
-    <message>
-        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Change..</source>
@@ -23819,10 +24082,6 @@ Selector de Estilo de Texto</translation>
         <translation type="unfinished">Nome do &amp;Executábel:</translation>
     </message>
     <message>
-        <source>File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Change...</source>
         <translation type="unfinished">&amp;Mudar...</translation>
     </message>
@@ -23832,6 +24091,30 @@ Selector de Estilo de Texto</translation>
     </message>
     <message>
         <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Web Browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Web Browser to launch with links from the Help system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rescan for the external tools if they do not exist in the already specified location</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23980,6 +24263,156 @@ Selector de Estilo de Texto</translation>
     <message>
         <source>Turns the margins on or off</source>
         <translation>Activa ou desactiva as marxes</translation>
+    </message>
+</context>
+<context>
+    <name>TabKeyboardShortcutsWidget</name>
+    <message>
+        <source>Key Set XML Files (*.ksxml)</source>
+        <translation type="unfinished">Conxunto Key de Ficheiros XML (*.ksxml)</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <translation type="unfinished">Alt</translation>
+    </message>
+    <message>
+        <source>Ctrl</source>
+        <translation type="unfinished">Ctrl</translation>
+    </message>
+    <message>
+        <source>Shift</source>
+        <translation type="unfinished">Maiúsculas</translation>
+    </message>
+    <message>
+        <source>Meta</source>
+        <translation type="unfinished">Meta</translation>
+    </message>
+    <message>
+        <source>Meta+</source>
+        <translation type="unfinished">Meta+</translation>
+    </message>
+    <message>
+        <source>Shift+</source>
+        <translation type="unfinished">Maiúsculas+</translation>
+    </message>
+    <message>
+        <source>Alt+</source>
+        <translation type="unfinished">Alt+</translation>
+    </message>
+    <message>
+        <source>Ctrl+</source>
+        <translation type="unfinished">Ctrl+</translation>
+    </message>
+    <message>
+        <source>This key sequence is already in use</source>
+        <translation type="unfinished">Esta secuencia de teclas xa se está a utilizar</translation>
+    </message>
+</context>
+<context>
+    <name>TabKeyboardShortcutsWidgetBase</name>
+    <message>
+        <source>Keyboard Shortcuts</source>
+        <translation type="unfinished">Atallos do teclado</translation>
+    </message>
+    <message>
+        <source>Search:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shortcut for Selected Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;No Key</source>
+        <translation type="unfinished">&amp;Nengunha Tecla</translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished">Alt+N</translation>
+    </message>
+    <message>
+        <source>&amp;User Defined Key</source>
+        <translation type="unfinished">Tecla Definida polo &amp;Usuario</translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished">Alt+U</translation>
+    </message>
+    <message>
+        <source>Set &amp;Key</source>
+        <translation type="unfinished">Asignar &amp;Tecla</translation>
+    </message>
+    <message>
+        <source>Alt+K</source>
+        <translation type="unfinished">Alt+K</translation>
+    </message>
+    <message>
+        <source>CTRL+ALT+SHIFT+W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loadable Shortcut Sets</source>
+        <translation type="unfinished">Conxuntos de Atallos Carregábeis</translation>
+    </message>
+    <message>
+        <source>Keyboard shortcut sets available to load</source>
+        <translation type="unfinished">Conxuntos de atallos de teclado que se poden carregar</translation>
+    </message>
+    <message>
+        <source>&amp;Load</source>
+        <translation type="unfinished">&amp;Carregar</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load the selected shortcut set</source>
+        <translation type="unfinished">Carregar o conxunto de atallos seleccionado</translation>
+    </message>
+    <message>
+        <source>&amp;Import...</source>
+        <translation type="unfinished">&amp;Importar...</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation type="unfinished">Alt+I</translation>
+    </message>
+    <message>
+        <source>Import a shortcut set into the current configuration</source>
+        <translation type="unfinished">Importar un conxunto de atallos na configuración actual</translation>
+    </message>
+    <message>
+        <source>&amp;Export...</source>
+        <translation type="unfinished">&amp;Exportar...</translation>
+    </message>
+    <message>
+        <source>Alt+E</source>
+        <translation type="unfinished">Alt+E</translation>
+    </message>
+    <message>
+        <source>Export the current shortcuts into an importable file</source>
+        <translation type="unfinished">Exportar os atallos actuais para un ficheiro importábel</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation type="unfinished">Desface&amp;r</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload the default Scribus shortcuts</source>
+        <translation type="unfinished">Recarregar os atallos pré-definidos de Scribus</translation>
     </message>
 </context>
 <context>
@@ -25212,6 +25645,11 @@ ao abrir o documento PDF:</translation>
         <source>Custom</source>
         <translation>Personalizado</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -25384,7 +25822,7 @@ ao abrir o documento PDF:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Nengún</translation>
+        <translation type="obsolete">Nengún</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -25413,6 +25851,26 @@ ao abrir o documento PDF:</translation>
     <message>
         <source>Custom: </source>
         <translation>Personalizado: </translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TextBrowser</name>
+    <message>
+        <source>Locate your web browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>External Web Browser Failed to Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
