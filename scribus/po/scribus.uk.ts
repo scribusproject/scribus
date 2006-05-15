@@ -2737,7 +2737,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>March</source>
-        <translation>Березень</translation>
+        <translation type="obsolete">Березень</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4832,6 +4836,18 @@ Please choose another.</source>
     <message>
         <source>Choose a Directory</source>
         <translation>Виберіть директорію</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9511,11 +9527,11 @@ Corners:</source>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Колір текстового контура. Доступний лише з прикрасою тексту &quot;контурний&quot;.</translation>
+        <translation type="obsolete">Колір текстового контура. Доступний лише з прикрасою тексту &quot;контурний&quot;.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Колір заповнення тексту. Доступний лише з прикрасою тексту &quot;контурний&quot;.</translation>
+        <translation type="obsolete">Колір заповнення тексту. Доступний лише з прикрасою тексту &quot;контурний&quot;.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -9532,6 +9548,14 @@ Corners:</source>
     <message>
         <source>Click to select the line spacing mode</source>
         <translation>Кляцніть для вибору режиму установки міжрядкових проміжків</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11230,7 +11254,11 @@ Scribus виконає пошук в системних директоріях �
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter.</source>
-        <translation>Розміщення інтерпретатора Ghostscript в файловій системі.</translation>
+        <translation type="obsolete">Розміщення інтерпретатора Ghostscript в файловій системі.</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12755,7 +12783,7 @@ scribus.UNIT_* констант.</translation>
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>Шрифт %1 (знайдений за допомогою fontconfig) містить помилку і буде видалено</translation>
+        <translation type="obsolete">Шрифт %1 (знайдений за допомогою fontconfig) містить помилку і буде видалено</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
@@ -13296,6 +13324,19 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
     <message>
         <source>Japanese</source>
         <translation>Японська</translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Арабська</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14072,6 +14113,10 @@ converting their vector data into Scribus objects.</source>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Об&apos;єкт %1 в даний час редагується в редакторі тексту. Операція видалення буде відмінена</translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -14532,6 +14577,10 @@ Vertical shift: %3</source>
     <message>
         <source>Contents</source>
         <translation>Зміст</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15373,7 +15422,7 @@ Ctrl-V для вставки його в систему обробітку пр�
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Підкреслення</translation>
+        <translation type="obsolete">Підкреслення</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -15389,11 +15438,11 @@ Ctrl-V для вставки його в систему обробітку пр�
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Перекреслений текст</translation>
+        <translation type="obsolete">Перекреслений текст</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>Підкреслити лише слова</translation>
+        <translation type="obsolete">Підкреслити лише слова</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -15401,12 +15450,32 @@ Ctrl-V для вставки його в систему обробітку пр�
     </message>
     <message>
         <source>Shadow</source>
-        <translation>Тінь</translation>
+        <translation type="obsolete">Тінь</translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation>Схема</translation>
+        <translation type="obsolete">Схема</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

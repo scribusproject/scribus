@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_LA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-10 00:36+0100\n"
+"POT-Creation-Date: 2006-05-15 20:57+0200\n"
 "Last-Translator: Gonzalo Huerta C.\n"
 "Language-Team:  <gonzalo@huerta.cl>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -581,10 +581,10 @@ msgstr ""
 msgid "Font %1 cannot be read, no embedding"
 msgstr ""
 
-msgid "Font %1 is broken, discarding it"
+msgid "Creating Font Cache"
 msgstr ""
 
-msgid "Creating Font Cache"
+msgid "Font %1 is broken, discarding it"
 msgstr ""
 
 msgid "Failed to load font %1 - font type unknown"
@@ -603,9 +603,6 @@ msgid "Font %1(%2) is duplicate of %3"
 msgstr ""
 
 msgid "Loading font %1 (found using fontconfig)"
-msgstr ""
-
-msgid "Font %1 (found using fontconfig) is broken, discarding it"
 msgstr ""
 
 msgid "Failed to load a font - freetype2 couldn't find the font file"
@@ -699,6 +696,11 @@ msgstr "Documento "
 
 msgid "Background"
 msgstr "Fondo"
+
+msgid ""
+"An error occurred while opening icc profiles, color management is not "
+"enabled."
+msgstr ""
 
 msgid "New Layer"
 msgstr "Nueva Capa"
@@ -1490,14 +1492,6 @@ msgstr "Mover Página(s):"
 msgid "Collecting..."
 msgstr "Cargando..."
 
-#, fuzzy
-msgid ""
-"Cannot collect the file: \n"
-"%1"
-msgstr ""
-"¿Desea realmente sobrescribir el Archivo:\n"
-"%1 ?"
-
 msgid "Warning"
 msgstr "Alerta"
 
@@ -1505,6 +1499,14 @@ msgid ""
 "Cannot collect all files for output for file:\n"
 "%1"
 msgstr ""
+
+#, fuzzy
+msgid ""
+"Cannot collect the file: \n"
+"%1"
+msgstr ""
+"¿Desea realmente sobrescribir el Archivo:\n"
+"%1 ?"
 
 #, fuzzy
 msgid "Manage Tabulators"
@@ -1605,6 +1607,10 @@ msgstr "Sobre Relieve"
 #, fuzzy
 msgid "Conve&rt to"
 msgstr "Convertir a"
+
+#, fuzzy
+msgid "Contents"
+msgstr "Contenidos"
 
 #, fuzzy
 msgid "Linking Text Frames"
@@ -2055,15 +2061,6 @@ msgid "&Selection"
 msgstr "Selecciona"
 
 #, fuzzy
-msgid "&Lock Guides"
-msgstr "Mostrar Guías"
-
-# New in Version 0.8
-#, fuzzy
-msgid "&Apply to All Pages"
-msgstr "Aplicar Efectos en todas Páginas"
-
-#, fuzzy
 msgid "&Close"
 msgstr "Cerrar"
 
@@ -2073,6 +2070,15 @@ msgstr "Administrar Imágenes"
 
 msgid "Preview"
 msgstr "Previsualizar"
+
+#, fuzzy
+msgid "&Lock Guides"
+msgstr "Mostrar Guías"
+
+# New in Version 0.8
+#, fuzzy
+msgid "&Apply to All Pages"
+msgstr "Aplicar Efectos en todas Páginas"
 
 msgid ""
 "Set the guides in document. Guide manager is still opened but the changes "
@@ -2462,7 +2468,10 @@ msgid ""
 "so Scribus will display your pages and objects on them at the correct size"
 msgstr ""
 
-msgid "Filesystem location for the Ghostscript interpreter"
+msgid ""
+"Add the path for the Ghostscript interpreter. On Windows, please note it is "
+"important to note you need to use the program named gswin32c.exe - NOT "
+"gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus."
 msgstr ""
 
 msgid "Antialias text for EPS and PDF onscreen rendering"
@@ -3700,7 +3709,7 @@ msgstr ""
 
 msgid ""
 "Length of time the page is shown before the presentation starts on the "
-"selected page."
+"selected page. Setting 0 will disable automatic page transition."
 msgstr ""
 
 msgid ""
@@ -4575,20 +4584,12 @@ msgid "&Copy"
 msgstr "Copiar"
 
 #, fuzzy
-msgid "Copy Contents"
+msgid "Paste (&Absolute)"
 msgstr "Contenidos"
 
 #, fuzzy
-msgid "Paste Contents"
-msgstr "Contenidos"
-
-#, fuzzy
-msgid "Paste Contents (Absolute)"
-msgstr "Contenidos"
-
-#, fuzzy
-msgid "C&lear Contents"
-msgstr "Contenidos"
+msgid "C&lear"
+msgstr "Limpiar"
 
 #, fuzzy
 msgid "Select &All"
@@ -5548,10 +5549,6 @@ msgstr "Bajo Relieve"
 msgid "&Insert"
 msgstr "Bajo Relieve"
 
-#, fuzzy
-msgid "C&lear"
-msgstr "Limpiar"
-
 msgid "Insert the characters at the cursor in the text"
 msgstr ""
 
@@ -5791,12 +5788,12 @@ msgstr "Documentos (*.scd);; Todos los archivos (*)"
 msgid "New Color"
 msgstr "Nuevo Color"
 
+msgid "Add, change or remove color stops here"
+msgstr ""
+
 #, fuzzy
 msgid "Position:"
 msgstr "Descripción:"
-
-msgid "Here you can add, change or remove Color-Stops."
-msgstr ""
 
 #, fuzzy
 msgid "Scribus "
@@ -6143,6 +6140,10 @@ msgid "Space"
 msgstr "Cara"
 
 #, fuzzy
+msgid "Liga&ture"
+msgstr "Imágenes"
+
+#, fuzzy
 msgid "Do you really want to replace your existing image?"
 msgstr "¿Realmente quiere borrar este Estilo?"
 
@@ -6160,21 +6161,32 @@ msgstr ""
 msgid "Y-Offset"
 msgstr ""
 
-#, fuzzy
-msgid "Underline Words Only"
-msgstr "Subrayar"
+msgid ""
+"Underline Text. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
+
+msgid ""
+"Underline Words Only. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
 
 #, fuzzy
 msgid "All Caps"
 msgstr "Todo Mayúsculas Capitular"
 
-#, fuzzy
-msgid "Strike Out"
-msgstr "Tachar"
+msgid ""
+"Strike Out. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
 
-#, fuzzy
-msgid "Shadow"
-msgstr "Intensidad"
+msgid ""
+"Outline. Hold down the button momentarily to change the outline stroke width."
+msgstr ""
+
+msgid ""
+"Shadowed Text. Hold down the button momentarily to enable the offset spacing."
+msgstr ""
 
 msgid "Setup Printer"
 msgstr "Configuración de la Impresora"
@@ -6656,9 +6668,8 @@ msgstr "Seleccionar Fuente"
 msgid "About Scribus %1"
 msgstr "Sobre Scribus"
 
-#, fuzzy
-msgid "March"
-msgstr "Buscar"
+msgid "May"
+msgstr ""
 
 #, fuzzy
 msgid "%1 %2 %3"
@@ -7142,10 +7153,15 @@ msgstr ""
 msgid "Scaling height of characters"
 msgstr ""
 
-msgid "Color of text stroke. Only available with \"outline\" text decoration."
+msgid ""
+"Color of text stroke and/or drop shadow, depending which is chosen.If both "
+"are chosen, then they share the same color."
 msgstr ""
 
-msgid "Color of text fill. Only available with \"outline\" text decoration."
+msgid ""
+"Color of selected text. If Outline text decoration is enabled, this color "
+"will be the fill color. If Drop Shadow Text is enabled, then this will be "
+"the top most color."
 msgstr ""
 
 msgid "Saturation of color of text stroke"
@@ -7165,6 +7181,10 @@ msgstr "Interletrado Manual"
 #, fuzzy
 msgid "Line Spacing"
 msgstr "Espacio entre Líneas"
+
+#, fuzzy
+msgid "Click to select the line spacing mode"
+msgstr "Alinear Texto Centro"
 
 msgid "Style of current paragraph"
 msgstr ""
@@ -7525,6 +7545,13 @@ msgstr ""
 msgid "Choose a Scrapbook Directory"
 msgstr ""
 
+#, fuzzy
+msgid "Scrapbook (*.scs)"
+msgstr "Álbum de recortes"
+
+msgid "Choose a scrapbook file to import"
+msgstr ""
+
 msgid ""
 "Name \"%1\" is not unique.\n"
 "Please choose another."
@@ -7546,6 +7573,10 @@ msgstr "Previsualizar"
 #, fuzzy
 msgid "&Load..."
 msgstr "Carga..."
+
+#, fuzzy
+msgid "&Import Scrapbook File..."
+msgstr "Importar Datos desde:"
 
 msgid "Polygon Properties"
 msgstr "Propiedades Polígono"
@@ -8324,10 +8355,6 @@ msgid "Processing Master Pages:"
 msgstr "después de la Página"
 
 #, fuzzy
-msgid "Contents"
-msgstr "Contenidos"
-
-#, fuzzy
 msgid "&Contents"
 msgstr "Contenidos"
 
@@ -8526,6 +8553,9 @@ msgstr "Conclusiones:"
 msgid "Esperanto"
 msgstr "Evento:"
 
+msgid "Estonian"
+msgstr ""
+
 #, fuzzy
 msgid "German"
 msgstr "Alemán:"
@@ -8554,6 +8584,9 @@ msgstr ""
 #, fuzzy
 msgid "Italian"
 msgstr "Cursiva"
+
+msgid "Japanese"
+msgstr ""
 
 msgid "Korean"
 msgstr ""
@@ -9485,6 +9518,9 @@ msgstr ""
 msgid "Page number out of range."
 msgstr ""
 
+msgid "Given master page name does not match any existing."
+msgstr ""
+
 msgid "argument is not list: must be list of float values."
 msgstr ""
 
@@ -10238,9 +10274,6 @@ msgstr "Deseleccionar Todo"
 msgid "Barcode Creator"
 msgstr ""
 
-msgid "Make check digit visible in text"
-msgstr ""
-
 #, fuzzy
 msgid "Barcode"
 msgstr "Borde"
@@ -10356,12 +10389,12 @@ msgstr ""
 msgid "Variable number of digits and any of the symbols -$:/.+ABCD."
 msgstr ""
 
+msgid "Variable number of digits"
+msgstr ""
+
 msgid ""
 "Variable number of digits. An ITF-14 is 14 characters and does not have a "
 "check digit"
-msgstr ""
-
-msgid "Variable number of digits"
 msgstr ""
 
 msgid "Variable number of digits and capital letters"
@@ -10434,16 +10467,25 @@ msgstr ""
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
 msgstr ""
 
+#, fuzzy
+msgid "Importing PostScript"
+msgstr "JavaScripts (*.js);; Todos los Archivos (*)"
+
+#, fuzzy
+msgid "Analyzing PostScript:"
+msgstr "Vertical"
+
 msgid ""
 "Importing File:\n"
 "%1\n"
 "failed!"
 msgstr ""
 
-msgid ""
-"Converting Image:\n"
-"%1\n"
-"failed!"
+#, fuzzy
+msgid "Generating Items"
+msgstr "Intentos de Renderizar:"
+
+msgid "Converting of %1 images failed!"
 msgstr ""
 
 #, fuzzy
@@ -10460,6 +10502,34 @@ msgstr "Plano"
 #, fuzzy
 msgid "My Plugin"
 msgstr "Plano"
+
+#, fuzzy
+#~ msgid "Copy Contents"
+#~ msgstr "Contenidos"
+
+#, fuzzy
+#~ msgid "Paste Contents"
+#~ msgstr "Contenidos"
+
+#, fuzzy
+#~ msgid "C&lear Contents"
+#~ msgstr "Contenidos"
+
+#, fuzzy
+#~ msgid "Underline Words Only"
+#~ msgstr "Subrayar"
+
+#, fuzzy
+#~ msgid "Strike Out"
+#~ msgstr "Tachar"
+
+#, fuzzy
+#~ msgid "Shadow"
+#~ msgstr "Intensidad"
+
+#, fuzzy
+#~ msgid "March"
+#~ msgstr "Buscar"
 
 #, fuzzy
 #~ msgid "Image Settings"
@@ -11347,10 +11417,6 @@ msgstr "Plano"
 #, fuzzy
 #~ msgid "Delete all macros."
 #~ msgstr "Borrar Color"
-
-#, fuzzy
-#~ msgid "Import macros from a file."
-#~ msgstr "Importar Datos desde:"
 
 #, fuzzy
 #~ msgid "S&cript"

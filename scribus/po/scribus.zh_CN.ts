@@ -2637,7 +2637,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>March</source>
+        <source>May</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2831,7 +2831,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation>&amp;L 清除内容</translation>
+        <translation type="obsolete">&amp;L 清除内容</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -3526,14 +3526,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>更多信息...</translation>
     </message>
     <message>
-        <source>Copy Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Paste Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Printing Enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3631,10 +3623,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Paste Contents (Absolute)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>S&amp;tyles...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3647,6 +3635,14 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation type="unfinished">&amp;O 轮廓</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">&amp;L 清除</translation>
     </message>
 </context>
 <context>
@@ -4702,10 +4698,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation type="unfinished">预览效果。72dpi范例</translation>
     </message>
     <message>
-        <source>Make check digit visible in text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Co&amp;de:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4817,6 +4809,18 @@ Please choose another.</source>
     <message>
         <source>Choose a Directory</source>
         <translation type="unfinished">选择一个目录</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6837,13 +6841,23 @@ failed!</source>
         <translation>致命错误</translation>
     </message>
     <message>
-        <source>Converting Image:
-%1
-failed!</source>
+        <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error</source>
+        <source>Importing PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Analyzing PostScript:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6963,6 +6977,18 @@ failed!</source>
     </message>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7753,7 +7779,11 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>这里你可以增加，更改或者删除颜色节点</translation>
+        <translation type="obsolete">这里你可以增加，更改或者删除颜色节点</translation>
+    </message>
+    <message>
+        <source>Add, change or remove color stops here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9569,11 +9599,11 @@ Corners:</source>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Colour of text stroke. Only available with &quot;outline&quot; text decoration.</translation>
+        <translation type="obsolete">Colour of text stroke. Only available with &quot;outline&quot; text decoration.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Colour of text fill. Only available with &quot;outline&quot; text decoration.</translation>
+        <translation type="obsolete">Colour of text fill. Only available with &quot;outline&quot; text decoration.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -9585,6 +9615,18 @@ Corners:</source>
     </message>
     <message>
         <source>Non Zero</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11201,7 +11243,7 @@ Corners:</source>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="unfinished">Ghostscript解析器在文件系统里的位置</translation>
+        <translation type="obsolete">Ghostscript解析器在文件系统里的位置</translation>
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
@@ -11342,6 +11384,10 @@ Corners:</source>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="obsolete">A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12805,7 +12851,7 @@ External Links
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished">Font %1 (found using fontconfig) is broken, discarding it</translation>
+        <translation type="obsolete">Font %1 (found using fontconfig) is broken, discarding it</translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
@@ -13453,6 +13499,23 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Luxembourgish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">阿拉伯字符</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14236,6 +14299,10 @@ converting their vector data into Scribus objects.</source>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation type="unfinished">项目 %1 正被故事编辑器使用中。删除操作将被取消。</translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -14699,6 +14766,14 @@ Vertical shift: %3</source>
         <source>Do you really want to replace your existing image?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">内容</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -14948,6 +15023,10 @@ Vertical shift: %3</source>
     <message>
         <source>Grayscale</source>
         <translation>灰度</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">内容</translation>
     </message>
 </context>
 <context>
@@ -15578,7 +15657,7 @@ Vertical shift: %3</source>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>下划线</translation>
+        <translation type="obsolete">下划线</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -15594,7 +15673,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>中划线</translation>
+        <translation type="obsolete">中划线</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -15606,15 +15685,30 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>阴影</translation>
+        <translation type="obsolete">阴影</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>只文字下划线</translation>
+        <translation type="obsolete">只文字下划线</translation>
     </message>
     <message>
-        <source>Outline</source>
-        <comment>Text Style Selector</comment>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16460,7 +16554,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="unfinished">在选中的页里开始报告前页面显示时间长度。</translation>
+        <translation type="obsolete">在选中的页里开始报告前页面显示时间长度。</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
@@ -16798,6 +16892,10 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

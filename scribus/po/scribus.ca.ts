@@ -3316,7 +3316,11 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>March</source>
-        <translation>Març</translation>
+        <translation type="obsolete">Març</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5756,6 +5760,18 @@ Si us plau, tria&apos;n un altre.</translation>
     <message>
         <source>Choose a Directory</source>
         <translation>Tria un Directori</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12031,11 +12047,11 @@ Si us plau tria&apos;n un altre.</translation>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Color del subratllat de text. Només disponible amb la decoració esquemàtica.</translation>
+        <translation type="obsolete">Color del subratllat de text. Només disponible amb la decoració esquemàtica.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Color d&apos;emplenat del text. Només disponible amb decoració de text esquemàtica.</translation>
+        <translation type="obsolete">Color d&apos;emplenat del text. Només disponible amb decoració de text esquemàtica.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -12052,6 +12068,14 @@ Si us plau tria&apos;n un altre.</translation>
     <message>
         <source>Click to select the line spacing mode</source>
         <translation>Clica per seleccionar el mode d&apos;espaiat</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16015,7 +16039,11 @@ s&apos;estigui executant.</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter.</source>
-        <translation>Localització de l&apos;intèrpret de Ghostscript.</translation>
+        <translation type="obsolete">Localització de l&apos;intèrpret de Ghostscript.</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18031,7 +18059,7 @@ la documentació de la funció.
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>La font %1 (trobada amb fontconfig) està malmesa, descartant-la</translation>
+        <translation type="obsolete">La font %1 (trobada amb fontconfig) està malmesa, descartant-la</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
@@ -18692,6 +18720,19 @@ detallades exhaustivament per les funcions cridades.</translation>
     <message>
         <source>Japanese</source>
         <translation>Japonès</translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Àrab</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21058,6 +21099,10 @@ Considera fer servir el Verificador per corregir-los</translation>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>L&apos;element %1 està sent editat amb l&apos;Editor de Notícies. La conversió demanada es cancel.larà</translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -21526,6 +21571,10 @@ Desplaçament vertical: %3</translation>
     <message>
         <source>Contents</source>
         <translation>Contingut</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -22847,7 +22896,7 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Subratllat</translation>
+        <translation type="obsolete">Subratllat</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -22863,7 +22912,7 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Barrat</translation>
+        <translation type="obsolete">Barrat</translation>
     </message>
     <message>
         <source>Outline Text</source>
@@ -22871,7 +22920,7 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>Només les paraules subratllades</translation>
+        <translation type="obsolete">Només les paraules subratllades</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -22883,12 +22932,32 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>Ombra</translation>
+        <translation type="obsolete">Ombra</translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation>Esquema</translation>
+        <translation type="obsolete">Esquema</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

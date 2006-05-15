@@ -1938,7 +1938,11 @@ Manjkajoče knjižnice so prikazane s *</translation>
     </message>
     <message>
         <source>March</source>
-        <translation>Marec</translation>
+        <translation type="obsolete">Marec</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4366,6 +4370,18 @@ Prosim, izberite drugo.</translation>
     <message>
         <source>Choose a Directory</source>
         <translation>Izberi direktorij</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10328,11 +10344,11 @@ robovi:</translation>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Barva črte besedila. Na voljo le z nastavitvijo pisave na &quot;obrobo&quot;.</translation>
+        <translation type="obsolete">Barva črte besedila. Na voljo le z nastavitvijo pisave na &quot;obrobo&quot;.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Barva polnila besedila. Na voljo le z nastavitvijo pisave na &quot;obrobo&quot;.</translation>
+        <translation type="obsolete">Barva polnila besedila. Na voljo le z nastavitvijo pisave na &quot;obrobo&quot;.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -10349,6 +10365,14 @@ robovi:</translation>
     <message>
         <source>Click to select the line spacing mode</source>
         <translation>Klikni za izbiro kako so vrstice razmaknjene</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14432,7 +14456,11 @@ instance of gimp.</source>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter.</source>
-        <translation>Pot do lokacije kjer je Ghostscript prevajalec.</translation>
+        <translation type="obsolete">Pot do lokacije kjer je Ghostscript prevajalec.</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15952,7 +15980,7 @@ Povezave navzven
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>Pisava %1 (ki jo je našel fontconfig) je pokvarjena, zato jo zanemarjam</translation>
+        <translation type="obsolete">Pisava %1 (ki jo je našel fontconfig) je pokvarjena, zato jo zanemarjam</translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
@@ -16793,6 +16821,19 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Japanese</source>
         <translation>Japonsko</translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Arabščina</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19397,6 +19438,10 @@ Uporabite Končno preverjanje da jih odpravite</translation>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Predmet %1 uporablja urejevalnik zgodbe. Izrezovanje je bilo preklicano</translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -19865,6 +19910,10 @@ Navpični zamik: %3</translation>
     <message>
         <source>Contents</source>
         <translation>Vsebina</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21152,11 +21201,11 @@ povlecite predlogo na delovno področje spodaj.</translation>
     </message>
     <message>
         <source>Underline</source>
-        <translation>Podčrtano</translation>
+        <translation type="obsolete">Podčrtano</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Prečrtano</translation>
+        <translation type="obsolete">Prečrtano</translation>
     </message>
     <message>
         <source>Outline</source>
@@ -21164,7 +21213,7 @@ povlecite predlogo na delovno področje spodaj.</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>Samo podčrtaj besede</translation>
+        <translation type="obsolete">Samo podčrtaj besede</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -21172,12 +21221,32 @@ povlecite predlogo na delovno področje spodaj.</translation>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>Senca</translation>
+        <translation type="obsolete">Senca</translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation>Obroba</translation>
+        <translation type="obsolete">Obroba</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

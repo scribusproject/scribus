@@ -1683,7 +1683,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Tango Project Icons:</source>
-        <translation>Tango projekti ikoonid:</translation>
+        <translation type="obsolete">Tango projekti ikoonid:</translation>
     </message>
     <message>
         <source>A&amp;uthors</source>
@@ -1732,6 +1732,10 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
         <translation>See dialoog näitab Scribuse versiooni, ehitamise aega ja kompileeritud teekide toetust. Lühendis C-C-T-F tähendab C littlecms&apos;i, teine C CUPS-i, T TIFF-i ja F Fontconfig&apos;i tuge. Viimane täht näitab renderdajat: C=cairo või A=libart. Teegi toe puudumist näitab *. Samuti näeb siin Ghostscripti versiooni, mille Scribus leidis.</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished">Mai</translation>
     </message>
 </context>
 <context>
@@ -1840,7 +1844,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Save as &amp;EPS...</source>
-        <translation>Salvesta &amp;EPS-failina...</translation>
+        <translation type="obsolete">Salvesta &amp;EPS-failina...</translation>
     </message>
     <message>
         <source>Save as P&amp;DF...</source>
@@ -2435,31 +2439,31 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Insert PDF Push Button</source>
-        <translation>Lisa PDF-i kinnitusnupp</translation>
+        <translation type="obsolete">Lisa PDF-i kinnitusnupp</translation>
     </message>
     <message>
         <source>Insert PDF Text Field</source>
-        <translation>Lisa PDF-i tekstiväli</translation>
+        <translation type="obsolete">Lisa PDF-i tekstiväli</translation>
     </message>
     <message>
         <source>Insert PDF Check Box</source>
-        <translation>Lisa PDF-i märkekast</translation>
+        <translation type="obsolete">Lisa PDF-i märkekast</translation>
     </message>
     <message>
         <source>Insert PDF Combo Box</source>
-        <translation>Lisa PDF-i liitkast</translation>
+        <translation type="obsolete">Lisa PDF-i liitkast</translation>
     </message>
     <message>
         <source>Insert PDF List Box</source>
-        <translation>Lisa PDF-i nimekirjakast</translation>
+        <translation type="obsolete">Lisa PDF-i nimekirjakast</translation>
     </message>
     <message>
         <source>Insert Text Annotation</source>
-        <translation>Lisa teksti annotatsioon</translation>
+        <translation type="obsolete">Lisa teksti annotatsioon</translation>
     </message>
     <message>
         <source>Insert Link Annotation</source>
-        <translation>Lisa lingi annotatsioon</translation>
+        <translation type="obsolete">Lisa lingi annotatsioon</translation>
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
@@ -2723,7 +2727,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Show Text Frame Columns</source>
-        <translation>Tekstikasti veergude näitamine</translation>
+        <translation type="obsolete">Tekstikasti veergude näitamine</translation>
+    </message>
+    <message>
+        <source>Save Page as &amp;EPS...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2871,6 +2879,14 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
+    </message>
+    <message>
+        <source>Some objects are locked.</source>
+        <translation type="unfinished">Mõned objektid on lukustatud.</translation>
+    </message>
+    <message>
+        <source>&amp;Unlock All</source>
+        <translation type="unfinished">Eemalda kõigi l&amp;ukustus</translation>
     </message>
 </context>
 <context>
@@ -3837,23 +3853,51 @@ Palun vali mõni muu nimi.</translation>
     </message>
     <message>
         <source>Create a new scrapbook page</source>
-        <translation>Loo uus visandimapi lehekülg</translation>
+        <translation type="obsolete">Loo uus visandimapi lehekülg</translation>
     </message>
     <message>
         <source>Load an existing scrapbook</source>
-        <translation>Ava olemasolev visandimapp</translation>
+        <translation type="obsolete">Ava olemasolev visandimapp</translation>
     </message>
     <message>
         <source>Save the selected scrapbook</source>
-        <translation>Salvesta valitud visandimapp</translation>
+        <translation type="obsolete">Salvesta valitud visandimapp</translation>
     </message>
     <message>
         <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
-        <translation>Impordi visandimapifail Scribuse versioonist &lt;=1.3.2</translation>
+        <translation type="obsolete">Impordi visandimapifail Scribuse versioonist &lt;=1.3.2</translation>
     </message>
     <message>
         <source>Close the selected scrapbook</source>
-        <translation>Sulge valitud visandimapp</translation>
+        <translation type="obsolete">Sulge valitud visandimapp</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="unfinished">&amp;Fail</translation>
+    </message>
+    <message>
+        <source>&amp;Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Uus</translation>
+    </message>
+    <message>
+        <source>&amp;Load...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save &amp;As...</source>
+        <translation type="unfinished">Salvesta &amp;kui...</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">S&amp;ulge</translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3989,11 +4033,11 @@ Palun vali mõni muu nimi.</translation>
     </message>
     <message>
         <source>&amp;RGB Solid Colors:</source>
-        <translation>&amp;RGB ühtlased värvid:</translation>
+        <translation type="obsolete">&amp;RGB ühtlased värvid:</translation>
     </message>
     <message>
         <source>&amp;CMYK Solid Colors:</source>
-        <translation>&amp;CMYK ühtlased värvid:</translation>
+        <translation type="obsolete">&amp;CMYK ühtlased värvid:</translation>
     </message>
     <message>
         <source>&amp;Monitor:</source>
@@ -4025,11 +4069,11 @@ Palun vali mõni muu nimi.</translation>
     </message>
     <message>
         <source>Pictures:</source>
-        <translation>Pildid:</translation>
+        <translation type="obsolete">Pildid:</translation>
     </message>
     <message>
         <source>Sol&amp;id Colors:</source>
-        <translation>Ühtlased värv&amp;id:</translation>
+        <translation type="obsolete">Ühtlased värv&amp;id:</translation>
     </message>
     <message>
         <source>Sim&amp;ulate Printer on the Screen</source>
@@ -4037,7 +4081,7 @@ Palun vali mõni muu nimi.</translation>
     </message>
     <message>
         <source>Convert all colors to printer space</source>
-        <translation>Kõigi värvide teisendamine printeriruumi</translation>
+        <translation type="obsolete">Kõigi värvide teisendamine printeriruumi</translation>
     </message>
     <message>
         <source>Mark Colors out of &amp;Gamut</source>
@@ -4057,11 +4101,11 @@ Palun vali mõni muu nimi.</translation>
     </message>
     <message>
         <source>Default color profile for solid RGB colors on the page</source>
-        <translation>Ühtlaste RGB värvide vaikimisi värviprofiil leheküljel</translation>
+        <translation type="obsolete">Ühtlaste RGB värvide vaikimisi värviprofiil leheküljel</translation>
     </message>
     <message>
         <source>Default color profile for solid CMYK colors on the page</source>
-        <translation>Ühtlaste CMYK värvide vaikimisi värviprofiil leheküljel</translation>
+        <translation type="obsolete">Ühtlaste CMYK värvide vaikimisi värviprofiil leheküljel</translation>
     </message>
     <message>
         <source>Color profile that you have generated or received from the manufacturer.
@@ -4078,13 +4122,13 @@ See profiil peab vastama printerile ega tohi olla üldine profiil (s.t. sRGB).</
     <message>
         <source>Default rendering intent for solid colors. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Ühtlaste värvide vaikimisi renderdamisviis. Kui sa ei tea, kuidas seda muuta,
+        <translation type="obsolete">Ühtlaste värvide vaikimisi renderdamisviis. Kui sa ei tea, kuidas seda muuta,
 tuleks valida suhteline kolorimeetriline või pertseptuaalne.</translation>
     </message>
     <message>
         <source>Default rendering intent for images. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Piltide vaikimisi renderdamisviis. Kui sa ei tea, kuidas seda muuta,
+        <translation type="obsolete">Piltide vaikimisi renderdamisviis. Kui sa ei tea, kuidas seda muuta,
 tuleks valida suhteline kolorimeetriline või pertseptuaalne.</translation>
     </message>
     <message>
@@ -4096,7 +4140,7 @@ millised näevad dokumendi värvid välja trükkimisel.</translation>
     <message>
         <source>Simulate a full color managed environment :
 all colors, rgb or cmyk, are converted to printer color space.</source>
-        <translation>Täieliku värvihaldusega keskkonna simuleerimine:
+        <translation type="obsolete">Täieliku värvihaldusega keskkonna simuleerimine:
 kõik värvid, nii RGB kui CMYK, teisendatakse printeri värviruumi.</translation>
     </message>
     <message>
@@ -4110,6 +4154,32 @@ See nõuab väga täpseid profiile ja on mõeldud lihtsalt hoiatuseks.</translat
 It is recommended that you enable this if you have photos in your document.</source>
         <translation>Mustpunkti kompenseerimisega saab parandada fotode kontrasti.
 Kui dokumendis leidub fotosid, on soovitatav see valik sisse lülitada.</translation>
+    </message>
+    <message>
+        <source>&amp;Solid Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M&amp;onitor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pr&amp;inter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default color profile for solid colors on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default rendering intent for your monitor. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default rendering intent for your printer. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4419,7 +4489,7 @@ See nimi on reserveeritud läbipaistvale värvile.</translation>
     </message>
     <message>
         <source>Check again</source>
-        <translation>Kontrolli uuesti</translation>
+        <translation type="obsolete">Kontrolli uuesti</translation>
     </message>
     <message>
         <source>Glyphs missing</source>
@@ -4439,11 +4509,11 @@ See nimi on reserveeritud läbipaistvale värvile.</translation>
     </message>
     <message>
         <source>Image resolution below %1 DPI, currently %2 x %3 DPI</source>
-        <translation>Pildi lahutus on alla %1 DPI, praegu %2 x %3 DPI-d</translation>
+        <translation type="obsolete">Pildi lahutus on alla %1 DPI, praegu %2 x %3 DPI-d</translation>
     </message>
     <message>
         <source>Image resolution above %1 DPI, currently %2 x %3 DPI</source>
-        <translation>Pildi lahutus on üle %1 DPI, praegu %2 x %3 DPI-d</translation>
+        <translation type="obsolete">Pildi lahutus on üle %1 DPI, praegu %2 x %3 DPI-d</translation>
     </message>
     <message>
         <source>Object has transparency</source>
@@ -4459,7 +4529,11 @@ See nimi on reserveeritud läbipaistvale värvile.</translation>
     </message>
     <message>
         <source>Image is GIF</source>
-        <translation>Pilt on GIF</translation>
+        <translation type="obsolete">Pilt on GIF</translation>
+    </message>
+    <message>
+        <source>Image has a DPI-Value less than %1 DPI</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4942,79 +5016,79 @@ See nimi on reserveeritud läbipaistvale värvile.</translation>
     </message>
     <message>
         <source>Monday</source>
-        <translation>Esmaspäev</translation>
+        <translation type="obsolete">Esmaspäev</translation>
     </message>
     <message>
         <source>Tuesday</source>
-        <translation>Teisipäev</translation>
+        <translation type="obsolete">Teisipäev</translation>
     </message>
     <message>
         <source>Wednesday</source>
-        <translation>Kolmapäev</translation>
+        <translation type="obsolete">Kolmapäev</translation>
     </message>
     <message>
         <source>Thursday</source>
-        <translation>Neljapäev</translation>
+        <translation type="obsolete">Neljapäev</translation>
     </message>
     <message>
         <source>Friday</source>
-        <translation>Reede</translation>
+        <translation type="obsolete">Reede</translation>
     </message>
     <message>
         <source>Saturday</source>
-        <translation>Laupäev</translation>
+        <translation type="obsolete">Laupäev</translation>
     </message>
     <message>
         <source>Sunday</source>
-        <translation>Pühapäev</translation>
+        <translation type="obsolete">Pühapäev</translation>
     </message>
     <message>
         <source>January</source>
-        <translation>Jaanuar</translation>
+        <translation type="obsolete">Jaanuar</translation>
     </message>
     <message>
         <source>February</source>
-        <translation>Veebruar</translation>
+        <translation type="obsolete">Veebruar</translation>
     </message>
     <message>
         <source>March</source>
-        <translation>Märts</translation>
+        <translation type="obsolete">Märts</translation>
     </message>
     <message>
         <source>April</source>
-        <translation>Aprill</translation>
+        <translation type="obsolete">Aprill</translation>
     </message>
     <message>
         <source>May</source>
-        <translation>Mai</translation>
+        <translation type="obsolete">Mai</translation>
     </message>
     <message>
         <source>June</source>
-        <translation>Juuni</translation>
+        <translation type="obsolete">Juuni</translation>
     </message>
     <message>
         <source>July</source>
-        <translation>Juuli</translation>
+        <translation type="obsolete">Juuli</translation>
     </message>
     <message>
         <source>August</source>
-        <translation>August</translation>
+        <translation type="obsolete">August</translation>
     </message>
     <message>
         <source>September</source>
-        <translation>September</translation>
+        <translation type="obsolete">September</translation>
     </message>
     <message>
         <source>October</source>
-        <translation>Oktoober</translation>
+        <translation type="obsolete">Oktoober</translation>
     </message>
     <message>
         <source>November</source>
-        <translation>November</translation>
+        <translation type="obsolete">November</translation>
     </message>
     <message>
         <source>December</source>
-        <translation>Detsember</translation>
+        <translation type="obsolete">Detsember</translation>
     </message>
 </context>
 <context>
@@ -5866,7 +5940,7 @@ Selle saab määrata seadistustes.</translation>
     </message>
     <message>
         <source>Force Overprint Mode</source>
-        <translation>Ületrükirežiim</translation>
+        <translation type="obsolete">Ületrükirežiim</translation>
     </message>
     <message>
         <source>Apply ICC Profiles</source>
@@ -5916,7 +5990,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
     </message>
     <message>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation>Sisselülitamisel kehtestatakse dokumendile üldine ületrükirežiim, mis tühistab objektide määratlused</translation>
+        <translation type="obsolete">Sisselülitamisel kehtestatakse dokumendile üldine ületrükirežiim, mis tühistab objektide määratlused</translation>
     </message>
     <message>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
@@ -6331,7 +6405,7 @@ import ebaõnnestus!</translation>
     </message>
     <message>
         <source>Image size in Pixels</source>
-        <translation>Pildi suurus pikslites</translation>
+        <translation type="obsolete">Pildi suurus pikslites</translation>
     </message>
     <message>
         <source>Export a range of pages</source>
@@ -6582,7 +6656,7 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     <message>
         <source>Embed in:</source>
         <comment>font preview</comment>
-        <translation type="obsolete">Põimimine:</translation>
+        <translation type="unfinished">Põimimine:</translation>
     </message>
     <message>
         <source>Subset</source>
@@ -6596,7 +6670,7 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="obsolete">PostScript</translation>
+        <translation type="unfinished">PostScript</translation>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
@@ -6645,7 +6719,7 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     <message>
         <source>Embed in PostScript</source>
         <comment>font preview</comment>
-        <translation>Põimimine PostScripti</translation>
+        <translation type="obsolete">Põimimine PostScripti</translation>
     </message>
 </context>
 <context>
@@ -6840,134 +6914,243 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     <name>GuideManager</name>
     <message>
         <source>Edit Guide</source>
-        <translation>Juhtjoone redigeerimine</translation>
+        <translation type="obsolete">Juhtjoone redigeerimine</translation>
     </message>
     <message>
         <source>Enter a position:</source>
-        <translation>Asukoht:</translation>
+        <translation type="obsolete">Asukoht:</translation>
     </message>
     <message>
         <source>New Guide</source>
-        <translation>Uus juhtjoon</translation>
+        <translation type="obsolete">Uus juhtjoon</translation>
+    </message>
+    <message>
+        <source>Manage Guides</source>
+        <translation type="unfinished">Juhtjoonte haldamine</translation>
+    </message>
+    <message>
+        <source>Horizontal Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guide</source>
+        <translation type="unfinished">Juhtjoon</translation>
+    </message>
+    <message>
+        <source>Unit</source>
+        <translation type="unfinished">Ühik</translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">&amp;Y-asukoht:</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">Lis&amp;a</translation>
+    </message>
+    <message>
+        <source>D&amp;elete</source>
+        <translation type="unfinished">K&amp;ustuta</translation>
+    </message>
+    <message>
+        <source>Vertical Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos:</source>
+        <translation type="unfinished">&amp;X-asukoht:</translation>
+    </message>
+    <message>
+        <source>A&amp;dd</source>
+        <translation type="unfinished">L&amp;isa</translation>
+    </message>
+    <message>
+        <source>De&amp;lete</source>
+        <translation type="unfinished">&amp;Kustuta</translation>
+    </message>
+    <message>
+        <source>Rows and Columns - Automatic Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rows:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;olumns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Row &amp;Gap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colum&amp;n Gap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refer to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">S&amp;ulge</translation>
+    </message>
+    <message>
+        <source>&amp;Update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="unfinished">Eelvaatlus</translation>
+    </message>
+    <message>
+        <source>&amp;Lock Guides</source>
+        <translation type="unfinished">&amp;Juhtjoonte lukustamine</translation>
+    </message>
+    <message>
+        <source>&amp;Apply to All Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the guides in document. Guide manager is still opened but the changes are persistant</source>
+        <comment>guide manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is empty (0.0) guide already</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>GuideManagerBase</name>
     <message>
         <source>Manage Guides</source>
-        <translation>Juhtjoonte haldamine</translation>
+        <translation type="obsolete">Juhtjoonte haldamine</translation>
     </message>
     <message>
         <source>&amp;Standard</source>
-        <translation>&amp;Standard</translation>
+        <translation type="obsolete">&amp;Standard</translation>
     </message>
     <message>
         <source>Horizontals</source>
-        <translation>Rõhtjooned</translation>
+        <translation type="obsolete">Rõhtjooned</translation>
     </message>
     <message>
         <source>Guide</source>
-        <translation>Juhtjoon</translation>
+        <translation type="obsolete">Juhtjoon</translation>
     </message>
     <message>
         <source>Unit</source>
-        <translation>Ühik</translation>
+        <translation type="obsolete">Ühik</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>Lis&amp;a</translation>
+        <translation type="obsolete">Lis&amp;a</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
         <source>D&amp;elete</source>
-        <translation>K&amp;ustuta</translation>
+        <translation type="obsolete">K&amp;ustuta</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation>Alt+E</translation>
+        <translation type="obsolete">Alt+E</translation>
     </message>
     <message>
         <source>Verticals</source>
-        <translation>Püstjooned</translation>
+        <translation type="obsolete">Püstjooned</translation>
     </message>
     <message>
         <source>A&amp;dd</source>
-        <translation>L&amp;isa</translation>
+        <translation type="obsolete">L&amp;isa</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation>Alt+D</translation>
+        <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
         <source>De&amp;lete</source>
-        <translation>&amp;Kustuta</translation>
+        <translation type="obsolete">&amp;Kustuta</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation>Alt+L</translation>
+        <translation type="obsolete">Alt+L</translation>
     </message>
     <message>
         <source>&amp;Lock Guides</source>
-        <translation>&amp;Juhtjoonte lukustamine</translation>
+        <translation type="obsolete">&amp;Juhtjoonte lukustamine</translation>
     </message>
     <message>
         <source>Appl&amp;y to All Pages</source>
-        <translation>&amp;Rakendamine kõigile lehekülgedele</translation>
+        <translation type="obsolete">&amp;Rakendamine kõigile lehekülgedele</translation>
     </message>
     <message>
         <source>Alt+Y</source>
-        <translation>Alt+Y</translation>
+        <translation type="obsolete">Alt+Y</translation>
     </message>
     <message>
         <source>A&amp;utomatic</source>
-        <translation>A&amp;utomaatne</translation>
+        <translation type="obsolete">A&amp;utomaatne</translation>
     </message>
     <message>
         <source>&amp;Number:</source>
-        <translation>&amp;Arv:</translation>
+        <translation type="obsolete">&amp;Arv:</translation>
     </message>
     <message>
         <source>U&amp;se Gap:</source>
-        <translation>&amp;Vahe:</translation>
+        <translation type="obsolete">&amp;Vahe:</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation>Alt+S</translation>
+        <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
         <source>Nu&amp;mber:</source>
-        <translation>A&amp;rv:</translation>
+        <translation type="obsolete">A&amp;rv:</translation>
     </message>
     <message>
         <source>Use &amp;Gap:</source>
-        <translation>Va&amp;he:</translation>
+        <translation type="obsolete">Va&amp;he:</translation>
     </message>
     <message>
         <source>Alt+G</source>
-        <translation>Alt+G</translation>
+        <translation type="obsolete">Alt+G</translation>
     </message>
     <message>
         <source>Refer To</source>
-        <translation>Sidumine</translation>
+        <translation type="obsolete">Sidumine</translation>
     </message>
     <message>
         <source>&amp;Page</source>
-        <translation>Le&amp;hekülg</translation>
+        <translation type="obsolete">Le&amp;hekülg</translation>
     </message>
     <message>
         <source>Alt+P</source>
-        <translation>Alt+P</translation>
+        <translation type="obsolete">Alt+P</translation>
     </message>
     <message>
         <source>M&amp;argins</source>
-        <translation>V&amp;eerised</translation>
+        <translation type="obsolete">V&amp;eerised</translation>
     </message>
     <message>
         <source>S&amp;election</source>
-        <translation>&amp;Valik</translation>
+        <translation type="obsolete">&amp;Valik</translation>
     </message>
 </context>
 <context>
@@ -7532,63 +7715,63 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation>Läbipaistmatus:</translation>
+        <translation type="obsolete">Läbipaistmatus:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation>(sp)%</translation>
+        <translation type="obsolete">(sp)%</translation>
     </message>
     <message>
         <source>Blend Mode:</source>
-        <translation>Ühtesulamise režiim:</translation>
+        <translation type="obsolete">Ühtesulamise režiim:</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normaalne</translation>
+        <translation type="obsolete">Normaalne</translation>
     </message>
     <message>
         <source>Darken</source>
-        <translation>Tumendamine</translation>
+        <translation type="obsolete">Tumendamine</translation>
     </message>
     <message>
         <source>Lighten</source>
-        <translation>Helendamine</translation>
+        <translation type="obsolete">Helendamine</translation>
     </message>
     <message>
         <source>Multiply</source>
-        <translation>Korrutamine</translation>
+        <translation type="obsolete">Korrutamine</translation>
     </message>
     <message>
         <source>Screen</source>
-        <translation>Ekraan</translation>
+        <translation type="obsolete">Ekraan</translation>
     </message>
     <message>
         <source>Overlay</source>
-        <translation>Ülekatmine</translation>
+        <translation type="obsolete">Ülekatmine</translation>
     </message>
     <message>
         <source>Hard Light</source>
-        <translation>Külm valgus</translation>
+        <translation type="obsolete">Külm valgus</translation>
     </message>
     <message>
         <source>Soft Light</source>
-        <translation>Soe valgus</translation>
+        <translation type="obsolete">Soe valgus</translation>
     </message>
     <message>
         <source>Difference</source>
-        <translation>Lahutamine</translation>
+        <translation type="obsolete">Lahutamine</translation>
     </message>
     <message>
         <source>Exlusion</source>
-        <translation>Väljajätmine</translation>
+        <translation type="obsolete">Väljajätmine</translation>
     </message>
     <message>
         <source>Color Dodge</source>
-        <translation>Värvi helestamine</translation>
+        <translation type="obsolete">Värvi helestamine</translation>
     </message>
     <message>
         <source>Color Burn</source>
-        <translation>Värvi tumestamine</translation>
+        <translation type="obsolete">Värvi tumestamine</translation>
     </message>
 </context>
 <context>
@@ -8099,11 +8282,11 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     <name>ModeToolBar</name>
     <message>
         <source>Tools</source>
-        <translation>Tööriistad</translation>
+        <translation type="obsolete">Tööriistad</translation>
     </message>
     <message>
         <source>Properties...</source>
-        <translation>Omadused...</translation>
+        <translation type="obsolete">Omadused...</translation>
     </message>
 </context>
 <context>
@@ -8483,15 +8666,15 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Overprinting</source>
-        <translation>Ületrükk</translation>
+        <translation type="obsolete">Ületrükk</translation>
     </message>
     <message>
         <source>Knockout</source>
-        <translation>Väljajätmine</translation>
+        <translation type="obsolete">Väljajätmine</translation>
     </message>
     <message>
         <source>Overprint</source>
-        <translation>Ületrükk</translation>
+        <translation type="obsolete">Ületrükk</translation>
     </message>
     <message>
         <source> %</source>
@@ -9307,7 +9490,7 @@ n&amp;urgad:</translation>
     <name>PDFToolBar</name>
     <message>
         <source>PDF Tools</source>
-        <translation>PDF-i tööriistad</translation>
+        <translation type="obsolete">PDF-i tööriistad</translation>
     </message>
 </context>
 <context>
@@ -9318,15 +9501,23 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Exporting Master Page:</source>
-        <translation>Leheküljetooriku eksport:</translation>
+        <translation type="obsolete">Leheküljetooriku eksport:</translation>
     </message>
     <message>
         <source>Exporting Page:</source>
-        <translation>Lehekülje eksport:</translation>
+        <translation type="obsolete">Lehekülje eksport:</translation>
     </message>
     <message>
         <source>Exporting Items on Current Page:</source>
         <translation>Aktiivse lehekülje elementide eksport:</translation>
+    </message>
+    <message>
+        <source>Exporting Master Pages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Pages:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9357,7 +9548,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Force Overprint Mode</source>
-        <translation>Ületrükirežiim</translation>
+        <translation type="obsolete">Ületrükirežiim</translation>
     </message>
     <message>
         <source>&amp;C</source>
@@ -9460,11 +9651,19 @@ n&amp;urgad:</translation>
     <name>PSLib</name>
     <message>
         <source>Processing Master Page:</source>
-        <translation>Leheküljetooriku töötlemine:</translation>
+        <translation type="obsolete">Leheküljetooriku töötlemine:</translation>
     </message>
     <message>
         <source>Exporting Page:</source>
-        <translation>Lehekülje eksport:</translation>
+        <translation type="obsolete">Lehekülje eksport:</translation>
+    </message>
+    <message>
+        <source>Processing Master Pages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Pages:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9887,12 +10086,12 @@ n&amp;urgad:</translation>
     <message>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
-        <translation>Plugin: %1 initsialiseerimine korras </translation>
+        <translation type="obsolete">Plugin: %1 initsialiseerimine korras </translation>
     </message>
     <message>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
-        <translation>Plugin: %1 ebaõnnestus initsialiseerimise järel</translation>
+        <translation type="obsolete">Plugin: %1 ebaõnnestus initsialiseerimise järel</translation>
     </message>
 </context>
 <context>
@@ -10012,7 +10211,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Show S&amp;plashscreen On Startup:</source>
-        <translation>Käivitusekraani &amp;näitamine:</translation>
+        <translation type="obsolete">Käivitusekraani &amp;näitamine:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -10417,6 +10616,62 @@ n&amp;urgad:</translation>
     <message>
         <source>Choose a Directory</source>
         <translation>Kataloogi valik</translation>
+    </message>
+    <message>
+        <source>PostScript Interpreter</source>
+        <translation type="unfinished">PostScripti interpretaator</translation>
+    </message>
+    <message>
+        <source>&amp;Name of Executable:</source>
+        <translation type="unfinished">Käivitatava faili &amp;nimi:</translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Text</source>
+        <translation type="unfinished">&amp;Teksti antialias</translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Graphics</source>
+        <translation type="unfinished">&amp;Graafika antialias</translation>
+    </message>
+    <message>
+        <source>dpi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resolution:</source>
+        <translation type="unfinished">Lahutus:</translation>
+    </message>
+    <message>
+        <source>Image Processing Tool</source>
+        <translation type="unfinished">Pilditöötlusrakendus</translation>
+    </message>
+    <message>
+        <source>Name of &amp;Executable:</source>
+        <translation type="unfinished">Käivitatava faili n&amp;imi:</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished">Ghostscripti interpretaatori asukoha lisamine. Windowsi korral on oluline tähele panna, et kasutada tuleb programmi nimega gswin32c.exe - MITTE AGA gswin32.exe. Viimane võib Scribuse käivitamisel kaasa tuua hangumise.</translation>
+    </message>
+    <message>
+        <source>Antialias text for EPS and PDF onscreen rendering</source>
+        <translation type="unfinished">Teksti antialias EPS- ja PDF-failide renderdamiseks ekraanil</translation>
+    </message>
+    <message>
+        <source>Antialias graphics for EPS and PDF onscreen rendering</source>
+        <translation type="unfinished">Graafika antialias EPS- ja PDF-failide renderdamiseks ekraanil</translation>
+    </message>
+    <message>
+        <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locate Ghostscript</source>
+        <translation type="unfinished">Ghostscripti asukoht</translation>
+    </message>
+    <message>
+        <source>Locate your image editor</source>
+        <translation type="unfinished">Pildiredaktori asukoht</translation>
     </message>
 </context>
 <context>
@@ -11382,7 +11637,7 @@ Palun kontrolli asukohta ja nime.</translation>
     </message>
     <message>
         <source>Font %1(%2) is broken</source>
-        <translation>Font %1(%2) on vigane</translation>
+        <translation type="obsolete">Font %1(%2) on vigane</translation>
     </message>
     <message>
         <source>Font %1 is broken (read stream), no embedding</source>
@@ -12451,75 +12706,83 @@ Välised lingid
     </message>
     <message>
         <source>font %1 </source>
-        <translation>font %1(sp)</translation>
+        <translation type="obsolete">font %1(sp)</translation>
     </message>
     <message>
         <source>size %1 </source>
-        <translation>suurus %1 </translation>
+        <translation type="obsolete">suurus %1 </translation>
     </message>
     <message>
         <source>+style </source>
-        <translation>+stiil </translation>
+        <translation type="obsolete">+stiil </translation>
     </message>
     <message>
         <source>+color </source>
-        <translation>+värv </translation>
+        <translation type="obsolete">+värv </translation>
     </message>
     <message>
         <source>+underline </source>
-        <translation>+allajoonitud </translation>
+        <translation type="obsolete">+allajoonitud </translation>
     </message>
     <message>
         <source>-underline </source>
-        <translation>-allajoonitud </translation>
+        <translation type="obsolete">-allajoonitud </translation>
     </message>
     <message>
         <source>+strikeout </source>
-        <translation>+läbikriipsutatud </translation>
+        <translation type="obsolete">+läbikriipsutatud </translation>
     </message>
     <message>
         <source>-strikeout </source>
-        <translation>-läbikriipsutatud </translation>
+        <translation type="obsolete">-läbikriipsutatud </translation>
     </message>
     <message>
         <source>+shadow </source>
-        <translation>+vari </translation>
+        <translation type="obsolete">+vari </translation>
     </message>
     <message>
         <source>-shadow </source>
-        <translation>-vari </translation>
+        <translation type="obsolete">-vari </translation>
     </message>
     <message>
         <source>+outline </source>
-        <translation>+kontuur </translation>
+        <translation type="obsolete">+kontuur </translation>
     </message>
     <message>
         <source>-outline </source>
-        <translation>-kontuur </translation>
-    </message>
-    <message>
-        <source>+tracking %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-tracking </source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">-kontuur </translation>
     </message>
     <message>
         <source>+baseline %1</source>
-        <translation>+alusjoon %1</translation>
-    </message>
-    <message>
-        <source>+stretch </source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">+alusjoon %1</translation>
     </message>
     <message>
         <source>parent= %1</source>
-        <translation>eellane= %1</translation>
+        <translation type="obsolete">eellane= %1</translation>
     </message>
     <message>
         <source>unnamed</source>
-        <translation>nimetu</translation>
+        <translation type="obsolete">nimetu</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 is broken, no embedding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 is broken (FreeType2), discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 is broken (no Face), discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 is broken (FreeType), discarding it</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12918,7 +13181,7 @@ Välised lingid
     </message>
     <message>
         <source>&amp;Apply</source>
-        <translation>&amp;Rakenda</translation>
+        <translation type="obsolete">&amp;Rakenda</translation>
     </message>
     <message>
         <source>Ca&amp;ncel</source>
@@ -12927,6 +13190,14 @@ Välised lingid
     <message>
         <source>Alt+N</source>
         <translation>Alt+N</translation>
+    </message>
+    <message>
+        <source>A&amp;pply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="unfinished">Alt+P</translation>
     </message>
 </context>
 <context>
@@ -12944,19 +13215,19 @@ Välised lingid
     <name>SMReplaceDiaBase</name>
     <message>
         <source>Delete Styles</source>
-        <translation>Stiilide kustutamine</translation>
+        <translation type="obsolete">Stiilide kustutamine</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>Ca&amp;ncel</source>
-        <translation>&amp;Loobu</translation>
+        <translation type="obsolete">&amp;Loobu</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation>Alt+N</translation>
+        <translation type="obsolete">Alt+N</translation>
     </message>
 </context>
 <context>
@@ -13050,7 +13321,7 @@ Välised lingid
     <name>SVGExportPlugin</name>
     <message>
         <source>Save as &amp;SVG...</source>
-        <translation>Salvesta &amp;SVG-failina...</translation>
+        <translation type="obsolete">Salvesta &amp;SVG-failina...</translation>
     </message>
     <message>
         <source>Exports SVG Files</source>
@@ -13059,6 +13330,10 @@ Välised lingid
     <message>
         <source>Exports the current page into an SVG file.</source>
         <translation>Ekspordib aktiivse lehekülje SVG-failina.</translation>
+    </message>
+    <message>
+        <source>Save Page as &amp;SVG...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13225,7 +13500,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     <name>ScProgressBar</name>
     <message>
         <source>%1 of %2</source>
-        <translation>%1 (kokku %2)</translation>
+        <translation type="obsolete">%1 (kokku %2)</translation>
     </message>
 </context>
 <context>
@@ -13292,39 +13567,39 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     <name>ScribusCore</name>
     <message>
         <source>Initializing Plugins</source>
-        <translation>Pluginate initsialiseerimine</translation>
+        <translation type="obsolete">Pluginate initsialiseerimine</translation>
     </message>
     <message>
         <source>Initializing Keyboard Shortcuts</source>
-        <translation>Kiirklahvide initsialiseerimine</translation>
+        <translation type="obsolete">Kiirklahvide initsialiseerimine</translation>
     </message>
     <message>
         <source>Reading Preferences</source>
-        <translation>Seadistuste lugemine</translation>
+        <translation type="obsolete">Seadistuste lugemine</translation>
     </message>
     <message>
         <source>Reading ICC Profiles</source>
-        <translation>ICC profiilide lugemine</translation>
+        <translation type="obsolete">ICC profiilide lugemine</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation>Fontide otsimine</translation>
+        <translation type="obsolete">Fontide otsimine</translation>
     </message>
     <message>
         <source>There are no fonts found on your system.</source>
-        <translation>Süsteemist ei leitud ühtegi fonti.</translation>
+        <translation type="obsolete">Süsteemist ei leitud ühtegi fonti.</translation>
     </message>
     <message>
         <source>Exiting now.</source>
-        <translation>Lõpetatakse.</translation>
+        <translation type="obsolete">Lõpetatakse.</translation>
     </message>
     <message>
         <source>Fatal Error</source>
-        <translation>Saatuslik viga</translation>
+        <translation type="obsolete">Saatuslik viga</translation>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation>Fondisüsteem initsialiseeritud</translation>
+        <translation type="obsolete">Fondisüsteem initsialiseeritud</translation>
     </message>
 </context>
 <context>
@@ -13363,15 +13638,15 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation>Mõned objektid on lukustatud.</translation>
+        <translation type="obsolete">Mõned objektid on lukustatud.</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation>Eemalda kõigi l&amp;ukustus</translation>
+        <translation type="obsolete">Eemalda kõigi l&amp;ukustus</translation>
     </message>
     <message>
         <source>&amp;Skip locked objects</source>
-        <translation>&amp;Jäta lukustatud objektid vahele</translation>
+        <translation type="obsolete">&amp;Jäta lukustatud objektid vahele</translation>
     </message>
 </context>
 <context>
@@ -13482,15 +13757,15 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>&amp;Character</source>
-        <translation>&amp;Märk</translation>
+        <translation type="obsolete">&amp;Märk</translation>
     </message>
     <message>
         <source>&amp;Quote</source>
-        <translation>&amp;Jutumärk</translation>
+        <translation type="obsolete">&amp;Jutumärk</translation>
     </message>
     <message>
         <source>S&amp;paces &amp;&amp; Breaks</source>
-        <translation>&amp;Tühikud ja katkestused</translation>
+        <translation type="obsolete">&amp;Tühikud ja katkestused</translation>
     </message>
     <message>
         <source>Liga&amp;ture</source>
@@ -13810,6 +14085,46 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
         <source>Do you really want to replace your existing image?</source>
         <translation>Kas tõesti asendada olemasolev pilt?</translation>
     </message>
+    <message>
+        <source>Initializing Plugins</source>
+        <translation type="unfinished">Pluginate initsialiseerimine</translation>
+    </message>
+    <message>
+        <source>Initializing Keyboard Shortcuts</source>
+        <translation type="unfinished">Kiirklahvide initsialiseerimine</translation>
+    </message>
+    <message>
+        <source>Reading Preferences</source>
+        <translation type="unfinished">Seadistuste lugemine</translation>
+    </message>
+    <message>
+        <source>Reading ICC Profiles</source>
+        <translation type="unfinished">ICC profiilide lugemine</translation>
+    </message>
+    <message>
+        <source>Searching for Fonts</source>
+        <translation type="unfinished">Fontide otsimine</translation>
+    </message>
+    <message>
+        <source>There are no fonts found on your system.</source>
+        <translation type="unfinished">Süsteemist ei leitud ühtegi fonti.</translation>
+    </message>
+    <message>
+        <source>Exiting now.</source>
+        <translation type="unfinished">Lõpetatakse.</translation>
+    </message>
+    <message>
+        <source>Font System Initialized</source>
+        <translation type="unfinished">Fondisüsteem initsialiseeritud</translation>
+    </message>
+    <message>
+        <source>Spaces &amp;&amp; Breaks</source>
+        <translation type="unfinished">Tühikud ja katkestused</translation>
+    </message>
+    <message>
+        <source>Ligature</source>
+        <translation type="unfinished">Ligatuur</translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -13851,7 +14166,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
-        <translation>Käivitamisel ei näidata enam käivitusekraani. Kirjutab kataloogi ~/.scribus tühja faili nimega .neversplash.</translation>
+        <translation type="obsolete">Käivitamisel ei näidata enam käivitusekraani. Kirjutab kataloogi ~/.scribus tühja faili nimega .neversplash.</translation>
     </message>
     <message>
         <source>Output version information and exit</source>
@@ -14682,11 +14997,15 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     <message>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
         <comment>Text Style Selector</comment>
-        <translation>Kontuur. Nuppu all hoides saab määrata kontuuri äärejoone jämeduse.</translation>
+        <translation type="obsolete">Kontuur. Nuppu all hoides saab määrata kontuuri äärejoone jämeduse.</translation>
     </message>
     <message>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
         <translation>Varjuga tekst. Nuppu all hoides saab määrata varju nihke.</translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished">Kontuur. Nuppu all hoides saab määrata kontuuri äärejoone jämeduse.</translation>
     </message>
 </context>
 <context>
@@ -14938,7 +15257,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Highest allowed resolution</source>
-        <translation>Suurim lubatud lahutus</translation>
+        <translation type="obsolete">Suurim lubatud lahutus</translation>
     </message>
     <message>
         <source>Check for placed PDF Files</source>
@@ -14946,7 +15265,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Check for GIF images</source>
-        <translation>GIF-piltide kontroll</translation>
+        <translation type="obsolete">GIF-piltide kontroll</translation>
     </message>
     <message>
         <source>Check for PDF Annotations and Fields</source>
@@ -14965,30 +15284,30 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     <name>TabExternalToolsWidget</name>
     <message>
         <source>Locate Ghostscript</source>
-        <translation>Ghostscripti asukoht</translation>
+        <translation type="obsolete">Ghostscripti asukoht</translation>
     </message>
     <message>
         <source>Locate your image editor</source>
-        <translation>Pildiredaktori asukoht</translation>
+        <translation type="obsolete">Pildiredaktori asukoht</translation>
     </message>
     <message>
         <source>Locate your web browser</source>
-        <translation>Brauseri asukoht</translation>
+        <translation type="obsolete">Brauseri asukoht</translation>
     </message>
 </context>
 <context>
     <name>TabExternalToolsWidgetBase</name>
     <message>
         <source>External Tools</source>
-        <translation>Välised tööriistad</translation>
+        <translation type="obsolete">Välised tööriistad</translation>
     </message>
     <message>
         <source>PostScript Interpreter</source>
-        <translation>PostScripti interpretaator</translation>
+        <translation type="obsolete">PostScripti interpretaator</translation>
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
-        <translation>Käivitatava faili &amp;nimi:</translation>
+        <translation type="obsolete">Käivitatava faili &amp;nimi:</translation>
     </message>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
@@ -14996,51 +15315,51 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>&amp;Change..</source>
-        <translation>&amp;Muuda..</translation>
+        <translation type="obsolete">&amp;Muuda..</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
         <source>Antialias &amp;Text</source>
-        <translation>&amp;Teksti antialias</translation>
+        <translation type="obsolete">&amp;Teksti antialias</translation>
     </message>
     <message>
         <source>Alt+T</source>
-        <translation>Alt+T</translation>
+        <translation type="obsolete">Alt+T</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation>Teksti antialias EPS- ja PDF-failide renderdamiseks ekraanil</translation>
+        <translation type="obsolete">Teksti antialias EPS- ja PDF-failide renderdamiseks ekraanil</translation>
     </message>
     <message>
         <source>Antialias &amp;Graphics</source>
-        <translation>&amp;Graafika antialias</translation>
+        <translation type="obsolete">&amp;Graafika antialias</translation>
     </message>
     <message>
         <source>Alt+G</source>
-        <translation>Alt+G</translation>
+        <translation type="obsolete">Alt+G</translation>
     </message>
     <message>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation>Graafika antialias EPS- ja PDF-failide renderdamiseks ekraanil</translation>
+        <translation type="obsolete">Graafika antialias EPS- ja PDF-failide renderdamiseks ekraanil</translation>
     </message>
     <message>
         <source>Resolution:</source>
-        <translation>Lahutus:</translation>
+        <translation type="obsolete">Lahutus:</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation> dpi</translation>
+        <translation type="obsolete"> dpi</translation>
     </message>
     <message>
         <source>Image Processing Tool</source>
-        <translation>Pilditöötlusrakendus</translation>
+        <translation type="obsolete">Pilditöötlusrakendus</translation>
     </message>
     <message>
         <source>Name of &amp;Executable:</source>
-        <translation>Käivitatava faili n&amp;imi:</translation>
+        <translation type="obsolete">Käivitatava faili n&amp;imi:</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
@@ -15048,39 +15367,39 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>&amp;Change...</source>
-        <translation>&amp;Muuda...</translation>
+        <translation type="obsolete">&amp;Muuda...</translation>
     </message>
     <message>
         <source>&amp;Rescan</source>
-        <translation>Uu&amp;ri uuesti</translation>
+        <translation type="obsolete">Uu&amp;ri uuesti</translation>
     </message>
     <message>
         <source>Alt+R</source>
-        <translation>Alt+R</translation>
+        <translation type="obsolete">Alt+R</translation>
     </message>
     <message>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
-        <translation>Väliste tööriistade uus otsing, kui neid ei leidu juba määratud asukohas</translation>
+        <translation type="obsolete">Väliste tööriistade uus otsing, kui neid ei leidu juba määratud asukohas</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Ghostscripti interpretaatori asukoha lisamine. Windowsi korral on oluline tähele panna, et kasutada tuleb programmi nimega gswin32c.exe - MITTE AGA gswin32.exe. Viimane võib Scribuse käivitamisel kaasa tuua hangumise.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Ghostscripti interpretaatori asukoha lisamine. Windowsi korral on oluline tähele panna, et kasutada tuleb programmi nimega gswin32c.exe - MITTE AGA gswin32.exe. Viimane võib Scribuse käivitamisel kaasa tuua hangumise.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Graafikaredaktori asukoht failisüsteemis. Kui kasutad GIMP-i ja sinu distributsioon seda sisaldab, soovitame kasutada selle varianti &apos;gimp-remote&apos;, mis lubab redigeerida pilti ka juba töötavas GIMP-i eksemplaris.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Graafikaredaktori asukoht failisüsteemis. Kui kasutad GIMP-i ja sinu distributsioon seda sisaldab, soovitame kasutada selle varianti &apos;gimp-remote&apos;, mis lubab redigeerida pilti ka juba töötavas GIMP-i eksemplaris.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Web Browser</source>
-        <translation>Brauser</translation>
+        <translation type="obsolete">Brauser</translation>
     </message>
     <message>
         <source>Web Browser to launch with links from the Help system</source>
-        <translation>Brauser abisüsteemi linkide avamiseks</translation>
+        <translation type="obsolete">Brauser abisüsteemi linkide avamiseks</translation>
     </message>
     <message>
         <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Brauseri asukoht failisüsteemis. Seda kasutatakse abisüsteemi väliste linkide avamiseks.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Brauseri asukoht failisüsteemis. Seda kasutatakse abisüsteemi väliste linkide avamiseks.&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -15234,150 +15553,150 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     <name>TabKeyboardShortcutsWidget</name>
     <message>
         <source>Key Set XML Files (*.ksxml)</source>
-        <translation>Klahvikomplektide XML-failid (*.ksxml)</translation>
+        <translation type="obsolete">Klahvikomplektide XML-failid (*.ksxml)</translation>
     </message>
     <message>
         <source>Alt</source>
-        <translation>Alt</translation>
+        <translation type="obsolete">Alt</translation>
     </message>
     <message>
         <source>Ctrl</source>
-        <translation>Ctrl</translation>
+        <translation type="obsolete">Ctrl</translation>
     </message>
     <message>
         <source>Shift</source>
-        <translation>Shift</translation>
+        <translation type="obsolete">Shift</translation>
     </message>
     <message>
         <source>Meta</source>
-        <translation>Meta</translation>
+        <translation type="obsolete">Meta</translation>
     </message>
     <message>
         <source>Meta+</source>
-        <translation>Meta+</translation>
+        <translation type="obsolete">Meta+</translation>
     </message>
     <message>
         <source>Shift+</source>
-        <translation>Shift+</translation>
+        <translation type="obsolete">Shift+</translation>
     </message>
     <message>
         <source>Alt+</source>
-        <translation>Alt+</translation>
+        <translation type="obsolete">Alt+</translation>
     </message>
     <message>
         <source>Ctrl+</source>
-        <translation>Ctrl+</translation>
+        <translation type="obsolete">Ctrl+</translation>
     </message>
     <message>
         <source>This key sequence is already in use</source>
-        <translation>See klahvikombinatsioon on juba kasutusel</translation>
+        <translation type="obsolete">See klahvikombinatsioon on juba kasutusel</translation>
     </message>
 </context>
 <context>
     <name>TabKeyboardShortcutsWidgetBase</name>
     <message>
         <source>Keyboard Shortcuts</source>
-        <translation>Kiirklahvid</translation>
+        <translation type="obsolete">Kiirklahvid</translation>
     </message>
     <message>
         <source>Search:</source>
-        <translation>Otsing:</translation>
+        <translation type="obsolete">Otsing:</translation>
     </message>
     <message>
         <source>Action</source>
-        <translation>Toiming</translation>
+        <translation type="obsolete">Toiming</translation>
     </message>
     <message>
         <source>Shortcut</source>
-        <translation>Kiirklahv</translation>
+        <translation type="obsolete">Kiirklahv</translation>
     </message>
     <message>
         <source>Shortcut for Selected Action</source>
-        <translation>Valitud toimingu kiirklahv</translation>
+        <translation type="obsolete">Valitud toimingu kiirklahv</translation>
     </message>
     <message>
         <source>&amp;No Key</source>
-        <translation>&amp;Klahv puudub</translation>
+        <translation type="obsolete">&amp;Klahv puudub</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation>Alt+N</translation>
+        <translation type="obsolete">Alt+N</translation>
     </message>
     <message>
         <source>&amp;User Defined Key</source>
-        <translation>Kas&amp;utaja määratud klahv</translation>
+        <translation type="obsolete">Kas&amp;utaja määratud klahv</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation>Alt+U</translation>
+        <translation type="obsolete">Alt+U</translation>
     </message>
     <message>
         <source>Set &amp;Key</source>
-        <translation>&amp;Määra klahv</translation>
+        <translation type="obsolete">&amp;Määra klahv</translation>
     </message>
     <message>
         <source>Alt+K</source>
-        <translation>Alt+K</translation>
+        <translation type="obsolete">Alt+K</translation>
     </message>
     <message>
         <source>CTRL+ALT+SHIFT+W</source>
-        <translation>CTRL+ALT+SHIFT+W</translation>
+        <translation type="obsolete">CTRL+ALT+SHIFT+W</translation>
     </message>
     <message>
         <source>Loadable Shortcut Sets</source>
-        <translation>Laaditavad kiirklahvikomplektid</translation>
+        <translation type="obsolete">Laaditavad kiirklahvikomplektid</translation>
     </message>
     <message>
         <source>Keyboard shortcut sets available to load</source>
-        <translation>Saadaolevad kiirklahvikomplektid</translation>
+        <translation type="obsolete">Saadaolevad kiirklahvikomplektid</translation>
     </message>
     <message>
         <source>&amp;Load</source>
-        <translation>&amp;Laadi</translation>
+        <translation type="obsolete">&amp;Laadi</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation>Alt+L</translation>
+        <translation type="obsolete">Alt+L</translation>
     </message>
     <message>
         <source>Load the selected shortcut set</source>
-        <translation>Laadi valitud kiirklahvikomplekt</translation>
+        <translation type="obsolete">Laadi valitud kiirklahvikomplekt</translation>
     </message>
     <message>
         <source>&amp;Import...</source>
-        <translation>&amp;Impordi...</translation>
+        <translation type="obsolete">&amp;Impordi...</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation>Alt+I</translation>
+        <translation type="obsolete">Alt+I</translation>
     </message>
     <message>
         <source>Import a shortcut set into the current configuration</source>
-        <translation>Impordib kiirklahvikomplekti praegusse seadistusse</translation>
+        <translation type="obsolete">Impordib kiirklahvikomplekti praegusse seadistusse</translation>
     </message>
     <message>
         <source>&amp;Export...</source>
-        <translation>&amp;Ekspordi...</translation>
+        <translation type="obsolete">&amp;Ekspordi...</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation>Alt+E</translation>
+        <translation type="obsolete">Alt+E</translation>
     </message>
     <message>
         <source>Export the current shortcuts into an importable file</source>
-        <translation>Ekspordib aktiivsed kiirklahvid imporditavasse faili</translation>
+        <translation type="obsolete">Ekspordib aktiivsed kiirklahvid imporditavasse faili</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation>Lä&amp;htesta</translation>
+        <translation type="obsolete">Lä&amp;htesta</translation>
     </message>
     <message>
         <source>Alt+R</source>
-        <translation>Alt+R</translation>
+        <translation type="obsolete">Alt+R</translation>
     </message>
     <message>
         <source>Reload the default Scribus shortcuts</source>
-        <translation>Laadib uuesti Scribuse vaikimisi kiirklahvid</translation>
+        <translation type="obsolete">Laadib uuesti Scribuse vaikimisi kiirklahvid</translation>
     </message>
 </context>
 <context>
@@ -15809,7 +16128,7 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>Force Overprint Mode</source>
-        <translation>Ületrükirežiim</translation>
+        <translation type="obsolete">Ületrükirežiim</translation>
     </message>
     <message>
         <source>&amp;Use Custom Rendering Settings</source>
@@ -16109,7 +16428,7 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation>Sisselülitamisel kehtestatakse dokumendile üldine ületrükirežiim, mis tühistab objektide määratlused</translation>
+        <translation type="obsolete">Sisselülitamisel kehtestatakse dokumendile üldine ületrükirežiim, mis tühistab objektide määratlused</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
@@ -16161,7 +16480,7 @@ käivitatav JavaScript:</translation>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation>Puudub</translation>
+        <translation type="obsolete">Puudub</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -16568,7 +16887,7 @@ käivitatav JavaScript:</translation>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation>Puudub</translation>
+        <translation type="obsolete">Puudub</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -16614,20 +16933,24 @@ käivitatav JavaScript:</translation>
         <source>Custom: </source>
         <translation>Kohandatud: </translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Puudub</translation>
+    </message>
 </context>
 <context>
     <name>TextBrowser</name>
     <message>
         <source>Locate your web browser</source>
-        <translation>Brauseri asukoht</translation>
+        <translation type="obsolete">Brauseri asukoht</translation>
     </message>
     <message>
         <source>External Web Browser Failed to Start</source>
-        <translation>Välise brauseri käivitamine ebaõnnestus</translation>
+        <translation type="obsolete">Välise brauseri käivitamine ebaõnnestus</translation>
     </message>
     <message>
         <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences</source>
-        <translation>Scribusel ei õnnestunud käivitada välist brauserit %1. Palun kontrolli seadistustedialoogi määrangut.</translation>
+        <translation type="obsolete">Scribusel ei õnnestunud käivitada välist brauserit %1. Palun kontrolli seadistustedialoogi määrangut.</translation>
     </message>
 </context>
 <context>
@@ -17140,25 +17463,25 @@ to %2</source>
     </message>
     <message>
         <source>Apply text style</source>
-        <translation>Tekstistiili rakendamine</translation>
+        <translation type="obsolete">Tekstistiili rakendamine</translation>
     </message>
     <message>
         <source>&amp;Undo: %1</source>
         <comment>f.e. Undo: Move</comment>
-        <translation>&amp;Võta tagasi: %1</translation>
+        <translation type="obsolete">&amp;Võta tagasi: %1</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation>&amp;Võta tagasi</translation>
+        <translation type="obsolete">&amp;Võta tagasi</translation>
     </message>
     <message>
         <source>&amp;Redo: %1</source>
         <comment>f.e. Redo: Move</comment>
-        <translation>&amp;Tee uuesti: %1</translation>
+        <translation type="obsolete">&amp;Tee uuesti: %1</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation>&amp;Tee uuesti</translation>
+        <translation type="obsolete">&amp;Tee uuesti</translation>
     </message>
 </context>
 <context>
@@ -17267,6 +17590,60 @@ to %2</source>
     <message>
         <source>Send your value to the script</source>
         <translation>Saada väärtus skriptile</translation>
+    </message>
+</context>
+<context>
+    <name>WerkToolB</name>
+    <message>
+        <source>Tools</source>
+        <translation type="unfinished">Tööriistad</translation>
+    </message>
+    <message>
+        <source>Properties...</source>
+        <translation type="unfinished">Omadused...</translation>
+    </message>
+</context>
+<context>
+    <name>WerkToolBP</name>
+    <message>
+        <source>PDF Tools</source>
+        <translation type="unfinished">PDF-i tööriistad</translation>
+    </message>
+    <message>
+        <source>Button</source>
+        <translation type="unfinished">Nupp</translation>
+    </message>
+    <message>
+        <source>Text Field</source>
+        <translation type="unfinished">Tekstiväli</translation>
+    </message>
+    <message>
+        <source>Check Box</source>
+        <translation type="unfinished">Märkekast</translation>
+    </message>
+    <message>
+        <source>Combo Box</source>
+        <translation type="unfinished">Liitkast</translation>
+    </message>
+    <message>
+        <source>List Box</source>
+        <translation type="unfinished">Nimekirjakast</translation>
+    </message>
+    <message>
+        <source>Insert PDF Fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Annotations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation type="unfinished">Tekst</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished">Link</translation>
     </message>
 </context>
 <context>

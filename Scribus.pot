@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-10 01:02+0100\n"
+"POT-Creation-Date: 2006-05-15 20:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -509,10 +509,10 @@ msgstr ""
 msgid "Font %1 cannot be read, no embedding"
 msgstr ""
 
-msgid "Font %1 is broken, discarding it"
+msgid "Creating Font Cache"
 msgstr ""
 
-msgid "Creating Font Cache"
+msgid "Font %1 is broken, discarding it"
 msgstr ""
 
 msgid "Failed to load font %1 - font type unknown"
@@ -531,9 +531,6 @@ msgid "Font %1(%2) is duplicate of %3"
 msgstr ""
 
 msgid "Loading font %1 (found using fontconfig)"
-msgstr ""
-
-msgid "Font %1 (found using fontconfig) is broken, discarding it"
 msgstr ""
 
 msgid "Failed to load a font - freetype2 couldn't find the font file"
@@ -615,6 +612,11 @@ msgid "Document"
 msgstr ""
 
 msgid "Background"
+msgstr ""
+
+msgid ""
+"An error occurred while opening icc profiles, color management is not "
+"enabled."
 msgstr ""
 
 msgid "New Layer"
@@ -1273,16 +1275,16 @@ msgstr ""
 msgid "Collecting..."
 msgstr ""
 
-msgid ""
-"Cannot collect the file: \n"
-"%1"
-msgstr ""
-
 msgid "Warning"
 msgstr ""
 
 msgid ""
 "Cannot collect all files for output for file:\n"
+"%1"
+msgstr ""
+
+msgid ""
+"Cannot collect the file: \n"
 "%1"
 msgstr ""
 
@@ -1368,6 +1370,9 @@ msgid "Le&vel"
 msgstr ""
 
 msgid "Conve&rt to"
+msgstr ""
+
+msgid "Contents"
 msgstr ""
 
 msgid "Linking Text Frames"
@@ -1761,12 +1766,6 @@ msgstr ""
 msgid "&Selection"
 msgstr ""
 
-msgid "&Lock Guides"
-msgstr ""
-
-msgid "&Apply to All Pages"
-msgstr ""
-
 msgid "&Close"
 msgstr ""
 
@@ -1774,6 +1773,12 @@ msgid "&Update"
 msgstr ""
 
 msgid "Preview"
+msgstr ""
+
+msgid "&Lock Guides"
+msgstr ""
+
+msgid "&Apply to All Pages"
 msgstr ""
 
 msgid ""
@@ -2118,7 +2123,10 @@ msgid ""
 "so Scribus will display your pages and objects on them at the correct size"
 msgstr ""
 
-msgid "Filesystem location for the Ghostscript interpreter"
+msgid ""
+"Add the path for the Ghostscript interpreter. On Windows, please note it is "
+"important to note you need to use the program named gswin32c.exe - NOT "
+"gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus."
 msgstr ""
 
 msgid "Antialias text for EPS and PDF onscreen rendering"
@@ -3198,7 +3206,7 @@ msgstr ""
 
 msgid ""
 "Length of time the page is shown before the presentation starts on the "
-"selected page."
+"selected page. Setting 0 will disable automatic page transition."
 msgstr ""
 
 msgid ""
@@ -4006,16 +4014,10 @@ msgstr ""
 msgid "&Copy"
 msgstr ""
 
-msgid "Copy Contents"
+msgid "Paste (&Absolute)"
 msgstr ""
 
-msgid "Paste Contents"
-msgstr ""
-
-msgid "Paste Contents (Absolute)"
-msgstr ""
-
-msgid "C&lear Contents"
+msgid "C&lear"
 msgstr ""
 
 msgid "Select &All"
@@ -4807,9 +4809,6 @@ msgstr ""
 msgid "&Insert"
 msgstr ""
 
-msgid "C&lear"
-msgstr ""
-
 msgid "Insert the characters at the cursor in the text"
 msgstr ""
 
@@ -5025,10 +5024,10 @@ msgstr ""
 msgid "New Color"
 msgstr ""
 
-msgid "Position:"
+msgid "Add, change or remove color stops here"
 msgstr ""
 
-msgid "Here you can add, change or remove Color-Stops."
+msgid "Position:"
 msgstr ""
 
 msgid "Scribus "
@@ -5319,6 +5318,9 @@ msgstr ""
 msgid "Space"
 msgstr ""
 
+msgid "Liga&ture"
+msgstr ""
+
 msgid "Do you really want to replace your existing image?"
 msgstr ""
 
@@ -5334,16 +5336,30 @@ msgstr ""
 msgid "Y-Offset"
 msgstr ""
 
-msgid "Underline Words Only"
+msgid ""
+"Underline Text. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
+
+msgid ""
+"Underline Words Only. Hold down the button momentarily to set line width and "
+"displacement options."
 msgstr ""
 
 msgid "All Caps"
 msgstr ""
 
-msgid "Strike Out"
+msgid ""
+"Strike Out. Hold down the button momentarily to set line width and "
+"displacement options."
 msgstr ""
 
-msgid "Shadow"
+msgid ""
+"Outline. Hold down the button momentarily to change the outline stroke width."
+msgstr ""
+
+msgid ""
+"Shadowed Text. Hold down the button momentarily to enable the offset spacing."
 msgstr ""
 
 msgid "Setup Printer"
@@ -5756,7 +5772,7 @@ msgstr ""
 msgid "About Scribus %1"
 msgstr ""
 
-msgid "March"
+msgid "May"
 msgstr ""
 
 msgid "%1 %2 %3"
@@ -6169,10 +6185,15 @@ msgstr ""
 msgid "Scaling height of characters"
 msgstr ""
 
-msgid "Color of text stroke. Only available with \"outline\" text decoration."
+msgid ""
+"Color of text stroke and/or drop shadow, depending which is chosen.If both "
+"are chosen, then they share the same color."
 msgstr ""
 
-msgid "Color of text fill. Only available with \"outline\" text decoration."
+msgid ""
+"Color of selected text. If Outline text decoration is enabled, this color "
+"will be the fill color. If Drop Shadow Text is enabled, then this will be "
+"the top most color."
 msgstr ""
 
 msgid "Saturation of color of text stroke"
@@ -6188,6 +6209,9 @@ msgid "Manual Tracking"
 msgstr ""
 
 msgid "Line Spacing"
+msgstr ""
+
+msgid "Click to select the line spacing mode"
 msgstr ""
 
 msgid "Style of current paragraph"
@@ -6519,6 +6543,12 @@ msgstr ""
 msgid "Choose a Scrapbook Directory"
 msgstr ""
 
+msgid "Scrapbook (*.scs)"
+msgstr ""
+
+msgid "Choose a scrapbook file to import"
+msgstr ""
+
 msgid ""
 "Name \"%1\" is not unique.\n"
 "Please choose another."
@@ -6537,6 +6567,9 @@ msgid "&Preview"
 msgstr ""
 
 msgid "&Load..."
+msgstr ""
+
+msgid "&Import Scrapbook File..."
 msgstr ""
 
 msgid "Polygon Properties"
@@ -7190,9 +7223,6 @@ msgstr ""
 msgid "Processing Master Pages:"
 msgstr ""
 
-msgid "Contents"
-msgstr ""
-
 msgid "&Contents"
 msgstr ""
 
@@ -7359,6 +7389,9 @@ msgstr ""
 msgid "Esperanto"
 msgstr ""
 
+msgid "Estonian"
+msgstr ""
+
 msgid "German"
 msgstr ""
 
@@ -7381,6 +7414,9 @@ msgid "Indonesian"
 msgstr ""
 
 msgid "Italian"
+msgstr ""
+
+msgid "Japanese"
 msgstr ""
 
 msgid "Korean"
@@ -8179,6 +8215,9 @@ msgstr ""
 msgid "Page number out of range."
 msgstr ""
 
+msgid "Given master page name does not match any existing."
+msgstr ""
+
 msgid "argument is not list: must be list of float values."
 msgstr ""
 
@@ -8829,9 +8868,6 @@ msgstr ""
 msgid "Barcode Creator"
 msgstr ""
 
-msgid "Make check digit visible in text"
-msgstr ""
-
 msgid "Barcode"
 msgstr ""
 
@@ -8936,12 +8972,12 @@ msgstr ""
 msgid "Variable number of digits and any of the symbols -$:/.+ABCD."
 msgstr ""
 
+msgid "Variable number of digits"
+msgstr ""
+
 msgid ""
 "Variable number of digits. An ITF-14 is 14 characters and does not have a "
 "check digit"
-msgstr ""
-
-msgid "Variable number of digits"
 msgstr ""
 
 msgid "Variable number of digits and capital letters"
@@ -9002,16 +9038,22 @@ msgstr ""
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
 msgstr ""
 
+msgid "Importing PostScript"
+msgstr ""
+
+msgid "Analyzing PostScript:"
+msgstr ""
+
 msgid ""
 "Importing File:\n"
 "%1\n"
 "failed!"
 msgstr ""
 
-msgid ""
-"Converting Image:\n"
-"%1\n"
-"failed!"
+msgid "Generating Items"
+msgstr ""
+
+msgid "Converting of %1 images failed!"
 msgstr ""
 
 msgid "Scribus - My Plugin"

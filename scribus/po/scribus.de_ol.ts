@@ -2658,7 +2658,11 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>April</source>
-        <translation>April</translation>
+        <translation type="obsolete">April</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10563,11 +10567,11 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Farbe der Textumrandung. Nur möglich, wenn als Textoption &quot;Umriß&quot; gewählt ist.</translation>
+        <translation type="obsolete">Farbe der Textumrandung. Nur möglich, wenn als Textoption &quot;Umriß&quot; gewählt ist.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Farbe der Textfüllung. Nur möglich, wenn als Textoption &quot;Umriß&quot; gewählt ist.</translation>
+        <translation type="obsolete">Farbe der Textfüllung. Nur möglich, wenn als Textoption &quot;Umriß&quot; gewählt ist.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -10584,6 +10588,14 @@ ab&amp;runden:</translation>
     <message>
         <source>Click to select the line spacing mode</source>
         <translation>Klicken Sie hier, um den Zeilenabstand zu ändern</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15166,6 +15178,14 @@ is not exhaustive due to exceptions from called functions.
         <comment>python error</comment>
         <translation>Der Name der Musterseite entspricht keinem bereits existierenden.</translation>
     </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Arabisch</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -16710,6 +16730,10 @@ diese zu finden und zu korrigieren</translation>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Das Objekt %1 wird gerade im Story Editor bearbeitet und kann deswegen nicht gelöscht werden</translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -17179,6 +17203,10 @@ Vertikaler Versatz: %3</translation>
     <message>
         <source>Contents</source>
         <translation>Inhalt</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18218,7 +18246,7 @@ umgewandelt werden</translation>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Unterstrichen</translation>
+        <translation type="obsolete">Unterstrichen</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -18234,11 +18262,11 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Durchgestrichen</translation>
+        <translation type="obsolete">Durchgestrichen</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>Nur Wörter unterstreichen</translation>
+        <translation type="obsolete">Nur Wörter unterstreichen</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -18250,12 +18278,32 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>Schatten</translation>
+        <translation type="obsolete">Schatten</translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation>Umriß</translation>
+        <translation type="obsolete">Umriß</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
