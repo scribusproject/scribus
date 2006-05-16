@@ -4,7 +4,7 @@
 %%EndComments
 %%EndProlog
 
-% Barcode Writer in Pure PostScript - Version 2006-03-04
+% Barcode Writer in Pure PostScript - Version 2006-05-16
 % http://www.terryburton.co.uk/barcodewriter/
 %
 % Copyright (c) 2006 Terry Burton - tez@terryburton.co.uk
@@ -1671,6 +1671,270 @@
 } bind def
 /rationalizedCodabar load 0 1 dict put
 % --END ENCODER rationalizedCodabar--
+
+% --BEGIN ENCODER onecode--
+/onecode {
+
+    0 begin
+
+    /options exch def              % We are given an option string
+    /useropts options def
+    /barcode exch def              % We are given a barcode string
+
+    /height 0.175 def
+    
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /height height cvr def
+
+    /barlen barcode length def
+
+    /normalize {
+        /base exch def
+        /num exch def
+        num length 1 sub -1 1 {
+            /i exch def        
+            num i 1 sub 2 copy get num i get base idiv add put
+            num i num i get base mod put
+        } for
+        { %loop - extend input as necessary
+            num 0 get base lt {exit} if
+            /num [0 num {} forall] def        
+            num 0 num 0 get num 1 get base idiv add put
+            num 1 num 1 get base mod put
+        } loop
+        % Trim leading zeros
+        /num [/i true def num {dup 0 eq i and {pop} {/i false def} ifelse} forall] def   
+        num length 0 eq {/num [0] def} if
+        num
+    } bind def
+
+    /bigadd {
+        2 copy length exch length
+        2 copy sub abs /offset exch def
+        lt {exch} if
+        /a exch def /b exch def    
+        0 1 b length 1 sub {
+            dup a exch offset add 2 copy get b 5 -1 roll get add put
+        } for
+        a
+    } bind def
+
+    % Conversion of data fields into binary data
+    barlen 20 eq {[0]} if
+    barlen 25 eq {[1]} if
+    barlen 29 eq {[1 0 0 0 0 1]} if
+    barlen 31 eq {[1 0 0 0 1 0 0 0 0 1]} if
+    /binval exch [barcode 20 barlen 20 sub getinterval {48 sub} forall] bigadd def
+    /binval [binval {} forall barcode 0 get 48 sub] def
+    /binval [binval {5 mul} forall] [barcode 1 get 48 sub] bigadd 10 normalize def
+    /binval [binval {} forall barcode 2 18 getinterval {48 sub} forall] def
+
+    % Conversion of binary data into byte array
+    /bytes 13 array def
+    /bintmp [binval {} forall] def
+    12 -1 0 {
+        /i exch def
+        0 1 bintmp length 2 sub {
+            /j exch def
+            bintmp j 1 add 2 copy get bintmp j get 256 mod 10 mul add put
+            bintmp j bintmp j get 256 idiv put
+        } for
+        bytes i bintmp bintmp length 1 sub get 256 mod put
+        bintmp bintmp length 1 sub 2 copy get 256 idiv put    
+    } for
+
+    % Generation of 11-bit CRC on byte array
+    /fcs 2047 def
+    /dat bytes 0 get 5 bitshift def
+    6 {
+        fcs dat xor 1024 and 0 ne {
+            /fcs fcs 1 bitshift 3893 xor def 
+        } {
+            /fcs fcs 1 bitshift def
+        } ifelse
+        /fcs fcs 2047 and def
+        /dat dat 1 bitshift def
+    } repeat
+    1 1 12 {
+        bytes exch get 3 bitshift /dat exch def    
+        8 {        
+            fcs dat xor 1024 and 0 ne {
+                /fcs fcs 1 bitshift 3893 xor def 
+            } {
+                /fcs fcs 1 bitshift def
+            } ifelse
+            /fcs fcs 2047 and def
+            /dat dat 1 bitshift def
+        } repeat
+    } for
+
+    % Conversion from binary data to codewords
+    /codewords 10 array def
+    9 -1 0 {
+        /i exch def
+        i 9 eq {
+            /b 636 def
+        } {
+            /b 1365 def
+        } ifelse
+        0 1 binval length 2 sub {
+            /j exch def
+            binval j 1 add 2 copy get binval j get b mod 10 mul add put
+            binval j binval j get b idiv put
+        } for   
+        codewords i binval binval length 1 sub get b mod put
+        binval binval length 1 sub 2 copy get b idiv put
+    } for
+
+    % Inserting additional information into codewords
+    codewords 9 codewords 9 get 2 mul put
+    fcs 1024 and 0 ne {
+        codewords 0 codewords 0 get 659 add put
+    } if
+
+    % Conversion from codewords to characters
+    /tab513 1287 dict def
+    /lo 0 def
+    /hi 1286 def
+    0 1 8191 {   
+        { % no loop - provides common exit point
+            /i exch def
+            /onbits 0 def
+            0 1 12 {           
+                i exch 1 exch bitshift and 0 ne {
+                    /onbits onbits 1 add def
+                } if
+            } for
+            onbits 5 ne {exit} if
+            /j i def
+            /rev 0 def
+            16 {            
+                /rev rev 1 bitshift j 1 and or def
+                /j j -1 bitshift def                
+            } repeat          
+            /rev rev -3 bitshift def            
+            rev i lt {exit} if
+            rev i eq {
+                tab513 hi i put
+                /hi hi 1 sub def
+            } {
+                tab513 lo i put
+                tab513 lo 1 add rev put
+                /lo lo 2 add def                      
+            } ifelse
+            exit
+        } loop
+    } for
+
+    /tab213 78 dict def
+    /lo 0 def
+    /hi 77 def
+    0 1 8191 {   
+        { % no loop - provides common exit point
+            /i exch def
+            /onbits 0 def
+            0 1 12 {           
+                i exch 1 exch bitshift and 0 ne {
+                    /onbits onbits 1 add def
+                } if
+            } for
+            onbits 2 ne {exit} if
+            /j i def
+            /rev 0 def
+            16 {            
+                /rev rev 1 bitshift j 1 and or def
+                /j j -1 bitshift def                
+            } repeat          
+            /rev rev -3 bitshift def            
+            rev i lt {exit} if
+            rev i eq {
+                tab213 hi i put
+                /hi hi 1 sub def
+            } {
+                tab213 lo i put
+                tab213 lo 1 add rev put
+                /lo lo 2 add def                      
+            } ifelse
+            exit
+        } loop
+    } for
+
+    /chars 10 array def
+    0 1 9 {
+        /i exch def
+        codewords i get dup 1286 le {
+            tab513 exch get 
+        } {
+            tab213 exch 1287 sub get
+        } ifelse
+        chars i 3 -1 roll put
+    } for
+
+    9 -1 0 {
+        /i exch def
+        2 i exp cvi fcs and 0 ne {
+            chars i chars i get 8191 xor put
+        } if
+    } for
+
+    % Conversion from characters to the OneCode encoding
+    /barmap [
+        7 2 4 3    1 10 0 0   9 12 2 8   5 5 6 11   8 9 3 1
+        0 1 5 12   2 5 1 8    4 4 9 11   6 3 8 10   3 9 7 6
+        5 11 1 4   8 5 2 12   9 10 0 2   7 1 6 7    3 6 4 9
+        0 3 8 6    6 4 2 7    1 1 9 9    7 10 5 2   4 0 3 8
+        6 2 0 4    8 11 1 0   9 8 3 12   2 6 7 7    5 1 4 10
+        1 12 6 9   7 3 8 0    5 8 9 7    4 6 2 10   3 4 0 5
+        8 4 5 7    7 11 1 9   6 0 9 6    0 6 4 8    2 1 3 2
+        5 9 8 12   4 11 6 1   9 5 7 4    3 3 1 2    0 7 2 0
+        1 3 4 1    6 10 3 5   8 7 9 4    2 11 5 6   0 8 7 12
+        4 2 8 1    5 10 3 0   9 3 0 9    6 5 2 4    7 8 1 7
+        5 0 4 5    2 3 0 10   6 12 9 2   3 11 1 6   8 8 7 9
+        5 4 0 11   1 5 2 2    9 1 4 12   8 3 6 6    7 0 3 7
+        4 7 7 5    0 12 1 11  2 9 9 0    6 8 5 3    3 10 8 2
+    ] def
+
+    /bbs 65 array def    
+    /bhs 65 array def
+    0 1 64 {
+        /i exch def
+        /dec chars barmap i 4 mul get get 2 barmap i 4 mul 1 add get exp cvi and 0 ne def
+        /asc chars barmap i 4 mul 2 add get get 2 barmap i 4 mul 3 add get exp cvi and 0 ne def
+        dec not asc not and {
+            bbs i 3 height mul 8 div put
+            bhs i 2 height mul 8 div put
+        } if
+        dec not asc and {
+            bbs i 3 height mul 8 div put
+            bhs i 5 height mul 8 div put        
+        } if
+        dec asc not and {
+            bbs i 0 height mul 8 div put
+            bhs i 5 height mul 8 div put        
+        } if
+        dec asc and {
+            bbs i 0 height mul 8 div put
+            bhs i 8 height mul 8 div put        
+        } if
+    } for
+    
+    /retval 4 dict def
+    retval (bbs) bbs put
+    retval (bhs) bhs put
+    retval (sbs) [bhs length 1 sub {1.44 1.872} repeat 1.44] put    
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/onecode load 0 1 dict put
+% --END ENCODER onecode--
 
 % --BEGIN ENCODER postnet--
 /postnet {
