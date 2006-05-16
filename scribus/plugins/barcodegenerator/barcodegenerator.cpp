@@ -56,7 +56,12 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	map["EAN-2"] = BarcodeType("ean2", "42", tr("2 digits"),
 							   "[0-9]{2,2}");
 	map["ISBN"] = BarcodeType("isbn", "1-58880-149",
-							  tr("9 or 10 digits separated appropriately with dashes"),
+							  tr("For ISBN-10 the data should contain 9 or 10 \
+								digits separated appropriately by dash characters.\n"
+								"For ISBN-13 the data should contain 12 or 13 \
+								digits separated appropriately by dash characters.\n"
+								"If the last digit is not given then the ISBN \
+								checkdigit is calculated automatically."),
 							  "[0-9]*\\-[0-9]*\\-[0-9]*");
 //    "Code-11"] = "code11"
 	map["Code-39"] = BarcodeType("code39", "CODE-39",
