@@ -59,6 +59,7 @@ class PrefsManager;
 class PrefsContext;
 class StoryEditor;
 class ColorCombo;
+class CharSelect;
 
 struct PtiSmall {
 		    int csize;
@@ -345,7 +346,7 @@ public:
 	PageItem* currentItem() const;
 	ScribusDoc* currentDocument() const;
 
-	/*! Enables/disables the "smart" selection (#1203) - 10/16/2004 pv */
+	/*! \brief Enables/disables the "smart" selection (#1203) - 10/16/2004 pv */
 	bool smartSelection;
 	int smartSel;
 
@@ -406,6 +407,8 @@ public slots:
 
 protected slots:
 	void specialActionKeyEvent(QString actionName, int unicodevalue);
+	/*! \brief Slot to insert special characters from charSelect widget. */
+	void slot_insertSpecialChar();
 
 signals:
 	void DocChanged();
@@ -423,6 +426,18 @@ protected:
 	void loadPrefs();
 	/*! \brief Saving the preferences (position). */
 	void savePrefs();
+
+	/*! \brief Special Characters dialog.
+	It uses a little bit ugly method to operate with.
+	charSelect is not initialized in any constructor because
+	there is no known PageItem and Font in the start of app.
+	So it is initialized on user's demand (it saves memory
+	when user don't use it too) in Do_insSp() slot.
+	Inserting the characters is done in slot_insertSpecialChar()
+	slot.
+	\author Petr Vanek <petr@scribus.info>
+	*/
+	CharSelect *charSelect;
 
     QHBoxLayout* StoryEd2Layout;
 	QGridLayout* ButtonGroup1Layout;

@@ -923,7 +923,7 @@ void SEditor::loadItemText(PageItem *currItem)
 	}
 	while (nextItem != 0)
 	{
-		for (uint a = 0; a < nextItem->itemText.length(); ++a)
+		for (int a = 0; a < nextItem->itemText.length(); ++a)
 		{
 			if (nextItem->itemText.text(a) == SpecialChars::PARSEP)
 			{
@@ -2528,6 +2528,8 @@ void StoryEditor::closeEvent(QCloseEvent *)
 		result = QDialog::Rejected;
 	setCurrentDocumentAndItem(currDoc, NULL);
 	savePrefs();
+	if (charSelect != NULL)
+		charSelect->close();
 	hide();
 	blockUpdate = false;
 }
@@ -3008,8 +3010,38 @@ void StoryEditor::updateStatus()
 
 void StoryEditor::Do_insSp()
 {
+	// perform "rescan" only if needed - font or item changed
+	bool rescan = false;
+	if (charSelect == NULL)
+	{
+		// header file commect for charSelect
+		charSelect = new CharSelect(this, currItem, Editor->CurrFont, false);
+		connect(charSelect, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
+	}
+	if (charSelect->ite != currItem)
+	{
+		charSelect->ite = currItem;
+		rescan = true;
+	}
+	if (charSelect->fontInUse != Editor->CurrFont)
+	{
+		charSelect->fontInUse = Editor->CurrFont;
+		rescan = true;
+	}
+	if (rescan)
+	{
+		charSelect->scanFont();
+		charSelect->generatePreview(0);
+		charSelect->characterClass = 0;
+		charSelect->setupRangeCombo();
+	}
+	if (!charSelect->isShown())
+		charSelect->show();
+	charSelect->raise();
+	/* #569: Insert Special window is modal, complicating multiple insertions
+	of special characters - PV
 	blockUpdate = true;
-	CharSelect *dia = new CharSelect(this, currItem, Editor->CurrFont);
+	CharSelect *dia = new CharSelect(this, currItem, Editor->CurrFont, false);
 	dia->exec();
 	if (!dia->getCharacters().isEmpty())
 	{
@@ -3017,6 +3049,17 @@ void StoryEditor::Do_insSp()
 		Editor->insert(dia->getCharacters());
 	}
 	delete dia;
+	blockUpdate = false; */
+}
+
+void StoryEditor::slot_insertSpecialChar()
+{
+	blockUpdate = true;
+	if (!charSelect->getCharacters().isEmpty())
+	{
+		Editor->insChars(charSelect->getCharacters());
+		Editor->insert(charSelect->getCharacters());
+	}
 	blockUpdate = false;
 }
 
@@ -3044,6 +3087,8 @@ void StoryEditor::Do_leave2()
 	updateTextFrame();
 	result = QDialog::Accepted;
 	setCurrentDocumentAndItem(currDoc, NULL);
+	if (charSelect != NULL)
+		charSelect->close();
 	hide();
 	blockUpdate = false;
 }
@@ -3065,6 +3110,8 @@ void StoryEditor::Do_leave()
 	}
 	result = QDialog::Rejected;
 	setCurrentDocumentAndItem(currDoc, NULL);
+	if (charSelect != NULL)
+		charSelect->close();
 	hide();
 	blockUpdate = false;
 	//qApp->exit_loop();

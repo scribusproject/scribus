@@ -45,8 +45,10 @@ class SCRIBUS_API CharSelect : public QDialog
 	Q_OBJECT
 
 public:
+	/*! \brief Construct a modal dialog */
 	CharSelect(QWidget* parent, PageItem *item);
-	CharSelect(QWidget* parent, PageItem *item, QString font);
+	/*! \brief Construct an optional state dialog */
+	CharSelect(QWidget* parent, PageItem *item, QString font, bool modal=true);
 	~CharSelect() {};
 
 	const QString & getCharacters();
@@ -114,6 +116,11 @@ public slots:
 	void newCharClass(int c);
 	void delEdit();
 	void insChar();
+
+signals:
+	/*! \brief A signall emitted when is the dialog modeless
+	and user press the "Insert" button. */
+	void insertSpecialChar();
 
 protected:
 	void run(QWidget* parent, PageItem* item, ScribusMainWindow* pl);

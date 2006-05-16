@@ -250,7 +250,8 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item) : QDialog( parent, "Cha
 	run(parent, item, ScMW);
 }
 
-CharSelect::CharSelect( QWidget* parent, PageItem *item, QString font) : QDialog( parent, "CharSelect", true, 0 )
+CharSelect::CharSelect( QWidget* parent, PageItem *item, QString font, bool modal)
+	: QDialog( parent, "CharSelect", modal, 0 )
 {
 	fontInUse = font;
 	needReturn = true;
@@ -781,11 +782,11 @@ void CharSelect::insChar()
 	{
 		m_characters = chToIns;
 		delEdit();
+		emit insertSpecialChar();
 		return;
 	}
 	if (ite->HasSel)
 		ite->asTextFrame()->deleteSelectedTextFromFrame();
-	ScText *hg;
 	for (uint a=0; a<chToIns.length(); ++a)
 	{
 		QChar ch = chToIns.at(a);
