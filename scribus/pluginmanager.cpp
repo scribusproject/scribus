@@ -142,7 +142,6 @@ QCString PluginManager::getPluginName(QString fileName)
 
 int PluginManager::initPlugin(const QString fileName)
 {
-	return 0;
 	PluginData pda;
 	pda.pluginFile = QString("%1/%2").arg(ScPaths::instance().pluginDir()).arg(fileName);
 	pda.pluginName = getPluginName(pda.pluginFile);
