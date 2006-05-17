@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "scpaths.h"
+#include "commonstrings.h"
 
 #ifdef HAVE_DLFCN_H
 #include <dlfcn.h>
@@ -139,43 +140,83 @@ QCString PluginManager::getPluginName(QString fileName)
 	return baseName.latin1();
 }
 
+int PluginManager::initPlugin(const QString fileName)
+{
+	return 0;
+	PluginData pda;
+	pda.pluginFile = QString("%1/%2").arg(ScPaths::instance().pluginDir()).arg(fileName);
+	pda.pluginName = getPluginName(pda.pluginFile);
+	if (pda.pluginName.isNull())
+		// Couldn't determine plugname from filename. We've already complained, so
+		// move on to the next one.
+		return 0;
+	pda.plugin = 0;
+	pda.pluginDLL = 0;
+	pda.enabled = false;
+	pda.enableOnStartup = prefs->getBool(pda.pluginName, true);
+	ScCore->setSplashStatus(tr("Plugin: loading %1", "plugin manager").arg(pda.pluginName));
+	if (loadPlugin(pda))
+	{
+		if (pda.enableOnStartup)
+			enablePlugin(pda);
+		pluginMap.insert(pda.pluginName, pda);
+		return 1;
+	}
+	return 0;
+}
+
 void PluginManager::initPlugs()
 {
 	Q_ASSERT(!pluginMap.count());
 	QString libPattern = QString("*.%1*").arg(platformDllExtension());
+	QMap<QString,int> allPlugs;
+	uint loaded = 0;
+	uint changes = 1;
 
 	/*! \note QDir::Reversed is there due the Mac plugin dependency.
 	barcode depends on psimport. and load on that platform expect the
-	psimp before barcode. TODO: this has to be rewritten into common
-	and elegant dependency tree. PV */
+	psimp before barcode.You know, security by obscurity ;) PV */
 	QDir dirList(ScPaths::instance().pluginDir(),
 				 libPattern, QDir::Name | QDir::Reversed,
 				 QDir::Files | QDir::Executable | QDir::NoSymLinks);
 
-	if ((dirList.exists()) && (dirList.count() != 0))
+	if ((!dirList.exists()) || (dirList.count() == 0))
+		return;
+	for (uint dc = 0; dc < dirList.count(); ++dc)
 	{
-		for (uint dc = 0; dc < dirList.count(); ++dc)
+		int res = initPlugin(dirList[dc]);
+		allPlugs[dirList[dc]] = res;
+		if (res != 0)
+			++loaded;
+	}
+	/* Re-try the failed plugins again and again until it promote
+	any progress (changes variable is changing ;)) */
+	while (loaded < allPlugs.count() && changes!=0)
+	{
+		changes = 0;
+		QMap<QString,int>::Iterator it;
+		for (it = allPlugs.begin(); it != allPlugs.end(); ++it)
 		{
-			PluginData pda;
-			pda.pluginFile = QString("%1/%2").arg(ScPaths::instance().pluginDir()).arg(dirList[dc]);
-			pda.pluginName = getPluginName(pda.pluginFile);
-			if (pda.pluginName.isNull())
-				// Couldn't determine plugname from filename. We've already complained, so
-				// move on to the next one.
+			if (it.data() != 0)
 				continue;
-			pda.plugin = 0;
-			pda.pluginDLL = 0;
-			pda.enabled = false;
-			pda.enableOnStartup = prefs->getBool(pda.pluginName, true);
-			ScCore->setSplashStatus(tr("Plugin: loading %1", "plugin manager").arg(pda.pluginName));
-			if (loadPlugin(pda))
+			int res = initPlugin(it.key());
+			allPlugs[it.key()] = res;
+			if (res == 1)
 			{
-				if (pda.enableOnStartup)
-					enablePlugin(pda);
-				pluginMap.insert(pda.pluginName, pda);
+				++loaded;
+				++changes;
 			}
 		}
 	}
+	if (loaded != allPlugs.count())
+		QMessageBox::warning(ScMW, CommonStrings::trWarning,
+							 "<qt>" + tr("There is a problem loading "
+									 "%1 of %2 plugins. This is caused "
+									 "by some kind of dependency propably. "
+									 "Report it as a bug, please."
+										).arg(allPlugs.count()-loaded).arg(allPlugs.count())
+									 + "</qt>",
+							 CommonStrings::tr_OK);
 }
 
 // After a plug-in has been initialized, this method calls its setup

@@ -48,10 +48,11 @@ public:
 
 	/*! \brief Initalization of all plugins. It's called at scribus start.
 	 *
-	 * This method loadDLL(...)'s each plug-in, creates a Plugin instance for
-	 * them, stores a PluginData for the plugin, sets up the plug-in's
-	 * actions, and connects them to any required signals.
-	 * It doesn't ask plug-ins to do any time-consuming setup.
+	 * Walk through all plugins, try to init them and try to re-load failed
+	 * ones then. See initPlugin for more info.
+	 * Reload uses a "brute force" method - Repeat until there is something
+	 * to load again. It's not elegant I know. But there are no additional
+	 * dependancy relations addons (XML config, plugin classes change etc.).
 	 */
 	void initPlugs();
 	
@@ -152,7 +153,6 @@ protected:
 	 * instance for it. We can't have an ScPlugin instance for a plugin unless
 	 * it's linked.
 	 */
-
 	struct PluginData
 	{
 		QString pluginFile; // Datei;
@@ -162,6 +162,17 @@ protected:
 		bool enableOnStartup;
 		bool enabled;
 	};
+
+	/*! \brief Init one plugin.
+	 * This method loadDLL(...)'s each plug-in, creates a Plugin instance for
+	 * them, stores a PluginData for the plugin, sets up the plug-in's
+	 * actions, and connects them to any required signals.
+	 * It doesn't ask plug-ins to do any time-consuming setup.
+	 * It's called by initPlugs.
+	\param fileName a filename of the plugin without path
+	\retval int 0 init failed, 1 loaded.
+	 */
+	int initPlugin(const QString fileName);
 
 	/*! \brief Reads available info and fills PluginData structure */
 	bool loadPlugin(PluginData & pluginData);
