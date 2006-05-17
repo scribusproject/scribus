@@ -795,6 +795,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	connect(buttonOk, SIGNAL(clicked()), this, SLOT(setActionHistoryLength()));
 	if (CMSavail)
 		connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
+	connect(applyChangesButton, SIGNAL(clicked()), this, SLOT(applyChangesButton_clicked()));
 
 	setSize(prefsData->pageSize);
 	setOrien(prefsData->pageOrientation);
@@ -807,7 +808,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	resize( minimumSizeHint() );
 	arrangeIcons();
 	backToDefaults->hide();
-	applyChangesButton->hide();
+	//applyChangesButton->hide();
 	prefsSelection->setSelected(prefsSelection->firstItem(), true);
 	itemSelected(prefsSelection->firstItem());
 	clearWState( WState_Polished );
@@ -1170,7 +1171,7 @@ void Preferences::setSelectedGUILang( const QString &newLang )
 
 void Preferences::setActionHistoryLength()
 {
-  UndoManager::instance()->setHistoryLength(urSpinBox->value());
+	UndoManager::instance()->setHistoryLength(urSpinBox->value());
 }
 
 void Preferences::switchCMS(bool enable)
@@ -1505,4 +1506,9 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.defaultToCSetups = *(tabDefaultTOCIndexPrefs->getNewToCs());
 // 	prefsManager->appPrefs.KeyActions = tabKeys->getNewKeyMap();
 	prefsManager->appPrefs.KeyActions = tabKeyboardShortcuts->getNewKeyMap();
+}
+
+void Preferences::applyChangesButton_clicked()
+{
+	ScMW->prefsOrg(this);
 }

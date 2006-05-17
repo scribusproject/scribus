@@ -357,6 +357,7 @@ protected slots:
 	virtual void setTOCIndexData(QWidget *widgetToShow);
 	void setSelectedGUILang( const QString &newLang );
 	void setActionHistoryLength();
+	virtual void applyChangesButton_clicked();
 };
 
 #endif // PREFS_H

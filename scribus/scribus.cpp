@@ -6926,47 +6926,46 @@ void ScribusMainWindow::buildFontMenu()
 	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
 
-void ScribusMainWindow::slotPrefsOrg()
+void ScribusMainWindow::prefsOrg(Preferences *dia)
 {
 	//reset the appMode so we restore our tools shortcuts
-	QString oldGUILanguage=prefsManager->guiLanguage();
-	QString oldGUIStyle=prefsManager->guiStyle();
-	int oldGUIFontSize=prefsManager->guiFontSize();
+	QString oldGUILanguage = prefsManager->guiLanguage();
+	QString oldGUIStyle = prefsManager->guiStyle();
+	int oldGUIFontSize = prefsManager->guiFontSize();
 	//double oldDisplayScale=prefsManager->displayScale();
+	dia->updatePreferences();
+	prefsManager->SavePrefs();
+	DocDir = prefsManager->documentDir();
+//		scrapbookPalette->rebuildView();
+//		scrapbookPalette->AdjustMenu();
+	QString newGUILanguage = prefsManager->guiLanguage();
+	if (oldGUILanguage != newGUILanguage)
+		ScQApp->changeGUILanguage(newGUILanguage);
+	QString newGUIStyle = prefsManager->guiStyle();
+	if (oldGUIStyle != newGUIStyle)
+		qApp->setStyle(QStyleFactory::create(newGUIStyle));
+	int newGUIFontSize = prefsManager->guiFontSize();
+	if (oldGUIFontSize != newGUIFontSize)
+	{
+		QFont apf = qApp->font();
+		apf.setPointSize(prefsManager->appPrefs.AppFontSize);
+		qApp->setFont(apf,true);
+	}
+	propertiesPalette->Cpal->UseTrans(true);
+	FontSub->RebuildList(0);
+	propertiesPalette->Fonts->RebuildList(0);
+	ScCore->getCMSProfiles();
+	SetShortCut();
+}
+
+void ScribusMainWindow::slotPrefsOrg()
+{
 	setAppMode(modeNormal);
 
 	Preferences *dia = new Preferences(this);
 	if (dia->exec())
 	{
-		dia->updatePreferences();
-		prefsManager->SavePrefs();
-		DocDir = prefsManager->documentDir();
-//		scrapbookPalette->rebuildView();
-//		scrapbookPalette->AdjustMenu();
-		QString newGUILanguage=prefsManager->guiLanguage();
-		if (oldGUILanguage!=newGUILanguage)
-			ScQApp->changeGUILanguage(newGUILanguage);
-		QString newGUIStyle=prefsManager->guiStyle();
-		if (oldGUIStyle != newGUIStyle)
-			qApp->setStyle(QStyleFactory::create(newGUIStyle));
-		int newGUIFontSize=prefsManager->guiFontSize();
-		if (oldGUIFontSize!=newGUIFontSize)
-		{
-			QFont apf = qApp->font();
-			apf.setPointSize(prefsManager->appPrefs.AppFontSize);
-			qApp->setFont(apf,true);
-		}
-
-		//double newDisplayScale=prefsManager->displayScale();
-		//if (oldDisplayScale != newDisplayScale)
-		//	zChange = true;
-
-		propertiesPalette->Cpal->UseTrans(true);
-		FontSub->RebuildList(0);
-		propertiesPalette->Fonts->RebuildList(0);
-
-		ScCore->getCMSProfiles();
-		SetShortCut();
+		prefsOrg(dia);
 	}
 	delete dia;
 }

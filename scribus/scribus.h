@@ -80,6 +80,7 @@ class MenuManager;
 class NodePalette;
 class PageItem;
 class PagePalette;
+class Preferences;
 class PrefsManager;
 class PrefsContext;
 class PSLib;
@@ -459,6 +460,8 @@ public slots:
 	void getImageInfo();
 	void generateTableOfContents();
 	void buildFontMenu();
+	/*! \brief Change Preferences dialog.
+	See prefsOrg for more info. It's very similar to docSetup/slotDocSetup. */
 	void slotPrefsOrg();
 	void slotEditStyles();
 	void saveStyles(StilFormate *dia);
@@ -512,7 +515,11 @@ public slots:
 	It's called from this->slotDocSetup() or from ReformDoc directly.
 	\param dia a reference to the ReformDoc dialog */
 	void docSetup(ReformDoc* dia);
-
+	/*! \brief Apply changes from Preferences dialog.
+	It's called from this->slotPrefsOrg() or from Preferences directly.
+	\param dia a reference to the Preferences dialog */
+	void prefsOrg(Preferences* dia);
+	
 signals:
 	void TextISize(int);
 	void TextIFont(QString);
