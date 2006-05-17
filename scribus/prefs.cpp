@@ -807,6 +807,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	resize( minimumSizeHint() );
 	arrangeIcons();
 	backToDefaults->hide();
+	applyChangesButton->hide();
 	prefsSelection->setSelected(prefsSelection->firstItem(), true);
 	itemSelected(prefsSelection->firstItem());
 	clearWState( WState_Polished );

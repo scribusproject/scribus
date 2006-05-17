@@ -83,6 +83,7 @@ class PagePalette;
 class PrefsManager;
 class PrefsContext;
 class PSLib;
+class ReformDoc;
 class ScrAction;
 class ScribusCore;
 class ScribusMainWindow;
@@ -195,7 +196,6 @@ public:
 	 * information such as filename and does the serialization of your files.
 	 */
 	ScribusDoc *doc;
-    /** \brief the splash screen */
 
 	QLabel* mainWindowStatusLabel;
 	QProgressBar* mainWindowProgressBar;
@@ -452,7 +452,8 @@ public slots:
 	void ObjektDup();
 	/** Dupliziert das Element mehrfach*/
 	void ObjektDupM();
-	/** Reformatiert das Dokument */
+	/** \brief Refromat the document when user click "OK" in ReformDoc dialog.
+	See docSetup() for more info. */
 	bool slotDocSetup();
 	void objectAttributes();
 	void getImageInfo();
@@ -507,6 +508,10 @@ public slots:
 	void insertSampleText();
 	//void sendToLayer(int layerNumber);
 	void updateItemLayerList();
+	/*! \brief Apply changes from ReformDoc dialog.
+	It's called from this->slotDocSetup() or from ReformDoc directly.
+	\param dia a reference to the ReformDoc dialog */
+	void docSetup(ReformDoc* dia);
 
 signals:
 	void TextISize(int);

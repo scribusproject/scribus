@@ -34,6 +34,8 @@ public:
 	void arrangeIcons();
 	QWidgetStack* prefsWidgets;
 	QPushButton* backToDefaults;
+	//! \brief Apply changes but don't close the dialog.
+	QPushButton* applyChangesButton;
 	QPushButton* buttonOk;
 	QPushButton* buttonCancel;
 	QPushButton* saveButton;
@@ -54,7 +56,6 @@ protected:
 protected slots:
 	virtual void languageChange();
 	virtual void saveButton_clicked();
-
 };
 
 #endif

@@ -64,6 +64,10 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	backToDefaults->setAutoDefault( false );
 	backToDefaults->setDefault( false );
 	layout4->addWidget( backToDefaults );
+	applyChangesButton = new QPushButton( this, "applyChangesButton" );
+	applyChangesButton->setAutoDefault( false );
+	applyChangesButton->setDefault( false );
+	layout4->addWidget( applyChangesButton );
 	buttonOk = new QPushButton( this, "buttonOk" );
 	buttonOk->setAutoDefault( false );
 	buttonOk->setDefault( false );
@@ -134,6 +138,7 @@ void PrefsDialogBase::languageChange()
 	buttonCancel->setText( CommonStrings::tr_Cancel );
 	saveButton->setText(tr("Save..."));
 	backToDefaults->setText( tr( "&Defaults" ) );
+	applyChangesButton->setText(tr("&Apply"));
 }
 
 void PrefsDialogBase::saveButton_clicked()

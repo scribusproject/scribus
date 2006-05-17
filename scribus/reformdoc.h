@@ -164,6 +164,7 @@ protected slots:
 	virtual void setPageHeight(int v);
 	virtual void switchCMS(bool enable);
 	virtual void setTOCIndexData(QWidget *widgetToShow);
+	virtual void applyChangesButton_clicked();
 };
 
 #endif // REFORMDOC_H

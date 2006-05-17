@@ -2039,6 +2039,33 @@ void ScribusMainWindow::windowsMenuActivated( int id )
 	newActWin(windowWidget);
 }
 
+void ScribusMainWindow::docSetup(ReformDoc* dia)
+{
+	slotChangeUnit(dia->getSelectedUnit(), false);
+	dia->updateDocumentSettings();
+	if (dia->imageResolutionChanged())
+		doc->recalcPicturesRes();
+	FontSub->RebuildList(doc);
+	propertiesPalette->Fonts->RebuildList(doc);
+	scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
+	scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
+	scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
+	scrActions["viewShowGuides"]->setOn(doc->guidesSettings.guidesShown);
+	scrActions["viewShowColumnBorders"]->setOn(doc->guidesSettings.colBordersShown);
+	scrActions["viewShowBaseline"]->setOn(doc->guidesSettings.baseShown);
+	scrActions["viewShowImages"]->setOn(doc->guidesSettings.showPic);
+	scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
+	scrActions["viewShowTextControls"]->setOn(doc->guidesSettings.showControls);
+	scrActions["viewShowRulers"]->setOn(doc->guidesSettings.rulersShown);
+	scrActions["viewRulerMode"]->setOn(doc->guidesSettings.rulerMode);
+	view->reformPages();
+	view->GotoPage(doc->currentPage()->pageNr());
+	view->DrawNew();
+	propertiesPalette->ShowCMS();
+	pagePalette->RebuildPage();
+	slotDocCh();
+}
+
 bool ScribusMainWindow::slotDocSetup()
 {
 	bool ret = false;
@@ -2046,29 +2073,7 @@ bool ScribusMainWindow::slotDocSetup()
 	Q_CHECK_PTR(dia);
 	if (dia->exec())
 	{
-		slotChangeUnit(dia->getSelectedUnit(), false);
-		dia->updateDocumentSettings();
-		if (dia->imageResolutionChanged())
-			doc->recalcPicturesRes();
-		FontSub->RebuildList(doc);
-		propertiesPalette->Fonts->RebuildList(doc);
-		scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
-		scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
-		scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
-		scrActions["viewShowGuides"]->setOn(doc->guidesSettings.guidesShown);
-		scrActions["viewShowColumnBorders"]->setOn(doc->guidesSettings.colBordersShown);
-		scrActions["viewShowBaseline"]->setOn(doc->guidesSettings.baseShown);
-		scrActions["viewShowImages"]->setOn(doc->guidesSettings.showPic);
-		scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
-		scrActions["viewShowTextControls"]->setOn(doc->guidesSettings.showControls);
-		scrActions["viewShowRulers"]->setOn(doc->guidesSettings.rulersShown);
-		scrActions["viewRulerMode"]->setOn(doc->guidesSettings.rulerMode);
-		view->reformPages();
-		view->GotoPage(doc->currentPage()->pageNr());
-		view->DrawNew();
-		propertiesPalette->ShowCMS();
-		pagePalette->RebuildPage();
-		slotDocCh();
+		docSetup(dia);
 		ret = true;
 	}
 	delete dia;

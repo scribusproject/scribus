@@ -444,6 +444,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	connect(backToDefaults, SIGNAL(clicked()), this, SLOT(restoreDefaults()));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
+	connect(applyChangesButton, SIGNAL(clicked()), this, SLOT(applyChangesButton_clicked()));
 
 	if (CMSavail)
 	{
@@ -1175,4 +1176,9 @@ void ReformDoc::updateDocumentSettings()
 		if (currDoc->Items->at(b)->itemType() == PageItem::ImageFrame)
 			currDoc->Items->at(b)->setImageShown(currDoc->guidesSettings.showPic);
 	}
+}
+
+void ReformDoc::applyChangesButton_clicked()
+{
+	ScMW->docSetup(this);
 }
