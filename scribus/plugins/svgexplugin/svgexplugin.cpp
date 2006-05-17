@@ -146,7 +146,7 @@ bool SVGExportPlugin::run(QString filename)
 			QFile f(fileName);
 			if (f.exists())
 			{
-				int exit=ScMessageBox::warning(ScMW, QObject::tr("Warning"),
+				int exit=ScMessageBox::warning(ScMW, CommonStrings::trWarning,
 					QObject::tr("Do you really want to overwrite the File:\n%1 ?").arg(fileName),
 					QObject::tr("Yes"),
 					QObject::tr("No"),

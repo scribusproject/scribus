@@ -31,6 +31,7 @@ the Free Software Foundation; either version 2 of the License, or
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "scmessagebox.h"
+#include "commonstrings.h"
 
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
@@ -215,7 +216,9 @@ void PythonConsole::slot_saveAs()
 		return;
 	QFile f(filename);
 	if (f.exists())
-		if (ScMessageBox::warning(this, tr("Warning"), "<qt>" + tr(QString("File %1 already exists. Do you want to replace it?").arg(filename)) + "</qt>", QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
+		if (ScMessageBox::warning(this, CommonStrings::trWarning,
+			"<qt>" + tr(QString("File %1 already exists. Do you want to replace it?").arg(filename)) + "</qt>",
+			QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
 		{
 			filename = oldFname;
 			return;
@@ -235,7 +238,9 @@ void PythonConsole::slot_saveOutput()
 	QFile f(fname);
 	if (!f.exists())
 	{
-		if (QMessageBox::warning(this, tr("Warning"), "<qt>" + tr(QString("File %1 already exists. Do you want to replace it?").arg(filename)) + "</qt>", QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
+		if (QMessageBox::warning(this, CommonStrings::trWarning,
+			"<qt>" + tr(QString("File %1 already exists. Do you want to replace it?").arg(filename)) + "</qt>",
+			QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
 			return;
 	}
 	// save

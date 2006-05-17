@@ -66,7 +66,9 @@ QString CollectForOutput::collect()
 
 	if (!collectItems())
 	{
-		QMessageBox::warning(ScMW, tr("Warning"), "<qt>" + tr("Cannot collect all files for output for file:\n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
+		QMessageBox::warning(ScMW, CommonStrings::trWarning,
+							 "<qt>" + tr("Cannot collect all files for output for file:\n%1").arg(newName) + "</qt>",
+							 CommonStrings::tr_OK);
 		return "";
 	}
 
