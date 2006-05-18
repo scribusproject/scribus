@@ -55,6 +55,7 @@ for which a new license (GPL+exception) is in place.
 #include "tabexternaltoolswidget.h"
 #include "tabkeyboardshortcutswidget.h"
 #include "tocindexprefs.h"
+#include "hyphenator.h"
 
 using namespace std;
 
@@ -79,14 +80,14 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	DisScale = prefsData->DisScale;
 	setCaption( tr( "Preferences" ) );
 
-	tab = new QWidget( prefsWidgets, "tab" );
-	tabLayout = new QGridLayout( tab );
+	tabGeneral = new QWidget( prefsWidgets, "tabGeneral" );
+	tabLayout = new QGridLayout( tabGeneral );
 	tabLayout->setSpacing( 5 );
 	tabLayout->setMargin( 0 );
 	tabLayout->setAlignment( Qt::AlignTop );
 
 	// GUI Group
-	ButtonGroup1 = new QButtonGroup( tr( "GUI" ), tab, "ButtonGroup1" );
+	ButtonGroup1 = new QButtonGroup( tr( "GUI" ), tabGeneral, "ButtonGroup1" );
 	ButtonGroup1->setColumnLayout(0, Qt::Vertical );
 	ButtonGroup1->layout()->setSpacing( 0 );
 	ButtonGroup1->layout()->setMargin( 0 );
@@ -124,7 +125,6 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	ButtonGroup1Layout->addWidget( showSplashLabel, 2, 0 );
 	ButtonGroup1Layout->addWidget( showSplashCheckBox, 2, 1, Qt::AlignLeft );
 
-
 	GFsize = new QSpinBox(8, 22, 1, ButtonGroup1, "gfs" );
 	GFsize->setSuffix( tr( " pt" ) );
 	GFsize->setValue( prefsData->AppFontSize );
@@ -139,11 +139,11 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	ButtonGroup1Layout->addWidget(TextGstil3, 4, 0);
 	ButtonGroup1Layout->addWidget(GTFsize, 4, 1, Qt::AlignLeft);
 
-	SpinBox3 = new QSpinBox( 0, 1000, 10, ButtonGroup1, "SpinBox3" );
-	SpinBox3->setValue( prefsData->Wheelval );
-	TextLabel1_2 = new QLabel( SpinBox3, tr( "&Wheel Jump:" ), ButtonGroup1, "TextLabel1_2" );
+	wheelJumpSpin = new QSpinBox( 0, 1000, 10, ButtonGroup1, "wheelJumpSpin" );
+	wheelJumpSpin->setValue( prefsData->Wheelval );
+	TextLabel1_2 = new QLabel( wheelJumpSpin, tr( "&Wheel Jump:" ), ButtonGroup1, "TextLabel1_2" );
 	ButtonGroup1Layout->addWidget( TextLabel1_2, 5, 0 );
-	ButtonGroup1Layout->addWidget( SpinBox3, 5, 1, Qt::AlignLeft );
+	ButtonGroup1Layout->addWidget( wheelJumpSpin, 5, 1, Qt::AlignLeft );
 	Recen = new QSpinBox( 1, 30, 1, ButtonGroup1, "Recen" );
 	Recen->setValue( prefsData->RecentDCount );
 	TextLabel4c = new QLabel( Recen, tr( "&Recent Documents:" ), ButtonGroup1, "TextLabel4c" );
@@ -151,7 +151,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	ButtonGroup1Layout->addWidget( Recen, 6, 1, Qt::AlignLeft );
 	tabLayout->addWidget( ButtonGroup1, 0, 0 );
 
-	GroupBox200 = new QGroupBox( tr( "Paths" ), tab, "GroupBox200" );
+	GroupBox200 = new QGroupBox( tr( "Paths" ), tabGeneral, "GroupBox200" );
 	GroupBox200->setColumnLayout(0, Qt::Horizontal );
 	GroupBox200->layout()->setSpacing( 0 );
 	GroupBox200->layout()->setMargin( 0 );
@@ -208,16 +208,16 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	GroupBox200Layout->addWidget( DocumentTemplateDir, 3, 1 );
 	GroupBox200Layout->addWidget( FileC4, 3, 2 );
 	tabLayout->addWidget( GroupBox200, 1, 0 );
-	addItem( tr("General"), loadIcon("scribusicon.png"), tab);
+	addItem( tr("General"), loadIcon("scribusicon.png"), tabGeneral);
 
-	tab_7 = new QWidget( prefsWidgets, "tab_7" );
-	tabLayout_7 = new QHBoxLayout( tab_7, 0, 5, "tabLayout_7");
+	tabDocument = new QWidget( prefsWidgets, "tabDocument" );
+	tabLayout_7 = new QHBoxLayout( tabDocument, 0, 5, "tabLayout_7");
 	Layout21 = new QVBoxLayout( 0, 0, 6, "Layout21");
 	dsLayout4p = new QHBoxLayout;
 	dsLayout4p->setSpacing( 5 );
 	dsLayout4p->setMargin( 0 );
 	dsLayout4p->setAlignment( Qt::AlignLeft );
-	docLayout = new PageLayouts(tab_7, prefsData->pageSets);
+	docLayout = new PageLayouts(tabDocument, prefsData->pageSets);
 	docLayout->selectItem(prefsData->FacingPages);
 	docLayout->firstPage->setCurrentItem(prefsData->pageSets[prefsData->FacingPages].FirstPage);
 	dsLayout4p->addWidget( docLayout );
@@ -225,7 +225,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	dsLayout4pv->setSpacing( 5 );
 	dsLayout4pv->setMargin( 0 );
 
-	GroupSize = new QButtonGroup( tr( "Page Size" ), tab_7, "GroupSize" );
+	GroupSize = new QButtonGroup( tr( "Page Size" ), tabDocument, "GroupSize" );
 	GroupSize->setColumnLayout(0, Qt::Vertical );
 	GroupSize->layout()->setSpacing( 6 );
 	GroupSize->layout()->setMargin( 10 );
@@ -258,13 +258,13 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	GZText2 = new QLabel( pageOrientationComboBox, tr( "Orie&ntation:" ), GroupSize, "GZText2" );
 	Layout6->addWidget( GZText2, 1, 0 );
 	Layout6->addWidget( pageOrientationComboBox, 1, 1 );
-	UnitCombo = new QComboBox( true, GroupSize, "UnitCombo" );
-	UnitCombo->insertStringList(unitGetTextUnitList());
-	UnitCombo->setEditable(false);
-	UnitCombo->setCurrentItem(prefsData->docUnitIndex);
-	unitComboText = new QLabel( UnitCombo, tr( "Units:" ), GroupSize, "unitComboText" );
+	unitCombo = new QComboBox( true, GroupSize, "unitCombo" );
+	unitCombo->insertStringList(unitGetTextUnitList());
+	unitCombo->setEditable(false);
+	unitCombo->setCurrentItem(prefsData->docUnitIndex);
+	unitComboText = new QLabel( unitCombo, tr( "Units:" ), GroupSize, "unitComboText" );
 	Layout6->addWidget( unitComboText, 2, 0 );
-	Layout6->addWidget( UnitCombo, 2, 1 );
+	Layout6->addWidget( unitCombo, 2, 1 );
 
 	GroupSizeLayout->addLayout( Layout6 );
 
@@ -294,14 +294,14 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	marg.Bottom = prefsData->RandUnten;
 	marg.Left = prefsData->RandLinks;
 	marg.Right = prefsData->RandRechts;
-	GroupRand = new MarginWidget(tab_7,  tr( "Margin Guides" ), &marg, docUnitIndex );
+	GroupRand = new MarginWidget(tabDocument,  tr( "Margin Guides" ), &marg, docUnitIndex );
 	GroupRand->setPageWidthHeight(prefsData->PageWidth, prefsData->PageHeight);
 	dsLayout4pv->addWidget( GroupRand );
 	dsLayout4p->addLayout( dsLayout4pv );
 	Layout21->addLayout( dsLayout4p );
 	QBoxLayout *asurLayout = new QHBoxLayout( 0, 0, 6, "asurLayout");
 
-	GroupAS = new QGroupBox( tr( "Autosave" ), tab_7, "GroupAS" );
+	GroupAS = new QGroupBox( tr( "Autosave" ), tabDocument, "GroupAS" );
 	GroupAS->setCheckable( true );
 	GroupAS->setChecked( prefsData->AutoSave );
 	GroupAS->setColumnLayout(0, Qt::Vertical );
@@ -319,7 +319,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	GroupASLayout->addWidget( ASTime );
 	asurLayout->addWidget(GroupAS);
 
-	urGroup = new QGroupBox( tr("Undo/Redo"), tab_7, "urGroup");
+	urGroup = new QGroupBox( tr("Undo/Redo"), tabDocument, "urGroup");
 	urGroup->setColumnLayout(0, Qt::Vertical);
 	urGroup->layout()->setSpacing(5);
 	urGroup->layout()->setMargin(10);
@@ -340,7 +340,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	Layout21->addLayout(asurLayout);
 
 	tabLayout_7->addLayout( Layout21 );
-	addItem( tr("Document"), loadIcon("scribusdoc.png"), tab_7);
+	addItem( tr("Document"), loadIcon("scribusdoc.png"), tabDocument);
 
 	tabGuides = new TabGuides(prefsWidgets, &prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
@@ -650,10 +650,10 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	ExtToolLayout->addItem( spacer_gs );
 	addItem(  tr("External Tools"), loadIcon("externaltools.png"), ExtTool);
 */
-	Misc = new QWidget( prefsWidgets, "Misc" );
-	MiscLayout = new QVBoxLayout( Misc, 0, 5, "MiscLayout");
+	tabMiscellaneous = new QWidget( prefsWidgets, "tabMiscellaneous" );
+	MiscLayout = new QVBoxLayout( tabMiscellaneous, 0, 5, "MiscLayout");
 	MiscLayout->setAlignment( Qt::AlignTop );
-/*	groupPrint = new QGroupBox( tr( "Printing" ), Misc, "groupPrint" );
+/*	groupPrint = new QGroupBox( tr( "Printing" ), tabMiscellaneous, "groupPrint" );
 	groupPrint->setColumnLayout(0, Qt::Vertical );
 	groupPrint->layout()->setSpacing( 10 );
 	groupPrint->layout()->setMargin( 10 );
@@ -666,17 +666,17 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	DoGCR->setChecked(prefsData->GCRMode);
 	groupPrintLayout->addWidget( DoGCR );
 	MiscLayout->addWidget( groupPrint ); */
-	AskForSubs = new QCheckBox( tr( "Always ask before fonts are replaced when loading a document" ), Misc, "askforSubs" );
+	AskForSubs = new QCheckBox( tr( "Always ask before fonts are replaced when loading a document" ), tabMiscellaneous, "askforSubs" );
 	AskForSubs->setChecked(prefsData->askBeforeSubstituite);
 	MiscLayout->addWidget( AskForSubs );
-	stylePreview = new QCheckBox( tr( "Preview of current Paragraph Style visible when editing Styles" ), Misc, "stylePreview" );
+	stylePreview = new QCheckBox( tr( "Preview of current Paragraph Style visible when editing Styles" ), tabMiscellaneous, "stylePreview" );
 	stylePreview->setChecked(prefsData->haveStylePreview);
 	MiscLayout->addWidget( stylePreview );
-	startUpDialog = new QCheckBox( tr( "Show Startup Dialog" ), Misc, "startUpDialog" );
+	startUpDialog = new QCheckBox( tr( "Show Startup Dialog" ), tabMiscellaneous, "startUpDialog" );
 	startUpDialog->setChecked(prefsData->showStartupDialog);
 	MiscLayout->addWidget( startUpDialog );
 	// lorem ipsum
-	groupLI = new QGroupBox(tr("Lorem Ipsum"), Misc, "groupLI");
+	groupLI = new QGroupBox(tr("Lorem Ipsum"), tabMiscellaneous, "groupLI");
 	groupLI->setColumnLayout(0, Qt::Vertical);
 	groupLI->layout()->setSpacing(10);
 	groupLI->layout()->setMargin(10);
@@ -697,7 +697,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	// spacer filling
 	QSpacerItem* spacer_3m = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	MiscLayout->addItem( spacer_3m );
-	addItem(  tr("Miscellaneous"), loadIcon("misc.png"), Misc);
+	addItem(  tr("Miscellaneous"), loadIcon("misc.png"), tabMiscellaneous);
 
 	// plugin manager. pv.
 	PluginManagerPrefsGui* pluginManagerPrefsGui = new PluginManagerPrefsGui(prefsWidgets);
@@ -709,9 +709,9 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	setDS(prefsData->FacingPages);
 	//tab order
 	QWidget::setTabOrder( GFsize, GTFsize );
-	QWidget::setTabOrder( GTFsize, SpinBox3 );
-	QWidget::setTabOrder( SpinBox3, UnitCombo );
-	QWidget::setTabOrder( UnitCombo, Recen );
+	QWidget::setTabOrder( GTFsize, wheelJumpSpin );
+	QWidget::setTabOrder( wheelJumpSpin, unitCombo );
+	QWidget::setTabOrder( unitCombo, Recen );
 	QWidget::setTabOrder( Recen, Docs );
 	QWidget::setTabOrder( Docs, FileC );
 	QWidget::setTabOrder( FileC, ProPfad );
@@ -729,8 +729,8 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QToolTip::add( GUICombo, "<qt>" + tr( "Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins." ) + "</qt>" );
 	QToolTip::add( GFsize, "<qt>" + tr( "Default font size for the menus and windows" ) + "</qt>" );
 	QToolTip::add( GTFsize, "<qt>" + tr("Default font size for the tool windows") + "</qt>" );
-	QToolTip::add( UnitCombo, "<qt>" + tr( "Default unit of measurement for document editing" ) + "</qt>" );
-	QToolTip::add( SpinBox3, "<qt>" + tr( "Number of lines Scribus will scroll for each move of the mouse wheel" ) + "</qt>" );
+	QToolTip::add( unitCombo, "<qt>" + tr( "Default unit of measurement for document editing" ) + "</qt>" );
+	QToolTip::add( wheelJumpSpin, "<qt>" + tr( "Number of lines Scribus will scroll for each move of the mouse wheel" ) + "</qt>" );
 	QToolTip::add( Recen, "<qt>" + tr( "Number of recently edited documents to show in the File menu" ) + "</qt>" );
 	QToolTip::add( Docs, "<qt>" + tr( "Default documents directory" ) + "</qt>" );
 	QToolTip::add( ProPfad, "<qt>" + tr( "Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc " ) + "</qt>" );
@@ -779,7 +779,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	// signals and slots connections
 	connect( guiLangCombo, SIGNAL( activated( const QString & ) ), this, SLOT( setSelectedGUILang( const QString & ) ) );
 	connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
-	connect(UnitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
+	connect(unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	connect(docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int) ) );
@@ -796,6 +796,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	if (CMSavail)
 		connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
 	connect(applyChangesButton, SIGNAL(clicked()), this, SLOT(applyChangesButton_clicked()));
+	connect(backToDefaults, SIGNAL(clicked()), this, SLOT(backToDefaults_clicked()));
 
 	setSize(prefsData->pageSize);
 	setOrien(prefsData->pageOrientation);
@@ -807,11 +808,80 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	//unitChange();
 	resize( minimumSizeHint() );
 	arrangeIcons();
-	backToDefaults->hide();
-	//applyChangesButton->hide();
 	prefsSelection->setSelected(prefsSelection->firstItem(), true);
 	itemSelected(prefsSelection->firstItem());
 	clearWState( WState_Polished );
+}
+
+void Preferences::restoreDefaults()
+{
+	prefsManager->initDefaults();
+	ApplicationPrefs* prefsData=&(prefsManager->appPrefs);
+	QWidget* current = prefsWidgets->visibleWidget();
+
+	if (current == tabGeneral) // General
+	{
+		selectedGUILang = prefsData->guiLanguage;
+		guiLangCombo->setCurrentText(langMgr.getLangFromAbbrev(selectedGUILang));
+		GUICombo->setCurrentText(prefsData->GUI);
+		showSplashCheckBox->setChecked( !ScQApp->neverSplashExists() );
+		GFsize->setValue( prefsData->AppFontSize );
+		GTFsize->setValue( prefsData->PaletteFontSize); // temp solution
+		wheelJumpSpin->setValue( prefsData->Wheelval );
+		Recen->setValue( prefsData->RecentDCount );
+		Docs->setText(prefsData->DocDir);
+		ProPfad->setText(prefsData->ProfileDir);
+		ScriptPfad->setText(prefsData->ScriptDir);
+		DocumentTemplateDir->setText(prefsData->documentTemplatesDir);
+	}
+	else if (current == tabDocument) // Document
+	{qDebug("TODO!");
+	}
+	else if (current == tabView) // Display
+	{qDebug("TODO!");
+	}
+	else if (current == tabHyphenator) // Hyphenator
+	{qDebug("TODO!");
+	}
+	else if (current == tabGuides) // Guides
+	{qDebug("TODO!");
+	}
+	else if (current == tabTypo) // Typography
+	{qDebug("TODO!");
+	}
+	else if (current == tabTools) // Tools
+	{qDebug("TODO!");
+	}
+	else if (current == tabFonts) // Fonts
+	{qDebug("TODO!");
+	}
+	else if (current == tabDocChecker) // Preflight Verifier
+	{qDebug("TODO!");
+	}
+	else if (current == tabPDF) // PDF Export
+	{qDebug("TODO!");
+	}
+	else if (current == tabColorManagement) // Color Management
+	{qDebug("TODO!");
+	}
+	else if (current == tabDefaultItemAttributes) // Document Item Attributes
+	{qDebug("TODO!");
+	}
+	else if (current == tabDefaultTOCIndexPrefs) // Table of Contents
+	{qDebug("TODO!");
+	}
+	else if (current == tabKeyboardShortcuts) // Keyboard Shortcuts
+	{qDebug("TODO!");
+	}
+	else if (current == tabExtTools) // External Tools
+	{qDebug("TODO!");
+	}
+	else if (current == tabMiscellaneous) // Miscellaneous
+	{qDebug("TODO!");
+	}
+	else if (current == tabMiscellaneous) // Plugins
+	{qDebug("TODO!");
+	}
 }
 
 void Preferences::addPlugins()
@@ -1020,7 +1090,7 @@ void Preferences::unitChange()
 	oldH /= oldUnitRatio;
 	oldHM /= oldUnitRatio;
 	QString einh;
-	docUnitIndex = UnitCombo->currentItem();
+	docUnitIndex = unitCombo->currentItem();
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	decimals = unitGetDecimalsFromIndex(docUnitIndex);
 	einh = unitGetSuffixFromIndex(docUnitIndex);
@@ -1191,7 +1261,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.AppFontSize = GFsize->value();
 	prefsManager->appPrefs.PaletteFontSize = GTFsize->value();
 	ScQApp->neverSplash(!showSplashCheckBox->isChecked());
-	prefsManager->appPrefs.Wheelval = SpinBox3->value();
+	prefsManager->appPrefs.Wheelval = wheelJumpSpin->value();
 	prefsManager->appPrefs.RecentDCount = Recen->value();
 	prefsManager->appPrefs.DocDir = Docs->text();
 	prefsManager->appPrefs.ProfileDir = ProPfad->text();
@@ -1220,7 +1290,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.RandUnten = GroupRand->bottom();
 	prefsManager->appPrefs.RandLinks = GroupRand->left();
 	prefsManager->appPrefs.RandRechts = GroupRand->right();
-	double prefsUnitRatio = unitGetRatioFromIndex(UnitCombo->currentItem());
+	double prefsUnitRatio = unitGetRatioFromIndex(unitCombo->currentItem());
 	prefsManager->appPrefs.FacingPages  = choosenLayout;
 	prefsManager->appPrefs.pageSets[choosenLayout].FirstPage = docLayout->firstPage->currentItem();
 	prefsManager->appPrefs.pageSets[choosenLayout].GapHorizontal = gapHorizontal->value() / prefsUnitRatio;
@@ -1248,7 +1318,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.paragraphsLI = paragraphsLI->value();
 	prefsManager->appPrefs.DisScale = DisScale;
 
-	prefsManager->appPrefs.docUnitIndex = UnitCombo->currentItem();
+	prefsManager->appPrefs.docUnitIndex = unitCombo->currentItem();
 	prefsManager->appPrefs.ScratchBottom = bottomScratch->value() / prefsUnitRatio;
 	prefsManager->appPrefs.ScratchLeft = leftScratch->value() / prefsUnitRatio;
 	prefsManager->appPrefs.ScratchRight = rightScratch->value() / prefsUnitRatio;
@@ -1511,4 +1581,10 @@ void Preferences::updatePreferences()
 void Preferences::applyChangesButton_clicked()
 {
 	ScMW->prefsOrg(this);
+}
+
+void Preferences::backToDefaults_clicked()
+{
+	prefsManager->initDefaults();
+	restoreDefaults();
 }

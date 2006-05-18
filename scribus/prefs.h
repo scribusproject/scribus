@@ -78,9 +78,9 @@ public:
 	QString selectedGUILang;
 
 
-	QWidget* tab;
+	QWidget* tabGeneral;
 	QLabel* TextLabel1_2;
-	QSpinBox* SpinBox3;
+	QSpinBox* wheelJumpSpin;
 	QSpinBox* Recen;
 	QButtonGroup* ButtonGroup1;
 	QLabel* guiLangLabel;
@@ -91,7 +91,7 @@ public:
 	QSpinBox* GTFsize;
 	QComboBox* guiLangCombo;
 	QComboBox* GUICombo;
-	QComboBox* UnitCombo;
+	QComboBox* unitCombo;
 	QCheckBox* showSplashCheckBox;
 	QLabel* showSplashLabel;
 	QLabel* unitComboText;
@@ -158,7 +158,7 @@ public:
 	QGroupBox* preview;
 	QComboBox* PreviewSize;
 */
-	QWidget* tab_7;
+	QWidget* tabDocument;
 	QButtonGroup* GroupSize;
 	QLabel* GZText2;
 	QComboBox* pageSizeComboBox;
@@ -194,7 +194,7 @@ public:
 	QLabel* imageEditorLabel;
 	QLineEdit* imageEditorLineEdit;
 	QToolButton* imageEditorChangeButton;*/
-	QWidget* Misc;
+	QWidget* tabMiscellaneous;
 //	QGroupBox* groupPrint;
 //	QCheckBox* ClipMarg;
 //	QCheckBox* DoGCR;
@@ -353,11 +353,15 @@ protected:
 	//Replace with commonstrings when translators have that one done.
 	QString customText, customTextTR;
 
+	//! \brief Setup the GUI widgets by values taken from PrefsManager.
+	void restoreDefaults();
+
 protected slots:
 	virtual void setTOCIndexData(QWidget *widgetToShow);
 	void setSelectedGUILang( const QString &newLang );
 	void setActionHistoryLength();
 	virtual void applyChangesButton_clicked();
+	virtual void backToDefaults_clicked();
 };
 
 #endif // PREFS_H
