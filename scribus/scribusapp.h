@@ -65,6 +65,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		static bool useGUI;
 		void neverSplash(bool splashOff);
 		bool neverSplashExists();
+		const QString& currGUILanguage() {return GUILang;};
 
 	private:
 		ScribusCore* m_ScCore;
@@ -85,6 +86,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		void showAvailLangs();
 
 		QString lang;
+		QString GUILang;
 		bool showSplash;
 		bool showFontInfo;
 		bool swapDialogButtonOrder;

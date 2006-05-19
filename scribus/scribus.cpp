@@ -6939,7 +6939,7 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 //		scrapbookPalette->rebuildView();
 //		scrapbookPalette->AdjustMenu();
 	QString newGUILanguage = prefsManager->guiLanguage();
-	if (oldGUILanguage != newGUILanguage)
+	if (oldGUILanguage != newGUILanguage || ScQApp->currGUILanguage()!=newGUILanguage)
 		ScQApp->changeGUILanguage(newGUILanguage);
 	QString newGUIStyle = prefsManager->guiStyle();
 	if (oldGUIStyle != newGUIStyle)

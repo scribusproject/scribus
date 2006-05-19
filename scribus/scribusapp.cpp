@@ -80,6 +80,7 @@ ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv)
 	ScCore=NULL;
 	ScMW=NULL;
 	lang="";
+	GUILang="";
 }
 
 ScribusQApp::~ScribusQApp()
@@ -231,7 +232,7 @@ QStringList ScribusQApp::getLang(QString lang)
 			PrefsPfad = Pff;
 		else
 			PrefsPfad = QDir::homeDirPath();
-		QString prefsXMLFile=QDir::convertSeparators(PrefsPfad + "/prefs13.xml");
+		QString prefsXMLFile=QDir::convertSeparators(PrefsPfad + "/prefs134.xml");
 		QFileInfo infoPrefsFile(prefsXMLFile);
 		if (infoPrefsFile.exists())
 		{
@@ -279,16 +280,19 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 
 	bool loaded = false;
 	QString lang;
-	for (QStringList::const_iterator it = langs.constBegin(); it != langs.constEnd() && !loaded; ++it) {
+	for (QStringList::const_iterator it = langs.constBegin(); it != langs.constEnd() && !loaded; ++it) 
+	{
 		lang=(*it).left(5);
 		if (lang == "en")
 			break;
 		else if (loaded = trans->load(QString(path + '.' + lang), "."))
 			loaded = true;
 	}
-
 	if (loaded)
+	{
 		installTranslator(trans);
+		GUILang=lang;
+	}
 	/* CB TODO, currently disabled, because its broken broken broken
 	path = ScPaths::instance().pluginDir();
 	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
