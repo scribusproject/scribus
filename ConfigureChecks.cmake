@@ -9,12 +9,6 @@ include(CheckLibraryExists)
 include(CheckTypeSize)
 
 
-if(ENDIAN_BIG)
-   set(WORDS_BIGENDIAN 1)
-else(ENDIAN_BIG)
-   set(WORDS_BIGENDIAN 0)
-endif(ENDIAN_BIG)
-
 #check for libz using the cmake supplied FindZLIB.cmake
 if(ZLIB_FOUND)
    set(HAVE_LIBZ 1)
