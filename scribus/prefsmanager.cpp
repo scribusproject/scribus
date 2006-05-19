@@ -248,7 +248,7 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.magMin = 10;
 	appPrefs.toolSettings.magMax = 3200;
 	appPrefs.toolSettings.magStep = 200;
-	appPrefs.toolSettings.dBrushPict = "White";
+	appPrefs.toolSettings.dBrushPict = CommonStrings::None;
 	appPrefs.toolSettings.shadePict = 100;
 	appPrefs.toolSettings.scaleX = 1;
 	appPrefs.toolSettings.scaleY = 1;
@@ -1408,7 +1408,7 @@ bool PrefsManager::ReadPref(QString ho)
 			//CB Reset prefs zoom step value to 200% instead of old values.
 			if (appPrefs.toolSettings.magStep<100)
 				appPrefs.toolSettings.magStep=200;
-			appPrefs.toolSettings.dBrushPict = dc.attribute("CPICT");
+			appPrefs.toolSettings.dBrushPict = dc.attribute("CPICT", CommonStrings::None);
 			appPrefs.toolSettings.shadePict = dc.attribute("PICTSHADE", "100").toInt();
 			appPrefs.toolSettings.scaleX = dc.attribute("PICTSCX", "1").toDouble();
 			appPrefs.toolSettings.scaleY = dc.attribute("PICTSCY", "1").toDouble();
