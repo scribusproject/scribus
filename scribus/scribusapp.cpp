@@ -76,6 +76,7 @@ ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv)
 	ScQApp=this;
 	ScMW=NULL;
 	lang="";
+	GUILang="";
 }
 
 ScribusQApp::~ScribusQApp()
@@ -302,7 +303,10 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 	}
 
 	if (loaded)
+	{
 		installTranslator(trans);
+		GUILang=lang;
+	}
 	/* CB TODO, currently disabled, because its broken broken broken
 	path = ScPaths::instance().pluginDir();
 	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
