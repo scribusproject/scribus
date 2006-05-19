@@ -294,9 +294,9 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	marg.Bottom = prefsData->RandUnten;
 	marg.Left = prefsData->RandLinks;
 	marg.Right = prefsData->RandRechts;
-	GroupRand = new MarginWidget(tabDocument,  tr( "Margin Guides" ), &marg, docUnitIndex );
-	GroupRand->setPageWidthHeight(prefsData->PageWidth, prefsData->PageHeight);
-	dsLayout4pv->addWidget( GroupRand );
+	marginGroup = new MarginWidget(tabDocument,  tr( "Margin Guides" ), &marg, docUnitIndex );
+	marginGroup->setPageWidthHeight(prefsData->PageWidth, prefsData->PageHeight);
+	dsLayout4pv->addWidget( marginGroup );
 	dsLayout4p->addLayout( dsLayout4pv );
 	Layout21->addLayout( dsLayout4p );
 	QBoxLayout *asurLayout = new QHBoxLayout( 0, 0, 6, "asurLayout");
@@ -835,7 +835,18 @@ void Preferences::restoreDefaults()
 		DocumentTemplateDir->setText(prefsData->documentTemplatesDir);
 	}
 	else if (current == tabDocument) // Document
-	{qDebug("TODO!");
+	{
+		docLayout->selectItem(prefsData->FacingPages);
+		docLayout->firstPage->setCurrentItem(prefsData->pageSets[prefsData->FacingPages].FirstPage);
+		pageOrientationComboBox->setCurrentItem(prefsData->pageOrientation);
+		unitCombo->setCurrentItem(prefsData->docUnitIndex);
+		pageWidth->setValue(prefsData->PageWidth * unitRatio);
+		pageHeight->setValue(prefsData->PageHeight * unitRatio);
+		marginGroup->setNewMargins(prefsData->RandOben, prefsData->RandUnten,
+								   prefsData->RandLinks, prefsData->RandRechts);
+		marginGroup->setPageWidthHeight(prefsData->PageWidth, prefsData->PageHeight);
+		GroupAS->setChecked( prefsData->AutoSave );
+		ASTime->setValue(prefsData->AutoSaveTime / 1000 / 60);
 	}
 	else if (current == tabView) // Display
 	{qDebug("TODO!");
@@ -844,14 +855,11 @@ void Preferences::restoreDefaults()
 	{qDebug("TODO!");
 	}
 	else if (current == tabGuides) // Guides
-	{qDebug("TODO!");
-	}
+		tabGuides->restoreDefaults(&prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);
 	else if (current == tabTypo) // Typography
-	{qDebug("TODO!");
-	}
+		tabTypo->restoreDefaults(&prefsData->typographicSettings);
 	else if (current == tabTools) // Tools
-	{qDebug("TODO!");
-	}
+		tabTools->restoreDefaults(&prefsData->toolSettings, docUnitIndex);
 	else if (current == tabFonts) // Fonts
 	{qDebug("TODO!");
 	}
@@ -976,7 +984,7 @@ void Preferences::changeImageEditor()
 
 void Preferences::setDS(int layout)
 {
-	GroupRand->setFacingPages(!(layout == singlePage));
+	marginGroup->setFacingPages(!(layout == singlePage));
 	choosenLayout = layout;
 	docLayout->firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[choosenLayout].FirstPage);
 	gapHorizontal->setValue(prefsManager->appPrefs.pageSets[choosenLayout].GapHorizontal * unitRatio);
@@ -986,7 +994,7 @@ void Preferences::setDS(int layout)
 void Preferences::setPageWidth(int)
 {
 	Pagebr = pageWidth->value() / unitRatio;
-	GroupRand->setPageWidth(Pagebr);
+	marginGroup->setPageWidth(Pagebr);
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=customTextTR && psText!=customText)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
@@ -995,7 +1003,7 @@ void Preferences::setPageWidth(int)
 void Preferences::setPageHeight(int)
 {
 	Pageho = pageHeight->value() / unitRatio;
-	GroupRand->setPageHeight(Pageho);
+	marginGroup->setPageHeight(Pageho);
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=customTextTR && psText!=customText)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
@@ -1029,9 +1037,9 @@ void Preferences::setSize(const QString & gr)
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	pageWidth->setValue(Pagebr * unitRatio);
 	pageHeight->setValue(Pageho * unitRatio);
-	GroupRand->setPageHeight(Pageho);
-	GroupRand->setPageWidth(Pagebr);
-	GroupRand->setPageSize(gr);
+	marginGroup->setPageHeight(Pageho);
+	marginGroup->setPageWidth(Pagebr);
+	marginGroup->setPageSize(gr);
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	delete ps2;
@@ -1111,9 +1119,9 @@ void Preferences::unitChange()
 	gapHorizontal->setSuffix( einh );
 	pageWidth->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, Pagebr * unitRatio);
 	pageHeight->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, Pageho * unitRatio);
-	GroupRand->unitChange(unitRatio, decimals, einh);
-	GroupRand->setPageHeight(Pageho);
-	GroupRand->setPageWidth(Pagebr);
+	marginGroup->unitChange(unitRatio, decimals, einh);
+	marginGroup->setPageHeight(Pageho);
+	marginGroup->setPageWidth(Pagebr);
 	int decimalsOld;
 	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
 
@@ -1286,10 +1294,10 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.pageOrientation = pageOrientationComboBox->currentItem();
 	prefsManager->appPrefs.PageWidth = Pagebr;
 	prefsManager->appPrefs.PageHeight = Pageho;
-	prefsManager->appPrefs.RandOben = GroupRand->top();
-	prefsManager->appPrefs.RandUnten = GroupRand->bottom();
-	prefsManager->appPrefs.RandLinks = GroupRand->left();
-	prefsManager->appPrefs.RandRechts = GroupRand->right();
+	prefsManager->appPrefs.RandOben = marginGroup->top();
+	prefsManager->appPrefs.RandUnten = marginGroup->bottom();
+	prefsManager->appPrefs.RandLinks = marginGroup->left();
+	prefsManager->appPrefs.RandRechts = marginGroup->right();
 	double prefsUnitRatio = unitGetRatioFromIndex(unitCombo->currentItem());
 	prefsManager->appPrefs.FacingPages  = choosenLayout;
 	prefsManager->appPrefs.pageSets[choosenLayout].FirstPage = docLayout->firstPage->currentItem();

@@ -57,7 +57,7 @@ public:
 
 	ScribusMainWindow *ScMW;
 	ScribusDoc* currDoc;
-	int einheit;
+	int docUnitIndex;
 	int decimals;
 	double unitRatio;
 	double pageWidth;

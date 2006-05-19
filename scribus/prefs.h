@@ -169,7 +169,7 @@ public:
 	MSpinBox* pageWidth;
 	MSpinBox* pageHeight;
 	PageLayouts* docLayout;
-	MarginWidget* GroupRand;
+	MarginWidget* marginGroup;
 	QGroupBox* GroupAS;
 	QLabel* ASText;
 	QSpinBox* ASTime;

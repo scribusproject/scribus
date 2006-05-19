@@ -69,12 +69,12 @@ extern int IntentImages;
 
 ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( parent )
 {
-	einheit = doc->unitIndex();
+	docUnitIndex = doc->unitIndex();
 	currDoc = doc;
 	ScMW = (ScribusMainWindow*)parent;
 	unitRatio = doc->unitRatio();
-	QString ein = unitGetSuffixFromIndex(einheit);
-	decimals = unitGetDecimalsFromIndex(einheit);
+	QString ein = unitGetSuffixFromIndex(docUnitIndex);
+	decimals = unitGetDecimalsFromIndex(docUnitIndex);
 	customText="Custom";
 	customTextTR=tr( "Custom" );
 	pageWidth = doc->pageWidth;
@@ -172,7 +172,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	dsGroupBox7Layout->addLayout( dsLayout4 );
 	dsLayout4pv->addWidget( dsGroupBox7 );
 
-	GroupRand = new MarginWidget(tabPage,  tr( "Margin Guides" ), &doc->pageMargins, einheit, true );
+	GroupRand = new MarginWidget(tabPage,  tr( "Margin Guides" ), &doc->pageMargins, docUnitIndex, true );
 	GroupRand->setPageWidthHeight(pageWidth, pageHeight);
 	GroupRand->setPageSize(pageSizeComboBox->currentText());
 	dsLayout4pv->addWidget( GroupRand );
@@ -238,7 +238,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	docInfos = new DocInfos(prefsWidgets, doc->documentInfo);
 	addItem( tr("Document Information"), loadIcon("documentinfo32.png"), docInfos);
 
-	tabGuides = new TabGuides(prefsWidgets, &doc->guidesSettings, &doc->typographicSettings, einheit);
+	tabGuides = new TabGuides(prefsWidgets, &doc->guidesSettings, &doc->typographicSettings, docUnitIndex);
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
 
 	tabView = new QWidget( prefsWidgets, "tabView" );
@@ -377,7 +377,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabTypo = new TabTypograpy(  prefsWidgets, &doc->typographicSettings);
 	addItem( tr("Typography"), loadIcon("typography.png"), tabTypo);
 
-	tabTools = new TabTools(  prefsWidgets, &doc->toolSettings, einheit, doc);
+	tabTools = new TabTools(  prefsWidgets, &doc->toolSettings, docUnitIndex, doc);
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
 	tabHyphenator = new HySettings(prefsWidgets, &ScMW->LangTransl);
@@ -396,7 +396,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 
 	tabPDF = new TabPDFOptions( prefsWidgets, doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
 								ScCore->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
-								einheit, doc->pageHeight, doc->pageWidth, 0 );
+								docUnitIndex, doc->pageHeight, doc->pageWidth, 0 );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 
 	tabDocItemAttributes = new DocumentItemAttributes( prefsWidgets);
@@ -512,11 +512,11 @@ void ReformDoc::restoreDefaults()
 		tabHyphenator->maxCount->setValue(currDoc->docHyphenator->HyCount);
 	}
 	else if (current == tabGuides)
-		tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSettings, einheit);
+		tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSettings, docUnitIndex);
 	else if (current == tabTypo)
 		tabTypo->restoreDefaults(&currDoc->typographicSettings);
 	else if (current == tabTools)
-		tabTools->restoreDefaults();
+		tabTools->restoreDefaults(&currDoc->toolSettings, docUnitIndex);
 	else if (current == tabFonts)
 		tabFonts->restoreDefaults();
 	else if (current == tabDocChecker)
@@ -537,10 +537,10 @@ void ReformDoc::unitChange()
 	double oldUnitRatio = unitRatio;
 	double oldMin, oldMax, val;
 	QString einh;
-	einheit = unitCombo->currentItem();
-	unitRatio=unitGetRatioFromIndex(einheit);
-	decimals=unitGetDecimalsFromIndex(einheit);
-	einh=unitGetSuffixFromIndex(einheit);
+	docUnitIndex = unitCombo->currentItem();
+	unitRatio=unitGetRatioFromIndex(docUnitIndex);
+	decimals=unitGetDecimalsFromIndex(docUnitIndex);
+	einh=unitGetSuffixFromIndex(docUnitIndex);
 
 	widthMSpinBox->setSuffix(einh);
 	heightMSpinBox->setSuffix(einh);
@@ -588,7 +588,7 @@ void ReformDoc::unitChange()
 	gapVertical->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	gapHorizontal->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	gapHorizontal->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabPDF->unitChange(einheit);
+	tabPDF->unitChange(docUnitIndex);
 	pageWidth = widthMSpinBox->value() / unitRatio;
 	pageHeight = heightMSpinBox->value() / unitRatio;
 	GroupRand->unitChange(unitRatio, decimals, einh);

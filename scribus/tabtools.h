@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <qwidgetstack.h>
 
 #include "scribusapi.h"
+
 class LinkButton;
 class QSpinBox;
 class FontCombo;
@@ -36,7 +37,7 @@ class SCRIBUS_API TabTools : public QWidget
 public:
 	TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc);
 	~TabTools() {};
-	void restoreDefaults();
+	void restoreDefaults(struct toolPrefs *prefsData, int unitIndex);
 
 	QButtonGroup* buttonGroupTools;
 	QToolButton* toolShape;

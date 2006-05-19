@@ -117,6 +117,20 @@ PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double poly
 	connect(Konvex, SIGNAL(clicked()), this, SLOT(UpdatePreView()));
 }
 
+void PolygonWidget::restoreDefaults(struct toolPrefs *prefsData)
+{
+	PFactor = prefsData->polyS;
+	Ecken->setValue(prefsData->polyC);	
+	Faktor2->setValue(static_cast<int>(prefsData->polyR));
+	Slider2->setValue(static_cast<int>(prefsData->polyR));
+	Konvex->setChecked(prefsData->polyS);
+	Faktor->setValue(prefsData->polyFd);
+	Slider1->setValue(prefsData->polyFd);
+	if (prefsData->polyFd == 0)
+		Konvex->setChecked(false);
+	UpdatePreView();
+}
+
 void PolygonWidget::getValues(int* polyC, int* polyFd, double* polyF, bool* polyS, double* polyR)
 {
 	*polyC = Ecken->value();

@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 
 #include "scribusapi.h"
+#include "prefsstructs.h"
 
 class SCRIBUS_API PolygonWidget : public QWidget
 {
@@ -28,6 +29,7 @@ public:
 	double GetZeroFaktor();
 	double GetMaxFaktor();
 	void getValues(int* polyC, int* polyFd, double* polyF, bool* polyS, double* polyR);
+	void restoreDefaults(struct toolPrefs *prefsData);
 
 	QLabel* Text1;
 	QSpinBox* Ecken;
