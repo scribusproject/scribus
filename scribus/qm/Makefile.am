@@ -1,7 +1,7 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
 
-EXTRA_DIST = scribus.sr.qm scribus.eo.qm scribus.ko.qm scribus.eu.qm scribus.sl.qm scribus.se.qm scribus.fi.qm scribus.cy.qm scribus.id.qm scribus.nl.qm scribus.ru.qm scribus.cs.qm scribus.bg.qm scribus.ca.qm scribus.da.qm scribus.de.qm scribus.en_GB.qm scribus.es.qm scribus.es_LA.qm scribus.fr.qm scribus.gl.qm scribus.hu.qm scribus.it.qm scribus.lt_LT.qm scribus.pl.qm scribus.sk.qm scribus.tr.qm scribus.th_TH.qm scribus.uk.qm scribus.nb.qm scribus.sq.qm scribus.af.qm scribus.pt_BR.qm scribus.et.qm scribus.dz.qm
+EXTRA_DIST = scribus.sr.qm scribus.eo.qm scribus.ko.qm scribus.eu.qm scribus.sl.qm scribus.se.qm scribus.fi.qm scribus.cy.qm scribus.id.qm scribus.nl.qm scribus.ru.qm scribus.cs.qm scribus.bg.qm scribus.ca.qm scribus.da.qm scribus.de.qm scribus.el.qm scribus.en_GB.qm scribus.es.qm scribus.es_LA.qm scribus.fr.qm scribus.gl.qm scribus.hu.qm scribus.it.qm scribus.lt_LT.qm scribus.pl.qm scribus.sk.qm scribus.tr.qm scribus.th_TH.qm scribus.uk.qm scribus.nb.qm scribus.sq.qm scribus.af.qm scribus.pt_BR.qm scribus.et.qm scribus.dz.qm
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/
@@ -14,6 +14,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scribus.de.qm $(libdir)/scribus/scribus.de.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.de_ol.qm $(libdir)/scribus/scribus.de_ol.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.dz.qm $(libdir)/scribus/scribus.dz.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.el.qm $(libdir)/scribus/scribus.el.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.en_GB.qm $(libdir)/scribus/scribus.en_GB.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.eo.qm $(libdir)/scribus/scribus.eo.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.es.qm $(libdir)/scribus/scribus.es.qm
@@ -54,6 +55,7 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/scribus.de.qm
 	-rm -f $(libdir)/scribus/scribus.de_ol.qm
 	-rm -f $(libdir)/scribus/scribus.dz.qm
+	-rm -f $(libdir)/scribus/scribus.el.qm
 	-rm -f $(libdir)/scribus/scribus.en_GB.qm
 	-rm -f $(libdir)/scribus/scribus.eo.qm
 	-rm -f $(libdir)/scribus/scribus.es.qm
