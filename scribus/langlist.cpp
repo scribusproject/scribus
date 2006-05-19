@@ -37,6 +37,7 @@ LangList::LangList()
     insert("el",    QObject::tr( "Greek" ));
     insert("hu",    QObject::tr( "Hungarian" ));
     insert("id",    QObject::tr( "Indonesian" ));
+    insert("is",    QObject::tr( "Icelandic" ));
     insert("it",    QObject::tr( "Italian" ));
     insert("ko",    QObject::tr( "Korean" ));
     insert("lt",    QObject::tr( "Lithuanian" ));

@@ -8755,6 +8755,7 @@ void ScribusApp::InitHyphenator()
 	QStringList L_Catalan;
 	QStringList L_Finnish;
 	QStringList L_Irish;
+	QStringList L_Icelandic;
 	QStringList L_Lithuanian;
 	QStringList L_Swedish;
 	QStringList L_Slovenian;
@@ -8780,6 +8781,7 @@ void ScribusApp::InitHyphenator()
 	L_Catalan.clear();
 	L_Finnish.clear();
 	L_Irish.clear();
+	L_Icelandic.clear();
 	L_Lithuanian.clear();
 	L_Swedish.clear();
 	L_Slovenian.clear();
@@ -8896,6 +8898,10 @@ void ScribusApp::InitHyphenator()
 				translatedLang = trans->findMessage("ScribusApp", "Afrikaans", "").translation();
 				if (translatedLang != "")
 					L_Afrikaans.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Icelandic", "").translation();
+				if (translatedLang != "")
+					L_Icelandic.append(translatedLang);
 				delete trans;
 			}
 		}
@@ -8925,6 +8931,7 @@ void ScribusApp::InitHyphenator()
 	InstLang.insert("Swedish", L_Swedish);
 	InstLang.insert("Slovenian", L_Slovenian);
 	InstLang.insert("Afrikaans", L_Afrikaans);
+	InstLang.insert("Icelandic", L_Icelandic);
 	QString datein = "";
 	QString lang = QString(QTextCodec::locale()).left(2);
 	LangTransl.clear();
@@ -8986,6 +8993,8 @@ void ScribusApp::InitHyphenator()
 				datein = tr("Afrikaans");
 			if (d[dc] == "hyph_nn.dic")
 				datein = tr("Norwegian");
+			if (d[dc] == "hyph_is.dic")
+				datein = tr("Icelandic");
 			QString tDatein = datein;
 			datein = GetLang(datein);
 			LangTransl.insert(datein, tDatein);
