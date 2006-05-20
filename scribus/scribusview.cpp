@@ -10082,6 +10082,9 @@ void ScribusView::TextToPath()
 					bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
 					double textX = hl->xp;
 					double textY = hl->yp;
+					chma6 = QWMatrix();
+					if (hl->cbase != 0)
+						textY -= (hl->csize / 10.0) * (hl->cbase / 1000.0);
 					if (a < currItem->itemText.count()-1)
 						wide = Cwidth(Doc, hl->cfont, chx, hl->csize, currItem->itemText.at(a+1)->ch);
 					else
