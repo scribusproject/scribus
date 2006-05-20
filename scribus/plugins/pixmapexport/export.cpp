@@ -174,7 +174,7 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 	(ScMW->doc->pageHeight > ScMW->doc->pageWidth)
 			? pixmapSize = ScMW->doc->pageHeight
 			: pixmapSize = ScMW->doc->pageWidth;
-	QImage im = ScMW->view->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0));
+	QImage im = ScMW->view->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0), false);
 	int dpm = qRound(100.0 / 2.54 * pageDPI);
 	im.setDotsPerMeterY(dpm);
 	im.setDotsPerMeterX(dpm);
