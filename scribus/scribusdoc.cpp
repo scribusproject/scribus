@@ -468,7 +468,9 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 		// Reset to the default handler otherwise may enter a loop
 		// if an error occur afterwards
 		cmsSetErrorHandler(NULL);
+		cmsErrorAction(LCMS_ERROR_IGNORE);
 		CloseCMSProfiles();
+		cmsErrorAction(LCMS_ERROR_ABORT);
 		CMSSettings.CMSinUse = CMSuse = false;
 		QString message = tr("An error occurred while opening icc profiles, color management is not enabled." );
 		if (ScQApp->usingGUI())
@@ -487,6 +489,7 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	if ((DocInputProf == NULL) || (DocOutputProf == NULL) || (DocPrinterProf == NULL))
 	{
 		CMSSettings.CMSinUse = false;
+		cmsSetErrorHandler(NULL);
 		return false;
 	}
 	int dcmsFlags = 0;
