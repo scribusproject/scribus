@@ -8503,7 +8503,7 @@ void ScribusView::hideMasterPage()
 //	DrawNew();
 }
 
-QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame = true)
+QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 {
 	QImage pm;
 	QImage im;
