@@ -169,8 +169,8 @@ public:
 	void updateLayerMenu();
 	void showMasterPage(int nr);
 	void hideMasterPage();
-	QImage PageToPixmap(int Nr, int maxGr);
-	QImage MPageToPixmap(QString name, int maxGr);
+	QImage PageToPixmap(int Nr, int maxGr, bool drawFrame = true);
+	QImage MPageToPixmap(QString name, int maxGr, bool drawFrame = true);
 	//void RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = 0);
 	void RecalcPicturesRes();
 	void rulerMove(QMouseEvent *m);

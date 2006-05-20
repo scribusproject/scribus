@@ -9074,7 +9074,7 @@ void ScribusView::hideMasterPage()
 //	DrawNew();
 }
 
-QImage ScribusView::MPageToPixmap(QString name, int maxGr)
+QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 {
 	QImage pm;
 	QImage im;
@@ -9101,6 +9101,10 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 		painter->clear(white);
 		painter->translate(-clipx, -clipy);
 		painter->setLineWidth(1);
+		if (drawFrame)
+			painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+		else
+			painter->setPen(NoPen);
 		painter->setBrush(Doc->papColor);
 		painter->drawRect(clipx, clipy, clipw, cliph);
 		//Hmm do we need master page mode before this? Seiten.cpp uses this function.
@@ -9124,7 +9128,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 	return im;
 }
 
-QImage ScribusView::PageToPixmap(int Nr, int maxGr)
+QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 {
 //	QImage pm;
 	QImage im;
@@ -9153,7 +9157,10 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 		painter->clear(Doc->papColor);
 		painter->translate(-clipx, -clipy);
 		painter->setFillMode(ScPainter::Solid);
-		painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+		if (drawFrame)
+			painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+		else
+			painter->setPen(NoPen);
 		painter->setBrush(Doc->papColor);
 		painter->drawRect(clipx, clipy, clipw, cliph);
 		DrawMasterItems(painter, Doc->Pages->at(Nr), QRect(clipx, clipy, clipw, cliph));
