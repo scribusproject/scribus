@@ -1291,7 +1291,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 					Zli3.strikepos = hl->cstrikepos;
 					Zli3.strikewidth = hl->cstrikewidth;
 					Zli3.embedded = hl->cembedded;
-					/*if (!m_doc->RePos)*/
+					//if (!m_doc->RePos)
 					{
 						double xcoZli = Zli3.xco;
 						desc = Zli3.ZFo->numDescender * (-Zli3.Siz / 10.0);
@@ -2185,7 +2185,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						{
 							if (m_doc->docParagraphStyles[absa].textAlignment != 0)
 							{
-								EndX = CurX;
+								EndX = floor(hl->xp);
 								do
 								{
 									pt1 = QPoint(qRound(EndX+item->textToFrameDistRight()), static_cast<int>(CurY+desc));
@@ -2276,7 +2276,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 								BuPos = LastSP+1;
 								if (m_doc->docParagraphStyles[absa].textAlignment != 0)
 								{
-									EndX = LastXp;
+									EndX = floor(hl->xp);
 									do
 									{
 										pt1 = QPoint(qRound(EndX+item->textToFrameDistRight()), static_cast<int>(CurY+desc));
@@ -2540,7 +2540,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 									xcoZli = LiList.at(zc-1)->xco+wide2;
 									wide = Zli2->xco - xcoZli + Zli2->wide;
 								}
-								/*if (!m_doc->RePos)*/
+								//if (!m_doc->RePos)
 									painter->drawRect(xcoZli, qRound(Zli2->yco-asce * (Zli2->scalev / 1000.0)), wide+1, qRound((asce+desc) * (Zli2->scalev / 1000.0)));
 								//painter->setBrush(ScColorShade(Qt::white, 100));
 								painter->setBrush( ScColorShade(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText), 100) );
@@ -2550,8 +2550,8 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 								ScColorShade tmp(m_doc->PageColors[Zli2->Farb2],  Zli2->shade2);
 								painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 							}
-							/*if (!m_doc->RePos)
-							{*/
+							//if (!m_doc->RePos)
+							//{
 								if ((Zli2->Zeich == QChar(9)) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
 								{
 									QString tabFillCharQStr(tTabValues[tabCc].tabFillChar);
@@ -2644,7 +2644,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 									else
 										DrawCharacters(item, painter, Zli2);
 								}
-							/*}*/
+							//}
 							tabDist = Zli2->xco+Zli2->wide;
 						}
 						LiList.clear();
@@ -2681,7 +2681,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 				}
 				if (m_doc->docParagraphStyles[absa].textAlignment != 0)
 				{
-					EndX = CurX;
+					EndX = floor(CurX);
 					do
 					{
 						pt1 = QPoint(qRound(EndX+item->textToFrameDistRight()), static_cast<int>(CurY+desc));
@@ -2820,7 +2820,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 							xcoZli = LiList.at(zc-1)->xco+wide2;
 							wide = Zli2->xco - xcoZli + Zli2->wide;
 						}
-						/*if (!m_doc->RePos)*/
+						//if (!m_doc->RePos)
 							painter->drawRect(xcoZli, qRound(Zli2->yco-asce * (Zli2->scalev / 1000.0)), wide+1, qRound((asce+desc) * (Zli2->scalev / 1000.0)));
 						//painter->setBrush( ScColorShade(Qt::white, 100));
 						painter->setBrush( ScColorShade(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText), 100) );
@@ -2830,8 +2830,8 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						ScColorShade tmp(m_doc->PageColors[Zli2->Farb2],  Zli2->shade2);
 						painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 					}
-					/*if (!m_doc->RePos)
-					{*/
+					//if (!m_doc->RePos)
+					//{
 						if ((Zli2->Zeich == QChar(9)) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
 						{
 							QString tabFillCharQStr(tTabValues[tabCc].tabFillChar);
@@ -2924,7 +2924,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						}
 					}
 					tabDist = Zli2->xco+Zli2->wide;
-				/*}*/
+				//}
 				goNextColumn = false;
 				LiList.clear();
 				BuPos = 0;

@@ -458,9 +458,9 @@ int PPreview::RenderPreview(int Seite, int Res)
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
 	const char sep = ScPaths::envPathSeparator;
 	if (extraFonts->getRowCount() >= 1)
-		cmd1 = QString("-sFONTPATH=%1").arg(extraFonts->get(0,0));
+		cmd1 = QString("-sFONTPATH=%1").arg(QDir::convertSeparators(extraFonts->get(0,0)));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd1 += QString("%1%2").arg(sep).arg(extraFonts->get(i,0));
+		cmd1 += QString("%1%2").arg(sep).arg(QDir::convertSeparators(extraFonts->get(i,0)));
 	if( !cmd1.isEmpty() )
 		args.append( cmd1 );
 	// then add any final args and call gs
@@ -520,9 +520,9 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
 	const char sep = ScPaths::envPathSeparator;
 	if (extraFonts->getRowCount() >= 1)
-		cmd = QString("-sFONTPATH=%1").arg(extraFonts->get(0,0));
+		cmd = QString("-sFONTPATH=%1").arg(QDir::convertSeparators(extraFonts->get(0,0)));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd += QString("%1%2").arg(sep).arg(extraFonts->get(i,0));
+		cmd += QString("%1%2").arg(sep).arg(QDir::convertSeparators(extraFonts->get(i,0)));
 	if( !cmd.isEmpty() )
 		args1.append( cmd );
 	args1.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.tif")) );
