@@ -574,7 +574,7 @@ void Druck::setStoredValues(bool gcr)
 	if (CMSuse)
 	{
 		bool iccInUse = prefs->getBool("ICCinUse", false);
-		bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText());
+		bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || ToFile;
 		UseICC->setChecked( psPrinter ? iccInUse : false );
 		UseICC->setEnabled( psPrinter );
 	}

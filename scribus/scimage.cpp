@@ -4255,15 +4255,19 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	if (CMSuse && useProf && inputProf)
 	{
 		DWORD inputProfFormat = TYPE_RGBA_8;
-		switch (static_cast<int>(cmsGetColorSpace(inputProf)))
-		{
-		case icSigRgbData:
+		DWORD prnProfFormat = TYPE_CMYK_8;
+		int inputProfColorSpace = static_cast<int>(cmsGetColorSpace(inputProf));
+		if ( inputProfColorSpace == icSigRgbData )
 			inputProfFormat = TYPE_RGBA_8;
-			break;
-		case icSigCmykData:
+		else if ( inputProfColorSpace == icSigCmykData )
 			inputProfFormat = TYPE_CMYK_8;
-			break;
-		}
+		else if ( inputProfColorSpace == icSigGrayData )
+			inputProfFormat = TYPE_GRAY_8;
+		int prnProfColorSpace = static_cast<int>(cmsGetColorSpace(CMSprinterProf));
+		if ( prnProfColorSpace == icSigRgbData )
+			prnProfFormat = TYPE_RGBA_8;
+		else if ( prnProfColorSpace == icSigCmykData )
+			prnProfFormat = TYPE_CMYK_8;
 		if (SoftProofing)
 		{
 			cmsFlags |= cmsFLAGS_SOFTPROOFING;
@@ -4276,7 +4280,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		{
 		case CMYKData: // CMYK
 			if (!isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, TYPE_CMYK_8, IntentImages, 0);
+				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, prnProfFormat, IntentImages, 0);
 			break;
 		case RGBData: // RGB
 			if (isCMYK)
@@ -4284,10 +4288,10 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			break;
 		case RGBProof: // RGB Proof
 			{
-				if (inputProfFormat==TYPE_CMYK_8)
-					inputProfFormat=(COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
-				else
-					inputProfFormat=TYPE_BGRA_8;
+				if (inputProfFormat == TYPE_CMYK_8)
+					inputProfFormat = (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
+				else if(inputProfFormat == TYPE_RGBA_8)
+					inputProfFormat = TYPE_BGRA_8;
 				if (SoftProofing)
 					xform = cmsCreateProofingTransform(inputProf, inputProfFormat,
 					                                   CMSoutputProf, TYPE_BGRA_8, CMSprinterProf,
@@ -4306,7 +4310,32 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			for (int i = 0; i < height(); i++)
 			{
 				LPBYTE ptr = scanLine(i);
-				cmsDoTransform(xform, ptr, ptr, width());
+				if ( inputProfFormat == TYPE_GRAY_8 && (reqType != CMYKData) )
+				{
+					unsigned char* ucs = ptr + 1;
+					unsigned char* uc = new unsigned char[width()];
+					for( int uci = 0; uci < width(); uci++ )
+					{
+						uc[uci] = *ucs;
+						ucs += 4;
+					}
+					cmsDoTransform(xform, uc, ptr, width());
+					delete[] uc;
+				}
+				else if ( inputProfFormat == TYPE_GRAY_8 && (reqType == CMYKData) )
+				{
+					unsigned char  value;
+					unsigned char* ucs = ptr;
+					for( int uci = 0; uci < width(); uci++ )
+					{
+						value = 255 - *(ucs + 1);
+						ucs[0] = ucs[1] = ucs[2] = 0;
+						ucs[3] = value;
+						ucs += 4;
+					}
+				}
+				else
+					cmsDoTransform(xform, ptr, ptr, width());
 				// if transforming from CMYK to RGB, flatten the alpha channel
 				// which will still contain the black channel
 				if (isCMYK && reqType != CMYKData && !bilevel)
@@ -4316,7 +4345,6 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 					for (int j = 0; j < width(); j++, p++)
 						*p |= alphaFF;
 				}
-
 			}
 			cmsDeleteTransform (xform);
 		}
@@ -4325,7 +4353,6 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	}
 	else
 #endif // HAVE_CMS
-
 	{
 		switch (reqType)
 		{
