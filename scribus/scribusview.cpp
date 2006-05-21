@@ -5141,33 +5141,39 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					p.begin(viewport());
 					Transform(currItem, &p);
 					Doc->RotMode = 2;
-					RCenter = FPoint(currItem->xPos()+currItem->width()/2, currItem->yPos()+currItem->height()/2, 0, 0, currItem->rotation(), 1, 1, true);
+//					RCenter = FPoint(currItem->xPos()+currItem->width()/2, currItem->yPos()+currItem->height()/2, 0, 0, currItem->rotation(), 1, 1, true);
+					RCenter = FPoint(currItem->width()/2, currItem->height()/2, 0, 0, currItem->rotation(), 1, 1, false);
 //					if (!currItem->asLine())
 //					{
 						if (QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo))
 						{
 							if (p.xForm(QRect(0, 0, 6, 6)).intersects(mpo))
 							{
-								RCenter = FPoint(currItem->xPos()+currItem->width(), currItem->yPos()+currItem->height(), 0, 0, currItem->rotation(), 1, 1, true);
+//								RCenter = FPoint(currItem->xPos()+currItem->width(), currItem->yPos()+currItem->height(), 0, 0, currItem->rotation(), 1, 1, true);
+								RCenter = FPoint(currItem->width(), currItem->height(), 0, 0, currItem->rotation(), 1, 1, false);
 								Doc->RotMode = 4;
 							}
 							else if (p.xForm(QRect(static_cast<int>(currItem->width())-6, 0, 6, 6)).intersects(mpo))
 							{
-								RCenter = FPoint(currItem->xPos(), currItem->yPos()+currItem->height(), 0, 0, currItem->rotation(), 1, 1, true);
+//								RCenter = FPoint(currItem->xPos(), currItem->yPos()+currItem->height(), 0, 0, currItem->rotation(), 1, 1, true);
+								RCenter = FPoint(0, currItem->height(), 0, 0, currItem->rotation(), 1, 1, false);
 								Doc->RotMode = 3;
 							}
 							else if (p.xForm(QRect(static_cast<int>(currItem->width())-6, static_cast<int>(currItem->height())-6, 6, 6)).intersects(mpo))
 							{
-								RCenter = FPoint(currItem->xPos(), currItem->yPos());
+//								RCenter = FPoint(currItem->xPos(), currItem->yPos());
+								RCenter = FPoint(0, 0);
 								Doc->RotMode = 0;
 							}
 							else if (p.xForm(QRect(0, static_cast<int>(currItem->height())-6, 6, 6)).intersects(mpo))
 							{
-								RCenter = FPoint(currItem->xPos()+currItem->width(), currItem->yPos(), 0, 0, currItem->rotation(), 1, 1, true);
+//								RCenter = FPoint(currItem->xPos()+currItem->width(), currItem->yPos(), 0, 0, currItem->rotation(), 1, 1, true);
+								RCenter = FPoint(currItem->width(), 0, 0, 0, currItem->rotation(), 1, 1, false);
 								Doc->RotMode = 1;
 							}
 						}
 //					}
+					RCenter = FPoint(currItem->xPos()+RCenter.x(), currItem->yPos()+ RCenter.y(), 0, 0, 0, 1, 1, true);
 					oldW = xy2Deg(m->x()/Scale - RCenter.x(), m->y()/Scale - RCenter.y());
 					p.end();
 				}

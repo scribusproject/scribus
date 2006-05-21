@@ -122,7 +122,6 @@ void ScrPaletteBase::hideEvent(QHideEvent*)
 
 void ScrPaletteBase::show()
 {
-	QDialog::show();
 	if (palettePrefs)
 	{
 		QDesktopWidget *d = QApplication::desktop();
@@ -159,10 +158,13 @@ void ScrPaletteBase::show()
 				vheight = QMAX( gStrut.height(), scr.height() - vtop );
 //			qDebug(QString("root %1x%2 %7 palette %3x%4 @ (%5,%6)").arg(d->width()).arg(d->height())
 //				.arg(vwidth).arg(vheight).arg(vleft).arg(vtop).arg(name()));
-			setGeometry(vleft, vtop, vwidth, vheight);
+//			setGeometry(vleft, vtop, vwidth, vheight);
+			resize(vwidth, vheight);
+			move(vleft, vtop);
 		}
 		storeVisibility(true);
 	}
+	QDialog::show();
 }
 
 void ScrPaletteBase::hide()
@@ -185,7 +187,7 @@ void ScrPaletteBase::storePosition()
 {
 	if (palettePrefs)
 	{
-		QRect geo = geometry();
+		QRect geo = frameGeometry();
 		palettePrefs->set("left", geo.left());
 		palettePrefs->set("top", geo.top());
 	}
