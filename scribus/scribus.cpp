@@ -7055,7 +7055,7 @@ void ScribusMainWindow::doPrintPreview()
 		delete dia;
 		QFile::remove(prefsManager->preferencesLocation()+"/tmp.ps");
 		QFile::remove(prefsManager->preferencesLocation()+"/sc.png");
-		QDir d(prefsManager->preferencesLocation()+"/", "sc.tif*", QDir::Name, QDir::Files | QDir::NoSymLinks);
+		QDir d(prefsManager->preferencesLocation()+"/", "sc.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 		if ((d.exists()) && (d.count() != 0))
 		{
 			for (uint dc = 0; dc < d.count(); dc++)

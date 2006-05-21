@@ -92,6 +92,8 @@ public:
 	int APage;
 	int MPage;
 	int SMode;
+	int GsMajor;
+	int GsMinor;
 	bool CMode;
 	bool TxtAl;
 	bool GrAl;
