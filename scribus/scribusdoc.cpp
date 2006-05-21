@@ -2281,6 +2281,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	//Reset the current page..
 	setMasterPageMode(false);
 	currentPage=oldCurrentPage;
+	ScMW->outlinePalette->BuildTree();
 	return true;
 }
 
