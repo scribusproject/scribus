@@ -33,6 +33,14 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		LoadSavePlugin();
 		~LoadSavePlugin();
 
+		enum loadFlags
+		{
+			lfCreateDoc = 1,
+			lfUseCurrentPage = 2,
+			lfInsertPage = 4,
+			lfInteractive = 8
+		};
+
 		// Static functions:
 
 		// Return a list of format descriptions suitable for use with
@@ -50,8 +58,8 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// Non-static members implemented by plugins:
 		//
 		// Load the requested format from the specified path.
-		// Default implementation always reports falure.
-		virtual bool loadFile(const QString & fileName, const FileFormat & fmt);
+		// Default implementation always reports failure.
+		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
 
 		// Save the requested format to the requested path.
 		virtual bool saveFile(const QString & fileName, const FileFormat & fmt);
@@ -64,6 +72,9 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		virtual bool fileSupported(QIODevice* file) const = 0;
 		
 	protected:
+
+		/// Check a loadFlags combination
+		virtual bool checkFlags(int flags);
 
 		/// Register the passed format so it can be used by the app
 		void registerFormat(const FileFormat & fmt);
@@ -124,7 +135,7 @@ class SCRIBUS_API FileFormat
 		// Standard ctor that sets up a valid FileFormat
 		FileFormat(LoadSavePlugin * plug) : load(false), save(false), plug(plug) {}
 		// Load a file with this format
-		bool loadFile(const QString & fileName) const;
+		bool loadFile(const QString & fileName, int flags, int index = 0) const;
 		// Save a file with this format
 		bool saveFile(const QString & fileName) const;
 		//

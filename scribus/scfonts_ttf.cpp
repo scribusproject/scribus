@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 #include <qobject.h>
 
-#include <sys/types.h>_
+#include <sys/types.h>
 
 #include "scfonts_ttf.h"
 #include "scfontmetrics.h"

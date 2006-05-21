@@ -333,7 +333,7 @@ inline void CharStyle::eraseStyle(const CharStyle & other)
 }
 
 
-class ParagraphStyle : private CharStyle
+class SCRIBUS_API ParagraphStyle : private CharStyle
 {
 public:
 	enum LineSpacingMode { 

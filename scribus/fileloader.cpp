@@ -381,16 +381,16 @@ bool FileLoader::LoadFile()
 			ret = ReadDoc(FileName, prefsManager->appPrefs.AvailFonts, ScMW->doc, ScMW->mainWindowProgressBar);
 			break;
 		case 2:
-			ret = formatPS->loadFile(FileName);
+			ret = formatPS->loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 			break;
 		case 3:
-			ret = formatSVG->loadFile(FileName);
+			ret = formatSVG->loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 			break;
 		case 5:
-			ret = formatSXD->loadFile(FileName);
+			ret = formatSXD->loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 			break;
 		case 6:
-			ret = formatODG->loadFile(FileName);
+			ret = formatODG->loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 			break;
 		default:
 			ret = false;

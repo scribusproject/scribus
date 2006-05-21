@@ -36,8 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qvaluevector.h>
-
-class QListViewItem;
+#include <qlistview.h>
 
 class TabKeyboardShortcutsWidget: public TabKeyboardShortcutsWidgetBase 
 {

@@ -111,8 +111,26 @@ public:
 	static QString trPageLocRight;
 	
 	//Days and Months
-	static QString monday, tuesday, wednesday, thursday, friday, saturday, sunday;
-	static QString january, february, march, april, may, june, july, august, september, october, november, december;
+	static QString monday; 
+	static QString tuesday;
+	static QString wednesday;
+	static QString thursday;
+	static QString friday;
+	static QString saturday;
+	static QString sunday;
+
+	static QString january;
+	static QString february;
+	static QString march;
+	static QString april;
+	static QString may;
+	static QString june;
+	static QString july;
+	static QString august;
+	static QString september;
+	static QString october;
+	static QString november;
+	static QString december;
 };
 
 #endif
