@@ -1219,8 +1219,342 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	QToolTip::add( ClipMarg, "<qt>" + tr( "Do not show objects outside the margins in the exported file" ) + "</qt>" );
 }
 
-void TabPDFOptions::restoreDefaults()
-{}
+void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
+									const SCFonts &AllFonts,
+									const ProfilesL & PDFXProfiles,
+									const QMap<QString, int> & DocFonts,
+									const QValueList<PDFPresentationData> & Eff,
+									int unitIndex, double PageH, double PageB,
+									ScribusView * vie)
+{
+	AllPages->setChecked( true );
+	PageNr->setEnabled(false);
+	RotateDeg->setCurrentItem(Opts.RotateDeg / 90);
+	MirrorH->setOn(Opts.MirrorH);
+	MirrorV->setOn(Opts.MirrorV);
+	ClipMarg->setChecked(Opts.doClip);
+	PDFVersionCombo->setEditable(false);
+#ifdef HAVE_CMS
+	if ((CMSuse) && (CMSavail))
+	{
+		if (Opts.Version == PDFOptions::PDFVersion_X3)
+			PDFVersionCombo->setCurrentItem(3);
+	}
+	else
+		PDFVersionCombo->setCurrentItem(0);
+#endif
+	if (Opts.Version == PDFOptions::PDFVersion_13)
+		PDFVersionCombo->setCurrentItem(0);
+	if (Opts.Version == PDFOptions::PDFVersion_14)
+		PDFVersionCombo->setCurrentItem(1);
+	if (Opts.Version == PDFOptions::PDFVersion_15)
+		PDFVersionCombo->setCurrentItem(2);
+	ComboBind->setCurrentItem(Opts.Binding);
+	CheckBox1->setChecked(Opts.Thumbnails);
+	Article->setChecked(Opts.Articles);
+	CheckBM->setChecked(Opts.Bookmarks);
+	useLayers->setChecked(Opts.useLayers);
+	if (Opts.Version == 15)
+		useLayers->setEnabled(true);
+	else
+		useLayers->setEnabled(false);
+	Resolution->setValue(Opts.Resolution);
+	Compression->setChecked( Opts.Compress );
+	CMethod->setCurrentItem(Opts.CompressMethod);
+	CQuality->setCurrentItem(Opts.Quality);
+	DSColor->setChecked(Opts.RecalcPic);
+	ValC->setValue(Opts.PicRes);
+	ValC->setEnabled(DSColor->isChecked() ? true : false);
+	if (vie != 0)
+	{
+		QMap<QString,int>::const_iterator it;
+		AvailFlist->clear();
+		for (it = DocFonts.constBegin(); it != DocFonts.constEnd(); ++it)
+		{
+			if (AllFonts[it.key()]->type() == Foi::TYPE1)
+				AvailFlist->insertItem(loadIcon("font_type1_16.png"), it.key());
+			else if (AllFonts[it.key()]->type() == Foi::TTF)
+				AvailFlist->insertItem(loadIcon("font_truetype16.png"), it.key());
+			else if (AllFonts[it.key()]->type() == Foi::OTF)
+				AvailFlist->insertItem(loadIcon("font_otf16.png"), it.key());
+		}
+		ToEmbed->setEnabled(false);
+		FromEmbed->setEnabled(false);
+		ToSubset->setEnabled(false);
+		FromSubset->setEnabled(false);
+		if ((Opts.EmbedList.count() == 0) && (Opts.SubsetList.count() == 0))
+		{
+			EmbedFonts->setChecked(true);
+			EmbedAll();
+		}
+		else
+		{
+			EmbedList->clear();
+			FontsToEmbed.clear();
+			for (uint fe = 0; fe < Opts.EmbedList.count(); ++fe)
+			{
+				EmbedList->insertItem(Opts.EmbedList[fe]);
+				FontsToEmbed.append(Opts.EmbedList[fe]);
+			}
+		}
+		if (Opts.SubsetList.count() != 0)
+		{
+			SubsetList->clear();
+			FontsToSubset.clear();
+			for (uint fe = 0; fe < Opts.SubsetList.count(); ++fe)
+			{
+				SubsetList->insertItem(Opts.SubsetList[fe]);
+				FontsToSubset.append(Opts.SubsetList[fe]);
+			}
+		}
+		CheckBox10->setChecked(Opts.PresentMode);
+		QString tmp;
+		struct PDFPresentationData ef;
+		Pages->clear();
+		EffVal.clear();
+		if (EffVal.count() != 0)
+		{
+			for (uint pg2 = 0; pg2 < view->Doc->Pages->count(); ++pg2)
+			{
+				Pages->insertItem( tr("Page")+" "+tmp.setNum(pg2+1));
+				if (EffVal.count()-1 < pg2)
+				{
+					ef.pageEffectDuration = 1;
+					ef.pageViewDuration = 1;
+					ef.effectType = 0;
+					ef.Dm = 0;
+					ef.M = 0;
+					ef.Di = 0;
+					EffVal.append(ef);
+				}
+			}
+		}
+		else
+		{
+			for (uint pg = 0; pg < view->Doc->Pages->count(); ++pg)
+			{
+				Pages->insertItem( tr("Page")+" "+tmp.setNum(pg+1));
+				ef.pageEffectDuration = 1;
+				ef.pageViewDuration = 1;
+				ef.effectType = 0;
+				ef.Dm = 0;
+				ef.M = 0;
+				ef.Di = 0;
+				EffVal.append(ef);
+			}
+		}
+		PagePrev->setChecked(false);
+		PageTime->setValue(EffVal[0].pageViewDuration);
+		EffectTime->setValue(EffVal[0].pageEffectDuration);
+		// XXX Optionen or Opts Changed here
+		if (view->Doc->currentPageLayout == doublePage)
+		{
+			if (view->Doc->pageSets[view->Doc->currentPageLayout].FirstPage == 0)
+				Opts.PageLayout = PDFOptions::TwoColumnLeft;
+			else
+				Opts.PageLayout = PDFOptions::TwoColumnRight;
+		}
+		else
+			Opts.PageLayout = PDFOptions::SinglePage;
+		if (Opts.PresentMode)
+			Opts.displayFullscreen = true;
+		else
+		{
+			if ((Opts.Version == 15) && (Opts.useLayers))
+				Opts.displayLayers = true;
+		}
+		bool df = true;
+		if ((Opts.displayBookmarks) || (Opts.displayFullscreen) || (Opts.displayLayers) || (Opts.displayThumbs))
+			df = false;
+		useViewDefault->setChecked(df);
+		useFullScreen->setChecked(Opts.displayFullscreen);
+		useBookmarks->setChecked(Opts.displayBookmarks);
+		useThumbnails->setChecked(Opts.displayThumbs);
+		useLayers2->setChecked(Opts.displayLayers);
+		hideToolBar->setChecked(Opts.hideToolBar);
+		hideMenuBar->setChecked(Opts.hideMenuBar);
+		fitWindow->setChecked(Opts.fitWindow);
+		QMap<QString,QString>::Iterator itja;
+		actionCombo->clear();
+		for (itja = view->Doc->JavaScripts.begin(); itja != view->Doc->JavaScripts.end(); ++itja)
+			actionCombo->insertItem(itja.key());
+		if (view->Doc->JavaScripts.contains(Opts.openAction))
+			actionCombo->setCurrentText(Opts.openAction);
+		if (Opts.PageLayout == PDFOptions::SinglePage)
+			singlePage->setChecked(true);
+		else if (Opts.PageLayout == PDFOptions::OneColumn)
+			continuousPages->setChecked(true);
+		else if (Opts.PageLayout == PDFOptions::TwoColumnLeft)
+			doublePageLeft->setChecked(true);
+		else if (Opts.PageLayout == PDFOptions::TwoColumnRight)
+			doublePageRight->setChecked(true);
+		if (Opts.Version == 15)
+			useLayers2->setEnabled(true);
+		else
+			useLayers2->setEnabled(false);
+	}
+
+	Encry->setChecked( Opts.Encrypt );
+	PassOwner->setText(Opts.PassOwner);
+	PassUser->setText(Opts.PassUser);
+	PrintSec->setChecked( Opts.Permissions & 4 );
+	ModifySec->setChecked( Opts.Permissions & 8 );
+	CopySec->setChecked( Opts.Permissions & 16 );
+	AddSec->setChecked( Opts.Permissions & 32 );
+	if (!Encry->isChecked())
+	{
+		GroupSecSet->setEnabled(false);
+		GroupPass->setEnabled(false);
+	}
+
+	if (Opts.UseRGB)
+		OutCombo->setCurrentItem(0);
+	else
+	{
+		if (Opts.isGrayscale)
+			OutCombo->setCurrentItem(2);
+		else
+			OutCombo->setCurrentItem(1);
+	}
+	useSpot->setChecked(!Opts.UseSpotColors);
+	overprintMode->setChecked(Opts.doOverprint);
+	UseLPI->setChecked(Opts.UseLPI);
+	QMap<QString,LPIData>::Iterator itlp;
+	LPIcolor->clear();
+	for (itlp = Opts.LPISettings.begin(); itlp != Opts.LPISettings.end(); ++itlp)
+	{
+		LPIcolor->insertItem( itlp.key() );
+	}
+	LPIcolor->setCurrentItem(0);
+	LPIfreq->setValue(Opts.LPISettings[LPIcolor->currentText()].Frequency);
+	LPIangle->setValue(Opts.LPISettings[LPIcolor->currentText()].Angle);
+	LPIfunc->setCurrentItem(Opts.LPISettings[LPIcolor->currentText()].SpotFunc);
+	EmbedProfs->setChecked(Opts.UseProfiles);
+	EmbedProfs2->setChecked(Opts.UseProfiles2);
+	NoEmbedded->setChecked(Opts.EmbeddedI);
+	if ((Opts.UseRGB) || (Opts.isGrayscale))
+	{
+		ProfsGroup->setEnabled(false);
+		GroupBox9->setEnabled(false);
+		EnablePr(0);
+	}
+	else
+		EnablePr(1);
+	EnablePG();
+	EnablePGI();
+#ifdef HAVE_CMS
+
+	QString tp = Opts.SolidProf;
+	if (!ScCore->InputProfiles.contains(tp))
+	{
+		if (vie != 0)
+			tp = vie->Doc->CMSSettings.DefaultSolidColorRGBProfile;
+		else
+			tp = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
+	}
+	ProfilesL::Iterator itp;
+	ProfilesL::Iterator itpend=ScCore->InputProfiles.end();
+	SolidPr->clear();
+	for (itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
+	{
+		SolidPr->insertItem(itp.key());
+		if (itp.key() == tp)
+		{
+			if ((CMSuse) && (CMSavail))
+				SolidPr->setCurrentItem(SolidPr->count()-1);
+		}
+	}
+	if ((CMSuse) && (CMSavail))
+		IntendS->setCurrentItem(Opts.Intent);
+	QString tp1 = Opts.ImageProf;
+	if (!ScCore->InputProfiles.contains(tp1))
+	{
+		if (vie != 0)
+			tp1 = vie->Doc->CMSSettings.DefaultSolidColorRGBProfile;
+		else
+			tp1 = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
+	}
+	ProfilesL::Iterator itp2;
+	ProfilesL::Iterator itp2end=ScCore->InputProfiles.end();
+	ImageP->clear();
+	for (itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
+	{
+		ImageP->insertItem(itp2.key());
+		if (itp2.key() == tp1)
+		{
+			if ((CMSuse) && (CMSavail))
+				ImageP->setCurrentItem(ImageP->count()-1);
+		}
+	}
+	if ((CMSuse) && (CMSavail))
+		IntendI->setCurrentItem(Opts.Intent2);
+	if ((!CMSuse) || (!CMSavail))
+	{
+		GroupBox9->hide();
+		ProfsGroup->hide();
+	}
+#else
+	GroupBox9->hide();
+	ProfsGroup->hide();
+#endif
+
+#ifdef HAVE_CMS
+
+	ProfilesL::const_iterator itp3;
+	QString tp3 = Opts.PrintProf;
+	if (!PDFXProfiles.contains(tp3))
+	{
+		if (vie != 0)
+			tp3 = vie->Doc->CMSSettings.DefaultPrinterProfile;
+		else
+			tp3 = PrefsManager::instance()->appPrefs.DCMSset.DefaultPrinterProfile;
+	}
+	PrintProfC->clear();
+	for (itp3 = PDFXProfiles.constBegin(); itp3 != PDFXProfiles.constEnd(); ++itp3)
+	{
+		PrintProfC->insertItem(itp3.key());
+		if (itp3.key() == tp3)
+			PrintProfC->setCurrentItem(PrintProfC->count()-1);
+	}
+#endif
+	InfoString->setText(Opts.Info);
+	BleedTop->setValue(Opts.BleedTop*unitRatio);
+	BleedBottom->setValue(Opts.BleedBottom*unitRatio);
+	BleedRight->setValue(Opts.BleedRight*unitRatio);
+	BleedLeft->setValue(Opts.BleedLeft*unitRatio);
+#ifdef HAVE_CMS
+	if ((!CMSuse) || (!CMSavail))
+		setTabEnabled(tabPDFX, false);
+	if ((CMSuse) && (CMSavail) && (Opts.Version == 12) && (!PDFXProfiles.isEmpty()))
+		EnablePDFX(3);
+	else
+		setTabEnabled(tabPDFX, false);
+#else
+	setTabEnabled(tabPDFX, false);
+#endif
+	BleedChanged();
+	if (vie != 0)
+	{
+		PgSel = 0;
+		Pages->setCurrentItem(0);
+		SetEffOpts(0);
+		Pages->setEnabled(false);
+		Effects->setEnabled(false);
+		PagePrev->setEnabled(false);
+		DoEffects();
+		if (CheckBox10->isChecked())
+		{
+			PageTime->setValue(EffVal[0].pageViewDuration);
+			EffectTime->setValue(EffVal[0].pageEffectDuration);
+			EffectType->setCurrentItem(EffVal[0].effectType);
+			EDirection->setCurrentItem(EffVal[0].Dm);
+			EDirection_2->setCurrentItem(EffVal[0].M);
+			EDirection_2_2->setCurrentItem(EffVal[0].Di);
+			SetEffOpts(EffectType->currentItem());
+		}
+		
+	}
+}
 
 void TabPDFOptions::checkInfo()
 {

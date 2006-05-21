@@ -852,7 +852,12 @@ void Preferences::restoreDefaults()
 	{qDebug("TODO!");
 	}
 	else if (current == tabHyphenator) // Hyphenator
-	{qDebug("TODO!");
+	{
+		tabHyphenator->verbose->setChecked(!prefsData->Automatic);
+		tabHyphenator->input->setChecked(prefsData->AutoCheck);
+		tabHyphenator->language->setCurrentText(ap->LangTransl[prefsData->Language]);
+		tabHyphenator->wordLen->setValue(prefsData->MinWordLen);
+		tabHyphenator->maxCount->setValue(prefsData->HyCount);
 	}
 	else if (current == tabGuides) // Guides
 		tabGuides->restoreDefaults(&prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);
@@ -861,17 +866,25 @@ void Preferences::restoreDefaults()
 	else if (current == tabTools) // Tools
 		tabTools->restoreDefaults(&prefsData->toolSettings, docUnitIndex);
 	else if (current == tabFonts) // Fonts
-	{qDebug("TODO!");
-	}
+		tabFonts->restoreDefaults();
 	else if (current == tabDocChecker) // Preflight Verifier
-	{qDebug("TODO!");
-	}
+		tabDocChecker->restoreDefaults(&prefsData->checkerProfiles, prefsData->curCheckProfile);
 	else if (current == tabPDF) // PDF Export
-	{qDebug("TODO!");
+	{
+		QMap<QString, int> DocFonts;
+		DocFonts.clear();
+		tabPDF->restoreDefaults(prefsData->PDF_Options,
+								prefsData->AvailFonts,
+								ScCore->PDFXProfiles,
+								DocFonts,
+								prefsData->PDF_Options.PresentVals,
+								docUnitIndex,
+								prefsData->PageHeight,
+								prefsData->PageWidth,
+								0);
 	}
-	else if (current == tabColorManagement) // Color Management
-	{qDebug("TODO!");
-	}
+	else if (current == tabColorManagement && CMSavail) // Color Management
+		tabColorManagement->restoreDefaults();
 	else if (current == tabDefaultItemAttributes) // Document Item Attributes
 	{qDebug("TODO!");
 	}

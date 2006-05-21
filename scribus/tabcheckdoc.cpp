@@ -139,8 +139,32 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	clearWState( WState_Polished );
 }
 
-void TabCheckDoc::restoreDefaults()
+void TabCheckDoc::restoreDefaults(CheckerPrefsList *prefsData, QString prefProfile)
 {
+	checkerProfile = *prefsData;
+	curCheckProfile->clear();
+	CheckerPrefsList::Iterator it;
+	for (it = checkerProfile.begin(); it != checkerProfile.end(); ++it)
+		curCheckProfile->insertItem(it.key());
+	curCheckProfile->setCurrentText(prefProfile);
+	ignoreErrors->setChecked(checkerProfile[prefProfile].ignoreErrors);
+	automaticCheck->setChecked(checkerProfile[prefProfile].autoCheck);
+	missingGlyphs->setChecked(checkerProfile[prefProfile].checkGlyphs);
+	checkOrphans->setChecked(checkerProfile[prefProfile].checkOrphans);
+	textOverflow->setChecked(checkerProfile[prefProfile].checkOverflow);
+	tranparentObjects->setChecked(checkerProfile[prefProfile].checkTransparency);
+	missingPictures->setChecked(checkerProfile[prefProfile].checkPictures);
+	pictResolution->setChecked(checkerProfile[prefProfile].checkResolution);
+	useAnnotations->setChecked(checkerProfile[prefProfile].checkAnnotations);
+	rasterPDF->setChecked(checkerProfile[prefProfile].checkRasterPDF);
+	checkForGIF->setChecked(checkerProfile[prefProfile].checkForGIF);
+	resolutionValue->setValue( qRound(checkerProfile[prefProfile].minResolution) );
+	resolutionValueM->setValue( qRound(checkerProfile[prefProfile].maxResolution) );
+	currentProfile = prefProfile;
+	if (checkerProfile.count() == 1)
+		removeProfile->setEnabled(false);
+	addProfile->setEnabled(false);
+	tempNewProfileName="";
 }
 
 void TabCheckDoc::putProfile()

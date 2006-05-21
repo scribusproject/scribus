@@ -47,7 +47,13 @@ public:
 	                int unitIndex, double PageH, double PageB,
 	                ScribusView *vie = 0 );
 	~TabPDFOptions() {};
-	void restoreDefaults();
+	void restoreDefaults(PDFOptions & Optionen,
+						 const SCFonts &AllFonts,
+						 const ProfilesL & PDFXProfiles,
+						 const QMap<QString, int> & DocFonts,
+						 const QValueList<PDFPresentationData> & Eff,
+						 int unitIndex, double PageH, double PageB,
+						 ScribusView * vie);
 
 	void unitChange(int newUnitIndex);
 

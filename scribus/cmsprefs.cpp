@@ -18,7 +18,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	cmsPrefsLayout->setMargin( 0 );
 
 	checkBox1 = new QCheckBox( tr( "&Activate Color Management" ), this, "CheckBox1" );
-	checkBox1->setChecked(Vor->CMSinUse);
+	checkBox1->setChecked(prefs->CMSinUse);
 	cmsPrefsLayout->addWidget( checkBox1 );
 
 	sysProfiles = new QGroupBox( tr( "System Profiles" ), this, "SysProfiles" );
@@ -40,7 +40,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	for (it = InputProfiles->begin(); it != InputProfiles->end(); ++it)
 	{
 		inputPRGBIm->insertItem(it.key());
-		if (it.key() == Vor->DefaultImageRGBProfile)
+		if (it.key() == prefs->DefaultImageRGBProfile)
 			inputPRGBIm->setCurrentItem(inputPRGBIm->count()-1);
 	}
 	text1 = new QLabel( inputPRGBIm, tr( "&RGB Pictures:" ), sysProfiles, "Text1" );
@@ -53,7 +53,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	for (it = InputProfilesCMYK->begin(); it != InputProfilesCMYK->end(); ++it)
 	{
 		inputPCMYKIm->insertItem(it.key());
-		if (it.key() == Vor->DefaultImageCMYKProfile)
+		if (it.key() == prefs->DefaultImageCMYKProfile)
 			inputPCMYKIm->setCurrentItem(inputPCMYKIm->count()-1);
 	}
 	text1CMYK = new QLabel( inputPCMYKIm, tr( "&CMYK Pictures:" ), sysProfiles, "text1cmyk" );
@@ -66,7 +66,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	for (it = InputProfiles->begin(); it != InputProfiles->end(); ++it)
 	{
 		inputPRGB->insertItem(it.key());
-		if (it.key() == Vor->DefaultSolidColorRGBProfile)
+		if (it.key() == prefs->DefaultSolidColorRGBProfile)
 			inputPRGB->setCurrentItem(inputPRGB->count()-1);
 	}
 	text4 = new QLabel( inputPRGB, tr( "&RGB Solid Colors:" ), sysProfiles, "Text4" );
@@ -79,7 +79,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	for (it = InputProfilesCMYK->begin(); it != InputProfilesCMYK->end(); ++it)
 	{
 		inputPCMYK->insertItem(it.key());
-		if (it.key() == Vor->DefaultSolidColorCMYKProfile)
+		if (it.key() == prefs->DefaultSolidColorCMYKProfile)
 			inputPCMYK->setCurrentItem(inputPCMYK->count()-1);
 	}
 	text5 = new QLabel( inputPCMYK, tr( "&CMYK Solid Colors:" ), sysProfiles, "Text5" );
@@ -92,7 +92,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	for (it = MonitorProfiles->begin(); it != MonitorProfiles->end(); ++it)
 	{
 		monitorP->insertItem(it.key());
-		if (it.key() == Vor->DefaultMonitorProfile)
+		if (it.key() == prefs->DefaultMonitorProfile)
 			monitorP->setCurrentItem(monitorP->count()-1);
 	}
 	text2 = new QLabel( monitorP, tr( "&Monitor:" ), sysProfiles, "Text2" );
@@ -105,7 +105,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	for (it = PrinterProfiles->begin(); it != PrinterProfiles->end(); ++it)
 	{
 		printerP->insertItem(it.key());
-		if (it.key() == Vor->DefaultPrinterProfile)
+		if (it.key() == prefs->DefaultPrinterProfile)
 			printerP->setCurrentItem(printerP->count()-1);
 	}
 	text3 = new QLabel( printerP, tr( "P&rinter:" ), sysProfiles, "Text3" );
@@ -133,7 +133,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 		imagesI->insertItem(tmp_mp[prop]);
 	imagesI->setMinimumSize( QSize( 190, 22 ) );
 	imagesI->setEditable(false);
-	imagesI->setCurrentItem(Vor->DefaultIntentImages);
+	imagesI->setCurrentItem(prefs->DefaultIntentImages);
 	text21 = new QLabel( imagesI, tr( "Pictures:" ), render, "Text21" );
 	renderLayout->addWidget( text21, 0, 0 );
 	renderLayout->addWidget( imagesI, 0, 1 );
@@ -143,7 +143,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 		colorsI->insertItem(tmp_mp[prop]);
 	colorsI->setMinimumSize( QSize( 190, 22 ) );
 	colorsI->setEditable(false);
-	colorsI->setCurrentItem(Vor->DefaultIntentColors);
+	colorsI->setCurrentItem(prefs->DefaultIntentColors);
 	text22 = new QLabel( colorsI, tr( "Sol&id Colors:" ), render, "Text22" );
 	renderLayout->addWidget( text22, 1, 0 );
 	renderLayout->addWidget( colorsI, 1, 1 );
@@ -151,7 +151,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	cmsPrefsLayout->addWidget( render );
 
 	simulate = new QCheckBox( tr( "Sim&ulate Printer on the Screen" ), this, "Simulate" );
-	simulate->setChecked(Vor->SoftProofOn);
+	simulate->setChecked(prefs->SoftProofOn);
 	cmsPrefsLayout->addWidget( simulate );
 
 	convertLayout = new QHBoxLayout( cmsPrefsLayout );
@@ -160,7 +160,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	convertLayout->addSpacing( 30 );
 
 	convertAll = new QCheckBox( tr( "Convert all colors to printer space" ), this, "fullSimulate" );
-	convertAll->setChecked(Vor->SoftProofFullOn);
+	convertAll->setChecked(prefs->SoftProofFullOn);
 	convertLayout->addWidget( convertAll );
 
 	gamutLayout = new QHBoxLayout( cmsPrefsLayout );
@@ -169,11 +169,11 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	gamutLayout->addSpacing( 30 );
 
 	gamutC = new QCheckBox( tr( "Mark Colors out of &Gamut" ), this, "Gamut" );
-	gamutC->setChecked(Vor->GamutCheck);
+	gamutC->setChecked(prefs->GamutCheck);
 	gamutLayout->addWidget( gamutC );
 
 	blackP = new QCheckBox( tr( "Use &Blackpoint Compensation" ), this, "Black" );
-	blackP->setChecked(Vor->BlackPoint);
+	blackP->setChecked(prefs->BlackPoint);
 	cmsPrefsLayout->addWidget( blackP );
 
 	if (!checkBox1->isChecked())

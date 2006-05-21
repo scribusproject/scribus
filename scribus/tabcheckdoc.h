@@ -32,7 +32,7 @@ class SCRIBUS_API TabCheckDoc : public QWidget
 public:
 	TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString prefProfile );
 	~TabCheckDoc() {};
-	void restoreDefaults();
+	void restoreDefaults(CheckerPrefsList *prefsData, QString prefProfile);
 
 	QComboBox* curCheckProfile;
 	QCheckBox* ignoreErrors;

@@ -520,9 +520,11 @@ void ReformDoc::restoreDefaults()
 	else if (current == tabFonts)
 		tabFonts->restoreDefaults();
 	else if (current == tabDocChecker)
-		tabDocChecker->restoreDefaults();
+		tabDocChecker->restoreDefaults(&currDoc->checkerProfiles, currDoc->curCheckProfile);
 	else if (current == tabPDF)
-		tabPDF->restoreDefaults();
+		tabPDF->restoreDefaults(currDoc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
+								ScCore->PDFXProfiles, currDoc->UsedFonts, currDoc->PDF_Options.PresentVals,
+								docUnitIndex, currDoc->pageHeight, currDoc->pageWidth, 0);
 	else if (current == tabColorManagement)
 		tabColorManagement->restoreDefaults();
 	else if (current == docInfos)

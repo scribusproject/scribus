@@ -162,6 +162,7 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 
 void FontPrefs::restoreDefaults()
 {
+	rebuildDialog(false);
 }
 
 void FontPrefs::slotClick(QListViewItem* ite, const QPoint &, int col)
