@@ -2161,12 +2161,14 @@ void ScribusMainWindow::SwitchWin()
 		scrActions["fileRevert"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 
-		bool setter = doc->Pages->count() > 1 ? true : false;
-		scrActions["pageDelete"]->setEnabled(setter);
-		scrActions["pageMove"]->setEnabled(setter);
-
 		if (doc->isModified())
 			slotDocCh(false);
+		else
+		{
+			bool setter = doc->Pages->count() > 1 ? true : false;
+			scrActions["pageDelete"]->setEnabled(setter);
+			scrActions["pageMove"]->setEnabled(setter);
+		}
 		scrActions["fileSaveAs"]->setEnabled(true);
 		scrActions["fileCollect"]->setEnabled(true);
 		pagePalette->enablePalette(true);
@@ -2828,6 +2830,10 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 		scrActions["fileClose"]->setEnabled(true);
 		if (doc->hasName)
 			scrActions["fileRevert"]->setEnabled(true);
+	
+		bool setter = doc->Pages->count() > 1 ? true : false;
+		scrActions["pageDelete"]->setEnabled(setter);
+		scrActions["pageMove"]->setEnabled(setter);
 	}
 
 	ActWin->setMenuStatus(0, scrActions["fileSave"]->isEnabled());
@@ -4830,7 +4836,6 @@ void ScribusMainWindow::applyNewMaster(QString name)
 	Apply_MasterPage(name, doc->currentPage()->pageNr());
 	view->reformPages();
 	view->DrawNew();
-	slotDocCh();
 	pagePalette->Rebuild();
 }
 
@@ -4932,9 +4937,6 @@ void ScribusMainWindow::slotNewMasterPage(int w, const QString& name)
 	{
 		doc->addMasterPage(w, name);
 		view->addPage(w);
-		bool setter = doc->MasterPages.count() > 1 ? true : false;
-		scrActions["pageDelete"]->setEnabled(setter);
-		scrActions["pageMove"]->setEnabled(setter);
 	}
 }
 
@@ -4944,9 +4946,6 @@ void ScribusMainWindow::slotNewPage(int w, const QString& masterPageName, bool m
 	view->addPage(w, mov);
 /*	if ((!doc->loading) && (!doc->masterPageMode))
 		outlinePalette->BuildTree(doc); */
-	bool setter = doc->DocPages.count() > 1 ? true : false;
-	scrActions["pageDelete"]->setEnabled(setter);
-	scrActions["pageMove"]->setEnabled(setter);
 /*	if ((!doc->loading) && (!doc->masterPageMode))
 	{
 		AdjustBM();
@@ -5769,9 +5768,6 @@ void ScribusMainWindow::DeletePage2(int pg)
 	view->DrawNew();
 	doc->OpenNodes.clear();
 	outlinePalette->BuildTree();
-	bool setter = doc->Pages->count() > 1 ? true : false;
-	scrActions["pageDelete"]->setEnabled(setter);
-	scrActions["pageMove"]->setEnabled(setter);
 	slotDocCh();
 	pagePalette->RebuildPage();
 	if (UndoManager::undoEnabled())
@@ -5857,10 +5853,6 @@ void ScribusMainWindow::DeletePage(int from, int to)
 	view->DrawNew();
 //	doc->OpenNodes.clear();
 	outlinePalette->BuildTree();
-	bool setter = doc->Pages->count() > 1 ? true : false;
-	scrActions["pageDelete"]->setEnabled(setter);
-	scrActions["pageMove"]->setEnabled(setter);
-	slotDocCh();
 	pagePalette->RebuildPage();
 	if (UndoManager::undoEnabled())
 		undoManager->commit();

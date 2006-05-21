@@ -1021,6 +1021,7 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	setLocationBasedPageLRMargins(pageIndex);
 	if (addAutoFrame && automaticTextFrames)
 		addAutomaticTextFrame(pageIndex);
+	changed();
 	return addedPage;
 }
 
@@ -1047,6 +1048,7 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	MasterNames.insert(pageName, pageNumber);
 	bool insertsuccess=MasterPages.insert(pageNumber, addedPage);
 	Q_ASSERT(insertsuccess==true && MasterPages.at(pageNumber)!=NULL);
+	changed();
 	return addedPage;
 }
 
@@ -1072,6 +1074,7 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 	*/
 	//QPtrList docs: The item after the removed item becomes the new current list item if the removed item is not the last item in the list. If the last item is removed, the new last item becomes the current item.
 	setCurrentPage(Pages->at(0));
+	changed();
 }
 
 void ScribusDoc::deletePage(const int pageNumber)
@@ -1081,6 +1084,7 @@ void ScribusDoc::deletePage(const int pageNumber)
 	Pages->remove(pageNumber);
 	delete page;
 	setCurrentPage(Pages->at(0));
+	changed();
 }
 
 void ScribusDoc::movePage(const int from, const int to, const int ziel, const int art)
@@ -2423,6 +2427,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	//Reset the current page..
 	setMasterPageMode(false);
 	setCurrentPage(oldCurrentPage);
+	changed();
 	return true;
 }
 
