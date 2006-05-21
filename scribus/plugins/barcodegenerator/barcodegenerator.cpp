@@ -13,7 +13,8 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "commonstrings.h"
 #include "undomanager.h"
-#include "../psimport/importps.h"
+#include "loadsaveplugin.h"
+#include "../formatidlist.h"
 #include <qcombobox.h>
 #include <qtextedit.h>
 #include <qlineedit.h>
@@ -26,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #include <qdir.h>
 #include <qfiledialog.h>
 #include <qregexp.h>
-
 
 BarcodeType::BarcodeType(QString cmd, QString exa,
 						 QString comm, QString regExp,
@@ -231,23 +231,10 @@ void BarcodeGenerator::okButton_pressed()
 {
 	// no need to call paintBarcode(tmpFile, 300); because
 	// it's created by previous run...
-	if (UndoManager::undoEnabled() && ScMW->HaveDoc)
-	{
-		UndoManager::instance()->beginTransaction(ScMW->doc->currentPage()->getUName(),
-												Um::IImageFrame,
-												Um::ImportEPS,
-												psFile, Um::IEPS);
-	}
-	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
-		UndoManager::instance()->setUndoEnabled(false);
 	hide();
-	EPSPlug *dia = new EPSPlug(psFile, true, false);
-	Q_CHECK_PTR(dia);
-	if (UndoManager::undoEnabled())
-		UndoManager::instance()->commit();
-	else
-		UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_PSIMPORT);
+	if( fmt )
+		fmt->loadFile(QString::fromUtf8(psFile), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive);
 	accept();
 }
 

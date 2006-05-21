@@ -9,11 +9,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
+#include "../formatidlist.h"
 
 class ScrAction;
-
-#define FORMATID_PSIMPORT 4
-#define FORMATID_PDFIMPORT 9
 
 class PLUGIN_API ImportPSPlugin : public LoadSavePlugin
 {
@@ -34,7 +32,7 @@ class PLUGIN_API ImportPSPlugin : public LoadSavePlugin
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file) const;
-		virtual bool loadFile(const QString & fileName, const FileFormat & fmt);
+		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
 		virtual void addToMainWindowMenu(ScribusMainWindow *);
 
 	public slots:
@@ -45,7 +43,7 @@ class PLUGIN_API ImportPSPlugin : public LoadSavePlugin
 		\param fileName input filename, or QString::null to prompt.
 		\retval bool always true
 		 */
-		virtual bool import(QString fileName = QString::null);
+		virtual bool import(QString fileName = QString::null, int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();

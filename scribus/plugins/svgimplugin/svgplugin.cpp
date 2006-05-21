@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "selection.h"
 #include "undomanager.h"
+#include "loadsaveplugin.h"
 #include "util.h"
 
 using namespace std;
@@ -134,18 +135,19 @@ bool SVGImportPlugin::fileSupported(QIODevice* /* file */) const
 	return true;
 }
 
-bool SVGImportPlugin::loadFile(const QString & fileName, const FileFormat & /* fmt */)
+bool SVGImportPlugin::loadFile(const QString & fileName, const FileFormat & /* fmt */, int flags, int /*index*/)
 {
 	// For now, "load file" and import are the same thing for this plugin
-	return import(fileName);
+	return import(fileName, flags);
 }
 
-bool SVGImportPlugin::import(QString filename)
+bool SVGImportPlugin::import(QString filename, int flags)
 {
-	bool interactive = false;
+	if (!checkFlags(flags))
+		return false;
 	if (filename.isEmpty())
 	{
-		interactive = true;
+		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("SVGPlugin");
 		QString wdir = prefs->get("wdir", ".");
 #ifdef HAVE_LIBZ
@@ -167,7 +169,7 @@ bool SVGImportPlugin::import(QString filename)
 	}
 	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
 		UndoManager::instance()->setUndoEnabled(false);
-	SVGPlug *dia = new SVGPlug(filename, interactive);
+	SVGPlug *dia = new SVGPlug(filename, flags);
 	Q_CHECK_PTR(dia);
 	if (UndoManager::undoEnabled())
 		UndoManager::instance()->commit();
@@ -183,11 +185,11 @@ bool SVGImportPlugin::import(QString filename)
 	return true;
 }
 
-SVGPlug::SVGPlug( QString fName, bool isInteractive ) :
+SVGPlug::SVGPlug( QString fName, int flags ) :
 	QObject(ScMW)
 {
 	unsupported = false;
-	interactive = isInteractive;
+	interactive = (flags & LoadSavePlugin::lfInteractive);
 	QString f = "";
 #ifdef HAVE_LIBZ
 	if(fName.right(2) == "gz")
@@ -216,11 +218,11 @@ SVGPlug::SVGPlug( QString fName, bool isInteractive ) :
 	QString CurDirP = QDir::currentDirPath();
 	QFileInfo efp(fName);
 	QDir::setCurrent(efp.dirPath());
-	convert();
+	convert(flags);
 	QDir::setCurrent(CurDirP);
 }
 
-void SVGPlug::convert()
+void SVGPlug::convert(int flags)
 {
 	bool ret = false;
 	SvgStyle *gc = new SvgStyle;
@@ -229,7 +231,7 @@ void SVGPlug::convert()
 	double width = !docElem.attribute("width").isEmpty() ? parseUnit(docElem.attribute( "width" )) : 550.0;
 	double height = !docElem.attribute("height").isEmpty() ? parseUnit(docElem.attribute( "height" )) : 841.0;
 	Conversion = 0.8;
-	if (!interactive)
+	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
 		ScMW->doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
 		ScMW->doc->addPage(0);
@@ -237,7 +239,7 @@ void SVGPlug::convert()
 	}
 	else
 	{
-		if (!ScMW->HaveDoc)
+		if (!ScMW->HaveDoc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
 			ScMW->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
 			ScMW->HaveNewDoc();
@@ -1691,17 +1693,17 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	}
 	else
 	{
-		if (e.hasAttribute("x1"))
+		if (e.hasAttribute("cx"))
 		{
 			x1 = e.attribute( "cx", "0.5").toDouble();
 			gradhelper.x1Valid = true;
 		}
-		if (e.hasAttribute("y1"))
+		if (e.hasAttribute("cy"))
 		{
 			y1 = e.attribute( "cy", "0.5" ).toDouble();
 			gradhelper.y1Valid = true;
 		}
-		if (e.hasAttribute("x2"))
+		if (e.hasAttribute("r"))
 		{
 			x2 = e.attribute( "r", "0.5" ).toDouble();
 			gradhelper.x2Valid = true;

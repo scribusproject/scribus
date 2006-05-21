@@ -24,7 +24,7 @@ class PLUGIN_API OldScribusFormat : public LoadSavePlugin
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file) const;
 
-		virtual bool loadFile(const QString & fileName, const FileFormat & fmt);
+		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
 		virtual bool saveFile(const QString & fileName, const FileFormat & fmt);
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 

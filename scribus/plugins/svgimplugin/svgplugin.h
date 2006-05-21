@@ -11,17 +11,11 @@ for which a new license (GPL+exception) is in place.
 #include <qptrstack.h>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
+#include "../formatidlist.h"
 #include "vgradient.h"
 
 class ScrAction;
 class ScribusMainWindow;
-
-/**
- * \brief The ID for the SVG Import format. This must be a macro not a static const member
- * because it must be available even when the SVGImportPlugin is not linked in
- * or even compiled.
- */
-#define FORMATID_SVGIMPORT 3
 
 /**
  * \brief A class providing the plugin interface implementation for this plugin
@@ -39,7 +33,7 @@ class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file) const;
-		virtual bool loadFile(const QString & fileName, const FileFormat & fmt);
+		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
 		virtual void addToMainWindowMenu(ScribusMainWindow *);
 
 	public slots:
@@ -49,7 +43,7 @@ class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 		\param filename a file name to import
 		\retval true for success
 		 */
-		virtual bool import(QString filename = QString::null);
+		virtual bool import(QString filename = QString::null, int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();
@@ -177,9 +171,9 @@ public:
 	\param fName QString
 	\param isInteractive flag to use GUI
 	 */
-	SVGPlug(QString fname, bool isInteractive);
+	SVGPlug(QString fname, int flags);
 	~SVGPlug();
-	void convert();
+	void convert(int flags);
 	void addGraphicContext();
 	void setupTransform( const QDomElement &e );
 	QPtrList<PageItem> parseGroup(const QDomElement &e);

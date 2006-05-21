@@ -120,19 +120,21 @@ bool ImportPSPlugin::fileSupported(QIODevice* /* file */) const
 	return true;
 }
 
-bool ImportPSPlugin::loadFile(const QString & fileName, const FileFormat &)
+bool ImportPSPlugin::loadFile(const QString & fileName, const FileFormat &, int flags, int /*index*/)
 {
 	// There's only one format to handle, so we just call import(...)
-	return import(fileName);
+	return import(fileName, flags);
 }
 
-bool ImportPSPlugin::import(QString fileName)
+bool ImportPSPlugin::import(QString fileName, int flags)
 {
-	bool interactive = fileName.isEmpty();
-	if (!interactive)
+	if (!checkFlags(flags))
+		return false;
+	if (!(flags & lfInteractive))
 		UndoManager::instance()->setUndoEnabled(false);
-	else
+	if( fileName.isEmpty() )
 	{
+		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importps");
 		QString wdir = prefs->get("wdir", ".");
 		QString formats = QObject::tr("All Supported Formats (*.eps *.EPS *.ps *.PS);;");
@@ -155,7 +157,7 @@ bool ImportPSPlugin::import(QString fileName)
 	}
 	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
 		UndoManager::instance()->setUndoEnabled(false);
-	EPSPlug *dia = new EPSPlug(fileName, interactive);
+	EPSPlug *dia = new EPSPlug(fileName, flags);
 	Q_CHECK_PTR(dia);
 	if (UndoManager::undoEnabled())
 		UndoManager::instance()->commit();

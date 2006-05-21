@@ -151,18 +151,19 @@ bool OODrawImportPlugin::fileSupported(QIODevice* /* file */) const
 	return true;
 }
 
-bool OODrawImportPlugin::loadFile(const QString & fileName, const FileFormat &)
+bool OODrawImportPlugin::loadFile(const QString & fileName, const FileFormat &, int flags, int /*index*/)
 {
 	// For this plugin, right now "load" and "import" are the same thing
-	return import(fileName);
+	return import(fileName, flags);
 }
 
-bool OODrawImportPlugin::import(QString fileName)
+bool OODrawImportPlugin::import(QString fileName, int flags)
 {
-	bool interactive = false;
+	if (!checkFlags(flags))
+		return false;
 	if (fileName.isEmpty())
 	{
-		interactive = true;
+		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("OODrawImport");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScMW, wdir, QObject::tr("Open"), QObject::tr("OpenOffice.org Draw (*.sxd *.odg);;All Files (*)"));
@@ -184,7 +185,7 @@ bool OODrawImportPlugin::import(QString fileName)
 	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
 		UndoManager::instance()->setUndoEnabled(false);
 	OODPlug dia;
-	bool importDone = dia.import(fileName, interactive);
+	bool importDone = dia.import(fileName, flags);
 	if (UndoManager::undoEnabled())
 		UndoManager::instance()->commit();
 	else
@@ -198,10 +199,10 @@ OODPlug::OODPlug()
 	Doku = NULL;
 }
 
-bool OODPlug::import( QString fileName, bool isInteractive )
+bool OODPlug::import( QString fileName, int flags )
 {
 	bool importDone = false;
-	interactive = isInteractive;
+	interactive = (flags & LoadSavePlugin::lfInteractive);
 	QString f, f2, f3;
 	if ( !QFile::exists(fileName) )
 		return false;
@@ -250,12 +251,12 @@ bool OODPlug::import( QString fileName, bool isInteractive )
 	QString CurDirP = QDir::currentDirPath();
 	QFileInfo efp(fileName);
 	QDir::setCurrent(efp.dirPath());
-	importDone = convert();
+	importDone = convert(flags);
 	QDir::setCurrent(CurDirP);
 	return importDone;
 }
 
-bool OODPlug::convert()
+bool OODPlug::convert(int flags)
 {
 	bool ret = false;
 	bool isOODraw2 = false;
@@ -303,11 +304,11 @@ bool OODPlug::convert()
 	}
 	double width = !properties.attribute( "fo:page-width" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-width" ) ) : 550.0;
 	double height = !properties.attribute( "fo:page-height" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-height" ) ) : 841.0;
-	if (!interactive)
+	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
 		ScMW->doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
 	else
 	{
-		if (!ScMW->HaveDoc)
+		if (!ScMW->HaveDoc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
 			ScMW->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
 			ScMW->HaveNewDoc();
