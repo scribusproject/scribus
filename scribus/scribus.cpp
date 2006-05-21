@@ -5875,6 +5875,9 @@ void ScribusMainWindow::CopyPage()
 		slotDocCh(); //FIXME emit from doc
 		pagePalette->RebuildPage();
 		outlinePalette->BuildTree();
+		bool setter = doc->Pages->count() > 1 ? true : false;
+		scrActions["pageDelete"]->setEnabled(setter);
+		scrActions["pageMove"]->setEnabled(setter);
 	}
 	delete dia;
 }
