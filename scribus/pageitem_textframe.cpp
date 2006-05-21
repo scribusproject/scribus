@@ -409,44 +409,45 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				{
 					if (!OnMasterPage.isEmpty())
 					{
-						if ((savedOwnPage == -1) || (savedOwnPage >= signed(m_Doc->Pages->count())))
-							return result;
-
-						Page* Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
-						Page* Dp = m_Doc->Pages->at(savedOwnPage);
-						for (a = 0; a < m_Doc->MasterItems.count(); ++a)
+						if ( savedOwnPage >= 0 && savedOwnPage < signed(m_Doc->Pages->count()))
 						{
-							PageItem* docItem = m_Doc->MasterItems.at(a);
-							int LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
-							if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
+							
+							Page* Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
+							Page* Dp = m_Doc->Pages->at(savedOwnPage);
+							for (a = 0; a < m_Doc->MasterItems.count(); ++a)
 							{
-								if (docItem->textFlowsAroundFrame())
+								PageItem* docItem = m_Doc->MasterItems.at(a);
+								int LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
+								if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
 								{
-									pp.begin(view->viewport());
-									pp.translate(docItem->xPos() - Mp->xOffset() + Dp->xOffset(), docItem->yPos() - Mp->yOffset() + Dp->yOffset());
-									pp.rotate(docItem->rotation());
-									if (docItem->textFlowUsesBoundingBox())
+									if (docItem->textFlowsAroundFrame())
 									{
-										QPointArray tcli(4);
-										tcli.setPoint(0, QPoint(0,0));
-										tcli.setPoint(1, QPoint(qRound(docItem->width()), 0));
-										tcli.setPoint(2, QPoint(qRound(docItem->width()), qRound(docItem->height())));
-										tcli.setPoint(3, QPoint(0, qRound(docItem->height())));
-										cm = QRegion(pp.xForm(tcli));
-									}
-									else
-									{
-										if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
+										pp.begin(view->viewport());
+										pp.translate(docItem->xPos() - Mp->xOffset() + Dp->xOffset(), docItem->yPos() - Mp->yOffset() + Dp->yOffset());
+										pp.rotate(docItem->rotation());
+										if (docItem->textFlowUsesBoundingBox())
 										{
-											QValueList<uint> Segs;
-											QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
-											cm = QRegion(pp.xForm(Clip2));
+											QPointArray tcli(4);
+											tcli.setPoint(0, QPoint(0,0));
+											tcli.setPoint(1, QPoint(qRound(docItem->width()), 0));
+											tcli.setPoint(2, QPoint(qRound(docItem->width()), qRound(docItem->height())));
+											tcli.setPoint(3, QPoint(0, qRound(docItem->height())));
+											cm = QRegion(pp.xForm(tcli));
 										}
 										else
-											cm = QRegion(pp.xForm(docItem->Clip));
+										{
+											if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
+											{
+												QValueList<uint> Segs;
+												QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
+												cm = QRegion(pp.xForm(Clip2));
+											}
+											else
+												cm = QRegion(pp.xForm(docItem->Clip));
+										}
+										pp.end();
+										cl = cl.subtract(cm);
 									}
-									pp.end();
-									cl = cl.subtract(cm);
 								}
 							}
 						}
