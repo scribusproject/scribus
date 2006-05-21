@@ -4314,7 +4314,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (Options.Version < 14)
 			cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 		else
-			cc += "/"+UsedFontsP[ite->font()]+"S0";
+			cc += UsedFontsP[ite->font()]+"S0";
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		if (bmst.count() > 1)
 		{
@@ -4357,7 +4357,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (Options.Version < 14)
 			cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 		else
-			cc += "/"+UsedFontsP[ite->font()]+"S0";
+			cc += UsedFontsP[ite->font()]+"S0";
 //		cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 //		cc += ind2PDFabr[ite->AnFont];
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
@@ -4492,6 +4492,7 @@ void PDFlib::PDF_xForm(double w, double h, QString im)
 	PutDoc("/Length "+QString::number(im.length())+"\n");
 	PutDoc(">>\nstream\n"+EncStream(im, ObjCounter-1)+"\nendstream\nendobj\n");
 	Seite.XObjects[ResNam+QString::number(ResCount)] = ObjCounter-1;
+	ResCount++;
 }
 
 void PDFlib::PDF_Form(const QString& im)
