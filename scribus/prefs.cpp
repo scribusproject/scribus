@@ -700,7 +700,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	addItem(  tr("Miscellaneous"), loadIcon("misc.png"), tabMiscellaneous);
 
 	// plugin manager. pv.
-	PluginManagerPrefsGui* pluginManagerPrefsGui = new PluginManagerPrefsGui(prefsWidgets);
+	pluginManagerPrefsGui = new PluginManagerPrefsGui(prefsWidgets);
 	addItem( tr("Plugins"), loadIcon("plugins.png"), pluginManagerPrefsGui );
 	connect(this, SIGNAL(accepted()), pluginManagerPrefsGui, SLOT(apply()));
 
@@ -849,7 +849,41 @@ void Preferences::restoreDefaults()
 		ASTime->setValue(prefsData->AutoSaveTime / 1000 / 60);
 	}
 	else if (current == tabView) // Display
-	{qDebug("TODO!");
+	{
+		int decimals = unitGetPrecisionFromIndex(docUnitIndex);
+		QString unitSuffix = unitGetSuffixFromIndex(docUnitIndex);
+		QPixmap pm5(54, 14);
+		pm5.fill(prefsData->DpapColor);
+		colorPaper = prefsData->DpapColor;
+		backColor->setPixmap(pm5);
+		backColor->setText( QString::null );
+		checkUnprintable->setChecked( prefsData->marginColored );
+		checkPictures->setChecked(prefsData->guidesSettings.showPic);
+		checkLink->setChecked(prefsData->guidesSettings.linkShown);
+		checkControl->setChecked(prefsData->guidesSettings.showControls);
+		checkFrame->setChecked(prefsData->guidesSettings.framesShown);
+		checkRuler->setChecked(prefsData->guidesSettings.rulerMode);
+		checkRuler->setChecked(prefsData->guidesSettings.rulerMode);
+		topScratch->setDecimals( decimals );
+		topScratch->setValue(prefsData->ScratchTop * unitRatio);
+		leftScratch->setDecimals( decimals );
+		leftScratch->setValue(prefsData->ScratchLeft * unitRatio);
+		bottomScratch->setDecimals( decimals );
+		bottomScratch->setValue(prefsData->ScratchBottom * unitRatio);
+		rightScratch->setDecimals( decimals );
+		rightScratch->setValue(prefsData->ScratchRight * unitRatio);
+		topScratch->setSuffix(unitSuffix);
+		bottomScratch->setSuffix(unitSuffix);
+		leftScratch->setSuffix(unitSuffix);
+		rightScratch->setSuffix(unitSuffix);
+		gapHorizontal->setSuffix( unitSuffix );
+		gapHorizontal->setDecimals( decimals );
+		gapHorizontal->setValue(prefsData->pageSets[prefsData->FacingPages].GapHorizontal * unitRatio);
+		gapVertical->setSuffix( unitSuffix );
+		gapVertical->setDecimals( decimals );
+		gapVertical->setValue(prefsData->pageSets[prefsData->FacingPages].GapVertical * unitRatio);
+		drawRuler();
+		CaliSlider->setValue(static_cast<int>(100 * DisScale)-100);
 	}
 	else if (current == tabHyphenator) // Hyphenator
 	{
@@ -886,23 +920,28 @@ void Preferences::restoreDefaults()
 	else if (current == tabColorManagement && CMSavail) // Color Management
 		tabColorManagement->restoreDefaults();
 	else if (current == tabDefaultItemAttributes) // Document Item Attributes
-	{qDebug("TODO!");
+	{
+		defaultAttributesList=tabDefaultItemAttributes->getDocAttributesNames();
+		tabDefaultItemAttributes->setup(&prefsData->defaultItemAttributes);
 	}
 	else if (current == tabDefaultTOCIndexPrefs) // Table of Contents
-	{qDebug("TODO!");
+	{
+		tabDefaultTOCIndexPrefs->setupItemAttrs( defaultAttributesList );
+		tabDefaultTOCIndexPrefs->setup(&prefsData->defaultToCSetups, NULL);
 	}
 	else if (current == tabKeyboardShortcuts) // Keyboard Shortcuts
-	{qDebug("TODO!");
-	}
+		tabKeyboardShortcuts->restoreDefaults();
 	else if (current == tabExtTools) // External Tools
-	{qDebug("TODO!");
-	}
+		tabExtTools->restoreDefaults(prefsData);
 	else if (current == tabMiscellaneous) // Miscellaneous
-	{qDebug("TODO!");
+	{
+		AskForSubs->setChecked(prefsData->askBeforeSubstituite);
+		stylePreview->setChecked(prefsData->haveStylePreview);
+		startUpDialog->setChecked(prefsData->showStartupDialog);
+		useStandardLI->setChecked(prefsData->useStandardLI);
+		paragraphsLI->setValue(prefsData->paragraphsLI);
 	}
-	else if (current == tabMiscellaneous) // Plugins
-	{qDebug("TODO!");
-	}
+//	else if (current == pluginManagerPrefsGui) // Plugins	
 }
 
 void Preferences::addPlugins()

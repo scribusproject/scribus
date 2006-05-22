@@ -88,6 +88,14 @@ TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKe
 	connect( searchTextLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(applySearch(const QString&)));
 }
 
+void TabKeyboardShortcutsWidget::restoreDefaults()
+{
+	loadableSets->clear();
+	loadableSets->insertStringList(scanForSets());
+	keyTable->setSorting(-1);
+	insertActions();
+	dispKey(0);
+}
 
 const QMap<QString, Keys> TabKeyboardShortcutsWidget::getNewKeyMap()
 {

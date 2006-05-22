@@ -48,6 +48,7 @@ class TabKeyboardShortcutsWidget: public TabKeyboardShortcutsWidgetBase
 		bool event( QEvent* ev );
 		void keyPressEvent(QKeyEvent *k);
 		void keyReleaseEvent(QKeyEvent *k);
+		void restoreDefaults();
 		
 	protected:
 		QMap<QString,Keys> keyMap;

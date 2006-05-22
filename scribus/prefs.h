@@ -50,6 +50,7 @@ class PrefsManager;
 class PageLayouts;
 class TabExternalToolsWidget;
 class TabKeyboardShortcutsWidget;
+class PluginManagerPrefsGui;
 
 #include "langmgr.h"
 
@@ -352,6 +353,7 @@ protected:
 	PrefsManager* prefsManager;
 	//Replace with commonstrings when translators have that one done.
 	QString customText, customTextTR;
+	PluginManagerPrefsGui* pluginManagerPrefsGui;
 
 	//! \brief Setup the GUI widgets by values taken from PrefsManager.
 	void restoreDefaults();
