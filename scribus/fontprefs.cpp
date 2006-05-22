@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfiledialog.h>
 #include <qlabel.h>
 #include <qcursor.h>
-#include <qbitmap.h>
+
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "sccombobox.h"
@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "prefsmanager.h"
 #include "scconfig.h"
+#include "util.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -49,23 +50,10 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
-	/* HACK: painting the QCheckBox as pixmap. PV for bug #2057.
-	There is no allowed to have more than 1 checkbox in a common QListViewItem
-	(QCheckListItem or how is it named...). Using a QTable is 12-13x times slower
-	than using a QListView. So I choose painting 2 checkboxes as 2 QPixmaps
-	and using a setPixmap method for their changing. */
-	QCheckBox *tmpItem = new QCheckBox("", this, "tmpItem");
-	tmpItem->setMaximumSize(QSize(30, 30));
-	tmpItem->setMinimumSize(QSize(30, 30));
-	tmpItem->setPaletteBackgroundColor(fontList->paletteBackgroundColor());
-	tmpItem->setChecked(true);
-	checkOn = QPixmap::grabWidget(tmpItem);
-	checkOn.setMask(checkOn.createHeuristicMask());
-	tmpItem->setChecked(false);
-	checkOff = QPixmap::grabWidget(tmpItem);
-	checkOff.setMask(checkOff.createHeuristicMask());
-	delete tmpItem;
 
+	checkOn = getQCheckBoxPixmap(true, fontList->paletteBackgroundColor());
+	checkOff = getQCheckBoxPixmap(false, fontList->paletteBackgroundColor());
+	
 	rebuildDialog(true);
 
 	tab1Layout->addWidget( fontList );

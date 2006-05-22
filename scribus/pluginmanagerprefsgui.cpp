@@ -7,13 +7,15 @@ for which a new license (GPL+exception) is in place.
 #include "pluginmanagerprefsgui.h"
 #include "pluginmanager.h"
 #include "scplugin.h"
+#include "util.h"
 
-#include "qlayout.h"
-#include "qlistview.h"
-#include "qgroupbox.h"
-#include "qlabel.h"
+#include <qlayout.h>
+#include <qlistview.h>
+#include <qgroupbox.h>
+#include <qlabel.h>
 
 extern QPixmap loadIcon(QString nam);
+
 
 PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
 	: PrefsPanel(parent, "pluginManagerPrefsWidget")
@@ -43,6 +45,9 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
 	pluginsList->setColumnWidthMode(4, QListView::Maximum);
 	pluginsList->addColumn( tr("File"));
 	pluginsList->setColumnWidthMode(5, QListView::Maximum);
+
+	checkOn = getQCheckBoxPixmap(true, pluginsList->paletteBackgroundColor());
+	checkOff = getQCheckBoxPixmap(false, pluginsList->paletteBackgroundColor());
 	// Get a list of all internal plugin names, including those of disabled
 	// plugins, then loop over them and add each one to the plugin list.
 	QValueList<QCString> pluginNames(pluginManager.pluginNames(true));
@@ -68,7 +73,7 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
 		plugItem->setText(2, plugin->pluginTypeName());
 		// load at start?
 		bool onstart = pluginManager.enableOnStartup(*it);
-		plugItem->setPixmap(3, onstart ? loadIcon("ok.png") : loadIcon("DateiClos16.png"));
+		plugItem->setPixmap(3, onstart ? checkOn : checkOff);
 		plugItem->setText(3, onstart ? tr("Yes") : tr("No"));
 		plugItem->setText(4, QString("%1").arg(*it)); // plugname for developers
 		plugItem->setText(5, pluginManager.getPluginPath(*it)); // file path for developers
@@ -81,6 +86,7 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
 	plugLayout1->addWidget(pluginWarning);
 	plugGroupBoxLayout->addLayout(plugLayout1, 0, 0);
 	pluginMainLayout->addWidget(plugGroupBox);
+
 	connect(pluginsList, SIGNAL(clicked(QListViewItem *, const QPoint &, int)),
 			this, SLOT(updateSettings(QListViewItem *, const QPoint &, int)));
 }
@@ -98,14 +104,14 @@ void PluginManagerPrefsGui::updateSettings(QListViewItem *item, const QPoint &, 
 	bool onstartup;
 	if (item->text(3) == tr("Yes"))
 	{
-		item->setPixmap(3, loadIcon("DateiClos16.png"));
+		item->setPixmap(3, checkOff);
 		item->setText(3, tr("No"));
 		// Update our stored settings with the new flag
 		onstartup = false;
 	}
 	else
 	{
-		item->setPixmap(3, loadIcon("ok.png"));
+		item->setPixmap(3, checkOn);
 		item->setText(3, tr("Yes"));
 		onstartup = true;
 	}

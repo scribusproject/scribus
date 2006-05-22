@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdatastream.h>
 #include <qregexp.h>
 #include <qdir.h>
+#include <qcheckbox.h>
 #include <algorithm>
 #include <cstdlib>
 #include <cmath>
@@ -1500,4 +1501,17 @@ int findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle)
 	else {
 		return parStyle.alignment();
 	}
+}
+
+QPixmap getQCheckBoxPixmap(const bool checked, const QColor background)
+{
+	QCheckBox *tmpItem = new QCheckBox("", 0, "tmpItem");
+	tmpItem->setMaximumSize(QSize(30, 30));
+	tmpItem->setMinimumSize(QSize(30, 30));
+	tmpItem->setPaletteBackgroundColor(background);
+	tmpItem->setChecked(checked);
+	QPixmap pm = QPixmap::grabWidget(tmpItem);
+	pm.setMask(pm.createHeuristicMask());
+	delete tmpItem;
+	return pm;
 }

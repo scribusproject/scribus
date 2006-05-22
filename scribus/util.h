@@ -153,4 +153,13 @@ void SCRIBUS_API parsePagesString(QString pages, std::vector<int>* pageNs, int s
 int findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle);
 #endif
 
+/*! \brief painting the QCheckBox as pixmap.
+painting the QCheckBox as pixmap. PV for bug #2057.
+There is no allowed to have more than 1 checkbox in a common QListViewItem
+(QCheckListItem or how is it named...). Using a QTable is 12-13x times slower
+than using a QListView. So I choose painting 2 checkboxes as 2 QPixmaps
+and using a setPixmap method for their changing.
+\author Petr Vanek */
+QPixmap getQCheckBoxPixmap(const bool checked, const QColor background);
+
 #endif

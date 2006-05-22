@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "qwidget.h"
 #include "qmap.h"
 #include "prefspanel.h"
+#include "qpixmap.h"
 
 class QVBoxLayout;
 class QGroupBox;
@@ -36,6 +37,10 @@ class PluginManagerPrefsGui : public PrefsPanel
 
 		//! \brief Apply changes to each plugin's PluginSettings
 		void apply();
+
+	private:
+		QPixmap checkOn;
+		QPixmap checkOff;
 
 	protected:
 		QVBoxLayout* pluginMainLayout;
