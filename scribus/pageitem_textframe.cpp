@@ -110,7 +110,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 	{
 		if (!OnMasterPage.isEmpty())
 		{
-			if ((savedOwnPage == -1) || (savedOwnPage >= m_Doc->Pages->count()))
+			if ((savedOwnPage == -1) || (savedOwnPage >= signed(m_Doc->Pages->count())))
 				return result;
 			Page* Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
 			Page* Dp = m_Doc->Pages->at(savedOwnPage);
@@ -200,6 +200,7 @@ void PageItem_TextFrame::layout()
 	bool StartOfCol = true;
 	tTabValues.clear();
 	
+/*
 	for (int xxx=0; xxx<5; ++xxx)
 	{
 		m_Doc->docParagraphStyles[xxx].setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(LineSpMode));
@@ -212,7 +213,8 @@ void PageItem_TextFrame::layout()
 		m_Doc->docParagraphStyles[xxx].setGapAfter(0);
 		m_Doc->docParagraphStyles[xxx].setAlignment(xxx);
 	}
-
+*/
+	
 	QPtrList<ZZ> LiList;
 	LiList.setAutoDelete(true);
 
@@ -238,12 +240,12 @@ void PageItem_TextFrame::layout()
 				{
 					itemText.append(nextItem->itemText.take(0));
 				}
-				nextItem->MaxChars = 0;
+//FIXME:av				nextItem->MaxChars = 0;
 				nextItem = nextItem->NextBox;
 			}
 			nextItem = NextBox;
 		}
-		m_Doc->docParagraphStyles[0].setLineSpacing(LineSp);
+//		m_Doc->docParagraphStyles[0].setLineSpacing(LineSp);
 		
 		
 		// determine layout area
@@ -266,7 +268,7 @@ void PageItem_TextFrame::layout()
 		ColBound = FPoint((ColWidth + ColGap) * CurrCol+Extra + lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
 		ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
 		CurX = ColBound.x();
-		// drop cap stuff
+		// find start of first line
 		if (itemText.count() > 0)
 		{
 			hl = itemText.at(0);
@@ -288,7 +290,7 @@ void PageItem_TextFrame::layout()
 		}
 		else // no dropcap:
 		{
-			desc2 = -(*m_Doc->AllFonts)[m_Font]->descent() * (m_FontSize / 10.0);
+			desc2 = -m_Doc->currentStyle.charStyle().font()->descent() * (m_Doc->currentStyle.charStyle().fontSize() / 10.0);
 			CurY = m_Doc->docParagraphStyles[0].lineSpacing() + TExtra+lineCorr-desc2;
 		}
 		firstDes = desc2;
@@ -1682,6 +1684,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	double desc, asce, maxDY, tabDist;
 	tTabValues.clear();
 
+/*
 	for (int xxx=0; xxx<5; ++xxx)
 	{
 		m_Doc->docParagraphStyles[xxx].setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(LineSpMode));
@@ -1694,7 +1697,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 		m_Doc->docParagraphStyles[xxx].setGapAfter(0);
 		m_Doc->docParagraphStyles[xxx].setAlignment(xxx);
 	}
-
+*/
+	
 	QPtrList<ZZ> LiList;
 	LiList.setAutoDelete(true);
 	QRect e2 = QRect(qRound(e.x()  / sc + m_Doc->minCanvasCoordinate.x()), qRound(e.y()  / sc + m_Doc->minCanvasCoordinate.y()), qRound(e.width() / sc), qRound(e.height() / sc));
@@ -4177,7 +4181,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			view->RefreshItem(this);
 			break;
 		}
-		if (((uc[0] > QChar(31)) || (as == 13) || (as == 30)) && ((*m_Doc->AllFonts)[m_Doc->CurrFont]->canRender(uc[0])))
+		if (((uc[0] > QChar(31)) || (as == 13) || (as == 30)) && (m_Doc->currentStyle.charStyle().font()->canRender(uc[0])))
 		{
 			hg = new ScText;
 			hg->ch = uc;
@@ -4190,6 +4194,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			hg->PtransX = 0;
 			hg->PtransY = 0;
 			hg->cembedded = 0;
+			// should go when hyphenator respects charstyle settings
+			QString Language = CPos < itemText.length()? 
+				itemText.charStyle(CPos).language() : m_Doc->currentStyle.charStyle().language();
 			itemText.insert(CPos, hg);
 			CPos += 1;
 			if ((m_Doc->docHyphenator->AutoCheck) && (CPos > 1))
@@ -4208,6 +4215,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				}
 				if (!Twort.isEmpty())
 				{
+					// should go when hyphenator respects charstyle settings
 					if (m_Doc->docHyphenator->Language != Language)
 						m_Doc->docHyphenator->slotNewDict(Language);
 					m_Doc->docHyphenator->slotHyphenateWord(this, Twort, Tcoun);

@@ -97,47 +97,13 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 	QString txt = Objekt.remove(QChar(0)).remove(QChar(13));
 	txt = txt.replace(QChar(10), QChar(13)).replace(QChar(5), QChar(13));
 	CharStyle newstyle;
-	if (!doku->docParagraphStyles[Absatz].charStyle().font() == NULL)
+	if (doku->docParagraphStyles[Absatz].charStyle().font() != &Foi::NONE)
 	{
-		newstyle.cfont = doku->docParagraphStyles[Absatz].charStyle().font();
-		newstyle.csize = doku->docParagraphStyles[Absatz].charStyle().fontSize();
-		newstyle.cstyle = static_cast<StyleFlag>(doku->docParagraphStyles[Absatz].charStyle().effects());
-		newstyle.ccolor = doku->docParagraphStyles[Absatz].charStyle().ccolor;
-		newstyle.cshade = doku->docParagraphStyles[Absatz].charStyle().cshade;
-		newstyle.cstroke = doku->docParagraphStyles[Absatz].charStyle().cstroke;
-		newstyle.cshade2 = doku->docParagraphStyles[Absatz].charStyle().cshade2;
-		newstyle.cshadowx = doku->docParagraphStyles[Absatz].charStyle().cshadowx;
-		newstyle.cshadowy = doku->docParagraphStyles[Absatz].charStyle().cshadowy;
-		newstyle.coutline = doku->docParagraphStyles[Absatz].charStyle().coutline;
-		newstyle.cunderpos = doku->docParagraphStyles[Absatz].charStyle().cunderpos;
-		newstyle.cunderwidth = doku->docParagraphStyles[Absatz].charStyle().cunderwidth;
-		newstyle.cstrikepos = doku->docParagraphStyles[Absatz].charStyle().cstrikepos;
-		newstyle.cstrikewidth = doku->docParagraphStyles[Absatz].charStyle().cstrikewidth;
-		newstyle.cscale = doku->docParagraphStyles[Absatz].charStyle().cscale;
-		newstyle.cscalev = doku->docParagraphStyles[Absatz].charStyle().cscalev;
-		newstyle.cbase = doku->docParagraphStyles[Absatz].charStyle().cbase;
-		newstyle.cextra = doku->docParagraphStyles[Absatz].charStyle().cextra;
+		newstyle = doku->docParagraphStyles[Absatz].charStyle();
 	}
 	else
 	{
-		newstyle.cfont = (*doku->AllFonts)[font];
-		newstyle.ccolor = it->TxtFill;
-		newstyle.cshade = it->ShTxtFill;
-		newstyle.cstroke = it->TxtStroke;
-		newstyle.cshade2 = it->ShTxtStroke;
-		newstyle.csize = size;
-		newstyle.cstyle = static_cast<StyleFlag>(it->TxTStyle);
-		newstyle.cshadowx = it->TxtShadowX;
-		newstyle.cshadowy = it->TxtShadowY;
-		newstyle.coutline = it->TxtOutline;
-		newstyle.cunderpos = it->TxtUnderPos;
-		newstyle.cunderwidth = it->TxtUnderWidth;
-		newstyle.cstrikepos = it->TxtStrikePos;
-		newstyle.cstrikewidth = it->TxtStrikeWidth;
-		newstyle.cscale = it->TxtScale;
-		newstyle.cscalev = it->TxtScaleV;
-		newstyle.cbase = it->TxtBase;
-		newstyle.cextra = 0;
+		newstyle = doku->currentStyle.charStyle();
 	}
 	int insPos = Append? it->CPos : it->itemText.length();
 	it->itemText.insertChars(insPos, txt);

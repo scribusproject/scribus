@@ -75,7 +75,11 @@ private:
 		QString Effect;
 		QString Alternative;
 public:
+		static const Foi   NONE;
 		FT_Face ftFace()   const;
+		void increaseUsage() const;
+		void decreaseUsage() const;
+		void unload()      const;
 		QString scName()   const { return SCName; }
 		QString fontPath() const { return faceIndex_ >= 0 ? QString("%1(%2)").arg(fontFile).arg(faceIndex_+1) : fontFile; }
 		QString fontFilePath()      const { return fontFile; }
@@ -149,6 +153,7 @@ protected:
 private:
 		mutable FT_Face face;
 		static FT_Library library;
+		Foi();
 		
 		friend class Foi_ttf;
 		friend class SCFonts;

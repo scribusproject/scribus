@@ -71,7 +71,7 @@ FontPreview::FontPreview(QString fontName)
 	else
 	{
 		if (ScMW->doc->m_Selection->count() != 0)
-			item = fontList->findItem(ScMW->doc->CurrFont, 0);
+			item = fontList->findItem(ScMW->doc->currentStyle.charStyle().font()->scName(), 0);
 		else
 			item = fontList->findItem(PrefsManager::instance()->appPrefs.toolSettings.defFont, 0);
 	}

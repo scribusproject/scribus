@@ -80,21 +80,6 @@ PageItem::PageItem(const PageItem & other)
 	GrStartY(other.GrStartY),
 	GrEndX(other.GrEndX),
 	GrEndY(other.GrEndY),
-	TxtStroke(other.TxtStroke),
-	TxtFill(other.TxtFill),
-	ShTxtStroke(other.ShTxtStroke),
-	ShTxtFill(other.ShTxtFill),
-	TxtScale(other.TxtScale),
-	TxtScaleV(other.TxtScaleV),
-	TxTStyle(other.TxTStyle),
-	TxtBase(other.TxtBase),
-	TxtShadowX(other.TxtShadowX),
-	TxtShadowY(other.TxtShadowY),
-	TxtOutline(other.TxtOutline),
-	TxtUnderPos(other.TxtUnderPos),
-	TxtUnderWidth(other.TxtUnderWidth),
-	TxtStrikePos(other.TxtStrikePos),
-	TxtStrikeWidth(other.TxtStrikeWidth),
 	Cols(other.Cols),
 	ColGap(other.ColGap),
 	PLineArt(other.PLineArt),
@@ -165,7 +150,6 @@ PageItem::PageItem(const PageItem & other)
 	fill_gradient(other.fill_gradient),
 	fillRule(other.fillRule),
 	doOverprint(other.doOverprint),
-	Language(other.Language),
 	LeftLink(other.LeftLink),
 	RightLink(other.RightLink),
 	TopLink(other.TopLink),
@@ -236,16 +220,12 @@ PageItem::PageItem(const PageItem & other)
 	oldLocalScY(other.oldLocalScY),
 	oldLocalX(other.oldLocalX),
 	oldLocalY(other.oldLocalY),
-	m_Font(other.m_Font),
-	m_FontSize(other.m_FontSize),
 	m_Doc(other.m_Doc),
 	m_isAnnotation(other.m_isAnnotation),
 	m_annotation(other.m_annotation),
 	PicArt(other.PicArt),
 	m_lineWidth(other.m_lineWidth),
-	Oldm_lineWidth(other.Oldm_lineWidth),
-	LineSp(other.LineSp),
-	LineSpMode(other.LineSpMode)
+	Oldm_lineWidth(other.Oldm_lineWidth)
 {
 }
 
@@ -285,21 +265,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_Doc = pa;
 	fillColorVal = fill;
 	lineColorVal = m_ItemType == PageItem::TextFrame ? fill : outline;
-	TxtFill = m_Doc->toolSettings.dPenText;
-	TxtStroke = m_Doc->toolSettings.dStrokeText;
-	ShTxtStroke = 100;
-	ShTxtFill = 100;
-	TxtScale = 1000;
-	TxtScaleV = 1000;
-	TxtShadowX = 50;
-	TxtShadowY = -50;
-	TxtOutline = 10;
-	TxTStyle = 0;
-	TxtBase = 0;
-	TxtUnderWidth = m_Doc->typographicSettings.valueUnderlineWidth;
-	TxtUnderPos = m_Doc->typographicSettings.valueUnderlinePos;
-	TxtStrikePos = m_Doc->typographicSettings.valueStrikeThruPos;
-	TxtStrikeWidth = m_Doc->typographicSettings.valueStrikeThruWidth;
 	GrType = 0;
 	GrStartX = 0;
 	GrStartY = 0;
@@ -314,11 +279,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	FrameOnly = false;
 	ClipEdited = false;
 	FrameType = 0;
-	m_Font = m_Doc->toolSettings.defFont;
-	m_FontSize = m_Doc->toolSettings.defSize;
-	LineSpMode = 0;
-	LineSp = ((m_Doc->toolSettings.defSize / 10.0) * static_cast<double>(m_Doc->typographicSettings.autoLineSpacing) / 100) + (m_Doc->toolSettings.defSize / 10.0);
-	m_Doc->docParagraphStyles[0].setLineSpacing(LineSp);
 	CurX = 0;
 	CurY = 0;
 	CPos = 0;
@@ -441,7 +401,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 		fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
 	else
 		fill_gradient.addStop(m_Doc->PageColors[lineColor()].getRGBColor(), 1.0, 0.5, 1.0, lineColor(), 100);
-	Language = m_Doc->Language;
 	Cols = m_Doc->toolSettings.dCols;
 	ColGap = m_Doc->toolSettings.dGap;
 	LeftLink = 0;
@@ -637,6 +596,59 @@ void PageItem::setReversed(bool newReversed)
 	Reverse=newReversed;
 }
 
+
+/// returns true if text overflows
+bool PageItem::frameOverflows() const
+{
+#ifndef NLS_PROTO
+	return itemText.count()	> MaxChars;
+#else
+	return false; // FIXME:NLS
+#endif
+}
+
+int PageItem::firstInFrame() const
+{
+	return 0;
+}
+int PageItem::lastInFrame() const
+{
+#ifndef NLS_PROTO
+	return MaxChars - 1;
+#else
+	return itemText.length() - 1;
+#endif
+}
+
+/// tests if a character is displayed by this frame
+bool PageItem::frameDisplays(int textpos) const
+{
+#ifndef NLS_PROTO
+	return 0 <= textpos && textpos < signed(MaxChars);
+#else
+	return true; // FIXME:NLS
+#endif
+}
+
+
+/// returns the style at the current charpos
+const ParagraphStyle& PageItem::currentStyle() const
+{
+	if (frameDisplays(CPos))
+		return itemText.paragraphStyle(CPos);
+	else
+		return itemText.defaultStyle();
+}
+
+/// returns the style at the current charpos
+const CharStyle& PageItem::currentCharStyle() const
+{
+	if (frameDisplays(CPos))
+		return itemText.charStyle(CPos);
+	else
+		return itemText.defaultStyle().charStyle();
+}
+
 void PageItem::setTextToFrameDistLeft(double newLeft)
 {
 	Extra=newLeft;
@@ -668,6 +680,20 @@ void PageItem::setTextToFrameDist(double newLeft, double newRight, double newTop
 	TExtra=newTop;
 	BExtra=newBottom;
 	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
+}
+
+double PageItem::gridOffset() const { return m_Doc->typographicSettings.offsetBaseGrid; }
+double PageItem::gridDistance() const { return m_Doc->typographicSettings.valueBaseGrid; }
+
+void PageItem::setGridOffset(double) { } // FIXME
+void PageItem::setGridDistance(double) { } // FIXME
+void PageItem::setColumns(int n) 
+{
+	Cols = n; //FIXME: undo
+}
+void PageItem::setColumnGap(double gap)
+{
+	ColGap = gap; //FIXME: undo
 }
 
 void PageItem::setCornerRadius(double newRadius)
@@ -1127,7 +1153,7 @@ QString PageItem::ExpandToken(uint base)
 		while (itemText.text(za2+zae) == QChar(30))
 		{
 			zae++;
-			if (za2+zae == itemText.length())
+			if (signed(za2+zae) == itemText.length())
 				break;
 		}
 		QString out("%1");
@@ -1809,216 +1835,6 @@ void PageItem::togglePrintEnabled()
 	emit printEnabled(m_PrintEnabled);
 }
 
-void PageItem::setFont(const QString& newFont)
-{
-	if (m_Font == newFont)
-		return; // nothing to do -> return
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::SetFont,
-										  QString(Um::FromTo).arg(m_Font).arg(newFont), Um::IFont);
-		ss->set("SET_FONT", "setfont");
-		ss->set("OLD_FONT", m_Font);
-		ss->set("NEW_FONT", newFont);
-		undoManager->action(this, ss);
-	}
-	m_Font = newFont;
-	emit textFont(m_Font);
-}
-
-void PageItem::setFontSize(int newSize)
-{
-	if (m_FontSize == newSize)
-		return; // nothing to do -> return
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::SetFontSize,
-										  QString(Um::FromTo).arg(m_FontSize/10.0).arg(newSize/10.0), Um::IFont);
-		ss->set("SET_FONT_SIZE", "setfontsize");
-		ss->set("OLD_SIZE", m_FontSize);
-		ss->set("NEW_SIZE", newSize);
-		undoManager->action(this, ss);
-	}
-	m_FontSize = newSize;
-	emit textSize(m_FontSize);
-}
-
-void PageItem::setFontHeight(int newHeight)
-{
-	if (TxtScaleV == newHeight)
-		return; // nothing to do -> return
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::SetFontHeight,
-										  QString(Um::FromTo).arg(TxtScaleV).arg(newHeight), Um::IFont);
-		ss->set("SET_FONT_HEIGHT", "setfontheight");
-		ss->set("OLD_HEIGHT", TxtScaleV);
-		ss->set("NEW_HEIGHT", newHeight);
-		undoManager->action(this, ss);
-	}
-	TxtScaleV = newHeight;
-}
-
-void PageItem::setFontWidth(int newWidth)
-{
-	if (TxtScale == newWidth)
-		return; // nothing to do -> return
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::SetFontWidth,
-										  QString(Um::FromTo).arg(TxtScale).arg(newWidth), Um::IFont);
-		ss->set("SET_FONT_WIDTH", "setfontwidth");
-		ss->set("OLD_WIDTH", TxtScale);
-		ss->set("NEW_WIDTH", newWidth);
-		undoManager->action(this, ss);
-	}
-	TxtScale = newWidth;
-}
-
-void PageItem::setFontFillColor(const QString& newColor)
-{
-	if (TxtFill == newColor)
-		return; // nothing to do -> return
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::SetFontFill,
-										  QString(Um::FromTo).arg(TxtFill).arg(newColor), Um::IFont);
-		ss->set("SET_FONT_FILL", "setfontfill");
-		ss->set("OLD_FILL", TxtFill);
-		ss->set("NEW_FILL", newColor);
-		undoManager->action(this, ss);
-	}
-	TxtFill = newColor;
-	emit textColor(TxtStroke, TxtFill, ShTxtStroke, ShTxtFill);
-}
-
-void PageItem::setFontStrokeColor(const QString& newColor)
-{
-	if (TxtStroke == newColor)
-		return; // nothing to do -> return
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::SetFontStroke,
-										  QString(Um::FromTo).arg(TxtStroke).arg(newColor), Um::IFont);
-		ss->set("SET_FONT_STROKE", "setfontstroke");
-		ss->set("OLD_STROKE", TxtStroke);
-		ss->set("NEW_STROKE", newColor);
-		undoManager->action(this, ss);
-	}
-	TxtStroke = newColor;
-	emit textColor(TxtStroke, TxtFill, ShTxtStroke, ShTxtFill);
-}
-
-void PageItem::setFontFillShade(int newShade)
-{
-	if (ShTxtFill == newShade)
-		return; // nothing to do -> return
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::SetFontFillShade,
-										  QString(Um::FromTo).arg(ShTxtFill).arg(newShade),
-										  Um::IFont);
-		ss->set("FONT_FILL_SHADE", "line_shade");
-		ss->set("OLD_SHADE", ShTxtFill);
-		ss->set("NEW_SHADE", newShade);
-		undoManager->action(this, ss);
-	}
-	ShTxtFill = newShade;
-	emit textColor(TxtStroke, TxtFill, ShTxtStroke, ShTxtFill);
-}
-
-void PageItem::setFontStrokeShade(int newShade)
-{
-	if (ShTxtStroke == newShade)
-		return; // nothing to do -> return
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::SetFontStrokeShade,
-										  QString(Um::FromTo).arg(ShTxtStroke).arg(newShade),
-										  Um::IFont);
-		ss->set("FONT_STROKE_SHADE", "line_shade");
-		ss->set("OLD_SHADE", ShTxtStroke);
-		ss->set("NEW_SHADE", newShade);
-		undoManager->action(this, ss);
-	}
-	ShTxtStroke = newShade;
-	emit textColor(TxtStroke, TxtFill, ShTxtStroke, ShTxtFill);
-}
-
-void PageItem::setFontEffects(int newEffects)
-{
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::SetFontEffect, "", Um::IFont);
-		ss->set("FONT_EFFECTS", "fonteffects");
-		ss->set("OLD_EFFECT", TxTStyle);
-		ss->set("NEW_EFFECT", newEffects);
-		undoManager->action(this, ss);
-	}
-	TxTStyle &= ~1919;
-	TxTStyle |= newEffects;
-}
-
-void PageItem::setKerning(int newKerning)
-{
-	if (ExtraV == newKerning)
-		return; // nothing to do -> return
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::SetKerning,
-										  QString(Um::FromTo).arg(ExtraV).arg(newKerning),
-										  Um::IFont);
-		ss->set("KERNING", "kerning");
-		ss->set("OLD_KERNING", ExtraV);
-		ss->set("NEW_KERNING", newKerning);
-		undoManager->action(this, ss);
-	}
-	ExtraV = newKerning;
-}
-
-void PageItem::setLineSpacing(double newSpacing)
-{
-	if (LineSp == newSpacing)
-		return; // nothing to do -> return
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::SetLineSpacing,
-										  QString(Um::FromTo).arg(LineSp).arg(newSpacing),
-										  Um::IFont);
-		ss->set("SPACING", "spacing");
-		ss->set("OLD_SPACING", LineSp);
-		ss->set("NEW_SPACING", newSpacing);
-		undoManager->action(this, ss);
-	}
-	LineSp = newSpacing;
-	emit lineSpacing(LineSp);
-}
-
-void PageItem::setLineSpacingMode(int newLineSpacingMode)
-{
-	if (LineSpMode == newLineSpacingMode)
-		return; // nothing to do -> return
-	//TODO Add in undo
-	LineSpMode = newLineSpacingMode;
-}
-
-void PageItem::setLanguage(const QString& newLanguage)
-{
-	if (Language == newLanguage)
-		return; // nothing to do -> return
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::SetLanguage,
-										  QString(Um::FromTo).arg(Language).arg(newLanguage),
-										  Um::IFont);
-		ss->set("LANGUAGE", "lang");
-		ss->set("OLD_LANG", Language);
-		ss->set("NEW_LANG", newLanguage);
-		undoManager->action(this, ss);
-	}
-	Language = newLanguage;
-}
-
 void PageItem::setTextFlowsAroundFrame(bool isFlowing)
 {
 	if (textFlowsAroundFrameVal == isFlowing)
@@ -2376,30 +2192,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreArrow(ss, isUndo, true);
 		else if (ss->contains("END_ARROW"))
 			restoreArrow(ss, isUndo, false);
-		else if (ss->contains("SET_FONT"))
-			restoreFont(ss, isUndo);
-		else if (ss->contains("SET_FONT_SIZE"))
-			restoreFontSize(ss, isUndo);
-		else if (ss->contains("SET_FONT_WIDTH"))
-			restoreFontWidth(ss, isUndo);
-		else if (ss->contains("SET_FONT_FILL"))
-			restoreFontFill(ss, isUndo);
-		else if (ss->contains("SET_FONT_STROKE"))
-			restoreFontStroke(ss, isUndo);
-		else if (ss->contains("FONT_FILL_SHADE"))
-			restoreFontFillShade(ss, isUndo);
-		else if (ss->contains("FONT_STROKE_SHADE"))
-			restoreFontStrokeShade(ss, isUndo);
-		else if (ss->contains("LANGUAGE"))
-			restoreLanguage(ss, isUndo);
-		else if (ss->contains("KERNING"))
-			restoreKerning(ss, isUndo);
-		else if (ss->contains("SPACING"))
-			restoreLineSpacing(ss, isUndo);
 		else if (ss->contains("PSTYLE"))
 			restorePStyle(ss, isUndo);
-		else if (ss->contains("FONT_EFFECTS"))
-			restoreFontEffect(ss, isUndo);
 		else if (ss->contains("CONVERT"))
 			restoreType(ss, isUndo);
 		else if (ss->contains("TEXT_FLOW"))
@@ -2675,94 +2469,6 @@ void PageItem::restoreArrow(SimpleState *state, bool isUndo, bool isStart)
 		setEndArrowIndex(i);
 }
 
-void PageItem::restoreFont(SimpleState *state, bool isUndo)
-{
-	QString font = state->get("OLD_FONT");
-	if (!isUndo)
-		font = state->get("NEW_FONT");
-	select();
-	m_Doc->ItemFont(font);
-}
-
-void PageItem::restoreFontSize(SimpleState *state, bool isUndo)
-{
-	int size = state->getInt("OLD_SIZE");
-	if (!isUndo)
-		size = state->getInt("NEW_SIZE");
-	select();
-	m_Doc->chFSize(size);
-}
-
-void PageItem::restoreFontWidth(SimpleState *state, bool isUndo)
-{
-	int width = state->getInt("OLD_WIDTH");
-	if (!isUndo)
-		width = state->getInt("NEW_WIDTH");
-	select();
-	m_Doc->ItemTextScale(width);
-}
-
-void PageItem::restoreFontFill(SimpleState *state, bool isUndo)
-{
-	QString color = state->get("OLD_FILL");
-	if (!isUndo)
-		color = state->get("NEW_FILL");
-	select();
-	m_Doc->ItemTextBrush(color);
-}
-
-void PageItem::restoreFontStroke(SimpleState *state, bool isUndo)
-{
-	QString color = state->get("OLD_STROKE");
-	if (!isUndo)
-		color = state->get("NEW_STROKE");
-	select();
-	m_Doc->ItemTextPen(color);
-}
-
-void PageItem::restoreFontFillShade(SimpleState *state, bool isUndo)
-{
-	int shade = state->getInt("OLD_SHADE");
-	if (!isUndo)
-		shade = state->getInt("NEW_SHADE");
-	select();
-	m_Doc->ItemTextBrushS(shade);
-}
-
-void PageItem::restoreFontStrokeShade(SimpleState *state, bool isUndo)
-{
-	int shade = state->getInt("OLD_SHADE");
-	if (!isUndo)
-		shade = state->getInt("NEW_SHADE");
-	select();
-	m_Doc->ItemTextPenS(shade);
-}
-
-void PageItem::restoreKerning(SimpleState *state, bool isUndo)
-{
-	int kerning = state->getInt("OLD_KERNING");
-	if (!isUndo)
-		kerning = state->getInt("NEW_KERNING");
-	select();
-	m_Doc->chKerning(kerning);
-}
-
-void PageItem::restoreLineSpacing(SimpleState *state, bool isUndo)
-{
-	double lsp = state->getDouble("OLD_SPACING");
-	if (!isUndo)
-		lsp = state->getDouble("NEW_SPACING");
-	select();
-	m_Doc->ChLineSpa(lsp);
-}
-
-void PageItem::restoreLanguage(SimpleState *state, bool isUndo)
-{
-	QString lang = state->get("OLD_LANG");
-	if (!isUndo)
-		lang = state->get("NEW_LANG");
-	setLanguage(lang);
-}
 
 void PageItem::restorePStyle(SimpleState *state, bool isUndo)
 {
@@ -2770,15 +2476,6 @@ void PageItem::restorePStyle(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		styleid = state->getInt("NEW_STYLE");
 	m_Doc->chAbStyle(this, styleid);
-}
-
-void PageItem::restoreFontEffect(SimpleState *state, bool isUndo)
-{
-	int effect = state->getInt("OLD_EFFECT");
-	if (!isUndo)
-		effect = state->getInt("NEW_EFFECT");
-	select();
-	m_Doc->chTyStyle(effect);
 }
 
 
@@ -3051,27 +2748,10 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->GrStartY = GrStartY;
 	Buffer->GrEndX = GrEndX;
 	Buffer->GrEndY = GrEndY;
-	Buffer->TxtStroke = TxtStroke;
-	Buffer->TxtFill = TxtFill;
-	Buffer->ShTxtStroke = ShTxtStroke;
-	Buffer->ShTxtFill = ShTxtFill;
-	Buffer->TxtScale = TxtScale;
-	Buffer->TxtScaleV = TxtScaleV;
-	Buffer->TxTBase = TxtBase;
-	Buffer->TxTStyle = TxTStyle;
-	Buffer->TxtShadowX = TxtShadowX;
-	Buffer->TxtShadowY = TxtShadowY;
-	Buffer->TxtOutline = TxtOutline;
-	Buffer->TxtUnderPos = TxtUnderPos;
-	Buffer->TxtUnderWidth = TxtUnderWidth;
-	Buffer->TxtStrikePos = TxtStrikePos;
-	Buffer->TxtStrikeWidth = TxtStrikeWidth;
 	Buffer->Rot = Rot;
 	Buffer->PLineArt = PLineArt;
 	Buffer->PLineEnd = PLineEnd;
 	Buffer->PLineJoin = PLineJoin;
-	Buffer->LineSp = LineSp;
-	Buffer->LineSpMode = LineSpMode;
 	Buffer->LocalScX = LocalScX;
 	Buffer->LocalScY = LocalScY;
 	Buffer->LocalX = LocalX;
@@ -3139,9 +2819,6 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->Textflow = textFlowsAroundFrame();
 	Buffer->Textflow2 = textFlowUsesBoundingBox();
 	Buffer->textAlignment = textAlignment;
-	Buffer->IFont = m_Font;
-	Buffer->ISize = m_FontSize;
-	Buffer->ExtraV = ExtraV;
 	Buffer->Groups = Groups;
 	Buffer->IProfile = IProfile;
 	Buffer->IRender = IRender;
@@ -3156,7 +2833,6 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->TranspStroke = lineTransparency();
 	Buffer->Reverse = Reverse;
 	Buffer->NamedLStyle = NamedLStyle;
-	Buffer->Language = Language;
 	Buffer->Cols = Cols;
 	Buffer->ColGap = ColGap;
 	Buffer->isTableItem = isTableItem;
@@ -3685,8 +3361,8 @@ bool PageItem::connectToGUI()
 	connect(this, SIGNAL(textUnderline(int, int)), ScMW->propertiesPalette, SLOT(setUnderline(int, int)));
 	connect(this, SIGNAL(textStrike(int, int)), ScMW->propertiesPalette, SLOT(setStrike(int, int)));
 	connect(this, SIGNAL(textColor(QString, QString, int, int)), ScMW->propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
-	connect(this, SIGNAL(textFormatting(int)), ScMW->propertiesPalette, SLOT(setAli(int)));
-	connect(this, SIGNAL(textFormatting(int)), ScMW, SLOT(setAbsValue(int)));
+//	connect(this, SIGNAL(textFormatting(int)), ScMW->propertiesPalette, SLOT(setAli(int)));
+//	connect(this, SIGNAL(textFormatting(int)), ScMW, SLOT(setAbsValue(int)));
 
 	return true;
 }
@@ -3722,16 +3398,17 @@ void PageItem::emitAllToGUI()
 	emit gradientColorUpdate(GrStartX*dur, GrStartY*dur, GrEndX*dur, GrEndY*dur, Width*dur, Height*dur);
 	if (GrType == 0)
 		emit transparency(fillTransparencyVal, lineTransparencyVal);
-	emit lineSpacing(LineSp);
-	emit textKerning(ExtraV);
 	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
+	emit textFormatting(itemText.defaultStyle().alignment());
+	emit lineSpacing(itemText.defaultStyle().lineSpacing());
 	emit columns(Cols, ColGap);
 	if (m_Doc->appMode != modeEdit)
 	{
-		emit textStyle(TxTStyle);
-		emit textFormatting(textAlignment);
-		emit textFont(m_Font);
-		emit textSize(m_FontSize);
+		emit textKerning(itemText.defaultStyle().charStyle().tracking());
+		emit textStyle(itemText.defaultStyle().charStyle().effects());
+		emit textFont(itemText.defaultStyle().charStyle().font()->scName());
+		emit textSize(itemText.defaultStyle().charStyle().fontSize());
+//		emit textFormatting(textAlignment);
 	}
 }
 

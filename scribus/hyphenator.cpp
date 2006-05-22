@@ -48,6 +48,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
 	useAble(false),
 	codec(0)
 {
+		//FIXME:av pick up language from charstyle
  	QString pfad = ScPaths::instance().libDir();
 	if (ScMW->Sprachen.contains(doc->Language))
 		Language = doc->Language;
@@ -129,7 +130,7 @@ void Hyphenator::slotNewSettings(int Wordlen, bool Autom, bool ACheck, int Num)
 
 void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 {
-	if ((!useAble) || (!ScMW->Sprachen.contains(it->Language)))
+	if ((!useAble))//FIXME:av || (!ScMW->Sprachen.contains(it->Language)))
 		return;
 	const char *word;
 	char *buffer;
@@ -149,7 +150,8 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 		{
 			uint i = 0;
 		  	buffer[strlen(word)] = '\0';
-#ifndef NLS_PROTO
+			it->itemText.hyphenateWord(firstC, found.length(), buffer); 
+/*#ifndef NLS_PROTO
 			for (i = 1; i < found.length()-1; ++i)
 				it->itemText.at(QMIN(maxC, i+firstC))->cstyle &= static_cast<StyleFlag>(1919);		// Delete any old Hyphens
 			for (i = 1; i < found.length()-1; ++i)
@@ -157,7 +159,7 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 				if(buffer[i] & 1)
 					it->itemText.at(QMIN(maxC, i+firstC))->cstyle |= static_cast<StyleFlag>(128);	// Set new Hyphens according Buffer
 			}
-#endif
+#endif*/
 		}
 		free(buffer);
 	}
@@ -165,63 +167,40 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 
 void Hyphenator::slotHyphenate(PageItem* it)
 {
-	PageItem *nextItem = it;
-	PageItem *nb1;
-	while (nextItem != 0)
-	{
-		if (nextItem->BackBox != 0)
-			nextItem = nextItem->BackBox;
-		else
-			break;
-	}
-	nb1 = nextItem;
-#ifndef NLS_PROTO
-	while (nextItem != 0)
-	{
-		uint a = nextItem->itemText.count();
-		for (uint s = 0; s < a; ++s)
-			nb1->itemText.append(nextItem->itemText.take(0));
-		nextItem->MaxChars = 0;
-		nextItem->CPos = 0;
-		nextItem = nextItem->NextBox;
-	}
-#endif
-	if ((!useAble) || !(nb1->asTextFrame()) || (nb1 ->itemText.length() == 0))
+	if ((!useAble) || !(it->asTextFrame()) || (it->itemText.length() == 0))
 		return;
+
 	doc->DoDrawing = false;
+
 	const char *word;
 	char *buffer;
 	const int BORDER = 2;
 	QString text = "";
 	QString buf;
 	QCString te;
-	for (int a = 0; a < nb1->itemText.length(); ++a)
-	{
-		if (nb1->HasSel)
-		{
-			if (nb1->itemText.selected(a))
-				text += nb1->itemText.text(a,1);
-		}
-		else
-			text += nb1->itemText.text(a,1);
-	}
+
 	int firstC = 0;
-	if (nb1->HasSel)
+	if (it->HasSel)
 	{
-		for (int a = 0; a < nb1->itemText.length(); ++a)
+		firstC = -1;
+		for (int a = 0; a < it->itemText.length(); ++a)
 		{
-			if (nb1->itemText.selected(a))
-			{
-				firstC = static_cast<int>(a);
-				break;
-			}
+			if (it->itemText.selected(a)) {
+				if (firstC < 0)
+					firstC = 0;
+				text += it->itemText.text(a,1);
+			}				
 		}
 	}
+	else {
+		text = it->itemText.text(0, it->itemText.length());
+	}
+		
 	int lastC = 0;
 	int Ccount = 0;
 	QString found = "";
 	QString found2 = "";
-	uint maxC = nb1->itemText.length() - 1;
+	uint maxC = it->itemText.length() - 1;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	while ((firstC+Ccount < static_cast<int>(text.length())) && (firstC != -1) && 
 			(lastC < static_cast<int>(text.length())))
@@ -246,10 +225,6 @@ void Hyphenator::slotHyphenate(PageItem* it)
 			{
 	  			uint i = 0;
   				buffer[strlen(word)] = '\0';
-#ifndef NLS_PROTO
-				for (i = 1; i < found.length()-1; ++i)
-					nb1->itemText.at(QMIN(maxC, i+firstC))->cstyle &= static_cast<StyleFlag>(1919);		// Delete any old Hyphens
-#endif
 				bool hasHyphen = false;
 				for (i = 1; i < found.length()-1; ++i)
 				{
@@ -259,65 +234,57 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						break;
 					}
 				}
-				if (hasHyphen)
-				{
-					if (!Automatic)
+				if ( ! hasHyphen ) {
+					it->itemText.hyphenateWord(firstC, found.length(), NULL);
+				}
+				else if (Automatic) {
+					it->itemText.hyphenateWord(firstC, found.length(), buffer);
+				}
+				else {
+					QString outs = "";
+					outs += found2[0];
+					for (i = 1; i < found.length()-1; ++i)
 					{
-						QString outs = "";
-						outs += found2[0];
-						for (i = 1; i < found.length()-1; ++i)
+						outs += found2[i];
+						if(buffer[i] & 1)
+							outs += "-";
+					}
+					outs += found2.right(1);
+					qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+					PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("hyhpen_options");
+					int xpos = prefs->getInt("Xposition", -9999);
+					int ypos = prefs->getInt("Yposition", -9999);
+					HyAsk *dia = new HyAsk((QWidget*)parent(), outs);
+					if ((xpos != -9999) && (ypos != -9999))
+						dia->move(xpos, ypos);
+					qApp->processEvents();
+					if (dia->exec())
+					{
+						outs = dia->Wort->text();
+						uint ii = 0;
+						for (i = 1; i < outs.length()-1; ++i)
 						{
-							outs += found2[i];
-							if(buffer[i] & 1)
-								outs += "-";
+							QChar cht = outs[i];
+							if (cht == "-") 
+								buffer[ii] = 1;
+							else
+								ii++;
 						}
-						outs += found2.right(1);
-						qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-						PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("hyhpen_options");
-						int xpos = prefs->getInt("Xposition", -9999);
-						int ypos = prefs->getInt("Yposition", -9999);
-						HyAsk *dia = new HyAsk((QWidget*)parent(), outs);
-						if ((xpos != -9999) && (ypos != -9999))
-							dia->move(xpos, ypos);
-						qApp->processEvents();
-						if (dia->exec())
-						{
-							outs = dia->Wort->text();
-							uint ii = 0;
-							for (i = 1; i < outs.length()-1; ++i)
-							{
-								QChar cht = outs[i];
-#ifndef NLS_PROTO
-								if (cht == "-")
-									nb1->itemText.at(QMIN(maxC, ii+firstC))->cstyle |= static_cast<StyleFlag>(128);
-								else
-#endif
-									ii++;
-							}
-						}
-						else
-						{
-							free(buffer);
-							prefs->set("Xposition", dia->xpos);
-							prefs->set("Yposition", dia->ypos);
-							delete dia;
-							break;
-						}
-						prefs->set("Xposition", dia->xpos);
-						prefs->set("Yposition", dia->ypos);
-						delete dia;
-  						qApp->setOverrideCursor(QCursor(waitCursor), true);
+						it->itemText.hyphenateWord(firstC, found.length(), buffer);
 					}
 					else
 					{
-#ifndef NLS_PROTO
-						for (i = 1; i < found.length()-1; ++i)
-						{
-							if(buffer[i] & 1)
-								nb1->itemText.at(QMIN(maxC, i+firstC))->cstyle |= static_cast<StyleFlag>(128);
-						}
-#endif
-	  				}
+						free(buffer);
+						buffer = NULL;
+						prefs->set("Xposition", dia->xpos);
+						prefs->set("Yposition", dia->ypos);
+						delete dia;
+						break;
+					}
+					prefs->set("Xposition", dia->xpos);
+					prefs->set("Yposition", dia->ypos);
+					delete dia;
+					qApp->setOverrideCursor(QCursor(waitCursor), true);
 				}
 			}
 			free(buffer);
@@ -332,40 +299,11 @@ void Hyphenator::slotHyphenate(PageItem* it)
 
 void Hyphenator::slotDeHyphenate(PageItem* it)
 {
-#ifndef NLS_PROTO
-	PageItem *nextItem = it;
-	PageItem *nb1;
 	if (!(it->asTextFrame()) || (it ->itemText.count() == 0))
 		return;
-	while (nextItem != 0)
-	{
-		if (nextItem->BackBox != 0)
-			nextItem = nextItem->BackBox;
-		else
-			break;
-	}
-	nb1 = nextItem;
-	while (nextItem != 0)
-	{
-		uint a = nextItem->itemText.count();
-		for (uint s = 0; s < a; ++s)
-			nb1->itemText.append(nextItem->itemText.take(0));
-		nextItem->MaxChars = 0;
-		nextItem->CPos = 0;
-		nextItem = nextItem->NextBox;
-	}
-	doc->DoDrawing = false;
-	for (uint a = 0; a < nb1->itemText.count(); ++a)
-	{
-		if (nb1->HasSel)
-		{
-			if (nb1->itemText.at(a)->cselect)
-				nb1->itemText.at(a)->cstyle &= static_cast<StyleFlag>(1919);
-		}
-		else
-			nb1->itemText.at(a)->cstyle &= static_cast<StyleFlag>(1919);
-	}
+
+	uint a = it->itemText.count();
+	it->itemText.hyphenateWord(0, a, NULL);
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	doc->DoDrawing = true;
-#endif
 }

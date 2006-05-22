@@ -22,7 +22,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <qstring.h>
 
-class Foi;
+#include "scfonts.h"
+
 class PageItem;
 
 /* Struktur fuer Pageitem Text */
@@ -77,6 +78,7 @@ class SCRIBUS_API CharStyle {
 public:
 	static const short NOVALUE = -16000;
 	static const QString NOCOLOR;
+	static const QString NOLANG;
 	
     CharStyle() {
 		cname_ = "";
@@ -97,9 +99,10 @@ public:
         cstrikewidth = NOVALUE;
         cextra = NOVALUE;
 
-        cfont = NULL; 
+        cfont = const_cast<Foi*>(&Foi::NONE); 
         ccolor = NOCOLOR;
         cstroke = NOCOLOR;
+	language_ = NOLANG;
     };
 
     CharStyle(Foi * font, int size, StyleFlag style = ScStyle_Default) {
@@ -124,6 +127,7 @@ public:
         cfont = font; 
         ccolor = "Black";
         cstroke = "Black";
+	language_ = "";
     };
 
 	CharStyle(const CharStyle & other);
@@ -158,6 +162,7 @@ public:
 	Foi* font() const { return cfont; } 
 	QString fillColor() const { return ccolor; }
 	QString strokeColor() const { return cstroke; }
+	QString language() const { return language_; }
 	
 NLS_PRIVATE:
 	QString cname_;
@@ -181,6 +186,7 @@ NLS_PRIVATE:
     Foi* cfont;
     QString ccolor;
     QString cstroke;
+    QString language_;
 
 };
 
@@ -203,7 +209,8 @@ inline bool CharStyle::operator==(const CharStyle & other) const
 			 cextra == other.cextra &&
 			 cfont == other.cfont &&
 			 ccolor == other.ccolor &&
-			 cstroke == other.cstroke );	
+			 cstroke == other.cstroke &&	
+			 language_ == other.language_ );	
 }
 
 inline CharStyle & CharStyle::operator=(const CharStyle & other)
@@ -226,6 +233,7 @@ inline CharStyle & CharStyle::operator=(const CharStyle & other)
 	cfont = other.cfont;
 	ccolor = other.ccolor;
 	cstroke = other.cstroke;
+	language_ = other.language_;
 	return *this;
 }
 
@@ -249,6 +257,7 @@ inline CharStyle::CharStyle(const CharStyle & other)
 	cfont = other.cfont;
 	ccolor = other.ccolor;
 	cstroke = other.cstroke;
+	language_ = other.language_;
 }
 
 
@@ -284,12 +293,14 @@ inline void CharStyle::applyStyle(const CharStyle & other)
 		cstrikewidth = other.cstrikewidth;
 	if (other.cextra != NOVALUE)
 		cextra = other.cextra;
-	if (other.cfont != NULL)
+	if (other.cfont != &Foi::NONE)
 		cfont = other.cfont;
 	if (other.ccolor != NOCOLOR)
 		ccolor = other.ccolor;
 	if (other.cstroke != NOCOLOR)
 		cstroke = other.cstroke;
+	if (other.language_ != NOLANG)
+		language_ = other.language_;
 }
 
 inline void CharStyle::eraseStyle(const CharStyle & other)
@@ -325,11 +336,13 @@ inline void CharStyle::eraseStyle(const CharStyle & other)
 	if (other.cextra == cextra)
 		cextra = NOVALUE;
 	if (other.cfont == cfont)
-		cfont = NULL;
+		cfont = const_cast<Foi*>(&Foi::NONE);
 	if (other.ccolor == ccolor)
 		ccolor = NOCOLOR;
 	if (other.cstroke == cstroke)
 		cstroke = NOCOLOR;
+	if (other.language_ == language_)
+		language_ = NOLANG;
 }
 
 

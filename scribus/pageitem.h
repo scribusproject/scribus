@@ -81,17 +81,7 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject
 	Q_PROPERTY(QString customLineStyle READ customLineStyle WRITE setCustomLineStyle DESIGNABLE false)
 	Q_PROPERTY(int startArrowIndex READ startArrowIndex WRITE setStartArrowIndex DESIGNABLE false)
 	Q_PROPERTY(int endArrowIndex READ endArrowIndex WRITE setEndArrowIndex DESIGNABLE false)
-	Q_PROPERTY(QString font READ font WRITE setFont DESIGNABLE false)
-	Q_PROPERTY(int fontSize READ fontSize WRITE setFontSize DESIGNABLE false)
-	Q_PROPERTY(int fontWidth READ fontWidth WRITE setFontWidth DESIGNABLE false)
-	Q_PROPERTY(QString fontFillColor READ fontFillColor WRITE setFontFillColor DESIGNABLE false)
-	Q_PROPERTY(int fontFillShade READ fontFillShade WRITE setFontFillShade DESIGNABLE false)
-	Q_PROPERTY(QString fontStrokeColor READ fontStrokeColor WRITE setFontStrokeColor DESIGNABLE false)
-	Q_PROPERTY(int fontStrokeShade READ fontStrokeShade WRITE setFontStrokeShade DESIGNABLE false)
-	Q_PROPERTY(int fontEffects READ fontEffects WRITE setFontEffects DESIGNABLE false)
-	Q_PROPERTY(int kerning READ kerning WRITE setKerning  DESIGNABLE false)
-	Q_PROPERTY(double lineSpacing READ lineSpacing WRITE setLineSpacing DESIGNABLE false)
-	Q_PROPERTY(QString language READ language WRITE setLanguage DESIGNABLE false)
+
 	Q_PROPERTY(bool textFlowsAroundFrame READ textFlowsAroundFrame WRITE setTextFlowsAroundFrame DESIGNABLE false)
 	Q_PROPERTY(bool textFlowUsesBoundingBox READ textFlowUsesBoundingBox WRITE setTextFlowUsesBoundingBox DESIGNABLE false)
 	Q_PROPERTY(bool m_PrintEnabled READ printEnabled WRITE setPrintEnabled DESIGNABLE false)
@@ -110,7 +100,8 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject
 	Q_PROPERTY(double textToFrameDistRight READ textToFrameDistRight WRITE setTextToFrameDistRight DESIGNABLE false)
 	Q_PROPERTY(double textToFrameDistTop READ textToFrameDistTop WRITE setTextToFrameDistTop DESIGNABLE false)
 	Q_PROPERTY(double textToFrameDistBottom READ textToFrameDistBottom WRITE setTextToFrameDistBottom DESIGNABLE false)
-
+	Q_PROPERTY(double ColGap READ columnGap WRITE setColumnGap DESIGNABLE false)
+	Q_PROPERTY(int Cols READ columns WRITE setColumns DESIGNABLE false)
 	// FIXME: QMetaProperty can't translate these to/from enumerator names, probably because the
 	// properties aren't moc'd in the Qt sources. They work fine in their
 	// current state as plain integer properties.
@@ -290,7 +281,19 @@ public:
 	
 	virtual void handleModeEditKey(QKeyEvent *k, bool &keyRepeat);
 	
-	
+	/// returns true if text overflows
+	bool frameOverflows() const;
+	/// returns index of first char displayed in this frame, used to be 0
+	int firstInFrame() const;
+	/// returns index of last char displayed in this frame, used to be MaxChars-1
+	int lastInFrame() const;
+	/// tests if a character is displayed by this frame
+	bool frameDisplays(int textpos) const;
+	/// returns the style at the current charpos
+	const ParagraphStyle& currentStyle() const;
+	/// returns the style at the current charpos
+	const CharStyle& currentCharStyle() const;
+	// deprecated:
 	double SetZeichAttr(const CharStyle& hl, int *chs, QString *chx);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
 	void DrawZeichenS(ScPainter *p, struct ZZ *hl);
@@ -307,29 +310,17 @@ public:
 	double GrStartY;
 	double GrEndX;
 	double GrEndY;
-	QString TxtStroke;
-	QString TxtFill;
-	int ShTxtStroke;
-	int ShTxtFill;
-	int TxtScale;
-	int TxtScaleV;
-	int TxTStyle;
-	int TxtBase;
-	int TxtShadowX;
-	int TxtShadowY;
-	int TxtOutline;
-	int TxtUnderPos;
-	int TxtUnderWidth;
-	int TxtStrikePos;
-	int TxtStrikeWidth;
 	int Cols;
 	double ColGap;
-  /** Linienart */
+	double gridOffset_;
+	double gridValue_;
+
+	/** Linestyle */
 	PenStyle PLineArt;
 	PenCapStyle PLineEnd;
 	PenJoinStyle PLineJoin;
 	QString NamedLStyle;
-  /** Definiert die Clipping-Region des Elements; */
+  /** Defines clipping region of the elements; */
 	QPointArray Clip;
 	FPointArray PoLine;
 	FPointArray ContourLine;
@@ -392,9 +383,11 @@ public:
 	int NextPg;
 	bool Tinput;
 	bool isAutoText;
-	int textAlignment;
+	int textAlignment; // ??? av
 #ifndef NLS_PROTO
+protected:
 	uint MaxChars;
+public:
 #endif
 	bool inPdfArticle;
 	int ExtraV;
@@ -415,7 +408,6 @@ public:
 	VGradient fill_gradient;
 	bool fillRule;
 	bool doOverprint;
-	QString Language;
 /* Additions for Table Support */
 	PageItem* LeftLink;
 	PageItem* RightLink;
@@ -481,15 +473,23 @@ public:
 	void setCornerRadius(double);
 
 
-	//Text Data - Move to PageItem_TextFrame at some point?
+	//Text Data - Move to PageItem_TextFrame at some point? --- no, to FrameStyle, av
 	double textToFrameDistLeft() const { return Extra; }
 	double textToFrameDistRight() const { return RExtra; }
 	double textToFrameDistTop() const { return TExtra; }
 	double textToFrameDistBottom() const { return BExtra; }
+	int columns() const { return Cols; }
+	double columnGap() const { return ColGap; }
+	double gridOffset() const;
+	double gridDistance() const;
 	void setTextToFrameDistLeft(double);
 	void setTextToFrameDistRight(double);
 	void setTextToFrameDistTop(double);
 	void setTextToFrameDistBottom(double);
+	void setColumns(int);
+	void setColumnGap(double);
+	void setGridOffset(double);
+	void setGridDistance(double);
 	/**
 	 * \brief Set the text to frame distances all at once
 	 * @param newLeft left distance
@@ -667,112 +667,6 @@ public:
 	/** @brief set lock for resizing */
 	void setSizeLocked(bool isLocked);
 
-	/** @brief Get the PageItem-wide font name */
-	QString font() const { return m_Font; }
-	/**
-	 * @brief Set font for the PageItem.
-	 * @param newFont name of the font
-	 */
-	void setFont(const QString& newFont);
-
-	/** @brief Get the PageItem-wide font size */
-	int fontSize() const { return m_FontSize; }
-	/**
-	 * @brief Set the font size of the frame
-	 * @param newSize font size
-	 */
-	void setFontSize(int newSize);
-
-	/** @brief Get the PageItem-wide character height scaling percentage */
-	int fontHeight() const { return TxtScaleV; }
-	/**
-	 * @brief Set scaling height of character
-	 * @param newHeight height of character
-	 */
-	void setFontHeight(int newHeight);
-
-	/** @brief Get the PageItem-wide character width scaling percentage */
-	int fontWidth() const { return TxtScale; }
-	/**
-	 * @brief Set scaling width of character
-	 * @param newWidth width of character
-	 */
-	void setFontWidth(int newWidth);
-
-	/** @brief Get the name of the PageItem-wide font fill color */
-	QString fontFillColor() const { return TxtFill; }
-	/**
-	 * @brief Set font fill color
-	 * @param newColor font fill color
-	 */
-	void setFontFillColor(const QString& newColor);
-
-	/** @brief Get the PageItem-wide font fill shade */
-	int fontFillShade() const { return ShTxtFill; }
-	/**
-	 * @brief Set the shade of font fill color
-	 * @param newShade shade of font fill color
-	 */
-	void setFontFillShade(int newShade);
-
-	/** @brief Get the PageItem-wide font stroke color */
-	QString fontStrokeColor() const { return TxtStroke; }
-	/**
-	 * @brief Set the color of font stroke
-	 * @param newColor color of font stroke
-	 */
-	void setFontStrokeColor(const QString& newColor);
-
-	/** @brief Get the PageItem-wide font stroke shade */
-	int fontStrokeShade() const { return ShTxtStroke; }
-	/**
-	 * @brief Set the shade of font stroke color
-	 * @param newShade shade of font stroke color
-	 */
-	void setFontStrokeShade(int newShade);
-
-	/** @brief Get the PageItem-wide font effects flags
-	 *
-	 * TODO This should probably be an enum set
-	 */
-	int fontEffects() const { return TxTStyle; }
-	/**
-	 * @brief Set font effects
-	 * @param newEffects font effects
-	 */
-	void setFontEffects(int newEffects);
-
-	/** @brief Get PageItem-wide text kerning */
-	int kerning() const { return ExtraV; }
-	/**
-	 * @brief Set kerning for the text
-	 * @param newKerning kerning for the text
-	 */
-	void setKerning(int newKerning);
-
-	/** @brief Get the PageItem-wide line spacing */
-	double lineSpacing() const { return LineSp; }
-	/**
-	 * @brief Set a line spacing for the frame
-	 * @param newSpacing line spacing for the frame
-	 */
-	void setLineSpacing(double newSpacing);
-
-	/** @brief Get the PageItem-wide line spacing mode */
-	int lineSpacingMode() const { return LineSpMode; }
-	/**
-	 * @brief Set a line spacing for the frame
-	 * @param newLineSpacingMode line spacing for the frame
-	 */
-	void setLineSpacingMode(int newLineSpacingMode);
-	
-	/** @brief Get the hyphenation language for the frame */
-	QString language() const { return Language; }
-	/**
-	 * @brief Set the hyphenation language for the frame
-	 * @param newLanguage hyphenation language for the frame
-	 */
-	void setLanguage(const QString& newLanguage);
 
 	/**
 	 * @brief Does text flow around this object
@@ -962,18 +856,9 @@ protected:
 	void restoreLineWidth(SimpleState *state, bool isUndo);
 	void restoreCustomLineStyle(SimpleState *state, bool isUndo);
 	void restoreArrow(SimpleState *state, bool isUndo, bool isStart);
-	void restoreFont(SimpleState *state, bool isUndo);
-	void restoreFontSize(SimpleState *state, bool isUndo);
-	void restoreFontWidth(SimpleState *state, bool isUndo);
-	void restoreFontFill(SimpleState *state, bool isUndo);
-	void restoreFontStroke(SimpleState *state, bool isUndo);
-	void restoreFontFillShade(SimpleState *state, bool isUndo);
-	void restoreFontStrokeShade(SimpleState *state, bool isUndo);
-	void restoreKerning(SimpleState *state, bool isUndo);
-	void restoreLineSpacing(SimpleState *state, bool isUndo);
-	void restoreLanguage(SimpleState *state, bool isUndo);
+
 	void restorePStyle(SimpleState *state, bool isUndo);
-	void restoreFontEffect(SimpleState *state, bool isUndo);
+
 	void restoreType(SimpleState *state, bool isUndo);
 	void restoreTextFlowing(SimpleState *state, bool isUndo);
 	void restoreImageScaleType(SimpleState *state, bool isUndo);
@@ -1170,11 +1055,6 @@ protected:
 	/** @brief Stores the old LocalY value for undo action. Is used to detect image offset actions. */
 	double oldLocalY;
 	
-	/** Item Font */
-	QString m_Font;
-	/** Item Fontsize */
-	int m_FontSize;
-
 	/** Document this item belongs to */
 	ScribusDoc *m_Doc;
 	
@@ -1188,10 +1068,6 @@ protected:
 	 /** Line width */
 	double m_lineWidth;
 	double Oldm_lineWidth;
-
-/** Linespacing */
-	double LineSp;
-	int LineSpMode;
 	
 signals:
 	//Frame signals
@@ -1217,20 +1093,21 @@ signals:
 	void lineStyleCapJoin(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle);
 	//Frame text signals
 	void lineSpacing(double);
+	void textKerning(int);
+	void textStyle(int);
+	void textFont(QString);
+	void textSize(int);
+	void textWidthScale(int);
+	void textHeightScale(int);
+	void textBaseLineOffset(int);
+	void textOutline(int);
+	void textShadow(int, int);
+	void textUnderline(int, int);
+	void textStrike(int, int);
+	void textColor(QString, QString, int, int);
+	void textFormatting(int);
 	void textToFrameDistances(double, double, double, double); //left, top, bottom, right: Extra, TExtra, BExtra, RExtra
-	void textKerning(int); //ExtraV
-	void textStyle(int); //Style setting
-	void textFont(QString); //Text font
-	void textSize(int); //Text size
-	void textWidthScale(int); //Scaling width of text, ChScale in mpalette
-	void textHeightScale(int); //Scaling height of text, ChScaleV in mpalette
-	void textBaseLineOffset(int); //Offset from baseline to text
-	void textOutline(int); //Outline
-	void textShadow(int, int); //Shadow
-	void textUnderline(int, int); //Underline
-	void textStrike(int, int); //Strikethrough
-	void textColor(QString, QString, int, int); //itemText.at(i)-> cstroke, ccolor, cshade2, cshade
-	void textFormatting(int); //Underline, subscript, etc
+	//FIXME: columns, grid ?
 	//Frame image signals
 	void imageOffsetScale(double, double, double, double);
 };

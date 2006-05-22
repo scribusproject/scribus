@@ -2894,7 +2894,10 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 		tmp += "BT\n";
 #ifndef NLS_PROTO
 	// Loop over each character (!) in the pageItem...
-	for (uint d = 0; d < ite->MaxChars; ++d)
+	uint d;
+	for (d = 0; ! ite->frameDisplays(d); ++d)
+		;
+	for (; ite->frameDisplays(d); ++d)
 	{
 		const ScText * const hl = ite->itemText.at(d);
 		if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27)) || (hl->ch == QChar(26)))
@@ -3100,7 +3103,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		while (ite->itemText.text(za2+zae) == QChar(30))
 		{
 			zae++;
-			if (za2+zae == ite->MaxChars)
+			if ( ! ite->frameDisplays(za2+zae) )
 				break;
 		}
 		QString out="%1";
@@ -3293,7 +3296,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			{
 				int chs = hl->csize;
 				double wtr;
-				if (d < ite->MaxChars-1)
+				if (ite->frameDisplays(d+1))
 				{
 					QString ctx = ite->itemText.at(d+1)->ch;
 					if (ctx == QChar(29))
@@ -4032,10 +4035,10 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			if (Options.Version < 14)
 				cnx += ind2PDFabr[ite->annotation().Font()];
 			else
-				cnx += UsedFontsP[ite->font()]+"S0";
-			cnx += " "+FToStr(ite->fontSize() / 10.0)+" Tf";
-			if (ite->TxtFill != CommonStrings::None)
-				cnx += " "+ putColor(ite->TxtFill, ite->ShTxtFill, true);
+				cnx += UsedFontsP[ite->itemText.defaultStyle().charStyle().font()->scName()]+"S0";
+			cnx += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf";
+			if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
+				cnx += " "+ putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
 			if (ite->fillColor() != CommonStrings::None)
 				cnx += " "+ putColor(ite->fillColor(), ite->fillShade(), false);
 			cnx += ")";
@@ -4309,13 +4312,13 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			cc += putColor(ite->fillColor(), ite->fillShade(), false);
 		cc += FToStr(x)+" "+FToStr(y2)+" "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nf\n";
 		cc += "/Tx BMC\nBT\n";
-		if (ite->TxtFill != CommonStrings::None)
-			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
+		if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
+			cc += putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
 		if (Options.Version < 14)
 			cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 		else
-			cc += UsedFontsP[ite->font()]+"S0";
-		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
+			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font()->scName()]+"S0";
+		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
 		if (bmst.count() > 1)
 		{
 			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
@@ -4334,9 +4337,9 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	if (ite->annotation().Type() == 4)
 	{
 		cc = "q\nBT\n";
-		if (ite->TxtFill != CommonStrings::None)
-			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
-		cc += "/ZaDb "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
+		if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
+			cc += putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
+		cc += "/ZaDb "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
 		cc += "0 0 Td\n("+ct+") Tj\nET\nQ";
 //		PDF_Form(cc);
 		PDF_xForm(ite->width(), ite->height(), cc);
@@ -4357,10 +4360,10 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (Options.Version < 14)
 			cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 		else
-			cc += UsedFontsP[ite->font()]+"S0";
+			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font()->scName()]+"S0";
 //		cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 //		cc += ind2PDFabr[ite->AnFont];
-		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
+		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
 		if (bmst.count() > 0)
 			cc += EncString("("+bmst[0]+")",ObjCounter-1);

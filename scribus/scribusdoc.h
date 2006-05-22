@@ -722,24 +722,9 @@ public: // Public attributes
 	QValueList<AlignObjs> AObjects;
 	QColor papColor;
 	int CurrentSel;
-	int CurrentStyle;
-	int currentParaStyle;
-	QString CurrFont;
-	int CurrFontSize;
-	QString CurrTextFill;
-	int CurrTextFillSh;
-	QString CurrTextStroke;
-	int CurrTextStrokeSh;
-	int CurrTextScale;
-	int CurrTextScaleV;
-	int CurrTextBase;
-	int CurrTextShadowX;
-	int CurrTextShadowY;
-	int CurrTextOutline;
-	int CurrTextUnderPos;
-	int CurrTextUnderWidth;
-	int CurrTextStrikePos;
-	int CurrTextStrikeWidth;
+	ParagraphStyle currentStyle;
+	int currentParaStyle; //??
+
 	bool EditClip;
 	int EditClipMode;
 	typoPrefs typographicSettings;
@@ -811,8 +796,6 @@ public: // Public attributes
 	bool AutoSave;
 	int AutoSaveTime;
 	QTimer * const autoSaveTimer;
-	FT_Library   library;
-	QMap<QString,FT_Face> FFonts;
 	QMap<QString,multiLine> MLineStyles;
 	QValueList<ArrowDesc> arrowStyles;
 	QWidget* WinHan;

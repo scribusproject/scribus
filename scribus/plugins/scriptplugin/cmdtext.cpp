@@ -33,7 +33,7 @@ PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	else
-		return PyFloat_FromDouble(static_cast<long>(it->fontSize() / 10.0));
+		return PyFloat_FromDouble(static_cast<long>(it->currentCharStyle().fontSize() / 10.0));
 }
 
 PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
@@ -59,7 +59,7 @@ PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	else
-		return PyString_FromString(it->font().utf8());
+		return PyString_FromString(it->currentCharStyle().font()->scName().utf8());
 }
 
 PyObject *scribus_gettextsize(PyObject* /* self */, PyObject* args)
@@ -113,7 +113,7 @@ PyObject *scribus_getlinespace(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get line space of non-text frame.","python error"));
 		return NULL;
 	}
-	return PyFloat_FromDouble(static_cast<double>(i->lineSpacing()));
+	return PyFloat_FromDouble(static_cast<double>(i->currentStyle().lineSpacing()));
 }
 
 PyObject *scribus_getcolumngap(PyObject* /* self */, PyObject* args)
@@ -297,25 +297,8 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 		hg->ch = Daten.at(a);
 		if (hg->ch == QChar(10))
 			hg->ch = QChar(13);
-		hg->cfont = (*ScMW->doc->AllFonts)[currItem->font()];
-		hg->csize = currItem->fontSize();
-		hg->ccolor = currItem->TxtFill;
-		hg->cshade = currItem->ShTxtFill;
-		hg->cstroke = currItem->TxtStroke;
-		hg->cshade2 = currItem->ShTxtStroke;
-		hg->cscale = currItem->TxtScale;
-		hg->cscalev = currItem->TxtScaleV;
-		hg->cbase = currItem->TxtBase;
-		hg->cshadowx = currItem->TxtShadowX;
-		hg->cshadowy = currItem->TxtShadowY;
-		hg->coutline = currItem->TxtOutline;
-		hg->cunderpos = currItem->TxtUnderPos;
-		hg->cunderwidth = currItem->TxtUnderWidth;
-		hg->cstrikepos = currItem->TxtStrikePos;
-		hg->cstrikewidth = currItem->TxtStrikeWidth;
-		hg->cextra = 0;
+		*dynamic_cast<CharStyle*>(hg) = currItem->currentCharStyle();
 		hg->cselect = false;
-		hg->cstyle = ScStyle_Default;
 		hg->cab = ScMW->doc->currentParaStyle;
 		hg->xp = 0;
 		hg->yp = 0;
@@ -356,7 +339,8 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 	}
 	if (pos == -1)
 		pos = it->itemText.count();
-	for (uint a = 0; a < Daten.length(); ++a)
+	it->itemText.insertChars(pos, Daten);
+/*	for (uint a = 0; a < Daten.length(); ++a)
 	{
 		ScText *hg = new ScText;
 		hg->ch = Daten.at(Daten.length()-1-a);
@@ -390,6 +374,7 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 		hg->cembedded = 0;
 		it->itemText.insert(pos, hg);
 	}
+	*/
 	it->CPos = pos + Daten.length();
 	it->Dirty = true;
 	if (ScMW->doc->DoDrawing)
@@ -525,7 +510,7 @@ PyObject *scribus_setlinespace(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set line spacing on a non-text frame.","python error"));
 		return NULL;
 	}
-	i->setLineSpacing(w);
+//	i->setLineSpacing(w);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -700,7 +685,7 @@ PyObject *scribus_settextfill(PyObject* /* self */, PyObject* args)
 			else
 				it->itemText.at(b)->ccolor = QString::fromUtf8(Color);
 		}
-		it->TxtFill = QString::fromUtf8(Color);
+//		it->TxtFill = QString::fromUtf8(Color);
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -734,7 +719,7 @@ PyObject *scribus_settextstroke(PyObject* /* self */, PyObject* args)
 			else
 				it->itemText.at(b)->cstroke = QString::fromUtf8(Color);
 		}
-		it->TxtStroke = QString::fromUtf8(Color);
+//		it->TxtStroke = QString::fromUtf8(Color);
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -773,7 +758,7 @@ PyObject *scribus_settextshade(PyObject* /* self */, PyObject* args)
 			else
 				it->itemText.at(b)->cshade = w;
 		}
-	it->ShTxtFill = w;
+//	it->ShTxtFill = w;
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -924,7 +909,8 @@ PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args, PyObject* k
 	if (item->itemText.count() > item->MaxChars)
 	return PyBool_FromLong(static_cast<long>(true));
 	return PyBool_FromLong(static_cast<long>(false)); */
-	uint firstFrame = 0;
+	/*
+	 uint firstFrame = 0;
 	if (nolinks)
 		firstFrame = item->itemText.count();
 	uint chars = item->itemText.count();
@@ -942,6 +928,8 @@ PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args, PyObject* k
 		return PyInt_FromLong(0);
 	// number of overrunning letters
 	return PyInt_FromLong(static_cast<long>(chars - maxchars));
+	 */
+	return PyInt_FromLong(static_cast<long>(item->frameOverflows()));
 }
 
 PyObject *scribus_setpdfbookmark(PyObject* /* self */, PyObject* args)

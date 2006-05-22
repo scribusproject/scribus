@@ -286,7 +286,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	// after sample creating
 	bool previouslyUsedFont = false;
 
-	if (tmpStyle.charStyle().font() == NULL)
+	if (tmpStyle.charStyle().font() == &Foi::NONE)
 		return QPixmap();
 
 	UndoManager::instance()->setUndoEnabled(false); // disable undo
@@ -304,16 +304,16 @@ QPixmap SampleItem::getSample(int width, int height)
 		ScMW->view->setScale(1.0);
 	}
 
-	if (doc->UsedFonts.contains(tmpStyle.charStyle().cfont->scName()))
+	if (doc->UsedFonts.contains(tmpStyle.charStyle().font()->scName()))
 		previouslyUsedFont = true;
 
-	doc->AddFont(tmpStyle.charStyle().cfont->scName(), qRound(doc->toolSettings.defSize / 10.0));
+	doc->AddFont(tmpStyle.charStyle().font()->scName(), qRound(doc->toolSettings.defSize / 10.0));
 	doc->docParagraphStyles.append(tmpStyle);
 	int tmpIndex = doc->docParagraphStyles.count() - 1;
 
 	previewItem->FrameType = PageItem::TextFrame;
 	previewItem->itemText.clear();
-	previewItem->setFont(tmpStyle.charStyle().cfont->scName());
+//	previewItem->setFont(tmpStyle.charStyle().font()->scName());
 	previewItem->Cols = 1;
 	text.replace(QChar(10),QChar(13)).replace(QChar(5),QChar(13));
 	previewItem->itemText.insertChars(0, text);

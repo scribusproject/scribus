@@ -67,13 +67,26 @@ class ScribusDoc;
  	void insertObject(int pos, PageItem* obj);
  	void replaceChar(int pos, QChar ch);
 
+	void hyphenateWord(int pos, uint len, char* hyphens);
+	
  	int length() const;
  	QChar text(int pos) const;
  	QString text(int pos, uint len) const;
  	PageItem* object(int pos) const;
-
+	
+	int nextCharPos(int c);
+	int prevCharPos(int c);
+	int nextWordPos(int c);
+	int prevWordPos(int c);
+	int nextLinePos(int c, double oldX);
+	int prevLinePos(int c, double oldX);
+	int nextFramePos(int c);
+	int prevFramePos(int c);
+	
  	const CharStyle& charStyle(int pos) const;
  	const ParagraphStyle& paragraphStyle(int pos) const;
+ 	const ParagraphStyle& defaultStyle() const;
+ 	void setDefaultStyle(const ParagraphStyle& style);
  	void applyStyle(int pos, uint len, const CharStyle& style);
  	void applyStyle(int pos, const ParagraphStyle& style);
 

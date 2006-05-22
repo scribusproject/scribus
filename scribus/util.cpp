@@ -710,19 +710,19 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 			QChar b = nextItem->itemText.text(a);
 			if (b == QChar(13))
 			{
-				if (a >= nextItem->MaxChars)
+				if (!nextItem->frameDisplays(a))
 					paraN++;
 				else
 					para++;
 			}
 			if ((!b.isLetterOrNumber()) && (Dat.isLetterOrNumber()) && (!first))
 			{
-				if (a >= nextItem->MaxChars)
+				if (!nextItem->frameDisplays(a))
 					wwN++;
 				else
 					ww++;
 			}
-			if (a >= nextItem->MaxChars)
+			if (! nextItem->frameDisplays(a))
 				ccN++;
 			else
 				cc++;
@@ -732,13 +732,13 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 		nbl = nextItem;
 		nextItem = nextItem->NextBox;
 	}
-	if (nbl->MaxChars < nbl->itemText.count())
+	if (nbl->frameOverflows())
 		paraN++;
 	else
 		para++;
 	if (Dat.isLetterOrNumber())
 	{
-		if (nbl->MaxChars < nbl->itemText.count())
+		if (nbl->frameOverflows())
 			wwN++;
 		else
 			ww++;

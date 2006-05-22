@@ -1057,8 +1057,8 @@ void ReformDoc::updateDocumentSettings()
 		prefsManager->appPrefs.GFontSub[itfsu.key()] = tabFonts->FlagsRepl.at(a++)->currentText();
 	QStringList uf = currDoc->UsedFonts.keys();
 	QMap<QString,int>::Iterator it3;
-	for (it3 = currDoc->UsedFonts.begin(); it3 != currDoc->UsedFonts.end(); ++it3)
-		FT_Done_Face(currDoc->FFonts[it3.key()]);
+//	for (it3 = currDoc->UsedFonts.begin(); it3 != currDoc->UsedFonts.end(); ++it3)
+//		FT_Done_Face(currDoc->FFonts[it3.key()]);
 	currDoc->UsedFonts.clear();
 	QStringList::Iterator it3a;
 	QStringList::Iterator it3aend=uf.end();

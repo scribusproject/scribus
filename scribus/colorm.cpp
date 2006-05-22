@@ -672,8 +672,8 @@ void ColorManager::delUnused()
 				break;
 		}
 		/* PFJ - 29.02.04 - Merged if's */
-		if ((it.key() == ScMW->doc->CurrTextFill) ||
-		        (it.key() == ScMW->doc->CurrTextStroke))
+		if ((it.key() == ScMW->doc->currentStyle.charStyle().fillColor()) ||
+		        (it.key() == ScMW->doc->currentStyle.charStyle().strokeColor()))
 			found = true;
 		if (found)
 		{

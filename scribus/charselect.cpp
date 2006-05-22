@@ -244,7 +244,7 @@ void ChTable::showAlternate()
 
 CharSelect::CharSelect( QWidget* parent, PageItem *item) : QDialog( parent, "CharSelect", true, 0 )
 {
-	fontInUse = ScMW->doc->CurrFont;
+	fontInUse = ScMW->doc->currentStyle.charStyle().font()->scName();
 	needReturn = false;
 	installEventFilter(this);
 	run(parent, item, ScMW);
@@ -405,7 +405,7 @@ void CharSelect::scanFont()
 	charactersArabicPresentationFormsA.clear();
 	charactersArabicPresentationFormsB.clear();
 	charactersHebrew.clear();
-	face = ap->doc->FFonts[fontInUse];
+	face = (*ap->doc->AllFonts)[fontInUse]->ftFace();
 	if (!face) {
 		return;
 	}
@@ -681,7 +681,7 @@ void CharSelect::generatePreview(int charClass)
 	characters.clear();
 	zTabelle->setNumRows( 0 );
 	characters = allClasses[charClass];
-	face = ap->doc->FFonts[fontInUse];
+	face = (*ap->doc->AllFonts)[fontInUse]->ftFace();
 	if (!face) {
 		maxCount = 0;
 		return;
@@ -711,11 +711,11 @@ void CharSelect::newFont(int font)
 	delEdit();
 	setCaption( tr( "Select Character:" )+" "+fontInUse );
 	ap->SetNewFont(fontInUse);
-	if (ScMW->doc->CurrFont != fontInUse)
+	if (ScMW->doc->currentStyle.charStyle().font()->scName() != fontInUse)
 	{
 		disconnect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 		fontSelector->RebuildList(ScMW->doc);
-		fontInUse = ScMW->doc->CurrFont;
+		fontInUse = ScMW->doc->currentStyle.charStyle().font()->scName();
 		setCaption( tr( "Select Character:" )+" "+fontInUse );
 		fontSelector->setCurrentText(fontInUse);
 		connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));

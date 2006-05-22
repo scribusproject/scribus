@@ -227,10 +227,7 @@ QString FileLoader::readSLA(const QString & fileName)
 }
 
 static void replaceFonts(PageItem *it, QMap<QString, int> UsedFonts, QMap<QString, QString> ReplacedFonts)
-{
-	if ( !UsedFonts.contains(it->font()) && !it->font().isEmpty())
-		it->setFont(ReplacedFonts[it->font()]);
-	
+{	
 	if ((it->asTextFrame()) || (it->asPathText()))
 	{
 		CharStyle newFontStyle;
@@ -310,9 +307,9 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 		}
 		for (uint a = 0; a < ScMW->doc->docParagraphStyles.count(); ++a)
 		{
-			if ( ScMW->doc->docParagraphStyles[a].charStyle().cfont != NULL && !ScMW->doc->UsedFonts.contains(ScMW->doc->docParagraphStyles[a].charStyle().cfont->scName()))
+			if ( ScMW->doc->docParagraphStyles[a].charStyle().font() != &Foi::NONE && !ScMW->doc->UsedFonts.contains(ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()))
 				ScMW->doc->docParagraphStyles[a].charStyle().cfont =
-					(*ScMW->doc->AllFonts)[ReplacedFonts[ScMW->doc->docParagraphStyles[a].charStyle().cfont->scName()]];
+					(*ScMW->doc->AllFonts)[ReplacedFonts[ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()]];
 		}
 		QMap<QString,QString>::Iterator itfsu;
 		for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
@@ -748,7 +745,6 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 							doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 						}
 					}
-					Neu->setFont(tmpf);
 					QDomNode IT=pg.firstChild();
 					LastStyles * last = new LastStyles();
 					while(!IT.isNull())
@@ -796,7 +792,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 						Neu->fill_gradient.addStop(doc->PageColors[doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, doc->toolSettings.dPen, 100);
 					}
 //					Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", doc->Language));
-					Neu->Language = doc->Language;
+//					Neu->Language = doc->Language;
 					Neu->isAutoText = static_cast<bool>(pg.attribute("AUTOTEXT").toInt());
 					Neu->isEmbedded = static_cast<bool>(pg.attribute("isInline", "0").toInt());
 					Neu->gXpos = pg.attribute("gXpos", "0.0").toDouble();
@@ -806,12 +802,12 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					Neu->gWidth = pg.attribute("gWidth",defaultVal).toDouble();
 					defaultVal.setNum(Neu->height());
 					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
-					if (Neu->lineSpacingMode() == 3)
+/*FIXME					if (Neu->lineSpacingMode() == 3)
 					{
 						doc->docParagraphStyles[0].setUseBaselineGrid(true);
 						Neu->setLineSpacing(doc->typographicSettings.valueBaseGrid-1);
 					}
-					if (Neu->isAutoText)
+*/					if (Neu->isAutoText)
 						doc->LastAuto = Neu;
 					Neu->NextIt = baseobj + pg.attribute("NEXTITEM").toInt();
 					if (Neu->isTableItem)
@@ -1605,7 +1601,6 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 							doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 						}
 					}
-					Neu->setFont(tmpf);
 					QDomNode IT=pg.firstChild();
 					LastStyles * last = new LastStyles();
 					while(!IT.isNull())
@@ -1654,7 +1649,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 						Neu->fill_gradient.addStop(doc->PageColors[doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, doc->toolSettings.dBrush, 100);
 						Neu->fill_gradient.addStop(doc->PageColors[doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, doc->toolSettings.dPen, 100);
 					}
-					Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", doc->Language));
+//					Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", doc->Language));
 					Neu->isAutoText = static_cast<bool>(pg.attribute("AUTOTEXT").toInt());
 					Neu->isEmbedded = static_cast<bool>(pg.attribute("isInline", "0").toInt());
 					Neu->gXpos = pg.attribute("gXpos", "0.0").toDouble();
@@ -1664,12 +1659,12 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					Neu->gWidth = pg.attribute("gWidth",defaultVal).toDouble();
 					defaultVal.setNum(Neu->height());
 					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
-					if (Neu->lineSpacingMode() == 3)
+/*FIXME					if (Neu->lineSpacingMode() == 3)
 					{
 						doc->docParagraphStyles[0].setUseBaselineGrid(true);
 						Neu->setLineSpacing(doc->typographicSettings.valueBaseGrid-1);
 					}
-					if (Neu->isAutoText)
+*/					if (Neu->isAutoText)
 						doc->LastAuto = Neu;
 					Neu->NextIt = pg.attribute("NEXTITEM").toInt();
 					if (Neu->isTableItem)
@@ -2055,9 +2050,9 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
 			currItem->AspectRatio = obj->attribute("RATIO", "0").toInt();
 		}
-		currItem->setLineSpacing(obj->attribute("LINESP").toDouble());
+/*FIXME		currItem->setLineSpacing(obj->attribute("LINESP").toDouble());
 		currItem->setLineSpacingMode(obj->attribute("LINESPMode", "0").toInt());
-		//currItem->convertTo(pt);
+*/		//currItem->convertTo(pt);
 		break;
 	case PageItem::TextFrame:
 		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, true);
@@ -2081,9 +2076,10 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
 			currItem->AspectRatio = obj->attribute("RATIO", "0").toInt();
 		}
-		currItem->setLineSpacing(obj->attribute("LINESP").toDouble());
+/*FIXME		currItem->setLineSpacing(obj->attribute("LINESP").toDouble());
 		currItem->setLineSpacingMode(obj->attribute("LINESPMode", "0").toInt());
-		//currItem->convertTo(pt);
+*/
+			//currItem->convertTo(pt);
 		break;
 	case PageItem::Line:
 		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2, true);
@@ -2114,7 +2110,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->setLineColor(Pcolor2);
 	currItem->setFillShade(obj->attribute("SHADE").toInt());
 	currItem->setLineShade(obj->attribute("SHADE2").toInt());
-	currItem->TxtStroke = obj->attribute("TXTSTROKE", CommonStrings::None);
+/*	currItem->TxtStroke = obj->attribute("TXTSTROKE", CommonStrings::None);
 	currItem->TxtFill = obj->attribute("TXTFILL", "Black");
 	currItem->ShTxtStroke = obj->attribute("TXTSTRSH", "100").toInt();
 	currItem->ShTxtFill = obj->attribute("TXTFILLSH", "100").toInt();
@@ -2129,7 +2125,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->TxtStrikePos=qRound(obj->attribute("TXTSTP", "-0.1").toDouble() * 10);
 	currItem->TxtStrikeWidth=qRound(obj->attribute("TXTSTW", "-0.1").toDouble() * 10);
 	currItem->TxTStyle = obj->attribute("TXTSTYLE", "0").toInt();
-	currItem->setRotation(obj->attribute("ROT").toDouble());
+*/	currItem->setRotation(obj->attribute("ROT").toDouble());
 	currItem->setTextToFrameDist(obj->attribute("EXTRA").toDouble(),
 								obj->attribute("REXTRA", "1").toDouble(),
 								obj->attribute("TEXTRA", "1").toDouble(),
@@ -2202,7 +2198,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->BaseOffs = obj->attribute("BASEOF", "0").toDouble();
 	currItem->setTextFlowsAroundFrame(obj->attribute("TEXTFLOW").toInt());
 	currItem->setTextFlowUsesBoundingBox(obj->attribute("TEXTFLOW2", "0").toInt());
-	currItem->setFontSize(qRound(obj->attribute("ISIZE", "12").toDouble() * 10));
+//	currItem->setFontSize(qRound(obj->attribute("ISIZE", "12").toDouble() * 10));
 	if (obj->hasAttribute("EXTRAV"))
 		currItem->ExtraV = qRound(obj->attribute("EXTRAV", "0").toDouble() / obj->attribute("ISIZE", "12").toDouble() * 1000.0);
 	else
@@ -2338,8 +2334,6 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	}
 	if (currItem->asImageFrame())
 		currItem->AdjustPictScale();
-	if (!(currItem->asTextFrame()) && !(currItem->asPathText()))
-		currItem->setFont(doc->toolSettings.defFont);
 	if (currItem->asPathText())
 	{
 		currItem->updatePolyClip();
@@ -2516,9 +2510,9 @@ bool FileLoader::postLoad()
 		}
 		for (uint a = 0; a < ScMW->doc->docParagraphStyles.count(); ++a)
 		{
-			if ( ScMW->doc->docParagraphStyles[a].charStyle().cfont != NULL && !ScMW->doc->UsedFonts.contains(ScMW->doc->docParagraphStyles[a].charStyle().cfont->scName()))
+			if ( ScMW->doc->docParagraphStyles[a].charStyle().font() != &Foi::NONE && !ScMW->doc->UsedFonts.contains(ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()))
 				ScMW->doc->docParagraphStyles[a].charStyle().cfont =
-					(*ScMW->doc->AllFonts)[ReplacedFonts[ScMW->doc->docParagraphStyles[a].charStyle().cfont->scName()]];
+					(*ScMW->doc->AllFonts)[ReplacedFonts[ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()]];
 		}
 		QValueList<QString> tmpList;
 		tmpList.clear();

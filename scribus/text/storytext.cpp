@@ -8,9 +8,6 @@
 #include "scfonts.h"
 #include "util.h"
 
-//FIXME: move to proper place
-const QString CharStyle::NOCOLOR; // cf. sctextstruct.h
-
 
 QChar SpecialChars::OBJECT     = QChar(25);
 QChar SpecialChars::TAB        = QChar(9);
@@ -150,6 +147,20 @@ void StoryText::replaceChar(int pos, QChar ch)
 	invalidate(pos, pos + 1);
 }
 
+void StoryText::hyphenateWord(int pos, uint len, char* hyphens)
+{
+	assert(pos >= 0);
+	assert(pos + len < length());
+	
+	for (int i=pos; i < pos+len; ++i)
+		if(hyphens[i] & 1)
+			at(i)->cstyle = (at(i)->cstyle | ScStyle_HyphenationPossible);
+		else
+			at(i)->cstyle = (at(i)->cstyle & ~ScStyle_HyphenationPossible);
+
+	invalidate(pos, pos + len);
+}
+
 void StoryText::insertObject(int pos, PageItem* ob)
 {
 	if (pos < 0)
@@ -232,6 +243,11 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 	assert( that->at(pos)->cab >= 0 );
 	assert( that->at(pos)->cab < doc->docParagraphStyles.count() );
 	return doc->docParagraphStyles[that->at(pos)->cab];
+}
+
+const ParagraphStyle& StoryText::defaultStyle() const
+{
+	return doc->docParagraphStyles[0];
 }
 
 void StoryText::applyStyle(int pos, uint len, const CharStyle& style )

@@ -152,7 +152,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 			ch = QChar(13);
 		if ((inPara) && (!overridePStyleFont))
 		{
-			if (ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().font() == NULL)
+			if (ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().font() == &Foi::NONE)
 				newStyle.cfont = (*ScMW->doc->AllFonts)[fontName2];
 			else
 				newStyle.cfont = ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().font();
@@ -241,8 +241,8 @@ int gtAction::applyParagraphStyle(gtParagraphStyle* pstyle)
 
 void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 {
-	textFrame->Cols = fstyle->getColumns();
-	textFrame->ColGap = fstyle->getColumnsGap();
+	textFrame->setColumns(fstyle->getColumns());
+	textFrame->setColumnGap(fstyle->getColumnsGap());
 	textFrame->setFillColor(parseColor(fstyle->getBgColor()));
 	textFrame->setFillShade(fstyle->getBgShade());
 	textFrame->TabValues = QValueList<ParagraphStyle::TabRecord>(*(fstyle->getTabValues()));
@@ -253,6 +253,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 // 		pstyleIndex = 0;
 // 	textFrame->Doc->currentParaStyle = pstyleIndex;
 
+/* FIXME
 	double linesp;
 	if (fstyle->getAutoLineSpacing())
 		linesp = getLineSpacing(fstyle->getFont()->getSize());
@@ -279,17 +280,20 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	textFrame->TxtStrikePos = -1;
 	textFrame->TxtStrikeWidth = -1;
 	textFrame->ExtraV = font->getKerning();
+	*/
 }
 
 void gtAction::getFrameFont(gtFont *font)
 {
-	font->setName(textFrame->font());
-	font->setSize(textFrame->fontSize());
-	font->setColor(textFrame->TxtFill);
-	font->setShade(textFrame->ShTxtFill);
-	font->setStrokeColor(textFrame->TxtStroke);
-	font->setStrokeShade(textFrame->ShTxtStroke);
-	font->setHscale(textFrame->TxtScale);
+	const CharStyle& style(textFrame->document()->currentStyle.charStyle());
+	
+	font->setName(style.font()->scName());
+	font->setSize(style.fontSize());
+	font->setColor(style.fillColor());
+	font->setShade(style.fillShade());
+	font->setStrokeColor(style.strokeColor());
+	font->setStrokeShade(style.strokeShade());
+	font->setHscale(style.scaleH());
 	font->setKerning(0);
 }
 
@@ -458,11 +462,11 @@ Foi* gtAction::validateFont(gtFont* font)
 
 	QString useFont = font->getName();
 	if ((useFont.isNull()) || (useFont.isEmpty()))
-		useFont = textFrame->font();
+		useFont = textFrame->document()->currentStyle.charStyle().font()->scName();
 	else if (prefsManager->appPrefs.AvailFonts[font->getName()] == 0)
 	{
 		bool found = false;
-		useFont == NULL;
+		useFont = "";
 		QString tmpName = findFontName(font);
 		if (tmpName != NULL)
 		{

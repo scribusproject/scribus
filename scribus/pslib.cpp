@@ -1918,7 +1918,9 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				}
 			}
 #ifndef NLS_PROTO
-			for (d = 0; d < c->MaxChars; ++d)
+			for (d = 0; ! c->frameDisplays(d); ++d)
+				;
+			for (; c->frameDisplays(d); ++d)
 			{
 				hl = c->itemText.at(d);
 				if ((hl->ch == QChar(13)) || (hl->ch == QChar(30)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
@@ -2284,7 +2286,10 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 	if (ite->lineColor() != CommonStrings::None)
 		tabDist += ite->lineWidth() / 2.0;
 
-	for (uint d = 0; d < ite->MaxChars; ++d)
+	uint d;
+	for (d = 0; ! ite->frameDisplays(d); ++d)
+		;		
+	for (; ite->frameDisplays(d); ++d)
 	{
 		hl = ite->itemText.at(d);
 		if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27)) || (hl->ch == QChar(26)))
@@ -2489,7 +2494,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			while (ite->itemText.at(za2+zae)->ch == QChar(30))
 			{
 				zae++;
-				if (za2+zae == ite->MaxChars)
+				if ( ! ite->frameDisplays(za2+zae) )
 					break;
 			}
 			QString out="%1";
@@ -2529,7 +2534,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			{
 				PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
 				PS_scale(-1, 1);
-				if (d < ite->MaxChars-1)
+				if (ite->frameDisplays(d+1))
 				{
 					QString ctx = ite->itemText.at(d+1)->ch;
 					if (ctx == QChar(29))
@@ -2576,7 +2581,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			int chs = hl->csize;
 			ite->SetZeichAttr(*hl, &chs, &chx);
 			PS_scale(-1, 1);
-			if (d < ite->MaxChars-1)
+			if (ite->frameDisplays(d+1))
 			{
 				QString ctx = ite->itemText.at(d+1)->ch;
 				if (ctx == QChar(29))

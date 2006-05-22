@@ -563,7 +563,9 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							gr.appendChild(ob);
 						}
 						ob = docu->createElement("text");
-						for (d = 0; d < Item->MaxChars; d++)
+						for (d = 0; d < Item->itemText.length() && ! Item->frameDisplays(d); ++d)
+							;
+						for (; d < Item->itemText.length() && Item->frameDisplays(d); ++d)
 						{
 							hl = Item->itemText.at(d);
 							if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
@@ -623,7 +625,9 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							}
 						}
 						ob = docu->createElement("text");
-						for (d = 0; d < Item->MaxChars; d++)
+						for (d = 0; d < Item->itemText.length() && !Item->frameDisplays(d); ++d)
+							;
+						for (; d < Item->itemText.length() && Item->frameDisplays(d); ++d)
 						{
 							hl = Item->itemText.at(d);
 							if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(25)) || (hl->ch == QChar(28)))

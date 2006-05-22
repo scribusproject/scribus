@@ -283,23 +283,23 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("PWIDTH",item->lineWidth());
 	ob->setAttribute("PCOLOR",item->fillColor());
 	ob->setAttribute("PCOLOR2",item->lineColor());
-	ob->setAttribute("TXTFILL",item->TxtFill);
-	ob->setAttribute("TXTSTROKE",item->TxtStroke);
-	ob->setAttribute("TXTSTRSH",item->ShTxtStroke);
-	ob->setAttribute("TXTFILLSH",item->ShTxtFill);
-	ob->setAttribute("TXTSCALE",item->TxtScale / 10.0);
-	ob->setAttribute("TXTSCALEV",item->TxtScaleV / 10.0);
-	ob->setAttribute("TXTBASE",item->TxtBase / 10.0);
-	ob->setAttribute("TXTSHX",item->TxtShadowX / 10.0);
-	ob->setAttribute("TXTSHY",item->TxtShadowY / 10.0);
-	ob->setAttribute("TXTOUT",item->TxtOutline / 10.0);
-	ob->setAttribute("TXTULP",item->TxtUnderPos / 10.0);
-	ob->setAttribute("TXTULW",item->TxtUnderWidth / 10.0);
-	ob->setAttribute("TXTSTP",item->TxtStrikePos / 10.0);
-	ob->setAttribute("TXTSTW",item->TxtStrikeWidth / 10.0);
-	ob->setAttribute("TXTSTYLE",item->TxTStyle);
-	ob->setAttribute("COLUMNS", item->Cols);
-	ob->setAttribute("COLGAP", item->ColGap);
+	ob->setAttribute("TXTFILL",item->itemText.defaultStyle().charStyle().fillColor());
+	ob->setAttribute("TXTSTROKE",item->itemText.defaultStyle().charStyle().strokeColor());
+	ob->setAttribute("TXTSTRSH",item->itemText.defaultStyle().charStyle().strokeShade());
+	ob->setAttribute("TXTFILLSH",item->itemText.defaultStyle().charStyle().fillShade());
+	ob->setAttribute("TXTSCALE",item->itemText.defaultStyle().charStyle().scaleH() / 10.0);
+	ob->setAttribute("TXTSCALEV",item->itemText.defaultStyle().charStyle().scaleV() / 10.0);
+	ob->setAttribute("TXTBASE",item->itemText.defaultStyle().charStyle().baselineOffset() / 10.0);
+	ob->setAttribute("TXTSHX",item->itemText.defaultStyle().charStyle().shadowXOffset() / 10.0);
+	ob->setAttribute("TXTSHY",item->itemText.defaultStyle().charStyle().shadowYOffset() / 10.0);
+	ob->setAttribute("TXTOUT",item->itemText.defaultStyle().charStyle().outlineWidth() / 10.0);
+	ob->setAttribute("TXTULP",item->itemText.defaultStyle().charStyle().underlineOffset() / 10.0);
+	ob->setAttribute("TXTULW",item->itemText.defaultStyle().charStyle().underlineWidth() / 10.0);
+	ob->setAttribute("TXTSTP",item->itemText.defaultStyle().charStyle().strikethruOffset() / 10.0);
+	ob->setAttribute("TXTSTW",item->itemText.defaultStyle().charStyle().strikethruWidth() / 10.0);
+	ob->setAttribute("TXTSTYLE",item->itemText.defaultStyle().charStyle().effects());
+	ob->setAttribute("COLUMNS", item->columns());
+	ob->setAttribute("COLGAP", item->columnGap());
 	ob->setAttribute("NAMEDLST",item->NamedLStyle);
 	ob->setAttribute("SHADE",item->fillShade());
 	ob->setAttribute("SHADE2",item->lineShade());
@@ -308,9 +308,9 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("PLINEART",item->PLineArt);
 	ob->setAttribute("PLINEEND", item->PLineEnd);
 	ob->setAttribute("PLINEJOIN", item->PLineJoin);
-	ob->setAttribute("LINESP",item->lineSpacing());
-	ob->setAttribute("LINESPMode", item->lineSpacingMode());
-	ob->setAttribute("TXTKERN",item->ExtraV);
+	ob->setAttribute("LINESP",item->itemText.defaultStyle().lineSpacing());
+	ob->setAttribute("LINESPMode", item->itemText.defaultStyle().lineSpacingMode());
+	ob->setAttribute("TXTKERN",item->itemText.defaultStyle().charStyle().tracking());
 	ob->setAttribute("LOCALSCX",item->imageXScale());
 	ob->setAttribute("LOCALSCY",item->imageYScale());
 	ob->setAttribute("LOCALX",item->imageXOffset());
@@ -322,8 +322,8 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("FLIPPEDV", item->imageFlippedV());
 /*	ob->setAttribute("BBOXX",item->BBoxX);
 	ob->setAttribute("BBOXH",item->BBoxH); */
-	ob->setAttribute("IFONT",item->font());
-	ob->setAttribute("ISIZE",item->fontSize() / 10.0 );
+	ob->setAttribute("IFONT",item->itemText.defaultStyle().charStyle().font()->scName());
+	ob->setAttribute("ISIZE",item->itemText.defaultStyle().charStyle().fontSize() / 10.0 );
 	ob->setAttribute("SCALETYPE", item->ScaleType ? 1 : 0);
 	ob->setAttribute("RATIO", item->AspectRatio ? 1 : 0);
 	ob->setAttribute("PRINTABLE", item->printEnabled() ? 1 : 0);
@@ -453,7 +453,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	for (nx = item->Groups.begin(); nx != item->Groups.end(); ++nx)
 		glp += tmp.setNum((*nx)) + " ";
 	ob->setAttribute("GROUPS", glp);
-	ob->setAttribute("LANGUAGE", item->Language);
+	ob->setAttribute("LANGUAGE", item->itemText.defaultStyle().charStyle().language());
 	ob->setAttribute("startArrowIndex", item->startArrowIndex());
 	ob->setAttribute("endArrowIndex", item->endArrowIndex());
 }

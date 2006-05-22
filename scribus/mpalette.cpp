@@ -1017,7 +1017,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 	connect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 	*/
-	langCombo->setCurrentText(m_MainWindow->LangTransl[i->Language]);
+	langCombo->setCurrentText(m_MainWindow->LangTransl[i->document()->Language]);
 	if (TabStack->currentIndex() == 5)
 		Cpal->setActGradient(CurItem->GrType);
 	updateColorSpecialGradient();
@@ -1261,7 +1261,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	connect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 	*/
-	langCombo->setCurrentText(m_MainWindow->LangTransl[i->Language]);
+	langCombo->setCurrentText(m_MainWindow->LangTransl[i->document()->Language]);
 	bool setter;
 	if (i->NamedLStyle.isEmpty())
 	{
@@ -1852,7 +1852,7 @@ void Mpalette::setLsp(double r)
 	LineSp->setValue(r);
 	if (tmp)
 	{
-		if (CurItem->lineSpacingMode() > 0)
+		if (CurItem->currentStyle().lineSpacingMode() > 0)
 			LineSp->setEnabled(false);
 		else
 			LineSp->setEnabled(true);
@@ -1860,7 +1860,7 @@ void Mpalette::setLsp(double r)
 		{
 			lineSpacingPop->setItemChecked(lineSpacingPop->idAt(al), false);
 		}
-		lineSpacingPop->setItemChecked(lineSpacingPop->idAt(CurItem->lineSpacingMode()), true);
+		lineSpacingPop->setItemChecked(lineSpacingPop->idAt(CurItem->currentStyle().lineSpacingMode()), true);
 	}
 	HaveItem = tmp;
 }
@@ -2091,7 +2091,7 @@ void Mpalette::NewTScaleV()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->ItemTextScaleV(qRound(ChScaleV->value() * 10));
-		doc->CurrTextScaleV = qRound(ChScaleV->value() * 10);
+		doc->currentStyle.charStyle().cscalev = qRound(ChScaleV->value() * 10);
 		emit DocChanged();
 	}
 }
@@ -2101,7 +2101,7 @@ void Mpalette::NewTBase()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->setItemTextBase(qRound(ChBase->value() * 10));
-		doc->CurrTextBase = qRound(ChBase->value() * 10);
+		doc->currentStyle.charStyle().cbase = qRound(ChBase->value() * 10);
 		emit DocChanged();
 	}
 }
@@ -2131,7 +2131,7 @@ void Mpalette::NewTScale()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->ItemTextScale(qRound(ChScale->value() * 10));
-		doc->CurrTextScale = qRound(ChScale->value() * 10);
+		doc->currentStyle.charStyle().cscale = qRound(ChScale->value() * 10);
 		emit DocChanged();
 	}
 }
@@ -2605,7 +2605,7 @@ void Mpalette::NewExtra()
 		}
 		else
 		{
-			if (uint(CurItem->CPos) != CurItem->itemText.length())
+			if (CurItem->CPos != CurItem->itemText.length())
 			{
 #ifndef NLS_PROTO
 				CurItem->itemText.at(CurItem->CPos)->cextra = qRound(Extra->value() * 10.0);
@@ -2916,8 +2916,8 @@ void Mpalette::newShadowOffs()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->setItemTextShadow(x, y);
-		doc->CurrTextShadowX = x;
-		doc->CurrTextShadowY = y;
+		doc->currentStyle.charStyle().cshadowx = x;
+		doc->currentStyle.charStyle().cshadowy = y;
 		emit DocChanged();
 	}
 }
@@ -2941,8 +2941,8 @@ void Mpalette::newUnderline()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->setItemTextUnderline(x, y);
-		doc->CurrTextUnderPos = x;
-		doc->CurrTextUnderWidth = y;
+		doc->currentStyle.charStyle().cunderpos = x;
+		doc->currentStyle.charStyle().cunderwidth = y;
 		emit DocChanged();
 	}
 }
@@ -2966,8 +2966,8 @@ void Mpalette::newStrike()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->setItemTextStrike(x, y);
-		doc->CurrTextStrikePos = x;
-		doc->CurrTextStrikeWidth = y;
+		doc->currentStyle.charStyle().cstrikepos = x;
+		doc->currentStyle.charStyle().cstrikewidth = y;
 		emit DocChanged();
 	}
 }
@@ -2999,7 +2999,7 @@ void Mpalette::newOutlineW()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->setItemTextOutline(x);
-		doc->CurrTextOutline = x;
+		doc->currentStyle.charStyle().coutline = x;
 		emit DocChanged();
 	}
 }
@@ -3486,7 +3486,7 @@ void Mpalette::newTxtFill()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->ItemTextBrush(TxFill->currentText());
-		doc->CurrTextFill = TxFill->currentText();
+		doc->currentStyle.charStyle().ccolor = TxFill->currentText();
 		emit DocChanged();
 	}
 }
@@ -3496,7 +3496,7 @@ void Mpalette::newTxtStroke()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->ItemTextPen(TxStroke->currentText());
-		doc->CurrTextStroke = TxStroke->currentText();
+		doc->currentStyle.charStyle().cstroke = TxStroke->currentText();
 		emit DocChanged();
 	}
 }
@@ -3510,13 +3510,13 @@ void Mpalette::setActShade()
 	{
 		b = PM1->getValue();
 		doc->ItemTextPenS(b);
-		doc->CurrTextFillSh = b;
+		doc->currentStyle.charStyle().cshade = b;
 	}
 	else
 	{
 		b = PM2->getValue();
 		doc->ItemTextBrushS(b);
-		doc->CurrTextStrokeSh = b;
+		doc->currentStyle.charStyle().cshade2 = b;
 	}
 	emit DocChanged();
 }
@@ -3724,7 +3724,7 @@ void Mpalette::NewLanguage()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->setLanguage(m_MainWindow->GetLang(langCombo->currentText()));
+		CurItem->document()->Language = (m_MainWindow->GetLang(langCombo->currentText()));
 		emit DocChanged();
 	}
 }

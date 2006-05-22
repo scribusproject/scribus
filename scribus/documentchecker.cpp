@@ -96,7 +96,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		if ((currItem->asTextFrame()) || (currItem->asPathText()))
 		{
 #ifndef NLS_PROTO
-			if ((currItem->itemText.count() > currItem->MaxChars) && (checkerSettings.checkOverflow))
+			if ( currItem->frameOverflows() && (checkerSettings.checkOverflow))
 				itemError.insert(TextOverflow, 0);
 			for (uint e = 0; e < currItem->itemText.length(); ++e)
 			{
@@ -206,7 +206,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		if ((currItem->asTextFrame()) || (currItem->asPathText()))
 		{
 #ifndef NLS_PROTO
-			if ((currItem->itemText.count() > currItem->MaxChars) && (checkerSettings.checkOverflow))
+			if ( currItem->frameOverflows() && (checkerSettings.checkOverflow))
 				itemError.insert(TextOverflow, 0);
 			for (uint e = 0; e < currItem->itemText.count(); ++e)
 			{

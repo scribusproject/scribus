@@ -58,7 +58,7 @@ void SWParse::parseItem(PageItem *aFrame)
 		return;
 
 	// an ugly hack to get the language code from the item language property
-	lang = aFrame->Language;
+	lang = aFrame->itemText.charStyle(0).language();
 	if (ScMW->Sprachen.contains(lang))
 		lang = cfg->getLangCodeFromHyph(ScMW->Sprachen[lang]);
 	// apply spaces after shorts
@@ -67,7 +67,10 @@ void SWParse::parseItem(PageItem *aFrame)
 		return; // no changes
 
 	// get text from frame
-	for (uint i=0; i<aFrame->MaxChars; ++i)
+	uint i;
+	for (i=0; i < aFrame->itemText.length() && ! aFrame->frameDisplays(i); ++i)
+		;
+	for (; i < aFrame->itemText.length() && aFrame->frameDisplays(i); ++i)
 		content += aFrame->itemText.at(i)->ch;
 	changes = content.contains(UNBREAKABLE_SPACE);
 
@@ -105,8 +108,10 @@ void SWParse::parseItem(PageItem *aFrame)
 		*/
 		content.replace(rx, "\\1" + unbreak + "\\2");
 	}
-	// retrun text into frame
-	for (uint i=0; i<aFrame->MaxChars; ++i)
+	// return text into frame
+	for (i=0; i < aFrame->itemText.length() && ! aFrame->frameDisplays(i); ++i)
+		;
+	for (; i < aFrame->itemText.length() && aFrame->frameDisplays(i); ++i)
 		aFrame->itemText.at(i)->ch = content.at(i);
 	if (content.contains(UNBREAKABLE_SPACE) > changes)
 		++modify;

@@ -62,28 +62,11 @@ class ColorCombo;
 class CharSelect;
 
 struct PtiSmall {
-		    int csize;
-		    short cshade;
-		    short cshade2;
-		    short cstyle;
-		    short cab;
-			short cscale;
-			short cscalev;
-			short cbase;
-			short cshadowx;
-			short cshadowy;
-			short coutline;
-			short cunderpos;
-			short cunderwidth;
-			short cstrikepos;
-			short cstrikewidth;
-		    int cextra;
-			QString ch;
-		    QString cfont;
-		    QString ccolor;
-			QString cstroke;
-			PageItem* cembedded;
-		   };
+	CharStyle charStyle;
+	short cab;
+	QString ch;
+	PageItem* cembedded;
+};
 
 class SCRIBUS_API SEditor : public QTextEdit
 {
@@ -116,7 +99,7 @@ public:
 	bool wasMod;
 	bool ready;
 	int unicodeInputCount;
-	int CurrentStyle;
+	StyleFlag CurrentStyle;
 	int currentParaStyle;
 	int CurrFontSize;
 	int CurrTextFillSh;

@@ -10,6 +10,10 @@ for which a new license (GPL+exception) is in place.
 #include "sctextstruct.h"
 #include "scfonts.h"
 
+
+const QString CharStyle::NOCOLOR; 
+const QString CharStyle::NOLANG; 
+
 StyleFlag& operator&= (StyleFlag& left, StyleFlag right){        int result = static_cast<int>(left) & static_cast<int>(right);        left = static_cast<StyleFlag>(result);
         return left;
 }
@@ -107,7 +111,7 @@ bool ParagraphStyle::equiv(const ParagraphStyle& other) const
 QString CharStyle::asString() const
 {
 	QString result;
-	if (cfont != NULL)
+	if (cfont != &Foi::NONE)
 		result += QObject::tr("font %1 ").arg(cfont->scName());
 	if (csize != NOVALUE)
 		result += QObject::tr("size %1 ").arg(csize);

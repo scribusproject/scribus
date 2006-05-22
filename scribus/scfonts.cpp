@@ -55,7 +55,7 @@ for which a new license (GPL+exception) is in place.
 #include FT_TRUETYPE_TABLES_H
 
 FT_Library Foi::library = NULL;
-
+const Foi Foi::NONE;
 
 Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path, 
 		 int face, bool embedps) : face(NULL)
@@ -78,10 +78,25 @@ Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path,
 	}
 }
 
+Foi::Foi()
+{
+	isOTF_ = false;
+	Subset = false;
+	typeCode = Foi::UNKNOWN_TYPE;
+	formatCode = Foi::UNKNOWN_FORMAT;
+	SCName = "";
+	Family = "";
+	Effect = "";
+	cached_RealName = "";
+	fontFile = "(None)";
+	faceIndex_ = -1;
+	EmbedPS = false;
+	Alternative = "";
+	UseFont = false;
+}
+
 Foi::~Foi() {
-	if (face) {
-		FT_Done_Face( face );
-	}
+	unload();
 }
 
 FT_Face Foi::ftFace() const {
@@ -94,6 +109,31 @@ FT_Face Foi::ftFace() const {
 	return face;
 }
 
+void Foi::increaseUsage() const
+{
+	// ++usage;
+}
+
+void Foi::decreaseUsage() const
+{
+//	if (usage == 1) 
+//		unload();
+// --usage;
+}
+
+void Foi::unload()      const
+{
+	Foi* that = const_cast<Foi*>(this);
+	if (that->face) {
+		FT_Done_Face( that->face );
+	}
+	// clear caches
+	that->CharWidth.clear();
+	that->GlyphArray.clear();
+	that->RealGlyphs.clear();
+	that->HasMetrics = false;
+}
+
 double Foi::charWidth(QChar ch) const 
 { 
 	return CharWidth[ch.unicode()]; 
@@ -101,7 +141,7 @@ double Foi::charWidth(QChar ch) const
 
 bool Foi::canRender(QChar ch)   const 
 {
-	return CharWidth.contains(ch.unicode()); 
+	return typeCode != Foi::UNKNOWN_TYPE  &&  CharWidth.contains(ch.unicode()); 
 }
 
 FPointArray Foi::outline(QChar ch) const 
@@ -495,6 +535,7 @@ class Foi_pfa : public Foi_postscript
 
 SCFonts::SCFonts() : QDict<Foi>(), FontPath(true)
 {
+	insert("", new Foi());
 	setAutoDelete(true);
 	showFontInformation=false;
 	checkedFonts.clear();
