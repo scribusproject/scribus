@@ -484,7 +484,7 @@ void SearchReplace::slotDoSearch()
 					if ( Word->isChecked()  &&  inde == sText.length()  &&
 						! Item->itemText.text(QMIN(a+1, maxChar)).isSpace() )
 					{
-						for (uint xx = ReplStart; xx < a+1; ++xx)
+						for (int xx = ReplStart; xx < a+1; ++xx)
 							Item->itemText.select(QMIN(xx, maxChar), 1, false);
 						Item->HasSel = false;
 						inde = 0;
@@ -503,7 +503,7 @@ void SearchReplace::slotDoSearch()
 			{
 				if (SText->isChecked())
 				{
-					for (uint xx = ReplStart; xx < a+1; ++xx)
+					for (int xx = ReplStart; xx < a+1; ++xx)
 						Item->itemText.select(QMIN(xx, maxChar), 1, false);
 					Item->HasSel = false;
 				}
@@ -567,7 +567,7 @@ void SearchReplace::slotDoSearch()
 								hg = chars->at(as+ap);
 								if ((SSize->isChecked()) && (hg->charStyle.fontSize() != sSize))
 									found = false;
-								if ((SFont->isChecked()) && (hg->charStyle.font() != sFont))
+								if ((SFont->isChecked()) && (hg->charStyle.font()->scName() != sFont))
 									found = false;
 								if ((SStyle->isChecked()) && (hg->cab != sStyle))
 									found = false;
@@ -603,7 +603,7 @@ void SearchReplace::slotDoSearch()
 							hg = chars->at(e);
 							if ((SSize->isChecked()) && (hg->charStyle.fontSize() != sSize))
 								found = false;
-							if ((SFont->isChecked()) && (hg->charStyle.font() != sFont))
+							if ((SFont->isChecked()) && (hg->charStyle.font()->scName() != sFont))
 								found = false;
 							if ((SStyle->isChecked()) && (hg->cab != sStyle))
 								found = false;
