@@ -461,74 +461,74 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 void ReformDoc::restoreDefaults()
 {
 	QWidget* current = prefsWidgets->visibleWidget();
-	if (current == tabPage)
-	{
-		unitCombo->setCurrentItem(currDoc->unitIndex());
-		unitChange();
-		autoSaveTime->setValue(currDoc->AutoSaveTime / 1000 / 60);
-		groupAutoSave->setChecked( currDoc->AutoSave );
-		//pageNumber->setValue(currDoc->FirstPnum);
-		docLayout->selectItem(currDoc->currentPageLayout);
-		setDS(currDoc->currentPageLayout);
-		docLayout->firstPage->setCurrentItem(currDoc->pageSets[currDoc->currentPageLayout].FirstPage);
-		/* PV - moved into MarginWidget class
-		GroupRand->rightR->setValue(currDoc->pageMargins.Right * unitRatio);
-		GroupRand->bottomR->setValue(currDoc->pageMargins.Bottom * unitRatio);
-		GroupRand->leftR->setValue(currDoc->pageMargins.Left * unitRatio);
-		GroupRand->topR->setValue(currDoc->pageMargins.Top * unitRatio);
-		GroupRand->RandR = GroupRand->rightR->value() / unitRatio;
-		GroupRand->RandL = GroupRand->leftR->value() / unitRatio;
-		GroupRand->RandB = GroupRand->bottomR->value() / unitRatio;
-		GroupRand->RandT = GroupRand->topR->value() / unitRatio; */
-		GroupRand->setNewMargins(currDoc->pageMargins.Top,
-								 currDoc->pageMargins.Bottom,
-								 currDoc->pageMargins.Left,
-								 currDoc->pageMargins.Right);
-	}
-	else if (current == tabView)
-	{
-		QPixmap pm(54, 14);
-		pm.fill(currDoc->papColor);
-		colorPaper = currDoc->papColor;
-		backColor->setPixmap(pm);
-		checkUnprintable->setChecked( currDoc->marginColored );
-		checkPictures->setChecked(currDoc->guidesSettings.showPic);
-		checkLink->setChecked(currDoc->guidesSettings.linkShown);
-		checkFrame->setChecked(currDoc->guidesSettings.framesShown);
-		checkRuler->setChecked(currDoc->guidesSettings.rulerMode);
-		topScratch->setValue(currDoc->ScratchTop * unitRatio);
-		leftScratch->setValue(currDoc->ScratchLeft * unitRatio);
-		bottomScratch->setValue(currDoc->ScratchBottom * unitRatio);
-		rightScratch->setValue(currDoc->ScratchRight * unitRatio);
-		gapHorizontal->setValue(currDoc->pageSets[currDoc->currentPageLayout].GapHorizontal * unitRatio);
-		gapVertical->setValue(currDoc->pageSets[currDoc->currentPageLayout].GapBelow * unitRatio);
-	}
-	else if (current == tabHyphenator)
-	{
-		tabHyphenator->verbose->setChecked(!currDoc->docHyphenator->Automatic);
-		tabHyphenator->input->setChecked(currDoc->docHyphenator->AutoCheck);
-		tabHyphenator->language->setCurrentText(ScMW->LangTransl[currDoc->docHyphenator->Language]);
-		tabHyphenator->wordLen->setValue(currDoc->docHyphenator->MinWordLen);
-		tabHyphenator->maxCount->setValue(currDoc->docHyphenator->HyCount);
-	}
-	else if (current == tabGuides)
-		tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSettings, docUnitIndex);
-	else if (current == tabTypo)
-		tabTypo->restoreDefaults(&currDoc->typographicSettings);
-	else if (current == tabTools)
-		tabTools->restoreDefaults(&currDoc->toolSettings, docUnitIndex);
-	else if (current == tabFonts)
-		tabFonts->restoreDefaults();
-	else if (current == tabDocChecker)
-		tabDocChecker->restoreDefaults(&currDoc->checkerProfiles, currDoc->curCheckProfile);
-	else if (current == tabPDF)
-		tabPDF->restoreDefaults(currDoc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
-								ScCore->PDFXProfiles, currDoc->UsedFonts, currDoc->PDF_Options.PresentVals,
-								docUnitIndex, currDoc->pageHeight, currDoc->pageWidth, 0);
-	else if (current == tabColorManagement)
-		tabColorManagement->restoreDefaults();
-	else if (current == docInfos)
-		docInfos->restoreDefaults();
+	//if (current == tabPage)
+	//{
+	unitCombo->setCurrentItem(currDoc->unitIndex());
+	unitChange();
+	autoSaveTime->setValue(currDoc->AutoSaveTime / 1000 / 60);
+	groupAutoSave->setChecked( currDoc->AutoSave );
+	//pageNumber->setValue(currDoc->FirstPnum);
+	docLayout->selectItem(currDoc->currentPageLayout);
+	setDS(currDoc->currentPageLayout);
+	docLayout->firstPage->setCurrentItem(currDoc->pageSets[currDoc->currentPageLayout].FirstPage);
+	/* PV - moved into MarginWidget class
+	GroupRand->rightR->setValue(currDoc->pageMargins.Right * unitRatio);
+	GroupRand->bottomR->setValue(currDoc->pageMargins.Bottom * unitRatio);
+	GroupRand->leftR->setValue(currDoc->pageMargins.Left * unitRatio);
+	GroupRand->topR->setValue(currDoc->pageMargins.Top * unitRatio);
+	GroupRand->RandR = GroupRand->rightR->value() / unitRatio;
+	GroupRand->RandL = GroupRand->leftR->value() / unitRatio;
+	GroupRand->RandB = GroupRand->bottomR->value() / unitRatio;
+	GroupRand->RandT = GroupRand->topR->value() / unitRatio; */
+	GroupRand->setNewMargins(currDoc->pageMargins.Top,
+							 currDoc->pageMargins.Bottom,
+							 currDoc->pageMargins.Left,
+							 currDoc->pageMargins.Right);
+	//}
+	//else if (current == tabView)
+	//{
+	QPixmap pm(54, 14);
+	pm.fill(currDoc->papColor);
+	colorPaper = currDoc->papColor;
+	backColor->setPixmap(pm);
+	checkUnprintable->setChecked( currDoc->marginColored );
+	checkPictures->setChecked(currDoc->guidesSettings.showPic);
+	checkLink->setChecked(currDoc->guidesSettings.linkShown);
+	checkFrame->setChecked(currDoc->guidesSettings.framesShown);
+	checkRuler->setChecked(currDoc->guidesSettings.rulerMode);
+	topScratch->setValue(currDoc->ScratchTop * unitRatio);
+	leftScratch->setValue(currDoc->ScratchLeft * unitRatio);
+	bottomScratch->setValue(currDoc->ScratchBottom * unitRatio);
+	rightScratch->setValue(currDoc->ScratchRight * unitRatio);
+	gapHorizontal->setValue(currDoc->pageSets[currDoc->currentPageLayout].GapHorizontal * unitRatio);
+	gapVertical->setValue(currDoc->pageSets[currDoc->currentPageLayout].GapBelow * unitRatio);
+	//}
+	//else if (current == tabHyphenator)
+	//{
+	tabHyphenator->verbose->setChecked(!currDoc->docHyphenator->Automatic);
+	tabHyphenator->input->setChecked(currDoc->docHyphenator->AutoCheck);
+	tabHyphenator->language->setCurrentText(ScMW->LangTransl[currDoc->docHyphenator->Language]);
+	tabHyphenator->wordLen->setValue(currDoc->docHyphenator->MinWordLen);
+	tabHyphenator->maxCount->setValue(currDoc->docHyphenator->HyCount);
+	//}
+	//else if (current == tabGuides)
+	tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSettings, docUnitIndex);
+	//else if (current == tabTypo)
+	tabTypo->restoreDefaults(&currDoc->typographicSettings);
+	//else if (current == tabTools)
+	tabTools->restoreDefaults(&currDoc->toolSettings, docUnitIndex);
+	//else if (current == tabFonts)
+	tabFonts->restoreDefaults();
+	//else if (current == tabDocChecker)
+	tabDocChecker->restoreDefaults(&currDoc->checkerProfiles, currDoc->curCheckProfile);
+	//else if (current == tabPDF)
+	tabPDF->restoreDefaults(currDoc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
+							ScCore->PDFXProfiles, currDoc->UsedFonts, currDoc->PDF_Options.PresentVals,
+							docUnitIndex, currDoc->pageHeight, currDoc->pageWidth, 0);
+	//else if (current == tabColorManagement)
+	tabColorManagement->restoreDefaults();
+	//else if (current == docInfos)
+	docInfos->restoreDefaults();
 }
 
 void ReformDoc::unitChange()

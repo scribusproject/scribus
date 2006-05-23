@@ -816,131 +816,136 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 void Preferences::restoreDefaults()
 {
 	prefsManager->initDefaults();
+	setupGui();
+}
+
+void Preferences::setupGui()
+{
 	ApplicationPrefs* prefsData=&(prefsManager->appPrefs);
 	QWidget* current = prefsWidgets->visibleWidget();
 
-	if (current == tabGeneral) // General
-	{
-		selectedGUILang = prefsData->guiLanguage;
-		guiLangCombo->setCurrentText(langMgr.getLangFromAbbrev(selectedGUILang));
-		GUICombo->setCurrentText(prefsData->GUI);
-		showSplashCheckBox->setChecked( !ScQApp->neverSplashExists() );
-		GFsize->setValue( prefsData->AppFontSize );
-		GTFsize->setValue( prefsData->PaletteFontSize); // temp solution
-		wheelJumpSpin->setValue( prefsData->Wheelval );
-		Recen->setValue( prefsData->RecentDCount );
-		Docs->setText(prefsData->DocDir);
-		ProPfad->setText(prefsData->ProfileDir);
-		ScriptPfad->setText(prefsData->ScriptDir);
-		DocumentTemplateDir->setText(prefsData->documentTemplatesDir);
-	}
-	else if (current == tabDocument) // Document
-	{
-		docLayout->selectItem(prefsData->FacingPages);
-		docLayout->firstPage->setCurrentItem(prefsData->pageSets[prefsData->FacingPages].FirstPage);
-		pageOrientationComboBox->setCurrentItem(prefsData->pageOrientation);
-		unitCombo->setCurrentItem(prefsData->docUnitIndex);
-		pageWidth->setValue(prefsData->PageWidth * unitRatio);
-		pageHeight->setValue(prefsData->PageHeight * unitRatio);
-		marginGroup->setNewMargins(prefsData->RandOben, prefsData->RandUnten,
-								   prefsData->RandLinks, prefsData->RandRechts);
-		marginGroup->setPageWidthHeight(prefsData->PageWidth, prefsData->PageHeight);
-		GroupAS->setChecked( prefsData->AutoSave );
-		ASTime->setValue(prefsData->AutoSaveTime / 1000 / 60);
-	}
-	else if (current == tabView) // Display
-	{
-		int decimals = unitGetPrecisionFromIndex(docUnitIndex);
-		QString unitSuffix = unitGetSuffixFromIndex(docUnitIndex);
-		QPixmap pm5(54, 14);
-		pm5.fill(prefsData->DpapColor);
-		colorPaper = prefsData->DpapColor;
-		backColor->setPixmap(pm5);
-		backColor->setText( QString::null );
-		checkUnprintable->setChecked( prefsData->marginColored );
-		checkPictures->setChecked(prefsData->guidesSettings.showPic);
-		checkLink->setChecked(prefsData->guidesSettings.linkShown);
-		checkControl->setChecked(prefsData->guidesSettings.showControls);
-		checkFrame->setChecked(prefsData->guidesSettings.framesShown);
-		checkRuler->setChecked(prefsData->guidesSettings.rulerMode);
-		checkRuler->setChecked(prefsData->guidesSettings.rulerMode);
-		topScratch->setDecimals( decimals );
-		topScratch->setValue(prefsData->ScratchTop * unitRatio);
-		leftScratch->setDecimals( decimals );
-		leftScratch->setValue(prefsData->ScratchLeft * unitRatio);
-		bottomScratch->setDecimals( decimals );
-		bottomScratch->setValue(prefsData->ScratchBottom * unitRatio);
-		rightScratch->setDecimals( decimals );
-		rightScratch->setValue(prefsData->ScratchRight * unitRatio);
-		topScratch->setSuffix(unitSuffix);
-		bottomScratch->setSuffix(unitSuffix);
-		leftScratch->setSuffix(unitSuffix);
-		rightScratch->setSuffix(unitSuffix);
-		gapHorizontal->setSuffix( unitSuffix );
-		gapHorizontal->setDecimals( decimals );
-		gapHorizontal->setValue(prefsData->pageSets[prefsData->FacingPages].GapHorizontal * unitRatio);
-		gapVertical->setSuffix( unitSuffix );
-		gapVertical->setDecimals( decimals );
-		gapVertical->setValue(prefsData->pageSets[prefsData->FacingPages].GapVertical * unitRatio);
-		drawRuler();
-		CaliSlider->setValue(static_cast<int>(100 * DisScale)-100);
-	}
-	else if (current == tabHyphenator) // Hyphenator
-	{
-		tabHyphenator->verbose->setChecked(!prefsData->Automatic);
-		tabHyphenator->input->setChecked(prefsData->AutoCheck);
-		tabHyphenator->language->setCurrentText(ap->LangTransl[prefsData->Language]);
-		tabHyphenator->wordLen->setValue(prefsData->MinWordLen);
-		tabHyphenator->maxCount->setValue(prefsData->HyCount);
-	}
-	else if (current == tabGuides) // Guides
-		tabGuides->restoreDefaults(&prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);
-	else if (current == tabTypo) // Typography
-		tabTypo->restoreDefaults(&prefsData->typographicSettings);
-	else if (current == tabTools) // Tools
-		tabTools->restoreDefaults(&prefsData->toolSettings, docUnitIndex);
-	else if (current == tabFonts) // Fonts
-		tabFonts->restoreDefaults();
-	else if (current == tabDocChecker) // Preflight Verifier
-		tabDocChecker->restoreDefaults(&prefsData->checkerProfiles, prefsData->curCheckProfile);
-	else if (current == tabPDF) // PDF Export
-	{
-		QMap<QString, int> DocFonts;
-		DocFonts.clear();
-		tabPDF->restoreDefaults(prefsData->PDF_Options,
-								prefsData->AvailFonts,
-								ScCore->PDFXProfiles,
-								DocFonts,
-								prefsData->PDF_Options.PresentVals,
-								docUnitIndex,
-								prefsData->PageHeight,
-								prefsData->PageWidth,
-								0);
-	}
-	else if (current == tabColorManagement && CMSavail) // Color Management
-		tabColorManagement->restoreDefaults();
-	else if (current == tabDefaultItemAttributes) // Document Item Attributes
-	{
-		defaultAttributesList=tabDefaultItemAttributes->getDocAttributesNames();
-		tabDefaultItemAttributes->setup(&prefsData->defaultItemAttributes);
-	}
-	else if (current == tabDefaultTOCIndexPrefs) // Table of Contents
-	{
-		tabDefaultTOCIndexPrefs->setupItemAttrs( defaultAttributesList );
-		tabDefaultTOCIndexPrefs->setup(&prefsData->defaultToCSetups, NULL);
-	}
-	else if (current == tabKeyboardShortcuts) // Keyboard Shortcuts
-		tabKeyboardShortcuts->restoreDefaults();
-	else if (current == tabExtTools) // External Tools
-		tabExtTools->restoreDefaults(prefsData);
-	else if (current == tabMiscellaneous) // Miscellaneous
-	{
-		AskForSubs->setChecked(prefsData->askBeforeSubstituite);
-		stylePreview->setChecked(prefsData->haveStylePreview);
-		startUpDialog->setChecked(prefsData->showStartupDialog);
-		useStandardLI->setChecked(prefsData->useStandardLI);
-		paragraphsLI->setValue(prefsData->paragraphsLI);
-	}
+	//if (current == tabGeneral) // General
+	//{
+	selectedGUILang = prefsData->guiLanguage;
+	guiLangCombo->setCurrentText(langMgr.getLangFromAbbrev(selectedGUILang));
+	GUICombo->setCurrentText(prefsData->GUI);
+	showSplashCheckBox->setChecked( !ScQApp->neverSplashExists() );
+	GFsize->setValue( prefsData->AppFontSize );
+	GTFsize->setValue( prefsData->PaletteFontSize); // temp solution
+	wheelJumpSpin->setValue( prefsData->Wheelval );
+	Recen->setValue( prefsData->RecentDCount );
+	Docs->setText(prefsData->DocDir);
+	ProPfad->setText(prefsData->ProfileDir);
+	ScriptPfad->setText(prefsData->ScriptDir);
+	DocumentTemplateDir->setText(prefsData->documentTemplatesDir);
+	//}
+	//else if (current == tabDocument) // Document
+	//{
+	docLayout->selectItem(prefsData->FacingPages);
+	docLayout->firstPage->setCurrentItem(prefsData->pageSets[prefsData->FacingPages].FirstPage);
+	pageOrientationComboBox->setCurrentItem(prefsData->pageOrientation);
+	unitCombo->setCurrentItem(prefsData->docUnitIndex);
+	pageWidth->setValue(prefsData->PageWidth * unitRatio);
+	pageHeight->setValue(prefsData->PageHeight * unitRatio);
+	marginGroup->setNewMargins(prefsData->RandOben, prefsData->RandUnten,
+							   prefsData->RandLinks, prefsData->RandRechts);
+	marginGroup->setPageWidthHeight(prefsData->PageWidth, prefsData->PageHeight);
+	GroupAS->setChecked( prefsData->AutoSave );
+	ASTime->setValue(prefsData->AutoSaveTime / 1000 / 60);
+	//}
+	//else if (current == tabView) // Display
+	//{
+	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
+	QString unitSuffix = unitGetSuffixFromIndex(docUnitIndex);
+	QPixmap pm5(54, 14);
+	pm5.fill(prefsData->DpapColor);
+	colorPaper = prefsData->DpapColor;
+	backColor->setPixmap(pm5);
+	backColor->setText( QString::null );
+	checkUnprintable->setChecked( prefsData->marginColored );
+	checkPictures->setChecked(prefsData->guidesSettings.showPic);
+	checkLink->setChecked(prefsData->guidesSettings.linkShown);
+	checkControl->setChecked(prefsData->guidesSettings.showControls);
+	checkFrame->setChecked(prefsData->guidesSettings.framesShown);
+	checkRuler->setChecked(prefsData->guidesSettings.rulerMode);
+	checkRuler->setChecked(prefsData->guidesSettings.rulerMode);
+	topScratch->setDecimals( decimals );
+	topScratch->setValue(prefsData->ScratchTop * unitRatio);
+	leftScratch->setDecimals( decimals );
+	leftScratch->setValue(prefsData->ScratchLeft * unitRatio);
+	bottomScratch->setDecimals( decimals );
+	bottomScratch->setValue(prefsData->ScratchBottom * unitRatio);
+	rightScratch->setDecimals( decimals );
+	rightScratch->setValue(prefsData->ScratchRight * unitRatio);
+	topScratch->setSuffix(unitSuffix);
+	bottomScratch->setSuffix(unitSuffix);
+	leftScratch->setSuffix(unitSuffix);
+	rightScratch->setSuffix(unitSuffix);
+	gapHorizontal->setSuffix( unitSuffix );
+	gapHorizontal->setDecimals( decimals );
+	gapHorizontal->setValue(prefsData->pageSets[prefsData->FacingPages].GapHorizontal * unitRatio);
+	gapVertical->setSuffix( unitSuffix );
+	gapVertical->setDecimals( decimals );
+	gapVertical->setValue(prefsData->pageSets[prefsData->FacingPages].GapVertical * unitRatio);
+	drawRuler();
+	CaliSlider->setValue(static_cast<int>(100 * DisScale)-100);
+	//}
+	//else if (current == tabHyphenator) // Hyphenator
+	//{
+	tabHyphenator->verbose->setChecked(!prefsData->Automatic);
+	tabHyphenator->input->setChecked(prefsData->AutoCheck);
+	tabHyphenator->language->setCurrentText(ap->LangTransl[prefsData->Language]);
+	tabHyphenator->wordLen->setValue(prefsData->MinWordLen);
+	tabHyphenator->maxCount->setValue(prefsData->HyCount);
+	//}
+	//else if (current == tabGuides) // Guides
+	tabGuides->restoreDefaults(&prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);
+	//else if (current == tabTypo) // Typography
+	tabTypo->restoreDefaults(&prefsData->typographicSettings);
+	//else if (current == tabTools) // Tools
+	tabTools->restoreDefaults(&prefsData->toolSettings, docUnitIndex);
+	//else if (current == tabFonts) // Fonts
+	tabFonts->restoreDefaults();
+	//else if (current == tabDocChecker) // Preflight Verifier
+	tabDocChecker->restoreDefaults(&prefsData->checkerProfiles, prefsData->curCheckProfile);
+	//else if (current == tabPDF) // PDF Export
+	//{
+	QMap<QString, int> DocFonts;
+	DocFonts.clear();
+	tabPDF->restoreDefaults(prefsData->PDF_Options,
+							prefsData->AvailFonts,
+							ScCore->PDFXProfiles,
+							DocFonts,
+							prefsData->PDF_Options.PresentVals,
+							docUnitIndex,
+							prefsData->PageHeight,
+							prefsData->PageWidth,
+							0);
+	//}
+	//else if (current == tabColorManagement && CMSavail) // Color Management
+	tabColorManagement->restoreDefaults();
+	//else if (current == tabDefaultItemAttributes) // Document Item Attributes
+	//{
+	defaultAttributesList=tabDefaultItemAttributes->getDocAttributesNames();
+	tabDefaultItemAttributes->setup(&prefsData->defaultItemAttributes);
+	//}
+	//else if (current == tabDefaultTOCIndexPrefs) // Table of Contents
+	//{
+	tabDefaultTOCIndexPrefs->setupItemAttrs( defaultAttributesList );
+	tabDefaultTOCIndexPrefs->setup(&prefsData->defaultToCSetups, NULL);
+	//}
+	//else if (current == tabKeyboardShortcuts) // Keyboard Shortcuts
+	tabKeyboardShortcuts->restoreDefaults();
+	//else if (current == tabExtTools) // External Tools
+	tabExtTools->restoreDefaults(prefsData);
+	//else if (current == tabMiscellaneous) // Miscellaneous
+	//{
+	AskForSubs->setChecked(prefsData->askBeforeSubstituite);
+	stylePreview->setChecked(prefsData->haveStylePreview);
+	startUpDialog->setChecked(prefsData->showStartupDialog);
+	useStandardLI->setChecked(prefsData->useStandardLI);
+	paragraphsLI->setValue(prefsData->paragraphsLI);
+	//}
 //	else if (current == pluginManagerPrefsGui) // Plugins	
 }
 

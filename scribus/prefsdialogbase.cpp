@@ -139,6 +139,8 @@ void PrefsDialogBase::languageChange()
 	saveButton->setText(tr("Save..."));
 	backToDefaults->setText( tr( "&Defaults" ) );
 	applyChangesButton->setText(tr("&Apply"));
+	QToolTip::add(backToDefaults, "<qt>" + tr("All preferences can be reset here") + "</qt>");
+	QToolTip::add(applyChangesButton, "<qt>" + tr("Apply all changes without closing the dialog") + "</qt>");
 }
 
 void PrefsDialogBase::saveButton_clicked()

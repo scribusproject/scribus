@@ -355,8 +355,10 @@ protected:
 	QString customText, customTextTR;
 	PluginManagerPrefsGui* pluginManagerPrefsGui;
 
-	//! \brief Setup the GUI widgets by values taken from PrefsManager.
+	//! \brief Resets the PrefsManager. Then call setupGui().
 	void restoreDefaults();
+	//! \brief Setup the GUI widgets by values taken from PrefsManager.
+	void setupGui();
 
 protected slots:
 	virtual void setTOCIndexData(QWidget *widgetToShow);
