@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 
+class QToolButton;
 class QPushButton;
 class QLayout;
 class QToolTip;
@@ -95,7 +96,7 @@ protected:
 	QPtrList<QCheckBox> flagsLocked;
 	QPtrList<QCheckBox> flagsFlow;
 	QPtrList<QCheckBox> flagsOutline;
-	QPtrList<QPushButton> flagsMarker;
+	QPtrList<QToolButton> flagsMarker;
 	QValueList<Layer> *layers;
 };
 

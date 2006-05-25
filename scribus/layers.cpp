@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 **
 ****************************************************************************/
 #include <qpushbutton.h>
+#include <qtoolbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qpixmap.h>
@@ -129,6 +130,13 @@ LayerPalette::LayerPalette(QWidget* parent)
 	Table->setColumnWidth(3, 24);
 	Table->setColumnWidth(4, 24);
 	Table->setColumnWidth(5, 24);
+	header->setResizeEnabled(false, 0);
+	header->setResizeEnabled(false, 1);
+	header->setResizeEnabled(false, 2);
+	header->setResizeEnabled(false, 3);
+	header->setResizeEnabled(false, 4);
+	header->setResizeEnabled(false, 5);
+	header->setResizeEnabled(true, 6);
 	Table->setRowMovingEnabled(false);
 	Table->setSorting(false);
 	Table->setSelectionMode( QTable::SingleRow );
@@ -248,12 +256,15 @@ void LayerPalette::rebuildList()
 		int layerLevel=ScMW->doc->layerLevelFromNumber(layerNumber);
 		int row=layerCount-layerLevel-1;
 		Table->setText(row, 6, ScMW->doc->layerName(layerNumber));
-		QPushButton *pb = new QPushButton(this, tmp.setNum(layerLevel));
-		pb->setFlat(true);
+		QToolButton *pb = new QToolButton(this, tmp.setNum(layerLevel));
+		pb->setAutoRaise(true);
 		pb->setText( "" );
-		QPixmap pm(22,15);
+		QPixmap pm(20,15);
 		pm.fill(ScMW->doc->layerMarker(layerNumber));
-		pb->setPixmap(pm);
+		QIconSet ic;
+		ic.setPixmap(pm, QIconSet::Small, QIconSet::Normal);
+		ic.setPixmap(pm, QIconSet::Small, QIconSet::Active);
+		pb->setIconSet(ic);
 		Table->setCellWidget(row, 0, pb);
 		flagsMarker.append(pb);
 		connect(pb, SIGNAL(clicked()), this, SLOT(markLayer()));
@@ -452,13 +463,16 @@ void LayerPalette::markLayer()
 	if (layerNumber==-1)
 		return;
 	const QObject* senderBox=sender();
-	if (senderBox->isA("QPushButton"))
+	if (senderBox->isA("QToolButton"))
 	{
 		QColor neu = QColor();
 		neu = QColorDialog::getColor(ScMW->doc->layerMarker(layerNumber), this);
-		QPixmap pm(22,15);
+		QPixmap pm(20,15);
 		pm.fill(neu);
-		((QPushButton*)(senderBox))->setPixmap(pm);
+		QIconSet ic;
+		ic.setPixmap(pm, QIconSet::Small, QIconSet::Normal);
+		ic.setPixmap(pm, QIconSet::Small, QIconSet::Active);
+		((QToolButton*)(senderBox))->setIconSet(ic);
 		ScMW->doc->setLayerMarker(layerNumber,neu);
 		emit LayerChanged();
 		ScMW->slotDocCh();
