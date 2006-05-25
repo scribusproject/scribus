@@ -55,7 +55,7 @@ class ScribusDoc;
  * offsets to its basepoint. Other information in the ScriptItem is only
  * used by the layouter.
  */
- class StoryText : NLS_PRIVATE QPtrList<ScText> {
+ class SCRIBUS_API StoryText : NLS_PRIVATE QPtrList<ScText> {
  public:
  	StoryText(ScribusDoc * doc);
  	StoryText(const StoryText & other);

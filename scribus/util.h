@@ -150,7 +150,7 @@ const QString SCRIBUS_API numberToLetterSequence(uint i);
 void SCRIBUS_API parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
 
 #ifndef NLS_CONFORMANCE
-int findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle);
+int SCRIBUS_API findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle);
 #endif
 
 /*! \brief painting the QCheckBox as pixmap.
