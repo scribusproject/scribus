@@ -953,7 +953,7 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		painter->setWorldMatrix(savWM);
 		painter->restore();
 		painter->setZoomFactor(scale);
-		item->MaxChars = a+1;
+		//item->MaxChars = a+1;
 		oCurX = CurX;
 		CurX -= dx;
 		CurX += wide+hl->csize * hl->cextra / 10000.0;
@@ -1086,304 +1086,294 @@ void ScPageOutput::DrawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 
 void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, QRect e, double scale )
 {
-	switch (item->itemType())
+	QWMatrix wm;
+	QPoint pt1, pt2;
+	FPoint ColBound;
+	QRegion cm;
+	uint a;
+	int chs, CurrCol;
+	double oldCurY, wide, lineCorr, ColWidth;
+	QString chx, chx2, chx3;
+	ScText *hl;
+
+	bool outs = false;
+	bool fBorder = false;
+	bool RTab = false;
+	bool goNoRoom = false;
+	bool goNextColumn = false;
+	int TabCode = 0;
+	int HyphenCount = 0;
+	QValueList<ParagraphStyle::TabRecord> tTabValues;
+	bool DropCmode = false;
+	bool AbsHasDrop = false;
+	double desc, asce, tabDist;
+	bool StartOfCol = true;
+	tTabValues.clear();
+
+	/*for (int xxx=0; xxx<5; ++xxx)
 	{
-		case PageItem::TextFrame:
+		m_doc->docParagraphStyles[xxx].setLineSpacingMode( (ParagraphStyle::LineSpacingMode) item->lineSpacingMode() );
+		if (item->lineSpacingMode() == 2)
+			m_doc->docParagraphStyles[xxx].setUseBaselineGrid( true );
+		else
+			m_doc->docParagraphStyles[xxx].setUseBaselineGrid( false );
+		m_doc->docParagraphStyles[xxx].setLineSpacing( item->lineSpacing() );
+		m_doc->docParagraphStyles[xxx].charStyle().csize = item->fontSize();
+		m_doc->docParagraphStyles[xxx].setLeftMargin( 0 );
+		m_doc->docParagraphStyles[xxx].setFirstIndent( 0 );
+		m_doc->docParagraphStyles[xxx].setGapBefore( 0 );
+		m_doc->docParagraphStyles[xxx].setGapAfter( 0 );
+		m_doc->docParagraphStyles[xxx].setAlignment( xxx );
+	}*/
+
+	QPtrList<PageItem::ZZ> LiList;
+	LiList.setAutoDelete(true);
+	QRect e2 = QRect(qRound(e.x()  / scale + m_doc->minCanvasCoordinate.x()), qRound(e.y()  / scale + m_doc->minCanvasCoordinate.y()), qRound(e.width() / scale), qRound(e.height() / scale));
+	painter->save();
+	wm.translate(item->xPos(), item->yPos());
+	wm.rotate(item->rotation());
+	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
+	{
+		painter->setupPolygon(&item->PoLine);
+		painter->fillPath();
+	}
+	if (item->lineColor() != CommonStrings::None)
+		lineCorr = item->lineWidth() / 2.0;
+	else
+		lineCorr = 0;
+	if ((item->isAnnotation()) && (item->annotation().Type() == 2) && (!item->Pfile.isEmpty()) && (item->PicAvail) && (item->imageShown()) && (item->annotation().UseIcons()))
+	{
+		painter->setupPolygon(&item->PoLine);
+		painter->setClipPath();
+		painter->save();
+		painter->scale(item->imageXScale(), item->imageYScale());
+		painter->translate(static_cast<int>(item->imageXOffset() * item->imageXScale()), static_cast<int>(item->imageYOffset()  * item->imageYScale()));
+		if (!item->pixm.isNull())
+			painter->drawImage(&item->pixm, ScPainterExBase::rgbImages);
+		painter->restore();
+	}
+	if ((item->itemText.count() != 0))
+	{
+		if (item->imageFlippedH())
 		{
-			QWMatrix wm;
-			QPoint pt1, pt2;
-			FPoint ColBound;
-			QRegion cm;
-			uint a;
-			int chs, CurrCol;
-			double oldCurY, wide, lineCorr, ColWidth;
-			QString chx, chx2, chx3;
-			ScText *hl;
-
-			bool outs = false;
-			bool fBorder = false;
-			bool RTab = false;
-			bool goNoRoom = false;
-			bool goNextColumn = false;
-			int TabCode = 0;
-			int HyphenCount = 0;
-			QValueList<ParagraphStyle::TabRecord> tTabValues;
-			bool DropCmode = false;
-			bool AbsHasDrop = false;
-			double desc, asce, tabDist;
-			bool StartOfCol = true;
-			tTabValues.clear();
-
-			for (int xxx=0; xxx<5; ++xxx)
-			{
-				m_doc->docParagraphStyles[xxx].setLineSpacingMode( (ParagraphStyle::LineSpacingMode) item->lineSpacingMode() );
-				if (item->lineSpacingMode() == 2)
-					m_doc->docParagraphStyles[xxx].setUseBaselineGrid( true );
-				else
-					m_doc->docParagraphStyles[xxx].setUseBaselineGrid( false );
-				m_doc->docParagraphStyles[xxx].setLineSpacing( item->lineSpacing() );
-				m_doc->docParagraphStyles[xxx].charStyle().csize = item->fontSize();
-				m_doc->docParagraphStyles[xxx].setLeftMargin( 0 );
-				m_doc->docParagraphStyles[xxx].setFirstIndent( 0 );
-				m_doc->docParagraphStyles[xxx].setGapBefore( 0 );
-				m_doc->docParagraphStyles[xxx].setGapAfter( 0 );
-				m_doc->docParagraphStyles[xxx].setAlignment( xxx );
-			}
-
-			QPtrList<PageItem::ZZ> LiList;
-			LiList.setAutoDelete(true);
-			QRect e2 = QRect(qRound(e.x()  / scale + m_doc->minCanvasCoordinate.x()), qRound(e.y()  / scale + m_doc->minCanvasCoordinate.y()), qRound(e.width() / scale), qRound(e.height() / scale));
-			painter->save();
-			wm.translate(item->xPos(), item->yPos());
-			wm.rotate(item->rotation());
-			if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
-			{
-				painter->setupPolygon(&item->PoLine);
-				painter->fillPath();
-			}
-			if (item->lineColor() != CommonStrings::None)
-				lineCorr = item->lineWidth() / 2.0;
+			painter->translate(item->width() * scale, 0);
+			painter->scale(-1, 1);
+		}
+		if (item->imageFlippedV())
+		{
+			painter->translate(0, item->height() * scale);
+			painter->scale(1, -1);
+		}
+		struct PageItem::ZZ Zli3;
+		CurrCol = 0;
+		ColWidth = item->columnWidth();
+		ColBound = FPoint((ColWidth + item->ColGap) * CurrCol + item->textToFrameDistLeft() + lineCorr, ColWidth * (CurrCol+1) + item->ColGap * CurrCol + item->textToFrameDistLeft()+lineCorr);
+		ColBound = FPoint(ColBound.x(), ColBound.y() + item->textToFrameDistRight() + lineCorr);
+		tabDist = ColBound.x();
+		uint tabCc = 0;
+		for (a = 0; a < item->itemText.count(); ++a)
+		{
+			if (a > item->lastInFrame())
+				break;
+			hl = item->itemText.at(a);
+			if (hl->cab < 5)
+				tTabValues = item->TabValues;
 			else
-				lineCorr = 0;
-			if ((item->isAnnotation()) && (item->annotation().Type() == 2) && (!item->Pfile.isEmpty()) && (item->PicAvail) && (item->imageShown()) && (item->annotation().UseIcons()))
+				tTabValues = m_doc->docParagraphStyles[hl->cab].tabValues();
+			if (hl->cstyle & ScStyle_StartOfLine)
+				tabCc = 0;
+			chx = hl->ch;
+			if (hl->yp == 0)
+				continue;
+			if (hl->ch == QChar(30))
+				chx = item->ExpandToken(a);
+			if (hl->ccolor != CommonStrings::None)
 			{
-				painter->setupPolygon(&item->PoLine);
-				painter->setClipPath();
-				painter->save();
-				painter->scale(item->imageXScale(), item->imageYScale());
-				painter->translate(static_cast<int>(item->imageXOffset() * item->imageXScale()), static_cast<int>(item->imageYOffset()  * item->imageYScale()));
-				if (!item->pixm.isNull())
-					painter->drawImage(&item->pixm, ScPainterExBase::rgbImages);
-				painter->restore();
+				ScColorShade tmp(m_doc->PageColors[hl->ccolor], hl->cshade);
+				painter->setBrush(tmp);
 			}
-			if ((item->itemText.count() != 0))
+			if (hl->cstroke != CommonStrings::None)
 			{
-				if (item->imageFlippedH())
+				ScColorShade tmp(m_doc->PageColors[hl->cstroke], hl->cshade2);
+				painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			}
+			chs = hl->csize;
+			if (hl->cstyle & ScStyle_DropCap)
+			{
+				if (m_doc->docParagraphStyles[hl->cab].useBaselineGrid())
+					chs = qRound(10 * ((m_doc->typographicSettings.valueBaseGrid * (m_doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (m_doc->docParagraphStyles[hl->cab].charStyle().csize / 10.0))) / (RealCHeight(m_doc, hl->cfont, chx, 10))));
+				else
 				{
-					painter->translate(item->width() * scale, 0);
-					painter->scale(-1, 1);
-				}
-				if (item->imageFlippedV())
-				{
-					painter->translate(0, item->height() * scale);
-					painter->scale(1, -1);
-				}
-				struct PageItem::ZZ Zli3;
-				CurrCol = 0;
-				ColWidth = item->columnWidth();
-				ColBound = FPoint((ColWidth + item->ColGap) * CurrCol + item->textToFrameDistLeft() + lineCorr, ColWidth * (CurrCol+1) + item->ColGap * CurrCol + item->textToFrameDistLeft()+lineCorr);
-				ColBound = FPoint(ColBound.x(), ColBound.y() + item->textToFrameDistRight() + lineCorr);
-				tabDist = ColBound.x();
-				uint tabCc = 0;
-				for (a = 0; a < item->itemText.count(); ++a)
-				{
-					if (a >= item->MaxChars)
-						break;
-					hl = item->itemText.at(a);
-					if (hl->cab < 5)
-						tTabValues = item->TabValues;
+					if (m_doc->docParagraphStyles[hl->cab].lineSpacingMode() == 0)
+						chs = qRound(10 * ((m_doc->docParagraphStyles[hl->cab].lineSpacing() * (m_doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (m_doc->docParagraphStyles[hl->cab].charStyle().csize / 10.0))) / (RealCHeight(m_doc, hl->cfont, chx, 10))));
 					else
-						tTabValues = m_doc->docParagraphStyles[hl->cab].tabValues();
-					if (hl->cstyle & 16384)
-						tabCc = 0;
-					chx = hl->ch;
-					if (hl->yp == 0)
-						continue;
-					if (hl->ch == QChar(30))
-						chx = item->ExpandToken(a);
-					if (hl->ccolor != CommonStrings::None)
 					{
-						ScColorShade tmp(m_doc->PageColors[hl->ccolor], hl->cshade);
-						painter->setBrush(tmp);
+						double currasce = RealFHeight(m_doc, hl->cfont, m_doc->docParagraphStyles[hl->cab].charStyle().csize);
+						chs = qRound(10 * ((currasce * (m_doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (m_doc->docParagraphStyles[hl->cab].charStyle().csize / 10.0))) / RealCHeight(m_doc, hl->cfont, chx, 10)));
 					}
-					if (hl->cstroke != CommonStrings::None)
+				}
+			}
+			oldCurY = item->SetZeichAttr(*hl, &chs, &chx);
+			if ((chx == SpecialChars::TAB) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
+			{
+				QString tabFillCharQStr(tTabValues[tabCc].tabFillChar);
+				double wt = Cwidth(m_doc, hl->cfont, tabFillCharQStr, chs);
+				int coun = static_cast<int>((hl->xp - tabDist) / wt);
+				double sPos = hl->xp - (hl->xp - tabDist) + 1;
+				desc = hl->cfont->descent() * (-chs / 10.0);
+				asce = hl->cfont->ascent() * (chs / 10.0);
+				Zli3.Zeich = tabFillCharQStr;
+				Zli3.Farb = hl->ccolor;
+				Zli3.Farb2 = hl->cstroke;
+				Zli3.shade = hl->cshade;
+				Zli3.shade2 = hl->cshade2;
+				Zli3.yco = hl->yp;
+				Zli3.Sele = hl->cselect;
+				Zli3.Siz = chs;
+				Zli3.realSiz = hl->csize;
+				Zli3.Style = hl->cstyle;
+				Zli3.ZFo = hl->cfont;
+				Zli3.wide = wt;
+				Zli3.kern = 0;
+				Zli3.scale = 1000;
+				Zli3.scalev = 1000;
+				Zli3.shadowX = hl->cshadowx;
+				Zli3.shadowY = hl->cshadowy;
+				Zli3.outline = hl->coutline;
+				Zli3.base = hl->cbase;
+				Zli3.underpos = hl->cunderpos;
+				Zli3.underwidth = hl->cunderwidth;
+				Zli3.strikepos = hl->cstrikepos;
+				Zli3.strikewidth = hl->cstrikewidth;
+				for (int cx = 0; cx < coun; ++cx)
+				{
+					Zli3.xco =  sPos + wt * cx;
+					if (e2.intersects(wm.mapRect(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
+						DrawCharacters(item, painter, &Zli3);
+				}
+			}
+			if (chx == SpecialChars::TAB)
+				tabCc++;
+			Zli3.Zeich = chx;
+			Zli3.Farb = hl->ccolor;
+			Zli3.Farb2 = hl->cstroke;
+			Zli3.shade = hl->cshade;
+			Zli3.shade2 = hl->cshade2;
+			Zli3.xco = hl->xp;
+			Zli3.yco = hl->yp;
+			Zli3.Sele = hl->cselect;
+			Zli3.Siz = chs;
+			Zli3.realSiz = hl->csize;
+			Zli3.Style = hl->cstyle;
+			Zli3.ZFo = hl->cfont;
+			if ((hl->ch == SpecialChars::OBJECT) && (hl->cembedded != 0))
+				Zli3.wide = (hl->cembedded->gWidth + hl->cembedded->lineWidth()) * (hl->cscale / 1000.0);
+			else
+				Zli3.wide = Cwidth(m_doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
+			if (hl->cstyle & ScStyle_StartOfLine)
+				Zli3.kern = 0;
+			else
+				Zli3.kern = chs * hl->cextra / 10000.0;
+			Zli3.scale = hl->cscale;
+			Zli3.scalev = hl->cscalev;
+			Zli3.base = hl->cbase;
+			Zli3.shadowX = hl->cshadowx;
+			Zli3.shadowY = hl->cshadowy;
+			Zli3.outline = hl->coutline;
+			Zli3.underpos = hl->cunderpos;
+			Zli3.underwidth = hl->cunderwidth;
+			Zli3.strikepos = hl->cstrikepos;
+			Zli3.strikewidth = hl->cstrikewidth;
+			Zli3.embedded = hl->cembedded;
+			//if (!m_doc->RePos)
+			{
+				double xcoZli = Zli3.xco;
+				desc = Zli3.ZFo->descent() * (-Zli3.Siz / 10.0);
+				asce = Zli3.ZFo->ascent() * (Zli3.Siz / 10.0);
+				if ((((Zli3.Sele) && (item->isSelected())) || (((item->NextBox != 0) || (item->BackBox != 0)) && (Zli3.Sele))) && (m_doc->appMode == modeEdit))
+				{
+					wide = Zli3.wide;
+					painter->setFillMode(1);
+					//paintersetBrush( ScColorShade( Qt::darkBlue, 100) );
+					painter->setBrush( ScColorShade(qApp->palette().color(QPalette::Active, QColorGroup::Highlight), 100) );
+					painter->setLineWidth(0);
+					if ((a > 0) && (Zli3.Zeich == SpecialChars::TAB))
 					{
-						ScColorShade tmp(m_doc->PageColors[hl->cstroke], hl->cshade2);
-						painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+						xcoZli = item->itemText.at(a-1)->xp+Cwidth(m_doc, item->itemText.at(a-1)->cfont, item->itemText.at(a-1)->ch, item->itemText.at(a-1)->csize);
+						wide = Zli3.xco - xcoZli + Zli3.wide;
 					}
-					chs = hl->csize;
-					if (hl->cstyle & 2048)
+					//if (!m_doc->RePos)
+						painter->drawRect(xcoZli, qRound(Zli3.yco-asce * (Zli3.scalev / 1000.0)), wide+1, qRound((asce+desc) * (Zli3.scalev / 1000.0)));
+					//painter->setBrush(ScColorShade(Qt::white, 100));
+					painter->setBrush(ScColorShade(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText), 100));
+				}
+				if (Zli3.Farb2 != CommonStrings::None)
+				{
+					ScColorShade tmp(m_doc->PageColors[Zli3.Farb2], Zli3.shade2);
+					painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				}
+				if (((chx == QChar(13)) || (chx == QChar(28))) && (m_doc->guidesSettings.showControls))
+				{
+					if (e2.intersects(wm.mapRect(QRect(qRound(Zli3.xco+Zli3.wide),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
 					{
-						if (m_doc->docParagraphStyles[hl->cab].useBaselineGrid())
-							chs = qRound(10 * ((m_doc->typographicSettings.valueBaseGrid * (m_doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (m_doc->docParagraphStyles[hl->cab].charStyle().csize / 10.0))) / (RealCHeight(m_doc, hl->cfont, chx, 10))));
+						FPointArray points;
+						QWMatrix chma, chma2, chma4, chma5;
+						double ytrans, xtrans;
+						if (chx == QChar(13))
+						{
+							points = m_doc->symReturn.copy();
+							if (a > 0)
+								ytrans = item->itemText.at(a-1)->yp-((Zli3.Siz / 10.0) * 0.8);
+							else
+								ytrans = Zli3.yco-m_doc->docParagraphStyles[hl->cab].lineSpacing()-((Zli3.Siz / 10.0) * 0.8);
+						}
 						else
 						{
-							if (m_doc->docParagraphStyles[hl->cab].lineSpacingMode() == 0)
-								chs = qRound(10 * ((m_doc->docParagraphStyles[hl->cab].lineSpacing() * (m_doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (m_doc->docParagraphStyles[hl->cab].charStyle().csize / 10.0))) / (RealCHeight(m_doc, hl->cfont, chx, 10))));
+							points = m_doc->symNewLine.copy();
+							if (a > 0)
+								ytrans = item->itemText.at(a-1)->yp-((Zli3.Siz / 10.0) * 0.4);
 							else
-							{
-								double currasce = RealFHeight(m_doc, hl->cfont, m_doc->docParagraphStyles[hl->cab].charStyle().csize);
-								chs = qRound(10 * ((currasce * (m_doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (m_doc->docParagraphStyles[hl->cab].charStyle().csize / 10.0))) / RealCHeight(m_doc, hl->cfont, chx, 10)));
-							}
+								ytrans = Zli3.yco-m_doc->docParagraphStyles[hl->cab].lineSpacing()-((Zli3.Siz / 10.0) * 0.4);
 						}
-					}
-					oldCurY = item->SetZeichAttr(*hl, &chs, &chx);
-					if ((chx == QChar(9)) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
-					{
-						QString tabFillCharQStr(tTabValues[tabCc].tabFillChar);
-						double wt = Cwidth(m_doc, hl->cfont, tabFillCharQStr, chs);
-						int coun = static_cast<int>((hl->xp - tabDist) / wt);
-						double sPos = hl->xp - (hl->xp - tabDist) + 1;
-						desc = hl->cfont->descent() * (-chs / 10.0);
-						asce = hl->cfont->ascent() * (chs / 10.0);
-						Zli3.Zeich = tabFillCharQStr;
-						Zli3.Farb = hl->ccolor;
-						Zli3.Farb2 = hl->cstroke;
-						Zli3.shade = hl->cshade;
-						Zli3.shade2 = hl->cshade2;
-						Zli3.yco = hl->yp;
-						Zli3.Sele = hl->cselect;
-						Zli3.Siz = chs;
-						Zli3.realSiz = hl->csize;
-						Zli3.Style = hl->cstyle;
-						Zli3.ZFo = hl->cfont;
-						Zli3.wide = wt;
-						Zli3.kern = 0;
-						Zli3.scale = 1000;
-						Zli3.scalev = 1000;
-						Zli3.shadowX = hl->cshadowx;
-						Zli3.shadowY = hl->cshadowy;
-						Zli3.outline = hl->coutline;
-						Zli3.base = hl->cbase;
-						Zli3.underpos = hl->cunderpos;
-						Zli3.underwidth = hl->cunderwidth;
-						Zli3.strikepos = hl->cstrikepos;
-						Zli3.strikewidth = hl->cstrikewidth;
-						for (int cx = 0; cx < coun; ++cx)
+						if (hl->cstyle & ScStyle_StartOfLine)
+							xtrans = Zli3.xco;
+						else
 						{
-							Zli3.xco =  sPos + wt * cx;
-							if (e2.intersects(wm.mapRect(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
-								DrawCharacters(item, painter, &Zli3);
-						}
-					}
-					if (chx == QChar(9))
-						tabCc++;
-					Zli3.Zeich = chx;
-					Zli3.Farb = hl->ccolor;
-					Zli3.Farb2 = hl->cstroke;
-					Zli3.shade = hl->cshade;
-					Zli3.shade2 = hl->cshade2;
-					Zli3.xco = hl->xp;
-					Zli3.yco = hl->yp;
-					Zli3.Sele = hl->cselect;
-					Zli3.Siz = chs;
-					Zli3.realSiz = hl->csize;
-					Zli3.Style = hl->cstyle;
-					Zli3.ZFo = hl->cfont;
-					if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
-						Zli3.wide = (hl->cembedded->gWidth + hl->cembedded->lineWidth()) * (hl->cscale / 1000.0);
-					else
-						Zli3.wide = Cwidth(m_doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
-					if (hl->cstyle & 16384)
-						Zli3.kern = 0;
-					else
-						Zli3.kern = chs * hl->cextra / 10000.0;
-					Zli3.scale = hl->cscale;
-					Zli3.scalev = hl->cscalev;
-					Zli3.base = hl->cbase;
-					Zli3.shadowX = hl->cshadowx;
-					Zli3.shadowY = hl->cshadowy;
-					Zli3.outline = hl->coutline;
-					Zli3.underpos = hl->cunderpos;
-					Zli3.underwidth = hl->cunderwidth;
-					Zli3.strikepos = hl->cstrikepos;
-					Zli3.strikewidth = hl->cstrikewidth;
-					Zli3.embedded = hl->cembedded;
-					//if (!m_doc->RePos)
-					{
-						double xcoZli = Zli3.xco;
-						desc = Zli3.ZFo->descent() * (-Zli3.Siz / 10.0);
-						asce = Zli3.ZFo->ascent() * (Zli3.Siz / 10.0);
-						if ((((Zli3.Sele) && (item->isSelected())) || (((item->NextBox != 0) || (item->BackBox != 0)) && (Zli3.Sele))) && (m_doc->appMode == modeEdit))
-						{
-							wide = Zli3.wide;
-							painter->setFillMode(1);
-							//paintersetBrush( ScColorShade( Qt::darkBlue, 100) );
-							painter->setBrush( ScColorShade(qApp->palette().color(QPalette::Active, QColorGroup::Highlight), 100) );
-							painter->setLineWidth(0);
-							if ((a > 0) && (Zli3.Zeich == QChar(9)))
-							{
-								xcoZli = item->itemText.at(a-1)->xp+Cwidth(m_doc, item->itemText.at(a-1)->cfont, item->itemText.at(a-1)->ch, item->itemText.at(a-1)->csize);
-								wide = Zli3.xco - xcoZli + Zli3.wide;
-							}
-							//if (!m_doc->RePos)
-								painter->drawRect(xcoZli, qRound(Zli3.yco-asce * (Zli3.scalev / 1000.0)), wide+1, qRound((asce+desc) * (Zli3.scalev / 1000.0)));
-							//painter->setBrush(ScColorShade(Qt::white, 100));
-							painter->setBrush(ScColorShade(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText), 100));
-						}
-						if (Zli3.Farb2 != CommonStrings::None)
-						{
-							ScColorShade tmp(m_doc->PageColors[Zli3.Farb2], Zli3.shade2);
-							painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-						}
-						if (((chx == QChar(13)) || (chx == QChar(28))) && (m_doc->guidesSettings.showControls))
-						{
-							if (e2.intersects(wm.mapRect(QRect(qRound(Zli3.xco+Zli3.wide),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
-							{
-								FPointArray points;
-								QWMatrix chma, chma2, chma4, chma5;
-								double ytrans, xtrans;
-								if (chx == QChar(13))
-								{
-									points = m_doc->symReturn.copy();
-									if (a > 0)
-										ytrans = item->itemText.at(a-1)->yp-((Zli3.Siz / 10.0) * 0.8);
-									else
-										ytrans = Zli3.yco-m_doc->docParagraphStyles[hl->cab].lineSpacing()-((Zli3.Siz / 10.0) * 0.8);
-								}
-								else
-								{
-									points = m_doc->symNewLine.copy();
-									if (a > 0)
-										ytrans = item->itemText.at(a-1)->yp-((Zli3.Siz / 10.0) * 0.4);
-									else
-										ytrans = Zli3.yco-m_doc->docParagraphStyles[hl->cab].lineSpacing()-((Zli3.Siz / 10.0) * 0.4);
-								}
-								if (hl->cstyle & 16384)
-									xtrans = Zli3.xco;
-								else
-								{
-									if (a > 0)
-										xtrans = item->itemText.at(a-1)->xp+ Cwidth(m_doc, item->itemText.at(a-1)->cfont, item->itemText.at(a-1)->ch, item->itemText.at(a-1)->csize);
-									else
-										xtrans = Zli3.xco;
-								}
-								chma4.translate(xtrans, ytrans);
-								chma.scale(Zli3.Siz / 100.0, Zli3.Siz / 100.0);
-								chma2.scale(Zli3.scale / 1000.0, Zli3.scalev / 1000.0);
-								chma5.scale(painter->zoomFactor(), painter->zoomFactor());
-								points.map(chma * chma2 * chma4 * chma5);
-								painter->setupTextPolygon(&points);
-								painter->setFillMode(1);
-								painter->fillPath();
-							}
-						}
-						if (e2.intersects(wm.mapRect(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
-						{
-							if (Zli3.Zeich == QChar(25))
-								DrawItem_Embedded(item, painter, e, &Zli3);
+							if (a > 0)
+								xtrans = item->itemText.at(a-1)->xp+ Cwidth(m_doc, item->itemText.at(a-1)->cfont, item->itemText.at(a-1)->ch, item->itemText.at(a-1)->csize);
 							else
-								DrawCharacters(item, painter, &Zli3);
+								xtrans = Zli3.xco;
 						}
-						if (hl->cstyle & 8192)
-						{
-							Zli3.Zeich = "-";
-							Zli3.xco = Zli3.xco + Zli3.wide;
-							if (e2.intersects(wm.mapRect(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
-								DrawCharacters(item, painter, &Zli3);
-						}
+						chma4.translate(xtrans, ytrans);
+						chma.scale(Zli3.Siz / 100.0, Zli3.Siz / 100.0);
+						chma2.scale(Zli3.scale / 1000.0, Zli3.scalev / 1000.0);
+						chma5.scale(painter->zoomFactor(), painter->zoomFactor());
+						points.map(chma * chma2 * chma4 * chma5);
+						painter->setupTextPolygon(&points);
+						painter->setFillMode(1);
+						painter->fillPath();
 					}
-					tabDist = Zli3.xco+Zli3.wide;
 				}
-				painter->restore();
-				break;
+				if (e2.intersects(wm.mapRect(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
+				{
+					if (Zli3.Zeich == QChar(25))
+						DrawItem_Embedded(item, painter, e, &Zli3);
+					else
+						DrawCharacters(item, painter, &Zli3);
+				}
+				if (hl->cstyle & ScStyle_SmartHyphenVisible)
+				{
+					Zli3.Zeich = "-";
+					Zli3.xco = Zli3.xco + Zli3.wide;
+					if (e2.intersects(wm.mapRect(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
+						DrawCharacters(item, painter, &Zli3);
+				}
 			}
-			painter->restore();
+			tabDist = Zli3.xco+Zli3.wide;
 		}
-			break;
-		default:
-			break;
+		//painter->restore();
 	}
+	painter->restore();
 }
 
 
