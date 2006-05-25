@@ -82,6 +82,7 @@ void ScImage::initialize()
 	imgInfo.colorspace = 0;
 	imgInfo.valid = false;
 	imgInfo.isRequest = false;
+	imgInfo.isEmbedded = false;
 	imgInfo.progressive = false;
 	imgInfo.exifDataValid = false;
 	imgInfo.lowResType = 1;
