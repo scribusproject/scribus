@@ -86,33 +86,43 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 				}
 			}
-			if (m_startArrowIndex != 0)
+		}
+		if (m_startArrowIndex != 0)
+		{
+			QWMatrix arrowTrans;
+			FPointArray arrow = (*m_Doc->arrowStyles.at(m_startArrowIndex-1)).points.copy();
+			arrowTrans.translate(0, 0);
+			arrowTrans.scale(m_lineWidth, m_lineWidth);
+			arrowTrans.scale(-1,1);
+			arrow.map(arrowTrans);
+			p->setupPolygon(&arrow);
+			if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+				p->strokePath();
+			else
 			{
-				QWMatrix arrowTrans;
-				FPointArray arrow = (*m_Doc->arrowStyles.at(m_startArrowIndex-1)).points.copy();
-				arrowTrans.translate(0, 0);
-				arrowTrans.scale(m_lineWidth, m_lineWidth);
-				arrowTrans.scale(-1,1);
-				arrow.map(arrowTrans);
 				p->setBrush(p->pen());
 				p->setBrushOpacity(1.0 - lineTransparency());
 				p->setLineWidth(0);
 				p->setFillMode(ScPainter::Solid);
-				p->setupPolygon(&arrow);
 				p->fillPath();
 			}
-			if (m_endArrowIndex != 0)
+		}
+		if (m_endArrowIndex != 0)
+		{
+			QWMatrix arrowTrans;
+			FPointArray arrow = (*m_Doc->arrowStyles.at(m_endArrowIndex-1)).points.copy();
+			arrowTrans.translate(Width, 0);
+			arrowTrans.scale(m_lineWidth, m_lineWidth);
+			arrow.map(arrowTrans);
+			p->setupPolygon(&arrow);
+			if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+				p->strokePath();
+			else
 			{
-				QWMatrix arrowTrans;
-				FPointArray arrow = (*m_Doc->arrowStyles.at(m_endArrowIndex-1)).points.copy();
-				arrowTrans.translate(Width, 0);
-				arrowTrans.scale(m_lineWidth, m_lineWidth);
-				arrow.map(arrowTrans);
 				p->setBrush(p->pen());
 				p->setBrushOpacity(1.0 - lineTransparency());
 				p->setLineWidth(0);
 				p->setFillMode(ScPainter::Solid);
-				p->setupPolygon(&arrow);
 				p->fillPath();
 			}
 		}

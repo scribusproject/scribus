@@ -66,59 +66,62 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 {
 	if (!m_Doc->RePos && PoLine.size()>=4)
 	{
-		if ((fillColor() != CommonStrings::None) || (GrType != 0))
+		if (!m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
 		{
-			FPointArray cli;
-			FPoint Start;
-			bool firstp = true;
-			for (uint n = 0; n < PoLine.size()-3; n += 4)
+			if ((fillColor() != CommonStrings::None) || (GrType != 0))
 			{
-				if (firstp)
+				FPointArray cli;
+				FPoint Start;
+				bool firstp = true;
+				for (uint n = 0; n < PoLine.size()-3; n += 4)
 				{
-					Start = PoLine.point(n);
-					firstp = false;
+					if (firstp)
+					{
+						Start = PoLine.point(n);
+						firstp = false;
+					}
+					if (PoLine.point(n).x() > 900000)
+					{
+						cli.addPoint(PoLine.point(n-2));
+						cli.addPoint(PoLine.point(n-2));
+						cli.addPoint(Start);
+						cli.addPoint(Start);
+						cli.setMarker();
+						firstp = true;
+						continue;
+					}
+					cli.addPoint(PoLine.point(n));
+					cli.addPoint(PoLine.point(n+1));
+					cli.addPoint(PoLine.point(n+2));
+					cli.addPoint(PoLine.point(n+3));
 				}
-				if (PoLine.point(n).x() > 900000)
+				if (cli.size() > 2)
 				{
-					cli.addPoint(PoLine.point(n-2));
-					cli.addPoint(PoLine.point(n-2));
+					FPoint l1 = cli.point(cli.size()-2);
+					cli.addPoint(l1);
+					cli.addPoint(l1);
 					cli.addPoint(Start);
 					cli.addPoint(Start);
-					cli.setMarker();
-					firstp = true;
-					continue;
 				}
-				cli.addPoint(PoLine.point(n));
-				cli.addPoint(PoLine.point(n+1));
-				cli.addPoint(PoLine.point(n+2));
-				cli.addPoint(PoLine.point(n+3));
+				p->setupPolygon(&cli);
+				p->fillPath();
 			}
-			if (cli.size() > 2)
-			{
-				FPoint l1 = cli.point(cli.size()-2);
-				cli.addPoint(l1);
-				cli.addPoint(l1);
-				cli.addPoint(Start);
-				cli.addPoint(Start);
-			}
-			p->setupPolygon(&cli);
-			p->fillPath();
-		}
-		p->setupPolygon(&PoLine, false);
-		if (NamedLStyle.isEmpty())
-			p->strokePath();
-		else
-		{
-			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-			QColor tmp;
-			for (int it = ml.size()-1; it > -1; it--)
-			{
-				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-				p->setPen(tmp, ml[it].Width,
-							static_cast<PenStyle>(ml[it].Dash),
-							static_cast<PenCapStyle>(ml[it].LineEnd),
-							static_cast<PenJoinStyle>(ml[it].LineJoin));
+			p->setupPolygon(&PoLine, false);
+			if (NamedLStyle.isEmpty())
 				p->strokePath();
+			else
+			{
+				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+				QColor tmp;
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width,
+								static_cast<PenStyle>(ml[it].Dash),
+								static_cast<PenCapStyle>(ml[it].LineEnd),
+								static_cast<PenJoinStyle>(ml[it].LineJoin));
+					p->strokePath();
+				}
 			}
 		}
 		if (m_startArrowIndex != 0)
@@ -136,12 +139,17 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 					arrowTrans.rotate(r);
 					arrowTrans.scale(m_lineWidth, m_lineWidth);
 					arrow.map(arrowTrans);
-					p->setBrush(p->pen());
-					p->setBrushOpacity(1.0 - lineTransparency());
-					p->setLineWidth(0);
-					p->setFillMode(ScPainter::Solid);
 					p->setupPolygon(&arrow);
-					p->fillPath();
+					if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+						p->strokePath();
+					else
+					{
+						p->setBrush(p->pen());
+						p->setBrushOpacity(1.0 - lineTransparency());
+						p->setLineWidth(0);
+						p->setFillMode(ScPainter::Solid);
+						p->fillPath();
+					}
 					break;
 				}
 			}
@@ -161,12 +169,17 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 					arrowTrans.rotate(r);
 					arrowTrans.scale(m_lineWidth, m_lineWidth);
 					arrow.map(arrowTrans);
-					p->setBrush(p->pen());
-					p->setBrushOpacity(1.0 - lineTransparency());
-					p->setLineWidth(0);
-					p->setFillMode(ScPainter::Solid);
 					p->setupPolygon(&arrow);
-					p->fillPath();
+					if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+						p->strokePath();
+					else
+					{
+						p->setBrush(p->pen());
+						p->setBrushOpacity(1.0 - lineTransparency());
+						p->setLineWidth(0);
+						p->setFillMode(ScPainter::Solid);
+						p->fillPath();
+					}
 					break;
 				}
 			}

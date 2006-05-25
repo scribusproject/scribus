@@ -737,7 +737,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	DrawObj_Pre(p, sc);
 	if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
 	{
-		if (itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line)
+		if (itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line || itemType()==PolyLine)
 			DrawObj_Item(p, e, sc);
 	}
 	else
@@ -836,9 +836,17 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			p->setPenOpacity(1.0);
 			if (itemType()==PolyLine)
 				p->setupPolygon(&PoLine, false);
+			else if (itemType() == PathText)
+			{
+				if (PoShow)
+					p->setupPolygon(&PoLine, false);
+				else
+					doStroke = false;
+			}
 			else
 				p->setupPolygon(&PoLine);
-			p->strokePath();
+			if (doStroke)
+				p->strokePath();
 		}
 	}
 	else
@@ -925,7 +933,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			p->setBrush(m_Doc->layerMarker(m_Doc->layerLevelFromNumber(LayerNr)));
 			p->setFillMode(ScPainter::Solid);
 			p->setLineWidth(0);
-			p->drawRect(6, 6, 6, 6);
+			p->drawRect(3, 3, 10, 10);
 		}
 		//CB disabled for now
 		//if (m_Doc->m_Selection->findItem(this)!=-1)
@@ -1365,6 +1373,18 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			bool fr = p->fillRule();
 			p->setFillRule(false);
 			p->setupTextPolygon(&gly);
+			if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+			{
+				p->save();
+				p->setPen(m_Doc->layerMarker(m_Doc->layerLevelFromNumber(LayerNr)), 0.5, SolidLine, FlatCap, MiterJoin);
+				p->setFillMode(ScPainter::None);
+				p->setBrushOpacity(1.0);
+				p->setPenOpacity(1.0);
+				p->strokePath();
+				p->restore();
+				p->setFillRule(fr);
+				return;
+			}
 			if ((hl->ZFo->isStroked()) && ((hl->Siz * hl->outline / 10000.0) != 0))
 			{
 				QColor tmp = p->brush();
