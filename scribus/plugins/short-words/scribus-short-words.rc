@@ -10,7 +10,10 @@
 # 2005/02/07 Brazilian Portguese by Ludi Maciel & Frederico Guimarães
 # 2005/05/17 Claudio Beccari <claudio.beccari@polito.it> notices about
 #            ISO regulations in the case of the physics
+# 2005/15/10 Russian by Alexandre Prokoudin
 # 2005/08/28 german by Christoph Schäfer <christoph-schaefer@gmx.de>
+# 2006/05/15 Estonian by Marek Laane
+#
 #
 # Use UTF8 as coding of this file!
 # Character "#" begins a comment line, empty lines ignored too.
@@ -61,9 +64,9 @@ pl=gr, ha, t, mies, godz, min, sek, mln, mld, tys.,
 # Some of these shortwords are incorrect but frequently used...
 fr=Dr. ,Dr ,M. ,M ,Mr ,Mr. ,Mme. ,Mme ,Mlle. ,Mlle ,MM ,MM. ,Prof. ,Prof ,
 ## physics and math
-fr= kg, g, km, m, cm, mm, l, hl, s, %, °,
+fr= kg, g, km, cm, mm, hl, %, °,
 ## Misc
-fr= €,« , », :,
+fr= €,« , », :, $,
 #  French short words - THE END
 
 
@@ -91,6 +94,7 @@ pt_BR=R$ ,€ ,$ ,US$ ,£ , %, ltda., LTDA., S.A., s.a.,nº ,Nº ,apto. ,APTO. ,
 # Brazilian Portguese - FIM
 
 
+
 #  German short words START here
 ## Titles and degrees
 de=Dr. ,Prof. ,Hr. ,Hrn. ,Fr. ,Frl. ,Frhr. ,StR ,OStR ,AR ,OAR ,RA ,RAe , MDB, MdB, MDL, MdL, MEP, M.A., M. A.,
@@ -111,6 +115,18 @@ ru=проф. , Проф. ,
 ## география
 ru=ул. , корп. ,
 #  Russian short words - THE END
+
+
+#  Estonian short words START here
+## Tiitlid ja kõnetused
+et=Hr. ,hr. ,Hr ,hr ,Pr. ,pr. ,Pr ,pr ,Prl. ,prl. ,Prl ,prl ,Sm. ,sm. ,Prof. ,prof. ,Dr. ,dr. , jun., sen.,Kod. ,kod. ,Kod ,kod ,Lp. ,Lp ,lp. ,lp ,V.a. ,
+## Mõõtühikud
+et= t, kg, g, ts, km, m, cm, mm, ha, ml, l, dl, cl, min, sek, Hz, kHz, MHz, km/h, m/s, kW, W, kV, V, mV, A, mA, kWh,
+## Rahaühikud ja muud märgid
+et= EEK, USD,§ , & , $ , €,
+## Muud lühendid
+et= a., AS , eKr, e.m.a., jj, jm, jms, jmt, jne, jpt, jt, kd, kk, kr, lk , m.a.j., mnt,MTÜ ,nn ,nr ,nt ,n-ö , OÜ , pKr,p.o ,sh , sl,s.o , spl,st ,s.t ,tel. ,tel , tk, tl, tn,v.a , vkj, vms,vrd ,vt. ,vt , õa,õp. ,õpil. ,
+#  Estonian short words - THE END
 
 
 # end of the config file
