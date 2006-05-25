@@ -500,7 +500,7 @@ bool ScWinPrint::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& optio
 	pageNumber.push_back( page->pageNr() + 1 );
 
 	tempFilePath = PrefsManager::instance()->preferencesLocation() + "/tmp.ps";
-	PSLib *dd = new PSLib( true, PrefsManager::instance()->appPrefs.AvailFonts, usedFonts, usedColors, false, options.useSpotColors );
+	PSLib *dd = new PSLib( false, PrefsManager::instance()->appPrefs.AvailFonts, usedFonts, usedColors, false, options.useSpotColors );
 	dd->PS_set_file( tempFilePath );
 	dd->CreatePS( doc, pageNumber, options.outputSeparations, options.separationName, options.allSeparations, options.useColor, 
 				  options.mirrorH, options.mirrorV, options.useICC, options.doGCR, options.setDevParam, options.doClip, options.doOverprint);
