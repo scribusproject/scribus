@@ -1,5 +1,8 @@
 Scribus - 1.2.5cvs
 ==================
+- 0003833: [Plug-ins] Add Icelandic hyphenator (plinnell)
+- 0003770: [Translation] Updated Danish Translation (cbradney)
+- 0003620: [Documentation] Broken menu.xml for German docs (plinnell)
 - 0003665: [Translation] Updated Danish Translation (plinnell)
 - 0003628: [Translation] translation update for 1.2.5 (plinnell)
 - 0003620: [Documentation] Broken menu.xml for German docs (plinnel
