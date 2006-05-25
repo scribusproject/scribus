@@ -1,4 +1,4 @@
-EXTRA_DIST = scribus.sr.qm scribus.eo.qm scribus.ko.qm scribus.eu.qm scribus.sl.qm scribus.se.qm scribus.fi.qm scribus.cy.qm scribus.id.qm scribus.nl.qm scribus.ru.qm scribus.cs.qm scribus.bg.qm scribus.ca.qm scribus.da.qm scribus.de.qm scribus.en_GB.qm scribus.es.qm scribus.fr.qm scribus.gl.qm scribus.hu.qm scribus.it.qm scribus.ja.qm scribus.lt_LT.qm scribus.pl.qm scribus.sk.qm scribus.tr.qm scribus.uk.qm scribus.nb.qm scribus.sq.qm  scribus.th_TH.qm scribus.af.qm scribus.pt_BR.qm scribzs.dz.qm
+EXTRA_DIST = scribus.sr.qm scribus.eo.qm scribus.ko.qm scribus.eu.qm scribus.sl.qm scribus.se.qm scribus.fi.qm scribus.cy.qm scribus.id.qm scribus.nl.qm scribus.ru.qm scribus.cs.qm scribus.bg.qm scribus.ca.qm scribus.da.qm scribus.de.qm scribus.en_GB.qm scribus.es.qm scribus.fr.qm scribus.gl.qm scribus.hu.qm scribus.is.qm scribus.it.qm scribus.ja.qm scribus.lt_LT.qm scribus.pl.qm scribus.sk.qm scribus.tr.qm scribus.uk.qm scribus.nb.qm scribus.sq.qm  scribus.th_TH.qm scribus.af.qm scribus.pt_BR.qm scribus.dz.qm
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/
@@ -19,6 +19,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scribus.gl.qm $(libdir)/scribus/scribus.gl.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.hu.qm $(libdir)/scribus/scribus.hu.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.id.qm $(libdir)/scribus/scribus.id.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.is.qm $(libdir)/scribus/scribus.is.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.it.qm $(libdir)/scribus/scribus.it.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.ja.qm $(libdir)/scribus/scribus.ja.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.ko.qm $(libdir)/scribus/scribus.ko.qm
@@ -56,6 +57,7 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/scribus.gl.qm
 	-rm -f $(libdir)/scribus/scribus.hu.qm
 	-rm -f $(libdir)/scribus/scribus.id.qm
+	-rm -f $(libdir)/scribus/scribus.is.qm
 	-rm -f $(libdir)/scribus/scribus.it.qm
 	-rm -f $(libdir)/scribus/scribus.ja.qm
 	-rm -f $(libdir)/scribus/scribus.ko.qm
