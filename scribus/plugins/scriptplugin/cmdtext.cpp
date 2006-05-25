@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include "selection.h"
+#include "util.h"
 
 PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 {
@@ -299,7 +300,7 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 			hg->ch = QChar(13);
 		*dynamic_cast<CharStyle*>(hg) = currItem->currentCharStyle();
 		hg->cselect = false;
-		hg->cab = ScMW->doc->currentParaStyle;
+		hg->cab = findParagraphStyle(ScMW->doc, ScMW->doc->currentStyle);
 		hg->xp = 0;
 		hg->yp = 0;
 		hg->PRot = 0;

@@ -127,7 +127,6 @@ PageItem::PageItem(const PageItem & other)
 	NextPg(other.NextPg),
 	Tinput(other.Tinput),
 	isAutoText(other.isAutoText),
-	textAlignment(other.textAlignment),
 #ifndef NLS_PROTO
 	MaxChars(other.MaxChars),
 #endif
@@ -373,7 +372,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	HasSel = false;
 	Tinput = false;
 	isAutoText = false;
-	textAlignment = 0;
 	inPdfArticle = false;
 	isRaster = false;
 	Sizing = false;
@@ -638,6 +636,22 @@ const ParagraphStyle& PageItem::currentStyle() const
 		return itemText.paragraphStyle(CPos);
 	else
 		return itemText.defaultStyle();
+}
+
+/// returns the style at the current charpos for changing
+ParagraphStyle& PageItem::changeCurrentStyle()
+{
+#ifndef NLS_PROTO
+	if (frameDisplays(CPos) && itemText.item(CPos)->cab > 4)
+		return m_Doc->docParagraphStyles[itemText.item(CPos)->cab];
+	else
+		return const_cast<ParagraphStyle&>(itemText.defaultStyle());
+#else
+	if (frameDisplays(CPos))
+		return itemText.paragraphStyle(CPos);
+	else
+		return itemText.defaultStyle();
+#endif
 }
 
 /// returns the style at the current charpos
@@ -2818,7 +2832,6 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->BaseOffs = BaseOffs;
 	Buffer->Textflow = textFlowsAroundFrame();
 	Buffer->Textflow2 = textFlowUsesBoundingBox();
-	Buffer->textAlignment = textAlignment;
 	Buffer->Groups = Groups;
 	Buffer->IProfile = IProfile;
 	Buffer->IRender = IRender;
@@ -3399,16 +3412,26 @@ void PageItem::emitAllToGUI()
 	if (GrType == 0)
 		emit transparency(fillTransparencyVal, lineTransparencyVal);
 	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
-	emit textFormatting(itemText.defaultStyle().alignment());
-	emit lineSpacing(itemText.defaultStyle().lineSpacing());
 	emit columns(Cols, ColGap);
-	if (m_Doc->appMode != modeEdit)
+	if (m_Doc->appMode == modeEdit)
 	{
+/* maybe already done elsewhere? -- av
+		emit lineSpacing(currentStyle().lineSpacing());
+		emit textKerning(currentCharStyle().tracking());
+		emit textStyle(currentCharStyle().effects());
+		emit textFont(currentCharStyle().font()->scName());
+		emit textSize(currentCharStyle().fontSize());
+*/
+		//		emit textFormatting(currentStyle().alignment());
+	}
+	else
+	{
+		emit lineSpacing(itemText.defaultStyle().lineSpacing());
 		emit textKerning(itemText.defaultStyle().charStyle().tracking());
 		emit textStyle(itemText.defaultStyle().charStyle().effects());
 		emit textFont(itemText.defaultStyle().charStyle().font()->scName());
 		emit textSize(itemText.defaultStyle().charStyle().fontSize());
-//		emit textFormatting(textAlignment);
+//		emit textFormatting(itemText.defaultStyle().alignment());
 	}
 }
 

@@ -821,7 +821,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 							//CB 230305 Stop redrawing the horizontal ruler if it hasnt changed when typing text!!!
 							if ((qRound(horizRuler->ItemPos*10000) != qRound((currItem->xPos())*10000)) || (qRound(horizRuler->ItemEndPos*10000) != qRound(((currItem->xPos()+currItem->width()) )*10000)))
 							{
-								horizRuler->setItemPosition(currItem->xPos(), currItem->width());
+								horizRuler->setItem(currItem);
 								if (currItem->lineColor() != CommonStrings::None)
 									horizRuler->lineCorr = currItem->lineWidth() / 2.0;
 								else
@@ -830,17 +830,18 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 								horizRuler->Cols = currItem->Cols;
 								horizRuler->Extra = currItem->textToFrameDistLeft();
 								horizRuler->RExtra = currItem->textToFrameDistRight();
-								horizRuler->First = Doc->docParagraphStyles[Doc->currentParaStyle].firstIndent();
-								horizRuler->Indent = Doc->docParagraphStyles[Doc->currentParaStyle].leftMargin();
+								horizRuler->First = currItem->currentStyle().firstIndent();
+								horizRuler->Indent = currItem->currentStyle().leftMargin();
+								double columnWidth = (currItem->width() - (currItem->columnGap() * (currItem->columns() - 1)) 
+									- currItem->textToFrameDistLeft() - currItem->textToFrameDistLeft() 
+									- 2*horizRuler->lineCorr) / currItem->columns();
+								horizRuler->RMargin = columnWidth - currItem->currentStyle().rightMargin();
 								if (currItem->imageFlippedH() || (currItem->reversed()))
 									horizRuler->Revers = true;
 								else
 									horizRuler->Revers = false;
 								horizRuler->ItemPosValid = true;
-								if (Doc->currentParaStyle < 5)
-									horizRuler->TabValues = currItem->TabValues;
-								else
-									horizRuler->TabValues = Doc->docParagraphStyles[Doc->currentParaStyle].tabValues();
+								horizRuler->TabValues = currItem->currentStyle().tabValues();
 								horizRuler->repaint();
 							}
 						}
@@ -1489,7 +1490,7 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 						else
 							break;
 					}
-					uint b=cItem->CPos;
+					int b=cItem->CPos;
 					while(b<cItem->itemText.length())
 					{
 						if (cItem->itemText.text(b).isLetterOrNumber())
@@ -5078,11 +5079,11 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						{
 							Serializer *ss = new Serializer("");
 							ss->Objekt = cc;
-							int st = Doc->currentParaStyle;
+							int st = findParagraphStyle(Doc, Doc->currentStyle);
 							if (st > 5)
 								ss->GetText(currItem, st, Doc->docParagraphStyles[st].charStyle().font()->scName(), Doc->docParagraphStyles[st].charStyle().fontSize(), true);
 							else
-								ss->GetText(currItem, st, Doc->currentStyle.charStyle().font()->scName(), Doc->currentStyle.charStyle().fontSize(), true);
+								ss->GetText(currItem, st, currItem->itemText.defaultStyle().charStyle().font()->scName(), currItem->itemText.defaultStyle().charStyle().fontSize(), true);
 							delete ss;
 							ss=NULL;
 							if (Doc->docHyphenator->AutoCheck)
@@ -7315,35 +7316,20 @@ bool ScribusView::slotSetCurs(int x, int y)
 			}
 			if (breakAndReturn)
 			{
-				Doc->currentStyle.charStyle().cfont = currItem->itemText.at(a)->cfont;
-				Doc->currentStyle.charStyle().csize = currItem->itemText.at(a)->csize;
-				Doc->currentStyle.charStyle().ccolor = currItem->itemText.at(a)->ccolor;
-				Doc->currentStyle.charStyle().cshade = currItem->itemText.at(a)->cshade;
-				Doc->currentStyle.charStyle().cstroke = currItem->itemText.at(a)->cstroke;
-				Doc->currentStyle.charStyle().cshade2 = currItem->itemText.at(a)->cshade2;
-				Doc->currentStyle.charStyle().cscale = currItem->itemText.at(a)->cscale;
-				Doc->currentStyle.charStyle().cscalev = currItem->itemText.at(a)->cscalev;
-				Doc->currentStyle.charStyle().cbase = currItem->itemText.at(a)->cbase;
-				Doc->currentStyle.charStyle().cshadowx = currItem->itemText.at(a)->cshadowx;
-				Doc->currentStyle.charStyle().cshadowy = currItem->itemText.at(a)->cshadowy;
-				Doc->currentStyle.charStyle().coutline = currItem->itemText.at(a)->coutline;
-				Doc->currentStyle.charStyle().cunderpos = currItem->itemText.at(a)->cunderpos;
-				Doc->currentStyle.charStyle().cunderwidth = currItem->itemText.at(a)->cunderwidth;
-				Doc->currentStyle.charStyle().cstrikepos = currItem->itemText.at(a)->cstrikepos;
-				Doc->currentStyle.charStyle().cstrikewidth = currItem->itemText.at(a)->cstrikewidth;
-				emit ItemTextStrike(currItem->itemText.at(a)->cstrikepos, currItem->itemText.at(a)->cstrikewidth);
-				emit ItemTextUnderline(currItem->itemText.at(a)->cunderpos, currItem->itemText.at(a)->cunderwidth);
-				emit ItemTextOutline(currItem->itemText.at(a)->coutline);
-				emit ItemTextShadow(currItem->itemText.at(a)->cshadowx, currItem->itemText.at(a)->cshadowy);
-				emit ItemTextBase(currItem->itemText.at(a)->cbase);
-				emit ItemTextSca(currItem->itemText.at(a)->cscale);
-				emit ItemTextScaV(currItem->itemText.at(a)->cscalev);
-				emit ItemTextFont(currItem->itemText.at(a)->cfont->scName());
-				emit ItemTextSize(currItem->itemText.at(a)->csize);
-				emit ItemTextUSval(currItem->itemText.at(a)->cextra);
-				emit ItemTextStil(currItem->itemText.at(a)->cstyle);
-				emit ItemTextAbs(currItem->itemText.at(a)->cab);
-				emit ItemTextFarben(currItem->itemText.at(a)->cstroke, currItem->itemText.at(a)->ccolor, currItem->itemText.at(a)->cshade2, currItem->itemText.at(a)->cshade);
+				Doc->currentStyle.charStyle() = currItem->itemText.charStyle(a);
+				emit ItemTextStrike(currItem->itemText.charStyle(a).strikethruOffset(), currItem->itemText.charStyle(a).strikethruWidth());
+				emit ItemTextUnderline(currItem->itemText.charStyle(a).underlineOffset(), currItem->itemText.charStyle(a).underlineWidth());
+				emit ItemTextOutline(currItem->itemText.charStyle(a).outlineWidth());
+				emit ItemTextShadow(currItem->itemText.charStyle(a).shadowXOffset(), currItem->itemText.charStyle(a).shadowYOffset());
+				emit ItemTextBase(currItem->itemText.charStyle(a).baselineOffset());
+				emit ItemTextSca(currItem->itemText.charStyle(a).scaleH());
+				emit ItemTextScaV(currItem->itemText.charStyle(a).scaleV());
+				emit ItemTextFont(currItem->itemText.charStyle(a).font()->scName());
+				emit ItemTextSize(currItem->itemText.charStyle(a).fontSize());
+				emit ItemTextUSval(currItem->itemText.charStyle(a).tracking());
+				emit ItemTextStil(currItem->itemText.charStyle(a).effects());
+				emit ItemTextAbs(currItem->itemText.item(a)->cab);
+				emit ItemTextFarben(currItem->itemText.charStyle(a).strokeColor(), currItem->itemText.charStyle(a).fillColor(), currItem->itemText.charStyle(a).strokeShade(), currItem->itemText.charStyle(a).fillShade());
 				return true;
 			}
 
@@ -7413,22 +7399,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 				int b=currItem->CPos-1;
 				if (b<0)
 					b=0;
-				Doc->currentStyle.charStyle().cfont = currItem->itemText.at(b)->cfont;
-				Doc->currentStyle.charStyle().csize = currItem->itemText.at(b)->csize;
-				Doc->currentStyle.charStyle().ccolor = currItem->itemText.at(b)->ccolor;
-				Doc->currentStyle.charStyle().cshade = currItem->itemText.at(b)->cshade;
-				Doc->currentStyle.charStyle().cstroke = currItem->itemText.at(b)->cstroke;
-				Doc->currentStyle.charStyle().cshade2 = currItem->itemText.at(b)->cshade2;
-				Doc->currentStyle.charStyle().cscale = currItem->itemText.at(b)->cscale;
-				Doc->currentStyle.charStyle().cscalev = currItem->itemText.at(b)->cscalev;
-				Doc->currentStyle.charStyle().cbase = currItem->itemText.at(b)->cbase;
-				Doc->currentStyle.charStyle().cshadowx = currItem->itemText.at(b)->cshadowx;
-				Doc->currentStyle.charStyle().cshadowy = currItem->itemText.at(b)->cshadowy;
-				Doc->currentStyle.charStyle().coutline = currItem->itemText.at(b)->coutline;
-				Doc->currentStyle.charStyle().cunderpos = currItem->itemText.at(b)->cunderpos;
-				Doc->currentStyle.charStyle().cunderwidth = currItem->itemText.at(b)->cunderwidth;
-				Doc->currentStyle.charStyle().cstrikepos = currItem->itemText.at(b)->cstrikepos;
-				Doc->currentStyle.charStyle().cstrikewidth = currItem->itemText.at(b)->cstrikewidth;
+				Doc->currentStyle.charStyle() = currItem->itemText.charStyle(b);
 				emit ItemTextStrike(currItem->itemText.at(b)->cstrikepos, currItem->itemText.at(b)->cstrikewidth);
 				emit ItemTextUnderline(currItem->itemText.at(b)->cunderpos, currItem->itemText.at(b)->cunderwidth);
 				emit ItemTextOutline(currItem->itemText.at(b)->coutline);
@@ -7446,36 +7417,21 @@ bool ScribusView::slotSetCurs(int x, int y)
 			}
 			else
 			{
-/*				Doc->CurrFont = currItem->font();
-				Doc->CurrFontSize = currItem->fontSize();
-				Doc->CurrTextFill = currItem->TxtFill;
-				Doc->CurrTextFillSh = currItem->ShTxtFill;
-				Doc->CurrTextStroke = currItem->TxtStroke;
-				Doc->CurrTextStrokeSh = currItem->ShTxtStroke;
-				Doc->CurrTextScale = currItem->TxtScale;
-				Doc->CurrTextScaleV = currItem->TxtScaleV;
-				Doc->CurrTextBase = currItem->TxtBase;
-				Doc->CurrTextShadowX = currItem->TxtShadowX;
-				Doc->CurrTextShadowY = currItem->TxtShadowY;
-				Doc->CurrTextOutline = currItem->TxtOutline;
-				Doc->CurrTextUnderPos = currItem->TxtUnderPos;
-				Doc->CurrTextUnderWidth = currItem->TxtUnderWidth;
-				Doc->CurrTextStrikePos = currItem->TxtStrikePos;
-				Doc->CurrTextStrikeWidth = currItem->TxtStrikeWidth;
-				emit ItemTextStrike(currItem->TxtStrikePos, currItem->TxtStrikeWidth);
-				emit ItemTextUnderline(currItem->TxtUnderPos, currItem->TxtUnderWidth);
-				emit ItemTextOutline(currItem->TxtOutline);
-				emit ItemTextShadow(currItem->TxtShadowX, currItem->TxtShadowY);
-				emit ItemTextSca(currItem->TxtScale);
-				emit ItemTextScaV(currItem->TxtScaleV);
-				emit ItemTextFarben(currItem->TxtStroke, currItem->TxtFill, currItem->ShTxtStroke, currItem->ShTxtFill);
-				emit ItemTextFont(currItem->font());
-				emit ItemTextSize(currItem->fontSize());
-				emit ItemTextUSval(currItem->ExtraV);
-				emit ItemTextStil(currItem->TxTStyle);
-				emit ItemTextAbs(currItem->textAlignment);
-				emit ItemTextBase(currItem->TxtBase);
-*/				return true;
+				Doc->currentStyle.charStyle() = currItem->itemText.defaultStyle().charStyle();
+				emit ItemTextStrike(currItem->itemText.defaultStyle().charStyle().strikethruOffset(), currItem->itemText.defaultStyle().charStyle().strikethruWidth());
+				emit ItemTextUnderline(currItem->itemText.defaultStyle().charStyle().underlineOffset(), currItem->itemText.defaultStyle().charStyle().underlineWidth());
+				emit ItemTextOutline(currItem->itemText.defaultStyle().charStyle().outlineWidth());
+				emit ItemTextShadow(currItem->itemText.defaultStyle().charStyle().shadowXOffset(), currItem->itemText.defaultStyle().charStyle().shadowYOffset());
+				emit ItemTextSca(currItem->itemText.defaultStyle().charStyle().scaleH());
+				emit ItemTextScaV(currItem->itemText.defaultStyle().charStyle().scaleV());
+				emit ItemTextFarben(currItem->itemText.defaultStyle().charStyle().strokeColor(), currItem->itemText.defaultStyle().charStyle().fillColor(), currItem->itemText.defaultStyle().charStyle().strokeShade(), currItem->itemText.defaultStyle().charStyle().fillShade());
+				emit ItemTextFont(currItem->itemText.defaultStyle().charStyle().font()->scName());
+				emit ItemTextSize(currItem->itemText.defaultStyle().charStyle().fontSize());
+				emit ItemTextUSval(currItem->itemText.defaultStyle().charStyle().tracking());
+				emit ItemTextStil(currItem->itemText.defaultStyle().charStyle().effects());
+				emit ItemTextAbs( 0 );
+				emit ItemTextBase(currItem->itemText.defaultStyle().charStyle().baselineOffset());
+				return true;
 			}
 #else
 			FPoint point((x + Doc->minCanvasCoordinate.x()) / Scale - currItem->xPos(), 
@@ -7651,9 +7607,9 @@ void ScribusView::slotDoCurs(bool draw)
 				else
 					lineCorr = 0;
 				xp = static_cast<int>(currItem->textToFrameDistLeft() + lineCorr);
-				yp = static_cast<int>(currItem->textToFrameDistTop() + lineCorr + Doc->currentStyle.lineSpacing());
-				desc = static_cast<int>(Doc->currentStyle.charStyle().font()->descent() * (-Doc->currentStyle.charStyle().fontSize() / 10.0));
-				asce = static_cast<int>(Doc->currentStyle.charStyle().font()->ascent() * (Doc->currentStyle.charStyle().fontSize() / 10.0));
+				yp = static_cast<int>(currItem->textToFrameDistTop() + lineCorr + currItem->itemText.defaultStyle().lineSpacing());
+				desc = static_cast<int>(currItem->itemText.defaultStyle().charStyle().font()->descent() * (-currItem->itemText.defaultStyle().charStyle().fontSize() / 10.0));
+				asce = static_cast<int>(currItem->itemText.defaultStyle().charStyle().font()->ascent() * (currItem->itemText.defaultStyle().charStyle().fontSize() / 10.0));
 			}
 			else
 			{
@@ -9705,7 +9661,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->BaseOffs = Buffer->BaseOffs;
 	currItem->setTextFlowsAroundFrame(Buffer->Textflow);
 	currItem->setTextFlowUsesBoundingBox(Buffer->Textflow2);
-	currItem->textAlignment = Buffer->textAlignment;
+//	currItem->textAlignment = Buffer->textAlignment;
 //	currItem->setFont(Buffer->IFont);
 //	currItem->setFontSize(Buffer->ISize);
 //	currItem->ExtraV = Buffer->ExtraV;

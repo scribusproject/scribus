@@ -54,14 +54,16 @@ public:
 	double Extra;
 	double Indent;
 	double First;
+	double RMargin;
 	bool Revers;
 	QValueList<ParagraphStyle::TabRecord> TabValues;
-	// following is used in view
+	PageItem * currItem;
+	// following is used in view (only read access, see DrawPageItems(), line 822)
 	double ItemPos;
 	double ItemEndPos;
 	double offs;
 	
-	void setItemPosition(double pos, double width);
+	void setItem(PageItem * item);
 
 private:
 	void paintEvent(QPaintEvent *e);

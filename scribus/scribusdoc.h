@@ -723,7 +723,6 @@ public: // Public attributes
 	QColor papColor;
 	int CurrentSel;
 	ParagraphStyle currentStyle;
-	int currentParaStyle; //??
 
 	bool EditClip;
 	int EditClipMode;

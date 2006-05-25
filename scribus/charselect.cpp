@@ -286,7 +286,7 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusMainWindow *pl
 	fontSelector->setMaximumSize(190, 30);
 	fontSelector->setCurrentText(fontInUse);
 	selectionsLayout->addWidget( fontSelector );
-	if ((ap->doc->currentParaStyle > 4) || needReturn)
+	if ( /* FIXME:av (ap->doc->currentStyle > 4) || */ needReturn)
 		fontSelector->setEnabled(false);
 	rangeLabel = new QLabel( this, "fontLabel" );
 	rangeLabel->setText( tr( "Character Class:" ) );

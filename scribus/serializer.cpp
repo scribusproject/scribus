@@ -103,7 +103,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 	}
 	else
 	{
-		newstyle = doku->currentStyle.charStyle();
+		newstyle = it->itemText.defaultStyle().charStyle();
 	}
 	int insPos = Append? it->CPos : it->itemText.length();
 	it->itemText.insertChars(insPos, txt);

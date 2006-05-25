@@ -71,7 +71,7 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
 	bool unknown = false;
 	ScText *hg;
-	Foi* dummy;
+	Foi* dummy = NULL;
 	if ((!prefsManager->appPrefs.AvailFonts.find(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf]->usable()))
 	{
 		bool isThere = false;
@@ -790,7 +790,6 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
 	int x, a, counter, baseobj;
-	double xf;
 	bool newVersion = false;
 	bool VorLFound = false;
 	QMap<int,int> layerTrans;
@@ -2146,23 +2145,11 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		for (uint co=0; co<selection->count(); ++co)
 		{
 			item = doc->Items->at(ELL[co]);
-			if (item->textAlignment > 4)
+			int parstyle = findParagraphStyle(doc, item->itemText.defaultStyle());
+			if (parstyle > 4)
 			{
-				vg.setName(doc->docParagraphStyles[item->textAlignment].name());
-				vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(doc->docParagraphStyles[item->textAlignment].lineSpacingMode()));
-				vg.setLineSpacing(doc->docParagraphStyles[item->textAlignment].lineSpacing());
-				vg.setAlignment(doc->docParagraphStyles[item->textAlignment].alignment());
-				vg.setLeftMargin(doc->docParagraphStyles[item->textAlignment].leftMargin());
-				vg.setFirstIndent(doc->docParagraphStyles[item->textAlignment].firstIndent());
-				vg.setGapBefore(doc->docParagraphStyles[item->textAlignment].gapBefore());
-				vg.setGapAfter(doc->docParagraphStyles[item->textAlignment].gapAfter());
-				vg.tabValues() = doc->docParagraphStyles[item->textAlignment].tabValues();
-				vg.setHasDropCap(doc->docParagraphStyles[item->textAlignment].hasDropCap());
-				vg.setDropCapLines(doc->docParagraphStyles[item->textAlignment].dropCapLines());
-				vg.setDropCapOffset(doc->docParagraphStyles[item->textAlignment].dropCapOffset());
-				vg.setUseBaselineGrid(doc->docParagraphStyles[item->textAlignment].useBaselineGrid());
-				vg.charStyle() = doc->docParagraphStyles[item->textAlignment].charStyle();
-				UsedStyles[item->textAlignment] = vg;
+				vg = item->itemText.defaultStyle();
+				UsedStyles[parstyle] = vg;
 			}
 			if (((item->asTextFrame()) || (item->asPathText())) && (item->itemText.length() != 0))
 			{
@@ -2171,20 +2158,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 				{
 					if (item->itemText.at(tx)->cab > 4)
 					{
-						vg.setName(doc->docParagraphStyles[item->itemText.at(tx)->cab].name());
-						vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(doc->docParagraphStyles[item->itemText.at(tx)->cab].lineSpacingMode()));
-						vg.setLineSpacing(doc->docParagraphStyles[item->itemText.at(tx)->cab].lineSpacing());
-						vg.setAlignment(doc->docParagraphStyles[item->itemText.at(tx)->cab].alignment());
-						vg.setLeftMargin(doc->docParagraphStyles[item->itemText.at(tx)->cab].leftMargin());
-						vg.setFirstIndent(doc->docParagraphStyles[item->itemText.at(tx)->cab].firstIndent());
-						vg.setGapBefore(doc->docParagraphStyles[item->itemText.at(tx)->cab].gapBefore());
-						vg.setGapAfter(doc->docParagraphStyles[item->itemText.at(tx)->cab].gapAfter());
-						vg.tabValues() = doc->docParagraphStyles[item->itemText.at(tx)->cab].tabValues();
-						vg.setHasDropCap(doc->docParagraphStyles[item->itemText.at(tx)->cab].hasDropCap());
-						vg.setDropCapLines(doc->docParagraphStyles[item->itemText.at(tx)->cab].dropCapLines());
-						vg.setDropCapOffset(doc->docParagraphStyles[item->itemText.at(tx)->cab].dropCapOffset());
-						vg.charStyle() = doc->docParagraphStyles[item->itemText.at(tx)->cab].charStyle();
-						vg.setUseBaselineGrid(doc->docParagraphStyles[item->itemText.at(tx)->cab].useBaselineGrid());
+						vg = (doc->docParagraphStyles[item->itemText.at(tx)->cab]);
 						UsedStyles[item->itemText.at(tx)->cab] = vg;
 					}
 				}
@@ -2321,10 +2295,11 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		QDir::setCurrent(QDir::homeDirPath());
 		item = doc->Items->at(ELL[co]);
 		QDomElement ob=docu.createElement("ITEM");
-		if (item->textAlignment > 4)
-			ob.setAttribute("ALIGN",UsedMapped2Saved[item->textAlignment]);
+		int textAlignment = findParagraphStyle(doc, item->itemText.defaultStyle());
+		if (textAlignment > 4)
+			ob.setAttribute("ALIGN",UsedMapped2Saved[textAlignment]);
 		else
-			ob.setAttribute("ALIGN",item->textAlignment);
+			ob.setAttribute("ALIGN",textAlignment);
  		SetItemProps(&ob, item, false);
 		ob.setAttribute("XPOS",item->xPos() - doc->currentPage()->xOffset());
 		ob.setAttribute("YPOS",item->yPos() - doc->currentPage()->yOffset());
@@ -2386,7 +2361,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			ob.setAttribute("GRENDY", item->GrEndY);
 		}
 		QDir::setCurrent(CurDirP);
-		for(uint k=0;k<item->itemText.length();++k)
+		for(int k=0;k<item->itemText.length();++k)
 		{
 			const CharStyle& style4(item->itemText.charStyle(k));
 			QChar ch = item->itemText.text(k);
@@ -2560,7 +2535,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		}
 		ob.setAttribute("NUMTEXT",item->itemText.length());
 		QString txnu = "";
-		for(uint kt=0;kt<item->itemText.length();++kt)
+		for(int kt = 0; kt < item->itemText.length(); ++kt)
 #ifndef NLS_PROTO
 			txnu += tmp.setNum(item->itemText.at(kt)->xp) + " " + tmpy.setNum(item->itemText.at(kt)->yp) + " ";
 #else
@@ -2730,9 +2705,9 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				ob.appendChild(psd);
 			}
 		}
-		ob.setAttribute("ALIGN",item->textAlignment);
+		ob.setAttribute("ALIGN",findParagraphStyle(doc, item->itemText.defaultStyle()));
 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
-		for(uint k=0;k<item->itemText.length();++k)
+		for(int k = 0; k < item->itemText.length(); ++k)
 		{
 			const CharStyle& style1(item->itemText.charStyle(k));
 			QChar ch = item->itemText.text(k);

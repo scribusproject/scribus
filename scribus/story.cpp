@@ -842,13 +842,13 @@ void SEditor::loadItemText(PageItem *currItem)
 	{
 		if (nextItem->itemText.length() != 0)
 		{
-			Csty = nextItem->itemText.charStyle(0).cstyle;
+			Csty = nextItem->itemText.charStyle(0).effects();
 			Ali = findParagraphStyle(doc, nextItem->itemText.paragraphStyle(0));
 		}
 		else
 		{
-			Csty = currItem->document()->currentStyle.charStyle().effects();
-			Ali = currItem->document()->currentStyle.alignment();
+			Csty = nextItem->itemText.defaultStyle().charStyle().effects();
+			Ali = nextItem->itemText.defaultStyle().alignment();
 		}
 		setAlign(Ali);
 		setStyle(Csty);
@@ -1021,14 +1021,14 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 	chars = new ChList;
 	chars->setAutoDelete(true);
 	chars->clear();
-	setAlign(currItem->document()->currentStyle.alignment());
-	setStyle(currItem->document()->currentStyle.charStyle().effects());
+	setAlign(currItem->itemText.defaultStyle().alignment());
+	setStyle(currItem->itemText.defaultStyle().charStyle().effects());
 	for (uint a = 0; a < tx.length(); ++a)
 	{
 		if (tx[a] == QChar(13))
 		{
 			StyledText.append(chars);
-			ParagStyles.append(currItem->textAlignment);
+			ParagStyles.append(findParagraphStyle(currItem->document(), currItem->currentStyle()));
 			chars = new ChList;
 			chars->setAutoDelete(true);
 			chars->clear();
@@ -1038,8 +1038,8 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 		{
 			hg = new PtiSmall;
 			hg->ch = tx[a];
-			hg->charStyle = currItem->document()->currentStyle.charStyle();
-			hg->cab = currItem->document()->currentStyle.alignment();
+			hg->charStyle = currItem->itemText.defaultStyle().charStyle();
+			hg->cab = currItem->itemText.defaultStyle().alignment();
 			hg->cembedded = 0;
 			Text += hg->ch;
 			chars->append(hg);
@@ -1047,7 +1047,7 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 	}
 	insert(Text);
 	StyledText.append(chars);
-	ParagStyles.append(currItem->textAlignment);
+	ParagStyles.append(findParagraphStyle(currItem->document(), currItem->currentStyle()));
 	if (StyledText.count() != 0)
 		emit setProps(0, 0);
 	setUpdatesEnabled(true);
@@ -2681,7 +2681,7 @@ void StoryEditor::updateProps(int p, int ch)
 	{
 		if (!firstSet)
 		{
-			const CharStyle& curstyle(currDoc->currentStyle.charStyle());
+			const CharStyle& curstyle(currItem->itemText.defaultStyle().charStyle());
 			Editor->CurrTextFill = curstyle.fillColor();
 			Editor->CurrTextFillSh = curstyle.fillShade();
 			Editor->CurrTextStroke = curstyle.strokeColor();
@@ -2690,7 +2690,7 @@ void StoryEditor::updateProps(int p, int ch)
 			Editor->CurrFont = curstyle.font()->scName();
 			Editor->CurrFontSize = curstyle.fontSize();
 			Editor->CurrentStyle = curstyle.effects();
-			Editor->currentParaStyle = currDoc->currentStyle.alignment();
+			Editor->currentParaStyle = findParagraphStyle(currItem->document(), currItem->itemText.defaultStyle());
 			Editor->CurrTextKern = curstyle.tracking();
 			Editor->CurrTextScale = curstyle.scaleH();
 			Editor->CurrTextScaleV = curstyle.scaleV();
@@ -2730,7 +2730,7 @@ void StoryEditor::updateProps(int p, int ch)
 				}
 			}
 			StrokeTools->SetColor(c);
-			AlignTools->SetAlign(currDoc->currentStyle.alignment());
+			AlignTools->SetAlign(Editor->currentParaStyle);
 			StyleTools->SetKern(Editor->CurrTextKern);
 			StyleTools->SetStyle(Editor->CurrentStyle);
 			StyleTools->SetShadow(Editor->CurrTextShadowX, Editor->CurrTextShadowY);
@@ -3288,7 +3288,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 				}
 				if ((Editor->currentParaStyle < 5) && (chars->at(s)->cab > 4))
 				{
-					chars->at(s)->charStyle = currDoc->currentStyle.charStyle();
+					chars->at(s)->charStyle = currItem->itemText.defaultStyle().charStyle();
 				}
 				chars->at(s)->cab = Editor->currentParaStyle;
 			}
@@ -3324,25 +3324,25 @@ void StoryEditor::changeAlignSB(int pa, int align)
 		}
 		else
 		{
-			Editor->CurrTextFill = currDoc->currentStyle.charStyle().fillColor();
-			Editor->CurrTextFillSh = currDoc->currentStyle.charStyle().fillShade();
-			Editor->CurrTextStroke = currDoc->currentStyle.charStyle().strokeColor();
-			Editor->CurrTextStrokeSh = currDoc->currentStyle.charStyle().strokeShade();
+			Editor->CurrTextFill = currItem->itemText.defaultStyle().charStyle().fillColor();
+			Editor->CurrTextFillSh = currItem->itemText.defaultStyle().charStyle().fillShade();
+			Editor->CurrTextStroke = currItem->itemText.defaultStyle().charStyle().strokeColor();
+			Editor->CurrTextStrokeSh = currItem->itemText.defaultStyle().charStyle().strokeShade();
 			Editor->prevFont = Editor->CurrFont;
-			Editor->CurrFont = currDoc->currentStyle.charStyle().font()->scName();
-			Editor->CurrFontSize = currDoc->currentStyle.charStyle().fontSize();
-			Editor->CurrentStyle = currDoc->currentStyle.charStyle().effects();
-			Editor->CurrTextKern = currDoc->currentStyle.charStyle().tracking();
-			Editor->CurrTextScale = currDoc->currentStyle.charStyle().scaleH();
-			Editor->CurrTextScaleV = currDoc->currentStyle.charStyle().scaleV();
-			Editor->CurrTextBase = currDoc->currentStyle.charStyle().baselineOffset();
-			Editor->CurrTextShadowX = currDoc->currentStyle.charStyle().shadowXOffset();
-			Editor->CurrTextShadowY = currDoc->currentStyle.charStyle().shadowYOffset();
-			Editor->CurrTextOutline = currDoc->currentStyle.charStyle().outlineWidth();
-			Editor->CurrTextUnderPos = currDoc->currentStyle.charStyle().underlineOffset();
-			Editor->CurrTextUnderWidth = currDoc->currentStyle.charStyle().underlineWidth();
-			Editor->CurrTextStrikePos = currDoc->currentStyle.charStyle().strikethruOffset();
-			Editor->CurrTextStrikeWidth = currDoc->currentStyle.charStyle().strikethruWidth();
+			Editor->CurrFont = currItem->itemText.defaultStyle().charStyle().font()->scName();
+			Editor->CurrFontSize = currItem->itemText.defaultStyle().charStyle().fontSize();
+			Editor->CurrentStyle = currItem->itemText.defaultStyle().charStyle().effects();
+			Editor->CurrTextKern = currItem->itemText.defaultStyle().charStyle().tracking();
+			Editor->CurrTextScale = currItem->itemText.defaultStyle().charStyle().scaleH();
+			Editor->CurrTextScaleV = currItem->itemText.defaultStyle().charStyle().scaleV();
+			Editor->CurrTextBase = currItem->itemText.defaultStyle().charStyle().baselineOffset();
+			Editor->CurrTextShadowX = currItem->itemText.defaultStyle().charStyle().shadowXOffset();
+			Editor->CurrTextShadowY = currItem->itemText.defaultStyle().charStyle().shadowYOffset();
+			Editor->CurrTextOutline = currItem->itemText.defaultStyle().charStyle().outlineWidth();
+			Editor->CurrTextUnderPos = currItem->itemText.defaultStyle().charStyle().underlineOffset();
+			Editor->CurrTextUnderWidth = currItem->itemText.defaultStyle().charStyle().underlineWidth();
+			Editor->CurrTextStrikePos = currItem->itemText.defaultStyle().charStyle().strikethruOffset();
+			Editor->CurrTextStrikeWidth = currItem->itemText.defaultStyle().charStyle().strikethruWidth();
 		}
 		Editor->setStyle(Editor->CurrentStyle);
 		if (Editor->CurrentStyle & 4)
@@ -3405,7 +3405,7 @@ void StoryEditor::changeAlign(int )
 					}
 					if ((Editor->currentParaStyle < 5) && (chars->at(s)->cab > 4))
 					{
-						chars->at(s)->charStyle = currDoc->currentStyle.charStyle();
+						chars->at(s)->charStyle = currItem->itemText.defaultStyle().charStyle();
 					}
 					chars->at(s)->cab = Editor->currentParaStyle;
 				}
@@ -3444,7 +3444,7 @@ void StoryEditor::changeAlign(int )
 		}
 		else
 		{
-			const CharStyle& currStyle = currDoc->currentStyle.charStyle();
+			const CharStyle& currStyle = currItem->itemText.defaultStyle().charStyle();
 			Editor->CurrTextFill = currStyle.fillColor();
 			Editor->CurrTextFillSh = currStyle.fillShade();
 			Editor->CurrTextStroke = currStyle.strokeColor();

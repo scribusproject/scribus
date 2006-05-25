@@ -111,26 +111,28 @@ FT_Face Foi::ftFace() const {
 
 void Foi::increaseUsage() const
 {
-	// ++usage;
+	Foi* that = const_cast<Foi*>(this); //FIXME: use mutable instead
+	++that->usage_;
 }
 
 void Foi::decreaseUsage() const
 {
-//	if (usage == 1) 
-//		unload();
-// --usage;
+	Foi* that = const_cast<Foi*>(this); //FIXME: use mutable instead
+	if (usage_ == 1) 
+		unload();
+	--that->usage_;
 }
 
-void Foi::unload()      const
+void Foi::unload() const
 {
-	Foi* that = const_cast<Foi*>(this);
+	Foi* that = const_cast<Foi*>(this); //FIXME: use mutable instead
 	if (that->face) {
 		FT_Done_Face( that->face );
+		that->face = NULL;
 	}
 	// clear caches
 	that->CharWidth.clear();
 	that->GlyphArray.clear();
-	that->RealGlyphs.clear();
 	that->HasMetrics = false;
 }
 

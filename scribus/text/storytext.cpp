@@ -29,7 +29,7 @@ StoryText::StoryText(ScribusDoc * doc_) : doc(doc_)
 	clear();
 }
 
-StoryText::StoryText(const StoryText & other) : QPtrList<ScText>(other), doc(other.doc)
+StoryText::StoryText(const StoryText & other) : QPtrList<ScText>(other), doc(other.doc), defaultStyle_(other.defaultStyle_)
 {
 	selFirst = 0;
 	selLast = -1;
@@ -64,6 +64,8 @@ void StoryText::clear()
 
 	firstFrameItem = 0;
 	lastFrameItem = -1;
+	
+	defaultStyle_ = doc->docParagraphStyles[0];
 	
 	for (ScText *it = first(); it != 0; it = next())
 	{
@@ -111,10 +113,10 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 	if (txt.length() == 0)
 		return;
 	
-	const CharStyle style = pos == length() ? doc->docParagraphStyles[0].charStyle() : charStyle(pos);
+	const CharStyle style = pos == 0 ? defaultStyle().charStyle() : charStyle(pos - 1);
 	assert(style.cfont != NULL);
 	
-	const int paraStyle = pos == length() ? 0 : at(pos)->cab;
+	const int paraStyle = pos == 0 ? 0 : at(pos - 1)->cab;
 	
 	for (uint i = 0; i < txt.length(); ++i) {
 		ScText * item = new ScText();
@@ -150,10 +152,10 @@ void StoryText::replaceChar(int pos, QChar ch)
 void StoryText::hyphenateWord(int pos, uint len, char* hyphens)
 {
 	assert(pos >= 0);
-	assert(pos + len < length());
+	assert(pos + len <= length());
 	
 	for (int i=pos; i < pos+len; ++i)
-		if(hyphens[i] & 1)
+		if(hyphens && hyphens[i] & 1)
 			at(i)->cstyle = (at(i)->cstyle | ScStyle_HyphenationPossible);
 		else
 			at(i)->cstyle = (at(i)->cstyle & ~ScStyle_HyphenationPossible);
@@ -167,7 +169,7 @@ void StoryText::insertObject(int pos, PageItem* ob)
 		pos += length();
 
 	insertChars(pos, SpecialChars::OBJECT);
-	//FIXME:NLS
+	const_cast<StoryText *>(this)->at(pos)->cembedded = ob;
 }
 
 
@@ -247,8 +249,16 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 
 const ParagraphStyle& StoryText::defaultStyle() const
 {
-	return doc->docParagraphStyles[0];
+	return defaultStyle_;
 }
+
+
+void StoryText::setDefaultStyle(const ParagraphStyle& style)
+{
+	defaultStyle_ = style;
+}
+
+
 
 void StoryText::applyStyle(int pos, uint len, const CharStyle& style )
 {
@@ -409,7 +419,7 @@ void StoryText::selectAll()
 
 void StoryText::deselectAll()
 {
-        StoryText* that = const_cast<StoryText *>(this);
+	StoryText* that = const_cast<StoryText *>(this);
 	for (int i=0; i < length(); ++i)
 		that->at(i)->cselect = false;
 

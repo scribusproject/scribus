@@ -223,6 +223,8 @@ EPSPlug::EPSPlug(QString fName, int flags, bool showProgress)
 #ifndef QT_MAC
 // see #2196
 			Doku->itemSelection_DeleteItem();
+#else
+			qDebug("psimport: leaving items on page");
 #endif
 			ScMW->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScMW->view->scale()), qRound((maxSize.y() - minSize.y()) * ScMW->view->scale()));
 			ScMW->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * ScMW->view->scale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * ScMW->view->scale()));

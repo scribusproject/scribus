@@ -292,6 +292,8 @@ public:
 	/// returns the style at the current charpos
 	const ParagraphStyle& currentStyle() const;
 	/// returns the style at the current charpos
+	ParagraphStyle& changeCurrentStyle();
+	/// returns the style at the current charpos
 	const CharStyle& currentCharStyle() const;
 	// deprecated:
 	double SetZeichAttr(const CharStyle& hl, int *chs, QString *chx);
@@ -383,7 +385,6 @@ public:
 	int NextPg;
 	bool Tinput;
 	bool isAutoText;
-	int textAlignment; // ??? av
 #ifndef NLS_PROTO
 protected:
 	uint MaxChars;

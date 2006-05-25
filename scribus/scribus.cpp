@@ -986,11 +986,11 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 {
 	if (currItem->itemText.length() != 0)
 	{
-		int ChPos = QMIN(currItem->CPos, static_cast<int>(currItem->itemText.length()-1));
-		doc->currentStyle.charStyle() = currItem->itemText.charStyle(ChPos);
-		doc->currentParaStyle = findParagraphStyle(doc, currItem->itemText.paragraphStyle(ChPos));
-		setAbsValue(doc->currentParaStyle);
-		propertiesPalette->setAli(doc->currentParaStyle);
+//		int ChPos = QMIN(currItem->CPos, static_cast<int>(currItem->itemText.length()-1));
+		int currentParaStyle = findParagraphStyle(doc, currItem->currentStyle());
+		setAbsValue(currentParaStyle);
+		propertiesPalette->setAli(currentParaStyle);
+		doc->currentStyle.charStyle() = currItem->currentCharStyle();
 		emit TextUnderline(doc->currentStyle.charStyle().underlineOffset(), doc->currentStyle.charStyle().underlineWidth());
 		emit TextStrike(doc->currentStyle.charStyle().strikethruOffset(), doc->currentStyle.charStyle().strikethruWidth());
 		emit TextShadow(doc->currentStyle.charStyle().shadowXOffset(), doc->currentStyle.charStyle().shadowYOffset());
@@ -1000,7 +1000,7 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 						doc->currentStyle.charStyle().fillShade());
 		emit TextIFont(doc->currentStyle.charStyle().font()->scName());
 		emit TextISize(doc->currentStyle.charStyle().fontSize());
-		emit TextUSval(currItem->itemText.charStyle(ChPos).cextra);
+		emit TextUSval(doc->currentStyle.charStyle().tracking());
 		emit TextStil(doc->currentStyle.charStyle().effects());
 		emit TextScale(doc->currentStyle.charStyle().scaleH());
 		emit TextScaleV(doc->currentStyle.charStyle().scaleV());
@@ -2108,7 +2108,6 @@ void ScribusMainWindow::SwitchWin()
 	rebuildLayersList();
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
-	doc->currentParaStyle = 0;
 	nodePalette->setDoc(doc, view);
 	slotChangeUnit(doc->unitIndex(), false);
 	if (doc->EditClip)
@@ -2249,7 +2248,6 @@ void ScribusMainWindow::HaveNewDoc()
 	rebuildLayersList();
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
-	doc->currentParaStyle = 0;
 	slotChangeUnit(doc->unitIndex());
 	buildFontMenu();
 	windowsMenuAboutToShow();
@@ -2444,8 +2442,8 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["editCopy"]->setEnabled(true);
 		scrActions["editClearContents"]->setEnabled(true);
 		scrActions["editSearchReplace"]->setEnabled(currItem->itemText.length() != 0);
-		scrActions["extrasHyphenateText"]->setEnabled(true);
-		scrActions["extrasDeHyphenateText"]->setEnabled(true);
+		scrActions["extrasHyphenateText"]->setEnabled(currItem->itemText.length() != 0);
+		scrActions["extrasDeHyphenateText"]->setEnabled(currItem->itemText.length() != 0);
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
 		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
@@ -2467,6 +2465,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			scrActions["itemConvertToPolygon"]->setEnabled(false);
 			scrActions["itemConvertToTextFrame"]->setEnabled(false);
 			scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
+			// FIXME: once there's one itemtext per story, always enable editcontents
 			if ((currItem->BackBox != 0) && (currItem->itemText.length() == 0))
 				scrActions["toolsEditContents"]->setEnabled(false);
 			else
@@ -2488,7 +2487,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			scrActions["insertGlyph"]->setEnabled(true);
 			if (currItem->asTextFrame())
 				actionManager->enableUnicodeActions(&scrActions, true, doc->currentStyle.charStyle().font()->scName());
-			view->horizRuler->setItemPosition(currItem->xPos(), currItem->width());
+			view->horizRuler->setItem(currItem);
 			if (currItem->lineColor() != CommonStrings::None)
 				view->horizRuler->lineCorr = currItem->lineWidth() / 2.0;
 			else
@@ -2497,49 +2496,37 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			view->horizRuler->Cols = currItem->Cols;
 			view->horizRuler->Extra = currItem->textToFrameDistLeft();
 			view->horizRuler->RExtra = currItem->textToFrameDistRight();
-			view->horizRuler->First = doc->docParagraphStyles[doc->currentParaStyle].firstIndent();
-			view->horizRuler->Indent = doc->docParagraphStyles[doc->currentParaStyle].leftMargin();
+			view->horizRuler->First = currItem->currentStyle().firstIndent();
+			view->horizRuler->Indent = currItem->currentStyle().leftMargin();
+			double columnWidth = (currItem->width() - (currItem->columnGap() * (currItem->columns() - 1)) 
+				- currItem->textToFrameDistLeft() - currItem->textToFrameDistLeft() 
+				- 2*view->horizRuler->lineCorr) / currItem->columns();
+			view->horizRuler->RMargin = columnWidth - currItem->currentStyle().rightMargin();
 			if (currItem->imageFlippedH() || (currItem->reversed()))
 				view->horizRuler->Revers = true;
 			else
 				view->horizRuler->Revers = false;
 			view->horizRuler->ItemPosValid = true;
-			if (doc->currentParaStyle < 5)
+			if (findParagraphStyle(doc, doc->currentStyle) < 5)
 				view->horizRuler->TabValues = currItem->TabValues;
 			else
-				view->horizRuler->TabValues = doc->docParagraphStyles[doc->currentParaStyle].tabValues();
+				view->horizRuler->TabValues = doc->currentStyle.tabValues();
 			view->horizRuler->repaint();
 		}
 		else
 		{
-/*			doc->CurrFont = currItem->font();
-			doc->CurrFontSize = currItem->fontSize();
-			doc->CurrTextFill = currItem->TxtFill;
-			doc->CurrTextStroke = currItem->TxtStroke;
-			doc->CurrTextStrokeSh = currItem->ShTxtStroke;
-			doc->CurrTextFillSh = currItem->ShTxtFill;
-			doc->CurrTextScale = currItem->TxtScale;
-			doc->CurrTextScaleV = currItem->TxtScaleV;
-			doc->CurrTextBase = currItem->TxtBase;
-			doc->CurrTextShadowX = currItem->TxtShadowX;
-			doc->CurrTextShadowY = currItem->TxtShadowY;
-			doc->CurrTextOutline = currItem->TxtOutline;
-			doc->CurrTextUnderPos = currItem->TxtUnderPos;
-			doc->CurrTextUnderWidth = currItem->TxtUnderWidth;
-			doc->CurrTextStrikePos = currItem->TxtStrikePos;
-			doc->CurrTextStrikeWidth = currItem->TxtStrikeWidth;
-			emit TextStrike(doc->CurrTextStrikePos, doc->CurrTextStrikeWidth);
-			emit TextUnderline(doc->CurrTextUnderPos, doc->CurrTextUnderWidth);
-			emit TextShadow(doc->CurrTextShadowX, doc->CurrTextShadowY);
-			emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
-			doc->CurrentStyle = currItem->TxTStyle;
-			emit TextStil(doc->CurrentStyle);
-			emit TextScale(doc->CurrTextScale);
-			emit TextScaleV(doc->CurrTextScaleV);
-			emit TextBase(doc->CurrTextBase);
-			emit TextOutline(doc->CurrTextOutline);
-			setStilvalue(doc->CurrentStyle);
-*/		}
+			doc->currentStyle.charStyle() = currItem->itemText.defaultStyle().charStyle();
+			emit TextStrike(doc->currentStyle.charStyle().strikethruOffset(), doc->currentStyle.charStyle().strikethruWidth());
+			emit TextUnderline(doc->currentStyle.charStyle().underlineOffset(), doc->currentStyle.charStyle().underlineWidth());
+			emit TextShadow(doc->currentStyle.charStyle().shadowXOffset(), doc->currentStyle.charStyle().shadowYOffset());
+			emit TextFarben(doc->currentStyle.charStyle().strokeColor(), doc->currentStyle.charStyle().fillColor(), doc->currentStyle.charStyle().strokeShade(), doc->currentStyle.charStyle().fillShade());
+			emit TextScale(doc->currentStyle.charStyle().scaleH());
+			emit TextScaleV(doc->currentStyle.charStyle().scaleV());
+			emit TextBase(doc->currentStyle.charStyle().baselineOffset());
+			emit TextOutline(doc->currentStyle.charStyle().outlineWidth());
+//			emit TextStil(doc->currentStyle.charStyle().effects());
+			setStilvalue(doc->currentStyle.charStyle().effects());
+		}
 
 //		doc->docParagraphStyles[0].setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(currItem->lineSpacingMode()));
 //		doc->docParagraphStyles[0].setLineSpacing(currItem->lineSpacing());
@@ -2577,34 +2564,18 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			setTBvals(currItem);
 		else
 		{
-/*			doc->CurrFont = currItem->font();
-			doc->CurrFontSize = currItem->fontSize();
-			doc->CurrTextFill = currItem->TxtFill;
-			doc->CurrTextStroke = currItem->TxtStroke;
-			doc->CurrTextStrokeSh = currItem->ShTxtStroke;
-			doc->CurrTextFillSh = currItem->ShTxtFill;
-			doc->CurrTextScale = currItem->TxtScale;
-			doc->CurrTextScaleV = currItem->TxtScaleV;
-			doc->CurrTextBase = currItem->TxtBase;
-			doc->CurrTextShadowX = currItem->TxtShadowX;
-			doc->CurrTextShadowY = currItem->TxtShadowY;
-			doc->CurrTextOutline = currItem->TxtOutline;
-			doc->CurrTextUnderPos = currItem->TxtUnderPos;
-			doc->CurrTextUnderWidth = currItem->TxtUnderWidth;
-			doc->CurrTextStrikePos = currItem->TxtStrikePos;
-			doc->CurrTextStrikeWidth = currItem->TxtStrikeWidth;
-			emit TextStrike(doc->CurrTextStrikePos, doc->CurrTextStrikeWidth);
-			emit TextUnderline(doc->CurrTextUnderPos, doc->CurrTextUnderWidth);
-			emit TextShadow(doc->CurrTextShadowX, doc->CurrTextShadowY);
-			emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
-			doc->CurrentStyle = currItem->TxTStyle;
-			emit TextStil(doc->CurrentStyle);
-			emit TextScale(doc->CurrTextScale);
-			emit TextScaleV(doc->CurrTextScaleV);
-			emit TextBase(doc->CurrTextBase);
-			emit TextOutline(doc->CurrTextOutline);
-			setStilvalue(doc->CurrentStyle);
-*/		}
+			doc->currentStyle.charStyle() = currItem->itemText.defaultStyle().charStyle();
+			emit TextStrike(doc->currentStyle.charStyle().strikethruOffset(), doc->currentStyle.charStyle().strikethruWidth());
+			emit TextUnderline(doc->currentStyle.charStyle().underlineOffset(), doc->currentStyle.charStyle().underlineWidth());
+			emit TextShadow(doc->currentStyle.charStyle().shadowXOffset(), doc->currentStyle.charStyle().shadowYOffset());
+			emit TextFarben(doc->currentStyle.charStyle().strokeColor(), doc->currentStyle.charStyle().fillColor(), doc->currentStyle.charStyle().strokeShade(), doc->currentStyle.charStyle().fillShade());
+			emit TextScale(doc->currentStyle.charStyle().scaleH());
+			emit TextScaleV(doc->currentStyle.charStyle().scaleV());
+			emit TextBase(doc->currentStyle.charStyle().baselineOffset());
+			emit TextOutline(doc->currentStyle.charStyle().outlineWidth());
+//			emit TextStil(doc->currentStyle.charStyle().effects());
+			setStilvalue(doc->currentStyle.charStyle().effects());
+		}
 		break;
 	default:
 		scrActions["fileImportText"]->setEnabled(false);
@@ -4377,7 +4348,7 @@ void ScribusMainWindow::slotEditCut()
 
 void ScribusMainWindow::slotEditCopy()
 {
-	uint a;
+	int a;
 	NoFrameEdit();
 	QString BufferI = "";
 	if ((HaveDoc) && (doc->m_Selection->count() != 0))
@@ -4611,33 +4582,19 @@ void ScribusMainWindow::slotEditPaste()
 				doc->maxCanvasCoordinate = maxSize;
 				outlinePalette->BuildTree();
 				outlinePalette->reopenTree(doc->OpenNodes);
-#ifndef NLS_PROTO
-				hg = new ScText;
-				hg->ch = QChar(25);
-				doc->setScTextDefaultsFromDoc(hg);
-				hg->cselect = false;
-				hg->xp = 0;
-				hg->yp = 0;
-				hg->PRot = 0;
-				hg->PtransX = 0;
-				hg->PtransY = 0;
-				hg->cextra = 0;
-				hg->cembedded = currItem3;
-				currItem->itemText.insert(currItem->CPos, hg);
-#else
 				currItem->itemText.insertObject(currItem->CPos, currItem3);
-#endif
 				currItem->CPos += 1;
 			}
 			else
 			{
 				Serializer *ss = new Serializer("");
 				ss->Objekt = Buffer2;
-				int st = doc->currentParaStyle;
+//FIXME: that st business doesn't look right
+				int st = findParagraphStyle(doc, doc->currentStyle);
 				if (st > 5)
 					ss->GetText(currItem, st, doc->docParagraphStyles[st].charStyle().font()->scName(), doc->docParagraphStyles[st].charStyle().fontSize(), true);
 				else
-					ss->GetText(currItem, st, doc->currentStyle.charStyle().font()->scName(), doc->currentStyle.charStyle().fontSize(), true);
+					ss->GetText(currItem, st, currItem->currentCharStyle().font()->scName(), currItem->currentCharStyle().fontSize(), true);
 				delete ss;
 			}
 			view->RefreshItem(currItem);
@@ -5858,7 +5815,7 @@ void ScribusMainWindow::MovePage()
 		int to = dia->getToPage();
 		int wie = dia->getWhere();
 		int wo = dia->getWherePage();
-		if ((from != wo) || (wie == 2 && (to!=doc->Pages->count())))
+		if (from != wo || (wie == 2 && to != signed(doc->Pages->count()) ) )
 		{
 			doc->movePage(from-1, to, wo-1, wie);
 			view->reformPages();
@@ -5957,7 +5914,7 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 			if (doc->m_Selection->count() != 0)
 			{
 				PageItem *currItem = doc->m_Selection->itemAt(0);
-				nf2 = doc->currentStyle.charStyle().cfont->scName();
+				nf2 = currItem->currentCharStyle().font()->scName();
 			}
 			propertiesPalette->Fonts->RebuildList(doc);
 			buildFontMenu();
@@ -6075,8 +6032,8 @@ void ScribusMainWindow::setCSMenu(QString , QString l, int  , int ls)
 			}
 			else
 			{
-				la = doc->currentStyle.charStyle().fillColor();
-				lb = doc->currentStyle.charStyle().fillShade();
+				la = currItem->itemText.defaultStyle().charStyle().fillColor();
+				lb = currItem->itemText.defaultStyle().charStyle().fillShade();
 			}
 		}
 		else
@@ -6318,7 +6275,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 						}
 						else
 						{
-							newStyle = ite->itemText.charStyle(e);
+							newStyle = ite->itemText.defaultStyle().charStyle();
 								//.cstyle & static_cast<StyleFlag>(~1919);
 							//newStyle.cstyle |= static_cast<StyleFlag>(ite->TxTStyle);
 						}
@@ -6407,7 +6364,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 						}
 						else
 						{
-							chars->at(e)->charStyle = doc->currentStyle.charStyle();
+							chars->at(e)->charStyle = ite->itemText.defaultStyle().charStyle();
 						}
 						chars->at(e)->cab = cabneu;
 					}
@@ -6455,7 +6412,7 @@ void ScribusMainWindow::setNewAbStyle(int a)
 	//setActiveWindow();
 	if (HaveDoc)
 	{
-		doc->currentParaStyle = a;
+		doc->currentStyle = doc->docParagraphStyles[a];
 		doc->itemSelection_SetParagraphStyle(a);
 		propertiesPalette->setAli(a);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
@@ -6467,7 +6424,7 @@ void ScribusMainWindow::setNewAbStyle(int a)
 
 void ScribusMainWindow::setAbsValue(int a)
 {
-	doc->currentParaStyle = a;
+	doc->currentStyle = doc->docParagraphStyles[a];
 	propertiesPalette->setAli(a);
 	QString alignment[] = {"Left", "Center", "Right", "Block", "Forced"};
 	for (int b=0; b<5; ++b)
@@ -6490,7 +6447,7 @@ void ScribusMainWindow::slotEditColors()
 	{
 		if (HaveDoc)
 		{
-			uint c, d;
+			int c, d;
 			QMap<QString,QString> ers;
 			PageItem *ite;
 			QColor tmpc;

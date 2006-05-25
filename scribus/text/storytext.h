@@ -169,6 +169,7 @@ class ScribusDoc;
 	ScribusDoc * doc; 
 	int selFirst, selLast;
 	int firstFrameItem, lastFrameItem;
+	ParagraphStyle defaultStyle_;
 
  	/// mark these runs as invalid, ie. need itemize and shaping
  	void invalidate(int firstRun, int lastRun);

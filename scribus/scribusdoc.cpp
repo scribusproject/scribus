@@ -133,7 +133,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	AObjects(),
 	papColor(prefsData.DpapColor),
 	CurrentSel(-1),
-	currentParaStyle(0),
+//	currentParaStyle(0),
 	EditClip(false),
 	EditClipMode(0),
 	typographicSettings(prefsData.typographicSettings),
@@ -834,7 +834,6 @@ void ScribusDoc::resetPage(double t, double l, double r, double bo, int fp)
 bool ScribusDoc::AddFont(QString name, int fsize)
 {
 	bool ret = false;
-	bool error;
 	FT_Face      face;
 
 	if (UsedFonts.contains(name))
@@ -1184,7 +1183,7 @@ bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 	QValueList<Layer>::iterator it2;
 	QValueList<Layer>::iterator it2end=Layers.end();
 	bool found=false;
-	int layerLevel;
+	int layerLevel = -1;
 	for (it2 = Layers.begin(); it2 != it2end; ++it2)
 	{
 		if ((*it2).LNr == layerNumber)
@@ -1689,7 +1688,7 @@ void ScribusDoc::orderedLayerList(QStringList* list)
 bool ScribusDoc::renumberLayer(const int layerNumber, const int newLayerNumber)
 {
 	uint layerCount=Layers.count();
-	uint foundIndex;
+	uint foundIndex = 0;
 	bool found=false;
 	//Find layer to renumber, if found the new number, return as it exists already.
 	for (uint i=0; i < layerCount; ++i)
@@ -1874,7 +1873,7 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 
 void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 {
-	PageItem* it;
+	PageItem* it = NULL;
 	FPointArray gly;
 	QString chx;
 	uint counter = 0;
@@ -2048,7 +2047,8 @@ void ScribusDoc::reorganiseFonts()
 					it = FrameItems.at(d);
 					break;
 			}
-//			Really.insert(it->font(), UsedFonts[it->font()]);
+			QString fontName(it->itemText.defaultStyle().charStyle().font()->scName());
+			Really.insert(fontName, UsedFonts[fontName]);
 			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
 				uint itemTextCount=it->itemText.length();
@@ -4471,27 +4471,11 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 				}
 				if ((s < 5) && (nextItem->itemText.at(a)->cab > 4))
 				{
-/*FIXME:av					nextItem->itemText.at(a)->ccolor = nextItem->TxtFill;
-					nextItem->itemText.at(a)->cshade = nextItem->ShTxtFill;
-					nextItem->itemText.at(a)->cstroke = nextItem->TxtStroke;
-					nextItem->itemText.at(a)->cshade2 = nextItem->ShTxtStroke;
-					nextItem->itemText.at(a)->csize = nextItem->fontSize();
-					nextItem->itemText.at(a)->cfont = (*AllFonts)[nextItem->font()];
-					if (nextItem->TxTStyle != ScStyle_None) {
+					reinterpret_cast<CharStyle&>(*nextItem->itemText.item(a)) = nextItem->itemText.defaultStyle().charStyle();
+/*???					if (nextItem->TxTStyle != ScStyle_None) {
 						nextItem->itemText.at(a)->cstyle &= static_cast<StyleFlag>(~1919);
 						nextItem->itemText.at(a)->cstyle |= static_cast<StyleFlag>(nextItem->TxTStyle & 1919);
 					}
-					nextItem->itemText.at(a)->cshadowx = nextItem->TxtShadowX;
-					nextItem->itemText.at(a)->cshadowy = nextItem->TxtShadowY;
-					nextItem->itemText.at(a)->coutline = nextItem->TxtOutline;
-					nextItem->itemText.at(a)->cunderpos = nextItem->TxtUnderPos;
-					nextItem->itemText.at(a)->cunderwidth = nextItem->TxtUnderWidth;
-					nextItem->itemText.at(a)->cstrikepos = nextItem->TxtStrikePos;
-					nextItem->itemText.at(a)->cstrikewidth = nextItem->TxtStrikeWidth;
-					nextItem->itemText.at(a)->cscale = nextItem->TxtScale;
-					nextItem->itemText.at(a)->cscalev = nextItem->TxtScaleV;
-					nextItem->itemText.at(a)->cbase = nextItem->TxtBase;
-					nextItem->itemText.at(a)->cextra = nextItem->ExtraV;
 */				}
 				nextItem->itemText.at(a)->cab = s;
 				a--;
@@ -4585,11 +4569,12 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 		{
 			SimpleState *ss = new SimpleState(s > 4 ? Um::SetStyle : Um::AlignText, "", Um::IFont);
 			ss->set("PSTYLE", "pstyle");
-			ss->set("OLD_STYLE", currItem->textAlignment);
+			int oldPStyle = findParagraphStyle(currItem->document(), currItem->currentStyle());
+			ss->set("OLD_STYLE", oldPStyle);
 			ss->set("NEW_STYLE", s);
 			undoManager->action(currItem, ss);
 		}
-		currItem->textAlignment = s;
+		currItem->changeCurrentStyle().setAlignment(s);
 		if (currItem->itemText.count() != 0)
 		{
 			for (a = 0; a < static_cast<int>(currItem->itemText.count()); ++a)
@@ -4649,7 +4634,7 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 		emit refreshItem(currItem);
 	if (appMode == modeEdit)
 	{
-		ScMW->view->horizRuler->setItemPosition(currItem->xPos(), currItem->width());
+		ScMW->view->horizRuler->setItem(currItem);
 		if (currItem->lineColor() != CommonStrings::None)
 			ScMW->view->horizRuler->lineCorr = currItem->lineWidth() / 2.0;
 		else

@@ -151,15 +151,6 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 			uint i = 0;
 		  	buffer[strlen(word)] = '\0';
 			it->itemText.hyphenateWord(firstC, found.length(), buffer); 
-/*#ifndef NLS_PROTO
-			for (i = 1; i < found.length()-1; ++i)
-				it->itemText.at(QMIN(maxC, i+firstC))->cstyle &= static_cast<StyleFlag>(1919);		// Delete any old Hyphens
-			for (i = 1; i < found.length()-1; ++i)
-			{
-				if(buffer[i] & 1)
-					it->itemText.at(QMIN(maxC, i+firstC))->cstyle |= static_cast<StyleFlag>(128);	// Set new Hyphens according Buffer
-			}
-#endif*/
 		}
 		free(buffer);
 	}

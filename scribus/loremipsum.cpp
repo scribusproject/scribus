@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "commonstrings.h"
 #include "hyphenator.h"
-
+#include "util.h"
 
 
 QString getLoremLocation(QString fname)
@@ -233,7 +233,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 		{
 			done = true;
 			ss->Objekt = lp->createLorem(paraCount);
-			int st = currItem->document()->currentParaStyle;
+			int st = findParagraphStyle(currItem->document(), currItem->document()->currentStyle);
 			if (st > 5)
 				ss->GetText(currItem, st, currItem->document()->docParagraphStyles[st].charStyle().font()->scName(), currItem->document()->docParagraphStyles[st].charStyle().fontSize(), true);
 			else

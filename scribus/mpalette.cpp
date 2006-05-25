@@ -2902,7 +2902,7 @@ void Mpalette::NewAli(int a)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (doc->currentParaStyle < 5)
+		if (findParagraphStyle(doc, doc->currentStyle) < 5)
 			emit NewAbStyle(a);
 	}
 }

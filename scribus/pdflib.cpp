@@ -627,7 +627,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.charStyle(e).cfont->scName(), DocFonts[pgit->itemText.charStyle(e).cfont->scName()]);
+				ReallyUsed.insert(pgit->itemText.charStyle(e).font()->scName(), DocFonts[pgit->itemText.charStyle(e).font()->scName()]);
 			}
 		}
 	}
@@ -640,7 +640,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.charStyle(e).cfont->scName(), DocFonts[pgit->itemText.charStyle(e).cfont->scName()]);
+				ReallyUsed.insert(pgit->itemText.charStyle(e).font()->scName(), DocFonts[pgit->itemText.charStyle(e).font()->scName()]);
 			}
 		}
 	}
@@ -653,7 +653,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.charStyle(e).cfont->scName(), DocFonts[pgit->itemText.charStyle(e).cfont->scName()]);
+				ReallyUsed.insert(pgit->itemText.charStyle(e).font()->scName(), DocFonts[pgit->itemText.charStyle(e).font()->scName()]);
 			}
 		}
 	}
@@ -4061,7 +4061,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 					PutDoc("/FT /Tx\n");
 					PutDoc("/V "+EncString("("+bm+")",ObjCounter-1)+"\n");
 					PutDoc("/DV "+EncString("("+bm+")",ObjCounter-1)+"\n");
-					PutDoc("/Q "+QString::number(QMIN(ite->textAlignment,2))+"\n");
+					PutDoc("/Q "+QString::number(QMIN(ite->itemText.defaultStyle().alignment(),2))+"\n");
 					PutDoc("/AP << /N "+QString::number(ObjCounter)+" 0 R >>\n");
 					if (ite->annotation().MaxChar() != -1)
 						PutDoc("/MaxLen "+QString::number(ite->annotation().MaxChar())+"\n");

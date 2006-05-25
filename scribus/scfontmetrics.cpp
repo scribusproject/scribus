@@ -142,10 +142,9 @@ int setBestEncoding(FT_Face face)
 	return retVal;
 }
 
-FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err)
+FPointArray traceGlyph(FT_Face face, FT_UInt glyphIndex, int chs, double *x, double *y, bool *err)
 {
 	bool error = false;
-	FT_UInt glyphIndex;
 	//AV: not threadsave, but tracechar is only used in ReadMetrics() and fontSample()
 	static FPointArray pts; 
 	FPointArray pts2;
@@ -159,7 +158,6 @@ FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, boo
 		*err = error;
 		return pts2;
 	}
-	glyphIndex = FT_Get_Char_Index(face, chr);
 	if (glyphIndex == 0)
 	{
 		*err = true;
@@ -187,6 +185,22 @@ FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, boo
 
 	return pts2;
 }
+
+
+FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err)
+{
+	bool error = false;
+	FT_UInt glyphIndex;
+	error = FT_Set_Char_Size( face, 0, chs*64, 72, 72 );
+	if (error)
+	{
+		*err = error;
+		return FPointArray();
+	}
+	glyphIndex = FT_Get_Char_Index(face, chr);
+	return traceGlyph(face, glyphIndex, chs, x, y, err);
+}
+
 
 QPixmap FontSample(Foi * fnt, int s, QString ts, QColor back, bool force)
 {
@@ -275,7 +289,7 @@ QPixmap FontSample(Foi * fnt, int s, QString ts, QColor back, bool force)
 
 /** Same as FontSample() with \n strings support added.
 09/26/2004 petr vanek
-*/
+
 QPixmap fontSamples(Foi * fnt, int s, QString ts, QColor back)
 {
 	QStringList lines = QStringList::split("\n", ts);
@@ -304,6 +318,7 @@ QPixmap fontSamples(Foi * fnt, int s, QString ts, QColor back)
 	}
 	return final;
 }
+*/
 
 bool GlyNames(Foi * fnt, QMap<uint, QString> *GList)
 {
@@ -476,7 +491,7 @@ QString adobeGlyphName(FT_ULong charcode) {
 	return result;
 }
 
-double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size, QString ch2)
+double Cwidth(ScribusDoc *, Foi* scFace, QString ch, int Size, QString ch2)
 {
 	double width;
 	FT_Vector  delta;
@@ -484,10 +499,10 @@ double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size, QString c
 	uint c1 = ch.at(0).unicode();
 	uint c2 = ch2.at(0).unicode();
 	double size10=Size/10.0;
-	if (name->canRender(ch[0]))
+	if (scFace->canRender(ch[0]))
 	{
-		width = name->charWidth(ch[0])*size10;
-		face = name->ftFace();
+		width = scFace->charWidth(ch[0])*size10;
+		face = scFace->ftFace();
 		/****
 			Ok, this looks like a regression between Freetype 2.1.9 -> 2.1.10.
 			Ignoring the value of FT_HAS_KERNING for now -- AV
@@ -498,7 +513,7 @@ double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size, QString c
 			uint cr = FT_Get_Char_Index(face, c2);
 			FT_Error error = FT_Get_Kerning(face, cl, cr, FT_KERNING_UNSCALED, &delta);
 			if (error) {
-				qDebug(QString("Error %2 when accessing kerning pair for font %1").arg(name->scName()).arg(error));
+				qDebug(QString("Error %2 when accessing kerning pair for font %1").arg(scFace->scName()).arg(error));
 			}
 			else {
 				double uniEM = static_cast<double>(face->units_per_EM);
@@ -506,7 +521,7 @@ double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size, QString c
 			}
 		}
 		else {
-			qDebug(QString("Font %1 has no kerning pairs (according to Freetype)").arg(name->scName()));
+			qDebug(QString("Font %1 has no kerning pairs (according to Freetype)").arg(scFace->scName()));
 		}
 		return width;
 	}
@@ -514,14 +529,14 @@ double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size, QString c
 		return size10;
 }
 
-double RealCWidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
+double RealCWidth(ScribusDoc *, Foi* scFace, QString ch, int Size)
 {
 	double w, ww;
 	uint c1 = ch.at(0).unicode();
 	FT_Face      face;
-	if (name->canRender(ch.at(0)))
+	if (scFace->canRender(ch.at(0)))
 	{
-		face = name->ftFace();
+		face = scFace->ftFace();
 		uint cl = FT_Get_Char_Index(face, c1);
 		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 		if (!error) {
@@ -537,14 +552,14 @@ double RealCWidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
 	return static_cast<double>(Size / 10.0);
 }
 
-double RealCHeight(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
+double RealCHeight(ScribusDoc *, Foi* scFace, QString ch, int Size)
 {
 	double w;
 	uint c1 = ch.at(0).unicode();
 	FT_Face      face;
-	if (name->canRender(ch.at(0)))
+	if (scFace->canRender(ch.at(0)))
 	{
-		face = name->ftFace();
+		face = scFace->ftFace();
 		uint cl = FT_Get_Char_Index(face, c1);
 		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 		if (!error) {
@@ -561,14 +576,14 @@ double RealCHeight(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
 		return static_cast<double>(Size / 10.0);
 }
 
-double RealCAscent(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
+double RealCAscent(ScribusDoc *, Foi* scFace, QString ch, int Size)
 {
 	double w;
 	uint c1 = ch.at(0).unicode();
 	FT_Face      face;
-	if (name->canRender(ch.at(0)))
+	if (scFace->canRender(ch.at(0)))
 	{
-		face = name->ftFace();
+		face = scFace->ftFace();
 		uint cl = FT_Get_Char_Index(face, c1);
 		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 		if (! error) {
@@ -585,9 +600,9 @@ double RealCAscent(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
 		return static_cast<double>(Size / 10.0);
 }
 
-double RealFHeight(ScribusDoc *currentDoc, Foi* name, int Size)
+double RealFHeight(ScribusDoc *, Foi* scFace, int Size)
 {
-	FT_Face face = name->ftFace();
+	FT_Face face = scFace->ftFace();
 	double uniEM = static_cast<double>(face->units_per_EM);
 	return face->height / uniEM * (Size / 10.0);
 }

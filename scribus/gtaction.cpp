@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "hyphenator.h"
 #include "selection.h"
 #include "commonstrings.h"
-
+#include "util.h"
 
 gtAction::gtAction(bool append)
 {
@@ -133,7 +133,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 
 
 	if (paragraphStyle == -1)
-		paragraphStyle = ScMW->doc->currentParaStyle;
+		paragraphStyle = ::findParagraphStyle(ScMW->doc, ScMW->doc->currentStyle);
 
 	gtFont* font = style->getFont();
 	QString fontName = validateFont(font)->scName();
@@ -285,7 +285,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 
 void gtAction::getFrameFont(gtFont *font)
 {
-	const CharStyle& style(textFrame->document()->currentStyle.charStyle());
+	const CharStyle& style(textFrame->itemText.defaultStyle().charStyle());
 	
 	font->setName(style.font()->scName());
 	font->setSize(style.fontSize());
@@ -304,7 +304,7 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 	fstyle->setBgColor(textFrame->fillColor());
 	fstyle->setBgShade(textFrame->fillShade());
 
-	ParagraphStyle vg = textFrame->document()->docParagraphStyles[textFrame->document()->currentParaStyle];
+	const ParagraphStyle& vg(textFrame->itemText.defaultStyle());
 	fstyle->setName(vg.name());
 	fstyle->setLineSpacing(vg.lineSpacing());
 	fstyle->setAlignment(vg.alignment());
@@ -462,7 +462,7 @@ Foi* gtAction::validateFont(gtFont* font)
 
 	QString useFont = font->getName();
 	if ((useFont.isNull()) || (useFont.isEmpty()))
-		useFont = textFrame->document()->currentStyle.charStyle().font()->scName();
+		useFont = textFrame->itemText.defaultStyle().charStyle().font()->scName();
 	else if (prefsManager->appPrefs.AvailFonts[font->getName()] == 0)
 	{
 		bool found = false;

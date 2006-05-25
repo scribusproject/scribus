@@ -74,6 +74,7 @@ private:
 		QString Family;
 		QString Effect;
 		QString Alternative;
+		int usage_;
 public:
 		static const Foi   NONE;
 		FT_Face ftFace()   const;
@@ -128,7 +129,6 @@ protected:
 		bool isStroked_;
 		mutable QMap<uint,double> CharWidth;
 		mutable QMap<uint,GlyphR> GlyphArray;
-		mutable QMap<uint,FPointArray> RealGlyphs;
 		QString Ascent;
 		QString CapHeight;
 		QString Descender;

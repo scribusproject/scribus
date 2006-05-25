@@ -101,7 +101,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 			SStyleVal->insertItem(doc->docParagraphStyles[x].name());
 	}
 	SStyleVal->listBox()->setMinimumWidth(SStyleVal->listBox()->maxItemWidth()+24);
-	SStyleVal->setCurrentItem(doc->currentParaStyle);
+	SStyleVal->setCurrentItem(findParagraphStyle(doc, doc->currentStyle));
 	SStyleVal->setEnabled(false);
 	SearchLayout->addWidget( SStyleVal, 1, 1 );
 	SFontVal = new FontCombo(Search);
@@ -197,7 +197,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 			RStyleVal->insertItem(doc->docParagraphStyles[x].name());
 	}
 	RStyleVal->listBox()->setMinimumWidth(RStyleVal->listBox()->maxItemWidth()+24);
-	RStyleVal->setCurrentItem(doc->currentParaStyle);
+	RStyleVal->setCurrentItem(findParagraphStyle(doc, doc->currentStyle));
 	RStyleVal->setEnabled(false);
 	ReplaceLayout->addWidget( RStyleVal, 1, 1 );
 	RFontVal = new FontCombo(Replace);
@@ -725,7 +725,7 @@ void SearchReplace::slotDoReplace()
 						if (RStyle->isChecked())
 							hg->cab = RStyleVal->currentItem();
 						else
-							hg->cab = Doc->currentParaStyle;
+							hg->cab = findParagraphStyle(Doc, Doc->currentStyle);
 						if (Doc->docParagraphStyles[hg->cab].charStyle().font() != &Foi::NONE)
 						{
 							hg->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[hg->cab].charStyle().font()->scName()];
@@ -961,7 +961,8 @@ void SearchReplace::clear()
 	SEffect->setChecked(false);
 	REffect->setChecked(false);
 	STextVal->setText("");
-	SStyleVal->setCurrentItem(Doc->currentParaStyle);
+	int currentParaStyle = findParagraphStyle(Doc, Doc->currentStyle);
+	SStyleVal->setCurrentItem(currentParaStyle);
 	SFontVal->setCurrentText(Doc->currentStyle.charStyle().font()->scName());
 	SSizeVal->setValue(Doc->currentStyle.charStyle().fontSize() / 10.0);
 	SFillVal->setCurrentText(Doc->currentStyle.charStyle().fillColor());
@@ -975,7 +976,7 @@ void SearchReplace::clear()
 	RStyle->setChecked(false);
 	RText->setChecked(false);
 	RTextVal->setText("");
-	RStyleVal->setCurrentItem(Doc->currentParaStyle);
+	RStyleVal->setCurrentItem(currentParaStyle);
 	RFontVal->setCurrentText(Doc->currentStyle.charStyle().font()->scName());
 	RSizeVal->setValue(Doc->currentStyle.charStyle().fontSize() / 10.0);
 	RFillVal->setCurrentText(Doc->currentStyle.charStyle().fillColor());
@@ -1015,7 +1016,7 @@ void SearchReplace::readPrefs()
 	SEffect->setChecked(prefs->getBool("SEffect", false));
 	REffect->setChecked(prefs->getBool("REffect", false));
 	STextVal->setText(prefs->get("STextVal", ""));
-	int tmp = prefs->getInt("SStyleVal", Doc->currentParaStyle);
+	int tmp = prefs->getInt("SStyleVal", findParagraphStyle(Doc, Doc->currentStyle));
 	if (tmp < 0 || tmp >= SStyleVal->count())
 		SStyleVal->setCurrentItem(0);
 	else
@@ -1034,7 +1035,7 @@ void SearchReplace::readPrefs()
 	RStyle->setChecked(prefs->getBool("RStyle", false));
 	RText->setChecked(prefs->getBool("RText", false));
 	RTextVal->setText(prefs->get("RTextVal", ""));
-	tmp = prefs->getInt("RStyleVal", Doc->currentParaStyle);
+	tmp = prefs->getInt("RStyleVal", findParagraphStyle(Doc, Doc->currentStyle));
 	if (tmp < 0 || tmp >= RStyleVal->count())
 		RStyleVal->setCurrentItem(0);
 	else

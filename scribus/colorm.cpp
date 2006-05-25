@@ -653,6 +653,9 @@ void ColorManager::delUnused()
 				if (found)
 					break;
 			}
+			if ((it.key() == ite->itemText.defaultStyle().charStyle().fillColor()) ||
+		        (it.key() == ite->itemText.defaultStyle().charStyle().strokeColor()))
+				found = true;
 			if ((ite->asTextFrame()) || (ite->asPathText()))
 			{
 				for (uint d=0; d<ite->itemText.length(); ++d)

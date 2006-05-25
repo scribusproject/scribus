@@ -150,7 +150,6 @@ void PageItem_ImageFrame::clearContents()
 	LocalY = 0;
 	setImageFlippedH(false);
 	setImageFlippedV(false);
-	textAlignment = 0;
 	EmProfile = "";
 	ScaleType = true;
 	AspectRatio = true;

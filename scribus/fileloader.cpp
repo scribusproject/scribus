@@ -2050,9 +2050,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
 			currItem->AspectRatio = obj->attribute("RATIO", "0").toInt();
 		}
-/*FIXME		currItem->setLineSpacing(obj->attribute("LINESP").toDouble());
-		currItem->setLineSpacingMode(obj->attribute("LINESPMode", "0").toInt());
-*/		//currItem->convertTo(pt);
+		//currItem->convertTo(pt);
 		break;
 	case PageItem::TextFrame:
 		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, true);
@@ -2076,9 +2074,6 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
 			currItem->AspectRatio = obj->attribute("RATIO", "0").toInt();
 		}
-/*FIXME		currItem->setLineSpacing(obj->attribute("LINESP").toDouble());
-		currItem->setLineSpacingMode(obj->attribute("LINESPMode", "0").toInt());
-*/
 			//currItem->convertTo(pt);
 		break;
 	case PageItem::Line:
@@ -2101,7 +2096,6 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->isBookmark = obj->attribute("BOOKMARK").toInt();
 	if ((currItem->isBookmark) && (doc->BookMarks.count() == 0))
 		doc->OldBM = true;
-	currItem->textAlignment = obj->attribute("ALIGN", "0").toInt();
 	currItem->setImageFlippedH(obj->attribute("FLIPPEDH").toInt());
 	currItem->setImageFlippedV(obj->attribute("FLIPPEDV").toInt());
 	currItem->setCornerRadius(obj->attribute("RADRECT", "0").toDouble());
@@ -2110,22 +2104,46 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->setLineColor(Pcolor2);
 	currItem->setFillShade(obj->attribute("SHADE").toInt());
 	currItem->setLineShade(obj->attribute("SHADE2").toInt());
-/*	currItem->TxtStroke = obj->attribute("TXTSTROKE", CommonStrings::None);
-	currItem->TxtFill = obj->attribute("TXTFILL", "Black");
-	currItem->ShTxtStroke = obj->attribute("TXTSTRSH", "100").toInt();
-	currItem->ShTxtFill = obj->attribute("TXTFILLSH", "100").toInt();
-	currItem->TxtScale=qRound(obj->attribute("TXTSCALE", "100").toDouble() * 10);
-	currItem->TxtScaleV=qRound(obj->attribute("TXTSCALEV", "100").toDouble() * 10);
-	currItem->TxtBase=qRound(obj->attribute("TXTBASE", "0").toDouble() * 10);
-	currItem->TxtShadowX=qRound(obj->attribute("TXTSHX", "5").toDouble() * 10);
-	currItem->TxtShadowY=qRound(obj->attribute("TXTSHY", "-5").toDouble() * 10);
-	currItem->TxtOutline=qRound(obj->attribute("TXTOUT", "1").toDouble() * 10);
-	currItem->TxtUnderPos=qRound(obj->attribute("TXTULP", "-0.1").toDouble() * 10);
-	currItem->TxtUnderWidth=qRound(obj->attribute("TXTULW", "-0.1").toDouble() * 10);
-	currItem->TxtStrikePos=qRound(obj->attribute("TXTSTP", "-0.1").toDouble() * 10);
-	currItem->TxtStrikeWidth=qRound(obj->attribute("TXTSTW", "-0.1").toDouble() * 10);
-	currItem->TxTStyle = obj->attribute("TXTSTYLE", "0").toInt();
-*/	currItem->setRotation(obj->attribute("ROT").toDouble());
+	ParagraphStyle pstyle;
+	pstyle.setLineSpacing(obj->attribute("LINESP").toDouble());
+	pstyle.setLineSpacingMode(obj->attribute("LINESPMode", "0").toInt());
+	pstyle.setAlignment(obj->attribute("ALIGN", "0").toInt());
+/*	sigh
+	pstyle.charStyle().setFontSize(qRound(obj->attribute("ISIZE", "12").toDouble() * 10));
+	pstyle.charStyle().setStrokeColor(obj->attribute("TXTSTROKE", CommonStrings::None));
+	pstyle.charStyle().setFillColor(obj->attribute("TXTFILL", "Black"));
+	pstyle.charStyle().setStrokeShade(obj->attribute("TXTSTRSH", "100").toInt());
+	pstyle.charStyle().setFillShade(obj->attribute("TXTFILLSH", "100").toInt());
+	pstyle.charStyle().setScaleH(qRound(obj->attribute("TXTSCALE", "100").toDouble() * 10));
+	pstyle.charStyle().setScaleV(qRound(obj->attribute("TXTSCALEV", "100").toDouble() * 10));
+	pstyle.charStyle().setBaselineOffset(qRound(obj->attribute("TXTBASE", "0").toDouble() * 10));
+	pstyle.charStyle().setShadowXOffset(qRound(obj->attribute("TXTSHX", "5").toDouble() * 10));
+	pstyle.charStyle().setShadowYOffset(qRound(obj->attribute("TXTSHY", "-5").toDouble() * 10));
+	pstyle.charStyle().setOutlineWidth(qRound(obj->attribute("TXTOUT", "1").toDouble() * 10));
+	pstyle.charStyle().setUnderlineOffset(qRound(obj->attribute("TXTULP", "-0.1").toDouble() * 10));
+	pstyle.charStyle().setUnderlineWidth(qRound(obj->attribute("TXTULW", "-0.1").toDouble() * 10));
+	pstyle.charStyle().setStrikethruOffset(qRound(obj->attribute("TXTSTP", "-0.1").toDouble() * 10));
+	pstyle.charStyle().setStrikethruWidth(qRound(obj->attribute("TXTSTW", "-0.1").toDouble() * 10));
+	pstyle.charStyle().setEffects(obj->attribute("TXTSTYLE", "0").toInt());
+*/
+	pstyle.charStyle().csize = (qRound(obj->attribute("ISIZE", "12").toDouble() * 10));
+	pstyle.charStyle().cstroke = (obj->attribute("TXTSTROKE", CommonStrings::None));
+	pstyle.charStyle().ccolor = (obj->attribute("TXTFILL", "Black"));
+	pstyle.charStyle().cshade2 = (obj->attribute("TXTSTRSH", "100").toInt());
+	pstyle.charStyle().cshade = (obj->attribute("TXTFILLSH", "100").toInt());
+	pstyle.charStyle().cscale = (qRound(obj->attribute("TXTSCALE", "100").toDouble() * 10));
+	pstyle.charStyle().cscalev = (qRound(obj->attribute("TXTSCALEV", "100").toDouble() * 10));
+	pstyle.charStyle().cbase = (qRound(obj->attribute("TXTBASE", "0").toDouble() * 10));
+	pstyle.charStyle().cshadowx = (qRound(obj->attribute("TXTSHX", "5").toDouble() * 10));
+	pstyle.charStyle().cshadowy = (qRound(obj->attribute("TXTSHY", "-5").toDouble() * 10));
+	pstyle.charStyle().coutline = (qRound(obj->attribute("TXTOUT", "1").toDouble() * 10));
+	pstyle.charStyle().cunderpos = (qRound(obj->attribute("TXTULP", "-0.1").toDouble() * 10));
+	pstyle.charStyle().cunderwidth = (qRound(obj->attribute("TXTULW", "-0.1").toDouble() * 10));
+	pstyle.charStyle().cstrikepos = (qRound(obj->attribute("TXTSTP", "-0.1").toDouble() * 10));
+	pstyle.charStyle().cstrikewidth = (qRound(obj->attribute("TXTSTW", "-0.1").toDouble() * 10));
+	pstyle.charStyle().cstyle = static_cast<StyleFlag>(obj->attribute("TXTSTYLE", "0").toInt());
+	currItem->itemText.setDefaultStyle(pstyle);
+	currItem->setRotation(obj->attribute("ROT").toDouble());
 	currItem->setTextToFrameDist(obj->attribute("EXTRA").toDouble(),
 								obj->attribute("REXTRA", "1").toDouble(),
 								obj->attribute("TEXTRA", "1").toDouble(),
@@ -2198,7 +2216,6 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->BaseOffs = obj->attribute("BASEOF", "0").toDouble();
 	currItem->setTextFlowsAroundFrame(obj->attribute("TEXTFLOW").toInt());
 	currItem->setTextFlowUsesBoundingBox(obj->attribute("TEXTFLOW2", "0").toInt());
-//	currItem->setFontSize(qRound(obj->attribute("ISIZE", "12").toDouble() * 10));
 	if (obj->hasAttribute("EXTRAV"))
 		currItem->ExtraV = qRound(obj->attribute("EXTRAV", "0").toDouble() / obj->attribute("ISIZE", "12").toDouble() * 1000.0);
 	else
