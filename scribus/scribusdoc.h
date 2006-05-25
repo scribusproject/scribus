@@ -253,6 +253,32 @@ public:
 	 */
 	int layerLevelFromNumber(const int layerNumber);
 	/**
+	 * @brief Set the layer marker color
+	 * @param layerNumber Number of the layer
+	 * @param color color of the marker
+	 * @return Success or failure
+	 */
+	bool setLayerMarker(const int layerNumber, QColor color);
+	/**
+	 * @brief returns the layer marker color
+	 * @param layerNumber Number of the layer
+	 * @return marker color
+	 */
+	QColor layerMarker(const int layerNumber);
+	/**
+	 * @brief Set the layer outline mode via the layer number
+	 * @param layerNumber Number of the layer
+	 * @param outline true = layer is displayed in outlines only
+	 * @return Success or failure
+	 */
+	bool setLayerOutline(const int layerNumber, const bool outline);
+	/**
+	 * @brief is this layer in outline mode
+	 * @param layerNumber Number of the layer
+	 * @return outline or not
+	 */
+	bool layerOutline(const int layerNumber);
+	/**
 	 * @brief Return the number of the layer at a certain level
 	 * @param layerLevel Layer level
 	 * @return Layer number

@@ -66,10 +66,13 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 {
 	if(!m_Doc->RePos)
 	{
-		if ((fillColor() != CommonStrings::None) || (GrType != 0))
+		if (!m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
 		{
-			p->setupPolygon(&PoLine);
-			p->fillPath();
+			if ((fillColor() != CommonStrings::None) || (GrType != 0))
+			{
+				p->setupPolygon(&PoLine);
+				p->fillPath();
+			}
 		}
 		p->save();
 #ifdef HAVE_CAIRO

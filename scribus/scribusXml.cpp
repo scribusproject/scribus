@@ -863,6 +863,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				la.flowControl = true;
 				la.transparency = 1.0;
 				la.blendMode = 0;
+				la.markerColor = QColor(0, 0, 0);
+				la.outlineMode = false;
 				bool laex = false;
 				uint layerCount=doc->layerCount();
 				for (uint la2 = 0; la2 < layerCount; ++la2)
@@ -1369,6 +1371,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				la.flowControl = true;
 				la.blendMode = 0;
 				la.transparency = 1.0;
+				la.markerColor = QColor(0, 0, 0);
+				la.outlineMode = false;
 				doc->Layers.append(la);
 			}
 			if(pg.tagName()=="MultiLine")
@@ -3238,6 +3242,8 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		la.setAttribute("FLOW", static_cast<int>(doc->Layers[lay].flowControl));
 		la.setAttribute("TRANS", doc->Layers[lay].transparency);
 		la.setAttribute("BLEND", doc->Layers[lay].blendMode);
+		la.setAttribute("OUTL", static_cast<int>(doc->Layers[lay].outlineMode));
+		la.setAttribute("LAYERC",doc->Layers[lay].markerColor.name());
 		dc.appendChild(la);
 	}
 	QDomElement pdf = docu.createElement("PDF");

@@ -735,7 +735,13 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 		return;
 	}
 	DrawObj_Pre(p, sc);
-	DrawObj_Item(p, e, sc);
+	if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+	{
+		if (itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line)
+			DrawObj_Item(p, e, sc);
+	}
+	else
+		DrawObj_Item(p, e, sc);
 	DrawObj_Post(p);
 }
 
@@ -751,58 +757,68 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 //		p->rotate(Rot);
 	}
 		p->rotate(Rot);
-	p->setLineWidth(m_lineWidth);
-	if (GrType != 0)
+	if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
 	{
-		p->setFillMode(ScPainter::Gradient);
-		p->fill_gradient = fill_gradient;
-		QWMatrix grm;
-		grm.rotate(Rot);
-		FPointArray gra;
-		switch (GrType)
-		{
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 6:
-				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-				gra.map(grm);
-				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
-				break;
-			case 5:
-			case 7:
-				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-				p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
-				break;
-		}
+		p->setPen(m_Doc->layerMarker(m_Doc->layerLevelFromNumber(LayerNr)), 1, SolidLine, FlatCap, MiterJoin);
+		p->setFillMode(ScPainter::None);
+		p->setBrushOpacity(1.0);
+		p->setPenOpacity(1.0);
 	}
 	else
 	{
-		p->fill_gradient = VGradient(VGradient::linear);
-		if (fillColor() != CommonStrings::None)
+		p->setLineWidth(m_lineWidth);
+		if (GrType != 0)
 		{
-			p->setBrush(fillQColor);
-			p->setFillMode(ScPainter::Solid);
+			p->setFillMode(ScPainter::Gradient);
+			p->fill_gradient = fill_gradient;
+			QWMatrix grm;
+			grm.rotate(Rot);
+			FPointArray gra;
+			switch (GrType)
+			{
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 6:
+					gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+					gra.map(grm);
+					p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+					break;
+				case 5:
+				case 7:
+					gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+					p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
+					break;
+			}
 		}
 		else
-			p->setFillMode(ScPainter::None);
-	}
-	if (lineColor() != CommonStrings::None)
-	{
-		if ((m_lineWidth == 0) && ! asLine())
+		{
+			p->fill_gradient = VGradient(VGradient::linear);
+			if (fillColor() != CommonStrings::None)
+			{
+				p->setBrush(fillQColor);
+				p->setFillMode(ScPainter::Solid);
+			}
+			else
+				p->setFillMode(ScPainter::None);
+		}
+		if (lineColor() != CommonStrings::None)
+		{
+			if ((m_lineWidth == 0) && ! asLine())
+				p->setLineWidth(0);
+			else
+			{
+				p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+				if (DashValues.count() != 0)
+					p->setDash(DashValues, DashOffset);
+			}
+		}
+		else
 			p->setLineWidth(0);
-		else
-		{
-			p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
-			if (DashValues.count() != 0)
-				p->setDash(DashValues, DashOffset);
+		p->setBrushOpacity(1.0 - fillTransparency());
+		p->setPenOpacity(1.0 - lineTransparency());
 		}
-	}
-	else
-		p->setLineWidth(0);
-	p->setBrushOpacity(1.0 - fillTransparency());
-	p->setPenOpacity(1.0 - lineTransparency());
 	p->setFillRule(fillRule);
 }
 
@@ -810,35 +826,53 @@ void PageItem::DrawObj_Post(ScPainter *p)
 {
 	bool doStroke=true;
 	ScribusView* view = m_Doc->view();
-	if (itemType()==PathText || itemType()==PolyLine || itemType()==Line)
-		doStroke=false;
-	if ((doStroke) && (!m_Doc->RePos))
+	if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
 	{
-		if (lineColor() != CommonStrings::None)
+		if (itemType()!=Line)
 		{
-			p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
-			if (DashValues.count() != 0)
-				p->setDash(DashValues, DashOffset);
-		}
-		else
-			p->setLineWidth(0);
-		if (!isTableItem)
-		{
-			p->setupPolygon(&PoLine);
-			if (NamedLStyle.isEmpty())
-				p->strokePath();
+			p->setPen(m_Doc->layerMarker(m_Doc->layerLevelFromNumber(LayerNr)), 1, SolidLine, FlatCap, MiterJoin);
+			p->setFillMode(ScPainter::None);
+			p->setBrushOpacity(1.0);
+			p->setPenOpacity(1.0);
+			if (itemType()==PolyLine)
+				p->setupPolygon(&PoLine, false);
 			else
+				p->setupPolygon(&PoLine);
+			p->strokePath();
+		}
+	}
+	else
+	{
+		if (itemType()==PathText || itemType()==PolyLine || itemType()==Line)
+			doStroke=false;
+		if ((doStroke) && (!m_Doc->RePos))
+		{
+			if (lineColor() != CommonStrings::None)
 			{
-				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-				QColor tmp;
-				for (int it = ml.size()-1; it > -1; it--)
-				{
-					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-					p->setPen(tmp, ml[it].Width,
-							  static_cast<PenStyle>(ml[it].Dash),
-							  static_cast<PenCapStyle>(ml[it].LineEnd),
-							  static_cast<PenJoinStyle>(ml[it].LineJoin));
+				p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+				if (DashValues.count() != 0)
+					p->setDash(DashValues, DashOffset);
+			}
+			else
+				p->setLineWidth(0);
+			if (!isTableItem)
+			{
+				p->setupPolygon(&PoLine);
+				if (NamedLStyle.isEmpty())
 					p->strokePath();
+				else
+				{
+					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					QColor tmp;
+					for (int it = ml.size()-1; it > -1; it--)
+					{
+						SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+						p->setPen(tmp, ml[it].Width,
+								static_cast<PenStyle>(ml[it].Dash),
+								static_cast<PenCapStyle>(ml[it].LineEnd),
+								static_cast<PenJoinStyle>(ml[it].LineJoin));
+						p->strokePath();
+					}
 				}
 			}
 		}
@@ -885,6 +919,13 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			p->setPen(lightGray, scpInv, DotLine, FlatCap, MiterJoin);
 			p->setupPolygon(&ContourLine);
 			p->strokePath();
+		}
+		if ((m_Doc->guidesSettings.framesShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr))))
+		{
+			p->setBrush(m_Doc->layerMarker(m_Doc->layerLevelFromNumber(LayerNr)));
+			p->setFillMode(ScPainter::Solid);
+			p->setLineWidth(0);
+			p->drawRect(6, 6, 6, 6);
 		}
 		//CB disabled for now
 		//if (m_Doc->m_Selection->findItem(this)!=-1)

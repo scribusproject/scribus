@@ -1707,10 +1707,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	pf2.begin(view->viewport());
 	pf2.translate(Xpos, Ypos);
 	pf2.rotate(Rot);
-	if ((fillColor() != CommonStrings::None) || (GrType != 0))
+	if (!m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
 	{
-		p->setupPolygon(&PoLine);
-		p->fillPath();
+		if ((fillColor() != CommonStrings::None) || (GrType != 0))
+		{
+			p->setupPolygon(&PoLine);
+			p->fillPath();
+		}
 	}
 	if (lineColor() != CommonStrings::None)
 		lineCorr = m_lineWidth / 2.0;
@@ -3471,33 +3474,45 @@ NoRoom:
 void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 {
 	ScribusView* view = m_Doc->view();
-	if (!m_Doc->RePos)
+	if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
 	{
-		if (lineColor() != CommonStrings::None)
+		p->setPen(m_Doc->layerMarker(m_Doc->layerLevelFromNumber(LayerNr)), 1, SolidLine, FlatCap, MiterJoin);
+		p->setFillMode(ScPainter::None);
+		p->setBrushOpacity(1.0);
+		p->setPenOpacity(1.0);
+		p->setupPolygon(&PoLine);
+		p->strokePath();
+	}
+	else
+	{
+		if (!m_Doc->RePos)
 		{
-			p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
-			if (DashValues.count() != 0)
-				p->setDash(DashValues, DashOffset);
-		}
-		else
-			p->setLineWidth(0);
-		if (!isTableItem)
-		{
-			p->setupPolygon(&PoLine);
-			if (NamedLStyle.isEmpty())
-				p->strokePath();
-			else
+			if (lineColor() != CommonStrings::None)
 			{
-				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-				QColor tmp;
-				for (int it = ml.size()-1; it > -1; it--)
-				{
-					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-					p->setPen(tmp, ml[it].Width,
-							  static_cast<PenStyle>(ml[it].Dash),
-							  static_cast<PenCapStyle>(ml[it].LineEnd),
-							  static_cast<PenJoinStyle>(ml[it].LineJoin));
+				p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+				if (DashValues.count() != 0)
+					p->setDash(DashValues, DashOffset);
+			}
+			else
+				p->setLineWidth(0);
+			if (!isTableItem)
+			{
+				p->setupPolygon(&PoLine);
+				if (NamedLStyle.isEmpty())
 					p->strokePath();
+				else
+				{
+					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					QColor tmp;
+					for (int it = ml.size()-1; it > -1; it--)
+					{
+						SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+						p->setPen(tmp, ml[it].Width,
+								static_cast<PenStyle>(ml[it].Dash),
+								static_cast<PenCapStyle>(ml[it].LineEnd),
+								static_cast<PenJoinStyle>(ml[it].LineJoin));
+						p->strokePath();
+					}
 				}
 			}
 		}
@@ -3554,6 +3569,13 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		}
 		if (m_Doc->guidesSettings.colBordersShown && !view->previewMode)
 			drawColumnBorders(p);
+		if ((m_Doc->guidesSettings.framesShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr))))
+		{
+			p->setBrush(m_Doc->layerMarker(m_Doc->layerLevelFromNumber(LayerNr)));
+			p->setFillMode(ScPainter::Solid);
+			p->setLineWidth(0);
+			p->drawRect(6, 6, 6, 6);
+		}
 		//if (m_Doc->selection->findItem(this)!=-1)
 		//	drawLockedMarker(p);
 	}

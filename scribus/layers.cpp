@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcheckbox.h>
 #include <qspinbox.h>
 #include <qlabel.h>
+#include <qcolordialog.h>
 
 #include "scmessagebox.h"
 #include "sccombobox.h"
@@ -54,7 +55,7 @@ void LayerTable::endEdit ( int row, int col, bool accept, bool replace )
 	{
 		if (a != row)
 		{
-			if (newCont == text(a, 4))
+			if (newCont == text(a, 6))
 				realAccept = false;
 		}
 	}
@@ -108,20 +109,26 @@ LayerPalette::LayerPalette(QWidget* parent)
 
 	Table = new LayerTable( this );
 	Table->setNumRows( 0 );
-	Table->setNumCols( 5 );
+	Table->setNumCols( 7 );
 	QHeader *header = Table->horizontalHeader();
-	header->setLabel(0, loadIcon("16/show-object.png"), "");
-	header->setLabel(1, loadIcon("16/document-print.png"), "");
-	header->setLabel(2, loadIcon("16/lock.png"), "");
-	header->setLabel(3, loadIcon("16/layer-flow-around.png"), "");
+	header->setLabel(0, "");
+	header->setLabel(1, loadIcon("16/show-object.png"), "");
+	header->setLabel(2, loadIcon("16/document-print.png"), "");
+	header->setLabel(3, loadIcon("16/lock.png"), "");
+	header->setLabel(4, loadIcon("16/layer-flow-around.png"), "");
+	header->setLabel(5, loadIcon("layer-outline.png"), "");
 	Table->setColumnReadOnly(0, true);
 	Table->setColumnReadOnly(1, true);
 	Table->setColumnReadOnly(2, true);
 	Table->setColumnReadOnly(3, true);
+	Table->setColumnReadOnly(4, true);
+	Table->setColumnReadOnly(5, true);
 	Table->setColumnWidth(0, 24);
 	Table->setColumnWidth(1, 24);
 	Table->setColumnWidth(2, 24);
 	Table->setColumnWidth(3, 24);
+	Table->setColumnWidth(4, 24);
+	Table->setColumnWidth(5, 24);
 	Table->setRowMovingEnabled(false);
 	Table->setSorting(false);
 	Table->setSelectionMode( QTable::SingleRow );
@@ -180,7 +187,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 
 void LayerPalette::updateName(int r)
 {
-	changeName(r, 4);
+	changeName(r, 6);
 	ScMW->changeLayer(ScMW->doc->activeLayer());
 }
 
@@ -195,6 +202,8 @@ void LayerPalette::ClearInhalt()
 	flagsPrintable.clear();
 	flagsVisible.clear();
 	flagsFlow.clear();
+	flagsOutline.clear();
+	flagsMarker.clear();
 	newLayerButton->setEnabled(false);
 	deleteLayerButton->setEnabled(false);
 	raiseLayerButton->setEnabled(false);
@@ -226,6 +235,8 @@ void LayerPalette::rebuildList()
 	flagsPrintable.clear();
 	flagsVisible.clear();
 	flagsFlow.clear();
+	flagsOutline.clear();
+	flagsMarker.clear();
 	QString tmp;
 	QValueList<Layer>::iterator it;
 	int layerCount=ScMW->doc->layerCount();
@@ -236,31 +247,45 @@ void LayerPalette::rebuildList()
 		//TODO once "layers" is not set anymore, need to get layer number differently
 		int layerLevel=ScMW->doc->layerLevelFromNumber(layerNumber);
 		int row=layerCount-layerLevel-1;
-		Table->setText(row, 4, ScMW->doc->layerName(layerNumber));
-		QCheckBox *cp = new QCheckBox(this, tmp.setNum(layerLevel));
-		cp->setChecked(ScMW->doc->layerPrintable(layerNumber));
-		Table->setCellWidget(row, 1, cp);
-		flagsPrintable.append(cp);
-		connect(cp, SIGNAL(clicked()), this, SLOT(printLayer()));
+		Table->setText(row, 6, ScMW->doc->layerName(layerNumber));
+		QPushButton *pb = new QPushButton(this, tmp.setNum(layerLevel));
+		pb->setFlat(true);
+		pb->setText( "" );
+		QPixmap pm(22,15);
+		pm.fill(ScMW->doc->layerMarker(layerNumber));
+		pb->setPixmap(pm);
+		Table->setCellWidget(row, 0, pb);
+		flagsMarker.append(pb);
+		connect(pb, SIGNAL(clicked()), this, SLOT(markLayer()));
 		QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(layerLevel));
 		cp2->setChecked(ScMW->doc->layerVisible(layerNumber));
 		flagsVisible.append(cp2);
 		connect(cp2, SIGNAL(clicked()), this, SLOT(visibleLayer()));
-		Table->setCellWidget(row, 0, cp2);
+		Table->setCellWidget(row, 1, cp2);
+		QCheckBox *cp = new QCheckBox(this, tmp.setNum(layerLevel));
+		cp->setChecked(ScMW->doc->layerPrintable(layerNumber));
+		Table->setCellWidget(row, 2, cp);
+		flagsPrintable.append(cp);
+		connect(cp, SIGNAL(clicked()), this, SLOT(printLayer()));
 		QCheckBox *cp3 = new QCheckBox(this, tmp.setNum(layerLevel));
 		cp3->setChecked(ScMW->doc->layerLocked(layerNumber));
 		flagsLocked.append(cp3);
 		connect(cp3, SIGNAL(clicked()), this, SLOT(lockLayer()));
-		Table->setCellWidget(row, 2, cp3);
+		Table->setCellWidget(row, 3, cp3);
 		QCheckBox *cp4 = new QCheckBox(this, tmp.setNum(layerLevel));
 		cp4->setChecked(ScMW->doc->layerFlow(layerNumber));
 		flagsFlow.append(cp4);
 		connect(cp4, SIGNAL(clicked()), this, SLOT(flowToggleLayer()));
-		Table->setCellWidget(row, 3, cp4);
+		Table->setCellWidget(row, 4, cp4);
+		QCheckBox *cp5 = new QCheckBox(this, tmp.setNum(layerLevel));
+		cp5->setChecked(ScMW->doc->layerOutline(layerNumber));
+		flagsOutline.append(cp5);
+		connect(cp5, SIGNAL(clicked()), this, SLOT(outlineToggleLayer()));
+		Table->setCellWidget(row, 5, cp5);
 		Header->setLabel(row, tmp.setNum(layerLevel));
 	}
-	Table->setColumnStretchable(4, true);
-	Table->adjustColumn(4);
+	Table->setColumnStretchable(6, true);
+	Table->adjustColumn(6);
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
@@ -335,7 +360,7 @@ void LayerPalette::downLayer()
 
 void LayerPalette::changeName(int row, int col)
 {
-	if (col == 4)
+	if (col == 6)
 	{
 		int layerLevel = ScMW->doc->layerCount()-1-row;
 		int layerNumber=ScMW->doc->layerNumberFromLevel(layerLevel);
@@ -405,6 +430,41 @@ void LayerPalette::flowToggleLayer()
 	}
 }
 
+void LayerPalette::outlineToggleLayer()
+{
+	int level = QString(sender()->name()).toInt();
+	int layerNumber=ScMW->doc->layerNumberFromLevel(level);
+	if (layerNumber==-1)
+		return;
+	const QObject* senderBox=sender();
+	if (senderBox->isA("QCheckBox"))
+	{
+		ScMW->doc->setLayerOutline(layerNumber,((QCheckBox*)(senderBox))->isChecked());
+		emit LayerChanged();
+		ScMW->slotDocCh();
+	}
+}
+
+void LayerPalette::markLayer()
+{
+	int level = QString(sender()->name()).toInt();
+	int layerNumber=ScMW->doc->layerNumberFromLevel(level);
+	if (layerNumber==-1)
+		return;
+	const QObject* senderBox=sender();
+	if (senderBox->isA("QPushButton"))
+	{
+		QColor neu = QColor();
+		neu = QColorDialog::getColor(ScMW->doc->layerMarker(layerNumber), this);
+		QPixmap pm(22,15);
+		pm.fill(neu);
+		((QPushButton*)(senderBox))->setPixmap(pm);
+		ScMW->doc->setLayerMarker(layerNumber,neu);
+		emit LayerChanged();
+		ScMW->slotDocCh();
+	}
+}
+
 void LayerPalette::changeOpacity()
 {
 	ScMW->doc->setLayerTransparency(ScMW->doc->activeLayer(), opacitySpinBox->value() / 100.0);
@@ -427,7 +487,7 @@ void LayerPalette::markActiveLayer(int layerNumber)
 	int layerToMark=layerNumber;
 	if (layerNumber==-1)
 		layerToMark=ScMW->doc->activeLayer();
-	Table->setCurrentCell(ScMW->doc->layerCount()-1-ScMW->doc->layerLevelFromNumber(layerToMark), 4);
+	Table->setCurrentCell(ScMW->doc->layerCount()-1-ScMW->doc->layerLevelFromNumber(layerToMark), 6);
 	opacitySpinBox->setValue(qRound(ScMW->doc->layerTransparency(layerToMark) * 100));
 	blendMode->setCurrentItem(ScMW->doc->layerBlendMode(layerToMark));
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
@@ -470,7 +530,7 @@ void LayerPalette::languageChange()
 	blendMode->insertItem( tr("Color Burn"));
 	textLabel2->setText( tr( "Opacity:" ) );
 	opacitySpinBox->setSuffix( tr(" %"));
-	Table->horizontalHeader()->setLabel(4, tr("Name"));
+	Table->horizontalHeader()->setLabel(6, tr("Name"));
 	QToolTip::remove( newLayerButton );
 	QToolTip::remove( deleteLayerButton );
 	QToolTip::remove( raiseLayerButton );

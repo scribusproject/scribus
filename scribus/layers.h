@@ -64,6 +64,8 @@ public slots:
 	void printLayer();
 	void lockLayer();
 	void flowToggleLayer();
+	void outlineToggleLayer();
+	void markLayer();
 	void changeOpacity();
 	void changeBlendMode(int blend);
 	void setActiveLayer(int row);
@@ -92,6 +94,8 @@ protected:
 	QPtrList<QCheckBox> flagsVisible;
 	QPtrList<QCheckBox> flagsLocked;
 	QPtrList<QCheckBox> flagsFlow;
+	QPtrList<QCheckBox> flagsOutline;
+	QPtrList<QPushButton> flagsMarker;
 	QValueList<Layer> *layers;
 };
 

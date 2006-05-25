@@ -87,10 +87,13 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 	double segLen = 0;
 	double distCurX;
 	CurX = Extra;
-	if (lineColor() != CommonStrings::None && PoShow)
+	if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
 	{
-		p->setupPolygon(&PoLine, false);
-		p->strokePath();
+		if (lineColor() != CommonStrings::None && PoShow)
+		{
+			p->setupPolygon(&PoLine, false);
+			p->strokePath();
+		}
 	}
 	if (itemText.length() != 0)
 		CurX += itemText.charStyle(0).csize * itemText.charStyle(0).cextra / 10000.0;

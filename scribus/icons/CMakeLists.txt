@@ -300,6 +300,7 @@ wizard.png
 wordsOnly.png
 Zeichen.xpm
 vpl.png
+layer-outline.png
   DESTINATION ${ICONDIR}
 )
 

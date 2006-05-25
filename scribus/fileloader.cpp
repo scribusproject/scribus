@@ -587,6 +587,8 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 				la.flowControl = pg.attribute("FLOW", "1").toInt();
 				la.transparency = pg.attribute("TRANS", "1").toDouble();
 				la.blendMode = pg.attribute("BLEND", "0").toInt();
+				la.outlineMode = pg.attribute("OUTL", "0").toInt();
+				la.markerColor =  QColor(pg.attribute("LAYERC","#000000"));
 				bool laex = false;
 				uint layerCount=doc->layerCount();
 				for (uint la2 = 0; la2 < layerCount; ++la2)
@@ -1237,6 +1239,8 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				la.flowControl = pg.attribute("FLOW", "1").toInt();
 				la.transparency = pg.attribute("TRANS", "1").toDouble();
 				la.blendMode = pg.attribute("BLEND", "0").toInt();
+				la.outlineMode = pg.attribute("OUTL", "0").toInt();
+				la.markerColor =  QColor(pg.attribute("LAYERC","#000000"));
 				doc->Layers.append(la);
 			}
 /*			if(pg.tagName()=="Bookmark")
@@ -1755,6 +1759,8 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		la.flowControl = true;
 		la.transparency = 1.0;
 		la.blendMode = 0;
+		la.markerColor = QColor(0, 0, 0);
+		la.outlineMode = false;
 		doc->Layers.append(la);
 	}
 	if (LFrames.count() != 0)
@@ -2106,7 +2112,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->setLineShade(obj->attribute("SHADE2").toInt());
 	ParagraphStyle pstyle;
 	pstyle.setLineSpacing(obj->attribute("LINESP").toDouble());
-	pstyle.setLineSpacingMode(obj->attribute("LINESPMode", "0").toInt());
+	pstyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(obj->attribute("LINESPMode", "0").toInt()));
 	pstyle.setAlignment(obj->attribute("ALIGN", "0").toInt());
 /*	sigh
 	pstyle.charStyle().setFontSize(qRound(obj->attribute("ISIZE", "12").toDouble() * 10));

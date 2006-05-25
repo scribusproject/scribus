@@ -268,6 +268,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	ll.isPrintable = true;
 	ll.isEditable = true;
 	ll.flowControl = true;
+	ll.outlineMode = false;
+	ll.markerColor = QColor(0, 0, 0);
 	ll.transparency = 1.0;
 	ll.blendMode = 0;
 	Layers.append(ll);
@@ -1158,8 +1160,10 @@ int ScribusDoc::addLayer(const QString& layerName, const bool activate)
 	ll.isPrintable = true;
 	ll.isEditable = true;
 	ll.flowControl = true;
+	ll.outlineMode = false;
 	ll.transparency = 1.0;
 	ll.blendMode = 0;
+	ll.markerColor = QColor(0, 0, 0);
 	Layers.append(ll);
 	if (activate)
 		setActiveLayer(ll.LNr);
@@ -1510,7 +1514,65 @@ int ScribusDoc::layerBlendMode(const int layerNumber)
 		if ((*it).LNr == layerNumber)
 			return (*it).blendMode;
 	}
-	return 1;
+	return 0;
+}
+
+bool ScribusDoc::setLayerOutline(const int layerNumber, const bool outline)
+{
+	QValueList<Layer>::iterator itend=Layers.end();
+	QValueList<Layer>::iterator it;
+	bool found=false;
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if ((*it).LNr == layerNumber)
+		{
+			(*it).outlineMode = outline;
+			found=true;
+			break;
+		}
+	}
+	return found;
+}
+
+bool ScribusDoc::layerOutline(const int layerNumber)
+{
+	QValueList<Layer>::iterator itend=Layers.end();
+	QValueList<Layer>::iterator it;
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if ((*it).LNr == layerNumber)
+			return (*it).outlineMode;
+	}
+	return false;
+}
+
+bool ScribusDoc::setLayerMarker(const int layerNumber, QColor color)
+{
+	QValueList<Layer>::iterator itend=Layers.end();
+	QValueList<Layer>::iterator it;
+	bool found=false;
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if ((*it).LNr == layerNumber)
+		{
+			(*it).markerColor = color;
+			found=true;
+			break;
+		}
+	}
+	return found;
+}
+
+QColor ScribusDoc::layerMarker(const int layerNumber)
+{
+	QValueList<Layer>::iterator itend=Layers.end();
+	QValueList<Layer>::iterator it;
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if ((*it).LNr == layerNumber)
+			return (*it).markerColor;
+	}
+	return QColor(0, 0, 0);
 }
 
 int ScribusDoc::layerLevelFromNumber(const int layerNumber)

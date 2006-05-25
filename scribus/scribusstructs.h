@@ -219,13 +219,15 @@ struct Layer
 {
 	int LNr;
 	int Level;
-	QString Name;
+	int blendMode;
 	bool isPrintable;
 	bool isViewable;
 	bool isEditable;
 	bool flowControl;
+	bool outlineMode;
 	double transparency;
-	int blendMode;
+	QColor markerColor;
+	QString Name;
 };
 
 struct PDFPresentationData
