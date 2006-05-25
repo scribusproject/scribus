@@ -81,6 +81,7 @@ void ScImage::initialize()
 	imgInfo.valid = false;
 	imgInfo.isRequest = false;
 	imgInfo.progressive = false;
+	imgInfo.isEmbedded = false;
 	imgInfo.exifDataValid = false;
 	imgInfo.lowResType = 1;
 	imgInfo.lowResScale = 1.0;
@@ -4156,7 +4157,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		{
 		case 0: // CMYK
 			if (!isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, TYPE_CMYK_8, IntentPrinter, 0);
+				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, prnProfFormat, IntentPrinter, 0);
 			break;
 		case 1: // RGB
 			if (isCMYK)
