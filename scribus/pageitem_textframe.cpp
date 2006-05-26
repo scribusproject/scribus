@@ -1726,8 +1726,10 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 		p->save();
 		p->scale(LocalScX, LocalScY);
 		p->translate(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY));
-		if (pixm.width() > 0 && pixm.height() > 0)
-			p->drawImage(&pixm.qImage());
+		if (pixm.width() > 0 && pixm.height() > 0) {
+			QImage img(pixm.qImage());
+			p->drawImage(&img);
+		}
 		p->restore();
 	}
 	if (itemText.count() != 0)

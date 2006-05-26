@@ -130,7 +130,8 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 					p->scale(LocalScX, LocalScY);
 					if (pixm.imgInfo.lowResType != 0)
 						p->scale(pixm.imgInfo.lowResScale, pixm.imgInfo.lowResScale);
-					p->drawImage(&pixm.qImage());
+					QImage img(pixm.qImage());
+					p->drawImage(&img);
 				}
 			}
 			p->restore();
