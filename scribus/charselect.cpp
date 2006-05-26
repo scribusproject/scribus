@@ -799,6 +799,7 @@ void CharSelect::insChar()
 	}
 	ap->view->DrawNew();
 	ap->slotDocCh();
+	delEdit();
 }
 
 bool CharSelect::eventFilter( QObject */*obj*/, QEvent *ev )
