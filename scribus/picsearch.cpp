@@ -121,17 +121,18 @@ void PicSearch::GenPreview()
 	QPixmap pm;
 	ScImage im;
 	im.LoadPicture(Bild, "", 0, false, false, ScImage::RGBData, 72);
+	QImage im2;
 	if ((im.width() > 200) || (im.height() > 200))
 	{
-		QImage im2;
 		double sx = im.width() / 200.0;
 		double sy = im.height() / 200.0;
 		im2 = sy < sx ?
 			im2 = im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
 			im2 = im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
-		im = im2;
-		im2.detach();
 	}
-	pm.convertFromImage(im);
+	else {
+		im2 = im.qImage();
+	}
+	pm.convertFromImage(im2);
 	PixmapLabel1->setPixmap(pm);
 }	

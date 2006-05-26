@@ -60,10 +60,19 @@ static QDataStream & operator>> ( QDataStream & s, ScImage::PSDHeader & header )
 	return s;
 }
 
+
 ScImage::ScImage(const QImage & image) : QImage(image)
 {
 	initialize();
 }
+
+
+// ScImage will use implicit sharing:
+ScImage::ScImage(const ScImage & image) : QImage(image.copy())
+{
+	initialize();
+}
+
 
 ScImage::ScImage() : QImage()
 {
@@ -74,6 +83,17 @@ ScImage::ScImage( int width, int height ) : QImage( width, height, 32 )
 {
 	initialize();
 }
+
+const QImage& ScImage::qImage()
+{
+	return *this;
+}
+
+QImage ScImage::smoothScale(int h, int w, QImage::ScaleMode mode) const
+{
+	return QImage::smoothScale(h,w,mode);
+}
+
 
 void ScImage::initialize()
 {

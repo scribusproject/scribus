@@ -617,8 +617,11 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	return ret;
 }
 
-void PPreview::blendImages(QImage &target, ScImage &source, ScColor col)
+// this should move to scimage.cpp!
+void PPreview::blendImages(QImage &target, ScImage &scsource, ScColor col)
 {
+	QImage source = scsource.qImage(); // FIXME: this will not work once qImage always returns ARGB!
+	
 	//FIXME: if source and target have different sizesomething went wrong.
 	// eg. loadPicture() failed and returned a 1x1 image
 	int h = QMIN(target.height(),source.height());

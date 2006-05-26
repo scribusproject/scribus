@@ -507,7 +507,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							img.LoadPicture(Item->Pfile, Item->IProfile, Item->IRender, Item->UseEmbedded, true, ScImage::RGBProof, 72);
 							img.applyEffect(Item->effectsInUse, Item->document()->PageColors, true);
 							QFileInfo fi = QFileInfo(Item->Pfile);
-							img.save(fi.baseName()+".png", "PNG");
+							img.qImage().save(fi.baseName()+".png", "PNG");
 							ob = docu->createElement("image");
 							ob.setAttribute("clip-path", "url(#"+Clipi+IToStr(ClipCount)+")");
 							ob.setAttribute("xlink:href", fi.baseName()+".png");

@@ -373,10 +373,10 @@ void EffectsDialog::createPreview()
 {
 	if (tim.elapsed() < 50)
 		return;
-	ScImage im = image.copy();
+	ScImage im(image);
 	saveValues();
 	im.applyEffect(effectsList, doc->PageColors, false);
-	pixmapLabel1->setPixmap( im );
+	pixmapLabel1->setPixmap( im.qImage() );
 	tim.start();
 }
 

@@ -45,11 +45,12 @@ extern "C"
 	#include <tiffio.h>
 #endif
 
-class SCRIBUS_API ScImage : public QImage
+class SCRIBUS_API ScImage : private QImage
 {
 public:
 	ScImage();
 	ScImage(const QImage & image);
+	ScImage(const ScImage & image);
 	ScImage( int width, int height );
 	~ScImage();
 
@@ -93,6 +94,14 @@ public:
 	};
 	void initialize();
 
+	const QImage& qImage();
+	QImage smoothScale(int h, int w, QImage::ScaleMode mode = ScaleFree) const;
+	
+	int height() const { return QImage::height(); }
+	int width() const { return QImage::width(); }
+	bool hasAlpha() const { return QImage::hasAlphaBuffer(); }
+	
+	
 	// Routines for PDF/PS output of images
 	QByteArray ImageToArray();
 	QByteArray ImageToGray();

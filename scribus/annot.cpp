@@ -356,21 +356,21 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 		if (!item->Pfile.isEmpty())
 		{
 			im.LoadPicture(item->Pfile, "", 0, false, false, ScImage::RGBData, 72);
-			pmI1.convertFromImage(im);
+			pmI1.convertFromImage(im.qImage());
 			NiconPrev->setPixmap(pmI1);
 			IconNR->setEnabled(true);
 		}
 		if (!item->Pfile2.isEmpty())
 		{
 			im.LoadPicture(item->Pfile2, "", 0, false, false, ScImage::RGBData, 72);
-			pmI1.convertFromImage(im);
+			pmI1.convertFromImage(im.qImage());
 			PiconPrev->setPixmap(pmI1);
 			IconPR->setEnabled(true);
 		}
 		if (!item->Pfile3.isEmpty())
 		{
 			im.LoadPicture(item->Pfile3, "", 0, false, false, ScImage::RGBData, 72);
-			pmI1.convertFromImage(im);
+			pmI1.convertFromImage(im.qImage());
 			RiconPrev->setPixmap(pmI1);
 			IconRR->setEnabled(true);
 		}
@@ -1204,15 +1204,13 @@ void Annot::GetNIcon()
 	{
 		dirs->set("icon", fileName.left(fileName.findRev("/")));
 		QPixmap pmI1;
-		ScImage im;
-		im.LoadPicture(fileName, "", 0, false, false, ScImage::RGBData, 72);
-		pmI1.convertFromImage(im);
+		item->pixm.LoadPicture(fileName, "", 0, false, false, ScImage::RGBData, 72);
+		pmI1.convertFromImage(item->pixm.qImage());
 		NiconPrev->setPixmap(pmI1);
 		item->Pfile = fileName;
 		item->PicAvail = true;
-		item->pixm = im.copy();
-		int w = im.width();
-		int h = im.height();
+		int w = item->pixm.width();
+		int h = item->pixm.height();
 		double sw = item->width() / w;
 		double sh = item->height() / h;
 		double sc = QMIN(sw,sh);
@@ -1238,7 +1236,7 @@ void Annot::GetPIcon()
 		QPixmap pmI1;
 		ScImage im;
 		im.LoadPicture(fileName, "", 0, false, false, ScImage::RGBData, 72);
-		pmI1.convertFromImage(im);
+		pmI1.convertFromImage(im.qImage());
 		PiconPrev->setPixmap(pmI1);
 		item->Pfile2 = fileName;
 		IconPR->setEnabled(true);
@@ -1261,7 +1259,7 @@ void Annot::GetRIcon()
 		QPixmap pmI1;
 		ScImage im;
 		im.LoadPicture(fileName, "", 0, false, false, ScImage::RGBData, 72);
-		pmI1.convertFromImage(im);
+		pmI1.convertFromImage(im.qImage());
 		RiconPrev->setPixmap(pmI1);
 		item->Pfile3 = fileName;
 		IconRR->setEnabled(true);

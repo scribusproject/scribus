@@ -1620,7 +1620,7 @@ void PDFlib::PDF_Begin_Page(const Page* pag, QPixmap pm)
 	Seite.AObjects.clear();
 	if (Options.Thumbnails)
 	{
-		ScImage img = pm.convertToImage();
+		ScImage img(pm.convertToImage());
 		QByteArray array = img.ImageToArray();
 		if ((Options.Compress) && (CompAvail))
 			array = CompressArray(&array);
@@ -4117,7 +4117,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 					{
 						if (!ite->Pfile.isEmpty())
 						{
-							IconOb += ite->pixm.hasAlphaBuffer() ? 3 : 2;
+							IconOb += ite->pixm.hasAlpha() ? 3 : 2;
 							PutDoc("/I "+QString::number(ObjCounter+IconOb-1)+" 0 R ");
 						}
 						if (!ite->Pfile2.isEmpty())

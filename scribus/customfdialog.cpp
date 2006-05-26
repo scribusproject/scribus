@@ -158,7 +158,7 @@ void FDialogPreview::GenPreview(QString name)
 				                 im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
 			}
 			else
-				im2 = im.copy();
+				im2 = im.qImage(); // no need to copy
 			QPainter p;
 			pixmap()->fill(white);
 			p.begin(pixmap());
