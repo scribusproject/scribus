@@ -98,7 +98,7 @@ void PdbIm::loadFile(QString fname)
 		strncmp( m_header.creator, DOC_CREATOR, sizeof(m_header.creator)))
 	{
 		QMessageBox::warning(ScMW, QObject::tr("PDB Import", "PDB Importer"),
-							 "<qt>" + QObject::tr("This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.", "PDB Importer") + "</qt>",
+							 "<qt>" + QObject::tr("This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.", "PDB Importer") + "</qt>",
 							 0);
 		return;
 	}
