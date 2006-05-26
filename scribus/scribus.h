@@ -375,6 +375,7 @@ public slots:
 	/** \brief Schaltet Raender ein/aus */
 	void ToggleMarks();
 	void ToggleFrames();
+	void ToggleLayerMarkers();
 	void ToggleTextLinks();
 	void ToggleTextControls();
 	void ToggleColumnBorders();
@@ -589,7 +590,7 @@ private:
 	int viewUndoPalette;
 
 	bool palettesStatus[10];
-	bool guidesStatus[10];
+	bool guidesStatus[12];
 
 	bool keyrep;
 	/** @brief Tells if an arrow key is pressed down */

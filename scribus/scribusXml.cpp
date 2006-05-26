@@ -863,7 +863,32 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				la.flowControl = true;
 				la.transparency = 1.0;
 				la.blendMode = 0;
-				la.markerColor = QColor(0, 0, 0);
+				QColor marker;
+				switch (la.LNr % 7)
+				{
+					case 0:
+						marker = Qt::black;
+						break;
+					case 1:
+						marker = Qt::red;
+						break;
+					case 2:
+						marker = Qt::green;
+						break;
+					case 3:
+						marker = Qt::blue;
+						break;
+					case 4:
+						marker = Qt::cyan;
+						break;
+					case 5:
+						marker = Qt::magenta;
+						break;
+					case 6:
+						marker = Qt::yellow;;
+						break;
+				}
+				la.markerColor = marker;
 				la.outlineMode = false;
 				bool laex = false;
 				uint layerCount=doc->layerCount();
@@ -1189,6 +1214,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->guidesSettings.guidesShown = view->Prefs->guidesSettings.guidesShown;
 		doc->guidesSettings.colBordersShown = view->Prefs->guidesSettings.colBordersShown;
 		doc->guidesSettings.framesShown = view->Prefs->guidesSettings.framesShown;
+		doc->guidesSettings.layerMarkersShown = view->Prefs->guidesSettings.layerMarkersShown;
 		doc->guidesSettings.marginsShown = view->Prefs->guidesSettings.marginsShown;
 		doc->guidesSettings.baseShown = view->Prefs->guidesSettings.baseShown;
 		doc->guidesSettings.linkShown = view->Prefs->guidesSettings.linkShown;
@@ -1371,7 +1397,32 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				la.flowControl = true;
 				la.blendMode = 0;
 				la.transparency = 1.0;
-				la.markerColor = QColor(0, 0, 0);
+				QColor marker;
+				switch (la.LNr % 7)
+				{
+					case 0:
+						marker = Qt::black;
+						break;
+					case 1:
+						marker = Qt::red;
+						break;
+					case 2:
+						marker = Qt::green;
+						break;
+					case 3:
+						marker = Qt::blue;
+						break;
+					case 4:
+						marker = Qt::cyan;
+						break;
+					case 5:
+						marker = Qt::magenta;
+						break;
+					case 6:
+						marker = Qt::yellow;;
+						break;
+				}
+				la.markerColor = marker;
 				la.outlineMode = false;
 				doc->Layers.append(la);
 			}
@@ -3016,6 +3067,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("SHOWGUIDES", static_cast<int>(doc->guidesSettings.guidesShown));
 	dc.setAttribute("showcolborders", static_cast<int>(doc->guidesSettings.colBordersShown));
 	dc.setAttribute("SHOWFRAME", static_cast<int>(doc->guidesSettings.framesShown));
+	dc.setAttribute("SHOWLAYERM", static_cast<int>(doc->guidesSettings.layerMarkersShown));
 	dc.setAttribute("SHOWMARGIN", static_cast<int>(doc->guidesSettings.marginsShown));
 	dc.setAttribute("SHOWBASE", static_cast<int>(doc->guidesSettings.baseShown));
 	dc.setAttribute("SHOWPICT", static_cast<int>(doc->guidesSettings.showPic));

@@ -3569,12 +3569,17 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		}
 		if (m_Doc->guidesSettings.colBordersShown && !view->previewMode)
 			drawColumnBorders(p);
-		if ((m_Doc->guidesSettings.framesShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr))))
+		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr))))
 		{
 			p->setBrush(m_Doc->layerMarker(m_Doc->layerLevelFromNumber(LayerNr)));
 			p->setFillMode(ScPainter::Solid);
 			p->setLineWidth(0);
-			p->drawRect(6, 6, 6, 6);
+			double ofwh = 10;
+			double ofx = Width - ofwh/2;
+			double ofy = Height - ofwh*3;
+			p->setPenOpacity(1.0);
+			p->setBrushOpacity(1.0);
+			p->drawRect(ofx, ofy, ofwh, ofwh);
 		}
 		//if (m_Doc->selection->findItem(this)!=-1)
 		//	drawLockedMarker(p);
@@ -4522,7 +4527,7 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	//TODO: CB clean
 	ScribusView* view = m_Doc->view();
 	double scp1 = 1 ;// / ScMW->view->scale();
-	double ofwh = 6 * scp1;
+	double ofwh = 10 * scp1;
 	//CB moved down while locked marker disabled
 	//double ofx = Width - ofwh/2;
 	//double ofy = Height - ofwh*3.0;

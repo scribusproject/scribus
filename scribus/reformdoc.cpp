@@ -289,6 +289,10 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	checkFrame->setText( tr( "Show Frames" ) );
 	checkFrame->setChecked(doc->guidesSettings.framesShown);
 	pageBackgroundLayout->addWidget( checkFrame );
+	checkLayerM = new QCheckBox( pageBackground, "checkLayerM" );
+	checkLayerM->setText( tr( "Show Layer Indicators" ) );
+	checkLayerM->setChecked(doc->guidesSettings.layerMarkersShown);
+	pageBackgroundLayout->addWidget( checkLayerM );
 	checkRuler = new QCheckBox( pageBackground, "checkRuler" );
 	checkRuler->setText( tr( "Rulers relative to Page" ) );
 	checkRuler->setChecked(doc->guidesSettings.rulerMode);
@@ -428,6 +432,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	QToolTip::add( checkLink, "<qt>" + tr("Enable or disable the display of linked text frames.") + "</qt>");
 	QToolTip::add( checkControl, "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
 	QToolTip::add( checkFrame, "<qt>" + tr("Turns the display of frames on or off") + "</qt>");
+	QToolTip::add( checkLayerM, "<qt>" + tr("Turns the display of layer indicators on or off") + "</qt>");
 	QToolTip::add( checkPictures, "<qt>" + tr("Turns the display of pictures on or off") + "</qt>");
 	QToolTip::add( backColor, "<qt>" + tr( "Color for paper" ) + "</qt>" );
 	QToolTip::add( checkUnprintable, "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
@@ -495,6 +500,7 @@ void ReformDoc::restoreDefaults()
 	checkPictures->setChecked(currDoc->guidesSettings.showPic);
 	checkLink->setChecked(currDoc->guidesSettings.linkShown);
 	checkFrame->setChecked(currDoc->guidesSettings.framesShown);
+	checkLayerM->setChecked(currDoc->guidesSettings.layerMarkersShown);
 	checkRuler->setChecked(currDoc->guidesSettings.rulerMode);
 	topScratch->setValue(currDoc->ScratchTop * unitRatio);
 	leftScratch->setValue(currDoc->ScratchLeft * unitRatio);
@@ -802,6 +808,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->papColor = colorPaper;
 	currDoc->guidesSettings.marginsShown = tabGuides->marginBox->isChecked();
 	currDoc->guidesSettings.framesShown = checkFrame->isChecked();
+	currDoc->guidesSettings.layerMarkersShown = checkLayerM->isChecked();
 	currDoc->guidesSettings.gridShown = tabGuides->checkGrid->isChecked();
 	currDoc->guidesSettings.guidesShown = tabGuides->guideBox->isChecked();
 	currDoc->guidesSettings.baseShown = tabGuides->baselineBox->isChecked();

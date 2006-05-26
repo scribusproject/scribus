@@ -82,6 +82,7 @@ struct guidesPrefs
 	bool showControls;
 	bool rulerMode;
 	bool rulersShown;
+	bool layerMarkersShown;
 	bool before;
 	QColor guideColor;
 	QColor baseColor;

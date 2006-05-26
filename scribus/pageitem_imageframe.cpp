@@ -73,68 +73,68 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 				p->setupPolygon(&PoLine);
 				p->fillPath();
 			}
-		}
-		p->save();
+			p->save();
 #ifdef HAVE_CAIRO
-		if (imageClip.size() != 0)
-		{
-			p->setupPolygon(&imageClip);
-			p->setClipPath();
-		}
-		p->setupPolygon(&PoLine);
-		p->setClipPath();
-#else
-		if (imageClip.size() != 0)
-		{
-			p->setupPolygon(&imageClip);
-			p->setClipPath2(&PoLine, true);
-		}
-		else
-		{
+			if (imageClip.size() != 0)
+			{
+				p->setupPolygon(&imageClip);
+				p->setClipPath();
+			}
 			p->setupPolygon(&PoLine);
 			p->setClipPath();
-		}
-#endif
-		if (Pfile.isEmpty())
-		{
-			if ((Frame) && (m_Doc->guidesSettings.framesShown))
+#else
+			if (imageClip.size() != 0)
 			{
-				p->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
-				p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-				p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+				p->setupPolygon(&imageClip);
+				p->setClipPath2(&PoLine, true);
 			}
-		}
-		else
-		{
-			if ((!PicArt) || (!PicAvail))
+			else
+			{
+				p->setupPolygon(&PoLine);
+				p->setClipPath();
+			}
+#endif
+			if (Pfile.isEmpty())
 			{
 				if ((Frame) && (m_Doc->guidesSettings.framesShown))
 				{
-					p->setPen(red, 1, SolidLine, FlatCap, MiterJoin);
+					p->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 					p->drawLine(FPoint(0, 0), FPoint(Width, Height));
 					p->drawLine(FPoint(0, Height), FPoint(Width, 0));
 				}
 			}
 			else
 			{
-				if (imageFlippedH())
+				if ((!PicArt) || (!PicAvail))
 				{
-					p->translate(Width * sc, 0);
-					p->scale(-1, 1);
+					if ((Frame) && (m_Doc->guidesSettings.framesShown))
+					{
+						p->setPen(red, 1, SolidLine, FlatCap, MiterJoin);
+						p->drawLine(FPoint(0, 0), FPoint(Width, Height));
+						p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+					}
 				}
-				if (imageFlippedV())
+				else
 				{
-					p->translate(0, Height * sc);
-					p->scale(1, -1);
+					if (imageFlippedH())
+					{
+						p->translate(Width * sc, 0);
+						p->scale(-1, 1);
+					}
+					if (imageFlippedV())
+					{
+						p->translate(0, Height * sc);
+						p->scale(1, -1);
+					}
+					p->translate(LocalX*LocalScX*sc, LocalY*LocalScY*sc);
+					p->scale(LocalScX, LocalScY);
+					if (pixm.imgInfo.lowResType != 0)
+						p->scale(pixm.imgInfo.lowResScale, pixm.imgInfo.lowResScale);
+					p->drawImage(&pixm);
 				}
-				p->translate(LocalX*LocalScX*sc, LocalY*LocalScY*sc);
-				p->scale(LocalScX, LocalScY);
-				if (pixm.imgInfo.lowResType != 0)
-					p->scale(pixm.imgInfo.lowResScale, pixm.imgInfo.lowResScale);
-				p->drawImage(&pixm);
 			}
+			p->restore();
 		}
-		p->restore();
 	}
 }
 

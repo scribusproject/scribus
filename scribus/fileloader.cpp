@@ -341,6 +341,7 @@ bool FileLoader::LoadFile()
 	newReplacement = false;
 	ScMW->doc->guidesSettings.marginsShown = prefsManager->appPrefs.guidesSettings.marginsShown;
 	ScMW->doc->guidesSettings.framesShown = prefsManager->appPrefs.guidesSettings.framesShown;
+	ScMW->doc->guidesSettings.layerMarkersShown = prefsManager->appPrefs.guidesSettings.layerMarkersShown;
 	ScMW->doc->guidesSettings.gridShown = prefsManager->appPrefs.guidesSettings.gridShown;
 	ScMW->doc->guidesSettings.guidesShown = prefsManager->appPrefs.guidesSettings.guidesShown;
 	ScMW->doc->guidesSettings.colBordersShown = prefsManager->appPrefs.guidesSettings.colBordersShown;
@@ -588,7 +589,37 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 				la.transparency = pg.attribute("TRANS", "1").toDouble();
 				la.blendMode = pg.attribute("BLEND", "0").toInt();
 				la.outlineMode = pg.attribute("OUTL", "0").toInt();
-				la.markerColor =  QColor(pg.attribute("LAYERC","#000000"));
+				if (pg.hasAttribute("LAYERC"))
+					la.markerColor =  QColor(pg.attribute("LAYERC","#000000"));
+				else
+				{
+					QColor marker;
+					switch (la.LNr % 7)
+					{
+						case 0:
+							marker = Qt::black;
+							break;
+						case 1:
+							marker = Qt::red;
+							break;
+						case 2:
+							marker = Qt::green;
+							break;
+						case 3:
+							marker = Qt::blue;
+							break;
+						case 4:
+							marker = Qt::cyan;
+							break;
+						case 5:
+							marker = Qt::magenta;
+							break;
+						case 6:
+							marker = Qt::yellow;;
+							break;
+					}
+					la.markerColor = marker;
+				}
 				bool laex = false;
 				uint layerCount=doc->layerCount();
 				for (uint la2 = 0; la2 < layerCount; ++la2)
@@ -1057,6 +1088,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		doc->guidesSettings.guidesShown = static_cast<bool>(dc.attribute("SHOWGUIDES", "1").toInt());
 		doc->guidesSettings.colBordersShown = static_cast<bool>(dc.attribute("showcolborders", "0").toInt());
 		doc->guidesSettings.framesShown = static_cast<bool>(dc.attribute("SHOWFRAME", "1").toInt());
+		doc->guidesSettings.layerMarkersShown = static_cast<bool>(dc.attribute("SHOWLAYERM", "0").toInt());
 		doc->guidesSettings.marginsShown = static_cast<bool>(dc.attribute("SHOWMARGIN", "1").toInt());
 		doc->guidesSettings.baseShown = static_cast<bool>(dc.attribute("SHOWBASE", "0").toInt());
 		doc->guidesSettings.showPic = static_cast<bool>(dc.attribute("SHOWPICT", "1").toInt());
@@ -1240,7 +1272,37 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				la.transparency = pg.attribute("TRANS", "1").toDouble();
 				la.blendMode = pg.attribute("BLEND", "0").toInt();
 				la.outlineMode = pg.attribute("OUTL", "0").toInt();
-				la.markerColor =  QColor(pg.attribute("LAYERC","#000000"));
+				if (pg.hasAttribute("LAYERC"))
+					la.markerColor =  QColor(pg.attribute("LAYERC","#000000"));
+				else
+				{
+					QColor marker;
+					switch (la.LNr % 7)
+					{
+						case 0:
+							marker = Qt::black;
+							break;
+						case 1:
+							marker = Qt::red;
+							break;
+						case 2:
+							marker = Qt::green;
+							break;
+						case 3:
+							marker = Qt::blue;
+							break;
+						case 4:
+							marker = Qt::cyan;
+							break;
+						case 5:
+							marker = Qt::magenta;
+							break;
+						case 6:
+							marker = Qt::yellow;;
+							break;
+					}
+					la.markerColor = marker;
+				}
 				doc->Layers.append(la);
 			}
 /*			if(pg.tagName()=="Bookmark")

@@ -476,6 +476,10 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	checkRuler->setText( tr( "Rulers relative to Page" ) );
 	checkRuler->setChecked(prefsData->guidesSettings.rulerMode);
 	pageBackgroundLayout->addWidget( checkRuler, 3, 0 );
+	checkLayerM = new QCheckBox( pageBackground, "checkLayerM" );
+	checkLayerM->setText( tr( "Show Layer Indicators" ) );
+	checkLayerM->setChecked(prefsData->guidesSettings.layerMarkersShown);
+	pageBackgroundLayout->addWidget( checkLayerM, 3, 1 );
 	tabViewLayout->addWidget( pageBackground );
 
 	groupScratch = new QGroupBox( tabView, "GroupBox7" );
@@ -724,6 +728,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QToolTip::add( checkLink, "<qt>" + tr("Enable or disable  the display of linked frames.") + "</qt>");
 	QToolTip::add( checkControl, "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
 	QToolTip::add( checkFrame, "<qt>" + tr("Turns the display of frames on or off") + "</qt>");
+	QToolTip::add( checkLayerM, "<qt>" + tr("Turns the display of layer indicators on or off") + "</qt>");
 	QToolTip::add( checkPictures, "<qt>" + tr("Turns the display of pictures on or off") + "</qt>");
 	QToolTip::add( guiLangCombo, "<qt>" + tr( "Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus" )+"</qt>" );
 	QToolTip::add( GUICombo, "<qt>" + tr( "Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins." ) + "</qt>" );
@@ -867,7 +872,7 @@ void Preferences::setupGui()
 	checkLink->setChecked(prefsData->guidesSettings.linkShown);
 	checkControl->setChecked(prefsData->guidesSettings.showControls);
 	checkFrame->setChecked(prefsData->guidesSettings.framesShown);
-	checkRuler->setChecked(prefsData->guidesSettings.rulerMode);
+	checkLayerM->setChecked(prefsData->guidesSettings.layerMarkersShown);
 	checkRuler->setChecked(prefsData->guidesSettings.rulerMode);
 	topScratch->setDecimals( decimals );
 	topScratch->setValue(prefsData->ScratchTop * unitRatio);
@@ -1393,6 +1398,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.toolSettings.defSize = tabTools->sizeComboText->currentText().left(2).toInt() * 10;
 	prefsManager->appPrefs.guidesSettings.marginsShown = tabGuides->marginBox->isChecked();
 	prefsManager->appPrefs.guidesSettings.framesShown = checkFrame->isChecked();
+	prefsManager->appPrefs.guidesSettings.layerMarkersShown = checkLayerM->isChecked();
 	prefsManager->appPrefs.guidesSettings.rulerMode = checkRuler->isChecked();
 	prefsManager->appPrefs.guidesSettings.gridShown = tabGuides->checkGrid->isChecked();
 	prefsManager->appPrefs.guidesSettings.guidesShown = tabGuides->guideBox->isChecked();

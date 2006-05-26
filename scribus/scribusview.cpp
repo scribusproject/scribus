@@ -1863,6 +1863,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		pmen->insertSeparator();
 		ScMW->scrActions["viewShowMargins"]->addTo(pmen);
 		ScMW->scrActions["viewShowFrames"]->addTo(pmen);
+		ScMW->scrActions["viewShowLayerMarkers"]->addTo(pmen);
 		ScMW->scrActions["viewShowImages"]->addTo(pmen);
 		ScMW->scrActions["viewShowGrid"]->addTo(pmen);
 		ScMW->scrActions["viewShowGuides"]->addTo(pmen);

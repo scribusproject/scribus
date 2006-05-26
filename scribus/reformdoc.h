@@ -122,6 +122,7 @@ protected:
 	QComboBox*	pageOrientationComboBox;
 	QCheckBox* checkLink;
 	QCheckBox* checkFrame;
+	QCheckBox* checkLayerM;
 	QCheckBox* checkPictures;
 	QCheckBox* checkControl;
 	QCheckBox* checkRuler;

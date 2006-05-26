@@ -847,6 +847,14 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				p->setupPolygon(&PoLine);
 			if (doStroke)
 				p->strokePath();
+			if (itemType()==ImageFrame)
+			{
+				if (imageClip.size() != 0)
+				{
+					p->setupPolygon(&imageClip);
+					p->strokePath();
+				}
+			}
 		}
 	}
 	else
@@ -928,12 +936,17 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			p->setupPolygon(&ContourLine);
 			p->strokePath();
 		}
-		if ((m_Doc->guidesSettings.framesShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr))))
+		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr))))
 		{
 			p->setBrush(m_Doc->layerMarker(m_Doc->layerLevelFromNumber(LayerNr)));
 			p->setFillMode(ScPainter::Solid);
 			p->setLineWidth(0);
-			p->drawRect(3, 3, 10, 10);
+			double ofwh = 10;
+			double ofx = Width - ofwh/2;
+			double ofy = Height - ofwh*3;
+			p->setPenOpacity(1.0);
+			p->setBrushOpacity(1.0);
+			p->drawRect(ofx, ofy, ofwh, ofwh);
 		}
 		//CB disabled for now
 		//if (m_Doc->m_Selection->findItem(this)!=-1)

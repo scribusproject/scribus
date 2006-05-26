@@ -501,6 +501,8 @@ void ActionManager::initViewMenuActions()
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
 	name="viewShowFrames";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
+	name="viewShowLayerMarkers";
+	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
 	name="viewShowImages";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
 	name="viewShowGrid";
@@ -527,6 +529,7 @@ void ActionManager::initViewMenuActions()
 
 	(*scrActions)["viewShowMargins"]->setToggleAction(true);
 	(*scrActions)["viewShowFrames"]->setToggleAction(true);
+	(*scrActions)["viewShowLayerMarkers"]->setToggleAction(true);
 	(*scrActions)["viewShowImages"]->setToggleAction(true);
 	(*scrActions)["viewShowGrid"]->setToggleAction(true);
 	(*scrActions)["viewShowGuides"]->setToggleAction(true);
@@ -541,6 +544,7 @@ void ActionManager::initViewMenuActions()
 
 	(*scrActions)["viewShowMargins"]->setOn(true);
 	(*scrActions)["viewShowFrames"]->setOn(true);
+	(*scrActions)["viewShowLayerMarkers"]->setOn(false);
 	(*scrActions)["viewShowImages"]->setOn(true);
 	(*scrActions)["viewShowGuides"]->setOn(true);
 	(*scrActions)["viewShowColumnBorders"]->setOn(false);
@@ -555,6 +559,7 @@ void ActionManager::initViewMenuActions()
 	connect( (*scrActions)["viewFit20"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewShowMargins"], SIGNAL(activated()), mainWindow, SLOT(ToggleMarks()) );
 	connect( (*scrActions)["viewShowFrames"], SIGNAL(activated()), mainWindow, SLOT(ToggleFrames()) );
+	connect( (*scrActions)["viewShowLayerMarkers"], SIGNAL(activated()), mainWindow, SLOT(ToggleLayerMarkers()) );
 	connect( (*scrActions)["viewShowImages"], SIGNAL(activated()), mainWindow, SLOT(TogglePics()) );
 	connect( (*scrActions)["viewShowGrid"], SIGNAL(activated()), mainWindow, SLOT(ToggleRaster()) );
 	connect( (*scrActions)["viewShowGuides"], SIGNAL(activated()), mainWindow, SLOT(ToggleGuides()) );
@@ -1260,6 +1265,7 @@ void ActionManager::languageChange()
 	(*scrActions)["viewFit20"]->setTexts( tr("&Thumbnails"));
 	(*scrActions)["viewShowMargins"]->setTexts( tr("Show &Margins"));
 	(*scrActions)["viewShowFrames"]->setTexts( tr("Show &Frames"));
+	(*scrActions)["viewShowLayerMarkers"]->setTexts( tr("Show Layer Indicators"));
 	(*scrActions)["viewShowImages"]->setTexts( tr("Show &Images"));
 	(*scrActions)["viewShowGrid"]->setTexts( tr("Show &Grid"));
 	(*scrActions)["viewShowGuides"]->setTexts( tr("Show G&uides"));
@@ -1559,6 +1565,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("viewFit20", QKeySequence());
 	defKeys.insert("viewShowMargins", QKeySequence());
 	defKeys.insert("viewShowFrames", QKeySequence());
+	defKeys.insert("viewShowLayerMarkers", QKeySequence());
 	defKeys.insert("viewShowImages", QKeySequence());
 	defKeys.insert("viewShowGrid", QKeySequence());
 	defKeys.insert("viewShowGuides", QKeySequence());
@@ -1759,7 +1766,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "pageInsert" << "pageImport" << "pageDelete" << "pageCopy" << "pageMove" << "pageApplyMasterPage" << "pageCopyToMasterPage" << "pageManageGuides" << "pageManageMargins" << "viewSnapToGrid" << "viewSnapToGuides";
 	//View
 	++itmenu;
-	itmenu->second << "viewFitInWindow" << "viewFit50" << "viewFit75" << "viewFit100" << "viewFit200" << "viewFit20" << "viewShowMargins" << "viewShowFrames" << "viewShowImages" << "viewShowGrid" << "viewShowGuides" << "viewShowColumnBorders" << "viewShowBaseline" << "viewShowTextChain" << "viewShowTextControls" << "viewShowRulers" << "viewRulerMode";
+	itmenu->second << "viewFitInWindow" << "viewFit50" << "viewFit75" << "viewFit100" << "viewFit200" << "viewFit20" << "viewShowMargins" << "viewShowFrames" << "viewShowLayerMarkers" << "viewShowImages" << "viewShowGrid" << "viewShowGuides" << "viewShowColumnBorders" << "viewShowBaseline" << "viewShowTextChain" << "viewShowTextControls" << "viewShowRulers" << "viewRulerMode";
 	//Extras
 	++itmenu;
 	itmenu->second << "extrasManagePictures" << "extrasHyphenateText" << "extrasDeHyphenateText" << "extrasGenerateTableOfContents";

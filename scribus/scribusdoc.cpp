@@ -1163,7 +1163,32 @@ int ScribusDoc::addLayer(const QString& layerName, const bool activate)
 	ll.outlineMode = false;
 	ll.transparency = 1.0;
 	ll.blendMode = 0;
-	ll.markerColor = QColor(0, 0, 0);
+	QColor marker;
+	switch (ll.LNr % 7)
+	{
+		case 0:
+			marker = Qt::black;
+			break;
+		case 1:
+			marker = Qt::red;
+			break;
+		case 2:
+			marker = Qt::green;
+			break;
+		case 3:
+			marker = Qt::blue;
+			break;
+		case 4:
+			marker = Qt::cyan;
+			break;
+		case 5:
+			marker = Qt::magenta;
+			break;
+		case 6:
+			marker = Qt::yellow;;
+			break;
+	}
+	ll.markerColor = marker;
 	Layers.append(ll);
 	if (activate)
 		setActiveLayer(ll.LNr);
