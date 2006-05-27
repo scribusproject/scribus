@@ -67,6 +67,10 @@ for which a new license (GPL+exception) is in place.
 // Qt wants -display not --display or -d
 #define ARG_DISPLAY_QT "-display"
 
+// Windows specific options, allows to display a console windows
+extern const char ARG_CONSOLE[] =  "--console";
+extern const char ARG_CONSOLE_SHORT[] = "-cl";
+
 extern ScribusQApp* ScQApp;
 
 bool ScribusQApp::useGUI=false;
@@ -143,8 +147,10 @@ void ScribusQApp::parseCommandLine()
 		arg = argv()[i];
 
 		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++i < argc())) {
-		}
-		else if (arg == ARG_NOSPLASH || arg == ARG_NOSPLASH_SHORT) {
+			continue;
+		} else if ( arg == ARG_CONSOLE || arg == ARG_CONSOLE_SHORT ) {
+			continue;
+		} else if (arg == ARG_NOSPLASH || arg == ARG_NOSPLASH_SHORT) {
 			showSplash = false;
 		} else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT) {
 			useGUI=false;
@@ -372,6 +378,10 @@ void ScribusQApp::showUsage()
 		tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)") );
 	printArgLine(ts, ARG_PREFS_SHORT, QString(ARG_PREFS)+" "+tr("filename"),
 		tr("Use filename as path for user given preferences") );
+#if defined(_WIN32) && !defined(_CONSOLE)
+	printArgLine(ts, ARG_CONSOLE_SHORT, ARG_CONSOLE,
+		tr("Display a console window") );
+#endif
 /* Delete me?
 	std::cout << "-file|-- name Open file 'name'" ; endl(ts);
 	std::cout << "name          Open file 'name', the file name must not begin with '-'" ; endl(ts);
