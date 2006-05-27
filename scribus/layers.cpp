@@ -102,7 +102,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 	textLabel2->hide();
 	opacitySpinBox->hide();
 #else
-#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 2, 0)
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
 	blendMode->hide();
 	textLabel1->hide();
 #endif
@@ -542,6 +542,7 @@ void LayerPalette::languageChange()
 	blendMode->insertItem( tr("Exlusion"));
 	blendMode->insertItem( tr("Color Dodge"));
 	blendMode->insertItem( tr("Color Burn"));
+	blendMode->insertItem( tr("Overprint"));
 	textLabel2->setText( tr( "Opacity:" ) );
 	opacitySpinBox->setSuffix( tr(" %"));
 	Table->horizontalHeader()->setLabel(6, tr("Name"));

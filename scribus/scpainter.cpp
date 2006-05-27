@@ -328,9 +328,131 @@ static unsigned char INT_MULT ( unsigned char a, unsigned char b )
 void ScPainter::endLayer()
 {
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
+	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 8)
+	if (m_blendMode != 0)
+	{
+		cairo_surface_t *tmp = cairo_get_group_target(m_cr);
+		if (tmp != NULL)
+		{
+			if (cairo_surface_get_type(tmp) == CAIRO_SURFACE_TYPE_IMAGE)
+			{
+				cairo_surface_flush(tmp);
+				int stride = cairo_image_surface_get_stride(tmp);
+				unsigned char *s = cairo_image_surface_get_data(tmp);
+				int h = m_image->height();
+				int w = m_image->width();
+				for( int yi=0; yi < h; ++yi )
+				{
+					QRgb *dst = (QRgb*)m_image->scanLine( yi );
+					QRgb *src = (QRgb*)s;
+					for( int xi=0; xi < w; ++xi )
+					{
+						uchar src_r = qRed(*src);
+						uchar src_g = qGreen(*src);
+						uchar src_b = qBlue(*src);
+						uchar src_a = qAlpha(*src);
+						uchar dst_r = qRed(*dst);
+						uchar dst_g = qGreen(*dst);
+						uchar dst_b = qBlue(*dst);
+						uchar dst_a = qAlpha(*dst);
+						if ((src_a > 0) && (dst_a > 0))
+						{
+							if (m_blendMode == 1)
+							{
+								src_r = dst_r  < src_r ? dst_r  : src_r;
+								src_g = dst_g < src_g ? dst_g : src_g;
+								src_b = dst_b < src_b ? dst_b : src_b;
+							}
+							else if (m_blendMode == 2)
+							{
+								src_r = dst_r < src_r ? src_r : dst_r;
+								src_g = dst_g < src_g ? src_g : dst_g;
+								src_b = dst_b < src_b ? src_b : dst_b;
+							}
+							else if (m_blendMode == 3)
+							{
+								src_r = INT_MULT(src_r, dst_r);
+								src_g = INT_MULT(src_g, dst_g);
+								src_b = INT_MULT(src_b, dst_b);
+							}
+							else if (m_blendMode == 4)
+							{
+								src_r = 255 - INT_MULT(255 - dst_r, 255 - src_r);
+								src_g = 255 - INT_MULT(255 - dst_g, 255 - src_g);
+								src_b = 255 - INT_MULT(255 - dst_b, 255 - src_b);
+							}
+							else if (m_blendMode == 5)
+							{
+								src_r = INT_MULT(dst_r, dst_r + INT_MULT(2 * src_r, 255 - dst_r));
+								src_g = INT_MULT(dst_g, dst_g + INT_MULT(2 * src_g, 255 - dst_g));
+								src_b = INT_MULT(dst_b, dst_b + INT_MULT(2 * src_b, 255 - dst_b));
+							}
+							else if (m_blendMode == 6)
+							{
+								src_r = src_r < 128 ? src_r * dst_r / 128 : 255 - ((255-src_r) * (255-dst_r) / 128);
+								src_g = src_g < 128 ? src_g * dst_g / 128 : 255 - ((255-src_g) * (255-dst_g) / 128);
+								src_b = src_b < 128 ? src_b * dst_b / 128 : 255 - ((255-src_b) * (255-dst_b) / 128);
+							}
+							else if (m_blendMode == 7)
+							{
+								src_r = src_r * dst_r / 256 + src_r * (255 - ((255-src_r)*(255-dst_r) / 256) - src_r * dst_r / 256) / 256;
+								src_g = src_g * dst_g / 256 + src_g * (255 - ((255-src_g)*(255-dst_g) / 256) - src_g * dst_g / 256) / 256;
+								src_b = src_b * dst_b / 256 + src_b * (255 - ((255-src_b)*(255-dst_b) / 256) - src_b * dst_b / 256) / 256;
+							}
+							else if (m_blendMode == 8)
+							{
+								src_r = dst_r > src_r ? dst_r - src_r : src_r - dst_r;
+								src_g = dst_g > src_g ? dst_g - src_g : src_g - dst_g;
+								src_b = dst_b > src_b ? dst_b - src_b : src_b - dst_b;
+							}
+							else if (m_blendMode == 9)
+							{
+								src_r = dst_r + src_r - src_r * dst_r / 128;
+								src_g = dst_g + src_g - src_g * dst_g / 128;
+								src_b = dst_b + src_b - src_b * dst_b / 128;
+							}
+							else if (m_blendMode == 10)
+							{
+								src_r = src_r == 255 ? 255 : ((dst_r * 256) / (255-src_r)) > 255 ? 255 : (dst_r * 256) / (255-src_r);
+								src_g = src_g == 255 ? 255 : ((dst_g * 256) / (255-src_g)) > 255 ? 255 : (dst_g * 256) / (255-src_g);
+								src_b = src_b == 255 ? 255 : ((dst_b * 256) / (255-src_b)) > 255 ? 255 : (dst_b * 256) / (255-src_b);
+							}
+							else if (m_blendMode == 11)
+							{
+								src_r = src_r == 0 ? 0 : (255 - (((255-dst_r) * 256) / src_r)) < 0 ? 0 : 255 - (((255-dst_r) * 256) / src_r);
+								src_g = src_g == 0 ? 0 : (255 - (((255-dst_g) * 256) / src_g)) < 0 ? 0 : 255 - (((255-dst_g) * 256) / src_g);
+								src_b = src_b == 0 ? 0 : (255 - (((255-dst_b) * 256) / src_b)) < 0 ? 0 : 255 - (((255-dst_b) * 256) / src_b);
+							}
+							else if (m_blendMode == 12)
+							{
+		/*						This code is a blendmode that simulates the effect of overprinting
+								Works by converting source and destination colour to CMYK and adding them together
+								Finally the result is converted back to RGB */
+								int K1 = QMIN(QMIN(255 - src_r, 255 - src_g), 255 - src_b);
+								int K2 = QMIN(QMIN(255 - dst_r, 255 - dst_g), 255 - dst_b);
+								int C = QMIN(QMIN(255 - src_r - K1, 255) + QMIN(255 - dst_r - K2, 255), 255);
+								int M = QMIN(QMIN(255 - src_g - K1, 255) + QMIN(255 - dst_g - K2, 255), 255) ;
+								int Y = QMIN(QMIN(255 - src_b - K1, 255) + QMIN(255 - dst_b - K2, 255), 255) ;
+								int K = QMIN(K1 + K2, 255);
+								src_r = 255 - QMIN(255, C + K);
+								src_g = 255 - QMIN(255, M + K);
+								src_b = 255 - QMIN(255, Y+ K);
+							}
+							(*src) = qRgba(src_r, src_g, src_b, src_a);
+						}
+						src++;
+						dst++;
+					}
+					s += stride;
+				}
+				cairo_surface_mark_dirty(tmp);
+			}
+		}
+	}
+	#endif
 	cairo_pop_group_to_source (m_cr);
-	cairo_paint_with_alpha (m_cr, m_layerTransparency);
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+	cairo_paint_with_alpha (m_cr, m_layerTransparency);
 #else
 	cairo_surface_flush(cairo_get_target(m_cr));
 	int words = m_image->numBytes() / 4;
@@ -350,120 +472,6 @@ void ScPainter::endLayer()
 			uchar dst_r = qRed(dst);
 			uchar dst_g = qGreen(dst);
 			uchar dst_b = qBlue(dst);
-			if (m_blendMode != 0)
-			{
-				if (m_blendMode == 1)
-				{
-					if (dst_a > 0)
-					{
-/*						This code is a blendmode that simulates the effect of overprinting
-						Works by converting source and destination colour to CMYK and adding them together
-						Finally the result is converted back to RGB
-						int K1 = QMIN(QMIN(255 - src_r, 255 - src_g), 255 - src_b);
-						int K2 = QMIN(QMIN(255 - dst_r, 255 - dst_g), 255 - dst_b);
-						int C = QMIN(QMIN(255 - src_r - K1, 255) + QMIN(255 - dst_r - K2, 255), 255);
-						int M = QMIN(QMIN(255 - src_g - K1, 255) + QMIN(255 - dst_g - K2, 255), 255) ;
-						int Y = QMIN(QMIN(255 - src_b - K1, 255) + QMIN(255 - dst_b - K2, 255), 255) ;
-						int K = QMIN(K1 + K2, 255);
-						src_r = 255 - QMIN(255, C + K);
-						src_g = 255 - QMIN(255, M + K);
-						src_b = 255 - QMIN(255, Y+ K); */
-						src_r = dst_r  < src_r ? dst_r  : src_r;
-						src_g = dst_g < src_g ? dst_g : src_g;
-						src_b = dst_b < src_b ? dst_b : src_b;
-					}
-				}
-				else if (m_blendMode == 2)
-				{
-					if (dst_a > 0)
-					{
-						src_r = dst_r < src_r ? src_r : dst_r;
-						src_g = dst_g < src_g ? src_g : dst_g;
-						src_b = dst_b < src_b ? src_b : dst_b;
-					}
-				}
-				else if (m_blendMode == 3)
-				{
-					if (dst_a > 0)
-					{
-						src_r = INT_MULT(src_r, dst_r);
-						src_g = INT_MULT(src_g, dst_g);
-						src_b = INT_MULT(src_b, dst_b);
-					}
-				}
-				else if (m_blendMode == 4)
-				{
-					if (dst_a > 0)
-					{
-						src_r = 255 - INT_MULT(255 - dst_r, 255 - src_r);
-						src_g = 255 - INT_MULT(255 - dst_g, 255 - src_g);
-						src_b = 255 - INT_MULT(255 - dst_b, 255 - src_b);
-					}
-				}
-				else if (m_blendMode == 5)
-				{
-					if (dst_a > 0)
-					{
-						src_r = INT_MULT(dst_r, dst_r + INT_MULT(2 * src_r, 255 - dst_r));
-						src_g = INT_MULT(dst_g, dst_g + INT_MULT(2 * src_g, 255 - dst_g));
-						src_b = INT_MULT(dst_b, dst_b + INT_MULT(2 * src_b, 255 - dst_b));
-					}
-				}
-				else if (m_blendMode == 6)
-				{
-					if (dst_a > 0)
-					{
-						src_r = src_r < 128 ? src_r * dst_r / 128 : 255 - ((255-src_r) * (255-dst_r) / 128);
-						src_g = src_g < 128 ? src_g * dst_g / 128 : 255 - ((255-src_g) * (255-dst_g) / 128);
-						src_b = src_b < 128 ? src_b * dst_b / 128 : 255 - ((255-src_b) * (255-dst_b) / 128);
-					}
-				}
-				else if (m_blendMode == 7)
-				{
-					if (dst_a > 0)
-					{
-						src_r = src_r * dst_r / 256 + src_r * (255 - ((255-src_r)*(255-dst_r) / 256) - src_r * dst_r / 256) / 256;
-						src_g = src_g * dst_g / 256 + src_g * (255 - ((255-src_g)*(255-dst_g) / 256) - src_g * dst_g / 256) / 256;
-						src_b = src_b * dst_b / 256 + src_b * (255 - ((255-src_b)*(255-dst_b) / 256) - src_b * dst_b / 256) / 256;
-					}
-				}
-				else if (m_blendMode == 8)
-				{
-					if (dst_a > 0)
-					{
-						src_r = dst_r > src_r ? dst_r - src_r : src_r - dst_r;
-						src_g = dst_g > src_g ? dst_g - src_g : src_g - dst_g;
-						src_b = dst_b > src_b ? dst_b - src_b : src_b - dst_b;
-					}
-				}
-				else if (m_blendMode == 9)
-				{
-					if (dst_a > 0)
-					{
-						src_r = dst_r + src_r - src_r * dst_r / 128;
-						src_g = dst_g + src_g - src_g * dst_g / 128;
-						src_b = dst_b + src_b - src_b * dst_b / 128;
-					}
-				}
-				else if (m_blendMode == 10)
-				{
-					if (dst_a > 0)
-					{
-						src_r = src_r == 255 ? 255 : ((dst_r * 256) / (255-src_r)) > 255 ? 255 : (dst_r * 256) / (255-src_r);
-						src_g = src_g == 255 ? 255 : ((dst_g * 256) / (255-src_g)) > 255 ? 255 : (dst_g * 256) / (255-src_g);
-						src_b = src_b == 255 ? 255 : ((dst_b * 256) / (255-src_b)) > 255 ? 255 : (dst_b * 256) / (255-src_b);
-					}
-				}
-				else if (m_blendMode == 11)
-				{
-					if (dst_a > 0)
-					{
-						src_r = src_r == 0 ? 0 : (255 - (((255-dst_r) * 256) / src_r)) < 0 ? 0 : 255 - (((255-dst_r) * 256) / src_r);
-						src_g = src_g == 0 ? 0 : (255 - (((255-dst_g) * 256) / src_g)) < 0 ? 0 : 255 - (((255-dst_g) * 256) / src_g);
-						src_b = src_b == 0 ? 0 : (255 - (((255-dst_b) * 256) / src_b)) < 0 ? 0 : 255 - (((255-dst_b) * 256) / src_b);
-					}
-				}
-			}
 			int layOpa = qRound(255 * m_layerTransparency);
 			src_a = INT_MULT(src_a, layOpa);
 			if ((dst_a > 0) && (src_a > 0))
