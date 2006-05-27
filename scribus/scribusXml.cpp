@@ -3532,13 +3532,15 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
  * <c.toepp@gmx.de>
 */
  #ifdef HAVE_LIBZ
+	QCString cs = docu.toCString(); // UTF-8 QCString
 	if(fileName.right(2) == "gz")
 	{
-  // zipped saving
+		// zipped saving
+		// XXX: latin1() should probably be local8Bit()
 		gzFile gzDoc = gzopen(fileName.latin1(),"wb");
 		if(gzDoc == NULL)
 			return false;
-		gzputs(gzDoc, docu.toString().utf8());
+		gzputs(gzDoc, cs.data());
 		gzclose(gzDoc);
 	}
 	else
@@ -3547,8 +3549,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		if(!f.open(IO_WriteOnly))
 			return false;
 		QTextStream s(&f);
-		QString wr = docu.toString().utf8();
-		s.writeRawBytes(wr, wr.length());
+		s.writeRawBytes(cs, cs.length());
 		f.close();
 	}
 #else
@@ -3556,8 +3557,8 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	if(!f.open(IO_WriteOnly))
 		return false;
 	QTextStream s(&f);
-	QString wr = docu.toString().utf8();
-	s.writeRawBytes(wr, wr.length());
+	QCString cs = docu.toCString();
+	s.writeRawBytes(cs, cs.length());
 	f.close();
 #endif
 	return true;
