@@ -709,7 +709,7 @@ void ScPainterEx_GDI::drawImage( ScImage *image, ScPainterExBase::ImageMode mode
 	}
 	ImageAttributes imageAtt;
 	imageAtt.SetColorMatrix(&colorMatrix, ColorMatrixFlagsDefault, ColorAdjustTypeBitmap);
-	Bitmap bitmap( image->width(), image->height(), 4 * image->width(), PixelFormat32bppARGB, image->bits() );
+	Bitmap bitmap( image->width(), image->height(), 4 * image->width(), PixelFormat32bppARGB, image->qImage().bits() );
 	graphics->DrawImage( &bitmap, destinationPoint, 3, 0, 0, image->width(), image->height(), UnitPixel, &imageAtt );
 #else
 	save();

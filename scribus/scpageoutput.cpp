@@ -1148,7 +1148,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 		painter->save();
 		painter->scale(item->imageXScale(), item->imageYScale());
 		painter->translate(static_cast<int>(item->imageXOffset() * item->imageXScale()), static_cast<int>(item->imageYOffset()  * item->imageYScale()));
-		if (!item->pixm.isNull())
+		if (!item->pixm.qImage().isNull())
 			painter->drawImage(&item->pixm, ScPainterExBase::rgbImages);
 		painter->restore();
 	}
