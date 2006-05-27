@@ -32,11 +32,16 @@ for which a new license (GPL+exception) is in place.
 #error "This file compiles on win32 platform only"
 #endif
 
+#include <stdio.h>
+#include <fcntl.h>
+#include <io.h>
+
 #include <qapplication.h>
 #include <exception>
 using namespace std;
 
 #define BASE_QM "scribus"
+#define MAX_LINES 500
 
 #include "scribusapp.h"
 #include "scribuscore.h"
@@ -44,12 +49,24 @@ using namespace std;
 
 #include "scconfig.h"
 
+#include <wincon.h>
 #include <windows.h>
 
 int mainApp(ScribusQApp& app);
+
+// Windows exception handling
 static LONG exceptionFilter(DWORD exceptionCode);
 static QString exceptionDescription(DWORD exceptionCode);
 static void defaultCrashHandler(DWORD exceptionCode);
+
+// Console IO redirection handling
+void messageHandler( QtMsgType type, const char *msg );
+bool consoleOptionEnabled(int argc, char* argv[]);
+void redirectIOToConsole(void);
+
+// Console option arguments declared in scribusapp.cpp
+extern const char ARG_CONSOLE[];
+extern const char ARG_CONSOLE_SHORT[];
 
 ScribusCore SCRIBUS_API *ScCore;
 ScribusMainWindow SCRIBUS_API *ScMW;
@@ -60,6 +77,13 @@ int main(int argc, char *argv[])
 {
 	int result;
 	emergencyActivated = false;
+#if !defined(_CONSOLE)
+	if (consoleOptionEnabled(argc, argv))
+	{
+		redirectIOToConsole();
+		qInstallMsgHandler( messageHandler );
+	}
+#endif
 	ScribusQApp app(argc, argv);
 	result =  mainApp(app);
 	return result;
@@ -199,9 +223,9 @@ void defaultCrashHandler(DWORD exceptionCode)
 		emergencyActivated=true;
 		crashRecursionCounter++;
 		QString expDesc = exceptionDescription(exceptionCode);
-		QString expHdr=QObject::tr("Scribus Crash");
-		QString expLine="-------------";
-		QString expMsg=QObject::tr("Scribus crashes due to the following exception : %1").arg(expDesc);
+		QString expHdr  = QObject::tr("Scribus Crash");
+		QString expLine = "-------------";
+		QString expMsg  = QObject::tr("Scribus crashes due to the following exception : %1").arg(expDesc);
 		std::cout << (const char*) expHdr << std::endl;
 		std::cout << (const char*) expLine << std::endl;
 		std::cout << (const char*) expMsg << std::endl;
@@ -214,4 +238,74 @@ void defaultCrashHandler(DWORD exceptionCode)
 		}
 	}
 	ExitProcess(255);
+}
+
+void messageHandler( QtMsgType type, const char *msg )
+{
+	cerr << msg << endl;
+	if( type == QtFatalMsg )
+	{
+		if (ScribusQApp::useGUI)
+		{
+			ScCore->closeSplash();
+			QString expHdr = QObject::tr("Scribus Crash");
+			QString expMsg = msg;
+			QMessageBox::critical(ScMW, expHdr, expMsg, QObject::tr("&OK"));
+			ScMW->emergencySave();
+			ScMW->close();
+		}
+		ExitProcess(255);
+	}
+}
+
+bool consoleOptionEnabled(int argc, char* argv[])
+{
+ bool value = false;
+	for( int i = 0; i < argc; i++ )
+	{
+		if( strcmp(argv[i], ARG_CONSOLE) == 0 ||
+			strcmp(argv[i], ARG_CONSOLE_SHORT) == 0 )
+		{
+			value = true;
+			break;
+		}
+	}
+	return value;
+}
+
+void redirectIOToConsole(void)
+{
+	int hConHandle;
+	HANDLE lStdHandle;
+	CONSOLE_SCREEN_BUFFER_INFO coninfo;
+	FILE *fp;
+
+	// allocate console
+	if( GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE )
+		AllocConsole();
+	// set the screen buffer to be big enough to let us scroll text
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &coninfo);
+	coninfo.dwSize.Y = MAX_LINES;
+	SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), coninfo.dwSize);
+	//redirect unbuffered STDOUT to the console
+	lStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
+	fp = _fdopen( hConHandle, "w" );
+	*stdout = *fp;
+	setvbuf( stdout, NULL, _IONBF, 0 );
+	// redirect unbuffered STDIN to the console
+	lStdHandle = GetStdHandle(STD_INPUT_HANDLE);
+	hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
+	fp = _fdopen( hConHandle, "r" );
+	*stdin = *fp;
+	setvbuf( stdin, NULL, _IONBF, 0 );
+	// redirect unbuffered STDERR to the console
+	lStdHandle = GetStdHandle(STD_ERROR_HANDLE);
+	hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
+	fp = _fdopen( hConHandle, "w" );
+	*stderr = *fp;
+	setvbuf( stderr, NULL, _IONBF, 0 );
+	// make cout, wcout, cin, wcin, wcerr, cerr, wclog and clog 
+	// point to console as well
+	ios::sync_with_stdio();
 }
