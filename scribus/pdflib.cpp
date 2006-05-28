@@ -4533,7 +4533,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 	bool found = false;
 	bool alphaM = false;
 	bool realCMYK = false;
-	int afl;
+	int afl = Options.Resolution;
 	double x2, ax, ay, a2, a1;
 	double sxn = 0;
 	double syn = 0;
