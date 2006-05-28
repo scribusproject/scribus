@@ -684,6 +684,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 			{
 				FPoint np, np1, np2;
 				bool nPath = true;
+				fon = "";
 				if (ig.data().size() > 3)
 				{
 					FPointArray gly = ig.data();
@@ -712,23 +713,28 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 							 FToStr(np2.x()) + " " + FToStr(-np2.y()) + " c\n";
 					}
 					fon += "h f*\n";
-					StartObj(ObjCounter);
-					ObjCounter++;
 					np = getMinClipF(&gly);
 					np1 = getMaxClipF(&gly);
-					PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
-					PutDoc("/BBox [ "+FToStr(np.x())+" "+FToStr(-np.y())+" "+FToStr(np1.x())+ " "+FToStr(-np1.y())+" ]\n");
-					PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-					PutDoc(">>\n");
-					if ((Options.Compress) && (CompAvail))
-						fon = CompressStr(&fon);
-					PutDoc("/Length "+QString::number(fon.length()+1));
-					if ((Options.Compress) && (CompAvail))
-						PutDoc("\n/Filter /FlateDecode");
-					PutDoc(" >>\nstream\n"+EncStream(fon, ObjCounter-1)+"\nendstream\nendobj\n");
-					Seite.XObjects[AllFonts[it.key()]->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(ig.key())] = ObjCounter-1;
-					fon = "";
 				}
+				else
+				{
+					fon = "h";
+					np = FPoint(0, 0);
+					np1 = FPoint(0, 0);
+				}
+				StartObj(ObjCounter);
+				ObjCounter++;
+				PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
+				PutDoc("/BBox [ "+FToStr(np.x())+" "+FToStr(-np.y())+" "+FToStr(np1.x())+ " "+FToStr(-np1.y())+" ]\n");
+				PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+				PutDoc(">>\n");
+				if ((Options.Compress) && (CompAvail))
+					fon = CompressStr(&fon);
+				PutDoc("/Length "+QString::number(fon.length()+1));
+				if ((Options.Compress) && (CompAvail))
+					PutDoc("\n/Filter /FlateDecode");
+				PutDoc(" >>\nstream\n"+EncStream(fon, ObjCounter-1)+"\nendstream\nendobj\n");
+				Seite.XObjects[AllFonts[it.key()]->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(ig.key())] = ObjCounter-1;
 			}
 		}
 		else
