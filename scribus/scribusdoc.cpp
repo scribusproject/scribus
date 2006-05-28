@@ -476,7 +476,7 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 		if (ScQApp->usingGUI())
 			QMessageBox::warning(ScMW, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
 		else
-			qWarning( message.local8Bit().data() );
+			qWarning( "%s", message.local8Bit().data() );
 		return false;
 	}
 	cmsSetErrorHandler(&cmsErrorHandler);
