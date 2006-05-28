@@ -377,6 +377,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	Sizing = false;
 	toPixmap = false;
 	UseEmbedded = true;
+	IRender = 1;
 	EmProfile = "";
 	Groups.clear();
 	LayerNr = m_Doc->activeLayer();
