@@ -2721,7 +2721,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>April</source>
-        <translation>April</translation>
+        <translation type="obsolete">April</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9492,11 +9496,11 @@ Corners:</translation>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Colour of text stroke. Only available with &quot;outline&quot; text decoration.</translation>
+        <translation type="obsolete">Colour of text stroke. Only available with &quot;outline&quot; text decoration.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Colour of text fill. Only available with &quot;outline&quot; text decoration.</translation>
+        <translation type="obsolete">Colour of text fill. Only available with &quot;outline&quot; text decoration.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -9513,6 +9517,14 @@ Corners:</translation>
     <message>
         <source>Click to select the line spacing mode</source>
         <translation>Click to select the line spacing mode</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13262,6 +13274,14 @@ is not exhaustive due to exceptions from called functions.
         <comment>python error</comment>
         <translation>Given master page name does not match any existing.</translation>
     </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Arabic</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14036,6 +14056,10 @@ converting their vector data into Scribus objects.</translation>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -14496,6 +14520,10 @@ Vertical shift: %3</translation>
     <message>
         <source>Contents</source>
         <translation>Contents</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15336,7 +15364,7 @@ Vertical shift: %3</translation>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Underline</translation>
+        <translation type="obsolete">Underline</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -15352,7 +15380,7 @@ Vertical shift: %3</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Strike Out</translation>
+        <translation type="obsolete">Strike Out</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -15360,16 +15388,36 @@ Vertical shift: %3</translation>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>Shadow</translation>
+        <translation type="obsolete">Shadow</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>Underline Words Only</translation>
+        <translation type="obsolete">Underline Words Only</translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation>Outline</translation>
+        <translation type="obsolete">Outline</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

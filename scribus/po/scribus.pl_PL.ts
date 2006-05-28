@@ -2455,7 +2455,11 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>March</source>
-        <translation>Marzec</translation>
+        <translation type="obsolete">Marzec</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4925,6 +4929,18 @@ Proszę wybrać inną.</translation>
         <source>Choose a Directory</source>
         <translation>Wybierz katalog</translation>
     </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -7252,7 +7268,7 @@ failed!</source>
         <source>Converting Image:
 %1
 failed!</source>
-        <translation>Konwersja obrazka:
+        <translation type="obsolete">Konwersja obrazka:
 %1
 nie powiodła się!</translation>
     </message>
@@ -7271,6 +7287,10 @@ nie powiodła się!</translation>
     <message>
         <source>Generating Items</source>
         <translation>Generewanie obiektów</translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7470,6 +7490,18 @@ nie powiodła się!</translation>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
         <translation>Wybierz, aby umożliwić łatwiejsze czytanie stylów tekstowych w jasnych kolorach</translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished">Manualne podcinanie</translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished">Przesunięcie znaków względem linii pisma</translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10423,11 +10455,11 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Kolor obrysu tekstu. Dostępny tylko przy wybraniu &quot;obramowania&quot; jako dekoracji tekstu.</translation>
+        <translation type="obsolete">Kolor obrysu tekstu. Dostępny tylko przy wybraniu &quot;obramowania&quot; jako dekoracji tekstu.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Kolor wypełnienia tekstu. Dostępny tylko przy wybraniu &quot;obramowania&quot; jako dekoracji tekstu.</translation>
+        <translation type="obsolete">Kolor wypełnienia tekstu. Dostępny tylko przy wybraniu &quot;obramowania&quot; jako dekoracji tekstu.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -10440,6 +10472,18 @@ Proszę wybrać inną.</translation>
     <message>
         <source>Non Zero</source>
         <translation>Nie zero</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12760,7 +12804,11 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter.</source>
-        <translation>Położenie interpretera Ghostscriptu w systemie plików.</translation>
+        <translation type="obsolete">Położenie interpretera Ghostscriptu w systemie plików.</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14294,7 +14342,7 @@ Zewnętrzne dowiązania
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>Font %1 (wykryty za pomocą fontconfiga) zawiera błędy i zostaje wyłączony</translation>
+        <translation type="obsolete">Font %1 (wykryty za pomocą fontconfiga) zawiera błędy i zostaje wyłączony</translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
@@ -15030,6 +15078,19 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Japanese</source>
         <translation>Japoński</translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Arabskie</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16623,6 +16684,10 @@ materiału wejściowego, aby je poprawić</translation>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Obiekt %1 jest edytowany w Edytorze Artykułów. Operacja usunięcia zostaje anulowana</translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -17091,6 +17156,10 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>Contents</source>
         <translation>Zawartość</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18161,7 +18230,7 @@ Przesunięcie w pionie: %3</translation>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Podkreślenie</translation>
+        <translation type="obsolete">Podkreślenie</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -18177,7 +18246,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Przekreślenie</translation>
+        <translation type="obsolete">Przekreślenie</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -18193,16 +18262,36 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>Cień</translation>
+        <translation type="obsolete">Cień</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>Podkreśl tylko słowa</translation>
+        <translation type="obsolete">Podkreśl tylko słowa</translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation>Struktura</translation>
+        <translation type="obsolete">Struktura</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19545,7 +19634,11 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page changing.</source>
-        <translation>Czas, przez jaki strona będzie pokazywana, zanim włączy się efekt prezentacyjny dla wybranej strony. Wartość 0 wyłączy automatyczne przełączanie stron.</translation>
+        <translation type="obsolete">Czas, przez jaki strona będzie pokazywana, zanim włączy się efekt prezentacyjny dla wybranej strony. Wartość 0 wyłączy automatyczne przełączanie stron.</translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

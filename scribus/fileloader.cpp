@@ -63,6 +63,7 @@ FileLoader::FileLoader(const QString & fileName) :
 	formatODG(LoadSavePlugin::getFormatById(FORMATID_ODGIMPORT)),
 	prefsManager(PrefsManager::instance())
 {
+	dummyFois.setAutoDelete(true);
 }
 
 // FIXME: This static method is here as a temporary transitional
@@ -242,6 +243,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 				ReplacedFonts = ss.ReplacedFonts;
 				newReplacement = ss.newReplacement;
 				dummyFois = ss.dummyFois;
+				ss.dummyFois.setAutoDelete(false);
 			}
 			break;
 		case 1:
@@ -350,6 +352,7 @@ bool FileLoader::LoadFile()
 	ScMW->doc->guidesSettings.framesShown = prefsManager->appPrefs.guidesSettings.framesShown;
 	ScMW->doc->guidesSettings.gridShown = prefsManager->appPrefs.guidesSettings.gridShown;
 	ScMW->doc->guidesSettings.guidesShown = prefsManager->appPrefs.guidesSettings.guidesShown;
+	ScMW->doc->guidesSettings.colBordersShown = prefsManager->appPrefs.guidesSettings.colBordersShown;
 	ScMW->doc->guidesSettings.baseShown = prefsManager->appPrefs.guidesSettings.baseShown;
 	ScMW->doc->guidesSettings.linkShown = prefsManager->appPrefs.guidesSettings.linkShown;
 	ScMW->doc->toolSettings.polyC = prefsManager->appPrefs.toolSettings.polyC;
@@ -377,22 +380,23 @@ bool FileLoader::LoadFile()
 				ReplacedFonts = ss.ReplacedFonts;
 				newReplacement = ss.newReplacement;
 				dummyFois = ss.dummyFois;
+				ss.dummyFois.setAutoDelete(false);
 			}
 			break;
 		case 1:
 			ret = ReadDoc(FileName, prefsManager->appPrefs.AvailFonts, ScMW->doc, ScMW->mainWindowProgressBar);
 			break;
 		case 2:
-			ret = formatPS->loadFile(FileName);
+			ret = formatPS->loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 			break;
 		case 3:
-			ret = formatSVG->loadFile(FileName);
+			ret = formatSVG->loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 			break;
 		case 5:
-			ret = formatSXD->loadFile(FileName);
+			ret = formatSXD->loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 			break;
 		case 6:
-			ret = formatODG->loadFile(FileName);
+			ret = formatODG->loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 			break;
 		default:
 			ret = false;
@@ -962,6 +966,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		doc->guidesSettings.majorGrid = dc.attribute("MAJGRID", tmp.setNum(prefsManager->appPrefs.guidesSettings.majorGrid)).toDouble();
 		doc->guidesSettings.gridShown = static_cast<bool>(dc.attribute("SHOWGRID", "0").toInt());
 		doc->guidesSettings.guidesShown = static_cast<bool>(dc.attribute("SHOWGUIDES", "1").toInt());
+		doc->guidesSettings.colBordersShown = static_cast<bool>(dc.attribute("showcolborders", "0").toInt());
 		doc->guidesSettings.framesShown = static_cast<bool>(dc.attribute("SHOWFRAME", "1").toInt());
 		doc->guidesSettings.marginsShown = static_cast<bool>(dc.attribute("SHOWMARGIN", "1").toInt());
 		doc->guidesSettings.baseShown = static_cast<bool>(dc.attribute("SHOWBASE", "0").toInt());

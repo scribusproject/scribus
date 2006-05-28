@@ -487,7 +487,8 @@ double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size, QString c
 	if (name->CharWidth.contains(c1))
 	{
 		width = name->CharWidth[c1]*size10;
-		if (name->HasKern)
+		// workaround for #3661
+		if (true || name->HasKern)
 		{
 			face = currentDoc->FFonts[name->scName()];
 			uint cl = FT_Get_Char_Index(face, c1);

@@ -1755,7 +1755,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>April</source>
-        <translation>Апрель</translation>
+        <translation type="obsolete">Апрель</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8552,11 +8556,11 @@ Corners:</source>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Цвет штриха текста. Возможно только при включённом эффекте «Контур».</translation>
+        <translation type="obsolete">Цвет штриха текста. Возможно только при включённом эффекте «Контур».</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Цвет текста. Возможно только при включённом эффекте «Контур».</translation>
+        <translation type="obsolete">Цвет текста. Возможно только при включённом эффекте «Контур».</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -8573,6 +8577,14 @@ Corners:</source>
     <message>
         <source>Click to select the line spacing mode</source>
         <translation>Нажмите для выбора межстрочного режима</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12321,6 +12333,14 @@ is not exhaustive due to exceptions from called functions.
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Арабский</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13095,6 +13115,10 @@ converting their vector data into Scribus objects.</source>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Объект %1 сейчас изменяется в редакторе текста. Его невозможно удалить</translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -13555,6 +13579,10 @@ Vertical shift: %3</source>
     <message>
         <source>Contents</source>
         <translation>Содержание</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14397,7 +14425,7 @@ Vertical shift: %3</source>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Подчёркивание</translation>
+        <translation type="obsolete">Подчёркивание</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -14413,11 +14441,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Вычеркнутый текст</translation>
+        <translation type="obsolete">Вычеркнутый текст</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>Подчеркнуть только слова</translation>
+        <translation type="obsolete">Подчеркнуть только слова</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -14425,12 +14453,32 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>Тень</translation>
+        <translation type="obsolete">Тень</translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation>Контур</translation>
+        <translation type="obsolete">Контур</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

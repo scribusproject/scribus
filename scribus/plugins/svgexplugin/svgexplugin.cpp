@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "scmessagebox.h"
 #include "util.h"
 #include "customfdialog.h"
+#include "sctextstruct.h"
 
 
 int svgexplugin_getPluginAPIVersion()
@@ -205,7 +206,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 {
 	QString tmp, trans, fill, stroke, strokeW, strokeLC, strokeLJ, strokeDA, gradi, Clipi, chx;
 	uint d;
-	struct ScText *hl;
+	ScText *hl;
 	int Lnr = 0;
 	struct Layer ll;
 	ll.isPrintable = false;
@@ -693,7 +694,7 @@ QString SVGExPlug::IToStr(int c)
 	return cc.setNum(c);
 }
 
-void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl)
+void SVGExPlug::SetTextProps(QDomElement *tp, ScText *hl)
 {
 	int chst = hl->cstyle & 127;
 	if (hl->ccolor != CommonStrings::None)

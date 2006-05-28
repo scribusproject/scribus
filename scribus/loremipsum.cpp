@@ -240,6 +240,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 				ss->GetText(currItem, st, currItem->font(), currItem->fontSize(), true);
 			delete ss;
 		}
+		delete lp;
 		//if (ScMW->view->SelItem.at(i)->Doc->docHyphenator->AutoCheck)
 		//	ScMW->view->SelItem.at(i)->Doc->docHyphenator->slotHyphenate(ScMW->view->SelItem.at(i));
 		if (currItem->document()->docHyphenator->AutoCheck)

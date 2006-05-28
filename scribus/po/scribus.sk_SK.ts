@@ -1765,7 +1765,7 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
         <translation>Windows&amp;#174; Port:</translation>
     </message>
     <message>
-        <source>March</source>
+        <source>May</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1955,7 +1955,7 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation>V&amp;ymazať obsah</translation>
+        <translation type="obsolete">V&amp;ymazať obsah</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -2655,11 +2655,11 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
     </message>
     <message>
         <source>Copy Contents</source>
-        <translation>Kopírovať obsah</translation>
+        <translation type="obsolete">Kopírovať obsah</translation>
     </message>
     <message>
         <source>Paste Contents</source>
-        <translation>Vložiť obsah</translation>
+        <translation type="obsolete">Vložiť obsah</translation>
     </message>
     <message>
         <source>&amp;Printing Enabled</source>
@@ -2759,10 +2759,6 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Paste Contents (Absolute)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>S&amp;tyles...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2775,6 +2771,14 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation>&amp;Obrysy</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">&amp;Zmazať</translation>
     </message>
 </context>
 <context>
@@ -3828,10 +3832,6 @@ akcie</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Make check digit visible in text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Co&amp;de:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3841,7 +3841,7 @@ akcie</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+Z</translation>
     </message>
     <message>
         <source>Generate and include a checksum in barcode</source>
@@ -3953,6 +3953,18 @@ Vyberte si prosím iný.</translation>
     <message>
         <source>Choose a Directory</source>
         <translation>Vybrať priečinok</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6124,13 +6136,29 @@ zlyhalo!</translation>
         <source>Converting Image:
 %1
 failed!</source>
-        <translation>Konverzia obrázka:
+        <translation type="obsolete">Konverzia obrázka:
 %1
 sa nepodarila!</translation>
     </message>
     <message>
         <source>Error</source>
         <translation>Chyba</translation>
+    </message>
+    <message>
+        <source>Importing PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Analyzing PostScript:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6257,6 +6285,18 @@ sa nepodarila!</translation>
     </message>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished">Posun základnej čiary znakov</translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7158,7 +7198,11 @@ Názov exportovaného súboru bude &apos;názovdokumentu-číslostrany.typsúbor
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Tu môžete pridať, zmeniť alebo odstrániť Požadované farby (Stop-colors).</translation>
+        <translation type="obsolete">Tu môžete pridať, zmeniť alebo odstrániť Požadované farby (Stop-colors).</translation>
+    </message>
+    <message>
+        <source>Add, change or remove color stops here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8242,7 +8286,7 @@ Pri použití protiľahlých strán, táto medzera môže byť použitá na dosi
     </message>
     <message>
         <source>New Master Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nová šablóna %1</translation>
     </message>
 </context>
 <context>
@@ -9047,15 +9091,7 @@ Corners:</source>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Názov &quot;%1&quot; nie je jedinečný.&lt;br/&gt;Vyberte prosím iný.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -9067,6 +9103,18 @@ Corners:</source>
     </message>
     <message>
         <source>Non Zero</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10952,7 +11000,7 @@ Ak použijete 0, uloží sa nekonečné množstvo činností.</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Umiestnenie Ghostscript interpreta v súborovom systéme</translation>
+        <translation type="obsolete">Umiestnenie Ghostscript interpreta v súborovom systéme</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -11055,6 +11103,10 @@ UCR znižuje možnosť presýtenosti s CMYK atramentami.</translation>
 z azúrovej, fialovej a žltej farby namiesto použitia čiernej.
 UCR naviac ovplyvňuje časti obrázkov, ktoré sú neutrálne a/alebo 
 v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže zlepšiť tlač niektorých obrázkov - je však potrebné testovať jednotlivé prípady. UCR znižuje možnosť presýtenosti s CMYK atramentami.</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12092,7 +12144,7 @@ Overte, cestu a názov súboru.</translation>
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>Písmo %1 je poškodené (nájdené s použitím fontconfig), odkladám ho</translation>
+        <translation type="obsolete">Písmo %1 je poškodené (nájdené s použitím fontconfig), odkladám ho</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
@@ -13242,6 +13294,23 @@ Externé odkazy
     </message>
     <message>
         <source>Luxembourgish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Arabčina</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14636,6 +14705,10 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation type="unfinished">Položka %1 práve upravovaná v Story Editore. Operácia odstránenie bola zrušená</translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -15091,6 +15164,14 @@ Vertical shift: %3</source>
         <source>Do you really want to replace your existing image?</source>
         <translation>Naozaj chcete nahradiť existujúci obrázok?</translation>
     </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Obsahy</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -15344,6 +15425,10 @@ Vertical shift: %3</source>
     <message>
         <source>Grayscale</source>
         <translation>Odtiene šedej</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Obsahy</translation>
     </message>
 </context>
 <context>
@@ -16072,11 +16157,11 @@ Vertical shift: %3</source>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Podčiarknuté</translation>
+        <translation type="obsolete">Podčiarknuté</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>Podčiarknuté iba slová</translation>
+        <translation type="obsolete">Podčiarknuté iba slová</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -16096,7 +16181,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Prečiarknuté</translation>
+        <translation type="obsolete">Prečiarknuté</translation>
     </message>
     <message>
         <source>Outline</source>
@@ -16104,12 +16189,32 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>Tieň</translation>
+        <translation type="obsolete">Tieň</translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation>Obrys</translation>
+        <translation type="obsolete">Obrys</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16984,7 +17089,7 @@ zachová rozloženie a vzhľad vášho dokumentu.</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation>Ako dlho je strana zobrazená, než sa spustí prechod na ďalšiu stranu.</translation>
+        <translation type="obsolete">Ako dlho je strana zobrazená, než sa spustí prechod na ďalšiu stranu.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
@@ -17419,6 +17524,10 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

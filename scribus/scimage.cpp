@@ -81,6 +81,7 @@ void ScImage::initialize()
 	imgInfo.valid = false;
 	imgInfo.isRequest = false;
 	imgInfo.progressive = false;
+	imgInfo.isEmbedded = false;
 	imgInfo.exifDataValid = false;
 	imgInfo.lowResType = 1;
 	imgInfo.lowResScale = 1.0;
@@ -4131,15 +4132,19 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	if (CMSuse && useProf && inputProf)
 	{
 		DWORD inputProfFormat = TYPE_RGBA_8;
-		switch (static_cast<int>(cmsGetColorSpace(inputProf)))
-		{
-		case icSigRgbData:
+		DWORD prnProfFormat = TYPE_CMYK_8;
+		int inputProfColorSpace = static_cast<int>(cmsGetColorSpace(inputProf));
+		if ( inputProfColorSpace == icSigRgbData )
 			inputProfFormat = TYPE_RGBA_8;
-			break;
-		case icSigCmykData:
+		else if ( inputProfColorSpace == icSigCmykData )
 			inputProfFormat = TYPE_CMYK_8;
-			break;
-		}
+		else if ( inputProfColorSpace == icSigGrayData )
+			inputProfFormat = TYPE_GRAY_8;
+		int prnProfColorSpace = static_cast<int>(cmsGetColorSpace(CMSprinterProf));
+		if ( prnProfColorSpace == icSigRgbData )
+			prnProfFormat = TYPE_RGBA_8;
+		else if ( prnProfColorSpace == icSigCmykData )
+			prnProfFormat = TYPE_CMYK_8;
 		if (SoftProofing)
 		{
 			cmsFlags |= cmsFLAGS_SOFTPROOFING;
@@ -4152,7 +4157,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		{
 		case 0: // CMYK
 			if (!isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, TYPE_CMYK_8, IntentPrinter, 0);
+				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, prnProfFormat, IntentPrinter, 0);
 			break;
 		case 1: // RGB
 			if (isCMYK)
@@ -4162,7 +4167,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			{
 				if (inputProfFormat==TYPE_CMYK_8)
 					inputProfFormat=(COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
-				else
+				else if(inputProfFormat == TYPE_RGBA_8)
 					inputProfFormat=TYPE_BGRA_8;
 				if (SoftProofing)
 					xform = cmsCreateProofingTransform(inputProf, inputProfFormat,
@@ -4182,7 +4187,32 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			for (int i = 0; i < height(); i++)
 			{
 				LPBYTE ptr = scanLine(i);
-				cmsDoTransform(xform, ptr, ptr, width());
+				if ( inputProfFormat == TYPE_GRAY_8 && (reqType != 0) )
+				{
+					unsigned char* ucs = ptr + 1;
+					unsigned char* uc = new unsigned char[width()];
+					for( int uci = 0; uci < width(); uci++ )
+					{
+						uc[uci] = *ucs;
+						ucs += 4;
+					}
+					cmsDoTransform(xform, uc, ptr, width());
+					delete[] uc;
+				}
+				else if ( inputProfFormat == TYPE_GRAY_8 && (reqType == 0) )
+				{
+					unsigned char  value;
+					unsigned char* ucs = ptr;
+					for( int uci = 0; uci < width(); uci++ )
+					{
+						value = 255 - *(ucs + 1);
+						ucs[0] = ucs[1] = ucs[2] = 0;
+						ucs[3] = value;
+						ucs += 4;
+					}
+				}
+				else
+					cmsDoTransform(xform, ptr, ptr, width());
 				// if transforming from CMYK to RGB, flatten the alpha channel
 				// which will still contain the black channel
 				if (isCMYK && reqType != 0 && !bilevel)
@@ -4201,7 +4231,6 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	}
 	else
 #endif // HAVE_CMS
-
 	{
 		switch (reqType)
 		{

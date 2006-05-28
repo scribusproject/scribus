@@ -2707,7 +2707,11 @@ Sletter den navngivne masterside.
     </message>
     <message>
         <source>March</source>
-        <translation>Marts</translation>
+        <translation type="obsolete">Marts</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4806,6 +4810,18 @@ Vælg venligst et andet.</translation>
     <message>
         <source>Choose a Scrapbook Directory</source>
         <translation>Vælg en scrapbog-mappe</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9493,11 +9509,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Tekstens stregfarve. Kun tilgængelig for &quot;omrids&quot; tekst-udsmykning.</translation>
+        <translation type="obsolete">Tekstens stregfarve. Kun tilgængelig for &quot;omrids&quot; tekst-udsmykning.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Tekstens fyldfarve. Kun tilgængelig for &quot;omrids&quot; tekst-udsmykning.</translation>
+        <translation type="obsolete">Tekstens fyldfarve. Kun tilgængelig for &quot;omrids&quot; tekst-udsmykning.</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
@@ -9518,6 +9534,14 @@ hjørner:</translation>
     <message>
         <source>Click to select the line spacing mode</source>
         <translation>Tryk for at vælge linieafstandens type</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11213,7 +11237,11 @@ denne, da det tillader dig at redigere billedet i en allerede kørende gimp.</tr
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter.</source>
-        <translation>Placering af Ghostscript fortolkeren i filsystemet.</translation>
+        <translation type="obsolete">Placering af Ghostscript fortolkeren i filsystemet.</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12701,7 +12729,7 @@ Ekstern Lænker</translation>
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>Font %1 (fundet ved brug af fontconfig) indeholder fejl, kan ikke bruges</translation>
+        <translation type="obsolete">Font %1 (fundet ved brug af fontconfig) indeholder fejl, kan ikke bruges</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
@@ -13280,6 +13308,19 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     <message>
         <source>Japanese</source>
         <translation>Japansk</translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Arabisk</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14062,6 +14103,10 @@ og konverterer deres vektordata til Scribus objekter.</translation>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Elementet %1 redigeres  i den indbyggede tekstbehandler. Slet funktionen vil blive annulleret</translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -14522,6 +14567,10 @@ Vertikal forskydning: %3</translation>
     <message>
         <source>Contents</source>
         <translation>Indhold</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15374,15 +15423,15 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Underline</source>
-        <translation>Understreg</translation>
+        <translation type="obsolete">Understreg</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Erstat standardværdier med bruger config</translation>
+        <translation type="obsolete">Erstat standardværdier med bruger config</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>Understreg kun ord</translation>
+        <translation type="obsolete">Understreg kun ord</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -15390,12 +15439,32 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>Skygge</translation>
+        <translation type="obsolete">Skygge</translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation>Omrids</translation>
+        <translation type="obsolete">Omrids</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

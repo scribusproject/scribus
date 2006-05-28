@@ -49,6 +49,7 @@ using namespace std;
 ScriXmlDoc::ScriXmlDoc()
 {
 	prefsManager=PrefsManager::instance();
+	dummyFois.setAutoDelete(true);
 }
 
 bool ScriXmlDoc::IsScribus(QString fileName)
@@ -1255,6 +1256,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->setUnitIndex(dc.attribute("UNITS", "0").toInt());
 		doc->guidesSettings.gridShown = view->Prefs->guidesSettings.gridShown;
 		doc->guidesSettings.guidesShown = view->Prefs->guidesSettings.guidesShown;
+		doc->guidesSettings.colBordersShown = view->Prefs->guidesSettings.colBordersShown;
 		doc->guidesSettings.framesShown = view->Prefs->guidesSettings.framesShown;
 		doc->guidesSettings.marginsShown = view->Prefs->guidesSettings.marginsShown;
 		doc->guidesSettings.baseShown = view->Prefs->guidesSettings.baseShown;
@@ -3110,6 +3112,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("MAJGRID", doc->guidesSettings.majorGrid);
 	dc.setAttribute("SHOWGRID", static_cast<int>(doc->guidesSettings.gridShown));
 	dc.setAttribute("SHOWGUIDES", static_cast<int>(doc->guidesSettings.guidesShown));
+	dc.setAttribute("showcolborders", static_cast<int>(doc->guidesSettings.colBordersShown));
 	dc.setAttribute("SHOWFRAME", static_cast<int>(doc->guidesSettings.framesShown));
 	dc.setAttribute("SHOWMARGIN", static_cast<int>(doc->guidesSettings.marginsShown));
 	dc.setAttribute("SHOWBASE", static_cast<int>(doc->guidesSettings.baseShown));
@@ -3529,13 +3532,15 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
  * <c.toepp@gmx.de>
 */
  #ifdef HAVE_LIBZ
+	QCString cs = docu.toCString(); // UTF-8 QCString
 	if(fileName.right(2) == "gz")
 	{
-  // zipped saving
+		// zipped saving
+		// XXX: latin1() should probably be local8Bit()
 		gzFile gzDoc = gzopen(fileName.latin1(),"wb");
 		if(gzDoc == NULL)
 			return false;
-		gzputs(gzDoc, docu.toString().utf8());
+		gzputs(gzDoc, cs.data());
 		gzclose(gzDoc);
 	}
 	else
@@ -3544,8 +3549,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		if(!f.open(IO_WriteOnly))
 			return false;
 		QTextStream s(&f);
-		QString wr = docu.toString().utf8();
-		s.writeRawBytes(wr, wr.length());
+		s.writeRawBytes(cs, cs.length());
 		f.close();
 	}
 #else
@@ -3553,8 +3557,8 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	if(!f.open(IO_WriteOnly))
 		return false;
 	QTextStream s(&f);
-	QString wr = docu.toString().utf8();
-	s.writeRawBytes(wr, wr.length());
+	QCString cs = docu.toCString();
+	s.writeRawBytes(cs, cs.length());
 	f.close();
 #endif
 	return true;

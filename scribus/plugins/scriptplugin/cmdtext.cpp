@@ -293,7 +293,7 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 	}
 	for (uint a = 0; a < Daten.length(); ++a)
 	{
-		struct ScText *hg = new ScText;
+		ScText *hg = new ScText;
 		hg->ch = Daten.at(a);
 		if (hg->ch == QChar(10))
 			hg->ch = QChar(13);
@@ -358,7 +358,7 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 		pos = it->itemText.count();
 	for (uint a = 0; a < Daten.length(); ++a)
 	{
-		struct ScText *hg = new ScText;
+		ScText *hg = new ScText;
 		hg->ch = Daten.at(Daten.length()-1-a);
 		if (hg->ch == QChar(10))
 			hg->ch = QChar(13);

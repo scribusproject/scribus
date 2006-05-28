@@ -380,6 +380,7 @@ void ActionManager::initViewMenuActions()
 	scrActions->insert("viewShowImages", new ScrAction(ScMW, "viewShowImages"));
 	scrActions->insert("viewShowGrid", new ScrAction(ScMW, "viewShowGrid"));
 	scrActions->insert("viewShowGuides", new ScrAction(ScMW, "viewShowGuides"));
+	scrActions->insert("viewShowColumnBorders", new ScrAction(ScMW, "viewShowColumnBorders"));
 	scrActions->insert("viewShowBaseline", new ScrAction(ScMW, "viewShowBaseline"));
 	scrActions->insert("viewShowTextChain", new ScrAction(ScMW, "viewShowTextChain"));
 	scrActions->insert("viewShowTextControls", new ScrAction(ScMW, "viewShowTextControls"));
@@ -394,6 +395,7 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewShowImages"]->setToggleAction(true);
 	(*scrActions)["viewShowGrid"]->setToggleAction(true);
 	(*scrActions)["viewShowGuides"]->setToggleAction(true);
+	(*scrActions)["viewShowColumnBorders"]->setToggleAction(true);
 	(*scrActions)["viewShowBaseline"]->setToggleAction(true);
 	(*scrActions)["viewShowTextChain"]->setToggleAction(true);
 	(*scrActions)["viewShowTextControls"]->setToggleAction(true);
@@ -406,6 +408,7 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewShowFrames"]->setOn(true);
 	(*scrActions)["viewShowImages"]->setOn(true);
 	(*scrActions)["viewShowGuides"]->setOn(true);
+	(*scrActions)["viewShowColumnBorders"]->setOn(false);
 	(*scrActions)["viewShowRulers"]->setOn(true);
 	(*scrActions)["viewRulerMode"]->setOn(true);
 
@@ -420,6 +423,7 @@ void ActionManager::initViewMenuActions()
 	connect( (*scrActions)["viewShowImages"], SIGNAL(activated()), ScMW, SLOT(TogglePics()) );
 	connect( (*scrActions)["viewShowGrid"], SIGNAL(activated()), ScMW, SLOT(ToggleRaster()) );
 	connect( (*scrActions)["viewShowGuides"], SIGNAL(activated()), ScMW, SLOT(ToggleGuides()) );
+	connect( (*scrActions)["viewShowColumnBorders"], SIGNAL(activated()), ScMW, SLOT(ToggleColumnBorders()) );
 	connect( (*scrActions)["viewShowBaseline"], SIGNAL(activated()), ScMW, SLOT(ToggleBase()) );
 	connect( (*scrActions)["viewShowTextChain"], SIGNAL(activated()), ScMW, SLOT(ToggleTextLinks()) );
 	connect( (*scrActions)["viewShowTextControls"], SIGNAL(activated()), ScMW, SLOT(ToggleTextControls()) );
@@ -998,6 +1002,7 @@ void ActionManager::languageChange()
 	(*scrActions)["viewShowImages"]->setTexts( tr("Show &Images"));
 	(*scrActions)["viewShowGrid"]->setTexts( tr("Show &Grid"));
 	(*scrActions)["viewShowGuides"]->setTexts( tr("Show G&uides"));
+	(*scrActions)["viewShowColumnBorders"]->setTexts( tr("Show Text Frame Columns"));
 	(*scrActions)["viewShowBaseline"]->setTexts( tr("Show &Baseline Grid"));
 	(*scrActions)["viewShowTextChain"]->setTexts( tr("Show &Text Chain"));
 	(*scrActions)["viewShowTextControls"]->setTexts( tr("Show Control Characters"));

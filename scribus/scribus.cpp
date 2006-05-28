@@ -173,6 +173,7 @@ for which a new license (GPL+exception) is in place.
 
 #if defined(_WIN32)
 #include "scwinprint.h"
+#include "scdocoutput_ps2.h"
 #endif
 
 using namespace std;
@@ -916,6 +917,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["viewShowImages"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowGrid"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowGuides"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewShowColumnBorders"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowBaseline"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowTextChain"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowTextControls"], "View");
@@ -2071,6 +2073,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
 	scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
 	scrActions["viewShowGuides"]->setOn(doc->guidesSettings.guidesShown);
+	scrActions["viewShowColumnBorders"]->setOn(doc->guidesSettings.colBordersShown);
 	scrActions["viewShowBaseline"]->setOn(doc->guidesSettings.baseShown);
 	scrActions["viewShowImages"]->setOn(doc->guidesSettings.showPic);
 	scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
@@ -2126,6 +2129,7 @@ bool ScribusMainWindow::slotDocSetup()
 		scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
 		scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
 		scrActions["viewShowGuides"]->setOn(doc->guidesSettings.guidesShown);
+		scrActions["viewShowColumnBorders"]->setOn(doc->guidesSettings.colBordersShown);
 		scrActions["viewShowBaseline"]->setOn(doc->guidesSettings.baseShown);
 		scrActions["viewShowImages"]->setOn(doc->guidesSettings.showPic);
 		scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
@@ -3394,32 +3398,36 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			Gamut = doc->CMSSettings.GamutCheck;
 			IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
 			IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
-			doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
-			CMSuse = doc->CMSSettings.CMSinUse;
-			stdProofG = doc->stdProof;
-			stdTransG = doc->stdTrans;
-			stdProofImgG = doc->stdProofImg;
-			stdTransImgG = doc->stdTransImg;
-			stdProofCMYKG = doc->stdProofCMYK;
-			stdTransCMYKG = doc->stdTransCMYK;
-			stdTransRGBG = doc->stdTransRGB;
-			stdProofGCG = doc->stdProofGC;
-			stdProofCMYKGCG = doc->stdProofCMYKGC;
-			CMSoutputProf = doc->DocOutputProf;
-			CMSprinterProf = doc->DocPrinterProf;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
-				doc->CMSSettings.ComponentsInput2 = 3;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmykData)
-				doc->CMSSettings.ComponentsInput2 = 4;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmyData)
-				doc->CMSSettings.ComponentsInput2 = 3;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigRgbData)
-				doc->CMSSettings.ComponentsPrinter = 3;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmykData)
-				doc->CMSSettings.ComponentsPrinter = 4;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmyData)
-				doc->CMSSettings.ComponentsPrinter = 3;
-			doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
+			if (doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles))
+			{
+				CMSuse = doc->CMSSettings.CMSinUse;
+				stdProofG = doc->stdProof;
+				stdTransG = doc->stdTrans;
+				stdProofImgG = doc->stdProofImg;
+				stdTransImgG = doc->stdTransImg;
+				stdProofCMYKG = doc->stdProofCMYK;
+				stdTransCMYKG = doc->stdTransCMYK;
+				stdTransRGBG = doc->stdTransRGB;
+				stdProofGCG = doc->stdProofGC;
+				stdProofCMYKGCG = doc->stdProofCMYKGC;
+				CMSoutputProf = doc->DocOutputProf;
+				CMSprinterProf = doc->DocPrinterProf;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
+					doc->CMSSettings.ComponentsInput2 = 3;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmykData)
+					doc->CMSSettings.ComponentsInput2 = 4;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmyData)
+					doc->CMSSettings.ComponentsInput2 = 3;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigRgbData)
+					doc->CMSSettings.ComponentsPrinter = 3;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmykData)
+					doc->CMSSettings.ComponentsPrinter = 4;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmyData)
+					doc->CMSSettings.ComponentsPrinter = 3;
+				doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
+			}
+			else
+				CMSuse = false;
 #endif
 			if (doc->CMSSettings.CMSinUse)
 			{
@@ -4357,6 +4365,7 @@ void ScribusMainWindow::slotEditCut()
 			BufferI = ss->WriteElem(doc, view, doc->m_Selection);
 			Buffer2 = BufferI;
 			doc->itemSelection_DeleteItem();
+			delete ss;
 		}
 		slotDocCh();
 		BuFromApp = true;
@@ -4479,6 +4488,12 @@ void ScribusMainWindow::slotEditPaste()
 						hg->ch = QChar(13);
 					if (hg->ch == QChar(4))
 						hg->ch = QChar(9);
+/* 	Don't copy inline frames for now, as this is a very complicated thing.
+		We need to figure out a good way to copy inline frames, this must
+		be able to preserve them across documents. No idea how to solve
+		that yet. */
+					if (hg->ch == QChar(25))
+						hg->ch = QChar(32);
 					it++;
 					hg->cfont = (*doc->AllFonts)[*it];
 					it++;
@@ -5118,6 +5133,7 @@ void ScribusMainWindow::ToggleAllGuides()
 		ToggleFrames();
 		ToggleRaster();
 		ToggleGuides();
+		ToggleColumnBorders();
 		ToggleBase();
 		ToggleTextLinks();
 		ToggleTextControls();
@@ -5151,6 +5167,7 @@ void ScribusMainWindow::ToggleAllGuides()
 	scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
 	scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
 	scrActions["viewShowGuides"]->setOn(doc->guidesSettings.guidesShown);
+	scrActions["viewShowColumnBorders"]->setOn(doc->guidesSettings.colBordersShown);
 	scrActions["viewShowBaseline"]->setOn(doc->guidesSettings.baseShown);
 	scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
 	scrActions["viewShowTextControls"]->setOn(doc->guidesSettings.showControls);
@@ -5184,6 +5201,13 @@ void ScribusMainWindow::ToggleGuides()
 {
 	guidesStatus[0] = false;
 	doc->guidesSettings.guidesShown = !doc->guidesSettings.guidesShown;
+	view->DrawNew();
+}
+
+void ScribusMainWindow::ToggleColumnBorders()
+{
+	guidesStatus[0] = false;
+	doc->guidesSettings.colBordersShown = !doc->guidesSettings.colBordersShown;
 	view->DrawNew();
 }
 
@@ -5851,6 +5875,9 @@ void ScribusMainWindow::CopyPage()
 		slotDocCh(); //FIXME emit from doc
 		pagePalette->RebuildPage();
 		outlinePalette->BuildTree();
+		bool setter = doc->Pages->count() > 1 ? true : false;
+		scrActions["pageDelete"]->setEnabled(setter);
+		scrActions["pageMove"]->setEnabled(setter);
 	}
 	delete dia;
 }
@@ -6896,7 +6923,7 @@ void ScribusMainWindow::slotPrefsOrg()
 //		scrapbookPalette->rebuildView();
 //		scrapbookPalette->AdjustMenu();
 		QString newGUILanguage=prefsManager->guiLanguage();
-		if (oldGUILanguage!=newGUILanguage)
+		if (oldGUILanguage!=newGUILanguage || ScQApp->currGUILanguage()!=newGUILanguage)
 			ScQApp->changeGUILanguage(newGUILanguage);
 		QString newGUIStyle=prefsManager->guiStyle();
 		if (oldGUIStyle != newGUIStyle)
@@ -8680,6 +8707,7 @@ void ScribusMainWindow::languageChange()
 			scrMenuMgr->setMenuText("InsertChar", tr("Character"));
 			scrMenuMgr->setMenuText("InsertQuote", tr("Quote"));
 			scrMenuMgr->setMenuText("InsertSpace", tr("Space"));
+			scrMenuMgr->setMenuText("InsertLigature", tr("Liga&ture"));
 			scrMenuMgr->setMenuText("Page", tr("&Page"));
 			scrMenuMgr->setMenuText("View", tr("&View"));
 			scrMenuMgr->setMenuText("Tools", tr("&Tools"));

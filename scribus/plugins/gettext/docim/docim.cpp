@@ -108,8 +108,8 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 	proc->addArgument("-t");
 	proc->addArgument("-w 0");
 	proc->addArgument(filename);
-	connect(proc, SIGNAL(readyReadStdout()), this, SLOT(slotReadOutput()));
-	connect(proc, SIGNAL(readyReadStderr()), this, SLOT(slotReadErr()));
+	//connect(proc, SIGNAL(readyReadStdout()), this, SLOT(slotReadOutput()));
+	//connect(proc, SIGNAL(readyReadStderr()), this, SLOT(slotReadErr()));
 #if defined(_WIN32)
 	QStringList envVar;
 	QString homeDir =  QDir::convertSeparators(ScPaths::instance().libDir() + "tools");
@@ -127,13 +127,28 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 	}
 #endif
 
-	while(proc->isRunning())
+	while(proc->isRunning() || proc->canReadLineStdout() || proc->canReadLineStderr())
 	{
-	#ifndef _WIN32
-		usleep(5000);
-	#else
-		Sleep(5);
-	#endif
+		if ( proc->canReadLineStdout() )
+		{
+			QByteArray bo = proc->readStdout();
+			if (bo.size() > 0)
+				text += QString(bo);
+		}
+		else if (proc->canReadLineStderr())
+		{
+			QByteArray be = proc->readStderr();
+			if (be.size() > 0)
+				error += QString(be);
+		}
+		else
+		{
+		#ifndef _WIN32
+			usleep(5000);
+		#else
+			Sleep(5);
+		#endif
+		}
 	}
 
 	if (proc->normalExit()) 
@@ -169,20 +184,6 @@ void DocIm::toUnicode()
 		codec = QTextCodec::codecForName(encoding);
 	QString dec = codec->toUnicode( text );
 	text = dec;
-}
-
-void DocIm::slotReadOutput()
-{
-	QByteArray bb = proc->readStdout();
-	if (bb)
-		text += QString(bb);
-}
-
-void DocIm::slotReadErr()
-{
-	QByteArray bb = proc->readStderr();
-	if (bb)
-		error += QString(bb);
 }
 
 DocIm::~DocIm()
