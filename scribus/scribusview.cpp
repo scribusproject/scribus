@@ -399,31 +399,21 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 							painter->endLayer();
 #endif
 					}
-					DrawMasterItems(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
+//					DrawMasterItems(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
 				}
-/*
 #ifdef HAVE_CAIRO
-				painter->end();
-				psx->drawImage(clipx, clipy, img);
-				delete painter;
-				img = QImage(clipw, cliph, 32);
-				img.setAlphaBuffer( true );
 				if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
-					painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
-				else
-					painter = new ScPainter(&img, img.width(), img.height());
-				painter->translate(-Doc->minCanvasCoordinate.x()*Scale, -Doc->minCanvasCoordinate.y()*Scale);
-				painter->translate(-clipx, -clipy);
-				painter->setLineWidth(1);
-				painter->setFillMode(ScPainter::Solid);
-				painter->setZoomFactor(1.0);
+					painter->beginLayer(1.0, 0);
 				for (uint a = 0; a < docPagesCount; ++a)
 				{
 					DrawMasterItems(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
 				}
 #endif
-*/
 				DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
+#ifdef HAVE_CAIRO
+				if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
+					painter->endLayer();
+#endif
 				if ((!Doc->guidesSettings.before) && (!viewAsPreview))
 				{
 					for (uint a = 0; a < docPagesCount; ++a)
@@ -467,7 +457,15 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					painter->endLayer();
 #endif
 			}
+#ifdef HAVE_CAIRO
+			if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
+				painter->beginLayer(1.0, 0);
+#endif
 			DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
+#ifdef HAVE_CAIRO
+			if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
+				painter->endLayer();
+#endif
 			if ((!Doc->guidesSettings.before) && (drawRect.intersects(QRect(clipx, clipy, clipw, cliph))))
 				DrawPageMarks(painter, Doc->currentPage(), QRect(clipx, clipy, clipw, cliph));
 		}

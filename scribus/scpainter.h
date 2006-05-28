@@ -60,6 +60,7 @@ for which a new license (GPL+exception) is in place.
 class QPainter;
 #ifdef HAVE_CAIRO
 typedef struct _cairo cairo_t;
+typedef struct _cairo_surface cairo_surface_t;
 #else
 struct _ArtVpath;
 struct _ArtBpath;
@@ -212,6 +213,13 @@ private:
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 #ifdef HAVE_CAIRO
 	cairo_t *m_cr;
+	struct layerProp
+	{
+		cairo_surface_t *data;
+		int blendmode;
+		double tranparency;
+	};
+	QValueStack<layerProp> Layers;
 #else
 	GC gc;
 #endif

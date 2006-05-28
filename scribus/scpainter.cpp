@@ -310,10 +310,35 @@ ScPainter::~ScPainter()
 #ifdef HAVE_CAIRO
 void ScPainter::beginLayer(double transparency, int blendmode)
 {
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
+	layerProp la;
+	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 8)
+	la.data = cairo_get_group_target(m_cr);
+	#endif
+	la.blendmode = m_blendMode;
+	la.tranparency = m_layerTransparency;
+	Layers.push(la);
 	m_layerTransparency = transparency;
 	m_blendMode = blendmode;
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
 	cairo_push_group(m_cr);
+	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 8)
+	cairo_surface_t *tmp2 = cairo_get_group_target(m_cr);
+	if (tmp2 != NULL)
+	{
+		if (cairo_surface_get_type(tmp2) == CAIRO_SURFACE_TYPE_IMAGE)
+		{
+			int stride = cairo_image_surface_get_stride(tmp2);
+			unsigned char *s = cairo_image_surface_get_data(tmp2);
+			int h = m_image->height();
+			for( int yi=0; yi < h; ++yi )
+			{
+				memset( s, 0, stride );
+				s += stride;
+			}
+		}
+		cairo_surface_mark_dirty(tmp2);
+	}
+	#endif
 #else
 	tmp_image.fill( qRgba(255, 255, 255, 0) );
 #endif
@@ -329,21 +354,23 @@ void ScPainter::endLayer()
 {
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
 	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 8)
-	if (m_blendMode != 0)
+	if ((m_blendMode != 0) && (Layers.count() != 1))
 	{
 		cairo_surface_t *tmp = cairo_get_group_target(m_cr);
-		if (tmp != NULL)
+		cairo_surface_t *tmpB = Layers.top().data;
+		if ((tmp != NULL) && (tmpB != NULL))
 		{
-			if (cairo_surface_get_type(tmp) == CAIRO_SURFACE_TYPE_IMAGE)
+			if ((cairo_surface_get_type(tmp) == CAIRO_SURFACE_TYPE_IMAGE) && (cairo_surface_get_type(tmpB) == CAIRO_SURFACE_TYPE_IMAGE))
 			{
 				cairo_surface_flush(tmp);
 				int stride = cairo_image_surface_get_stride(tmp);
 				unsigned char *s = cairo_image_surface_get_data(tmp);
+				unsigned char *d = cairo_image_surface_get_data(tmpB);
 				int h = m_image->height();
 				int w = m_image->width();
 				for( int yi=0; yi < h; ++yi )
 				{
-					QRgb *dst = (QRgb*)m_image->scanLine( yi );
+					QRgb *dst = (QRgb*)d;
 					QRgb *src = (QRgb*)s;
 					for( int xi=0; xi < w; ++xi )
 					{
@@ -365,7 +392,7 @@ void ScPainter::endLayer()
 							}
 							else if (m_blendMode == 2)
 							{
-								src_r = dst_r < src_r ? src_r : dst_r;
+								src_r = dst_r  < src_r ? src_r : dst_r;
 								src_g = dst_g < src_g ? src_g : dst_g;
 								src_b = dst_b < src_b ? src_b : dst_b;
 							}
@@ -444,15 +471,20 @@ void ScPainter::endLayer()
 						dst++;
 					}
 					s += stride;
+					d += stride;
 				}
 				cairo_surface_mark_dirty(tmp);
 			}
 		}
 	}
 	#endif
+	layerProp la;
+	la = Layers.pop();
 	cairo_pop_group_to_source (m_cr);
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_paint_with_alpha (m_cr, m_layerTransparency);
+	m_layerTransparency = la.tranparency;
+	m_blendMode = la.blendmode;
 #else
 	cairo_surface_flush(cairo_get_target(m_cr));
 	int words = m_image->numBytes() / 4;

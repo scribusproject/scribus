@@ -1645,6 +1645,33 @@ void PDFlib::PDF_End_Page()
 	uint PgNr =  ActPageP->pageNr();
 	Seite.ObjNum = ObjCounter;
 	WritePDFStream(Inhalt);
+	int Gobj;
+	if ((Options.Version >= 14) && (Transpar.count() != 0))
+	{
+		StartObj(ObjCounter);
+		Gobj = ObjCounter;
+		ObjCounter++;
+		PutDoc("<< /S /Transparency\n");
+		if (Options.UseRGB)
+			PutDoc("/CS /DeviceRGB\n");
+		else
+		{
+			if (Options.isGrayscale)
+				PutDoc("/CS /DeviceGray\n");
+			else
+#ifdef HAVE_CMS
+			{
+				if ((CMSuse) && (Options.UseProfiles))
+					PutDoc("/CS "+ICCProfiles[Options.SolidProf].ICCArray+"\n");
+				else
+#endif
+					PutDoc("/CS /DeviceCMYK\n");
+#ifdef HAVE_CMS
+			}
+#endif
+		}
+		PutDoc(">>\nendobj\n");
+	}
 	StartObj(ObjCounter);
 	PutDoc("<<\n/Type /Page\n/Parent 4 0 R\n");
 	PutDoc("/MediaBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+"]\n");
@@ -1652,6 +1679,8 @@ void PDFlib::PDF_End_Page()
 		" "+FToStr(ActPageP->width()-Options.BleedRight)+" "+FToStr(ActPageP->height()-Options.BleedTop)+"]\n");
 	PutDoc("/Rotate "+QString::number(Options.RotateDeg)+"\n");
 	PutDoc("/Contents "+QString::number(Seite.ObjNum)+" 0 R\n");
+	if ((Options.Version >= 14) && (Transpar.count() != 0))
+		PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
 	if (Options.Thumbnails)
 		PutDoc("/Thumb "+QString::number(Seite.Thumb)+" 0 R\n");
 	if (Seite.AObjects.count() != 0)
