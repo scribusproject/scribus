@@ -715,7 +715,7 @@ void ScPainterEx_GDI::drawImage( ScImage *image, ScPainterExBase::ImageMode mode
 	save();
 	int usage = 0;
 	unsigned char* data = NULL;
-	unsigned char* imageData = image->bits();
+	unsigned char* imageData = image->qImage().bits();
 	XFORM xform = { m_matrix.m11(), m_matrix.m12(), m_matrix.m21(), m_matrix.m22(), m_matrix.dx(), m_matrix.dy() } ;
 	ModifyWorldTransform(dc, &xform, MWT_LEFTMULTIPLY);
 	BITMAPINFO256 bmpInfo;
@@ -738,8 +738,9 @@ void ScPainterEx_GDI::drawImage( ScImage *image, ScPainterExBase::ImageMode mode
 			bmpInfo.bmiColors[i].rgbGreen = i;
 			bmpInfo.bmiColors[i].rgbBlue = i;
 		}
+		QImage imTemp = image->qImage();
 		data = new uchar[bmpInfo.bmiHeader.biSizeImage];
-		transformImage( image, data, scanline );
+		transformImage( &imTemp, data, scanline );
 		imageData = data;
 		usage = DIB_RGB_COLORS;
 	}
