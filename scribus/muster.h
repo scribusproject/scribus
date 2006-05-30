@@ -61,8 +61,6 @@ signals:
 	void removePage(int);
 	//void loadPage(QString, int, bool);
 	void finished();
-	void docAltered();
-
 };
 
 #endif // MUSTERPAGES_H

@@ -123,7 +123,6 @@ void MasterPagesPalette::deleteMasterPage()
 		sMuster = "Normal";
 		updateMasterPageList(sMuster);
 		//currentDoc->MasterPages = currentDoc->Pages;
-		emit docAltered();
 	}
 }
 
@@ -257,7 +256,6 @@ void MasterPagesPalette::duplicateMasterPage()
 		currentDoc->setLoading(false);
 		currentView->DrawNew();
 		currentDoc->GroupCounter = GrMax + 1;
-		emit docAltered();
 	}
 	delete dia;
 }
@@ -304,7 +302,6 @@ void MasterPagesPalette::newMasterPage()
 		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName]);
 		currentView->reformPages();
 		//currentDoc->MasterPages = currentDoc->Pages;
-		emit docAltered();
 	}
 	delete dia;
 }
@@ -353,7 +350,6 @@ void MasterPagesPalette::appendPage()
 		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName2]);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 		//currentDoc->MasterPages = currentDoc->Pages;
-		emit docAltered();
 	}
 	delete dia;
 }

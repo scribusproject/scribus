@@ -2804,6 +2804,8 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 	ActWin->setMenuStatus(1, scrActions["fileClose"]->isEnabled());
 	ActWin->setMenuStatus(2, scrActions["fileSave"]->isEnabled());
 	ActWin->setMenuStatus(3, scrActions["fileSaveAs"]->isEnabled());
+	
+	outlinePalette->BuildTree();
 }
 
 void ScribusMainWindow::updateRecent(QString fn)
@@ -7429,8 +7431,6 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 			connect(dia, SIGNAL(removePage(int )), this, SLOT(DeletePage2(int )));
 			//connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(loadPage(QString, int, bool)));
 			connect(dia, SIGNAL(finished()), this, SLOT(manageMasterPagesEnd()));
-			connect(dia, SIGNAL(docAltered()), outlinePalette, SLOT(BuildTree()));
-			connect(dia, SIGNAL(docAltered()), SLOT(slotDocCh()));
 			scrActions["pageInsert"]->setEnabled(false);
 			scrActions["pageImport"]->setEnabled(false);
 			scrActions["pageDelete"]->setEnabled(false);
