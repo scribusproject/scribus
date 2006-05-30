@@ -630,7 +630,8 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			ite->setLineTransparency(gc->TranspStroke);
 			ite->PLineEnd = gc->PLineEnd;
 			ite->PLineJoin = gc->PLineJoin;
-			ite->setTextFlowsAroundFrame(false);
+			//ite->setTextFlowsAroundFrame(false);
+			ite->setTextFlowMode(PageItem::TextFlowDisabled);
 			ite->DashOffset = gc->dashOffset;
 			ite->DashValues = gc->dashArray;
 			if (gc->Gradient != 0)
@@ -1881,7 +1882,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			ite->setLineTransparency(gc->TranspStroke);
 			ite->PLineEnd = gc->PLineEnd;
 			ite->PLineJoin = gc->PLineJoin;
-			ite->setTextFlowsAroundFrame(false);
+			//ite->setTextFlowsAroundFrame(false);
+			ite->setTextFlowMode(PageItem::TextFlowDisabled);
 			ite->DashOffset = gc->dashOffset;
 			ite->DashValues = gc->dashArray;
 			/*			if (gc->Gradient != 0)
@@ -1969,7 +1971,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		ite->setLineTransparency(gc->TranspStroke);
 		ite->PLineEnd = gc->PLineEnd;
 		ite->PLineJoin = gc->PLineJoin;
-		ite->setTextFlowsAroundFrame(false);
+		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		ite->DashOffset = gc->dashOffset;
 		ite->DashValues = gc->dashArray;
 		/*		if (gc->Gradient != 0)

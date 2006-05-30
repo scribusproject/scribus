@@ -2282,8 +2282,19 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->BottomLinkID =  obj->attribute("BottomLINK", "-1").toInt();
 	currItem->PoShow = obj->attribute("PLTSHOW", "0").toInt();
 	currItem->BaseOffs = obj->attribute("BASEOF", "0").toDouble();
-	currItem->setTextFlowsAroundFrame(obj->attribute("TEXTFLOW").toInt());
-	currItem->setTextFlowUsesBoundingBox(obj->attribute("TEXTFLOW2", "0").toInt());
+	if ( obj->hasAttribute("TEXTFLOWMODE") )
+		currItem->setTextFlowMode((PageItem::TextFlowMode) obj->attribute("TEXTFLOWMODE", "0").toInt());
+	else if ( obj->attribute("TEXTFLOW").toInt() )
+	{
+		if (obj->attribute("TEXTFLOW2", "0").toInt())
+			currItem->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
+		else if (obj->attribute("TEXTFLOW3", "0").toInt())
+			currItem->setTextFlowMode(PageItem::TextFlowUsesContourLine);
+		else
+			currItem->setTextFlowMode(PageItem::TextFlowUsesFrameShape);	
+	}
+	else
+		currItem->setTextFlowMode(PageItem::TextFlowDisabled);
 	if (obj->hasAttribute("EXTRAV"))
 		currItem->ExtraV = qRound(obj->attribute("EXTRAV", "0").toDouble() / obj->attribute("ISIZE", "12").toDouble() * 1000.0);
 	else
@@ -2305,7 +2316,6 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->ColGap = obj->attribute("COLGAP", "0.0").toDouble();
 	if (obj->attribute("LAYER", "0").toInt() != -1)
 		currItem->LayerNr = obj->attribute("LAYER", "0").toInt();
-	currItem->setTextFlowUsesContourLine(obj->attribute("TEXTFLOW3", "0").toInt());
 	tmp = "";
 	if ((obj->hasAttribute("GROUPS")) && (obj->attribute("NUMGROUP", "0").toInt() != 0))
 	{

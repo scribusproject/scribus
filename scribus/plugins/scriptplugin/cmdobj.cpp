@@ -487,9 +487,20 @@ PyObject *scribus_textflow(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	if (state == -1)
-		i->setTextFlowsAroundFrame(!i->textFlowsAroundFrame());
-	else
-		i->setTextFlowsAroundFrame( state ? true : false);
+	{
+		if (i->textFlowAroundObject())
+			i->setTextFlowMode(PageItem::TextFlowDisabled);
+		else
+			i->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+	}
+	else if( state == (int) PageItem::TextFlowDisabled )
+		i->setTextFlowMode(PageItem::TextFlowDisabled);
+	else if( state == (int) PageItem::TextFlowUsesFrameShape )
+		i->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+	else if( state == (int) PageItem::TextFlowUsesBoundingBox )
+		i->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
+	else if( state == (int) PageItem::TextFlowUsesContourLine )
+		i->setTextFlowMode(PageItem::TextFlowUsesContourLine);
 	ScMW->view->DrawNew();
 	ScMW->slotDocCh(true);
 	Py_INCREF(Py_None);

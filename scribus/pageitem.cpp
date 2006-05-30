@@ -184,9 +184,7 @@ PageItem::PageItem(const PageItem & other)
 	m_ImageIsFlippedV(other.m_ImageIsFlippedV),
 	m_Locked(other.m_Locked),
 	m_SizeLocked(other.m_SizeLocked),
-	textFlowsAroundFrameVal(other.textFlowsAroundFrameVal),
-	textFlowUsesBoundingBoxVal(other.textFlowUsesBoundingBoxVal),
-	textFlowUsesContourLineVal(other.textFlowUsesContourLineVal),
+	textFlowModeVal(other.textFlowModeVal),
 	pageItemAttributes(other.pageItemAttributes),
 	m_PrintEnabled(other.m_PrintEnabled),
 	tagged(other.tagged),
@@ -243,9 +241,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_ImageIsFlippedV(0),
 	m_Locked(false),
 	m_SizeLocked(false),
-	textFlowsAroundFrameVal(false),
-	textFlowUsesBoundingBoxVal(false),
-	textFlowUsesContourLineVal(false)
+	textFlowModeVal(TextFlowDisabled)
 {
 	QString tmp;
 	BackBox = 0;
@@ -1924,49 +1920,27 @@ void PageItem::togglePrintEnabled()
 	emit printEnabled(m_PrintEnabled);
 }
 
-void PageItem::setTextFlowsAroundFrame(bool isFlowing)
+void PageItem::setTextFlowMode(TextFlowMode mode)
 {
-	if (textFlowsAroundFrameVal == isFlowing)
+	if (textFlowModeVal == mode)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(isFlowing ? Um::TextFlow : Um::NoTextFlow, "", Um::IFont);
-		ss->set("TEXT_FLOW", isFlowing);
+		QString stateMessage;
+		if( mode == TextFlowUsesFrameShape )
+			stateMessage = Um::ObjectFrame;
+		else if( mode == TextFlowUsesBoundingBox )
+			stateMessage = Um::BoundingBox;
+		else if( mode == TextFlowUsesContourLine )
+			stateMessage = Um::ContourLine;
+		else
+			stateMessage = Um::NoTextFlow;
+		SimpleState *ss = new SimpleState(stateMessage, "", Um::IFont);
+		ss->set("TEXTFLOW_OLDMODE", (int) textFlowModeVal);
+		ss->set("TEXTFLOW_NEWMODE", (int) mode);
 		undoManager->action(this, ss);
 	}
-	textFlowsAroundFrameVal = isFlowing;
-}
-
-void PageItem::setTextFlowUsesBoundingBox(bool useBounding)
-{
-	if (textFlowUsesBoundingBoxVal == useBounding)
-		return;
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(useBounding ? Um::BoundingBox : Um::NoBoundingBox, "", Um::IFont);
-		ss->set("TEXT_FLOW", textFlowsAroundFrame());
-		ss->set("BOUNDING_BOX", useBounding);
-		undoManager->action(this, ss);
-	}
-	if (useBounding && textFlowUsesContourLineVal)
-		textFlowUsesContourLineVal = false;
-	textFlowUsesBoundingBoxVal = useBounding;
-}
-
-void PageItem::setTextFlowUsesContourLine(bool useContour)
-{
-	if (textFlowUsesContourLineVal == useContour)
-		return;
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(useContour ? Um::ContourLine : Um::NoContourLine, "", Um::IFont);
-		ss->set("TEXT_FLOW", textFlowsAroundFrame());
-		ss->set("CONTOUR_LINE", useContour);
-		undoManager->action(this, ss);
-	}
-	if (useContour && textFlowUsesBoundingBoxVal)
-		textFlowUsesBoundingBoxVal = false;
-	textFlowUsesContourLineVal = useContour;
+	textFlowModeVal = mode;
 }
 
 void PageItem::convertTo(ItemType newType)
@@ -2285,7 +2259,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restorePStyle(ss, isUndo);
 		else if (ss->contains("CONVERT"))
 			restoreType(ss, isUndo);
-		else if (ss->contains("TEXT_FLOW"))
+		else if (ss->contains("TEXTFLOW_OLDMODE"))
 			restoreTextFlowing(ss, isUndo);
 		else if (ss->contains("SCALE_TYPE"))
 			restoreImageScaleType(ss, isUndo);
@@ -2591,27 +2565,12 @@ void PageItem::restoreType(SimpleState *state, bool isUndo)
 
 void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
 {
-	if (state->contains("BOUNDING_BOX"))
-	{
-		if (isUndo)
-			textFlowUsesBoundingBoxVal = !state->getBool("BOUNDING_BOX");
-		else
-			textFlowUsesBoundingBoxVal = state->getBool("BOUNDING_BOX");
-	}
-	else if (state->contains("CONTOUR_LINE"))
-	{
-		if (isUndo)
-			textFlowUsesContourLineVal = !state->getBool("CONTOUR_LINE");
-		else
-			textFlowUsesContourLineVal = state->getBool("CONTOUR_LINE");
-	}
+	TextFlowMode oldMode = (TextFlowMode) state->getInt("TEXTFLOW_OLDMODE");
+	TextFlowMode newMode = (TextFlowMode) state->getInt("TEXTFLOW_NEWMODE");
+	if (isUndo)
+		textFlowModeVal = oldMode;
 	else
-	{
-		if (isUndo)
-			textFlowsAroundFrameVal = !state->getBool("TEXT_FLOW");
-		else
-			textFlowsAroundFrameVal = state->getBool("TEXT_FLOW");
-	}
+		textFlowModeVal = newMode;
 }
 
 void PageItem::restoreImageScaleType(SimpleState *state, bool isUndo)
@@ -2899,14 +2858,13 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->Clip = Clip.copy();
 	Buffer->PoLine = PoLine.copy();
 	Buffer->ContourLine = ContourLine.copy();
-	Buffer->UseContour = textFlowUsesContourLine();
+	//Buffer->UseContour = textFlowUsesContourLine();
 	Buffer->TabValues = TabValues;
 	Buffer->DashValues = DashValues;
 	Buffer->DashOffset = DashOffset;
 	Buffer->PoShow = PoShow;
 	Buffer->BaseOffs = BaseOffs;
-	Buffer->Textflow = textFlowsAroundFrame();
-	Buffer->Textflow2 = textFlowUsesBoundingBox();
+	Buffer->TextflowMode = textFlowMode();
 	Buffer->Groups = Groups;
 	Buffer->IProfile = IProfile;
 	Buffer->IRender = IRender;

@@ -250,8 +250,21 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.m_isAnnotation = pg.attribute("ANNOTATION", "0").toInt();
 			if (pg.attribute("TRANSPARENT", "0").toInt() == 1)
 				OB.Pcolor = CommonStrings::None;
-			OB.Textflow = pg.attribute("TEXTFLOW").toInt();
-			OB.Textflow2 = pg.attribute("TEXTFLOW2", "0").toInt();
+			//OB.Textflow = pg.attribute("TEXTFLOW").toInt();
+			//OB.Textflow2 = pg.attribute("TEXTFLOW2", "0").toInt();
+			if ( pg.hasAttribute("TEXTFLOWMODE") )
+				OB.TextflowMode = (PageItem::TextFlowMode) pg.attribute("TEXTFLOWMODE", "0").toInt();
+			else if ( pg.attribute("TEXTFLOW").toInt() )
+			{
+				if (pg.attribute("TEXTFLOW2", "0").toInt())
+					OB.TextflowMode = PageItem::TextFlowUsesBoundingBox;
+				else if (pg.attribute("TEXTFLOW3", "0").toInt())
+					OB.TextflowMode = PageItem::TextFlowUsesContourLine;
+				else
+					OB.TextflowMode = PageItem::TextFlowUsesFrameShape;	
+			}
+			else
+				OB.TextflowMode = PageItem::TextFlowDisabled;
 			OB.Extra = pg.attribute("EXTRA").toDouble();
 			OB.TExtra = pg.attribute("TEXTRA", "1").toDouble();
 			OB.BExtra = pg.attribute("BEXTRA", "1").toDouble();

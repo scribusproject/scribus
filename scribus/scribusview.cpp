@@ -1696,8 +1696,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Tx + offX, Ty + offY, deltaX, deltaY, Doc->toolSettings.dWidth, CommonStrings::None, Doc->toolSettings.dPenText, !m_MouseButtonPressed);
 					currItem = Doc->Items->at(z);
 					currItem->isTableItem = true;
-					currItem->setTextFlowsAroundFrame(true);
-					currItem->setTextFlowUsesBoundingBox(true);
+					//currItem->setTextFlowsAroundFrame(true);
+					//currItem->setTextFlowUsesBoundingBox(true);
+					currItem->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
 					Doc->m_Selection->addItem(currItem);
 					offX += deltaX;
 				}
@@ -5419,7 +5420,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				currItem->annotation().setType(11);
 				currItem->annotation().setZiel(Doc->currentPage()->pageNr());
 				currItem->annotation().setAction("0 0");
-				currItem->setTextFlowsAroundFrame(false);
+				currItem->setTextFlowMode(PageItem::TextFlowDisabled);
 				break;
 			}
 			SetupDraw(z);
@@ -9680,8 +9681,9 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->Clip = Buffer->Clip.copy();
 	currItem->PoShow = Buffer->PoShow;
 	currItem->BaseOffs = Buffer->BaseOffs;
-	currItem->setTextFlowsAroundFrame(Buffer->Textflow);
-	currItem->setTextFlowUsesBoundingBox(Buffer->Textflow2);
+	//currItem->setTextFlowsAroundFrame(Buffer->Textflow);
+	//currItem->setTextFlowUsesBoundingBox(Buffer->Textflow2);
+	currItem->setTextFlowMode((PageItem::TextFlowMode) Buffer->TextflowMode);
 //	currItem->textAlignment = Buffer->textAlignment;
 //	currItem->setFont(Buffer->IFont);
 //	currItem->setFontSize(Buffer->ISize);
@@ -9702,7 +9704,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	if (Buffer->LayerNr != -1)
 		currItem->LayerNr = Buffer->LayerNr;
 	currItem->PoLine = Buffer->PoLine.copy();
-	currItem->setTextFlowUsesContourLine(Buffer->UseContour);
+	//currItem->setTextFlowUsesContourLine(Buffer->UseContour);
+	currItem->setTextFlowMode((PageItem::TextFlowMode) Buffer->TextflowMode);
 	if (Buffer->ContourLine.size() == 0)
 		currItem->ContourLine = currItem->PoLine.copy();
 	else
@@ -10035,8 +10038,9 @@ void ScribusView::TextToPath()
 				}
 				uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), !m_MouseButtonPressed);
 				bb = Doc->Items->at(z);
-				bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
-				bb->setTextFlowUsesBoundingBox(currItem->textFlowUsesBoundingBox());
+				//bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
+				//bb->setTextFlowUsesBoundingBox(currItem->textFlowUsesBoundingBox());
+				bb->setTextFlowMode(currItem->textFlowMode());
 				bb->setSizeLocked(currItem->sizeLocked());
 				bb->setLocked(currItem->locked());
 				bb->NamedLStyle = currItem->NamedLStyle;

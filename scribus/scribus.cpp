@@ -2668,7 +2668,8 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	{
 		actionManager->setPDFActions(view);
 		updateItemLayerList();
-		propertiesPalette->textFlowsAroundFrame->setChecked(currItem->textFlowsAroundFrame());
+		//propertiesPalette->textFlowsAroundFrame->setChecked(currItem->textFlowsAroundFrame());
+		propertiesPalette->setTextFlowMode(currItem->textFlowMode());
 		scrActions["itemLock"]->setEnabled(true);
 		scrActions["itemLockSize"]->setEnabled(true);
 		scrActions["itemPrintingEnabled"]->setEnabled(true);

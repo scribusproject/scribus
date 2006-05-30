@@ -506,10 +506,12 @@ public:
 	static QString ImportEPS;
 	static QString ImportOOoDraw;
 	static QString ScratchSpace;
-	static QString TextFlow;
+	//static QString TextFlow;
+	static QString ObjectFrame;
 	static QString BoundingBox;
 	static QString ContourLine;
 	static QString NoTextFlow;
+	static QString NoObjectFrame;
 	static QString NoBoundingBox;
 	static QString NoContourLine;
 	static QString PageNmbr;

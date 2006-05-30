@@ -921,9 +921,19 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->m_annotation.setScaleW(obj->attribute("ANSCALE", "0").toInt());
 	if (obj->attribute("TRANSPARENT", "0").toInt() == 1)
 		OB->Pcolor = CommonStrings::None;
-	OB->Textflow=obj->attribute("TEXTFLOW").toInt();
-	OB->Textflow2 =obj->attribute("TEXTFLOW2", "0").toInt();
-	OB->UseContour = obj->attribute("TEXTFLOW3", "0").toInt();
+	if ( obj->hasAttribute("TEXTFLOWMODE") )
+		OB->TextflowMode = (PageItem::TextFlowMode) obj->attribute("TEXTFLOWMODE", "0").toInt();
+	else if ( obj->attribute("TEXTFLOW").toInt() )
+	{
+		if (obj->attribute("TEXTFLOW2", "0").toInt())
+			OB->TextflowMode = PageItem::TextFlowUsesBoundingBox;
+		else if (obj->attribute("TEXTFLOW3", "0").toInt())
+			OB->TextflowMode = PageItem::TextFlowUsesContourLine;
+		else
+			OB->TextflowMode = PageItem::TextFlowUsesFrameShape;	
+	}
+	else
+		OB->TextflowMode = PageItem::TextFlowDisabled;
 	OB->Extra=obj->attribute("EXTRA").toDouble();
 	OB->TExtra=obj->attribute("TEXTRA", "1").toDouble();
 	OB->BExtra=obj->attribute("BEXTRA", "1").toDouble();

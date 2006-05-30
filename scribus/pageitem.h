@@ -82,8 +82,6 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject
 	Q_PROPERTY(int startArrowIndex READ startArrowIndex WRITE setStartArrowIndex DESIGNABLE false)
 	Q_PROPERTY(int endArrowIndex READ endArrowIndex WRITE setEndArrowIndex DESIGNABLE false)
 
-	Q_PROPERTY(bool textFlowsAroundFrame READ textFlowsAroundFrame WRITE setTextFlowsAroundFrame DESIGNABLE false)
-	Q_PROPERTY(bool textFlowUsesBoundingBox READ textFlowUsesBoundingBox WRITE setTextFlowUsesBoundingBox DESIGNABLE false)
 	Q_PROPERTY(bool m_PrintEnabled READ printEnabled WRITE setPrintEnabled DESIGNABLE false)
 	Q_PROPERTY(double xPos READ xPos WRITE setXPos DESIGNABLE false)
 	Q_PROPERTY(double yPos READ yPos WRITE setYPos DESIGNABLE false)
@@ -140,6 +138,17 @@ public:
 		Polygon		= 6,
 		PolyLine	= 7,
 		PathText	= 8
+	};
+
+	/** @brief Text flow mode
+	 *
+	 * Describe if and how text flow around object
+	 */
+	enum TextFlowMode {
+		TextFlowDisabled = 0,
+		TextFlowUsesFrameShape  = 1,
+		TextFlowUsesBoundingBox = 2,
+		TextFlowUsesContourLine = 3
 	};
 
 	/* these do essentially the same as a dynamic cast but might be more readable */
@@ -668,55 +677,42 @@ public:
 	/** @brief set lock for resizing */
 	void setSizeLocked(bool isLocked);
 
+	/**
+	 * @brief Does text flow around this object and how
+	 * @sa setTextFlowMode()
+	 */
+	TextFlowMode textFlowMode() const { return textFlowModeVal; }
 
 	/**
-	 * @brief Does text flow around this object
-	 * @sa setTextFlowsAroundFrame()
+	 * @brief Changes the way text flows around this item
+	 * @param mode true if text is wanted to flow around this object or false if not
+	 * @sa textFlowMode()
 	 */
-	bool textFlowsAroundFrame() const { return textFlowsAroundFrameVal; }
-	/**
-	 * @brief Enable/disable text flowing around this item
-	 * @param isFlowing true if text is wanted to flow around this object or false if not
-	 * @sa textFlowsAroundFrame()
-	 */
-	void setTextFlowsAroundFrame(bool isFlowing);
+	void setTextFlowMode(TextFlowMode mode);
 
 	/**
-	 * @brief Should text flow around the object's bounding box if text flow is enabled?
-	 * @sa PageItem::setTextFlowUsesBoundingBox()
+	 * @brief If text should flow around object frame
+	 * @sa PageItem::setTextFlowMode()
 	 */
-	bool textFlowUsesBoundingBox() const { return textFlowUsesBoundingBoxVal; }
-	/**
-	 * @brief Tells if the text flow should follow the square frame border if <code>useBounding</code>
-	 * @brief is true, if it is set false text fill flow around the object border rather than frame.
-	 *
-	 * Setting this to true will unset contour line to false. Bounding box and contour line cannot
-	 * be used at the same time.
-	 * @param useBounding true if text should flow around the frame border false if it should follow
-	 * the actual shape of the object.
-	 * @sa setTextFlowsAroundFrame()
-	 * @sa setTextFlowUsesContourLine()
-	 * @sa textFlowUsesBoundingBox()
-	 */
-	void setTextFlowUsesBoundingBox(bool useBounding);
+	bool textFlowAroundObject() const { return (textFlowModeVal != TextFlowDisabled); }
 
 	/**
-	 * @brief Should text flow around the contour line of the frame?
-	 * @sa setTextFlowUsesContourLine()
+	 * @brief If text should flow around object frame
+	 * @sa PageItem::setTextFlowMode()
 	 */
-	bool textFlowUsesContourLine() const { return textFlowUsesContourLineVal; }
+	bool textFlowUsesFrameShape() const { return (textFlowModeVal == TextFlowUsesFrameShape); }
+
 	/**
-	 * @brief Tells if the text flow should follow the contour line of the frame.
-	 *
-	 * Setting this to true will unset bounding box to false. Contour line and bounding box cannot
-	 * be used at the same time.
-	 * @param useContour true if text should flow around the contour line of the frame false if
-	 * it should flow around the actual shap of the object.
-	 * @sa setTextFlowsAroundFrame()
-	 * @sa setTextFlowUsesBoundingBox()
-	 * @sa textFlowUsesContourLine()
+	 * @brief If text should flow around bounding box
+	 * @sa PageItem::setTextFlowMode()
 	 */
-	void setTextFlowUsesContourLine(bool useContour);
+	bool textFlowUsesBoundingBox() const { return (textFlowModeVal == TextFlowUsesBoundingBox); }
+
+	/**
+	 * @brief If text should flow around contour line
+	 * @sa PageItem::setTextFlowMode()
+	 */
+	bool textFlowUsesContourLine() const { return (textFlowModeVal == TextFlowUsesContourLine); }
 
 	/** @brief Get the frame type
 	 *
@@ -965,21 +961,9 @@ protected:
 
 	/**
 	 * @brief Should text flow around the item
-	 * @sa PageItem::textFlowsAroundFrame(), PateItem::setTextFlowsAroundFrame()
+	 * @sa PageItem::textFlowMode(), PateItem::setTextFlowMode()
 	 */
-	bool textFlowsAroundFrameVal;
-
-	/**
-	 * @brief Should text flow around the item's bounding box?
-	 * @sa PageItem::textFlowUsesBoundingBox(), PageItem::setTextFlowUsesBoundingBox()
-	 */
-	bool textFlowUsesBoundingBoxVal;
-
-	/**
-	 * @brief Should text flow around the item's contour line?
-	 * @sa PageItem::textFlowUsesContourLine(), PageItem::setTextFlowUsesContourLine()
-	 */
-	bool textFlowUsesContourLineVal;
+	TextFlowMode textFlowModeVal;
 
 	/**
 	 * @brief Stores the attributes of the pageitem (NOT properties, the user defined ATTRIBUTES)

@@ -120,7 +120,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 				int LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
 				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev) && (m_Doc->layerFlow(docItem->LayerNr)))
 				{
-					if (docItem->textFlowsAroundFrame())
+					if (docItem->textFlowAroundObject())
 					{
 						result = result.subtract(itemShape(docItem, m_Doc->view(),  Mp->xOffset() - Dp->xOffset(), Mp->yOffset() - Dp->yOffset()));
 					}
@@ -133,7 +133,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 					PageItem* docItem = m_Doc->Items->at(a);
 					Page* Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
 					Page* Dp = m_Doc->Pages->at(OwnPage);
-					if ((docItem->textFlowsAroundFrame()) && (docItem->OwnPage == OwnPage))
+					if ((docItem->textFlowAroundObject()) && (docItem->OwnPage == OwnPage))
 					{
 						result = result.subtract(itemShape(docItem, m_Doc->view(), Mp->xOffset() - Dp->xOffset(), Mp->yOffset() - Dp->yOffset()));
 					}
@@ -148,7 +148,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 				int LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
 				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev) && (m_Doc->layerFlow(docItem->LayerNr)))
 				{
-					 if (docItem->textFlowsAroundFrame())
+					 if (docItem->textFlowAroundObject())
 						result = result.subtract(itemShape(docItem, m_Doc->view(), 0, 0));
 				}
 			} // for all docItems

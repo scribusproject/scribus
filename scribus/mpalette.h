@@ -104,6 +104,7 @@ public:
 	void setGradientEditMode(bool);
 	void updateCList();
 	void updateCmsList();
+	void setTextFlowMode(PageItem::TextFlowMode mode);
 	void ShowCMS();
 	/*! \brief fills the langs combobox in language specific order
 	\author 10/07/2004 - Petr Vanek - rewritten to fix #1185.
@@ -123,7 +124,7 @@ public:
 	ArrowChooser* startArrow;
 	ArrowChooser* endArrow;
 	QButtonGroup* RotationGroup;
-	QButtonGroup* textFlowsAroundFrame;	
+	QButtonGroup* textFlowOptions;	
 	
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);
@@ -242,9 +243,6 @@ private slots:
 	void HandleTLines();
 	void setStartArrow(int id);
 	void setEndArrow(int id);
-	void toggleTextFlowsAroundFrame(bool);
-	void clickTextFlowUsesBoundingBox();
-	void clickTextFlowUsesContourLine();
 
 protected slots:
 	//virtual void reject();
@@ -303,7 +301,7 @@ protected:
 	QVBoxLayout* DistanceLayout3;
 	QGridLayout* GroupBox3aLayout;
 	QVBoxLayout* GroupBoxCMLayout;
-	QVBoxLayout* textFlowsAroundFrameLayout;
+	QVBoxLayout* textFlowOptionsLayout;
 	QHBoxLayout* layout23;
 	QHBoxLayout* layout24;
 	
@@ -410,8 +408,10 @@ protected:
 	QGroupBox* TLines;
 	QGroupBox* GroupBox3a;
 
-	QCheckBox* textFlowUsesBoundingBox;
-	QCheckBox* textFlowUsesContourLine;
+	QRadioButton* textFlowDisabled;
+	QRadioButton* textFlowUsesFrameShape;
+	QRadioButton* textFlowUsesBoundingBox;
+	QRadioButton* textFlowUsesContourLine;
 	QCheckBox* Aspect;
 	QCheckBox* showcurveCheckBox;
 	QCheckBox* TopLine;

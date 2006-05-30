@@ -102,9 +102,7 @@ struct CopyPasteBuffer
 	FPointArray ContourLine;
 	bool PoShow;
 	double BaseOffs;
-	bool Textflow;
-	bool Textflow2;
-	bool UseContour;
+	int TextflowMode;
 	int textAlignment;
 	QString IFont;
 	int ISize;

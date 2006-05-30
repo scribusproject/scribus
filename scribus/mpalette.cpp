@@ -432,18 +432,23 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 
 	pageLayout_2->addWidget( TabStack2 );
 
-	textFlowsAroundFrame = new QButtonGroup( page_2, "textFlowsAroundFrame" );
-	textFlowsAroundFrame->setColumnLayout(0, Qt::Vertical );
-	textFlowsAroundFrame->layout()->setSpacing( 5 );
-	textFlowsAroundFrame->layout()->setMargin( 10 );
-	textFlowsAroundFrameLayout = new QVBoxLayout( textFlowsAroundFrame->layout() );
-	textFlowsAroundFrameLayout->setAlignment( Qt::AlignTop );
-	textFlowsAroundFrame->setCheckable( true );
-	textFlowUsesBoundingBox = new QCheckBox( "Use &Bounding Box", textFlowsAroundFrame, "textFlowUsesBoundingBox" );
-	textFlowsAroundFrameLayout->addWidget( textFlowUsesBoundingBox );
-	textFlowUsesContourLine = new QCheckBox( "&Use Contour Line", textFlowsAroundFrame, "textFlowUsesContourLine" );
-	textFlowsAroundFrameLayout->addWidget( textFlowUsesContourLine );
-	pageLayout_2->addWidget( textFlowsAroundFrame );
+	textFlowOptions = new QButtonGroup( page_2, "textFlowOptions" );
+	textFlowOptions->setColumnLayout(0, Qt::Vertical );
+	textFlowOptions->layout()->setSpacing( 5 );
+	textFlowOptions->layout()->setMargin( 10 );
+	textFlowOptionsLayout = new QVBoxLayout( textFlowOptions->layout() );
+	textFlowOptionsLayout->setAlignment( Qt::AlignTop );
+	textFlowOptions->setCheckable( false );
+	textFlowOptions->setExclusive( true );
+	textFlowDisabled = new QRadioButton( "Disabled", textFlowOptions, "textFlowDisabled" );
+	textFlowOptionsLayout->addWidget( textFlowDisabled );
+	textFlowUsesFrameShape  = new QRadioButton( "Use &Frame Shape", textFlowOptions, "textFlowUsesObjectFrame" );
+	textFlowOptionsLayout->addWidget( textFlowUsesFrameShape );
+	textFlowUsesBoundingBox = new QRadioButton( "Use &Bounding Box", textFlowOptions, "textFlowUsesBoundingBox" );
+	textFlowOptionsLayout->addWidget( textFlowUsesBoundingBox );
+	textFlowUsesContourLine = new QRadioButton( "&Use Contour Line", textFlowOptions, "textFlowUsesContourLine" );
+	textFlowOptionsLayout->addWidget( textFlowUsesContourLine );
+	pageLayout_2->addWidget( textFlowOptions  );
 
 	QSpacerItem* spacer6 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	pageLayout_2->addItem( spacer6 );
@@ -810,11 +815,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(ZTop, SIGNAL(clicked()), this, SLOT(DoFront()));
 	connect(ZBottom, SIGNAL(clicked()), this, SLOT(DoBack()));
 	connect(RotationGroup, SIGNAL(clicked(int)), this, SLOT(NewRotMode(int)));
-	// Workaround for a qt 3.3.6 bug
-	//connect(textFlowsAroundFrame, SIGNAL(clicked(int)), this, SLOT(DoFlow(int)));
-	connect(textFlowsAroundFrame, SIGNAL(toggled(bool)), this, SLOT(toggleTextFlowsAroundFrame(bool)));
-	connect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(clickTextFlowUsesBoundingBox()));
-	connect(textFlowUsesContourLine, SIGNAL(clicked()), this, SLOT(clickTextFlowUsesContourLine()));
+	connect(textFlowOptions, SIGNAL(clicked(int)), this, SLOT(DoFlow(int)));
 
 	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
 	connect(EditShape, SIGNAL(clicked()), this, SLOT(EditSh()));
@@ -1009,11 +1010,8 @@ void Mpalette::setCurrentItem(PageItem *i)
 	Revert->setOn(i->reversed());
 	setDvals(i->textToFrameDistLeft(), i->textToFrameDistTop(), i->textToFrameDistBottom(), i->textToFrameDistRight());
 	LevelTxt->setText(QString::number(i->ItemNr));
-	textFlowsAroundFrame->setChecked(i->textFlowsAroundFrame());
-	textFlowUsesBoundingBox->setChecked(i->textFlowUsesBoundingBox());
+	setTextFlowMode(i->textFlowMode());
 	RoundRect->setValue(i->cornerRadius()*Umrech);
-
-	textFlowUsesContourLine->setChecked(i->textFlowUsesContourLine());
 	/*
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
@@ -1187,6 +1185,20 @@ void Mpalette::setCurrentItem(PageItem *i)
 }
 
 
+void Mpalette::setTextFlowMode(PageItem::TextFlowMode mode)
+{
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
+		return;
+	if (mode == PageItem::TextFlowDisabled)
+		textFlowDisabled->setChecked(true);
+	else if (mode == PageItem::TextFlowUsesFrameShape)
+		textFlowUsesFrameShape->setChecked(true);
+	else if (mode == PageItem::TextFlowUsesBoundingBox)
+		textFlowUsesBoundingBox->setChecked(true);
+	else if (mode == PageItem::TextFlowUsesContourLine)
+		textFlowUsesContourLine->setChecked(true);
+}
+
 void Mpalette::SetCurItem(PageItem *i)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
@@ -1255,9 +1267,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		DRight->setValue(i2->textToFrameDistRight()*Umrech);
 	}
 	Revert->setOn(i->reversed());
-	textFlowsAroundFrame->setChecked(i->textFlowsAroundFrame());
-	textFlowUsesBoundingBox->setChecked(i->textFlowUsesBoundingBox());
-	textFlowUsesContourLine->setChecked(i->textFlowUsesContourLine());
+	setTextFlowMode(i->textFlowMode());
 	/*
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
@@ -3126,54 +3136,25 @@ void Mpalette::NewRotMode(int m)
 	}
 }
 
-void Mpalette::DoFlow(int id)
+void Mpalette::DoFlow(int /*id*/)
 {
+	PageItem::TextFlowMode mode = PageItem::TextFlowDisabled;
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		switch (id)
-		{
-			case 0:
-				CurItem->setTextFlowsAroundFrame(textFlowsAroundFrame->isChecked());
-				textFlowUsesBoundingBox->setChecked(CurItem->textFlowUsesBoundingBox());
-				textFlowUsesContourLine->setChecked(CurItem->textFlowUsesContourLine());
-				break;
-			case 1:
-				CurItem->setTextFlowUsesBoundingBox(textFlowUsesBoundingBox->isChecked());
-				if (textFlowUsesBoundingBox->isChecked())
-				{
-					textFlowUsesContourLine->setChecked(!textFlowUsesBoundingBox->isChecked());
-					CurItem->setTextFlowUsesContourLine(textFlowUsesContourLine->isChecked());
-				}
-				break;
-			case 2:
-				CurItem->setTextFlowUsesContourLine(textFlowUsesContourLine->isChecked());
-				if (textFlowUsesContourLine->isChecked())
-				{
-					textFlowUsesBoundingBox->setChecked(!textFlowUsesContourLine->isChecked());
-					CurItem->setTextFlowUsesBoundingBox(textFlowUsesBoundingBox->isChecked());
-				}
-				break;
-		}
+		if (textFlowDisabled->isChecked())
+			mode = PageItem::TextFlowDisabled;
+		if (textFlowUsesFrameShape->isChecked())
+			mode = PageItem::TextFlowUsesFrameShape;
+		if (textFlowUsesBoundingBox->isChecked())
+			mode = PageItem::TextFlowUsesBoundingBox;
+		if (textFlowUsesContourLine->isChecked())
+			mode = PageItem::TextFlowUsesContourLine;
+		CurItem->setTextFlowMode(mode);
 		m_MainWindow->view->DrawNew();
 		emit DocChanged();
 	}
-}
-
-void Mpalette::toggleTextFlowsAroundFrame(bool)
-{
-	DoFlow(0);
-}
-
-void Mpalette::clickTextFlowUsesBoundingBox()
-{
-	DoFlow(1);
-}
-
-void Mpalette::clickTextFlowUsesContourLine()
-{
-	DoFlow(2);
 }
 
 void Mpalette::MakeIrre(int f, int c, double *vals)
@@ -3856,7 +3837,9 @@ void Mpalette::languageChange()
 	Distance3->setTitle( tr("Fill Rule"));
 	EvenOdd->setText( tr("Even-Odd"));
 	NonZero->setText( tr("Non Zero"));
-	textFlowsAroundFrame->setTitle( tr("Text &Flows Around Frame"));
+	textFlowOptions->setTitle( tr("Text &Flow Around Frame"));
+	textFlowDisabled->setText( tr("Disabled"));
+	textFlowUsesFrameShape->setText( tr("Use Frame &Shape"));
 	textFlowUsesBoundingBox->setText( tr("Use &Bounding Box"));
 	textFlowUsesContourLine->setText( tr("&Use Contour Line"));
 	styleLabel->setText( tr("St&yle:"));
@@ -3986,7 +3969,9 @@ void Mpalette::languageChange()
 	QToolTip::remove(Locked);
 	QToolTip::remove(NoResize);
 	QToolTip::remove(NoPrint);
-	QToolTip::remove(textFlowsAroundFrame);
+	QToolTip::remove(textFlowOptions);
+	QToolTip::remove(textFlowDisabled);
+	QToolTip::remove(textFlowUsesFrameShape);
 	QToolTip::remove(textFlowUsesBoundingBox);
 	QToolTip::remove(textFlowUsesContourLine);
 
@@ -4059,7 +4044,9 @@ void Mpalette::languageChange()
 	QToolTip::add(Locked, tr("Lock or unlock the object"));
 	QToolTip::add(NoResize, tr("Lock or unlock the size of the object"));
 	QToolTip::add(NoPrint, tr("Enable or disable printing of the object"));
-	QToolTip::add(textFlowsAroundFrame, tr("Make text in lower frames flow around the object shape"));
+	QToolTip::add(textFlowOptions, tr("Make text in lower frames flow around the object shape"));
+	QToolTip::add(textFlowDisabled, tr("Disable text flow around object"));
+	QToolTip::add(textFlowUsesFrameShape, tr("Use the frame shape for text flow"));
 	QToolTip::add(textFlowUsesBoundingBox, tr("Use a surrounding box instead of the frame's shape for text flow"));
 	QToolTip::add(textFlowUsesContourLine, tr("Use a second line originally based on the frame's shape for text flow"));
 

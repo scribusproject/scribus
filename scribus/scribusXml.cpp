@@ -370,7 +370,11 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	else
 		ob->setAttribute("ANNOTATION",0);
 	ob->setAttribute("ANNAME", !item->AutoName ? item->itemName() : QString(""));
-	ob->setAttribute("TEXTFLOW", item->textFlowsAroundFrame() ? 1 : 0);
+	// "TEXTFLOWMODE" succeed to "TEXTFLOW" "TEXTFLOW2" and "TEXTFLOW3" attributes
+	ob->setAttribute("TEXTFLOWMODE", (int) item->textFlowMode() );
+	// Set "TEXTFLOW" "TEXTFLOW2" and "TEXTFLOW3" attributes for compatibility
+	// with versions prior to 1.3.4
+	ob->setAttribute("TEXTFLOW" , item->textFlowAroundObject() ? 1 : 0);
 	ob->setAttribute("TEXTFLOW2", item->textFlowUsesBoundingBox() ? 1 : 0);
 	ob->setAttribute("TEXTFLOW3", item->textFlowUsesContourLine() ? 1 : 0);
 	ob->setAttribute("AUTOTEXT", item->isAutoText ? 1 : 0);
