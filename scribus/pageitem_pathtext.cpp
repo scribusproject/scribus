@@ -87,7 +87,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 	double segLen = 0;
 	double distCurX;
 	CurX = Extra;
-	if (!m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+	if (!m_Doc->layerOutline(LayerNr))
 	{
 		if (lineColor() != CommonStrings::None && PoShow)
 		{

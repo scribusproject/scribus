@@ -66,7 +66,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 {
 	if (!m_Doc->RePos && PoLine.size()>=4)
 	{
-		if (!m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+		if (!m_Doc->layerOutline(LayerNr))
 		{
 			if ((fillColor() != CommonStrings::None) || (GrType != 0))
 			{
@@ -140,7 +140,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 					arrowTrans.scale(m_lineWidth, m_lineWidth);
 					arrow.map(arrowTrans);
 					p->setupPolygon(&arrow);
-					if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+					if (m_Doc->layerOutline(LayerNr))
 						p->strokePath();
 					else
 					{
@@ -170,7 +170,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 					arrowTrans.scale(m_lineWidth, m_lineWidth);
 					arrow.map(arrowTrans);
 					p->setupPolygon(&arrow);
-					if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+					if (m_Doc->layerOutline(LayerNr))
 						p->strokePath();
 					else
 					{

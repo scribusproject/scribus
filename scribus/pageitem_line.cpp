@@ -66,7 +66,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 {
 	if (!m_Doc->RePos)
 	{
-		if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+		if (m_Doc->layerOutline(LayerNr))
 			p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 		else
 		{
@@ -96,7 +96,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 			arrowTrans.scale(-1,1);
 			arrow.map(arrowTrans);
 			p->setupPolygon(&arrow);
-			if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+			if (m_Doc->layerOutline(LayerNr))
 				p->strokePath();
 			else
 			{
@@ -115,7 +115,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 			arrowTrans.scale(m_lineWidth, m_lineWidth);
 			arrow.map(arrowTrans);
 			p->setupPolygon(&arrow);
-			if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+			if (m_Doc->layerOutline(LayerNr))
 				p->strokePath();
 			else
 			{

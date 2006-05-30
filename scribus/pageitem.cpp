@@ -736,7 +736,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 		return;
 	}
 	DrawObj_Pre(p, sc);
-	if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+	if (m_Doc->layerOutline(LayerNr))
 	{
 		if (itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line || itemType()==PolyLine)
 			DrawObj_Item(p, e, sc);
@@ -758,9 +758,9 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 //		p->rotate(Rot);
 	}
 		p->rotate(Rot);
-	if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+	if (m_Doc->layerOutline(LayerNr))
 	{
-		p->setPen(m_Doc->layerMarker(m_Doc->layerLevelFromNumber(LayerNr)), 1, SolidLine, FlatCap, MiterJoin);
+		p->setPen(m_Doc->layerMarker(LayerNr), 1, SolidLine, FlatCap, MiterJoin);
 		p->setFillMode(ScPainter::None);
 		p->setBrushOpacity(1.0);
 		p->setPenOpacity(1.0);
@@ -827,11 +827,11 @@ void PageItem::DrawObj_Post(ScPainter *p)
 {
 	bool doStroke=true;
 	ScribusView* view = m_Doc->view();
-	if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+	if (m_Doc->layerOutline(LayerNr))
 	{
 		if (itemType()!=Line)
 		{
-			p->setPen(m_Doc->layerMarker(m_Doc->layerLevelFromNumber(LayerNr)), 1, SolidLine, FlatCap, MiterJoin);
+			p->setPen(m_Doc->layerMarker(LayerNr), 1, SolidLine, FlatCap, MiterJoin);
 			p->setFillMode(ScPainter::None);
 			p->setBrushOpacity(1.0);
 			p->setPenOpacity(1.0);
@@ -937,16 +937,16 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			p->setupPolygon(&ContourLine);
 			p->strokePath();
 		}
-		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr))))
+		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)))
 		{
-			p->setBrush(m_Doc->layerMarker(m_Doc->layerLevelFromNumber(LayerNr)));
+			p->setPen(black, 0.5/ m_Doc->view()->scale(), SolidLine, FlatCap, MiterJoin);
+			p->setPenOpacity(1.0);
+			p->setBrush(m_Doc->layerMarker(LayerNr));
+			p->setBrushOpacity(1.0);
 			p->setFillMode(ScPainter::Solid);
-			p->setLineWidth(0);
 			double ofwh = 10;
 			double ofx = Width - ofwh/2;
 			double ofy = Height - ofwh*3;
-			p->setPenOpacity(1.0);
-			p->setBrushOpacity(1.0);
 			p->drawRect(ofx, ofy, ofwh, ofwh);
 		}
 		//CB disabled for now
@@ -1387,10 +1387,10 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			bool fr = p->fillRule();
 			p->setFillRule(false);
 			p->setupTextPolygon(&gly);
-			if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+			if (m_Doc->layerOutline(LayerNr))
 			{
 				p->save();
-				p->setPen(m_Doc->layerMarker(m_Doc->layerLevelFromNumber(LayerNr)), 0.5, SolidLine, FlatCap, MiterJoin);
+				p->setPen(m_Doc->layerMarker(LayerNr), 0.5, SolidLine, FlatCap, MiterJoin);
 				p->setFillMode(ScPainter::None);
 				p->setBrushOpacity(1.0);
 				p->setPenOpacity(1.0);

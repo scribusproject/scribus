@@ -1019,11 +1019,17 @@ void ScPainter::drawVPath( int mode )
 				double g = qGreen( qStopColor.rgb() ) / 255.0;
 				double b = qBlue( qStopColor.rgb() ) / 255.0;
 				double a = colorStops[offset]->opacity;
-				cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
+/*				if (a == 1.0)
+					cairo_pattern_add_color_stop_rgb (pat, colorStops[ offset ]->rampPoint, r, g, b);
+				else */
+					cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
 			}
 			cairo_set_source (m_cr, pat);
 			cairo_clip_preserve (m_cr);
-			cairo_paint_with_alpha (m_cr, fill_trans);
+/*			if (fill_trans == 1.0)
+				cairo_paint(m_cr);
+			else */
+				cairo_paint_with_alpha (m_cr, fill_trans);
 			cairo_pattern_destroy (pat);
 		}
 		else
@@ -1031,7 +1037,10 @@ void ScPainter::drawVPath( int mode )
 			double r = qRed( m_fill.rgb() ) / 255.0;
 			double g = qGreen( m_fill.rgb() ) / 255.0;
 			double b = qBlue( m_fill.rgb() ) / 255.0;
-			cairo_set_source_rgba( m_cr, r, g, b, fill_trans );
+/*			if (fill_trans == 1.0)
+				cairo_set_source_rgb( m_cr, r, g, b);
+			else */
+				cairo_set_source_rgba( m_cr, r, g, b, fill_trans );
 			cairo_fill_preserve( m_cr );
 		}
 	}
@@ -1053,7 +1062,10 @@ void ScPainter::drawVPath( int mode )
 		double r = qRed( m_stroke.rgb() ) / 255.0;
 		double g = qGreen( m_stroke.rgb() ) / 255.0;
 		double b = qBlue( m_stroke.rgb() ) / 255.0;
-		cairo_set_source_rgba( m_cr, r, g, b, stroke_trans );
+/*		if (stroke_trans == 1.0)
+			cairo_set_source_rgb( m_cr, r, g, b);
+		else */
+			cairo_set_source_rgba( m_cr, r, g, b, stroke_trans );
 		if( PLineEnd == Qt::RoundCap )
 			cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_ROUND);
 		else if( PLineEnd == Qt::SquareCap )

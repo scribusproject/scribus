@@ -1707,7 +1707,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	pf2.begin(view->viewport());
 	pf2.translate(Xpos, Ypos);
 	pf2.rotate(Rot);
-	if (!m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+	if (!m_Doc->layerOutline(LayerNr))
 	{
 		if ((fillColor() != CommonStrings::None) || (GrType != 0))
 		{
@@ -3476,9 +3476,9 @@ NoRoom:
 void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 {
 	ScribusView* view = m_Doc->view();
-	if (m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr)))
+	if (m_Doc->layerOutline(LayerNr))
 	{
-		p->setPen(m_Doc->layerMarker(m_Doc->layerLevelFromNumber(LayerNr)), 1, SolidLine, FlatCap, MiterJoin);
+		p->setPen(m_Doc->layerMarker(LayerNr), 1, SolidLine, FlatCap, MiterJoin);
 		p->setFillMode(ScPainter::None);
 		p->setBrushOpacity(1.0);
 		p->setPenOpacity(1.0);
@@ -3571,16 +3571,16 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		}
 		if (m_Doc->guidesSettings.colBordersShown && !view->previewMode)
 			drawColumnBorders(p);
-		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(m_Doc->layerLevelFromNumber(LayerNr))))
+		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)))
 		{
-			p->setBrush(m_Doc->layerMarker(m_Doc->layerLevelFromNumber(LayerNr)));
+			p->setPen(black, 0.5/ m_Doc->view()->scale(), SolidLine, FlatCap, MiterJoin);
+			p->setPenOpacity(1.0);
+			p->setBrush(m_Doc->layerMarker(LayerNr));
+			p->setBrushOpacity(1.0);
 			p->setFillMode(ScPainter::Solid);
-			p->setLineWidth(0);
 			double ofwh = 10;
 			double ofx = Width - ofwh/2;
 			double ofy = Height - ofwh*3;
-			p->setPenOpacity(1.0);
-			p->setBrushOpacity(1.0);
 			p->drawRect(ofx, ofy, ofwh, ofwh);
 		}
 		//if (m_Doc->selection->findItem(this)!=-1)
