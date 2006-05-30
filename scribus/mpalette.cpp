@@ -883,6 +883,9 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 void Mpalette::setMainWindow(ScribusMainWindow* mw)
 {
 	m_MainWindow=mw;
+	QPoint p1 = mapToGlobal(pos());
+	QPoint p2 = m_MainWindow->mapFromGlobal(p1);
+	reparent(m_MainWindow, this->getWFlags(), p2);
 	
 	connect(this, SIGNAL(DocChanged()), m_MainWindow, SLOT(slotDocCh()));
 	connect(this, SIGNAL(NewAbStyle(int)), m_MainWindow, SLOT(setNewAbStyle(int)));
