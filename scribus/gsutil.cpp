@@ -139,9 +139,27 @@ int  convertPS2PS(QString in, QString out, const QStringList& opts, int level)
 	args.append( "-dNOPAUSE" );
 	args.append( "-dPARANOIDSAFER" );
 	args.append( "-dBATCH" );
-	args.append( "-sDEVICE=pswrite" );
-	if(level <= 3)
-		args.append( QString("-dLanguageLevel=%1").arg(level) );
+	if( level == 2 )
+	{
+		int major = 0, minor = 0;
+		// ps2write cannot be detected with testGSAvailability()
+		// so determine availability according to gs version.
+		getNumericGSVersion(major, minor);
+		if ((major >=8 && minor >= 53) || major > 8)
+			args.append( "-sDEVICE=ps2write" );
+		else
+		{
+			args.append( "-sDEVICE=pswrite" );
+			args.append( QString("-dLanguageLevel=%1").arg(level) );
+		}
+			
+	}
+	else
+	{
+		args.append( "-sDEVICE=pswrite" );
+		if(level <= 3)
+			args.append( QString("-dLanguageLevel=%1").arg(level) );
+	}
 	args += opts;
 	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(out)) );
 	args.append( QDir::convertSeparators(in) );
