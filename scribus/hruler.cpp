@@ -383,7 +383,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		}
 		if ((Mpressed) && (RulerCode == 5) && ((m->y() > height()) || (m->y() < 0)))
 		{
-			qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png"), 4, 3), true);
+			qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1), true);
 			return;
 		}
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
