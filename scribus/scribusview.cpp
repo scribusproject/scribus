@@ -4294,9 +4294,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								if (Doc->EditClipMode == 0)
 									qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 								if (Doc->EditClipMode == 2)
-									qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png"), 4, 3), true);
+									qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1), true);
 								if (Doc->EditClipMode == 3)
-									qApp->setOverrideCursor(QCursor(loadIcon("Split.png"), 4, 3), true);
+									qApp->setOverrideCursor(QCursor(loadIcon("Split.png"), 1, 1), true);
 								p.end();
 								return;
 							}
@@ -4316,7 +4316,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 									if (Doc->EditClipMode == 0)
 										qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
 									if (Doc->EditClipMode == 1)
-										qApp->setOverrideCursor(QCursor(loadIcon("AddPoint.png"), 4, 3), true);
+										qApp->setOverrideCursor(QCursor(loadIcon("AddPoint.png"), 1, 1), true);
 									ClRe2 = poi;
 									p.end();
 									return;
