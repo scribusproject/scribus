@@ -539,7 +539,7 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 	              DocOutputProf, TYPE_RGBA_8,
 	              DocPrinterProf,
 	              IntentImages,
-	              IntentImages, dcmsFlagsGC | cmsFLAGS_SOFTPROOFING);
+	              INTENT_RELATIVE_COLORIMETRIC, dcmsFlagsGC | cmsFLAGS_SOFTPROOFING);
 	stdTransImg = cmsCreateTransform(DocInputRGBProf, TYPE_RGBA_8,
 	                                 DocOutputProf, TYPE_RGBA_8,
 	                                 IntentImages,
@@ -559,22 +559,22 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 	                        DocOutputProf, TYPE_RGB_16,
 	                        DocPrinterProf,
 	                        IntentColors,
-	                        IntentColors, dcmsFlags | cmsFLAGS_SOFTPROOFING);
+	                        INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
 		stdProofGC = cmsCreateProofingTransform(DocInputRGBProf, TYPE_RGB_16,
 	                        DocOutputProf, TYPE_RGB_16,
 	                        DocPrinterProf,
 	                        IntentColors,
-	                        IntentColors, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
+	                        INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
 		stdProofCMYK = cmsCreateProofingTransform(inputProf, TYPE_CMYK_16,
 							DocOutputProf, TYPE_RGB_16,
 							DocPrinterProf,
 							IntentColors,
-							IntentColors, dcmsFlags | cmsFLAGS_SOFTPROOFING);
+							INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
 		stdProofCMYKGC = cmsCreateProofingTransform(inputProf, TYPE_CMYK_16,
 							DocOutputProf, TYPE_RGB_16,
 							DocPrinterProf,
 							IntentColors,
-							IntentColors, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
+							INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
 	}
 	else
 	{
@@ -583,22 +583,22 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 	                        DocOutputProf, TYPE_RGB_16,
 	                        DocPrinterProf,
 	                        IntentColors,
-	                        IntentColors, dcmsFlags | cmsFLAGS_SOFTPROOFING);
+	                        INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
 		stdProofGC = cmsCreateProofingTransform(inputProf, TYPE_RGB_16,
 	                        DocOutputProf, TYPE_RGB_16,
 	                        DocPrinterProf,
 	                        IntentColors,
-	                        IntentColors, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
+	                        INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
 		stdProofCMYK = cmsCreateProofingTransform(DocInputCMYKProf, TYPE_CMYK_16,
 							DocOutputProf, TYPE_RGB_16,
 							DocPrinterProf,
 							IntentColors,
-							IntentColors, dcmsFlags | cmsFLAGS_SOFTPROOFING);
+							INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
 		stdProofCMYKGC = cmsCreateProofingTransform(DocInputCMYKProf, TYPE_CMYK_16,
 							DocOutputProf, TYPE_RGB_16,
 							DocPrinterProf,
 							IntentColors,
-							IntentColors, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
+							INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
 	}
 	cmsSetErrorHandler(NULL);
 	return true;

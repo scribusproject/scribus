@@ -4316,7 +4316,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				if (SoftProofing)
 					xform = cmsCreateProofingTransform(inputProf, inputProfFormat,
 					                                   CMSoutputProf, TYPE_BGRA_8, CMSprinterProf,
-					                                   IntentImages, rend, cmsFlags);
+					                                   rend, INTENT_RELATIVE_COLORIMETRIC, cmsFlags);
 				else
 					xform = cmsCreateTransform(inputProf, inputProfFormat,
 					                           CMSoutputProf, TYPE_BGRA_8, rend, cmsFlags);
