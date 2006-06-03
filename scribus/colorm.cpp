@@ -473,23 +473,37 @@ void ColorManager::loadDefaults(int id)
 			while (!tsC.atEnd())
 			{
 				ScColor tmp;
-				ColorEn = tsC.readLine();
+				ColorEn = tsC.readLine().stripWhiteSpace();
 				if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
 					continue;
-				QTextStream CoE(&ColorEn, IO_ReadOnly);
-				CoE >> Rval;
-				CoE >> Gval;
-				CoE >> Bval;
-				if (cus)
-				{
-					CoE >> Kval;
-					Cname = CoE.read().stripWhiteSpace();
-					tmp.setColor(Rval, Gval, Bval, Kval);
+				
+				if (ColorEn[0].isNumber()) {
+					QTextStream CoE(&ColorEn, IO_ReadOnly);
+					CoE >> Rval;
+					CoE >> Gval;
+					CoE >> Bval;
+					if (cus)
+					{
+						CoE >> Kval;
+						Cname = CoE.read().stripWhiteSpace();
+						tmp.setColor(Rval, Gval, Bval, Kval);
+					}
+					else
+					{
+						Cname = CoE.read().stripWhiteSpace();
+						tmp.setColorRGB(Rval, Gval, Bval);
+					}
 				}
-				else
-				{
-					Cname = CoE.read().stripWhiteSpace();
-					tmp.setColorRGB(Rval, Gval, Bval);
+				else {
+					QStringList fields = QStringList::split(QChar(9), ColorEn);
+					if (fields.count() != 5)
+						continue;
+					Cname = fields[0];
+					Rval = fields[1].toInt();
+					Gval = fields[2].toInt();
+					Bval = fields[3].toInt();
+					Kval = fields[4].toInt();
+					tmp.setColor(Rval, Gval, Bval, Kval);
 				}
 				if ((c<customSetStartIndex) && (Cname.length()==0))
 				{
