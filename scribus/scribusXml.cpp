@@ -463,59 +463,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("endArrowIndex", item->endArrowIndex());
 }
 
-// bool ScriXmlDoc::ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty)
-// {
-// 	QDomDocument docu("scridoc");
-// 	QString f(FileLoader::readSLA(fileName));
-// 	if (f.isEmpty())
-// 		return false;
-// 	if(!docu.setContent(f))
-// 		return false;
-// 	QDomElement elem=docu.documentElement();
-// 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
-// 		return false;
-// 	QDomNode DOC=elem.firstChild();
-// 	while(!DOC.isNull())
-// 	{
-// 		QDomElement dc=DOC.toElement();
-// 		QDomNode PAGE=DOC.firstChild();
-// 		while(!PAGE.isNull())
-// 		{
-// 			QDomElement pg=PAGE.toElement();
-// 			if(pg.tagName()=="MultiLine")
-// 			{
-// 				multiLine ml;
-// 				QDomNode MuLn = PAGE.firstChild();
-// 				while(!MuLn.isNull())
-// 				{
-// 					QDomElement MuL = MuLn.toElement();
-// 					struct SingleLine sl;
-// 					sl.Color = MuL.attribute("Color");
-// 					sl.Dash = MuL.attribute("Dash").toInt();
-// 					sl.LineEnd = MuL.attribute("LineEnd").toInt();
-// 					sl.LineJoin = MuL.attribute("LineJoin").toInt();
-// 					sl.Shade = MuL.attribute("Shade").toInt();
-// 					sl.Width = MuL.attribute("Width").toDouble();
-// 					ml.push_back(sl);
-// 					MuLn = MuLn.nextSibling();
-// 				}
-// 				QString Nam = pg.attribute("Name");
-// 				QString Nam2 = Nam;
-// 				int copyC = 1;
-// 				while (Sty->contains(Nam2))
-// 				{
-// 					Nam2 = tr("Copy #%1 of ").arg(copyC)+Nam;
-// 					copyC++;
-// 				}
-// 				Sty->insert(Nam2, ml);
-// 			}
-// 			PAGE=PAGE.nextSibling();
-// 		}
-// 		DOC=DOC.nextSibling();
-// 	}
-// 	return true;
-// }
-
+//CB: Private only now
 void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
 {
 	bool fou;

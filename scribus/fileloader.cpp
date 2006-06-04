@@ -75,27 +75,6 @@ FileLoader::FileLoader(const QString & fileName) :
 // measure during the process of converting to file loader plugins.
 const QString FileLoader::getLoadFilterString()
 {
-	/*
-	PluginManager& pluginManager(PluginManager::instance());
-	QString formats;
-#ifdef HAVE_LIBZ
-	formats += tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;");
-#else
-	formats += tr("Documents (*.sla *.scd);;");
-#endif
-	if (pluginManager.DLLexists("importps"))
-		formats += tr("PostScript Files (*.eps *.EPS *.ps *.PS);;");
-	if (pluginManager.DLLexists("svgimplugin"))
-#ifdef HAVE_LIBZ
-		formats += tr("SVG Images (*.svg *.svgz);;");
-#else
-		formats += tr("SVG Images (*.svg);;");
-#endif
-	if (pluginManager.DLLexists("oodrawimp"))
-		formats += tr("OpenOffice.org Draw (*.sxd);;");
-	formats += tr("All Files (*)");
-	return formats;
-	*/
 	return LoadSavePlugin::fileDialogLoadFilter().join(";;");
 }
 
