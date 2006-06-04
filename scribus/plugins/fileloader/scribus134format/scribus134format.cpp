@@ -144,8 +144,6 @@ bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & file
 		// Not gzip encoded, just load it
 		loadRawText(fileName, docBytes);
 	}
-	qDebug(QString("%1").arg(docBytes.left(16)));
-	qDebug(QString("%1").arg(docBytes.left(50)));	
 	if (docBytes.left(16) == "<SCRIBUSUTF8NEW " && docBytes.left(35).contains("Version=\"1.3.4"))
 		return true;
 	return false;
