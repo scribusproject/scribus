@@ -12,10 +12,17 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 #include <qregexp.h>
 #include <qiodevice.h>
+#include <qprogressbar.h>
 #include <qvaluelist.h>
 #include <qstringlist.h>
 
 class FileFormat;
+//TODO REmove includes one day
+//class ScribusDoc;
+//class ScribusView;
+#include "scfonts.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
 
 /*
  * @brief Superclass for all file import/export/load/save plugins
@@ -69,7 +76,20 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// It need not verify a file, just confirm that it looks like a supported
 		// file type (eg "XML doc with root element SCRIBUSXML and version 1.3.1").
 		// All plugins must implement this method.
-		virtual bool fileSupported(QIODevice* file) const = 0;
+		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const = 0;
+		
+		// Return a list of all formats supported by all currently loaded and
+		// active plugins. This list is sorted in a very specific order:
+		// First, by descending order of `id', then descending order of priority.
+		static const QValueList<FileFormat> & supportedFormats();
+		
+		virtual void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts);
+		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QPtrList<Foi> &getDummyFois);
+		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName=QString::null);
+		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, QValueList<ParagraphStyle> &docParagraphStyles);
+		virtual bool readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty);
+		virtual bool readColors(const QString& fileName, ColorList & colors);
+		virtual bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
 		
 	protected:
 
@@ -84,11 +104,11 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 
 		/// Unregister all formats owned by the calling plugin
 		void unregisterAll();
-
-		// Return a list of all formats supported by all currently loaded and
-		// active plugins. This list is sorted in a very specific order:
-		// First, by descending order of `id', then descending order of priority.
-		static const QValueList<FileFormat> & supportedFormats();
+		
+		ScribusDoc* m_Doc;
+		ScribusView* m_View; //For 1.2.x loader at the moment
+		QProgressBar* m_mwProgressBar;
+		SCFonts* m_AvailableFonts;
 
 	private:
 		// A list of all supported formats. This is maintained by plugins
@@ -109,6 +129,10 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		static QValueList<FileFormat>::iterator findFormat(unsigned int id,
 				LoadSavePlugin* plug = 0,
 				QValueList<FileFormat>::iterator it = formats.begin());
+				
+		static QValueList<FileFormat>::iterator findFormat(const QString& extension,
+				LoadSavePlugin* plug = 0,
+				QValueList<FileFormat>::iterator it = formats.begin());
 
 		// Print out a format list for debugging purposes
 		static void printFormatList();
@@ -116,6 +140,8 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// Base implementation for fileDialogLoadFilter and fileDialogSaveFilter
 		static const QStringList getDialogFilter(bool forLoad);
 };
+
+
 
 // Info on each supported format. A plugin must register a
 // FileFormat structure for every format it knows how to load or
@@ -138,6 +164,15 @@ class SCRIBUS_API FileFormat
 		bool loadFile(const QString & fileName, int flags, int index = 0) const;
 		// Save a file with this format
 		bool saveFile(const QString & fileName) const;
+		
+		
+		void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const;
+		void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QPtrList<Foi> &getDummyFois) const;
+		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName=QString::null) const;
+		bool readStyles(const QString& fileName, ScribusDoc* doc, QValueList<ParagraphStyle> &docParagraphStyles) const;
+		bool readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty) const;
+		bool readColors(const QString& fileName, ColorList & colors) const;
+		bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames) const;
 		//
 		// Data members
 		//

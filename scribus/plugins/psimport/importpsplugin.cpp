@@ -114,7 +114,7 @@ void ImportPSPlugin::registerFormats()
 	registerFormat(fmt2);
 }
 
-bool ImportPSPlugin::fileSupported(QIODevice* /* file */) const
+bool ImportPSPlugin::fileSupported(QIODevice* /* file */, const QString & fileName) const
 {
 	// TODO: check for %!PS-Adobe
 	return true;

@@ -129,7 +129,7 @@ void SVGImportPlugin::registerFormats()
 	registerFormat(fmt);
 }
 
-bool SVGImportPlugin::fileSupported(QIODevice* /* file */) const
+bool SVGImportPlugin::fileSupported(QIODevice* /* file */, const QString & fileName) const
 {
 	// TODO: identify valid SVG
 	return true;

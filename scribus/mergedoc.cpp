@@ -19,12 +19,12 @@ for which a new license (GPL+exception) is in place.
 
 #include "mergedoc.h"
 #include "mergedoc.moc"
-#include "customfdialog.h"
-#include "sccombobox.h"
-#include "scribusXml.h"
-#include "prefsmanager.h"
-#include "prefsfile.h"
 #include "commonstrings.h"
+#include "customfdialog.h"
+#include "fileloader.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "sccombobox.h"
 #include "scconfig.h"
 
 #include <qcursor.h>
@@ -121,7 +121,6 @@ void MergeDoc::changeFile()
 {
 	QString fn;
 	int dummy;
-	bool ret = false;
 	count = 0;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("merge", ".");
@@ -139,11 +138,16 @@ void MergeDoc::changeFile()
 		{
 			dirs->set("merge", fn.left(fn.findRev("/")));
 			qApp->setOverrideCursor(QCursor(waitCursor), true);
-			ScriXmlDoc *ss = new ScriXmlDoc();
+			FileLoader fl(fn);
+			if (fl.TestFile() == -1)
+			//TODO put in nice user warning
+				return;
+			QStringList masterPageNames;
+			bool ret = false;
 			if (masterPages)
-				ret = ss->ReadPageCount(fn, &dummy, &count);
+				ret = fl.ReadPageCount(fn, &dummy, &count, masterPageNames);
 			else
-				ret = ss->ReadPageCount(fn, &count, &dummy);
+				ret = fl.ReadPageCount(fn, &count, &dummy, masterPageNames);
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			if ((ret) && (count != 0))
 			{
@@ -153,7 +157,7 @@ void MergeDoc::changeFile()
 				{
 					masterPageNameData->clear();
 					masterPageNameData->setEnabled(true);
-					masterPageNameData->insertStringList(ss->MNames);
+					masterPageNameData->insertStringList(masterPageNames);
 				}
 				else
 				{
@@ -162,7 +166,6 @@ void MergeDoc::changeFile()
 				if (!masterPages)
 					fromLabel->setText( tr(" from %1").arg(count));
 			}
-			delete ss;
 		}
 	}
 	else

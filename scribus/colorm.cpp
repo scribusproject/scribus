@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "customfdialog.h"
 #include "dcolor.h"
-#include "scribusXml.h"
+#include "fileloader.h"
 #include "cmykfw.h"
 #include "query.h"
 #include "scribus.h"
@@ -542,10 +542,13 @@ void ColorManager::loadFarben()
 	if (!fileName.isEmpty())
 	{
 		dirs->set("colors", fileName.left(fileName.findRev("/")));
-		ScriXmlDoc *ss = new ScriXmlDoc();
-		if (ss->ReadColors(fileName))
+		FileLoader fl(fileName);
+		if (fl.TestFile() == -1)
+		//TODO put in nice user warning
+			return;
+		ColorList LColors;
+		if (fl.ReadColors(fileName, LColors))
 		{
-			ColorList LColors = ss->Farben;
 			ColorList::Iterator it;
 			for (it = LColors.begin(); it != LColors.end(); ++it)
 			{
@@ -554,7 +557,6 @@ void ColorManager::loadFarben()
 			}
 			updateCList();
 		}
-		delete ss;
 	}
 }
 

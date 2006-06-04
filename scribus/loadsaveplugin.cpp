@@ -10,7 +10,11 @@ for which a new license (GPL+exception) is in place.
 QValueList<FileFormat> LoadSavePlugin::formats;
 
 LoadSavePlugin::LoadSavePlugin()
-	: ScPlugin()
+	: ScPlugin(),
+	m_Doc(0),
+	m_View(0),
+	m_mwProgressBar(0),
+	m_AvailableFonts(0)
 {
 }
 
@@ -170,7 +174,60 @@ LoadSavePlugin::findFormat(unsigned int id,
 	return itEnd;
 }
 
+QValueList<FileFormat>::iterator
+LoadSavePlugin::findFormat(const QString& extension,
+						   LoadSavePlugin* plug,
+						   QValueList<FileFormat>::iterator it)
+{
+	QValueList<FileFormat>::iterator itEnd(formats.end());
+	for ( ; it != itEnd ; ++it )
+	{
+		if (
+				((*it).nameMatch.search(extension)) &&
+				((plug == 0) || (plug == (*it).plug))
+			)
+			return it;
+	}
+	return itEnd;
+}
 
+
+void LoadSavePlugin::setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts)
+{
+	m_Doc=targetDoc;
+	m_View=targetView;
+	m_mwProgressBar=targetMWPRogressBar;
+	m_AvailableFonts=targetAvailableFonts;
+}
+
+void LoadSavePlugin::getReplacedFontData(bool & /*getNewReplacement*/, QMap<QString,QString> &/*getReplacedFonts*/, QPtrList<Foi> &/*getDummyFois*/)
+{
+}
+
+bool LoadSavePlugin::loadPage(const QString & /*fileName*/, int /*pageNumber*/, bool /*Mpage*/, QString /*renamedPageName*/)
+{
+	return false;
+}
+
+bool LoadSavePlugin::readStyles(const QString& /*fileName*/, ScribusDoc* /*doc*/, QValueList<ParagraphStyle> &/*docParagraphStyles*/)
+{
+	return false;
+}
+
+bool LoadSavePlugin::readLineStyles(const QString& /*fileName*/, QMap<QString,multiLine> */*Sty*/)
+{
+	return false;
+}
+
+bool LoadSavePlugin::readColors(const QString& /*fileName*/, ColorList & /*colors*/)
+{
+	return false;
+}
+
+bool LoadSavePlugin::readPageCount(const QString& /*fileName*/, int */*num1*/, int */*num2*/, QStringList & /*masterPageNames*/)
+{
+	return false;
+}
 
 bool FileFormat::loadFile(const QString & fileName, int flags, int index) const
 {
@@ -181,3 +238,41 @@ bool FileFormat::saveFile(const QString & fileName) const
 {
 	return (plug && save) ? plug->saveFile(fileName, *this) : false;
 }
+
+void FileFormat::setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const
+{
+	if (plug)
+		plug->setupTargets(targetDoc, targetView, targetMWPRogressBar, targetAvailableFonts);
+}
+
+void FileFormat::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QPtrList<Foi> &getDummyFois) const
+{
+	if (plug)
+		plug->getReplacedFontData(getNewReplacement, getReplacedFonts, getDummyFois);
+}
+
+bool FileFormat::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName) const
+{
+	return (plug && load) ? plug->loadPage(fileName, pageNumber, Mpage, renamedPageName) : false;
+}
+
+bool FileFormat::readStyles(const QString& fileName, ScribusDoc* doc, QValueList<ParagraphStyle> &docParagraphStyles) const
+{
+	return (plug && load) ? plug->readStyles(fileName, doc, docParagraphStyles) : false;
+}
+
+bool FileFormat::readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty) const
+{
+	return (plug && load) ? plug->readLineStyles(fileName, Sty) : false;
+}
+
+bool FileFormat::readColors(const QString& fileName, ColorList & colors) const
+{
+	return (plug && load) ? plug->readColors(fileName, colors) : false;
+}
+
+bool FileFormat::readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames) const
+{
+	return (plug && load) ? plug->readPageCount(fileName, num1, num2, masterPageNames) : false;
+}
+

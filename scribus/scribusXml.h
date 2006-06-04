@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "multiline.h"
 #include "scfonts.h"
+#include "scribusstructs.h"
 #include "selection.h"
 
 class PrefsManager;
@@ -43,34 +44,18 @@ public:
 	\param fileName filename of file to test
 	\retval bool true = Scribus format file, false : not Scribus
 	*/
-	bool IsScribus(QString fileName);
 	QString ReadDatei(QString fileName);
-	QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
 	void GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj = 0);
 	void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
-	bool ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty);
-	void GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
-	bool ReadStyles(QString fileName, ScribusDoc* doc);
-	bool ReadColors(QString fileName);
-	bool ReadPageCount(QString fileName, int *num1, int *num2);
-	bool ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, bool Mpage);
-	//QString WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, ScribusView *view);
-	//QString WriteElem(ScribusDoc *doc, ScribusView *view, int selectionListNumber);
 	QString WriteElem(ScribusDoc *doc, ScribusView *view, Selection *selection);
 	bool ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
 	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc,
 					 QMap<QString,QString> &FontSub, ScribusView *view);
-	bool ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *docu, ScribusView *viewx, QProgressBar *dia2);
 	void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
 	void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master);
 	bool WriteDoc(QString fileName, ScribusDoc *docu, QProgressBar *dia2);
 	ColorList Farben;
 	QValueList<ParagraphStyle> docParagraphStyles;
-	struct Linked 
-	{ 
-		int Start;
-		int StPag;
-	};
 	QValueList<Linked> LFrames;
 	QStringList MNames;
 	QMap<QString,QString> DoFonts;
@@ -85,6 +70,9 @@ signals:
 	
 protected:
 	PrefsManager* prefsManager;
+	
+	void GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
+	QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
 };
 
 #endif // _SCRIBUS_CONFIG_

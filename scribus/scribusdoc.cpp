@@ -26,13 +26,13 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "scribuswin.h"
-#include "scribusXml.h"
 #include "guidemanager.h"
 
 #include <utility>
 #include <qfile.h>
 #include <qprogressbar.h>
 
+#include "fileloader.h"
 #include "filewatcher.h"
 //CBVTD
 #include "hruler.h"
@@ -51,6 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include "scmessagebox.h"
 #include "scfontmetrics.h"
 #include "scraction.h"
+#include "scribusXml.h"
 #include "selection.h"
 #include "story.h"
 #include "tree.h"
@@ -626,54 +627,55 @@ void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle>
 		wrkStyles = &docParagraphStyles;
 	if (!fileName.isEmpty())
 	{
-		ScriXmlDoc *ss = new ScriXmlDoc();
-		ss->docParagraphStyles.clear();
+		FileLoader fl(fileName);
+		if (fl.TestFile() == -1)
+		//TODO put in nice user warning
+			return;
 		for (uint x = 5; x < wrkStyles->count(); ++x)
-			ss->docParagraphStyles.append((*wrkStyles)[x]);
+			docParagraphStyles.append((*wrkStyles)[x]);
 		uint old = wrkStyles->count()-5;
-		if (ss->ReadStyles(fileName, this))
+		if (fl.ReadStyles(fileName, this, docParagraphStyles))
 		{
-			if (ss->docParagraphStyles.count() > old)
+			if (docParagraphStyles.count() > old)
 			{
-				for (uint xx=old; xx<ss->docParagraphStyles.count(); ++xx)
+				for (uint xx=old; xx<docParagraphStyles.count(); ++xx)
 				{
 					ParagraphStyle sty;
-					sty.setName(ss->docParagraphStyles[xx].name());
-					sty.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(ss->docParagraphStyles[xx].lineSpacingMode()));
-					sty.setLineSpacing(ss->docParagraphStyles[xx].lineSpacing());
-					sty.setAlignment(ss->docParagraphStyles[xx].alignment());
-					sty.setLeftMargin(ss->docParagraphStyles[xx].leftMargin());
-					sty.setFirstIndent(ss->docParagraphStyles[xx].firstIndent());
-					sty.setGapBefore(ss->docParagraphStyles[xx].gapBefore());
-					sty.setGapAfter(ss->docParagraphStyles[xx].gapAfter());
-					sty.charStyle().cfont = ss->docParagraphStyles[xx].charStyle().font();
-					sty.charStyle().csize = ss->docParagraphStyles[xx].charStyle().fontSize();
-					sty.tabValues() = ss->docParagraphStyles[xx].tabValues();
-					sty.setHasDropCap(ss->docParagraphStyles[xx].hasDropCap());
-					sty.setDropCapLines(ss->docParagraphStyles[xx].dropCapLines());
-					sty.setDropCapOffset(ss->docParagraphStyles[xx].dropCapOffset());
-					sty.charStyle().cstyle = ss->docParagraphStyles[xx].charStyle().cstyle;
-					sty.charStyle().ccolor = ss->docParagraphStyles[xx].charStyle().ccolor;
-					sty.charStyle().cshade = ss->docParagraphStyles[xx].charStyle().cshade;
-					sty.charStyle().cstroke = ss->docParagraphStyles[xx].charStyle().cstroke;
-					sty.charStyle().cshade2 = ss->docParagraphStyles[xx].charStyle().cshade;
-					sty.setUseBaselineGrid(ss->docParagraphStyles[xx].useBaselineGrid());
-					sty.charStyle().cshadowx = ss->docParagraphStyles[xx].charStyle().cshadowx;
-					sty.charStyle().cshadowy = ss->docParagraphStyles[xx].charStyle().cshadowy;
-					sty.charStyle().coutline = ss->docParagraphStyles[xx].charStyle().coutline;
-					sty.charStyle().cunderpos = ss->docParagraphStyles[xx].charStyle().cunderpos;
-					sty.charStyle().cunderwidth = ss->docParagraphStyles[xx].charStyle().cunderwidth;
-					sty.charStyle().cstrikepos = ss->docParagraphStyles[xx].charStyle().cstrikepos;
-					sty.charStyle().cstrikewidth = ss->docParagraphStyles[xx].charStyle().cstrikewidth;
-					sty.charStyle().cscale = ss->docParagraphStyles[xx].charStyle().cscale;
-					sty.charStyle().cscalev = ss->docParagraphStyles[xx].charStyle().cscalev;
-					sty.charStyle().cbase = ss->docParagraphStyles[xx].charStyle().cbase;
-					sty.charStyle().cextra = ss->docParagraphStyles[xx].charStyle().cextra;
+					sty.setName(docParagraphStyles[xx].name());
+					sty.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(docParagraphStyles[xx].lineSpacingMode()));
+					sty.setLineSpacing(docParagraphStyles[xx].lineSpacing());
+					sty.setAlignment(docParagraphStyles[xx].alignment());
+					sty.setLeftMargin(docParagraphStyles[xx].leftMargin());
+					sty.setFirstIndent(docParagraphStyles[xx].firstIndent());
+					sty.setGapBefore(docParagraphStyles[xx].gapBefore());
+					sty.setGapAfter(docParagraphStyles[xx].gapAfter());
+					sty.charStyle().cfont = docParagraphStyles[xx].charStyle().font();
+					sty.charStyle().csize = docParagraphStyles[xx].charStyle().fontSize();
+					sty.tabValues() = docParagraphStyles[xx].tabValues();
+					sty.setHasDropCap(docParagraphStyles[xx].hasDropCap());
+					sty.setDropCapLines(docParagraphStyles[xx].dropCapLines());
+					sty.setDropCapOffset(docParagraphStyles[xx].dropCapOffset());
+					sty.charStyle().cstyle = docParagraphStyles[xx].charStyle().cstyle;
+					sty.charStyle().ccolor = docParagraphStyles[xx].charStyle().ccolor;
+					sty.charStyle().cshade = docParagraphStyles[xx].charStyle().cshade;
+					sty.charStyle().cstroke = docParagraphStyles[xx].charStyle().cstroke;
+					sty.charStyle().cshade2 = docParagraphStyles[xx].charStyle().cshade;
+					sty.setUseBaselineGrid(docParagraphStyles[xx].useBaselineGrid());
+					sty.charStyle().cshadowx = docParagraphStyles[xx].charStyle().cshadowx;
+					sty.charStyle().cshadowy = docParagraphStyles[xx].charStyle().cshadowy;
+					sty.charStyle().coutline = docParagraphStyles[xx].charStyle().coutline;
+					sty.charStyle().cunderpos = docParagraphStyles[xx].charStyle().cunderpos;
+					sty.charStyle().cunderwidth = docParagraphStyles[xx].charStyle().cunderwidth;
+					sty.charStyle().cstrikepos = docParagraphStyles[xx].charStyle().cstrikepos;
+					sty.charStyle().cstrikewidth = docParagraphStyles[xx].charStyle().cstrikewidth;
+					sty.charStyle().cscale = docParagraphStyles[xx].charStyle().cscale;
+					sty.charStyle().cscalev = docParagraphStyles[xx].charStyle().cscalev;
+					sty.charStyle().cbase = docParagraphStyles[xx].charStyle().cbase;
+					sty.charStyle().cextra = docParagraphStyles[xx].charStyle().cextra;
 					wrkStyles->append(sty);
 				}
 			}
 		}
-		delete ss;
 	}
 }
 

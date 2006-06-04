@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define SCRIBUS_FILELOADER_H
 #include <qobject.h>
 #include <qstring.h>
+#include <qstringlist.h>
 #include <qvaluelist.h>
 #include <qmap.h>
 
@@ -22,18 +23,6 @@ class SCFonts;
 class PrefsManager;
 class FileFormat;
 
-// this is a quick hack to combine runs until I've thought of something better -- AV
-class LastStyles {
-public:
-	CharStyle Style;
-	int StyleStart;
-	int ParaStyle;
-	LastStyles() {
-		StyleStart = 0;
-		ParaStyle = -1;
-	}
-};
-
 class SCRIBUS_API FileLoader : public QObject
 {
 	Q_OBJECT
@@ -41,35 +30,34 @@ public:
 	FileLoader(const QString & fileName);
 	~FileLoader() {};
 	int TestFile();
-	int CheckScribus();
+// 	int CheckScribus();
 	bool LoadPage(int PageToLoad, bool Mpage, QString renamedPageName=QString::null);
 	bool LoadFile();
-	bool ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *doc, int PageToLoad, bool Mpage, QString renamedPageName=QString::null);
-	bool ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *doc, QProgressBar *dia2);
-	void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo=false, bool VorLFound=false);
-	PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc);
-	void GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
+	bool ReadStyles(const QString& fileName, ScribusDoc* doc, QValueList<ParagraphStyle> &docParagraphStyles);
+	bool ReadPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
+	bool ReadColors(const QString& fileName, ColorList & colors);
+	bool ReadLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty);
 	bool postLoad();
-	void informReplacementFonts();
+ 	void informReplacementFonts();
 	QString FileName;
 	int FileType;
+	const FileFormat * const formatSLA12x;
+	const FileFormat * const formatSLA13x;
 	const FileFormat * const formatPS;
 	const FileFormat * const formatSVG;
 	const FileFormat * const formatSXD;
 	const FileFormat * const formatODG;
-	bool newReplacement;
-	QValueList<int> LFrames;
+ 	bool newReplacement;
+ 	QValueList<int> LFrames;
 	QMap<QString,QString> ReplacedFonts;
 	QMap<uint,QString> DoVorl;
 	uint VorlC;
 	QPtrList<Foi> dummyFois;
 
 	static const QString getLoadFilterString();
-	static QString readSLA(const QString & fileName);
 private:
-		
-	void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc);
-
+ 	void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc);
+	bool findFormat(int formatId, QValueList<FileFormat>::const_iterator &it);
 	PrefsManager* prefsManager;
 	double maximumX;
 	double maximumY;

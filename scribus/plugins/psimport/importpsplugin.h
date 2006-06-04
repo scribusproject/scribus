@@ -31,7 +31,7 @@ class PLUGIN_API ImportPSPlugin : public LoadSavePlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
-		virtual bool fileSupported(QIODevice* file) const;
+		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const;
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
 		virtual void addToMainWindowMenu(ScribusMainWindow *);
 

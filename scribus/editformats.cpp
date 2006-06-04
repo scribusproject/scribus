@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "customfdialog.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
-#include "scribusXml.h"
+#include "fileloader.h"
 #include "page.h"
 #include "sccombobox.h"
 #include "util.h"
@@ -96,7 +96,7 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 	StyleView->header()->setResizeEnabled( false, StyleView->header()->count() - 1 );
 	StyleView->setSorting(-1);
 	int counter = 5;
-	bool tabEQ = false;
+// 	bool tabEQ = false;
 	for (uint x = 5; x < styleList->count(); ++x)
 	{
 		ParagraphStyle vg;
@@ -413,10 +413,13 @@ void StilFormate::loadStyles()
 			}
 			if (!neededColors.isEmpty())
 			{
-				ScriXmlDoc *ss = new ScriXmlDoc();
-				if (ss->ReadColors(selectedFile))
+				FileLoader fl(selectedFile);
+				if (fl.TestFile() == -1)
+				//TODO put in nice user warning
+					return;
+				ColorList LColors;
+				if (fl.ReadColors(selectedFile, LColors))
 				{
-					ColorList LColors = ss->Farben;
 					ColorList::Iterator itc;
 					for (itc = LColors.begin(); itc != LColors.end(); ++itc)
 					{
@@ -424,7 +427,6 @@ void StilFormate::loadStyles()
 							Docu->PageColors.insert(itc.key(), itc.data());
 					}
 				}
-				delete ss;
 			}
 		}
 		delete dia2;

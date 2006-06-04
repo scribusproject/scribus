@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpainter.h>
 
 #include "customfdialog.h"
-#include "scribusXml.h"
+#include "fileloader.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "multiline.h"
@@ -216,10 +216,12 @@ void LineFormate::loadLStyles()
 	if (!fileName.isEmpty())
 	{
 		dirs->set("lineformats", fileName.left(fileName.findRev("/")));
-		ScriXmlDoc *ss = new ScriXmlDoc();
-		if (ss->ReadLStyles(fileName, &TempStyles))
+		FileLoader fl(fileName);
+		if (fl.TestFile() == -1)
+		//TODO put in nice user warning
+			return;
+		if (fl.ReadLineStyles(fileName, &TempStyles))
 			UpdateFList();
-		delete ss;
 	}
 }
 

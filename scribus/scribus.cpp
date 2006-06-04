@@ -3135,7 +3135,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			DPath += "/";
 		QDir::setCurrent(DPath);
 		FileLoader *fileLoader = new FileLoader(FName);
-		if (fileLoader->TestFile() == -1)
+		int testResult=fileLoader->TestFile();
+		if (testResult == -1)
 		{
 			delete fileLoader;
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
@@ -3143,7 +3144,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			return false;
 		}
 		bool is12doc=false;
-		if (fileLoader->TestFile() == 0)
+		if (testResult == 0)
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			//Scribus 1.3.x warning, remove at a later stage

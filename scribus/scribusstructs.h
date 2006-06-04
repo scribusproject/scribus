@@ -354,4 +354,23 @@ enum PageOrientation
 //! \brief Common type for guides list
 typedef QValueList<double> Guides;
 
+//! \brief from ols scribusXml
+struct Linked 
+{ 
+	int Start;
+	int StPag;
+};
+
+// this is a quick hack to combine runs until I've thought of something better -- AV
+class LastStyles {
+public:
+	CharStyle Style;
+	int StyleStart;
+	int ParaStyle;
+	LastStyles() {
+		StyleStart = 0;
+		ParaStyle = -1;
+	}
+};
+	
 #endif

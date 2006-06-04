@@ -145,7 +145,7 @@ void OODrawImportPlugin::registerFormats()
 	registerFormat(sxdformat);
 }
 
-bool OODrawImportPlugin::fileSupported(QIODevice* /* file */) const
+bool OODrawImportPlugin::fileSupported(QIODevice* /* file */, const QString & fileName) const
 {
 	// TODO: try to identify .sxd / .odt files
 	return true;
