@@ -467,13 +467,13 @@ void ScPainter::endLayer()
 							}
 							(*src) = qRgba(src_r, src_g, src_b, src_a);
 						}
-						else
+/*						else
 						{
 							if (dst_a > 0)
 								(*src) = qRgba(dst_r, dst_g, dst_b, dst_a);
 							else if (src_a > 0)
 								(*src) = qRgba(INT_MULT(src_r, src_a), INT_MULT(src_g, src_a), INT_MULT(src_b, src_a), src_a);
-						}
+						} */
 						src++;
 						dst++;
 					}
@@ -495,7 +495,9 @@ void ScPainter::endLayer()
 	}
 	else
 	{
-		cairo_set_operator(m_cr, CAIRO_OPERATOR_SOURCE);
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_DEST_OUT);
+		cairo_paint_with_alpha (m_cr, m_layerTransparency);
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_ADD);
 		cairo_paint_with_alpha (m_cr, m_layerTransparency);
 	}
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
