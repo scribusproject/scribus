@@ -15,7 +15,7 @@
 #define NLS_PRIVATE public
 #endif
 
-class SpecialChars {
+class SCRIBUS_API SpecialChars {
 public:
 	static QChar OBJECT;
 	static QChar TAB;
