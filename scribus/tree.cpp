@@ -46,7 +46,7 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 	reportDisplay->setSorting(-1);
 	reportDisplay->setSelectionMode(QListView::Single); */
 //	reportDisplay->setDefaultRenameAction(QListView::Accept);
-	clearPalette();
+	unsetDoc();
 	imageIcon = loadIcon("Bild.xpm");
 	lineIcon = loadIcon("Stift.xpm");
 	textIcon = loadIcon("Text.xpm");
