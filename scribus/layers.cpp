@@ -144,6 +144,8 @@ LayerPalette::LayerPalette(QWidget* parent)
 	Header = Table->verticalHeader();
 	Header->setMovingEnabled(false);
 	Header->setResizeEnabled(false);
+	Table->setLeftMargin(0);
+	Header->hide();
 	LayerPaletteLayout->addWidget( Table );
 
 	Layout1 = new QHBoxLayout( 0, 0, 0, "Layout1");

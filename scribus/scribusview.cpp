@@ -329,7 +329,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 						painter->lineTo( x+w, y );
 						painter->lineTo( x+w, y+h );
 						painter->lineTo( x, y+h );
-						painter->lineTo( x, y );
+//						painter->lineTo( x, y );
 						painter->closePath();
 					}
 				}
@@ -355,7 +355,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 						painter->lineTo( x+w, y );
 						painter->lineTo( x+w, y+h );
 						painter->lineTo( x, y+h );
-						painter->lineTo( x, y );
+//						painter->lineTo( x, y );
 						painter->closePath();
 						painter->setClipPath();
 						painter->translate(x, y);
@@ -821,7 +821,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						if (!evSpon || forceRedraw) 
 							currItem->invalid = true;
 //						if ((!m_MouseButtonPressed) || (Doc->EditClip))
-							currItem->DrawObj(painter, clip);
+						currItem->DrawObj(painter, clip);
 //						currItem->Redrawn = true;
 						if ((currItem->asTextFrame()) && ((currItem->NextBox != 0) || (currItem->BackBox != 0)))
 						{

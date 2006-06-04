@@ -467,6 +467,13 @@ void ScPainter::endLayer()
 							}
 							(*src) = qRgba(src_r, src_g, src_b, src_a);
 						}
+						else
+						{
+							if (dst_a > 0)
+								(*src) = qRgba(dst_r, dst_g, dst_b, dst_a);
+							else if (src_a > 0)
+								(*src) = qRgba(INT_MULT(src_r, src_a), INT_MULT(src_g, src_a), INT_MULT(src_b, src_a), src_a);
+						}
 						src++;
 						dst++;
 					}
@@ -481,8 +488,17 @@ void ScPainter::endLayer()
 	layerProp la;
 	la = Layers.pop();
 	cairo_pop_group_to_source (m_cr);
+	if (m_blendMode == 0)
+	{
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+		cairo_paint_with_alpha (m_cr, m_layerTransparency);
+	}
+	else
+	{
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_SOURCE);
+		cairo_paint_with_alpha (m_cr, m_layerTransparency);
+	}
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
-	cairo_paint_with_alpha (m_cr, m_layerTransparency);
 	m_layerTransparency = la.tranparency;
 	m_blendMode = la.blendmode;
 #else
