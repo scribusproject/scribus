@@ -246,9 +246,9 @@ void Scribus12Format::getReplacedFontData(bool & getNewReplacement, QMap<QString
 
 bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
 {
-	if (m_Doc==0 || m_View==0 || m_AvailableFonts==0 || m_mwProgressBar==0)
+	if (m_Doc==0 || m_View==0 || m_AvailableFonts==0)
 	{
-		Q_ASSERT(m_Doc==0 || m_View==0 || m_AvailableFonts==0 || m_mwProgressBar==0);
+		Q_ASSERT(m_Doc==0 || m_View==0 || m_AvailableFonts==0);
 		return false;
 	}
 	ReplacedFonts.clear();
@@ -290,8 +290,11 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	if (elem.hasAttribute("Version"))
 		newVersion = true;
 	QDomNode DOC=elem.firstChild();
-	m_mwProgressBar->setTotalSteps(DOC.childNodes().count());
-	m_mwProgressBar->setProgress(0);
+	if (m_mwProgressBar!=0)
+	{
+		m_mwProgressBar->setTotalSteps(DOC.childNodes().count());
+		m_mwProgressBar->setProgress(0);
+	}
 	int ObCount = 0;
 	int activeLayer = 0;
 	PrefsManager* prefsManager=PrefsManager::instance();
@@ -414,7 +417,8 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		while(!PAGE.isNull())
 		{
 			ObCount++;
-			m_mwProgressBar->setProgress(ObCount);
+			if (m_mwProgressBar!=0)
+				m_mwProgressBar->setProgress(ObCount);
 			QDomElement pg=PAGE.toElement();
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
 			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
@@ -905,7 +909,8 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		}
 	}
 	m_View->unitSwitcher->setCurrentText(unitGetStrFromIndex(m_Doc->unitIndex()));
-	m_mwProgressBar->setProgress(DOC.childNodes().count());
+	if (m_mwProgressBar!=0)
+		m_mwProgressBar->setProgress(DOC.childNodes().count());
 	return true;
 //end old ReadDoc
 	
@@ -1097,9 +1102,9 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString /*renamedPageName*/)
 {
 	qDebug(QString("loading page %2 from file '%1' from 1.2.x plugin").arg(fileName).arg(pageNumber));
-	if (m_Doc==0 || m_View==0 || m_AvailableFonts==0 || m_mwProgressBar==0)
+	if (m_Doc==0 || m_View==0 || m_AvailableFonts==0)
 	{
-		Q_ASSERT(m_Doc==0 || m_View==0 || m_AvailableFonts==0 || m_mwProgressBar==0);
+		Q_ASSERT(m_Doc==0 || m_View==0 || m_AvailableFonts==0);
 		return false;
 	}
 

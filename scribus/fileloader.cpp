@@ -62,6 +62,7 @@ FileLoader::FileLoader(const QString & fileName) :
 	FileType(-1),
 	formatSLA12x(LoadSavePlugin::getFormatById(FORMATID_SLA12XIMPORT)),
 	formatSLA13x(LoadSavePlugin::getFormatById(FORMATID_SLA13XIMPORT)),
+	formatSLA134(LoadSavePlugin::getFormatById(FORMATID_SLA134IMPORT)),
 	formatPS(LoadSavePlugin::getFormatById(FORMATID_PSIMPORT)),
 	formatSVG(LoadSavePlugin::getFormatById(FORMATID_SVGIMPORT)),
 	formatSXD(LoadSavePlugin::getFormatById(FORMATID_SXDIMPORT)),
@@ -100,7 +101,7 @@ int FileLoader::TestFile()
 	{
 		if ((*it).nameMatch.search("."+ext)!=-1)
 		{
-// 			qDebug(QString("Match :%1: :.%2: on %3").arg((*it).nameMatch.pattern()).arg(ext).arg((*it).trName));
+//  			qDebug(QString("Match :%1: :.%2: on %3").arg((*it).nameMatch.pattern()).arg(ext).arg((*it).trName));
 			if ((*it).plug!=0)
 			{
 				if ((*it).plug->fileSupported(0, FileName))
@@ -170,7 +171,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 			if (ret)
 				(*it).plug->getReplacedFontData(newReplacement, ReplacedFonts, dummyFois);
 		}
-		if (FileType==FORMATID_SLA13XIMPORT)
+		if (FileType==FORMATID_SLA13XIMPORT || FileType==FORMATID_SLA134IMPORT)
 		{
 			(*it).plug->setupTargets(ScMW->doc, 0, ScMW->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 			ret=(*it).plug->loadPage(FileName, PageToLoad, Mpage, renamedPageName);
@@ -275,6 +276,7 @@ bool FileLoader::LoadFile()
 				}
 				break;
 			case FORMATID_SLA13XIMPORT:
+			case FORMATID_SLA134IMPORT:
 				{
 					(*it).setupTargets(ScMW->doc, 0, ScMW->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 					ret=(*it).loadFile(FileName, LoadSavePlugin::lfCreateDoc);
@@ -293,7 +295,7 @@ bool FileLoader::SaveFile(const QString& fileName, ScribusDoc *doc, QProgressBar
 {
 	bool ret = false;
 	QValueList<FileFormat>::const_iterator it;
-	if (findFormat(FORMATID_SLA13XEXPORT, it))
+	if (findFormat(FORMATID_SLA134EXPORT, it))
 // 		switch (FileType)
 // 		{
 // 			case FORMATID_SLA12XIMPORT:
@@ -318,6 +320,7 @@ bool FileLoader::ReadStyles(const QString& fileName, ScribusDoc* doc, QValueList
 		{
 			case FORMATID_SLA12XIMPORT:
 			case FORMATID_SLA13XIMPORT:
+			case FORMATID_SLA134IMPORT:
 				return (*it).readStyles(fileName, doc, docParagraphStyles);
 				break;
 			default:
@@ -334,6 +337,7 @@ bool FileLoader::ReadColors(const QString& fileName, ColorList & colors)
 		{
 			case FORMATID_SLA12XIMPORT:
 			case FORMATID_SLA13XIMPORT:
+			case FORMATID_SLA134IMPORT:
 				return (*it).readColors(fileName, colors);
 				break;
 			default:
@@ -351,6 +355,7 @@ bool FileLoader::ReadPageCount(const QString& fileName, int *num1, int *num2, QS
 		{
 			case FORMATID_SLA12XIMPORT:
 			case FORMATID_SLA13XIMPORT:
+			case FORMATID_SLA134IMPORT:
 				return (*it).readPageCount(fileName, num1, num2, masterPageNames);
 				break;
 			default:
@@ -367,6 +372,7 @@ bool FileLoader::ReadLineStyles(const QString& fileName, QMap<QString,multiLine>
 		{
 			case FORMATID_SLA12XIMPORT:
 			case FORMATID_SLA13XIMPORT:
+			case FORMATID_SLA134IMPORT:
 				return (*it).readLineStyles(fileName, Sty);
 				break;
 			default:

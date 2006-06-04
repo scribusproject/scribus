@@ -44,6 +44,7 @@ public:
 	int FileType;
 	const FileFormat * const formatSLA12x;
 	const FileFormat * const formatSLA13x;
+	const FileFormat * const formatSLA134;
 	const FileFormat * const formatPS;
 	const FileFormat * const formatSVG;
 	const FileFormat * const formatSXD;

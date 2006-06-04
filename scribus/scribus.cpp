@@ -172,6 +172,7 @@ for which a new license (GPL+exception) is in place.
 #include "smlinestyle.h"
 #include "util.h"
 #include "text/nlsconfig.h"
+#include "plugins/formatidlist.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -3394,7 +3395,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		}
 		propertiesPalette->updateColorList();
 		propertiesPalette->Cpal->ChooseGrad(0);
-		if (fileLoader->FileType > 1)
+		if (fileLoader->FileType > FORMATID_NATIVEIMPORTEND)
 		{
 			doc->setName(FName+tr("(converted)"));
 			QFileInfo fi(doc->DocName);
@@ -3530,7 +3531,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		{
 			Apply_MasterPage(doc->DocPages.at(p)->MPageNam, p, false);
 		}
-		if (fileLoader->FileType > 1)
+		if (fileLoader->FileType > FORMATID_NATIVEIMPORTEND)
 		{
 			doc->hasName = false;
 			slotFileSaveAs();

@@ -4,9 +4,9 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "scribus13format.h"
-#include "scribus13format.moc"
-#include "scribus13formatimpl.h"
+#include "scribus134format.h"
+#include "scribus134format.moc"
+#include "scribus134formatimpl.h"
 
 #include "../../formatidlist.h"
 #include "commonstrings.h"
@@ -29,9 +29,9 @@ for which a new license (GPL+exception) is in place.
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.
 // Please don't implement the functionality of your plugin here; do that
-// in scribus13formatimpl.h and scribus13formatimpl.cpp .
+// in scribus134formatimpl.h and scribus134formatimpl.cpp .
 
-Scribus13Format::Scribus13Format() :
+Scribus134Format::Scribus134Format() :
 	LoadSavePlugin()
 {
 	// Set action info in languageChange, so we only have to do
@@ -39,43 +39,43 @@ Scribus13Format::Scribus13Format() :
 	languageChange();
 }
 
-Scribus13Format::~Scribus13Format()
+Scribus134Format::~Scribus134Format()
 {
 	unregisterAll();
 };
 
-void Scribus13Format::languageChange()
+void Scribus134Format::languageChange()
 {
 	//(Re)register file formats.
 	unregisterAll();
 	registerFormats();
 }
 
-const QString Scribus13Format::fullTrName() const
+const QString Scribus134Format::fullTrName() const
 {
-	return QObject::tr("Scribus 1.3.0->1.3.3.2 Support");
+	return QObject::tr("Scribus 1.3.4 Support");
 }
 
-const ScActionPlugin::AboutData* Scribus13Format::getAboutData() const
+const ScActionPlugin::AboutData* Scribus134Format::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	Q_CHECK_PTR(about);
 	return about;
 }
 
-void Scribus13Format::deleteAboutData(const AboutData* about) const
+void Scribus134Format::deleteAboutData(const AboutData* about) const
 {
 	Q_ASSERT(about);
 	delete about;
 }
 
-void Scribus13Format::registerFormats()
+void Scribus134Format::registerFormats()
 {
 	FileFormat fmt(this);
-	fmt.trName = tr("Scribus 1.3.0->1.3.3.2 Document");
-	fmt.formatId = FORMATID_SLA13XIMPORT;
+	fmt.trName = tr("Scribus 1.3.4 Document");
+	fmt.formatId = FORMATID_SLA134IMPORT;
 	fmt.load = true;
-	fmt.save = false; //Only support 134format saving in 134cvs
+	fmt.save = true;
 #ifdef HAVE_LIBZ
 	fmt.filter = fmt.trName + " (*.sla *.SLA *.sla.gz *.SLA.GZ *.scd *.SCD *.scd.gz *.SCD.GZ)";
 	fmt.nameMatch = QRegExp("\\.(sla|scd)(\\.gz)?", false);
@@ -89,7 +89,7 @@ void Scribus13Format::registerFormats()
 	registerFormat(fmt);
 }
 
-bool Scribus13Format::fileSupported(QIODevice* /* file */, const QString & fileName) const
+bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & fileName) const
 {
 	QCString docBytes("");
 	if(fileName.right(2) == "gz")
@@ -144,12 +144,14 @@ bool Scribus13Format::fileSupported(QIODevice* /* file */, const QString & fileN
 		// Not gzip encoded, just load it
 		loadRawText(fileName, docBytes);
 	}
-	if (docBytes.left(16) == "<SCRIBUSUTF8NEW " && !docBytes.left(35).contains("Version=\"1.3.4"))
+	qDebug(QString("%1").arg(docBytes.left(16)));
+	qDebug(QString("%1").arg(docBytes.left(50)));	
+	if (docBytes.left(16) == "<SCRIBUSUTF8NEW " && docBytes.left(35).contains("Version=\"1.3.4"))
 		return true;
 	return false;
 }
 
-QString Scribus13Format::readSLA(const QString & fileName)
+QString Scribus134Format::readSLA(const QString & fileName)
 {
 	QCString docBytes("");
 	if(fileName.right(2) == "gz")
@@ -205,7 +207,7 @@ QString Scribus13Format::readSLA(const QString & fileName)
 		loadRawText(fileName, docBytes);
 	}
 	QString docText("");
-	if (docBytes.left(16) == "<SCRIBUSUTF8NEW " && !docBytes.left(35).contains("Version=\"1.3.4"))
+	if (docBytes.left(16) == "<SCRIBUSUTF8NEW " && docBytes.left(35).contains("Version=\"1.3.4"))
 		docText = QString::fromUtf8(docBytes);
 	else
 		return QString::null;
@@ -214,14 +216,14 @@ QString Scribus13Format::readSLA(const QString & fileName)
 	return docText;
 }
 
-void Scribus13Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QPtrList<Foi> &getDummyFois)
+void Scribus134Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QPtrList<Foi> &getDummyFois)
 {
 	getNewReplacement=newReplacement;
 	getReplacedFonts=ReplacedFonts;
 	getDummyFois=dummyFois;
 }
 
-bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
+bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
 {
 	if (m_Doc==0 || m_AvailableFonts==0)
 	{
@@ -1157,7 +1159,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 // 	return false;
 }
 
-bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* fmt */)
+bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* fmt */)
 {
 	QString text, tf, tf2, tc, tc2;
 	QDomDocument docu("scribus");
@@ -1705,28 +1707,28 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 }
 
 // Low level plugin API
-int scribus13format_getPluginAPIVersion()
+int scribus134format_getPluginAPIVersion()
 {
 	return PLUGIN_API_VERSION;
 }
 
-ScPlugin* scribus13format_getPlugin()
+ScPlugin* scribus134format_getPlugin()
 {
-	Scribus13Format* plug = new Scribus13Format();
+	Scribus134Format* plug = new Scribus134Format();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
 
-void scribus13format_freePlugin(ScPlugin* plugin)
+void scribus134format_freePlugin(ScPlugin* plugin)
 {
-	Scribus13Format* plug = dynamic_cast<Scribus13Format*>(plugin);
+	Scribus134Format* plug = dynamic_cast<Scribus134Format*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }
 
 void breakPoint() {}
 
-void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo, bool VorLFound)
+void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo, bool VorLFound)
 {
 	Foi* dummy;
 	bool unknown = false;
@@ -1863,7 +1865,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	return;
 }
 
-void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc)
+void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc)
 {
 	vg.setName(pg.attribute("NAME"));
 	vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg.attribute("LINESPMode", "0").toInt()));
@@ -1962,7 +1964,7 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 		}
 }
 
-PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
+PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 {
 	struct ScImage::LoadRequest loadingInfo;
 	int z = 0;
@@ -2456,7 +2458,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	return currItem;
 }
 
-bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName)
+bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName)
 {
 	qDebug(QString("loading page %2 from file '%1' from 1.3.x plugin").arg(fileName).arg(pageNumber));
 	if (m_Doc==0 || m_AvailableFonts==0)
@@ -2896,7 +2898,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	return true;
 }
 
-void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
+void Scribus134Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
 {
 	bool fou;
 	QString tmpf, tmf, tmV;
@@ -2952,7 +2954,7 @@ void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<P
 	}
 }
 
-QString Scribus13Format::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc)
+QString Scribus134Format::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc)
 {
 	PrefsManager *prefsManager=PrefsManager::instance();
 //	QFont fo;
@@ -2983,7 +2985,7 @@ QString Scribus13Format::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *do
 	return tmpf;
 }
 
-bool Scribus13Format::readStyles(const QString& fileName, ScribusDoc* doc, QValueList<ParagraphStyle> &docParagraphStyles)
+bool Scribus134Format::readStyles(const QString& fileName, ScribusDoc* doc, QValueList<ParagraphStyle> &docParagraphStyles)
 {
 	ParagraphStyle vg;
 	QDomDocument docu("scridoc");
@@ -3013,7 +3015,7 @@ bool Scribus13Format::readStyles(const QString& fileName, ScribusDoc* doc, QValu
 	return true;
 }
 
-bool Scribus13Format::readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty)
+bool Scribus134Format::readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty)
 {
 	QDomDocument docu("scridoc");
 	QString f(readSLA(fileName));
@@ -3066,7 +3068,7 @@ bool Scribus13Format::readLineStyles(const QString& fileName, QMap<QString,multi
 	return true;
 }
 
-bool Scribus13Format::readColors(const QString& fileName, ColorList & colors)
+bool Scribus134Format::readColors(const QString& fileName, ColorList & colors)
 {
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
@@ -3111,7 +3113,7 @@ bool Scribus13Format::readColors(const QString& fileName, ColorList & colors)
 	return true;
 }
 
-bool Scribus13Format::readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames)
+bool Scribus134Format::readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames)
 {
 	QString PgNam;
 	int counter = 0;
@@ -3149,7 +3151,7 @@ bool Scribus13Format::readPageCount(const QString& fileName, int *num1, int *num
 	return true;
 }
 
-void Scribus13Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master)
+void Scribus134Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master)
 {
 	uint ObCount = maxC;
 	Page *page;
@@ -3197,7 +3199,7 @@ void Scribus13Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElemen
 	}
 }
 
-void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master)
+void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master)
 {
 	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tobj, tobj2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
@@ -3522,7 +3524,7 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 	}
 }
 
-void Scribus13Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
+void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 {
 	double xf, yf;
 	QString tmp, tmpy;
