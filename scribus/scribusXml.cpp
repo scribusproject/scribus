@@ -1409,922 +1409,922 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	return docu.toString().utf8();
 }
 
-void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master)
-{
-	uint ObCount = maxC;
-	Page *page;
-	uint pages;
-	QDomElement pg;
-	QString tmp;
-	if (master)
-		pages = doc->MasterPages.count();
-	else
-		pages = doc->DocPages.count();
-	for(uint i = 0; i < pages; ++i)
-	{
-		ObCount++;
-		if (dia2 != 0)
-			dia2->setProgress(ObCount);
-		if (master)
-		{
-			pg = docu->createElement("MASTERPAGE");
-			page = doc->MasterPages.at(i);
-		}
-		else
-		{
-			pg = docu->createElement("PAGE");
-			page = doc->DocPages.at(i);
-		}
-		pg.setAttribute("PAGEXPOS",page->xOffset());
-		pg.setAttribute("PAGEYPOS",page->yOffset());
-		pg.setAttribute("PAGEWIDTH",page->width());
-		pg.setAttribute("PAGEHEIGHT",page->height());
-		pg.setAttribute("BORDERLEFT",page->initialMargins.Left);
-		pg.setAttribute("BORDERRIGHT",page->initialMargins.Right);
-		pg.setAttribute("BORDERTOP",page->initialMargins.Top);
-		pg.setAttribute("BORDERBOTTOM",page->initialMargins.Bottom);
-		pg.setAttribute("NUM",page->pageNr());
-		pg.setAttribute("NAM",page->PageNam);
-		pg.setAttribute("MNAM",page->MPageNam);
-		pg.setAttribute("Size", page->PageSize);
-		pg.setAttribute("Orientation", page->PageOri);
-		pg.setAttribute("LEFT", page->LeftPg);
-		pg.setAttribute("VerticalGuides", GuideManagerCore::writeVerticalGuides(
-													page, GuideManagerCore::Standard));
-		pg.setAttribute("HorizontalGuides", GuideManagerCore::writeHorizontalGuides(
-													page, GuideManagerCore::Standard));
-		dc->appendChild(pg);
-	}
-}
+// void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master)
+// {
+// 	uint ObCount = maxC;
+// 	Page *page;
+// 	uint pages;
+// 	QDomElement pg;
+// 	QString tmp;
+// 	if (master)
+// 		pages = doc->MasterPages.count();
+// 	else
+// 		pages = doc->DocPages.count();
+// 	for(uint i = 0; i < pages; ++i)
+// 	{
+// 		ObCount++;
+// 		if (dia2 != 0)
+// 			dia2->setProgress(ObCount);
+// 		if (master)
+// 		{
+// 			pg = docu->createElement("MASTERPAGE");
+// 			page = doc->MasterPages.at(i);
+// 		}
+// 		else
+// 		{
+// 			pg = docu->createElement("PAGE");
+// 			page = doc->DocPages.at(i);
+// 		}
+// 		pg.setAttribute("PAGEXPOS",page->xOffset());
+// 		pg.setAttribute("PAGEYPOS",page->yOffset());
+// 		pg.setAttribute("PAGEWIDTH",page->width());
+// 		pg.setAttribute("PAGEHEIGHT",page->height());
+// 		pg.setAttribute("BORDERLEFT",page->initialMargins.Left);
+// 		pg.setAttribute("BORDERRIGHT",page->initialMargins.Right);
+// 		pg.setAttribute("BORDERTOP",page->initialMargins.Top);
+// 		pg.setAttribute("BORDERBOTTOM",page->initialMargins.Bottom);
+// 		pg.setAttribute("NUM",page->pageNr());
+// 		pg.setAttribute("NAM",page->PageNam);
+// 		pg.setAttribute("MNAM",page->MPageNam);
+// 		pg.setAttribute("Size", page->PageSize);
+// 		pg.setAttribute("Orientation", page->PageOri);
+// 		pg.setAttribute("LEFT", page->LeftPg);
+// 		pg.setAttribute("VerticalGuides", GuideManagerCore::writeVerticalGuides(
+// 													page, GuideManagerCore::Standard));
+// 		pg.setAttribute("HorizontalGuides", GuideManagerCore::writeHorizontalGuides(
+// 													page, GuideManagerCore::Standard));
+// 		dc->appendChild(pg);
+// 	}
+// }
+// 
+// void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master)
+// {
+// 	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tobj, tobj2;
+// 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
+// 	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
+// 	uint ObCount = maxC;
+// 	PageItem *item;
+// 	QDomElement ob;
+// 	uint objects;
+// 	switch (master)
+// 	{
+// 		case 0:
+// 			objects = doc->MasterItems.count();
+// 			break;
+// 		case 1:
+// 			objects = doc->DocItems.count();
+// 			break;
+// 		case 2:
+// 			objects = doc->FrameItems.count();
+// 			break;
+// 	}
+// 	for(uint j = 0; j < objects;++j)
+// 	{
+// 		ObCount++;
+// 		if (dia2 != 0)
+// 			dia2->setProgress(ObCount);
+// 		switch (master)
+// 		{
+// 			case 0:
+// 				item = doc->MasterItems.at(j);
+// 				ob = docu->createElement("MASTEROBJECT");
+// 				break;
+// 			case 1:
+// 				item = doc->DocItems.at(j);
+// 				ob = docu->createElement("PAGEOBJECT");
+// 				break;
+// 			case 2:
+// 				item = doc->FrameItems.at(j);
+// 				ob = docu->createElement("FRAMEOBJECT");
+// 				break;
+// 		}
+// 		SetItemProps(&ob, item, true);
+// 		ob.setAttribute("OnMasterPage", item->OnMasterPage);
+// 		ob.setAttribute("ImageClip", item->pixm.imgInfo.usedPath);
+// 		ob.setAttribute("ImageRes", item->pixm.imgInfo.lowResType);
+// 		ob.setAttribute("isInline", static_cast<int>(item->isEmbedded));
+// 		ob.setAttribute("fillRule", static_cast<int>(item->fillRule));
+// 		ob.setAttribute("doOverprint", static_cast<int>(item->doOverprint));
+// 		ob.setAttribute("gXpos", item->gXpos);
+// 		ob.setAttribute("gYpos", item->gYpos);
+// 		ob.setAttribute("gWidth", item->gWidth);
+// 		ob.setAttribute("gHeight", item->gHeight);
+// 		if (item->GrType != 0)
+// 		{
+// 			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
+// 			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
+// 			{
+// 				QDomElement itcl = docu->createElement("CSTOP");
+// 				itcl.setAttribute("RAMP", cstops.at(cst)->rampPoint);
+// 				itcl.setAttribute("NAME", cstops.at(cst)->name);
+// 				itcl.setAttribute("SHADE", cstops.at(cst)->shade);
+// 				itcl.setAttribute("TRANS", cstops.at(cst)->opacity);
+// 				ob.appendChild(itcl);
+// 			}
+// 			ob.setAttribute("GRSTARTX", item->GrStartX);
+// 			ob.setAttribute("GRSTARTY", item->GrStartY);
+// 			ob.setAttribute("GRENDX", item->GrEndX);
+// 			ob.setAttribute("GRENDY", item->GrEndY);
+// 		}
+// 		if (item->effectsInUse.count() != 0)
+// 		{
+// 			for (uint a = 0; a < item->effectsInUse.count(); ++a)
+// 			{
+// 				QDomElement imeff = docu->createElement("ImageEffect");
+// 				imeff.setAttribute("Code", (*item->effectsInUse.at(a)).effectCode);
+// 				imeff.setAttribute("Param", (*item->effectsInUse.at(a)).effectParameters);
+// 				ob.appendChild(imeff);
+// 			}
+// 		}
+// 		if (item->TabValues.count() != 0)
+// 		{
+// 			for (uint a = 0; a < item->TabValues.count(); ++a)
+// 			{
+// 				QDomElement tabs = docu->createElement("Tabs");
+// 				tabs.setAttribute("Type", (*item->TabValues.at(a)).tabType);
+// 				tabs.setAttribute("Pos", (*item->TabValues.at(a)).tabPosition);
+// 				QString tabCh = "";
+// 				if (!(*item->TabValues.at(a)).tabFillChar.isNull())
+// 					tabCh = QString((*item->TabValues.at(a)).tabFillChar);
+// 				tabs.setAttribute("Fill", tabCh);
+// 				ob.appendChild(tabs);
+// 			}
+// 		}
+// 		if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()) && (item->pixm.imgInfo.layerInfo.count() != 0) && (item->pixm.imgInfo.isRequest))
+// 		{
+// 			QMap<int, ScImage::LoadRequest>::iterator it2;
+// 			for (it2 = item->pixm.imgInfo.RequestProps.begin(); it2 != item->pixm.imgInfo.RequestProps.end(); ++it2)
+// 			{
+// 				QDomElement psd = docu->createElement("PSDLayer");
+// 				psd.setAttribute("Layer",it2.key());
+// 				psd.setAttribute("Visible", static_cast<int>(it2.data().visible));
+// 				psd.setAttribute("Opacity", it2.data().opacity);
+// 				psd.setAttribute("Blend", it2.data().blend);
+// 				ob.appendChild(psd);
+// 			}
+// 		}
+// 		ob.setAttribute("ALIGN",findParagraphStyle(doc, item->itemText.defaultStyle()));
+// 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
+// 		for(int k = 0; k < item->itemText.length(); ++k)
+// 		{
+// 			const CharStyle& style1(item->itemText.charStyle(k));
+// 			QChar ch = item->itemText.text(k);
+// 			QDomElement it=docu->createElement("ITEXT");
+// 			ts = style1.csize / 10.0;
+// 			tf = style1.cfont->scName();
+// 			tc = style1.ccolor;
+// 			te = style1.cextra;
+// 			tsh = style1.cshade;
+// 			tst = style1.cstyle & 2047;
+// #ifndef NLS_PROTO
+// 			tsb = item->itemText.at(k)->cab;
+// #else
+// 			tsb = 0;
+// #endif
+// 			tcs = style1.cstroke;
+// 			tshs = style1.cshade2;
+// 			tsc = style1.cscale / 10.0;
+// 			tscv = style1.cscalev / 10.0;
+// 			tb = style1.cbase / 10.0;
+// 			tsx = style1.cshadowx / 10.0;
+// 			tsy = style1.cshadowy / 10.0;
+// 			tout = style1.coutline / 10.0;
+// 			tulp = style1.cunderpos / 10.0;
+// 			tulw = style1.cunderwidth / 10.0;
+// 			tstp = style1.cstrikepos / 10.0;
+// 			tstw = style1.cstrikewidth / 10.0;
+// #ifndef NLS_PROTO
+// 			if ((ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
+// 				tobj = item->itemText.at(k)->cembedded->ItemNr;
+// 			else
+// #endif
+// 				tobj = -1;
+// 			if (ch == QChar(13))
+// 				text = QChar(5);
+// 			else if (ch == QChar(9))
+// 				text = QChar(4);
+// 			else
+// 				text = ch;
+// 			++k;
+// 			if (k == item->itemText.length())
+// 			{
+// 				it.setAttribute("CH",text);
+// 				it.setAttribute("CSIZE",ts);
+// 				it.setAttribute("CFONT",tf);
+// 				it.setAttribute("CCOLOR",tc);
+// 				it.setAttribute("CKERN",te);
+// 				it.setAttribute("CSHADE",tsh);
+// 				it.setAttribute("CSTYLE",tst);
+// 				it.setAttribute("CAB",tsb);
+// 				it.setAttribute("CSTROKE",tcs);
+// 				it.setAttribute("CSHADE2",tshs);
+// 				it.setAttribute("CSCALE",tsc);
+// 				it.setAttribute("CSCALEV",tscv);
+// 				it.setAttribute("CBASE",tb);
+// 				it.setAttribute("CSHX",tsx);
+// 				it.setAttribute("CSHY",tsy);
+// 				it.setAttribute("COUT",tout);
+// 				it.setAttribute("CULP",tulp);
+// 				it.setAttribute("CULW",tulw);
+// 				it.setAttribute("CSTP",tstp);
+// 				it.setAttribute("CSTW",tstw);
+// 				if (tobj != -1)
+// 					it.setAttribute("COBJ", tobj);
+// 				ob.appendChild(it);
+// 				break;
+// 			}
+// 			const CharStyle& style2(item->itemText.charStyle(k));
+// 			ch = item->itemText.text(k);
+// 			ts2 = style2.csize / 10.0;
+// 			tf2 = style2.cfont->scName();
+// 			tc2 = style2.ccolor;
+// 			te2 = style2.cextra;
+// 			tsh2 = style2.cshade;
+// 			tst2 = style2.cstyle & 2047;
+// #ifndef NLS_PROTO
+// 			tsb2 = item->itemText.at(k)->cab;
+// #else
+// 			tsb2 = 0;
+// #endif
+// 			tcs2 = style2.cstroke;
+// 			tshs2 = style2.cshade2;
+// 			tsc2 = style2.cscale / 10.0;
+// 			tscv2 = style2.cscalev / 10.0;
+// 			tb2 = style2.cbase / 10.0;
+// 			tsx2 = style2.cshadowx / 10.0;
+// 			tsy2 = style2.cshadowy / 10.0;
+// 			tout2 = style2.coutline / 10.0;
+// 			tulp2 = style2.cunderpos / 10.0;
+// 			tulw2 = style2.cunderwidth / 10.0;
+// 			tstp2 = style2.cstrikepos / 10.0;
+// 			tstw2 = style2.cstrikewidth / 10.0;
+// #ifndef NLS_PROTO
+// 			if ((ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
+// 				tobj2 = item->itemText.at(k)->cembedded->ItemNr;
+// 			else
+// #endif
+// 				tobj2 = -1;
+// 			while ((ts2 == ts)
+// 						&& (tsb2 == tsb)
+// 						&& (tf2 == tf)
+// 						&& (tc2 == tc)
+// 						&& (te2 == te)
+// 						&& (tsh2 == tsh)
+// 						&& (tshs2 == tshs)
+// 						&& (tsc2 == tsc)
+// 						&& (tscv2 == tscv)
+// 						&& (tcs2 == tcs)
+// 						&& (tb2 == tb)
+// 						&& (tsx2 == tsx)
+// 						&& (tsy2 == tsy)
+// 						&& (tout2 == tout)
+// 						&& (tulp2 == tulp)
+// 						&& (tulw2 == tulw)
+// 						&& (tstp2 == tstp)
+// 						&& (tstw2 == tstw)
+// 						&& (tobj2 == tobj)
+// 						&& (tst2 == tst))
+// 			{
+// 				if (ch == QChar(13))
+// 					text += QChar(5);
+// 				else if (ch == QChar(9))
+// 					text += QChar(4);
+// 				else
+// 					text += ch;
+// 				++k;
+// 				if (k == item->itemText.length())
+// 					break;
+// 				const CharStyle& style3(item->itemText.charStyle(k));
+// 				ch = item->itemText.text(k);
+// 				ts2 = style3.csize / 10.0;
+// 				tf2 = style3.cfont->scName();
+// 				tc2 = style3.ccolor;
+// 				te2 = style3.cextra;
+// 				tsh2 = style3.cshade;
+// 				tst2 = style3.cstyle & 2047;
+// #ifndef NLS_PROTO
+// 				tsb2 = item->itemText.at(k)->cab;
+// #else
+// 				tsb2 = 0;
+// #endif
+// 				tcs2 = style3.cstroke;
+// 				tshs2 = style3.cshade2;
+// 				tsc2 = style3.cscale / 10.0;
+// 				tscv2 = style3.cscalev / 10.0;
+// 				tb2 = style3.cbase / 10.0;
+// 				tsx2 = style3.cshadowx / 10.0;
+// 				tsy2 = style3.cshadowy / 10.0;
+// 				tout2 = style3.coutline / 10.0;
+// 				tulp2 = style3.cunderpos / 10.0;
+// 				tulw2 = style3.cunderwidth / 10.0;
+// 				tstp2 = style3.cstrikepos / 10.0;
+// 				tstw2 = style3.cstrikewidth / 10.0;
+// #ifndef NLS_PROTO
+// 				if ((ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
+// 					tobj2 = item->itemText.at(k)->cembedded->ItemNr;
+// 				else
+// #endif
+// 					tobj2 = -1;
+// 			}
+// 			it.setAttribute("CH",text);
+// 			it.setAttribute("CSIZE",ts);
+// 			it.setAttribute("CFONT",tf);
+// 			it.setAttribute("CCOLOR",tc);
+// 			it.setAttribute("CKERN",te);
+// 			it.setAttribute("CSHADE",tsh);
+// 			it.setAttribute("CSTYLE",tst);
+// 			it.setAttribute("CAB",tsb);
+// 			it.setAttribute("CSTROKE",tcs);
+// 			it.setAttribute("CSHADE2",tshs);
+// 			it.setAttribute("CSCALE",tsc);
+// 			it.setAttribute("CSCALEV",tscv);
+// 			it.setAttribute("CBASE",tb);
+// 			it.setAttribute("CSHX",tsx);
+// 			it.setAttribute("CSHY",tsy);
+// 			it.setAttribute("COUT",tout);
+// 			it.setAttribute("CULP",tulp);
+// 			it.setAttribute("CULW",tulw);
+// 			it.setAttribute("CSTP",tstp);
+// 			it.setAttribute("CSTW",tstw);
+// 			if (tobj != -1)
+// 				it.setAttribute("COBJ", tobj);
+// 			k--;
+// 			ob.appendChild(it);
+// 		}
+// 		if (item->BackBox != 0)
+// 			ob.setAttribute("BACKITEM", item->BackBox->ItemNr);
+// 		else
+// 			ob.setAttribute("BACKITEM", -1);
+// 		if (item->NextBox != 0)
+// 			ob.setAttribute("NEXTITEM", item->NextBox->ItemNr);
+// 		else
+// 			ob.setAttribute("NEXTITEM", -1);
+// 		ob.setAttribute("LAYER", item->LayerNr);
+// 
+// 		//CB PageItemAttributes
+// 		QDomElement docItemAttrs = docu->createElement("PageItemAttributes");
+// 		ObjAttrVector *attributes=item->getObjectAttributes();
+// 		for(ObjAttrVector::Iterator objAttrIt = attributes->begin() ; objAttrIt != attributes->end(); ++objAttrIt )
+// 		{
+// 			QDomElement itemAttr = docu->createElement("ItemAttribute");
+// 			itemAttr.setAttribute("Name", (*objAttrIt).name);
+// 			itemAttr.setAttribute("Type", (*objAttrIt).type);
+// 			itemAttr.setAttribute("Value", (*objAttrIt).value);
+// 			itemAttr.setAttribute("Parameter", (*objAttrIt).parameter);
+// 			itemAttr.setAttribute("Relationship", (*objAttrIt).relationship);
+// 			itemAttr.setAttribute("RelationshipTo", (*objAttrIt).relationshipto);
+// 			itemAttr.setAttribute("AutoAddTo", (*objAttrIt).autoaddto);
+// 			docItemAttrs.appendChild(itemAttr);
+// 		}
+// 		ob.appendChild(docItemAttrs);
+// 
+// 		dc->appendChild(ob);
+// 	}
+// }
 
-void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master)
-{
-	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tobj, tobj2;
-	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
-	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
-	uint ObCount = maxC;
-	PageItem *item;
-	QDomElement ob;
-	uint objects;
-	switch (master)
-	{
-		case 0:
-			objects = doc->MasterItems.count();
-			break;
-		case 1:
-			objects = doc->DocItems.count();
-			break;
-		case 2:
-			objects = doc->FrameItems.count();
-			break;
-	}
-	for(uint j = 0; j < objects;++j)
-	{
-		ObCount++;
-		if (dia2 != 0)
-			dia2->setProgress(ObCount);
-		switch (master)
-		{
-			case 0:
-				item = doc->MasterItems.at(j);
-				ob = docu->createElement("MASTEROBJECT");
-				break;
-			case 1:
-				item = doc->DocItems.at(j);
-				ob = docu->createElement("PAGEOBJECT");
-				break;
-			case 2:
-				item = doc->FrameItems.at(j);
-				ob = docu->createElement("FRAMEOBJECT");
-				break;
-		}
-		SetItemProps(&ob, item, true);
-		ob.setAttribute("OnMasterPage", item->OnMasterPage);
-		ob.setAttribute("ImageClip", item->pixm.imgInfo.usedPath);
-		ob.setAttribute("ImageRes", item->pixm.imgInfo.lowResType);
-		ob.setAttribute("isInline", static_cast<int>(item->isEmbedded));
-		ob.setAttribute("fillRule", static_cast<int>(item->fillRule));
-		ob.setAttribute("doOverprint", static_cast<int>(item->doOverprint));
-		ob.setAttribute("gXpos", item->gXpos);
-		ob.setAttribute("gYpos", item->gYpos);
-		ob.setAttribute("gWidth", item->gWidth);
-		ob.setAttribute("gHeight", item->gHeight);
-		if (item->GrType != 0)
-		{
-			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
-			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
-			{
-				QDomElement itcl = docu->createElement("CSTOP");
-				itcl.setAttribute("RAMP", cstops.at(cst)->rampPoint);
-				itcl.setAttribute("NAME", cstops.at(cst)->name);
-				itcl.setAttribute("SHADE", cstops.at(cst)->shade);
-				itcl.setAttribute("TRANS", cstops.at(cst)->opacity);
-				ob.appendChild(itcl);
-			}
-			ob.setAttribute("GRSTARTX", item->GrStartX);
-			ob.setAttribute("GRSTARTY", item->GrStartY);
-			ob.setAttribute("GRENDX", item->GrEndX);
-			ob.setAttribute("GRENDY", item->GrEndY);
-		}
-		if (item->effectsInUse.count() != 0)
-		{
-			for (uint a = 0; a < item->effectsInUse.count(); ++a)
-			{
-				QDomElement imeff = docu->createElement("ImageEffect");
-				imeff.setAttribute("Code", (*item->effectsInUse.at(a)).effectCode);
-				imeff.setAttribute("Param", (*item->effectsInUse.at(a)).effectParameters);
-				ob.appendChild(imeff);
-			}
-		}
-		if (item->TabValues.count() != 0)
-		{
-			for (uint a = 0; a < item->TabValues.count(); ++a)
-			{
-				QDomElement tabs = docu->createElement("Tabs");
-				tabs.setAttribute("Type", (*item->TabValues.at(a)).tabType);
-				tabs.setAttribute("Pos", (*item->TabValues.at(a)).tabPosition);
-				QString tabCh = "";
-				if (!(*item->TabValues.at(a)).tabFillChar.isNull())
-					tabCh = QString((*item->TabValues.at(a)).tabFillChar);
-				tabs.setAttribute("Fill", tabCh);
-				ob.appendChild(tabs);
-			}
-		}
-		if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()) && (item->pixm.imgInfo.layerInfo.count() != 0) && (item->pixm.imgInfo.isRequest))
-		{
-			QMap<int, ScImage::LoadRequest>::iterator it2;
-			for (it2 = item->pixm.imgInfo.RequestProps.begin(); it2 != item->pixm.imgInfo.RequestProps.end(); ++it2)
-			{
-				QDomElement psd = docu->createElement("PSDLayer");
-				psd.setAttribute("Layer",it2.key());
-				psd.setAttribute("Visible", static_cast<int>(it2.data().visible));
-				psd.setAttribute("Opacity", it2.data().opacity);
-				psd.setAttribute("Blend", it2.data().blend);
-				ob.appendChild(psd);
-			}
-		}
-		ob.setAttribute("ALIGN",findParagraphStyle(doc, item->itemText.defaultStyle()));
-		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
-		for(int k = 0; k < item->itemText.length(); ++k)
-		{
-			const CharStyle& style1(item->itemText.charStyle(k));
-			QChar ch = item->itemText.text(k);
-			QDomElement it=docu->createElement("ITEXT");
-			ts = style1.csize / 10.0;
-			tf = style1.cfont->scName();
-			tc = style1.ccolor;
-			te = style1.cextra;
-			tsh = style1.cshade;
-			tst = style1.cstyle & 2047;
-#ifndef NLS_PROTO
-			tsb = item->itemText.at(k)->cab;
-#else
-			tsb = 0;
-#endif
-			tcs = style1.cstroke;
-			tshs = style1.cshade2;
-			tsc = style1.cscale / 10.0;
-			tscv = style1.cscalev / 10.0;
-			tb = style1.cbase / 10.0;
-			tsx = style1.cshadowx / 10.0;
-			tsy = style1.cshadowy / 10.0;
-			tout = style1.coutline / 10.0;
-			tulp = style1.cunderpos / 10.0;
-			tulw = style1.cunderwidth / 10.0;
-			tstp = style1.cstrikepos / 10.0;
-			tstw = style1.cstrikewidth / 10.0;
-#ifndef NLS_PROTO
-			if ((ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
-				tobj = item->itemText.at(k)->cembedded->ItemNr;
-			else
-#endif
-				tobj = -1;
-			if (ch == QChar(13))
-				text = QChar(5);
-			else if (ch == QChar(9))
-				text = QChar(4);
-			else
-				text = ch;
-			++k;
-			if (k == item->itemText.length())
-			{
-				it.setAttribute("CH",text);
-				it.setAttribute("CSIZE",ts);
-				it.setAttribute("CFONT",tf);
-				it.setAttribute("CCOLOR",tc);
-				it.setAttribute("CKERN",te);
-				it.setAttribute("CSHADE",tsh);
-				it.setAttribute("CSTYLE",tst);
-				it.setAttribute("CAB",tsb);
-				it.setAttribute("CSTROKE",tcs);
-				it.setAttribute("CSHADE2",tshs);
-				it.setAttribute("CSCALE",tsc);
-				it.setAttribute("CSCALEV",tscv);
-				it.setAttribute("CBASE",tb);
-				it.setAttribute("CSHX",tsx);
-				it.setAttribute("CSHY",tsy);
-				it.setAttribute("COUT",tout);
-				it.setAttribute("CULP",tulp);
-				it.setAttribute("CULW",tulw);
-				it.setAttribute("CSTP",tstp);
-				it.setAttribute("CSTW",tstw);
-				if (tobj != -1)
-					it.setAttribute("COBJ", tobj);
-				ob.appendChild(it);
-				break;
-			}
-			const CharStyle& style2(item->itemText.charStyle(k));
-			ch = item->itemText.text(k);
-			ts2 = style2.csize / 10.0;
-			tf2 = style2.cfont->scName();
-			tc2 = style2.ccolor;
-			te2 = style2.cextra;
-			tsh2 = style2.cshade;
-			tst2 = style2.cstyle & 2047;
-#ifndef NLS_PROTO
-			tsb2 = item->itemText.at(k)->cab;
-#else
-			tsb2 = 0;
-#endif
-			tcs2 = style2.cstroke;
-			tshs2 = style2.cshade2;
-			tsc2 = style2.cscale / 10.0;
-			tscv2 = style2.cscalev / 10.0;
-			tb2 = style2.cbase / 10.0;
-			tsx2 = style2.cshadowx / 10.0;
-			tsy2 = style2.cshadowy / 10.0;
-			tout2 = style2.coutline / 10.0;
-			tulp2 = style2.cunderpos / 10.0;
-			tulw2 = style2.cunderwidth / 10.0;
-			tstp2 = style2.cstrikepos / 10.0;
-			tstw2 = style2.cstrikewidth / 10.0;
-#ifndef NLS_PROTO
-			if ((ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
-				tobj2 = item->itemText.at(k)->cembedded->ItemNr;
-			else
-#endif
-				tobj2 = -1;
-			while ((ts2 == ts)
-						&& (tsb2 == tsb)
-						&& (tf2 == tf)
-						&& (tc2 == tc)
-						&& (te2 == te)
-						&& (tsh2 == tsh)
-						&& (tshs2 == tshs)
-						&& (tsc2 == tsc)
-						&& (tscv2 == tscv)
-						&& (tcs2 == tcs)
-						&& (tb2 == tb)
-						&& (tsx2 == tsx)
-						&& (tsy2 == tsy)
-						&& (tout2 == tout)
-						&& (tulp2 == tulp)
-						&& (tulw2 == tulw)
-						&& (tstp2 == tstp)
-						&& (tstw2 == tstw)
-						&& (tobj2 == tobj)
-						&& (tst2 == tst))
-			{
-				if (ch == QChar(13))
-					text += QChar(5);
-				else if (ch == QChar(9))
-					text += QChar(4);
-				else
-					text += ch;
-				++k;
-				if (k == item->itemText.length())
-					break;
-				const CharStyle& style3(item->itemText.charStyle(k));
-				ch = item->itemText.text(k);
-				ts2 = style3.csize / 10.0;
-				tf2 = style3.cfont->scName();
-				tc2 = style3.ccolor;
-				te2 = style3.cextra;
-				tsh2 = style3.cshade;
-				tst2 = style3.cstyle & 2047;
-#ifndef NLS_PROTO
-				tsb2 = item->itemText.at(k)->cab;
-#else
-				tsb2 = 0;
-#endif
-				tcs2 = style3.cstroke;
-				tshs2 = style3.cshade2;
-				tsc2 = style3.cscale / 10.0;
-				tscv2 = style3.cscalev / 10.0;
-				tb2 = style3.cbase / 10.0;
-				tsx2 = style3.cshadowx / 10.0;
-				tsy2 = style3.cshadowy / 10.0;
-				tout2 = style3.coutline / 10.0;
-				tulp2 = style3.cunderpos / 10.0;
-				tulw2 = style3.cunderwidth / 10.0;
-				tstp2 = style3.cstrikepos / 10.0;
-				tstw2 = style3.cstrikewidth / 10.0;
-#ifndef NLS_PROTO
-				if ((ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
-					tobj2 = item->itemText.at(k)->cembedded->ItemNr;
-				else
-#endif
-					tobj2 = -1;
-			}
-			it.setAttribute("CH",text);
-			it.setAttribute("CSIZE",ts);
-			it.setAttribute("CFONT",tf);
-			it.setAttribute("CCOLOR",tc);
-			it.setAttribute("CKERN",te);
-			it.setAttribute("CSHADE",tsh);
-			it.setAttribute("CSTYLE",tst);
-			it.setAttribute("CAB",tsb);
-			it.setAttribute("CSTROKE",tcs);
-			it.setAttribute("CSHADE2",tshs);
-			it.setAttribute("CSCALE",tsc);
-			it.setAttribute("CSCALEV",tscv);
-			it.setAttribute("CBASE",tb);
-			it.setAttribute("CSHX",tsx);
-			it.setAttribute("CSHY",tsy);
-			it.setAttribute("COUT",tout);
-			it.setAttribute("CULP",tulp);
-			it.setAttribute("CULW",tulw);
-			it.setAttribute("CSTP",tstp);
-			it.setAttribute("CSTW",tstw);
-			if (tobj != -1)
-				it.setAttribute("COBJ", tobj);
-			k--;
-			ob.appendChild(it);
-		}
-		if (item->BackBox != 0)
-			ob.setAttribute("BACKITEM", item->BackBox->ItemNr);
-		else
-			ob.setAttribute("BACKITEM", -1);
-		if (item->NextBox != 0)
-			ob.setAttribute("NEXTITEM", item->NextBox->ItemNr);
-		else
-			ob.setAttribute("NEXTITEM", -1);
-		ob.setAttribute("LAYER", item->LayerNr);
-
-		//CB PageItemAttributes
-		QDomElement docItemAttrs = docu->createElement("PageItemAttributes");
-		ObjAttrVector *attributes=item->getObjectAttributes();
-		for(ObjAttrVector::Iterator objAttrIt = attributes->begin() ; objAttrIt != attributes->end(); ++objAttrIt )
-		{
-			QDomElement itemAttr = docu->createElement("ItemAttribute");
-			itemAttr.setAttribute("Name", (*objAttrIt).name);
-			itemAttr.setAttribute("Type", (*objAttrIt).type);
-			itemAttr.setAttribute("Value", (*objAttrIt).value);
-			itemAttr.setAttribute("Parameter", (*objAttrIt).parameter);
-			itemAttr.setAttribute("Relationship", (*objAttrIt).relationship);
-			itemAttr.setAttribute("RelationshipTo", (*objAttrIt).relationshipto);
-			itemAttr.setAttribute("AutoAddTo", (*objAttrIt).autoaddto);
-			docItemAttrs.appendChild(itemAttr);
-		}
-		ob.appendChild(docItemAttrs);
-
-		dc->appendChild(ob);
-	}
-}
-
-bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
-{
-	QString text, tf, tf2, tc, tc2;
-	QDomDocument docu("scribus");
-	QString st="<SCRIBUSUTF8NEW></SCRIBUSUTF8NEW>";
-	docu.setContent(st);
-	QDomElement elem=docu.documentElement();
-	elem.setAttribute("Version", QString(VERSION));
-	QDomElement dc=docu.createElement("DOCUMENT");
-	dc.setAttribute("ANZPAGES",doc->DocPages.count());
-	dc.setAttribute("PAGEWIDTH",doc->pageWidth);
-	dc.setAttribute("PAGEHEIGHT",doc->pageHeight);
-	dc.setAttribute("BORDERLEFT",doc->pageMargins.Left);
-	dc.setAttribute("BORDERRIGHT",doc->pageMargins.Right);
-	dc.setAttribute("BORDERTOP",doc->pageMargins.Top);
-	dc.setAttribute("BORDERBOTTOM",doc->pageMargins.Bottom);
-	dc.setAttribute("ORIENTATION",doc->PageOri);
-	dc.setAttribute("PAGESIZE",doc->PageSize);
-	dc.setAttribute("FIRSTNUM",doc->FirstPnum);
-	dc.setAttribute("BOOK", doc->currentPageLayout);
-	if(doc->usesAutomaticTextFrames())
-		dc.setAttribute("AUTOTEXT",1);
-	dc.setAttribute("AUTOSPALTEN",doc->PageSp);
-	dc.setAttribute("ABSTSPALTEN",doc->PageSpa);
-	dc.setAttribute("UNITS",doc->unitIndex());
-	dc.setAttribute("DFONT",doc->toolSettings.defFont);
-	dc.setAttribute("DSIZE",doc->toolSettings.defSize / 10.0);
-	dc.setAttribute("DCOL",doc->toolSettings.dCols);
-	dc.setAttribute("DGAP",doc->toolSettings.dGap);
-	dc.setAttribute("TabFill",doc->toolSettings.tabFillChar);
-	dc.setAttribute("TabWidth",doc->toolSettings.dTabWidth);
-	dc.setAttribute("AUTHOR",doc->documentInfo.getAuthor());
-	dc.setAttribute("COMMENTS",doc->documentInfo.getComments());
-	dc.setAttribute("KEYWORDS",doc->documentInfo.getKeywords());
-	dc.setAttribute("PUBLISHER",doc->documentInfo.getPublisher());
-	dc.setAttribute("DOCDATE",doc->documentInfo.getDate());
-	dc.setAttribute("DOCTYPE",doc->documentInfo.getType());
-	dc.setAttribute("DOCFORMAT",doc->documentInfo.getFormat());
-	dc.setAttribute("DOCIDENT",doc->documentInfo.getIdent());
-	dc.setAttribute("DOCSOURCE",doc->documentInfo.getSource());
-	dc.setAttribute("DOCLANGINFO",doc->documentInfo.getLangInfo());
-	dc.setAttribute("DOCRELATION",doc->documentInfo.getRelation());
-	dc.setAttribute("DOCCOVER",doc->documentInfo.getCover());
-	dc.setAttribute("DOCRIGHTS",doc->documentInfo.getRights());
-	dc.setAttribute("DOCCONTRIB",doc->documentInfo.getContrib());
-	dc.setAttribute("TITLE",doc->documentInfo.getTitle());
-	dc.setAttribute("VHOCH",doc->typographicSettings.valueSuperScript);
-	dc.setAttribute("VHOCHSC",doc->typographicSettings.scalingSuperScript);
-	dc.setAttribute("VTIEF",doc->typographicSettings.valueSubScript);
-	dc.setAttribute("VTIEFSC",doc->typographicSettings.scalingSubScript);
-	dc.setAttribute("VKAPIT",doc->typographicSettings.valueSmallCaps);
-	dc.setAttribute("BASEGRID",doc->typographicSettings.valueBaseGrid);
-	dc.setAttribute("BASEO", doc->typographicSettings.offsetBaseGrid);
-	dc.setAttribute("AUTOL", doc->typographicSettings.autoLineSpacing);
-	dc.setAttribute("UnderlinePos", doc->typographicSettings.valueUnderlinePos);
-	dc.setAttribute("UnderlineWidth", doc->typographicSettings.valueUnderlineWidth);
-	dc.setAttribute("StrikeThruPos", doc->typographicSettings.valueStrikeThruPos);
-	dc.setAttribute("StrikeThruWidth", doc->typographicSettings.valueStrikeThruWidth);
-	dc.setAttribute("GROUPC",doc->GroupCounter);
-	dc.setAttribute("HCMS", static_cast<int>(doc->HasCMS));
-	dc.setAttribute("DPSo", static_cast<int>(doc->CMSSettings.SoftProofOn));
-	dc.setAttribute("DPSFo", static_cast<int>(doc->CMSSettings.SoftProofFullOn));
-	dc.setAttribute("DPuse", static_cast<int>(doc->CMSSettings.CMSinUse));
-	dc.setAttribute("DPgam", static_cast<int>(doc->CMSSettings.GamutCheck));
-	dc.setAttribute("DPbla", static_cast<int>(doc->CMSSettings.BlackPoint));
-	dc.setAttribute("DPMo",doc->CMSSettings.DefaultMonitorProfile);
-	dc.setAttribute("DPPr",doc->CMSSettings.DefaultPrinterProfile);
-	dc.setAttribute("DPIn",doc->CMSSettings.DefaultImageRGBProfile);
-	dc.setAttribute("DPInCMYK",doc->CMSSettings.DefaultImageCMYKProfile);
-	dc.setAttribute("DPIn2",doc->CMSSettings.DefaultSolidColorRGBProfile);
-	dc.setAttribute("DPIn3",doc->CMSSettings.DefaultSolidColorCMYKProfile);
-	dc.setAttribute("DISc",doc->CMSSettings.DefaultIntentColors);
-	dc.setAttribute("DIIm",doc->CMSSettings.DefaultIntentImages);
-	dc.setAttribute("ALAYER", doc->activeLayer());
-	dc.setAttribute("LANGUAGE", doc->Language);
-	dc.setAttribute("MINWORDLEN", doc->MinWordLen);
-	dc.setAttribute("HYCOUNT", doc->HyCount);
-	dc.setAttribute("AUTOMATIC", static_cast<int>(doc->Automatic));
-	dc.setAttribute("AUTOCHECK", static_cast<int>(doc->AutoCheck));
-	dc.setAttribute("GUIDELOCK", static_cast<int>(doc->GuideLock));
-	dc.setAttribute("SnapToGuides", static_cast<int>(doc->SnapGuides));
-	dc.setAttribute("SnapToGrid", static_cast<int>(doc->useRaster));
-	dc.setAttribute("MINGRID", doc->guidesSettings.minorGrid);
-	dc.setAttribute("MAJGRID", doc->guidesSettings.majorGrid);
-	dc.setAttribute("SHOWGRID", static_cast<int>(doc->guidesSettings.gridShown));
-	dc.setAttribute("SHOWGUIDES", static_cast<int>(doc->guidesSettings.guidesShown));
-	dc.setAttribute("showcolborders", static_cast<int>(doc->guidesSettings.colBordersShown));
-	dc.setAttribute("SHOWFRAME", static_cast<int>(doc->guidesSettings.framesShown));
-	dc.setAttribute("SHOWLAYERM", static_cast<int>(doc->guidesSettings.layerMarkersShown));
-	dc.setAttribute("SHOWMARGIN", static_cast<int>(doc->guidesSettings.marginsShown));
-	dc.setAttribute("SHOWBASE", static_cast<int>(doc->guidesSettings.baseShown));
-	dc.setAttribute("SHOWPICT", static_cast<int>(doc->guidesSettings.showPic));
-	dc.setAttribute("SHOWControl", static_cast<int>(doc->guidesSettings.showControls));
-	dc.setAttribute("SHOWLINK", static_cast<int>(doc->guidesSettings.linkShown));
-	dc.setAttribute("rulerMode", static_cast<int>(doc->guidesSettings.rulerMode));
-	dc.setAttribute("showrulers", static_cast<int>(doc->guidesSettings.rulersShown));
-	dc.setAttribute("rulerXoffset", doc->rulerXoffset);
-	dc.setAttribute("rulerYoffset", doc->rulerYoffset);
-	dc.setAttribute("GuideRad", doc->guidesSettings.guideRad);
-	dc.setAttribute("GRAB",doc->guidesSettings.grabRad);
-	dc.setAttribute("POLYC", doc->toolSettings.polyC);
-	dc.setAttribute("POLYF", doc->toolSettings.polyF);
-	dc.setAttribute("POLYR", doc->toolSettings.polyR);
-	dc.setAttribute("POLYFD", doc->toolSettings.polyFd);
-	dc.setAttribute("POLYS", static_cast<int>(doc->toolSettings.polyS));
-	dc.setAttribute("AutoSave", static_cast<int>(doc->AutoSave));
-	dc.setAttribute("AutoSaveTime", doc->AutoSaveTime);
-	dc.setAttribute("ScratchBottom", doc->ScratchBottom);
-	dc.setAttribute("ScratchLeft", doc->ScratchLeft);
-	dc.setAttribute("ScratchRight", doc->ScratchRight);
-	dc.setAttribute("ScratchTop", doc->ScratchTop);
-	dc.setAttribute("StartArrow", doc->toolSettings.dStartArrow);
-	dc.setAttribute("EndArrow", doc->toolSettings.dEndArrow);
-	dc.setAttribute("PEN",doc->toolSettings.dPen);
-	dc.setAttribute("BRUSH",doc->toolSettings.dBrush);
-	dc.setAttribute("PENLINE",doc->toolSettings.dPenLine);
-	dc.setAttribute("PENTEXT",doc->toolSettings.dPenText);
-	dc.setAttribute("StrokeText",doc->toolSettings.dStrokeText);
-	dc.setAttribute("TextBackGround", doc->toolSettings.dTextBackGround);
-	dc.setAttribute("TextLineColor", doc->toolSettings.dTextLineColor);
-	dc.setAttribute("TextBackGroundShade", doc->toolSettings.dTextBackGroundShade);
-	dc.setAttribute("TextLineShade", doc->toolSettings.dTextLineShade);
-	dc.setAttribute("TextPenShade", doc->toolSettings.dTextPenShade);
-	dc.setAttribute("TextStrokeShade", doc->toolSettings.dTextStrokeShade);
-	dc.setAttribute("STIL",doc->toolSettings.dLineArt);
-	dc.setAttribute("STILLINE",doc->toolSettings.dLstyleLine);
-	dc.setAttribute("WIDTH",doc->toolSettings.dWidth);
-	dc.setAttribute("WIDTHLINE",doc->toolSettings.dWidthLine);
-	dc.setAttribute("PENSHADE",doc->toolSettings.dShade2);
-	dc.setAttribute("LINESHADE",doc->toolSettings.dShadeLine);
-	dc.setAttribute("BRUSHSHADE",doc->toolSettings.dShade);
-	dc.setAttribute("MAGMIN",doc->toolSettings.magMin);
-	dc.setAttribute("MAGMAX",doc->toolSettings.magMax);
-	dc.setAttribute("MAGSTEP",doc->toolSettings.magStep);
-	dc.setAttribute("CPICT",doc->toolSettings.dBrushPict);
-	dc.setAttribute("PICTSHADE",doc->toolSettings.shadePict);
-	dc.setAttribute("PICTSCX",doc->toolSettings.scaleX);
-	dc.setAttribute("PICTSCY",doc->toolSettings.scaleY);
-	dc.setAttribute("PSCALE", static_cast<int>(doc->toolSettings.scaleType));
-	dc.setAttribute("PASPECT", static_cast<int>(doc->toolSettings.aspectRatio));
-	dc.setAttribute("EmbeddedPath", static_cast<int>(doc->toolSettings.useEmbeddedPath));
-	dc.setAttribute("HalfRes", doc->toolSettings.lowResType);
-	dc.setAttribute("MINORC",doc->guidesSettings.minorColor.name());
-	dc.setAttribute("MAJORC",doc->guidesSettings.majorColor.name());
-	dc.setAttribute("GuideC", doc->guidesSettings.guideColor.name());
-	dc.setAttribute("BaseC", doc->guidesSettings.baseColor.name());
-	dc.setAttribute("GuideZ", doc->guidesSettings.guideRad);
-	dc.setAttribute("BACKG", static_cast<int>(doc->guidesSettings.before));
-	dc.setAttribute("PAGEC",doc->papColor.name());
-	dc.setAttribute("MARGC",doc->guidesSettings.margColor.name());
-	dc.setAttribute("RANDF", static_cast<int>(doc->marginColored));
-	dc.setAttribute("currentProfile", doc->curCheckProfile);
-	CheckerPrefsList::Iterator itcp;
-	CheckerPrefsList::Iterator itcpend=doc->checkerProfiles.end();
-	for (itcp = doc->checkerProfiles.begin(); itcp != itcpend; ++itcp)
-	{
-		QDomElement dc79a=docu.createElement("CheckProfile");
-		dc79a.setAttribute("Name",itcp.key());
-		dc79a.setAttribute("ignoreErrors", static_cast<int>(itcp.data().ignoreErrors));
-		dc79a.setAttribute("autoCheck", static_cast<int>(itcp.data().autoCheck));
-		dc79a.setAttribute("checkGlyphs", static_cast<int>(itcp.data().checkGlyphs));
-		dc79a.setAttribute("checkOrphans", static_cast<int>(itcp.data().checkOrphans));
-		dc79a.setAttribute("checkOverflow", static_cast<int>(itcp.data().checkOverflow));
-		dc79a.setAttribute("checkPictures", static_cast<int>(itcp.data().checkPictures));
-		dc79a.setAttribute("checkResolution", static_cast<int>(itcp.data().checkResolution));
-		dc79a.setAttribute("checkTransparency", static_cast<int>(itcp.data().checkTransparency));
-		dc79a.setAttribute("minResolution",itcp.data().minResolution);
-		dc79a.setAttribute("maxResolution",itcp.data().maxResolution);
-		dc79a.setAttribute("checkAnnotations", static_cast<int>(itcp.data().checkAnnotations));
-		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.data().checkRasterPDF));
-		dc79a.setAttribute("checkForGIF", static_cast<int>(itcp.data().checkForGIF));
-		dc.appendChild(dc79a);
-	}
-	QMap<QString,multiLine>::Iterator itMU;
-	for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
-	{
-		QDomElement MuL=docu.createElement("MultiLine");
-		MuL.setAttribute("Name",itMU.key());
-		multiLine ml = itMU.data();
-		multiLine::iterator itMU2;
-		for (itMU2 = ml.begin(); itMU2 != ml.end(); ++itMU2)
-		{
-			QDomElement SuL=docu.createElement("SubLine");
-			SuL.setAttribute("Color", (*itMU2).Color);
-			SuL.setAttribute("Shade", (*itMU2).Shade);
-			SuL.setAttribute("Dash", (*itMU2).Dash);
-			SuL.setAttribute("LineEnd", (*itMU2).LineEnd);
-			SuL.setAttribute("LineJoin", (*itMU2).LineJoin);
-			SuL.setAttribute("Width", (*itMU2).Width);
-			MuL.appendChild(SuL);
-		}
-		dc.appendChild(MuL);
-	}
-	QValueList<ArrowDesc>::Iterator itar;
-	for (itar = doc->arrowStyles.begin(); itar != doc->arrowStyles.end(); ++itar)
-	{
-		if ((*itar).userArrow)
-		{
-			QDomElement ar=docu.createElement("Arrows");
-			ar.setAttribute("NumPoints", (*itar).points.size());
-			QString arp = "";
-			QString tmp, tmpy;
-			double xa, ya;
-			for (uint nxx = 0; nxx < (*itar).points.size(); ++nxx)
-			{
-				(*itar).points.point(nxx, &xa, &ya);
-				arp += tmp.setNum(xa) + " " + tmpy.setNum(ya) + " ";
-			}
-			ar.setAttribute("Points", arp);
-			ar.setAttribute("Name", (*itar).name);
-			dc.appendChild(ar);
-		}
-	}
-	QMap<QString,QString>::Iterator itja;
-	for (itja = doc->JavaScripts.begin(); itja != doc->JavaScripts.end(); ++itja)
-	{
-		QDomElement jav=docu.createElement("JAVA");
-		jav.setAttribute("NAME",itja.key());
-		jav.setAttribute("SCRIPT",itja.data());
-		dc.appendChild(jav);
-	}
-	QValueList<ScribusDoc::BookMa>::Iterator itbm;
-	for (itbm = doc->BookMarks.begin(); itbm != doc->BookMarks.end(); ++itbm)
-	{
-		QDomElement fn=docu.createElement("Bookmark");
-		fn.setAttribute("Title",(*itbm).Title);
-		fn.setAttribute("Text",(*itbm).Text);
-		fn.setAttribute("Aktion",(*itbm).Aktion);
-		fn.setAttribute("ItemNr", (*itbm).ItemNr);
-		fn.setAttribute("Element", (*itbm).PageObject->ItemNr);
-		fn.setAttribute("First", (*itbm).First);
-		fn.setAttribute("Last", (*itbm).Last);
-		fn.setAttribute("Prev", (*itbm).Prev);
-		fn.setAttribute("Next", (*itbm).Next);
-		fn.setAttribute("Parent", (*itbm).Parent);
-		dc.appendChild(fn);
-	}
-	ColorList::Iterator itc;
-	for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
-	{
-		QDomElement co=docu.createElement("COLOR");
-		co.setAttribute("NAME",itc.key());
-		if (doc->PageColors[itc.key()].getColorModel() == colorModelRGB)
-			co.setAttribute("RGB",doc->PageColors[itc.key()].nameRGB());
-		else
-			co.setAttribute("CMYK",doc->PageColors[itc.key()].nameCMYK());
-		co.setAttribute("Spot",static_cast<int>(doc->PageColors[itc.key()].isSpotColor()));
-		co.setAttribute("Register",static_cast<int>(doc->PageColors[itc.key()].isRegistrationColor()));
-		dc.appendChild(co);
-	}
-	if (doc->docParagraphStyles.count() > 5)
-	{
-		for (uint ff = 5; ff < doc->docParagraphStyles.count(); ++ff)
-		{
-			QDomElement fo=docu.createElement("STYLE");
-			fo.setAttribute("NAME",doc->docParagraphStyles[ff].name());
-			fo.setAttribute("ALIGN",doc->docParagraphStyles[ff].alignment());
-			fo.setAttribute("LINESPMode",doc->docParagraphStyles[ff].lineSpacingMode());
-			fo.setAttribute("LINESP",doc->docParagraphStyles[ff].lineSpacing());
-			fo.setAttribute("INDENT",doc->docParagraphStyles[ff].leftMargin());
-			fo.setAttribute("FIRST",doc->docParagraphStyles[ff].firstIndent());
-			fo.setAttribute("VOR",doc->docParagraphStyles[ff].gapBefore());
-			fo.setAttribute("NACH",doc->docParagraphStyles[ff].gapAfter());
-			fo.setAttribute("FONT",doc->docParagraphStyles[ff].charStyle().cfont->scName());
-			fo.setAttribute("FONTSIZE",doc->docParagraphStyles[ff].charStyle().csize / 10.0);
-			fo.setAttribute("DROP", static_cast<int>(doc->docParagraphStyles[ff].hasDropCap()));
-			fo.setAttribute("DROPLIN", doc->docParagraphStyles[ff].dropCapLines());
-			fo.setAttribute("DROPDIST", doc->docParagraphStyles[ff].dropCapOffset());
-			fo.setAttribute("EFFECT", doc->docParagraphStyles[ff].charStyle().effects());
-			if (doc->docParagraphStyles[ff].tabValues().count() != 0)
-			{
-				for (uint a = 0; a < doc->docParagraphStyles[ff].tabValues().count(); ++a)
-				{
-					QDomElement tabs = docu.createElement("Tabs");
-					tabs.setAttribute("Type", (*doc->docParagraphStyles[ff].tabValues().at(a)).tabType);
-					tabs.setAttribute("Pos", (*doc->docParagraphStyles[ff].tabValues().at(a)).tabPosition);
-					QString tabCh = "";
-					if (!(*doc->docParagraphStyles[ff].tabValues().at(a)).tabFillChar.isNull())
-						tabCh = QString((*doc->docParagraphStyles[ff].tabValues().at(a)).tabFillChar);
-					tabs.setAttribute("Fill", tabCh);
-					fo.appendChild(tabs);
-				}
-			}
-			fo.setAttribute("FCOLOR",doc->docParagraphStyles[ff].charStyle().ccolor);
-			fo.setAttribute("FSHADE",doc->docParagraphStyles[ff].charStyle().cshade);
-			fo.setAttribute("SCOLOR",doc->docParagraphStyles[ff].charStyle().cstroke);
-			fo.setAttribute("SSHADE",doc->docParagraphStyles[ff].charStyle().cshade2);
-			fo.setAttribute("BASE", static_cast<int>(doc->docParagraphStyles[ff].useBaselineGrid()));
-			fo.setAttribute("TXTSHX",doc->docParagraphStyles[ff].charStyle().cshadowx / 10.0);
-			fo.setAttribute("TXTSHY",doc->docParagraphStyles[ff].charStyle().cshadowy / 10.0);
-			fo.setAttribute("TXTOUT",doc->docParagraphStyles[ff].charStyle().coutline / 10.0);
-			fo.setAttribute("TXTULP",doc->docParagraphStyles[ff].charStyle().cunderpos / 10.0);
-			fo.setAttribute("TXTULW",doc->docParagraphStyles[ff].charStyle().cunderwidth / 10.0);
-			fo.setAttribute("TXTSTP",doc->docParagraphStyles[ff].charStyle().cstrikepos / 10.0);
-			fo.setAttribute("TXTSTW",doc->docParagraphStyles[ff].charStyle().cstrikewidth / 10.0);
-			fo.setAttribute("SCALEH",doc->docParagraphStyles[ff].charStyle().cscale / 10.0);
-			fo.setAttribute("SCALEV",doc->docParagraphStyles[ff].charStyle().cscalev / 10.0);
-			fo.setAttribute("BASEO",doc->docParagraphStyles[ff].charStyle().cbase / 10.0);
-			fo.setAttribute("KERN",doc->docParagraphStyles[ff].charStyle().cextra / 10.0);
-			dc.appendChild(fo);
-		}
-	}
-	uint layerCount=doc->layerCount();
-	for (uint lay = 0; lay < layerCount; ++lay)
-	{
-		QDomElement la = docu.createElement("LAYERS");
-		la.setAttribute("NUMMER",doc->Layers[lay].LNr);
-		la.setAttribute("LEVEL",doc->Layers[lay].Level);
-		la.setAttribute("NAME",doc->Layers[lay].Name);
-		la.setAttribute("SICHTBAR", static_cast<int>(doc->Layers[lay].isViewable));
-		la.setAttribute("DRUCKEN", static_cast<int>(doc->Layers[lay].isPrintable));
-		la.setAttribute("EDIT", static_cast<int>(doc->Layers[lay].isEditable));
-		la.setAttribute("FLOW", static_cast<int>(doc->Layers[lay].flowControl));
-		la.setAttribute("TRANS", doc->Layers[lay].transparency);
-		la.setAttribute("BLEND", doc->Layers[lay].blendMode);
-		la.setAttribute("OUTL", static_cast<int>(doc->Layers[lay].outlineMode));
-		la.setAttribute("LAYERC",doc->Layers[lay].markerColor.name());
-		dc.appendChild(la);
-	}
-	QDomElement pdf = docu.createElement("PDF");
-	pdf.setAttribute("Thumbnails", static_cast<int>(doc->PDF_Options.Thumbnails));
-	pdf.setAttribute("Articles", static_cast<int>(doc->PDF_Options.Articles));
-	pdf.setAttribute("Bookmarks", static_cast<int>(doc->PDF_Options.Bookmarks));
-	pdf.setAttribute("Compress", static_cast<int>(doc->PDF_Options.Compress));
-	pdf.setAttribute("CMethod", doc->PDF_Options.CompressMethod);
-	pdf.setAttribute("Quality", doc->PDF_Options.Quality);
-	pdf.setAttribute("MirrorH", static_cast<int>(doc->PDF_Options.MirrorH));
-	pdf.setAttribute("MirrorV", static_cast<int>(doc->PDF_Options.MirrorV));
-	pdf.setAttribute("Clip", static_cast<int>(doc->PDF_Options.doClip));
-	pdf.setAttribute("RotateDeg", static_cast<int>(doc->PDF_Options.RotateDeg));
-	pdf.setAttribute("PresentMode", static_cast<int>(doc->PDF_Options.PresentMode));
-	pdf.setAttribute("RecalcPic", static_cast<int>(doc->PDF_Options.RecalcPic));
-	pdf.setAttribute("Grayscale", static_cast<int>(doc->PDF_Options.isGrayscale));
-	pdf.setAttribute("RGBMode", static_cast<int>(doc->PDF_Options.UseRGB));
-	pdf.setAttribute("UseProfiles", static_cast<int>(doc->PDF_Options.UseProfiles));
-	pdf.setAttribute("UseProfiles2", static_cast<int>(doc->PDF_Options.UseProfiles2));
-	pdf.setAttribute("Binding", doc->PDF_Options.Binding);
-	pdf.setAttribute("PicRes", doc->PDF_Options.PicRes);
-	pdf.setAttribute("Resolution", doc->PDF_Options.Resolution);
-	pdf.setAttribute("Version", doc->PDF_Options.Version);
-	pdf.setAttribute("Intent", doc->PDF_Options.Intent);
-	pdf.setAttribute("Intent2", doc->PDF_Options.Intent2);
-	pdf.setAttribute("SolidP", doc->PDF_Options.SolidProf);
-	pdf.setAttribute("ImageP", doc->PDF_Options.ImageProf);
-	pdf.setAttribute("PrintP", doc->PDF_Options.PrintProf);
-	pdf.setAttribute("InfoString", doc->PDF_Options.Info);
-	pdf.setAttribute("BTop", doc->PDF_Options.BleedTop);
-	pdf.setAttribute("BLeft", doc->PDF_Options.BleedLeft);
-	pdf.setAttribute("BRight", doc->PDF_Options.BleedRight);
-	pdf.setAttribute("BBottom", doc->PDF_Options.BleedBottom);
-	pdf.setAttribute("ImagePr", static_cast<int>(doc->PDF_Options.EmbeddedI));
-	pdf.setAttribute("PassOwner", doc->PDF_Options.PassOwner);
-	pdf.setAttribute("PassUser", doc->PDF_Options.PassUser);
-	pdf.setAttribute("Permissions", doc->PDF_Options.Permissions);
-	pdf.setAttribute("Encrypt", static_cast<int>(doc->PDF_Options.Encrypt));
-	pdf.setAttribute("UseLayers", static_cast<int>(doc->PDF_Options.useLayers));
-	pdf.setAttribute("UseLpi", static_cast<int>(doc->PDF_Options.UseLPI));
-	pdf.setAttribute("UseSpotColors", static_cast<int>(doc->PDF_Options.UseSpotColors));
-	pdf.setAttribute("doOverprint", static_cast<int>(doc->PDF_Options.doOverprint));
-	pdf.setAttribute("doMultiFile", static_cast<int>(doc->PDF_Options.doMultiFile));
-	pdf.setAttribute("displayBookmarks", static_cast<int>(doc->PDF_Options.displayBookmarks));
-	pdf.setAttribute("displayFullscreen", static_cast<int>(doc->PDF_Options.displayFullscreen));
-	pdf.setAttribute("displayLayers", static_cast<int>(doc->PDF_Options.displayLayers));
-	pdf.setAttribute("displayThumbs", static_cast<int>(doc->PDF_Options.displayThumbs));
-	pdf.setAttribute("hideMenuBar", static_cast<int>(doc->PDF_Options.hideMenuBar));
-	pdf.setAttribute("hideToolBar", static_cast<int>(doc->PDF_Options.hideToolBar));
-	pdf.setAttribute("fitWindow", static_cast<int>(doc->PDF_Options.fitWindow));
-	pdf.setAttribute("PageLayout", doc->PDF_Options.PageLayout);
-	pdf.setAttribute("openAction", doc->PDF_Options.openAction);
-	for (uint pdoF = 0; pdoF < doc->PDF_Options.EmbedList.count(); ++pdoF)
-	{
-		QDomElement pdf2 = docu.createElement("Fonts");
-		pdf2.setAttribute("Name", doc->PDF_Options.EmbedList[pdoF]);
-		pdf.appendChild(pdf2);
-	}
-	for (uint pdoS = 0; pdoS < doc->PDF_Options.SubsetList.count(); ++pdoS)
-	{
-		QDomElement pdf4 = docu.createElement("Subset");
-		pdf4.setAttribute("Name", doc->PDF_Options.SubsetList[pdoS]);
-		pdf.appendChild(pdf4);
-	}
-	for (uint pdoE = 0; pdoE < doc->PDF_Options.PresentVals.count(); ++pdoE)
-	{
-		QDomElement pdf3 = docu.createElement("Effekte");
-		pdf3.setAttribute("pageEffectDuration", doc->PDF_Options.PresentVals[pdoE].pageEffectDuration);
-		pdf3.setAttribute("pageViewDuration", doc->PDF_Options.PresentVals[pdoE].pageViewDuration);
-		pdf3.setAttribute("effectType", doc->PDF_Options.PresentVals[pdoE].effectType);
-		pdf3.setAttribute("Dm", doc->PDF_Options.PresentVals[pdoE].Dm);
-		pdf3.setAttribute("M", doc->PDF_Options.PresentVals[pdoE].M);
-		pdf3.setAttribute("Di", doc->PDF_Options.PresentVals[pdoE].Di);
-		pdf.appendChild(pdf3);
-	}
-	QMap<QString,LPIData>::Iterator itlp;
-	for (itlp = doc->PDF_Options.LPISettings.begin(); itlp != doc->PDF_Options.LPISettings.end(); ++itlp)
-	{
-		QDomElement pdf4 = docu.createElement("LPI");
-		pdf4.setAttribute("Color", itlp.key());
-		pdf4.setAttribute("Frequency", itlp.data().Frequency);
-		pdf4.setAttribute("Angle", itlp.data().Angle);
-		pdf4.setAttribute("SpotFunction", itlp.data().SpotFunc);
-		pdf.appendChild(pdf4);
-	}
-	dc.appendChild(pdf);
-	QDomElement docItemAttrs = docu.createElement("DocItemAttributes");
-	for(ObjAttrVector::Iterator objAttrIt = doc->docItemAttributes.begin() ; objAttrIt != doc->docItemAttributes.end(); ++objAttrIt )
-	{
-		QDomElement itemAttr = docu.createElement("ItemAttribute");
-		itemAttr.setAttribute("Name", (*objAttrIt).name);
-		itemAttr.setAttribute("Type", (*objAttrIt).type);
-		itemAttr.setAttribute("Value", (*objAttrIt).value);
-		itemAttr.setAttribute("Parameter", (*objAttrIt).parameter);
-		itemAttr.setAttribute("Relationship", (*objAttrIt).relationship);
-		itemAttr.setAttribute("RelationshipTo", (*objAttrIt).relationshipto);
-		itemAttr.setAttribute("AutoAddTo", (*objAttrIt).autoaddto);
-		docItemAttrs.appendChild(itemAttr);
-	}
-	dc.appendChild(docItemAttrs);
-	QDomElement tocElem = docu.createElement("TablesOfContents");
-	for(ToCSetupVector::Iterator tocSetupIt = doc->docToCSetups.begin() ; tocSetupIt != doc->docToCSetups.end(); ++tocSetupIt )
-	{
-		QDomElement tocsetup = docu.createElement("TableOfContents");
-		tocsetup.setAttribute("Name", (*tocSetupIt).name);
-		tocsetup.setAttribute("ItemAttributeName", (*tocSetupIt).itemAttrName);
-		tocsetup.setAttribute("FrameName", (*tocSetupIt).frameName);
-		tocsetup.setAttribute("ListNonPrinting", (*tocSetupIt).listNonPrintingFrames);
-		tocsetup.setAttribute("Style", (*tocSetupIt).textStyle);
-		switch ((*tocSetupIt).pageLocation)
-		{
-			case Beginning:
-				tocsetup.setAttribute("NumberPlacement", "Beginning");
-				break;
-			case End:
-				tocsetup.setAttribute("NumberPlacement", "End");
-				break;
-			case NotShown:
-				tocsetup.setAttribute("NumberPlacement", "NotShown");
-				break;
-		}
-		tocElem.appendChild(tocsetup);
-	}
-	dc.appendChild(tocElem);
-	QDomElement sectionElem = docu.createElement("Sections");
-	for(DocumentSectionMap::Iterator it = doc->sections.begin() ; it != doc->sections.end(); ++it )
-	{
-		QDomElement currsection = docu.createElement("Section");
-		currsection.setAttribute("Number", (*it).number);
-		currsection.setAttribute("Name", (*it).name);
-		currsection.setAttribute("From", (*it).fromindex);
-		currsection.setAttribute("To", (*it).toindex);
-		switch ((*it).type)
-		{
-			case Type_1_2_3:
-				currsection.setAttribute("Type", "Type_1_2_3");
-				break;
-			case Type_i_ii_iii:
-				currsection.setAttribute("Type", "Type_i_ii_iii");
-				break;
-			case Type_I_II_III:
-				currsection.setAttribute("Type", "Type_I_II_III");
-				break;
-			case Type_a_b_c:
-				currsection.setAttribute("Type", "Type_a_b_c");
-				break;
-			case Type_A_B_C:
-				currsection.setAttribute("Type", "Type_A_B_C");
-				break;
-		}
-		currsection.setAttribute("Start", (*it).sectionstartindex);
-		currsection.setAttribute("Reversed", (*it).reversed);
-		currsection.setAttribute("Active", (*it).active);
-		sectionElem.appendChild(currsection);
-	}
-	dc.appendChild(sectionElem);
-
-	QDomElement pageSetAttr = docu.createElement("PageSets");
-	QValueList<PageSet>::Iterator itpgset;
-	for(itpgset = doc->pageSets.begin(); itpgset != doc->pageSets.end(); ++itpgset )
-	{
-		QDomElement pgst = docu.createElement("Set");
-		pgst.setAttribute("Name", (*itpgset).Name);
-		pgst.setAttribute("FirstPage", (*itpgset).FirstPage);
-		pgst.setAttribute("Rows", (*itpgset).Rows);
-		pgst.setAttribute("Columns", (*itpgset).Columns);
-		pgst.setAttribute("GapHorizontal", (*itpgset).GapHorizontal);
-		pgst.setAttribute("GapVertical", (*itpgset).GapVertical);
-		pgst.setAttribute("GapBelow", (*itpgset).GapBelow);
-		QStringList pNames = (*itpgset).pageNames;
-		QStringList::Iterator itpgsetN;
-		for(itpgsetN = pNames.begin(); itpgsetN != pNames.end(); ++itpgsetN )
-		{
-			QDomElement pgstN = docu.createElement("PageNames");
-			pgstN.setAttribute("Name", (*itpgsetN));
-			pgst.appendChild(pgstN);
-		}
-		pageSetAttr.appendChild(pgst);
-	}
-	dc.appendChild(pageSetAttr);
-	if (dia2 != 0)
-	{
-		dia2->setTotalSteps(doc->DocPages.count()+doc->MasterPages.count()+doc->DocItems.count()+doc->MasterItems.count()+doc->FrameItems.count());
-		dia2->setProgress(0);
-	}
-	WritePages(doc, &docu, &dc, dia2, 0, true);
-	WritePages(doc, &docu, &dc, dia2, doc->MasterPages.count(), false);
-	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count(), 2);
-	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count()+doc->FrameItems.count(), 0);
-	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count()+doc->MasterItems.count()+doc->FrameItems.count(), 1);
-	elem.appendChild(dc);
-/**
- * changed to enable saving
- * of *.gz documents
- * 2.7.2002 C.Toepp
- * <c.toepp@gmx.de>
-*/
- #ifdef HAVE_LIBZ
-	QCString cs = docu.toCString(); // UTF-8 QCString
-	if(fileName.right(2) == "gz")
-	{
-		// zipped saving
-		// XXX: latin1() should probably be local8Bit()
-		gzFile gzDoc = gzopen(fileName.latin1(),"wb");
-		if(gzDoc == NULL)
-			return false;
-		gzputs(gzDoc, cs.data());
-		gzclose(gzDoc);
-	}
-	else
-	{
-		QFile f(fileName);
-		if(!f.open(IO_WriteOnly))
-			return false;
-		QTextStream s(&f);
-		s.writeRawBytes(cs, cs.length());
-		f.close();
-	}
-#else
-	QFile f(fileName);
-	if(!f.open(IO_WriteOnly))
-		return false;
-	QTextStream s(&f);
-	QCString cs = docu.toCString();
-	s.writeRawBytes(cs, cs.length());
-	f.close();
-#endif
-	return true;
-}
+// bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
+// {
+// 	QString text, tf, tf2, tc, tc2;
+// 	QDomDocument docu("scribus");
+// 	QString st="<SCRIBUSUTF8NEW></SCRIBUSUTF8NEW>";
+// 	docu.setContent(st);
+// 	QDomElement elem=docu.documentElement();
+// 	elem.setAttribute("Version", QString(VERSION));
+// 	QDomElement dc=docu.createElement("DOCUMENT");
+// 	dc.setAttribute("ANZPAGES",doc->DocPages.count());
+// 	dc.setAttribute("PAGEWIDTH",doc->pageWidth);
+// 	dc.setAttribute("PAGEHEIGHT",doc->pageHeight);
+// 	dc.setAttribute("BORDERLEFT",doc->pageMargins.Left);
+// 	dc.setAttribute("BORDERRIGHT",doc->pageMargins.Right);
+// 	dc.setAttribute("BORDERTOP",doc->pageMargins.Top);
+// 	dc.setAttribute("BORDERBOTTOM",doc->pageMargins.Bottom);
+// 	dc.setAttribute("ORIENTATION",doc->PageOri);
+// 	dc.setAttribute("PAGESIZE",doc->PageSize);
+// 	dc.setAttribute("FIRSTNUM",doc->FirstPnum);
+// 	dc.setAttribute("BOOK", doc->currentPageLayout);
+// 	if(doc->usesAutomaticTextFrames())
+// 		dc.setAttribute("AUTOTEXT",1);
+// 	dc.setAttribute("AUTOSPALTEN",doc->PageSp);
+// 	dc.setAttribute("ABSTSPALTEN",doc->PageSpa);
+// 	dc.setAttribute("UNITS",doc->unitIndex());
+// 	dc.setAttribute("DFONT",doc->toolSettings.defFont);
+// 	dc.setAttribute("DSIZE",doc->toolSettings.defSize / 10.0);
+// 	dc.setAttribute("DCOL",doc->toolSettings.dCols);
+// 	dc.setAttribute("DGAP",doc->toolSettings.dGap);
+// 	dc.setAttribute("TabFill",doc->toolSettings.tabFillChar);
+// 	dc.setAttribute("TabWidth",doc->toolSettings.dTabWidth);
+// 	dc.setAttribute("AUTHOR",doc->documentInfo.getAuthor());
+// 	dc.setAttribute("COMMENTS",doc->documentInfo.getComments());
+// 	dc.setAttribute("KEYWORDS",doc->documentInfo.getKeywords());
+// 	dc.setAttribute("PUBLISHER",doc->documentInfo.getPublisher());
+// 	dc.setAttribute("DOCDATE",doc->documentInfo.getDate());
+// 	dc.setAttribute("DOCTYPE",doc->documentInfo.getType());
+// 	dc.setAttribute("DOCFORMAT",doc->documentInfo.getFormat());
+// 	dc.setAttribute("DOCIDENT",doc->documentInfo.getIdent());
+// 	dc.setAttribute("DOCSOURCE",doc->documentInfo.getSource());
+// 	dc.setAttribute("DOCLANGINFO",doc->documentInfo.getLangInfo());
+// 	dc.setAttribute("DOCRELATION",doc->documentInfo.getRelation());
+// 	dc.setAttribute("DOCCOVER",doc->documentInfo.getCover());
+// 	dc.setAttribute("DOCRIGHTS",doc->documentInfo.getRights());
+// 	dc.setAttribute("DOCCONTRIB",doc->documentInfo.getContrib());
+// 	dc.setAttribute("TITLE",doc->documentInfo.getTitle());
+// 	dc.setAttribute("VHOCH",doc->typographicSettings.valueSuperScript);
+// 	dc.setAttribute("VHOCHSC",doc->typographicSettings.scalingSuperScript);
+// 	dc.setAttribute("VTIEF",doc->typographicSettings.valueSubScript);
+// 	dc.setAttribute("VTIEFSC",doc->typographicSettings.scalingSubScript);
+// 	dc.setAttribute("VKAPIT",doc->typographicSettings.valueSmallCaps);
+// 	dc.setAttribute("BASEGRID",doc->typographicSettings.valueBaseGrid);
+// 	dc.setAttribute("BASEO", doc->typographicSettings.offsetBaseGrid);
+// 	dc.setAttribute("AUTOL", doc->typographicSettings.autoLineSpacing);
+// 	dc.setAttribute("UnderlinePos", doc->typographicSettings.valueUnderlinePos);
+// 	dc.setAttribute("UnderlineWidth", doc->typographicSettings.valueUnderlineWidth);
+// 	dc.setAttribute("StrikeThruPos", doc->typographicSettings.valueStrikeThruPos);
+// 	dc.setAttribute("StrikeThruWidth", doc->typographicSettings.valueStrikeThruWidth);
+// 	dc.setAttribute("GROUPC",doc->GroupCounter);
+// 	dc.setAttribute("HCMS", static_cast<int>(doc->HasCMS));
+// 	dc.setAttribute("DPSo", static_cast<int>(doc->CMSSettings.SoftProofOn));
+// 	dc.setAttribute("DPSFo", static_cast<int>(doc->CMSSettings.SoftProofFullOn));
+// 	dc.setAttribute("DPuse", static_cast<int>(doc->CMSSettings.CMSinUse));
+// 	dc.setAttribute("DPgam", static_cast<int>(doc->CMSSettings.GamutCheck));
+// 	dc.setAttribute("DPbla", static_cast<int>(doc->CMSSettings.BlackPoint));
+// 	dc.setAttribute("DPMo",doc->CMSSettings.DefaultMonitorProfile);
+// 	dc.setAttribute("DPPr",doc->CMSSettings.DefaultPrinterProfile);
+// 	dc.setAttribute("DPIn",doc->CMSSettings.DefaultImageRGBProfile);
+// 	dc.setAttribute("DPInCMYK",doc->CMSSettings.DefaultImageCMYKProfile);
+// 	dc.setAttribute("DPIn2",doc->CMSSettings.DefaultSolidColorRGBProfile);
+// 	dc.setAttribute("DPIn3",doc->CMSSettings.DefaultSolidColorCMYKProfile);
+// 	dc.setAttribute("DISc",doc->CMSSettings.DefaultIntentColors);
+// 	dc.setAttribute("DIIm",doc->CMSSettings.DefaultIntentImages);
+// 	dc.setAttribute("ALAYER", doc->activeLayer());
+// 	dc.setAttribute("LANGUAGE", doc->Language);
+// 	dc.setAttribute("MINWORDLEN", doc->MinWordLen);
+// 	dc.setAttribute("HYCOUNT", doc->HyCount);
+// 	dc.setAttribute("AUTOMATIC", static_cast<int>(doc->Automatic));
+// 	dc.setAttribute("AUTOCHECK", static_cast<int>(doc->AutoCheck));
+// 	dc.setAttribute("GUIDELOCK", static_cast<int>(doc->GuideLock));
+// 	dc.setAttribute("SnapToGuides", static_cast<int>(doc->SnapGuides));
+// 	dc.setAttribute("SnapToGrid", static_cast<int>(doc->useRaster));
+// 	dc.setAttribute("MINGRID", doc->guidesSettings.minorGrid);
+// 	dc.setAttribute("MAJGRID", doc->guidesSettings.majorGrid);
+// 	dc.setAttribute("SHOWGRID", static_cast<int>(doc->guidesSettings.gridShown));
+// 	dc.setAttribute("SHOWGUIDES", static_cast<int>(doc->guidesSettings.guidesShown));
+// 	dc.setAttribute("showcolborders", static_cast<int>(doc->guidesSettings.colBordersShown));
+// 	dc.setAttribute("SHOWFRAME", static_cast<int>(doc->guidesSettings.framesShown));
+// 	dc.setAttribute("SHOWLAYERM", static_cast<int>(doc->guidesSettings.layerMarkersShown));
+// 	dc.setAttribute("SHOWMARGIN", static_cast<int>(doc->guidesSettings.marginsShown));
+// 	dc.setAttribute("SHOWBASE", static_cast<int>(doc->guidesSettings.baseShown));
+// 	dc.setAttribute("SHOWPICT", static_cast<int>(doc->guidesSettings.showPic));
+// 	dc.setAttribute("SHOWControl", static_cast<int>(doc->guidesSettings.showControls));
+// 	dc.setAttribute("SHOWLINK", static_cast<int>(doc->guidesSettings.linkShown));
+// 	dc.setAttribute("rulerMode", static_cast<int>(doc->guidesSettings.rulerMode));
+// 	dc.setAttribute("showrulers", static_cast<int>(doc->guidesSettings.rulersShown));
+// 	dc.setAttribute("rulerXoffset", doc->rulerXoffset);
+// 	dc.setAttribute("rulerYoffset", doc->rulerYoffset);
+// 	dc.setAttribute("GuideRad", doc->guidesSettings.guideRad);
+// 	dc.setAttribute("GRAB",doc->guidesSettings.grabRad);
+// 	dc.setAttribute("POLYC", doc->toolSettings.polyC);
+// 	dc.setAttribute("POLYF", doc->toolSettings.polyF);
+// 	dc.setAttribute("POLYR", doc->toolSettings.polyR);
+// 	dc.setAttribute("POLYFD", doc->toolSettings.polyFd);
+// 	dc.setAttribute("POLYS", static_cast<int>(doc->toolSettings.polyS));
+// 	dc.setAttribute("AutoSave", static_cast<int>(doc->AutoSave));
+// 	dc.setAttribute("AutoSaveTime", doc->AutoSaveTime);
+// 	dc.setAttribute("ScratchBottom", doc->ScratchBottom);
+// 	dc.setAttribute("ScratchLeft", doc->ScratchLeft);
+// 	dc.setAttribute("ScratchRight", doc->ScratchRight);
+// 	dc.setAttribute("ScratchTop", doc->ScratchTop);
+// 	dc.setAttribute("StartArrow", doc->toolSettings.dStartArrow);
+// 	dc.setAttribute("EndArrow", doc->toolSettings.dEndArrow);
+// 	dc.setAttribute("PEN",doc->toolSettings.dPen);
+// 	dc.setAttribute("BRUSH",doc->toolSettings.dBrush);
+// 	dc.setAttribute("PENLINE",doc->toolSettings.dPenLine);
+// 	dc.setAttribute("PENTEXT",doc->toolSettings.dPenText);
+// 	dc.setAttribute("StrokeText",doc->toolSettings.dStrokeText);
+// 	dc.setAttribute("TextBackGround", doc->toolSettings.dTextBackGround);
+// 	dc.setAttribute("TextLineColor", doc->toolSettings.dTextLineColor);
+// 	dc.setAttribute("TextBackGroundShade", doc->toolSettings.dTextBackGroundShade);
+// 	dc.setAttribute("TextLineShade", doc->toolSettings.dTextLineShade);
+// 	dc.setAttribute("TextPenShade", doc->toolSettings.dTextPenShade);
+// 	dc.setAttribute("TextStrokeShade", doc->toolSettings.dTextStrokeShade);
+// 	dc.setAttribute("STIL",doc->toolSettings.dLineArt);
+// 	dc.setAttribute("STILLINE",doc->toolSettings.dLstyleLine);
+// 	dc.setAttribute("WIDTH",doc->toolSettings.dWidth);
+// 	dc.setAttribute("WIDTHLINE",doc->toolSettings.dWidthLine);
+// 	dc.setAttribute("PENSHADE",doc->toolSettings.dShade2);
+// 	dc.setAttribute("LINESHADE",doc->toolSettings.dShadeLine);
+// 	dc.setAttribute("BRUSHSHADE",doc->toolSettings.dShade);
+// 	dc.setAttribute("MAGMIN",doc->toolSettings.magMin);
+// 	dc.setAttribute("MAGMAX",doc->toolSettings.magMax);
+// 	dc.setAttribute("MAGSTEP",doc->toolSettings.magStep);
+// 	dc.setAttribute("CPICT",doc->toolSettings.dBrushPict);
+// 	dc.setAttribute("PICTSHADE",doc->toolSettings.shadePict);
+// 	dc.setAttribute("PICTSCX",doc->toolSettings.scaleX);
+// 	dc.setAttribute("PICTSCY",doc->toolSettings.scaleY);
+// 	dc.setAttribute("PSCALE", static_cast<int>(doc->toolSettings.scaleType));
+// 	dc.setAttribute("PASPECT", static_cast<int>(doc->toolSettings.aspectRatio));
+// 	dc.setAttribute("EmbeddedPath", static_cast<int>(doc->toolSettings.useEmbeddedPath));
+// 	dc.setAttribute("HalfRes", doc->toolSettings.lowResType);
+// 	dc.setAttribute("MINORC",doc->guidesSettings.minorColor.name());
+// 	dc.setAttribute("MAJORC",doc->guidesSettings.majorColor.name());
+// 	dc.setAttribute("GuideC", doc->guidesSettings.guideColor.name());
+// 	dc.setAttribute("BaseC", doc->guidesSettings.baseColor.name());
+// 	dc.setAttribute("GuideZ", doc->guidesSettings.guideRad);
+// 	dc.setAttribute("BACKG", static_cast<int>(doc->guidesSettings.before));
+// 	dc.setAttribute("PAGEC",doc->papColor.name());
+// 	dc.setAttribute("MARGC",doc->guidesSettings.margColor.name());
+// 	dc.setAttribute("RANDF", static_cast<int>(doc->marginColored));
+// 	dc.setAttribute("currentProfile", doc->curCheckProfile);
+// 	CheckerPrefsList::Iterator itcp;
+// 	CheckerPrefsList::Iterator itcpend=doc->checkerProfiles.end();
+// 	for (itcp = doc->checkerProfiles.begin(); itcp != itcpend; ++itcp)
+// 	{
+// 		QDomElement dc79a=docu.createElement("CheckProfile");
+// 		dc79a.setAttribute("Name",itcp.key());
+// 		dc79a.setAttribute("ignoreErrors", static_cast<int>(itcp.data().ignoreErrors));
+// 		dc79a.setAttribute("autoCheck", static_cast<int>(itcp.data().autoCheck));
+// 		dc79a.setAttribute("checkGlyphs", static_cast<int>(itcp.data().checkGlyphs));
+// 		dc79a.setAttribute("checkOrphans", static_cast<int>(itcp.data().checkOrphans));
+// 		dc79a.setAttribute("checkOverflow", static_cast<int>(itcp.data().checkOverflow));
+// 		dc79a.setAttribute("checkPictures", static_cast<int>(itcp.data().checkPictures));
+// 		dc79a.setAttribute("checkResolution", static_cast<int>(itcp.data().checkResolution));
+// 		dc79a.setAttribute("checkTransparency", static_cast<int>(itcp.data().checkTransparency));
+// 		dc79a.setAttribute("minResolution",itcp.data().minResolution);
+// 		dc79a.setAttribute("maxResolution",itcp.data().maxResolution);
+// 		dc79a.setAttribute("checkAnnotations", static_cast<int>(itcp.data().checkAnnotations));
+// 		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.data().checkRasterPDF));
+// 		dc79a.setAttribute("checkForGIF", static_cast<int>(itcp.data().checkForGIF));
+// 		dc.appendChild(dc79a);
+// 	}
+// 	QMap<QString,multiLine>::Iterator itMU;
+// 	for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
+// 	{
+// 		QDomElement MuL=docu.createElement("MultiLine");
+// 		MuL.setAttribute("Name",itMU.key());
+// 		multiLine ml = itMU.data();
+// 		multiLine::iterator itMU2;
+// 		for (itMU2 = ml.begin(); itMU2 != ml.end(); ++itMU2)
+// 		{
+// 			QDomElement SuL=docu.createElement("SubLine");
+// 			SuL.setAttribute("Color", (*itMU2).Color);
+// 			SuL.setAttribute("Shade", (*itMU2).Shade);
+// 			SuL.setAttribute("Dash", (*itMU2).Dash);
+// 			SuL.setAttribute("LineEnd", (*itMU2).LineEnd);
+// 			SuL.setAttribute("LineJoin", (*itMU2).LineJoin);
+// 			SuL.setAttribute("Width", (*itMU2).Width);
+// 			MuL.appendChild(SuL);
+// 		}
+// 		dc.appendChild(MuL);
+// 	}
+// 	QValueList<ArrowDesc>::Iterator itar;
+// 	for (itar = doc->arrowStyles.begin(); itar != doc->arrowStyles.end(); ++itar)
+// 	{
+// 		if ((*itar).userArrow)
+// 		{
+// 			QDomElement ar=docu.createElement("Arrows");
+// 			ar.setAttribute("NumPoints", (*itar).points.size());
+// 			QString arp = "";
+// 			QString tmp, tmpy;
+// 			double xa, ya;
+// 			for (uint nxx = 0; nxx < (*itar).points.size(); ++nxx)
+// 			{
+// 				(*itar).points.point(nxx, &xa, &ya);
+// 				arp += tmp.setNum(xa) + " " + tmpy.setNum(ya) + " ";
+// 			}
+// 			ar.setAttribute("Points", arp);
+// 			ar.setAttribute("Name", (*itar).name);
+// 			dc.appendChild(ar);
+// 		}
+// 	}
+// 	QMap<QString,QString>::Iterator itja;
+// 	for (itja = doc->JavaScripts.begin(); itja != doc->JavaScripts.end(); ++itja)
+// 	{
+// 		QDomElement jav=docu.createElement("JAVA");
+// 		jav.setAttribute("NAME",itja.key());
+// 		jav.setAttribute("SCRIPT",itja.data());
+// 		dc.appendChild(jav);
+// 	}
+// 	QValueList<ScribusDoc::BookMa>::Iterator itbm;
+// 	for (itbm = doc->BookMarks.begin(); itbm != doc->BookMarks.end(); ++itbm)
+// 	{
+// 		QDomElement fn=docu.createElement("Bookmark");
+// 		fn.setAttribute("Title",(*itbm).Title);
+// 		fn.setAttribute("Text",(*itbm).Text);
+// 		fn.setAttribute("Aktion",(*itbm).Aktion);
+// 		fn.setAttribute("ItemNr", (*itbm).ItemNr);
+// 		fn.setAttribute("Element", (*itbm).PageObject->ItemNr);
+// 		fn.setAttribute("First", (*itbm).First);
+// 		fn.setAttribute("Last", (*itbm).Last);
+// 		fn.setAttribute("Prev", (*itbm).Prev);
+// 		fn.setAttribute("Next", (*itbm).Next);
+// 		fn.setAttribute("Parent", (*itbm).Parent);
+// 		dc.appendChild(fn);
+// 	}
+// 	ColorList::Iterator itc;
+// 	for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
+// 	{
+// 		QDomElement co=docu.createElement("COLOR");
+// 		co.setAttribute("NAME",itc.key());
+// 		if (doc->PageColors[itc.key()].getColorModel() == colorModelRGB)
+// 			co.setAttribute("RGB",doc->PageColors[itc.key()].nameRGB());
+// 		else
+// 			co.setAttribute("CMYK",doc->PageColors[itc.key()].nameCMYK());
+// 		co.setAttribute("Spot",static_cast<int>(doc->PageColors[itc.key()].isSpotColor()));
+// 		co.setAttribute("Register",static_cast<int>(doc->PageColors[itc.key()].isRegistrationColor()));
+// 		dc.appendChild(co);
+// 	}
+// 	if (doc->docParagraphStyles.count() > 5)
+// 	{
+// 		for (uint ff = 5; ff < doc->docParagraphStyles.count(); ++ff)
+// 		{
+// 			QDomElement fo=docu.createElement("STYLE");
+// 			fo.setAttribute("NAME",doc->docParagraphStyles[ff].name());
+// 			fo.setAttribute("ALIGN",doc->docParagraphStyles[ff].alignment());
+// 			fo.setAttribute("LINESPMode",doc->docParagraphStyles[ff].lineSpacingMode());
+// 			fo.setAttribute("LINESP",doc->docParagraphStyles[ff].lineSpacing());
+// 			fo.setAttribute("INDENT",doc->docParagraphStyles[ff].leftMargin());
+// 			fo.setAttribute("FIRST",doc->docParagraphStyles[ff].firstIndent());
+// 			fo.setAttribute("VOR",doc->docParagraphStyles[ff].gapBefore());
+// 			fo.setAttribute("NACH",doc->docParagraphStyles[ff].gapAfter());
+// 			fo.setAttribute("FONT",doc->docParagraphStyles[ff].charStyle().cfont->scName());
+// 			fo.setAttribute("FONTSIZE",doc->docParagraphStyles[ff].charStyle().csize / 10.0);
+// 			fo.setAttribute("DROP", static_cast<int>(doc->docParagraphStyles[ff].hasDropCap()));
+// 			fo.setAttribute("DROPLIN", doc->docParagraphStyles[ff].dropCapLines());
+// 			fo.setAttribute("DROPDIST", doc->docParagraphStyles[ff].dropCapOffset());
+// 			fo.setAttribute("EFFECT", doc->docParagraphStyles[ff].charStyle().effects());
+// 			if (doc->docParagraphStyles[ff].tabValues().count() != 0)
+// 			{
+// 				for (uint a = 0; a < doc->docParagraphStyles[ff].tabValues().count(); ++a)
+// 				{
+// 					QDomElement tabs = docu.createElement("Tabs");
+// 					tabs.setAttribute("Type", (*doc->docParagraphStyles[ff].tabValues().at(a)).tabType);
+// 					tabs.setAttribute("Pos", (*doc->docParagraphStyles[ff].tabValues().at(a)).tabPosition);
+// 					QString tabCh = "";
+// 					if (!(*doc->docParagraphStyles[ff].tabValues().at(a)).tabFillChar.isNull())
+// 						tabCh = QString((*doc->docParagraphStyles[ff].tabValues().at(a)).tabFillChar);
+// 					tabs.setAttribute("Fill", tabCh);
+// 					fo.appendChild(tabs);
+// 				}
+// 			}
+// 			fo.setAttribute("FCOLOR",doc->docParagraphStyles[ff].charStyle().ccolor);
+// 			fo.setAttribute("FSHADE",doc->docParagraphStyles[ff].charStyle().cshade);
+// 			fo.setAttribute("SCOLOR",doc->docParagraphStyles[ff].charStyle().cstroke);
+// 			fo.setAttribute("SSHADE",doc->docParagraphStyles[ff].charStyle().cshade2);
+// 			fo.setAttribute("BASE", static_cast<int>(doc->docParagraphStyles[ff].useBaselineGrid()));
+// 			fo.setAttribute("TXTSHX",doc->docParagraphStyles[ff].charStyle().cshadowx / 10.0);
+// 			fo.setAttribute("TXTSHY",doc->docParagraphStyles[ff].charStyle().cshadowy / 10.0);
+// 			fo.setAttribute("TXTOUT",doc->docParagraphStyles[ff].charStyle().coutline / 10.0);
+// 			fo.setAttribute("TXTULP",doc->docParagraphStyles[ff].charStyle().cunderpos / 10.0);
+// 			fo.setAttribute("TXTULW",doc->docParagraphStyles[ff].charStyle().cunderwidth / 10.0);
+// 			fo.setAttribute("TXTSTP",doc->docParagraphStyles[ff].charStyle().cstrikepos / 10.0);
+// 			fo.setAttribute("TXTSTW",doc->docParagraphStyles[ff].charStyle().cstrikewidth / 10.0);
+// 			fo.setAttribute("SCALEH",doc->docParagraphStyles[ff].charStyle().cscale / 10.0);
+// 			fo.setAttribute("SCALEV",doc->docParagraphStyles[ff].charStyle().cscalev / 10.0);
+// 			fo.setAttribute("BASEO",doc->docParagraphStyles[ff].charStyle().cbase / 10.0);
+// 			fo.setAttribute("KERN",doc->docParagraphStyles[ff].charStyle().cextra / 10.0);
+// 			dc.appendChild(fo);
+// 		}
+// 	}
+// 	uint layerCount=doc->layerCount();
+// 	for (uint lay = 0; lay < layerCount; ++lay)
+// 	{
+// 		QDomElement la = docu.createElement("LAYERS");
+// 		la.setAttribute("NUMMER",doc->Layers[lay].LNr);
+// 		la.setAttribute("LEVEL",doc->Layers[lay].Level);
+// 		la.setAttribute("NAME",doc->Layers[lay].Name);
+// 		la.setAttribute("SICHTBAR", static_cast<int>(doc->Layers[lay].isViewable));
+// 		la.setAttribute("DRUCKEN", static_cast<int>(doc->Layers[lay].isPrintable));
+// 		la.setAttribute("EDIT", static_cast<int>(doc->Layers[lay].isEditable));
+// 		la.setAttribute("FLOW", static_cast<int>(doc->Layers[lay].flowControl));
+// 		la.setAttribute("TRANS", doc->Layers[lay].transparency);
+// 		la.setAttribute("BLEND", doc->Layers[lay].blendMode);
+// 		la.setAttribute("OUTL", static_cast<int>(doc->Layers[lay].outlineMode));
+// 		la.setAttribute("LAYERC",doc->Layers[lay].markerColor.name());
+// 		dc.appendChild(la);
+// 	}
+// 	QDomElement pdf = docu.createElement("PDF");
+// 	pdf.setAttribute("Thumbnails", static_cast<int>(doc->PDF_Options.Thumbnails));
+// 	pdf.setAttribute("Articles", static_cast<int>(doc->PDF_Options.Articles));
+// 	pdf.setAttribute("Bookmarks", static_cast<int>(doc->PDF_Options.Bookmarks));
+// 	pdf.setAttribute("Compress", static_cast<int>(doc->PDF_Options.Compress));
+// 	pdf.setAttribute("CMethod", doc->PDF_Options.CompressMethod);
+// 	pdf.setAttribute("Quality", doc->PDF_Options.Quality);
+// 	pdf.setAttribute("MirrorH", static_cast<int>(doc->PDF_Options.MirrorH));
+// 	pdf.setAttribute("MirrorV", static_cast<int>(doc->PDF_Options.MirrorV));
+// 	pdf.setAttribute("Clip", static_cast<int>(doc->PDF_Options.doClip));
+// 	pdf.setAttribute("RotateDeg", static_cast<int>(doc->PDF_Options.RotateDeg));
+// 	pdf.setAttribute("PresentMode", static_cast<int>(doc->PDF_Options.PresentMode));
+// 	pdf.setAttribute("RecalcPic", static_cast<int>(doc->PDF_Options.RecalcPic));
+// 	pdf.setAttribute("Grayscale", static_cast<int>(doc->PDF_Options.isGrayscale));
+// 	pdf.setAttribute("RGBMode", static_cast<int>(doc->PDF_Options.UseRGB));
+// 	pdf.setAttribute("UseProfiles", static_cast<int>(doc->PDF_Options.UseProfiles));
+// 	pdf.setAttribute("UseProfiles2", static_cast<int>(doc->PDF_Options.UseProfiles2));
+// 	pdf.setAttribute("Binding", doc->PDF_Options.Binding);
+// 	pdf.setAttribute("PicRes", doc->PDF_Options.PicRes);
+// 	pdf.setAttribute("Resolution", doc->PDF_Options.Resolution);
+// 	pdf.setAttribute("Version", doc->PDF_Options.Version);
+// 	pdf.setAttribute("Intent", doc->PDF_Options.Intent);
+// 	pdf.setAttribute("Intent2", doc->PDF_Options.Intent2);
+// 	pdf.setAttribute("SolidP", doc->PDF_Options.SolidProf);
+// 	pdf.setAttribute("ImageP", doc->PDF_Options.ImageProf);
+// 	pdf.setAttribute("PrintP", doc->PDF_Options.PrintProf);
+// 	pdf.setAttribute("InfoString", doc->PDF_Options.Info);
+// 	pdf.setAttribute("BTop", doc->PDF_Options.BleedTop);
+// 	pdf.setAttribute("BLeft", doc->PDF_Options.BleedLeft);
+// 	pdf.setAttribute("BRight", doc->PDF_Options.BleedRight);
+// 	pdf.setAttribute("BBottom", doc->PDF_Options.BleedBottom);
+// 	pdf.setAttribute("ImagePr", static_cast<int>(doc->PDF_Options.EmbeddedI));
+// 	pdf.setAttribute("PassOwner", doc->PDF_Options.PassOwner);
+// 	pdf.setAttribute("PassUser", doc->PDF_Options.PassUser);
+// 	pdf.setAttribute("Permissions", doc->PDF_Options.Permissions);
+// 	pdf.setAttribute("Encrypt", static_cast<int>(doc->PDF_Options.Encrypt));
+// 	pdf.setAttribute("UseLayers", static_cast<int>(doc->PDF_Options.useLayers));
+// 	pdf.setAttribute("UseLpi", static_cast<int>(doc->PDF_Options.UseLPI));
+// 	pdf.setAttribute("UseSpotColors", static_cast<int>(doc->PDF_Options.UseSpotColors));
+// 	pdf.setAttribute("doOverprint", static_cast<int>(doc->PDF_Options.doOverprint));
+// 	pdf.setAttribute("doMultiFile", static_cast<int>(doc->PDF_Options.doMultiFile));
+// 	pdf.setAttribute("displayBookmarks", static_cast<int>(doc->PDF_Options.displayBookmarks));
+// 	pdf.setAttribute("displayFullscreen", static_cast<int>(doc->PDF_Options.displayFullscreen));
+// 	pdf.setAttribute("displayLayers", static_cast<int>(doc->PDF_Options.displayLayers));
+// 	pdf.setAttribute("displayThumbs", static_cast<int>(doc->PDF_Options.displayThumbs));
+// 	pdf.setAttribute("hideMenuBar", static_cast<int>(doc->PDF_Options.hideMenuBar));
+// 	pdf.setAttribute("hideToolBar", static_cast<int>(doc->PDF_Options.hideToolBar));
+// 	pdf.setAttribute("fitWindow", static_cast<int>(doc->PDF_Options.fitWindow));
+// 	pdf.setAttribute("PageLayout", doc->PDF_Options.PageLayout);
+// 	pdf.setAttribute("openAction", doc->PDF_Options.openAction);
+// 	for (uint pdoF = 0; pdoF < doc->PDF_Options.EmbedList.count(); ++pdoF)
+// 	{
+// 		QDomElement pdf2 = docu.createElement("Fonts");
+// 		pdf2.setAttribute("Name", doc->PDF_Options.EmbedList[pdoF]);
+// 		pdf.appendChild(pdf2);
+// 	}
+// 	for (uint pdoS = 0; pdoS < doc->PDF_Options.SubsetList.count(); ++pdoS)
+// 	{
+// 		QDomElement pdf4 = docu.createElement("Subset");
+// 		pdf4.setAttribute("Name", doc->PDF_Options.SubsetList[pdoS]);
+// 		pdf.appendChild(pdf4);
+// 	}
+// 	for (uint pdoE = 0; pdoE < doc->PDF_Options.PresentVals.count(); ++pdoE)
+// 	{
+// 		QDomElement pdf3 = docu.createElement("Effekte");
+// 		pdf3.setAttribute("pageEffectDuration", doc->PDF_Options.PresentVals[pdoE].pageEffectDuration);
+// 		pdf3.setAttribute("pageViewDuration", doc->PDF_Options.PresentVals[pdoE].pageViewDuration);
+// 		pdf3.setAttribute("effectType", doc->PDF_Options.PresentVals[pdoE].effectType);
+// 		pdf3.setAttribute("Dm", doc->PDF_Options.PresentVals[pdoE].Dm);
+// 		pdf3.setAttribute("M", doc->PDF_Options.PresentVals[pdoE].M);
+// 		pdf3.setAttribute("Di", doc->PDF_Options.PresentVals[pdoE].Di);
+// 		pdf.appendChild(pdf3);
+// 	}
+// 	QMap<QString,LPIData>::Iterator itlp;
+// 	for (itlp = doc->PDF_Options.LPISettings.begin(); itlp != doc->PDF_Options.LPISettings.end(); ++itlp)
+// 	{
+// 		QDomElement pdf4 = docu.createElement("LPI");
+// 		pdf4.setAttribute("Color", itlp.key());
+// 		pdf4.setAttribute("Frequency", itlp.data().Frequency);
+// 		pdf4.setAttribute("Angle", itlp.data().Angle);
+// 		pdf4.setAttribute("SpotFunction", itlp.data().SpotFunc);
+// 		pdf.appendChild(pdf4);
+// 	}
+// 	dc.appendChild(pdf);
+// 	QDomElement docItemAttrs = docu.createElement("DocItemAttributes");
+// 	for(ObjAttrVector::Iterator objAttrIt = doc->docItemAttributes.begin() ; objAttrIt != doc->docItemAttributes.end(); ++objAttrIt )
+// 	{
+// 		QDomElement itemAttr = docu.createElement("ItemAttribute");
+// 		itemAttr.setAttribute("Name", (*objAttrIt).name);
+// 		itemAttr.setAttribute("Type", (*objAttrIt).type);
+// 		itemAttr.setAttribute("Value", (*objAttrIt).value);
+// 		itemAttr.setAttribute("Parameter", (*objAttrIt).parameter);
+// 		itemAttr.setAttribute("Relationship", (*objAttrIt).relationship);
+// 		itemAttr.setAttribute("RelationshipTo", (*objAttrIt).relationshipto);
+// 		itemAttr.setAttribute("AutoAddTo", (*objAttrIt).autoaddto);
+// 		docItemAttrs.appendChild(itemAttr);
+// 	}
+// 	dc.appendChild(docItemAttrs);
+// 	QDomElement tocElem = docu.createElement("TablesOfContents");
+// 	for(ToCSetupVector::Iterator tocSetupIt = doc->docToCSetups.begin() ; tocSetupIt != doc->docToCSetups.end(); ++tocSetupIt )
+// 	{
+// 		QDomElement tocsetup = docu.createElement("TableOfContents");
+// 		tocsetup.setAttribute("Name", (*tocSetupIt).name);
+// 		tocsetup.setAttribute("ItemAttributeName", (*tocSetupIt).itemAttrName);
+// 		tocsetup.setAttribute("FrameName", (*tocSetupIt).frameName);
+// 		tocsetup.setAttribute("ListNonPrinting", (*tocSetupIt).listNonPrintingFrames);
+// 		tocsetup.setAttribute("Style", (*tocSetupIt).textStyle);
+// 		switch ((*tocSetupIt).pageLocation)
+// 		{
+// 			case Beginning:
+// 				tocsetup.setAttribute("NumberPlacement", "Beginning");
+// 				break;
+// 			case End:
+// 				tocsetup.setAttribute("NumberPlacement", "End");
+// 				break;
+// 			case NotShown:
+// 				tocsetup.setAttribute("NumberPlacement", "NotShown");
+// 				break;
+// 		}
+// 		tocElem.appendChild(tocsetup);
+// 	}
+// 	dc.appendChild(tocElem);
+// 	QDomElement sectionElem = docu.createElement("Sections");
+// 	for(DocumentSectionMap::Iterator it = doc->sections.begin() ; it != doc->sections.end(); ++it )
+// 	{
+// 		QDomElement currsection = docu.createElement("Section");
+// 		currsection.setAttribute("Number", (*it).number);
+// 		currsection.setAttribute("Name", (*it).name);
+// 		currsection.setAttribute("From", (*it).fromindex);
+// 		currsection.setAttribute("To", (*it).toindex);
+// 		switch ((*it).type)
+// 		{
+// 			case Type_1_2_3:
+// 				currsection.setAttribute("Type", "Type_1_2_3");
+// 				break;
+// 			case Type_i_ii_iii:
+// 				currsection.setAttribute("Type", "Type_i_ii_iii");
+// 				break;
+// 			case Type_I_II_III:
+// 				currsection.setAttribute("Type", "Type_I_II_III");
+// 				break;
+// 			case Type_a_b_c:
+// 				currsection.setAttribute("Type", "Type_a_b_c");
+// 				break;
+// 			case Type_A_B_C:
+// 				currsection.setAttribute("Type", "Type_A_B_C");
+// 				break;
+// 		}
+// 		currsection.setAttribute("Start", (*it).sectionstartindex);
+// 		currsection.setAttribute("Reversed", (*it).reversed);
+// 		currsection.setAttribute("Active", (*it).active);
+// 		sectionElem.appendChild(currsection);
+// 	}
+// 	dc.appendChild(sectionElem);
+// 
+// 	QDomElement pageSetAttr = docu.createElement("PageSets");
+// 	QValueList<PageSet>::Iterator itpgset;
+// 	for(itpgset = doc->pageSets.begin(); itpgset != doc->pageSets.end(); ++itpgset )
+// 	{
+// 		QDomElement pgst = docu.createElement("Set");
+// 		pgst.setAttribute("Name", (*itpgset).Name);
+// 		pgst.setAttribute("FirstPage", (*itpgset).FirstPage);
+// 		pgst.setAttribute("Rows", (*itpgset).Rows);
+// 		pgst.setAttribute("Columns", (*itpgset).Columns);
+// 		pgst.setAttribute("GapHorizontal", (*itpgset).GapHorizontal);
+// 		pgst.setAttribute("GapVertical", (*itpgset).GapVertical);
+// 		pgst.setAttribute("GapBelow", (*itpgset).GapBelow);
+// 		QStringList pNames = (*itpgset).pageNames;
+// 		QStringList::Iterator itpgsetN;
+// 		for(itpgsetN = pNames.begin(); itpgsetN != pNames.end(); ++itpgsetN )
+// 		{
+// 			QDomElement pgstN = docu.createElement("PageNames");
+// 			pgstN.setAttribute("Name", (*itpgsetN));
+// 			pgst.appendChild(pgstN);
+// 		}
+// 		pageSetAttr.appendChild(pgst);
+// 	}
+// 	dc.appendChild(pageSetAttr);
+// 	if (dia2 != 0)
+// 	{
+// 		dia2->setTotalSteps(doc->DocPages.count()+doc->MasterPages.count()+doc->DocItems.count()+doc->MasterItems.count()+doc->FrameItems.count());
+// 		dia2->setProgress(0);
+// 	}
+// 	WritePages(doc, &docu, &dc, dia2, 0, true);
+// 	WritePages(doc, &docu, &dc, dia2, doc->MasterPages.count(), false);
+// 	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count(), 2);
+// 	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count()+doc->FrameItems.count(), 0);
+// 	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count()+doc->MasterItems.count()+doc->FrameItems.count(), 1);
+// 	elem.appendChild(dc);
+// /**
+//  * changed to enable saving
+//  * of *.gz documents
+//  * 2.7.2002 C.Toepp
+//  * <c.toepp@gmx.de>
+// */
+//  #ifdef HAVE_LIBZ
+// 	QCString cs = docu.toCString(); // UTF-8 QCString
+// 	if(fileName.right(2) == "gz")
+// 	{
+// 		// zipped saving
+// 		// XXX: latin1() should probably be local8Bit()
+// 		gzFile gzDoc = gzopen(fileName.latin1(),"wb");
+// 		if(gzDoc == NULL)
+// 			return false;
+// 		gzputs(gzDoc, cs.data());
+// 		gzclose(gzDoc);
+// 	}
+// 	else
+// 	{
+// 		QFile f(fileName);
+// 		if(!f.open(IO_WriteOnly))
+// 			return false;
+// 		QTextStream s(&f);
+// 		s.writeRawBytes(cs, cs.length());
+// 		f.close();
+// 	}
+// #else
+// 	QFile f(fileName);
+// 	if(!f.open(IO_WriteOnly))
+// 		return false;
+// 	QTextStream s(&f);
+// 	QCString cs = docu.toCString();
+// 	s.writeRawBytes(cs, cs.length());
+// 	f.close();
+// #endif
+// 	return true;
+// }

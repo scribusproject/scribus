@@ -3730,7 +3730,7 @@ bool ScribusMainWindow::slotFileSave()
 	{
 		//Scribus 1.3.x warning, remove at a later stage
 		if (doc->is12doc && !warningVersion(this))
-				return false;
+			return false;
 
 		QString fn(doc->DocName);
 		ret = DoFileSave(fn);
@@ -8162,9 +8162,8 @@ void ScribusMainWindow::emergencySave()
 				std::cout << "Saving: " << doc->DocName+".emergency" << std::endl;
 				doc->autoSaveTimer->stop();
 				//disconnect(ActWin, SIGNAL(Schliessen()), ScMW, SLOT(DoFileClose()));
-				ScriXmlDoc *ss = new ScriXmlDoc();
-				ss->WriteDoc(doc->DocName+".emergency", doc, 0);
-				delete ss;
+				FileLoader fl(doc->DocName+".emergency");
+				fl.SaveFile(doc->DocName+".emergency", doc, 0);
 			}
 			view->close();
 			uint numPages=doc->Pages->count();

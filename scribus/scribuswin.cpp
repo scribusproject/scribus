@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageselector.h"
 #include "scmessagebox.h"
 #include "scribuswin.moc"
-#include "scribusXml.h"
+#include "fileloader.h"
 #include "scribus.h"
 #include "story.h"
 #include "util.h"
@@ -84,15 +84,14 @@ void ScribusWin::slotAutoSave()
 		moveFile(m_Doc->DocName, m_Doc->DocName+".bak");
 		QFileInfo fi(m_Doc->DocName);
 		QDir::setCurrent(fi.dirPath(true));
-		ScriXmlDoc *ss = new ScriXmlDoc();
-		if (ss->WriteDoc(m_Doc->DocName, m_Doc, 0))
+		FileLoader fl(m_Doc->DocName);
+		if (fl.SaveFile(m_Doc->DocName, m_Doc, 0))
 		{
 			m_Doc->setModified(false);
 			setCaption(m_Doc->DocName);
 			qApp->processEvents();
 			emit AutoSaved();
 		}
-		delete ss;
 	}
 }
 

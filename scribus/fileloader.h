@@ -33,6 +33,7 @@ public:
 // 	int CheckScribus();
 	bool LoadPage(int PageToLoad, bool Mpage, QString renamedPageName=QString::null);
 	bool LoadFile();
+	bool SaveFile(const QString& fileName, ScribusDoc *doc, QProgressBar *dia2);
 	bool ReadStyles(const QString& fileName, ScribusDoc* doc, QValueList<ParagraphStyle> &docParagraphStyles);
 	bool ReadPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
 	bool ReadColors(const QString& fileName, ColorList & colors);
@@ -57,7 +58,7 @@ public:
 	static const QString getLoadFilterString();
 private:
  	void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc);
-	bool findFormat(int formatId, QValueList<FileFormat>::const_iterator &it);
+	bool findFormat(uint formatId, QValueList<FileFormat>::const_iterator &it);
 	PrefsManager* prefsManager;
 	double maximumX;
 	double maximumY;

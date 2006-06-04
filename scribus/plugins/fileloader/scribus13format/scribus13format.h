@@ -53,6 +53,9 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		void GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);
 		QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
+		void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
+		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master);
+		void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
 		QValueList<int> LFrames;
 		QPtrList<Foi> dummyFois;
 		bool newReplacement;

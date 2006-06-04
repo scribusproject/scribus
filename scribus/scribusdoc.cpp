@@ -2270,9 +2270,8 @@ bool ScribusDoc::save(const QString& fileName)
 		mainWindowProgressBar=ScMW->mainWindowProgressBar;
 		mainWindowProgressBar->reset();
 	}
-	ScriXmlDoc *ss = new ScriXmlDoc();
-	bool ret = ss->WriteDoc(fileName, this, mainWindowProgressBar);
-	delete ss;
+	FileLoader fl(fileName);
+	bool ret = fl.SaveFile(fileName, this, mainWindowProgressBar);
 	if (ret)
 	{
 		setModified(false);

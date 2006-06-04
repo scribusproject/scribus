@@ -289,6 +289,27 @@ bool FileLoader::LoadFile()
 	return ret;
 }
 
+bool FileLoader::SaveFile(const QString& fileName, ScribusDoc *doc, QProgressBar *dia2)
+{
+	bool ret = false;
+	QValueList<FileFormat>::const_iterator it;
+	if (findFormat(FORMATID_SLA13XEXPORT, it))
+// 		switch (FileType)
+// 		{
+// 			case FORMATID_SLA12XIMPORT:
+// 					ret=(*it).loadFile(FileName, LoadSavePlugin::lfCreateDoc);
+// 				break;
+// 			case FORMATID_SLA13XIMPORT:
+					(*it).setupTargets(doc, 0, ScMW->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
+					ret=(*it).saveFile(fileName);
+// 				break;
+// 			default:
+// 				ret = (*it).loadFile(FileName, LoadSavePlugin::lfCreateDoc);
+// 				break;
+// 		}
+	return ret;
+}
+
 bool FileLoader::ReadStyles(const QString& fileName, ScribusDoc* doc, QValueList<ParagraphStyle> &docParagraphStyles)
 {
 	QValueList<FileFormat>::const_iterator it;
@@ -575,14 +596,14 @@ void FileLoader::informReplacementFonts()
 	}
 }
 
-bool FileLoader::findFormat(int formatId, QValueList<FileFormat>::const_iterator &it)
+bool FileLoader::findFormat(uint formatId, QValueList<FileFormat>::const_iterator &it)
 {
 	QValueList<FileFormat> fileFormats(LoadSavePlugin::supportedFormats());
 	it=fileFormats.constBegin();
 	QValueList<FileFormat>::const_iterator itEnd(fileFormats.constEnd());
 	for ( ; it != itEnd ; ++it )
 	{
-		if(formatId==(*it).formatId)
+		if (formatId==(*it).formatId)
 			return true;
 	}
 	return false;

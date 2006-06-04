@@ -183,7 +183,7 @@ class SCRIBUS_API FileFormat
 		// priorities to control what order they're tried in when a user
 		// tries to open a file).
 		// Note that dialog box options are sorted in descending `id' order.
-		unsigned int formatId;
+		uint formatId;
 		// The human-readable, translated name of this file format.
 		QString trName;
 		// A filter in the format used by QFileDialog that should be used to
