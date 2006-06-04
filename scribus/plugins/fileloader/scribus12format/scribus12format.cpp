@@ -109,16 +109,6 @@ void Scribus12Format::registerFormats()
 	fmt.mimeTypes.append("application/x-scribus");
 	fmt.priority = 64;
 	registerFormat(fmt);
-/*	FileFormat fmt2(this);
-	fmt2.trName = tr("Scribus 1.2.x Document");
-	fmt2.formatId = 0;
-	fmt2.load = true;
-	fmt2.save = false;
-	fmt2.filter = fmt.filter;
-	fmt2.nameMatch = fmt.nameMatch;
-	fmt2.mimeTypes.append("application/x-scribus");
-	fmt2.priority = 63;
-	registerFormat(fmt2);*/
 }
 
 bool Scribus12Format::fileSupported(QIODevice* /* file */, const QString & fileName) const
@@ -176,7 +166,7 @@ bool Scribus12Format::fileSupported(QIODevice* /* file */, const QString & fileN
 		// Not gzip encoded, just load it
 		loadRawText(fileName, docBytes);
 	}
-	if (docBytes.left(13) == "<SCRIBUSUTF8 ")
+	if (docBytes.left(16) != "<SCRIBUSUTF8NEW " && (docBytes.left(12) == "<SCRIBUSUTF8" || docBytes.left(9) == "<SCRIBUS>"))
 		return true;
 	return false;
 }
@@ -237,7 +227,7 @@ QString Scribus12Format::readSLA(const QString & fileName)
 		loadRawText(fileName, docBytes);
 	}
 	QString docText("");
-	if (docBytes.left(13) == "<SCRIBUSUTF8 ")
+	if (docBytes.left(16) != "<SCRIBUSUTF8NEW " && (docBytes.left(12) == "<SCRIBUSUTF8" || docBytes.left(9) == "<SCRIBUS>"))
 		docText = QString::fromLocal8Bit(docBytes);
 	else
 		return QString::null;

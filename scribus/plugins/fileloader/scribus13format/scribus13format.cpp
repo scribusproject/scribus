@@ -87,16 +87,6 @@ void Scribus13Format::registerFormats()
 	fmt.mimeTypes.append("application/x-scribus");
 	fmt.priority = 64;
 	registerFormat(fmt);
-/*	FileFormat fmt2(this);
-	fmt2.trName = tr("Scribus 1.2.x Document");
-	fmt2.formatId = 0;
-	fmt2.load = true;
-	fmt2.save = false;
-	fmt2.filter = fmt.filter;
-	fmt2.nameMatch = fmt.nameMatch;
-	fmt2.mimeTypes.append("application/x-scribus");
-	fmt2.priority = 63;
-	registerFormat(fmt2);*/
 }
 
 bool Scribus13Format::fileSupported(QIODevice* /* file */, const QString & fileName) const
@@ -2457,7 +2447,7 @@ bool Scribus13Format::readStyles(const QString& fileName, ScribusDoc* doc, QValu
 	if(!docu.setContent(f))
 		return false;
 	QDomElement elem=docu.documentElement();
-	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8NEW"))
+	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
 	QDomNode DOC=elem.firstChild();
 	while(!DOC.isNull())
@@ -2485,7 +2475,7 @@ bool Scribus13Format::readLineStyles(const QString& fileName, QMap<QString,multi
 	if(!docu.setContent(f))
 		return false;
 	QDomElement elem=docu.documentElement();
-	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8NEW"))
+	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
 	QDomNode DOC=elem.firstChild();
 	while(!DOC.isNull())
@@ -2540,7 +2530,7 @@ bool Scribus13Format::readColors(const QString& fileName, ColorList & colors)
 	colors.clear();
 	ScColor lf = ScColor();
 	QDomElement elem=docu.documentElement();
-	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8NEW"))
+	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
 	QDomNode DOC=elem.firstChild();
 	while(!DOC.isNull())
@@ -2586,7 +2576,7 @@ bool Scribus13Format::readPageCount(const QString& fileName, int *num1, int *num
 	if(!docu.setContent(f))
 		return false;
 	QDomElement elem=docu.documentElement();
-	if ((elem.tagName() != "SCRIBUSUTF8NEW"))
+	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
 	QDomNode DOC=elem.firstChild();
 	while(!DOC.isNull())
