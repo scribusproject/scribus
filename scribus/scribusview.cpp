@@ -4092,7 +4092,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					else
 						qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 					if (Doc->appMode == modeRotation)
-						qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
+						qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.png")), true);
 				}
 				else
 				{
@@ -4192,7 +4192,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					if ((tx.intersects(mpo)) && (!currItem->locked()))
 					{
 						if (Doc->appMode == modeRotation)
-							qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
+							qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.png")), true);
 						else
 						if (Doc->appMode == modeEdit)
 						{
@@ -7254,7 +7254,7 @@ void ScribusView::HandleCurs(QPainter *p, PageItem *currItem, QRect mpo)
 	if (mpo.contains(tx) || mpo.contains(tx2))
 	{
 		if (Doc->appMode == modeRotation)
-			qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
+			qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.png")), true);
 		else
 		{
 			double rr = fabs(currItem->rotation());
@@ -7289,7 +7289,7 @@ void ScribusView::HandleCurs(QPainter *p, PageItem *currItem, QRect mpo)
 	if (mpo.contains(tx) || mpo.contains(tx2))
 	{
 		if (Doc->appMode == modeRotation)
-			qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
+			qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.png")), true);
 		else
 		{
 			double rr = fabs(currItem->rotation());
