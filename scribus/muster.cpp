@@ -128,14 +128,15 @@ void MasterPagesPalette::deleteMasterPage()
 
 void MasterPagesPalette::duplicateMasterPage()
 {
-	QString MasterPageName;
-	int nr;
-	//bool atf;
-	struct CopyPasteBuffer Buffer;
-	NewTm *dia = new NewTm(this, tr("&Name:"), tr("New Master Page"), currentDoc, tr("Copy of %1").arg(sMuster));
+	int copyC = 1;
+	QString potentialMasterPageName(sMuster);
+	while (currentDoc->MasterNames.contains(potentialMasterPageName))
+		potentialMasterPageName = tr("Copy #%1 of ").arg(copyC++)+sMuster;
+
+	NewTm *dia = new NewTm(this, tr("&Name:"), tr("New Master Page"), currentDoc, potentialMasterPageName);
 	if (dia->exec())
 	{
-		MasterPageName = dia->Answer->text();
+		QString MasterPageName = dia->Answer->text();
 		while (currentDoc->MasterNames.contains(MasterPageName) || (MasterPageName == "Normal"))
 		{
 			if (!dia->exec())
@@ -145,12 +146,7 @@ void MasterPagesPalette::duplicateMasterPage()
 			}
 			MasterPageName = dia->Answer->text();
 		}
-		nr = currentDoc->Pages->count();
-		//currentDoc->MasterNames.insert(MasterPageName, nr);
-		//currentDoc->pageCount = 0;
-		//atf = currentDoc->usesAutomaticTextFrames();
-		//currentDoc->setUsesAutomaticTextFrames(false);
-		//emit createNew(nr);
+		int nr = currentDoc->Pages->count();
 		currentDoc->setCurrentPage(currentDoc->addMasterPage(nr, MasterPageName));
 		currentDoc->setLoading(true);
 		if (currentDoc->currentPageLayout != singlePage)
@@ -192,6 +188,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		currentDoc->Pages->at(inde)->guides.copy(&currentDoc->currentPage()->guides);
 		uint end = currentDoc->Items->count();
 		int GrMax = currentDoc->GroupCounter;
+		struct CopyPasteBuffer Buffer;
 		for (uint a = 0; a < end; ++a)
 		{
 			PageItem *itemToCopy = currentDoc->Items->at(a);
@@ -248,11 +245,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		}
 		currentView->Deselect(true);
 		currentView->DrawNew();
-		//currentDoc->Pages->at(nr)->setPageName(MasterPageName);
-		//currentDoc->Pages->at(nr)->MPageNam = "";
 		updateMasterPageList(MasterPageName);
-		//currentDoc->setUsesAutomaticTextFrames(atf);
-		//currentDoc->MasterPages = currentDoc->Pages;
 		currentDoc->setLoading(false);
 		currentView->DrawNew();
 		currentDoc->GroupCounter = GrMax + 1;
