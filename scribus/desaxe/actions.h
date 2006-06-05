@@ -30,10 +30,10 @@ class Action_body
 protected:
 	Action_body() :                 dig(NULL)  {}
 	virtual ~Action_body()                     {}
-	virtual void begin(const std::string tag, std::map<std::string,std::string> attr) 
+	virtual void begin(const Xml_string tag, Xml_attr attr) 
                                                {}
-	virtual void end(const std::string tag)    {}
-	virtual void chars(const std::string data) {}
+	virtual void end(const Xml_string tag)    {}
+	virtual void chars(const Xml_string data) {}
 
 	Digester* dig;
 private:
@@ -61,10 +61,10 @@ public:
 	inline Digester* digester()                { return body->dig; }
 	inline void setDigester(Digester* dig)     { body->dig = dig; }
 	
-	inline void begin(const std::string tag, std::map<std::string,std::string> attr) 
+	inline void begin(const Xml_string tag, Xml_attr attr) 
 	                                           { body->begin(tag, attr); }
-	inline void end(const std::string tag)     { body->end(tag); }
-	inline void chars(const std::string data)  { body->chars(data); }
+	inline void end(const Xml_string tag)     { body->end(tag); }
+	inline void chars(const Xml_string data)  { body->chars(data); }
 
 	// Handle stuff:
 	Action(const Action& other)
@@ -129,7 +129,7 @@ template<class Type>
 class Generator_body : public Action_body
 {
 public:
-	virtual Type* eval(Digester* dig_, std::string tag, std::map<std::string,std::string> attr)
+	virtual Type* eval(Digester* dig_, Xml_string tag, Xml_attr attr)
 	{
 		dig = dig_;
 		begin(tag, attr);
@@ -139,7 +139,7 @@ public:
 		return res;
 	}
 protected:
-	void end(const std::string tag) { dig->pop(); }
+	void end(const Xml_string tag) { dig->pop(); }
 };
 
 
@@ -151,7 +151,7 @@ template<class Type>
 class Generator : public Action
 {
 public:
-	Type* eval(Digester* dig, std::string tag, std::map<std::string,std::string> attr)
+	Type* eval(Digester* dig, Xml_string tag, Xml_attr attr)
 	{
 		return static_cast<Generator_body<Type>*>(body)->eval(dig, tag, attr);
 	}

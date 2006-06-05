@@ -21,7 +21,7 @@
 
 namespace desaxe {
 	
-typedef std::pair<std::string, Action> rule_t;
+typedef std::pair<Xml_string, Action> rule_t;
 	
 typedef unsigned short token_t;
 typedef std::vector<token_t> path_t;
@@ -54,13 +54,13 @@ public:
 	RuleState(const RuleState& other);
 	~RuleState();
 	/// adds a rule to the list
-	void addRule(const std::string pattern, Action action);
+	void addRule(const Xml_string pattern, Action action);
 	/// sets the pattern recognizing automaton to its start state
 	void reset();
 	/// returns the rules which apply for the currently recognized pattern
 	const std::vector<rule_t>& rulesForCurrentState();
 	/// enters a new state when \c tag is read
-	void open(const std::string tag);
+	void open(const Xml_string tag);
 	/// returns to the old state when the close tag is read
 	void close();
 	/// diagnostics
@@ -70,7 +70,7 @@ private:
 	std::vector<rule_t> rules;
 	
 	/// rule patterns get broken into tokens:
-	std::map<std::string, token_t> tokens;
+	std::map<Xml_string, token_t> tokens;
 	/// lists the accepting (NFA) states for each rule (same sequence as rules)
 	std::vector<nfa_state_t> accepting;
 	/// the dfa corresponding to the rule patterns
@@ -79,7 +79,7 @@ private:
 	std::vector<dfa_state_t> stateStack;
 
 	/// assigns a unique token to each string
-	token_t createToken(const std::string tok);
+	token_t createToken(const Xml_string tok);
 	void makeTokens();
 	
 	/// creates a nondeterministic automaton as base for the DFA
@@ -116,13 +116,13 @@ int Digester::nrOfErrors() const
 	return errors.size();
 }
 
-const std::string Digester::getError(int i) const
+const Xml_string Digester::getError(int i) const
 {
 	return errors[i];
 }
 
 
-void Digester::addRule(const std::string pattern, Action action)
+void Digester::addRule(const Xml_string pattern, Action action)
 {
 	action.setDigester(this);
 	state->addRule(pattern, action);
@@ -136,37 +136,43 @@ void Digester::reset()
 }
 
 
-void Digester::begin(std::string tag, std::map<std::string,std::string> attr)
+void Digester::begin(Xml_string tag, Xml_attr attr)
 {
 	state->open(tag);
 	const std::vector<rule_t>& rules (state->rulesForCurrentState());
 	std::vector<rule_t>::const_iterator it;
 	for(it=rules.begin(); it!=rules.end(); ++it)
 	{
+#ifdef DESAXE_DEBUG
 		std::cerr << "B " << it->first << "\n";
+#endif
 		const_cast<Action&>(it->second).begin(tag, attr);
 	}
 }
 
-void Digester::end(std::string tag)
+void Digester::end(Xml_string tag)
 {
 	const std::vector<rule_t>& rules (state->rulesForCurrentState());
 	std::vector<rule_t>::const_reverse_iterator it;
 	for(it=rules.rbegin(); it!=rules.rend(); ++it)
 	{
+#ifdef DESAXE_DEBUG
 		std::cerr << "E " << it->first << "\n";
+#endif
 		const_cast<Action&>(it->second).end(tag);
 	}
 	state->close();
 }
 
-void Digester::chars(std::string text)
+void Digester::chars(Xml_string text)
 {
 	const std::vector<rule_t>& rules (state->rulesForCurrentState());
 	std::vector<rule_t>::const_iterator it;
 	for(it=rules.begin(); it!=rules.end(); ++it)
 	{
+#ifdef DESAXE_DEBUG
 		std::cerr << "C " << it->first << "\n";
+#endif
 		const_cast<Action&>(it->second).chars(text);
 	}
 }
@@ -192,9 +198,9 @@ RuleState::~RuleState()
 }
 
 
-void RuleState::addRule(const std::string pattern, Action action)
+void RuleState::addRule(const Xml_string pattern, Action action)
 {
-	rules.push_back(std::pair<std::string, Action>(pattern,action));
+	rules.push_back(std::pair<Xml_string, Action>(pattern,action));
 	valid = false;
 }
 
@@ -215,7 +221,7 @@ void RuleState::dump()
 		std::cout << r << ":\t\"" << rules[r].first << "\" accepted in  (" << accepting[r] << ")\n";
 	}
 	std::cout << "\nTokens:\n";
-	for (std::map<std::string, token_t>::iterator it=tokens.begin(); it!=tokens.end(); ++it) {
+	for (std::map<Xml_string, token_t>::iterator it=tokens.begin(); it!=tokens.end(); ++it) {
 		std::cout << it->first << ":\t--> " << it->second << "\n";
 	}
 	std::cout << "\nAutomaton:\n";
@@ -243,14 +249,18 @@ void RuleState::dump()
 }
 
 inline
-void RuleState::open(const std::string tag)
+void RuleState::open(const Xml_string tag)
 {
 	dfa_state_t nstate = dfa->next(stateStack.back(), tokens[tag]);
 	assert(nstate != NULL);
+#ifdef DESAXE_DEBUG
 	std::cerr << "to state " << nstate->ID << "\n"; 	
+#endif
 	if (nstate->ID == dfa->deflt()->ID) {
 		nstate = dfa->next(stateStack.back(), ANY);
+#ifdef DESAXE_DEBUG
 		std::cerr << "empty, trying any:" << nstate->ID << "\n"; 
+#endif
 	}
 	stateStack.push_back(nstate);
 }
@@ -279,7 +289,7 @@ void RuleState::makeTokens()
 
 
 
-token_t RuleState::createToken(const std::string tok)
+token_t RuleState::createToken(const Xml_string tok)
 {
 	if (tokens.find(tok) == tokens.end())
 		tokens[tok] = tokens.size() + 1;
@@ -316,7 +326,7 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 
 	for (int i = 0; i < rules.size(); ++i)
 	{
-		const std::string currPattern(rules[i].first);
+		const std::string currPattern(static_cast<const char*>(rules[i].first));
 		const unsigned int len = currPattern.length();
 		unsigned int pos;
 		nfa_state_t lastState;

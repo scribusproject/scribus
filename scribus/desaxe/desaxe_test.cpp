@@ -8,6 +8,9 @@
  */
 
 #include <iostream.h>
+#include <qfile.h>
+#include <qfileinfo.h>
+#include <qdom.h>
 
 #include "digester.h"
 #include "actions.h"
@@ -15,30 +18,30 @@
 
 class ELEM {
 public:
-	ELEM(const std::string& n) : name_(n), attributes(), children(), text() {}
+	ELEM(const Xml_string& n) : name_(n), attributes(), children(), text() {}
 	
-	void setName(const std::string& n) 
+	void setName(const Xml_string& n) 
 	{ 
 		name_ = n; 
 	}
 	
-	const std::string& name() 
+	const Xml_string& name() 
 	{ 
 		return name_; 
 	}
 	
-	void setAttribute(const std::string& key, const std::string& val)
+	void setAttribute(const Xml_string& key, const Xml_string& val)
 	{
 		attributes[key] = val;
 	}
 	
 	void addElem(ELEM* child)
 	{
-		cerr << "adding child: " << child << "\n";
+//		cerr << "adding child: " << child << "\n";
 		children.push_back(child);
 	}
 		
-	void addText(const std::string& txt)
+	void addText(const Xml_string& txt)
 	{
 		text += txt;
 	}
@@ -46,9 +49,9 @@ public:
 	void print()
 	{
 		std::cout << "<" << name_ << " ";
-		std::map<std::string,std::string>::iterator it;
+		Xml_attr::iterator it;
 		for (it=attributes.begin(); it != attributes.end(); ++it)
-			std::cout << it->first << "=\"" << it->second << "\" ";
+			std::cout << Xml_key(it) << "=\"" << Xml_data(it) << "\" ";
 		std::cout << ">\n" << text << "\n";
 		
 		for (uint i=0; i < children.size(); ++i)
@@ -57,12 +60,77 @@ public:
 	}
 
 private:
-	std::string name_;
-	std::map<std::string,std::string> attributes;
+	Xml_string name_;
+	Xml_attr attributes;
 	std::vector<ELEM*> children;
-	std::string text;
+	Xml_string text;
 };
 
+
+void dummyDoc(desaxe::Digester& dig)
+{
+	dig.reset();
+	
+	Xml_attr attr;
+	dig.begin("doc", attr);
+	attr["level"] = "1";
+	dig.chars("aha.");
+	dig.begin("elem", attr);
+	attr["level"] = "2";
+	dig.chars("soso.");
+	dig.begin("elem", attr);
+	attr["level"] = "3";
+	dig.chars("alpha ");
+	dig.end("elem");
+	dig.chars("bravo ");
+	dig.end("elem");
+	dig.chars("charly ");
+	attr["level"] = "2";
+	attr["test"] = "bingo";
+	dig.begin("elem", attr);
+	dig.chars("delta ");
+			 attr["level"] = "3";
+	         dig.begin("elem", attr);
+	            dig.chars("echo ");
+				dig.end("elem");
+				dig.chars("foxtrott ");	
+				dig.end("elem");
+				attr["test"] = "naja";
+				dig.chars("golf ");
+				attr["level"] = "2";
+				dig.begin("elem", attr);
+				dig.chars("hotel ");
+				attr["level"] = "3";
+				dig.begin("elem", attr);
+				dig.chars("india ");
+				dig.end("elem");
+				dig.chars("juliet ");
+				dig.end("elem");
+				dig.chars("kilo ");
+				dig.end("doc");
+}				
+
+bool loadRawText(const QString & filename, QCString & buf)
+{
+	bool ret = false;
+	QFile f(filename);
+	QFileInfo fi(f);
+	if (fi.exists())
+	{
+		QCString tempBuf(f.size() + 1);
+		if (f.open(IO_ReadOnly))
+		{
+			unsigned int bytesRead = f.readBlock(tempBuf.data(), f.size());
+			tempBuf[bytesRead] = '\0';
+			ret = bytesRead == f.size();
+			if (ret)
+				buf = tempBuf; // sharing makes this efficient
+		}
+	}
+	if (f.isOpen())
+		f.close();
+	return ret;
+}
 
 
 int main(int argc, char** argv)
@@ -82,48 +150,26 @@ int main(int argc, char** argv)
 	dig.addRule("/*",res);
 	dig.addRule("*/*", set);
 	
-	dig.reset();
-	
-	std::map<std::string, std::string> attr;
-	dig.begin("doc", attr);
-	    attr["level"] = "1";
-	    dig.chars("aha.");
-	    dig.begin("elem", attr);
-            attr["level"] = "2";
-	        dig.chars("soso.");
-	        dig.begin("elem", attr);
-			    attr["level"] = "3";
-	            dig.chars("alpha ");
-	        dig.end("elem");
-	        dig.chars("bravo ");
-	     dig.end("elem");
-	     dig.chars("charly ");
-		 attr["level"] = "2";
-		 attr["test"] = "bingo";
-	     dig.begin("elem", attr);
-	         dig.chars("delta ");
-			 attr["level"] = "3";
-	         dig.begin("elem", attr);
-	            dig.chars("echo ");
-	         dig.end("elem");
-	         dig.chars("foxtrott ");	
-	     dig.end("elem");
-		 attr["test"] = "naja";
-	     dig.chars("golf ");
-		 attr["level"] = "2";
-	     dig.begin("elem", attr);
-	         dig.chars("hotel ");
-			 attr["level"] = "3";
-	         dig.begin("elem", attr);
-	             dig.chars("india ");
-	         dig.end("elem");
-	         dig.chars("juliet ");
-	     dig.end("elem");
-	     dig.chars("kilo ");
-	dig.end("doc");
-	dig.result<ELEM>()->print();
-	
-	dig.parseFile("Dokument-1.xml");
-	dig.result<ELEM>()->print();
-	
+	if (argc < 2) {
+		dummyDoc(dig);
+		dig.result<ELEM>()->print();
+	}
+	else {
+		const char* file = argc == 2? "Dokument-1.xml" : argv[2];
+		switch (QString(argv[1]).toInt()) {
+			case 1:
+				dig.parseFile(file);
+				break;
+			case 2:
+			{
+				QCString docBytes("");
+				loadRawText(file, docBytes);
+				QDomDocument docu("scridoc");
+				return docu.setContent(QString(docBytes));
+			}
+			default:
+				dig.parseFile(file);
+				dig.result<ELEM>()->print();
+		}
+	}	
 }

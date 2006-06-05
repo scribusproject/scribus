@@ -53,7 +53,7 @@ public:
 	: create_(create) 
     {}
 	
-	void begin(const std::string, std::map<std::string,std::string>)
+	void begin(const Xml_string, Xml_attr)
     { 
 		dig->push(create_? create_() : new Obj_Type()); 
     }	
@@ -74,13 +74,13 @@ struct  Factory : public MakeGenerator<Factory_body<Type>, Type, typename Factor
 
 /**
  *   Pushes a new object of type Obj_Type onto the stack which is initialized with the tag name.
- *   If no create method is given, Obj_Type needs a constructor which taks a std::string argument
+ *   If no create method is given, Obj_Type needs a constructor which taks a Xml_string argument
  */
 template<class Obj_Type>
 class FactoryWithName_body : public Generator_body<Obj_Type>
 {
 public:
-	typedef Obj_Type* (*FunType)(std::string);
+	typedef Obj_Type* (*FunType)(Xml_string);
 	
 	FactoryWithName_body() 
 	: create_(NULL) 
@@ -90,7 +90,7 @@ public:
 	: create_(create) 
 	{}
 	
-	void begin(const std::string tag, std::map<std::string,std::string>)
+	void begin(const Xml_string tag, Xml_attr)
 	{ 
 		dig->push(create_? create_(tag) : new Obj_Type(tag)); 
 	}	
@@ -125,7 +125,7 @@ public:
 		delete proto_; 
 	}
 	
-	void begin(const std::string, std::map<std::string,std::string>)
+	void begin(const Xml_string, Xml_attr)
 	{
 		dig->push(new Obj_Type(proto));
 	}
@@ -157,7 +157,7 @@ public:
 	: get_(get)
 	{}
 	
-	void begin(const std::string, std::map<std::string,std::string>)
+	void begin(const Xml_string, Xml_attr)
 	{
 		Obj_Type* obj = dig->template top<Obj_Type>(1);
 		Data_Type* data = (obj->*get_)();
@@ -189,11 +189,13 @@ public:
 	: set_(set) 
 	{}
 	
-	void end(const std::string)
+	void end(const Xml_string)
 	{ 
 		Data_Type* data= dig->template top<Data_Type>(); 
 		Obj_Type* obj = dig->template top<Obj_Type>(1);
+#ifdef DESAXE_DEBUG
 		std::cerr << "setter(ptr): " << obj << " .= " << data << "\n";
+#endif
 		(obj->*set_)( data ); 
 	}	
 private:
@@ -222,11 +224,13 @@ public:
 	: set_(set) 
 	{}
 	
-	void end(const std::string)
+	void end(const Xml_string)
 	{ 
 		Data_Type* data= dig->template top<Data_Type>(); 
 		Obj_Type* obj = dig->template top<Obj_Type>(1);
+#ifdef DESAXE_DEBUG
 		std::cerr << "setter: " << obj << " .= *(" << data << ")\n";
+#endif
 		(obj->*set_)( *data ); 
 	}	
 private:
@@ -249,17 +253,17 @@ template<class Obj_Type>
 class SetAttributes_body : public Action_body
 {
 public:
-	typedef void (Obj_Type::*FunType)(const std::string&, const std::string&) ;
+	typedef void (Obj_Type::*FunType)(const Xml_string&, const Xml_string&) ;
 	
 	SetAttributes_body(FunType set) : set_(set) 
 	{}
 	
-	void begin(const std::string, std::map<std::string,std::string> attr)
+	void begin(const Xml_string, Xml_attr attr)
 	{
 		Obj_Type* obj = dig->template top<Obj_Type>();
-		std::map<std::string,std::string>::iterator it;
+		Xml_attr::iterator it;
 		for(it=attr.begin(); it != attr.end(); ++it)
-			(obj->*set_)( it->first, it->second ); 
+			(obj->*set_)( Xml_key(it), Xml_data(it) ); 
 	}	
 private:
 	FunType set_;
@@ -283,12 +287,12 @@ template<class Obj_Type>
 class AddText_body : public Action_body
 {
 public:
-	typedef void (Obj_Type::*FunType)(const std::string&);
+	typedef void (Obj_Type::*FunType)(const Xml_string&);
 	
 	AddText_body(FunType add) : addT(add) 
 	{}
 	
-	void chars(const std::string txt)
+	void chars(const Xml_string txt)
 	{
 		Obj_Type* obj = dig->template top<Obj_Type>();
 		(obj->*addT)( txt ); 
@@ -319,22 +323,22 @@ template<class Obj_Type>
 class SetText_body : public Action_body
 {
 public:
-	typedef void (Obj_Type::*FunType)(const std::string&);
+	typedef void (Obj_Type::*FunType)(const Xml_string&);
 	
 	SetText_body(FunType set) : setT(set) 
 	{}
 	
-	void begin(const std::string, std::map<std::string, std::string>)
+	void begin(const Xml_string, Xml_attr)
 	{
 		txt = "";
 	}
 	
-	void chars(const std::string chunk)
+	void chars(const Xml_string chunk)
 	{
 		txt += chunk;
 	}
 	
-	void end(const std::string tag)
+	void end(const Xml_string tag)
 	{
 		Obj_Type* obj = dig->template top<Obj_Type>();
 		(obj->*setT)( txt ); 
@@ -342,7 +346,7 @@ public:
 	
 private:
 	FunType setT;
-	std::string txt;
+	Xml_string txt;
 };
 
 
@@ -367,7 +371,7 @@ public:
 	Result_body() 
 	{}
 	
-	void end(const std::string)
+	void end(const Xml_string)
 	{ 
 		dig->setResult(dig->template top<Data_Type>());
 	}

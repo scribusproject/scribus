@@ -42,11 +42,11 @@ template<class Data_Type>
 class Attribute_body : public Generator_body<Data_Type>
 {
 public:
-	Attribute_body(const std::string name) 
+	Attribute_body(const Xml_string name) 
 	: name_(name), default_(NULL) 
 {}
 	
-	Attribute_body(const std::string name, const Data_Type& def) 
+	Attribute_body(const Xml_string name, const Data_Type& def) 
 	: name_(name), default_(new Data_Type(def)) 
 {}
 	
@@ -56,7 +56,7 @@ public:
 			delete default_; 
 }
 
-void begin(const std::string, std::map<std::string,std::string>)
+void begin(const Xml_string, Xml_attr)
 {
 	if (attr.contains(name_))
 		dig->push(new Data_Type(attr[name_]));
@@ -66,19 +66,19 @@ void begin(const std::string, std::map<std::string,std::string>)
 		dig->push(NULL);
 }
 private:
-const std::string name_;
+const Xml_string name_;
 const Data_Type* default_;
 };
 
 
 template <class Type>
-struct  Attribute : public MakeGenerator<Attribute_body<Type>, std::string, const Type&> 
+struct  Attribute : public MakeGenerator<Attribute_body<Type>, Xml_string, const Type&> 
 { 
-	Attribute(const std::string name)
-	: MakeGenerator<Attribute_body<Type>, const std::string>::MakeGenerator(name) {} 
+	Attribute(const Xml_string name)
+	: MakeGenerator<Attribute_body<Type>, const Xml_string>::MakeGenerator(name) {} 
 	
-	Attribute(const std::string name, const Type& def)
-	: MakeGenerator<Attribute_body<Type>, const std::string, const Type&>::MakeGenerator(name, def) {} 
+	Attribute(const Xml_string name, const Type& def)
+	: MakeGenerator<Attribute_body<Type>, const Xml_string, const Type&>::MakeGenerator(name, def) {} 
 	
 };
 

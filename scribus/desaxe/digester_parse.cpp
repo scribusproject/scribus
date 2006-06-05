@@ -28,9 +28,9 @@ public:
     bool startElement( const QString& nsURI, const QString& locName, const QString& qName,
                        const QXmlAttributes& qattr)
 	{
-		std::map<std::string,std::string> attr;
+		Xml_attr attr;
 		for (int i=0; i < qattr.count(); ++i)
-			attr[qattr.qName(i)] = std::string(qattr.value(i).utf8());
+			attr[qattr.qName(i)] = static_cast<Xml_string>(qattr.value(i).utf8());
 		dig->begin(qName, attr);
 		return true;
 	}
@@ -50,7 +50,7 @@ private:
 	Digester * dig;
 };
 
-void Digester::parseFile(const std::string filename)
+void Digester::parseFile(const Xml_string filename)
 {
 	DigesterParser* handler = new DigesterParser(this);
 	QFile xmlFile( filename );
