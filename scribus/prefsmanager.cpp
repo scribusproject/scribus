@@ -616,7 +616,9 @@ bool PrefsManager::copyOldPreferences()
 		retVal=true; // converting from 1.2 prefs
 		if (ScCore->usingGUI())
 		{
-			ScCore->showSplash(false);
+			bool splashShown=ScCore->splashShowing();
+			if (splashShown)
+				ScCore->showSplash(false);
 			if ( (ScMessageBox::question( ScMW, tr("Migrate Old Scribus Settings?"),
 				tr("Scribus has detected existing Scribus 1.2 preferences files.\n"
 						"Do you want to migrate them to the new Scribus version?"),
@@ -628,7 +630,8 @@ bool PrefsManager::copyOldPreferences()
 						copyFile(prefs12[i], prefs134[i]);
 				}
 			}
-			ScCore->showSplash(true);
+			if (splashShown)
+				ScCore->showSplash(true);
 		}
 	}
 	else
