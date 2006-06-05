@@ -6100,7 +6100,7 @@ void ScribusDoc::itemSelection_AlignLeftOut(AlignTo currAlignTo, double guidePos
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	uint loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount;
 	double newX = 99999.9;
 	switch ( currAlignTo )
 	{
@@ -6127,7 +6127,7 @@ void ScribusDoc::itemSelection_AlignLeftOut(AlignTo currAlignTo, double guidePos
 				newX = QMIN(AObjects[a].x1, newX);
 			break;
 	}
-	for (uint i = loopStart; i <= loopEnd; ++i)
+	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newX-AObjects[i].x2;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
@@ -6142,7 +6142,7 @@ void ScribusDoc::itemSelection_AlignLeftIn(AlignTo currAlignTo, double guidePosi
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	uint loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount;
 	double newX = 99999.9;
 	switch ( currAlignTo ) 
 	{
@@ -6169,7 +6169,7 @@ void ScribusDoc::itemSelection_AlignLeftIn(AlignTo currAlignTo, double guidePosi
 				newX = QMIN(AObjects[a].x1, newX);
 			break;
 	}
-	for (uint i = loopStart; i <= loopEnd; ++i)
+	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newX-AObjects[i].x1;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
@@ -6184,7 +6184,7 @@ void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, double guideP
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	uint loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount;
 	double newX;
 	switch ( currAlignTo ) 
 	{
@@ -6221,7 +6221,7 @@ void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, double guideP
 			newX = minX + (maxX-minX)/2;
 			break;
 	}
-	for (uint i = loopStart; i <= loopEnd; ++i)
+	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newX-AObjects[i].x1-(AObjects[i].width)/2;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
@@ -6236,7 +6236,7 @@ void ScribusDoc::itemSelection_AlignRightIn(AlignTo currAlignTo, double guidePos
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	uint loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount;
 	double newX = -99999.9;
 	switch ( currAlignTo ) 
 	{
@@ -6265,7 +6265,7 @@ void ScribusDoc::itemSelection_AlignRightIn(AlignTo currAlignTo, double guidePos
 				newX = QMAX(AObjects[a].x2, newX);
 			break;
 	}
-	for (uint i = loopStart; i <= loopEnd; ++i)
+	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newX-AObjects[i].x2;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
@@ -6280,7 +6280,7 @@ void ScribusDoc::itemSelection_AlignRightOut(AlignTo currAlignTo, double guidePo
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	uint loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount;
 	double newX = -99999.9;
 	switch ( currAlignTo ) 
 	{
@@ -6309,7 +6309,7 @@ void ScribusDoc::itemSelection_AlignRightOut(AlignTo currAlignTo, double guidePo
 				newX = QMAX(AObjects[a].x2, newX);
 			break;
 	}
-	for (uint i = loopStart; i <= loopEnd; ++i)
+	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newX-AObjects[i].x1;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
@@ -6324,7 +6324,7 @@ void ScribusDoc::itemSelection_AlignTopOut(AlignTo currAlignTo, double guidePosi
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	uint loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount;
 	double newY = 99999.9;
 	switch ( currAlignTo ) 
 	{
@@ -6351,7 +6351,7 @@ void ScribusDoc::itemSelection_AlignTopOut(AlignTo currAlignTo, double guidePosi
 				newY = QMIN(AObjects[a].y1, newY);
 			break;
 	}
-	for (uint i = loopStart; i <= loopEnd; ++i)
+	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newY-AObjects[i].y2;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
@@ -6366,7 +6366,7 @@ void ScribusDoc::itemSelection_AlignTopIn(AlignTo currAlignTo, double guidePosit
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	uint loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount;
 	double newY = 99999.9;
 	switch ( currAlignTo ) 
 	{
@@ -6393,7 +6393,7 @@ void ScribusDoc::itemSelection_AlignTopIn(AlignTo currAlignTo, double guidePosit
 				newY = QMIN(AObjects[a].y1, newY);
 			break;
 	}
-	for (uint i = loopStart; i <= loopEnd; ++i)
+	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newY-AObjects[i].y1;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
@@ -6409,7 +6409,7 @@ void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, double guideP
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	uint loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount;
 	double newY;
 	switch ( currAlignTo ) 
 	{
@@ -6446,7 +6446,7 @@ void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, double guideP
 			newY = minY + (maxY-minY)/2;
 			break;
 	}
-	for (uint i = loopStart; i <= loopEnd; ++i)
+	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newY-AObjects[i].y1-(AObjects[i].height)/2;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
@@ -6462,7 +6462,7 @@ void ScribusDoc::itemSelection_AlignBottomIn(AlignTo currAlignTo, double guidePo
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	uint loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount;
 	double newY = -99999.9;
 	switch ( currAlignTo ) 
 	{
@@ -6491,7 +6491,7 @@ void ScribusDoc::itemSelection_AlignBottomIn(AlignTo currAlignTo, double guidePo
 				newY = QMAX(AObjects[a].y2, newY);
 			break;
 	}
-	for (uint i = loopStart; i <= loopEnd; ++i)
+	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newY-AObjects[i].y2;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
@@ -6506,7 +6506,7 @@ void ScribusDoc::itemSelection_AlignBottomOut(AlignTo currAlignTo, double guideP
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	uint loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount;
 	double newY = -99999.9;
 	switch ( currAlignTo )
 	{
@@ -6535,7 +6535,7 @@ void ScribusDoc::itemSelection_AlignBottomOut(AlignTo currAlignTo, double guideP
 				newY = QMAX(AObjects[a].y2, newY);
 			break;
 	}
-	for (uint i = loopStart; i <= loopEnd; ++i)
+	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newY-AObjects[i].y1;
 		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
