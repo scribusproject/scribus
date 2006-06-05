@@ -316,16 +316,7 @@ bool FileLoader::ReadStyles(const QString& fileName, ScribusDoc* doc, QValueList
 {
 	QValueList<FileFormat>::const_iterator it;
 	if (findFormat(FileType, it))
-		switch (FileType)
-		{
-			case FORMATID_SLA12XIMPORT:
-			case FORMATID_SLA13XIMPORT:
-			case FORMATID_SLA134IMPORT:
-				return (*it).readStyles(fileName, doc, docParagraphStyles);
-				break;
-			default:
-				break;
-		}
+		return (*it).readStyles(fileName, doc, docParagraphStyles);
 	return false;
 }
 
@@ -333,16 +324,7 @@ bool FileLoader::ReadColors(const QString& fileName, ColorList & colors)
 {
 	QValueList<FileFormat>::const_iterator it;
 	if (findFormat(FileType, it))
-		switch (FileType)
-		{
-			case FORMATID_SLA12XIMPORT:
-			case FORMATID_SLA13XIMPORT:
-			case FORMATID_SLA134IMPORT:
-				return (*it).readColors(fileName, colors);
-				break;
-			default:
-				break;
-		}
+		return (*it).readColors(fileName, colors);
 	return false;
 }
 
@@ -351,16 +333,7 @@ bool FileLoader::ReadPageCount(const QString& fileName, int *num1, int *num2, QS
 {
 	QValueList<FileFormat>::const_iterator it;
 	if (findFormat(FileType, it))
-		switch (FileType)
-		{
-			case FORMATID_SLA12XIMPORT:
-			case FORMATID_SLA13XIMPORT:
-			case FORMATID_SLA134IMPORT:
-				return (*it).readPageCount(fileName, num1, num2, masterPageNames);
-				break;
-			default:
-				break;
-		}
+		return (*it).readPageCount(fileName, num1, num2, masterPageNames);
 	return false;
 }
 
@@ -368,16 +341,7 @@ bool FileLoader::ReadLineStyles(const QString& fileName, QMap<QString,multiLine>
 {
 	QValueList<FileFormat>::const_iterator it;
 	if (findFormat(FileType, it))
-		switch (FileType)
-		{
-			case FORMATID_SLA12XIMPORT:
-			case FORMATID_SLA13XIMPORT:
-			case FORMATID_SLA134IMPORT:
-				return (*it).readLineStyles(fileName, Sty);
-				break;
-			default:
-				break;
-		}
+		return (*it).readLineStyles(fileName, Sty);
 	return false;
 }
 
