@@ -78,9 +78,9 @@ LayerPalette::LayerPalette(QWidget* parent)
 		: ScrPaletteBase( parent, "Layers", false, 0 )
 {
 	setIcon(loadIcon("AppIcon.png"));
-	LayerPaletteLayout = new QVBoxLayout( this, 10, 5, "LayerPaletteLayout");
+	LayerPaletteLayout = new QVBoxLayout( this, 1, 2, "LayerPaletteLayout");
 
-	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
+	layout1 = new QHBoxLayout( 0, 0, 2, "layout1");
 	textLabel1 = new QLabel( this, "textLabel1" );
 	layout1->addWidget( textLabel1 );
 	blendMode = new ScComboBox( false, this, "blendMode" );

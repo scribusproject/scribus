@@ -399,16 +399,15 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 							painter->endLayer();
 #endif
 					}
-//					DrawMasterItems(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
 				}
 #ifdef HAVE_CAIRO
 				if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
 					painter->beginLayer(1.0, 0);
+#endif
 				for (uint a = 0; a < docPagesCount; ++a)
 				{
 					DrawMasterItems(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
 				}
-#endif
 				DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 #ifdef HAVE_CAIRO
 				if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
