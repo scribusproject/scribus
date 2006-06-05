@@ -266,6 +266,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	{
 		item->setPixmap( 0, noErrors );
 		item->setText( 1, tr( "No Problems found" ) );
+		ignoreErrors->setText( tr("OK"));
 	}
 	else
 	{
@@ -296,7 +297,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					}
 					errorText->setPixmap( 0, graveError );
 				}
-				layer->setText(0, QString( tr("Layer %1")).arg(it01.key()));
+				layer->setText(0, QString( tr("Layer \"%1\"")).arg(doc->layerName(it01.key())));
 				layer->setPixmap( 0, graveError );
 				pagep = layer;
 				hasGraveError = true;
@@ -370,6 +371,8 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							object->setText(1, isGIF);
 							//QToolTip::add(object, isGIFtoolTip);
 							break;
+						default:
+							break;
 						}
 					}
 					else
@@ -432,6 +435,8 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								errorText->setText(1, isGIF);
 								errorText->setPixmap(0, onlyWarning);
 								//QToolTip::add(errorText, isGIFtoolTip);
+								break;
+							default:
 								break;
 							}
 						}
@@ -523,6 +528,8 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							object->setText(1, isGIF);
 							//QToolTip::add(object, isGIFtoolTip);
 							break;
+						default:
+							break;
 						}
 					}
 					else
@@ -585,6 +592,8 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								errorText->setText(1, isGIF);
 								errorText->setPixmap(0, onlyWarning);
 								//QToolTip::add(errorText, isGIFtoolTip);
+								break;
+							default:
 								break;
 							}
 						}
@@ -679,6 +688,8 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							object->setText(1, isGIF);
 							//QToolTip::add(object, isGIFtoolTip);
 							break;
+						default:
+							break;
 						}
 					}
 					else
@@ -739,6 +750,8 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								errorText->setPixmap(0, onlyWarning);
 								//QToolTip::add(errorText, isGIFtoolTip);
 								break;
+							default:
+								break;
 							}
 						}
 						object->setOpen( true );
@@ -767,6 +780,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			item->setPixmap( 0, onlyWarning );
 		item->setText( 1, tr( "Problems found" ) );
 		item->setOpen( true );
+		ignoreErrors->setText( tr("&Ignore Errors"));
 	}
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
