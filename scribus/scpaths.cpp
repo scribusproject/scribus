@@ -228,6 +228,8 @@ QStringList ScPaths::getSystemCreateSwatchesDirs(void)
 {
 	QStringList createDirs;
 #ifdef Q_OS_MAC
+	createDirs.append(QDir::homeDirPath()+"/create/swatches/");
+	createDirs.append(QDir::homeDirPath()+"/.create/swatches/");
 #elif defined(Q_WS_X11)
 	createDirs.append(QDir::homeDirPath()+"/create/swatches/");
 	createDirs.append(QDir::homeDirPath()+"/.create/swatches/");
