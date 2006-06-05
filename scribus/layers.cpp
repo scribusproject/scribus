@@ -544,7 +544,7 @@ void LayerPalette::languageChange()
 	blendMode->insertItem( tr("Exlusion"));
 	blendMode->insertItem( tr("Color Dodge"));
 	blendMode->insertItem( tr("Color Burn"));
-	blendMode->insertItem( tr("Overprint"));
+//	blendMode->insertItem( tr("Overprint"));
 	textLabel2->setText( tr( "Opacity:" ) );
 	opacitySpinBox->setSuffix( tr(" %"));
 	Table->horizontalHeader()->setLabel(6, tr("Name"));

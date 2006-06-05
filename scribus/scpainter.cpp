@@ -329,11 +329,15 @@ void ScPainter::beginLayer(double transparency, int blendmode)
 		{
 			int stride = cairo_image_surface_get_stride(tmp2);
 			unsigned char *s = cairo_image_surface_get_data(tmp2);
-			int h = m_image->height();
-			for( int yi=0; yi < h; ++yi )
+			if (s != NULL)
 			{
-				memset( s, 0, stride );
-				s += stride;
+//				int h = m_image->height();
+				int h = cairo_image_surface_get_height(tmp2);
+				for( int yi=0; yi < h; ++yi )
+				{
+					memset( s, 0, stride );
+					s += stride;
+				}
 			}
 		}
 		cairo_surface_mark_dirty(tmp2);
@@ -366,8 +370,10 @@ void ScPainter::endLayer()
 				int stride = cairo_image_surface_get_stride(tmp);
 				unsigned char *s = cairo_image_surface_get_data(tmp);
 				unsigned char *d = cairo_image_surface_get_data(tmpB);
-				int h = m_image->height();
-				int w = m_image->width();
+//				int h = m_image->height();
+//				int w = m_image->width();
+				int h = cairo_image_surface_get_height(tmp);
+				int w = cairo_image_surface_get_width(tmp);
 				for( int yi=0; yi < h; ++yi )
 				{
 					QRgb *dst = (QRgb*)d;
@@ -467,13 +473,6 @@ void ScPainter::endLayer()
 							}
 							(*src) = qRgba(src_r, src_g, src_b, src_a);
 						}
-/*						else
-						{
-							if (dst_a > 0)
-								(*src) = qRgba(dst_r, dst_g, dst_b, dst_a);
-							else if (src_a > 0)
-								(*src) = qRgba(INT_MULT(src_r, src_a), INT_MULT(src_g, src_a), INT_MULT(src_b, src_a), src_a);
-						} */
 						src++;
 						dst++;
 					}

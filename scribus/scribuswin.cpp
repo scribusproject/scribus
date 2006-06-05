@@ -62,7 +62,6 @@ void ScribusWin::setView(ScribusView* newView)
 	m_View->zoomInToolbarButton->reparent(statusFrame, point);
 	m_View->pageSelector->reparent(statusFrame, point);
 	m_View->zoomSpinBox->reparent(statusFrame, point);
-	m_View->previewButton->reparent(statusFrame, point);
 	statusFrameLayout->addWidget(m_View->unitSwitcher);
 	statusFrameLayout->addWidget(m_View->zoomSpinBox);
 	statusFrameLayout->addWidget(m_View->zoomOutToolbarButton);
@@ -72,7 +71,6 @@ void ScribusWin::setView(ScribusView* newView)
 	statusFrameLayout->addWidget(m_View->layerMenu);
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	statusFrameLayout->addItem( spacer );
-	statusFrameLayout->addWidget(m_View->previewButton);
 	statusBar()->addWidget(statusFrame, 4, true);
 	currentDir = QDir::currentDirPath();
 }

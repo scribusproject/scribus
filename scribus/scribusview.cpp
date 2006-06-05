@@ -172,8 +172,6 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) :
 	zoomDefaultToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	zoomOutToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	zoomInToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
-	previewButton = new QToolButton(this);
-	previewButton->setToggleButton(true);
 #else
 	zoomDefaultToolbarButton = new QPushButton(this);
 	zoomDefaultToolbarButton->setFocusPolicy(QWidget::NoFocus);
@@ -190,11 +188,6 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) :
 	zoomInToolbarButton->setDefault( false );
 	zoomInToolbarButton->setAutoDefault( false );
 	zoomInToolbarButton->setFlat(OPTION_FLAT_BUTTON);
-	previewButton = new QPushButton(this);
-	previewButton->setFocusPolicy(QWidget::NoFocus);
-	previewButton->setDefault( false );
-	previewButton->setAutoDefault( false );
-	previewButton->setToggleButton(true);
 #endif
 	//zoomDefaultToolbarButton->setText("1:1");
 	zoomDefaultToolbarButton->setPixmap(loadIcon("16/zoom-original.png"));
@@ -222,12 +215,12 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) :
 	Doc->SubMode = -1;
 	storedFramesShown = Doc->guidesSettings.framesShown;
 	viewAsPreview = false;
-	previewButton->setOn(viewAsPreview);
-	previewButton->setPixmap(loadIcon("vpl.png"));
+#ifdef HAVE_CAIRO
+	ScMW->scrActions["viewFit20"]->setOn(viewAsPreview);
+#endif
 	connect(zoomOutToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
 	connect(zoomInToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
 	connect(zoomDefaultToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoom100()));
-	connect(previewButton, SIGNAL(clicked()), this, SLOT(togglePreview()));
 	connect(zoomSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setZoom()));
 	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
@@ -254,7 +247,6 @@ void ScribusView::languageChange()
 void ScribusView::togglePreview()
 {
 	viewAsPreview = !viewAsPreview;
-	previewButton->setOn(viewAsPreview);
 	if (viewAsPreview)
 	{
 		storedFramesShown = Doc->guidesSettings.framesShown;
@@ -262,6 +254,16 @@ void ScribusView::togglePreview()
 	}
 	else
 		Doc->guidesSettings.framesShown = storedFramesShown;
+	ScMW->scrActions["viewFit20"]->setOn(viewAsPreview);
+	ScMW->scrActions["viewShowMargins"]->setEnabled(!viewAsPreview);
+	ScMW->scrActions["viewShowFrames"]->setEnabled(!viewAsPreview);
+	ScMW->scrActions["viewShowLayerMarkers"]->setEnabled(!viewAsPreview);
+	ScMW->scrActions["viewShowGrid"]->setEnabled(!viewAsPreview);
+	ScMW->scrActions["viewShowGuides"]->setEnabled(!viewAsPreview);
+	ScMW->scrActions["viewShowColumnBorders"]->setEnabled(!viewAsPreview);
+	ScMW->scrActions["viewShowBaseline"]->setEnabled(!viewAsPreview);
+	ScMW->scrActions["viewShowTextChain"]->setEnabled(!viewAsPreview);
+	ScMW->scrActions["viewShowTextControls"]->setEnabled(!viewAsPreview);
 	updateContents();
 }
 
@@ -282,7 +284,6 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		return;
 //	QTime tim;
 //	tim.start();
-	bool doDraw = true;
 	if ((clipw > 0) && (cliph > 0))
 	{
 		QPoint vr = contentsToViewport(QPoint(clipx, clipy));
@@ -325,107 +326,74 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
 					if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
 					{
-						painter->moveTo( x, y );
-						painter->lineTo( x+w, y );
-						painter->lineTo( x+w, y+h );
-						painter->lineTo( x, y+h );
-//						painter->lineTo( x, y );
+						QRect clR = QRect(qRound(x), qRound(y), qRound(w),qRound(h)).intersect(QRect(clipx, clipy, clipw, cliph));
+						painter->moveTo( clR.x(), clR.y() );
+						painter->lineTo( clR.x()+clR.width(), clR.y() );
+						painter->lineTo( clR.x()+clR.width(), clR.y()+clR.height() );
+						painter->lineTo( clR.x(), clR.y()+clR.height() );
 						painter->closePath();
 					}
 				}
 				painter->setClipPath();
-				doDraw = true;
-#else
-				for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
-				{
-					double x = Doc->Pages->at(a)->xOffset() * Scale;
-					double y = Doc->Pages->at(a)->yOffset() * Scale;
-					double w = Doc->Pages->at(a)->width() * Scale;
-					double h = Doc->Pages->at(a)->height() * Scale;
-					QRect drawRect = QRect(qRound(x), qRound(y), qRound(w)+5,qRound(h)+5);
-					drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
-					if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
-					{
-						double pixmapSize;
-						(h > w) ? pixmapSize = h : pixmapSize = w;
-						QImage im = PageToPixmap(a, qRound(pixmapSize)).copy();
-						painter->save();
-						painter->newPath();
-						painter->moveTo( x, y );
-						painter->lineTo( x+w, y );
-						painter->lineTo( x+w, y+h );
-						painter->lineTo( x, y+h );
-//						painter->lineTo( x, y );
-						painter->closePath();
-						painter->setClipPath();
-						painter->translate(x, y);
-						painter->drawImage(&im);
-						painter->restore();
-					}
-				}
-				doDraw = false;
 #endif
 			}
-			if (doDraw)
+			for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
 			{
-				for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
+				int x = qRound(Doc->Pages->at(a)->xOffset() * Scale);
+				int y = qRound(Doc->Pages->at(a)->yOffset() * Scale);
+				int w = qRound(Doc->Pages->at(a)->width() * Scale);
+				int h = qRound(Doc->Pages->at(a)->height() * Scale);
+				QRect drawRect = QRect(x, y, w+5, h+5);
+				drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
+				if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
 				{
-					int x = qRound(Doc->Pages->at(a)->xOffset() * Scale);
-					int y = qRound(Doc->Pages->at(a)->yOffset() * Scale);
-					int w = qRound(Doc->Pages->at(a)->width() * Scale);
-					int h = qRound(Doc->Pages->at(a)->height() * Scale);
+#ifdef HAVE_CAIRO
+					if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
+						painter->beginLayer(1.0, 0);
+#endif
+					painter->setFillMode(ScPainter::Solid);
+					painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+					painter->setBrush(QColor(128,128,128));
+					painter->drawRect(x+5, y+5, w, h);
+					if (a == Doc->currentPageNumber())
+						painter->setPen(red, 2, SolidLine, FlatCap, MiterJoin);
+					else
+						painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+					painter->setBrush(Doc->papColor);
+					painter->drawRect(x, y, w, h);
+					if ((Doc->guidesSettings.before) && (!viewAsPreview))
+						DrawPageMarks(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
+#ifdef HAVE_CAIRO
+					if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
+						painter->endLayer();
+#endif
+				}
+			}
+#ifdef HAVE_CAIRO
+			if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
+				painter->beginLayer(1.0, 0);
+#endif
+			for (uint a = 0; a < docPagesCount; ++a)
+			{
+				DrawMasterItems(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
+			}
+			DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
+#ifdef HAVE_CAIRO
+			if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
+				painter->endLayer();
+#endif
+			if ((!Doc->guidesSettings.before) && (!viewAsPreview))
+			{
+				for (uint a = 0; a < docPagesCount; ++a)
+				{
+					int x = static_cast<int>(Doc->Pages->at(a)->xOffset() * Scale);
+					int y = static_cast<int>(Doc->Pages->at(a)->yOffset() * Scale);
+					int w = static_cast<int>(Doc->Pages->at(a)->width() * Scale);
+					int h = static_cast<int>(Doc->Pages->at(a)->height() * Scale);
 					QRect drawRect = QRect(x, y, w+5, h+5);
 					drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
 					if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
-					{
-#ifdef HAVE_CAIRO
-						if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
-							painter->beginLayer(1.0, 0);
-#endif
-						painter->setFillMode(ScPainter::Solid);
-						painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
-						painter->setBrush(QColor(128,128,128));
-						painter->drawRect(x+5, y+5, w, h);
-						if (a == Doc->currentPageNumber())
-							painter->setPen(red, 2, SolidLine, FlatCap, MiterJoin);
-						else
-							painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
-						painter->setBrush(Doc->papColor);
-						painter->drawRect(x, y, w, h);
-						if ((Doc->guidesSettings.before) && (!viewAsPreview))
-							DrawPageMarks(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
-#ifdef HAVE_CAIRO
-						if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
-							painter->endLayer();
-#endif
-					}
-				}
-#ifdef HAVE_CAIRO
-				if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
-					painter->beginLayer(1.0, 0);
-#endif
-				for (uint a = 0; a < docPagesCount; ++a)
-				{
-					DrawMasterItems(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
-				}
-				DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
-#ifdef HAVE_CAIRO
-				if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
-					painter->endLayer();
-#endif
-				if ((!Doc->guidesSettings.before) && (!viewAsPreview))
-				{
-					for (uint a = 0; a < docPagesCount; ++a)
-					{
-						int x = static_cast<int>(Doc->Pages->at(a)->xOffset() * Scale);
-						int y = static_cast<int>(Doc->Pages->at(a)->yOffset() * Scale);
-						int w = static_cast<int>(Doc->Pages->at(a)->width() * Scale);
-						int h = static_cast<int>(Doc->Pages->at(a)->height() * Scale);
-						QRect drawRect = QRect(x, y, w+5, h+5);
-						drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
-						if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
-							DrawPageMarks(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
-					}
+						DrawPageMarks(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
 				}
 			}
 		}

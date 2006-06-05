@@ -79,12 +79,10 @@ public:
 	QToolButton *zoomDefaultToolbarButton;
 	QToolButton *zoomOutToolbarButton;
 	QToolButton *zoomInToolbarButton;
-	QToolButton *previewButton;
 #else
 	QPushButton *zoomDefaultToolbarButton;
 	QPushButton *zoomOutToolbarButton;
 	QPushButton *zoomInToolbarButton;
-	QPushButton *previewButton;
 #endif
 	QComboBox *layerMenu; //Menu for layers at bottom of view
 	QComboBox *unitSwitcher; //Menu for units at bottom of view
