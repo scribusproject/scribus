@@ -619,7 +619,7 @@ int PageItem::lastInFrame() const
 bool PageItem::frameDisplays(int textpos) const
 {
 #ifndef NLS_PROTO
-	return 0 <= textpos && textpos < signed(MaxChars);
+	return 0 <= textpos && textpos < signed(MaxChars) &&  textpos < itemText.length();
 #else
 	return true; // FIXME:NLS
 #endif
