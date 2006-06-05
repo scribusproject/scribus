@@ -32,8 +32,12 @@ for which a new license (GPL+exception) is in place.
 #include <valarray>
 #include <windows.h>
 
+#include "scconfig.h"
+
+#ifdef SC_USE_GDIPLUS
 #include <gdiplus.h>
 using namespace Gdiplus;
+#endif
 
 #include "scpainterex_gdi.h"
 

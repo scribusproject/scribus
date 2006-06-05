@@ -17,9 +17,16 @@ for which a new license (GPL+exception) is in place.
 #include <windows.h>
 using namespace ::std;
 
+#include "scconfig.h"
+
+#ifdef HAVE_ICM
 #include <icm.h>
+#endif
+
+#ifdef SC_USE_GDIPLUS
 #include <gdiplus.h>
 using namespace Gdiplus;
+#endif
 
 #include "util.h"
 #include "gsutil.h"
@@ -364,6 +371,7 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 
 	StartPage( printerDC );
 
+#ifdef HAVE_ICM
 	if ( options.useICC && isPostscriptPrinter(printerDC) )
 	{
 		success = false;
@@ -422,6 +430,7 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 			return false;
 		}
 	}
+#endif
 
 	// Get page position
 	int clipx = static_cast<int>(page->xOffset());
