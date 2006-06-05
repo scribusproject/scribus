@@ -11,3 +11,5 @@ CVS
 scribus
 barcodegeneratorbase.cpp
 barcodegeneratorbase.h
+CMakeFiles
+cmake_install.cmake

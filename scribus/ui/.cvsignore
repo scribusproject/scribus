@@ -3,3 +3,5 @@
 *.moc
 *~
 .deps
+CMakeFiles
+cmake_install.cmake

@@ -1,2 +1,4 @@
 Makefile
 Makefile.in
+CMakeFiles
+cmake_install.cmake

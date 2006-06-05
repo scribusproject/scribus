@@ -9,3 +9,5 @@ Makefile.in
 .libs
 CVS
 scribus
+CMakeFiles
+cmake_install.cmake
