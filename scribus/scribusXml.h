@@ -49,11 +49,7 @@ public:
 	void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
 	QString WriteElem(ScribusDoc *doc, ScribusView *view, Selection *selection);
 	bool ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
-	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc,
-					 QMap<QString,QString> &FontSub, ScribusView *view);
-// 	void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
-// 	void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master);
-	bool WriteDoc(QString fileName, ScribusDoc *docu, QProgressBar *dia2);
+	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view);
 	ColorList Farben;
 	QValueList<ParagraphStyle> docParagraphStyles;
 	QValueList<Linked> LFrames;
@@ -64,9 +60,6 @@ public:
 	QPtrList<Foi> dummyFois;
 	uint VorlC;
 	bool newReplacement;
-	
-signals:
-//	void NewPage(int);
 	
 protected:
 	PrefsManager* prefsManager;
