@@ -1874,7 +1874,7 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.checkRasterPDF = true;
 		checkerSettings.checkForGIF = true;
 		checkerSettings.minResolution = 72.0;
-		checkerSettings.maxResolution = 4800.0;
+		checkerSettings.maxResolution = 2400.0;
 		//TODO Stop translating these into settings!!!!!!!!!
 		cp->insert( QT_TR_NOOP("PostScript"), checkerSettings);
 		cp->insert( QT_TR_NOOP("PDF 1.3"), checkerSettings);

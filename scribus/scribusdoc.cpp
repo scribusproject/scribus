@@ -176,6 +176,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	CurTimer(0),
 	docItemErrors(),
 	masterItemErrors(),
+	docLayerErrors(),
 	docItemAttributes(prefsData.defaultItemAttributes),
 	docToCSetups(prefsData.defaultToCSetups),
 	// sections

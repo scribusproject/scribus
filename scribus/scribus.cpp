@@ -4009,7 +4009,7 @@ void ScribusMainWindow::slotFilePrint()
 	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
 	{
 		scanDocument();
-		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0))
+		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0) || (doc->docLayerErrors.count() != 0))
 		{
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
@@ -6996,7 +6996,7 @@ void ScribusMainWindow::printPreview()
 	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
 	{
 		scanDocument();
-		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0))
+		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0) || (doc->docLayerErrors.count() != 0))
 		{
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
@@ -7055,7 +7055,7 @@ void ScribusMainWindow::SaveAsEps()
 	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
 	{
 		scanDocument();
-		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0))
+		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0) || (doc->docLayerErrors.count() != 0))
 		{
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
@@ -7135,7 +7135,7 @@ void ScribusMainWindow::SaveAsPDF()
 	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
 	{
 		scanDocument();
-		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0))
+		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0) || (doc->docLayerErrors.count() != 0))
 		{
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{

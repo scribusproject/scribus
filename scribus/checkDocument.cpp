@@ -129,7 +129,7 @@ document(0)
 	img.loadFromData( image2_data, sizeof( image2_data ), "PNG" );
 	noErrors = img;
 	setIcon(loadIcon("AppIcon.png"));
-	checkDocumentLayout = new QVBoxLayout( this, 10, 5, "checkDocumentLayout");
+	checkDocumentLayout = new QVBoxLayout( this, 5, 5, "checkDocumentLayout");
 
 	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
 	textLabel1 = new QLabel( this, "textLabel1" );
@@ -149,7 +149,7 @@ document(0)
 	layout2 = new QHBoxLayout( 0, 0, 5, "layou2");
 	reScan = new QPushButton(this, "reScan" );
 	layout2->addWidget( reScan );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout2->addItem( spacer );
 	ignoreErrors = new QPushButton(this, "ignoreErrors" );
 	layout2->addWidget( ignoreErrors );
@@ -262,7 +262,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 
 	QListViewItem * item = new QListViewItem( reportDisplay, 0 );
 	item->setText( 0, tr( "Document" ) );
-	if ((doc->docItemErrors.count() == 0) && (doc->masterItemErrors.count() == 0))
+	if ((doc->docItemErrors.count() == 0) && (doc->masterItemErrors.count() == 0) && (doc->docLayerErrors.count() == 0))
 	{
 		item->setPixmap( 0, noErrors );
 		item->setText( 1, tr( "No Problems found" ) );
@@ -273,6 +273,35 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		bool hasError = false;
 		bool hasGraveError = false;
 		QListViewItem * pagep = 0;
+		if (doc->docLayerErrors.count() != 0)
+		{
+			QMap<int, errorCodes>::Iterator it01;
+			for (it01 = doc->docLayerErrors.begin(); it01 != doc->docLayerErrors.end(); ++it01)
+			{
+				QListViewItem * layer = new QListViewItem( item, pagep );
+				errorCodes::Iterator it03;
+				for (it03 = it01.data().begin(); it03 != it01.data().end(); ++it03)
+				{
+					QListViewItem * errorText = new QListViewItem( layer, 0 );
+					switch (it03.key())
+					{
+						case Transparency:
+							errorText->setText(0, tr("Transparency used"));
+							break;
+						case BlendMode:
+							errorText->setText(0, tr("Blendmode used"));
+							break;
+						default:
+							break;
+					}
+					errorText->setPixmap( 0, graveError );
+				}
+				layer->setText(0, QString( tr("Layer %1")).arg(it01.key()));
+				layer->setPixmap( 0, graveError );
+				pagep = layer;
+				hasGraveError = true;
+			}
+		}
 		for (int a = 0; a < static_cast<int>(doc->MasterPages.count()); ++a)
 		{
 			QString tmp;

@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "page.h"
 #include "text/nlsconfig.h"
+#include "util.h"
 
 void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 {
@@ -48,7 +49,26 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	checkerSettings.checkForGIF = currDoc->checkerProfiles[currDoc->curCheckProfile].checkForGIF;
 	currDoc->docItemErrors.clear();
 	currDoc->masterItemErrors.clear();
+	currDoc->docLayerErrors.clear();
 	errorCodes itemError;
+	errorCodes layerError;
+	int Lnr;
+	struct Layer ll;
+	ll.LNr = 0;
+	Lnr = 0;
+	uint layerCount= currDoc->layerCount();
+	for (uint la = 0; la < layerCount; ++la)
+	{
+		layerError.clear();
+		Level2Layer(currDoc, &ll, Lnr);
+		if ((ll.transparency != 1.0) && (checkerSettings.checkTransparency))
+			layerError.insert(Transparency, 0);
+		if ((ll.blendMode != 0) && (checkerSettings.checkTransparency))
+			layerError.insert(BlendMode, 1);
+		Lnr++;
+		if (layerError.count() != 0)
+			currDoc->docLayerErrors.insert(ll.LNr, layerError);
+	}
 	for (uint d = 0; d < currDoc->MasterItems.count(); ++d)
 	{
 		currItem = currDoc->MasterItems.at(d);

@@ -827,6 +827,7 @@ public: // Public attributes
 	bool DoDrawing;
 	QValueList<int> OpenNodes;
 	QTimer *CurTimer;
+	QMap<int, errorCodes> docLayerErrors;
 	QMap<int, errorCodes> docItemErrors;
 	QMap<int, errorCodes> masterItemErrors;
 	//Attributes to be applied to frames
