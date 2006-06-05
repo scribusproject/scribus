@@ -208,14 +208,18 @@ void PluginManager::initPlugs()
 		}
 	}
 	if (loaded != allPlugs.count())
-		QMessageBox::warning(ScMW, CommonStrings::trWarning,
-							 "<qt>" + tr("There is a problem loading "
-									 "%1 of %2 plugins. This is probably caused "
-									 "by some kind of dependency. "
-									 "Report it as a bug, please."
+	{
+		if (ScCore->usingGUI())
+		{
+			ScCore->showSplash(false);
+			QMessageBox::warning(ScMW, CommonStrings::trWarning,
+							 "<qt>" + tr("There is a problem loading %1 of %2 plugins. This is probably caused by some kind of dependency. Report it as a bug, please."
 										).arg(allPlugs.count()-loaded).arg(allPlugs.count())
 									 + "</qt>",
 							 CommonStrings::tr_OK);
+			ScCore->showSplash(true);
+		}
+	}
 }
 
 // After a plug-in has been initialized, this method calls its setup
