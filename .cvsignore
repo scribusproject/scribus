@@ -18,4 +18,9 @@ cvs-log
 cvsstat.pl
 cvsstat.conf
 scribus.kdevses
-
+CMakeFiles
+CMakeCache.txt
+cmake_install.cmake
+cmake_uninstall.cmake
+CPackConfig.cmake
+CPackSourceConfig.cmake
