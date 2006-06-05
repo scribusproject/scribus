@@ -3488,6 +3488,26 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 					TableItems.append(Neu);
 					TableID.insert(ite, Neu->ItemNr);
 				}
+				bool upDtImg = false;
+				if (itemToCopy->pixm.imgInfo.valid)
+				{
+					Neu->pixm.imgInfo = itemToCopy->pixm.imgInfo;
+					upDtImg = true;
+				}
+				if (itemToCopy->effectsInUse.count() != 0)
+				{
+					Neu->effectsInUse = itemToCopy->effectsInUse;
+					upDtImg = true;
+				}
+				if (upDtImg)
+				{
+					int fho = Neu->imageFlippedH();
+					int fvo = Neu->imageFlippedV();
+					LoadPict(Neu->Pfile, Neu->ItemNr, true);
+					Neu->setImageFlippedH(fho);
+					Neu->setImageFlippedV(fvo);
+					Neu->AdjustPictScale();
+				}
 				Neu->DrawObj(painter, rd);
 			}
 		}
