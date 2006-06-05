@@ -31,7 +31,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 {
 	setIcon(loadIcon("AppIcon.png"));
 	setCaption( tr( "Extended Image Properties" ) );
-	ExtImagePropsLayout = new QVBoxLayout( this, 10, 5, "ExtImagePropsLayout");
+	ExtImagePropsLayout = new QVBoxLayout( this, 1, 2, "ExtImagePropsLayout");
 	viewWidget = view;
 	currentItem = item;
 	currentLayer = 0;
@@ -74,8 +74,8 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 	propsTab = new QTabWidget( this, "propsTab" );
 
 	tab = new QWidget( propsTab, "tab" );
-	tabLayout = new QVBoxLayout( tab, 10, 5, "tabLayout");
-	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
+	tabLayout = new QVBoxLayout( tab, 4, 4, "tabLayout");
+	layout1 = new QHBoxLayout( 0, 0, 4, "layout1");
 	textLabel1 = new QLabel( tab, "textLabel1" );
 	textLabel1->setText( tr( "Blend Mode:" ) );
 	layout1->addWidget( textLabel1 );
@@ -129,6 +129,8 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 	QHeader *Header = layerTable->verticalHeader();
 	Header->setMovingEnabled(false);
 	Header->setResizeEnabled(false);
+	layerTable->setLeftMargin(0);
+	Header->hide();
 	FlagsSicht.clear();
 	if (info->layerInfo.count() != 0)
 	{
@@ -195,7 +197,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 	propsTab->insertTab( tab,  tr( "Layers" ) );
 
 	tab_2 = new QWidget( propsTab, "tab_2" );
-	tabLayout_2 = new QVBoxLayout( tab_2, 10, 5, "tabLayout_2");
+	tabLayout_2 = new QVBoxLayout( tab_2, 4, 4, "tabLayout_2");
 	pathList = new QListBox( tab_2, "pathList" );
 	pathList->clear();
 	QMap<QString, FPointArray>::Iterator it;
