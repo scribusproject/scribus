@@ -1202,7 +1202,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 							continue;
 						if ((it->asImageFrame()) && (it->PicAvail) && (!it->Pfile.isEmpty()) && (it->printEnabled()) && (!sep) && (farb))
 							PS_ImageData(it, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded, Ic);
-						PS_TemplateStart(Doc->MasterPages.at(ap)->PageNam + tmps.setNum(it->ItemNr));
+						PS_TemplateStart(Doc->MasterPages.at(ap)->pageName() + tmps.setNum(it->ItemNr));
 						ProcessItem(Doc, Doc->MasterPages.at(ap), it, ap+1, sep, farb, Ic, gcr, true);
 						PS_TemplateEnd();
 					}
@@ -1570,7 +1570,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
-				if ((c->GrType != 0) && (a->PageNam.isEmpty()))
+				if ((c->GrType != 0) && (a->pageName().isEmpty()))
 					HandleGradient(c, c->width(), c->height(), gcr);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
@@ -1599,7 +1599,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			if ((c->PicAvail) && (!c->Pfile.isEmpty()))
 			{
 				PS_translate(0, -c->BBoxH*c->imageYScale());
-				if ((!a->PageNam.isEmpty()) && (!sep) && (farb))
+				if ((!a->pageName().isEmpty()) && (!sep) && (farb))
 					PS_image(c, /*-c->BBoxX+*/c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic, c->itemName());
 				else
 					PS_image(c, /*-c->BBoxX+*/c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic);
@@ -1665,7 +1665,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
-				if ((c->GrType != 0) && (a->PageNam.isEmpty()))
+				if ((c->GrType != 0) && (a->pageName().isEmpty()))
 					HandleGradient(c, c->width(), c->height(), gcr);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
@@ -2052,7 +2052,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 	for (uint la = 0; la < Doc->Layers.count(); ++la)
 	{
 		Level2Layer(Doc, &ll, Lnr);
-		if (!a->PageNam.isEmpty())
+		if (!a->pageName().isEmpty())
 			PItems = Doc->MasterItems;
 		else
 			PItems = Doc->DocItems;
@@ -2063,9 +2063,9 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				c = PItems.at(b);
 				if (c->LayerNr != ll.LNr)
 					continue;
-				if ((!a->PageNam.isEmpty()) && (c->asTextFrame()))
+				if ((!a->pageName().isEmpty()) && (c->asTextFrame()))
 					continue;
-				if ((!a->PageNam.isEmpty()) && (c->asImageFrame()) && ((sep) || (!farb)))
+				if ((!a->pageName().isEmpty()) && (c->asImageFrame()) && ((sep) || (!farb)))
 					continue;
 				//if ((!Art) && (view->SelItem.count() != 0) && (!c->Select))
 				if ((!Art) && (!c->isSelected()) && (Doc->m_Selection->count() != 0))
@@ -2083,7 +2083,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 					continue;
 				if (c->ChangedMasterItem)
 					continue;
-				if ((!a->PageNam.isEmpty()) && (c->OwnPage != static_cast<int>(a->pageNr())) && (c->OwnPage != -1))
+				if ((!a->pageName().isEmpty()) && (c->OwnPage != static_cast<int>(a->pageNr())) && (c->OwnPage != -1))
 					continue;
 				ProcessItem(Doc, a, c, PNr, sep, farb, ic, gcr, false);
 			}
@@ -2093,9 +2093,9 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 			c = PItems.at(b);
 			if (c->LayerNr != ll.LNr)
 				continue;
-			if ((!a->PageNam.isEmpty()) && (c->asTextFrame()))
+			if ((!a->pageName().isEmpty()) && (c->asTextFrame()))
 				continue;
-			if ((!a->PageNam.isEmpty()) && (c->asImageFrame()) && ((sep) || (!farb)))
+			if ((!a->pageName().isEmpty()) && (c->asImageFrame()) && ((sep) || (!farb)))
 				continue;
 			double x = a->xOffset();
 			double y = a->yOffset();
@@ -2112,7 +2112,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				continue;
 			if (!c->isTableItem)
 				continue;
-			if ((!a->PageNam.isEmpty()) && (c->OwnPage != static_cast<int>(a->pageNr())) && (c->OwnPage != -1))
+			if ((!a->pageName().isEmpty()) && (c->OwnPage != static_cast<int>(a->pageNr())) && (c->OwnPage != -1))
 				continue;
 			if (c->printEnabled())
 			{

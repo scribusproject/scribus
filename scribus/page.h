@@ -66,8 +66,9 @@ public:
 	MarginStruct initialMargins;
   /** Nummer der Seite */
 	int LeftPg;
+	//! Name of the master page that this page uses
 	QString MPageNam;
-	QString PageNam;
+
 	QString PageSize;
 	int PageOri;
 	// PV - guides refactoring
@@ -90,6 +91,8 @@ public:
 	void removeYGuide(int index);
 	void moveXGuide(int fromIndex, double to);
 	void moveYGuide(int fromIndex, double to);*/
+	//! Return the page's name
+	const QString& pageName() const {return m_PageName;};
 	void setPageName(const QString& newName);
 	void restore(UndoState* state, bool isUndo);
 
@@ -115,6 +118,8 @@ protected:
 	double m_initialWidth;
 	double m_initialHeight;
 	uint m_pageNr;
+	//! Name of this page, currently only allowed to be used by a master page
+	QString m_PageName;
 	ScribusDoc* m_Doc;	
 	QString m_pageSectionNumber;
 };

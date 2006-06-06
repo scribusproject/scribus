@@ -178,7 +178,7 @@ QListViewItem* Tree::getListItem(uint SNr, int Nr)
 	if (currDoc->masterPageMode())
 	{
 		if (Nr == -1)
-			retVal = masterPageMapRev[currDoc->MasterPages.at(SNr)->PageNam];
+			retVal = masterPageMapRev[currDoc->MasterPages.at(SNr)->pageName()];
 		else
 		{
 			if (currDoc->MasterItems.at(Nr)!=0)
@@ -582,7 +582,7 @@ void Tree::BuildTree()
 	for (int a = 0; a < static_cast<int>(currDoc->MasterPages.count()); ++a)
 	{
 		QListViewItem * page = new QListViewItem( item, pagep );
-		QString pageNam = currDoc->MasterPages.at(a)->PageNam;
+		QString pageNam = currDoc->MasterPages.at(a)->pageName();
 		masterPageMap.insert(page, pageNam);
 		masterPageMapRev.insert(pageNam, page);
 		pagep = page;
@@ -618,7 +618,7 @@ void Tree::BuildTree()
 				}
 			}
 		}
-		page->setText(0, currDoc->MasterPages.at(a)->PageNam);
+		page->setText(0, currDoc->MasterPages.at(a)->pageName());
 	}
 	for (uint b = 0; b < currDoc->DocItems.count(); ++b)
 	{

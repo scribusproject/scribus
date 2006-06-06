@@ -37,7 +37,6 @@ Page::Page(const double x, const double y, const double b, const double h) :
 	initialMargins(40,40,40,40),
 	LeftPg(0),
 	MPageNam(""),
-	PageNam(""),
 	//XGuides(),
 	//YGuides(),
 	FromMaster(),
@@ -48,6 +47,7 @@ Page::Page(const double x, const double y, const double b, const double h) :
 	m_height(h),
 	m_initialWidth(b),
 	m_initialHeight(h),
+	m_PageName(""),
 	m_Doc(NULL)
 {
 	guides.setPage(this);
@@ -75,10 +75,10 @@ void Page::setDocument(ScribusDoc *doc)
 void Page::setPageNr(int pageNr)
 {
 	m_pageNr = pageNr;
-	if (PageNam.isEmpty())
-		setUName(QString(QObject::tr("Page") + " %1").arg(ScMW->doc->FirstPnum + m_pageNr));
+	if (m_PageName.isEmpty())
+		setUName(QString(QObject::tr("Page") + " %1").arg(m_Doc->FirstPnum + m_pageNr));
 	else
-		setUName(PageNam);
+		setUName(m_PageName);
 }
 
 /* PV
@@ -205,7 +205,7 @@ void Page::moveYGuide(int fromIndex, double to)
 
 void Page::setPageName(const QString& newName)
 {
-	PageNam = newName;
+	m_PageName = newName;
 	if (!newName.isEmpty())
 		setUName(QObject::tr("Master Page ") + newName);
 }

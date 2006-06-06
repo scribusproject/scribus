@@ -35,7 +35,7 @@ protected slots:
 	void reject();
 
 private:
-	QListBox* masterPageData;
+	QListBox* masterPageListBox;
 	QToolButton* importButton;
 	QToolButton* newButton;
 	QToolButton* duplicateButton;
@@ -53,6 +53,7 @@ private slots:
 	void duplicateMasterPage();
 	void deleteMasterPage();
 	void newMasterPage();
+	void renameMasterPage(QListBoxItem * item);
 	void appendPage();
 	void selectMasterPage(QListBoxItem *item);
 

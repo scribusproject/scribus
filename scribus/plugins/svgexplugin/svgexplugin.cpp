@@ -261,7 +261,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 	QPtrList<PageItem> Items;
 	Page* SavedAct = ScMW->doc->currentPage();
 	ScMW->doc->setCurrentPage(Seite);
-	if (Seite->PageNam.isEmpty())
+	if (Seite->pageName().isEmpty())
 		Items = ScMW->doc->DocItems;
 	else
 		Items = ScMW->doc->MasterItems;

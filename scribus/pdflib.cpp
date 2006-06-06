@@ -1148,7 +1148,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 					continue;
 				if (ite->ChangedMasterItem)
 					continue;
-				if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
+				if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 					continue;
 				PutPage("q\n");
 				if ((ite->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
@@ -1170,7 +1170,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 /* Bookmarks on Master Pages do not make any sense */
 //				if ((ite->isBookmark) && (Options.Bookmarks))
 //					PDF_Bookmark(ite, pag->height() - (ite->yPos() - pag->yOffset()));
-				if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->PageNam.isEmpty())))
+				if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->pageName().isEmpty())))
 				{
 					PutPage("Q\n");
 					continue;
@@ -1608,7 +1608,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 				if ((Options.Compress) && (CompAvail))
 					PutDoc("\n/Filter /FlateDecode");
 				PutDoc(" >>\nstream\n"+EncStream(Inhalt, ObjCounter-1)+"\nendstream\nendobj\n");
-				QString name = pag->PageNam.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + QString::number(ite->ItemNr);
+				QString name = pag->pageName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + QString::number(ite->ItemNr);
 				Seite.XObjects[name] = ObjCounter-1;
 				}
 				if ((Options.Version == 15) && (Options.useLayers))
@@ -1821,7 +1821,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						ite = pag->FromMaster.at(am);
 						if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
 							continue;
-						if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
+						if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 							continue;
 						QString name = "/"+pag->MPageNam.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + QString::number(ite->ItemNr);
 						if (! ite->asTextFrame())
@@ -1836,7 +1836,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 							continue;
 						if (ite->ChangedMasterItem)
 							continue;
-						if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
+						if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 							continue;
 						if (!ite->isTableItem)
 							continue;
@@ -1852,13 +1852,13 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	ll.LNr = 0;
 	Lnr = 0;
 	//CB *2 because the Pitems count loop runs twice.. y.. dunno.
-	if (usingGUI && pag->PageNam.isEmpty())
+	if (usingGUI && pag->pageName().isEmpty())
 		progressDialog->setProgress("ECPI", 0, doc.DocItems.count()*2);
 	int pc_exportpagesitems=0;
 	for (uint la = 0; la < doc.Layers.count() && !abortExport; ++la)
 	{
 		Level2Layer(&doc, &ll, Lnr);
-		if (!pag->PageNam.isEmpty())
+		if (!pag->pageName().isEmpty())
 			PItems = doc.MasterItems;
 		else
 			PItems = doc.DocItems;
@@ -1907,7 +1907,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					continue;
 				if (ite->ChangedMasterItem)
 					continue;
-				if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
+				if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 					continue;
 				if (!ite->printEnabled())
 					continue;
@@ -2184,7 +2184,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 		return tmp;
 	if (ite->ChangedMasterItem)
 		return tmp;
-	if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
+	if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 		return tmp;
 	tmp += "q\n";
 	if ((ite->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
@@ -2205,7 +2205,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 		tmp += PDF_Transparenz(ite);
 	if ((ite->isBookmark) && (Options.Bookmarks))
 		PDF_Bookmark(ite, pag->height() - (ite->yPos() - pag->yOffset()));
-	if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->PageNam.isEmpty())))
+	if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->pageName().isEmpty())))
 	{
 		tmp += "Q\n";
 		return tmp;

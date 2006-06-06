@@ -779,7 +779,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						continue;
 					if (!Doc->masterPageMode() && !currItem->OnMasterPage.isEmpty())
 					{
-						if (currItem->OnMasterPage != Doc->currentPage()->PageNam)
+						if (currItem->OnMasterPage != Doc->currentPage()->pageName())
 							continue;
 					}
 					QRect oldR(currItem->getRedrawBounding(Scale));
@@ -2059,7 +2059,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			ScMW->scrActions["itemAttributes"]->addTo(pmen);
 			if (currItem->itemType() == PageItem::TextFrame)
 			{
-				if (Doc->currentPage()->PageNam.isEmpty())
+				if (Doc->currentPage()->pageName().isEmpty())
 				{
 					ScMW->scrActions["itemPDFIsAnnotation"]->addTo(pmenPDF);
 					ScMW->scrActions["itemPDFIsBookmark"]->addTo(pmenPDF);
@@ -3137,7 +3137,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					QRegion apr = QRegion(p.xForm(docItem->Clip));
 					QRect apr2(docItem->getRedrawBounding(Scale));
 					p.end();
-					if ((Doc->masterPageMode()) && (docItem->OnMasterPage != Doc->currentPage()->PageNam))
+					if ((Doc->masterPageMode()) && (docItem->OnMasterPage != Doc->currentPage()->pageName()))
 						continue;
 					//CB Finally Items are selected here
 					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == Doc->activeLayer()) && (!Doc->layerLocked(docItem->LayerNr)))

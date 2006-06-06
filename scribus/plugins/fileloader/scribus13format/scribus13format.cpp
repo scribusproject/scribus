@@ -3184,7 +3184,7 @@ void Scribus13Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElemen
 		pg.setAttribute("BORDERTOP",page->initialMargins.Top);
 		pg.setAttribute("BORDERBOTTOM",page->initialMargins.Bottom);
 		pg.setAttribute("NUM",page->pageNr());
-		pg.setAttribute("NAM",page->PageNam);
+		pg.setAttribute("NAM",page->pageName());
 		pg.setAttribute("MNAM",page->MPageNam);
 		pg.setAttribute("Size", page->PageSize);
 		pg.setAttribute("Orientation", page->PageOri);

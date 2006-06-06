@@ -416,7 +416,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	invalid = true;
 	ChangedMasterItem = false;
 	isEmbedded = false;
-	OnMasterPage = m_Doc->currentPage()->PageNam;
+	OnMasterPage = m_Doc->currentPage()->pageName();
 	m_startArrowIndex = m_Doc->toolSettings.dStartArrow;
 	m_endArrowIndex = m_Doc->toolSettings.dEndArrow;
 	effectsInUse.clear();

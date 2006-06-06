@@ -31,6 +31,7 @@ class PLUGIN_API Scribus12Format : public LoadSavePlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
+		//Not the same as readSLA. This one only reads max 4k of the file for speed.
 		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const;
 
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);

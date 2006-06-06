@@ -309,12 +309,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			hasError = false;
 			bool pageGraveError = false;
 			QListViewItem * page = new QListViewItem( item, pagep );
-			masterPageMap.insert(page, doc->MasterPages.at(a)->PageNam);
+			masterPageMap.insert(page, doc->MasterPages.at(a)->pageName());
 			pagep = page;
 			QMap<int, errorCodes>::Iterator it2;
 			for (it2 = doc->masterItemErrors.begin(); it2 != doc->masterItemErrors.end(); ++it2)
 			{
-				if ((doc->MasterItems.at(it2.key())->OwnPage == a) || (doc->MasterItems.at(it2.key())->OnMasterPage == doc->MasterPages.at(a)->PageNam))
+				if ((doc->MasterItems.at(it2.key())->OwnPage == a) || (doc->MasterItems.at(it2.key())->OnMasterPage == doc->MasterPages.at(a)->pageName()))
 				{
 					hasError = true;
 					bool itemError = false;
@@ -458,7 +458,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			}
 			else
 				page->setPixmap( 0, noErrors );
-			page->setText(0, doc->MasterPages.at(a)->PageNam);
+			page->setText(0, doc->MasterPages.at(a)->pageName());
 		}
 		for (int a = 0; a < static_cast<int>(doc->DocPages.count()); ++a)
 		{

@@ -8,8 +8,10 @@ for which a new license (GPL+exception) is in place.
 #include "muster.moc"
 #include "newtemp.h"
 #include "mergedoc.h"
+#include <qinputdialog.h>
 #include <qlayout.h>
 #include <qlistbox.h>
+#include <qmessagebox.h>
 #include <qpushbutton.h>
 #include <qcursor.h>
 #include <qstring.h>
@@ -50,9 +52,9 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 	QSpacerItem* spacer = new QSpacerItem( 16, 16, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	buttonLayout->addItem( spacer );
 	masterPagesLayout->addLayout( buttonLayout );
-	masterPageData = new QListBox( this, "masterPageData" );
-	masterPageData->setMinimumSize( QSize( 100, 240 ) );
-	masterPagesLayout->addWidget( masterPageData );
+	masterPageListBox = new QListBox( this, "masterPageListBox" );
+	masterPageListBox->setMinimumSize( QSize( 100, 240 ) );
+	masterPagesLayout->addWidget( masterPageListBox );
 
 
 	if (masterPageName.isEmpty())
@@ -79,7 +81,8 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteMasterPage()));
 	connect(newButton, SIGNAL(clicked()), this, SLOT(newMasterPage()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(appendPage()));
-	connect(masterPageData, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selectMasterPage(QListBoxItem*)));
+	connect(masterPageListBox, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selectMasterPage(QListBoxItem*)));
+	connect(masterPageListBox, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(renameMasterPage( QListBoxItem*)));
 }
 
 void MasterPagesPalette::reject()
@@ -111,7 +114,7 @@ void MasterPagesPalette::deleteMasterPage()
 		//This must happen after the pages have been reformed (view/doc)
 		currentDoc->MasterNames.clear();
 		for (uint a = 0; a < currentDoc->Pages->count(); ++a)
-			currentDoc->MasterNames[currentDoc->Pages->at(a)->PageNam] = currentDoc->Pages->at(a)->pageNr();
+			currentDoc->MasterNames[currentDoc->Pages->at(a)->pageName()] = currentDoc->Pages->at(a)->pageNr();
 		// and fix up any pages that refer to the deleted master page
 		for (Page* docPage = currentDoc->DocPages.first(); docPage; docPage = currentDoc->DocPages.next() )
 		{
@@ -271,12 +274,6 @@ void MasterPagesPalette::newMasterPage()
 			MasterPageName = dia->Answer->text();
 		}
 		currentDoc->setCurrentPage(currentDoc->addMasterPage(nr, MasterPageName));
-		
-		//currentDoc->MasterNames.insert(MasterPageName, nr);
-		//currentDoc->pageCount = 0;
-		//atf = currentDoc->usesAutomaticTextFrames();
-		//currentDoc->setUsesAutomaticTextFrames(false);
-		//emit createNew(nr);
 		if (currentDoc->currentPageLayout != singlePage)
 		{
 			int lp = dia->Links->currentItem();
@@ -288,13 +285,9 @@ void MasterPagesPalette::newMasterPage()
 				lp++;
 			currentDoc->Pages->at(nr)->LeftPg = lp;
 		}
-		//currentDoc->Pages->at(nr)->setPageName(MasterPageName);
-		//currentDoc->Pages->at(nr)->MPageNam = "";
 		updateMasterPageList(MasterPageName);
-		//currentDoc->setUsesAutomaticTextFrames(atf);
 		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName]);
 		currentView->reformPages();
-		//currentDoc->MasterPages = currentDoc->Pages;
 	}
 	delete dia;
 }
@@ -377,15 +370,31 @@ void MasterPagesPalette::selectMasterPage(QString name)
 
 void MasterPagesPalette::updateMasterPageList(QString MasterPageName)
 {
-	masterPageData->clear();
+	masterPageListBox->clear();
 	for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
-		masterPageData->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
+		masterPageListBox->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
 	deleteButton->setEnabled(currentDoc->MasterNames.count() == 1 ? false : true);
 	if (MasterPageName == "Normal")
 	{
 		MasterPageName = tr("Normal");
 		deleteButton->setEnabled(false);
 	}
-	masterPageData->setSelected(masterPageData->index(masterPageData->findItem(MasterPageName)), true);
+	masterPageListBox->setSelected(masterPageListBox->index(masterPageListBox->findItem(MasterPageName)), true);
 }
 
+void MasterPagesPalette::renameMasterPage(QListBoxItem * item)
+{
+	QString oldName(item->text());
+	if (oldName=="Normal" || oldName==tr("Normal"))
+	{
+		QMessageBox::information( this, tr("Unable to Rename Master Page"), tr("The Normal page is not allowed to be renamed."), QMessageBox::Ok );
+		return;
+	}
+	bool ok;
+	QString newName = QInputDialog::getText(
+			tr("Rename Master Page"), tr("New Name:"), QLineEdit::Normal,
+			oldName, &ok, this );
+	if (ok && !newName.isEmpty())
+		if (currentDoc->renameMasterPage( oldName, newName))
+			updateMasterPageList(newName);
+}

@@ -567,7 +567,7 @@ void PagePalette::DelMPage(QString tmp)
 		}
 		Seite->Margins.Top = currView->Doc->pageMargins.Top;
 		Seite->Margins.Bottom = currView->Doc->pageMargins.Bottom;
-		currView->Doc->MasterNames[Seite->PageNam] = aa;
+		currView->Doc->MasterNames[Seite->pageName()] = aa;
 	}
 	for (uint b=0; b<currView->Doc->DocPages.count(); ++b)
 	{
