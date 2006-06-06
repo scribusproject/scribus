@@ -1071,6 +1071,13 @@ bool ScribusDoc::renameMasterPage(const QString& oldPageName, const QString& new
 			if (docPage->MPageNam == oldPageName)
 				docPage->MPageNam = newPageName;
 		}
+		//Update any items that were linking to our old name
+		uint masterItemsCount=MasterItems.count();
+		for (uint i = 0; i < masterItemsCount; ++i)
+		{
+			if (MasterItems.at(i)->OnMasterPage == oldPageName)
+				MasterItems.at(i)->OnMasterPage = newPageName;
+		}
 		changed();
 		return true;
 	}
