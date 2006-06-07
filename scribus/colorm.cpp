@@ -354,6 +354,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, bool haveDoc, QStrin
 	QToolTip::add( DupF, "<qt>" + tr( "Make a copy of the currently selected color" ) + "</qt>");
 	QToolTip::add( DelF, "<qt>" + tr( "Delete the currently selected color" ) + "</qt>");
 	QToolTip::add( SaveF, "<qt>" + tr( "Make the current colorset the default color set" ) + "</qt>");
+        QToolTip::add( colorListBox, "<qt>" + tr( "If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
 	connect( SaveF, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( CancF, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( NewF, SIGNAL( clicked() ), this, SLOT( neueFarbe() ) );
