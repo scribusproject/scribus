@@ -207,7 +207,7 @@ void ScPageOutput::DrawPageItems(ScPainterExBase *painter, Page *page, QRect cli
 						continue;
 					if (!m_doc->masterPageMode() && !currItem->OnMasterPage.isEmpty())
 					{
-						if (currItem->OnMasterPage != page->PageNam)
+						if (currItem->OnMasterPage != page->pageName())
 							continue;
 					}
 					QRect oldR(currItem->getRedrawBounding(m_scale));
