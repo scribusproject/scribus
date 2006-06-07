@@ -210,7 +210,6 @@ private:
 	bool imageMode;
 	bool layeredMode;
 	bool svgMode;
-#if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 #ifdef HAVE_CAIRO
 	cairo_t *m_cr;
 	struct layerProp
@@ -220,9 +219,8 @@ private:
 		double tranparency;
 	};
 	QValueStack<layerProp> Layers;
-#else
+#elif defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 	GC gc;
-#endif
 #elif defined(_WIN32) && defined(SC_USE_GDI)
 	HDC dc;
 #endif
