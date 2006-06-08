@@ -32,9 +32,14 @@ private:
 	QString name_;
 	const Style*  parent_;
 public:
-	Style(): name_(""),parent_(NULL) {}
-    Style(QString n): name_(n), 
-					  parent_(NULL)  {}
+	Style(): name_(""),parent_(NULL)  {}
+    Style(QString n): name_(n), parent_(NULL)  {}
+	Style& operator=(const Style& o) 
+	{ //assert(typeinfo() == o.typeinfo()); 
+		name_ = o.name_; parent_ = o.parent_; return *this;
+	}
+	Style(const Style& o) : name_(o.name_), parent_(o.parent_) {} 
+	
 	QString name() const             { return name_; }
 	void setName(QString n)          { name_ = n; }
 	const Style* parent() const      { return parent_; }
@@ -43,12 +48,6 @@ public:
 	// applyStyle(const SubStyle& other)
 	// eraseStyle(const SubStyle& other)
 	// assign(const SubStyle& other)
-protected:
-	Style& operator=(const Style& o) 
-	{ //assert(typeinfo() == o.typeinfo()); 
-		name_ = o.name_; parent_ = o.parent_; return *this;
-	}
-	Style(const Style& o) : name_(o.name_), parent_(o.parent_) {} 
 };
 
 
@@ -250,6 +249,7 @@ inline bool CharStyle::operator==(const CharStyle & other) const
 
 inline CharStyle & CharStyle::operator=(const CharStyle & other)
 {
+	static_cast<Style&>(*this) = static_cast<const Style&>(other);
 	csize = other.csize;
 	cshade = other.cshade;
 	cshade2 = other.cshade2;
@@ -272,7 +272,7 @@ inline CharStyle & CharStyle::operator=(const CharStyle & other)
 	return *this;
 }
 
-inline CharStyle::CharStyle(const CharStyle & other)
+inline CharStyle::CharStyle(const CharStyle & other) : Style(other)
 {
 	csize = other.csize;
 	cshade = other.cshade;
@@ -416,6 +416,7 @@ private:
 	
 public:
 	ParagraphStyle();
+	ParagraphStyle(const ParagraphStyle& other);
 	int lineSpacingMode() const { return LineSpaMode==NOVALUE && parent()? inh().lineSpacingMode() : LineSpaMode; }
 	double lineSpacing() const { return LineSpa<=NOVALUE && parent()? inh().lineSpacing() : LineSpa; }
 	int alignment() const { return textAlignment==NOVALUE && parent()? inh().alignment() : textAlignment; }
@@ -470,9 +471,14 @@ public:
 	// these return writeable references for now:
 	QValueList<TabRecord> & tabValues() { haveTabs = true; return TabValues; }
 	const QValueList<TabRecord> & tabValues() const { return haveTabs? TabValues : inh().tabValues(); }
+
 	CharStyle & charStyle() { return *this; }
 	const CharStyle& charStyle() const { return *this; }
+	
+	ParagraphStyle& operator=(const ParagraphStyle& other) const;
+
 	bool equiv(const ParagraphStyle& other) const;
+	
 	bool operator==(const ParagraphStyle& other) const
 	{ 
 		return name()==other.name() && equiv(other);
