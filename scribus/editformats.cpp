@@ -295,22 +295,22 @@ void StilFormate::neuesFormat()
 	sty.setHasDropCap(false);
 	sty.setDropCapLines(2);
 	sty.setDropCapOffset(0);
-	sty.charStyle().ccolor = Docu->toolSettings.dBrush;
-	sty.charStyle().cshade = Docu->toolSettings.dShade;
-	sty.charStyle().cstroke = Docu->toolSettings.dPen;
-	sty.charStyle().cshade2 = Docu->toolSettings.dShade2;
+	sty.charStyle().setFillColor(Docu->toolSettings.dBrush);
+	sty.charStyle().setFillShade(Docu->toolSettings.dShade);
+	sty.charStyle().setStrokeColor(Docu->toolSettings.dPen);
+	sty.charStyle().setStrokeShade(Docu->toolSettings.dShade2);
 	sty.setUseBaselineGrid(false);
-	sty.charStyle().cshadowx = 50;
-	sty.charStyle().cshadowy = -50;
-	sty.charStyle().coutline = 10;
-	sty.charStyle().cunderpos = Docu->typographicSettings.valueUnderlinePos;
-	sty.charStyle().cunderwidth = Docu->typographicSettings.valueUnderlineWidth;
-	sty.charStyle().cstrikepos = Docu->typographicSettings.valueStrikeThruPos;
-	sty.charStyle().cstrikewidth = Docu->typographicSettings.valueStrikeThruPos;
-	sty.charStyle().cscale = 1000;
-	sty.charStyle().cscalev = 1000;
-	sty.charStyle().cbase = 0;
-	sty.charStyle().cextra = 0;
+	sty.charStyle().setShadowXOffset(50);
+	sty.charStyle().setShadowYOffset(-50);
+	sty.charStyle().setOutlineWidth(10);
+	sty.charStyle().setUnderlineOffset(Docu->typographicSettings.valueUnderlinePos);
+	sty.charStyle().setUnderlineWidth(Docu->typographicSettings.valueUnderlineWidth);
+	sty.charStyle().setStrikethruOffset(Docu->typographicSettings.valueStrikeThruPos);
+	sty.charStyle().setStrikethruWidth(Docu->typographicSettings.valueStrikeThruPos);
+	sty.charStyle().setScaleH(1000);
+	sty.charStyle().setScaleV(1000);
+	sty.charStyle().setBaselineOffset(0);
+	sty.charStyle().setTracking(0);
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true,  static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->unitIndex(), Docu);
@@ -405,10 +405,10 @@ void StilFormate::loadStyles()
 				{
 					sty = TempVorl2[it.data()];
 					TempVorl.append(sty);
-					if ((!Docu->PageColors.contains(sty.charStyle().cstroke)) && (!neededColors.contains(sty.charStyle().cstroke)))
-						neededColors.append(sty.charStyle().cstroke);
-					if ((!Docu->PageColors.contains(sty.charStyle().ccolor)) && (!neededColors.contains(sty.charStyle().ccolor)))
-						neededColors.append(sty.charStyle().ccolor);
+					if ((!Docu->PageColors.contains(sty.charStyle().strokeColor())) && (!neededColors.contains(sty.charStyle().strokeColor())))
+						neededColors.append(sty.charStyle().strokeColor());
+					if ((!Docu->PageColors.contains(sty.charStyle().fillColor())) && (!neededColors.contains(sty.charStyle().fillColor())))
+						neededColors.append(sty.charStyle().fillColor());
 				}
 			}
 			if (!neededColors.isEmpty())

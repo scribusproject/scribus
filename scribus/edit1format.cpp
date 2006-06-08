@@ -64,13 +64,13 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<Paragraph
 	GroupFontLayout = new QVBoxLayout( GroupFont->layout() );
 	GroupFontLayout->setAlignment( Qt::AlignLeft );
 	FontC = new FontComboH(GroupFont);
-	FontC->setCurrentFont(vor->charStyle().cfont->scName());
+	FontC->setCurrentFont(vor->charStyle().font()->scName());
 	GroupFontLayout->addWidget( FontC );
 	layout7 = new QHBoxLayout( 0, 0, 5, "layout7");
 	SizeC = new MSpinBox( 1, 2048, GroupFont, 1 );
 	SizeC->setMinimumSize( QSize( 70, 22 ) );
 	SizeC->setSuffix( tr( " pt" ) );
-	SizeC->setValue(vor->charStyle().csize / 10.0);
+	SizeC->setValue(vor->charStyle().fontSize() / 10.0);
 	TextF2 = new QLabel( "" ,GroupFont, "TextF2" );
 	TextF2->setPixmap(loadIcon("Zeichen.xpm"));
 	TextF2->setMinimumSize( QSize( 22, 22 ) );
@@ -83,7 +83,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<Paragraph
 	pixmapLabel3->setPixmap( loadIcon("textscaleh.png") );
 	layout7->addWidget( pixmapLabel3 );
 	fontHScale = new MSpinBox( 10, 400, GroupFont, 1 );
-	fontHScale->setValue( vor->charStyle().cscale / 10.0 );
+	fontHScale->setValue( vor->charStyle().scaleH() / 10.0 );
 	fontHScale->setSuffix( tr( " %" ) );
 	layout7->addWidget( fontHScale );
 	pixmapLabel3_2 = new QLabel( "", GroupFont, "pixmapLabel3_2" );
@@ -93,21 +93,21 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<Paragraph
 	layout7->addWidget( pixmapLabel3_2 );
 
 	fontVScale = new MSpinBox( 10, 400, GroupFont, 1 );
-	fontVScale->setValue( vor->charStyle().cscalev / 10.0 );
+	fontVScale->setValue( vor->charStyle().scaleV() / 10.0 );
 	fontVScale->setSuffix( tr( " %" ) );
 	layout7->addWidget( fontVScale );
 	GroupFontLayout->addLayout( layout7 );
 
 	layout9a = new QHBoxLayout( 0, 0, 0, "layout9");
 	EffeS = new StyleSelect(GroupFont);
-	EffeS->setStyle(vor->charStyle().cstyle);
-	EffeS->ShadowVal->Xoffset->setValue(vor->charStyle().cshadowx / 10.0);
-	EffeS->ShadowVal->Yoffset->setValue(vor->charStyle().cshadowy / 10.0);
-	EffeS->OutlineVal->LWidth->setValue(vor->charStyle().coutline / 10.0);
-	EffeS->UnderlineVal->LPos->setValue(vor->charStyle().cunderpos / 10.0);
-	EffeS->UnderlineVal->LWidth->setValue(vor->charStyle().cunderwidth / 10.0);
-	EffeS->StrikeVal->LPos->setValue(vor->charStyle().cstrikepos / 10.0);
-	EffeS->StrikeVal->LWidth->setValue(vor->charStyle().cstrikewidth / 10.0);
+	EffeS->setStyle(vor->charStyle().effects());
+	EffeS->ShadowVal->Xoffset->setValue(vor->charStyle().shadowXOffset() / 10.0);
+	EffeS->ShadowVal->Yoffset->setValue(vor->charStyle().shadowYOffset() / 10.0);
+	EffeS->OutlineVal->LWidth->setValue(vor->charStyle().outlineWidth() / 10.0);
+	EffeS->UnderlineVal->LPos->setValue(vor->charStyle().underlineOffset() / 10.0);
+	EffeS->UnderlineVal->LWidth->setValue(vor->charStyle().underlineWidth() / 10.0);
+	EffeS->StrikeVal->LPos->setValue(vor->charStyle().strikethruOffset() / 10.0);
+	EffeS->StrikeVal->LWidth->setValue(vor->charStyle().strikethruWidth() / 10.0);
 	layout9a->addWidget( EffeS );
 	QSpacerItem* spacer1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout9a->addItem( spacer1 );
@@ -170,10 +170,10 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<Paragraph
 	StrokeIcon->setEnabled(false);
 	PM1->setEnabled(false);
 	TxStroke->setEnabled(false);
-	TxFill->setCurrentText(vor->charStyle().ccolor);
-	TxStroke->setCurrentText(vor->charStyle().cstroke);
-	PM2->setValue(vor->charStyle().cshade);
-	PM1->setValue(vor->charStyle().cshade2);
+	TxFill->setCurrentText(vor->charStyle().fillColor());
+	TxStroke->setCurrentText(vor->charStyle().strokeColor());
+	PM2->setValue(vor->charStyle().fillShade());
+	PM1->setValue(vor->charStyle().strokeShade());
 
 	layout9->addWidget( GroupFont );
 
@@ -207,7 +207,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<Paragraph
 	pixmapLabel2->setPixmap( loadIcon("textbase.png") );
 	AbstandVLayout->addWidget( pixmapLabel2, 0, 2 );
 	fontBase = new MSpinBox( -100, 100, AbstandV, 1 );
-	fontBase->setValue( vor->charStyle().cbase / 10.0 );
+	fontBase->setValue( vor->charStyle().baselineOffset() / 10.0 );
 	fontBase->setSuffix( tr( " %" ) );
 	AbstandVLayout->addWidget( fontBase, 0, 3 );
 	pixmapLabel3_3 = new QLabel( AbstandV, "pixmapLabel3_3" );
@@ -216,7 +216,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<Paragraph
 	pixmapLabel3_3->setPixmap( loadIcon("textkern.png") );
 	AbstandVLayout->addWidget( pixmapLabel3_3, 0, 4 );
 	fontKern = new MSpinBox( -300, 300, AbstandV, 1 );
-	fontKern->setValue( vor->charStyle().cextra / 10.0 );
+	fontKern->setValue( vor->charStyle().tracking() / 10.0 );
 	fontKern->setSuffix( tr( " %" ) );
 	AbstandVLayout->addWidget( fontKern, 0, 5 );
 
@@ -512,7 +512,7 @@ void EditStyle::Verlassen()
 void EditStyle::copyStyleSettings(ParagraphStyle& parstyle)
 {
 	CharStyle charstyle;
-	charstyle.cstyle = static_cast<StyleFlag>(EffeS->getStyle());
+	charstyle.setEffects(static_cast<StyleFlag>(EffeS->getStyle()));
 	parstyle.setAlignment(AligS->getStyle());
 	for (uint al = 0; al < lineSpacingPop->count(); ++al)
 	{
@@ -529,28 +529,28 @@ void EditStyle::copyStyleSettings(ParagraphStyle& parstyle)
 	parstyle.setGapBefore(AboveV->value() / parentDoc->unitRatio());
 	parstyle.setGapAfter(BelowV->value() / parentDoc->unitRatio());
 	parstyle.setName(Name->text());
-	charstyle.cfont = PrefsManager::instance()->appPrefs.AvailFonts[FontC->currentFont()];
-	charstyle.csize = qRound(SizeC->value() * 10.0);
+	charstyle.setFont(PrefsManager::instance()->appPrefs.AvailFonts[FontC->currentFont()]);
+	charstyle.setFontSize(qRound(SizeC->value() * 10.0));
 	parstyle.setHasDropCap(DropCaps->isChecked());
 	parstyle.setDropCapLines(DropLines->value());
 	parstyle.setDropCapOffset(DropDist->value() / parentDoc->unitRatio());
-	charstyle.ccolor = TxFill->currentText();
-	charstyle.cshade = PM2->getValue();
-	charstyle.cstroke = TxStroke->currentText();
-	charstyle.cshade2 = PM1->getValue();
+	charstyle.setFillColor(TxFill->currentText());
+	charstyle.setFillShade(PM2->getValue());
+	charstyle.setStrokeColor(TxStroke->currentText());
+	charstyle.setStrokeShade(PM1->getValue());
 	parstyle.tabValues() = TabList->getTabVals();
-	charstyle.cshadowx = qRound(EffeS->ShadowVal->Xoffset->value() * 10.0);
-	charstyle.cshadowy = qRound(EffeS->ShadowVal->Yoffset->value() * 10.0);
-	charstyle.coutline = qRound(EffeS->OutlineVal->LWidth->value() * 10.0);
-	charstyle.cstrikepos = qRound(EffeS->StrikeVal->LPos->value() * 10.0);
-	charstyle.cstrikewidth = qRound(EffeS->StrikeVal->LWidth->value() * 10.0);
-	charstyle.cunderpos = qRound(EffeS->UnderlineVal->LPos->value() * 10.0);
-	charstyle.cunderwidth = qRound(EffeS->UnderlineVal->LWidth->value() * 10.0);
-	charstyle.cscale = qRound(fontHScale->value() * 10.0);
-	charstyle.cscalev = qRound(fontVScale->value() * 10.0);
-	charstyle.cbase = qRound(fontBase->value() * 10.0);
-	charstyle.cextra = qRound(fontKern->value() * 10.0);
-	parstyle.charStyle().applyStyle(charstyle);
+	charstyle.setShadowXOffset(qRound(EffeS->ShadowVal->Xoffset->value() * 10.0));
+	charstyle.setShadowYOffset(qRound(EffeS->ShadowVal->Yoffset->value() * 10.0));
+	charstyle.setOutlineWidth(qRound(EffeS->OutlineVal->LWidth->value() * 10.0));
+	charstyle.setStrikethruOffset(qRound(EffeS->StrikeVal->LPos->value() * 10.0));
+	charstyle.setStrikethruWidth(qRound(EffeS->StrikeVal->LWidth->value() * 10.0));
+	charstyle.setUnderlineOffset(qRound(EffeS->UnderlineVal->LPos->value() * 10.0));
+	charstyle.setUnderlineWidth(qRound(EffeS->UnderlineVal->LWidth->value() * 10.0));
+	charstyle.setScaleH(qRound(fontHScale->value() * 10.0));
+	charstyle.setScaleV(qRound(fontVScale->value() * 10.0));
+	charstyle.setBaselineOffset(qRound(fontBase->value() * 10.0));
+	charstyle.setTracking(qRound(fontKern->value() * 10.0));
+	parstyle.charStyle().applyCharStyle(charstyle);
 }
 
 

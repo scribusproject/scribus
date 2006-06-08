@@ -461,28 +461,28 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 						m_Doc->AddFont(tmpf);
 					}
 				}
-				vg.charStyle().cfont = (*m_AvailableFonts)[tmpf];
-				vg.charStyle().csize = qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0);
+				vg.charStyle().setFont((*m_AvailableFonts)[tmpf]);
+				vg.charStyle().setFontSize(qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0));
 				vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
 				vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
 				vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
-				vg.charStyle().cstyle = static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt());
-				vg.charStyle().ccolor = pg.attribute("FCOLOR", m_Doc->toolSettings.dBrush);
-				vg.charStyle().cshade = pg.attribute("FSHADE", "100").toInt();
-				vg.charStyle().cstroke = pg.attribute("SCOLOR", m_Doc->toolSettings.dPen);
-				vg.charStyle().cshade2 = pg.attribute("SSHADE", "100").toInt();
+				vg.charStyle().setEffects(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()));
+				vg.charStyle().setFillColor(pg.attribute("FCOLOR", m_Doc->toolSettings.dBrush));
+				vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
+				vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", m_Doc->toolSettings.dPen));
+				vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
 				vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
-				vg.charStyle().cshadowx = 50;
-				vg.charStyle().cshadowy = -50;
-				vg.charStyle().coutline = 10;
-				vg.charStyle().cunderpos = m_Doc->typographicSettings.valueUnderlinePos;
-				vg.charStyle().cunderwidth = m_Doc->typographicSettings.valueUnderlineWidth;
-				vg.charStyle().cstrikepos = m_Doc->typographicSettings.valueStrikeThruPos;
-				vg.charStyle().cstrikewidth = m_Doc->typographicSettings.valueStrikeThruPos;
-				vg.charStyle().cscale = 1000;
-				vg.charStyle().cscalev = 1000;
-				vg.charStyle().cbase = 0;
-				vg.charStyle().cextra = 0;
+				vg.charStyle().setShadowXOffset(50);
+				vg.charStyle().setShadowYOffset(-50);
+				vg.charStyle().setOutlineWidth(10);
+				vg.charStyle().setUnderlineOffset(m_Doc->typographicSettings.valueUnderlinePos);
+				vg.charStyle().setUnderlineWidth(m_Doc->typographicSettings.valueUnderlineWidth);
+				vg.charStyle().setStrikethruOffset(m_Doc->typographicSettings.valueStrikeThruPos);
+				vg.charStyle().setStrikethruWidth(m_Doc->typographicSettings.valueStrikeThruPos);
+				vg.charStyle().setScaleH(1000);
+				vg.charStyle().setScaleV(1000);
+				vg.charStyle().setBaselineOffset(0);
+				vg.charStyle().setTracking(0);
 				if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
 				{
 					tmp = pg.attribute("TABS");
@@ -1002,15 +1002,14 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 		if (hg->ch == QChar(4))
 			hg->ch = QChar(9);
 		if (unknown)
-			hg->cfont = dummy;
+			hg->setFont(dummy);
 		else
-			hg->cfont = (*doc->AllFonts)[tmpf];
-		hg->csize = size;
-		hg->ccolor = fcolor;
-		hg->cextra = extra;
-		hg->cshade = shade;
-		hg->cselect = false;
-		hg->cstyle = static_cast<StyleFlag>(cstyle);
+			hg->setFont((*doc->AllFonts)[tmpf]);
+		hg->setFontSize(size);
+		hg->setFillColor(fcolor);
+		hg->setTracking(extra);
+		hg->setFillShade(shade);
+		hg->setEffects(static_cast<StyleFlag>(cstyle));
 		if (impo)
 		{
 			if (VorLFound)
@@ -1025,24 +1024,18 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 		}
 		else
 			hg->cab = ab;
-		hg->cstroke = stroke;
-		hg->cshade2 = shade2;
-		hg->cscale = QMIN(QMAX(scale, 100), 4000);
-		hg->cscalev = QMIN(QMAX(scalev, 100), 4000);
-		hg->cbase = base;
-		hg->cshadowx = shX;
-		hg->cshadowy = shY;
-		hg->coutline = outL;
-		hg->cunderpos = ulp;
-		hg->cunderwidth = ulw;
-		hg->cstrikepos = stp;
-		hg->cstrikewidth = stw;
-		hg->xp = 0;
-		hg->yp = 0;
-		hg->PRot = 0;
-		hg->PtransX = 0;
-		hg->PtransY = 0;
-		hg->cembedded = 0;
+		hg->setStrokeColor(stroke);
+		hg->setStrokeShade(shade2);
+		hg->setScaleH(QMIN(QMAX(scale, 100), 4000));
+		hg->setScaleV(QMIN(QMAX(scalev, 100), 4000));
+		hg->setBaselineOffset(base);
+		hg->setShadowXOffset(shX);
+		hg->setShadowYOffset(shY);
+		hg->setOutlineWidth(outL);
+		hg->setUnderlineOffset(ulp);
+		hg->setUnderlineWidth(ulw);
+		hg->setStrikethruOffset(stp);
+		hg->setStrikethruWidth(stw);
 		obj->itemText.append(hg);
 	}
 #else
@@ -1493,28 +1486,28 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<P
 		tmpf = AskForFont(prefsManager->appPrefs.AvailFonts, tmpf, doc);
 	else
 		tmpf = DoFonts[tmf];
-	vg->charStyle().cfont = prefsManager->appPrefs.AvailFonts[tmpf];
-	vg->charStyle().csize = qRound(pg->attribute("FONTSIZE", "12").toDouble() * 10.0);
+	vg->charStyle().setFont(prefsManager->appPrefs.AvailFonts[tmpf]);
+	vg->charStyle().setFontSize(qRound(pg->attribute("FONTSIZE", "12").toDouble() * 10.0));
 	vg->setHasDropCap(static_cast<bool>(pg->attribute("DROP", "0").toInt()));
 	vg->setDropCapLines(pg->attribute("DROPLIN", "2").toInt());
 	vg->setDropCapOffset(pg->attribute("DROPDIST", "0").toDouble());
-	vg->charStyle().cstyle = static_cast<StyleFlag>(pg->attribute("EFFECT", "0").toInt());
-	vg->charStyle().ccolor = pg->attribute("FCOLOR", doc->toolSettings.dBrush);
-	vg->charStyle().cshade = pg->attribute("FSHADE", "100").toInt();
-	vg->charStyle().cstroke = pg->attribute("SCOLOR", doc->toolSettings.dPen);
-	vg->charStyle().cshade2 = pg->attribute("SSHADE", "100").toInt();
+	vg->charStyle().setEffects(static_cast<StyleFlag>((pg->attribute("EFFECT", "0").toInt())));
+	vg->charStyle().setFillColor(pg->attribute("FCOLOR", doc->toolSettings.dBrush));
+	vg->charStyle().setFillShade(pg->attribute("FSHADE", "100").toInt());
+	vg->charStyle().setStrokeColor(pg->attribute("SCOLOR", doc->toolSettings.dPen));
+	vg->charStyle().setStrokeShade(pg->attribute("SSHADE", "100").toInt());
 	vg->setUseBaselineGrid(static_cast<bool>(pg->attribute("BASE", "0").toInt()));
-	vg->charStyle().cshadowx = qRound(pg->attribute("TXTSHX", "5").toDouble() * 10);
-	vg->charStyle().cshadowy = qRound(pg->attribute("TXTSHY", "-5").toDouble() * 10);
-	vg->charStyle().coutline = qRound(pg->attribute("TXTOUT", "1").toDouble() * 10);
-	vg->charStyle().cunderpos = qRound(pg->attribute("TXTULP", "-0.1").toDouble() * 10);
-	vg->charStyle().cunderwidth = qRound(pg->attribute("TXTULW", "-0.1").toDouble() * 10);
-	vg->charStyle().cstrikepos = qRound(pg->attribute("TXTSTP", "-0.1").toDouble() * 10);
-	vg->charStyle().cstrikewidth = qRound(pg->attribute("TXTSTW", "-0.1").toDouble() * 10);
-	vg->charStyle().cscale = qRound(pg->attribute("SCALEH", "100").toDouble() * 10);
-	vg->charStyle().cscalev = qRound(pg->attribute("SCALEV", "100").toDouble() * 10);
-	vg->charStyle().cbase = qRound(pg->attribute("BASEO", "0").toDouble() * 10);
-	vg->charStyle().cextra = qRound(pg->attribute("KERN", "0").toDouble() * 10);
+	vg->charStyle().setShadowXOffset(qRound(pg->attribute("TXTSHX", "5").toDouble() * 10));
+	vg->charStyle().setShadowYOffset(qRound(pg->attribute("TXTSHY", "-5").toDouble() * 10));
+	vg->charStyle().setOutlineWidth(qRound(pg->attribute("TXTOUT", "1").toDouble() * 10));
+	vg->charStyle().setUnderlineOffset(qRound(pg->attribute("TXTULP", "-0.1").toDouble() * 10));
+	vg->charStyle().setUnderlineWidth(qRound(pg->attribute("TXTULW", "-0.1").toDouble() * 10));
+	vg->charStyle().setStrikethruOffset(qRound(pg->attribute("TXTSTP", "-0.1").toDouble() * 10));
+	vg->charStyle().setStrikethruWidth(qRound(pg->attribute("TXTSTW", "-0.1").toDouble() * 10));
+	vg->charStyle().setScaleH(qRound(pg->attribute("SCALEH", "100").toDouble() * 10));
+	vg->charStyle().setScaleV(qRound(pg->attribute("SCALEV", "100").toDouble() * 10));
+	vg->charStyle().setBaselineOffset(qRound(pg->attribute("BASEO", "0").toDouble() * 10));
+	vg->charStyle().setTracking(qRound(pg->attribute("KERN", "0").toDouble() * 10));
 	vg->tabValues().clear();
 	if ((pg->hasAttribute("NUMTAB")) && (pg->attribute("NUMTAB", "0").toInt() != 0))
 	{

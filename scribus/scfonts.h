@@ -27,6 +27,19 @@ FT_Error ftIOFunc( FT_Stream fts, unsigned long offset, unsigned char* buffer, u
 #include "fpointarray.h"
 #include "scconfig.h"
 
+/* Foi responsibilities:
+
+  font storage: type, format, filepath, index, document-local, substitute, etc.
+  usage:        use, embed, subset, ...
+  face info:    family, effect, alternative, flags, charset
+  encoding:     CMap2String, glyphnames, 
+  metrics:      cwidth, bearing, bbox, "real" widths, paths
+  opentype:     apply features, script support
+  embedding:    fontdictionary, rawdata, embedPS, embedPDF, subsetPS, subsetPDF
+  virtual:      dispatch to constituents, handle embedding
+ */
+
+
 // #include "scfonts_encoding.h"
 
 /*! \brief Base Class Foi : This is subclassed by a class to handle Type1 fonts, a class

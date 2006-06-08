@@ -206,7 +206,7 @@ void PageItem_TextFrame::layout()
 		m_Doc->docParagraphStyles[xxx].setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(LineSpMode));
 		m_Doc->docParagraphStyles[xxx].setUseBaselineGrid(LineSpMode == ParagraphStyle::BaselineGridLineSpacing);
 		m_Doc->docParagraphStyles[xxx].setLineSpacing(LineSp);
-		m_Doc->docParagraphStyles[xxx].charStyle().csize = m_FontSize;
+		m_Doc->docParagraphStyles[xxx].charStyle().fontSize() = m_FontSize;
 		m_Doc->docParagraphStyles[xxx].setLeftMargin(0);
 		m_Doc->docParagraphStyles[xxx].setFirstIndent(0);
 		m_Doc->docParagraphStyles[xxx].setGapBefore(0);
@@ -284,8 +284,8 @@ void PageItem_TextFrame::layout()
 					chs = qRound(m_Doc->docParagraphStyles[hl->cab].lineSpacing() * m_Doc->docParagraphStyles[hl->cab].dropCapLines() * 10);
 			}
 			else
-				chs = hl->csize;
-			desc2 = -hl->cfont->descent() * (chs / 10.0);
+				chs = hl->fontSize();
+			desc2 = -hl->font()->descent() * (chs / 10.0);
 			CurY = TExtra+lineCorr;
 		}
 		else // no dropcap:
@@ -319,7 +319,7 @@ void PageItem_TextFrame::layout()
 				chx = ExpandToken(a);
 			absa = hl->cab;
 			if (m_Doc->docParagraphStyles[absa].lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
-				m_Doc->docParagraphStyles[absa].setLineSpacing(RealFHeight(m_Doc, hl->cfont, hl->csize));
+				m_Doc->docParagraphStyles[absa].setLineSpacing(RealFHeight(m_Doc, hl->font(), hl->fontSize()));
 			// find out about par gap and dropcap
 			if (a == 0)
 			{
@@ -363,17 +363,22 @@ void PageItem_TextFrame::layout()
 					CurY += m_Doc->docParagraphStyles[absa].gapBefore();
 				}
 			}
-			hl->cstyle &= ~ScStyle_DropCap;
-			hl->cstyle &= ~ScStyle_SmartHyphenVisible;
+			{ 
+				StyleFlag fl = hl->effects();
+				fl &= ~ScStyle_DropCap;
+				fl &= ~ScStyle_SmartHyphenVisible;
+				hl->setEffects(fl);
+			}
 			// No space at begin of line
 			if ( //((m_Doc->docParagraphStyles[absa].alignment() == 3) || (m_Doc->docParagraphStyles[absa].alignment() == 4)) && 
 				 (LiList.count() == 0) && (hl->ch == " "))
 			{
-				hl->cstyle |= ScStyle_SuppressSpace;
+				hl->setEffects(hl->effects() | ScStyle_SuppressSpace);
 				continue;
 			}
 			else
-				hl->cstyle &= ~ScStyle_SuppressSpace;
+				hl->setEffects(hl->effects() & ~ScStyle_SuppressSpace);
+
 			if (LiList.count() == 0)
 			{
 				// more about par gap and dropcaps
@@ -394,7 +399,7 @@ void PageItem_TextFrame::layout()
 							if (m_Doc->docParagraphStyles[absa].lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
 								CurY += m_Doc->docParagraphStyles[absa].lineSpacing() * (DropLines-1);
 							else
-								CurY += RealFHeight(m_Doc, hl->cfont, m_Doc->docParagraphStyles[absa].charStyle().fontSize()) * (DropLines-1);
+								CurY += RealFHeight(m_Doc, hl->font(), m_Doc->docParagraphStyles[absa].charStyle().fontSize()) * (DropLines-1);
 						}
 					}
 				}
@@ -405,31 +410,31 @@ void PageItem_TextFrame::layout()
 				// dropcap active?
 				if (m_Doc->docParagraphStyles[hl->cab].useBaselineGrid())
 				{
-					chsd = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (DropLines-1)+(hl->cfont->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->cfont, chx, 10))));
-					chs = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (DropLines-1)+(hl->cfont->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCAscent(m_Doc, hl->cfont, chx, 10)));
+					chsd = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (DropLines-1)+(hl->font()->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->font(), chx, 10))));
+					chs = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (DropLines-1)+(hl->font()->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCAscent(m_Doc, hl->font(), chx, 10)));
 				}
 				else
 				{
 					if (m_Doc->docParagraphStyles[absa].lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
 					{
-						chsd = qRound(10 * ((m_Doc->docParagraphStyles[absa].lineSpacing() * (DropLines-1)+(hl->cfont->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->cfont, chx, 10))));
-						chs = qRound(10 * ((m_Doc->docParagraphStyles[absa].lineSpacing() * (DropLines-1)+(hl->cfont->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCAscent(m_Doc, hl->cfont, chx, 10)));
+						chsd = qRound(10 * ((m_Doc->docParagraphStyles[absa].lineSpacing() * (DropLines-1)+(hl->font()->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->font(), chx, 10))));
+						chs = qRound(10 * ((m_Doc->docParagraphStyles[absa].lineSpacing() * (DropLines-1)+(hl->font()->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCAscent(m_Doc, hl->font(), chx, 10)));
 					}
 					else
 					{
-						double currasce = RealFHeight(m_Doc, hl->cfont, m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize());
-						chsd = qRound(10 * ((currasce * (DropLines-1)+(hl->cfont->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->cfont, chx, 10))));
-						chs = qRound(10 * ((currasce * (DropLines-1)+(hl->cfont->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCAscent(m_Doc, hl->cfont, chx, 10)));
+						double currasce = RealFHeight(m_Doc, hl->font(), m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize());
+						chsd = qRound(10 * ((currasce * (DropLines-1)+(hl->font()->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->font(), chx, 10))));
+						chs = qRound(10 * ((currasce * (DropLines-1)+(hl->font()->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCAscent(m_Doc, hl->font(), chx, 10)));
 					}
 				}
-				hl->cstyle |= ScStyle_DropCap;
+				hl->setEffects(hl->effects() | ScStyle_DropCap);
 			}
 			else // ! dropCapMode
 			{
 				if ((hl->ch == SpecialChars::OBJECT) && (hl->cembedded != 0))
 					chs = qRound((hl->cembedded->gHeight + hl->cembedded->lineWidth()) * 10);
 				else
-					chs = hl->csize;
+					chs = hl->fontSize();
 			}
 			// Smallcaps and such
 			oldCurY = SetZeichAttr(*hl, &chs, &chx);
@@ -454,10 +459,10 @@ void PageItem_TextFrame::layout()
 						chx3 = "-";
 					else
 						chx3 = itemText.at(a+1)->ch;
-					wide = Cwidth(m_Doc, hl->cfont, chx2, chs, chx3);
+					wide = Cwidth(m_Doc, hl->font(), chx2, chs, chx3);
 				}
 				else
-					wide = Cwidth(m_Doc, hl->cfont, chx2, chs);
+					wide = Cwidth(m_Doc, hl->font(), chx2, chs);
 			}
 			if (DropCmode)
 			{
@@ -472,15 +477,15 @@ void PageItem_TextFrame::layout()
 						if (m_Doc->docParagraphStyles[absa].lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
 							asce = m_Doc->docParagraphStyles[absa].lineSpacing() * DropLines;
 						else
-							asce = RealFHeight(m_Doc, hl->cfont, m_Doc->docParagraphStyles[absa].charStyle().fontSize()) * DropLines;
+							asce = RealFHeight(m_Doc, hl->font(), m_Doc->docParagraphStyles[absa].charStyle().fontSize()) * DropLines;
 					}
-					hl->cscalev = qRound(asce / (hl->cembedded->gHeight + hl->cembedded->lineWidth()) * 1000.0);
-					hl->cscale = hl->cscalev;
+					hl->setScaleV(qRound(asce / (hl->cembedded->gHeight + hl->cembedded->lineWidth()) * 1000.0));
+					hl->setScaleH(hl->scaleV());
 				}
 				else
 				{
-					wide = RealCWidth(m_Doc, hl->cfont, chx2, chsd);
-					asce = RealCHeight(m_Doc, hl->cfont, chx2, chsd);
+					wide = RealCWidth(m_Doc, hl->font(), chx2, chsd);
+					asce = RealCHeight(m_Doc, hl->font(), chx2, chsd);
 				}
 				desc2 = 0;
 				desc = 0;
@@ -488,18 +493,18 @@ void PageItem_TextFrame::layout()
 			else
 			{
 				// find ascent / descent
-				double hlcsize10=hl->csize / 10.0;
+				double hlcsize10=hl->fontSize() / 10.0;
 				if ((hl->ch == SpecialChars::OBJECT) && (hl->cembedded != 0))
 				{
 					desc = desc2 = 0;
 				}
 				else
 				{
-					desc = desc2 = -hl->cfont->descent() * hlcsize10;
+					desc = desc2 = -hl->font()->descent() * hlcsize10;
 				}
-				asce = hl->cfont->ascent() * hlcsize10;
+				asce = hl->font()->ascent() * hlcsize10;
 			}
-			wide = wide * (hl->cscale / 1000.0);
+			wide = wide * (hl->scaleH() / 1000.0);
 			fBorder = false;
 			// end of col reached?
 			if (CurY+BExtra+lineCorr > Height)
@@ -524,9 +529,9 @@ void PageItem_TextFrame::layout()
 						if (DropCmode)
 						{
 							if (m_Doc->docParagraphStyles[hl->cab].useBaselineGrid())
-								desc2 = -hl->cfont->descent() * m_Doc->typographicSettings.valueBaseGrid * m_Doc->docParagraphStyles[hl->cab].dropCapLines();
+								desc2 = -hl->font()->descent() * m_Doc->typographicSettings.valueBaseGrid * m_Doc->docParagraphStyles[hl->cab].dropCapLines();
 							else
-								desc2 = -hl->cfont->descent() * m_Doc->docParagraphStyles[hl->cab].lineSpacing() * m_Doc->docParagraphStyles[hl->cab].dropCapLines();
+								desc2 = -hl->font()->descent() * m_Doc->docParagraphStyles[hl->cab].lineSpacing() * m_Doc->docParagraphStyles[hl->cab].dropCapLines();
 						}
 						if (DropCmode)
 							DropLines = m_Doc->docParagraphStyles[hl->cab].dropCapLines();
@@ -634,9 +639,9 @@ void PageItem_TextFrame::layout()
 									if (DropCmode)
 									{
 										if (m_Doc->docParagraphStyles[hl->cab].useBaselineGrid())
-											desc2 = -hl->cfont->descent() * m_Doc->typographicSettings.valueBaseGrid * m_Doc->docParagraphStyles[hl->cab].dropCapLines();
+											desc2 = -hl->font()->descent() * m_Doc->typographicSettings.valueBaseGrid * m_Doc->docParagraphStyles[hl->cab].dropCapLines();
 										else
-											desc2 = -hl->cfont->descent() * m_Doc->docParagraphStyles[hl->cab].lineSpacing() * m_Doc->docParagraphStyles[hl->cab].dropCapLines();
+											desc2 = -hl->font()->descent() * m_Doc->docParagraphStyles[hl->cab].lineSpacing() * m_Doc->docParagraphStyles[hl->cab].dropCapLines();
 									}
 									if (DropCmode)
 										DropLines = m_Doc->docParagraphStyles[hl->cab].dropCapLines();
@@ -689,8 +694,8 @@ void PageItem_TextFrame::layout()
 				if (!AbsHasDrop)
 					CurX += m_Doc->docParagraphStyles[hl->cab].leftMargin();
 				if (opticalMargins) {
-					int chs = static_cast<int>(itemText.charStyle(a).csize * (itemText.charStyle(a).cscale / 1000.0));
-					double leftCorr = RealCWidth(m_Doc, itemText.charStyle(a).cfont, itemText.text(a), chs);
+					int chs = static_cast<int>(itemText.charStyle(a).fontSize() * (itemText.charStyle(a).scaleH() / 1000.0));
+					double leftCorr = RealCWidth(m_Doc, itemText.charStyle(a).font(), itemText.text(a), chs);
 					if (QString("'´`").find(itemText.text(a)) >= 0
 						|| itemText.text(a) == QChar(0x2018)
 						|| itemText.text(a) == QChar(0x2019)
@@ -711,8 +716,8 @@ void PageItem_TextFrame::layout()
 						leftCorr *= -0.5;
 					else {
 						leftCorr = 0;
-//						leftCorr = Cwidth(m_Doc, itemText.charStyle(a).cfont, QChar('o'), chs, itemText.text(a));
-//						leftCorr -= Cwidth(m_Doc, itemText.charStyle(a).cfont, QChar('o'), chs);
+//						leftCorr = Cwidth(m_Doc, itemText.charStyle(a).font(), QChar('o'), chs, itemText.text(a));
+//						leftCorr -= Cwidth(m_Doc, itemText.charStyle(a).font(), QChar('o'), chs);
 					}
 					CurX += leftCorr;
 				}
@@ -782,32 +787,32 @@ void PageItem_TextFrame::layout()
 			}
 			
 			// remember y pos
-			hl->yp = CurY + oldCurY;
+			hl->glyph.yoffset = CurY + oldCurY;
 			if (DropCmode)
-				hl->yp -= RealCHeight(m_Doc, hl->cfont, chx2, chsd) - RealCAscent(m_Doc, hl->cfont, chx2, chsd);
+				hl->glyph.yoffset -= RealCHeight(m_Doc, hl->font(), chx2, chsd) - RealCAscent(m_Doc, hl->font(), chx2, chsd);
 			// find tracking
 			if (LiList.count() == 0)
 			{
-				itemText.at(a)->cstyle |= ScStyle_StartOfLine;
+				itemText.at(a)->setEffects(itemText.at(a)->effects() | ScStyle_StartOfLine);
 				kernVal = 0;
 			}
 			else
 			{
-				kernVal = chs * hl->cextra / 10000.0;
-				itemText.at(a)->cstyle &= ~ScStyle_StartOfLine;
+				kernVal = chs * hl->tracking() / 10000.0;
+				itemText.at(a)->setEffects(itemText.at(a)->effects() & ~ScStyle_StartOfLine);
 			}
 			// remember x pos
 			if (!RTab)
 			{
-//				hl->xp = QMAX(CurX+kernVal, ColBound.x());
-				hl->xp = CurX; // needed for left optical margin
+//				hl->glyph.xoffset = QMAX(CurX+kernVal, ColBound.x());
+				hl->glyph.xoffset = CurX; // needed for left optical margin
 				CurX += wide+kernVal;
 //				CurX = QMAX(CurX, ColBound.x());
 			}
 			else
 			{
 				CurX = QMAX(CurX, ColBound.x());
-				hl->xp = CurX;
+				hl->glyph.xoffset = CurX;
 			}
 			// more right tab stuff
 			if ((TabCode == 4) && (RTab))
@@ -816,12 +821,12 @@ void PageItem_TextFrame::layout()
 				CurX = QMAX(CurX, ColBound.x());
 			}
 			// hyphenation
-			if (((hl->cstyle & ScStyle_HyphenationPossible) || hl->ch == "-") && (HyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))
+			if (((hl->effects() & ScStyle_HyphenationPossible) || hl->ch == "-") && (HyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))
 			{
-				if (hl->cstyle & ScStyle_HyphenationPossible)
+				if (hl->effects() & ScStyle_HyphenationPossible)
 				{
-					pt1 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(m_Doc, hl->cfont, "-", hl->csize) * (hl->cscale / 1000.0))), qRound(CurY+desc));
-					pt2 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(m_Doc, hl->cfont, "-", hl->csize) * (hl->cscale / 1000.0))), qRound(ceil(CurY-asce)));
+					pt1 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(m_Doc, hl->font(), "-", hl->fontSize()) * (hl->scaleH() / 1000.0))), qRound(CurY+desc));
+					pt2 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(m_Doc, hl->font(), "-", hl->fontSize()) * (hl->scaleH() / 1000.0))), qRound(ceil(CurY-asce)));
 				}
 				else
 				{
@@ -848,12 +853,12 @@ void PageItem_TextFrame::layout()
 //Hm.
 			Zli = new ZZ;
 			Zli->Zeich = chx;
-			Zli->Farb = hl->ccolor;
-			Zli->shade = hl->cshade;
-			Zli->Farb2 = hl->cstroke;
-			Zli->shade2 = hl->cshade2;
-			Zli->xco = hl->xp;
-			Zli->yco = hl->yp;
+			Zli->Farb = hl->fillColor();
+			Zli->shade = hl->fillShade();
+			Zli->Farb2 = hl->strokeColor();
+			Zli->shade2 = hl->strokeShade();
+			Zli->xco = hl->glyph.xoffset;
+			Zli->yco = hl->glyph.yoffset;
 			Zli->Sele = hl->cselect;
 			if (DropCmode)
 			{
@@ -863,22 +868,22 @@ void PageItem_TextFrame::layout()
 			else
 			{
 				Zli->Siz = chs;
-				Zli->realSiz = hl->csize;
+				Zli->realSiz = hl->fontSize();
 			}
-			Zli->Style = hl->cstyle;
-			Zli->ZFo = hl->cfont;
+			Zli->Style = hl->effects();
+			Zli->ZFo = hl->font();
 			Zli->wide = wide;
 			Zli->kern = kernVal;
-			Zli->scale = hl->cscale;
-			Zli->scalev = hl->cscalev;
-			Zli->base = hl->cbase;
-			Zli->shadowX = hl->cshadowx;
-			Zli->shadowY = hl->cshadowy;
-			Zli->outline = hl->coutline;
-			Zli->underpos = hl->cunderpos;
-			Zli->underwidth = hl->cunderwidth;
-			Zli->strikepos = hl->cstrikepos;
-			Zli->strikewidth = hl->cstrikewidth;
+			Zli->scale = hl->scaleH();
+			Zli->scalev = hl->scaleV();
+			Zli->base = hl->baselineOffset();
+			Zli->shadowX = hl->shadowXOffset();
+			Zli->shadowY = hl->shadowYOffset();
+			Zli->outline = hl->outlineWidth();
+			Zli->underpos = hl->underlineOffset();
+			Zli->underwidth = hl->underlineWidth();
+			Zli->strikepos = hl->strikethruOffset();
+			Zli->strikewidth = hl->strikethruWidth();
 			Zli->embedded = hl->cembedded;
 			if (((hl->ch == " ") || (hl->ch == SpecialChars::TAB)) && (!outs))
 			{
@@ -886,24 +891,24 @@ void PageItem_TextFrame::layout()
 				{
 					if (itemText.at(a-1)->ch !=  " ")
 					{
-						LastXp = hl->xp;
+						LastXp = hl->glyph.xoffset;
 						LastSP = BuPos;
 					}
 				}
 				else
 				{
-					LastXp = hl->xp;
+					LastXp = hl->glyph.xoffset;
 					LastSP = BuPos;
 				}
 			}
-			if (((hl->cstyle & ScStyle_HyphenationPossible) || (hl->ch == "-")) && (!outs))
+			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch == "-")) && (!outs))
 			{
 				if ((HyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0))
 				{
 					if (hl->ch == "-")
 						LastXp = CurX;
 					else
-						LastXp = CurX + Cwidth(m_Doc, hl->cfont, "-", hl->csize) * (hl->cscale / 1000.0);
+						LastXp = CurX + Cwidth(m_Doc, hl->font(), "-", hl->fontSize()) * (hl->scaleH() / 1000.0);
 					LastSP = BuPos + 1;
 				}
 			}
@@ -917,8 +922,8 @@ void PageItem_TextFrame::layout()
 				for (uint rtx = StartRT; rtx < LiList.count(); ++rtx)
 				{
 					LiList.at(rtx)->xco = QMAX(LiList.at(rtx)->xco-(wide+kernVal) / cen, 0.0);
-					itemText.at(StartRT2+rtx2)->xp = QMAX(itemText.at(StartRT2+rtx2)->xp-(wide+kernVal) / cen, 0.0);
-					if (itemText.at(StartRT2+rtx2)->xp < RTabX)
+					itemText.at(StartRT2+rtx2)->glyph.xoffset = QMAX(itemText.at(StartRT2+rtx2)->glyph.xoffset-(wide+kernVal) / cen, 0.0);
+					if (itemText.at(StartRT2+rtx2)->glyph.xoffset < RTabX)
 					{
 						RTab = false;
 						TabCode = 0;
@@ -945,7 +950,7 @@ void PageItem_TextFrame::layout()
 					int ol1 = qRound((by + CurY - m_Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 					int ol2 = static_cast<int>(ol1 / m_Doc->typographicSettings.valueBaseGrid);
 					CurY = ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaseGrid + m_Doc->typographicSettings.offsetBaseGrid - by;
-					tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*m_Doc->typographicSettings.valueBaseGrid)));
+					tcli.setPoint(0, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY-DropLines*m_Doc->typographicSettings.valueBaseGrid)));
 					tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*m_Doc->typographicSettings.valueBaseGrid)));
 				}
 				else
@@ -953,19 +958,19 @@ void PageItem_TextFrame::layout()
 					if (m_Doc->docParagraphStyles[absa].lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
 					{
 						CurY -= m_Doc->docParagraphStyles[absa].lineSpacing() * (DropLines-1);
-						tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*m_Doc->docParagraphStyles[absa].lineSpacing())));
+						tcli.setPoint(0, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY-DropLines*m_Doc->docParagraphStyles[absa].lineSpacing())));
 						tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*m_Doc->docParagraphStyles[absa].lineSpacing())));
 					}
 					else
 					{
-						double currasce = RealFHeight(m_Doc, hl->cfont, m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize());
+						double currasce = RealFHeight(m_Doc, hl->font(), m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize());
 						CurY -= currasce * (DropLines-1);
-						tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*currasce)));
+						tcli.setPoint(0, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY-DropLines*currasce)));
 						tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*currasce)));
 					}
 				}
 				tcli.setPoint(2, QPoint(qRound(maxDX), qRound(maxDY)));
-				tcli.setPoint(3, QPoint(qRound(hl->xp), qRound(maxDY)));
+				tcli.setPoint(3, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY)));
 				cm = QRegion(pf2.xForm(tcli));
 				cl = cl.subtract(cm);
 			}
@@ -986,7 +991,7 @@ void PageItem_TextFrame::layout()
 					if (m_Doc->docParagraphStyles[absa].alignment() != 0)
 					{
 						// find end of line
-						EndX = floor(hl->xp - 1);
+						EndX = floor(hl->glyph.xoffset - 1);
 //						qDebug(QString("endx start=%1, hl is '%2'").arg(EndX).arg(hl->ch));
 						do
 						{
@@ -1052,37 +1057,37 @@ void PageItem_TextFrame::layout()
 						hl = itemText.at(a);
 //not needed any more:	a++;
 						// Fix incorrect right flush for full lines: ? -AV
-						LastXp = hl->xp + Cwidth(m_Doc, hl->cfont, hl->ch, hl->csize) * (hl->cscale / 1000.0);
-						if (hl->cstyle & ScStyle_HyphenationPossible)
+						LastXp = hl->glyph.xoffset + Cwidth(m_Doc, hl->font(), hl->ch, hl->fontSize()) * (hl->scaleH() / 1000.0);
+						if (hl->effects() & ScStyle_HyphenationPossible)
 						{
 							// insert hyphen
 							HyphenCount++;
-							hl->cstyle |= ScStyle_SmartHyphenVisible;
+							hl->setEffects(hl->effects() | ScStyle_SmartHyphenVisible);
 							Zli = new ZZ;
 							Zli->Zeich = "-";
-							Zli->Farb = itemText.at(a)->ccolor;
-							Zli->Farb2 = itemText.at(a)->cstroke;
-							Zli->shade = itemText.at(a)->cshade;
-							Zli->shade2 = itemText.at(a)->cshade2;
-							Zli->xco = LastXp - Cwidth(m_Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize) * (itemText.at(a)->cscale / 1000.0);
-							Zli->yco = itemText.at(a)->yp;
+							Zli->Farb = itemText.at(a)->fillColor();
+							Zli->Farb2 = itemText.at(a)->strokeColor();
+							Zli->shade = itemText.at(a)->fillShade();
+							Zli->shade2 = itemText.at(a)->strokeShade();
+							Zli->xco = LastXp - Cwidth(m_Doc, itemText.at(a)->font(), "-", itemText.at(a)->fontSize()) * (itemText.at(a)->scaleH() / 1000.0);
+							Zli->yco = itemText.at(a)->glyph.yoffset;
 							Zli->Sele = itemText.at(a)->cselect;
-							Zli->Siz = itemText.at(a)->csize;
-							Zli->realSiz = itemText.at(a)->csize;
-							Zli->Style = itemText.at(a)->cstyle;
-							Zli->ZFo = itemText.at(a)->cfont;
-							Zli->wide = Cwidth(m_Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize) * (itemText.at(a)->cscale / 1000.0);
-							Zli->kern = itemText.at(a)->csize * itemText.at(a)->cextra / 10000.0;
-							Zli->scale = itemText.at(a)->cscale;
-							Zli->scalev = itemText.at(a)->cscalev;
-							Zli->base = itemText.at(a)->cbase;
-							Zli->shadowX = itemText.at(a)->cshadowx;
-							Zli->shadowY = itemText.at(a)->cshadowy;
-							Zli->outline = itemText.at(a)->coutline;
-							Zli->underpos = itemText.at(a)->cunderpos;
-							Zli->underwidth = itemText.at(a)->cunderwidth;
-							Zli->strikepos = itemText.at(a)->cstrikepos;
-							Zli->strikewidth = itemText.at(a)->cstrikewidth;
+							Zli->Siz = itemText.at(a)->fontSize();
+							Zli->realSiz = itemText.at(a)->fontSize();
+							Zli->Style = itemText.at(a)->effects();
+							Zli->ZFo = itemText.at(a)->font();
+							Zli->wide = Cwidth(m_Doc, itemText.at(a)->font(), "-", itemText.at(a)->fontSize()) * (itemText.at(a)->scaleH() / 1000.0);
+							Zli->kern = itemText.at(a)->fontSize() * itemText.at(a)->tracking() / 10000.0;
+							Zli->scale = itemText.at(a)->scaleH();
+							Zli->scalev = itemText.at(a)->scaleV();
+							Zli->base = itemText.at(a)->baselineOffset();
+							Zli->shadowX = itemText.at(a)->shadowXOffset();
+							Zli->shadowY = itemText.at(a)->shadowYOffset();
+							Zli->outline = itemText.at(a)->outlineWidth();
+							Zli->underpos = itemText.at(a)->underlineOffset();
+							Zli->underwidth = itemText.at(a)->underlineWidth();
+							Zli->strikepos = itemText.at(a)->strikethruOffset();
+							Zli->strikewidth = itemText.at(a)->strikethruWidth();
 							Zli->embedded = 0;
 							LiList.insert(LastSP+1, Zli);
 							LastSP += 2;
@@ -1091,14 +1096,14 @@ void PageItem_TextFrame::layout()
 						else 
 						{
 							HyphenCount = 0;
-							hl->cstyle &= ~ScStyle_SmartHyphenVisible;
+							hl->setEffects(hl->effects() & ~ScStyle_SmartHyphenVisible);
 						}
 						BuPos = LastSP;
 						// Justification
 						if (m_Doc->docParagraphStyles[absa].alignment() != 0)
 						{
 							// find end of line
-							EndX = floor(hl->xp);
+							EndX = floor(hl->glyph.xoffset);
 //							qDebug(QString("endx start=%1, hl is '%2'").arg(EndX).arg(hl->ch));
 							do
 							{
@@ -1313,10 +1318,10 @@ void PageItem_TextFrame::layout()
 					}
 				}
 				
-				hl->xp = CurX;
-				hl->yp = CurY;
-				LiList.at(LiList.count()-1)->xco = hl->xp;
-				LiList.at(LiList.count()-1)->yco = hl->yp;
+				hl->glyph.xoffset = CurX;
+				hl->glyph.yoffset = CurY;
+				LiList.at(LiList.count()-1)->xco = hl->glyph.xoffset;
+				LiList.at(LiList.count()-1)->yco = hl->glyph.yoffset;
 
 				if (LiList.count() != 0)
 				{
@@ -1391,8 +1396,8 @@ void PageItem_TextFrame::layout()
 					double wide2 = 0;
 					Zli2 = LiList.at(zc);
 					double xcoZli = Zli2->xco;
-					itemText.at(startLin+zc)->xp = Zli2->xco;
-					itemText.at(startLin+zc)->yp = Zli2->yco;
+					itemText.at(startLin+zc)->glyph.xoffset = Zli2->xco;
+					itemText.at(startLin+zc)->glyph.yoffset = Zli2->yco;
 					if (itemText.at(startLin+zc)->cab < 5)
 						tTabValues = TabValues;
 					else
@@ -1595,8 +1600,8 @@ void PageItem_TextFrame::layout()
 			Zli2 = LiList.at(zc);
 			double xcoZli = Zli2->xco;
 
-			itemText.at(startLin+zc)->xp = Zli2->xco;
-			itemText.at(startLin+zc)->yp = Zli2->yco;
+			itemText.at(startLin+zc)->glyph.xoffset = Zli2->xco;
+			itemText.at(startLin+zc)->glyph.yoffset = Zli2->yco;
 			if (itemText.at(startLin+zc)->cab < 5)
 				tTabValues = TabValues;
 			else
@@ -1690,7 +1695,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 		m_Doc->docParagraphStyles[xxx].setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(LineSpMode));
 		m_Doc->docParagraphStyles[xxx].setUseBaselineGrid(LineSpMode == ParagraphStyle::BaselineGridLineSpacing);
 		m_Doc->docParagraphStyles[xxx].setLineSpacing(LineSp);
-		m_Doc->docParagraphStyles[xxx].charStyle().csize = m_FontSize;
+		m_Doc->docParagraphStyles[xxx].charStyle().fontSize() = m_FontSize;
 		m_Doc->docParagraphStyles[xxx].setLeftMargin(0);
 		m_Doc->docParagraphStyles[xxx].setFirstIndent(0);
 		m_Doc->docParagraphStyles[xxx].setGapBefore(0);
@@ -1765,38 +1770,38 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				tTabValues = TabValues;
 			else
 				tTabValues = m_Doc->docParagraphStyles[hl->cab].tabValues();
-			if (hl->cstyle & ScStyle_StartOfLine)
+			if (hl->effects() & ScStyle_StartOfLine)
 				tabCc = 0;
 			chx = hl->ch;
-			if (hl->yp == 0)
+			if (hl->glyph.yoffset == 0)
 				continue;
 			if (hl->ch == QChar(30))
 				chx = ExpandToken(a);
-			if (hl->ccolor != CommonStrings::None)
+			if (hl->fillColor() != CommonStrings::None)
 			{
 				QColor tmp;
-				SetFarbe(&tmp, hl->ccolor, hl->cshade);
+				SetFarbe(&tmp, hl->fillColor(), hl->fillShade());
 				p->setBrush(tmp);
 			}
-			if (hl->cstroke != CommonStrings::None)
+			if (hl->strokeColor() != CommonStrings::None)
 			{
 				QColor tmp;
-				SetFarbe(&tmp, hl->cstroke, hl->cshade2);
+				SetFarbe(&tmp, hl->strokeColor(), hl->strokeShade());
 				p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 			}
-			chs = hl->csize;
-			if (hl->cstyle & ScStyle_DropCap)
+			chs = hl->fontSize();
+			if (hl->effects() & ScStyle_DropCap)
 			{
 				if (m_Doc->docParagraphStyles[hl->cab].useBaselineGrid())
-					chs = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (m_Doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->cfont, chx, 10))));
+					chs = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (m_Doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->font()->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->font(), chx, 10))));
 				else
 				{
 					if (m_Doc->docParagraphStyles[hl->cab].lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-						chs = qRound(10 * ((m_Doc->docParagraphStyles[hl->cab].lineSpacing() * (m_Doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->cfont, chx, 10))));
+						chs = qRound(10 * ((m_Doc->docParagraphStyles[hl->cab].lineSpacing() * (m_Doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->font()->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->font(), chx, 10))));
 					else
 					{
-						double currasce = RealFHeight(m_Doc, hl->cfont, m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize());
-						chs = qRound(10 * ((currasce * (m_Doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCHeight(m_Doc, hl->cfont, chx, 10)));
+						double currasce = RealFHeight(m_Doc, hl->font(), m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize());
+						chs = qRound(10 * ((currasce * (m_Doc->docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->font()->ascent() * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCHeight(m_Doc, hl->font(), chx, 10)));
 					}
 				}
 			}
@@ -1804,34 +1809,34 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			if ((chx == SpecialChars::TAB) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
 			{
 				QString tabFillCharQStr(tTabValues[tabCc].tabFillChar);
-				double wt = Cwidth(m_Doc, hl->cfont, tabFillCharQStr, chs);
-				int coun = static_cast<int>((hl->xp - tabDist) / wt);
-				double sPos = hl->xp - (hl->xp - tabDist) + 1;
-				desc = hl->cfont->descent() * (-chs / 10.0);
-				asce = hl->cfont->ascent() * (chs / 10.0);
+				double wt = Cwidth(m_Doc, hl->font(), tabFillCharQStr, chs);
+				int coun = static_cast<int>((hl->glyph.xoffset - tabDist) / wt);
+				double sPos = hl->glyph.xoffset - (hl->glyph.xoffset - tabDist) + 1;
+				desc = hl->font()->descent() * (-chs / 10.0);
+				asce = hl->font()->ascent() * (chs / 10.0);
 				Zli3.Zeich = tabFillCharQStr;
-				Zli3.Farb = hl->ccolor;
-				Zli3.Farb2 = hl->cstroke;
-				Zli3.shade = hl->cshade;
-				Zli3.shade2 = hl->cshade2;
-				Zli3.yco = hl->yp;
+				Zli3.Farb = hl->fillColor();
+				Zli3.Farb2 = hl->strokeColor();
+				Zli3.shade = hl->fillShade();
+				Zli3.shade2 = hl->strokeShade();
+				Zli3.yco = hl->glyph.yoffset;
 				Zli3.Sele = hl->cselect;
 				Zli3.Siz = chs;
-				Zli3.realSiz = hl->csize;
-				Zli3.Style = hl->cstyle;
-				Zli3.ZFo = hl->cfont;
+				Zli3.realSiz = hl->fontSize();
+				Zli3.Style = hl->effects();
+				Zli3.ZFo = hl->font();
 				Zli3.wide = wt;
 				Zli3.kern = 0;
 				Zli3.scale = 1000;
 				Zli3.scalev = 1000;
-				Zli3.shadowX = hl->cshadowx;
-				Zli3.shadowY = hl->cshadowy;
-				Zli3.outline = hl->coutline;
-				Zli3.base = hl->cbase;
-				Zli3.underpos = hl->cunderpos;
-				Zli3.underwidth = hl->cunderwidth;
-				Zli3.strikepos = hl->cstrikepos;
-				Zli3.strikewidth = hl->cstrikewidth;
+				Zli3.shadowX = hl->shadowXOffset();
+				Zli3.shadowY = hl->shadowYOffset();
+				Zli3.outline = hl->outlineWidth();
+				Zli3.base = hl->baselineOffset();
+				Zli3.underpos = hl->underlineOffset();
+				Zli3.underwidth = hl->underlineWidth();
+				Zli3.strikepos = hl->strikethruOffset();
+				Zli3.strikewidth = hl->strikethruWidth();
 				for (int cx = 0; cx < coun; ++cx)
 				{
 					Zli3.xco =  sPos + wt * cx;
@@ -1842,35 +1847,35 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			if (chx == SpecialChars::TAB)
 				tabCc++;
 			Zli3.Zeich = chx;
-			Zli3.Farb = hl->ccolor;
-			Zli3.Farb2 = hl->cstroke;
-			Zli3.shade = hl->cshade;
-			Zli3.shade2 = hl->cshade2;
-			Zli3.xco = hl->xp;
-			Zli3.yco = hl->yp;
+			Zli3.Farb = hl->fillColor();
+			Zli3.Farb2 = hl->strokeColor();
+			Zli3.shade = hl->fillShade();
+			Zli3.shade2 = hl->strokeShade();
+			Zli3.xco = hl->glyph.xoffset;
+			Zli3.yco = hl->glyph.yoffset;
 			Zli3.Sele = hl->cselect;
 			Zli3.Siz = chs;
-			Zli3.realSiz = hl->csize;
-			Zli3.Style = hl->cstyle;
-			Zli3.ZFo = hl->cfont;
+			Zli3.realSiz = hl->fontSize();
+			Zli3.Style = hl->effects();
+			Zli3.ZFo = hl->font();
 			if ((hl->ch == SpecialChars::OBJECT) && (hl->cembedded != 0))
-				Zli3.wide = (hl->cembedded->gWidth + hl->cembedded->lineWidth()) * (hl->cscale / 1000.0);
+				Zli3.wide = (hl->cembedded->gWidth + hl->cembedded->lineWidth()) * (hl->scaleH() / 1000.0);
 			else
-				Zli3.wide = Cwidth(m_Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
-			if (hl->cstyle & ScStyle_StartOfLine)
+				Zli3.wide = Cwidth(m_Doc, hl->font(), chx, hl->fontSize()) * (hl->scaleH() / 1000.0);
+			if (hl->effects() & ScStyle_StartOfLine)
 				Zli3.kern = 0;
 			else
-				Zli3.kern = chs * hl->cextra / 10000.0;
-			Zli3.scale = hl->cscale;
-			Zli3.scalev = hl->cscalev;
-			Zli3.base = hl->cbase;
-			Zli3.shadowX = hl->cshadowx;
-			Zli3.shadowY = hl->cshadowy;
-			Zli3.outline = hl->coutline;
-			Zli3.underpos = hl->cunderpos;
-			Zli3.underwidth = hl->cunderwidth;
-			Zli3.strikepos = hl->cstrikepos;
-			Zli3.strikewidth = hl->cstrikewidth;
+				Zli3.kern = chs * hl->tracking() / 10000.0;
+			Zli3.scale = hl->scaleH();
+			Zli3.scalev = hl->scaleV();
+			Zli3.base = hl->baselineOffset();
+			Zli3.shadowX = hl->shadowXOffset();
+			Zli3.shadowY = hl->shadowYOffset();
+			Zli3.outline = hl->outlineWidth();
+			Zli3.underpos = hl->underlineOffset();
+			Zli3.underwidth = hl->underlineWidth();
+			Zli3.strikepos = hl->strikethruOffset();
+			Zli3.strikewidth = hl->strikethruWidth();
 			Zli3.embedded = hl->cembedded;
 			if (!m_Doc->RePos)
 			{
@@ -1886,7 +1891,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					p->setLineWidth(0);
 					if ((a > 0) && (Zli3.Zeich == SpecialChars::TAB))
 					{
-						xcoZli = itemText.at(a-1)->xp+Cwidth(m_Doc, itemText.at(a-1)->cfont, itemText.at(a-1)->ch, itemText.at(a-1)->csize);
+						xcoZli = itemText.at(a-1)->glyph.xoffset+Cwidth(m_Doc, itemText.at(a-1)->font(), itemText.at(a-1)->ch, itemText.at(a-1)->fontSize());
 						wide = Zli3.xco - xcoZli + Zli3.wide;
 					}
 					if (!m_Doc->RePos)
@@ -1910,7 +1915,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						{
 							points = m_Doc->symReturn.copy();
 							if (a > 0)
-								ytrans = itemText.at(a-1)->yp-((Zli3.Siz / 10.0) * 0.8);
+								ytrans = itemText.at(a-1)->glyph.yoffset-((Zli3.Siz / 10.0) * 0.8);
 							else
 								ytrans = Zli3.yco-m_Doc->docParagraphStyles[hl->cab].lineSpacing()-((Zli3.Siz / 10.0) * 0.8);
 						}
@@ -1918,16 +1923,16 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						{
 							points = m_Doc->symNewLine.copy();
 							if (a > 0)
-								ytrans = itemText.at(a-1)->yp-((Zli3.Siz / 10.0) * 0.4);
+								ytrans = itemText.at(a-1)->glyph.yoffset-((Zli3.Siz / 10.0) * 0.4);
 							else
 								ytrans = Zli3.yco-m_Doc->docParagraphStyles[hl->cab].lineSpacing()-((Zli3.Siz / 10.0) * 0.4);
 						}
-						if (hl->cstyle & ScStyle_StartOfLine)
+						if (hl->effects() & ScStyle_StartOfLine)
 							xtrans = Zli3.xco;
 						else
 						{
 							if (a > 0)
-								xtrans = itemText.at(a-1)->xp+ Cwidth(m_Doc, itemText.at(a-1)->cfont, itemText.at(a-1)->ch, itemText.at(a-1)->csize);
+								xtrans = itemText.at(a-1)->glyph.xoffset+ Cwidth(m_Doc, itemText.at(a-1)->font(), itemText.at(a-1)->ch, itemText.at(a-1)->fontSize());
 							else
 								xtrans = Zli3.xco;
 						}
@@ -1949,7 +1954,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					else
 						DrawZeichenS(p, &Zli3);
 				}
-				if (hl->cstyle & ScStyle_SmartHyphenVisible)
+				if (hl->effects() & ScStyle_SmartHyphenVisible)
 				{
 					Zli3.Zeich = "-";
 					Zli3.xco = Zli3.xco + Zli3.wide;
@@ -2034,8 +2039,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					chs = qRound(m_Doc->docParagraphStyles[hl->cab].lineSpacing() * m_Doc->docParagraphStyles[hl->cab].dropCapLines() * 10);
 			}
 			else
-				chs = hl->csize;
-			desc2 = -hl->cfont->numDescender * (chs / 10.0);
+				chs = hl->fontSize();
+			desc2 = -hl->font()->numDescender * (chs / 10.0);
 			CurY = TExtra+lineCorr;
 		}
 		else
@@ -2069,7 +2074,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				chx = ExpandToken(a);
 			absa = hl->cab;
 			if (m_Doc->docParagraphStyles[absa].lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
-				m_Doc->docParagraphStyles[absa].setLineSpacing(RealFHeight(m_Doc, hl->cfont, hl->csize));
+				m_Doc->docParagraphStyles[absa].setLineSpacing(RealFHeight(m_Doc, hl->font(), hl->fontSize()));
 			if (a == 0)
 			{
 				if (BackBox != 0)
@@ -2112,7 +2117,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					CurY += m_Doc->docParagraphStyles[absa].gapBefore();
 				}
 			}
-			hl->cstyle &= ~ScStyle_DropCap;
+			hl->effects() &= ~ScStyle_DropCap;
 			hl->cstyle &= ~ScStyle_SmartHyphenVisible;
 			if (((m_Doc->docParagraphStyles[absa].alignment() == 3) || (m_Doc->docParagraphStyles[absa].alignment() == 4)) && (LiList.count() == 0) && (hl->ch == " "))
 			{
@@ -2140,7 +2145,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							if (m_Doc->docParagraphStyles[absa].lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
 								CurY += m_Doc->docParagraphStyles[absa].lineSpacing() * (DropLines-1);
 							else
-								CurY += RealFHeight(m_Doc, hl->cfont, m_Doc->docParagraphStyles[absa].charStyle().fontSize()) * (DropLines-1);
+								CurY += RealFHeight(m_Doc, hl->font(), m_Doc->docParagraphStyles[absa].charStyle().fontSize()) * (DropLines-1);
 						}
 					}
 				}
@@ -2149,21 +2154,21 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			{
 				if (m_Doc->docParagraphStyles[hl->cab].useBaselineGrid())
 				{
-					chsd = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (DropLines-1)+(hl->cfont->numAscent * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->cfont, chx, 10))));
-					chs = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (DropLines-1)+(hl->cfont->numAscent * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCAscent(m_Doc, hl->cfont, chx, 10)));
+					chsd = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (DropLines-1)+(hl->font()->numAscent * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->font(), chx, 10))));
+					chs = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (DropLines-1)+(hl->font()->numAscent * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCAscent(m_Doc, hl->font(), chx, 10)));
 				}
 				else
 				{
 					if (m_Doc->docParagraphStyles[absa].lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
 					{
-						chsd = qRound(10 * ((m_Doc->docParagraphStyles[absa].lineSpacing() * (DropLines-1)+(hl->cfont->numAscent * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->cfont, chx, 10))));
-						chs = qRound(10 * ((m_Doc->docParagraphStyles[absa].lineSpacing() * (DropLines-1)+(hl->cfont->numAscent * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCAscent(m_Doc, hl->cfont, chx, 10)));
+						chsd = qRound(10 * ((m_Doc->docParagraphStyles[absa].lineSpacing() * (DropLines-1)+(hl->font()->numAscent * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->font(), chx, 10))));
+						chs = qRound(10 * ((m_Doc->docParagraphStyles[absa].lineSpacing() * (DropLines-1)+(hl->font()->numAscent * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCAscent(m_Doc, hl->font(), chx, 10)));
 					}
 					else
 					{
-						double currasce = RealFHeight(m_Doc, hl->cfont, m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize());
-						chsd = qRound(10 * ((currasce * (DropLines-1)+(hl->cfont->numAscent * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->cfont, chx, 10))));
-						chs = qRound(10 * ((currasce * (DropLines-1)+(hl->cfont->numAscent * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCAscent(m_Doc, hl->cfont, chx, 10)));
+						double currasce = RealFHeight(m_Doc, hl->font(), m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize());
+						chsd = qRound(10 * ((currasce * (DropLines-1)+(hl->font()->numAscent * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(m_Doc, hl->font(), chx, 10))));
+						chs = qRound(10 * ((currasce * (DropLines-1)+(hl->font()->numAscent * (m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCAscent(m_Doc, hl->font(), chx, 10)));
 					}
 				}
 				hl->cstyle |= ScStyle_DropCap;
@@ -2173,7 +2178,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
 					chs = qRound((hl->cembedded->gHeight + hl->cembedded->lineWidth()) * 10);
 				else
-					chs = hl->csize;
+					chs = hl->fontSize();
 			}
 			oldCurY = SetZeichAttr(*hl, &chs, &chx);
 			if (chx == QChar(29))
@@ -2194,10 +2199,10 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						chx3 = "-";
 					else
 						chx3 = itemText.at(a+1)->ch;
-					wide = Cwidth(m_Doc, hl->cfont, chx2, chs, chx3);
+					wide = Cwidth(m_Doc, hl->font(), chx2, chs, chx3);
 				}
 				else
-					wide = Cwidth(m_Doc, hl->cfont, chx2, chs);
+					wide = Cwidth(m_Doc, hl->font(), chx2, chs);
 			}
 			if (DropCmode)
 			{
@@ -2211,33 +2216,33 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						if (m_Doc->docParagraphStyles[absa].lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
 							asce = m_Doc->docParagraphStyles[absa].lineSpacing() * DropLines;
 						else
-							asce = RealFHeight(m_Doc, hl->cfont, m_Doc->docParagraphStyles[absa].charStyle().fontSize()) * DropLines;
+							asce = RealFHeight(m_Doc, hl->font(), m_Doc->docParagraphStyles[absa].charStyle().fontSize()) * DropLines;
 					}
-					hl->cscalev = qRound(asce / (hl->cembedded->gHeight + hl->cembedded->lineWidth()) * 1000.0);
-					hl->cscale = hl->cscalev;
+					hl->scaleV() = qRound(asce / (hl->cembedded->gHeight + hl->cembedded->lineWidth()) * 1000.0);
+					hl->scaleH() = hl->scaleV();
 				}
 				else
 				{
-					wide = RealCWidth(m_Doc, hl->cfont, chx2, chsd);
-					asce = RealCHeight(m_Doc, hl->cfont, chx2, chsd);
+					wide = RealCWidth(m_Doc, hl->font(), chx2, chsd);
+					asce = RealCHeight(m_Doc, hl->font(), chx2, chsd);
 				}
 				desc2 = 0;
 				desc = 0;
 			}
 			else
 			{
-				double hlcsize10=hl->csize / 10.0;
+				double hlcsize10=hl->fontSize() / 10.0;
 				if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
 				{
 					desc = desc2 = 0;
 				}
 				else
 				{
-					desc = desc2 = -hl->cfont->numDescender * hlcsize10;
+					desc = desc2 = -hl->font()->numDescender * hlcsize10;
 				}
-				asce = hl->cfont->numAscent * hlcsize10;
+				asce = hl->font()->numAscent * hlcsize10;
 			}
-			wide = wide * (hl->cscale / 1000.0);
+			wide = wide * (hl->scaleH() / 1000.0);
 			fBorder = false;
 			if (CurY+BExtra+lineCorr > Height)
 			{
@@ -2259,9 +2264,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						if (DropCmode)
 						{
 							if (m_Doc->docParagraphStyles[hl->cab].useBaselineGrid())
-								desc2 = -hl->cfont->numDescender * m_Doc->typographicSettings.valueBaseGrid * m_Doc->docParagraphStyles[hl->cab].dropCapLines();
+								desc2 = -hl->font()->numDescender * m_Doc->typographicSettings.valueBaseGrid * m_Doc->docParagraphStyles[hl->cab].dropCapLines();
 							else
-								desc2 = -hl->cfont->numDescender * m_Doc->docParagraphStyles[hl->cab].lineSpacing() * m_Doc->docParagraphStyles[hl->cab].dropCapLines();
+								desc2 = -hl->font()->numDescender * m_Doc->docParagraphStyles[hl->cab].lineSpacing() * m_Doc->docParagraphStyles[hl->cab].dropCapLines();
 						}
 						if (DropCmode)
 							DropLines = m_Doc->docParagraphStyles[hl->cab].dropCapLines();
@@ -2362,9 +2367,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 									if (DropCmode)
 									{
 										if (m_Doc->docParagraphStyles[hl->cab].useBaselineGrid())
-											desc2 = -hl->cfont->numDescender * m_Doc->typographicSettings.valueBaseGrid * m_Doc->docParagraphStyles[hl->cab].dropCapLines();
+											desc2 = -hl->font()->numDescender * m_Doc->typographicSettings.valueBaseGrid * m_Doc->docParagraphStyles[hl->cab].dropCapLines();
 										else
-											desc2 = -hl->cfont->numDescender * m_Doc->docParagraphStyles[hl->cab].lineSpacing() * m_Doc->docParagraphStyles[hl->cab].dropCapLines();
+											desc2 = -hl->font()->numDescender * m_Doc->docParagraphStyles[hl->cab].lineSpacing() * m_Doc->docParagraphStyles[hl->cab].dropCapLines();
 									}
 									if (DropCmode)
 										DropLines = m_Doc->docParagraphStyles[hl->cab].dropCapLines();
@@ -2475,9 +2480,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					StartRT2 = a;
 				}
 			}
-			hl->yp = CurY + oldCurY;
+			hl->glyph.yoffset = CurY + oldCurY;
 			if (DropCmode)
-				hl->yp -= RealCHeight(m_Doc, hl->cfont, chx2, chsd) - RealCAscent(m_Doc, hl->cfont, chx2, chsd);
+				hl->glyph.yoffset -= RealCHeight(m_Doc, hl->font(), chx2, chsd) - RealCAscent(m_Doc, hl->font(), chx2, chsd);
 			if (LiList.count() == 0)
 			{
 				itemText.at(a)->cstyle |= ScStyle_StartOfLine;
@@ -2485,31 +2490,31 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			}
 			else
 			{
-				kernVal = chs * hl->cextra / 10000.0;
+				kernVal = chs * hl->tracking() / 10000.0;
 				itemText.at(a)->cstyle &= ~ScStyle_StartOfLine;
 			}
 			if (!RTab)
 			{
-				hl->xp = QMAX(CurX+kernVal, ColBound.x());
+				hl->glyph.xoffset = QMAX(CurX+kernVal, ColBound.x());
 				CurX += wide+kernVal;
 				CurX = QMAX(CurX, ColBound.x());
 			}
 			else
 			{
 				CurX = QMAX(CurX, ColBound.x());
-				hl->xp = CurX;
+				hl->glyph.xoffset = CurX;
 			}
 			if ((TabCode == 4) && (RTab))
 			{
 				CurX += (wide+kernVal) / 2;
 				CurX = QMAX(CurX, ColBound.x());
 			}
-			if (((hl->cstyle & ScStyle_HyphenationPossible) || (hl->ch == "-")) && ((HyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0)))
+			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch == "-")) && ((HyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0)))
 			{
-				if (hl->cstyle & ScStyle_HyphenationPossible)
+				if (hl->effects() & ScStyle_HyphenationPossible)
 				{
-					pt1 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(m_Doc, hl->cfont, "-", hl->csize) * (hl->cscale / 1000.0))), qRound(CurY+desc));
-					pt2 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(m_Doc, hl->cfont, "-", hl->csize) * (hl->cscale / 1000.0))), qRound(ceil(CurY-asce)));
+					pt1 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(m_Doc, hl->font(), "-", hl->fontSize()) * (hl->scaleH() / 1000.0))), qRound(CurY+desc));
+					pt2 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(m_Doc, hl->font(), "-", hl->fontSize()) * (hl->scaleH() / 1000.0))), qRound(ceil(CurY-asce)));
 				}
 				else
 				{
@@ -2532,12 +2537,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				goNextColumn = true;
 			Zli = new ZZ;
 			Zli->Zeich = chx;
-			Zli->Farb = hl->ccolor;
-			Zli->shade = hl->cshade;
-			Zli->Farb2 = hl->cstroke;
-			Zli->shade2 = hl->cshade2;
-			Zli->xco = hl->xp;
-			Zli->yco = hl->yp;
+			Zli->Farb = hl->fillColor();
+			Zli->shade = hl->fillShade();
+			Zli->Farb2 = hl->strokeColor();
+			Zli->shade2 = hl->strokeShade();
+			Zli->xco = hl->glyph.xoffset;
+			Zli->yco = hl->glyph.yoffset;
 			Zli->Sele = hl->cselect;
 			if (DropCmode)
 			{
@@ -2547,22 +2552,22 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			else
 			{
 				Zli->Siz = chs;
-				Zli->realSiz = hl->csize;
+				Zli->realSiz = hl->fontSize();
 			}
-			Zli->Style = hl->cstyle;
-			Zli->ZFo = hl->cfont;
+			Zli->Style = hl->effects();
+			Zli->ZFo = hl->font();
 			Zli->wide = wide;
 			Zli->kern = kernVal;
-			Zli->scale = hl->cscale;
-			Zli->scalev = hl->cscalev;
-			Zli->base = hl->cbase;
-			Zli->shadowX = hl->cshadowx;
-			Zli->shadowY = hl->cshadowy;
-			Zli->outline = hl->coutline;
-			Zli->underpos = hl->cunderpos;
-			Zli->underwidth = hl->cunderwidth;
-			Zli->strikepos = hl->cstrikepos;
-			Zli->strikewidth = hl->cstrikewidth;
+			Zli->scale = hl->scaleH();
+			Zli->scalev = hl->scaleV();
+			Zli->base = hl->baselineOffset();
+			Zli->shadowX = hl->shadowXOffset();
+			Zli->shadowY = hl->shadowYOffset();
+			Zli->outline = hl->outlineWidth();
+			Zli->underpos = hl->underlineOffset();
+			Zli->underwidth = hl->underlineWidth();
+			Zli->strikepos = hl->strikethruOffset();
+			Zli->strikewidth = hl->strikethruWidth();
 			Zli->embedded = hl->cembedded;
 			if (((hl->ch == " ") || (hl->ch == QChar(9))) && (!outs))
 			{
@@ -2570,24 +2575,24 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				{
 					if (itemText.at(a-1)->ch !=  " ")
 					{
-						LastXp = hl->xp;
+						LastXp = hl->glyph.xoffset;
 						LastSP = BuPos;
 					}
 				}
 				else
 				{
-					LastXp = hl->xp;
+					LastXp = hl->glyph.xoffset;
 					LastSP = BuPos;
 				}
 			}
-			if (((hl->cstyle & ScStyle_HyphenationPossible) || (hl->ch == "-")) && (!outs))
+			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch == "-")) && (!outs))
 			{
 				if ((HyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0))
 				{
 					if (hl->ch == "-")
 						LastXp = CurX;
 					else
-						LastXp = CurX + Cwidth(m_Doc, hl->cfont, "-", hl->csize) * (hl->cscale / 1000.0);
+						LastXp = CurX + Cwidth(m_Doc, hl->font(), "-", hl->fontSize()) * (hl->scaleH() / 1000.0);
 					LastSP = BuPos;
 				}
 			}
@@ -2601,8 +2606,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				for (uint rtx = StartRT; rtx < LiList.count(); ++rtx)
 				{
 					LiList.at(rtx)->xco = QMAX(LiList.at(rtx)->xco-(wide+kernVal) / cen, 0.0);
-					itemText.at(StartRT2+rtx2)->xp = QMAX(itemText.at(StartRT2+rtx2)->xp-(wide+kernVal) / cen, 0.0);
-					if (itemText.at(StartRT2+rtx2)->xp < RTabX)
+					itemText.at(StartRT2+rtx2)->glyph.xoffset = QMAX(itemText.at(StartRT2+rtx2)->glyph.xoffset-(wide+kernVal) / cen, 0.0);
+					if (itemText.at(StartRT2+rtx2)->glyph.xoffset < RTabX)
 					{
 						RTab = false;
 						TabCode = 0;
@@ -2629,7 +2634,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					int ol1 = qRound((by + CurY - m_Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 					int ol2 = static_cast<int>(ol1 / m_Doc->typographicSettings.valueBaseGrid);
 					CurY = ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaseGrid + m_Doc->typographicSettings.offsetBaseGrid - by;
-					tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*m_Doc->typographicSettings.valueBaseGrid)));
+					tcli.setPoint(0, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY-DropLines*m_Doc->typographicSettings.valueBaseGrid)));
 					tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*m_Doc->typographicSettings.valueBaseGrid)));
 				}
 				else
@@ -2637,19 +2642,19 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					if (m_Doc->docParagraphStyles[absa].lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
 					{
 						CurY -= m_Doc->docParagraphStyles[absa].lineSpacing() * (DropLines-1);
-						tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*m_Doc->docParagraphStyles[absa].lineSpacing())));
+						tcli.setPoint(0, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY-DropLines*m_Doc->docParagraphStyles[absa].lineSpacing())));
 						tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*m_Doc->docParagraphStyles[absa].lineSpacing())));
 					}
 					else
 					{
-						double currasce = RealFHeight(m_Doc, hl->cfont, m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize());
+						double currasce = RealFHeight(m_Doc, hl->font(), m_Doc->docParagraphStyles[hl->cab].charStyle().fontSize());
 						CurY -= currasce * (DropLines-1);
-						tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*currasce)));
+						tcli.setPoint(0, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY-DropLines*currasce)));
 						tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*currasce)));
 					}
 				}
 				tcli.setPoint(2, QPoint(qRound(maxDX), qRound(maxDY)));
-				tcli.setPoint(3, QPoint(qRound(hl->xp), qRound(maxDY)));
+				tcli.setPoint(3, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY)));
 				cm = QRegion(pf2.xForm(tcli));
 				cl = cl.subtract(cm);
 			}
@@ -2711,35 +2716,35 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					{
 						a -= BuPos - LastSP;
 						a++;
-						if (itemText.at(a)->cstyle & ScStyle_HyphenationPossible)
+						if (itemText.at(a)->effects() & ScStyle_HyphenationPossible)
 						{
 							HyphenCount++;
 							itemText.at(a)->cstyle |= ScStyle_SmartHyphenVisible;
 							Zli = new ZZ;
 							Zli->Zeich = "-";
-							Zli->Farb = itemText.at(a)->ccolor;
-							Zli->Farb2 = itemText.at(a)->cstroke;
-							Zli->shade = itemText.at(a)->cshade;
-							Zli->shade2 = itemText.at(a)->cshade2;
-							Zli->xco = LastXp - Cwidth(m_Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize) * (itemText.at(a)->cscale / 1000.0);
-							Zli->yco = itemText.at(a)->yp;
+							Zli->Farb = itemText.at(a)->fillColor();
+							Zli->Farb2 = itemText.at(a)->strokeColor();
+							Zli->shade = itemText.at(a)->fillShade();
+							Zli->shade2 = itemText.at(a)->strokeShade();
+							Zli->xco = LastXp - Cwidth(m_Doc, itemText.at(a)->font(), "-", itemText.at(a)->fontSize()) * (itemText.at(a)->scaleH() / 1000.0);
+							Zli->yco = itemText.at(a)->glyph.yoffset;
 							Zli->Sele = itemText.at(a)->cselect;
-							Zli->Siz = itemText.at(a)->csize;
-							Zli->realSiz = itemText.at(a)->csize;
-							Zli->Style = itemText.at(a)->cstyle;
-							Zli->ZFo = itemText.at(a)->cfont;
-							Zli->wide = Cwidth(m_Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize) * (itemText.at(a)->cscale / 1000.0);
-							Zli->kern = itemText.at(a)->csize * itemText.at(a)->cextra / 10000.0;
-							Zli->scale = itemText.at(a)->cscale;
-							Zli->scalev = itemText.at(a)->cscalev;
-							Zli->base = itemText.at(a)->cbase;
-							Zli->shadowX = itemText.at(a)->cshadowx;
-							Zli->shadowY = itemText.at(a)->cshadowy;
-							Zli->outline = itemText.at(a)->coutline;
-							Zli->underpos = itemText.at(a)->cunderpos;
-							Zli->underwidth = itemText.at(a)->cunderwidth;
-							Zli->strikepos = itemText.at(a)->cstrikepos;
-							Zli->strikewidth = itemText.at(a)->cstrikewidth;
+							Zli->Siz = itemText.at(a)->fontSize();
+							Zli->realSiz = itemText.at(a)->fontSize();
+							Zli->Style = itemText.at(a)->effects();
+							Zli->ZFo = itemText.at(a)->font();
+							Zli->wide = Cwidth(m_Doc, itemText.at(a)->font(), "-", itemText.at(a)->fontSize()) * (itemText.at(a)->scaleH() / 1000.0);
+							Zli->kern = itemText.at(a)->fontSize() * itemText.at(a)->tracking() / 10000.0;
+							Zli->scale = itemText.at(a)->scaleH();
+							Zli->scalev = itemText.at(a)->scaleV();
+							Zli->base = itemText.at(a)->baselineOffset();
+							Zli->shadowX = itemText.at(a)->shadowXOffset();
+							Zli->shadowY = itemText.at(a)->shadowYOffset();
+							Zli->outline = itemText.at(a)->outlineWidth();
+							Zli->underpos = itemText.at(a)->underlineOffset();
+							Zli->underwidth = itemText.at(a)->underlineWidth();
+							Zli->strikepos = itemText.at(a)->strikethruOffset();
+							Zli->strikewidth = itemText.at(a)->strikethruWidth();
 							Zli->embedded = 0;
 							LiList.insert(LastSP+1, Zli);
 							LastSP += 1;
@@ -2912,10 +2917,10 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						}
 					}
 				}
-				hl->xp = CurX;
-				hl->yp = CurY;
-				LiList.at(LiList.count()-1)->xco = hl->xp;
-				LiList.at(LiList.count()-1)->yco = hl->yp;
+				hl->glyph.xoffset = CurX;
+				hl->glyph.yoffset = CurY;
+				LiList.at(LiList.count()-1)->xco = hl->glyph.xoffset;
+				LiList.at(LiList.count()-1)->yco = hl->glyph.yoffset;
 				if (LiList.count() != 0)
 				{
 					if ((!AbsHasDrop) && (StartOfCol) && (!m_Doc->docParagraphStyles[hl->cab].useBaselineGrid()))
@@ -2990,8 +2995,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					double wide2 = 0;
 					Zli2 = LiList.at(zc);
 					double xcoZli = Zli2->xco;
-					itemText.at(startLin+zc)->xp = Zli2->xco;
-					itemText.at(startLin+zc)->yp = Zli2->yco;
+					itemText.at(startLin+zc)->glyph.xoffset = Zli2->xco;
+					itemText.at(startLin+zc)->glyph.yoffset = Zli2->yco;
 					if (itemText.at(startLin+zc)->cab < 5)
 						tTabValues = TabValues;
 					else
@@ -3099,7 +3104,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								else
 								{
 									if (startLin > 0)
-										xtrans = itemText.at(startLin-1)->xp + Cwidth(m_Doc, itemText.at(startLin-1)->cfont, itemText.at(startLin-1)->ch, itemText.at(startLin-1)->csize);
+										xtrans = itemText.at(startLin-1)->glyph.xoffset + Cwidth(m_Doc, itemText.at(startLin-1)->font(), itemText.at(startLin-1)->ch, itemText.at(startLin-1)->fontSize());
 									else
 										xtrans = Zli2->xco;
 								}
@@ -3275,8 +3280,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			double wide2 = 0;
 			Zli2 = LiList.at(zc);
 			double xcoZli = Zli2->xco;
-			itemText.at(startLin+zc)->xp = Zli2->xco;
-			itemText.at(startLin+zc)->yp = Zli2->yco;
+			itemText.at(startLin+zc)->glyph.xoffset = Zli2->xco;
+			itemText.at(startLin+zc)->glyph.yoffset = Zli2->yco;
 			if (itemText.at(startLin+zc)->cab < 5)
 				tTabValues = TabValues;
 			else
@@ -3384,7 +3389,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						else
 						{
 							if (startLin > 0)
-								xtrans = itemText.at(startLin-1)->xp + Cwidth(m_Doc, itemText.at(startLin-1)->cfont, itemText.at(startLin-1)->ch, itemText.at(startLin-1)->csize);
+								xtrans = itemText.at(startLin-1)->glyph.xoffset + Cwidth(m_Doc, itemText.at(startLin-1)->font(), itemText.at(startLin-1)->ch, itemText.at(startLin-1)->fontSize());
 							else
 								xtrans = Zli2->xco;
 						}
@@ -3706,13 +3711,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				hg->ch = QString(QChar(conv));
 				m_Doc->setScTextDefaultsFromDoc(hg);
 				hg->cselect = false;
-				hg->cextra = 0;
-				hg->xp = 0;
-				hg->yp = 0;
-				hg->PRot = 0;
-				hg->PtransX = 0;
-				hg->PtransY = 0;
-				hg->cembedded = 0;
+				hg->setTracking(0);
 				itemText.insert(CPos, hg);
 				CPos += 1;
 				Tinput = true;
@@ -3746,22 +3745,22 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			pos--;
 		if ( (buttonState & ControlButton) == 0 )
 		{
-			alty =  itemText.at(pos)->yp;
+			alty =  itemText.at(pos)->glyph.yoffset;
 			c = itemText.at(pos)->ch.at(0).latin1();
 			if ( c == 13 ) // new line, position is wrong
 				if ( --pos > 0 )
-					alty =  itemText.at(pos)->yp;
+					alty =  itemText.at(pos)->glyph.yoffset;
 			// check for yp at actual position
 			if ( pos < len )
 			{
-				altx =  itemText.at(pos)->yp;
+				altx =  itemText.at(pos)->glyph.yoffset;
 				if ( altx > alty )
 				{
 					// we were at begin of line
 					break;
 				}
 			}
-			while (  pos > 0 && itemText.at(pos-1)->yp == alty )
+			while (  pos > 0 && itemText.at(pos-1)->glyph.yoffset == alty )
 				--pos;
 			if ( itemText.at(pos)->ch.at(0).latin1() == 13 )
 				++pos;
@@ -3791,14 +3790,14 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				break;
 			}
 			QString nextCh = itemText.at(CPos)->ch;
-			int nextChs = itemText.at(CPos)->csize;
-			alty =  itemText.at(CPos)->yp - SetZeichAttr(itemText.charStyle(CPos), &nextChs, &nextCh);
+			int nextChs = itemText.at(CPos)->fontSize();
+			alty =  itemText.at(CPos)->glyph.yoffset - SetZeichAttr(itemText.charStyle(CPos), &nextChs, &nextCh);
 			double nextY;
 			while (CPos < len-1)
 			{
 				nextCh = itemText.at(CPos+1)->ch;
-				nextChs = itemText.at(CPos+1)->csize;
-				nextY = itemText.at(CPos+1)->yp - SetZeichAttr(itemText.charStyle(CPos+1), &nextChs, &nextCh);
+				nextChs = itemText.at(CPos+1)->fontSize();
+				nextY = itemText.at(CPos+1)->glyph.yoffset - SetZeichAttr(itemText.charStyle(CPos+1), &nextChs, &nextCh);
 				if (fabs(nextY - alty) > 1.0)
 					break;
 				CPos++;
@@ -3860,36 +3859,36 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				bool down1=false;
 				double newy;
-				newy = alty = itemText.at(CPos)->yp;
-				altx = itemText.at(CPos)->xp;
+				newy = alty = itemText.at(CPos)->glyph.yoffset;
+				altx = itemText.at(CPos)->glyph.xoffset;
 				do
 				{
 					++CPos;
 					if (CPos == static_cast<int>(itemText.count()))
 						break;
 					//CB #3088 Catch some funny empty lines. still testing, currently causes to go to start/end of lines incorrectly
-					//if ((CPos < static_cast<int>(itemText.count())-1) && itemText.at(CPos+1)->ch[0].digitValue()==-1 && itemText.at(CPos)->ch[0].digitValue()==-1 && itemText.at(CPos)->xp == altx && itemText.at(CPos)->yp == alty)
+					//if ((CPos < static_cast<int>(itemText.count())-1) && itemText.at(CPos+1)->ch[0].digitValue()==-1 && itemText.at(CPos)->ch[0].digitValue()==-1 && itemText.at(CPos)->glyph.xoffset == altx && itemText.at(CPos)->glyph.yoffset == alty)
 					//	break;
-					if (itemText.at(CPos)->yp > alty)
+					if (itemText.at(CPos)->glyph.yoffset > alty)
 					{
-						if (down1 && itemText.at(CPos)->yp > newy)
+						if (down1 && itemText.at(CPos)->glyph.yoffset > newy)
 						{
 							--CPos;
 							break;
 						}
-						if (itemText.at(CPos)->xp >= altx)
+						if (itemText.at(CPos)->glyph.xoffset >= altx)
 							break;
 						down1=true;
 					}
 					//CB Make the cursor move forward a column
-					if (itemText.at(CPos)->yp < alty)
+					if (itemText.at(CPos)->glyph.yoffset < alty)
 					{
 						double newX=altx+columnWidth();
-						while (itemText.at(CPos)->xp<newX && CPos < static_cast<int>(itemText.count())-1)
+						while (itemText.at(CPos)->glyph.xoffset<newX && CPos < static_cast<int>(itemText.count())-1)
 							++CPos;
 						break;
 					}
-					newy=itemText.at(CPos)->yp;
+					newy=itemText.at(CPos)->glyph.yoffset;
 				}
 				while (CPos < static_cast<int>(itemText.count()));
 				if ( buttonState & ShiftButton )
@@ -3959,8 +3958,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				if (CPos == static_cast<int>(itemText.count()))
 					--CPos;
-				alty = itemText.at(CPos)->yp;
-				altx = itemText.at(CPos)->xp;
+				alty = itemText.at(CPos)->glyph.yoffset;
+				altx = itemText.at(CPos)->glyph.xoffset;
 				if (CPos > 0)
 				{
 					do
@@ -3970,16 +3969,16 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 							break;
 						if  ( itemText.at(CPos)->ch.at(0).latin1() == 13 )
 							break;
-						if (itemText.at(CPos)->yp < alty)
+						if (itemText.at(CPos)->glyph.yoffset < alty)
 						{
-							if (itemText.at(CPos)->xp <= altx)
+							if (itemText.at(CPos)->glyph.xoffset <= altx)
 								break;
 						}
 						//CB Make the cursor move back a column
-						if (itemText.at(CPos)->yp > alty)
+						if (itemText.at(CPos)->glyph.yoffset > alty)
 						{
 							double newX=altx-columnWidth();
-							while (itemText.at(CPos)->xp>newX && CPos > 0)
+							while (itemText.at(CPos)->glyph.xoffset>newX && CPos > 0)
 								--CPos;
 							break;
 						}
@@ -4064,10 +4063,10 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		if ((CPos > 0) && (CPos == static_cast<int>(itemText.count())))
 		{
-			if (itemText.at(CPos-1)->cstyle & ScStyle_SuppressSpace)
+			if (itemText.at(CPos-1)->effects() & ScStyle_SuppressSpace)
 			{
 				--CPos;
-				while ((CPos > 0) && (itemText.at(CPos)->cstyle & ScStyle_SuppressSpace))
+				while ((CPos > 0) && (itemText.at(CPos)->effects() & ScStyle_SuppressSpace))
 				{
 					--CPos;
 					if (CPos == 0)
@@ -4077,7 +4076,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		else
 		{
-			while ((CPos > 0) && (itemText.at(CPos)->cstyle & ScStyle_SuppressSpace))
+			while ((CPos > 0) && (itemText.at(CPos)->effects() & ScStyle_SuppressSpace))
 			{
 				--CPos;
 				if (CPos == 0)
@@ -4197,13 +4196,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				hg->ch = QString(SpecialChars::TAB);
 			m_Doc->setScTextDefaultsFromDoc(hg);
 			hg->cselect = false;
-			hg->cextra = 0;
-			hg->xp = 0;
-			hg->yp = 0;
-			hg->PRot = 0;
-			hg->PtransX = 0;
-			hg->PtransY = 0;
-			hg->cembedded = 0;
+			hg->setTracking(0);
 			itemText.insert(CPos, hg);
 			CPos += 1;
 			Tinput = true;
@@ -4215,14 +4208,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			hg = new ScText;
 			hg->ch = uc;
 			m_Doc->setScTextDefaultsFromDoc(hg);
-			hg->cextra = 0;
-			hg->cselect = false;
-			hg->xp = 0;
-			hg->yp = 0;
-			hg->PRot = 0;
-			hg->PtransX = 0;
-			hg->PtransY = 0;
-			hg->cembedded = 0;
+			hg->setTracking(0);
 			// should go when hyphenator respects charstyle settings
 			QString Language = CPos < itemText.length()? 
 				itemText.charStyle(CPos).language() : m_Doc->currentStyle.charStyle().language();

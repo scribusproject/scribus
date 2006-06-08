@@ -3000,8 +3000,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 #ifndef NLS_PROTO
 							for (uint aa = 0; aa < currItem->itemText.count(); ++aa)
 							{
-								currItem->itemText.at(aa)->csize = QMAX(qRound(currItem->itemText.at(aa)->csize*scy), 1);
-								currItem->itemText.at(aa)->cscale = QMAX(QMIN(qRound(currItem->itemText.at(aa)->cscale*scx), 4000), 100);
+								currItem->itemText.at(aa)->setFontSize(QMAX(qRound(currItem->itemText.at(aa)->fontSize()*scy), 1));
+								currItem->itemText.at(aa)->setScaleH(QMAX(QMIN(qRound(currItem->itemText.at(aa)->scaleH()*scx), 4000), 100));
 							}
 #endif
 						}
@@ -6966,7 +6966,7 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 			{
 //				bb->setLineSpacing(((bb->fontSize() / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (bb->fontSize() / 10.0));
 				for (aa = 0; aa < bb->itemText.count(); ++aa)
-					bb->itemText.at(aa)->csize = QMAX(qRound(bb->itemText.at(aa)->csize*((scx+scy)/2)), 1);
+					bb->itemText.at(aa)->setFontSize(QMAX(qRound(bb->itemText.at(aa)->fontSize()*((scx+scy)/2)), 1));
 				if (bb->asPathText())
 					bb->updatePolyClip();
 			}
@@ -7209,11 +7209,11 @@ bool ScribusView::slotSetCurs(int x, int y)
 			uint currItemTextCount=currItem->itemText.count();
 			for (a=0; a<currItemTextCount; ++a)
 			{
-				xp = static_cast<int>(currItem->itemText.at(a)->xp);
+				xp = static_cast<int>(currItem->itemText.at(a)->glyph.xoffset);
 				//If x pos of curr char is less than left position of current column, continue
 				if (xp+currItem->xPos()<cp-colWidth-colGap)
 					continue;
-				yp = static_cast<int>(currItem->itemText.at(a)->yp);
+				yp = static_cast<int>(currItem->itemText.at(a)->glyph.yoffset);
 				h = static_cast<int>(Doc->docParagraphStyles[currItem->itemText.at(a)->cab].lineSpacing());
 
 				if (a<currItemTextCount-1)
@@ -7232,7 +7232,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 					if (yp-h+currItem->yPos()<=yP && yp+currItem->yPos()>=yP)
 					{
 						//click where next char is on next line in same or next column
-						if (static_cast<int>(currItem->itemText.at(a+1)->yp)!=yp)
+						if (static_cast<int>(currItem->itemText.at(a+1)->glyph.yoffset)!=yp)
 						{
 							if (((currItem->itemText.at(a+1)->ch.at(0).latin1() == 13) || (currItem->itemText.at(a+1)->ch.at(0).latin1() == 28)))
 								currItem->CPos = a+1;
@@ -7373,7 +7373,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 			if (currItem->itemText.count() != 0)
 			{
 				a=currItem->itemText.count()-1;
-				int w = qRound(Cwidth(Doc, currItem->itemText.at(a)->cfont, currItem->itemText.at(a)->ch, currItem->itemText.at(a)->csize)*(currItem->itemText.at(a)->cscale / 1000.0));
+				int w = qRound(Cwidth(Doc, currItem->itemText.at(a)->font(), currItem->itemText.at(a)->ch, currItem->itemText.at(a)->fontSize())*(currItem->itemText.at(a)->scaleH() / 1000.0));
 				if (xp+currItem->xPos()+w<xP || yp+currItem->yPos()<yP)
 					currItem->CPos = a+1;
 				else
@@ -7389,19 +7389,19 @@ bool ScribusView::slotSetCurs(int x, int y)
 				if (b<0)
 					b=0;
 				Doc->currentStyle.charStyle() = currItem->itemText.charStyle(b);
-				emit ItemTextStrike(currItem->itemText.at(b)->cstrikepos, currItem->itemText.at(b)->cstrikewidth);
-				emit ItemTextUnderline(currItem->itemText.at(b)->cunderpos, currItem->itemText.at(b)->cunderwidth);
-				emit ItemTextOutline(currItem->itemText.at(b)->coutline);
-				emit ItemTextShadow(currItem->itemText.at(b)->cshadowx, currItem->itemText.at(b)->cshadowy);
-				emit ItemTextSca(currItem->itemText.at(b)->cscale);
-				emit ItemTextScaV(currItem->itemText.at(b)->cscalev);
-				emit ItemTextFarben(currItem->itemText.at(b)->cstroke, currItem->itemText.at(b)->ccolor, currItem->itemText.at(b)->cshade2, currItem->itemText.at(b)->cshade);
-				emit ItemTextFont(currItem->itemText.at(b)->cfont->scName());
-				emit ItemTextSize(currItem->itemText.at(b)->csize);
-				emit ItemTextUSval(currItem->itemText.at(b)->cextra);
-				emit ItemTextStil(currItem->itemText.at(b)->cstyle);
+				emit ItemTextStrike(currItem->itemText.at(b)->strikethruOffset(), currItem->itemText.at(b)->strikethruWidth());
+				emit ItemTextUnderline(currItem->itemText.at(b)->underlineOffset(), currItem->itemText.at(b)->underlineWidth());
+				emit ItemTextOutline(currItem->itemText.at(b)->outlineWidth());
+				emit ItemTextShadow(currItem->itemText.at(b)->shadowXOffset(), currItem->itemText.at(b)->shadowYOffset());
+				emit ItemTextSca(currItem->itemText.at(b)->scaleH());
+				emit ItemTextScaV(currItem->itemText.at(b)->scaleV());
+				emit ItemTextFarben(currItem->itemText.at(b)->strokeColor(), currItem->itemText.at(b)->fillColor(), currItem->itemText.at(b)->strokeShade(), currItem->itemText.at(b)->fillShade());
+				emit ItemTextFont(currItem->itemText.at(b)->font()->scName());
+				emit ItemTextSize(currItem->itemText.at(b)->fontSize());
+				emit ItemTextUSval(currItem->itemText.at(b)->tracking());
+				emit ItemTextStil(currItem->itemText.at(b)->effects());
 				emit ItemTextAbs(currItem->itemText.at(b)->cab);
-				emit ItemTextBase(currItem->itemText.at(b)->cbase);
+				emit ItemTextBase(currItem->itemText.at(b)->baselineOffset());
 				return true;
 			}
 			else
@@ -7524,14 +7524,14 @@ void ScribusView::slotDoCurs(bool draw)
 			int offs = QMIN(currItem->CPos-1, static_cast<int>(currItem->itemText.count()-1));
 			if (currItem->CPos < static_cast<int>(currItem->itemText.count()-1))
 			{
-				if (currItem->itemText.at(offs+1)->cstyle & 4096)
+				if (currItem->itemText.at(offs+1)->effects() & ScStyle_SuppressSpace)
 				{
 					if (currItem->CPos < static_cast<int>(currItem->itemText.count()-1))
 					currItem->CPos++;
 					return;
 				}
 			}
-			if (currItem->itemText.at(offs)->yp == 0)
+			if (currItem->itemText.at(offs)->glyph.yoffset == 0)
 				return;
 			if (Doc->CurTimer != 0)
 				Doc->CurTimer->stop();
@@ -7540,51 +7540,51 @@ void ScribusView::slotDoCurs(bool draw)
 				chx = currItem->ExpandToken(offs);
 			if (chx == QChar(29))
 				chx = " ";
-			int chs = currItem->itemText.at(offs)->csize;
+			int chs = currItem->itemText.at(offs)->fontSize();
 			currItem->SetZeichAttr(currItem->itemText.charStyle(offs), &chs, &chx);
 			if (currItem->CPos != static_cast<int>(currItem->itemText.count()))
 			{
 				if (currItem->itemText.at(currItem->CPos)->ch == QChar(9))
 				{
-					xp = static_cast<int>(currItem->itemText.at(currItem->CPos-1)->xp);
-					chs = currItem->itemText.at(currItem->CPos-1)->csize;
+					xp = static_cast<int>(currItem->itemText.at(currItem->CPos-1)->glyph.xoffset);
+					chs = currItem->itemText.at(currItem->CPos-1)->fontSize();
 					chx = currItem->itemText.at(currItem->CPos-1)->ch;
-					xp += qRound(Cwidth(Doc, currItem->itemText.at(currItem->CPos-1)->cfont, chx, chs)*(currItem->itemText.at(currItem->CPos-1)->cscale / 1000.0));
+					xp += qRound(Cwidth(Doc, currItem->itemText.at(currItem->CPos-1)->font(), chx, chs)*(currItem->itemText.at(currItem->CPos-1)->scaleH() / 1000.0));
 				}
 				else
-					xp = static_cast<int>(currItem->itemText.at(offs+1)->xp);
+					xp = static_cast<int>(currItem->itemText.at(offs+1)->glyph.xoffset);
 			}
 			else
 			{
-				xp = static_cast<int>(currItem->itemText.at(offs)->xp);
+				xp = static_cast<int>(currItem->itemText.at(offs)->glyph.xoffset);
 				//TODO Change placement of cursor to middle or right if here and cursor is at left.. 
 				if (currItem->itemText.at(offs)->ch != QChar(9))
 				{
-					chs = currItem->itemText.at(offs)->csize;
+					chs = currItem->itemText.at(offs)->fontSize();
 					chx = currItem->itemText.at(offs)->ch;
-					xp += qRound(Cwidth(Doc, currItem->itemText.at(offs)->cfont, chx, chs)*(currItem->itemText.at(offs)->cscale / 1000.0));
+					xp += qRound(Cwidth(Doc, currItem->itemText.at(offs)->font(), chx, chs)*(currItem->itemText.at(offs)->scaleH() / 1000.0));
 				}
 			}
 			if (currItem->CPos != static_cast<int>(currItem->itemText.count()))
 			{
-				if (currItem->itemText.at(offs)->yp != currItem->itemText.at(offs+1)->yp)
+				if (currItem->itemText.at(offs)->glyph.yoffset != currItem->itemText.at(offs+1)->glyph.yoffset)
 				{
 					offs++;
 					if ((currItem->itemText.at(offs)->ch == QChar(13)) || (currItem->itemText.at(offs)->ch == QChar(28)))
 					{
 						offs--;
-						xp = static_cast<int>(currItem->itemText.at(offs)->xp);
-						chs = currItem->itemText.at(offs)->csize;
+						xp = static_cast<int>(currItem->itemText.at(offs)->glyph.xoffset);
+						chs = currItem->itemText.at(offs)->fontSize();
 						chx = currItem->itemText.at(offs)->ch;
-						xp += qRound(Cwidth(Doc, currItem->itemText.at(offs)->cfont, chx, chs)*(currItem->itemText.at(offs)->cscale / 1000.0));
+						xp += qRound(Cwidth(Doc, currItem->itemText.at(offs)->font(), chx, chs)*(currItem->itemText.at(offs)->scaleH() / 1000.0));
 					}
 					else
-						xp = static_cast<int>(currItem->itemText.at(offs)->xp);
+						xp = static_cast<int>(currItem->itemText.at(offs)->glyph.xoffset);
 				}
 			}
-			yp = static_cast<int>(currItem->itemText.at(offs)->yp);
-			desc = static_cast<int>(currItem->itemText.at(offs)->cfont->descent() * (-currItem->itemText.at(offs)->csize / 10.0));
-			asce = static_cast<int>(currItem->itemText.at(offs)->cfont->ascent() * (currItem->itemText.at(offs)->csize / 10.0));
+			yp = static_cast<int>(currItem->itemText.at(offs)->glyph.yoffset);
+			desc = static_cast<int>(currItem->itemText.at(offs)->font()->descent() * (-currItem->itemText.at(offs)->fontSize() / 10.0));
+			asce = static_cast<int>(currItem->itemText.at(offs)->font()->ascent() * (currItem->itemText.at(offs)->fontSize() / 10.0));
 		}
 		else
 		{
@@ -7616,10 +7616,10 @@ void ScribusView::slotDoCurs(bool draw)
 				}
 				else
 				{
-					xp = static_cast<int>(currItem->itemText.at(currItem->CPos)->xp);
-					yp = static_cast<int>(currItem->itemText.at(currItem->CPos)->yp);
-					desc = static_cast<int>(currItem->itemText.at(currItem->CPos)->cfont->descent() * (-currItem->itemText.at(currItem->CPos)->csize / 10.0));
-					asce = static_cast<int>(currItem->itemText.at(currItem->CPos)->cfont->ascent() * (currItem->itemText.at(currItem->CPos)->csize / 10.0));
+					xp = static_cast<int>(currItem->itemText.at(currItem->CPos)->glyph.xoffset);
+					yp = static_cast<int>(currItem->itemText.at(currItem->CPos)->glyph.yoffset);
+					desc = static_cast<int>(currItem->itemText.at(currItem->CPos)->font()->descent() * (-currItem->itemText.at(currItem->CPos)->fontSize() / 10.0));
+					asce = static_cast<int>(currItem->itemText.at(currItem->CPos)->font()->ascent() * (currItem->itemText.at(currItem->CPos)->fontSize() / 10.0));
 				}
 			}
 		}
@@ -9517,55 +9517,49 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 				if (hg->ch == QChar(4))
 					hg->ch = QChar(9);
 				it++;
-				hg->cfont = (*Doc->AllFonts)[*it];
+				hg->setFont((*Doc->AllFonts)[*it]);
 				it++;
-				hg->csize = qRound((*it).toDouble() * 10);
+				hg->setFontSize(qRound((*it).toDouble() * 10));
 				it++;
-				hg->ccolor = *it;
+				hg->setFillColor(*it);
 				it++;
-				hg->cextra = (*it).toInt();
+				hg->setTracking((*it).toInt());
 				it++;
-				hg->cshade = (*it).toInt();
-				hg->cselect = false;
+				hg->setFillShade((*it).toInt());
 				it++;
-				hg->cstyle = static_cast<StyleFlag>(it == NULL ? 0 : (*it).toInt());
+				hg->setEffects(static_cast<StyleFlag>(it == NULL ? 0 : (*it).toInt()));
 				it++;
 				hg->cab = it == NULL ? 0 : (*it).toInt();
 				it++;
-				hg->cstroke = it == NULL ? CommonStrings::None : *it;
+				hg->setStrokeColor(it == NULL ? CommonStrings::None : *it);
 				it++;
-				hg->cshade2 = it == NULL ? 100 : (*it).toInt();
-				it++;
-				if (it == NULL)
-					hg->cscale = 1000;
-				else
-					hg->cscale = QMIN(QMAX((*it).toInt(), 100), 4000);
+				hg->setStrokeShade(it == NULL ? 100 : (*it).toInt());
 				it++;
 				if (it == NULL)
-					hg->cscalev = 1000;
+					hg->setScaleH(1000);
 				else
-					hg->cscalev = QMIN(QMAX((*it).toInt(), 100), 4000);
+					hg->setScaleH(QMIN(QMAX((*it).toInt(), 100), 4000));
 				it++;
-				hg->cbase = it == NULL ? 0 : (*it).toInt();
+				if (it == NULL)
+					hg->setScaleV(1000);
+				else
+					hg->setScaleV(QMIN(QMAX((*it).toInt(), 100), 4000));
 				it++;
-				hg->cshadowx = it == NULL ? 50 : (*it).toInt();
+				hg->setBaselineOffset(it == NULL ? 0 : (*it).toInt());
 				it++;
-				hg->cshadowy = it == NULL ? -50 : (*it).toInt();
+				hg->setShadowXOffset(it == NULL ? 50 : (*it).toInt());
 				it++;
-				hg->coutline = it == NULL ? 10 : (*it).toInt();
+				hg->setShadowYOffset(it == NULL ? -50 : (*it).toInt());
 				it++;
-				hg->cunderpos = it == NULL ? -1 : (*it).toInt();
+				hg->setOutlineWidth(it == NULL ? 10 : (*it).toInt());
 				it++;
-				hg->cunderwidth = it == NULL ? -1 : (*it).toInt();
+				hg->setUnderlineOffset(it == NULL ? -1 : (*it).toInt());
 				it++;
-				hg->cstrikepos = it == NULL ? -1 : (*it).toInt();
+				hg->setUnderlineWidth(it == NULL ? -1 : (*it).toInt());
 				it++;
-				hg->cstrikewidth = it == NULL ? -1 : (*it).toInt();
-				hg->xp = 0;
-				hg->yp = 0;
-				hg->PRot = 0;
-				hg->PtransX = 0;
-				hg->PtransY = 0;
+				hg->setStrikethruOffset(it == NULL ? -1 : (*it).toInt());
+				it++;
+				hg->setStrikethruWidth(it == NULL ? -1 : (*it).toInt());
 				Doc->Items->at(z)->itemText.append(hg);
 			}
 		}
@@ -9932,12 +9926,12 @@ void ScribusView::TextToPath()
 					if (chx == QChar(32))
 						continue;
 				}
-				int chs = hl->csize;
-				if (hl->cstyle & 64)
+				int chs = hl->fontSize();
+				if (hl->effects() & ScStyle_SmallCaps)
 				{
 					if (chx.upper() != chx)
 					{
-						chs = QMAX(static_cast<int>(hl->csize * Doc->typographicSettings.valueSmallCaps / 100), 1);
+						chs = QMAX(static_cast<int>(hl->fontSize() * Doc->typographicSettings.valueSmallCaps / 100), 1);
 						chx = chx.upper();
 					}
 				}
@@ -9947,7 +9941,7 @@ void ScribusView::TextToPath()
 				if (currItem->asPathText())
 				{
 					QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -hl->PRot, 0 );
-					trafo *= QWMatrix( hl->PtransX, hl->PtransY, hl->PtransY, -hl->PtransX, hl->xp, hl->yp);
+					trafo *= QWMatrix( hl->PtransX, hl->PtransY, hl->PtransY, -hl->PtransX, hl->glyph.xoffset, hl->glyph.yoffset);
 					if (currItem->rotation() != 0)
 					{
 						QWMatrix sca;
@@ -9956,22 +9950,22 @@ void ScribusView::TextToPath()
 						trafo *= sca;
 					}
 					chma.scale(csi, csi);
-					chma2.scale(hl->cscale / 1000.0, hl->cscalev / 1000.0);
+					chma2.scale(hl->scaleH() / 1000.0, hl->scaleV() / 1000.0);
 					if (currItem->reversed())
 					{
 						if (a < currItem->itemText.count()-1)
-							wide = Cwidth(Doc, hl->cfont, chx, hl->csize, currItem->itemText.at(a+1)->ch);
+							wide = Cwidth(Doc, hl->font(), chx, hl->fontSize(), currItem->itemText.at(a+1)->ch);
 						else
-							wide = Cwidth(Doc, hl->cfont, chx, hl->csize);
+							wide = Cwidth(Doc, hl->font(), chx, hl->fontSize());
 						chma3.scale(-1, 1);
 						chma3.translate(-wide, 0);
-						chma4.translate(0, currItem->BaseOffs-((hl->csize / 10.0) * (hl->cscalev / 1000.0)));
+						chma4.translate(0, currItem->BaseOffs-((hl->fontSize() / 10.0) * (hl->scaleV() / 1000.0)));
 					}
 					else
-						chma4.translate(0, currItem->BaseOffs-((hl->csize / 10.0) * (hl->cscalev / 1000.0)));
-					if (hl->cbase != 0)
-						chma6.translate(0, -(hl->csize / 10.0) * (hl->cbase / 1000.0));
-					pts = currItem->itemText.at(a)->cfont->outline(chr);
+						chma4.translate(0, currItem->BaseOffs-((hl->fontSize() / 10.0) * (hl->scaleV() / 1000.0)));
+					if (hl->baselineOffset() != 0)
+						chma6.translate(0, -(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0));
+					pts = currItem->itemText.at(a)->font()->outline(chr);
 					if (pts.size() < 4)
 						continue;
 					pts.map(chma * chma2 * chma3 * chma4 * chma6);
@@ -9986,15 +9980,15 @@ void ScribusView::TextToPath()
 				else
 				{
 					chma.scale(csi, csi);
-					pts = hl->cfont->outline(chr);
+					pts = hl->font()->outline(chr);
 					if (pts.size() < 4)
 						continue;
-					FPoint origin = hl->cfont->origin(chr); 
+					FPoint origin = hl->font()->origin(chr); 
 					x = origin.x() * csi;
 					y = origin.y() * csi;
 					pts.map(chma);
 					chma = QWMatrix();
-					chma.scale(hl->cscale / 1000.0, hl->cscalev / 1000.0);
+					chma.scale(hl->scaleH() / 1000.0, hl->scaleV() / 1000.0);
 					pts.map(chma);
 					chma = QWMatrix();
 					if (currItem->imageFlippedH() && (!currItem->reversed()))
@@ -10016,19 +10010,19 @@ void ScribusView::TextToPath()
 				bb->PoLine = pts.copy();
 				if (!currItem->asPathText())
 					bb->setRotation(currItem->rotation());
-				bb->setFillColor(hl->ccolor);
-				bb->setFillShade(hl->cshade);
-				if (currItem->itemText.at(a)->cstyle & 4)
+				bb->setFillColor(hl->fillColor());
+				bb->setFillShade(hl->fillShade());
+				if (currItem->itemText.at(a)->effects() & ScStyle_Outline)
 				{
-					bb->setLineColor(hl->cstroke);
-					bb->setLineShade(hl->cshade2);
+					bb->setLineColor(hl->strokeColor());
+					bb->setLineShade(hl->strokeShade());
 				}
 				else
 				{
 					bb->setLineColor(CommonStrings::None);
 					bb->setLineShade(100);
 				}
-				bb->setLineWidth(chs * hl->coutline / 10000.0);
+				bb->setLineWidth(chs * hl->outlineWidth() / 10000.0);
 				if (currItem->asPathText())
 					AdjustItemSize(bb);
 				else
@@ -10038,19 +10032,19 @@ void ScribusView::TextToPath()
 					FPoint tp(getMaxClipF(&bb->PoLine));
 					bb->setWidthHeight(tp.x(), tp.y());
 					bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
-					double textX = hl->xp;
-					double textY = hl->yp;
+					double textX = hl->glyph.xoffset;
+					double textY = hl->glyph.yoffset;
 					chma6 = QWMatrix();
-					if (hl->cbase != 0)
-						textY -= (hl->csize / 10.0) * (hl->cbase / 1000.0);
+					if (hl->baselineOffset() != 0)
+						textY -= (hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0);
 					if (a < currItem->itemText.count()-1)
-						wide = Cwidth(Doc, hl->cfont, chx, hl->csize, currItem->itemText.at(a+1)->ch);
+						wide = Cwidth(Doc, hl->font(), chx, hl->fontSize(), currItem->itemText.at(a+1)->ch);
 					else
-						wide = Cwidth(Doc, hl->cfont, chx, hl->csize);
+						wide = Cwidth(Doc, hl->font(), chx, hl->fontSize());
 					if (currItem->imageFlippedH())
 						textX = currItem->width() - textX - wide;
 					if (currItem->imageFlippedV())
-						textY = currItem->height() - textY+ y - (bb->height() - y);
+						textY = currItem->height() - textY + y - (bb->height() - y);
 					FPoint npo(textX+x, textY-y, 0.0, 0.0, currItem->rotation(), 1.0, 1.0);
 					bb->moveBy(npo.x(),npo.y());
 				}

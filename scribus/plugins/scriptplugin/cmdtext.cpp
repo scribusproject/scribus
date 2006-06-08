@@ -30,7 +30,7 @@ PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 	{
 		for (uint b = 0; b < it->itemText.count(); b++)
 			if (it->itemText.at(b)->cselect)
-				return PyFloat_FromDouble(static_cast<double>(it->itemText.at(b)->csize / 10.0));
+				return PyFloat_FromDouble(static_cast<double>(it->itemText.at(b)->fontSize() / 10.0));
 		return NULL;
 	}
 	else
@@ -56,7 +56,7 @@ PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
 	{
 		for (uint b = 0; b < it->itemText.count(); b++)
 			if (it->itemText.at(b)->cselect)
-				return PyString_FromString(it->itemText.at(b)->cfont->scName().utf8());
+				return PyString_FromString(it->itemText.at(b)->font()->scName().utf8());
 		return NULL;
 	}
 	else
@@ -301,8 +301,8 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 		*dynamic_cast<CharStyle*>(hg) = currItem->currentCharStyle();
 		hg->cselect = false;
 		hg->cab = findParagraphStyle(ScMW->doc, ScMW->doc->currentStyle);
-		hg->xp = 0;
-		hg->yp = 0;
+		hg->glyph.xoffset = 0;
+		hg->glyph.yoffset = 0;
 		hg->PRot = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
@@ -681,10 +681,10 @@ PyObject *scribus_settextfill(PyObject* /* self */, PyObject* args)
 			if (it->HasSel)
 			{
 				if (it->itemText.at(b)->cselect)
-					it->itemText.at(b)->ccolor = QString::fromUtf8(Color);
+					it->itemText.at(b)->setFillColor(QString::fromUtf8(Color));
 			}
 			else
-				it->itemText.at(b)->ccolor = QString::fromUtf8(Color);
+				it->itemText.at(b)->setFillColor(QString::fromUtf8(Color));
 		}
 //		it->TxtFill = QString::fromUtf8(Color);
 	}
@@ -715,10 +715,10 @@ PyObject *scribus_settextstroke(PyObject* /* self */, PyObject* args)
 			if (it->HasSel)
 			{
 				if (it->itemText.at(b)->cselect)
-					it->itemText.at(b)->cstroke = QString::fromUtf8(Color);
+					it->itemText.at(b)->setStrokeColor(QString::fromUtf8(Color));
 			}
 			else
-				it->itemText.at(b)->cstroke = QString::fromUtf8(Color);
+				it->itemText.at(b)->setStrokeColor(QString::fromUtf8(Color));
 		}
 //		it->TxtStroke = QString::fromUtf8(Color);
 	}
@@ -754,10 +754,10 @@ PyObject *scribus_settextshade(PyObject* /* self */, PyObject* args)
 			if (it->HasSel)
 			{
 				if (it->itemText.at(b)->cselect)
-					it->itemText.at(b)->cshade = w;
+					it->itemText.at(b)->setFillShade(w);
 			}
 			else
-				it->itemText.at(b)->cshade = w;
+				it->itemText.at(b)->setFillShade(w);
 		}
 //	it->ShTxtFill = w;
 	}

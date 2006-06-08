@@ -23,7 +23,7 @@ enum Action {
 	APPLY
 };
 
-enum Style {
+enum MatchStyle {
 	ALL_PARAGRAPHS,
 	STARTS_WITH,
 	LESS_THAN,

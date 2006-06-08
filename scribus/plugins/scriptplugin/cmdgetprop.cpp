@@ -34,7 +34,7 @@ PyObject *scribus_getlinecolor(PyObject* /* self */, PyObject* args)
 		for (uint b = 0; b < it->itemText.count(); ++b)
 		{
 			if (it->itemText.at(b)->cselect)
-				return PyString_FromString(it->itemText.at(b)->ccolor.utf8());
+				return PyString_FromString(it->itemText.at(b)->fillColor().utf8());
 		}
 	}
 	else
@@ -70,7 +70,7 @@ PyObject *scribus_getlineshade(PyObject* /* self */, PyObject* args)
 		for (uint b = 0; b < it->itemText.count(); ++b)
 		{
 			if (it->itemText.at(b)->cselect)
-				return PyInt_FromLong(static_cast<long>(it->itemText.at(b)->cshade));
+				return PyInt_FromLong(static_cast<long>(it->itemText.at(b)->fillShade()));
 		}
 	}
 	else

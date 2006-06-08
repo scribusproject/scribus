@@ -1643,7 +1643,7 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	gradhelper.gradient.setRepeatMethod( VGradient::none );
 
 	QString href = e.attribute("xlink:href").mid(1);
-	double x1, y1, x2, y2;
+	double x1=0, y1=0, x2=0, y2=0;
 	if (!href.isEmpty())
 	{
 		if (m_gradients.contains(href))
@@ -1829,38 +1829,30 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			{
 				hg = new ScText;
 				hg->ch = Text.at(tt);
-				hg->cfont = (*currDoc->AllFonts)[gc->Family];
-				hg->csize = gc->FontSize;
-				hg->ccolor = gc->FillCol;
-				hg->cextra = 0;
-				hg->cshade = 100;
-				hg->cstroke = gc->StrokeCol;
-				hg->cshade2 = 100;
-				hg->cscale = 1000;
-				hg->cscalev = 1000;
-				hg->cbase = 0;
-				hg->cshadowx = 50;
-				hg->cshadowy = -50;
-				hg->coutline = 10;
-				hg->cunderpos = -1;
-				hg->cunderwidth = -1;
-				hg->cstrikepos = -1;
-				hg->cstrikewidth = -1;
-				hg->cselect = false;
+				hg->setFont((*currDoc->AllFonts)[gc->Family]);
+				hg->setFontSize(gc->FontSize);
+				hg->setFillColor(gc->FillCol);
+				hg->setTracking(0);
+				hg->setFillShade(100);
+				hg->setStrokeColor(gc->StrokeCol);
+				hg->setStrokeShade(100);
+				hg->setScaleH(1000);
+				hg->setScaleV(1000);
+				hg->setBaselineOffset(0);
+				hg->setShadowXOffset(50);
+				hg->setShadowYOffset(-50);
+				hg->setOutlineWidth(10);
+				hg->setUnderlineOffset(-1);
+				hg->setUnderlineWidth(-1);
+				hg->setStrikethruOffset(-1);
+				hg->setStrikethruWidth(-1);
 				if( !tspan.attribute( "stroke" ).isEmpty() )
-					hg->cstyle = ScStyle_Outline;
+					hg->setEffects(ScStyle_Outline);
 				else
-					hg->cstyle = ScStyle_Default;
-				hg->cab = 0;
-				hg->xp = 0;
-				hg->yp = 0;
-				hg->PRot = 0;
-				hg->PtransX = 0;
-				hg->PtransY = 0;
-				hg->cembedded = 0;
+					hg->setEffects(ScStyle_Default);
 				ite->itemText.append(hg);
-				tempW += RealCWidth(currDoc, hg->cfont, hg->ch, hg->csize)+1;
-				if (hg->ch == QChar(13))
+				tempW += RealCWidth(currDoc, hg->font(), hg->ch, hg->fontSize())+1;
+				if (hg->ch == SpecialChars::PARSEP)
 				{
 					ite->setWidthHeight(QMAX(ite->width(), tempW), ite->height() + lineSpacing+desc);
 					tempW = 0;
@@ -1930,37 +1922,29 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		{
 			hg = new ScText;
 			hg->ch = Text.at(cc);
-			hg->cfont = (*currDoc->AllFonts)[gc->Family];
-			hg->csize = gc->FontSize;
-			hg->ccolor = gc->FillCol;
-			hg->cextra = 0;
-			hg->cshade = 100;
-			hg->cstroke = gc->StrokeCol;
-			hg->cshade2 = 100;
-			hg->cscalev = 1000;
-			hg->cscale = 1000;
-			hg->cbase = 0;
-			hg->cshadowx = 50;
-			hg->cshadowy = -50;
-			hg->coutline = 10;
-			hg->cunderpos = -1;
-			hg->cunderwidth = -1;
-			hg->cstrikepos = -1;
-			hg->cstrikewidth = -1;
-			hg->cselect = false;
+			hg->setFont((*currDoc->AllFonts)[gc->Family]);
+			hg->setFontSize(gc->FontSize);
+			hg->setFillColor(gc->FillCol);
+			hg->setTracking(0);
+			hg->setFillShade(100);
+			hg->setStrokeColor(gc->StrokeCol);
+			hg->setStrokeShade(100);
+			hg->setScaleH(1000);
+			hg->setScaleV(1000);
+			hg->setBaselineOffset(0);
+			hg->setShadowXOffset(50);
+			hg->setShadowYOffset(-50);
+			hg->setOutlineWidth(10);
+			hg->setUnderlineOffset(-1);
+			hg->setUnderlineWidth(-1);
+			hg->setStrikethruOffset(-1);
+			hg->setStrikethruWidth(-1);
 			if( !e.attribute( "stroke" ).isEmpty() )
-				hg->cstyle = ScStyle_Outline;
+				hg->setEffects(ScStyle_Outline);
 			else
-				hg->cstyle = ScStyle_Default;
-			hg->cab = 0;
-			hg->xp = 0;
-			hg->yp = 0;
-			hg->PRot = 0;
-			hg->PtransX = 0;
-			hg->PtransY = 0;
-			hg->cembedded = 0;
+				hg->setEffects(ScStyle_Default);
 			ite->itemText.append(hg);
-			ite->setWidth(ite->width() + RealCWidth(currDoc, hg->cfont, hg->ch, hg->csize)+1);
+			ite->setWidth(ite->width() + RealCWidth(currDoc, hg->font(), hg->ch, hg->fontSize())+1);
 			ite->setHeight(gc->FontSize / 10.0 + 2 +desc+2);
 		}
 		ite->SetRectFrame();

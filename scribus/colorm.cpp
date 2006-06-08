@@ -606,9 +606,9 @@ void ColorManager::delUnused()
 			{
 				for (uint d=0; d<ite->itemText.length(); ++d)
 				{
-					if (it.key() == ite->itemText.charStyle(d).ccolor)
+					if (it.key() == ite->itemText.charStyle(d).fillColor())
 						found = true;
-					if (it.key() == ite->itemText.charStyle(d).cstroke)
+					if (it.key() == ite->itemText.charStyle(d).strokeColor())
 						found = true;
 					if (found)
 						break;
@@ -640,9 +640,9 @@ void ColorManager::delUnused()
 			{
 				for (uint d=0; d<ite->itemText.length(); ++d)
 				{
-					if (it.key() == ite->itemText.charStyle(d).ccolor)
+					if (it.key() == ite->itemText.charStyle(d).fillColor())
 						found = true;
-					if (it.key() == ite->itemText.charStyle(d).cstroke)
+					if (it.key() == ite->itemText.charStyle(d).strokeColor())
 						found = true;
 					if (found)
 						break;
@@ -678,8 +678,8 @@ void ColorManager::delUnused()
 				for (uint d=0; d<ite->itemText.length(); ++d)
 				{
 					/* PFJ - 29.02.04 - Merged if's */
-					if ((it.key() == ite->itemText.charStyle(d).ccolor) ||
-							(it.key() == ite->itemText.charStyle(d).cstroke))
+					if ((it.key() == ite->itemText.charStyle(d).fillColor()) ||
+							(it.key() == ite->itemText.charStyle(d).strokeColor()))
 						found = true;
 					if (found)
 						break;

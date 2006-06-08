@@ -375,21 +375,20 @@ QPixmap ScPreview::createPreview(QString data)
 					if (hg->ch == QChar(5))
 						hg->ch = QChar(13);
 					it++;
-					hg->cfont = prefsManager->appPrefs.AvailFonts[*it];
+					hg->setFont(prefsManager->appPrefs.AvailFonts[*it]);
 					it++;
-					hg->csize = qRound((*it).toDouble() * 10.0);
+					hg->setFontSize(qRound((*it).toDouble() * 10.0));
 					it++;
-					hg->ccolor = *it;
+					hg->setFillColor(*it);
 					it++;
-					hg->cextra = (*it).toInt();
+					hg->setTracking((*it).toInt());
 					it++;
-					hg->cshade = (*it).toInt();
-					hg->cselect = false;
+					hg->setFillShade((*it).toInt());
 					it++;
 					if (it == NULL)
-						hg->cstyle = ScStyle_Default;
+						hg->setEffects(ScStyle_Default);
 					else
-						hg->cstyle = static_cast<StyleFlag>((*it).toInt());
+						hg->setEffects(static_cast<StyleFlag>((*it).toInt()));
 					it++;
 					if (it == NULL)
 						hg->cab = 0;
@@ -397,24 +396,20 @@ QPixmap ScPreview::createPreview(QString data)
 						hg->cab = (*it).toInt();
 					it++;
 					if (it == NULL)
-						hg->cstroke = CommonStrings::None;
+						hg->setStrokeColor(CommonStrings::None);
 					else
-						hg->cstroke = *it;
+						hg->setStrokeColor(*it);
 					it++;
 					if (it == NULL)
-						hg->cshade2 = 100;
+						hg->setStrokeShade(100);
 					else
-						hg->cshade2 = (*it).toInt();
+						hg->setStrokeShade((*it).toInt());
 					it++;
 					if (it == NULL)
-						hg->cscale = 100;
+						hg->setScaleH(100);
 					else
-						hg->cscale = (*it).toInt();
-					hg->xp = 0;
-					hg->yp = 0;
-					hg->PRot = 0;
-					hg->PtransX = 0;
-					hg->PtransY = 0;
+						hg->setScaleH((*it).toInt());
+
 					Ptexti.append(hg);
 				}
 #endif
@@ -424,8 +419,8 @@ QPixmap ScPreview::createPreview(QString data)
 			for (uint ct=0; ct<GetAttr(&pg, "NUMTEXT","0").toUInt(); ct++)
 			{
 #ifndef NLS_PROTO
-				ft >> Ptexti.at(ct)->xp;
-				ft >> Ptexti.at(ct)->yp;
+				ft >> Ptexti.at(ct)->glyph.xoffset;
+				ft >> Ptexti.at(ct)->glyph.yoffset;
 #endif
 			}
 			tmpx = "";
@@ -596,38 +591,38 @@ QPixmap ScPreview::createPreview(QString data)
 						if (hl->ch == QChar(13))
 							continue;
 						chx = hl->ch;
-						chs = hl->csize;
+						chs = hl->fontSize();
 						if (chs < 10)
 							continue;
-						if (hl->cstyle != 0)
+						if (hl->effects() != ScStyle_Default)
 						{
-							if (hl->cstyle & 1)
-								chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSettings.scalingSuperScript / 100);
-							if (hl->cstyle & 2)
-								chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSettings.scalingSubScript / 100);
-							if (hl->cstyle & 64)
+							if (hl->effects() & 1)
+								chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typographicSettings.scalingSuperScript / 100);
+							if (hl->effects() & 2)
+								chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typographicSettings.scalingSubScript / 100);
+							if (hl->effects() & 64)
 							{
 								if (chx.upper() != chx)
 								{
-									chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSettings.valueSmallCaps / 100);
+									chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typographicSettings.valueSmallCaps / 100);
 									chx = chx.upper();
 								}
 							}
 						}
 						mode = 0;
-						if (hl->ccolor != CommonStrings::None)
+						if (hl->fillColor() != CommonStrings::None)
 						{
-							SetFarbe(&tmpfa, hl->ccolor, hl->cshade);
+							SetFarbe(&tmpfa, hl->fillColor(), hl->fillShade());
 							pS->setBrush(tmpfa);
 							mode = 2;
 						}
-						if (hl->cstroke != CommonStrings::None)
+						if (hl->strokeColor() != CommonStrings::None)
 						{
-							SetFarbe(&tmpfa, hl->cstroke, hl->cshade2);
+							SetFarbe(&tmpfa, hl->strokeColor(), hl->strokeShade());
 							pS->setPen(tmpfa, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 							mode += 1;
 						}
-						DrawZeichenS(pS, hl->xp, hl->yp, chx, hl->cfont->scName(), OB.Reverse, hl->cstyle, mode, chs);
+						DrawZeichenS(pS, hl->glyph.xoffset, hl->glyph.yoffset, chx, hl->font()->scName(), OB.Reverse, hl->effects(), mode, chs);
 					}
 					pS->restore();
 				}
@@ -801,7 +796,7 @@ QPixmap ScPreview::createPreview(QString data)
 				cl = FlattenPath(OB.PoLine, Segments);
 				CurX = OB.Extra;
 				if (Ptexti.count() != 0)
-					CurX += Ptexti.at(0)->csize * Ptexti.at(0)->cextra / 10000.0;
+					CurX += Ptexti.at(0)->fontSize() * Ptexti.at(0)->tracking() / 10000.0;
 				zae = 0;
 				wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2.0)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2.0));
 				while (wid < 1)
@@ -819,37 +814,37 @@ QPixmap ScPreview::createPreview(QString data)
 					chx = hl->ch;
 					if ((chx == QChar(30)) || (chx == QChar(13)))
 						continue;
-					if (hl->ccolor != CommonStrings::None)
+					if (hl->fillColor() != CommonStrings::None)
 					{
-						SetFarbe(&tmpfa, hl->ccolor, hl->cshade);
+						SetFarbe(&tmpfa, hl->fillColor(), hl->fillShade());
 						pS->setPen(tmpfa);
 					}
-					chs = hl->csize;
-					asce = prefsManager->appPrefs.AvailFonts[hl->cfont->scName()]->ascent() * (hl->csize / 10.0);
-					int chst = hl->cstyle & 127;
+					chs = hl->fontSize();
+					asce = prefsManager->appPrefs.AvailFonts[hl->font()->scName()]->ascent() * (hl->fontSize() / 10.0);
+					int chst = hl->effects() & 127;
 					if (chst != 0)
 					{
 						if (chst & 1)
 						{
 							CurY -= asce * prefsManager->appPrefs.typographicSettings.valueSuperScript / 100;
-							chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSettings.scalingSuperScript / 100);
+							chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typographicSettings.scalingSuperScript / 100);
 						}
 						if (chst & 2)
 						{
 							CurY += asce * prefsManager->appPrefs.typographicSettings.valueSubScript / 100;
-							chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSettings.scalingSubScript / 100);
+							chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typographicSettings.scalingSubScript / 100);
 						}
 						if (chst & 64)
 						{
 							if (chx.upper() != chx)
 							{
-								chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSettings.valueSmallCaps / 100);
+								chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typographicSettings.valueSmallCaps / 100);
 								chx = chx.upper();
 							}
 						}
 					}
-					wide = prefsManager->appPrefs.AvailFonts[hl->cfont->scName()]->charWidth(chx[0])*(chs / 10.0);
-					if ((CurX+(wide+chs * hl->cextra / 10000.0)/2) >= wid)
+					wide = prefsManager->appPrefs.AvailFonts[hl->font()->scName()]->charWidth(chx[0])*(chs / 10.0);
+					if ((CurX+(wide+chs * hl->tracking() / 10000.0)/2) >= wid)
 					{
 						if (zae < cl.size()-1)
 						{
@@ -878,9 +873,9 @@ QPixmap ScPreview::createPreview(QString data)
 					pS->save();
 					pS->translate(cl.point(zae).x(), cl.point(zae).y());
 					pS->rotate(rota);
-					DrawZeichenS(pS, CurX+chs * hl->cextra / 10000.0, CurY+OB.BaseOffs, chx, hl->cfont->scName(), OB.Reverse, hl->cstyle, 2, chs);
+					DrawZeichenS(pS, CurX+chs * hl->tracking() / 10000.0, CurY+OB.BaseOffs, chx, hl->font()->scName(), OB.Reverse, hl->effects(), 2, chs);
 					pS->restore();
-					CurX += wide+chs * hl->cextra / 10000.0;
+					CurX += wide+chs * hl->tracking() / 10000.0;
 				}
 #endif
 			PfadEnd:	break;

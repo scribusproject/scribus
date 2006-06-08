@@ -2935,72 +2935,48 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 	for (; ite->frameDisplays(d); ++d)
 	{
 		const ScText * const hl = ite->itemText.at(d);
-		if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27)) || (hl->ch == QChar(26)))
+		if ((hl->ch == SpecialChars::PARSEP) || (hl->ch == QChar(10)) || (hl->ch == SpecialChars::LINEBREAK) || (hl->ch == SpecialChars::FRAMEBREAK) || (hl->ch == SpecialChars::COLBREAK))
 			continue;
-		if (hl->cstyle & 4096)
+		if (hl->effects() & ScStyle_SuppressSpace)
 			continue;
-		if ((hl->yp == 0) && (ite->asTextFrame()))
+		if ((hl->glyph.yoffset == 0) && (ite->asTextFrame()))
 			continue;
 		if (hl->cab < 5)
 			tTabValues = ite->TabValues;
 		else
 			tTabValues = doc.docParagraphStyles[hl->cab].tabValues();
-		if (hl->cstyle & 16384)
+		if (hl->effects() & ScStyle_StartOfLine)
 			tabCc = 0;
-		if ((hl->ch == QChar(9)) && (tTabValues.count() != 0))
+		if ((hl->ch == SpecialChars::TAB) && (tTabValues.count() != 0))
 		{
 			if ((!tTabValues[tabCc].tabFillChar.isNull()) && (tabCc < tTabValues.count()))
 			{
 				ScText hl2;
-				double wt = Cwidth(&doc, hl->cfont, QString(tTabValues[tabCc].tabFillChar), hl->csize);
-				int coun = static_cast<int>((hl->xp - tabDist) / wt);
-				double sPos = hl->xp - (hl->xp - tabDist) + 1;
-				hl2.ch = QString(tTabValues[tabCc].tabFillChar);
-				hl2.ccolor = hl->ccolor;
-				hl2.cstroke = hl->cstroke;
-				hl2.cshade = hl->cshade;
-				hl2.cshade2 = hl->cshade2;
-				hl2.yp = hl->yp;
+				static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
 				hl2.cselect = hl->cselect;
-				hl2.csize = hl->csize;
-				hl2.cstyle = hl->cstyle;
-				hl2.cfont = hl->cfont;
-				hl2.cextra = 0;
-				hl2.cscale = 1000;
-				hl2.cscalev = 1000;
-				hl2.cbase = hl->cbase;
-				hl2.cshadowx = hl->cshadowx;
-				hl2.cshadowy = hl->cshadowy;
-				hl2.coutline = hl->coutline;
-				hl2.cunderpos = hl->cunderpos;
-				hl2.cunderwidth = hl->cunderwidth;
-				hl2.cstrikepos = hl->cstrikepos;
-				hl2.cstrikewidth = hl->cstrikewidth;
+
+				double wt = Cwidth(&doc, hl->font(), QString(tTabValues[tabCc].tabFillChar), hl->fontSize());
+				int coun = static_cast<int>((hl->glyph.xoffset - tabDist) / wt);
+				double sPos = hl->glyph.xoffset - (hl->glyph.xoffset - tabDist) + 1;
+				hl2.ch = QString(tTabValues[tabCc].tabFillChar);
+
+				hl2.setTracking(0);
+				hl2.setScaleH(1000);
+				hl2.setScaleV(1000);
+
+				hl2.glyph.yoffset = hl->glyph.yoffset;
 				for (int cx = 0; cx < coun; ++cx)
 				{
-					hl2.xp =  sPos + wt * cx;
-					if ((hl2.cstyle & 256) && (hl2.cstroke != CommonStrings::None))
+					hl2.glyph.xoffset =  sPos + wt * cx;
+					if ((hl2.effects() & ScStyle_Shadowed) && (hl2.strokeColor() != CommonStrings::None))
 					{
 						ScText hl3;
+						static_cast<CharStyle&>(hl3) = static_cast<const CharStyle&>(hl2);
 						hl3.ch = hl2.ch;
-						hl3.ccolor = hl2.cstroke;
-						hl3.cstroke = hl2.cstroke;
-						hl3.cshade = hl2.cshade2;
-						hl3.cshade2 = hl2.cshade2;
-						hl3.yp = hl2.yp - (hl2.csize * hl2.cshadowy / 10000.0);
-						hl3.xp = hl2.xp + (hl2.csize * hl2.cshadowx / 10000.0);
-						hl3.csize = hl2.csize;
-						hl3.cstyle = hl2.cstyle;
-						hl3.cfont = hl2.cfont;
-						hl3.cscale = hl2.cscale;
-						hl3.cscalev = hl2.cscalev;
-						hl3.cextra = hl2.cextra;
-						hl3.cbase = hl2.cbase;
-						hl3.coutline = hl2.coutline;
-						hl3.cunderpos = hl2.cunderpos;
-						hl3.cunderwidth = hl2.cunderwidth;
-						hl3.cstrikepos = hl2.cstrikepos;
-						hl3.cstrikewidth = hl2.cstrikewidth;
+
+						hl3.glyph.yoffset = hl2.glyph.yoffset - (hl2.fontSize() * hl2.shadowYOffset() / 10000.0);
+						hl3.glyph.xoffset = hl2.glyph.xoffset + (hl2.fontSize() * hl2.shadowXOffset() / 10000.0);
+
 						setTextCh(ite, PNr, d, tmp, tmp2, &hl3, pag);
 					}
 					setTextCh(ite, PNr, d, tmp, tmp2, &hl2, pag);
@@ -3014,36 +2990,22 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 				continue;
 			}
 		}
-		if (hl->ch == QChar(9))
+		if (hl->ch == SpecialChars::TAB)
 			continue;
-		if ((hl->cstyle & 256) && (hl->cstroke != CommonStrings::None))
+		if ((hl->effects() & ScStyle_Shadowed) && (hl->strokeColor() != CommonStrings::None))
 		{
 			ScText hl2;
 			hl2.ch = hl->ch;
-			hl2.ccolor = hl->cstroke;
-			hl2.cstroke = hl->cstroke;
-			hl2.cshade = hl->cshade2;
-			hl2.cshade2 = hl->cshade2;
-			hl2.yp = hl->yp - (hl->csize * hl->cshadowy / 10000.0);
-			hl2.xp = hl->xp + (hl->csize * hl->cshadowx / 10000.0);
-			hl2.csize = hl->csize;
-			hl2.cstyle = hl->cstyle;
-			hl2.cfont = hl->cfont;
-			hl2.cscale = hl->cscale;
-			hl2.cscalev = hl->cscalev;
-			hl2.cextra = hl->cextra;
-			hl2.cbase = hl->cbase;
-			hl2.cshadowx = hl->cshadowx;
-			hl2.cshadowy = hl->cshadowy;
-			hl2.coutline = hl->coutline;
-			hl2.cunderpos = hl->cunderpos;
-			hl2.cunderwidth = hl->cunderwidth;
-			hl2.cstrikepos = hl->cstrikepos;
-			hl2.cstrikewidth = hl->cstrikewidth;
+			static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
+			hl2.cselect = hl->cselect;
+
+			hl2.glyph.yoffset = hl->glyph.yoffset - (hl->fontSize() * hl->shadowYOffset() / 10000.0);
+			hl2.glyph.xoffset = hl->glyph.xoffset + (hl->fontSize() * hl->shadowXOffset() / 10000.0);
+
 			setTextCh(ite, PNr, d, tmp, tmp2, &hl2, pag);
 		}
 		setTextCh(ite, PNr, d, tmp, tmp2, hl, pag);
-		tabDist = hl->xp + Cwidth(&doc, hl->cfont, hl->ch, hl->csize) * (hl->cscale / 1000.0);
+		tabDist = hl->glyph.xoffset + Cwidth(&doc, hl->font(), hl->ch, hl->fontSize()) * (hl->scaleH() / 1000.0);
 	}
 #endif
 	if (ite->itemType() == PageItem::TextFrame)
@@ -3060,26 +3022,26 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	{
 		tmp += "q\n";
 		QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -hl->PRot, 0 );
-		trafo *= QWMatrix( hl->PtransX, -hl->PtransY, -hl->PtransY, -hl->PtransX, hl->xp, -hl->yp );
+		trafo *= QWMatrix( hl->PtransX, -hl->PtransY, -hl->PtransY, -hl->PtransX, hl->glyph.xoffset, -hl->glyph.yoffset );
 		tmp += FToStr(trafo.m11())+" "+FToStr(trafo.m12())+" "+FToStr(trafo.m21())+" "+FToStr(trafo.m22())+" "+FToStr(trafo.dx())+" "+FToStr(trafo.dy())+" cm\n";
 		if (ite->BaseOffs != 0)
 			tmp += "1 0 0 1 0 "+FToStr( -ite->BaseOffs)+" cm\n";
 		tmp += "BT\n";
 	}
-	int tsz = hl->csize;
+	int tsz = hl->fontSize();
 	QString chx = hl->ch;
-	if (hl->cstyle & 2048)
+	if (hl->effects() & ScStyle_DropCap)
 	{
 		if (doc.docParagraphStyles[hl->cab].useBaselineGrid())
-			tsz = qRound(10 * ((doc.typographicSettings.valueBaseGrid * (doc.docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (doc.docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(&doc, hl->cfont, chx, 10))));
+			tsz = qRound(10 * ((doc.typographicSettings.valueBaseGrid * (doc.docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->font()->ascent() * (doc.docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(&doc, hl->font(), chx, 10))));
 		else
 		{
 			if (doc.docParagraphStyles[hl->cab].lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-				tsz = qRound(10 * ((doc.docParagraphStyles[hl->cab].lineSpacing() *  (doc.docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (doc.docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(&doc, hl->cfont, chx, 10))));
+				tsz = qRound(10 * ((doc.docParagraphStyles[hl->cab].lineSpacing() *  (doc.docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->font()->ascent() * (doc.docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(&doc, hl->font(), chx, 10))));
 			else
 			{
-				double currasce = RealFHeight(&doc, hl->cfont, doc.docParagraphStyles[hl->cab].charStyle().fontSize());
-				tsz = qRound(10 * ((currasce * (doc.docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->cfont->ascent() * (doc.docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCHeight(&doc, hl->cfont, chx, 10)));
+				double currasce = RealFHeight(&doc, hl->font(), doc.docParagraphStyles[hl->cab].charStyle().fontSize());
+				tsz = qRound(10 * ((currasce * (doc.docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->font()->ascent() * (doc.docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCHeight(&doc, hl->font(), chx, 10)));
 			}
 		}
 	}
@@ -3109,15 +3071,15 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		{
 			PageItem* embedded = emG.at(em);
 			tmp2 += "q\n";
-			tmp2 +=  FToStr(hl->cscale / 1000.0)+" 0 0 "+FToStr(hl->cscalev / 1000.0)+" "+FToStr(hl->xp + embedded->gXpos * (hl->cscale / 1000.0))+" "+FToStr(-hl->yp + (embedded->gHeight * (hl->cscalev / 1000.0)) - embedded->gYpos * (hl->cscalev / 1000.0)+embedded->gHeight * (hl->cbase / 1000.0))+" cm\n";
+			tmp2 +=  FToStr(hl->scaleH() / 1000.0)+" 0 0 "+FToStr(hl->scaleV() / 1000.0)+" "+FToStr(hl->glyph.xoffset + embedded->gXpos * (hl->scaleH() / 1000.0))+" "+FToStr(-hl->glyph.yoffset + (embedded->gHeight * (hl->scaleV() / 1000.0)) - embedded->gYpos * (hl->scaleV() / 1000.0)+embedded->gHeight * (hl->baselineOffset() / 1000.0))+" cm\n";
 			tmp2 += PDF_ProcessItem(embedded, pag, PNr, true);
 			tmp2 += "Q\n";
 		}
 		return;
 	}
-	if (hl->ch == QChar(29))
+	if (hl->ch == SpecialChars::NBSPACE)
 		chx = " ";
-	if (hl->ch == QChar(24))
+	if (hl->ch == SpecialChars::NBHYPHEN)
 		chx = "-";
 	if (hl->ch == QChar(0xA0))
 		chx = " ";
@@ -3150,68 +3112,68 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 	uint cc = chx[0].unicode();
 	uint idx = 0;
-	if (GlyphsIdxOfFont[hl->cfont->scName()].contains(cc))
-		idx = GlyphsIdxOfFont[hl->cfont->scName()][cc].Code;
+	if (GlyphsIdxOfFont[hl->font()->scName()].contains(cc))
+		idx = GlyphsIdxOfFont[hl->font()->scName()][cc].Code;
 	uint idx1 = (idx >> 8) & 0xFF;
-	if (hl->cstyle & 32)
+	if (hl->effects() & ScStyle_AllCaps)
 	{
 		if (chx.upper() != chx)
 			chx = chx.upper();
 	}
-	if (hl->cstyle & 64)
+	if (hl->effects() & ScStyle_SmallCaps)
 	{
 		if (chx.upper() != chx)
 		{
-			tsz = hl->csize * doc.typographicSettings.valueSmallCaps / 100;
+			tsz = hl->fontSize() * doc.typographicSettings.valueSmallCaps / 100;
 			chx = chx.upper();
 		}
 	}
-	if (hl->cstyle & 1)
-		tsz = hl->csize * doc.typographicSettings.scalingSuperScript / 100;
-	if (hl->cstyle & 2)
-		tsz = hl->csize * doc.typographicSettings.scalingSubScript / 100;
-	if (hl->cstroke != CommonStrings::None)
+	if (hl->effects() & ScStyle_Superscript)
+		tsz = hl->fontSize() * doc.typographicSettings.scalingSuperScript / 100;
+	if (hl->effects() & ScStyle_Subscript)
+		tsz = hl->fontSize() * doc.typographicSettings.scalingSubScript / 100;
+	if (hl->strokeColor() != CommonStrings::None)
 	{
 		StrokeColor = "";
-		StrokeColor += putColor(hl->cstroke, hl->cshade2, false);
+		StrokeColor += putColor(hl->strokeColor(), hl->strokeShade(), false);
 	}
-	if (hl->ccolor != CommonStrings::None)
+	if (hl->fillColor() != CommonStrings::None)
 	{
 		FillColor = "";
-		FillColor += putColor(hl->ccolor, hl->cshade, true);
+		FillColor += putColor(hl->fillColor(), hl->fillShade(), true);
 	}
-	if ((hl->cfont->isOTF()) || (!hl->cfont->hasNames()) || (hl->cfont->subset()) || (Options.SubsetList.contains(hl->cfont->scName())))
+	if ((hl->font()->isOTF()) || (!hl->font()->hasNames()) || (hl->font()->subset()) || (Options.SubsetList.contains(hl->font()->scName())))
 	{
 		uint chr = chx[0].unicode();
-		if ((hl->cfont->canRender(chx[0])) && (chr != 32))
+		if ((hl->font()->canRender(chx[0])) && (chr != 32))
 		{
-			if ((hl->cstroke != CommonStrings::None) && (hl->cstyle & 4))
+			if ((hl->strokeColor() != CommonStrings::None) && (hl->effects() & ScStyle_Outline))
 			{
-				tmp2 += FToStr((tsz * hl->coutline / 1000.0) / tsz)+" w\n[] 0 d\n0 J\n0 j\n";
+				tmp2 += FToStr((tsz * hl->outlineWidth() / 1000.0) / tsz)+" w\n[] 0 d\n0 J\n0 j\n";
 				tmp2 += StrokeColor;
 			}
-			if (hl->ccolor != CommonStrings::None)
+			if (hl->fillColor() != CommonStrings::None)
 				tmp2 += FillColor;
 			tmp2 += "q\n";
 			if (ite->itemType() == PageItem::PathText)
 			{
 				QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -hl->PRot, 0 );
-				trafo *= QWMatrix( hl->PtransX, -hl->PtransY, -hl->PtransY, -hl->PtransX, hl->xp, -hl->yp );
+				trafo *= QWMatrix( hl->PtransX, -hl->PtransY, -hl->PtransY, -hl->PtransX, hl->glyph.xoffset, -hl->glyph.yoffset );
 				tmp2 += FToStr(trafo.m11())+" "+FToStr(trafo.m12())+" "+FToStr(trafo.m21())+" "+FToStr(trafo.m22())+" "+FToStr(trafo.dx())+" "+FToStr(trafo.dy())+" cm\n";
 			}
 			if (!ite->asPathText())
 			{
 				if (ite->reversed())
 				{
-					double wid = Cwidth(&doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
-					tmp2 += "1 0 0 1 "+FToStr(hl->xp)+" "+FToStr((hl->yp - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (hl->cbase / 1000.0)))+" cm\n";
+					double wid = Cwidth(&doc, hl->font(), chx, hl->fontSize()) * (hl->scaleH() / 1000.0);
+					tmp2 += "1 0 0 1 "+FToStr(hl->glyph.xoffset)+" "+FToStr((hl->glyph.yoffset - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (hl->baselineOffset() / 1000.0)))+" cm\n";
 					tmp2 += "-1 0 0 1 0 0 cm\n";
 					tmp2 += "1 0 0 1 "+FToStr(-wid)+" 0 cm\n";
 					tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" 0 0 cm\n";
 				}
 				else
 				{
-					tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" "+FToStr(hl->xp)+" "+FToStr((hl->yp - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (hl->cbase / 1000.0)))+" cm\n";
+					tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" "+FToStr(hl->glyph.xoffset)+" "+FToStr((hl->glyph.yoffset - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (hl->baselineOffset() / 1000.0)))+" cm\n";
 				}
 			}
 			else
@@ -3220,14 +3182,14 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 					tmp2 += "1 0 0 1 0 "+FToStr( -ite->BaseOffs)+" cm\n";
 				tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" 0 "+FToStr(tsz / 10.0)+" cm\n";
 			}
-			if (hl->cscalev != 1000)
-				tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (hl->cscalev / 1000.0)) / (tsz / 10.0)) * -1)+" cm\n";
-			tmp2 += FToStr(QMIN(QMAX(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 100), 4000) / 1000.0)+" 0 0 cm\n";
-			if (hl->ccolor != CommonStrings::None)
-				tmp2 += "/"+hl->cfont->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(chr)+" Do\n";
-			if (hl->cstyle & 4)
+			if (hl->scaleV() != 1000)
+				tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (hl->scaleV() / 1000.0)) / (tsz / 10.0)) * -1)+" cm\n";
+			tmp2 += FToStr(QMIN(QMAX(hl->scaleH(), 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->scaleV(), 100), 4000) / 1000.0)+" 0 0 cm\n";
+			if (hl->fillColor() != CommonStrings::None)
+				tmp2 += "/"+hl->font()->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(chr)+" Do\n";
+			if (hl->effects() & ScStyle_Outline)
 			{
-				FPointArray gly = hl->cfont->outline(chr).copy();
+				FPointArray gly = hl->font()->outline(chr).copy();
 				QWMatrix mat;
 				mat.scale(0.1, 0.1);
 				gly.map(mat);
@@ -3259,14 +3221,14 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 				}
 				tmp2 += "s\n";
 			}
-			if (hl->cstyle & 8192)
+			if (hl->effects() & ScStyle_SmartHyphenVisible)
 			{
-				int chs = hl->csize;
-				double wtr = Cwidth(&doc, hl->cfont, chx, chs) * (hl->cscale / 1000.0);
+				int chs = hl->fontSize();
+				double wtr = Cwidth(&doc, hl->font(), chx, chs) * (hl->scaleH() / 1000.0);
 				tmp2 += "1 0 0 1 "+FToStr(wtr / (tsz / 10.0))+" 0 cm\n";
 				chx = "-";
 				chr = chx[0].unicode();
-				FPointArray gly = hl->cfont->outline(chr).copy();
+				FPointArray gly = hl->font()->outline(chr).copy();
 				QWMatrix mat;
 				mat.scale(0.1, 0.1);
 				gly.map(mat);
@@ -3305,136 +3267,136 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	{
 		cc = chx[0].unicode();
 		idx = 0;
-		if (GlyphsIdxOfFont[hl->cfont->scName()].contains(cc))
-			idx = GlyphsIdxOfFont[hl->cfont->scName()][cc].Code;
+		if (GlyphsIdxOfFont[hl->font()->scName()].contains(cc))
+			idx = GlyphsIdxOfFont[hl->font()->scName()][cc].Code;
 		idx1 = (idx >> 8) & 0xFF;
-		tmp += UsedFontsP[hl->cfont->scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
-		if (hl->cstroke != CommonStrings::None)
+		tmp += UsedFontsP[hl->font()->scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
+		if (hl->strokeColor() != CommonStrings::None)
 		{
 			tmp += StrokeColor;
-			if ((hl->cstyle & 8) || (hl->cstyle & 16))
+			if ((hl->effects() & ScStyle_Underline) || (hl->effects() & ScStyle_Strikethrough))
 				tmp2 += StrokeColor;
 		}
-		if (hl->ccolor != CommonStrings::None)
+		if (hl->fillColor() != CommonStrings::None)
 		{
 			tmp += FillColor;
-			if ((hl->cstyle & 8) || (hl->cstyle & 16))
+			if ((hl->effects() & ScStyle_Underline) || (hl->effects() & ScStyle_Strikethrough))
 				tmp2 += FillColor;
 		}
-		if (hl->cstyle & 4)
-			tmp += FToStr(tsz * hl->coutline / 10000.0) + (hl->ccolor != CommonStrings::None ? " w 2 Tr\n" : " w 1 Tr\n");
+		if (hl->effects() & 4)
+			tmp += FToStr(tsz * hl->outlineWidth() / 10000.0) + (hl->fillColor() != CommonStrings::None ? " w 2 Tr\n" : " w 1 Tr\n");
 		else
 			tmp += "0 Tr\n";
 		if (!ite->asPathText())
 		{
 			if (ite->reversed())
 			{
-				int chs = hl->csize;
+				int chs = hl->fontSize();
 				double wtr;
 				if (ite->frameDisplays(d+1))
 				{
 					QString ctx = ite->itemText.at(d+1)->ch;
-					if (ctx == QChar(29))
+					if (ctx == SpecialChars::NBSPACE)
 						ctx = " ";
 					if (ctx == QChar(0xA0))
 						ctx = " ";
-					wtr = Cwidth(&doc, hl->cfont, chx, chs, ctx) * (hl->cscale / 1000.0);
+					wtr = Cwidth(&doc, hl->font(), chx, chs, ctx) * (hl->scaleH() / 1000.0);
 				}
 				else
-					wtr = Cwidth(&doc, hl->cfont, chx, chs) * (hl->cscale / 1000.0);
-				tmp +=  FToStr(-QMIN(QMAX(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 100), 4000) / 1000.0)+" "+FToStr(hl->xp+wtr)+" "+FToStr(-hl->yp+(hl->csize / 10.0) * (hl->cbase / 1000.0))+" Tm\n";
+					wtr = Cwidth(&doc, hl->font(), chx, chs) * (hl->scaleH() / 1000.0);
+				tmp +=  FToStr(-QMIN(QMAX(hl->scaleH(), 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->scaleV(), 100), 4000) / 1000.0)+" "+FToStr(hl->glyph.xoffset+wtr)+" "+FToStr(-hl->glyph.yoffset+(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0))+" Tm\n";
 //				tmp += "-1 0 0 1 "+FToStr(wtr)+" "+FToStr(0)+" Tm\n";
 			}
 			else
-				tmp +=  FToStr(QMIN(QMAX(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 100), 4000) / 1000.0)+" "+FToStr(hl->xp)+" "+FToStr(-hl->yp+(hl->csize / 10.0) * (hl->cbase / 1000.0))+" Tm\n";
+				tmp +=  FToStr(QMIN(QMAX(hl->scaleH(), 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->scaleV(), 100), 4000) / 1000.0)+" "+FToStr(hl->glyph.xoffset)+" "+FToStr(-hl->glyph.yoffset+(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0))+" Tm\n";
 		}
 		else
-			tmp += FToStr(QMIN(QMAX(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 100), 4000) / 1000.0)+" 0 0 Tm\n";
+			tmp += FToStr(QMIN(QMAX(hl->scaleH(), 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->scaleV(), 100), 4000) / 1000.0)+" 0 0 Tm\n";
 		uchar idx2 = idx & 0xFF;
 		tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 		if (! ite->asPathText())
 		{
-			if (hl->cstyle & 8192)
+			if (hl->effects() & ScStyle_SmartHyphenVisible)
 			{
-				int chs = hl->csize;
-				double wtr = Cwidth(&doc, hl->cfont, chx, chs) * (hl->cscale / 1000.0);
-				tmp += "1 0 0 1 "+FToStr(hl->xp+wtr)+" "+FToStr(-hl->yp)+" Tm\n";
+				int chs = hl->fontSize();
+				double wtr = Cwidth(&doc, hl->font(), chx, chs) * (hl->scaleH() / 1000.0);
+				tmp += "1 0 0 1 "+FToStr(hl->glyph.xoffset+wtr)+" "+FToStr(-hl->glyph.yoffset)+" Tm\n";
 				chx = "-";
 				cc = chx[0].unicode();
 				idx = 0;
-				if (GlyphsIdxOfFont[hl->cfont->scName()].contains(cc))
-					idx = GlyphsIdxOfFont[hl->cfont->scName()][cc].Code;
+				if (GlyphsIdxOfFont[hl->font()->scName()].contains(cc))
+					idx = GlyphsIdxOfFont[hl->font()->scName()][cc].Code;
 				idx1 = (idx >> 8) & 0xFF;
-				tmp += UsedFontsP[hl->cfont->scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
+				tmp += UsedFontsP[hl->font()->scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 				idx2 = idx & 0xFF;
 				tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 			}
 		}
 	}
-	if (((hl->cstyle & 8) && (chx != QChar(13)))  || ((hl->cstyle & 512) && (!chx[0].isSpace())))
+	if (((hl->effects() & ScStyle_Underline) && (chx != SpecialChars::PARSEP))  || ((hl->effects() & ScStyle_UnderlineWords) && (!chx[0].isSpace())))
 	{
-		double Ulen = Cwidth(&doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
+		double Ulen = Cwidth(&doc, hl->font(), chx, hl->fontSize()) * (hl->scaleH() / 1000.0);
 		double Upos, Uwid, kern;
-		if (hl->cstyle & 16384)
+		if (hl->effects() & ScStyle_StartOfLine)
 			kern = 0;
 		else
-			kern = hl->csize * hl->cextra / 10000.0;
-		if ((hl->cunderpos != -1) || (hl->cunderwidth != -1))
+			kern = hl->fontSize() * hl->tracking() / 10000.0;
+		if ((hl->underlineOffset() != -1) || (hl->underlineWidth() != -1))
 		{
-			if (hl->cunderpos != -1)
-				Upos = (hl->cunderpos / 1000.0) * (hl->cfont->descent() * (hl->csize / 10.0));
+			if (hl->underlineOffset() != -1)
+				Upos = (hl->underlineOffset() / 1000.0) * (hl->font()->descent() * (hl->fontSize() / 10.0));
 			else
-				Upos = hl->cfont->underlinePos() * (hl->csize / 10.0);
-			if (hl->cunderwidth != -1)
-				Uwid = (hl->cunderwidth / 1000.0) * (hl->csize / 10.0);
+				Upos = hl->font()->underlinePos() * (hl->fontSize() / 10.0);
+			if (hl->underlineWidth() != -1)
+				Uwid = (hl->underlineWidth() / 1000.0) * (hl->fontSize() / 10.0);
 			else
-				Uwid = QMAX(hl->cfont->strokeWidth() * (hl->csize / 10.0), 1);
+				Uwid = QMAX(hl->font()->strokeWidth() * (hl->fontSize() / 10.0), 1);
 		}
 		else
 		{
-			Upos = hl->cfont->underlinePos() * (hl->csize / 10.0);
-			Uwid = QMAX(hl->cfont->strokeWidth() * (hl->csize / 10.0), 1);
+			Upos = hl->font()->underlinePos() * (hl->fontSize() / 10.0);
+			Uwid = QMAX(hl->font()->strokeWidth() * (hl->fontSize() / 10.0), 1);
 		}
-		if (hl->cbase != 0)
-			Upos += (hl->csize / 10.0) * (hl->cbase / 1000.0);
-		if (hl->ccolor != CommonStrings::None)
-			tmp2 += putColor(hl->ccolor, hl->cshade, false);
+		if (hl->baselineOffset() != 0)
+			Upos += (hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0);
+		if (hl->fillColor() != CommonStrings::None)
+			tmp2 += putColor(hl->fillColor(), hl->fillShade(), false);
 		tmp2 += FToStr(Uwid)+" w\n";
-		tmp2 += FToStr(hl->xp-kern)+" "+FToStr(-hl->yp+Upos)+" m\n";
-		tmp2 += FToStr(hl->xp+Ulen)+" "+FToStr(-hl->yp+Upos)+" l\n";
+		tmp2 += FToStr(hl->glyph.xoffset-kern)+" "+FToStr(-hl->glyph.yoffset+Upos)+" m\n";
+		tmp2 += FToStr(hl->glyph.xoffset+Ulen)+" "+FToStr(-hl->glyph.yoffset+Upos)+" l\n";
 		tmp2 += "S\n";
 	}
-	if ((hl->cstyle & 16) && (chx != QChar(13)))
+	if ((hl->effects() & ScStyle_Strikethrough) && (chx != SpecialChars::PARSEP))
 	{
-		double Ulen = Cwidth(&doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
+		double Ulen = Cwidth(&doc, hl->font(), chx, hl->fontSize()) * (hl->scaleH() / 1000.0);
 		double Upos, Uwid, kern;
-		if (hl->cstyle & 16384)
+		if (hl->effects() & ScStyle_StartOfLine)
 			kern = 0;
 		else
-			kern = hl->csize * hl->cextra / 10000.0;
-		if ((hl->cstrikepos != -1) || (hl->cstrikewidth != -1))
+			kern = hl->fontSize() * hl->tracking() / 10000.0;
+		if ((hl->strikethruOffset() != -1) || (hl->strikethruWidth() != -1))
 		{
-			if (hl->cstrikepos != -1)
-				Upos = (hl->cstrikepos / 1000.0) * (hl->cfont->ascent() * (hl->csize / 10.0));
+			if (hl->strikethruOffset() != -1)
+				Upos = (hl->strikethruOffset() / 1000.0) * (hl->font()->ascent() * (hl->fontSize() / 10.0));
 			else
-				Upos = hl->cfont->strikeoutPos() * (hl->csize / 10.0);
-			if (hl->cstrikewidth != -1)
-				Uwid = (hl->cstrikewidth / 1000.0) * (hl->csize / 10.0);
+				Upos = hl->font()->strikeoutPos() * (hl->fontSize() / 10.0);
+			if (hl->strikethruWidth() != -1)
+				Uwid = (hl->strikethruWidth() / 1000.0) * (hl->fontSize() / 10.0);
 			else
-				Uwid = QMAX(hl->cfont->strokeWidth() * (hl->csize / 10.0), 1);
+				Uwid = QMAX(hl->font()->strokeWidth() * (hl->fontSize() / 10.0), 1);
 		}
 		else
 		{
-			Upos = hl->cfont->strikeoutPos() * (hl->csize / 10.0);
-			Uwid = QMAX(hl->cfont->strokeWidth() * (hl->csize / 10.0), 1);
+			Upos = hl->font()->strikeoutPos() * (hl->fontSize() / 10.0);
+			Uwid = QMAX(hl->font()->strokeWidth() * (hl->fontSize() / 10.0), 1);
 		}
-		if (hl->cbase != 0)
-			Upos += (hl->csize / 10.0) * (hl->cbase / 1000.0);
-		if (hl->ccolor != CommonStrings::None)
-			tmp2 += putColor(hl->ccolor, hl->cshade, false);
+		if (hl->baselineOffset() != 0)
+			Upos += (hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0);
+		if (hl->fillColor() != CommonStrings::None)
+			tmp2 += putColor(hl->fillColor(), hl->fillShade(), false);
 		tmp2 += FToStr(Uwid)+" w\n";
-		tmp2 += FToStr(hl->xp-kern)+" "+FToStr(-hl->yp+Upos)+" m\n";
-		tmp2 += FToStr(hl->xp+Ulen)+" "+FToStr(-hl->yp+Upos)+" l\n";
+		tmp2 += FToStr(hl->glyph.xoffset-kern)+" "+FToStr(-hl->glyph.yoffset+Upos)+" m\n";
+		tmp2 += FToStr(hl->glyph.xoffset+Ulen)+" "+FToStr(-hl->glyph.yoffset+Upos)+" l\n";
 		tmp2 += "S\n";
 	}
 	if (ite->asPathText())

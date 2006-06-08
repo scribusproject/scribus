@@ -153,37 +153,37 @@ void gtAction::write(const QString& text, gtStyle *style)
 		if ((inPara) && (!overridePStyleFont))
 		{
 			if (ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().font() == &Foi::NONE)
-				newStyle.cfont = (*ScMW->doc->AllFonts)[fontName2];
+				newStyle.setFont((*ScMW->doc->AllFonts)[fontName2]);
 			else
-				newStyle.cfont = ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().font();
-			newStyle.csize = ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().fontSize();
-			newStyle.ccolor = ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().fillColor();
-			newStyle.cshade = ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().fillShade();
-			newStyle.cstroke = ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().strokeColor();
-			newStyle.cshade2 = ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().strokeShade();
-			newStyle.cstyle = ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().effects();
+				newStyle.setFont(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().font());
+			newStyle.setFontSize(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().fontSize());
+			newStyle.setFillColor(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().fillColor());
+			newStyle.setFillShade(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().fillShade());
+			newStyle.setStrokeColor(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().strokeColor());
+			newStyle.setStrokeShade(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().strokeShade());
+			newStyle.setEffects(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().effects());
 		}
 		else
 		{
-			newStyle.cfont = (*ScMW->doc->AllFonts)[fontName];
-			newStyle.csize = font->getSize();
-			newStyle.ccolor = parseColor(font->getColor());
-			newStyle.cshade = font->getShade();
-			newStyle.cstroke = parseColor(font->getStrokeColor());
-			newStyle.cshade2 = font->getStrokeShade();
-			newStyle.cstyle = static_cast<StyleFlag>(font->getEffectsValue());
+			newStyle.setFont((*ScMW->doc->AllFonts)[fontName]);
+			newStyle.setFontSize(font->getSize());
+			newStyle.setFillColor(parseColor(font->getColor()));
+			newStyle.setFillShade(font->getShade());
+			newStyle.setStrokeColor(parseColor(font->getStrokeColor()));
+			newStyle.setStrokeShade(font->getStrokeShade());
+			newStyle.setEffects(static_cast<StyleFlag>(font->getEffectsValue()));
 		}
-		newStyle.cscale = font->getHscale();
-		newStyle.cscalev = 1000;
-		newStyle.cbase = 0;
-		newStyle.cshadowx = 50;
-		newStyle.cshadowy = -50;
-		newStyle.coutline = 10;
-		newStyle.cunderpos = -1;
-		newStyle.cunderwidth = -1;
-		newStyle.cstrikepos = -1;
-		newStyle.cstrikewidth = -1;
-		newStyle.cextra = font->getKerning();
+		newStyle.setScaleH(font->getHscale());
+		newStyle.setScaleV(1000);
+		newStyle.setBaselineOffset(0);
+		newStyle.setShadowXOffset(50);
+		newStyle.setShadowYOffset(-50);
+		newStyle.setOutlineWidth(10);
+		newStyle.setUnderlineOffset(-1);
+		newStyle.setUnderlineWidth(-1);
+		newStyle.setStrikethruOffset(-1);
+		newStyle.setStrikethruWidth(-1);
+		newStyle.setTracking(font->getKerning());
 		int pos = it->itemText.length();
 		it->itemText.insertChars(pos, QString(ch));
 		if (newStyle != lastStyle) {
@@ -348,8 +348,8 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.setFirstIndent(pstyle->getFirstLineIndent());
 	vg.setGapBefore(pstyle->getSpaceAbove());
 	vg.setGapAfter(pstyle->getSpaceBelow());
-	vg.charStyle().cfont = validateFont(font);
-	vg.charStyle().csize = font->getSize();
+	vg.charStyle().setFont(validateFont(font));
+	vg.charStyle().setFontSize(font->getSize());
 	vg.tabValues().clear();
 	QValueList<ParagraphStyle::TabRecord> *tabs = pstyle->getTabValues();
 	for (uint i = 0; i < tabs->size(); ++i)
@@ -360,23 +360,23 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.setHasDropCap(pstyle->hasDropCap());
 	vg.setDropCapLines(pstyle->getDropCapHeight());
 	vg.setDropCapOffset(0);
-	vg.charStyle().cstyle = static_cast<StyleFlag>(font->getEffectsValue());
-	vg.charStyle().ccolor = parseColor(font->getColor());
-	vg.charStyle().cshade = font->getShade();
-	vg.charStyle().cstroke = parseColor(font->getStrokeColor());
-	vg.charStyle().cshade2 = font->getStrokeShade();
+	vg.charStyle().setEffects(static_cast<StyleFlag>(font->getEffectsValue()));
+	vg.charStyle().setFillColor(parseColor(font->getColor()));
+	vg.charStyle().setFillShade(font->getShade());
+	vg.charStyle().setStrokeColor(parseColor(font->getStrokeColor()));
+	vg.charStyle().setStrokeShade(font->getStrokeShade());
 	vg.setUseBaselineGrid(pstyle->isAdjToBaseline());
-	vg.charStyle().cshadowx = 50;
-	vg.charStyle().cshadowy = -50;
-	vg.charStyle().coutline = 10;
-	vg.charStyle().cscale = 1000;
-	vg.charStyle().cscalev = 1000;
-	vg.charStyle().cbase = 0;
-	vg.charStyle().cextra = 0;
-	vg.charStyle().cunderpos = ScMW->doc->typographicSettings.valueUnderlinePos;
-	vg.charStyle().cunderwidth = ScMW->doc->typographicSettings.valueUnderlineWidth;
-	vg.charStyle().cstrikepos = ScMW->doc->typographicSettings.valueStrikeThruPos;
-	vg.charStyle().cstrikewidth = ScMW->doc->typographicSettings.valueStrikeThruPos;
+	vg.charStyle().setShadowXOffset(50);
+	vg.charStyle().setShadowYOffset(-50);
+	vg.charStyle().setOutlineWidth(10);
+	vg.charStyle().setScaleH(1000);
+	vg.charStyle().setScaleV(1000);
+	vg.charStyle().setBaselineOffset(0);
+	vg.charStyle().setTracking(0);
+	vg.charStyle().setUnderlineOffset(ScMW->doc->typographicSettings.valueUnderlinePos);
+	vg.charStyle().setUnderlineWidth(ScMW->doc->typographicSettings.valueUnderlineWidth);
+	vg.charStyle().setStrikethruOffset(ScMW->doc->typographicSettings.valueStrikeThruPos);
+	vg.charStyle().setStrikethruWidth(ScMW->doc->typographicSettings.valueStrikeThruPos);
 	textFrame->document()->docParagraphStyles.append(vg);
 	ScMW->propertiesPalette->Spal->updateFormatList();
 }
@@ -418,8 +418,8 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	vg.setFirstIndent(pstyle->getFirstLineIndent());
 	vg.setGapBefore(pstyle->getSpaceAbove());
 	vg.setGapAfter(pstyle->getSpaceBelow());
-	vg.charStyle().cfont = validateFont(font);
-	vg.charStyle().csize = font->getSize();
+	vg.charStyle().setFont(validateFont(font));
+	vg.charStyle().setFontSize(font->getSize());
 	vg.tabValues().clear();
 	QValueList<ParagraphStyle::TabRecord> *tabs = pstyle->getTabValues();
 	for (uint i = 0; i < tabs->size(); ++i)
@@ -430,23 +430,23 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	vg.setHasDropCap(pstyle->hasDropCap());
 	vg.setDropCapLines(pstyle->getDropCapHeight());
 	vg.setDropCapOffset(0);
-	vg.charStyle().cstyle = static_cast<StyleFlag>(font->getEffectsValue());
-	vg.charStyle().ccolor = parseColor(font->getColor());
-	vg.charStyle().cshade = font->getShade();
-	vg.charStyle().cstroke = parseColor(font->getStrokeColor());
-	vg.charStyle().cshade2 = font->getStrokeShade();
+	vg.charStyle().setEffects(static_cast<StyleFlag>(font->getEffectsValue()));
+	vg.charStyle().setFillColor(parseColor(font->getColor()));
+	vg.charStyle().setFillShade(font->getShade());
+	vg.charStyle().setStrokeColor(parseColor(font->getStrokeColor()));
+	vg.charStyle().setStrokeShade(font->getStrokeShade());
 	vg.setUseBaselineGrid(pstyle->isAdjToBaseline());
-	vg.charStyle().cshadowx = 50;
-	vg.charStyle().cshadowy = -50;
-	vg.charStyle().coutline = 10;
-	vg.charStyle().cscale = 1000;
-	vg.charStyle().cscalev = 1000;
-	vg.charStyle().cbase = 0;
-	vg.charStyle().cextra = 0;
-	vg.charStyle().cunderpos = ScMW->doc->typographicSettings.valueUnderlinePos;
-	vg.charStyle().cunderwidth = ScMW->doc->typographicSettings.valueUnderlineWidth;
-	vg.charStyle().cstrikepos = ScMW->doc->typographicSettings.valueStrikeThruPos;
-	vg.charStyle().cstrikewidth = ScMW->doc->typographicSettings.valueStrikeThruPos;
+	vg.charStyle().setShadowXOffset(50);
+	vg.charStyle().setShadowYOffset(-50);
+	vg.charStyle().setOutlineWidth(10);
+	vg.charStyle().setScaleH(1000);
+	vg.charStyle().setScaleV(1000);
+	vg.charStyle().setBaselineOffset(0);
+	vg.charStyle().setTracking(0);
+	vg.charStyle().setUnderlineOffset(ScMW->doc->typographicSettings.valueUnderlinePos);
+	vg.charStyle().setUnderlineWidth(ScMW->doc->typographicSettings.valueUnderlineWidth);
+	vg.charStyle().setStrikethruOffset(ScMW->doc->typographicSettings.valueStrikeThruPos);
+	vg.charStyle().setStrikethruWidth(ScMW->doc->typographicSettings.valueStrikeThruPos);
 	ScMW->doc->docParagraphStyles[pstyleIndex] = vg;
 }
 

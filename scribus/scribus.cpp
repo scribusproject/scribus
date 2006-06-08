@@ -1062,7 +1062,9 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 						if (currItem->CPos-1>0)
 						{
 #ifndef NLS_PROTO
-							currItem->itemText.at(QMAX(currItem->CPos-1,0))->cstyle |= ScStyle_HyphenationPossible;
+							StyleFlag fl = currItem->itemText.at(QMAX(currItem->CPos-1,0))->effects();
+							fl |= ScStyle_HyphenationPossible;
+							currItem->itemText.at(QMAX(currItem->CPos-1,0))->setEffects(fl);
 #else
 							currItem->itemText.insertChars(currItem->CPos, QString(SpecialChars::SHYPHEN));
 							currItem->CPos += 1;
@@ -4247,7 +4249,7 @@ void ScribusMainWindow::slotFileQuit()
 
 void ScribusMainWindow::slotEditCut()
 {
-	uint a;
+	int a;
 	NoFrameEdit();
 	QString BufferI = "";
 	uint docSelectionCount=doc->m_Selection->count();
@@ -4309,25 +4311,25 @@ void ScribusMainWindow::slotEditCut()
 							BufferI += nextItem->itemText.text(a);
 						}
 						Buffer2 += "\t";
-						Buffer2 += nextItem->itemText.charStyle(a).cfont->scName()+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).csize)+"\t";
-						Buffer2 += nextItem->itemText.charStyle(a).ccolor+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cextra)+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cshade)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cstyle)+'\t';
+						Buffer2 += nextItem->itemText.charStyle(a).font()->scName()+"\t";
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).fontSize())+"\t";
+						Buffer2 += nextItem->itemText.charStyle(a).fillColor()+"\t";
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).tracking())+"\t";
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).fillShade())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).effects())+'\t';
 						Buffer2 += QString::number(findParagraphStyle(doc, nextItem->itemText.paragraphStyle(a)))+'\t';
-						Buffer2 += nextItem->itemText.charStyle(a).cstroke+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cshade2)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cscale)+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cscalev)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cbase)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cshadowx)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cshadowy)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).coutline)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cunderpos)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cunderwidth)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cstrikepos)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cstrikewidth)+'\n';
+						Buffer2 += nextItem->itemText.charStyle(a).strokeColor()+"\t";
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).strokeShade())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).scaleH())+"\t";
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).scaleV())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).baselineOffset())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).shadowXOffset())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).shadowYOffset())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).outlineWidth())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).underlineOffset())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).underlineWidth())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).strikethruOffset())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).strikethruWidth())+'\n';
 					}
 				}
 				dynamic_cast<PageItem_TextFrame*>(nextItem)->deleteSelectedTextFromFrame();
@@ -4396,25 +4398,25 @@ void ScribusMainWindow::slotEditCopy()
 							BufferI += nextItem->itemText.text(a);
 						}
 						Buffer2 += "\t";
-						Buffer2 += nextItem->itemText.charStyle(a).cfont->scName()+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).csize)+"\t";
-						Buffer2 += nextItem->itemText.charStyle(a).ccolor+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cextra)+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cshade)+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cstyle)+"\t";
+						Buffer2 += nextItem->itemText.charStyle(a).font()->scName()+"\t";
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).fontSize())+"\t";
+						Buffer2 += nextItem->itemText.charStyle(a).fillColor()+"\t";
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).tracking())+"\t";
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).fillShade())+"\t";
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).effects())+"\t";
 						Buffer2 += QString::number(findParagraphStyle(doc, nextItem->itemText.paragraphStyle(a)))+"\t";
-						Buffer2 += nextItem->itemText.charStyle(a).cstroke+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cshade2)+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cscale)+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cscalev)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cbase)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cshadowx)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cshadowy)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).coutline)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cunderpos)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cunderwidth)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cstrikepos)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).cstrikewidth)+'\n';
+						Buffer2 += nextItem->itemText.charStyle(a).strokeColor()+"\t";
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).strokeShade())+"\t";
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).scaleH())+"\t";
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).scaleV())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).baselineOffset())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).shadowXOffset())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).shadowYOffset())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).outlineWidth())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).underlineOffset())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).underlineWidth())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).strikethruOffset())+'\t';
+						Buffer2 += QString::number(nextItem->itemText.charStyle(a).strikethruWidth())+'\n';
 					}
 				}
 				nextItem = nextItem->NextBox;
@@ -4474,56 +4476,55 @@ void ScribusMainWindow::slotEditPaste()
 					if (hg->ch == QChar(25))
 						hg->ch = QChar(32);
 					it++;
-					hg->cfont = (*doc->AllFonts)[*it];
+					hg->setFont((*doc->AllFonts)[*it]);
 					it++;
-					hg->csize = (*it).toInt();
+					hg->setFontSize((*it).toInt());
 					it++;
-					hg->ccolor = *it;
+					hg->setFillColor(*it);
 					it++;
-					hg->cextra = (*it).toInt();
+					hg->setTracking((*it).toInt());
 					it++;
-					hg->cshade = (*it).toInt();
-					hg->cselect = false;
+					hg->setFillShade((*it).toInt());
 					it++;
-					hg->cstyle = static_cast<StyleFlag>((*it).toInt());
+					hg->setEffects(static_cast<StyleFlag>((*it).toInt()));
 					it++;
 					hg->cab = (*it).toInt();
 					it++;
 					if (it == NULL)
-						hg->cstroke = CommonStrings::None;
+						hg->setStrokeColor(CommonStrings::None);
 					else
-						hg->cstroke = *it;
+						hg->setStrokeColor(*it);
 					it++;
 					if (it == NULL)
-						hg->cshade2 = 100;
+						hg->setStrokeShade(100);
 					else
-						hg->cshade2 = (*it).toInt();
+						hg->setStrokeShade((*it).toInt());
 					it++;
 					if (it == NULL)
-						hg->cscale = 1000;
+						hg->setScaleH(1000);
 					else
-						hg->cscale = (*it).toInt();
+						hg->setScaleH((*it).toInt());
 					it++;
 					if (it == NULL)
-						hg->cscalev = 1000;
+						hg->setScaleV(1000);
 					else
-						hg->cscalev = QMIN(QMAX((*it).toInt(), 100), 4000);
+						hg->setScaleV(QMIN(QMAX((*it).toInt(), 100), 4000));
 					it++;
-					hg->cbase = it == NULL ? 0 : (*it).toInt();
+					hg->setBaselineOffset(it == NULL ? 0 : (*it).toInt());
 					it++;
-					hg->cshadowx = it == NULL ? 50 : (*it).toInt();
+					hg->setShadowXOffset(it == NULL ? 50 : (*it).toInt());
 					it++;
-					hg->cshadowy = it == NULL ? -50 : (*it).toInt();
+					hg->setShadowYOffset(it == NULL ? -50 : (*it).toInt());
 					it++;
-					hg->coutline = it == NULL ? 10 : (*it).toInt();
+					hg->setOutlineWidth(it == NULL ? 10 : (*it).toInt());
 					it++;
-					hg->cunderpos = it == NULL ? -1 : (*it).toInt();
+					hg->setUnderlineOffset(it == NULL ? -1 : (*it).toInt());
 					it++;
-					hg->cunderwidth = it == NULL ? -1 : (*it).toInt();
+					hg->setUnderlineWidth(it == NULL ? -1 : (*it).toInt());
 					it++;
-					hg->cstrikepos = it == NULL ? -1 : (*it).toInt();
+					hg->setStrikethruOffset(it == NULL ? -1 : (*it).toInt());
 					it++;
-					hg->cstrikewidth = it == NULL ? -1 : (*it).toInt();
+					hg->setStrikethruWidth(it == NULL ? -1 : (*it).toInt());
 					currItem->itemText.insert(currItem->CPos, hg);
 					currItem->CPos += 1;
 					hg->PRot = 0;
@@ -5643,7 +5644,7 @@ void ScribusMainWindow::setItemTypeStyle(int id)
 void ScribusMainWindow::setStilvalue(int s)
 {
 	int c = s & 1919;
-	doc->currentStyle.charStyle().cstyle = static_cast<StyleFlag>(c);
+	doc->currentStyle.charStyle().setEffects(static_cast<StyleFlag>(c));
 	scrActions["typeEffectNormal"]->setOn(c==0);
 	scrActions["typeEffectSuperscript"]->setOn(c & 1);
 	scrActions["typeEffectSubscript"]->setOn(c & 2);
@@ -5661,7 +5662,7 @@ void ScribusMainWindow::setItemHoch(int h)
 {
 	if (doc->m_Selection->count() != 0)
 	{
-		doc->currentStyle.charStyle().cstyle = static_cast<StyleFlag>(h);
+		doc->currentStyle.charStyle().setEffects(static_cast<StyleFlag>(h));
 		setStilvalue(h);
 		doc->chTyStyle(h);
 	}
@@ -5941,7 +5942,7 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 	}
 	AdjustFontMenu(nf2);
 	doc->ItemFont(nf2);
-	doc->currentStyle.charStyle().cfont = (*doc->AllFonts)[nf2];
+	doc->currentStyle.charStyle().setFont((*doc->AllFonts)[nf2]);
 	slotDocCh();
 }
 
@@ -6046,8 +6047,8 @@ void ScribusMainWindow::setCSMenu(QString , QString l, int  , int ls)
 		{
 			if ((doc->appMode == modeEdit) && (currItem->itemText.length() != 0))
 			{
-				la = currItem->itemText.charStyle(QMIN(currItem->CPos, static_cast<int>(currItem->itemText.length()-1))).ccolor;
-				lb = currItem->itemText.charStyle(QMIN(currItem->CPos, static_cast<int>(currItem->itemText.length()-1))).cshade;
+				la = currItem->itemText.charStyle(QMIN(currItem->CPos, static_cast<int>(currItem->itemText.length()-1))).fillColor();
+				lb = currItem->itemText.charStyle(QMIN(currItem->CPos, static_cast<int>(currItem->itemText.length()-1))).fillShade();
 			}
 			else
 			{
@@ -6252,45 +6253,46 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 					{
 						if (cabneu > 0)
 						{
-							if (ite->itemText.charStyle(e).cfont == doc->docParagraphStyles[cabori].charStyle().font())
-								newStyle.cfont = dia->TempVorl[cabneu].charStyle().font();
-							if (ite->itemText.charStyle(e).csize == doc->docParagraphStyles[cabori].charStyle().fontSize())
-								newStyle.csize = dia->TempVorl[cabneu].charStyle().fontSize();
-							if ((ite->itemText.charStyle(e).cstyle & 1919 ) == doc->docParagraphStyles[cabori].charStyle().effects())
+							if (ite->itemText.charStyle(e).font() == doc->docParagraphStyles[cabori].charStyle().font())
+								newStyle.setFont(dia->TempVorl[cabneu].charStyle().font());
+							if (ite->itemText.charStyle(e).fontSize() == doc->docParagraphStyles[cabori].charStyle().fontSize())
+								newStyle.setFontSize(dia->TempVorl[cabneu].charStyle().fontSize());
+							if ((ite->itemText.charStyle(e).effects() & 1919 ) == doc->docParagraphStyles[cabori].charStyle().effects())
 							{
-								newStyle.cstyle = static_cast<StyleFlag>(ite->itemText.charStyle(e).cstyle & ~1919);
-								newStyle.cstyle |= dia->TempVorl[cabneu].charStyle().effects();
+								StyleFlag fl = static_cast<StyleFlag>(ite->itemText.charStyle(e).effects() & ~1919);
+								fl |= dia->TempVorl[cabneu].charStyle().effects();
+								newStyle.setEffects(fl);
 							}
-							if (ite->itemText.charStyle(e).ccolor == doc->docParagraphStyles[cabori].charStyle().ccolor)
-								newStyle.ccolor = dia->TempVorl[cabneu].charStyle().ccolor;
-							if (ite->itemText.charStyle(e).cshade == doc->docParagraphStyles[cabori].charStyle().cshade)
-								newStyle.cshade = dia->TempVorl[cabneu].charStyle().cshade;
-							if (ite->itemText.charStyle(e).cstroke == doc->docParagraphStyles[cabori].charStyle().cstroke)
-								newStyle.cstroke = dia->TempVorl[cabneu].charStyle().cstroke;
-							if (ite->itemText.charStyle(e).cshade2 == doc->docParagraphStyles[cabori].charStyle().cshade2)
-								newStyle.cshade2 = dia->TempVorl[cabneu].charStyle().cshade2;
-							if (ite->itemText.charStyle(e).cshadowx == doc->docParagraphStyles[cabori].charStyle().cshadowx)
-								newStyle.cshadowx = dia->TempVorl[cabneu].charStyle().cshadowx;
-							if (ite->itemText.charStyle(e).cshadowy == doc->docParagraphStyles[cabori].charStyle().cshadowy)
-								newStyle.cshadowy = dia->TempVorl[cabneu].charStyle().cshadowy;
-							if (ite->itemText.charStyle(e).coutline == doc->docParagraphStyles[cabori].charStyle().coutline)
-								newStyle.coutline = dia->TempVorl[cabneu].charStyle().coutline;
-							if (ite->itemText.charStyle(e).cunderpos == doc->docParagraphStyles[cabori].charStyle().cunderpos)
-								newStyle.cunderpos = dia->TempVorl[cabneu].charStyle().cunderpos;
-							if (ite->itemText.charStyle(e).cunderwidth == doc->docParagraphStyles[cabori].charStyle().cunderwidth)
-								newStyle.cunderwidth = dia->TempVorl[cabneu].charStyle().cunderwidth;
-							if (ite->itemText.charStyle(e).cstrikepos == doc->docParagraphStyles[cabori].charStyle().cstrikepos)
-								newStyle.cstrikepos = dia->TempVorl[cabneu].charStyle().cstrikepos;
-							if (ite->itemText.charStyle(e).cstrikewidth == doc->docParagraphStyles[cabori].charStyle().cstrikewidth)
-								newStyle.cstrikewidth = dia->TempVorl[cabneu].charStyle().cstrikewidth;
-							if (ite->itemText.charStyle(e).cscale == doc->docParagraphStyles[cabori].charStyle().cscale)
-								newStyle.cscale = dia->TempVorl[cabneu].charStyle().cscale;
-							if (ite->itemText.charStyle(e).cscalev == doc->docParagraphStyles[cabori].charStyle().cscalev)
-								newStyle.cscalev = dia->TempVorl[cabneu].charStyle().cscalev;
-							if (ite->itemText.charStyle(e).cbase == doc->docParagraphStyles[cabori].charStyle().cbase)
-								newStyle.cbase = dia->TempVorl[cabneu].charStyle().cbase;
-							if (ite->itemText.charStyle(e).cextra == doc->docParagraphStyles[cabori].charStyle().cextra)
-								newStyle.cextra = dia->TempVorl[cabneu].charStyle().cextra;
+							if (ite->itemText.charStyle(e).fillColor() == doc->docParagraphStyles[cabori].charStyle().fillColor())
+								newStyle.setFillColor(dia->TempVorl[cabneu].charStyle().fillColor());
+							if (ite->itemText.charStyle(e).fillShade() == doc->docParagraphStyles[cabori].charStyle().fillShade())
+								newStyle.setFillShade(dia->TempVorl[cabneu].charStyle().fillShade());
+							if (ite->itemText.charStyle(e).strokeColor() == doc->docParagraphStyles[cabori].charStyle().strokeColor())
+								newStyle.setStrokeColor(dia->TempVorl[cabneu].charStyle().strokeColor());
+							if (ite->itemText.charStyle(e).strokeShade() == doc->docParagraphStyles[cabori].charStyle().strokeShade())
+								newStyle.setStrokeShade(dia->TempVorl[cabneu].charStyle().strokeShade());
+							if (ite->itemText.charStyle(e).shadowXOffset() == doc->docParagraphStyles[cabori].charStyle().shadowXOffset())
+								newStyle.setShadowXOffset(dia->TempVorl[cabneu].charStyle().shadowXOffset());
+							if (ite->itemText.charStyle(e).shadowYOffset() == doc->docParagraphStyles[cabori].charStyle().shadowYOffset())
+								newStyle.setShadowYOffset(dia->TempVorl[cabneu].charStyle().shadowYOffset());
+							if (ite->itemText.charStyle(e).outlineWidth() == doc->docParagraphStyles[cabori].charStyle().outlineWidth())
+								newStyle.setOutlineWidth(dia->TempVorl[cabneu].charStyle().outlineWidth());
+							if (ite->itemText.charStyle(e).underlineOffset() == doc->docParagraphStyles[cabori].charStyle().underlineOffset())
+								newStyle.setUnderlineOffset(dia->TempVorl[cabneu].charStyle().underlineOffset());
+							if (ite->itemText.charStyle(e).underlineWidth() == doc->docParagraphStyles[cabori].charStyle().underlineWidth())
+								newStyle.setUnderlineWidth(dia->TempVorl[cabneu].charStyle().underlineWidth());
+							if (ite->itemText.charStyle(e).strikethruOffset() == doc->docParagraphStyles[cabori].charStyle().strikethruOffset())
+								newStyle.setStrikethruOffset(dia->TempVorl[cabneu].charStyle().strikethruOffset());
+							if (ite->itemText.charStyle(e).strikethruWidth() == doc->docParagraphStyles[cabori].charStyle().strikethruWidth())
+								newStyle.setStrikethruWidth(dia->TempVorl[cabneu].charStyle().strikethruWidth());
+							if (ite->itemText.charStyle(e).scaleH() == doc->docParagraphStyles[cabori].charStyle().scaleH())
+								newStyle.setScaleH(dia->TempVorl[cabneu].charStyle().scaleH());
+							if (ite->itemText.charStyle(e).scaleV() == doc->docParagraphStyles[cabori].charStyle().scaleV())
+								newStyle.setScaleV(dia->TempVorl[cabneu].charStyle().scaleV());
+							if (ite->itemText.charStyle(e).baselineOffset() == doc->docParagraphStyles[cabori].charStyle().baselineOffset())
+								newStyle.setBaselineOffset(dia->TempVorl[cabneu].charStyle().baselineOffset());
+							if (ite->itemText.charStyle(e).tracking() == doc->docParagraphStyles[cabori].charStyle().tracking())
+								newStyle.setTracking(dia->TempVorl[cabneu].charStyle().tracking());
 						}
 						else
 						{
@@ -6341,45 +6343,47 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 					{
 						if (cabneu > 0)
 						{
-							if (chars->at(e)->charStyle.cfont->scName() == doc->docParagraphStyles[cabori].charStyle().font()->scName())
-								chars->at(e)->charStyle.cfont = dia->TempVorl[cabneu].charStyle().font();
-							if (chars->at(e)->charStyle.csize == doc->docParagraphStyles[cabori].charStyle().fontSize())
-								chars->at(e)->charStyle.csize = dia->TempVorl[cabneu].charStyle().fontSize();
-							if ((chars->at(e)->charStyle.cstyle & static_cast<StyleFlag>(1919) ) == doc->docParagraphStyles[cabori].charStyle().effects())
+							if (chars->at(e)->charStyle.font()->scName() == doc->docParagraphStyles[cabori].charStyle().font()->scName())
+								chars->at(e)->charStyle.setFont(dia->TempVorl[cabneu].charStyle().font());
+							if (chars->at(e)->charStyle.fontSize() == doc->docParagraphStyles[cabori].charStyle().fontSize())
+								chars->at(e)->charStyle.setFontSize(dia->TempVorl[cabneu].charStyle().fontSize());
+							if ((chars->at(e)->charStyle.effects() & static_cast<StyleFlag>(1919) ) == doc->docParagraphStyles[cabori].charStyle().effects())
 							{
-								chars->at(e)->charStyle.cstyle &= static_cast<StyleFlag>(~1919);
-								chars->at(e)->charStyle.cstyle |= dia->TempVorl[cabneu].charStyle().effects();
+								StyleFlag fl = chars->at(e)->charStyle.effects();
+								fl&= static_cast<StyleFlag>(~1919);
+								fl |= dia->TempVorl[cabneu].charStyle().effects();
+								chars->at(e)->charStyle.setEffects(fl);
 							}
-							if (chars->at(e)->charStyle.ccolor == doc->docParagraphStyles[cabori].charStyle().ccolor)
-								chars->at(e)->charStyle.ccolor = dia->TempVorl[cabneu].charStyle().ccolor;
-							if (chars->at(e)->charStyle.cshade == doc->docParagraphStyles[cabori].charStyle().cshade)
-								chars->at(e)->charStyle.cshade = dia->TempVorl[cabneu].charStyle().cshade;
-							if (chars->at(e)->charStyle.cstroke == doc->docParagraphStyles[cabori].charStyle().cstroke)
-								chars->at(e)->charStyle.cstroke = dia->TempVorl[cabneu].charStyle().cstroke;
-							if (chars->at(e)->charStyle.cshade2 == doc->docParagraphStyles[cabori].charStyle().cshade2)
-								chars->at(e)->charStyle.cshade2 = dia->TempVorl[cabneu].charStyle().cshade2;
-							if (chars->at(e)->charStyle.cshadowx == doc->docParagraphStyles[cabori].charStyle().cshadowx)
-								chars->at(e)->charStyle.cshadowx = dia->TempVorl[cabneu].charStyle().cshadowx;
-							if (chars->at(e)->charStyle.cshadowy == doc->docParagraphStyles[cabori].charStyle().cshadowy)
-								chars->at(e)->charStyle.cshadowy = dia->TempVorl[cabneu].charStyle().cshadowy;
-							if (chars->at(e)->charStyle.coutline == doc->docParagraphStyles[cabori].charStyle().coutline)
-								chars->at(e)->charStyle.coutline = dia->TempVorl[cabneu].charStyle().coutline;
-							if (chars->at(e)->charStyle.cunderpos == doc->docParagraphStyles[cabori].charStyle().cunderpos)
-								chars->at(e)->charStyle.cunderpos = dia->TempVorl[cabneu].charStyle().cunderpos;
-							if (chars->at(e)->charStyle.cunderwidth == doc->docParagraphStyles[cabori].charStyle().cunderwidth)
-								chars->at(e)->charStyle.cunderwidth = dia->TempVorl[cabneu].charStyle().cunderwidth;
-							if (chars->at(e)->charStyle.cstrikepos == doc->docParagraphStyles[cabori].charStyle().cstrikepos)
-								chars->at(e)->charStyle.cstrikepos = dia->TempVorl[cabneu].charStyle().cstrikepos;
-							if (chars->at(e)->charStyle.cstrikewidth == doc->docParagraphStyles[cabori].charStyle().cstrikewidth)
-								chars->at(e)->charStyle.cstrikewidth = dia->TempVorl[cabneu].charStyle().cstrikewidth;
-							if (chars->at(e)->charStyle.cscale == doc->docParagraphStyles[cabori].charStyle().cscale)
-								chars->at(e)->charStyle.cscale = dia->TempVorl[cabneu].charStyle().cscale;
-							if (chars->at(e)->charStyle.cscalev == doc->docParagraphStyles[cabori].charStyle().cscalev)
-								chars->at(e)->charStyle.cscalev = dia->TempVorl[cabneu].charStyle().cscalev;
-							if (chars->at(e)->charStyle.cbase == doc->docParagraphStyles[cabori].charStyle().cbase)
-								chars->at(e)->charStyle.cbase = dia->TempVorl[cabneu].charStyle().cbase;
-							if (chars->at(e)->charStyle.cextra == doc->docParagraphStyles[cabori].charStyle().cextra)
-								chars->at(e)->charStyle.cextra = dia->TempVorl[cabneu].charStyle().cextra;
+							if (chars->at(e)->charStyle.fillColor() == doc->docParagraphStyles[cabori].charStyle().fillColor())
+								chars->at(e)->charStyle.setFillColor(dia->TempVorl[cabneu].charStyle().fillColor());
+							if (chars->at(e)->charStyle.fillShade() == doc->docParagraphStyles[cabori].charStyle().fillShade())
+								chars->at(e)->charStyle.setFillShade(dia->TempVorl[cabneu].charStyle().fillShade());
+							if (chars->at(e)->charStyle.strokeColor() == doc->docParagraphStyles[cabori].charStyle().strokeColor())
+								chars->at(e)->charStyle.setStrokeColor(dia->TempVorl[cabneu].charStyle().strokeColor());
+							if (chars->at(e)->charStyle.strokeShade() == doc->docParagraphStyles[cabori].charStyle().strokeShade())
+								chars->at(e)->charStyle.setStrokeShade(dia->TempVorl[cabneu].charStyle().strokeShade());
+							if (chars->at(e)->charStyle.shadowXOffset() == doc->docParagraphStyles[cabori].charStyle().shadowXOffset())
+								chars->at(e)->charStyle.setShadowXOffset(dia->TempVorl[cabneu].charStyle().shadowXOffset());
+							if (chars->at(e)->charStyle.shadowYOffset() == doc->docParagraphStyles[cabori].charStyle().shadowYOffset())
+								chars->at(e)->charStyle.setShadowYOffset(dia->TempVorl[cabneu].charStyle().shadowYOffset());
+							if (chars->at(e)->charStyle.outlineWidth() == doc->docParagraphStyles[cabori].charStyle().outlineWidth())
+								chars->at(e)->charStyle.setOutlineWidth(dia->TempVorl[cabneu].charStyle().outlineWidth());
+							if (chars->at(e)->charStyle.underlineOffset() == doc->docParagraphStyles[cabori].charStyle().underlineOffset())
+								chars->at(e)->charStyle.setUnderlineOffset(dia->TempVorl[cabneu].charStyle().underlineOffset());
+							if (chars->at(e)->charStyle.underlineWidth() == doc->docParagraphStyles[cabori].charStyle().underlineWidth())
+								chars->at(e)->charStyle.setUnderlineWidth(dia->TempVorl[cabneu].charStyle().underlineWidth());
+							if (chars->at(e)->charStyle.strikethruOffset() == doc->docParagraphStyles[cabori].charStyle().strikethruOffset())
+								chars->at(e)->charStyle.setStrikethruOffset(dia->TempVorl[cabneu].charStyle().strikethruOffset());
+							if (chars->at(e)->charStyle.strikethruWidth() == doc->docParagraphStyles[cabori].charStyle().strikethruWidth())
+								chars->at(e)->charStyle.setStrikethruWidth(dia->TempVorl[cabneu].charStyle().strikethruWidth());
+							if (chars->at(e)->charStyle.scaleH() == doc->docParagraphStyles[cabori].charStyle().scaleH())
+								chars->at(e)->charStyle.setScaleH(dia->TempVorl[cabneu].charStyle().scaleH());
+							if (chars->at(e)->charStyle.scaleV() == doc->docParagraphStyles[cabori].charStyle().scaleV())
+								chars->at(e)->charStyle.setScaleV(dia->TempVorl[cabneu].charStyle().scaleV());
+							if (chars->at(e)->charStyle.baselineOffset() == doc->docParagraphStyles[cabori].charStyle().baselineOffset())
+								chars->at(e)->charStyle.setBaselineOffset(dia->TempVorl[cabneu].charStyle().baselineOffset());
+							if (chars->at(e)->charStyle.tracking() == doc->docParagraphStyles[cabori].charStyle().tracking())
+								chars->at(e)->charStyle.setTracking(dia->TempVorl[cabneu].charStyle().tracking());
 						}
 						else
 						{
@@ -6411,7 +6415,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 					FontID.insert(ff, prefsManager->appPrefs.AvailFonts[nf]->scName());
 				}
 				else
-					doc->docParagraphStyles[a].charStyle().cfont = (prefsManager->appPrefs.AvailFonts[doc->toolSettings.defFont]);
+					doc->docParagraphStyles[a].charStyle().setFont((prefsManager->appPrefs.AvailFonts[doc->toolSettings.defFont]));
 			}
 		}
 	}
@@ -6482,9 +6486,9 @@ void ScribusMainWindow::slotEditColors()
 				for (it = ers.begin(); it != ers.end(); ++it)
 				{
 					if (it.key() == doc->currentStyle.charStyle().fillColor())
-						doc->currentStyle.charStyle().ccolor = it.data();
+						doc->currentStyle.charStyle().setFillColor(it.data());
 					if (it.key() == doc->currentStyle.charStyle().strokeColor())
-						doc->currentStyle.charStyle().cstroke = it.data();
+						doc->currentStyle.charStyle().setStrokeColor(it.data());
 					for (c=0; c<doc->DocItems.count(); ++c)
 					{
 						ite = doc->DocItems.at(c);
@@ -6495,10 +6499,10 @@ void ScribusMainWindow::slotEditColors()
 							for (d=0; d<ite->itemText.length(); ++d)
 							{
 								CharStyle newStyle;
-								if (it.key() == ite->itemText.charStyle(d).ccolor)
-									newStyle.ccolor = it.data();
-								if (it.key() == ite->itemText.charStyle(d).cstroke)
-									newStyle.cstroke = it.data();
+								if (it.key() == ite->itemText.charStyle(d).fillColor())
+									newStyle.setFillColor(it.data());
+								if (it.key() == ite->itemText.charStyle(d).strokeColor())
+									newStyle.setStrokeColor(it.data());
 								if (newStyle != lastStyle) {
 									ite->itemText.applyStyle(lastStyleStart, d-lastStyleStart, lastStyle);
 									lastStyle = newStyle;
@@ -6535,10 +6539,10 @@ void ScribusMainWindow::slotEditColors()
 							for (d=0; d<ite->itemText.length(); ++d)
 							{
 								CharStyle newStyle;
-								if (it.key() == ite->itemText.charStyle(d).ccolor)
-									newStyle.ccolor = it.data();
-								if (it.key() == ite->itemText.charStyle(d).cstroke)
-									newStyle.cstroke = it.data();
+								if (it.key() == ite->itemText.charStyle(d).fillColor())
+									newStyle.setFillColor(it.data());
+								if (it.key() == ite->itemText.charStyle(d).strokeColor())
+									newStyle.setStrokeColor(it.data());
 								if (newStyle != lastStyle) {
 									ite->itemText.applyStyle(lastStyleStart, d-lastStyleStart, lastStyle);
 									lastStyle = newStyle;
@@ -6575,10 +6579,10 @@ void ScribusMainWindow::slotEditColors()
 							for (d=0; d<ite->itemText.length(); ++d)
 							{
 								CharStyle newStyle;
-								if (it.key() == ite->itemText.charStyle(d).ccolor)
-									newStyle.ccolor = it.data();
-								if (it.key() == ite->itemText.charStyle(d).cstroke)
-									newStyle.cstroke = it.data();
+								if (it.key() == ite->itemText.charStyle(d).fillColor())
+									newStyle.setFillColor(it.data());
+								if (it.key() == ite->itemText.charStyle(d).strokeColor())
+									newStyle.setStrokeColor(it.data());
 								if (newStyle != lastStyle) {
 									ite->itemText.applyStyle(lastStyleStart, d-lastStyleStart, lastStyle);
 									lastStyle = newStyle;

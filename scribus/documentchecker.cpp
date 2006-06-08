@@ -123,7 +123,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				uint chr = currItem->itemText.text(e).unicode();
 				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 28) || (chr == 27) || (chr == 26) || (chr == 25))
 					continue;
-				if ((currItem->itemText.charStyle(e).cstyle & 64) || (currItem->itemText.charStyle(e).cstyle & 32))
+				if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 				{
 					chx = currItem->itemText.text(e);
 					if (chx.upper() != currItem->itemText.text(e))
@@ -137,13 +137,13 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						if (currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].tabValues()[t1].tabFillChar.isNull())
 							continue;
 						chx = QString(currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].tabValues()[t1].tabFillChar);
-						if ((currItem->itemText.charStyle(e).cstyle & 64) || (currItem->itemText.charStyle(e).cstyle & 32))
+						if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 						{
 							if (chx.upper() != QString(currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].tabValues()[t1].tabFillChar))
 								chx = chx.upper();
 						}
 						chr = chx[0].unicode();
-						if ((!currItem->itemText.at(e)->cfont->canRender(chr)) && (checkerSettings.checkGlyphs))
+						if ((!currItem->itemText.at(e)->font()->canRender(chr)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
 					}
 					for (uint t1 = 0; t1 < currItem->TabValues.count(); t1++)
@@ -151,13 +151,13 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						if (currItem->TabValues[t1].tabFillChar.isNull())
 							continue;
 						chx = QString(currItem->TabValues[t1].tabFillChar);
-						if ((currItem->itemText.charStyle(e).cstyle & 64) || (currItem->itemText.charStyle(e).cstyle & 32))
+						if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 						{
 							if (chx.upper() != QString(currItem->TabValues[t1].tabFillChar))
 								chx = chx.upper();
 						}
 						chr = chx[0].unicode();
-						if ((!currItem->itemText.at(e)->cfont->canRender(chr)) && (checkerSettings.checkGlyphs))
+						if ((!currItem->itemText.at(e)->font()->canRender(chr)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
 					}
 					continue;
@@ -166,12 +166,12 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				{
 					for (uint numco = 0x30; numco < 0x3A; ++numco)
 					{
-						if ((!currItem->itemText.at(e)->cfont->canRender(numco)) && (checkerSettings.checkGlyphs))
+						if ((!currItem->itemText.at(e)->font()->canRender(numco)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
 					}
 					continue;
 				}
-				if ((!currItem->itemText.at(e)->cfont->canRender(chr)) && (checkerSettings.checkGlyphs))
+				if ((!currItem->itemText.at(e)->font()->canRender(chr)) && (checkerSettings.checkGlyphs))
 					itemError.insert(MissingGlyph, 0);
 			}
 #endif
@@ -233,7 +233,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				uint chr = currItem->itemText.text(e).unicode();
 				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 28) || (chr == 27) || (chr == 26) || (chr == 25))
 					continue;
-				if ((currItem->itemText.charStyle(e).cstyle & 64) || (currItem->itemText.charStyle(e).cstyle & 32))
+				if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 				{
 					chx = currItem->itemText.text(e,1);
 					if (chx.upper() != currItem->itemText.at(e)->ch)
@@ -247,13 +247,13 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						if (currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].tabValues()[t1].tabFillChar.isNull())
 							continue;
 						chx = QString(currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].tabValues()[t1].tabFillChar);
-						if ((currItem->itemText.charStyle(e).cstyle & 64) || (currItem->itemText.charStyle(e).cstyle & 32))
+						if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 						{
 							if (chx.upper() != QString(currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].tabValues()[t1].tabFillChar))
 								chx = chx.upper();
 						}
 						chr = chx[0].unicode();
-						if ((!currItem->itemText.at(e)->cfont->canRender(chr)) && (checkerSettings.checkGlyphs))
+						if ((!currItem->itemText.at(e)->font()->canRender(chr)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
 					}
 					for (uint t1 = 0; t1 < currItem->TabValues.count(); t1++)
@@ -261,13 +261,13 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						if (currItem->TabValues[t1].tabFillChar.isNull())
 							continue;
 						chx = QString(currItem->TabValues[t1].tabFillChar);
-						if ((currItem->itemText.charStyle(e).cstyle & 64) || (currItem->itemText.charStyle(e).cstyle & 32))
+						if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 						{
 							if (chx.upper() != QString(currItem->TabValues[t1].tabFillChar))
 								chx = chx.upper();
 						}
 						chr = chx[0].unicode();
-						if ((!currItem->itemText.at(e)->cfont->canRender(chr)) && (checkerSettings.checkGlyphs))
+						if ((!currItem->itemText.at(e)->font()->canRender(chr)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
 					}
 					continue;
@@ -276,12 +276,12 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				{
 					for (uint numco = 0x30; numco < 0x3A; ++numco)
 					{
-						if ((!currItem->itemText.at(e)->cfont->canRender(numco)) && (checkerSettings.checkGlyphs))
+						if ((!currItem->itemText.at(e)->font()->canRender(numco)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
 					}
 					continue;
 				}
-				if ((!currItem->itemText.at(e)->cfont->canRender(chr)) && (checkerSettings.checkGlyphs))
+				if ((!currItem->itemText.at(e)->font()->canRender(chr)) && (checkerSettings.checkGlyphs))
 					itemError.insert(MissingGlyph, 0);
 			}
 #endif

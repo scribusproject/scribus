@@ -570,15 +570,15 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							hl = Item->itemText.at(d);
 							if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 								continue;
-							if (hl->yp == 0)
+							if (hl->glyph.yoffset == 0)
 								break;
 							if (hl->ch == QChar(29))
 								chx = " ";
 							else
 								chx = hl->ch;
 							tp = docu->createElement("tspan");
-							tp.setAttribute("x", FToStr(hl->xp)+"pt");
-							tp.setAttribute("y", FToStr(hl->yp)+"pt");
+							tp.setAttribute("x", FToStr(hl->glyph.xoffset)+"pt");
+							tp.setAttribute("y", FToStr(hl->glyph.yoffset)+"pt");
 							SetTextProps(&tp, hl);
 							tp1 = docu->createTextNode(chx);
 							tp.appendChild(tp1);
@@ -641,8 +641,8 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							tp.setAttribute("y", FToStr(hl->PtransY)+"pt");
 							tp.setAttribute("rotate", hl->PRot);
 							tp2 = docu->createElement("tspan");
-							tp2.setAttribute("dx", FToStr(hl->xp)+"pt");
-							tp2.setAttribute("dy", FToStr(hl->yp)+"pt");
+							tp2.setAttribute("dx", FToStr(hl->glyph.xoffset)+"pt");
+							tp2.setAttribute("dy", FToStr(hl->glyph.yoffset)+"pt");
 							SetTextProps(&tp2, hl);
 							tp1 = docu->createTextNode(chx);
 							tp2.appendChild(tp1);
@@ -742,20 +742,20 @@ QString SVGExPlug::IToStr(int c)
 
 void SVGExPlug::SetTextProps(QDomElement *tp, ScText *hl)
 {
-	int chst = hl->cstyle & 127;
-	if (hl->ccolor != CommonStrings::None)
-		tp->setAttribute("fill", SetFarbe(hl->ccolor, hl->cshade));
+	int chst = hl->effects() & 127;
+	if (hl->fillColor() != CommonStrings::None)
+		tp->setAttribute("fill", SetFarbe(hl->fillColor(), hl->fillShade()));
 	else
 		tp->setAttribute("fill", "none");
-	if ((hl->cstroke != CommonStrings::None) && (chst & 4))
+	if ((hl->strokeColor() != CommonStrings::None) && (chst & 4))
 		{
-		tp->setAttribute("stroke", SetFarbe(hl->cstroke, hl->cshade2));
-		tp->setAttribute("stroke-width", FToStr((*ScMW->doc->AllFonts)[hl->cfont->scName()]->strokeWidth() * (hl->csize / 10.0))+"pt");
+		tp->setAttribute("stroke", SetFarbe(hl->strokeColor(), hl->strokeShade()));
+		tp->setAttribute("stroke-width", FToStr((*ScMW->doc->AllFonts)[hl->font()->scName()]->strokeWidth() * (hl->fontSize() / 10.0))+"pt");
 		}
 	else
 		tp->setAttribute("stroke", "none");
-	tp->setAttribute("font-size", (hl->csize / 10.0));
-	tp->setAttribute("font-family", (*ScMW->doc->AllFonts)[hl->cfont->scName()]->family());
+	tp->setAttribute("font-size", (hl->fontSize() / 10.0));
+	tp->setAttribute("font-family", (*ScMW->doc->AllFonts)[hl->font()->scName()]->family());
 	if (chst != 0)
 		{
 		if (chst & 64)

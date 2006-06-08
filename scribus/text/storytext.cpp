@@ -114,7 +114,7 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 		return;
 	
 	const CharStyle style = pos == 0 ? defaultStyle().charStyle() : charStyle(pos - 1);
-	assert(style.cfont != NULL);
+	assert(style.font() != NULL);
 	
 	const int paraStyle = pos == 0 ? 0 : at(pos - 1)->cab;
 	
@@ -123,13 +123,6 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 		item->ch= txt.mid(i, 1);
 		*static_cast<CharStyle *>(item) = style;
 		item->cab = paraStyle;
-		item->cselect = false;
-		item->xp = 0;
-		item->yp = 0;
-		item->PtransX = 0;
-		item->PtransY = 0;
-		item->PRot = 0;
-		item->cembedded = NULL;
 		insert(pos + i, item);
 	}
 
@@ -152,13 +145,13 @@ void StoryText::replaceChar(int pos, QChar ch)
 void StoryText::hyphenateWord(int pos, uint len, char* hyphens)
 {
 	assert(pos >= 0);
-	assert(pos + len <= length());
+	assert(pos + signed(len) <= length());
 	
-	for (int i=pos; i < pos+len; ++i)
+	for (int i=pos; i < pos+signed(len); ++i)
 		if(hyphens && hyphens[i] & 1)
-			at(i)->cstyle = (at(i)->cstyle | ScStyle_HyphenationPossible);
+			at(i)->setEffects(at(i)->effects() | ScStyle_HyphenationPossible);
 		else
-			at(i)->cstyle = (at(i)->cstyle & ~ScStyle_HyphenationPossible);
+			at(i)->setEffects(at(i)->effects() & ~ScStyle_HyphenationPossible);
 
 	invalidate(pos, pos + len);
 }
@@ -272,7 +265,7 @@ void StoryText::applyStyle(int pos, uint len, const CharStyle& style )
 		return;
 
 	for (uint i=pos; i < pos+len; ++i)
-		at(i)->applyStyle(style);
+		at(i)->applyCharStyle(style);
 
 	invalidate(pos, pos + len);
 }

@@ -79,10 +79,10 @@ void ReplaceColor(QString col, QString rep)
 		{
 			for (uint d = 0; d < ite->itemText.count(); d++)
 			{
-				if (col == ite->itemText.at(d)->ccolor)
-					ite->itemText.at(d)->ccolor = rep;
-				if (col == ite->itemText.at(d)->cstroke)
-					ite->itemText.at(d)->cstroke = rep;
+				if (col == ite->itemText.at(d)->fillColor())
+					ite->itemText.at(d)->setFillColor(rep);
+				if (col == ite->itemText.at(d)->strokeColor())
+					ite->itemText.at(d)->setStrokeColor(rep);
 			}
 		}
 		if (col == ite->fillColor())
@@ -107,10 +107,10 @@ void ReplaceColor(QString col, QString rep)
 		{
 			for (uint d = 0; d < ite->itemText.count(); d++)
 			{
-				if (col == ite->itemText.at(d)->ccolor)
-					ite->itemText.at(d)->ccolor = rep;
-				if (col == ite->itemText.at(d)->cstroke)
-					ite->itemText.at(d)->cstroke = rep;
+				if (col == ite->itemText.at(d)->fillColor())
+					ite->itemText.at(d)->setFillColor(rep);
+				if (col == ite->itemText.at(d)->strokeColor())
+					ite->itemText.at(d)->setStrokeColor(rep);
 			}
 		}
 		if (col == ite->fillColor())

@@ -96,7 +96,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		}
 	}
 	if (itemText.length() != 0)
-		CurX += itemText.charStyle(0).csize * itemText.charStyle(0).cextra / 10000.0;
+		CurX += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 	segLen = PoLine.lenPathSeg(seg);
 #ifndef NLS_PROTO
 	for (a = 0; a < itemText.length(); ++a)
@@ -106,7 +106,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		chx = hl->ch;
 		if ((chx == QChar(30)) || (chx == QChar(13)) || (chx == QChar(9)) || (chx == QChar(28)))
 			continue;
-		chs = hl->csize;
+		chs = hl->fontSize();
 		SetZeichAttr(*hl, &chs, &chx);
 		if (chx == QChar(29))
 			chx2 = " ";
@@ -122,11 +122,11 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 				chx3 = "-";
 			else
 				chx3 = itemText.at(a+1)->ch;
-			wide = Cwidth(m_Doc, hl->cfont, chx2, chs, chx3);
+			wide = Cwidth(m_Doc, hl->font(), chx2, chs, chx3);
 		}
 		else
-			wide = Cwidth(m_Doc, hl->cfont, chx2, chs);
-		wide = wide * (hl->cscale / 1000.0);
+			wide = Cwidth(m_Doc, hl->font(), chx2, chs);
+		wide = wide * (hl->scaleH() / 1000.0);
 		dx = wide / 2.0;
 		CurX += dx;
 		ext = false;
@@ -181,8 +181,8 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 			else
 				break;
 		}
-		hl->xp = point.x();
-		hl->yp = point.y();
+		hl->glyph.xoffset = point.x();
+		hl->glyph.yoffset = point.y();
 		hl->PtransX = tangent.x();
 		hl->PtransY = tangent.y();
 		hl->PRot = dx;
@@ -195,41 +195,41 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		p->setWorldMatrix(trafo);
 		Zli = new ZZ;
 		Zli->Zeich = chx;
-		if (hl->ccolor != CommonStrings::None)
+		if (hl->fillColor() != CommonStrings::None)
 		{
 			QColor tmp;
-			SetFarbe(&tmp, hl->ccolor, hl->cshade);
+			SetFarbe(&tmp, hl->fillColor(), hl->fillShade());
 			p->setBrush(tmp);
 		}
-		if (hl->cstroke != CommonStrings::None)
+		if (hl->strokeColor() != CommonStrings::None)
 		{
 			QColor tmp;
-			SetFarbe(&tmp, hl->cstroke, hl->cshade2);
+			SetFarbe(&tmp, hl->strokeColor(), hl->strokeShade());
 			p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 		}
-		Zli->Farb = hl->ccolor;
-		Zli->Farb2 = hl->cstroke;
-		Zli->shade = hl->cshade;
-		Zli->shade2 = hl->cshade2;
+		Zli->Farb = hl->fillColor();
+		Zli->Farb2 = hl->strokeColor();
+		Zli->shade = hl->fillShade();
+		Zli->shade2 = hl->strokeShade();
 		Zli->xco = 0;
 		Zli->yco = BaseOffs;
 		Zli->Sele = hl->cselect;
 		Zli->Siz = chs;
-		Zli->realSiz = hl->csize;
-		Zli->Style = hl->cstyle;
-		Zli->ZFo = hl->cfont;
+		Zli->realSiz = hl->fontSize();
+		Zli->Style = hl->effects();
+		Zli->ZFo = hl->font();
 		Zli->wide = wide;
-		Zli->kern = hl->csize * hl->cextra / 10000.0;
-		Zli->scale = hl->cscale;
-		Zli->scalev = hl->cscalev;
-		Zli->base = hl->cbase;
-		Zli->shadowX = hl->cshadowx;
-		Zli->shadowY = hl->cshadowx;
-		Zli->outline = hl->coutline;
-		Zli->underpos = hl->cunderpos;
-		Zli->underwidth = hl->cunderwidth;
-		Zli->strikepos = hl->cstrikepos;
-		Zli->strikewidth = hl->cstrikewidth;
+		Zli->kern = hl->fontSize() * hl->tracking() / 10000.0;
+		Zli->scale = hl->scaleH();
+		Zli->scalev = hl->scaleV();
+		Zli->base = hl->baselineOffset();
+		Zli->shadowX = hl->shadowXOffset();
+		Zli->shadowY = hl->shadowYOffset();
+		Zli->outline = hl->outlineWidth();
+		Zli->underpos = hl->underlineOffset();
+		Zli->underwidth = hl->underlineWidth();
+		Zli->strikepos = hl->strikethruOffset();
+		Zli->strikewidth = hl->strikethruWidth();
 		Zli->embedded = 0;
 		if (!m_Doc->RePos)
 			DrawZeichenS(p, Zli);
@@ -240,7 +240,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		MaxChars = a+1;
 		oCurX = CurX;
 		CurX -= dx;
-		CurX += wide+hl->csize * hl->cextra / 10000.0;
+		CurX += wide+hl->fontSize() * hl->tracking() / 10000.0;
 		first = false;
 	}
 #endif

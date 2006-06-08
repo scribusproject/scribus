@@ -2109,7 +2109,7 @@ void Mpalette::NewTScaleV()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->ItemTextScaleV(qRound(ChScaleV->value() * 10));
-		doc->currentStyle.charStyle().cscalev = qRound(ChScaleV->value() * 10);
+		doc->currentStyle.charStyle().setScaleV(qRound(ChScaleV->value() * 10));
 		emit DocChanged();
 	}
 }
@@ -2119,7 +2119,7 @@ void Mpalette::NewTBase()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->setItemTextBase(qRound(ChBase->value() * 10));
-		doc->currentStyle.charStyle().cbase = qRound(ChBase->value() * 10);
+		doc->currentStyle.charStyle().setBaselineOffset(qRound(ChBase->value() * 10));
 		emit DocChanged();
 	}
 }
@@ -2149,7 +2149,7 @@ void Mpalette::NewTScale()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->ItemTextScale(qRound(ChScale->value() * 10));
-		doc->currentStyle.charStyle().cscale = qRound(ChScale->value() * 10);
+		doc->currentStyle.charStyle().setScaleH(qRound(ChScale->value() * 10));
 		emit DocChanged();
 	}
 }
@@ -2626,7 +2626,7 @@ void Mpalette::NewExtra()
 			if (CurItem->CPos != CurItem->itemText.length())
 			{
 #ifndef NLS_PROTO
-				CurItem->itemText.at(CurItem->CPos)->cextra = qRound(Extra->value() * 10.0);
+				CurItem->itemText.at(CurItem->CPos)->setTracking(qRound(Extra->value() * 10.0));
 #endif
 				m_MainWindow->view->RefreshItem(CurItem);
 				emit DocChanged();
@@ -2934,8 +2934,8 @@ void Mpalette::newShadowOffs()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->setItemTextShadow(x, y);
-		doc->currentStyle.charStyle().cshadowx = x;
-		doc->currentStyle.charStyle().cshadowy = y;
+		doc->currentStyle.charStyle().setShadowXOffset(x);
+		doc->currentStyle.charStyle().setShadowYOffset(y);
 		emit DocChanged();
 	}
 }
@@ -2959,8 +2959,8 @@ void Mpalette::newUnderline()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->setItemTextUnderline(x, y);
-		doc->currentStyle.charStyle().cunderpos = x;
-		doc->currentStyle.charStyle().cunderwidth = y;
+		doc->currentStyle.charStyle().setUnderlineOffset(x);
+		doc->currentStyle.charStyle().setUnderlineWidth(y);
 		emit DocChanged();
 	}
 }
@@ -2984,8 +2984,8 @@ void Mpalette::newStrike()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->setItemTextStrike(x, y);
-		doc->currentStyle.charStyle().cstrikepos = x;
-		doc->currentStyle.charStyle().cstrikewidth = y;
+		doc->currentStyle.charStyle().setStrikethruOffset(x);
+		doc->currentStyle.charStyle().setStrikethruWidth(y);
 		emit DocChanged();
 	}
 }
@@ -3017,7 +3017,7 @@ void Mpalette::newOutlineW()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->setItemTextOutline(x);
-		doc->currentStyle.charStyle().coutline = x;
+		doc->currentStyle.charStyle().setOutlineWidth(x);
 		emit DocChanged();
 	}
 }
@@ -3490,7 +3490,7 @@ void Mpalette::newTxtFill()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->ItemTextBrush(TxFill->currentText());
-		doc->currentStyle.charStyle().ccolor = TxFill->currentText();
+		doc->currentStyle.charStyle().setFillColor(TxFill->currentText());
 		emit DocChanged();
 	}
 }
@@ -3500,7 +3500,7 @@ void Mpalette::newTxtStroke()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->ItemTextPen(TxStroke->currentText());
-		doc->currentStyle.charStyle().cstroke = TxStroke->currentText();
+		doc->currentStyle.charStyle().setStrokeColor(TxStroke->currentText());
 		emit DocChanged();
 	}
 }
@@ -3514,13 +3514,13 @@ void Mpalette::setActShade()
 	{
 		b = PM1->getValue();
 		doc->ItemTextPenS(b);
-		doc->currentStyle.charStyle().cshade = b;
+		doc->currentStyle.charStyle().setFillShade(b);
 	}
 	else
 	{
 		b = PM2->getValue();
 		doc->ItemTextBrushS(b);
-		doc->currentStyle.charStyle().cshade2 = b;
+		doc->currentStyle.charStyle().setStrokeShade(b);
 	}
 	emit DocChanged();
 }

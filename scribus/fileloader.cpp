@@ -146,7 +146,7 @@ static void replaceFonts(PageItem *it, QMap<QString, int> UsedFonts, QMap<QStrin
 			int start = it->itemText.startOfRun(e);
 			Foi* oldFont = it->itemText.charStyle(start).font();
 			if (!UsedFonts.contains(oldFont->scName())) {
-				newFontStyle.cfont = (*ScMW->doc->AllFonts)[ReplacedFonts[oldFont->scName()]];
+				newFontStyle.setFont((*ScMW->doc->AllFonts)[ReplacedFonts[oldFont->scName()]]);
 				it->itemText.applyStyle(start, it->itemText.endOfRun(e) - start, newFontStyle );
 			}
 		}
@@ -214,8 +214,8 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 		for (uint a = 0; a < ScMW->doc->docParagraphStyles.count(); ++a)
 		{
 			if ( ScMW->doc->docParagraphStyles[a].charStyle().font() != &Foi::NONE && !ScMW->doc->UsedFonts.contains(ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()))
-				ScMW->doc->docParagraphStyles[a].charStyle().cfont =
-					(*ScMW->doc->AllFonts)[ReplacedFonts[ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()]];
+				ScMW->doc->docParagraphStyles[a].charStyle().setFont
+					((*ScMW->doc->AllFonts)[ReplacedFonts[ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()]]);
 		}
 		QMap<QString,QString>::Iterator itfsu;
 		for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
@@ -380,28 +380,28 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 				doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 			}
 		}
-		vg.charStyle().cfont = (*ScMW->doc->AllFonts)[tmpf];
-		vg.charStyle().csize = qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0);
+		vg.charStyle().setFont((*ScMW->doc->AllFonts)[tmpf]);
+		vg.charStyle().setFontSize(qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0));
 		vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
 		vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
 		vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
-		vg.charStyle().cstyle = static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt());
-		vg.charStyle().ccolor = pg.attribute("FCOLOR", doc->toolSettings.dBrush);
-		vg.charStyle().cshade = pg.attribute("FSHADE", "100").toInt();
-		vg.charStyle().cstroke = pg.attribute("SCOLOR", doc->toolSettings.dPen);
-		vg.charStyle().cshade2 = pg.attribute("SSHADE", "100").toInt();
+		vg.charStyle().setEffects(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()));
+		vg.charStyle().setFillColor(pg.attribute("FCOLOR", doc->toolSettings.dBrush));
+		vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
+		vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", doc->toolSettings.dPen));
+		vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
 		vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
-		vg.charStyle().cshadowx = qRound(pg.attribute("TXTSHX", "5").toDouble() * 10);
-		vg.charStyle().cshadowy = qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10);
-		vg.charStyle().coutline = qRound(pg.attribute("TXTOUT", "1").toDouble() * 10);
-		vg.charStyle().cunderpos = qRound(pg.attribute("TXTULP", "-0.1").toDouble() * 10);
-		vg.charStyle().cunderwidth = qRound(pg.attribute("TXTULW", "-0.1").toDouble() * 10);
-		vg.charStyle().cstrikepos = qRound(pg.attribute("TXTSTP", "-0.1").toDouble() * 10);
-		vg.charStyle().cstrikewidth = qRound(pg.attribute("TXTSTW", "-0.1").toDouble() * 10);
-		vg.charStyle().cscale = qRound(pg.attribute("SCALEH", "100").toDouble() * 10);
-		vg.charStyle().cscalev = qRound(pg.attribute("SCALEV", "100").toDouble() * 10);
-		vg.charStyle().cbase = qRound(pg.attribute("BASEO", "0").toDouble() * 10);
-		vg.charStyle().cextra = qRound(pg.attribute("KERN", "0").toDouble() * 10);
+		vg.charStyle().setShadowXOffset(qRound(pg.attribute("TXTSHX", "5").toDouble() * 10));
+		vg.charStyle().setShadowYOffset(qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10));
+		vg.charStyle().setOutlineWidth(qRound(pg.attribute("TXTOUT", "1").toDouble() * 10));
+		vg.charStyle().setUnderlineOffset(qRound(pg.attribute("TXTULP", "-0.1").toDouble() * 10));
+		vg.charStyle().setUnderlineWidth(qRound(pg.attribute("TXTULW", "-0.1").toDouble() * 10));
+		vg.charStyle().setStrikethruOffset(qRound(pg.attribute("TXTSTP", "-0.1").toDouble() * 10));
+		vg.charStyle().setStrikethruWidth(qRound(pg.attribute("TXTSTW", "-0.1").toDouble() * 10));
+		vg.charStyle().setScaleH(qRound(pg.attribute("SCALEH", "100").toDouble() * 10));
+		vg.charStyle().setScaleV(qRound(pg.attribute("SCALEV", "100").toDouble() * 10));
+		vg.charStyle().setBaselineOffset(qRound(pg.attribute("BASEO", "0").toDouble() * 10));
+		vg.charStyle().setTracking(qRound(pg.attribute("KERN", "0").toDouble() * 10));
 		vg.tabValues().clear();
 		if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
 		{
@@ -511,8 +511,8 @@ bool FileLoader::postLoad()
 		for (uint a = 0; a < ScMW->doc->docParagraphStyles.count(); ++a)
 		{
 			if ( ScMW->doc->docParagraphStyles[a].charStyle().font() != &Foi::NONE && !ScMW->doc->UsedFonts.contains(ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()))
-				ScMW->doc->docParagraphStyles[a].charStyle().cfont =
-					(*ScMW->doc->AllFonts)[ReplacedFonts[ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()]];
+				ScMW->doc->docParagraphStyles[a].charStyle().setFont
+					((*ScMW->doc->AllFonts)[ReplacedFonts[ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()]]);
 		}
 		QValueList<QString> tmpList;
 		tmpList.clear();

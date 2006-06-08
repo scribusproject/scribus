@@ -11,6 +11,10 @@
 #define DESAXE_CONF_H
 
 
+// disable lots of diagnostic messages
+#undef DESAXE_DEBUG
+
+
 // choose datatypes for element tags and attributes
 #define DESAXE_QT
 
@@ -38,8 +42,5 @@ inline Xml_string Xml_key(Xml_attr::iterator& it) { return it->first; }
 inline Xml_string Xml_data(Xml_attr::iterator& it) { return it->second; }
 
 #endif
-
-
-#undef DESAXE_DEBUG
 
 #endif

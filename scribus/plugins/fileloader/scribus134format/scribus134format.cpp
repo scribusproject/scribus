@@ -1420,8 +1420,8 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 			fo.setAttribute("FIRST",m_Doc->docParagraphStyles[ff].firstIndent());
 			fo.setAttribute("VOR",m_Doc->docParagraphStyles[ff].gapBefore());
 			fo.setAttribute("NACH",m_Doc->docParagraphStyles[ff].gapAfter());
-			fo.setAttribute("FONT",m_Doc->docParagraphStyles[ff].charStyle().cfont->scName());
-			fo.setAttribute("FONTSIZE",m_Doc->docParagraphStyles[ff].charStyle().csize / 10.0);
+			fo.setAttribute("FONT",m_Doc->docParagraphStyles[ff].charStyle().font()->scName());
+			fo.setAttribute("FONTSIZE",m_Doc->docParagraphStyles[ff].charStyle().fontSize() / 10.0);
 			fo.setAttribute("DROP", static_cast<int>(m_Doc->docParagraphStyles[ff].hasDropCap()));
 			fo.setAttribute("DROPLIN", m_Doc->docParagraphStyles[ff].dropCapLines());
 			fo.setAttribute("DROPDIST", m_Doc->docParagraphStyles[ff].dropCapOffset());
@@ -1440,22 +1440,22 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 					fo.appendChild(tabs);
 				}
 			}
-			fo.setAttribute("FCOLOR",m_Doc->docParagraphStyles[ff].charStyle().ccolor);
-			fo.setAttribute("FSHADE",m_Doc->docParagraphStyles[ff].charStyle().cshade);
-			fo.setAttribute("SCOLOR",m_Doc->docParagraphStyles[ff].charStyle().cstroke);
-			fo.setAttribute("SSHADE",m_Doc->docParagraphStyles[ff].charStyle().cshade2);
+			fo.setAttribute("FCOLOR",m_Doc->docParagraphStyles[ff].charStyle().fillColor());
+			fo.setAttribute("FSHADE",m_Doc->docParagraphStyles[ff].charStyle().fillShade());
+			fo.setAttribute("SCOLOR",m_Doc->docParagraphStyles[ff].charStyle().strokeColor());
+			fo.setAttribute("SSHADE",m_Doc->docParagraphStyles[ff].charStyle().strokeShade());
 			fo.setAttribute("BASE", static_cast<int>(m_Doc->docParagraphStyles[ff].useBaselineGrid()));
-			fo.setAttribute("TXTSHX",m_Doc->docParagraphStyles[ff].charStyle().cshadowx / 10.0);
-			fo.setAttribute("TXTSHY",m_Doc->docParagraphStyles[ff].charStyle().cshadowy / 10.0);
-			fo.setAttribute("TXTOUT",m_Doc->docParagraphStyles[ff].charStyle().coutline / 10.0);
-			fo.setAttribute("TXTULP",m_Doc->docParagraphStyles[ff].charStyle().cunderpos / 10.0);
-			fo.setAttribute("TXTULW",m_Doc->docParagraphStyles[ff].charStyle().cunderwidth / 10.0);
-			fo.setAttribute("TXTSTP",m_Doc->docParagraphStyles[ff].charStyle().cstrikepos / 10.0);
-			fo.setAttribute("TXTSTW",m_Doc->docParagraphStyles[ff].charStyle().cstrikewidth / 10.0);
-			fo.setAttribute("SCALEH",m_Doc->docParagraphStyles[ff].charStyle().cscale / 10.0);
-			fo.setAttribute("SCALEV",m_Doc->docParagraphStyles[ff].charStyle().cscalev / 10.0);
-			fo.setAttribute("BASEO",m_Doc->docParagraphStyles[ff].charStyle().cbase / 10.0);
-			fo.setAttribute("KERN",m_Doc->docParagraphStyles[ff].charStyle().cextra / 10.0);
+			fo.setAttribute("TXTSHX",m_Doc->docParagraphStyles[ff].charStyle().shadowXOffset() / 10.0);
+			fo.setAttribute("TXTSHY",m_Doc->docParagraphStyles[ff].charStyle().shadowYOffset() / 10.0);
+			fo.setAttribute("TXTOUT",m_Doc->docParagraphStyles[ff].charStyle().outlineWidth() / 10.0);
+			fo.setAttribute("TXTULP",m_Doc->docParagraphStyles[ff].charStyle().underlineOffset() / 10.0);
+			fo.setAttribute("TXTULW",m_Doc->docParagraphStyles[ff].charStyle().underlineWidth() / 10.0);
+			fo.setAttribute("TXTSTP",m_Doc->docParagraphStyles[ff].charStyle().strikethruOffset() / 10.0);
+			fo.setAttribute("TXTSTW",m_Doc->docParagraphStyles[ff].charStyle().strikethruWidth() / 10.0);
+			fo.setAttribute("SCALEH",m_Doc->docParagraphStyles[ff].charStyle().scaleH() / 10.0);
+			fo.setAttribute("SCALEV",m_Doc->docParagraphStyles[ff].charStyle().scaleV() / 10.0);
+			fo.setAttribute("BASEO",m_Doc->docParagraphStyles[ff].charStyle().baselineOffset() / 10.0);
+			fo.setAttribute("KERN",m_Doc->docParagraphStyles[ff].charStyle().tracking() / 10.0);
 			dc.appendChild(fo);
 		}
 	}
@@ -1728,7 +1728,7 @@ void breakPoint() {}
 
 void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo, bool VorLFound)
 {
-	Foi* dummy;
+	Foi* dummy = NULL;
 	bool unknown = false;
 	QString tmp2, tmpf;
 	tmp2 = it->attribute("CH");
@@ -1802,14 +1802,14 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 		if (ch == QChar(4))
 			ch = QChar(9);
 		if (unknown)
-			newStyle.cfont = dummy;
+			newStyle.setFont(dummy);
 		else
-			newStyle.cfont = (*doc->AllFonts)[tmpf];
-		newStyle.csize = size;
-		newStyle.ccolor = fcolor;
-		newStyle.cextra = extra;
-		newStyle.cshade = shade;
-		newStyle.cstyle = static_cast<StyleFlag>(style);
+			newStyle.setFont((*doc->AllFonts)[tmpf]);
+		newStyle.setFontSize(size);
+		newStyle.setFillColor(fcolor);
+		newStyle.setTracking(extra);
+		newStyle.setFillShade(shade);
+		newStyle.setEffects(static_cast<StyleFlag>(style));
 		if (ab >= 5) breakPoint();
 		if (impo)
 		{
@@ -1825,18 +1825,18 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 		}
 		else
 			last->ParaStyle = ab;
-		newStyle.cstroke = stroke;
-		newStyle.cshade2 = shade2;
-		newStyle.cscale = QMIN(QMAX(scale, 100), 4000);
-		newStyle.cscalev = QMIN(QMAX(scalev, 100), 4000);
-		newStyle.cbase = base;
-		newStyle.cshadowx = shX;
-		newStyle.cshadowy = shY;
-		newStyle.coutline = outL;
-		newStyle.cunderpos = ulp;
-		newStyle.cunderwidth = ulw;
-		newStyle.cstrikepos = stp;
-		newStyle.cstrikewidth = stw;
+		newStyle.setStrokeColor(stroke);
+		newStyle.setStrokeShade(shade2);
+		newStyle.setScaleH(QMIN(QMAX(scale, 100), 4000));
+		newStyle.setScaleV(QMIN(QMAX(scalev, 100), 4000));
+		newStyle.setBaselineOffset(base);
+		newStyle.setShadowXOffset(shX);
+		newStyle.setShadowYOffset(shY);
+		newStyle.setOutlineWidth(outL);
+		newStyle.setUnderlineOffset(ulp);
+		newStyle.setUnderlineWidth(ulw);
+		newStyle.setStrikethruOffset(stp);
+		newStyle.setStrikethruWidth(stw);
 		int pos = obj->itemText.length();
 		if (ch == SpecialChars::OBJECT) {
 			if (iobj != -1) {
@@ -1898,28 +1898,28 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 				doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 			}
 		}
-		vg.charStyle().cfont = (*m_Doc->AllFonts)[tmpf];
-		vg.charStyle().csize = qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0);
+		vg.charStyle().setFont((*m_Doc->AllFonts)[tmpf]);
+		vg.charStyle().setFontSize(qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0));
 		vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
 		vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
 		vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
-		vg.charStyle().cstyle = static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt());
-		vg.charStyle().ccolor = pg.attribute("FCOLOR", doc->toolSettings.dBrush);
-		vg.charStyle().cshade = pg.attribute("FSHADE", "100").toInt();
-		vg.charStyle().cstroke = pg.attribute("SCOLOR", doc->toolSettings.dPen);
-		vg.charStyle().cshade2 = pg.attribute("SSHADE", "100").toInt();
+		vg.charStyle().setEffects(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()));
+		vg.charStyle().setFillColor(pg.attribute("FCOLOR", doc->toolSettings.dBrush));
+		vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
+		vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", doc->toolSettings.dPen));
+		vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
 		vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
-		vg.charStyle().cshadowx = qRound(pg.attribute("TXTSHX", "5").toDouble() * 10);
-		vg.charStyle().cshadowy = qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10);
-		vg.charStyle().coutline = qRound(pg.attribute("TXTOUT", "1").toDouble() * 10);
-		vg.charStyle().cunderpos = qRound(pg.attribute("TXTULP", "-0.1").toDouble() * 10);
-		vg.charStyle().cunderwidth = qRound(pg.attribute("TXTULW", "-0.1").toDouble() * 10);
-		vg.charStyle().cstrikepos = qRound(pg.attribute("TXTSTP", "-0.1").toDouble() * 10);
-		vg.charStyle().cstrikewidth = qRound(pg.attribute("TXTSTW", "-0.1").toDouble() * 10);
-		vg.charStyle().cscale = qRound(pg.attribute("SCALEH", "100").toDouble() * 10);
-		vg.charStyle().cscalev = qRound(pg.attribute("SCALEV", "100").toDouble() * 10);
-		vg.charStyle().cbase = qRound(pg.attribute("BASEO", "0").toDouble() * 10);
-		vg.charStyle().cextra = qRound(pg.attribute("KERN", "0").toDouble() * 10);
+		vg.charStyle().setShadowXOffset(qRound(pg.attribute("TXTSHX", "5").toDouble() * 10));
+		vg.charStyle().setShadowYOffset(qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10));
+		vg.charStyle().setOutlineWidth(qRound(pg.attribute("TXTOUT", "1").toDouble() * 10));
+		vg.charStyle().setUnderlineOffset(qRound(pg.attribute("TXTULP", "-0.1").toDouble() * 10));
+		vg.charStyle().setUnderlineWidth(qRound(pg.attribute("TXTULW", "-0.1").toDouble() * 10));
+		vg.charStyle().setStrikethruOffset(qRound(pg.attribute("TXTSTP", "-0.1").toDouble() * 10));
+		vg.charStyle().setStrikethruWidth(qRound(pg.attribute("TXTSTW", "-0.1").toDouble() * 10));
+		vg.charStyle().setScaleH(qRound(pg.attribute("SCALEH", "100").toDouble() * 10));
+		vg.charStyle().setScaleV(qRound(pg.attribute("SCALEV", "100").toDouble() * 10));
+		vg.charStyle().setBaselineOffset(qRound(pg.attribute("BASEO", "0").toDouble() * 10));
+		vg.charStyle().setTracking(qRound(pg.attribute("KERN", "0").toDouble() * 10));
 		vg.tabValues().clear();
 		if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
 		{
@@ -2148,7 +2148,6 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	pstyle.setLineSpacing(obj->attribute("LINESP").toDouble());
 	pstyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(obj->attribute("LINESPMode", "0").toInt()));
 	pstyle.setAlignment(obj->attribute("ALIGN", "0").toInt());
-/*	sigh
 	pstyle.charStyle().setFontSize(qRound(obj->attribute("ISIZE", "12").toDouble() * 10));
 	pstyle.charStyle().setStrokeColor(obj->attribute("TXTSTROKE", CommonStrings::None));
 	pstyle.charStyle().setFillColor(obj->attribute("TXTFILL", "Black"));
@@ -2164,24 +2163,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	pstyle.charStyle().setUnderlineWidth(qRound(obj->attribute("TXTULW", "-0.1").toDouble() * 10));
 	pstyle.charStyle().setStrikethruOffset(qRound(obj->attribute("TXTSTP", "-0.1").toDouble() * 10));
 	pstyle.charStyle().setStrikethruWidth(qRound(obj->attribute("TXTSTW", "-0.1").toDouble() * 10));
-	pstyle.charStyle().setEffects(obj->attribute("TXTSTYLE", "0").toInt());
-*/
-	pstyle.charStyle().csize = (qRound(obj->attribute("ISIZE", "12").toDouble() * 10));
-	pstyle.charStyle().cstroke = (obj->attribute("TXTSTROKE", CommonStrings::None));
-	pstyle.charStyle().ccolor = (obj->attribute("TXTFILL", "Black"));
-	pstyle.charStyle().cshade2 = (obj->attribute("TXTSTRSH", "100").toInt());
-	pstyle.charStyle().cshade = (obj->attribute("TXTFILLSH", "100").toInt());
-	pstyle.charStyle().cscale = (qRound(obj->attribute("TXTSCALE", "100").toDouble() * 10));
-	pstyle.charStyle().cscalev = (qRound(obj->attribute("TXTSCALEV", "100").toDouble() * 10));
-	pstyle.charStyle().cbase = (qRound(obj->attribute("TXTBASE", "0").toDouble() * 10));
-	pstyle.charStyle().cshadowx = (qRound(obj->attribute("TXTSHX", "5").toDouble() * 10));
-	pstyle.charStyle().cshadowy = (qRound(obj->attribute("TXTSHY", "-5").toDouble() * 10));
-	pstyle.charStyle().coutline = (qRound(obj->attribute("TXTOUT", "1").toDouble() * 10));
-	pstyle.charStyle().cunderpos = (qRound(obj->attribute("TXTULP", "-0.1").toDouble() * 10));
-	pstyle.charStyle().cunderwidth = (qRound(obj->attribute("TXTULW", "-0.1").toDouble() * 10));
-	pstyle.charStyle().cstrikepos = (qRound(obj->attribute("TXTSTP", "-0.1").toDouble() * 10));
-	pstyle.charStyle().cstrikewidth = (qRound(obj->attribute("TXTSTW", "-0.1").toDouble() * 10));
-	pstyle.charStyle().cstyle = static_cast<StyleFlag>(obj->attribute("TXTSTYLE", "0").toInt());
+	pstyle.charStyle().setEffects(static_cast<StyleFlag>(obj->attribute("TXTSTYLE", "0").toInt()));
 	currItem->itemText.setDefaultStyle(pstyle);
 	currItem->setRotation(obj->attribute("ROT").toDouble());
 	currItem->setTextToFrameDist(obj->attribute("EXTRA").toDouble(),
@@ -3310,29 +3292,29 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 			const CharStyle& style1(item->itemText.charStyle(k));
 			QChar ch = item->itemText.text(k);
 			QDomElement it=docu->createElement("ITEXT");
-			ts = style1.csize / 10.0;
-			tf = style1.cfont->scName();
-			tc = style1.ccolor;
-			te = style1.cextra;
-			tsh = style1.cshade;
-			tst = style1.cstyle & 2047;
+			ts = style1.fontSize() / 10.0;
+			tf = style1.font()->scName();
+			tc = style1.fillColor();
+			te = style1.tracking();
+			tsh = style1.fillShade();
+			tst = style1.effects() & 2047;
 #ifndef NLS_PROTO
 			tsb = item->itemText.at(k)->cab;
 #else
 			tsb = 0;
 #endif
-			tcs = style1.cstroke;
-			tshs = style1.cshade2;
-			tsc = style1.cscale / 10.0;
-			tscv = style1.cscalev / 10.0;
-			tb = style1.cbase / 10.0;
-			tsx = style1.cshadowx / 10.0;
-			tsy = style1.cshadowy / 10.0;
-			tout = style1.coutline / 10.0;
-			tulp = style1.cunderpos / 10.0;
-			tulw = style1.cunderwidth / 10.0;
-			tstp = style1.cstrikepos / 10.0;
-			tstw = style1.cstrikewidth / 10.0;
+			tcs = style1.strokeColor();
+			tshs = style1.strokeShade();
+			tsc = style1.scaleH() / 10.0;
+			tscv = style1.scaleV() / 10.0;
+			tb = style1.baselineOffset() / 10.0;
+			tsx = style1.shadowXOffset() / 10.0;
+			tsy = style1.shadowYOffset() / 10.0;
+			tout = style1.outlineWidth() / 10.0;
+			tulp = style1.underlineOffset() / 10.0;
+			tulw = style1.underlineWidth() / 10.0;
+			tstp = style1.strikethruOffset() / 10.0;
+			tstw = style1.strikethruWidth() / 10.0;
 #ifndef NLS_PROTO
 			if ((ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
 				tobj = item->itemText.at(k)->cembedded->ItemNr;
@@ -3375,29 +3357,29 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 			}
 			const CharStyle& style2(item->itemText.charStyle(k));
 			ch = item->itemText.text(k);
-			ts2 = style2.csize / 10.0;
-			tf2 = style2.cfont->scName();
-			tc2 = style2.ccolor;
-			te2 = style2.cextra;
-			tsh2 = style2.cshade;
-			tst2 = style2.cstyle & 2047;
+			ts2 = style2.fontSize() / 10.0;
+			tf2 = style2.font()->scName();
+			tc2 = style2.fillColor();
+			te2 = style2.tracking();
+			tsh2 = style2.fillShade();
+			tst2 = style2.effects() & 2047;
 #ifndef NLS_PROTO
 			tsb2 = item->itemText.at(k)->cab;
 #else
 			tsb2 = 0;
 #endif
-			tcs2 = style2.cstroke;
-			tshs2 = style2.cshade2;
-			tsc2 = style2.cscale / 10.0;
-			tscv2 = style2.cscalev / 10.0;
-			tb2 = style2.cbase / 10.0;
-			tsx2 = style2.cshadowx / 10.0;
-			tsy2 = style2.cshadowy / 10.0;
-			tout2 = style2.coutline / 10.0;
-			tulp2 = style2.cunderpos / 10.0;
-			tulw2 = style2.cunderwidth / 10.0;
-			tstp2 = style2.cstrikepos / 10.0;
-			tstw2 = style2.cstrikewidth / 10.0;
+			tcs2 = style2.strokeColor();
+			tshs2 = style2.strokeShade();
+			tsc2 = style2.scaleH() / 10.0;
+			tscv2 = style2.scaleV() / 10.0;
+			tb2 = style2.baselineOffset() / 10.0;
+			tsx2 = style2.shadowXOffset() / 10.0;
+			tsy2 = style2.shadowYOffset() / 10.0;
+			tout2 = style2.outlineWidth() / 10.0;
+			tulp2 = style2.underlineOffset() / 10.0;
+			tulw2 = style2.underlineWidth() / 10.0;
+			tstp2 = style2.strikethruOffset() / 10.0;
+			tstw2 = style2.strikethruWidth() / 10.0;
 #ifndef NLS_PROTO
 			if ((ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
 				tobj2 = item->itemText.at(k)->cembedded->ItemNr;
@@ -3436,29 +3418,29 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 					break;
 				const CharStyle& style3(item->itemText.charStyle(k));
 				ch = item->itemText.text(k);
-				ts2 = style3.csize / 10.0;
-				tf2 = style3.cfont->scName();
-				tc2 = style3.ccolor;
-				te2 = style3.cextra;
-				tsh2 = style3.cshade;
-				tst2 = style3.cstyle & 2047;
+				ts2 = style3.fontSize() / 10.0;
+				tf2 = style3.font()->scName();
+				tc2 = style3.fillColor();
+				te2 = style3.tracking();
+				tsh2 = style3.fillShade();
+				tst2 = style3.effects() & 2047;
 #ifndef NLS_PROTO
 				tsb2 = item->itemText.at(k)->cab;
 #else
 				tsb2 = 0;
 #endif
-				tcs2 = style3.cstroke;
-				tshs2 = style3.cshade2;
-				tsc2 = style3.cscale / 10.0;
-				tscv2 = style3.cscalev / 10.0;
-				tb2 = style3.cbase / 10.0;
-				tsx2 = style3.cshadowx / 10.0;
-				tsy2 = style3.cshadowy / 10.0;
-				tout2 = style3.coutline / 10.0;
-				tulp2 = style3.cunderpos / 10.0;
-				tulw2 = style3.cunderwidth / 10.0;
-				tstp2 = style3.cstrikepos / 10.0;
-				tstw2 = style3.cstrikewidth / 10.0;
+				tcs2 = style3.strokeColor();
+				tshs2 = style3.strokeShade();
+				tsc2 = style3.scaleH() / 10.0;
+				tscv2 = style3.scaleV() / 10.0;
+				tb2 = style3.baselineOffset() / 10.0;
+				tsx2 = style3.shadowXOffset() / 10.0;
+				tsy2 = style3.shadowYOffset() / 10.0;
+				tout2 = style3.outlineWidth() / 10.0;
+				tulp2 = style3.underlineOffset() / 10.0;
+				tulw2 = style3.underlineWidth() / 10.0;
+				tstp2 = style3.strikethruOffset() / 10.0;
+				tstw2 = style3.strikethruWidth() / 10.0;
 #ifndef NLS_PROTO
 				if ((ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
 					tobj2 = item->itemText.at(k)->cembedded->ItemNr;

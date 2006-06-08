@@ -54,29 +54,29 @@ SampleItem::SampleItem() : QObject()
 	tmpStyle.setFirstIndent(0);
 	tmpStyle.setGapBefore(0);
 	tmpStyle.setGapAfter(0);
-	tmpStyle.charStyle().cfont = PrefsManager::instance()->appPrefs.AvailFonts[doc->toolSettings.defFont];
-	tmpStyle.charStyle().csize = doc->toolSettings.defSize;
+	tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.AvailFonts[doc->toolSettings.defFont]);
+	tmpStyle.charStyle().setFontSize(doc->toolSettings.defSize);
 	tmpStyle.tabValues().clear();
 	tmpStyle.setHasDropCap(false);
 	tmpStyle.setDropCapLines(0);//2;
 	tmpStyle.setDropCapOffset(0);
-	tmpStyle.charStyle().cstyle = ScStyle_Default;
-	tmpStyle.charStyle().ccolor = "__blackforpreview__";
-	tmpStyle.charStyle().cshade = 100; //doc->toolSettings.dShade;
-	tmpStyle.charStyle().cstroke = "__whiteforpreview__";
-	tmpStyle.charStyle().cshade2 = 100; //doc->toolSettings.dShade2;
+	tmpStyle.charStyle().setEffects(ScStyle_Default);
+	tmpStyle.charStyle().setFillColor("__blackforpreview__");
+	tmpStyle.charStyle().setFillShade(100); //doc->toolSettings.dShade;
+	tmpStyle.charStyle().setStrokeColor("__whiteforpreview__");
+	tmpStyle.charStyle().setStrokeShade(100); //doc->toolSettings.dShade2;
 	tmpStyle.setUseBaselineGrid(false);
-	tmpStyle.charStyle().cshadowx = 50;
-	tmpStyle.charStyle().cshadowy = -50;
-	tmpStyle.charStyle().coutline = 10;
-	tmpStyle.charStyle().cunderpos = 0; //doc->typographicSettings.valueUnderlinePos;
-	tmpStyle.charStyle().cunderwidth = 0; //doc->typographicSettings.valueUnderlineWidth;
-	tmpStyle.charStyle().cstrikepos = 0; //doc->typographicSettings.valueStrikeThruPos;
-	tmpStyle.charStyle().cstrikewidth = 0; //doc->typographicSettings.valueStrikeThruPos;
-	tmpStyle.charStyle().cscale = 1000;
-	tmpStyle.charStyle().cscalev = 1000;
-	tmpStyle.charStyle().cbase = 0;
-	tmpStyle.charStyle().cextra = 0;
+	tmpStyle.charStyle().setShadowXOffset(50);
+	tmpStyle.charStyle().setShadowYOffset(-50);
+	tmpStyle.charStyle().setOutlineWidth(10);
+	tmpStyle.charStyle().setUnderlineOffset(0); //doc->typographicSettings.valueUnderlinePos;
+	tmpStyle.charStyle().setUnderlineWidth(0); //doc->typographicSettings.valueUnderlineWidth;
+	tmpStyle.charStyle().setStrikethruOffset(0); //doc->typographicSettings.valueStrikeThruPos;
+	tmpStyle.charStyle().setStrikethruWidth(0); //doc->typographicSettings.valueStrikeThruPos;
+	tmpStyle.charStyle().setScaleH(1000);
+	tmpStyle.charStyle().setScaleV(1000);
+	tmpStyle.charStyle().setBaselineOffset(0);
+	tmpStyle.charStyle().setTracking(0);
 }
 
 SampleItem::~SampleItem()
@@ -125,7 +125,7 @@ void SampleItem::setTxColor(QColor c)
 
 void SampleItem::setTxShade(int c)
 {
-	tmpStyle.charStyle().cshade = c;
+	tmpStyle.charStyle().setFillShade(c);
 }
 
 void SampleItem::setLineSpaMode(int lineSpaMode)
@@ -165,12 +165,12 @@ void SampleItem::setGapAfter(double gapAfter)
 
 void SampleItem::setFont(QString font)
 {
-	tmpStyle.charStyle().cfont = PrefsManager::instance()->appPrefs.AvailFonts[font];
+	tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.AvailFonts[font]);
 }
 
 void SampleItem::setFontSize(int fontSize, bool autoLineSpa)
 {
-	tmpStyle.charStyle().csize = fontSize;
+	tmpStyle.charStyle().setFontSize(fontSize);
 	if (autoLineSpa)
 		tmpStyle.setLineSpacing(((fontSize / 10)  * (doc->typographicSettings.autoLineSpacing / 100) + (fontSize / 10)));
 }
@@ -197,27 +197,27 @@ void SampleItem::setDropDist(double dropDist)
 
 void SampleItem::setFontEffect(int fontEffect)
 {
-	tmpStyle.charStyle().cstyle = static_cast<StyleFlag>(fontEffect);
+	tmpStyle.charStyle().setEffects(static_cast<StyleFlag>(fontEffect));
 }
 
 void SampleItem::setFColor(QString fColor)
 {
-	tmpStyle.charStyle().ccolor = fColor;
+	tmpStyle.charStyle().setFillColor(fColor);
 }
 
 void SampleItem::setFShade(int fShade)
 {
-	tmpStyle.charStyle().cshade = fShade;
+	tmpStyle.charStyle().setFillShade(fShade);
 }
 
 void SampleItem::setSColor(QString sColor)
 {
-	tmpStyle.charStyle().ccolor = sColor;
+	tmpStyle.charStyle().setStrokeColor(sColor);
 }
 
 void SampleItem::setSShade(int sShade)
 {
-	tmpStyle.charStyle().cstroke = sShade;
+	tmpStyle.charStyle().setStrokeShade(sShade);
 }
 
 void SampleItem::setBaseAdj(bool baseAdj)
@@ -227,57 +227,57 @@ void SampleItem::setBaseAdj(bool baseAdj)
 
 void SampleItem::setTxtShadowX(int txtShadowX)
 {
-	tmpStyle.charStyle().cshadowx = txtShadowX;
+	tmpStyle.charStyle().setShadowXOffset(txtShadowX);
 }
 
 void SampleItem::setTxtShadowY(int txtShadowY)
 {
-	tmpStyle.charStyle().cshadowy = txtShadowY;
+	tmpStyle.charStyle().setShadowYOffset(txtShadowY);
 }
 
 void SampleItem::setTxtOutline(int txtOutline)
 {
-	tmpStyle.charStyle().coutline = txtOutline;
+	tmpStyle.charStyle().setOutlineWidth(txtOutline);
 }
 
 void SampleItem::setTxtUnderPos(int txtUnderPos)
 {
-	tmpStyle.charStyle().cunderpos = txtUnderPos;
+	tmpStyle.charStyle().setUnderlineOffset(txtUnderPos);
 }
 
 void SampleItem::setTxtUnderWidth(int txtUnderWidth)
 {
-	tmpStyle.charStyle().cunderwidth = txtUnderWidth;
+	tmpStyle.charStyle().setUnderlineWidth(txtUnderWidth);
 }
 
 void SampleItem::setTxtStrikePos(int txtStrikePos)
 {
-	tmpStyle.charStyle().cstrikepos = txtStrikePos;
+	tmpStyle.charStyle().setStrikethruOffset(txtStrikePos);
 }
 
 void SampleItem::setTxtStrikeWidth(int txtStrikeWidth)
 {
-	tmpStyle.charStyle().cstrikewidth = txtStrikeWidth;
+	tmpStyle.charStyle().setStrikethruWidth(txtStrikeWidth);
 }
 
 void SampleItem::setScaleH(int scaleH)
 {
-	tmpStyle.charStyle().cscale = scaleH;
+	tmpStyle.charStyle().setScaleH(scaleH);
 }
 
 void SampleItem::setScaleV(int scaleV)
 {
-	tmpStyle.charStyle().cscalev = scaleV;
+	tmpStyle.charStyle().setScaleV(scaleV);
 }
 
 void SampleItem::setBaseOff(int baseOff)
 {
-	tmpStyle.charStyle().cbase = baseOff;
+	tmpStyle.charStyle().setBaselineOffset(baseOff);
 }
 
 void SampleItem::setKernVal(int kernVal)
 {
-	tmpStyle.charStyle().cextra = kernVal;
+	tmpStyle.charStyle().setTracking(kernVal);
 }
 
 QPixmap SampleItem::getSample(int width, int height)
@@ -330,7 +330,7 @@ QPixmap SampleItem::getSample(int width, int height)
 
 	// cleanups and resets
 	if (!previouslyUsedFont)
-		doc->UsedFonts.remove(tmpStyle.charStyle().cfont->scName());
+		doc->UsedFonts.remove(tmpStyle.charStyle().font()->scName());
 	if (ScMW->view != NULL)
 		ScMW->view->setScale(sca);
 	doc->appMode = userAppMode;

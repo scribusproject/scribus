@@ -45,7 +45,7 @@ public:
 protected:
 	Style& operator=(const Style& o) 
 	{ //assert(typeinfo() == o.typeinfo()); 
-		name_ = o.name_; parent_ = o.parent_; 
+		name_ = o.name_; parent_ = o.parent_; return *this;
 	}
 	Style(const Style& o) : name_(o.name_), parent_(o.parent_) {} 
 };
@@ -199,8 +199,8 @@ public:
 	
 	
 private:
-		// shorthand:
-		const CharStyle& inh() const { return *dynamic_cast<CharStyle*>(parent()); };
+	// shorthand:
+	const CharStyle& inh() const { return *dynamic_cast<const CharStyle*>(parent()); };
     int csize;
     short cshade;
     short cshade2;
@@ -396,8 +396,8 @@ public:
 	};
 	
 private:
-		// shorthand
-		const ParagraphStyle& inh() const { return *dynamic_cast<ParagraphStyle*>(parent()); }
+	// shorthand
+	const ParagraphStyle& inh() const { return *dynamic_cast<const ParagraphStyle*>(parent()); }
 	LineSpacingMode LineSpaMode;
 	double LineSpa;
 	int textAlignment;
@@ -426,7 +426,7 @@ public:
 	bool hasDropCap() const { return Drop==NOVALUE && parent()? inh().hasDropCap() : Drop > 0; }
 	int dropCapLines() const { return DropLin==NOVALUE && parent()? inh().dropCapLines() : DropLin; }
 	double dropCapOffset() const { return DropDist<=NOVALUE && parent()? inh().dropCapOffset() : DropDist; }
-	bool useBaselineGrid() const { return BaseAdj==NOVALUE && parent()? inh().useBaselineGrid : BaseAdj > 0; }
+	bool useBaselineGrid() const { return BaseAdj==NOVALUE && parent()? inh().useBaselineGrid() : BaseAdj > 0; }
 	
 	void setLineSpacingMode(LineSpacingMode p) { 
 		LineSpaMode = p; 

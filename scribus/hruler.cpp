@@ -88,12 +88,12 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 		RulerCode = rc_none;
 		Markp = -1;
 		double Pos = (ItemPos-offs+Extra+lineCorr)*Scaling;
-		if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesSettings.grabRad))
-				   && (static_cast<int>(Pos) > (m->x()-currDoc->guidesSettings.grabRad)))
+		if ((static_cast<int>(Pos-1) < (m->x()+currDoc->guidesSettings.grabRad))
+				   && (static_cast<int>(Pos-1) > (m->x()-currDoc->guidesSettings.grabRad)))
 			RulerCode = rc_leftFrameDist;
 		Pos = (ItemEndPos-offs-RExtra-lineCorr)*Scaling;
-		if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesSettings.grabRad))
-				   && (static_cast<int>(Pos) > (m->x()-currDoc->guidesSettings.grabRad)))
+		if ((static_cast<int>(Pos+1) < (m->x()+currDoc->guidesSettings.grabRad))
+				   && (static_cast<int>(Pos+1) > (m->x()-currDoc->guidesSettings.grabRad)))
 			RulerCode = rc_rightFrameDist;
 		double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
 		QRect fpo;
@@ -128,8 +128,8 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 				MouseX = m->x();
 				return;
 			}
-			Pos = (ItemPos-offs+ColWidth-RMargin+(ColWidth+ColGap)*(ActCol-1)+Extra+lineCorr)*Scaling;
-			fpo = QRect(static_cast<int>(Pos)-3, 9, 6, 6);
+			Pos = (ItemPos-offs+RMargin+(ColWidth+ColGap)*(ActCol-1)+Extra+lineCorr)*Scaling;
+			fpo = QRect(static_cast<int>(Pos)-5, 9, 8, 6);
 			if (fpo.contains(m->pos()))
 			{
 				RulerCode = rc_rightMargin;

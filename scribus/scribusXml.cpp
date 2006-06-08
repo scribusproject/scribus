@@ -139,15 +139,14 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 		if (hg->ch == QChar(4))
 			hg->ch = QChar(9);
 		if (unknown)
-			hg->cfont = dummy;
+			hg->setFont(dummy);
 		else
-			hg->cfont = (*doc->AllFonts)[tmpf];
-		hg->csize = size;
-		hg->ccolor = fcolor;
-		hg->cextra = extra;
-		hg->cshade = shade;
-		hg->cselect = false;
-		hg->cstyle = static_cast<StyleFlag>(cstyle);
+			hg->setFont((*doc->AllFonts)[tmpf]);
+		hg->setFontSize(size);
+		hg->setFillColor(fcolor);
+		hg->setTracking(extra);
+		hg->setFillShade(shade);
+		hg->setEffects(static_cast<StyleFlag>(cstyle));
 		if (impo)
 		{
 			if (VorLFound)
@@ -162,24 +161,18 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 		}
 		else
 			hg->cab = ab;
-		hg->cstroke = stroke;
-		hg->cshade2 = shade2;
-		hg->cscale = QMIN(QMAX(scale, 100), 4000);
-		hg->cscalev = QMIN(QMAX(scalev, 100), 4000);
-		hg->cbase = base;
-		hg->cshadowx = shX;
-		hg->cshadowy = shY;
-		hg->coutline = outL;
-		hg->cunderpos = ulp;
-		hg->cunderwidth = ulw;
-		hg->cstrikepos = stp;
-		hg->cstrikewidth = stw;
-		hg->xp = 0;
-		hg->yp = 0;
-		hg->PRot = 0;
-		hg->PtransX = 0;
-		hg->PtransY = 0;
-		hg->cembedded = 0;
+		hg->setStrokeColor(stroke);
+		hg->setStrokeShade(shade2);
+		hg->setScaleH(QMIN(QMAX(scale, 100), 4000));
+		hg->setScaleV(QMIN(QMAX(scalev, 100), 4000));
+		hg->setBaselineOffset(base);
+		hg->setShadowXOffset(shX);
+		hg->setShadowYOffset(shY);
+		hg->setOutlineWidth(outL);
+		hg->setUnderlineOffset(ulp);
+		hg->setUnderlineWidth(ulw);
+		hg->setStrikethruOffset(stp);
+		hg->setStrikethruWidth(stw);
 		obj->itemText.append(hg);
 	}
 #else
@@ -486,28 +479,28 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<Paragr
 		tmpf = AskForFont(prefsManager->appPrefs.AvailFonts, tmpf, doc);
 	else
 		tmpf = DoFonts[tmf];
-	vg->charStyle().cfont = prefsManager->appPrefs.AvailFonts[tmpf];
-	vg->charStyle().csize = qRound(pg->attribute("FONTSIZE", "12").toDouble() * 10.0);
+	vg->charStyle().setFont(prefsManager->appPrefs.AvailFonts[tmpf]);
+	vg->charStyle().setFontSize(qRound(pg->attribute("FONTSIZE", "12").toDouble() * 10.0));
 	vg->setHasDropCap(static_cast<bool>(pg->attribute("DROP", "0").toInt()));
 	vg->setDropCapLines(pg->attribute("DROPLIN", "2").toInt());
 	vg->setDropCapOffset(pg->attribute("DROPDIST", "0").toDouble());
-	vg->charStyle().cstyle = static_cast<StyleFlag>(pg->attribute("EFFECT", "0").toInt());
-	vg->charStyle().ccolor = pg->attribute("FCOLOR", doc->toolSettings.dBrush);
-	vg->charStyle().cshade = pg->attribute("FSHADE", "100").toInt();
-	vg->charStyle().cstroke = pg->attribute("SCOLOR", doc->toolSettings.dPen);
-	vg->charStyle().cshade2 = pg->attribute("SSHADE", "100").toInt();
+	vg->charStyle().setEffects(static_cast<StyleFlag>(pg->attribute("EFFECT", "0").toInt()));
+	vg->charStyle().setFillColor(pg->attribute("FCOLOR", doc->toolSettings.dBrush));
+	vg->charStyle().setFillShade(pg->attribute("FSHADE", "100").toInt());
+	vg->charStyle().setStrokeColor(pg->attribute("SCOLOR", doc->toolSettings.dPen));
+	vg->charStyle().setStrokeShade(pg->attribute("SSHADE", "100").toInt());
 	vg->setUseBaselineGrid(static_cast<bool>(pg->attribute("BASE", "0").toInt()));
-	vg->charStyle().cshadowx = qRound(pg->attribute("TXTSHX", "5").toDouble() * 10);
-	vg->charStyle().cshadowy = qRound(pg->attribute("TXTSHY", "-5").toDouble() * 10);
-	vg->charStyle().coutline = qRound(pg->attribute("TXTOUT", "1").toDouble() * 10);
-	vg->charStyle().cunderpos = qRound(pg->attribute("TXTULP", "-0.1").toDouble() * 10);
-	vg->charStyle().cunderwidth = qRound(pg->attribute("TXTULW", "-0.1").toDouble() * 10);
-	vg->charStyle().cstrikepos = qRound(pg->attribute("TXTSTP", "-0.1").toDouble() * 10);
-	vg->charStyle().cstrikewidth = qRound(pg->attribute("TXTSTW", "-0.1").toDouble() * 10);
-	vg->charStyle().cscale = qRound(pg->attribute("SCALEH", "100").toDouble() * 10);
-	vg->charStyle().cscalev = qRound(pg->attribute("SCALEV", "100").toDouble() * 10);
-	vg->charStyle().cbase = qRound(pg->attribute("BASEO", "0").toDouble() * 10);
-	vg->charStyle().cextra = qRound(pg->attribute("KERN", "0").toDouble() * 10);
+	vg->charStyle().setShadowXOffset(qRound(pg->attribute("TXTSHX", "5").toDouble() * 10));
+	vg->charStyle().setShadowYOffset(qRound(pg->attribute("TXTSHY", "-5").toDouble() * 10));
+	vg->charStyle().setOutlineWidth(qRound(pg->attribute("TXTOUT", "1").toDouble() * 10));
+	vg->charStyle().setUnderlineOffset(qRound(pg->attribute("TXTULP", "-0.1").toDouble() * 10));
+	vg->charStyle().setUnderlineWidth(qRound(pg->attribute("TXTULW", "-0.1").toDouble() * 10));
+	vg->charStyle().setStrikethruOffset(qRound(pg->attribute("TXTSTP", "-0.1").toDouble() * 10));
+	vg->charStyle().setStrikethruWidth(qRound(pg->attribute("TXTSTW", "-0.1").toDouble() * 10));
+	vg->charStyle().setScaleH(qRound(pg->attribute("SCALEH", "100").toDouble() * 10));
+	vg->charStyle().setScaleV(qRound(pg->attribute("SCALEV", "100").toDouble() * 10));
+	vg->charStyle().setBaselineOffset(qRound(pg->attribute("BASEO", "0").toDouble() * 10));
+	vg->charStyle().setTracking(qRound(pg->attribute("KERN", "0").toDouble() * 10));
 	vg->tabValues().clear();
 	if ((pg->hasAttribute("NUMTAB")) && (pg->attribute("NUMTAB", "0").toInt() != 0))
 	{
@@ -1063,22 +1056,22 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 					fo.appendChild(tabs);
 				}
 			}
-			fo.setAttribute("FCOLOR",UsedStyles[actSt].charStyle().ccolor);
-			fo.setAttribute("FSHADE",UsedStyles[actSt].charStyle().cshade);
-			fo.setAttribute("SCOLOR",UsedStyles[actSt].charStyle().cstroke);
-			fo.setAttribute("SSHADE",UsedStyles[actSt].charStyle().cshade2);
+			fo.setAttribute("FCOLOR",UsedStyles[actSt].charStyle().fillColor());
+			fo.setAttribute("FSHADE",UsedStyles[actSt].charStyle().fillShade());
+			fo.setAttribute("SCOLOR",UsedStyles[actSt].charStyle().strokeColor());
+			fo.setAttribute("SSHADE",UsedStyles[actSt].charStyle().strokeShade());
 			fo.setAttribute("BASE", static_cast<int>(UsedStyles[actSt].useBaselineGrid()));
-			fo.setAttribute("TXTSHX",UsedStyles[actSt].charStyle().cshadowx / 10.0);
-			fo.setAttribute("TXTSHY",UsedStyles[actSt].charStyle().cshadowy / 10.0);
-			fo.setAttribute("TXTOUT",UsedStyles[actSt].charStyle().coutline / 10.0);
-			fo.setAttribute("TXTULP",UsedStyles[actSt].charStyle().cunderpos / 10.0);
-			fo.setAttribute("TXTULW",UsedStyles[actSt].charStyle().cunderwidth / 10.0);
-			fo.setAttribute("TXTSTP",UsedStyles[actSt].charStyle().cstrikepos / 10.0);
-			fo.setAttribute("TXTSTW",UsedStyles[actSt].charStyle().cstrikewidth / 10.0);
-			fo.setAttribute("SCALEH",UsedStyles[actSt].charStyle().cscale / 10.0);
-			fo.setAttribute("SCALEV",UsedStyles[actSt].charStyle().cscalev / 10.0);
-			fo.setAttribute("BASEO",UsedStyles[actSt].charStyle().cbase / 10.0);
-			fo.setAttribute("KERN",UsedStyles[actSt].charStyle().cextra / 10.0);
+			fo.setAttribute("TXTSHX",UsedStyles[actSt].charStyle().shadowXOffset() / 10.0);
+			fo.setAttribute("TXTSHY",UsedStyles[actSt].charStyle().shadowYOffset() / 10.0);
+			fo.setAttribute("TXTOUT",UsedStyles[actSt].charStyle().outlineWidth() / 10.0);
+			fo.setAttribute("TXTULP",UsedStyles[actSt].charStyle().underlineOffset() / 10.0);
+			fo.setAttribute("TXTULW",UsedStyles[actSt].charStyle().underlineWidth() / 10.0);
+			fo.setAttribute("TXTSTP",UsedStyles[actSt].charStyle().strikethruOffset() / 10.0);
+			fo.setAttribute("TXTSTW",UsedStyles[actSt].charStyle().strikethruWidth() / 10.0);
+			fo.setAttribute("SCALEH",UsedStyles[actSt].charStyle().scaleH() / 10.0);
+			fo.setAttribute("SCALEV",UsedStyles[actSt].charStyle().scaleV() / 10.0);
+			fo.setAttribute("BASEO",UsedStyles[actSt].charStyle().baselineOffset() / 10.0);
+			fo.setAttribute("KERN",UsedStyles[actSt].charStyle().tracking() / 10.0);
 			elem.appendChild(fo);
 		}
 	}
@@ -1224,12 +1217,12 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			const CharStyle& style4(item->itemText.charStyle(k));
 			QChar ch = item->itemText.text(k);
 			QDomElement it=docu.createElement("ITEXT");
-			ts = style4.csize / 10.0;
-			tf = style4.cfont->scName();
-			tc = style4.ccolor;
-			te = style4.cextra;
-			tsh = style4.cshade;
-			tst = style4.cstyle & 2047;
+			ts = style4.fontSize() / 10.0;
+			tf = style4.font()->scName();
+			tc = style4.fillColor();
+			te = style4.tracking();
+			tsh = style4.fillShade();
+			tst = style4.effects() & 2047;
 #ifndef NLS_PROTO
 			if (item->itemText.at(k)->cab > 4)
 				tsb = UsedMapped2Saved[item->itemText.at(k)->cab];
@@ -1238,21 +1231,21 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 #else
 			tsb = 0;
 #endif
-			tcs = style4.cstroke;
-			tshs = style4.cshade2;
-			tsc = style4.cscale / 10.0;
-			tscv = style4.cscalev / 10.0;
-			tb = style4.cbase / 10.0;
-			tsx = style4.cshadowx / 10.0;
-			tsy = style4.cshadowy / 10.0;
-			tout = style4.coutline / 10.0;
-			tulp = style4.cunderpos / 10.0;
-			tulw = style4.cunderwidth / 10.0;
-			tstp = style4.cstrikepos / 10.0;
-			tstw = style4.cstrikewidth / 10.0;
-			if (ch == QChar(13))
+			tcs = style4.strokeColor();
+			tshs = style4.strokeShade();
+			tsc = style4.scaleH() / 10.0;
+			tscv = style4.scaleV() / 10.0;
+			tb = style4.baselineOffset() / 10.0;
+			tsx = style4.shadowXOffset() / 10.0;
+			tsy = style4.shadowYOffset() / 10.0;
+			tout = style4.outlineWidth() / 10.0;
+			tulp = style4.underlineOffset() / 10.0;
+			tulw = style4.underlineWidth() / 10.0;
+			tstp = style4.strikethruOffset()/ 10.0;
+			tstw = style4.strikethruWidth() / 10.0;
+			if (ch == SpecialChars::PARSEP)
 				text = QChar(5);
-			else if (ch == QChar(9))
+			else if (ch == SpecialChars::TAB)
 				text = QChar(4);
 			else
 				text = ch;
@@ -1284,12 +1277,12 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			}
 			const CharStyle& style5(item->itemText.charStyle(k));
 			ch = item->itemText.text(k);
-			ts2 = style5.csize / 10.0;
-			tf2 = style5.cfont->scName();
-			tc2 = style5.ccolor;
-			te2 = style5.cextra;
-			tsh2 = style5.cshade;
-			tst2 = style5.cstyle & 2047;
+			ts2 = style5.fontSize() / 10.0;
+			tf2 = style5.font()->scName();
+			tc2 = style5.fillColor();
+			te2 = style5.tracking();
+			tsh2 = style5.fillShade();
+			tst2 = style5.effects() & 2047;
 #ifndef NLS_PROTO
 			if (item->itemText.at(k)->cab > 4)
 				tsb2 = UsedMapped2Saved[item->itemText.at(k)->cab];
@@ -1298,18 +1291,18 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 #else
 			tsb2 = 0;
 #endif
-			tcs2 = style5.cstroke;
-			tshs2 = style5.cshade2;
-			tsc2 = style5.cscale / 10.0;
-			tscv2 = style5.cscalev / 10.0;
-			tb2 = style5.cbase / 10.0;
-			tsx2 = style5.cshadowx / 10.0;
-			tsy2 = style5.cshadowy / 10.0;
-			tout2 = style5.coutline / 10.0;
-			tulp2 = style5.cunderpos / 10.0;
-			tulw2 = style5.cunderwidth / 10.0;
-			tstp2 = style5.cstrikepos / 10.0;
-			tstw2 = style5.cstrikewidth / 10.0;
+			tcs2 = style5.strokeColor();
+			tshs2 = style5.strokeShade();
+			tsc2 = style5.scaleH() / 10.0;
+			tscv2 = style5.scaleV() / 10.0;
+			tb2 = style5.baselineOffset() / 10.0;
+			tsx2 = style5.shadowXOffset() / 10.0;
+			tsy2 = style5.shadowYOffset() / 10.0;
+			tout2 = style5.outlineWidth() / 10.0;
+			tulp2 = style5.underlineOffset() / 10.0;
+			tulw2 = style5.underlineWidth() / 10.0;
+			tstp2 = style5.strikethruOffset() / 10.0;
+			tstw2 = style5.strikethruWidth() / 10.0;
 			while ((ts2 == ts)
 							&& (tsb2 == tsb)
 							&& (tf2 == tf)
@@ -1341,12 +1334,12 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 					break;
 				const CharStyle& style6(item->itemText.charStyle(k));
 				ch = item->itemText.text(k);
-				ts2 = style6.csize / 10.0;
-				tf2 = style6.cfont->scName();
-				tc2 = style6.ccolor;
-				te2 = style6.cextra;
-				tsh2 = style6.cshade;
-				tst2 = style6.cstyle & 2047;
+				ts2 = style6.fontSize() / 10.0;
+				tf2 = style6.font()->scName();
+				tc2 = style6.fillColor();
+				te2 = style6.tracking();
+				tsh2 = style6.fillShade();
+				tst2 = style6.effects() & 2047;
 #ifndef NLS_PROTO
 				if (item->itemText.at(k)->cab > 4)
 					tsb2 = UsedMapped2Saved[item->itemText.at(k)->cab];
@@ -1355,18 +1348,18 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 #else
 				tsb2 = 0;
 #endif
-				tcs2 = style6.cstroke;
-				tshs2 = style6.cshade2;
-				tsc2 = style6.cscale / 10.0;
-				tscv2 = style6.cscalev / 10.0;
-				tb2 = style6.cbase / 10.0;
-				tsx2 = style6.cshadowx / 10.0;
-				tsy2 = style6.cshadowy / 10.0;
-				tout2 = style6.coutline / 10.0;
-				tulp2 = style6.cunderpos / 10.0;
-				tulw2 = style6.cunderwidth / 10.0;
-				tstp2 = style6.cstrikepos / 10.0;
-				tstw2 = style6.cstrikewidth / 10.0;
+				tcs2 = style6.strokeColor();
+				tshs2 = style6.strokeShade();
+				tsc2 = style6.scaleH() / 10.0;
+				tscv2 = style6.scaleV() / 10.0;
+				tb2 = style6.baselineOffset() / 10.0;
+				tsx2 = style6.shadowXOffset() / 10.0;
+				tsy2 = style6.shadowYOffset() / 10.0;
+				tout2 = style6.outlineWidth() / 10.0;
+				tulp2 = style6.underlineOffset() / 10.0;
+				tulw2 = style6.underlineWidth() / 10.0;
+				tstp2 = style6.strikethruOffset() / 10.0;
+				tstw2 = style6.strikethruWidth() / 10.0;
 			}
 			it.setAttribute("CH",text);
 			it.setAttribute("CSIZE",ts);
@@ -1395,7 +1388,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		QString txnu = "";
 		for(int kt = 0; kt < item->itemText.length(); ++kt)
 #ifndef NLS_PROTO
-			txnu += tmp.setNum(item->itemText.at(kt)->xp) + " " + tmpy.setNum(item->itemText.at(kt)->yp) + " ";
+			txnu += tmp.setNum(item->itemText.at(kt)->glyph.xoffset) + " " + tmpy.setNum(item->itemText.at(kt)->glyph.yoffset) + " ";
 #else
 			txnu += "0 0 ";
 #endif

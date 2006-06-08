@@ -44,9 +44,7 @@ StyleFlag operator~ (StyleFlag arg)
         return static_cast<StyleFlag>(result);
 }
 
-ParagraphStyle::ParagraphStyle() : 
-	Vname(),
-	pparent_(NULL),
+ParagraphStyle::ParagraphStyle() : Style(),
 	LineSpaMode(FixedLineSpacing),
 	LineSpa(0),
 	textAlignment(0),
@@ -133,7 +131,22 @@ QString CharStyle::asString() const
 		result += QObject::tr("+baseline %1").arg(cbase);
 	if (cscale != NOVALUE || cscalev != NOVALUE)
 		result += QObject::tr("+stretch ");
-	if (cparent_ != NULL)
-		result += QObject::tr("parent= %1").arg(cparent_->cname_=="" ? QObject::tr("unnamed") : cparent_->cname_);
+	if (parent() != NULL)
+		result += QObject::tr("parent= %1").arg(parent()->name()=="" ? QObject::tr("unnamed") : parent()->name());
 	return result.stripWhiteSpace();
+}
+
+
+ScText::~ScText() 
+{
+	// delete the linked list if present
+	GlyphLayout * more = glyph.more;
+	while (more) {
+		glyph.more = glyph.more->more;
+		delete more;
+		more = glyph.more;
+	}
+	if (parstyle)
+		delete parstyle;
+	//if (cembedded) delete cembedded
 }

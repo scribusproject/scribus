@@ -421,7 +421,7 @@ void SearchReplace::slotDoSearch()
 				found = true;
 			if (SSize->isChecked())
 			{
-				if (Item->itemText.charStyle(a).csize != sSize)
+				if (Item->itemText.charStyle(a).fontSize() != sSize)
 					found = false;
 			}
 			if (SFont->isChecked())
@@ -438,27 +438,27 @@ void SearchReplace::slotDoSearch()
 #endif
 			if (SStroke->isChecked())
 			{
-				if (Item->itemText.charStyle(a).cstroke != sCol)
+				if (Item->itemText.charStyle(a).strokeColor() != sCol)
 					found = false;
 			}
 			if (SStrokeS->isChecked())
 			{
-				if (Item->itemText.charStyle(a).cshade2 != sStrokeSh)
+				if (Item->itemText.charStyle(a).strokeShade() != sStrokeSh)
 					found = false;
 			}
 			if (SFillS->isChecked())
 			{
-				if (Item->itemText.charStyle(a).cshade != sFillSh)
+				if (Item->itemText.charStyle(a).fillShade() != sFillSh)
 					found = false;
 			}
 			if (SEffect->isChecked())
 				{
-				if ((Item->itemText.charStyle(a).cstyle & 1919) != sEff)
+				if ((Item->itemText.charStyle(a).effects() & 1919) != sEff)
 					found = false;
 				}
 			if (SFill->isChecked())
 			{
-				if (Item->itemText.charStyle(a).ccolor != fCol)
+				if (Item->itemText.charStyle(a).fillColor() != fCol)
 					found = false;
 			}
 			if (found)
@@ -571,15 +571,15 @@ void SearchReplace::slotDoSearch()
 									found = false;
 								if ((SStyle->isChecked()) && (hg->cab != sStyle))
 									found = false;
-								if ((SStroke->isChecked()) && (hg->charStyle.cstroke != sCol))
+								if ((SStroke->isChecked()) && (hg->charStyle.strokeColor() != sCol))
 									found = false;
-								if ((SStrokeS->isChecked()) && (hg->charStyle.cshade2 != sStrokeSh))
+								if ((SStrokeS->isChecked()) && (hg->charStyle.strokeShade() != sStrokeSh))
 									found = false;
-								if ((SFillS->isChecked()) && (hg->charStyle.cshade != sFillSh))
+								if ((SFillS->isChecked()) && (hg->charStyle.fillShade() != sFillSh))
 									found = false;
-								if ((SEffect->isChecked()) && ((hg->charStyle.cstyle & 1919) != sEff))
+								if ((SEffect->isChecked()) && ((hg->charStyle.effects() & 1919) != sEff))
 									found = false;
-								if ((SFill->isChecked()) && (hg->charStyle.ccolor != fCol))
+								if ((SFill->isChecked()) && (hg->charStyle.fillColor() != fCol))
 									found = false;
 								inde++;
 							}
@@ -607,15 +607,15 @@ void SearchReplace::slotDoSearch()
 								found = false;
 							if ((SStyle->isChecked()) && (hg->cab != sStyle))
 								found = false;
-							if ((SStroke->isChecked()) && (hg->charStyle.cstroke != sCol))
+							if ((SStroke->isChecked()) && (hg->charStyle.strokeColor() != sCol))
 								found = false;
-							if ((SStrokeS->isChecked()) && (hg->charStyle.cshade2 != sStrokeSh))
+							if ((SStrokeS->isChecked()) && (hg->charStyle.strokeShade() != sStrokeSh))
 								found = false;
-							if ((SFillS->isChecked()) && (hg->charStyle.cshade != sFillSh))
+							if ((SFillS->isChecked()) && (hg->charStyle.fillShade() != sFillSh))
 								found = false;
-							if ((SEffect->isChecked()) && ((hg->charStyle.cstyle & 1919) != sEff))
+							if ((SEffect->isChecked()) && ((hg->charStyle.effects() & 1919) != sEff))
 								found = false;
-							if ((SFill->isChecked()) && (hg->charStyle.ccolor != fCol))
+							if ((SFill->isChecked()) && (hg->charStyle.fillColor() != fCol))
 								found = false;
 							if (found)
 							{
@@ -697,51 +697,45 @@ void SearchReplace::slotDoReplace()
 						hg = new ScText;
 						hg->ch = repl[cx];
 						if (RSize->isChecked())
-							hg->csize = qRound(RSizeVal->value() * 10.0);
+							hg->setFontSize(qRound(RSizeVal->value() * 10.0));
 						else
-							hg->csize = Doc->currentStyle.charStyle().fontSize();
+							hg->setFontSize(Doc->currentStyle.charStyle().fontSize());
 						if (RFill->isChecked())
-							hg->ccolor = RFillVal->currentText();
+							hg->setFillColor(RFillVal->currentText());
 						else
-							hg->ccolor = Doc->currentStyle.charStyle().fillColor();
-						hg->cshade = Doc->currentStyle.charStyle().fillShade();
+							hg->setFillColor(Doc->currentStyle.charStyle().fillColor());
+						hg->setFillShade(Doc->currentStyle.charStyle().fillShade());
 						if (RStroke->isChecked())
-							hg->cstroke = RStrokeVal->currentText();
+							hg->setStrokeColor(RStrokeVal->currentText());
 						else
-							hg->cstroke = Doc->currentStyle.charStyle().strokeColor();
-						hg->cshade2 = Doc->currentStyle.charStyle().strokeShade();
-						hg->cscale = Doc->currentStyle.charStyle().fontSize();
-						hg->cbase = Doc->currentStyle.charStyle().baselineOffset();
-						hg->cshadowx = Doc->currentStyle.charStyle().shadowXOffset();
-						hg->cshadowy = Doc->currentStyle.charStyle().shadowYOffset();
-						hg->coutline = Doc->currentStyle.charStyle().outlineWidth();
-						hg->cunderpos = Doc->currentStyle.charStyle().underlineOffset();
-						hg->cunderwidth = Doc->currentStyle.charStyle().underlineWidth();
-						hg->cstrikepos = Doc->currentStyle.charStyle().strikethruOffset();
-						hg->cstrikewidth = Doc->currentStyle.charStyle().strikethruWidth();
-						hg->cembedded = 0;
-						hg->cselect = true;
-						hg->cstyle = Doc->currentStyle.charStyle().effects();
+							hg->setStrokeColor(Doc->currentStyle.charStyle().strokeColor());
+						hg->setStrokeShade(Doc->currentStyle.charStyle().strokeShade());
+						hg->setScaleH(Doc->currentStyle.charStyle().scaleH());
+						hg->setScaleV(Doc->currentStyle.charStyle().scaleV());
+						hg->setBaselineOffset(Doc->currentStyle.charStyle().baselineOffset());
+						hg->setShadowXOffset(Doc->currentStyle.charStyle().shadowXOffset());
+						hg->setShadowYOffset(Doc->currentStyle.charStyle().shadowYOffset());
+						hg->setOutlineWidth(Doc->currentStyle.charStyle().outlineWidth());
+						hg->setUnderlineOffset(Doc->currentStyle.charStyle().underlineOffset());
+						hg->setUnderlineWidth(Doc->currentStyle.charStyle().underlineWidth());
+						hg->setStrikethruOffset(Doc->currentStyle.charStyle().strikethruOffset());
+						hg->setStrikethruWidth(Doc->currentStyle.charStyle().strikethruWidth());
+						hg->setEffects(Doc->currentStyle.charStyle().effects());
 						if (RStyle->isChecked())
 							hg->cab = RStyleVal->currentItem();
 						else
 							hg->cab = findParagraphStyle(Doc, Doc->currentStyle);
 						if (Doc->docParagraphStyles[hg->cab].charStyle().font() != &Foi::NONE)
 						{
-							hg->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[hg->cab].charStyle().font()->scName()];
-							hg->csize = Doc->docParagraphStyles[hg->cab].charStyle().fontSize();
-							hg->cstyle = Doc->docParagraphStyles[hg->cab].charStyle().effects();
+							hg->setFont((*Doc->AllFonts)[Doc->docParagraphStyles[hg->cab].charStyle().font()->scName()]);
+							hg->setFontSize(Doc->docParagraphStyles[hg->cab].charStyle().fontSize());
+							hg->setEffects(Doc->docParagraphStyles[hg->cab].charStyle().effects());
 						}
 						if (RFont->isChecked())
-							hg->cfont = (*Doc->AllFonts)[RFontVal->currentText()];
+							hg->setFont((*Doc->AllFonts)[RFontVal->currentText()]);
 						else
-							hg->cfont = (*Doc->AllFonts)[Doc->currentStyle.charStyle().font()->scName()];
-						hg->cextra = 0;
-						hg->xp = 0;
-						hg->yp = 0;
-						hg->PRot = 0;
-						hg->PtransX = 0;
-						hg->PtransY = 0;
+							hg->setFont((*Doc->AllFonts)[Doc->currentStyle.charStyle().font()->scName()]);
+						hg->setTracking(0);
 						Item->itemText.insert(ReplStart+cx, hg);
 #else
 						Item->itemText.insertChars(ReplStart+cx, repl.mid(cx,1)); 
@@ -776,13 +770,15 @@ void SearchReplace::slotDoReplace()
 		{
 #ifndef NLS_PROTO
 			int s = REffVal->getStyle();
-			Doc->currentStyle.charStyle().cstyle = static_cast<StyleFlag>(s); // ???
+			Doc->currentStyle.charStyle().setEffects(static_cast<StyleFlag>(s)); // ???
 			for (int a = 0; a < Item->itemText.length(); ++a)
 			{
 				if (Item->itemText.selected(a))
 				{
-					Item->itemText.at(a)->cstyle &= static_cast<StyleFlag>(~1919);
-					Item->itemText.at(a)->cstyle |= static_cast<StyleFlag>(s);
+					StyleFlag fl = Item->itemText.at(a)->effects();
+					fl &= static_cast<StyleFlag>(~1919);
+					fl |= static_cast<StyleFlag>(s);
+					Item->itemText.at(a)->setEffects(fl);
 				}
 			}
 #endif

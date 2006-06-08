@@ -638,16 +638,16 @@ const ParagraphStyle& PageItem::currentStyle() const
 /// returns the style at the current charpos for changing
 ParagraphStyle& PageItem::changeCurrentStyle()
 {
-#ifndef NLS_PROTO
+#if 0
 	if (frameDisplays(CPos) && itemText.item(CPos)->cab > 4)
 		return m_Doc->docParagraphStyles[itemText.item(CPos)->cab];
 	else
 		return const_cast<ParagraphStyle&>(itemText.defaultStyle());
 #else
 	if (frameDisplays(CPos))
-		return itemText.paragraphStyle(CPos);
+		return const_cast<ParagraphStyle&>(itemText.paragraphStyle(CPos));
 	else
-		return itemText.defaultStyle();
+		return const_cast<ParagraphStyle&>(itemText.defaultStyle());
 #endif
 }
 
@@ -994,7 +994,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 				vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(m_Doc->docParagraphStyles[xxx].lineSpacingMode()));
 				vg.setUseBaselineGrid(m_Doc->docParagraphStyles[xxx].useBaselineGrid());
 				vg.setLineSpacing(m_Doc->docParagraphStyles[xxx].lineSpacing());
-				vg.charStyle().csize = m_Doc->docParagraphStyles[xxx].charStyle().fontSize();
+				vg.charStyle().setFontSize(m_Doc->docParagraphStyles[xxx].charStyle().fontSize());
 				vg.setLeftMargin(m_Doc->docParagraphStyles[xxx].leftMargin());
 				vg.setFirstIndent(m_Doc->docParagraphStyles[xxx].firstIndent());
 				vg.setGapBefore(m_Doc->docParagraphStyles[xxx].gapBefore());
@@ -1041,7 +1041,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 				m_Doc->docParagraphStyles[xxx].setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(savedParagraphStyles[xxx].lineSpacingMode()));
 				m_Doc->docParagraphStyles[xxx].setUseBaselineGrid(savedParagraphStyles[xxx].useBaselineGrid());
 				m_Doc->docParagraphStyles[xxx].setLineSpacing(savedParagraphStyles[xxx].lineSpacing());
-				m_Doc->docParagraphStyles[xxx].charStyle().csize = savedParagraphStyles[xxx].charStyle().fontSize();
+				m_Doc->docParagraphStyles[xxx].charStyle().setFontSize(savedParagraphStyles[xxx].charStyle().fontSize());
 				m_Doc->docParagraphStyles[xxx].setLeftMargin(savedParagraphStyles[xxx].leftMargin());
 				m_Doc->docParagraphStyles[xxx].setFirstIndent(savedParagraphStyles[xxx].firstIndent());
 				m_Doc->docParagraphStyles[xxx].setGapBefore(savedParagraphStyles[xxx].gapBefore());
@@ -1248,19 +1248,19 @@ void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 double PageItem::SetZeichAttr(const CharStyle& style, int *chs, QString *chx)
 {
 	double retval = 0.0;
-	double asce = style.cfont->ascent() * (style.csize / 10.0);
-	int chst = style.cstyle & 1919;
+	double asce = style.font()->ascent() * (style.fontSize() / 10.0);
+	int chst = style.effects() & 1919;
 	if (chst != ScStyle_Default)
 	{
 		if (chst & ScStyle_Superscript)
 		{
 			retval -= asce * m_Doc->typographicSettings.valueSuperScript / 100;
-			*chs = QMAX(static_cast<int>(style.csize * m_Doc->typographicSettings.scalingSuperScript / 100), 1);
+			*chs = QMAX(static_cast<int>(style.fontSize() * m_Doc->typographicSettings.scalingSuperScript / 100), 1);
 		}
 		if (chst & ScStyle_Subscript)
 		{
 			retval += asce * m_Doc->typographicSettings.valueSubScript / 100;
-			*chs = QMAX(static_cast<int>(style.csize * m_Doc->typographicSettings.scalingSubScript / 100), 1);
+			*chs = QMAX(static_cast<int>(style.fontSize() * m_Doc->typographicSettings.scalingSubScript / 100), 1);
 		}
 		if (chst & ScStyle_AllCaps)
 		{
@@ -1271,7 +1271,7 @@ double PageItem::SetZeichAttr(const CharStyle& style, int *chs, QString *chx)
 		{
 			if (chx->upper() != *chx)
 			{
-				*chs = QMAX(static_cast<int>(style.csize * m_Doc->typographicSettings.valueSmallCaps / 100), 1);
+				*chs = QMAX(static_cast<int>(style.fontSize() * m_Doc->typographicSettings.valueSmallCaps / 100), 1);
 				*chx = chx->upper();
 			}
 		}
@@ -2833,25 +2833,25 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 				Text += QString(QChar(4))+"\t";
 			else
 				Text += itemText.text(a,1)+"\t";
-			Text += itemText.charStyle(a).cfont->scName()+"\t";
-			Text += QString::number(itemText.charStyle(a).csize / 10.0)+"\t";
-			Text += itemText.charStyle(a).ccolor+"\t";
-			Text += QString::number(itemText.charStyle(a).cextra)+"\t";
-			Text += QString::number(itemText.charStyle(a).cshade)+'\t';
-			Text += QString::number(itemText.charStyle(a).cstyle)+'\t';
+			Text += itemText.charStyle(a).font()->scName()+"\t";
+			Text += QString::number(itemText.charStyle(a).fontSize() / 10.0)+"\t";
+			Text += itemText.charStyle(a).fillColor()+"\t";
+			Text += QString::number(itemText.charStyle(a).tracking())+"\t";
+			Text += QString::number(itemText.charStyle(a).fillShade())+'\t';
+			Text += QString::number(itemText.charStyle(a).effects())+'\t';
 			Text += QString::number(findParagraphStyle(m_Doc, itemText.paragraphStyle(a)))+'\t';
-			Text += itemText.charStyle(a).cstroke+"\t";
-			Text += QString::number(itemText.charStyle(a).cshade2)+'\t';
-			Text += QString::number(itemText.charStyle(a).cscale)+'\t';
-			Text += QString::number(itemText.charStyle(a).cscalev)+'\t';
-			Text += QString::number(itemText.charStyle(a).cbase)+'\t';
-			Text += QString::number(itemText.charStyle(a).cshadowx)+'\t';
-			Text += QString::number(itemText.charStyle(a).cshadowy)+'\t';
-			Text += QString::number(itemText.charStyle(a).coutline)+'\t';
-			Text += QString::number(itemText.charStyle(a).cunderpos)+'\t';
-			Text += QString::number(itemText.charStyle(a).cunderwidth)+'\t';
-			Text += QString::number(itemText.charStyle(a).cstrikepos)+'\t';
-			Text += QString::number(itemText.charStyle(a).cstrikewidth)+'\n';
+			Text += itemText.charStyle(a).strokeColor()+"\t";
+			Text += QString::number(itemText.charStyle(a).strokeShade())+'\t';
+			Text += QString::number(itemText.charStyle(a).scaleH())+'\t';
+			Text += QString::number(itemText.charStyle(a).scaleV())+'\t';
+			Text += QString::number(itemText.charStyle(a).baselineOffset())+'\t';
+			Text += QString::number(itemText.charStyle(a).shadowXOffset())+'\t';
+			Text += QString::number(itemText.charStyle(a).shadowYOffset())+'\t';
+			Text += QString::number(itemText.charStyle(a).outlineWidth())+'\t';
+			Text += QString::number(itemText.charStyle(a).underlineOffset())+'\t';
+			Text += QString::number(itemText.charStyle(a).underlineWidth())+'\t';
+			Text += QString::number(itemText.charStyle(a).strikethruOffset())+'\t';
+			Text += QString::number(itemText.charStyle(a).strikethruWidth())+'\n';
 		}
 	}
 	Buffer->itemText = Text;
@@ -3343,8 +3343,8 @@ void PageItem::updatePolyClip()
 	for (uint a = 0; a < itemTextCount; ++a)
 	{
 		const CharStyle& hl (itemText.charStyle(a));
-		int des = static_cast<int>(hl.cfont->descent() * (-hl.csize / 10.0));
-		int asc = static_cast<int>(hl.cfont->ascent() * (hl.csize / 10.0));
+		int des = static_cast<int>(hl.font()->descent() * (-hl.fontSize() / 10.0));
+		int asc = static_cast<int>(hl.font()->ascent() * (hl.fontSize() / 10.0));
 		if (asc > asce)
 			asce = asc;
 		if (des > desc)
