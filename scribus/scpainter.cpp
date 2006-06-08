@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 	#include <cairo-svg.h>
 #endif
 #else
+// not HAVE_CAIRO
 #include <libart_lgpl/art_vpath.h>
 #include <libart_lgpl/art_bpath.h>
 #include <libart_lgpl/art_vpath_bpath.h>
@@ -76,6 +77,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <math.h>
 
+/// screen painter
 ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsigned int x, unsigned int y )
 {
 	m_target = target;
@@ -84,7 +86,8 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 	m_x = x;
 	m_y = y;
 	m_buffer = 0L;
-#ifndef HAVE_CAIRO
+#ifdef HAVE_CAIRO
+#else
 	m_path = 0L;
 #endif
 	m_index = 0;
@@ -130,7 +133,9 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 /*	Setting to 0.5 here gives a good tradeoff between speed and precision
 	the former setting of 0.2 is just too precise, and setting it to 0.9 or greater will give bad rendering */
 	cairo_set_tolerance( m_cr, 0.5 );
-#elif defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
+#else 
+	// not HAVE_CAIRO
+#if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 	resize( m_width, m_height );
 	clear();
 	xlib_rgb_init_with_depth( target->x11Display(), XScreenOfDisplay( target->x11Display(), target->x11Screen() ), target->x11Depth() );
@@ -143,9 +148,12 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 	resize( m_width, m_height );
 	clear();
 #endif
+#endif
 }
 
-ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, unsigned int x, unsigned int y )
+/// std image painter
+ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, 
+					  unsigned int x, unsigned int y )
 {
 	m_target = 0L;
 	m_width = w;
@@ -195,7 +203,9 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, unsigned i
 }
 
 #ifdef HAVE_CAIRO
-ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double transparency, int blendmode )
+/// image painter
+ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, 
+					  double transparency, int blendmode )
 {
 	m_target = 0L;
 	m_width = w;
@@ -245,7 +255,9 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double tra
 }
 
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
-ScPainter::ScPainter( QString target, unsigned int w, unsigned int h, double transparency, int blendmode )
+/// SVG file painter
+ScPainter::ScPainter( QString target, unsigned int w, unsigned int h, 
+					  double transparency, int blendmode )
 {
 	m_target = 0L;
 	m_width = w;
@@ -284,32 +296,38 @@ ScPainter::ScPainter( QString target, unsigned int w, unsigned int h, double tra
 	cairo_set_tolerance( m_cr, 0.5 );
 }
 #endif
-
+// HAVE_CAIRO
 #endif
 
 ScPainter::~ScPainter()
 {
+#ifdef HAVE_CAIRO
+#else
 	// If we are in target mode, we created a buffer, else if we used the other ctor
 	// we didnt.
-#ifndef HAVE_CAIRO
 	if (( m_target ) || ( imageMode))
 		art_free( m_buffer );
 	if( m_path )
 		art_free( m_path );
 #endif
+	
+	
 #ifdef HAVE_CAIRO
 	cairo_surface_destroy(cairo_get_target(m_cr));
 	cairo_destroy( m_cr );
-#elif defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
+#else
+	// not HAVE_CAIRO
+#if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 	if ((imageMode) || (svgMode))
 		return;
 	if( gc )
 		XFreeGC( m_target->x11Display(), gc );
 #elif defined(_WIN32) && defined(SC_USE_GDI)
-	if (imageMode)
+	if (imageMode || svgMode)
 		return;
 	if( dc )
 		DeleteDC( dc );
+#endif
 #endif
 }
 
@@ -539,6 +557,7 @@ void ScPainter::endLayer()
 	}
 #endif
 }
+//HAVE_CAIRO
 #endif
 
 void ScPainter::begin()
@@ -585,10 +604,12 @@ void ScPainter::end()
 		cairo_surface_flush(cairo_get_target(m_cr));
 		bitBlt( m_target, m_x, m_y, &pixm, 0, 0, m_width, m_height );
 		cairo_restore( m_cr );
-#elif defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
+#else
+		// not HAVE_CAIRO
+  #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 		// Use the original gdk-pixbuf based bitblit on X11
 		xlib_draw_rgb_32_image( m_target->handle(), gc, m_x, m_y, m_width, m_height, XLIB_RGB_DITHER_NONE, m_buffer, m_width * 4 );
-#elif defined(_WIN32) && defined(SC_USE_GDI)
+  #elif defined(_WIN32) && defined(SC_USE_GDI)
 		// Use Win32 implementation
 		BITMAPINFO bmpInfo;
 		BITMAPINFOHEADER *bmpHeader;
@@ -625,7 +646,7 @@ void ScPainter::end()
 		BitBlt( m_target->handle() , m_x, m_y, m_width, m_height, dc, 0, 0, SRCCOPY);
 		SelectObject( dc, obj);
 		DeleteObject( hBmp );
-#else
+  #else
 		// Portable copying onto the canvas with no X11 dependency by Andreas Vox
 		QImage qimg(m_width, m_height, 32, QImage::BigEndian);
 		QRgb * bits = (QRgb *) qimg.bits();
@@ -639,6 +660,7 @@ void ScPainter::end()
 			*bits++ = qRgba(r,g,b,a);
 		}
 		bitBlt(m_target, m_x, m_y, &qimg);
+  #endif
 #endif
 	}
 }
@@ -764,12 +786,12 @@ void ScPainter::curveTo( FPoint p1, FPoint p2, FPoint p3 )
 {
 #ifdef HAVE_CAIRO
 	cairo_curve_to(m_cr,
-								p1.x() * m_zoomFactor,
-								p1.y() * m_zoomFactor,
-								p2.x() * m_zoomFactor,
-								p2.y() * m_zoomFactor,
-								p3.x() * m_zoomFactor,
-								p3.y() * m_zoomFactor);
+				   p1.x() * m_zoomFactor,
+				   p1.y() * m_zoomFactor,
+				   p2.x() * m_zoomFactor,
+				   p2.y() * m_zoomFactor,
+				   p3.x() * m_zoomFactor,
+				   p3.y() * m_zoomFactor);
 #else
 	ensureSpace( m_index + 1 );
 	m_path[ m_index ].code = ART_CURVETO;
@@ -1105,6 +1127,7 @@ void ScPainter::drawVPath( int mode )
 	}
 	cairo_restore( m_cr );
 #else
+	// not HAVE_CAIRO
 void ScPainter::drawVPath( struct _ArtVpath *vec, int mode, bool preCal )
 {
 	ArtSVP *strokeSvp = 0L;
@@ -1154,7 +1177,7 @@ void ScPainter::drawVPath( struct _ArtVpath *vec, int mode, bool preCal )
 		color = m_stroke;
 		as = qRound( 255 * stroke_trans );
 #ifdef WORDS_BIGENDIAN
-    strokeColor = ( color.red() << 24 ) | ( color.green() << 16 ) | ( color.blue() << 8 );
+		strokeColor = ( color.red() << 24 ) | ( color.green() << 16 ) | ( color.blue() << 8 );
 #else
 		strokeColor = ( 0 << 24 ) | ( color.blue() << 16 ) | ( color.green() << 8 ) | color.red();
 #endif
@@ -1240,7 +1263,8 @@ void ScPainter::setClipPath()
 #endif
 }
 
-#ifndef HAVE_CAIRO
+#ifdef HAVE_CAIRO
+#else
 void ScPainter::setClipPath2(FPointArray *points, bool closed)
 {
 	setClipPath();
@@ -1268,6 +1292,7 @@ void ScPainter::setClipPath2(FPointArray *points, bool closed)
 	art_svp_free( temp );
 	art_free( temp1 );
 }
+// not HAVE_CAIRO
 #endif
 
 void ScPainter::drawImage( QImage *image )
@@ -1336,6 +1361,7 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
     		cairo_close_path( m_cr );
 	}
 #else
+	// not HAVE_CAIRO
 	if (points->size() > 3)
 		{
 		newPath();
@@ -1510,7 +1536,8 @@ void ScPainter::drawRect(double x, double y, double w, double h)
 	strokePath();
 }
 
-#ifndef HAVE_CAIRO
+#ifdef HAVE_CAIRO
+#else
 void ScPainter::ensureSpace( unsigned int newindex )
 {
 	if( m_index == 0 )
@@ -1722,4 +1749,5 @@ ArtGradientStop * ScPainter::buildStopArray( VGradient &gradient, int &offsets )
 	offsets = offsets * 2 - 1;
 	return stopArray;
 }
+//not HAVE_CAIRO
 #endif
