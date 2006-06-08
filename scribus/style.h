@@ -18,6 +18,7 @@
 #define STYLE_H
 
 #include <qstring.h>
+#include "scribusapi.h"
 
 
 /**
@@ -74,17 +75,17 @@ enum StyleFlag {
 	ScStyle_None          = 65535
 };
 
-StyleFlag& operator&= (StyleFlag& left, StyleFlag right);
+SCRIBUS_API StyleFlag& operator&= (StyleFlag& left, StyleFlag right);
 
-StyleFlag& operator|= (StyleFlag& left, StyleFlag right);
+SCRIBUS_API StyleFlag& operator|= (StyleFlag& left, StyleFlag right);
 
-StyleFlag operator& (StyleFlag left, StyleFlag right);
+SCRIBUS_API StyleFlag operator& (StyleFlag left, StyleFlag right);
 
-StyleFlag operator| (StyleFlag left, StyleFlag right);
+SCRIBUS_API StyleFlag operator| (StyleFlag left, StyleFlag right);
 
-StyleFlag operator^ (StyleFlag left, StyleFlag right);
+SCRIBUS_API StyleFlag operator^ (StyleFlag left, StyleFlag right);
 
-StyleFlag operator~ (StyleFlag arg);
+SCRIBUS_API StyleFlag operator~ (StyleFlag arg);
 
 
 
