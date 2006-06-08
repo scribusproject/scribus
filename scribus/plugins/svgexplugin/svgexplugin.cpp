@@ -43,18 +43,6 @@ for which a new license (GPL+exception) is in place.
 #include "sctextstruct.h"
 #include "guidemanager.h"
 
-#ifdef HAVE_CAIRO
-	#include <cairo.h>
-	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
-		#define USECAIRO
-		#include "scpainter.h"
-	#else
-		#undef USECAIRO
-	#endif
-#else
-	#undef USECAIRO
-#endif
-
 
 int svgexplugin_getPluginAPIVersion()
 {
@@ -244,6 +232,7 @@ SVGExPlug::SVGExPlug( QString fName )
 #endif
 }
 
+#ifndef USECAIRO
 void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 {
 	QString tmp, trans, fill, stroke, strokeW, strokeLC, strokeLJ, strokeDA, gradi, Clipi, chx;
@@ -839,6 +828,7 @@ QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 		}
 	return tmp;
 }
+#endif
 
 SVGExPlug::~SVGExPlug()
 {

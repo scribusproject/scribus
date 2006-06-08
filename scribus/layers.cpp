@@ -106,6 +106,10 @@ LayerPalette::LayerPalette(QWidget* parent)
 	blendMode->hide();
 	textLabel1->hide();
 #endif
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 6)
+	opacitySpinBox->hide();
+	textLabel2->hide();
+#endif
 #endif
 
 	Table = new LayerTable( this );

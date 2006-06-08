@@ -12,6 +12,18 @@ for which a new license (GPL+exception) is in place.
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 
+#ifdef HAVE_CAIRO
+	#include <cairo.h>
+	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
+		#define USECAIRO
+		#include "scpainter.h"
+	#else
+		#undef USECAIRO
+	#endif
+#else
+	#undef USECAIRO
+#endif
+
 class QString;
 class ScribusMainWindow;
 class PageItem;
@@ -59,6 +71,7 @@ public:
 	SVGExPlug( QString fName );
 	~SVGExPlug();
 
+#ifndef USECAIRO
 private:
 		/*!
 		\author Franz Schmid
@@ -113,6 +126,7 @@ private:
 		QString GetMultiStroke(struct SingleLine *sl, PageItem *Item);
 		int GradCount;
 		int ClipCount;
+#endif
 };
 
 #endif // CMSPLUG_H

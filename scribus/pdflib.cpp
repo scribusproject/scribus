@@ -2038,7 +2038,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				if ((Options.Compress) && (CompAvail))
 					PutDoc("\n/Filter /FlateDecode");
 				PutDoc(" >>\nstream\n"+EncStream(inh, ObjCounter-1)+"\nendstream\nendobj\n");
-				QString name = ll.Name.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + QString::number(ll.LNr);
+				QString name = ll.Name.simplifyWhiteSpace().replace(QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_") + QString::number(ll.LNr) + QString::number(PNr);
 				Seite.XObjects[name] = ObjCounter-1;
 				PutPage("/"+ShName+" gs\n");
 				PutPage("/"+name+" Do\n");
