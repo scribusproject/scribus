@@ -217,7 +217,7 @@ void RuleState::reset()
 void RuleState::dump()
 {
 	std::cout << "Rules:\n";
-	for (int r=0; r<rules.size(); ++r) {
+	for (unsigned int r=0; r<rules.size(); ++r) {
 		std::cout << r << ":\t\"" << rules[r].first << "\" accepted in  (" << accepting[r] << ")\n";
 	}
 	std::cout << "\nTokens:\n";
@@ -324,7 +324,7 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 	nfa->addInput(ANY);
 	nfa->addTransition(EMPTY, ANY, EMPTY);
 
-	for (int i = 0; i < rules.size(); ++i)
+	for (unsigned int i = 0; i < rules.size(); ++i)
 	{
 		const std::string currPattern(static_cast<const char*>(rules[i].first));
 		const unsigned int len = currPattern.length();

@@ -28,12 +28,12 @@ namespace desaxe {
 class Action_body
 {
 protected:
-	Action_body() :                 dig(NULL)  {}
-	virtual ~Action_body()                     {}
-	virtual void begin(const Xml_string tag, Xml_attr attr) 
-                                               {}
-	virtual void end(const Xml_string tag)    {}
-	virtual void chars(const Xml_string data) {}
+	Action_body() :                     dig(NULL)  {}
+	virtual ~Action_body()                         {}
+	virtual void begin(const Xml_string, Xml_attr) {} 
+                                               
+	virtual void end(const Xml_string)             {}
+	virtual void chars(const Xml_string)           {}
 
 	Digester* dig;
 private:
