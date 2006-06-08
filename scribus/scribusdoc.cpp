@@ -250,6 +250,9 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	vg.charStyle().setScaleV(1000);
 	vg.charStyle().setTracking(0);
 	docParagraphStyles.append(vg);
+	
+	currentStyle = vg;
+	
 	vg.setName("Center Internal");
 	vg.setAlignment(1);
 	docParagraphStyles.append(vg);

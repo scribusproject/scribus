@@ -296,91 +296,6 @@ inline CharStyle::CharStyle(const CharStyle & other) : Style(other)
 }
 
 
-inline void CharStyle::applyCharStyle(const CharStyle & other)
-{
-	if (other.csize != NOVALUE)
-		csize = other.csize;
-	if (other.cshade != NOVALUE)
-		cshade = other.cshade;
-	if (other.cshade2 != NOVALUE)
-		cshade2 = other.cshade2;
-	if (other.cstyle != ScStyle_None)
-		cstyle = static_cast<StyleFlag>((cstyle & ~ScStyle_UserStyles) | (other.cstyle & ScStyle_UserStyles));
-	if (other.cscale != NOVALUE)
-		cscale = other.cscale;
-	if (other.cscalev != NOVALUE)
-		cscalev = other.cscalev;
-	if (other.cbase != NOVALUE)
-		cbase = other.cbase;
-	if (other.cshadowx != NOVALUE)
-		cshadowx = other.cshadowx;
-	if (other.cshadowy != NOVALUE)
-		cshadowy = other.cshadowy;
-	if (other.coutline != NOVALUE)
-		coutline = other.coutline;
-	if (other.cunderpos != NOVALUE)
-		cunderpos = other.cunderpos;
-	if (other.cunderwidth != NOVALUE)
-		cunderwidth = other.cunderwidth;
-	if (other.cstrikepos != NOVALUE)
-		cstrikepos = other.cstrikepos;
-	if (other.cstrikewidth != NOVALUE)
-		cstrikewidth = other.cstrikewidth;
-	if (other.cextra != NOVALUE)
-		cextra = other.cextra;
-	if (other.cfont != &Foi::NONE)
-		cfont = other.cfont;
-	if (other.ccolor != NOCOLOR)
-		ccolor = other.ccolor;
-	if (other.cstroke != NOCOLOR)
-		cstroke = other.cstroke;
-	if (other.language_ != NOLANG)
-		language_ = other.language_;
-}
-
-inline void CharStyle::eraseCharStyle(const CharStyle & other)
-{
-	if (other.csize == csize)
-		csize = NOVALUE;
-	if (other.cshade == cshade)
-		cshade = NOVALUE;
-	if (other.cshade2 == cshade2)
-		cshade2 = NOVALUE;
-	if ((other.cstyle  & ScStyle_UserStyles) == (cstyle & ScStyle_UserStyles))
-		cstyle = ScStyle_None;
-	if (other.cscale == cscale)
-		cscale = NOVALUE;
-	if (other.cscalev == cscalev)
-		cscalev = NOVALUE;
-	if (other.cbase == cbase)
-		cbase = NOVALUE;
-	if (other.cshadowx == cshadowx)
-		cshadowx = NOVALUE;
-	if (other.cshadowy == cshadowy)
-		cshadowy = NOVALUE;
-	if (other.coutline == coutline)
-		coutline = NOVALUE;
-	if (other.cunderpos == cunderpos)
-		cunderpos = NOVALUE;
-	if (other.cunderwidth == cunderwidth)
-		cunderwidth = NOVALUE;
-	if (other.cstrikepos == cstrikepos)
-		cstrikepos = NOVALUE;
-	if (other.cstrikewidth == cstrikewidth)
-		cstrikewidth = NOVALUE;
-	if (other.cextra == cextra)
-		cextra = NOVALUE;
-	if (other.cfont == cfont)
-		cfont = const_cast<Foi*>(&Foi::NONE);
-	if (other.ccolor == ccolor)
-		ccolor = NOCOLOR;
-	if (other.cstroke == cstroke)
-		cstroke = NOCOLOR;
-	if (other.language_ == language_)
-		language_ = NOLANG;
-}
-
-
 class SCRIBUS_API ParagraphStyle : public virtual Style, private CharStyle
 {
 public:
@@ -475,7 +390,9 @@ public:
 	CharStyle & charStyle() { return *this; }
 	const CharStyle& charStyle() const { return *this; }
 	
-	ParagraphStyle& operator=(const ParagraphStyle& other) const;
+	void applyStyle(const ParagraphStyle& other);
+	void eraseStyle(const ParagraphStyle& other);
+	ParagraphStyle& operator=(const ParagraphStyle& other);
 
 	bool equiv(const ParagraphStyle& other) const;
 	

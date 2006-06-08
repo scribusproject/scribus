@@ -377,6 +377,7 @@ spalette.cpp
 splash.cpp
 stencilreader.cpp
 story.cpp
+style.cpp
 styleitem.cpp
 stylemanager.cpp
 styleselect.cpp

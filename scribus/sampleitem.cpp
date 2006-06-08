@@ -52,6 +52,7 @@ SampleItem::SampleItem() : QObject()
 	tmpStyle.setAlignment(0);
 	tmpStyle.setLeftMargin(0);
 	tmpStyle.setFirstIndent(0);
+	tmpStyle.setRightMargin(0);
 	tmpStyle.setGapBefore(0);
 	tmpStyle.setGapAfter(0);
 	tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.AvailFonts[doc->toolSettings.defFont]);
@@ -103,7 +104,7 @@ void SampleItem::setLoremIpsum(int para)
 	delete m;
 }
 
-void SampleItem::setStyle(ParagraphStyle aStyle)
+void SampleItem::setStyle(const ParagraphStyle& aStyle)
 {
 	tmpStyle = aStyle;
 }

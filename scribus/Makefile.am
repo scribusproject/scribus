@@ -193,6 +193,7 @@ scribus_SOURCES = \
 	scribusXml.cpp	\
 	scrpalettebase.cpp	\
 	sctextstruct.cpp \
+	style.cpp \
 	sctoolbar.cpp \
 	search.cpp	\
 	seiten.cpp	\

@@ -55,7 +55,7 @@ class SCRIBUS_API SampleItem : QObject
 
 		/*! \brief Set whole Scribus paragraph style in one.
 		\param aStyle Paragraph style to set.*/
-		void setStyle(ParagraphStyle aStyle);
+		void setStyle(const ParagraphStyle& aStyle);
 		/*! \brief Folowing methods set only one style characteristic */
 		void setLineSpaMode(int lineSpaMode);
 		void setLineSpa(double lineSpa);
