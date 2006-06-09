@@ -94,13 +94,16 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc)
 	}
 	for (QMap<QString,QString>::Iterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 	{
-			Foi::FontType type = prefsManager->appPrefs.AvailFonts[it2.data()]->type();
-			if (type == Foi::OTF)
-				insertItem(otfFont, it2.data());
-			else if (type == Foi::TYPE1)
-				insertItem(psFont, it2.data());
-			else if (type == Foi::TTF)
-				insertItem(ttfFont, it2.data());
+		Foi* fon = prefsManager->appPrefs.AvailFonts[it2.data()];
+		if (!fon)
+			continue;
+		Foi::FontType type = fon->type();
+		if (type == Foi::OTF)
+			insertItem(otfFont, it2.data());
+		else if (type == Foi::TYPE1)
+			insertItem(psFont, it2.data());
+		else if (type == Foi::TTF)
+			insertItem(ttfFont, it2.data());
 	}
 	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 }
