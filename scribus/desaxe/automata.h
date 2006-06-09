@@ -150,7 +150,7 @@ public:
 				result->setTransition(nfrom, tr_it->first, nstate);
 			}
 		}
-		const std::set<INPUT>& inp(inputs());
+		const std::set<INPUT>& inp(FA_base<STATE, INPUT, std::set<STATE> >::inputs());
 		typename std::set<INPUT>::iterator i;
 		for (i=inp.begin(); i != inp.end(); ++i)
 			result->addInput(*i);
