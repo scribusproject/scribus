@@ -54,8 +54,28 @@ for which a new license (GPL+exception) is in place.
 #include FT_TRUETYPE_TAGS_H
 #include FT_TRUETYPE_TABLES_H
 
+// static:
 FT_Library Foi::library = NULL;
+
 const Foi Foi::NONE;
+
+/*****
+   ScFace lifecycle:  unchecked -> loaded -> glyphs checked
+                               |         \-> broken glyphs
+							   \-> broken
+   usable() == ! broken
+   embeddable() == glyphs_checked
+   
+   canRender(unicode) -> CharMap cache? -> loadChar/Glyph -> !broken
+   Glyphs:  width    status
+            -1000    unkown
+            -2000    broken
+            >= 0     ok, outline valid
+   CharMap:  unicode -> glyph index
+             uint[256][256]
+   unicode ignores: < 32, ...
+   unicode emulate: spaces, hyphen, ligatures?, diacritics?
+ *****/
 
 Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path, 
 		 int face, bool embedps) : face(NULL)
@@ -78,7 +98,7 @@ Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path,
 	}
 }
 
-Foi::Foi()
+Foi::Foi() : face(NULL)
 {
 	isOTF_ = false;
 	Subset = false;
@@ -241,59 +261,6 @@ void Foi::RawData(QByteArray & bb)
 }
 
 
-/*
-void Foi::FontBez()
-{
-	FT_Face face;
-	FT_Library library;
-	QString ts;
-	QPixmap pm(200, 100);
-	bool error;
-	int  pen_x;
-	int YPos = qApp->font().pointSize();
-	uint n;
-	error = FT_Init_FreeType( &library );
-	error = FT_New_Face( library, fontFile, 0, &face );
-	ts = QString(face->family_name) + " " + QString(face->style_name);
-	pm.fill();
-	pen_x = 0;
-	for (n = 0; n < ts.length(); n++)
-		{
-		uint dv = ts[n].unicode();
-		error = FT_Set_Char_Size(	face, 0, qApp->font().pointSize()*64, 72, 72 );
-		FT_Load_Char(face, dv, FT_LOAD_RENDER | FT_LOAD_NO_BITMAP | FT_LOAD_MONOCHROME);
-		QByteArray bd(face->glyph->bitmap.rows * face->glyph->bitmap.pitch);
-		uint yy = 0;
-		uint adv;
-		if ((face->glyph->bitmap.width % 8) == 0)
-			adv = face->glyph->bitmap.width / 8;
-		else
-			adv = face->glyph->bitmap.width / 8 + 1;
-		for (int y = 0; y < face->glyph->bitmap.rows; ++y)
-			{
-			memcpy(bd.data()+yy, face->glyph->bitmap.buffer+(y * face->glyph->bitmap.pitch), adv);
-			yy += adv;
-			}
-		QBitmap bb(face->glyph->bitmap.width, face->glyph->bitmap.rows, (uchar*)bd.data(), false);
-		QPixmap pixm(face->glyph->bitmap.width, face->glyph->bitmap.rows);
-		if (!pixm.isNull())
-			{
-			pixm.fill(Qt::black);
-			pixm.setMask(bb);
-			QPainter p;
-			p.begin(&pm);
-			p.drawPixmap(pen_x+face->glyph->bitmap_left, YPos-face->glyph->bitmap_top, pixm);
-			p.end();
-			}
-		pen_x += face->glyph->advance.x >> 6;
-		}
-	int high = qApp->fontMetrics().height();
-	QPixmap pm2(pen_x, high);
-	bitBlt(&pm2, 0, 0, &pm, 0, 0, pen_x, high);
-	Appearance = pm2;
-	FT_Done_FreeType( library );
-	return;
-}    */
 
 /*
 	Class Foi_postscript
@@ -652,6 +619,21 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 	}
 	FT_Done_FreeType( library );
 }
+
+
+/*****
+   What to do with font files:
+   - note mod. date
+   - in FontCache?  => load faces from cache
+   - load via FT    => or broken
+   - for all faces:
+       load face
+       get fontinfo (type, names, styles, global metrics)
+       check encoding(s)
+       (calc. hash sum)
+       create cache entry
+ *****/
+
 
 /**
  * tests magic words to determine the fontformat and preliminary fonttype
