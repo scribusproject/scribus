@@ -385,7 +385,7 @@ public:
 	
 	// these return writeable references for now:
 	QValueList<TabRecord> & tabValues() { haveTabs = true; return TabValues; }
-	const QValueList<TabRecord> & tabValues() const { return haveTabs? TabValues : inh().tabValues(); }
+	const QValueList<TabRecord> & tabValues() const { return !haveTabs && parent()? inh().tabValues() : TabValues; }
 
 	CharStyle & charStyle() { return *this; }
 	const CharStyle& charStyle() const { return *this; }

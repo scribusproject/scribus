@@ -157,7 +157,7 @@ ParagraphStyle::ParagraphStyle() : Style(), CharStyle(),
 {}
 
 
-ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(), CharStyle(other.charStyle()),
+ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), CharStyle(other.charStyle()),
 		LineSpaMode(other.LineSpaMode),
 		LineSpa(other.LineSpa),
 		textAlignment(other.textAlignment),
