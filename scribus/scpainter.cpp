@@ -404,14 +404,14 @@ void ScPainter::endLayer()
 					QRgb *src = (QRgb*)s;
 					for( int xi=0; xi < w; ++xi )
 					{
-						uchar src_r = qRed(*src);
-						uchar src_g = qGreen(*src);
-						uchar src_b = qBlue(*src);
-						uchar src_a = qAlpha(*src);
-						uchar dst_r = qRed(*dst);
-						uchar dst_g = qGreen(*dst);
-						uchar dst_b = qBlue(*dst);
-						uchar dst_a = qAlpha(*dst);
+						int src_r = qRed(*src);
+						int src_g = qGreen(*src);
+						int src_b = qBlue(*src);
+						int src_a = qAlpha(*src);
+						int dst_r = qRed(*dst);
+						int dst_g = qGreen(*dst);
+						int dst_b = qBlue(*dst);
+						int dst_a = qAlpha(*dst);
 						if ((src_a > 0) && (dst_a > 0))
 						{
 							if (m_blendMode == 1)
@@ -470,15 +470,18 @@ void ScPainter::endLayer()
 							}
 							else if (m_blendMode == 10)
 							{
-								src_r = src_r == 255 ? 255 : ((dst_r * 256) / (255-src_r)) > 255 ? 255 : (dst_r * 256) / (255-src_r);
-								src_g = src_g == 255 ? 255 : ((dst_g * 256) / (255-src_g)) > 255 ? 255 : (dst_g * 256) / (255-src_g);
-								src_b = src_b == 255 ? 255 : ((dst_b * 256) / (255-src_b)) > 255 ? 255 : (dst_b * 256) / (255-src_b);
+								src_r = src_r == 255 ? QMIN(255, dst_r * 256) : QMIN(255, ((dst_r * 256) / (255-src_r)));
+								src_g = src_g == 255 ? QMIN(255, dst_g * 256) : QMIN(255, ((dst_g * 256) / (255-src_g)));
+								src_b = src_b == 255 ? QMIN(255, dst_b * 256) : QMIN(255, ((dst_b * 256) / (255-src_b)));
 							}
 							else if (m_blendMode == 11)
 							{
-								src_r = src_r == 0 ? 0 : (255 - (((255-dst_r) * 256) / src_r)) < 0 ? 0 : 255 - (((255-dst_r) * 256) / src_r);
-								src_g = src_g == 0 ? 0 : (255 - (((255-dst_g) * 256) / src_g)) < 0 ? 0 : 255 - (((255-dst_g) * 256) / src_g);
-								src_b = src_b == 0 ? 0 : (255 - (((255-dst_b) * 256) / src_b)) < 0 ? 0 : 255 - (((255-dst_b) * 256) / src_b);
+								src_r = QMAX(1, src_r);
+								src_g = QMAX(1, src_g);
+								src_b = QMAX(1, src_b);
+								src_r = (255 - (((255-dst_r) * 256) / src_r)) < 0 ? 0 : 255 - (((255-dst_r) * 256) / src_r);
+								src_g = (255 - (((255-dst_g) * 256) / src_g)) < 0 ? 0 : 255 - (((255-dst_g) * 256) / src_g);
+								src_b = (255 - (((255-dst_b) * 256) / src_b)) < 0 ? 0 : 255 - (((255-dst_b) * 256) / src_b);
 							}
 							else if (m_blendMode == 12)
 							{
