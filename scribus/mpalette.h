@@ -408,10 +408,10 @@ protected:
 	QGroupBox* TLines;
 	QGroupBox* GroupBox3a;
 
-	QRadioButton* textFlowDisabled;
-	QRadioButton* textFlowUsesFrameShape;
-	QRadioButton* textFlowUsesBoundingBox;
-	QRadioButton* textFlowUsesContourLine;
+	QToolButton* textFlowDisabled;
+	QToolButton* textFlowUsesFrameShape;
+	QToolButton* textFlowUsesBoundingBox;
+	QToolButton* textFlowUsesContourLine;
 	QCheckBox* Aspect;
 	QCheckBox* showcurveCheckBox;
 	QCheckBox* TopLine;

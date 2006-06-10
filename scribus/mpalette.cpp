@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpoint.h>
 #include <qwmatrix.h>
 #include <qmessagebox.h>
+#include <qtoolbutton.h>
 #include <qradiobutton.h>
 #include <qobjectlist.h>
 
@@ -440,13 +441,33 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	textFlowOptionsLayout->setAlignment( Qt::AlignTop );
 	textFlowOptions->setCheckable( false );
 	textFlowOptions->setExclusive( true );
-	textFlowDisabled = new QRadioButton( "Disabled", textFlowOptions, "textFlowDisabled" );
+	textFlowDisabled = new QToolButton( textFlowOptions, "textFlowDisabled" );
+	textFlowDisabled->setToggleButton( true );
+	textFlowDisabled->setTextPosition( QToolButton::BesideIcon );
+	textFlowDisabled->setUsesTextLabel( true );
+	textFlowDisabled->setTextLabel( "Disabled" );
+	textFlowDisabled->setPixmap(loadIcon("flow-none.png"));
 	textFlowOptionsLayout->addWidget( textFlowDisabled );
-	textFlowUsesFrameShape  = new QRadioButton( "Use &Frame Shape", textFlowOptions, "textFlowUsesObjectFrame" );
+	textFlowUsesFrameShape  = new QToolButton( textFlowOptions, "textFlowUsesObjectFrame" );
+	textFlowUsesFrameShape->setToggleButton( true );
+	textFlowUsesFrameShape->setTextPosition( QToolButton::BesideIcon );
+	textFlowUsesFrameShape->setUsesTextLabel( true );
+	textFlowUsesFrameShape->setTextLabel( "Use &Frame Shape" );
+	textFlowUsesFrameShape->setPixmap(loadIcon("flow-frame.png"));
 	textFlowOptionsLayout->addWidget( textFlowUsesFrameShape );
-	textFlowUsesBoundingBox = new QRadioButton( "Use &Bounding Box", textFlowOptions, "textFlowUsesBoundingBox" );
+	textFlowUsesBoundingBox = new QToolButton( textFlowOptions, "textFlowUsesBoundingBox" );
+	textFlowUsesBoundingBox->setToggleButton( true );
+	textFlowUsesBoundingBox->setTextPosition( QToolButton::BesideIcon );
+	textFlowUsesBoundingBox->setUsesTextLabel( true );
+	textFlowUsesBoundingBox->setTextLabel( "Use &Bounding Box" );
+	textFlowUsesBoundingBox->setPixmap(loadIcon("flow-bounding.png"));
 	textFlowOptionsLayout->addWidget( textFlowUsesBoundingBox );
-	textFlowUsesContourLine = new QRadioButton( "&Use Contour Line", textFlowOptions, "textFlowUsesContourLine" );
+	textFlowUsesContourLine = new QToolButton( textFlowOptions, "textFlowUsesContourLine" );
+	textFlowUsesContourLine->setToggleButton( true );
+	textFlowUsesContourLine->setTextPosition( QToolButton::BesideIcon );
+	textFlowUsesContourLine->setUsesTextLabel( true );
+	textFlowUsesContourLine->setTextLabel( "&Use Contour Line" );
+	textFlowUsesContourLine->setPixmap(loadIcon("flow-contour.png"));
 	textFlowOptionsLayout->addWidget( textFlowUsesContourLine );
 	pageLayout_2->addWidget( textFlowOptions  );
 
@@ -1193,13 +1214,13 @@ void Mpalette::setTextFlowMode(PageItem::TextFlowMode mode)
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if (mode == PageItem::TextFlowDisabled)
-		textFlowDisabled->setChecked(true);
+		textFlowDisabled->setOn(true);
 	else if (mode == PageItem::TextFlowUsesFrameShape)
-		textFlowUsesFrameShape->setChecked(true);
+		textFlowUsesFrameShape->setOn(true);
 	else if (mode == PageItem::TextFlowUsesBoundingBox)
-		textFlowUsesBoundingBox->setChecked(true);
+		textFlowUsesBoundingBox->setOn(true);
 	else if (mode == PageItem::TextFlowUsesContourLine)
-		textFlowUsesContourLine->setChecked(true);
+		textFlowUsesContourLine->setOn(true);
 }
 
 void Mpalette::SetCurItem(PageItem *i)
@@ -3146,13 +3167,13 @@ void Mpalette::DoFlow(int /*id*/)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (textFlowDisabled->isChecked())
+		if (textFlowDisabled->isOn())
 			mode = PageItem::TextFlowDisabled;
-		if (textFlowUsesFrameShape->isChecked())
+		if (textFlowUsesFrameShape->isOn())
 			mode = PageItem::TextFlowUsesFrameShape;
-		if (textFlowUsesBoundingBox->isChecked())
+		if (textFlowUsesBoundingBox->isOn())
 			mode = PageItem::TextFlowUsesBoundingBox;
-		if (textFlowUsesContourLine->isChecked())
+		if (textFlowUsesContourLine->isOn())
 			mode = PageItem::TextFlowUsesContourLine;
 		CurItem->setTextFlowMode(mode);
 		m_MainWindow->view->DrawNew();
@@ -3841,10 +3862,10 @@ void Mpalette::languageChange()
 	EvenOdd->setText( tr("Even-Odd"));
 	NonZero->setText( tr("Non Zero"));
 	textFlowOptions->setTitle( tr("Text &Flow Around Frame"));
-	textFlowDisabled->setText( tr("Disabled"));
-	textFlowUsesFrameShape->setText( tr("Use Frame &Shape"));
-	textFlowUsesBoundingBox->setText( tr("Use &Bounding Box"));
-	textFlowUsesContourLine->setText( tr("&Use Contour Line"));
+	textFlowDisabled->setTextLabel( tr("Disabled"));
+	textFlowUsesFrameShape->setTextLabel( tr("Use Frame &Shape"));
+	textFlowUsesBoundingBox->setTextLabel( tr("Use &Bounding Box"));
+	textFlowUsesContourLine->setTextLabel( tr("&Use Contour Line"));
 	styleLabel->setText( tr("St&yle:"));
 	langLabel->setText( tr("Lan&guage:"));
 	FreeScale->setText( tr("&Free Scaling"));
