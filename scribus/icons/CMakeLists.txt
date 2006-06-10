@@ -106,6 +106,10 @@ finish.png
 firstline.png
 FlipH.xpm
 FlipV.xpm
+flow-bounding.png
+flow-contour.png
+flow-frame.png
+flow-none.png
 font_otf16.png
 font_otf.png
 font.png
