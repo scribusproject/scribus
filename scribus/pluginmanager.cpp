@@ -171,6 +171,7 @@ void PluginManager::initPlugs()
 	QMap<QString,int> allPlugs;
 	uint loaded = 0;
 	uint changes = 1;
+	QStringList failedPlugs; // output string for warn dialog
 
 	/*! \note QDir::Reversed is there due the Mac plugin dependency.
 	barcode depends on psimport. and load on that platform expect the
@@ -187,6 +188,8 @@ void PluginManager::initPlugs()
 		allPlugs[dirList[dc]] = res;
 		if (res != 0)
 			++loaded;
+		else
+			failedPlugs.append(dirList[dc]);
 	}
 	/* Re-try the failed plugins again and again until it promote
 	any progress (changes variable is changing ;)) */
@@ -204,6 +207,7 @@ void PluginManager::initPlugs()
 			{
 				++loaded;
 				++changes;
+				failedPlugs.remove(it.key());
 			}
 		}
 	}
@@ -211,12 +215,16 @@ void PluginManager::initPlugs()
 	{
 		if (ScCore->usingGUI())
 		{
-			bool splashShown=ScCore->splashShowing();
+			bool splashShown = ScCore->splashShowing();
+			QString failedStr("<ul>");
+			for (QStringList::Iterator it = failedPlugs.begin(); it != failedPlugs.end(); ++it)
+				failedStr += "<li>" + *it + "</li>";
+			failedStr += "</ul>";
 			if (splashShown)
 				ScCore->showSplash(false);
 			QMessageBox::warning(ScMW, CommonStrings::trWarning,
-							 "<qt>" + tr("There is a problem loading %1 of %2 plugins. This is probably caused by some kind of dependency. Report it as a bug, please."
-										).arg(allPlugs.count()-loaded).arg(allPlugs.count())
+								 "<qt>" + tr("There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency. Report it as a bug, please."
+										).arg(allPlugs.count()-loaded).arg(allPlugs.count()).arg(failedStr)
 									 + "</qt>",
 							 CommonStrings::tr_OK);
 			if (splashShown)
