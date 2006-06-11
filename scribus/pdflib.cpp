@@ -1966,13 +1966,25 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						PutDoc("Difference");
 						break;
 					case 9:
-						PutDoc("Exlusion");
+						PutDoc("Exclusion");
 						break;
 					case 10:
 						PutDoc("ColorDodge");
 						break;
 					case 11:
 						PutDoc("ColorBurn");
+						break;
+					case 12:
+						PutDoc("Hue");
+						break;
+					case 13:
+						PutDoc("Saturation");
+						break;
+					case 14:
+						PutDoc("Color");
+						break;
+					case 15:
+						PutDoc("Luminosity");
 						break;
 				}
 				PutDoc("\n>>\nendobj\n");

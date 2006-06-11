@@ -229,12 +229,6 @@ private:
 	void applyCurve(bool cmyk);
 	bool IsValid( const PSDHeader & header );
 	bool IsSupported( const PSDHeader & header );
-	unsigned char INT_MULT ( unsigned char a, unsigned char b );
-	void RGBTOHSV ( uchar& red, uchar& green, uchar& blue );
-	void HSVTORGB ( uchar& hue, uchar& saturation, uchar& value );
-	void RGBTOHLS ( uchar& red, uchar& green, uchar& blue );
-	int HLSVALUE ( double n1, double n2, double hue );
-	void HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation );
 	bool loadChannel( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, QImage &tmpImg);
 	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
 	bool loadLayer( QDataStream & s, const PSDHeader & header);

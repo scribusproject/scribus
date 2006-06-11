@@ -763,6 +763,12 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 	}
 	else
 	{
+/*
+#ifdef HAVE_CAIRO
+		if ((fillTransparency() != 0) || (lineTransparency() != 0))
+			p->beginLayer(1.0 - fillTransparency(), 0);
+#endif
+*/
 		p->setLineWidth(m_lineWidth);
 		if (GrType != 0)
 		{
@@ -889,6 +895,12 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				}
 			}
 		}
+/*
+#ifdef HAVE_CAIRO
+		if ((fillTransparency() != 0) || (lineTransparency() != 0))
+			p->endLayer();
+#endif
+*/
 	}
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{

@@ -160,6 +160,12 @@ There is no allowed to have more than 1 checkbox in a common QListViewItem
 than using a QListView. So I choose painting 2 checkboxes as 2 QPixmaps
 and using a setPixmap method for their changing.
 \author Petr Vanek */
-QPixmap getQCheckBoxPixmap(const bool checked, const QColor background);
+QPixmap SCRIBUS_API getQCheckBoxPixmap(const bool checked, const QColor background);
+unsigned char SCRIBUS_API INT_MULT ( unsigned char a, unsigned char b );
+void SCRIBUS_API RGBTOHSV ( uchar& red, uchar& green, uchar& blue );
+void SCRIBUS_API HSVTORGB ( uchar& hue, uchar& saturation, uchar& value );
+void SCRIBUS_API RGBTOHLS ( uchar& red, uchar& green, uchar& blue );
+int SCRIBUS_API HLSVALUE ( double n1, double n2, double hue );
+void SCRIBUS_API HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation );
 
 #endif

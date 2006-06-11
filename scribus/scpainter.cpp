@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 
 #ifdef HAVE_CAIRO
 #include <cairo.h>
+	#include "util.h"
 	#if defined(_WIN32)
 	#include <cairo-win32.h>
 	#else
@@ -372,12 +373,6 @@ void ScPainter::beginLayer(double transparency, int blendmode)
 #endif
 }
 
-static unsigned char INT_MULT ( unsigned char a, unsigned char b )
-{
-	int c = a * b + 0x80;
-	return (unsigned char)(( ( c >> 8 ) + c ) >> 8);
-}
-
 void ScPainter::endLayer()
 {
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
@@ -404,14 +399,14 @@ void ScPainter::endLayer()
 					QRgb *src = (QRgb*)s;
 					for( int xi=0; xi < w; ++xi )
 					{
-						int src_r = qRed(*src);
-						int src_g = qGreen(*src);
-						int src_b = qBlue(*src);
-						int src_a = qAlpha(*src);
-						int dst_r = qRed(*dst);
-						int dst_g = qGreen(*dst);
-						int dst_b = qBlue(*dst);
-						int dst_a = qAlpha(*dst);
+						uchar src_r = qRed(*src);
+						uchar src_g = qGreen(*src);
+						uchar src_b = qBlue(*src);
+						uchar src_a = qAlpha(*src);
+						uchar dst_r = qRed(*dst);
+						uchar dst_g = qGreen(*dst);
+						uchar dst_b = qBlue(*dst);
+						uchar dst_a = qAlpha(*dst);
 						if ((src_a > 0) && (dst_a > 0))
 						{
 							if (m_blendMode == 1)
@@ -479,16 +474,16 @@ void ScPainter::endLayer()
 								src_r = QMAX(1, src_r);
 								src_g = QMAX(1, src_g);
 								src_b = QMAX(1, src_b);
-								src_r = (255 - (((255-dst_r) * 256) / src_r)) < 0 ? 0 : 255 - (((255-dst_r) * 256) / src_r);
-								src_g = (255 - (((255-dst_g) * 256) / src_g)) < 0 ? 0 : 255 - (((255-dst_g) * 256) / src_g);
-								src_b = (255 - (((255-dst_b) * 256) / src_b)) < 0 ? 0 : 255 - (((255-dst_b) * 256) / src_b);
+								src_r = static_cast<int>(255 - (((255-dst_r) * 256) / src_r)) < 0 ? 0 : 255 - (((255-dst_r) * 256) / src_r);
+								src_g = static_cast<int>(255 - (((255-dst_g) * 256) / src_g)) < 0 ? 0 : 255 - (((255-dst_g) * 256) / src_g);
+								src_b = static_cast<int>(255 - (((255-dst_b) * 256) / src_b)) < 0 ? 0 : 255 - (((255-dst_b) * 256) / src_b);
 							}
-							else if (m_blendMode == 12)
-							{
+//							else if (m_blendMode == 12)
+//							{
 		/*						This code is a blendmode that simulates the effect of overprinting
 								Works by converting source and destination colour to CMYK and adding them together
 								Finally the result is converted back to RGB */
-								int K1 = QMIN(QMIN(255 - src_r, 255 - src_g), 255 - src_b);
+/*								int K1 = QMIN(QMIN(255 - src_r, 255 - src_g), 255 - src_b);
 								int K2 = QMIN(QMIN(255 - dst_r, 255 - dst_g), 255 - dst_b);
 								int C = QMIN(QMIN(255 - src_r - K1, 255) + QMIN(255 - dst_r - K2, 255), 255);
 								int M = QMIN(QMIN(255 - src_g - K1, 255) + QMIN(255 - dst_g - K2, 255), 255) ;
@@ -497,6 +492,59 @@ void ScPainter::endLayer()
 								src_r = 255 - QMIN(255, C + K);
 								src_g = 255 - QMIN(255, M + K);
 								src_b = 255 - QMIN(255, Y+ K);
+							} */
+							else if (m_blendMode == 12)
+							{
+								uchar new_r = dst_r;
+								uchar new_g = dst_g;
+								uchar new_b = dst_b;
+								RGBTOHSV(src_r, src_g, src_b);
+								RGBTOHSV(new_r, new_g, new_b);
+								new_r = src_r;
+								HSVTORGB(new_r, new_g, new_b);
+								src_r = new_r;
+								src_g = new_g;
+								src_b = new_b;
+							}
+							else if (m_blendMode == 13)
+							{
+								uchar new_r = dst_r;
+								uchar new_g = dst_g;
+								uchar new_b = dst_b;
+								RGBTOHSV(src_r, src_g, src_b);
+								RGBTOHSV(new_r, new_g, new_b);
+								new_g = src_g;
+								HSVTORGB(new_r, new_g, new_b);
+								src_r = new_r;
+								src_g = new_g;
+								src_b = new_b;
+							}
+							else if (m_blendMode == 14)
+							{
+								uchar new_r = dst_r;
+								uchar new_g = dst_g;
+								uchar new_b = dst_b;
+								RGBTOHSV(src_r, src_g, src_b);
+								RGBTOHSV(new_r, new_g, new_b);
+								new_b = src_b;
+								HSVTORGB(new_r, new_g, new_b);
+								src_r = new_r;
+								src_g = new_g;
+								src_b = new_b;
+							}
+							else if (m_blendMode == 15)
+							{
+								uchar new_r = dst_r;
+								uchar new_g = dst_g;
+								uchar new_b = dst_b;
+								RGBTOHLS(src_r, src_g, src_b);
+								RGBTOHLS(new_r, new_g, new_b);
+								new_r = src_r;
+								new_b = src_b;
+								HLSTORGB(new_r, new_g, new_b);
+								src_r = new_r;
+								src_g = new_g;
+								src_b = new_b;
 							}
 							(*src) = qRgba(src_r, src_g, src_b, src_a);
 						}
