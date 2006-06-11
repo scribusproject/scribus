@@ -110,6 +110,8 @@ void ActionManager::initFileMenuActions()
 	//Rest of File Menu
 	name="fileDocSetup";
 	scrActions->insert(name, new ScrAction(QIconSet(loadIcon("16/document-properties.png"), loadIcon("22/document-properties.png")), "", defKeys[name], mainWindow, name));
+	name="filePreferences";
+	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
 	name="filePrint";
 	scrActions->insert(name, new ScrAction(QIconSet(loadIcon("16/document-print.png"), loadIcon("22/document-print.png")), "", defKeys[name], mainWindow, name));
 	name="PrintPreview";
@@ -127,6 +129,7 @@ void ActionManager::initFileMenuActions()
 	connect( (*scrActions)["fileSave"], SIGNAL(activated()), mainWindow, SLOT(slotFileSave()) );
 	connect( (*scrActions)["fileSaveAs"], SIGNAL(activated()), mainWindow, SLOT(slotFileSaveAs()) );
 	connect( (*scrActions)["fileDocSetup"], SIGNAL(activated()), mainWindow, SLOT(slotDocSetup()) );
+	connect( (*scrActions)["filePreferences"], SIGNAL(activated()), mainWindow, SLOT(slotPrefsOrg()) );
 	connect( (*scrActions)["fileRevert"], SIGNAL(activated()), mainWindow, SLOT(slotFileRevert()) );
 	connect( (*scrActions)["fileCollect"], SIGNAL(activated()), mainWindow, SLOT(Collect()) );
 	connect( (*scrActions)["fileQuit"], SIGNAL(activated()), mainWindow, SLOT(slotFileQuit()) );
@@ -187,8 +190,6 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
 	name="editJavascripts";
 	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
-	name="editPreferences";
-	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
 
 	(*scrActions)["editStyles"]->setToggleAction(true);
 
@@ -211,7 +212,6 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editLineStyles"], SIGNAL(activated()), mainWindow, SLOT(slotEditLineStyles()) );
 	connect( (*scrActions)["editMasterPages"], SIGNAL(activated()), mainWindow, SLOT(manageMasterPages()) );
 	connect( (*scrActions)["editJavascripts"], SIGNAL(activated()), mainWindow, SLOT(ManageJava()) );
-	connect( (*scrActions)["editPreferences"], SIGNAL(activated()), mainWindow, SLOT(slotPrefsOrg()) );
 }
 
 void ActionManager::initStyleMenuActions()
@@ -1154,6 +1154,7 @@ void ActionManager::languageChange()
 	(*scrActions)["fileExportAsEPS"]->setTexts( tr("Save as &EPS..."));
 	(*scrActions)["fileExportAsPDF"]->setTexts( tr("Save as P&DF..."));
 	(*scrActions)["fileDocSetup"]->setTexts( tr("Document &Setup..."));
+	(*scrActions)["filePreferences"]->setTexts( tr("P&references..."));	
 	(*scrActions)["filePrint"]->setTexts( tr("&Print..."));
 	(*scrActions)["PrintPreview"]->setTexts( tr("Print Previe&w"));
 	(*scrActions)["fileQuit"]->setTexts( tr("&Quit"));
@@ -1178,7 +1179,6 @@ void ActionManager::languageChange()
 	(*scrActions)["editLineStyles"]->setTexts( tr("&Line Styles..."));
 	(*scrActions)["editMasterPages"]->setTexts( tr("&Master Pages..."));
 	(*scrActions)["editJavascripts"]->setTexts( tr("&JavaScripts..."));
-	(*scrActions)["editPreferences"]->setTexts( tr("P&references..."));
 
 	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
 	size_t f_size = sizeof(font_sizes) / sizeof(*font_sizes);
@@ -1458,6 +1458,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("fileExportAsEPS", QKeySequence());
 	defKeys.insert("fileExportAsPDF", QKeySequence());
 	defKeys.insert("fileDocSetup", QKeySequence());
+	defKeys.insert("filePreferences", QKeySequence());	
 	defKeys.insert("filePrint", Qt::CTRL+Qt::Key_P);
 	defKeys.insert("PrintPreview", Qt::CTRL+Qt::ALT+Qt::Key_P);
 	defKeys.insert("fileQuit", Qt::CTRL+Qt::Key_Q);
@@ -1482,7 +1483,6 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("editLineStyles", QKeySequence());
 	defKeys.insert("editMasterPages", QKeySequence());
 	defKeys.insert("editJavascripts", QKeySequence());
-	defKeys.insert("editPreferences", QKeySequence());
 
 	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
 	size_t f_size = sizeof(font_sizes) / sizeof(*font_sizes);
@@ -1746,7 +1746,7 @@ void ActionManager::createDefaultMenus()
 	//File
 	itmenu->second << "fileNew" << "fileOpen" << "fileClose" << "fileSave" << "fileSaveAs" << "fileRevert" << "fileCollect";
 	itmenu->second << "fileImportText" << "fileImportAppendText" << "fileImportImage" << "fileExportText" << "fileExportAsEPS" << "fileExportAsPDF";
-	itmenu->second << "fileDocSetup" << "filePrint" << "PrintPreview" << "fileQuit";
+	itmenu->second << "fileDocSetup" << "filePreferences" << "filePrint" << "PrintPreview" << "fileQuit";
 	++itmenu;
 	//Edit
 	itmenu->second << "editUndoAction" << "editRedoAction" << "editActionMode" << "editCut" << "editCopy" << "editPaste" << "editCopyContents" << "editPasteContents" << "editPasteContentsAbs" << "editClearContents" << "editSelectAll" << "editDeselectAll" << "editSearchReplace" << "toolsEditWithStoryEditor" << "editEditWithImageEditor" << "editExtendedImageProperties" << "editColors" << "editParaStyles" << "editLineStyles" << "editMasterPages" << "editJavascripts";
