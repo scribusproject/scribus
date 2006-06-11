@@ -9639,6 +9639,15 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		}
 	}
 
+	currItem->TopLine = Buffer->TopLine;
+	currItem->RightLine = Buffer->RightLine;
+	currItem->LeftLine = Buffer->LeftLine;
+	currItem->BottomLine = Buffer->BottomLine;
+	currItem->isTableItem = Buffer->isTableItem;
+	currItem->TopLinkID = Buffer->TopLinkID;
+	currItem->LeftLinkID = Buffer->LeftLinkID;
+	currItem->RightLinkID = Buffer->RightLinkID;
+	currItem->BottomLinkID = Buffer->BottomLinkID;
 	currItem->Clip = Buffer->Clip.copy();
 	currItem->PoShow = Buffer->PoShow;
 	currItem->BaseOffs = Buffer->BaseOffs;
