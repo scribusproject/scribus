@@ -30,7 +30,6 @@
     <function shortcut="Ctrl+V" name="editPaste" />
     <function shortcut="Ctrl+Shift+V" name="editPasteContents" />
     <function shortcut="Ctrl+Alt+Shift+V" name="editPasteContentsAbs" />
-    <function shortcut="" name="editPreferences" />
     <function shortcut="Ctrl+Shift+Z" name="editRedoAction" />
     <function shortcut="Ctrl+F" name="editSearchReplace" />
     <function shortcut="Ctrl+A" name="editSelectAll" />
@@ -51,6 +50,7 @@
     <function shortcut="Ctrl+D" name="fileImportText" />
     <function shortcut="Ctrl+N" name="fileNew" />
     <function shortcut="Ctrl+O" name="fileOpen" />
+    <function shortcut="" name="filePreferences" />
     <function shortcut="Ctrl+P" name="filePrint" />
     <function shortcut="Ctrl+Q" name="fileQuit" />
     <function shortcut="" name="fileRevert" />
@@ -243,10 +243,12 @@
     <function shortcut="Ctrl+0" name="viewFitInWindow" />
     <function shortcut="" name="viewRulerMode" />
     <function shortcut="" name="viewShowBaseline" />
+    <function shortcut="" name="viewShowColumnBorders" />
     <function shortcut="" name="viewShowFrames" />
     <function shortcut="" name="viewShowGrid" />
     <function shortcut="" name="viewShowGuides" />
     <function shortcut="" name="viewShowImages" />
+    <function shortcut="" name="viewShowLayerMarkers" />
     <function shortcut="" name="viewShowMargins" />
     <function shortcut="Ctrl+Shift+R" name="viewShowRulers" />
     <function shortcut="" name="viewShowTextChain" />
