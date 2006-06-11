@@ -25,10 +25,6 @@ for which a new license (GPL+exception) is in place.
 
 TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex) : QWidget( parent, "tabguide", 0 )
 {
-	unit = unitGetSuffixFromIndex(unitIndex);
-	precision = unitGetPrecisionFromIndex(unitIndex);
-	unitRatio = unitGetRatioFromIndex(unitIndex);
-	
 	tabGuidesLayout = new QVBoxLayout( this, 0, 5, "tabViewLayout");
 
 	commonBox = new QGroupBox( this, "commonBox" );
@@ -52,8 +48,6 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	inForeground = new QRadioButton( buttonGroup1, "inForeground" );
 	inForeground->setText( tr( "In the Foreground" ) );
 	buttonGroup1Layout->addWidget( inForeground );
-	inBackground->setChecked( prefsData->before );
-	inForeground->setChecked( !prefsData->before );
 	commonBoxLayout->addWidget( buttonGroup1 );
 
 	snapBox = new QGroupBox( commonBox, "snapBox" );
@@ -66,8 +60,6 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	textLabel8->setText( tr( "Snap Distance:" ) );
 	snapBoxLayout->addWidget( textLabel8, 0, 0 );
 	snapDistance = new MSpinBox( unitRatio, 1000 * unitRatio, snapBox, precision );
-	snapDistance->setValue( prefsData->guideRad * unitRatio );
-	snapDistance->setSuffix( unit );
 	snapBoxLayout->addWidget( snapDistance, 0, 1 );
 	textLabel82 = new QLabel( snapBox, "textLabel8" );
 	textLabel82->setText( tr( "Grab Radius:" ) );
@@ -76,8 +68,6 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	grabDistance->setMaxValue( 1000 );
 	grabDistance->setMinValue( 1 );
 	grabDistance->setLineStep( 1 );
-	grabDistance->setValue( prefsData->grabRad );
-	grabDistance->setSuffix( tr( " px" ) );
 	snapBoxLayout->addWidget( grabDistance, 1, 1 );
 	commonBoxLayout->addWidget( snapBox );
 	tabGuidesLayout->addWidget( commonBox );
@@ -85,7 +75,6 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	guideBox = new QGroupBox( this, "guideBox" );
 	guideBox->setTitle( tr( "Show Guides" ) );
 	guideBox->setCheckable( true );
-	guideBox->setChecked(prefsData->guidesShown);
 	guideBox->setColumnLayout(0, Qt::Vertical );
 	guideBox->layout()->setSpacing( 5 );
 	guideBox->layout()->setMargin( 10 );
@@ -98,17 +87,12 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	guideColor->setMaximumSize( QSize( 60, 20 ) );
 	guideColor->setFlat( false );
 	guideColor->setAutoDefault( false );
-	QPixmap pm3(54, 14);
-	pm3.fill(prefsData->guideColor);
-	colorGuides = prefsData->guideColor;
-	guideColor->setPixmap(pm3);
 	guideColor->setText( QString::null );
 	guideBoxLayout->addWidget( guideColor );
 	layout9->addWidget( guideBox );
 	marginBox = new QGroupBox( this, "guideBox" );
 	marginBox->setCheckable( true );
 	marginBox->setTitle( tr( "Show Margins" ) );
-	marginBox->setChecked(prefsData->marginsShown);
 	marginBox->setColumnLayout(0, Qt::Vertical );
 	marginBox->layout()->setSpacing( 5 );
 	marginBox->layout()->setMargin( 10 );
@@ -120,10 +104,6 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	marginColor->setMinimumSize( QSize( 60, 20 ) );
 	marginColor->setMaximumSize( QSize( 60, 20 ) );
 	marginColor->setAutoDefault( false );
-	QPixmap pm6(54, 14);
-	pm6.fill(prefsData->margColor);
-	colorMargin = prefsData->margColor;
-	marginColor->setPixmap(pm6);
 	marginColor->setFlat( false );
 	marginColor->setText( QString::null );
 	marginBoxLayout->addWidget( marginColor );
@@ -133,7 +113,6 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	checkGrid = new QGroupBox( this, "checkGrid" );
 	checkGrid->setTitle( tr( "Show Page Grid" ) );
 	checkGrid->setCheckable( true );
-	checkGrid->setChecked(prefsData->gridShown);
 	checkGrid->setColumnLayout(0, Qt::Vertical );
 	checkGrid->layout()->setSpacing( 5 );
 	checkGrid->layout()->setMargin( 10 );
@@ -151,10 +130,6 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	majorGridColor->setMaximumSize( QSize( 60, 20 ) );
 	majorGridColor->setFlat( false );
 	majorGridColor->setAutoDefault( false );
-	QPixmap pm1(54, 14);
-	pm1.fill(prefsData->majorColor);
-	colorMajorGrid = prefsData->majorColor;
-	majorGridColor->setPixmap(pm1);
 	majorGridColor->setText( QString::null );
 	groupBox1Layout->addWidget( majorGridColor, 1, 1 );
 	textLabel4 = new QLabel( groupBox1, "textLabel4" );
@@ -164,8 +139,6 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	textLabel6->setText( tr( "Spacing:" ) );
 	groupBox1Layout->addWidget( textLabel6, 0, 0 );
 	majorSpace = new MSpinBox( 10 * unitRatio, 1000 * unitRatio, groupBox1, precision );
-	majorSpace->setValue( prefsData->majorGrid * unitRatio );
-	majorSpace->setSuffix( unit );
 	groupBox1Layout->addWidget( majorSpace, 0, 1 );
 	checkGridLayout->addWidget( groupBox1, 0, 0 );
 	groupBox2 = new QGroupBox( checkGrid, "groupBox2" );
@@ -183,18 +156,12 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	minorGridColor->setMaximumSize( QSize( 60, 20 ) );
 	minorGridColor->setFlat( false );
 	minorGridColor->setAutoDefault( false );
-	QPixmap pm(54, 14);
-	pm.fill(prefsData->minorColor);
-	colorMinorGrid = prefsData->minorColor;
-	minorGridColor->setPixmap(pm);
 	minorGridColor->setText( QString::null );
 	groupBox2Layout->addWidget( minorGridColor, 1, 1 );
 	textLabel7 = new QLabel( groupBox2, "textLabel7" );
 	textLabel7->setText( tr( "Spacing:" ) );
 	groupBox2Layout->addWidget( textLabel7, 0, 0 );
 	minorSpace = new MSpinBox( unitRatio, 1000 * unitRatio, groupBox2, precision );
-	minorSpace->setValue( prefsData->minorGrid  * unitRatio);
-	minorSpace->setSuffix( unit );
 	groupBox2Layout->addWidget( minorSpace, 0, 1 );
 	checkGridLayout->addWidget( groupBox2, 0, 1 );
 	tabGuidesLayout->addWidget( checkGrid );
@@ -203,7 +170,6 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	baselineBox = new QGroupBox( this, "baselineBox" );
 	baselineBox->setTitle( tr( "Show Baseline Grid" ) );
 	baselineBox->setCheckable( true );
-	baselineBox->setChecked(prefsData->baseShown);
 	baselineBox->setColumnLayout(0, Qt::Vertical );
 	baselineBox->layout()->setSpacing( 5 );
 	baselineBox->layout()->setMargin( 10 );
@@ -217,10 +183,6 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	baselineColor->setMaximumSize( QSize( 60, 20 ) );
 	baselineColor->setFlat( false );
 	baselineColor->setAutoDefault( false );
-	QPixmap pm4(54, 14);
-	pm4.fill(prefsData->baseColor);
-	colorBaselineGrid = prefsData->baseColor;
-	baselineColor->setPixmap(pm4);
 	baselineColor->setText( QString::null );
 	baselineBoxLayout->addWidget( baselineColor, 0, 1 );
 	layout9a->addWidget( baselineBox );
@@ -235,19 +197,17 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	baseGrid = new MSpinBox( baseGridBox, precision );
 	baseGrid->setMaxValue(1000);
 	baseGrid->setMinValue(pts2value(1.0, unitIndex));
-	baseGrid->setSuffix( unit );
-	baseGrid->setValue(prefsData2->valueBaseGrid * unitRatio);
 	baseGridBoxLayout->addWidget( baseGrid, 0, 1 );
 	textLabel6a = new QLabel(baseGrid, tr( "Baseline &Grid:" ), baseGridBox, "textLabel6a" );
 	baseGridBoxLayout->addWidget( textLabel6a, 0, 0 );
 	baseOffset = new MSpinBox( 0, 1000, baseGridBox, precision );
-	baseOffset->setSuffix( unit );
-	baseOffset->setValue(prefsData2->offsetBaseGrid * unitRatio);
 	baseGridBoxLayout->addWidget( baseOffset, 1, 1 );
 	textLabel7a = new QLabel(baseOffset, tr( "Baseline &Offset:" ), baseGridBox, "textLabel7a" );
 	baseGridBoxLayout->addWidget( textLabel7a, 1, 0 );
 	layout9a->addWidget( baseGridBox );
 	tabGuidesLayout->addLayout( layout9a );
+
+	restoreDefaults(prefsData, prefsData2, unitIndex);
 
 	connect(majorGridColor, SIGNAL(clicked()), this, SLOT(changeMajorColor()));
 	connect(minorGridColor, SIGNAL(clicked()), this, SLOT(changeMinorColor()));
@@ -299,11 +259,17 @@ void TabGuides::restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs 
 	colorBaselineGrid = prefsData->baseColor;
 	baselineColor->setPixmap(pm4);
 	minorSpace->setValue(prefsData->minorGrid  * unitRatio);
+	minorSpace->setSuffix( unit );
 	majorSpace->setValue(prefsData->majorGrid * unitRatio);
+	majorSpace->setSuffix( unit );
 	snapDistance->setValue(prefsData->guideRad * unitRatio);
+	snapDistance->setSuffix( unit );
 	grabDistance->setValue(prefsData->grabRad);
+	grabDistance->setSuffix( tr( " px" ) );
 	baseGrid->setValue(prefsData2->valueBaseGrid * unitRatio);
+	baseGrid->setSuffix( unit );
 	baseOffset->setValue(prefsData2->offsetBaseGrid * unitRatio);
+	baseOffset->setSuffix( unit );
 	inBackground->setChecked( prefsData->before );
 	inForeground->setChecked( !prefsData->before );
 	baselineBox->setChecked(prefsData->baseShown);

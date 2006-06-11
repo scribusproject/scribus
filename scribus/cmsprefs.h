@@ -24,7 +24,7 @@ class SCRIBUS_API CMSPrefs : public QWidget
 public:
 	CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, ProfilesL *InputProfilesCMYK, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles);
 	~CMSPrefs() {};
-	void restoreDefaults();
+	void restoreDefaults(CMSData *prefs, ProfilesL *InputProfiles, ProfilesL *InputProfilesCMYK, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles);
 
 	QCheckBox* checkBox1;
 	QGroupBox* sysProfiles;

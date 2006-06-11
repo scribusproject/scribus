@@ -71,10 +71,9 @@ TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKe
 	keyDisplay->setMinimumWidth(fontMetrics().width("CTRL+ALT+SHIFT+W"));
 	keyDisplay->setText("");
 
-	loadableSets->insertStringList(scanForSets());
 	keyTable->setSorting(-1);
-	insertActions();
-	dispKey(0);
+	restoreDefaults();
+
 	clearSearchButton->setPixmap(loadIcon("clear_right.png"));
 	// signals and slots connections
 	connect( keyTable, SIGNAL(clicked(QListViewItem*)), this, SLOT(dispKey(QListViewItem*)));
@@ -92,7 +91,6 @@ void TabKeyboardShortcutsWidget::restoreDefaults()
 {
 	loadableSets->clear();
 	loadableSets->insertStringList(scanForSets());
-	keyTable->setSorting(-1);
 	insertActions();
 	dispKey(0);
 }

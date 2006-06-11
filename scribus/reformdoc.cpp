@@ -465,7 +465,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 
 void ReformDoc::restoreDefaults()
 {
-	QWidget* current = prefsWidgets->visibleWidget();
+	//QWidget* current = prefsWidgets->visibleWidget();
 	//if (current == tabPage)
 	//{
 	unitCombo->setCurrentItem(currDoc->unitIndex());
@@ -532,7 +532,9 @@ void ReformDoc::restoreDefaults()
 							ScCore->PDFXProfiles, currDoc->UsedFonts, currDoc->PDF_Options.PresentVals,
 							docUnitIndex, currDoc->pageHeight, currDoc->pageWidth, 0);
 	//else if (current == tabColorManagement)
-	tabColorManagement->restoreDefaults();
+	tabColorManagement->restoreDefaults(&currDoc->CMSSettings, &ScCore->InputProfiles,
+										 &ScCore->InputProfilesCMYK,
+										 &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 	//else if (current == docInfos)
 	docInfos->restoreDefaults();
 }

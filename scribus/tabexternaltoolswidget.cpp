@@ -31,12 +31,7 @@ for which a new license (GPL+exception) is in place.
 TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsData, QWidget* parent, const char*name)
 : TabExternalToolsWidgetBase(parent, name)
 {
-	psToolLineEdit->setText(prefsData->gs_exe);
-	psAntialiasTextCheckBox->setChecked(prefsData->gs_AntiAliasText);
-	psAntialiasGraphicsCheckBox->setChecked(prefsData->gs_AntiAliasGraphics);
-	psResolutionSpinBox->setValue(prefsData->gs_Resolution);
-	imageToolLineEdit->setText(prefsData->imageEditorExecutable);
-	extBrowserToolLineEdit->setText(prefsData->extBrowserExecutable);
+	restoreDefaults(prefsData);
 	
 	connect(psToolChangeButton, SIGNAL(clicked()), this, SLOT(changePostScriptTool()));
 	connect(imageToolChangeButton, SIGNAL(clicked()), this, SLOT(changeImageTool()));

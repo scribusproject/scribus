@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "hysettings.h"
 #include "cmsprefs.h"
-//#include "keymanager.h"
 #include "tabtools.h"
 #include "undomanager.h"
 #include "tabcheckdoc.h"
@@ -102,8 +101,8 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	languageList.sort();
 	guiLangCombo = new QComboBox( false, ButtonGroup1, "guiLangCombo");
 	guiLangCombo->insertStringList( languageList );
-	selectedGUILang=prefsData->guiLanguage;
-	guiLangCombo->setCurrentText(langMgr.getLangFromAbbrev(selectedGUILang));
+	//selectedGUILang=prefsData->guiLanguage;
+	//guiLangCombo->setCurrentText(langMgr.getLangFromAbbrev(selectedGUILang));
 	guiLangLabel = new QLabel(guiLangCombo, tr("&Language:"), ButtonGroup1, "guiLangLabel");
 	ButtonGroup1Layout->addWidget( guiLangLabel, 0, 0 );
 	ButtonGroup1Layout->addWidget( guiLangCombo, 0, 1 );
@@ -114,38 +113,38 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	for (uint stt = 0; stt < STtest.count(); ++stt)
 		GUICombo->insertItem(STtest[stt]);
 	GUICombo->setEditable(false);
-	GUICombo->setCurrentText(prefsData->GUI);
+	//GUICombo->setCurrentText(prefsData->GUI);
 	TextGstil = new QLabel(GUICombo, tr("&Theme:"), ButtonGroup1, "dd");
 	ButtonGroup1Layout->addWidget( TextGstil, 1, 0 );
 	ButtonGroup1Layout->addWidget( GUICombo, 1, 1 );
 
 	showSplashCheckBox = new QCheckBox( ButtonGroup1, "showsplashcheckbox" );
-	showSplashCheckBox->setChecked( !ScQApp->neverSplashExists() );
+	//showSplashCheckBox->setChecked( !ScQApp->neverSplashExists() );
 	showSplashLabel = new QLabel(showSplashCheckBox, tr("Show S&plashscreen On Startup:"), ButtonGroup1, "showSplashLabel");
 	ButtonGroup1Layout->addWidget( showSplashLabel, 2, 0 );
 	ButtonGroup1Layout->addWidget( showSplashCheckBox, 2, 1, Qt::AlignLeft );
 
 	GFsize = new QSpinBox(8, 22, 1, ButtonGroup1, "gfs" );
 	GFsize->setSuffix( tr( " pt" ) );
-	GFsize->setValue( prefsData->AppFontSize );
+	//GFsize->setValue( prefsData->AppFontSize );
 	TextGstil2 = new QLabel(GFsize, tr("&Font Size (Menus):"), ButtonGroup1, "dd");
 	ButtonGroup1Layout->addWidget( TextGstil2, 3, 0 );
 	ButtonGroup1Layout->addWidget( GFsize, 3, 1, Qt::AlignLeft );
 
 	GTFsize = new QSpinBox(5, 22, 1, ButtonGroup1, "gtfs");
 	GTFsize->setSuffix(tr(" pt"));
-	GTFsize->setValue( prefsData->PaletteFontSize); // temp solution
+	//GTFsize->setValue( prefsData->PaletteFontSize); // temp solution
 	TextGstil3 = new QLabel(GTFsize, tr("Font Size (&Palettes):"), ButtonGroup1, "dd");
 	ButtonGroup1Layout->addWidget(TextGstil3, 4, 0);
 	ButtonGroup1Layout->addWidget(GTFsize, 4, 1, Qt::AlignLeft);
 
 	wheelJumpSpin = new QSpinBox( 0, 1000, 10, ButtonGroup1, "wheelJumpSpin" );
-	wheelJumpSpin->setValue( prefsData->Wheelval );
+	//wheelJumpSpin->setValue( prefsData->Wheelval );
 	TextLabel1_2 = new QLabel( wheelJumpSpin, tr( "&Wheel Jump:" ), ButtonGroup1, "TextLabel1_2" );
 	ButtonGroup1Layout->addWidget( TextLabel1_2, 5, 0 );
 	ButtonGroup1Layout->addWidget( wheelJumpSpin, 5, 1, Qt::AlignLeft );
 	Recen = new QSpinBox( 1, 30, 1, ButtonGroup1, "Recen" );
-	Recen->setValue( prefsData->RecentDCount );
+	//Recen->setValue( prefsData->RecentDCount );
 	TextLabel4c = new QLabel( Recen, tr( "&Recent Documents:" ), ButtonGroup1, "TextLabel4c" );
 	ButtonGroup1Layout->addWidget( TextLabel4c, 6, 0);
 	ButtonGroup1Layout->addWidget( Recen, 6, 1, Qt::AlignLeft );
@@ -162,7 +161,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	Docs = new QLineEdit( GroupBox200, "Datei" );
 	Docs->setMinimumSize( QSize( 268, 22 ) );
-	Docs->setText(prefsData->DocDir);
+	//Docs->setText(prefsData->DocDir);
 	PfadText = new QLabel( Docs, tr("&Documents:"), GroupBox200, "Pfadtext" );
 	FileC = new QToolButton( GroupBox200, "FileC" );
 	FileC->setMinimumSize( QSize( 88, 24 ) );
@@ -173,7 +172,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	ProPfad = new QLineEdit( GroupBox200, "Datei1" );
 	ProPfad->setMinimumSize( QSize( 268, 22 ) );
-	ProPfad->setText(prefsData->ProfileDir);
+	//ProPfad->setText(prefsData->ProfileDir);
 	if (ScMW->HaveDoc)
 		ProPfad->setEnabled(false);
 	PfadText2 = new QLabel( ProPfad, tr("&ICC Profiles:"), GroupBox200, "Pfadtext1" );
@@ -188,7 +187,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	ScriptPfad = new QLineEdit( GroupBox200, "Datei1" );
 	ScriptPfad->setMinimumSize( QSize( 268, 22 ) );
-	ScriptPfad->setText(prefsData->ScriptDir);
+	//ScriptPfad->setText(prefsData->ScriptDir);
 	PfadText3 = new QLabel( ScriptPfad, tr("&Scripts:"), GroupBox200, "Pfadtext1" );
 	FileC3 = new QToolButton( GroupBox200, "FileC3" );
 	FileC3->setMinimumSize( QSize( 88, 24 ) );
@@ -199,7 +198,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	DocumentTemplateDir = new QLineEdit( GroupBox200, "Datei1" );
 	DocumentTemplateDir->setMinimumSize( QSize( 268, 22 ) );
-	DocumentTemplateDir->setText(prefsData->documentTemplatesDir);
+	//DocumentTemplateDir->setText(prefsData->documentTemplatesDir);
 	PfadText4 = new QLabel( DocumentTemplateDir, tr("Document T&emplates:"), GroupBox200, "Pfadtext1" );
 	FileC4 = new QToolButton( GroupBox200, "FileC4" );
 	FileC4->setMinimumSize( QSize( 88, 24 ) );
@@ -218,8 +217,8 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	dsLayout4p->setMargin( 0 );
 	dsLayout4p->setAlignment( Qt::AlignLeft );
 	docLayout = new PageLayouts(tabDocument, prefsData->pageSets);
-	docLayout->selectItem(prefsData->FacingPages);
-	docLayout->firstPage->setCurrentItem(prefsData->pageSets[prefsData->FacingPages].FirstPage);
+	//docLayout->selectItem(prefsData->FacingPages);
+	//docLayout->firstPage->setCurrentItem(prefsData->pageSets[prefsData->FacingPages].FirstPage);
 	dsLayout4p->addWidget( docLayout );
 	dsLayout4pv = new QVBoxLayout;
 	dsLayout4pv->setSpacing( 5 );
@@ -254,14 +253,14 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	pageOrientationComboBox->insertItem( tr( "Portrait" ) );
 	pageOrientationComboBox->insertItem( tr( "Landscape" ) );
 	pageOrientationComboBox->setEditable(false);
-	pageOrientationComboBox->setCurrentItem(prefsData->pageOrientation);
+	//pageOrientationComboBox->setCurrentItem(prefsData->pageOrientation);
 	GZText2 = new QLabel( pageOrientationComboBox, tr( "Orie&ntation:" ), GroupSize, "GZText2" );
 	Layout6->addWidget( GZText2, 1, 0 );
 	Layout6->addWidget( pageOrientationComboBox, 1, 1 );
 	unitCombo = new QComboBox( true, GroupSize, "unitCombo" );
 	unitCombo->insertStringList(unitGetTextUnitList());
 	unitCombo->setEditable(false);
-	unitCombo->setCurrentItem(prefsData->docUnitIndex);
+	//unitCombo->setCurrentItem(prefsData->docUnitIndex);
 	unitComboText = new QLabel( unitCombo, tr( "Units:" ), GroupSize, "unitComboText" );
 	Layout6->addWidget( unitComboText, 2, 0 );
 	Layout6->addWidget( unitCombo, 2, 1 );
@@ -273,7 +272,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	pageWidth = new MSpinBox( 1, 100000, GroupSize, decimals );
 	//pageWidth->setEnabled( false );
 	pageWidth->setMinimumSize( QSize( 70, 20 ) );
-	pageWidth->setValue(prefsData->PageWidth * unitRatio);
+	//pageWidth->setValue(prefsData->PageWidth * unitRatio);
 	GZText3 = new QLabel( pageWidth, tr( "&Width:" ), GroupSize, "GZText3" );
 	Layout5_2->addWidget( GZText3 );
 	Layout5_2->addWidget( pageWidth );
@@ -281,7 +280,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	pageHeight = new MSpinBox( 1, 100000, GroupSize, decimals );
 	//pageHeight->setEnabled( false );
 	pageHeight->setMinimumSize( QSize( 70, 20 ) );
-	pageHeight->setValue(prefsData->PageHeight * unitRatio);
+	//pageHeight->setValue(prefsData->PageHeight * unitRatio);
 	GZText4 = new QLabel( pageHeight, tr( "&Height:" ), GroupSize, "GZText4" );
 	Layout5_2->addWidget( GZText4 );
 	Layout5_2->addWidget( pageHeight );
@@ -295,7 +294,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	marg.Left = prefsData->RandLinks;
 	marg.Right = prefsData->RandRechts;
 	marginGroup = new MarginWidget(tabDocument,  tr( "Margin Guides" ), &marg, docUnitIndex );
-	marginGroup->setPageWidthHeight(prefsData->PageWidth, prefsData->PageHeight);
+	//marginGroup->setPageWidthHeight(prefsData->PageWidth, prefsData->PageHeight);
 	dsLayout4pv->addWidget( marginGroup );
 	dsLayout4p->addLayout( dsLayout4pv );
 	Layout21->addLayout( dsLayout4p );
@@ -303,7 +302,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	GroupAS = new QGroupBox( tr( "Autosave" ), tabDocument, "GroupAS" );
 	GroupAS->setCheckable( true );
-	GroupAS->setChecked( prefsData->AutoSave );
+	//GroupAS->setChecked( prefsData->AutoSave );
 	GroupAS->setColumnLayout(0, Qt::Vertical );
 	GroupAS->layout()->setSpacing( 5 );
 	GroupAS->layout()->setMargin( 10 );
@@ -313,7 +312,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	ASTime->setMaxValue( 60 );
 	ASTime->setMinValue( 1 );
 	ASTime->setSuffix( " " + tr("min") );
-	ASTime->setValue(prefsData->AutoSaveTime / 1000 / 60);
+	//ASTime->setValue(prefsData->AutoSaveTime / 1000 / 60);
 	ASText = new QLabel( ASTime, tr( "&Interval:" ), GroupAS, "ASText" );
 	GroupASLayout->addWidget( ASText);
 	GroupASLayout->addWidget( ASTime );
@@ -350,11 +349,11 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
 	tabHyphenator = new HySettings(prefsWidgets, &ap->LangTransl);
-	tabHyphenator->verbose->setChecked(!prefsData->Automatic);
-	tabHyphenator->input->setChecked(prefsData->AutoCheck);
-	tabHyphenator->language->setCurrentText(ap->LangTransl[prefsData->Language]);
-	tabHyphenator->wordLen->setValue(prefsData->MinWordLen);
-	tabHyphenator->maxCount->setValue(prefsData->HyCount);
+	//tabHyphenator->verbose->setChecked(!prefsData->Automatic);
+	//tabHyphenator->input->setChecked(prefsData->AutoCheck);
+	//tabHyphenator->language->setCurrentText(ap->LangTransl[prefsData->Language]);
+	//tabHyphenator->wordLen->setValue(prefsData->MinWordLen);
+	//tabHyphenator->maxCount->setValue(prefsData->HyCount);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
 
 	tabFonts = new FontPrefs(prefsWidgets, false, ap->PrefsPfad, 0);
@@ -442,11 +441,11 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	backColor->setMaximumSize( QSize( 60, 20 ) );
 	backColor->setFlat( false );
 	backColor->setAutoDefault( false );
-	QPixmap pm5(54, 14);
-	pm5.fill(prefsData->DpapColor);
-	colorPaper = prefsData->DpapColor;
-	backColor->setPixmap(pm5);
-	backColor->setText( QString::null );
+	//QPixmap pm5(54, 14);
+	//pm5.fill(prefsData->DpapColor);
+	//colorPaper = prefsData->DpapColor;
+	//backColor->setPixmap(pm5);
+	//backColor->setText( QString::null );
 	layout10->addWidget( backColor );
 	QSpacerItem* spacer3 = new QSpacerItem( 61, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout10->addItem( spacer3 );
@@ -454,31 +453,31 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	checkUnprintable = new QCheckBox( pageBackground, "checkUnprintable" );
 	checkUnprintable->setText( tr( "Display &Unprintable Area in Margin Color" ) );
 	checkUnprintable->setAccel( QKeySequence( tr( "Alt+U" ) ) );
-	checkUnprintable->setChecked( prefsData->marginColored );
+	//checkUnprintable->setChecked( prefsData->marginColored );
 	pageBackgroundLayout->addWidget( checkUnprintable, 0, 1 );
 	checkPictures = new QCheckBox( pageBackground, "checkPictures" );
 	checkPictures->setText( tr( "Show Pictures" ) );
-	checkPictures->setChecked(prefsData->guidesSettings.showPic);
+	//checkPictures->setChecked(prefsData->guidesSettings.showPic);
 	pageBackgroundLayout->addWidget( checkPictures, 1 , 0 );
 	checkLink = new QCheckBox( pageBackground, "checkLink" );
 	checkLink->setText( tr( "Show Text Chains" ) );
-	checkLink->setChecked(prefsData->guidesSettings.linkShown);
+	//checkLink->setChecked(prefsData->guidesSettings.linkShown);
 	pageBackgroundLayout->addWidget( checkLink, 1, 1 );
 	checkControl = new QCheckBox( pageBackground, "checkControl" );
 	checkControl->setText( tr( "Show Text Control Characters" ) );
-	checkControl->setChecked(prefsData->guidesSettings.showControls);
+	//checkControl->setChecked(prefsData->guidesSettings.showControls);
 	pageBackgroundLayout->addWidget( checkControl, 2 , 0 );
 	checkFrame = new QCheckBox( pageBackground, "checkFrame" );
 	checkFrame->setText( tr( "Show Frames" ) );
-	checkFrame->setChecked(prefsData->guidesSettings.framesShown);
+	//checkFrame->setChecked(prefsData->guidesSettings.framesShown);
 	pageBackgroundLayout->addWidget( checkFrame, 2, 1 );
 	checkRuler = new QCheckBox( pageBackground, "checkRuler" );
 	checkRuler->setText( tr( "Rulers relative to Page" ) );
-	checkRuler->setChecked(prefsData->guidesSettings.rulerMode);
+	//checkRuler->setChecked(prefsData->guidesSettings.rulerMode);
 	pageBackgroundLayout->addWidget( checkRuler, 3, 0 );
 	checkLayerM = new QCheckBox( pageBackground, "checkLayerM" );
 	checkLayerM->setText( tr( "Show Layer Indicators" ) );
-	checkLayerM->setChecked(prefsData->guidesSettings.layerMarkersShown);
+	//checkLayerM->setChecked(prefsData->guidesSettings.layerMarkersShown);
 	pageBackgroundLayout->addWidget( checkLayerM, 3, 1 );
 	tabViewLayout->addWidget( pageBackground );
 
@@ -495,36 +494,36 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	Layout4s->setSpacing( 6 );
 	Layout4s->setMargin( 0 );
 	topScratch = new MSpinBox( groupScratch, 4 );
-	topScratch->setDecimals( decimals );
+	//topScratch->setDecimals( decimals );
 	topScratch->setMaxValue(1000);
-	topScratch->setValue(prefsData->ScratchTop * unitRatio);
+	//topScratch->setValue(prefsData->ScratchTop * unitRatio);
 	Layout4s->addWidget( topScratch, 0, 1 );
 	TextLabel5s = new QLabel(topScratch, tr( "&Top:" ), groupScratch, "TextLabel5" );
 	Layout4s->addWidget( TextLabel5s, 0, 0 );
 	leftScratch = new MSpinBox( groupScratch, 4 );
-	leftScratch->setDecimals( decimals );
+	//leftScratch->setDecimals( decimals );
 	leftScratch->setMaxValue(1000);
-	leftScratch->setValue(prefsData->ScratchLeft * unitRatio);
+	//leftScratch->setValue(prefsData->ScratchLeft * unitRatio);
 	Layout4s->addWidget( leftScratch, 0, 3 );
 	Linkss = new QLabel(leftScratch, tr( "&Left:" ), groupScratch, "Links" );
 	Layout4s->addWidget( Linkss, 0, 2 );
 	bottomScratch = new MSpinBox( groupScratch, 4 );
-	bottomScratch->setDecimals( decimals );
+	//bottomScratch->setDecimals( decimals );
 	bottomScratch->setMaxValue(1000);
-	bottomScratch->setValue(prefsData->ScratchBottom * unitRatio);
+	//bottomScratch->setValue(prefsData->ScratchBottom * unitRatio);
 	Layout4s->addWidget( bottomScratch, 1, 1 );
 	TextLabel7s = new QLabel(bottomScratch, tr( "&Bottom:" ), groupScratch, "TextLabel7" );
 	Layout4s->addWidget( TextLabel7s, 1, 0 );
 	rightScratch = new MSpinBox( groupScratch, 4 );
-	rightScratch->setDecimals( decimals );
+	//rightScratch->setDecimals( decimals );
 	rightScratch->setMaxValue(1000);
-	rightScratch->setValue(prefsData->ScratchRight * unitRatio);
+	//rightScratch->setValue(prefsData->ScratchRight * unitRatio);
 	Layout4s->addWidget( rightScratch, 1, 3 );
-	QString unitSuffix = unitGetSuffixFromIndex(docUnitIndex);
-	topScratch->setSuffix(unitSuffix);
-	bottomScratch->setSuffix(unitSuffix);
-	leftScratch->setSuffix(unitSuffix);
-	rightScratch->setSuffix(unitSuffix);
+	//QString unitSuffix = unitGetSuffixFromIndex(docUnitIndex);
+	//topScratch->setSuffix(unitSuffix);
+	//bottomScratch->setSuffix(unitSuffix);
+	//leftScratch->setSuffix(unitSuffix);
+	//rightScratch->setSuffix(unitSuffix);
 	Rechtss = new QLabel(rightScratch, tr( "&Right:" ), groupScratch, "Rechts" );
 	Layout4s->addWidget( Rechtss, 1, 2 );
 	groupScratchLayout->addLayout( Layout4s );
@@ -542,18 +541,18 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	layout4sg->setSpacing( 6 );
 	layout4sg->setMargin( 0 );
 	gapHorizontal = new MSpinBox( groupGap, 4 );
-	gapHorizontal->setSuffix( unitSuffix );
-	gapHorizontal->setDecimals( decimals );
+	//gapHorizontal->setSuffix( unitSuffix );
+	//gapHorizontal->setDecimals( decimals );
 	gapHorizontal->setMaxValue(1000);
-	gapHorizontal->setValue(prefsData->pageSets[prefsData->FacingPages].GapHorizontal * unitRatio);
+	//gapHorizontal->setValue(prefsData->pageSets[prefsData->FacingPages].GapHorizontal * unitRatio);
 	layout4sg->addWidget( gapHorizontal, 0, 1 );
 	TextLabel5sg = new QLabel(gapHorizontal, tr( "Horizontal:" ), groupGap, "TextLabel5" );
 	layout4sg->addWidget( TextLabel5sg, 0, 0 );
 	gapVertical = new MSpinBox( groupGap, 4 );
-	gapVertical->setSuffix( unitSuffix );
-	gapVertical->setDecimals( decimals );
+	//gapVertical->setSuffix( unitSuffix );
+	//gapVertical->setDecimals( decimals );
 	gapVertical->setMaxValue(1000);
-	gapVertical->setValue(prefsData->pageSets[prefsData->FacingPages].GapVertical * unitRatio);
+	//gapVertical->setValue(prefsData->pageSets[prefsData->FacingPages].GapVertical * unitRatio);
 	layout4sg->addWidget( gapVertical, 0, 3 );
 	TextLabel7sg = new QLabel(gapVertical, tr( "Vertical:" ), groupGap, "Links" );
 	layout4sg->addWidget( TextLabel7sg, 0, 2 );
@@ -570,7 +569,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	CaliGroupLayout->addWidget( CaliText );
 	CaliRuler = new QLabel( CaliGroup, "CaliRuler" );
 	CaliRuler->setMinimumSize( QSize( 20, 20 ) );
-	drawRuler();
+	//drawRuler();
 	CaliRuler->setFrameShape( QLabel::Box );
 	CaliRuler->setFrameShadow( QLabel::Sunken );
 	CaliRuler->setScaledContents( false );
@@ -579,7 +578,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	CaliSlider = new QSlider( CaliGroup, "CaliSlider" );
 	CaliSlider->setMinValue( -100 );
 	CaliSlider->setMaxValue( 100 );
-	CaliSlider->setValue(static_cast<int>(100 * DisScale)-100);
+	//CaliSlider->setValue(static_cast<int>(100 * DisScale)-100);
 	CaliSlider->setOrientation( QSlider::Horizontal );
 	CaliSlider->setTickmarks( QSlider::Right );
 	CaliSlider->setTickInterval( 10 );
@@ -671,13 +670,13 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	groupPrintLayout->addWidget( DoGCR );
 	MiscLayout->addWidget( groupPrint ); */
 	AskForSubs = new QCheckBox( tr( "Always ask before fonts are replaced when loading a document" ), tabMiscellaneous, "askforSubs" );
-	AskForSubs->setChecked(prefsData->askBeforeSubstituite);
+// 	AskForSubs->setChecked(prefsData->askBeforeSubstituite);
 	MiscLayout->addWidget( AskForSubs );
 	stylePreview = new QCheckBox( tr( "Preview of current Paragraph Style visible when editing Styles" ), tabMiscellaneous, "stylePreview" );
-	stylePreview->setChecked(prefsData->haveStylePreview);
+// 	stylePreview->setChecked(prefsData->haveStylePreview);
 	MiscLayout->addWidget( stylePreview );
 	startUpDialog = new QCheckBox( tr( "Show Startup Dialog" ), tabMiscellaneous, "startUpDialog" );
-	startUpDialog->setChecked(prefsData->showStartupDialog);
+// 	startUpDialog->setChecked(prefsData->showStartupDialog);
 	MiscLayout->addWidget( startUpDialog );
 	// lorem ipsum
 	groupLI = new QGroupBox(tr("Lorem Ipsum"), tabMiscellaneous, "groupLI");
@@ -687,12 +686,12 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	groupLILayout = new QVBoxLayout(groupLI->layout());
 	groupLILayout->setAlignment(Qt::AlignTop);
 	useStandardLI = new QCheckBox(tr("Always use standard Lorem Ipsum"), groupLI, "useStandardLI");
-	useStandardLI->setChecked(prefsData->useStandardLI);
+// 	useStandardLI->setChecked(prefsData->useStandardLI);
 	groupLILayout->addWidget(useStandardLI);
 	paraLabelLI = new QLabel(tr("Count of the Paragraphs:"), groupLI, "paraLabelLI");
 	paragraphsLI = new QSpinBox(groupLI, "paragraphsLI");
 	paragraphsLI->setMinValue(1);
-	paragraphsLI->setValue(prefsData->paragraphsLI);
+// 	paragraphsLI->setValue(prefsData->paragraphsLI);
 	QHBoxLayout *liLayout = new QHBoxLayout();
 	liLayout->addWidget(paraLabelLI);
 	liLayout->addWidget(paragraphsLI);
@@ -708,6 +707,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	addItem( tr("Plugins"), loadIcon("plugins.png"), pluginManagerPrefsGui );
 	connect(this, SIGNAL(accepted()), pluginManagerPrefsGui, SLOT(apply()));
 
+	setupGui();
 	addPlugins();
 
 	setDS(prefsData->FacingPages);
@@ -803,14 +803,12 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	connect(applyChangesButton, SIGNAL(clicked()), this, SLOT(applyChangesButton_clicked()));
 	connect(backToDefaults, SIGNAL(clicked()), this, SLOT(backToDefaults_clicked()));
 
-	setSize(prefsData->pageSize);
-	setOrien(prefsData->pageOrientation);
-	pageWidth->setValue(prefsData->PageWidth * unitRatio);
-	pageHeight->setValue(prefsData->PageHeight * unitRatio);
-	pageWidth->setSuffix(unitSuffix);
-	pageHeight->setSuffix(unitSuffix);
+	//pageWidth->setValue(prefsData->PageWidth * unitRatio);
+	//pageHeight->setValue(prefsData->PageHeight * unitRatio);
+	//pageWidth->setSuffix(unitSuffix);
+	//pageHeight->setSuffix(unitSuffix);
 
-	//unitChange();
+	unitChange();
 	resize( minimumSizeHint() );
 	arrangeIcons();
 	prefsSelection->setSelected(prefsSelection->firstItem(), true);
@@ -827,8 +825,10 @@ void Preferences::restoreDefaults()
 void Preferences::setupGui()
 {
 	ApplicationPrefs* prefsData=&(prefsManager->appPrefs);
-	QWidget* current = prefsWidgets->visibleWidget();
+	//QWidget* current = prefsWidgets->visibleWidget();
 
+	setSize(prefsData->pageSize);
+	setOrien(prefsData->pageOrientation);
 	//if (current == tabGeneral) // General
 	//{
 	selectedGUILang = prefsData->guiLanguage;
@@ -928,7 +928,9 @@ void Preferences::setupGui()
 							0);
 	//}
 	//else if (current == tabColorManagement && CMSavail) // Color Management
-	tabColorManagement->restoreDefaults();
+	tabColorManagement->restoreDefaults(&prefsData->DCMSset, &ScCore->InputProfiles,
+										 &ScCore->InputProfilesCMYK,
+										 &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 	//else if (current == tabDefaultItemAttributes) // Document Item Attributes
 	//{
 	defaultAttributesList=tabDefaultItemAttributes->getDocAttributesNames();

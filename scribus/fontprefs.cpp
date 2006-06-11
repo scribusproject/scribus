@@ -319,7 +319,16 @@ void FontPrefs::rebuildDialog(bool firstTime)
 	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
 	if (!firstTime)
 	{
-		availFonts->clear();
+		/*
+#0  0x4075c524 in FT_Done_Face () from /usr/lib/libfreetype.so.6
+#1  0x08585e57 in Foi::unload (this=0x8a612b0) at /home/pvanek/13/Scribus/scribus/scfonts.cpp:130
+#2  0x08585ee6 in ~Foi (this=0x8a612b0) at /home/pvanek/13/Scribus/scribus/scfonts.cpp:99
+#3  0x08591ea2 in QDict<Foi>::deleteItem (this=0x8aa5810, d=0x8a612b0) at qdict.h:97
+#4  0x40576517 in QGDict::clear () from /usr/lib/libqt-mt.so.3
+#5  0x0858e178 in QDict<Foi>::clear (this=0x8aa5810) at qdict.h:75
+#6  0x082f282a in FontPrefs::rebuildDialog (this=0x9326c48, firstTime=false) at /home/pvanek/13/Scribus/scribus/fontprefs.cpp:322
+		*/
+		// FIXME: WTF?! why this availFonts->clear();
 		availFonts->GetFonts(HomeP);
 		if (DocAvail)
 		{
