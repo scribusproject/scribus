@@ -180,6 +180,7 @@ scribus_SOURCES = \
 	scimage.cpp	\
 	scmenu.cpp	\
 	scmessagebox.cpp	\
+	scgtplugin.cpp	\
 	scpainter.cpp	\
 	scpaths.cpp	\
 	scplugin.cpp	\
@@ -406,6 +407,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scfontmetrics.h               $(prefix)/include/scribus/scfontmetrics.h
 	$(INSTALL_DATA) $(srcdir)/scmenu.h                      $(prefix)/include/scribus/scmenu.h
 	$(INSTALL_DATA) $(srcdir)/scmessagebox.h                $(prefix)/include/scribus/scmessagebox.h
+	$(INSTALL_DATA) $(srcdir)/scgtplugin.h                  $(prefix)/include/scribus/scgtplugin.h
 	$(INSTALL_DATA) $(srcdir)/scpainter.h                   $(prefix)/include/scribus/scpainter.h
 	$(INSTALL_DATA) $(srcdir)/scpaths.h                     $(prefix)/include/scribus/scpaths.h
 	$(INSTALL_DATA) $(srcdir)/scplugin.h                    $(prefix)/include/scribus/scplugin.h
@@ -608,6 +610,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/scribuswin.h
 	-rm -f $(prefix)/include/scribus/scribusXml.h
 	-rm -f $(prefix)/include/scribus/scrpalettebase.h
+	-rm -f $(prefix)/include/scribus/scgtplugin.h
 	-rm -f $(prefix)/include/scribus/scpixmapcache.h
 	-rm -f $(prefix)/include/scribus/scplugin.h
 	-rm -f $(prefix)/include/scribus/search.h

@@ -173,6 +173,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "text/nlsconfig.h"
 #include "plugins/formatidlist.h"
+#include "scgtplugin.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -533,6 +534,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->createMenu("FileImport", QIconSet(noIcon), tr("&Import"), "File");
 	scrMenuMgr->addMenuItem(scrActions["fileImportText"], "FileImport");
+	scrMenuMgr->addMenuItem(scrActions["fileImportText2"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportAppendText"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportImage"], "FileImport");
 	scrMenuMgr->createMenu("FileExport", QIconSet(noIcon), tr("&Export"), "File");
@@ -554,6 +556,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["fileRevert"]->setEnabled(false);
 	scrActions["fileCollect"]->setEnabled(false);
 	scrActions["fileImportText"]->setEnabled(false);
+	scrActions["fileImportText2"]->setEnabled(false);
 	scrActions["fileImportImage"]->setEnabled(false);
 	scrActions["fileImportAppendText"]->setEnabled(false);
 	scrActions["pageImport"]->setEnabled(false);
@@ -2374,6 +2377,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	{
 	case -1: // None
 		scrActions["fileImportText"]->setEnabled(false);
+		scrActions["fileImportText2"]->setEnabled(false);
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["fileExportText"]->setEnabled(false);
@@ -2409,6 +2413,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	case PageItem::ImageFrame: //Image Frame
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["fileImportText"]->setEnabled(false);
+		scrActions["fileImportText2"]->setEnabled(false);
 		scrActions["fileImportImage"]->setEnabled(true);
 		scrActions["editCut"]->setEnabled(true);
 		scrActions["editCopy"]->setEnabled(true);
@@ -2438,6 +2443,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		break;
 	case PageItem::TextFrame: //Text Frame
 		scrActions["fileImportText"]->setEnabled(true);
+		scrActions["fileImportText2"]->setEnabled(true);
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(true);
 		scrActions["fileExportText"]->setEnabled(true);
@@ -2538,6 +2544,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		break;
 	case PageItem::PathText: //Path Text
 		scrActions["fileImportText"]->setEnabled(true);
+		scrActions["fileImportText2"]->setEnabled(true);
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(true);
 		scrActions["fileExportText"]->setEnabled(true);
@@ -2582,6 +2589,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		break;
 	default:
 		scrActions["fileImportText"]->setEnabled(false);
+		scrActions["fileImportText2"]->setEnabled(false);
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["fileExportText"]->setEnabled(false);
@@ -3676,6 +3684,28 @@ void ScribusMainWindow::slotGetContent()
 	}
 }
 
+void ScribusMainWindow::slotGetContent2() // kk2006
+{
+	if (doc->m_Selection->count() == 0)
+		return; // nothing to do, no selection
+
+	PageItem *currItem = doc->m_Selection->itemAt(0);
+
+	if (!currItem->asTextFrame())
+		return; // not a text frame
+
+	ScGTPluginManager::instance()->run();
+	if (doc->docHyphenator->AutoCheck)
+		doc->docHyphenator->slotHyphenate(currItem);
+	for (uint a = 0; a < doc->Items->count(); ++a)
+	{
+		if (doc->Items->at(a)->isBookmark)
+			bookmarkPalette->BView->ChangeText(doc->Items->at(a));
+	}
+	view->DrawNew();
+	slotDocCh();
+}
+
 void ScribusMainWindow::slotFileAppend()
 {
 	if (doc->m_Selection->count() != 0)
@@ -3912,6 +3942,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["fileExportText"]->setEnabled(false);
 		scrActions["fileExportAsEPS"]->setEnabled(false);
 		scrActions["fileImportText"]->setEnabled(false);
+		scrActions["fileImportText2"]->setEnabled(false);
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["pageImport"]->setEnabled(false);

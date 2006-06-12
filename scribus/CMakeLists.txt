@@ -146,6 +146,7 @@ sampleitem.h
 sccolorshade.h
 scmenu.h
 scmessagebox.h
+scgtplugin.h
 scplugin.h
 scpreview.h
 scprogressbar.h
@@ -346,6 +347,7 @@ scfonts.cpp
 scfonts_ttf.cpp
 scfontmetrics.cpp
 scimage.cpp
+scgtplugin.cpp
 scpainter.cpp
 scpaths.cpp
 scplugin.cpp

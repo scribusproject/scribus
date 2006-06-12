@@ -286,6 +286,7 @@ public slots:
 	bool loadPage(QString fileName, int Nr, bool Mpa, const QString& renamedPageName=QString::null);
 
 	void slotGetContent();
+	void slotGetContent2(); // kk2006
 	/*!
 	\author Franz Schmid
 	\brief Appends a Textfile to the Text in the selected Textframe at the Cursorposition
