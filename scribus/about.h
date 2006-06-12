@@ -8,14 +8,17 @@ for which a new license (GPL+exception) is in place.
 #define ABOUT_H
 
 #include <qdialog.h>
-#include <qlabel.h>
-#include <qtabwidget.h>
-#include <qwidget.h>
-#include <qtextview.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
 
 #include "scribusapi.h"
+
+class TextBrowser; // taken from helpbrowser.h
+class QLabel;
+class QWidget;
+class QHBoxLayout;
+class QVBoxLayout;
+class QTabWidget;
+class QPushButton;
+
 
 class SCRIBUS_API About : public QDialog
 { 
@@ -33,9 +36,9 @@ public:
 	QWidget* tab_2;
 	QWidget* tab_3;
 	QWidget* tab_4;
-	QTextView* textView1;
-	QTextView* textView2;
-	QTextView* textView4;
+	TextBrowser* textView1;
+	TextBrowser* textView2;
+	TextBrowser* textView4;
 
 protected:
 	QVBoxLayout* aboutLayout;
