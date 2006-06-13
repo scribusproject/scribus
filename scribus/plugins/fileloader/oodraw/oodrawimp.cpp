@@ -1064,13 +1064,13 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 		else if(subtransform[0] == "skewx")
 		{
 			result = QWMatrix();
-			result.shear(-params[0].toDouble(), 0.0);
+			result.shear(-tan(params[0].toDouble()), 0.0);
 			composite->map(result);
 		}
 		else if(subtransform[0] == "skewy")
 		{
 			result = QWMatrix();
-			result.shear(0.0, -params[0].toDouble());
+			result.shear(0.0, -tan(params[0].toDouble()));
 			composite->map(result);
 		}
 	}
