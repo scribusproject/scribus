@@ -2680,7 +2680,7 @@ void Mpalette::NewLocalSC()
 		disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
 		disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
 		imgDpiX->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0);
-		imgDpiY->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0);
+		imgDpiY->setValue(qRound(720.0 / CurItem->imageYScale()) / 10.0);
 		connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
 		connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
 	}
