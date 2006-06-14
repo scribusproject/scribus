@@ -121,7 +121,7 @@ void StoryText::clear()
      changed. This routines makes sure that all parent pointers to the default
      paragraphStyle are up-to-date
  */
-static void replaceParentStyle(StoryText* that, int pos, Style* oldP, Style* newP)
+static void replaceParentStyle(StoryText* that, int pos, const Style* oldP, const Style* newP)
 {
 	for(int i = pos-1; i >= 0; ++i) {
 		ScText* it = that->item(i);
@@ -139,7 +139,7 @@ static void replaceParentStyle(StoryText* that, int pos, Style* oldP, Style* new
 static void insertParSep(StoryText* that, int pos)
 {
 	ScText* it = that->item(pos);
-	ParagraphStyle* oldP = & that->paragraphStyle(pos);
+	const ParagraphStyle* oldP = & that->paragraphStyle(pos);
 	ParagraphStyle* newP = new ParagraphStyle(*oldP);
 	it->parstyle = newP;
 	replaceParentStyle(that, pos, oldP, newP);
@@ -152,8 +152,8 @@ static void removeParSep(StoryText* that, int pos)
 {
 	ScText* it = that->item(pos);
 	if (it->parstyle) {
-		ParagraphStyle* oldP = it->parstyle;
-		ParagraphStyle* newP = & that->paragraphStyle(pos+1);
+		const ParagraphStyle* oldP = it->parstyle;
+		const ParagraphStyle* newP = & that->paragraphStyle(pos+1);
 		replaceParentStyle(that, pos, oldP, newP);
 		delete oldP;
 	}
