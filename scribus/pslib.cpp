@@ -1918,9 +1918,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				}
 			}
 #ifndef NLS_PROTO
-			for (d = 0; ! c->frameDisplays(d); ++d)
-				;
-			for (; c->frameDisplays(d); ++d)
+			for (d = c->firstInFrame(); d <= c->lastInFrame(); ++d)
 			{
 				hl = c->itemText.item(d);
 				if ((hl->ch == QChar(13)) || (hl->ch == QChar(30)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
@@ -2287,9 +2285,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 		tabDist += ite->lineWidth() / 2.0;
 
 	uint d;
-	for (d = 0; ! ite->frameDisplays(d); ++d)
-		;		
-	for (; ite->frameDisplays(d); ++d)
+	for (d = ite->firstInFrame(); d <= ite->lastInFrame(); ++d)
 	{
 		hl = ite->itemText.item(d);
 		const ParagraphStyle& pstyle(ite->itemText.paragraphStyle(d));
