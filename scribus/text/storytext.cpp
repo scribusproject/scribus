@@ -26,7 +26,8 @@ struct ScText_Shared : public QPtrList<ScText>
 {	
 	ParagraphStyle defaultStyle;
 	uint refs;
-	ScText_Shared() : QPtrList<ScText>(), defaultStyle(), refs(1) 
+	uint len;
+	ScText_Shared() : QPtrList<ScText>(), defaultStyle(), refs(1), len(0)
 	{ 
 		setAutoDelete(true); 
 	}
@@ -110,6 +111,7 @@ void StoryText::clear()
 	}
 	
 	d->clear();
+	d->len = 0;
 	invalidateAll();
 }
 
@@ -177,8 +179,11 @@ void StoryText::removeChars(int pos, uint len)
 			removeParSep(this, i);
 		}
 		d->take(i);
+		d->len--;
 		delete it;
 	}
+
+	d->len = d->count();
 	invalidate(pos, -1);
 }
 
@@ -203,12 +208,14 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 		item->ch= txt.mid(i, 1);
 		*static_cast<CharStyle *>(item) = style;
 		d->insert(pos + i, item);
+		d->len++;
 		if (item->ch[0] == SpecialChars::PARSEP) {
 //			qDebug(QString("new PARSEP %2 at %1").arg(pos).arg(paragraphStyle(pos).name()));
 			insertParSep(this, pos + i);
 		}
 	}
 
+	d->len = d->count();
 	invalidate(pos, pos + txt.length());
 }
 
@@ -261,7 +268,7 @@ void StoryText::insertObject(int pos, PageItem* ob)
 
 int StoryText::length() const
 {
-	return d->count();
+	return d->len;
 }
 
 QChar StoryText::text(int pos) const
