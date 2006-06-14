@@ -167,34 +167,81 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 {
 	double moveBy=1.0;
 	ButtonState buttonState = k->state();
+	bool resizingImage=false;
 	if ((buttonState & ShiftButton) && !(buttonState & ControlButton))
 		moveBy=10.0;
 	else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
 		moveBy=0.1;
 	else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && (buttonState & AltButton))
 		moveBy=0.01;
-	moveBy/=m_Doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
+	else if (!(buttonState & ShiftButton) && !(buttonState & ControlButton) && (buttonState & AltButton))
+		resizingImage=true;
 	double dX=0.0,dY=0.0;
 	int kk = k->key();
-	switch (kk)
+	if (!resizingImage)
 	{
-		case Key_Left:
-			dX=-moveBy;
-			break;
-		case Key_Right:
-			dX=moveBy;
-			break;
-		case Key_Up:
-			dY=-moveBy;
-			break;
-		case Key_Down:
-			dY=moveBy;
-			break;
+		moveBy/=m_Doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
+		switch (kk)
+		{
+			case Key_Left:
+				dX=-moveBy;
+				break;
+			case Key_Right:
+				dX=moveBy;
+				break;
+			case Key_Up:
+				dY=-moveBy;
+				break;
+			case Key_Down:
+				dY=moveBy;
+				break;
+		}
+		if (dX!=0.0 || dY!=0.0)
+		{
+			moveImageInFrame(dX, dY);
+			ScribusView* view = m_Doc->view();
+			view->updateContents(getRedrawBounding(view->scale()));	
+		}
 	}
-	if (dX!=0.0 || dY!=0.0)
+	else
 	{
-		moveImageInFrame(dX, dY);
+		switch (kk)
+		{
+			case Key_Left:
+				dX=-moveBy+100;
+				break;
+			case Key_Right:
+				dX=moveBy+100;
+				break;
+			case Key_Up:
+				dY=-moveBy+100;
+				break;
+			case Key_Down:
+				dY=moveBy+100;
+				break;
+			default:
+				return;
+		}		
+		if (dX!=0.0)
+		{
+			double newXScale=dX / 100.0 * LocalScX;
+			setImageXScale(newXScale);
+		}
+		if (dY!=0.0)
+		{
+			double newYScale=dY / 100.0 * LocalScY;
+			setImageYScale(newYScale);
+		}
+		if (dX!=0.0 || dY!=0.0)
+			if (imageClip.size() != 0)
+			{
+				imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
+				QWMatrix cl;
+				cl.translate(imageXOffset()*imageXScale(), imageYOffset()*imageYScale());
+				cl.scale(imageXScale(), imageYScale());
+				imageClip.map(cl);
+			}
 		ScribusView* view = m_Doc->view();
-		view->updateContents(getRedrawBounding(view->scale()));
+		view->updateContents(getRedrawBounding(view->scale()));	
 	}
 }

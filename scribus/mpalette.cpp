@@ -1401,11 +1401,12 @@ void Mpalette::SetCurItem(PageItem *i)
 			setter = i->ScaleType;
 			FreeScale->setChecked(setter);
 			FrameScale->setChecked(!setter);
-			if (setter == true)
-			{
-				keepImageWHRatioButton->setOn(setter);
-				keepImageDPIRatioButton->setOn(setter);
-			}
+//CB Why do we need this? Setting it too much here
+// 			if (setter == true)
+// 			{
+// 				keepImageWHRatioButton->setOn(setter);
+// 				keepImageDPIRatioButton->setOn(setter);
+// 			}
 			Aspect->setEnabled(!setter);
 			Aspect->setChecked(i->AspectRatio);
 			imageXOffsetSpinBox->setEnabled(setter);
@@ -1998,7 +1999,7 @@ void Mpalette::setLvalue(double scx, double scy, double x, double y)
 		imageXScaleSpinBox->setValue(scx * 100 / 72.0 * CurItem->pixm.imgInfo.xres);
 		imageYScaleSpinBox->setValue(scy * 100 / 72.0 * CurItem->pixm.imgInfo.yres);
 		imgDpiX->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0);
-		imgDpiY->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0); //CB I assume this douple X is right?
+		imgDpiY->setValue(qRound(720.0 / CurItem->imageYScale()) / 10.0);
 	}
 	else
 	{
