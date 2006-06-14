@@ -173,7 +173,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "text/nlsconfig.h"
 #include "plugins/formatidlist.h"
-#include "scgtplugin.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -534,7 +533,6 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->createMenu("FileImport", QIconSet(noIcon), tr("&Import"), "File");
 	scrMenuMgr->addMenuItem(scrActions["fileImportText"], "FileImport");
-	scrMenuMgr->addMenuItem(scrActions["fileImportText2"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportAppendText"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportImage"], "FileImport");
 	scrMenuMgr->createMenu("FileExport", QIconSet(noIcon), tr("&Export"), "File");
@@ -556,7 +554,6 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["fileRevert"]->setEnabled(false);
 	scrActions["fileCollect"]->setEnabled(false);
 	scrActions["fileImportText"]->setEnabled(false);
-	scrActions["fileImportText2"]->setEnabled(false);
 	scrActions["fileImportImage"]->setEnabled(false);
 	scrActions["fileImportAppendText"]->setEnabled(false);
 	scrActions["pageImport"]->setEnabled(false);
@@ -1062,9 +1059,9 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 						if (currItem->CPos-1>0)
 						{
 #ifndef NLS_PROTO
-							StyleFlag fl = currItem->itemText.item(QMAX(currItem->CPos-1,0))->effects();
+							StyleFlag fl = currItem->itemText.at(QMAX(currItem->CPos-1,0))->effects();
 							fl |= ScStyle_HyphenationPossible;
-							currItem->itemText.item(QMAX(currItem->CPos-1,0))->setEffects(fl);
+							currItem->itemText.at(QMAX(currItem->CPos-1,0))->setEffects(fl);
 #else
 							currItem->itemText.insertChars(currItem->CPos, QString(SpecialChars::SHYPHEN));
 							currItem->CPos += 1;
@@ -1322,6 +1319,12 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		 		Alt left arrow, move left side outwards (expand)
 		 		Alt Shift right arrow, move left side inwards (shrink)
 		 		Alt Shift left arrow, move right side inwards (shrink)
+		 * -- In edit mode of an image frame, use the arrow keys to resize the image:
+		 		(flows to pageitem_imageframe for control)
+		 		Alt right arrow, move right side of image outwards (expand)
+		 		Alt left arrow, move right side inwards (shrink)
+		 		Alt down arrow, move bottom side downwards (expand)
+		 		Alt up arrow, move top side inwards (shrink)
 		 */
 		if (doc->m_Selection->count() != 0)
 		{
@@ -2377,7 +2380,6 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	{
 	case -1: // None
 		scrActions["fileImportText"]->setEnabled(false);
-		scrActions["fileImportText2"]->setEnabled(false);
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["fileExportText"]->setEnabled(false);
@@ -2413,7 +2415,6 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	case PageItem::ImageFrame: //Image Frame
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["fileImportText"]->setEnabled(false);
-		scrActions["fileImportText2"]->setEnabled(false);
 		scrActions["fileImportImage"]->setEnabled(true);
 		scrActions["editCut"]->setEnabled(true);
 		scrActions["editCopy"]->setEnabled(true);
@@ -2443,7 +2444,6 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		break;
 	case PageItem::TextFrame: //Text Frame
 		scrActions["fileImportText"]->setEnabled(true);
-		scrActions["fileImportText2"]->setEnabled(true);
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(true);
 		scrActions["fileExportText"]->setEnabled(true);
@@ -2544,7 +2544,6 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		break;
 	case PageItem::PathText: //Path Text
 		scrActions["fileImportText"]->setEnabled(true);
-		scrActions["fileImportText2"]->setEnabled(true);
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(true);
 		scrActions["fileExportText"]->setEnabled(true);
@@ -2589,7 +2588,6 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		break;
 	default:
 		scrActions["fileImportText"]->setEnabled(false);
-		scrActions["fileImportText2"]->setEnabled(false);
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["fileExportText"]->setEnabled(false);
@@ -3684,28 +3682,6 @@ void ScribusMainWindow::slotGetContent()
 	}
 }
 
-void ScribusMainWindow::slotGetContent2() // kk2006
-{
-	if (doc->m_Selection->count() == 0)
-		return; // nothing to do, no selection
-
-	PageItem *currItem = doc->m_Selection->itemAt(0);
-
-	if (!currItem->asTextFrame())
-		return; // not a text frame
-
-	ScGTPluginManager::instance()->run();
-	if (doc->docHyphenator->AutoCheck)
-		doc->docHyphenator->slotHyphenate(currItem);
-	for (uint a = 0; a < doc->Items->count(); ++a)
-	{
-		if (doc->Items->at(a)->isBookmark)
-			bookmarkPalette->BView->ChangeText(doc->Items->at(a));
-	}
-	view->DrawNew();
-	slotDocCh();
-}
-
 void ScribusMainWindow::slotFileAppend()
 {
 	if (doc->m_Selection->count() != 0)
@@ -3942,7 +3918,6 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["fileExportText"]->setEnabled(false);
 		scrActions["fileExportAsEPS"]->setEnabled(false);
 		scrActions["fileImportText"]->setEnabled(false);
-		scrActions["fileImportText2"]->setEnabled(false);
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["pageImport"]->setEnabled(false);
@@ -4467,6 +4442,7 @@ void ScribusMainWindow::slotEditCopy()
 
 void ScribusMainWindow::slotEditPaste()
 {
+	ScText *hg;
 	NoFrameEdit();
 	if (HaveDoc)
 	{
@@ -4489,8 +4465,7 @@ void ScribusMainWindow::slotEditPaste()
 					QStringList::Iterator it;
 					wt = QStringList::split("\t", cc);
 					it = wt.begin();
-#if 0
-					ScText *hg;
+#ifndef NLS_PROTO
 					hg = new ScText;
 					hg->ch = (*it);
 					if (hg->ch == QChar(5))
@@ -4553,83 +4528,12 @@ void ScribusMainWindow::slotEditPaste()
 					hg->setStrikethruOffset(it == NULL ? -1 : (*it).toInt());
 					it++;
 					hg->setStrikethruWidth(it == NULL ? -1 : (*it).toInt());
-					currItem->itemText.insertChars(currItem->CPos, hg);
+					currItem->itemText.insert(currItem->CPos, hg);
 					currItem->CPos += 1;
 					hg->PRot = 0;
 					hg->PtransX = 0;
 					hg->PtransY = 0;
 					hg->cembedded = 0;
-#else
-					CharStyle nstyle;
-					QString ch = (*it);
-					if (ch == QChar(5))
-						ch = SpecialChars::PARSEP;
-					if (ch == QChar(4))
-						ch = SpecialChars::TAB;
-					/* 	Don't copy inline frames for now, as this is a very complicated thing.
-						We need to figure out a good way to copy inline frames, this must
-						be able to preserve them across documents. No idea how to solve
-						that yet. */
-					if (ch == SpecialChars::OBJECT)
-						ch = QChar(32);
-					it++;
-					nstyle.setFont((*doc->AllFonts)[*it]);
-					it++;
-					nstyle.setFontSize((*it).toInt());
-					it++;
-					nstyle.setFillColor(*it);
-					it++;
-					nstyle.setTracking((*it).toInt());
-					it++;
-					nstyle.setFillShade((*it).toInt());
-					it++;
-					nstyle.setEffects(static_cast<StyleFlag>((*it).toInt()));
-					it++;
-					int cab = (*it).toInt();
-					it++;
-					if (it == NULL)
-						nstyle.setStrokeColor(CommonStrings::None);
-					else
-						nstyle.setStrokeColor(*it);
-					it++;
-					if (it == NULL)
-						nstyle.setStrokeShade(100);
-					else
-						nstyle.setStrokeShade((*it).toInt());
-					it++;
-					if (it == NULL)
-						nstyle.setScaleH(1000);
-					else
-						nstyle.setScaleH((*it).toInt());
-					it++;
-					if (it == NULL)
-						nstyle.setScaleV(1000);
-					else
-						nstyle.setScaleV(QMIN(QMAX((*it).toInt(), 100), 4000));
-					it++;
-					nstyle.setBaselineOffset(it == NULL ? 0 : (*it).toInt());
-					it++;
-					nstyle.setShadowXOffset(it == NULL ? 50 : (*it).toInt());
-					it++;
-					nstyle.setShadowYOffset(it == NULL ? -50 : (*it).toInt());
-					it++;
-					nstyle.setOutlineWidth(it == NULL ? 10 : (*it).toInt());
-					it++;
-					nstyle.setUnderlineOffset(it == NULL ? -1 : (*it).toInt());
-					it++;
-					nstyle.setUnderlineWidth(it == NULL ? -1 : (*it).toInt());
-					it++;
-					nstyle.setStrikethruOffset(it == NULL ? -1 : (*it).toInt());
-					it++;
-					nstyle.setStrikethruWidth(it == NULL ? -1 : (*it).toInt());
-					currItem->itemText.insertChars(currItem->CPos, ch);
-					if (ch == SpecialChars::PARSEP) {
-						currItem->itemText.applyStyle(currItem->CPos, doc->docParagraphStyles[cab]);
-					}
-					else {						
-						currItem->itemText.applyCharStyle(currItem->CPos, 1, nstyle);
-					}
-					currItem->CPos += 1;
 #endif
 				}
 			}
@@ -6400,7 +6304,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 							//newStyle.cstyle |= static_cast<StyleFlag>(ite->TxTStyle);
 						}
 						if (newStyle != lastStyle || lastParaStyle != cabneu) {
-							ite->itemText.applyCharStyle(lastStyleStart, e-lastStyleStart, lastStyle);
+							ite->itemText.applyStyle(lastStyleStart, e-lastStyleStart, lastStyle);
 							lastStyle = newStyle;
 							lastStyleStart = e;
 							lastParaStyle = cabneu;
@@ -6410,14 +6314,14 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 						}
 					}
 					else if (lastParaStyle >= 0) {
-						ite->itemText.applyCharStyle(lastStyleStart, e-lastStyleStart, lastStyle);
+						ite->itemText.applyStyle(lastStyleStart, e-lastStyleStart, lastStyle);
 						lastStyle = newStyle;
 						lastStyleStart = e;
 						lastParaStyle = -1;
 					}
 				}
 				if (ite->itemText.length() > 0) {
-					ite->itemText.applyCharStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
+					ite->itemText.applyStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
 					if (lastParaStyle >=0 )
 						ite->itemText.applyStyle(ite->itemText.length()-1, doc->docParagraphStyles[lastParaStyle]);
 				}
@@ -6603,12 +6507,12 @@ void ScribusMainWindow::slotEditColors()
 								if (it.key() == ite->itemText.charStyle(d).strokeColor())
 									newStyle.setStrokeColor(it.data());
 								if (newStyle != lastStyle) {
-									ite->itemText.applyCharStyle(lastStyleStart, d-lastStyleStart, lastStyle);
+									ite->itemText.applyStyle(lastStyleStart, d-lastStyleStart, lastStyle);
 									lastStyle = newStyle;
 									lastStyleStart = d;
 								}
 							}
-							ite->itemText.applyCharStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
+							ite->itemText.applyStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
 						}
 						if (it.key() == ite->fillColor())
 							ite->setFillColor(it.data());
@@ -6643,11 +6547,11 @@ void ScribusMainWindow::slotEditColors()
 								if (it.key() == ite->itemText.charStyle(d).strokeColor())
 									newStyle.setStrokeColor(it.data());
 								if (newStyle != lastStyle) {
-									ite->itemText.applyCharStyle(lastStyleStart, d-lastStyleStart, lastStyle);
+									ite->itemText.applyStyle(lastStyleStart, d-lastStyleStart, lastStyle);
 									lastStyle = newStyle;
 									lastStyleStart = d;
 								}
-								ite->itemText.applyCharStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
+								ite->itemText.applyStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
 							}
 						}
 						if (it.key() == ite->fillColor())
@@ -6683,12 +6587,12 @@ void ScribusMainWindow::slotEditColors()
 								if (it.key() == ite->itemText.charStyle(d).strokeColor())
 									newStyle.setStrokeColor(it.data());
 								if (newStyle != lastStyle) {
-									ite->itemText.applyCharStyle(lastStyleStart, d-lastStyleStart, lastStyle);
+									ite->itemText.applyStyle(lastStyleStart, d-lastStyleStart, lastStyle);
 									lastStyle = newStyle;
 									lastStyleStart = d;
 								}
+								ite->itemText.applyStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
 							}
-							ite->itemText.applyCharStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
 						}
 						if (it.key() == ite->fillColor())
 							ite->setFillColor(it.data());
