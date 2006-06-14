@@ -1062,9 +1062,9 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 						if (currItem->CPos-1>0)
 						{
 #ifndef NLS_PROTO
-							StyleFlag fl = currItem->itemText.at(QMAX(currItem->CPos-1,0))->effects();
+							StyleFlag fl = currItem->itemText.item(QMAX(currItem->CPos-1,0))->effects();
 							fl |= ScStyle_HyphenationPossible;
-							currItem->itemText.at(QMAX(currItem->CPos-1,0))->setEffects(fl);
+							currItem->itemText.item(QMAX(currItem->CPos-1,0))->setEffects(fl);
 #else
 							currItem->itemText.insertChars(currItem->CPos, QString(SpecialChars::SHYPHEN));
 							currItem->CPos += 1;
@@ -4467,7 +4467,6 @@ void ScribusMainWindow::slotEditCopy()
 
 void ScribusMainWindow::slotEditPaste()
 {
-	ScText *hg;
 	NoFrameEdit();
 	if (HaveDoc)
 	{
@@ -4490,7 +4489,8 @@ void ScribusMainWindow::slotEditPaste()
 					QStringList::Iterator it;
 					wt = QStringList::split("\t", cc);
 					it = wt.begin();
-#ifndef NLS_PROTO
+#if 0
+					ScText *hg;
 					hg = new ScText;
 					hg->ch = (*it);
 					if (hg->ch == QChar(5))
@@ -4553,12 +4553,83 @@ void ScribusMainWindow::slotEditPaste()
 					hg->setStrikethruOffset(it == NULL ? -1 : (*it).toInt());
 					it++;
 					hg->setStrikethruWidth(it == NULL ? -1 : (*it).toInt());
-					currItem->itemText.insert(currItem->CPos, hg);
+					currItem->itemText.insertChars(currItem->CPos, hg);
 					currItem->CPos += 1;
 					hg->PRot = 0;
 					hg->PtransX = 0;
 					hg->PtransY = 0;
 					hg->cembedded = 0;
+#else
+					CharStyle nstyle;
+					QString ch = (*it);
+					if (ch == QChar(5))
+						ch = SpecialChars::PARSEP;
+					if (ch == QChar(4))
+						ch = SpecialChars::TAB;
+					/* 	Don't copy inline frames for now, as this is a very complicated thing.
+						We need to figure out a good way to copy inline frames, this must
+						be able to preserve them across documents. No idea how to solve
+						that yet. */
+					if (ch == SpecialChars::OBJECT)
+						ch = QChar(32);
+					it++;
+					nstyle.setFont((*doc->AllFonts)[*it]);
+					it++;
+					nstyle.setFontSize((*it).toInt());
+					it++;
+					nstyle.setFillColor(*it);
+					it++;
+					nstyle.setTracking((*it).toInt());
+					it++;
+					nstyle.setFillShade((*it).toInt());
+					it++;
+					nstyle.setEffects(static_cast<StyleFlag>((*it).toInt()));
+					it++;
+					int cab = (*it).toInt();
+					it++;
+					if (it == NULL)
+						nstyle.setStrokeColor(CommonStrings::None);
+					else
+						nstyle.setStrokeColor(*it);
+					it++;
+					if (it == NULL)
+						nstyle.setStrokeShade(100);
+					else
+						nstyle.setStrokeShade((*it).toInt());
+					it++;
+					if (it == NULL)
+						nstyle.setScaleH(1000);
+					else
+						nstyle.setScaleH((*it).toInt());
+					it++;
+					if (it == NULL)
+						nstyle.setScaleV(1000);
+					else
+						nstyle.setScaleV(QMIN(QMAX((*it).toInt(), 100), 4000));
+					it++;
+					nstyle.setBaselineOffset(it == NULL ? 0 : (*it).toInt());
+					it++;
+					nstyle.setShadowXOffset(it == NULL ? 50 : (*it).toInt());
+					it++;
+					nstyle.setShadowYOffset(it == NULL ? -50 : (*it).toInt());
+					it++;
+					nstyle.setOutlineWidth(it == NULL ? 10 : (*it).toInt());
+					it++;
+					nstyle.setUnderlineOffset(it == NULL ? -1 : (*it).toInt());
+					it++;
+					nstyle.setUnderlineWidth(it == NULL ? -1 : (*it).toInt());
+					it++;
+					nstyle.setStrikethruOffset(it == NULL ? -1 : (*it).toInt());
+					it++;
+					nstyle.setStrikethruWidth(it == NULL ? -1 : (*it).toInt());
+					currItem->itemText.insertChars(currItem->CPos, ch);
+					if (ch == SpecialChars::PARSEP) {
+						currItem->itemText.applyStyle(currItem->CPos, doc->docParagraphStyles[cab]);
+					}
+					else {						
+						currItem->itemText.applyCharStyle(currItem->CPos, 1, nstyle);
+					}
+					currItem->CPos += 1;
 #endif
 				}
 			}
@@ -6329,7 +6400,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 							//newStyle.cstyle |= static_cast<StyleFlag>(ite->TxTStyle);
 						}
 						if (newStyle != lastStyle || lastParaStyle != cabneu) {
-							ite->itemText.applyStyle(lastStyleStart, e-lastStyleStart, lastStyle);
+							ite->itemText.applyCharStyle(lastStyleStart, e-lastStyleStart, lastStyle);
 							lastStyle = newStyle;
 							lastStyleStart = e;
 							lastParaStyle = cabneu;
@@ -6339,14 +6410,14 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 						}
 					}
 					else if (lastParaStyle >= 0) {
-						ite->itemText.applyStyle(lastStyleStart, e-lastStyleStart, lastStyle);
+						ite->itemText.applyCharStyle(lastStyleStart, e-lastStyleStart, lastStyle);
 						lastStyle = newStyle;
 						lastStyleStart = e;
 						lastParaStyle = -1;
 					}
 				}
 				if (ite->itemText.length() > 0) {
-					ite->itemText.applyStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
+					ite->itemText.applyCharStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
 					if (lastParaStyle >=0 )
 						ite->itemText.applyStyle(ite->itemText.length()-1, doc->docParagraphStyles[lastParaStyle]);
 				}
@@ -6532,12 +6603,12 @@ void ScribusMainWindow::slotEditColors()
 								if (it.key() == ite->itemText.charStyle(d).strokeColor())
 									newStyle.setStrokeColor(it.data());
 								if (newStyle != lastStyle) {
-									ite->itemText.applyStyle(lastStyleStart, d-lastStyleStart, lastStyle);
+									ite->itemText.applyCharStyle(lastStyleStart, d-lastStyleStart, lastStyle);
 									lastStyle = newStyle;
 									lastStyleStart = d;
 								}
 							}
-							ite->itemText.applyStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
+							ite->itemText.applyCharStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
 						}
 						if (it.key() == ite->fillColor())
 							ite->setFillColor(it.data());
@@ -6572,11 +6643,11 @@ void ScribusMainWindow::slotEditColors()
 								if (it.key() == ite->itemText.charStyle(d).strokeColor())
 									newStyle.setStrokeColor(it.data());
 								if (newStyle != lastStyle) {
-									ite->itemText.applyStyle(lastStyleStart, d-lastStyleStart, lastStyle);
+									ite->itemText.applyCharStyle(lastStyleStart, d-lastStyleStart, lastStyle);
 									lastStyle = newStyle;
 									lastStyleStart = d;
 								}
-								ite->itemText.applyStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
+								ite->itemText.applyCharStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
 							}
 						}
 						if (it.key() == ite->fillColor())
@@ -6612,12 +6683,12 @@ void ScribusMainWindow::slotEditColors()
 								if (it.key() == ite->itemText.charStyle(d).strokeColor())
 									newStyle.setStrokeColor(it.data());
 								if (newStyle != lastStyle) {
-									ite->itemText.applyStyle(lastStyleStart, d-lastStyleStart, lastStyle);
+									ite->itemText.applyCharStyle(lastStyleStart, d-lastStyleStart, lastStyle);
 									lastStyle = newStyle;
 									lastStyleStart = d;
 								}
-								ite->itemText.applyStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
 							}
+							ite->itemText.applyCharStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
 						}
 						if (it.key() == ite->fillColor())
 							ite->setFillColor(it.data());

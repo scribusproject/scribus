@@ -290,10 +290,10 @@ void Hyphenator::slotHyphenate(PageItem* it)
 
 void Hyphenator::slotDeHyphenate(PageItem* it)
 {
-	if (!(it->asTextFrame()) || (it ->itemText.count() == 0))
+	if (!(it->asTextFrame()) || (it ->itemText.length() == 0))
 		return;
 
-	uint a = it->itemText.count();
+	uint a = it->itemText.length();
 	it->itemText.hyphenateWord(0, a, NULL);
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	doc->DoDrawing = true;

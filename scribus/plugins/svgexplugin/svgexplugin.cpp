@@ -236,7 +236,7 @@ SVGExPlug::SVGExPlug( QString fName )
 void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 {
 	QString tmp, trans, fill, stroke, strokeW, strokeLC, strokeLJ, strokeDA, gradi, Clipi, chx;
-	uint d;
+	int d;
 	ScText *hl;
 	int Lnr = 0;
 	struct Layer ll;
@@ -556,7 +556,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							;
 						for (; d < Item->itemText.length() && Item->frameDisplays(d); ++d)
 						{
-							hl = Item->itemText.at(d);
+							hl = Item->itemText.item(d);
 							if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 								continue;
 							if (hl->glyph.yoffset == 0)
@@ -618,7 +618,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							;
 						for (; d < Item->itemText.length() && Item->frameDisplays(d); ++d)
 						{
-							hl = Item->itemText.at(d);
+							hl = Item->itemText.item(d);
 							if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(25)) || (hl->ch == QChar(28)))
 								continue;
 							if (hl->ch == QChar(29))

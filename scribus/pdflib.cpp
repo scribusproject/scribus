@@ -2946,28 +2946,29 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 		;
 	for (; ite->frameDisplays(d); ++d)
 	{
-		const ScText * const hl = ite->itemText.at(d);
-		if ((hl->ch == SpecialChars::PARSEP) || (hl->ch == QChar(10)) || (hl->ch == SpecialChars::LINEBREAK) || (hl->ch == SpecialChars::FRAMEBREAK) || (hl->ch == SpecialChars::COLBREAK))
+		const ScText * const hl = ite->itemText.item(d);
+		const QString ch = ite->itemText.text(d,1);
+		const CharStyle& chstyle(ite->itemText.charStyle(d));
+		const ParagraphStyle& pstyle(ite->itemText.paragraphStyle(d));
+		
+		if ((ch[0] == SpecialChars::PARSEP) || (ch[0] == QChar(10)) || (ch[0] == SpecialChars::LINEBREAK) || (ch[0] == SpecialChars::FRAMEBREAK) || (ch[0] == SpecialChars::COLBREAK))
 			continue;
-		if (hl->effects() & ScStyle_SuppressSpace)
+		if (chstyle.effects() & ScStyle_SuppressSpace)
 			continue;
 		if ((hl->glyph.yoffset == 0) && (ite->asTextFrame()))
 			continue;
-		if (hl->cab < 5)
-			tTabValues = ite->TabValues;
-		else
-			tTabValues = doc.docParagraphStyles[hl->cab].tabValues();
-		if (hl->effects() & ScStyle_StartOfLine)
+		tTabValues = pstyle.tabValues();
+		if (chstyle.effects() & ScStyle_StartOfLine)
 			tabCc = 0;
-		if ((hl->ch == SpecialChars::TAB) && (tTabValues.count() != 0))
+		if ((ch[0] == SpecialChars::TAB) && (tTabValues.count() != 0))
 		{
 			if ((!tTabValues[tabCc].tabFillChar.isNull()) && (tabCc < tTabValues.count()))
 			{
 				ScText hl2;
 				static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
-				hl2.cselect = hl->cselect;
+//				hl2.cselect = hl->cselect;
 
-				double wt = Cwidth(&doc, hl->font(), QString(tTabValues[tabCc].tabFillChar), hl->fontSize());
+				double wt = Cwidth(&doc, chstyle.font(), QString(tTabValues[tabCc].tabFillChar), chstyle.fontSize());
 				int coun = static_cast<int>((hl->glyph.xoffset - tabDist) / wt);
 				double sPos = hl->glyph.xoffset - (hl->glyph.xoffset - tabDist) + 1;
 				hl2.ch = QString(tTabValues[tabCc].tabFillChar);
@@ -2980,18 +2981,18 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 				for (int cx = 0; cx < coun; ++cx)
 				{
 					hl2.glyph.xoffset =  sPos + wt * cx;
-					if ((hl2.effects() & ScStyle_Shadowed) && (hl2.strokeColor() != CommonStrings::None))
+					if ((chstyle.effects() & ScStyle_Shadowed) && (chstyle.strokeColor() != CommonStrings::None))
 					{
 						ScText hl3;
 						static_cast<CharStyle&>(hl3) = static_cast<const CharStyle&>(hl2);
 						hl3.ch = hl2.ch;
 
-						hl3.glyph.yoffset = hl2.glyph.yoffset - (hl2.fontSize() * hl2.shadowYOffset() / 10000.0);
-						hl3.glyph.xoffset = hl2.glyph.xoffset + (hl2.fontSize() * hl2.shadowXOffset() / 10000.0);
+						hl3.glyph.yoffset = hl2.glyph.yoffset - (chstyle.fontSize() * chstyle.shadowYOffset() / 10000.0);
+						hl3.glyph.xoffset = hl2.glyph.xoffset + (chstyle.fontSize() * chstyle.shadowXOffset() / 10000.0);
 
-						setTextCh(ite, PNr, d, tmp, tmp2, &hl3, pag);
+						setTextCh(ite, PNr, d, tmp, tmp2, &hl3, pstyle, pag);
 					}
-					setTextCh(ite, PNr, d, tmp, tmp2, &hl2, pag);
+					setTextCh(ite, PNr, d, tmp, tmp2, &hl2, pstyle, pag);
 				}
 				tabCc++;
 				continue;
@@ -3002,22 +3003,22 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 				continue;
 			}
 		}
-		if (hl->ch == SpecialChars::TAB)
+		if (ch[0] == SpecialChars::TAB)
 			continue;
-		if ((hl->effects() & ScStyle_Shadowed) && (hl->strokeColor() != CommonStrings::None))
+		if ((chstyle.effects() & ScStyle_Shadowed) && (chstyle.strokeColor() != CommonStrings::None))
 		{
 			ScText hl2;
-			hl2.ch = hl->ch;
+			hl2.ch = ch;
 			static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
-			hl2.cselect = hl->cselect;
+//			hl2.cselect = hl->cselect;
 
-			hl2.glyph.yoffset = hl->glyph.yoffset - (hl->fontSize() * hl->shadowYOffset() / 10000.0);
-			hl2.glyph.xoffset = hl->glyph.xoffset + (hl->fontSize() * hl->shadowXOffset() / 10000.0);
+			hl2.glyph.yoffset = hl->glyph.yoffset - (chstyle.fontSize() * chstyle.shadowYOffset() / 10000.0);
+			hl2.glyph.xoffset = hl->glyph.xoffset + (chstyle.fontSize() * chstyle.shadowXOffset() / 10000.0);
 
-			setTextCh(ite, PNr, d, tmp, tmp2, &hl2, pag);
+			setTextCh(ite, PNr, d, tmp, tmp2, &hl2, pstyle, pag);
 		}
-		setTextCh(ite, PNr, d, tmp, tmp2, hl, pag);
-		tabDist = hl->glyph.xoffset + Cwidth(&doc, hl->font(), hl->ch, hl->fontSize()) * (hl->scaleH() / 1000.0);
+		setTextCh(ite, PNr, d, tmp, tmp2, hl, pstyle, pag);
+		tabDist = hl->glyph.xoffset + Cwidth(&doc, chstyle.font(), ch, chstyle.fontSize()) * (chstyle.scaleH() / 1000.0);
 	}
 #endif
 	if (ite->itemType() == PageItem::TextFrame)
@@ -3025,7 +3026,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 	return tmp;
 }
 
-void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &tmp2, const ScText *hl, const Page* pag)
+void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &tmp2, const ScText *hl, const ParagraphStyle& pstyle, const Page* pag)
 {
 #ifndef NLS_PROTO
 	QString FillColor = "";
@@ -3041,19 +3042,19 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		tmp += "BT\n";
 	}
 	int tsz = hl->fontSize();
-	QString chx = hl->ch;
+	QString chstr = hl->ch;
 	if (hl->effects() & ScStyle_DropCap)
 	{
-		if (doc.docParagraphStyles[hl->cab].useBaselineGrid())
-			tsz = qRound(10 * ((doc.typographicSettings.valueBaseGrid * (doc.docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->font()->ascent() * (doc.docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(&doc, hl->font(), chx, 10))));
+		if (pstyle.useBaselineGrid())
+			tsz = qRound(10 * ((doc.typographicSettings.valueBaseGrid * (pstyle.dropCapLines()-1)+(hl->font()->ascent() * (pstyle.charStyle().fontSize() / 10.0))) / (RealCHeight(&doc, hl->font(), chstr, 10))));
 		else
 		{
-			if (doc.docParagraphStyles[hl->cab].lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-				tsz = qRound(10 * ((doc.docParagraphStyles[hl->cab].lineSpacing() *  (doc.docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->font()->ascent() * (doc.docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / (RealCHeight(&doc, hl->font(), chx, 10))));
+			if (pstyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+				tsz = qRound(10 * ((pstyle.lineSpacing() *  (pstyle.dropCapLines()-1)+(hl->font()->ascent() * (pstyle.charStyle().fontSize() / 10.0))) / (RealCHeight(&doc, hl->font(), chstr, 10))));
 			else
 			{
-				double currasce = RealFHeight(&doc, hl->font(), doc.docParagraphStyles[hl->cab].charStyle().fontSize());
-				tsz = qRound(10 * ((currasce * (doc.docParagraphStyles[hl->cab].dropCapLines()-1)+(hl->font()->ascent() * (doc.docParagraphStyles[hl->cab].charStyle().fontSize() / 10.0))) / RealCHeight(&doc, hl->font(), chx, 10)));
+				double currasce = RealFHeight(&doc, hl->font(), pstyle.charStyle().fontSize());
+				tsz = qRound(10 * ((currasce * (pstyle.dropCapLines()-1)+(hl->font()->ascent() * (pstyle.charStyle().fontSize() / 10.0))) / RealCHeight(&doc, hl->font(), chstr, 10)));
 			}
 		}
 	}
@@ -3090,11 +3091,11 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		return;
 	}
 	if (hl->ch == SpecialChars::NBSPACE)
-		chx = " ";
+		chstr = " ";
 	if (hl->ch == SpecialChars::NBHYPHEN)
-		chx = "-";
+		chstr = "-";
 	if (hl->ch == QChar(0xA0))
-		chx = " ";
+		chstr = " ";
 	if (hl->ch == QChar(30))
 	{
 		//FIXME Stop duplicating PageItem::ExpandToken code!!!
@@ -3120,24 +3121,24 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		//CB Section numbering
 		//out2 = out.arg(PNr+doc.FirstPnum, -zae);
 		out2=out.arg(doc.getSectionPageNumberForPageIndex(PNr), -zae);
-		chx = out2.mid(d-za2, 1);
+		chstr = out2.mid(d-za2, 1);
 	}
-	uint cc = chx[0].unicode();
+	uint cc = chstr[0].unicode();
 	uint idx = 0;
 	if (GlyphsIdxOfFont[hl->font()->scName()].contains(cc))
 		idx = GlyphsIdxOfFont[hl->font()->scName()][cc].Code;
 	uint idx1 = (idx >> 8) & 0xFF;
 	if (hl->effects() & ScStyle_AllCaps)
 	{
-		if (chx.upper() != chx)
-			chx = chx.upper();
+		if (chstr.upper() != chstr)
+			chstr = chstr.upper();
 	}
 	if (hl->effects() & ScStyle_SmallCaps)
 	{
-		if (chx.upper() != chx)
+		if (chstr.upper() != chstr)
 		{
 			tsz = hl->fontSize() * doc.typographicSettings.valueSmallCaps / 100;
-			chx = chx.upper();
+			chstr = chstr.upper();
 		}
 	}
 	if (hl->effects() & ScStyle_Superscript)
@@ -3156,8 +3157,8 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 	if ((hl->font()->isOTF()) || (!hl->font()->hasNames()) || (hl->font()->subset()) || (Options.SubsetList.contains(hl->font()->scName())))
 	{
-		uint chr = chx[0].unicode();
-		if ((hl->font()->canRender(chx[0])) && (chr != 32))
+		uint chr = chstr[0].unicode();
+		if ((hl->font()->canRender(chstr[0])) && (chr != 32))
 		{
 			if ((hl->strokeColor() != CommonStrings::None) && (hl->effects() & ScStyle_Outline))
 			{
@@ -3177,7 +3178,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			{
 				if (ite->reversed())
 				{
-					double wid = Cwidth(&doc, hl->font(), chx, hl->fontSize()) * (hl->scaleH() / 1000.0);
+					double wid = Cwidth(&doc, hl->font(), chstr, hl->fontSize()) * (hl->scaleH() / 1000.0);
 					tmp2 += "1 0 0 1 "+FToStr(hl->glyph.xoffset)+" "+FToStr((hl->glyph.yoffset - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (hl->baselineOffset() / 1000.0)))+" cm\n";
 					tmp2 += "-1 0 0 1 0 0 cm\n";
 					tmp2 += "1 0 0 1 "+FToStr(-wid)+" 0 cm\n";
@@ -3236,10 +3237,10 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			if (hl->effects() & ScStyle_SmartHyphenVisible)
 			{
 				int chs = hl->fontSize();
-				double wtr = Cwidth(&doc, hl->font(), chx, chs) * (hl->scaleH() / 1000.0);
+				double wtr = Cwidth(&doc, hl->font(), chstr, chs) * (hl->scaleH() / 1000.0);
 				tmp2 += "1 0 0 1 "+FToStr(wtr / (tsz / 10.0))+" 0 cm\n";
-				chx = "-";
-				chr = chx[0].unicode();
+				chstr = "-";
+				chr = chstr[0].unicode();
 				FPointArray gly = hl->font()->outline(chr).copy();
 				QWMatrix mat;
 				mat.scale(0.1, 0.1);
@@ -3277,7 +3278,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 	else
 	{
-		cc = chx[0].unicode();
+		cc = chstr[0].unicode();
 		idx = 0;
 		if (GlyphsIdxOfFont[hl->font()->scName()].contains(cc))
 			idx = GlyphsIdxOfFont[hl->font()->scName()][cc].Code;
@@ -3307,15 +3308,15 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 				double wtr;
 				if (ite->frameDisplays(d+1))
 				{
-					QString ctx = ite->itemText.at(d+1)->ch;
+					QString ctx = ite->itemText.text(d+1, 1);
 					if (ctx == SpecialChars::NBSPACE)
 						ctx = " ";
 					if (ctx == QChar(0xA0))
 						ctx = " ";
-					wtr = Cwidth(&doc, hl->font(), chx, chs, ctx) * (hl->scaleH() / 1000.0);
+					wtr = Cwidth(&doc, hl->font(), chstr, chs, ctx) * (hl->scaleH() / 1000.0);
 				}
 				else
-					wtr = Cwidth(&doc, hl->font(), chx, chs) * (hl->scaleH() / 1000.0);
+					wtr = Cwidth(&doc, hl->font(), chstr, chs) * (hl->scaleH() / 1000.0);
 				tmp +=  FToStr(-QMIN(QMAX(hl->scaleH(), 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->scaleV(), 100), 4000) / 1000.0)+" "+FToStr(hl->glyph.xoffset+wtr)+" "+FToStr(-hl->glyph.yoffset+(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0))+" Tm\n";
 //				tmp += "-1 0 0 1 "+FToStr(wtr)+" "+FToStr(0)+" Tm\n";
 			}
@@ -3331,10 +3332,10 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			if (hl->effects() & ScStyle_SmartHyphenVisible)
 			{
 				int chs = hl->fontSize();
-				double wtr = Cwidth(&doc, hl->font(), chx, chs) * (hl->scaleH() / 1000.0);
+				double wtr = Cwidth(&doc, hl->font(), chstr, chs) * (hl->scaleH() / 1000.0);
 				tmp += "1 0 0 1 "+FToStr(hl->glyph.xoffset+wtr)+" "+FToStr(-hl->glyph.yoffset)+" Tm\n";
-				chx = "-";
-				cc = chx[0].unicode();
+				chstr = "-";
+				cc = chstr[0].unicode();
 				idx = 0;
 				if (GlyphsIdxOfFont[hl->font()->scName()].contains(cc))
 					idx = GlyphsIdxOfFont[hl->font()->scName()][cc].Code;
@@ -3345,9 +3346,9 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			}
 		}
 	}
-	if (((hl->effects() & ScStyle_Underline) && (chx != SpecialChars::PARSEP))  || ((hl->effects() & ScStyle_UnderlineWords) && (!chx[0].isSpace())))
+	if (((hl->effects() & ScStyle_Underline) && (chstr != SpecialChars::PARSEP))  || ((hl->effects() & ScStyle_UnderlineWords) && (!chstr[0].isSpace())))
 	{
-		double Ulen = Cwidth(&doc, hl->font(), chx, hl->fontSize()) * (hl->scaleH() / 1000.0);
+		double Ulen = Cwidth(&doc, hl->font(), chstr, hl->fontSize()) * (hl->scaleH() / 1000.0);
 		double Upos, Uwid, kern;
 		if (hl->effects() & ScStyle_StartOfLine)
 			kern = 0;
@@ -3378,9 +3379,9 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		tmp2 += FToStr(hl->glyph.xoffset+Ulen)+" "+FToStr(-hl->glyph.yoffset+Upos)+" l\n";
 		tmp2 += "S\n";
 	}
-	if ((hl->effects() & ScStyle_Strikethrough) && (chx != SpecialChars::PARSEP))
+	if ((hl->effects() & ScStyle_Strikethrough) && (chstr != SpecialChars::PARSEP))
 	{
-		double Ulen = Cwidth(&doc, hl->font(), chx, hl->fontSize()) * (hl->scaleH() / 1000.0);
+		double Ulen = Cwidth(&doc, hl->font(), chstr, hl->fontSize()) * (hl->scaleH() / 1000.0);
 		double Upos, Uwid, kern;
 		if (hl->effects() & ScStyle_StartOfLine)
 			kern = 0;

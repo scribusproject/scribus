@@ -147,7 +147,7 @@ static void replaceFonts(PageItem *it, QMap<QString, int> UsedFonts, QMap<QStrin
 			Foi* oldFont = it->itemText.charStyle(start).font();
 			if (!UsedFonts.contains(oldFont->scName())) {
 				newFontStyle.setFont((*ScMW->doc->AllFonts)[ReplacedFonts[oldFont->scName()]]);
-				it->itemText.applyStyle(start, it->itemText.endOfRun(e) - start, newFontStyle );
+				it->itemText.applyCharStyle(start, it->itemText.endOfRun(e) - start, newFontStyle );
 			}
 		}
 	}
@@ -510,9 +510,13 @@ bool FileLoader::postLoad()
 		}
 		for (uint a = 0; a < ScMW->doc->docParagraphStyles.count(); ++a)
 		{
-			if ( ScMW->doc->docParagraphStyles[a].charStyle().font() != &Foi::NONE && !ScMW->doc->UsedFonts.contains(ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()))
+			if ( ScMW->doc->docParagraphStyles[a].charStyle().font()
+				 && ScMW->doc->docParagraphStyles[a].charStyle().font() != &Foi::NONE 
+				 && !ScMW->doc->UsedFonts.contains(ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()))
+			{
 				ScMW->doc->docParagraphStyles[a].charStyle().setFont
 					((*ScMW->doc->AllFonts)[ReplacedFonts[ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()]]);
+			}
 		}
 		QValueList<QString> tmpList;
 		tmpList.clear();

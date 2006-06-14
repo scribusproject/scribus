@@ -410,11 +410,11 @@ void SearchReplace::slotDoSearch()
 		{
 			if (SText->isChecked())
 			{
-				QString chx = Item->itemText.text(a,1);
+				QString chstr = Item->itemText.text(a,1);
 				if (CaseIgnore->isChecked())
-					chx = chx.lower();
-				found = chx == sText.mid(inde, 1) ? true : false;
-				if ((Word->isChecked()) && (inde == 0) && (chx[0].isSpace()))
+					chstr = chstr.lower();
+				found = chstr == sText.mid(inde, 1) ? true : false;
+				if ((Word->isChecked()) && (inde == 0) && (chstr[0].isSpace()))
 					found = true;
 			}
 			else
@@ -432,8 +432,8 @@ void SearchReplace::slotDoSearch()
 #ifndef NLS_PROTO
 			if (SStyle->isChecked())
 			{
-				if (Item->itemText.at(a)->cab != sStyle)
-					found = false;
+//				if (Item->itemText.item(a)->cab != sStyle)
+//					found = false;
 			}
 #endif
 			if (SStroke->isChecked())
@@ -569,8 +569,8 @@ void SearchReplace::slotDoSearch()
 									found = false;
 								if ((SFont->isChecked()) && (hg->charStyle.font()->scName() != sFont))
 									found = false;
-								if ((SStyle->isChecked()) && (hg->cab != sStyle))
-									found = false;
+//								if ((SStyle->isChecked()) && (hg->cab != sStyle))
+//									found = false;
 								if ((SStroke->isChecked()) && (hg->charStyle.strokeColor() != sCol))
 									found = false;
 								if ((SStrokeS->isChecked()) && (hg->charStyle.strokeShade() != sStrokeSh))
@@ -605,8 +605,8 @@ void SearchReplace::slotDoSearch()
 								found = false;
 							if ((SFont->isChecked()) && (hg->charStyle.font()->scName() != sFont))
 								found = false;
-							if ((SStyle->isChecked()) && (hg->cab != sStyle))
-								found = false;
+//							if ((SStyle->isChecked()) && (hg->cab != sStyle))
+//								found = false;
 							if ((SStroke->isChecked()) && (hg->charStyle.strokeColor() != sCol))
 								found = false;
 							if ((SStrokeS->isChecked()) && (hg->charStyle.strokeShade() != sStrokeSh))
@@ -693,7 +693,7 @@ void SearchReplace::slotDoReplace()
 						Item->itemText.replaceChar(ReplStart+cs, repl[cs]);
 					for (cx = cs; cx < repl.length(); ++cx)
 					{
-#ifndef NLS_PROTO
+#if 0
 						hg = new ScText;
 						hg->ch = repl[cx];
 						if (RSize->isChecked())
@@ -721,7 +721,8 @@ void SearchReplace::slotDoReplace()
 						hg->setStrikethruOffset(Doc->currentStyle.charStyle().strikethruOffset());
 						hg->setStrikethruWidth(Doc->currentStyle.charStyle().strikethruWidth());
 						hg->setEffects(Doc->currentStyle.charStyle().effects());
-						if (RStyle->isChecked())
+/* FIXME NLS
+							if (RStyle->isChecked())
 							hg->cab = RStyleVal->currentItem();
 						else
 							hg->cab = findParagraphStyle(Doc, Doc->currentStyle);
@@ -731,6 +732,7 @@ void SearchReplace::slotDoReplace()
 							hg->setFontSize(Doc->docParagraphStyles[hg->cab].charStyle().fontSize());
 							hg->setEffects(Doc->docParagraphStyles[hg->cab].charStyle().effects());
 						}
+*/
 						if (RFont->isChecked())
 							hg->setFont((*Doc->AllFonts)[RFontVal->currentText()]);
 						else
@@ -741,6 +743,7 @@ void SearchReplace::slotDoReplace()
 						Item->itemText.insertChars(ReplStart+cx, repl.mid(cx,1)); 
 #endif
 					}
+					// FIXME:NLS also replace styles!!
 					Item->CPos = ReplStart+cx;
 				}
 				else
@@ -775,10 +778,10 @@ void SearchReplace::slotDoReplace()
 			{
 				if (Item->itemText.selected(a))
 				{
-					StyleFlag fl = Item->itemText.at(a)->effects();
+					StyleFlag fl = Item->itemText.item(a)->effects();
 					fl &= static_cast<StyleFlag>(~1919);
 					fl |= static_cast<StyleFlag>(s);
-					Item->itemText.at(a)->setEffects(fl);
+					Item->itemText.item(a)->setEffects(fl);
 				}
 			}
 #endif

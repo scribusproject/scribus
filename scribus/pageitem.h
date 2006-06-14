@@ -396,6 +396,7 @@ public:
 	bool isAutoText;
 #ifndef NLS_PROTO
 protected:
+	uint firstChar;
 	uint MaxChars;
 public:
 #endif

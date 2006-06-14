@@ -730,7 +730,7 @@ void SEditor::saveItemText(PageItem *currItem)
 			}
 			int pos = currItem->itemText.length();
 			if (newStyle != curStyle) {
-				currItem->itemText.applyStyle(startOfCurStyle, pos - startOfCurStyle, curStyle);
+				currItem->itemText.applyCharStyle(startOfCurStyle, pos - startOfCurStyle, curStyle);
 				curStyle = newStyle;
 				startOfCurStyle = pos;       
 			}
@@ -771,7 +771,7 @@ void SEditor::saveItemText(PageItem *currItem)
 				currItem->itemText.insertChars(pos, ch);
 			}
 			if (newStyle != curStyle) {
-				currItem->itemText.applyStyle(startOfCurStyle, pos - startOfCurStyle, curStyle);
+				currItem->itemText.applyCharStyle(startOfCurStyle, pos - startOfCurStyle, curStyle);
 				curStyle = newStyle;                                
 				startOfCurStyle = pos;
 			}
@@ -780,7 +780,7 @@ void SEditor::saveItemText(PageItem *currItem)
 			}
 		}
 	}
-	currItem->itemText.applyStyle(startOfCurStyle, currItem->itemText.length() - startOfCurStyle, curStyle);
+	currItem->itemText.applyCharStyle(startOfCurStyle, currItem->itemText.length() - startOfCurStyle, curStyle);
 	if (StyledText.count() > 1)
 		currItem->itemText.applyStyle(currItem->itemText.length() - 1, (doc->docParagraphStyles[ParagStyles[StyledText.count()-2]])); // -1 -1 == -2
 }
@@ -876,9 +876,9 @@ void SEditor::loadItemText(PageItem *currItem)
 				hg->charStyle = style;
 				hg->cab = QMAX(0, findParagraphStyle(doc, nextItem->itemText.paragraphStyle(a)));
 #ifndef NLS_PROTO
-				if (hg->ch == QChar(25))
+				if (hg->ch == SpecialChars::OBJECT)
 				{
-					hg->cembedded = nextItem->itemText.at(a)->cembedded;
+					hg->cembedded = nextItem->itemText.item(a)->cembedded;
 					FrameItems.append(hg->cembedded);
 					if (hg->cembedded->Groups.count() != 0)
 					{
@@ -1875,6 +1875,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	seMenuMgr=NULL;
 	buildGUI();
 	currItem = ite;
+	charSelect = NULL;
 	firstSet = false;
 	activFromApp = true;
 	Editor->loadItemText(ite);
@@ -1899,6 +1900,7 @@ StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", W
 	prefsManager=PrefsManager::instance();
 	currDoc = NULL;
 	currItem = NULL;
+	charSelect = NULL;
 	#ifdef Q_WS_MAC
 	noIcon = loadIcon("noicon.xpm");
 	#endif
@@ -3144,22 +3146,22 @@ void StoryEditor::updateTextFrame()
 	while (nb2 != 0)
 	{
 #ifndef NLS_PROTO
-		for (ScText *it = nb2->itemText.first(); it != 0; it = nb2->itemText.next())
+		for (int j = nb2->firstInFrame(); j <= nb2->lastInFrame(); ++j)
 		{
-			if ((it->ch == QChar(25)) && (it->cembedded != 0))
+			if ((nb2->itemText.text(j) == SpecialChars::OBJECT) && (nb2->itemText.item(j)->cembedded != 0))
 			{
 				QPtrList<PageItem> emG;
 				emG.clear();
-				emG.append(it->cembedded);
-				if (it->cembedded->Groups.count() != 0)
+				emG.append(nb2->itemText.item(j)->cembedded);
+				if (nb2->itemText.item(j)->cembedded->Groups.count() != 0)
 				{
 					for (uint ga=0; ga<Editor->FrameItems.count(); ++ga)
 					{
 						if (Editor->FrameItems.at(ga)->Groups.count() != 0)
 						{
-							if (Editor->FrameItems.at(ga)->Groups.top() == it->cembedded->Groups.top())
+							if (Editor->FrameItems.at(ga)->Groups.top() == nb2->itemText.item(j)->cembedded->Groups.top())
 							{
-								if (Editor->FrameItems.at(ga)->ItemNr != it->cembedded->ItemNr)
+								if (Editor->FrameItems.at(ga)->ItemNr != nb2->itemText.item(j)->cembedded->ItemNr)
 								{
 									if (emG.find(Editor->FrameItems.at(ga)) == -1)
 										emG.append(Editor->FrameItems.at(ga));

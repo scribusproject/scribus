@@ -69,7 +69,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 	uint a;
 	int chs;
 	double wide;
-	QString chx, chx2, chx3;
+	QString chstr, chstr2, chstr3;
 	ScText *hl;
 	struct ZZ *Zli;
 	double dx;
@@ -102,30 +102,30 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 	for (a = 0; a < itemText.length(); ++a)
 	{
 		CurY = 0;
-		hl = itemText.at(a);
-		chx = hl->ch;
-		if ((chx == QChar(30)) || (chx == QChar(13)) || (chx == QChar(9)) || (chx == QChar(28)))
+		hl = itemText.item(a);
+		chstr = hl->ch;
+		if ((chstr == QChar(30)) || (chstr == QChar(13)) || (chstr == QChar(9)) || (chstr == QChar(28)))
 			continue;
 		chs = hl->fontSize();
-		SetZeichAttr(*hl, &chs, &chx);
-		if (chx == QChar(29))
-			chx2 = " ";
-		else if (chx == QChar(24))
-			chx2 = "-";
+		SetZeichAttr(*hl, &chs, &chstr);
+		if (chstr == QChar(29))
+			chstr2 = " ";
+		else if (chstr == QChar(24))
+			chstr2 = "-";
 		else
-			chx2 = chx;
-		if (a < itemText.count()-1)
+			chstr2 = chstr;
+		if (a < itemText.length()-1)
 		{
-			if (itemText.at(a+1)->ch == QChar(29))
-				chx3 = " ";
-			else if (itemText.at(a+1)->ch == QChar(24))
-				chx3 = "-";
+			if (itemText.text(a+1) == QChar(29))
+				chstr3 = " ";
+			else if (itemText.text(a+1) == QChar(24))
+				chstr3 = "-";
 			else
-				chx3 = itemText.at(a+1)->ch;
-			wide = Cwidth(m_Doc, hl->font(), chx2, chs, chx3);
+				chstr3 = itemText.text(a+1, 1);
+			wide = Cwidth(m_Doc, hl->font(), chstr2, chs, chstr3);
 		}
 		else
-			wide = Cwidth(m_Doc, hl->font(), chx2, chs);
+			wide = Cwidth(m_Doc, hl->font(), chstr2, chs);
 		wide = wide * (hl->scaleH() / 1000.0);
 		dx = wide / 2.0;
 		CurX += dx;
@@ -194,7 +194,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		QWMatrix savWM = p->worldMatrix();
 		p->setWorldMatrix(trafo);
 		Zli = new ZZ;
-		Zli->Zeich = chx;
+		Zli->Zeich = chstr;
 		if (hl->fillColor() != CommonStrings::None)
 		{
 			QColor tmp;
@@ -213,7 +213,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		Zli->shade2 = hl->strokeShade();
 		Zli->xco = 0;
 		Zli->yco = BaseOffs;
-		Zli->Sele = hl->cselect;
+		Zli->Sele = itemText.selected(a);
 		Zli->Siz = chs;
 		Zli->realSiz = hl->fontSize();
 		Zli->Style = hl->effects();

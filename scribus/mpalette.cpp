@@ -2647,7 +2647,7 @@ void Mpalette::NewExtra()
 			if (CurItem->CPos != CurItem->itemText.length())
 			{
 #ifndef NLS_PROTO
-				CurItem->itemText.at(CurItem->CPos)->setTracking(qRound(Extra->value() * 10.0));
+				CurItem->itemText.item(CurItem->CPos)->setTracking(qRound(Extra->value() * 10.0));
 #endif
 				m_MainWindow->view->RefreshItem(CurItem);
 				emit DocChanged();

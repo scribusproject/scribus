@@ -77,12 +77,13 @@ void ReplaceColor(QString col, QString rep)
 		PageItem *ite = ScMW->doc->Items->at(c);
 		if (ite->itemType() == PageItem::TextFrame)
 		{
-			for (uint d = 0; d < ite->itemText.count(); d++)
+			for (int d = 0; d < ite->itemText.length(); d++)
 			{
-				if (col == ite->itemText.at(d)->fillColor())
-					ite->itemText.at(d)->setFillColor(rep);
-				if (col == ite->itemText.at(d)->strokeColor())
-					ite->itemText.at(d)->setStrokeColor(rep);
+				//FIXME:NLS  that should work on runs
+				if (col == ite->itemText.charStyle(d).fillColor())
+					ite->itemText.item(d)->setFillColor(rep);
+				if (col == ite->itemText.charStyle(d).strokeColor())
+					ite->itemText.item(d)->setStrokeColor(rep);
 			}
 		}
 		if (col == ite->fillColor())
@@ -105,12 +106,13 @@ void ReplaceColor(QString col, QString rep)
 		PageItem *ite = ScMW->doc->MasterItems.at(c);
 		if (ite->itemType() == PageItem::TextFrame)
 		{
-			for (uint d = 0; d < ite->itemText.count(); d++)
+			for (int d = 0; d < ite->itemText.length(); d++)
 			{
-				if (col == ite->itemText.at(d)->fillColor())
-					ite->itemText.at(d)->setFillColor(rep);
-				if (col == ite->itemText.at(d)->strokeColor())
-					ite->itemText.at(d)->setStrokeColor(rep);
+				//FIXME: NLS this should work on runs
+				if (col == ite->itemText.charStyle(d).fillColor())
+					ite->itemText.item(d)->setFillColor(rep);
+				if (col == ite->itemText.charStyle(d).strokeColor())
+					ite->itemText.item(d)->setStrokeColor(rep);
 			}
 		}
 		if (col == ite->fillColor())

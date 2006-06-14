@@ -319,7 +319,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	text.replace(QChar(10),QChar(13)).replace(QChar(5),QChar(13));
 	previewItem->itemText.insertChars(0, text);
 	doc->chAbStyle(previewItem, tmpIndex);
-	previewItem->itemText.applyStyle(0, text.length(), tmpStyle.charStyle());
+	previewItem->itemText.applyCharStyle(0, text.length(), tmpStyle.charStyle());
 	previewItem->setFillColor("__whiteforpreviewbg__");
 	previewItem->setFillShade(bgShade);
 	previewItem->SetRectFrame();

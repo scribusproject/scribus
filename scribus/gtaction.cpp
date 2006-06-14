@@ -187,7 +187,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 		int pos = it->itemText.length();
 		it->itemText.insertChars(pos, QString(ch));
 		if (newStyle != lastStyle) {
-			it->itemText.applyStyle(lastStyleStart, pos-lastStyleStart, lastStyle);
+			it->itemText.applyCharStyle(lastStyleStart, pos-lastStyleStart, lastStyle);
 			lastStyle = newStyle;
 			lastStyleStart = pos;
 		}
@@ -195,7 +195,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 			it->itemText.applyStyle(pos, ScMW->doc->docParagraphStyles[paragraphStyle]);
 		}
 	}
-	it->itemText.applyStyle(lastStyleStart, it->itemText.length()-lastStyleStart, lastStyle);
+	it->itemText.applyCharStyle(lastStyleStart, it->itemText.length()-lastStyleStart, lastStyle);
 	it->itemText.applyStyle(it->itemText.length()-1, ScMW->doc->docParagraphStyles[paragraphStyle]);
 	
 	lastCharWasLineChange = text.right(1) == "\n";

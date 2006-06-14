@@ -2212,8 +2212,10 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 				break;
 			}
 		}
-		s.device()->at( resBase + resSize );
-		offset += resSize;
+		if (resBase + resSize <= size) {
+			s.device()->at( resBase + resSize );
+			offset += resSize;
+		}
 		if (resSize & 1)
 		{
 			s >> filler;

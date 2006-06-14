@@ -67,11 +67,11 @@ void SWParse::parseItem(PageItem *aFrame)
 		return; // no changes
 
 	// get text from frame
-	uint i;
+	int i;
 	for (i=0; i < aFrame->itemText.length() && ! aFrame->frameDisplays(i); ++i)
 		;
 	for (; i < aFrame->itemText.length() && aFrame->frameDisplays(i); ++i)
-		content += aFrame->itemText.at(i)->ch;
+		content += aFrame->itemText.text(i,1);
 	changes = content.contains(UNBREAKABLE_SPACE);
 
 	// for every config string, replace its spaces by nbsp's.
@@ -112,7 +112,7 @@ void SWParse::parseItem(PageItem *aFrame)
 	for (i=0; i < aFrame->itemText.length() && ! aFrame->frameDisplays(i); ++i)
 		;
 	for (; i < aFrame->itemText.length() && aFrame->frameDisplays(i); ++i)
-		aFrame->itemText.at(i)->ch = content.at(i);
+		aFrame->itemText.replaceChar(i, content.at(i));
 	if (content.contains(UNBREAKABLE_SPACE) > changes)
 		++modify;
 

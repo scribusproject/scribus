@@ -62,8 +62,8 @@ struct SCRIBUS_API GlyphLayout {
 class SCRIBUS_API ScText : public CharStyle
 {
 public:
-	bool cselect; // to go
-	short cab; // to go
+//	bool cselect; // to go
+//	short cab; // to go
 	ParagraphStyle* parstyle; // only for parseps
 	GlyphLayout glyph;
 	float PtransX;
@@ -71,7 +71,8 @@ public:
 	float PRot;
 	PageItem* cembedded;
 	QString ch;
-	ScText() : cselect(false), cab(0), parstyle(NULL), glyph(), 
+	ScText() : //cselect(false), cab(0), 
+		parstyle(NULL), glyph(), 
 		PtransX(0.0f), PtransY(0.0f), PRot(0.0f), cembedded(NULL), ch() {}
 	~ScText();
 };

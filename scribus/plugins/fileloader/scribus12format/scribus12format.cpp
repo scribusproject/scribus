@@ -932,7 +932,6 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 	tmp2.replace(QRegExp("\t"), QChar(4));
 	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
 	bool unknown = false;
-	ScText *hg;
 	Foi* dummy = NULL;
 	PrefsManager* prefsManager=PrefsManager::instance();
 	if ((!prefsManager->appPrefs.AvailFonts.find(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf]->usable()))
@@ -992,7 +991,7 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 	int ulw = qRound(it->attribute("CULW", "-0.1").toDouble() * 10);
 	int stp = qRound(it->attribute("CSTP", "-0.1").toDouble() * 10);
 	int stw = qRound(it->attribute("CSTW", "-0.1").toDouble() * 10);
-#ifndef NLS_PROTO
+#if 0
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		hg = new ScText;
@@ -1044,49 +1043,49 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 		CharStyle style;
 		QChar ch = tmp2.at(cxx);
 		if (ch == QChar(5))
-			ch = QChar(13);
+			ch = SpecialChars::PARSEP;
 		if (ch == QChar(4))
-			ch = QChar(9);
+			ch = SpecialChars::TAB;
 		if (unknown)
-			style.cfont = dummy;
+			style.setFont(dummy);
 		else
-			style.cfont = (*doc->AllFonts)[tmpf];
-		style.csize = size;
-		style.ccolor = fcolor;
-		style.cextra = extra;
-		style.cshade = shade;
-		style.cstyle = cstyle;
-		/*FIXME:NLS
-			if (impo)
+			style.setFont((*doc->AllFonts)[tmpf]);
+		style.setFontSize(size);
+		style.setFillColor(fcolor);
+		style.setTracking(extra);
+		style.setFillShade(shade);
+		style.setEffects(static_cast<StyleFlag>(cstyle));
+		/* FIXME:NLS
+		if (impo)
 		{
-				if (VorLFound)
-					hg->cab = DoVorl[ab].toUInt();
+			if (VorLFound)
+				hg->cab = DoVorl[ab].toUInt();
+			else
+			{
+				if (ab < 5)
+					hg->cab = ab;
 				else
-				{
-					if (ab < 5)
-						hg->cab = ab;
-					else
-						hg->cab = 0;
-				}
+					hg->cab = 0;
+			}
 		}
 		else
 			hg->cab = ab;
-		*/
-		style.cstroke = stroke;
-		style.cshade2 = shade2;
-		style.cscale = QMIN(QMAX(scale, 100), 4000);
-		style.cscalev = QMIN(QMAX(scalev, 100), 4000);
-		style.cbase = base;
-		style.cshadowx = shX;
-		style.cshadowy = shY;
-		style.coutline = outL;
-		style.cunderpos = ulp;
-		style.cunderwidth = ulw;
-		style.cstrikepos = stp;
-		style.cstrikewidth = stw;
+*/
+		style.setStrokeColor(stroke);
+		style.setStrokeShade(shade2);
+		style.setScaleH(QMIN(QMAX(scale, 100), 4000));
+		style.setScaleV(QMIN(QMAX(scalev, 100), 4000));
+		style.setBaselineOffset(base);
+		style.setShadowXOffset(shX);
+		style.setShadowYOffset(shY);
+		style.setOutlineWidth(outL);
+		style.setUnderlineOffset(ulp);
+		style.setUnderlineWidth(ulw);
+		style.setStrikethruOffset(stp);
+		style.setStrikethruWidth(stw);
 		int pos = obj->itemText.length();
 		obj->itemText.insertChars(pos, QString(ch));
-		obj->itemText.applyStyle(pos, 1, style);
+		obj->itemText.applyCharStyle(pos, 1, style); // FIXME:NLS
 	}
 #endif	
 	return;

@@ -28,9 +28,9 @@ PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 	}
 	if (it->HasSel)
 	{
-		for (uint b = 0; b < it->itemText.count(); b++)
-			if (it->itemText.at(b)->cselect)
-				return PyFloat_FromDouble(static_cast<double>(it->itemText.at(b)->fontSize() / 10.0));
+		for (uint b = 0; b < it->itemText.length(); b++)
+			if (it->itemText.selected(b))
+				return PyFloat_FromDouble(static_cast<double>(it->itemText.charStyle(b).fontSize() / 10.0));
 		return NULL;
 	}
 	else
@@ -54,9 +54,9 @@ PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
 	}
 	if (it->HasSel)
 	{
-		for (uint b = 0; b < it->itemText.count(); b++)
-			if (it->itemText.at(b)->cselect)
-				return PyString_FromString(it->itemText.at(b)->font()->scName().utf8());
+		for (uint b = 0; b < it->itemText.length(); b++)
+			if (it->itemText.selected(b))
+				return PyString_FromString(it->itemText.charStyle(b).font()->scName().utf8());
 		return NULL;
 	}
 	else
@@ -78,7 +78,7 @@ PyObject *scribus_gettextsize(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text size of non-text frame.","python error"));
 		return NULL;
 	}
-	return PyInt_FromLong(static_cast<long>(i->itemText.count()));
+	return PyInt_FromLong(static_cast<long>(i->itemText.length()));
 }
 
 PyObject *scribus_getcolumns(PyObject* /* self */, PyObject* args)
@@ -151,16 +151,16 @@ PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text of non-text frame.","python error"));
 		return NULL;
 	}
-	for (uint a = 0; a < it->itemText.count(); a++)
+	for (uint a = it->firstInFrame(); a < it->lastInFrame(); a++)
 	{
 		if (it->HasSel)
 		{
-			if (it->itemText.at(a)->cselect)
-				text += it->itemText.at(a)->ch;
+			if (it->itemText.selected(a))
+				text += it->itemText.text(a);
 		}
 		else
 		{
-			text += it->itemText.at(a)->ch;
+			text += it->itemText.text(a);
 		}
 	}
 	return PyString_FromString(text.utf8());
@@ -182,63 +182,20 @@ PyObject *scribus_gettext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text of non-text frame.","python error"));
 		return NULL;
 	}
-	PageItem *is = NULL;
-	// Scan backwards to find the first frame in a linked series
-	while (it->BackBox != 0)
-	{
-		is = GetUniqueItem(it->BackBox->itemName());
-		if (is == NULL)
-		{
-			// While GetUniqueItem has already set an exception, we'll
-			// overwrite that with a more suitable one for this particular case.
-			// Not making this translatable, since it shouldnt' be seen and it's more important for
-			// us to be able to understand the error if it's reported.
-			PyErr_SetString(ScribusException, QString("(System Error) Broken linked frame series when scanning back"));
-			return NULL;
-		}
-		it = is;
-	} // while
-	///FIXME: What does this do? Could use a comment for explanation
-	for (uint a = 0; a < it->itemText.count(); a++)
+
+	// collect all chars from a storytext
+	for (uint a = 0; a < it->itemText.length(); a++)
 	{
 		if (it->HasSel)
 		{
-			if (it->itemText.at(a)->cselect)
-				text += it->itemText.at(a)->ch;
+			if (it->itemText.selected(a))
+				text += it->itemText.text(a);
 		}
 		else
 		{
-			text += it->itemText.at(a)->ch;
+			text += it->itemText.text(a);
 		}
 	} // for
-	// Scan forward through linked frames and ... what?
-	while (it->NextBox != 0)
-	{
-		is = GetUniqueItem(it->NextBox->itemName());
-		if (is == NULL)
-		{
-			// While GetUniqueItem has already set an exception, we'll
-			// overwrite that with a more suitable one for this particular case.
-			// Not making this translatable, since it shouldnt' be seen and it's more important for
-			// us to be able to understand the error if it's reported.
-			PyErr_SetString(ScribusException, QString("(System Error) Broken linked frame series when scanning forward"));
-			return NULL;
-		}
-		it = is;
-		assert(it != NULL);
-		for (uint a = 0; a < it->itemText.count(); a++)
-		{
-			if (it->HasSel)
-			{
-				if (it->itemText.at(a)->cselect)
-					text += it->itemText.at(a)->ch;
-			}
-			else
-			{
-				text += it->itemText.at(a)->ch;
-			}
-		} // for
-	} // while
 	return PyString_FromString(text.utf8());
 }
 
@@ -260,55 +217,13 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 	}
 	QString Daten = QString::fromUtf8(Text);
 	PyMem_Free(Text);
-	if (currItem->NextBox != 0)
-	{
-		PageItem *nextItem = currItem->NextBox;
-		while (nextItem != 0)
-		{
-			for (ScText *itx = nextItem->itemText.first(); itx != 0; itx = nextItem->itemText.next())
-			{
-				if ((itx->ch == QChar(25)) && (itx->cembedded != 0))
-				{
-					ScMW->doc->FrameItems.remove(itx->cembedded);
-					delete itx->cembedded;
-				}
-			}
-			nextItem->itemText.clear();
-			nextItem->CPos = 0;
-			nextItem = nextItem->NextBox;
-		}
-	}
-	for (ScText *itx = currItem->itemText.first(); itx != 0; itx = currItem->itemText.next())
-	{
-		if ((itx->ch == QChar(25)) && (itx->cembedded != 0))
-		{
-			ScMW->doc->FrameItems.remove(itx->cembedded);
-			delete itx->cembedded;
-		}
-	}
 	currItem->itemText.clear();
 	currItem->CPos = 0;
 	for (uint a = 0; a < ScMW->doc->FrameItems.count(); ++a)
 	{
 		ScMW->doc->FrameItems.at(a)->ItemNr = a;
 	}
-	for (uint a = 0; a < Daten.length(); ++a)
-	{
-		ScText *hg = new ScText;
-		hg->ch = Daten.at(a);
-		if (hg->ch == QChar(10))
-			hg->ch = QChar(13);
-		*dynamic_cast<CharStyle*>(hg) = currItem->currentCharStyle();
-		hg->cselect = false;
-		hg->cab = findParagraphStyle(ScMW->doc, ScMW->doc->currentStyle);
-		hg->glyph.xoffset = 0;
-		hg->glyph.yoffset = 0;
-		hg->PRot = 0;
-		hg->PtransX = 0;
-		hg->PtransY = 0;
-		hg->cembedded = 0;
-		currItem->itemText.append(hg);
-	}
+	currItem->itemText.insertChars(0, Daten);
 	currItem->Dirty = false;
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -333,49 +248,14 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 	}
 	QString Daten = QString::fromUtf8(Text);
 	PyMem_Free(Text);
-	if ((pos < -1) || (pos > static_cast<int>(it->itemText.count())))
+	if ((pos < -1) || (pos > static_cast<int>(it->itemText.length())))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Insert index out of bounds.","python error"));
 		return NULL;
 	}
 	if (pos == -1)
-		pos = it->itemText.count();
+		pos = it->itemText.length();
 	it->itemText.insertChars(pos, Daten);
-/*	for (uint a = 0; a < Daten.length(); ++a)
-	{
-		ScText *hg = new ScText;
-		hg->ch = Daten.at(Daten.length()-1-a);
-		if (hg->ch == QChar(10))
-			hg->ch = QChar(13);
-		hg->cfont = (*ScMW->doc->AllFonts)[it->font()];
-		hg->csize = it->fontSize();
-		hg->ccolor = it->TxtFill;
-		hg->cshade = it->ShTxtFill;
-		hg->cstroke = it->TxtStroke;
-		hg->cshade2 = it->ShTxtStroke;
-		hg->cscale = it->TxtScale;
-		hg->cscalev = it->TxtScaleV;
-		hg->cbase = it->TxtBase;
-		hg->cshadowx = it->TxtShadowX;
-		hg->cshadowy = it->TxtShadowY;
-		hg->coutline = it->TxtOutline;
-		hg->cunderpos = it->TxtUnderPos;
-		hg->cunderwidth = it->TxtUnderWidth;
-		hg->cstrikepos = it->TxtStrikePos;
-		hg->cstrikewidth = it->TxtStrikeWidth;
-		hg->cextra = 0;
-		hg->cselect = false;
-		hg->cstyle = ScStyle_Default;
-		hg->cab = ScMW->doc->currentParaStyle;
-		hg->xp = 0;
-		hg->yp = 0;
-		hg->PRot = 0;
-		hg->PtransX = 0;
-		hg->PtransY = 0;
-		hg->cembedded = 0;
-		it->itemText.insert(pos, hg);
-	}
-	*/
 	it->CPos = pos + Daten.length();
 	it->Dirty = true;
 	if (ScMW->doc->DoDrawing)
@@ -582,13 +462,13 @@ PyObject *scribus_selecttext(PyObject* /* self */, PyObject* args)
 	if (selcount == -1)
 	{
 		// user wants to select all after the start point -- CR
-		selcount = it->itemText.count() - start;
+		selcount = it->itemText.length() - start;
 		if (selcount < 0)
 			// user passed start that's > text in the frame
 			selcount = 0;
 	}
 	// cr 2005-01-18 fixed off-by-one with end bound that made selecting the last char impossible
-	if ((start < 0) || ((start + selcount) > static_cast<int>(it->itemText.count())))
+	if ((start < 0) || ((start + selcount) > static_cast<int>(it->itemText.length())))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Selection index out of bounds", "python error"));
 		return NULL;
@@ -605,16 +485,14 @@ PyObject *scribus_selecttext(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	*/
-	for (uint a = 0; a < it->itemText.count(); ++a)
-		it->itemText.at(a)->cselect = false;
+	it->itemText.deselectAll();
 	if (selcount == 0)
 	{
 		it->HasSel = false;
 		Py_INCREF(Py_None);
 		return Py_None;
 	}
-	for (int aa = start; aa < (start + selcount); ++aa)
-		it->itemText.at(aa)->cselect = true;
+	it->itemText.select(start, selcount, true);
 	it->HasSel = true;
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -639,14 +517,6 @@ PyObject *scribus_deletetext(PyObject* /* self */, PyObject* args)
 		dynamic_cast<PageItem_TextFrame*>(it)->deleteSelectedTextFromFrame();
 	else
 	{
-		for (ScText *itx = it->itemText.first(); itx != 0; itx = it->itemText.next())
-		{
-			if ((itx->ch == QChar(25)) && (itx->cembedded != 0))
-			{
-				ScMW->doc->FrameItems.remove(itx->cembedded);
-				delete itx->cembedded;
-			}
-		}
 		it->itemText.clear();
 		it->CPos = 0;
 		for (uint a = 0; a < ScMW->doc->FrameItems.count(); ++a)
@@ -676,15 +546,16 @@ PyObject *scribus_settextfill(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		for (uint b = 0; b < it->itemText.count(); b++)
+		for (uint b = 0; b < it->itemText.length(); b++)
 		{
+			//FIXME: doc method
 			if (it->HasSel)
 			{
-				if (it->itemText.at(b)->cselect)
-					it->itemText.at(b)->setFillColor(QString::fromUtf8(Color));
+				if (it->itemText.selected(b))
+					it->itemText.item(b)->setFillColor(QString::fromUtf8(Color));
 			}
 			else
-				it->itemText.at(b)->setFillColor(QString::fromUtf8(Color));
+				it->itemText.item(b)->setFillColor(QString::fromUtf8(Color));
 		}
 //		it->TxtFill = QString::fromUtf8(Color);
 	}
@@ -710,15 +581,16 @@ PyObject *scribus_settextstroke(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		for (uint b = 0; b < it->itemText.count(); b++)
+		for (uint b = 0; b < it->itemText.length(); b++)
 		{
+			//FIXME:NLS use document method for this
 			if (it->HasSel)
 			{
-				if (it->itemText.at(b)->cselect)
-					it->itemText.at(b)->setStrokeColor(QString::fromUtf8(Color));
+				if (it->itemText.selected(b))
+					it->itemText.item(b)->setStrokeColor(QString::fromUtf8(Color));
 			}
 			else
-				it->itemText.at(b)->setStrokeColor(QString::fromUtf8(Color));
+				it->itemText.item(b)->setStrokeColor(QString::fromUtf8(Color));
 		}
 //		it->TxtStroke = QString::fromUtf8(Color);
 	}
@@ -749,15 +621,16 @@ PyObject *scribus_settextshade(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		for (uint b = 0; b < it->itemText.count(); ++b)
+		//FIXME:NLS use document method for that
+		for (uint b = 0; b < it->itemText.length(); ++b)
 		{
 			if (it->HasSel)
 			{
-				if (it->itemText.at(b)->cselect)
-					it->itemText.at(b)->setFillShade(w);
+				if (it->itemText.selected(b))
+					it->itemText.item(b)->setFillShade(w);
 			}
 			else
-				it->itemText.at(b)->setFillShade(w);
+				it->itemText.item(b)->setFillShade(w);
 		}
 //	it->ShTxtFill = w;
 	}
@@ -785,7 +658,7 @@ PyObject *scribus_linktextframes(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can only link text frames.","python error"));
 		return NULL;
 	}
-	if (toitem->itemText.count())
+	if (toitem->itemText.length() > 0)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Target frame must be empty.","python error"));
 		return NULL;
@@ -841,7 +714,8 @@ PyObject *scribus_unlinktextframes(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(ScribusException, QObject::tr("Object the last frame in a series, can't unlink. Unlink the previous frame instead.","python error"));
 		return NULL;
 	}
-	PageItem* nextbox = item->NextBox;
+/*	PageItem* nextbox = item->NextBox;
+
 	while (nextbox != 0)
 	{
 		uint a = nextbox->itemText.count();
@@ -852,8 +726,10 @@ PyObject *scribus_unlinktextframes(PyObject* /* self */, PyObject* args)
 	uint a2 = item->itemText.count();
 	for (uint s = 0; s < a2; ++s)
 		item->BackBox->itemText.append(item->itemText.take(0));
+*/
 	item->BackBox->NextBox = 0;
 	item->BackBox = 0;
+	item->itemText = StoryText(item->document());
 	// enable 'save icon' stuff
 	ScMW->slotDocCh();
 	ScMW->view->DrawNew();

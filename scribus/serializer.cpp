@@ -43,7 +43,7 @@ QString Serializer::GetObjekt()
 
 void Serializer::PutText(PageItem *Item)
 {
-	uint a;
+	int a;
 	QString Dat = "";
 	for (a=0; a < Item->itemText.length(); ++a)
 	{
@@ -57,14 +57,12 @@ void Serializer::PutText(PageItem *Item)
 
 void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, bool Append)
 {
-	ScText *hg;
 	PageItem *nextItem;
 	PageItem *it = Item;
 	ScribusDoc* doku = it->document();
-	uint a;
 	if (!Append)
 	{
-#ifndef NLS_PROTO
+#if 0
 		nextItem = Item;
 		while (nextItem != 0)
 		{
@@ -107,10 +105,10 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 	}
 	int insPos = Append? it->CPos : it->itemText.length();
 	it->itemText.insertChars(insPos, txt);
-	it->itemText.applyStyle(insPos, txt.length(), newstyle);
-#ifndef NLS_PROTO
-	for (int i=insPos; i < insPos + txt.length(); ++i) {
-		it->itemText.at(i)->cab = Absatz;
+	it->itemText.applyCharStyle(insPos, txt.length(), newstyle);
+#if 0
+	for (uint i=insPos; i < insPos + txt.length(); ++i) {
+		it->itemText.item(i)->cab = Absatz;
 	}
 #else
 	for (int i=0; i < it->itemText.nrOfParagraphs(); ++i) {

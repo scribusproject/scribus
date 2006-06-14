@@ -1754,7 +1754,6 @@ void SVGPlug::parseGradient( const QDomElement &e )
 
 QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 {
-	ScText *hg;
 	QPainter p;
 	QPtrList<PageItem> GElements;
 	p.begin(ScMW->view->viewport());
@@ -1827,32 +1826,34 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			 */
 			for (uint tt = 0; tt < Text.length(); ++tt)
 			{
-				hg = new ScText;
-				hg->ch = Text.at(tt);
-				hg->setFont((*currDoc->AllFonts)[gc->Family]);
-				hg->setFontSize(gc->FontSize);
-				hg->setFillColor(gc->FillCol);
-				hg->setTracking(0);
-				hg->setFillShade(100);
-				hg->setStrokeColor(gc->StrokeCol);
-				hg->setStrokeShade(100);
-				hg->setScaleH(1000);
-				hg->setScaleV(1000);
-				hg->setBaselineOffset(0);
-				hg->setShadowXOffset(50);
-				hg->setShadowYOffset(-50);
-				hg->setOutlineWidth(10);
-				hg->setUnderlineOffset(-1);
-				hg->setUnderlineWidth(-1);
-				hg->setStrikethruOffset(-1);
-				hg->setStrikethruWidth(-1);
+				CharStyle nstyle;
+				QString ch = Text.mid(tt,1);
+				nstyle.setFont((*currDoc->AllFonts)[gc->Family]);
+				nstyle.setFontSize(gc->FontSize);
+				nstyle.setFillColor(gc->FillCol);
+				nstyle.setTracking(0);
+				nstyle.setFillShade(100);
+				nstyle.setStrokeColor(gc->StrokeCol);
+				nstyle.setStrokeShade(100);
+				nstyle.setScaleH(1000);
+				nstyle.setScaleV(1000);
+				nstyle.setBaselineOffset(0);
+				nstyle.setShadowXOffset(50);
+				nstyle.setShadowYOffset(-50);
+				nstyle.setOutlineWidth(10);
+				nstyle.setUnderlineOffset(-1);
+				nstyle.setUnderlineWidth(-1);
+				nstyle.setStrikethruOffset(-1);
+				nstyle.setStrikethruWidth(-1);
 				if( !tspan.attribute( "stroke" ).isEmpty() )
-					hg->setEffects(ScStyle_Outline);
+					nstyle.setEffects(ScStyle_Outline);
 				else
-					hg->setEffects(ScStyle_Default);
-				ite->itemText.append(hg);
-				tempW += RealCWidth(currDoc, hg->font(), hg->ch, hg->fontSize())+1;
-				if (hg->ch == SpecialChars::PARSEP)
+					nstyle.setEffects(ScStyle_Default);
+				int pos = ite->itemText.length();
+				ite->itemText.insertChars(pos, ch);
+				ite->itemText.applyCharStyle(pos, 1, nstyle);
+				tempW += RealCWidth(currDoc, nstyle.font(), ch, nstyle.fontSize())+1;
+				if (ch == SpecialChars::PARSEP)
 				{
 					ite->setWidthHeight(QMAX(ite->width(), tempW), ite->height() + lineSpacing+desc);
 					tempW = 0;
@@ -1920,31 +1921,33 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		 */
 		for (uint cc = 0; cc<Text.length(); ++cc)
 		{
-			hg = new ScText;
-			hg->ch = Text.at(cc);
-			hg->setFont((*currDoc->AllFonts)[gc->Family]);
-			hg->setFontSize(gc->FontSize);
-			hg->setFillColor(gc->FillCol);
-			hg->setTracking(0);
-			hg->setFillShade(100);
-			hg->setStrokeColor(gc->StrokeCol);
-			hg->setStrokeShade(100);
-			hg->setScaleH(1000);
-			hg->setScaleV(1000);
-			hg->setBaselineOffset(0);
-			hg->setShadowXOffset(50);
-			hg->setShadowYOffset(-50);
-			hg->setOutlineWidth(10);
-			hg->setUnderlineOffset(-1);
-			hg->setUnderlineWidth(-1);
-			hg->setStrikethruOffset(-1);
-			hg->setStrikethruWidth(-1);
+			CharStyle nstyle;
+			QString ch = Text.mid(cc,1);
+			nstyle.setFont((*currDoc->AllFonts)[gc->Family]);
+			nstyle.setFontSize(gc->FontSize);
+			nstyle.setFillColor(gc->FillCol);
+			nstyle.setTracking(0);
+			nstyle.setFillShade(100);
+			nstyle.setStrokeColor(gc->StrokeCol);
+			nstyle.setStrokeShade(100);
+			nstyle.setScaleH(1000);
+			nstyle.setScaleV(1000);
+			nstyle.setBaselineOffset(0);
+			nstyle.setShadowXOffset(50);
+			nstyle.setShadowYOffset(-50);
+			nstyle.setOutlineWidth(10);
+			nstyle.setUnderlineOffset(-1);
+			nstyle.setUnderlineWidth(-1);
+			nstyle.setStrikethruOffset(-1);
+			nstyle.setStrikethruWidth(-1);
 			if( !e.attribute( "stroke" ).isEmpty() )
-				hg->setEffects(ScStyle_Outline);
+				nstyle.setEffects(ScStyle_Outline);
 			else
-				hg->setEffects(ScStyle_Default);
-			ite->itemText.append(hg);
-			ite->setWidth(ite->width() + RealCWidth(currDoc, hg->font(), hg->ch, hg->fontSize())+1);
+				nstyle.setEffects(ScStyle_Default);
+			int pos = ite->itemText.length();
+			ite->itemText.insertChars(pos, ch);
+			ite->itemText.applyCharStyle(pos, 1, nstyle);
+			ite->setWidth(ite->width() + RealCWidth(currDoc, nstyle.font(), ch, nstyle.fontSize())+1);
 			ite->setHeight(gc->FontSize / 10.0 + 2 +desc+2);
 		}
 		ite->SetRectFrame();

@@ -19,6 +19,10 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
  
+#include <cassert>
+#include <iostream>
+#include <qglobal.h>
+
 #include "scribuscore.h"
 #include "scribuscore.moc"
 
@@ -74,11 +78,24 @@ ScribusCore::~ScribusCore()
 	delete m_PaletteParent;
 }
 
+#ifndef NDEBUG
+static void abort_on_error(QtMsgType t, const char * m)
+{
+	if(t==QtFatalMsg) assert(false);
+	std::cerr << m << "\n";
+}
+#endif
+
+
 int ScribusCore::init(bool useGUI, bool swapDialogButtonOrder, const QString fileToUse)
 {
 	m_UseGUI=useGUI;
 	m_File=fileToUse;
 	m_SwapDialogButtonOrder=swapDialogButtonOrder;
+#ifndef NDEBUG
+	qInstallMsgHandler( & abort_on_error );
+#endif
+
 	return 0;
 }
 

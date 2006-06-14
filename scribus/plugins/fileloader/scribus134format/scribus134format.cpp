@@ -1850,15 +1850,18 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 #ifdef NLS_PROTO
 			qDebug(QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString()));
 #endif
-			obj->itemText.applyStyle(last->StyleStart, pos-last->StyleStart, last->Style);
+			obj->itemText.applyCharStyle(last->StyleStart, pos-last->StyleStart, last->Style);
 			last->Style = newStyle;
 			last->StyleStart = pos;
 		}
 		if (ch == SpecialChars::PARSEP) {
+			const ParagraphStyle& pstyle(doc->docParagraphStyles[QMAX(0,last->ParaStyle)]);
+			qDebug(QString("par style134 at %1: %2/%3 (%4)").arg(pos).arg(pstyle.name()).arg(pstyle.parent()? pstyle.parent()->name():"").arg(last->ParaStyle));
+			obj->itemText.applyStyle(pos, pstyle);
 			obj->itemText.applyStyle(pos, doc->docParagraphStyles[QMAX(0,last->ParaStyle)]);
 		}
 	}
-	obj->itemText.applyStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
+	obj->itemText.applyCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
 	obj->itemText.applyStyle(obj->itemText.length()-1, doc->docParagraphStyles[QMAX(0,last->ParaStyle)]);
 	return;
 }
@@ -2391,8 +2394,8 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->GrType = obj->attribute("GRTYP", "0").toInt();
 	QString GrColor;
 	QString GrColor2;
-	int GrShade;
-	int GrShade2;
+	int GrShade = 0;
+	int GrShade2 = 0;
 	if (currItem->GrType != 0)
 	{
 		currItem->GrStartX = obj->attribute("GRSTARTX", "0.0").toDouble();
@@ -2450,14 +2453,14 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	struct Layer la;
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
-	Page* Apage;
+	Page* Apage = NULL;
 	LFrames.clear();
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QFont fo;
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
 	int a, counter, baseobj;
-	double pageX, pageY;
+	double pageX = 0, pageY = 0;
 	bool newVersion = false;
 	bool VorLFound = false;
 	QMap<int,int> layerTrans;
@@ -3299,7 +3302,7 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 			tsh = style1.fillShade();
 			tst = style1.effects() & 2047;
 #ifndef NLS_PROTO
-			tsb = item->itemText.at(k)->cab;
+			tsb = findParagraphStyle(doc, item->itemText.paragraphStyle(k));
 #else
 			tsb = 0;
 #endif
@@ -3316,8 +3319,8 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 			tstp = style1.strikethruOffset() / 10.0;
 			tstw = style1.strikethruWidth() / 10.0;
 #ifndef NLS_PROTO
-			if ((ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
-				tobj = item->itemText.at(k)->cembedded->ItemNr;
+			if ((ch == QChar(25)) && (item->itemText.item(k)->cembedded != 0))
+				tobj = item->itemText.item(k)->cembedded->ItemNr;
 			else
 #endif
 				tobj = -1;
@@ -3364,7 +3367,7 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 			tsh2 = style2.fillShade();
 			tst2 = style2.effects() & 2047;
 #ifndef NLS_PROTO
-			tsb2 = item->itemText.at(k)->cab;
+			tsb2 = findParagraphStyle(doc, item->itemText.paragraphStyle(k));
 #else
 			tsb2 = 0;
 #endif
@@ -3381,8 +3384,8 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 			tstp2 = style2.strikethruOffset() / 10.0;
 			tstw2 = style2.strikethruWidth() / 10.0;
 #ifndef NLS_PROTO
-			if ((ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
-				tobj2 = item->itemText.at(k)->cembedded->ItemNr;
+			if ((ch == QChar(25)) && (item->itemText.item(k)->cembedded != 0))
+				tobj2 = item->itemText.item(k)->cembedded->ItemNr;
 			else
 #endif
 				tobj2 = -1;
@@ -3425,7 +3428,7 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 				tsh2 = style3.fillShade();
 				tst2 = style3.effects() & 2047;
 #ifndef NLS_PROTO
-				tsb2 = item->itemText.at(k)->cab;
+				tsb2 = findParagraphStyle(doc, item->itemText.paragraphStyle(k));
 #else
 				tsb2 = 0;
 #endif
@@ -3442,8 +3445,8 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 				tstp2 = style3.strikethruOffset() / 10.0;
 				tstw2 = style3.strikethruWidth() / 10.0;
 #ifndef NLS_PROTO
-				if ((ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
-					tobj2 = item->itemText.at(k)->cembedded->ItemNr;
+				if ((ch == QChar(25)) && (item->itemText.item(k)->cembedded != 0))
+					tobj2 = item->itemText.item(k)->cembedded->ItemNr;
 				else
 #endif
 					tobj2 = -1;

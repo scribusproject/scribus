@@ -284,7 +284,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	ExtraV = 0;
 	itemText.clear();
 #ifndef NLS_PROTO
-	itemText.setAutoDelete(true);
+	firstChar = 0;
 	MaxChars = 0;
 #endif
 	Pfile = "";
@@ -596,7 +596,7 @@ void PageItem::setReversed(bool newReversed)
 bool PageItem::frameOverflows() const
 {
 #ifndef NLS_PROTO
-	return itemText.count()	> MaxChars;
+	return itemText.length() > MaxChars;
 #else
 	return false; // FIXME:NLS
 #endif
@@ -604,12 +604,12 @@ bool PageItem::frameOverflows() const
 
 int PageItem::firstInFrame() const
 {
-	return 0;
+	return firstChar;
 }
 int PageItem::lastInFrame() const
 {
 #ifndef NLS_PROTO
-	return MaxChars - 1;
+	return QMIN(MaxChars, itemText.length()) - 1;
 #else
 	return itemText.length() - 1;
 #endif
@@ -999,7 +999,8 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 		for (uint em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);
-			ParagraphStyle vg;
+/*
+ ParagraphStyle vg;
 			QValueList<ParagraphStyle> savedParagraphStyles;
 			for (int xxx=0; xxx<5; ++xxx)
 			{
@@ -1013,6 +1014,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 				vg.setGapAfter(m_Doc->docParagraphStyles[xxx].gapAfter());
 				savedParagraphStyles.append(vg);
 			}
+ */
 			p->save();
 			embedded->Xpos = Xpos + hl->xco + embedded->gXpos;
 			embedded->Ypos = Ypos + (hl->yco - (embedded->gHeight * (hl->scalev / 1000.0))) + embedded->gYpos;
@@ -1048,7 +1050,8 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 			embedded->DrawObj_Post(p);
 			p->restore();
 			embedded->m_lineWidth = pws;
-			for (int xxx=0; xxx<5; ++xxx)
+/*
+ for (int xxx=0; xxx<5; ++xxx)
 			{
 				m_Doc->docParagraphStyles[xxx].setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(savedParagraphStyles[xxx].lineSpacingMode()));
 				m_Doc->docParagraphStyles[xxx].setUseBaselineGrid(savedParagraphStyles[xxx].useBaselineGrid());
@@ -1060,6 +1063,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 				m_Doc->docParagraphStyles[xxx].setGapAfter(savedParagraphStyles[xxx].gapAfter());
 			}
 			savedParagraphStyles.clear();
+*/
 		}
 	}
 }
@@ -1223,7 +1227,7 @@ QString PageItem::ExpandToken(uint base)
 {
 	uint zae = 0;
 	uint za2 = base;
-	QString chx("#");
+	QString chstr("#");
 	if ((!m_Doc->masterPageMode()) && (OwnPage != -1))
 	{
 		do
@@ -1247,9 +1251,9 @@ QString PageItem::ExpandToken(uint base)
 		//out2 = out.arg(OwnPage+Doc->FirstPnum, -zae);
 		out2=out.arg(m_Doc->getSectionPageNumberForPageIndex(OwnPage), -zae);
 		//out2=out.arg(out2, -zae);
-		chx = out2.mid(base-za2, 1);
+		chstr = out2.mid(base-za2, 1);
 	}
-	return chx;
+	return chstr;
 }
 
 void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
@@ -1257,7 +1261,7 @@ void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 	*tmp = m_Doc->PageColors[farbe].getShadeColorProof(shad);
 }
 
-double PageItem::SetZeichAttr(const CharStyle& style, int *chs, QString *chx)
+double PageItem::SetZeichAttr(const CharStyle& style, int *chs, QString *chstr)
 {
 	double retval = 0.0;
 	double asce = style.font()->ascent() * (style.fontSize() / 10.0);
@@ -1276,15 +1280,15 @@ double PageItem::SetZeichAttr(const CharStyle& style, int *chs, QString *chx)
 		}
 		if (chst & ScStyle_AllCaps)
 		{
-			if (chx->upper() != *chx)
-				*chx = chx->upper();
+			if (chstr->upper() != *chstr)
+				*chstr = chstr->upper();
 		}
 		if (chst & ScStyle_SmallCaps)
 		{
-			if (chx->upper() != *chx)
+			if (chstr->upper() != *chstr)
 			{
 				*chs = QMAX(static_cast<int>(style.fontSize() * m_Doc->typographicSettings.valueSmallCaps / 100), 1);
-				*chx = chx->upper();
+				*chstr = chstr->upper();
 			}
 		}
 	}

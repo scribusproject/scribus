@@ -36,7 +36,7 @@ class ParagraphStyle;
 class PageItem;
 //class ScTextEngine;
 //class ScScriptItem;
-//class ScText_Shared;
+class ScText_Shared;
 class ScribusDoc;
 
 /**
@@ -55,7 +55,7 @@ class ScribusDoc;
  * offsets to its basepoint. Other information in the ScriptItem is only
  * used by the layouter.
  */
- class SCRIBUS_API StoryText : NLS_PRIVATE QPtrList<ScText> {
+ class SCRIBUS_API StoryText {
  public:
  	StoryText(ScribusDoc * doc);
  	StoryText(const StoryText & other);
@@ -87,7 +87,7 @@ class ScribusDoc;
  	const ParagraphStyle& paragraphStyle(int pos) const;
  	const ParagraphStyle& defaultStyle() const;
  	void setDefaultStyle(const ParagraphStyle& style);
- 	void applyStyle(int pos, uint len, const CharStyle& style);
+ 	void applyCharStyle(int pos, uint len, const CharStyle& style);
  	void applyStyle(int pos, const ParagraphStyle& style);
 
  	uint nrOfParagraphs() const;
@@ -169,7 +169,6 @@ class ScribusDoc;
 	ScribusDoc * doc; 
 	int selFirst, selLast;
 	int firstFrameItem, lastFrameItem;
-	ParagraphStyle defaultStyle_;
 
  	/// mark these runs as invalid, ie. need itemize and shaping
  	void invalidate(int firstRun, int lastRun);
@@ -181,7 +180,7 @@ class ScribusDoc;
  	 */
 // 	void validate();
  	/// private data structure
-// 	ScText_Shared * d;
+ 	ScText_Shared * d;
  	/// gives the physical view which was last given to the layouter
 // 	uint layouterVersion;
  	/// is true after layout() has been exercised
