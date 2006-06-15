@@ -7570,7 +7570,7 @@ void ScribusView::slotDoCurs(bool draw)
 				if (currItem->itemText.item(offs)->glyph.yoffset != currItem->itemText.item(offs+1)->glyph.yoffset)
 				{
 					offs++;
-					if ((currItem->itemText.text(offs) == SpecialChars::PARSEP) || (currItem->itemText.text(offs) == SpecialChars::LINEBREAK))
+					if (offs > currItem->lastInFrame() || (currItem->itemText.text(offs) == SpecialChars::PARSEP) || (currItem->itemText.text(offs) == SpecialChars::LINEBREAK))
 					{
 						offs--;
 						xp = static_cast<int>(currItem->itemText.item(offs)->glyph.xoffset);

@@ -596,7 +596,7 @@ void PageItem::setReversed(bool newReversed)
 bool PageItem::frameOverflows() const
 {
 #ifndef NLS_PROTO
-	return itemText.length() > MaxChars;
+	return NextBox == NULL && itemText.length() > MaxChars;
 #else
 	return false; // FIXME:NLS
 #endif

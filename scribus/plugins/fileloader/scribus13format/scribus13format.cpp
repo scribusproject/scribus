@@ -1857,13 +1857,26 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 			last->StyleStart = pos;
 		}
 		if (ch == SpecialChars::PARSEP) {
-			const ParagraphStyle& pstyle(doc->docParagraphStyles[QMAX(0,last->ParaStyle)]);
+			ParagraphStyle pstyle;
+			if (last->ParaStyle < 5) {
+				pstyle.setAlignment(QMAX(0, last->ParaStyle));
+			}
+			else {
+				pstyle.setParent( & doc->docParagraphStyles[last->ParaStyle]);
+			}
 			qDebug(QString("par style at %1: %2/%3 (%4)").arg(pos).arg(pstyle.name()).arg(pstyle.parent()?pstyle.parent()->name():"").arg(last->ParaStyle));
 			obj->itemText.applyStyle(pos, pstyle);
 		}
 	}
 	obj->itemText.applyCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
-	obj->itemText.applyStyle(obj->itemText.length()-1, doc->docParagraphStyles[QMAX(0,last->ParaStyle)]);
+	ParagraphStyle pstyle;
+	if (last->ParaStyle < 5) {
+		pstyle.setAlignment(QMAX(0, last->ParaStyle));
+	}
+	else {
+		pstyle.setParent( & doc->docParagraphStyles[last->ParaStyle]);
+	}
+	obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
 	return;
 }
 
