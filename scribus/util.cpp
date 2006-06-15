@@ -693,7 +693,6 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 	int wwN = 0;
 	int ccN = 0;
 	bool first = true;
-#ifndef NLS_PROTO
 	PageItem *nextItem = currItem;
 	PageItem *nbl = currItem;
 	while (nextItem != 0)
@@ -705,37 +704,45 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 	}
 	while (nextItem != 0)
 	{
-		for (uint a = 0; a < nextItem->itemText.length(); ++a)
+		for (int a = nextItem->firstInFrame(); a <= nextItem->lastInFrame(); ++a)
 		{
 			QChar b = nextItem->itemText.text(a);
-			if (b == QChar(13))
+			if (b == SpecialChars::PARSEP)
 			{
-				if (!nextItem->frameDisplays(a))
-					paraN++;
-				else
-					para++;
+				para++;
 			}
 			if ((!b.isLetterOrNumber()) && (Dat.isLetterOrNumber()) && (!first))
 			{
-				if (!nextItem->frameDisplays(a))
-					wwN++;
-				else
-					ww++;
+				ww++;
 			}
-			if (! nextItem->frameDisplays(a))
-				ccN++;
-			else
-				cc++;
+			cc++;
 			Dat = b;
 			first = false;
 		}
 		nbl = nextItem;
 		nextItem = nextItem->NextBox;
 	}
-	if (nbl->frameOverflows())
+	if (nbl->frameOverflows()) {
 		paraN++;
-	else
+		for (int a = nextItem->lastInFrame()+1; a < nextItem->itemText.length(); ++a)
+		{
+			QChar b = nextItem->itemText.text(a);
+			if (b == SpecialChars::PARSEP)
+			{
+				paraN++;
+			}
+			if ((!b.isLetterOrNumber()) && (Dat.isLetterOrNumber()) && (!first))
+			{
+				wwN++;
+			}
+			ccN++;
+			Dat = b;
+			first = false;
+		}
+	}		
+	else {
 		para++;
+	}
 	if (Dat.isLetterOrNumber())
 	{
 		if (nbl->frameOverflows())
@@ -749,7 +756,6 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 	*wN = wwN;
 	*pN = paraN;
 	*cN = ccN;
-#endif
 }
 
 void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)

@@ -1146,6 +1146,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				Itn = m_Doc->Items->at(Its->NextIt);
 				Its->NextBox = Itn;
 				Itn->BackBox = Its;
+				Its->itemText.append(Itn->itemText);
+				Itn->itemText = Its->itemText;
 				Its = Itn;
 			}
 			Its->NextBox = 0;
@@ -2870,6 +2872,8 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					Itn = m_Doc->Items->at(Its->NextIt);
 					Its->NextBox = Itn;
 					Itn->BackBox = Its;
+					Its->itemText.append(Itn->itemText);
+					Itn->itemText = Its->itemText;
 					Its = Itn;
 				}
 				else

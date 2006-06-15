@@ -2941,7 +2941,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 		tmp += "BT\n";
 #ifndef NLS_PROTO
 	// Loop over each character (!) in the pageItem...
-	uint d;
+	int d;
 	for (d = ite->firstInFrame(); d <= ite->lastInFrame(); ++d)
 	{
 		const ScText * const hl = ite->itemText.item(d);

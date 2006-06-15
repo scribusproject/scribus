@@ -116,6 +116,41 @@ void StoryText::clear()
 }
 
 
+void StoryText::append(const StoryText& other)
+{
+	CharStyle cstyle(charStyle(length()));
+	ParagraphStyle pstyle(paragraphStyle(length()));
+	int cstyleStart = length();
+	for (int i=0; i < other.length(); ++i) {
+		if (other.charStyle(i) == cstyle)
+			continue;
+		int pos = length();
+		int len = i - cstyleStart;
+		if (len > 0) {
+			insertChars(length(), other.text(cstyleStart, len));
+			applyCharStyle(pos, len, cstyle);
+		}
+		if (other.text(i) == SpecialChars::PARSEP) {
+			insertChars(pos+len, SpecialChars::PARSEP);
+			applyStyle(pos+len, other.paragraphStyle(i));
+			cstyleStart = i+1;
+		}
+		else {
+			cstyle = other.charStyle(i);
+			cstyleStart = i;
+		}
+	}
+	int pos = length();
+	int len = other.length() - cstyleStart;
+	if (len > 0) {
+		insertChars(length(), other.text(cstyleStart, len));
+		applyCharStyle(pos, len, cstyle);
+	}
+	setDefaultStyle(other.defaultStyle());
+}
+
+
+
 /**
      A CharStyle's parent is usually the default paragraphstyle, unless explicitly
      changed. This routines makes sure that all parent pointers to the default
@@ -324,8 +359,13 @@ const CharStyle & StoryText::charStyle(int pos) const
 		pos += length();
 
 	assert(pos >= 0);
-	assert(pos < length());
+	assert(pos <= length());
 
+	if (length() == 0)
+		return defaultStyle().charStyle();
+	else if (pos == length())
+		--pos;
+	
 	StoryText* that = const_cast<StoryText *>(this);
 	return dynamic_cast<const CharStyle &> (*that->d->at(pos));
 }

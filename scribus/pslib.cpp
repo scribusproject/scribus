@@ -1525,7 +1525,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded)
 {
 	int h, s, v, k, tsz;
-	uint d;
+	int d;
 	ScText *hl;
 	QValueList<double> dum;
 	dum.clear();

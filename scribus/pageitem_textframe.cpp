@@ -165,10 +165,16 @@ static const bool opticalMargins = true;
 
 void PageItem_TextFrame::layout() 
 {
-	if (!invalid) {
-//		qDebug("textframe: len=%d, no relayout", itemText.count());
+	if (BackBox != NULL && BackBox->invalid) {
+//		qDebug("textframe: len=%d, going back", itemText.length());
+		dynamic_cast<PageItem_TextFrame*>(BackBox)->layout();
 		return;
 	}
+	else if (!invalid) {
+//		qDebug("textframe: len=%d, no relayout", itemText.length());
+		return;
+	}
+//	qDebug(QString("textframe(%1,%2): len=%3, start relayout at %4").arg(Xpos).arg(Ypos).arg(itemText.length()).arg(firstInFrame()));
 	ScribusView* view = m_Doc->view();
 	QPainter pf2;
 	PageItem *nextItem;
@@ -227,7 +233,7 @@ void PageItem_TextFrame::layout()
 	if (lineColor() != CommonStrings::None)
 		lineCorr = m_lineWidth / 2.0;
 
-	if ((itemText.length() != 0) || (NextBox != 0))
+	if ((itemText.length() != 0)) // || (NextBox != 0))
 	{
 /*		// steal text from next boxes
 		if (NextBox != 0)
@@ -379,7 +385,9 @@ void PageItem_TextFrame::layout()
 
 			if (LiList.count() == 0)
 			{
-				// more about par gap and dropcaps
+//				qDebug(QString("textframe(%1,%2): len=%3, linespacing %4: %5").arg(Xpos).arg(Ypos).arg(itemText.length())
+//					   .arg(style.lineSpacingMode()).arg(style.lineSpacing()));				
+ 				// more about par gap and dropcaps
 				if (((a > firstInFrame()) && (itemText.text(a-1) == SpecialChars::PARSEP)) || ((a == 0) && (BackBox == 0)) && (!StartOfCol))
 				{
 					CurY += style.gapBefore();
@@ -1615,15 +1623,22 @@ void PageItem_TextFrame::layout()
 	MaxChars = itemText.length();
 	invalid = false;
 	pf2.end();
-//	qDebug("textframe: len=%d, done relayout", itemText.count());
+	if (NextBox != NULL) {
+		NextBox->invalid = true;
+		dynamic_cast<PageItem_TextFrame*>(NextBox)->firstChar = MaxChars;
+	}
+//	qDebug("textframe: len=%d, done relayout", itemText.length());
 	return;
 			
 NoRoom:     
 	pf2.end();
-	if (NextBox != 0)
+	MaxChars = nrc;
+	invalid = false;
+	PageItem_TextFrame * next = dynamic_cast<PageItem_TextFrame*>(NextBox);
+	if (next != 0)
 	{
-		NextBox->invalid = true;
-		dynamic_cast<PageItem_TextFrame*>(NextBox)->firstChar = nrc;
+		next->invalid = true;
+		next->firstChar = nrc;
 		if (uint(CPos) > nrc)
 		{
 			int nCP = CPos;
@@ -1631,29 +1646,26 @@ NoRoom:
 			if ((m_Doc->appMode == modeEdit) && (Tinput))
 			{
 				//							OwnPage->Deselect(true);
-				NextBox->CPos = QMAX(nCP, itemText.length());
+				next->CPos = QMAX(nCP, itemText.length());
 				//							Doc->currentPage = NextBox->OwnPage;
 				//							NextBox->OwnPage->SelectItemNr(NextBox->ItemNr);
-				invalid = false;
-//				qDebug("textframe: len=%d, leaving relayout in editmode && Tinput", itemText.count());
+//				qDebug("textframe: len=%d, leaving relayout in editmode && Tinput", itemText.length());
 				return;
 			}
 		}
 		// relayout next frame
-		PageItem_TextFrame * next = dynamic_cast<PageItem_TextFrame*>(NextBox);
-		if (next) {
-			next->layout();
-		}
+//		qDebug("textframe: len=%d, going to next", itemText.length());
+		next->layout();
 	}
-	MaxChars = nrc;
-	invalid = false;
-//	qDebug("textframe: len=%d, done relayout (no room %d)", itemText.count(), MaxChars);
+//	qDebug("textframe: len=%d, done relayout (no room %d)", itemText.length(), MaxChars);
 }
 
 
 void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 {
 	layout();
+	if (invalid)
+		return;
 	
 	ScribusView* view = m_Doc->view();
 	QPainter pf2;

@@ -487,7 +487,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 
 							double a1, b1, a2, b2;
 							a1 = a2 = b1 = b2 = 0;
-							if (nextItem->NextBox!=NULL)
+							if (nextItem->NextBox != NULL)
 							{
 								double x21 = nextItem->NextBox->xPos();
 								double y21 = nextItem->NextBox->yPos();
@@ -5182,6 +5182,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				{
 					currItem->NextBox = bb;
 					bb->BackBox = currItem;
+					bb->itemText = currItem->itemText;
 					// CB We need to do this because we draw in the order of the item list
 					// Which is also item numbver list.. but #3488: we must also renumber the items
 					if (bb->ItemNr < currItem->ItemNr)
@@ -7518,7 +7519,7 @@ void ScribusView::slotDoCurs(bool draw)
 		ToView(&p);
 		Transform(currItem, &p);
 		TransformM(currItem, &p);
-		if (currItem->CPos > 0)
+		if (currItem->CPos > 0 && currItem->frameDisplays(currItem->CPos) )
 		{
 			int offs = QMIN(currItem->CPos-1, currItem->lastInFrame());
 			if (currItem->CPos < currItem->lastInFrame())

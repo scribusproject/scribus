@@ -829,7 +829,7 @@ void SEditor::loadItemText(PageItem *currItem)
 	chars = new ChList;
 	chars->setAutoDelete(true);
 	chars->clear();
-#ifndef NLS_PROTO
+#if 0
 	while (nextItem != 0)
 	{
 		if (nextItem->BackBox != 0)
@@ -852,9 +852,9 @@ void SEditor::loadItemText(PageItem *currItem)
 		}
 		setAlign(Ali);
 		setStyle(Csty);
-	}
-	while (nextItem != 0)
-	{
+//	}
+//	while (nextItem != 0)
+//	{
 		for (int a = 0; a < nextItem->itemText.length(); ++a)
 		{
 			if (nextItem->itemText.text(a) == SpecialChars::PARSEP)
@@ -3143,9 +3143,10 @@ void StoryEditor::updateTextFrame()
 			break;
 	}
 	PageItem* nb2 = nextItem;
+	nb2->itemText.clear();
 	while (nb2 != 0)
 	{
-#ifndef NLS_PROTO
+#if 0
 		for (int j = nb2->firstInFrame(); j <= nb2->lastInFrame(); ++j)
 		{
 			if ((nb2->itemText.text(j) == SpecialChars::OBJECT) && (nb2->itemText.item(j)->cembedded != 0))
@@ -3176,8 +3177,8 @@ void StoryEditor::updateTextFrame()
 				}
 			}
 		}
-#endif
 		nb2->itemText.clear();
+#endif
 		nb2->CPos = 0;
 		nb2->Dirty = false;
 		nb2 = nb2->NextBox;
@@ -3196,7 +3197,7 @@ void StoryEditor::updateTextFrame()
 	}
 	FrameItemsDel.clear();
 	currDoc->updateFrameItems();
-	bool rep = currDoc->RePos;
+/*	bool rep = currDoc->RePos;
 	currDoc->RePos = true;
 	QPixmap pgPix(1, 1);
 	ScPainter *painter = new ScPainter(&pgPix, 1, 1);
@@ -3205,6 +3206,8 @@ void StoryEditor::updateTextFrame()
 	painter->end();
 	delete painter;
 	currDoc->RePos = rep;
+*/
+	dynamic_cast<PageItem_TextFrame*>(nextItem)->layout();
 	nb2 = nextItem;
 	while (nb2 != 0)
 	{

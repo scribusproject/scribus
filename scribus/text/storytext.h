@@ -62,6 +62,7 @@ class ScribusDoc;
  	StoryText& operator= (const StoryText & other);
  	virtual ~StoryText();
  	void clear();
+	void append(const StoryText& other);
  	void removeChars(int pos, uint len);
  	void insertChars(int pos, QString txt);
  	void insertObject(int pos, PageItem* obj);

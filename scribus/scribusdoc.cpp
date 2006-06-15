@@ -1171,8 +1171,10 @@ int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 		Items->at(z)->BackBox = LastAuto;
 		Items->at(z)->Cols = qRound(PageSp);
 		Items->at(z)->ColGap = PageSpa;
-		if (LastAuto != 0)
+		if (LastAuto != 0) {
 			LastAuto->NextBox = Items->at(z);
+			Items->at(z)->itemText = LastAuto->itemText;
+		}	
 		else
 			FirstAuto = Items->at(z);
 		LastAuto = Items->at(z);
@@ -5771,16 +5773,11 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 		if (currItem->asTextFrame())
 		{
-#ifndef NLS_PROTO
 			if ((currItem->NextBox != 0) || (currItem->BackBox != 0))
 			{
-				/* FIXME NLS
 				if (currItem->BackBox == 0)
 				{
-					currItem->NextBox->BackBox = currItem->BackBox;
-					c = currItem->itemText.count();
-					for (a = 0; a < c; ++a)
-						currItem->NextBox->itemText.prepend(currItem->itemText.take(currItem->itemText.count()-1));
+					currItem->NextBox->BackBox = 0;
 					if ((currItem->isAutoText) && (currItem->NextBox == 0))
 						LastAuto = 0;
 				}
@@ -5794,10 +5791,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
 						if (currItem->isAutoText)
 							LastAuto = currItem->BackBox;
 					}
-					c = currItem->itemText.count();
-					for (a = 0; a < c; ++a)
-						currItem->BackBox->itemText.append(currItem->itemText.take(0));
-				} */
+				}
 			}
 			else
 			{
@@ -5807,7 +5801,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
 					FirstAuto = 0;
 				}
 			}
-#endif
+			currItem->itemText = StoryText(this);
 		}
 		if (currItem->isBookmark)
 			//CB From view   emit DelBM(currItem);

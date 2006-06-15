@@ -1146,6 +1146,8 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				Itn = m_Doc->Items->at(Its->NextIt);
 				Its->NextBox = Itn;
 				Itn->BackBox = Its;
+				Its->itemText.append(Itn->itemText);
+				Itn->itemText = Its->itemText;
 				Its = Itn;
 			}
 			Its->NextBox = 0;
