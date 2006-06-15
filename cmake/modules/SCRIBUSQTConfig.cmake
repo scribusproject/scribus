@@ -25,14 +25,16 @@
 
     FOREACH(it ${ARGN})
       GET_FILENAME_COMPONENT(outfile ${it} NAME_WE)
-
-      SET(infile ${CMAKE_CURRENT_SOURCE_DIR}/${it})
+	
+      GET_FILENAME_COMPONENT(infile ${it} ABSOLUTE)
+#       SET(infile ${CMAKE_CURRENT_SOURCE_DIR}/${it})
       SET(outfile ${CMAKE_CURRENT_BINARY_DIR}/${outfile}.moc)
       ADD_CUSTOM_COMMAND(OUTPUT ${outfile}
         COMMAND ${QT_MOC_EXECUTABLE}
 #         ARGS ${moc_includes} -o ${outfile} ${infile}
           ARGS -o ${outfile} ${infile}
-        MAIN_DEPENDENCY ${infile})
+#         MAIN_DEPENDENCY ${infile})
+        DEPENDS ${infile})
       SET(${outfiles} ${${outfiles}} ${outfile})
     ENDFOREACH(it)
 
