@@ -306,6 +306,7 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusMainWindow *pl
 	zTabelle->setSelectionMode(QTable::NoSelection);
 	zTabelle->setColumnMovingEnabled(false);
 	zTabelle->setRowMovingEnabled(false);
+	zTabelle->setReadOnly(true);
 	scanFont();
 	zAuswahlLayout->addWidget( zTabelle );
 	
