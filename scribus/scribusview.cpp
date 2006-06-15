@@ -7600,8 +7600,7 @@ void ScribusView::slotDoCurs(bool draw)
 				desc = static_cast<int>(currItem->itemText.defaultStyle().charStyle().font()->descent() * (-currItem->itemText.defaultStyle().charStyle().fontSize() / 10.0));
 				asce = static_cast<int>(currItem->itemText.defaultStyle().charStyle().font()->ascent() * (currItem->itemText.defaultStyle().charStyle().fontSize() / 10.0));
 			}
-			else if ( !currItem->frameDisplays(currItem->CPos) )
-
+			else if ( currItem->frameDisplays(currItem->CPos) )
 			{
 				if ((currItem->itemText.text(currItem->CPos) == SpecialChars::TAB) || (currItem->itemText.text(currItem->CPos) == SpecialChars::PARSEP) || (currItem->itemText.text(currItem->CPos) == SpecialChars::LINEBREAK))
 				{
