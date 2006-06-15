@@ -4522,7 +4522,7 @@ void ScribusMainWindow::slotEditPaste()
 					it++;
 					hg->setEffects(static_cast<StyleFlag>((*it).toInt()));
 					it++;
-					hg->cab = (*it).toInt();
+//					hg->cab = (*it).toInt();
 					it++;
 					if (it == NULL)
 						hg->setStrokeColor(CommonStrings::None);

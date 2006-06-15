@@ -429,15 +429,15 @@ void ScPainter::endLayer()
 							}
 							else if (m_blendMode == 4)
 							{
-								src_r = 255 - INT_MULT(255 - dst_r, 255 - src_r);
-								src_g = 255 - INT_MULT(255 - dst_g, 255 - src_g);
-								src_b = 255 - INT_MULT(255 - dst_b, 255 - src_b);
+								src_r = 255 - ((255-src_r) * (255-dst_r) / 128);
+								src_g = 255 - ((255-src_g) * (255-dst_g) / 128);
+								src_b = 255 - ((255-src_b) * (255-dst_b) / 128);
 							}
 							else if (m_blendMode == 5)
 							{
-								src_r = INT_MULT(dst_r, dst_r + INT_MULT(2 * src_r, 255 - dst_r));
-								src_g = INT_MULT(dst_g, dst_g + INT_MULT(2 * src_g, 255 - dst_g));
-								src_b = INT_MULT(dst_b, dst_b + INT_MULT(2 * src_b, 255 - dst_b));
+								src_r = dst_r < 128 ? src_r * dst_r / 128 : 255 - ((255-src_r) * (255-dst_r) / 128);
+								src_g = dst_g < 128 ? src_g * dst_g / 128 : 255 - ((255-src_g) * (255-dst_g) / 128);
+								src_b = dst_b < 128 ? src_b * dst_b / 128 : 255 - ((255-src_b) * (255-dst_b) / 128);
 							}
 							else if (m_blendMode == 6)
 							{
@@ -524,10 +524,11 @@ void ScPainter::endLayer()
 								uchar new_r = dst_r;
 								uchar new_g = dst_g;
 								uchar new_b = dst_b;
-								RGBTOHSV(src_r, src_g, src_b);
-								RGBTOHSV(new_r, new_g, new_b);
+								RGBTOHLS(src_r, src_g, src_b);
+								RGBTOHLS(new_r, new_g, new_b);
+								new_r = src_r;
 								new_b = src_b;
-								HSVTORGB(new_r, new_g, new_b);
+								HLSTORGB(new_r, new_g, new_b);
 								src_r = new_r;
 								src_g = new_g;
 								src_b = new_b;
@@ -537,11 +538,10 @@ void ScPainter::endLayer()
 								uchar new_r = dst_r;
 								uchar new_g = dst_g;
 								uchar new_b = dst_b;
-								RGBTOHLS(src_r, src_g, src_b);
-								RGBTOHLS(new_r, new_g, new_b);
-								new_r = src_r;
+								RGBTOHSV(src_r, src_g, src_b);
+								RGBTOHSV(new_r, new_g, new_b);
 								new_b = src_b;
-								HLSTORGB(new_r, new_g, new_b);
+								HSVTORGB(new_r, new_g, new_b);
 								src_r = new_r;
 								src_g = new_g;
 								src_b = new_b;

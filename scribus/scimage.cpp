@@ -1505,18 +1505,25 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 					{
 						if (header.color_mode == CM_CMYK)
 						{
-							src_r = 255 - INT_MULT(255 - d[0], 255 - src_r);
+							src_r = 255 - ((255-src_r) * (255-d[0]) / 128);
+							src_g = 255 - ((255-src_g) * (255-d[1]) / 128);
+							src_b = 255 - ((255-src_b) * (255-d[2]) / 128);
+							src_a = 255 - ((255-src_a) * (255-d[3]) / 128);
+/*							src_r = 255 - INT_MULT(255 - d[0], 255 - src_r);
 							src_g = 255 - INT_MULT(255 - d[1], 255 - src_g);
 							src_b = 255 - INT_MULT(255 - d[2], 255 - src_b);
-							src_a = 255 - INT_MULT(255 - d[3], 255 - src_a);
+							src_a = 255 - INT_MULT(255 - d[3], 255 - src_a); */
 						}
 						else
 						{
 							if (d[3] > 0)
 							{
-								src_r = 255 - INT_MULT(255 - d[0], 255 - src_r);
+								src_r = 255 - ((255-src_r) * (255-d[0]) / 128);
+								src_g = 255 - ((255-src_g) * (255-d[1]) / 128);
+								src_b = 255 - ((255-src_b) * (255-d[2]) / 128);
+/*								src_r = 255 - INT_MULT(255 - d[0], 255 - src_r);
 								src_g = 255 - INT_MULT(255 - d[1], 255 - src_g);
-								src_b = 255 - INT_MULT(255 - d[2], 255 - src_b);
+								src_b = 255 - INT_MULT(255 - d[2], 255 - src_b); */
 							}
 						}
 					}
@@ -1524,18 +1531,25 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 					{
 						if (header.color_mode == CM_CMYK)
 						{
-							src_r = INT_MULT(d[0], d[0] + INT_MULT(2 * src_r, 255 - d[0]));
+							src_r = d[0] < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
+							src_g = d[1] < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
+							src_b = d[2] < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
+							src_a = d[3] < 128 ? src_a * d[3] / 128 : 255 - ((255-src_a) * (255-d[3]) / 128);
+/*							src_r = INT_MULT(d[0], d[0] + INT_MULT(2 * src_r, 255 - d[0]));
 							src_g = INT_MULT(d[1], d[1] + INT_MULT(2 * src_g, 255 - d[1]));
 							src_b = INT_MULT(d[2], d[2] + INT_MULT(2 * src_b, 255 - d[2]));
-							src_a = INT_MULT(d[3], d[3] + INT_MULT(2 * src_a, 255 - d[3]));
+							src_a = INT_MULT(d[3], d[3] + INT_MULT(2 * src_a, 255 - d[3])); */
 						}
 						else
 						{
 							if (d[3] > 0)
 							{
-								src_r = INT_MULT(d[0], d[0] + INT_MULT(2 * src_r, 255 - d[0]));
+								src_r = d[0] < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
+								src_g = d[1] < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
+								src_b = d[2] < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
+/*								src_r = INT_MULT(d[0], d[0] + INT_MULT(2 * src_r, 255 - d[0]));
 								src_g = INT_MULT(d[1], d[1] + INT_MULT(2 * src_g, 255 - d[1]));
-								src_b = INT_MULT(d[2], d[2] + INT_MULT(2 * src_b, 255 - d[2]));
+								src_b = INT_MULT(d[2], d[2] + INT_MULT(2 * src_b, 255 - d[2])); */
 							}
 						}
 					}
