@@ -724,9 +724,9 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 	}
 	if (nbl->frameOverflows()) {
 		paraN++;
-		for (int a = nextItem->lastInFrame()+1; a < nextItem->itemText.length(); ++a)
+		for (int a = nbl->lastInFrame()+1; a < nbl->itemText.length(); ++a)
 		{
-			QChar b = nextItem->itemText.text(a);
+			QChar b = nbl->itemText.text(a);
 			if (b == SpecialChars::PARSEP)
 			{
 				paraN++;
