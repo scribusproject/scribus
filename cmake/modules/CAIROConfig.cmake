@@ -18,19 +18,17 @@ PKGCONFIG(cairo _libCairoIncDir _libCairoLinkDir _libCairoLinkFlags _libCairoCfl
 
 SET(CAIRO_LIBS ${_libCairoCflags})
 
-FIND_PATH(CAIRO_INCLUDE_DIR cairo.h
-${_libCairoIncDir}
-/usr/include
-/usr/local/include/
-PATH_SUFFIXES
-cairo
+FIND_PATH(CAIRO_INCLUDE_DIR 
+NAMES cairo.h
+PATHS ${PREFIX_CAIRO}/include ${_libCairoIncDir} /usr/local/include /usr/include
+PATH_SUFFIXES cairo
+NO_DEFAULT_PATH
 )
 
-FIND_LIBRARY(CAIRO_LIBRARY NAMES cairo
-PATHS
-${_libCairoLinkDir}
-/usr/lib
-/usr/local/lib
+FIND_LIBRARY(CAIRO_LIBRARY
+NAMES cairo
+PATHS ${PREFIX_CAIRO}/lib ${_libCairoLinkDir} /usr/local/lib /usr/lib
+NO_DEFAULT_PATH
 )
 
 SET(CAIRO_FIND_QUIETLY 1)
