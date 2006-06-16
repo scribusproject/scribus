@@ -18,16 +18,22 @@ PKGCONFIG(cairo _libCairoIncDir _libCairoLinkDir _libCairoLinkFlags _libCairoCfl
 
 SET(CAIRO_LIBS ${_libCairoCflags})
 
+IF(PREFIX_CAIRO)
+	SET(PREFIX_CAIRO_INCLUDE "${PREFIX_CAIRO}/include")
+	SET(PREFIX_CAIRO_LIB "${PREFIX_CAIRO}/lib")
+	SET(PREFIX_CAIRO_BIN "${PREFIX_CAIRO}/bin")
+ENDIF(PREFIX_CAIRO)
+
 FIND_PATH(CAIRO_INCLUDE_DIR 
 NAMES cairo.h
-PATHS ${PREFIX_CAIRO}/include ${_libCairoIncDir} /usr/local/include /usr/include
+PATHS ${PREFIX_CAIRO_INCLUDE} ${_libCairoIncDir} /usr/local/include /usr/include
 PATH_SUFFIXES cairo
 NO_DEFAULT_PATH
 )
 
 FIND_LIBRARY(CAIRO_LIBRARY
 NAMES cairo
-PATHS ${PREFIX_CAIRO}/lib ${_libCairoLinkDir} /usr/local/lib /usr/lib
+PATHS ${PREFIX_CAIRO_LIB} ${_libCairoLinkDir} /usr/local/lib /usr/lib
 NO_DEFAULT_PATH
 )
 
@@ -40,8 +46,11 @@ IF (CAIRO_LIBRARY)
       MESSAGE(STATUS "Found cairo: ${CAIRO_LIBRARY}")
     ENDIF(NOT CAIRO_FIND_QUIETLY)
     SET( CAIRO_LIBRARIES ${CAIRO_LIBRARY} )
-     FIND_PROGRAM(CAIRO_CONFIG NAMES pkg-config PATHS ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin)
-     EXEC_PROGRAM(${CAIRO_CONFIG} ARGS "--libs cairo" OUTPUT_VARIABLE CAIRO_LIBS)
-     EXEC_PROGRAM(${CAIRO_CONFIG} ARGS "--cflags cairo" OUTPUT_VARIABLE CAIRO_CFLAGS)
+    FIND_PROGRAM(CAIRO_CONFIG 
+      NAMES pkg-config 
+      PATHS ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin
+    )
+    EXEC_PROGRAM(${CAIRO_CONFIG} ARGS "--libs cairo" OUTPUT_VARIABLE CAIRO_LIBS)
+    EXEC_PROGRAM(${CAIRO_CONFIG} ARGS "--cflags cairo" OUTPUT_VARIABLE CAIRO_CFLAGS)
   ENDIF (CAIRO_INCLUDE_DIR)
 ENDIF (CAIRO_LIBRARY)
