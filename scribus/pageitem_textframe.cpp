@@ -808,7 +808,7 @@ void PageItem_TextFrame::layout()
 			if (!RTab)
 			{
 //				hl->glyph.xoffset = QMAX(CurX+kernVal, ColBound.x());
-				hl->glyph.xoffset = CurX; // needed for left optical margin
+				hl->glyph.xoffset = CurX+kernVal; // needed for left optical margin
 				CurX += wide+kernVal;
 //				CurX = QMAX(CurX, ColBound.x());
 			}
@@ -1390,7 +1390,7 @@ void PageItem_TextFrame::layout()
 				uint loopC = BuPos3;
 				if (m_Doc->guidesSettings.showControls)
 					loopC++;  // ??? AV
-				for (uint zc = 0; zc<loopC; ++zc)
+				for (uint zc = 0; zc < QMAX(loopC, LiList.count()); ++zc)
 				{
 					double wide2 = 0;
 					Zli2 = LiList.at(zc);
@@ -4065,13 +4065,13 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			++CPos; // new position within text ?
 			if (CPos > lastInFrame())
 			{
-				--CPos;
+//				--CPos;
 				if (NextBox != 0)
 				{
-					if (NextBox->frameDisplays(CPos + 1))
+					if (NextBox->frameDisplays(CPos))
 					{
 						view->Deselect(true);
-						NextBox->CPos = CPos + 1;
+						NextBox->CPos = CPos;
 						view->SelectItemNr(NextBox->ItemNr);
 						//currItem = currItem->NextBox;
 					}
