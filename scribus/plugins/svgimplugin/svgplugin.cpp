@@ -134,7 +134,7 @@ bool SVGImportPlugin::fileSupported(QIODevice* /* file */) const
 bool SVGImportPlugin::loadFile(const QString & fileName, const FileFormat & /* fmt */, int flags, int /*index*/)
 {
 	// For now, "load file" and import are the same thing for this plugin
-	return import(fileName);
+	return import(fileName, flags);
 }
 
 bool SVGImportPlugin::import(QString filename, int flags)
