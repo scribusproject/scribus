@@ -110,7 +110,8 @@ private:
 	void PDF_Bookmark(PageItem *currItem, double ypos);
 	QString PDF_Gradient(PageItem *currItem);
 	QString PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, const QStringList& Colors);
-	QString PDF_Transparenz(PageItem *currItem);
+	QString PDF_TransparenzFill(PageItem *currItem);
+	QString PDF_TransparenzStroke(PageItem *currItem);
 	void PDF_Annotation(PageItem *ite, uint PNr);
 	void PDF_Form(const QString& im);
 	void PDF_xForm(double w, double h, QString im);
