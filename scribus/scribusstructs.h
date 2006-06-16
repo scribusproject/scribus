@@ -114,6 +114,8 @@ struct CopyPasteBuffer
 	bool LockRes;
 	double Transparency;
 	double TranspStroke;
+	int TransBlend;
+	int TransBlendS;
 	bool Reverse;
 	QString NamedLStyle;
 	QString Language;

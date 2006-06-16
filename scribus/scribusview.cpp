@@ -98,6 +98,9 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "guidemanager.h"
 #include "text/nlsconfig.h"
+#ifdef HAVE_CAIRO
+#include <cairo.h>
+#endif
 
 using namespace std;
 
@@ -294,10 +297,14 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		int Lnr = 0;
 		Level2Layer(Doc, &la, Lnr);
 		QImage img = QImage(clipw, cliph, 32);
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
 		if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
 			painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
 		else
 			painter = new ScPainter(&img, img.width(), img.height());
+#else
+		painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
+#endif
 #else
 			painter = new ScPainter(viewport(), clipw, cliph, vr.x(), vr.y());
 #endif
@@ -9676,6 +9683,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->setSizeLocked(Buffer->LockRes);
 	currItem->setFillTransparency(Buffer->Transparency);
 	currItem->setLineTransparency(Buffer->TranspStroke);
+	currItem->setFillBlendmode(Buffer->TransBlend);
+	currItem->setLineBlendmode(Buffer->TransBlendS);
 	currItem->setReversed(Buffer->Reverse);
 	currItem->NamedLStyle = Buffer->NamedLStyle;
 //	currItem->Language = ScMW->GetLang(Buffer->Language);
@@ -9797,6 +9806,7 @@ void ScribusView::QueryFarben()
 		emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 		emit ItemGradient(currItem->GrType);
 		emit ItemTrans(currItem->fillTransparency(), currItem->lineTransparency());
+		emit ItemBlend(currItem->fillBlendmode(), currItem->lineBlendmode());
 	}
 }
 

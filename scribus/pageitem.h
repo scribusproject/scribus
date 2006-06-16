@@ -551,6 +551,22 @@ public:
 	 */
 	void setFillTransparency(double newTransparency);
 
+	/** @brief Get the blendmode of the fill color */
+	int fillBlendmode() const { return fillBlendmodeVal; }
+	/**
+	 * @brief Set the blendmode of the fill color.
+	 * @param newBlendmode blendmode of the fill color
+	 */
+	void setFillBlendmode(int newBlendmode);
+
+	/** @brief Get the blendmode of the stroke color */
+	int lineBlendmode() const { return lineBlendmodeVal; }
+	/**
+	 * @brief Set the blendmode of the stroke color.
+	 * @param newBlendmode blendmode of the stroke color
+	 */
+	void setLineBlendmode(int newBlendmode);
+
 	/** @brief Get the line color of the object */
 	QString lineColor() const { return lineColorVal; }
 	/**
@@ -935,6 +951,18 @@ protected:
 	double lineTransparencyVal;
 
 	/**
+	 * @brief Fill transparency blendmode
+	 * @sa PageItem::fillBlendmode(), PageItem::setFillBlendmode()
+	 */
+	int fillBlendmodeVal;
+
+	/**
+	 * @brief Line stroke transparency blendmode.
+	 * @sa PageItem::lineBlendmode(), PageItem::setLineBlendmode()
+	 */
+	int lineBlendmodeVal;
+
+	/**
 	 * @brief Is the image in this image item flipped horizontally?
 	 * @sa PageItem::isImageFlippedH(), PageItem::setImageFlippedH(),
 	 *     PageItem::flipImageH(), PageItem::flippedV
@@ -1066,6 +1094,7 @@ signals:
 	void gradientType(int); //Normal, horizontal, vertical, etc.
 	void gradientColorUpdate(double, double, double, double, double, double); //Cpal updatespecialgradient
 	void transparency(double, double); //fillTransparency, lineTransparency
+	void blendmode(int, int); //fillBlendmode, lineBlendmode
 	void frameLocked(bool); //Frame lock
 	void frameSizeLocked(bool); //Frame size lock
 	void frameFlippedH(bool); //Frame flipped horizontally

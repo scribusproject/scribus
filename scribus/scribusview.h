@@ -372,6 +372,7 @@ signals:
 	void ItemFarben(QString, QString, int, int);
 	void ItemGradient(int);
 	void ItemTrans(double, double);
+	void ItemBlend(int, int);
 	void ItemTextAttr(double);
 	void ItemTextUSval(int);
 	void ItemTextCols(int, double);

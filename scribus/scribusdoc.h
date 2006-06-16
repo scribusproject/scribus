@@ -880,6 +880,8 @@ public slots:
 	void itemSelection_DeleteItem(Selection* customSelection=0);
 	void itemSelection_SetItemFillTransparency(double t);
 	void itemSelection_SetItemLineTransparency(double t);
+	void itemSelection_SetItemFillBlend(int t);
+	void itemSelection_SetItemLineBlend(int t);
 	void itemSelection_FlipH();
 	void itemSelection_FlipV();
 	void itemSelection_DoHyphenate();

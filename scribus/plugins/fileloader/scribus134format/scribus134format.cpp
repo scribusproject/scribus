@@ -2269,6 +2269,8 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		currItem->setLineTransparency(obj->attribute("TransValueS", "0.0").toDouble());
 	else
 		currItem->setLineTransparency(obj->attribute("TransValue", "0.0").toDouble());
+	currItem->setFillBlendmode(obj->attribute("TransBlend", "0").toInt());
+	currItem->setLineBlendmode(obj->attribute("TransBlendS", "0").toInt());
 	if (obj->attribute("TRANSPARENT", "0").toInt() == 1)
 		currItem->setFillColor(CommonStrings::None);
 	currItem->Cols = obj->attribute("COLUMNS", "1").toInt();
@@ -3648,6 +3650,8 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFor
 	ob->setAttribute("REVERS", item->reversed() ? 1 : 0);
 	ob->setAttribute("TransValue", item->fillTransparency());
 	ob->setAttribute("TransValueS", item->lineTransparency());
+	ob->setAttribute("TransBlend", item->fillBlendmode());
+	ob->setAttribute("TransBlendS", item->lineBlendmode());
 	ob->setAttribute("isTableItem", static_cast<int>(item->isTableItem));
 	ob->setAttribute("TopLine", static_cast<int>(item->TopLine));
 	ob->setAttribute("LeftLine", static_cast<int>(item->LeftLine));

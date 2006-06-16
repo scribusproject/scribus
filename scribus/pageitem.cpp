@@ -62,6 +62,9 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 #include "text/nlsconfig.h"
+#ifdef HAVE_CAIRO
+#include <cairo.h>
+#endif
 
 using namespace std;
 
@@ -179,7 +182,9 @@ PageItem::PageItem(const PageItem & other)
 	lineShadeVal(other.lineShadeVal),
 	fillShadeVal(other.fillShadeVal),
 	fillTransparencyVal(other.fillTransparencyVal),
-	lineTransparencyVal(other.fillTransparencyVal),
+	lineTransparencyVal(other.lineTransparencyVal),
+	fillBlendmodeVal(other.fillBlendmodeVal),
+	lineBlendmodeVal(other.lineBlendmodeVal),
 	m_ImageIsFlippedH(other.m_ImageIsFlippedH),
 	m_ImageIsFlippedV(other.m_ImageIsFlippedV),
 	m_Locked(other.m_Locked),
@@ -237,6 +242,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	fillShadeVal(100),
 	fillTransparencyVal(0.0),
 	lineTransparencyVal(0.0),
+	fillBlendmodeVal(0),
+	lineBlendmodeVal(0),
 	m_ImageIsFlippedH(0),
 	m_ImageIsFlippedV(0),
 	m_Locked(false),
@@ -763,12 +770,14 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 	}
 	else
 	{
-/*
+
 #ifdef HAVE_CAIRO
-		if ((fillTransparency() != 0) || (lineTransparency() != 0))
-			p->beginLayer(1.0 - fillTransparency(), 0);
+#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
+		if (fillBlendmode() != 0)
+			p->beginLayer(1.0 - fillTransparency(), fillBlendmode());
 #endif
-*/
+#endif
+
 		p->setLineWidth(m_lineWidth);
 		if (GrType != 0)
 		{
@@ -819,8 +828,10 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 		}
 		else
 			p->setLineWidth(0);
-		p->setBrushOpacity(1.0 - fillTransparency());
-		p->setPenOpacity(1.0 - lineTransparency());
+		if (fillBlendmode() == 0)
+			p->setBrushOpacity(1.0 - fillTransparency());
+		if (lineBlendmode() == 0)
+			p->setPenOpacity(1.0 - lineTransparency());
 		}
 	p->setFillRule(fillRule);
 }
@@ -862,10 +873,22 @@ void PageItem::DrawObj_Post(ScPainter *p)
 	}
 	else
 	{
+#ifdef HAVE_CAIRO
+#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
+		if (fillBlendmode() != 0)
+			p->endLayer();
+#endif
+#endif
 		if (itemType()==PathText || itemType()==PolyLine || itemType()==Line)
 			doStroke=false;
 		if ((doStroke) && (!m_Doc->RePos))
 		{
+#ifdef HAVE_CAIRO
+#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
+			if (lineBlendmode() != 0)
+				p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
+#endif
+#endif
 			if (lineColor() != CommonStrings::None)
 			{
 				p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
@@ -894,13 +917,13 @@ void PageItem::DrawObj_Post(ScPainter *p)
 					}
 				}
 			}
-		}
-/*
 #ifdef HAVE_CAIRO
-		if ((fillTransparency() != 0) || (lineTransparency() != 0))
-			p->endLayer();
+#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
+			if (lineBlendmode() != 0)
+				p->endLayer();
 #endif
-*/
+#endif
+		}
 	}
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
@@ -1624,6 +1647,13 @@ void PageItem::setFillTransparency(double newTransparency)
 	fillTransparencyVal = newTransparency;
 }
 
+void PageItem::setFillBlendmode(int newBlendmode)
+{
+	if (fillBlendmodeVal == newBlendmode)
+		return; // nothing to do -> return
+	fillBlendmodeVal = newBlendmode;
+}
+
 void PageItem::setLineColor(const QString &newColor)
 {
 	if (lineColorVal == newColor)
@@ -1695,6 +1725,13 @@ void PageItem::setLineTransparency(double newTransparency)
 		undoManager->action(this, ss);
 	}
 	lineTransparencyVal = newTransparency;
+}
+
+void PageItem::setLineBlendmode(int newBlendmode)
+{
+	if (lineBlendmodeVal == newBlendmode)
+		return; // nothing to do -> return
+	lineBlendmodeVal = newBlendmode;
 }
 
 void PageItem::setLineStyle(PenStyle newStyle)
@@ -3397,6 +3434,7 @@ bool PageItem::connectToGUI()
 	connect(this, SIGNAL(gradientColorUpdate(double, double, double, double, double, double)), ScMW->propertiesPalette->Cpal, SLOT(setSpecialGradient(double, double, double, double, double, double)));
 	connect(this, SIGNAL(rotation(double)), ScMW->propertiesPalette, SLOT(setR(double)));
 	connect(this, SIGNAL(transparency(double, double)), ScMW->propertiesPalette->Cpal, SLOT(setActTrans(double, double)));
+	connect(this, SIGNAL(blendmode(int, int)), ScMW->propertiesPalette->Cpal, SLOT(setActBlend(int, int)));
 	//Shape signals
 	//Not connected when transferring code: void columns(int, double); //Number, gap
 	connect(this, SIGNAL(cornerRadius(double)), ScMW->propertiesPalette, SLOT(setRR(double)));
@@ -3459,7 +3497,10 @@ void PageItem::emitAllToGUI()
 	double dur=m_Doc->unitRatio();
 	emit gradientColorUpdate(GrStartX*dur, GrStartY*dur, GrEndX*dur, GrEndY*dur, Width*dur, Height*dur);
 	if (GrType == 0)
+	{
 		emit transparency(fillTransparencyVal, lineTransparencyVal);
+		emit blendmode(fillBlendmodeVal, lineBlendmodeVal);
+	}
 	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 	emit columns(Cols, ColGap);
 	if (m_Doc->appMode == modeEdit)

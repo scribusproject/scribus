@@ -2282,6 +2282,8 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		currItem->setLineTransparency(obj->attribute("TransValueS", "0.0").toDouble());
 	else
 		currItem->setLineTransparency(obj->attribute("TransValue", "0.0").toDouble());
+	currItem->setFillBlendmode(0);
+	currItem->setLineBlendmode(0);
 	if (obj->attribute("TRANSPARENT", "0").toInt() == 1)
 		currItem->setFillColor(CommonStrings::None);
 	currItem->Cols = obj->attribute("COLUMNS", "1").toInt();

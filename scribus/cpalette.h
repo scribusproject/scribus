@@ -38,12 +38,14 @@ class QFont;
 class QLayout;
 class QToolButton;
 class QButtonGroup;
+class QGroupBox;
 class QComboBox;
 class QLabel;
 class QSpinBox;
 class DynamicTip;
 class ColorListBox;
 class MSpinBox;
+class ScComboBox;
 
 /**
   *@author Franz Schmid
@@ -77,9 +79,10 @@ public slots:
 	void changeSpecial();
 	void setActShade();
 	void setActTrans(double, double);
+	void changeBlendMode(int);
+	void setActBlend(int, int);
 	void setGradTrans(double val);
 	void slotTrans(int val);
-	void UseTrans(bool b);
 	void unitChange(double old, double neww, int ein);
 	void languageChange();
 
@@ -92,6 +95,8 @@ signals:
 	void NewSpecial(double, double, double, double);
 	void NewTrans(double);
 	void NewTransS(double);
+	void NewBlend(int);
+	void NewBlendS(int);
 	void QueryItem();
 	void gradientChanged();
 	void editGradient();
@@ -99,6 +104,7 @@ signals:
 protected:
 	QVBoxLayout* Form1Layout;
 	QGridLayout* Layout1;
+	QGridLayout* Layout1t;
 	QVBoxLayout* GradLayout;
 	QGridLayout* freeGradientLayout;
 	QPixmap alertIcon;
@@ -126,8 +132,11 @@ protected:
 	MSpinBox* gY2;
 	QToolButton *gradEditButton;
 	QLabel* TransTxt;
+	QLabel* TransTxt2;
 	QLabel* ShadeTxt;
+	QGroupBox* TransGroup;
 	QSpinBox* TransSpin;
+	ScComboBox* blendMode;
 	int Mode;
 	QString sFarbe;
 	ColorList colorList;
@@ -136,7 +145,6 @@ protected:
 	int Shade;
 	QString Color3;
 	int Shade3;
-	bool UseTransFeature;
 	bool GradientMode;
 };
 

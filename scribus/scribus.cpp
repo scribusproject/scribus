@@ -411,7 +411,6 @@ void ScribusMainWindow::initPalettes()
 
 	//CB dont need this until we have a doc...
 	//propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
-	propertiesPalette->Cpal->UseTrans(true);
 	propertiesPalette->Fonts->RebuildList(0);
 	propertiesPalette->installEventFilter(this);
 	nodePalette = new NodePalette(this);
@@ -2282,6 +2281,7 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(ItemFarben(QString, QString, int, int)), propertiesPalette->Cpal, SLOT(setActFarben(QString, QString, int, int)));
 	connect(view, SIGNAL(ItemGradient(int)), propertiesPalette->Cpal, SLOT(setActGradient(int)));
 	connect(view, SIGNAL(ItemTrans(double, double)), propertiesPalette->Cpal, SLOT(setActTrans(double, double)));
+	connect(view, SIGNAL(ItemBlend(int, int)), propertiesPalette->Cpal, SLOT(setActBlend(int, int)));
 	connect(view, SIGNAL(ItemTextAttr(double)), propertiesPalette, SLOT(setLsp(double)));
 	connect(view, SIGNAL(ItemTextUSval(int)), propertiesPalette, SLOT(setExtra(int)));
 //	connect(view, SIGNAL(ItemTextCols(int, double)), propertiesPalette, SLOT(setCols(int, double)));
@@ -6985,7 +6985,6 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 		apf.setPointSize(prefsManager->appPrefs.AppFontSize);
 		qApp->setFont(apf,true);
 	}
-	propertiesPalette->Cpal->UseTrans(true);
 	FontSub->RebuildList(0);
 	propertiesPalette->Fonts->RebuildList(0);
 	ScCore->getCMSProfiles();

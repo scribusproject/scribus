@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <qlayout.h>
 #include <qtoolbutton.h>
 #include <qbuttongroup.h>
+#include <qgroupbox.h>
 #include <qlabel.h>
 #include <qspinbox.h>
 #include "colorm.h"
@@ -45,6 +46,9 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "dynamictip.h"
 #include "commonstrings.h"
+#ifdef HAVE_CAIRO
+#include <cairo.h>
+#endif
 
 
 Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
@@ -53,7 +57,6 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Color3 = "";
 	Shade = 100;
 	Shade3 = 100;
-	UseTransFeature = false;
 	Form1Layout = new QVBoxLayout( this, 0, 0, "Form1Layout");
 	Layout1 = new QGridLayout;
 	Layout1->setSpacing( 4 );
@@ -80,14 +83,6 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	PM1->setLineStep(10);
 	PM1->setValue(100);
 	Layout1->addWidget(PM1, 0, 3);
-	TransTxt = new QLabel( this, "Transtxt" );
-	Layout1->addWidget( TransTxt, 1, 2 );
-	TransSpin = new QSpinBox( this, "traspin" );
-	TransSpin->setMinValue(0);
-	TransSpin->setMaxValue(100);
-	TransSpin->setLineStep(10);
-	TransSpin->setValue(100);
-	Layout1->addWidget(TransSpin, 1, 3);
 	Form1Layout->addLayout(Layout1);
 	GradLayout = new QVBoxLayout( 0, 0, 6, "GradLayout");
 	QFont fo = QFont(font());
@@ -140,6 +135,38 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	Form1Layout->addWidget(colorListQLBox);
 	dynTip = new DynamicTip(colorListQLBox, &colorList);
+	
+	TransGroup = new QGroupBox( tr( "Transparency Settings" ), this, "TransGroup" );
+	TransGroup->setColumnLayout(0, Qt::Vertical );
+	TransGroup->layout()->setSpacing( 0 );
+	TransGroup->layout()->setMargin( 0 );
+	Layout1t = new QGridLayout( TransGroup->layout() );
+	Layout1t->setAlignment( Qt::AlignTop );
+	Layout1t->setSpacing( 5 );
+	Layout1t->setMargin( 5 );
+	TransTxt = new QLabel( TransGroup, "Transtxt" );
+	Layout1t->addWidget( TransTxt, 0, 0 );
+	TransSpin = new QSpinBox( TransGroup, "traspin" );
+	TransSpin->setMinValue(0);
+	TransSpin->setMaxValue(100);
+	TransSpin->setLineStep(10);
+	TransSpin->setValue(100);
+	Layout1t->addWidget(TransSpin, 0, 1);
+	TransTxt2 = new QLabel( TransGroup, "textLabel1" );
+	Layout1t->addWidget( TransTxt2, 1, 0 );
+	blendMode = new ScComboBox( false, TransGroup, "blendMode" );
+	Layout1t->addWidget( blendMode, 1, 1 );
+	Form1Layout->addWidget(TransGroup);
+#ifndef HAVE_CAIRO
+	blendMode->hide();
+	TransTxt2->hide();
+#else
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
+	blendMode->hide();
+	TransTxt2->hide();
+#endif
+#endif
+	
 	Inhalt->setOn(true);
 	InnenButton();
 	GradientMode = false;
@@ -154,6 +181,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 	connect(gradientQCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
+	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	connect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
@@ -391,6 +419,13 @@ void Cpalette::setActTrans(double val, double val2)
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
 }
 
+void Cpalette::setActBlend(int val, int val2)
+{
+	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
+	blendMode->setCurrentItem(Mode == 1 ? val2 : val);
+	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
+}
+
 void Cpalette::setGradTrans(double val)
 {
 	if ((GradientMode) && (Mode ==2))
@@ -398,6 +433,17 @@ void Cpalette::setGradTrans(double val)
 		disconnect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
 		TransSpin->setValue(qRound(val * 100));
 		connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
+	}
+}
+
+void Cpalette::changeBlendMode(int blend)
+{
+	if (Mode == 1)
+		emit NewBlendS(blend);
+	else
+	{
+		if (gradientQCombo->currentItem() == 0)
+			emit NewBlend(blend);
 	}
 }
 
@@ -416,30 +462,6 @@ void Cpalette::slotTrans(int val)
 		}
 	}
 	setFocus();
-}
-
-void Cpalette::UseTrans(bool useTrans)
-{
-	if (useTrans)
-	{
-		TransTxt->show();
-		TransSpin->show();
-		TransTxt->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-		TransSpin->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	}
-	else
-	{
-		if (!TransTxt->isHidden())
-		{
-			TransTxt->hide();
-			TransSpin->hide();
-			TransTxt->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-			TransSpin->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-		}
-	}
-	layout()->activate();
-	repaint();
-	UseTransFeature = useTrans;
 }
 
 void Cpalette::setActGradient(int typ)
@@ -582,6 +604,25 @@ void Cpalette::languageChange()
 	gradientQCombo->insertItem( tr("Free linear Gradient"));
 	gradientQCombo->insertItem( tr("Free radial Gradient"));
 	gradientQCombo->setCurrentItem(oldGradient);
+	TransGroup->setTitle( tr( "Transparency Settings" ));
+	TransTxt2->setText( tr( "Blend Mode:" ) );
+	blendMode->clear();
+	blendMode->insertItem( tr("Normal"));
+	blendMode->insertItem( tr("Darken"));
+	blendMode->insertItem( tr("Lighten"));
+	blendMode->insertItem( tr("Multiply"));
+	blendMode->insertItem( tr("Screen"));
+	blendMode->insertItem( tr("Overlay"));
+	blendMode->insertItem( tr("Hard Light"));
+	blendMode->insertItem( tr("Soft Light"));
+	blendMode->insertItem( tr("Difference"));
+	blendMode->insertItem( tr("Exlusion"));
+	blendMode->insertItem( tr("Color Dodge"));
+	blendMode->insertItem( tr("Color Burn"));
+	blendMode->insertItem( tr("Hue"));
+	blendMode->insertItem( tr("Saturation"));
+	blendMode->insertItem( tr("Color"));
+	blendMode->insertItem( tr("Luminosity"));
 
 	QToolTip::add( Inhalt, tr( "Edit Line Color Properties" ) );
 	QToolTip::add( Innen, tr( "Edit Fill Color Properties" ) );

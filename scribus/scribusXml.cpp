@@ -399,6 +399,8 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("REVERS", item->reversed() ? 1 : 0);
 	ob->setAttribute("TransValue", item->fillTransparency());
 	ob->setAttribute("TransValueS", item->lineTransparency());
+	ob->setAttribute("TransBlend", item->fillBlendmode());
+	ob->setAttribute("TransBlendS", item->lineBlendmode());
 	ob->setAttribute("isTableItem", static_cast<int>(item->isTableItem));
 	ob->setAttribute("TopLine", static_cast<int>(item->TopLine));
 	ob->setAttribute("LeftLine", static_cast<int>(item->LeftLine));

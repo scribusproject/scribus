@@ -5877,6 +5877,35 @@ void ScribusDoc::itemSelection_SetItemLineTransparency(double t)
 		changed();
 	}
 }
+void ScribusDoc::itemSelection_SetItemFillBlend(int t)
+{
+	uint selectedItemCount=m_Selection->count();
+	if (selectedItemCount != 0)
+	{
+		for (uint i = 0; i < selectedItemCount; ++i)
+		{
+			PageItem *currItem = m_Selection->itemAt(i);
+			currItem->setFillBlendmode(t);
+		}
+		emit updateContents();
+		changed();
+	}
+}
+
+void ScribusDoc::itemSelection_SetItemLineBlend(int t)
+{
+	uint selectedItemCount=m_Selection->count();
+	if (selectedItemCount != 0)
+	{
+		for (uint i = 0; i < selectedItemCount; ++i)
+		{
+			PageItem *currItem = m_Selection->itemAt(i);
+			currItem->setLineBlendmode(t);
+		}
+		emit updateContents();
+		changed();
+	}
+}
 
 void ScribusDoc::itemSelection_DoHyphenate()
 {

@@ -975,6 +975,8 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 		OB->TranspStroke = obj->attribute("TransValueS", "0.0").toDouble();
 	else
 		OB->TranspStroke = OB->Transparency;
+	OB->TransBlend = obj->attribute("TransBlend", "0").toInt();
+	OB->TransBlendS = obj->attribute("TransBlendS", "0").toInt();
 	tmp = "";
 	if (obj->hasAttribute("NUMCLIP"))
 	{
