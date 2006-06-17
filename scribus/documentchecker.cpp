@@ -228,7 +228,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 #ifndef NLS_PROTO
 			if ( currItem->frameOverflows() && (checkerSettings.checkOverflow))
 				itemError.insert(TextOverflow, 0);
-			for (uint e = 0; e < currItem->itemText.length(); ++e)
+			for (int e = 0; e < currItem->itemText.length(); ++e)
 			{
 				uint chr = currItem->itemText.text(e).unicode();
 				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 28) || (chr == 27) || (chr == 26) || (chr == 25))

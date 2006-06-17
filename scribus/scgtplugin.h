@@ -29,7 +29,7 @@ class SCRIBUS_API ScGTPlugin : public ScPlugin
 {
 public:
 	ScGTPlugin();
-	~ScGTPlugin();
+	~ScGTPlugin() {};
 
 	/**
 	  @brief Returns the file format's name that this plugin can import or QString::null

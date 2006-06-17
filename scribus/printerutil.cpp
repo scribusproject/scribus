@@ -173,7 +173,7 @@ bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QStri
 		char64 *paperNames = new char64[nPaperNames];
 		DWORD s1 = DeviceCapabilities( printerName.data(), NULL, DC_PAPERS, (LPSTR) papers, NULL );
 		DWORD s2 = DeviceCapabilities( printerName.data(), NULL, DC_PAPERNAMES, (LPSTR) paperNames, NULL );
-		for ( int i = 0; i < nPaperNames; i++ )
+		for ( uint i = 0; i < nPaperNames; i++ )
 		{
 			if ( pageSize == QString(paperNames[i]) )
 			{

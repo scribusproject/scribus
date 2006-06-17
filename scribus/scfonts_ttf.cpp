@@ -187,7 +187,7 @@ void Foi_ttf::RawData(QByteArray & bb) {
 			memcpy(bb.data() + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 8, &pos, 4);
 			pos += tableSize;
 			// pad
-			while (pos & 3 != 0)
+			while ((pos & 3) != 0)
 				bb.data()[pos++] = '\0';
 		}
 	}	

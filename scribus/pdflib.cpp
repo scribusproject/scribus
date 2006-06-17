@@ -3158,7 +3158,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		QString out2;
 		//CB Section numbering
 		//out2 = out.arg(PNr+doc.FirstPnum, -zae);
-		out2=out.arg(doc.getSectionPageNumberForPageIndex(PNr), -zae);
+		out2=out.arg(doc.getSectionPageNumberForPageIndex(PNr), -(int)zae);
 		chstr = out2.mid(d-za2, 1);
 	}
 	uint cc = chstr[0].unicode();

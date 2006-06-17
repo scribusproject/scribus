@@ -1078,7 +1078,7 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 	}
 }
 
-bool ScribusMainWindow::eventFilter( QObject */*o*/, QEvent *e )
+bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 {
 	bool retVal;
 	if ( e->type() == QEvent::KeyPress ) {
@@ -6576,7 +6576,8 @@ void ScribusMainWindow::slotEditColors()
 	{
 		if (HaveDoc)
 		{
-			int c, d;
+			uint c;
+			int d;
 			QMap<QString,QString> ers;
 			PageItem *ite;
 			QColor tmpc;

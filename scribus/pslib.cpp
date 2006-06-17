@@ -2284,7 +2284,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 	if (ite->lineColor() != CommonStrings::None)
 		tabDist += ite->lineWidth() / 2.0;
 
-	uint d;
+	int d;
 	for (d = ite->firstInFrame(); d <= ite->lastInFrame(); ++d)
 	{
 		hl = ite->itemText.item(d);
@@ -2457,7 +2457,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			QString out2;
 			//CB Section numbering
 			//out2 = out.arg(a+Doc->FirstPnum, -zae);
-			out2=out.arg(Doc->getSectionPageNumberForPageIndex(a), -zae);
+			out2=out.arg(Doc->getSectionPageNumberForPageIndex(a), -(int)zae);
 			chstr = out2.mid(d-za2, 1);
 		}
 	}

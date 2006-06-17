@@ -3037,7 +3037,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							emit ItemTextBase(currItem->TxtBase);
 */
 #ifndef NLS_PROTO
-							for (uint aa = 0; aa < currItem->itemText.length(); ++aa)
+							for (int aa = 0; aa < currItem->itemText.length(); ++aa)
 							{
 								currItem->itemText.item(aa)->setFontSize(QMAX(qRound(currItem->itemText.item(aa)->fontSize()*scy), 1));
 								currItem->itemText.item(aa)->setScaleH(QMAX(QMIN(qRound(currItem->itemText.item(aa)->scaleH()*scx), 4000), 100));
@@ -6923,7 +6923,7 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 	}
 	PageItem *bb;
 	double gx, gy, gh, gw, x, y;
-	uint aa;
+	int aa;
 	double sc = Scale;
 
 	getGroupRect(&gx, &gy, &gw, &gh);
@@ -7245,7 +7245,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 			};
 			int a, xp=0, yp=0, h;
 			bool breakAndReturn=false;
-			uint currItemTextCount=currItem->itemText.length();
+			int currItemTextCount=currItem->itemText.length();
 			for (a = currItem->firstInFrame(); a <= currItem->lastInFrame(); ++a)
 			{
 				xp = static_cast<int>(currItem->itemText.item(a)->glyph.xoffset);
@@ -9972,7 +9972,7 @@ void ScribusView::TextToPath()
 			double x, y, wide;
 			QString chstr, ccounter;
 			PageItem* bb;
-			for (uint a = 0; a < currItem->itemText.length(); ++a)
+			for (int a = 0; a < currItem->itemText.length(); ++a)
 			{
 				pts.resize(0);
 				x = 0.0;

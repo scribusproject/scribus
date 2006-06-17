@@ -122,7 +122,7 @@ void BookMView::AddPageItem(PageItem* ite)
 	QString bm = "";
 	QString bm2 = "";
 	QString cc;
-	for (uint d = 0; d < ite->itemText.length(); ++d)
+	for (int d = 0; d < ite->itemText.length(); ++d)
 	{
 		cc = ite->itemText.text(d);
 		if ((cc == QChar(13)) || (cc == QChar(10)))
@@ -522,7 +522,7 @@ void BookMView::ChangeText(PageItem *currItem)
 	QString bm = "";
 	QString bm2 = "";
 	QString cc;
-	for (uint d = 0; d < currItem->itemText.length(); ++d)
+	for (int d = 0; d < currItem->itemText.length(); ++d)
 	{
 		cc = currItem->itemText.text(d);
 		if ((cc == QChar(13)) || (cc == QChar(10)))

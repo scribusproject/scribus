@@ -4120,7 +4120,7 @@ void ScribusDoc::ItemTextPen(QString farbe)
 #ifndef NLS_PROTO
 //				if (appMode != modeEdit)
 //					currItem->setFontStrokeColor(farbe);
-				for (uint i=0; i<currItem->itemText.length(); ++i)
+				for (int i=0; i<currItem->itemText.length(); ++i)
 				{
 					if (appMode == modeEdit)
 					{
@@ -4156,7 +4156,7 @@ void ScribusDoc::ItemTextPenS(int sha)
 #ifndef NLS_PROTO
 //				if (appMode != modeEdit)
 //					currItem->setFontStrokeShade(sha);
-				for (uint i=0; i<currItem->itemText.length(); ++i)
+				for (int i=0; i<currItem->itemText.length(); ++i)
 				{
 					if (appMode == modeEdit)
 					{
@@ -4191,7 +4191,7 @@ void ScribusDoc::ItemTextScaleV(int sha)
 #ifndef NLS_PROTO
 //				if (appMode != modeEdit)
 //					currItem->setFontHeight(sha);
-				for (uint i=0; i<currItem->itemText.length(); ++i)
+				for (int i=0; i<currItem->itemText.length(); ++i)
 				{
 					if (appMode == modeEdit)
 					{
@@ -4227,7 +4227,7 @@ void ScribusDoc::ItemTextScale(int sha)
 #ifndef NLS_PROTO
 //				if (appMode != modeEdit)
 //					currItem->setFontWidth(sha);
-				for (uint i=0; i<currItem->itemText.length(); ++i)
+				for (int i=0; i<currItem->itemText.length(); ++i)
 				{
 					if (appMode == modeEdit)
 					{
@@ -4264,7 +4264,7 @@ void ScribusDoc::setItemTextShadow(int shx, int shy)
 					currItem->TxtShadowY = shy;
 				}
 */
-				for (uint i=0; i<currItem->itemText.length(); ++i)
+				for (int i=0; i<currItem->itemText.length(); ++i)
 				{
 					if (appMode == modeEdit)
 					{
@@ -4305,7 +4305,7 @@ void ScribusDoc::setItemTextUnderline(int pos, int wid)
 					currItem->TxtUnderWidth = wid;
 				}
 */
-				for (uint i=0; i<currItem->itemText.length(); ++i)
+				for (int i=0; i<currItem->itemText.length(); ++i)
 				{
 					if (appMode == modeEdit)
 					{
@@ -4346,7 +4346,7 @@ void ScribusDoc::setItemTextStrike(int pos, int wid)
 					currItem->TxtStrikeWidth = wid;
 				}
 */
-				for (uint i=0; i<currItem->itemText.length(); ++i)
+				for (int i=0; i<currItem->itemText.length(); ++i)
 				{
 					if (appMode == modeEdit)
 					{
@@ -4383,7 +4383,7 @@ void ScribusDoc::setItemTextBase(int sha)
 #ifndef NLS_PROTO
 //				if (appMode != modeEdit)
 //					currItem->TxtBase = sha;
-				for (uint i=0; i<currItem->itemText.length(); ++i)
+				for (int i=0; i<currItem->itemText.length(); ++i)
 				{
 					if (appMode == modeEdit)
 					{
@@ -4414,7 +4414,7 @@ void ScribusDoc::setItemTextOutline(int sha)
 #ifndef NLS_PROTO
 //				if (appMode != modeEdit)
 //					currItem->TxtOutline = sha;
-				for (uint i=0; i<currItem->itemText.length(); ++i)
+				for (int i=0; i<currItem->itemText.length(); ++i)
 				{
 					if (appMode == modeEdit)
 					{
@@ -4531,7 +4531,7 @@ void ScribusDoc::chTyStyle(int s)
 #ifndef NLS_PROTO
 				if (appMode == modeEdit)
 				{
-					for (uint a = 0; a < currItem->itemText.length(); ++a)
+					for (int a = 0; a < currItem->itemText.length(); ++a)
 					{
 						if (currItem->itemText.selected(a))
 						{
@@ -4544,7 +4544,7 @@ void ScribusDoc::chTyStyle(int s)
 				}
 				else
 				{
-					for (uint a = 0; a < currItem->itemText.length(); ++a)
+					for (int a = 0; a < currItem->itemText.length(); ++a)
 					{
 						StyleFlag fl = currItem->itemText.item(a)->effects();
 						fl &= static_cast<StyleFlag>(~1919); // 1024+512+256+64+32+16+8+4+2+1
@@ -4859,7 +4859,7 @@ void ScribusDoc::chKerning(int us)
 #ifndef NLS_PROTO
 				if (currItem->itemText.length() != 0)
 				{
-					for (uint a = 0; a < currItem->itemText.length(); ++a)
+					for (int a = 0; a < currItem->itemText.length(); ++a)
 					{
 						if (currItem->itemText.selected(a))
 							currItem->itemText.item(a)->setTracking(us);
@@ -4875,7 +4875,7 @@ void ScribusDoc::chKerning(int us)
 #ifndef NLS_PROTO
 				if (currItem->itemText.length() != 0)
 				{
-					for (uint a = 0; a < currItem->itemText.length(); ++a)
+					for (int a = 0; a < currItem->itemText.length(); ++a)
 					{
 						currItem->itemText.item(a)->setTracking(us);
 					}
@@ -5736,7 +5736,6 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
-	uint a, c;
 	QPtrList<PageItem> delItems;
 	PageItem *currItem;
 	uint offs = 0;

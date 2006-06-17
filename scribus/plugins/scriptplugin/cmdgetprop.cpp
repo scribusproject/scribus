@@ -31,7 +31,7 @@ PyObject *scribus_getlinecolor(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if ((it->HasSel) && ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText)))
 	{
-		for (uint b = 0; b < it->itemText.length(); ++b)
+		for (int b = 0; b < it->itemText.length(); ++b)
 		{
 			if (it->itemText.selected(b))
 				return PyString_FromString(it->itemText.charStyle(b).fillColor().utf8());
@@ -67,7 +67,7 @@ PyObject *scribus_getlineshade(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if ((it->HasSel) && ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText)))
 	{
-		for (uint b = 0; b < it->itemText.length(); ++b)
+		for (int b = 0; b < it->itemText.length(); ++b)
 		{
 			if (it->itemText.selected(b))
 				return PyInt_FromLong(static_cast<long>(it->itemText.charStyle(b).fillShade()));

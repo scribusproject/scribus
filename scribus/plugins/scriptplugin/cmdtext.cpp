@@ -28,7 +28,7 @@ PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 	}
 	if (it->HasSel)
 	{
-		for (uint b = 0; b < it->itemText.length(); b++)
+		for (int b = 0; b < it->itemText.length(); b++)
 			if (it->itemText.selected(b))
 				return PyFloat_FromDouble(static_cast<double>(it->itemText.charStyle(b).fontSize() / 10.0));
 		return NULL;
@@ -54,7 +54,7 @@ PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
 	}
 	if (it->HasSel)
 	{
-		for (uint b = 0; b < it->itemText.length(); b++)
+		for (int b = 0; b < it->itemText.length(); b++)
 			if (it->itemText.selected(b))
 				return PyString_FromString(it->itemText.charStyle(b).font()->scName().utf8());
 		return NULL;
@@ -151,7 +151,7 @@ PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text of non-text frame.","python error"));
 		return NULL;
 	}
-	for (uint a = it->firstInFrame(); a < it->lastInFrame(); a++)
+	for (int a = it->firstInFrame(); a < it->lastInFrame(); a++)
 	{
 		if (it->HasSel)
 		{
@@ -184,7 +184,7 @@ PyObject *scribus_gettext(PyObject* /* self */, PyObject* args)
 	}
 
 	// collect all chars from a storytext
-	for (uint a = 0; a < it->itemText.length(); a++)
+	for (int a = 0; a < it->itemText.length(); a++)
 	{
 		if (it->HasSel)
 		{
@@ -546,7 +546,7 @@ PyObject *scribus_settextfill(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		for (uint b = 0; b < it->itemText.length(); b++)
+		for (int b = 0; b < it->itemText.length(); b++)
 		{
 			//FIXME: doc method
 			if (it->HasSel)
@@ -581,7 +581,7 @@ PyObject *scribus_settextstroke(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		for (uint b = 0; b < it->itemText.length(); b++)
+		for (int b = 0; b < it->itemText.length(); b++)
 		{
 			//FIXME:NLS use document method for this
 			if (it->HasSel)
@@ -622,7 +622,7 @@ PyObject *scribus_settextshade(PyObject* /* self */, PyObject* args)
 	else
 	{
 		//FIXME:NLS use document method for that
-		for (uint b = 0; b < it->itemText.length(); ++b)
+		for (int b = 0; b < it->itemText.length(); ++b)
 		{
 			if (it->HasSel)
 			{

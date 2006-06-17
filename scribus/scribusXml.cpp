@@ -1009,7 +1009,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			if (((item->asTextFrame()) || (item->asPathText())) && (item->itemText.length() != 0))
 			{
 #ifndef NLS_PROTO
-				for (uint tx = 0; tx < item->itemText.length(); ++tx)
+				for (int tx = 0; tx < item->itemText.length(); ++tx)
 				{
 					if (item->itemText.text(tx) == SpecialChars::PARSEP)
 					{

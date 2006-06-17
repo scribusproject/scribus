@@ -214,7 +214,7 @@ bool LoadSavePlugin::readStyles(const QString& /*fileName*/, ScribusDoc* /*doc*/
 	return false;
 }
 
-bool LoadSavePlugin::readLineStyles(const QString& /*fileName*/, QMap<QString,multiLine> */*Sty*/)
+bool LoadSavePlugin::readLineStyles(const QString& /*fileName*/, QMap<QString,multiLine>* /*Sty*/)
 {
 	return false;
 }
@@ -224,7 +224,7 @@ bool LoadSavePlugin::readColors(const QString& /*fileName*/, ColorList & /*color
 	return false;
 }
 
-bool LoadSavePlugin::readPageCount(const QString& /*fileName*/, int */*num1*/, int */*num2*/, QStringList & /*masterPageNames*/)
+bool LoadSavePlugin::readPageCount(const QString& /*fileName*/, int* /*num1*/, int* /*num2*/, QStringList & /*masterPageNames*/)
 {
 	return false;
 }

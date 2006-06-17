@@ -287,7 +287,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	listView->addColumn( tr( "Link" ) , 0 );
 	listView->setColumnWidthMode( 0, QListView::Maximum );
 	listView->setColumnWidthMode( 1, QListView::Manual );
-	listView->setSorting(-1,-1);
+	listView->setSorting(-1,true);
 	listView->setRootIsDecorated( true );
 	listView->setSelectionMode(QListView::Single);
 	listView->setDefaultRenameAction(QListView::Reject);
@@ -328,7 +328,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	bookmarksView->addColumn( tr( "Link" ) , 0 );
 	bookmarksView->setColumnWidthMode( 0, QListView::Maximum );
 	bookmarksView->setColumnWidthMode( 1, QListView::Manual );
-	bookmarksView->setSorting(1, -1);
+	bookmarksView->setSorting(1, true);
 	bookmarksView->setRootIsDecorated( true );
 	bookmarksView->setSelectionMode(QListView::Single);
 	bookmarksView->setDefaultRenameAction(QListView::Reject);

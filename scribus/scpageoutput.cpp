@@ -788,7 +788,7 @@ void ScPageOutput::DrawItem_Line( PageItem_Line* item, ScPainterExBase* painter 
 
 void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* painter, double scale )
 {
-	uint a;
+	int a;
 	int chs;
 	double wide;
 	QString chstr, chstr2, chstr3;
@@ -1090,7 +1090,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 	QPoint pt1, pt2;
 	FPoint ColBound;
 	QRegion cm;
-	uint a;
+	int a;
 	int chs, CurrCol;
 	double oldCurY, wide, lineCorr, ColWidth;
 	QString chstr, chstr2, chstr3;

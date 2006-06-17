@@ -103,7 +103,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 	{
 		newstyle = it->itemText.defaultStyle().charStyle();
 	}
-	int insPos = Append? it->CPos : it->itemText.length();
+	uint insPos = Append? it->CPos : it->itemText.length();
 	it->itemText.insertChars(insPos, txt);
 	it->itemText.applyCharStyle(insPos, txt.length(), newstyle);
 #if 0
@@ -111,8 +111,8 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 		it->itemText.item(i)->cab = Absatz;
 	}
 #else
-	for (int i=0; i < it->itemText.nrOfParagraphs(); ++i) {
-		int pos = it->itemText.startOfParagraph(i);
+	for (uint i=0; i < it->itemText.nrOfParagraphs(); ++i) {
+		uint pos = it->itemText.startOfParagraph(i);
 		if (pos >= insPos + txt.length())
 			break;
 		if (pos >= insPos)

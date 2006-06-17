@@ -604,7 +604,7 @@ void ColorManager::delUnused()
 			}
 			if ((ite->asTextFrame()) || (ite->asPathText()))
 			{
-				for (uint d=0; d<ite->itemText.length(); ++d)
+				for (int d=0; d<ite->itemText.length(); ++d)
 				{
 					if (it.key() == ite->itemText.charStyle(d).fillColor())
 						found = true;
@@ -638,7 +638,7 @@ void ColorManager::delUnused()
 			}
 			if ((ite->asTextFrame()) || (ite->asPathText()))
 			{
-				for (uint d=0; d<ite->itemText.length(); ++d)
+				for (int d=0; d<ite->itemText.length(); ++d)
 				{
 					if (it.key() == ite->itemText.charStyle(d).fillColor())
 						found = true;
@@ -675,7 +675,7 @@ void ColorManager::delUnused()
 				found = true;
 			if ((ite->asTextFrame()) || (ite->asPathText()))
 			{
-				for (uint d=0; d<ite->itemText.length(); ++d)
+				for (int d=0; d<ite->itemText.length(); ++d)
 				{
 					/* PFJ - 29.02.04 - Merged if's */
 					if ((it.key() == ite->itemText.charStyle(d).fillColor()) ||

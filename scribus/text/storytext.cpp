@@ -22,8 +22,9 @@ QChar SpecialChars::ZWNBSPACE;
 QChar SpecialChars::ZWSPACE;
 //QChar SpecialChars::SPACE      = QChar(32);
 
-struct ScText_Shared : public QPtrList<ScText>
-{	
+class ScText_Shared : public QPtrList<ScText>
+{
+public:
 	ParagraphStyle defaultStyle;
 	uint refs;
 	uint len;
