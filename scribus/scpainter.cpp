@@ -447,9 +447,21 @@ void ScPainter::endLayer()
 							}
 							else if (m_blendMode == 7)
 							{
-								src_r = src_r * dst_r / 256 + src_r * (255 - ((255-src_r)*(255-dst_r) / 256) - src_r * dst_r / 256) / 256;
-								src_g = src_g * dst_g / 256 + src_g * (255 - ((255-src_g)*(255-dst_g) / 256) - src_g * dst_g / 256) / 256;
-								src_b = src_b * dst_b / 256 + src_b * (255 - ((255-src_b)*(255-dst_b) / 256) - src_b * dst_b / 256) / 256;
+								double s_r = (255 - src_r) / 255.0;
+								double s_g = (255 - src_g) / 255.0;
+								double s_b = (255 - src_b) / 255.0;
+								double d_r = (255 - dst_r) / 255.0;
+								double d_g = (255 - dst_g) / 255.0;
+								double d_b = (255 - dst_b) / 255.0;
+								double dzr = d_r > 0.25 ? sqrt(d_r) : ((16 * d_r - 12) * d_r + 4) * d_r;
+								double dzg = d_g > 0.25 ? sqrt(d_g) : ((16 * d_g - 12) * d_g + 4) * d_g;
+								double dzb = d_b > 0.25 ? sqrt(d_b) : ((16 * d_b - 12) * d_b + 4) * d_b;
+								s_r = s_r <= 0.5 ? d_r - (1 - 2 * s_r) * d_r * (1 - d_r) : d_r + (2 * s_r - 1) * (dzr  - d_r);
+								s_g = s_g <= 0.5 ? d_g - (1 - 2 * s_g) * d_g * (1 - d_g) : d_g + (2 * s_g - 1) * (dzg  - d_g);
+								s_b = s_b <= 0.5 ? d_b - (1 - 2 * s_b) * d_b * (1 - d_b) : d_b + (2 * s_b - 1) * (dzb  - d_b);
+								src_r = 255 - qRound(s_r * 255);
+								src_g = 255 - qRound(s_g * 255);
+								src_b = 255 - qRound(s_b * 255);
 							}
 							else if (m_blendMode == 8)
 							{
