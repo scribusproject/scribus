@@ -355,8 +355,12 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
 				{
 #ifdef HAVE_CAIRO
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
 					if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
 						painter->beginLayer(1.0, 0);
+#else
+					painter->beginLayer(1.0, 0);
+#endif
 #endif
 					painter->setFillMode(ScPainter::Solid);
 					painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
@@ -371,14 +375,22 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					if ((Doc->guidesSettings.before) && (!viewAsPreview))
 						DrawPageMarks(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
 #ifdef HAVE_CAIRO
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
 					if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
 						painter->endLayer();
+#else
+					painter->endLayer();
+#endif
 #endif
 				}
 			}
 #ifdef HAVE_CAIRO
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
 			if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
 				painter->beginLayer(1.0, 0);
+#else
+			painter->beginLayer(1.0, 0);
+#endif
 #endif
 			for (uint a = 0; a < docPagesCount; ++a)
 			{
@@ -386,8 +398,12 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			}
 			DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 #ifdef HAVE_CAIRO
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
 			if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
 				painter->endLayer();
+#else
+			painter->endLayer();
+#endif
 #endif
 			if ((!Doc->guidesSettings.before) && (!viewAsPreview))
 			{
@@ -415,8 +431,12 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
 			{
 #ifdef HAVE_CAIRO
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
 				if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
 					painter->beginLayer(1.0, 0);
+#else
+				painter->beginLayer(1.0, 0);
+#endif
 #endif
 				painter->setFillMode(ScPainter::Solid);
 				painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
@@ -427,18 +447,30 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				if (Doc->guidesSettings.before)
 					DrawPageMarks(painter, Doc->currentPage(), QRect(clipx, clipy, clipw, cliph));
 #ifdef HAVE_CAIRO
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
 				if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
 					painter->endLayer();
+#else
+				painter->endLayer();
+#endif
 #endif
 			}
 #ifdef HAVE_CAIRO
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
 			if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
 				painter->beginLayer(1.0, 0);
+#else
+			painter->beginLayer(1.0, 0);
+#endif
 #endif
 			DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 #ifdef HAVE_CAIRO
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
 			if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
 				painter->endLayer();
+#else
+			painter->endLayer();
+#endif
 #endif
 			if ((!Doc->guidesSettings.before) && (drawRect.intersects(QRect(clipx, clipy, clipw, cliph))))
 				DrawPageMarks(painter, Doc->currentPage(), QRect(clipx, clipy, clipw, cliph));
