@@ -203,7 +203,7 @@ void StoryText::removeChars(int pos, uint len)
 	assert( pos >= 0 );
 	assert( pos + static_cast<int>(len) <= length() );
 
-	for ( uint i=0; i < len; ++i )
+	for ( int i=pos + static_cast<int>(len) - 1; i >= pos; --i )
 	{
 		ScText *it = d->at(i);
 		if ((it->ch[0] == SpecialChars::OBJECT) && (it->cembedded != 0)) {
@@ -213,6 +213,7 @@ void StoryText::removeChars(int pos, uint len)
 		else if ((it->ch[0] == SpecialChars::PARSEP)) {
 			removeParSep(this, i);
 		}
+//		qDebug("remove char %d at %d", it->ch[0].unicode(), i);
 		d->take(i);
 		d->len--;
 		delete it;
@@ -391,7 +392,7 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 	if (pos == length())
 		return defaultStyle();
 	else if ( !that->d->current()->parstyle ) {
-		qDebug(QString("missing parstyle at %1").arg(pos));
+		qDebug(QString("using default parstyle at %1").arg(pos));
 		that->d->current()->parstyle = new ParagraphStyle(defaultStyle());
 	}
 	return *that->d->current()->parstyle;
@@ -568,6 +569,8 @@ void StoryText::select(int pos, uint len, bool on)
 	assert( pos >= 0 );
 	assert( pos + signed(len) <= length() );
 
+//	qDebug("old selection: %d - %d", selFirst, selLast);
+
 //	StoryText* that = const_cast<StoryText *>(this);
 //	for (int i=pos; i < pos+signed(len); ++i)
 //		that->at(i)->cselect = on;
@@ -595,6 +598,8 @@ void StoryText::select(int pos, uint len, bool on)
 			// Grr, deselection splits selection
 			selLast = pos - 1;
 	}
+	
+//	qDebug("new selection: %d - %d", selFirst, selLast);
 }
 
 void StoryText::selectAll()
@@ -625,6 +630,7 @@ void StoryText::deselectAll()
 
 void StoryText::removeSelection()
 {
+//	qDebug("removeSelection: %d - %d", selFirst, selLast);
 	if (selFirst > selLast)
 		return;
 

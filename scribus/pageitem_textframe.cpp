@@ -1390,8 +1390,18 @@ void PageItem_TextFrame::layout()
 				uint loopC = BuPos3;
 				if (m_Doc->guidesSettings.showControls)
 					loopC++;  // ??? AV
-				for (uint zc = 0; zc < QMAX(loopC, LiList.count()); ++zc)
+				for (uint zc = 0; zc < loopC; ++zc)
 				{
+					if ( zc >= LiList.count()) {
+						qDebug("layout: zc too large %d / %d", zc, LiList.count());
+						continue;
+					}
+					if ( startLin+zc >= itemText.length()) {
+						qDebug("layout: startLin+zc too large %d+%d / %d", startLin, zc, itemText.length());
+						continue;
+					}
+//					else
+//						qDebug("layout: startLin, zc ok. %d, %d, %d", startLin, zc, LiList.count());
 					double wide2 = 0;
 					Zli2 = LiList.at(zc);
 					double xcoZli = Zli2->xco;
@@ -3664,7 +3674,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			unicodeInputString = "";
 			if (ok)
 			{
-				if (HasSel)
+				if (itemText.lengthOfSelection() > 0)
 					deleteSelectedTextFromFrame();
 				if (conv < 31)
 					conv = 32;
@@ -3729,7 +3739,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		CPos = pos;
 		if ( buttonState & ShiftButton )
 			ExpandSel(-1, oldPos);
-		if ( this->HasSel )
+		if ( this->itemText.lengthOfSelection() > 0 )
 			view->RefreshItem(this);
 		ScMW->setTBvals(this);
 		break;
@@ -3783,7 +3793,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		if ( buttonState & ShiftButton )
 			ExpandSel(1, oldPos);
-		if ( this->HasSel )
+		if ( this->itemText.lengthOfSelection() > 0 )
 			view->RefreshItem(this);
 		ScMW->setTBvals(this);
 		break;
@@ -3881,7 +3891,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				}
 			}
 		}
-		if ( this->HasSel )
+		if ( this->itemText.lengthOfSelection() > 0 )
 			view->RefreshItem(this);
 		ScMW->setTBvals(this);
 		break;
@@ -3973,7 +3983,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				}
 			}
 		}
-		if ( this->HasSel )
+		if ( this->itemText.lengthOfSelection() > 0 )
 			view->RefreshItem(this);
 		ScMW->setTBvals(this);
 		break;
@@ -4041,7 +4051,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					break;
 			}
 		}
-		if ( HasSel )
+		if ( itemText.lengthOfSelection() > 0 )
 			view->RefreshItem(this);
 		ScMW->setTBvals(this);
 		break;
@@ -4066,6 +4076,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if (CPos > lastInFrame())
 			{
 //				--CPos;
+				CPos = lastInFrame() + 1;
 				if (NextBox != 0)
 				{
 					if (NextBox->frameDisplays(CPos))
@@ -4078,14 +4089,14 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				}
 			}
 		}
-		if ( HasSel )
+		if ( itemText.lengthOfSelection() > 0 )
 			view->RefreshItem(this);
 		ScMW->setTBvals(this);
 		break;
 	case Key_Delete:
 		if (CPos == itemText.length())
 		{
-			if (HasSel)
+			if (itemText.lengthOfSelection() > 0)
 			{
 				deleteSelectedTextFromFrame();
 				ScMW->setTBvals(this);
@@ -4100,7 +4111,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			return;
 		}
 		cr = itemText.text(CPos,1);
-		if (!HasSel)
+		if (itemText.lengthOfSelection() == 0)
 			itemText.select(CPos, 1, true);
 		deleteSelectedTextFromFrame();
 		Tinput = false;
@@ -4115,7 +4126,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	case Key_Backspace:
 		if (CPos == 0)
 		{
-			if (HasSel)
+			if (itemText.lengthOfSelection() > 0)
 			{
 				deleteSelectedTextFromFrame();
 				ScMW->setTBvals(this);
@@ -4126,7 +4137,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		if (itemText.length() == 0)
 			break;
 		cr = itemText.text(QMAX(CPos-1,0),1);
-		if (!HasSel)
+		if (itemText.lengthOfSelection() == 0)
 		{
 			--CPos;
 			itemText.select(CPos, 1, true);
@@ -4142,7 +4153,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		view->RefreshItem(this);
 		break;
 	default:
-		if ((HasSel) && (kk < 0x1000))
+		if ((itemText.lengthOfSelection() > 0) && (kk < 0x1000))
 			deleteSelectedTextFromFrame();
 		//if ((kk == Key_Tab) || ((kk == Key_Return) && (buttonState & ShiftButton)))
 		if (kk == Key_Tab)
@@ -4197,8 +4208,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 
 void PageItem_TextFrame::deleteSelectedTextFromFrame()
 {
-	int firstSelection = 0;
-	if (HasSel) {
+	if (itemText.lengthOfSelection() > 0) {
 		CPos = itemText.startOfSelection();
 		itemText.removeSelection();
 		HasSel = false;
@@ -4300,7 +4310,7 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 			dir = -1;
 	}
    // show for selection of previous, actual and next character
-	if ( HasSel ) /* selection already present */
+	if ( itemText.lengthOfSelection() > 0 ) /* selection already present */
 	{
 		if (dir > 0 && oldPos < len) // -> key
 		{
@@ -4384,7 +4394,7 @@ void PageItem_TextFrame::deselectAll()
 
 	while ( item )
 	{
-		if ( item->HasSel )
+		if ( item->itemText.lengthOfSelection() > 0 )
 		{
 			item->itemText.deselectAll();
 			m_Doc->view()->RefreshItem(this);
