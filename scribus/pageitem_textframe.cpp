@@ -58,6 +58,9 @@ for which a new license (GPL+exception) is in place.
 #include "scfontmetrics.h"
 #include "util.h"
 #include "text/nlsconfig.h"
+#ifdef HAVE_CAIRO
+#include <cairo.h>
+#endif
 
 using namespace std;
 
@@ -3472,8 +3475,20 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	}
 	else
 	{
+#ifdef HAVE_CAIRO
+#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
+		if (fillBlendmode() != 0)
+			p->endLayer();
+#endif
+#endif
 		if (!m_Doc->RePos)
 		{
+#ifdef HAVE_CAIRO
+#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
+			if (lineBlendmode() != 0)
+				p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
+#endif
+#endif
 			if (lineColor() != CommonStrings::None)
 			{
 				p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
@@ -3502,6 +3517,12 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 					}
 				}
 			}
+#ifdef HAVE_CAIRO
+#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
+			if (lineBlendmode() != 0)
+				p->endLayer();
+#endif
+#endif
 		}
 	}
 	if ((!isEmbedded) && (!m_Doc->RePos))
