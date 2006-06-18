@@ -5324,6 +5324,16 @@ void ScribusMainWindow::ToggleRulerMode()
 {
 	guidesStatus[0] = false;
 	doc->guidesSettings.rulerMode = !doc->guidesSettings.rulerMode;
+	if (doc->guidesSettings.rulerMode)
+	{
+		doc->rulerXoffset = 0;
+		doc->rulerYoffset = 0;
+	}
+	else
+	{
+		doc->rulerXoffset += doc->currentPage()->xOffset();
+		doc->rulerYoffset += doc->currentPage()->yOffset();
+	}
 	if (doc->m_Selection->count()==1)
 	{
 		PageItem* currItem=doc->m_Selection->itemAt(0);
