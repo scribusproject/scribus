@@ -310,6 +310,8 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 
 	activeBView = new BibView(this);
 	Frame3->addTab(activeBView, "Main");
+	tempBView = new BibView(this);
+	Frame3->addTab(tempBView, "Temp");
 	BiblioLayout->addWidget( Frame3 );
 	languageChange();
 	connect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
@@ -350,9 +352,9 @@ QStringList Biblio::getOpenScrapbooks()
 {
 	QStringList ret;
 	ret.clear();
-	if (Frame3->count() > 1)
+	if (Frame3->count() > 2) // omit the first 2 Tabs since they contain the main and temp scrapbook
 	{
-		for (int a = 1; a < Frame3->count(); a++)
+		for (int a = 2; a < Frame3->count(); a++)
 		{
 			BibView* bv = (BibView*)Frame3->page(a);
 			ret.append(bv->ScFilename);
@@ -386,10 +388,17 @@ void Biblio::readContents(QString fileName)
 	activeBView->ReadContents(fileName);
 }
 
+void Biblio::readTempContents(QString fileName)
+{
+	tempBView->ReadContents(fileName);
+	tempBView->ScFilename = fileName;
+}
+
 void Biblio::installEventFilter(const QObject *filterObj)
 {
 	ScrPaletteBase::installEventFilter(filterObj);
 	activeBView->installEventFilter(filterObj);
+	tempBView->installEventFilter(filterObj);
 }
 
 void Biblio::NewLib()
@@ -500,7 +509,7 @@ void Biblio::SaveAs()
 
 void Biblio::closeLib()
 {
-	if (Frame3->count() == 1)
+	if (Frame3->count() == 2)
 		close();
 	else
 	{
@@ -684,6 +693,43 @@ void Biblio::ObjFromMenu(QString text)
 	pm.save(QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam +".png")), "PNG");
 	(void) new QIconViewItem(activeBView, nam, pm);
 	delete pre;
+}
+
+void Biblio::ObjFromCopyAction(QString text)
+{
+	QString nam, tmp;
+	nam = tr("Object") + tmp.setNum(tempBView->objectMap.count());
+	QString ff = text;
+	QFile f(QDir::cleanDirPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam + ".sce")));
+	if(!f.open(IO_WriteOnly))
+		return ;
+	QTextStream s;
+	s.setEncoding(QTextStream::UnicodeUTF8);
+	s.setDevice(&f);
+	s.writeRawBytes(ff, ff.length());
+	f.close();
+	ScPreview *pre = new ScPreview();
+	QPixmap pm = pre->createPreview(ff);
+	tempBView->AddObj(nam, QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam + ".sce")), pm);
+	pm.save(QDir::cleanDirPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam +".png")), "PNG");
+	(void) new QIconViewItem(tempBView, nam, pm);
+	delete pre;
+}
+
+void Biblio::CleanUpTemp()
+{
+	QMap<QString,BibView::Elem>::Iterator it;
+	for (it = tempBView->objectMap.begin(); it != tempBView->objectMap.end(); ++it)
+	{
+		QFile f(it.data().Data);
+		f.remove();
+		QFileInfo fi(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
+		if (fi.exists())
+		{
+			QFile f2(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
+			f2.remove();
+		}
+	}
 }
 
 void Biblio::languageChange()

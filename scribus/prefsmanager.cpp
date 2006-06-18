@@ -567,6 +567,12 @@ QString PrefsManager::setupPreferencesLocation()
 		QDir scrapMainDirectory = QDir();
 		scrapDirectory.mkdir(QDir::convertSeparators(scB+"/main"));
 	}
+	QFileInfo scTmp = QFileInfo(QDir::convertSeparators(scB+"/tmp"));
+	if (!scTmp.exists())
+	{
+		QDir scrapDirectoryT = QDir();
+		scrapDirectoryT.mkdir(QDir::convertSeparators(scB+"/tmp"));
+	}
 	prefsLocation=PrefsPfad;
 	return PrefsPfad;
 }

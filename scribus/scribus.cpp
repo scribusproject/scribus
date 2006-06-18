@@ -496,6 +496,10 @@ void ScribusMainWindow::initScrapbook()
 		QDir d = QDir();
 		d.rename(scrapbookFileO, QDir::convertSeparators(prefsManager->preferencesLocation()+"/scrap13.backup"));
 	}
+	QString scrapbookTemp = QDir::convertSeparators(prefsManager->preferencesLocation()+"/scrapbook/tmp");
+	QFileInfo scrapbookTempInfo = QFileInfo(scrapbookTemp);
+	if (scrapbookTempInfo.exists())
+		scrapbookPalette->readTempContents(scrapbookTemp);
 	QString scrapbookFile = QDir::convertSeparators(prefsManager->preferencesLocation()+"/scrapbook/main");
 	QFileInfo scrapbookFileInfo = QFileInfo(scrapbookFile);
 	if (scrapbookFileInfo.exists())
@@ -1699,6 +1703,8 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 
 	// Clean up plugins, THEN save prefs to disk
 	ScCore->pluginManager->cleanupPlugins();
+	// TODO make this dependend to a Prefs setting
+	scrapbookPalette->CleanUpTemp();
 	prefsManager->appPrefs.RecentScrapbooks.clear();
 	prefsManager->appPrefs.RecentScrapbooks = scrapbookPalette->getOpenScrapbooks();
 	if (!emergencyActivated)
@@ -3587,6 +3593,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	pagePalette->Rebuild();
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	undoManager->setUndoEnabled(true);
+	doc->setModified(false);
 	return ret;
 }
 
@@ -4379,6 +4386,7 @@ void ScribusMainWindow::slotEditCut()
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(doc, view, doc->m_Selection);
 			Buffer2 = BufferI;
+			scrapbookPalette->ObjFromCopyAction(Buffer2);
 			doc->itemSelection_DeleteItem();
 			delete ss;
 		}
@@ -4464,6 +4472,7 @@ void ScribusMainWindow::slotEditCopy()
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(doc, view, doc->m_Selection);
 			Buffer2 = BufferI;
+			scrapbookPalette->ObjFromCopyAction(Buffer2);
 			delete ss;
 		}
 		BuFromApp = true;

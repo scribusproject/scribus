@@ -64,10 +64,13 @@ public:
 	Biblio( QWidget* parent);
 	~Biblio() {};
 	void ObjFromMenu(QString text);
+	void ObjFromCopyAction(QString text);
+	void CleanUpTemp();
 	void setScrapbookFileName(QString);
 	const QString getScrapbookFileName();
 	const int objectCount();
 	void readContents(QString);
+	void readTempContents(QString);
 	void readOldContents(QString, QString);
 	void installEventFilter(const QObject *);
 	void setOpenScrapbooks(QStringList &fileNames);
@@ -96,6 +99,7 @@ protected:
 	QTabWidget* Frame3;
 	QVBoxLayout* BiblioLayout;
 	BibView* activeBView;
+	BibView* tempBView;
 	QString OldName;
 // 	int mFile;
 // 	int mView;

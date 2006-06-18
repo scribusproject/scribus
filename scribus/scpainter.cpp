@@ -346,7 +346,7 @@ void ScPainter::beginLayer(double transparency, int blendmode)
 	m_layerTransparency = transparency;
 	m_blendMode = blendmode;
 	cairo_push_group(m_cr);
-	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 8)
+/*	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 8)
 	cairo_surface_t *tmp2 = cairo_get_group_target(m_cr);
 	if (tmp2 != NULL)
 	{
@@ -356,7 +356,6 @@ void ScPainter::beginLayer(double transparency, int blendmode)
 			unsigned char *s = cairo_image_surface_get_data(tmp2);
 			if (s != NULL)
 			{
-//				int h = m_image->height();
 				int h = cairo_image_surface_get_height(tmp2);
 				for( int yi=0; yi < h; ++yi )
 				{
@@ -367,7 +366,7 @@ void ScPainter::beginLayer(double transparency, int blendmode)
 		}
 		cairo_surface_mark_dirty(tmp2);
 	}
-	#endif
+	#endif */
 #else
 	tmp_image.fill( qRgba(255, 255, 255, 0) );
 #endif
@@ -447,15 +446,15 @@ void ScPainter::endLayer()
 							}
 							else if (m_blendMode == 7)
 							{
-								double s_r = (255 - src_r) / 255.0;
-								double s_g = (255 - src_g) / 255.0;
-								double s_b = (255 - src_b) / 255.0;
-								double d_r = (255 - dst_r) / 255.0;
-								double d_g = (255 - dst_g) / 255.0;
-								double d_b = (255 - dst_b) / 255.0;
-								double dzr = d_r > 0.25 ? sqrt(d_r) : ((16 * d_r - 12) * d_r + 4) * d_r;
-								double dzg = d_g > 0.25 ? sqrt(d_g) : ((16 * d_g - 12) * d_g + 4) * d_g;
-								double dzb = d_b > 0.25 ? sqrt(d_b) : ((16 * d_b - 12) * d_b + 4) * d_b;
+								float s_r = (255 - src_r) / 255.0;
+								float s_g = (255 - src_g) / 255.0;
+								float s_b = (255 - src_b) / 255.0;
+								float d_r = (255 - dst_r) / 255.0;
+								float d_g = (255 - dst_g) / 255.0;
+								float d_b = (255 - dst_b) / 255.0;
+								float dzr = d_r > 0.25 ? sqrt(d_r) : ((16 * d_r - 12) * d_r + 4) * d_r;
+								float dzg = d_g > 0.25 ? sqrt(d_g) : ((16 * d_g - 12) * d_g + 4) * d_g;
+								float dzb = d_b > 0.25 ? sqrt(d_b) : ((16 * d_b - 12) * d_b + 4) * d_b;
 								s_r = s_r <= 0.5 ? d_r - (1 - 2 * s_r) * d_r * (1 - d_r) : d_r + (2 * s_r - 1) * (dzr  - d_r);
 								s_g = s_g <= 0.5 ? d_g - (1 - 2 * s_g) * d_g * (1 - d_g) : d_g + (2 * s_g - 1) * (dzg  - d_g);
 								s_b = s_b <= 0.5 ? d_b - (1 - 2 * s_b) * d_b * (1 - d_b) : d_b + (2 * s_b - 1) * (dzb  - d_b);
