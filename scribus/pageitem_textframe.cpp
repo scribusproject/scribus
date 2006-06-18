@@ -3611,9 +3611,9 @@ void PageItem_TextFrame::clearContents()
 	while (nextItem != 0)
 	{
 		nextItem->CPos = 0;
+		nextItem->itemText.clear();
 		nextItem = nextItem->NextBox;
 	}
-	nextItem->itemText.clear();
 }
 
 void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
