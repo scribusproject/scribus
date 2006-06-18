@@ -51,6 +51,7 @@ intro.html
 irc.html
 javascriptpdf.html
 keys.html
+layers.html
 lipsum.html
 machints1.html
 machints2.html

@@ -37,6 +37,7 @@
             <submenuitem text="Master Pages" file="pagetemplate1.html" />
 	    <submenuitem text="Page Numbering" file="pagenumber.html" />
             <submenuitem text="Short Words Plug-in" file="short-words.html" />
+	    <submenuitem text="Layers" file="layers.html" />
         </submenuitem>
             <submenuitem text="Importing" file="importhints.html">
             <submenuitem text="Importing EPS" file="importhints1.html"/>

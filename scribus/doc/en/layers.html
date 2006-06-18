@@ -1,3 +1,5 @@
+
+<qt>
 <h3>Transparent Layer Blending Modes in Scribus</h3>
 
 <p>Scribus has a very powerful and versatile way of handling layers in a document via the way that not only layers can be made transparent and their opacity changed, but the so called <b>blend modes</b>. Blend modes are a way for you to control how the pixels of the layers are combined. When a given layer is selected the blend mode chosen affects how that layer's pixels are combined with only those layers <em>below</em> the selected layer. The layers remain separately editable and only are combined in the display and at print/export time.
@@ -10,27 +12,27 @@
 <li>Multiply - combines the colors of the selected layer with the colors of the underlying layers to produce darker colors. Colors which are multiplied with black will be black. Colors multiplied with white results in no color changes.</li>
 <li>Hue - applies the hue of the selected layer to the layers below. </li>
 
-<li>Saturation - applies the saturation of the Blend layer to the underlying layers.</li>
+<li>Saturation - applies the saturation of the selected layer to the layers below.</li>
 
-<li>Color - applies both the hue and saturation of the Blend layer to the underlying layers, but the luminance is not affected.</li>
+<li>Color - applies both the hue and saturation of the selected layer to the underlying layers, but the luminance is not affected.</li>
 
-<li>Luminosity - applies the luminance values of the Blend layer to the luminance of the underlying layers, but the color is not affected.</li>
+<li>Luminosity - applies the luminance values of the selected layer to the luminance of the underlying layers, but the color is not affected.</li>
 
 <li>Screen - Multiplies the inverse of the selected layer colors and with the colors of the layers below. This gives a color that is the same or lighter than the layer colors below.</li>
 <li>Dissolve - Adds random pixels from the selected layer on  top the layers below, resulting in specks of color. You can use the opacity percentage spinbox to regulate the level of speckles.</li>
 
-<li>Overlay - combines features of the Screen and Multiply modes. Shows patterns or colors of the Blend layer while preserving shadows and highlights of the underlying layer.</li>
+<li>Overlay - combines features of the Screen and Multiply modes. Shows patterns or colors of the selected layer while preserving shadows and highlights of the underlying layer.</li>
 
 <li>Hard Light - also combines features of the Screen and Multiply modes. Used to show highlights and shadows.</li>
 
 <li>Soft Light - combines features of the Dodge and Burn modes. Produces soft shadows and highlights.</li>
 
-<li>Difference - subtracts the Blend layer color from the underlying layer, depending on which is lighter.</li>
+<li>Difference - subtracts the selected layer color from the underlying layer, depending on which is lighter.</li>
 
-<li>Dodge - the lightness values of the colors in the Blend layer modify the underlying colors, by making them lighter. Black produces no effect.
+<li>Dodge - the lightness values of the colors in the selected layer modify the underlying colors, by making them lighter. Black produces no effect.
 </li>
-<li>Burn - the lightness values of the colors in the Blend layer modify the underlying layers, by making them darker.</li>
+<li>Burn - the lightness values of the colors in the selected layer modify the underlying layers, by making them darker.</li>
 
 <li>Exclusion - similar to Difference but softer. </li>
 </ul>
-Any new layer you create or paste into the Layer palette will be a Normal layer by default. You can change the Blend mode of any layer, with the exception of a Background layer by clicking on Blend Mode field in the right hand pane of the Layers Palette to activate the Blend Mode dropdown. 
+</qt>
