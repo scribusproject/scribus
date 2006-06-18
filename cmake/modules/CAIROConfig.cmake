@@ -47,7 +47,7 @@ IF (CAIRO_LIBRARY)
     ENDIF(NOT CAIRO_FIND_QUIETLY)
     SET( CAIRO_LIBRARIES ${CAIRO_LIBRARY} )
     FIND_PROGRAM(CAIRO_CONFIG 
-      NAMES pkg-config 
+      NAMES pkg-config
       PATHS ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin
     )
     EXEC_PROGRAM(${CAIRO_CONFIG} ARGS "--libs cairo" OUTPUT_VARIABLE CAIRO_LIBS)
