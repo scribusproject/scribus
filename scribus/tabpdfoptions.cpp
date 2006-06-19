@@ -1107,8 +1107,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 // #endif
 // 	BleedChanged();
 
-	restoreDefaults(Optionen, AllFonts, PDFXProfiles, DocFonts,
-					Eff, unitIndex, PageH, PageB, vie);
+	// switched off as it's called in main prefs classes - PV
+	//restoreDefaults(Optionen, AllFonts, PDFXProfiles, DocFonts,
+	//				Eff, unitIndex, PageH, PageB, vie);
 
 	if (vie != 0)
 	{

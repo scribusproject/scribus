@@ -94,7 +94,8 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	layout1->addItem( spacer2 );
 	TabCheckDocLayout->addLayout( layout1 );
 
-	restoreDefaults(&prefsData, prefProfile);
+	// switched off as it's called in main prefs classes - PV
+	//restoreDefaults(&prefsData, prefProfile);
 
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
 	connect(curCheckProfile, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));

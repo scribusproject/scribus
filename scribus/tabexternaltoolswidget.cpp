@@ -31,7 +31,8 @@ for which a new license (GPL+exception) is in place.
 TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsData, QWidget* parent, const char*name)
 : TabExternalToolsWidgetBase(parent, name)
 {
-	restoreDefaults(prefsData);
+	// switched off as it's called in main prefs classes - PV
+	//restoreDefaults(prefsData);
 	
 	connect(psToolChangeButton, SIGNAL(clicked()), this, SLOT(changePostScriptTool()));
 	connect(imageToolChangeButton, SIGNAL(clicked()), this, SLOT(changeImageTool()));

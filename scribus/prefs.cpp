@@ -64,8 +64,17 @@ extern bool CMSuse;
 extern ScribusQApp* ScQApp;
 
 
+
+/* performance measurements - PV
+void tdebug(QString i)
+{
+	QDateTime debugTime;
+	qDebug(QString("%1 %2").arg(i).arg(debugTime.currentDateTime().toString("hh:mm:ss:zzz")));
+}*/
+
 Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 {
+	//tdebug("start");
 	prefsManager=PrefsManager::instance();
 	ApplicationPrefs* prefsData=&(prefsManager->appPrefs);
 	ap = (ScribusMainWindow*)parent;
@@ -343,8 +352,10 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	tabGuides = new TabGuides(prefsWidgets, &prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
+
 	tabTypo = new TabTypograpy(  prefsWidgets, &prefsData->typographicSettings);
 	addItem( tr("Typography"), loadIcon("typography.png"), tabTypo);
+
 	tabTools = new TabTools(  prefsWidgets, &prefsData->toolSettings, docUnitIndex, 0);
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
@@ -367,6 +378,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 		tabColorManagement = new CMSPrefs(prefsWidgets, &prefsData->DCMSset, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 		addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
+
 	QMap<QString, int> DocFonts;
 	DocFonts.clear();
 	tabPDF = new TabPDFOptions( prefsWidgets,
@@ -394,6 +406,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	tabKeyboardShortcuts = new TabKeyboardShortcutsWidget(prefsData->KeyActions, prefsWidgets);
 	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), tabKeyboardShortcuts);
+
 // 	tabKeys = new KeyManager(prefsWidgets, prefsData->KeyActions);
 // 	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), tabKeys);
 /*
@@ -590,12 +603,11 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	CaliGroupLayout->addLayout( layout15ca );
 	tabViewLayout->addWidget( CaliGroup );
 	addItem( tr("Display"), loadIcon("screen.png"), tabView);
-	
-	
+
 	tabExtTools = new TabExternalToolsWidget( prefsData, prefsWidgets );
 	addItem(  tr("External Tools"), loadIcon("externaltools.png"), tabExtTools);
-	
-/*	
+
+/*
 	ExtTool = new QWidget( prefsWidgets, "ExtTool" );
 	ExtToolLayout = new QVBoxLayout( ExtTool, 0, 5, "ExtToolLayout");
 	ExtToolLayout->setAlignment( Qt::AlignTop );
@@ -701,12 +713,12 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QSpacerItem* spacer_3m = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	MiscLayout->addItem( spacer_3m );
 	addItem(  tr("Miscellaneous"), loadIcon("misc.png"), tabMiscellaneous);
-
+	
 	// plugin manager. pv.
 	pluginManagerPrefsGui = new PluginManagerPrefsGui(prefsWidgets);
 	addItem( tr("Plugins"), loadIcon("plugins.png"), pluginManagerPrefsGui );
 	connect(this, SIGNAL(accepted()), pluginManagerPrefsGui, SLOT(apply()));
-
+	
 	setupGui();
 	addPlugins();
 
@@ -780,40 +792,67 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QToolTip::add( topScratch, "<qt>" + tr( "Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
 	QToolTip::add( bottomScratch, "<qt>" + tr( "Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
 
-
-	// signals and slots connections
-	connect( guiLangCombo, SIGNAL( activated( const QString & ) ), this, SLOT( setSelectedGUILang( const QString & ) ) );
-	connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
-	connect(unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
-	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
-	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-	connect(docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int) ) );
-	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
-	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
-	connect(FileC, SIGNAL(clicked()), this, SLOT(changeDocs()));
-	connect(FileC2, SIGNAL(clicked()), this, SLOT(changeProfs()));
-	connect(FileC3, SIGNAL(clicked()), this, SLOT(changeScripts()));
-	connect(FileC4, SIGNAL(clicked()), this, SLOT(changeDocumentTemplates()));
-// 	connect(ghostscriptChangeButton, SIGNAL(clicked()), this, SLOT(changeGhostscript()));
-// 	connect(imageEditorChangeButton, SIGNAL(clicked()), this, SLOT(changeImageEditor()));
-	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
-	connect(buttonOk, SIGNAL(clicked()), this, SLOT(setActionHistoryLength()));
-	if (CMSavail)
-		connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
-	connect(applyChangesButton, SIGNAL(clicked()), this, SLOT(applyChangesButton_clicked()));
-	connect(backToDefaults, SIGNAL(clicked()), this, SLOT(backToDefaults_clicked()));
-
 	//pageWidth->setValue(prefsData->PageWidth * unitRatio);
 	//pageHeight->setValue(prefsData->PageHeight * unitRatio);
 	//pageWidth->setSuffix(unitSuffix);
 	//pageHeight->setSuffix(unitSuffix);
 
-	unitChange();
 	resize( minimumSizeHint() );
 	arrangeIcons();
 	prefsSelection->setSelected(prefsSelection->firstItem(), true);
 	itemSelected(prefsSelection->firstItem());
 	clearWState( WState_Polished );
+	//tdebug("end");
+}
+
+void Preferences::enableSignals(bool on)
+{
+	if (on)
+	{
+		connect( guiLangCombo, SIGNAL( activated( const QString & ) ), this, SLOT( setSelectedGUILang( const QString & ) ) );
+		connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
+		connect(unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
+		connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
+		connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
+		connect(docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int) ) );
+		connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
+		connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
+		connect(FileC, SIGNAL(clicked()), this, SLOT(changeDocs()));
+		connect(FileC2, SIGNAL(clicked()), this, SLOT(changeProfs()));
+		connect(FileC3, SIGNAL(clicked()), this, SLOT(changeScripts()));
+		connect(FileC4, SIGNAL(clicked()), this, SLOT(changeDocumentTemplates()));
+	// 	connect(ghostscriptChangeButton, SIGNAL(clicked()), this, SLOT(changeGhostscript()));
+	// 	connect(imageEditorChangeButton, SIGNAL(clicked()), this, SLOT(changeImageEditor()));
+		connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
+		connect(buttonOk, SIGNAL(clicked()), this, SLOT(setActionHistoryLength()));
+		if (CMSavail)
+			connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
+		connect(applyChangesButton, SIGNAL(clicked()), this, SLOT(applyChangesButton_clicked()));
+		connect(backToDefaults, SIGNAL(clicked()), this, SLOT(backToDefaults_clicked()));
+	}
+	else
+	{
+		disconnect( guiLangCombo, SIGNAL( activated( const QString & ) ), this, SLOT( setSelectedGUILang( const QString & ) ) );
+		disconnect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
+		disconnect(unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
+		disconnect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
+		disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
+		disconnect(docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int) ) );
+		disconnect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
+		disconnect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
+		disconnect(FileC, SIGNAL(clicked()), this, SLOT(changeDocs()));
+		disconnect(FileC2, SIGNAL(clicked()), this, SLOT(changeProfs()));
+		disconnect(FileC3, SIGNAL(clicked()), this, SLOT(changeScripts()));
+		disconnect(FileC4, SIGNAL(clicked()), this, SLOT(changeDocumentTemplates()));
+	// 	disconnect(ghostscriptChangeButton, SIGNAL(clicked()), this, SLOT(changeGhostscript()));
+	// 	disconnect(imageEditorChangeButton, SIGNAL(clicked()), this, SLOT(changeImageEditor()));
+		disconnect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
+		disconnect(buttonOk, SIGNAL(clicked()), this, SLOT(setActionHistoryLength()));
+		if (CMSavail)
+			disconnect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
+		disconnect(applyChangesButton, SIGNAL(clicked()), this, SLOT(applyChangesButton_clicked()));
+		disconnect(backToDefaults, SIGNAL(clicked()), this, SLOT(backToDefaults_clicked()));
+	}
 }
 
 void Preferences::restoreDefaults()
@@ -824,6 +863,7 @@ void Preferences::restoreDefaults()
 
 void Preferences::setupGui()
 {
+	enableSignals(false);
 	ApplicationPrefs* prefsData=&(prefsManager->appPrefs);
 	//QWidget* current = prefsWidgets->visibleWidget();
 
@@ -914,7 +954,7 @@ void Preferences::setupGui()
 	//else if (current == tabTypo) // Typography
 	tabTypo->restoreDefaults(&prefsData->typographicSettings);
 	//else if (current == tabTools) // Tools
-	tabTools->restoreDefaults(&prefsData->toolSettings, docUnitIndex);
+	tabTools->restoreDefaults(&prefsData->toolSettings, docUnitIndex, true);
 	//else if (current == tabFonts) // Fonts
 	tabFonts->restoreDefaults();
 	//else if (current == tabDocChecker) // Preflight Verifier
@@ -959,7 +999,9 @@ void Preferences::setupGui()
 	useStandardLI->setChecked(prefsData->useStandardLI);
 	paragraphsLI->setValue(prefsData->paragraphsLI);
 	//}
-//	else if (current == pluginManagerPrefsGui) // Plugins	
+//	else if (current == pluginManagerPrefsGui) // Plugins
+	enableSignals(true);
+	unitChange();
 }
 
 void Preferences::addPlugins()

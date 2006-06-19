@@ -360,6 +360,7 @@ protected:
 	void restoreDefaults();
 	//! \brief Setup the GUI widgets by values taken from PrefsManager.
 	void setupGui();
+	void enableSignals(bool);
 
 protected slots:
 	virtual void setTOCIndexData(QWidget *widgetToShow);

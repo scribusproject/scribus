@@ -133,7 +133,8 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo )
 	addTab( page1, tr("Documen&t") );
 	addTab( page2, tr("Further &Information") );
 
-	restoreDefaults();
+	// switched off as it's called in main prefs classes - PV
+	//restoreDefaults();
 
 	//tooltips
 	QToolTip::add( authorEdit, "<qt>" + tr( "The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF" ) );

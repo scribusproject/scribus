@@ -37,7 +37,7 @@ class SCRIBUS_API TabTools : public QWidget
 public:
 	TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc);
 	~TabTools() {};
-	void restoreDefaults(struct toolPrefs *prefsData, int unitIndex);
+	void restoreDefaults(struct toolPrefs *prefsData, int unitIndex, bool drawSample=false);
 
 	QButtonGroup* buttonGroupTools;
 	QToolButton* toolShape;
@@ -179,5 +179,7 @@ protected:
 	double unitRatio;
 	QString unit;
 	int precision;
+
+	void enableSignals(bool);
 };
 #endif

@@ -72,7 +72,8 @@ TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKe
 	keyDisplay->setText("");
 
 	keyTable->setSorting(-1);
-	restoreDefaults();
+	// switched off as it's called in main prefs classes - PV
+	//restoreDefaults();
 
 	clearSearchButton->setPixmap(loadIcon("clear_right.png"));
 	// signals and slots connections

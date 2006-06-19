@@ -380,7 +380,8 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	tabToolsLayout->addWidget( subStackTools );
 	toolText->setOn(true);
 
-	restoreDefaults(prefsData, unitIndex);
+	// switched off as it's called in main prefs classes - PV
+	//restoreDefaults(prefsData, unitIndex);
 
 	QToolTip::add( toolText, tr( "Text Frame Properties" ) );
 	QToolTip::add( toolImage, tr( "Picture Frame Properties" ) );
@@ -415,28 +416,59 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	QToolTip::add( shadingLine, tr( "Saturation of color" ) );
 	QToolTip::add( comboStyleLine, tr( "Style of lines" ) );
 	QToolTip::add( lineWidthLine, tr( "Width of lines" ) );
-	connect(toolShape, SIGNAL(clicked()), this, SLOT(setTool()));
-	connect(toolPoly, SIGNAL(clicked()), this, SLOT(setTool()));
-	connect(toolImage, SIGNAL(clicked()), this, SLOT(setTool()));
-	connect(toolText, SIGNAL(clicked()), this, SLOT(setTool()));
-	connect(toolLine, SIGNAL(clicked()), this, SLOT(setTool()));
-	connect(toolZoom, SIGNAL(clicked()), this, SLOT(setTool()));
-	connect(fontComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
-	connect(sizeComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
-	connect(colorComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
-	connect(colorComboTextBackground, SIGNAL(activated(int)), this, SLOT(setSample()));
-	connect(shadingTextBack, SIGNAL(valueChanged(int)), this, SLOT(setSample()));
-	connect(shadingText, SIGNAL(valueChanged(int)), this, SLOT(setSample()));
-	connect(buttonGroup3, SIGNAL(clicked(int)), this, SLOT(changeImageScalingFree(int)));
-	connect(buttonGroup5, SIGNAL(clicked(int)), this, SLOT(changeImageScalingRatio(int)));
-	connect(chainButton, SIGNAL(clicked()), this, SLOT(toggleChain()));
-	connect(scalingHorizontal, SIGNAL(valueChanged(int)), this, SLOT(hChange()));
-	connect(scalingVertical, SIGNAL(valueChanged(int)), this, SLOT(vChange()));
-	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
+	//enableSignals(true);
 }
 
-void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
+void TabTools::enableSignals(bool on)
 {
+	if (on)
+	{
+		connect(toolShape, SIGNAL(clicked()), this, SLOT(setTool()));
+		connect(toolPoly, SIGNAL(clicked()), this, SLOT(setTool()));
+		connect(toolImage, SIGNAL(clicked()), this, SLOT(setTool()));
+		connect(toolText, SIGNAL(clicked()), this, SLOT(setTool()));
+		connect(toolLine, SIGNAL(clicked()), this, SLOT(setTool()));
+		connect(toolZoom, SIGNAL(clicked()), this, SLOT(setTool()));
+		connect(fontComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
+		connect(sizeComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
+		connect(colorComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
+		connect(colorComboTextBackground, SIGNAL(activated(int)), this, SLOT(setSample()));
+		connect(shadingTextBack, SIGNAL(valueChanged(int)), this, SLOT(setSample()));
+		connect(shadingText, SIGNAL(valueChanged(int)), this, SLOT(setSample()));
+		connect(buttonGroup3, SIGNAL(clicked(int)), this, SLOT(changeImageScalingFree(int)));
+		connect(buttonGroup5, SIGNAL(clicked(int)), this, SLOT(changeImageScalingRatio(int)));
+		connect(chainButton, SIGNAL(clicked()), this, SLOT(toggleChain()));
+		connect(scalingHorizontal, SIGNAL(valueChanged(int)), this, SLOT(hChange()));
+		connect(scalingVertical, SIGNAL(valueChanged(int)), this, SLOT(vChange()));
+		connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
+	}
+	else
+	{
+		disconnect(toolShape, SIGNAL(clicked()), this, SLOT(setTool()));
+		disconnect(toolPoly, SIGNAL(clicked()), this, SLOT(setTool()));
+		disconnect(toolImage, SIGNAL(clicked()), this, SLOT(setTool()));
+		disconnect(toolText, SIGNAL(clicked()), this, SLOT(setTool()));
+		disconnect(toolLine, SIGNAL(clicked()), this, SLOT(setTool()));
+		disconnect(toolZoom, SIGNAL(clicked()), this, SLOT(setTool()));
+		disconnect(fontComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
+		disconnect(sizeComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
+		disconnect(colorComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
+		disconnect(colorComboTextBackground, SIGNAL(activated(int)), this, SLOT(setSample()));
+		disconnect(shadingTextBack, SIGNAL(valueChanged(int)), this, SLOT(setSample()));
+		disconnect(shadingText, SIGNAL(valueChanged(int)), this, SLOT(setSample()));
+		disconnect(buttonGroup3, SIGNAL(clicked(int)), this, SLOT(changeImageScalingFree(int)));
+		disconnect(buttonGroup5, SIGNAL(clicked(int)), this, SLOT(changeImageScalingRatio(int)));
+		disconnect(chainButton, SIGNAL(clicked()), this, SLOT(toggleChain()));
+		disconnect(scalingHorizontal, SIGNAL(valueChanged(int)), this, SLOT(hChange()));
+		disconnect(scalingVertical, SIGNAL(valueChanged(int)), this, SLOT(vChange()));
+		disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
+	}
+}
+
+void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex, bool drawSample)
+{
+	enableSignals(false);
+
 	PrefsManager* prefsManager=PrefsManager::instance();
 	unit = unitGetSuffixFromIndex(unitIndex);
 	precision = unitGetPrecisionFromIndex(unitIndex);
@@ -516,7 +548,6 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 				colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
 		}
 	}
-
 	shadingTextStroke->setValue(prefsData->dTextStrokeShade);
 
 	colorComboTextBackground->clear();
@@ -543,7 +574,6 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 				colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
 		}
 	}
-
 	shadingTextBack->setValue(prefsData->dTextBackGroundShade);
 
 	colorComboTextLine->clear();
@@ -570,7 +600,6 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 				colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
 		}
 	}
-
 	shadingTextLine->setValue(prefsData->dTextLineShade);
 
 	tabFillCombo->clear();
@@ -601,7 +630,6 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 		tabFillCombo->setEditable(true);
 		tabFillCombo->setEditText( tr("Custom: "+prefsData->tabFillChar));
 	}
-
 	gapTab->setSuffix( unit );
 	gapTab->setValue(prefsData->dTabWidth * unitRatio);
 	columnsText->setValue(prefsData->dCols);
@@ -632,7 +660,6 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 				colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
 		}
 	}
-
 	shadingLineShape->setValue(prefsData->dShade2);
 
 	comboFillShape->clear();
@@ -797,7 +824,11 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	minimumZoom->setValue(prefsData->magMin);
 	maximumZoom->setValue(prefsData->magMax);
 	zoomStep->setValue( prefsData->magStep );
-	setSample();
+
+	if (drawSample)
+		setSample(); // only if it's needed - speedup the prefs load
+
+	enableSignals(true);
 }
 
 void TabTools::setCustomFillChar(const QString &txt)
@@ -916,8 +947,9 @@ void TabTools::setSample()
 		si->setTxColor(paletteBackgroundColor());
 	si->setFont(fontComboText->currentText());
 	si->setFontSize(sizeComboText->currentText().left(2).toInt() * 10, true);
-	QPixmap pm = si->getSample(previewText->width(), previewText->height());
-	previewText->setPixmap(pm);
+	/*QPixmap pm = si->getSample(previewText->width(), previewText->height());
+	previewText->setPixmap(pm);*/
+	previewText->setPixmap(si->getSample(previewText->width(), previewText->height()));
 	delete si;
 }
 

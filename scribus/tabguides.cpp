@@ -207,7 +207,8 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	layout9a->addWidget( baseGridBox );
 	tabGuidesLayout->addLayout( layout9a );
 
-	restoreDefaults(prefsData, prefsData2, unitIndex);
+	// switched off as it's called in main prefs classes - PV
+	//restoreDefaults(prefsData, prefsData2, unitIndex);
 
 	connect(majorGridColor, SIGNAL(clicked()), this, SLOT(changeMajorColor()));
 	connect(minorGridColor, SIGNAL(clicked()), this, SLOT(changeMinorColor()));

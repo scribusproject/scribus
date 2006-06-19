@@ -142,7 +142,8 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	textLabel8a = new QLabel( autoLine, tr( "Line Spacing:" ), groupBox4a, "textLabel8a" );
 	groupBox4aLayout->addWidget( textLabel8a, 1, 0 );
 	tabTypoLayout->addWidget( groupBox4a, 4, 1 );
-	restoreDefaults(prefsData);
+	// switched off as it's called in main prefs classes - PV
+	//restoreDefaults(prefsData);
 	QToolTip::add( superDisplacement, tr( "Displacement above the baseline of the font on a line" ) );
 	QToolTip::add( superScaling, tr( "Relative size of the superscript compared to the normal font" ) );
 	QToolTip::add( subDisplacement, tr( "Displacement below the baseline of the normal font on a line" ) );

@@ -187,7 +187,8 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 // 	convertAll->setEnabled(simulate->isEnabled() && simulate->isChecked());
 // 	gamutC->setEnabled(simulate->isEnabled() && simulate->isChecked());
 
-	restoreDefaults(prefs, InputProfiles, InputProfilesCMYK, PrinterProfiles, MonitorProfiles);
+	// switched off as it's called in main prefs classes - PV
+	//restoreDefaults(prefs, InputProfiles, InputProfilesCMYK, PrinterProfiles, MonitorProfiles);
 
 	QToolTip::add( inputPCMYKIm, tr( "Default color profile for imported CMYK images" ) );
 	QToolTip::add( inputPRGBIm, tr( "Default color profile for imported RGB images" ) );
