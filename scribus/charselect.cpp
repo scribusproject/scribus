@@ -709,6 +709,9 @@ void CharSelect::newFont(int font)
 	zTabelle->maxCount = 0;
 	QString oldFont = fontInUse;
 	fontInUse = fontSelector->text(font);
+	(*ap->doc->AllFonts)[fontInUse]->increaseUsage();
+	if ((*ap->doc->AllFonts)[oldFont])
+		(*ap->doc->AllFonts)[oldFont]->decreaseUsage();
 	delEdit();
 	setCaption( tr( "Select Character:" )+" "+fontInUse );
 	ap->SetNewFont(fontInUse);
