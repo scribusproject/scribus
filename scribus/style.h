@@ -155,7 +155,7 @@ public:
 	int fontSize() const { return csize==NOVALUE && parent()? inh().fontSize() : csize; }
 	int fillShade() const { return cshade==NOVALUE && parent()? inh().fillShade() : cshade; }
 	int strokeShade() const { return cshade2==NOVALUE && parent()? inh().strokeShade() : cshade2; }
-	StyleFlag effects() const { return cstyle==NOVALUE && parent()? inh().effects() : cstyle; }
+	StyleFlag effects() const { return cstyle==ScStyle_None && parent()? inh().effects() : cstyle; }
 	int scaleH() const { return cscale==NOVALUE && parent()? inh().scaleH() : cscale; }
 	int scaleV() const { return cscalev==NOVALUE && parent()? inh().scaleV() : cscalev; }
 	int baselineOffset() const { return cbase==NOVALUE && parent()? inh().baselineOffset() : cbase; }
