@@ -1,38 +1,35 @@
-
 <qt>
 <h3>Transparent Layer Blending Modes in Scribus</h3>
-
-<p>Scribus has a very powerful and versatile way of handling layers in a document via the way that not only layers can be made transparent and their opacity changed, but the so called <b>blend modes</b>. Blend modes are a way for you to control how the pixels of the layers are combined. When a given layer is selected the blend mode chosen affects how that layer's pixels are combined with only those layers <em>below</em> the selected layer. The layers remain separately editable and only are combined in the display and at print/export time.
+<p>Scribus has a very powerful and versatile way of handling layers in a document via the way that not only layers can be made transparent and their opacity changed, but the so called <strong>blend modes</strong>. Blend modes are a way for you to control how the pixels of the layers are combined. When a given layer is selected the blend mode chosen affects how that layer's pixels are combined with only those layers <em>below</em> the selected layer. The layers remain separately editable and only are combined in the display and at print/export time. Note also, except when printing to certain printers on Windows, this type of transparency will not be supported well, if it at all. Exporting PDF version 1.4 (Acrobat 5.0) or higher will support these modes properly. 
 </p>
 <h4>Available Blend Modes in Scribus:</h4>
 <ul>
-<li>Normal - Pixels of the selected layer are combined with pixels on the layers below. The single difference is opacity. </li>
-<li>Darken - Pixels in the chosen layer which are darker than the layer's below are are applied to the image. Lighter pixels are masked or invisible. 
-<li>Lighten - Pixels in the selected layer that are lighter than underlying layer's pixels will be applied to the image. Darker pixels will be invisible.
-<li>Multiply - combines the colors of the selected layer with the colors of the underlying layers to produce darker colors. Colors which are multiplied with black will be black. Colors multiplied with white results in no color changes.</li>
-<li>Hue - applies the hue of the selected layer to the layers below. </li>
+<li><strong>Normal</strong> - Pixels of the selected layer are combined with pixels on the layers below. The single difference is opacity. </li>
+<li><strong>Darken</strong> - Pixels in the chosen layer which are darker than the layer's below are are applied to the image. Lighter pixels are masked or invisible. 
+<li><strong>Lighten</strong> - Pixels in the selected layer that are lighter than underlying layer's pixels will be applied to the image. Darker pixels will be invisible.
+<li><strong>Multiply</strong> - combines the colors of the selected layer with the colors of the underlying layers to produce darker colors. Colors which are multiplied with black will be black. Colors multiplied with white results in no color changes.</li>
+<li><strong>Hue</strong> - applies the hue of the selected layer to the layers below. </li>
 
-<li>Saturation - applies the saturation of the selected layer to the layers below.</li>
+<li><strong>Saturation</strong> - applies the saturation of the selected layer to the layers below.</li>
 
-<li>Color - applies both the hue and saturation of the selected layer to the underlying layers, but the luminance is not affected.</li>
+<li><strong>Color</strong> - applies both the hue and saturation of the selected layer to the underlying layers, but the luminance is not affected.</li>
 
-<li>Luminosity - applies the luminance values of the selected layer to the luminance of the underlying layers, but the color is not affected.</li>
+<li><strong>Luminosity</strong> - applies the luminance values of the selected layer to the luminance of the underlying layers, but the color is not affected.</li>
 
-<li>Screen - Multiplies the inverse of the selected layer colors and with the colors of the layers below. This gives a color that is the same or lighter than the layer colors below.</li>
-<li>Dissolve - Adds random pixels from the selected layer on  top the layers below, resulting in specks of color. You can use the opacity percentage spinbox to regulate the level of speckles.</li>
+<li><strong>Screen</strong> - Multiplies the inverse of the selected layer colors and with the colors of the layers below. This gives a color that is the same or lighter than the layer colors below.</li>
+<li><strong>Dissolve</strong> - Adds random pixels from the selected layer on  top the layers below, resulting in specks of color. You can use the opacity percentage spinbox to regulate the level of speckles.</li>
 
-<li>Overlay - combines features of the Screen and Multiply modes. Shows patterns or colors of the selected layer while preserving shadows and highlights of the underlying layer.</li>
+<li><strong>Overlay</strong> - combines features of the Screen and Multiply modes. Shows patterns or colors of the selected layer while preserving shadows and highlights of the underlying layer.</li>
 
-<li>Hard Light - also combines features of the Screen and Multiply modes. Used to show highlights and shadows.</li>
+<li><strong>Hard Light</strong> - also combines features of the Screen and Multiply modes. Used to show highlights and shadows.</li>
 
-<li>Soft Light - combines features of the Dodge and Burn modes. Produces soft shadows and highlights.</li>
+<li><strong>Soft Light</strong> - combines features of the Dodge and Burn modes. Produces soft shadows and highlights.</li>
 
-<li>Difference - subtracts the selected layer color from the underlying layer, depending on which is lighter.</li>
+<li><strong>Difference</strong> - subtracts the selected layer color from the underlying layer, depending on which is lighter.</li>
 
-<li>Dodge - the lightness values of the colors in the selected layer modify the underlying colors, by making them lighter. Black produces no effect.
-</li>
-<li>Burn - the lightness values of the colors in the selected layer modify the underlying layers, by making them darker.</li>
+<li><strong>Dodge</strong> - the lightness values of the colors in the selected layer modify the underlying colors, by making them lighter. Black produces no effect.</li>
+<li><strong>Burn</strong> - the lightness values of the colors in the selected layer modify the underlying layers, by making them darker.</li>
 
-<li>Exclusion - similar to Difference but softer. </li>
+<li><strong>Exclusion</strong> - similar to Difference but softer. </li>
 </ul>
 </qt>
