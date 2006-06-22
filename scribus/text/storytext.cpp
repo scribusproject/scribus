@@ -171,7 +171,7 @@ void StoryText::append(const StoryText& other)
      changed. This routines makes sure that all parent pointers to the default
      paragraphStyle are up-to-date
  */
-static void replaceParentStyle(StoryText* that, int pos, const Style* oldP, const Style* newP)
+static void replaceParentStyle(StoryText* that, int pos, const CharStyle* oldP, const CharStyle* newP)
 {
 	for(int i = pos-1; i >= 0; ++i) {
 		ScText* it = that->item(i);
@@ -189,9 +189,10 @@ static void replaceParentStyle(StoryText* that, int pos, const Style* oldP, cons
 static void insertParSep(StoryText* that, int pos)
 {
 	ScText* it = that->item(pos);
-	const ParagraphStyle* oldP = & that->paragraphStyle(pos);
-	ParagraphStyle* newP = new ParagraphStyle(*oldP);
-	it->parstyle = newP;
+	const ParagraphStyle& pstyle(that->paragraphStyle(pos));
+	it->parstyle = new ParagraphStyle(pstyle);
+	const CharStyle* oldP = & pstyle.charStyle();
+	const CharStyle* newP = & it->parstyle->charStyle();
 	replaceParentStyle(that, pos, oldP, newP);
 }
 /**
@@ -202,8 +203,8 @@ static void removeParSep(StoryText* that, int pos)
 {
 	ScText* it = that->item(pos);
 	if (it->parstyle) {
-		const ParagraphStyle* oldP = it->parstyle;
-		const ParagraphStyle* newP = & that->paragraphStyle(pos+1);
+		const CharStyle* oldP = & it->parstyle->charStyle();
+		const CharStyle* newP = & that->paragraphStyle(pos+1).charStyle();
 		replaceParentStyle(that, pos, oldP, newP);
 		delete oldP;
 	}
