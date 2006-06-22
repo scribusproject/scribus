@@ -32,6 +32,8 @@ private:
 	QString name_;
 	const Style*  parent_;
 public:
+	static const short NOVALUE = -16000;
+
 	Style(): name_(""),parent_(NULL)  {}
     Style(QString n): name_(n), parent_(NULL)  {}
 	Style& operator=(const Style& o) 
@@ -91,7 +93,6 @@ SCRIBUS_API StyleFlag operator~ (StyleFlag arg);
 
 class SCRIBUS_API CharStyle : public virtual Style {
 public:
-	static const short NOVALUE = -16000;
 	static const QString NOCOLOR;
 	static const QString NOLANG;
 	
@@ -296,7 +297,7 @@ inline CharStyle::CharStyle(const CharStyle & other) : Style(other)
 }
 
 
-class SCRIBUS_API ParagraphStyle : public virtual Style, private CharStyle
+class SCRIBUS_API ParagraphStyle : public virtual Style
 {
 public:
 	enum LineSpacingMode { 
@@ -314,6 +315,7 @@ public:
 private:
 	// shorthand
 	const ParagraphStyle& inh() const { return *dynamic_cast<const ParagraphStyle*>(parent()); }
+	CharStyle cstyle;
 	LineSpacingMode LineSpaMode;
 	double LineSpa;
 	int textAlignment;
@@ -387,8 +389,8 @@ public:
 	QValueList<TabRecord> & tabValues() { haveTabs = true; return TabValues; }
 	const QValueList<TabRecord> & tabValues() const { return !haveTabs && parent()? inh().tabValues() : TabValues; }
 
-	CharStyle & charStyle() { return *this; }
-	const CharStyle& charStyle() const { return *this; }
+	CharStyle & charStyle() { return cstyle; }
+	const CharStyle& charStyle() const { return cstyle; }
 	
 	void applyStyle(const ParagraphStyle& other);
 	void eraseStyle(const ParagraphStyle& other);

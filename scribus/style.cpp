@@ -143,7 +143,7 @@ void CharStyle::eraseCharStyle(const CharStyle & other)
 
 
 
-ParagraphStyle::ParagraphStyle() : Style(), CharStyle(),
+ParagraphStyle::ParagraphStyle() : Style(), cstyle(),
 		LineSpaMode(static_cast<LineSpacingMode>(NOVALUE)),
 		LineSpa(NOVALUE - 0.1),
 		textAlignment(NOVALUE),
@@ -161,7 +161,7 @@ ParagraphStyle::ParagraphStyle() : Style(), CharStyle(),
 {}
 
 
-ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), CharStyle(other.charStyle()),
+ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), cstyle(other.charStyle()),
 		LineSpaMode(other.LineSpaMode),
 		LineSpa(other.LineSpa),
 		textAlignment(other.textAlignment),
@@ -234,7 +234,7 @@ bool ParagraphStyle::equiv(const ParagraphStyle& other) const
 
 ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other) 
 {
-	static_cast<CharStyle&>(*this) = other.charStyle();
+	cstyle = other.charStyle();
 	LineSpaMode = other.LineSpaMode;
 	LineSpa = (other.LineSpa);
 	textAlignment = (other.textAlignment);
@@ -255,7 +255,9 @@ ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other)
 
 void ParagraphStyle::applyStyle(const ParagraphStyle& other) 
 {
-	applyCharStyle(other.charStyle());
+	if (other.parent() != NULL)
+		setParent(other.parent());
+	cstyle.applyCharStyle(other.charStyle());
 	if (other.LineSpaMode != NOVALUE)
 		LineSpaMode = other.LineSpaMode;
 	if (other.LineSpa >= 0)
@@ -289,7 +291,9 @@ void ParagraphStyle::applyStyle(const ParagraphStyle& other)
 
 void ParagraphStyle::eraseStyle(const ParagraphStyle& other) 
 {
-	eraseCharStyle(other.charStyle());
+	if (other.parent() == parent())
+		setParent(NULL);
+	cstyle.eraseCharStyle(other.charStyle());
 	if (other.LineSpaMode == LineSpaMode)
 		LineSpaMode = static_cast<LineSpacingMode>(NOVALUE);
 	if (other.LineSpa == LineSpa)
