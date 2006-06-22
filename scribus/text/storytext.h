@@ -90,6 +90,8 @@ class ScribusDoc;
  	void setDefaultStyle(const ParagraphStyle& style);
  	void applyCharStyle(int pos, uint len, const CharStyle& style);
  	void applyStyle(int pos, const ParagraphStyle& style);
+ 	void eraseCharStyle(int pos, uint len, const CharStyle& style);
+ 	void eraseStyle(int pos, const ParagraphStyle& style);
 
  	uint nrOfParagraphs() const;
  	int startOfParagraph(uint index) const;

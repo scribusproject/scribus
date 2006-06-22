@@ -59,7 +59,21 @@ StoryText::~StoryText()
 {
 	d->refs--;
 	if (d->refs == 0) {
-		clear();
+		for (ScText *it = d->first(); it != 0; it = d->next())
+		{
+			if ((it->ch[0] == SpecialChars::OBJECT) && (it->cembedded != 0)) {
+				doc->FrameItems.remove(it->cembedded);
+				delete it->cembedded;
+				it->cembedded = 0;
+			}
+			else if ((it->ch[0] == SpecialChars::PARSEP)) {
+				delete it->parstyle;
+				it->parstyle = 0;
+			}
+		}
+		
+		d->clear();
+		d->len = 0;
 		delete d;
 	}	
 }
@@ -434,6 +448,29 @@ void StoryText::applyCharStyle(int pos, uint len, const CharStyle& style )
 	invalidate(pos, pos + len);
 }
 
+
+
+void StoryText::eraseCharStyle(int pos, uint len, const CharStyle& style )
+{
+	if (pos < 0)
+		pos += length();
+	
+	assert(pos >= 0);
+	assert(pos + signed(len) <= length());
+	
+	if (len == 0)
+		return;
+	
+	d->at(pos);
+	for (uint i=pos; i < pos+len; ++i) {
+		d->current()->eraseCharStyle(style);
+		d->next();
+	}
+	
+	invalidate(pos, pos + len);
+}
+
+
 void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 {
 	if (pos < 0)
@@ -479,6 +516,37 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 		d->defaultStyle.applyStyle(style);
 	}
 }
+
+void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
+{
+	if (pos < 0)
+		pos += length();
+	
+	assert(pos >= 0);
+	assert(pos <= length());
+		
+	int i = pos;
+	while (i < length() && d->at(i)->ch[0] != SpecialChars::PARSEP) {
+		++i;
+	}
+	if (i < length()) {
+		if (!d->at(i)->parstyle) {
+			qDebug(QString("PARSEP without style at pos %1").arg(i));
+			d->at(i)->parstyle = new ParagraphStyle(defaultStyle());
+		}
+		//		qDebug(QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos));
+		d->at(i)->parstyle->eraseStyle(style);
+		if (!d->at(i)->parstyle->parent()) {
+			d->at(i)->parstyle->setParent( & d->defaultStyle );
+		}
+	}
+	else {
+		// not happy about this but inserting a new PARSEP makes more trouble
+		//		qDebug(QString("applying parstyle %1 as defaultstyle for %2").arg(paragraphStyle(pos).name()).arg(pos));
+		d->defaultStyle.eraseStyle(style);
+	}
+}
+
 
 uint StoryText::nrOfParagraphs() const
 {
