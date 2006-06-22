@@ -254,11 +254,11 @@ void ActionManager::initStyleMenuActions()
 	(*scrActions)["alignBlock"]->setToggleAction(true);
 	(*scrActions)["alignForced"]->setToggleAction(true);
 
-	connect( (*scrActions)["alignLeft"], SIGNAL(activatedData(int)), mainWindow, SLOT(setNewAbStyle(int)));
-	connect( (*scrActions)["alignCenter"], SIGNAL(activatedData(int)), mainWindow, SLOT(setNewAbStyle(int)));
-	connect( (*scrActions)["alignRight"], SIGNAL(activatedData(int)), mainWindow, SLOT(setNewAbStyle(int)));
-	connect( (*scrActions)["alignBlock"], SIGNAL(activatedData(int)), mainWindow, SLOT(setNewAbStyle(int)));
-	connect( (*scrActions)["alignForced"], SIGNAL(activatedData(int)), mainWindow, SLOT(setNewAbStyle(int)));
+	connect( (*scrActions)["alignLeft"], SIGNAL(activatedData(int)), mainWindow, SLOT(setNewAlignment(int)));
+	connect( (*scrActions)["alignCenter"], SIGNAL(activatedData(int)), mainWindow, SLOT(setNewAlignment(int)));
+	connect( (*scrActions)["alignRight"], SIGNAL(activatedData(int)), mainWindow, SLOT(setNewAlignment(int)));
+	connect( (*scrActions)["alignBlock"], SIGNAL(activatedData(int)), mainWindow, SLOT(setNewAlignment(int)));
+	connect( (*scrActions)["alignForced"], SIGNAL(activatedData(int)), mainWindow, SLOT(setNewAlignment(int)));
 
 	//Shade actions
 	scrActionGroups->insert("shade", new QActionGroup(mainWindow, "shade", true));

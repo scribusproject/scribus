@@ -569,7 +569,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 			// Now apply the style.
 			int mode = ScMW->doc->appMode;
 			ScMW->doc->appMode = modeEdit;
-			ScMW->setNewAbStyle(styleid);
+			ScMW->setNewParStyle(styleid);
 			ScMW->doc->appMode = mode;
 		}
 		else // for multiple selection

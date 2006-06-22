@@ -4819,20 +4819,28 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 	}
 #else
 	ParagraphStyle newPStyle;
-	if (s > 4)
+	if (s > 4) {
 		newPStyle.setParent( & currItem->document()->docParagraphStyles[s] );
+	}
 	else {
 		newPStyle.setAlignment(s);
 	}
 	
 	if (appMode == modeEdit)
 	{
+		if (s > 4)
+			currItem->itemText.eraseStyle(currItem->CPos, currItem->itemText.paragraphStyle(currItem->CPos)); 
 		currItem->itemText.applyStyle(currItem->CPos, newPStyle);
 	}
 	else {
-		ParagraphStyle newDefStyle(currItem->itemText.defaultStyle());
-		newDefStyle.applyStyle(newPStyle);
-		currItem->itemText.setDefaultStyle(newDefStyle);
+		if (s > 4) {
+			currItem->itemText.setDefaultStyle(newPStyle);
+		}
+		else {
+			ParagraphStyle newDefStyle(currItem->itemText.defaultStyle());
+			newDefStyle.applyStyle(newPStyle);
+			currItem->itemText.setDefaultStyle(newDefStyle);
+		}			
 	}
 #endif
 	// update view

@@ -54,6 +54,8 @@ StyleFlag operator~ (StyleFlag arg)
 
 void CharStyle::applyCharStyle(const CharStyle & other)
 {
+	if (other.parent() != NULL)
+		setParent(other.parent());
 	if (other.csize != NOVALUE)
 		csize = other.csize;
 	if (other.cshade != NOVALUE)
@@ -97,6 +99,8 @@ void CharStyle::applyCharStyle(const CharStyle & other)
 
 void CharStyle::eraseCharStyle(const CharStyle & other)
 {
+	if (other.parent() == parent())
+		setParent(NULL);
 	if (other.csize == csize)
 		csize = NOVALUE;
 	if (other.cshade == cshade)

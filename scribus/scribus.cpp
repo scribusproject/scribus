@@ -472,8 +472,8 @@ void ScribusMainWindow::initPalettes()
 	connect(outlinePalette, SIGNAL(selectElement(int, int, bool)), this, SLOT(selectItemsFromOutlines(int, int, bool)));
 	connect(outlinePalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(outlinePalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
-	connect(propertiesPalette->Spal, SIGNAL(newStyle(int)), this, SLOT(setNewAbStyle(int)));
-	connect(propertiesPalette, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
+	connect(propertiesPalette->Spal, SIGNAL(newStyle(int)), this, SLOT(setNewParStyle(int)));
+//	connect(propertiesPalette, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
 	connect(nodePalette, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
 	connect(nodePalette, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 	connect(layerPalette, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
@@ -992,9 +992,10 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 	if (currItem->itemText.length() != 0)
 	{
 //		int ChPos = QMIN(currItem->CPos, static_cast<int>(currItem->itemText.length()-1));
-		int currentParaStyle = findParagraphStyle(doc, currItem->currentStyle());
-		setAbsValue(currentParaStyle);
-		propertiesPalette->setAli(currentParaStyle);
+		const ParagraphStyle currPStyle(currItem->currentStyle());
+		int currentParaStyle = findParagraphStyle(doc, *dynamic_cast<const ParagraphStyle*>(currPStyle.parent()));
+		setAbsValue(currPStyle.alignment());
+		propertiesPalette->setParStyle(currentParaStyle);
 		doc->currentStyle.charStyle() = currItem->currentCharStyle();
 		emit TextUnderline(doc->currentStyle.charStyle().underlineOffset(), doc->currentStyle.charStyle().underlineWidth());
 		emit TextStrike(doc->currentStyle.charStyle().strikethruOffset(), doc->currentStyle.charStyle().strikethruWidth());
@@ -6555,7 +6556,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 }
 
 //CB-->Doc
-void ScribusMainWindow::setNewAbStyle(int a)
+void ScribusMainWindow::setNewAlignment(int a)
 {
 	//setActiveWindow();
 	if (HaveDoc)
@@ -6570,9 +6571,25 @@ void ScribusMainWindow::setNewAbStyle(int a)
 	}
 }
 
+void ScribusMainWindow::setNewParStyle(int a)
+{
+	//setActiveWindow();
+	if (HaveDoc)
+	{
+		doc->currentStyle = doc->docParagraphStyles[a];
+		doc->itemSelection_SetParagraphStyle(a);
+//done in setTBvals		propertiesPalette->setParStyle(a);
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		//view->RefreshItem(currItem); //CB Now calling drawnew in itemSelection_SetParagraphStyle
+		setTBvals(currItem);
+		slotDocCh();
+	}
+}
+
 void ScribusMainWindow::setAbsValue(int a)
 {
-	doc->currentStyle = doc->docParagraphStyles[a];
+//	doc->currentStyle = doc->docParagraphStyles[a];
+	doc->currentStyle.setAlignment(a<5 ? a : 0);
 	propertiesPalette->setAli(a);
 	QString alignment[] = {"Left", "Center", "Right", "Block", "Forced"};
 	for (int b=0; b<5; ++b)

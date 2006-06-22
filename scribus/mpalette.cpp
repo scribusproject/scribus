@@ -909,10 +909,11 @@ void Mpalette::setMainWindow(ScribusMainWindow* mw)
 	reparent(m_MainWindow, this->getWFlags(), p2);
 	
 	connect(this, SIGNAL(DocChanged()), m_MainWindow, SLOT(slotDocCh()));
-	connect(this, SIGNAL(NewAbStyle(int)), m_MainWindow, SLOT(setNewAbStyle(int)));
-	connect(this, SIGNAL(Stellung(int)), m_MainWindow, SLOT(setItemHoch(int)));
-	connect(this, SIGNAL(EditCL()), m_MainWindow, SLOT(ToggleFrameEdit()));
-	connect(this, SIGNAL(NewTF(const QString&)), m_MainWindow, SLOT(SetNewFont(const QString&)));
+	connect(this, SIGNAL(NewParStyle(int)), m_MainWindow, SLOT(setNewParStyle(int)));
+	connect(this, SIGNAL(NewAlignment(int)), m_MainWindow, SLOT(setNewAlignment(int)));
+	connect(this, SIGNAL(NewEffects(int)), m_MainWindow, SLOT(setItemHoch(int)));
+	connect(this, SIGNAL(ShapeEdit()), m_MainWindow, SLOT(ToggleFrameEdit()));
+	connect(this, SIGNAL(NewFont(const QString&)), m_MainWindow, SLOT(SetNewFont(const QString&)));
 	connect(this, SIGNAL(UpdtGui(int)), m_MainWindow, SLOT(HaveNewSel(int)));
 	connect(this->Cpal, SIGNAL(QueryItem()), m_MainWindow, SLOT(GetBrushPen()));
 	connect(this->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), m_MainWindow, SLOT(updtGradFill()));
@@ -1629,7 +1630,7 @@ void Mpalette::NewSel(int nr)
 		}
 	}
 	updateGeometry();
-	setFocus();
+//	setFocus();
 	repaint();
 	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 }
@@ -1984,9 +1985,9 @@ void Mpalette::ChangeScaling()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->setImageScalingMode(FreeScale->isChecked(), Aspect->isChecked());
-		emit UpdtGui(2);
+		emit UpdtGui(PageItem::ImageFrame);
 		emit DocChanged();
-		setFocus();
+//		setFocus();
 	}
 }
 
@@ -2109,16 +2110,28 @@ void Mpalette::setAli(int e)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	if (e < 5)
-	{
+//	if (e < 5)
+//	{
 		GroupAlign->setEnabled(true);
 		GroupAlign->setStyle(e);
-	}
-	else
-		GroupAlign->setEnabled(false);
+//	}
+//	else
+//		GroupAlign->setEnabled(false);
+//	Spal->setFormat(e);
+	HaveItem = tmp;
+}
+
+
+void Mpalette::setParStyle(int e)
+{
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
+		return;
+	bool tmp = HaveItem;
+	HaveItem = false;
 	Spal->setFormat(e);
 	HaveItem = tmp;
 }
+
 
 void Mpalette::setTScaleV(int e)
 {
@@ -2803,7 +2816,7 @@ void Mpalette::NewLMode()
 	}
 	setBH(CurItem->width(), CurItem->height());
 	updateGeometry();
-	setFocus();
+//	setFocus();
 	repaint();
 }
 
@@ -2942,7 +2955,7 @@ void Mpalette::NewAli(int a)
 	if ((HaveDoc) && (HaveItem))
 	{
 		if (findParagraphStyle(doc, doc->currentStyle) < 5)
-			emit NewAbStyle(a);
+			emit NewAlignment(a);
 	}
 }
 
@@ -2950,7 +2963,7 @@ void Mpalette::setTypeStyle(int s)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	emit Stellung(s);
+	emit NewEffects(s);
 }
 
 void Mpalette::newShadowOffs()
@@ -3235,7 +3248,7 @@ void Mpalette::EditSh()
 			TabStack->raiseWidget(1);
 		}
 		*/
-		emit EditCL();
+		emit ShapeEdit();
 //		emit DocChanged();
 	}
 }
@@ -3287,7 +3300,7 @@ void Mpalette::NewTFont(QString c)
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		emit NewTF(c);
+		emit NewFont(c);
 }
 
 void Mpalette::DoRevert()

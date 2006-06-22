@@ -293,7 +293,7 @@ PyObject *scribus_setalign(PyObject* /* self */, PyObject* args)
 	ScMW->doc->m_Selection->addItem(i);
 	if (i->HasSel)
 		ScMW->doc->appMode = modeEdit;
-	ScMW->setNewAbStyle(alignment);
+	ScMW->setNewAlignment(alignment);
 	ScMW->doc->appMode = Apm;
 	ScMW->view->Deselect();
 	Py_INCREF(Py_None);

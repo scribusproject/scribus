@@ -469,7 +469,8 @@ public slots:
 	void saveStyles(StilFormate *dia);
 	void slotEditLineStyles();
 	void saveLStyles(LineFormate *dia);
-	void setNewAbStyle(int a);
+	void setNewAlignment(int a);
+	void setNewParStyle(int a);
 	void setAbsValue(int a);
 	void selectItemsFromOutlines(PageItem *ite);
 	void selectItemsFromOutlines(int Page, int Item, bool single = false);

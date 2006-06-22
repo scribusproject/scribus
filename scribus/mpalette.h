@@ -155,6 +155,7 @@ public slots:
 	void setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj);
 	void setStil(int s);
 	void setAli(int e);
+	void setParStyle(int e);
 	void setShadowOffs(int x, int y);
 	void setUnderline(int p, int w);
 	void newUnderline();
@@ -251,14 +252,12 @@ protected slots:
 	void updateSpinBoxConstants();
 
 signals:
-	void ToggleAllPalettes();
 	void DocChanged();
-	void NewAbStyle(int);
-	void BackHome();
-	void Stellung(int);
-	void EditCL();
-	void EditLSt();
-	void NewTF(const QString&);
+	void NewParStyle(int);
+	void NewAlignment(int);
+	void NewEffects(int);
+	void ShapeEdit();
+	void NewFont(const QString&);
 	void UpdtGui(int);
 
 protected:
