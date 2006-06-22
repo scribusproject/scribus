@@ -221,7 +221,14 @@ int  testGSAvailability( void )
 {
 	QStringList args;
 	PrefsManager* prefsManager = PrefsManager::instance();
-	args.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
+	int ret = testGSAvailability(prefsManager->ghostscriptExecutable());
+	return ret;
+}
+
+int testGSAvailability( QString gsPath )
+{
+	QStringList args;
+	args.append( getShortPathName(gsPath) );
 	args.append( "-h" );
 	int ret = System( args );
 	return ret;
