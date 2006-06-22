@@ -111,6 +111,7 @@ void StoryText::clear()
 	
 	d->defaultStyle = ParagraphStyle();
 	d->defaultStyle.setParent( & doc->docParagraphStyles[0]);
+	d->defaultStyle.charStyle().setParent( & doc->docParagraphStyles[0].charStyle());
 	
 	for (ScText *it = d->first(); it != 0; it = d->next())
 	{
@@ -425,6 +426,8 @@ void StoryText::setDefaultStyle(const ParagraphStyle& style)
 	d->defaultStyle = style;
 	if (!d->defaultStyle.parent())
 		d->defaultStyle.setParent( & doc->docParagraphStyles[0] );
+	if (!d->defaultStyle.charStyle().parent())
+		d->defaultStyle.charStyle().setParent( & doc->docParagraphStyles[0].charStyle() );
 }
 
 
@@ -510,6 +513,9 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 		if (!d->at(i)->parstyle->parent()) {
 			d->at(i)->parstyle->setParent( & d->defaultStyle );
 		}
+		if (!d->at(i)->parstyle->charStyle().parent()) {
+			d->at(i)->parstyle->charStyle().setParent( & d->defaultStyle.charStyle() );
+		}
 	}
 	else {
 		// not happy about this but inserting a new PARSEP makes more trouble
@@ -539,6 +545,9 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 		d->at(i)->parstyle->eraseStyle(style);
 		if (!d->at(i)->parstyle->parent()) {
 			d->at(i)->parstyle->setParent( & d->defaultStyle );
+		}
+		if (!d->at(i)->parstyle->charStyle().parent()) {
+			d->at(i)->parstyle->charStyle().setParent( & d->defaultStyle.charStyle() );
 		}
 	}
 	else {
