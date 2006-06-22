@@ -129,7 +129,7 @@ int callGS(const QString& args_in, const QString device)
 	return system(cmd1.local8Bit());
 }
 
-int  convertPS2PS(QString in, QString out, const QStringList& opts, int level)
+int convertPS2PS(QString in, QString out, const QStringList& opts, int level)
 {
 	PrefsManager* prefsManager=PrefsManager::instance();
 	QStringList args;
@@ -167,7 +167,7 @@ int  convertPS2PS(QString in, QString out, const QStringList& opts, int level)
 	return ret;
 }
 
-int  testGSAvailability( void )
+int testGSAvailability( void )
 {
 	QStringList args;
 	PrefsManager* prefsManager = PrefsManager::instance();
@@ -175,17 +175,16 @@ int  testGSAvailability( void )
 	return ret;
 }
 
-int SCRIBUS_API testGSAvailability( QString gsPath )
+int testGSAvailability( QString gsPath )
 {
 	QStringList args;
-	PrefsManager* prefsManager = PrefsManager::instance();
 	args.append( getShortPathName(gsPath) );
 	args.append( "-h" );
 	int ret = System( args );
 	return ret;
 }
 
-int  testGSDeviceAvailability( QString device )
+int testGSDeviceAvailability( QString device )
 {
 	QStringList args;
 	PrefsManager* prefsManager = PrefsManager::instance();
