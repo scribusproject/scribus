@@ -511,6 +511,8 @@ void Biblio::closeLib()
 {
 	if (Frame3->count() == 2)
 		close();
+	if ((Frame3->currentPageIndex() == 0) || (Frame3->currentPageIndex() == 1))
+		return;
 	else
 	{
 		disconnect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
