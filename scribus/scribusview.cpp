@@ -9717,6 +9717,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->setLineTransparency(Buffer->TranspStroke);
 	currItem->setFillBlendmode(Buffer->TransBlend);
 	currItem->setLineBlendmode(Buffer->TransBlendS);
+	currItem->setStartArrowIndex(Buffer->startArrowIndex);
+	currItem->setEndArrowIndex(Buffer->endArrowIndex);
 	currItem->setReversed(Buffer->Reverse);
 	currItem->NamedLStyle = Buffer->NamedLStyle;
 //	currItem->Language = ScMW->GetLang(Buffer->Language);
