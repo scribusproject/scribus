@@ -168,9 +168,9 @@ void StoryText::append(const StoryText& other)
 
 
 /**
-     A CharStyle's parent is usually the default paragraphstyle, unless explicitly
-     changed. This routines makes sure that all parent pointers to the default
-     paragraphStyle are up-to-date
+     A CharStyle's parent is usually the charstyle of default paragraphstyle, 
+     unless explicitly changed. This routines makes sure that all parent pointers 
+     to the default paragraphStyle's charstyle are up-to-date
  */
 static void replaceParentStyle(StoryText* that, int pos, const CharStyle* oldP, const CharStyle* newP)
 {
@@ -191,7 +191,8 @@ static void insertParSep(StoryText* that, int pos)
 {
 	ScText* it = that->item(pos);
 	const ParagraphStyle& pstyle(that->paragraphStyle(pos));
-	it->parstyle = new ParagraphStyle(pstyle);
+	if(!it->parstyle)
+		it->parstyle = new ParagraphStyle(pstyle);
 	const CharStyle* oldP = & pstyle.charStyle();
 	const CharStyle* newP = & it->parstyle->charStyle();
 	replaceParentStyle(that, pos, oldP, newP);
@@ -207,7 +208,7 @@ static void removeParSep(StoryText* that, int pos)
 		const CharStyle* oldP = & it->parstyle->charStyle();
 		const CharStyle* newP = & that->paragraphStyle(pos+1).charStyle();
 		replaceParentStyle(that, pos, oldP, newP);
-		delete oldP;
+		delete it->parstyle;
 	}
 }
 
@@ -406,11 +407,16 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 		++pos;
 		that->d->next();
 	}
-	if (pos == length())
-		return defaultStyle();
+	if (pos == length()) {
+//		qDebug(QString("using default parstyle at end (%1)").arg(pos));
+		return that->d->defaultStyle;
+	}
 	else if ( !that->d->current()->parstyle ) {
-		qDebug(QString("using default parstyle at %1").arg(pos));
+		qDebug(QString("inserting default parstyle at %1").arg(pos));
 		that->d->current()->parstyle = new ParagraphStyle(defaultStyle());
+	}
+	else {
+//		qDebug(QString("using parstyle at %1").arg(pos));
 	}
 	return *that->d->current()->parstyle;
 }

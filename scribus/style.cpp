@@ -234,6 +234,7 @@ bool ParagraphStyle::equiv(const ParagraphStyle& other) const
 
 ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other) 
 {
+	setParent(other.parent());
 	cstyle = other.charStyle();
 	LineSpaMode = other.LineSpaMode;
 	LineSpa = (other.LineSpa);

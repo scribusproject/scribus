@@ -164,6 +164,20 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 #include "text/pageitem_textframe.cpp"
 #else
 
+static void dumpIt(const ParagraphStyle& pstyle, QString indent = QString("->"))
+{
+	qDebug(QString("%6%1/%2 @ %3: %4--%5")
+		   .arg(pstyle.name())
+		   .arg(pstyle.parent()? pstyle.parent()->name() : "-")
+		   .arg( (unsigned int) &pstyle)
+		   .arg(pstyle.leftMargin())
+		   .arg(pstyle.rightMargin())
+		   .arg(indent));
+	static QString more("  ");
+	if (pstyle.parent())
+		dumpIt(*dynamic_cast<const ParagraphStyle*>(pstyle.parent()), more + indent);
+}
+
 static const bool opticalMargins = true;
 
 void PageItem_TextFrame::layout() 
@@ -225,6 +239,17 @@ void PageItem_TextFrame::layout()
 	}
 */
 	
+	// dump styles
+/*	
+	for (int i=0; i < itemText.nrOfParagraphs(); ++i) {
+		const ParagraphStyle& pstyle(itemText.paragraphStyle(itemText.endOfParagraph(i)));
+		qDebug(QString("par %1:").arg(i));
+		dumpIt(pstyle);
+	}
+	qDebug(QString("default:"));
+	dumpIt(itemText.defaultStyle());
+	*/
+	
 	QPtrList<ZZ> LiList;
 	LiList.setAutoDelete(true);
 
@@ -283,6 +308,10 @@ void PageItem_TextFrame::layout()
 		{
 			hl = itemText.item(0);
 			style = itemText.paragraphStyle(0);
+			if (style.rightMargin() < 0) {
+				qDebug(QString("style pos 0:"));
+				dumpIt(style);
+			}
 //			qDebug(QString("style @0: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //				   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent()?style.parent()->name():""));
 			if (style.hasDropCap())
@@ -319,6 +348,11 @@ void PageItem_TextFrame::layout()
 		{
 			hl = itemText.item(a);
 			style = itemText.paragraphStyle(a);
+			if (style.rightMargin() < 0) {
+				qDebug(QString("style pos %1:").arg(a));
+				dumpIt(style);
+				dumpIt(itemText.paragraphStyle(a));
+			}
 //			qDebug(QString("style @%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //				   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent()?style.parent()->name():"")
 //				   .arg(a));
@@ -1051,9 +1085,14 @@ void PageItem_TextFrame::layout()
 					if (LastSP != 0)            // Hier koenen auch andere Trennungen eingebaut werden
 					{
 						// go back to last break position
+//						qDebug(QString("new break pos a=%1 BuPos=%2 LastSP=%3").arg(a).arg(BuPos).arg(LastSP));
 						a -= BuPos - LastSP;
 						hl = itemText.item(a);
 						style = itemText.paragraphStyle(a);
+						if (style.rightMargin() < 0) {
+							qDebug(QString("style pos < %1:").arg(a));
+							dumpIt(style);
+						}
 //						qDebug(QString("style <@%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent()?style.parent()->name():"")
 //							   .arg(a));
@@ -1197,6 +1236,16 @@ void PageItem_TextFrame::layout()
 					else // no break position
 					{
 						a--;
+						hl = itemText.item(a);
+						style = itemText.paragraphStyle(a);
+						if (style.rightMargin() < 0) {
+							qDebug(QString("style nb pos %1:").arg(a));
+							dumpIt(style);
+						}
+//						qDebug(QString("style nb @%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
+//							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent()?style.parent()->name():"")
+//							   .arg(a));
+
 						BuPos--;
 					}
 				}

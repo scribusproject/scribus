@@ -5053,6 +5053,30 @@ void ScribusDoc::itemSelection_ApplyTextStyle(const CharStyle & newstyle)
 		emit updateContents();
 	}
 }
+/*
+template<typename Arg, void (PageItem::*Fun)(Arg)>
+void ScribusDoc::itemSelection_forall(Arg newVal)
+{
+	uint docSelectionCount=m_Selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle,
+										  newstyle.asString(), Um::IFont);
+		for (uint aa = 0; aa < docSelectionCount; ++aa)
+		{
+			PageItem *currItem = m_Selection->itemAt(aa);
+			currItem->Fun(newVal);
+		}
+	}
+	if (docSelectionCount > 1)
+		undoManager->commit();
+	emit updateContents();
+}
+*/
+
+
+
 
 /* CB Dont delete, backups
 void ScribusDoc::FlipImageH()
