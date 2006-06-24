@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <qwidgetstack.h>
 #include <qwidget.h>
 #include <qslider.h>
+#include "cmsettings.h"
 #include "sccombobox.h"
 #include "scribusdoc.h"
 #include "shadebutton.h"
@@ -36,7 +37,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	doc = docc;
 	currentOptions = 0;
 	bool mode = false;
-	image.LoadPicture(currItem->Pfile, "", 0, false, false, ScImage::RGBData, 72, &mode);
+	CMSettings cms(docc, "");
+	image.LoadPicture(currItem->Pfile, cms, 0, false, false, ScImage::RGBData, 72, &mode);
 	int ix = image.width();
 	int iy = image.height();
 	if ((ix > 220) || (iy > 220))

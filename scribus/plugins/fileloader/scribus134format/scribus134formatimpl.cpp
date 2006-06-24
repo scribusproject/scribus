@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scribus134formatimpl.h"
 #include "scribus134formatimpl.moc"
-#include "scribus.h"
+#include "scribuscore.h"
 
 #include <qstring.h>
 #include <qmessagebox.h>
@@ -20,6 +20,6 @@ Scribus134FormatImpl::Scribus134FormatImpl() : QObject(0, "Scribus134FormatImpl"
 // For now, we just call back into Scribus
 bool Scribus134FormatImpl::run(const QString & )
 {
-	ScMW->slotPageImport();
+	ScCore->primaryMainWindow()->slotPageImport();
 	return true;
 }

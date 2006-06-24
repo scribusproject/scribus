@@ -58,9 +58,7 @@ private slots:
 	void selectMasterPage(QListBoxItem *item);
 
 signals:
-	//void createNew(int);
 	void removePage(int);
-	//void loadPage(QString, int, bool);
 	void finished();
 };
 

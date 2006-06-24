@@ -151,7 +151,7 @@ const QString LanguageManager::getAbbrevFromLang(QString lang, bool getTranslate
 				return it.key();
 		}
 	}
-	return "";	
+	return "";
 }
 
 void LanguageManager::fillInstalledStringList(QStringList *stringListToFill, bool addDefaults) 

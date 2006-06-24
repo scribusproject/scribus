@@ -129,7 +129,7 @@ QPixmap ScPreview::createPreview(QString data)
 			}
 			if (!DoFonts.contains(tmpf))
 			{
-				FT_Face      face;
+				FT_Face face;
 				error = FT_New_Face( library, prefsManager->appPrefs.AvailFonts[tmpf]->fontFilePath(), prefsManager->appPrefs.AvailFonts[tmpf]->faceIndex(), &face );
 				if (error)
 					tmpf = prefsManager->appPrefs.toolSettings.defFont;
@@ -554,7 +554,8 @@ QPixmap ScPreview::createPreview(QString data)
 							pS->scale(1, -1);
 						}
 						ScImage pixm;
-						pixm.LoadPicture(OB.Pfile, "", 0, false, false, ScImage::RGBData, 72);
+						CMSettings cms(0, "");
+						pixm.LoadPicture(OB.Pfile, cms, 0, false, false, ScImage::RGBData, 72);
 						pS->scale(OB.LocalScX, OB.LocalScY);
 						pS->translate(static_cast<int>(OB.LocalX), static_cast<int>(OB.LocalY));
 						QImage img(pixm.qImage());

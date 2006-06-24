@@ -45,7 +45,7 @@ public:
 	void setView(ScribusView* newView);
 	void setMainWindow(ScribusMainWindow *);
 	ScribusView* view() const { return m_View;}
-	ScribusDoc* document() const { return m_Doc;}
+	ScribusDoc* doc() const { return m_Doc;}
 	void setMasterPagesPalette(MasterPagesPalette* newMPP) { m_masterPagesPalette=newMPP; }
 	MasterPagesPalette* masterPagesPalette() const { return m_masterPagesPalette; }
 	void setMenuStatus(int index, bool value) { if (index>=0 && index <=6) MenuStat[index]=value;}

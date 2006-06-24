@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scribus12formatimpl.h"
 #include "scribus12formatimpl.moc"
-#include "scribus.h"
+#include "scribuscore.h"
 
 #include <qstring.h>
 #include <qmessagebox.h>
@@ -20,6 +20,6 @@ Scribus12FormatImpl::Scribus12FormatImpl() : QObject(0, "Scribus12FormatImpl")
 // For now, we just call back into Scribus
 bool Scribus12FormatImpl::run(const QString & )
 {
-	ScMW->slotPageImport();
+	ScCore->primaryMainWindow()->slotPageImport();
 	return true;
 }

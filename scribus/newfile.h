@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include <qspinbox.h>
+#include <qstringlist.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qtabwidget.h>
@@ -39,7 +40,7 @@ class SCRIBUS_API NewDoc : public QDialog
 	Q_OBJECT
 
 public:
-	NewDoc( QWidget* parent, bool startUp = false );
+	NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp = false );
 	~NewDoc() {};
 	void createNewDocPage();
 	void createOpenDocPage();
@@ -75,7 +76,7 @@ public:
 	QFrame* openDocFrame;
 	CustomFDialog *fileDialog;
 	QFrame* recentDocFrame;
-	QListBox* recentDocList;
+	QListBox* recentDocListBox;
 	QPushButton* OKButton;
 	QPushButton* CancelB;
 	double unitRatio;
@@ -103,7 +104,7 @@ public slots:
 	\param item QListViewItem sent by signall caller
 	\author Petr Vanek <petr@yarpen.cz
 	*/
-	void recentDocList_doubleClicked(QListBoxItem * item);
+	void recentDocListBox_doubleClicked(QListBoxItem * item);
 	void openFile(const QString &);
 
 protected:
@@ -122,6 +123,7 @@ protected:
 	QVBoxLayout* recentDocLayout;
 	QString customText, customTextTR;
 	PrefsManager* prefsManager;
+	QStringList recentDocList;
 };
 
 #endif // NEWDOC_H

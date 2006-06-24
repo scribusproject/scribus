@@ -54,9 +54,9 @@ class Hruler;
 class Vruler;
 class UndoManager;
 class RulerMover;
-//#include "pageselector.h"
 class PageSelector;
-
+class ScribusWin;
+class ScribusMainWindow;
 
 /**
  * This class provides an incomplete base for your application view.
@@ -67,7 +67,7 @@ class SCRIBUS_API ScribusView : public QScrollView
 	Q_OBJECT
 
 public:
-    ScribusView(QWidget *parent=0, ScribusDoc *doc=0);
+    ScribusView(QWidget* win=0, ScribusMainWindow* mw=0, ScribusDoc* doc=0);
     ~ScribusView() {};
   /** Vergroesserungseingabefeld */
 	MSpinBox* zoomSpinBox; //zoom spinbox at bottom of view
@@ -355,6 +355,7 @@ protected: // Protected methods
 	//The width of vertical ruler/height of horizontal ruler, set to 17 in scribusview.cpp
 	int m_vhRulerHW;
 	bool m_cursorVisible;
+	ScribusMainWindow* m_ScMW;
 
 signals:
 	void changeUN(int);

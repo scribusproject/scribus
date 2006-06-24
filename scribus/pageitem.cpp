@@ -2096,8 +2096,8 @@ void PageItem::checkChanges(bool force)
 bool PageItem::shouldCheck()
 {
 	return ((!m_Doc->view()->mousePressed()) &&
-			(!ScMW->arrowKeyDown()) &&
-			(!ScMW->propertiesPalette->userActionOn()));
+			(!ScCore->primaryMainWindow()->arrowKeyDown()) &&
+			(!ScCore->primaryMainWindow()->propertiesPalette->userActionOn()));
 }
 
 void PageItem::moveUndoAction()
@@ -2613,7 +2613,7 @@ void PageItem::restoreType(SimpleState *state, bool isUndo)
 		case Polygon: view->ToPolyFrame(); break;
 		case PolyLine: view->ToBezierFrame(); break;
 	}
-	ScMW->setAppMode(modeNormal);
+	m_Doc->scMW()->setAppMode(modeNormal);
 }
 
 void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
@@ -3126,7 +3126,8 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	if (gsResolution==-1) //If it wasn't supplied, get it from PrefsManager.
 		gsRes=PrefsManager::instance()->gsResolution();
 	bool dummy;
-	if (!pixm.LoadPicture(filename, IProfile, IRender, UseEmbedded, true, ScImage::RGBProof, gsRes, &dummy))
+	CMSettings cms(m_Doc, IProfile);
+	if (!pixm.LoadPicture(filename, cms, IRender, UseEmbedded, true, ScImage::RGBProof, gsRes, &dummy))
 	{
 		Pfile = fi.absFilePath();
 		PicAvail = false;
@@ -3416,52 +3417,52 @@ bool PageItem::connectToGUI()
 		return false;
 	if (!m_Doc->m_Selection->primarySelectionIs(this))
 		return false;
-
-	connect(this, SIGNAL(myself(PageItem *)), ScMW->propertiesPalette, SLOT(SetCurItem(PageItem *)));
-	connect(this, SIGNAL(frameType(int)), ScMW, SLOT(HaveNewSel(int)));
+	Mpalette* pp=m_Doc->scMW()->propertiesPalette;
+	connect(this, SIGNAL(myself(PageItem *)), pp, SLOT(SetCurItem(PageItem *)));
+	connect(this, SIGNAL(frameType(int)), m_Doc->scMW(), SLOT(HaveNewSel(int)));
 	connect(this, SIGNAL(frameType(int)), m_Doc->view(), SLOT(selectionChanged()));
-	connect(this, SIGNAL(frameType(int)), ScMW->propertiesPalette, SLOT(NewSel(int)));
-	connect(this, SIGNAL(frameLocked(bool)), ScMW->propertiesPalette, SLOT(setLocked(bool)));
-	connect(this, SIGNAL(frameSizeLocked(bool)), ScMW->propertiesPalette, SLOT(setSizeLocked(bool)));
-	connect(this, SIGNAL(frameFlippedH(bool)), ScMW->propertiesPalette, SLOT(setFlippedH(bool)));
-	connect(this, SIGNAL(frameFlippedV(bool)), ScMW->propertiesPalette, SLOT(setFlippedV(bool)));
-	connect(this, SIGNAL(printEnabled(bool)), ScMW->propertiesPalette, SLOT(setPrintingEnabled(bool)));
-	connect(this, SIGNAL(position(double, double)), ScMW->propertiesPalette, SLOT(setXY(double, double)));
-	connect(this, SIGNAL(widthAndHeight(double, double)), ScMW->propertiesPalette, SLOT(setBH(double, double)));
-	connect(this, SIGNAL(colors(QString, QString, int, int)), ScMW, SLOT(setCSMenu(QString, QString, int, int)));
-	connect(this, SIGNAL(colors(QString, QString, int, int)), ScMW->propertiesPalette->Cpal, SLOT(setActFarben(QString, QString, int, int)));
-	connect(this, SIGNAL(gradientType(int)), ScMW->propertiesPalette->Cpal, SLOT(setActGradient(int)));
-	connect(this, SIGNAL(gradientColorUpdate(double, double, double, double, double, double)), ScMW->propertiesPalette->Cpal, SLOT(setSpecialGradient(double, double, double, double, double, double)));
-	connect(this, SIGNAL(rotation(double)), ScMW->propertiesPalette, SLOT(setR(double)));
-	connect(this, SIGNAL(transparency(double, double)), ScMW->propertiesPalette->Cpal, SLOT(setActTrans(double, double)));
-	connect(this, SIGNAL(blendmode(int, int)), ScMW->propertiesPalette->Cpal, SLOT(setActBlend(int, int)));
+	connect(this, SIGNAL(frameType(int)), pp, SLOT(NewSel(int)));
+	connect(this, SIGNAL(frameLocked(bool)), pp, SLOT(setLocked(bool)));
+	connect(this, SIGNAL(frameSizeLocked(bool)), pp, SLOT(setSizeLocked(bool)));
+	connect(this, SIGNAL(frameFlippedH(bool)), pp, SLOT(setFlippedH(bool)));
+	connect(this, SIGNAL(frameFlippedV(bool)), pp, SLOT(setFlippedV(bool)));
+	connect(this, SIGNAL(printEnabled(bool)), pp, SLOT(setPrintingEnabled(bool)));
+	connect(this, SIGNAL(position(double, double)), pp, SLOT(setXY(double, double)));
+	connect(this, SIGNAL(widthAndHeight(double, double)), pp, SLOT(setBH(double, double)));
+	connect(this, SIGNAL(colors(QString, QString, int, int)), m_Doc->scMW(), SLOT(setCSMenu(QString, QString, int, int)));
+	connect(this, SIGNAL(colors(QString, QString, int, int)), pp->Cpal, SLOT(setActFarben(QString, QString, int, int)));
+	connect(this, SIGNAL(gradientType(int)), pp->Cpal, SLOT(setActGradient(int)));
+	connect(this, SIGNAL(gradientColorUpdate(double, double, double, double, double, double)), pp->Cpal, SLOT(setSpecialGradient(double, double, double, double, double, double)));
+	connect(this, SIGNAL(rotation(double)), pp, SLOT(setR(double)));
+	connect(this, SIGNAL(transparency(double, double)), pp->Cpal, SLOT(setActTrans(double, double)));
+	connect(this, SIGNAL(blendmode(int, int)), pp->Cpal, SLOT(setActBlend(int, int)));
 	//Shape signals
 	//Not connected when transferring code: void columns(int, double); //Number, gap
-	connect(this, SIGNAL(cornerRadius(double)), ScMW->propertiesPalette, SLOT(setRR(double)));
+	connect(this, SIGNAL(cornerRadius(double)), pp, SLOT(setRR(double)));
 	//	connect(view, SIGNAL(ItemTextCols(int, double)), propertiesPalette, SLOT(setCols(int, double)));
 	//Line signals
-	connect(this, SIGNAL(lineWidth(double)), ScMW->propertiesPalette, SLOT(setSvalue(double)));
-	connect(this, SIGNAL(imageOffsetScale(double, double, double, double)), ScMW->propertiesPalette, SLOT(setLvalue(double, double, double, double)));
-	connect(this, SIGNAL(lineStyleCapJoin(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)), ScMW->propertiesPalette, SLOT( setLIvalue(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)));
+	connect(this, SIGNAL(lineWidth(double)), pp, SLOT(setSvalue(double)));
+	connect(this, SIGNAL(imageOffsetScale(double, double, double, double)), pp, SLOT(setLvalue(double, double, double, double)));
+	connect(this, SIGNAL(lineStyleCapJoin(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)), pp, SLOT( setLIvalue(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)));
 	//Frame text signals
-	connect(this, SIGNAL(lineSpacing(double)), ScMW->propertiesPalette, SLOT(setLsp(double)));
-	connect(this, SIGNAL(textToFrameDistances(double, double, double, double)), ScMW->propertiesPalette, SLOT(setDvals(double, double, double, double)));
-	connect(this, SIGNAL(textKerning(int)), ScMW->propertiesPalette, SLOT(setExtra(int)));
-	connect(this, SIGNAL(textStyle(int)), ScMW->propertiesPalette, SLOT(setStil(int)));
-	connect(this, SIGNAL(textStyle(int)), ScMW, SLOT(setStilvalue(int)));
-	connect(this, SIGNAL(textFont(QString)), ScMW, SLOT(AdjustFontMenu(QString)));
-	connect(this, SIGNAL(textFont(QString)), ScMW->propertiesPalette, SLOT(setFontFace(QString)));
-	connect(this, SIGNAL(textSize(int)), ScMW->propertiesPalette, SLOT(setSize(int)));
-	connect(this, SIGNAL(textSize(int)), ScMW, SLOT(setFSizeMenu(int)));
-	connect(this, SIGNAL(textWidthScale(int)), ScMW->propertiesPalette, SLOT(setTScale(int)));
-	connect(this, SIGNAL(textHeightScale(int)), ScMW->propertiesPalette, SLOT(setTScaleV(int)));
-	connect(this, SIGNAL(textBaseLineOffset(int)), ScMW->propertiesPalette, SLOT(setTBase(int)));
-	connect(this, SIGNAL(textOutline(int)), ScMW->propertiesPalette, SLOT(setOutlineW(int)));
-	connect(this, SIGNAL(textShadow(int, int )), ScMW->propertiesPalette, SLOT(setShadowOffs(int, int )));
-	connect(this, SIGNAL(textUnderline(int, int)), ScMW->propertiesPalette, SLOT(setUnderline(int, int)));
-	connect(this, SIGNAL(textStrike(int, int)), ScMW->propertiesPalette, SLOT(setStrike(int, int)));
-	connect(this, SIGNAL(textColor(QString, QString, int, int)), ScMW->propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
-//	connect(this, SIGNAL(textFormatting(int)), ScMW->propertiesPalette, SLOT(setAli(int)));
+	connect(this, SIGNAL(lineSpacing(double)), pp, SLOT(setLsp(double)));
+	connect(this, SIGNAL(textToFrameDistances(double, double, double, double)), pp, SLOT(setDvals(double, double, double, double)));
+	connect(this, SIGNAL(textKerning(int)), pp, SLOT(setExtra(int)));
+	connect(this, SIGNAL(textStyle(int)), pp, SLOT(setStil(int)));
+	connect(this, SIGNAL(textStyle(int)), m_Doc->scMW(), SLOT(setStilvalue(int)));
+	connect(this, SIGNAL(textFont(QString)), m_Doc->scMW(), SLOT(AdjustFontMenu(QString)));
+	connect(this, SIGNAL(textFont(QString)), pp, SLOT(setFontFace(QString)));
+	connect(this, SIGNAL(textSize(int)), pp, SLOT(setSize(int)));
+	connect(this, SIGNAL(textSize(int)), m_Doc->scMW(), SLOT(setFSizeMenu(int)));
+	connect(this, SIGNAL(textWidthScale(int)), pp, SLOT(setTScale(int)));
+	connect(this, SIGNAL(textHeightScale(int)), pp, SLOT(setTScaleV(int)));
+	connect(this, SIGNAL(textBaseLineOffset(int)), pp, SLOT(setTBase(int)));
+	connect(this, SIGNAL(textOutline(int)), pp, SLOT(setOutlineW(int)));
+	connect(this, SIGNAL(textShadow(int, int )), pp, SLOT(setShadowOffs(int, int )));
+	connect(this, SIGNAL(textUnderline(int, int)), pp, SLOT(setUnderline(int, int)));
+	connect(this, SIGNAL(textStrike(int, int)), pp, SLOT(setStrike(int, int)));
+	connect(this, SIGNAL(textColor(QString, QString, int, int)), pp, SLOT(setActFarben(QString, QString, int, int)));
+//	connect(this, SIGNAL(textFormatting(int)), pp, SLOT(setAli(int)));
 //	connect(this, SIGNAL(textFormatting(int)), ScMW, SLOT(setAbsValue(int)));
 
 	return true;
@@ -3523,11 +3524,6 @@ void PageItem::emitAllToGUI()
 		emit textSize(itemText.defaultStyle().charStyle().fontSize());
 //		emit textFormatting(itemText.defaultStyle().alignment());
 	}
-}
-
-ScribusDoc* PageItem::document()
-{
-	return m_Doc;
 }
 
 void PageItem::setIsAnnotation(bool isAnnot)

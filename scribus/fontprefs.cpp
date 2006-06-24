@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "sccombobox.h"
-#include "scribus.h"
+#include "scribuscore.h"
 #include "scribusdoc.h"
 #include "prefsmanager.h"
 #include "scconfig.h"
@@ -105,7 +105,7 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	// preferences, we let the user customize font search paths. Because things
 	// go rather badly if paths are changed/removed while a doc is open, the
 	// control is also not displayed if there is a document open.
-	if (!DocAvail && !ScMW->HaveDoc)
+	if (!DocAvail && !ScCore->primaryMainWindow()->HaveDoc)
 	{
 		PathList = new QListBox( tab3, "PathList" );
 		readPaths();

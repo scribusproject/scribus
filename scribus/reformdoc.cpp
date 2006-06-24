@@ -977,7 +977,7 @@ void ReformDoc::updateDocumentSettings()
 		tabColorManagement->setValues();
 		if (tabColorManagement->changed)
 		{
-			ScMW->mainWindowStatusLabel->setText( tr("Adjusting Colors"));
+			ScMW->setStatusBarInfoText( tr("Adjusting Colors"));
 			ScMW->mainWindowProgressBar->reset();
 			int cc = currDoc->PageColors.count() + currDoc->Items->count();
 			ScMW->mainWindowProgressBar->setTotalSteps(cc);
@@ -1046,7 +1046,7 @@ void ReformDoc::updateDocumentSettings()
 #endif
 			ScMW->mainWindowProgressBar->setProgress(cc);
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
-			ScMW->mainWindowStatusLabel->setText("");
+			ScMW->setStatusBarInfoText("");
 			ScMW->mainWindowProgressBar->reset();
 		}
 	}

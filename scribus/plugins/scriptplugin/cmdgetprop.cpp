@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmdgetprop.h"
 #include "cmdutil.h"
+#include "scribuscore.h"
 
 PyObject *scribus_getfillcolor(PyObject* /* self */, PyObject* args)
 {
@@ -197,7 +198,7 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args)
 	int typ = -1;
 	uint counter = 0;
 	uint counter2 = 0;
-	uint pageNr = ScMW->doc->currentPageNumber();
+	uint pageNr = ScCore->primaryMainWindow()->doc->currentPageNumber();
 	if (!PyArg_ParseTuple(args, "|i", &typ))
 		return NULL;
 	if(!checkHaveDocument())
@@ -205,37 +206,37 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args)
 	// have doc already
 	if (typ != -1)
 	{
-		for (uint lam2 = 0; lam2 < ScMW->doc->Items->count(); ++lam2)
+		for (uint lam2 = 0; lam2 < ScCore->primaryMainWindow()->doc->Items->count(); ++lam2)
 		{
-			if ((ScMW->doc->Items->at(lam2)->itemType() == typ) && (pageNr == static_cast<uint>(ScMW->doc->Items->at(lam2)->OwnPage)))
+			if ((ScCore->primaryMainWindow()->doc->Items->at(lam2)->itemType() == typ) && (pageNr == static_cast<uint>(ScCore->primaryMainWindow()->doc->Items->at(lam2)->OwnPage)))
 				counter++;
 		}
 	}
 	else
 	{
-		for (uint lam2 = 0; lam2 < ScMW->doc->Items->count(); ++lam2)
+		for (uint lam2 = 0; lam2 < ScCore->primaryMainWindow()->doc->Items->count(); ++lam2)
 		{
-			if (pageNr == static_cast<uint>(ScMW->doc->Items->at(lam2)->OwnPage))
+			if (pageNr == static_cast<uint>(ScCore->primaryMainWindow()->doc->Items->at(lam2)->OwnPage))
 				counter++;
 		}
 	}
 
 	l = PyList_New(counter);
-	for (uint lam=0; lam < ScMW->doc->Items->count(); ++lam)
+	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Items->count(); ++lam)
 	{
-		if  (pageNr == static_cast<uint>(ScMW->doc->Items->at(lam)->OwnPage))
+		if  (pageNr == static_cast<uint>(ScCore->primaryMainWindow()->doc->Items->at(lam)->OwnPage))
 		{
 			if (typ != -1)
 			{
-				if (ScMW->doc->Items->at(lam)->itemType() == typ)
+				if (ScCore->primaryMainWindow()->doc->Items->at(lam)->itemType() == typ)
 				{
-					PyList_SetItem(l, counter2, PyString_FromString(ScMW->doc->Items->at(lam)->itemName().utf8()));
+					PyList_SetItem(l, counter2, PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(lam)->itemName().utf8()));
 					counter2++;
 				}
 			}
 			else
 			{
-				PyList_SetItem(l, counter2, PyString_FromString(ScMW->doc->Items->at(lam)->itemName().utf8()));
+				PyList_SetItem(l, counter2, PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(lam)->itemName().utf8()));
 				counter2++;
 			}
 		}

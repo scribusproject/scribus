@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "scraction.h"
-#include "scribus.h"
+#include "scribuscore.h"
 #include "undostack.h"
 #include <qvaluelist.h>
 
@@ -507,23 +507,23 @@ void UndoManager::setMenuTexts()
 	{
 		UndoState *state = stacks_[currentDoc_].getNextUndo(currentUndoObjectId_);
 		if (state)
-			ScMW->scrActions["editUndoAction"]->setTexts(QString(Um::MenuUndo).arg(state->getName()));
+			ScCore->primaryMainWindow()->scrActions["editUndoAction"]->setTexts(QString(Um::MenuUndo).arg(state->getName()));
 		else
-			ScMW->scrActions["editUndoAction"]->setTexts(Um::MenuUndoEmpty);
+			ScCore->primaryMainWindow()->scrActions["editUndoAction"]->setTexts(Um::MenuUndoEmpty);
 	}
 	else
-		ScMW->scrActions["editUndoAction"]->setTexts(Um::MenuUndoEmpty);
+		ScCore->primaryMainWindow()->scrActions["editUndoAction"]->setTexts(Um::MenuUndoEmpty);
 
 	if (stacks_[currentDoc_].redoItems() > 0)
 	{
 		UndoState *state = stacks_[currentDoc_].getNextRedo(currentUndoObjectId_);
 		if (state)
-			ScMW->scrActions["editRedoAction"]->setTexts(QString(Um::MenuRedo).arg(state->getName()));
+			ScCore->primaryMainWindow()->scrActions["editRedoAction"]->setTexts(QString(Um::MenuRedo).arg(state->getName()));
 		else
-			ScMW->scrActions["editRedoAction"]->setTexts(Um::MenuRedoEmpty);
+			ScCore->primaryMainWindow()->scrActions["editRedoAction"]->setTexts(Um::MenuRedoEmpty);
 	}
 	else
-		ScMW->scrActions["editRedoAction"]->setTexts(Um::MenuRedoEmpty);
+		ScCore->primaryMainWindow()->scrActions["editRedoAction"]->setTexts(Um::MenuRedoEmpty);
 }
 
 void UndoManager::deleteInstance()

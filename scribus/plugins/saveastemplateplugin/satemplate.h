@@ -22,7 +22,7 @@ class PLUGIN_API SaveAsTemplatePlugin : public ScActionPlugin
 		// Standard plugin implementation
 		SaveAsTemplatePlugin();
 		virtual ~SaveAsTemplatePlugin();
-		virtual bool run(QString target = QString::null);
+		virtual bool run(ScribusDoc* doc, QString target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
@@ -49,7 +49,7 @@ public:
     ~MenuSAT() {};
 
 public slots:
-	void RunSATPlug();
+	void RunSATPlug(ScribusDoc*);
 };
 
 // static MenuSAT* satm;
@@ -57,7 +57,7 @@ public slots:
 class sat
 {
 private:
-	ScribusMainWindow* sapp;
+	ScribusDoc* m_Doc;
 	satdialog* dia;
 	QString file;
 	QString dir;
@@ -70,7 +70,7 @@ private:
 public:
 	void createTmplXml();
 	void createImages();
-	sat(ScribusMainWindow* scribusApp, satdialog* satdia, QString fileName, QString tmplDir);
+	sat(ScribusDoc* doc, satdialog* satdia, QString fileName, QString tmplDir);
 	~sat();
 };
 

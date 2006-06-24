@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagesize.h"
 #include "marginWidget.h"
 #include "scconfig.h"
-#include "scribus.h"
+#include "scribuscore.h"
 #include "prefsmanager.h"
 #include "pagelayout.h"
 #include "pagestructs.h"
@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap loadIcon(QString nam);
 
 
-NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", true, 0 )
+NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) : QDialog( parent, "newDoc", true, 0 )
 {
 	prefsManager=PrefsManager::instance();
 	tabSelected = 0;
@@ -53,6 +53,7 @@ NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", tru
 		tabWidget->addTab(newDocFrame, tr("&New Document"));
 		createOpenDocPage();
 		tabWidget->addTab(openDocFrame, tr("Open &Existing Document"));
+		recentDocList=recentDocs;
 		createRecentDocPage();
 		tabWidget->addTab(recentDocFrame, tr("Open Recent &Document"));
 		TabbedNewDocLayout->addWidget(tabWidget);
@@ -101,7 +102,7 @@ NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", tru
 	connect(ComboBox3, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
 	connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
 	if (startUp)
-		connect(recentDocList, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(recentDocList_doubleClicked(QListBoxItem*)));
+		connect(recentDocListBox, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(recentDocListBox_doubleClicked(QListBoxItem*)));
 
 	setMinimumSize(minimumSizeHint());
 	setMaximumSize(minimumSizeHint());
@@ -302,13 +303,11 @@ void NewDoc::createRecentDocPage()
 {
 	recentDocFrame = new QFrame(this, "recentDocFrame");
 	recentDocLayout = new QVBoxLayout(recentDocFrame, 5, 5, "recentDocLayout");
-	recentDocList = new QListBox(recentDocFrame, "recentDocList");
-	recentDocLayout->addWidget(recentDocList);
-	uint max = QMIN(prefsManager->appPrefs.RecentDCount, ScMW->RecentDocs.count());
+	recentDocListBox = new QListBox(recentDocFrame, "recentDocListBox");
+	recentDocLayout->addWidget(recentDocListBox);
+	uint max = QMIN(prefsManager->appPrefs.RecentDCount, recentDocList.count());
 	for (uint m = 0; m < max; ++m)
-	{
-		recentDocList->insertItem(ScMW->RecentDocs[m]);
-	}
+		recentDocListBox->insertItem(recentDocList[m]);
 }
 
 void NewDoc::setWidth(int)
@@ -477,7 +476,7 @@ void NewDoc::setDS(int layout)
 	docLayout->firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[choosenLayout].FirstPage);
 }
 
-void NewDoc::recentDocList_doubleClicked(QListBoxItem * /*item*/)
+void NewDoc::recentDocListBox_doubleClicked(QListBoxItem * /*item*/)
 {
 	/* Yep. There is nothing to solve. ScribusMainWindow handles all
 	openings etc. It's Franz's programming style ;) */

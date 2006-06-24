@@ -14,10 +14,10 @@ for which a new license (GPL+exception) is in place.
 #include <qregexp.h> 
 #include <qmap.h>
 #include "prefsmanager.h"
-#include <prefsfile.h>
+#include "prefsfile.h"
 #include <vector>
-#include <gtframestyle.h>
-#include <gtparagraphstyle.h>
+#include "gtframestyle.h"
+#include "gtparagraphstyle.h"
 #include "tfdia.h"
 
 QString FileFormatName()

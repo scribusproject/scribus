@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 class QString;
-class ScribusMainWindow;
+class ScribusDoc;
 class PageItem;
 class Page;
 class ScText;
@@ -44,7 +44,7 @@ class PLUGIN_API SVGExportPlugin : public ScActionPlugin
 		\param filename a file to export to
 		\retval bool true
 		*/
-		virtual bool run(QString filename = QString::null);
+		virtual bool run(ScribusDoc* doc=0, QString filename = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
@@ -68,11 +68,13 @@ public:
 	\brief Create the SVG exporter window
 	\param fName QString file name
 	 */
-	SVGExPlug( QString fName );
+	SVGExPlug( ScribusDoc* doc, QString fName );
 	~SVGExPlug();
 
-#ifndef USECAIRO
 private:
+	ScribusDoc* m_Doc;
+#ifndef USECAIRO
+
 		/*!
 		\author Franz Schmid
 		\brief Process a page to export to SVG format

@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <qvariant.h>
 #include <qdialog.h>
 #include "colorwheelwidget.h"
-#include <scribus.h>
+#include "scribus.h"
 
 class QVBoxLayout;
 class QHBoxLayout;
@@ -25,7 +25,7 @@ class QSpinBox;
 class QGroupBox;
 class QSlider;
 class ColorListBox;
-
+class ScribusDoc;
 
 /*! \brief GUI for colors from preferences/document.
 List all available colors in one dialog with samples.
@@ -36,7 +36,7 @@ class ScribusColorList : public QDialog
 	Q_OBJECT
 
 	public:
-		ScribusColorList(QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0);
+		ScribusColorList(ScribusDoc* doc, QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0);
 		~ScribusColorList(){};
 
 		ColorListBox* listView;
@@ -47,6 +47,7 @@ class ScribusColorList : public QDialog
 		QColor selectedColor;
 
 	protected:
+		ScribusDoc* m_Doc;
 		QGridLayout* ScribusColorListLayout;
 		QVBoxLayout* listLayout;
 		QHBoxLayout* btnLayout;
@@ -67,7 +68,7 @@ class ColorWheelDialog : public QDialog
 	Q_OBJECT
 
 	public:
-		ColorWheelDialog( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+		ColorWheelDialog( ScribusDoc* doc, QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
 		~ColorWheelDialog();
 
 		QLabel* typeLabel;
@@ -84,6 +85,7 @@ class ColorWheelDialog : public QDialog
 		QComboBox* defectCombo;
 
 	protected:
+		ScribusDoc* m_Doc;
 		/** \brief It fills a colors into list view.
 		It takes colors from ColorWheel widget. */
 		void fillColorList();

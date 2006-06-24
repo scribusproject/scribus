@@ -98,6 +98,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	docUnitRatio(unitGetRatioFromIndex(docUnitIndex)),
 	automaticTextFrames(0),
 	m_masterPageMode(false),
+	m_ScMW(0),
+	m_View(0),	
 	is12doc(false),
 	NrItems(0),
 	First(1), Last(0),
@@ -181,11 +183,10 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	docToCSetups(prefsData.defaultToCSetups),
 	// sections
 	symReturn(), symNewLine(), symTab(), symNonBreak(), symNewCol(), symNewFrame(),
-	docHyphenator(new Hyphenator(ScMW, this)), // MUST be constructed late
+	docHyphenator(0),
 	_itemCreationTransactionStarted(false)
 {
 	Q_CHECK_PTR(m_Selection);
-	Q_CHECK_PTR(docHyphenator);
 	Q_CHECK_PTR(autoSaveTimer);
 
 	AddFont(prefsData.toolSettings.defFont);//, prefsData.AvailFonts[prefsData.toolSettings.defFont]->Font);
@@ -416,6 +417,14 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	}
 }
 
+void ScribusDoc::setGUI(ScribusMainWindow* mw, ScribusView* view)
+{
+	m_ScMW=mw;
+	m_View=view;
+	docHyphenator=new Hyphenator(m_ScMW, this);
+	Q_CHECK_PTR(docHyphenator);
+}
+
 void ScribusDoc::setLoading(const bool docLoading)
 {
 	loading = docLoading;
@@ -428,7 +437,8 @@ bool ScribusDoc::isLoading() const
 
 ScribusView* ScribusDoc::view() const
 {
-	return (WinHan ? (((ScribusWin*) WinHan)->view()) : 0);
+// 	return (WinHan ? (((ScribusWin*) WinHan)->view()) : 0);
+	return m_View;
 }
 
 void ScribusDoc::CloseCMSProfiles()
@@ -498,7 +508,7 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 		CMSSettings.CMSinUse = CMSuse = false;
 		QString message = tr("An error occurred while opening icc profiles, color management is not enabled." );
 		if (ScCore->usingGUI())
-			QMessageBox::warning(ScMW, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
+			QMessageBox::warning(m_ScMW, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
 		else
 			qWarning( "%s", message.local8Bit().data() );
 		return false;
@@ -784,8 +794,8 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		{
 			if (ScCore->usingGUI())
 			{
-				ScMW->changeLayer(ss->getInt("ACTIVE"));
-				ScMW->layerPalette->rebuildList();
+				m_ScMW->changeLayer(ss->getInt("ACTIVE"));
+				m_ScMW->layerPalette->rebuildList();
 			}
 		}
 	}
@@ -1422,6 +1432,8 @@ bool ScribusDoc::setLayerPrintable(const int layerNumber, const bool isPrintable
 			break;
 		}
 	}
+	if (found)
+		changed();
 	return found;
 }
 
@@ -1451,6 +1463,8 @@ bool ScribusDoc::setLayerVisible(const int layerNumber, const bool isViewable)
 			break;
 		}
 	}
+	if (found)
+		changed();
 	return found;
 }
 
@@ -1480,6 +1494,8 @@ bool ScribusDoc::setLayerLocked(const int layerNumber, const bool isLocked)
 			break;
 		}
 	}
+	if (found)
+		changed();
 	return found;
 }
 
@@ -1509,6 +1525,8 @@ bool ScribusDoc::setLayerFlow(const int layerNumber, const bool flow)
 			break;
 		}
 	}
+	if (found)
+		changed();
 	return found;
 }
 
@@ -1538,6 +1556,8 @@ bool ScribusDoc::setLayerTransparency(const int layerNumber, double trans)
 			break;
 		}
 	}
+	if (found)
+		changed();
 	return found;
 }
 
@@ -1567,6 +1587,8 @@ bool ScribusDoc::setLayerBlendMode(const int layerNumber, int blend)
 			break;
 		}
 	}
+	if (found)
+		changed();
 	return found;
 }
 
@@ -1596,6 +1618,8 @@ bool ScribusDoc::setLayerOutline(const int layerNumber, const bool outline)
 			break;
 		}
 	}
+	if (found)
+		changed();
 	return found;
 }
 
@@ -1625,6 +1649,8 @@ bool ScribusDoc::setLayerMarker(const int layerNumber, QColor color)
 			break;
 		}
 	}
+	if (found)
+		changed();
 	return found;
 }
 
@@ -1774,6 +1800,8 @@ bool ScribusDoc::changeLayerName(const int layerNumber, const QString& newName)
 			break;
 		}
 	}
+	if (found)
+		changed();
 	return found;
 }
 
@@ -2305,7 +2333,7 @@ bool ScribusDoc::save(const QString& fileName)
 	QProgressBar* mainWindowProgressBar=NULL;
 	if (ScCore->usingGUI())
 	{
-		mainWindowProgressBar=ScMW->mainWindowProgressBar;
+		mainWindowProgressBar=m_ScMW->mainWindowProgressBar;
 		mainWindowProgressBar->reset();
 	}
 	FileLoader fl(fileName);
@@ -2481,7 +2509,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 					BufferT.Groups.push((*nx));
 				}
 			}
-			ScMW->view->PasteItem(&BufferT, true, true);
+			m_View->PasteItem(&BufferT, true, true);
 			PageItem* newItem = Items->at(Items->count()-1);
 			newItem->OnMasterPage = masterPageName;
 			newItem->OwnPage=MasterNames[masterPageName];
@@ -2683,7 +2711,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 		newItem->SetRectFrame();
 		//TODO one day hopefully, if(ScCore->usingGUI())
 		newItem->setRedrawBounding();
-		//ScMW->view->setRedrawBounding(newItem);
+		//m_View->setRedrawBounding(newItem);
 		newItem->ContourLine = newItem->PoLine.copy();
 	}
 
@@ -2692,7 +2720,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 		newItem->SetOvalFrame();
 		//TODO one day hopefully, if(ScCore->usingGUI())
 		newItem->setRedrawBounding();
-		//ScMW->view->setRedrawBounding(newItem);
+		//m_View->setRedrawBounding(newItem);
 		newItem->ContourLine = newItem->PoLine.copy();
 	}
 
@@ -2765,7 +2793,7 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload)
 	{
 		//TODO: Make this a signal again one day
 		//emit RasterPic(pageItem->isRaster);
-		ScMW->HaveRaster(pageItem->isRaster);
+		m_ScMW->HaveRaster(pageItem->isRaster);
 		//TODO: Previously commented out.. unsure why, remove later
 		//emit UpdtObj(PageNr, ItNr);
 		changed();
@@ -3159,7 +3187,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 				polyLineItem->FrameType = 3;
 				polyLineItem->setRotation(currItem->rotation());
 				polyLineItem->setPolyClip(qRound(QMAX(polyLineItem->lineWidth() / 2, 1)));
-				ScMW->view->AdjustItemSize(polyLineItem);
+				view()->AdjustItemSize(polyLineItem);
 
 				newItem->setLineColor(CommonStrings::None);
 				newItem->SetRectFrame();
@@ -3189,7 +3217,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			newItem->convertTo(PageItem::PolyLine);
 			newItem->ClipEdited = true;
 			newItem->setPolyClip(qRound(QMAX(newItem->lineWidth() / 2, 1)));
-			ScMW->view->AdjustItemSize(newItem);
+			m_View->AdjustItemSize(newItem);
 			break;
 		case PageItem::PathText:
 			{
@@ -3205,11 +3233,11 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 				/*	if (!Doc->loading)
 					emit UpdtObj(Doc->currentPage->pageNr(), b->ItemNr); */
 				//FIXME: Stop using the view here
-				ScMW->view->AdjustItemSize(newItem);
+				m_View->AdjustItemSize(newItem);
 				newItem->updatePolyClip();
 				double dx = secondaryItem->xPos() - newItem->xPos();
 				double dy = secondaryItem->yPos() - newItem->yPos();
-				ScMW->view->MoveItem(dx, dy, newItem);
+				m_View->MoveItem(dx, dy, newItem);
 				newItem->setRotation(secondaryItem->rotation());
 				newItem->FrameType = 3;
 			}
@@ -3231,10 +3259,10 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	if (newType==PageItem::PathText)
 	{
 		//FIXME: Stop using the view here
-		ScMW->view->SelectItem(secondaryItem);
+		m_View->SelectItem(secondaryItem);
 		itemSelection_DeleteItem();
 		emit updateContents();
-		ScMW->view->Deselect(true);
+		m_View->Deselect(true);
 	}
 	//Create the undo action for the new item
 	if (UndoManager::undoEnabled())
@@ -3510,7 +3538,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		destination->initialMargins.Bottom = from->Margins.Bottom;
 		destination->initialMargins.Left = from->Margins.Left;
 		destination->initialMargins.Right = from->Margins.Right;
-		ScMW->view->reformPages();
+		m_View->reformPages();
 		QMap<int,int> TableID;
 		QPtrList<PageItem> TableItems;
 		TableID.clear();
@@ -3544,11 +3572,11 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 						Buffer.Groups.push((*nx));
 					}
 				}
-				ScMW->view->PasteItem(&Buffer, true, true);
+				m_View->PasteItem(&Buffer, true, true);
 				PageItem* Neu = Items->at(Items->count()-1);
 				Neu->OnMasterPage = "";
 				if (itemToCopy->isBookmark)
-					ScMW->AddBookMark(Neu);
+					m_ScMW->AddBookMark(Neu);
 				if (Neu->isTableItem)
 				{
 					TableItems.append(Neu);
@@ -3990,7 +4018,7 @@ void ScribusDoc::ItemFont(QString fon)
 					if (currItem->asPathText())
 					{
 						currItem->updatePolyClip();
-						ScMW->view->AdjustItemSize(currItem);
+						view()->AdjustItemSize(currItem);
 					}
 /*					if (!Doc->loading)
 						emit UpdtObj(Doc->currentPage->pageNr(), currItem->ItemNr); */
@@ -4752,7 +4780,7 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 		{
 			SimpleState *ss = new SimpleState(s > 4 ? Um::SetStyle : Um::AlignText, "", Um::IFont);
 			ss->set("PSTYLE", "pstyle");
-			int oldPStyle = findParagraphStyle(currItem->document(), currItem->currentStyle());
+			int oldPStyle = findParagraphStyle(currItem->doc(), currItem->currentStyle());
 			ss->set("OLD_STYLE", oldPStyle);
 			ss->set("NEW_STYLE", s);
 			undoManager->action(currItem, ss);
@@ -4820,7 +4848,7 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 #else
 	ParagraphStyle newPStyle;
 	if (s > 4) {
-		newPStyle.setParent( & currItem->document()->docParagraphStyles[s] );
+		newPStyle.setParent( & currItem->doc()->docParagraphStyles[s] );
 	}
 	else {
 		newPStyle.setAlignment(s);
@@ -4849,25 +4877,25 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 	if (appMode == modeEdit)
 	{
 		const ParagraphStyle& pstyle(currItem->currentStyle());
-		ScMW->view->horizRuler->setItem(currItem);
+		view()->horizRuler->setItem(currItem);
 		if (currItem->lineColor() != CommonStrings::None)
-			ScMW->view->horizRuler->lineCorr = currItem->lineWidth() / 2.0;
+			m_View->horizRuler->lineCorr = currItem->lineWidth() / 2.0;
 		else
-			ScMW->view->horizRuler->lineCorr = 0;
-		ScMW->view->horizRuler->ColGap = currItem->ColGap;
-		ScMW->view->horizRuler->Cols = currItem->Cols;
-		ScMW->view->horizRuler->Extra = currItem->textToFrameDistLeft();
-		ScMW->view->horizRuler->RExtra = currItem->textToFrameDistRight();
-		ScMW->view->horizRuler->First = pstyle.firstIndent();
-		ScMW->view->horizRuler->Indent = pstyle.leftMargin();
+			m_View->horizRuler->lineCorr = 0;
+		m_View->horizRuler->ColGap = currItem->ColGap;
+		m_View->horizRuler->Cols = currItem->Cols;
+		m_View->horizRuler->Extra = currItem->textToFrameDistLeft();
+		m_View->horizRuler->RExtra = currItem->textToFrameDistRight();
+		m_View->horizRuler->First = pstyle.firstIndent();
+		m_View->horizRuler->Indent = pstyle.leftMargin();
 		double columnWidth = (currItem->width() - (currItem->columnGap() * (currItem->columns() - 1)) 
 							  - currItem->textToFrameDistLeft() - currItem->textToFrameDistLeft() 
-							  - 2*ScMW->view->horizRuler->lineCorr) / currItem->columns();
-		ScMW->view->horizRuler->RMargin = columnWidth - pstyle.rightMargin();
-		ScMW->view->horizRuler->Revers = (currItem->imageFlippedH() || (currItem->reversed()));
-		ScMW->view->horizRuler->ItemPosValid = true;
-		ScMW->view->horizRuler->TabValues = pstyle.tabValues();
-		ScMW->view->horizRuler->repaint();
+							  - 2*m_View->horizRuler->lineCorr) / currItem->columns();
+		m_View->horizRuler->RMargin = columnWidth - pstyle.rightMargin();
+		m_View->horizRuler->Revers = (currItem->imageFlippedH() || (currItem->reversed()));
+		m_View->horizRuler->ItemPosValid = true;
+		m_View->horizRuler->TabValues = pstyle.tabValues();
+		m_View->horizRuler->repaint();
 	}
 }
 
@@ -5004,7 +5032,7 @@ void ScribusDoc::chFSize(int size)
 				if (currItem->asPathText())
 				{
 					currItem->updatePolyClip();
-					ScMW->view->AdjustItemSize(currItem);
+					view()->AdjustItemSize(currItem);
 				}
 				emit refreshItem(currItem);
 			}
@@ -5043,7 +5071,7 @@ void ScribusDoc::itemSelection_ApplyTextStyle(const CharStyle & newstyle)
 				if (currItem->asPathText())
 				{
 					currItem->updatePolyClip();
-					ScMW->view->AdjustItemSize(currItem);
+					view()->AdjustItemSize(currItem);
 				}
 //				emit refreshItem(currItem);
 			}
@@ -5134,7 +5162,7 @@ void ScribusDoc::MirrorPolyH(PageItem* currItem)
 			*/
 			currItem->ClipEdited = true;
 			QWMatrix ma;
-			if (ScMW->view->EditContour)
+			if (view()->EditContour)
 			{
 				if (UndoManager::undoEnabled())
 				{
@@ -5153,7 +5181,7 @@ void ScribusDoc::MirrorPolyH(PageItem* currItem)
 				currItem->Tinput = true;
 				currItem->paintObj();
 				currItem->FrameOnly = false;
-				ScMW->view->MarkClip(currItem, currItem->ContourLine, true);
+				m_View->MarkClip(currItem, currItem->ContourLine, true);
 				changed();
 				return;
 			}
@@ -5198,7 +5226,7 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 			*/
 			currItem->ClipEdited = true;
 			QWMatrix ma;
-			if (ScMW->view->EditContour)
+			if (view()->EditContour)
 			{
 				if (UndoManager::undoEnabled())
 				{
@@ -5217,7 +5245,7 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 				currItem->Tinput = true;
 				currItem->paintObj();
 				currItem->FrameOnly = false;
-				ScMW->view->MarkClip(currItem, currItem->ContourLine, true);
+				m_View->MarkClip(currItem, currItem->ContourLine, true);
 				changed();
 				return;
 			}
@@ -5275,7 +5303,7 @@ void ScribusDoc::adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute)
 	|| (newMinX != minCanvasCoordinate.x()) || (newMinY != minCanvasCoordinate.y()))
 	{
 		//CB TODO Make a list of views we belong to and make this the doc's active view via an internal*
-		if (ScCore->usingGUI() && !ScMW->view->operItemMoving)
+		if (ScCore->usingGUI() && !m_View->operItemMoving)
 		{
 			//Save the old values for the emit, but update now to ensure we are all ready
 			double oldMinX=minCanvasCoordinate.x();
@@ -5291,9 +5319,9 @@ void ScribusDoc::connectDocSignals()
 {
 	if (ScCore->usingGUI())
 	{
-		connect(this, SIGNAL(setApplicationMode(int)), ScMW, SLOT(setAppMode(int)));
-		connect(this, SIGNAL(docChanged()), ScMW, SLOT(slotDocCh()));
-		connect(this, SIGNAL(firstSelectedItemType(int)), ScMW, SLOT(HaveNewSel(int)));
+		connect(this, SIGNAL(setApplicationMode(int)), m_ScMW, SLOT(setAppMode(int)));
+		connect(this, SIGNAL(docChanged()), m_ScMW, SLOT(slotDocCh()));
+		connect(this, SIGNAL(firstSelectedItemType(int)), m_ScMW, SLOT(HaveNewSel(int)));
 		connect(autoSaveTimer, SIGNAL(timeout()), WinHan, SLOT(slotAutoSave()));
 		connect(this, SIGNAL(refreshItem(PageItem*)), view(), SLOT(RefreshItem(PageItem*)));
 		connect(this, SIGNAL(updateContents()), view(), SLOT(slotUpdateContents()));
@@ -5458,7 +5486,7 @@ void ScribusDoc::updatePic()
 //TODO replace with the ScribusDoc::deleteTaggedItems
 void ScribusDoc::removeLayer(int l, bool dl)
 {
-	ScMW->view->Deselect();
+	m_View->Deselect();
 	for (uint b = 0; b < MasterItems.count(); ++b)
 	{
 		if (MasterItems.at(b)->LayerNr == l)
@@ -5491,8 +5519,8 @@ void ScribusDoc::removeLayer(int l, bool dl)
 	if (m_Selection->count() != 0)
 		itemSelection_DeleteItem();
 	//FIXME signal these
-	ScMW->rebuildLayersList();
-	ScMW->view->updateLayerMenu();
+	m_ScMW->rebuildLayersList();
+	m_View->updateLayerMenu();
 }
 
 void ScribusDoc::itemSelection_ToggleLock( )
@@ -5554,7 +5582,7 @@ void ScribusDoc::itemSelection_ToggleImageShown()
 			if (imageItem==NULL)
 				continue;
 			imageItem->setImageShown(!imageItem->imageShown());
-			ScMW->scrActions["itemImageIsVisible"]->setOn(imageItem->imageShown());
+			m_ScMW->scrActions["itemImageIsVisible"]->setOn(imageItem->imageShown());
 			emit refreshItem(imageItem);
 		}
 		changed();
@@ -5731,15 +5759,15 @@ void ScribusDoc::itemSelection_ChangePreviewResolution(int id)
 		if (!found) //No image frames in the current selection!
 			return;
 		updatePic();
-		disconnect( ScMW->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)) , 0, 0 );
-		disconnect( ScMW->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)) , 0, 0 );
-		disconnect( ScMW->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)) , 0, 0 );
-		ScMW->scrActions["itemPreviewLow"]->setOn(id==ScMW->scrActions["itemPreviewLow"]->actionInt());
-		ScMW->scrActions["itemPreviewNormal"]->setOn(id==ScMW->scrActions["itemPreviewNormal"]->actionInt());
-		ScMW->scrActions["itemPreviewFull"]->setOn(id==ScMW->scrActions["itemPreviewFull"]->actionInt());
-		connect( ScMW->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)), this, SLOT(itemSelection_ChangePreviewResolution(int)) );
-		connect( ScMW->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)), this, SLOT(itemSelection_ChangePreviewResolution(int)) );
-		connect( ScMW->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)), this, SLOT(itemSelection_ChangePreviewResolution(int)) );
+		disconnect( m_ScMW->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)) , 0, 0 );
+		disconnect( m_ScMW->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)) , 0, 0 );
+		disconnect( m_ScMW->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)) , 0, 0 );
+		m_ScMW->scrActions["itemPreviewLow"]->setOn(id==m_ScMW->scrActions["itemPreviewLow"]->actionInt());
+		m_ScMW->scrActions["itemPreviewNormal"]->setOn(id==m_ScMW->scrActions["itemPreviewNormal"]->actionInt());
+		m_ScMW->scrActions["itemPreviewFull"]->setOn(id==m_ScMW->scrActions["itemPreviewFull"]->actionInt());
+		connect( m_ScMW->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)), this, SLOT(itemSelection_ChangePreviewResolution(int)) );
+		connect( m_ScMW->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)), this, SLOT(itemSelection_ChangePreviewResolution(int)) );
+		connect( m_ScMW->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)), this, SLOT(itemSelection_ChangePreviewResolution(int)) );
 	}
 }
 
@@ -5764,7 +5792,7 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 			{
 				if (currItem->itemText.length() != 0 && (currItem->NextBox == 0 || currItem->BackBox == 0))
 				{
-					int t = ScMessageBox::warning(ScMW, CommonStrings::trWarning,
+					int t = ScMessageBox::warning(m_ScMW, CommonStrings::trWarning,
 										tr("Do you really want to clear all your text?"),
 										QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
 					if (t == QMessageBox::No)
@@ -5801,9 +5829,9 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
 			continue;
 		}
 		//CB FIXME remove this and include of story.h too
-		if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==ScMW->storyEditor->currentItem() && this==ScMW->storyEditor->currentDocument())
+		if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==m_ScMW->storyEditor->currentItem() && this==m_ScMW->storyEditor->currentDocument())
 		{
-			QMessageBox::critical(ScMW, tr("Cannot Delete In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The delete operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+			QMessageBox::critical(m_ScMW, tr("Cannot Delete In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The delete operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
 			return;
 		}
 		tooltip += "\t" + currItem->getUName() + "\n";
@@ -5856,7 +5884,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
 		}
 		if (currItem->isBookmark)
 			//CB From view   emit DelBM(currItem);
-			ScMW->DelBookMark(currItem);
+			m_ScMW->DelBookMark(currItem);
 		Items->remove(currItem);
 		delItems.removeLast();
 		// send the undo action to the UndoManager
@@ -5883,7 +5911,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
 	updateContents();
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	//CB FIXME remove this and tree.h too
-	ScMW->outlinePalette->BuildTree();
+	m_ScMW->outlinePalette->BuildTree();
 
 	if (itemSelection->isGUISelection())
 	{
@@ -5971,7 +5999,7 @@ void ScribusDoc::itemSelection_DoHyphenate()
 				docHyphenator->slotNewDict(currItem->itemText.charStyle(0).language());
 			docHyphenator->slotHyphenate(currItem);
 		}
-		ScMW->view->DrawNew(); //CB draw new until NLS for redraw through text chains
+		m_View->DrawNew(); //CB draw new until NLS for redraw through text chains
 		changed();
 	}
 }
@@ -5986,7 +6014,7 @@ void ScribusDoc::itemSelection_DoDeHyphenate()
 			PageItem *currItem = m_Selection->itemAt(i);
 			docHyphenator->slotDeHyphenate(currItem);
 		}
-		ScMW->view->DrawNew(); //CB draw new until NLS for redraw through text chains
+		m_View->DrawNew(); //CB draw new until NLS for redraw through text chains
 		changed();
 	}
 }
@@ -6016,7 +6044,7 @@ void ScribusDoc::itemSelection_SendToLayer(int layerNumber)
 
 	//CB why not just the following as we are calling for updatecontents anyway and we arent reflowing text
 	//Doc->m_Selection->clear();
-	ScMW->view->Deselect(true);
+	m_View->Deselect(true);
 	emit updateContents();
 	changed();
 }
@@ -6045,7 +6073,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(int s)
 								s > 4 ? Um::SetStyle : Um::AlignText,
 								tooltip,
 								Um::IFont);
-		ScMW->view->DrawNew(); //CB draw new until NLS for redraw through text chains
+		view()->DrawNew(); //CB draw new until NLS for redraw through text chains
 	}
 }
 
@@ -6235,7 +6263,7 @@ bool ScribusDoc::startAlign()
 	int t = 2;
 	if (oneLocked)
 	{
-		t = ScMessageBox::warning(ScMW, CommonStrings::trWarning, tr("Some objects are locked."),
+		t = ScMessageBox::warning(m_ScMW, CommonStrings::trWarning, tr("Some objects are locked."),
 									tr("&Unlock All"), tr("&Skip locked objects"), CommonStrings::tr_Cancel, 0, 0);
 		if (t == 2)
 			return false;
@@ -6259,11 +6287,11 @@ bool ScribusDoc::startAlign()
 void ScribusDoc::endAlign()
 {
 	changed();
-	ScMW->HaveNewSel(m_Selection->itemAt(0)->itemType());
+	m_ScMW->HaveNewSel(m_Selection->itemAt(0)->itemType());
 	for (uint i = 0; i < m_Selection->count(); ++i)
 		setRedrawBounding(m_Selection->itemAt(i));
 	undoManager->commit(); // commit and send the action to the UndoManager
-	ScMW->view->updateContents();
+	m_View->updateContents();
 }
 
 
@@ -7065,5 +7093,6 @@ Page* ScribusDoc::currentPage()
 void ScribusDoc::setCurrentPage(Page *newPage)
 {
 	_currentPage = newPage;
-	ScMW->guidePalette->setupPage();
+	if (m_ScMW)
+		m_ScMW->guidePalette->setupPage();
 }

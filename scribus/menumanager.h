@@ -26,11 +26,13 @@ for which a new license (GPL+exception) is in place.
 #include <qptrlist.h>
 #include <qpoint.h>
 
+class QMenuBar;
 class QPopupMenu;
 
 #include "scribusapi.h"
 class ScrAction;
 class ScrPopupMenu;
+class ScribusMainWindow;
 
 /**
 @author Craig Bradney
@@ -39,7 +41,7 @@ class SCRIBUS_API MenuManager : public QObject
 {
 	Q_OBJECT
 public:
-	MenuManager(QMenuBar *scrMenuBar, QObject *parent = 0, const char *name = 0);
+	MenuManager(QMenuBar* mb, QObject *parent = 0, const char *name = 0);
 	~MenuManager();
 
 	enum MenuType {Normal, DLL};

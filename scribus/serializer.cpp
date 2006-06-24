@@ -59,7 +59,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 {
 	PageItem *nextItem;
 	PageItem *it = Item;
-	ScribusDoc* doku = it->document();
+	ScribusDoc* doku = it->doc();
 	if (!Append)
 	{
 #if 0

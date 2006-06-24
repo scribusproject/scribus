@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <qobject.h>
 
 class QString;
+class ScribusDoc;
 
 class MyPluginImpl : public QObject
 {
@@ -17,7 +18,7 @@ class MyPluginImpl : public QObject
 	public:
 		MyPluginImpl();
 		~MyPluginImpl() {};
-		bool run(const QString & target);
+		bool run(const QString & target, ScribusDoc* doc=0);
 };
 
 #endif

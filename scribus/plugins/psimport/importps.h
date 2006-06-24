@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 
 class MultiProgressDialog;
+class ScribusDoc;
 
 //! \brief POSTSCRIPT importer plugin
 class EPSPlug : public QObject
@@ -34,7 +35,7 @@ public:
 	\param flags combination of loadFlags
 	\retval EPSPlug plugin
 	*/
-	EPSPlug( QString fName, int flags, bool showProgress = true );
+	EPSPlug( ScribusDoc* doc, QString fName, int flags, bool showProgress = true );
 	~EPSPlug() {};
 
 private:
@@ -92,6 +93,7 @@ private:
 	bool interactive;
 	MultiProgressDialog * progressDialog;
 	bool cancel;
+	ScribusDoc* m_Doc;
 
 public slots:
 	void cancelRequested() { cancel = true; }

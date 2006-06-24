@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "colorm.h"
 #include "colorm.moc"
+#include <qpainter.h>
 #include <qvariant.h>
 #include <qfontmetrics.h>
 #include <qpixmap.h>
@@ -17,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "fileloader.h"
 #include "cmykfw.h"
 #include "query.h"
-#include "scribus.h"
+#include "scribusdoc.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "scpaths.h"
@@ -222,11 +223,11 @@ void ColorListBox::updateBox(ColorList list, ColorListBox::PixmapType type, bool
 	}
 }
 
-ColorManager::ColorManager(QWidget* parent, ColorList doco, bool haveDoc, QString docColSet, QStringList custColSet)
+ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QString docColSet, QStringList custColSet)
 		: QDialog( parent, "ColorManager", true, 0 )
 {
 	setName( "ColorManager" );
-	HaveDoc = haveDoc;
+	m_Doc=doc;
 	customColSet = custColSet;
 	setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, sizePolicy().hasHeightForWidth() ) );
 	setSizeGripEnabled(true);
@@ -264,13 +265,13 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, bool haveDoc, QStrin
 	DelF = new QPushButton( tr( "&Delete" ), ColorsGroup, "DelF" );
 	DelF->setEnabled( false );
 	Layout1->addWidget( DelF );
-	if (HaveDoc)
+	if (m_Doc!=0)
 	{
 		DelU = new QPushButton( tr( "&Remove Unused" ), ColorsGroup, "DelU" );
 		Layout1->addWidget( DelU );
 	}
 	layout3->addWidget( ColorsGroup );
-	if (!HaveDoc)
+	if (m_Doc==0)
 	{
 		ColsSetGroup = new QGroupBox( this, "ColsSetGroup" );
 		ColsSetGroup->setTitle( tr( "Color Sets" ) );
@@ -336,7 +337,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, bool haveDoc, QStrin
 	dynTip = new DynamicTip(colorListBox, &EditColors);
 	updateCList();
 	// signals and slots connections
-	if (!HaveDoc)
+	if (m_Doc==0)
 	{
 		connect(CSets, SIGNAL(activated(int)), this, SLOT(loadDefaults(int)));
 		connect(SaveColSet, SIGNAL( clicked() ), this, SLOT( saveDefaults() ) );
@@ -584,16 +585,16 @@ void ColorManager::delUnused()
 	for (it = EditColors.begin(); it != EditColors.end(); ++it)
 	{
 		found = false;
-		if ((it.key() == ScMW->doc->toolSettings.dBrush) || (it.key() == ScMW->doc->toolSettings.dPen) ||
-		        (it.key() == ScMW->doc->toolSettings.dBrushPict)
-		        || (it.key() == ScMW->doc->toolSettings.dPenLine) || (it.key() == ScMW->doc->toolSettings.dPenText))
+		if ((it.key() == m_Doc->toolSettings.dBrush) || (it.key() == m_Doc->toolSettings.dPen) ||
+		        (it.key() == m_Doc->toolSettings.dBrushPict)
+		        || (it.key() == m_Doc->toolSettings.dPenLine) || (it.key() == m_Doc->toolSettings.dPenText))
 		{
 			UsedC.insert(it.key(), it.data());
 			continue;
 		}
-		for (uint c = 0; c < ScMW->doc->MasterItems.count(); ++c)
+		for (uint c = 0; c < m_Doc->MasterItems.count(); ++c)
 		{
-			ite = ScMW->doc->MasterItems.at(c);
+			ite = m_Doc->MasterItems.at(c);
 			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
@@ -625,9 +626,9 @@ void ColorManager::delUnused()
 			UsedC.insert(it.key(), it.data());
 			continue;
 		}
-		for (uint c = 0; c < ScMW->doc->FrameItems.count(); ++c)
+		for (uint c = 0; c < m_Doc->FrameItems.count(); ++c)
 		{
-			ite = ScMW->doc->FrameItems.at(c);
+			ite = m_Doc->FrameItems.at(c);
 			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
@@ -659,9 +660,9 @@ void ColorManager::delUnused()
 			UsedC.insert(it.key(), it.data());
 			continue;
 		}
-		for (uint c = 0; c < ScMW->doc->DocItems.count(); ++c)
+		for (uint c = 0; c < m_Doc->DocItems.count(); ++c)
 		{
-			ite = ScMW->doc->DocItems.at(c);
+			ite = m_Doc->DocItems.at(c);
 			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
@@ -692,8 +693,8 @@ void ColorManager::delUnused()
 				break;
 		}
 		/* PFJ - 29.02.04 - Merged if's */
-		if ((it.key() == ScMW->doc->currentStyle.charStyle().fillColor()) ||
-		        (it.key() == ScMW->doc->currentStyle.charStyle().strokeColor()))
+		if ((it.key() == m_Doc->currentStyle.charStyle().fillColor()) ||
+		        (it.key() == m_Doc->currentStyle.charStyle().strokeColor()))
 			found = true;
 		if (found)
 		{
@@ -782,7 +783,7 @@ void ColorManager::delFarbe()
 {
 	int selectedIndex=colorListBox->currentItem();
 	int topIndex=colorListBox->topItem();
-	DelColor *dia = new DelColor(this, EditColors, sFarbe, HaveDoc);
+	DelColor *dia = new DelColor(this, EditColors, sFarbe, (m_Doc!=0));
 	if (dia->exec())
 	{
 		if (replaceMap.values().contains(sFarbe))

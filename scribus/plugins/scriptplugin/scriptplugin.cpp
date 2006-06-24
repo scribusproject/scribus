@@ -44,7 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "guiapp.h"
 #include "svgimport.h"
 #include "scriptercore.h"
-
+#include "scribuscore.h"
 #include "customfdialog.h"
 #include "helpbrowser.h"
 #include "mpalette.h"
@@ -169,9 +169,9 @@ bool ScriptPlugin::initPlugin()
 		PyErr_Clear();
 	}
 
-	scripterCore = new ScripterCore(ScMW);
+	scripterCore = new ScripterCore(ScCore->primaryMainWindow());
 	Q_CHECK_PTR(scripterCore);
-	initscribus(ScMW);
+	initscribus(ScCore->primaryMainWindow());
 #ifdef HAVE_SCRIPTER2
 	scripter2_init();
 #endif
@@ -207,7 +207,7 @@ void run()
 	QString pfad = ScPaths::instance().docDir();
 	QString pfad2;
 	pfad2 = QDir::convertSeparators(pfad + "en/Scripter/index.html");
-	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), ScMW->getGuiLanguage(), "scripter");
+	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), ScCore->primaryMainWindow()->getGuiLanguage(), "scripter");
 	dia->show();
 }
 */
@@ -641,7 +641,7 @@ void initscribus(ScribusMainWindow *pl)
 	else
 		qDebug("Couldn't parse version string '%s' in scripter", VERSION);
 
-	ScMW = pl;
+// 	ScMW = pl;
 	// Function aliases for compatibility
 	// We need to import the __builtins__, warnings and exceptions modules to be able to run
 	// the generated Python functions from inside the `scribus' module's context.
@@ -735,7 +735,7 @@ is not exhaustive due to exceptions from called functions.\n\
 	Py_DECREF(wrappedQApp);
 	wrappedQApp = NULL;
 
-	wrappedMainWindow = wrapQObject(ScMW);
+	wrappedMainWindow = wrapQObject(pl);
 	if (!wrappedMainWindow)
 	{
 		qDebug("Failed to wrap up ScMW");

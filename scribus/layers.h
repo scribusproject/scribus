@@ -24,6 +24,7 @@ class QHeader;
 class QSpinBox;
 class QLabel;
 class ScComboBox;
+class ScribusDoc;
 
 
 class SCRIBUS_API LayerTable : public QTable
@@ -49,7 +50,7 @@ public:
 	LayerPalette(QWidget* parent);
 	~LayerPalette() {};
 
-	void setLayers(QValueList<Layer> *layin, int act);
+	void setDoc(ScribusDoc* doc);
 	void rebuildList();
 	
 	QTable* Table;	//public for the event filter in scribus.cpp.. TODO
@@ -79,6 +80,7 @@ signals:
 	void LayerActivated(int);
 
 protected:
+	ScribusDoc* m_Doc;
 	QVBoxLayout* LayerPaletteLayout;
 	QHBoxLayout* Layout1;
 	QHBoxLayout* layout1;

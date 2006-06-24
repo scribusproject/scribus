@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 
 class PrefsContext;
 class SampleItem;
+class ScribusDoc;
 
 
 /*! \brief Main window for "Font Preview" plugin. It's only gui.
@@ -29,7 +30,7 @@ public:
 	/*! \brief Create Font Preview window,
 	\param fontName Optional name of the font to init/select on start.
 	*/
-	FontPreview(QString fontName = QString::null);
+	FontPreview(QString fontName = QString::null, QWidget* parent = 0, ScribusDoc* doc=0);
 	~FontPreview();
 
 	/*! \brief Get the current selected font name.
@@ -72,6 +73,7 @@ protected:
 	See code as example.
 	\retval bool true if you can paint sample safely. */
 	bool allowSample();
+	ScribusDoc* m_Doc;
 
 protected slots:
 	/** \brief Translations. */

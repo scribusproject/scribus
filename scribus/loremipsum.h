@@ -34,6 +34,8 @@ class QPushButton;
 class QString;
 class QStringList;
 
+class ScribusDoc;
+
 
 /*! \brief XML parser for Lorem Ipsum file.
 This helper class reads one file
@@ -83,7 +85,7 @@ class SCRIBUS_API LoremManager : public QDialog
 
 	public:
 		/*! Reads all XML files in cfg directory. */
-		LoremManager(QWidget* parent = 0, const char* name = 0, bool modal = true, WFlags fl = 0);
+		LoremManager(ScribusDoc* doc, QWidget* parent = 0, const char* name = 0, bool modal = true, WFlags fl = 0);
 		~LoremManager(){};
 
 		//! all lorems with Public Name -> filename structure
@@ -100,6 +102,7 @@ class SCRIBUS_API LoremManager : public QDialog
 		virtual void cancelButton_clicked();
 
 	protected:
+		ScribusDoc* m_Doc;
 		QListView* loremList;
 		QLabel* paraLabel;
 		QSpinBox* paraBox;

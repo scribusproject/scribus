@@ -24,12 +24,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef WERKTOOLB_H
 #define WERKTOOLB_H
 
-#include <qmainwindow.h>
 #include "scribusapi.h"
 #include "sctoolbar.h"
 class QToolButton;
 class QPopupMenu;
 class AutoformButtonGroup;
+class ScribusMainWindow;
 
 /**
   *@author Franz Schmid
@@ -40,7 +40,7 @@ class SCRIBUS_API ModeToolBar : public ScToolBar
 	Q_OBJECT
 
 public: 
-	ModeToolBar(QMainWindow* parent);
+	ModeToolBar(ScribusMainWindow* parent);
 	~ModeToolBar() {};
 
 	int SubMode;
@@ -57,6 +57,7 @@ protected:
 	QPopupMenu* insertShapeButtonMenu;
 	QPopupMenu* insertPolygonButtonMenu;
 	int idInsertPolygonButtonMenu;
+	ScribusMainWindow* m_ScMW;
 };
 
 class SCRIBUS_API PDFToolBar : public ScToolBar
@@ -64,7 +65,7 @@ class SCRIBUS_API PDFToolBar : public ScToolBar
 	Q_OBJECT
 
 public:
-	PDFToolBar(QMainWindow* parent);
+	PDFToolBar(ScribusMainWindow* parent);
 	~PDFToolBar() {};
 };
 

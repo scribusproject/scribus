@@ -3306,7 +3306,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 #endif // HAVE_CMS
 }
 
-bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
+bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 						  int rend, bool useEmbedded, bool useProf,
 						  RequestType requestType, int gsRes, bool *realCMYK)
 {
@@ -4042,20 +4042,22 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		else
 		{
 			QCString profilePath;
+			//CB If this is null, customfiledialog/picsearch/ScPreview might be sending it
+			Q_ASSERT(cmSettings.doc()!=0);
 			if (isCMYK)
 			{
-				if (ScCore->InputProfilesCMYK.contains(Prof))
-					imgInfo.profileName = Prof;
+				if (ScCore->InputProfilesCMYK.contains(cmSettings.profileName()))
+					imgInfo.profileName = cmSettings.profileName();
 				else
-					imgInfo.profileName = ScMW->doc->CMSSettings.DefaultImageCMYKProfile;
+					imgInfo.profileName = cmSettings.doc()->CMSSettings.DefaultImageCMYKProfile;
 				profilePath = ScCore->InputProfilesCMYK[imgInfo.profileName].local8Bit();
 			}
 			else
 			{
-				if (ScCore->InputProfiles.contains(Prof))
-					imgInfo.profileName = Prof;
+				if (ScCore->InputProfiles.contains(cmSettings.profileName()))
+					imgInfo.profileName = cmSettings.profileName();
 				else
-					imgInfo.profileName = ScMW->doc->CMSSettings.DefaultImageRGBProfile;
+					imgInfo.profileName = cmSettings.doc()->CMSSettings.DefaultImageRGBProfile;
 				profilePath = ScCore->InputProfiles[imgInfo.profileName].local8Bit();
 			}
 			inputProf = cmsOpenProfileFromFile(profilePath.data(), "r");

@@ -83,7 +83,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// First, by descending order of `id', then descending order of priority.
 		static const QValueList<FileFormat> & supportedFormats();
 		
-		virtual void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts);
+		virtual void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts);
 		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QPtrList<Foi> &getDummyFois);
 		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName=QString::null);
 		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, QValueList<ParagraphStyle> &docParagraphStyles);
@@ -107,6 +107,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		
 		ScribusDoc* m_Doc;
 		ScribusView* m_View; //For 1.2.x loader at the moment
+		ScribusMainWindow* m_ScMW; //For plugins when required
 		QProgressBar* m_mwProgressBar;
 		SCFonts* m_AvailableFonts;
 
@@ -166,7 +167,7 @@ class SCRIBUS_API FileFormat
 		bool saveFile(const QString & fileName) const;
 		
 		
-		void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const;
+		void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const;
 		void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QPtrList<Foi> &getDummyFois) const;
 		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName=QString::null) const;
 		bool readStyles(const QString& fileName, ScribusDoc* doc, QValueList<ParagraphStyle> &docParagraphStyles) const;

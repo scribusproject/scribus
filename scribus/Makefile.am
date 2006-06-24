@@ -41,6 +41,7 @@ scribus_SOURCES = \
 	checkDocument.cpp	\
 	cmserrorhandling.cpp \
 	cmsprefs.cpp	\
+	cmsettings.cpp \
 	cmykfw.cpp	\
 	collect4output.cpp \
 	colorchart.cpp	\

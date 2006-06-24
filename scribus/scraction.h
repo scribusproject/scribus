@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qaction.h>
 #include "scribusapi.h"
-
+class ScribusDoc;
 /**
 @author Craig Bradney
 */
@@ -33,7 +33,7 @@ class SCRIBUS_API ScrAction : public QAction
 	Q_OBJECT
 
 public:
-	typedef enum {Normal, DataInt, DataDouble, DataQString, RecentFile, DLL, Window, RecentScript, UnicodeChar, Layer } ActionType;
+	typedef enum {Normal, DataInt, DataDouble, DataQString, RecentFile, DLL, Window, RecentScript, UnicodeChar, Layer, ActionDLL } ActionType;
 	
 	/*!
 		\author Craig Bradney
@@ -178,6 +178,7 @@ signals:
 	void activatedData(int);
 	void activatedData(double);
 	void activatedData(QString);
+	void activatedData(ScribusDoc*);
 	void toggledData(bool, int);
 	void toggledData(bool, double);
 	void toggledData(bool, QString);

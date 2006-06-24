@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdutil.h"
 #include "units.h"
 #include "page.h"
+#include "scribuscore.h"
 #include "selection.h"
 
 ScribusMainWindow* Carrier;
@@ -15,26 +16,26 @@ ScribusDoc* doc;
 /// Convert a value in points to a value in the current document units
 double PointToValue(double Val)
 {
-	return pts2value(Val, ScMW->doc->unitIndex());
+	return pts2value(Val, ScCore->primaryMainWindow()->doc->unitIndex());
 }
 
 /// Convert a value in the current document units to a value in points
 double ValueToPoint(double Val)
 {
-	return value2pts(Val, ScMW->doc->unitIndex());
+	return value2pts(Val, ScCore->primaryMainWindow()->doc->unitIndex());
 }
 
 /// Convert an X co-ordinate part in page units to a document co-ordinate
 /// in system units.
 double pageUnitXToDocX(double pageUnitX)
 {
-	return ValueToPoint(pageUnitX) + ScMW->doc->currentPage()->xOffset();
+	return ValueToPoint(pageUnitX) + ScCore->primaryMainWindow()->doc->currentPage()->xOffset();
 }
 
 // Convert doc units to page units
 double docUnitXToPageX(double pageUnitX)
 {
-	return PointToValue(pageUnitX - ScMW->doc->currentPage()->xOffset());
+	return PointToValue(pageUnitX - ScCore->primaryMainWindow()->doc->currentPage()->xOffset());
 }
 
 /// Convert a Y co-ordinate part in page units to a document co-ordinate
@@ -43,28 +44,28 @@ double docUnitXToPageX(double pageUnitX)
 /// origin on the top left of the current page.
 double pageUnitYToDocY(double pageUnitY)
 {
-	return ValueToPoint(pageUnitY) + ScMW->doc->currentPage()->yOffset();
+	return ValueToPoint(pageUnitY) + ScCore->primaryMainWindow()->doc->currentPage()->yOffset();
 }
 
 double docUnitYToPageY(double pageUnitY)
 {
-	return PointToValue(pageUnitY - ScMW->doc->currentPage()->yOffset());
+	return PointToValue(pageUnitY - ScCore->primaryMainWindow()->doc->currentPage()->yOffset());
 }
 
 int GetItem(QString Name)
 {
 	if (!Name.isEmpty())
 	{
-		for (uint a = 0; a < ScMW->doc->Items->count(); a++)
+		for (uint a = 0; a < ScCore->primaryMainWindow()->doc->Items->count(); a++)
 		{
-			if (ScMW->doc->Items->at(a)->itemName() == Name)
+			if (ScCore->primaryMainWindow()->doc->Items->at(a)->itemName() == Name)
 				return static_cast<int>(a);
 		}
 	}
 	else
 	{
-		if (ScMW->doc->m_Selection->count() != 0)
-			return ScMW->doc->m_Selection->itemAt(0)->ItemNr;
+		if (ScCore->primaryMainWindow()->doc->m_Selection->count() != 0)
+			return ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0)->ItemNr;
 	}
 	return -1;
 }
@@ -72,9 +73,9 @@ int GetItem(QString Name)
 void ReplaceColor(QString col, QString rep)
 {
 	QColor tmpc;
-	for (uint c = 0; c < ScMW->doc->Items->count(); c++)
+	for (uint c = 0; c < ScCore->primaryMainWindow()->doc->Items->count(); c++)
 	{
-		PageItem *ite = ScMW->doc->Items->at(c);
+		PageItem *ite = ScCore->primaryMainWindow()->doc->Items->at(c);
 		if (ite->itemType() == PageItem::TextFrame)
 		{
 			for (int d = 0; d < ite->itemText.length(); d++)
@@ -101,9 +102,9 @@ void ReplaceColor(QString col, QString rep)
 			}
 		}
 	}
-	for (uint c = 0; c < ScMW->doc->MasterItems.count(); c++)
+	for (uint c = 0; c < ScCore->primaryMainWindow()->doc->MasterItems.count(); c++)
 	{
-		PageItem *ite = ScMW->doc->MasterItems.at(c);
+		PageItem *ite = ScCore->primaryMainWindow()->doc->MasterItems.at(c);
 		if (ite->itemType() == PageItem::TextFrame)
 		{
 			for (int d = 0; d < ite->itemText.length(); d++)
@@ -136,8 +137,8 @@ void ReplaceColor(QString col, QString rep)
 PageItem* GetUniqueItem(QString name)
 {
 	if (name.length()==0)
-		if (ScMW->doc->m_Selection->count() != 0)
-			return ScMW->doc->m_Selection->itemAt(0);
+		if (ScCore->primaryMainWindow()->doc->m_Selection->count() != 0)
+			return ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0);
 		else
 		{
 			PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection"));
@@ -154,10 +155,10 @@ PageItem* getPageItemByName(QString name)
 		PyErr_SetString(PyExc_ValueError, QString("Cannot accept empty name for pageitem"));
 		return NULL;
 	}
-	for (uint j = 0; j<ScMW->doc->Items->count(); j++)
+	for (uint j = 0; j<ScCore->primaryMainWindow()->doc->Items->count(); j++)
 	{
-		if (name==ScMW->doc->Items->at(j)->itemName())
-			return ScMW->doc->Items->at(j);
+		if (name==ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
+			return ScCore->primaryMainWindow()->doc->Items->at(j);
 	} // for items
 	PyErr_SetString(NoValidObjectError, QString("Object not found"));
 	return NULL;
@@ -173,9 +174,9 @@ bool ItemExists(QString name)
 {
 	if (name.length() == 0)
 		return false;
-	for (uint j = 0; j<ScMW->doc->Items->count(); j++)
+	for (uint j = 0; j<ScCore->primaryMainWindow()->doc->Items->count(); j++)
 	{
-		if (name==ScMW->doc->Items->at(j)->itemName())
+		if (name==ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
 			return true;
 	} // for items
 	return false;
@@ -190,7 +191,7 @@ bool ItemExists(QString name)
  */
 bool checkHaveDocument()
 {
-    if (ScMW->HaveDoc)
+    if (ScCore->primaryMainWindow()->HaveDoc)
         return true;
     // Caller is required to check for false return from this function
     // and return NULL.
@@ -202,29 +203,29 @@ QStringList getSelectedItemsByName()
 {
 	/*
 	QStringList names;
-	QPtrListIterator<PageItem> it(ScMW->view->SelItem);
+	QPtrListIterator<PageItem> it(ScCore->primaryMainWindow()->view->SelItem);
 	for ( ; it.current() != 0 ; ++it)
 		names.append(it.current()->itemName());
 	return names;
 	*/
-	return ScMW->doc->m_Selection->getSelectedItemsByName();
+	return ScCore->primaryMainWindow()->doc->m_Selection->getSelectedItemsByName();
 }
 
 bool setSelectedItemsByName(QStringList& itemNames)
 {
-	ScMW->view->Deselect();
+	ScCore->primaryMainWindow()->view->Deselect();
 	// For each named item
 	for (QStringList::Iterator it = itemNames.begin() ; it != itemNames.end() ; it++)
 	{
 		// Search for the named item
 		PageItem* item = 0;
-		for (uint j = 0; j < ScMW->doc->Items->count(); j++)
-			if (*it == ScMW->doc->Items->at(j)->itemName())
-				item = ScMW->doc->Items->at(j);
+		for (uint j = 0; j < ScCore->primaryMainWindow()->doc->Items->count(); j++)
+			if (*it == ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
+				item = ScCore->primaryMainWindow()->doc->Items->at(j);
 		if (!item)
 			return false;
 		// and select it
-		ScMW->view->SelectItemNr(item->ItemNr);
+		ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
 	}
 	return true;
 }

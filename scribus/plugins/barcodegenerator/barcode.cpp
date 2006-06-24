@@ -49,7 +49,7 @@ void Barcode::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool Barcode::run(QString )//target)
+bool Barcode::run(ScribusDoc*, QString /*target*/ )
 {
 	BarcodeGenerator *bg = new BarcodeGenerator();
 	Q_CHECK_PTR(bg);

@@ -40,14 +40,14 @@ public:
 	\param aFrame pointer to the existing text frame */
 	void parseItem(PageItem *aFrame);
 	/*! \brief selcted frames on the page */
-	void parseSelection();
+	void parseSelection(ScribusDoc* doc);
 	/*! \brief one page - using actual page */
-	void parsePage();
+	void parsePage(ScribusDoc* doc);
 	/*! \brief one page
 	\param page page number*/
-	void parsePage(int page);
+	void parsePage(ScribusDoc* doc, int page);
 	/*! \brief all pages in the document */
-	void parseAll();
+	void parseAll(ScribusDoc* doc);
 };
 
 #endif

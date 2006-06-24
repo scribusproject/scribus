@@ -34,6 +34,8 @@ class ScribusMainWindow;
 class PrefsManager;
 class UndoManager;
 
+extern SCRIBUS_API ScribusCore* ScCore;
+
 /**
 	@author Craig Bradney <cbradney@zip.com.au>
 	@brief The core functions moved from the old ScribusMainWindow class
@@ -89,6 +91,7 @@ public:
 	int havePNGAlpha() const {return m_HavePngAlpha;};
 	int haveTIFFSep() const {return m_HaveTiffSep;};
 	void getCMSProfiles();
+	bool fileWatcherActive() const;
 	
 	//Main Window members
 	ScribusMainWindow* primaryMainWindow();

@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "plugins/formatidlist.h"
 #include "pagestructs.h"
 #include "scconfig.h"
-#include "scribus.h"
+#include "scribuscore.h"
 #include "scribusXml.h"
 #include "units.h"
 #include "loadsaveplugin.h"
@@ -136,7 +136,7 @@ int FileLoader::TestFile()
 	return ret;
 }
 
-static void replaceFonts(PageItem *it, QMap<QString, int> UsedFonts, QMap<QString, QString> ReplacedFonts)
+static void replaceFonts(ScribusDoc* currDoc, PageItem *it, QMap<QString, int> UsedFonts, QMap<QString, QString> ReplacedFonts)
 {	
 	if ((it->asTextFrame()) || (it->asPathText()))
 	{
@@ -146,7 +146,7 @@ static void replaceFonts(PageItem *it, QMap<QString, int> UsedFonts, QMap<QStrin
 			int start = it->itemText.startOfRun(e);
 			Foi* oldFont = it->itemText.charStyle(start).font();
 			if (!UsedFonts.contains(oldFont->scName())) {
-				newFontStyle.setFont((*ScMW->doc->AllFonts)[ReplacedFonts[oldFont->scName()]]);
+				newFontStyle.setFont((*currDoc->AllFonts)[ReplacedFonts[oldFont->scName()]]);
 				it->itemText.applyCharStyle(start, it->itemText.endOfRun(e) - start, newFontStyle );
 			}
 		}
@@ -154,7 +154,7 @@ static void replaceFonts(PageItem *it, QMap<QString, int> UsedFonts, QMap<QStrin
 }
 
 
-bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
+bool FileLoader::LoadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QString renamedPageName)
 {
 	bool ret = false;
 	newReplacement = false;
@@ -166,14 +166,14 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 	{
 		if (FileType==FORMATID_SLA12XIMPORT)
 		{
-			(*it).plug->setupTargets(ScMW->doc, ScMW->view, ScMW->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
+			(*it).plug->setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 			ret=(*it).plug->loadPage(FileName, PageToLoad, Mpage, renamedPageName);
 			if (ret)
 				(*it).plug->getReplacedFontData(newReplacement, ReplacedFonts, dummyFois);
 		}
 		if (FileType==FORMATID_SLA13XIMPORT || FileType==FORMATID_SLA134IMPORT)
 		{
-			(*it).plug->setupTargets(ScMW->doc, 0, ScMW->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
+			(*it).plug->setupTargets(currDoc, 0, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 			ret=(*it).plug->loadPage(FileName, PageToLoad, Mpage, renamedPageName);
 			if (ret)
 				(*it).plug->getReplacedFontData(newReplacement, ReplacedFonts, dummyFois);
@@ -199,32 +199,32 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 				return false;
 			}
 		}
-		for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
+		for (uint d = 0; d < currDoc->MasterItems.count(); ++d)
 		{
-			replaceFonts(ScMW->doc->MasterItems.at(d), ScMW->doc->UsedFonts, ReplacedFonts);
+			replaceFonts(currDoc, currDoc->MasterItems.at(d), currDoc->UsedFonts, ReplacedFonts);
 		}
-		for (uint d = 0; d < ScMW->doc->DocItems.count(); ++d)
+		for (uint d = 0; d < currDoc->DocItems.count(); ++d)
 		{
-			replaceFonts(ScMW->doc->DocItems.at(d), ScMW->doc->UsedFonts, ReplacedFonts);
+			replaceFonts(currDoc, currDoc->DocItems.at(d), currDoc->UsedFonts, ReplacedFonts);
 		}
-		for (uint d = 0; d < ScMW->doc->FrameItems.count(); ++d)
+		for (uint d = 0; d < currDoc->FrameItems.count(); ++d)
 		{
-			replaceFonts(ScMW->doc->FrameItems.at(d), ScMW->doc->UsedFonts, ReplacedFonts);
+			replaceFonts(currDoc, currDoc->FrameItems.at(d), currDoc->UsedFonts, ReplacedFonts);
 		}
-		for (uint a = 0; a < ScMW->doc->docParagraphStyles.count(); ++a)
+		for (uint a = 0; a < currDoc->docParagraphStyles.count(); ++a)
 		{
-			if ( ScMW->doc->docParagraphStyles[a].charStyle().font() != &Foi::NONE && !ScMW->doc->UsedFonts.contains(ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()))
-				ScMW->doc->docParagraphStyles[a].charStyle().setFont
-					((*ScMW->doc->AllFonts)[ReplacedFonts[ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()]]);
+			if ( currDoc->docParagraphStyles[a].charStyle().font() != &Foi::NONE && !currDoc->UsedFonts.contains(currDoc->docParagraphStyles[a].charStyle().font()->scName()))
+				currDoc->docParagraphStyles[a].charStyle().setFont
+					((*currDoc->AllFonts)[ReplacedFonts[currDoc->docParagraphStyles[a].charStyle().font()->scName()]]);
 		}
 		QMap<QString,QString>::Iterator itfsu;
 		for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
 		{
-			if (!ScMW->doc->UsedFonts.contains(itfsu.data()))
+			if (!currDoc->UsedFonts.contains(itfsu.data()))
 			{
 //				QFont fo = prefsManager->appPrefs.AvailFonts[itfsu.data()]->Font;
 //				fo.setPointSize(qRound(ScMW->doc->toolSettings.defSize / 10.0));
-				ScMW->doc->AddFont(itfsu.data(), qRound(ScMW->doc->toolSettings.defSize / 10.0));
+				currDoc->AddFont(itfsu.data(), qRound(currDoc->toolSettings.defSize / 10.0));
 			}
 		}
 		if (prefsManager->appPrefs.askBeforeSubstituite)
@@ -241,24 +241,24 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
  \brief Loads the file "FileName" as a Scribus document
  \retval bool true when loading is succsessful, false otherwise
  */
-bool FileLoader::LoadFile()
+bool FileLoader::LoadFile(ScribusDoc* currDoc)
 {
 	newReplacement = false;
-	ScMW->doc->guidesSettings.marginsShown = prefsManager->appPrefs.guidesSettings.marginsShown;
-	ScMW->doc->guidesSettings.framesShown = prefsManager->appPrefs.guidesSettings.framesShown;
-	ScMW->doc->guidesSettings.layerMarkersShown = prefsManager->appPrefs.guidesSettings.layerMarkersShown;
-	ScMW->doc->guidesSettings.gridShown = prefsManager->appPrefs.guidesSettings.gridShown;
-	ScMW->doc->guidesSettings.guidesShown = prefsManager->appPrefs.guidesSettings.guidesShown;
-	ScMW->doc->guidesSettings.colBordersShown = prefsManager->appPrefs.guidesSettings.colBordersShown;
-	ScMW->doc->guidesSettings.baseShown = prefsManager->appPrefs.guidesSettings.baseShown;
-	ScMW->doc->guidesSettings.linkShown = prefsManager->appPrefs.guidesSettings.linkShown;
-	ScMW->doc->toolSettings.polyC = prefsManager->appPrefs.toolSettings.polyC;
-	ScMW->doc->toolSettings.polyF = prefsManager->appPrefs.toolSettings.polyF;
-	ScMW->doc->toolSettings.polyR = prefsManager->appPrefs.toolSettings.polyR;
-	ScMW->doc->toolSettings.polyFd = prefsManager->appPrefs.toolSettings.polyFd;
-	ScMW->doc->toolSettings.polyS = prefsManager->appPrefs.toolSettings.polyS;
-	ScMW->doc->AutoSave = prefsManager->appPrefs.AutoSave;
-	ScMW->doc->AutoSaveTime = prefsManager->appPrefs.AutoSaveTime;
+	currDoc->guidesSettings.marginsShown = prefsManager->appPrefs.guidesSettings.marginsShown;
+	currDoc->guidesSettings.framesShown = prefsManager->appPrefs.guidesSettings.framesShown;
+	currDoc->guidesSettings.layerMarkersShown = prefsManager->appPrefs.guidesSettings.layerMarkersShown;
+	currDoc->guidesSettings.gridShown = prefsManager->appPrefs.guidesSettings.gridShown;
+	currDoc->guidesSettings.guidesShown = prefsManager->appPrefs.guidesSettings.guidesShown;
+	currDoc->guidesSettings.colBordersShown = prefsManager->appPrefs.guidesSettings.colBordersShown;
+	currDoc->guidesSettings.baseShown = prefsManager->appPrefs.guidesSettings.baseShown;
+	currDoc->guidesSettings.linkShown = prefsManager->appPrefs.guidesSettings.linkShown;
+	currDoc->toolSettings.polyC = prefsManager->appPrefs.toolSettings.polyC;
+	currDoc->toolSettings.polyF = prefsManager->appPrefs.toolSettings.polyF;
+	currDoc->toolSettings.polyR = prefsManager->appPrefs.toolSettings.polyR;
+	currDoc->toolSettings.polyFd = prefsManager->appPrefs.toolSettings.polyFd;
+	currDoc->toolSettings.polyS = prefsManager->appPrefs.toolSettings.polyS;
+	currDoc->AutoSave = prefsManager->appPrefs.AutoSave;
+	currDoc->AutoSaveTime = prefsManager->appPrefs.AutoSaveTime;
 	ReplacedFonts.clear();
 	dummyFois.clear();
 	dummyFois.setAutoDelete(true);
@@ -269,7 +269,7 @@ bool FileLoader::LoadFile()
 		{
 			case FORMATID_SLA12XIMPORT:
 				{
-					(*it).setupTargets(ScMW->doc, ScMW->view, ScMW->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
+					(*it).setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 					ret=(*it).loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 					if (ret)
 						(*it).getReplacedFontData(newReplacement, ReplacedFonts, dummyFois);
@@ -278,13 +278,14 @@ bool FileLoader::LoadFile()
 			case FORMATID_SLA13XIMPORT:
 			case FORMATID_SLA134IMPORT:
 				{
-					(*it).setupTargets(ScMW->doc, 0, ScMW->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
+					(*it).setupTargets(currDoc, 0, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 					ret=(*it).loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 					if (ret)
 						(*it).getReplacedFontData(newReplacement, ReplacedFonts, dummyFois);
 				}
 				break;
 			default:
+				(*it).setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 				ret = (*it).loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 				break;
 		}
@@ -302,7 +303,7 @@ bool FileLoader::SaveFile(const QString& fileName, ScribusDoc *doc, QProgressBar
 // 					ret=(*it).loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 // 				break;
 // 			case FORMATID_SLA13XIMPORT:
-					(*it).setupTargets(doc, 0, ScMW->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
+					(*it).setupTargets(doc, 0, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 					ret=(*it).saveFile(fileName);
 // 				break;
 // 			default:
@@ -345,7 +346,7 @@ bool FileLoader::ReadLineStyles(const QString& fileName, QMap<QString,multiLine>
 	return false;
 }
 
-void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc)
+void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *currDoc)
 {
 	vg.setName(pg.attribute("NAME"));
 	vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg.attribute("LINESPMode", "0").toInt()));
@@ -360,7 +361,7 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 	vg.setGapBefore(pg.attribute("VOR", "0").toDouble());
 	vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
 	PrefsManager * prefsManager = PrefsManager::instance();
-	QString tmpf = pg.attribute("FONT", doc->toolSettings.defFont);
+	QString tmpf = pg.attribute("FONT", currDoc->toolSettings.defFont);
 	if ((!avail.find(tmpf)) || (!avail[tmpf]->usable()))
 	{
 		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->usable()))
@@ -373,22 +374,22 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 		}
 		else
 		{
-			if (!doc->UsedFonts.contains(tmpf))
+			if (!currDoc->UsedFonts.contains(tmpf))
 			{
 				//						QFont fo = avail[tmpf]->Font;
-				//						fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-				doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
+				//						fo.setPointSize(qRound(currDoc->toolSettings.defSize / 10.0));
+				currDoc->AddFont(tmpf, qRound(currDoc->toolSettings.defSize / 10.0));
 			}
 		}
-		vg.charStyle().setFont((*ScMW->doc->AllFonts)[tmpf]);
+		vg.charStyle().setFont((*currDoc->AllFonts)[tmpf]);
 		vg.charStyle().setFontSize(qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0));
 		vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
 		vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
 		vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
 		vg.charStyle().setEffects(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()));
-		vg.charStyle().setFillColor(pg.attribute("FCOLOR", doc->toolSettings.dBrush));
+		vg.charStyle().setFillColor(pg.attribute("FCOLOR", currDoc->toolSettings.dBrush));
 		vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
-		vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", doc->toolSettings.dPen));
+		vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", currDoc->toolSettings.dPen));
 		vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
 		vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
 		vg.charStyle().setShadowXOffset(qRound(pg.attribute("TXTSHX", "5").toDouble() * 10));
@@ -444,7 +445,7 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 		}
 }
 
-bool FileLoader::postLoad()
+bool FileLoader::postLoad(ScribusDoc* currDoc)
 {
 /*	for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 	{
@@ -496,55 +497,55 @@ bool FileLoader::postLoad()
 				return false;
 			}
 		}
-		for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
+		for (uint d = 0; d < currDoc->MasterItems.count(); ++d)
 		{
-			replaceFonts(ScMW->doc->MasterItems.at(d), ScMW->doc->UsedFonts, ReplacedFonts);
+			replaceFonts(currDoc, currDoc->MasterItems.at(d), currDoc->UsedFonts, ReplacedFonts);
 		}
-		for (uint d = 0; d < ScMW->doc->DocItems.count(); ++d)
+		for (uint d = 0; d < currDoc->DocItems.count(); ++d)
 		{
-			replaceFonts(ScMW->doc->DocItems.at(d), ScMW->doc->UsedFonts, ReplacedFonts);
+			replaceFonts(currDoc, currDoc->DocItems.at(d), currDoc->UsedFonts, ReplacedFonts);
 		}
-		for (uint d = 0; d < ScMW->doc->FrameItems.count(); ++d)
+		for (uint d = 0; d < currDoc->FrameItems.count(); ++d)
 		{
-			replaceFonts(ScMW->doc->FrameItems.at(d), ScMW->doc->UsedFonts, ReplacedFonts);
+			replaceFonts(currDoc, currDoc->FrameItems.at(d), currDoc->UsedFonts, ReplacedFonts);
 		}
-		for (uint a = 0; a < ScMW->doc->docParagraphStyles.count(); ++a)
+		for (uint a = 0; a < currDoc->docParagraphStyles.count(); ++a)
 		{
-			if ( ScMW->doc->docParagraphStyles[a].charStyle().font()
-				 && ScMW->doc->docParagraphStyles[a].charStyle().font() != &Foi::NONE 
-				 && !ScMW->doc->UsedFonts.contains(ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()))
+			if ( currDoc->docParagraphStyles[a].charStyle().font()
+				 && currDoc->docParagraphStyles[a].charStyle().font() != &Foi::NONE 
+				 && !currDoc->UsedFonts.contains(currDoc->docParagraphStyles[a].charStyle().font()->scName()))
 			{
-				ScMW->doc->docParagraphStyles[a].charStyle().setFont
-					((*ScMW->doc->AllFonts)[ReplacedFonts[ScMW->doc->docParagraphStyles[a].charStyle().font()->scName()]]);
+				currDoc->docParagraphStyles[a].charStyle().setFont
+					((*currDoc->AllFonts)[ReplacedFonts[currDoc->docParagraphStyles[a].charStyle().font()->scName()]]);
 			}
 		}
 		QValueList<QString> tmpList;
 		tmpList.clear();
-		for (uint fe = 0; fe <  ScMW->doc->PDF_Options.EmbedList.count(); ++fe)
+		for (uint fe = 0; fe < currDoc->PDF_Options.EmbedList.count(); ++fe)
 		{
-			if (ReplacedFonts.contains(ScMW->doc->PDF_Options.EmbedList[fe]))
-				tmpList.append(ReplacedFonts[ScMW->doc->PDF_Options.EmbedList[fe]]);
+			if (ReplacedFonts.contains(currDoc->PDF_Options.EmbedList[fe]))
+				tmpList.append(ReplacedFonts[currDoc->PDF_Options.EmbedList[fe]]);
 			else
-				tmpList.append(ScMW->doc->PDF_Options.EmbedList[fe]);
+				tmpList.append(currDoc->PDF_Options.EmbedList[fe]);
 		}
-		ScMW->doc->PDF_Options.EmbedList = tmpList;
+		currDoc->PDF_Options.EmbedList = tmpList;
 		tmpList.clear();
-		for (uint fe = 0; fe <  ScMW->doc->PDF_Options.SubsetList.count(); ++fe)
+		for (uint fe = 0; fe < currDoc->PDF_Options.SubsetList.count(); ++fe)
 		{
-			if (ReplacedFonts.contains(ScMW->doc->PDF_Options.SubsetList[fe]))
-				tmpList.append(ReplacedFonts[ScMW->doc->PDF_Options.SubsetList[fe]]);
+			if (ReplacedFonts.contains(currDoc->PDF_Options.SubsetList[fe]))
+				tmpList.append(ReplacedFonts[currDoc->PDF_Options.SubsetList[fe]]);
 			else
-				tmpList.append(ScMW->doc->PDF_Options.SubsetList[fe]);
+				tmpList.append(currDoc->PDF_Options.SubsetList[fe]);
 		}
-		ScMW->doc->PDF_Options.SubsetList = tmpList;
+		currDoc->PDF_Options.SubsetList = tmpList;
 		QMap<QString,QString>::Iterator itfsu;
 		for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
 		{
-			if (!ScMW->doc->UsedFonts.contains(itfsu.data()))
+			if (!currDoc->UsedFonts.contains(itfsu.data()))
 			{
 //				QFont fo = prefsManager->appPrefs.AvailFonts[itfsu.data()]->Font;
 //				fo.setPointSize(qRound(ScMW->doc->toolSettings.defSize / 10.0));
-				ScMW->doc->AddFont(itfsu.data(), qRound(ScMW->doc->toolSettings.defSize / 10.0));
+				currDoc->AddFont(itfsu.data(), qRound(currDoc->toolSettings.defSize / 10.0));
 			}
 		}
 		if (prefsManager->appPrefs.askBeforeSubstituite)
@@ -566,7 +567,7 @@ void FileLoader::informReplacementFonts()
 		{
 			mess += it.key() + tr(" was replaced by: ")+ it.data() +"\n";
 		}
-		QMessageBox::warning(ScMW, CommonStrings::trWarning, mess, 1, 0, 0);
+		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, mess, 1, 0, 0);
 	}
 }
 

@@ -42,7 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "scfonts.h"
 #include "scmessagebox.h"
 #include "scpaths.h"
-#include "scribus.h"
+#include "scribuscore.h"
 #include "scribusstructs.h"
 #include "scribuscore.h"
 #include "gsutil.h"
@@ -625,7 +625,7 @@ bool PrefsManager::copyOldPreferences()
 			bool splashShown=ScCore->splashShowing();
 			if (splashShown)
 				ScCore->showSplash(false);
-			if ( (ScMessageBox::question( ScMW, tr("Migrate Old Scribus Settings?"),
+			if ( (ScMessageBox::question( ScCore->primaryMainWindow(), tr("Migrate Old Scribus Settings?"),
 				tr("Scribus has detected existing Scribus 1.2 preferences files.\n"
 						"Do you want to migrate them to the new Scribus version?"),
 				QMessageBox::Yes | QMessageBox::Default, QMessageBox::No, QMessageBox::NoButton))==QMessageBox::Yes )
@@ -705,7 +705,7 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 	mw->move(appPrefs.mainWinSettings.xPosition, appPrefs.mainWinSettings.yPosition);
 	mw->resize(appPrefs.mainWinSettings.width, appPrefs.mainWinSettings.height);
 	if (appPrefs.mainWinSettings.maximized)
-		mw->setWindowState(ScMW->windowState() & ~Qt::WindowMinimized | Qt::WindowMaximized);
+		mw->setWindowState(ScCore->primaryMainWindow()->windowState() & ~Qt::WindowMinimized | Qt::WindowMaximized);
 	ReadPrefsXML();
 	if (appPrefs.checkerProfiles.count() == 0)
 	{
@@ -735,19 +735,19 @@ void PrefsManager::SavePrefs(const QString & fname)
 	// The caller is responsible for ensuring we aren't called under those
 	// conditions.
 	Q_ASSERT(!emergencyActivated);
-	appPrefs.mainWinSettings.xPosition = abs(ScMW->pos().x());
-	appPrefs.mainWinSettings.yPosition = abs(ScMW->pos().y());
-	appPrefs.mainWinSettings.width = ScMW->size().width();
-	appPrefs.mainWinSettings.height = ScMW->size().height();
-	appPrefs.mainWinSettings.maximized = ScMW->isMaximized();
+	appPrefs.mainWinSettings.xPosition = abs(ScCore->primaryMainWindow()->pos().x());
+	appPrefs.mainWinSettings.yPosition = abs(ScCore->primaryMainWindow()->pos().y());
+	appPrefs.mainWinSettings.width = ScCore->primaryMainWindow()->size().width();
+	appPrefs.mainWinSettings.height = ScCore->primaryMainWindow()->size().height();
+	appPrefs.mainWinSettings.maximized = ScCore->primaryMainWindow()->isMaximized();
 
 	appPrefs.RecentDocs.clear();
-	uint max = QMIN(appPrefs.RecentDCount, ScMW->RecentDocs.count());
+	uint max = QMIN(appPrefs.RecentDCount, ScCore->primaryMainWindow()->RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
-		appPrefs.RecentDocs.append(ScMW->RecentDocs[m]);
+		appPrefs.RecentDocs.append(ScCore->primaryMainWindow()->RecentDocs[m]);
 	}
-	ScMW->getDefaultPrinter(&appPrefs.PrinterName, &appPrefs.PrinterFile, &appPrefs.PrinterCommand);
+	ScCore->primaryMainWindow()->getDefaultPrinter(&appPrefs.PrinterName, &appPrefs.PrinterFile, &appPrefs.PrinterCommand);
 	SavePrefsXML();
 	QString realFile;
 	if (fname.isNull())
@@ -848,7 +848,7 @@ void PrefsManager::setKeyEntry(const QString& actName, const QString& cleanMenuT
 	Keys ke;
 	if (!actName.isEmpty())
 	{
-		if (ScMW->scrActions[actName])
+		if (ScCore->primaryMainWindow()->scrActions[actName])
 		{
 			ke.actionName=actName;
 			ke.keySequence = keyseq;
@@ -1905,7 +1905,7 @@ const QString & PrefsManager::lastError() const
 // triggered by a signal sent from here and displayed by ScribusMainWindow.
 void PrefsManager::alertSavePrefsFailed() const
 {
-	QMessageBox::critical(ScMW, tr("Error Writing Preferences"),
+	QMessageBox::critical(ScCore->primaryMainWindow(), tr("Error Writing Preferences"),
 			"<qt>" +
 			tr("Scribus was not able to save its preferences:<br>"
 			   "%1<br>"
@@ -1924,7 +1924,7 @@ void PrefsManager::alertLoadPrefsFailed() const
 	bool splashShowing = ScCore->splashShowing();
 	if (splashShowing)
 		ScCore->showSplash(false);
-	QMessageBox::critical(ScMW, tr("Error Loading Preferences"),
+	QMessageBox::critical(ScCore->primaryMainWindow(), tr("Error Loading Preferences"),
 			"<qt>" +
 			tr("Scribus was not able to load its preferences:<br>"
 			   "%1<br>"

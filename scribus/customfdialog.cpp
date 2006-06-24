@@ -29,6 +29,8 @@ for which a new license (GPL+exception) is in place.
 #include <qdir.h>
 #include <qdom.h>
 #include <qtextcodec.h>
+
+#include "cmsettings.h"
 #include "sccombobox.h"
 #include "scribusstructs.h"
 #include "scimage.h"
@@ -132,7 +134,9 @@ void FDialogPreview::GenPreview(QString name)
 	if (formats.contains(ext))
 	{
 		ScImage im;
-		if (im.LoadPicture(name, "", 0, false, false, ScImage::Thumbnail, 72, &mode))
+		//No doc to send data anyway, so no doc to get into scimage.
+		CMSettings cms(0, "");
+		if (im.LoadPicture(name, cms, 0, false, false, ScImage::Thumbnail, 72, &mode))
 		{
 			int ix,iy;
 			if ((im.imgInfo.exifDataValid) && (!im.imgInfo.exifInfo.thumbnail.isNull()))

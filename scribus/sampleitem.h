@@ -35,7 +35,7 @@ class SCRIBUS_API SampleItem : QObject
 	Q_OBJECT
 
 	public:
-		SampleItem();
+		SampleItem(ScribusDoc* doc);
 		~SampleItem();
 
 		/*! \brief Set sample text.
@@ -107,7 +107,7 @@ class SCRIBUS_API SampleItem : QObject
 		ParagraphStyle tmpStyle;
 		/*! \brief Reference to a document.
 		Existing or created one */
-		ScribusDoc *doc;
+		ScribusDoc *m_Doc;
 		//! \brief Is the doc created used only? true = used
 		bool used;
 		int bgShade;

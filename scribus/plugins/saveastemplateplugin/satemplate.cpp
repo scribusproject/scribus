@@ -10,8 +10,9 @@ for which a new license (GPL+exception) is in place.
 #include "satemplate.h"
 #include "satemplate.moc"
 #include "satdialog.h"
-#include "scribus.h"
+
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 
@@ -85,7 +86,7 @@ void SaveAsTemplatePlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool SaveAsTemplatePlugin::run(QString target)
+bool SaveAsTemplatePlugin::run(ScribusDoc* doc, QString target)
 /*{
 	Q_ASSERT(target.isEmpty());
 	Sat = new MenuSAT();
@@ -97,17 +98,18 @@ bool SaveAsTemplatePlugin::run(QString target)
 */
 /* jghali's fix when the new file dialog is cancelled SaT is still active in the menu - PL */
 {
- 	if ( ScMW->doc )
-{
-	Q_ASSERT(target.isEmpty());
-	Sat = new MenuSAT();
-	Sat->RunSATPlug();
-	delete Sat;
-	Sat = 0;
-}
+	m_Doc=doc;
+ 	if ( m_Doc )
+	{
+		Q_ASSERT(target.isEmpty());
+		Sat = new MenuSAT();
+		Sat->RunSATPlug(m_Doc);
+		delete Sat;
+		Sat = 0;
+	}
 	return true;
 }
-void MenuSAT::RunSATPlug()
+void MenuSAT::RunSATPlug(ScribusDoc* doc)
 {
 	QDir templates(QDir::homeDirPath() + "/.scribus");
 	if (!templates.exists("templates"))
@@ -115,9 +117,9 @@ void MenuSAT::RunSATPlug()
 		templates.mkdir("templates");
 	}
 	QString currentDirPath = QDir::currentDirPath();
-	QString currentFile = ScMW->doc->DocName;
-	bool hasName = ScMW->doc->hasName;
-	bool isModified = ScMW->doc->isModified();
+	QString currentFile = doc->DocName;
+	bool hasName = doc->hasName;
+	bool isModified = doc->isModified();
 	QString userTemplatesDir = PrefsManager::instance()->appPrefs.documentTemplatesDir;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString oldCollect = dirs->get("collect", ".");
@@ -131,36 +133,36 @@ void MenuSAT::RunSATPlug()
 		templatesDir = userTemplatesDir;
 	}
 	dirs->set("collect", templatesDir);
-	if (ScMW->Collect().isEmpty())
+	if (doc->scMW()->Collect().isEmpty())
 		return;
 	if (oldCollect != ".")
 		dirs->set("collect", oldCollect);
-	QString docPath = ScMW->doc->DocName;
+	QString docPath = doc->DocName;
 	QString docDir = docPath.left(docPath.findRev('/'));
 	QString docName = docPath.right(docPath.length() - docPath.findRev('/') - 1);
 	docName = docName.left(docName.findRev(".s"));
 
-	if (currentFile !=  ScMW->doc->DocName)
+	if (currentFile !=  doc->DocName)
 	{
-		satdialog* satdia = new satdialog(ScMW,docName,
-                                          static_cast<int>(ScMW->doc->pageWidth + 0.5),
-                                          static_cast<int>(ScMW->doc->pageHeight + 0.5));
+		satdialog* satdia = new satdialog(doc->scMW(),docName,
+                                          static_cast<int>(doc->pageWidth + 0.5),
+                                          static_cast<int>(doc->pageHeight + 0.5));
 		if (satdia->exec())
 		{
-			sat* s = new sat(ScMW, satdia, docPath.right(docPath.length() - docPath.findRev('/') - 1),docDir);
+			sat* s = new sat(doc, satdia, docPath.right(docPath.length() - docPath.findRev('/') - 1),docDir);
 			s->createImages();
 			s->createTmplXml();
 			delete s;
 		}
 		// Restore the state that was before ScMW->Collect()
-		ScMW->doc->DocName = currentFile;
-		ScMW->doc->hasName = hasName;
-		ScMW->doc->setModified(isModified);
+		doc->DocName = currentFile;
+		doc->hasName = hasName;
+		doc->setModified(isModified);
 		QString newCaption=currentFile;
 		if (isModified)
 			newCaption.append('*');
-		ScMW->updateActiveWindowCaption(newCaption);
-		ScMW->removeRecent(docPath);
+		doc->scMW()->updateActiveWindowCaption(newCaption);
+		doc->scMW()->removeRecent(docPath);
 		QDir::setCurrent(currentDirPath);
 		delete satdia;
 	}
@@ -168,10 +170,10 @@ void MenuSAT::RunSATPlug()
 
 // --------------------- CLASS sat ------------------------------------------------//
 
-sat::sat(ScribusMainWindow* scribusApp, satdialog* satdia, QString fileName, QString tmplDir)
+sat::sat(ScribusDoc* doc, satdialog* satdia, QString fileName, QString tmplDir)
 {
 	lang = ScCore->getGuiLanguage();
-	sapp = scribusApp;
+	m_Doc = doc;
 	dia = satdia;
 	dir = tmplDir;
 	if (dir.right(1) == "/")
@@ -205,8 +207,8 @@ void sat::createImages()
 {
 	QString tnsmallName = dia->nameEdit->text() + "tn.png";
 	QString tnlargeName = dia->nameEdit->text() + ".png";
-	double pageh = sapp->doc->pageHeight;
-	double pagew = sapp->doc->pageWidth;
+	double pageh = m_Doc->pageHeight;
+	double pagew = m_Doc->pageWidth;
 	int pageSizeSmall = 0;
 	int pageSizeLarge = 0;
 	if (pageh > pagew)
@@ -219,8 +221,8 @@ void sat::createImages()
 		pageSizeSmall = static_cast<int>(pagew / 10);
 		pageSizeLarge = static_cast<int>(pagew / 3);
 	}
-	QImage tnsmall = sapp->view->PageToPixmap(0,pageSizeSmall);
-	QImage tnlarge = sapp->view->PageToPixmap(0,pageSizeLarge);
+	QImage tnsmall = m_Doc->view()->PageToPixmap(0,pageSizeSmall);
+	QImage tnlarge = m_Doc->view()->PageToPixmap(0,pageSizeLarge);
 	tnsmall.save(dir+"/"+tnsmallName,"PNG",70);
 	tnlarge.save(dir+"/"+tnlargeName, "PNG", 70);
 }

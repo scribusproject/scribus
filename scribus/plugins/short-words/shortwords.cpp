@@ -107,38 +107,38 @@ void ShortWordsPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool ShortWordsPlugin::run(QString target)
+bool ShortWordsPlugin::run(ScribusDoc* doc, QString target)
 {
 	Q_ASSERT(target.isEmpty());
 
-	uint originalPage = ScMW->doc->currentPage()->pageNr();
-	SWDialog *dlg = new SWDialog(ScMW, "dlg", true, 0);
+	uint originalPage = doc->currentPage()->pageNr();
+	SWDialog *dlg = new SWDialog(doc->scMW(), "dlg", true, 0);
 	if (dlg->exec() == QDialog::Accepted) {
 		SWParse *parse = new SWParse();
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-		ScMW->mainWindowStatusLabel->setText(QObject::tr("Short Words processing. Wait please...", "short words plugin"));
+		doc->scMW()->setStatusBarInfoText(QObject::tr("Short Words processing. Wait please...", "short words plugin"));
 		switch (dlg->actionSelected) {
 			case 0:
-				parse->parseSelection();
+				parse->parseSelection(doc);
 				break;
 			case 1:
-				parse->parsePage(ScMW->doc->currentPage()->pageNr());
+				parse->parsePage(doc, doc->currentPage()->pageNr());
 				break;
 			case 2:
-				parse->parseAll();
+				parse->parseAll(doc);
 				break;
 		} // switch
 		// enable "Save" icon
 		if (parse->modify > 0)
-			ScMW->slotDocCh(true);
+			doc->changed();
 		delete parse;
 		// redraw document
-		ScMW->view->DrawNew();
+		doc->view()->DrawNew();
 		QApplication::restoreOverrideCursor();
-		ScMW->mainWindowStatusLabel->setText(QObject::tr("Short Words processing. Done.", "short words plugin"));
-		ScMW->mainWindowProgressBar->reset();
+		doc->scMW()->setStatusBarInfoText(QObject::tr("Short Words processing. Done.", "short words plugin"));
+		doc->scMW()->mainWindowProgressBar->reset();
 		// set page where user calls vlna
-		ScMW->view->GotoPage(originalPage);
+		doc->view()->GotoPage(originalPage);
 	} // action
 	delete dlg;
 	return true;

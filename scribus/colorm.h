@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "query.h"
 
 class DynamicTip;
+class ScribusDoc;
 
 class SCRIBUS_API ColorListBoxItem : public QListBoxItem
 {
@@ -118,7 +119,7 @@ class SCRIBUS_API ColorManager : public QDialog
 	Q_OBJECT
 
 public:
-	ColorManager( QWidget* parent, ColorList doco, bool haveDoc, QString docColSet, QStringList custColSet);
+	ColorManager( QWidget* parent, ColorList doco, ScribusDoc* doc, QString docColSet, QStringList custColSet);
 	~ColorManager() {};
 	//! \brief A ColorList with all available colors after dialog closing.
 	ColorList EditColors;
@@ -152,8 +153,8 @@ private:
 	QString sFarbe;
 	QColor tmpFarbe;
 	QStringList DontChange;
-	bool HaveDoc;
 	DynamicTip* dynTip;
+	ScribusDoc* m_Doc;
 
 private slots:
 	void saveDefaults();

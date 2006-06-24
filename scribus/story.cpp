@@ -51,7 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "scmessagebox.h"
 #include "scraction.h"
-#include "scribus.h"
+#include "scribuscore.h"
 #include "search.h"
 #include "serializer.h"
 #include "shadebutton.h"
@@ -747,7 +747,7 @@ void SEditor::saveItemText(PageItem *currItem)
 			if (ch == SpecialChars::OBJECT)
 			{
 				PageItem* embedded = chars->at(c)->cembedded;
-				currItem->document()->FrameItems.append(embedded);
+				currItem->doc()->FrameItems.append(embedded);
 				if (embedded->Groups.count() != 0)
 				{
 					for (uint ga=0; ga<FrameItems.count(); ++ga)
@@ -758,8 +758,8 @@ void SEditor::saveItemText(PageItem *currItem)
 							{
 								if (FrameItems.at(ga)->ItemNr != embedded->ItemNr)
 								{
-									if (currItem->document()->FrameItems.find(FrameItems.at(ga)) == -1)
-										currItem->document()->FrameItems.append(FrameItems.at(ga));
+									if (currItem->doc()->FrameItems.find(FrameItems.at(ga)) == -1)
+										currItem->doc()->FrameItems.append(FrameItems.at(ga));
 								}
 							}
 						}
@@ -1028,7 +1028,7 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 		if (tx[a] == QChar(13))
 		{
 			StyledText.append(chars);
-			ParagStyles.append(findParagraphStyle(currItem->document(), currItem->currentStyle()));
+			ParagStyles.append(findParagraphStyle(currItem->doc(), currItem->currentStyle()));
 			chars = new ChList;
 			chars->setAutoDelete(true);
 			chars->clear();
@@ -1047,7 +1047,7 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 	}
 	insert(Text);
 	StyledText.append(chars);
-	ParagStyles.append(findParagraphStyle(currItem->document(), currItem->currentStyle()));
+	ParagStyles.append(findParagraphStyle(currItem->doc(), currItem->currentStyle()));
 	if (StyledText.count() != 0)
 		emit setProps(0, 0);
 	setUpdatesEnabled(true);
@@ -2028,7 +2028,7 @@ void StoryEditor::initActions()
 
 void StoryEditor::buildMenus()
 {
-	seMenuMgr = new MenuManager(this->menuBar());
+	seMenuMgr = new MenuManager(this->menuBar(), this->menuBar());
 	seMenuMgr->createMenu("File", tr("&File"));
 	seMenuMgr->addMenuItem(seActions["fileNew"], "File");
 	seMenuMgr->addMenuItem(seActions["fileRevert"], "File");
@@ -2695,7 +2695,7 @@ void StoryEditor::updateProps(int p, int ch)
 			Editor->CurrFont = curstyle.font()->scName();
 			Editor->CurrFontSize = curstyle.fontSize();
 			Editor->CurrentStyle = curstyle.effects();
-			Editor->currentParaStyle = findParagraphStyle(currItem->document(), currItem->itemText.defaultStyle());
+			Editor->currentParaStyle = findParagraphStyle(currItem->doc(), currItem->itemText.defaultStyle());
 			Editor->CurrTextKern = curstyle.tracking();
 			Editor->CurrTextScale = curstyle.scaleH();
 			Editor->CurrTextScaleV = curstyle.scaleV();
@@ -2922,9 +2922,9 @@ void StoryEditor::Do_insSp()
 		charSelect = new CharSelect(this, currItem, Editor->CurrFont, false);
 		connect(charSelect, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
 	}
-	if (charSelect->ite != currItem)
+	if (charSelect->item() != currItem)
 	{
-		charSelect->ite = currItem;
+		charSelect->setItem(currItem);
 		rescan = true;
 	}
 	if (charSelect->fontInUse != Editor->CurrFont)
@@ -3027,7 +3027,7 @@ void StoryEditor::Do_leave()
 void StoryEditor::Do_saveDocument()
 {
 	updateTextFrame();
-	ScMW->slotFileSave();
+	ScCore->primaryMainWindow()->slotFileSave();
 }
 
 bool StoryEditor::Do_new()
@@ -3214,7 +3214,7 @@ void StoryEditor::updateTextFrame()
 		nb2->Dirty = false;
 		nb2 = nb2->NextBox;
 	}
-	ScMW->view->DrawNew();
+	ScCore->primaryMainWindow()->view->DrawNew();
 	textChanged = false;
 	seActions["fileRevert"]->setEnabled(false);
 	seActions["editUpdateFrame"]->setEnabled(false);
@@ -3246,10 +3246,10 @@ void StoryEditor::slotEditStyles()
 	//emit EditSt();
 
 	StilFormate *dia = new StilFormate(this, currDoc);
-	connect(dia, SIGNAL(saveStyle(StilFormate *)), ScMW, SLOT(saveStyles(StilFormate *)));
+	connect(dia, SIGNAL(saveStyle(StilFormate *)), ScCore->primaryMainWindow(), SLOT(saveStyles(StilFormate *)));
 	if (dia->exec())
-		ScMW->saveStyles(dia);
-	disconnect(dia, SIGNAL(saveStyle(StilFormate *)), ScMW, SLOT(saveStyles(StilFormate *)));
+		ScCore->primaryMainWindow()->saveStyles(dia);
+	disconnect(dia, SIGNAL(saveStyle(StilFormate *)), ScCore->primaryMainWindow(), SLOT(saveStyles(StilFormate *)));
 	delete dia;
 
 	AlignTools->Spal->setFormats(currDoc);
@@ -3631,5 +3631,5 @@ void StoryEditor::specialActionKeyEvent(QString actionName, int unicodevalue)
 void StoryEditor::updateUnicodeActions()
 {
 	if (Editor->prevFont!=Editor->CurrFont)
-		ScMW->actionManager->enableUnicodeActions(&seActions, true, Editor->CurrFont);	
+		ScCore->primaryMainWindow()->actionManager->enableUnicodeActions(&seActions, true, Editor->CurrFont);	
 }

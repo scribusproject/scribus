@@ -26,6 +26,8 @@ for which a new license (GPL+exception) is in place.
 #include <qfile.h>
 #include <qdir.h>
 #include <qstringlist.h>
+
+#include "cmsettings.h"
 #include "fpointarray.h"
 #include "sccolor.h"
 extern "C"
@@ -129,7 +131,7 @@ public:
 
 	// Load an image into this ScImage instance
 	// TODO: document params, split into smaller functions
-	bool LoadPicture(const QString & fn, const QString & Prof, int rend, bool useEmbedded, bool useProf, RequestType requestType, int gsRes, bool *realCMYK = 0);
+	bool LoadPicture(const QString & fn, const CMSettings& cmSettings, int rend, bool useEmbedded, bool useProf, RequestType requestType, int gsRes, bool *realCMYK = 0);
 
 	struct PSDLayer
 	{

@@ -830,7 +830,7 @@ public:
 	/**
 	 * @brief Get the document that this item belongs to
 	 */
-	ScribusDoc* document();
+	ScribusDoc* doc() const { return m_Doc; }
 	
 	bool isAnnotation() const { return m_isAnnotation; }
 	void setIsAnnotation(bool);

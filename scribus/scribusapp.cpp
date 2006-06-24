@@ -82,7 +82,7 @@ ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv)
 {
 	ScQApp=this;
 	ScCore=NULL;
-	ScMW=NULL;
+// 	ScMW=NULL;
 	lang="";
 	GUILang="";
 }

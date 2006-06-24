@@ -31,13 +31,13 @@ PageItem & findItemByName(QPtrList<PageItem> & items, const QString name)
 
 PageItem & getItem(const QString name)
 {
-	return findItemByName(ScMW->doc->DocItems, name);
+	return findItemByName(ScCore->primaryMainWindow()->doc->DocItems, name);
 }
 
 list getItemNames()
 {
 	list l;
-	QPtrList<PageItem>& items( ScMW->doc->DocItems );
+	QPtrList<PageItem>& items( ScCore->primaryMainWindow()->doc->DocItems );
 	for (
 		QPtrList<PageItem>::iterator it(items.begin()) ;
 		it != items.end() ;

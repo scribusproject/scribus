@@ -7,12 +7,14 @@ for which a new license (GPL+exception) is in place.
 #include "scfonts.h"
 #include "annot.h"
 #include "annot.moc"
+#include "annotation.h"
+#include "cmsettings.h"
 #include "editor.h"
-#include "selfield.h"
 #include "customfdialog.h"
 #include "buttonicon.h"
-#include "annotation.h"
+
 #include "mpalette.h"
+#include "selfield.h"
 #include <qstringlist.h>
 #include <qdatetime.h>
 #include <qpixmap.h>
@@ -353,23 +355,24 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	{
 		QPixmap pmI1;
 		ScImage im;
+		CMSettings cms(view->Doc, "");
 		if (!item->Pfile.isEmpty())
 		{
-			im.LoadPicture(item->Pfile, "", 0, false, false, ScImage::RGBData, 72);
+			im.LoadPicture(item->Pfile, cms, 0, false, false, ScImage::RGBData, 72);
 			pmI1.convertFromImage(im.qImage());
 			NiconPrev->setPixmap(pmI1);
 			IconNR->setEnabled(true);
 		}
 		if (!item->Pfile2.isEmpty())
 		{
-			im.LoadPicture(item->Pfile2, "", 0, false, false, ScImage::RGBData, 72);
+			im.LoadPicture(item->Pfile2, cms, 0, false, false, ScImage::RGBData, 72);
 			pmI1.convertFromImage(im.qImage());
 			PiconPrev->setPixmap(pmI1);
 			IconPR->setEnabled(true);
 		}
 		if (!item->Pfile3.isEmpty())
 		{
-			im.LoadPicture(item->Pfile3, "", 0, false, false, ScImage::RGBData, 72);
+			im.LoadPicture(item->Pfile3, cms, 0, false, false, ScImage::RGBData, 72);
 			pmI1.convertFromImage(im.qImage());
 			RiconPrev->setPixmap(pmI1);
 			IconRR->setEnabled(true);
@@ -1204,7 +1207,8 @@ void Annot::GetNIcon()
 	{
 		dirs->set("icon", fileName.left(fileName.findRev("/")));
 		QPixmap pmI1;
-		item->pixm.LoadPicture(fileName, "", 0, false, false, ScImage::RGBData, 72);
+		CMSettings cms(view->Doc, "");
+		item->pixm.LoadPicture(fileName, cms, 0, false, false, ScImage::RGBData, 72);
 		pmI1.convertFromImage(item->pixm.qImage());
 		NiconPrev->setPixmap(pmI1);
 		item->Pfile = fileName;
@@ -1235,7 +1239,8 @@ void Annot::GetPIcon()
 		dirs->set("icon", fileName.left(fileName.findRev("/")));
 		QPixmap pmI1;
 		ScImage im;
-		im.LoadPicture(fileName, "", 0, false, false, ScImage::RGBData, 72);
+		CMSettings cms(view->Doc, "");
+		im.LoadPicture(fileName, cms, 0, false, false, ScImage::RGBData, 72);
 		pmI1.convertFromImage(im.qImage());
 		PiconPrev->setPixmap(pmI1);
 		item->Pfile2 = fileName;
@@ -1258,7 +1263,8 @@ void Annot::GetRIcon()
 		dirs->set("icon", fileName.left(fileName.findRev("/")));
 		QPixmap pmI1;
 		ScImage im;
-		im.LoadPicture(fileName, "", 0, false, false, ScImage::RGBData, 72);
+		CMSettings cms(view->Doc, "");
+		im.LoadPicture(fileName, cms, 0, false, false, ScImage::RGBData, 72);
 		pmI1.convertFromImage(im.qImage());
 		RiconPrev->setPixmap(pmI1);
 		item->Pfile3 = fileName;

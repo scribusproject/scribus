@@ -64,6 +64,7 @@ class PDFOptions;
 class Hyphenator;
 class Selection;
 class ScribusView;
+class ScribusMainWindow;
 
 class QProgressBar;
 
@@ -90,6 +91,8 @@ public:
 	 * @brief Return the view associated with the document
 	 */
 	ScribusView* view() const;
+	ScribusMainWindow* scMW() const {return m_ScMW;}
+	void setGUI(ScribusMainWindow* mw, ScribusView* view);
 	
 	// Add, delete and move pages
 	
@@ -660,6 +663,10 @@ public:
 	void recalcPicturesRes();
 	void connectDocSignals();
 	void removeLayer(int l, bool dl = false); //FIXME: Make protected once scripter function no longer uses this directly
+	/*! \brief We call changed() whenever the document needs to know it has been changed.
+	 *  If the document is the primary document in a main window, it will signal to enable/disable
+	 * certain operations.
+	 */
 	void changed();
 	/*! \brief Get pointer to the current page
 	\retval Page* current page object */
@@ -680,6 +687,8 @@ protected:
 	bool automaticTextFrames; // Flag for automatic Textframes
 	bool m_masterPageMode;
 	QMap<QString, double> m_constants;
+	ScribusMainWindow* m_ScMW;
+	ScribusView* m_View;
 	
 public: // Public attributes
 	bool is12doc; //public for now, it will be removed later
@@ -843,7 +852,7 @@ public: // Public attributes
 	FPointArray symNewCol;
 	FPointArray symNewFrame;
 	
-	Hyphenator * const docHyphenator;
+	Hyphenator * docHyphenator;
 private:
 	bool _itemCreationTransactionStarted;
 	Page* _currentPage;

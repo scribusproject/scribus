@@ -23,7 +23,7 @@ class PLUGIN_API MyPlugin : public ScActionPlugin
 		MyPlugin();
 		virtual ~MyPlugin();
 		//! \brief main method to run the plug
-		virtual bool run(QString target = QString::null);
+		virtual bool run(ScribusDoc* doc, QString target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;

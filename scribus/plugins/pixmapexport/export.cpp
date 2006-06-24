@@ -88,17 +88,17 @@ void PixmapExportPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool PixmapExportPlugin::run(QString target)
+bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 {
 	Q_ASSERT(target.isEmpty());
-	Q_ASSERT(!ScMW->doc->masterPageMode());
+	Q_ASSERT(!doc->masterPageMode());
 	bool res;
 	ExportBitmap *ex = new ExportBitmap();
-	ExportForm *dia = new ExportForm(ScMW, ex->pageDPI, ex->quality, ex->bitmapType, ScMW->doc->pageWidth, ScMW->doc->pageHeight);
+	ExportForm *dia = new ExportForm(doc->scMW(), ex->pageDPI, ex->quality, ex->bitmapType, doc->pageWidth, doc->pageHeight);
 
 	// interval widgets handling
 	QString tmp;
-	dia->RangeVal->setText(tmp.setNum(ScMW->doc->currentPageNumber()+1));
+	dia->RangeVal->setText(tmp.setNum(doc->currentPageNumber()+1));
 	// main "loop"
 	if (dia->exec()==QDialog::Accepted)
 	{
@@ -109,27 +109,27 @@ bool PixmapExportPlugin::run(QString target)
 		ex->quality = dia->QualityBox->value();
 		ex->exportDir = dia->OutputDirectory->text();
 		ex->bitmapType = dia->bitmapType;
-		ScMW->mainWindowProgressBar->reset();
+		doc->scMW()->mainWindowProgressBar->reset();
 		if (dia->OnePageRadio->isChecked())
-			res = ex->exportActual();
+			res = ex->exportCurrent(doc);
 		else
 		{
 			if (dia->AllPagesRadio->isChecked())
-				parsePagesString("*", &pageNs, ScMW->doc->DocPages.count());
+				parsePagesString("*", &pageNs, doc->DocPages.count());
 			else
-				parsePagesString(dia->RangeVal->text(), &pageNs, ScMW->doc->DocPages.count());
-			res = ex->exportInterval(pageNs);
+				parsePagesString(dia->RangeVal->text(), &pageNs, doc->DocPages.count());
+			res = ex->exportInterval(doc, pageNs);
 		}
-		ScMW->mainWindowProgressBar->reset();
+		doc->scMW()->mainWindowProgressBar->reset();
 		QApplication::restoreOverrideCursor();
 		if (!res)
 		{
-			QMessageBox::warning(ScMW, QObject::tr("Save as Image"), QObject::tr("Error writing the output file(s)."));
-			ScMW->mainWindowStatusLabel->setText(QObject::tr("Error writing the output file(s)."));
+			QMessageBox::warning(doc->scMW(), QObject::tr("Save as Image"), QObject::tr("Error writing the output file(s)."));
+			doc->scMW()->setStatusBarInfoText(QObject::tr("Error writing the output file(s)."));
 		}
 		else
 		{
-			ScMW->mainWindowStatusLabel->setText(QObject::tr("Export successful."));
+			doc->scMW()->setStatusBarInfoText(QObject::tr("Export successful."));
 		}
 	} // if accepted
 	// clean the trash
@@ -149,21 +149,21 @@ ExportBitmap::ExportBitmap()
 	overwrite = false;
 }
 
-QString ExportBitmap::getFileName(uint pageNr)
+QString ExportBitmap::getFileName(ScribusDoc* doc, uint pageNr)
 {
-	return QDir::cleanDirPath(QDir::convertSeparators(exportDir + "/" + getFileNameByPage(pageNr, bitmapType.lower())));
+	return QDir::cleanDirPath(QDir::convertSeparators(exportDir + "/" + getFileNameByPage(doc, pageNr, bitmapType.lower())));
 }
 
 ExportBitmap::~ExportBitmap()
 {
 }
 
-bool ExportBitmap::exportPage(uint pageNr, bool single = true)
+bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 {
 	uint over = 0;
-	QString fileName = getFileName(pageNr);
+	QString fileName = getFileName(doc, pageNr);
 
-	if (!ScMW->doc->Pages->at(pageNr))
+	if (!doc->Pages->at(pageNr))
 		return false;
 
 	/* a little magic here - I need to compute the "maxGr" value...
@@ -171,10 +171,8 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 	* portrait and user defined sizes.
 	*/
 	double pixmapSize;
-	(ScMW->doc->pageHeight > ScMW->doc->pageWidth)
-			? pixmapSize = ScMW->doc->pageHeight
-			: pixmapSize = ScMW->doc->pageWidth;
-	QImage im = ScMW->view->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0), false);
+	pixmapSize = (doc->pageHeight > doc->pageWidth) ? doc->pageHeight : doc->pageWidth;
+	QImage im = doc->view()->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0), false);
 	int dpm = qRound(100.0 / 2.54 * pageDPI);
 	im.setDotsPerMeterY(dpm);
 	im.setDotsPerMeterX(dpm);
@@ -184,7 +182,7 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 /* Changed the following Code from the original QMessageBox::question to QMessageBox::warning
 	 to keep the Code compatible to Qt-3.1.x
 	 f.s 12.05.2004 */
-		over = ScMessageBox::warning(ScMW,
+		over = ScMessageBox::warning(doc->scMW(),
 				QObject::tr("File exists. Overwrite?"),
 				fileName +"\n"+ QObject::tr("exists already. Overwrite?"),
 				QObject::tr("Yes"),
@@ -201,19 +199,19 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 	return im.save(fileName, bitmapType, quality);
 }
 
-bool ExportBitmap::exportActual()
+bool ExportBitmap::exportCurrent(ScribusDoc* doc)
 {
-	return exportPage(ScMW->doc->currentPageNumber(), true);
+	return exportPage(doc, doc->currentPageNumber(), true);
 }
 
-bool ExportBitmap::exportInterval(std::vector<int> &pageNs)
+bool ExportBitmap::exportInterval(ScribusDoc* doc, std::vector<int> &pageNs)
 {
 	bool res;
-	ScMW->mainWindowProgressBar->setTotalSteps(pageNs.size());
+	doc->scMW()->mainWindowProgressBar->setTotalSteps(pageNs.size());
 	for (uint a = 0; a < pageNs.size(); ++a)
 	{
-		ScMW->mainWindowProgressBar->setProgress(a);
-		res = exportPage(pageNs[a]-1, false);
+		doc->scMW()->mainWindowProgressBar->setProgress(a);
+		res = exportPage(doc, pageNs[a]-1, false);
 		if (!res)
 			return false;
 	}

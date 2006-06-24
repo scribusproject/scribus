@@ -27,7 +27,7 @@ class PLUGIN_API ColorWheelPlugin : public ScActionPlugin
 		// Standard plugin implementation
 		ColorWheelPlugin();
 		virtual ~ColorWheelPlugin();
-		virtual bool run(QString target = QString::null);
+		virtual bool run(ScribusDoc* doc, QString target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;

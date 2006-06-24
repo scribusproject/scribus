@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdutil.h"
 #include "prefsmanager.h"
 #include "commonstrings.h"
+#include "scribuscore.h"
 
 
 PyObject *scribus_colornames(PyObject* /* self */)
@@ -15,7 +16,7 @@ PyObject *scribus_colornames(PyObject* /* self */)
 	ColorList edc;
 	PyObject *l;
 	int cc = 0;
-	edc = ScMW->HaveDoc ? ScMW->doc->PageColors : PrefsManager::instance()->colorSet();
+	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance()->colorSet();
 	ColorList::Iterator it;
 	l = PyList_New(edc.count());
 	for (it = edc.begin(); it != edc.end(); ++it)
@@ -38,7 +39,7 @@ PyObject *scribus_getcolor(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error"));
 		return NULL;
 	}
-	edc = ScMW->HaveDoc ? ScMW->doc->PageColors : PrefsManager::instance()->colorSet();
+	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance()->colorSet();
 	QString col = QString::fromUtf8(Name);
 	if (!edc.contains(col))
 	{
@@ -60,7 +61,7 @@ PyObject *scribus_getcolorasrgb(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error"));
 		return NULL;
 	}
-	edc = ScMW->HaveDoc ? ScMW->doc->PageColors : PrefsManager::instance()->colorSet();
+	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance()->colorSet();
 	QString col = QString::fromUtf8(Name);
 	if (!edc.contains(col))
 	{
@@ -83,14 +84,14 @@ PyObject *scribus_setcolor(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	QString col = QString::fromUtf8(Name);
-	if (ScMW->HaveDoc)
+	if (ScCore->primaryMainWindow()->HaveDoc)
 	{
-		if (!ScMW->doc->PageColors.contains(col))
+		if (!ScCore->primaryMainWindow()->doc->PageColors.contains(col))
 		{
 			PyErr_SetString(NotFoundError, QObject::tr("Color not found in document.","python error"));
 			return NULL;
 		}
-		ScMW->doc->PageColors[col].setColor(c, m, y, k);
+		ScCore->primaryMainWindow()->doc->PageColors[col].setColor(c, m, y, k);
 	}
 	else
 	{
@@ -118,14 +119,14 @@ PyObject *scribus_newcolor(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	QString col = QString::fromUtf8(Name);
-	if (ScMW->HaveDoc)
+	if (ScCore->primaryMainWindow()->HaveDoc)
 		{
-			if (!ScMW->doc->PageColors.contains(col))
-				ScMW->doc->PageColors.insert(col, ScColor(c, m, y, k));
+			if (!ScCore->primaryMainWindow()->doc->PageColors.contains(col))
+				ScCore->primaryMainWindow()->doc->PageColors.insert(col, ScColor(c, m, y, k));
 			else
 				// FIXME: Given that we have a changeColour function, should we really be
 				// silently changing colours in newColour?
-				ScMW->doc->PageColors[col].setColor(c, m, y, k);
+				ScCore->primaryMainWindow()->doc->PageColors[col].setColor(c, m, y, k);
 		}
 	else
 		{
@@ -154,11 +155,11 @@ PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
 	}
 	QString col = QString::fromUtf8(Name);
 	QString rep = QString::fromUtf8(Repl);
-	if (ScMW->HaveDoc)
+	if (ScCore->primaryMainWindow()->HaveDoc)
 	{
-		if (ScMW->doc->PageColors.contains(col) && (ScMW->doc->PageColors.contains(rep) || (rep == CommonStrings::None)))
+		if (ScCore->primaryMainWindow()->doc->PageColors.contains(col) && (ScCore->primaryMainWindow()->doc->PageColors.contains(rep) || (rep == CommonStrings::None)))
 			{
-				ScMW->doc->PageColors.remove(col);
+				ScCore->primaryMainWindow()->doc->PageColors.remove(col);
 				ReplaceColor(col, rep);
 			}
 		else
@@ -198,7 +199,7 @@ PyObject *scribus_replcolor(PyObject* /* self */, PyObject* args)
 	}
 	QString col = QString::fromUtf8(Name);
 	QString rep = QString::fromUtf8(Repl);
-	if (ScMW->doc->PageColors.contains(col) && (ScMW->doc->PageColors.contains(rep) || (rep == CommonStrings::None)))
+	if (ScCore->primaryMainWindow()->doc->PageColors.contains(col) && (ScCore->primaryMainWindow()->doc->PageColors.contains(rep) || (rep == CommonStrings::None)))
 		ReplaceColor(col, rep);
 	else
 	{

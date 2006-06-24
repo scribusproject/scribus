@@ -37,26 +37,26 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "util.h"
 
-gtAction::gtAction(bool append)
-{
-	prefsManager=PrefsManager::instance();
-	//textFrame = ScMW->view->SelItem.at(0);
-	textFrame = ScMW->doc->m_Selection->itemAt(0);
-	it = textFrame;
-	lastParagraphStyle = -1;
-	inPara = false;
-	isFirstWrite = true;
-	lastCharWasLineChange = false;
-	currentFrameStyle = "";
-	doAppend = append;
-	updateParagraphStyles = false;
-	overridePStyleFont = true;
-}
+// gtAction::gtAction(bool append)
+// {
+// 	prefsManager=PrefsManager::instance();
+// 	textFrame = ScMW->doc->m_Selection->itemAt(0);
+// 	it = textFrame;
+// 	lastParagraphStyle = -1;
+// 	inPara = false;
+// 	isFirstWrite = true;
+// 	lastCharWasLineChange = false;
+// 	currentFrameStyle = "";
+// 	doAppend = append;
+// 	updateParagraphStyles = false;
+// 	overridePStyleFont = true;
+// }
 
 gtAction::gtAction(bool append, PageItem* pageitem)
 {
 	prefsManager=PrefsManager::instance();
 	textFrame = pageitem;
+	m_ScMW=textFrame->doc()->scMW();
 	it = textFrame;
 	lastParagraphStyle = -1;
 	inPara = false;
@@ -70,27 +70,27 @@ gtAction::gtAction(bool append, PageItem* pageitem)
 
 void gtAction::setProgressInfo()
 {
-	ScMW->mainWindowStatusLabel->setText(QObject::tr("Importing text"));
-	ScMW->mainWindowProgressBar->reset();
-	ScMW->mainWindowProgressBar->setTotalSteps(0);
+	m_ScMW->setStatusBarInfoText(QObject::tr("Importing text"));
+	m_ScMW->mainWindowProgressBar->reset();
+	m_ScMW->mainWindowProgressBar->setTotalSteps(0);
 }
 
 void gtAction::setProgressInfoDone()
 {
-	ScMW->mainWindowStatusLabel->setText("");
-	ScMW->mainWindowProgressBar->reset();
+	m_ScMW->setStatusBarInfoText("");
+	m_ScMW->mainWindowProgressBar->reset();
 }
 
 void gtAction::setInfo(QString infoText)
 {
-	ScMW->mainWindowStatusLabel->setText(infoText);
+	m_ScMW->setStatusBarInfoText(infoText);
 }
 
 void gtAction::clearFrame()
 {
 	textFrame->itemText.clear();
 	textFrame->CPos = 0;
-	ScMW->doc->updateFrameItems();
+	textFrame->doc()->updateFrameItems();
 }
 
 void gtAction::write(const QString& text, gtStyle *style)
@@ -111,7 +111,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 			}
 			it->itemText.clear();
 			it->CPos = 0;
-			ScMW->doc->updateFrameItems();
+			textFrame->doc()->updateFrameItems();
 		}
 	}
 	int paragraphStyle = -1;
@@ -133,12 +133,12 @@ void gtAction::write(const QString& text, gtStyle *style)
 
 
 	if (paragraphStyle == -1)
-		paragraphStyle = ::findParagraphStyle(ScMW->doc, ScMW->doc->currentStyle);
+		paragraphStyle = ::findParagraphStyle(textFrame->doc(), textFrame->doc()->currentStyle);
 
 	gtFont* font = style->getFont();
 	QString fontName = validateFont(font)->scName();
 	gtFont font2(*font);
-	font2.setName(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().font()->scName());
+	font2.setName(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().font()->scName());
 	QString fontName2 = validateFont(&font2)->scName();
 	CharStyle lastStyle;
 	int lastStyleStart = 0;
@@ -152,20 +152,20 @@ void gtAction::write(const QString& text, gtStyle *style)
 			ch = QChar(13);
 		if ((inPara) && (!overridePStyleFont))
 		{
-			if (ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().font() == &Foi::NONE)
-				newStyle.setFont((*ScMW->doc->AllFonts)[fontName2]);
+			if (textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().font() == &Foi::NONE)
+				newStyle.setFont((*textFrame->doc()->AllFonts)[fontName2]);
 			else
-				newStyle.setFont(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().font());
-			newStyle.setFontSize(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().fontSize());
-			newStyle.setFillColor(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().fillColor());
-			newStyle.setFillShade(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().fillShade());
-			newStyle.setStrokeColor(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().strokeColor());
-			newStyle.setStrokeShade(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().strokeShade());
-			newStyle.setEffects(ScMW->doc->docParagraphStyles[paragraphStyle].charStyle().effects());
+				newStyle.setFont(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().font());
+			newStyle.setFontSize(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().fontSize());
+			newStyle.setFillColor(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().fillColor());
+			newStyle.setFillShade(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().fillShade());
+			newStyle.setStrokeColor(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().strokeColor());
+			newStyle.setStrokeShade(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().strokeShade());
+			newStyle.setEffects(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().effects());
 		}
 		else
 		{
-			newStyle.setFont((*ScMW->doc->AllFonts)[fontName]);
+			newStyle.setFont((*textFrame->doc()->AllFonts)[fontName]);
 			newStyle.setFontSize(font->getSize());
 			newStyle.setFillColor(parseColor(font->getColor()));
 			newStyle.setFillShade(font->getShade());
@@ -192,11 +192,11 @@ void gtAction::write(const QString& text, gtStyle *style)
 			lastStyleStart = pos;
 		}
 		if (ch == SpecialChars::PARSEP) {
-			it->itemText.applyStyle(pos, ScMW->doc->docParagraphStyles[paragraphStyle]);
+			it->itemText.applyStyle(pos, textFrame->doc()->docParagraphStyles[paragraphStyle]);
 		}
 	}
 	it->itemText.applyCharStyle(lastStyleStart, it->itemText.length()-lastStyleStart, lastStyle);
-	it->itemText.applyStyle(it->itemText.length()-1, ScMW->doc->docParagraphStyles[paragraphStyle]);
+	it->itemText.applyStyle(it->itemText.length()-1, textFrame->doc()->docParagraphStyles[paragraphStyle]);
 	
 	lastCharWasLineChange = text.right(1) == "\n";
 	inPara = style->target() == "paragraph";
@@ -213,9 +213,9 @@ int gtAction::findParagraphStyle(gtParagraphStyle* pstyle)
 int gtAction::findParagraphStyle(const QString& name)
 {
 	int pstyleIndex = -1;
-	for (uint i = 0; i < ScMW->doc->docParagraphStyles.size(); ++i)
+	for (uint i = 0; i < textFrame->doc()->docParagraphStyles.size(); ++i)
 	{
-		if (ScMW->doc->docParagraphStyles[i].name() == name)
+		if (textFrame->doc()->docParagraphStyles[i].name() == name)
 		{
 			pstyleIndex = i;
 			break;
@@ -230,7 +230,7 @@ int gtAction::applyParagraphStyle(gtParagraphStyle* pstyle)
 	if (pstyleIndex == -1)
 	{
 		createParagraphStyle(pstyle);
-		pstyleIndex = ScMW->doc->docParagraphStyles.size() - 1;
+		pstyleIndex = textFrame->doc()->docParagraphStyles.size() - 1;
 	}
 	else if (updateParagraphStyles)
 	{
@@ -324,7 +324,7 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 
 void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 {
-	ScribusDoc* currDoc=textFrame->document();
+	ScribusDoc* currDoc=textFrame->doc();
 	if (currDoc->docParagraphStyles.size() > 5)
 	{
 		for (uint i = 5; i < currDoc->docParagraphStyles.size(); ++i)
@@ -373,12 +373,12 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.charStyle().setScaleV(1000);
 	vg.charStyle().setBaselineOffset(0);
 	vg.charStyle().setTracking(0);
-	vg.charStyle().setUnderlineOffset(ScMW->doc->typographicSettings.valueUnderlinePos);
-	vg.charStyle().setUnderlineWidth(ScMW->doc->typographicSettings.valueUnderlineWidth);
-	vg.charStyle().setStrikethruOffset(ScMW->doc->typographicSettings.valueStrikeThruPos);
-	vg.charStyle().setStrikethruWidth(ScMW->doc->typographicSettings.valueStrikeThruPos);
-	textFrame->document()->docParagraphStyles.append(vg);
-	ScMW->propertiesPalette->Spal->updateFormatList();
+	vg.charStyle().setUnderlineOffset(textFrame->doc()->typographicSettings.valueUnderlinePos);
+	vg.charStyle().setUnderlineWidth(textFrame->doc()->typographicSettings.valueUnderlineWidth);
+	vg.charStyle().setStrikethruOffset(textFrame->doc()->typographicSettings.valueStrikeThruPos);
+	vg.charStyle().setStrikethruWidth(textFrame->doc()->typographicSettings.valueStrikeThruPos);
+	textFrame->doc()->docParagraphStyles.append(vg);
+	m_ScMW->propertiesPalette->Spal->updateFormatList();
 }
 
 void gtAction::removeParagraphStyle(const QString& name)
@@ -390,8 +390,8 @@ void gtAction::removeParagraphStyle(const QString& name)
 
 void gtAction::removeParagraphStyle(int index)
 {
-	QValueList<ParagraphStyle>::iterator it = ScMW->doc->docParagraphStyles.at(index);
-	ScMW->doc->docParagraphStyles.remove(it);
+	QValueList<ParagraphStyle>::iterator it = textFrame->doc()->docParagraphStyles.at(index);
+	textFrame->doc()->docParagraphStyles.remove(it);
 }
 
 void gtAction::updateParagraphStyle(const QString&, gtParagraphStyle* pstyle)
@@ -443,11 +443,11 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	vg.charStyle().setScaleV(1000);
 	vg.charStyle().setBaselineOffset(0);
 	vg.charStyle().setTracking(0);
-	vg.charStyle().setUnderlineOffset(ScMW->doc->typographicSettings.valueUnderlinePos);
-	vg.charStyle().setUnderlineWidth(ScMW->doc->typographicSettings.valueUnderlineWidth);
-	vg.charStyle().setStrikethruOffset(ScMW->doc->typographicSettings.valueStrikeThruPos);
-	vg.charStyle().setStrikethruWidth(ScMW->doc->typographicSettings.valueStrikeThruPos);
-	ScMW->doc->docParagraphStyles[pstyleIndex] = vg;
+	vg.charStyle().setUnderlineOffset(textFrame->doc()->typographicSettings.valueUnderlinePos);
+	vg.charStyle().setUnderlineWidth(textFrame->doc()->typographicSettings.valueUnderlineWidth);
+	vg.charStyle().setStrikethruOffset(textFrame->doc()->typographicSettings.valueStrikeThruPos);
+	vg.charStyle().setStrikethruWidth(textFrame->doc()->typographicSettings.valueStrikeThruPos);
+	textFrame->doc()->docParagraphStyles[pstyleIndex] = vg;
 }
 
 Foi* gtAction::validateFont(gtFont* font)
@@ -503,7 +503,7 @@ Foi* gtAction::validateFont(gtFont* font)
 			{
 				if (!prefsManager->appPrefs.GFontSub.contains(font->getName()))
 				{
-					MissingFont *dia = new MissingFont(0, useFont, ScMW->doc);
+					MissingFont *dia = new MissingFont(0, useFont, textFrame->doc());
 					dia->exec();
 					useFont = dia->getReplacementFont();
 					prefsManager->appPrefs.GFontSub[font->getName()] = useFont;
@@ -515,8 +515,8 @@ Foi* gtAction::validateFont(gtFont* font)
 		}
 	}
 
-	if(!ScMW->doc->UsedFonts.contains(useFont))
-		ScMW->doc->AddFont(useFont);
+	if(!textFrame->doc()->UsedFonts.contains(useFont))
+		textFrame->doc()->AddFont(useFont);
 	return prefsManager->appPrefs.AvailFonts[useFont];
 }
 
@@ -537,7 +537,7 @@ QString gtAction::findFontName(gtFont* font)
 
 double gtAction::getLineSpacing(int fontSize)
 {
-	return ((fontSize / 10.0) * static_cast<double>(ScMW->doc->typographicSettings.autoLineSpacing) / 100) + (fontSize / 10.0);
+	return ((fontSize / 10.0) * static_cast<double>(textFrame->doc()->typographicSettings.autoLineSpacing) / 100) + (fontSize / 10.0);
 }
 
 double gtAction::getFrameWidth()
@@ -576,7 +576,7 @@ QString gtAction::parseColor(const QString &s)
 		return ret; // don't want None to become Black or any color
 	bool found = false;
 	ColorList::Iterator it;
-	for (it = ScMW->doc->PageColors.begin(); it != ScMW->doc->PageColors.end(); ++it)
+	for (it = textFrame->doc()->PageColors.begin(); it != textFrame->doc()->PageColors.end(); ++it)
 	{
 		if (it.key() == s)
 		{
@@ -620,9 +620,9 @@ QString gtAction::parseColor(const QString &s)
 				c = parseColorN( rgbColor );
 		}
 		found = false;
-		for (it = ScMW->doc->PageColors.begin(); it != ScMW->doc->PageColors.end(); ++it)
+		for (it = textFrame->doc()->PageColors.begin(); it != textFrame->doc()->PageColors.end(); ++it)
 		{
-			if (c == ScMW->doc->PageColors[it.key()].getRGBColor())
+			if (c == textFrame->doc()->PageColors[it.key()].getRGBColor())
 			{
 				ret = it.key();
 				found = true;
@@ -632,8 +632,8 @@ QString gtAction::parseColor(const QString &s)
 		{
 			ScColor tmp;
 			tmp.fromQColor(c);
-			ScMW->doc->PageColors.insert("FromGetText"+c.name(), tmp);
-			ScMW->propertiesPalette->updateColorList();
+			textFrame->doc()->PageColors.insert("FromGetText"+c.name(), tmp);
+			m_ScMW->propertiesPalette->updateColorList();
 			ret = "FromGetText"+c.name();
 		}
 	}
@@ -649,10 +649,10 @@ QColor gtAction::parseColorN(const QString &rgbColor)
 
 void gtAction::finalize()
 {
-	if (ScMW->doc->docHyphenator->AutoCheck)
-		ScMW->doc->docHyphenator->slotHyphenate(textFrame);
-	ScMW->view->DrawNew();
-	ScMW->slotDocCh();
+	if (textFrame->doc()->docHyphenator->AutoCheck)
+		textFrame->doc()->docHyphenator->slotHyphenate(textFrame);
+	textFrame->doc()->view()->DrawNew();
+	textFrame->doc()->changed();
 }
 
 gtAction::~gtAction()

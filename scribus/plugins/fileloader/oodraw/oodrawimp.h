@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 
 class ScrAction;
+class ScribusDoc;
 
 class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
 {
@@ -61,7 +62,7 @@ class OODPlug : public QObject
 
 public:
 
-	OODPlug();
+	OODPlug(ScribusDoc* doc);
 	~OODPlug();
 
 	bool import( QString fName, int flags );
@@ -90,7 +91,6 @@ protected:
 	void svgLineTo(FPointArray *i, double x1, double y1);
 	void svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3);
 
-	ScribusDoc* Doku;
 	QDomDocument inpContents;
 	QDomDocument inpStyles;
 	QDomDocument inpMeta;
@@ -105,6 +105,7 @@ protected:
 	bool FirstM, WasM, PathClosed, HaveMeta;
 
 	bool interactive;
+	ScribusDoc* m_Doc;
 };
 
 #endif

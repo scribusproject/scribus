@@ -7,7 +7,8 @@ for which a new license (GPL+exception) is in place.
 #include "fontpreviewplugin.h"
 #include "fontpreviewplugin.moc"
 #include "fontpreview.h"
-#include "scribus.h"
+#include "scribuscore.h"
+#include "scribusdoc.h"
 #include <qcursor.h>
 #include <qlistview.h>
 
@@ -80,17 +81,18 @@ void FontPreviewPlugin::deleteAboutData(const AboutData* about) const
 /**
 Create dialog and insert font into Style menu when user accepts.
 */
-bool FontPreviewPlugin::run(QString target)
+bool FontPreviewPlugin::run(ScribusDoc* doc, QString target)
 {
 	// I don't know how many fonts user has...
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-	FontPreview *dlg = new FontPreview(target);
+	ScribusMainWindow* scmw=(doc==0)?ScCore->primaryMainWindow():doc->scMW();
+	FontPreview *dlg = new FontPreview(target, scmw, doc);
 	qApp->restoreOverrideCursor();
 	// run it and wait for user's reaction
 	if (dlg->exec() == QDialog::Accepted)
 	{
 		if  (target.isEmpty())
-			ScMW->SetNewFont(dlg->getCurrentFont());
+			doc->scMW()->SetNewFont(dlg->getCurrentFont());
 		else
 			m_runResult = dlg->getCurrentFont();
 	}

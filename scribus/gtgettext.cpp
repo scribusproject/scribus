@@ -27,13 +27,16 @@ for which a new license (GPL+exception) is in place.
 #include "gtgettext.h"
 #include "pluginmanager.h"
 #include "scpaths.h"
-#include "scribus.h"
+// #include "scribus.h"
+#include "scribusdoc.h"
+#include "selection.h"
 
 extern QPixmap loadIcon(QString nam);
 
 
-gtGetText::gtGetText()
+gtGetText::gtGetText(ScribusDoc* doc)
 {
+	m_Doc=doc;
 	loadImporterPlugins();
 }
 
@@ -142,7 +145,7 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 		PluginManager::unloadDLL(gtplugin);
 		return;
 	}
-	gtWriter *w = new gtWriter(append);
+	gtWriter *w = new gtWriter(append, m_Doc->m_Selection->itemAt(0));
 	(*fp_GetText)(filePath, encoding, textOnly, w);
 	delete w;
 	PluginManager::unloadDLL(gtplugin);

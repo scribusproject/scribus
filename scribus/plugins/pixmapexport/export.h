@@ -23,7 +23,7 @@ class PLUGIN_API PixmapExportPlugin : public ScActionPlugin
 		// Standard plugin implementation
 		PixmapExportPlugin();
 		virtual ~PixmapExportPlugin();
-		virtual bool run(QString target = QString::null);
+		virtual bool run(ScribusDoc* doc, QString target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
@@ -64,20 +64,20 @@ public:
 
 	/*! \brief Exports only the actual page
 	\retval bool true on success */
-	bool exportActual();
+	bool exportCurrent(ScribusDoc* doc);
 	/*! \brief Exports chosen interval of the pages
 	\param pageNs interval of the page numbers
 	\retval true on success */
-	bool exportInterval(std::vector<int> &pageNs);
+	bool exportInterval(ScribusDoc* doc, std::vector<int> &pageNs);
 private:
 	/*! \brief create specified filename "docfilename-005.ext" */
-	QString getFileName(uint pageNr);
+	QString getFileName(ScribusDoc* doc, uint pageNr);
 	/*! \brief export one specified page
 	\param pageNr number of the page
 	\param single bool TRUE if only the one page is exported
 	\retval bool true on success
 	*/
-	bool exportPage(uint pageNr, bool single);
+	bool exportPage(ScribusDoc* doc, uint pageNr, bool single);
 };
 
 ScrAction *fileNewFromTemplateAction;

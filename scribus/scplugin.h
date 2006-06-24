@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 
 class QWidget;
+class ScribusDoc;
 class ScribusMainWindow;
 class DeferredTask;
 class PrefsPanel;
@@ -287,7 +288,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		 * @returns bool True for success.
 		 *
 		 */
-		virtual bool run(QString target = QString::null) = 0;
+		virtual bool run(ScribusDoc* doc, QString target = QString::null) = 0;
 
 		/**
 		 * @brief Run the plugin on a QIODevice
@@ -304,7 +305,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		 * Remember that not all QIODevice*s are seekable, and try to write
 		 * your code to handle a non-seekable stream.
 		 */
-		virtual bool run(QIODevice* target);
+		virtual bool run(ScribusDoc* doc, QIODevice* target);
 
 		/**
 		 * @brief Run the plugin asynchronously
@@ -370,6 +371,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		ActionInfo m_actionInfo;
 		// Obsolete - see runResult()
 		QString m_runResult;
+		ScribusDoc* m_Doc;
 };
 
 /**

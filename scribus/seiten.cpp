@@ -460,6 +460,7 @@ void TrashBin::dropEvent(QDropEvent * e)
 
 PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 {
+	m_scMW=(ScribusMainWindow*)parent;
 	setIcon(loadIcon("AppIcon.png"));
 	PagePaletteLayout = new QVBoxLayout( this );
 	PagePaletteLayout->setSpacing( 5 );
@@ -531,12 +532,11 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	connect(Trash, SIGNAL(DelMaster(QString)), this, SLOT(DelMPage(QString)));
 	connect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
 	connect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
-	
-	connect(this, SIGNAL(EditTemp(QString)), ScMW, SLOT(manageMasterPages(QString)));
-	connect(pageView, SIGNAL(UseTemp(QString, int)), ScMW, SLOT(Apply_MasterPage(QString, int)));
-	connect(pageView, SIGNAL(NewPage(int, QString)), ScMW, SLOT(slotNewPageP(int, QString)));
-	connect(Trash, SIGNAL(DelPage(int)), ScMW, SLOT(DeletePage2(int)));
-	connect(this, SIGNAL(GotoSeite(int)), ScMW, SLOT(selectPagesFromOutlines(int)));
+	connect(this, SIGNAL(EditTemp(QString)), m_scMW, SLOT(manageMasterPages(QString)));
+	connect(pageView, SIGNAL(UseTemp(QString, int)), m_scMW, SLOT(Apply_MasterPage(QString, int)));
+	connect(pageView, SIGNAL(NewPage(int, QString)), m_scMW, SLOT(slotNewPageP(int, QString)));
+	connect(Trash, SIGNAL(DelPage(int)), m_scMW, SLOT(DeletePage2(int)));
+	connect(this, SIGNAL(GotoSeite(int)), m_scMW, SLOT(selectPagesFromOutlines(int)));
 	
 	QToolTip::add(Trash, "<qt>" + tr("Drag pages or master pages onto the trashbin to delete them") + "</qt>");
 	QToolTip::add(masterPageList, "<qt>" + tr("Here are all your master pages. To create a new page, drag a master page to the page view below") + "</qt>");
@@ -639,7 +639,7 @@ void PagePalette::handleFirstPage(int fp)
 
 void PagePalette::RebuildTemp()
 {
-	if (ScMW->ScriptRunning)
+	if (m_scMW->ScriptRunning)
 		return;
 	masterPageList->clear();
 	if (currView == 0)
@@ -660,7 +660,7 @@ void PagePalette::RebuildTemp()
 
 void PagePalette::RebuildPage()
 {
-	if (ScMW->ScriptRunning)
+	if (m_scMW->ScriptRunning)
 		return;
 	QString str;
 	disconnect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));

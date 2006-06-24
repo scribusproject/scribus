@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 // loadsaveplugin.h for the FileFormat interface.
 #include "../formatidlist.h"
 #include "loadsaveplugin.h"
+#include "scribuscore.h"
 
 #include <qstring.h>
 
@@ -36,7 +37,7 @@ PyObject *scribus_importsvg(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 
-	ScMW->doc->setLoading(false);
+	ScCore->primaryMainWindow()->doc->setLoading(false);
 
 	Py_INCREF(Py_None);
 	return Py_None;

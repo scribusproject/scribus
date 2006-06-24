@@ -109,7 +109,7 @@ void MasterPagesPalette::deleteMasterPage()
 	                              0, QMessageBox::No, QMessageBox::Yes);
 	if (exit == 0)
 	{
-		ScMW->DeletePage2(currentDoc->MasterNames[sMuster]);
+		currentDoc->scMW()->DeletePage2(currentDoc->MasterNames[sMuster]);
 		//<<CB TODO Move back into ScribusDoc::deleteMasterPage();
 		//This must happen after the pages have been reformed (view/doc)
 		currentDoc->MasterNames.clear();
@@ -316,7 +316,7 @@ void MasterPagesPalette::appendPage()
 		qApp->processEvents();
 		//CB TODO: If we are loading to a new name, we rely on doc->onpage in 
 		//FileLoader::PasteItem as this call doesnt pass in the new destination page
-		ScMW->loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true, MasterPageName2);
+		currentDoc->scMW()->loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true, MasterPageName2);
 		qApp->processEvents();
 		/*
 		MasterPageName = currentDoc->Pages->at(nr)->PageNam;

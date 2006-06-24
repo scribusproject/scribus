@@ -29,12 +29,13 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 
-FontPreview::FontPreview(QString fontName)
-	: FontPreviewBase(ScMW, "FontPreview", true, 0)
+FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
+	: FontPreviewBase(parent, "FontPreview", true, 0)
 {
 	setIcon(loadIcon("AppIcon.png"));
+	m_Doc=doc;
 
-	sampleItem = new SampleItem();
+	sampleItem = new SampleItem(m_Doc);
 
 	languageChange();
 
@@ -70,8 +71,9 @@ FontPreview::FontPreview(QString fontName)
 		item = fontList->findItem(fontName, 0);
 	else
 	{
-		if (ScMW->doc->m_Selection->count() != 0)
-			item = fontList->findItem(ScMW->doc->currentStyle.charStyle().font()->scName(), 0);
+		Q_ASSERT(m_Doc!=0);
+		if (m_Doc->m_Selection->count() != 0)
+			item = fontList->findItem(m_Doc->currentStyle.charStyle().font()->scName(), 0);
 		else
 			item = fontList->findItem(PrefsManager::instance()->appPrefs.toolSettings.defFont, 0);
 	}
@@ -171,7 +173,7 @@ void FontPreview::updateFontList(QString searchStr)
 
 			row->setText(0, fontIter.current()->scName());
 			// searching
-			if (ScMW->doc->UsedFonts.contains(fontIter.current()->scName()))
+			if (m_Doc->UsedFonts.contains(fontIter.current()->scName()))
 				row->setPixmap(1, okIcon);
 
 			if (type == Foi::OTF)

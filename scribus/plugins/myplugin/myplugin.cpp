@@ -58,11 +58,11 @@ void MyPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool MyPlugin::run(QString target)
+bool MyPlugin::run(ScribusDoc* doc, QString target)
 {
 	MyPluginImpl *myPluginImpl = new MyPluginImpl();
 	Q_CHECK_PTR(myPluginImpl);
-	bool result = myPluginImpl->run(target);
+	bool result = myPluginImpl->run(target, doc);
 	delete myPluginImpl;
 	return result;
 }

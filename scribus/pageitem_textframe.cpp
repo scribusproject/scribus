@@ -3751,7 +3751,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				itemText.insertChars(CPos, QString(QChar(conv)));
 				CPos += 1;
 				Tinput = true;
-				ScMW->setTBvals(this);
+				m_Doc->scMW()->setTBvals(this);
 				view->RefreshItem(this);
 				keyRepeat = false;
 				return;
@@ -3811,7 +3811,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			ExpandSel(-1, oldPos);
 		if ( this->itemText.lengthOfSelection() > 0 )
 			view->RefreshItem(this);
-		ScMW->setTBvals(this);
+		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Key_End:
 		// go to end of line
@@ -3865,7 +3865,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			ExpandSel(1, oldPos);
 		if ( this->itemText.lengthOfSelection() > 0 )
 			view->RefreshItem(this);
-		ScMW->setTBvals(this);
+		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Key_Down:
 		if (buttonState & ControlButton)
@@ -3963,7 +3963,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		if ( this->itemText.lengthOfSelection() > 0 )
 			view->RefreshItem(this);
-		ScMW->setTBvals(this);
+		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Key_Up:
 		if (buttonState & ControlButton)
@@ -4055,19 +4055,19 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		if ( this->itemText.lengthOfSelection() > 0 )
 			view->RefreshItem(this);
-		ScMW->setTBvals(this);
+		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Key_Prior:
 		CPos = firstInFrame();
 		if ( buttonState & ShiftButton )
 			ExpandSel(-1, oldPos);
-		ScMW->setTBvals(this);
+		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Key_Next:
 		CPos = lastInFrame();
 		if ( buttonState & ShiftButton )
 			ExpandSel(1, oldPos);
-		ScMW->setTBvals(this);
+		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Key_Left:
 		if ( buttonState & ControlButton )
@@ -4123,7 +4123,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		if ( itemText.lengthOfSelection() > 0 )
 			view->RefreshItem(this);
-		ScMW->setTBvals(this);
+		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Key_Right:
 		if ( buttonState & ControlButton )
@@ -4161,7 +4161,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		if ( itemText.lengthOfSelection() > 0 )
 			view->RefreshItem(this);
-		ScMW->setTBvals(this);
+		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Key_Delete:
 		if (CPos == itemText.length())
@@ -4169,7 +4169,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if (itemText.lengthOfSelection() > 0)
 			{
 				deleteSelectedTextFromFrame();
-				ScMW->setTBvals(this);
+				m_Doc->scMW()->setTBvals(this);
 				view->RefreshItem(this);
 			}
 			keyRepeat = false;
@@ -4190,7 +4190,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(QMAX(CPos-1,0))));
 			Tinput = false;
 		}
-		ScMW->setTBvals(this);
+		m_Doc->scMW()->setTBvals(this);
 		view->RefreshItem(this);
 		break;
 	case Key_Backspace:
@@ -4199,7 +4199,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if (itemText.lengthOfSelection() > 0)
 			{
 				deleteSelectedTextFromFrame();
-				ScMW->setTBvals(this);
+				m_Doc->scMW()->setTBvals(this);
 				view->RefreshItem(this);
 			}
 			break;
@@ -4219,7 +4219,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(QMAX(CPos-1,0))));
 			Tinput = false;
 		}
-		ScMW->setTBvals(this);
+		m_Doc->scMW()->setTBvals(this);
 		view->RefreshItem(this);
 		break;
 	default:
@@ -4284,7 +4284,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame()
 		HasSel = false;
 	}
 	m_Doc->updateFrameItems();
-	ScMW->DisableTxEdit();
+	m_Doc->scMW()->DisableTxEdit();
 }
 
 
@@ -4414,7 +4414,7 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 			itemText.deselectAll();
 			HasSel = false;
 			//CB Replace with direct call for now //emit HasNoTextSel();
-			ScMW->DisableTxEdit();
+			m_Doc->scMW()->DisableTxEdit();
 		}
 		else if ( !selMode )
 		{
@@ -4429,7 +4429,7 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 	{
 		HasSel = true;
 		//CB Replace with direct call for now //emit HasTextSel();
-		ScMW->EnableTxEdit();
+		m_Doc->scMW()->EnableTxEdit();
 		leftSel = true;
 		rightSel = true;
 	}
@@ -4452,7 +4452,7 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 	itemText.select(start, end-start, sel);
 	if ( ! sel )
 		//CB Replace with direct call for now //emit  HasNoTextSel();
-		ScMW->DisableTxEdit();
+		m_Doc->scMW()->DisableTxEdit();
 	view->RefreshItem(this);
 }
 
@@ -4473,7 +4473,7 @@ void PageItem_TextFrame::deselectAll()
 		item = item->NextBox;
 	}
 	//CB Replace with direct call for now //emit HasNoTextSel();
-	ScMW->DisableTxEdit();
+	m_Doc->scMW()->DisableTxEdit();
 }
 
 double PageItem_TextFrame::columnWidth()

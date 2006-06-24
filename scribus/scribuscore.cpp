@@ -109,7 +109,7 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, const QString newG
 		return(EXIT_FAILURE);
 	ScMWList.append(scribus);
 	m_currScMW=0;
-	ScMW=scribus;
+//	ScMW=scribus;
 	int retVal=initScribusCore(showSplash, showFontInfo, newGuiLanguage, prefsUserFile);
 	if (retVal == 1)
 		return(EXIT_FAILURE);
@@ -506,4 +506,12 @@ ScribusMainWindow * ScribusCore::primaryMainWindow( )
 	if (!mw)
 		return 0;
 	return mw;
+}
+
+
+bool ScribusCore::fileWatcherActive() const
+{
+	if (fileWatcher!=NULL)
+		return fileWatcher->isActive();
+	return false;
 }

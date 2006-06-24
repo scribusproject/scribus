@@ -32,9 +32,10 @@ for which a new license (GPL+exception) is in place.
 QMap<QString, QKeySequence> ActionManager::defKeys;
 QValueVector< QPair<QString, QStringList> > ActionManager::defMenus;
 
-ActionManager::ActionManager ( QObject * parent, const char * name ) : QObject ( parent, name )
+ActionManager::ActionManager ( QObject * parent, const char * name ) : 
+	QObject ( parent, name ),
+	mainWindow(0)
 {
-	mainWindow=0;
 }
 
 void ActionManager::init(ScribusMainWindow *mw)

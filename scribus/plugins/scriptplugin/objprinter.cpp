@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 #include "pslib.h"
 #include "gsutil.h"
+#include "scribuscore.h"
 #include "util.h"
 
 #ifdef HAVE_CUPS
@@ -61,7 +62,7 @@ static void Printer_dealloc(Printer* self)
 static PyObject * Printer_new(PyTypeObject *type, PyObject */*args*/, PyObject */*kwds*/)
 {
 // do not create new object if there is no opened document
-	if (!ScMW->HaveDoc) {
+	if (!ScCore->primaryMainWindow()->HaveDoc) {
 		PyErr_SetString(PyExc_SystemError, "Need to open document first");
 		return NULL;
 	}
@@ -182,9 +183,9 @@ static int Printer_init(Printer *self, PyObject */*args*/, PyObject */*kwds*/)
 		self->printer = printer;
 	}
 // set defaul name of file to print into
-	QString tf = ScMW->doc->PDF_Options.Datei;
+	QString tf = ScCore->primaryMainWindow()->doc->PDF_Options.Datei;
 	if (tf.isEmpty()) {
-		QFileInfo fi = QFileInfo(ScMW->doc->DocName);
+		QFileInfo fi = QFileInfo(ScCore->primaryMainWindow()->doc->DocName);
 		tf = fi.dirPath()+"/"+fi.baseName()+".pdf";
 	}
 	PyObject *file = NULL;
@@ -207,10 +208,10 @@ static int Printer_init(Printer *self, PyObject */*args*/, PyObject */*kwds*/)
 // set to print all pages
 	PyObject *pages = NULL;
 	int num = 0;
-	if (ScMW->HaveDoc)
+	if (ScCore->primaryMainWindow()->HaveDoc)
 		// which one should I use ???
-		// new = ScMW->view->Pages.count()
-		num = ScMW->doc->Pages->count();
+		// new = ScCore->primaryMainWindow()->view->Pages.count()
+		num = ScCore->primaryMainWindow()->doc->Pages->count();
 	pages = PyList_New(num);
 	if (pages){
 		Py_DECREF(self->pages);
@@ -369,7 +370,7 @@ static int Printer_setpages(Printer *self, PyObject *value, void */*closure*/)
 			PyErr_SetString(PyExc_TypeError, "'pages' attribute must be list containing only integers.");
 			return -1;
 		}
-		if (PyInt_AsLong(tmp) > static_cast<int>(ScMW->doc->Pages->count()) || PyInt_AsLong(tmp) < 1) {
+		if (PyInt_AsLong(tmp) > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count()) || PyInt_AsLong(tmp) < 1) {
 			PyErr_SetString(PyExc_ValueError, "'pages' value out of range.");
 			return -1;
 		}
@@ -416,7 +417,7 @@ static PyGetSetDef Printer_getseters [] = {
 // Here we actually print
 static PyObject *Printer_print(Printer *self)
 {
-	if (!ScMW->HaveDoc) {
+	if (!ScCore->primaryMainWindow()->HaveDoc) {
 		PyErr_SetString(PyExc_SystemError, "Need to open documetnt first");
 		return NULL;
 	}
@@ -427,7 +428,7 @@ static PyObject *Printer_print(Printer *self)
 	bool fil, sep, color, PSfile, mirrorH, mirrorV, useICC, DoGCR;
 	PSfile = false;
 
-//    ReOrderText(ScMW->doc, ScMW->view);
+//    ReOrderText(ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow()->view);
 	prn = QString(PyString_AsString(self->printer));
 	fna = QString(PyString_AsString(self->file));
 	fil = (QString(PyString_AsString(self->printer)) == QString("File")) ? true : false;
@@ -454,25 +455,25 @@ static PyObject *Printer_print(Printer *self)
 	printcomm = QString(PyString_AsString(self->cmd));
 	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
 	ReallyUsed.clear();
-	ScMW->doc->getUsedFonts(ReallyUsed);
+	ScCore->primaryMainWindow()->doc->getUsedFonts(ReallyUsed);
 	PrefsManager *prefsManager=PrefsManager::instance();
-	PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, ScMW->doc->PageColors, false, true);
+	PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, ScCore->primaryMainWindow()->doc->PageColors, false, true);
 	if (dd != NULL)
 	{
 		if (!fil)
-			fna = ScMW->PrefsPfad+"/tmp.ps";
+			fna = ScCore->primaryMainWindow()->PrefsPfad+"/tmp.ps";
 		PSfile = dd->PS_set_file(fna);
 		fna = QDir::convertSeparators(fna);
 		if (PSfile)
 		{
 			QStringList spots;
-			dd->CreatePS(ScMW->doc, /*ScMW->view, */pageNs, sep, SepName, spots, color, mirrorH, mirrorV, useICC, DoGCR, false, false);
+			dd->CreatePS(ScCore->primaryMainWindow()->doc, /*ScCore->primaryMainWindow()->view, */pageNs, sep, SepName, spots, color, mirrorH, mirrorV, useICC, DoGCR, false, false);
 			if (PSLevel != 3)
 			{
 				QString tmp;
 				QStringList opts;
-				opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(ScMW->doc->pageWidth)) );
-				opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(ScMW->doc->pageHeight)) );
+				opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(ScCore->primaryMainWindow()->doc->pageWidth)) );
+				opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(ScCore->primaryMainWindow()->doc->pageHeight)) );
 				convertPS2PS(fna, fna+".tmp", opts, PSLevel);
 				moveFile( fna + ".tmp", fna );
 			}

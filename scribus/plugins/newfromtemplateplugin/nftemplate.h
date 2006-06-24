@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scplugin.h"
 
 class ScrAction;
+class ScribusDoc;
 
 class PLUGIN_API NewFromTemplatePlugin : public ScActionPlugin
 {
@@ -21,7 +22,7 @@ class PLUGIN_API NewFromTemplatePlugin : public ScActionPlugin
 		NewFromTemplatePlugin();
 		virtual ~NewFromTemplatePlugin();
 		//! \brief main method
-		virtual bool run(QString target = QString::null);
+		virtual bool run(ScribusDoc* doc, QString target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
@@ -40,11 +41,11 @@ class MenuNFT : public QObject
 	Q_OBJECT
 
 public:
-	MenuNFT(QWidget* /*parent*/) {};
+	MenuNFT() {};
     ~MenuNFT() {};
 
 public slots:
-	void RunNFTPlug();
+	void RunNFTPlug(ScribusDoc*);
 };
 
 static MenuNFT* Nft;

@@ -22,7 +22,8 @@ for which a new license (GPL+exception) is in place.
 #include <qiconset.h>
 #include "scraction.h"
 #include "scraction.moc"
-
+#include "scribus.h"
+#include "scribusdoc.h"
 
 ScrAction::ScrAction( QObject * parent, const char * name ) : QAction( parent, name )
 {
@@ -86,8 +87,8 @@ void ScrAction::initScrAction()
 {
 	_actionType=ScrAction::Normal;
 	menuIndex=-1;
-	widgetAddedTo=NULL;
-	containerWidgetAddedTo=NULL;
+	widgetAddedTo=0;
+	containerWidgetAddedTo=0;
 	savedKeySequence=QKeySequence("");
 	shortcutSaved=false;
 	fakeToggle=false;
@@ -127,6 +128,8 @@ void ScrAction::activatedToActivatedData()
 		activatedUnicodeShortcut(name(), _dataInt);
 	if (_actionType==ScrAction::Layer)
 		emit activatedData(layerID);
+	if (_actionType==ScrAction::ActionDLL)
+		emit activatedData(((ScribusMainWindow*)parent())->doc);
 }
 
 void ScrAction::toggledToToggledData(bool ison)

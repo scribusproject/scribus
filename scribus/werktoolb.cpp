@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap loadIcon(QString nam);
 
 
-ModeToolBar::ModeToolBar(QMainWindow* parent) : ScToolBar(tr("Tools"), "Tools", parent, QDockWindow::Vertical)
+ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar(tr("Tools"), "Tools", parent, QDockWindow::Vertical)
 {
 	SubMode = 0;
 	ValCount = 32;
@@ -46,48 +46,48 @@ ModeToolBar::ModeToolBar(QMainWindow* parent) : ScToolBar(tr("Tools"), "Tools", 
 									100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 0.0, 100.0, 0.0, 100.0,
 									0.0, 100.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0};
 	ShapeVals = AutoShapes0;
-
-	ScMW->scrActions["toolsSelect"]->addTo(this);
-	ScMW->scrActions["toolsInsertTextFrame"]->addTo(this);
-	ScMW->scrActions["toolsInsertImageFrame"]->addTo(this);
-	ScMW->scrActions["toolsInsertTableFrame"]->addTo(this);
+	m_ScMW=parent;
+	m_ScMW->scrActions["toolsSelect"]->addTo(this);
+	m_ScMW->scrActions["toolsInsertTextFrame"]->addTo(this);
+	m_ScMW->scrActions["toolsInsertImageFrame"]->addTo(this);
+	m_ScMW->scrActions["toolsInsertTableFrame"]->addTo(this);
 	
-	ScMW->scrActions["toolsInsertShape"]->addTo(this);
-	ScMW->scrMenuMgr->createMenu("insertShapeButtonMenu", "insertShapeButtonMenu");
-	insertShapeButtonMenu=ScMW->scrMenuMgr->getLocalPopupMenu("insertShapeButtonMenu");
-	ScMW->scrMenuMgr->addMenuToWidgetOfAction("insertShapeButtonMenu", ScMW->scrActions["toolsInsertShape"]);
+	m_ScMW->scrActions["toolsInsertShape"]->addTo(this);
+	m_ScMW->scrMenuMgr->createMenu("insertShapeButtonMenu", "insertShapeButtonMenu");
+	insertShapeButtonMenu=m_ScMW->scrMenuMgr->getLocalPopupMenu("insertShapeButtonMenu");
+	m_ScMW->scrMenuMgr->addMenuToWidgetOfAction("insertShapeButtonMenu", m_ScMW->scrActions["toolsInsertShape"]);
 	
-	QToolButton *insertShapeButton = dynamic_cast<QToolButton*>(ScMW->scrActions["toolsInsertShape"]->getWidgetAddedTo());
+	QToolButton *insertShapeButton = dynamic_cast<QToolButton*>(m_ScMW->scrActions["toolsInsertShape"]->getWidgetAddedTo());
 	if (insertShapeButton)
 		insertShapeButton->setPopupDelay(0);
 	Rechteck = new AutoformButtonGroup( NULL );
 	insertShapeButtonMenu->insertItem( Rechteck );
 	//QImage newShapeIcon = Rechteck->getIconPixmap(0).convertToImage();
 	//newShapeIcon.smoothScale(16,16);
-	ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(Rechteck->getIconPixmap(0,16),Rechteck->getIconPixmap(0)));
+	m_ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(Rechteck->getIconPixmap(0,16),Rechteck->getIconPixmap(0)));
 
-	ScMW->scrActions["toolsInsertPolygon"]->addTo(this);
-	ScMW->scrMenuMgr->createMenu("insertPolygonButtonMenu", "insertPolygonButtonMenu");
-	insertPolygonButtonMenu=ScMW->scrMenuMgr->getLocalPopupMenu("insertPolygonButtonMenu");
-	ScMW->scrMenuMgr->addMenuToWidgetOfAction("insertPolygonButtonMenu", ScMW->scrActions["toolsInsertPolygon"]);
+	m_ScMW->scrActions["toolsInsertPolygon"]->addTo(this);
+	m_ScMW->scrMenuMgr->createMenu("insertPolygonButtonMenu", "insertPolygonButtonMenu");
+	insertPolygonButtonMenu=m_ScMW->scrMenuMgr->getLocalPopupMenu("insertPolygonButtonMenu");
+	m_ScMW->scrMenuMgr->addMenuToWidgetOfAction("insertPolygonButtonMenu", m_ScMW->scrActions["toolsInsertPolygon"]);
 	idInsertPolygonButtonMenu=insertPolygonButtonMenu->insertItem( "Properties...", this, SLOT(GetPolyProps()));
 	
-	QToolButton *insertPolygonButton = dynamic_cast<QToolButton*>(ScMW->scrActions["toolsInsertPolygon"]->getWidgetAddedTo());
+	QToolButton *insertPolygonButton = dynamic_cast<QToolButton*>(m_ScMW->scrActions["toolsInsertPolygon"]->getWidgetAddedTo());
 	if (insertPolygonButton)
 		insertPolygonButton->setPopupDelay(0);
 	
-	ScMW->scrActions["toolsInsertLine"]->addTo(this);
-	ScMW->scrActions["toolsInsertBezier"]->addTo(this);
-	ScMW->scrActions["toolsInsertFreehandLine"]->addTo(this);
-	ScMW->scrActions["toolsRotate"]->addTo(this);
-	ScMW->scrActions["toolsZoom"]->addTo(this);
-	ScMW->scrActions["toolsEditContents"]->addTo(this);
-	ScMW->scrActions["toolsEditWithStoryEditor"]->addTo(this);
-	ScMW->scrActions["toolsLinkTextFrame"]->addTo(this);
-	ScMW->scrActions["toolsUnlinkTextFrame"]->addTo(this);
-	ScMW->scrActions["toolsMeasurements"]->addTo(this);
-	ScMW->scrActions["toolsCopyProperties"]->addTo(this);
-	ScMW->scrActions["toolsEyeDropper"]->addTo(this);
+	m_ScMW->scrActions["toolsInsertLine"]->addTo(this);
+	m_ScMW->scrActions["toolsInsertBezier"]->addTo(this);
+	m_ScMW->scrActions["toolsInsertFreehandLine"]->addTo(this);
+	m_ScMW->scrActions["toolsRotate"]->addTo(this);
+	m_ScMW->scrActions["toolsZoom"]->addTo(this);
+	m_ScMW->scrActions["toolsEditContents"]->addTo(this);
+	m_ScMW->scrActions["toolsEditWithStoryEditor"]->addTo(this);
+	m_ScMW->scrActions["toolsLinkTextFrame"]->addTo(this);
+	m_ScMW->scrActions["toolsUnlinkTextFrame"]->addTo(this);
+	m_ScMW->scrActions["toolsMeasurements"]->addTo(this);
+	m_ScMW->scrActions["toolsCopyProperties"]->addTo(this);
+	m_ScMW->scrActions["toolsEyeDropper"]->addTo(this);
 
 	languageChange();
 	connect(Rechteck, SIGNAL(FormSel(int, int, double *)), this, SLOT(SelShape(int, int, double *)));
@@ -95,9 +95,9 @@ ModeToolBar::ModeToolBar(QMainWindow* parent) : ScToolBar(tr("Tools"), "Tools", 
 
 void ModeToolBar::GetPolyProps()
 {
-	PolygonProps* dia = new PolygonProps(this, ScMW->doc->toolSettings.polyC, ScMW->doc->toolSettings.polyFd, ScMW->doc->toolSettings.polyF, ScMW->doc->toolSettings.polyS, ScMW->doc->toolSettings.polyR);
+	PolygonProps* dia = new PolygonProps(this, m_ScMW->doc->toolSettings.polyC, m_ScMW->doc->toolSettings.polyFd, m_ScMW->doc->toolSettings.polyF, m_ScMW->doc->toolSettings.polyS, m_ScMW->doc->toolSettings.polyR);
 	if (dia->exec())
-		dia->getValues(&ScMW->doc->toolSettings.polyC, &ScMW->doc->toolSettings.polyFd, &ScMW->doc->toolSettings.polyF, &ScMW->doc->toolSettings.polyS, &ScMW->doc->toolSettings.polyR);
+		dia->getValues(&m_ScMW->doc->toolSettings.polyC, &m_ScMW->doc->toolSettings.polyFd, &m_ScMW->doc->toolSettings.polyF, &m_ScMW->doc->toolSettings.polyS, &m_ScMW->doc->toolSettings.polyR);
 	delete dia;
 }
 
@@ -106,13 +106,13 @@ void ModeToolBar::SelShape(int s, int c, double *vals)
 	//const QPixmap* newIcon = Rechteck->find(s)->pixmap();
 	//QImage newShapeIcon = Rechteck->find(s)->pixmap()->convertToImage();
 	//newShapeIcon.smoothScale(16,16);
-	//ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(newShapeIcon, *newIcon));
-	ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(Rechteck->getIconPixmap(s,16),Rechteck->getIconPixmap(s)));
+	//m_ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(newShapeIcon, *newIcon));
+	m_ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(Rechteck->getIconPixmap(s,16),Rechteck->getIconPixmap(s)));
 	insertShapeButtonMenu->hide();
 	SubMode = s;
 	ValCount = c;
 	ShapeVals = vals;
-	ScMW->scrActions["toolsInsertShape"]->setOn(true);
+	m_ScMW->scrActions["toolsInsertShape"]->setOn(true);
 }
 
 void ModeToolBar::languageChange()
@@ -122,13 +122,13 @@ void ModeToolBar::languageChange()
 }
 
 
-PDFToolBar::PDFToolBar(QMainWindow* parent) : ScToolBar( tr("PDF Tools"), "PDF_Tools", parent)
+PDFToolBar::PDFToolBar(ScribusMainWindow* parent) : ScToolBar( tr("PDF Tools"), "PDF_Tools", parent)
 {
-	ScMW->scrActions["toolsPDFPushButton"]->addTo(this);
-	ScMW->scrActions["toolsPDFTextField"]->addTo(this);
-	ScMW->scrActions["toolsPDFCheckBox"]->addTo(this);
-	ScMW->scrActions["toolsPDFComboBox"]->addTo(this);
-	ScMW->scrActions["toolsPDFListBox"]->addTo(this);
-	ScMW->scrActions["toolsPDFAnnotText"]->addTo(this);
-	ScMW->scrActions["toolsPDFAnnotLink"]->addTo(this);
+	parent->scrActions["toolsPDFPushButton"]->addTo(this);
+	parent->scrActions["toolsPDFTextField"]->addTo(this);
+	parent->scrActions["toolsPDFCheckBox"]->addTo(this);
+	parent->scrActions["toolsPDFComboBox"]->addTo(this);
+	parent->scrActions["toolsPDFListBox"]->addTo(this);
+	parent->scrActions["toolsPDFAnnotText"]->addTo(this);
+	parent->scrActions["toolsPDFAnnotLink"]->addTo(this);
 }

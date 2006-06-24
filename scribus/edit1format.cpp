@@ -38,7 +38,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<Paragraph
 	AutoVal = au;
 	DocsEin = dEin;
 
-	sampleItem = new SampleItem();
+	sampleItem = new SampleItem(doc);
 	sampleItem->setLoremIpsum(2);
 	sampleItem->cleanupTemporary();
 

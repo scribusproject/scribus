@@ -24,14 +24,13 @@ or documentation
 #include "scpaths.h"
 #include "version.h"
 
-#include "scribus.h"
+#include "langmgr.h"
 #include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include <qdir.h>
 #include <qstringlist.h>
 
-extern ScribusMainWindow SCRIBUS_API *ScMW;
 
 SWConfig::SWConfig()
 {
@@ -147,12 +146,14 @@ QString SWConfig::getLangFromCode(QString code)
 {
 	QMap<QString,QString>::Iterator it;
 	QString lang;
-
-	for (it = ScMW->Sprachen.begin(); it != ScMW->Sprachen.end(); ++it)
-	{
-		lang = getLangCodeFromHyph(it.data());
+	LanguageManager langmgr;
+	langmgr.init(false);
+// 	for (it = ScMW->Sprachen.begin(); it != ScMW->Sprachen.end(); ++it)
+// 	{
+		lang = langmgr.getAbbrevFromLang(it.data());
+// 		lang = getLangCodeFromHyph(it.data());
 		if (lang == code)
 			return it.key();
-	}
+// 	}
 	return code;
 }

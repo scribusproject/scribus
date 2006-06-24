@@ -115,7 +115,7 @@ PDFlib::PDFlib(ScribusDoc & docu)
 		KeyGen[a] = kg_array[a];
 	if (usingGUI)
 	{
-		progressDialog = new MultiProgressDialog(tr("Saving PDF"), CommonStrings::tr_Cancel, ScMW, "pdfexportprogress");
+		progressDialog = new MultiProgressDialog(tr("Saving PDF"), CommonStrings::tr_Cancel, doc.scMW(), "pdfexportprogress");
 		Q_CHECK_PTR(progressDialog);
 		QStringList barNames, barTexts;
 		barNames << "EMP" << "EP" << "ECPI";
@@ -149,7 +149,7 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components,
 	QMap<QString, QMap<uint, FPointArray> > usedFonts;
 	usedFonts.clear();
 	doc.getUsedFonts(usedFonts);
-	if (PDF_Begin_Doc(fn, PrefsManager::instance()->appPrefs.AvailFonts, usedFonts, ScMW->bookmarkPalette->BView))
+	if (PDF_Begin_Doc(fn, PrefsManager::instance()->appPrefs.AvailFonts, usedFonts, doc.scMW()->bookmarkPalette->BView))
 	{
 		QMap<int, int> pageNsMpa;
 		for (uint a = 0; a < pageNs.size(); ++a)
@@ -4288,7 +4288,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 						}
 						if (!ite->Pfile2.isEmpty())
 						{
-							img.LoadPicture(ite->Pfile2, "", 0, false, false, ScImage::RGBData, 72);
+							CMSettings cms(ite->doc(), "");
+							img.LoadPicture(ite->Pfile2, cms, 0, false, false, ScImage::RGBData, 72);
 							QByteArray im;
 							im = img3.getAlpha(ite->Pfile2, true, false);
 							IconOb += !im.isEmpty() ? 3 : 2;
@@ -4297,7 +4298,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 						}
 						if (!ite->Pfile3.isEmpty())
 						{
-							img2.LoadPicture(ite->Pfile3, "", 0, false, false, ScImage::RGBData, 72);
+							CMSettings cms(ite->doc(), "");
+							img2.LoadPicture(ite->Pfile3, cms, 0, false, false, ScImage::RGBData, 72);
 							QByteArray im;
 							im = img3.getAlpha(ite->Pfile3, true, false);
 							IconOb += !im.isEmpty() ? 3 : 2;
@@ -4751,20 +4753,21 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				afl = Options.Resolution;
 			if (ext == "pdf")
 			{
+				CMSettings cms(c->doc(), Profil);
 				if (Options.UseRGB)
-					img.LoadPicture(fn, Profil, Intent, Embedded, true, ScImage::RGBProof, afl);
+					img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBProof, afl);
 				else
 				{
 #ifdef HAVE_CMS
 					if ((CMSuse) && (Options.UseProfiles2))
-						img.LoadPicture(fn, Profil, Intent, Embedded, true, ScImage::RGBData, afl);
+						img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBData, afl);
 					else
 					{
 #endif
 						if (Options.isGrayscale)
-							img.LoadPicture(fn, Profil, Intent, Embedded, true, ScImage::RGBData, afl);
+							img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBData, afl);
 						else
-							img.LoadPicture(fn, Profil, Intent, Embedded, true, ScImage::CMYKData, afl);
+							img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::CMYKData, afl);
 #ifdef HAVE_CMS
 					}
 #endif
@@ -4805,20 +4808,21 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 					f.close();
 					if (found)
 					{
+						CMSettings cms(c->doc(), Profil);
 						if (Options.UseRGB)
-							img.LoadPicture(fn, Profil, Intent, Embedded, true, ScImage::RGBProof, afl);
+							img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBProof, afl);
 						else
 						{
 #ifdef HAVE_CMS
 							if ((CMSuse) && (Options.UseProfiles2))
-								img.LoadPicture(fn, Profil, Intent, Embedded, true, ScImage::RGBData, afl);
+								img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBData, afl);
 							else
 							{
 #endif
 								if (Options.isGrayscale)
-									img.LoadPicture(fn, Profil, Intent, Embedded, true, ScImage::RGBData, afl);
+									img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBData, afl);
 								else
-									img.LoadPicture(fn, Profil, Intent, Embedded, true, ScImage::CMYKData, afl);
+									img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::CMYKData, afl);
 #ifdef HAVE_CMS
 							}
 #endif
@@ -4840,20 +4844,21 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			img.imgInfo.layerInfo.clear();
 			img.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 			img.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
+			CMSettings cms(c->doc(), Profil);
 			if (Options.UseRGB)
-				img.LoadPicture(fn, Profil, Intent, Embedded, true, ScImage::RGBProof, 72, &realCMYK);
+				img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBProof, 72, &realCMYK);
 			else
 			{
 #ifdef HAVE_CMS
 				if ((CMSuse) && (Options.UseProfiles2))
-					img.LoadPicture(fn, Profil, Intent, Embedded, true, ScImage::RawData, 72, &realCMYK);
+					img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RawData, 72, &realCMYK);
 				else
 				{
 #endif
 					if (Options.isGrayscale)
-						img.LoadPicture(fn, Profil, Intent, Embedded, true, ScImage::RGBData, 72, &realCMYK);
+						img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBData, 72, &realCMYK);
 					else
-						img.LoadPicture(fn, Profil, Intent, Embedded, true, ScImage::CMYKData, 72, &realCMYK);
+						img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::CMYKData, 72, &realCMYK);
 #ifdef HAVE_CMS
 				}
 #endif
@@ -4964,7 +4969,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			else
 				imgE = true;
 		}
-		img.applyEffect(c->effectsInUse, c->document()->PageColors, imgE);
+		img.applyEffect(c->effectsInUse, c->doc()->PageColors, imgE);
 		if (!((Options.RecalcPic) && (Options.PicRes < (QMAX(72.0 / c->imageXScale(), 72.0 / c->imageYScale())))))
 		{
 			sxn = sx * (1.0 / aufl);

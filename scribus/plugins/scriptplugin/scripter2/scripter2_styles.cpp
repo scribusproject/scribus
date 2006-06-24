@@ -23,8 +23,8 @@ using namespace boost::python;
 
 ParagraphStyle & getStyleRef(const QString & styleName)
 {
-	QValueList<ParagraphStyle>::iterator it(ScMW->doc->docParagraphStyles.begin());
-	QValueList<ParagraphStyle>::iterator itEnd(ScMW->doc->docParagraphStyles.end());
+	QValueList<ParagraphStyle>::iterator it(ScCore->primaryMainWindow()->doc->docParagraphStyles.begin());
+	QValueList<ParagraphStyle>::iterator itEnd(ScCore->primaryMainWindow()->doc->docParagraphStyles.end());
 	for ( ; it != itEnd; ++it)
 	{
 		if ((*it).Vname == styleName)
@@ -35,7 +35,7 @@ ParagraphStyle & getStyleRef(const QString & styleName)
 
 ParagraphStyle & getStyleRefi(int index)
 {
-	return ScMW->doc->docParagraphStyles[index];
+	return ScCore->primaryMainWindow()->doc->docParagraphStyles[index];
 }
 
 ParagraphStyle getStyleVal(const QString & styleName)
@@ -50,14 +50,14 @@ ParagraphStyle getStyleVali(int index)
 
 void addStyle(const ParagraphStyle & style)
 {
-	QValueList<ParagraphStyle>::iterator it(ScMW->doc->docParagraphStyles.begin());
-	QValueList<ParagraphStyle>::iterator itEnd(ScMW->doc->docParagraphStyles.end());
+	QValueList<ParagraphStyle>::iterator it(ScCore->primaryMainWindow()->doc->docParagraphStyles.begin());
+	QValueList<ParagraphStyle>::iterator itEnd(ScCore->primaryMainWindow()->doc->docParagraphStyles.end());
 	for ( ; it != itEnd; ++it)
 	{
 		if ((*it).Vname == style.Vname)
 			throw "Style of same name already exists";
 	}
-	ScMW->doc->docParagraphStyles.append(style);
+	ScCore->primaryMainWindow()->doc->docParagraphStyles.append(style);
 }
 
 // This returns a COPY of the paragraph styles; modifications to this list do
@@ -67,8 +67,8 @@ void addStyle(const ParagraphStyle & style)
 dict getStylesVal()
 {
 	dict d;
-	QValueList<ParagraphStyle>::iterator it(ScMW->doc->docParagraphStyles.begin());
-	QValueList<ParagraphStyle>::iterator itEnd(ScMW->doc->docParagraphStyles.end());
+	QValueList<ParagraphStyle>::iterator it(ScCore->primaryMainWindow()->doc->docParagraphStyles.begin());
+	QValueList<ParagraphStyle>::iterator itEnd(ScCore->primaryMainWindow()->doc->docParagraphStyles.end());
 	for ( ; it != itEnd; ++it)
 		d[(*it).Vname] = *it;
 	return d;
@@ -77,8 +77,8 @@ dict getStylesVal()
 dict getStylesRef()
 {
 	dict d;
-	QValueList<ParagraphStyle>::iterator it(ScMW->doc->docParagraphStyles.begin());
-	QValueList<ParagraphStyle>::iterator itEnd(ScMW->doc->docParagraphStyles.end());
+	QValueList<ParagraphStyle>::iterator it(ScCore->primaryMainWindow()->doc->docParagraphStyles.begin());
+	QValueList<ParagraphStyle>::iterator itEnd(ScCore->primaryMainWindow()->doc->docParagraphStyles.end());
 	for ( ; it != itEnd; ++it)
 		d[(*it).Vname] = boost::ref(*it);
 	return d;
@@ -87,8 +87,8 @@ dict getStylesRef()
 list getStyleNames()
 {
 	list l;
-	QValueList<ParagraphStyle>::iterator it(ScMW->doc->docParagraphStyles.begin());
-	QValueList<ParagraphStyle>::iterator itEnd(ScMW->doc->docParagraphStyles.end());
+	QValueList<ParagraphStyle>::iterator it(ScCore->primaryMainWindow()->doc->docParagraphStyles.begin());
+	QValueList<ParagraphStyle>::iterator itEnd(ScCore->primaryMainWindow()->doc->docParagraphStyles.end());
 	for ( ; it != itEnd; ++it)
 		l.append((*it).Vname);
 	return l;

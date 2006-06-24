@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "selection.h"
 #include "util.h"
+#include "scribuscore.h"
 
 PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 {
@@ -219,9 +220,9 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 	PyMem_Free(Text);
 	currItem->itemText.clear();
 	currItem->CPos = 0;
-	for (uint a = 0; a < ScMW->doc->FrameItems.count(); ++a)
+	for (uint a = 0; a < ScCore->primaryMainWindow()->doc->FrameItems.count(); ++a)
 	{
-		ScMW->doc->FrameItems.at(a)->ItemNr = a;
+		ScCore->primaryMainWindow()->doc->FrameItems.at(a)->ItemNr = a;
 	}
 	currItem->itemText.insertChars(0, Daten);
 	currItem->Dirty = false;
@@ -258,7 +259,7 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 	it->itemText.insertChars(pos, Daten);
 	it->CPos = pos + Daten.length();
 	it->Dirty = true;
-	if (ScMW->doc->DoDrawing)
+	if (ScCore->primaryMainWindow()->doc->DoDrawing)
 	{
 		it->paintObj();
 		it->Dirty = false;
@@ -288,14 +289,14 @@ PyObject *scribus_setalign(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text alignment on a non-text frame.","python error"));
 		return NULL;
 	}
-	int Apm = ScMW->doc->appMode;
-	ScMW->doc->m_Selection->clear();
-	ScMW->doc->m_Selection->addItem(i);
+	int Apm = ScCore->primaryMainWindow()->doc->appMode;
+	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
 	if (i->HasSel)
-		ScMW->doc->appMode = modeEdit;
-	ScMW->setNewAlignment(alignment);
-	ScMW->doc->appMode = Apm;
-	ScMW->view->Deselect();
+		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
+	ScCore->primaryMainWindow()->setNewAlignment(alignment);
+	ScCore->primaryMainWindow()->doc->appMode = Apm;
+	ScCore->primaryMainWindow()->view->Deselect();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -322,14 +323,14 @@ PyObject *scribus_setfontsize(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set font size on a non-text frame.","python error"));
 		return NULL;
 	}
-	int Apm = ScMW->doc->appMode;
-	ScMW->doc->m_Selection->clear();
-	ScMW->doc->m_Selection->addItem(i);
+	int Apm = ScCore->primaryMainWindow()->doc->appMode;
+	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
 	if (i->HasSel)
-		ScMW->doc->appMode = modeEdit;
-	ScMW->doc->chFSize(qRound(size * 10.0));
-	ScMW->doc->appMode = Apm;
-	ScMW->view->Deselect();
+		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
+	ScCore->primaryMainWindow()->doc->chFSize(qRound(size * 10.0));
+	ScCore->primaryMainWindow()->doc->appMode = Apm;
+	ScCore->primaryMainWindow()->view->Deselect();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -352,14 +353,14 @@ PyObject *scribus_setfont(PyObject* /* self */, PyObject* args)
 	}
 	if (PrefsManager::instance()->appPrefs.AvailFonts.find(QString::fromUtf8(Font)))
 	{
-		int Apm = ScMW->doc->appMode;
-		ScMW->doc->m_Selection->clear();
-		ScMW->doc->m_Selection->addItem(i);
+		int Apm = ScCore->primaryMainWindow()->doc->appMode;
+		ScCore->primaryMainWindow()->doc->m_Selection->clear();
+		ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
 		if (i->HasSel)
-			ScMW->doc->appMode = modeEdit;
-		ScMW->SetNewFont(QString::fromUtf8(Font));
-		ScMW->doc->appMode = Apm;
-		ScMW->view->Deselect();
+			ScCore->primaryMainWindow()->doc->appMode = modeEdit;
+		ScCore->primaryMainWindow()->SetNewFont(QString::fromUtf8(Font));
+		ScCore->primaryMainWindow()->doc->appMode = Apm;
+		ScCore->primaryMainWindow()->view->Deselect();
 	}
 	else
 	{
@@ -519,9 +520,9 @@ PyObject *scribus_deletetext(PyObject* /* self */, PyObject* args)
 	{
 		it->itemText.clear();
 		it->CPos = 0;
-		for (uint a = 0; a < ScMW->doc->FrameItems.count(); ++a)
+		for (uint a = 0; a < ScCore->primaryMainWindow()->doc->FrameItems.count(); ++a)
 		{
-			ScMW->doc->FrameItems.at(a)->ItemNr = a;
+			ScCore->primaryMainWindow()->doc->FrameItems.at(a)->ItemNr = a;
 		}
 	}
 	Py_INCREF(Py_None);
@@ -681,9 +682,9 @@ PyObject *scribus_linktextframes(PyObject* /* self */, PyObject* args)
 	// references to the others boxes
 	fromitem->NextBox = toitem;
 	toitem->BackBox = fromitem;
-	ScMW->view->DrawNew();
+	ScCore->primaryMainWindow()->view->DrawNew();
 	// enable 'save icon' stuff
-	ScMW->slotDocCh();
+	ScCore->primaryMainWindow()->slotDocCh();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -729,10 +730,10 @@ PyObject *scribus_unlinktextframes(PyObject* /* self */, PyObject* args)
 */
 	item->BackBox->NextBox = 0;
 	item->BackBox = 0;
-	item->itemText = StoryText(item->document());
+	item->itemText = StoryText(item->doc());
 	// enable 'save icon' stuff
-	ScMW->slotDocCh();
-	ScMW->view->DrawNew();
+	ScCore->primaryMainWindow()->slotDocCh();
+	ScCore->primaryMainWindow()->view->DrawNew();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -758,9 +759,9 @@ PyObject *scribus_tracetext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot convert a non-text frame to outlines.","python error"));
 		return NULL;
 	}
-	ScMW->view->Deselect(true);
-	ScMW->view->SelectItemNr(item->ItemNr);
-	ScMW->view->TextToPath();
+	ScCore->primaryMainWindow()->view->Deselect(true);
+	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
+	ScCore->primaryMainWindow()->view->TextToPath();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -833,10 +834,10 @@ PyObject *scribus_setpdfbookmark(PyObject* /* self */, PyObject* args)
 	if (toggle)
 	{
 		i->setIsAnnotation(false);
-		ScMW->AddBookMark(i);
+		ScCore->primaryMainWindow()->AddBookMark(i);
 	}
 	else
-		ScMW->DelBookMark(i);
+		ScCore->primaryMainWindow()->DelBookMark(i);
 	i->isBookmark = toggle;
 	Py_INCREF(Py_None);
 	return Py_None;

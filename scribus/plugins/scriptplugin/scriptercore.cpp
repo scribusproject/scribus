@@ -143,6 +143,7 @@ void ScripterCore::buildRecentScriptsMenu()
 
 void ScripterCore::FinishScriptRun()
 {
+	ScribusMainWindow* ScMW=ScCore->primaryMainWindow();
 	if (ScMW->HaveDoc)
 	{
 		ScMW->propertiesPalette->setDoc(ScMW->doc);
@@ -150,7 +151,7 @@ void ScripterCore::FinishScriptRun()
 		ScMW->propertiesPalette->Spal->setFormats(ScMW->doc);
 		ScMW->propertiesPalette->SetLineFormats(ScMW->doc);
 		ScMW->propertiesPalette->updateColorList();
-		ScMW->layerPalette->setLayers(&ScMW->doc->Layers, ScMW->doc->activeLayer());
+		ScMW->layerPalette->setDoc(ScMW->doc);
 		ScMW->outlinePalette->setDoc(ScMW->doc);
 		ScMW->outlinePalette->BuildTree();
 		ScMW->pagePalette->setView(ScMW->view);
@@ -215,7 +216,7 @@ void ScripterCore::runScriptDialog()
 {
 	QString fileName;
 	QString curDirPath = QDir::currentDirPath();
-	RunScriptDialog dia( ScMW, m_enableExtPython );
+	RunScriptDialog dia( ScCore->primaryMainWindow(), m_enableExtPython );
 	if (dia.exec())
 	{
 		fileName = dia.selectedFile();
@@ -268,7 +269,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 	// Set up a sub-interpreter if needed:
 	if (!inMainInterpreter)
 	{
-		ScMW->ScriptRunning = true;
+		ScCore->primaryMainWindow()->ScriptRunning = true;
 		qApp->setOverrideCursor(QCursor(waitCursor), false);
 		// Create the sub-interpreter
 		// FIXME: This calls abort() in a Python debug build. We're doing something wrong.
@@ -277,7 +278,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		// Chdir to the dir the script is in
 		QDir::setCurrent(fi.dirPath(true));
 		// Init the scripter module in the sub-interpreter
-		initscribus(ScMW);
+		initscribus(ScCore->primaryMainWindow());
 	}
 	// Make sure sys.argv[0] is the path to the script
 	char* comm[2];
@@ -353,7 +354,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 				QClipboard *cp = QApplication::clipboard();
 				cp->setText(errorMsg);
 				ScCore->closeSplash();
-				QMessageBox::warning(ScMW,
+				QMessageBox::warning(ScCore->primaryMainWindow(),
 									tr("Script error"),
 									tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
 									+ "<pre>" +errorMsg + "</pre>"
@@ -369,18 +370,18 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		PyEval_RestoreThread(stateo);
 		qApp->restoreOverrideCursor();
 	}
-	ScMW->ScriptRunning = false;
+	ScCore->primaryMainWindow()->ScriptRunning = false;
 }
 
 void ScripterCore::slotRunScript(const QString Script)
 {
-	ScMW->ScriptRunning = true;
+	ScCore->primaryMainWindow()->ScriptRunning = true;
 	inValue = Script;
 	QString cm;
 	cm = "# -*- coding: utf8 -*- \n";
 	if (PyThreadState_Get() != NULL)
 	{
-		initscribus(ScMW);
+		initscribus(ScCore->primaryMainWindow());
 		/* HACK: following loop handles all input line by line.
 		It *should* use I.C. because of docstrings etc. I.I. cannot
 		handle docstrings right.
@@ -421,13 +422,13 @@ void ScripterCore::slotRunScript(const QString Script)
 		if (result == NULL)
 		{
 			PyErr_Print();
-			QMessageBox::warning(ScMW, tr("Script error"),
+			QMessageBox::warning(ScCore->primaryMainWindow(), tr("Script error"),
 					"<qt>" + tr("There was an internal error while trying the "
 					   "command you entered. Details were printed to "
 					   "stderr. ") + "</qt>");
 		}
 	}
-	ScMW->ScriptRunning = false;
+	ScCore->primaryMainWindow()->ScriptRunning = false;
 }
 
 void ScripterCore::slotInteractiveScript(bool visible)
@@ -497,7 +498,7 @@ void ScripterCore::SavePlugPrefs()
 
 void ScripterCore::aboutScript()
 {
-	QString fname = ScMW->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py);;All Files (*)"), "", 0, 0, 0, 0);
+	QString fname = ScCore->primaryMainWindow()->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py);;All Files (*)"), "", 0, 0, 0, 0);
 	if (fname == QString::null)
 		return;
 	QString html("<html><body>");
@@ -574,7 +575,7 @@ bool ScripterCore::setupMainInterpreter()
 	if (PyRun_SimpleString(cmd.data()))
 	{
 		PyErr_Print();
-		QMessageBox::warning(ScMW, tr("Script error"),
+		QMessageBox::warning(ScCore->primaryMainWindow(), tr("Script error"),
 				tr("Setting up the Python plugin failed. "
 				   "Error details were printed to stderr. "));
 		return false;

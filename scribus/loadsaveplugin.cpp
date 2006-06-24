@@ -13,6 +13,7 @@ LoadSavePlugin::LoadSavePlugin()
 	: ScPlugin(),
 	m_Doc(0),
 	m_View(0),
+	m_ScMW(0),
 	m_mwProgressBar(0),
 	m_AvailableFonts(0)
 {
@@ -192,10 +193,11 @@ LoadSavePlugin::findFormat(const QString& extension,
 }
 
 
-void LoadSavePlugin::setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts)
+void LoadSavePlugin::setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts)
 {
 	m_Doc=targetDoc;
 	m_View=targetView;
+	m_ScMW=targetMW;
 	m_mwProgressBar=targetMWPRogressBar;
 	m_AvailableFonts=targetAvailableFonts;
 }
@@ -239,10 +241,10 @@ bool FileFormat::saveFile(const QString & fileName) const
 	return (plug && save) ? plug->saveFile(fileName, *this) : false;
 }
 
-void FileFormat::setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const
+void FileFormat::setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const
 {
 	if (plug)
-		plug->setupTargets(targetDoc, targetView, targetMWPRogressBar, targetAvailableFonts);
+		plug->setupTargets(targetDoc, targetView, targetMW, targetMWPRogressBar, targetAvailableFonts);
 }
 
 void FileFormat::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QPtrList<Foi> &getDummyFois) const

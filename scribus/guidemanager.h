@@ -24,6 +24,8 @@ class QString;
 class QCheckBox;
 class QHButtonGroup;
 
+class ScribusDoc;
+
 
 /*! \brief Inherited QListViewItem provides double number values sorting.
 Guides lists contains double values in 1st (0) columns. Standard QListViewItem
@@ -64,6 +66,9 @@ public:
 	GuideManager(QWidget* parent);
 	~GuideManager(){};
 
+	/*! \brief Set the doc fo the guidemanager to work on. */
+	void GuideManager::setDoc(ScribusDoc* doc);
+
 	/*! \brief Set the widgets on the page change.
 	It has to be called on every page to page transition */
 	void setupPage();
@@ -88,6 +93,7 @@ public:
 	uint pageNr() const { return currentPage->pageNr(); }
 
 private:
+	ScribusDoc* m_Doc;
 	//! \brief a reference to the current pages
 	Page * currentPage;
 	//! \brief If there is a selection on the current page

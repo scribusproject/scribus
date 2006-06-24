@@ -27,9 +27,10 @@ for which a new license (GPL+exception) is in place.
 #include "svgexplugin.h"
 
 #include "scconfig.h"
+#include "cmsettings.h"
 #include "commonstrings.h"
 #include "customfdialog.h"
-#include "scribus.h"
+#include "scribuscore.h"
 #include "page.h"
 #ifdef HAVE_LIBZ
 #include <zlib.h>
@@ -107,21 +108,20 @@ void SVGExportPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool SVGExportPlugin::run(QString filename)
+bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 {
 	Q_ASSERT(filename.isEmpty());
 	QString fileName;
-
-	if (ScMW->HaveDoc)
+	if (doc!=0)
 	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("svgex");
 		QString wdir = prefs->get("wdir", ".");
 #ifdef HAVE_LIBZ
-		CustomFDialog *openDia = new CustomFDialog(ScMW, wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"), false, false, true, false, false);
+		CustomFDialog *openDia = new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"), false, false, true, false, false);
 #else
-		CustomFDialog *openDia = new CustomFDialog(ScMW, wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"), false, false, false, false, false);
+		CustomFDialog *openDia = new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"), false, false, false, false, false);
 #endif
-		openDia->setSelection(getFileNameByPage(ScMW->doc->currentPage()->pageNr(), "svg"));
+		openDia->setSelection(getFileNameByPage(doc, doc->currentPage()->pageNr(), "svg"));
 		openDia->setExtension("svg");
 		openDia->setZipExtension("svgz");
 		if (openDia->exec())
@@ -134,7 +134,7 @@ bool SVGExportPlugin::run(QString filename)
 			QFile f(fileName);
 			if (f.exists())
 			{
-				int exit=ScMessageBox::warning(ScMW, CommonStrings::trWarning,
+				int exit=ScMessageBox::warning(doc->scMW(), CommonStrings::trWarning,
 					QObject::tr("Do you really want to overwrite the File:\n%1 ?").arg(fileName),
 					QObject::tr("Yes"),
 					QObject::tr("No"),
@@ -142,7 +142,7 @@ bool SVGExportPlugin::run(QString filename)
 				if (exit != 0)
 					return true;
 			}
-			SVGExPlug *dia = new SVGExPlug(fileName);
+			SVGExPlug *dia = new SVGExPlug(doc, fileName);
 			delete dia;
 		}
 		else
@@ -151,51 +151,54 @@ bool SVGExportPlugin::run(QString filename)
 	return true;
 }
 
-SVGExPlug::SVGExPlug( QString fName )
+SVGExPlug::SVGExPlug( ScribusDoc* doc, QString fName )
 {
 #ifdef USECAIRO
 	Page *Seite;
-	Seite = ScMW->doc->currentPage();
+	m_Doc=doc;
+	m_View=m_Doc->view();
+	m_ScMW=m_Doc->scMW();
+	Seite = m_Doc->currentPage();
 	int clipx = static_cast<int>(Seite->xOffset());
 	int clipy = static_cast<int>(Seite->yOffset());
 	int clipw = qRound(Seite->width());
 	int cliph = qRound(Seite->height());
-	double sca = ScMW->view->scale();
-	double cx = ScMW->doc->minCanvasCoordinate.x();
-	double cy = ScMW->doc->minCanvasCoordinate.y();
-	ScMW->doc->minCanvasCoordinate = FPoint(0, 0);
-	bool frs = ScMW->doc->guidesSettings.framesShown;
-	ScMW->doc->guidesSettings.framesShown = false;
-	ScMW->view->setScale(1.0);
-	ScMW->view->previewMode = true;
+	double sca = m_View->scale();
+	double cx = m_Doc->minCanvasCoordinate.x();
+	double cy = m_Doc->minCanvasCoordinate.y();
+	m_Doc->minCanvasCoordinate = FPoint(0, 0);
+	bool frs = m_Doc->guidesSettings.framesShown;
+	m_Doc->guidesSettings.framesShown = false;
+	m_View->setScale(1.0);
+	m_View->previewMode = true;
 	ScPainter *painter = new ScPainter(fName, clipw, cliph, 1.0, 0);
-	painter->clear(ScMW->doc->papColor);
+	painter->clear(m_Doc->papColor);
 	painter->translate(-clipx, -clipy);
 	painter->setFillMode(ScPainter::Solid);
-	ScMW->view->DrawMasterItems(painter, Seite, QRect(clipx, clipy, clipw, cliph));
-	ScMW->view->DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
+	m_View->DrawMasterItems(painter, Seite, QRect(clipx, clipy, clipw, cliph));
+	m_View->DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 	painter->end();
-	ScMW->doc->guidesSettings.framesShown = frs;
-	ScMW->view->setScale(sca);
+	m_Doc->guidesSettings.framesShown = frs;
+	m_View->setScale(sca);
 	delete painter;
-	ScMW->view->previewMode = false;
-	ScMW->doc->minCanvasCoordinate = FPoint(cx, cy);
+	m_View->previewMode = false;
+	m_Doc->minCanvasCoordinate = FPoint(cx, cy);
 #else
 	QDomDocument docu("svgdoc");
 	QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	QString st = "<svg></svg>";
 	docu.setContent(st);
 	QDomElement elem = docu.documentElement();
-	elem.setAttribute("width", FToStr(ScMW->doc->pageWidth)+"pt");
-	elem.setAttribute("height", FToStr(ScMW->doc->pageHeight)+"pt");
+	elem.setAttribute("width", FToStr(m_Doc->pageWidth)+"pt");
+	elem.setAttribute("height", FToStr(m_Doc->pageHeight)+"pt");
 	elem.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 	elem.setAttribute("xmlns:xlink","http://www.w3.org/1999/xlink");
 	Page *Seite;
 	GradCount = 0;
 	ClipCount = 0;
-	Seite = ScMW->doc->MasterPages.at(ScMW->doc->MasterNames[ScMW->doc->currentPage()->MPageNam]);
+	Seite = m_Doc->MasterPages.at(m_Doc->MasterNames[m_Doc->currentPage()->MPageNam]);
 	ProcessPage(Seite, &docu, &elem);
-	Seite = ScMW->doc->currentPage();
+	Seite = m_Doc->currentPage();
 	ProcessPage(Seite, &docu, &elem);
 #ifdef HAVE_LIBZ
 	if(fName.right(2) == "gz")
@@ -248,15 +251,15 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 	gradi = "Grad";
 	Clipi = "Clip";
 	QPtrList<PageItem> Items;
-	Page* SavedAct = ScMW->doc->currentPage();
-	ScMW->doc->setCurrentPage(Seite);
+	Page* SavedAct = m_Doc->currentPage();
+	m_Doc->setCurrentPage(Seite);
 	if (Seite->pageName().isEmpty())
-		Items = ScMW->doc->DocItems;
+		Items = m_Doc->DocItems;
 	else
-		Items = ScMW->doc->MasterItems;
-	for (uint la = 0; la < ScMW->doc->Layers.count(); la++)
+		Items = m_Doc->MasterItems;
+	for (uint la = 0; la < m_Doc->Layers.count(); la++)
 		{
-		Level2Layer(ScMW->doc, &ll, Lnr);
+		Level2Layer(m_Doc, &ll, Lnr);
 		if (ll.isPrintable)
 			{
 			for(uint j = 0; j < Items.count(); ++j)
@@ -461,7 +464,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							ob.setAttribute("d", SetClipPath(Item)+"Z");
 							ob.setAttribute("style", fill);
 							gr.appendChild(ob);
-							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
+							multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
 								ob = docu->createElement("path");
@@ -493,8 +496,9 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							ob.appendChild(cl);
 							gr.appendChild(ob);
 							ScImage img;
-							img.LoadPicture(Item->Pfile, Item->IProfile, Item->IRender, Item->UseEmbedded, true, ScImage::RGBProof, 72);
-							img.applyEffect(Item->effectsInUse, Item->document()->PageColors, true);
+							CMSettings cms(m_Doc, Item->IProfile);
+							img.LoadPicture(Item->Pfile, cms, Item->IRender, Item->UseEmbedded, true, ScImage::RGBProof, 72);
+							img.applyEffect(Item->effectsInUse, m_Doc->PageColors, true);
 							QFileInfo fi = QFileInfo(Item->Pfile);
 							img.qImage().save(fi.baseName()+".png", "PNG");
 							ob = docu->createElement("image");
@@ -515,7 +519,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 						}
 						else
 						{
-							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
+							multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
 								ob = docu->createElement("path");
@@ -533,7 +537,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 						}
 						else
 						{
-							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
+							multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
 								ob = docu->createElement("path");
@@ -582,7 +586,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 						}
 						else
 						{
-							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
+							multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
 								ob = docu->createElement("path");
@@ -603,7 +607,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							}
 							else
 							{
-								multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
+								multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
 								for (int it = ml.size()-1; it > -1; it--)
 								{
 									ob = docu->createElement("path");
@@ -650,7 +654,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 		}
 		Lnr++;
 	}
-	ScMW->doc->setCurrentPage(SavedAct);
+	m_Doc->setCurrentPage(SavedAct);
 }
 
 QString SVGExPlug::SetClipPath(PageItem *ite)
@@ -739,12 +743,12 @@ void SVGExPlug::SetTextProps(QDomElement *tp, ScText *hl)
 	if ((hl->strokeColor() != CommonStrings::None) && (chst & 4))
 		{
 		tp->setAttribute("stroke", SetFarbe(hl->strokeColor(), hl->strokeShade()));
-		tp->setAttribute("stroke-width", FToStr((*ScMW->doc->AllFonts)[hl->font()->scName()]->strokeWidth() * (hl->fontSize() / 10.0))+"pt");
+		tp->setAttribute("stroke-width", FToStr((*m_Doc->AllFonts)[hl->font()->scName()]->strokeWidth() * (hl->fontSize() / 10.0))+"pt");
 		}
 	else
 		tp->setAttribute("stroke", "none");
 	tp->setAttribute("font-size", (hl->fontSize() / 10.0));
-	tp->setAttribute("font-family", (*ScMW->doc->AllFonts)[hl->font()->scName()]->family());
+	tp->setAttribute("font-family", (*m_Doc->AllFonts)[hl->font()->scName()]->family());
 	if (chst != 0)
 		{
 		if (chst & 64)
@@ -760,7 +764,7 @@ void SVGExPlug::SetTextProps(QDomElement *tp, ScText *hl)
 
 QString SVGExPlug::SetFarbe(QString farbe, int shad)
 {
-	return ScMW->doc->PageColors[farbe].getShadeColorProof(shad).name();
+	return m_Doc->PageColors[farbe].getShadeColorProof(shad).name();
 }
 
 QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)

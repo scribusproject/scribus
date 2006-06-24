@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "undostate.h"
 #include "guidemanager.h"
-#include "scribus.h"
+#include "scribuscore.h"
 
 
 GuideManagerCore::GuideManagerCore():
@@ -231,7 +231,7 @@ void GuideManagerCore::moveHorizontal(double from, double to, GuideType type)
 		case Standard:
 			horizontalStdG.remove(horizontalStdG.find(from));
 			horizontalStdG.append(to);
-			ScMW->guidePalette->clearRestoreHorizontalList();
+			ScCore->primaryMainWindow()->guidePalette->clearRestoreHorizontalList();
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState* ss = new SimpleState(Um::MoveVGuide, 0, Um::IGuides);
@@ -254,7 +254,7 @@ void GuideManagerCore::moveVertical(double from, double to, GuideType type)
 		case Standard:
 			verticalStdG.remove(verticalStdG.find(from));
 			verticalStdG.append(to);
-			ScMW->guidePalette->clearRestoreVerticalList();
+			ScCore->primaryMainWindow()->guidePalette->clearRestoreVerticalList();
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState* ss = new SimpleState(Um::MoveVGuide, 0, Um::IGuides);
@@ -308,21 +308,21 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 		if ((*it) >= 0 && (*it) <= m_page->height())
 			p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
 	// highlight selected standards
-	if (ScMW->guidePalette->tabWidget->currentPageIndex() == 0
-		   && m_page->pageNr() == ScMW->guidePalette->pageNr())
+	if (ScCore->primaryMainWindow()->guidePalette->tabWidget->currentPageIndex() == 0
+		   && m_page->pageNr() == ScCore->primaryMainWindow()->guidePalette->pageNr())
 	{
 		p->setPen(Qt::red, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
-		Guides highlight = ScMW->guidePalette->selectedVerticals();
+		Guides highlight = ScCore->primaryMainWindow()->guidePalette->selectedVerticals();
 		for (it = highlight.begin(); it != highlight.end(); ++it)
 			if ((*it) >= 0 && (*it) <= m_page->width())
 				p->drawLine(FPoint((*it), 0), FPoint((*it), m_page->height()));
-		highlight = ScMW->guidePalette->selectedHorizontals();
+		highlight = ScCore->primaryMainWindow()->guidePalette->selectedHorizontals();
 		for (it = highlight.begin(); it != highlight.end(); ++it)
 			if ((*it) >= 0 && (*it) <= m_page->height())
 				p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
 	}
 	// all auto
-	if (ScMW->guidePalette->tabWidget->currentPageIndex() == 1)
+	if (ScCore->primaryMainWindow()->guidePalette->tabWidget->currentPageIndex() == 1)
 		color = Qt::red;
 	else
 		color = doc->guidesSettings.guideColor;

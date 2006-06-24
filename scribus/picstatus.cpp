@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "pageitem.h"
 #include "filesearch.h"
-#include "scribus.h"
+#include "scribuscore.h"
 extern QPixmap loadIcon(QString nam);
 
 
@@ -228,7 +228,7 @@ void PicStatus::GotoPic()
 	QString pageText = PicTable->text(QString(sender()->name()).toInt(), 2);
 	bool ok = false;
 	int pageNum = pageText.toInt(&ok);
-	ScMW->closeActiveWindowMasterPageEditor();
+	ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
 	if (!ok)
 		emit selectMasterPage(pageText);
 	else

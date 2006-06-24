@@ -7,19 +7,20 @@ for which a new license (GPL+exception) is in place.
 #include "cmdpage.h"
 #include "cmdutil.h"
 #include "page.h"
+#include "scribuscore.h"
 
 PyObject *scribus_actualpage(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyInt_FromLong(static_cast<long>(ScMW->doc->currentPageNumber() + 1));
+	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->currentPageNumber() + 1));
 }
 
 PyObject *scribus_redraw(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	ScMW->view->DrawNew();
+	ScCore->primaryMainWindow()->view->DrawNew();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -31,7 +32,7 @@ PyObject *scribus_savepageeps(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	bool ret = ScMW->DoSaveAsEps(QString::fromUtf8(Name));
+	bool ret = ScCore->primaryMainWindow()->DoSaveAsEps(QString::fromUtf8(Name));
 	if (!ret)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to save EPS.","python error"));
@@ -49,12 +50,12 @@ PyObject *scribus_deletepage(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	e--;
-	if ((e < 0) || (e > static_cast<int>(ScMW->doc->Pages->count())-1))
+	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error"));
 		return NULL;
 	}
-	ScMW->DeletePage2(e);
+	ScCore->primaryMainWindow()->DeletePage2(e);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -67,12 +68,12 @@ PyObject *scribus_gotopage(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	e--;
-	if ((e < 0) || (e > static_cast<int>(ScMW->doc->Pages->count())-1))
+	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error"));
 		return NULL;
 	}
-	ScMW->view->GotoPage(e);
+	ScCore->primaryMainWindow()->view->GotoPage(e);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -85,22 +86,22 @@ PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (!ScMW->doc->MasterNames.contains(name))
+	if (!ScCore->primaryMainWindow()->doc->MasterNames.contains(name))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Given master page name does not match any existing.","python error"));
 		return NULL;
 	}
 	if (e < 0)
-		ScMW->slotNewPageP(ScMW->doc->Pages->count(), QString::fromUtf8(name));
+		ScCore->primaryMainWindow()->slotNewPageP(ScCore->primaryMainWindow()->doc->Pages->count(), QString::fromUtf8(name));
 	else
 	{
 		e--;
-		if ((e < 0) || (e > static_cast<int>(ScMW->doc->Pages->count())-1))
+		if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
 		{
 			PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error"));
 			return NULL;
 		}
-		ScMW->slotNewPageP(e, QString::fromUtf8(name));
+		ScCore->primaryMainWindow()->slotNewPageP(e, QString::fromUtf8(name));
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -110,7 +111,7 @@ PyObject *scribus_pagecount(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyInt_FromLong(static_cast<long>(ScMW->doc->Pages->count()));
+	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->Pages->count()));
 }
 
 PyObject *scribus_pagedimension(PyObject* /* self */)
@@ -120,8 +121,8 @@ PyObject *scribus_pagedimension(PyObject* /* self */)
 	PyObject *t;
 	t = Py_BuildValue(
 			"(dd)",
-			PointToValue(ScMW->doc->pageWidth), // it's just view scale... * ScMW->doc->Scale),
-			PointToValue(ScMW->doc->pageHeight)  // * ScMW->doc->Scale)
+			PointToValue(ScCore->primaryMainWindow()->doc->pageWidth), // it's just view scale... * ScCore->primaryMainWindow()->doc->Scale),
+			PointToValue(ScCore->primaryMainWindow()->doc->pageHeight)  // * ScCore->primaryMainWindow()->doc->Scale)
 		);
 	return t;
 }
@@ -130,26 +131,26 @@ PyObject *scribus_getpageitems(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	if (ScMW->doc->Items->count() == 0)
+	if (ScCore->primaryMainWindow()->doc->Items->count() == 0)
 		return Py_BuildValue((char*)"[]");
 	uint counter = 0;
-	uint pageNr = ScMW->doc->currentPageNumber();
-	for (uint lam2 = 0; lam2 < ScMW->doc->Items->count(); ++lam2)
+	uint pageNr = ScCore->primaryMainWindow()->doc->currentPageNumber();
+	for (uint lam2 = 0; lam2 < ScCore->primaryMainWindow()->doc->Items->count(); ++lam2)
 	{
-		if (pageNr == ScMW->doc->Items->at(lam2)->OwnPage)
+		if (pageNr == ScCore->primaryMainWindow()->doc->Items->at(lam2)->OwnPage)
 			counter++;
 	}
 	PyObject *l = PyList_New(counter);
 	PyObject *row;
 	counter = 0;
-	for (uint i = 0; i<ScMW->doc->Items->count(); ++i)
+	for (uint i = 0; i<ScCore->primaryMainWindow()->doc->Items->count(); ++i)
 	{
-		if (pageNr == ScMW->doc->Items->at(i)->OwnPage)
+		if (pageNr == ScCore->primaryMainWindow()->doc->Items->at(i)->OwnPage)
 		{
 			row = Py_BuildValue((char*)"(sii)",
-			                    ScMW->doc->Items->at(i)->itemName().ascii(),
-			                    ScMW->doc->Items->at(i)->itemType(),
-			                    ScMW->doc->Items->at(i)->ItemNr
+			                    ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().ascii(),
+			                    ScCore->primaryMainWindow()->doc->Items->at(i)->itemType(),
+			                    ScCore->primaryMainWindow()->doc->Items->at(i)->ItemNr
 			                   );
 			PyList_SetItem(l, counter, row);
 			counter++;
@@ -162,8 +163,8 @@ PyObject *scribus_getHguides(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	Guides g = ScMW->doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
-	int n = g.count();//ScMW->doc->currentPage->YGuides.count();
+	Guides g = ScCore->primaryMainWindow()->doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
+	int n = g.count();//ScCore->primaryMainWindow()->doc->currentPage->YGuides.count();
 	if (n == 0)
 		return Py_BuildValue((char*)"[]");
 	int i;
@@ -194,7 +195,7 @@ PyObject *scribus_setHguides(PyObject* /* self */, PyObject* args)
 	int i, n;
 	n = PyList_Size(l);
 	double guide;
-	ScMW->doc->currentPage()->guides.clearHorizontals(GuideManagerCore::Standard);
+	ScCore->primaryMainWindow()->doc->currentPage()->guides.clearHorizontals(GuideManagerCore::Standard);
 	for (i=0; i<n; i++)
 	{
 		if (!PyArg_Parse(PyList_GetItem(l, i), "d", &guide))
@@ -202,7 +203,7 @@ PyObject *scribus_setHguides(PyObject* /* self */, PyObject* args)
 			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains non-numeric values: must be list of float values.","python error"));
 			return NULL;
 		}
-		ScMW->doc->currentPage()->guides.addHorizontal(ValueToPoint(guide), GuideManagerCore::Standard);
+		ScCore->primaryMainWindow()->doc->currentPage()->guides.addHorizontal(ValueToPoint(guide), GuideManagerCore::Standard);
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -212,8 +213,8 @@ PyObject *scribus_getVguides(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	Guides g = ScMW->doc->currentPage()->guides.verticals(GuideManagerCore::Standard);
-	int n = g.count();//ScMW->doc->currentPage->XGuides.count();
+	Guides g = ScCore->primaryMainWindow()->doc->currentPage()->guides.verticals(GuideManagerCore::Standard);
+	int n = g.count();//ScCore->primaryMainWindow()->doc->currentPage->XGuides.count();
 	if (n == 0)
 		return Py_BuildValue((char*)"[]");
 	int i;
@@ -244,7 +245,7 @@ PyObject *scribus_setVguides(PyObject* /* self */, PyObject* args)
 	int i, n;
 	n = PyList_Size(l);
 	double guide;
-	ScMW->doc->currentPage()->guides.clearVerticals(GuideManagerCore::Standard);
+	ScCore->primaryMainWindow()->doc->currentPage()->guides.clearVerticals(GuideManagerCore::Standard);
 	for (i=0; i<n; i++)
 	{
 		if (!PyArg_Parse(PyList_GetItem(l, i), "d", &guide))
@@ -252,7 +253,7 @@ PyObject *scribus_setVguides(PyObject* /* self */, PyObject* args)
 			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains no-numeric values: must be list of float values.","python error"));
 			return NULL;
 		}
-		ScMW->doc->currentPage()->guides.addVertical(ValueToPoint(guide), GuideManagerCore::Standard);
+		ScCore->primaryMainWindow()->doc->currentPage()->guides.addVertical(ValueToPoint(guide), GuideManagerCore::Standard);
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -263,9 +264,9 @@ PyObject *scribus_getpagemargins(PyObject* /* self */)
 	PyObject *margins = NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	margins = Py_BuildValue("ffff", PointToValue(ScMW->doc->pageMargins.Top),
-									PointToValue(ScMW->doc->pageMargins.Left),
-									PointToValue(ScMW->doc->pageMargins.Right),
-									PointToValue(ScMW->doc->pageMargins.Bottom));
+	margins = Py_BuildValue("ffff", PointToValue(ScCore->primaryMainWindow()->doc->pageMargins.Top),
+									PointToValue(ScCore->primaryMainWindow()->doc->pageMargins.Left),
+									PointToValue(ScCore->primaryMainWindow()->doc->pageMargins.Right),
+									PointToValue(ScCore->primaryMainWindow()->doc->pageMargins.Bottom));
 	return margins;
 }

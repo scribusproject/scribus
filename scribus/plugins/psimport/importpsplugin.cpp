@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "importpsplugin.h"
 #include "importpsplugin.moc"
 #include "importps.h"
-#include "scribus.h"
+#include "scribuscore.h"
 #include "page.h"
 #include "prefsmanager.h"
 #include "prefscontext.h"
@@ -48,7 +48,7 @@ void ImportPSPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
 {
 	importAction->setEnabled(true);
 	connect( importAction, SIGNAL(activated()), SLOT(import()) );
-	ScMW->scrMenuMgr->addMenuItem(importAction, "FileImport");
+	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
 }
 
 void ImportPSPlugin::languageChange()
@@ -139,7 +139,7 @@ bool ImportPSPlugin::import(QString fileName, int flags)
 		QString wdir = prefs->get("wdir", ".");
 		QString formats = QObject::tr("All Supported Formats (*.eps *.EPS *.ps *.PS);;");
 		formats += "EPS (*.eps *.EPS);;PS (*.ps *.PS);;" + QObject::tr("All Files (*)");
-		CustomFDialog diaf(ScMW, wdir, QObject::tr("Open"), formats);
+		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), formats);
 		if (diaf.exec())
 		{
 			fileName = diaf.selectedFile();
@@ -148,16 +148,17 @@ bool ImportPSPlugin::import(QString fileName, int flags)
 		else
 			return true;
 	}
-	if (UndoManager::undoEnabled() && ScMW->HaveDoc)
+	m_Doc=ScCore->primaryMainWindow()->doc;
+	if (UndoManager::undoEnabled() && m_Doc)
 	{
-		UndoManager::instance()->beginTransaction(ScMW->doc->currentPage()->getUName(),
+		UndoManager::instance()->beginTransaction(m_Doc->currentPage()->getUName(),
 												Um::IImageFrame,
 												Um::ImportEPS,
 												fileName, Um::IEPS);
 	}
-	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
+	else if (UndoManager::undoEnabled() && !m_Doc)
 		UndoManager::instance()->setUndoEnabled(false);
-	EPSPlug *dia = new EPSPlug(fileName, flags);
+	EPSPlug *dia = new EPSPlug(m_Doc, fileName, flags);
 	Q_CHECK_PTR(dia);
 	if (UndoManager::undoEnabled())
 		UndoManager::instance()->commit();

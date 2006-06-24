@@ -37,8 +37,9 @@ for which a new license (GPL+exception) is in place.
 
 extern SCRIBUS_API ScribusQApp * ScQApp;
 
-EPSPlug::EPSPlug(QString fName, int flags, bool showProgress)
+EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 {
+	m_Doc=doc;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	cancel = false;
 	double x, y, b, h, c, m, k;
@@ -51,8 +52,10 @@ EPSPlug::EPSPlug(QString fName, int flags, bool showProgress)
 		interactive = false;
 		showProgress = false;
 	}
-	if ( showProgress ) {
-		progressDialog = new MultiProgressDialog(tr("Importing PostScript"), CommonStrings::tr_Cancel, ScMW, "psexportprogress");
+	if ( showProgress ) 
+	{
+		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		progressDialog = new MultiProgressDialog(tr("Importing PostScript"), CommonStrings::tr_Cancel, mw, "psexportprogress");
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing PostScript:");
@@ -151,86 +154,84 @@ EPSPlug::EPSPlug(QString fName, int flags, bool showProgress)
 	}
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
-		ScMW->doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
-		ScMW->doc->addPage(0);
-		ScMW->view->addPage(0, true);
+		m_Doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
+		m_Doc->addPage(0);
+		m_Doc->view()->addPage(0, true);
 	}
 	else
 	{
-		if (!ScMW->HaveDoc || (flags & LoadSavePlugin::lfCreateDoc))
+		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			ScMW->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
-			ScMW->HaveNewDoc();
+			m_Doc=ScCore->primaryMainWindow()->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
+			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
 		}
 	}
 	if ((ret) || (!interactive))
 	{
 		if (b-x > h-y)
-			ScMW->doc->PageOri = 1;
+			m_Doc->PageOri = 1;
 		else
-			ScMW->doc->PageOri = 0;
-		ScMW->doc->PageSize = "Custom";
+			m_Doc->PageOri = 0;
+		m_Doc->PageSize = "Custom";
 	}
 	ColorList::Iterator it;
-	ScribusDoc* Doku = ScMW->doc;
 	for (it = CustColors.begin(); it != CustColors.end(); ++it)
 	{
-		if (!Doku->PageColors.contains(it.key()))
-			Doku->PageColors.insert(it.key(), it.data());
+		if (!m_Doc->PageColors.contains(it.key()))
+			m_Doc->PageColors.insert(it.key(), it.data());
 	}
 	Elements.clear();
-	FPoint minSize = Doku->minCanvasCoordinate;
-	FPoint maxSize = Doku->maxCanvasCoordinate;
-	Doku->setLoading(true);
-	Doku->DoDrawing = false;
-	ScMW->view->setUpdatesEnabled(false);
-	ScMW->ScriptRunning = true;
+	FPoint minSize = m_Doc->minCanvasCoordinate;
+	FPoint maxSize = m_Doc->maxCanvasCoordinate;
+	m_Doc->setLoading(true);
+	m_Doc->DoDrawing = false;
+	m_Doc->view()->setUpdatesEnabled(false);
+	m_Doc->scMW()->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	QString CurDirP = QDir::currentDirPath();
 	QDir::setCurrent(fi.dirPath());
 	if (convert(fName, x, y, b, h))
 	{
-		Doku->m_Selection->clear();
+		m_Doc->m_Selection->clear();
 		QDir::setCurrent(CurDirP);
 		if ((Elements.count() > 1) && (interactive))
 		{
 			for (uint a = 0; a < Elements.count(); ++a)
 			{
-				Elements.at(a)->Groups.push(Doku->GroupCounter);
+				Elements.at(a)->Groups.push(m_Doc->GroupCounter);
 			}
-			Doku->GroupCounter++;
+			m_Doc->GroupCounter++;
 		}
-		Doku->DoDrawing = true;
-		ScMW->view->setUpdatesEnabled(true);
-		ScMW->ScriptRunning = false;
-		Doku->setLoading(false);
+		m_Doc->DoDrawing = true;
+		m_Doc->view()->setUpdatesEnabled(true);
+		m_Doc->scMW()->ScriptRunning = false;
+		m_Doc->setLoading(false);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 		if ((Elements.count() > 0) && (!ret) && (interactive))
 		{
-			Doku->DragP = true;
-			Doku->DraggedElem = 0;
-			Doku->DragElements.clear();
+			m_Doc->DragP = true;
+			m_Doc->DraggedElem = 0;
+			m_Doc->DragElements.clear();
 			for (uint dre=0; dre<Elements.count(); ++dre)
 			{
-				Doku->DragElements.append(Elements.at(dre)->ItemNr);
-				Doku->m_Selection->addItem(Elements.at(dre));
+				m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
+				m_Doc->m_Selection->addItem(Elements.at(dre));
 			}
-			ScMW->view->setGroupRect();
+			m_Doc->view()->setGroupRect();
 			ScriXmlDoc *ss = new ScriXmlDoc();
-			//QDragObject *dr = new QTextDrag(ss->WriteElem(&ScMW->view->SelItem, Doku, ScMW->view), ScMW->view->viewport());
-			QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScMW->view, Doku->m_Selection),ScMW->view->viewport());
+			QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), m_Doc->m_Selection),m_Doc->view()->viewport());
 #ifndef QT_MAC
 // see #2196
-			Doku->itemSelection_DeleteItem();
+			m_Doc->itemSelection_DeleteItem();
 #else
 			qDebug("psimport: leaving items on page");
 #endif
-			ScMW->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScMW->view->scale()), qRound((maxSize.y() - minSize.y()) * ScMW->view->scale()));
-			ScMW->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * ScMW->view->scale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * ScMW->view->scale()));
-			Doku->minCanvasCoordinate = minSize;
-			Doku->maxCanvasCoordinate = maxSize;
-			ScMW->view->updateContents();
+			m_Doc->view()->resizeContents(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()));
+			m_Doc->view()->scrollBy(qRound((m_Doc->minCanvasCoordinate.x() - minSize.x()) * m_Doc->view()->scale()), qRound((m_Doc->minCanvasCoordinate.y() - minSize.y()) * m_Doc->view()->scale()));
+			m_Doc->minCanvasCoordinate = minSize;
+			m_Doc->maxCanvasCoordinate = maxSize;
+			m_Doc->view()->updateContents();
 			dr->setPixmap(loadIcon("DragPix.xpm"));
 #if 0
 			qDebug("psimport: data");
@@ -244,29 +245,28 @@ EPSPlug::EPSPlug(QString fName, int flags, bool showProgress)
 			if (!dr->drag())
 				qDebug("psimport: couldn't start dragging!");
 			delete ss;
-			Doku->DragP = false;
-			Doku->DraggedElem = 0;
-			Doku->DragElements.clear();
+			m_Doc->DragP = false;
+			m_Doc->DraggedElem = 0;
+			m_Doc->DragElements.clear();
 		}
 		else
 		{
-			Doku->setModified(false);
-			ScMW->slotDocCh();
+			m_Doc->changed();
 		}
 	}
 	else
 	{
 		QDir::setCurrent(CurDirP);
-		Doku->DoDrawing = true;
-		ScMW->view->setUpdatesEnabled(true);
-		ScMW->ScriptRunning = false;
+		m_Doc->DoDrawing = true;
+		m_Doc->view()->setUpdatesEnabled(true);
+		m_Doc->scMW()->ScriptRunning = false;
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	if (interactive)
-		Doku->setLoading(false);
+		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (showProgress)
-		ScMW->view->DrawNew();
+		m_Doc->view()->DrawNew();
 }
 
 bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
@@ -314,7 +314,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( tmp.setNum(-y) );
 	args.append( "translate" );
 	args.append( QString("-sTraceFile=%1").arg(QDir::convertSeparators(tmpFile)) );
-	QString exportPath = ScMW->doc->DocName + "-" + fi.baseName();
+	QString exportPath = m_Doc->DocName + "-" + fi.baseName();
 	QFileInfo exportFi(exportPath);
 	if ( !exportFi.isWritable() ) {
 		PrefsContext* docContext = PrefsManager::instance()->prefsFile->getContext("docdirs", false);
@@ -409,8 +409,8 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			params = tmp.section(' ', 1, -1, QString::SectionIncludeTrailingSep);
 			if (lasttoken == "sp"  && !eps && token != "sp" ) //av: messes up anyway: && (!interactive))
 			{
-				ScMW->doc->addPage(pagecount);
-				ScMW->view->addPage(pagecount, true);
+				m_Doc->addPage(pagecount);
+				m_Doc->view()->addPage(pagecount, true);
 				pagecount++;
 			}
 			if (token == "n")
@@ -454,12 +454,12 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					else
 					{
 						if (ClosedPath)
-							z = ScMW->doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, CommonStrings::None, true);
+							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, CommonStrings::None, true);
 						else
-							z = ScMW->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, CommonStrings::None, true);
-						ite = ScMW->doc->Items->at(z);
+							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, CommonStrings::None, true);
+						ite = m_Doc->Items->at(z);
 						ite->PoLine = Coords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
-						ite->PoLine.translate(ScMW->doc->currentPage()->xOffset(), ScMW->doc->currentPage()->yOffset());
+						ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
 						ite->fillRule = (fillRuleEvenOdd);
@@ -467,7 +467,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->setWidthHeight(wh.x(),wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setFillTransparency(1.0 - Opacity);
-						ScMW->view->AdjustItemSize(ite);
+						m_Doc->view()->AdjustItemSize(ite);
 						Elements.append(ite);
 					}
 					lastPath = currPath;
@@ -492,14 +492,13 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					}
 					else
 					{
-						ScribusDoc* Doku = ScMW->doc;
 						if (ClosedPath)
-							z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, CommonStrings::None, CurrColor, true);
+							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, CommonStrings::None, CurrColor, true);
 						else
-							z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CommonStrings::None, CurrColor, true);
-						ite = Doku->Items->at(z);
+							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CommonStrings::None, CurrColor, true);
+						ite = m_Doc->Items->at(z);
 						ite->PoLine = Coords.copy(); //FIXME: try to avoid copy when FPointArray is properly shared
-						ite->PoLine.translate(Doku->currentPage()->xOffset(), Doku->currentPage()->yOffset());
+						ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
 						ite->PLineEnd = CapStyle;
@@ -510,7 +509,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->setWidthHeight(wh.x(), wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setLineTransparency(1.0 - Opacity);
-						ScMW->view->AdjustItemSize(ite);
+						m_Doc->view()->AdjustItemSize(ite);
 						Elements.append(ite);
 					}
 					lastPath = currPath;
@@ -683,9 +682,9 @@ bool EPSPlug::Image(QString vals)
 		}
 	}
 	QFile::remove(rawfile);
-	int z = ScMW->doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, w, h, LineW, CommonStrings::None, CurrColor, true);
-	PageItem * ite = ScMW->doc->Items->at(z);
-	ite->setXYPos(ScMW->doc->currentPage()->xOffset() + x, ScMW->doc->currentPage()->yOffset() + y);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, w, h, LineW, CommonStrings::None, CurrColor, true);
+	PageItem * ite = m_Doc->Items->at(z);
+	ite->setXYPos(m_Doc->currentPage()->xOffset() + x, m_Doc->currentPage()->yOffset() + y);
 	ite->setWidthHeight(w, h);
 	ite->clearContents();
 /*	FPoint a(x, y);
@@ -697,14 +696,14 @@ bool EPSPlug::Image(QString vals)
 	ite->PoLine.addQuadPoint(b, b, c, c);
 	ite->PoLine.addQuadPoint(c, c, d, d);
 	ite->PoLine.addQuadPoint(d, d, a, a);
-	ite->PoLine.translate(ScMW->doc->currentPage->xOffset() - x, ScMW->doc->currentPage->yOffset() - y);
+	ite->PoLine.translate(m_Doc->currentPage->xOffset() - x, m_Doc->currentPage->yOffset() - y);
 	ite->ClipEdited = true;
 	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 */
-	ScMW->doc->loadPict(filename, ite, -1);
+	m_Doc->loadPict(filename, ite, -1);
 	ite->setRotation(angle);
 	ite->setImageScalingMode(false, true); // fit to frame, keep ratio
-//	ScMW->view->AdjustItemSize(ite);
+//	m_Doc->view()->AdjustItemSize(ite);
 	Elements.append(ite);
 	return ret == 0;
 }
@@ -754,7 +753,6 @@ void EPSPlug::Curve(FPointArray *i, QString vals)
 
 QString EPSPlug::parseColor(QString vals, colorModel model)
 {
-	ScribusDoc* Doku = ScMW->doc;
 	QString ret = CommonStrings::None;
 	if (vals.isEmpty())
 		return ret;
@@ -774,12 +772,12 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 		int Bc = static_cast<int>(b * 255 + 0.5);
 		int hR, hG, hB;
 		tmp.setColorRGB(Rc, Gc, Bc);
-		for (it = Doku->PageColors.begin(); it != Doku->PageColors.end(); ++it)
+		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 		{
-			Doku->PageColors[it.key()].getRGB(&hR, &hG, &hB);
+			m_Doc->PageColors[it.key()].getRGB(&hR, &hG, &hB);
 			if ((Rc == hR) && (Gc == hG) && (Bc == hB))
 			{
-				if (Doku->PageColors[it.key()].getColorModel() == colorModelRGB)
+				if (m_Doc->PageColors[it.key()].getColorModel() == colorModelRGB)
 				{
 					ret = it.key();
 					found = true;
@@ -800,12 +798,12 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 		int Kc = static_cast<int>(k * 255 + 0.5);
 		int hC, hM, hY, hK;
 		tmp.setColor(Cc, Mc, Yc, Kc);
-		for (it = Doku->PageColors.begin(); it != Doku->PageColors.end(); ++it)
+		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 		{
-			Doku->PageColors[it.key()].getCMYK(&hC, &hM, &hY, &hK);
+			m_Doc->PageColors[it.key()].getCMYK(&hC, &hM, &hY, &hK);
 			if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
 			{
-				if (Doku->PageColors[it.key()].getColorModel() == colorModelCMYK)
+				if (m_Doc->PageColors[it.key()].getColorModel() == colorModelCMYK)
 				{
 					ret = it.key();
 					found = true;
@@ -815,8 +813,8 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 	}
 	if (!found)
 	{
-		Doku->PageColors.insert("FromEPS"+tmp.name(), tmp);
-		ScMW->propertiesPalette->updateColorList();
+		m_Doc->PageColors.insert("FromEPS"+tmp.name(), tmp);
+		m_Doc->scMW()->propertiesPalette->updateColorList();
 		ret = "FromEPS"+tmp.name();
 	}
 	return ret;

@@ -291,33 +291,33 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	if (!state)
 		return;
 	PageItem *ite = state->getItem();
-	bool oldMPMode=ScMW->doc->masterPageMode();
-	ScMW->doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
+	bool oldMPMode=m_Doc->masterPageMode();
+	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
 	if (isUndo)
 	{
-		if (ScMW->doc->m_Selection->findItem(ite)!=-1)
+		if (m_Doc->m_Selection->findItem(ite)!=-1)
 		{
-			if (ScMW->doc->appMode == modeEdit)
-				ScMW->setAppMode(modeNormal);
-			ScMW->doc->m_Selection->removeItem(ite);
+			if (m_Doc->appMode == modeEdit)
+				m_Doc->scMW()->setAppMode(modeNormal);
+			m_Doc->m_Selection->removeItem(ite);
 		}
-		Selection tempSelection(ScMW->doc, false);
+		Selection tempSelection(m_Doc, false);
 		tempSelection.addItem(ite);
-		ScMW->doc->itemSelection_DeleteItem(&tempSelection);
+		m_Doc->itemSelection_DeleteItem(&tempSelection);
 		/*
-		ScMW->doc->m_Selection->clear();
-		ScMW->doc->m_Selection->addItem(ite, true);
-		ScMW->doc->itemSelection_DeleteItem();
-		ScMW->doc->m_Selection->clear();
+		m_Doc->m_Selection->clear();
+		m_Doc->m_Selection->addItem(ite, true);
+		m_Doc->itemSelection_DeleteItem();
+		m_Doc->m_Selection->clear();
 		*/
 	}
 	else
 	{
-		ScMW->doc->Items->append(ite);
-		ite->ItemNr = ScMW->doc->Items->count()-1;
-		ScMW->view->updateContents();
+		m_Doc->Items->append(ite);
+		ite->ItemNr = m_Doc->Items->count()-1;
+		m_Doc->view()->updateContents();
 	}
-	ScMW->doc->setMasterPageMode(oldMPMode);
+	m_Doc->setMasterPageMode(oldMPMode);
 }
 
 void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
@@ -325,33 +325,33 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 	if (!state)
 		return;
 	PageItem *ite = state->getItem();
-	bool oldMPMode=ScMW->doc->masterPageMode();
-	ScMW->doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
+	bool oldMPMode=m_Doc->masterPageMode();
+	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
 	if (isUndo)
 	{
-		ScMW->doc->Items->append(ite);
-		ite->ItemNr = ScMW->doc->Items->count()-1;
-		ScMW->view->updateContents();
+		m_Doc->Items->append(ite);
+		ite->ItemNr = m_Doc->Items->count()-1;
+		m_Doc->view()->updateContents();
 	}
 	else
 	{
-		if (ScMW->doc->m_Selection->findItem(ite)!=-1)
+		if (m_Doc->m_Selection->findItem(ite)!=-1)
 		{
-			if (ScMW->doc->appMode == modeEdit)
-				ScMW->setAppMode(modeNormal);
-			ScMW->doc->m_Selection->removeItem(ite);
+			if (m_Doc->appMode == modeEdit)
+				m_Doc->scMW()->setAppMode(modeNormal);
+			m_Doc->m_Selection->removeItem(ite);
 		}
-		Selection tempSelection(ScMW->doc, false);
+		Selection tempSelection(m_Doc, false);
 		tempSelection.addItem(ite);
-		ScMW->doc->itemSelection_DeleteItem(&tempSelection);
+		m_Doc->itemSelection_DeleteItem(&tempSelection);
 		/*
-		ScMW->doc->m_Selection->clear();
-		ScMW->doc->m_Selection->addItem(ite, true);
-		ScMW->doc->itemSelection_DeleteItem();
-		ScMW->doc->m_Selection->clear();
+		m_Doc->m_Selection->clear();
+		m_Doc->m_Selection->addItem(ite, true);
+		m_Doc->itemSelection_DeleteItem();
+		m_Doc->m_Selection->clear();
 		*/
 	}
-	ScMW->doc->setMasterPageMode(oldMPMode);
+	m_Doc->setMasterPageMode(oldMPMode);
 }
 
 void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >*state, bool isUndo)
@@ -361,23 +361,23 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 
 	PageItem *oldItem=state->getItem().first;
 	PageItem *newItem=state->getItem().second;
-	bool oldMPMode=ScMW->doc->masterPageMode();
-	ScMW->doc->setMasterPageMode(!oldItem->OnMasterPage.isEmpty());
+	bool oldMPMode=m_Doc->masterPageMode();
+	m_Doc->setMasterPageMode(!oldItem->OnMasterPage.isEmpty());
 	if (isUndo)
 	{
-		ScMW->doc->Items->take(newItem->ItemNr);
-		ScMW->doc->Items->append(oldItem);
-		oldItem->ItemNr = ScMW->doc->Items->count()-1;
+		m_Doc->Items->take(newItem->ItemNr);
+		m_Doc->Items->append(oldItem);
+		oldItem->ItemNr = m_Doc->Items->count()-1;
 		oldItem->updatePolyClip();
-		ScMW->view->AdjustItemSize(oldItem);
+		m_Doc->view()->AdjustItemSize(oldItem);
 	}
 	else
 	{
-		ScMW->doc->Items->take(oldItem->ItemNr);
-		ScMW->doc->Items->append(newItem);
-		newItem->ItemNr = ScMW->doc->Items->count()-1;
+		m_Doc->Items->take(oldItem->ItemNr);
+		m_Doc->Items->append(newItem);
+		newItem->ItemNr = m_Doc->Items->count()-1;
 	}
-	ScMW->doc->setMasterPageMode(oldMPMode);
+	m_Doc->setMasterPageMode(oldMPMode);
 }
 
 void Page::setXOffset(const double newCanvasXOffset)

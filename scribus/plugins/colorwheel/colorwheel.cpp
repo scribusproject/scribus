@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "cwdialog.h"
 #include <qcursor.h>
 #include <qlistview.h>
-#include "scribus.h"
+#include "scribuscore.h"
 
 int colorwheel_getPluginAPIVersion()
 {
@@ -79,10 +79,13 @@ void ColorWheelPlugin::deleteAboutData(const AboutData* about) const
 }
 
 /** Create dialog. Everything else is handled in separated classes. */
-bool ColorWheelPlugin::run(QString target)
+bool ColorWheelPlugin::run(ScribusDoc* doc, QString target)
 {
 	Q_ASSERT(target.isNull());
-	ColorWheelDialog *dlg = new ColorWheelDialog(ScMW, "dlg", true, 0);
+	ScribusDoc* currDoc=doc;
+	if (currDoc==0)
+		currDoc=ScCore->primaryMainWindow()->doc;
+	ColorWheelDialog *dlg = new ColorWheelDialog(currDoc, currDoc->scMW(), "dlg", true, 0);
 	if (dlg)
 	{
 		dlg->exec();

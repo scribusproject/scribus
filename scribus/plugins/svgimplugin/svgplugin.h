@@ -171,7 +171,7 @@ public:
 	\param fName QString
 	\param isInteractive flag to use GUI
 	 */
-	SVGPlug(QString fname, int flags);
+	SVGPlug(ScribusMainWindow *mw, QString fname, int flags);
 	~SVGPlug();
 	void convert(int flags);
 	void addGraphicContext();
@@ -197,7 +197,6 @@ public:
 	FPoint GetMinClipO(FPointArray Clip);
 	QPtrList<PageItem> parseText(double x, double y, const QDomElement &e);
 
-	ScribusDoc* currDoc;
 	QDomDocument inpdoc;
 	double CurrX, CurrY, StartX, StartY, Conversion;
 	int PathLen;
@@ -213,6 +212,7 @@ public:
 	bool interactive;
 	//! \brief Indicator if there is any unsupported feature in imported svg.
 	bool unsupported;
+	ScribusDoc* m_Doc;
 };
 
 #endif

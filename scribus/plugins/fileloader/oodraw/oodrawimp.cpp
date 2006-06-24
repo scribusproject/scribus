@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
-#include "scribus.h"
+#include "scribuscore.h"
 #include "scribusdoc.h"
 #include "pageitem.h"
 #include "fpointarray.h"
@@ -166,7 +166,7 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("OODrawImport");
 		QString wdir = prefs->get("wdir", ".");
-		CustomFDialog diaf(ScMW, wdir, QObject::tr("Open"), QObject::tr("OpenOffice.org Draw (*.sxd *.odg);;All Files (*)"));
+		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), QObject::tr("OpenOffice.org Draw (*.sxd *.odg);;All Files (*)"));
 		if (diaf.exec())
 		{
 			fileName = diaf.selectedFile();
@@ -175,16 +175,17 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 		else
 			return true;
 	}
-	if (UndoManager::undoEnabled() && ScMW->HaveDoc)
+	m_Doc=ScCore->primaryMainWindow()->doc;
+	if (UndoManager::undoEnabled() && m_Doc)
 	{
-		UndoManager::instance()->beginTransaction(ScMW->doc->currentPage()->getUName(),
+		UndoManager::instance()->beginTransaction(m_Doc->currentPage()->getUName(),
 													Um::IImageFrame,
 													Um::ImportOOoDraw,
 													fileName, Um::IImportOOoDraw);
 	}
-	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
+	else if (UndoManager::undoEnabled() && !m_Doc)
 		UndoManager::instance()->setUndoEnabled(false);
-	OODPlug dia;
+	OODPlug dia(m_Doc);
 	bool importDone = dia.import(fileName, flags);
 	if (UndoManager::undoEnabled())
 		UndoManager::instance()->commit();
@@ -193,10 +194,10 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 	return importDone;
 }
 
-OODPlug::OODPlug()
+OODPlug::OODPlug(ScribusDoc* doc)
 {
+	m_Doc=doc;
 	interactive = false;
-	Doku = NULL;
 }
 
 bool OODPlug::import( QString fileName, int flags )
@@ -275,7 +276,7 @@ bool OODPlug::convert(int flags)
 		drawPage = offDraw.namedItem( "draw:page" );
 		if (drawPage.isNull())
 		{
-			QMessageBox::warning( ScMW, CommonStrings::trWarning, tr("This document does not seem to be an OpenOffice Draw file.") );
+			QMessageBox::warning( m_Doc->scMW(), CommonStrings::trWarning, tr("This document does not seem to be an OpenOffice Draw file.") );
 			return false;
 		}
 		else
@@ -305,44 +306,44 @@ bool OODPlug::convert(int flags)
 	double width = !properties.attribute( "fo:page-width" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-width" ) ) : 550.0;
 	double height = !properties.attribute( "fo:page-height" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-height" ) ) : 841.0;
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
-		ScMW->doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
+		m_Doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
 	else
 	{
-		if (!ScMW->HaveDoc || (flags & LoadSavePlugin::lfCreateDoc))
+		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			ScMW->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
-			ScMW->HaveNewDoc();
+			m_Doc=ScCore->primaryMainWindow()->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
+			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
 		}
 	}
 	if ((ret) || (!interactive))
 	{
 		if (width > height)
-			ScMW->doc->PageOri = 1;
+			m_Doc->PageOri = 1;
 		else
-			ScMW->doc->PageOri = 0;
-		ScMW->doc->PageSize = "Custom";
+			m_Doc->PageOri = 0;
+		m_Doc->PageSize = "Custom";
 		QDomNode mpg;
 		QDomElement metaElem = inpMeta.documentElement();
 		QDomElement mp = metaElem.namedItem( "office:meta" ).toElement();
 		mpg = mp.namedItem( "dc:title" );
 		if (!mpg.isNull())
-			ScMW->doc->documentInfo.setTitle(QString::fromUtf8(mpg.toElement().text()));
+			m_Doc->documentInfo.setTitle(QString::fromUtf8(mpg.toElement().text()));
 		mpg = mp.namedItem( "meta:initial-creator" );
 		if (!mpg.isNull())
-			ScMW->doc->documentInfo.setAuthor(QString::fromUtf8(mpg.toElement().text()));
+			m_Doc->documentInfo.setAuthor(QString::fromUtf8(mpg.toElement().text()));
 		mpg = mp.namedItem( "dc:description" );
 		if (!mpg.isNull())
-			ScMW->doc->documentInfo.setComments(QString::fromUtf8(mpg.toElement().text()));
+			m_Doc->documentInfo.setComments(QString::fromUtf8(mpg.toElement().text()));
 		mpg = mp.namedItem( "dc:language" );
 		if (!mpg.isNull())
-			ScMW->doc->documentInfo.setLangInfo(QString::fromUtf8(mpg.toElement().text()));
+			m_Doc->documentInfo.setLangInfo(QString::fromUtf8(mpg.toElement().text()));
 		mpg = mp.namedItem( "meta:creation-date" );
 		if (!mpg.isNull())
-			ScMW->doc->documentInfo.setDate(QString::fromUtf8(mpg.toElement().text()));
+			m_Doc->documentInfo.setDate(QString::fromUtf8(mpg.toElement().text()));
 		mpg = mp.namedItem( "dc:creator" );
 		if (!mpg.isNull())
-			ScMW->doc->documentInfo.setContrib(QString::fromUtf8(mpg.toElement().text()));
+			m_Doc->documentInfo.setContrib(QString::fromUtf8(mpg.toElement().text()));
 		mpg = mp.namedItem( "meta:keywords" );
 		if (!mpg.isNull())
 		{
@@ -352,82 +353,80 @@ bool OODPlug::convert(int flags)
 				Keys += QString::fromUtf8(n.toElement().text())+", ";
 			}
 			if (Keys.length() > 2)
-				ScMW->doc->documentInfo.setKeywords(Keys.left(Keys.length()-2));
+				m_Doc->documentInfo.setKeywords(Keys.left(Keys.length()-2));
 		}
 	}
-	Doku = ScMW->doc;
-	FPoint minSize = Doku->minCanvasCoordinate;
-	FPoint maxSize = Doku->maxCanvasCoordinate;
-	ScMW->view->Deselect();
+	FPoint minSize = m_Doc->minCanvasCoordinate;
+	FPoint maxSize = m_Doc->maxCanvasCoordinate;
+	m_Doc->view()->Deselect();
 	Elements.clear();
-	Doku->setLoading(true);
-	Doku->DoDrawing = false;
-	ScMW->view->setUpdatesEnabled(false);
-	ScMW->ScriptRunning = true;
+	m_Doc->setLoading(true);
+	m_Doc->DoDrawing = false;
+	m_Doc->view()->setUpdatesEnabled(false);
+	m_Doc->scMW()->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(Qt::waitCursor), true);
-	if (!Doku->PageColors.contains("Black"))
-		Doku->PageColors.insert("Black", ScColor(0, 0, 0, 255));
+	if (!m_Doc->PageColors.contains("Black"))
+		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	for( QDomNode drawPag = drawPagePNode.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
 	{
 		QDomElement dpg = drawPag.toElement();
 		if (!interactive)
 		{
-			ScMW->doc->addPage(PageCounter);
-			ScMW->view->addPage(PageCounter);
+			m_Doc->addPage(PageCounter);
+			m_Doc->view()->addPage(PageCounter);
 		}
 		PageCounter++;
 		m_styleStack.clear();
 		fillStyleStack( dpg );
 		parseGroup( dpg );
 	}
-	Doku->m_Selection->clear();
+	m_Doc->m_Selection->clear();
 	if ((Elements.count() > 1) && (interactive))
 	{
 		for (uint a = 0; a < Elements.count(); ++a)
 		{
-			Elements.at(a)->Groups.push(Doku->GroupCounter);
+			Elements.at(a)->Groups.push(m_Doc->GroupCounter);
 		}
-		Doku->GroupCounter++;
+		m_Doc->GroupCounter++;
 	}
-	Doku->DoDrawing = true;
-	ScMW->view->setUpdatesEnabled(true);
-	ScMW->ScriptRunning = false;
+	m_Doc->DoDrawing = true;
+	m_Doc->view()->setUpdatesEnabled(true);
+	m_Doc->scMW()->ScriptRunning = false;
 	if (interactive)
-		Doku->setLoading(false);
+		m_Doc->setLoading(false);
 	qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
 	if ((Elements.count() > 0) && (!ret) && (interactive))
 	{
-		Doku->DragP = true;
-		Doku->DraggedElem = 0;
-		Doku->DragElements.clear();
+		m_Doc->DragP = true;
+		m_Doc->DraggedElem = 0;
+		m_Doc->DragElements.clear();
 		for (uint dre=0; dre<Elements.count(); ++dre)
 		{
-			Doku->DragElements.append(Elements.at(dre)->ItemNr);
-			Doku->m_Selection->addItem(Elements.at(dre));
+			m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
+			m_Doc->m_Selection->addItem(Elements.at(dre));
 		}
 		ScriXmlDoc *ss = new ScriXmlDoc();
-		ScMW->view->setGroupRect();
-		QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScMW->view, Doku->m_Selection), ScMW->view->viewport());
+		m_Doc->view()->setGroupRect();
+		QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), m_Doc->m_Selection), m_Doc->view()->viewport());
 #ifndef QT_MAC
 // see #2196, #2526
-		Doku->itemSelection_DeleteItem();
+		m_Doc->itemSelection_DeleteItem();
 #endif
-		ScMW->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScMW->view->scale()), qRound((maxSize.y() - minSize.y()) * ScMW->view->scale()));
-		ScMW->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * ScMW->view->scale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * ScMW->view->scale()));
-		Doku->minCanvasCoordinate = minSize;
-		Doku->maxCanvasCoordinate = maxSize;
+		m_Doc->view()->resizeContents(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()));
+		m_Doc->view()->scrollBy(qRound((m_Doc->minCanvasCoordinate.x() - minSize.x()) * m_Doc->view()->scale()), qRound((m_Doc->minCanvasCoordinate.y() - minSize.y()) * m_Doc->view()->scale()));
+		m_Doc->minCanvasCoordinate = minSize;
+		m_Doc->maxCanvasCoordinate = maxSize;
 		dr->setPixmap(loadIcon("DragPix.xpm"));
 		if (!dr->drag())
 			qDebug("oodraw import: couldn't start drag operation!");
 		delete ss;
-		Doku->DragP = false;
-		Doku->DraggedElem = 0;
-		Doku->DragElements.clear();
+		m_Doc->DragP = false;
+		m_Doc->DraggedElem = 0;
+		m_Doc->DragElements.clear();
 	}
 	else
 	{
-		Doku->setModified(false);
-		ScMW->slotDocCh();
+		m_Doc->changed();
 	}
 	return true;
 }
@@ -443,8 +442,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 	double yGoff= 0;
 	bool HaveGradient = false;
 	int GradientType = 0;
-	double BaseX = Doku->currentPage()->xOffset();
-	double BaseY = Doku->currentPage()->yOffset();
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
 	double lwidth = 0;
 	double x, y, w, h;
 	double FillTrans = 0;
@@ -557,13 +556,13 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 					c2 = parseColor( draw->attribute( "draw:end-color" ) );
 					if (((GradientAngle > 90) && (GradientAngle < 271)) || (GradientType == 2))
 					{
-						gradient.addStop( Doku->PageColors[c2].getRGBColor(), 0.0, 0.5, 1, c2, shadeE );
-						gradient.addStop( Doku->PageColors[c].getRGBColor(), 1.0 - border, 0.5, 1, c, shadeS );
+						gradient.addStop( m_Doc->PageColors[c2].getRGBColor(), 0.0, 0.5, 1, c2, shadeE );
+						gradient.addStop( m_Doc->PageColors[c].getRGBColor(), 1.0 - border, 0.5, 1, c, shadeS );
 					}
 					else
 					{
-						gradient.addStop( Doku->PageColors[c].getRGBColor(), border, 0.5, 1, c, shadeS );
-						gradient.addStop( Doku->PageColors[c2].getRGBColor(), 1.0, 0.5, 1, c2, shadeE );
+						gradient.addStop( m_Doc->PageColors[c].getRGBColor(), border, 0.5, 1, c, shadeS );
+						gradient.addStop( m_Doc->PageColors[c2].getRGBColor(), 1.0, 0.5, 1, c2, shadeE );
 					}
 				}
 			}
@@ -573,10 +572,10 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			QPtrList<PageItem> gElements = parseGroup( b );
 			for (uint gr = 0; gr < gElements.count(); ++gr)
 			{
-				gElements.at(gr)->Groups.push(Doku->GroupCounter);
+				gElements.at(gr)->Groups.push(m_Doc->GroupCounter);
 				GElements.append(gElements.at(gr));
 			}
-			Doku->GroupCounter++;
+			m_Doc->GroupCounter++;
 		}
 		else if( STag == "draw:rect" )
 		{
@@ -585,13 +584,13 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			w = parseUnit(b.attribute("svg:width"));
 			h = parseUnit(b.attribute("svg:height"));
 			double corner = parseUnit(b.attribute("draw:corner-radius"));
-			z = Doku->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor, true);
-			PageItem* ite = Doku->Items->at(z);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor, true);
+			PageItem* ite = m_Doc->Items->at(z);
 			if (corner != 0)
 			{
 				ite->setCornerRadius(corner);
 				ite->SetFrameRound();
-				Doku->setRedrawBounding(ite);
+				m_Doc->setRedrawBounding(ite);
 			}
 		}
 		else if( STag == "draw:circle" || STag == "draw:ellipse" )
@@ -600,7 +599,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			y = parseUnit(b.attribute("svg:y")) ;
 			w = parseUnit(b.attribute("svg:width"));
 			h = parseUnit(b.attribute("svg:height"));
-			z = Doku->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor, true);
 		}
 		else if( STag == "draw:line" ) // line
 		{
@@ -608,8 +607,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			double y1 = b.attribute( "svg:y1" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:y1" ) );
 			double x2 = b.attribute( "svg:x2" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:x2" ) );
 			double y2 = b.attribute( "svg:y2" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:y2" ) );
-			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, CommonStrings::None, StrokeColor, true);
-			PageItem* ite = Doku->Items->at(z);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, CommonStrings::None, StrokeColor, true);
+			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine.resize(4);
 			ite->PoLine.setPoint(0, FPoint(x1, y1));
 			ite->PoLine.setPoint(1, FPoint(x1, y1));
@@ -622,13 +621,13 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			if (!b.hasAttribute("draw:transform"))
 			{
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-				ScMW->view->AdjustItemSize(ite);
+				m_Doc->view()->AdjustItemSize(ite);
 			}
 		}
 		else if ( STag == "draw:polygon" )
 		{
-			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, true);
-			PageItem* ite = Doku->Items->at(z);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, true);
+			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine.resize(0);
 			appendPoints(&ite->PoLine, b);
 			FPoint wh = getMaxClipF(&ite->PoLine);
@@ -638,13 +637,13 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			if (!b.hasAttribute("draw:transform"))
 			{
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-				ScMW->view->AdjustItemSize(ite);
+				m_Doc->view()->AdjustItemSize(ite);
 			}
 		}
 		else if( STag == "draw:polyline" )
 		{
-			z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, CommonStrings::None, StrokeColor, true);
-			PageItem* ite = Doku->Items->at(z);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, CommonStrings::None, StrokeColor, true);
+			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine.resize(0);
 			appendPoints(&ite->PoLine, b);
 			FPoint wh = getMaxClipF(&ite->PoLine);
@@ -654,20 +653,20 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			if (!b.hasAttribute("draw:transform"))
 			{
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-				ScMW->view->AdjustItemSize(ite);
+				m_Doc->view()->AdjustItemSize(ite);
 			}
 		}
 		else if( STag == "draw:path" )
 		{
-			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, true);
-			PageItem* ite = Doku->Items->at(z);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, true);
+			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine.resize(0);
 			if (parseSVG( b.attribute( "svg:d" ), &ite->PoLine ))
 				ite->convertTo(PageItem::PolyLine);
 			if (ite->PoLine.size() < 4)
 			{
-				Doku->m_Selection->addItem(ite);
-				Doku->itemSelection_DeleteItem();
+				m_Doc->m_Selection->addItem(ite);
+				m_Doc->itemSelection_DeleteItem();
 				z = -1;
 			}
 			else
@@ -692,7 +691,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				if (!b.hasAttribute("draw:transform"))
 				{
 					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-					ScMW->view->AdjustItemSize(ite);
+					m_Doc->view()->AdjustItemSize(ite);
 				}
 			}
 		}
@@ -702,7 +701,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			y = parseUnit(b.attribute("svg:y")) ;
 			w = parseUnit(b.attribute("svg:width"));
 			h = parseUnit(b.attribute("svg:height"));
-			z = Doku->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), lwidth, CommonStrings::None, StrokeColor, true);
+			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), lwidth, CommonStrings::None, StrokeColor, true);
 		}
 		else
 		{
@@ -711,7 +710,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		if (z != -1)
 		{
-			PageItem* ite = Doku->Items->at(z);
+			PageItem* ite = m_Doc->Items->at(z);
 			ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 			bool firstPa = false;
 			for ( QDomNode n = b.firstChild(); !n.isNull(); n = n.nextSibling() )
@@ -721,7 +720,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				QDomElement e = n.toElement();
 				if ( e.text().isEmpty() )
 					continue;
-				int FontSize = Doku->toolSettings.defSize;
+				int FontSize = m_Doc->toolSettings.defSize;
 				int AbsStyle = 0;
 				if( m_styleStack.hasAttribute("fo:text-align"))
 				{
@@ -740,7 +739,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 //FIXME:av				ite->setLineSpacing(FontSize + FontSize * 0.2);
 				Serializer *ss = new Serializer("");
 				ss->Objekt = QString::fromUtf8(e.text())+QChar(10);
-				ss->GetText(ite, AbsStyle, Doku->toolSettings.defFont, FontSize*10, firstPa);
+				ss->GetText(ite, AbsStyle, m_Doc->toolSettings.defFont, FontSize*10, firstPa);
 				delete ss;
 				firstPa = true;
 				if (! ite->asPolyLine())
@@ -760,7 +759,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				FPoint wh = getMaxClipF(&ite->PoLine);
 				ite->setWidthHeight(wh.x(), wh.y());
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-				ScMW->view->AdjustItemSize(ite);
+				m_Doc->view()->AdjustItemSize(ite);
 			}
 			if (HaveGradient)
 			{
@@ -774,13 +773,13 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 						if ((GradientAngle == 0) || (GradientAngle == 180))
 						{
 							ite->GrType = 2;
-							//ScMW->view->updateGradientVectors(ite);
+							//m_Doc->view()->updateGradientVectors(ite);
 							ite->updateGradientVectors();
 						}
 						else if ((GradientAngle == 90) || (GradientAngle == 270))
 						{
 							ite->GrType = 1;
-							//ScMW->view->updateGradientVectors(ite);
+							//m_Doc->view()->updateGradientVectors(ite);
 							ite->updateGradientVectors();
 						}
 					}
@@ -845,7 +844,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 						ite->GrEndX = ite->width() / 2.0;
 						ite->GrEndY = ite->height();
 					}
-					//ScMW->view->updateGradientVectors(ite);
+					//m_Doc->view()->updateGradientVectors(ite);
 					ite->updateGradientVectors();
 				}
 				HaveGradient = false;
@@ -1002,11 +1001,11 @@ QString OODPlug::parseColor( const QString &s )
 	bool found = false;
 	int r, g, b;
 	QColor tmpR;
-	for (it = Doku->PageColors.begin(); it != Doku->PageColors.end(); ++it)
+	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 	{
-		Doku->PageColors[it.key()].getRGB(&r, &g, &b);
+		m_Doc->PageColors[it.key()].getRGB(&r, &g, &b);
 		tmpR.setRgb(r, g, b);
-		if (c == tmpR && Doku->PageColors[it.key()].getColorModel() == colorModelRGB)
+		if (c == tmpR && m_Doc->PageColors[it.key()].getColorModel() == colorModelRGB)
 		{
 			ret = it.key();
 			found = true;
@@ -1016,8 +1015,8 @@ QString OODPlug::parseColor( const QString &s )
 	{
 		ScColor tmp;
 		tmp.fromQColor(c);
-		Doku->PageColors.insert("FromOODraw"+c.name(), tmp);
-		ScMW->propertiesPalette->updateColorList();
+		m_Doc->PageColors.insert("FromOODraw"+c.name(), tmp);
+		m_Doc->scMW()->propertiesPalette->updateColorList();
 		ret = "FromOODraw"+c.name();
 	}
 	return ret;

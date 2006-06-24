@@ -98,9 +98,10 @@ QString LoremParser::createLorem(uint parCount)
 }
 
 
-LoremManager::LoremManager(QWidget* parent, const char* name, bool modal, WFlags fl)
+LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent, const char* name, bool modal, WFlags fl)
 	: QDialog( parent, name, modal, fl )
 {
+	m_Doc=doc;
 	if ( !name )
 		setName( "LoremManager" );
 	LoremManagerLayout = new QGridLayout( this, 1, 1, 11, 6, "LoremManagerLayout");
@@ -203,19 +204,20 @@ void LoremManager::cancelButton_clicked()
 
 void LoremManager::insertLoremIpsum(QString name, int paraCount)
 {
+	//CB: Avox please make insertText for text frame to nuke all this
 	// is it really applied?
 	bool done = false;
 
-	for (uint i = 0; i < ScMW->doc->m_Selection->count(); ++i)
+	for (uint i = 0; i < m_Doc->m_Selection->count(); ++i)
 	{
-		PageItem* currItem=ScMW->doc->m_Selection->itemAt(i);
+		PageItem* currItem=m_Doc->m_Selection->itemAt(i);
 		if (currItem == NULL)
 			continue;
 		if (!currItem->asTextFrame())
 			continue;
 		if (currItem->itemText.length() != 0)
 		{
-			ScMW->doc->itemSelection_ClearItem();
+			m_Doc->itemSelection_ClearItem();
 			/* ClearItem() doesn't return true or false so
 			the following test has to be done */
 			if (currItem->itemText.length() != 0)
@@ -233,9 +235,9 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 		{
 			done = true;
 			ss->Objekt = lp->createLorem(paraCount);
-			int st = findParagraphStyle(currItem->document(), currItem->document()->currentStyle);
+			int st = findParagraphStyle(m_Doc, m_Doc->currentStyle);
 			if (st > 5)
-				ss->GetText(currItem, st, currItem->document()->docParagraphStyles[st].charStyle().font()->scName(), currItem->document()->docParagraphStyles[st].charStyle().fontSize(), true);
+				ss->GetText(currItem, st, m_Doc->docParagraphStyles[st].charStyle().font()->scName(), m_Doc->docParagraphStyles[st].charStyle().fontSize(), true);
 			else
 				ss->GetText(currItem, st, currItem->currentCharStyle().font()->scName(), currItem->currentCharStyle().fontSize(), true);
 			delete ss;
@@ -243,12 +245,12 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 		delete lp;
 		//if (ScMW->view->SelItem.at(i)->Doc->docHyphenator->AutoCheck)
 		//	ScMW->view->SelItem.at(i)->Doc->docHyphenator->slotHyphenate(ScMW->view->SelItem.at(i));
-		if (currItem->document()->docHyphenator->AutoCheck)
-			currItem->document()->docHyphenator->slotHyphenate(currItem);
+		if (m_Doc->docHyphenator->AutoCheck)
+			m_Doc->docHyphenator->slotHyphenate(currItem);
 	}
 	if (done)
 	{
-		ScMW->view->updateContents();
-		ScMW->slotDocCh();
+		m_Doc->view()->updateContents();
+		m_Doc->changed();
 	}
 }

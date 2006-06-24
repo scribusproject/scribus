@@ -50,7 +50,8 @@ public:
 	/*! \brief Construct an optional state dialog */
 	CharSelect(QWidget* parent, PageItem *item, QString font, bool modal=true);
 	~CharSelect() {};
-
+	const PageItem* item() const {return m_Item;}
+	void setItem(PageItem* newItem) {m_Item=newItem;}
 	const QString & getCharacters();
 
 	bool needReturn;
@@ -69,8 +70,6 @@ public:
 	QPushButton* insertButton;
 	QPushButton* deleteButton;
 	QPushButton* closeButton;
-	PageItem *ite;
-	ScribusMainWindow *ap;
 	typedef QValueList<uint> charClassDef;
 	QValueList<charClassDef> allClasses;
 	QValueList<uint> characters;
@@ -123,9 +122,12 @@ signals:
 	void insertSpecialChar();
 
 protected:
-	void run(QWidget* parent, PageItem* item, ScribusMainWindow* pl);
+	void run(QWidget* parent, PageItem* item);
 	bool eventFilter( QObject *obj, QEvent *ev );
 	void recalcCellSizes();
+	
+	PageItem *m_Item;
+	
 	QVBoxLayout* zAuswahlLayout;
 	QHBoxLayout* selectionsLayout;
 	QHBoxLayout* layout1;
@@ -138,7 +140,7 @@ class SCRIBUS_API ChTable : public QTable
     Q_OBJECT
 
 public:
-	ChTable(CharSelect* parent, ScribusMainWindow *pl);
+	ChTable(CharSelect* parent, PageItem *pi);
 	~ChTable() {};
 	void resizeData( int ) {};
 	QRect cellGeometry ( int row, int col ) const;
@@ -148,7 +150,7 @@ public:
 	bool mPressed;
 	bool alternate;
 	Zoom* dia;
-	ScribusMainWindow *ap;
+	PageItem *m_Item;
 	CharSelect* par;
 	QTimer* watchTimer;
 	uint maxCount;

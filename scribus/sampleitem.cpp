@@ -4,7 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "scribus.h"
+#include "scribuscore.h"
 #include "sampleitem.h"
 #include "sampleitem.moc"
 #include "loremipsum.h"
@@ -16,15 +16,14 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 #include "text/nlsconfig.h"
 
-extern ScribusMainWindow* ScMW;
-
-
-SampleItem::SampleItem() : QObject()
+SampleItem::SampleItem(ScribusDoc* doc) :
+	QObject(),
+	m_Doc(doc)
 {
 	used = true;
-	if (ScMW->doc == NULL)
+	if (m_Doc == 0)
 	{
-		ScMW->doFileNew(//pageWidth, pageHeight,
+		m_Doc=ScCore->primaryMainWindow()->doFileNew(//pageWidth, pageHeight,
 									0,0,
 									//topMargin, leftMargin, rightMargin, bottomMargin,
 									1, 1, 1, 1,
@@ -35,45 +34,47 @@ SampleItem::SampleItem() : QObject()
 									1, 1, 1,
 									//orientation, firstPageNr, "Custom");
 									1, 1, "custom", 1, true);
-		ScMW->doc->pageSets[1/*pagesType*/].FirstPage = 1;//firstPageOrder;
+		if (!m_Doc)
+			return;
+		m_Doc->pageSets[1/*pagesType*/].FirstPage = 1;//firstPageOrder;
 		used = false;
 	}
-	doc = ScMW->doc;
+
 	// tmp colors. to be removed in descrictor
-	ScMW->doc->PageColors.insert("__blackforpreview__", ScColor(0, 0, 0, 255));
-	ScMW->doc->PageColors.insert("__whiteforpreview__", ScColor(0, 0, 0, 0));
-	ScMW->doc->PageColors.insert("__whiteforpreviewbg__", ScColor(0, 0, 0, 0));
+	m_Doc->PageColors.insert("__blackforpreview__", ScColor(0, 0, 0, 255));
+	m_Doc->PageColors.insert("__whiteforpreview__", ScColor(0, 0, 0, 0));
+	m_Doc->PageColors.insert("__whiteforpreviewbg__", ScColor(0, 0, 0, 0));
 	bgShade = 100;
 	tmpStyle.setName("(preview temporary)");
 	tmpStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
-	tmpStyle.setLineSpacing((doc->toolSettings.defSize / 10.0)
-		* static_cast<double>(doc->typographicSettings.autoLineSpacing) / 100
-		+ (doc->toolSettings.defSize / 10.0));
+	tmpStyle.setLineSpacing((m_Doc->toolSettings.defSize / 10.0)
+		* static_cast<double>(m_Doc->typographicSettings.autoLineSpacing) / 100
+		+ (m_Doc->toolSettings.defSize / 10.0));
 	tmpStyle.setAlignment(0);
 	tmpStyle.setLeftMargin(0);
 	tmpStyle.setFirstIndent(0);
 	tmpStyle.setRightMargin(0);
 	tmpStyle.setGapBefore(0);
 	tmpStyle.setGapAfter(0);
-	tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.AvailFonts[doc->toolSettings.defFont]);
-	tmpStyle.charStyle().setFontSize(doc->toolSettings.defSize);
+	tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.AvailFonts[m_Doc->toolSettings.defFont]);
+	tmpStyle.charStyle().setFontSize(m_Doc->toolSettings.defSize);
 	tmpStyle.tabValues().clear();
 	tmpStyle.setHasDropCap(false);
 	tmpStyle.setDropCapLines(0);//2;
 	tmpStyle.setDropCapOffset(0);
 	tmpStyle.charStyle().setEffects(ScStyle_Default);
 	tmpStyle.charStyle().setFillColor("__blackforpreview__");
-	tmpStyle.charStyle().setFillShade(100); //doc->toolSettings.dShade;
+	tmpStyle.charStyle().setFillShade(100); //m_Doc->toolSettings.dShade;
 	tmpStyle.charStyle().setStrokeColor("__whiteforpreview__");
-	tmpStyle.charStyle().setStrokeShade(100); //doc->toolSettings.dShade2;
+	tmpStyle.charStyle().setStrokeShade(100); //m_Doc->toolSettings.dShade2;
 	tmpStyle.setUseBaselineGrid(false);
 	tmpStyle.charStyle().setShadowXOffset(50);
 	tmpStyle.charStyle().setShadowYOffset(-50);
 	tmpStyle.charStyle().setOutlineWidth(10);
-	tmpStyle.charStyle().setUnderlineOffset(0); //doc->typographicSettings.valueUnderlinePos;
-	tmpStyle.charStyle().setUnderlineWidth(0); //doc->typographicSettings.valueUnderlineWidth;
-	tmpStyle.charStyle().setStrikethruOffset(0); //doc->typographicSettings.valueStrikeThruPos;
-	tmpStyle.charStyle().setStrikethruWidth(0); //doc->typographicSettings.valueStrikeThruPos;
+	tmpStyle.charStyle().setUnderlineOffset(0); //m_Doc->typographicSettings.valueUnderlinePos;
+	tmpStyle.charStyle().setUnderlineWidth(0); //m_Doc->typographicSettings.valueUnderlineWidth;
+	tmpStyle.charStyle().setStrikethruOffset(0); //m_Doc->typographicSettings.valueStrikeThruPos;
+	tmpStyle.charStyle().setStrikethruWidth(0); //m_Doc->typographicSettings.valueStrikeThruPos;
 	tmpStyle.charStyle().setScaleH(1000);
 	tmpStyle.charStyle().setScaleV(1000);
 	tmpStyle.charStyle().setBaselineOffset(0);
@@ -86,8 +87,8 @@ SampleItem::~SampleItem()
 	// clean tmp document
 	if (used == false)
 	{
-		doc->setModified(false);
-		ScMW->slotFileClose();
+		m_Doc->setModified(false);
+		m_Doc->scMW()->slotFileClose();
 	}
 }
 
@@ -111,7 +112,7 @@ void SampleItem::setStyle(const ParagraphStyle& aStyle)
 
 void SampleItem::setBgColor(QColor c)
 {
-	ScMW->doc->PageColors["__whiteforpreviewbg__"].fromQColor(c);
+	m_Doc->PageColors["__whiteforpreviewbg__"].fromQColor(c);
 }
 
 void SampleItem::setBgShade(int c)
@@ -121,7 +122,7 @@ void SampleItem::setBgShade(int c)
 
 void SampleItem::setTxColor(QColor c)
 {
-	ScMW->doc->PageColors["__blackforpreview__"].fromQColor(c);
+	m_Doc->PageColors["__blackforpreview__"].fromQColor(c);
 }
 
 void SampleItem::setTxShade(int c)
@@ -173,7 +174,7 @@ void SampleItem::setFontSize(int fontSize, bool autoLineSpa)
 {
 	tmpStyle.charStyle().setFontSize(fontSize);
 	if (autoLineSpa)
-		tmpStyle.setLineSpacing(((fontSize / 10)  * (doc->typographicSettings.autoLineSpacing / 100) + (fontSize / 10)));
+		tmpStyle.setLineSpacing(((fontSize / 10)  * (m_Doc->typographicSettings.autoLineSpacing / 100) + (fontSize / 10)));
 }
 
 /*void SampleItem::setTabValues(QValueList<PageItem::TabRecord> tabValues)
@@ -292,25 +293,25 @@ QPixmap SampleItem::getSample(int width, int height)
 
 	UndoManager::instance()->setUndoEnabled(false); // disable undo
 
-	PageItem_TextFrame *previewItem = new PageItem_TextFrame(doc, 0, 0, width, height, 0, "__whiteforpreviewbg__", "__whiteforpreview__");
+	PageItem_TextFrame *previewItem = new PageItem_TextFrame(m_Doc, 0, 0, width, height, 0, "__whiteforpreviewbg__", "__whiteforpreview__");
 	QPixmap pm(width, height);
 	ScPainter *painter = new ScPainter(&pm, width, height, 0, 0);
 	double sca = 1.0; // original scale to set back at the end...
-	int userAppMode = ScMW->doc->appMode; // We need to be in normal when creating/repainting items
-	ScMW->doc->appMode = modeNormal;
+	int userAppMode = m_Doc->appMode; // We need to be in normal when creating/repainting items
+	m_Doc->appMode = modeNormal;
 
-	if (ScMW->view != NULL)
+	if (m_Doc->view() != NULL)
 	{
-		sca = ScMW->view->scale();
-		ScMW->view->setScale(1.0);
+		sca = m_Doc->view()->scale();
+		m_Doc->view()->setScale(1.0);
 	}
 
-	if (doc->UsedFonts.contains(tmpStyle.charStyle().font()->scName()))
+	if (m_Doc->UsedFonts.contains(tmpStyle.charStyle().font()->scName()))
 		previouslyUsedFont = true;
 
-	doc->AddFont(tmpStyle.charStyle().font()->scName(), qRound(doc->toolSettings.defSize / 10.0));
-	doc->docParagraphStyles.append(tmpStyle);
-	int tmpIndex = doc->docParagraphStyles.count() - 1;
+	m_Doc->AddFont(tmpStyle.charStyle().font()->scName(), qRound(m_Doc->toolSettings.defSize / 10.0));
+	m_Doc->docParagraphStyles.append(tmpStyle);
+	int tmpIndex = m_Doc->docParagraphStyles.count() - 1;
 
 	previewItem->FrameType = PageItem::TextFrame;
 	previewItem->itemText.clear();
@@ -318,7 +319,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	previewItem->Cols = 1;
 	text.replace(QChar(10),QChar(13)).replace(QChar(5),QChar(13));
 	previewItem->itemText.insertChars(0, text);
-	doc->chAbStyle(previewItem, tmpIndex);
+	m_Doc->chAbStyle(previewItem, tmpIndex);
 	previewItem->itemText.applyCharStyle(0, text.length(), tmpStyle.charStyle());
 	previewItem->setFillColor("__whiteforpreviewbg__");
 	previewItem->setFillShade(bgShade);
@@ -331,11 +332,11 @@ QPixmap SampleItem::getSample(int width, int height)
 
 	// cleanups and resets
 	if (!previouslyUsedFont)
-		doc->UsedFonts.remove(tmpStyle.charStyle().font()->scName());
-	if (ScMW->view != NULL)
-		ScMW->view->setScale(sca);
-	doc->appMode = userAppMode;
-	doc->docParagraphStyles.remove(doc->docParagraphStyles.fromLast());
+		m_Doc->UsedFonts.remove(tmpStyle.charStyle().font()->scName());
+	if (m_Doc->view() != NULL)
+		m_Doc->view()->setScale(sca);
+	m_Doc->appMode = userAppMode;
+	m_Doc->docParagraphStyles.remove(m_Doc->docParagraphStyles.fromLast());
 	UndoManager::instance()->setUndoEnabled(true);
 	return pm;
 }
@@ -343,7 +344,7 @@ QPixmap SampleItem::getSample(int width, int height)
 void SampleItem::cleanupTemporary()
 {
 	// clear tmp colors
-	ScMW->doc->PageColors.remove("__blackforpreview__");
-	ScMW->doc->PageColors.remove("__whiteforpreview__");
-	ScMW->doc->PageColors.remove("__whiteforpreviewbg__");
+	m_Doc->PageColors.remove("__blackforpreview__");
+	m_Doc->PageColors.remove("__whiteforpreview__");
+	m_Doc->PageColors.remove("__whiteforpreviewbg__");
 }

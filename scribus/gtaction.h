@@ -41,11 +41,15 @@ class Foi;
 #include "gtparagraphstyle.h"
 #include "gtstyle.h"
 
+class ScribusDoc;
+class ScribusMainWindow;
+
 typedef QMap<QString, QString> FontFamilyMap;
 
 class SCRIBUS_API gtAction
 {
 private:
+	ScribusMainWindow* m_ScMW;
 	PageItem *textFrame;
 	PageItem *it;
 	int lastParagraphStyle;
@@ -71,7 +75,7 @@ private:
 	void finalize();
 	PrefsManager *prefsManager;
 public:
-	gtAction(bool append);
+//	gtAction(bool append);
 	gtAction(bool append, PageItem *pageitem);
 	~gtAction();
 	void setTextFrame(PageItem* frame);

@@ -111,7 +111,7 @@ static void PDFfile_dealloc(PDFfile *self)
 static PyObject * PDFfile_new(PyTypeObject *type, PyObject */*args*/, PyObject */*kwds*/)
 {
 // do not create new object if there is no opened document
-	if (!ScMW->HaveDoc) {
+	if (!ScCore->primaryMainWindow()->HaveDoc) {
 		PyErr_SetString(PyExc_SystemError, "Need to open document first");
 		return NULL;
 	}
@@ -246,14 +246,14 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject */*args*/, PyObject *
 static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 {
 	int i;
-	if (!ScMW->HaveDoc) {
+	if (!ScCore->primaryMainWindow()->HaveDoc) {
 		PyErr_SetString(PyExc_SystemError, "Must open doc first");
 		return -1;
 	}
 // defaut save into file
-	QString tf = ScMW->doc->PDF_Options.Datei;
+	QString tf = ScCore->primaryMainWindow()->doc->PDF_Options.Datei;
 	if (tf.isEmpty()) {
-		QFileInfo fi = QFileInfo(ScMW->doc->DocName);
+		QFileInfo fi = QFileInfo(ScCore->primaryMainWindow()->doc->DocName);
 		tf = fi.dirPath()+"/"+fi.baseName()+".pdf";
 	}
 	PyObject *file = NULL;
@@ -276,7 +276,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		return -1;
 	}
 	// get all used fonts
-	QMap<QString,int> ReallyUsed = ScMW->doc->UsedFonts;
+	QMap<QString,int> ReallyUsed = ScCore->primaryMainWindow()->doc->UsedFonts;
 	// create list of all used fonts
 	QValueList<QString> tmpEm;
 	tmpEm = ReallyUsed.keys();
@@ -303,8 +303,8 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	PyObject *pages = NULL;
 	int num = 0;
 	// which one should I use ???
-	// new = ScMW->view->Pages.count()
-	num = ScMW->doc->Pages->count();
+	// new = ScCore->primaryMainWindow()->view->Pages.count()
+	num = ScCore->primaryMainWindow()->doc->Pages->count();
 	pages = PyList_New(num);
 	if (!pages){
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'pages' attribute");
@@ -323,12 +323,12 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	Py_DECREF(self->pages);
 	self->pages = pages;
 // do not print thumbnails
-	self->thumbnails = ScMW->doc->PDF_Options.Thumbnails;
+	self->thumbnails = ScCore->primaryMainWindow()->doc->PDF_Options.Thumbnails;
 // set automatic compression
-	self->compress = ScMW->doc->PDF_Options.Compress;
-	self->compressmtd = ScMW->doc->PDF_Options.CompressMethod;
+	self->compress = ScCore->primaryMainWindow()->doc->PDF_Options.Compress;
+	self->compressmtd = ScCore->primaryMainWindow()->doc->PDF_Options.CompressMethod;
 // use maximum image quality
-	self->quality = ScMW->doc->PDF_Options.Quality;
+	self->quality = ScCore->primaryMainWindow()->doc->PDF_Options.Quality;
 // default resolution
 	PyObject *resolution = NULL;
 	resolution = PyInt_FromLong(300);
@@ -340,7 +340,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		return -1;
 	}
 // do not downsample images
-	int down = ScMW->doc->PDF_Options.RecalcPic ? ScMW->doc->PDF_Options.PicRes : 0;
+	int down = ScCore->primaryMainWindow()->doc->PDF_Options.RecalcPic ? ScCore->primaryMainWindow()->doc->PDF_Options.PicRes : 0;
 	PyObject *downsample = NULL;
 	downsample = PyInt_FromLong(down);
 	if (downsample){
@@ -351,26 +351,26 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		return -1;
 	}
 	// no bookmarks
-	self->bookmarks = ScMW->doc->PDF_Options.Bookmarks;
+	self->bookmarks = ScCore->primaryMainWindow()->doc->PDF_Options.Bookmarks;
 	// left margin binding
-	self->binding = ScMW->doc->PDF_Options.Binding;
+	self->binding = ScCore->primaryMainWindow()->doc->PDF_Options.Binding;
 	// do not enable presentation effects
-	self->presentation = ScMW->doc->PDF_Options.PresentMode;
+	self->presentation = ScCore->primaryMainWindow()->doc->PDF_Options.PresentMode;
 	// set effects values for all pages
 	PyObject *effval = NULL;
 	num = 0;
 	// which one should I use ???
-	// new = ScMW->view->Pages.count();
-	num = ScMW->doc->Pages->count();
+	// new = ScCore->primaryMainWindow()->view->Pages.count();
+	num = ScCore->primaryMainWindow()->doc->Pages->count();
 	effval = PyList_New(num);
 	if (!effval){
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'effval' attribute");
 		return -1;
 	}
-	int num2 = ScMW->doc->PDF_Options.PresentVals.count();
+	int num2 = ScCore->primaryMainWindow()->doc->PDF_Options.PresentVals.count();
 	for (i = 0; i<num2; ++i) {
 		PyObject *tmp;
-		PDFPresentationData t = ScMW->doc->PDF_Options.PresentVals[i];
+		PDFPresentationData t = ScCore->primaryMainWindow()->doc->PDF_Options.PresentVals[i];
 		tmp = Py_BuildValue(const_cast<char*>("[iiiiii]"), t.pageEffectDuration, t.pageViewDuration, t.effectType, t.Dm, t.M, t.Di );
 		if (tmp)
 			PyList_SetItem(effval, i, tmp);
@@ -392,22 +392,22 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	Py_DECREF(self->effval);
 	self->effval = effval;
 // do not save linked text frames as PDF article
-	self->article = ScMW->doc->PDF_Options.Articles;
+	self->article = ScCore->primaryMainWindow()->doc->PDF_Options.Articles;
 // do not encrypt file
-	self->encrypt = ScMW->doc->PDF_Options.Encrypt;
+	self->encrypt = ScCore->primaryMainWindow()->doc->PDF_Options.Encrypt;
 // do not Use Custom Rendering Settings
-	self->uselpi = ScMW->doc->PDF_Options.UseLPI;
-	self->usespot = ScMW->doc->PDF_Options.UseSpotColors;
-	self->domulti = ScMW->doc->PDF_Options.doMultiFile;
+	self->uselpi = ScCore->primaryMainWindow()->doc->PDF_Options.UseLPI;
+	self->usespot = ScCore->primaryMainWindow()->doc->PDF_Options.UseSpotColors;
+	self->domulti = ScCore->primaryMainWindow()->doc->PDF_Options.doMultiFile;
 // get default values for lpival
-	int n = ScMW->doc->PDF_Options.LPISettings.size();
+	int n = ScCore->primaryMainWindow()->doc->PDF_Options.LPISettings.size();
 	PyObject *lpival=PyList_New(n);
 	if (!lpival){
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'lpival' attribute");
 		return -1;
 	}
-	QMap<QString,LPIData>::Iterator it = ScMW->doc->PDF_Options.LPISettings.begin();
-	while (it != ScMW->doc->PDF_Options.LPISettings.end()) {
+	QMap<QString,LPIData>::Iterator it = ScCore->primaryMainWindow()->doc->PDF_Options.LPISettings.begin();
+	while (it != ScCore->primaryMainWindow()->doc->PDF_Options.LPISettings.end()) {
 		PyObject *tmp;
 		tmp = Py_BuildValue(const_cast<char*>("[siii]"), it.key().ascii(), it.data().Frequency, it.data().Angle, it.data().SpotFunc);
 		if (!tmp) {
@@ -422,7 +422,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	self->lpival = lpival;
 // set owner's password
 	PyObject *owner = NULL;
-	owner = PyString_FromString(ScMW->doc->PDF_Options.PassOwner.ascii());
+	owner = PyString_FromString(ScCore->primaryMainWindow()->doc->PDF_Options.PassOwner.ascii());
 	if (owner){
 		Py_DECREF(self->owner);
 		self->owner = owner;
@@ -432,7 +432,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	}
 // set user'a password
 	PyObject *user = NULL;
-	user = PyString_FromString(ScMW->doc->PDF_Options.PassUser.ascii());
+	user = PyString_FromString(ScCore->primaryMainWindow()->doc->PDF_Options.PassUser.ascii());
 	if (user){
 		Py_DECREF(self->user);
 		self->user = user;
@@ -441,26 +441,26 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		return -1;
 	}
 // allow printing document
-	self->aprint = ScMW->doc->PDF_Options.Permissions & 4;
+	self->aprint = ScCore->primaryMainWindow()->doc->PDF_Options.Permissions & 4;
 // allow changing document
-	self->achange = ScMW->doc->PDF_Options.Permissions & 8;
+	self->achange = ScCore->primaryMainWindow()->doc->PDF_Options.Permissions & 8;
 // allow copying document
-	self->acopy = ScMW->doc->PDF_Options.Permissions & 16;
+	self->acopy = ScCore->primaryMainWindow()->doc->PDF_Options.Permissions & 16;
 // allow adding annotation and fields
-	self->aanot = ScMW->doc->PDF_Options.Permissions & 32;
+	self->aanot = ScCore->primaryMainWindow()->doc->PDF_Options.Permissions & 32;
 // use 1.4 pdf version *aka. Acrobat 5)
-	self->version = ScMW->doc->PDF_Options.Version;
+	self->version = ScCore->primaryMainWindow()->doc->PDF_Options.Version;
 // output destination is screen
-	self->outdst = ScMW->doc->PDF_Options.UseRGB ? 0 : 1;
+	self->outdst = ScCore->primaryMainWindow()->doc->PDF_Options.UseRGB ? 0 : 1;
 
-	self->profiles = ScMW->doc->PDF_Options.UseProfiles; // bool
-	self->profilei = ScMW->doc->PDF_Options.UseProfiles2; // bool
-	self->noembicc = ScMW->doc->PDF_Options.EmbeddedI; // bool
-	self->intents = ScMW->doc->PDF_Options.Intent; // int - 0 - 3
-	self->intenti = ScMW->doc->PDF_Options.Intent2; // int - 0 - 3
-	QString tp = ScMW->doc->PDF_Options.SolidProf;
+	self->profiles = ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles; // bool
+	self->profilei = ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles2; // bool
+	self->noembicc = ScCore->primaryMainWindow()->doc->PDF_Options.EmbeddedI; // bool
+	self->intents = ScCore->primaryMainWindow()->doc->PDF_Options.Intent; // int - 0 - 3
+	self->intenti = ScCore->primaryMainWindow()->doc->PDF_Options.Intent2; // int - 0 - 3
+	QString tp = ScCore->primaryMainWindow()->doc->PDF_Options.SolidProf;
 	if (!ScCore->InputProfiles.contains(tp))
-		tp = ScMW->view->Doc->CMSSettings.DefaultSolidColorRGBProfile;
+		tp = ScCore->primaryMainWindow()->view->Doc->CMSSettings.DefaultSolidColorRGBProfile;
 	PyObject *solidpr = NULL;
 	solidpr = PyString_FromString(tp.ascii());
 	if (solidpr){
@@ -470,9 +470,9 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'solidpr' attribute");
 		return -1;
 	}
-	QString tp2 = ScMW->doc->PDF_Options.ImageProf;
+	QString tp2 = ScCore->primaryMainWindow()->doc->PDF_Options.ImageProf;
 	if (!ScCore->InputProfiles.contains(tp2))
-		tp2 = ScMW->view->Doc->CMSSettings.DefaultSolidColorRGBProfile;
+		tp2 = ScCore->primaryMainWindow()->view->Doc->CMSSettings.DefaultSolidColorRGBProfile;
 	PyObject *imagepr = NULL;
 	imagepr = PyString_FromString(tp2.ascii());
 	if (imagepr){
@@ -482,9 +482,9 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'imagepr' attribute");
 		return -1;
 	}
-	QString tp3 = ScMW->doc->PDF_Options.PrintProf;
+	QString tp3 = ScCore->primaryMainWindow()->doc->PDF_Options.PrintProf;
 	if (!ScCore->PDFXProfiles.contains(tp3))
-		tp3 = ScMW->view->Doc->CMSSettings.DefaultPrinterProfile;
+		tp3 = ScCore->primaryMainWindow()->view->Doc->CMSSettings.DefaultPrinterProfile;
 	PyObject *printprofc = NULL;
 	printprofc = PyString_FromString(tp3.ascii());
 	if (printprofc){
@@ -494,7 +494,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'printprofc' attribute");
 		return -1;
 	}
-	QString tinfo = ScMW->doc->PDF_Options.Info;
+	QString tinfo = ScCore->primaryMainWindow()->doc->PDF_Options.Info;
 	PyObject *info = NULL;
 	info = PyString_FromString(tinfo.ascii());
 	if (info){
@@ -504,10 +504,10 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'info' attribute");
 		return -1;
 	}
-	self->bleedt = ScMW->doc->PDF_Options.BleedTop*ScMW->doc->unitRatio(); // double -
-	self->bleedl = ScMW->doc->PDF_Options.BleedLeft*ScMW->doc->unitRatio(); // double -
-	self->bleedr = ScMW->doc->PDF_Options.BleedRight*ScMW->doc->unitRatio(); // double -
-	self->bleedb = ScMW->doc->PDF_Options.BleedBottom*ScMW->doc->unitRatio(); // double -
+	self->bleedt = ScCore->primaryMainWindow()->doc->PDF_Options.BleedTop*ScCore->primaryMainWindow()->doc->unitRatio(); // double -
+	self->bleedl = ScCore->primaryMainWindow()->doc->PDF_Options.BleedLeft*ScCore->primaryMainWindow()->doc->unitRatio(); // double -
+	self->bleedr = ScCore->primaryMainWindow()->doc->PDF_Options.BleedRight*ScCore->primaryMainWindow()->doc->unitRatio(); // double -
+	self->bleedb = ScCore->primaryMainWindow()->doc->PDF_Options.BleedBottom*ScCore->primaryMainWindow()->doc->unitRatio(); // double -
 
 	return 0;
 }
@@ -627,7 +627,7 @@ static int PDFfile_setpages(PDFfile *self, PyObject *value, void */*closure*/)
 			PyErr_SetString(PyExc_TypeError, "'pages' list must contain only integers.");
 			return -1;
 		}
-		if (PyInt_AsLong(tmp) > static_cast<int>(ScMW->doc->Pages->count()) || PyInt_AsLong(tmp) < 1) {
+		if (PyInt_AsLong(tmp) > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count()) || PyInt_AsLong(tmp) < 1) {
 			PyErr_SetString(PyExc_ValueError, "'pages' value out of range.");
 			return -1;
 		}
@@ -952,7 +952,7 @@ static PyGetSetDef PDFfile_getseters [] = {
 
 static PyObject *PDFfile_save(PDFfile *self)
 {
-	if (!ScMW->HaveDoc) {
+	if (!ScCore->primaryMainWindow()->HaveDoc) {
 		PyErr_SetString(PyExc_SystemError, "Need to open document first");
 		return NULL;
 	};
@@ -961,21 +961,21 @@ static PyObject *PDFfile_save(PDFfile *self)
 //void ScribusMainWindow::SaveAsPDF()
 	int Components = 3;
 	QString nam = "";
-	if (ScMW->bookmarkPalette->BView->childCount() == 0)
-		ScMW->doc->PDF_Options.Bookmarks = false;
+	if (ScCore->primaryMainWindow()->bookmarkPalette->BView->childCount() == 0)
+		ScCore->primaryMainWindow()->doc->PDF_Options.Bookmarks = false;
 
 // apply fonts attribute
-	ScMW->doc->PDF_Options.EmbedList.clear();
+	ScCore->primaryMainWindow()->doc->PDF_Options.EmbedList.clear();
 	int n = PyList_Size(self->fonts);
 	for ( int i=0; i<n; ++i){
 		QString tmpFon;
 		tmpFon = QString(PyString_AsString(PyList_GetItem(self->fonts, i)));
-		ScMW->doc->PDF_Options.EmbedList.append(tmpFon);
+		ScCore->primaryMainWindow()->doc->PDF_Options.EmbedList.append(tmpFon);
 	}
 // apply file attribute
 	QString fn;
 	fn = QString(PyString_AsString(self->file));
-	ScMW->doc->PDF_Options.Datei = fn;
+	ScCore->primaryMainWindow()->doc->PDF_Options.Datei = fn;
 // apply pages attribute
 	std::vector<int> pageNs;
 	int nn=PyList_Size(self->pages);
@@ -983,28 +983,28 @@ static PyObject *PDFfile_save(PDFfile *self)
 		pageNs.push_back((int)PyInt_AsLong(PyList_GetItem(self->pages, i)));
 	}
 // apply thumbnails attribute
-	ScMW->doc->PDF_Options.Thumbnails = self->thumbnails;
+	ScCore->primaryMainWindow()->doc->PDF_Options.Thumbnails = self->thumbnails;
 // apply compress attribute
 	self->compressmtd = minmaxi(self->compressmtd, 0, 3);
-	ScMW->doc->PDF_Options.Compress = self->compress;
-	ScMW->doc->PDF_Options.CompressMethod = self->compressmtd;
+	ScCore->primaryMainWindow()->doc->PDF_Options.Compress = self->compress;
+	ScCore->primaryMainWindow()->doc->PDF_Options.CompressMethod = self->compressmtd;
 // apply quality attribute
 	self->quality = minmaxi(self->quality, 0, 4);
-	ScMW->doc->PDF_Options.Quality = self->quality;
+	ScCore->primaryMainWindow()->doc->PDF_Options.Quality = self->quality;
 // apply resolusion attribute
-	ScMW->doc->PDF_Options.Resolution = PyInt_AsLong(self->resolution);
+	ScCore->primaryMainWindow()->doc->PDF_Options.Resolution = PyInt_AsLong(self->resolution);
 // apply downsample attribute
-	ScMW->doc->PDF_Options.RecalcPic = PyInt_AsLong(self->downsample);
-	if (ScMW->doc->PDF_Options.RecalcPic)
-		ScMW->doc->PDF_Options.PicRes = PyInt_AsLong(self->downsample);
+	ScCore->primaryMainWindow()->doc->PDF_Options.RecalcPic = PyInt_AsLong(self->downsample);
+	if (ScCore->primaryMainWindow()->doc->PDF_Options.RecalcPic)
+		ScCore->primaryMainWindow()->doc->PDF_Options.PicRes = PyInt_AsLong(self->downsample);
 	else
-		ScMW->doc->PDF_Options.PicRes = ScMW->doc->PDF_Options.Resolution;
+		ScCore->primaryMainWindow()->doc->PDF_Options.PicRes = ScCore->primaryMainWindow()->doc->PDF_Options.Resolution;
 // apply bookmarks attribute
-	ScMW->doc->PDF_Options.Bookmarks = self->bookmarks;
+	ScCore->primaryMainWindow()->doc->PDF_Options.Bookmarks = self->bookmarks;
 // apply binding attribute
-	ScMW->doc->PDF_Options.Binding = self->binding;
+	ScCore->primaryMainWindow()->doc->PDF_Options.Binding = self->binding;
 // apply presentation attribute
-	ScMW->doc->PDF_Options.PresentMode = self->presentation;
+	ScCore->primaryMainWindow()->doc->PDF_Options.PresentMode = self->presentation;
 
 	QValueList<PDFPresentationData> PresentVals;
 	PresentVals.clear();
@@ -1037,7 +1037,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 
 	}
 
-	ScMW->doc->PDF_Options.PresentVals = PresentVals;
+	ScCore->primaryMainWindow()->doc->PDF_Options.PresentVals = PresentVals;
 // apply lpival
 	int n2 = PyList_Size(self->lpival);
 	for (int i=0; i<n2; ++i){
@@ -1050,27 +1050,27 @@ static PyObject *PDFfile_save(PDFfile *self)
 //			 PyErr_SetString(PyExc_SystemError, "while parsing 'lpival'. WHY THIS HAPPENED????");
 //			 return NULL;
 //		 }
-//		 ScMW->doc->PDF_Options.LPISettings[QString(s)]=lpi;
+//		 ScCore->primaryMainWindow()->doc->PDF_Options.LPISettings[QString(s)]=lpi;
 		QString st;
 		st = QString(PyString_AsString(PyList_GetItem(t,0)));
 		lpi.Frequency = PyInt_AsLong(PyList_GetItem(t, 1));
 		lpi.Angle = PyInt_AsLong(PyList_GetItem(t, 2));
 		lpi.SpotFunc = PyInt_AsLong(PyList_GetItem(t, 3));
-		ScMW->doc->PDF_Options.LPISettings[st]=lpi;
+		ScCore->primaryMainWindow()->doc->PDF_Options.LPISettings[st]=lpi;
 	}
 
-	ScMW->doc->PDF_Options.Articles = self->article;
-	ScMW->doc->PDF_Options.Encrypt = self->encrypt;
-	ScMW->doc->PDF_Options.UseLPI = self->uselpi;
-	ScMW->doc->PDF_Options.UseSpotColors = self->usespot;
-	ScMW->doc->PDF_Options.doMultiFile = self->domulti;
+	ScCore->primaryMainWindow()->doc->PDF_Options.Articles = self->article;
+	ScCore->primaryMainWindow()->doc->PDF_Options.Encrypt = self->encrypt;
+	ScCore->primaryMainWindow()->doc->PDF_Options.UseLPI = self->uselpi;
+	ScCore->primaryMainWindow()->doc->PDF_Options.UseSpotColors = self->usespot;
+	ScCore->primaryMainWindow()->doc->PDF_Options.doMultiFile = self->domulti;
 	self->version = minmaxi(self->version, 12, 14);
 	// FIXME: Sanity check version
-	ScMW->doc->PDF_Options.Version = (PDFOptions::PDFVersion)self->version;
+	ScCore->primaryMainWindow()->doc->PDF_Options.Version = (PDFOptions::PDFVersion)self->version;
 	if (self->encrypt)
 	{
 		int Perm = -64;
-		if (ScMW->doc->PDF_Options.Version == PDFOptions::PDFVersion_14)
+		if (ScCore->primaryMainWindow()->doc->PDF_Options.Version == PDFOptions::PDFVersion_14)
 			Perm &= ~0x00240000;
 		if (self->aprint)
 			Perm += 4;
@@ -1080,38 +1080,38 @@ static PyObject *PDFfile_save(PDFfile *self)
 			Perm += 16;
 		if (self->aanot)
 			Perm += 32;
-		ScMW->doc->PDF_Options.Permissions = Perm;
-		ScMW->doc->PDF_Options.PassOwner = QString(PyString_AsString(self->owner));
-		ScMW->doc->PDF_Options.PassUser = QString(PyString_AsString(self->user));
+		ScCore->primaryMainWindow()->doc->PDF_Options.Permissions = Perm;
+		ScCore->primaryMainWindow()->doc->PDF_Options.PassOwner = QString(PyString_AsString(self->owner));
+		ScCore->primaryMainWindow()->doc->PDF_Options.PassUser = QString(PyString_AsString(self->user));
 	}
 	if (self->outdst == 0)
 	{
-		ScMW->doc->PDF_Options.UseRGB = true;
-		ScMW->doc->PDF_Options.UseProfiles = false;
-		ScMW->doc->PDF_Options.UseProfiles2 = false;
+		ScCore->primaryMainWindow()->doc->PDF_Options.UseRGB = true;
+		ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles = false;
+		ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles2 = false;
 	}
 	else
 	{
-		ScMW->doc->PDF_Options.UseRGB = false;
+		ScCore->primaryMainWindow()->doc->PDF_Options.UseRGB = false;
 #ifdef HAVE_CMS
 		if (CMSuse)
 		{
-			ScMW->doc->PDF_Options.UseProfiles = self->profiles;
-			ScMW->doc->PDF_Options.UseProfiles2 = self->profilei;
+			ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles = self->profiles;
+			ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles2 = self->profilei;
 			self->intents = minmaxi(self->intents, 0, 3);
-			ScMW->doc->PDF_Options.Intent = self->intents;
+			ScCore->primaryMainWindow()->doc->PDF_Options.Intent = self->intents;
 			self->intenti = minmaxi(self->intenti, 0, 3);
-			ScMW->doc->PDF_Options.Intent2 = self->intenti;
-			ScMW->doc->PDF_Options.EmbeddedI = self->noembicc;
-			ScMW->doc->PDF_Options.SolidProf = PyString_AsString(self->solidpr);
-			ScMW->doc->PDF_Options.ImageProf = PyString_AsString(self->imagepr);
-			ScMW->doc->PDF_Options.PrintProf = PyString_AsString(self->printprofc);
-			if (ScMW->doc->PDF_Options.Version == PDFOptions::PDFVersion_X3)
+			ScCore->primaryMainWindow()->doc->PDF_Options.Intent2 = self->intenti;
+			ScCore->primaryMainWindow()->doc->PDF_Options.EmbeddedI = self->noembicc;
+			ScCore->primaryMainWindow()->doc->PDF_Options.SolidProf = PyString_AsString(self->solidpr);
+			ScCore->primaryMainWindow()->doc->PDF_Options.ImageProf = PyString_AsString(self->imagepr);
+			ScCore->primaryMainWindow()->doc->PDF_Options.PrintProf = PyString_AsString(self->printprofc);
+			if (ScCore->primaryMainWindow()->doc->PDF_Options.Version == PDFOptions::PDFVersion_X3)
 			{
 // Where does compiler find cms function when I have not included header for it
 				const char *Descriptor;
 				cmsHPROFILE hIn;
-				hIn = cmsOpenProfileFromFile(ScCore->PrinterProfiles[ScMW->doc->PDF_Options.PrintProf], "r");
+				hIn = cmsOpenProfileFromFile(ScCore->PrinterProfiles[ScCore->primaryMainWindow()->doc->PDF_Options.PrintProf], "r");
 				Descriptor = cmsTakeProductDesc(hIn);
 				nam = QString(Descriptor);
 				if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
@@ -1121,27 +1121,27 @@ static PyObject *PDFfile_save(PDFfile *self)
 				if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmyData)
 					Components = 3;
 				cmsCloseProfile(hIn);
-				ScMW->doc->PDF_Options.Info = PyString_AsString(self->info);
-				self->bleedt = minmaxd(self->bleedt, 0, ScMW->view->Doc->pageHeight*ScMW->view->Doc->unitRatio());
-				ScMW->doc->PDF_Options.BleedTop = self->bleedt/ScMW->view->Doc->unitRatio();
-				self->bleedl = minmaxd(self->bleedl, 0, ScMW->view->Doc->pageWidth*ScMW->view->Doc->unitRatio());
-				ScMW->doc->PDF_Options.BleedLeft = self->bleedl/ScMW->view->Doc->unitRatio();
-				self->bleedr = minmaxd(self->bleedr, 0, ScMW->view->Doc->pageWidth*ScMW->view->Doc->unitRatio());
-				ScMW->doc->PDF_Options.BleedRight = self->bleedr/ScMW->view->Doc->unitRatio();
-				self->bleedb = minmaxd(self->bleedb, 0, ScMW->view->Doc->pageHeight*ScMW->view->Doc->unitRatio());
-				ScMW->doc->PDF_Options.BleedBottom = self->bleedb/ScMW->view->Doc->unitRatio();
-				ScMW->doc->PDF_Options.Encrypt = false;
-				ScMW->doc->PDF_Options.PresentMode = false;
+				ScCore->primaryMainWindow()->doc->PDF_Options.Info = PyString_AsString(self->info);
+				self->bleedt = minmaxd(self->bleedt, 0, ScCore->primaryMainWindow()->view->Doc->pageHeight*ScCore->primaryMainWindow()->view->Doc->unitRatio());
+				ScCore->primaryMainWindow()->doc->PDF_Options.BleedTop = self->bleedt/ScCore->primaryMainWindow()->view->Doc->unitRatio();
+				self->bleedl = minmaxd(self->bleedl, 0, ScCore->primaryMainWindow()->view->Doc->pageWidth*ScCore->primaryMainWindow()->view->Doc->unitRatio());
+				ScCore->primaryMainWindow()->doc->PDF_Options.BleedLeft = self->bleedl/ScCore->primaryMainWindow()->view->Doc->unitRatio();
+				self->bleedr = minmaxd(self->bleedr, 0, ScCore->primaryMainWindow()->view->Doc->pageWidth*ScCore->primaryMainWindow()->view->Doc->unitRatio());
+				ScCore->primaryMainWindow()->doc->PDF_Options.BleedRight = self->bleedr/ScCore->primaryMainWindow()->view->Doc->unitRatio();
+				self->bleedb = minmaxd(self->bleedb, 0, ScCore->primaryMainWindow()->view->Doc->pageHeight*ScCore->primaryMainWindow()->view->Doc->unitRatio());
+				ScCore->primaryMainWindow()->doc->PDF_Options.BleedBottom = self->bleedb/ScCore->primaryMainWindow()->view->Doc->unitRatio();
+				ScCore->primaryMainWindow()->doc->PDF_Options.Encrypt = false;
+				ScCore->primaryMainWindow()->doc->PDF_Options.PresentMode = false;
 			}
 		}
 		else
 		{
-			ScMW->doc->PDF_Options.UseProfiles = false;
-			ScMW->doc->PDF_Options.UseProfiles2 = false;
+			ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles = false;
+			ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles2 = false;
 		}
 #else
-		ScMW->doc->PDF_Options.UseProfiles = false;
-		ScMW->doc->PDF_Options.UseProfiles2 = false;
+		ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles = false;
+		ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles2 = false;
 #endif
 
 	}
@@ -1149,12 +1149,12 @@ static PyObject *PDFfile_save(PDFfile *self)
 	for (uint ap = 0; ap < pageNs.size(); ++ap)
 	{
 		QPixmap pm(10,10);
-		if (ScMW->doc->PDF_Options.Thumbnails)
-			pm = ScMW->view->PageToPixmap(pageNs[ap]-1, 100);
+		if (ScCore->primaryMainWindow()->doc->PDF_Options.Thumbnails)
+			pm = ScCore->primaryMainWindow()->view->PageToPixmap(pageNs[ap]-1, 100);
 		thumbs.insert(pageNs[ap], pm);
 	}
-	ReOrderText(ScMW->doc, ScMW->view);
-	if (!ScMW->getPDFDriver(fn, nam, Components, pageNs, thumbs)) {
+	ReOrderText(ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow()->view);
+	if (!ScCore->primaryMainWindow()->getPDFDriver(fn, nam, Components, pageNs, thumbs)) {
 		fn = "Cannot write the File: " + fn;
 		PyErr_SetString(PyExc_SystemError, fn.ascii());
 		return NULL;

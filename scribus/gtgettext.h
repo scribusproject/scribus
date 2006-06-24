@@ -43,6 +43,9 @@ for which a new license (GPL+exception) is in place.
 #include "scfonts.h"
 #include "pageitem.h"
 
+
+class ScribusDoc;
+
 struct ImporterData {
 	QString     soFilePath;
 	QString     fileFormatName;
@@ -65,8 +68,9 @@ private:
 	void createMap();
 	gtDialogs* dias;
 	QStringList ilist;
+	ScribusDoc* m_Doc;
 public:
-	gtGetText();
+	gtGetText(ScribusDoc* doc);
 	~gtGetText();
 	void run(bool append);
 };

@@ -100,7 +100,7 @@ private:
 	QMap<QListViewItem*, int> masterPageItemMap;
 
 	//! \brief a reference to the current document
-	ScribusDoc* document;
+	ScribusDoc* m_Doc;
 	//! \brief Icon for fatal error
 	QPixmap graveError;
 	//! \brief Icon for warning

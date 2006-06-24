@@ -69,7 +69,7 @@ ScActionPlugin::~ScActionPlugin()
 }
 
 // Stub for plugins that don't implement this method to inherit
-bool ScActionPlugin::run(QIODevice* /* target */)
+bool ScActionPlugin::run(ScribusDoc* /*doc*/, QIODevice* /* target */)
 {
 	return false;
 }

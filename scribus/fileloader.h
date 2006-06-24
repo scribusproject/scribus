@@ -31,14 +31,14 @@ public:
 	~FileLoader() {};
 	int TestFile();
 // 	int CheckScribus();
-	bool LoadPage(int PageToLoad, bool Mpage, QString renamedPageName=QString::null);
-	bool LoadFile();
+	bool LoadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QString renamedPageName=QString::null);
+	bool LoadFile(ScribusDoc* currDoc);
 	bool SaveFile(const QString& fileName, ScribusDoc *doc, QProgressBar *dia2);
 	bool ReadStyles(const QString& fileName, ScribusDoc* doc, QValueList<ParagraphStyle> &docParagraphStyles);
 	bool ReadPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
 	bool ReadColors(const QString& fileName, ColorList & colors);
 	bool ReadLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty);
-	bool postLoad();
+	bool postLoad(ScribusDoc* currDoc);
  	void informReplacementFonts();
 	QString FileName;
 	int FileType;

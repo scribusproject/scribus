@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtable.h>
 #include "pslib.h"
 #include "checkDocument.h"
+#include "cmsettings.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefsmanager.h"
@@ -700,28 +701,29 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					q++;
 				}
 			}
+			CMSettings cms(doc, "");
 			if (flagsVisible["Cyan"]->isChecked())
 			{
 				if (GsMinor < 54)
-					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Cyan.tif", "", 0, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Cyan.tif", cms, 0, false, false, ScImage::RGBData, 72, &mode);
 				else
-					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.Cyan.tif", "", 0, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.Cyan.tif", cms, 0, false, false, ScImage::RGBData, 72, &mode);
 				blendImages(image, im, ScColor(255, 0, 0, 0));
 			}
 			if (flagsVisible["Magenta"]->isChecked())
 			{
 				if (GsMinor < 54)
-					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Magenta.tif", "", 0, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Magenta.tif", cms, 0, false, false, ScImage::RGBData, 72, &mode);
 				else
-					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.Magenta.tif", "", 0, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.Magenta.tif", cms, 0, false, false, ScImage::RGBData, 72, &mode);
 				blendImages(image, im, ScColor(0, 255, 0, 0));
 			}
 			if (flagsVisible["Yellow"]->isChecked())
 			{
 				if (GsMinor < 54)
-					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Yellow.tif", "", 0, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Yellow.tif", cms, 0, false, false, ScImage::RGBData, 72, &mode);
 				else
-					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.Yellow.tif", "", 0, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.Yellow.tif", cms, 0, false, false, ScImage::RGBData, 72, &mode);
 				blendImages(image, im, ScColor(0, 0, 255, 0));
 			}
 			QMap<QString, int>::Iterator sepit;
@@ -734,16 +736,17 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 						fnam = QString(prefsManager->preferencesLocation()+"/sc.tif.s%1.tif").arg(sepit.data());
 					else
 						fnam = QString(prefsManager->preferencesLocation()+"/sc.s%1.tif").arg(sepit.data());
-					im.LoadPicture(fnam, "", 0, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(fnam, cms, 0, false, false, ScImage::RGBData, 72, &mode);
 					blendImages(image, im, doc->PageColors[sepit.key()]);
 				}
 			}
 			if (flagsVisible["Black"]->isChecked())
 			{
+				CMSettings cms(doc, "");
 				if (GsMinor < 54)
-					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Black.tif", "", 0, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Black.tif", cms, 0, false, false, ScImage::RGBData, 72, &mode);
 				else
-					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.Black.tif", "", 0, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.Black.tif", cms, 0, false, false, ScImage::RGBData, 72, &mode);
 				blendImages(image, im, ScColor(0, 0, 0, 255));
 			}
 			for( int yi=0; yi < h2; ++yi )

@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmdsetprop.h"
 #include "cmdutil.h"
+#include "scribuscore.h"
 
 PyObject *scribus_setgradfill(PyObject* /* self */, PyObject* args)
 {
@@ -29,9 +30,9 @@ PyObject *scribus_setgradfill(PyObject* /* self */, PyObject* args)
 	currItem->SetFarbe(&tmp, c2, shade2);
 	currItem->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0, c2, shade2);
 	currItem->GrType = typ;
-	//ScMW->view->updateGradientVectors(currItem);
+	//ScCore->primaryMainWindow()->view->updateGradientVectors(currItem);
 	currItem->updateGradientVectors();
-	ScMW->view->RefreshItem(currItem);
+	ScCore->primaryMainWindow()->view->RefreshItem(currItem);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -198,8 +199,8 @@ PyObject *scribus_setcornerrad(PyObject* /* self */, PyObject* args)
 	// apply rounding
 	currItem->setCornerRadius(w);
 	currItem->SetFrameRound();
-	ScMW->doc->setRedrawBounding(currItem);
-	ScMW->view->SetFrameRounded();
+	ScCore->primaryMainWindow()->doc->setRedrawBounding(currItem);
+	ScCore->primaryMainWindow()->view->SetFrameRounded();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -215,7 +216,7 @@ PyObject *scribus_setmultiline(PyObject* /* self */, PyObject* args)
 	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
 	if (currItem == NULL)
 		return NULL;
-	if (!ScMW->doc->MLineStyles.contains(QString::fromUtf8(Style)))
+	if (!ScCore->primaryMainWindow()->doc->MLineStyles.contains(QString::fromUtf8(Style)))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Line style not found.","python error"));
 		return NULL;

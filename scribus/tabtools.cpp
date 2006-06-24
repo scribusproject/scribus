@@ -909,7 +909,7 @@ void TabTools::changeImageScalingRatio(int)
 
 void TabTools::setSample()
 {
-	SampleItem *si = new SampleItem();
+	SampleItem *si = new SampleItem(docu);
 	si->setText(tr("Woven silk pyjamas exchanged for blue quartz"));
 	if (colorComboTextBackground->currentText() != CommonStrings::NoneColor)
 	{

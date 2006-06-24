@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "tfdia.h"
 #include "tfdia.moc"
 #include "prefsmanager.h"
-#include <prefsfile.h>
+#include "prefsfile.h"
 #include <qpixmap.h>
 #include <qtooltip.h>
 #include <qlabel.h>

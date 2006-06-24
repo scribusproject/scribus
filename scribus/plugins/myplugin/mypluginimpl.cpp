@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "mypluginimpl.h"
-#include "scribus.h"
+#include "scribusdoc.h"
 
 #include <qstring.h>
 #include <qmessagebox.h>
@@ -15,11 +15,11 @@ MyPluginImpl::MyPluginImpl() : QObject(0, "MyPluginImpl")
 {
 }
 
-bool MyPluginImpl::run(const QString & target)
+bool MyPluginImpl::run(const QString & target, ScribusDoc* doc)
 {
 	// Do the bulk of your work here
 	QMessageBox::information(
-			ScMW,
+			(QWidget*)doc->scMW(),
 			tr("Scribus - My Plugin"),
 			tr("The plugin worked!"),
 			QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,

@@ -261,7 +261,7 @@ signals:
 	void UpdtGui(int);
 
 protected:
-	ScribusMainWindow *m_MainWindow;
+	ScribusMainWindow *m_ScMW;
 	
 	QVBoxLayout* MpalLayout;
 	QVBoxLayout* pageLayout;

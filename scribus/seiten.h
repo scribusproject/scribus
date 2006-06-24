@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 class ScribusView;
+class ScribusMainWindow;
 class DynamicTip;
 class PageLayouts;
 
@@ -191,6 +192,7 @@ protected:
 	SeList* masterPageList;
 	SeView* pageView;
 	ScribusView *currView;
+	ScribusMainWindow *m_scMW;
 	QPixmap pix;
 	DynamicTip* dynTip;
 };

@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 
 #include "sccombobox.h"
-#include "scribus.h"
+#include "scribuscore.h"
 #include "scribusdoc.h"
 #include "page.h"
 #include "documentchecker.h"
@@ -119,7 +119,7 @@ static const unsigned char image2_data[] =
     };
 
 CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( parent, "checkDocument", modal, 0 ),
-document(0)
+m_Doc(0)
 {
 	QImage img;
 	img.loadFromData( image0_data, sizeof( image0_data ), "PNG" );
@@ -184,13 +184,13 @@ void CheckDocument::slotSelect(QListViewItem* ite)
 {
 	if (itemMap.contains(ite))
 	{
-		ScMW->closeActiveWindowMasterPageEditor();
-		emit selectElement(document->DocItems.at(itemMap[ite])->OwnPage, itemMap[ite]);
+		ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
+		emit selectElement(m_Doc->DocItems.at(itemMap[ite])->OwnPage, itemMap[ite]);
 		return;
 	}
 	if (pageMap.contains(ite))
 	{
-		ScMW->closeActiveWindowMasterPageEditor();
+		ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
 		emit selectPage(pageMap[ite]);
 		return;
 	}
@@ -201,8 +201,8 @@ void CheckDocument::slotSelect(QListViewItem* ite)
 	}
 	if (masterPageItemMap.contains(ite))
 	{
-		if (!document->masterPageMode())
-			emit selectMasterPage(document->MasterItems.at(masterPageItemMap[ite])->OnMasterPage);
+		if (!m_Doc->masterPageMode())
+			emit selectMasterPage(m_Doc->MasterItems.at(masterPageItemMap[ite])->OnMasterPage);
 		emit selectElement(-1, masterPageItemMap[ite]);
 		return;
 	}
@@ -210,22 +210,23 @@ void CheckDocument::slotSelect(QListViewItem* ite)
 
 void CheckDocument::doReScan()
 {
-	clearErrorList();
-	if (document==0)
-		return;
-	document->curCheckProfile = curCheckProfile->currentText();;
-	DocumentChecker::checkDocument(document);
-	buildErrorList(document);
+	newScan(curCheckProfile->currentText());
+// 	clearErrorList();
+// 	if (m_Doc==0)
+// 		return;
+// 	m_Doc->curCheckProfile = curCheckProfile->currentText();
+// 	DocumentChecker::checkDocument(m_Doc);
+// 	buildErrorList(m_Doc);
 }
 
 void CheckDocument::newScan(const QString& name)
 {
 	clearErrorList();
-	if (document==0)
+	if (m_Doc==0)
 		return;
-	document->curCheckProfile = name;
-	DocumentChecker::checkDocument(document);
-	buildErrorList(document);
+	m_Doc->curCheckProfile = name;
+	DocumentChecker::checkDocument(m_Doc);
+	buildErrorList(m_Doc);
 }
 
 void CheckDocument::clearErrorList()
@@ -242,12 +243,12 @@ void CheckDocument::clearErrorList()
 void CheckDocument::buildErrorList(ScribusDoc *doc)
 {
 	bool resultError = false;
-	document = doc;
+	m_Doc = doc;
 	disconnect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 	curCheckProfile->clear();
 	clearErrorList();
 
-	if (document==0)
+	if (m_Doc==0)
 		return;
 
 	CheckerPrefsList::Iterator it;

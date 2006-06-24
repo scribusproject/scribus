@@ -34,10 +34,9 @@ for which a new license (GPL+exception) is in place.
 #include "colorm.h"
 
 
-extern ScribusMainWindow SCRIBUS_API *ScMW;
-
-ScribusColorList::ScribusColorList(QWidget* parent, const char* name, bool modal, WFlags fl)
-	: QDialog(parent, name, modal, fl)
+ScribusColorList::ScribusColorList(ScribusDoc* doc, QWidget* parent, const char* name, bool modal, WFlags fl)
+	: QDialog(parent, name, modal, fl),
+	m_Doc(doc)
 {
 	if (!name)
 		setName("ScribusColorList");
@@ -47,7 +46,7 @@ ScribusColorList::ScribusColorList(QWidget* parent, const char* name, bool modal
 
 	listView = new ColorListBox(this, "listView");
 	listLayout->addWidget(listView);
-	listView->updateBox(ScMW->doc->PageColors, ColorListBox::fancyPixmap);
+	listView->updateBox(m_Doc->PageColors, ColorListBox::fancyPixmap);
 
 	btnLayout = new QHBoxLayout(0, 0, 6, "btnLayout");
 	btnSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -79,14 +78,15 @@ void ScribusColorList::languageChange()
 
 void ScribusColorList::okButton_clicked()
 {
-	ScColor c = ScMW->doc->PageColors[listView->currentText()];
+	ScColor c = m_Doc->PageColors[listView->currentText()];
 	selectedColor = c.getRGBColor();
 	accept();
 }
 
 
-ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
-	: QDialog(parent, name, modal, fl)
+ColorWheelDialog::ColorWheelDialog(ScribusDoc* doc, QWidget* parent, const char* name, bool modal, WFlags fl)
+	: QDialog(parent, name, modal, fl),
+	m_Doc(doc)
 {
 	if (!name)
 		setName("ColorWheelDialog");
@@ -329,7 +329,7 @@ void ColorWheelDialog::addButton_clicked()
 	bool err = false;
 	for (ColorList::iterator it = colorWheel->colorList.begin(); it != colorWheel->colorList.end(); ++it)
 	{
-		if (ScMW->doc->PageColors.contains(it.key()))
+		if (m_Doc->PageColors.contains(it.key()))
 		{
 			status += "<b>" + tr("Error: ") + "</b>" + tr("Color %1 exists already!").arg(it.key()) + "<br/>";
 			err = true;
@@ -337,18 +337,18 @@ void ColorWheelDialog::addButton_clicked()
 		else
 		{
 			status += tr("Color %1 appended.").arg(it.key()) + "<br/>";
-			ScMW->doc->PageColors[it.key()] = it.data();
+			m_Doc->PageColors[it.key()] = it.data();
 		}
 	}
 	status += "<p>" + tr("Now opening the color manager.") + "</p></qt>";
 	if (err)
 	{
 		QMessageBox::information(this, tr("Color Merging"), status);
-		ScMW->slotEditColors();
+		m_Doc->scMW()->slotEditColors();
 		return;
 	}
-	ScMW->propertiesPalette->updateColorList();
-	ScMW->propertiesPalette->updateCList();
+	m_Doc->scMW()->propertiesPalette->updateColorList();
+	m_Doc->scMW()->propertiesPalette->updateCList();
 	accept();
 }
 
@@ -356,10 +356,10 @@ void ColorWheelDialog::replaceButton_clicked()
 {
 	for (ColorList::iterator it = colorWheel->colorList.begin(); it != colorWheel->colorList.end(); ++it)
 	{
-		ScMW->doc->PageColors[it.key()] = it.data();
+		m_Doc->PageColors[it.key()] = it.data();
 	}
-	ScMW->propertiesPalette->updateColorList();
-	ScMW->propertiesPalette->updateCList();
+	m_Doc->scMW()->propertiesPalette->updateColorList();
+	m_Doc->scMW()->propertiesPalette->updateCList();
 	accept();
 }
 
@@ -442,7 +442,7 @@ void ColorWheelDialog::setColorComponents()
 
 void ColorWheelDialog::importColor()
 {
-	ScribusColorList *dia = new ScribusColorList(this, "dia", true, 0);
+	ScribusColorList *dia = new ScribusColorList(m_Doc, this, "dia", true, 0);
 	if (dia->exec())
 		userColorInput(dia->selectedColor);
 	delete dia;

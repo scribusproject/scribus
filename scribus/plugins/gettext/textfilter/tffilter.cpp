@@ -9,12 +9,11 @@ for which a new license (GPL+exception) is in place.
 
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <scribusapi.h>
-#include <scribus.h>
+#include "scribusapi.h"
+#include "scribuscore.h"
 #include "prefsmanager.h"
-#include <prefsfile.h>
+#include "prefsfile.h"
 
-extern ScribusMainWindow SCRIBUS_API *ScMW;
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 tfFilter::tfFilter(QWidget *parent, const char *name,
@@ -476,9 +475,9 @@ void tfFilter::resetBRow()
 void tfFilter::getParagraphStyles()
 {
 	thirdCombo->insertItem("");
-	for (uint i = 5; i < ScMW->doc->docParagraphStyles.size(); ++i)
+	for (uint i = 5; i < ScCore->primaryMainWindow()->doc->docParagraphStyles.size(); ++i)
 	{
-		thirdCombo->insertItem(ScMW->doc->docParagraphStyles[i].name());
+		thirdCombo->insertItem(ScCore->primaryMainWindow()->doc->docParagraphStyles[i].name());
 	}
 }
 

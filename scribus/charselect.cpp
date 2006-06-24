@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpopupmenu.h>
 #include <qwidget.h>
 
-#include "scribus.h"
+#include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "fontcombo.h"
@@ -66,7 +66,7 @@ void Zoom::paintEvent(QPaintEvent *)
 	p.end();
 }
 
-ChTable::ChTable(CharSelect* parent, ScribusMainWindow *pl) : QTable(parent)
+ChTable::ChTable(CharSelect* parent, PageItem* pi) : QTable(parent)
 {
 	watchTimer = new QTimer(this);
 //	connect(watchTimer, SIGNAL(timeout()), this, SLOT(showAlternate()));
@@ -74,7 +74,7 @@ ChTable::ChTable(CharSelect* parent, ScribusMainWindow *pl) : QTable(parent)
 	alternate = false;
 	rowA = 0;
 	colA = 0;
-	ap = pl;
+	m_Item = pi;
 	par = parent;
 	dia = 0;
 	QToolTip::add(this, "<qt>" + tr("You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one") + "</qt>");
@@ -83,7 +83,7 @@ ChTable::ChTable(CharSelect* parent, ScribusMainWindow *pl) : QTable(parent)
 
 QRect ChTable::cellGeometry ( int /*row*/, int /*col*/ ) const
 {
-	int widthHeight = QMAX(18 + qRound(-(*ap->doc->AllFonts)[par->fontInUse]->descent() * 18) + 5, 18);
+	int widthHeight = QMAX(18 + qRound(-(*m_Item->doc()->AllFonts)[par->fontInUse]->descent() * 18) + 5, 18);
 	return QRect(0, 0, widthHeight, widthHeight+20);
 
 }
@@ -110,13 +110,13 @@ void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool
 	fo.setPixelSize(9);
 	qp->setFont(fo);
 	static FPointArray gly;
-	int len = (*ap->doc->AllFonts)[par->fontInUse]->outline(par->characters[cc]).size();
+	int len = (*m_Item->doc()->AllFonts)[par->fontInUse]->outline(par->characters[cc]).size();
 	gly.resize(len);
-	gly.putPoints(0, len, (*ap->doc->AllFonts)[par->fontInUse]->outline(par->characters[cc]) );
+	gly.putPoints(0, len, (*m_Item->doc()->AllFonts)[par->fontInUse]->outline(par->characters[cc]) );
 	if (gly.size() > 4)
 	{
 		gly.map(chma);
-		double ww = sz.width() - (*ap->doc->AllFonts)[par->fontInUse]->charWidth(par->characters[cc])*16;
+		double ww = sz.width() - (*m_Item->doc()->AllFonts)[par->fontInUse]->charWidth(par->characters[cc])*16;
 		p->translate(ww / 2, 1);
 		p->setBrush(black);
 		p->setFillMode(1);
@@ -164,15 +164,15 @@ void ChTable::contentsMousePressEvent(QMouseEvent* e)
 	if ((e->button() == RightButton) && ((r*16+c) < maxCount))
 	{
 		watchTimer->stop();
-		int bh = 48 + qRound(-(*ap->doc->AllFonts)[font]->descent() * 48) + 3;
+		int bh = 48 + qRound(-(*m_Item->doc()->AllFonts)[font]->descent() * 48) + 3;
 		QPixmap pixm(bh,bh);
 		ScPainter *p = new ScPainter(&pixm, bh, bh);
 		p->clear();
 		pixm.fill(white);
 		QWMatrix chma;
 		chma.scale(4.8, 4.8);
-		FPointArray gly = (*ap->doc->AllFonts)[font]->outline(par->characters[r*16+c]).copy();
-		double ww = bh - (*ap->doc->AllFonts)[font]->charWidth(par->characters[r*16+c])*48;
+		FPointArray gly = (*m_Item->doc()->AllFonts)[font]->outline(par->characters[r*16+c]).copy();
+		double ww = bh - (*m_Item->doc()->AllFonts)[font]->charWidth(par->characters[r*16+c])*48;
 		if (gly.size() > 4)
 		{
 			gly.map(chma);
@@ -231,11 +231,11 @@ void ChTable::showAlternate()
 	{
 		QPopupMenu *pmen = new QPopupMenu();
 		chToIns = QChar(par->characters[baseChar]);
-		pmen->insertItem(FontSample((*ap->doc->AllFonts)[font], 20, chToIns, paletteBackgroundColor(), true));
-		if ((*ap->doc->AllFonts)[font]->CharWidth.contains(par->characters[baseChar] + 0xF720))
+		pmen->insertItem(FontSample((*m_Item->doc()->AllFonts)[font], 20, chToIns, paletteBackgroundColor(), true));
+		if ((*m_Item->doc()->AllFonts)[font]->CharWidth.contains(par->characters[baseChar] + 0xF720))
 		{
 			chToIns = QChar(par->characters[baseChar] + 0xF720);
-			pmen->insertItem(FontSample((*ap->doc->AllFonts)[font], 20, chToIns, paletteBackgroundColor(), true));
+			pmen->insertItem(FontSample((*m_Item->doc()->AllFonts)[font], 20, chToIns, paletteBackgroundColor(), true));
 		}
 		int re = pmen->indexOf(pmen->exec(QCursor::pos()));
 		delete pmen;
@@ -244,10 +244,10 @@ void ChTable::showAlternate()
 
 CharSelect::CharSelect( QWidget* parent, PageItem *item) : QDialog( parent, "CharSelect", true, 0 )
 {
-	fontInUse = ScMW->doc->currentStyle.charStyle().font()->scName();
+	fontInUse = item->doc()->currentStyle.charStyle().font()->scName();
 	needReturn = false;
 	installEventFilter(this);
-	run(parent, item, ScMW);
+	run(parent, item);
 }
 
 CharSelect::CharSelect( QWidget* parent, PageItem *item, QString font, bool modal)
@@ -256,7 +256,7 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item, QString font, bool moda
 	fontInUse = font;
 	needReturn = true;
 	installEventFilter(this);
-	run(parent, item, ScMW);
+	run(parent, item);
 }
 
 
@@ -266,11 +266,10 @@ const QString & CharSelect::getCharacters()
 }
 
 
-void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusMainWindow *pl)
+void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 {
 	setCaption( tr( "Select Character:" )+" "+fontInUse );
-	ite = item;
-	ap = pl;
+	m_Item = item;
 	setIcon(loadIcon("AppIcon.png"));
 	zAuswahlLayout = new QVBoxLayout( this );
 	zAuswahlLayout->setSpacing( 6 );
@@ -297,7 +296,7 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusMainWindow *pl
 	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	selectionsLayout->addItem( spacer2 );
 	zAuswahlLayout->addLayout(selectionsLayout);
-	zTabelle = new ChTable( this, pl);
+	zTabelle = new ChTable( this, m_Item);
 	zTabelle->setNumCols( 16 );
 	zTabelle->setLeftMargin(0);
 	zTabelle->verticalHeader()->hide();
@@ -406,7 +405,7 @@ void CharSelect::scanFont()
 	charactersArabicPresentationFormsA.clear();
 	charactersArabicPresentationFormsB.clear();
 	charactersHebrew.clear();
-	face = (*ap->doc->AllFonts)[fontInUse]->ftFace();
+	face = (*m_Item->doc()->AllFonts)[fontInUse]->ftFace();
 	if (!face) {
 		return;
 	}
@@ -682,7 +681,7 @@ void CharSelect::generatePreview(int charClass)
 	characters.clear();
 	zTabelle->setNumRows( 0 );
 	characters = allClasses[charClass];
-	face = (*ap->doc->AllFonts)[fontInUse]->ftFace();
+	face = (*m_Item->doc()->AllFonts)[fontInUse]->ftFace();
 	if (!face) {
 		maxCount = 0;
 		return;
@@ -709,17 +708,17 @@ void CharSelect::newFont(int font)
 	zTabelle->maxCount = 0;
 	QString oldFont = fontInUse;
 	fontInUse = fontSelector->text(font);
-	(*ap->doc->AllFonts)[fontInUse]->increaseUsage();
-	if ((*ap->doc->AllFonts)[oldFont])
-		(*ap->doc->AllFonts)[oldFont]->decreaseUsage();
+	(*m_Item->doc()->AllFonts)[fontInUse]->increaseUsage();
+	if ((*m_Item->doc()->AllFonts)[oldFont])
+		(*m_Item->doc()->AllFonts)[oldFont]->decreaseUsage();
 	delEdit();
 	setCaption( tr( "Select Character:" )+" "+fontInUse );
-	ap->SetNewFont(fontInUse);
-	if (ScMW->doc->currentStyle.charStyle().font()->scName() != fontInUse)
+	ScCore->primaryMainWindow()->SetNewFont(fontInUse);
+	if (m_Item->doc()->currentStyle.charStyle().font()->scName() != fontInUse)
 	{
 		disconnect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
-		fontSelector->RebuildList(ScMW->doc);
-		fontInUse = ScMW->doc->currentStyle.charStyle().font()->scName();
+		fontSelector->RebuildList(m_Item->doc());
+		fontInUse = m_Item->doc()->currentStyle.charStyle().font()->scName();
 		setCaption( tr( "Select Character:" )+" "+fontInUse );
 		fontSelector->setCurrentText(fontInUse);
 		connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
@@ -739,7 +738,7 @@ void CharSelect::newChar()
 	if ((ok) && (code > 31))
 	{
 		chToIns += QChar(code);
-		sample->setPixmap(FontSample((*ap->doc->AllFonts)[fontInUse], 28, chToIns, paletteBackgroundColor(), true));
+		sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[fontInUse], 28, chToIns, paletteBackgroundColor(), true));
 		insertButton->setEnabled(true);
 	}
 }
@@ -749,7 +748,7 @@ void CharSelect::newChar(uint r, uint c) // , int b, const QPoint &pp)
 	if ((r*16+c) < maxCount)
 	{
 		chToIns += QChar(characters[r*16+c]);
-		sample->setPixmap(FontSample((*ap->doc->AllFonts)[fontInUse], 28, chToIns, paletteBackgroundColor(), true));
+		sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[fontInUse], 28, chToIns, paletteBackgroundColor(), true));
 		insertButton->setEnabled(true);
 		QString tmp;
 		tmp.sprintf("%04X", characters[r*16+c]);
@@ -767,7 +766,7 @@ void CharSelect::delChar()
 		return;
 	}
 	chToIns.truncate(chToIns.length() - 1);
-	sample->setPixmap(FontSample((*ap->doc->AllFonts)[fontInUse], 28, chToIns, paletteBackgroundColor(), true));
+	sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[fontInUse], 28, chToIns, paletteBackgroundColor(), true));
 	insertButton->setEnabled(true);
 }
 
@@ -789,8 +788,9 @@ void CharSelect::insChar()
 		emit insertSpecialChar();
 		return;
 	}
-	if (ite->HasSel)
-		ite->asTextFrame()->deleteSelectedTextFromFrame();
+	if (m_Item->HasSel)
+		m_Item->asTextFrame()->deleteSelectedTextFromFrame();
+	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
 	for (uint a=0; a<chToIns.length(); ++a)
 	{
 		QChar ch = chToIns.at(a);
@@ -798,11 +798,11 @@ void CharSelect::insChar()
 			ch = QChar(13);
 		if (ch == QChar(9))
 			ch = QChar(32);
-		ite->itemText.insertChars(ite->CPos, ch);
-		ite->CPos += 1;
+		m_Item->itemText.insertChars(m_Item->CPos, ch);
+		m_Item->CPos += 1;
 	}
-	ap->view->DrawNew();
-	ap->slotDocCh();
+	m_Item->doc()->view()->DrawNew();
+	m_Item->doc()->changed();
 	delEdit();
 }
 

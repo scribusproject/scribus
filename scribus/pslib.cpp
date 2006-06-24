@@ -799,7 +799,8 @@ void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	image.imgInfo.layerInfo.clear();
 	image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 	image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
-	image.LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, ScImage::CMYKData, 300, &dummy);
+	CMSettings cms(c->doc(), Prof);
+	image.LoadPicture(fn, cms, 0, UseEmbedded, UseProf, ScImage::CMYKData, 300, &dummy);
 	image.applyEffect(c->effectsInUse, colorsToUse, true);
 	imgArray = image.ImageToCMYK_PS(-1, true);
 	if (CompAvail)
@@ -875,7 +876,8 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		image.imgInfo.layerInfo.clear();
 		image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 		image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
-		image.LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, ScImage::CMYKData, 300, &dummy);
+		CMSettings cms(c->doc(), Prof);
+		image.LoadPicture(fn, cms, 0, UseEmbedded, UseProf, ScImage::CMYKData, 300, &dummy);
 		image.applyEffect(c->effectsInUse, colorsToUse, true);
 		int w = image.width();
 		int h = image.height();
@@ -1071,7 +1073,6 @@ void PSLib::PS_insert(QString i)
 
 int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev, bool doClip, bool over)
 {
-	uint a;
 	int sepac;
 	int pagemult;
 	doOverprint = over;
@@ -1092,7 +1093,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 		QString title=QObject::tr("Exporting PostScript File");
 		if (Art)
 			title=QObject::tr("Printing File");
-		progressDialog=new MultiProgressDialog(title, CommonStrings::tr_Cancel, ScMW, "psexportprogress");
+		progressDialog=new MultiProgressDialog(title, CommonStrings::tr_Cancel, Doc->scMW(), "psexportprogress");
 		if (progressDialog==0)
 			usingGUI=false;
 		else
@@ -1213,6 +1214,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 	}
 	sepac = 0;
 	uint aa = 0;
+	uint a;	
 	while (aa < pageNs.size() && !abortExport)
 	{
 		progressDialog->setProgress("EP", aa);

@@ -222,7 +222,7 @@ void PluginManager::initPlugs()
 			failedStr += "</ul>";
 			if (splashShown)
 				ScCore->showSplash(false);
-			QMessageBox::warning(ScMW, CommonStrings::trWarning,
+			QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning,
 								 "<qt>" + tr("There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency. Report it as a bug, please."
 										).arg(allPlugs.count()-loaded).arg(allPlugs.count()).arg(failedStr)
 									 + "</qt>",
@@ -287,22 +287,26 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 			ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(it.data().plugin);
 			Q_ASSERT(plugin);
 			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
-			ScrAction* action = new ScrAction(
-					ScrAction::DLL, ai.iconSet, ai.text, ai.keySequence,
-					mw, ai.name);
+			ScrAction* action = new ScrAction(ScrAction::ActionDLL, ai.iconSet, ai.text, ai.keySequence, mw, ai.name);
 			Q_CHECK_PTR(action);
 			mw->scrActions.insert(ai.name, action);
 		
 			// then enable and connect up the action
 			mw->scrActions[ai.name]->setEnabled(ai.enabledOnStartup);
 			// Connect action's activated signal with the plugin's run method
-			it.data().enabled = connect( mw->scrActions[ai.name], SIGNAL(activated()),
-							plugin, SLOT(run()) );
+			it.data().enabled = connect( mw->scrActions[ai.name], SIGNAL(activatedData(ScribusDoc*)),
+							plugin, SLOT(run(ScribusDoc*)) );
 			//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
 			if ( ai.menuAfterName.isEmpty() )
 				mw->scrMenuMgr->addMenuItem(mw->scrActions[ai.name], ai.menu);
 			else
-				mw->scrMenuMgr->addMenuItemAfter(mw->scrActions[ai.name], ai.menu, ai.menuAfterName);
+			{
+				QString actionName(ai.menu.lower()+ai.menuAfterName);
+				ScrAction* afterAction=0;
+				if (mw->scrActions.contains(actionName))
+					afterAction=mw->scrActions[actionName];
+				mw->scrMenuMgr->addMenuItemAfter(mw->scrActions[ai.name], ai.menu, afterAction);
+			}
 			if (it.data().enabled)
 				ScCore->setSplashStatus(tr("Plugin: %1 initialized ok ", "plugin manager")
 						.arg(plugin->fullTrName()));
@@ -424,7 +428,7 @@ void PluginManager::disablePlugin(PluginData & pda)
 		ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(pda.plugin);
 		Q_ASSERT(plugin);
 		// FIXME: Correct way to delete action?
-		delete ScMW->scrActions[plugin->actionInfo().name];
+		delete ScCore->primaryMainWindow()->scrActions[plugin->actionInfo().name];
 	}
 	else if (pda.plugin->inherits("ScPersistentPlugin"))
 	{
@@ -475,7 +479,7 @@ void PluginManager::languageChange()
 			if (ixplug)
 			{
 				ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
-				ScrAction* pluginAction = ScMW->scrActions[ai.name];
+				ScrAction* pluginAction = ScCore->primaryMainWindow()->scrActions[ai.name];
 				if (pluginAction != 0)
 					pluginAction->setMenuText( ai.text );
 			}
@@ -499,7 +503,7 @@ bool PluginManager::callSpecialActionPlugin(const QCString pluginName, const QSt
 		ScActionPlugin* plugin =
 			dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin);
 		if (plugin)
-			result = plugin->run(arg);
+			result = plugin->run(0, arg);
 	}
 	if (result)
 	{

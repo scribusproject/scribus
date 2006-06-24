@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "gtwriter.h"
 #include "gtparagraphstyle.h"
 #include "scribusstructs.h"
-#include "scribus.h"
+#include "scribuscore.h"
 
 
 /*! \brief A dummy 0 filler (helper procedure)
@@ -44,11 +44,11 @@ void GetText(QString filename, QString encoding, bool /* textOnly */, gtWriter *
 	if (filename.isNull())
 		return;
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
-	ScMW->mainWindowProgressBar->reset();
+	ScCore->primaryMainWindow()->mainWindowProgressBar->reset();
 	PdbIm *im = new PdbIm(filename, encoding, writer);
 	im->write();
 	delete im;
-	ScMW->mainWindowProgressBar->reset();
+	ScCore->primaryMainWindow()->mainWindowProgressBar->reset();
 	qApp->restoreOverrideCursor();
 }
 
@@ -88,7 +88,7 @@ void PdbIm::loadFile(QString fname)
 
 	if (!m_pdfp)
 	{
-		QMessageBox::warning(ScMW, QObject::tr("PDB Import", "PDB Importer"),
+		QMessageBox::warning(ScCore->primaryMainWindow(), QObject::tr("PDB Import", "PDB Importer"),
 							 "<qt>" + QObject::tr("Could not open file %1", "PDB Importer").arg(fname) + "</qt>",
 							 0);
 		return;
@@ -97,7 +97,7 @@ void PdbIm::loadFile(QString fname)
 	if (strncmp(m_header.type, DOC_TYPE, sizeof(m_header.type) ) ||
 		strncmp( m_header.creator, DOC_CREATOR, sizeof(m_header.creator)))
 	{
-		QMessageBox::warning(ScMW, QObject::tr("PDB Import", "PDB Importer"),
+		QMessageBox::warning(ScCore->primaryMainWindow(), QObject::tr("PDB Import", "PDB Importer"),
 							 "<qt>" + QObject::tr("This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.", "PDB Importer") + "</qt>",
 							 0);
 		return;
@@ -105,7 +105,7 @@ void PdbIm::loadFile(QString fname)
 
 	// progressbar
 	int num_records = swap_Word( m_header.numRecords ) - 1;
-	ScMW->mainWindowProgressBar->setTotalSteps(num_records);
+	ScCore->primaryMainWindow()->mainWindowProgressBar->setTotalSteps(num_records);
 	fseek(m_pdfp, PDB_HEADER_SIZE, SEEK_SET);
 	GET_DWord(m_pdfp, offset);
 	fseek(m_pdfp, offset, SEEK_SET);
@@ -120,7 +120,7 @@ void PdbIm::loadFile(QString fname)
 	{
 		DWord next_offset;
 
-		ScMW->mainWindowProgressBar->setProgress(rec_num);
+		ScCore->primaryMainWindow()->mainWindowProgressBar->setProgress(rec_num);
 		fseek( m_pdfp, PDB_HEADER_SIZE + PDB_RECORD_HEADER_SIZE * rec_num, SEEK_SET);
 		GET_DWord( m_pdfp, offset );
 		if( rec_num < num_records )

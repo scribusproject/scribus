@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 #include <string>
 #include "scpaths.h"
-#include "scribus.h"
+#include "scribuscore.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "text/nlsconfig.h"
@@ -50,14 +50,14 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
 {
 		//FIXME:av pick up language from charstyle
  	QString pfad = ScPaths::instance().libDir();
-	if (ScMW->Sprachen.contains(doc->Language))
+	if (ScCore->primaryMainWindow()->Sprachen.contains(doc->Language))
 		Language = doc->Language;
 	else
 	{
 		Language = PrefsManager::instance()->appPrefs.Language;
 		doc->Language = Language;
 	}
-	pfad += "dicts/" + ScMW->Sprachen[Language];
+	pfad += "dicts/" + ScCore->primaryMainWindow()->Sprachen[Language];
 	QFile f(pfad);
 	if (f.open(IO_ReadOnly))
 	{
@@ -86,7 +86,7 @@ Hyphenator::~Hyphenator()
 
 void Hyphenator::slotNewDict(QString name)
 {
-	if (!ScMW->Sprachen.contains(name))
+	if (!ScCore->primaryMainWindow()->Sprachen.contains(name))
 		return;
 	char *filename = NULL;
 	if (hdict != NULL)
@@ -94,7 +94,7 @@ void Hyphenator::slotNewDict(QString name)
  	QString pfad = ScPaths::instance().libDir();
 	Language = name;
 	doc->Language = name;
-	pfad += "dicts/" + ScMW->Sprachen[Language];
+	pfad += "dicts/" + ScCore->primaryMainWindow()->Sprachen[Language];
 	QFile f(pfad);
 	if (f.open(IO_ReadOnly))
 	{
@@ -137,7 +137,7 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 	const int BORDER = 2;
 	QCString te;
 
-	uint maxC = it->itemText.length() - 1;
+	//uint maxC = it->itemText.length() - 1;
 	QString found = text;
 	if (static_cast<int>(found.length()) > MinWordLen-1)
 	{
@@ -148,7 +148,7 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 			return;
 		if (!hnj_hyphen_hyphenate(hdict, word, strlen(word), buffer))
 		{
-			uint i = 0;
+			//uint i = 0;
 		  	buffer[strlen(word)] = '\0';
 			it->itemText.hyphenateWord(firstC, found.length(), buffer); 
 		}
@@ -191,7 +191,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	int Ccount = 0;
 	QString found = "";
 	QString found2 = "";
-	uint maxC = it->itemText.length() - 1;
+	//uint maxC = it->itemText.length() - 1;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	while ((firstC+Ccount < static_cast<int>(text.length())) && (firstC != -1) && 
 			(lastC < static_cast<int>(text.length())))

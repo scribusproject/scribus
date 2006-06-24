@@ -74,7 +74,7 @@ public:
 	// PV - guides refactoring
 	//QValueList<double> XGuides;
 	//QValueList<double> YGuides;
-	ScribusDoc* document() const { return m_Doc; }
+	ScribusDoc* doc() const { return m_Doc; }
 	void setDocument(ScribusDoc* doc);
 	uint pageNr() const { return m_pageNr; }
 	void setPageNr(int pageNr);

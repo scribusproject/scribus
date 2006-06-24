@@ -24,7 +24,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "guidemanager.h"
 #include "guidemanager.moc"
-#include "scribus.h"
+#include "scribuscore.h"
+#include "scribusdoc.h"
 #include "selection.h"
 #include "page.h"
 #include "units.h"
@@ -67,7 +68,8 @@ int GuideListItem::compare(QListViewItem *i, int col, bool asc) const
 
 
 GuideManager::GuideManager(QWidget* parent) :
-		GuideManagerBase(parent, "GuideManager")//,
+		GuideManagerBase(parent, "GuideManager"),
+		m_Doc(0)//,
 		//ScrPaletteBase(parent, "GuideManager", false, 0)
 {
 	setIcon(loadIcon("AppIcon.png"));
@@ -81,10 +83,17 @@ GuideManager::GuideManager(QWidget* parent) :
 	connect(verticalAutoGapSpin, SIGNAL(valueChanged(int)), this, SLOT(verticalAutoGapSpin_valueChanged(int)));
 }
 
+void GuideManager::setDoc(ScribusDoc* doc)
+{
+	m_Doc=doc;
+}
+
 void GuideManager::setupPage()
 {
+	if (!m_Doc)
+		return;
 	setEnabled(true);
-	currentPage = ScMW->doc->currentPage();
+	currentPage = m_Doc->currentPage();
 	unitChange();
 	resetMarginsForPage();
 	clearRestoreHorizontalList();
@@ -93,7 +102,9 @@ void GuideManager::setupPage()
 
 void GuideManager::unitChange()
 {
-	docUnitIndex = ScMW->doc->unitIndex();
+	if (!m_Doc)
+		return;
+	docUnitIndex = m_Doc->unitIndex();
 	docUnitPrecision = unitGetPrecisionFromIndex(docUnitIndex);
 	docUnitRatio = unitGetRatioFromIndex(docUnitIndex);
 	docUnitDecimals = unitGetDecimalsFromIndex(docUnitIndex);
@@ -209,24 +220,22 @@ void GuideManager::resetMarginsForPage()
 	FPoint selectionTopLeft = FPoint(0, 0);
 	FPoint selectionBottomRight = FPoint(0, 0);
 
-	int docSelectionCount = ScMW->doc->m_Selection->count();
+	int docSelectionCount = m_Doc->m_Selection->count();
 	// allow the selection radio button?
-	(docSelectionCount > 0) ?
-				selectionAutoButton->setEnabled(false) :
-				selectionAutoButton->setEnabled(true);
+	selectionAutoButton->setEnabled((docSelectionCount <= 0));
 
 	// multiselection
 	if (docSelectionCount > 1)
 	{
-		selectionTopLeft.setXY(ScMW->view->GroupX - currentPage->xOffset(),
-							   ScMW->view->GroupY - currentPage->yOffset());
-		selectionBottomRight.setXY(ScMW->view->GroupW,
-								   ScMW->view->GroupH);
+		selectionTopLeft.setXY(m_Doc->view()->GroupX - currentPage->xOffset(),
+							   m_Doc->view()->GroupY - currentPage->yOffset());
+		selectionBottomRight.setXY(m_Doc->view()->GroupW,
+								   m_Doc->view()->GroupH);
 	}
 	// only one item selected
 	else if (docSelectionCount == 1)
 	{
-		PageItem *currItem = ScMW->doc->m_Selection->itemAt(0);
+		PageItem *currItem = m_Doc->m_Selection->itemAt(0);
 		selectionTopLeft.setXY(currItem->xPos() - currentPage->xOffset(),
 							   currItem->yPos() - currentPage->yOffset());
 		selectionBottomRight.setXY(currItem->width(), currItem->height());
@@ -242,23 +251,23 @@ void GuideManager::resetMarginsForPage()
 	}
 	else selected = false;
 
-	locTop = ScMW->doc->pageMargins.Top;
-	locBottom = ScMW->doc->pageMargins.Bottom;
+	locTop = m_Doc->pageMargins.Top;
+	locBottom = m_Doc->pageMargins.Bottom;
 
-	PageLocation pageLocation = ScMW->doc->locationOfPage(ScMW->doc->currentPageNumber());
+	PageLocation pageLocation = m_Doc->locationOfPage(m_Doc->currentPageNumber());
 	switch (pageLocation)
 	{
 		case MiddlePage :
-			locLeft = ScMW->doc->pageMargins.Left;
-			locRight = ScMW->doc->pageMargins.Left;
+			locLeft = m_Doc->pageMargins.Left;
+			locRight = m_Doc->pageMargins.Left;
 			break;
 		case LeftPage:
-			locLeft = ScMW->doc->pageMargins.Right;
-			locRight = ScMW->doc->pageMargins.Left;
+			locLeft = m_Doc->pageMargins.Right;
+			locRight = m_Doc->pageMargins.Left;
 			break;
 		case RightPage:
-			locRight = ScMW->doc->pageMargins.Right;
-			locLeft = ScMW->doc->pageMargins.Left;
+			locRight = m_Doc->pageMargins.Right;
+			locLeft = m_Doc->pageMargins.Left;
 			break;
 		default:
 			locRight = 0;
@@ -285,12 +294,12 @@ void GuideManager::setGuidesFromList(QListView *w, Guides guides)
 
 void GuideManager::lockCheck_stateChanged( int )
 {
-	ScMW->doc->lockGuides(lockCheck->isChecked());
+	m_Doc->lockGuides(lockCheck->isChecked());
 }
 
 void GuideManager::copyGuidesToAllPages(GuideManagerCore::GuideType t)
 {
-	QPtrListIterator<Page> it(*ScMW->doc->Pages);
+	QPtrListIterator<Page> it(*m_Doc->Pages);
 	Page *tmpPage;
 	while ((tmpPage = it.current()) != 0 )
 	{
@@ -375,7 +384,7 @@ void GuideManager::getAutoHorizontals()
 	double rowSize;
 	if (horizontalAutoGapCheck->isChecked())
 	{
-		gapValue = value2pts(horizontalAutoGapSpin->value(), ScMW->doc->unitIndex());
+		gapValue = value2pts(horizontalAutoGapSpin->value(), m_Doc->unitIndex());
 		rowSize = (newPageHeight - (value - 1) * gapValue) / value;
 	}
 	else
@@ -421,7 +430,7 @@ void GuideManager::getAutoVerticals()
 	double columnSize;
 	if (verticalAutoGapCheck->isChecked())
 	{
-		gapValue = value2pts(horizontalAutoGapSpin->value(), ScMW->doc->unitIndex());
+		gapValue = value2pts(horizontalAutoGapSpin->value(), m_Doc->unitIndex());
 		columnSize = (newPageWidth - (value - 1) * gapValue) / value;
 	}
 	else
@@ -513,7 +522,7 @@ void GuideManager::verticalList_selectionChanged()
 
 void GuideManager::drawGuides()
 {
-	ScMW->view->DrawNew();
+	ScCore->primaryMainWindow()->view->DrawNew();
 }
 
 void GuideManager::clearRestoreHorizontalList()

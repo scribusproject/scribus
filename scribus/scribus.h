@@ -103,9 +103,7 @@ class UndoState;
 class ModeToolBar;
 class PDFToolBar;
 
-extern SCRIBUS_API ScribusCore* ScCore;
 extern SCRIBUS_API ScribusQApp* ScQApp;
-extern SCRIBUS_API ScribusMainWindow* ScMW;
 
 /**
   * \brief This Class is the base class for your application. It sets up the main
@@ -131,9 +129,8 @@ public:
 	void startUpDialog();
 	void setDefaultPrinter(const QString&, const QString&, const QString&);
 	void getDefaultPrinter(QString*, QString*, QString*);
-	const bool fileWatcherActive();
 
-	bool doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, double sp,
+	ScribusDoc *doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, double sp,
 					bool atf, int fp, int einh, int firstleft, int Ori, int SNr, const QString&, int pageCount=1, bool showView=true);
 	bool DoFileSave(QString fn);
 	void closeEvent(QCloseEvent *ce);
@@ -198,7 +195,7 @@ public:
 	 */
 	ScribusDoc *doc;
 
-	QLabel* mainWindowStatusLabel;
+
 	QProgressBar* mainWindowProgressBar;
 	QLabel* mainWindowXPosLabel;
 	QLabel* mainWindowXPosDataLabel;
@@ -259,7 +256,8 @@ public slots:
 	//void ManageGuides();
 	//void setItemFillTransparency(double t);
 	//void setItemLineTransparency(double t);
-	void setMousePositionOnStatusBar(double xp, double yp);
+	void setStatusBarMousePosition(double xp, double yp);
+	void setStatusBarInfoText(QString newText);
 	bool DoFileClose();
 	//bool DoSaveClose();
 	void windowsMenuAboutToShow();
@@ -561,6 +559,7 @@ private:
 	
 	void updateColorMenu(QProgressBar* progressBar=NULL);
 
+	QLabel* mainWindowStatusLabel;
 	QString recentFileMenuName;
 	QString layerMenuName;
 	QPixmap noIcon;

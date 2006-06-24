@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmddialog.h"
 #include "cmdutil.h"
+#include "scribuscore.h"
 #include "valuedialog.h"
 #include "editformats.h"
 
@@ -15,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 PyObject *scribus_newdocdia(PyObject* /* self */)
 {
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
-	bool ret = ScMW->slotFileNew();
+	bool ret = ScCore->primaryMainWindow()->slotFileNew();
 	QApplication::restoreOverrideCursor();
 	return PyInt_FromLong(static_cast<long>(ret));
 }
@@ -46,7 +47,7 @@ PyObject *scribus_filedia(PyObject* /* self */, PyObject* args, PyObject* kw)
 	Due the 'isdir' parameter. CFileDialog needs the last 2 pointers
 	initialized. */
 	bool nobool = false;
-	QString fName = ScMW->CFileDialog(".",
+	QString fName = ScCore->primaryMainWindow()->CFileDialog(".",
 										 QString::fromUtf8(caption),
 										 QString::fromUtf8(filter),
 										 QString::fromUtf8(defName),
@@ -78,7 +79,7 @@ PyObject *scribus_messdia(PyObject* /* self */, PyObject* args, PyObject* kw)
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "eses|iiii", kwargs, "utf-8", &caption, "utf-8", &message, &ico, &butt1, &butt2, &butt3))
 		return NULL;
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
-	QMessageBox mb(QString::fromUtf8(caption), QString::fromUtf8(message), ico, butt1, butt2, butt3, ScMW);
+	QMessageBox mb(QString::fromUtf8(caption), QString::fromUtf8(message), ico, butt1, butt2, butt3, ScCore->primaryMainWindow());
 	result = mb.exec();
 	QApplication::restoreOverrideCursor();
 	return PyInt_FromLong(static_cast<long>(result));
@@ -92,7 +93,7 @@ PyObject *scribus_valdialog(PyObject* /* self */, PyObject* args)
 	if (!PyArg_ParseTuple(args, "eses|es", "utf-8", &caption, "utf-8", &message, "utf-8", &value))
 		return NULL;
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
-	ValueDialog *d = new ValueDialog(ScMW, "d", true, 0);
+	ValueDialog *d = new ValueDialog(ScCore->primaryMainWindow(), "d", true, 0);
 	d->dialogLabel->setText(QString::fromUtf8(message));
 	d->valueEdit->setText(QString::fromUtf8(value));
 	d->setCaption(QString::fromUtf8(caption));
@@ -108,17 +109,17 @@ PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
 	series.
 	It simulates user mouse clicking in the style dialogs. Ugly.
 	Unpleasant. Etc. But working. */
-	uint styleCount = ScMW->doc->docParagraphStyles.count();
-	StilFormate *dia2 = new StilFormate(ScMW, ScMW->doc);
+	uint styleCount = ScCore->primaryMainWindow()->doc->docParagraphStyles.count();
+	StilFormate *dia2 = new StilFormate(ScCore->primaryMainWindow(), ScCore->primaryMainWindow()->doc);
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	dia2->neuesFormat();
 	QApplication::restoreOverrideCursor();
-	ScMW->saveStyles(dia2);
+	ScCore->primaryMainWindow()->saveStyles(dia2);
 	delete dia2;
-	if (styleCount == ScMW->doc->docParagraphStyles.count())
+	if (styleCount == ScCore->primaryMainWindow()->doc->docParagraphStyles.count())
 	{
 		Py_INCREF(Py_None);
 		return Py_None;
 	}
-	return PyString_FromString(ScMW->doc->docParagraphStyles[ScMW->doc->docParagraphStyles.count() - 1].name().utf8());
+	return PyString_FromString(ScCore->primaryMainWindow()->doc->docParagraphStyles[ScCore->primaryMainWindow()->doc->docParagraphStyles.count() - 1].name().utf8());
 }

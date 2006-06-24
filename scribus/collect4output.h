@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <qmap.h>
 
 class QString;
-class ScribusMainWindow;
+class ScribusDoc;
 class PrefsContext;
 
 
@@ -30,7 +30,7 @@ public:
 	\param withFonts collect/move fonts into output directory too
 	\param compressDoc use gzipped document
 	*/
-	CollectForOutput(bool withFonts=false, bool compressDoc=false);
+	CollectForOutput(ScribusDoc* doc, bool withFonts=false, bool compressDoc=false);
 	~CollectForOutput(){};
 
 	/*! \brief Main method doing everything.
@@ -39,6 +39,8 @@ public:
 	QString collect();
 
 private:
+	/*! Doc to collect */
+	ScribusDoc* m_Doc;
 	/*! Use compressed document. See the constructor */
 	bool compressDoc;
 	/*! Collect fonts too. See the constructor */

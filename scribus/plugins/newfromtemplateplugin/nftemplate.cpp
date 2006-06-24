@@ -92,29 +92,30 @@ void NewFromTemplatePlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool NewFromTemplatePlugin::run(QString target)
+bool NewFromTemplatePlugin::run(ScribusDoc* doc, QString target)
 {
 	Q_ASSERT(target.isNull());
-	Nft = new MenuNFT(ScMW);
+	Nft = new MenuNFT();
 	Q_CHECK_PTR(Nft);
-	Nft->RunNFTPlug();
+	Nft->RunNFTPlug(doc);
 	return true;
 }
 
 
-void MenuNFT::RunNFTPlug()
+void MenuNFT::RunNFTPlug(ScribusDoc* /*doc*/)
 {
-	nftdialog* nftdia = new nftdialog(ScMW, ScCore->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
+	ScribusMainWindow* mw=ScCore->primaryMainWindow();
+	nftdialog* nftdia = new nftdialog(mw, ScCore->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
 	if (nftdia->exec())
 	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
-		ScMW->loadDoc(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
-		ScMW->doc->hasName = false;
+		mw->loadDoc(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
+		mw->doc->hasName = false;
 		UndoManager::instance()->renameStack(nftdia->currentDocumentTemplate->name);
-		ScMW->doc->DocName = nftdia->currentDocumentTemplate->name;
-		ScMW->updateActiveWindowCaption(QObject::tr("Document Template: ") + nftdia->currentDocumentTemplate->name);
+		mw->doc->DocName = nftdia->currentDocumentTemplate->name;
+		mw->updateActiveWindowCaption(QObject::tr("Document Template: ") + nftdia->currentDocumentTemplate->name);
 		QDir::setCurrent(PrefsManager::instance()->documentDir());
-		ScMW->removeRecent(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
+		mw->removeRecent(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
 		qApp->restoreOverrideCursor();
 	}
 	delete nftdia;

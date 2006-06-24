@@ -42,7 +42,7 @@ class PageItem;
 class SCRIBUS_API gtWriter 
 {
 public:
-	gtWriter(bool append);
+// 	gtWriter(bool append);
 	gtWriter(bool append, PageItem *pageitem);
 	~gtWriter();
 	gtFrameStyle* getDefaultStyle();
