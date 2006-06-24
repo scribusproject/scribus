@@ -113,12 +113,12 @@ bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devM
 			docDir = dirs->get("winprn", prefsDocDir);
 		else
 			docDir = ".";
-		CustomFDialog dia( ScMW->view, docDir, QObject::tr("Save as"), "Spool Files (*.prn *.ps);;All Files (*)", false, false);
+		CustomFDialog dia( doc->scMW()->view, docDir, QObject::tr("Save as"), "Spool Files (*.prn *.ps);;All Files (*)", false, false);
 		dia.setSelection( diaSelection );
 		if (dia.exec() == QDialog::Accepted)
 		{
 			QString selectedFile = dia.selectedFile();
-			if ( overwrite(ScMW->view, selectedFile) )
+			if ( overwrite(doc->scMW()->view, selectedFile) )
 			{
 				dirs->set("winprn", selectedFile.left(selectedFile.findRev("/")));
 				selectedFile = QDir::convertSeparators( selectedFile );
@@ -134,7 +134,7 @@ bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devM
 #endif
 
 	// Set user options in the DEVmode structure
-	setDeviceParams( options, (DEVMODE*) devMode.data() );
+	setDeviceParams( doc, options, (DEVMODE*) devMode.data() );
 		
 	// Create the device context
 	printerDC = CreateDC( NULL, printerName.data(), NULL, (DEVMODE*) devMode.data() );
@@ -320,7 +320,7 @@ bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printer
 	bool usingGui = ScCore->usingGUI();
 	if ( usingGui )
 	{
-		progress.reset( new MultiProgressDialog(tr("Printing..."), CommonStrings::tr_Cancel, ScMW, "printprogress") );
+		progress.reset( new MultiProgressDialog(tr("Printing..."), CommonStrings::tr_Cancel, doc->scMW(), "printprogress") );
 		progress->setOverallTotalSteps( options.pageNumbers.size() );
 		progress->setOverallProgress(0);
 		connect(progress->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
@@ -639,7 +639,7 @@ bool ScWinPrint::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int
 	return ( (fileSize == bw) && ( br >= 0 ) );
 }
 
-void ScWinPrint::setDeviceParams( PrintOptions& options, DEVMODE* devMode )
+void ScWinPrint::setDeviceParams( ScribusDoc* doc, PrintOptions& options, DEVMODE* devMode )
 {
 	HANDLE handle;
 	QCString printer = options.printer.local8Bit();
@@ -659,7 +659,7 @@ void ScWinPrint::setDeviceParams( PrintOptions& options, DEVMODE* devMode )
 	devMode->dmFields = devFlags;
 
 	OpenPrinter( printer.data(), &handle, NULL );
-	DocumentProperties( ScMW->winId(), handle, printer.data(), devMode, devMode, DM_IN_BUFFER | DM_OUT_BUFFER);
+	DocumentProperties( doc->scMW()->winId(), handle, printer.data(), devMode, devMode, DM_IN_BUFFER | DM_OUT_BUFFER);
 	ClosePrinter( handle );
 }
 

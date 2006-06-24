@@ -26,6 +26,8 @@ for which a new license (GPL+exception) is in place.
 
 class QString;
 class ScribusDoc;
+class ScribusMainWindow;
+class ScribusView;
 class PageItem;
 class Page;
 class ScText;
@@ -73,6 +75,8 @@ public:
 
 private:
 	ScribusDoc* m_Doc;
+	ScribusMainWindow* m_ScMW;
+	ScribusView* m_View;
 #ifndef USECAIRO
 
 		/*!

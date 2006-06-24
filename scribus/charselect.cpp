@@ -806,7 +806,7 @@ void CharSelect::insChar()
 	delEdit();
 }
 
-bool CharSelect::eventFilter( QObject */*obj*/, QEvent *ev )
+bool CharSelect::eventFilter( QObject* /*obj*/, QEvent *ev )
 {
 	if ( ev->type() == QEvent::Show )
 	{

@@ -76,7 +76,7 @@ protected:
 	\param devMode pointer to a DEVMODE structure
 	\author Jean Ghali
 	*/
-	void setDeviceParams ( PrintOptions& options, DEVMODE* devMode );
+	void setDeviceParams ( ScribusDoc* doc, PrintOptions& options, DEVMODE* devMode );
 	/*! \brief Get support for PostScript Passthrough
 	Get ps passthrough support and escape code
 	\param printerDC the printer device context

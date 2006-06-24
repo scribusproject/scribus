@@ -42,6 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "scpaths.h"
 #include "scraction.h"
+#include "scribuscore.h"
 
 extern bool overwrite(QWidget *parent, QString filename);
 
@@ -64,7 +65,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	
 	//Generate our list of entries in the key manager from the menu system
 	QStringList menuKeys;
-	ScMW->scrMenuMgr->generateKeyManList(&menuKeys);
+	ScCore->primaryMainWindow()->scrMenuMgr->generateKeyManList(&menuKeys);
 	uint currentRow=0;
 	for ( QStringList::Iterator it = menuKeys.begin(); it != menuKeys.end(); ++it )
 	{
@@ -88,7 +89,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	
 	//Add in non menu item ScrActions, make a list, sort and add	
 	QStringList menuKeys2;
-	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = ScMW->scrActions.begin(); it!=ScMW->scrActions.end(); ++it )
+	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = ScCore->primaryMainWindow()->scrActions.begin(); it!= ScCore->primaryMainWindow()->scrActions.end(); ++it )
 	{
 		if (*it)
 			if (!menuKeys.contains(QString(it.key())))
