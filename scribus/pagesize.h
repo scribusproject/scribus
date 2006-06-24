@@ -55,11 +55,11 @@ public:
 
 private:
 	QMap<QString, PageSizeInfo > pageSizeList;
-	double m_Width;
-	double m_Height;
-	int pageUnitIndex;
-	QString pageSizeName;
-	QString trPageSizeName;
+	double m_width;
+	double m_height;
+	int m_pageUnitIndex;
+	QString m_pageSizeName;
+	QString m_trPageSizeName;
 };
 
 #endif

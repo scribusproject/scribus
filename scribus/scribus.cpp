@@ -1741,20 +1741,20 @@ void ScribusMainWindow::startUpDialog()
 		{
 			int facingPages = dia->choosenLayout;
 			int firstPage = dia->docLayout->firstPage->currentItem();
-			double topMargin = dia->GroupRand->top();
-			double bottomMargin = dia->GroupRand->bottom();
-			double leftMargin = dia->GroupRand->left();
-			double rightMargin = dia->GroupRand->right();
+			double topMargin = dia->marginGroup->top();
+			double bottomMargin = dia->marginGroup->bottom();
+			double leftMargin = dia->marginGroup->left();
+			double rightMargin = dia->marginGroup->right();
 			double columnDistance = dia->Dist;
 			double pageWidth = dia->pageWidth;
 			double pageHeight = dia->pageHeight;
-			double numberCols = dia->SpinBox10->value();
+			double numberCols = dia->numberOfCols->value();
 			bool autoframes = dia->AutoFrame->isChecked();
 			int orientation = dia->Orient;
 			int pageCount=dia->PgNum->value();
 			PageSize ps2(dia->pageSizeComboBox->currentText());
 			QString pagesize = ps2.name();
-			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(), firstPage, orientation, 1, pagesize, pageCount);
+			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasure->currentItem(), firstPage, orientation, 1, pagesize, pageCount);
 			doc->pageSets[facingPages].FirstPage = firstPage;
 			HaveNewDoc();
 		}
@@ -1790,20 +1790,20 @@ bool ScribusMainWindow::slotFileNew()
 	{
 		int facingPages = dia->choosenLayout;
 		int firstPage = dia->docLayout->firstPage->currentItem();
-		double topMargin = dia->GroupRand->top();
-		double bottomMargin = dia->GroupRand->bottom();
-		double leftMargin = dia->GroupRand->left();
-		double rightMargin = dia->GroupRand->right();
+		double topMargin = dia->marginGroup->top();
+		double bottomMargin = dia->marginGroup->bottom();
+		double leftMargin = dia->marginGroup->left();
+		double rightMargin = dia->marginGroup->right();
 		double columnDistance = dia->Dist;
 		double pageWidth = dia->pageWidth;
 		double pageHeight = dia->pageHeight;
-		double numberCols = dia->SpinBox10->value();
+		double numberCols = dia->numberOfCols->value();
 		bool autoframes = dia->AutoFrame->isChecked();
 		int orientation = dia->Orient;
 		int pageCount=dia->PgNum->value();
 		PageSize ps2(dia->pageSizeComboBox->currentText());
 		QString pagesize = ps2.name();
-		if (!doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(), firstPage, orientation, 1, pagesize, pageCount))
+		if (!doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasure->currentItem(), firstPage, orientation, 1, pagesize, pageCount))
 			return false;
 		doc->pageSets[facingPages].FirstPage = firstPage;
 		mainWindowStatusLabel->setText( tr("Ready"));

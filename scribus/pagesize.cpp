@@ -38,11 +38,11 @@ PageSize::PageSize(const QString sizeName)
 	if (pageSizeList.contains(sizeName))
 	{
 		PageSizeInfoMap::Iterator it = pageSizeList.find(sizeName);
-		pageSizeName=it.key();
-		m_Width=it.data().width;
-		m_Height=it.data().height;
-		pageUnitIndex=it.data().pageUnitIndex;
-		trPageSizeName=it.data().trSizeName;
+		m_pageSizeName=it.key();
+		m_width=it.data().width;
+		m_height=it.data().height;
+		m_pageUnitIndex=it.data().pageUnitIndex;
+		m_trPageSizeName=it.data().trSizeName;
 		valuesSet=true;
 	}
 	else //build based on translated value.
@@ -52,11 +52,11 @@ PageSize::PageSize(const QString sizeName)
 		{
 			if (sizeName==it.data().trSizeName)
 			{
-				pageSizeName=it.key();
-				m_Width=it.data().width;
-				m_Height=it.data().height;
-				pageUnitIndex=it.data().pageUnitIndex;
-				trPageSizeName=it.data().trSizeName;
+				m_pageSizeName=it.key();
+				m_width=it.data().width;
+				m_height=it.data().height;
+				m_pageUnitIndex=it.data().pageUnitIndex;
+				m_trPageSizeName=it.data().trSizeName;
 				valuesSet=true;
 			}
 		}
@@ -65,49 +65,49 @@ PageSize::PageSize(const QString sizeName)
 	if (!valuesSet)
 	{
 		//qDebug("Non-existant page size selected");
-		m_Width=m_Height=0.0;
-		pageUnitIndex=-1;
-		pageSizeName="Custom";
-		trPageSizeName=QObject::tr("Custom");	
+		m_width=m_height=0.0;
+		m_pageUnitIndex=-1;
+		m_pageSizeName="Custom";
+		m_trPageSizeName=QObject::tr("Custom");	
 	}
 }
 
 PageSize::PageSize(const double w, const double h)
 {
-	m_Width=w;
-	m_Height=h;
-	pageSizeName="Custom";
-	trPageSizeName=QObject::tr("Custom");	
+	m_width=w;
+	m_height=h;
+	m_pageSizeName="Custom";
+	m_trPageSizeName=QObject::tr("Custom");	
 }
 
 QString PageSize::name()
 {
-	return pageSizeName;
+	return m_pageSizeName;
 }
 
 QString PageSize::nameTR()
 {
-	return trPageSizeName;
+	return m_trPageSizeName;
 }
 
 double PageSize::width()
 {
-	return m_Width;
+	return m_width;
 }
 
 double PageSize::height()
 {
-	return m_Height;
+	return m_height;
 }
 
 double PageSize::originalWidth()
 {
-	return m_Width*unitGetRatioFromIndex(pageUnitIndex);
+	return m_width*unitGetRatioFromIndex(m_pageUnitIndex);
 }
 
 double PageSize::originalHeight()
 {
-	return m_Height*unitGetRatioFromIndex(pageUnitIndex);
+	return m_height*unitGetRatioFromIndex(m_pageUnitIndex);
 }
 
 QStringList PageSize::sizeList(void)
@@ -214,11 +214,6 @@ void PageSize::generateSizeList()
 	QString impTrNames[]={QT_TR_NOOP("Quarto"),QT_TR_NOOP("Foolscap"),QT_TR_NOOP("Letter"),QT_TR_NOOP("Government Letter"),QT_TR_NOOP("Legal"),QT_TR_NOOP("Ledger"),QT_TR_NOOP("Executive"),QT_TR_NOOP("Post"),QT_TR_NOOP("Crown"),QT_TR_NOOP("Large Post"),QT_TR_NOOP("Demy"),QT_TR_NOOP("Medium"),QT_TR_NOOP("Royal"),QT_TR_NOOP("Elephant"),QT_TR_NOOP("Double Demy"),QT_TR_NOOP("Quad Demy"),QT_TR_NOOP("STMT"),QT_TR_NOOP("A"),QT_TR_NOOP("B"),QT_TR_NOOP("C"),QT_TR_NOOP("D"),QT_TR_NOOP("E")};
 	
 	size_t const num_mappings_widths = (sizeof impWidths)/(sizeof *impWidths);
-/*	size_t const num_mappings_heights = (sizeof impHeights)/(sizeof *impHeights);
-	size_t const num_mappings_names = (sizeof impNames)/(sizeof *impNames);
-	size_t const num_mappings_trnames = (sizeof impTrNames)/(sizeof *impTrNames); */
-	
-	//Q_ASSERT(num_mappings_widths == num_mappings_heights == num_mappings_names == num_mappings_trnames );
 	
 	for (uint i = 0; i < num_mappings_widths; ++i)
 	{

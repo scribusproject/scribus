@@ -51,7 +51,7 @@ public:
 	QFrame* newDocFrame;
 	PageLayouts* docLayout;
 	QButtonGroup* ButtonGroup1_2;
-	MarginWidget* GroupRand;
+	MarginWidget* marginGroup;
 	QGroupBox* GroupBox3;
 	QGroupBox* AutoFrame;
 	QLabel* TextLabel1;
@@ -65,10 +65,10 @@ public:
 	QLabel* TextLabel2_3;
 	QComboBox* pageSizeComboBox;
 	QComboBox* pageOrientationComboBox;
-	QComboBox* ComboBox3;
+	QComboBox* unitOfMeasure;
 	QCheckBox* startUpDialog;
 	MSpinBox* Distance;
-	QSpinBox* SpinBox10;
+	QSpinBox* numberOfCols;
 	//QSpinBox* PgNr;
 	QSpinBox* PgNum;
 	MSpinBox* widthMSpinBox;

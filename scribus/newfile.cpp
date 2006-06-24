@@ -88,9 +88,9 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 //	QToolTip::add( ErsteSeite, tr( "Make the first page the left page of the document" ) );
 	//QToolTip::add( PgNr, tr( "First page number of the document" ) );
 	QToolTip::add( PgNum, tr( "Initial number of pages of the document" ) );
-	QToolTip::add( ComboBox3, tr( "Default unit of measurement for document editing" ) );
+	QToolTip::add( unitOfMeasure, tr( "Default unit of measurement for document editing" ) );
 	QToolTip::add( AutoFrame, tr( "Create text frames automatically when new pages are added" ) );
-	QToolTip::add( SpinBox10, tr( "Number of columns to create in automatically created text frames" ) );
+	QToolTip::add( numberOfCols, tr( "Number of columns to create in automatically created text frames" ) );
 	QToolTip::add( Distance, tr( "Distance between automatically created columns" ) );
 
 	// signals and slots connections
@@ -99,7 +99,7 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	connect( docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int ) ) );
 	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPGsize(const QString &)));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
-	connect(ComboBox3, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
+	connect(unitOfMeasure, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
 	connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
 	if (startUp)
 		connect(recentDocListBox, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(recentDocListBox_doubleClicked(QListBoxItem*)));
@@ -170,11 +170,11 @@ void NewDoc::createNewDocPage()
 	marg.Bottom = prefsManager->appPrefs.RandUnten;
 	marg.Left = prefsManager->appPrefs.RandLinks;
 	marg.Right = prefsManager->appPrefs.RandRechts;
-	GroupRand = new MarginWidget(newDocFrame,  tr( "Margin Guides" ), &marg, unitIndex );
-	GroupRand->setPageWidthHeight(prefsManager->appPrefs.PageWidth, prefsManager->appPrefs.PageHeight);
-	//GroupRand->setFacingPages(prefsManager->appPrefs.FacingPages == doublePage);
-	GroupRand->setFacingPages(!(prefsManager->appPrefs.FacingPages == singlePage));
-	Layout9->addWidget( GroupRand );
+	marginGroup = new MarginWidget(newDocFrame,  tr( "Margin Guides" ), &marg, unitIndex );
+	marginGroup->setPageWidthHeight(prefsManager->appPrefs.PageWidth, prefsManager->appPrefs.PageHeight);
+	//marginGroup->setFacingPages(prefsManager->appPrefs.FacingPages == doublePage);
+	marginGroup->setFacingPages(!(prefsManager->appPrefs.FacingPages == singlePage));
+	Layout9->addWidget( marginGroup );
 	NewDocLayout->addLayout( Layout9 );
 	widthMSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
 	heightMSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
@@ -184,7 +184,7 @@ void NewDoc::createNewDocPage()
 		pageSizeComboBox->setCurrentItem(sizeIndex);
 	else
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
-	GroupRand->setPageSize(pageSizeComboBox->currentText());
+	marginGroup->setPageSize(pageSizeComboBox->currentText());
 	/*
 	bool hwEnabled=(pageSizeComboBox->currentText()==customTextTR);
 	widthMSpinBox->setEnabled(hwEnabled);
@@ -221,12 +221,12 @@ void NewDoc::createNewDocPage()
 	GroupBox3Layout->addWidget( PgNum, 0, 2, Qt::AlignRight );
 	TextLabel2_3 = new QLabel( tr( "&Default Unit:" ), GroupBox3, "TextLabel2_3" );
 	GroupBox3Layout->addWidget( TextLabel2_3, 1, 0 );
-	ComboBox3 = new QComboBox( true, GroupBox3, "ComboBox3" );
-	ComboBox3->insertStringList(unitGetTextUnitList());
-	ComboBox3->setCurrentItem(unitIndex);
-	ComboBox3->setEditable(false);
-	TextLabel2_3->setBuddy(ComboBox3);
-	GroupBox3Layout->addMultiCellWidget( ComboBox3, 1, 1, 1, 2 );
+	unitOfMeasure = new QComboBox( true, GroupBox3, "unitOfMeasure" );
+	unitOfMeasure->insertStringList(unitGetTextUnitList());
+	unitOfMeasure->setCurrentItem(unitIndex);
+	unitOfMeasure->setEditable(false);
+	TextLabel2_3->setBuddy(unitOfMeasure);
+	GroupBox3Layout->addMultiCellWidget( unitOfMeasure, 1, 1, 1, 2 );
 	Layout10->addWidget( GroupBox3 );
 
 	AutoFrame = new QGroupBox( newDocFrame, "GroupBox4" );
@@ -253,12 +253,12 @@ void NewDoc::createNewDocPage()
 	Dist = 11;
 	TextLabel4->setBuddy(Distance);
 	Layout2->addWidget( Distance, 1, 1, Qt::AlignLeft );
-	SpinBox10 = new QSpinBox( AutoFrame, "SpinBox10" );
-	SpinBox10->setButtonSymbols( QSpinBox::UpDownArrows );
-	SpinBox10->setMinValue( 1 );
-	SpinBox10->setValue( 1 );
-	TextLabel3->setBuddy(SpinBox10);
-	Layout2->addWidget( SpinBox10, 0, 1, Qt::AlignLeft );
+	numberOfCols = new QSpinBox( AutoFrame, "numberOfCols" );
+	numberOfCols->setButtonSymbols( QSpinBox::UpDownArrows );
+	numberOfCols->setMinValue( 1 );
+	numberOfCols->setValue( 1 );
+	TextLabel3->setBuddy(numberOfCols);
+	Layout2->addWidget( numberOfCols, 0, 1, Qt::AlignLeft );
 	GroupBox4Layout->addLayout( Layout2 );
 	Layout10->addWidget( AutoFrame );
 	NewDocLayout->addLayout( Layout10 );
@@ -313,7 +313,7 @@ void NewDoc::createRecentDocPage()
 void NewDoc::setWidth(int)
 {
 	pageWidth = widthMSpinBox->value() / unitRatio;
-	GroupRand->setPageWidth(pageWidth);
+	marginGroup->setPageWidth(pageWidth);
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=customTextTR && psText!=customText)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
@@ -322,7 +322,7 @@ void NewDoc::setWidth(int)
 void NewDoc::setHeight(int)
 {
 	pageHeight = heightMSpinBox->value() / unitRatio;
-	GroupRand->setPageHeight(pageHeight);
+	marginGroup->setPageHeight(pageHeight);
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=customTextTR && psText!=customText)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
@@ -366,9 +366,9 @@ void NewDoc::setUnit(int newUnitIndex)
 	widthMSpinBox->setSuffix(unitSuffix);
 	heightMSpinBox->setSuffix(unitSuffix);
 	Distance->setSuffix( unitSuffix );
-	GroupRand->unitChange(unitRatio, decimals, unitSuffix);
-	GroupRand->setPageHeight(pageHeight);
-	GroupRand->setPageWidth(pageWidth);
+	marginGroup->unitChange(unitRatio, decimals, unitSuffix);
+	marginGroup->setPageHeight(pageHeight);
+	marginGroup->setPageWidth(pageWidth);
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
 	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
 
@@ -406,8 +406,8 @@ void NewDoc::setOrien(int ori)
 			pageOrientationComboBox->setCurrentItem(portraitPage);
 	}
 	// end of #869
-	GroupRand->setPageHeight(pageHeight);
-	GroupRand->setPageWidth(pageWidth);
+	marginGroup->setPageHeight(pageHeight);
+	marginGroup->setPageWidth(pageWidth);
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
 	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
 }
@@ -422,7 +422,7 @@ void NewDoc::setPGsize(const QString &size)
 		setSize(size);
 		setOrien(pageOrientationComboBox->currentItem());
 	}
-	GroupRand->setPageSize(size);
+	marginGroup->setPageSize(size);
 }
 
 void NewDoc::setSize(QString gr)
@@ -463,15 +463,15 @@ void NewDoc::setSize(QString gr)
 	}
 	widthMSpinBox->setValue(pageWidth * unitRatio);
 	heightMSpinBox->setValue(pageHeight * unitRatio);
-	GroupRand->setPageHeight(pageHeight);
-	GroupRand->setPageWidth(pageWidth);
+	marginGroup->setPageHeight(pageHeight);
+	marginGroup->setPageWidth(pageWidth);
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
 	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
 }
 
 void NewDoc::setDS(int layout)
 {
-	GroupRand->setFacingPages(!(layout == singlePage));
+	marginGroup->setFacingPages(!(layout == singlePage));
 	choosenLayout = layout;
 	docLayout->firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[choosenLayout].FirstPage);
 }
