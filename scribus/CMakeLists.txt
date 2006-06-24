@@ -214,6 +214,7 @@ checkDocument.cpp
 cmserrorhandling.cpp
 cmykfw.cpp
 cmsprefs.cpp
+cmsettings.cpp
 collect4output.cpp
 colorchart.cpp
 colorcombo.cpp
