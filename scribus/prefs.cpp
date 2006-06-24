@@ -245,12 +245,12 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	pageSizeComboBox = new QComboBox( true, GroupSize, "pageSizeComboBox" );
 
 	PageSize *ps=new PageSize(prefsData->pageSize);
-	pageSizeComboBox->insertStringList(ps->getTrPageSizeList());
+	pageSizeComboBox->insertStringList(ps->sizeTRList());
 	pageSizeComboBox->insertItem( customTextTR );
 	pageSizeComboBox->setEditable(false);
 
-	QStringList pageSizes=ps->getPageSizeList();
-	int sizeIndex=pageSizes.findIndex(ps->getPageText());
+	QStringList pageSizes=ps->sizeList();
+	int sizeIndex=pageSizes.findIndex(ps->nameTR());
 	if (sizeIndex!=-1)
 		pageSizeComboBox->setCurrentItem(sizeIndex);
 	else
@@ -1131,20 +1131,13 @@ void Preferences::setSize(const QString & gr)
 {
 	Pagebr = pageWidth->value() / unitRatio;
 	Pageho = pageHeight->value() / unitRatio;
-	//pageWidth->setEnabled(false);
-	//pageHeight->setEnabled(false);
 	PageSize *ps2=new PageSize(gr);
 
-	prefsPageSizeName=ps2->getPageName();
-	if (gr == customTextTR)
+	prefsPageSizeName=ps2->name();
+	if (gr != customTextTR)
 	{
-		//pageWidth->setEnabled(true);
-		//pageHeight->setEnabled(true);
-	}
-	else
-	{
-		Pagebr = ps2->getPageWidth();
-		Pageho = ps2->getPageHeight();
+		Pagebr = ps2->width();
+		Pageho = ps2->height();
 	}
 	disconnect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));

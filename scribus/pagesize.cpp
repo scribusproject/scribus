@@ -33,14 +33,14 @@ for which a new license (GPL+exception) is in place.
 PageSize::PageSize(const QString sizeName)
 {
 	bool valuesSet=false;
-	generatePageSizeList();
+	generateSizeList();
 	//Build based on untranslated key value
 	if (pageSizeList.contains(sizeName))
 	{
 		PageSizeInfoMap::Iterator it = pageSizeList.find(sizeName);
 		pageSizeName=it.key();
-		width=it.data().width;
-		height=it.data().height;
+		m_Width=it.data().width;
+		m_Height=it.data().height;
 		pageUnitIndex=it.data().pageUnitIndex;
 		trPageSizeName=it.data().trSizeName;
 		valuesSet=true;
@@ -53,8 +53,8 @@ PageSize::PageSize(const QString sizeName)
 			if (sizeName==it.data().trSizeName)
 			{
 				pageSizeName=it.key();
-				width=it.data().width;
-				height=it.data().height;
+				m_Width=it.data().width;
+				m_Height=it.data().height;
 				pageUnitIndex=it.data().pageUnitIndex;
 				trPageSizeName=it.data().trSizeName;
 				valuesSet=true;
@@ -65,7 +65,7 @@ PageSize::PageSize(const QString sizeName)
 	if (!valuesSet)
 	{
 		//qDebug("Non-existant page size selected");
-		width=height=0.0;
+		m_Width=m_Height=0.0;
 		pageUnitIndex=-1;
 		pageSizeName="Custom";
 		trPageSizeName=QObject::tr("Custom");	
@@ -74,43 +74,43 @@ PageSize::PageSize(const QString sizeName)
 
 PageSize::PageSize(const double w, const double h)
 {
-	width=w;
-	height=h;
+	m_Width=w;
+	m_Height=h;
 	pageSizeName="Custom";
 	trPageSizeName=QObject::tr("Custom");	
 }
 
-QString PageSize::getPageName()
+QString PageSize::name()
 {
 	return pageSizeName;
 }
 
-QString PageSize::getPageText()
+QString PageSize::nameTR()
 {
 	return trPageSizeName;
 }
 
-double PageSize::getPageWidth()
+double PageSize::width()
 {
-	return width;
+	return m_Width;
 }
 
-double PageSize::getPageHeight()
+double PageSize::height()
 {
-	return height;
+	return m_Height;
 }
 
-double PageSize::getOriginalPageWidth()
+double PageSize::originalWidth()
 {
-	return width*unitGetRatioFromIndex(pageUnitIndex);
+	return m_Width*unitGetRatioFromIndex(pageUnitIndex);
 }
 
-double PageSize::getOriginalPageHeight()
+double PageSize::originalHeight()
 {
-	return height*unitGetRatioFromIndex(pageUnitIndex);
+	return m_Height*unitGetRatioFromIndex(pageUnitIndex);
 }
 
-QStringList PageSize::getPageSizeList(void)
+QStringList PageSize::sizeList(void)
 {
 	QStringList pageSizes;
 	pageSizes.clear();
@@ -120,7 +120,7 @@ QStringList PageSize::getPageSizeList(void)
 	return QStringList(pageSizes);
 }
 
-QStringList PageSize::getTrPageSizeList(void)
+QStringList PageSize::sizeTRList(void)
 {
 	QStringList pageSizes;
 	pageSizes.clear();
@@ -131,7 +131,7 @@ QStringList PageSize::getTrPageSizeList(void)
 }
 
 
-void PageSize::generatePageSizeList()
+void PageSize::generateSizeList()
 {
 	/*
 	{"A5", "A6", "A7", "A8", "A9", "B0", "B1", "B2", "B3",
@@ -248,7 +248,7 @@ void PageSize::generatePageSizeList()
 	//Tabloid
 }
 
-void PageSize::printPageSizeList()
+void PageSize::printSizeList()
 {
 	PageSizeInfoMap::Iterator it;
 	for (it=pageSizeList.begin();it!=pageSizeList.end();++it)

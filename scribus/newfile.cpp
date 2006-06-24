@@ -131,7 +131,7 @@ void NewDoc::createNewDocPage()
 	Layout6->addWidget( TextLabel1, 0, 0 );
 	PageSize ps(prefsManager->appPrefs.pageSize);
 	pageSizeComboBox = new QComboBox( true, ButtonGroup1_2, "pageSizeComboBox" );
-	pageSizeComboBox->insertStringList(ps.getTrPageSizeList());
+	pageSizeComboBox->insertStringList(ps.sizeTRList());
 	pageSizeComboBox->insertItem( customTextTR );
 	pageSizeComboBox->setEditable(false);
 	TextLabel1->setBuddy(pageSizeComboBox);
@@ -178,8 +178,8 @@ void NewDoc::createNewDocPage()
 	NewDocLayout->addLayout( Layout9 );
 	widthMSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
 	heightMSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
-	QStringList pageSizes=ps.getPageSizeList();
-	int sizeIndex=pageSizes.findIndex(ps.getPageText());
+	QStringList pageSizes=ps.sizeList();
+	int sizeIndex=pageSizes.findIndex(ps.nameTR());
 	if (sizeIndex!=-1)
 		pageSizeComboBox->setCurrentItem(sizeIndex);
 	else
@@ -451,11 +451,11 @@ void NewDoc::setSize(QString gr)
 		{
 			//pageWidth = page_x[gr];
 			//pageHeight = page_y[gr];
-			pageWidth = ps2->getPageWidth();
-			pageHeight = ps2->getPageHeight();
+			pageWidth = ps2->width();
+			pageHeight = ps2->height();
 		} else {
-			pageWidth = ps2->getPageHeight();
-			pageHeight = ps2->getPageWidth();
+			pageWidth = ps2->height();
+			pageHeight = ps2->width();
 			//pageWidth = page_y[gr];
 			//pageHeight = page_x[gr];
 		}

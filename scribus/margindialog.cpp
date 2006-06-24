@@ -46,11 +46,11 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	PageSize *ps=new PageSize(doc->currentPage()->PageSize);
 	sizeQComboBox = new QComboBox( true, dsGroupBox7, "ComboBox1" );
 	sizeQComboBox->setEditable(false);
-	QStringList pageSizes=ps->getPageSizeList();
-	sizeQComboBox->insertStringList(ps->getTrPageSizeList());
+	QStringList pageSizes=ps->sizeList();
+	sizeQComboBox->insertStringList(ps->sizeTRList());
 	sizeQComboBox->insertItem( tr( "Custom" ) );
-	prefsPageSizeName=ps->getPageName();
-	int sizeIndex = pageSizes.findIndex(ps->getPageText());
+	prefsPageSizeName=ps->name();
+	int sizeIndex = pageSizes.findIndex(ps->nameTR());
 	if (sizeIndex != -1)
 		sizeQComboBox->setCurrentItem(sizeIndex);
 	else
@@ -177,7 +177,7 @@ void MarginDialog::setSize(const QString & gr)
 	widthMSpinBox->setEnabled(false);
 	heightMSpinBox->setEnabled(false);
 	PageSize *ps2 = new PageSize(gr);
-	prefsPageSizeName = ps2->getPageName();
+	prefsPageSizeName = ps2->name();
 	if (gr == tr("Custom"))
 	{
 		widthMSpinBox->setEnabled(true);
@@ -185,8 +185,8 @@ void MarginDialog::setSize(const QString & gr)
 	}
 	else
 	{
-		pageWidth = ps2->getPageWidth();
-		pageHeight = ps2->getPageHeight();
+		pageWidth = ps2->width();
+		pageHeight = ps2->height();
 	}
 	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));

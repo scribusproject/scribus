@@ -273,8 +273,8 @@ void PrefsManager::initDefaults()
 	appPrefs.pageSize = "A4";
 	appPrefs.pageOrientation = 0;
 	PageSize a4("A4");
-	appPrefs.PageWidth = a4.getPageWidth();
-	appPrefs.PageHeight = a4.getPageHeight();
+	appPrefs.PageWidth = a4.width();
+	appPrefs.PageHeight = a4.height();
 	appPrefs.RandOben = 40;
 	appPrefs.RandUnten = 40;
 	appPrefs.RandLinks = 40;

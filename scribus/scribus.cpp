@@ -1753,7 +1753,7 @@ void ScribusMainWindow::startUpDialog()
 			int orientation = dia->Orient;
 			int pageCount=dia->PgNum->value();
 			PageSize ps2(dia->pageSizeComboBox->currentText());
-			QString pagesize = ps2.getPageName();
+			QString pagesize = ps2.name();
 			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(), firstPage, orientation, 1, pagesize, pageCount);
 			doc->pageSets[facingPages].FirstPage = firstPage;
 			HaveNewDoc();
@@ -1802,7 +1802,7 @@ bool ScribusMainWindow::slotFileNew()
 		int orientation = dia->Orient;
 		int pageCount=dia->PgNum->value();
 		PageSize ps2(dia->pageSizeComboBox->currentText());
-		QString pagesize = ps2.getPageName();
+		QString pagesize = ps2.name();
 		if (!doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(), firstPage, orientation, 1, pagesize, pageCount))
 			return false;
 		doc->pageSets[facingPages].FirstPage = firstPage;

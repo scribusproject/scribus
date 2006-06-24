@@ -42,21 +42,21 @@ public:
 	PageSize(const QString);
 	PageSize(const double, const double);
 	
-	QString getPageName();
-	QString getPageText();
-	double getPageWidth();
-	double getPageHeight();
-	double getOriginalPageWidth();
-	double getOriginalPageHeight();
-	QStringList getPageSizeList();
-	QStringList getTrPageSizeList();
-	void generatePageSizeList();
-	void printPageSizeList();
+	QString name();
+	QString nameTR();
+	double width();
+	double height();
+	double originalWidth();
+	double originalHeight();
+	QStringList sizeList();
+	QStringList sizeTRList();
+	void generateSizeList();
+	void printSizeList();
 
 private:
 	QMap<QString, PageSizeInfo > pageSizeList;
-	double width;
-	double height;
+	double m_Width;
+	double m_Height;
 	int pageUnitIndex;
 	QString pageSizeName;
 	QString trPageSizeName;

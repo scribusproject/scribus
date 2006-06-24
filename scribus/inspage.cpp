@@ -108,11 +108,11 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	PageSize *ps=new PageSize(currentDoc->PageSize);
 	sizeQComboBox = new QComboBox( true, dsGroupBox7, "ComboBox1" );
 	sizeQComboBox->setEditable(false);
-	QStringList pageSizes=ps->getPageSizeList();
-	sizeQComboBox->insertStringList(ps->getTrPageSizeList());
+	QStringList pageSizes=ps->sizeList();
+	sizeQComboBox->insertStringList(ps->sizeTRList());
 	sizeQComboBox->insertItem( tr( "Custom" ) );
-	prefsPageSizeName=ps->getPageName();
-	int sizeIndex = pageSizes.findIndex(ps->getPageText());
+	prefsPageSizeName=ps->name();
+	int sizeIndex = pageSizes.findIndex(ps->nameTR());
 	if (sizeIndex != -1)
 		sizeQComboBox->setCurrentItem(sizeIndex);
 	else
@@ -187,7 +187,7 @@ void InsPage::setSize(const QString & gr)
 	widthMSpinBox->setEnabled(false);
 	heightMSpinBox->setEnabled(false);
 	PageSize *ps2 = new PageSize(gr);
-	prefsPageSizeName = ps2->getPageName();
+	prefsPageSizeName = ps2->name();
 	if (gr == tr("Custom"))
 	{
 		widthMSpinBox->setEnabled(true);
@@ -195,8 +195,8 @@ void InsPage::setSize(const QString & gr)
 	}
 	else
 	{
-		widthMSpinBox->setValue(ps2->getPageWidth() * unitRatio);
-		heightMSpinBox->setValue(ps2->getPageHeight() * unitRatio);
+		widthMSpinBox->setValue(ps2->width() * unitRatio);
+		heightMSpinBox->setValue(ps2->height() * unitRatio);
 	}
 	delete ps2;
 }

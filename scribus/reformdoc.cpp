@@ -113,12 +113,12 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	sizeQLabel = new QLabel( pageSizeComboBox, tr( "&Size:" ), dsGroupBox7, "sizeQLabel" );
 
 	PageSize *ps=new PageSize(doc->PageSize);
-	QStringList pageSizes=ps->getPageSizeList();
-	pageSizeComboBox->insertStringList(ps->getTrPageSizeList());
+	QStringList pageSizes=ps->sizeList();
+	pageSizeComboBox->insertStringList(ps->sizeTRList());
 	pageSizeComboBox->insertItem( customTextTR );
-	prefsPageSizeName=ps->getPageName();
+	prefsPageSizeName=ps->name();
 
-	int sizeIndex=pageSizes.findIndex(ps->getPageText());
+	int sizeIndex=pageSizes.findIndex(ps->nameTR());
 	delete ps;
 	//set Custom if we dont have one already as old docs wont have this attribute
 	if (sizeIndex!=-1)
@@ -662,7 +662,7 @@ void ReformDoc::setSize(const QString & gr)
 	heightMSpinBox->setEnabled(false);
 	*/
 	PageSize *ps2=new PageSize(gr);
-	prefsPageSizeName=ps2->getPageName();
+	prefsPageSizeName=ps2->name();
 	if (gr == customTextTR)
 	{
 		/*
@@ -672,8 +672,8 @@ void ReformDoc::setSize(const QString & gr)
 	}
 	else
 	{
-		pageWidth = ps2->getPageWidth();
-		pageHeight = ps2->getPageHeight();
+		pageWidth = ps2->width();
+		pageHeight = ps2->height();
 	}
 	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
