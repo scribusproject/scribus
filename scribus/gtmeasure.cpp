@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 
 double gtMeasure::ratio = 1.0;
 
-void gtMeasure::init(Unit u)
+void gtMeasure::init(scUnit u)
 {
 	ratio=unitGetRatioFromIndex((int)u);
 }
@@ -62,17 +62,17 @@ double gtMeasure::parse(const QString& value)
 	return unitValueFromString(value);
 }
 
-double gtMeasure::convert(double value, Unit from, Unit to)
+double gtMeasure::convert(double value, scUnit from, scUnit to)
 {
 	return d2d(value, from, to);
 }
 
-double gtMeasure::convert(int value, Unit from, Unit to)
+double gtMeasure::convert(int value, scUnit from, scUnit to)
 {
 	return i2d(value, from, to);
 }
 
-double gtMeasure::d2d(double value, Unit from, Unit to)
+double gtMeasure::d2d(double value, scUnit from, scUnit to)
 {
 	init(from);
 	double tmp = convert(value);
@@ -81,7 +81,7 @@ double gtMeasure::d2d(double value, Unit from, Unit to)
 }
 
 
-double gtMeasure::i2d(int value, Unit from, Unit to)
+double gtMeasure::i2d(int value, scUnit from, scUnit to)
 {
 	init(from);
 	double tmp = convert(value);
@@ -89,7 +89,7 @@ double gtMeasure::i2d(int value, Unit from, Unit to)
 	return convert2(tmp);
 }
 
-double gtMeasure::qs2d(const QString& value, Unit to)
+double gtMeasure::qs2d(const QString& value, scUnit to)
 {
 	double tmp = convert(parse(value));
 	init(to);

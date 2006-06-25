@@ -81,7 +81,7 @@ public:
 	virtual QString mapValueToText(int value);
 	/*!
 	\author Franz Schmid
-	\brief Maps the Text of the Spinbox to the Value, does Unit Conversion and Calculations
+	\brief Maps the Text of the Spinbox to the Value, does scUnit Conversion and Calculations
 	\param ok not used
 	\retval int The Value
 	*/

@@ -37,18 +37,18 @@ class SCRIBUS_API gtMeasure
 private:
 	gtMeasure();
 	static double ratio;
-	static void   init(Unit u);
+	static void   init(scUnit u);
 	static double convert(double value);
 	static double convert(int value);
 	static double convert2(double value);
 	static double convert2(int value);
 	static double parse(const QString& value);
 public:
-	static double convert(double value, Unit from, Unit to = SC_PT);
-	static double convert(int value, Unit from, Unit to = SC_PT);
-	static double d2d(double value, Unit from, Unit to = SC_PT);
-	static double i2d(int value, Unit from, Unit to = SC_PT);
-	static double qs2d(const QString& value, Unit to = SC_PT);
+	static double convert(double value, scUnit from, scUnit to = SC_PT);
+	static double convert(int value, scUnit from, scUnit to = SC_PT);
+	static double d2d(double value, scUnit from, scUnit to = SC_PT);
+	static double i2d(int value, scUnit from, scUnit to = SC_PT);
+	static double qs2d(const QString& value, scUnit to = SC_PT);
 
 };
 

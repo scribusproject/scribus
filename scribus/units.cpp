@@ -78,10 +78,10 @@ const double unitValueFromString(const QString& value)
 /*!
  * @brief Strip the text from a value and return the Unit index for the value
  */
-const Unit unitIndexFromString(const QString& value)
+const scUnit unitIndexFromString(const QString& value)
 {
 	QString lowerValue = value.lower();
-	Unit retVal;
+	scUnit retVal;
 	if (lowerValue.find("pt") != -1)
 	{
 		retVal=SC_PT;

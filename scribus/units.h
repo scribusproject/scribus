@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #define UNITMIN 0
 #define UNITMAX 5
 
-enum Unit {
+enum scUnit {
 	SC_POINTS      = 0,
 	SC_PT          = 0,
 	SC_MILLIMETERS = 1,
@@ -51,7 +51,7 @@ const QString SCRIBUS_API unitGetSuffixFromIndex(const int index);
 const int SCRIBUS_API unitGetDecimalsFromIndex(const int index);
 const int SCRIBUS_API unitGetPrecisionFromIndex(const int index);
 const double SCRIBUS_API unitValueFromString(const QString& value);
-const Unit SCRIBUS_API unitIndexFromString(const QString& value);
+const scUnit SCRIBUS_API unitIndexFromString(const QString& value);
 const QStringList SCRIBUS_API unitGetTextUnitList();
 const int SCRIBUS_API unitGetMaxIndex();
 const double SCRIBUS_API mm2pts(double mm);
