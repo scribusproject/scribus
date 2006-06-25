@@ -312,6 +312,7 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	Frame3->addTab(activeBView, "Main");
 	tempBView = new BibView(this);
 	Frame3->addTab(tempBView, "Temp");
+	tempCount = 0;
 	BiblioLayout->addWidget( Frame3 );
 	languageChange();
 	connect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
@@ -392,6 +393,7 @@ void Biblio::readTempContents(QString fileName)
 {
 	tempBView->ReadContents(fileName);
 	tempBView->ScFilename = fileName;
+	tempCount = tempBView->objectMap.count();
 }
 
 void Biblio::installEventFilter(const QObject *filterObj)
@@ -652,7 +654,13 @@ void Biblio::ObjFromMenu(QString text)
 /*	if (!activeBView->canWrite)
 		return; */
 // Above code is commented out because QFileInfo::permissons does not work properly
-	nam = tr("Object") + tmp.setNum(activeBView->objectMap.count());
+	if (Frame3->currentPageIndex() == 1)
+	{
+		nam = tr("Object") + tmp.setNum(tempCount);
+		tempCount++;
+	}
+	else
+		nam = tr("Object") + tmp.setNum(activeBView->objectMap.count());
 	Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
 	dia->setEditText(nam, true);
 	if (dia->exec())
@@ -695,12 +703,35 @@ void Biblio::ObjFromMenu(QString text)
 	pm.save(QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam +".png")), "PNG");
 	(void) new QIconViewItem(activeBView, nam, pm);
 	delete pre;
+	if (Frame3->currentPageIndex() == 1)
+	{
+		if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.numScrapbookCopies)
+		{
+			QMap<QString,BibView::Elem>::Iterator it;
+			it = tempBView->objectMap.begin();
+			QFile f(it.data().Data);
+			f.remove();
+			QFileInfo fi(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
+			if (fi.exists())
+			{
+				QFile f2(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
+				f2.remove();
+			}
+			tempBView->objectMap.remove(it);
+			QIconViewItem* ite = tempBView->firstItem();
+			if (ite != 0)
+				delete ite;
+			tempBView->sort(activeBView->sortDirection());
+			tempBView->arrangeItemsInGrid(true);
+		}
+	}
 }
 
 void Biblio::ObjFromCopyAction(QString text)
 {
 	QString nam, tmp;
-	nam = tr("Object") + tmp.setNum(tempBView->objectMap.count());
+	nam = tr("Object") + tmp.setNum(tempCount);
+	tempCount++;
 	QString ff = text;
 	QFile f(QDir::cleanDirPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam + ".sce")));
 	if(!f.open(IO_WriteOnly))
@@ -716,6 +747,25 @@ void Biblio::ObjFromCopyAction(QString text)
 	pm.save(QDir::cleanDirPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam +".png")), "PNG");
 	(void) new QIconViewItem(tempBView, nam, pm);
 	delete pre;
+	if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.numScrapbookCopies)
+	{
+		QMap<QString,BibView::Elem>::Iterator it;
+		it = tempBView->objectMap.begin();
+		QFile f(it.data().Data);
+		f.remove();
+		QFileInfo fi(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
+		if (fi.exists())
+		{
+			QFile f2(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
+			f2.remove();
+		}
+		tempBView->objectMap.remove(it);
+		QIconViewItem* ite = tempBView->firstItem();
+		if (ite != 0)
+			delete ite;
+		tempBView->sort(activeBView->sortDirection());
+		tempBView->arrangeItemsInGrid(true);
+	}
 }
 
 void Biblio::CleanUpTemp()

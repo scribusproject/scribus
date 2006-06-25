@@ -1710,8 +1710,8 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 
 	// Clean up plugins, THEN save prefs to disk
 	ScCore->pluginManager->cleanupPlugins();
-	// TODO make this dependend to a Prefs setting
-	scrapbookPalette->CleanUpTemp();
+	if (!prefsManager->appPrefs.persistentScrapbook)
+		scrapbookPalette->CleanUpTemp();
 	prefsManager->appPrefs.RecentScrapbooks.clear();
 	prefsManager->appPrefs.RecentScrapbooks = scrapbookPalette->getOpenScrapbooks();
 	if (!emergencyActivated)
@@ -4398,7 +4398,8 @@ void ScribusMainWindow::slotEditCut()
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(doc, view, doc->m_Selection);
 			Buffer2 = BufferI;
-			scrapbookPalette->ObjFromCopyAction(Buffer2);
+			if (prefsManager->appPrefs.doCopyToScrapbook)
+				scrapbookPalette->ObjFromCopyAction(Buffer2);
 			doc->itemSelection_DeleteItem();
 			delete ss;
 		}
@@ -4484,7 +4485,8 @@ void ScribusMainWindow::slotEditCopy()
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(doc, view, doc->m_Selection);
 			Buffer2 = BufferI;
-			scrapbookPalette->ObjFromCopyAction(Buffer2);
+			if (prefsManager->appPrefs.doCopyToScrapbook)
+				scrapbookPalette->ObjFromCopyAction(Buffer2);
 			delete ss;
 		}
 		BuFromApp = true;

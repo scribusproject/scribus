@@ -169,6 +169,9 @@ struct ApplicationPrefs
 	bool marginColored;
 	QStringList RecentDocs;
 	QStringList RecentScrapbooks;
+	int numScrapbookCopies;
+	bool doCopyToScrapbook;
+	bool persistentScrapbook;
 	uint RecentDCount;
 	CMSData DCMSset;
 	QMap<QString,Keys> KeyActions;

@@ -410,32 +410,31 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 // 	tabKeys = new KeyManager(prefsWidgets, prefsData->KeyActions);
 // 	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), tabKeys);
-/*
+
 	tab_5 = new QWidget( prefsWidgets, "tab_5" );
 	tabLayout_5 = new QGridLayout( tab_5 );
 	tabLayout_5->setSpacing( 5 );
-	tabLayout_5->setMargin( 0 );
-	preview = new QGroupBox( tr( "Preview" ), tab_5, "Preview" );
-	preview->setColumnLayout(0, Qt::Vertical );
-	preview->layout()->setSpacing( 0 );
-	preview->layout()->setMargin( 0 );
-	previewLayout = new QHBoxLayout( preview->layout() );
-	previewLayout->setAlignment( Qt::AlignTop );
-	previewLayout->setSpacing( 10 );
-	previewLayout->setMargin( 24 );
-	PreviewSize = new QComboBox( true, preview, "PreviewSize" );
-	PreviewSize->insertItem( tr( "Small" ) );
-	PreviewSize->insertItem( tr( "Medium" ) );
-	PreviewSize->insertItem( tr( "Large" ) );
-	PreviewSize->setEditable(false);
-	int sci = prefsData->PSize == 40 ? 0 : prefsData->PSize == 60 ? 1 : 2;
-	PreviewSize->setCurrentItem(sci);
-	textLabelP = new QLabel( PreviewSize, tr( "&Size:" ), preview, "TextLabel1_3" );
-	previewLayout->addWidget( textLabelP );
-	previewLayout->addWidget( PreviewSize );
-	tabLayout_5->addWidget( preview, 0, 0 );
+	tabLayout_5->setMargin( 10 );
+	useScrapBookasExtension = new QCheckBox(tab_5, "useScrapBookasExtension");
+	useScrapBookasExtension->setText( tr("Use Scrapbook as extra Copy/Paste Buffer"));
+	useScrapBookasExtension->setChecked(prefsData->doCopyToScrapbook);
+	tabLayout_5->addMultiCellWidget(useScrapBookasExtension, 0, 0, 0, 1);
+	persistentScrapbook = new QCheckBox(tab_5, "persistentScrapbook");
+	persistentScrapbook->setText( tr("Extra Copy/Paste Buffer remembers Objects across Sessions"));
+	persistentScrapbook->setChecked(prefsData->persistentScrapbook);
+	tabLayout_5->addMultiCellWidget(persistentScrapbook, 1, 1, 0, 1);
+	scrapText = new QLabel(tab_5, "scrapText");
+	scrapText->setText( tr("Number of Objects to be remembered in Extra Copy/Paste Buffer"));
+	tabLayout_5->addWidget(scrapText, 2, 0);
+	numScrapCopies = new QSpinBox( tab_5, "numScrapCopies" );
+	numScrapCopies->setMaxValue( 100 );
+	numScrapCopies->setMinValue( 1 );
+	numScrapCopies->setValue(prefsData->numScrapbookCopies);
+	tabLayout_5->addWidget(numScrapCopies, 2, 1);
+	QSpacerItem* spacer_scrap = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	tabLayout_5->addItem( spacer_scrap );
 	addItem(  tr("Scrapbook"), loadIcon("scrap.png"), tab_5);
-*/
+
 	tabView = new QWidget( prefsWidgets, "tabView" );
 	tabViewLayout = new QVBoxLayout( tabView, 0, 5, "tabViewLayout");
 	tabViewLayout->setAlignment( Qt::AlignTop );
@@ -941,6 +940,9 @@ void Preferences::setupGui()
 	gapVertical->setValue(prefsData->pageSets[prefsData->FacingPages].GapVertical * unitRatio);
 	drawRuler();
 	CaliSlider->setValue(static_cast<int>(100 * DisScale)-100);
+	useScrapBookasExtension->setChecked(prefsData->doCopyToScrapbook);
+	persistentScrapbook->setChecked(prefsData->persistentScrapbook);
+	numScrapCopies->setValue(prefsData->numScrapbookCopies);
 	//}
 	//else if (current == tabHyphenator) // Hyphenator
 	//{
@@ -1381,18 +1383,9 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.ProfileDir = ProPfad->text();
 	prefsManager->appPrefs.ScriptDir = ScriptPfad->text();
 	prefsManager->appPrefs.documentTemplatesDir = DocumentTemplateDir->text();
-/*	switch (PreviewSize->currentItem())
-	{
-		case 0:
-			prefsManager->appPrefs.PSize = 40;
-			break;
-		case 1:
-			prefsManager->appPrefs.PSize = 60;
-			break;
-		case 2:
-			prefsManager->appPrefs.PSize = 80;
-			break;
-	} */
+	prefsManager->appPrefs.doCopyToScrapbook = useScrapBookasExtension->isChecked();
+	prefsManager->appPrefs.persistentScrapbook = persistentScrapbook->isChecked();
+	prefsManager->appPrefs.numScrapbookCopies = numScrapCopies->value();
 	prefsManager->appPrefs.guiLanguage=selectedGUILang;
 	prefsManager->appPrefs.GUI = GUICombo->currentText();
 	tabTools->polyWidget->getValues(&prefsManager->appPrefs.toolSettings.polyC, &prefsManager->appPrefs.toolSettings.polyFd, &prefsManager->appPrefs.toolSettings.polyF, &prefsManager->appPrefs.toolSettings.polyS, &prefsManager->appPrefs.toolSettings.polyR);

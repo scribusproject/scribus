@@ -7094,5 +7094,8 @@ void ScribusDoc::setCurrentPage(Page *newPage)
 {
 	_currentPage = newPage;
 	if (m_ScMW)
+	{
+		m_ScMW->guidePalette->setDoc(this);
 		m_ScMW->guidePalette->setupPage();
+	}
 }

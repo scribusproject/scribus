@@ -155,11 +155,12 @@ public:
 	TabKeyboardShortcutsWidget* tabKeyboardShortcuts;
 // 	KeyManager* tabKeys;
 
-/*	QLabel* textLabelP;
 	QWidget* tab_5;
-	QGroupBox* preview;
-	QComboBox* PreviewSize;
-*/
+	QCheckBox* useScrapBookasExtension;
+	QCheckBox* persistentScrapbook;
+	QLabel* scrapText;
+	QSpinBox* numScrapCopies;
+
 	QWidget* tabDocument;
 	QButtonGroup* GroupSize;
 	QLabel* GZText2;
@@ -319,7 +320,7 @@ protected:
 	QGridLayout* tabLayout;
 	QGridLayout* ButtonGroup1Layout;
 	QGridLayout* GroupBox200Layout;
-//	QGridLayout* tabLayout_5;
+	QGridLayout* tabLayout_5;
 //	QHBoxLayout* previewLayout;
 	QHBoxLayout* Layout3;
 	QHBoxLayout* tabLayout_7;

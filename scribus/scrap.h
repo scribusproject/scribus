@@ -100,6 +100,7 @@ protected:
 	QVBoxLayout* BiblioLayout;
 	BibView* activeBView;
 	BibView* tempBView;
+	int tempCount;
 	QString OldName;
 // 	int mFile;
 // 	int mView;
