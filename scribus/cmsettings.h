@@ -27,9 +27,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef CMSETTINGS_H
 #define CMSETTINGS_H
 
+#include "scconfig.h"
 #include "scribusapi.h"
 #include <qstring.h>
 class ScribusDoc;
+
+#ifdef HAVE_CMS
+#include "lcms.h"
+#endif
 
 class SCRIBUS_API CMSettings
 {
@@ -39,6 +44,32 @@ public:
 	
 	ScribusDoc* doc() const {return m_Doc;}
 	QString profileName() const {return m_ProfileName;}
+
+	bool useColorManagement() const;
+
+#ifdef HAVE_CMS
+	cmsHPROFILE monitorProfile() const;
+	cmsHPROFILE printerProfile() const;
+
+	cmsHTRANSFORM rgbColorDisplayTransform() const;   // stdTransRGBMonG
+	cmsHTRANSFORM rgbColorProofingTransform() const;  // stdProofG
+	cmsHTRANSFORM rgbImageDisplayTransform() const;   // stdTransImgG
+	cmsHTRANSFORM rgbImageProofingTransform() const;  // stdProofImgG
+	cmsHTRANSFORM rgbToCymkColorTransform() const;    // stdTransCMYKG
+	cmsHTRANSFORM rgbGamutCheckTransform() const;     // stdProofGCG
+
+	cmsHTRANSFORM cmykColorDisplayTransform() const;  // stdTransCMYKMonG
+	cmsHTRANSFORM cmykColorProofingTransform() const; // stdProofCMYKG
+	cmsHTRANSFORM cmykToRgbColorTransform() const;    // stdTransRGBG
+	cmsHTRANSFORM cmykGamutCheckTransform() const;    //stdProofCMYKGCG
+
+	int colorRenderingIntent() const;
+	int imageRenderingIntent() const;
+
+	bool useBlackPoint() const;
+	bool doSoftProofing() const;
+	bool doGamutCheck() const;
+#endif
 
 protected:
 	ScribusDoc* m_Doc;

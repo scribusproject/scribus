@@ -11,25 +11,11 @@ for which a new license (GPL+exception) is in place.
 #include <cassert>
 #ifdef HAVE_CMS
 	#include CMS_INC
-extern cmsHPROFILE CMSoutputProf;
-extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransRGBMonG;
-extern cmsHTRANSFORM stdTransCMYKMonG;
-extern cmsHTRANSFORM stdProofG;
-extern cmsHTRANSFORM stdTransImgG;
-extern cmsHTRANSFORM stdProofImgG;
-extern bool BlackPoint;
-extern bool SoftProofing;
-extern bool Gamut;
-extern bool CMSuse;
-extern int IntentColors;
-extern int IntentImages;
 #endif
 #include "gsutil.h"
 #include "exif.h"
 #include "commonstrings.h"
 #include "util.h"
-
 
 typedef struct my_error_mgr
 {
@@ -3600,7 +3586,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 #ifdef HAVE_CMS
 			DWORD EmbedLen = 0;
 			LPBYTE EmbedBuffer;
-			if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer) && useEmbedded && CMSuse && useProf)
+			if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer) && useEmbedded && cmSettings.useColorManagement() && useProf)
 			{
 				const char *Descriptor;
 				tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
@@ -3691,7 +3677,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 #ifdef HAVE_CMS
 			if (icclen>0)
 			{
-				if (useEmbedded && CMSuse && useProf)
+				if (useEmbedded && cmSettings.useColorManagement() && useProf)
 				{
 					tiffProf = cmsOpenProfileFromMem(iccbuf, icclen);
 					const char *Descriptor;
@@ -3839,7 +3825,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 #ifdef HAVE_CMS
 		unsigned int EmbedLen = 0;
 		unsigned char* EmbedBuffer;
-		if (read_jpeg_marker(ICC_MARKER,&cinfo, &EmbedBuffer, &EmbedLen) && useEmbedded && CMSuse && useProf)
+		if (read_jpeg_marker(ICC_MARKER,&cinfo, &EmbedBuffer, &EmbedLen) && useEmbedded && cmSettings.useColorManagement() && useProf)
 		{
 			const char *Descriptor;
 			tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
@@ -4035,7 +4021,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	if (isNull())
 		return  ret;
 #ifdef HAVE_CMS
-	if (CMSuse && useProf)
+	if (cmSettings.useColorManagement() && useProf)
 	{
 		if (tiffProf)
 			inputProf = tiffProf;
@@ -4063,7 +4049,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			inputProf = cmsOpenProfileFromFile(profilePath.data(), "r");
 		}
 	}
-	if (CMSuse && useProf && inputProf)
+	if (cmSettings.useColorManagement() && useProf && inputProf)
 	{
 		DWORD inputProfFormat = TYPE_RGBA_8;
 		DWORD prnProfFormat = TYPE_CMYK_8;
@@ -4074,28 +4060,28 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			inputProfFormat = TYPE_CMYK_8;
 		else if ( inputProfColorSpace == icSigGrayData )
 			inputProfFormat = TYPE_GRAY_8;
-		int prnProfColorSpace = static_cast<int>(cmsGetColorSpace(CMSprinterProf));
+		int prnProfColorSpace = static_cast<int>(cmsGetColorSpace(cmSettings.printerProfile()));
 		if ( prnProfColorSpace == icSigRgbData )
 			prnProfFormat = TYPE_RGBA_8;
 		else if ( prnProfColorSpace == icSigCmykData )
 			prnProfFormat = TYPE_CMYK_8;
-		if (SoftProofing)
+		if (cmSettings.doSoftProofing())
 		{
 			cmsFlags |= cmsFLAGS_SOFTPROOFING;
-			if (Gamut)
+			if (cmSettings.doGamutCheck())
 				cmsFlags |= cmsFLAGS_GAMUTCHECK;
 		}
-		if (BlackPoint)
+		if (cmSettings.useBlackPoint())
 			cmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
 		switch (reqType)
 		{
 		case CMYKData: // CMYK
 			if (!isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, prnProfFormat, IntentImages, 0);
+				xform = cmsCreateTransform(inputProf, inputProfFormat, cmSettings.printerProfile(), prnProfFormat, cmSettings.imageRenderingIntent(), 0);
 			break;
 		case RGBData: // RGB
 			if (isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSoutputProf, TYPE_RGBA_8, rend, 0);
+				xform = cmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), TYPE_RGBA_8, rend, 0);
 			break;
 		case RGBProof: // RGB Proof
 			{
@@ -4103,13 +4089,13 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 					inputProfFormat = (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
 				else if(inputProfFormat == TYPE_RGBA_8)
 					inputProfFormat = TYPE_BGRA_8;
-				if (SoftProofing)
+				if (cmSettings.doSoftProofing())
 					xform = cmsCreateProofingTransform(inputProf, inputProfFormat,
-					                                   CMSoutputProf, TYPE_BGRA_8, CMSprinterProf,
+					                                   cmSettings.monitorProfile(), TYPE_BGRA_8, cmSettings.printerProfile(),
 					                                   rend, INTENT_RELATIVE_COLORIMETRIC, cmsFlags);
 				else
 					xform = cmsCreateTransform(inputProf, inputProfFormat,
-					                           CMSoutputProf, TYPE_BGRA_8, rend, cmsFlags);
+					                           cmSettings.monitorProfile(), TYPE_BGRA_8, rend, cmsFlags);
 			}
 			break;
 		case RawData: // no Conversion just raw Data
