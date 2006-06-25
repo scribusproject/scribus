@@ -37,6 +37,18 @@ PATHS ${PREFIX_CAIRO_LIB} ${_libCairoLinkDir} /usr/local/lib /usr/lib
 NO_DEFAULT_PATH
 )
 
+#If we had no cairo prefix specify it, set PREFIX_CAIRO_LIB most importantly, for the 
+# IF(NOT PREFIX_CAIRO)
+# 	GET_FILENAME_COMPONENT(CAIRO_DIR ${CAIRO_LIBRARY} PATH)
+# 	GET_FILENAME_COMPONENT(CAIRO_DIR ${CAIRO_DIR} PATH)
+# 	SET(PREFIX_CAIRO ${CAIRO_DIR})
+# 	IF(PREFIX_CAIRO)
+# 		SET(PREFIX_CAIRO_INCLUDE "${PREFIX_CAIRO}/include")
+# 		SET(PREFIX_CAIRO_LIB "${PREFIX_CAIRO}/lib")
+# 		SET(PREFIX_CAIRO_BIN "${PREFIX_CAIRO}/bin")
+# 	ENDIF(PREFIX_CAIRO)
+# ENDIF(NOT PREFIX_CAIRO)
+
 SET(CAIRO_FIND_QUIETLY 1)
 
 IF (CAIRO_LIBRARY)
@@ -46,11 +58,12 @@ IF (CAIRO_LIBRARY)
       MESSAGE(STATUS "Found cairo: ${CAIRO_LIBRARY}")
     ENDIF(NOT CAIRO_FIND_QUIETLY)
     SET( CAIRO_LIBRARIES ${CAIRO_LIBRARY} )
-    FIND_PROGRAM(CAIRO_CONFIG 
-      NAMES pkg-config
-      PATHS ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin
-    )
-    EXEC_PROGRAM(${CAIRO_CONFIG} ARGS "--libs cairo" OUTPUT_VARIABLE CAIRO_LIBS)
-    EXEC_PROGRAM(${CAIRO_CONFIG} ARGS "--cflags cairo" OUTPUT_VARIABLE CAIRO_CFLAGS)
+#     CB: We dont use this yet anyway
+#     FIND_PROGRAM(CAIRO_CONFIG 
+#       NAMES pkg-config
+#       PATHS ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin
+#     )
+#     EXEC_PROGRAM(${CAIRO_CONFIG} ARGS "--libs cairo" OUTPUT_VARIABLE CAIRO_LIBS)
+#     EXEC_PROGRAM(${CAIRO_CONFIG} ARGS "--cflags cairo" OUTPUT_VARIABLE CAIRO_CFLAGS)
   ENDIF (CAIRO_INCLUDE_DIR)
 ENDIF (CAIRO_LIBRARY)
