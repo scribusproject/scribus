@@ -69,7 +69,7 @@ public:
 	//! Name of the master page that this page uses
 	QString MPageNam;
 
-	QString PageSize;
+	QString m_pageSize;
 	int PageOri;
 	// PV - guides refactoring
 	//QValueList<double> XGuides;

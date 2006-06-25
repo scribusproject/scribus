@@ -105,7 +105,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	dsGroupBox7Layout->setMargin( 5 );
 	TextLabel1 = new QLabel( tr( "&Size:" ), dsGroupBox7, "TextLabel1" );
 	dsGroupBox7Layout->addMultiCellWidget( TextLabel1, 0, 0, 0, 1 );
-	PageSize *ps=new PageSize(currentDoc->PageSize);
+	PageSize *ps=new PageSize(currentDoc->m_pageSize);
 	sizeQComboBox = new QComboBox( true, dsGroupBox7, "ComboBox1" );
 	sizeQComboBox->setEditable(false);
 	QStringList pageSizes=ps->sizeList();

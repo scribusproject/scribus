@@ -257,7 +257,7 @@ void SVGPlug::convert(int flags)
 			m_Doc->PageOri = 1;
 		else
 			m_Doc->PageOri = 0;
-		m_Doc->PageSize = "Custom";
+		m_Doc->m_pageSize = "Custom";
 	}
 	FPoint minSize = m_Doc->minCanvasCoordinate;
 	FPoint maxSize = m_Doc->maxCanvasCoordinate;

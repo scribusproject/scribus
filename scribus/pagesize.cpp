@@ -28,7 +28,6 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 
 #include "pagesize.h"
-#include "units.h"
 
 PageSize::PageSize(const QString sizeName)
 {
@@ -80,51 +79,21 @@ PageSize::PageSize(const double w, const double h)
 	m_trPageSizeName=QObject::tr("Custom");	
 }
 
-QString PageSize::name()
-{
-	return m_pageSizeName;
-}
-
-QString PageSize::nameTR()
-{
-	return m_trPageSizeName;
-}
-
-double PageSize::width()
-{
-	return m_width;
-}
-
-double PageSize::height()
-{
-	return m_height;
-}
-
-double PageSize::originalWidth()
-{
-	return m_width*unitGetRatioFromIndex(m_pageUnitIndex);
-}
-
-double PageSize::originalHeight()
-{
-	return m_height*unitGetRatioFromIndex(m_pageUnitIndex);
-}
-
-QStringList PageSize::sizeList(void)
+QStringList PageSize::sizeList(void) const
 {
 	QStringList pageSizes;
 	pageSizes.clear();
-	PageSizeInfoMap::Iterator it;
+	PageSizeInfoMap::ConstIterator it;
 	for (it=pageSizeList.begin();it!=pageSizeList.end();++it)
 		pageSizes.append(it.key());
 	return QStringList(pageSizes);
 }
 
-QStringList PageSize::sizeTRList(void)
+QStringList PageSize::sizeTRList(void) const
 {
 	QStringList pageSizes;
 	pageSizes.clear();
-	PageSizeInfoMap::Iterator it;
+	PageSizeInfoMap::ConstIterator it;
 	for (it=pageSizeList.begin();it!=pageSizeList.end();++it)
 		pageSizes.append(it.data().trSizeName);
 	return QStringList(pageSizes);

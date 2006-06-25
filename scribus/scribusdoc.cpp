@@ -117,15 +117,12 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	Items(0), MasterItems(), DocItems(), FrameItems(),
 	m_Selection(new Selection(this, true)),
 	pageWidth(0), pageHeight(0),
-	// pageCount(0) CR
-	// pageMargins
 	pageSets(prefsData.pageSets),
 	PageSp(1), PageSpa(0),
 	currentPageLayout(0),
-	PageOri(0), PageSize(0),
+	PageOri(0), m_pageSize(0),
 	FirstPnum(1),
 	useRaster(false),
-	// documentInfo
 	appMode(modeNormal),
 	SubMode(-1),
 	ShapeValues(0),
@@ -136,7 +133,6 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	AObjects(),
 	papColor(prefsData.DpapColor),
 	CurrentSel(-1),
-//	currentParaStyle(0),
 	EditClip(false),
 	EditClipMode(0),
 	typographicSettings(prefsData.typographicSettings),
@@ -145,7 +141,6 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	checkerProfiles(prefsData.checkerProfiles),
 	curCheckProfile(prefsData.curCheckProfile),
 	LastAuto(0), FirstAuto(0),
-	// DragP, leaveDrag
 	DraggedElem(0),
 	ElemToLink(0),
 	DragElements(),
@@ -153,7 +148,6 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	Layers(),
 	marginColored(prefsData.marginColored),
 	GroupCounter(1),
-	// CMSSettings, HasCMS, etc done by setup()
 	JavaScripts(),
 	TotalItems(0),
 	MinWordLen(prefsData.MinWordLen),
@@ -185,6 +179,112 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	symReturn(), symNewLine(), symTab(), symNonBreak(), symNewCol(), symNewFrame(),
 	docHyphenator(0),
 	_itemCreationTransactionStarted(false)
+{
+	init();
+}
+
+ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pagesize, const MarginStruct& margins, const DocPagesSetup& pagesSetup) : UndoObject( tr("Document")),
+	prefsData(PrefsManager::instance()->appPrefs),
+	undoManager(UndoManager::instance()),
+	loading(false),
+	modified(false),
+	ActiveLayer(0),
+	docUnitIndex(unitindex),
+	docUnitRatio(unitGetRatioFromIndex(docUnitIndex)),
+	automaticTextFrames(pagesSetup.autoTextFrames),
+	m_masterPageMode(false),
+	m_ScMW(0),
+	m_View(0),
+	is12doc(false),
+	NrItems(0),
+	First(1), Last(0),
+	viewCount(0), viewID(0),
+	SnapGuides(false), GuideLock(false),
+	ScratchLeft(prefsData.ScratchLeft),
+	ScratchRight(prefsData.ScratchRight),
+	ScratchTop(prefsData.ScratchTop),
+	ScratchBottom(prefsData.ScratchBottom),
+	minCanvasCoordinate(FPoint(0, 0)),
+	maxCanvasCoordinate(FPoint(ScratchLeft + ScratchRight, ScratchTop + ScratchBottom)),
+	rulerXoffset(0.0), rulerYoffset(0.0),
+	Pages(0), MasterPages(), DocPages(),
+	MasterNames(),
+	Items(0), MasterItems(), DocItems(), FrameItems(),
+	m_Selection(new Selection(this, true)),
+	pageWidth(pagesize.width()), pageHeight(pagesize.height()),
+	pageMargins(margins),
+	pageSets(prefsData.pageSets),
+	PageSp(pagesSetup.columnCount), PageSpa(pagesSetup.columnDistance),
+	currentPageLayout(pagesSetup.pageArrangement),
+	PageOri(pagesSetup.orientation), m_pageSize(pagesize.name()),
+	FirstPnum(pagesSetup.firstPageNumber),
+	useRaster(false),
+	appMode(modeNormal),
+	SubMode(-1),
+	ShapeValues(0),
+	ValCount(0),
+	DocName(docName),
+	UsedFonts(),
+	AllFonts(&prefsData.AvailFonts),
+	AObjects(),
+	papColor(prefsData.DpapColor),
+	CurrentSel(-1),
+	EditClip(false),
+	EditClipMode(0),
+	typographicSettings(prefsData.typographicSettings),
+	guidesSettings(prefsData.guidesSettings),
+	toolSettings(prefsData.toolSettings),
+	checkerProfiles(prefsData.checkerProfiles),
+	curCheckProfile(prefsData.curCheckProfile),
+	LastAuto(0), FirstAuto(0),
+	DraggedElem(0),
+	ElemToLink(0),
+	DragElements(),
+	docParagraphStyles(),
+	Layers(),
+	marginColored(prefsData.marginColored),
+	GroupCounter(1),
+	JavaScripts(),
+	TotalItems(0),
+	MinWordLen(prefsData.MinWordLen),
+	HyCount(prefsData.HyCount),
+	Language(prefsData.Language),
+	Automatic(prefsData.Automatic),
+	AutoCheck(prefsData.AutoCheck),
+	PDF_Options(prefsData.PDF_Options),
+	RePos(false),
+	BookMarks(),
+	OldBM(false),
+	hasName(false),
+	RotMode(0),
+	AutoSave(prefsData.AutoSave),
+	AutoSaveTime(prefsData.AutoSaveTime),
+	autoSaveTimer(new QTimer(this)),
+	MLineStyles(),
+	arrowStyles(prefsData.arrowStyles),
+	WinHan(0),
+	DoDrawing(true),
+	OpenNodes(),
+	CurTimer(0),
+	docLayerErrors(),
+	docItemErrors(),
+	masterItemErrors(),
+	docItemAttributes(prefsData.defaultItemAttributes),
+	docToCSetups(prefsData.defaultToCSetups),
+	// sections
+	symReturn(), symNewLine(), symTab(), symNonBreak(), symNewCol(), symNewFrame(),
+	docHyphenator(0),
+	_itemCreationTransactionStarted(false)
+{
+	pageSets[pagesSetup.pageArrangement].FirstPage = pagesSetup.firstPageLocation;
+	init();
+	PDF_Options.BleedTop = pageMargins.Top;
+	PDF_Options.BleedLeft = pageMargins.Left;
+	PDF_Options.BleedRight = pageMargins.Right;
+	PDF_Options.BleedBottom = pageMargins.Bottom;
+}
+
+void ScribusDoc::init()
 {
 	Q_CHECK_PTR(m_Selection);
 	Q_CHECK_PTR(autoSaveTimer);
@@ -335,7 +435,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	docUnitIndex=unitIndex;
 	pageSets[fp].FirstPage = firstLeft;
 	PageOri = orientation;
-	PageSize = defaultPageSize;
+	m_pageSize = defaultPageSize;
 	FirstPnum = firstPageNumber;
 	currentPageLayout = fp;
 	setName(documentName);
@@ -1027,7 +1127,7 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	addedPage->initialMargins.Left = pageMargins.Left;
 	addedPage->initialMargins.Right = pageMargins.Right;
 	addedPage->setPageNr(pageIndex);
-	addedPage->PageSize = PageSize;
+	addedPage->m_pageSize = m_pageSize;
 	addedPage->PageOri = PageOri;
 	bool insertsuccess=DocPages.insert(pageIndex, addedPage);
 	Q_ASSERT(insertsuccess==true && DocPages.at(pageIndex)!=NULL);
@@ -1057,7 +1157,7 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	addedPage->initialMargins.Bottom = pageMargins.Bottom;
 	addedPage->initialMargins.Left = pageMargins.Left;
 	addedPage->initialMargins.Right = pageMargins.Right;
-	addedPage->PageSize = PageSize;
+	addedPage->m_pageSize = m_pageSize;
 	addedPage->PageOri = PageOri;
 	addedPage->MPageNam = "";
 	addedPage->setPageName(pageName);
@@ -2371,7 +2471,7 @@ bool ScribusDoc::changePageMargins(const double initialTop, const double initial
 			currentPage()->setHeight(height);
 			currentPage()->setWidth(width);
 			currentPage()->PageOri = orientation;
-			currentPage()->PageSize = pageSize;
+			currentPage()->m_pageSize = pageSize;
 			currentPage()->LeftPg = pageType;
 			changed();
 		}
@@ -3533,7 +3633,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		destination->setInitialHeight(from->height());
 		destination->setInitialWidth(from->width());
 		destination->PageOri = from->PageOri;
-		destination->PageSize = from->PageSize;
+		destination->m_pageSize = from->m_pageSize;
 		destination->initialMargins.Top = from->Margins.Top;
 		destination->initialMargins.Bottom = from->Margins.Bottom;
 		destination->initialMargins.Left = from->Margins.Left;

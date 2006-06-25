@@ -280,7 +280,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	*/
 		//CB Add this in to set this in the file in memory. Its saved, why not load it.
 		//Will of course be replaced by per page settings although we still probably need a document default
-		m_Doc->PageSize = dc.attribute("PAGESIZE");
+		m_Doc->m_pageSize = dc.attribute("PAGESIZE");
 		m_Doc->PageOri = dc.attribute("ORIENTATION", "0").toInt();
 		m_Doc->FirstPnum = dc.attribute("FIRSTNUM", "1").toInt();
 		m_Doc->currentPageLayout=dc.attribute("BOOK", "0").toInt();
@@ -887,7 +887,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				else
 					Apage->MPageNam = "";
 				if (pg.hasAttribute("Size"))
-					Apage->PageSize = pg.attribute("Size");
+					Apage->m_pageSize = pg.attribute("Size");
 				if (pg.hasAttribute("Orientation"))
 					Apage->PageOri = pg.attribute("Orientation").toInt();
 				Apage->setXOffset(pg.attribute("PAGEXPOS").toDouble());
@@ -1176,7 +1176,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("BORDERTOP",m_Doc->pageMargins.Top);
 	dc.setAttribute("BORDERBOTTOM",m_Doc->pageMargins.Bottom);
 	dc.setAttribute("ORIENTATION",m_Doc->PageOri);
-	dc.setAttribute("PAGESIZE",m_Doc->PageSize);
+	dc.setAttribute("PAGESIZE",m_Doc->m_pageSize);
 	dc.setAttribute("FIRSTNUM",m_Doc->FirstPnum);
 	dc.setAttribute("BOOK", m_Doc->currentPageLayout);
 	if(m_Doc->usesAutomaticTextFrames())
@@ -2668,7 +2668,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						Apage->setPageName(pg.attribute("NAM",""));
 				}
 				if (pg.hasAttribute("Size"))
-					Apage->PageSize = pg.attribute("Size");
+					Apage->m_pageSize = pg.attribute("Size");
 				if (pg.hasAttribute("Orientation"))
 					Apage->PageOri = pg.attribute("Orientation").toInt();
 				if (pg.hasAttribute("PAGEWIDTH"))
@@ -3188,7 +3188,7 @@ void Scribus13Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElemen
 		pg.setAttribute("NUM",page->pageNr());
 		pg.setAttribute("NAM",page->pageName());
 		pg.setAttribute("MNAM",page->MPageNam);
-		pg.setAttribute("Size", page->PageSize);
+		pg.setAttribute("Size", page->m_pageSize);
 		pg.setAttribute("Orientation", page->PageOri);
 		pg.setAttribute("LEFT", page->LeftPg);
 		pg.setAttribute("VerticalGuides", GuideManagerCore::writeVerticalGuides(

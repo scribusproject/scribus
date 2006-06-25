@@ -322,7 +322,7 @@ bool OODPlug::convert(int flags)
 			m_Doc->PageOri = 1;
 		else
 			m_Doc->PageOri = 0;
-		m_Doc->PageSize = "Custom";
+		m_Doc->m_pageSize = "Custom";
 		QDomNode mpg;
 		QDomElement metaElem = inpMeta.documentElement();
 		QDomElement mp = metaElem.namedItem( "office:meta" ).toElement();

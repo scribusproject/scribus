@@ -166,6 +166,21 @@ struct MarginStruct
 	double Right;
 };
 
+struct DocPagesSetup
+{
+	DocPagesSetup() : pageArrangement(0), firstPageLocation(0), firstPageNumber(0), orientation(0), autoTextFrames(false), columnDistance(0), columnCount(1) {}
+	DocPagesSetup(int pa, int fpl, int fpn, int o, bool atf, double cd, double cc) :
+		pageArrangement(pa), firstPageLocation(fpl), firstPageNumber(fpn), orientation(o), autoTextFrames(atf),
+		columnDistance(cd), columnCount(cc) {}
+	int pageArrangement;
+	int firstPageLocation;
+	int firstPageNumber;
+	int orientation;
+	bool autoTextFrames;
+	double columnDistance;
+	double columnCount;
+};
+
 struct PageSet
 {
 	QString Name;
@@ -375,5 +390,5 @@ public:
 		ParaStyle = -1;
 	}
 };
-	
+
 #endif

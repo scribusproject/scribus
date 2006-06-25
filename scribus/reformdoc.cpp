@@ -112,7 +112,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	pageSizeComboBox->setEditable(false);
 	sizeQLabel = new QLabel( pageSizeComboBox, tr( "&Size:" ), dsGroupBox7, "sizeQLabel" );
 
-	PageSize *ps=new PageSize(doc->PageSize);
+	PageSize *ps=new PageSize(doc->m_pageSize);
 	QStringList pageSizes=ps->sizeList();
 	pageSizeComboBox->insertStringList(ps->sizeTRList());
 	pageSizeComboBox->insertItem( customTextTR );
@@ -755,7 +755,7 @@ void ReformDoc::updateDocumentSettings()
 	//currDoc->FirstPnum = pageNumber->value();
 	currDoc->resetPage(tpr2, lr2, rr2, br2, fp);
 	currDoc->PageOri = pageOrientationComboBox->currentItem();
-	currDoc->PageSize = prefsPageSizeName;
+	currDoc->m_pageSize = prefsPageSizeName;
 	currDoc->pageWidth = pageWidth;
 	currDoc->pageHeight = pageHeight;
 	double TopD = topScratch->value() / currDoc->unitRatio() - currDoc->ScratchTop;

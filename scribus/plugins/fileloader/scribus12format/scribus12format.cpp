@@ -314,7 +314,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->pageMargins.Top=QMAX(0.0, dc.attribute("BORDERTOP").toDouble());
 		m_Doc->pageMargins.Bottom=QMAX(0.0, dc.attribute("BORDERBOTTOM").toDouble());
 		m_Doc->PageOri = dc.attribute("ORIENTATION", "0").toInt();
-		m_Doc->PageSize = dc.attribute("PAGESIZE");
+		m_Doc->m_pageSize = dc.attribute("PAGESIZE");
 		m_Doc->FirstPnum = dc.attribute("FIRSTNUM", "1").toInt();
 		m_Doc->currentPageLayout=dc.attribute("BOOK", "0").toInt();
 		int fp;

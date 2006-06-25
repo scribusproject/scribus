@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <qmap.h>
 #include <qstring.h>
 #include "scribusapi.h"
+#include "units.h"
 
 struct PageSizeInfo
 {
@@ -41,15 +42,15 @@ class SCRIBUS_API PageSize
 public:
 	PageSize(const QString);
 	PageSize(const double, const double);
-	
-	QString name();
-	QString nameTR();
-	double width();
-	double height();
-	double originalWidth();
-	double originalHeight();
-	QStringList sizeList();
-	QStringList sizeTRList();
+		
+	QString name() const { return m_pageSizeName; }
+	QString nameTR() const { return m_trPageSizeName; }
+	double width() const { return m_width; }
+	double height() const { return m_height; }
+	double originalWidth() const { return m_width*unitGetRatioFromIndex(m_pageUnitIndex); }
+	double originalHeight() const { return m_height*unitGetRatioFromIndex(m_pageUnitIndex); }
+	QStringList sizeList() const;
+	QStringList sizeTRList() const;
 	void generateSizeList();
 	void printSizeList();
 

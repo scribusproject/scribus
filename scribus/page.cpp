@@ -419,7 +419,7 @@ void Page::copySizingProperties(Page* sourcePage, const MarginStruct& pageMargin
 {
 	if (sourcePage==NULL)
 		return;
-	PageSize = sourcePage->PageSize;
+	m_pageSize = sourcePage->m_pageSize;
 	PageOri = sourcePage->PageOri;
 	m_width=sourcePage->m_width;
 	m_height=sourcePage->m_height;

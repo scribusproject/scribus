@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
+#include "pagesize.h"
 #include "prefsstructs.h"
 #include "documentinformation.h"
 #include "undoobject.h"
@@ -77,7 +78,9 @@ class SCRIBUS_API ScribusDoc : public QObject, public UndoObject
 
 public:
 	ScribusDoc();
+	ScribusDoc(const QString& docName, int unitIndex, const PageSize& pagesize, const MarginStruct& margins, const DocPagesSetup& pagesSetup);
 	~ScribusDoc();
+	void init();
 	void setup(const int, const int, const int, const int, const int, const QString&, const QString&);
 	void setLoading(const bool);
 	bool isLoading() const;
@@ -740,7 +743,7 @@ public: // Public attributes
 	int currentPageLayout;
 	/** \brief Flag fuer Hoch- oder Querformat 0 = Hochformat */
 	int PageOri;
-	QString PageSize;
+	QString m_pageSize;
 	/** \brief Erste Seitennummer im Dokument */
 	int FirstPnum;
 	/** \brief Flag fuer Rasterbenutzung */

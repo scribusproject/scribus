@@ -1802,8 +1802,7 @@ bool ScribusMainWindow::slotFileNew()
 		int orientation = dia->Orient;
 		int pageCount=dia->PgNum->value();
 		PageSize ps2(dia->pageSizeComboBox->currentText());
-		QString pagesize = ps2.name();
-		if (!doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasure->currentItem(), firstPage, orientation, 1, pagesize, pageCount))
+		if (!doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasure->currentItem(), firstPage, orientation, 1, ps2.name(), pageCount))
 			return false;
 		doc->pageSets[facingPages].FirstPage = firstPage;
 		mainWindowStatusLabel->setText( tr("Ready"));
@@ -1813,23 +1812,108 @@ bool ScribusMainWindow::slotFileNew()
 	return retVal;
 }
 
-ScribusDoc *ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, 
-									double sp, bool atf, int fp, int einh, int firstleft, int Ori, int SNr, 
-									const QString& defaultPageSize, int pageCount, bool showView)
+//TODO move to core, assign doc to doc list, optionally create gui for it
+ScribusDoc *ScribusMainWindow::newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, int pageCount, bool showView)
 {
-	QString cc;
+	return doFileNew(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, columnCount, autoTextFrames, pageArrangement, unitIndex, firstPageLocation, orientation, firstPageNumber, defaultPageSize, pageCount, showView);
+	/* TODO CB finish later this week.
 	if (HaveDoc)
-	{
 		doc->OpenNodes = outlinePalette->buildReopenVals();
-	}
-	doc = new ScribusDoc();
-	doc->setLoading(true);
-	doc->setup(einh, fp, firstleft, Ori, SNr, defaultPageSize, doc->DocName+cc.setNum(DocNr));
+	MarginStruct margins(topMargin, leftMargin, bottomMargin, rightMargin);
+	DocPagesSetup pagesSetup(pageArrangement, firstPageLocation, firstPageNumber, orientation, autoTextFrames, columnDistance, columnCount);
+	QString newDocName(tr("Document")+"-"+QString::number(DocNr));
+	doc = new ScribusDoc(newDocName, unitindex, pagesize, margins, pagesSetup);
+		doc->setLoading(true);
+	doc->setup(unitIndex, pageArrangement, firstPageLocation, orientation, firstPageNumber, defaultPageSize, newDocName);
 	HaveDoc++;
 	DocNr++;
 	if (CMSavail && doc->CMSSettings.CMSinUse)
 		recalcColors();
-	doc->setPage(width, h, tpr, lr, rr, br, sp, ab, atf, fp);
+	//CB NOTE should be all done now
+	doc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, columnCount, autoTextFrames, pageArrangement);
+	doc->setMasterPageMode(false);
+	doc->addMasterPage(0, "Normal");
+	int createCount=QMAX(pageCount,1);
+	for (int i = 0; i < createCount; ++i)
+		doc->addPage(i, "Normal", true);
+	doc->addSection();
+	doc->setFirstSectionFromFirstPageNumber();
+	doc->setModified(false);
+	doc->OpenNodes.clear();
+	actionManager->disconnectNewDocActions();
+	actionManager->connectNewDocActions(doc);
+	//<<View and window code
+	ScribusWin* w = new ScribusWin(wsp, doc);
+	w->setMainWindow(this);
+	if (view!=NULL)
+	{
+		actionManager->disconnectNewViewActions();
+		disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
+	}
+	view = new ScribusView(w, this, doc);
+	doc->setCurrentPage(doc->Pages->at(0));
+	doc->setGUI(this, view);
+	doc->setLoading(false);
+	//run after setGUI to set up guidepalette ok
+	
+	view->setScale(prefsManager->displayScale());
+	actionManager->connectNewViewActions(view);
+	alignDistributePalette->setDoc(doc);
+	docCheckerPalette->clearErrorList();
+	w->setView(view);
+	ActWin = w;
+	doc->WinHan = w;
+	w->setCentralWidget(view);
+	doc->connectDocSignals(); //Must be before the first reformpages
+	view->reformPages(true);
+	//>>
+
+	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
+	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
+	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
+	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
+
+	//Independent finishing tasks after doc setup
+	if (showView)
+	{
+		if ( wsp->windowList().isEmpty() )
+			w->showMaximized();
+		else
+			w->show();
+		view->show();
+	}
+	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
+	connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString)), doc, SLOT(updatePict(QString)));
+	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString)), doc, SLOT(removePict(QString)));
+	scrActions["fileSave"]->setEnabled(false);
+	undoManager->switchStack(doc->DocName);
+	styleManager->currentDoc(doc);
+	tocGenerator->setDoc(doc);
+
+	return doc;
+	*/
+}
+
+ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, int pageCount, bool showView)
+{
+	if (HaveDoc)
+	{
+		doc->OpenNodes = outlinePalette->buildReopenVals();
+	}
+	
+	MarginStruct margins(topMargin, leftMargin, bottomMargin, rightMargin);
+	DocPagesSetup pagesSetup(pageArrangement, firstPageLocation, firstPageNumber, orientation, autoTextFrames, columnDistance, columnCount);
+	QString newDocName(tr("Document")+"-"+QString::number(DocNr));
+	doc = new ScribusDoc();
+	//doc = new ScribusDoc(newDocName, unitindex, pagesize, margins, pagesSetup);
+	doc->setLoading(true);
+	doc->setup(unitIndex, pageArrangement, firstPageLocation, orientation, firstPageNumber, defaultPageSize, newDocName);
+	HaveDoc++;
+	DocNr++;
+	if (CMSavail && doc->CMSSettings.CMSinUse)
+		recalcColors();
+	//CB NOTE should be all done now
+	doc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, columnCount, autoTextFrames, pageArrangement);
 	doc->setMasterPageMode(false);
 	doc->addMasterPage(0, "Normal");
 	int createCount=QMAX(pageCount,1);
@@ -2997,7 +3081,7 @@ bool ScribusMainWindow::slotPageImport()
 				startPage = dia->getImportWherePage() + 1;
 			else
 				startPage = doc->DocPages.count() + 1;
-			addNewPages(dia->getImportWherePage(), importWhere, pageNs.size(), doc->pageHeight, doc->pageWidth, doc->PageOri, doc->PageSize, true);
+			addNewPages(dia->getImportWherePage(), importWhere, pageNs.size(), doc->pageHeight, doc->pageWidth, doc->PageOri, doc->m_pageSize, true);
 			nrToImport = pageNs.size();
 		}
 		else
@@ -3021,7 +3105,7 @@ bool ScribusMainWindow::slotPageImport()
 						nrToImport = pageNs.size();
 						addNewPages(doc->DocPages.count(), 2,
 									pageNs.size() - (doc->DocPages.count() - doc->currentPage()->pageNr()),
-									doc->pageHeight, doc->pageWidth, doc->PageOri, doc->PageSize, true);
+									doc->pageHeight, doc->pageWidth, doc->PageOri, doc->m_pageSize, true);
 						break;
 					case 1:
 						nrToImport = doc->DocPages.count() - doc->currentPage()->pageNr();
@@ -4999,7 +5083,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 		doc->currentPage()->setInitialHeight(height);
 		doc->currentPage()->setInitialWidth(width);
 		doc->currentPage()->PageOri = orient;
-		doc->currentPage()->PageSize = siz;
+		doc->currentPage()->m_pageSize = siz;
 		//CB If we want to add this master page setting into the slotnewpage call, the pagenumber must be +1 I think
 		applyNewMaster(base[(doc->currentPage()->pageNr()+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns]);
 		wot ++;
@@ -7854,7 +7938,7 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 	}
 	if (isUndo)
 	{
-		addNewPages(wo, where, 1, doc->pageHeight, doc->pageWidth, doc->PageOri, doc->PageSize, true, &tmpl);
+		addNewPages(wo, where, 1, doc->pageHeight, doc->pageWidth, doc->PageOri, doc->m_pageSize, true, &tmpl);
 		UndoObject *tmp =
 			undoManager->replaceObject(state->getUInt("DUMMY_ID"), doc->Pages->at(pagenr - 1));
 		delete tmp;

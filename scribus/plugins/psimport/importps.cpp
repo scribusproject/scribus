@@ -173,7 +173,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 			m_Doc->PageOri = 1;
 		else
 			m_Doc->PageOri = 0;
-		m_Doc->PageSize = "Custom";
+		m_Doc->m_pageSize = "Custom";
 	}
 	ColorList::Iterator it;
 	for (it = CustColors.begin(); it != CustColors.end(); ++it)
