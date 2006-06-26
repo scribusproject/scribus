@@ -40,7 +40,9 @@ CMSettings::~CMSettings()
 bool CMSettings::useColorManagement() const
 {
 #ifdef HAVE_CMS
-	return m_Doc->CMSSettings.CMSinUse;
+	if(m_Doc)
+		return m_Doc->CMSSettings.CMSinUse;
+	return false;
 #else
 	return false;
 #endif
