@@ -67,7 +67,7 @@ public:
 	~GuideManager(){};
 
 	/*! \brief Set the doc fo the guidemanager to work on. */
-	void GuideManager::setDoc(ScribusDoc* doc);
+	void setDoc(ScribusDoc* doc);
 
 	/*! \brief Set the widgets on the page change.
 	It has to be called on every page to page transition */
