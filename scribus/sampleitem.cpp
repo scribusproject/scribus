@@ -17,11 +17,11 @@ for which a new license (GPL+exception) is in place.
 #include "text/nlsconfig.h"
 
 SampleItem::SampleItem(ScribusDoc* doc) :
-	QObject(),
-	m_Doc(doc)
+	QObject()
 {
 	used = true;
-	if (m_Doc == 0)
+	m_Doc=doc;
+	if (!m_Doc)
 	{
 		m_Doc=ScCore->primaryMainWindow()->doFileNew(//pageWidth, pageHeight,
 									0,0,
@@ -32,14 +32,14 @@ SampleItem::SampleItem(ScribusDoc* doc) :
 									0, 1, false,
 									//pagesType, unit, firstPageOrder,
 									1, 1, 1,
-									//orientation, firstPageNr, "Custom");
-									1, 1, "custom", 1, true);
+									//orientation, firstPageNr, "Custom", requires gui, page count, showview);
+									1, 1, "custom", false, 1, false);
+		Q_ASSERT(m_Doc!=0);
 		if (!m_Doc)
 			return;
 		m_Doc->pageSets[1/*pagesType*/].FirstPage = 1;//firstPageOrder;
 		used = false;
 	}
-
 	// tmp colors. to be removed in descrictor
 	m_Doc->PageColors.insert("__blackforpreview__", ScColor(0, 0, 0, 255));
 	m_Doc->PageColors.insert("__whiteforpreview__", ScColor(0, 0, 0, 0));
@@ -88,7 +88,14 @@ SampleItem::~SampleItem()
 	if (used == false)
 	{
 		m_Doc->setModified(false);
-		m_Doc->scMW()->slotFileClose();
+		//Do this manually as the sample item's doc was never put into the main windows workspace and doc list etc
+		//m_Doc->scMW()->slotFileClose();
+		m_Doc->view()->disconnect();
+		m_Doc->WinHan->disconnect();
+		m_Doc->disconnect();
+		delete m_Doc->view();
+		delete m_Doc->WinHan;
+		delete m_Doc;
 	}
 }
 

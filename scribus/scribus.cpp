@@ -1754,7 +1754,7 @@ void ScribusMainWindow::startUpDialog()
 			int pageCount=dia->PgNum->value();
 			PageSize ps2(dia->pageSizeComboBox->currentText());
 			QString pagesize = ps2.name();
-			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasure->currentItem(), firstPage, orientation, 1, pagesize, pageCount);
+			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasure->currentItem(), firstPage, orientation, 1, pagesize, true, pageCount);
 			doc->pageSets[facingPages].FirstPage = firstPage;
 			HaveNewDoc();
 		}
@@ -1802,7 +1802,7 @@ bool ScribusMainWindow::slotFileNew()
 		int orientation = dia->Orient;
 		int pageCount=dia->PgNum->value();
 		PageSize ps2(dia->pageSizeComboBox->currentText());
-		if (!doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasure->currentItem(), firstPage, orientation, 1, ps2.name(), pageCount))
+		if (!doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasure->currentItem(), firstPage, orientation, 1, ps2.name(), true, pageCount))
 			return false;
 		doc->pageSets[facingPages].FirstPage = firstPage;
 		mainWindowStatusLabel->setText( tr("Ready"));
@@ -1813,9 +1813,9 @@ bool ScribusMainWindow::slotFileNew()
 }
 
 //TODO move to core, assign doc to doc list, optionally create gui for it
-ScribusDoc *ScribusMainWindow::newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, int pageCount, bool showView)
+ScribusDoc *ScribusMainWindow::newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount, bool showView)
 {
-	return doFileNew(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, columnCount, autoTextFrames, pageArrangement, unitIndex, firstPageLocation, orientation, firstPageNumber, defaultPageSize, pageCount, showView);
+	return doFileNew(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, columnCount, autoTextFrames, pageArrangement, unitIndex, firstPageLocation, orientation, firstPageNumber, defaultPageSize, requiresGUI, pageCount, showView);
 	/* TODO CB finish later this week.
 	if (HaveDoc)
 		doc->OpenNodes = outlinePalette->buildReopenVals();
@@ -1894,7 +1894,7 @@ ScribusDoc *ScribusMainWindow::newDoc(double width, double height, double topMar
 	*/
 }
 
-ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, int pageCount, bool showView)
+ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount, bool showView)
 {
 	if (HaveDoc)
 	{
@@ -1904,58 +1904,80 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	MarginStruct margins(topMargin, leftMargin, bottomMargin, rightMargin);
 	DocPagesSetup pagesSetup(pageArrangement, firstPageLocation, firstPageNumber, orientation, autoTextFrames, columnDistance, columnCount);
 	QString newDocName(tr("Document")+"-"+QString::number(DocNr));
-	doc = new ScribusDoc();
-	//doc = new ScribusDoc(newDocName, unitindex, pagesize, margins, pagesSetup);
-	doc->setLoading(true);
-	doc->setup(unitIndex, pageArrangement, firstPageLocation, orientation, firstPageNumber, defaultPageSize, newDocName);
-	HaveDoc++;
-	DocNr++;
-	if (CMSavail && doc->CMSSettings.CMSinUse)
+	ScribusDoc *tempDoc= new ScribusDoc();
+	if (requiresGUI)
+		doc = tempDoc;
+	tempDoc->hasGUI=requiresGUI;
+	//tempDoc = new ScribusDoc(newDocName, unitindex, pagesize, margins, pagesSetup);
+	tempDoc->setLoading(true);
+	tempDoc->setup(unitIndex, pageArrangement, firstPageLocation, orientation, firstPageNumber, defaultPageSize, newDocName);
+	if (requiresGUI)
+	{
+		HaveDoc++;
+		DocNr++;
+	}
+	if (CMSavail && tempDoc->CMSSettings.CMSinUse)
 		recalcColors();
 	//CB NOTE should be all done now
-	doc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, columnCount, autoTextFrames, pageArrangement);
-	doc->setMasterPageMode(false);
-	doc->addMasterPage(0, "Normal");
+	tempDoc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, columnCount, autoTextFrames, pageArrangement);
+	tempDoc->setMasterPageMode(false);
+	tempDoc->addMasterPage(0, "Normal");
 	int createCount=QMAX(pageCount,1);
 	for (int i = 0; i < createCount; ++i)
-		doc->addPage(i, "Normal", true);
-	doc->addSection();
-	doc->setFirstSectionFromFirstPageNumber();
-	doc->setModified(false);
-	doc->OpenNodes.clear();
-	actionManager->disconnectNewDocActions();
-	actionManager->connectNewDocActions(doc);
+		tempDoc->addPage(i, "Normal", true);
+	tempDoc->addSection();
+	tempDoc->setFirstSectionFromFirstPageNumber();
+	tempDoc->setModified(false);
+	tempDoc->OpenNodes.clear();
+	if (requiresGUI)
+	{
+		actionManager->disconnectNewDocActions();
+		actionManager->connectNewDocActions(tempDoc);
+	}
 	//<<View and window code
-	ScribusWin* w = new ScribusWin(wsp, doc);
+	
+	QWorkspace *qwsp=0;
+	if (requiresGUI)
+		qwsp=wsp;
+	ScribusWin* w = new ScribusWin(qwsp, tempDoc);
 	w->setMainWindow(this);
-	if (view!=NULL)
+	
+	if (requiresGUI && view!=NULL)
 	{
 		actionManager->disconnectNewViewActions();
 		disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	}
-	view = new ScribusView(w, this, doc);
-	doc->setCurrentPage(doc->Pages->at(0));
-	doc->setGUI(this, view);
-	doc->setLoading(false);
+	ScribusView* tempView = new ScribusView(w, this, tempDoc);
+	if (requiresGUI)
+		view = tempView;
+	tempDoc->setCurrentPage(tempDoc->Pages->at(0));
+	tempDoc->setGUI(this, tempView);
+	tempDoc->setLoading(false);
 	//run after setGUI to set up guidepalette ok
 	
-	view->setScale(prefsManager->displayScale());
-	actionManager->connectNewViewActions(view);
-	alignDistributePalette->setDoc(doc);
-	docCheckerPalette->clearErrorList();
-	w->setView(view);
+	tempView->setScale(prefsManager->displayScale());
+	if (requiresGUI)
+	{
+		actionManager->connectNewViewActions(tempView);
+		alignDistributePalette->setDoc(tempDoc);
+		docCheckerPalette->clearErrorList();
+	}
+	w->setView(tempView);
 	ActWin = w;
-	doc->WinHan = w;
-	w->setCentralWidget(view);
-	doc->connectDocSignals(); //Must be before the first reformpages
-	view->reformPages(true);
+	tempDoc->WinHan = w;
+	w->setCentralWidget(tempView);
+	if (requiresGUI)	
+		tempDoc->connectDocSignals(); //Must be before the first reformpages
+	
+	tempView->reformPages(true);
 	//>>
-
-	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
+	if (requiresGUI)
+	{
+		connect(undoManager, SIGNAL(undoRedoDone()), tempView, SLOT(DrawNew()));
 	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
-	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
+		connect(tempView, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
-
+	}
 	//Independent finishing tasks after doc setup
 	if (showView)
 	{
@@ -1963,17 +1985,19 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 			w->showMaximized();
 		else
 			w->show();
-		view->show();
+		tempView->show();
 	}
-	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
-	connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString)), doc, SLOT(updatePict(QString)));
-	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString)), doc, SLOT(removePict(QString)));
-	scrActions["fileSave"]->setEnabled(false);
-	undoManager->switchStack(doc->DocName);
-	styleManager->currentDoc(doc);
-	tocGenerator->setDoc(doc);
-
-	return doc;
+	if (requiresGUI)
+	{
+		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
+		connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString)), tempDoc, SLOT(updatePict(QString)));
+		connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString)), tempDoc, SLOT(removePict(QString)));
+		scrActions["fileSave"]->setEnabled(false);
+		undoManager->switchStack(tempDoc->DocName);
+		styleManager->currentDoc(tempDoc);
+		tocGenerator->setDoc(tempDoc);
+	}
+	return tempDoc;
 }
 
 void ScribusMainWindow::newView()
@@ -2024,10 +2048,15 @@ void ScribusMainWindow::newActWin(QWidget *w)
 		ActWin = NULL;
 		return;
 	}
-	ActWin = (ScribusWin*)w;
+	ScribusWin* scw=(ScribusWin*)w;
+	if (scw && scw->doc())
+		if (!scw->doc()->hasGUI)
+			return;	
+	ActWin = scw;
 	if (ActWin->doc()==NULL)
 		return;
 	QString oldDocName = "";
+
 	if (ActWin && ActWin->doc())
 	{
 		oldDocName = ActWin->doc()->DocName;
