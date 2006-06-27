@@ -1286,7 +1286,9 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 							else if (ite->asImageFrame())
 							{
 								PS_save();
-								if (!doOverprint)
+								// JG : replace what seems mostly duplicate code by corresponding function call (#3936)
+								ProcessItem(Doc, Doc->Pages->at(a), ite, a, sep, farb, Ic, gcr, false, false, true);
+								/*if (!doOverprint)
 								{
 									if (ite->doOverprint)
 									{
@@ -1294,7 +1296,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 										PutSeite("true setoverprintmode\n");
 									}
 								}
-								PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() -(ite->yPos()) - mPage->yOffset());
+								PS_translate(ite->xPos() - Doc->Pages->at(a)->xOffset(), Doc->Pages->at(a)->height() -(ite->yPos()) - Doc->Pages->at(a)->yOffset());
 								if (ite->rotation() != 0)
 									PS_rotate(-ite->rotation());
 								if (ite->fillColor() != CommonStrings::None)
@@ -1328,9 +1330,9 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 								{
 									PS_translate(0, -ite->BBoxH*ite->imageYScale());
 									if ((!sep) && (farb))
-										PS_image(ite, /*-ite->BBoxX+*/ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic, ite->itemName());
+										PS_image(ite, ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic, ite->itemName());
 									else
-										PS_image(ite, /*-ite->BBoxX+*/ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic);
+										PS_image(ite, ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic);
 								}
 								PS_restore();
 								if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
@@ -1361,7 +1363,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 											putColor(ml[it].Color, ml[it].Shade, false);
 										}
 									}
-								}
+								}*/
 								PS_restore();
 							}
 							else if (ite->asTextFrame())
@@ -1524,7 +1526,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 		return 2; //CB Lets leave 1 for general error condition
 }
 
-void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded)
+void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded, bool useTemplate)
 {
 	int h, s, v, k, tsz;
 	int d;
@@ -1601,7 +1603,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			if ((c->PicAvail) && (!c->Pfile.isEmpty()))
 			{
 				PS_translate(0, -c->BBoxH*c->imageYScale());
-				if ((!a->pageName().isEmpty()) && (!sep) && (farb))
+				if (((!a->pageName().isEmpty()) && (!sep) && (farb)) || useTemplate)
 					PS_image(c, /*-c->BBoxX+*/c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic, c->itemName());
 				else
 					PS_image(c, /*-c->BBoxX+*/c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic);
