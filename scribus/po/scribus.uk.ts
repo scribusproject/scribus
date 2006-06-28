@@ -155,75 +155,6 @@ must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </translation>
     </message>
     <message>
-        <source>newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumber = is the number of the first page in the document used for
-    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-    numbers if you&apos;re creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</source>
-        <translation type="obsolete">newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-Створює новий документ та повертає true в разі успіху. Параметри мають
-слідуюче значення:
-
-    розмір - size = Тупль (ширина,висота), який описує розмір документу. Ви 
-    можете використовувати попередньо визначені константи названі 
-    PAPER_&lt;paper_type&gt;, наприклад PAPER_A4 і.т.д.
-
-    поля - margins = Тупль (ліве, праве, верхнє, нижнє) - описує поля документа.
-
-    орієнтація - orientation = орієнтація сторінки - константи PORTRAIT - портретна,
-    LANDSCAPE - ландшафтна.
-
-    firstPageNumber = номер першої сторінки даного документа. Звичайно 
-    починається з 1, але більші значення можуть використовуваться, наприклад 
-    якщо Ви створюєте документ, який складається з кількох частин.
-
-    одиниця виміру - unit: це значення установлює одиниці виміру, які будуть
-    використовуватися в документі. Використовуйте попередньо визначені
-    константи: UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
-
-    книжкові сторінки - facingPages = FACINGPAGES, NOFACINGPAGES
-
-    перша сторона зліва - firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-Значення для ширини, висоти, та полів виражаються в одиницях виміру, вибраних
-для всього документа. PAPER_* константи виражаються в точках. Якщо Ваш документ
-не вимірюється в точках, майте це на увазі.
-
-Приклад: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</translation>
-    </message>
-    <message>
         <source>register_macro_callable(name, callable, accel=&apos;&apos;)
 
 Create a macro called &quot;name&quot; with the existing callable object &quot;callable&quot;.
@@ -408,26 +339,6 @@ unicode(text, &apos;iso-8859-2&apos;). Додаткова інформація �
 використовується активний об&apos;єкт.</translation>
     </message>
     <message>
-        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
-must be UTF encoded (see setText() as reference) The first character has an
-index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
-used.
-
-May throw IndexError for an insertion out of bounds.
-</source>
-        <translation type="obsolete">insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Вставляє текст&quot; text&quot; в позицію &quot;pos&quot; в текстову рамку. Текст має бути в
-кодуванні UTF (дивіться setText() для подальшої інформації). Перший знак
-має індекс 0. Якщо &quot;name&quot; не вказано, використовується активний об&apos;єкт.
-
-Може повернути помилку IndexError якщо індекс вставки виходить за 
-дозволений діапазон.
-</translation>
-    </message>
-    <message>
         <source>setFont(&quot;font&quot;, [&quot;name&quot;])
 
 Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
@@ -536,27 +447,6 @@ May throw ValueError for an invalid alignment constant.
 
 Може повернути помилку ValueError, якщо константа вирівнювання задана
 невірно.
-</translation>
-    </message>
-    <message>
-        <source>selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared.  If &quot;name&quot; is not given the currently
-selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</source>
-        <translation type="obsolete">selectText(start, count, [&quot;name&quot;])
-
-Вибирає &quot;count&quot; число знаків тексту в текстовій рамці &quot;name&quot;, починаючи з
-знака &quot;start&quot;. Рахунок знаків починається з 0. Якщо &quot;count&quot; дорівнює нулю,
-текстова вибірка буде знята. Якщо &quot;name&quot; не задано, буде використано
-активний об&apos;єкт.
-
-Може повернути помилку IndexError, якщо вибірка виходить за межі 
-наявного тексту.
 </translation>
     </message>
     <message>
@@ -1409,25 +1299,6 @@ Returns a larger font info. It&apos;s a list of the tuples with:
 </translation>
     </message>
     <message>
-        <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
-
-Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
-Image is saved into &quot;filename&quot;. Returns true when success.
-
-May raise NotFoundError if the specified font can&apos;t be found.
-May raise ValueError if an empty sample or filename is passed.
-</source>
-        <translation type="obsolete">rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
-
-Показує зображення шрифта &quot;name&quot; у вигляді заданого тексту
-&quot;sample&quot; розміром &quot;size&quot;. Зображення записується в файл &quot;filename&quot;. 
-Повертає булеве значення &quot;true&quot; у разі успішного завершення.
-
-Може повернути помилку NotFoundError, якщо вказаний шрифт не знайдено.
-Може повернути помилку ValueError, якщо задано пустий текст або назва файла.
-</translation>
-    </message>
-    <message>
         <source>getLayers() -&gt; list
 
 Returns a list with the names of all defined layers.
@@ -1512,45 +1383,6 @@ May raise ValueError if the layer name isn&apos;t acceptable.
 
 Змінює доступність плану &quot;layer&quot; для друку. Якщо &quot;printable&quot;
 дорівнює булевому значенню &quot;false&quot;, план не буде надруковано.
-
-Може повернути помилку NotFoundError, якщо план не знайдено.
-Може повернути помилку ValueError, якщо назва плану недопустима.
-</translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns wether the Layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Повертає стан видимості плану &quot;layer&quot; - значення &quot;True&quot; означає, що
-план &quot;layer&quot; видимий, а значення &quot;False&quot; означає, що план &quot;layer&quot; 
-невидимий.
-
-Може повернути помилку NotFoundError, якщо план не знайдено.
-Може повернути помилку ValueError, якщо назва плану недопустима.
-</translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns wether the layer &quot;layer&quot; is printable or not, a value of True means
-that the layer &quot;layer&quot; can be printed, a value of False means that printing
-the layer &quot;layer&quot; is disabled.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Повертає стан доступності для друку плану &quot;layer&quot;. При значенні &quot;True&quot;
-план &quot;layer&quot; може бути надрукований, а при значенні &quot;False&quot; - ні.
 
 Може повернути помилку NotFoundError, якщо план не знайдено.
 Може повернути помилку ValueError, якщо назва плану недопустима.
@@ -2039,18 +1871,6 @@ the page...
 Повертає список туплів з об&apos;єктами, розташованими на активній сторінці.
 Тупль має вигляд (name, objectType, order).  Наприклад &apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)]
 означає, що об&apos;єкт &apos;Text1&apos; є текстовою рамкою (тип 4) і є першим об&apos;єктом сторінки...
-</translation>
-    </message>
-    <message>
-        <source>getPageMargins()
-
-Returns the page margins as a (left, right, top, bottom) tuple in the current
-units. See UNIT_&lt;type&gt; constants and getPageSize().
-</source>
-        <translation type="obsolete">getPageMargins()
-
-Повертає поля сторінки у вигляді тупля (ліве, праве, верхнє, нижнє) в
-активних одиницях виміру. Див. константи UNIT_&lt;type&gt; та функцію getPageSize().
 </translation>
     </message>
     <message>
@@ -2656,14 +2476,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 <context>
     <name>About</name>
     <message>
-        <source>About Scribus%1%2</source>
-        <translation type="obsolete">Про Scribus %1 %2</translation>
-    </message>
-    <message>
-        <source>%1. %2 %3 </source>
-        <translation type="obsolete">%1. %2 %3</translation>
-    </message>
-    <message>
         <source>Scribus Version %1
 %2 %3</source>
         <translation>Версія Scribus %1
@@ -2760,19 +2572,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>Slovenian:</source>
         <translation>Словенська:</translation>
-    </message>
-    <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation type="obsolete">Ця панель показує версію, дату збірки і 
-використання зовнішніх бібліотек в Scribus.
-С-С-T можна розібрати як С=CUPS - Загальна 
-система друку для Юнікс, С=littlecms - Проста
-система керування кольором, T=TIFF - Підтримка
-формату зображень TIFF. При відсутності бібліотеки
-літера індикатор заміщається на *</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -2889,6 +2688,10 @@ tiff</translation>
         <source>Portuguese (Brazilian):</source>
         <translation>Португальська (Бразильська):</translation>
     </message>
+    <message>
+        <source>Japanese:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -2966,16 +2769,6 @@ UCR найчастіше впливає на ті частини зображе�
     <message>
         <source>Set Media Size</source>
         <translation>Установити розмір паперу</translation>
-    </message>
-    <message>
-        <source>This enables you to explicitely set,
-the media size of the postscript file.
-Not recommended unless
- requested by your printer.</source>
-        <translation type="obsolete">Дозволяє Вам явно установити
-розмір паперу постскрипт файлу.
-Не рекомендується, якщо не
-вимагається вашим друкарем.</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
@@ -3514,20 +3307,12 @@ Not recommended unless
         <translation>Відчинити</translation>
     </message>
     <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Зображення (*.tif *.png *.jpg *.xpm);;Постскрипт (*.eps);;Всі файли (*)</translation>
-    </message>
-    <message>
         <source>Example:</source>
         <translation>Приклад:</translation>
     </message>
     <message>
         <source>Selection Change</source>
         <translation>Зміни вибірки</translation>
-    </message>
-    <message>
-        <source>Java Script</source>
-        <translation type="obsolete">Сценарій на мові Java</translation>
     </message>
     <message>
         <source>Button</source>
@@ -4496,14 +4281,6 @@ This can be set in the Preferences.</source>
         <translation>Замінити це на:</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
         <source>Delete color:</source>
         <translation>Видалити колір:</translation>
     </message>
@@ -4564,6 +4341,18 @@ This can be set in the Preferences.</source>
     <message>
         <source>OK</source>
         <translation>Гаразд</translation>
+    </message>
+</context>
+<context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4743,10 +4532,6 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     <message>
         <source>Save as</source>
         <translation>Записати як</translation>
-    </message>
-    <message>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation type="obsolete">Постскрипт файли (*.ps);;Всі файли (*)</translation>
     </message>
     <message>
         <source>Cyan</source>
@@ -5010,10 +4795,6 @@ be saved in its current form. The error was:
         <translation>Записати вихідний код макроса у файл. Ви зможете редагувати записаний вихідний код і завантажити його знову через &quot;Завантажити вихідний код...&quot;.</translation>
     </message>
     <message>
-        <source>Python source files (.py)</source>
-        <translation type="obsolete">Файли з вихідним кодом на мові Пітон (.py)</translation>
-    </message>
-    <message>
         <source>Save File Dialog</source>
         <translation>Діалогове вікно Записати Файл</translation>
     </message>
@@ -5194,10 +4975,6 @@ be saved in its current form. The error was:
     <message>
         <source>Editor</source>
         <translation>Редактор</translation>
-    </message>
-    <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation type="obsolete">Java-сценарії (*.js);;Всі файли (*)</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -5548,10 +5325,6 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Additional Paths</source>
         <translation>Додаткові шляхи</translation>
-    </message>
-    <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Постскрипт</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -6362,20 +6135,6 @@ The table in the center of the dialog lists what macros are currently loaded and
         <translation>Опис</translation>
     </message>
     <message>
-        <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Name:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Ця таблиця містить попередньо визначені макроси.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Ім&apos;я:&lt;/b&gt; Ім&apos;я макроса так, як воно показується в меню та в інших частинах Scribus.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Ред.:&lt;/b&gt; Показує чи макрос може бути редагованим. В цій колонці повинне бути слово &quot;Так&quot;. Якщо макрос не може бути редагованим, це звичайно означає, що він був створений командою register_macro в сценарії.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Пришвидш.:&lt;/b&gt; Гаряча комбінація клавіш для пункта меню, яка зв&apos;язана з макросом. Наприклад, CTRL-F8 означає, що Ви можете натиснути Control-F8, щоб запустити макрос.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Опис:&lt;/b&gt; Якщо макрос містить &quot;пояснення&quot; - спеціальну строкову величину на початку сценарія, вона буде тут показана. Якщо &quot;пояснення&quot; дуже довге - буде показано лише його початок. Використовуйте інструмент &quot;Що це&quot; в меню Макросів для доступу до повного опису певного макроса.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Rena&amp;me</source>
         <translation>&amp;Перейменувати</translation>
     </message>
@@ -6654,30 +6413,6 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
 </context>
 <context>
-    <name>MenuTest</name>
-    <message>
-        <source>Script error</source>
-        <translation type="obsolete">Помилка сценарія</translation>
-    </message>
-    <message>
-        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="obsolete">Якщо ви використовуєте офіційний сценарій то, будь-ласка, повідомляйте про помилки на &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Показати &amp;Консоль</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Console</source>
-        <translation type="obsolete">Сховати &amp;Консоль</translation>
-    </message>
-    <message>
-        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="obsolete">Це повідомлення також розміщене в блоці копіювання. Використайте 
-Ctrl-V для вставки його в систему обробітку програмних помилок.</translation>
-    </message>
-</context>
-<context>
     <name>MergeDoc</name>
     <message>
         <source>Change...</source>
@@ -6912,10 +6647,6 @@ a range of pages or a single page number.</source>
     <message>
         <source>Line Spacing</source>
         <translation>Проміжки між рядками</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Ручна обробка</translation>
     </message>
     <message>
         <source>None</source>
@@ -7310,10 +7041,6 @@ Corners:</source>
         <translation>&amp;Розмір шрифта:</translation>
     </message>
     <message>
-        <source>&amp;Kerning:</source>
-        <translation type="obsolete">&amp;Кернінг:</translation>
-    </message>
-    <message>
         <source>L&amp;ine Spacing:</source>
         <translation>Інтервал мі&amp;ж рядками:</translation>
     </message>
@@ -7560,6 +7287,10 @@ Please choose another.</source>
     <message>
         <source>Do you really want to delete this Template?</source>
         <translation>Ви справді бажаєте видалити цей шаблон?</translation>
+    </message>
+    <message>
+        <source>New Template %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7950,56 +7681,12 @@ otherwise Coordinates are relative to the Object.</source>
 <context>
     <name>OdtDialog</name>
     <message>
-        <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="obsolete">Установки імпортера документів OpenOffice.org Writer</translation>
-    </message>
-    <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Поновити стилі абзаців</translation>
-    </message>
-    <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Якщо стиль активного абзацу документа OpenOffice.org вже існує, 
-стиль в документі Scribus повинет бути відредагованим для 
-співпадання з імпортованим стилем чи залишений незмінним</translation>
-    </message>
-    <message>
-        <source>Pack paragraph styles</source>
-        <translation type="obsolete">Упакувати стилі абзаців</translation>
-    </message>
-    <message>
-        <source>Group paragraph styles by attributes.
-Less paragraph styles but controlling them may be hard.
-Should be used if it is known that text must not be edited
-after importing.</source>
-        <translation type="obsolete">Згрупувати стилі абзаців за атрибутами. Це приводить до
-зменшення числа стилів абзаців, але викликає труднощі
-для керування ними. Використовуйте, якщо відомо, що 
-текст не повинен редагуватися після імпортування.</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Використовувати ім&quot;я документа, як префікс для стилів абзаців</translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Чи потрібно, щоб імпортер використовував ім&quot;я
-документа як префікс для імен стилів Scribus</translation>
-    </message>
-    <message>
         <source>Do not ask again</source>
         <translation>Більше на запитувати</translation>
-    </message>
-    <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Чи повинен імпортер завжди використовувати
-вибране значення при імпорті документів OpenOffice.org 
-і більше не запитувати Вашого підтверждення</translation>
     </message>
     <message>
         <source>OK</source>
@@ -8229,20 +7916,8 @@ Scribus.</translation>
         <translation>Абсолютна кольорометрія</translation>
     </message>
     <message>
-        <source>Image Settings</source>
-        <translation>Установки зображення</translation>
-    </message>
-    <message>
         <source>Automatic</source>
         <translation>Автоматичний</translation>
-    </message>
-    <message>
-        <source>JPEG</source>
-        <translation>JPEG</translation>
-    </message>
-    <message>
-        <source>Zip</source>
-        <translation>Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -8277,26 +7952,10 @@ Scribus.</translation>
         <translation>Експортувати діапазон сторінок в PDF</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">Визначає сумісність PDF. Стандартом є Acrobat 4.0, який дає найвищу сумісність.
-Виберіть Acrobat 5.0, якщо в документі є риси PDF 1.4, такі як прозорість або 128-бітне шифрування.
-PDF/X-3 використовується для експорту PDF для комерційного друку. Він доступний лише при наявності
-активованої систему управління кольором.</translation>
-    </message>
-    <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
         <translation>Визначає тип переплітання сторінок в PDF. Стандартний варіант - 
 переплітання з лівої сторони.</translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation>Вкладає зменшені зображення кожної сторінки в PDF.
-Деякі програми для перегляду PDF можуть використовувати
-ці зображення для навігації.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
@@ -8314,33 +7973,6 @@ This does not affect the resolution of bitmap images like photos.</source>
         <translation>Розрішення експортованого тексту та зображень.
 Не має ніякого ефекту на розрішення растрових зображень,
 таких як фотографії.</translation>
-    </message>
-    <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Компресія тексту та зображень.
-Зменшує розмір PDF. Не змінюйте без явної причини.</translation>
-    </message>
-    <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Версія компресії для зображень.
-Автоматична - дозволяє Scribus вибрати найкращий метод.
-ZIP - добре використовувати для зображень з однотонними кольорами.
-JPEG - добре використовувати при створенні невеликих PDF файлів в які
-вставлено багато фотографічних зображень. Можлива невелика втрата
-якості зображення.
-Залиште установку на автоматичну компресію при відсутності явної причини для
-використання більш специфічних схем компресії.</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Перерахувати розрішення растрових зображень до вибраних точок/кв. дюйм (DPI).
-Якщо ця опція не установлена то буде використане вихідне розрішення зображень.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
@@ -8495,10 +8127,6 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation>пік</translation>
     </message>
     <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Ступені стиснення:  Мінімальна (25%), Низка (50%), Середня (75%), Висока (85%), Максимальна (95%)</translation>
-    </message>
-    <message>
         <source>Choose a password for users to be able to read your PDF.</source>
         <translation>Виберіть пароль для захисту PDF документа від перегляду.</translation>
     </message>
@@ -8516,25 +8144,6 @@ If un-checked, text and graphics cannot be copied.</source>
         <translation>Дозволити копіювання тексту і зображень з PDF.
 Якщо цей параметр не вибрати, то копіювання 
 тексту і зображень буде заборонено.</translation>
-    </message>
-    <message>
-        <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="obsolete">Дозволити вставку анотацій та полів в PDF.
-Якщо цей параметр не вибрати, то редагування
-анотацій та полів буде заборонено.</translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Вмістити список елементів, розділений комами де елемент
-може *бути для всіх сторінок, 1-5 для діапазона сторінок, або
-номер окремої сторінки.</translation>
-    </message>
-    <message>
-        <source>Create PDF File</source>
-        <translation type="obsolete">Створити PDF файл</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
@@ -8820,21 +8429,40 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
 розміру файла PDF.</translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation>Метод компресії зображень. Автоматичний дозволить Scribus вибрати найкращий метод. ZIP працює без втрати інформації і тому добре підходить для зображень з однотонними кольорами. JPEG приводить до зменшення розміру PDF файлів, які містять багато зображень (можлива деяка втрата якості зображення). Залиште установку в режимі Автоматичний, якщо у Вас немає потреби в особливих режимах компресії зображень.</translation>
-    </message>
-    <message>
-        <source>Re-sample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.
-This can increase memory usage and slow down export.</source>
-        <translation>Перерахувати растрові зображення до вибраного розрішення в DPI (ТНД).
-Якщо Ви залишите цю установку вимкненою, то зображення залишаться
-в вихідному розрішенні, що може привести до збільшення потреби в пам&quot;яті
-сповільнити процес експорту.</translation>
-    </message>
-    <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation>Визначає рівень сумісності PDF. Стандартний рівень дорівнює Acrobat 4.0, який має найширшу сумісність. Виберіть Acrobat 5.0, якщо у Вашому файлі присутні характеристики PDF 1.4, такі як прозорість, або Вам потрібно використовувати 128-бітне шифрування. PDF/X-3 використовується для експорту PDF при використанні кольорових профілів RGB для комерційного друку. Цей режим може бути вибрано лише при активованому керуванні кольорами. Замітка: PDF/X-3 переконвертує всі CMYK кольори в RGB кольори основані на ICC профілях. Використовуйти лише якщо Вам порадив це зробити ваш комерційний друкар, або, в деяких випадках, при друці на 4-х колірних лазерних прінтерах.</translation>
+    </message>
+    <message>
+        <source>Image Compression Methods</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JPEG - Lossy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zip - Lossless</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8852,12 +8480,6 @@ This can increase memory usage and slow down export.</source>
 of a slight slowdown in previewing. This only affects Type 1 fonts</source>
         <translation>Покращує вигляд текстових об&apos;єктів при перегляді за рахунок деякого
 сповільнення процесу. Впливає лише на шрифти Type 1</translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="obsolete">Покращує вигляд True Type шрифтів, Open Type шрифтів, EPS, PDF та векторної
-графіки при перегляді за рахунок деякого сповільнення процесу перегляду</translation>
     </message>
     <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
@@ -8919,21 +8541,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>&amp;Under Color Removal</source>
         <translation>У &amp;видаленні &amp;кольорів</translation>
-    </message>
-    <message>
-        <source>A way of switching some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">Метод переводу певних відтінків сірого, які складаються з салатового, 
-жовтого та рожевого кольорів, на використання чорного кольору.
-UCR найчастіше впливає на ті частини зображень, які складаються з нейтральних
-та/чи темних відтінків близьких до сірого. Використання цієї установки може
-покращити якість друку деяких зображень. Деяке тестування та експерименти
-необхідні в кожному конкретному випадку. UCR знижує ймовірність перенасичення
-паперу CMY чорнилами.</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -9024,10 +8631,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>Warning</source>
         <translation>Застереження</translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="obsolete">Копія</translation>
     </message>
     <message>
         <source>Copy Here</source>
@@ -9598,10 +9201,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation>Зовнішні інструменти</translation>
     </message>
     <message>
-        <source>Postscript Interpreter</source>
-        <translation type="obsolete">Інтерпретатор постскрипта</translation>
-    </message>
-    <message>
         <source>Image Processing Tool</source>
         <translation>Інструмент для обробки зображень</translation>
     </message>
@@ -9642,10 +9241,6 @@ Scribus успадкує любі доступні теми KDE або Qt</trans
     <message>
         <source>Default documents directory</source>
         <translation>Стандартна директорія для документів</translation>
-    </message>
-    <message>
-        <source>Default ICC profiles directory</source>
-        <translation type="obsolete">Стандартна директорія для ICC профілів</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
@@ -9932,10 +9527,6 @@ each time the time period elapses</source>
         <translation>Установити стандартний масштаб зображення</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Розміщення інтерпретатора Ghostscript на жорсткому диску</translation>
-    </message>
-    <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation>Антиаліасинг тексту для рендерингу EPS та PDF на екрані</translation>
     </message>
@@ -9952,20 +9543,8 @@ each time the time period elapses</source>
         <translation>Зберегти вміст чорновика після зміни</translation>
     </message>
     <message>
-        <source>Filesystem location for graphics editor</source>
-        <translation type="obsolete">Місцезнаходження графічного редактора на жорсткому диску</translation>
-    </message>
-    <message>
         <source>Baseline Grid</source>
         <translation>Базова сітка</translation>
-    </message>
-    <message>
-        <source>Turns on the basegrid</source>
-        <translation type="obsolete">Ввімкнути базову сітку</translation>
-    </message>
-    <message>
-        <source>Turns off the basegrid</source>
-        <translation type="obsolete">Вимкнути базову сітку</translation>
     </message>
     <message>
         <source> px</source>
@@ -10338,21 +9917,6 @@ each time the time period elapses</source>
 позитивне число зробить його випуклим</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Метод видалення певних відтінків сірого, які складаються з салатового, 
-жовтого та рожевого кольорів, і використання чорного кольору на їх місці.
-UCR найчастіше впливає на ті частини зображень, які складаються з нейтральних
-та/чи темних відтінків близьких до сірого кольору. Використання цієї установки може
-покращити якість друку деяких зображень. Деяке тестування та експериментування
-необхідні в кожному конкретному випадку. UCR знижує ймовірність перенасичення
-паперу CMY чорнилами.</translation>
-    </message>
-    <message>
         <source>Executive</source>
         <translation>Виконавчий</translation>
     </message>
@@ -10392,10 +9956,6 @@ be changed with documents open.</source>
         <translation>Вимикає базову сітку</translation>
     </message>
     <message>
-        <source>File system location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Розміщення інтерпретатора Ghostscript в файловій системі</translation>
-    </message>
-    <message>
         <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
@@ -10411,6 +9971,10 @@ Gimp і Ваш дистрибутив його включає, ми рекоме
     </message>
     <message>
         <source>File system location for the GhostScript interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10865,10 +10429,6 @@ Check path and filename.</source>
         <translation>Відчинити</translation>
     </message>
     <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="obsolete">Сценарії на Пітоні (*.py);; Всі файли (*)</translation>
-    </message>
-    <message>
         <source>Save as</source>
         <translation>Записати як</translation>
     </message>
@@ -10895,22 +10455,6 @@ Check path and filename.</source>
     <message>
         <source>Background</source>
         <translation>Фон</translation>
-    </message>
-    <message>
-        <source>S&amp;cript</source>
-        <translation type="obsolete">С&amp;ценарії</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Ойойой! Спроба доступу до неіснуючого об&apos;єкту!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Ойойой! Спроба видалення неіснуючого об&apos;єкту!</translation>
-    </message>
-    <message>
-        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation type="obsolete">Ойойой! Спроба оточення неіснуючого об&apos;єкту текстом!</translation>
     </message>
     <message>
         <source>Error writing the output file(s).</source>
@@ -11069,44 +10613,12 @@ Check path and filename.</source>
         <translation>Керівництво по &amp;сценаристу...</translation>
     </message>
     <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation type="obsolete">С&amp;ценарії Scribus</translation>
-    </message>
-    <message>
-        <source>&amp;Execute Script...</source>
-        <translation type="obsolete">&amp;Виконати сценарій...</translation>
-    </message>
-    <message>
-        <source>&amp;Recent Scripts</source>
-        <translation type="obsolete">&amp;Недавно виконані сценарії</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Покзати ко&amp;нсоль</translation>
-    </message>
-    <message>
         <source>Save Page as &amp;SVG...</source>
         <translation>Записати, як SVG з&amp;ображення...</translation>
     </message>
     <message>
         <source>Import &amp;SVG...</source>
         <translation>Імпортувати  SVG зображ&amp;ення...</translation>
-    </message>
-    <message>
-        <source>Oook! Wrong arguments! Call: </source>
-        <translation type="obsolete">Ойойой! Неправильні аргументи! Виклик: </translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation type="obsolete">Ойойой! Ви намагаєтеся завантажити зображення в об&apos;єкт який не існує, або не вибраний!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Ойойой! Ви намагаєтеся замкнути/відімкнути неіснуючий об&apos;єкт! До того ж жодного з об&apos;єктів не вибрано.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Ойойой! Ви намагаєтеся звернутися до неіснуючого об&apos;єкта! До того ж жодного об&apos;єкта не вибрано.</translation>
     </message>
     <message>
         <source>Importing text</source>
@@ -11153,10 +10665,6 @@ Check path and filename.</source>
 External Links
 </source>
         <translation>Зовнішні зсилки</translation>
-    </message>
-    <message>
-        <source>OO.o Writer Documents</source>
-        <translation type="obsolete">Документи OO.o  Writer</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -11304,14 +10812,6 @@ External Links
 прогресу більшого ніж максимально можливий</translation>
     </message>
     <message>
-        <source>&amp;About Script...</source>
-        <translation type="obsolete">&amp;Про скрипт...</translation>
-    </message>
-    <message>
-        <source>About Script</source>
-        <translation type="obsolete">Про скрипт</translation>
-    </message>
-    <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо визначити розмір шрифта в нетекстовій рамці.
@@ -11358,145 +10858,15 @@ External Links
         <translation>Неможливо вставити текст в нетекстову рамку.</translation>
     </message>
     <message>
-        <source>Insert index out of bounds</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Індекс вставки виходить за доступний діапазон</translation>
-    </message>
-    <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
         <translation>Вирівнювання виходить за доступний діапазон. Використайте
 одну з констант ALIGN*.</translation>
     </message>
     <message>
-        <source>Can&apos;t set text alignment on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо установити вирівнювання тексту в нетекстовій рамці</translation>
-    </message>
-    <message>
-        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Розмір шрифта виходить за доступний діапазон - має бути 1 &lt;= розмір &lt;= 512</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set font size on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо установити розмір шрифта в нетекстовій рамці</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set font on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо установити текст в нетекстовій рамці</translation>
-    </message>
-    <message>
-        <source>Font not found</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Шрифт не знайдено</translation>
-    </message>
-    <message>
-        <source>Line space out of bounds, must be &gt;= 0.1</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Міжрядковий інтервал виходить за доступний діапазон, має бути &gt;= 0.1</translation>
-    </message>
-    <message>
-        <source>Can&apos;t line spacing on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо визначити міжрядковий інтервал в нетекстовій рамці</translation>
-    </message>
-    <message>
-        <source>Column gap out of bounds, must be positive</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Дистанція між колонками тексту виходить за доступний діапазон, має бути позитивною</translation>
-    </message>
-    <message>
-        <source>Can&apos;t column gap on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо установити число колонок тексту в нетекстовій рамці</translation>
-    </message>
-    <message>
-        <source>Column count out of bounds, must be &gt; 1</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Число колонок тексту виходить за доступний діапазон, має бути &gt; 1</translation>
-    </message>
-    <message>
-        <source>Can&apos;t number of columns on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо установити число колонок тексту в нетекстовій рамці</translation>
-    </message>
-    <message>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
         <translation>Індекс вибірки виходить за доступний діапазон</translation>
-    </message>
-    <message>
-        <source>Can&apos;t select text in a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо вибрати текст в нетекстовій рамці</translation>
-    </message>
-    <message>
-        <source>Can&apos;t delete text from a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо видалити текст з нетекстової рамки</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text fill on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо установити заповнення тексту в нетекстовій рамці</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text stroke on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо установити виділення контурів знаків в нетекстовій рамці</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text shade on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо установити тінь тексту в нетекстовій рамці</translation>
-    </message>
-    <message>
-        <source>Can only link text frames</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Лише текстові рамки можуть бути з&apos;єднані в ланцюжок</translation>
-    </message>
-    <message>
-        <source>Target frame must be empty</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Рамка призначення має бути пуста</translation>
-    </message>
-    <message>
-        <source>Target frame links to another frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Рамка призначення зв&apos;язана з іншою рамкою</translation>
-    </message>
-    <message>
-        <source>Target frame is linked to by another frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Інша рамка зв&apos;язана з рамкою призначення</translation>
-    </message>
-    <message>
-        <source>Source and target are the same object</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Вихідна рамка і рамка призначення являються одним і тим самим об&apos;єктом</translation>
-    </message>
-    <message>
-        <source>Can&apos;t unlink a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо від&apos;єднати нетекстову рамку</translation>
-    </message>
-    <message>
-        <source>Object is not a linked text frame, can&apos;t unlink.</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Об&apos;єкт не являється зв&apos;язаною текстовою рамкою, неможливо розімкнути.</translation>
-    </message>
-    <message>
-        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Об&apos;єкт являється останньою рамкою в серії, неможливо роз&apos;єднати. Роз&apos;єднайте попередню рамку натомість.</translation>
-    </message>
-    <message>
-        <source>Can&apos;t convert a non-text frame to outlines</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо конвертувати нетекстову рамку в контурні лінії</translation>
     </message>
     <message>
         <source>Failed to open document</source>
@@ -11518,41 +10888,6 @@ scribus.UNIT_* констант.</translation>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
         <translation>Рамка призначення не є рамкою для зображень.</translation>
-    </message>
-    <message>
-        <source>Can&apos;t scale by 0%</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо змінити масштаб на 0%</translation>
-    </message>
-    <message>
-        <source>Can&apos;t render an empty sample</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо прорисувати пустий зразок</translation>
-    </message>
-    <message>
-        <source>Can&apos;t save to a blank filename</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо записати файл з пустим ім&apos;ям</translation>
-    </message>
-    <message>
-        <source>Can&apos;t have an empty layer name</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Не допускається пусте ім&apos;я плану</translation>
-    </message>
-    <message>
-        <source>Layer not found</source>
-        <comment>python error</comment>
-        <translation type="obsolete">План не знайдено</translation>
-    </message>
-    <message>
-        <source>Can&apos;t remove the last layer</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо видалити останній існуючий план</translation>
-    </message>
-    <message>
-        <source>Can&apos;t create layer without a name</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Неможливо створити план без імені</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
@@ -11660,16 +10995,6 @@ scribus.UNIT_* констант.</translation>
         <translation>Неможливо змінити колір з пустим ім&apos;ям.</translation>
     </message>
     <message>
-        <source>Color not found in document</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Колір не знайдено в документі</translation>
-    </message>
-    <message>
-        <source>Color not found in default colors</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Колір не знайдено в стандартних кольорах</translation>
-    </message>
-    <message>
         <source>Cannot create a color with an empty name.</source>
         <comment>python error</comment>
         <translation>Неможливо створити колір з пустим ім&apos;ям.</translation>
@@ -11683,54 +11008,6 @@ scribus.UNIT_* констант.</translation>
         <source>Cannot replace a color with an empty name.</source>
         <comment>python error</comment>
         <translation>Неможливо замінити колір з пустим ім&apos;ям.</translation>
-    </message>
-    <message>
-        <source>Scribus Python interface module
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
-<byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
-<byte value="x9"/><byte value="x9"/>function is documented individually below.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
-<byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
-<byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
-<byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
-<byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
-<byte value="x9"/><byte value="x9"/>      without a document to operate on.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
-<byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
-<byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
-<byte value="x9"/><byte value="x9"/>      on.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
-<byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
-<byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
-<byte value="x9"/><byte value="x9"/>      in this exception being raised.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
-<byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
-<byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
-<byte value="x9"/><byte value="x9"/>function&apos;s documentation.
-<byte value="x9"/><byte value="x9"/></source>
-        <translation type="obsolete">Модуль інтерфейса Scribus для мови програмування Пітон (Python).
-
-Цей модуль є інтерфейсом Scribus для Пітона. Він містить функції, які дозволяють
-керувати програмою scribus та маніпулювати об&apos;єктами на канві. Кожна функція
-має окреме описання. Декілька понять є загальними для більшої частини інтерфейса.
-Більшість функцій оперують рамками. Рамки визначаються за їх назвою, яка
-виражається строковою величиною, вони не є справжніми об&apos;єктами Пітону. Багато
-функій сприймають необов&apos;язковий параметр (не ключове слово) - назва рамки.
-Багато помилок (винятків) також є спільними для більшості функцій.
-- Багато функцій повернуть помилку NoDocOpenError, якщо їх виконати при відсутності
-відчиненого документа, яким вони могли б оперувати.
-- Якщо не передати назву рамки функції, яка потребує цей параметр, ця функція 
-використає вибрану рамку, якщо така є, або поверне помилку NoValidObjectError, якщо
-вона не зможе знайти відповідний об&apos;єкт.
-- Багато функцій повернуть помилку WrongFrameTypeError, якщо їх використати на 
-невірному типі рамки. Наприклад установка кольору тексту для рамки для зображень
-не має сенсу і приведе до повернення цієї помилки.
-- Помилки, які повертаються викликами до базового програмного інтерфейсу Пітона (Python API) будуть повертатися без змін. Це приводить то того, що список помилок, які
-можуть повертатися любою функцією, як вказано тут і в документаційній строці функції, є неповним. Довідка про помилки, які можуть бути повернені кожною функцією розміщена
-в документації по функції.</translation>
     </message>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
@@ -12061,11 +11338,6 @@ NoValidObjectError, якщо не зможе знайти жодного об&ap
         <translation>Неможливо визначити колір з пустим ім&apos;ям.</translation>
     </message>
     <message>
-        <source>Colour not found</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Колір не знайдено</translation>
-    </message>
-    <message>
         <source>Unable to save pixmap.</source>
         <comment>scripter error</comment>
         <translation>Неможливо записати растрове зображення.</translation>
@@ -12109,6 +11381,26 @@ NoValidObjectError, якщо не зможе знайти жодного об&ap
     <message>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12452,16 +11744,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>SToolBStyle</name>
     <message>
-        <source>Kerning:</source>
-        <translation type="obsolete">Кернінг:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>тчк</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Ручна обробка</translation>
     </message>
     <message>
         <source>Character Settings</source>
@@ -12474,6 +11758,41 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Manual Tracking</source>
         <translation>Слідкування вручну</translation>
+    </message>
+</context>
+<context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">Правий край</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Лівий край</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished">Горизонтально</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished">Вертикально</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12496,10 +11815,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Searching for Fonts</source>
         <translation>Пошук шрифтів</translation>
-    </message>
-    <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">На Вашій системі немає Postscript шрифтів</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -12536,10 +11851,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Show Layers</source>
         <translation>Показати плани</translation>
-    </message>
-    <message>
-        <source>Javascripts...</source>
-        <translation type="obsolete">Сценарії Javascript...</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -12946,10 +12257,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Все</translation>
     </message>
     <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation type="obsolete">EPS-файли (*.eps);;Всі файли (*)</translation>
-    </message>
-    <message>
         <source>Loading:</source>
         <translation>Завантаження:</translation>
     </message>
@@ -13304,10 +12611,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>&amp;Шаблони...</translation>
     </message>
     <message>
-        <source>&amp;Javascripts...</source>
-        <translation type="obsolete">С&amp;ценарії Javascript...</translation>
-    </message>
-    <message>
         <source>D&amp;uplicate</source>
         <translation>&amp;Дублювати</translation>
     </message>
@@ -13576,10 +12879,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Показати розм&amp;ітку</translation>
     </message>
     <message>
-        <source>Ghostscript : You cannot use EPS Images</source>
-        <translation type="obsolete">Ghostscript : ви не можете використовувати EPS зображення</translation>
-    </message>
-    <message>
         <source>Import &amp;Page(s)...</source>
         <translation>Імпортувати &amp;Сторінку(и)...</translation>
     </message>
@@ -13710,6 +13009,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Norwegian</source>
         <translation type="unfinished">Норвезька</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13992,14 +13295,6 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     <message>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Дозволити використання старого стилю назв функцій&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
-&lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
-&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Дозволити старі аліаси назв&lt;/tt&gt; є продвинутою установкою. Вам певно краще її зараз не чіпати.&lt;/p&gt;
-&lt;p&gt;Якщо ввімкнена, ця установка прмусить сценарист створити велику кількість аліасів для назв функцій та констант для сумісності з сценаріями версії Scribus 1.2.0. Ця установка ввімкнена по умовчанню.&lt;/p&gt;
-&lt;p&gt;Ця установка не буде активована до перезапуску Scribus.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use Fake Stdin</source>
@@ -14400,10 +13695,6 @@ drag a Template to the Pageview below.</source>
         <translation>Вийти без поновлення текстової рамки</translation>
     </message>
     <message>
-        <source>&amp;Insert Special</source>
-        <translation type="obsolete">&amp;Вставити символ</translation>
-    </message>
-    <message>
         <source>&amp;New</source>
         <translation>&amp;Новий</translation>
     </message>
@@ -14508,10 +13799,6 @@ drag a Template to the Pageview below.</source>
         <translation>Пошук/Заміна</translation>
     </message>
     <message>
-        <source>&amp;Fonts Preview</source>
-        <translation type="obsolete">&amp;Попередній перегляд шрифтів</translation>
-    </message>
-    <message>
         <source>Clear all Text</source>
         <translation>Очистити весь текст</translation>
     </message>
@@ -14550,14 +13837,6 @@ drag a Template to the Pageview below.</source>
 <context>
     <name>SxwDialog</name>
     <message>
-        <source>OO.o Writer Importer Options</source>
-        <translation type="obsolete">Установки імпортера документів OO.o  Writer</translation>
-    </message>
-    <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Поновити стилі абзаців</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Використовувати ім&quot;я документа, як префікс для стилів абзаців</translation>
     </message>
@@ -14566,57 +13845,12 @@ drag a Template to the Pageview below.</source>
         <translation>Більше на запитувати</translation>
     </message>
     <message>
-        <source>Should the importer always use currently
-set value when importing OO.o document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Чи бажаєте Ви, щоб імпортер завжди 
-використовував теперішню установку 
-при імпорті OO.o документів і більше не 
-питав Вашого підтвердження</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>Гаразд</translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Чи потрібно, щоб імпортер використовував ім&quot;я
-документа як префікс для імен стилів Scribus</translation>
-    </message>
-    <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Якщо стиль абзацу імпортований з активного абзацу документа 
-OpenOffice.org вже існує, стиль в документі Scribus повинен бути
-відредагованим для співпадання з імпортованим стилем, або
-залишений незмінним</translation>
-    </message>
-    <message>
         <source>OpenOffice.org Writer Importer Options</source>
         <translation>Установки імпортера документів OpenOffice.org Writer</translation>
-    </message>
-    <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Чи повинет імпортер завжди використовувати
-активне значення без підтверждення</translation>
-    </message>
-    <message>
-        <source>Pack paragraph styles</source>
-        <translation type="obsolete">Упакувати стилі абзаців</translation>
-    </message>
-    <message>
-        <source>Group paragraph styles by attributes.
-Less paragraph styles but controlling them may be hard.
-Should be used if it is known that text must not be edited
-after importing.</source>
-        <translation type="obsolete">Згрупувати стилі абзаців за атрибутами. Це приводить до
-зменшення числа стилів абзаців, але викликає труднощі
-в їх контролі. Використовуйте, якщо відомо, що текст не
-повинен редагуватися після імпортування.</translation>
     </message>
     <message>
         <source>Update Paragraph Styles</source>
@@ -14728,10 +13962,6 @@ Scribus.</translation>
     <message>
         <source>First &amp;Line:</source>
         <translation>Перший &amp;рядок:</translation>
-    </message>
-    <message>
-        <source>Ind&amp;ent:</source>
-        <translation type="obsolete">В&amp;ідступ:</translation>
     </message>
     <message>
         <source>Left Ind&amp;ent:</source>
@@ -15097,10 +14327,6 @@ with checked button too.</source>
     <message>
         <source>Automatic</source>
         <translation>Автоматичний</translation>
-    </message>
-    <message>
-        <source>Get text only</source>
-        <translation type="obsolete">Імпортувати лише текст</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>

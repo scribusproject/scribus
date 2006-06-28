@@ -1748,6 +1748,10 @@ Indien &apos;n biblioteek nie daar is nie, verskyn &apos;n *</translation>
         <source>Portuguese (Brazilian):</source>
         <translation>Portugees (Brasiliaans):</translation>
     </message>
+    <message>
+        <source>Japanese:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -1821,13 +1825,6 @@ UCR (Under Color Removal) het meeste invloed op beeld dele waar neutrale en/of d
     <message>
         <source>Set Media Size</source>
         <translation>Stel media grootte</translation>
-    </message>
-    <message>
-        <source>This enables you to explicitely set,
-the media size of the postscript file.
-Not recommended unless
- requested by your printer.</source>
-        <translation type="obsolete">Hierdie laat jou toe om pertinent, die media grootte van die postscript lêer te gaan stel. Word nie voorgestel as jou drukker nie daarvoor vra nie.</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
@@ -2222,10 +2219,6 @@ Not recommended unless
         <translation>Opsies</translation>
     </message>
     <message>
-        <source>Java Script</source>
-        <translation type="obsolete">Javascript</translation>
-    </message>
-    <message>
         <source>Go To</source>
         <translation>Gaan na</translation>
     </message>
@@ -2484,10 +2477,6 @@ Not recommended unless
     <message>
         <source>Open</source>
         <translation>Maak oop</translation>
-    </message>
-    <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Beelde (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Alle lêers (*)</translation>
     </message>
     <message>
         <source>Example:</source>
@@ -3404,6 +3393,18 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
     </message>
 </context>
 <context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DocInfos</name>
     <message>
         <source>Document Information</source>
@@ -3682,10 +3683,6 @@ of * vir almal.</translation>
         <translation>Stoor as</translation>
     </message>
     <message>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation type="obsolete">Postscriptlêers (*.ps);;Alle lêers (*)</translation>
-    </message>
-    <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3838,10 +3835,6 @@ in die huidige vorm gebêre word nie. Die fout was:
     <message>
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Python source files (.py)</source>
-        <translation type="obsolete">Python bronkode lêers (.py)</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
@@ -4080,10 +4073,6 @@ in die huidige vorm gebêre word nie. Die fout was:
     <message>
         <source>&amp;Edit</source>
         <translation>Be&amp;werk</translation>
-    </message>
-    <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation type="obsolete">Javascripts (*.js);;Alle lêers (*)</translation>
     </message>
     <message>
         <source>JavaScripts (*.js);;All Files (*)</source>
@@ -4375,10 +4364,6 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
     <message>
         <source>Additional Paths</source>
         <translation>Additionele lokasies</translation>
-    </message>
-    <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -6336,6 +6321,10 @@ Kies &apos;n ander naam.</translation>
         <source>Do you really want to delete this Template?</source>
         <translation>Wil u regtig hierdie templaat uitvee?</translation>
     </message>
+    <message>
+        <source>New Template %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewDoc</name>
@@ -6837,20 +6826,8 @@ gebruik, anders is koördinate relatief tot die objek.</translation>
         <translation>&amp;Resolusie:</translation>
     </message>
     <message>
-        <source>Image Settings</source>
-        <translation>Prentinstellings</translation>
-    </message>
-    <message>
         <source>Automatic</source>
         <translation>Outomaties</translation>
-    </message>
-    <message>
-        <source>JPEG</source>
-        <translation>JPEG</translation>
-    </message>
-    <message>
-        <source>Zip</source>
-        <translation>Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -7217,31 +7194,9 @@ gebruik, anders is koördinate relatief tot die objek.</translation>
         <translation>Voer bereik van bladsye na PDF uit</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Skei bladsye met komme bv. 1,3,4,5 
-of gebruik 1-4 wat als vanaf 1 tot en met 4 insluit 
-of gebruik * vir alle bladsye</translation>
-    </message>
-    <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">Bepaal PDF-anpasbaarheid. Verstek is &quot;Acrobat 4.0&quot;, dit bied die meeste aanpasbaarheid.
-Gebruik Acrobat 5.0 as u funksies uit PDF 1.4 gebruik, soos deursigtigheid of 128-bis enkripsie.
-PDF/X-3 is vir kommersiële drukkers en is kiesbaar as jy kleurbestuur aktiveer.</translation>
-    </message>
-    <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
         <translation>Stel die bind van bladsye in die PDF. Los op verstek (links), tensy u weet wat u doen.</translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation>Maak miniatuurbladsye van elke bladsy in die PDF.
-So mmige blaaiers kan dit vir navigasie gebruik.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
@@ -7258,34 +7213,6 @@ dokumente maklik deurblaai kan word.</translation>
 This does not affect the resolution of bitmap images like photos.</source>
         <translation>Uitvoer resolusie van teks en vektorgrafika.
 Dit het geen invloed op prent resolusies (soos JPG&apos;s) nie.</translation>
-    </message>
-    <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Kompressie van text en grafika
-Moenie sonder rede verander nie. Dit verklein PDF groottes.</translation>
-    </message>
-    <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Kompressie metode vir prente.
-Outomaties laat Scribus die beste metode kies.
-ZIP is goed vir beelde met soliede kleure.
-JPEG is veral effektief met baie prente (waarvoor &apos;n geringe verlies moontlik is).
-Los op outomaties, tensy u &apos;n rede vir &apos;n bepaalde kompressie het.</translation>
-    </message>
-    <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Kompressievlakke: Minimum (25%), laag (50%), medium (75%), hoog (85%), maksimum (95%)</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Monster bitmap prente af na gekose DPI.
-As u hierdie los, word hulle in hulle huidige resolusies gestoor.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
@@ -7514,17 +7441,39 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Re-sample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.
-This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Compression Methods</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JPEG - Lossy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zip - Lossless</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8551,10 +8500,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation>Om aan te pas sleep die skuifknop op die lineaal hieronder.</translation>
     </message>
     <message>
-        <source>Postscript Interpreter</source>
-        <translation type="obsolete">PostScript-interpreter</translation>
-    </message>
-    <message>
         <source>&amp;Name of Executable:</source>
         <translation>&amp;Naam van uitvoerbare program:</translation>
     </message>
@@ -8973,17 +8918,6 @@ van u dokument stoor met &apos;n .bak-uitbreiding</translation>
 &apos;n positiewe waarde maak hom konveks</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>I metode om CMY grys te vervang met swart grys.
-UCR (Under Color Removal) het veral &apos;n invloed op donker en neutrale skadus naby grys. Sommige prente sal mooier druk met die, maar mens moet maar maarmee eksperimenteer.
-UCR verklein die kans op overversadiging met CMY inke.</translation>
-    </message>
-    <message>
         <source>Executive</source>
         <translation>Uitvoerend</translation>
     </message>
@@ -9021,10 +8955,6 @@ be changed with documents open.</source>
         <translation>Skakel die basesrooster af</translation>
     </message>
     <message>
-        <source>File system location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Pad na Ghostscript interpreteerder</translation>
-    </message>
-    <message>
         <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
@@ -9037,6 +8967,10 @@ instance of gimp.</source>
     </message>
     <message>
         <source>File system location for the GhostScript interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10414,6 +10348,26 @@ function&apos;s documentation.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -10770,6 +10724,41 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
     </message>
 </context>
 <context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">Regs</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Links</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished">Horisontaal</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished">Vertikaal</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScriXmlDoc</name>
     <message>
         <source>Copy #%1 of </source>
@@ -10853,10 +10842,6 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
     <message>
         <source>Show Layers</source>
         <translation>Wys Lae</translation>
-    </message>
-    <message>
-        <source>Javascripts...</source>
-        <translation type="obsolete">Javascripts...</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -11093,10 +11078,6 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
     <message>
         <source>Templates...</source>
         <translation>Sjablonen...</translation>
-    </message>
-    <message>
-        <source>&amp;Javascripts...</source>
-        <translation type="obsolete">&amp;Javascripts...</translation>
     </message>
     <message>
         <source>Select New Font</source>
@@ -11781,16 +11762,8 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
         <translation>De volgende programma&apos;s ontbreken:</translation>
     </message>
     <message>
-        <source>Ghostscript : You cannot use EPS Images</source>
-        <translation type="obsolete">Ghostscript: U kunt niet met EPS-prente werken</translation>
-    </message>
-    <message>
         <source>All</source>
         <translation>Alle</translation>
-    </message>
-    <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation type="obsolete">EPS-lêers (*.eps *.epsi);;Alle lêers (*)</translation>
     </message>
     <message>
         <source>pt</source>
@@ -11999,6 +11972,10 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
     <message>
         <source>Norwegian</source>
         <translation type="unfinished">Noors</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

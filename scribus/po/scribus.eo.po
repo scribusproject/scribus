@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-28 11:07+0100\n"
+"POT-Creation-Date: 2006-06-28 21:54+0200\n"
 "PO-Revision-Date: 2005-01-08 17:40+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -195,6 +195,13 @@ msgstr "Paĝo"
 #, fuzzy
 msgid "Font %1 is broken, discarding it"
 msgstr "La tiparo %1 estas damaĝita, ne estas utiligata"
+
+#, fuzzy
+msgid "Font %1 (found using fontconfig) is broken, discarding it"
+msgstr "La tiparo %1 estas damaĝita, ne estas utiligata"
+
+msgid "Failed to load a font - freetype couldn't find the font file"
+msgstr ""
 
 msgid "Left"
 msgstr "Maldekstra"
@@ -952,14 +959,15 @@ msgstr "Distingi&vo:"
 msgid "Compress Text and &Vector Graphics"
 msgstr "&Densigu tekston kaj vektorajn grafikaĵojn"
 
-msgid "Image Settings"
-msgstr "Bildagordaro"
+#, fuzzy
+msgid "Image Compression Methods"
+msgstr "Bildredakta programo"
 
-msgid "JPEG"
-msgstr "JPEG"
+msgid "JPEG - Lossy"
+msgstr ""
 
-msgid "Zip"
-msgstr "Zip"
+msgid "Zip - Lossless"
+msgstr ""
 
 msgid "&Method:"
 msgstr "&Metodo:"
@@ -1236,10 +1244,10 @@ msgstr "Eksportu ĉiujn paĝojn al PDF"
 msgid "Export a range of pages to PDF"
 msgstr "Eksportu intervalon de paĝoj al PDF"
 
+#, fuzzy
 msgid ""
-"Insert a comma separated list of tokens where\n"
-"a token can be * for all the pages, 1-5 for\n"
-"a range of pages or a single page number."
+"Insert a comma separated list of tokens where a token can be * for all the "
+"pages, 1-5 for a range of pages or a single page number."
 msgstr ""
 "Enmetu komdisigitan liston de simboloj, kie\n"
 "simbolo povus esti * por ĉiuj paĝoj, 1-5 por\n"
@@ -1270,9 +1278,10 @@ msgstr ""
 "Difinas la paĝobindon en PDF-dosieroj. Se vi ne scias ĉu vi bezonas\n"
 "modifi, lasu ĝin laŭ la apriora elekto - Maldekstra."
 
+#, fuzzy
 msgid ""
-"Generates thumbnails of each page in the PDF.\n"
-"Some viewers can use the thumbnails for navigation."
+"Generates thumbnails of each page in the PDF. Some viewers can use the "
+"thumbnails for navigation."
 msgstr ""
 "Generas miniaturojn por ĉiu PDF-paĝo.\n"
 "Kelkaj rigardiloj povas utiligi la minaturojn por la navigado."
@@ -1313,7 +1322,7 @@ msgid ""
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic, unless you have a "
-"need for special compression options."
+"need for special compression options. This only applies to JPEG images"
 msgstr ""
 "Tipo de densigo por la bildoj.\n"
 "Aŭtomata permesas al Scribus elekti la plej bonan metodon.\n"
@@ -1325,16 +1334,16 @@ msgstr ""
 #, fuzzy
 msgid ""
 "Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), "
-"Maximum (95%)"
+"Maximum (95%) - This only affects JPEG images."
 msgstr ""
 "Densigoniveloj: Minimuma (25\\%), Malalta (50\\%), Meza (75\\%), Alta (85\\"
 "%), Maksimuma (95\\%)"
 
 #, fuzzy
 msgid ""
-"Re-sample your bitmap images to the selected DPI.\n"
-"Leaving this unchecked will render them at their native resolution.\n"
-"This can increase memory usage and slow down export."
+"Re-sample your bitmap images to the selected DPI. Leaving this unchecked "
+"will render them at their native resolution. This can increase memory usage "
+"and slow down export."
 msgstr ""
 "Malgrandigas la rastrumbildojn ĝis la elektita DPI.\n"
 "Se vi ne markas la bildoj restos kun la origina distingivo."
@@ -1739,6 +1748,10 @@ msgstr "Kopio de %1"
 
 msgid "Name:"
 msgstr "Nomo:"
+
+#, fuzzy
+msgid "New Template %1"
+msgstr "Nova ŝablono"
 
 msgid "New Document"
 msgstr "Nova dokumento"
@@ -2412,6 +2425,9 @@ msgstr "Ĉeĥa"
 msgid "Danish"
 msgstr "Dana"
 
+msgid "Dzongkha"
+msgstr ""
+
 msgid "Dutch"
 msgstr "Nederlanda"
 
@@ -2444,6 +2460,9 @@ msgstr "Hungara"
 
 msgid "Indonesian"
 msgstr "Indonezia"
+
+msgid "Icelandic"
+msgstr ""
 
 msgid "Italian"
 msgstr "Itala"
@@ -3589,6 +3608,15 @@ msgstr "Print&u ĉi tiun paĝon"
 
 msgid "Print &Range"
 msgstr "Printu inter&valon"
+
+msgid ""
+"Insert a comma separated list of tokens where\n"
+"a token can be * for all the pages, 1-5 for\n"
+"a range of pages or a single page number."
+msgstr ""
+"Enmetu komdisigitan liston de simboloj, kie\n"
+"simbolo povus esti * por ĉiuj paĝoj, 1-5 por\n"
+"paĝointervalo, aŭ unuopa paĝnumeron."
 
 msgid "N&umber of Copies:"
 msgstr "Kopin&ombro:"
@@ -4757,6 +4785,21 @@ msgstr "Disponeblaj tiparoj"
 msgid "Edit Styles"
 msgstr "Redaktu stilojn"
 
+#, fuzzy
+msgid "Top"
+msgstr "&Supra:"
+
+#, fuzzy
+msgid "Bottom"
+msgstr "Malsu&pre:"
+
+msgid "Allow Docking To..."
+msgstr ""
+
+#, fuzzy
+msgid "Floating Orientation..."
+msgstr "Rotacio"
+
 msgid "Color Management Settings"
 msgstr "Koloradministraj agordoj"
 
@@ -5050,6 +5093,9 @@ msgstr "Germana:"
 
 msgid "Italian:"
 msgstr "Itala:"
+
+msgid "Japanese:"
+msgstr ""
 
 msgid "Korean:"
 msgstr "Korea:"
@@ -5653,6 +5699,23 @@ msgstr ""
 "Ne montru objektojn ekster la marĝenojn de la printita paĝo aŭ eksportita "
 "dosiero"
 
+#, fuzzy
+msgid ""
+"A way of switching off some of the gray shades which are composed of cyan, "
+"yellow and magenta and using black instead. UCR most affects parts of images "
+"which are neutral and/or dark tones which are close to the gray. Use of this "
+"may improve printing some images and some experimentation and testing is "
+"need on a case by case basis. UCR reduces the possibility of over saturation "
+"with CMY inks."
+msgstr ""
+"Maniero estingi iom da griztonoj kiuj konsistas el cejanblua, flava kaj\n"
+"karmezina koloroj anstataŭante ilin per la nigra.\n"
+"UCR plejparte koncernas la partojn de la bildoj kiuj estas neŭtraj kaj/aŭ\n"
+"la malhelajn tonojn kiuj proksimas al la griza. La uzo de tio povas "
+"pliboniĝi\n"
+"printante kelkajn bildojn kaj provante laŭ la diversaj kazoj.\n"
+"UCR malpliigas la eblon de trosaturiĝo kun CMY-inkoj."
+
 msgid "New From Template"
 msgstr "Nova el ŝablono"
 
@@ -6044,6 +6107,22 @@ msgstr "CSV-datumoj"
 
 msgid "CSV_header"
 msgstr "CSV-titoloj"
+
+#, fuzzy
+msgid "Word Documents"
+msgstr "Dokumento"
+
+#, fuzzy
+msgid "Importing failed"
+msgstr ""
+"La importo de la dosiero:\n"
+"%1\n"
+"malsukcesis!"
+
+msgid ""
+"Importing Word document failed \n"
+"%1"
+msgstr ""
 
 #, fuzzy
 msgid "OpenDocument Text Documents"
@@ -7307,6 +7386,15 @@ msgstr ""
 "La importo de la dosiero:\n"
 "%1\n"
 "malsukcesis!"
+
+#~ msgid "Image Settings"
+#~ msgstr "Bildagordaro"
+
+#~ msgid "JPEG"
+#~ msgstr "JPEG"
+
+#~ msgid "Zip"
+#~ msgstr "Zip"
 
 #~ msgid "Get text only"
 #~ msgstr "Enmetu nur tekston"

@@ -1754,6 +1754,10 @@ Missing library support is indicated by a *</source>
         <source>Portuguese (Brazilian):</source>
         <translation>Portugisisk (Brasilsk)</translation>
     </message>
+    <message>
+        <source>Japanese:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -2220,10 +2224,6 @@ Not recommended unless
         <translation>Innstillinger</translation>
     </message>
     <message>
-        <source>Java Script</source>
-        <translation type="obsolete">Java Script</translation>
-    </message>
-    <message>
         <source>Go To</source>
         <translation>Gå til</translation>
     </message>
@@ -2478,10 +2478,6 @@ Not recommended unless
     <message>
         <source>Open</source>
         <translation>Åpne</translation>
-    </message>
-    <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Bilder (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Alle filtyper (*)</translation>
     </message>
     <message>
         <source>Example:</source>
@@ -3405,6 +3401,18 @@ dokumenter. Denne kan du selv velge i Preferanser.</translation>
     </message>
 </context>
 <context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DocInfos</name>
     <message>
         <source>Document Information</source>
@@ -3596,10 +3604,6 @@ eventuelt fulgt av en dash og en ISO-3166 lande kode, f.eks nn-NO, nb-NO, fr-CH,
     <message>
         <source>Save as</source>
         <translation>Lagre som</translation>
-    </message>
-    <message>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation type="obsolete">Postscript-filer (*.ps);; Alle filtyper (*)</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where
@@ -3837,10 +3841,6 @@ be saved in its current form. The error was:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Python source files (.py)</source>
-        <translation type="obsolete">Python kildefiler (.py)</translation>
-    </message>
-    <message>
         <source>Save File Dialog</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4021,10 +4021,6 @@ be saved in its current form. The error was:
     <message>
         <source>Editor</source>
         <translation>Tekstbehandler</translation>
-    </message>
-    <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation type="obsolete">Javascripts (*.js);; Alle filtyper (*)</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -4373,10 +4369,6 @@ Bruk 72 dpi for bilder som er ment for skjermen</translation>
     <message>
         <source>Additional Paths</source>
         <translation>Andre stier</translation>
-    </message>
-    <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -6325,6 +6317,10 @@ Vennligst velg et annet navn.</translation>
         <source>Do you really want to delete this Template?</source>
         <translation>Vil du virkelig slette denne malen?</translation>
     </message>
+    <message>
+        <source>New Template %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewDoc</name>
@@ -6786,20 +6782,8 @@ ellers er Koordinater relative til Objektet.</translation>
         <translation> dpi</translation>
     </message>
     <message>
-        <source>Image Settings</source>
-        <translation>Bilde innstillinger</translation>
-    </message>
-    <message>
         <source>Automatic</source>
         <translation>Automatisk</translation>
-    </message>
-    <message>
-        <source>JPEG</source>
-        <translation>JPEG</translation>
-    </message>
-    <message>
-        <source>Zip</source>
-        <translation>Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -7010,24 +6994,10 @@ ellers er Koordinater relative til Objektet.</translation>
         <translation>Eksporter et område av sider til PDF</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">Bestemmer PDf kompatibiliteten. Standard er Acrobat 4.0 som gir den største kompatibilitet.
-Velg Acrobat 5.0 hvis din fil har PDF 1.4 egenskaper som gjennomsiktighet eller hvis du trenger 128 bit kryptering.
-PDF/X-3 er for å eksportere PDf til kommersiell printing og kan kan velges dersom du har aktivert farge management.</translation>
-    </message>
-    <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
         <translation>Bestemmer bindingen av sider i PDFen. Hvis ikke du er sikker
 på at du må forandre det, bruk Venstre.</translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation>Lager thumbnails av hver side i PDFen.
-Noen visere kan bruke thumbnails for navigering.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
@@ -7044,34 +7014,6 @@ Disse er nyttige for å navigere i lange PDF filer.</translation>
 This does not affect the resolution of bitmap images like photos.</source>
         <translation>Eksporter resolutionen til tekst og vektor grafikk.
 Dette har ingen innflytelse på oppløsningen til bitmap bilder som fotografier.</translation>
-    </message>
-    <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Komprimering av tekst og grafikk.
-Hvis ikke du har noen grunn, bruk dette. Det reduserer PDF størrelsen.</translation>
-    </message>
-    <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Versjon av komprimering for bilder.
-Automatisk tillater Scribus å velge den beste metoden.
-ZIP er bra for bilder med solide farger.
-JPEG er bedre for å lage små PDF filer som har mane fotografier (mens det kan forekomme tap i bildekvaliteten).
-La det stå på automatisk, hvis ikke du har en spesiell grunn til å endre det.</translation>
-    </message>
-    <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Komprimeringsnivåer: Minimum (25%), Lavt (50%), Medium (75%), Høyt (85%), Maksimum (95%)</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Nedgrader dine bitmap bilder til den valgte DPI.
-Hvis du ikke velger dette vil de bruke sin egen oppløsning.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
@@ -7417,14 +7359,6 @@ følge PDF/X3-conformance. Vi foreslår at du bruker dokumentets tittel.</transl
         <translation>&amp;Avbryt</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Skriv inn en kommaseparert liste med tegn hvor
-tegnet * representerer alle sider, og 1-5 
-representerer en rekke sider, eller en enkelt side. </translation>
-    </message>
-    <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF Filer (*.pdf);;Alle filtyper (*)</translation>
     </message>
@@ -7505,17 +7439,39 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Re-sample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.
-This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Compression Methods</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JPEG - Lossy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zip - Lossless</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8246,10 +8202,6 @@ positiv verdi vil gjøre det konveks</translation>
         <translation>For å justere visningen trekk linjalen nedenfor med glideren.</translation>
     </message>
     <message>
-        <source>Postscript Interpreter</source>
-        <translation type="obsolete">Postscript behandler</translation>
-    </message>
-    <message>
         <source>Image Processing Tool</source>
         <translation>Bildebehandlingsverktøy</translation>
     </message>
@@ -8968,20 +8920,6 @@ gang tidsperioden utløper</translation>
 positiv verdi vil gjøre det konveks</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>En måte å skru av noen av de gråskygger som er laget 
-av cyan, gult og magenta rød ved å  bruke svart istedenfor. 
-UCR virker best på deler av bilder som er nøytrale og/eller mørke toner 
-som ligger nært opptil grått. Bruk dette for å få utsftening enkelteoen bilder til å se bedre; 
-og noe eksperimentering og testing er nødvendig neste gang.
-UCR reduserer muligheten for overmettning med CMY farger.</translation>
-    </message>
-    <message>
         <source>Executive</source>
         <translation>Executive</translation>
     </message>
@@ -9031,6 +8969,10 @@ instance of gimp.</source>
     </message>
     <message>
         <source>File system location for the GhostScript interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10408,6 +10350,26 @@ function&apos;s documentation.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -10764,6 +10726,41 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
 </context>
 <context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">Høyre</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Venstre</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScriXmlDoc</name>
     <message>
         <source>Copy #%1 of </source>
@@ -10843,10 +10840,6 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     <message>
         <source>Show Layers</source>
         <translation>Vis Lag</translation>
-    </message>
-    <message>
-        <source>Javascripts...</source>
-        <translation type="obsolete">JavaSkript ...</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -11323,10 +11316,6 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
         <translation>Alle</translation>
     </message>
     <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation type="obsolete">EPS-Filer (*.eps);;Alle filtyper (*)</translation>
-    </message>
-    <message>
         <source>pt</source>
         <translation>pt</translation>
     </message>
@@ -11581,10 +11570,6 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     <message>
         <source>&amp;Templates...</source>
         <translation>&amp;Maler ...</translation>
-    </message>
-    <message>
-        <source>&amp;Javascripts...</source>
-        <translation type="obsolete">&amp;Javaskripts ...</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
@@ -11859,10 +11844,6 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
         <translation>Vis h&amp;jelpelinjer</translation>
     </message>
     <message>
-        <source>Ghostscript : You cannot use EPS Images</source>
-        <translation type="obsolete">Ghostscript: Du kan ikke bruke EPS Bilder</translation>
-    </message>
-    <message>
         <source>Import &amp;Page(s)...</source>
         <translation>Importer &amp;side(r) ...</translation>
     </message>
@@ -11993,6 +11974,10 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     <message>
         <source>Norwegian</source>
         <translation type="unfinished">Norsk</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

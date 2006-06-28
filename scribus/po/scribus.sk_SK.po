@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.sk_SK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-28 11:07+0100\n"
+"POT-Creation-Date: 2006-06-28 21:54+0200\n"
 "PO-Revision-Date: 2004-12-19 22:54+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <<sk-i18n@lists.linux.sk>>\n"
@@ -193,6 +193,13 @@ msgstr "Strana"
 
 msgid "Font %1 is broken, discarding it"
 msgstr "Písmo %1 je poškodené, odkladám ho"
+
+#, fuzzy
+msgid "Font %1 (found using fontconfig) is broken, discarding it"
+msgstr "Písmo %1 je poškodené, odkladám ho"
+
+msgid "Failed to load a font - freetype couldn't find the font file"
+msgstr ""
 
 msgid "Left"
 msgstr "Vľavo"
@@ -946,14 +953,15 @@ msgstr "&Rozlíšenie:"
 msgid "Compress Text and &Vector Graphics"
 msgstr "Komprimovať text a &vektorovú grafiku"
 
-msgid "Image Settings"
-msgstr "Nastavenie obrázku"
+#, fuzzy
+msgid "Image Compression Methods"
+msgstr "Nástroj na úpravu obrázkov"
 
-msgid "JPEG"
-msgstr "JPEG"
+msgid "JPEG - Lossy"
+msgstr ""
 
-msgid "Zip"
-msgstr "Zip"
+msgid "Zip - Lossless"
+msgstr ""
 
 msgid "&Method:"
 msgstr "&Metóda:"
@@ -1226,10 +1234,10 @@ msgstr "Exportovať všetky strany do PDF"
 msgid "Export a range of pages to PDF"
 msgstr "Exportovať rozsah strán do PDF"
 
+#, fuzzy
 msgid ""
-"Insert a comma separated list of tokens where\n"
-"a token can be * for all the pages, 1-5 for\n"
-"a range of pages or a single page number."
+"Insert a comma separated list of tokens where a token can be * for all the "
+"pages, 1-5 for a range of pages or a single page number."
 msgstr ""
 "Vložiť čiarkou oddelený zoznam prvkov,\n"
 "kde prvok môže byť * pre všetky strany,\n"
@@ -1260,9 +1268,10 @@ msgstr ""
 "Určuje viazanie strán v PDF. Ak nepotrebujete špeciálne nastavenia,\n"
 "neupravujte túto voľbu."
 
+#, fuzzy
 msgid ""
-"Generates thumbnails of each page in the PDF.\n"
-"Some viewers can use the thumbnails for navigation."
+"Generates thumbnails of each page in the PDF. Some viewers can use the "
+"thumbnails for navigation."
 msgstr ""
 "Generuje náhľady všetkých strán v PDF.\n"
 "Niektoré prehliadače používajú k navigácií."
@@ -1301,7 +1310,7 @@ msgid ""
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic, unless you have a "
-"need for special compression options."
+"need for special compression options. This only applies to JPEG images"
 msgstr ""
 "Verzia kompresie pre obrázky.\n"
 "Automaticky - Scribus vyberie najvhodnejšiu metódu.\n"
@@ -1311,18 +1320,19 @@ msgstr ""
 "Pokiaľ nepotrebujete špeciálnu kompresiu, tak nechajte túto voľbu nastavenú "
 "na Automaticky."
 
+#, fuzzy
 msgid ""
 "Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), "
-"Maximum (95%)"
+"Maximum (95%) - This only affects JPEG images."
 msgstr ""
 "Úroveň kompresie: Minimálna (25%), Nízka (50%), Stredná (75%), Vysoká(85%), "
 "Maximálna (95%)"
 
 #, fuzzy
 msgid ""
-"Re-sample your bitmap images to the selected DPI.\n"
-"Leaving this unchecked will render them at their native resolution.\n"
-"This can increase memory usage and slow down export."
+"Re-sample your bitmap images to the selected DPI. Leaving this unchecked "
+"will render them at their native resolution. This can increase memory usage "
+"and slow down export."
 msgstr ""
 "Znížiť kvalitu bitmapových obrázkov na zvolené DPI.Ak voľbu nepovolíte, bude "
 "im ponechané pôvodné rozlíšenie."
@@ -1720,6 +1730,10 @@ msgstr "Kópia %1"
 
 msgid "Name:"
 msgstr "Názov:"
+
+#, fuzzy
+msgid "New Template %1"
+msgstr "Nová šablóna"
 
 msgid "New Document"
 msgstr "Nový dokument"
@@ -2399,6 +2413,9 @@ msgstr "Český"
 msgid "Danish"
 msgstr "Dánsky"
 
+msgid "Dzongkha"
+msgstr ""
+
 msgid "Dutch"
 msgstr "Holandský"
 
@@ -2431,6 +2448,9 @@ msgstr "Maďarský"
 
 msgid "Indonesian"
 msgstr "Indonézsky"
+
+msgid "Icelandic"
+msgstr ""
 
 msgid "Italian"
 msgstr "Taliansky"
@@ -3577,6 +3597,15 @@ msgstr "Tlačiť akt&uálnu stranu"
 
 msgid "Print &Range"
 msgstr "Tlačiť &rozsah"
+
+msgid ""
+"Insert a comma separated list of tokens where\n"
+"a token can be * for all the pages, 1-5 for\n"
+"a range of pages or a single page number."
+msgstr ""
+"Vložiť čiarkou oddelený zoznam prvkov,\n"
+"kde prvok môže byť * pre všetky strany,\n"
+"1-5 pre rozsah strán alebo jedno číslo strany."
 
 msgid "N&umber of Copies:"
 msgstr "P&očet kópií:"
@@ -4747,6 +4776,21 @@ msgstr "Dostupné písma"
 msgid "Edit Styles"
 msgstr "Upraviť štýly"
 
+#, fuzzy
+msgid "Top"
+msgstr "&Hore:"
+
+#, fuzzy
+msgid "Bottom"
+msgstr "&Dolný:"
+
+msgid "Allow Docking To..."
+msgstr ""
+
+#, fuzzy
+msgid "Floating Orientation..."
+msgstr "Orientácia"
+
 msgid "Color Management Settings"
 msgstr "Nastavenie manažmentu farieb"
 
@@ -5039,6 +5083,9 @@ msgstr "Nemecký:"
 
 msgid "Italian:"
 msgstr "Taliansky:"
+
+msgid "Japanese:"
+msgstr ""
 
 msgid "Korean:"
 msgstr "Kórejský:"
@@ -5644,6 +5691,23 @@ msgid ""
 msgstr ""
 "Neukazovať objekty mimo hraníc tlačiteľnej strany alebo exportovaného súboru"
 
+#, fuzzy
+msgid ""
+"A way of switching off some of the gray shades which are composed of cyan, "
+"yellow and magenta and using black instead. UCR most affects parts of images "
+"which are neutral and/or dark tones which are close to the gray. Use of this "
+"may improve printing some images and some experimentation and testing is "
+"need on a case by case basis. UCR reduces the possibility of over saturation "
+"with CMY inks."
+msgstr ""
+"Spôsob prepínania niektorých šedých tieňov, ktoré sú zložené\n"
+"z azúrovej, fialovej a žltej farby namiesto použitia čiernej.\n"
+"UCR naviac ovplyvňuje časti obrázkov, ktoré sú neutrálne a/alebo\n"
+"v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže "
+"zlepšiť\n"
+"tlač niektorých obrázkov - je však potrebné testovať jednotlivé prípady.\n"
+"UCR znižuje možnosť presýtenosti s CMY atramentmi."
+
 msgid "New From Template"
 msgstr "Nový podľa šablóny"
 
@@ -6037,6 +6101,22 @@ msgstr "CSV_dáta"
 
 msgid "CSV_header"
 msgstr "CSV_hlavička"
+
+#, fuzzy
+msgid "Word Documents"
+msgstr "Dokument"
+
+#, fuzzy
+msgid "Importing failed"
+msgstr ""
+"Importovanie súboru:\n"
+"%1\n"
+"zlyhalo!"
+
+msgid ""
+"Importing Word document failed \n"
+"%1"
+msgstr ""
 
 #, fuzzy
 msgid "OpenDocument Text Documents"
@@ -7250,6 +7330,15 @@ msgstr ""
 "Importovanie súboru:\n"
 "%1\n"
 "zlyhalo!"
+
+#~ msgid "Image Settings"
+#~ msgstr "Nastavenie obrázku"
+
+#~ msgid "JPEG"
+#~ msgstr "JPEG"
+
+#~ msgid "Zip"
+#~ msgstr "Zip"
 
 #~ msgid "Get text only"
 #~ msgstr "Iba text"

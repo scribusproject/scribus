@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_LA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-28 11:07+0100\n"
+"POT-Creation-Date: 2006-06-28 21:54+0200\n"
 "Last-Translator: Gonzalo Huerta C.\n"
 "Language-Team:  <gonzalo@huerta.cl>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -201,6 +201,12 @@ msgid "Page"
 msgstr "Página"
 
 msgid "Font %1 is broken, discarding it"
+msgstr ""
+
+msgid "Font %1 (found using fontconfig) is broken, discarding it"
+msgstr ""
+
+msgid "Failed to load a font - freetype couldn't find the font file"
 msgstr ""
 
 msgid "Left"
@@ -1087,13 +1093,13 @@ msgid "Compress Text and &Vector Graphics"
 msgstr "Comprimir Texto y Gráficos Vectoriales"
 
 #, fuzzy
-msgid "Image Settings"
-msgstr "Configuración de los Dispositivos"
+msgid "Image Compression Methods"
+msgstr "Compresión"
 
-msgid "JPEG"
+msgid "JPEG - Lossy"
 msgstr ""
 
-msgid "Zip"
+msgid "Zip - Lossless"
 msgstr ""
 
 #, fuzzy
@@ -1414,9 +1420,8 @@ msgid "Export a range of pages to PDF"
 msgstr ""
 
 msgid ""
-"Insert a comma separated list of tokens where\n"
-"a token can be * for all the pages, 1-5 for\n"
-"a range of pages or a single page number."
+"Insert a comma separated list of tokens where a token can be * for all the "
+"pages, 1-5 for a range of pages or a single page number."
 msgstr ""
 
 msgid ""
@@ -1436,8 +1441,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Generates thumbnails of each page in the PDF.\n"
-"Some viewers can use the thumbnails for navigation."
+"Generates thumbnails of each page in the PDF. Some viewers can use the "
+"thumbnails for navigation."
 msgstr ""
 
 msgid ""
@@ -1465,18 +1470,18 @@ msgid ""
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic, unless you have a "
-"need for special compression options."
+"need for special compression options. This only applies to JPEG images"
 msgstr ""
 
 msgid ""
 "Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), "
-"Maximum (95%)"
+"Maximum (95%) - This only affects JPEG images."
 msgstr ""
 
 msgid ""
-"Re-sample your bitmap images to the selected DPI.\n"
-"Leaving this unchecked will render them at their native resolution.\n"
-"This can increase memory usage and slow down export."
+"Re-sample your bitmap images to the selected DPI. Leaving this unchecked "
+"will render them at their native resolution. This can increase memory usage "
+"and slow down export."
 msgstr ""
 
 msgid "DPI (Dots Per Inch) for image export."
@@ -1870,6 +1875,10 @@ msgstr "Copiar de "
 
 msgid "Name:"
 msgstr "Nombre:"
+
+#, fuzzy
+msgid "New Template %1"
+msgstr "Nueva Plantilla"
 
 msgid "New Document"
 msgstr "Nuevo Documento"
@@ -2590,6 +2599,9 @@ msgstr ""
 msgid "Danish"
 msgstr "Punteado"
 
+msgid "Dzongkha"
+msgstr ""
+
 msgid "Dutch"
 msgstr ""
 
@@ -2627,6 +2639,9 @@ msgid "Hungarian"
 msgstr ""
 
 msgid "Indonesian"
+msgstr ""
+
+msgid "Icelandic"
 msgstr ""
 
 #, fuzzy
@@ -3890,6 +3905,12 @@ msgstr "Imprimir el intervalo"
 #, fuzzy
 msgid "Print &Range"
 msgstr "Imprimir el intervalo"
+
+msgid ""
+"Insert a comma separated list of tokens where\n"
+"a token can be * for all the pages, 1-5 for\n"
+"a range of pages or a single page number."
+msgstr ""
 
 #, fuzzy
 msgid "N&umber of Copies:"
@@ -5240,6 +5261,21 @@ msgid "Edit Styles"
 msgstr "Editar Estilos"
 
 #, fuzzy
+msgid "Top"
+msgstr "Superior:"
+
+#, fuzzy
+msgid "Bottom"
+msgstr "Inferior:"
+
+msgid "Allow Docking To..."
+msgstr ""
+
+#, fuzzy
+msgid "Floating Orientation..."
+msgstr "Orientación:"
+
+#, fuzzy
 msgid "Color Management Settings"
 msgstr "Configuración de la Ajustes de Color"
 
@@ -5534,6 +5570,9 @@ msgstr "Alemán:"
 #, fuzzy
 msgid "Italian:"
 msgstr "Cursiva"
+
+msgid "Japanese:"
+msgstr ""
 
 msgid "Korean:"
 msgstr ""
@@ -6202,6 +6241,15 @@ msgid ""
 "Do not show objects outside the margins on the printed page or exported file"
 msgstr ""
 
+msgid ""
+"A way of switching off some of the gray shades which are composed of cyan, "
+"yellow and magenta and using black instead. UCR most affects parts of images "
+"which are neutral and/or dark tones which are close to the gray. Use of this "
+"may improve printing some images and some experimentation and testing is "
+"need on a case by case basis. UCR reduces the possibility of over saturation "
+"with CMY inks."
+msgstr ""
+
 #, fuzzy
 msgid "New From Template"
 msgstr "Nueva Plantilla"
@@ -6623,6 +6671,19 @@ msgstr ""
 #, fuzzy
 msgid "CSV_header"
 msgstr "Intensidad"
+
+#, fuzzy
+msgid "Word Documents"
+msgstr "Documento "
+
+#, fuzzy
+msgid "Importing failed"
+msgstr "Impresión Abortada"
+
+msgid ""
+"Importing Word document failed \n"
+"%1"
+msgstr ""
 
 #, fuzzy
 msgid "OpenDocument Text Documents"
@@ -7842,6 +7903,10 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+#~ msgid "Image Settings"
+#~ msgstr "Configuración de los Dispositivos"
+
+#, fuzzy
 #~ msgid "Create PDF File"
 #~ msgstr "Crear archivo PDF"
 
@@ -7933,9 +7998,6 @@ msgstr ""
 
 #~ msgid "Columns:"
 #~ msgstr "Columnas:"
-
-#~ msgid "Bottom:"
-#~ msgstr "Inferior:"
 
 #~ msgid "Left:"
 #~ msgstr "Izquierda:"
@@ -8260,9 +8322,6 @@ msgstr ""
 
 #~ msgid "Sorry, no Manual available!"
 #~ msgstr "Disculpas, ¡Manual no disponible!"
-
-#~ msgid "Compression"
-#~ msgstr "Compresión"
 
 #~ msgid "Corner Radius:"
 #~ msgstr "Radio de Esquina:"

@@ -9918,20 +9918,6 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
 en positiv værdi vil lave den convex</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">En måde at fjerne nogle af gråtonerne, som er sammensat
-af cyan, gul og magenta, så der i stedet for disse farver bruges sort.
-UCR påvirker mest de dele af billedet, som er neutrale og/eller mørke i farven, det, 
-som er tættets på gråt. Brug af denne metode kan forbedre udskrivningen af nogle 
-billeder og nogen eksperimenteren og testning er nødvendigt fra tilfælde til tilfælde.
-UCR formindsker muligheden for overmætning af CMY farverne.</translation>
-    </message>
-    <message>
         <source>Executive</source>
         <translation>Executive</translation>
     </message>
@@ -11403,6 +11389,14 @@ funktionens dokumentation. </translation>
     <message>
         <source>Word Documents</source>
         <translation>Word dokumenter</translation>
+    </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13012,6 +13006,10 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     <message>
         <source>Norwegian</source>
         <translation>Norsk</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

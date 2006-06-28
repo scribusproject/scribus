@@ -1557,10 +1557,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
  %2 %3</translation>
     </message>
     <message>
-        <source>%1. %2 %3 </source>
-        <translation type="obsolete">%1. %2 %3 </translation>
-    </message>
-    <message>
         <source>Galician:</source>
         <translation>Galščina</translation>
     </message>
@@ -1639,20 +1635,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>German:</source>
         <translation>Nemščina:</translation>
-    </message>
-    <message>
-        <source>About Scribus%1%2</source>
-        <translation type="obsolete">O Scribusu%1%2</translation>
-    </message>
-    <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation type="obsolete">Tu lahko vidite različico, datum priprave in\n
-v Scribus vključene knjižnice\n
-C-C-T pomeni podporo za: C=CUPS C=littlecms T=TIFF.\n
-Manjkajoča knjižnica je označena z zvezdico ( * )</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -1764,6 +1746,10 @@ Manjkajoča knjižnica je označena s *</translation>
         <source>Portuguese (Brazilian):</source>
         <translation>Portugalsko (Brazilsko):</translation>
     </message>
+    <message>
+        <source>Japanese:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -1840,16 +1826,6 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <source>Set Media Size</source>
         <translation>Nastavi velikost medija</translation>
-    </message>
-    <message>
-        <source>This enables you to explicitely set,
-the media size of the postscript file.
-Not recommended unless
- requested by your printer.</source>
-        <translation type="obsolete">Tu lahko izrecno nastavite velikost
-medija v postscript datoteki.
-To ni priporočljivo, razen
-če vaš tiskalnik to zahteva.</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
@@ -2272,10 +2248,6 @@ Not recommended unless
         <translation>Y:</translation>
     </message>
     <message>
-        <source>Java Script</source>
-        <translation type="obsolete">Java Script</translation>
-    </message>
-    <message>
         <source>Width:</source>
         <translation>Ĺširina:</translation>
     </message>
@@ -2290,10 +2262,6 @@ Not recommended unless
     <message>
         <source>Don&apos;t Export Value</source>
         <translation>Ne izvozi vrednosti</translation>
-    </message>
-    <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Slike (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Vse datoteke (*)</translation>
     </message>
     <message>
         <source>Submit Data as HTML</source>
@@ -3350,10 +3318,6 @@ To lahko nastavite v Nastavitvah.</translation>
 <context>
     <name>DelColor</name>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">V redu</translation>
-    </message>
-    <message>
         <source>Replace it with:</source>
         <translation>Zamenjaj z:</translation>
     </message>
@@ -3368,10 +3332,6 @@ To lahko nastavite v Nastavitvah.</translation>
     <message>
         <source>?</source>
         <translation>?</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Prekliči</translation>
     </message>
     <message>
         <source>None</source>
@@ -3430,6 +3390,18 @@ To lahko nastavite v Nastavitvah.</translation>
     <message>
         <source>Use</source>
         <translation>Uporabi</translation>
+    </message>
+</context>
+<context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3605,10 +3577,6 @@ patenti, blagovne znamke</translation>
     <message>
         <source>Magenta</source>
         <translation>Magenta</translation>
-    </message>
-    <message>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation type="obsolete">Postscript datoteke (*.ps);;Vse datoteke (*)</translation>
     </message>
     <message>
         <source>Yellow</source>
@@ -3871,10 +3839,6 @@ ne morem shraniti. Napaka je bila:
         <translation>Shrani izvorno kodo - besedilo - makra v datoteko. Potem jo lahko ponovno naložit in urjate z ukazom &quot;Naloži vir...&quot;.</translation>
     </message>
     <message>
-        <source>Python source files (.py)</source>
-        <translation type="obsolete">Python datoteke (.py)</translation>
-    </message>
-    <message>
         <source>Save File Dialog</source>
         <translation>Pogovorno okno za shranjevanje</translation>
     </message>
@@ -4055,10 +4019,6 @@ ne morem shraniti. Napaka je bila:
     <message>
         <source>Editor</source>
         <translation>Urejevalnik</translation>
-    </message>
-    <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation type="obsolete">Java skripti (*.js);;Vse datoteke (*)</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -4431,10 +4391,6 @@ uporabite 72 dpi</translation>
     <message>
         <source>Choose a Directory</source>
         <translation>Izberi mapo</translation>
-    </message>
-    <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Font &amp;Substitutions</source>
@@ -5220,20 +5176,6 @@ Tabela v sredini okna prikazuje spisek trenutno naložnih makrojev in osnovnih i
         <translation>Opis</translation>
     </message>
     <message>
-        <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Name:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;V tej tabeli so trenutno določeni makri.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Ime:&lt;/b&gt; Ime makra, kor je prikazano v menijih.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Uredi:&lt;/b&gt; Če se makro lahko ureja, bo tu pisalo &apos;Da&apos;. Če se ga ne da urejati, to običajno pomeni, da je bil priprabljen z ukazom register_macro.&lt;/p&gt;(new line)
-&lt;p&gt;&lt;b&gt;Bližnjica:&lt;/b&gt; Kombinacija tipk, ki naj požene makro.&lt;/p&gt;(new line)
-&lt;p&gt;&lt;b&gt;Opis:&lt;/b&gt; Če makro vsebuje &apos;docstring&apos;, poseben zapis na začetku makra, ki opisuje njegovo delovanje, se tu izpiše. Če je ta opis dolg, bo tu naveden le začetek. Za celoten opis uporabite orodje &apos;Kaj je to&apos;.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Rena&amp;me</source>
         <translation>P&amp;reimenuj</translation>
     </message>
@@ -5509,29 +5451,6 @@ Tabela v sredini okna prikazuje spisek trenutno naložnih makrojev in osnovnih i
     <message>
         <source> p</source>
         <translation>p</translation>
-    </message>
-</context>
-<context>
-    <name>MenuTest</name>
-    <message>
-        <source>Script error</source>
-        <translation type="obsolete">Napaka skripte</translation>
-    </message>
-    <message>
-        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="obsolete">Če ste pognali uradno skipto, prosimo sporočite napako na &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Pokaži k&amp;onzolo</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Console</source>
-        <translation type="obsolete">Skrij k&amp;onzolo</translation>
-    </message>
-    <message>
-        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="obsolete">Tudi to sporočilo je v odložišču. Uporabite Ctrl+V da ga prilepite v slednika hroščev.</translation>
     </message>
 </context>
 <context>
@@ -5909,10 +5828,6 @@ Prosim, izberite drugo.</translation>
         <translation>Prikaži krivuljo</translation>
     </message>
     <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Ročno zgoščevanje</translation>
-    </message>
-    <message>
         <source>Lock or unlock the object</source>
         <translation>Zakleni ali odkleni predmet </translation>
     </message>
@@ -6167,10 +6082,6 @@ robovi:</translation>
         <translation>&amp;Velikost pisave:</translation>
     </message>
     <message>
-        <source>&amp;Kerning:</source>
-        <translation type="obsolete">&amp;Zgoščevanje:</translation>
-    </message>
-    <message>
         <source>L&amp;ine Spacing:</source>
         <translation>&amp;Razmik vrstic:</translation>
     </message>
@@ -6417,6 +6328,10 @@ Prosim izberite drugo.</translation>
     <message>
         <source>Do you really want to delete this Template?</source>
         <translation>Ali zares želite zbrisati to predlogo?</translation>
+    </message>
+    <message>
+        <source>New Template %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6805,41 +6720,12 @@ sicer glede na predmet.</translation>
 <context>
     <name>OdtDialog</name>
     <message>
-        <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="obsolete">Možnosti pri uvozu iz OpenOffice.org Writer</translation>
-    </message>
-    <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Posodobi sloge odstavka</translation>
-    </message>
-    <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Če slog s tem imenom že obstaja lahko nastavite, ali naj se slog v 
-Scribusu uredi tako, da ustreza uvoženemu ali naj se ga pusti nedotaknjenega</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Ime dokumenta uporabi kot predpono za sloge odstavka</translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Nastavli ali naj uvoznik doda ime dokumenta 
-pred imena uvoženih slogov odstavka</translation>
-    </message>
-    <message>
         <source>Do not ask again</source>
         <translation>Ne vprašaj več</translation>
-    </message>
-    <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Naj pri uvozu vedno upoštevam trenutno 
-določene možnosti za dokumente OpenOffice.org 
-in nikoli več ne zahtevam potrditve</translation>
     </message>
     <message>
         <source>OK</source>
@@ -6852,10 +6738,6 @@ in nikoli več ne zahtevam potrditve</translation>
     <message>
         <source>Update paragraph Styles</source>
         <translation>Posodobi sloge odstavka</translation>
-    </message>
-    <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
-        <translation type="obsolete">Če to vključite boste prepisali sloge trenutnega dokumenta v Scribusu</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
@@ -6916,10 +6798,6 @@ in nikoli več ne zahtevam potrditve</translation>
         <translation>Nizka</translation>
     </message>
     <message>
-        <source>Zip</source>
-        <translation>Zip</translation>
-    </message>
-    <message>
         <source> dpi</source>
         <translation> dpi</translation>
     </message>
@@ -6930,10 +6808,6 @@ in nikoli več ne zahtevam potrditve</translation>
     <message>
         <source>High</source>
         <translation>Visoka</translation>
-    </message>
-    <message>
-        <source>JPEG</source>
-        <translation>JPEG</translation>
     </message>
     <message>
         <source>None</source>
@@ -7039,30 +6913,12 @@ To je uporabno za pregledovanje dolgih PDFjev.</translation>
         <translation>Desni rob</translation>
     </message>
     <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Vrsta stiskanja slik.
-Samodejno dovoli Scribusu, da sam izbere najboljši način.
-ZIP je uporabna za slike z barvnimi ploskvami.
-JPEG je boljši pri ustvarjanju majhnih PDFjev z mnogo slikami.
-Če ne potrebujete posebnih nastavitev stiskanja, raje pustite samodejno.</translation>
-    </message>
-    <message>
         <source>Fonts to embed:</source>
         <translation>Vključi pisave:</translation>
     </message>
     <message>
         <source>Distance for bleed from the right of the physical page</source>
         <translation>Velikost odmika od fizičnega desnega robu strani</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Pretvori slike na izbrano DPI resolucijo.
-Če tega ne izberete, bodo slike risane pri izvirni resoluciji.</translation>
     </message>
     <message>
         <source>Maximum</source>
@@ -7085,10 +6941,6 @@ Predlagamo, da uporabite naslov dokumenta.</translation>
     <message>
         <source>Minimum</source>
         <translation>Najmanjša</translation>
-    </message>
-    <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Raven stiskanja: najmanj (25%), malo (50%), srednje (75%), močno (85%), najmočneje (95%)</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
@@ -7183,12 +7035,6 @@ Izberite Tiskalnik, za tiskanje s CMYK tiskalniki.</translation>
         <translation>Profil:</translation>
     </message>
     <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Stiskanje besedila in slik.
-Če nimate dobrega razloga, raje pustite to vključeno, ker zmanjša velikost PDFja.</translation>
-    </message>
-    <message>
         <source>Save as</source>
         <translation>Shrani kot</translation>
     </message>
@@ -7219,12 +7065,6 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
     <message>
         <source>Apply the selected effect to all pages.</source>
         <translation>Dodaj učinek na vse strani</translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation>Pripravi pomanjšane sličice vsake strani v PDFju.
-Nekateri pregledovalniki jih lahko uporabijo za pregledovanje.</translation>
     </message>
     <message>
         <source>Passwords</source>
@@ -7267,16 +7107,6 @@ Nekateri pregledovalniki jih lahko uporabijo za pregledovanje.</translation>
         <translation>Vrsta učinka ob izrisu</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">Določi združljivost PDF. Privzeta je naširše združljiva oblika Acrobat 4.
-Izberite Acrobat 5, če vaš dokument uproablja zmožnosti PDF-1.4, kot na
-primer prosojnosti, ali če potrebujete enkripcijo.
-PDF/X-3 se uporablja za pošiljanje v tiskarno, in je omogočeno le, če 
-uporabljate tudi upravljanje barv.</translation>
-    </message>
-    <message>
         <source>Length of time the effect runs.
 A shorter time will speed up the effect, a longer one will slow it down.</source>
         <translation>Dolžina učinka. Krajši čas učinek pospeši, daljši upočasni</translation>
@@ -7314,10 +7144,6 @@ will preserve the layout and appearance of your document.</source>
 prenosu izgled in postavitev dokumenta ne spremenita.</translation>
     </message>
     <message>
-        <source>Image Settings</source>
-        <translation>Nastavitve slik</translation>
-    </message>
-    <message>
         <source>Top to Bottom</source>
         <translation>Od zgoraj navzdol</translation>
     </message>
@@ -7346,16 +7172,6 @@ prenosu izgled in postavitev dokumenta ne spremenita.</translation>
 If un-checked, text and graphics cannot be copied.</source>
         <translation>Dovoli kopiranje besedila in slik iz PDFja.\n
 Če ne izberete, se besedila in slik ne bo dalo presneti.</translation>
-    </message>
-    <message>
-        <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="obsolete">Dovolite dodajanje opomb in drugih polj v PDF.\n
-Če ne izberete, bo dodajanje polj onemogočeno.</translation>
-    </message>
-    <message>
-        <source>Create PDF File</source>
-        <translation type="obsolete">Ustvari datoteko PDF </translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
@@ -7554,14 +7370,6 @@ If un-checked, editing annotations and fileds is prevented.</source>
         <translation>Prekli&amp;či</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Vpišite z vejicami ločen spisek območij.
-Območje je lahko * za vse strani, 1-5 za 
-več strani ali samo številka ene strani.</translation>
-    </message>
-    <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF datoteke (*.pdf);;Vse datoteke (*)</translation>
     </message>
@@ -7645,20 +7453,40 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
 Če nimate posebnega razloga pustite to vključeno, ker zmanjša velikost PDF datoteke.</translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation>Metoda stiskanja slik. Samodejno določi, da naj Scribus izbere najboljšo metodo. ZIP je stiskanje brez izgub, priporočeno za slike s čistimi barvami. JPEG pripravi manjše PDF datoteke, ki vsebujejo mnogo slik (z možnim rahlim poslabšanjem kvalitete). Razen če imate posebne zahteve, pustite nastavitev na Samodejno.</translation>
-    </message>
-    <message>
-        <source>Re-sample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.
-This can increase memory usage and slow down export.</source>
-        <translation>Ponovno upodobi rasterske slike z izrano ločljivostjo.
-Če to ni obkljukano, se bo slike vključilo v izvorni ločljivosti.
-To lahko poveča porabo pomnilnika in upočasni izvoz.</translation>
-    </message>
-    <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation>Določi PDF združljivost. Privzeta je Acrobat 4.0, ki je najširše uporabljana. Izberite Acrobat 5.0, če potrebujete napredne zmožnosti PDF 1.4, kot so prosojnosti ali 128 bitna enkripcija. PDF/X-3 je namenjen RGB datotekam s podporo za upravljanje barv. Pozor: PDF/X-3 bo vse CMYK slike pretvoril v RGB z ICC osnovo. To uporabite le, če to zahteva tiskarna, ali izjemoma pri tisku na 4 barvni laserski tiskalnik.</translation>
+    </message>
+    <message>
+        <source>Image Compression Methods</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JPEG - Lossy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zip - Lossless</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7686,12 +7514,6 @@ To lahko poveča porabo pomnilnika in upočasni izvoz.</translation>
     <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation>Prikazuj prosojnosti in prosojne predmete v dokumentu. To zahteva vsaj Ghostscript 7.07.</translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="obsolete">Pisave vrste True-Type in Open-Type, ter EPS, PDF in vektorske grafike izgledajo prijetneje
-na račun malce počasnejšega izrisovanja.</translation>
     </message>
     <message>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
@@ -7742,20 +7564,6 @@ izrisovanja. Vpliva samo na pisave vrste Type 1</translation>
     <message>
         <source>&amp;Under Color Removal</source>
         <translation>&amp;Odstranjevanje barve pod</translation>
-    </message>
-    <message>
-        <source>A way of switching some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">To je način za zamenjavo sivin sestavljenih iz cijan, rumene in 
-magenta barve s črnino. 
-POD se najbolj izrazi na nevtralnih ali temnih delih slik, blizu sivi. Tako 
-lahko izboljšate kakovost tiska nekaterih slik, vendar se splača prej 
-narediti nekaj preiskusov. 
-POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -7815,10 +7623,6 @@ Predogled se na račun tega malce upočasni</translation>
     <message>
         <source>Chars: </source>
         <translation>Znaki: </translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="obsolete">Kopija</translation>
     </message>
     <message>
         <source>Text on a Path</source>
@@ -8277,10 +8081,6 @@ pozitivna pa izbočenost</translation>
         <translation>Brez</translation>
     </message>
     <message>
-        <source>Filesystem location for graphics editor</source>
-        <translation type="obsolete">Položaj urejevalnika slik na sistemu</translation>
-    </message>
-    <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation>Uporabi mehčanje pisav pri izrisu za EPS in PDF</translation>
     </message>
@@ -8403,10 +8203,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Slog črt</translation>
     </message>
     <message>
-        <source>Postscript Interpreter</source>
-        <translation type="obsolete">Postscript upodobljevalnik</translation>
-    </message>
-    <message>
         <source>Custom</source>
         <translation>Prikrojeno</translation>
     </message>
@@ -8485,10 +8281,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Maximum magnification allowed</source>
         <translation>Največja dovoljena povečava</translation>
-    </message>
-    <message>
-        <source>Turns on the basegrid</source>
-        <translation type="obsolete">Vključi osnovno mrežo</translation>
     </message>
     <message>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
@@ -8627,20 +8419,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Okvir s sliko lahko razpne sliko na kakršnokoli velikost</translation>
     </message>
     <message>
-        <source>Turns off the basegrid</source>
-        <translation type="obsolete">Izključi osnovno mrežo</translation>
-    </message>
-    <message>
         <source>Color of the minor grid lines</source>
         <translation>Barva malih črt mreže:</translation>
     </message>
     <message>
         <source>Color of the major grid lines</source>
         <translation>Barva večjih črt mreže:</translation>
-    </message>
-    <message>
-        <source>Default ICC profiles directory</source>
-        <translation type="obsolete">Privzeta mapa z ICC profili</translation>
     </message>
     <message>
         <source>Text Frame Properties</source>
@@ -8717,10 +8501,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Baseline Grid</source>
         <translation>Osnovna črta mreže</translation>
-    </message>
-    <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Položaj upodobljevalnika Ghostscript na sistemu</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -9155,20 +8935,6 @@ Scribus inherits any available KDE or Qt themes</source>
 pozitivna pa izbočenost</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>To je način za zamenjavo sivin sestavljenih iz cijan, rumene in 
-magenta barve s črnino. 
-POD se najbolj izrazi na nevtralnih ali temnih delih slik, blizu sivi. Tako 
-lahko izboljšate kakovost tiska nekaterih slik, vendar se splača prej 
-narediti nekaj preiskusov. 
-POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
-    </message>
-    <message>
         <source>Executive</source>
         <translation>Executive</translation>
     </message>
@@ -9207,10 +8973,6 @@ spremeniti, če imate odprte dokumente.</translation>
         <translation>Izključi osnovno mrežo</translation>
     </message>
     <message>
-        <source>File system location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Lokacija upodobljevalnika Ghostscript na sistemu</translation>
-    </message>
-    <message>
         <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
@@ -9225,6 +8987,10 @@ ki je vključen v distribucijo, predlagamo uporabo
     </message>
     <message>
         <source>File system location for the GhostScript interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9673,32 +9439,12 @@ Preverite ime in pot do nje.</translation>
         <translation>Ozadje</translation>
     </message>
     <message>
-        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation type="obsolete">Joj! Poskušate ubesediti predmet ki ne obstaja!</translation>
-    </message>
-    <message>
         <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
         <translation>SVG Slike (*.svg *.svgz);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Joj! Kličete predmet ki ne obstaja!</translation>
-    </message>
-    <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="obsolete">Python Skripte (*.py);; Vse datoteke (*)</translation>
-    </message>
-    <message>
         <source>Document</source>
         <translation>Dokument</translation>
-    </message>
-    <message>
-        <source>S&amp;cript</source>
-        <translation type="obsolete">Skripta</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Joj! Poskušate zbrisati predmet ki ne obstaja!</translation>
     </message>
     <message>
         <source>Do you really want to overwrite the File:
@@ -9883,44 +9629,12 @@ Preverite ime in pot do nje.</translation>
         <translation>Priročnik za s&amp;kripte...</translation>
     </message>
     <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation type="obsolete">&amp;Skribusove skripte</translation>
-    </message>
-    <message>
-        <source>&amp;Execute Script...</source>
-        <translation type="obsolete">&amp;Poženi skripto...</translation>
-    </message>
-    <message>
-        <source>&amp;Recent Scripts</source>
-        <translation type="obsolete">&amp;Nedavne skripte</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Pokaži &amp;konzolo</translation>
-    </message>
-    <message>
         <source>Save Page as &amp;SVG...</source>
         <translation>Shrani stran kot &amp;SVG...</translation>
     </message>
     <message>
         <source>Import &amp;SVG...</source>
         <translation>Uvozi &amp;SVG...</translation>
-    </message>
-    <message>
-        <source>Oook! Wrong arguments! Call: </source>
-        <translation type="obsolete">Aaaa! Napačni argumenti! Kličite:</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation type="obsolete">Aaaa! Sliko poskušate vklučiti v predmet ki ne obstaja ali ni izbran!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Aaaa! Poskušate (od)kleniti predmet ki ne obstaja! In tudi noben drug ni izbran.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Aaaa! Povprašujete po predmetu, ki ne obstaja! In tudi noben ni izbran.</translation>
     </message>
     <message>
         <source>Importing text</source>
@@ -9969,10 +9683,6 @@ External Links
         <translation>
 Povezave navzven
 </translation>
-    </message>
-    <message>
-        <source>OO.o Writer Documents</source>
-        <translation type="obsolete">Dokumenti OO.o Writer</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -10117,22 +9827,6 @@ Povezave navzven
     <message>
         <source>Tried to set progress &gt; maximum progress</source>
         <translation>Poskus da bi bil napredek večji kot največji</translation>
-    </message>
-    <message>
-        <source>&amp;About Script...</source>
-        <translation type="obsolete">&amp;O skriptah...</translation>
-    </message>
-    <message>
-        <source>About Script</source>
-        <translation type="obsolete">O skriptah</translation>
-    </message>
-    <message>
-        <source>Import &amp;Open Office Draw...</source>
-        <translation type="obsolete">Uvozi &amp;OpenOffice Draw...</translation>
-    </message>
-    <message>
-        <source>Open Office Draw (*.sxd);;All Files (*)</source>
-        <translation type="obsolete">OpenOffice Draw (*.sxd;;Vse datoteke (*)</translation>
     </message>
     <message>
         <source>Cannot get a color with an empty name.</source>
@@ -10675,6 +10369,26 @@ function&apos;s documentation.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -11014,16 +10728,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>SToolBStyle</name>
     <message>
-        <source>Kerning:</source>
-        <translation type="obsolete">Spodsekavanje:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>točk</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Ročno spodsekavanje</translation>
     </message>
     <message>
         <source>Character Settings</source>
@@ -11036,6 +10742,41 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Manual Tracking</source>
         <translation>Ročno razmikanje besed</translation>
+    </message>
+</context>
+<context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">Desno</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Levo</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished">Vodoravno</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished">Navpično</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11292,10 +11033,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Pametno deljenje besed</translation>
     </message>
     <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation type="obsolete">EPS datoteke (*.eps);;Vse datoteke (*)</translation>
-    </message>
-    <message>
         <source>&amp;Tools</source>
         <translation>&amp;Orodja</translation>
     </message>
@@ -11382,10 +11119,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Normal</source>
         <translation>Običajno</translation>
-    </message>
-    <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">Na vašem sistemu ni Postscriptnih pisav</translation>
     </message>
     <message>
         <source>Show Layers</source>
@@ -11514,10 +11247,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Document Setup...</source>
         <translation>Priprava dokumenta</translation>
-    </message>
-    <message>
-        <source>Javascripts...</source>
-        <translation type="obsolete">Java skripti...</translation>
     </message>
     <message>
         <source>Fit in Window</source>
@@ -11866,10 +11595,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>&amp;Predloge...</translation>
     </message>
     <message>
-        <source>&amp;Javascripts...</source>
-        <translation type="obsolete">&amp;Java skripti...</translation>
-    </message>
-    <message>
         <source>D&amp;uplicate</source>
         <translation>Po&amp;dvoji</translation>
     </message>
@@ -12138,10 +11863,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Prikaži &amp;vodila</translation>
     </message>
     <message>
-        <source>Ghostscript : You cannot use EPS Images</source>
-        <translation type="obsolete">Ghostscript: Ne morete uporabiti EPS slik</translation>
-    </message>
-    <message>
         <source>Import &amp;Page(s)...</source>
         <translation>Uvozi &amp;stran(i)...</translation>
     </message>
@@ -12273,6 +11994,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Norwegian</source>
         <translation type="unfinished">Norveščina</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12946,10 +12671,6 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation>Posodobi okvir z besedilom</translation>
     </message>
     <message>
-        <source>&amp;Insert Special</source>
-        <translation type="obsolete">&amp;Vstavi posebej</translation>
-    </message>
-    <message>
         <source>&amp;New</source>
         <translation>&amp;Nova</translation>
     </message>
@@ -13054,10 +12775,6 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation>Poišči in zamenjaj</translation>
     </message>
     <message>
-        <source>&amp;Fonts Preview</source>
-        <translation type="obsolete">Predogled &amp;pisav</translation>
-    </message>
-    <message>
         <source>Clear all Text</source>
         <translation>Počisti vse besedilo</translation>
     </message>
@@ -13096,14 +12813,6 @@ povlecite predlogo na delovno področje spodaj.</translation>
 <context>
     <name>SxwDialog</name>
     <message>
-        <source>OO.o Writer Importer Options</source>
-        <translation type="obsolete">Možnosti uvažanja iz OO.o Writerja</translation>
-    </message>
-    <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Posodobi sloge odstavka</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Ime dokumenta uporabi kot predpono za sloge odstavka</translation>
     </message>
@@ -13112,49 +12821,16 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation>Ne vprašaj več</translation>
     </message>
     <message>
-        <source>Should the importer always use currently
-set value when importing OO.o document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Nastavi ali naj uvoznik vedno pri uvažanju dokumentov 
-OO.o uporabi nastavljeno vrednost in ne sprašuje 
-več za potrditev</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>V redu</translation>
-    </message>
-    <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Nastavli ali naj uvoznik doda ime dokumenta 
-pred imena uvoženih slogov odstavka</translation>
-    </message>
-    <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Če slog s tem imenom že obstaja lahko nastavite, ali naj se slog v 
-Scribusu uredi tako, da ustreza uvoženemu ali naj se ga pusti nedotaknjenega</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
         <translation>Možnosti pri uvozu iz OpenOffice.org Writer</translation>
     </message>
     <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Naj pri uvozu vedno upoštevam trenutno 
-določene možnosti za dokumente OpenOffice.org 
-in nikoli več ne zahtevam potrditve</translation>
-    </message>
-    <message>
         <source>Update Paragraph Styles</source>
         <translation>Posodobi sloge odstavka</translation>
-    </message>
-    <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
-        <translation type="obsolete">Če to vključite boste prepisali sloge trenutnega dokumenta v Scribusu</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
@@ -13257,10 +12933,6 @@ in nikoli več ne zahtevam potrditve</translation>
     <message>
         <source>First &amp;Line:</source>
         <translation>Prva &amp;črta:</translation>
-    </message>
-    <message>
-        <source>Ind&amp;ent:</source>
-        <translation type="obsolete">&amp;Zamik:</translation>
     </message>
     <message>
         <source>Left Ind&amp;ent:</source>
@@ -13626,10 +13298,6 @@ s svojimi.</translation>
     <message>
         <source>Automatic</source>
         <translation>Samodejno</translation>
-    </message>
-    <message>
-        <source>Get text only</source>
-        <translation type="obsolete">Najdi samo besedilo</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>

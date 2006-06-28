@@ -155,76 +155,6 @@ vara UTF8-kodad eller en &apos;Unicode&apos;-sträng (rekommenderas).
 </translation>
     </message>
     <message>
-        <source>newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumber = is the number of the first page in the document used for
-    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-    numbers if you&apos;re creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</source>
-        <translation type="obsolete">newDoc(size, margins, orientation, firstPageNumber,
-                  unit, facingPages, firstSideLeft) -&gt; bool
-
-Skapar ett nytt dokument och returnerar &quot;true&quot; om det lyckas. Parametrarna har
-följande betydelser:
-
-size = En tupel (bredd, höjd) som beskriver dokumentstorlek. Du kan
-använda fördefinierade konstanter såsom PAPER_&lt;paper_type&gt;, t. ex. PAPER_A4 etc.
-
-margins = En tupel (vänster, höger, topp, botten) som beskriver dokumentets
-marginaler
-
- orientation = Sidorientering - konstanter PORTRAIT (porträtt), LANDSCAPE (landskap)
-
-firstPageNumber = Numret på dokumentets förstasida som andänds
-för sidnumrering. Oftast används 1 är det ofta användbart med högre
-nummer om du skapar dokument i flera delar.
-
-unit: Anger vilket storleksmått som dokumentet använder. Använd en
-fördefinierad konstant till detta: UNIT_INCHES, UNIT_MILLIMETERS,
-UNIT_PICAS, UNIT_POINTS.
-
- facingPages = Anger om dokumentet skall arbeta med uppslag.
-Använd följande konstanter: FACINGPAGES, NOFACINGPAGES
-
- firstSideLeft = Anger om förstasidan skall vara en vänster- eller högersida. 
-Möjliga värden: FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-Värdena för bredd, höjd och marginaler uttrycks i det givna dokumentets storleksmått.
-Konstanterna PAPER_* uttrycks i punkter. Om ditt dokument inte använder punktmått
-måste du ta hänsyn till detta.
-
-exempel: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-               FACINGPAGES, FIRSTPAGERIGHT
-</translation>
-    </message>
-    <message>
         <source>register_macro_callable(name, callable, accel=&apos;&apos;)
 
 Create a macro called &quot;name&quot; with the existing callable object &quot;callable&quot;.
@@ -1696,10 +1626,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 <context>
     <name>About</name>
     <message>
-        <source>About Scribus%1%2</source>
-        <translation type="obsolete">Om Scribus%1%2</translation>
-    </message>
-    <message>
         <source>Scribus Version %1
 %2 %3</source>
         <translation></translation>
@@ -1817,16 +1743,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>&amp;Stäng</translation>
     </message>
     <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation type="obsolete">Detta fönster visar versionsnummer, byggdatum och
- kompilerade stödbibliotek för Scribus. 
-Beteckningen C-C-T betyder stöd för C=CUPS, C=littlecms och T=Tiff. 
-Avsaknad av stöd är markerat med *</translation>
-    </message>
-    <message>
         <source>Development Team:</source>
         <translation>Utvecklargrupp:</translation>
     </message>
@@ -1911,6 +1827,10 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Portuguese (Brazilian):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2384,10 +2304,6 @@ Not recommended unless
         <translation>Alternativ</translation>
     </message>
     <message>
-        <source>Java Script</source>
-        <translation type="obsolete">Java Script</translation>
-    </message>
-    <message>
         <source>Go To</source>
         <translation>Gå till</translation>
     </message>
@@ -2646,10 +2562,6 @@ Not recommended unless
     <message>
         <source>Open</source>
         <translation>�pna</translation>
-    </message>
-    <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Bilder (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Alla filer (*)</translation>
     </message>
     <message>
         <source>Example:</source>
@@ -3506,14 +3418,6 @@ Du kan ange dokumentmapp i Inställningar.</translation>
         <translation>Ersätt med:</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Avbryt</translation>
-    </message>
-    <message>
         <source>None</source>
         <translation>Inget</translation>
     </message>
@@ -3570,6 +3474,18 @@ Du kan ange dokumentmapp i Inställningar.</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3850,10 +3766,6 @@ av sidor eller en enskild sida.</translation>
     <message>
         <source>Save as</source>
         <translation>Spara som</translation>
-    </message>
-    <message>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation type="obsolete">Postscriptfiler (*.ps);; Alla filer (*)</translation>
     </message>
     <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
@@ -4243,10 +4155,6 @@ Används för att styra läsaren till rätt stycke efter en ingress.</translatio
         <translation>R&amp;edigera</translation>
     </message>
     <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation type="obsolete">Javascripts (*.js);;Alla filer (*)</translation>
-    </message>
-    <message>
         <source>JavaScripts (*.js);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4537,10 +4445,6 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
     <message>
         <source>Additional Paths</source>
         <translation>Ytterligare sökvägar</translation>
-    </message>
-    <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -5616,29 +5520,6 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
 </context>
 <context>
-    <name>MenuTest</name>
-    <message>
-        <source>Script error</source>
-        <translation type="obsolete">Skriptfel</translation>
-    </message>
-    <message>
-        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="obsolete">Om du kör ett officiellt skript, vänligen rapportera till &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;.</translation>
-    </message>
-    <message>
-        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="obsolete">Detta meddelande finns också på ditt klippbord. Använd Ctrl+V för att klistra in i felhanteraren.</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Visa &amp;konsolen</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Console</source>
-        <translation type="obsolete">Göm &amp;konsolen</translation>
-    </message>
-</context>
-<context>
     <name>MergeDoc</name>
     <message>
         <source>Import Template</source>
@@ -5913,10 +5794,6 @@ hörn:</translation>
         <translation>Anpassat avstånd</translation>
     </message>
     <message>
-        <source>&amp;Kerning:</source>
-        <translation type="obsolete">&amp;Kerning:</translation>
-    </message>
-    <message>
         <source>L&amp;ine Spacing:</source>
         <translation>Radav&amp;stånd:</translation>
     </message>
@@ -6175,10 +6052,6 @@ hörn:</translation>
     <message>
         <source>Saturation of color of text fill</source>
         <translation>Mättnad på fyllnadsfärg för text</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Manuell kerning</translation>
     </message>
     <message>
         <source>Line Spacing</source>
@@ -6521,6 +6394,10 @@ Vänligen välj ett annat.</translation>
     <message>
         <source>Do you really want to delete this Template?</source>
         <translation>Vill du verkligen ta bort denna mall?</translation>
+    </message>
+    <message>
+        <source>New Template %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6909,41 +6786,12 @@ annars används koordinater relativt objektet.</translation>
 <context>
     <name>OdtDialog</name>
     <message>
-        <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="obsolete">Importalternativ för OpenOffice.org Writer</translation>
-    </message>
-    <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Uppdatera styckemallarna</translation>
-    </message>
-    <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Om en styckemall med samma namn som den aktuella OpenOffice.org-mallen redan existerar
-ska då stilmallen i Scribus redigeras så att den matchar den importerade, eller ska den
-lämnas orörd</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation type="unfinished">Använd dokumentnamn som prefix för styckemallar</translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Skall importhanteraren lägga till dokumentnamnet
-framför namnet på styckemallar i Scribus</translation>
-    </message>
-    <message>
         <source>Do not ask again</source>
         <translation type="unfinished">Fråga inte igen</translation>
-    </message>
-    <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Ska importhanteraren alltid använda aktuellt värde vid import av 
-dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>OK</source>
@@ -6991,10 +6839,6 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
 </context>
 <context>
     <name>PDF_Opts</name>
-    <message>
-        <source>Create PDF File</source>
-        <translation type="obsolete">Skapa PDF fil</translation>
-    </message>
     <message>
         <source>O&amp;utput to File:</source>
         <translation>Sk&amp;icka till fil:</translation>
@@ -7056,20 +6900,8 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
         <translation>&amp;Upplösning:</translation>
     </message>
     <message>
-        <source>Image Settings</source>
-        <translation>Bildinställningar</translation>
-    </message>
-    <message>
         <source>Automatic</source>
         <translation>Automatisk</translation>
-    </message>
-    <message>
-        <source>JPEG</source>
-        <translation>JPEG</translation>
-    </message>
-    <message>
-        <source>Zip</source>
-        <translation>Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -7436,32 +7268,10 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
         <translation>Exportera en grupp av sidor till PDF</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Infoga en kommaseparerad lista med symboler där(new line)
-en symbol kan vara * för alla sidor, 1-5 för ett avsnitt(new line)
-av sidor eller en enskild sida.</translation>
-    </message>
-    <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">Avgör kompatibiliteten med PDF. Standardvärde är Acrobat 4.0 som ger störst kompatibilitet.(new line)
-Välj Acrobat 5.0 om din fil har egenskaper som transparens eller du vill ha 128-bitars kryptering.(new line)
-PDF/X-3 används för export för kommersiella utskrifter och är tillgängligt om du aktiverat färghantering.</translation>
-    </message>
-    <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
         <translation>Avgör sidbindningen i PDF. Om du inte vet(new line)
 att du behöver ändra låter du standardvärdet - vänster - vara kvar.</translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation>Skapar miniatyrer av alla sidor i PDF-filen.(new line)
-En del PDF-läsare kan använda dessa för navigering.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
@@ -7478,34 +7288,6 @@ Användbart för navigering av långa PDF dokument.</translation>
 This does not affect the resolution of bitmap images like photos.</source>
         <translation>Exportera upplösning för text och vektorgrafik.(new line)
 Detta påverkar inte upplösningen för punktuppbyggd grafik, t. ex. foton.</translation>
-    </message>
-    <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Kompression av text och grafik.(new line)
-Om du inte behöver ändra låter du detta var ikryssat. Det minskar storleken på PDF-filen.</translation>
-    </message>
-    <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Kompressionsalternativ för bilder.(new line)
-Automatisk låter Scribus välja den lämpligaste metoden.(new line)
-ZIP passar bilder med rena färger/tonplattor.(new line)
-JPEG skapar små PDF-filer om du har många foton i dokumentet (med en viss kvalitetsförlust).(new line)
-Om du inte behöver någon speciell kompression, använd automatisk.</translation>
-    </message>
-    <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Kompressionsnivåer: Minimum (25%), Låg (50%), Medium (75%), Hög (85%), Maximum (95%)</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Minska upplösningen på dina bitmappade bilder till vald DPI.(new line)
-Om du inte markerar kryssrutan återges de med urprunglig upplösning.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
@@ -7588,12 +7370,6 @@ säkerhetsfunktioner i din exporterade PDF-fil.</translation>
 If un-checked, text and graphics cannot be copied.</source>
         <translation>Tillåt kopiering av text eller grafik från din PDF-fil.(new line)
 Om ej kryssad kan text och grafik inte kopieras.</translation>
-    </message>
-    <message>
-        <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="obsolete">Tillått tillägg av anteckningar och fält till din PDF-fil.(new line)
-Om ej kryssat är tillägg av anteckningar och fält inte tillåtet.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF.
@@ -7744,17 +7520,39 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Re-sample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.
-This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Compression Methods</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JPEG - Lossy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zip - Lossless</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7807,12 +7605,6 @@ of a slight slowdown in previewing. This only affects Type 1 fonts</source>
 en något långsammare laddning av dokumentet. Detta gäller endast Typ1 teckensnitt</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="obsolete">Visar en mer tilltalande bild av TT typsnitt, Open Type typsntt, EPS, PDF och
-vektorgrafik i förhandsvisaren, på bekostnad av en något långsammare laddning av dokumentet.</translation>
-    </message>
-    <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation>Visar transparens och transparenta objekt i ditt dokument. Kräver Ghostscript 7.07 eller högre.</translation>
     </message>
@@ -7835,20 +7627,6 @@ vektorgrafik i förhandsvisaren, på bekostnad av en något långsammare laddnin
     <message>
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>Aktivera/inaktivera plåten för S (Svart)</translation>
-    </message>
-    <message>
-        <source>A way of switching some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">En metod för att ersätta några av de grå nyanserna som är
-sammansatt av cyan, magenta och gult med svart istället.
-UCR påverkar mest de delar av en bild som innehåller neutrala och/eller
-mörka toner nära grått. Användning av UCR kan ge förbättrat tryckresultat
-för en del bilder. Bästa resultat kräver experiment och tester från fall till fall.
-UCR minskar risken för övermättnad av CMG färger.</translation>
     </message>
     <message>
         <source>All</source>
@@ -8161,10 +7939,6 @@ vektorgrafik vid förhandsvisning på bekostnad av långsammare visning</transla
     <message>
         <source>is missing!</source>
         <translation>saknas!</translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="obsolete">En kopia av</translation>
     </message>
 </context>
 <context>
@@ -8811,10 +8585,6 @@ ett positivt värde gör den konvex</translation>
         <translation>För att anpassa visning drag markören nedan till önskat värde</translation>
     </message>
     <message>
-        <source>Postscript Interpreter</source>
-        <translation type="obsolete">Postscripttolk</translation>
-    </message>
-    <message>
         <source>&amp;Name of Executable:</source>
         <translation>&amp;Namn på program.</translation>
     </message>
@@ -8883,10 +8653,6 @@ Scribus ärver tillgängliga teman från KDE och Qt.</translation>
     <message>
         <source>Default documents directory</source>
         <translation>Standardkatalog för dokument</translation>
-    </message>
-    <message>
-        <source>Default ICC profiles directory</source>
-        <translation type="obsolete">Standardkatalog för ICC-profiler</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
@@ -8977,14 +8743,6 @@ efter varje tidsperiod</translation>
     <message>
         <source>Place the grid in front of your page objects</source>
         <translation>Placera stödraster framför sidans objekt</translation>
-    </message>
-    <message>
-        <source>Turns on the basegrid</source>
-        <translation type="obsolete">Slå på standardraster</translation>
-    </message>
-    <message>
-        <source>Turns off the basegrid</source>
-        <translation type="obsolete">Slå av standardraster</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
@@ -9183,20 +8941,12 @@ efter varje tidsperiod</translation>
         <translation>Ange standardvärde för zoomnivå</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Ghostscript-tolkens plats i filsystemet</translation>
-    </message>
-    <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation>Anti-alias av text vid visning av EPS eller PDF på skärmen</translation>
     </message>
     <message>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
         <translation>Anti-alias av grafik vid visning av EPS eller PDF på skärmen</translation>
-    </message>
-    <message>
-        <source>Filesystem location for graphics editor</source>
-        <translation type="obsolete">Bildbehandlingsprogrammets plats i filsystemet</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
@@ -9253,20 +9003,6 @@ efter varje tidsperiod</translation>
 ett positivt värde gör den konvex</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>En metod för att ta bort en del av de gråtoner som kan uppstå
-vid blandning av cyan, gult och magenta genom att ersätta med svart.
-UCR påverkar de delar av bilden som är neutrala och/eller har mörka toner
-i närheten av grått. Användande av UCR kan förbättra tryckkvalitetn för en del bilder
-och för bästa resultat krävs testning och experiment från fall till fall.
-UCR förhindrar risken för övermättnad med CMG färger.</translation>
-    </message>
-    <message>
         <source>Executive</source>
         <translation>Executive</translation>
     </message>
@@ -9316,6 +9052,10 @@ instance of gimp.</source>
     </message>
     <message>
         <source>File system location for the GhostScript interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9942,60 +9682,12 @@ Kontrollera sökväg och filnamn.</translation>
         <translation>Spara som &amp;mall...</translation>
     </message>
     <message>
-        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation type="obsolete">Oj! Du försöker ladda in en bild till ett objekt som inte finns eller inte är valt!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Oj! Du försöker llåsa/låsa uppl ett objekt som inte finns! Inte heller är något valt.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Oj! Du försöker få kontakt med ett objekt som inte finns! Inte heller är något valt.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Oj! Du försöker få kontakt med ett objekt som inte finns!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Oj! Du försöker ta bort ett objekt som inte finns!</translation>
-    </message>
-    <message>
-        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation type="obsolete">Oj! Objektet du vill flöda finns inte!</translation>
-    </message>
-    <message>
         <source>S&amp;cripter Manual...</source>
         <translation>S&amp;cripter handbok...</translation>
     </message>
     <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation type="obsolete">&amp;Scribus skripts</translation>
-    </message>
-    <message>
-        <source>&amp;Execute Script...</source>
-        <translation type="obsolete">&amp;Utför skript...</translation>
-    </message>
-    <message>
-        <source>&amp;Recent Scripts</source>
-        <translation type="obsolete">Se&amp;naste skript</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Visa &amp;konsol</translation>
-    </message>
-    <message>
-        <source>S&amp;cript</source>
-        <translation type="obsolete">Skri&amp;pt</translation>
-    </message>
-    <message>
         <source>Online Reference</source>
         <translation>Online referenshandbok</translation>
-    </message>
-    <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="obsolete">Python skript (*.py);;Alla filer (*)</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -10202,14 +9894,6 @@ Externa länkar
         <translation>Försökte sätta progress &gt; maximum progress</translation>
     </message>
     <message>
-        <source>&amp;About Script...</source>
-        <translation type="obsolete">&amp;Om Skript...</translation>
-    </message>
-    <message>
-        <source>About Script</source>
-        <translation type="obsolete">Om Skript</translation>
-    </message>
-    <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
         <translation>Kan inte hämta teckengraden från icke-text ram.</translation>
@@ -10255,124 +9939,14 @@ Externa länkar
         <translation>Kan inte infoga text i icke-text ram.</translation>
     </message>
     <message>
-        <source>Insert index out of bounds</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Infogningsindex är felaktigt</translation>
-    </message>
-    <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
         <translation>Justeringen felaktig. Använd någon konstanterna scribus.ALIGN*.</translation>
     </message>
     <message>
-        <source>Can&apos;t set text alignment on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kan inte ange textjustering i en icke-text ram</translation>
-    </message>
-    <message>
-        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Teckengrad felaktig - måste vara 1 &lt;= size &lt;= 512</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set font size on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kan inte ange teckengrad för en icke-text ram</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set font on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kan inte ange teckensnitt för en icke-text ram</translation>
-    </message>
-    <message>
-        <source>Font not found</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Teckensnitt hittades inte</translation>
-    </message>
-    <message>
-        <source>Line space out of bounds, must be &gt;= 0.1</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Radavstånd felaktigt, måste vara &gt;= 0.1</translation>
-    </message>
-    <message>
-        <source>Can&apos;t line spacing on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kan inte ange radavstånd för en icke-text ram</translation>
-    </message>
-    <message>
-        <source>Column gap out of bounds, must be positive</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Spaltmellanrum felaktigt. måste vara positivt</translation>
-    </message>
-    <message>
-        <source>Can&apos;t column gap on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kan inte ange spaltmellanrum för en icke-text ram</translation>
-    </message>
-    <message>
-        <source>Column count out of bounds, must be &gt; 1</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Antalet spalter felaktigt, måste vara &gt; 1</translation>
-    </message>
-    <message>
-        <source>Can&apos;t number of columns on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kan inte ange antalet kolumner för en icke-text ram</translation>
-    </message>
-    <message>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
         <translation>Markeringsindex felaktigt</translation>
-    </message>
-    <message>
-        <source>Can&apos;t select text in a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kan inte markera text i en icke-text ram</translation>
-    </message>
-    <message>
-        <source>Can&apos;t delete text from a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kan inte ta bort text i en icke-text ram</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text fill on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kan inte ange fyllnadsfärgen på text i en icke-text ram</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text stroke on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kan inte ange konturfärgen på text i en icke-text ram</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text shade on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kan inte ange skuggfärg på text i en icke-text ram</translation>
-    </message>
-    <message>
-        <source>Can only link text frames</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Endast textramar kan länkas</translation>
-    </message>
-    <message>
-        <source>Target frame must be empty</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Målramen måste vara tom</translation>
-    </message>
-    <message>
-        <source>Target frame links to another frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Målramen länkar till en annan ram</translation>
-    </message>
-    <message>
-        <source>Target frame is linked to by another frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Målramen är redan länkad från en annan ram</translation>
-    </message>
-    <message>
-        <source>Source and target are the same object</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Källa och mål är samma objekt</translation>
     </message>
     <message>
         <source>Failed to open document</source>
@@ -10860,6 +10434,26 @@ function&apos;s documentation.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -11203,16 +10797,8 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
         <translation>Inställningar för tecken</translation>
     </message>
     <message>
-        <source>Kerning:</source>
-        <translation type="obsolete">Kerning:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>pt</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Manuell kerning</translation>
     </message>
     <message>
         <source>Tracking:</source>
@@ -11220,6 +10806,41 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">Höger</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Vänster</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11273,10 +10894,6 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
         <translation>Sök efter teckensnitt</translation>
     </message>
     <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">Det finns inga Postscript-teckensnitt installerade</translation>
-    </message>
-    <message>
         <source>Exiting now</source>
         <translation>Avslutar nu</translation>
     </message>
@@ -11311,10 +10928,6 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     <message>
         <source>Show Layers</source>
         <translation>Visa lager</translation>
-    </message>
-    <message>
-        <source>Javascripts...</source>
-        <translation type="obsolete">Javascripts...</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -11551,10 +11164,6 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     <message>
         <source>Templates...</source>
         <translation>Mallar...</translation>
-    </message>
-    <message>
-        <source>&amp;Javascripts...</source>
-        <translation type="obsolete">&amp;Javascripts...</translation>
     </message>
     <message>
         <source>Select New Font</source>
@@ -12237,16 +11846,8 @@ Välj något av följande:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Skapa&lt;/b&gt;
         <translation>Följande program saknas:</translation>
     </message>
     <message>
-        <source>Ghostscript : You cannot use EPS Images</source>
-        <translation type="obsolete">Ghostscript: Du kan inte använda EPS-bilder</translation>
-    </message>
-    <message>
         <source>All</source>
         <translation>Allt</translation>
-    </message>
-    <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation type="obsolete">EPS-filer (*.eps);;Alla filer (*)</translation>
     </message>
     <message>
         <source>pt</source>
@@ -12459,6 +12060,10 @@ Välj något av följande:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Skapa&lt;/b&gt;
     <message>
         <source>Norwegian</source>
         <translation type="unfinished">Norska</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13212,14 +12817,6 @@ drar du en mall till Sidvisaren nedan.</translation>
         <translation>Vill du spara ändringarna?</translation>
     </message>
     <message>
-        <source>&amp;Insert Special</source>
-        <translation type="obsolete">&amp;Infoga special...</translation>
-    </message>
-    <message>
-        <source>&amp;Fonts Preview</source>
-        <translation type="obsolete">&amp;Förhandsvisning av typsnitt</translation>
-    </message>
-    <message>
         <source>Do you really want to lose all your Changes?</source>
         <translation>Vill du verkligen förlora alla ändringar?</translation>
     </message>
@@ -13274,10 +12871,6 @@ drar du en mall till Sidvisaren nedan.</translation>
 <context>
     <name>SxwDialog</name>
     <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Uppdatera styckemallarna</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Använd dokumentnamn som prefix för styckemallar</translation>
     </message>
@@ -13290,29 +12883,8 @@ drar du en mall till Sidvisaren nedan.</translation>
         <translation>OK</translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Skall importhanteraren lägga till dokumentnamnet
-framför namnet på styckemallar i Scribus</translation>
-    </message>
-    <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Om en styckemall med samma namn som den aktuella OpenOffice.org-mallen redan existerar
-ska då stilmallen i Scribus redigeras så att den matchar den importerade, eller ska den
-lämnas orörd</translation>
-    </message>
-    <message>
         <source>OpenOffice.org Writer Importer Options</source>
         <translation>Importalternativ för OpenOffice.org Writer</translation>
-    </message>
-    <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Ska importhanteraren alltid använda aktuellt värde vid import av 
-dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>Update Paragraph Styles</source>
@@ -13387,10 +12959,6 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     <message>
         <source>First &amp;Line:</source>
         <translation>Första &amp;raden:</translation>
-    </message>
-    <message>
-        <source>Ind&amp;ent:</source>
-        <translation type="obsolete">I&amp;ndrag:</translation>
     </message>
     <message>
         <source>Delete All</source>
@@ -13781,10 +13349,6 @@ with checked button too.</source>
     <message>
         <source>Automatic</source>
         <translation>Automatisk</translation>
-    </message>
-    <message>
-        <source>Get text only</source>
-        <translation type="obsolete">Hämta endast text</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>

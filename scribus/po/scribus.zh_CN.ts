@@ -1536,14 +1536,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 <context>
     <name>About</name>
     <message>
-        <source>About Scribus%1%2</source>
-        <translation type="obsolete">关于 Scribus%1%2</translation>
-    </message>
-    <message>
-        <source>%1. %2 %3 </source>
-        <translation type="obsolete">%1. %2 %3 </translation>
-    </message>
-    <message>
         <source>Scribus Version %1
 %2 %3</source>
         <translation>Scribus 版本 %1
@@ -1642,16 +1634,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Slovenian:</translation>
     </message>
     <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation type="obsolete">This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</translation>
-    </message>
-    <message>
         <source>&amp;About</source>
         <translation>&amp;About</translation>
     </message>
@@ -1670,10 +1652,6 @@ Missing library support is indicated by a *</translation>
     <message>
         <source>&amp;Close</source>
         <translation>&amp;Close</translation>
-    </message>
-    <message>
-        <source>?? Team:</source>
-        <translation type="obsolete">Development Team:</translation>
     </message>
     <message>
         <source>Official Documentation:</source>
@@ -1760,6 +1738,10 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Portuguese (Brazilian):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2228,10 +2210,6 @@ Not recommended unless
         <translation>Options</translation>
     </message>
     <message>
-        <source>Java Script</source>
-        <translation type="obsolete">Java Script</translation>
-    </message>
-    <message>
         <source>Go To</source>
         <translation>Go To</translation>
     </message>
@@ -2486,10 +2464,6 @@ Not recommended unless
     <message>
         <source>Open</source>
         <translation>Open</translation>
-    </message>
-    <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</translation>
     </message>
     <message>
         <source>Example:</source>
@@ -3349,14 +3323,6 @@ This can be set in the Preferences.</translation>
         <translation>Replace it with:</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel</translation>
-    </message>
-    <message>
         <source>Delete color:</source>
         <translation>Delete colour:</translation>
     </message>
@@ -3417,6 +3383,18 @@ This can be set in the Preferences.</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3595,10 +3573,6 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     <message>
         <source>Save as</source>
         <translation>Save as</translation>
-    </message>
-    <message>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation type="obsolete">Postscript-Files (*.ps);;All Files (*)</translation>
     </message>
     <message>
         <source>Cyan</source>
@@ -4033,10 +4007,6 @@ be saved in its current form. The error was:
         <translation>Editor</translation>
     </message>
     <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation type="obsolete">Javascripts (*.js);;All Files (*)</translation>
-    </message>
-    <message>
         <source>&amp;New</source>
         <translation>&amp;New</translation>
     </message>
@@ -4383,10 +4353,6 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <source>Additional Paths</source>
         <translation>Additional Paths</translation>
-    </message>
-    <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -5461,29 +5427,6 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
 </context>
 <context>
-    <name>MenuTest</name>
-    <message>
-        <source>Script error</source>
-        <translation type="obsolete">Script error</translation>
-    </message>
-    <message>
-        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="obsolete">If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Show &amp;Console</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Console</source>
-        <translation type="obsolete">Hide &amp;Console</translation>
-    </message>
-    <message>
-        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="obsolete">This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</translation>
-    </message>
-</context>
-<context>
     <name>MergeDoc</name>
     <message>
         <source>Change...</source>
@@ -5718,10 +5661,6 @@ a range of pages or a single page number.</translation>
     <message>
         <source>Line Spacing</source>
         <translation>Line Spacing</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Manual Kerning</translation>
     </message>
     <message>
         <source>None</source>
@@ -6116,10 +6055,6 @@ Corners:</translation>
         <translation>&amp;Font Size:</translation>
     </message>
     <message>
-        <source>&amp;Kerning:</source>
-        <translation type="obsolete">&amp;Kerning:</translation>
-    </message>
-    <message>
         <source>L&amp;ine Spacing:</source>
         <translation>L&amp;ine Spacing:</translation>
     </message>
@@ -6366,6 +6301,10 @@ Please choose another.</translation>
     <message>
         <source>Do you really want to delete this Template?</source>
         <translation>Do you really want to delete this Template?</translation>
+    </message>
+    <message>
+        <source>New Template %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6754,18 +6693,8 @@ otherwise Coordinates are relative to the Object.</translation>
 <context>
     <name>OdtDialog</name>
     <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Update paragraph styles</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation type="unfinished">Use document name as a prefix for paragraph styles</translation>
-    </message>
-    <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Should importer add the name of the document
-on front of the paragraph style name in Scribus</translation>
     </message>
     <message>
         <source>Do not ask again</source>
@@ -6994,20 +6923,8 @@ on front of the paragraph style name in Scribus</translation>
         <translation>Save as</translation>
     </message>
     <message>
-        <source>Image Settings</source>
-        <translation>Image Settings</translation>
-    </message>
-    <message>
         <source>Automatic</source>
         <translation>Automatic</translation>
-    </message>
-    <message>
-        <source>JPEG</source>
-        <translation>JPEG</translation>
-    </message>
-    <message>
-        <source>Zip</source>
-        <translation>Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -7114,24 +7031,10 @@ security features in your exported PDF</translation>
         <translation> p</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated colour management.</translation>
-    </message>
-    <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
         <translation>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
@@ -7148,30 +7051,6 @@ These are useful for navigating long PDF documents.</translation>
 This does not affect the resolution of bitmap images like photos.</source>
         <translation>Export resolution of text and vector graphics.
 This does not affect the resolution of bitmap images like photos.</translation>
-    </message>
-    <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</translation>
-    </message>
-    <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colours.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
@@ -7252,10 +7131,6 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
 PDF/X-3 conformance. We recommend you use the title of the document.</translation>
     </message>
     <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</translation>
-    </message>
-    <message>
         <source>Choose a password for users to be able to read your PDF.</source>
         <translation>Choose a password for users to be able to read your PDF.</translation>
     </message>
@@ -7272,16 +7147,6 @@ PDF/X-3 conformance. We recommend you use the title of the document.</translatio
 If un-checked, text and graphics cannot be copied.</source>
         <translation>Allow copying of text or graphics from the PDF. 
 If un-checked, text and graphics cannot be copied.</translation>
-    </message>
-    <message>
-        <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="obsolete">Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</translation>
-    </message>
-    <message>
-        <source>Create PDF File</source>
-        <translation type="obsolete">Create PDF File</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
@@ -7480,14 +7345,6 @@ If un-checked, editing annotations and fileds is prevented.</translation>
         <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</translation>
-    </message>
-    <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF Files (*.pdf);;All Files (*)</translation>
     </message>
@@ -7512,16 +7369,8 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
         <translation>&amp;Presentation</translation>
     </message>
     <message>
-        <source>Mirror Page(s) &amp;Horizontally</source>
-        <translation type="obsolete">Mirror Page(s) &amp;Horizontally</translation>
-    </message>
-    <message>
         <source>&amp;Rotation:</source>
         <translation>&amp;Rotation:</translation>
-    </message>
-    <message>
-        <source>&amp;Options</source>
-        <translation type="obsolete">&amp;Options</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
@@ -7578,17 +7427,39 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Re-sample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.
-This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Compression Methods</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JPEG - Lossy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zip - Lossless</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7607,12 +7478,6 @@ This can increase memory usage and slow down export.</source>
 of a slight slowdown in previewing. This only affects Type 1 fonts</source>
         <translation>Provides a more pleasant view of text items in the viewer, at the expense
 of a slight slowdown in previewing. This only affects Type 1 fonts</translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="obsolete">Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</translation>
     </message>
     <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
@@ -7673,20 +7538,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>&amp;Under Color Removal</source>
         <translation>&amp;Under Colour Removal</translation>
-    </message>
-    <message>
-        <source>A way of switching some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">A way of switching some of the grey shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the grey. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
@@ -7785,10 +7636,6 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     <message>
         <source>Warning</source>
         <translation>Warning</translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="obsolete">Copy of</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
@@ -8351,10 +8198,6 @@ a positive value will make it convex</translation>
         <translation>Misc.</translation>
     </message>
     <message>
-        <source>Postscript Interpreter</source>
-        <translation type="obsolete">Postscript Interpreter</translation>
-    </message>
-    <message>
         <source>Image Processing Tool</source>
         <translation>Image Processing Tool</translation>
     </message>
@@ -8391,10 +8234,6 @@ Scribus inherits any available KDE or Qt themes</translation>
     <message>
         <source>Default documents directory</source>
         <translation>Default documents directory</translation>
-    </message>
-    <message>
-        <source>Default ICC profiles directory</source>
-        <translation type="obsolete">Default ICC profiles directory</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
@@ -8679,10 +8518,6 @@ each time the time period elapses</translation>
         <translation>Set the default zoom level</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Filesystem location for the Ghostscript interpreter</translation>
-    </message>
-    <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation>Antialias text for EPS and PDF onscreen rendering</translation>
     </message>
@@ -8699,24 +8534,12 @@ each time the time period elapses</translation>
         <translation>Save the scrapbook contents everytime after a change</translation>
     </message>
     <message>
-        <source>Filesystem location for graphics editor</source>
-        <translation type="obsolete">Filesystem location for graphics editor</translation>
-    </message>
-    <message>
         <source> px</source>
         <translation> px</translation>
     </message>
     <message>
         <source>Baseline Grid</source>
         <translation>Baseline Grid</translation>
-    </message>
-    <message>
-        <source>Turns on the basegrid</source>
-        <translation type="obsolete">Turns on the basegrid</translation>
-    </message>
-    <message>
-        <source>Turns off the basegrid</source>
-        <translation type="obsolete">Turns off the basegrid</translation>
     </message>
     <message>
         <source>&amp;Theme:</source>
@@ -9085,20 +8908,6 @@ each time the time period elapses</translation>
 a positive value will make it convex</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>A way of switching off some of the grey shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the grey. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</translation>
-    </message>
-    <message>
         <source>Executive</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9148,6 +8957,10 @@ instance of gimp.</source>
     </message>
     <message>
         <source>File system location for the GhostScript interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9606,10 +9419,6 @@ Check path and filename.</translation>
         <translation>Open</translation>
     </message>
     <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="obsolete">Python Scripts (*.py);; All Files (*)</translation>
-    </message>
-    <message>
         <source>Save as</source>
         <translation>Save as</translation>
     </message>
@@ -9628,22 +9437,6 @@ Check path and filename.</translation>
     <message>
         <source>No</source>
         <translation>No</translation>
-    </message>
-    <message>
-        <source>S&amp;cript</source>
-        <translation type="obsolete">S&amp;cript</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Oook! You&apos;re calling an object doesn&apos;t exist!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Oook! You&apos;re trying to erase an object doesn&apos;t exist!</translation>
-    </message>
-    <message>
-        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation type="obsolete">Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</translation>
     </message>
     <message>
         <source>Save as Image</source>
@@ -9692,10 +9485,6 @@ Check path and filename.</translation>
     <message>
         <source>New &amp;from Template...</source>
         <translation>New &amp;from Template...</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation type="obsolete">&amp;New</translation>
     </message>
     <message>
         <source>Newsletters</source>
@@ -9794,10 +9583,6 @@ Check path and filename.</translation>
         <translation>Print Previe&amp;w</translation>
     </message>
     <message>
-        <source>&amp;Print...</source>
-        <translation type="obsolete">&amp;Print...</translation>
-    </message>
-    <message>
         <source>Import &amp;EPS/PS...</source>
         <translation>Import &amp;EPS/PS...</translation>
     </message>
@@ -9806,28 +9591,8 @@ Check path and filename.</translation>
         <translation>Save as &amp;Template...</translation>
     </message>
     <message>
-        <source>Save &amp;As...</source>
-        <translation type="obsolete">Save &amp;As...</translation>
-    </message>
-    <message>
         <source>S&amp;cripter Manual...</source>
         <translation>S&amp;cripter Manual...</translation>
-    </message>
-    <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation type="obsolete">&amp;Scribus Scripts</translation>
-    </message>
-    <message>
-        <source>&amp;Execute Script...</source>
-        <translation type="obsolete">&amp;Execute Script...</translation>
-    </message>
-    <message>
-        <source>&amp;Recent Scripts</source>
-        <translation type="obsolete">&amp;Recent Scripts</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Show &amp;Console</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -9836,22 +9601,6 @@ Check path and filename.</translation>
     <message>
         <source>Import &amp;SVG...</source>
         <translation>Import &amp;SVG...</translation>
-    </message>
-    <message>
-        <source>Oook! Wrong arguments! Call: </source>
-        <translation type="obsolete">Oook! Wrong arguments! Call: </translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation type="obsolete">Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</translation>
     </message>
     <message>
         <source>Print Preview</source>
@@ -9903,10 +9652,6 @@ External Links
 </source>
         <translation>
 External Links</translation>
-    </message>
-    <message>
-        <source>OO.o Writer Documents</source>
-        <translation type="obsolete">OO.o Writer Documents</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -10593,6 +10338,26 @@ function&apos;s documentation.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -10932,16 +10697,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>SToolBStyle</name>
     <message>
-        <source>Kerning:</source>
-        <translation type="obsolete">Kerning:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation> pt</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Manual Kerning</translation>
     </message>
     <message>
         <source>Character Settings</source>
@@ -10953,6 +10710,41 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">Right</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Left</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished">Horizontal</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished">Vertical</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10976,10 +10768,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Searching for Fonts</source>
         <translation>Searching for Fonts</translation>
-    </message>
-    <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">There are no Postscript-Fonts on your System</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -11016,10 +10804,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Show Layers</source>
         <translation>Show Layers</translation>
-    </message>
-    <message>
-        <source>Javascripts...</source>
-        <translation type="obsolete">Javascripts...</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -11436,10 +11220,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>All</translation>
     </message>
     <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation type="obsolete">EPS-Files (*.eps);;All Files (*)</translation>
-    </message>
-    <message>
         <source>Loading:</source>
         <translation>Loading:</translation>
     </message>
@@ -11784,10 +11564,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>&amp;Templates...</translation>
     </message>
     <message>
-        <source>&amp;Javascripts...</source>
-        <translation type="obsolete">&amp;Javascripts...</translation>
-    </message>
-    <message>
         <source>D&amp;uplicate</source>
         <translation>D&amp;uplicate</translation>
     </message>
@@ -12056,10 +11832,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Show G&amp;uides</translation>
     </message>
     <message>
-        <source>Ghostscript : You cannot use EPS Images</source>
-        <translation type="obsolete">Ghostscript : You cannot use EPS Images</translation>
-    </message>
-    <message>
         <source>Import &amp;Page(s)...</source>
         <translation>Import &amp;Page(s)...</translation>
     </message>
@@ -12189,6 +11961,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Norwegian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12839,10 +12615,6 @@ drag a Template to the Pageview below.</translation>
         <translation>Do you want to save your changes?</translation>
     </message>
     <message>
-        <source>&amp;Insert Special</source>
-        <translation type="obsolete">&amp;Insert Special</translation>
-    </message>
-    <message>
         <source>&amp;New</source>
         <translation>&amp;New</translation>
     </message>
@@ -12963,10 +12735,6 @@ drag a Template to the Pageview below.</translation>
         <translation>Search/Replace</translation>
     </message>
     <message>
-        <source>&amp;Fonts Preview</source>
-        <translation type="obsolete">&amp;Fonts Preview</translation>
-    </message>
-    <message>
         <source>Clear all Text</source>
         <translation>Clear all Text</translation>
     </message>
@@ -13005,24 +12773,6 @@ drag a Template to the Pageview below.</translation>
 <context>
     <name>SxwDialog</name>
     <message>
-        <source>OO.o Writer Importer Options</source>
-        <translation type="obsolete">OO.o Writer Importer Options</translation>
-    </message>
-    <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Update paragraph styles</translation>
-    </message>
-    <message>
-        <source>If there already exists a paragraph style with the same
-name than current OO.o document&apos;s paragraph should the style
-in Scribus be edited to match the one being imported
-or left untouched</source>
-        <translation type="obsolete">If there already exists a paragraph style with the same
-name than current OO.o document&apos;s paragraph should the style
-in Scribus be edited to match the one being imported
-or left untouched</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Use document name as a prefix for paragraph styles</translation>
     </message>
@@ -13031,22 +12781,8 @@ or left untouched</translation>
         <translation>Do not ask again</translation>
     </message>
     <message>
-        <source>Should the importer always use currently
-set value when importing OO.o document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Should the importer always use currently
-set value when importing OO.o document and
-never ask your confirmation again</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-    <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Should importer add the name of the document
-on front of the paragraph style name in Scribus</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
@@ -13157,10 +12893,6 @@ on front of the paragraph style name in Scribus</translation>
     <message>
         <source>First &amp;Line:</source>
         <translation>First &amp;Line:</translation>
-    </message>
-    <message>
-        <source>Ind&amp;ent:</source>
-        <translation type="obsolete">Ind&amp;ent:</translation>
     </message>
     <message>
         <source>Left Ind&amp;ent:</source>
@@ -13519,10 +13251,6 @@ with checked button too.</source>
     <message>
         <source>Automatic</source>
         <translation>Automatic</translation>
-    </message>
-    <message>
-        <source>Get text only</source>
-        <translation type="obsolete">Get text only</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>

@@ -156,74 +156,6 @@ ha de ser codificat en UTF8 o una cadena &apos;unicode&apos; (recomanat).
 </translation>
     </message>
     <message>
-        <source>newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumber = is the number of the first page in the document used for
-    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-    numbers if you&apos;re creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</source>
-        <translation type="obsolete">newDoc(mida, marges, orientació, primerNúmeroPàgina,
-                   unitats, PaginesAcarades, primeraPaginaEsquerra) -&gt; bool
-
-Crea un nou document i retorna cert si tot ha anat bé. Els paràmetres tenen el 
-següent significat:
-
-    mida = Una parella (amplada, alçada) que descriu la mida del document. Pots
-    fer servir constants predefinides com PAPER_&lt;tipus de paper&gt; ex. PAPER_A4 etc.
-
-    marges = Una agrupació (esquerra, dreta, dalt, baix) que descriu els marges
-    del document.
-
-    orientació = la orientació de la pàgina - constants PORTRAIT, LANDSCAPE
-
-    PrimerNúmeroPàgina = és el número de la primera pàgina en el document que farem
-    servir per numerar les pàgines. Encara que normalment es farà servir 1, a vegades
-    es útil poder posar números més grans si es creen documents en parts.
-
-    unitats : aquest valor estableix les unitats que el document farà servir. Cal usar una 
-    constant predefinida, pot ser una de: UNIT_INCHES, UNIT_MILLIMETERS, 
-    UNIT_PICAS, UNIT_POINTS.
-
-    PàginesAcarades = FACINPAGES, NOFACINPAGES
-
-    PrimeraPàginaEsquerra = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-Els valors per l&apos;amplada, l&apos;alçada i els marges està expressada en les unitats donades
-pel document. Les constants PAPER_* estan expressades en punts. Si el nostre document
-no està en punts, cal tenir-ho en compte.
-
-exemple: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                 FACINGPAGES, FIRSTPAGERIGHT)
-</translation>
-    </message>
-    <message>
         <source>register_macro_callable(name, callable, accel=&apos;&apos;)
 
 Create a macro called &quot;name&quot; with the existing callable object &quot;callable&quot;.
@@ -457,25 +389,6 @@ sel.leccionat.
 </translation>
     </message>
     <message>
-        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
-must be UTF encoded (see setText() as reference) The first character has an
-index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
-used.
-
-May throw IndexError for an insertion out of bounds.
-</source>
-        <translation type="obsolete">insertText(&quot;text&quot;, pos, [&quot;nom&quot;])
-
-Insereix el text &quot;text&quot; a la posició &quot;pos&quot; del quadre de text. Text ha de ser
-codificat UTF (mireu setText() per referència). El primer caràcter té un
-índex de 0. Si no es dóna cap &quot;nom&quot;, es fa servir l&apos;ítem 
-sel.leccionat.
-
-Pot provocar un IndexError al inserir fora de marges.</translation>
-    </message>
-    <message>
         <source>setFont(&quot;font&quot;, [&quot;name&quot;])
 
 Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
@@ -578,26 +491,6 @@ Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat. &quot;
 una de les constants ALIGN_ definides en aquest mòdul - Mireu dir(scribus).
 
 Pot provocar ValueError si posem una constant invàl.lida.
-</translation>
-    </message>
-    <message>
-        <source>selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared.  If &quot;name&quot; is not given the currently
-selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</source>
-        <translation type="obsolete">selectText(inici, número, [&quot;name&quot;])
-
-Seleccióna &quot;número&quot; caràcters del quadre de text &quot;nom&quot; començant pel
-caràcter &quot;inici&quot;. Els caràcters comencen per 0. Si &quot;número&quot; és zero, es 
-deselecciona tot el que hi pogués haver seleccionat.  Si no especifiquem 
-&quot;nom&quot;  es fa servir l&apos;ítem seleccionat.
-
-Pot provocar un IndexError si la selecció és massa gran pel text.
 </translation>
     </message>
     <message>
@@ -1450,24 +1343,6 @@ Retorna molta informació de font. És una llista de tuples amb:
 </translation>
     </message>
     <message>
-        <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
-
-Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
-Image is saved into &quot;filename&quot;. Returns true when success.
-
-May raise NotFoundError if the specified font can&apos;t be found.
-May raise ValueError if an empty sample or filename is passed.
-</source>
-        <translation type="obsolete">rendeFont(&quot;nom&quot;, &quot;nomFitxer&quot;, &quot;sample&quot;, mida) -&gt; bool
-
-Crea una imatge de previsualització de la font &quot;nom&quot; amb el text &quot;sample&quot; i mida.
-La imatge és desa en el fitxer &quot;nomFitxer&quot;. Retorna cert quan tot va bé.
-
-Pot provocar un NotFoundError si la font especificada no es pot trobar.
-Pot provocar un ValueError si es passa un sample buit.
-</translation>
-    </message>
-    <message>
         <source>getLayers() -&gt; list
 
 Returns a list with the names of all defined layers.
@@ -1554,45 +1429,6 @@ May raise ValueError if the layer name isn&apos;t acceptable.
 
 Estableix la capa especificada a printable o no. Si printable està 
 false la capa no s&apos;imprimirà.
-
-Pot generar NotFoundError si la capa no es pot trobar.
-Pot generar ValueError si el nom de capa no és acceptable.
-</translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns wether the Layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerVisible(&quot;capa&quot;) -&gt; bool
-
-Ens retorna si la capa &quot;capa&quot; és visible o no, un valor de Cert significa
-que la capa és visible, un valor de Fals significa que la capa
-&quot;layer&quot; és invisible
-
-Pot generar NotFoundError si la capa no es pot trobar.
-Pot generar ValueError si el nom de capa no és acceptable.</translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns wether the layer &quot;layer&quot; is printable or not, a value of True means
-that the layer &quot;layer&quot; can be printed, a value of False means that printing
-the layer &quot;layer&quot; is disabled.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerPrintable(&quot;capa&quot;) -&gt; bool
-
-Ens retorna si la capa &quot;capa&quot; és printable o no, un valor de Cert significa
-que la capa pot ser imprimible, un valor de Fals significa que la capa
-&quot;layer&quot; no és imprimible.
 
 Pot generar NotFoundError si la capa no es pot trobar.
 Pot generar ValueError si el nom de capa no és acceptable.
@@ -2066,18 +1902,6 @@ la pàgina ...
 </translation>
     </message>
     <message>
-        <source>getPageMargins()
-
-Returns the page margins as a (left, right, top, bottom) tuple in the current
-units. See UNIT_&lt;type&gt; constants and getPageSize().
-</source>
-        <translation type="obsolete">getPageMargins()
-
-Retorna els marges de pàgina com a una tupla (esquerra, dreta, dalt, baix) en 
-les unitats actuals. Mireu les constants UNIT_&lt;tipus&gt; u getPageSize().
-</translation>
-    </message>
-    <message>
         <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
 
 Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot;. &quot;color&quot;
@@ -2424,26 +2248,6 @@ per la macro.
     <message>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
 
-Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerVisible(&quot;capa&quot;) -&gt;bool
-
-Retorna si la capa &quot;capa&quot; és visible o no, un valor de cert significa
-que la capa &quot;capa&quot; és visible, un valor de fals significa que la capa
-&quot;capa&quot; és invisible.
-
-Pot generar NotFoundError si la capa no es pot trobar.
-Pot generar ValueError si el nom de la capa no és acceptable.
-</translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
 Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
 that the layer &quot;layer&quot; can be printed, a value of False means that printing
 the layer &quot;layer&quot; is disabled.
@@ -2681,14 +2485,6 @@ número amb valors 20.0, 100.0 etc. Per ajustar a la pàgina posem -100.
 <context>
     <name>About</name>
     <message>
-        <source>About Scribus%1%2</source>
-        <translation type="obsolete">Quant a Scribus %1%2</translation>
-    </message>
-    <message>
-        <source>%1. %2 %3 </source>
-        <translation type="obsolete">%1. %2 %3</translation>
-    </message>
-    <message>
         <source>Scribus Version %1
 %2 %3</source>
         <translation>Scribus Versió %1
@@ -2843,17 +2639,6 @@ número amb valors 20.0, 100.0 etc. Per ajustar a la pàgina posem -100.
         <translation>&amp;Tanca</translation>
     </message>
     <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation type="obsolete">Aquest panell ensenya la versió, data de creació i 
-el suport de llibreries de Scribus
-C-C-T equival a suport per C=CUPS C=littlecms T=TIFF
-La falta de llibreries està indicat per un *
-</translation>
-    </message>
-    <message>
         <source>Official Translations and Translators:</source>
         <translation>Traduccions oficials i Traductors:</translation>
     </message>
@@ -2896,10 +2681,6 @@ El C-C-T significa C=littlecms C=CUPS T=suport TIFF.
 Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
-        <source>Portugese (Brazilian):</source>
-        <translation type="obsolete">Portuguès (Brasil.ler):</translation>
-    </message>
-    <message>
         <source>%1 %2 %3 </source>
         <translation>%1 %2 %3 </translation>
     </message>
@@ -2910,6 +2691,10 @@ Les llibreries que manquen es mostren amb un *</translation>
     <message>
         <source>Portuguese (Brazilian):</source>
         <translation>Portuguès (Brasil.ler):</translation>
+    </message>
+    <message>
+        <source>Japanese:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2987,16 +2772,6 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     <message>
         <source>Set Media Size</source>
         <translation>Posa Mida Paper</translation>
-    </message>
-    <message>
-        <source>This enables you to explicitely set,
-the media size of the postscript file.
-Not recommended unless
- requested by your printer.</source>
-        <translation type="obsolete">Això posa explícitament
-la mida de pàgina al fitxer postscript.
-No es recomana a menys
-que ho demani la impressora.</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
@@ -3394,10 +3169,6 @@ t&apos;ho demani el teu impressor.</translation>
         <translation>Opcions</translation>
     </message>
     <message>
-        <source>Java Script</source>
-        <translation type="obsolete">Java Script</translation>
-    </message>
-    <message>
         <source>Go To</source>
         <translation>Anar A</translation>
     </message>
@@ -3656,10 +3427,6 @@ t&apos;ho demani el teu impressor.</translation>
     <message>
         <source>Open</source>
         <translation>Obre</translation>
-    </message>
-    <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Imatges (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Tots els Fitxers (*)</translation>
     </message>
     <message>
         <source>Example:</source>
@@ -4516,14 +4283,6 @@ Això es pot posar en les Preferències.</translation>
         <translation>Canvia&apos;l per:</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">D&apos;acord</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel.la</translation>
-    </message>
-    <message>
         <source>None</source>
         <translation>Cap</translation>
     </message>
@@ -4580,6 +4339,18 @@ Això es pot posar en les Preferències.</translation>
     <message>
         <source>OK</source>
         <translation>D&apos;acord</translation>
+    </message>
+</context>
+<context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4863,10 +4634,6 @@ un rang de pàgines o un número sol.
         <translation>Anomena i desa</translation>
     </message>
     <message>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation type="obsolete">Fitxers Postscript (*.ps);;Tots els fitxers(*)</translation>
-    </message>
-    <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>Fitxers PostScript (*.ps);;Tots els Fitxers (*)</translation>
     </message>
@@ -5022,10 +4789,6 @@ es pot desar amb aquest formulari. L&apos;error és:
     <message>
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
         <translation>Desa el codi font -el text- de la macro en un fitxer. Pots editar el  codi font i tornar-lo a carregar amb &quot;Carregar Codi Font...&quot;.</translation>
-    </message>
-    <message>
-        <source>Python source files (.py)</source>
-        <translation type="obsolete">Arxius de codi font Phyton (.py)</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
@@ -5264,10 +5027,6 @@ es pot desar amb aquest formulari. L&apos;error és:
     <message>
         <source>&amp;Edit</source>
         <translation>&amp;Edició</translation>
-    </message>
-    <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation type="obsolete">Javascripts (*.js);;Tots els fitxers (*)</translation>
     </message>
     <message>
         <source>JavaScripts (*.js);;All Files (*)</source>
@@ -5561,10 +5320,6 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     <message>
         <source>Additional Paths</source>
         <translation>Camins Addicionals</translation>
-    </message>
-    <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -6376,20 +6131,6 @@ La taula del centre del diàleg llista quines macros estan actualment carregades
         <translation>Descripció</translation>
     </message>
     <message>
-        <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Name:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Aquesta taula llista les macros que estan definides actualment.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Nom:&lt;/b&gt; El nom de la macro, es mostra en la barra de menús entre d&apos;altres llocs de l&apos;Scribus.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Edició:&lt;/b&gt;Si la macro es pot editar, apareix un &quot;Si&quot; en aquesta columna. Normalment si una macro no es pot editar és perquè s&apos;ha creat fent servir la comanda register_macro d&apos;un script.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Accelerador:&lt;/b&gt;El menú de seqüències de dreceres de teclat, si n&apos;hi ha, associat a la macro. Per exemple CTRL-F8 significa que pots prémer Control-F8 dins de l&apos;Scribus per executar la macro.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Descripció:&lt;/b&gt;Si la macro conté un &quot;docstring&quot;, una cadena especial al principi de la seva definició que la descriu, això es mostra aquí. Si la docstring és molt llarga, només es veu el principi - feu servir &quot;Què és això&quot; en la entrada del menú de Macros per veure la descripció completa.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Rena&amp;me</source>
         <translation>Reano&amp;mena</translation>
     </message>
@@ -6673,29 +6414,6 @@ La taula del centre del diàleg llista quines macros estan actualment carregades
     </message>
 </context>
 <context>
-    <name>MenuTest</name>
-    <message>
-        <source>Script error</source>
-        <translation type="obsolete">Error en Seqüència</translation>
-    </message>
-    <message>
-        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="obsolete">Si executes una seqüència oficial, si us plau avisa a &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
-    </message>
-    <message>
-        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="obsolete">Aquest missatge també és al portapapers. Usa Ctrl+V per enganxar-lo al bug tracker.</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Mostra &amp;Consola</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Console</source>
-        <translation type="obsolete">Amaga &amp;Consola</translation>
-    </message>
-</context>
-<context>
     <name>MergeDoc</name>
     <message>
         <source>Import Template</source>
@@ -6971,10 +6689,6 @@ A&amp;rrodonits:</translation>
         <translation>Personalització Espaiat</translation>
     </message>
     <message>
-        <source>&amp;Kerning:</source>
-        <translation type="obsolete">&amp;Interlletratge:</translation>
-    </message>
-    <message>
         <source>L&amp;ine Spacing:</source>
         <translation>Inter&amp;lineat:</translation>
     </message>
@@ -7233,10 +6947,6 @@ A&amp;rrodonits:</translation>
     <message>
         <source>Saturation of color of text fill</source>
         <translation>Saturació del color d&apos;omplir el text</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Interlletratge Manual</translation>
     </message>
     <message>
         <source>Line Spacing</source>
@@ -7579,6 +7289,10 @@ Si us plau tria&apos;n un altre.</translation>
     <message>
         <source>Normal</source>
         <translation>Normal</translation>
+    </message>
+    <message>
+        <source>New Template %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7967,56 +7681,12 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
 <context>
     <name>OdtDialog</name>
     <message>
-        <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="obsolete">Opcions de l&apos;Importador d&apos;OpenOffice.org Writer</translation>
-    </message>
-    <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Actualitza estils de paràgraf</translation>
-    </message>
-    <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Si un estil de paràgraf ja existeix amb el mateix nom de l&apos;actual
-paràgraf del document OpenOffice.org, s&apos;ha d&apos;editar l&apos;estil per deixar-lo
-com el nou, o deixar-lo igual </translation>
-    </message>
-    <message>
-        <source>Pack paragraph styles</source>
-        <translation type="obsolete">Empaqueta estils de paràgraf</translation>
-    </message>
-    <message>
-        <source>Group paragraph styles by attributes.
-Less paragraph styles but controlling them may be hard.
-Should be used if it is known that text must not be edited
-after importing.</source>
-        <translation type="obsolete">Agrupa els estils de paràgraf pels seus atributs.
-Hi haurà menys estils però controlar-los pot ser mes dur.
-S&apos;hauria de fer servir quan se sap que el text no s&apos;editarà
-després d&apos;importar-lo.</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Fes servir el nom de document com estil de paràgraf</translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">L&apos;importador ha d&apos;afegir el nom del document
-davant de l&apos;estil de paràgraf de l&apos;Scribus</translation>
-    </message>
-    <message>
         <source>Do not ask again</source>
         <translation>No ho tornis a preguntar</translation>
-    </message>
-    <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
-        <translation type="obsolete">L&apos;importador sempre fa servir el conjunt de 
-valors actual al importar documents OpenOffice.org i 
-mai tornarà a preguntar de nou</translation>
     </message>
     <message>
         <source>OK</source>
@@ -8064,10 +7734,6 @@ mai tornarà a preguntar de nou</translation>
 </context>
 <context>
     <name>PDF_Opts</name>
-    <message>
-        <source>Create PDF File</source>
-        <translation type="obsolete">Crear un PDF</translation>
-    </message>
     <message>
         <source>O&amp;utput to File:</source>
         <translation>So&amp;rtida a Fitxer:</translation>
@@ -8129,20 +7795,8 @@ mai tornarà a preguntar de nou</translation>
         <translation>&amp;Resolució:</translation>
     </message>
     <message>
-        <source>Image Settings</source>
-        <translation>Paràmetres d&apos;Imatge</translation>
-    </message>
-    <message>
         <source>Automatic</source>
         <translation>Automàtic</translation>
-    </message>
-    <message>
-        <source>JPEG</source>
-        <translation>JPEG</translation>
-    </message>
-    <message>
-        <source>Zip</source>
-        <translation>Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -8509,33 +8163,10 @@ mai tornarà a preguntar de nou</translation>
         <translation>Exporta rang de pàgines a PDF</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Insereix una llista de tokens separats per coma
-un token pot ser * per totes, 1-5 per
-un rang de pàgines o un número sol.
-</translation>
-    </message>
-    <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">Determina la compatibilitat PDF. Per defecte es fa Acrobat 4.0 que dóna la màxima compatibilitat.
-Tria Acrobat 5.0 si el teu fitxer té característiques PDF 1.4 com transparència o necessites encriptació de 128 bits.
-PDF/X-3 és per exportar el PDF a impressors comercials i es pot triar si actives la gestió de color.</translation>
-    </message>
-    <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
         <translation>Determina el &quot;binding&quot; de les pàgines en el PDF. A menys que sàpigues
 que necessites canviar-lo deixa el valor per defecte - Esquerra.</translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation>Genera miniatures de cada pàgina en el PDF.
-Alguns visors poden fer servir les miniatures per navegar.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
@@ -8552,34 +8183,6 @@ Això és útil per navegar per PDFs que són grans.</translation>
 This does not affect the resolution of bitmap images like photos.</source>
         <translation>Redueix la resolució del text i els gràfics vectorials.
 Això no afecta la resolució de les imatges bitmap com les fotos.</translation>
-    </message>
-    <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Compressió del text i dels gràfics.
-A menys que tinguis alguna raó, deixa això clicat. Redueix la mida del PDF.</translation>
-    </message>
-    <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Versió de compressió per imatges.
-Atomàtic permet a Scribus triar el millor mètode.
-ZIP és bo per imatges amb colors sòlids.
-JPEG és millor per crear PDF petits que tenen moltes fotos (amb la mínima pèrdua possible).
-Deixa-ho en automàtic, a menys que tinguis una necessitat de compressió especial.</translation>
-    </message>
-    <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Nivells de Compressió: Mínima (25%), Baixa (50%), Mitjana (75%), Alta (85%), Màxima (95%)</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Redueix la qualitat de les imatges bitmap a la triada.
-Deixar això sense marcar ho deixa a la resolució que tinguin.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
@@ -8662,12 +8265,6 @@ característiques de seguretat del PDF generat</translation>
 If un-checked, text and graphics cannot be copied.</source>
         <translation>Permet copiar text o gràfics del PDF.
 Si no està marcat, no es pot copiar text ni gràfics.</translation>
-    </message>
-    <message>
-        <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="obsolete">Permet afegir anotacions i camps al PDF.
-Si no està marcat, la edició d&apos;anotacions i camps no es permet.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF.
@@ -8820,20 +8417,40 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
 A menys que tinguis una bona raó, deixà això marcat. Redueix la mida dels PDF.</translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation>Mètode de compressió per fer servir en imatges. Automàtic permet a l&apos;Scribus triar el millor. ZIP és sense pèrdua de qualitat i bo per imatges amb colors sòlids. JPEG és millor quan es creen PDF petits que tenen moltes fotos (amb una lleugera pèrdua de qualitat). Deixa&apos;l marcat com Automàtic, a menys que tinguis una especial necessitat de compressió.</translation>
-    </message>
-    <message>
-        <source>Re-sample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.
-This can increase memory usage and slow down export.</source>
-        <translation>Converteix les imatges bitmap a la resolució seleccionada.
-Deixar això desmarcat les deixarà a la seva resolució nativa.
-Això pot incrementar l&apos;ús de memòria i ralentir la exportació.</translation>
-    </message>
-    <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation>Determina la compatibilitat del PDF. Per defecte Acrobat 4.0 és el que dóna la millor compatibilitat. Tria Acrobat 5.0 si el PDF tindrà característiques com transparència o necessita encriptació de 128 bits. PDF/X-3 és per exportar el PDF quan es vol color gestionat RGB per impressió comercial i es pot triar quan s&apos;hagi activat la gestió del color. Nota: PDF/X-3 convertirà totes les imatges CMYK a imatges RGB basades en ICC. Fes-ho servir només quan t&apos;ho hagi demanat el teu impressor o en alguns casos imprimint en una impressora laser digital de 4 colors.</translation>
+    </message>
+    <message>
+        <source>Image Compression Methods</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JPEG - Lossy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zip - Lossless</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8885,12 +8502,6 @@ of a slight slowdown in previewing. This only affects Type 1 fonts</source>
 d&apos;un petit ralentiment de la previsualització. Només afecta les fonts Type 1</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="obsolete">Dóna un punt de vista més agradabe de fonts True Type, Open Type, EPS, PDF i 
-gràfics vectorials en la previsualització, a canvi d&apos;un petit ralentiment</translation>
-    </message>
-    <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation>Mostra transparències i ítems transparents en el document. Requereix Ghostcript 7.07 o posterior</translation>
     </message>
@@ -8913,20 +8524,6 @@ gràfics vectorials en la previsualització, a canvi d&apos;un petit ralentiment
     <message>
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>Activa/desactiva la placa de tinta K(Negre)</translation>
-    </message>
-    <message>
-        <source>A way of switching some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">Una forma de canviar algunes de les ombres grises que estan compostes
-de cian, groc i magenta i al seu lloc fer servir negre.
-UCR pot afectar parts d&apos;imatges que són neutrals i/o amb tons foscos
-que estan propers al gris. Fes servir això millora la impressió d&apos;algunes imatges
-però cal alguna experimentació en cada un dels casos.
-UCR redueix la possibilitat de sobresaturació amb tintes CMY.</translation>
     </message>
     <message>
         <source>All</source>
@@ -9238,10 +8835,6 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
     <message>
         <source>is missing!</source>
         <translation>està perdut!</translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="obsolete">Còpia de</translation>
     </message>
 </context>
 <context>
@@ -9900,10 +9493,6 @@ i un valor positiu el farà convex</translation>
         <translation>Per ajustar la pantalla arrossega el desplaçador pel regle.</translation>
     </message>
     <message>
-        <source>Postscript Interpreter</source>
-        <translation type="obsolete">Interpret Postscript</translation>
-    </message>
-    <message>
         <source>&amp;Name of Executable:</source>
         <translation>&amp;Nom de l&apos;Executable:</translation>
     </message>
@@ -9972,10 +9561,6 @@ Scribus hereta qualsevol tema de KDE disponible</translation>
     <message>
         <source>Default documents directory</source>
         <translation>Directori de documents per defecte</translation>
-    </message>
-    <message>
-        <source>Default ICC profiles directory</source>
-        <translation type="obsolete">Directori de perfils ICC per defecte</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
@@ -10070,14 +9655,6 @@ cada vegada que passa el període de temps</translation>
     <message>
         <source>Place the grid in front of your page objects</source>
         <translation>Col.loca la reixa davant dels objectes</translation>
-    </message>
-    <message>
-        <source>Turns on the basegrid</source>
-        <translation type="obsolete">Activa la reixa base</translation>
-    </message>
-    <message>
-        <source>Turns off the basegrid</source>
-        <translation type="obsolete">Desactiva la reixa base</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
@@ -10286,10 +9863,6 @@ i un valor positiu el farà convex</translation>
         <translation>Estableix el nivell de zoom</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Localització de l&apos;interpret de Ghostcript</translation>
-    </message>
-    <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation>Text antialies per representació EPS i PDF en pantalla</translation>
     </message>
@@ -10298,26 +9871,8 @@ i un valor positiu el farà convex</translation>
         <translation>Gràfics antialies per representació EPS i PDF en pantalla</translation>
     </message>
     <message>
-        <source>Filesystem location for graphics editor</source>
-        <translation type="obsolete">Localització de l&apos;editor de gràfics</translation>
-    </message>
-    <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
         <translation>No mostrar els objectes que quedin fora dels marges a l&apos;imprimir o exportar</translation>
-    </message>
-    <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Una forma d&apos;apagar algunes de les intensitats de grisos que estan composades
-per cian, groc i magenta però fan servir negre.
-UCR pot afectar parts de imatges que són de color neutral o tons foscos
-propers a gris. Fes servir això pot millorar la impressió d&apos;algunes imatges 
-però cal algunes proves i experimentació per cada cas
-UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -10382,10 +9937,6 @@ canviar pels documents oberts.</translation>
         <translation>Desactiva la reixa base</translation>
     </message>
     <message>
-        <source>File system location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Localització del interpret de Ghostcript</translation>
-    </message>
-    <message>
         <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
@@ -10402,6 +9953,10 @@ que ja estigui engegada.</translation>
     <message>
         <source>File system location for the GhostScript interpreter</source>
         <translation>Localització de l&apos;interpret GhostScript</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10829,10 +10384,6 @@ Comprova el nom i el camí.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <source>Oook! Wrong arguments! Call: </source>
-        <translation type="obsolete">Ostres! Arguments errònis! Crida:</translation>
-    </message>
-    <message>
         <source>Importing text</source>
         <translation>Important text</translation>
     </message>
@@ -11039,60 +10590,12 @@ Comprova el nom i el camí.</translation>
         <translation>Desa com &amp;Plantilla...</translation>
     </message>
     <message>
-        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation type="obsolete">Ostres! Intentes carregar una imatge a un objecte que no existeix o no està triat!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Ostres! Intentes (des)bloquejar un objecte que no existeix! Ni seleccionat.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Ostres! Intentes preguntar a un objecte que no existeix! Ni seleccionat.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Ostres! Crides un objecte que no existeix!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Ostres! Vols esborrar un objecte que no existeix!</translation>
-    </message>
-    <message>
-        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation type="obsolete">Ostres! Vols passar text a un objecte que no existeix!</translation>
-    </message>
-    <message>
         <source>S&amp;cripter Manual...</source>
         <translation>Manual de Seqüèn&amp;cies...</translation>
     </message>
     <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation type="obsolete">Seqüències &amp;Scribus</translation>
-    </message>
-    <message>
-        <source>&amp;Execute Script...</source>
-        <translation type="obsolete">&amp;Executa Seqüència...</translation>
-    </message>
-    <message>
-        <source>&amp;Recent Scripts</source>
-        <translation type="obsolete">Seqüències &amp;Recents</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Mostra &amp;Cònsola</translation>
-    </message>
-    <message>
-        <source>S&amp;cript</source>
-        <translation type="obsolete">Seqüèn&amp;cia</translation>
-    </message>
-    <message>
         <source>Online Reference</source>
         <translation>Referència en Línia</translation>
-    </message>
-    <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="obsolete">Seqüències Python (*.py);;Tots els fitxers (*)</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -11142,10 +10645,6 @@ External Links
 Enllaços Externs
 
 </translation>
-    </message>
-    <message>
-        <source>OO.o Writer Documents</source>
-        <translation type="obsolete">Documents OO.o Writer</translation>
     </message>
     <message>
         <source>Text Files</source>
@@ -11296,14 +10795,6 @@ Enllaços Externs
         <translation>Triat per marcar el progrés &gt; Màxim progrés</translation>
     </message>
     <message>
-        <source>&amp;About Script...</source>
-        <translation type="obsolete">Quant &amp;a Sequència...</translation>
-    </message>
-    <message>
-        <source>About Script</source>
-        <translation type="obsolete">Quant a Sequència</translation>
-    </message>
-    <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
         <translation>No puc obtenir la mida de font si no és un quadre de text.</translation>
@@ -11349,144 +10840,14 @@ Enllaços Externs
         <translation>No puc inserir el text si no és un quadre de text.</translation>
     </message>
     <message>
-        <source>Insert index out of bounds</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Índex fora d&apos;ordre</translation>
-    </message>
-    <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
         <translation>Alineament fora de rang. Feu servir les constants d&apos;Scribus ALIGN* .</translation>
     </message>
     <message>
-        <source>Can&apos;t set text alignment on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No puc posar alineació de text si no és un quadre de text</translation>
-    </message>
-    <message>
-        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Mida de font errònia - ha de ser 1&lt;= mida &lt;= 512</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set font size on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No puc posar mida de font si no és un quadre de text</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set font on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No puc tipus de font si no és un quadre de text</translation>
-    </message>
-    <message>
-        <source>Font not found</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Font no trobada</translation>
-    </message>
-    <message>
-        <source>Line space out of bounds, must be &gt;= 0.1</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Espaiat de línia erroni, ha de ser &gt;=0.1</translation>
-    </message>
-    <message>
-        <source>Can&apos;t line spacing on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No puc posar espaiat de línia si no és un quadre de text</translation>
-    </message>
-    <message>
-        <source>Column gap out of bounds, must be positive</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Espai entre columnes fora de marge, ha de ser positiu</translation>
-    </message>
-    <message>
-        <source>Can&apos;t column gap on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No puc posar espai entre columnes si no és un quadre de text</translation>
-    </message>
-    <message>
-        <source>Column count out of bounds, must be &gt; 1</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Número de columnes erroni, ha de ser &gt;1</translation>
-    </message>
-    <message>
-        <source>Can&apos;t number of columns on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No puc numerar columnes si no és un quadre de text</translation>
-    </message>
-    <message>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
         <translation>Índex de selecció fora de marge</translation>
-    </message>
-    <message>
-        <source>Can&apos;t select text in a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No puc seleccionar text si no és un quadre de text</translation>
-    </message>
-    <message>
-        <source>Can&apos;t delete text from a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No puc esborrar text si no és un quadre de text</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text fill on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No puc emplenar el text amb color si no és un quadre de text</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text stroke on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No puc posar separació de text si no és un quadre de text</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text shade on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No puc posar intensitat de text si no és un quadre de text</translation>
-    </message>
-    <message>
-        <source>Can only link text frames</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Només s&apos;enllacen els quadres de text</translation>
-    </message>
-    <message>
-        <source>Target frame must be empty</source>
-        <comment>python error</comment>
-        <translation type="obsolete">El quadre destí ha d&apos;estar buit</translation>
-    </message>
-    <message>
-        <source>Target frame links to another frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">El quadre de destí ja enllaça a un altre</translation>
-    </message>
-    <message>
-        <source>Target frame is linked to by another frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">El quadre de destí està enllaçat a un altre</translation>
-    </message>
-    <message>
-        <source>Source and target are the same object</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Origent i destí són el mateix objecte</translation>
-    </message>
-    <message>
-        <source>Can&apos;t unlink a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No put desenllaçar si no és un quadre de text</translation>
-    </message>
-    <message>
-        <source>Object is not a linked text frame, can&apos;t unlink.</source>
-        <comment>python error</comment>
-        <translation type="obsolete">L&apos;objecte no és un quadre de text, no es desenllaça.</translation>
-    </message>
-    <message>
-        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
-        <comment>python error</comment>
-        <translation type="obsolete">L&apos;Objecte és el darrer d&apos;una sèrie. No puc desenllaçar-lo. Desenllaça l&apos;anterior.</translation>
-    </message>
-    <message>
-        <source>Can&apos;t convert a non-text frame to outlines</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No puc convertir a esquemes si no és un quadre de text</translation>
     </message>
     <message>
         <source>Failed to open document</source>
@@ -11507,41 +10868,6 @@ Enllaços Externs
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
         <translation>El destí no és una imatge.</translation>
-    </message>
-    <message>
-        <source>Can&apos;t scale by 0%</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No es pot escalar un 0%</translation>
-    </message>
-    <message>
-        <source>Can&apos;t render an empty sample</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No es pot representar si és buit</translation>
-    </message>
-    <message>
-        <source>Can&apos;t save to a blank filename</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No es pot guardar sense nom</translation>
-    </message>
-    <message>
-        <source>Can&apos;t have an empty layer name</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No se pot tenir capes sense nom</translation>
-    </message>
-    <message>
-        <source>Layer not found</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Capa no trobada</translation>
-    </message>
-    <message>
-        <source>Can&apos;t remove the last layer</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No es pot esborrar la última capa</translation>
-    </message>
-    <message>
-        <source>Can&apos;t create layer without a name</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No es pot crear una capa sense nom</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
@@ -11647,16 +10973,6 @@ Enllaços Externs
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
         <translation>No es pot canviar un color sense nom.</translation>
-    </message>
-    <message>
-        <source>Color not found in document</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Color no trobat en el document</translation>
-    </message>
-    <message>
-        <source>Color not found in default colors</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Color no trobat en els colors per defecte</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
@@ -11773,10 +11089,6 @@ la documentació de la funció.
         <translation>Africaner</translation>
     </message>
     <message>
-        <source>Portugese (Brazilian)</source>
-        <translation type="obsolete">Portuguès (Brasil.ler)</translation>
-    </message>
-    <message>
         <source>Turkish</source>
         <translation>Turc</translation>
     </message>
@@ -11847,11 +11159,6 @@ la documentació de la funció.
         <source>Cannot render an empty sample.</source>
         <comment>python error</comment>
         <translation>No puc representar un exemple buit.</translation>
-    </message>
-    <message>
-        <source>Cannot save to a blank filename.</source>
-        <comment>python error</comment>
-        <translation type="obsolete">No ho puc desar si no té nom.</translation>
     </message>
     <message>
         <source>Cannot have an empty layer name.</source>
@@ -12052,6 +11359,26 @@ la documentació de la funció.
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
         <translation>Només es pot comprovar el sobreeiximent en marcs de text</translation>
+    </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12396,16 +11723,8 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation>Paràmetres de Caràcter</translation>
     </message>
     <message>
-        <source>Kerning:</source>
-        <translation type="obsolete">Interlletratge:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>pt</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Interlletratge Manual</translation>
     </message>
     <message>
         <source>Tracking:</source>
@@ -12414,6 +11733,41 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>Manual Tracking</source>
         <translation>Interlletrat Manual</translation>
+    </message>
+</context>
+<context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">Dreta</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Esquerra</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished">Horitzontal</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished">Vertical</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12466,10 +11820,6 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation>Buscant les Fonts</translation>
     </message>
     <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">No hi ha Postscript Fonts en el teu Sistema</translation>
-    </message>
-    <message>
         <source>Exiting now</source>
         <translation>Sortint ara</translation>
     </message>
@@ -12504,10 +11854,6 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>Show Layers</source>
         <translation>Mostra Capes</translation>
-    </message>
-    <message>
-        <source>Javascripts...</source>
-        <translation type="obsolete">Javascripts...</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -12744,10 +12090,6 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>Templates...</source>
         <translation>Plantilles...</translation>
-    </message>
-    <message>
-        <source>&amp;Javascripts...</source>
-        <translation type="obsolete">&amp;Javascripts...</translation>
     </message>
     <message>
         <source>Select New Font</source>
@@ -13432,16 +12774,8 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation>No s&apos;han trobat els següents programes:</translation>
     </message>
     <message>
-        <source>Ghostscript : You cannot use EPS Images</source>
-        <translation type="obsolete">Ghostscript: No pots fer servir imatges EPS</translation>
-    </message>
-    <message>
         <source>All</source>
         <translation>Tot</translation>
-    </message>
-    <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Fitxers EPS (*.eps);;Tots els Fitxers (*)</translation>
     </message>
     <message>
         <source>pt</source>
@@ -13650,6 +12984,10 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>Norwegian</source>
         <translation>Noruec</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13932,14 +13270,6 @@ Només les seqüències escrites per ser executades com extensions es poden fer 
     <message>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Activa els noms de funció a l&apos;estil antic&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
-&lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
-&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Activa Àlies de Noms&lt;/tt&gt; és una opció avançada. Normalment s&apos;hauría de deixar tal com està.&lt;/p&gt;
-&lt;p&gt;Si està marcat, aquesta opció provocarà que el sequenciador crei una gran quantitat de àlies de funcions i constants per compatibilitat amb les versions 1.2.0. Per defecte està activat.&lt;/p&gt;
-&lt;p&gt;Aquesta opció no pren efecte fins que es reinicii Scribus.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use Fake Stdin</source>
@@ -14430,14 +13760,6 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <translation>Vols desar els canvis?</translation>
     </message>
     <message>
-        <source>&amp;Insert Special</source>
-        <translation type="obsolete">&amp;Inserir Especial</translation>
-    </message>
-    <message>
-        <source>&amp;Fonts Preview</source>
-        <translation type="obsolete">Vista Prèvia de &amp;Fonts</translation>
-    </message>
-    <message>
         <source>Do you really want to lose all your Changes?</source>
         <translation>Realment vols perdre els teus Canvis?</translation>
     </message>
@@ -14492,14 +13814,6 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
 <context>
     <name>SxwDialog</name>
     <message>
-        <source>OO.o Writer Importer Options</source>
-        <translation type="obsolete">Opcions d&apos;Importació OO.o Writer</translation>
-    </message>
-    <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Actualitza estils de paràgraf</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Fes servir el nom de document com estil de paràgraf</translation>
     </message>
@@ -14508,56 +13822,12 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <translation>No ho tornis a preguntar</translation>
     </message>
     <message>
-        <source>Should the importer always use currently
-set value when importing OO.o document and
-never ask your confirmation again</source>
-        <translation type="obsolete">L&apos;importador sempre farà servir el seus 
-conjunt de valors al importar d&apos;OO.o i 
-mai tornarà a demanar confirmació</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>D&apos;acord</translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">L&apos;importador ha d&apos;afegir el nom del document
-davant de l&apos;estil de paràgraf de l&apos;Scribus</translation>
-    </message>
-    <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Si un estil de paràgraf ja existeix amb el mateix nom de l&apos;actual
-paràgraf del document OpenOffice.org, s&apos;ha d&apos;editar l&apos;estil per deixar-lo
-com el nou, o deixar-lo igual </translation>
-    </message>
-    <message>
         <source>OpenOffice.org Writer Importer Options</source>
         <translation>Opcions de l&apos;Importador d&apos;OpenOffice.org Writer</translation>
-    </message>
-    <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
-        <translation type="obsolete">L&apos;importador sempre fa servir el conjunt de 
-valors actual al importar documents OpenOffice.org i 
-mai tornarà a preguntar de nou</translation>
-    </message>
-    <message>
-        <source>Pack paragraph styles</source>
-        <translation type="obsolete">Empaqueta estils de paràgraf</translation>
-    </message>
-    <message>
-        <source>Group paragraph styles by attributes.
-Less paragraph styles but controlling them may be hard.
-Should be used if it is known that text must not be edited
-after importing.</source>
-        <translation type="obsolete">Agrupa els estils de paràgraf pels seus atributs.
-Hi haurà menys estils però controlar-los pot ser mes dur.
-S&apos;hauria de fer servir quan se sap que el text no s&apos;editarà
-després d&apos;importar-lo.</translation>
     </message>
     <message>
         <source>Update Paragraph Styles</source>
@@ -14632,10 +13902,6 @@ després d&apos;importar-lo.</translation>
     <message>
         <source>First &amp;Line:</source>
         <translation>Primera &amp;Línia:</translation>
-    </message>
-    <message>
-        <source>Ind&amp;ent:</source>
-        <translation type="obsolete">&amp;Sangrat:</translation>
     </message>
     <message>
         <source>Delete All</source>
@@ -15033,10 +14299,6 @@ si el botó està marcat.</translation>
     <message>
         <source>Automatic</source>
         <translation>Automàtic</translation>
-    </message>
-    <message>
-        <source>Get text only</source>
-        <translation type="obsolete">Obtenir només text</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>

@@ -1536,14 +1536,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 <context>
     <name>About</name>
     <message>
-        <source>About Scribus%1%2</source>
-        <translation type="obsolete">Ynglyn â Scribus%1%2</translation>
-    </message>
-    <message>
-        <source>%1. %2 %3 </source>
-        <translation type="obsolete">%1. %2 %3 </translation>
-    </message>
-    <message>
         <source>Scribus Version %1
 %2 %3</source>
         <translation>Scribus Fersiwn %1(new line)
@@ -1640,16 +1632,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>Basque:</source>
         <translation>Basg:</translation>
-    </message>
-    <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation type="obsolete">Mae&apos;r panel yma yn dangos y fersiwn, dyddiad adeiladu a&apos;r
-gynhaliaeth rhaglengelloedd a ymgrynhowyd yn Scribus.
-Mae&apos;r C-C-T yn golygu cynhaliaeth CUPS - littlecms - TIFF.
-Dynodir cynhaliaeth raglengelloedd sydd ar goll gan *</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -1756,6 +1738,10 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Portuguese (Brazilian):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2224,10 +2210,6 @@ Not recommended unless
         <translation>Dewisiadau</translation>
     </message>
     <message>
-        <source>Java Script</source>
-        <translation type="obsolete">Sgript Java</translation>
-    </message>
-    <message>
         <source>Go To</source>
         <translation>Ewch I</translation>
     </message>
@@ -2482,10 +2464,6 @@ Not recommended unless
     <message>
         <source>Open</source>
         <translation>Agor</translation>
-    </message>
-    <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Delweddau (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Pob Ffeil (*)</translation>
     </message>
     <message>
         <source>Example:</source>
@@ -3346,14 +3324,6 @@ This can be set in the Preferences.</source>
         <translation>Amnewid efo:</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">Iawn</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Diddymu</translation>
-    </message>
-    <message>
         <source>Delete color:</source>
         <translation>Dileu lliw:</translation>
     </message>
@@ -3414,6 +3384,18 @@ This can be set in the Preferences.</source>
     <message>
         <source>OK</source>
         <translation>Iawn</translation>
+    </message>
+</context>
+<context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3592,10 +3574,6 @@ efo ôl-ddodiad dewisol o gysylltnod a côd gwlad ISO-3166, e.e. en-GB, fr-CH</t
     <message>
         <source>Save as</source>
         <translation>Cadw fel</translation>
-    </message>
-    <message>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation type="obsolete">Ffeiliau Postscript (*.ps);;Pob Ffeil (*)</translation>
     </message>
     <message>
         <source>Cyan</source>
@@ -4031,10 +4009,6 @@ be saved in its current form. The error was:
         <translation>Golygydd</translation>
     </message>
     <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation type="obsolete">Javascriptiau (*.js);;Pob Ffeil (*)</translation>
-    </message>
-    <message>
         <source>&amp;New</source>
         <translation>&amp;Newydd</translation>
     </message>
@@ -4381,10 +4355,6 @@ Defnyddiwch 72 dpi ar gyfer Delweddau a fwriedir i&apos;r Sgrin</translation>
     <message>
         <source>Additional Paths</source>
         <translation>Llwybrau Ychwanegol</translation>
-    </message>
-    <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -5458,29 +5428,6 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
 </context>
 <context>
-    <name>MenuTest</name>
-    <message>
-        <source>Script error</source>
-        <translation type="obsolete">Gwall Sgript</translation>
-    </message>
-    <message>
-        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="obsolete">Os ydych yn rhedeg sgript swyddogol, rhowch adrodd wrth &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">&amp;Dangos Terfynell</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Console</source>
-        <translation type="obsolete">&amp;Cuddio Terfynell</translation>
-    </message>
-    <message>
-        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="obsolete">Mae&apos;r neges yma ar eich gludfwrdd hefyd.  Defnyddiwch CTRL+V i&apos;w gludo i mewn i&apos;r dilynnydd namau.</translation>
-    </message>
-</context>
-<context>
     <name>MergeDoc</name>
     <message>
         <source>Change...</source>
@@ -5715,10 +5662,6 @@ amrediad tudalennau, neu rhif tudalen unigol.</translation>
     <message>
         <source>Line Spacing</source>
         <translation>Bylchu Llinellau</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Gorgyffyrddiad â Llaw</translation>
     </message>
     <message>
         <source>None</source>
@@ -6113,10 +6056,6 @@ Co&amp;rneli:</translation>
         <translation>Maint yr &amp;Wynebfath:</translation>
     </message>
     <message>
-        <source>&amp;Kerning:</source>
-        <translation type="obsolete">&amp;Gorgyffyrddiad:</translation>
-    </message>
-    <message>
         <source>L&amp;ine Spacing:</source>
         <translation>&amp;Bylchu Llinellau:</translation>
     </message>
@@ -6362,6 +6301,10 @@ Please choose another.</source>
     </message>
     <message>
         <source>Do you really want to delete this Template?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Template %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6981,20 +6924,8 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
         <translation>Cadw fel</translation>
     </message>
     <message>
-        <source>Image Settings</source>
-        <translation>Gosodiadau Delwedd</translation>
-    </message>
-    <message>
         <source>Automatic</source>
         <translation>Ymysgogol</translation>
-    </message>
-    <message>
-        <source>JPEG</source>
-        <translation>JPEG</translation>
-    </message>
-    <message>
-        <source>Zip</source>
-        <translation>Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -7053,24 +6984,10 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
         <translation>Allforio amrediad o dudalennau i PDF</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">Penodi&apos;r cytunedd PDF.  Y rhagososiad yw Acrobat 4.0, sy&apos;n rhoi&apos;r cytunedd lletaf.  Dewiswch Acrobat 
-5.0 os oes gan eich ffeil nodweddion PDF 1.4 fel tryloywder, neu os oes angen cêl-ysgrifaeth 128-did.
-Mae PDF/X-3 ar gyfer allforio&apos;r PDF ar gyfer argraffu masnachol, a gellir ei ddewis os weithredir rheoli lliwiau.</translation>
-    </message>
-    <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
         <translation>Penodi rhwymo&apos;r tudalennau yn y PDF.  Onibai i chi wybod
 bod angen ei newid, gadewch y dewisiad rhagosod - Chwith.</translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation>Creu rhagolygon cryno o bob tudalen yn y PDF.
-Gall rhai gwelyddion ddefnyddio&apos;r rhagolygon cryno i lywio.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
@@ -7087,34 +7004,6 @@ Maent o ddefnydd ar gyfer llywio drwy ddogfennau PDF hir.</translation>
 This does not affect the resolution of bitmap images like photos.</source>
         <translation>Allforio cydraniad o destun a graffeg fector.
 Nid yw hyn yn effeithio ar gydraniad delweddau didfap fel ffotos.</translation>
-    </message>
-    <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Cywasgiad testun a graffeg.
-Onibai i chi fod efo rheswm da, gadewch hwn wedi&apos;i fritho.  Mae&apos;n lleihau maint y PDF.</translation>
-    </message>
-    <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Fersiwn cywasgiad ar gyfer delweddau.
-Mae Ymysgogol yn gadael i Scribus ddewis y dull gorau.
-Mae XIP yn dda ar gyfer delweddau efo lliwiau solet.
-Mae JPEG yn well wrth greu ffeiliau PDF llai sydd efo llawer o ffotos (mae tipyn o golled ddelwedd yn bosibl).
-Gadewch y gosodiad wrth Ymysgogol, onibai bod angen dewisiadau cywasgu arbennig.</translation>
-    </message>
-    <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Lefelau cywasgiad: Lleiaf (25%), Isel (50%), Canolig (75%), Uchel (85%), Uchaf (95%)</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Lawrsamplu eich delweddau didfap i&apos;r DPI penodol.
-Bydd gadael hwn heb ei fritho yn eu llunio wrth eu cydraniad gwreiddiol.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
@@ -7260,16 +7149,6 @@ cydymffurfiad PDF/X-3.  Argymhellir defnyddio teitl y ddogfen.</translation>
 If un-checked, text and graphics cannot be copied.</source>
         <translation>Caniatáu copïo testun a graffeg i&apos;r PDF.
 Os na frithir, atelir copïo testun a graffeg.</translation>
-    </message>
-    <message>
-        <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="obsolete">Caniatáu ychwanegu anodiadau a meyseydd i&apos;r PDF.
-Os na frithir, atelir golygu anodiadau a ffeiliau.</translation>
-    </message>
-    <message>
-        <source>Create PDF File</source>
-        <translation type="obsolete">Creu Ffeil PDF</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
@@ -7468,14 +7347,6 @@ Os na frithir, atelir golygu anodiadau a ffeiliau.</translation>
         <translation>&amp;Diddymu</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Mewnosod rhestr wedi&apos;i gwahanu gan atalnodau o docynnau, lle
-gall tocyn fod yn * ar gyfer pob tudalen, 1-5 ar gyfer
-amrediad tudalennau, neu rhif tudalen unigol.</translation>
-    </message>
-    <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>Ffeiliau-PDF (*.pdf);;Pob Ffeil (*)</translation>
     </message>
@@ -7559,17 +7430,39 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Re-sample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.
-This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Compression Methods</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JPEG - Lossy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zip - Lossless</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7588,12 +7481,6 @@ This can increase memory usage and slow down export.</source>
 of a slight slowdown in previewing. This only affects Type 1 fonts</source>
         <translation>Rhoi golwg ddeliach o eitemau testun yn y gwelydd, ar draul
 arafu&apos;r rhagolygu rywfaint.  Mae hyn yn effeithio ar wynebfathau Type 1 yn unig</translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="obsolete">Rhoi golwg ddeliach o wynebfathau True Type ac Open Type, EPS, PDF a 
-graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translation>
     </message>
     <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
@@ -7654,20 +7541,6 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     <message>
         <source>&amp;Under Color Removal</source>
         <translation>Gwaredu &amp;Dan-liw</translation>
-    </message>
-    <message>
-        <source>A way of switching some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">Ffordd o atal rhai o&apos;r arlliwiau llwyd a gyfansoddir o wyrddlas, melyn 
-a magenta, a defnyddio du yn eu lle.  Mae UCR efo&apos;r effaith mwyaf ar 
-ddarnau delweddau sy&apos;n amhendant a/neu sy&apos;n cynnwys graddliwiau tywyll
-sy&apos;n agosaf i&apos;r llwyd.  Gall defnyddio hyn wella argraffu ar rai delweddau,
-ond mae angen tipyn o brofi ac arbrofi yn ôl y galw.  Mae UCR yn lleihau&apos;r 
-bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -7766,10 +7639,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>Warning</source>
         <translation>Rhybudd</translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="obsolete">Copi o</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
@@ -8339,10 +8208,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation>Grid Gwaelodlin</translation>
     </message>
     <message>
-        <source>Postscript Interpreter</source>
-        <translation type="obsolete">Dehonglydd Postscript</translation>
-    </message>
-    <message>
         <source>Image Processing Tool</source>
         <translation>Erfyn Prosesu Delwedd</translation>
     </message>
@@ -8379,10 +8244,6 @@ Mae Scribus yn etifeddu unrhyw themau KDE neu Qt sydd ar gael</translation>
     <message>
         <source>Default documents directory</source>
         <translation>Cyfeiriadur rhagosod dogfenni</translation>
-    </message>
-    <message>
-        <source>Default ICC profiles directory</source>
-        <translation type="obsolete">Cyfeiriad rhagosod proffilau ICC</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
@@ -8473,14 +8334,6 @@ bob tro mae&apos;r cyfnod yn gorffen</translation>
     <message>
         <source>Place the grid in front of your page objects</source>
         <translation>Gosod y grid o flaen eich gwrthrychau tudalen</translation>
-    </message>
-    <message>
-        <source>Turns on the basegrid</source>
-        <translation type="obsolete">Dangos y grid gwaelod</translation>
-    </message>
-    <message>
-        <source>Turns off the basegrid</source>
-        <translation type="obsolete">Cuddio&apos;r grid gwaelod</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
@@ -8679,20 +8532,12 @@ bob tro mae&apos;r cyfnod yn gorffen</translation>
         <translation>Gosod y lefel chwyddo rhagosodiadol</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Lleoliad y dehonglydd Ghostscript yn y cysawd ffeiliau</translation>
-    </message>
-    <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation>Gwrthamgenu testun ar gyfer llunio ar-sgrin EPS a PDF</translation>
     </message>
     <message>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
         <translation>Gwrthamgenu graffeg ar gyfer llunio ar-sgrin EPS a PDF</translation>
-    </message>
-    <message>
-        <source>Filesystem location for graphics editor</source>
-        <translation type="obsolete">Lleoliad y golygydd graffegau yn y cysawd ffeiliau</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
@@ -9064,20 +8909,6 @@ bob tro mae&apos;r cyfnod yn gorffen</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Ffordd o atal rhai o&apos;r arlliwiau llwyd a gyfansoddir o wyrddlas, melyn 
-a magenta, a defnyddio du yn eu lle.  Mae UCR efo&apos;r effaith mwyaf ar 
-ddarnau delweddau sy&apos;n amhendant a/neu sy&apos;n cynnwys graddliwiau tywyll
-sy&apos;n agosaf i&apos;r llwyd.  Gall defnyddio hyn wella argraffu ar rai delweddau,
-ond mae angen tipyn o brofi ac arbrofi yn ôl y galw.  Mae UCR yn lleihau&apos;r 
-bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
-    </message>
-    <message>
         <source>Executive</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9127,6 +8958,10 @@ instance of gimp.</source>
     </message>
     <message>
         <source>File system location for the GhostScript interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9589,10 +9424,6 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
         <translation>Agor</translation>
     </message>
     <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="obsolete">Sgriptiau Python (*.py);;Pob Ffeil (*)</translation>
-    </message>
-    <message>
         <source>Save as</source>
         <translation>Cadw fel</translation>
     </message>
@@ -9611,22 +9442,6 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
     <message>
         <source>No</source>
         <translation>Nac ydw</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Ew!  Rydych yn galw gwrthrych sy ddim yn bodoli!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Ew!  Rydych yn ceisio dileu gwrthrych sy ddim yn bodoli!</translation>
-    </message>
-    <message>
-        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation type="obsolete">Ew!  Nid yw&apos;r gwrthrych yr ydych yn ceisio llifo i mewn i&apos;r testun yn bodoli!</translation>
-    </message>
-    <message>
-        <source>S&amp;cript</source>
-        <translation type="obsolete">S&amp;gript</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
@@ -9785,44 +9600,12 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
         <translation>Llawlyfr S&amp;griptio...</translation>
     </message>
     <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation type="obsolete">Sgriptiau S&amp;cribus</translation>
-    </message>
-    <message>
-        <source>&amp;Execute Script...</source>
-        <translation type="obsolete">&amp;Gweithredu Sgript...</translation>
-    </message>
-    <message>
-        <source>&amp;Recent Scripts</source>
-        <translation type="obsolete">&amp;Sgriptiau Diweddar</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">&amp;Dangos Terfynell</translation>
-    </message>
-    <message>
         <source>Save Page as &amp;SVG...</source>
         <translation>Cadw Tudalen fel &amp;SVG...</translation>
     </message>
     <message>
         <source>Import &amp;SVG...</source>
         <translation>Mewnforio &amp;SVG...</translation>
-    </message>
-    <message>
-        <source>Oook! Wrong arguments! Call: </source>
-        <translation type="obsolete">Ew!  Ymresymiadau anghywir!  Galwad:</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation type="obsolete">Ew! Rydych yn ceisio llwytho delwedd i mewn i wrthrych sy ddim yn bodoli neu nas dewisir!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Ew! Rydych yn ceisio cloi/dadgloi gwrthrych sy ddim yn bodoli!  Ni ddewisir un chwaith.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Ew! Rydych yn ceisio ymholi gwrthrych sy ddim yn bodoli!  Ni ddewisir un chwaith.</translation>
     </message>
     <message>
         <source>Importing text</source>
@@ -10555,6 +10338,26 @@ function&apos;s documentation.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -10894,16 +10697,8 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
 <context>
     <name>SToolBStyle</name>
     <message>
-        <source>Kerning:</source>
-        <translation type="obsolete">Gorgyffyrddiad:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>pt</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Gorgyffyrddiad â Llaw</translation>
     </message>
     <message>
         <source>Character Settings</source>
@@ -10915,6 +10710,41 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
     </message>
     <message>
         <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">De</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Chwith</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished">Llorweddol</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished">Fertigol</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10938,10 +10768,6 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
     <message>
         <source>Searching for Fonts</source>
         <translation>Chwilio am Wynebfathau</translation>
-    </message>
-    <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">Nid oes wynebfathau PostScript ar eich cysawd</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -10978,10 +10804,6 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
     <message>
         <source>Show Layers</source>
         <translation>Dangos Haenau</translation>
-    </message>
-    <message>
-        <source>Javascripts...</source>
-        <translation type="obsolete">Sgriptiau Java...</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -11398,10 +11220,6 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
         <translation>Popeth</translation>
     </message>
     <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Ffeiliau EPS (*.eps);;Pob Ffeil (*)</translation>
-    </message>
-    <message>
         <source>Loading:</source>
         <translation>Llwytho:</translation>
     </message>
@@ -11742,10 +11560,6 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
         <translation>&amp;Patrymluniau...</translation>
     </message>
     <message>
-        <source>&amp;Javascripts...</source>
-        <translation type="obsolete">Sgriptiau &amp;Java...</translation>
-    </message>
-    <message>
         <source>D&amp;uplicate</source>
         <translation>D&amp;yblygu</translation>
     </message>
@@ -12018,10 +11832,6 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
         <translation>Dangos &amp;Cyfeiryddion</translation>
     </message>
     <message>
-        <source>Ghostscript : You cannot use EPS Images</source>
-        <translation type="obsolete">Ghostscript: Ni allwch ddefnyddio delweddau EPS</translation>
-    </message>
-    <message>
         <source>Import &amp;Page(s)...</source>
         <translation>M&amp;ewnforio Tudalen(nau)...</translation>
     </message>
@@ -12151,6 +11961,10 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
     </message>
     <message>
         <source>Norwegian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12809,10 +12623,6 @@ drag a Template to the Pageview below.</source>
         <translation>Ydych eisiau cadw eich newidiadau?</translation>
     </message>
     <message>
-        <source>&amp;Insert Special</source>
-        <translation type="obsolete">Mewnosod &amp;Arbennig</translation>
-    </message>
-    <message>
         <source>&amp;New</source>
         <translation>&amp;Newydd</translation>
     </message>
@@ -12923,10 +12733,6 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Search/Replace</source>
         <translation>Chwilio/Amnewid</translation>
-    </message>
-    <message>
-        <source>&amp;Fonts Preview</source>
-        <translation type="obsolete">Rhagolwg &amp;Wynebfathau</translation>
     </message>
     <message>
         <source>Clear all Text</source>
@@ -13087,10 +12893,6 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>First &amp;Line:</source>
         <translation>Llinell &amp;Gyntaf:</translation>
-    </message>
-    <message>
-        <source>Ind&amp;ent:</source>
-        <translation type="obsolete">Mewn&amp;oli:</translation>
     </message>
     <message>
         <source>Left Ind&amp;ent:</source>
@@ -13449,10 +13251,6 @@ with checked button too.</source>
     <message>
         <source>Automatic</source>
         <translation>Ymysgogol</translation>
-    </message>
-    <message>
-        <source>Get text only</source>
-        <translation type="obsolete">Nôl y testun yn unig</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>

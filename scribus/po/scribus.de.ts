@@ -25,65 +25,6 @@ Zeigt den Dialog \&quot;Neues Dokument\&quot; an. Damit können Sie ein neues Do
 Gibt den Wert \&quot;true\&quot; zurück, wenn ein neues Dokument erstellt wurde.</translation>
     </message>
     <message>
-        <source>newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumber = is the number of the first page in the document used for
-    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-    numbers if you&apos;re creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</source>
-        <translation type="obsolete">newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-Erzeugt ein neues Dokument, und gibt den Wert \&quot;true \&quot;zurück, wenn das erfolgreich war. Die Parameter haben folgende Bedeutungen:
-
-    size = Ein Zahlenpaar (Breite,Höhe), das die Größe des Dokuments beschreibt. Sie können auch Konstanten verwenden, angegeben durch PAPER_&lt;Papiertyp&gt;, z.B. PAPER_A4 usw.
-
-    margins = Die Werte (links,rechts,oben,unten) geben die Größe der Ränder an
-
-    orientation = entweder PORTRAIT oder LANDSCAPE
-
-    firstPageNumber = die Seitenzahl der ersten Seite des Dokuments. Normalerweise 1 - höhere Zahlen sind sinnvoll, wenn Sie ein Projekt auf mehrere Dateien aufteilen.
-
-    unit: Legt die Maßeinheit für das Dokument fest. Gültige Konstanten sind: UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS und UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-Die Werte für Breite, Höhe und die Ränder müssen in der Einheit angegeben werden, die für das Dokument festgelegt ist. Die Konstanten PAPER_* sind in Punkt angegeben. Falls die Maßeinheit für Ihr Dokument nicht Punkt ist, achten Sie auf diesen Sachverhalt.
-
-Beispiel: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</translation>
-    </message>
-    <message>
         <source>getFillColor([&quot;name&quot;]) -&gt; string
 
 Returns the name of the fill color of the object &quot;name&quot;.
@@ -990,24 +931,6 @@ GIbt genaue Informationen zu einer Schriftart zurück mit den Werten:
 [ (Name in Scribus, Familie, wirklicher Name, Subset (1|0), embed PS (1|0), Fontdatei), (...), ... ]</translation>
     </message>
     <message>
-        <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
-
-Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
-Image is saved into &quot;filename&quot;. Returns true when success.
-
-May raise NotFoundError if the specified font can&apos;t be found.
-May raise ValueError if an empty sample or filename is passed.
-</source>
-        <translation type="obsolete">rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
-
-Erzeugt einen Vorschautext von der Schriftart &quot;name&quot; mit dem Text &quot;sample&quot;
-und der Größe &quot;size&quot;. Das Bild wird unter dem Namen &quot;filename&quot; gespeichert.
-Gibt den Wert True zurück, wenn die Aktion erfolgreich war.
-
-Kann die Schriftart nicht gefunden werden, tritt der Fehler NotFoundError auf.
-Ist &quot;sample&quot; oder &quot;filename&quot; leer, tritt der Fehler ValueError auf.</translation>
-    </message>
-    <message>
         <source>getLayers() -&gt; list
 
 Returns a list with the names of all defined layers.
@@ -1090,42 +1013,6 @@ die Ebene nicht gedruckt wird.
 
 Ist die Ebene nicht vorhanden, tritt der Fehler NotFoundError auf.
 Ist der Name Name ungültig, tritt der Fehler ValueError auf.</translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns wether the Layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Gibt True zurück, wenn die Ebene sichtbar ist und False, wenn die Ebene
-unsichtbar ist. 
-
-Ist die Ebene nicht vorhanden, tritt der Fehler NotFoundError auf.
-Ist der Name der Ebene ungültig, tritt der Fehler ValueError auf.</translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns wether the layer &quot;layer&quot; is printable or not, a value of True means
-that the layer &quot;layer&quot; can be printed, a value of False means that printing
-the layer &quot;layer&quot; is disabled.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Gibt True zurück, wenn die Ebene gedruckt wird und False, wenn die Ebene nicht
-gedruck wird.
-
-Ist die Ebene nicht vorhanden, tritt der Fehler NotFoundError auf.
-Ist der Name der Ebene ungültig, tritt der Fehler ValueError auf.</translation>
     </message>
     <message>
         <source>deleteLayer(&quot;layer&quot;)
@@ -1569,17 +1456,6 @@ Beispiel: [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)] bedeutet, dass
 ein Textrahmen ist  (type 4) und sich auf der ersten Seite befindet...</translation>
     </message>
     <message>
-        <source>getPageMargins()
-
-Returns the page margins as a (left, right, top, bottom) tuple in the current
-units. See UNIT_&lt;type&gt; constants and getPageSize().
-</source>
-        <translation type="obsolete">getPageMargins()
-
-Gibt die Seitenränder als eine Folge von (links, rechts, oben, unten) in der aktuellen
-Maßeinheit zurück. Siehe UNIT-Konstanten und getPageSize().</translation>
-    </message>
-    <message>
         <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
 
 Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot;. &quot;color&quot;
@@ -1831,24 +1707,6 @@ Lesen Sie in der FAQ nach für weitere Informationen. Ist &quot;name&quot; nicht
 wird der aktuelle Textrahmen verwendet.</translation>
     </message>
     <message>
-        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
-must be UTF encoded (see setText() as reference) The first character has an
-index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
-used.
-
-May throw IndexError for an insertion out of bounds.
-</source>
-        <translation type="obsolete">insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Fügt den Text &quot;text&quot; an der Position &quot;pos&quot; in den Rahmen &quot;name&quot; ein.
-Der Text muss UTF8-kodiert sein (siehe setText() als Beispiel). Das erste Zeichen
-hat den Index 0. Ist &quot;name&quot; nicht angegeben, wird der aktuelle Textrahmen verwendet.
-
-Ist die Einfüge-Position ungültig, wird der Fehler ValueError ausgegeben.</translation>
-    </message>
-    <message>
         <source>setFont(&quot;font&quot;, [&quot;name&quot;])
 
 Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
@@ -1948,24 +1806,6 @@ nicht angegeben, wird der aktuelle Textrahmen verwendet. &quot;align&quot; ist e
 ALIGN_*-Konstanten. Siehe dir(scribus).
 
 Bei einem falschen Argument wird der Fehler ValueError ausgegeben.</translation>
-    </message>
-    <message>
-        <source>selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared.  If &quot;name&quot; is not given the currently
-selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</source>
-        <translation type="obsolete">selectText(start, count, [&quot;name&quot;])
-
-Markiert &quot;count&quot; Zeichen des Textrahmens &quot;name&quot; beginnend mit dem Zeichen &quot;start&quot;. 
-Die Zählung beginnt bei 0. Wenn &quot;count&quot;=0 ist, wird die Markierung gelöscht. Wenn &quot;name&quot;
-nicht angegeben ist, wird der aktuelle Textrahmen verwendet.
-
-Wenn die Werte ungültig sind, wird der Fehler IndexError ausgegeben.</translation>
     </message>
     <message>
         <source>deleteText([&quot;name&quot;])
@@ -2402,10 +2242,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 <context>
     <name>About</name>
     <message>
-        <source>%1. %2 %3 </source>
-        <translation type="obsolete">%1. %2 %3 </translation>
-    </message>
-    <message>
         <source>Scribus Version %1
 %2 %3</source>
         <translation>Scribus-Version %1
@@ -2502,16 +2338,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>Basque:</source>
         <translation>Baskisch:</translation>
-    </message>
-    <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation type="obsolete">Dieser Dialog zeigt die Version, das Kompilierungsdatum und
-die unterstützten Bibliotheken in Scribus an
-Die Zeichen stehen für C=CUPS, C=LittleCMS und T=TIFF.
-Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -2623,6 +2449,10 @@ C-C-T steht dabei für C=littlecms, C=CUPS und T=TIFF.
         <source>Portuguese (Brazilian):</source>
         <translation>Portugiesisch (Brasilien):</translation>
     </message>
+    <message>
+        <source>Japanese:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -2698,15 +2528,6 @@ Ergebnisse erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</transl
     <message>
         <source>Set Media Size</source>
         <translation>Mediengröße festlegen</translation>
-    </message>
-    <message>
-        <source>This enables you to explicitely set,
-the media size of the postscript file.
-Not recommended unless
- requested by your printer.</source>
-        <translation type="obsolete">Diese Option setzt die Mediengröße
-der Postscript-Datei. Aktivieren Sie die Option
-nur, wenn es Ihre Druckerei fordert.</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
@@ -3247,20 +3068,12 @@ nur, wenn es Ihre Druckerei fordert.</translation>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Bilder (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Alle Dateien (*)</translation>
-    </message>
-    <message>
         <source>Example:</source>
         <translation>Beispiel:</translation>
     </message>
     <message>
         <source>Selection Change</source>
         <translation>Auswahl geändert</translation>
-    </message>
-    <message>
-        <source>Java Script</source>
-        <translation type="obsolete">JavaScript</translation>
     </message>
     <message>
         <source>Button</source>
@@ -4293,6 +4106,18 @@ Wird in den Voreinstellungen eingestellt.</translation>
     </message>
 </context>
 <context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DocInfos</name>
     <message>
         <source>Document Information</source>
@@ -4478,10 +4303,6 @@ etwa Urheberrechte, Patente oder Warenzeichen.</translation>
     <message>
         <source>Save as</source>
         <translation>Speichern unter</translation>
-    </message>
-    <message>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation type="obsolete">Postscript-Dateien (*.ps);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Cyan</source>
@@ -4741,10 +4562,6 @@ Fehler:
         <translation>Speichert den Quelltext des Makros in eine Datei. Sie können diese Datei mit dem Befehl &quot;Quelltext laden...&quot; wieder aufrufen.</translation>
     </message>
     <message>
-        <source>Python source files (.py)</source>
-        <translation type="obsolete">Python Quelltext (.py)</translation>
-    </message>
-    <message>
         <source>Save File Dialog</source>
         <translation>Datei speichern</translation>
     </message>
@@ -4925,10 +4742,6 @@ Fehler:
     <message>
         <source>Editor</source>
         <translation>Editor</translation>
-    </message>
-    <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation type="obsolete">Javascripts (*.js);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -5285,10 +5098,6 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     <message>
         <source>Additional Paths</source>
         <translation>Zusätzliche Pfade</translation>
-    </message>
-    <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -6098,19 +5907,6 @@ Die Übersicht in diesem Dialog zeigt Ihnen, welche Makros bereits geladen sind 
         <translation>Beschreibung</translation>
     </message>
     <message>
-        <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Name:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;
-&lt;p&gt;&lt;b&gt;Name:&lt;/b&gt; Name des Makros, wie er auch in der Titelleiste und an anderen Stellen in Scribus erscheint.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Bearbeiten:&lt;/b&gt; Wenn das Makro bearbeitet werden kann, erscheint in dieser Spalte das Wort &quot;Ja&quot;. Makros, die mit dem Befehl register_macro erstellt wurden, können Sie normalerweise nicht bearbeiten.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Kürzel:&lt;/b&gt; Zeigt das Tastenkürzel für dieses Makro an, falls vorhanden. Zum Beispiel bedeutet CTRL-F8, dass Sie genau diese Zeichenfolge drücken müssen, um das Makro in Scribus zu starten.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Beschreibung:&lt;/b&gt; Wenn das Makro einen &quot;docstring&quot; enthält, wird der hier angezeigt. Möglicherweise wird er auch gekürzt, wenn er zu lang für dieses Feld ist. Die volle Beschreibung sehen Sie, wenn Sie &quot;What&apos;s this&quot; auf den entsprechenden Eintrag anwenden.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Rena&amp;me</source>
         <translation>Um&amp;benennen</translation>
     </message>
@@ -6394,29 +6190,6 @@ Die Übersicht in diesem Dialog zeigt Ihnen, welche Makros bereits geladen sind 
     </message>
 </context>
 <context>
-    <name>MenuTest</name>
-    <message>
-        <source>Script error</source>
-        <translation type="obsolete">Fehler bei der Ausführung eines Scripts</translation>
-    </message>
-    <message>
-        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="obsolete">Falls das Script ein offizelles Scribus-Script ist, den Fehler bitte auf &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; melden.</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">&amp;Konsole zeigen</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Console</source>
-        <translation type="obsolete">&amp;Konsole verbergen</translation>
-    </message>
-    <message>
-        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="obsolete">Diese Meldung befindet sich auch in Ihrer Zwischenablage. Benutzen Sie Strg+V, um sie in den Bugtracker zu kopieren.</translation>
-    </message>
-</context>
-<context>
     <name>MergeDoc</name>
     <message>
         <source>Change...</source>
@@ -6651,10 +6424,6 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <source>Line Spacing</source>
         <translation>Zeilenabstand</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Manuelles Kerning</translation>
     </message>
     <message>
         <source>None</source>
@@ -7049,10 +6818,6 @@ ab&amp;runden:</translation>
         <translation>Schrift&amp;größe:</translation>
     </message>
     <message>
-        <source>&amp;Kerning:</source>
-        <translation type="obsolete">&amp;Kerning:</translation>
-    </message>
-    <message>
         <source>L&amp;ine Spacing:</source>
         <translation>Zeilenabstan&amp;d:</translation>
     </message>
@@ -7299,6 +7064,10 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>Do you really want to delete this Template?</source>
         <translation>Wollen Sie diese Vorlage wirklich löschen?</translation>
+    </message>
+    <message>
+        <source>New Template %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7689,42 +7458,12 @@ andernfalls relativ zum Objekt.</translation>
 <context>
     <name>OdtDialog</name>
     <message>
-        <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="obsolete">Optionen für OpenOffice Textverarbeitung</translation>
-    </message>
-    <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Absatzstile aktualisieren</translation>
-    </message>
-    <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Wenn ein Absatzstil mit dem gleichen Namen bereits in Scribus existiert,
-wird er entweder an den Stil aus dem OpenOffice.org Dokument angepasst
-oder unverändert gelassen</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Namen der Datei vor jeden Absatzstil anfügen</translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Name des Dokuments als Suffix an die Namen der
-Absatzstile anhängen</translation>
-    </message>
-    <message>
         <source>Do not ask again</source>
         <translation>Einstellungen speichern</translation>
-    </message>
-    <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Sollen beim Import immer die aktuellen Einstellungen
-verwendet werden, aktivieren Sie diese Option.
-Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     </message>
     <message>
         <source>OK</source>
@@ -7949,20 +7688,8 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
         <translation>Absolut farbmetrisch</translation>
     </message>
     <message>
-        <source>Image Settings</source>
-        <translation>Bildeinstellungen</translation>
-    </message>
-    <message>
         <source>Automatic</source>
         <translation>Automatisch</translation>
-    </message>
-    <message>
-        <source>JPEG</source>
-        <translation>JPEG</translation>
-    </message>
-    <message>
-        <source>Zip</source>
-        <translation>Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -8068,25 +7795,11 @@ in der exportierten Datei aktiviert oder deaktiviert</translation>
         <translation>p</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">Legt die PDF-Kompatiblität fest. Standard ist Acrobat 4.0, weil das die größte Kompatiblität ermöglicht.
-Wählen Sie Acrobat 5.0, wenn Sie PDF 1.4-Funktionen wie Transparenz oder 128 bit-Verschlüsselung benötigen.
-PDF/X-3 ist gedacht für gewerbliche Druckereien und nur möglich, wenn Sie das Farb-Management aktiviert haben.</translation>
-    </message>
-    <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
         <translation>Legt die Art des Bundes in der PDF-Datei fest. Verwenden Sie die 
 Standardeinstellung (links), solange Sie nicht genau wissen, dass 
 Sie diese ändern müssen.</translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation>Erzeugt Vorschaubilder für jede Seite der PDF-Datei.
-Einige Programme nutzen diese Bilder zur Navigation.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
@@ -8103,31 +7816,6 @@ Nützlich zur Navigation in langen PDF-Dateien.</translation>
 This does not affect the resolution of bitmap images like photos.</source>
         <translation>Auflösung für Text und Vektorgrafiken.
 Dies beeinflusst nicht die Auflösung von Bitmap-Grafiken.</translation>
-    </message>
-    <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Kompression von Text und Grafiken reduziert die Dateigröße.
-Nicht ohne Grund deaktivieren.
-</translation>
-    </message>
-    <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Kompressions-Methode für Bitmap-Bilder.
-Automatisch - Scribus wählt die beste Methode.
-ZIP - Gut für Bilder mit Farbflächen.
-JPEG - erzeugt kleinere PDF&apos;s bei Dokumenten mit viel Bildern ohne große Kompressionsverluste.
-Braucht normalerweise nicht geändert werden.</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Bitmap-Bilder neu mit gewählten DPI rendern.
-Ist die Option deaktiviert, wird die natürliche Auflösung der Bilder übernommen.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
@@ -8209,10 +7897,6 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation>Erforderliche Eingabe für PDF/X-3, ohne die das Dokument nicht PDF/X-3-konform ist. Benutzen Sie z. B. den Titel des Dokuments.</translation>
     </message>
     <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Kompressionsgrad: Minimal (25 %), Niedrig (50 %), Mittel (75 %), Hoch (80 %), Maximal (95 %)</translation>
-    </message>
-    <message>
         <source>Choose a password for users to be able to read your PDF.</source>
         <translation>Wählen Sie ein Passwort, das es Benutzern erlaubt, die PDF-Datei anzusehen.</translation>
     </message>
@@ -8229,24 +7913,6 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
 If un-checked, text and graphics cannot be copied.</source>
         <translation>Kopieren von Text oder Bildern gestatten.
 Wenn nicht ausgewählt, können weder Text von Bilder kopiert werden.</translation>
-    </message>
-    <message>
-        <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="obsolete">Hinzufügen von Anmerkungen gestatten.
-Wenn nicht ausgewählt, wird das Hinzufügen von Anmerkungen verhindert.</translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Geben Sie mit Hilfe von Kommata oder Bindestrichen ein, welche
-Seiten importiert werden sollen, zum Beispiel
-1-5 oder 3,4. * steht  für alle Seiten.</translation>
-    </message>
-    <message>
-        <source>Create PDF File</source>
-        <translation type="obsolete">PDF-Datei erstellen</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
@@ -8530,18 +8196,6 @@ Ohne guten Grund sollten Sie diese Option nicht deaktivieren.
 Sie reduziert die Dateigröße</translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation>Kompressionsmethode für Bilddateien. Automatisch überlässt Scribus die Wahl der besten Methode. ZIP ist verlustfrei und sinnvoll für Bilder mit Füllfarben. JPEG ist besser geeignet zur Erstellung kleinerer PDF-Dateien, die viele Fotos enthalten, auch wenn damit unter Umständen ein geringer Qualitätsverlust einhergeht. Belassen Sie die Einstellung bei Automatisch, solange Sie keine spezielle Kompressionsmethode benötigen.</translation>
-    </message>
-    <message>
-        <source>Re-sample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.
-This can increase memory usage and slow down export.</source>
-        <translation>Berechnet die Auflösung von Bitmap-Grafiken in der gewünschten Höhe neu. 
-Ansonsten wird die ursprüngliche Auflösung verwendet. Die Aktivierung dieser 
-Option kann den Speicherbedarf erhöhen und die Ausgabe verlangsamen.</translation>
-    </message>
-    <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation>Legt die PDF-Kompatiblität fest. 
 Standard ist Acrobat 4.0, weil das die größte Kompatiblität ermöglicht.
@@ -8553,6 +8207,38 @@ Bitte beachten Sie, dass PDF/X-3 alle CMYK-Bilder in den RGB-Farbraum
 umwandelt, basierend auf einem ICC-Profil. Verwenden Sie es nur, wenn 
 Ihr Drucker dies erwartet oder Sie die die Datei auf bestimmten digitalen 
 Vierfarb-Laserdruckern ausgeben möchten.</translation>
+    </message>
+    <message>
+        <source>Image Compression Methods</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JPEG - Lossy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zip - Lossless</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8729,10 +8415,6 @@ Dafür erhöht sich benötigte Renderzeit gerinfügig</translation>
     <message>
         <source>Warning</source>
         <translation>Warnung</translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="obsolete">Kopie von</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
@@ -9295,10 +8977,6 @@ ein positiver Wert für eine konvexe Form</translation>
         <translation>Sonstiges</translation>
     </message>
     <message>
-        <source>Postscript Interpreter</source>
-        <translation type="obsolete">Postscript-Interpreter</translation>
-    </message>
-    <message>
         <source>Image Processing Tool</source>
         <translation>Bildbearbeitungsprogramm</translation>
     </message>
@@ -9336,10 +9014,6 @@ die Objektbegrenzungen zu aktivieren</translation>
     <message>
         <source>Default documents directory</source>
         <translation>Standardverzeichnis für Dokumente</translation>
-    </message>
-    <message>
-        <source>Default ICC profiles directory</source>
-        <translation type="obsolete">Standard-Verzeichnis für ICC-Profile</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
@@ -9626,10 +9300,6 @@ des Dokuments mit der Erweiterung .bak</translation>
         <translation>Legt die Standard-Vergrößerungseinstellung fest</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Pfad zum Ghostscript-Interpreter</translation>
-    </message>
-    <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation>Text bei EPS- und PDF-Anzeige weichzeichnen</translation>
     </message>
@@ -9646,20 +9316,8 @@ des Dokuments mit der Erweiterung .bak</translation>
         <translation>Bibliothek nach jeder Veränderung erneut speichern</translation>
     </message>
     <message>
-        <source>Filesystem location for graphics editor</source>
-        <translation type="obsolete">Pfad zum Bildbearbeitungsprogramm</translation>
-    </message>
-    <message>
         <source>Baseline Grid</source>
         <translation>Grundlinienraster</translation>
-    </message>
-    <message>
-        <source>Turns on the basegrid</source>
-        <translation type="obsolete">Grundlinien-Raster anzeigen</translation>
-    </message>
-    <message>
-        <source>Turns off the basegrid</source>
-        <translation type="obsolete">Grundlinien-Raster nicht anzeigen</translation>
     </message>
     <message>
         <source> px</source>
@@ -10032,20 +9690,6 @@ des Dokuments mit der Erweiterung .bak</translation>
 ein positiver Wert für eine konvexe Form</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
-durch reine Abstufungen von Schwarz ersetzt.
-Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst,
-die Grau sehr ähnlich sind. Diese Option kann zu besseren Bildern führen.
-Sie müssen jedoch von Fall zu Fall entscheiden, ob Sie bessere Ergebnisse
-erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
-    </message>
-    <message>
         <source>Executive</source>
         <translation>Executive</translation>
     </message>
@@ -10084,10 +9728,6 @@ kann nicht geändert werden, wenn Dokumente geöffnet sind.</translation>
         <translation>Grundlinienraster ausblenden</translation>
     </message>
     <message>
-        <source>File system location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Pfad zum Ghostscript-Interpreter</translation>
-    </message>
-    <message>
         <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
@@ -10103,6 +9743,10 @@ weil Sie Bilder in bereits laufenden Instanzen von Gimp bearbeiten können.</tra
     <message>
         <source>File system location for the GhostScript interpreter</source>
         <translation>Pfad zu GhostScript</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10565,10 +10209,6 @@ wirklich überschreiben?</translation>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="obsolete">Python Scripte (*.py);; Alle Dateien (*)</translation>
-    </message>
-    <message>
         <source>Save as</source>
         <translation>Speichern unter</translation>
     </message>
@@ -10587,10 +10227,6 @@ wirklich überschreiben?</translation>
     <message>
         <source>No</source>
         <translation>Nein</translation>
-    </message>
-    <message>
-        <source>S&amp;cript</source>
-        <translation type="obsolete">S&amp;cript</translation>
     </message>
     <message>
         <source>File exists. Overwrite?</source>
@@ -10735,22 +10371,6 @@ wirklich überschreiben?</translation>
     <message>
         <source>S&amp;cripter Manual...</source>
         <translation>Handbuch für den &amp;Scripter...</translation>
-    </message>
-    <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation type="obsolete">&amp;Scripts für Scribus</translation>
-    </message>
-    <message>
-        <source>&amp;Execute Script...</source>
-        <translation type="obsolete">Script &amp;ausführen...</translation>
-    </message>
-    <message>
-        <source>&amp;Recent Scripts</source>
-        <translation type="obsolete">&amp;Zuletzt verwendete Scripts</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Konsole &amp;zeigen</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -10964,14 +10584,6 @@ externe Links</translation>
         <translation>Fortschritt kann nicht mehr als der maximale Fortschritt betragen</translation>
     </message>
     <message>
-        <source>&amp;About Script...</source>
-        <translation type="obsolete">Ü&amp;ber das Script...</translation>
-    </message>
-    <message>
-        <source>About Script</source>
-        <translation type="obsolete">Über das Script</translation>
-    </message>
-    <message>
         <source>Cannot get a color with an empty name.</source>
         <comment>python error</comment>
         <translation>Keine Farbbezeichnung angegeben.</translation>
@@ -10985,16 +10597,6 @@ externe Links</translation>
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
         <translation>Umbenennen einer Farbe ohne Bezeichnung fehlgeschlagen.</translation>
-    </message>
-    <message>
-        <source>Color not found in document</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Farbe nicht im Dokument gefunden</translation>
-    </message>
-    <message>
-        <source>Color not found in default colors</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Farbe nicht in der Liste der Standardfarben gefunden</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
@@ -11030,46 +10632,6 @@ externe Links</translation>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
         <translation>Ziel ist kein Bildrahmen.</translation>
-    </message>
-    <message>
-        <source>Can&apos;t scale by 0%</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Bild lässt sich nicht auf 0% skalieren</translation>
-    </message>
-    <message>
-        <source>Font not found</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Schriftart nicht gefunden</translation>
-    </message>
-    <message>
-        <source>Can&apos;t render an empty sample</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann keine leeres Beispiel erstellen</translation>
-    </message>
-    <message>
-        <source>Can&apos;t save to a blank filename</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann Datei nicht ohne Namen speichern</translation>
-    </message>
-    <message>
-        <source>Can&apos;t have an empty layer name</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Eine Ebene ohne Bezeichnung ist nicht erlaubt</translation>
-    </message>
-    <message>
-        <source>Layer not found</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Ebene nicht gefunden</translation>
-    </message>
-    <message>
-        <source>Can&apos;t remove the last layer</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Die letzte Ebene lässt sich nicht entfernen</translation>
-    </message>
-    <message>
-        <source>Can&apos;t create layer without a name</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann keine Ebene ohne Bezeichnung erstellen</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
@@ -11207,192 +10769,14 @@ externe Links</translation>
         <translation>Kann Text nur in Textrahmen anfügen.</translation>
     </message>
     <message>
-        <source>Insert index out of bounds</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Index außerhalb des gültigen Bereichs</translation>
-    </message>
-    <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
         <translation>Ausrichtung nicht gültig. Verwenden Sie eine der scribus.ALIGN*-Konstanten.</translation>
     </message>
     <message>
-        <source>Can&apos;t set text alignment on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann Text-Ausrichtung nur für Textrahmen festlegen</translation>
-    </message>
-    <message>
-        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Schriftgröße muss zwischen 1 und 512 betragen</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set font size on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann Schriftgröße nur in Textrahmen verändern</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set font on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann Schriftart nur in Textrahmen verändern</translation>
-    </message>
-    <message>
-        <source>Line space out of bounds, must be &gt;= 0.1</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Zeilenabstand muss größer gleich 0.1 sein</translation>
-    </message>
-    <message>
-        <source>Can&apos;t line spacing on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann Zeilenabstand nur für Textrahmen festlegen</translation>
-    </message>
-    <message>
-        <source>Column gap out of bounds, must be positive</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Spaltenabstand muss positiv sein</translation>
-    </message>
-    <message>
-        <source>Can&apos;t column gap on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann Spaltenabstand nur für Textrahmen festlegen</translation>
-    </message>
-    <message>
-        <source>Column count out of bounds, must be &gt; 1</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Spaltenanzahl muss größer als 1 sein</translation>
-    </message>
-    <message>
-        <source>Can&apos;t number of columns on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann Spalten nur in Textrahmen zählen</translation>
-    </message>
-    <message>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
         <translation>Auswahlindex außerhalb des gültigen Bereichs</translation>
-    </message>
-    <message>
-        <source>Can&apos;t select text in a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann Text nur in Textrahmen auswählen</translation>
-    </message>
-    <message>
-        <source>Can&apos;t delete text from a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann Text nur aus Textrahmen löschen</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text fill on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann Füllfarbe des Textes nur für Textrahmen festlegen</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text stroke on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann Farbe der Textumrandung nur für Textrahmen festlegen</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text shade on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann Tonwert des Textes nur für Textrahmen festlegen</translation>
-    </message>
-    <message>
-        <source>Can only link text frames</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann nur Textrahmen miteinander verketten</translation>
-    </message>
-    <message>
-        <source>Target frame must be empty</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Zielrahmen muss leer sein</translation>
-    </message>
-    <message>
-        <source>Target frame links to another frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Zielrahmen ist schon mit einem anderen Rahmen verbunden</translation>
-    </message>
-    <message>
-        <source>Target frame is linked to by another frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Zielrahmen ist schon Ziel eines anderen Textrahmens</translation>
-    </message>
-    <message>
-        <source>Source and target are the same object</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Quell- und Zielrahmen sind das gleiche Objekt</translation>
-    </message>
-    <message>
-        <source>Can&apos;t unlink a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann Verkettung nur von Textrahmen auflösen</translation>
-    </message>
-    <message>
-        <source>Object is not a linked text frame, can&apos;t unlink.</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Objekt ist kein verketteter Textrahmen, also kann die Verkettung nicht gelöst werden.</translation>
-    </message>
-    <message>
-        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann den letzten Rahmen einer Kette nicht abtrennen. Lösen Sie erst die Verkettung der anderen Rahmen.</translation>
-    </message>
-    <message>
-        <source>Can&apos;t convert a non-text frame to outlines</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kann nur Textrahmen in Umrisse konvertieren</translation>
-    </message>
-    <message>
-        <source>Scribus Python interface module
-This module is the Python interface for Scribus. It provides functions
-to control scribus and to manipulate objects on the canvas. Each
-function is documented individually below.
-A few things are common across most of the interface.
-Most functions operate on frames. Frames are identified by their name,
-a string - they are not real Python objects. Many functions take an
-optional (non-keyword) parameter, a frame name.
-Many exceptions are also common across most functions. These are
-not currently documented in the docstring for each function.
-    - Many functions will raise a NoDocOpenError if you try to use them
-      without a document to operate on.
-    - If you do not pass a frame name to a function that requires one,
-      the function will use the currently selected frame, if any, or
-      raise a NoValidObjectError if it can&apos;t find anything to operate
-      on.
-    - Many functions will raise WrongFrameTypeError if you try to use them
-      on a frame type that they do not make sense with. For example, setting
-      the text colour on a graphics frame doesn&apos;t make sense, and will result
-      in this exception being raised.
-    - Errors resulting from calls to the underlying Python API will be
-      passed through unaltered. As such, the list of exceptions thrown by
-      any function as provided here and in its docstring is incomplete.
-Details of what exceptions each function may throw are provided on the
-function&apos;s documentation.
-</source>
-        <translation type="obsolete">Python-Interface für Scribus
-
-Dieses Modul stellt das Python-Interface bereit - sie können
-Scribus damit steuern und Objekte auf dem Arbeitsbereich
-verändern. Jede Funktion ist im Folgenden extra dokumentiert.
-Eine Dinge wiederholen sich immer wieder - die meisten 
-Funktionen beziehen sich zum Beispiel auf Rahmen.
-Rahmen werden durch ihren Namen eindeutig bestimmt.
-Sie sind trotzdem keine nativen Python-Objekte. Viele Funktionen
-benötigen einen zusätzlichen Parameter, den Namen des Rahmens.
-Viele Fehler sind innerhalb der der Funktionen gleich, sie sind zur Zeit
-nicht jedesmal mit in den Definitionen der Funktionen aufgeführt:
-- viele Funktionen rufen den Fehler NoDocOpenError hervor, wenn Sie
-sie benutzen, ohne vorher ein Dokument zu öffnen
-- Wenn Sie keinen gültigen Rahmen angeben, wird die Funktion versuchen,
-den aktuellen zu verwenden. Schlägt das fehl, erscheint der Fehler
-NoValidObjectError
-- Wenn Sie eine Operation auf einen Rahmen anwenden, die dafür nicht zulässig
-ist, erhalten Sie den Fehler WrongFrameTypeError. Beispiel: Sie möchten die Textfarbe
-für einen Bildrahmen festlegen - das macht wenig Sinn.
-- Alle Fehler, die in der Python-API auftreten, werden ungefiltert von jeder auf-
-geführten Funktion ausgegeben. Das bedeutet, dass die Liste der Fehler auf keinen
-Fall Anspruch auf Vollständigkeit erhebt.
-Weitergehende Informationen zu den Fehlern, die die einzelnen Funktionen hervorrufen
-können, finden Sie in der Funktionsreferenz.</translation>
     </message>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
@@ -11765,6 +11149,26 @@ python error</translation>
 
 python error</translation>
     </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -12106,16 +11510,8 @@ Abstand eingestellt werden.</translation>
 <context>
     <name>SToolBStyle</name>
     <message>
-        <source>Kerning:</source>
-        <translation type="obsolete">Kerning:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation> pt</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Manuelles Kerning</translation>
     </message>
     <message>
         <source>Character Settings</source>
@@ -12128,6 +11524,41 @@ Abstand eingestellt werden.</translation>
     <message>
         <source>Manual Tracking</source>
         <translation>Manuelle Laufweite</translation>
+    </message>
+</context>
+<context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">Rechts</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Links</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished">Waagrecht</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished">Vertikal</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12150,10 +11581,6 @@ Abstand eingestellt werden.</translation>
     <message>
         <source>Searching for Fonts</source>
         <translation>Suche nach Schriftarten</translation>
-    </message>
-    <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">Auf Ihrem System sind keine Postscript-Fonts installiert</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -12190,10 +11617,6 @@ Abstand eingestellt werden.</translation>
     <message>
         <source>Show Layers</source>
         <translation>Zeige Ebenen</translation>
-    </message>
-    <message>
-        <source>Javascripts...</source>
-        <translation type="obsolete">Javascripte...</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -12607,10 +12030,6 @@ nicht speichern</translation>
         <translation>Alle</translation>
     </message>
     <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation type="obsolete">EPS-Bilder (*.eps);;Alle Dateien (*)</translation>
-    </message>
-    <message>
         <source>Loading:</source>
         <translation>Lade:</translation>
     </message>
@@ -12959,10 +12378,6 @@ nicht speichern</translation>
         <translation>&amp;Musterseiten...</translation>
     </message>
     <message>
-        <source>&amp;Javascripts...</source>
-        <translation type="obsolete">&amp;JavaScripts...</translation>
-    </message>
-    <message>
         <source>D&amp;uplicate</source>
         <translation>&amp;Duplizieren</translation>
     </message>
@@ -13231,10 +12646,6 @@ nicht speichern</translation>
         <translation>&amp;Hilfslinien zeigen</translation>
     </message>
     <message>
-        <source>Ghostscript : You cannot use EPS Images</source>
-        <translation type="obsolete">Ghostscript: Sie können keine EPS-Dateien einfügen</translation>
-    </message>
-    <message>
         <source>Import &amp;Page(s)...</source>
         <translation>Seiten &amp;importieren...</translation>
     </message>
@@ -13365,6 +12776,10 @@ nicht speichern</translation>
     <message>
         <source>Norwegian</source>
         <translation>Norwegisch</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13646,15 +13061,6 @@ Nur Scripts, die für die Verwendung als Erweiterung vorgesehen sind, sollten ü
     <message>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Verwendet die alten Funktionsnamen&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
-&lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
-&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Alte Aliasse für Namen verwenden&lt;/tt&gt; ist eine Expertenoption. Sie sollten die Voreinstellung nicht verändern.&lt;/p&gt;
-&lt;p&gt;Wenn aktiviert, erstellt der Scripter eine große Zahl an Funktionen und Konstanten, die kompatibel mit der Script-Version 1.2.0 sind. Die Option ist
-standardmäßig aktiviert.&lt;/p&gt;
-&lt;p&gt;Diese Änderung wird erst wirksam, wenn Sie Scribus neu starten.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use Fake Stdin</source>
@@ -14197,10 +13603,6 @@ Ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
 <context>
     <name>SxwDialog</name>
     <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Absatzstile aktualisieren</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Namen der Datei vor jeden Absatzstil anfügen</translation>
     </message>
@@ -14213,30 +13615,8 @@ Ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
         <translation>OK</translation>
     </message>
     <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Wenn ein Absatzstil mit dem gleichen Namen bereits in Scribus existiert,
-wird er entweder an den Stil aus dem OpenOffice.org Dokument angepasst
-oder unverändert gelassen</translation>
-    </message>
-    <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Name des Dokuments als Suffix an die Namen der
-Absatzstile anhängen</translation>
-    </message>
-    <message>
         <source>OpenOffice.org Writer Importer Options</source>
         <translation>Optionen für OpenOffice.org-Textverarbeitung</translation>
-    </message>
-    <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Sollen beim Import immer die aktuellen Einstellungen
-verwendet werden, aktivieren Sie diese Option.
-Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     </message>
     <message>
         <source>Update Paragraph Styles</source>
@@ -14708,10 +14088,6 @@ eigenen Einstellungen ersetzen.</translation>
     <message>
         <source>Automatic</source>
         <translation>Automatisch</translation>
-    </message>
-    <message>
-        <source>Get text only</source>
-        <translation type="obsolete">Nur Text importieren</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>

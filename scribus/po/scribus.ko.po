@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.2.cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-28 11:07+0100\n"
+"POT-Creation-Date: 2006-06-28 21:54+0200\n"
 "PO-Revision-Date: 2004-09-29 23:27+0800\n"
 "Last-Translator: Kitae Kim <neeum@yahoo.com>\n"
 "Language-Team: Korean\n"
@@ -186,6 +186,12 @@ msgid "Page"
 msgstr ""
 
 msgid "Font %1 is broken, discarding it"
+msgstr ""
+
+msgid "Font %1 (found using fontconfig) is broken, discarding it"
+msgstr ""
+
+msgid "Failed to load a font - freetype couldn't find the font file"
 msgstr ""
 
 msgid "Left"
@@ -931,13 +937,13 @@ msgstr ""
 msgid "Compress Text and &Vector Graphics"
 msgstr ""
 
-msgid "Image Settings"
+msgid "Image Compression Methods"
 msgstr ""
 
-msgid "JPEG"
+msgid "JPEG - Lossy"
 msgstr ""
 
-msgid "Zip"
+msgid "Zip - Lossless"
 msgstr ""
 
 msgid "&Method:"
@@ -1213,9 +1219,8 @@ msgid "Export a range of pages to PDF"
 msgstr ""
 
 msgid ""
-"Insert a comma separated list of tokens where\n"
-"a token can be * for all the pages, 1-5 for\n"
-"a range of pages or a single page number."
+"Insert a comma separated list of tokens where a token can be * for all the "
+"pages, 1-5 for a range of pages or a single page number."
 msgstr ""
 
 msgid ""
@@ -1235,8 +1240,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Generates thumbnails of each page in the PDF.\n"
-"Some viewers can use the thumbnails for navigation."
+"Generates thumbnails of each page in the PDF. Some viewers can use the "
+"thumbnails for navigation."
 msgstr ""
 
 msgid ""
@@ -1264,18 +1269,18 @@ msgid ""
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic, unless you have a "
-"need for special compression options."
+"need for special compression options. This only applies to JPEG images"
 msgstr ""
 
 msgid ""
 "Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), "
-"Maximum (95%)"
+"Maximum (95%) - This only affects JPEG images."
 msgstr ""
 
 msgid ""
-"Re-sample your bitmap images to the selected DPI.\n"
-"Leaving this unchecked will render them at their native resolution.\n"
-"This can increase memory usage and slow down export."
+"Re-sample your bitmap images to the selected DPI. Leaving this unchecked "
+"will render them at their native resolution. This can increase memory usage "
+"and slow down export."
 msgstr ""
 
 msgid "DPI (Dots Per Inch) for image export."
@@ -1636,6 +1641,10 @@ msgstr ""
 
 msgid "Name:"
 msgstr "이름:"
+
+#, fuzzy
+msgid "New Template %1"
+msgstr "템플릿"
 
 msgid "New Document"
 msgstr ""
@@ -2303,6 +2312,9 @@ msgstr ""
 msgid "Danish"
 msgstr ""
 
+msgid "Dzongkha"
+msgstr ""
+
 msgid "Dutch"
 msgstr ""
 
@@ -2335,6 +2347,9 @@ msgid "Hungarian"
 msgstr ""
 
 msgid "Indonesian"
+msgstr ""
+
+msgid "Icelandic"
 msgstr ""
 
 msgid "Italian"
@@ -3426,6 +3441,12 @@ msgid "Print Current Pa&ge"
 msgstr ""
 
 msgid "Print &Range"
+msgstr ""
+
+msgid ""
+"Insert a comma separated list of tokens where\n"
+"a token can be * for all the pages, 1-5 for\n"
+"a range of pages or a single page number."
 msgstr ""
 
 msgid "N&umber of Copies:"
@@ -4577,6 +4598,20 @@ msgstr ""
 msgid "Edit Styles"
 msgstr ""
 
+msgid "Top"
+msgstr ""
+
+#, fuzzy
+msgid "Bottom"
+msgstr "아랫면"
+
+msgid "Allow Docking To..."
+msgstr ""
+
+#, fuzzy
+msgid "Floating Orientation..."
+msgstr "목적 대상"
+
 msgid "Color Management Settings"
 msgstr ""
 
@@ -4833,6 +4868,9 @@ msgid "German:"
 msgstr ""
 
 msgid "Italian:"
+msgstr ""
+
+msgid "Japanese:"
 msgstr ""
 
 msgid "Korean:"
@@ -5421,6 +5459,15 @@ msgid ""
 "Do not show objects outside the margins on the printed page or exported file"
 msgstr ""
 
+msgid ""
+"A way of switching off some of the gray shades which are composed of cyan, "
+"yellow and magenta and using black instead. UCR most affects parts of images "
+"which are neutral and/or dark tones which are close to the gray. Use of this "
+"may improve printing some images and some experimentation and testing is "
+"need on a case by case basis. UCR reduces the possibility of over saturation "
+"with CMY inks."
+msgstr ""
+
 msgid "New From Template"
 msgstr ""
 
@@ -5795,6 +5842,18 @@ msgid "CSV_data"
 msgstr ""
 
 msgid "CSV_header"
+msgstr ""
+
+#, fuzzy
+msgid "Word Documents"
+msgstr "기존문서 열기"
+
+msgid "Importing failed"
+msgstr ""
+
+msgid ""
+"Importing Word document failed \n"
+"%1"
 msgstr ""
 
 #, fuzzy

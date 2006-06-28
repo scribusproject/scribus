@@ -143,42 +143,6 @@ Pisze &quot;string&quot; w linijce statusu Scribusa. Tekst ten
 musi być łańcuchem znaków w kowoaniu UTF8 lub &apos;unicode&apos; (zalecane).</translation>
     </message>
     <message>
-        <source>newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumber = is the number of the first page in the document used for
-    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-    numbers if you&apos;re creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</source>
-        <translation type="obsolete">O Scribusie %1</translation>
-    </message>
-    <message>
         <source>register_macro_callable(name, callable, accel=&apos;&apos;)
 
 Create a macro called &quot;name&quot; with the existing callable object &quot;callable&quot;.
@@ -2567,6 +2531,10 @@ O braku obsługi dla danej biblioteki informuje symbol *</translation>
         <source>Portuguese (Brazilian):</source>
         <translation>Portugalski (Brazylijski):</translation>
     </message>
+    <message>
+        <source>Japanese:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -2644,16 +2612,6 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     <message>
         <source>Set Media Size</source>
         <translation>Podaj rozmiar nośnika</translation>
-    </message>
-    <message>
-        <source>This enables you to explicitely set,
-the media size of the postscript file.
-Not recommended unless
- requested by your printer.</source>
-        <translation type="obsolete">Opcja ta pozwala na podanie rozmiaru
-nośnika pliku postcriptowego. 
-Niezalecane, jeśli nie będzie wymagane
-przez drukarnię.</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
@@ -3051,10 +3009,6 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
         <translation>Opcje</translation>
     </message>
     <message>
-        <source>Java Script</source>
-        <translation type="obsolete">Java Script</translation>
-    </message>
-    <message>
         <source>Go To</source>
         <translation>Idź do</translation>
     </message>
@@ -3309,10 +3263,6 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
     <message>
         <source>Open</source>
         <translation>Otwórz</translation>
-    </message>
-    <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Obrazki (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Example:</source>
@@ -4236,6 +4186,18 @@ This can be set in the Preferences.</source>
     </message>
 </context>
 <context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DocInfos</name>
     <message>
         <source>Document Information</source>
@@ -4411,10 +4373,6 @@ opcjonalnie uzupełniony o myślnik i kod kraju zgodny z ISO-3166, np pl-PL, fr-
     <message>
         <source>Save as</source>
         <translation>Zapisz jako</translation>
-    </message>
-    <message>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation type="obsolete">Postscript (*.ps);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Cyan</source>
@@ -4673,10 +4631,6 @@ zapisane w aktualnej formie. Wystąpił następujący błąd:
         <translation>Zapisuje kod źródłowy makra do pliku. Zapisany w ten sposób kod źródłowy można pobrać do dalszej edycji klikając na przycisk &quot;Pobierz kod źródłowy...&quot;.</translation>
     </message>
     <message>
-        <source>Python source files (.py)</source>
-        <translation type="obsolete">Pliki źródłowe Pythona  (.py)</translation>
-    </message>
-    <message>
         <source>Save File Dialog</source>
         <translation>Dialog zapisywania pliku</translation>
     </message>
@@ -4857,10 +4811,6 @@ zapisane w aktualnej formie. Wystąpił następujący błąd:
     <message>
         <source>Editor</source>
         <translation>Edytor</translation>
-    </message>
-    <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation type="obsolete">Skrypty Javascript (*.js);;Wszystkie pliki(*)</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -5209,10 +5159,6 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <source>Additional Paths</source>
         <translation>Dodatkowe ścieżki</translation>
-    </message>
-    <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -6021,23 +5967,6 @@ Tabela pośrodku okna zawiera listę makr, które są aktualnie pobrane oraz nie
     <message>
         <source>Description</source>
         <translation>Opis</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Name:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Tabela ta zawiera listę aktualnie zdefiniowanych makr.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Nazwa:&lt;/b&gt; Nazwa makra, która pokazywana jest w listwie menu i w innych miejscach w Scribusie.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Edycja:&lt;/b&gt; Jeśli makro da się edytować, szpalta ta zawierać będzie &quot;Yes&quot;. Jeśli makro nie da się edytować, najczęściej zostało ono utworzone 
-za pomocą polecenia register_macro zawartego w skrypcie.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Skrót:&lt;/b&gt; Skrót klawiaturowy przypisany do makra. Na przykład CTRL-F8 oznacza, że możesz nacisnąć w Scribusie przyciski Control i F8, aby wykonać 
-to makro.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Opis:&lt;/b&gt; Jeśli makro zawiera &quot;docstring&quot;, czyli specjalny ciąg znaków na początku jego definicji opisujący jego zawartość, to zostanie on wyświetlony. 
-Jeśli &quot;docstring&quot;  jest długi, zostanie pokazany tylko jego początek - użyj &quot;Co to jest?&quot; na tym makro w menu Makro, aby zobaczyć pełny opis.&lt;/p&gt;  </translation>
     </message>
     <message>
         <source>Rena&amp;me</source>
@@ -7200,6 +7129,10 @@ Proszę wybrać inną.</translation>
         <source>Do you really want to delete this Template?</source>
         <translation>Naprawdę usunąć ten szablon?</translation>
     </message>
+    <message>
+        <source>New Template %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewDoc</name>
@@ -7817,20 +7750,8 @@ w innym przypadku do obiektu.</translation>
         <translation>Od góry po lewej do dołu po prawej</translation>
     </message>
     <message>
-        <source>Image Settings</source>
-        <translation>Ustawienia grafiki</translation>
-    </message>
-    <message>
         <source>Automatic</source>
         <translation>Automatyczna</translation>
-    </message>
-    <message>
-        <source>JPEG</source>
-        <translation>JPEG</translation>
-    </message>
-    <message>
-        <source>Zip</source>
-        <translation>Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -7913,24 +7834,10 @@ zabezpieczenia w wyeksportowanym pliku PDF</translation>
         <translation>Wielkość spadu mierzona od prawej krawędzi fizycznej strony</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">Określa kompatybilność pliku PDF. Domyślne ustawienie to Acrobat 4.0, którego wynikiem jest największa kompatybilność.
-Wybierz Acrobata 5.0, jeśli twój plik korzysta z takich właściwości PDF 1.4 jak przezroczystość, lub jeśli wymagane jest kodowanie 128 bitowe.
-PDF/X-3 przeznaczony jest dla eksportu do PDF przeznaczonego do profesjonalnego druku i daje się wybrać, jeśli zostało włączone zarządzanie kolorami.</translation>
-    </message>
-    <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
         <translation>Określa odstęp do zszycia stron w pliku PDF. Najlepiej zostawić
 domyślne ustawienie (z lewej strony), chyba że wiesz na pewno, że zmiana jest potrzebna.</translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation>Włącza generowanie miniatur każdej strony w pliku PDF.
-Niektóre przegląrki używają miniatur do nawigacji.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
@@ -7948,30 +7855,6 @@ Jest to przydatne przy poruszaniu się w długich dokumentach PDF.</translation>
 This does not affect the resolution of bitmap images like photos.</source>
         <translation>Wybór rozdzielczości tekstu i grafiki wektorowej w eksportowanym pliku.
 Nie ma wpływu na rozdzielczość grafiki bitmapowej, np. zdjęć.</translation>
-    </message>
-    <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Włącza kompresję tekstu i grafiki. Najlepiej zostawić zakreślone, 
-chyba że ma się powody, aby to zmieniać. Redukuje to rozmiar pliku PDF.</translation>
-    </message>
-    <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Wybór wersji kompresji obrazków.
-Automatyczna pozwala Scribusowi na wybór najlepszej metody.
-ZIP jest dobry dla obrazków o jednolitych kolorach.
-JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo zdjęć (przy najmniejszej z możliwych utracie informacji obrazka).
-Wybierz kompresję automatyczną, chyba że potrzebujesz specjalnych opcji przy kompresji.</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Ten wybór umożliwi redukcję grafiki bitmapowej do wybranej rozdzielczości DPI.
-Jeśli nie zakreślisz tej opcji, grafika zostanie wyeksportowana z oryginalną rozdzielczością.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
@@ -8076,10 +7959,6 @@ Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
         <translation>p</translation>
     </message>
     <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Stopnie kompresji: minimalny (25%), niski (50%), średni (75%), wysoki (85%), maksymalny (95%)</translation>
-    </message>
-    <message>
         <source>Choose a password for users to be able to read your PDF.</source>
         <translation>Wybierz hasło dla użytkowników, którym będzie wolno czytać twój PDF.</translation>
     </message>
@@ -8095,14 +7974,6 @@ Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
         <source>Allow copying of text or graphics from the PDF. 
 If un-checked, text and graphics cannot be copied.</source>
         <translation>Dozwolone kopiowanie tekstu i grafik z dokumentu PDF. W przypadku braku zakreślenia, kopiowanie zostanie uniemożliwione.</translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Wpisz rozdzieloną przecinkami listę wartości,
-gdzie * oznacza wszystkie strony, 1-5 zakres stron 
-a pojedynczy numer oznacza numer strony.</translation>
     </message>
     <message>
         <source>Rendering Settings</source>
@@ -8387,21 +8258,40 @@ zostaw tę opcję zakreśloną. Spowoduje to zmniejszenie
 rozmiaru pliku PDF.</translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation>Metoda kompresji dla obrazków. &quot;Automatyczna&quot; pozwoli Scribusowi na wybór najlepszej metody. &quot;ZIP&quot; jest bezstratny i dobry w przypadku obrazków o jednolitych kolorach. &quot;JPEG&quot; jest lepszy w tworzeniu mniejszych plików PDF zawierających wiele zdjęć (z możliwą nieznaczną utratą jakości zdjęć). Zostaw metodę automatyczną, chyba że masz powód, aby wybrać inną z opcji.</translation>
-    </message>
-    <message>
-        <source>Re-sample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.
-This can increase memory usage and slow down export.</source>
-        <translation>Konwersja grafik bitmapowych do wybranej DPI.
-Pozostawienie tej opcji niezakreślonej spowoduje, że grafiki
-będą renderowane z ich wyjściową rozdzielczością.
-Może to spowodować zwiększone zużycie pamięci i spowolnienie eksportu.</translation>
-    </message>
-    <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation>Określa kompatybilność z PDF. Domyślnym wyborem jest &quot;Acrobat 4.0&quot;, zapewniający największą kompatybilność. Wybierz &quot;Acrobat 5.0&quot;, jeśli używasz możliwości zawartych w PDF 1.4 takich jak przezroczystość lub potrzebujesz szyfrowania 128 bitowego. &quot;PDF/X-3&quot; przeznaczony jest dla eksportu do PDF, jeśli chcesz użyć zarządzania kolorami w profesjonalnym druku -- opcja ta jest dostępna po włączeniu zarządzania kolorami. Uwaga: PDF/X-3 przekonwertuje wszystkie grafiki w CMYK na kolory RGB bazujące na profilach ICC. Użyj tej opcji tylko wtedy, kiedy zaleci tak twoja drukarnia oraz w niektórych przypadkach dla drukowania na czterokolorowej drukarce laserowej.</translation>
+    </message>
+    <message>
+        <source>Image Compression Methods</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JPEG - Lossy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zip - Lossless</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9141,10 +9031,6 @@ wartość dodatnia zmieni jego kształt na wypukły</translation>
         <translation>Różne</translation>
     </message>
     <message>
-        <source>Postscript Interpreter</source>
-        <translation type="obsolete">Interpreter Postscript</translation>
-    </message>
-    <message>
         <source>Image Processing Tool</source>
         <translation>Narzędzie do obróbki obrazków</translation>
     </message>
@@ -9855,21 +9741,6 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
 wartość dodatnia zmieni jego kształt na wypukły</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>UCR jest to sposób wykluczenia niektórych odcieni szarości, które
-składają się z cyjanu (C), żółci (Y) i madżenty (M) i zastąpienia ich czernią.
-UCR najbardziej ma wpływ na obszary obrazków, które mają neutralne
-lub ciemne odcienie bliskie szarości. Użycie go może poprawić wydruk niektórych 
-obrazków, jednakże wymaga wykonania wcześniej kilku prób i testów dla każdego
-przypadku.
-UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
-    </message>
-    <message>
         <source>Executive</source>
         <translation>Executive</translation>
     </message>
@@ -9908,10 +9779,6 @@ zmienić, kiedy w Scribusie są otwarte dokumenty.</translation>
         <translation>Wyłącza siatkę linii pisma</translation>
     </message>
     <message>
-        <source>File system location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Położenie interpretera Ghostscriptu w systemie plików</translation>
-    </message>
-    <message>
         <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
@@ -9928,6 +9795,10 @@ konieczności startowania programu za każdym razem od nowa.</translation>
     <message>
         <source>File system location for the GhostScript interpreter</source>
         <translation>Położenie interpretera GhostScriptu w systemie plików</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11328,6 +11199,26 @@ Szczegóły na temat wyjątków zwracanych przez każdą funkcję zawarte są w 
         <comment>python error</comment>
         <translation>Przelewanie się tekstu można kontrolować tylko w ramkach tekstowych</translation>
     </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -11684,6 +11575,41 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
 </context>
 <context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">Do prawej</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Do lewej</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished">Poziomo</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished">Pionowo</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScriXmlDoc</name>
     <message>
         <source>Copy #%1 of </source>
@@ -11739,10 +11665,6 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Show Layers</source>
         <translation>Wyświetlaj paletę warstw</translation>
-    </message>
-    <message>
-        <source>Javascripts...</source>
-        <translation type="obsolete">Skrypty w Javascript...</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -12155,10 +12077,6 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <translation>Wszystkie</translation>
     </message>
     <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Pliki EPS (*.eps);;Wszystkie pliki (*)</translation>
-    </message>
-    <message>
         <source>Loading:</source>
         <translation>Pobieranie:</translation>
     </message>
@@ -12507,10 +12425,6 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <translation>&amp;Szablony...</translation>
     </message>
     <message>
-        <source>&amp;Javascripts...</source>
-        <translation type="obsolete">Skrypty w &amp;Javascript...</translation>
-    </message>
-    <message>
         <source>D&amp;uplicate</source>
         <translation>&amp;Klonuj</translation>
     </message>
@@ -12779,10 +12693,6 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <translation>Wyświetlaj &amp;linie pomocnicze</translation>
     </message>
     <message>
-        <source>Ghostscript : You cannot use EPS Images</source>
-        <translation type="obsolete">Ghostscript: nie możesz użyć grafik EPS</translation>
-    </message>
-    <message>
         <source>Import &amp;Page(s)...</source>
         <translation>Importuj st&amp;rony...</translation>
     </message>
@@ -12913,6 +12823,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Norwegian</source>
         <translation>Norweski</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13193,14 +13107,6 @@ Za pomocą opcj &lt;tt&gt;Pobierz skrypt rozszerzający&lt;/tt&gt; oraz jako skr
     <message>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Włącz używanie nazw funkcji w starym stylu&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
-&lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
-&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Włącz tradycyjne aliasy nazw&lt;/tt&gt; to zaawansowana opcja. Najlepiej zostawić ją bez zmian.&lt;/p&gt;
-&lt;p&gt;Jeśli ją zakreślisz, skryptownik utworzy dużą ilość aliasów nazw funkcji i stałych zgodnych z wersją 1.2.0. Wartością domyślną jest zakreślenie tej opcji.&lt;/p&gt;
-&lt;p&gt;Zmiana tej opcji zaczyna obowiązywać po ponownym wystartowaniu Scribusa.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use Fake Stdin</source>

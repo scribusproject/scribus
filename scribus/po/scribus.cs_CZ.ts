@@ -143,58 +143,6 @@ Zapíše řetězec &quot;string&quot; do stavového řádku Scribusu. Text musí
 UTF8 nebo unicode (např. unicode(&quot;text&quot;, &quot;iso-8859-2&quot;)).</translation>
     </message>
     <message>
-        <source>newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumber = is the number of the first page in the document used for
-    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-    numbers if you&apos;re creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</source>
-        <translation type="obsolete">newDoc(size, margins, orientation, firstPageNumber, unit, facingPages, firstSideLeft) -&gt; bool
-
-Vytvoří nový dokument a vrátí true v případě úspěchu. Parametry mají tento význam:
-    size - Tuple (šířka, výška) rozměrů velikost stránky. Viz. konstanty PAPER_&lt;typ&gt; např. PAPER_A4.
-    margins - Tuple (L, P, N, D) popisuje velikost okrajů stránky.
-    orientation - Orienrace stránky. Viz. předdefinované konstanty PORTRAIT a LANDSCAPE.
-    firstPageNumber - Číslo první stránky dokumentu, které je použito při automatickém číslování stran.
-    unit - Nastaví typ měrných jednotek dokumentu. Viz. UNIT_INCHES, UNIT_MILLIMETERS,
-             UNIT_PICAS, UNIT_POINTS.
-    facingPages - FACINGPAGES, NOFACINGPAGES
-    firstSideLeft - FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-Hodnoty výšky, šířky a okrajů jsou uvedeny ve specifikovaných měrných jednotkách dokumentu.
-Konstanty PAPER_* jsou v bodech. Jestliže je dokument v jiných jednotkách, musíte provést
-patřičnou konverzi.
-
-příklad: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS, FACINGPAGES, FIRSTPAGERIGHT)</translation>
-    </message>
-    <message>
         <source>register_macro_callable(name, callable, accel=&apos;&apos;)
 
 Create a macro called &quot;name&quot; with the existing callable object &quot;callable&quot;.
@@ -411,24 +359,6 @@ kódování - použijte např. unicode(text, &apos;iso-8859-2&apos;). Viz. FAQ.
 Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
-        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
-must be UTF encoded (see setText() as reference) The first character has an
-index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
-used.
-
-May throw IndexError for an insertion out of bounds.
-</source>
-        <translation type="obsolete">insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Vloží text &quot;text&quot; na pozici &quot;pos&quot; v textovém rámce &quot;name&quot;. Text musí být
-v UTF8 kódování (viz. setText()). První znak rámce má pozici 0.
-Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
-
-Může vyvolat výjimku IndexError, jestliže je &quot;pos&quot; mimo obsah rámce.</translation>
-    </message>
-    <message>
         <source>setFont(&quot;font&quot;, [&quot;name&quot;])
 
 Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
@@ -526,24 +456,6 @@ Nastaví zarovnání textu rámce &quot;name&quot;. Jestliže není &quot;name&q
 vybraný objekt. &quot;align&quot; by měla být jedna z předdefinovaných konstant ALIGN_*.
 
 Může vyvolat výjimku ValueError, jestliže je &quot;align&quot; nepodporované číslo.</translation>
-    </message>
-    <message>
-        <source>selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared.  If &quot;name&quot; is not given the currently
-selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</source>
-        <translation type="obsolete">selectText(start, count, [&quot;name&quot;])
-
-Označí jako vybraný počet &quot;count&quot; znaků v textovém rámci &quot;name&quot; od pozice
-&quot;start&quot;. První znak rámce má pozici 0. Jestliže je &quot;count&quot; nula, výběr je zrušen.
-Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
-
-Může vyvolat výjimku IndexError, jestliže je výběr mimo text rámce.</translation>
     </message>
     <message>
         <source>deleteText([&quot;name&quot;])
@@ -1296,24 +1208,6 @@ Vrátí více informací o dostupných písmech. Seznam obsahuje tupple:
 [(Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]</translation>
     </message>
     <message>
-        <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
-
-Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
-Image is saved into &quot;filename&quot;. Returns true when success.
-
-May raise NotFoundError if the specified font can&apos;t be found.
-May raise ValueError if an empty sample or filename is passed.
-</source>
-        <translation type="obsolete">rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
-
-Vytvoří obrázkovou bitmapu s náhledem písma &quot;name&quot; s textem &quot;sample&quot;
-velikosti &quot;size&quot;. Obrázek je pak uložen jako &quot;filename&quot;. Vrátí true v případě
-úspěchu.
-
-Může vyvolat výjimky NotFoundError (nenajde písmo) a ValueError (prázdné
-filename nebo sample).</translation>
-    </message>
-    <message>
         <source>getLayers() -&gt; list
 
 Returns a list with the names of all defined layers.
@@ -1393,42 +1287,6 @@ May raise ValueError if the layer name isn&apos;t acceptable.
 
 Nastaví jestli má být vrstva &quot;layer&quot; tisknutelná nebo nemá. Je-li &quot;printable&quot;
 false, nebude vrstva tisknuta.
-
-Může vyvolat výjimku NotFoundError (vrstva nenalezena) a
-ValueError (nelze přepnout vrstvu).</translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns wether the Layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Vrátí příznak, zda jde vrstva &quot;layer&quot; viditelná nebo není. true znamená
-viditelná.
-
-Může vyvolat výjimku NotFoundError (vrstva nenalezena) a
-ValueError (nelze přepnout vrstvu).</translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns wether the layer &quot;layer&quot; is printable or not, a value of True means
-that the layer &quot;layer&quot; can be printed, a value of False means that printing
-the layer &quot;layer&quot; is disabled.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Vrátí příznak, zda jde vrstva &quot;layer&quot; tisknutelná nebo není. true znamená
-tisknutelná.
 
 Může vyvolat výjimku NotFoundError (vrstva nenalezena) a
 ValueError (nelze přepnout vrstvu).</translation>
@@ -1849,17 +1707,6 @@ the page...
 Vrátí seznam tuple objektů na aktuální stránce: (jmeno, typ, poradi).
 Např.: [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)], což znamená, že objekt &quot;Text1&quot;
 je textový rámec (4) a je první v pořadí na stránce...</translation>
-    </message>
-    <message>
-        <source>getPageMargins()
-
-Returns the page margins as a (left, right, top, bottom) tuple in the current
-units. See UNIT_&lt;type&gt; constants and getPageSize().
-</source>
-        <translation type="obsolete">getPageMargins()
-
-Vrátí nastavení okrajů stránky (levý, pravý, horní, dolní) v aktuálních měrných
-jednotkách. Viz. koonstanty UNIT a getPageSize().</translation>
     </message>
     <message>
         <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
@@ -2397,10 +2244,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.</translation>
 <context>
     <name>About</name>
     <message>
-        <source>%1. %2 %3 </source>
-        <translation type="obsolete">%1. %2 %3</translation>
-    </message>
-    <message>
         <source>Scribus Version %1
 %2 %3</source>
         <translation>Scribus ver. %1(new line)
@@ -2608,6 +2451,10 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
         <source>Portuguese (Brazilian):</source>
         <translation>Portugalština (Braz.):</translation>
     </message>
+    <message>
+        <source>Japanese:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -2683,16 +2530,6 @@ a jiné.</translation>
     <message>
         <source>Set Media Size</source>
         <translation>Nastavit velikost média</translation>
-    </message>
-    <message>
-        <source>This enables you to explicitely set,
-the media size of the postscript file.
-Not recommended unless
- requested by your printer.</source>
-        <translation type="obsolete">Zde můžete nastavit velikost média
-(papíru) postscriptového souboru.
-Nezadávejte, pokud to nevyžaduje
-tiskárna.</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
@@ -3086,10 +2923,6 @@ tiskárna.</translation>
         <translation>Možnosti</translation>
     </message>
     <message>
-        <source>Java Script</source>
-        <translation type="obsolete">JavaScript</translation>
-    </message>
-    <message>
         <source>Go To</source>
         <translation>Jít na</translation>
     </message>
@@ -3344,10 +3177,6 @@ tiskárna.</translation>
     <message>
         <source>Open</source>
         <translation>Otevřít</translation>
-    </message>
-    <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Obrázky (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Všechny soubory (*)</translation>
     </message>
     <message>
         <source>Example:</source>
@@ -4270,6 +4099,18 @@ Lze uvést v Nastavení.</translation>
     </message>
 </context>
 <context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DocInfos</name>
     <message>
         <source>Document Information</source>
@@ -4445,10 +4286,6 @@ volitelně s kódem země ISO-3166 např. cs-CZ, en-GB</translation>
     <message>
         <source>Save as</source>
         <translation>Uložit jako</translation>
-    </message>
-    <message>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation type="obsolete">Postscriptové soubory (*.ps);;Všechny soubory (*)</translation>
     </message>
     <message>
         <source>Cyan</source>
@@ -4709,10 +4546,6 @@ Chyba byla:
         <translation>Uloží zdrojový kód do textového souboru, který můžete upravovat externími nástroji, a potom nahrát pomocí &apos;Nahrát zdrojový kód...&apos;.</translation>
     </message>
     <message>
-        <source>Python source files (.py)</source>
-        <translation type="obsolete">Python zdrojové kódy (*.py)</translation>
-    </message>
-    <message>
         <source>Save File Dialog</source>
         <translation>Uložit soubor</translation>
     </message>
@@ -4727,10 +4560,6 @@ Chyba byla:
     <message>
         <source>Select the source file to load</source>
         <translation>Vybrat soubor, který bude nahrán</translation>
-    </message>
-    <message>
-        <source>Python source files *(.py)</source>
-        <translation type="obsolete">Python zdrojové kódy (*.py)</translation>
     </message>
     <message>
         <source>Python source files (*.py)</source>
@@ -4897,10 +4726,6 @@ Chyba byla:
     <message>
         <source>Editor</source>
         <translation>Editor</translation>
-    </message>
-    <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation type="obsolete">Java skripty (*.js);;Všechny soubory (*)</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -5249,10 +5074,6 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     <message>
         <source>Additional Paths</source>
         <translation>Dodatečné cesty</translation>
-    </message>
-    <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Postsript</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -6063,19 +5884,6 @@ The table in the center of the dialog lists what macros are currently loaded and
         <translation>Popis</translation>
     </message>
     <message>
-        <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Name:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Tabulka definovaných maker.&lt;/p&gt;
-&lt;p&gt;Jméno: Jméno makra.&lt;/p&gt;
-&lt;p&gt;Edit: Příznak, zda bylo makro upravováno.&lt;/p&gt;
-&lt;p&gt;Klávesová zkratka: Sekvence kláves, která makro spustí.&lt;/p&gt;
-&lt;p&gt;Popis: Python &quot;docstring&quot;, t.j. dokumentační řetězec, makra.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Rena&amp;me</source>
         <translation>&amp;Přejmenovat</translation>
     </message>
@@ -6356,30 +6164,6 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
 </context>
 <context>
-    <name>MenuTest</name>
-    <message>
-        <source>Script error</source>
-        <translation type="obsolete">Chyba ve skriptu</translation>
-    </message>
-    <message>
-        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="obsolete">Jestliže běžel skript distribuovaný s programem, informujte nás o chybě na &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; - děkujeme vám.</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Ukázat &amp;konzoli</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Console</source>
-        <translation type="obsolete">Skrýt &amp;konzoli</translation>
-    </message>
-    <message>
-        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="obsolete">Tato chybová zpráva je ve vaší systémové schránce. Použijte Ctrl+V, tím ji
-můžete zkopírovat do chybového hlášení.</translation>
-    </message>
-</context>
-<context>
     <name>MergeDoc</name>
     <message>
         <source>Change...</source>
@@ -6614,10 +6398,6 @@ t.j. interval, nebo jediné číslo strany.</translation>
     <message>
         <source>Line Spacing</source>
         <translation>Řádkování</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Ruční vyrovnání znaků (Kerning)</translation>
     </message>
     <message>
         <source>None</source>
@@ -7013,10 +6793,6 @@ Corners:</source>
         <translation>&amp;Velikost písma:</translation>
     </message>
     <message>
-        <source>&amp;Kerning:</source>
-        <translation type="obsolete">Vyrovnání zna&amp;ků (kerning):</translation>
-    </message>
-    <message>
         <source>L&amp;ine Spacing:</source>
         <translation>Řád&amp;kování:</translation>
     </message>
@@ -7263,6 +7039,10 @@ Vyberte, prosím, jiný.</translation>
     <message>
         <source>Do you really want to delete this Template?</source>
         <translation>Opravdu chcete smazat tuto šablonu?</translation>
+    </message>
+    <message>
+        <source>New Template %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7651,54 +7431,12 @@ ke straně, v opačném případě k objektu.</translation>
 <context>
     <name>OdtDialog</name>
     <message>
-        <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="obsolete">Nastavení importu OpenOffice.org Writer</translation>
-    </message>
-    <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Aktualizovat styly odstavce</translation>
-    </message>
-    <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Má být existující Scribus styl změněn, jestliže v importovaném dokumentu
-existuje styl se stejným jménem nebo se nemá změnit</translation>
-    </message>
-    <message>
-        <source>Pack paragraph styles</source>
-        <translation type="obsolete">Zabalit styly odstavce</translation>
-    </message>
-    <message>
-        <source>Group paragraph styles by attributes.
-Less paragraph styles but controlling them may be hard.
-Should be used if it is known that text must not be edited
-after importing.</source>
-        <translation type="obsolete">Setřídit styly odstavce podle atributů.
-Výsledkem je méně stylů, ale mohou vzniknout problémy
-s jejich nastavením. Používejte, jestliže víte, že text nemusíte
-příliš upravovat.</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Použít jméno dokumentu jako předponu stylů odstavce</translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Má importer přidávat jméno dokumentu před
-jméno stylu odstavce ve Scribusu</translation>
-    </message>
-    <message>
         <source>Do not ask again</source>
         <translation>Neptat se znovu</translation>
-    </message>
-    <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Má si importer vždy pamatovat nastavenou hodnotu
-a nikdy znovu nevyžadovat potvrzení</translation>
     </message>
     <message>
         <source>OK</source>
@@ -7939,20 +7677,8 @@ a nikdy znovu nevyžadovat potvrzení</translation>
         <translation>Zleva nahoře doprava dolů</translation>
     </message>
     <message>
-        <source>Image Settings</source>
-        <translation>Nastavení obrázků</translation>
-    </message>
-    <message>
         <source>Automatic</source>
         <translation>Automaticky</translation>
-    </message>
-    <message>
-        <source>JPEG</source>
-        <translation>JPEG</translation>
-    </message>
-    <message>
-        <source>Zip</source>
-        <translation>Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -7995,24 +7721,10 @@ a nikdy znovu nevyžadovat potvrzení</translation>
         <translation>Export rozsahu stránek do PDF</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">Určuje kompatibilitu PDF. Implicitně Acrobat 4.0, který poskytuje kompatibilitu nejširší.
-Vyberte Acrobat 5.0, jestliže dokument používá vlastnosti PDF 1.4, jako je např. průhlednost nebo 128 bitové šifrování.
-Export do PDF/X-3 použijte při komerčním tisku. Je dostupně při fungující správě barev.</translation>
-    </message>
-    <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
         <translation>Určuje vazbu stran v PDF. Jestliže nepotřebujete speciální
 nastavení, nechte implicitní volbu.</translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation>Vytvoří náhledy všech stran v PDF.
-Některé prohlížeče náhledy použijí k navigaci.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
@@ -8029,31 +7741,6 @@ Ty jsou užitečné k navigaci v obsáhlých PDF dokumentech.</translation>
 This does not affect the resolution of bitmap images like photos.</source>
         <translation>Rozlišení textu a vektorové grafiky při exportu. Neovlivňuje 
 rozlišení bitmapových obrázků, jako jsou např. fotografie.</translation>
-    </message>
-    <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Komprese textu a grafiky.
-Pokud nemáte pádný důvod, nechte povolenu. Redukuje velikost PDF souboru.</translation>
-    </message>
-    <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Způsob komprese obrázků.
-Automaticky - Scribus sám vybere vhodnou metodu.
-ZIP - vhodné na obrázky s plnými barvami.
-JPEG - vytvoří menší PDF, je-li použito mnoho fotografií (drobná ztráta kvality).
-Pokud nepotřebujete speciální kompresi, nechte nastaveno na Automaticky.
-</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Snížit kvalitu bitmapových obrázků na zvolené DPI.
-Jestliže volbu nepovolíte, bude jim ponecháno jejich původní rozlišení.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
@@ -8182,10 +7869,6 @@ specifikaci. Doporučujeme použít titul dokumentu.</translation>
         <translation>Vzdálenost ořezu od pravého okraje fyzické strany</translation>
     </message>
     <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Úrovňe komprese: Minimální (25%), Nízká (50%), Střední (75%), Vysoká (85%), Maximální (95%)</translation>
-    </message>
-    <message>
         <source>Choose a password for users to be able to read your PDF.</source>
         <translation>Zvolit heslo, které musí použít čtenář PDF.</translation>
     </message>
@@ -8202,16 +7885,6 @@ specifikaci. Doporučujeme použít titul dokumentu.</translation>
 If un-checked, text and graphics cannot be copied.</source>
         <translation>Povolit kopírování textu a grafiky z PDF.
 Jestliže není zatrženo, text a grafika nelze kopírovat.</translation>
-    </message>
-    <message>
-        <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="obsolete">Povolit přidávání poznámek a polí formulářů do PDF.
-Jestliže není zatrženo, přidávání je zakázáno.</translation>
-    </message>
-    <message>
-        <source>Create PDF File</source>
-        <translation type="obsolete">Vytvořit PDF soubor</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
@@ -8410,14 +8083,6 @@ Jestliže není zatrženo, přidávání je zakázáno.</translation>
         <translation>&amp;Zrušit</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Vložte čárkou oddělený seznam položek, kde
-položka může být *, t.j. všechny strany, 1-5,
-t.j. interval, nebo jediné číslo strany.</translation>
-    </message>
-    <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF soubory (*.pdf);;Všechny soubory (*)</translation>
     </message>
@@ -8496,30 +8161,46 @@ Není-li povoleno, anotace jsou zakázány.</translation>
         <translation>&lt;qt&gt;Bezpečnost PDF nelze použít s PDF/X-3. Bezpečnost podporují jiné verze PDF. Zvolte jinou úroveň kompatibility./qt&gt;</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparencyor you require 128 bit encryption.PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activatedcolor management.Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors.Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;/qt&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;Určuje kompatibilitu PDF. Implicitní je Acrobat 4.0. Jestliže ve vašem dokumentu používáte vlastnosti PDF 1.4, jako je například průhlednost nebo 128 bitové šifrování, zvolte Acrobat 5.0. Jestliže máte aktivovanou správu barev a chcete RGB barvy pro komerční tisk, zvolte PDF/X-3. Pozn.: PDF/X-3 převede všechny CMYK obrázky do RGB s daným ICC. Použijte to, jestliže vás o to žádá tiskárna (v některých případech tisku na čtyřbarevné laserové tiskárně).&lt;/qt&gt;</translation>
-    </message>
-    <message>
         <source> Lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
         <translation>Bezztrátová komprese textu a grafiky.
 Pokud nemáte dobrý důvod, nechte volbu zapnutou - zmenšuje velikost PDF.</translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation>Způsob komprese obrázků. Automaticky umožní Scribusu zvolit optimální metodu. ZIP je bezzrátový a vhodný pro obrázky s plnými barvami. JPEG je vhodný pro fotografie (kde nevadí malá ztráta kvality).</translation>
-    </message>
-    <message>
-        <source>Re-sample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.
-This can increase memory usage and slow down export.</source>
-        <translation>Převzorkovat bitmapy na zvolené DPI.
-Jestliže je volba vypnutá, budou vykresleny v původním rozlišení.
-Se zapnutou volbou může dojít ke zpomalení exportu a zvýšení paměťovývh nároků.</translation>
-    </message>
-    <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation>Určuje kompatibilitu PDF. Implicitní je Acrobat 4.0. Jestliže ve vašem dokumentu používáte vlastnosti PDF 1.4, jako je například průhlednost nebo 128 bitové šifrování, zvolte Acrobat 5.0. Jestliže máte aktivovanou správu barev a chcete RGB barvy pro komerční tisk, zvolte PDF/X-3. Pozn.: PDF/X-3 převede všechny CMYK obrázky do RGB s daným ICC. Použijte to, jestliže vás o to žádá tiskárna (v některých případech tisku na čtyřbarevné laserové tiskárně).</translation>
+    </message>
+    <message>
+        <source>Image Compression Methods</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JPEG - Lossy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zip - Lossless</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8695,10 +8376,6 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     <message>
         <source>Warning</source>
         <translation>Varování</translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="obsolete">Kopie</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
@@ -9261,10 +8938,6 @@ konkávní (nebo s hranami do hvězdy), kladná konvexní</translation>
         <translation>Různé</translation>
     </message>
     <message>
-        <source>Postscript Interpreter</source>
-        <translation type="obsolete">Interpret postsriptu</translation>
-    </message>
-    <message>
         <source>Image Processing Tool</source>
         <translation>Nástroj na úpravu obrázků</translation>
     </message>
@@ -9301,10 +8974,6 @@ Scribus používá jakékoli téma z Qt nebo KDE</translation>
     <message>
         <source>Default documents directory</source>
         <translation>Implicitní adresář na dokumenty</translation>
-    </message>
-    <message>
-        <source>Default ICC profiles directory</source>
-        <translation type="obsolete">Implicitní adresář na ICC profily</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
@@ -9593,10 +9262,6 @@ po každém automatickém uložení</translation>
         <translation>Nastavení implicitní úrovně zvětšení</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Umístění Ghostscript interpreteru na disku</translation>
-    </message>
-    <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation>Vyhlazovat text při vykreslování EPS a PDF na monitoru</translation>
     </message>
@@ -9605,24 +9270,12 @@ po každém automatickém uložení</translation>
         <translation>Vyhlazovat grafiku při vykreslování EPS a PDF na monitoru</translation>
     </message>
     <message>
-        <source>Filesystem location for graphics editor</source>
-        <translation type="obsolete">Umístění grafického editoru na disku</translation>
-    </message>
-    <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
         <translation>Neukazovat objekty mimo hranice tisknutelné strany nebo exportovaného souboru</translation>
     </message>
     <message>
         <source>Baseline Grid</source>
         <translation>Pomocná mřížka</translation>
-    </message>
-    <message>
-        <source>Turns on the basegrid</source>
-        <translation type="obsolete">Zapnout pomocnou mřížku</translation>
-    </message>
-    <message>
-        <source>Turns off the basegrid</source>
-        <translation type="obsolete">Vypnout pomocnou mřížku</translation>
     </message>
     <message>
         <source> px</source>
@@ -9995,19 +9648,6 @@ po každém automatickém uložení</translation>
 konkávní (nebo s hranami do hvězdy), kladná konvexní</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>UCR - under color removal - odstranění přebytečné barvy, která by 
-způsobila rozpíjení (při přílišné saturaci papíru barvou) nebo trhání 
-barvy při několika vrstvém (např. barevném) laserovém tisku.
-Viz. např. http://www.typo.cz/_pismo/pis-tech-post.html
-a jiné.</translation>
-    </message>
-    <message>
         <source>Executive</source>
         <translation>Executive</translation>
     </message>
@@ -10046,10 +9686,6 @@ měnit, jestliža máte otevřný dokument.</translation>
         <translation>Vypne pomocnou mřížku</translation>
     </message>
     <message>
-        <source>File system location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Umístení Ghostscript interpretu ve vašem systému</translation>
-    </message>
-    <message>
         <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
@@ -10066,6 +9702,10 @@ běžící instanci GIMPu.</translation>
     <message>
         <source>File system location for the GhostScript interpreter</source>
         <translation>Umístění interpretu GhostScriptu</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10527,10 +10167,6 @@ Zkontrolujte cestu a název souboru.</translation>
         <translation>Otevřít</translation>
     </message>
     <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="obsolete">Python skripty (*.py);; All Files (*)</translation>
-    </message>
-    <message>
         <source>Save as</source>
         <translation>Uložit jako</translation>
     </message>
@@ -10549,10 +10185,6 @@ Zkontrolujte cestu a název souboru.</translation>
     <message>
         <source>No</source>
         <translation>Ne</translation>
-    </message>
-    <message>
-        <source>S&amp;cript</source>
-        <translation type="obsolete">S&amp;kript</translation>
     </message>
     <message>
         <source>Save as Image</source>
@@ -10709,22 +10341,6 @@ Zkontrolujte cestu a název souboru.</translation>
     <message>
         <source>S&amp;cripter Manual...</source>
         <translation>Manuál &amp;Scripteru...</translation>
-    </message>
-    <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation type="obsolete">&amp;Scribus skripty</translation>
-    </message>
-    <message>
-        <source>&amp;Execute Script...</source>
-        <translation type="obsolete">&amp;Vykonat skript...</translation>
-    </message>
-    <message>
-        <source>&amp;Recent Scripts</source>
-        <translation type="obsolete">&amp;Použité skripty</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Ukázat &amp;konzoli</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -10927,14 +10543,6 @@ Odkazy ven
         <translation>Nelze nastavit větší progres než je maximální</translation>
     </message>
     <message>
-        <source>&amp;About Script...</source>
-        <translation type="obsolete">&amp;O skriptu...</translation>
-    </message>
-    <message>
-        <source>About Script</source>
-        <translation type="obsolete">O skriptu</translation>
-    </message>
-    <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
         <translation>Nelze získat velikost písma z netextového rámce.</translation>
@@ -10980,144 +10588,14 @@ Odkazy ven
         <translation>Nelze vložit text do netextového rámu.</translation>
     </message>
     <message>
-        <source>Insert index out of bounds</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Pozice je mimo povolené hranice</translation>
-    </message>
-    <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
         <translation>Hodnota zarovnání je mimo povolený rozsah. Použijte jednu z předdefinovaných konstant scribus.ALIGN*.</translation>
     </message>
     <message>
-        <source>Can&apos;t set text alignment on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze nastavit typ zarovnání netextového rámce</translation>
-    </message>
-    <message>
-        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Velikost písma mimo povolený rozsah. Musí být mezi 1 a 512</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set font size on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze nasatvit velikost písma netextového rámu</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set font on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze nastavit písmo netextového rámu</translation>
-    </message>
-    <message>
-        <source>Font not found</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Písmo nenalezeno</translation>
-    </message>
-    <message>
-        <source>Line space out of bounds, must be &gt;= 0.1</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Velikost řádkování je mimo povolený rozsah. Musí být větší než 0</translation>
-    </message>
-    <message>
-        <source>Can&apos;t line spacing on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze nastavit řádkovéní netextového rámce</translation>
-    </message>
-    <message>
-        <source>Column gap out of bounds, must be positive</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Mezisloupcová mezera nesmí být negativní</translation>
-    </message>
-    <message>
-        <source>Can&apos;t column gap on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze nastavit mezisloupcovou mezeru netextového rámu</translation>
-    </message>
-    <message>
-        <source>Column count out of bounds, must be &gt; 1</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Počet slupců je mimo povolený rozsah. Musí být větší než 1</translation>
-    </message>
-    <message>
-        <source>Can&apos;t number of columns on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze nastavit počet sloupců netextového rámce</translation>
-    </message>
-    <message>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
         <translation>Pozice výběru mimo povolené hranice</translation>
-    </message>
-    <message>
-        <source>Can&apos;t select text in a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze vybrat text v netextovém rámce</translation>
-    </message>
-    <message>
-        <source>Can&apos;t delete text from a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze smazat text z netextového rámce</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text fill on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze nastavit výplň textu netextového rámce</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text stroke on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze nastavit obrys netextového rámce</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text shade on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze nastavit stín netextového rámce</translation>
-    </message>
-    <message>
-        <source>Can only link text frames</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Pouze textové rámce se mohou zřetězit</translation>
-    </message>
-    <message>
-        <source>Target frame must be empty</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Cílový rámec musí být prázdný</translation>
-    </message>
-    <message>
-        <source>Target frame links to another frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Text cilového rámce už poračuje v rámci jiném</translation>
-    </message>
-    <message>
-        <source>Target frame is linked to by another frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Cílový rámec už je zřetězený</translation>
-    </message>
-    <message>
-        <source>Source and target are the same object</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Oba rámce jsou stejný objekt</translation>
-    </message>
-    <message>
-        <source>Can&apos;t unlink a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze zrušit zřetězení netextového rámce</translation>
-    </message>
-    <message>
-        <source>Object is not a linked text frame, can&apos;t unlink.</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Objekt není zřetězený textový rámec, proto nelze řetězeí zrušit.</translation>
-    </message>
-    <message>
-        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Objektu na posledním místě nelze zrušit zřetězení. Použijte místo něj předchozí rámec.</translation>
-    </message>
-    <message>
-        <source>Can&apos;t convert a non-text frame to outlines</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze převést netextový rámec na křivky</translation>
     </message>
     <message>
         <source>Failed to open document</source>
@@ -11138,41 +10616,6 @@ Odkazy ven
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
         <translation>Cíl není obrázkový rámec.</translation>
-    </message>
-    <message>
-        <source>Can&apos;t scale by 0%</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze měnit velikost pomocí 0%</translation>
-    </message>
-    <message>
-        <source>Can&apos;t render an empty sample</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze vytvořit prázdný náhled</translation>
-    </message>
-    <message>
-        <source>Can&apos;t save to a blank filename</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze ukládat bez názvu souboru</translation>
-    </message>
-    <message>
-        <source>Can&apos;t have an empty layer name</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze vytvořit vrstvu s prázdným jménem</translation>
-    </message>
-    <message>
-        <source>Layer not found</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Vrstva nenalezena</translation>
-    </message>
-    <message>
-        <source>Can&apos;t remove the last layer</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze odstranit poslední vrstvu</translation>
-    </message>
-    <message>
-        <source>Can&apos;t create layer without a name</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nelze vytvořit vrstvu beze jména</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
@@ -11280,16 +10723,6 @@ Odkazy ven
         <translation>Nelze změnit barvu s prázdným jménem.</translation>
     </message>
     <message>
-        <source>Color not found in document</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Barva není v dokumentu nalezena</translation>
-    </message>
-    <message>
-        <source>Color not found in default colors</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Barva není nalezena v implicitních barvách</translation>
-    </message>
-    <message>
         <source>Cannot create a color with an empty name.</source>
         <comment>python error</comment>
         <translation>Nelze vytvořit barvu s prázdným jménem.</translation>
@@ -11315,50 +10748,6 @@ Odkazy ven
     <message>
         <source>OpenOffice.org Writer Documents</source>
         <translation>OpenOffice.o Writer dokumenty</translation>
-    </message>
-    <message>
-        <source>Scribus Python interface module
-This module is the Python interface for Scribus. It provides functions
-to control scribus and to manipulate objects on the canvas. Each
-function is documented individually below.
-A few things are common across most of the interface.
-Most functions operate on frames. Frames are identified by their name,
-a string - they are not real Python objects. Many functions take an
-optional (non-keyword) parameter, a frame name.
-Many exceptions are also common across most functions. These are
-not currently documented in the docstring for each function.
-    - Many functions will raise a NoDocOpenError if you try to use them
-      without a document to operate on.
-    - If you do not pass a frame name to a function that requires one,
-      the function will use the currently selected frame, if any, or
-      raise a NoValidObjectError if it can&apos;t find anything to operate
-      on.
-    - Many functions will raise WrongFrameTypeError if you try to use them
-      on a frame type that they do not make sense with. For example, setting
-      the text colour on a graphics frame doesn&apos;t make sense, and will result
-      in this exception being raised.
-    - Errors resulting from calls to the underlying Python API will be
-      passed through unaltered. As such, the list of exceptions thrown by
-      any function as provided here and in its docstring is incomplete.
-Details of what exceptions each function may throw are provided on the
-function&apos;s documentation.
-</source>
-        <translation type="obsolete">Scripter - Python modul programu Scribus
-Scripter je rozhraní jazyka Python programu Scribus. Umožňuje ovládat Scribus a manipulovat
-s objekty v dokumentu. Všechny dostupné třídy, procedury, funkce a konstanty jsou popsány dále.
-Několik věci platí v celém Scripteru. Většina funkčnosti pracuje s rámy. Rámce jsou identifikovány
-svým jménem - textovým řetězcem (není Python objektem). Některé funkce akceptují volitelný
-parametr, t.j. jméno rámce. Některé obecnější výjimky mohou být vyvolány v různých funkcích,
-ale zatím nejsou dokumentovány v nápovědě jednotlivých funkcí.
-    - Mnoho funkcí vyvolá NoDocOpenError, jestliže je zavoláte a nemáte otevřený žádný dokument.
-    - Jestliže nepoužijete jméno rámce jako parametr, funkce zkusí nejít vybraný objekt. Pokud
-      nenalezne, vyvolá NoValidObjectError.
-    - Funkce vyvolá WrongFrameTypeError, jestliže bude zpracovávat rámec, se kterým operace
-      nebude dávat smysl. Např. nastavení barvy textu obrázkovému rámci smysl nedává, takže je
-      výjimka vyvolána.
-    - Chyby a výjimky, které vzniknou v ostatních Python modulech, budou předány interpreteru
-      beze změny, takže vyjmenované výjimky v dokumentaci Scripteru nejsou ani zdaleka kompletní.
-Detaily a výjimky Scripteru jsou popsány v dokumentaci jednotlivých funkcí.</translation>
     </message>
     <message>
         <source>Color not found - python error</source>
@@ -11664,11 +11053,6 @@ Detaily a výjimky Scripteru jsou popsány v dokumentaci jednotlivých funkcí.<
         <translation>Nelze získat barvu bez názvu.</translation>
     </message>
     <message>
-        <source>Colour not found</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Barva nenalezena</translation>
-    </message>
-    <message>
         <source>Unable to save pixmap.</source>
         <comment>scripter error</comment>
         <translation>Nelze uložit obrázek.</translation>
@@ -11713,6 +11097,26 @@ Detaily a výjimky Scripteru jsou popsány v dokumentaci jednotlivých funkcí.<
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
         <translation>Pouze textov lze testovat na zřetězení</translation>
+    </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12053,16 +11457,8 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
 <context>
     <name>SToolBStyle</name>
     <message>
-        <source>Kerning:</source>
-        <translation type="obsolete">Vyrovnání znaků (kerning):</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>pt</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Ruční vyrovnání znaků (Kerning)</translation>
     </message>
     <message>
         <source>Character Settings</source>
@@ -12075,6 +11471,41 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <message>
         <source>Manual Tracking</source>
         <translation>Manuální nastavení prokládání textu</translation>
+    </message>
+</context>
+<context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">Vpravo</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Vlevo</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished">Vodorovně</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished">Svisle</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12097,10 +11528,6 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <message>
         <source>Searching for Fonts</source>
         <translation>Hledám písma</translation>
-    </message>
-    <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">Váš systém neobsahuje žádná Postscriptová písma</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -12137,10 +11564,6 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <message>
         <source>Show Layers</source>
         <translation>Zobrazit vrstvy</translation>
-    </message>
-    <message>
-        <source>Javascripts...</source>
-        <translation type="obsolete">Java skripty...</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -12549,10 +11972,6 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
         <translation>Všechny</translation>
     </message>
     <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation type="obsolete">EPS soubory (*.eps);;Všechny soubory (*)</translation>
-    </message>
-    <message>
         <source>Loading:</source>
         <translation>Načítám:</translation>
     </message>
@@ -12905,10 +12324,6 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
         <translation>Ša&amp;blony...</translation>
     </message>
     <message>
-        <source>&amp;Javascripts...</source>
-        <translation type="obsolete">&amp;Java skripty...</translation>
-    </message>
-    <message>
         <source>D&amp;uplicate</source>
         <translation>&amp;Duplikovat</translation>
     </message>
@@ -13177,10 +12592,6 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
         <translation>Zobrazit &amp;vodítka</translation>
     </message>
     <message>
-        <source>Ghostscript : You cannot use EPS Images</source>
-        <translation type="obsolete">Ghostscript: Nemůžete použít EPS obrázky</translation>
-    </message>
-    <message>
         <source>Import &amp;Page(s)...</source>
         <translation>Im&amp;portovat stranu(y)...</translation>
     </message>
@@ -13311,6 +12722,10 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <message>
         <source>Norwegian</source>
         <translation>Norština</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13587,13 +13002,6 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     <message>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Povolit používání konvence StarychJmen&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
-&lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
-&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;Pokud nevíte, jaké byly staré a již nahrazené Python funkce Scribusu, nechte beze změny.&lt;/p&gt;
-&lt;p&gt;Změna se projeví až po novém spuštěni aplikace.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use Fake Stdin</source>
@@ -14137,10 +13545,6 @@ přetáhněte šablonu do náhledu strany.</translation>
 <context>
     <name>SxwDialog</name>
     <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Aktualizovat styly odstavce</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Použít jméno dokumentu jako předponu stylů odstavce</translation>
     </message>
@@ -14153,42 +13557,8 @@ přetáhněte šablonu do náhledu strany.</translation>
         <translation>OK</translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Má importer přidávat jméno dokumentu před
-jméno stylu odstavce ve Scribusu</translation>
-    </message>
-    <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Má být existující Scribus styl změněn, jestliže v importovaném dokumentu
-existuje styl se stejným jménem nebo se nemá změnit</translation>
-    </message>
-    <message>
         <source>OpenOffice.org Writer Importer Options</source>
         <translation>Nastavení importu OpenOffice.org Writer</translation>
-    </message>
-    <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Má si importer vždy pamatovat nastavenou hodnotu
-a nikdy znovu nevyžadovat potvrzení</translation>
-    </message>
-    <message>
-        <source>Pack paragraph styles</source>
-        <translation type="obsolete">Zabalit styly odstavce</translation>
-    </message>
-    <message>
-        <source>Group paragraph styles by attributes.
-Less paragraph styles but controlling them may be hard.
-Should be used if it is known that text must not be edited
-after importing.</source>
-        <translation type="obsolete">Setřídit styly odstavce podle atributů.
-Výsledkem je méně stylů, ale mohou vzniknout problémy
-s jejich nastavením. Používejte, jestliže víte, že text nemusíte
-příliš upravovat.</translation>
     </message>
     <message>
         <source>Update Paragraph Styles</source>
@@ -14657,10 +14027,6 @@ hodnoty nahradíte.</translation>
     <message>
         <source>Automatic</source>
         <translation>Automaticky</translation>
-    </message>
-    <message>
-        <source>Get text only</source>
-        <translation type="obsolete">Pouze text</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>

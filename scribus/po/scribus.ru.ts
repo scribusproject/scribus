@@ -3432,6 +3432,18 @@ This can be set in the Preferences.</source>
     </message>
 </context>
 <context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DocInfos</name>
     <message>
         <source>Document Information</source>
@@ -9068,22 +9080,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 (в форме звезды), а положительное - выпуклым</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Способ удаления некоторых серых (ахроматических) тонов, 
-составленных из голубой, желтой и пурпурной красок, 
-и замены их на черный. UCR главным образом воздействует на 
-нейтральные по цвету части изображения. Использование этого 
-метода способно улучшить печать некоторых изображений, но 
-каждый отдельный случай требует особого рассмотрения. 
-При использовании этого способа также снижается 
-вероятность избыточной насыщенности изображения. </translation>
-    </message>
-    <message>
         <source>Executive</source>
         <translation>Executive</translation>
     </message>
@@ -9140,6 +9136,10 @@ be changed with documents open.</source>
     <message>
         <source>File system location for the GhostScript interpreter</source>
         <translation>Местоположение интерпретатора Ghostscript в файловой системе</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10524,6 +10524,18 @@ function&apos;s documentation.</source>
     </message>
     <message>
         <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12132,6 +12144,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Norwegian</source>
         <translation>Норвежский</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

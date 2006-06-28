@@ -1536,14 +1536,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 <context>
     <name>About</name>
     <message>
-        <source>About Scribus%1%2</source>
-        <translation type="obsolete">О Scribus-у%1%2</translation>
-    </message>
-    <message>
-        <source>%1. %2 %3 </source>
-        <translation type="obsolete">%1. %2 %3 </translation>
-    </message>
-    <message>
         <source>Scribus Version %1
 %2 %3</source>
         <translation>Scribus верзија %1
@@ -1714,16 +1706,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>&amp;Затвори</translation>
     </message>
     <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation type="obsolete">Овај панел приказује верзију, датум прављења и
- укомпајлирану подршку за библиотеке у Scribus-у
-C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
-Подршка за библиотеке које недостају је обележена *</translation>
-    </message>
-    <message>
         <source>Official Translations and Translators:</source>
         <translation>Званични преводи и преводиоци:</translation>
     </message>
@@ -1756,6 +1738,10 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Portuguese (Brazilian):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2228,10 +2214,6 @@ Not recommended unless
         <translation>Опције</translation>
     </message>
     <message>
-        <source>Java Script</source>
-        <translation type="obsolete">Java Script</translation>
-    </message>
-    <message>
         <source>Go To</source>
         <translation>Иди на</translation>
     </message>
@@ -2490,10 +2472,6 @@ Not recommended unless
     <message>
         <source>Open</source>
         <translation>Отвори</translation>
-    </message>
-    <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Слике (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Сви фајлови (*)</translation>
     </message>
     <message>
         <source>Example:</source>
@@ -3350,14 +3328,6 @@ This can be set in the Preferences.</source>
         <translation>Замени је са:</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">У реду</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Поништи</translation>
-    </message>
-    <message>
         <source>None</source>
         <translation>Ниједан</translation>
     </message>
@@ -3414,6 +3384,18 @@ This can be set in the Preferences.</source>
     <message>
         <source>OK</source>
         <translation>У реду</translation>
+    </message>
+</context>
+<context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3697,10 +3679,6 @@ a range of pages or a single page number.</source>
     <message>
         <source>Save as</source>
         <translation>Сними као</translation>
-    </message>
-    <message>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation type="obsolete">Postscript-фајлови (*.ps);;Сви фајлови (*)</translation>
     </message>
     <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
@@ -4089,10 +4067,6 @@ be saved in its current form. The error was:
         <translation>&amp;Уреди</translation>
     </message>
     <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation type="obsolete">Javascripts (*.js);;Сви фајлови (*)</translation>
-    </message>
-    <message>
         <source>JavaScripts (*.js);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4383,10 +4357,6 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <source>Additional Paths</source>
         <translation>Додатне путање</translation>
-    </message>
-    <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -5461,29 +5431,6 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
 </context>
 <context>
-    <name>MenuTest</name>
-    <message>
-        <source>Script error</source>
-        <translation type="obsolete">Грешка скрипте</translation>
-    </message>
-    <message>
-        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="obsolete">Ако радите са званичном скриптом молим Вас пријавите грешку на &lt;a href=\&quot;http://bugs.scribus.net\&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
-    </message>
-    <message>
-        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="obsolete">Ова порука је и у Вашем клипборду. Користите Ctrl+V да је пренесете у пратиоца грешака.</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Прикажи &amp;конзолу</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Console</source>
-        <translation type="obsolete">Сакриј &amp;конзолу</translation>
-    </message>
-</context>
-<context>
     <name>MergeDoc</name>
     <message>
         <source>Import Template</source>
@@ -5757,10 +5704,6 @@ Corners:</source>
         <translation>Произвољан проред</translation>
     </message>
     <message>
-        <source>&amp;Kerning:</source>
-        <translation type="obsolete">&amp;Кернинг:</translation>
-    </message>
-    <message>
         <source>L&amp;ine Spacing:</source>
         <translation>&amp;Проред:</translation>
     </message>
@@ -6019,10 +5962,6 @@ Corners:</source>
     <message>
         <source>Saturation of color of text fill</source>
         <translation>Засићење боје испуњеног текста</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Ручни кернинг</translation>
     </message>
     <message>
         <source>Line Spacing</source>
@@ -6365,6 +6304,10 @@ Please choose another.</source>
     <message>
         <source>Normal</source>
         <translation>Нормално</translation>
+    </message>
+    <message>
+        <source>New Template %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6753,24 +6696,8 @@ otherwise Coordinates are relative to the Object.</source>
 <context>
     <name>OdtDialog</name>
     <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Ажурирај стилове пасуса</translation>
-    </message>
-    <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Ако стил пасуса са истим именом као текући пасус OpenOffice.org-а већ постоји, да ли би требало изменити стил у Scribus-у да се поклапа са оним који се увози, или би требало да остане непромењен</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation type="unfinished">Користи име документа као префикс за стилове пасуса</translation>
-    </message>
-    <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Да ли би увозник требало да дода име документа 
-испред имена стила параграфа у Scribus-у</translation>
     </message>
     <message>
         <source>Do not ask again</source>
@@ -6822,10 +6749,6 @@ on front of the paragraph style name in Scribus</source>
 </context>
 <context>
     <name>PDF_Opts</name>
-    <message>
-        <source>Create PDF File</source>
-        <translation type="obsolete">Направи PDF фајл</translation>
-    </message>
     <message>
         <source>O&amp;utput to File:</source>
         <translation>Из&amp;лаз у фајл:</translation>
@@ -6887,20 +6810,8 @@ on front of the paragraph style name in Scribus</source>
         <translation>&amp;Резолуција:</translation>
     </message>
     <message>
-        <source>Image Settings</source>
-        <translation>Поставке слике</translation>
-    </message>
-    <message>
         <source>Automatic</source>
         <translation>Аутоматски</translation>
-    </message>
-    <message>
-        <source>JPEG</source>
-        <translation>JPEG</translation>
-    </message>
-    <message>
-        <source>Zip</source>
-        <translation>Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -7271,32 +7182,10 @@ on front of the paragraph style name in Scribus</source>
         <translation>Извези опсег страница у PDF</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Унесите листу обележја раздвојених зарезима где
-обележје може бити * за све странице, 1-5 за
-опсег страница или број једне странице.</translation>
-    </message>
-    <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">Утврђује PDF компатибилност. Подразумевана је Acrobat 4.0 који даје најширу компатибилност.
-Изаберите Acrobat 5.0 ако Ваши фајлови поседују PDF 1.4 карактеристике као што су провидност или Вам је потребна 128. битно шифровање.
-PDF/X-3 служи за извоз у PDF за комерцијалну штампу и могуће га је изабрати када активирате управљање бојама.</translation>
-    </message>
-    <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
         <translation>Утврђује повезивање страна у PDF-у. Отавите подразумевани
 избор - Лево, осим ако знате да ово треба да промените.</translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation>Прави сличицу сваке стране у PDF-у.
-Неки прегледачи могу користити сличице за навигацију.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
@@ -7313,34 +7202,6 @@ These are useful for navigating long PDF documents.</source>
 This does not affect the resolution of bitmap images like photos.</source>
         <translation>Извози резолуцију текста и векторске графике.
 Ово не утиче на резолуцију bitmap слика као што су фотографије.</translation>
-    </message>
-    <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Компресија текста и графике.
-Оставите ово штиклирано, осим ако немате разлога за супротно. Ово смањује величину PDF-а.</translation>
-    </message>
-    <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Верзија компресије за слике.
-„Аутоматска“ дозвољава Scribus-у да изабере најбољи метод.
-ZIP је добар за слике са пуним бојама.
-JPEG је бољи за прављење PDF фајлова који садрже много фотографија (са могућим малим губитком квалитета).
-Оставите поставку на „Аутоматска“, уколико немате потребу за специјалним опцијама компресије.</translation>
-    </message>
-    <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Нивои компресије: Минималан (25\\%), Низак (50\\%), Средњи (75\\%), Висок (85\\%), Максималан (95\\%)</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Смањите резолуцију Ваших битмап слика на изабрани резолуцију (тпи).
-Ако ово оставите нештиклирано рендероваће се у матичној резолуцији.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
@@ -7425,12 +7286,6 @@ security features in your exported PDF</source>
 If un-checked, text and graphics cannot be copied.</source>
         <translation>Дозволи копирање текста и графике из PDF-а. 
 Ако није штиклирано, текст и графика се не могу копирати.</translation>
-    </message>
-    <message>
-        <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="obsolete">Дозволи додавање анотација и поља у PDF. 
-Ако није штиклирано, уређивање анотација и поља је онемогућено.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF.
@@ -7577,17 +7432,39 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Re-sample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.
-This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Compression Methods</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JPEG - Lossy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zip - Lossless</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7640,13 +7517,6 @@ of a slight slowdown in previewing. This only affects Type 1 fonts</source>
 незнатног успорења при прегледању. Ово утиче само на Type 1 фонтове</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="obsolete">Обезбеђује пријатнији приказ True Type фонтова, Open Type фонтова, EPS, PDF 
-и 
-векторске графике у прегледу, на рачун незнатног успорења при прегледању</translation>
-    </message>
-    <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation>Приказује провидност и провидне ставке у Вашем документу. Захтева Ghostscript 7.07 или новији</translation>
     </message>
@@ -7669,20 +7539,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>Укључи/искључи К (Црна) палету мастила</translation>
-    </message>
-    <message>
-        <source>A way of switching some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">Начин за замену неких од сивих нијанси које се састоје од
-цијан, жуте и магенте и коришћење црне уместо тога.
-UCR највише утиче на делове слике који су неутрални и/или тамни тонови
-блиски сивој. Коришћење овога може поправити штампу неких слика,
-а потребно је мало експериментисања и тестирања у зависности од случаја.
-UCR смањује могућност презасићења CMY мастилима.</translation>
     </message>
     <message>
         <source>All</source>
@@ -7988,10 +7844,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>is missing!</source>
         <translation>недостаје!</translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="obsolete">Копија</translation>
     </message>
 </context>
 <context>
@@ -8651,10 +8503,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation>Да бисте подесили приказ вуците лењир испод помоћу клизача.</translation>
     </message>
     <message>
-        <source>Postscript Interpreter</source>
-        <translation type="obsolete">Postscript интерпретатор</translation>
-    </message>
-    <message>
         <source>&amp;Name of Executable:</source>
         <translation>&amp;Име извршног фајла:</translation>
     </message>
@@ -8723,10 +8571,6 @@ Scribus наслеђује било које доступне KDE или Qt те
     <message>
         <source>Default documents directory</source>
         <translation>Подразумевани директоријум за документе</translation>
-    </message>
-    <message>
-        <source>Default ICC profiles directory</source>
-        <translation type="obsolete">Подразумевани директоријум за ICC профиле</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
@@ -8821,14 +8665,6 @@ each time the time period elapses</source>
     <message>
         <source>Place the grid in front of your page objects</source>
         <translation>Постави мрежу испред Ваших објеката на страници</translation>
-    </message>
-    <message>
-        <source>Turns on the basegrid</source>
-        <translation type="obsolete">Укључује основну мрежу</translation>
-    </message>
-    <message>
-        <source>Turns off the basegrid</source>
-        <translation type="obsolete">Искључује основну мрежу</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
@@ -9038,10 +8874,6 @@ each time the time period elapses</source>
         <translation>Постави подразумевани ниво увеличања/умањења</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Локација фајл система за Ghostscript интепретатор</translation>
-    </message>
-    <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation>Омекшај текст за EPS и PDF рендеровање на екрану</translation>
     </message>
@@ -9050,26 +8882,8 @@ each time the time period elapses</source>
         <translation>Омекшај графику за EPS и PDF рендеровање на екрану</translation>
     </message>
     <message>
-        <source>Filesystem location for graphics editor</source>
-        <translation type="obsolete">Локација фајл система за измењивач графике</translation>
-    </message>
-    <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
         <translation>Немој да приказујеш објекте изван маргина на одштампаној страници или извезеном фајлу</translation>
-    </message>
-    <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Начин за искључивање неких сивих сенки које су састављене
-од цијан, жуте, и магенте и коришћења црне уместо тога.
-UCR највише утиче на делове слике који имају неутралне и/или тамне тонове
-који су блиски сивој. Коришћење овога може поправити штампу неких слика
-и потребно је мало експериментисања у зависности од случаја.
-UCR смањује могућност презасићености CMY мастилима.</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -9145,6 +8959,10 @@ instance of gimp.</source>
     </message>
     <message>
         <source>File system location for the GhostScript interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9583,10 +9401,6 @@ Check path and filename.</source>
 <context>
     <name>QObject</name>
     <message>
-        <source>Oook! Wrong arguments! Call: </source>
-        <translation type="obsolete">Упс! Погрешни аргументи! Позови: </translation>
-    </message>
-    <message>
         <source>Importing text</source>
         <translation>Увозим текст</translation>
     </message>
@@ -9793,60 +9607,12 @@ Check path and filename.</source>
         <translation>Сними као &amp;шаблон...</translation>
     </message>
     <message>
-        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation type="obsolete">Упс! Покушавате да учитате слику у објекат који не постоји или није изабран.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Упс! Покушавате да (откључате)закључате објекат који не постоји! Такође, ниједан није изабран.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Упс! Покушавате да позовете објекат који не постоји! Такође, ниједан није изабран.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Упс! Позивате објекат који не постоји!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Упс! Покушавате да обришете објекат који не постоји!</translation>
-    </message>
-    <message>
-        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation type="obsolete">Упс! Објекат који покушавате да придружите тексту не постоји!</translation>
-    </message>
-    <message>
         <source>S&amp;cripter Manual...</source>
         <translation>S&amp;cripter приручник...</translation>
     </message>
     <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation type="obsolete">&amp;Scribus скрипте</translation>
-    </message>
-    <message>
-        <source>&amp;Execute Script...</source>
-        <translation type="obsolete">&amp;Изврши скрипту...</translation>
-    </message>
-    <message>
-        <source>&amp;Recent Scripts</source>
-        <translation type="obsolete">&amp;Скорашње скрипте</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Прикажи &amp;конзолу</translation>
-    </message>
-    <message>
-        <source>S&amp;cript</source>
-        <translation type="obsolete">С&amp;крипта</translation>
-    </message>
-    <message>
         <source>Online Reference</source>
         <translation>Веб референца</translation>
-    </message>
-    <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="obsolete">Python скрипте (*.py);; Сви фајлови (*)</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -9894,10 +9660,6 @@ External Links
 </source>
         <translation>
 Спољашње везе</translation>
-    </message>
-    <message>
-        <source>OO.o Writer Documents</source>
-        <translation type="obsolete">OO.o Writer документи</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -10588,6 +10350,26 @@ function&apos;s documentation.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -10931,16 +10713,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Поставке карактера</translation>
     </message>
     <message>
-        <source>Kerning:</source>
-        <translation type="obsolete">Кернинг:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation> тач.</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Ручни кернинг</translation>
     </message>
     <message>
         <source>Tracking:</source>
@@ -10948,6 +10722,41 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">Десна</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Лева</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished">Водоравно</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished">Усправно</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11001,10 +10810,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Тражим фонтове</translation>
     </message>
     <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">Нема postscript фонтова на Вашем систему</translation>
-    </message>
-    <message>
         <source>Exiting now</source>
         <translation>Излазим сада</translation>
     </message>
@@ -11039,10 +10844,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Show Layers</source>
         <translation>Прикажи слојеве</translation>
-    </message>
-    <message>
-        <source>Javascripts...</source>
-        <translation type="obsolete">Javascript-ови...</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -11279,10 +11080,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Templates...</source>
         <translation>Шаблони...</translation>
-    </message>
-    <message>
-        <source>&amp;Javascripts...</source>
-        <translation type="obsolete">&amp;Javascript-ови...</translation>
     </message>
     <message>
         <source>Select New Font</source>
@@ -11969,16 +11766,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Недостају следећи програми:</translation>
     </message>
     <message>
-        <source>Ghostscript : You cannot use EPS Images</source>
-        <translation type="obsolete">Ghostscript : Не можете да користите EPS слике</translation>
-    </message>
-    <message>
         <source>All</source>
         <translation>Све</translation>
-    </message>
-    <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation type="obsolete">EPS-фајлови (*.eps);;Сви фајлови (*)</translation>
     </message>
     <message>
         <source>pt</source>
@@ -12186,6 +11975,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Norwegian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12940,14 +12733,6 @@ drag a Template to the Pageview below.</source>
         <translation>Да ли желите да снимите измене?</translation>
     </message>
     <message>
-        <source>&amp;Insert Special</source>
-        <translation type="obsolete">&amp;Уметни специјално</translation>
-    </message>
-    <message>
-        <source>&amp;Fonts Preview</source>
-        <translation type="obsolete">Преглед &amp;фонтова</translation>
-    </message>
-    <message>
         <source>Do you really want to lose all your Changes?</source>
         <translation>Да ли стварно желите да се изгубе све измене?</translation>
     </message>
@@ -13002,14 +12787,6 @@ drag a Template to the Pageview below.</source>
 <context>
     <name>SxwDialog</name>
     <message>
-        <source>OO.o Writer Importer Options</source>
-        <translation type="obsolete">Опције OO.o Writer увозника</translation>
-    </message>
-    <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Ажурирај стилове пасуса</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Користи име документа као префикс за стилове пасуса</translation>
     </message>
@@ -13018,28 +12795,8 @@ drag a Template to the Pageview below.</source>
         <translation>Не питај опет</translation>
     </message>
     <message>
-        <source>Should the importer always use currently
-set value when importing OO.o document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Да ли би увозник увек требало да користи текућу
-постављену вредност приликом увоза OO.o докумената и
-да никада више не пита за потврду</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>У реду</translation>
-    </message>
-    <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Да ли би увозник требало да дода име документа 
-испред имена стила параграфа у Scribus-у</translation>
-    </message>
-    <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Ако стил пасуса са истим именом као текући пасус OpenOffice.org-а већ постоји, да ли би требало изменити стил у Scribus-у да се поклапа са оним који се увози, или би требало да остане непромењен</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
@@ -13118,10 +12875,6 @@ edited to match the one being imported, or left untouched</source>
     <message>
         <source>First &amp;Line:</source>
         <translation>Прва &amp;линија:</translation>
-    </message>
-    <message>
-        <source>Ind&amp;ent:</source>
-        <translation type="obsolete">Увла&amp;чење:</translation>
     </message>
     <message>
         <source>Delete All</source>
@@ -13512,10 +13265,6 @@ with checked button too.</source>
     <message>
         <source>Automatic</source>
         <translation>Аутоматски</translation>
-    </message>
-    <message>
-        <source>Get text only</source>
-        <translation type="obsolete">Добави само текст</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>

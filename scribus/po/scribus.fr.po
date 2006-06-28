@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.2.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-28 11:07+0100\n"
+"POT-Creation-Date: 2006-06-28 21:54+0200\n"
 "PO-Revision-Date: 2005-05-27 02:06+0100\n"
 "Last-Translator: Nicolas Boos <nicolas.boos@wanadoo.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -218,6 +218,13 @@ msgstr "Page"
 
 msgid "Font %1 is broken, discarding it"
 msgstr "La police %1 est défectueuse, elle sera ignorée"
+
+#, fuzzy
+msgid "Font %1 (found using fontconfig) is broken, discarding it"
+msgstr "La police %1 est défectueuse, elle sera ignorée"
+
+msgid "Failed to load a font - freetype couldn't find the font file"
+msgstr ""
 
 msgid "Left"
 msgstr "Gauche"
@@ -972,14 +979,15 @@ msgstr "&Résolution :"
 msgid "Compress Text and &Vector Graphics"
 msgstr "Comprimer le texte et les graphiques &vectoriels"
 
-msgid "Image Settings"
-msgstr "Paramètres pour les images"
+#, fuzzy
+msgid "Image Compression Methods"
+msgstr "Outil de retouche d'image"
 
-msgid "JPEG"
-msgstr "JPEG"
+msgid "JPEG - Lossy"
+msgstr ""
 
-msgid "Zip"
-msgstr "Zip"
+msgid "Zip - Lossless"
+msgstr ""
 
 msgid "&Method:"
 msgstr "&Méthode :"
@@ -1258,10 +1266,10 @@ msgstr "Exporter toutes les pages vers un fichier PDF"
 msgid "Export a range of pages to PDF"
 msgstr "Exporter une sélection de pages vers un fichier PDF"
 
+#, fuzzy
 msgid ""
-"Insert a comma separated list of tokens where\n"
-"a token can be * for all the pages, 1-5 for\n"
-"a range of pages or a single page number."
+"Insert a comma separated list of tokens where a token can be * for all the "
+"pages, 1-5 for a range of pages or a single page number."
 msgstr ""
 "Insérer une liste d'éléments séparés par des virgules,\n"
 "les éléments pouvant être « * » pour toutes les pages, 1-5 pour\n"
@@ -1292,9 +1300,10 @@ msgid ""
 "you need to change it leave the default choice - Left."
 msgstr "Position de la reliure dans le fichier PDF. À gauche par défaut."
 
+#, fuzzy
 msgid ""
-"Generates thumbnails of each page in the PDF.\n"
-"Some viewers can use the thumbnails for navigation."
+"Generates thumbnails of each page in the PDF. Some viewers can use the "
+"thumbnails for navigation."
 msgstr ""
 "Générer les vignettes pour chaque page du fichier PDF.\n"
 "Certaines visionneuses les utilisent pour faciliter la navigation dans le "
@@ -1336,7 +1345,7 @@ msgid ""
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic, unless you have a "
-"need for special compression options."
+"need for special compression options. This only applies to JPEG images"
 msgstr ""
 "Type de compression pour les images.\n"
 "Automatique laisse Scribus choisir la meilleure méthode.\n"
@@ -1345,18 +1354,19 @@ msgstr ""
 "des images).\n"
 "Laisser sur Automatique, sauf si vous avez une bonne raison."
 
+#, fuzzy
 msgid ""
 "Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), "
-"Maximum (95%)"
+"Maximum (95%) - This only affects JPEG images."
 msgstr ""
 "Niveaux de compression : minimum (25%), faible (50%), moyen (75%), élevé "
 "(85%), maximum (95%)"
 
 #, fuzzy
 msgid ""
-"Re-sample your bitmap images to the selected DPI.\n"
-"Leaving this unchecked will render them at their native resolution.\n"
-"This can increase memory usage and slow down export."
+"Re-sample your bitmap images to the selected DPI. Leaving this unchecked "
+"will render them at their native resolution. This can increase memory usage "
+"and slow down export."
 msgstr "Réduire la résolution de vos images matricielles à celle sélectionnée."
 
 msgid "DPI (Dots Per Inch) for image export."
@@ -1750,6 +1760,10 @@ msgstr "Copie de %1"
 
 msgid "Name:"
 msgstr "Nom :"
+
+#, fuzzy
+msgid "New Template %1"
+msgstr "Nouvelle maquette"
 
 msgid "New Document"
 msgstr "Nouveau document"
@@ -2430,6 +2444,9 @@ msgstr "Tchèque"
 msgid "Danish"
 msgstr "Danois"
 
+msgid "Dzongkha"
+msgstr ""
+
 msgid "Dutch"
 msgstr "Hollandais"
 
@@ -2462,6 +2479,9 @@ msgstr "Hongrois"
 
 msgid "Indonesian"
 msgstr "Indonésien"
+
+msgid "Icelandic"
+msgstr ""
 
 msgid "Italian"
 msgstr "Italien"
@@ -3612,6 +3632,15 @@ msgstr "Imprimer la pa&ge courante"
 
 msgid "Print &Range"
 msgstr "Imprim&er la sélection de pages"
+
+msgid ""
+"Insert a comma separated list of tokens where\n"
+"a token can be * for all the pages, 1-5 for\n"
+"a range of pages or a single page number."
+msgstr ""
+"Insérer une liste d'éléments séparés par des virgules,\n"
+"les éléments pouvant être « * » pour toutes les pages, 1-5 pour\n"
+"une sélection de pages, ou bien un simple numéro de page."
 
 msgid "N&umber of Copies:"
 msgstr "Nom&bre d'exemplaires :"
@@ -4783,6 +4812,21 @@ msgstr "Styles disponibles"
 msgid "Edit Styles"
 msgstr "Édition des styles"
 
+#, fuzzy
+msgid "Top"
+msgstr "&Haut :"
+
+#, fuzzy
+msgid "Bottom"
+msgstr "&Bas :"
+
+msgid "Allow Docking To..."
+msgstr ""
+
+#, fuzzy
+msgid "Floating Orientation..."
+msgstr "Orientation"
+
 msgid "Color Management Settings"
 msgstr "Configuration de la gestion des couleurs"
 
@@ -5067,6 +5111,9 @@ msgstr "Allemand :"
 
 msgid "Italian:"
 msgstr "Italien :"
+
+msgid "Japanese:"
+msgstr ""
 
 msgid "Korean:"
 msgstr "Coréen :"
@@ -5686,6 +5733,24 @@ msgstr ""
 "Ne pas afficher les objets en-dehors des marges lors d'une impression ou "
 "d'une exportation"
 
+#, fuzzy
+msgid ""
+"A way of switching off some of the gray shades which are composed of cyan, "
+"yellow and magenta and using black instead. UCR most affects parts of images "
+"which are neutral and/or dark tones which are close to the gray. Use of this "
+"may improve printing some images and some experimentation and testing is "
+"need on a case by case basis. UCR reduces the possibility of over saturation "
+"with CMY inks."
+msgstr ""
+"L'UCR (Under Color Removal en anglais) consiste à n'utiliser que de l'encre\n"
+"noire pour le rendu des teintes grises composées par les trois couleurs "
+"primaires.\n"
+"L'UCR est plus efficace sur les zones de l'image dans des tons neutres ou\n"
+"sombres, proches du gris. Cette fonction peut permettre une meilleure "
+"qualité\n"
+"d'impression, mais des tests au cas par cas sont nécessaires.\n"
+"L'UCR réduit les risques de saturation avec les encres CMJ."
+
 msgid "New From Template"
 msgstr "Nouveau d'après maquette"
 
@@ -6078,6 +6143,21 @@ msgstr "Données CSV"
 
 msgid "CSV_header"
 msgstr "En-tête CSV"
+
+#, fuzzy
+msgid "Word Documents"
+msgstr "Document"
+
+#, fuzzy
+msgid "Importing failed"
+msgstr ""
+"Impossible d'importer le fichier suivant :\n"
+"%1"
+
+msgid ""
+"Importing Word document failed \n"
+"%1"
+msgstr ""
 
 msgid "OpenDocument Text Documents"
 msgstr "Documents texte OpenDocument"
@@ -7437,6 +7517,15 @@ msgid ""
 msgstr ""
 "Impossible d'importer le fichier suivant :\n"
 "%1"
+
+#~ msgid "Image Settings"
+#~ msgstr "Paramètres pour les images"
+
+#~ msgid "JPEG"
+#~ msgstr "JPEG"
+
+#~ msgid "Zip"
+#~ msgstr "Zip"
 
 #, fuzzy
 #~ msgid "Python source files *(.py)"
