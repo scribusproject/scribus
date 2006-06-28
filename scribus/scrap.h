@@ -75,6 +75,7 @@ public:
 	void installEventFilter(const QObject *);
 	void setOpenScrapbooks(QStringList &fileNames);
 	QStringList getOpenScrapbooks();
+	BibView* tempBView;
 	
 public slots:
 	void languageChange();
@@ -99,7 +100,6 @@ protected:
 	QTabWidget* Frame3;
 	QVBoxLayout* BiblioLayout;
 	BibView* activeBView;
-	BibView* tempBView;
 	int tempCount;
 	QString OldName;
 // 	int mFile;

@@ -100,6 +100,7 @@ UndoWidget::UndoWidget(QWidget* parent, const char* name)
 	ScCore->primaryMainWindow()->scrActions["editCut"]->addTo(parent);
 	ScCore->primaryMainWindow()->scrActions["editCopy"]->addTo(parent);
 	ScCore->primaryMainWindow()->scrActions["editPaste"]->addTo(parent);
+	ScCore->primaryMainWindow()->scrMenuMgr->addMenuToWidgetOfAction("EditPasteRecent", ScCore->primaryMainWindow()->scrActions["editPaste"]);
 	
 	/* BnF Undo buttons
 	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));

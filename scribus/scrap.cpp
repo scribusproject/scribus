@@ -743,7 +743,7 @@ void Biblio::ObjFromCopyAction(QString text)
 	f.close();
 	ScPreview *pre = new ScPreview();
 	QPixmap pm = pre->createPreview(ff);
-	tempBView->AddObj(nam, QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam + ".sce")), pm);
+	tempBView->AddObj(nam, QDir::cleanDirPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam + ".sce")), pm);
 	pm.save(QDir::cleanDirPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam +".png")), "PNG");
 	(void) new QIconViewItem(tempBView, nam, pm);
 	delete pre;
@@ -763,7 +763,7 @@ void Biblio::ObjFromCopyAction(QString text)
 		QIconViewItem* ite = tempBView->firstItem();
 		if (ite != 0)
 			delete ite;
-		tempBView->sort(activeBView->sortDirection());
+		tempBView->sort(tempBView->sortDirection());
 		tempBView->arrangeItemsInGrid(true);
 	}
 }
