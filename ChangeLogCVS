@@ -1,5 +1,6 @@
 Scribus - 1.2.5cvs
 ==================
+- 0003882: [Import / Export] Backport Franz's RGB and Transparency fix into 1.2.5 (plinnell)
 - 0003833: [Plug-ins] Add Icelandic hyphenator (plinnell)
 - 0003770: [Translation] Updated Danish Translation (cbradney)
 - 0003620: [Documentation] Broken menu.xml for German docs (plinnell)
