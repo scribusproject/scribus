@@ -33,7 +33,7 @@ SampleItem::SampleItem(ScribusDoc* doc) :
 									//pagesType, unit, firstPageOrder,
 									1, 1, 1,
 									//orientation, firstPageNr, "Custom", requires gui, page count, showview);
-									1, 1, "custom", 1, false);
+									1, 1, "custom", false, 1, false);
 		Q_ASSERT(m_Doc!=0);
 		if (!m_Doc)
 			return;
