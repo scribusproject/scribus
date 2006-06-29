@@ -33,12 +33,14 @@ for which a new license (GPL+exception) is in place.
 #include <qimage.h>
 
 #ifdef HAVE_CAIRO
-#include <cairo.h>
+	#include <cairo.h>
 	#include "util.h"
 	#if defined(_WIN32)
 	#include <cairo-win32.h>
-	#else
+	#elif defined(Q_WS_X11)
 	#include <cairo-xlib.h>
+	#elif defined(Q_WS_MAC)
+	#include <cairo-quartz.h>
 	#endif
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
 	#include <cairo-svg.h>
@@ -74,6 +76,10 @@ for which a new license (GPL+exception) is in place.
 
 #if defined(_WIN32) && defined(SC_USE_GDI)
 #include <windows.h>
+#endif
+
+#if defined(Q_WS_MAC) && defined(SC_USE_QUARTZ)
+// #include ???
 #endif
 
 #include <math.h>
@@ -115,16 +121,20 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 #ifdef HAVE_CAIRO
 	layeredMode = false;
 	svgMode = false;
-#ifndef _WIN32
+	cairo_surface_t *img;
+#ifdef Q_WS_X11
 	pixm = QPixmap(w, h);
 	Display *dpy = pixm.x11AppDisplay();
 	Drawable drw = pixm.handle();
-	cairo_surface_t *img;
 	img = cairo_xlib_surface_create(dpy, drw, (Visual*)pixm.x11Visual(), w, h);
-#else
+#elif defined(_WIN32)
 	pixm = QPixmap(w, h, 32);
-	cairo_surface_t *img;
 	img = cairo_win32_surface_create(pixm.handle());
+#elif defined(SC_USE_QUARTZ)
+	// ???
+#else
+	m_img.create(w, h, 32);
+	img = cairo_image_surface_create_for_data(m_img.bits(), CAIRO_FORMAT_ARGB32, w, h, 4);
 #endif
 	m_cr = cairo_create(img);
 	clear();
@@ -664,7 +674,15 @@ void ScPainter::end()
 	{
 #ifdef HAVE_CAIRO
 		cairo_surface_flush(cairo_get_target(m_cr));
+#ifdef Q_WS_X11
 		bitBlt( m_target, m_x, m_y, &pixm, 0, 0, m_width, m_height );
+#elif defined(_WIN32)
+		bitBlt( m_target, m_x, m_y, &pixm, 0, 0, m_width, m_height );
+#elif defined(SC_USE_QUARTZ)
+		// ???
+#else
+		bitBlt( m_target, m_x, m_y, &m_img, 0, 0, m_width, m_height );
+#endif
 		cairo_restore( m_cr );
 #else
 		// not HAVE_CAIRO
@@ -732,8 +750,12 @@ void ScPainter::clear()
 #ifdef HAVE_CAIRO
 	if (imageMode)
 		m_image->fill( qRgba(255, 255, 255, 255) );
-	else
-		pixm.fill( Qt::white );
+	else {
+		if (! m_img.isNull())
+			m_img.fill( qRgba(255, 255, 255, 255) );
+		else
+			pixm.fill( Qt::white );
+	}
 #else
 	if( m_buffer )
 		memset( m_buffer, 255, m_width * m_height * 4 );
@@ -746,8 +768,12 @@ void ScPainter::clear( const QColor &c )
 	QRgb cs = c.rgb();
 	if (imageMode)
 		m_image->fill( qRgba(qRed(cs), qGreen(cs), qBlue(cs), qAlpha(cs)) );
-	else
-		pixm.fill( c );
+	else {
+		if (!m_img.isNull())
+			m_img.fill( qRgba(qRed(cs), qGreen(cs), qBlue(cs), qAlpha(cs)) );
+		else
+			pixm.fill( c );
+	}
 #else
 	if( m_buffer )
 	{
