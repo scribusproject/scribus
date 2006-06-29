@@ -53,7 +53,7 @@ Authors:
     Christian T�p <mr-ct@gmx.de>
     Alastair Robinson <blackfive@fakenhamweb.co.uk>
     Thomas Zastrow <webmaster@thomas-zastrow.de>
-    Steve Callcott
+    Steve Callcott <stotte@firstwish.co.uk>
 
 %debug_package
 %package devel

@@ -107,7 +107,7 @@ About::About( QWidget* parent )
 										"<tr><td><b>" + tr("Contributions from:").utf8()  + "</b></td><td></td></tr>" +
 										"<tr><td>Niyam Bhushan</td><td></td></tr>" +
 										"<tr><td>Martin Costabel</td><td></td></tr>" +
-										"<tr><td>Steve Callcott</td><td>stotte@ntlworld.com</td></tr>" +
+										"<tr><td>Steve Callcott</td><td>stotte@firstwish.co.uk</td></tr>" +
 										"<tr><td>Frank Everdij</td><td>f.everdij@citg.tudelft.nl</td></tr>" +
 										"<tr><td>S. Hakim Hamdani</td><td>hakimoto@eroteme.org</td></tr>" +
 										"<tr><td>Maciej Hański</td><td>m.hanski@gmx.at</td></tr>" +
