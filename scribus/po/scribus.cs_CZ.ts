@@ -2453,7 +2453,7 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>Japanese:</source>
-        <translation type="unfinished"></translation>
+        <translation>Japonsky:</translation>
     </message>
 </context>
 <context>
@@ -4102,12 +4102,13 @@ Lze uvést v Nastavení.</translation>
     <name>DocIm</name>
     <message>
         <source>Importing failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při importu</translation>
     </message>
     <message>
         <source>Importing Word document failed 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation> Chyba import Word dokumentu
+%1</translation>
     </message>
 </context>
 <context>
@@ -7042,7 +7043,7 @@ Vyberte, prosím, jiný.</translation>
     </message>
     <message>
         <source>New Template %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nová šablona %1</translation>
     </message>
 </context>
 <context>
@@ -8172,35 +8173,35 @@ Pokud nemáte dobrý důvod, nechte volbu zapnutou - zmenšuje velikost PDF.</tr
     </message>
     <message>
         <source>Image Compression Methods</source>
-        <translation type="unfinished"></translation>
+        <translation>Metody komprese obrázků</translation>
     </message>
     <message>
         <source>JPEG - Lossy</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG - zrátová</translation>
     </message>
     <message>
         <source>Zip - Lossless</source>
-        <translation type="unfinished"></translation>
+        <translation>Zip - bezztrátová</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložte čárkou oddělený seznam položek, kde položka může být *, t.j. všechny strany, 1-5, t.j. interval, nebo jediné číslo strany.</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vytvoří náhledy všech stránek v PDF. Něktré prohlížeče používají náhledy k navigaci.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
-        <translation type="unfinished"></translation>
+        <translation>Způsoby komprese obrázků. Automaticky - Scribus sám zvolí vhodnou metodu. ZIP - bezztrátová komprese vhodná pro obrázky s plnými barvami. JPEG - vhodné pro dokumenty s fotografiemi (možná ztráta kvality). Doporučujeme ponechat volbu Automaticky. Volba je aplikována pouze na JPEG obrázky</translation>
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Úroveň komprese: Minimální (25%), Nízká (50%), Střední (75%), Vysoká (85%), Maximální (95%) - aplikuje se pouze na JPEG obrázky.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Přesamplovat DPI bitmapových obrázků na zvolenou hodnotu. Vypnutá volba ponechá původní rozlišení. Aplikovaná volba může zpomalit export a zvýšit jeho paměťovou náročnost.</translation>
     </message>
 </context>
 <context>
@@ -9705,7 +9706,7 @@ běžící instanci GIMPu.</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>UCR - under color removal - odstranění přebytečné barvy, která by způsobila rozpíjení (při přílišné saturaci papíru barvou) nebo trhání barvy při několika vrstvém (např. barevném) laserovém tisku. Viz. např. http://www.typo.cz/_pismo/pis-tech-post.html a jiné.</translation>
     </message>
 </context>
 <context>
@@ -11100,23 +11101,23 @@ Detaily a výjimky Scripteru jsou popsány v dokumentaci jednotlivých funkcí.<
     </message>
     <message>
         <source>Dzongkha</source>
-        <translation type="unfinished"></translation>
+        <translation>Dzongkha</translation>
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Islansky</translation>
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Písmo %1 (nalezeno pomocí fontconfigu) není v pořádku. Bude ignorováno</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba načítání písma - freetype nemůže nalézt soubors s písmem</translation>
     </message>
     <message>
         <source>Word Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Word dokumenty</translation>
     </message>
 </context>
 <context>
@@ -11477,35 +11478,35 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <name>ScToolBar</name>
     <message>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahoře</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished">Vpravo</translation>
+        <translation>Vpravo</translation>
     </message>
     <message>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Dole</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished">Vlevo</translation>
+        <translation>Vlevo</translation>
     </message>
     <message>
         <source>Allow Docking To...</source>
-        <translation type="unfinished"></translation>
+        <translation>Povolit přilepení k...</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished">Vodorovně</translation>
+        <translation>Vodorovně</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished">Svisle</translation>
+        <translation>Svisle</translation>
     </message>
     <message>
         <source>Floating Orientation...</source>
-        <translation type="unfinished"></translation>
+        <translation>Orientace...</translation>
     </message>
 </context>
 <context>
@@ -12725,7 +12726,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Islandsky</translation>
     </message>
 </context>
 <context>
