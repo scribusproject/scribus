@@ -47,6 +47,20 @@ public:
 
 	bool useColorManagement() const;
 
+	QString defaultMonitorProfile();
+	QString defaultPrinterProfile();
+	QString defaultImageRGBProfile();
+	QString defaultImageCMYKProfile();
+	QString defaultSolidColorRGBProfile();
+	QString defaultSolidColorCMYKProfile();
+
+	int colorRenderingIntent() const;
+	int imageRenderingIntent() const;
+
+	bool useBlackPoint() const;
+	bool doSoftProofing() const;
+	bool doGamutCheck() const;
+
 #ifdef HAVE_CMS
 	cmsHPROFILE monitorProfile() const;
 	cmsHPROFILE printerProfile() const;
@@ -62,13 +76,6 @@ public:
 	cmsHTRANSFORM cmykColorProofingTransform() const; // stdProofCMYKG
 	cmsHTRANSFORM cmykToRgbColorTransform() const;    // stdTransRGBG
 	cmsHTRANSFORM cmykGamutCheckTransform() const;    //stdProofCMYKGCG
-
-	int colorRenderingIntent() const;
-	int imageRenderingIntent() const;
-
-	bool useBlackPoint() const;
-	bool doSoftProofing() const;
-	bool doGamutCheck() const;
 #endif
 
 protected:
