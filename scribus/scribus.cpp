@@ -174,6 +174,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/nlsconfig.h"
 #include "plugins/formatidlist.h"
 #include "scgtplugin.h"
+#include "stencilreader.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -509,6 +510,7 @@ void ScribusMainWindow::initScrapbook()
 	scrapbookPalette->setScrapbookFileName(scrapbookFile);
 	scrapbookPalette->setOpenScrapbooks(prefsManager->appPrefs.RecentScrapbooks);
 	rebuildRecentPasteMenu();
+	connect(scrapbookPalette, SIGNAL(updateRecentMenue()), this, SLOT(rebuildRecentPasteMenu()));
 }
 
 bool ScribusMainWindow::warningVersion(QWidget *parent)
@@ -2992,7 +2994,7 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 		scrMenuMgr->removeMenuItem((*it), recentPasteMenuName);
 
 	scrRecentPasteActions.clear();
-	uint max = QMIN(prefsManager->appPrefs.numScrapbookCopies, scrapbookPalette->tempBView->objectMap.count());
+	uint max = QMIN(static_cast<uint>(prefsManager->appPrefs.numScrapbookCopies), scrapbookPalette->tempBView->objectMap.count());
 	if (max > 0)
 	{
 		QMap<QString,BibView::Elem>::Iterator it;
@@ -3012,14 +3014,29 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 
 void ScribusMainWindow::pasteRecent(QString fn)
 {
-	QString data = scrapbookPalette->tempBView->objectMap[fn].Data;
+	QString data = scrapbookPalette->tempBView->objectMap[fn].Data.utf8();
+	QFileInfo fi(data);
+	if (fi.extension(true).lower() == "sml")
+	{
+		QString f = "";
+		loadText(data, &f);
+		StencilReader *pre = new StencilReader();
+		data = pre->createObjects(f);
+		delete pre;
+	}
+	else if (fi.extension(true).lower() == "sce")
+	{
+		QString f = "";
+		loadText(data, &f);
+		data = f;
+	}
 	view->Deselect(true);
 	uint ac = doc->Items->count();
 	bool savedAlignGrid = doc->useRaster;
 	bool savedAlignGuides = doc->SnapGuides;
 	doc->useRaster = false;
 	doc->SnapGuides = false;
-	slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), true, true, doc, view);
+	slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
 	doc->useRaster = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
 	for (uint as = ac; as < doc->Items->count(); ++as)

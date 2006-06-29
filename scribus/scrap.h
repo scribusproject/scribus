@@ -81,7 +81,9 @@ public slots:
 	void languageChange();
 
 private slots:
-	void HandleMouse(QIconViewItem *ite);
+	void HandleMouse(int button, QIconViewItem *ite);
+	bool copyObj(int id);
+	void moveObj(int id);
 	void DeleteObj(QString name, QIconViewItem *ite);
 	void ItemRenamed(QIconViewItem *ite);
 	void DropOn(QDropEvent *e);
@@ -91,6 +93,9 @@ private slots:
 	void closeLib();
 	void libChanged(QWidget *lib);
 	void Import();
+
+signals:
+	void updateRecentMenue();
 
 protected:
 //	QMap<QString, QGuardedPtr<ScrAction> > scrapbookActions;
