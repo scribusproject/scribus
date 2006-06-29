@@ -380,8 +380,8 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	tabToolsLayout->addWidget( subStackTools );
 	toolText->setOn(true);
 
-	// switched off as it's called in main prefs classes - PV
-	//restoreDefaults(prefsData, unitIndex);
+	// Neccessary for document prefs
+	restoreDefaults(prefsData, unitIndex);
 
 	QToolTip::add( toolText, tr( "Text Frame Properties" ) );
 	QToolTip::add( toolImage, tr( "Picture Frame Properties" ) );
