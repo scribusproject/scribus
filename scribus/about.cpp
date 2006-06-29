@@ -60,7 +60,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "28";
+	QString BUILD_DAY = "30";
 	QString BUILD_MONTH = CommonStrings::june;
 	QString BUILD_YEAR = "2006";
 	QString BUILD_TIME = "";
@@ -162,7 +162,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td><b>" + tr("Contributions from:").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Niyam Bhushan</td><td></td></tr>" +
 											"<tr><td>Martin Costabel</td><td></td></tr>" +
-											"<tr><td>Steve Callcott</td><td>stotte@ntlworld.com</td></tr>" +
+											"<tr><td>Steve Callcott</td><td>stotte@firstwish.co.uk</td></tr>" +
 											"<tr><td>Frank Everdij</td><td>f.everdij@citg.tudelft.nl</td></tr>" +
 											"<tr><td>S. Hakim Hamdani</td><td>hakimoto@eroteme.org</td></tr>" +
 											"<tr><td>Maciej Hański</td><td>m.hanski@gmx.at</td></tr>" +
