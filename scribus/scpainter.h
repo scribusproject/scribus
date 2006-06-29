@@ -175,6 +175,7 @@ private:
 	double  m_layerTransparency;
 	int  m_blendMode;
 	QPixmap pixm;
+	QImage m_img;
 	unsigned int m_width;
 	unsigned int m_height;
 	unsigned int m_x;
