@@ -1914,7 +1914,6 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	ScribusDoc *tempDoc = new ScribusDoc();
 	if (requiresGUI)
 		doc=tempDoc;
-	tempDoc->hasGUI=requiresGUI;
 	//tempDoc = new ScribusDoc(newDocName, unitindex, pagesize, margins, pagesSetup);
 	tempDoc->setLoading(true);
 	tempDoc->setup(unitIndex, pageArrangement, firstPageLocation, orientation, firstPageNumber, defaultPageSize, newDocName);

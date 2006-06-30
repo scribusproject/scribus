@@ -523,6 +523,7 @@ void ScribusDoc::setGUI(ScribusMainWindow* mw, ScribusView* view)
 {
 	m_ScMW=mw;
 	m_View=view;
+	hasGUI = (m_ScMW && m_View);
 	docHyphenator=new Hyphenator(m_ScMW, this);
 	Q_CHECK_PTR(docHyphenator);
 }

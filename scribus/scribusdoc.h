@@ -680,6 +680,7 @@ public:
 	
 protected:
 	void addSymbols();
+	bool hasGUI;	
 	ApplicationPrefs& prefsData;
 	UndoManager * const undoManager;
 	bool loading;
@@ -694,7 +695,6 @@ protected:
 	ScribusView* m_View;
 	
 public: // Public attributes
-	bool hasGUI;
 	bool is12doc; //public for now, it will be removed later
 	int NrItems;
 	int First;
