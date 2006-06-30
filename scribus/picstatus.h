@@ -19,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 class ScribusDoc;
-class ScribusView;
 class FileSearch;
 
 
@@ -36,7 +35,7 @@ public:
 	\param docu Pointer to the current Document
 	\param viewi Pointer to the current View
 	 */
-	PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi);
+	PicStatus(QWidget* parent, ScribusDoc *docu);
 	~PicStatus() {};
 
 public slots:
@@ -111,8 +110,7 @@ private:
 	QHeader *Header;
 	QPushButton* CancelB;
 	QPushButton* OkB;
-	ScribusDoc *doc;
-	ScribusView *view;
+	ScribusDoc *m_Doc;
 	int Zeilen;
 	QPtrList<QCheckBox> FlagsPic;
 	QValueList<uint> ItemNrs;

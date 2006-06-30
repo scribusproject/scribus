@@ -33,7 +33,6 @@ for which a new license (GPL+exception) is in place.
 #include <cstdio>
 #include "picsearch.h"
 #include "scribusdoc.h"
-#include "scribusview.h"
 #include "pageitem.h"
 #include "filesearch.h"
 #include "scribuscore.h"
@@ -56,7 +55,7 @@ QString PicStatus::trCancelSearch = "";
 QString PicStatus::trGoto = "";
 
 
-PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
+PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) :
 	QDialog( parent, "pic", true, 0 )
 {
 	languageChange();
@@ -64,8 +63,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 	QString tmp;
 	setCaption( tr( "Manage Pictures" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	doc = docu;
-	view = viewi;
+	m_Doc = docu;
 	ItemNrs.clear();
 	FlagsPic.clear();
 	PicStatusLayout = new QVBoxLayout( this );
@@ -82,17 +80,17 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 	for (uint a = 0; a < ar; ++a)
 		Header->setLabel(a, tmpc[a]);
 	Zeilen = 0;
-	for (i=0; i < doc->MasterItems.count(); ++i)
+	for (i=0; i < m_Doc->MasterItems.count(); ++i)
 	{
-		if (doc->MasterItems.at(i)->itemType() == PageItem::ImageFrame)
+		if (m_Doc->MasterItems.at(i)->itemType() == PageItem::ImageFrame)
 		{
 			Zeilen++;
 			ItemNrs.append(i);
 		}
 	}
-	for (i=0; i<doc->Items->count(); ++i)
+	for (i=0; i<m_Doc->Items->count(); ++i)
 	{
-		if (doc->Items->at(i)->itemType() == PageItem::ImageFrame)
+		if (m_Doc->Items->at(i)->itemType() == PageItem::ImageFrame)
 		{
 			Zeilen++;
 			ItemNrs.append(i);
@@ -100,14 +98,14 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 	}
 	PicTable->setNumRows(Zeilen);
 	int Zeilen2 = 0;
-	for (i=0; i < doc->MasterItems.count(); ++i)
+	for (i=0; i < m_Doc->MasterItems.count(); ++i)
 	{
-		if (doc->MasterItems.at(i)->itemType() == PageItem::ImageFrame)
+		if (m_Doc->MasterItems.at(i)->itemType() == PageItem::ImageFrame)
 		{
-			QFileInfo fi = QFileInfo(doc->MasterItems.at(i)->Pfile);
+			QFileInfo fi = QFileInfo(m_Doc->MasterItems.at(i)->Pfile);
 			PicTable->setText(Zeilen2, COL_FILENAME, fi.fileName());
 			PicTable->setText(Zeilen2, COL_PATH, fi.dirPath());
-			PicTable->setText(Zeilen2, COL_PAGE, doc->MasterItems.at(i)->OnMasterPage);
+			PicTable->setText(Zeilen2, COL_PAGE, m_Doc->MasterItems.at(i)->OnMasterPage);
 			QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
 			tb2->setText( trGoto);
 			tb2->setEraseColor(white);
@@ -116,15 +114,15 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
 			QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
 			cp2->setText( tr("Yes"));
-			cp2->setChecked(doc->MasterItems.at(i)->printEnabled());
+			cp2->setChecked(m_Doc->MasterItems.at(i)->printEnabled());
 			cp2->setEraseColor(white);
 			FlagsPic.append(cp2);
 			PicTable->setCellWidget(Zeilen2, COL_PRINT, cp2);
 			connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
-			if (doc->MasterItems.at(i)->PicAvail)
+			if (m_Doc->MasterItems.at(i)->PicAvail)
 			{
 				QPixmap pm;
-				pm.convertFromImage(doc->MasterItems.at(i)->pixm.smoothScale(64, 64, QImage::ScaleMin));
+				pm.convertFromImage(m_Doc->MasterItems.at(i)->pixm.smoothScale(64, 64, QImage::ScaleMin));
 				PicTable->setPixmap(Zeilen2, COL_PREVIEW, pm);
 				PicTable->setText(Zeilen2, COL_STATUS, trOK);
 			}
@@ -140,14 +138,14 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 			Zeilen2++;
 		}
 	}
-	for (i=0; i< doc->Items->count(); ++i)
+	for (i=0; i< m_Doc->Items->count(); ++i)
 	{
-		if (doc->Items->at(i)->itemType() == PageItem::ImageFrame)
+		if (m_Doc->Items->at(i)->itemType() == PageItem::ImageFrame)
 		{
-			QFileInfo fi = QFileInfo(doc->Items->at(i)->Pfile);
+			QFileInfo fi = QFileInfo(m_Doc->Items->at(i)->Pfile);
 			PicTable->setText(Zeilen2, COL_FILENAME, fi.fileName());
 			PicTable->setText(Zeilen2, COL_PATH, fi.dirPath());
-			p = doc->Items->at(i)->OwnPage;
+			p = m_Doc->Items->at(i)->OwnPage;
 			PicTable->setText(Zeilen2, COL_PAGE, tmp.setNum(p+1));
 			QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
 			tb2->setText( trGoto);
@@ -157,15 +155,15 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
 			QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
 			cp2->setText( tr("Yes"));
-			cp2->setChecked(doc->Items->at(i)->printEnabled());
+			cp2->setChecked(m_Doc->Items->at(i)->printEnabled());
 			cp2->setEraseColor(white);
 			FlagsPic.append(cp2);
 			PicTable->setCellWidget(Zeilen2, COL_PRINT, cp2);
 			connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
-			if (doc->Items->at(i)->PicAvail)
+			if (m_Doc->Items->at(i)->PicAvail)
 			{
 				QPixmap pm;
-				pm.convertFromImage(doc->Items->at(i)->pixm.smoothScale(64, 64, QImage::ScaleMin));
+				pm.convertFromImage(m_Doc->Items->at(i)->pixm.smoothScale(64, 64, QImage::ScaleMin));
 				PicTable->setPixmap(Zeilen2, COL_PREVIEW, pm);
 				PicTable->setText(Zeilen2, COL_STATUS, trOK);
 			}
@@ -225,7 +223,7 @@ void PicStatus::languageChange()
 
 void PicStatus::GotoPic()
 {
-	QString pageText = PicTable->text(QString(sender()->name()).toInt(), 2);
+	QString pageText(PicTable->text(QString(sender()->name()).toInt(), COL_PAGE));
 	bool ok = false;
 	int pageNum = pageText.toInt(&ok);
 	ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
@@ -306,7 +304,7 @@ void PicStatus::SearchPicFinished(const QStringList & matches, const QString & f
 		{
 			Q_ASSERT(!dia->Bild.isEmpty());
 			loadPictByRow(dia->Bild, row);
-			view->DrawNew();
+			m_Doc->view()->DrawNew();
 		}
 		delete dia;
 	}
@@ -316,10 +314,10 @@ bool PicStatus::loadPictByRow(const QString & newFilePath, unsigned int row)
 {
 	unsigned int itemNumber = ItemNrs[row];
 	// FIXME: error checking
-	doc->LoadPict(newFilePath, itemNumber);
+	m_Doc->LoadPict(newFilePath, itemNumber);
 	// WTF?
 	bool isMaster = PicTable->cellWidget(row, COL_GOTO)->isEnabled();
-	PageItem* item = isMaster ? doc->DocItems.at(itemNumber) : doc->MasterItems.at(itemNumber);
+	PageItem* item = isMaster ? m_Doc->DocItems.at(itemNumber) : m_Doc->MasterItems.at(itemNumber);
 	// Set missing flag again. Since we do no error checking of the load,
 	// missing will generally mean "failed to load".
 	PicTable->setText(row, COL_STATUS, item->PicAvail ? trOK : trMissing);
@@ -377,7 +375,7 @@ void PicStatus::PrintPic()
 	uint ItNr = ItemNrs[ZNr];
 //	uint PgNr = PicTable->text(ZNr, 2).toInt()-1;
 	if (PicTable->cellWidget(ZNr, COL_PRINT)->isEnabled())
-		doc->DocItems.at(ItNr)->setPrintEnabled(FlagsPic.at(ZNr)->isChecked());
+		m_Doc->DocItems.at(ItNr)->setPrintEnabled(FlagsPic.at(ZNr)->isChecked());
 	else
-		doc->MasterItems.at(ItNr)->setPrintEnabled(FlagsPic.at(ZNr)->isChecked());
+		m_Doc->MasterItems.at(ItNr)->setPrintEnabled(FlagsPic.at(ZNr)->isChecked());
 }

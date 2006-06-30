@@ -8148,7 +8148,7 @@ void ScribusMainWindow::StatusPic()
 {
 	if (HaveDoc)
 	{
-		PicStatus *dia = new PicStatus(this, doc, view);
+		PicStatus *dia = new PicStatus(this, doc);
 		connect(dia, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 		connect(dia, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
 		dia->exec();

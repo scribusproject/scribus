@@ -10252,7 +10252,7 @@ void ScribusView::setObjectUndoMode()
 	_isGlobalMode = undoManager->isGlobalMode();
 	if (m_ScMW->HaveDoc)
 	{
-		qDebug(QString("%1 %2").arg((int)m_ScMW).arg(m_ScMW->scrActions.contains("editActionMode")));
+		//qDebug(QString("%1 %2").arg((int)m_ScMW).arg(m_ScMW->scrActions.contains("editActionMode")));
 		m_ScMW->scrActions["editActionMode"]->setOn(true);
 		uint docSelectionCount=Doc->m_Selection->count();
 		if (docSelectionCount == 1)
