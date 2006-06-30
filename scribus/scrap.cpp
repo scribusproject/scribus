@@ -311,7 +311,7 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	activeBView = new BibView(this);
 	Frame3->addTab(activeBView, "Main");
 	tempBView = new BibView(this);
-	Frame3->addTab(tempBView, "Temp");
+	Frame3->addTab(tempBView, "Copied Items");
 	tempCount = 0;
 	BiblioLayout->addWidget( Frame3 );
 	languageChange();
