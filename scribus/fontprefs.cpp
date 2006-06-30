@@ -53,8 +53,6 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 
 	checkOn = getQCheckBoxPixmap(true, fontList->paletteBackgroundColor());
 	checkOff = getQCheckBoxPixmap(false, fontList->paletteBackgroundColor());
-	
-	rebuildDialog(true);
 
 	tab1Layout->addWidget( fontList );
 	insertTab( tab1, tr( "&Available Fonts" ) );
@@ -141,6 +139,7 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	}
 	insertTab( tab3, tr( "Additional &Paths" ) );
 
+	rebuildDialog(true);
 	// signals and slots connections
 	connect(Table3, SIGNAL(currentChanged(int, int)), this, SLOT(ReplaceSel(int, int)));
 	connect(DelB, SIGNAL(clicked()), this, SLOT(DelEntry()));
@@ -317,82 +316,55 @@ void FontPrefs::rebuildDialog(bool firstTime)
 {
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
+
 	if (!firstTime)
 	{
-		/*
-#0  0x4075c524 in FT_Done_Face () from /usr/lib/libfreetype.so.6
-#1  0x08585e57 in Foi::unload (this=0x8a612b0) at /home/pvanek/13/Scribus/scribus/scfonts.cpp:130
-#2  0x08585ee6 in ~Foi (this=0x8a612b0) at /home/pvanek/13/Scribus/scribus/scfonts.cpp:99
-#3  0x08591ea2 in QDict<Foi>::deleteItem (this=0x8aa5810, d=0x8a612b0) at qdict.h:97
-#4  0x40576517 in QGDict::clear () from /usr/lib/libqt-mt.so.3
-#5  0x0858e178 in QDict<Foi>::clear (this=0x8aa5810) at qdict.h:75
-#6  0x082f282a in FontPrefs::rebuildDialog (this=0x9326c48, firstTime=false) at /home/pvanek/13/Scribus/scribus/fontprefs.cpp:322
-		*/
-		// FIXME: WTF?! why this availFonts->clear();
+		availFonts->clear();
 		availFonts->GetFonts(HomeP);
-		if (DocAvail)
+		/* Are you wondering why this condition? See the comment at
+		line #102 (or somewhere near) as reference. Hint: PathList
+		is not initialized for example... - PV */
+		if (!DocAvail && !ScCore->primaryMainWindow()->HaveDoc)
 		{
 			for (uint a = 0; a < PathList->count(); ++a)
 			{
-				availFonts->AddScalableFonts(PathList->text(a)+"/", docc->DocName);
+				availFonts->AddScalableFonts(PathList->text(a)+"/"); //, docc->DocName);
 				availFonts->updateFontMap();
 			}
 		}
 	}
+
 	UsedFonts.clear();
 	fontFlags.clear();
 	fontList->clear();
+
 	SCFontsIterator it(*availFonts);
 	for ( ; it.current(); ++it)
 	{
 		fontSet foS;
 		QListViewItem *row = new QListViewItem(fontList);
 		row->setText(0, it.currentKey());
-		if (it.current()->usable())
-		{
+
+		foS.FlagUse = it.current()->usable();
+		row->setPixmap(1, foS.FlagUse ? checkOn : checkOff);
+		if (foS.FlagUse)
 			UsedFonts.append(it.currentKey());
-			foS.FlagUse = true;
-			row->setPixmap(1, checkOn);
-		}
-		else
-		{
-			foS.FlagUse = false;
-			row->setPixmap(1, checkOff);
-		}
-		if (it.current()->embedPs())
-		{
-			foS.FlagPS = true;
-			row->setPixmap(2, checkOn);
-		}
-		else
-		{
-			foS.FlagPS = false;
-			row->setPixmap(2, checkOff);
-		}
+
+		foS.FlagPS = it.current()->embedPs();
+		row->setPixmap(2, foS.FlagPS ? checkOn : checkOff);
+
+		foS.FlagSub = it.current()->subset();
+		row->setPixmap(3, foS.FlagSub ? checkOn : checkOff);
+
 		Foi::FontType type = it.current()->type();
-		if (type == Foi::OTF)
-			foS.FlagOTF = true;
-		else
-			foS.FlagOTF = false;
-		if (it.current()->subset())
-		{
-			foS.FlagSub = true;
-			row->setPixmap(3, checkOn);
-		}
-		else
-		{
-			foS.FlagSub = false;
-			row->setPixmap(3, checkOff);
-		}
+		foS.FlagOTF = (type == Foi::OTF) ? true : false;
 		if (type == Foi::TYPE1)
 			row->setPixmap(0, psFont);
-		else
-		{
-			if (type == Foi::TTF)
-				row->setPixmap(0, ttfFont);
-			if (type == Foi::OTF)
-				row->setPixmap(0, otfFont);
-		}
+		if (type == Foi::TTF)
+			row->setPixmap(0, ttfFont);
+		if (type == Foi::OTF)
+			row->setPixmap(0, otfFont);
+
 		foS.FlagNames = it.current()->hasNames();
 		row->setText(4, it.current()->fontPath());
 		fontFlags.insert(it.currentKey(), foS);
