@@ -519,11 +519,11 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	}
 }
 
-void ScribusDoc::setGUI(ScribusMainWindow* mw, ScribusView* view)
+void ScribusDoc::setGUI(bool hasgui, ScribusMainWindow* mw, ScribusView* view)
 {
+	m_hasGUI = hasgui;
 	m_ScMW=mw;
 	m_View=view;
-	m_hasGUI = (m_ScMW && m_View);
 	docHyphenator=new Hyphenator(m_ScMW, this);
 	Q_CHECK_PTR(docHyphenator);
 }

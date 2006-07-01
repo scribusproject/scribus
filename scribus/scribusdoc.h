@@ -95,7 +95,7 @@ public:
 	 */
 	ScribusView* view() const;
 	ScribusMainWindow* scMW() const {return m_ScMW;}
-	void setGUI(ScribusMainWindow* mw, ScribusView* view);
+	void setGUI(bool hasgui, ScribusMainWindow* mw, ScribusView* view);
 	
 	// Add, delete and move pages
 	

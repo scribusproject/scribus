@@ -1955,7 +1955,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	if (requiresGUI)
 		view = tempView;
 	tempDoc->setCurrentPage(tempDoc->Pages->at(0));
-	tempDoc->setGUI(this, tempView);
+	tempDoc->setGUI(requiresGUI, this, tempView);
 	tempDoc->setLoading(false);
 	//run after setGUI to set up guidepalette ok
 	
@@ -3374,7 +3374,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		ScribusWin* w = new ScribusWin(wsp, doc);
 		w->setMainWindow(this);
 		view = new ScribusView(w, this, doc);
-		doc->setGUI(this, view);
+		doc->setGUI(true, this, view);
 		view->setScale(prefsManager->displayScale());
 		w->setView(view);
 		alignDistributePalette->setDoc(doc);
