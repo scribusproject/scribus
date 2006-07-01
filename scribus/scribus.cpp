@@ -2053,7 +2053,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	}
 	ScribusWin* scw = (ScribusWin*)w;
 	if (scw && scw->doc())
-		if (!scw->doc()->hasGUI)
+		if (!scw->doc()->hasGUI())
 			return;
 	ActWin = scw;
 	if (ActWin->doc()==NULL)

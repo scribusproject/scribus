@@ -100,7 +100,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	m_masterPageMode(false),
 	m_ScMW(0),
 	m_View(0),
-	hasGUI(false),
+	m_hasGUI(false),
 	is12doc(false),
 	NrItems(0),
 	First(1), Last(0),
@@ -196,7 +196,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	m_masterPageMode(false),
 	m_ScMW(0),
 	m_View(0),
-	hasGUI(false),
+	m_hasGUI(false),
 	is12doc(false),
 	NrItems(0),
 	First(1), Last(0),
@@ -523,7 +523,7 @@ void ScribusDoc::setGUI(ScribusMainWindow* mw, ScribusView* view)
 {
 	m_ScMW=mw;
 	m_View=view;
-	hasGUI = (m_ScMW && m_View);
+	m_hasGUI = (m_ScMW && m_View);
 	docHyphenator=new Hyphenator(m_ScMW, this);
 	Q_CHECK_PTR(docHyphenator);
 }

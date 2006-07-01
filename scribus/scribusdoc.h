@@ -677,10 +677,11 @@ public:
 	/*! \brief Set new current page
 	\param newPage New current page */
 	void setCurrentPage(Page *newPage);
+	bool hasGUI() const {return m_hasGUI;}
 	
 protected:
 	void addSymbols();
-	bool hasGUI;	
+	bool m_hasGUI;
 	ApplicationPrefs& prefsData;
 	UndoManager * const undoManager;
 	bool loading;
