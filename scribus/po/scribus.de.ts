@@ -2451,7 +2451,7 @@ C-C-T steht dabei für C=littlecms, C=CUPS und T=TIFF.
     </message>
     <message>
         <source>Japanese:</source>
-        <translation type="unfinished"></translation>
+        <translation>Japanisch:</translation>
     </message>
 </context>
 <context>
@@ -2520,10 +2520,8 @@ which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
-durch reine Abstufungen von Schwarz ersetzt. Hauptsächlich werden davon neutrale 
-und dunkle Farbtöne beeinflusst, die Grau sehr ähnlich sind. Diese Option kann zu 
-besseren Bildern führen. Sie müssen jedoch von Fall zu Fall entscheiden, ob Sie bessere 
-Ergebnisse erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
+durch reine Abstufungen von Schwarz ersetzt.
+Hauptsächlich werden davon neutrale und/oder dunkle Farbtöne beeinflusst, die Grau sehr ähnlich sind. Diese Option kann bei machen Bildern zu besseren Druckergebnissen führen. Sie müssen jedoch von Fall zu Fall entscheiden und ein wenig experimentieren, ob Sie bessere Ergebnisse erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
         <source>Set Media Size</source>
@@ -4109,12 +4107,12 @@ Wird in den Voreinstellungen eingestellt.</translation>
     <name>DocIm</name>
     <message>
         <source>Importing failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Import fehlgeschlagen</translation>
     </message>
     <message>
         <source>Importing Word document failed 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Import des Word-Dokuments fehlgeschlagen: %1</translation>
     </message>
 </context>
 <context>
@@ -4706,7 +4704,7 @@ Fehler:
     </message>
     <message>
         <source>F&amp;ill Color:</source>
-        <translation type="unfinished">Füllf&amp;arbe:</translation>
+        <translation>Füllf&amp;arbe:</translation>
     </message>
     <message>
         <source>St&amp;roke Color:</source>
@@ -7067,7 +7065,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>New Template %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Vorlage %1</translation>
     </message>
 </context>
 <context>
@@ -8210,35 +8208,39 @@ Vierfarb-Laserdruckern ausgeben möchten.</translation>
     </message>
     <message>
         <source>Image Compression Methods</source>
-        <translation type="unfinished"></translation>
+        <translation>Komprimierung für Bilddateien</translation>
     </message>
     <message>
         <source>JPEG - Lossy</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG - Verlustbehaftet</translation>
     </message>
     <message>
         <source>Zip - Lossless</source>
-        <translation type="unfinished"></translation>
+        <translation>Zip - Verlustfrei</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Geben Sie mit Hilfe von Kommata oder Bindestrichen ein, welche
+Seiten importiert werden sollen, zum Beispiel
+1-5 oder 3,4. * steht  für alle Seiten.</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erzeugt eine Miniaturvorschau jeder Seite in der PDF-Datei. In einigen Dateibetrachtern können diese Vorschaubilder zur Navigation verwendet werden.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Komprimierungsmethode für Bilddateien. Automatisch lässt Scribus die beste Methode auswählen. ZIP ist verlustfrei und geeignet für Bilder mit Füllfarben. JPEG ist besser für kleinere PDF-Dateien mit vielen Fotos darin (ein leichter Qualitätsverlust ist jedoch möglich). Belassen Sie die Einstellung auf Automatisch, solange Sie keine besondere Komprimierungsmethode benötigen. Diese Einstellung wirkt sich nur auf JPEG-Dateien aus.</translation>
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kompressionsgrade: Minimal (25 %), Niedrig (50 %), Mittel (75 %), Hoch (85 %), Maximal (95 %) - Dies betrifft nur JPEG-Dateien.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Berechnet die Auflösung von Bitmap-Grafiken in der gewünschten Höhe neu. 
+Ansonsten wird die ursprüngliche Auflösung verwendet. Die Aktivierung dieser 
+Option kann den Speicherbedarf erhöhen und die Ausgabe verlangsamen.</translation>
     </message>
 </context>
 <context>
@@ -8324,12 +8326,9 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
+        <translation type="unfinished">Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
 durch reine Abstufungen von Schwarz ersetzt.
-Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst,
-die Grau sehr ähnlich sind. Diese Option kann zu besseren Bildern führen.
-Sie müssen jedoch von Fall zu Fall entscheiden, ob Sie bessere Ergebnisse
-erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
+Hauptsächlich werden davon neutrale und/oder dunkle Farbtöne beeinflusst, die Grau sehr ähnlich sind. Diese Option kann bei machen Bildern zu besseren Druckergebnissen führen. Sie müssen jedoch von Fall zu Fall entscheiden und ein wenig experimentieren, ob Sie bessere Ergebnisse erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
@@ -8442,7 +8441,7 @@ Dafür erhöht sich benötigte Renderzeit gerinfügig</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation type="unfinished">Gr&amp;undlinienraster anzeigen</translation>
+        <translation>Gr&amp;undlinienraster anzeigen</translation>
     </message>
     <message>
         <source>Sn&amp;ap to Grid</source>
@@ -8538,7 +8537,7 @@ Dafür erhöht sich benötigte Renderzeit gerinfügig</translation>
     </message>
     <message>
         <source>Send to S&amp;crapbook</source>
-        <translation type="unfinished">In Bibliot&amp;hek speichern</translation>
+        <translation>In Bibliot&amp;hek speichern</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
@@ -8610,7 +8609,7 @@ Dafür erhöht sich benötigte Renderzeit gerinfügig</translation>
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation type="unfinished">Inhalt lös&amp;chen</translation>
+        <translation>Inhalt lös&amp;chen</translation>
     </message>
     <message>
         <source>Show P&amp;roperties...</source>
@@ -9361,7 +9360,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation type="unfinished">&amp;Ändern...</translation>
+        <translation>&amp;Ändern...</translation>
     </message>
     <message>
         <source>&amp;Scripts:</source>
@@ -9417,7 +9416,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Interval:</source>
-        <translation type="unfinished">I&amp;ntervall:</translation>
+        <translation>I&amp;ntervall:</translation>
     </message>
     <message>
         <source>M&amp;inor Grid Spacing:</source>
@@ -9441,11 +9440,11 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;User Guides Color:</source>
-        <translation type="unfinished">Farbe der Hi&amp;lfslinien:</translation>
+        <translation>Farbe der Hi&amp;lfslinien:</translation>
     </message>
     <message>
         <source>Base&amp;line Grid Color:</source>
-        <translation type="unfinished">Farbe des &amp;Grundlinienrasters:</translation>
+        <translation>Farbe des &amp;Grundlinienrasters:</translation>
     </message>
     <message>
         <source>In the &amp;Background</source>
@@ -9525,7 +9524,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Fill Color:</source>
-        <translation type="unfinished">Fü&amp;llfarbe:</translation>
+        <translation>Fü&amp;llfarbe:</translation>
     </message>
     <message>
         <source>S&amp;hading:</source>
@@ -9625,7 +9624,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
-        <translation type="unfinished">&amp;Name der ausführbaren Datei:</translation>
+        <translation>&amp;Name der ausführbaren Datei:</translation>
     </message>
     <message>
         <source>Antialias &amp;Text</source>
@@ -9746,7 +9745,9 @@ weil Sie Bilder in bereits laufenden Instanzen von Gimp bearbeiten können.</tra
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
+durch reine Abstufungen von Schwarz ersetzt.
+Hauptsächlich werden davon neutrale und/oder dunkle Farbtöne beeinflusst, die Grau sehr ähnlich sind. Diese Option kann bei machen Bildern zu besseren Druckergebnissen führen. Sie müssen jedoch von Fall zu Fall entscheiden und ein wenig experimentieren, ob Sie bessere Ergebnisse erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
 </context>
 <context>
@@ -10354,7 +10355,7 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation type="unfinished">S&amp;onderzeichen einfügen</translation>
+        <translation>S&amp;onderzeichen einfügen</translation>
     </message>
     <message>
         <source>Save as &amp;Image...</source>
@@ -11138,36 +11139,34 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     <message>
         <source>firstPageOrder is bigger than allowed.</source>
         <comment>python error</comment>
-        <translation type="unfinished">firstPageOrder ist größer als erlaubt.
-
-python error</translation>
+        <translation>firstPageOrder ist größer als erlaubt.</translation>
     </message>
     <message>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
-        <translation type="unfinished">Nur Textrahmen können auf Überlauf geprüft werden.
+        <translation>Nur Textrahmen können auf Überlauf geprüft werden.
 
 python error</translation>
     </message>
     <message>
         <source>Dzongkha</source>
-        <translation type="unfinished"></translation>
+        <translation>Dzongkha</translation>
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Isländisch</translation>
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Schriftart %1 (erkannt von fontconfig) ist fehlerhaft und wird ignoriert</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Laden einer Schrift - FreeType2 konnte die Datei nicht finden</translation>
     </message>
     <message>
         <source>Word Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Word-Dateien</translation>
     </message>
 </context>
 <context>
@@ -11530,35 +11529,35 @@ Abstand eingestellt werden.</translation>
     <name>ScToolBar</name>
     <message>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Oben</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished">Rechts</translation>
+        <translation>Rechts</translation>
     </message>
     <message>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Unten</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished">Links</translation>
+        <translation>Links</translation>
     </message>
     <message>
         <source>Allow Docking To...</source>
-        <translation type="unfinished"></translation>
+        <translation>Andocken erlauben...</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished">Waagrecht</translation>
+        <translation>Waagrecht</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished">Vertikal</translation>
+        <translation>Vertikal</translation>
     </message>
     <message>
         <source>Floating Orientation...</source>
-        <translation type="unfinished"></translation>
+        <translation>Richtung...</translation>
     </message>
 </context>
 <context>
@@ -12291,7 +12290,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Collect for O&amp;utput...</source>
-        <translation type="unfinished">Für Aus&amp;gabe sammeln...</translation>
+        <translation>Für Aus&amp;gabe sammeln...</translation>
     </message>
     <message>
         <source>&amp;Get Text/Picture...</source>
@@ -12367,7 +12366,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Paragraph Styles...</source>
-        <translation type="unfinished">A&amp;bsatzstile...</translation>
+        <translation>A&amp;bsatzstile...</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
@@ -12759,15 +12758,15 @@ nicht speichern</translation>
     </message>
     <message>
         <source>JavaScripts...</source>
-        <translation type="unfinished">JavaScripts</translation>
+        <translation>JavaScripts...</translation>
     </message>
     <message>
         <source>&amp;JavaScripts...</source>
-        <translation type="unfinished">&amp;JavaScripts...</translation>
+        <translation>&amp;JavaScripts...</translation>
     </message>
     <message>
         <source>GhostScript : You cannot use EPS Images</source>
-        <translation type="unfinished">Ghostscript: Sie können keine EPS-Dateien verwenden</translation>
+        <translation>Ghostscript: Sie können keine EPS-Dateien verwenden</translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
@@ -12779,7 +12778,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Isländisch</translation>
     </message>
 </context>
 <context>
@@ -13082,7 +13081,9 @@ Nur Scripts, die für die Verwendung als Erweiterung vorgesehen sind, sollten ü
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Name Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Name Aliases&lt;/tt&gt; ist  eine fortgeschrittene Option. Vermutlich ist es besser, wenn Sie hier nichts ändern.&lt;/p&gt;(new line)
+&lt;p&gt;Falls aktiviert, wird diese Funktion aus Gründen der 1.2.0-Script-Kompatibilität den Scripter sehr viele Funktions- und Konstanten-Aliasse erzeugen lassen. Sie ist standardmäßig aktiviert.&lt;/p&gt;(new line)
+&lt;p&gt;Diese Option wird nur wirksam, wenn Sie Scribus neu starten.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -13644,7 +13645,7 @@ Ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>

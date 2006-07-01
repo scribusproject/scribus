@@ -5921,7 +5921,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation>D&amp;uplikër</translation>
+        <translation>D&amp;uplikér</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -6245,7 +6245,7 @@ Tabellen i midten af vinduet viser de makroer, der for øjeblikket er indlæst o
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>&amp;Importër</translation>
+        <translation>&amp;Importér</translation>
     </message>
     <message>
         <source>Alt+I</source>
@@ -7270,7 +7270,7 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation>D&amp;uplikër</translation>
+        <translation>D&amp;uplikér</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -7724,7 +7724,7 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     </message>
     <message>
         <source>Update paragraph Styles</source>
-        <translation>Opdatër afsnits typografier</translation>
+        <translation>Opdatér afsnits typografier</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
@@ -11392,11 +11392,11 @@ funktionens dokumentation. </translation>
     </message>
     <message>
         <source>Dzongkha</source>
-        <translation type="unfinished"></translation>
+        <translation>Dzongkha</translation>
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Islandsk</translation>
     </message>
 </context>
 <context>
@@ -12533,7 +12533,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>&amp;Importër</translation>
+        <translation>&amp;Importér</translation>
     </message>
     <message>
         <source>Save &amp;Text...</source>
@@ -12549,7 +12549,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>&amp;Export</source>
-        <translation>&amp;Exportër</translation>
+        <translation>&amp;Exportér</translation>
     </message>
     <message>
         <source>Document &amp;Setup...</source>
@@ -12733,7 +12733,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>P&amp;age Palette</source>
-        <translation>&amp;Arrangër sider</translation>
+        <translation>&amp;Arrangér sider</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
@@ -12925,7 +12925,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>Manage &amp;Guides...</source>
-        <translation>Håndtër &amp;hjælpelinier...</translation>
+        <translation>Håndtér &amp;hjælpelinier...</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -13009,7 +13009,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Islandsk</translation>
     </message>
 </context>
 <context>
@@ -13874,7 +13874,7 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     </message>
     <message>
         <source>Update Paragraph Styles</source>
-        <translation>Opdatër afsnits typografier</translation>
+        <translation>Opdatér afsnits typografier</translation>
     </message>
     <message>
         <source>Cancel</source>
