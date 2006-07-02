@@ -2539,12 +2539,12 @@ The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
 Missing library support is indicated by a *</source>
         <translation>Este painel mostra a versión, data de creación e
 soporte de librarías compilado en Scribus.
-C-C-T significa apoio a C=littlecms C=CUPS T=TIFF.
-A ausencia de apoio a librarías indícase cun *</translation>
+C-C-T significa que admite: C=littlecms C=CUPS T=TIFF.
+Se non se pode utilizar unha libraría indícase cun *</translation>
     </message>
     <message>
         <source>%1 %2 %3 </source>
-        <translation>%1 %2 %3(sp)</translation>
+        <translation>%1 %2 %3 </translation>
     </message>
     <message>
         <source>Afrikaans:</source>
@@ -2556,7 +2556,7 @@ A ausencia de apoio a librarías indícase cun *</translation>
     </message>
     <message>
         <source>Japanese:</source>
-        <translation type="unfinished"></translation>
+        <translation>Xaponés:</translation>
     </message>
 </context>
 <context>
@@ -2640,7 +2640,7 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
 the media size of the PostScript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation>Isto permie indicar explicitamente
+        <translation>Isto permite indicar explicitamente
 o tamaño do medio do ficheiro PostScript.
 Non se recomenda a non ser
 que llo pidan na imprenta.</translation>
@@ -2686,11 +2686,11 @@ que llo pidan na imprenta.</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
@@ -2832,7 +2832,7 @@ que llo pidan na imprenta.</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Nengun</translation>
+        <translation>Nengunha</translation>
     </message>
     <message>
         <source>Width:</source>
@@ -2900,7 +2900,7 @@ que llo pidan na imprenta.</translation>
     </message>
     <message>
         <source>Hidden</source>
-        <translation>Escondido</translation>
+        <translation>Agochado</translation>
     </message>
     <message>
         <source>No Print</source>
@@ -3725,7 +3725,7 @@ Isto require perfís moi exactos e só serve como advertencia.</translation>
     </message>
     <message>
         <source>Pr&amp;inter:</source>
-        <translation>Impres&amp;ora:</translation>
+        <translation>&amp;Impresora:</translation>
     </message>
     <message>
         <source>Sim&amp;ulate Printer on the Screen</source>
@@ -3976,7 +3976,7 @@ It&apos;s a reserved name for transparent color</source>
     </message>
     <message>
         <source> in</source>
-        <translation>pl</translation>
+        <translation> pl</translation>
     </message>
     <message>
         <source> p</source>
@@ -4192,7 +4192,7 @@ Pódese definir nas Preferencias.</translation>
     </message>
     <message>
         <source>Use</source>
-        <translation>Usar</translation>
+        <translation>Empregar</translation>
     </message>
     <message>
         <source>instead</source>
@@ -4207,12 +4207,13 @@ Pódese definir nas Preferencias.</translation>
     <name>DocIm</name>
     <message>
         <source>Importing failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Fallou a importación</translation>
     </message>
     <message>
         <source>Importing Word document failed 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Fallou a importación do documento de Word
+%1</translation>
     </message>
 </context>
 <context>
@@ -4861,7 +4862,7 @@ O erro foi:
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation>Cor&amp;tar</translation>
+        <translation>Recor&amp;tar</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -4962,7 +4963,7 @@ O nome do ficheiro exportado será &quot;nomedodocumento-númerodepáxina.tipode
     </message>
     <message>
         <source> dpi</source>
-        <translation>puntos por pulgada</translation>
+        <translation>puntos por polgada</translation>
     </message>
     <message>
         <source>Range</source>
@@ -5000,7 +5001,7 @@ un rango de páxinas ou un único número de páxina.</translation>
         <source>Resolution of the Images
 Use 72 dpi for Images intended for the Screen</source>
         <translation>Resolución das Imaxes
-Use 72 dpi (puntos por pulgada) para Imaxes intendadas para a Pantalla</translation>
+Use 72 dpi (puntos por polgada) para Imaxes intendadas para a Pantalla</translation>
     </message>
     <message>
         <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
@@ -7149,7 +7150,7 @@ Escolla outro.</translation>
     </message>
     <message>
         <source>New Template %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Modelo Novo %1</translation>
     </message>
 </context>
 <context>
@@ -7192,7 +7193,7 @@ Escolla outro.</translation>
     </message>
     <message>
         <source>Inches (in)</source>
-        <translation>Pulgadas (in)</translation>
+        <translation>Polgadas (in)</translation>
     </message>
     <message>
         <source>Picas (p)</source>
@@ -7496,7 +7497,7 @@ se non, as Coordenadas son relativas ao Obxecto.</translation>
     </message>
     <message>
         <source>Shear the Path Vertically Down</source>
-        <translation>Recortar a Traxecyoria Verticalmenta para Baixo</translation>
+        <translation>Recortar a Traxectoria Verticalmenta para Baixo</translation>
     </message>
     <message>
         <source>Rotate the Path Counter-Clockwise</source>
@@ -7899,7 +7900,7 @@ Non afecta á resolución das imaxes de mapa de bits, como as fotos.</translatio
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
-        <translation>DPI (Puntos por Pulgada) para a exportación de imaxes.</translation>
+        <translation>DPI (Puntos por Polgada) para a exportación de imaxes.</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts
@@ -8279,35 +8280,35 @@ A non ser que teña unha razón, non o seleccione. Isto reduce o tamaño do PDF.
     </message>
     <message>
         <source>Image Compression Methods</source>
-        <translation type="unfinished"></translation>
+        <translation>Métodos de Compresión de Imaxe</translation>
     </message>
     <message>
         <source>JPEG - Lossy</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG - Con perdas</translation>
     </message>
     <message>
         <source>Zip - Lossless</source>
-        <translation type="unfinished"></translation>
+        <translation>Zip - Sen perdas</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Inserir unha lista separada por vírgulas de elementos, na que un elemento pode ser * para todas as páxinas, 1-5 para un rango de páxinas ou un único número de páxina.</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Xera miniaturas de cada páxina no PDF. Algúns visores poden utilizar as miniaturas na navegación.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
-        <translation type="unfinished"></translation>
+        <translation>Método de compresión a empregar coas imaxes. Automático permite que Scribus escolla o mellor método. ZIP non causa perdas e é bon para imaxes con cores sólidas. JPEG é mellor para crear ficheiros PDF máis pequenos que teñan moitas fotos (cunha posíbel perda pequena de calidade). Déixeo en Automático, a non ser que precise de opcións de compresión especiais. Isto só se aplica ás imaxes JPEG</translation>
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Niveis de compresión: Mínima (25%), Baixa (50%), Media (75%), Alta (85%), Máxima (95%) - Isto só afecta ás imaxes JPEG.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Re-examinar as súas imaxes de mapas de bit na densidade escollida. Se se deixa isto sen marcar, mostraranse na súa resolucion nativa. Isto pode incrementar o uso da memoria e enlentecer a exportación.</translation>
     </message>
 </context>
 <context>
@@ -8667,7 +8668,7 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation>Cor&amp;tar</translation>
+        <translation>Recor&amp;tar</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -8915,7 +8916,7 @@ un valor positivo farao convexo</translation>
     </message>
     <message>
         <source>Inches (in)</source>
-        <translation>Pulgadas (in)</translation>
+        <translation>Polgadas (in)</translation>
     </message>
     <message>
         <source>Picas (p)</source>
@@ -9813,7 +9814,7 @@ instancia do Gimp que xa se estexa a executar.</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un método para apagar algúns dos matices de gris compostos de cián, amarelo e maxenta e empregar negro no seu sitio. UCR afecta sobre todo ás partes das imaxes con tons neutros ou escuros perto do gris. Cando se utiliza pode mellorar a impresión dalgunhas imaxes, embora sexa preciso experimentar e probar en cada caso. UCR reduce a posibilidade de saturación excesiva coas tintas CMY.</translation>
     </message>
 </context>
 <context>
@@ -10209,7 +10210,7 @@ Comprobe o camiño e o nome do ficheiro.</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation>Cor&amp;tar</translation>
+        <translation>Recor&amp;tar</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -11391,23 +11392,23 @@ erro de python</translation>
     </message>
     <message>
         <source>Dzongkha</source>
-        <translation type="unfinished"></translation>
+        <translation>Dzongkha</translation>
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Islandés</translation>
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>A fonte %1 (atopada mediante fontconfig) é defectuosa; ignorámola</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
-        <translation type="unfinished"></translation>
+        <translation>Non se puido carregar a fonte - freetype non deu atopado o ficheiro da fonte</translation>
     </message>
     <message>
         <source>Word Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Documentos de Word</translation>
     </message>
 </context>
 <context>
@@ -11430,7 +11431,7 @@ erro de python</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation>Cor&amp;tar</translation>
+        <translation>Recor&amp;tar</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -11768,35 +11769,35 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     <name>ScToolBar</name>
     <message>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Superior</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished">Direita</translation>
+        <translation>Direita</translation>
     </message>
     <message>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Inferior</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished">Esquerda</translation>
+        <translation>Esquerda</translation>
     </message>
     <message>
         <source>Allow Docking To...</source>
-        <translation type="unfinished"></translation>
+        <translation>Permitir Acoplamento na Parte...</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished">Horizontal</translation>
+        <translation>Horizontal</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished">Vertical</translation>
+        <translation>Vertical</translation>
     </message>
     <message>
         <source>Floating Orientation...</source>
-        <translation type="unfinished"></translation>
+        <translation>Orientación Flotante....</translation>
     </message>
 </context>
 <context>
@@ -11934,7 +11935,7 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     </message>
     <message>
         <source>Cut</source>
-        <translation>Cortar</translation>
+        <translation>Recortar</translation>
     </message>
     <message>
         <source>Copy</source>
@@ -12576,7 +12577,7 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation>Cor&amp;tar</translation>
+        <translation>Recor&amp;tar</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -13008,7 +13009,7 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation>Ficheiros EPS (*.eps);;Todo (*)</translation>
+        <translation>Ficheiros EPS (*.eps);;Todos (*)</translation>
     </message>
     <message>
         <source>Norwegian</source>
@@ -13016,7 +13017,7 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Islandés</translation>
     </message>
 </context>
 <context>
@@ -13719,7 +13720,7 @@ arrastre un Modelo para a Vista de Páxina de embaixo.</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation>Cor&amp;tar</translation>
+        <translation>Recor&amp;tar</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -14048,7 +14049,7 @@ Póñalle outro.</translation>
     </message>
     <message>
         <source>Group </source>
-        <translation>Grupo</translation>
+        <translation>Grupo </translation>
     </message>
 </context>
 <context>
