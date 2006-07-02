@@ -98,6 +98,8 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "guidemanager.h"
 #include "text/nlsconfig.h"
+#include "scrap.h"
+#include "stencilreader.h"
 #ifdef HAVE_CAIRO
 #include <cairo.h>
 #endif
@@ -1878,11 +1880,27 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	if ((!GetItem(&currItem)) && (m->button() == RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal))
 	{
 		QPopupMenu *pmen = new QPopupMenu();
-		if (m_ScMW->Buffer2.startsWith("<SCRIBUSELEM"))
+		if ((m_ScMW->Buffer2.startsWith("<SCRIBUSELEM")) || (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0))
 		{
 			Mxp = m->x();
 			Myp = m->y();
 			pmen->insertItem( tr("&Paste") , this, SLOT(PasteToPage()));
+			if (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0)
+			{
+				pmen3 = new QPopupMenu();
+				QMap<QString,BibView::Elem>::Iterator it;
+				it = m_ScMW->scrapbookPalette->tempBView->objectMap.end();
+				it--;
+				for (uint m = 0; m < m_ScMW->scrapbookPalette->tempBView->objectMap.count(); ++m)
+				{
+					QString strippedName = it.key();
+					QPixmap pm = it.data().Preview;
+					pmen3->insertItem(pm, strippedName);
+					it--;
+				}
+				connect(pmen3, SIGNAL(activated(int)), this, SLOT(PasteRecentToPage(int)));
+				pmen->insertItem( tr("Paste Recent"), pmen3);
+			}
 			pmen->insertSeparator();
 		}
 		setObjectUndoMode();
@@ -1911,6 +1929,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		setGlobalUndoMode();
 		delete pmen;
 		pmen=NULL;
+		if (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0)
+		{
+			delete pmen3;
+			pmen3=NULL;
+		}
 		return;
 	}
 	if ((Doc->appMode != modeMagnifier) && (!Doc->EditClip) && (Doc->appMode != modeDrawBezierLine))
@@ -8708,6 +8731,42 @@ void ScribusView::PasteToPage()
 	if (UndoManager::undoEnabled())
 		undoManager->beginTransaction(Doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste);
 	emit LoadElem(m_ScMW->Buffer2, Mxp / Scale, Myp / Scale, false, false, Doc, this);
+	Doc->DraggedElem = 0;
+	Doc->DragElements.clear();
+	updateContents();
+	for (uint as = ac; as < Doc->Items->count(); ++as)
+	{
+		PageItem* currItem = Doc->Items->at(as);
+		if (currItem->isBookmark)
+			emit AddBM(currItem);
+	}
+	if (UndoManager::undoEnabled())
+		undoManager->commit();
+}
+
+void ScribusView::PasteRecentToPage(int id)
+{
+	if (UndoManager::undoEnabled())
+		undoManager->beginTransaction(Doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste);
+	QString nam = pmen3->text(id);
+	QString data = m_ScMW->scrapbookPalette->tempBView->objectMap[nam].Data.utf8();
+	QFileInfo fi(data);
+	if (fi.extension(true).lower() == "sml")
+	{
+		QString f = "";
+		loadText(data, &f);
+		StencilReader *pre = new StencilReader();
+		data = pre->createObjects(f);
+		delete pre;
+	}
+	else if (fi.extension(true).lower() == "sce")
+	{
+		QString f = "";
+		loadText(data, &f);
+		data = f;
+	}
+	uint ac = Doc->Items->count();
+	emit LoadElem(data, Mxp / Scale, Myp / Scale, false, false, Doc, this);
 	Doc->DraggedElem = 0;
 	Doc->DragElements.clear();
 	updateContents();

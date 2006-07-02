@@ -612,7 +612,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["editCut"]->setEnabled(false);
 	scrActions["editCopy"]->setEnabled(false);
 	scrActions["editPaste"]->setEnabled(false);
-//	scrActions["EditPasteRecent"]->setEnabled(false);
+	scrMenuMgr->setMenuEnabled("EditPasteRecent", false);
 	scrActions["editCopyContents"]->setEnabled(false);
 	scrActions["editPasteContents"]->setEnabled(false);
 	scrActions["editPasteContentsAbs"]->setEnabled(false);
@@ -2326,8 +2326,8 @@ void ScribusMainWindow::HaveNewDoc()
 
 	scrActions["editCut"]->setEnabled(false);
 	scrActions["editCopy"]->setEnabled(false);
-	scrActions["editPaste"]->setEnabled(!Buffer2.isEmpty());
-//	scrActions["EditPasteRecent"]->setEnabled(scrapbookPalette->tempBView->objectMap.count() != 0);
+	scrActions["editPaste"]->setEnabled((!Buffer2.isEmpty()) || (scrapbookPalette->tempBView->objectMap.count() > 0));
+	scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() > 0);
 	scrActions["editCopyContents"]->setEnabled(false);
 	scrActions["editPasteContents"]->setEnabled(false);
 	scrActions["editPasteContentsAbs"]->setEnabled(false);
@@ -4155,7 +4155,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["editCut"]->setEnabled(false);
 		scrActions["editCopy"]->setEnabled(false);
 		scrActions["editPaste"]->setEnabled(false);
-//		scrActions["EditPasteRecent"]->setEnabled(false);
+		scrMenuMgr->setMenuEnabled("EditPasteRecent", false);
 		scrActions["editClearContents"]->setEnabled(false);
 		scrActions["editSelectAll"]->setEnabled(false);
 		scrActions["editDeselectAll"]->setEnabled(false);
@@ -4588,7 +4588,7 @@ void ScribusMainWindow::slotEditCut()
 		BuFromApp = true;
 		ClipB->setText(BufferI);
 		scrActions["editPaste"]->setEnabled(true);
-//		scrActions["EditPasteRecent"]->setEnabled(scrapbookPalette->tempBView->objectMap.count() != 0);
+		scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() != 0);
 		if (UndoManager::undoEnabled())
 			undoManager->commit();
 	}
@@ -4677,7 +4677,7 @@ void ScribusMainWindow::slotEditCopy()
 		BuFromApp = true;
 		ClipB->setText(BufferI);
 		scrActions["editPaste"]->setEnabled(true);
-//		scrActions["EditPasteRecent"]->setEnabled(scrapbookPalette->tempBView->objectMap.count() != 0);
+		scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() != 0);
 	}
 }
 

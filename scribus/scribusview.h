@@ -301,6 +301,7 @@ public slots: // Public slots
 	//void ClearItem();
 	//void DeleteItem();
 	void PasteToPage();
+	void PasteRecentToPage(int id);
 	void TextToPath();
 	void blinkCursor();
 	//void updatePict(QString name);
