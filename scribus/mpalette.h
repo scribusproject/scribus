@@ -46,10 +46,11 @@ class StyleSelect;
 class Cpalette;
 class Autoforms;
 class ArrowChooser;
+class ScComboBox;
 class ScribusMainWindow;
 class UserActionSniffer;
 extern bool CMSavail;
-
+/*
 class SCRIBUS_API LabelButton : public QLabel
 {
 	Q_OBJECT
@@ -74,7 +75,7 @@ protected:
 	virtual void mousePressEvent(QMouseEvent*);
 	virtual void mouseReleaseEvent(QMouseEvent *);
 };
-
+*/
 class SCRIBUS_API NameWidget : public QLineEdit
 {
 	Q_OBJECT
@@ -362,7 +363,8 @@ protected:
 	QLabel* endArrowText;	
 	
 
-	LabelButton* colgapLabel;	
+//	LabelButton* colgapLabel;
+	ScComboBox* colgapLabel;
 	StyleSelect* SeStyle;
 	AlignSelect* GroupAlign;
 

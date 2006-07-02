@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 using namespace std;
 
 
-
+/*
 LabelButton::LabelButton(QWidget* parent, QString text1, QString text2) : QLabel(parent)
 {
 	state = true;
@@ -91,7 +91,7 @@ void LabelButton::mouseReleaseEvent(QMouseEvent*)
 	setLineWidth( 2 );
 	emit clicked();
 }
-
+*/
 NameWidget::NameWidget(QWidget* parent) : QLineEdit(parent)
 {}
 
@@ -360,9 +360,10 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	DistanceLayout->addWidget( DCol, 0, 1 );
 
 	dGap = new MSpinBox( 0, 300, Distance, 1 );
-	colgapLabel = new LabelButton( Distance, "&Gap:", "&Width:");
-	colgapLabel->setBuddy(dGap);
-	DistanceLayout->addWidget( colgapLabel, 1, 0 );
+//	colgapLabel = new LabelButton( Distance, "&Gap:", "&Width:");
+//	colgapLabel->setBuddy(dGap);
+	colgapLabel = new ScComboBox( false, Distance, "colgapLabel" );
+	DistanceLayout->addWidget( colgapLabel, 1, 0, Qt::AlignLeft );
 	DistanceLayout->addWidget( dGap, 1, 1 );
 
 	DTop = new MSpinBox( 0, 300, Distance, 1 );
@@ -871,7 +872,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect( LeftLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
 	connect( RightLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
 	connect( BottomLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
-	connect( colgapLabel, SIGNAL( clicked() ), this, SLOT( HandleGapSwitch() ) );
+//	connect( colgapLabel, SIGNAL( clicked() ), this, SLOT( HandleGapSwitch() ) );
+	connect(colgapLabel, SIGNAL(activated(int)), this, SLOT(HandleGapSwitch()));
 	connect( Cpal, SIGNAL(NewSpecial(double, double, double, double )), this, SLOT(NewSpGradient(double, double, double, double )));
 	connect( Cpal, SIGNAL(editGradient()), this, SLOT(toggleGradientEdit()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
@@ -1080,7 +1082,8 @@ void Mpalette::setCurrentItem(PageItem *i)
 		DCol->setMinValue(1);
 		DCol->setValue(i2->Cols);
 		dGap->setMinValue(0);
-		if (colgapLabel->getState())
+//		if (colgapLabel->getState())
+		if (colgapLabel->currentItem() == 0)
 		{
 			dGap->setMaxValue(QMAX((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*Umrech, 0));
 			dGap->setValue(i2->ColGap*Umrech);
@@ -1280,7 +1283,8 @@ void Mpalette::SetCurItem(PageItem *i)
 		DCol->setMinValue(1);
 		DCol->setValue(i2->Cols);
 		dGap->setMinValue(0);
-		if (colgapLabel->getState())
+//		if (colgapLabel->getState())
+		if (colgapLabel->currentItem() == 0)
 		{
 			dGap->setMaxValue(QMAX((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*Umrech, 0));
 			dGap->setValue(i2->ColGap*Umrech);
@@ -1862,7 +1866,8 @@ void Mpalette::setCols(int r, double g)
 		if (i2!=0)
 		{
 			DCol->setMaxValue(QMAX(qRound(i2->width() / QMAX(i2->ColGap, 10.0)), 1));
-			if (colgapLabel->getState())
+//			if (colgapLabel->getState())
+			if (colgapLabel->currentItem() == 0)
 			{
 				dGap->setMaxValue(QMAX((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*Umrech, 0));
 				dGap->setValue(i2->ColGap*Umrech);
@@ -2594,7 +2599,8 @@ void Mpalette::HandleGapSwitch()
 	{
 		setCols(CurItem->Cols, CurItem->ColGap);
 		QToolTip::remove(dGap);
-		if (colgapLabel->getState())
+//		if (colgapLabel->getState())
+		if (colgapLabel->currentItem() == 0)
 			QToolTip::add( dGap, tr( "Distance between columns" ) );
 		else
 			QToolTip::add( dGap, tr( "Column width" ) );
@@ -2620,7 +2626,8 @@ void Mpalette::NewGap()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (colgapLabel->getState())
+//		if (colgapLabel->getState())
+		if (colgapLabel->currentItem() == 0)
 			CurItem->ColGap = dGap->value() / Umrech;
 		else
 		{
@@ -3866,7 +3873,12 @@ void Mpalette::languageChange()
 	rndcornersLabel->setText( tr("R&ound\nCorners:"));
 	Distance->setTitle( tr("Distance of Text"));
 	columnsLabel->setText( tr("Colu&mns:"));
-	colgapLabel->setTexts( tr("&Gap:"), tr("&Width:"));
+	int oldcolgapLabel = colgapLabel->currentItem();
+	colgapLabel->clear();
+	colgapLabel->insertItem( tr("Gap:"));
+	colgapLabel->insertItem( tr("Width:"));
+	colgapLabel->setCurrentItem(oldcolgapLabel);
+//	colgapLabel->setTexts( tr("&Gap:"), tr("&Width:"));
 	topLabel->setText( tr("To&p:"));
 	bottomLabel->setText( tr("&Bottom:"));
 	leftLabel->setText( tr("&Left:"));

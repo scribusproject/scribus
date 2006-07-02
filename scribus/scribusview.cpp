@@ -7111,7 +7111,8 @@ void ScribusView::RotateItem(double win, PageItem *currItem)
 	if (currItem->locked())
 		return;
 	QRect oldR(currItem->getRedrawBounding(Scale));
-	if ((Doc->RotMode != 0) && (m_MouseButtonPressed))
+//	if ((Doc->RotMode != 0) && (m_MouseButtonPressed))
+	if (Doc->RotMode != 0)
 	{
 		QWMatrix ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
@@ -7147,11 +7148,11 @@ void ScribusView::RotateItem(double win, PageItem *currItem)
 		MoveItem(x-currItem->xPos(), y-currItem->yPos(), currItem);
 		currItem->Sizing = oldS;
 	}
-	else
+/*	else
 	{
 		currItem->setRotation(win);
 		Doc->setRedrawBounding(currItem);
-	}
+	} */
 	QRect newR(currItem->getRedrawBounding(Scale));
 	updateContents(newR.unite(oldR));
 	//emit SetAngle(currItem->rotation());
