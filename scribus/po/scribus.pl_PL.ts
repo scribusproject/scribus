@@ -2533,7 +2533,7 @@ O braku obsługi dla danej biblioteki informuje symbol *</translation>
     </message>
     <message>
         <source>Japanese:</source>
-        <translation type="unfinished"></translation>
+        <translation>Japoński:</translation>
     </message>
 </context>
 <context>
@@ -4189,12 +4189,13 @@ This can be set in the Preferences.</source>
     <name>DocIm</name>
     <message>
         <source>Importing failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd podczas importu</translation>
     </message>
     <message>
         <source>Importing Word document failed 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd podczas importu dokumentu Worda 
+%1</translation>
     </message>
 </context>
 <context>
@@ -7131,7 +7132,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>New Template %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nowy szablon %1</translation>
     </message>
 </context>
 <context>
@@ -8263,35 +8264,35 @@ rozmiaru pliku PDF.</translation>
     </message>
     <message>
         <source>Image Compression Methods</source>
-        <translation type="unfinished"></translation>
+        <translation>Metody kompresji obrazków</translation>
     </message>
     <message>
         <source>JPEG - Lossy</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG - stratna</translation>
     </message>
     <message>
         <source>Zip - Lossless</source>
-        <translation type="unfinished"></translation>
+        <translation>Zip - bezstratna</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wpisz rozdzieloną przecinkami listę wartości, gdzie * oznacza wszystkie strony, a  1-5 zakres stron albo pojedynczy numer strony.</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Generuje miniatury wszystkich stron pliku PDF. Niektóre przeglądarki pozwalają na używanie miniatur do nawigacji.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
-        <translation type="unfinished"></translation>
+        <translation>Metoda kompresji używana dla obrazków. Metoda automatyczna pozwala Scribusowi na dobór najlepszej metody. ZIP jest metodą bezstratną i nadaje się dla obrazków z jednolitymi kolorami. Metoda JPEG jest lepsza dla generowania mniejszych plików PDF z dużą ilością zdjęć (możliwa niewielka utrata jakości). Zostaw metodę automatyczną, chyba że potrzebna ci są specjalne opcje kompresji. Odnosi się to jedynie do obrazków JPEG</translation>
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Poziomy kompresji: Minimalna (25%), Niska (50%), Średnia (75%), Wysoka (85%), Maksymalna (95%). Dotyczy tylko plików JPEG.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Konwersja obrazków bitmapowych na wybraną DPI. Jeśli nie zakreślisz tej opcji, obrazki zostaną pozostawione w oryginalnej rozdzielczości. Opcja ta może zwiększyć zużycie pamięci i zwolnić eksport.</translation>
     </message>
 </context>
 <context>
@@ -9798,7 +9799,8 @@ konieczności startowania programu za każdym razem od nowa.</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>UCR jest to sposób wykluczenia niektórych odcieni szarości, które składają się z cyjanu (C), żółci (Y) i madżenty (M) używając zamiast nich czerni.
+UCR najbardziej ma wpływ na obszary obrazków, które mają neutralne lub ciemne odcienie bliskie szarości. Użycie go może poprawić wydruk niektórych obrazków, jednakże wymaga wykonania wcześniej kilku prób i testów dla każdego przypadku. UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
 </context>
 <context>
@@ -11201,23 +11203,23 @@ Szczegóły na temat wyjątków zwracanych przez każdą funkcję zawarte są w 
     </message>
     <message>
         <source>Dzongkha</source>
-        <translation type="unfinished"></translation>
+        <translation>Dzongkha</translation>
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Islandzki</translation>
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 (znaleziony przez fontconfig) jest wadliwy i nie będzie użyty</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie udało się wczytać fontu - freetype nie znalazł pliku zawierającego font</translation>
     </message>
     <message>
         <source>Word Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumenty Word</translation>
     </message>
 </context>
 <context>
@@ -11578,35 +11580,35 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <name>ScToolBar</name>
     <message>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Do góry</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished">Do prawej</translation>
+        <translation>Do prawej</translation>
     </message>
     <message>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Do dołu</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished">Do lewej</translation>
+        <translation>Do lewej</translation>
     </message>
     <message>
         <source>Allow Docking To...</source>
-        <translation type="unfinished"></translation>
+        <translation>Dozwolone dokowanie do ...</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished">Poziomo</translation>
+        <translation>Poziomo</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished">Pionowo</translation>
+        <translation>Pionowo</translation>
     </message>
     <message>
         <source>Floating Orientation...</source>
-        <translation type="unfinished"></translation>
+        <translation>Orientacja pływania ...</translation>
     </message>
 </context>
 <context>
@@ -12826,7 +12828,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Islandzki</translation>
     </message>
 </context>
 <context>
