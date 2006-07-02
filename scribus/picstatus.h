@@ -52,6 +52,7 @@ private slots:
 	\brief Searches for the given Picture. Displays a Dialog when more than one Picture is found.
 	*/
 	void SearchPic();
+	void searchAllPics();
 	void SearchPicAborted(bool userCancelled);
 	void SearchPicFinished(const QStringList & matches, const QString & fileName);
 	/*!
@@ -108,8 +109,9 @@ signals:
 private:
 	QTable* PicTable;
 	QHeader *Header;
-	QPushButton* CancelB;
-	QPushButton* OkB;
+	QPushButton* cancelButton;
+	QPushButton* okButton;
+	QPushButton* searchAllButton;
 	ScribusDoc *m_Doc;
 	int Zeilen;
 	QPtrList<QCheckBox> FlagsPic;

@@ -2899,6 +2899,8 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload)
 		m_ScMW->HaveRaster(pageItem->isRaster);
 		//TODO: Previously commented out.. unsure why, remove later
 		//emit UpdtObj(PageNr, ItNr);
+		//CB: probably because we are therefore not always refreshing the view when an image changes...
+		emit refreshItem(pageItem);
 		changed();
 	}
 	return true;

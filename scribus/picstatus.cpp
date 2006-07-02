@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtoolbutton.h>
 #include <qstringlist.h>
 #include <qtextstream.h>
+#include <qtooltip.h>
 #include <qcursor.h>
 #include <cstdio>
 #include "picsearch.h"
@@ -187,7 +188,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) :
 	PicTable->adjustColumn(COL_PRINT);
 	PicTable->adjustColumn(COL_STATUS);
 	PicTable->setSorting(false);
-	PicTable->setSelectionMode(QTable::NoSelection);
+	PicTable->setSelectionMode(QTable::MultiRow);
 	PicTable->setColumnMovingEnabled(false);
 	PicTable->setRowMovingEnabled(false);
 	Header->setMovingEnabled(false);
@@ -203,13 +204,17 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) :
 	Layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
-
-	OkB = new QPushButton( tr( "OK" ), this, "OkB" );
-	Layout2->addWidget( OkB );
+	searchAllButton = new QPushButton( tr( "Set New Location" ), this, "searchAllButton" );
+	Layout2->addWidget( searchAllButton );
+	okButton = new QPushButton( tr( "Close" ), this, "okButton" );
+	Layout2->addWidget( okButton );
 	PicStatusLayout->addLayout( Layout2 );
 
 	// signals and slots connections
-	connect( OkB, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( searchAllButton, SIGNAL( clicked() ), this, SLOT( searchAllPics() ) );
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	
+	QToolTip::add( searchAllButton, "<qt>" + tr( "Set a new location for the selected items. Useful when you may have moved the document but not the images." ) + "</qt>");
 }
 
 void PicStatus::languageChange()
@@ -237,15 +242,15 @@ void PicStatus::SearchPic()
 {
 	// FIXME: This is a pretty ugly hack IMO - carried over from the old
 	// SearchPic. Table handling needs work.
-	QString workDir;
-	QString searchBase;
 	unsigned int row = QString(sender()->name()).toUInt();
 	QString fileName = PicTable->text(row, COL_FILENAME);
+	QString workDir;
 #ifndef _WIN32
 	workDir = QDir::homeDirPath();
 #endif
 	// Pictures may be located completely outside home or documents directory
 	// so ask base search directory first
+	QString searchBase;
 	searchBase = QFileDialog::getExistingDirectory( workDir, NULL, NULL, tr("Select a base directory for search"));
 	if( searchBase.isEmpty() || !QDir().exists(searchBase) )
 		return;
@@ -378,4 +383,30 @@ void PicStatus::PrintPic()
 		m_Doc->DocItems.at(ItNr)->setPrintEnabled(FlagsPic.at(ZNr)->isChecked());
 	else
 		m_Doc->MasterItems.at(ItNr)->setPrintEnabled(FlagsPic.at(ZNr)->isChecked());
+}
+
+void PicStatus::searchAllPics( )
+{
+	QString workDir;
+#ifndef _WIN32
+	workDir = QDir::homeDirPath();
+#endif
+	QString searchBase = QFileDialog::getExistingDirectory( workDir, NULL, NULL, tr("Select a base directory for your selected rows"));
+	if( searchBase.isEmpty() || !QDir().exists(searchBase) )
+		return;
+	uint updated=0;
+	for (int i=0; i<PicTable->numRows(); ++i)
+	{
+		if (PicTable->isRowSelected(i))
+		{
+			QString newName=searchBase+PicTable->text(i, COL_FILENAME);
+			if (QFile::exists(newName))
+			{
+				if (loadPictByRow(newName, i))
+					++updated;
+			}
+		}
+	}
+	if (updated>0)
+		PicTable->adjustColumn(COL_PREVIEW);
 }
