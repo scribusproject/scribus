@@ -810,7 +810,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						double TopOffset = asce;
 						double BotOffset = desc2;
 						goNoRoom = false;
-						bool specialCase = false;
+//#3932						bool specialCase = false;
 						if (StartOfCol)
 						{
 							CurY = asce+TExtra+lineCorr+1;
@@ -828,13 +828,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						}
 						if (CurY-TopOffset < 0.0)
 							CurY = TopOffset+1;
-						pt1 = QPoint(static_cast<int>(ceil(CurX-Extra)), static_cast<int>(CurY+BotOffset));
-						pt2 = QPoint(static_cast<int>(ceil(CurX-Extra)), static_cast<int>(ceil(CurY-TopOffset)));
-						if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))))
-						{
-							specialCase = true;
-							CurX -= Extra;
-						}
+//#3932						pt1 = QPoint(static_cast<int>(ceil(CurX-Extra)), static_cast<int>(CurY+BotOffset));
+//						pt2 = QPoint(static_cast<int>(ceil(CurX-Extra)), static_cast<int>(ceil(CurY-TopOffset)));
+//						if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))))
+//						{
+//							specialCase = true;
+//							CurX -= Extra;
+//						}
 						pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(CurY+BotOffset));
 						pt2 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY-TopOffset)));
 						while ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))))
@@ -911,7 +911,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(CurY+BotOffset));
 							pt2 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY-TopOffset)));
 						}
-						if (((fBorder) || (specialCase)) && (!AbsHasDrop))
+//#3932					if (((fBorder) || (specialCase)) && (!AbsHasDrop))
+						if ((fBorder) && (!AbsHasDrop))
 							CurX += Extra;
 						if (a > 0)
 						{
