@@ -1755,11 +1755,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>April</source>
-        <translation type="obsolete">Апрель</translation>
-    </message>
-    <message>
-        <source>May</source>
-        <translation type="unfinished"></translation>
+        <translation>Апрель</translation>
     </message>
 </context>
 <context>
@@ -2228,7 +2224,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Show &amp;Grid</source>
-        <translation>Показывать &amp;страничную сетку</translation>
+        <translation>Показывать &amp;сетку</translation>
     </message>
     <message>
         <source>Show G&amp;uides</source>
@@ -2236,7 +2232,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation>Показывать &amp;опорную сетку</translation>
+        <translation>Показывать &amp;базовые линии</translation>
     </message>
     <message>
         <source>Show &amp;Text Chain</source>
@@ -2248,7 +2244,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Sn&amp;ap to Grid</source>
-        <translation>Прилипание к &amp;страничной сетке</translation>
+        <translation>Прилипание к &amp;сетке</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
@@ -2340,11 +2336,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Link Text Frames</source>
-        <translation>Связаны текстовые блоки</translation>
+        <translation>Связать текстовые блоки</translation>
     </message>
     <message>
         <source>Unlink Text Frames</source>
-        <translation>Разъединены тестовые блоки</translation>
+        <translation>Разорвать связь тестовых блоков</translation>
     </message>
     <message>
         <source>&amp;Eye Dropper</source>
@@ -2352,11 +2348,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Copy Item Properties</source>
-        <translation>Скопированы свойства объекта</translation>
+        <translation>Скопировать свойства объекта</translation>
     </message>
     <message>
         <source>Edit the text with the Story Editor</source>
-        <translation>Текст изменён в Story Editor</translation>
+        <translation>Изменить текст в Story Editor</translation>
     </message>
     <message>
         <source>Insert Text Frame</source>
@@ -2392,7 +2388,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>Настроить &amp;изображения</translation>
+        <translation>Управление &amp;изображениями</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -2568,7 +2564,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Manage Page Properties...</source>
-        <translation>Настроить страницу...</translation>
+        <translation>Свойства страницы...</translation>
     </message>
     <message>
         <source>Rulers relative to Page</source>
@@ -3272,7 +3268,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Custom</source>
-        <translation>Свой</translation>
+        <translation>Другой</translation>
     </message>
     <message>
         <source>Number Format</source>
@@ -3336,7 +3332,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Custom validate script:</source>
-        <translation>Свой сценарий проверки:</translation>
+        <translation>Другой сценарий проверки:</translation>
     </message>
     <message>
         <source>Validate</source>
@@ -3380,7 +3376,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Custom calculation script:</source>
-        <translation>Свой сценарий для вычисления:</translation>
+        <translation>Другой сценарий для вычисления:</translation>
     </message>
     <message>
         <source>Calculate</source>
@@ -4890,7 +4886,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Single Page</source>
-        <translation>Одиночные страницы</translation>
+        <translation>Одиночная страница</translation>
     </message>
     <message>
         <source>Double Sided</source>
@@ -4927,7 +4923,7 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Custom</source>
         <comment>CommonStrings, custom page size</comment>
-        <translation>Свой</translation>
+        <translation>Другой...</translation>
     </message>
     <message>
         <source>None</source>
@@ -5836,7 +5832,7 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation>Напрямую указать размер носителя в PostScript-файле. Не рекомендуется использовать эту функция, пока этого не потребует принтер.</translation>
+        <translation>Напрямую указать размер носителя в PostScript-файле. Не рекомендуется использовать эту функцию, пока этого не потребует принтер.</translation>
     </message>
     <message>
         <source>Failed to retrieve printer settings</source>
@@ -6478,7 +6474,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Additional Paths</source>
-        <translation>Дополнительные пути</translation>
+        <translation>Дополнительное расположение</translation>
     </message>
     <message>
         <source>Font Name</source>
@@ -6502,7 +6498,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Additional &amp;Paths</source>
-        <translation>Дополнительные &amp;пути</translation>
+        <translation>Дополнительное рас&amp;положение</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -6551,7 +6547,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation>Пути к шрифтам могут быть установлены только через диалог настройки программы и только при отсутствии открытых документов. Закройте все документы, и в диалоге, открывающимся через меню Правка -&gt; Настроить..., укажите путь к шрифтам.</translation>
+        <translation>Расположение шрифтов может быть установлено только через диалог настройки программы и только при отсутствии открытых документов. Закройте все документы, и в диалоге, открывающимся через меню Правка -&gt; Настроить..., укажите расположение шрифтов.</translation>
     </message>
 </context>
 <context>
@@ -7063,7 +7059,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Has Embedded Paths:</source>
-        <translation>Встроенные пути:</translation>
+        <translation>Встроенные контуры:</translation>
     </message>
     <message>
         <source>Has Layers:</source>
@@ -7179,7 +7175,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Свой</translation>
+        <translation>Другой...</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
@@ -7593,7 +7589,7 @@ converting their vector data into Scribus objects.</source>
     <name>MarginDialog</name>
     <message>
         <source>Manage Page Properties</source>
-        <translation>Настройка свойств страницы</translation>
+        <translation>Свойства страницы</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -7605,7 +7601,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Свой</translation>
+        <translation>Другой...</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
@@ -7633,7 +7629,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Направляющие полей</translation>
+        <translation>Поля</translation>
     </message>
     <message>
         <source>Type:</source>
@@ -7644,19 +7640,19 @@ converting their vector data into Scribus objects.</source>
     <name>MarginWidget</name>
     <message>
         <source>&amp;Bottom:</source>
-        <translation>С&amp;низу:</translation>
+        <translation>Н&amp;ижнее:</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation>С&amp;верху:</translation>
+        <translation>В&amp;ерхнее:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation>С&amp;права:</translation>
+        <translation>&amp;Правое:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation>С&amp;лева:</translation>
+        <translation>&amp;Левое:</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
@@ -7668,11 +7664,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Inside:</source>
-        <translation>&amp;Изнутри:</translation>
+        <translation>&amp;Внутреннее:</translation>
     </message>
     <message>
         <source>O&amp;utside:</source>
-        <translation>Снару&amp;жи:</translation>
+        <translation>&amp;Наружное:</translation>
     </message>
     <message>
         <source>Preset Layouts:</source>
@@ -8229,11 +8225,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Choose the shape of frame...</source>
-        <translation>Выбрать очертание рамки...</translation>
+        <translation>Выбрать очертание блока...</translation>
     </message>
     <message>
         <source>Edit shape of the frame...</source>
-        <translation>Изменить очертание рамки...</translation>
+        <translation>Изменить очертание блока...</translation>
     </message>
     <message>
         <source>Set radius of corner rounding</source>
@@ -8241,7 +8237,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Number of columns in text frame</source>
-        <translation>Количество столбцов в текстовой рамке</translation>
+        <translation>Количество столбцов в текстовом блоке</translation>
     </message>
     <message>
         <source>Distance between columns</source>
@@ -8249,35 +8245,35 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Distance of text from top of frame</source>
-        <translation>Расстояние между текстом и верхом рамки</translation>
+        <translation>Расстояние между текстом и верхом блока</translation>
     </message>
     <message>
         <source>Distance of text from bottom of frame</source>
-        <translation>Расстояние между текстом и низом рамки</translation>
+        <translation>Расстояние между текстом и низом блока</translation>
     </message>
     <message>
         <source>Distance of text from left of frame</source>
-        <translation>Расстояние между текстом и левой стороной рамки</translation>
+        <translation>Расстояние между текстом и левой стороной блока</translation>
     </message>
     <message>
         <source>Distance of text from right of frame</source>
-        <translation>Расстояние между текстом и правой стороной рамки</translation>
+        <translation>Расстояние между текстом и правой стороной блока</translation>
     </message>
     <message>
         <source>Edit tab settings of text frame...</source>
-        <translation>Изменить табуляторы текстовой рамки...</translation>
+        <translation>Изменить табуляторы текстового блока...</translation>
     </message>
     <message>
         <source>Allow the image to be a different size to the frame</source>
-        <translation>Разрешить изображению иметь отличный от рамки размер</translation>
+        <translation>Разрешить изображению иметь отличный от блока размер</translation>
     </message>
     <message>
         <source>Horizontal offset of image within frame</source>
-        <translation>Горизонтальное смещение изображения относительно рамки</translation>
+        <translation>Горизонтальное смещение изображения относительно блока</translation>
     </message>
     <message>
         <source>Vertical offset of image within frame</source>
-        <translation>Вертикальное смещение изображения относительно рамки</translation>
+        <translation>Вертикальное смещение изображения относительно блока</translation>
     </message>
     <message>
         <source>Resize the image horizontally</source>
@@ -8293,11 +8289,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Make the image fit within the size of the frame</source>
-        <translation>Уместить изображение в рамке</translation>
+        <translation>Уместить изображение в блоке</translation>
     </message>
     <message>
         <source>Use image proportions rather than those of the frame</source>
-        <translation>Использовать пропорции изображения вместо пропорций рамки</translation>
+        <translation>Использовать пропорции изображения вместо пропорций блока</translation>
     </message>
     <message>
         <source>Keep the aspect ratio</source>
@@ -8417,7 +8413,7 @@ Corners:</source>
     </message>
     <message>
         <source>Text &amp;Flows Around Frame</source>
-        <translation>Текст о&amp;бтекает рамку</translation>
+        <translation>Текст о&amp;бтекает блок</translation>
     </message>
     <message>
         <source>Use &amp;Bounding Box</source>
@@ -8449,7 +8445,7 @@ Corners:</source>
     </message>
     <message>
         <source>Scale &amp;To Frame Size</source>
-        <translation>&amp;Масштабировать до размера рамки</translation>
+        <translation>&amp;Масштабировать до размера блока</translation>
     </message>
     <message>
         <source>P&amp;roportional</source>
@@ -8478,17 +8474,17 @@ Corners:</source>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
         <translation>Использовать для расчёта обтекания 
-текста площадку вместо контура рамки</translation>
+текста площадку вместо контура блока</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
         <translation>Использовать для расчёта обтекания текста вторую 
-линию, исходно основанную на контуре рамки</translation>
+линию, исходно основанную на контуре блока</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
         <translation>Язык для расстановки 
-переносов в рамке</translation>
+переносов в блоке</translation>
     </message>
     <message>
         <source>&amp;X1:</source>
@@ -8556,11 +8552,11 @@ Corners:</source>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="obsolete">Цвет штриха текста. Возможно только при включённом эффекте «Контур».</translation>
+        <translation>Цвет штриха текста. Возможно только при включённом эффекте «Контур».</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="obsolete">Цвет текста. Возможно только при включённом эффекте «Контур».</translation>
+        <translation>Цвет текста. Возможно только при включённом эффекте «Контур».</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -8577,14 +8573,6 @@ Corners:</source>
     <message>
         <source>Click to select the line spacing mode</source>
         <translation>Нажмите для выбора межстрочного режима</translation>
-    </message>
-    <message>
-        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8715,7 +8703,7 @@ Corners:</source>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Направляющие полей</translation>
+        <translation>Поля</translation>
     </message>
     <message>
         <source>Options</source>
@@ -8745,13 +8733,13 @@ Corners:</source>
     </message>
     <message>
         <source>Create text frames automatically when new pages are added</source>
-        <translation>Автоматически создавать текстовые рамки 
+        <translation>Автоматически создавать текстовые блоки 
 при добавлении новых страниц</translation>
     </message>
     <message>
         <source>Number of columns to create in automatically created text frames</source>
         <translation>Количество столбцов в автоматически 
-создаваемых текстовых рамках</translation>
+создаваемых текстовых блоках</translation>
     </message>
     <message>
         <source>Distance between automatically created columns</source>
@@ -9414,7 +9402,7 @@ Corners:</source>
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Макет страницы</translation>
+        <translation>Макет</translation>
     </message>
     <message>
         <source>First Page is:</source>
@@ -9836,7 +9824,7 @@ Corners:</source>
     </message>
     <message>
         <source>Paths</source>
-        <translation>Пути</translation>
+        <translation>Расположение</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -9844,7 +9832,7 @@ Corners:</source>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Свой</translation>
+        <translation>Другой...</translation>
     </message>
     <message>
         <source>Portrait</source>
@@ -9950,7 +9938,7 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;Theme:</source>
-        <translation>&amp;Тема:</translation>
+        <translation>&amp;Стиль оформления:</translation>
     </message>
     <message>
         <source>&amp;Wheel Jump:</source>
@@ -9958,7 +9946,7 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;Recent Documents:</source>
-        <translation>Сколько &amp;недавних документов помнить:</translation>
+        <translation>Помнить &amp;недавних документов:</translation>
     </message>
     <message>
         <source>&amp;Documents:</source>
@@ -10062,8 +10050,7 @@ Corners:</source>
     </message>
     <message>
         <source>Action history length</source>
-        <translation>Сколько действий
-запоминать</translation>
+        <translation>Помнить действий:</translation>
     </message>
     <message>
         <source>Hyphenator</source>
@@ -10259,7 +10246,7 @@ Corners:</source>
     </message>
     <message>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation>Выберите стиль отображения графических элементов интерфейса программы. Scribus использует темы KDE и Qt, если таковые доступны.</translation>
+        <translation>Выберите стиль оформления графических элементов интерфейса программы. Scribus использует стили KDE и Qt, если таковые доступны.</translation>
     </message>
     <message>
         <source>Default font size for the tool windows</source>
@@ -11313,7 +11300,7 @@ External Links
     <message>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
-        <translation>Цель не является рамкой изображения.</translation>
+        <translation>Цель не является блоком изображения.</translation>
     </message>
     <message>
         <source>Corner radius must be a positive number.</source>
@@ -11323,17 +11310,17 @@ External Links
     <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Невозможно получить кегль шрифта из нетекстовой рамки.</translation>
+        <translation>Невозможно получить кегль шрифта из нетекстового блока.</translation>
     </message>
     <message>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Невозможно шрифт из нетекстовой рамки.</translation>
+        <translation>Невозможно шрифт из нетекстового блока.</translation>
     </message>
     <message>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Невозможно получить текстовый кегль из нетекстовой рамки.</translation>
+        <translation>Невозможно получить текстовый кегль из нетекстового блока.</translation>
     </message>
     <message>
         <source>Cannot get column count of non-text frame.</source>
@@ -11353,7 +11340,7 @@ External Links
     <message>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Невозможно получить текст из нетекстовой рамки.</translation>
+        <translation type="unfinished">Невозможно получить текст из нетекстового блока.</translation>
     </message>
     <message>
         <source>Cannot set text of non-text frame.</source>
@@ -11363,7 +11350,7 @@ External Links
     <message>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
-        <translation>Невозможно вставить текст в нетекстовую рамку.</translation>
+        <translation>Невозможно вставить текст в нетекстовый блок.</translation>
     </message>
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
@@ -11607,7 +11594,7 @@ External Links
     </message>
     <message>
         <source>Custom</source>
-        <translation>Свой</translation>
+        <translation>Другой...</translation>
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
@@ -12333,14 +12320,6 @@ is not exhaustive due to exceptions from called functions.
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Arabic</source>
-        <translation type="unfinished">Арабский</translation>
-    </message>
-    <message>
-        <source>Estonian</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -12491,7 +12470,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Custom</source>
-        <translation>Свой</translation>
+        <translation>Другой...</translation>
     </message>
     <message>
         <source>Portrait</source>
@@ -12906,7 +12885,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation>В &amp;выбранные рамки</translation>
+        <translation>В &amp;выбранные блоки</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
@@ -12921,7 +12900,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation>Обработаны только выбранные рамки</translation>
+        <translation>Обработаны только выбранные блоки.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
@@ -13114,10 +13093,6 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Объект %1 сейчас изменяется в редакторе текста. Его невозможно удалить</translation>
-    </message>
-    <message>
-        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13580,10 +13555,6 @@ Vertical shift: %3</source>
         <source>Contents</source>
         <translation>Содержание</translation>
     </message>
-    <message>
-        <source>Liga&amp;ture</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -13724,7 +13695,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Text Frame</source>
-        <translation>Текстовая рамка</translation>
+        <translation>Текстовый блок</translation>
     </message>
     <message>
         <source>Text on a Path</source>
@@ -14268,7 +14239,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Reload Text from Frame</source>
-        <translation>&amp;Восстановить текст из рамки</translation>
+        <translation>&amp;Восстановить текст из блока</translation>
     </message>
     <message>
         <source>&amp;Save to File...</source>
@@ -14284,11 +14255,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Update Text Frame and Exit</source>
-        <translation>&amp;Обновить текст в рамке и выйти</translation>
+        <translation>&amp;Обновить текст в блоке и выйти</translation>
     </message>
     <message>
         <source>&amp;Exit Without Updating Text Frame</source>
-        <translation>Выйти &amp;без обновления текста в рамке</translation>
+        <translation>Выйти &amp;без обновления текста в блоке</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -14324,7 +14295,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Update Text Frame</source>
-        <translation>&amp;Обновить текстовую рамку</translation>
+        <translation>&amp;Обновить текстовый блок</translation>
     </message>
     <message>
         <source>&amp;Background...</source>
@@ -14425,7 +14396,7 @@ Vertical shift: %3</source>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation type="obsolete">Подчёркивание</translation>
+        <translation>Подчёркивание</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -14441,11 +14412,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation type="obsolete">Вычеркнутый текст</translation>
+        <translation>Вычеркнутый текст</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation type="obsolete">Подчеркнуть только слова</translation>
+        <translation>Подчеркнуть только слова</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -14453,32 +14424,12 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Shadow</source>
-        <translation type="obsolete">Тень</translation>
+        <translation>Тень</translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation type="obsolete">Контур</translation>
-    </message>
-    <message>
-        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Контур</translation>
     </message>
 </context>
 <context>
@@ -14773,7 +14724,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Grab Radius:</source>
-        <translation>Радиус захвата:</translation>
+        <translation>Чувствительность захвата:</translation>
     </message>
     <message>
         <source> px</source>
@@ -14789,7 +14740,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Show Page Grid</source>
-        <translation>Показывать страничную сетку</translation>
+        <translation>Показывать сетку</translation>
     </message>
     <message>
         <source>Major Grid</source>
@@ -14809,15 +14760,15 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation>Показывать опорную сетку</translation>
+        <translation>Показывать базовые линии</translation>
     </message>
     <message>
         <source>Baseline &amp;Grid:</source>
-        <translation>&amp;Сетка линии шрифта:</translation>
+        <translation>&amp;Базовые линии:</translation>
     </message>
     <message>
         <source>Baseline &amp;Offset:</source>
-        <translation>С&amp;мещение сетки линии шрифта:</translation>
+        <translation>С&amp;мещение базовых линий:</translation>
     </message>
     <message>
         <source>Distance between the minor grid lines</source>
@@ -14869,11 +14820,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Baseline Settings</source>
-        <translation>Настройки опорной сетки</translation>
+        <translation>Настройки базовых линий</translation>
     </message>
     <message>
         <source>Color for the baseline grid</source>
-        <translation>Цвет сетки основной линии</translation>
+        <translation>Цвет базовых линий</translation>
     </message>
     <message>
         <source>Guides are not visible through objects on the page</source>
@@ -14943,7 +14894,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Save &amp;Linked Text Frames as PDF Articles</source>
-        <translation>Сохранить св&amp;язанные текст. рамки как PDF-Articles</translation>
+        <translation>Сохранить св&amp;язанные текст. блоки как PDF-Articles</translation>
     </message>
     <message>
         <source>&amp;Include Bookmarks</source>
@@ -15193,7 +15144,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Screen / Web</source>
-        <translation>Просмотра с монитора / Веб (RGB)</translation>
+        <translation>Просмотр с монитора / Веб (RGB)</translation>
     </message>
     <message>
         <source>Printer</source>
@@ -15756,11 +15707,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Text Frame Properties</source>
-        <translation>Свойства текстовой рамки</translation>
+        <translation>Свойства текстового блока</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Свойства рамки изображения</translation>
+        <translation>Свойства блока изображения</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -15792,11 +15743,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Number of columns in a text frame</source>
-        <translation>Количество столбцов в текстовой рамке</translation>
+        <translation>Количество столбцов в текстовом блоке</translation>
     </message>
     <message>
         <source>Gap between text frame columns</source>
-        <translation>Расстояние между столбцами в текстовой рамке</translation>
+        <translation>Расстояние между столбцами в текстовом блоке</translation>
     </message>
     <message>
         <source>Sample of your font</source>
@@ -15804,7 +15755,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Рамки позволяют произвольно масштабировать изображения</translation>
+        <translation>Блоки позволяют произвольно масштабировать изображения</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -15820,7 +15771,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Изображения в рамке масштабируются под её размер</translation>
+        <translation>Изображения в блоке масштабируются под его размер</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
@@ -15913,11 +15864,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Custom:</source>
-        <translation>Свой:</translation>
+        <translation>Другой:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation>Свой: </translation>
+        <translation>Другой: </translation>
     </message>
     <message>
         <source>Text Color:</source>
@@ -15945,7 +15896,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Свой</translation>
+        <translation>Другой</translation>
     </message>
 </context>
 <context>
@@ -15988,7 +15939,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation>Смещение выше линии опорной сетки</translation>
+        <translation>Смещение выше базовой линии</translation>
     </message>
     <message>
         <source>Relative size of the superscript compared to the normal font</source>
@@ -15996,7 +15947,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation>Смещение ниже линии опорной сетки обычного шрифта</translation>
+        <translation>Смещение ниже базовой линии</translation>
     </message>
     <message>
         <source>Relative size of the subscript compared to the normal font</source>
@@ -16040,7 +15991,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation>Смещение ниже линии опорной сетки обычного шрифта, выраженное в процентном соотношении нисхождения шрифтов</translation>
+        <translation>Смещение ниже базовой линии, выраженное в процентном соотношении нисхождения шрифтов</translation>
     </message>
     <message>
         <source>Line width expressed as a percentage of the font size</source>
@@ -16048,7 +15999,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation>Смещение выше линии опорной сетки обычного шрифта, выраженное в процентном соотношении восхождения шрифтов</translation>
+        <translation>Смещение выше базовой линии, выраженное в процентном соотношении восхождения шрифтов</translation>
     </message>
 </context>
 <context>
@@ -16103,11 +16054,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Custom:</source>
-        <translation>Свой:</translation>
+        <translation>Другой:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation>Свой:</translation>
+        <translation>Другой: </translation>
     </message>
     <message>
         <source>Dot</source>
@@ -16123,7 +16074,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Свой</translation>
+        <translation>Другой</translation>
     </message>
 </context>
 <context>
@@ -16360,11 +16311,11 @@ to %2</source>
     </message>
     <message>
         <source>Set custom line style</source>
-        <translation>Применён свой стиль линии</translation>
+        <translation>Применён другой стиль линии</translation>
     </message>
     <message>
         <source>Do not use custom line style</source>
-        <translation>Не использовать свой стиль линии</translation>
+        <translation>Не использовать другой стиль линии</translation>
     </message>
     <message>
         <source>Set start arrow</source>
@@ -17008,7 +16959,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>custom</source>
-        <translation>свой</translation>
+        <translation>другой</translation>
     </message>
 </context>
 <context>
