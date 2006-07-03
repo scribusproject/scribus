@@ -1686,6 +1686,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			case modeEdit:
 				if (currItem->asImageFrame() && !currItem->locked())
 				{
+					currItem->handleModeEditKey(k, keyrep);
+					/*CB Moved to image frame handle mode edit
 					double dX=0.0,dY=0.0;
 					switch (kk)
 					{
@@ -1706,7 +1708,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					{
 						currItem->moveImageInFrame(dX, dY);
 						view->updateContents(currItem->getRedrawBounding(view->scale()));
-					}
+					}*/
 				}
 				view->oldCp = currItem->CPos;
 				if (currItem->itemType() == PageItem::TextFrame)
