@@ -204,7 +204,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) :
 	Layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
-	searchAllButton = new QPushButton( tr( "Set New Location" ), this, "searchAllButton" );
+	searchAllButton = new QPushButton( tr( "Search Directory" ), this, "searchAllButton" );
 	Layout2->addWidget( searchAllButton );
 	okButton = new QPushButton( tr( "Close" ), this, "okButton" );
 	Layout2->addWidget( okButton );
