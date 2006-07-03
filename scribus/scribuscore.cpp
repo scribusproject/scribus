@@ -421,6 +421,9 @@ void ScribusCore::getCMSProfilesDir(QString pfad)
 				switch (static_cast<int>(cmsGetDeviceClass(hIn)))
 				{
 				case icSigInputClass:
+					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
+						InputProfiles[nam] = pfad + d[dc];
+					break;
 				case icSigColorSpaceClass:
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
 						InputProfiles[nam] = pfad + d[dc];
