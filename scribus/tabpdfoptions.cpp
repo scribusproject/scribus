@@ -298,9 +298,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	PDFVersionCombo = new QComboBox( true, GroupBox1, "PDFVersionCombo" );
 	PDFVersionCombo->setEditable(false);
 	TextLabel1->setBuddy(PDFVersionCombo);
-	PDFVersionCombo->insertItem("PDF 1.3");
-	PDFVersionCombo->insertItem("PDF 1.4");
-	PDFVersionCombo->insertItem("PDF 1.5");
+	PDFVersionCombo->insertItem("PDF 1.3 (Acrobat 4)");
+	PDFVersionCombo->insertItem("PDF 1.4 (Acrobat 5)");
+	PDFVersionCombo->insertItem("PDF 1.5 (Acrobat 6)");
 #ifdef HAVE_CMS
 	if ((CMSuse) && (CMSavail) && (!PDFXProfiles.isEmpty()))
 		PDFVersionCombo->insertItem("PDF/X-3");
@@ -1182,7 +1182,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		                                    "a token can be * for all the pages, 1-5 for "
 		                                    "a range of pages or a single page number.") + "</qt>" );
 
-	QToolTip::add( PDFVersionCombo, "<qt>" + tr( "Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer." ) + "</qt>");
+	QToolTip::add( PDFVersionCombo, "<qt>" + tr( "Determines the PDF compatibility.<br/>The default is <b>PDF 1.3</b> which gives the widest compatibility.<br/>Choose <b>PDF 1.4</b> if your file uses features such as transparency or you require 128 bit encryption.<br/><b>PDF 1.5</b> is necessary when you wish to preserve objects in separate layers within the PDF.<br/><b>PDF/X-3</b> is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer." ) + "</qt>");
 	QToolTip::add( ComboBind, "<qt>" + tr( "Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left." ) + "</qt>" );
 	QToolTip::add( CheckBox1, "<qt>" + tr( "Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation." ) + "</qt>" );
 	QToolTip::add( Article, "<qt>" + tr( "Generate PDF Articles, which is useful for navigating linked articles in a PDF." ) + "</qt>" );
