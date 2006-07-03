@@ -1601,9 +1601,9 @@ void TabPDFOptions::enableCMS(bool enable)
 	disconnect(PDFVersionCombo, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
 	int a = PDFVersionCombo->currentItem();
 	PDFVersionCombo->clear();
-	PDFVersionCombo->insertItem("PDF 1.3");
-	PDFVersionCombo->insertItem("PDF 1.4");
-	PDFVersionCombo->insertItem("PDF 1.5");
+	PDFVersionCombo->insertItem("PDF 1.3 (Acrobat 4)");
+	PDFVersionCombo->insertItem("PDF 1.4 (Acrobat 5)");
+	PDFVersionCombo->insertItem("PDF 1.5 (Acrobat 6)");
 	cms=enable;
 	if (enable)
 		PDFVersionCombo->insertItem("PDF/X-3");
