@@ -149,7 +149,7 @@ public:
 	bool DoSaveAsEps(QString fn);
 	QString CFileDialog(QString wDir = ".", QString caption = "", QString filter = "", QString defNa = "",
 						bool Pre = false, bool mod = true, bool comp = false, bool cod = false,
-						bool onlyDirs = false, bool *docom = 0, bool *doFont = 0);
+						bool onlyDirs = false, bool *docom = 0, bool *doFont = 0, bool *doProfiles = 0);
 	/*! \brief Recalculate the colors after changing CMS settings.
 	Call the appropriate document function and then update the GUI elements.
 	\param dia optional progress widget */
@@ -249,7 +249,7 @@ public slots:
 	void slotStoryEditor();
 	void slotCharSelect();
 	void ImageEffects();
-	QString Collect(const bool compress = false, const bool withFonts = false, const QString& newDirectory=QString::null);
+	QString Collect(const bool compress = false, const bool withFonts = false, const bool withProfiles = false, const QString& newDirectory=QString::null);
 	void AddBookMark(PageItem *ite);
 	void DelBookMark(PageItem *ite);
 	void BookMarkTxT(PageItem *ite);

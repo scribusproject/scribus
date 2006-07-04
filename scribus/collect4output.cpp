@@ -25,14 +25,15 @@ for which a new license (GPL+exception) is in place.
 #include <qmap.h>
 #include <qdir.h>
 
-CollectForOutput::CollectForOutput(ScribusDoc* doc, bool withFonts, bool compressDoc)
+CollectForOutput::CollectForOutput(ScribusDoc* doc, bool withFontsA, bool withProfilesA, bool compressDocA)
 	: QObject(ScCore, 0),
 	m_Doc(0)
 {
 	m_Doc=doc;
 	outputDirectory = QString();
-	compressDoc = compressDoc;
-	withFonts = withFonts;
+	compressDoc = compressDocA;
+	withFonts = withFontsA;
+	withProfiles = withProfilesA;
 	dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	collectedFiles.clear();
 }
@@ -48,7 +49,7 @@ bool CollectForOutput::newDirDialog()
 			wdir = dirs->get("collect", prefsDocDir);
 		else
 			wdir = dirs->get("collect", ".");
-		outputDirectory = ScCore->primaryMainWindow()->CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, false, false, true, &compressDoc, &withFonts);
+		outputDirectory = ScCore->primaryMainWindow()->CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, false, false, true, &compressDoc, &withFonts, &withProfiles);
 	}
 	if (outputDirectory.isEmpty())
 		return false;
@@ -76,6 +77,8 @@ QString CollectForOutput::collect()
 
 	if (withFonts)
 		collectFonts();
+	if (withProfiles)
+		collectProfiles();
 
 	/* collect document must go last because of image paths changes
 	in collectItems() */
@@ -235,6 +238,20 @@ bool CollectForOutput::collectFonts()
 	{
 		QFileInfo itf = QFileInfo(prefsManager->appPrefs.AvailFonts[it3.key()]->fontFilePath());
 		copyFile(prefsManager->appPrefs.AvailFonts[it3.key()]->fontFilePath(), outputDirectory + itf.fileName());
+	}
+	return true;
+}
+
+bool CollectForOutput::collectProfiles()
+{
+	ProfilesL docProfiles;
+	m_Doc->getUsedProfiles(docProfiles);
+	ProfilesL::Iterator itend = docProfiles.end();
+	for (ProfilesL::Iterator it = docProfiles.begin(); it != itend; ++it)
+	{
+		QString profileName = it.key();
+		QString profilePath = it.data();
+		copyFile(profilePath, outputDirectory + QFileInfo(profilePath).fileName());
 	}
 	return true;
 }

@@ -8157,7 +8157,7 @@ void ScribusMainWindow::StatusPic()
 
 QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString filter, QString defNa,
                                 bool Pre, bool mod, bool comp, bool cod, bool onlyDirs,
-                                bool *docom, bool *doFont)
+                                bool *docom, bool *doFont, bool *doProfiles)
 {
 	QString retval = "";
 	CustomFDialog *dia = new CustomFDialog(this, wDir, caption, filter, Pre, mod, comp, cod, onlyDirs);
@@ -8171,7 +8171,8 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 	if (onlyDirs)
 	{
 		dia->SaveZip->setChecked(*docom);
-		dia->WFonts->setChecked(*doFont);
+		dia->WithFonts->setChecked(*doFont);
+		dia->WithProfiles->setChecked(*doProfiles);
 	}
 	if (dia->exec() == QDialog::Accepted)
 	{
@@ -8181,7 +8182,8 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 		else
 		{
 			*docom = dia->SaveZip->isChecked();
-			*doFont = dia->WFonts->isChecked();
+			*doFont = dia->WithFonts->isChecked();
+			*doProfiles = dia->WithProfiles->isChecked();
 		}
 		this->repaint();
 		qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
@@ -8403,9 +8405,9 @@ void ScribusMainWindow::ImageEffects()
 	}
 }
 
-QString ScribusMainWindow::Collect(bool compress, bool withFonts, const QString& )
+QString ScribusMainWindow::Collect(bool compress, bool withFonts, const bool withProfiles, const QString& )
 {
-	CollectForOutput *c = new CollectForOutput(doc, withFonts, compress);
+	CollectForOutput *c = new CollectForOutput(doc, withFonts, withProfiles, compress);
 	Q_CHECK_PTR(c);
 	QString ret = c->collect();
 	delete c;

@@ -113,7 +113,8 @@ public:
 
 	QDir cDir;
 	QCheckBox* SaveZip;
-	QCheckBox* WFonts;
+	QCheckBox* WithFonts;
+	QCheckBox* WithProfiles;
 	QFrame* Layout;
 	QToolButton* HomeB;
 	QFrame* LayoutC;

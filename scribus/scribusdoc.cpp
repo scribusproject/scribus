@@ -2270,6 +2270,58 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 	}
 }
 
+void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
+{
+	PageItem* it = NULL;
+	QString profileName;
+	QStringList profileNames;
+	uint counter = 0;
+	usedProfiles.clear();
+
+	profileNames.append(CMSSettings.DefaultSolidColorRGBProfile);
+	profileNames.append(CMSSettings.DefaultSolidColorCMYKProfile);
+	if( profileNames.findIndex(CMSSettings.DefaultImageRGBProfile) < 0 )
+		profileNames.append(CMSSettings.DefaultImageRGBProfile);
+	if( profileNames.findIndex(CMSSettings.DefaultImageCMYKProfile) < 0 )
+		profileNames.append(CMSSettings.DefaultImageCMYKProfile);
+	if( profileNames.findIndex(CMSSettings.DefaultMonitorProfile) < 0 )
+		profileNames.append(CMSSettings.DefaultMonitorProfile);
+	if( profileNames.findIndex(CMSSettings.DefaultPrinterProfile) < 0 )
+		profileNames.append(CMSSettings.DefaultPrinterProfile);
+	
+	for (uint lc = 0; lc < 3; ++lc)
+	{
+		if (lc == 0)
+			counter = MasterItems.count();
+		else if(lc == 1)
+			counter = DocItems.count();
+		else if(lc == 2)
+			counter = FrameItems.count();
+		for (uint d = 0; d < counter; ++d)
+		{
+			if (lc == 0)
+				it = MasterItems.at(d);
+			else if(lc == 1)
+				it = DocItems.at(d);
+			else if(lc == 2)
+				it = FrameItems.at(d);
+			if (it->IProfile.isEmpty() || profileNames.contains(it->IProfile))
+				continue;
+			profileNames.append(it->IProfile);
+		}
+	}
+
+	for( QStringList::Iterator pIter = profileNames.begin(); pIter != profileNames.end(); pIter++ )
+	{
+		if (ScCore->InputProfiles.contains(*pIter))
+			usedProfiles[*pIter] = ScCore->InputProfiles[*pIter];
+		else if (ScCore->InputProfilesCMYK.contains(*pIter))
+			usedProfiles[*pIter] = ScCore->InputProfilesCMYK[*pIter];
+		else if (ScCore->PrinterProfiles.contains(*pIter))
+			usedProfiles[*pIter] = ScCore->PrinterProfiles[*pIter];
+	}
+}
+
 void ScribusDoc::reorganiseFonts()
 {
 	QMap<QString,int> Really;

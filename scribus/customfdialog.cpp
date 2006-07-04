@@ -257,8 +257,10 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption,
 		Layout1C = new QHBoxLayout(LayoutC);
 		Layout1C->setSpacing( 0 );
 		Layout1C->setMargin( 0 );
-		WFonts = new QCheckBox( tr( "&Include Fonts" ), LayoutC, "test");
-		Layout1C->addWidget(WFonts, Qt::AlignLeft);
+		WithFonts = new QCheckBox( tr( "&Include Fonts" ), LayoutC, "WithFonts");
+		Layout1C->addWidget(WithFonts, Qt::AlignLeft);
+		WithProfiles = new QCheckBox( tr( "&Include ICC Profiles" ), LayoutC, "WithProfiles");
+		Layout1C->addWidget(WithProfiles, Qt::AlignLeft);
 		QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout1C->addItem( spacer2 );
 		addWidgets(0, LayoutC, 0);

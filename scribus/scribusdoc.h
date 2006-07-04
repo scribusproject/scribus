@@ -393,6 +393,10 @@ public:
 	*/
 	void getUsedColors(ColorList &colorsToUse, bool spot = false);
 	/*!
+	* @brief Builds a qmap of the icc profiles used within the document
+	*/
+	void getUsedProfiles(ProfilesL& usedProfiles);
+	/*!
 	 * @brief TODO: Reorganise the fonts.. how? Moved from scribus.cpp
 	 */
 	void reorganiseFonts();

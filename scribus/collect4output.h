@@ -30,7 +30,7 @@ public:
 	\param withFonts collect/move fonts into output directory too
 	\param compressDoc use gzipped document
 	*/
-	CollectForOutput(ScribusDoc* doc, bool withFonts=false, bool compressDoc=false);
+	CollectForOutput(ScribusDoc* doc, bool withFontsA=false, bool withProfilesA=false, bool compressDocA=false);
 	~CollectForOutput(){};
 
 	/*! \brief Main method doing everything.
@@ -45,6 +45,8 @@ private:
 	bool compressDoc;
 	/*! Collect fonts too. See the constructor */
 	bool withFonts;
+	/*! Collect icc profiles too. See the constructor */
+	bool withProfiles;
 	/*! User defined directory via GUI */
 	QString outputDirectory;
 	/*! Name of the moved file with the new directory path */
@@ -67,6 +69,9 @@ private:
 	/*! Collect used fonts if requested.
 	\retval true on success */
 	bool collectFonts();
+	/*! Collect used profiles if requested.
+	\retval true on success */
+	bool collectProfiles();
 	/*! \brief Copy used file into new location with magic checks.
 	It looks into collectedFiles map. If there is newFile (key) already
 	found - it will construct new filename to prevent overwritting.
