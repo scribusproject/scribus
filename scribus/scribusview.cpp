@@ -7148,11 +7148,11 @@ void ScribusView::RotateItem(double win, PageItem *currItem)
 		MoveItem(x-currItem->xPos(), y-currItem->yPos(), currItem);
 		currItem->Sizing = oldS;
 	}
-/*	else
+	else
 	{
 		currItem->setRotation(win);
 		Doc->setRedrawBounding(currItem);
-	} */
+	}
 	QRect newR(currItem->getRedrawBounding(Scale));
 	updateContents(newR.unite(oldR));
 	//emit SetAngle(currItem->rotation());
