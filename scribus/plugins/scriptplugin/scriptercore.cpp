@@ -498,7 +498,7 @@ void ScripterCore::SavePlugPrefs()
 
 void ScripterCore::aboutScript()
 {
-	QString fname = ScCore->primaryMainWindow()->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py);;All Files (*)"), "", 0, 0, 0, 0);
+	QString fname = ScCore->primaryMainWindow()->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py);;All Files (*)"), "", fdNone);
 	if (fname == QString::null)
 		return;
 	QString html("<html><body>");

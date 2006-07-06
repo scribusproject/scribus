@@ -71,6 +71,15 @@ public:
 	virtual void previewUrl(const QUrl &url);
 };
 
+typedef enum {
+	fdNone = 0,
+	fdShowPreview = 1, // display text/image previewer
+	fdExistingFiles = 2, // When set, set to the QFileDialog::ExistingFile mode when true, QFileDialog::AnyFile otherwise
+	fdCompressFile = 4, // Show and handle the "Compress" behaviour and CheckBox (true)
+	fdShowCodecs = 8, // Show and handle text codecs and ComboBox (true)
+	fdDirectoriesOnly = 16 // Show only directories
+} fdFlags;
+
 /*! \brief A Scribus own file dialog.
 Used almost everywhere. You can see extension handling
 in e.g. bool SVGExportPlugin::run(QString filename).
@@ -84,16 +93,14 @@ public:
 	\param wDir starting working directory
 	\param caption text caption of the dialog window
 	\param filter a mask/filter. E.g.: *.txt
-	\param preview When true - display text/image previewer. When false do not display.
-	\param existing Set to the QFileDialog::ExistingFile mode when true. When false QFileDialog::AnyFile
-	\param compress Show and handle the "Compress" behaviour and CheckBox (true)
-	\param codec Show and handle text codecs and ComboBox (true)
-	\param dirOnly Show only directories when true.
+	\param flags combination of fdFlags, default to fdExistingFiles
 	*/
-	CustomFDialog(QWidget *parent, QString wDir, QString caption = "",
+	/*CustomFDialog(QWidget *parent, QString wDir, QString caption = "",
 				  QString filter = "", bool preview = false,
 				  bool existing = true, bool compress = false,
-				  bool codec = false, bool dirOnly = false);
+				  bool codec = false, bool dirOnly = false);*/
+	CustomFDialog(QWidget *parent, QString wDir, QString caption = "",  QString filter = "",
+				int flags = fdExistingFiles);
 	~CustomFDialog();
 
 	/*! \brief Set the default extension of the resulting file name.
@@ -132,6 +139,8 @@ protected:
 	QString ext;
 	//! \brief Property with default compress extension
 	QString extZip;
+	//! \brief Option flags given by user in ctore
+	int optionFlags;
 };
 
 #endif

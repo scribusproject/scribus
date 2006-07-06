@@ -3844,7 +3844,7 @@ void ScribusMainWindow::slotGetContent()
 				docDir = prefsManager->prefsFile->getContext("dirs")->get("images", prefsDocDir);
 			else
 				docDir = prefsManager->prefsFile->getContext("dirs")->get("images", ".");
-			QString fileName = CFileDialog( docDir, tr("Open"), formatD, "", true);
+			QString fileName = CFileDialog( docDir, tr("Open"), formatD, "", fdShowPreview);
 			if (!fileName.isEmpty())
 			{
 				prefsManager->prefsFile->getContext("dirs")->set("images", fileName.left(fileName.findRev("/")));
@@ -4010,11 +4010,12 @@ bool ScribusMainWindow::slotFileSaveAs()
 #ifdef HAVE_LIBZ
 	QString fileSpec=tr("Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)");
 	bool setter=true;
+	int optionFlags = fdCompressFile;
 #else
 	QString fileSpec=tr("Documents (*.sla *.scd);;All Files (*)");
-	bool setter=false;
+	int optionFlags = fdNone;
 #endif
-	QString fn = CFileDialog( wdir, tr("Save As"), fileSpec, fna, false, false, setter);
+	QString fn = CFileDialog( wdir, tr("Save As"), fileSpec, fna, optionFlags);
 	if (!fn.isEmpty())
 	{
 		docContext->set("save_as", fn.left(fn.findRev("/")));
@@ -5090,7 +5091,7 @@ void ScribusMainWindow::SaveText()
 		wdir = prefsManager->prefsFile->getContext("dirs")->get("save_text", prefsDocDir);
 	else
 		wdir = prefsManager->prefsFile->getContext("dirs")->get("save_text", ".");
-	QString fn = CFileDialog( wdir, tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), "", false, false, false, true);
+	QString fn = CFileDialog( wdir, tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), "", fdShowCodecs);
 	if (!fn.isEmpty())
 	{
 		prefsManager->prefsFile->getContext("dirs")->set("save_text", fn.left(fn.findRev("/")));
@@ -7453,7 +7454,7 @@ void ScribusMainWindow::reallySaveAsEps()
 		wdir = prefsManager->prefsFile->getContext("dirs")->get("eps", prefsDocDir);
 	else
 		wdir = prefsManager->prefsFile->getContext("dirs")->get("eps", ".");
-	QString fn = CFileDialog( wdir, tr("Save as"), tr("EPS Files (*.eps);;All Files (*)"), fna, false, false);
+	QString fn = CFileDialog( wdir, tr("Save as"), tr("EPS Files (*.eps);;All Files (*)"), fna, fdNone);
 	if (!fn.isEmpty())
 	{
 		prefsManager->prefsFile->getContext("dirs")->set("eps", fn.left(fn.findRev("/")));
@@ -8156,11 +8157,10 @@ void ScribusMainWindow::StatusPic()
 }
 
 QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString filter, QString defNa,
-                                bool Pre, bool mod, bool comp, bool cod, bool onlyDirs,
-                                bool *docom, bool *doFont, bool *doProfiles)
+                                int optionFlags, bool *docom, bool *doFont, bool *doProfiles)
 {
 	QString retval = "";
-	CustomFDialog *dia = new CustomFDialog(this, wDir, caption, filter, Pre, mod, comp, cod, onlyDirs);
+	CustomFDialog *dia = new CustomFDialog(this, wDir, caption, filter, optionFlags);
 	if (!defNa.isEmpty())
 	{
 		QFileInfo f(defNa);
@@ -8168,7 +8168,7 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 		dia->setZipExtension(f.extension(true) + ".gz");
 		dia->setSelection(defNa);
 	}
-	if (onlyDirs)
+	if (optionFlags & fdDirectoriesOnly)
 	{
 		dia->SaveZip->setChecked(*docom);
 		dia->WithFonts->setChecked(*doFont);
@@ -8177,8 +8177,8 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 	if (dia->exec() == QDialog::Accepted)
 	{
 		LoadEnc = "";
-		if (!onlyDirs)
-			LoadEnc = cod ? dia->TxCodeM->currentText() : QString("");
+		if (!(optionFlags & fdDirectoriesOnly))
+			LoadEnc = (optionFlags & fdShowCodecs) ? dia->TxCodeM->currentText() : QString("");
 		else
 		{
 			*docom = dia->SaveZip->isChecked();

@@ -276,7 +276,7 @@ void NewDoc::createOpenDocPage()
 	QString formats(FileLoader::getLoadFilterString());
 	openDocFrame = new QFrame(this, "openDocFrame");
 	QVBoxLayout* openDocLayout = new QVBoxLayout(openDocFrame, 5,5, "openDocLayout");
-	fileDialog = new CustomFDialog(openDocFrame, docDir, tr("Open"), formats, false,  true, false, false, false);
+	fileDialog = new CustomFDialog(openDocFrame, docDir, tr("Open"), formats, fdNone);
 	fileDialog->setSizeGripEnabled(false);
 	fileDialog->setModal(false);
 	QObjectList *l = fileDialog->queryList("QPushButton");

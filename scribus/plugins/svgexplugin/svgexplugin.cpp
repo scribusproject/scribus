@@ -117,9 +117,9 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("svgex");
 		QString wdir = prefs->get("wdir", ".");
 #ifdef HAVE_LIBZ
-		CustomFDialog *openDia = new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"), false, false, true, false, false);
+		CustomFDialog *openDia = new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"), fdCompressFile);
 #else
-		CustomFDialog *openDia = new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"), false, false, false, false, false);
+		CustomFDialog *openDia = new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"), fdNone);
 #endif
 		openDia->setSelection(getFileNameByPage(doc, doc->currentPage()->pageNr(), "svg"));
 		openDia->setExtension("svg");

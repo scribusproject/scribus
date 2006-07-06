@@ -146,7 +146,7 @@ void PDFExportDialog::ChangeFile()
 	QString fn;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pdf", ".");
-	CustomFDialog dia(this, wdir, tr("Save as"), tr("PDF Files (*.pdf);;All Files (*)"), false, false);
+	CustomFDialog dia(this, wdir, tr("Save as"), tr("PDF Files (*.pdf);;All Files (*)"), fdNone);
 	if (!fileNameLineEdit->text().isEmpty())
 		dia.setSelection(fileNameLineEdit->text());
 	if (dia.exec() == QDialog::Accepted)

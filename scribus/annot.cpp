@@ -1198,7 +1198,7 @@ void Annot::GetNIcon()
 	QString fileName;
 	QString wdir = dirs->get("icon", ".");
 	CustomFDialog dia(this, wdir, tr("Open"),
-	                  tr("Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"), "", true);
+	                  tr("Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"), fdShowPreview | fdExistingFiles);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
@@ -1229,7 +1229,7 @@ void Annot::GetPIcon()
 	QString fileName;
 	QString wdir = dirs->get("icon", ".");
 	CustomFDialog dia(this, wdir, tr("Open"),
-	                  tr("Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"), "", true);
+	                  tr("Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"), fdShowPreview | fdExistingFiles);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
@@ -1253,7 +1253,7 @@ void Annot::GetRIcon()
 	QString fileName;
 	QString wdir = dirs->get("icon", ".");
 	CustomFDialog dia(this, wdir, tr("Open"),
-	                  tr("Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"), "", true);
+	                  tr("Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"), fdShowPreview | fdExistingFiles);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else

@@ -61,6 +61,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
+#include "customfdialog.h"
 
 class ActionManager;
 class AlignDistributePalette;
@@ -148,8 +149,7 @@ public:
 					  const QMap<int,QPixmap> & thumbs);
 	bool DoSaveAsEps(QString fn);
 	QString CFileDialog(QString wDir = ".", QString caption = "", QString filter = "", QString defNa = "",
-						bool Pre = false, bool mod = true, bool comp = false, bool cod = false,
-						bool onlyDirs = false, bool *docom = 0, bool *doFont = 0, bool *doProfiles = 0);
+						int optionFlags = fdExistingFiles, bool *docom = 0, bool *doFont = 0, bool *doProfiles = 0);
 	/*! \brief Recalculate the colors after changing CMS settings.
 	Call the appropriate document function and then update the GUI elements.
 	\param dia optional progress widget */

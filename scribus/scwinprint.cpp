@@ -113,7 +113,7 @@ bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devM
 			docDir = dirs->get("winprn", prefsDocDir);
 		else
 			docDir = ".";
-		CustomFDialog dia( doc->scMW()->view, docDir, QObject::tr("Save as"), "Spool Files (*.prn *.ps);;All Files (*)", false, false);
+		CustomFDialog dia( doc->scMW()->view, docDir, QObject::tr("Save as"), "Spool Files (*.prn *.ps);;All Files (*)", fdNone);
 		dia.setSelection( diaSelection );
 		if (dia.exec() == QDialog::Accepted)
 		{

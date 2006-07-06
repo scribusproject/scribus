@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "valuedialog.h"
 #include "editformats.h"
+#include "customfdialog.h"
 
 #include <qmessagebox.h>
 #include <qcursor.h>
@@ -47,15 +48,19 @@ PyObject *scribus_filedia(PyObject* /* self */, PyObject* args, PyObject* kw)
 	Due the 'isdir' parameter. CFileDialog needs the last 2 pointers
 	initialized. */
 	bool nobool = false;
+	int optionFlags = 0;
+	if (haspreview)
+		optionFlags |= fdShowPreview;
+	if (issave)
+		optionFlags |= fdExistingFiles;
+	if (isdir)
+		optionFlags |= fdDirectoriesOnly;
 	QString fName = ScCore->primaryMainWindow()->CFileDialog(".",
 										 QString::fromUtf8(caption),
 										 QString::fromUtf8(filter),
 										 QString::fromUtf8(defName),
-										 static_cast<bool>(haspreview),
-										 static_cast<bool>(issave),
-										 false,
-										 false,
-										 static_cast<bool>(isdir),
+										 optionFlags,
+										 &nobool,
 										 &nobool,
 										 &nobool
 										);

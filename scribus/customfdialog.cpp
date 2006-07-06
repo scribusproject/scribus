@@ -230,11 +230,12 @@ void FDialogPreview::previewUrl( const QUrl &url )
 		GenPreview(url.path());
 }
 
-CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption,
+/*CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption,
 							 QString filter, bool preview,
 							 bool existing, bool compress,
-							 bool codec, bool dirOnly)
-			: QFileDialog(QString::null, filter, parent, 0, true)
+							 bool codec, bool dirOnly)*/
+CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QString filter, int flags)
+			: QFileDialog(QString::null, filter, parent, 0, true), optionFlags(flags)
 {
  	setIcon(loadIcon("AppIcon.png"));
  	setCaption(caption);
@@ -242,7 +243,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption,
 	setDir(cDir);
 	setIconProvider(new ImIconProvider(this));
 	FDialogPreview *pw;
-	if (dirOnly)
+	if (flags & fdDirectoriesOnly)
 	{
 		Layout = new QFrame(this);
 		Layout1 = new QHBoxLayout(Layout);
@@ -271,7 +272,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption,
 		setContentsPreviewEnabled( true );
 		pw = new FDialogPreview( this );
 		setContentsPreview( pw, pw );
-		if (compress)
+		if (flags & fdCompressFile)
 		{
 			Layout = new QFrame(this);
 			Layout1 = new QHBoxLayout(Layout);
@@ -282,15 +283,15 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption,
 			QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 			Layout1->addItem( spacer );
 		}
-		if (existing)
+		if (flags & fdExistingFiles)
 			setMode(QFileDialog::ExistingFile);
 		else
 		{
 			setMode(QFileDialog::AnyFile);
-			if (compress)
+			if (flags & fdCompressFile)
 				addWidgets(0, Layout, 0);
 		}
-		if (codec)
+		if (flags & fdShowCodecs)
 		{
 			LayoutC = new QFrame(this);
 			Layout1C = new QHBoxLayout(LayoutC);
@@ -333,9 +334,9 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption,
 			Layout1C->addItem( spacer2 );
 			addWidgets(TxCodeT, LayoutC, 0);
 		}
-		setPreviewMode(preview ? QFileDialog::Contents : QFileDialog::NoPreview );
+		setPreviewMode((flags & fdShowPreview) ? QFileDialog::Contents : QFileDialog::NoPreview );
 		setViewMode( QFileDialog::List );
-		if (compress)
+		if (flags & fdCompressFile)
 			connect(SaveZip, SIGNAL(clicked()), this, SLOT(handleCompress()));
 	}
 	HomeB = new QToolButton(this);

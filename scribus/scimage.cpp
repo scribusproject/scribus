@@ -4078,6 +4078,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		case CMYKData: // CMYK
 			if (!isCMYK)
 				xform = cmsCreateTransform(inputProf, inputProfFormat, cmSettings.printerProfile(), prnProfFormat, cmSettings.imageRenderingIntent(), 0);
+			if (prnProfColorSpace != icSigCmykData )
+				*realCMYK = isCMYK = false;
 			break;
 		case RGBData: // RGB
 			if (isCMYK)

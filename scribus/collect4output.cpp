@@ -49,7 +49,7 @@ bool CollectForOutput::newDirDialog()
 			wdir = dirs->get("collect", prefsDocDir);
 		else
 			wdir = dirs->get("collect", ".");
-		outputDirectory = ScCore->primaryMainWindow()->CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, false, false, true, &compressDoc, &withFonts, &withProfiles);
+		outputDirectory = ScCore->primaryMainWindow()->CFileDialog(wdir, tr("Choose a Directory"), "", "", fdDirectoriesOnly, &compressDoc, &withFonts, &withProfiles);
 	}
 	if (outputDirectory.isEmpty())
 		return false;
