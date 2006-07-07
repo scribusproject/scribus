@@ -169,7 +169,7 @@ static void dumpIt(const ParagraphStyle& pstyle, QString indent = QString("->"))
 	qDebug(QString("%6%1/%2 @ %3: %4--%5")
 		   .arg(pstyle.name())
 		   .arg(pstyle.parent()? pstyle.parent()->name() : "-")
-		   .arg( (unsigned int) &pstyle)
+		   .arg( (unsigned long int) &pstyle)
 		   .arg(pstyle.leftMargin())
 		   .arg(pstyle.rightMargin())
 		   .arg(indent));

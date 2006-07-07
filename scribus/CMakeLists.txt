@@ -28,6 +28,8 @@ multiprogressdialogbase.ui
 pageitemattributesbase.ui
 smlinestylewbase.ui
 smreplacediabase.ui
+smpstylewbase.ui
+smcstylewbase.ui
 stylemanagerbase.ui
 tabexternaltoolswidgetbase.ui
 tabkeyboardshortcutswidgetbase.ui
@@ -168,6 +170,7 @@ selfield.h
 shadebutton.h
 smlinestyle.h
 smreplacedia.h
+smtextstyles.h
 spalette.h
 story.h
 styleitem.h
@@ -376,6 +379,7 @@ serializer.cpp
 shadebutton.cpp
 smlinestyle.cpp
 smreplacedia.cpp
+smtextstyles.cpp
 spalette.cpp
 splash.cpp
 stencilreader.cpp

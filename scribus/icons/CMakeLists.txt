@@ -141,6 +141,7 @@ launch.png
 Layervisible.xpm
 leftindent.png
 linespacing.png
+linespacing2.png
 listbox.png
 locked.png
 Lock.xpm
@@ -197,6 +198,7 @@ ResetNode.png
 Revers.png
 revert.png
 rgb.png
+rightindent.png
 rotate_ccw.png
 rotate_cw.png
 Rotieren2.xpm

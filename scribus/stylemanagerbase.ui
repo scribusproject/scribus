@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>539</width>
-            <height>414</height>
+            <width>483</width>
+            <height>359</height>
         </rect>
     </property>
     <property name="minimumSize">
@@ -39,37 +39,102 @@
         </property>
         <widget class="QSplitter">
             <property name="name">
-                <cstring>splitter6</cstring>
+                <cstring>splitter</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>1</hsizetype>
+                    <vsizetype>1</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="minimumSize">
+                <size>
+                    <width>227</width>
+                    <height>62</height>
+                </size>
             </property>
             <property name="orientation">
                 <enum>Horizontal</enum>
             </property>
-            <widget class="QFrame">
+            <widget class="QListView">
+                <column>
+                    <property name="text">
+                        <string>Column 1</string>
+                    </property>
+                    <property name="clickable">
+                        <bool>true</bool>
+                    </property>
+                    <property name="resizable">
+                        <bool>true</bool>
+                    </property>
+                </column>
+                <column>
+                    <property name="text">
+                        <string>shortcut</string>
+                    </property>
+                    <property name="clickable">
+                        <bool>true</bool>
+                    </property>
+                    <property name="resizable">
+                        <bool>true</bool>
+                    </property>
+                </column>
                 <property name="name">
-                    <cstring>frame4</cstring>
+                    <cstring>styleView</cstring>
                 </property>
                 <property name="sizePolicy">
                     <sizepolicy>
                         <hsizetype>1</hsizetype>
-                        <vsizetype>5</vsizetype>
+                        <vsizetype>7</vsizetype>
                         <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
+                        <verstretch>4</verstretch>
                     </sizepolicy>
                 </property>
                 <property name="minimumSize">
                     <size>
-                        <width>166</width>
+                        <width>0</width>
                         <height>0</height>
                     </size>
                 </property>
+                <property name="lineWidth">
+                    <number>1</number>
+                </property>
+                <property name="margin">
+                    <number>0</number>
+                </property>
+                <property name="midLineWidth">
+                    <number>0</number>
+                </property>
+                <property name="resizePolicy">
+                    <enum>AutoOneFit</enum>
+                </property>
+                <property name="selectionMode">
+                    <enum>Extended</enum>
+                </property>
+                <property name="itemMargin">
+                    <number>0</number>
+                </property>
+                <property name="rootIsDecorated">
+                    <bool>true</bool>
+                </property>
+                <property name="resizeMode">
+                    <enum>NoColumn</enum>
+                </property>
+                <property name="treeStepSize">
+                    <number>15</number>
+                </property>
+            </widget>
+            <widget class="QFrame">
+                <property name="name">
+                    <cstring>editFrame</cstring>
+                </property>
                 <property name="frameShape">
-                    <enum>StyledPanel</enum>
+                    <enum>NoFrame</enum>
                 </property>
                 <property name="frameShadow">
-                    <enum>Raised</enum>
-                </property>
-                <property name="lineWidth">
-                    <number>0</number>
+                    <enum>Plain</enum>
                 </property>
                 <vbox>
                     <property name="name">
@@ -79,290 +144,64 @@
                         <number>0</number>
                     </property>
                     <property name="spacing">
-                        <number>5</number>
-                    </property>
-                    <widget class="QSplitter">
-                        <property name="name">
-                            <cstring>horSplitter</cstring>
-                        </property>
-                        <property name="sizePolicy">
-                            <sizepolicy>
-                                <hsizetype>1</hsizetype>
-                                <vsizetype>7</vsizetype>
-                                <horstretch>0</horstretch>
-                                <verstretch>0</verstretch>
-                            </sizepolicy>
-                        </property>
-                        <property name="minimumSize">
-                            <size>
-                                <width>166</width>
-                                <height>130</height>
-                            </size>
-                        </property>
-                        <property name="orientation">
-                            <enum>Vertical</enum>
-                        </property>
-                        <widget class="QListView">
-                            <column>
-                                <property name="text">
-                                    <string>Column 1</string>
-                                </property>
-                                <property name="clickable">
-                                    <bool>true</bool>
-                                </property>
-                                <property name="resizable">
-                                    <bool>true</bool>
-                                </property>
-                            </column>
-                            <property name="name">
-                                <cstring>typeView</cstring>
-                            </property>
-                            <property name="sizePolicy">
-                                <sizepolicy>
-                                    <hsizetype>1</hsizetype>
-                                    <vsizetype>7</vsizetype>
-                                    <horstretch>0</horstretch>
-                                    <verstretch>2</verstretch>
-                                </sizepolicy>
-                            </property>
-                            <property name="minimumSize">
-                                <size>
-                                    <width>166</width>
-                                    <height>0</height>
-                                </size>
-                            </property>
-                            <property name="lineWidth">
-                                <number>1</number>
-                            </property>
-                            <property name="resizePolicy">
-                                <enum>AutoOne</enum>
-                            </property>
-                            <property name="vScrollBarMode">
-                                <enum>Auto</enum>
-                            </property>
-                            <property name="allColumnsShowFocus">
-                                <bool>true</bool>
-                            </property>
-                            <property name="showSortIndicator">
-                                <bool>false</bool>
-                            </property>
-                            <property name="resizeMode">
-                                <enum>AllColumns</enum>
-                            </property>
-                        </widget>
-                        <widget class="QListView">
-                            <column>
-                                <property name="text">
-                                    <string>Column 1</string>
-                                </property>
-                                <property name="clickable">
-                                    <bool>true</bool>
-                                </property>
-                                <property name="resizable">
-                                    <bool>true</bool>
-                                </property>
-                            </column>
-                            <property name="name">
-                                <cstring>styleView</cstring>
-                            </property>
-                            <property name="sizePolicy">
-                                <sizepolicy>
-                                    <hsizetype>1</hsizetype>
-                                    <vsizetype>7</vsizetype>
-                                    <horstretch>0</horstretch>
-                                    <verstretch>4</verstretch>
-                                </sizepolicy>
-                            </property>
-                            <property name="minimumSize">
-                                <size>
-                                    <width>166</width>
-                                    <height>0</height>
-                                </size>
-                            </property>
-                            <property name="lineWidth">
-                                <number>1</number>
-                            </property>
-                            <property name="resizePolicy">
-                                <enum>AutoOneFit</enum>
-                            </property>
-                            <property name="selectionMode">
-                                <enum>Extended</enum>
-                            </property>
-                            <property name="resizeMode">
-                                <enum>AllColumns</enum>
-                            </property>
-                        </widget>
-                    </widget>
-                    <widget class="QLayoutWidget">
-                        <property name="name">
-                            <cstring>layout7</cstring>
-                        </property>
-                        <hbox>
-                            <property name="name">
-                                <cstring>unnamed</cstring>
-                            </property>
-                            <property name="margin">
-                                <number>0</number>
-                            </property>
-                            <property name="spacing">
-                                <number>5</number>
-                            </property>
-                            <widget class="QToolButton">
-                                <property name="name">
-                                    <cstring>newButton</cstring>
-                                </property>
-                                <property name="sizePolicy">
-                                    <sizepolicy>
-                                        <hsizetype>1</hsizetype>
-                                        <vsizetype>1</vsizetype>
-                                        <horstretch>0</horstretch>
-                                        <verstretch>0</verstretch>
-                                    </sizepolicy>
-                                </property>
-                                <property name="minimumSize">
-                                    <size>
-                                        <width>50</width>
-                                        <height>0</height>
-                                    </size>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Add</string>
-                                </property>
-                                <property name="accel">
-                                    <string>Alt+A</string>
-                                </property>
-                            </widget>
-                            <widget class="QToolButton">
-                                <property name="name">
-                                    <cstring>cloneButton</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
-                                <property name="sizePolicy">
-                                    <sizepolicy>
-                                        <hsizetype>1</hsizetype>
-                                        <vsizetype>1</vsizetype>
-                                        <horstretch>0</horstretch>
-                                        <verstretch>0</verstretch>
-                                    </sizepolicy>
-                                </property>
-                                <property name="minimumSize">
-                                    <size>
-                                        <width>50</width>
-                                        <height>0</height>
-                                    </size>
-                                </property>
-                                <property name="text">
-                                    <string>C&amp;lone</string>
-                                </property>
-                                <property name="accel">
-                                    <string>Alt+L</string>
-                                </property>
-                            </widget>
-                            <spacer>
-                                <property name="name">
-                                    <cstring>spacer4</cstring>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Horizontal</enum>
-                                </property>
-                                <property name="sizeType">
-                                    <enum>Expanding</enum>
-                                </property>
-                                <property name="sizeHint">
-                                    <size>
-                                        <width>16</width>
-                                        <height>20</height>
-                                    </size>
-                                </property>
-                            </spacer>
-                            <widget class="QToolButton">
-                                <property name="name">
-                                    <cstring>deleteButton</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
-                                <property name="sizePolicy">
-                                    <sizepolicy>
-                                        <hsizetype>5</hsizetype>
-                                        <vsizetype>1</vsizetype>
-                                        <horstretch>0</horstretch>
-                                        <verstretch>0</verstretch>
-                                    </sizepolicy>
-                                </property>
-                                <property name="minimumSize">
-                                    <size>
-                                        <width>50</width>
-                                        <height>0</height>
-                                    </size>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Delete</string>
-                                </property>
-                                <property name="accel">
-                                    <string>Alt+D</string>
-                                </property>
-                            </widget>
-                        </hbox>
-                    </widget>
-                </vbox>
-            </widget>
-            <widget class="QLayoutWidget">
-                <property name="name">
-                    <cstring>layout9</cstring>
-                </property>
-                <vbox>
-                    <property name="name">
-                        <cstring>unnamed</cstring>
+                        <number>0</number>
                     </property>
                     <widget class="QLayoutWidget">
                         <property name="name">
-                            <cstring>layout3</cstring>
+                            <cstring>layout9</cstring>
                         </property>
-                        <hbox>
+                        <vbox>
                             <property name="name">
                                 <cstring>unnamed</cstring>
                             </property>
-                            <widget class="QLabel">
+                            <widget class="QLayoutWidget">
                                 <property name="name">
-                                    <cstring>textLabel1</cstring>
+                                    <cstring>layout3</cstring>
                                 </property>
-                                <property name="text">
-                                    <string>Name:</string>
+                                <hbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QLabel">
+                                        <property name="name">
+                                            <cstring>textLabel1</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Name:</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLineEdit">
+                                        <property name="name">
+                                            <cstring>nameEdit</cstring>
+                                        </property>
+                                        <property name="enabled">
+                                            <bool>false</bool>
+                                        </property>
+                                    </widget>
+                                </hbox>
+                            </widget>
+                            <widget class="QFrame">
+                                <property name="name">
+                                    <cstring>mainFrame</cstring>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>NoFrame</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Plain</enum>
+                                </property>
+                                <property name="lineWidth">
+                                    <number>0</number>
                                 </property>
                             </widget>
-                            <widget class="QLineEdit">
-                                <property name="name">
-                                    <cstring>nameEdit</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
-                            </widget>
-                        </hbox>
-                    </widget>
-                    <widget class="QFrame">
-                        <property name="name">
-                            <cstring>mainFrame</cstring>
-                        </property>
-                        <property name="frameShape">
-                            <enum>NoFrame</enum>
-                        </property>
-                        <property name="frameShadow">
-                            <enum>Plain</enum>
-                        </property>
-                        <property name="lineWidth">
-                            <number>0</number>
-                        </property>
+                        </vbox>
                     </widget>
                 </vbox>
             </widget>
         </widget>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout9</cstring>
+                <cstring>layout62</cstring>
             </property>
             <hbox>
                 <property name="name">
@@ -380,7 +219,7 @@
                     </property>
                     <property name="sizeHint">
                         <size>
-                            <width>490</width>
+                            <width>50</width>
                             <height>20</height>
                         </size>
                     </property>
@@ -403,11 +242,14 @@
                             <height>0</height>
                         </size>
                     </property>
+                    <property name="cursor">
+                        <cursor>0</cursor>
+                    </property>
                     <property name="text">
-                        <string>O&amp;K</string>
+                        <string>&lt;&lt; &amp;Done</string>
                     </property>
                     <property name="accel">
-                        <string>Alt+K</string>
+                        <string>Alt+D</string>
                     </property>
                     <property name="autoDefault">
                         <bool>true</bool>
@@ -460,10 +302,10 @@
                         </size>
                     </property>
                     <property name="text">
-                        <string>Ca&amp;ncel</string>
+                        <string>&amp;Reset</string>
                     </property>
                     <property name="accel">
-                        <string>Alt+N</string>
+                        <string>Alt+R</string>
                     </property>
                     <property name="autoDefault">
                         <bool>true</bool>
@@ -478,7 +320,7 @@
         <sender>buttonOk</sender>
         <signal>clicked()</signal>
         <receiver>SMBase</receiver>
-        <slot>accept()</slot>
+        <slot>slotOk()</slot>
     </connection>
     <connection>
         <sender>buttonCancel</sender>
@@ -487,40 +329,10 @@
         <slot>reject()</slot>
     </connection>
     <connection>
-        <sender>newButton</sender>
-        <signal>clicked()</signal>
-        <receiver>SMBase</receiver>
-        <slot>slotNew()</slot>
-    </connection>
-    <connection>
-        <sender>cloneButton</sender>
-        <signal>clicked()</signal>
-        <receiver>SMBase</receiver>
-        <slot>slotClone()</slot>
-    </connection>
-    <connection>
-        <sender>deleteButton</sender>
-        <signal>clicked()</signal>
-        <receiver>SMBase</receiver>
-        <slot>slotDelete()</slot>
-    </connection>
-    <connection>
         <sender>applyButton</sender>
         <signal>clicked()</signal>
         <receiver>SMBase</receiver>
         <slot>slotApply()</slot>
-    </connection>
-    <connection>
-        <sender>styleView</sender>
-        <signal>selectionChanged()</signal>
-        <receiver>SMBase</receiver>
-        <slot>slotStyleChanged()</slot>
-    </connection>
-    <connection>
-        <sender>typeView</sender>
-        <signal>selectionChanged(QListViewItem*)</signal>
-        <receiver>SMBase</receiver>
-        <slot>slotTypeChanged(QListViewItem*)</slot>
     </connection>
     <connection>
         <sender>nameEdit</sender>
@@ -528,10 +340,14 @@
         <receiver>SMBase</receiver>
         <slot>slotNameChanged(const QString&amp;)</slot>
     </connection>
+    <connection>
+        <sender>styleView</sender>
+        <signal>selectionChanged()</signal>
+        <receiver>SMBase</receiver>
+        <slot>slotStyleChanged()</slot>
+    </connection>
 </connections>
 <tabstops>
-    <tabstop>typeView</tabstop>
-    <tabstop>styleView</tabstop>
     <tabstop>buttonOk</tabstop>
     <tabstop>applyButton</tabstop>
     <tabstop>buttonCancel</tabstop>
@@ -542,9 +358,9 @@
     <slot access="private">slotDelete()</slot>
     <slot access="private">slotApply()</slot>
     <slot access="private">slotStyleChanged()</slot>
-    <slot access="private">slotTypeChanged(QListViewItem*)</slot>
     <slot>slotPageChanged(QWidget*)</slot>
     <slot access="private">slotNameChanged(const QString&amp;)</slot>
+    <slot access="protected">slotOk()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

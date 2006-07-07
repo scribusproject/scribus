@@ -1,32 +1,28 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Riku Leino                                      *
- *   riku@scribus.info                                                     *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 
 #ifndef STYLEMANAGER_H
 #define STYLEMANAGER_H
 
 #include "stylemanagerbase.h"
+#include <qlistview.h>
 
 class StyleItem;
 class ScribusDoc;
 class QHideEvent;
 class QGridLayout;
+class QTabWidget;
+class QVBoxLayout;
+class QHBoxLayout;
+class QButtonGroup;
+class QRadioButton;
+class QLabel;
+class QPushButton;
+class QSize;
 
 class StyleManager : public SMBase {
 	Q_OBJECT
@@ -50,7 +46,18 @@ private:
 	QPtrList<StyleItem> items_;
 	StyleItem          *item_;
 	QGridLayout        *layout_;
-	QWidget            *widget_;
+	QTabWidget         *widget_;
+	QWidget            *shortcutWidget_;
+	QString             currentType_;
+
+	bool                isEditMode_;
+	int                 styleWidth_;
+	QSize               editSize_;
+	QSize               noEditSize_;
+	QValueList<int>     editSizes_;
+	QValueList<int>     noEditSizes_;
+
+	void insertShortcutPage(QTabWidget *twidget);
 
 private slots:
 	void slotApply();
@@ -59,9 +66,64 @@ private slots:
 	void slotClone();
 	void slotNew();
 	void slotPageChanged(QWidget*);
-	void slotTypeChanged(QListViewItem*);
+	void slotNewType(StyleItem *item);
 	void slotStyleChanged();
 	void slotNameChanged(const QString& name);
+protected slots:
+    virtual void slotOk();
+};
+
+class StyleViewItem : public QListViewItem
+{
+public:
+	StyleViewItem(QListView *view, const QString &text);
+	StyleViewItem(QListViewItem *parent, const QString &text, const QString &rootName);
+	~StyleViewItem();
+
+	bool isRoot();
+	QString parentName();
+	QString rootName();
+
+private:
+	bool isRoot_;
+	QString parentName_;
+	QString rootName_;
+};
+
+class ShortcutWidget : public QWidget
+{
+	Q_OBJECT
+public:
+	ShortcutWidget(QWidget *parent = 0, const char *name = 0);
+	~ShortcutWidget();
+
+	bool event( QEvent* ev );
+	void keyPressEvent(QKeyEvent *k);
+	void keyReleaseEvent(QKeyEvent *k);
+
+	static QString getKeyText(int KeyC);
+
+public slots:
+	void setKeyText();
+	void setNoKey();
+
+protected:
+	QVBoxLayout* keyManagerLayout;
+	QGridLayout* keyGroupLayout;
+	QHBoxLayout* okCancelLayout;
+
+	QButtonGroup* keyGroup;
+	QRadioButton* noKey;
+	QRadioButton* userDef;
+	QLabel* keyDisplay;
+	QPushButton* setKeyButton;
+
+	int keyCode;
+	QString Part0;
+	QString Part1;
+	QString Part2;
+	QString Part3;
+	QString Part4;
 };
 
 #endif

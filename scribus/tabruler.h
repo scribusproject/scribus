@@ -80,12 +80,20 @@ class SCRIBUS_API Tabruler : public QWidget
 	Q_OBJECT
 
 public:
-	Tabruler( QWidget* parent, bool haveFirst, int ein, QValueList<ParagraphStyle::TabRecord> Tabs, double wid );
+	Tabruler( QWidget* parent,
+	          bool haveFirst = true,
+	          int ein = 1,
+	          QValueList<ParagraphStyle::TabRecord> Tabs = QValueList<ParagraphStyle::TabRecord>(),
+	          double wid = 0);
 	~Tabruler() {};
+
+	void init(bool haveFirst, int ein, QValueList<ParagraphStyle::TabRecord> Tabs, double wid);
+
 	QValueList<ParagraphStyle::TabRecord> getTabVals();
 	bool haveF;
 	double getFirstLine();
 	double getLeftIndent();
+	double getRightIndent();
 
 public slots:
 	void resetOFfL();
@@ -101,6 +109,7 @@ public slots:
 	void setFirstLine();
 	void setLeftIndentData(double t);
 	void setLeftIndent();
+	void setRightIndentData(double t);
 	void setTabFillChar(QChar t);
 	void setFillChar();
 	void setCustomFillChar(const QString &txt);
@@ -114,6 +123,7 @@ protected:
 	QVBoxLayout* tabrulerLayout;
 	QHBoxLayout* layout2;
 	QHBoxLayout* layout1;
+	QHBoxLayout* indentLayout;
 	QVBoxLayout* layout3;
 	QComboBox* TypeCombo;
 	QComboBox* tabFillCombo;
@@ -124,9 +134,11 @@ protected:
 	QLabel* positionLabel;
 	QLabel* firstLineLabel;
 	QLabel* leftIndentLabel;
+	QLabel* rightIndentLabel;
 	MSpinBox* tabData;
 	MSpinBox* firstLineData;
 	MSpinBox* leftIndentData;
+	MSpinBox* rightIndentData;
 	QPushButton* clearButton;
 
 	double docUnitRatio;

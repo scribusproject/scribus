@@ -175,6 +175,7 @@ for which a new license (GPL+exception) is in place.
 #include "plugins/formatidlist.h"
 #include "scgtplugin.h"
 #include "stencilreader.h"
+#include "smtextstyles.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -467,6 +468,8 @@ void ScribusMainWindow::initPalettes()
 	// initializing style manager here too even it's not strictly a palette
 	styleManager = new StyleManager(this, "styleManager");
 	styleManager->addStyle(new SMLineStyle());
+	styleManager->addStyle(new SMParagraphStyle());
+	styleManager->addStyle(new SMCharacterStyle());
 	connect(styleManager, SIGNAL(closed()), scrActions["editStyles"], SLOT(toggle()));
 
 	connect(docCheckerPalette, SIGNAL(selectElement(int, int)), this, SLOT(selectItemsFromOutlines(int, int)));
@@ -601,7 +604,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editEditWithImageEditor"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
-// 	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
+//	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editParaStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editLineStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit");

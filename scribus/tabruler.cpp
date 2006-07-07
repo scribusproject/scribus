@@ -453,14 +453,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 	setName( "tabruler" );
 	tabrulerLayout = new QVBoxLayout( this, 0, 6, "tabrulerLayout");
 	layout2 = new QHBoxLayout( 0, 0, 6, "layout2");
-	TypeCombo = new QComboBox( false, this, "TypeCombo" );
-	TypeCombo->clear();
-	TypeCombo->insertItem( tr( "Left" ) );
-	TypeCombo->insertItem( tr( "Right" ) );
-	TypeCombo->insertItem( tr( "Full Stop" ) );
-	TypeCombo->insertItem( tr( "Comma" ) );
-	TypeCombo->insertItem( tr( "Center" ) );
-	layout2->addWidget( TypeCombo );
+
 	rulerScrollL = new QToolButton( LeftArrow, this, "rulerScrollL" );
 	rulerScrollL->setAutoRepeat( true );
 	layout2->addWidget( rulerScrollL );
@@ -470,9 +463,17 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 	rulerScrollR = new QToolButton( RightArrow, this, "RulserScrollR" );
 	rulerScrollR->setAutoRepeat( true );
 	layout2->addWidget( rulerScrollR );
-	tabrulerLayout->addLayout( layout2 );
+
 	layout1 = new QHBoxLayout( 0, 0, 6, "layout1" );
 	layout1->setAlignment( Qt::AlignTop );
+	TypeCombo = new QComboBox( false, this, "TypeCombo" );
+	TypeCombo->clear();
+	TypeCombo->insertItem( tr( "Left" ) );
+	TypeCombo->insertItem( tr( "Right" ) );
+	TypeCombo->insertItem( tr( "Full Stop" ) );
+	TypeCombo->insertItem( tr( "Comma" ) );
+	TypeCombo->insertItem( tr( "Center" ) );
+	layout1->addWidget( TypeCombo );
 	tabData = new MSpinBox( 0, ww, this, 1 );
 	tabData->setValue(0);
 	positionLabel = new QLabel( tabData, tr("&Position:"), this, "positionLabel" );
@@ -488,6 +489,8 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 	tabFillComboT = new QLabel(tabFillCombo, tr( "Fill Char:" ), this, "tabFillComboT" );
 	layout1->addWidget( tabFillComboT );
 	layout1->addWidget( tabFillCombo );
+
+	indentLayout = new QHBoxLayout(0, 0, 6, "indentLayout");
 	if (haveFirst)
 	{
 		firstLineData = new MSpinBox( -3000, ww, this, 1);
@@ -495,25 +498,38 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 		firstLineLabel = new QLabel( "", this, "firstLineLabel" );
 		firstLineLabel->setText("");
 		firstLineLabel->setPixmap(loadIcon("firstline.png"));
-		layout1->addWidget( firstLineLabel );
-		layout1->addWidget( firstLineData );
+		indentLayout->addWidget( firstLineLabel );
+		indentLayout->addWidget( firstLineData );
 		leftIndentData = new MSpinBox( 0, ww, this, 1 );
 		leftIndentData->setValue(0);
 		leftIndentLabel = new QLabel( "", this, "leftIndentLabel" );
 		leftIndentLabel->setText("");
 		leftIndentLabel->setPixmap(loadIcon("leftindent.png"));
-		layout1->addWidget( leftIndentLabel );
-		layout1->addWidget( leftIndentData );
+		indentLayout->addWidget( leftIndentLabel );
+		indentLayout->addWidget( leftIndentData );
+		rightIndentLabel = new QLabel("", this, "rightIndentLabel");
+		rightIndentLabel->setText("");
+		rightIndentLabel->setPixmap(loadIcon("rightindent.png"));
+		rightIndentData = new MSpinBox(0, ww, this, 1);
+		rightIndentData->setValue(0);
+		indentLayout->addWidget(rightIndentLabel);
+		indentLayout->addWidget(rightIndentData);
 	}
 	clearButton = new QPushButton( this, "clearButton" );
 	clearButton->setText( tr( "Delete All" ) );
-	layout1->addWidget( clearButton );
+	indentLayout->addWidget( clearButton);
 	if (!haveFirst)
 	{
 		QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		layout1->addItem( spacer );
 	}
+	
+	layout1->addStretch( 10 );
 	tabrulerLayout->addLayout( layout1 );
+	tabrulerLayout->addLayout( layout2 );
+	indentLayout->addStretch( 10 );
+	tabrulerLayout->addLayout( indentLayout );
+
 	TypeCombo->setEnabled(false);
 	tabData->setEnabled(false);
 	tabFillCombo->setEnabled(false);
@@ -544,6 +560,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 		connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setLeftIndent()));
 		QToolTip::add( firstLineData, tr( "Indentation for first line of the paragraph" ) );
 		QToolTip::add( leftIndentData, tr( "Indentation from the left for the whole paragraph" ) );
+		QToolTip::add( rightIndentData, tr( "Indentation from the right for the whole paragraph" ) );
 	}
 	QToolTip::add( clearButton, tr( "Delete all Tabulators" ) );
 	QString ein = unitGetSuffixFromIndex(dEin);
@@ -553,6 +570,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 		{
 			firstLineData->setDecimals(10000);
 			leftIndentData->setDecimals(10000);
+			rightIndentData->setDecimals(10000);
 		}
 		tabData->setDecimals(10000);
 	}
@@ -560,6 +578,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 	{
 		firstLineData->setSuffix(ein);
 		leftIndentData->setSuffix(ein);
+		rightIndentData->setSuffix(ein);
 	}
 	tabData->setSuffix(ein);
 	haveF = haveFirst;
@@ -752,4 +771,14 @@ double Tabruler::getFirstLine()
 double Tabruler::getLeftIndent()
 {
 	return leftIndentData->value() / docUnitRatio;
+}
+
+void Tabruler::setRightIndentData(double t)
+{
+	rightIndentData->setValue(t * docUnitRatio);
+}
+
+double Tabruler::getRightIndent()
+{
+	return rightIndentData->value() / docUnitRatio;
 }
