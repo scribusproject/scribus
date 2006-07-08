@@ -11,6 +11,7 @@ acropass.png
 acroreader5.1.png
 acrosec.png
 after_short_words.png
+automargins.png
 batik1.png
 before_short_words.png
 CMakeLists.txt
@@ -24,6 +25,7 @@ docheader1.png
 docheader2.png
 docinfo2.png
 docinfo.png
+external.png
 fontpref1.png
 fontpref2.png
 fontpref3.png
@@ -81,6 +83,7 @@ prefs6.png
 prefs8.png
 prefsblgrid1.png
 prefsdisplay.png
+prefsgeneral.png
 prefs-mac-1.png
 prefs.png
 printer1.png
