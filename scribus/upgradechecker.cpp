@@ -49,8 +49,9 @@ bool UpgradeChecker::fetch()
 {
 	QString filename("scribusversions.xml");
 	QString filenameURL("http://www.scribus.net/downloads");
+	char tmpname[L_tmpnam];
 	tempFile="";
-	char* tempFile2=tmpnam(0);
+	char* tempFile2=tmpnam(tmpname);
 	if (tempFile2==0)
 		return true;
 	tempFile+=tempFile2;
@@ -86,14 +87,20 @@ bool UpgradeChecker::fetch()
 	std::cout << std::endl;
 	getter->closeConnection();
 	file.close();
+	bool errorOccurred=false;
 	if (waitCount>=10)
 	{
 		qDebug(QString("Timed out when attempting to get update file."));
-		return true;
+		errorOccurred=true;
 	}
 	if (retrieveError || getter->error()!=QHttp::NoError)
 	{
 		qDebug(QString("Error when attempting to get update file: %1").arg(getter->errorString()));
+		errorOccurred=true;
+	}
+	if (errorOccurred)
+	{
+		file.remove();
 		return true;
 	}
 	else
