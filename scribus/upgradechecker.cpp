@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <qhttp.h>
 #include <qnetwork.h>
 #include <iostream>
+#include <cstdlib>
 
 #include "upgradechecker.h"
 #include "upgradechecker.moc"
@@ -47,10 +48,12 @@ UpgradeChecker::~UpgradeChecker()
 bool UpgradeChecker::fetch()
 {
 	QString filename("scribusversions.xml");
-	QString location("/home/craig/proj2/scribus/Post13/Scribus");
 	QString filenameURL("http://www.scribus.net/downloads");
-// 	process(location+"/"+filename);
-	tempFile="/tmp/"+filename;
+	tempFile="";
+	char* tempFile2=tmpnam(0);
+	if (tempFile2==0)
+		return true;
+	tempFile+=tempFile2;
 	fin=false;
 	
 	QFile file(tempFile);
