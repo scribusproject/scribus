@@ -249,6 +249,7 @@ scribus_SOURCES = \
 	undostate.cpp	\
 	units.cpp	\
 	unzip.c	\
+	upgradechecker.cpp	\
 	useprintermarginsdialogbase.ui \
 	useprintermarginsdialog.cpp \
 	util.cpp	\

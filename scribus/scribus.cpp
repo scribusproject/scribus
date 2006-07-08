@@ -605,7 +605,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editEditWithImageEditor"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
-//	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editParaStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editLineStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit");
@@ -1999,7 +1999,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 		connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString)), tempDoc, SLOT(updatePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString)), tempDoc, SLOT(removePict(QString)));
-		scrActions["fileSave"]->setEnabled(false);
+		//scrActions["fileSave"]->setEnabled(false);
 		undoManager->switchStack(tempDoc->DocName);
 		styleManager->currentDoc(tempDoc);
 		tocGenerator->setDoc(tempDoc);
@@ -2272,7 +2272,7 @@ void ScribusMainWindow::SwitchWin()
 		scrActions["pageCopyToMasterPage"]->setEnabled(false);
 		scrActions["editMasterPages"]->setEnabled(false);
 		scrActions["fileNew"]->setEnabled(false);
-		scrActions["fileSave"]->setEnabled(doc->isModified());
+		scrActions["fileSave"]->setEnabled(true);
 		scrActions["fileOpen"]->setEnabled(false);
 		scrActions["fileClose"]->setEnabled(false);
 		scrActions["fileRevert"]->setEnabled(false);
@@ -2286,7 +2286,7 @@ void ScribusMainWindow::SwitchWin()
 		scrActions["fileNew"]->setEnabled(true);
 		scrActions["fileOpen"]->setEnabled(true);
 		scrActions["fileClose"]->setEnabled(true);
-		scrActions["fileSave"]->setEnabled(doc->isModified());
+		scrActions["fileSave"]->setEnabled(true);
 		//CB TODO  Huh? Why different to the above?, fileMenu->setItemEnabled(M_FileSave, ActWin->MenuStat[2]);
 		scrActions["fileSaveAs"]->setEnabled(ActWin->menuStatus(3));
 		scrActions["fileCollect"]->setEnabled(ActWin->menuStatus(3));
@@ -2310,7 +2310,7 @@ void ScribusMainWindow::SwitchWin()
 void ScribusMainWindow::HaveNewDoc()
 {
 	scrActions["filePrint"]->setEnabled(true);
-	scrActions["fileSave"]->setEnabled(false);
+ 	scrActions["fileSave"]->setEnabled(true);
 	scrActions["fileClose"]->setEnabled(true);
 	scrActions["fileDocSetup"]->setEnabled(true);
 	scrActions["fileRevert"]->setEnabled(false);
@@ -2937,8 +2937,8 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 	if (!doc->isModified())
 		doc->setModified(true);
 	ActWin->setCaption( doc->DocName + "*");
-	scrActions["fileSave"]->setEnabled(true);
-	scrActions["fileSaveAs"]->setEnabled(true);
+// 	scrActions["fileSave"]->setEnabled(true);
+// 	scrActions["fileSaveAs"]->setEnabled(true);
 	scrActions["fileCollect"]->setEnabled(true);
 	if (!doc->masterPageMode())
 	{
@@ -3772,7 +3772,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->connectDocSignals();
 		if (doc->AutoSave)
 			doc->autoSaveTimer->start(doc->AutoSaveTime);
-		scrActions["fileSave"]->setEnabled(false);
+// 		scrActions["fileSave"]->setEnabled(false);
 		doc->NrItems = bookmarkPalette->BView->NrItems;
 		doc->First = bookmarkPalette->BView->First;
 		doc->Last = bookmarkPalette->BView->Last;
@@ -3955,7 +3955,7 @@ void ScribusMainWindow::slotAutoSaved()
 {
 	if (ActWin == sender())
 	{
-		scrActions["fileSave"]->setEnabled(false);
+// 		scrActions["fileSave"]->setEnabled(false);
 		ActWin->setCaption(doc->DocName);
 	}
 }
@@ -4053,7 +4053,7 @@ bool ScribusMainWindow::DoFileSave(QString fn)
 	{
 		ActWin->setCaption(fn);
 		undoManager->renameStack(fn);
-		scrActions["fileSave"]->setEnabled(false);
+// 		scrActions["fileSave"]->setEnabled(false);
 		scrActions["fileRevert"]->setEnabled(false);
 		updateRecent(fn);
 	}
@@ -7820,7 +7820,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	scrActions["fileNew"]->setEnabled(true);
 	scrActions["fileOpen"]->setEnabled(true);
 	scrActions["fileClose"]->setEnabled(true);
-	scrActions["fileSave"]->setEnabled(doc->isModified());
+	scrActions["fileSave"]->setEnabled(true);
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 	scrActions["fileRevert"]->setEnabled(true);
 	scrActions["fileDocSetup"]->setEnabled(true);

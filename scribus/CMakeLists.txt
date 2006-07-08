@@ -199,6 +199,7 @@ tocindexprefs.h
 tree.h
 undogui.h
 undomanager.h
+upgradechecker.h
 useprintermarginsdialog.h
 vruler.h
 werktoolb.h
@@ -421,6 +422,7 @@ undostack.cpp
 undostate.cpp
 units.cpp
 unzip.c
+upgradechecker.cpp
 useprintermarginsdialog.cpp
 util.cpp
 vgradient.cpp

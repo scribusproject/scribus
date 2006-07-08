@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "prefsmanager.h"
 #include "commonstrings.h"
+#include "upgradechecker.h"
 
 #define ARG_VERSION "--version"
 #define ARG_HELP "--help"
@@ -53,6 +54,7 @@ for which a new license (GPL+exception) is in place.
 #define ARG_FONTINFO "--font-info"
 #define ARG_SWAPDIABUTTONS "--swap-buttons"
 #define ARG_PREFS "--prefs"
+#define ARG_UPGRADECHECK "--upgradecheck"
 
 #define ARG_VERSION_SHORT "-v"
 #define ARG_HELP_SHORT "-h"
@@ -65,6 +67,7 @@ for which a new license (GPL+exception) is in place.
 #define ARG_FONTINFO_SHORT "-fi"
 #define ARG_SWAPDIABUTTONS_SHORT "-sb"
 #define ARG_PREFS_SHORT "-pr"
+#define ARG_UPGRADECHECK_SHORT "-u"
 
 // Qt wants -display not --display or -d
 #define ARG_DISPLAY_QT "-display"
@@ -108,6 +111,7 @@ void ScribusQApp::parseCommandLine()
 	bool header=false;
 	bool availlangs=false;
 	bool version=false;
+	bool runUpgradeCheck=false;
 	showFontInfo=false;
 	swapDialogButtonOrder=false;
 
@@ -128,6 +132,9 @@ void ScribusQApp::parseCommandLine()
 		} else if (arg == ARG_AVAILLANG || arg == ARG_AVAILLANG_SHORT) {
 			header=true;
 			availlangs=true;
+		} else if (arg == ARG_UPGRADECHECK || arg == ARG_UPGRADECHECK_SHORT) {
+			header=true;
+			runUpgradeCheck=true;
 		}
 	}
 	//Init translations
@@ -141,6 +148,12 @@ void ScribusQApp::parseCommandLine()
 		showAvailLangs();
 	if (usage)
 		showUsage();
+	if (runUpgradeCheck)
+	{
+		UpgradeChecker uc;
+		bool error=uc.fetch();
+		uc.show(error);
+	}
 	//Dont run the GUI init process called from main.cpp, and return
 	if (!header)
 		useGUI=true;
@@ -360,6 +373,8 @@ void ScribusQApp::showUsage()
 		tr("Do not show the splashscreen on startup") );
 	printArgLine(ts, ARG_NEVERSPLASH_SHORT, ARG_NEVERSPLASH,
 		tr("Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.") );
+	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK,
+		tr("Download a file from the Scribus website and show the latest available version.") );
 	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION,
 		tr("Output version information and exit") );
 	printArgLine(ts, ARG_SWAPDIABUTTONS_SHORT, ARG_SWAPDIABUTTONS,
